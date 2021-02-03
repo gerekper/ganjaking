@@ -33,8 +33,13 @@ if ( ! class_exists( 'ReduxFramework_border' ) ) {
 		 *
 		 * @since ReduxFramework 1.0.0
 		 */
-		function __construct( $field = array(), $value = '', $parent ) {
-
+		function __construct( $field, $value, $parent ) {
+			if ( empty( $field ) ) {
+				$field = array();
+			}
+			if ( empty( $value ) ) {
+				$value = '';
+			}
 			$this->parent = $parent;
 			$this->field  = $field;
 			$this->value  = $value;

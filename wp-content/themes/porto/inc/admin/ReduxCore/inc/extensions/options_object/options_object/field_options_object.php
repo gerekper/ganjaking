@@ -94,7 +94,7 @@ if ( ! class_exists( 'ReduxFramework_options_object' ) ) {
 			if ( ! $this->is_field || ( $this->is_field && false == $fullWidth ) ) { ?>
 					<style>#<?php echo esc_html( $id ); ?> {padding: 0;}</style>
 					</td></tr></table>
-					<table id="<?php echo esc_attr( $id ); ?>-table" class="form-table no-border redux-group-table redux-raw-table" style=" overflow: <?php esc_attr( $this->field['overflow'] ); ?>;">
+					<table id="<?php echo esc_attr( $id ); ?>-table" class="form-table no-border redux-group-table redux-raw-table" style=" overflow: <?php echo esc_attr( $this->field['overflow'] ); ?>;">
 					<tbody><tr><td>
 				<?php
 				$bDoClose = true;

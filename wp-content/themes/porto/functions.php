@@ -182,42 +182,44 @@ if ( ! function_exists( 'porto_setup' ) ) :
 		add_theme_support( 'align-wide' );
 		add_theme_support( 'editor-styles' );
 
-		// Editor color palette.
-		add_theme_support(
-			'editor-color-palette',
-			array(
+		if ( ! empty( $porto_settings ) && ! empty( $porto_settings['skin-color'] ) ) {
+			// Editor color palette.
+			add_theme_support(
+				'editor-color-palette',
 				array(
-					'name'  => __( 'Primary', 'porto' ),
-					'slug'  => 'primary',
-					'color' => $porto_settings['skin-color'],
-				),
-				array(
-					'name'  => __( 'Secondary', 'porto' ),
-					'slug'  => 'secondary',
-					'color' => $porto_settings['secondary-color'],
-				),
-				array(
-					'name'  => __( 'Tertiary', 'porto' ),
-					'slug'  => 'tertiary',
-					'color' => $porto_settings['tertiary-color'],
-				),
-				array(
-					'name'  => __( 'Quaternary', 'porto' ),
-					'slug'  => 'quaternary',
-					'color' => $porto_settings['quaternary-color'],
-				),
-				array(
-					'name'  => __( 'Dark', 'porto' ),
-					'slug'  => 'dark',
-					'color' => $porto_settings['dark-color'],
-				),
-				array(
-					'name'  => __( 'Light', 'porto' ),
-					'slug'  => 'light',
-					'color' => $porto_settings['light-color'],
-				),
-			)
-		);
+					array(
+						'name'  => __( 'Primary', 'porto' ),
+						'slug'  => 'primary',
+						'color' => $porto_settings['skin-color'],
+					),
+					array(
+						'name'  => __( 'Secondary', 'porto' ),
+						'slug'  => 'secondary',
+						'color' => $porto_settings['secondary-color'],
+					),
+					array(
+						'name'  => __( 'Tertiary', 'porto' ),
+						'slug'  => 'tertiary',
+						'color' => $porto_settings['tertiary-color'],
+					),
+					array(
+						'name'  => __( 'Quaternary', 'porto' ),
+						'slug'  => 'quaternary',
+						'color' => $porto_settings['quaternary-color'],
+					),
+					array(
+						'name'  => __( 'Dark', 'porto' ),
+						'slug'  => 'dark',
+						'color' => $porto_settings['dark-color'],
+					),
+					array(
+						'name'  => __( 'Light', 'porto' ),
+						'slug'  => 'light',
+						'color' => $porto_settings['light-color'],
+					),
+				)
+			);
+		}
 	}
 endif;
 add_action( 'after_setup_theme', 'porto_setup' );
@@ -846,7 +848,7 @@ function porto_scripts() {
 			'slider_animatein'          => esc_js( $porto_settings['slider-animatein'] ),
 			'slider_animateout'         => esc_js( $porto_settings['slider-animateout'] ),
 			'product_thumbs_count'      => esc_js( $porto_settings['product-thumbs-count'] ),
-			'product_zoom'              => isset( $porto_product_layout ) && ( 'extended' === $porto_product_layout || 'full_width' === $porto_product_layout ) ? 0 : esc_js( $porto_settings['product-zoom'] ),
+			'product_zoom'              => esc_js( $porto_settings['product-zoom'] ),
 			'product_zoom_mobile'       => esc_js( $porto_settings['product-zoom-mobile'] ),
 			'product_image_popup'       => esc_js( $porto_settings['product-image-popup'] ),
 			'zoom_type'                 => esc_js( $porto_settings['zoom-type'] ),

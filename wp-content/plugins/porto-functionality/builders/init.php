@@ -271,7 +271,7 @@ class PortoBuilders {
 	}
 
 	public function admin_column_header( $defaults ) {
-		$defaults['shortcode'] = __( 'Shortcode', 'elementor-pro' );
+		$defaults['shortcode'] = __( 'Shortcode', 'porto-functionality' );
 		return $defaults;
 	}
 

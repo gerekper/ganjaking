@@ -1070,7 +1070,8 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 			wp_register_script( 'jquery-blockui', PORTO_URI . '/inc/admin/setup_wizard/assets/js/jquery.blockUI.js', array( 'jquery' ), '2.70', true );
 			wp_register_script( 'isotope', PORTO_JS . '/libs/isotope.pkgd.min.js', array( 'jquery' ), '3.0.1', true );
 			wp_register_script( 'jquery-magnific-popup', PORTO_JS . '/libs/jquery.magnific-popup.min.js', array( 'jquery' ), '1.1.0', true );
-			wp_register_script( 'porto-setup', PORTO_URI . '/inc/admin/setup_wizard/assets/js/setup-wizard.js', array( 'jquery', 'isotope', 'jquery-magnific-popup', 'jquery-blockui', 'porto-admin' ), $this->version, true );
+			wp_register_script( 'jquery-waitforimages', PORTO_JS . '/libs/jquery.waitforimages.min.js', array( 'jquery' ), '2.0.2', true );
+			wp_register_script( 'porto-setup', PORTO_URI . '/inc/admin/setup_wizard/assets/js/setup-wizard.js', array( 'jquery', 'isotope', 'jquery-magnific-popup', 'jquery-waitforimages', 'jquery-blockui', 'porto-admin' ), $this->version, true );
 			wp_localize_script(
 				'porto-setup',
 				'porto_setup_wizard_params',

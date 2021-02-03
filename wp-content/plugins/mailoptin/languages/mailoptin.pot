@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the MailOptin - Lite package.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailOptin - Lite 1.2.34.2\n"
+"Project-Id-Version: MailOptin - Lite 1.2.34.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailoptin\n"
-"POT-Creation-Date: 2021-01-11 10:05:56+00:00\n"
+"POT-Creation-Date: 2021-01-25 12:33:54+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3877,7 +3877,7 @@ msgid "reCAPTCHA v3"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:614
-#: src/core/src/RegisterScripts.php:262
+#: src/core/src/RegisterScripts.php:260
 msgid "Field %s"
 msgstr ""
 
@@ -5847,12 +5847,12 @@ msgid "Upgrade to %s for %s support"
 msgstr ""
 
 #: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:394
-#: src/core/src/RegisterScripts.php:258
+#: src/core/src/RegisterScripts.php:256
 msgid "Pause Test"
 msgstr ""
 
 #: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:397
-#: src/core/src/RegisterScripts.php:257
+#: src/core/src/RegisterScripts.php:255
 msgid "Start Test"
 msgstr ""
 
@@ -7754,25 +7754,25 @@ msgid ""
 "activated. Please create one first. %s "
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:259
+#: src/core/src/RegisterScripts.php:257
 msgid "Type to search"
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:260
+#: src/core/src/RegisterScripts.php:258
 msgid "Are you sure you?"
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:261
+#: src/core/src/RegisterScripts.php:259
 msgid ""
 "Are you sure you want to do this? Clicking OK will delete all your optin "
 "analytics records."
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:264
+#: src/core/src/RegisterScripts.php:262
 msgid "Title is required."
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:287
+#: src/core/src/RegisterScripts.php:285
 msgid "Disable MailOptin new post notification for this post."
 msgstr ""
 
@@ -7796,9 +7796,9 @@ msgstr ""
 msgid "MailOptin - Lite"
 msgstr ""
 
-#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.34.2)  #-#-#-#-#
+#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.34.3)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.34.2)  #-#-#-#-#
+#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.34.3)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "https://mailoptin.io"
 msgstr ""

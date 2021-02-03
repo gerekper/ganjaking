@@ -196,4 +196,6 @@ if ( 'products-slider' == $view ) {
 
 $output .= '</div>';
 
+unset( $GLOBALS['porto_woocommerce_loop'] );
+
 echo porto_filter_output( $output );

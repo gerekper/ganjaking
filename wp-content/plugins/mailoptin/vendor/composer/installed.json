@@ -46,17 +46,17 @@
         },
         {
             "name": "composer/installers",
-            "version": "v1.9.0",
-            "version_normalized": "1.9.0.0",
+            "version": "v1.10.0",
+            "version_normalized": "1.10.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "b93bcf0fa1fccb0b7d176b0967d969691cd74cca"
+                "reference": "1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/b93bcf0fa1fccb0b7d176b0967d969691cd74cca",
-                "reference": "b93bcf0fa1fccb0b7d176b0967d969691cd74cca",
+                "url": "https://api.github.com/repos/composer/installers/zipball/1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d",
+                "reference": "1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d",
                 "shasum": ""
             },
             "require": {
@@ -67,18 +67,19 @@
                 "shama/baton": "*"
             },
             "require-dev": {
-                "composer/composer": "1.6.* || 2.0.*@dev",
-                "composer/semver": "1.0.* || 2.0.*@dev",
-                "phpunit/phpunit": "^4.8.36",
-                "sebastian/comparator": "^1.2.4",
+                "composer/composer": "1.6.* || ^2.0",
+                "composer/semver": "^1 || ^3",
+                "phpstan/phpstan": "^0.12.55",
+                "phpstan/phpstan-phpunit": "^0.12.16",
+                "symfony/phpunit-bridge": "^4.2 || ^5",
                 "symfony/process": "^2.3"
             },
-            "time": "2020-04-07T06:57:05+00:00",
+            "time": "2021-01-14T11:07:16+00:00",
             "type": "composer-plugin",
             "extra": {
                 "class": "Composer\\Installers\\Plugin",
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-main": "1.x-dev"
                 }
             },
             "installation-source": "dist",
@@ -117,6 +118,7 @@
                 "Porto",
                 "RadPHP",
                 "SMF",
+                "Starbug",
                 "Thelia",
                 "Whmcs",
                 "WolfCMS",
@@ -157,6 +159,7 @@
                 "phpbb",
                 "piwik",
                 "ppi",
+                "processwire",
                 "puppet",
                 "pxcms",
                 "reindex",
@@ -174,12 +177,16 @@
             ],
             "support": {
                 "issues": "https://github.com/composer/installers/issues",
-                "source": "https://github.com/composer/installers/tree/v1.9.0"
+                "source": "https://github.com/composer/installers/tree/v1.10.0"
             },
             "funding": [
                 {
                     "url": "https://packagist.com",
                     "type": "custom"
+                },
+                {
+                    "url": "https://github.com/composer",
+                    "type": "github"
                 },
                 {
                     "url": "https://tidelift.com/funding/github/packagist/composer/composer",
@@ -416,11 +423,11 @@
         },
         {
             "name": "mailoptin/authifly",
-            "version": "0.2.1610358088",
-            "version_normalized": "0.2.1610358088.0",
+            "version": "0.2.1611573634",
+            "version_normalized": "0.2.1611573634.0",
             "dist": {
                 "type": "zip",
-                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1lnrpM/mailoptinauthifly-0-2-1610358088.zip"
+                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_tvenU/mailoptinauthifly-0-2-1611573634.zip"
             },
             "require": {
                 "composer/installers": "~1.0",
@@ -466,11 +473,11 @@
         },
         {
             "name": "mailoptin/connections",
-            "version": "0.2.1610358132",
-            "version_normalized": "0.2.1610358132.0",
+            "version": "0.2.1611573651",
+            "version_normalized": "0.2.1611573651.0",
             "dist": {
                 "type": "zip",
-                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_ABCXh/mailoptinconnections-0-2-1610358132.zip"
+                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1w5lyE/mailoptinconnections-0-2-1611573651.zip"
             },
             "require": {
                 "composer/installers": "~1.0",
@@ -541,17 +548,17 @@
         },
         {
             "name": "mailoptin/core",
-            "version": "0.1.0-alpha.1610358126",
-            "version_normalized": "0.1.0.0-alpha1610358126",
+            "version": "0.1.0-alpha.1611570658",
+            "version_normalized": "0.1.0.0-alpha1611570658",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mailoptin/core.git",
-                "reference": "5e6dc009da35edb9700a876b4570cd1ee8a2b3ff"
+                "reference": "d5a3275c9be19c1b9300922b0ce16e663be10142"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mailoptin/core/zipball/5e6dc009da35edb9700a876b4570cd1ee8a2b3ff",
-                "reference": "5e6dc009da35edb9700a876b4570cd1ee8a2b3ff",
+                "url": "https://api.github.com/repos/mailoptin/core/zipball/d5a3275c9be19c1b9300922b0ce16e663be10142",
+                "reference": "d5a3275c9be19c1b9300922b0ce16e663be10142",
                 "shasum": ""
             },
             "require": {
@@ -562,7 +569,7 @@
                 "pelago/emogrifier": "^1.0",
                 "soundasleep/html2text": "~0.5"
             },
-            "time": "2021-01-07T13:29:47+00:00",
+            "time": "2021-01-25T08:56:24+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "autoload": {
@@ -579,7 +586,7 @@
             "description": "Core lib for MailOptin",
             "support": {
                 "issues": "https://github.com/mailoptin/core/issues",
-                "source": "https://github.com/mailoptin/core/tree/0.1.0-alpha.1610358126"
+                "source": "https://github.com/mailoptin/core/tree/0.1.0-alpha.1611570658"
             },
             "install-path": "../../src/core"
         },

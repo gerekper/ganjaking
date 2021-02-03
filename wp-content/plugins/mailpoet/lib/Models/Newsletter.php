@@ -40,6 +40,8 @@ use MailPoet\WP\Functions as WPFunctions;
  * @property bool|null $isScheduled
  * @property string|null $scheduledAt
  * @property string $gaCampaign
+ * @property string $event
+ * @property string $unsubscribeToken
  */
 
 class Newsletter extends Model {
@@ -551,7 +553,7 @@ class Newsletter extends Model {
   public function getMeta() {
     if (!$this->meta) return;
 
-    return (Helpers::isJson($this->meta)) ? json_decode($this->meta, true) : $this->meta;
+    return (Helpers::isJson($this->meta) && is_string($this->meta)) ? json_decode($this->meta, true) : $this->meta;
   }
 
   public static function findOneWithOptions($id) {

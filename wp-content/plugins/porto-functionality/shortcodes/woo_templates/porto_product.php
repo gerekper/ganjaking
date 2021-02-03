@@ -54,9 +54,9 @@ if ( $use_simple ) {
 	$porto_woocommerce_loop['use_simple_layout'] = true;
 }
 $output .= do_shortcode( '[product id="' . $id . '" columns="1"]' );
-if ( $image_size ) {
-	unset( $porto_woocommerce_loop['image_size'] );
-}
+
+unset( $GLOBALS['porto_woocommerce_loop'] );
+
 if ( $use_simple && ( ! isset( $porto_settings['product-review'] ) || $porto_settings['product-review'] ) ) {
 	add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
 }

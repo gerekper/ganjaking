@@ -786,7 +786,10 @@ if ( ! class_exists( 'porto_top_navwalker' ) ) {
 		private $has_active = false;
 
 		// add classes to ul sub menus
-		function display_element( $element, &$children_elements, $max_depth, $depth = 0, $args, &$output ) {
+		function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
+			if ( empty( $depth ) ) {
+				$depth = 0;
+			}
 			$id_field = $this->db_fields['id'];
 			if ( is_object( $args[0] ) ) {
 				$args[0]->has_children = ! empty( $children_elements[ $element->$id_field ] );
@@ -985,7 +988,10 @@ if ( ! class_exists( 'porto_sidebar_navwalker' ) ) {
 	class porto_sidebar_navwalker extends Walker_Nav_Menu {
 
 		// add classes to ul sub menus
-		function display_element( $element, &$children_elements, $max_depth, $depth = 0, $args, &$output ) {
+		function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
+			if ( empty( $depth ) ) {
+				$depth = 0;
+			}
 			$id_field = $this->db_fields['id'];
 			if ( is_object( $args[0] ) ) {
 				$args[0]->has_children = ! empty( $children_elements[ $element->$id_field ] );
@@ -1181,7 +1187,10 @@ if ( ! class_exists( 'porto_accordion_navwalker' ) ) {
 		private $has_active = false;
 
 		// add classes to ul sub menus
-		function display_element( $element, &$children_elements, $max_depth, $depth = 0, $args, &$output ) {
+		function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
+			if ( empty( $depth ) ) {
+				$depth = 0;
+			}
 			$id_field = $this->db_fields['id'];
 			if ( is_object( $args[0] ) ) {
 				$args[0]->has_children = ! empty( $children_elements[ $element->$id_field ] );

@@ -1,7 +1,8 @@
 <?php
 global $porto_settings, $page_share;
 
-$post_layout = 'modern';
+$post_layout  = 'modern';
+$show_format  = $porto_settings['post-format'] && get_post_format();
 
 $columns = $porto_settings['grid-columns'];
 
@@ -15,7 +16,9 @@ if ( ! isset( $image_size ) ) {
 if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 	$post_class[] = 'post-title-simple';
 }
-
+if ( ! $show_format ) {
+	$post_class[] = 'hide-post-date';
+}
 if ( isset( $el_class ) ) {
 	$post_class[] = esc_attr( $el_class );
 }
@@ -87,6 +90,14 @@ $share = get_post_meta( get_the_ID(), 'post_share', true );
 	}
 		porto_get_template_part( 'views/posts/post-media/' . $slideshow_type, null, $args );
 	?>
+
+	<?php if ( $show_format ) : ?>
+		<div class="post-date">
+			<?php
+			porto_post_format();
+			?>
+		</div>
+	<?php endif; ?>
 
 	<div class="post-content">
 

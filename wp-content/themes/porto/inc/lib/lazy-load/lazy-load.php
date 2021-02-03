@@ -49,7 +49,11 @@ if ( ! function_exists( 'porto_generate_placeholder' ) ) :
 			wp_mkdir_p( $upload_dir['basedir'] . '/porto_placeholders' );
 		}
 
-		$im = @imagecreatetruecolor( $placeholder_width, $placeholder_height );
+		if ( function_exists( 'imagecreatetruecolor' ) ) {
+			$im = @imagecreatetruecolor( $placeholder_width, $placeholder_height );
+		} else {
+			$im = false;
+		}
 		if ( ! $im ) {
 			return array( PORTO_URI . '/images/lazy' . ( isset( $porto_settings['css-type'] ) && 'dark' == $porto_settings['css-type'] ? '-dark' : '' ) . '.png', $width, $height );
 		}

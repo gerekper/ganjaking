@@ -2472,7 +2472,12 @@
 
 			// Perform AJAX login on form submit
 			$('body').on('click', '#login-form-popup form .woocommerce-Button', function(e){
-				var $form = $(this).closest('form'), isLogin = $(this).hasClass('login-btn');
+				var $this = $(this), 
+					$form = $this.closest('form'),
+					isLogin = $this.hasClass('login-btn');
+				if (!isLogin && !$this.hasClass('register-btn')) {
+					isLogin = $form.hasClass('login');
+				}
 				$form.find('#email').val($form.find('#username').val());
 				$form.find('p.status').show().text('Please wait...').addClass('loading');
 				$form.find('button[type=submit]').attr('disabled', 'disabled');

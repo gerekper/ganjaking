@@ -143,7 +143,7 @@ if ( $count ) :
 	$post_class[] = 'timeline-box';
 	$post_class[] = ( 1 == $post_count % 2 ? 'left' : 'right' );
 	$item_cats    = get_the_terms( $post->ID, 'portfolio_cat' );
-	if ( $item_cats ) :
+	if ( $item_cats && ! is_wp_error( $item_cats ) ) :
 		foreach ( $item_cats as $item_cat ) {
 			$post_class[] = urldecode( $item_cat->slug );
 		}

@@ -51,8 +51,11 @@ if ( ! class_exists( 'Redux_Functions' ) ) {
 		 * @param   boolean $secure   HTTPS only.
 		 * @param   boolean $httponly Only set cookie on HTTP calls.
 		 */
-		public static function setCookie( $name, $value, $expire = 0, $path, $domain = null, $secure = false, $httponly = false ) {
+		public static function setCookie( $name, $value, $expire, $path, $domain = null, $secure = false, $httponly = false ) {
 			if ( ! defined( 'WP_TESTS_DOMAIN' ) ) {
+				if ( empty( $expire ) ) {
+					$expire = 0;
+				}
 				setcookie( $name, $value, $expire, $path, $domain, $secure, $httponly );
 			}
 		}

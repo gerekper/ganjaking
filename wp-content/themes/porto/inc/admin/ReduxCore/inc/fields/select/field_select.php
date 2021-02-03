@@ -14,7 +14,13 @@ if ( ! class_exists( 'ReduxFramework_select' ) ) {
 		 *
 		 * @since ReduxFramework 1.0.0
 		 */
-		public function __construct( $field = array(), $value = '', $parent ) {
+		public function __construct( $field, $value, $parent ) {
+			if ( empty( $field ) ) {
+				$field = array();
+			}
+			if ( empty( $value ) ) {
+				$value = '';
+			}
 			$this->parent = $parent;
 			$this->field  = $field;
 			$this->value  = $value;

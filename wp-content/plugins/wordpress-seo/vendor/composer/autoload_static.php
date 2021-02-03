@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitdad1e30410739153b913ff51e0e2f1cb
+class ComposerStaticInit16a2df8d752b58dc0d76440f7b3d1a51
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -551,6 +551,8 @@ class ComposerStaticInitdad1e30410739153b913ff51e0e2f1cb
         'YoastSEO_Vendor\\Symfony\\Component\\DependencyInjection\\ParameterBag\\ParameterBag' => __DIR__ . '/../..' . '/vendor_prefixed/symfony/dependency-injection/ParameterBag/ParameterBag.php',
         'YoastSEO_Vendor\\Symfony\\Component\\DependencyInjection\\ParameterBag\\ParameterBagInterface' => __DIR__ . '/../..' . '/vendor_prefixed/symfony/dependency-injection/ParameterBag/ParameterBagInterface.php',
         'YoastSEO_Vendor\\Symfony\\Component\\DependencyInjection\\ResettableContainerInterface' => __DIR__ . '/../..' . '/vendor_prefixed/symfony/dependency-injection/ResettableContainerInterface.php',
+        'Yoast\\WP\\Lib\\Abstract_Main' => __DIR__ . '/../..' . '/lib/abstract-main.php',
+        'Yoast\\WP\\Lib\\Dependency_Injection\\Container_Registry' => __DIR__ . '/../..' . '/lib/dependency-injection/container-registry.php',
         'Yoast\\WP\\Lib\\Migrations\\Adapter' => __DIR__ . '/../..' . '/lib/migrations/adapter.php',
         'Yoast\\WP\\Lib\\Migrations\\Column' => __DIR__ . '/../..' . '/lib/migrations/column.php',
         'Yoast\\WP\\Lib\\Migrations\\Constants' => __DIR__ . '/../..' . '/lib/migrations/constants.php',
@@ -737,6 +739,7 @@ class ComposerStaticInitdad1e30410739153b913ff51e0e2f1cb
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Link_Count_Notification_Integration' => __DIR__ . '/../..' . '/src/deprecated/src/integrations/admin/link-count-notification-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Link_Count_Tools_Integration' => __DIR__ . '/../..' . '/src/deprecated/src/integrations/admin/link-count-tools-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Migration_Error_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/migration-error-integration.php',
+        'Yoast\\WP\\SEO\\Integrations\\Blocks\\Breadcrumbs_Block' => __DIR__ . '/../..' . '/src/integrations/blocks/breadcrumbs-block.php',
         'Yoast\\WP\\SEO\\Integrations\\Blocks\\Dynamic_Block' => __DIR__ . '/../..' . '/src/integrations/blocks/abstract-dynamic-block.php',
         'Yoast\\WP\\SEO\\Integrations\\Blocks\\Internal_Linking_Category' => __DIR__ . '/../..' . '/src/integrations/blocks/block-categories.php',
         'Yoast\\WP\\SEO\\Integrations\\Blocks\\Structured_Data_Blocks' => __DIR__ . '/../..' . '/src/integrations/blocks/structured-data-blocks.php',
@@ -915,9 +918,9 @@ class ComposerStaticInitdad1e30410739153b913ff51e0e2f1cb
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdad1e30410739153b913ff51e0e2f1cb::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdad1e30410739153b913ff51e0e2f1cb::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitdad1e30410739153b913ff51e0e2f1cb::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit16a2df8d752b58dc0d76440f7b3d1a51::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit16a2df8d752b58dc0d76440f7b3d1a51::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit16a2df8d752b58dc0d76440f7b3d1a51::$classMap;
 
         }, null, ClassLoader::class);
     }

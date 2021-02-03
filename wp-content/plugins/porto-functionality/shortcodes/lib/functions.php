@@ -46,7 +46,7 @@ function porto_shortcode_format_content( $content ) {
 	return wpautop( wptexturize( $content ) );
 }
 
-function porto_shortcode_image_resize( $attach_id = null, $img_url = null, $width, $height, $crop = false ) {
+function porto_shortcode_image_resize( $attach_id, $img_url, $width, $height, $crop = false ) {
 	// this is an attachment, so we have the ID
 	$image_src = array();
 	if ( $attach_id ) {

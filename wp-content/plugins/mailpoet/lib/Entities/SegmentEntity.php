@@ -27,6 +27,7 @@ class SegmentEntity {
   const TYPE_WC_USERS = 'woocommerce_users';
   const TYPE_DEFAULT = 'default';
   const TYPE_DYNAMIC = 'dynamic';
+  const TYPE_WITHOUT_LIST = 'without-list';
 
   const SEGMENT_ENABLED = 'active';
   const SEGMENT_DISABLED = 'disabled';
@@ -61,6 +62,11 @@ class SegmentEntity {
     $this->type = $type;
     $this->description = $description;
     $this->dynamicFilters = new ArrayCollection();
+  }
+
+  public function __clone() {
+    // reset ID
+    $this->id = null;
   }
 
   /**

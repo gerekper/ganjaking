@@ -18,7 +18,7 @@ use MailPoet\WP\Functions as WPFunctions;
  * @property string $newsletterRenderedSubject
  * @property int $taskId
  * @property int $newsletterId
- * @property string|object|null $meta
+ * @property string|object|array|null $meta
  * @property string|array $subscribers
  * @property string|null $deletedAt
  * @property string $scheduledAt
@@ -112,7 +112,7 @@ class SendingQueue extends Model {
   }
 
   public function getMeta() {
-    return (Helpers::isJson($this->meta)) ? json_decode($this->meta, true) : $this->meta;
+    return (Helpers::isJson($this->meta) && is_string($this->meta)) ? json_decode($this->meta, true) : $this->meta;
   }
 
   public function isSubscriberProcessed($subscriberId) {

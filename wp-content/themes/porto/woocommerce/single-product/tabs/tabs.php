@@ -21,7 +21,7 @@ global $porto_settings;
 
 $review_index = 0;
 
-$rand = porto_generate_rand();
+$rand = porto_generate_rand( 8 );
 
 wp_enqueue_script( 'easy-responsive-tabs' );
 

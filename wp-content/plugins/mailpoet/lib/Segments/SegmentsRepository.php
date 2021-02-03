@@ -5,9 +5,14 @@ namespace MailPoet\Segments;
 if (!defined('ABSPATH')) exit;
 
 
+use DateTime;
 use MailPoet\Doctrine\Repository;
 use MailPoet\Entities\SegmentEntity;
+use MailPoet\Entities\SubscriberSegmentEntity;
 use MailPoet\NotFoundException;
+use MailPoetVendor\Carbon\Carbon;
+use MailPoetVendor\Doctrine\DBAL\Connection;
+use MailPoetVendor\Doctrine\ORM\EntityManager;
 
 /**
  * @extends Repository<SegmentEntity>
@@ -71,5 +76,60 @@ class SegmentsRepository extends Repository {
     }
     $this->flush();
     return $segment;
+  }
+
+  public function bulkDelete(array $ids) {
+    if (empty($ids)) {
+      return 0;
+    }
+
+    return $this->entityManager->transactional(function (EntityManager $entityManager) use ($ids) {
+      $subscriberSegmentTable = $entityManager->getClassMetadata(SubscriberSegmentEntity::class)->getTableName();
+      $segmentTable = $entityManager->getClassMetadata(SegmentEntity::class)->getTableName();
+
+      $entityManager->getConnection()->executeUpdate("
+         DELETE ss FROM $subscriberSegmentTable ss
+         JOIN $segmentTable s ON ss.`segment_id` = s.`id`
+         WHERE ss.`segment_id` IN (:ids)
+         AND s.`type` = :typeDefault
+      ", [
+        'ids' => $ids,
+        'typeDefault' => SegmentEntity::TYPE_DEFAULT,
+      ], ['ids' => Connection::PARAM_INT_ARRAY]);
+
+      return $entityManager->getConnection()->executeUpdate("
+         DELETE s FROM $segmentTable s
+         WHERE s.`id` IN (:ids)
+         AND s.`type` = :typeDefault
+      ", [
+        'ids' => $ids,
+        'typeDefault' => SegmentEntity::TYPE_DEFAULT,
+      ], ['ids' => Connection::PARAM_INT_ARRAY]);
+    });
+  }
+
+  public function bulkTrash(array $ids, string $type = SegmentEntity::TYPE_DEFAULT): int {
+    return $this->updateDeletedAt($ids, new Carbon(), $type);
+  }
+
+  public function bulkRestore(array $ids, string $type = SegmentEntity::TYPE_DEFAULT): int {
+    return $this->updateDeletedAt($ids, null, $type);
+  }
+
+  private function updateDeletedAt(array $ids, ?DateTime $deletedAt, string $type): int {
+    if (empty($ids)) {
+      return 0;
+    }
+
+    $rows = $this->entityManager->createQueryBuilder()->update(SegmentEntity::class, 's')
+    ->set('s.deletedAt', ':deletedAt')
+    ->where('s.id IN (:ids)')
+    ->andWhere('s.type IN (:type)')
+    ->setParameter('deletedAt', $deletedAt)
+    ->setParameter('ids', $ids)
+    ->setParameter('type', $type)
+    ->getQuery()->execute();
+
+    return $rows;
   }
 }

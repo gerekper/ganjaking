@@ -70,7 +70,7 @@ function limit_text($text, $limit = 150)
     $limit = ! is_int($limit) || 0 === $limit ? 150 : $limit;
 
     // <p> not included cos it sometimes break layout and besides wpautop adds it back
-    $tags = apply_filters('mo_limit_text_tags', '<a><em><strong><blockquote><ul><ol><li>');
+    $tags = apply_filters('mo_limit_text_tags', '<a><img><em><strong><blockquote><ul><ol><li>');
 
     $text = strip_shortcodes(strip_tags(stripslashes($text), $tags));
 

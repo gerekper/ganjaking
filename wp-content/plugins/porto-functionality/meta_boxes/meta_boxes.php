@@ -602,7 +602,10 @@ function porto_edit_tax_meta_tab( $meta_tab ) {
 }
 
 // Add Meta Field when edit taxonomy
-function porto_edit_tax_meta_field( $tag = '', $taxonomy, $meta_field, $woocommerce = false ) {
+function porto_edit_tax_meta_field( $tag, $taxonomy, $meta_field, $woocommerce = false ) {
+	if ( empty( $tag ) ) {
+		$tag = '';
+	}
 	$name     = '';
 	$title    = '';
 	$desc     = '';

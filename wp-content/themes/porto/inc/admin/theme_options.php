@@ -61,8 +61,8 @@ if ( ! porto_is_ajax() ) {
 					foreach ( $updated_types as $old => $type ) {
 						$post_query = new WP_Query(
 							array(
-								'post_type'   => $old,
-								'showposts'   => -1,
+								'post_type'      => $old,
+								'posts_per_page' => -1,
 							)
 						);
 						if ( $post_query->have_posts() ) {
@@ -72,6 +72,25 @@ if ( ! porto_is_ajax() ) {
 								wp_update_post( $p );
 								add_post_meta( $p->ID, 'porto_builder_type', $type );
 								wp_set_post_terms( $p->ID, $type, 'porto_builder_type' );
+							}
+						}
+					}
+				}
+
+				if ( version_compare( $porto_cur_version, '6.0.4', '<' ) && taxonomy_exists( 'porto_builder_type' ) ) {
+					$post_query = new WP_Query(
+						array(
+							'post_type'      => 'porto_builder',
+							'posts_per_page' => -1,
+						)
+					);
+					if ( $post_query->have_posts() ) {
+						$posts = $post_query->get_posts();
+						foreach ( $posts as $p ) {
+							$builder_type = get_post_meta( $p->ID, 'porto_builder_type', true );
+							$term_type    = wp_get_post_terms( $p->ID, 'porto_builder_type', array( 'fields' => 'names' ) );
+							if ( $builder_type && empty( $term_type ) ) {
+								wp_set_post_terms( $p->ID, $builder_type, 'porto_builder_type' );
 							}
 						}
 					}

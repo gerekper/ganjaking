@@ -31,8 +31,10 @@ class Porto_Recent_Posts_Widget extends WP_Widget {
 		$cat        = $instance['cat'];
 		$show_image = $instance['show_image'];
 
-		if ( 0 == $items ) {
+		if ( empty( $items ) || 0 === (int) $items ) {
 			$items = 3;
+		} else {
+			$items = (int) $items;
 		}
 
 		$options                = array();

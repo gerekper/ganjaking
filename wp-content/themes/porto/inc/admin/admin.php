@@ -262,7 +262,7 @@ class Porto_Admin {
 			$domain = $domain['domain'];
 			$result = $this->curl_purchase_code( $code, $domain, 'add' );
 			if ( ! isset( $result['result'] ) || 1 !== (int) $result['result'] ) {
-				$message = isset( $result['message'] ) ? $result['message'] : __( 'Purchase Code is not valid or could not connect to the API server!', 'porto' );
+				$message = isset( $result['message'] ) ? $result['message'] : __( 'Purchase Code is not valid or could not connect to the API server! Please try again later.', 'porto' );
 				return new WP_Error( 'purchase_code_invalid', esc_html( $message ) );
 			}
 		}

@@ -28,8 +28,10 @@ class Porto_Recent_Portfolios_Widget extends WP_Widget {
 		$view   = $instance['view'];
 		$cat    = $instance['cat'];
 
-		if ( 0 == $items ) {
+		if ( empty( $items ) ) {
 			$items = 6;
+		} else {
+			$items = (int) $items;
 		}
 
 		$options                = array();

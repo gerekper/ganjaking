@@ -60,7 +60,7 @@ class Facebook extends OAuth2
      */
     protected function initialize()
     {
-        $version = '7.0';
+        $version = '9.0';
 
         if ( ! empty($this->config->get('apiVersion'))) {
             $version = $this->config->get('apiVersion');

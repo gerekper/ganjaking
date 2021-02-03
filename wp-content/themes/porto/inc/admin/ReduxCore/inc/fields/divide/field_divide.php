@@ -42,7 +42,13 @@ if ( ! class_exists( 'ReduxFramework_divide' ) ) {
 		 * @access        public
 		 * @return        void
 		 */
-		function __construct( $field = array(), $value = '', $parent ) {
+		function __construct( $field, $value, $parent ) {
+			if ( empty( $field ) ) {
+				$field = array();
+			}
+			if ( empty( $value ) ) {
+				$value = '';
+			}
 			$this->parent = $parent;
 			$this->field  = $field;
 			$this->value  = $value;

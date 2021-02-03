@@ -167,15 +167,14 @@ if ( ! function_exists( 'array2json' ) ) :
 endif;
 
 if ( ! function_exists( 'porto_generate_rand' ) ) :
-	function porto_generate_rand() {
+	function porto_generate_rand( $length = 31 ) {
 
 		$valid_characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
 		$rand             = '';
-		$length           = 32;
-		for ( $n = 1; $n < $length; $n++ ) {
+		for ( $n = 0; $n < $length; $n++ ) {
 
 			$which_character = rand( 0, strlen( $valid_characters ) - 1 );
-			$rand           .= $valid_characters{$which_character};
+			$rand           .= substr( $valid_characters, $which_character, 1 );
 		}
 
 		return $rand;
@@ -832,6 +831,24 @@ if ( ! function_exists( 'porto_is_vc_preview' ) ) :
 	}
 endif;
 
+function porto_custom_wpkses_post_tags( $tags, $context ) {
+
+	if ( 'post' === $context ) {
+		if ( empty( $tags ) ) {
+			$tags = array();
+		}
+		$tags['iframe'] = array(
+			'src'             => true,
+			'height'          => true,
+			'width'           => true,
+			'frameborder'     => true,
+			'allowfullscreen' => true,
+		);
+	}
+
+	return $tags;
+}
+
 if ( ! function_exists( 'porto_output_tagged_content' ) ) :
 	function porto_output_tagged_content( $content ) {
 		if ( ! $content ) {
@@ -840,7 +857,9 @@ if ( ! function_exists( 'porto_output_tagged_content' ) ) :
 		if ( ! defined( 'ELEMENTOR_VERSION' ) ) {
 			return apply_filters( 'the_content', wp_kses_post( $content ) );
 		} else {
+			add_filter( 'wp_kses_allowed_html', 'porto_custom_wpkses_post_tags', 10, 2 );
 			$content = do_shortcode( wp_kses_post( $content ) );
+			remove_filter( 'wp_kses_allowed_html', 'porto_custom_wpkses_post_tags', 10, 2 );
 			return function_exists( 'porto_shortcode_format_content' ) ? porto_shortcode_format_content( $content ) : $content;
 		}
 	}
@@ -1048,12 +1067,15 @@ if ( ! function_exists( 'porto_check_builder_condition' ) ) :
 					}
 				}
 			}
-		} elseif ( is_archive() && property_exists( get_queried_object(), 'term_id' ) ) {
-			$term_id    = get_queried_object()->term_id;
-			$builder_id = get_term_meta( $term_id, '_porto_builder_' . $location, true );
-			if ( $builder_id && get_post( $builder_id ) ) {
-				$porto_settings['conditions'][ $location ] = (int) $builder_id;
-				return (int) $builder_id;
+		} elseif ( is_archive() ) {
+			$quired_obj = get_queried_object();
+			if ( $quired_obj && property_exists( $quired_obj, 'term_id' ) ) {
+				$term_id    = $quired_obj->term_id;
+				$builder_id = get_term_meta( $term_id, '_porto_builder_' . $location, true );
+				if ( $builder_id && get_post( $builder_id ) ) {
+					$porto_settings['conditions'][ $location ] = (int) $builder_id;
+					return (int) $builder_id;
+				}
 			}
 		}
 

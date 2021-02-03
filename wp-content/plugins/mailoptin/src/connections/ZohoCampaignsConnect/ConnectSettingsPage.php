@@ -124,7 +124,7 @@ class ConnectSettingsPage extends AbstractZohoCampaignsConnect
     {
         if ( ! empty($_GET['mo-save-oauth-provider']) && $_GET['mo-save-oauth-provider'] == 'zohocampaigns' && ! empty($_GET['access_token'])) {
 
-            check_admin_referer('mo_save_oauth_credentials', 'nonce');
+            check_admin_referer('mo_save_oauth_credentials', 'moconnect_nonce');
 
             $old_data = get_option($option_name, []);
 

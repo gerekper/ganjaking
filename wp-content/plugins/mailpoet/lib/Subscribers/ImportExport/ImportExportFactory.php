@@ -6,9 +6,9 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\DI\ContainerWrapper;
-use MailPoet\DynamicSegments\FreePluginConnectors\AddToNewslettersSegments;
+use MailPoet\Entities\SegmentEntity;
 use MailPoet\Models\CustomField;
-use MailPoet\Models\Segment;
+use MailPoet\Segments\SegmentsSimpleListRepository;
 use MailPoet\Util\Helpers;
 
 class ImportExportFactory {
@@ -18,28 +18,26 @@ class ImportExportFactory {
   /** @var string|null  */
   public $action;
 
-  /** @var AddToNewslettersSegments */
-  private $addToNewslettersSegments;
+  /** @var SegmentsSimpleListRepository */
+  private $segmentsListRepository;
 
   public function __construct($action = null) {
     $this->action = $action;
-    $this->addToNewslettersSegments = ContainerWrapper::getInstance()->get(AddToNewslettersSegments::class);
+    $this->segmentsListRepository = ContainerWrapper::getInstance()->get(SegmentsSimpleListRepository::class);
   }
 
   public function getSegments() {
     if ($this->action === self::IMPORT_ACTION) {
-      $segments = Segment::getSegmentsForImport();
+      $segments = $this->segmentsListRepository->getListWithSubscribedSubscribersCounts([SegmentEntity::TYPE_DEFAULT, SegmentEntity::TYPE_WP_USERS]);
     } else {
-      $segments = Segment::getSegmentsForExport();
-      $segments = $this->addToNewslettersSegments->add($segments);
+      $segments = $this->segmentsListRepository->getListWithAssociatedSubscribersCounts();
+      $segments = $this->segmentsListRepository->addVirtualSubscribersWithoutListSegment($segments);
       $segments = array_values(array_filter($segments, function($segment) {
         return $segment['subscribers'] > 0;
       }));
     }
 
     return array_map(function($segment) {
-      if (!$segment['name']) $segment['name'] = __('Not In List', 'mailpoet');
-      if (!$segment['id']) $segment['id'] = 0;
       return [
         'id' => $segment['id'],
         'name' => $segment['name'],

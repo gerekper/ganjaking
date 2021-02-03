@@ -209,7 +209,7 @@ function porto_currency_switcher( $el_class = '' ) {
 				}
 			}
 			?>
-			<ul id="menu-currency-switcher" class="<?php esc_attr( $menu_class ); ?>">
+			<ul id="menu-currency-switcher" class="<?php echo esc_attr( $menu_class ); ?>">
 				<li class="menu-item<?php echo ! $other_c ? '' : ' has-sub'; ?> narrow">
 					<a class="nolink" href="#"><?php echo wp_kses_post( $active_c ); ?></a>
 					<?php if ( $other_c ) : ?>
@@ -231,7 +231,11 @@ function porto_currency_switcher( $el_class = '' ) {
 			$format        = '%symbol% %code%';
 			$wc_currencies = get_woocommerce_currencies();
 			if ( ! isset( $settings['currencies_order'] ) ) {
-				$currencies = $woocommerce_wpml->multi_currency->get_currency_codes();
+				if ( ! empty( $woocommerce_wpml->multi_currency ) ) {
+					$currencies = $woocommerce_wpml->multi_currency->get_currency_codes();
+				} else {
+					$currencies = array();
+				}
 			} else {
 				$currencies = $settings['currencies_order'];
 			}
@@ -352,7 +356,11 @@ function porto_mobile_currency_switcher( $is_mobile_menu = false ) {
 		$format        = '%symbol% %code%';
 		$wc_currencies = get_woocommerce_currencies();
 		if ( ! isset( $settings['currencies_order'] ) ) {
-			$currencies = $woocommerce_wpml->multi_currency->get_currency_codes();
+			if ( ! empty( $woocommerce_wpml->multi_currency ) ) {
+				$currencies = $woocommerce_wpml->multi_currency->get_currency_codes();
+			} else {
+				$currencies = array();
+			}
 		} else {
 			$currencies = $settings['currencies_order'];
 		}
@@ -765,7 +773,11 @@ function porto_top_navigation( $el_class = '' ) {
 			$format        = '%symbol% %code%';
 			$wc_currencies = get_woocommerce_currencies();
 			if ( ! isset( $settings['currencies_order'] ) ) {
-				$currencies = $woocommerce_wpml->multi_currency->get_currency_codes();
+				if ( ! empty( $woocommerce_wpml->multi_currency ) ) {
+					$currencies = $woocommerce_wpml->multi_currency->get_currency_codes();
+				} else {
+					$currencies = array();
+				}
 			} else {
 				$currencies = $settings['currencies_order'];
 			}

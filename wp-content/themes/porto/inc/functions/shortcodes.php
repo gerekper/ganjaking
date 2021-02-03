@@ -3297,8 +3297,8 @@ function porto_vc_remove_deprecated_css_class( $output ) {
 }
 
 if ( ! function_exists( 'porto_image_resize' ) ) :
-	function porto_image_resize( $attach_id = null, $thumb_size ) {
-		if ( ! $attach_id ) {
+	function porto_image_resize( $attach_id, $thumb_size ) {
+		if ( ! isset( $attach_id ) || ! $attach_id ) {
 			return false;
 		}
 

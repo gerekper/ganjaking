@@ -34,12 +34,6 @@ $args = apply_filters(
 
 $products = new WP_Query( $args );
 
-$porto_woocommerce_loop['columns'] = isset( $porto_settings['product-related-cols'] ) ? $porto_settings['product-related-cols'] : $porto_settings['product-cols'];
-
-if ( ! $porto_woocommerce_loop['columns'] ) {
-	$porto_woocommerce_loop['columns'] = 4;
-}
-
 if ( 'left_sidebar' == $porto_product_layout ) {
 	$container_class = '';
 } elseif ( porto_is_wide_layout() ) {
@@ -48,7 +42,13 @@ if ( 'left_sidebar' == $porto_product_layout ) {
 	$container_class = 'container';
 }
 
-if ( $products->have_posts() ) : ?>
+if ( $products->have_posts() ) :
+	$porto_woocommerce_loop['columns'] = isset( $porto_settings['product-related-cols'] ) ? $porto_settings['product-related-cols'] : $porto_settings['product-cols'];
+
+	if ( ! $porto_woocommerce_loop['columns'] ) {
+		$porto_woocommerce_loop['columns'] = 4;
+	}
+	?>
 	<div class="related products">
 		<div class="<?php echo esc_attr( $container_class ); ?>">
 			<?php

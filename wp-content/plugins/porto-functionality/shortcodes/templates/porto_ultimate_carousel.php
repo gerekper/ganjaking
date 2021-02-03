@@ -17,7 +17,7 @@ if ( ! function_exists( 'porto_override_shortcodes' ) ) {
 }
 
 if ( ! function_exists( 'porto_wrap_shortcode_in_div' ) ) {
-	function porto_wrap_shortcode_in_div( $attr, $content = null, $tag ) {
+	function porto_wrap_shortcode_in_div( $attr, $content, $tag ) {
 		global $_shortcode_tags;
 
 		$attrs = $_shortcode_tags['item_animation'] ? ' data-appear-animation="' . esc_attr( $_shortcode_tags['item_animation'] ) . '"' : '';

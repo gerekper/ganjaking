@@ -49,7 +49,7 @@ class Saver {
         $code = Model::DUPLICATE_RECORD;
       }
       $db->rollBack();
-      throw new ErrorSavingException(join(", ", $model->getErrors()), $code);
+      throw new ErrorSavingException(join(", ", $model->getErrors()), (int)$code);
     }
   }
 

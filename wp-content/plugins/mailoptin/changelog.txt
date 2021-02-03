@@ -1,4 +1,8 @@
-== Changelog ==
+﻿== Changelog ==
+
+= 1.2.34.3 =
+* Change oauth integrations nonce key to prevent error in connecting integrations.
+* Fixed bug where images wasn’t included in automation emails.
 
 = 1.2.34.2 =
 * Added featured image size filter to posts.

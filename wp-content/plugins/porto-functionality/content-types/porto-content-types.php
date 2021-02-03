@@ -89,6 +89,7 @@ class PortoContentTypesClass {
 				'labels'            => $this->getTaxonomyLabels( $cat_name, $cats_name ),
 				'query_var'         => true,
 				'rewrite'           => array( 'slug' => $cat_slug_name ),
+				'show_in_rest'      => true,
 			)
 		);
 
@@ -101,6 +102,7 @@ class PortoContentTypesClass {
 				'labels'            => $this->getTaxonomyLabels( $skill_name, $skills_name ),
 				'query_var'         => true,
 				'rewrite'           => array( 'slug' => $skill_slug_name ),
+				'show_in_rest'      => true,
 			)
 		);
 
@@ -152,6 +154,7 @@ class PortoContentTypesClass {
 				'labels'            => $this->getTaxonomyLabels( $cat_name, $cats_name ),
 				'query_var'         => true,
 				'rewrite'           => array( 'slug' => $cat_slug_name ),
+				'show_in_rest'      => true,
 			)
 		);
 
@@ -203,6 +206,7 @@ class PortoContentTypesClass {
 				'labels'            => $this->getTaxonomyLabels( $cat_name, $cats_name ),
 				'query_var'         => true,
 				'rewrite'           => array( 'slug' => $cat_slug_name ),
+				'show_in_rest'      => true,
 			)
 		);
 
@@ -293,7 +297,7 @@ class PortoContentTypesClass {
 			/* translators: %s: content type singular name */
 			'parent_item_colon' => sprintf( __( 'Parent %s:', 'porto-functionality' ), $singular_name ),
 			/* translators: %s: content type singular name */
-			'edit_item'         => sprintf( __( 'Edit %', 'porto-functionality' ), $singular_name ),
+			'edit_item'         => sprintf( __( 'Edit %s', 'porto-functionality' ), $singular_name ),
 			/* translators: %s: content type singular name */
 			'update_item'       => sprintf( __( 'Update %s', 'porto-functionality' ), $singular_name ),
 			/* translators: %s: content type singular name */

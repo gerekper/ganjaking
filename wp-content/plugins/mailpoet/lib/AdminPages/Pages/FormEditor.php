@@ -10,6 +10,7 @@ use MailPoet\API\JSON\ResponseBuilders\CustomFieldsResponseBuilder;
 use MailPoet\Config\Localizer;
 use MailPoet\CustomFields\CustomFieldsRepository;
 use MailPoet\Entities\FormEntity;
+use MailPoet\Entities\SegmentEntity;
 use MailPoet\Form\Block;
 use MailPoet\Form\FormFactory;
 use MailPoet\Form\Renderer as FormRenderer;
@@ -77,9 +78,9 @@ use MailPoet\Form\Templates\Templates\Template7Widget;
 use MailPoet\Form\Util\CustomFonts;
 use MailPoet\Form\Util\Export;
 use MailPoet\Models\Form;
-use MailPoet\Models\Segment;
 use MailPoet\Router\Endpoints\FormPreview;
 use MailPoet\Router\Router;
+use MailPoet\Segments\SegmentsSimpleListRepository;
 use MailPoet\Settings\Pages;
 use MailPoet\Settings\UserFlagsController;
 use MailPoet\WP\AutocompletePostListLoader as WPPostListLoader;
@@ -118,6 +119,9 @@ class FormEditor {
 
   /** @var WPPostListLoader */
   private $wpPostListLoader;
+
+  /** @var SegmentsSimpleListRepository */
+  private $segmentsListRepository;
 
   private $activeTemplates = [
     FormEntity::DISPLAY_TYPE_POPUP => [
@@ -203,7 +207,8 @@ class FormEditor {
     Localizer $localizer,
     UserFlagsController $userFlags,
     WPPostListLoader $wpPostListLoader,
-    TemplateRepository $templateRepository
+    TemplateRepository $templateRepository,
+    SegmentsSimpleListRepository $segmentsListRepository
   ) {
     $this->pageRenderer = $pageRenderer;
     $this->customFieldsRepository = $customFieldsRepository;
@@ -216,6 +221,7 @@ class FormEditor {
     $this->templatesRepository = $templateRepository;
     $this->userFlags = $userFlags;
     $this->wpPostListLoader = $wpPostListLoader;
+    $this->segmentsListRepository = $segmentsListRepository;
   }
 
   public function render() {
@@ -237,7 +243,7 @@ class FormEditor {
           'shortcode' => Export::get('shortcode', $form),
       ],
       'mailpoet_pages' => Pages::getMailPoetPages(),
-      'segments' => Segment::getSegmentsWithSubscriberCount(),
+      'segments' => $this->segmentsListRepository->getListWithSubscribedSubscribersCounts([SegmentEntity::TYPE_DEFAULT]),
       'styles' => $this->formRenderer->getCustomStyles($form),
       'date_types' => array_map(function ($label, $value) {
         return [

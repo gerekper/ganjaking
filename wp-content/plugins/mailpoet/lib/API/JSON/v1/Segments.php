@@ -5,31 +5,30 @@ namespace MailPoet\API\JSON\v1;
 if (!defined('ABSPATH')) exit;
 
 
+use Exception;
 use InvalidArgumentException;
 use MailPoet\API\JSON\Endpoint as APIEndpoint;
 use MailPoet\API\JSON\Error as APIError;
+use MailPoet\API\JSON\Response;
 use MailPoet\API\JSON\ResponseBuilders\SegmentsResponseBuilder;
 use MailPoet\Config\AccessControl;
 use MailPoet\Doctrine\Validator\ValidationException;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Listing;
-use MailPoet\Models\Segment;
 use MailPoet\Segments\SegmentListingRepository;
 use MailPoet\Segments\SegmentSaveController;
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Segments\WooCommerce;
 use MailPoet\Segments\WP;
 use MailPoet\Subscribers\SubscribersRepository;
+use MailPoet\UnexpectedValueException;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Segments extends APIEndpoint {
   public $permissions = [
     'global' => AccessControl::PERMISSION_MANAGE_SEGMENTS,
   ];
-
-  /** @var Listing\BulkActionController */
-  private $bulkAction;
 
   /** @var Listing\Handler */
   private $listingHandler;
@@ -56,7 +55,6 @@ class Segments extends APIEndpoint {
   private $segmentListingRepository;
 
   public function __construct(
-    Listing\BulkActionController $bulkAction,
     Listing\Handler $listingHandler,
     SegmentsRepository $segmentsRepository,
     SegmentListingRepository $segmentListingRepository,
@@ -66,7 +64,6 @@ class Segments extends APIEndpoint {
     WooCommerce $wooCommerce,
     WP $wpSegment
   ) {
-    $this->bulkAction = $bulkAction;
     $this->listingHandler = $listingHandler;
     $this->wooCommerceSync = $wooCommerce;
     $this->segmentsRepository = $segmentsRepository;
@@ -121,23 +118,26 @@ class Segments extends APIEndpoint {
   }
 
   public function restore($data = []) {
-    $id = (isset($data['id']) ? (int)$data['id'] : false);
-    $segment = Segment::findOne($id);
-    if ($segment instanceof Segment) {
+    $segment = $this->getSegment($data);
+    if ($segment instanceof SegmentEntity) {
+      if (!$this->isTrashOrRestoreAllowed($segment)) {
+        return $this->errorResponse([
+          APIError::FORBIDDEN => WPFunctions::get()->__('This list cannot be moved to trash.', 'mailpoet'),
+        ]);
+      }
       // When the segment is of type WP_USERS we want to restore all its subscribers
-      if ($segment->type === SegmentEntity::TYPE_WP_USERS) {
-        $subscribers = $this->subscribersRepository->findBySegment((int)$segment->id);
+      if ($segment->getType() === SegmentEntity::TYPE_WP_USERS) {
+        $subscribers = $this->subscribersRepository->findBySegment((int)$segment->getId());
         $subscriberIds = array_map(function (SubscriberEntity $subscriberEntity): int {
           return (int)$subscriberEntity->getId();
         }, $subscribers);
         $this->subscribersRepository->bulkRestore($subscriberIds);
       }
 
-      $segment->restore();
-      $segment = Segment::findOne($segment->id);
-      if(!$segment instanceof Segment) return $this->errorResponse();
+      $this->segmentsRepository->bulkRestore([$segment->getId()], $segment->getType());
+      $this->segmentsRepository->refresh($segment);
       return $this->successResponse(
-        $segment->asArray(),
+        $this->segmentsResponseBuilder->build($segment),
         ['count' => 1]
       );
     } else {
@@ -148,23 +148,26 @@ class Segments extends APIEndpoint {
   }
 
   public function trash($data = []) {
-    $id = (isset($data['id']) ? (int)$data['id'] : false);
-    $segment = Segment::findOne($id);
-    if ($segment instanceof Segment) {
+    $segment = $this->getSegment($data);
+    if ($segment instanceof SegmentEntity) {
+      if (!$this->isTrashOrRestoreAllowed($segment)) {
+        return $this->errorResponse([
+          APIError::FORBIDDEN => WPFunctions::get()->__('This list cannot be moved to trash.', 'mailpoet'),
+        ]);
+      }
       // When the segment is of type WP_USERS we want to trash all subscribers who aren't subscribed in another list
-      if ($segment->type === SegmentEntity::TYPE_WP_USERS) {
-        $subscribers = $this->subscribersRepository->findExclusiveSubscribersBySegment((int)$segment->id);
+      if ($segment->getType() === SegmentEntity::TYPE_WP_USERS) {
+        $subscribers = $this->subscribersRepository->findExclusiveSubscribersBySegment((int)$segment->getId());
         $subscriberIds = array_map(function (SubscriberEntity $subscriberEntity): int {
           return (int)$subscriberEntity->getId();
         }, $subscribers);
         $this->subscribersRepository->bulkTrash($subscriberIds);
       }
 
-      $segment->trash();
-      $segment = Segment::findOne($segment->id);
-      if(!$segment instanceof Segment) return $this->errorResponse();
+      $this->segmentsRepository->bulkTrash([$segment->getId()], $segment->getType());
+      $this->segmentsRepository->refresh($segment);
       return $this->successResponse(
-        $segment->asArray(),
+        $this->segmentsResponseBuilder->build($segment),
         ['count' => 1]
       );
     } else {
@@ -175,10 +178,9 @@ class Segments extends APIEndpoint {
   }
 
   public function delete($data = []) {
-    $id = (isset($data['id']) ? (int)$data['id'] : false);
-    $segment = Segment::findOne($id);
-    if ($segment instanceof Segment) {
-      $segment->delete();
+    $segment = $this->getSegment($data);
+    if ($segment instanceof SegmentEntity) {
+      $this->segmentsRepository->bulkDelete([$segment->getId()]);
       return $this->successResponse(null, ['count' => 1]);
     } else {
       return $this->errorResponse([
@@ -188,26 +190,20 @@ class Segments extends APIEndpoint {
   }
 
   public function duplicate($data = []) {
-    $id = (isset($data['id']) ? (int)$data['id'] : false);
-    $segment = Segment::findOne($id);
+    $segment = $this->getSegment($data);
 
-    if ($segment instanceof Segment) {
-      $data = [
-        'name' => sprintf(__('Copy of %s', 'mailpoet'), $segment->name),
-      ];
-      $duplicate = $segment->duplicate($data);
-      $errors = $duplicate->getErrors();
-
-      if (!empty($errors)) {
-        return $this->errorResponse($errors);
-      } else {
-        $duplicate = Segment::findOne($duplicate->id);
-        if(!$duplicate instanceof Segment) return $this->errorResponse();
-        return $this->successResponse(
-          $duplicate->asArray(),
-          ['count' => 1]
-        );
+    if ($segment instanceof SegmentEntity) {
+      try {
+        $duplicate = $this->segmentSavecontroller->duplicate($segment);
+      } catch (Exception $e) {
+        return $this->errorResponse([
+          APIError::UNKNOWN => __('Duplicating of segment failed.', 'mailpoet'),
+        ], [], Response::STATUS_UNKNOWN);
       }
+      return $this->successResponse(
+        $this->segmentsResponseBuilder->build($duplicate),
+        ['count' => 1]
+      );
     } else {
       return $this->errorResponse([
         APIError::NOT_FOUND => WPFunctions::get()->__('This list does not exist.', 'mailpoet'),
@@ -217,7 +213,7 @@ class Segments extends APIEndpoint {
 
   public function synchronize($data) {
     try {
-      if ($data['type'] === Segment::TYPE_WC_USERS) {
+      if ($data['type'] === SegmentEntity::TYPE_WC_USERS) {
         $this->wooCommerceSync->synchronizeCustomers();
       } else {
         $this->wpSegment->synchronizeUsers();
@@ -232,13 +228,37 @@ class Segments extends APIEndpoint {
   }
 
   public function bulkAction($data = []) {
-    try {
-      $meta = $this->bulkAction->apply('\MailPoet\Models\Segment', $data);
-      return $this->successResponse(null, $meta);
-    } catch (\Exception $e) {
-      return $this->errorResponse([
-        $e->getCode() => $e->getMessage(),
-      ]);
+    $definition = $this->listingHandler->getListingDefinition($data['listing']);
+    $ids = $this->segmentListingRepository->getActionableIds($definition);
+    $count = 0;
+    if ($data['action'] === 'trash') {
+      $count = $this->segmentsRepository->bulkTrash($ids);
+    } elseif ($data['action'] === 'restore') {
+      $count = $this->segmentsRepository->bulkRestore($ids);
+    } elseif ($data['action'] === 'delete') {
+      $count = $this->segmentsRepository->bulkDelete($ids);
+    } else {
+      throw UnexpectedValueException::create()
+        ->withErrors([APIError::BAD_REQUEST => "Invalid bulk action '{$data['action']}' provided."]);
     }
+    return $this->successResponse(null, ['count' => $count]);
+  }
+
+  private function isTrashOrRestoreAllowed(SegmentEntity $segment): bool {
+    $allowedSegmentTypes = [
+      SegmentEntity::TYPE_DEFAULT,
+      SegmentEntity::TYPE_WP_USERS,
+    ];
+    if (in_array($segment->getType(), $allowedSegmentTypes, true)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  private function getSegment(array $data): ?SegmentEntity {
+    return isset($data['id'])
+      ? $this->segmentsRepository->findOneById((int)$data['id'])
+      : null;
   }
 }

@@ -124,7 +124,7 @@ class ConnectSettingsPage extends AbstractZohoCRMConnect
     {
         if ( ! empty($_GET['mo-save-oauth-provider']) && $_GET['mo-save-oauth-provider'] == 'zohocrm' && ! empty($_GET['access_token'])) {
 
-            check_admin_referer('mo_save_oauth_credentials', 'nonce');
+            check_admin_referer('mo_save_oauth_credentials', 'moconnect_nonce');
 
             $expires_at = $this->oauth_expires_at_transform($_GET['expires_at']);
 

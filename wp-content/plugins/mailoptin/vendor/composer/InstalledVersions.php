@@ -54,12 +54,12 @@ private static $installed = array (
     ),
     'composer/installers' => 
     array (
-      'pretty_version' => 'v1.9.0',
-      'version' => '1.9.0.0',
+      'pretty_version' => 'v1.10.0',
+      'version' => '1.10.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b93bcf0fa1fccb0b7d176b0967d969691cd74cca',
+      'reference' => '1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d',
     ),
     'deliciousbrains/wp-background-processing' => 
     array (
@@ -106,8 +106,8 @@ private static $installed = array (
     ),
     'mailoptin/authifly' => 
     array (
-      'pretty_version' => '0.2.1610358088',
-      'version' => '0.2.1610358088.0',
+      'pretty_version' => '0.2.1611573634',
+      'version' => '0.2.1611573634.0',
       'aliases' => 
       array (
       ),
@@ -115,8 +115,8 @@ private static $installed = array (
     ),
     'mailoptin/connections' => 
     array (
-      'pretty_version' => '0.2.1610358132',
-      'version' => '0.2.1610358132.0',
+      'pretty_version' => '0.2.1611573651',
+      'version' => '0.2.1611573651.0',
       'aliases' => 
       array (
       ),
@@ -124,12 +124,12 @@ private static $installed = array (
     ),
     'mailoptin/core' => 
     array (
-      'pretty_version' => '0.1.0-alpha.1610358126',
-      'version' => '0.1.0.0-alpha1610358126',
+      'pretty_version' => '0.1.0-alpha.1611570658',
+      'version' => '0.1.0.0-alpha1611570658',
       'aliases' => 
       array (
       ),
-      'reference' => '5e6dc009da35edb9700a876b4570cd1ee8a2b3ff',
+      'reference' => 'd5a3275c9be19c1b9300922b0ce16e663be10142',
     ),
     'nesbot/carbon' => 
     array (

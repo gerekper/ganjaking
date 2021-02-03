@@ -118,7 +118,7 @@ $porto_woo_version = porto_get_woo_version_number();
 											<div class="cart_totals_toggle">
 												<div id="panel-cart-discount" class="d-sm-flex justify-content-between">
 													<div class="coupon">
-														<input type="text" name="coupon_code" class="input-text" id="coupon_code" placeholder="Coupon Code" value="" />
+														<input type="text" name="coupon_code" class="input-text" id="coupon_code" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" value="" />
 														<button type="submit" class="button wc-action-btn wc-action-sm" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply coupon', 'woocommerce' ); ?></button>
 														<?php do_action( 'woocommerce_cart_coupon' ); ?>
 													</div>

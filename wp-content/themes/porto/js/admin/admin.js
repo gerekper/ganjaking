@@ -677,6 +677,10 @@ jQuery(function($) {
         var $install_demos = $('#theme-install-demos').isotope(),
             $demos_filter = $('.demo-sort-filters');
 
+        $install_demos.waitForImages(function() {
+            $install_demos.isotope('layout');
+        });
+
         $demos_filter.find('.sort-source li').on('click', function(e) {
             e.preventDefault();
             var $this = $(this),

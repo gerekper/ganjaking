@@ -1,6 +1,0 @@
-2020-12-22T23:45:43+00:00 CRITICAL Out of memory (allocated 150994944) (tried to allocate 131072 bytes) in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/theplus_addon/vc_elements/post_shortcodes/tp_tm_list.php on line 459
-
-2020-12-22T23:45:49+00:00 CRITICAL Out of memory (allocated 6291456) (tried to allocate 8192 bytes) in /home/ganja/web/ganjaking.asia/public_html/wp-content/themes/porto/inc/functions/layout.php on line 438
-
-2020-12-22T23:45:57+00:00 CRITICAL Out of memory (allocated 46137344) (tried to allocate 380928 bytes) in /home/ganja/web/ganjaking.asia/public_html/wp-content/plugins/js_composer/include/params/load.php on line 34
-

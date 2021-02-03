@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $product, $porto_settings, $porto_woocommerce_loop;
+global $product, $porto_settings;
 
 $upsells = $product->get_upsell_ids();
 
@@ -32,13 +32,14 @@ $args = array(
 
 $products = new WP_Query( $args );
 
-$porto_woocommerce_loop['columns'] = isset( $porto_settings['product-upsells-cols'] ) ? $porto_settings['product-upsells-cols'] : $porto_settings['product-cols'];
+if ( $products->have_posts() ) :
+	global $porto_woocommerce_loop;
+	$porto_woocommerce_loop['columns'] = isset( $porto_settings['product-upsells-cols'] ) ? $porto_settings['product-upsells-cols'] : $porto_settings['product-cols'];
 
-if ( ! $porto_woocommerce_loop['columns'] ) {
-	$porto_woocommerce_loop['columns'] = 4;
-}
-
-if ( $products->have_posts() ) : ?>
+	if ( ! $porto_woocommerce_loop['columns'] ) {
+		$porto_woocommerce_loop['columns'] = 4;
+	}
+	?>
 
 	<div class="upsells products">
 

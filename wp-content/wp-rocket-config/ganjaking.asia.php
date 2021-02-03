@@ -5,11 +5,11 @@ $rocket_cookie_hash = '7e6819ddde90a2b65fa18698fb0fd22f';
 $rocket_logged_in_cookie = 'wordpress_logged_in_7e6819ddde90a2b65fa18698fb0fd22f';
 $rocket_cache_mobile_files_tablet = 'desktop';
 $rocket_cache_mobile = 1;
-$rocket_cache_reject_uri = '/(.+/)?feed/?.+/?|/(?:.+/)?embed/|/(index\.php/)?wp\-json(/.*|$)';
+$rocket_cache_reject_uri = '/(.+/)?feed/?.+/?|/(?:.+/)?embed/|/checkout/(.*)|/cart/|/my-account/(.*)|/wc-api/v(.*)|/(index\.php/)?wp\-json(/.*|$)';
 $rocket_cache_reject_cookies = 'wp-postpass_|wptouch_switch_toggle|comment_author_|comment_author_email_';
 $rocket_cache_reject_ua = 'facebookexternalhit';
 $rocket_cache_query_strings = array();
-$rocket_secret_cache_key = '5fe9143b06197173664701';
+$rocket_secret_cache_key = '601afceebe80d205527058';
 $rocket_cache_ssl = 1;
 $rocket_do_caching_mobile_files = 0;
 $rocket_cache_ignored_parameters = array(
@@ -47,9 +47,4 @@ $rocket_cache_ignored_parameters = array(
   'sscid' => 1,
 );
 $rocket_cache_mandatory_cookies = '';
-$rocket_cache_dynamic_cookies = array(
-  0 => 'ct-ultimate-gdpr-cookie-level',
-  1 => 'ct-ultimate-gdpr-terms-level',
-  2 => 'ct-ultimate-gdpr-policy-level',
-  3 => 'woocommerce_current_currency',
-);
+$rocket_cache_dynamic_cookies = array();

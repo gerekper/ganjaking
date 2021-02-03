@@ -98,11 +98,13 @@ class SegmentEntity extends \MailPoet\Entities\SegmentEntity implements \MailPoe
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     public function __clone()
     {
         $this->__cloner__ && $this->__cloner__->__invoke($this, '__clone', []);
+
+        parent::__clone();
     }
 
     /**

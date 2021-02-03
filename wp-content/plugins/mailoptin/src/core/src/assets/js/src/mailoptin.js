@@ -231,7 +231,8 @@ define(['jquery', 'js.cookie', 'mailoptin_globals', 'pikaday', 'moModal', 'moExi
 
             load_adblock_detect_script: function () {
                 var ad = document.createElement('script');
-                ad.src = mailoptin_globals.public_js + '/showads.js';
+                // lists of terms blocked https://easylist.to/easylist/easylist.txt
+                ad.src = mailoptin_globals.public_js + '/ad-m.js';
                 ad.async = true;
 
                 // Attempt to append it to the <head>, otherwise append to the document.
@@ -620,16 +621,26 @@ define(['jquery', 'js.cookie', 'mailoptin_globals', 'pikaday', 'moModal', 'moExi
                         optin_uuid = optin_config.optin_uuid;
 
                     $(window).on('resize.MoBarTop', function () {
-                        var cache = $('#' + optin_uuid);
-                        var mHeight = cache.outerHeight();
 
-                        if ($(window).width() <= 600) {
-                            mHeight -= $("#wpadminbar").outerHeight();
-                        }
+                        setTimeout(function () {
 
-                        mHeight = $.MailOptin.activeBarHeight = originalMargin + mHeight;
+                            var cache = $('#' + optin_uuid + '_bar'),
+                                cache2 = $("#wpadminbar"),
+                                mHeight = cache.outerHeight();
 
-                        $(document.body).css('margin-top', originalMargin + mHeight + 'px');
+                            if ($(window).width() <= 600 && cache2.length > 0) {
+                                if ($('#' + optin_uuid + '.mo-optin-form-bar-sticky').length > 0) {
+                                    mHeight -= cache2.outerHeight();
+                                } else {
+                                    mHeight += cache2.outerHeight();
+                                }
+                            }
+
+                            mHeight = $.MailOptin.activeBarHeight = originalMargin + mHeight;
+
+                            $(document.body).css('margin-top', originalMargin + mHeight + 'px');
+
+                        }, 500)
                     });
 
                     // init

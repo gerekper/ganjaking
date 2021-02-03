@@ -36,7 +36,7 @@ abstract class AbstractConnect
     {
         return add_query_arg([
             'redirect_url' => MAILOPTIN_CONNECTIONS_SETTINGS_PAGE,
-            'nonce'        => wp_create_nonce('mo_save_oauth_credentials')
+            'moconnect_nonce'        => wp_create_nonce('mo_save_oauth_credentials')
         ],
             MAILOPTIN_OAUTH_URL . "/$slug/"
         );

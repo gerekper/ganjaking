@@ -1351,11 +1351,11 @@ if ( class_exists( 'WC_Vendors' ) ) {
 			'orderby'             => 'desc',
 		);
 		$products                          = new WP_Query( $args );
-		$porto_woocommerce_loop['columns'] = isset( $porto_settings['product-related-cols'] ) ? $porto_settings['product-related-cols'] : $porto_settings['product-cols'];
-		if ( ! $porto_woocommerce_loop['columns'] ) {
-			$porto_woocommerce_loop['columns'] = 4;
-		}
 		if ( $products->have_posts() ) :
+			$porto_woocommerce_loop['columns'] = isset( $porto_settings['product-related-cols'] ) ? $porto_settings['product-related-cols'] : $porto_settings['product-cols'];
+			if ( ! $porto_woocommerce_loop['columns'] ) {
+				$porto_woocommerce_loop['columns'] = 4;
+			}
 			?>
 			<div class="related products">
 				<h2 class="slider-title"><span class="inline-title"><?php esc_html_e( 'More from this seller&hellip;', 'porto' ); ?></span></h2>

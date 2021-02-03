@@ -503,7 +503,10 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 
 			add_filter(
 				'elementor/document/config',
-				function( $config = array(), $post_id ) {
+				function( $config, $post_id ) {
+					if ( empty( $config ) ) {
+						$config = array();
+					}
 					if ( ! isset( $config['settings'] ) ) {
 						$config['settings'] = array();
 					}

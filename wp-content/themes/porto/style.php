@@ -43,7 +43,7 @@ if ( ! function_exists( 'porto_if_light' ) ) {
 	}
 }
 if ( ! function_exists( 'porto_calc_container_width' ) ) :
-	function porto_calc_container_width( $container, $flag = false, $container_width, $grid_gutter_width ) {
+	function porto_calc_container_width( $container, $flag, $container_width, $grid_gutter_width ) {
 		if ( ! $flag ) :
 			?>
 			@media (min-width: 768px) {
@@ -700,7 +700,7 @@ ul.products,
 		.page-header-8 li { line-height: 3.521875rem; }
 		.page-header-8 li a { color: <?php echo porto_if_light( '#222529', '#eee' ); ?>; font-family: 'Poppins', <?php echo sanitize_text_field( $b['h3-font']['font-family'] ); ?>, sans-serif; text-decoration: none;  font-size: 1.25rem; font-weight: 700; letter-spacing: -.03em; transition: opacity .3s; vertical-align: middle; }
 		.page-header-8 li.disable a { pointer-events: none; }
-		.page-header-8 li .delimiter.delimiter-2 { color: <?php echo porto_if_light( '#222529', '#eee' ); ?>; font-size: 1.875rem; font-weight: 700; margin: 0 1.2rem; float: left; }
+		.page-header-8 li .delimiter.delimiter-2 { color: <?php echo porto_if_light( '#222529', '#eee' ); ?>; font-size: 1.875rem; font-weight: 700; margin: 0 1.2rem; float: <?php echo porto_filter_output( $left ); ?>; }
 		.page-header-8 li.current~li a, .page-header-8 li.current~li .delimiter { opacity: .5; }
 		.page-header-8 li.current a, .page-header-8 li:not(.disable) a:hover { color: var(--primary); opacity: 1; }
 	<?php endif; ?>
