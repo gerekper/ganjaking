@@ -7022,14 +7022,12 @@ rs-module .material-icons {
 		$s	= $this->slider; //shorten
 		$fb	= array();
 		
-		$dpz = $s->get_param(array('general', 'disablePanZoomMobile'), false);
-		$wro = $s->get_param(array('general', 'observeWrap'), false);
+		$dpz = $s->get_param(array('general', 'disablePanZoomMobile'), false);		
 		$sii = $s->get_param(array('troubleshooting', 'simplify_ie8_ios4'), true); //was false
 		$dfl = $s->get_param(array('general', 'disableFocusListener'), false);		
 		$urlhash = $s->get_param(array('general', 'enableurlhash'), false);		
 		$apvom = $s->get_param(array('general', 'autoPlayVideoOnMobile'), true);		
-		if($dpz !== false) $fb['panZoomDisableOnMobile'] = $dpz;
-		if($wro !== false) $fb['observeWrap'] = $wro;
+		if($dpz !== false) $fb['panZoomDisableOnMobile'] = $dpz;		
 		if($sii !== false) $fb['simplifyAll'] = $sii;
 		if($s->get_param('type', 'standard') !== 'hero'){
 			$nsof = $s->get_param(array('general', 'nextSlideOnFocus'), false);
@@ -7652,6 +7650,10 @@ rs-module .material-icons {
 			),
 			'keepBPHeight' => array(
 				'v' => $s->get_param(array('size', 'keepBPHeight'), false),
+				'd' => false
+			),
+			'observeWrap' => array(
+				'v' => $s->get_param(array('general', 'observeWrap'), false),
 				'd' => false
 			)
 		);

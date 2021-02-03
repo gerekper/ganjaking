@@ -1,5 +1,9 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2021.01.29 - version 3.1.24
+* Fix - Prevent 'Incorrect subscription scheme applied to cart item' notice when ordering again products without subscription plans.
+* Fix - WooCommerce Importer fails when the '_wcsatt_schemes' meta is missing from the CSV file.
+
 2021.01.15 - version 3.1.23
 * Fix - PHP warning due to use of deprecated function 'WC_Admin_Note::set_note'.
 

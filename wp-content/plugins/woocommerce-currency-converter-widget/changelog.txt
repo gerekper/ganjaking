@@ -1,5 +1,8 @@
 *** Currency Converter Changelog ***
 
+2021-01-28 - version 1.6.25
+* Fix minification of conversion.js. PR#87
+
 2021-01-28 - version 1.6.24
 * Fix   - Compatibility with WC core blocks. PR#78
 * Fix   - Compatibility with Jetpack infinite scroll. PR#79

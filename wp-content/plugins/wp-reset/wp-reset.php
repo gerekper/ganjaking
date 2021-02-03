@@ -3,7 +3,7 @@
   Plugin Name: WP Reset PRO
   Plugin URI: https://wpreset.com/
   Description: Easily undo any change on the site by restoring a snapshot, or reset the entire site or any of its parts to the default values.
-  Version: 5.78
+  Version: 5.80
   Author: WebFactory Ltd
   Author URI: https://www.webfactoryltd.com/
   Text Domain: wp-reset
@@ -308,8 +308,8 @@ class WP_Reset
             $this->log = get_option('wp-reset-log', array());
         }
 
-        if (count($this->log) > 1000) {
-            $this->log = array_slice($this->log, -1000, 1000, true);
+        if (count($this->log) > 5000) {
+            $this->log = array_slice($this->log, -5000, 5000, true);
         }
 
         if ($message !== false) {
@@ -2988,12 +2988,10 @@ class WP_Reset
 
         $support_link = '<a target="_blank" href="' . $this->generate_web_link('plugins-table-right', '/support/') . '" title="' . __('Get help', 'wp-reset') . '">' . __('Support', 'wp-reset') . '</a>';
         $home_link = '<a target="_blank" href="' . $this->generate_web_link('plugins-table-right') . '" title="' . __('Plugin Homepage', 'wp-reset') . '">' . __('Plugin Homepage', 'wp-reset') . '</a>';
-        $rate_link = '<a target="_blank" href="https://wordpress.org/support/plugin/wp-reset/reviews/#new-post" title="' . __('Rate the plugin', 'wp-reset') . '">' . __('Rate the plugin ★★★★★', 'wp-reset') . '</a>';
-
+        
         $links[] = $support_link;
         $links[] = $home_link;
-        $links[] = $rate_link;
-
+        
         return $links;
     } // plugin_meta_links
 
@@ -3028,7 +3026,7 @@ class WP_Reset
             return $text;
         }
 
-        $text = '<i class="wpr-footer"><a href="' . $this->generate_web_link('admin_footer') . '" title="' . __('Visit WP Reset page for more info', 'wp-reset') . '" target="_blank">WP Reset PRO</a> v' . $this->version . '. Please <a target="_blank" href="https://wordpress.org/support/plugin/wp-reset/reviews/#new-post" title="Rate the plugin">rate the plugin <span>★★★★★</span></a> to help us spread the word. Thank you from the WP Reset team!</i>';
+        $text = '<i class="wpr-footer"><a href="' . $this->generate_web_link('admin_footer') . '" title="' . __('Visit WP Reset page for more info', 'wp-reset') . '" target="_blank">WP Reset PRO</a> v' . $this->version . '</i>';
 
         return $text;
     } // admin_footer_text
@@ -4011,8 +4009,9 @@ class WP_Reset
             echo '<p>Replace current WordPress version with the selected new version. Switching from a previous version, to a newer version is mostly supported and properly handled by the WP installer. Reverting WordPress, rolling back WordPress to a previous version is not supported. Results may vary!</p>';
 
             echo $this->get_tool_icons(true, true);
-
+           
             $wp_versions = $wp_reset_tools->get_wordpress_versions();
+            
             echo '<label for="select-wp-version">Available WordPress versions:</label> ';
             echo '<select id="select-wp-version">';
             echo '<option value="">select WordPress version</option>';
@@ -5349,7 +5348,7 @@ class WP_Reset
                 return new WP_Error(1, 'Can\'t get table status data.');
             }
         } else {
-            require_once $this->plugin_dir . 'libs/dumper.php';
+            require_once $this->plugin_dir . 'libs/wpr_db_dumper.php';
 
             $dump_file_path = $this->export_dir_path('wp-reset-snapshot-' . $uid . '.sql.gz');
             if (is_wp_error($dump_file_path)) {
@@ -5369,6 +5368,7 @@ class WP_Reset
                     'db_name' =>  DB_NAME,
                 ));
 
+                $this->log('success', 'Start full dump for '. $uid . '_ to ' . $dump_file_path);
                 $world_dumper->dump($dump_file_path, $uid . '_');
             } catch (WPR_Shuttle_Exception $e) {
                 return new WP_Error(1, 'Couldn\'t create snapshot: ' . $e->getMessage());
@@ -5402,7 +5402,7 @@ class WP_Reset
 
         switch ($step_data['action']) {
             case 'export':
-                require_once $this->plugin_dir . 'libs/dumper.php';
+                require_once $this->plugin_dir . 'libs/wpr_db_dumper.php';
                 try {
                     $db_info = $this->get_db_info();
                     clearstatcache();
@@ -5415,6 +5415,7 @@ class WP_Reset
                         'db_name' =>  DB_NAME,
                     ));
 
+                    $this->log('success', 'Start individual table dump for '. $step_data['data'] . ' to ' . $dump_file_path);
                     $world_dumper->dump($dump_file_path, $step_data['data']);
                 } catch (WPR_Shuttle_Exception $e) {
                     return new WP_Error(1, 'Couldn\'t create snapshot: ' . $e->getMessage());

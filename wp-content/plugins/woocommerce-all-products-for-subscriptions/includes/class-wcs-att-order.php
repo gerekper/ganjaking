@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Order hooks for saving/restoring the subscription state of a product to/from order item data.
  *
  * @class    WCS_ATT_Order
- * @version  3.1.19
+ * @version  3.1.24
  */
 class WCS_ATT_Order {
 
@@ -184,7 +184,7 @@ class WCS_ATT_Order {
 			'cart_item' => $cart_item
 		) );
 
-		if ( is_null( $scheme_key ) ) {
+		if ( is_null( $scheme_key ) && ! empty( $subscription_schemes ) ) {
 			$scheme_key = false;
 		}
 

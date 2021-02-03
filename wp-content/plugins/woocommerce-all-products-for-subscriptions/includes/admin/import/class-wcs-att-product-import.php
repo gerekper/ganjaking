@@ -38,6 +38,10 @@ class WCS_ATT_Product_Import {
 	 */
 	public static function parse_subscription_schemes( $parsed_data, $importer ) {
 
+		if ( empty( $parsed[ 'meta_data' ] ) ) {
+			return $parsed_data;
+		}
+		
 		foreach ( $parsed_data[ 'meta_data' ] as $meta_data_index => $meta_data ) {
 			if ( '_wcsatt_schemes' === $meta_data[ 'key' ] ) {
 				if ( ! empty( $meta_data[ 'value' ] ) ) {

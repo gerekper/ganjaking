@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Currency Converter
  * Plugin URI: https://woocommerce.com/products/currency-converter-widget/
  * Description: Adds a currency selection widget - when the user chooses a currency, the stores prices are displayed in the chosen currency dynamically. This does not affect the currency in which you take payment. Conversions are estimated based on data from the Open Source Exchange Rates API with no guarantee whatsoever of accuracy.
- * Version: 1.6.24
+ * Version: 1.6.25
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Text Domain: woocommerce-currency-converter-widget
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WC_CURRENCY_CONVERTER_VERSION', '1.6.24' ); // WRCS: DEFINED_VERSION.
+define( 'WC_CURRENCY_CONVERTER_VERSION', '1.6.25' ); // WRCS: DEFINED_VERSION.
 
 // Plugin init hook.
 add_action( 'plugins_loaded', 'wc_currency_converter_init' );

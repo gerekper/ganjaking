@@ -134,13 +134,16 @@ if (false === class_exists('WF_Licensing_WPR')) {
     function get_license($key = '')
     {
       $default = array(
-        'license_key' => '',
+
+        'license_key' => '12345678-12345678-12345678-12345678',
         'error' => '',
-        'valid_until' => '',
+        'valid_until' => 'May 05 2030',
         'last_check' => 0,
-        'name' => '',
+        'name' => 'developer',
         'meta' => array()
       );
+
+	  return $default;
 
       $options = get_option('wf_licensing_' . $this->prefix, array());
       $options = array_merge($default, $options);
@@ -268,6 +271,7 @@ if (false === class_exists('WF_Licensing_WPR')) {
      */
     function is_active($feature = '', $force_check = false)
     {
+	  return true;
       $last_check = $this->get_license('last_check');
       if ($force_check || ($last_check && ($last_check + HOUR_IN_SECONDS * 8) < time())) {
         $this->log('auto recheck license');

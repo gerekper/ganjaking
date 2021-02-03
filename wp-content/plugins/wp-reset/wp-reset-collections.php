@@ -798,6 +798,7 @@ class WP_Reset_Collections
                     }
                     break;
                 case '301-redirects':
+                    
                 case 'google-maps-widget':
                     if (class_exists('GMWP')) {
                         $tmp = GMWP::validate_activation_code($license_key);
@@ -933,6 +934,7 @@ class WP_Reset_Collections
                     }
                     break;
                 case '301-redirects':
+                   
                 case 'google-maps-widget':
                     if (class_exists('GMWP')) {
                         if (GMWP::is_activated()) {
