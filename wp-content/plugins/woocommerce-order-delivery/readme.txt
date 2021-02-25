@@ -3,11 +3,11 @@ Contributors: woocommerce, themesquad
 Tags: woocommerce, delivery, date
 Requires at least: 4.4
 Tested up to: 5.6
-Stable tag: 1.8.5
+Stable tag: 1.8.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.0
-WC tested up to: 4.9
+WC tested up to: 5.1
 Woo: 976514:beaa91b8098712860ec7335d3dca61c0
 
 Choose a delivery date during checkout for the order.
@@ -49,6 +49,16 @@ With the capture of the date delivery, you can process the orders more efficient
 Visit our [Product page](http://docs.woocommerce.com/document/woocommerce-order-delivery/) to read the documentation and get support.
 
 == Changelog ==
+
+= 1.8.6 February 23, 2021 =
+* Tweak - Replaced deprecated jQuery functionality.
+* Tweak - Delete the plugin configuration on uninstall only when WC_REMOVE_ALL_DATA is set to true.
+* Tweak - Delete empty delivery time frame values from the order metadata.
+* Tweak - Count for the delivery range the dates whose order limit has been reached.
+* Tweak - Tested compatibility up to WC 5.1.
+* Dev - Updated bootstrap-datepicker.js library to an untagged version that fixes the usage of deprecated jQuery functions.
+* Dev - Updated fullcalendar.js library to version 2.9.2.
+* Dev - Updated jquery.timepicker.js library to version 1.13.18.
 
 = 1.8.5 January 18, 2021 =
 * Tweak - Exclude pending orders when checking the maximum number of orders per day/time frame.

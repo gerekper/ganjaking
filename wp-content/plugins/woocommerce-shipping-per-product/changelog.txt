@@ -1,5 +1,8 @@
 *** Shipping Per Product Changelog ***
 
+2021-02-09 - version 2.3.13
+* Fix - Possible conflict with Advanced Shipping Packages.
+
 2020-10-06 - version 2.3.12
 * Tweak - WC 4.5 compatibility.
 

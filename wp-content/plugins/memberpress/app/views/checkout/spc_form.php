@@ -14,7 +14,7 @@
       <?php wp_referer_field(); ?>
     <?php endif; ?>
 
-    <?php if( ($product->register_price_action != 'hidden') && MeprHooks::apply_filters('mepr_checkout_show_terms',true) ): ?>
+    <?php if( ($product->register_price_action != 'hidden') && MeprHooks::apply_filters('mepr_checkout_show_terms',true,$product) ): ?>
       <div class="mp-form-row mepr_bold mepr_price">
         <?php $price_label = ($product->is_one_time_payment() ? _x('Price:', 'ui', 'memberpress') : _x('Terms:', 'ui', 'memberpress')); ?>
         <div class="mepr_price_cell_label"><?php echo $price_label; ?></div>
@@ -83,14 +83,24 @@
             <label for="mepr_user_password<?php echo $unique_suffix; ?>"><?php _ex('Password:*', 'ui', 'memberpress'); ?></label>
             <span class="cc-error"><?php _ex('Invalid Password', 'ui', 'memberpress'); ?></span>
           </div>
-          <input type="password" name="mepr_user_password" id="mepr_user_password<?php echo $unique_suffix; ?>" class="mepr-form-input mepr-password" value="<?php echo (isset($mepr_user_password))?esc_attr(stripslashes($mepr_user_password)):''; ?>" required />
+          <div class="mp-hide-pw">
+            <input type="password" name="mepr_user_password" id="mepr_user_password<?php echo $unique_suffix; ?>" class="mepr-form-input mepr-password" value="<?php echo (isset($mepr_user_password))?esc_attr(stripslashes($mepr_user_password)):''; ?>" required />
+            <button type="button" class="button mp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Show password', 'memberpress' ); ?>">
+              <span class="dashicons dashicons-visibility" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
         <div class="mp-form-row mepr_password_confirm">
           <div class="mp-form-label">
             <label for="mepr_user_password_confirm<?php echo $unique_suffix; ?>"><?php _ex('Password Confirmation:*', 'ui', 'memberpress'); ?></label>
             <span class="cc-error"><?php _ex('Password Confirmation Doesn\'t Match', 'ui', 'memberpress'); ?></span>
           </div>
-          <input type="password" name="mepr_user_password_confirm" id="mepr_user_password_confirm<?php echo $unique_suffix; ?>" class="mepr-form-input mepr-password-confirm" value="<?php echo (isset($mepr_user_password_confirm))?esc_attr(stripslashes($mepr_user_password_confirm)):''; ?>" required />
+          <div class="mp-hide-pw">
+            <input type="password" name="mepr_user_password_confirm" id="mepr_user_password_confirm<?php echo $unique_suffix; ?>" class="mepr-form-input mepr-password-confirm" value="<?php echo (isset($mepr_user_password_confirm))?esc_attr(stripslashes($mepr_user_password_confirm)):''; ?>" required />
+            <button type="button" class="button mp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Show password', 'memberpress' ); ?>">
+              <span class="dashicons dashicons-visibility" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
         <?php MeprHooks::do_action('mepr-after-password-fields'); //Deprecated ?>
         <?php MeprHooks::do_action('mepr-checkout-after-password-fields', $product->ID); ?>
@@ -100,7 +110,7 @@
     <?php MeprHooks::do_action('mepr-before-coupon-field'); //Deprecated ?>
     <?php MeprHooks::do_action('mepr-checkout-before-coupon-field', $product->ID); ?>
 
-    <?php if($product->adjusted_price($mepr_coupon_code) > 0.00 || !empty($product->plan_code)): ?>
+    <?php if($payment_required || !empty($product->plan_code)): ?>
       <?php if($mepr_options->coupon_field_enabled): ?>
         <a class="have-coupon-link" data-prdid="<?php echo $product->ID; ?>" href="">
           <?php echo MeprCouponsHelper::show_coupon_field_link_content($mepr_coupon_code); ?>

@@ -131,7 +131,12 @@ class CDN extends Abstract_Module {
 
 		// We do this to save extra checks when we load images later on in code.
 		$this->site_url = get_site_url();
-		$this->home_url = get_home_url();
+
+		if ( is_multisite() && ! is_subdomain_install() ) {
+			$this->home_url = get_home_url( get_current_site()->id );
+		} else {
+			$this->home_url = get_home_url();
+		}
 
 		$this->init_parser();
 
@@ -141,8 +146,9 @@ class CDN extends Abstract_Module {
 		$priority = defined( 'WP_SMUSH_CDN_DELAY_SRCSET' ) && WP_SMUSH_CDN_DELAY_SRCSET ? 1000 : 99;
 		// Update responsive image srcset and sizes if required.
 		add_filter( 'wp_calculate_image_srcset', array( $this, 'update_image_srcset' ), $priority, 5 );
-		add_filter( 'wp_calculate_image_sizes', array( $this, 'update_image_sizes' ), 1, 2 );
-
+		if ( $this->settings->get( 'auto_resize' ) ) {
+			add_filter( 'wp_calculate_image_sizes', array( $this, 'update_image_sizes' ), 1, 2 );
+		}
 		// Add resizing arguments to image src.
 		add_filter( 'smush_image_cdn_args', array( $this, 'update_cdn_image_src_args' ), 99, 3 );
 

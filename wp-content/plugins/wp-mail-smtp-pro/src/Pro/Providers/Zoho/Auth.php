@@ -207,20 +207,29 @@ class Auth extends AuthAbstract {
 	 */
 	public function process() {
 
+		$redirect_url         = wp_mail_smtp()->get_admin()->get_admin_page_url();
+		$is_setup_wizard_auth = ! empty( $this->options['is_setup_wizard_auth'] );
+
+		if ( $is_setup_wizard_auth ) {
+			$this->update_is_setup_wizard_auth( false );
+
+			$redirect_url = \WPMailSMTP\Admin\SetupWizard::get_site_url() . '#/step/configure_mailer/zoho';
+		}
+
 		// Verify the nonce that should be returned in the state parameter.
 		if ( isset( $_GET['state'] ) && ! wp_verify_nonce( $_GET['state'], $this->state_key ) ) { //phpcs:ignore
 			wp_safe_redirect(
 				add_query_arg(
 					'error',
 					'zoho_invalid_nonce',
-					wp_mail_smtp()->get_admin()->get_admin_page_url()
+					$redirect_url
 				)
 			);
 			exit;
 		}
 
 		if ( ! ( isset( $_GET['tab'] ) && $_GET['tab'] === 'auth' ) ) {
-			wp_safe_redirect( wp_mail_smtp()->get_admin()->get_admin_page_url() );
+			wp_safe_redirect( $redirect_url );
 			exit;
 		}
 
@@ -230,7 +239,7 @@ class Auth extends AuthAbstract {
 				add_query_arg(
 					'error',
 					'zoho_no_clients',
-					wp_mail_smtp()->get_admin()->get_admin_page_url()
+					$redirect_url
 				)
 			);
 			exit;
@@ -246,7 +255,7 @@ class Auth extends AuthAbstract {
 				add_query_arg(
 					'error',
 					'zoho_' . $error,
-					wp_mail_smtp()->get_admin()->get_admin_page_url()
+					$redirect_url
 				)
 			);
 			exit;
@@ -256,6 +265,7 @@ class Auth extends AuthAbstract {
 
 		// Try to save the auth code.
 		if ( ! empty( $code ) ) {
+			Debug::clear();
 			$this->update_auth_code( $code );
 			$this->get_client( true );
 		} else {
@@ -263,17 +273,32 @@ class Auth extends AuthAbstract {
 				add_query_arg(
 					'error',
 					'zoho_no_code',
-					wp_mail_smtp()->get_admin()->get_admin_page_url()
+					$redirect_url
 				)
 			);
 			exit;
+		}
+
+		if ( $is_setup_wizard_auth ) {
+			$error = Debug::get_last();
+
+			if ( ! empty( $error ) ) {
+				wp_safe_redirect(
+					add_query_arg(
+						'error',
+						'zoho_unsuccessful_oauth',
+						$redirect_url
+					)
+				);
+				exit;
+			}
 		}
 
 		wp_safe_redirect(
 			add_query_arg(
 				'success',
 				'zoho_site_linked',
-				wp_mail_smtp()->get_admin()->get_admin_page_url()
+				$redirect_url
 			)
 		);
 		exit;

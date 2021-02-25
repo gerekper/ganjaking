@@ -16,11 +16,13 @@ class MePdfMPDF extends MePdfBaseGenerator {
     $this->paper_orientation = $mepr_options->attr( 'biz_invoice_paper_orientation' );
 
     $this->config = array(
-      'mode'     => $mepr_options->attr( 'biz_invoice_font' ) == 'core' ? 'c' : 'utf-8',
+      'mode'     => $mepr_options->attr( 'biz_invoice_font' ) == 'core' ? 'c' : '+aCJK',
       'tempDir'  => $this->get_tempdir(),
       'fontdata' => $this->get_fonts(),
       'fontDir'  => $this->font_path(),
       'format'   => $this->paper_size . '-' . $this->paper_orientation,
+      'autoScriptToLang'  => true,
+      'autoLangToFont'    => true,
     );
   }
 

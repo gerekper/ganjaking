@@ -44,7 +44,12 @@ class Options extends OptionsAbstract {
 					'https://wpmailsmtp.com/docs/how-to-set-up-the-outlook-mailer-in-wp-mail-smtp/'
 				),
 				'notices'     => [
-					'educational' => esc_html__( 'The Outlook mailer is a great choice if you\'re already using paid email services with Microsoft, as you\'ll have the benefit of high email sending limits without signing up for a separate service. Due to the fairly complex setup, however, this option is recommended for more technical users. If you\'d prefer a more straightforward setup, then we\'d recommend considering one of the other mailer options.', 'wp-mail-smtp-pro' ),
+					'educational' => wp_kses(
+						__( 'The Outlook mailer is a great choice if you\'re already using paid email services with Microsoft, as you\'ll have the benefit of high email sending limits without signing up for a separate service. Due to the fairly complex setup, however, this option is recommended for more technical users.<br><br>If you\'d prefer a more straightforward setup, then we\'d recommend considering one of the other mailer options.', 'wp-mail-smtp-pro' ),
+						[
+							'br' => [],
+						]
+					),
 				],
 				'php'         => '5.6',
 				'supports'    => [
@@ -190,7 +195,7 @@ class Options extends OptionsAbstract {
 
 					if ( ! empty( $user['email'] ) && ! empty( $user['display_name'] ) ) {
 						printf(
-							/* translators: %s - Display name and email, as received from Microsoft API. */
+							/* translators: %s - Display name and email, as received from oAuth provider. */
 							esc_html__( 'Connected as %s', 'wp-mail-smtp-pro' ),
 							'<code>' . esc_html( $user['display_name'] . ' <' . $user['email'] . '>' ) . '</code>'
 						);

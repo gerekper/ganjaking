@@ -1,5 +1,9 @@
 *** Sale Flash Pro Changelog ***
 
+2021-02-11 - version 1.2.20
+* Tweak - WC 5.0 compatibility.
+* Tweak - WP 5.6 compatibility.
+
 2020-10-06 - version 1.2.19
 * Tweak - WC 4.5 compatibility.
 

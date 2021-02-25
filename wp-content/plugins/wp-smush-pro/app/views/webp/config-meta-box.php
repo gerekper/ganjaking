@@ -263,7 +263,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 		<span class="sui-description">
 			<?php
-			esc_html_e( 'Note: This feature won’t delete the WebP files converted via CDN, only the files generated via the local WebP feature.', 'wp-smushit' );
+			esc_html_e( 'This feature won’t delete the WebP files converted via CDN, only the files generated via the local WebP feature.', 'wp-smushit' );
 			?>
 		</span>
 	</div>
@@ -286,14 +286,15 @@ if ( ! defined( 'WPINC' ) ) {
 	</div>
 
 	<div class="sui-box-settings-col-2">
-		<p class="sui-description" style="margin-bottom: 5px;">
-			<?php esc_html_e( 'Note: Deactivation won’t delete existing WebP images.', 'wp-smushit' ); ?>
-		</p>
 		<button class="sui-button sui-button-ghost" id="smush-toggle-webp-button" data-action="disable">
 			<span class="sui-loading-text">
 				<i class="sui-icon-power-on-off" aria-hidden="true"></i><?php esc_html_e( 'Deactivate', 'wp-smushit' ); ?>
 			</span>
 			<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
 		</button>
+
+		<span class="sui-description">
+			<?php esc_html_e( 'Deactivation won’t delete existing WebP images.', 'wp-smushit' ); ?>
+		</span>
 	</div>
 </div>

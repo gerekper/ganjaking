@@ -1,5 +1,11 @@
 *** WooCommerce Product Bundles ***
 
+2021.02.05 - version 6.7.3
+* Fix - Fixed PHP 8 'Required parameter $cart_item_data follows optional parameter $quantity' warning.
+* Fix - 'Add' checkbox not working for Variable bundled items when configuring Product Bundles in editable orders.
+* Fix - Fixed a rare infinite loop affecting bundle-sells when using Memberships, Subscriptions, All Products For Subscriptions, and Product Bundles.
+* Tweak - Reduce movement on the screen by keeping the 'Clear' variation attributes link visible at all times.
+
 2021.01.15 - version 6.7.2
 * Fix - PHP warning on activation due to use of deprecated function 'WC_Admin_Note::set_note'.
 * Tweak - Append plugin version number to @font-face file names for improved compatibility with CDN plugins.

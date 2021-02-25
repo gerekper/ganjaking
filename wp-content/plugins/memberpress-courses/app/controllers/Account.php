@@ -80,12 +80,12 @@ class Account extends lib\BaseCtrl {
       foreach ($course_posts as $course) {
         $current_user = lib\Utils::get_currentuserinfo();
         $mepr_user = new \MeprUser($current_user->ID);
-        if(!\MeprRule::is_locked_for_user($mepr_user, $course)) {
+        if(lib\Utils::is_logged_in_and_an_admin() || !\MeprRule::is_locked_for_user($mepr_user, $course)) {
           $my_courses[] = new models\Course($course->ID);
         }
       }
 
-      require_once(base\VIEWS_PATH . '/account/course_list.php');
+      require(base\VIEWS_PATH . '/account/course_list.php');
     }
     // Don't render
   }

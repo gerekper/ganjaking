@@ -25,14 +25,14 @@ class Google_Service_Gmail_ListDraftsResponse extends \WPMailSMTP\Vendor\Google_
     public $nextPageToken;
     public $resultSizeEstimate;
     /**
-     * @param Google_Service_Gmail_Draft
+     * @param Google_Service_Gmail_Draft[]
      */
     public function setDrafts($drafts)
     {
         $this->drafts = $drafts;
     }
     /**
-     * @return Google_Service_Gmail_Draft
+     * @return Google_Service_Gmail_Draft[]
      */
     public function getDrafts()
     {

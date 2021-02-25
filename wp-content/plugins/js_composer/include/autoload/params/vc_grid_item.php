@@ -144,7 +144,7 @@ function vc_gitem_create_link_real( $atts, $post, $default_class = '', $title = 
 			) );
 			$link = 'a href="' . esc_url( $href_link ) . '" class="' . esc_attr( $link_css_class ) . '"';
 		} elseif ( 'image_lightbox' === $atts['link'] ) {
-			$link = 'a' . vc_gitem_template_attribute_post_image_url_attr_prettyphoto( '', array(
+			$link = 'a' . vc_gitem_template_attribute_post_image_url_attr_lightbox( '', array(
 				'post' => $post,
 				'data' => esc_attr( $link_css_class ),
 			) );
@@ -154,7 +154,7 @@ function vc_gitem_create_link_real( $atts, $post, $default_class = '', $title = 
 		$title_attr = ' title="' . esc_attr( $title ) . '"';
 	}
 
-	return apply_filters( 'vc_gitem_post_data_get_link_real_link', $link, $atts, $post, $link_css_class ) . apply_filters( 'vc_gitem_post_data_get_link_real_target', $target, $atts, $post ) . apply_filters( 'vc_gitem_post_data_get_link_real_rel', $rel, $atts, $post ) . apply_filters( 'vc_gitem_post_data_get_link_real_title', $title_attr, $atts );
+	return apply_filters( 'vc_gitem_post_data_get_link_real_link', $link, $atts, $post, $link_css_class ) . apply_filters( 'vc_gitem_post_data_get_link_real_target', $target, $atts, $post ) . apply_filters( 'vc_gitem_post_data_get_link_real_rel', $rel, $atts, $post ) . apply_filters( 'vc_gitem_post_data_get_link_real_title', $title_attr, $atts, $post );
 }
 
 /**

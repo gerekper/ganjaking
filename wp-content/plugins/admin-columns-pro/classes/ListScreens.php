@@ -46,6 +46,7 @@ class ListScreens implements Registrable {
 
 		$list_screens[] = new ListScreen\Media();
 		$list_screens[] = new ListScreen\Comment();
+		$list_screens[] = new ListScreen\Post( 'wp_block' );
 
 		foreach ( $this->get_taxonomies() as $taxonomy ) {
 			$list_screens[] = new ListScreen\Taxonomy( $taxonomy );

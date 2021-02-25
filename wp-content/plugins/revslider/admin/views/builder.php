@@ -13,6 +13,7 @@ $slider = new RevSliderSlider();
 $slide = new RevSliderSlide();
 $rs_nav = new RevSliderNavigation();
 $wpml = new RevSliderWpml();
+$rs_favorite = new RevSliderFavorite();
 
 $slide_id = RevSliderFunctions::esc_attr_deep($rs_f->get_get_var('id'));
 $slide_alias = RevSliderFunctions::esc_attr_deep($rs_f->get_get_var('alias'));
@@ -31,7 +32,10 @@ $animationsRaw = $this->get_layer_animations(true);
 //get Image Sizes
 $img_sizes = $rs_f->get_all_image_sizes();
 
-
+//get transitions
+$rs_base_transitions = $rs_f->get_base_transitions();
+$rs_custom_transitions = $rs_f->get_custom_slidetransitions();														  
+$rs_favorite_transitions = $rs_favorite->get_favorite('slide_transitions');
 
 require_once(RS_PLUGIN_PATH . 'admin/views/modals-copyright.php');
 
@@ -250,11 +254,7 @@ require_once(RS_PLUGIN_PATH . 'admin/views/modals-copyright.php');
 										</div><!-- END OF LAYOUT SLIDE ELEMENT -->
 
 										<!-- TEMPLATE FOR SLIDE LI's -->
-										<div class="slide_li aable markable" data-multiplemark="false" data-updateruler="layergrid" id="slide_li_template">
-											<div class="slots_wrapper">
-												<rs-sbg-wrap class="slotwrapper_prev"><rs-sbg class="tp-bgimg defaultimg"></rs-sbg></rs-sbg-wrap>
-												<rs-sbg-wrap class="slotwrapper_cur"><rs-sbg class="tp-bgimg defaultimg"></rs-sbg></rs-sbg-wrap>
-											</div>
+										<div class="slide_li aable markable" data-multiplemark="false" data-updateruler="layergrid" id="slide_li_template">											
 											<div class="layer_grid" data-updateruler="layergrid"><div class="lg_topborder"></div><div class="lg_bottomborder"></div><div class="lg_leftborder"></div><div class="lg_rightborder"></div><div class="row_wrapper_top"></div><div class="row_wrapper_middle"></div><div class="row_wrapper_bottom"></div></div>
 										</div><!-- END OF TEMPLATE FOR SLIDE LI's -->
 
@@ -368,23 +368,12 @@ if(isset($animationsRaw['out'])){ ?>
 <?php
 }
 ?>		
-
-		//Build Transition Table
-		RVS.LIB.SLIDEANIMS = {	"basics":{alias:"Basics", "notransition":"No Transition","fade":"Fade","crossfade":"Fade Cross", "fadethroughdark":"Fade Through Black", "fadethroughlight":"Fade Through Light", "fadethroughtransparent":"Fade Through Transparent"},
-									"slidesimple":{alias:"Slide Simple","slideup": "Slide To Top", "slidedown": "Slide To Bottom","slideleft": "Slide To Left","slideright": "Slide To Right","slidevertical": "Slide Vertical ","slidehorizontal": "Slide Horizontal"},
-									"slideover":{alias:"Slide Over", "slideoverdown": "Slide Over To Bottom","slideoverhorizontal": "Slide Over Horizontal ","slideoverleft": "Slide Over To Left","slideoverright": "Slide Over To Right","slideoverup": "Slide Over To Top","slideoververtical": "Slide Over Vertical"},
-									"slideandremove":{alias:"Slide and Remove", "slideremovedown": "Slide Remove To Bottom","slideremovehorizontal": "Slide Remove Horizontal ","slideremoveleft": "Slide Remove To Left","slideremoveright": "Slide Remove To Right","slideremoveup": "Slide Remove To Top","slideremovevertical": "Slide Remove Vertical"},
-									"slidingoverlays":{alias:"Sliding Overlays", "slidingoverlaydown": "Sliding Overlays To Bottom","slidingoverlayhorizontal": "Sliding Overlays Horizontal ","slidingoverlayleft": "Sliding Overlays To Left","slidingoverlayright": "Sliding Overlays To Right","slidingoverlayup": "Sliding Overlays To Top","slidingoverlayvertical": "Sliding Overlays Vertical"},
-									"fadeandslide":{alias:"Fade & Slide", "fadefrombottom": "Fade & Slide from Bottom","fadefromleft": "Fade & Slide from Left","fadefromright": "Fade & Slide from Right","fadefromtop": "Fade & Slide from Top","fadetobottomfadefromtop": "To Bottom From Top","fadetoleftfadefromright": "To Left From Right","fadetorightfadefromleft": "To Right From Left","fadetotopfadefrombottom": "To Top From Bottom"},
-									"slotsandboxes":{alias:"Slots and Boxes", "slotfade-horizontal": "Fade Slots Horizontal","slotfade-vertical": "Fade Slots Vertical","slotslide-horizontal": "Slide Slots Horizontal","slotslide-vertical": "Slide Slots Vertical","boxfade": "Fade Boxes","boxslide": "Slide Boxes","boxrandomrotate": "Random Box Rotate"},
-									"parallax":{alias:"Parallax", "parallaxhorizontal": "Parallax Horizontal","parallaxtobottom": "Parallax to Bottom","parallaxtoleft": "Parallax to Left","parallaxtoright": "Parallax to Right","parallaxtotop": "Parallax to Top","parallaxvertical": "Parallax Vertical"},
-									"zoomt":{alias:"Zoom Transitions", "zoomin": "ZoomIn","zoomout": "ZoomOut","slotzoom-horizontal": "Zoom Slots Horizontal","slotzoom-vertical": "Zoom Slots Vertical","slotzoom-mixed": "Zoom Slots Mixed","scaledownfrombottom": "Zoom Out & Fade From Bottom","scaledownfromleft": "Zoom Out & Fade From Left","scaledownfromright": "Zoom Out & Fade From Right","scaledownfromtop": "Zoom Out & Fade From Top"},
-									"curtain":{alias:"Curtain Transitions", "curtain-1": "Curtain from Left","curtain-2": "Curtain from Right","curtain-3": "Curtain from Middle"},
-									"filters":{alias:"Filter Transitions", "blurlight": "Blur Light Transition","blurlightcross": "Blur Light Cross Transition","blurstrong": "Blur Strong Transition","blurstrongcross": "Blur Strong Cross Transition","brightness": "Brightness Transition","brightnesscross": "Brightness Cross Transition","grayscale": "Grayscale Transition","grayscalecross": "Grayscale Cross Transition"},
-									"premium":{alias:"Premium Transitions", "3dcurtain-horizontal": "3D Curtain Horizontal","3dcurtain-vertical": "3D Curtain Vertical","cube": "Cube Vertical","cube-horizontal": "Cube Horizontal","flyin": "Fly In","incube": "In Cube Vertical","incube-horizontal": "In Cube Horizontal","papercut": "Paper Cut","turnoff": "TurnOff Horizontal","turnoff-vertical": "TurnOff Vertical"},
-									"random":{alias:"Random", "random": "Random Flat & Premium","random-premium": "Random Premium","random-selected": "Random of Selected","random-static": "Random Flat"}
-									}
-
+		
+		//Init Transition Presets
+		RVS.LIB.SLTR = JSON.parse(<?php echo (empty($rs_base_transitions)) ? "'{}'" : str_replace('[]', '{}', $rs_f->json_encode_client_side($rs_base_transitions)); ?>);
+		RVS.LIB.SLTR_CUSTOM = JSON.parse(<?php echo (empty($rs_custom_transitions)) ? "'{}'" : str_replace('[]', '{}', $rs_f->json_encode_client_side($rs_custom_transitions)); ?>);
+		RVS.LIB.SLTR_FAVORIT = JSON.parse(<?php echo (empty($rs_favorite_transitions)) ? "'{}'" : str_replace('[]', '{}', $rs_f->json_encode_client_side($rs_favorite_transitions)); ?>);
+		
 		//Init Navigation Presets
 		RVS.F.migrateNavigation(JSON.parse(<?php echo $rs_f->json_encode_client_side($arr_navigations); ?>));
 

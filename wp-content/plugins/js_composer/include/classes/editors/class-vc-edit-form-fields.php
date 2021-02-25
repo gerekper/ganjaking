@@ -274,7 +274,7 @@ class Vc_Edit_Form_Fields {
 			$param['vc_single_param_edit_holder_class'][] = $param['param_holder_class'];
 		}
 		$param = apply_filters( 'vc_single_param_edit', $param, $value );
-		$output = '<div class="' . implode( ' ', $param['vc_single_param_edit_holder_class'] ) . '" data-vc-ui-element="panel-shortcode-param" data-vc-shortcode-param-name="' . esc_attr( $param['param_name'] ) . '" data-param_type="' . esc_attr( $param['type'] ) . '" data-param_settings="' . esc_attr( htmlentities( wp_json_encode( $param ) ) ) . '">';
+		$output = '<div class="' . implode( ' ', $param['vc_single_param_edit_holder_class'] ) . '" data-vc-ui-element="panel-shortcode-param" data-vc-shortcode-param-name="' . esc_attr( $param['param_name'] ) . '" data-param_type="' . esc_attr( $param['type'] ) . '" data-param_settings="' . htmlentities( wp_json_encode( $param ) ) . '">';
 		$output .= ( isset( $param['heading'] ) ) ? '<div class="wpb_element_label">' . $param['heading'] . '</div>' : '';
 		$output .= '<div class="edit_form_line">';
 		$value = apply_filters( 'vc_form_fields_render_field_' . $this->setting( 'base' ) . '_' . $param['param_name'] . '_param_value', $value, $param, $this->settings, $this->atts );

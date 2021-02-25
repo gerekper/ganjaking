@@ -9,7 +9,7 @@ if(!defined('ABSPATH')) exit();
 
 class RsAddOnRevealerBase {
 	
-	const MINIMUM_VERSION = '6.0';
+	const MINIMUM_VERSION = '6.4.0';
 	
 	protected function systemsCheck() {
 		

@@ -9,7 +9,7 @@ if(!defined('ABSPATH')) exit();
 
 class RsAddOnBubblemorphBase {
 	
-	const MINIMUM_VERSION = '6.0';
+	const MINIMUM_VERSION = '6.2.3';
 	
 	protected function systemsCheck() {
 		

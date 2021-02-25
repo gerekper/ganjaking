@@ -98,7 +98,9 @@ class Resize extends Abstract_Module {
 	}
 
 	/**
-	 *  Check whether Image should be resized or not
+	 *  Checks whether the image should be resized.
+	 *
+	 * @uses self::check_should_resize().
 	 *
 	 * @param string $id Attachment ID.
 	 * @param string $meta Attachment Metadata.
@@ -116,18 +118,41 @@ class Resize extends Abstract_Module {
 			return false;
 		}
 
-		$file_path = Helper::get_attached_file( $id );
+		$should_resize = $this->check_should_resize( $id, $meta );
 
+		/**
+		 * Filter whether the uploaded image should be resized or not
+		 *
+		 * @since 2.3
+		 *
+		 * @param bool  $should_resize Whether to resize the image.
+		 * @param array $id Attachment ID.
+		 * @param array $meta Attachment Metadata.
+		 */
+		return apply_filters( 'wp_smush_resize_uploaded_image', $should_resize, $id, $meta );
+	}
+
+	/**
+	 * Checks whether the image should be resized judging by its properties.
+	 *
+	 * @since 3.8.3
+	 *
+	 * @param string $id Attachment ID.
+	 * @param string $meta Attachment Metadata.
+	 *
+	 * @return bool
+	 */
+	private function check_should_resize( $id = '', $meta = '' ) {
+
+		// If the file doesn't exist, return.
+		if ( ! Helper::file_exists( $id ) ) {
+			return false;
+		}
+
+		$file_path = get_attached_file( $id );
 		if ( ! empty( $file_path ) ) {
 			// Skip: if "noresize" is included in the filename, Thanks to Imsanity.
 			if ( strpos( $file_path, 'noresize' ) !== false ) {
-				return false;
-			}
-
-			$file_exists = Helper::file_exists( $id, $file_path );
-
-			// If file doesn't exists, return.
-			if ( ! $file_exists ) {
 				return false;
 			}
 		}
@@ -196,28 +221,7 @@ class Resize extends Abstract_Module {
 			'size_after'  => 0,
 		);
 
-		// Check if the image should be resized or not.
-		$should_resize = $this->should_resize( $id, $meta );
-
-		/**
-		 * Filter whether the uploaded image should be resized or not
-		 *
-		 * @since 2.3
-		 *
-		 * @param bool $should_resize
-		 *
-		 * @param array $upload {
-		 *    Array of upload data.
-		 *
-		 * @type string $file Filename of the newly-uploaded file.
-		 * @type string $url URL of the uploaded file.
-		 * @type string $type File type.
-		 * }
-		 *
-		 * @param string $context The type of upload action. Values include 'upload' or 'sideload'.
-		 */
-		$should_resize = apply_filters( 'wp_smush_resize_uploaded_image', $should_resize, $id, $meta );
-		if ( ! $should_resize ) {
+		if ( ! $this->should_resize( $id, $meta ) ) {
 			return $meta;
 		}
 

@@ -1,5 +1,9 @@
 *** WooCommerce One Page Checkout Changelog ***
 
+2021-02-10 - version 1.7.11
+* Tweak - WC 5.0 compatibility.
+* Tweak - WP 5.6 compatibility.
+
 2020-11-14 - version 1.7.10
 * Tweak - Add $post_id as parameter for is_wcopc_checkout filter.
 * Fix   - Prevent guest checkout with subscription.

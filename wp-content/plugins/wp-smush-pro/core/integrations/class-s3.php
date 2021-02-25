@@ -347,7 +347,8 @@ class S3 extends Abstract_Integration {
 	 */
 	public function fetch_file() {
 		if ( $this->enabled && $this->settings->get( $this->module ) ) {
-			add_filter( 'as3cf_get_attached_file_copy_back_to_local', '__return_true' );
+			global $as3cf;
+			$as3cf->plugin_compat->enable_get_attached_file_copy_back_to_local();
 		}
 	}
 

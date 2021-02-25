@@ -180,7 +180,7 @@ class WC_Memberships_Meta_Box_View_Purchasing_Discount_Rules extends \WC_Members
 												<th scope="row" class="check-column"></th>
 
 												<td class="purchasing-discount-applies-to product-variation-column">
-													<p class="form-field"><?php esc_html_e( $variation->get_formatted_name() ); ?></p>
+													<p class="form-field"><?php echo $variation->get_formatted_name(); ?></p>
 												</td>
 
 												<td class="purchasing-discount-membership-plan membership-plan-column">

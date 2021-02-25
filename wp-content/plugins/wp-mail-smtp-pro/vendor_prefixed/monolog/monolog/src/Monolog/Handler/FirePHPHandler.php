@@ -61,7 +61,7 @@ class FirePHPHandler extends \WPMailSMTP\Vendor\Monolog\Handler\AbstractProcessi
      *
      * @see createHeader()
      * @param  array  $record
-     * @return string
+     * @return array
      */
     protected function createRecordHeader(array $record)
     {

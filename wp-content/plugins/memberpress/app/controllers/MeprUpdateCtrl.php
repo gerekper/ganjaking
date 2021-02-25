@@ -436,9 +436,14 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
           $args['edge'] = 'true';
         }
 
-        $version_info = self::send_mothership_request( "/versions/latest/developer", $args );
-        $curr_version = $version_info['version'];
-        $download_url = '';
+        try {
+          $version_info = self::send_mothership_request( "/versions/latest/developer", $args );
+          $curr_version = $version_info['version'];
+          $download_url = '';
+        }
+        catch(Exception $e) {
+          return $transient;
+        }
       }
       else {
         try {

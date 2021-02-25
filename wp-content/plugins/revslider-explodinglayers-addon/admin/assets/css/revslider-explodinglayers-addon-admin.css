@@ -47,3 +47,7 @@
 .explodinglayers-icon.selected .explodinglayers-circle {
 	background: #b7bbc0;
 }
+
+#explode_transsettings .revbuilder-colorpicker input:not(.revbuilder-cpicker-component){
+	display: none;
+}

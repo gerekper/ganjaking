@@ -22,28 +22,36 @@
 	}
 	
 	function setAttributes() {
-		
 		if(this.className && this.className.search('revaddonexplayer') !== -1) return;
 		var $this = jQuery(this);
-		
 		var frameStart = $this.attr('data-frame_1'),
 			frameStart_st = getParam(frameStart, 'st'),
 			frameStart_sr = getParam(frameStart, 'sR');
-			
+			frameStart_sp = getParam(frameStart, 'sp');
+
 		var frameEnd = $this.attr('data-frame_999'),
 			frameEnd_st = getParam(frameEnd, 'st'),
-			frameEnd_sr = getParam(frameEnd, 'sR');
-		
-		frameStart = 'e:Power2.easeOut;sp:1000';
+			frameEnd_sr = getParam(frameEnd, 'sR'),
+			frameEnd_sp = getParam(frameEnd, 'sp');
+
+		frameStart = 'e:Power2.easeOut';
 		if(frameStart_st !== false) frameStart += ';st:' + frameStart_st;
 		if(frameStart_sr !== false) frameStart += ';sR:' + frameStart_sr;
+		if(frameStart_sp !== false) frameStart += ';sp:' + frameStart_sp;
 		
-		frameEnd = 'o:1;e:Power2.easeOut;sp:1000';
+		frameEnd = 'o:1;e:Power2.easeOut';
 		if(frameEnd_st !== false) frameEnd += ';st:' + frameEnd_st;
 		if(frameEnd_sr !== false) frameEnd += ';sR:' + frameEnd_sr;
+		if(frameEnd_sp !== false) frameEnd += ';sp:' + frameEnd_sp;
 		
-		if($this.attr('data-explodinglayersin')) $this.addClass('revaddonexplayerhide');
-		$this.addClass('revaddonexplayer').attr({'data-frame_0': 'o:1', 'data-frame_1': frameStart, 'data-frame_999': frameEnd});
+		if($this.attr('data-explodinglayersin')) {
+			$this.addClass('revaddonexplayerhide');		
+			$this.addClass('revaddonexplayer').attr({'data-frame_0': 'o:1', 'data-frame_1': frameStart});
+		}
+		
+		if($this.attr('data-explodinglayersout')) {
+			$this.addClass('revaddonexplayer').attr({'data-frame_999': frameEnd});
+		}
 		
 	}
 	

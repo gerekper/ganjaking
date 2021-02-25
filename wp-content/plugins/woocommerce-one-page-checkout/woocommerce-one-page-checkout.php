@@ -7,10 +7,10 @@
  * Text Domain: wcopc
  * Domain Path: languages
  * Plugin URI:  https://woocommerce.com/products/woocommerce-one-page-checkout/
- * Version: 1.7.10
- * Tested up to: 5.5
+ * Version: 1.7.11
+ * Tested up to: 5.6
  * WC requires at least: 2.5
- * WC tested up to: 4.5
+ * WC tested up to: 5.0
  * Woo: 527886:c9ba8f8352cd71b5508af5161268619a
  *
  * This program is free software: you can redistribute it and/or modify
@@ -56,7 +56,7 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 	return;
 }
 
-define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.7.10' ); // WRCS: DEFINED_VERSION.
+define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.7.11' ); // WRCS: DEFINED_VERSION.
 
 add_filter( 'woocommerce_translations_updates_for_woocommerce-one-page-checkout', '__return_true' );
 

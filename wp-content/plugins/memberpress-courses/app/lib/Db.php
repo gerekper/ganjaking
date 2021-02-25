@@ -393,7 +393,7 @@ class Db {
     return $wpdb->get_col($query);
   }
 
-  public function prepare_array($item_type='%d',$values) {
+  public function prepare_array($item_type,$values) {
     return implode(
       ',',
       array_map(

@@ -71,7 +71,7 @@ class WC_Instagram_Router {
 	 * @since 3.0.0
 	 */
 	public static function reduce_query_load() {
-		if ( ! isset( $_SERVER['REQUEST_URI'] ) ) {
+		if ( ! isset( $_SERVER['REQUEST_URI'] ) || ! wc_instagram_is_connected() ) {
 			return;
 		}
 

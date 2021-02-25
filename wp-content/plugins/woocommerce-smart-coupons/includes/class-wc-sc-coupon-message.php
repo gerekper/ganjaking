@@ -5,7 +5,7 @@
  * @author      Ratnakar
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.5.2
+ * @version     1.6.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -336,7 +336,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Message' ) ) {
 				<h2><?php echo esc_html__( 'Coupon Message', 'woocommerce-smart-coupons' ); ?></h2>
 				<?php
 				echo '<div class="wc_coupon_message_wrap" style="padding: 10px 0 10px;">';
-				echo $coupon_messages; // phpcs:ignore
+				echo wp_kses_post( $coupon_messages ); // phpcs:ignore
 				echo '</div>';
 			}
 		}

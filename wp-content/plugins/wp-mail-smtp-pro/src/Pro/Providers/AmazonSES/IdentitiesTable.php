@@ -212,4 +212,45 @@ class IdentitiesTable extends \WP_List_Table {
 		</div>
 		<?php
 	}
+
+	/**
+	 * Define the table columns for JS use.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @return array Associate array of slug=>Name columns data.
+	 */
+	public function get_columns_for_js() {
+
+		$columns          = $this->get_columns();
+		$prepared_columns = [];
+
+		foreach ( $columns as $key => $label ) {
+			$prepared_columns[] = [
+				'label' => $label,
+				'key'   => $key,
+			];
+		}
+
+		return $prepared_columns;
+	}
+
+	/**
+	 * Get all identity object's data for use in JS.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @return array Array of arrays of Identity object's data.
+	 */
+	public function get_items_for_js() {
+
+		$identities          = $this->get_items();
+		$prepared_identities = [];
+
+		foreach ( $identities as $identity ) {
+			$prepared_identities[] = $identity->get_all();
+		}
+
+		return $prepared_identities;
+	}
 }

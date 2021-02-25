@@ -5,7 +5,7 @@ class MpimpCouponsImporter extends MpimpBaseImporter {
   public function form() { }
 
   public function import($row,$args) {
-    $required = array('type','discount','product_id_0'); // At least one product :)
+    $required = array('type','discount');
     $this->check_required('coupons', array_keys($row), $required);
     $random_code = MeprUtils::random_string( 10, false, true );
 
@@ -17,10 +17,9 @@ class MpimpCouponsImporter extends MpimpBaseImporter {
 
     $coupon = new MeprCoupon();
 
-    $this->fail_if_empty('product_id_0',$row['product_id_0']);
-
     $valid_products = array();
     $valid_types = array('percent','dollar');
+    $override = false;
 
     foreach( $row as $col => $cell ) {
       if( preg_match( '#^product_id_.*$#', $col ) ) {
@@ -79,6 +78,9 @@ class MpimpCouponsImporter extends MpimpBaseImporter {
           case "description":
             $coupon->post_content = trim($cell);
             break;
+          case "use_on_upgrades":
+            $coupon->use_on_upgrades = ! empty( intval( $cell ) ) ? true : false;
+            break;
           case "expires_at":
             if(empty($cell)) {
               $coupon->should_expire = false;
@@ -92,14 +94,37 @@ class MpimpCouponsImporter extends MpimpBaseImporter {
               $coupon->expires_on = strtotime($cell); //DATES must be in d/m/y or d-m-y format for strtotime to work properly
             }
             break;
+          case "starts_on":
+            if(empty($cell)) {
+              $coupon->should_start = false;
+              $coupon->starts_on = 0;
+            }
+            else {
+              // Some spreadsheets force the use of '/' instead of '-' to separate dates
+              $cell = preg_replace('#/#','-',$cell);
+              $this->fail_if_not_date($col, $cell);
+              $coupon->should_start = true;
+              $coupon->starts_on = strtotime($cell); //DATES must be in d/m/y or d-m-y format for strtotime to work properly
+            }
+            break;
+          case "override_existing":
+            $override = 1 == $cell;
+            break;
         }
+      }
+    }
+
+    if ( true === $override ) {
+      $maybe_coupon = MeprCoupon::get_one_from_code( $coupon->post_title, true );
+      if ( ! empty( $maybe_coupon->ID ) ) {
+        $coupon->ID = $maybe_coupon->ID;
       }
     }
 
     $coupon->valid_products = $valid_products;
 
     if( $coupon_id = $coupon->store() )
-      return sprintf(__('Coupon (ID = %s) was created successfully'), $coupon_id);
+      return sprintf(__('Coupon (ID = %s) was %s successfully'), $coupon_id, true === $override ? __('updated') : __('created'));
     else
       throw new Exception(__('Coupon failed to be created'));
   }

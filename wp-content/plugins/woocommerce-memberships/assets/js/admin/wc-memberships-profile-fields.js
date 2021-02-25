@@ -328,17 +328,23 @@ jQuery( function( $ ) {
 				e.preventDefault();
 
 				var $fieldName       = $( '#title' ),
-				    $fieldVisibility = $( '#visibility' );
+				    $fieldVisibility = $( '#visibility' ),
+					$generalTab      = $( '.wc-tab.general_tab > a' ),
+					$optionsTab      = $( '.wc-tab.field_options_tab > a' );
 
 				// the field name cannot be blank
 				if ( '' === $fieldName.val().trim() ) {
 
-					$('.show-if-no-name').show();
+					$( '.show-if-no-name' ).show();
+
+					$generalTab.trigger( 'click' );
 
 					$fieldName.fadeOut(150).fadeIn(150).fadeOut(150).fadeIn(150).fadeOut(150).fadeIn(150);
 
 				// if the field is editable by members, it should have visibility options
 				} else if ( 'customer' === $( 'input[name="editable_by"]:checked' ).val() && ( ! $fieldVisibility.val() || 0 === $fieldVisibility.val().length ) ) {
+
+					$generalTab.trigger( 'click' );
 
 					if ( 0 === $( '.show-if-no-visibility' ).length ) {
 						$( 'p.visibility_field' ).append( '<span class="description show-if-no-visibility profile-field-validation-error" style="display:block;clear:both;">' + wc_memberships_admin.i18n.profile_field_no_visibility + ' </span>' );
@@ -353,6 +359,8 @@ jQuery( function( $ ) {
 
 					if ( 'table-row' === $noOptions.css( 'display' ) ) {
 
+						$optionsTab.trigger( 'click' );
+
 						$( '.show-if-options-required' ).show();
 						$( '.show-if-options-empty' ).hide();
 						$( '.field_options_tab > a' ).trigger( 'click' );
@@ -366,6 +374,8 @@ jQuery( function( $ ) {
 						$( '.profile-field-option-row' ).not( '#profile-field-option--template' ).find( '.name-field' ).each( function( i, field ) {
 
 							if ( '' === $( field ).val().trim() ) {
+
+								$optionsTab.trigger( 'click' );
 
 								$( '.show-if-options-required' ).hide();
 								$( '.show-if-options-empty' ).show();

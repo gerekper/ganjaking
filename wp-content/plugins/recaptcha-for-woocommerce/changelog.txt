@@ -1,5 +1,28 @@
 *** Changelog ***
 
+2021-02-22 - version 2.9
+
+* Added reCAPTCHA for product review form.
+* Added recaptcha v2 language selection
+* Fixed recaptcha duplication on Elavon credit card pay for order
+
+
+2021-02-08 - version 2.8
+
+* Fixed problem with Elavon payment processor legacy mode.
+
+
+2021-02-03 - version 2.7
+
+
+* Added support for Elavon payment processor
+
+* Added new option "Disable on the fly reCAPTCHA v3 token generation" that will allow you to use this option if two submit button fighting for taking control. So use only if you have problem 
+  with submit button.
+  
+* Fixed problem with javascript errors, When the html of page is minified.
+
+
 2021-01-25 - version 2.6
 
 * Google reCAPTCHA token is missing Fixed

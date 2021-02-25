@@ -35,10 +35,10 @@ class RevSliderFavorite extends RevSliderFunctions {
 			
 			if($key === false){
 				if($do == 'add') $fav[$type][] = $id;
-			}else{
-				if($do == 'remove'){
-					unset($fav[$type][$key]);
-				}
+			}elseif($do == 'remove'){
+				unset($fav[$type][$key]);
+			}elseif($do == 'replace'){
+				$fav[$type] = $id;
 			}
 		//}
 		update_option('rs_favorite', $fav);

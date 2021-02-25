@@ -458,16 +458,14 @@ class BetterDocs_Multiple_Kb
 			global $wp;
 			$current_url = home_url(add_query_arg(array(), $wp->request));
 			$url_parse = wp_parse_url($current_url);
-			$url_path = $url_parse['path'];
+			$url_path = isset($url_parse['path']) ? $url_parse['path'] : '';
 			$path_arr = explode("/", $url_path);
 			$reverse_path_arr = array_reverse($path_arr);
-			$get_kb_slug_path = $reverse_path_arr[1];
+			$get_kb_slug_path = isset($reverse_path_arr[1]) ? $reverse_path_arr[1] : '';
 
 			if (in_array($get_kb_slug_path, $kb_slug)) {
-
 				$kb_slug = $get_kb_slug_path;
 			} else {
-
 				$kb_slug = $kb_slug[0];
 			}
 		}

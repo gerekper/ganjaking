@@ -1,5 +1,15 @@
 *** Subscribe to Newsletter Changelog ***
 
+2021-02-03 - version 2.9.3
+* Tweak - Removed jQuery deprecations.
+* Tweak - Tested compatibility up to WC 5.0.
+
+2020-11-25 - version 2.9.2
+* Tweak - Tested compatibility up to WP 5.6.
+* Tweak - Tested compatibility up to WC 4.8.
+* Fix - Fixed fatal error when the class 'WC_Widget' is not defined.
+* Fix - Fixed fatal error on the settings page when it fails the request for fetching the Mailchimp lists.
+
 2020-09-02 - version 2.9.1
 * Fix - Fixed limit of list retrieved by Mailchimp API.
 

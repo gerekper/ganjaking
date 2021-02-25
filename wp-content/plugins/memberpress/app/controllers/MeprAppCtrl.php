@@ -720,10 +720,21 @@ class MeprAppCtrl extends MeprBaseCtrl {
 
       $local_data = array(
         'coupon_nonce' => wp_create_nonce('mepr_coupons'),
-        'spc_invoice' => $mepr_options->enable_spc_invoice
+        'spc_enabled'  => $mepr_options->enable_spc,
+        'spc_invoice'  => $mepr_options->enable_spc_invoice
       );
 
       wp_localize_script('mp-signup', 'MeprSignup', $local_data);
+
+      //For Show hide password
+      wp_enqueue_style( 'dashicons' );
+      wp_enqueue_style( 'mp-login-css', MEPR_CSS_URL.'/ui/login.css', null, MEPR_VERSION);
+
+      wp_register_script('mepr-login-i18n', includes_url().'js/dist/i18n.min.js', null , MEPR_VERSION);
+      wp_register_script('mepr-login-js', MEPR_JS_URL.'/login.js', array('jquery', 'underscore'), MEPR_VERSION);
+
+      wp_enqueue_script('mepr-login-i18n');
+      wp_enqueue_script('mepr-login-js');
     }
 
     if($global_styles || $is_group_page) {

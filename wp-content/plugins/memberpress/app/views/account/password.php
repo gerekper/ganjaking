@@ -10,11 +10,21 @@
 
     <div class="mp-form-row mepr_new_password">
       <label for="mepr-new-password"><?php _ex('New Password', 'ui', 'memberpress'); ?></label>
-      <input type="password" name="mepr-new-password" id="mepr-new-password" class="mepr-form-input mepr-new-password" required />
+      <div class="mp-hide-pw">
+        <input type="password" name="mepr-new-password" id="mepr-new-password" class="mepr-form-input mepr-new-password" required />
+        <button type="button" class="button mp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Show password', 'memberpress' ); ?>">
+          <span class="dashicons dashicons-visibility" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
     <div class="mp-form-row mepr_confirm_password">
       <label for="mepr-confirm-password"><?php _ex('Confirm New Password', 'ui', 'memberpress'); ?></label>
-      <input type="password" name="mepr-confirm-password" id="mepr-confirm-password" class="mepr-form-input mepr-new-password-confirm" required />
+      <div class="mp-hide-pw">
+        <input type="password" name="mepr-confirm-password" id="mepr-confirm-password" class="mepr-form-input mepr-new-password-confirm" required />
+        <button type="button" class="button mp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Show password', 'memberpress' ); ?>">
+          <span class="dashicons dashicons-visibility" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
     <?php MeprHooks::do_action('mepr-account-after-password-fields', $mepr_current_user); ?>
 

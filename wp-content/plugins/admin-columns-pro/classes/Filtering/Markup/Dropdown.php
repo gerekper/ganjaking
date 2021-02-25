@@ -6,6 +6,9 @@ use AC\Form\Element\Select;
 
 class Dropdown extends Select {
 
+	const OPTION_EMPTY = 'cpac_empty';
+	const OPTION_NON_EMPTY = 'cpac_nonempty';
+
 	/**
 	 * @var string
 	 */
@@ -168,11 +171,11 @@ class Dropdown extends Select {
 			}
 
 			if ( $this->get_empty() ) {
-				$this->options['cpac_empty'] = $this->get_empty();
+				$this->options[ self::OPTION_EMPTY ] = $this->get_empty();
 			}
 
 			if ( $this->get_nonempty() ) {
-				$this->options['cpac_nonempty'] = $this->get_nonempty();
+				$this->options[ self::OPTION_NON_EMPTY ] = $this->get_nonempty();
 			}
 		}
 

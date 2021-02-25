@@ -71,6 +71,11 @@ class Multisite {
 			'wp_mail_smtp_core_display_general_notices_email_delivery_error_notice',
 			[ $this, 'maybe_change_email_deliver_error_notice' ]
 		);
+		add_filter(
+			'wp_mail_smtp_core_display_general_notices_email_delivery_error_notice_footer',
+			[ $this, 'add_clear_error_notices_button' ]
+		);
+		add_action( 'wp_ajax_wp_mail_smtp_pro_multisite_clear_error_notices', [ $this, 'clear_error_notices_callback' ] );
 
 		// Maybe disable notifications for sub-sites.
 		add_filter( 'wp_mail_smtp_admin_notifications_has_access', [ $this, 'maybe_disable_notifications' ] );
@@ -162,6 +167,7 @@ class Multisite {
 	 * Process settings tab post submission for the network_wide option.
 	 *
 	 * @since 2.2.0
+	 * @since 2.6.0 Fix checkbox overwriting with default values.
 	 *
 	 * @param array $data The raw plugin options data.
 	 *
@@ -172,6 +178,44 @@ class Multisite {
 		// When checkbox is unchecked - it's not submitted at all, so we need to define its default false value.
 		if ( ! isset( $data['general']['network_wide'] ) ) {
 			$data['general']['network_wide'] = false;
+		}
+
+		/*
+		 * The plugin settings state in the SettingsTab::process_post if the network_wide setting is toggled from
+		 * disabled to enabled. Just the set network_wide setting and the default false values in
+		 * 'mail' and 'smtp' groups are present at that time.
+		 */
+		$network_wide_enabled_first_time_settings = [
+			'general' => [
+				'network_wide' => 'true',
+			],
+			'mail'    => [
+				'from_email_force' => false,
+				'from_name_force'  => false,
+				'return_path'      => false,
+			],
+			'smtp'    => [
+				'autotls' => false,
+				'auth'    => false,
+			],
+		];
+
+		// Maybe revert the default checkbox values of plugin settings when network_wide is switched to enabled state.
+		if ( $data === $network_wide_enabled_first_time_settings ) {
+			$options = new Options();
+			$old_opt = $options->get_all();
+
+			// Set the old plugin values for the checkboxes that were set to false because they didn't exist in the POST request.
+			$data['mail']['from_email_force'] = isset( $old_opt['mail']['from_email_force'] ) ?
+				$old_opt['mail']['from_email_force'] : $data['mail']['from_email_force'];
+			$data['mail']['from_name_force']  = isset( $old_opt['mail']['from_name_force'] ) ?
+				$old_opt['mail']['from_name_force'] : $data['mail']['from_name_force'];
+			$data['mail']['return_path']      = isset( $old_opt['mail']['return_path'] ) ?
+				$old_opt['mail']['return_path'] : $data['mail']['return_path'];
+			$data['smtp']['autotls']          = isset( $old_opt['smtp']['autotls'] ) ?
+				$old_opt['smtp']['autotls'] : $data['smtp']['autotls'];
+			$data['smtp']['auth']             = isset( $old_opt['smtp']['auth'] ) ?
+				$old_opt['smtp']['auth'] : $data['smtp']['auth'];
 		}
 
 		return $data;
@@ -190,11 +234,13 @@ class Multisite {
 				'admin_menu',
 				function () {
 					remove_submenu_page( Area::SLUG, Area::SLUG );
+					remove_submenu_page( Area::SLUG, Area::SLUG . '-setup-wizard' );
 
 					if ( ! wp_mail_smtp()->pro->get_logs()->is_enabled() ) {
 						remove_submenu_page( Area::SLUG, Area::SLUG . '-logs' );
 					}
-				}
+				},
+				100
 			);
 		}
 	}
@@ -365,7 +411,8 @@ class Multisite {
 			return $notice;
 		}
 
-		$notices = [];
+		$unique_notices = [];
+		$output_notices = [];
 
 		foreach ( get_sites() as $site ) {
 			$site_debug = get_blog_option( $site->blog_id, Debug::OPTION_KEY, [] );
@@ -377,13 +424,20 @@ class Multisite {
 			if ( ! empty( $site_debug ) && is_array( $site_debug ) ) {
 				$error = (string) end( $site_debug );
 
-				if ( ! in_array( $error, $notices, true ) ) {
-					$notices[] = $error;
+				if ( ! in_array( $error, $unique_notices, true ) ) {
+					$site_info        = get_blog_details( [ 'blog_id' => $site->blog_id ] );
+					$output_notices[] = sprintf(
+						'<strong>%1$s</strong> - <a href="%2$s" target="_blank">%2$s</a><br>%3$s',
+						esc_html( $site_info->blogname ),
+						esc_url( get_admin_url( $site->blog_id ) ),
+						$error
+					);
+					$unique_notices[] = $error;
 				}
 			}
 		}
 
-		return implode( PHP_EOL . PHP_EOL, $notices );
+		return implode( PHP_EOL . PHP_EOL, $output_notices );
 	}
 
 	/**
@@ -422,5 +476,48 @@ class Multisite {
 		}
 
 		return $key;
+	}
+
+	/**
+	 * Add the "clear error notices" button/link to the email delivery error admin notice for network-wide enabled WPMS.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @return string
+	 */
+	public function add_clear_error_notices_button() {
+
+		if (
+			! is_network_admin() ||
+			! WP::use_global_plugin_settings()
+		) {
+			return;
+		}
+
+		return '<p><a href="#" class="js-wp-mail-smtp-clear-network-wide-error-notices">' . esc_html__( 'Clear these errors', 'wp-mail-smtp-pro' ) . '</a></p>';
+	}
+
+	/**
+	 * AJAX callback for the "clear error notices" button for network-wide enabled WPMS.
+	 *
+	 * @since 2.6.0
+	 */
+	public function clear_error_notices_callback() {
+
+		check_ajax_referer( 'wp-mail-smtp-pro-admin' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error();
+		}
+
+		if ( ! WP::use_global_plugin_settings() || ! is_multisite() ) {
+			wp_send_json_error();
+		}
+
+		foreach ( get_sites() as $site ) {
+			update_blog_option( $site->blog_id, Debug::OPTION_KEY, [] );
+		}
+
+		wp_send_json_success();
 	}
 }

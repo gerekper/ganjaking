@@ -120,7 +120,7 @@ class WC_Product_Bundle extends WC_Product {
 	 *
 	 * @param  mixed  $product
 	 */
-	public function __construct( $product ) {
+	public function __construct( $product = 0 ) {
 
 		// Initialize the data store type. Yes, WC 3.0 decouples the data store from the product class.
 		if ( ( $product instanceof WC_Product ) && false === $product->is_type( 'bundle' ) ) {

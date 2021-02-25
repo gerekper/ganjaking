@@ -494,12 +494,14 @@ class woocommerce_msrp_frontend {
 	 */
 	public function rest_api_price_output_v2_simple( $response, $product, $request ) {
 		// Remove MSRP entries from the meta_data element.
-		foreach ( $response->data['meta_data'] as $key => $val ) {
-			if ( in_array( $val->key, array( '_msrp', '_msrp_price' ), true ) ) {
-				unset( $response->data['meta_data'][ $key ] );
+		if ( isset( $response->data['meta_data'] ) ) {
+			foreach ( $response->data['meta_data'] as $key => $val ) {
+				if ( in_array( $val->key, array( '_msrp', '_msrp_price' ), true ) ) {
+					unset( $response->data['meta_data'][ $key ] );
+				}
 			}
+			$response->data['meta_data'] = array_values( $response->data['meta_data'] );
 		}
-		$response->data['meta_data'] = array_values( $response->data['meta_data'] );
 
 		// Do nothing else if we already have the data.
 		if ( isset( $response->data['msrp_price'] ) ) {

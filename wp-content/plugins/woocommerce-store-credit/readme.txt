@@ -3,11 +3,12 @@ Contributors: woocommerce, themesquad
 Tags: woocommerce, credit, coupons
 Requires at least: 4.7
 Tested up to: 5.6
-Stable tag: 3.4.3
+Requires PHP: 5.3
+Stable tag: 3.5.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.4
-WC tested up to: 4.8
+WC tested up to: 5.1
 Woo: 18609:c4bf3ecec4146cb69081e5b28b6cdac4
 
 Create 'Store Credit' coupons for customers which are redeemable at checkout.
@@ -23,6 +24,16 @@ Create 'Store Credit' coupons for customers which are redeemable at checkout.
 Visit our [Product page](http://docs.woocommerce.com/document/woocommerce-store-credit/) to read the documentation and get support.
 
 == Changelog ==
+
+= 3.5.0 February 22, 2021 =
+* Tweak - Register items in the new navigation menu.
+* Tweak - Connected the 'Send Store Credit' page to WC Admin.
+* Tweak - Tested compatibility up to WC 5.1.
+* Dev - Introduce new PHP 5.3 minimum requirement.
+
+= 3.4.4 December 29, 2020 =
+* Tweak - Tested compatibility with WC 4.9.
+* Fix - Added missing group parameter when clearing the customer coupons cache.
 
 = 3.4.3 December 11, 2020 =
 * Fix - Enqueue the scripts for the 'Send Credit' page when using a non-ASCII language.
@@ -184,5 +195,5 @@ Visit our [Product page](http://docs.woocommerce.com/document/woocommerce-store-
 
 == Upgrade Notice ==
 
-= 3.0 =
-3.0 is a major update. It is important that you make backups and ensure you have installed WC 3.4+ before upgrading.
+= 3.5 =
+3.5 is a major update. It is important that you make backups and ensure you have installed WC 3.4+ before upgrading.

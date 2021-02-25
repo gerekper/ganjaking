@@ -2,7 +2,7 @@
 /*
 Plugin Name: Ninja Tables Pro
 Description: The Pro Add-On of Ninja Tables, best Responsive Table Plugin for WordPress.
-Version: 4.1.3
+Version: 4.1.5
 Author: WPManageNinja
 Author URI: https://wpmanageninja.com/
 Plugin URI: https://wpmanageninja.com/downloads/ninja-tables-pro-add-on/
@@ -21,7 +21,7 @@ update_option('_ninjatables_pro_license_status', 'valid');
 defined('NINJATABLESPRO') or define('NINJATABLESPRO', true);
 define('NINJAPROPLUGIN_PATH', plugin_dir_path(__FILE__));
 define('NINJAPRO_PLUGIN_FILE', __FILE__);
-defined('NINJAPROPLUGIN_VERSION') or define('NINJAPROPLUGIN_VERSION', '4.1.3');
+defined('NINJAPROPLUGIN_VERSION') or define('NINJAPROPLUGIN_VERSION', '4.1.5');
 define('NINJAPROPLUGIN_URL', plugin_dir_url(__FILE__));
 
 define('NINJATABLESPRO_SORTABLE', true);

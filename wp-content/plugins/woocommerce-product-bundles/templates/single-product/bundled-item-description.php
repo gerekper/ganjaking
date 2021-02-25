@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( $description === '' ){
+if ( ! $description ) {
 	return;
 }
 

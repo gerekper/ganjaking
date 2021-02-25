@@ -1,5 +1,15 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2021.02.23 - version 1.8.6
+* Tweak - Replaced deprecated jQuery functionality.
+* Tweak - Delete the plugin configuration on uninstall only when WC_REMOVE_ALL_DATA is set to true.
+* Tweak - Delete empty delivery time frame values from the order metadata.
+* Tweak - Count for the delivery range the dates whose order limit has been reached.
+* Tweak - Tested compatibility up to WC 5.1.
+* Dev - Updated bootstrap-datepicker.js library to an untagged version that fixes the usage of deprecated jQuery functions.
+* Dev - Updated fullcalendar.js library to version 2.9.2.
+* Dev - Updated jquery.timepicker.js library to version 1.13.18.
+
 2021.01.18 - version 1.8.5
 * Tweak - Exclude pending orders when checking the maximum number of orders per day/time frame.
 * Tweak - Check the maximum number of orders allowed when validating a delivery date in the checkout form.

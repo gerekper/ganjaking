@@ -778,7 +778,8 @@ class MeprReports {
     $q = $wpdb->prepare("
         SELECT IFNULL(ROUND(SUM(IF(created_at > DATE_SUB(NOW(), INTERVAL 7 DAY),total,0)),2), 0.00) AS week_revenue,
                IFNULL(ROUND(SUM(IF(created_at > DATE_SUB(NOW(), INTERVAL 30 DAY),total,0)),2), 0.00) AS month_revenue,
-               IFNULL(ROUND(SUM(IF(created_at > DATE_SUB(NOW(), INTERVAL 365 DAY),total,0)),2), 0.00) AS year_revenue
+               IFNULL(ROUND(SUM(IF(created_at > DATE_SUB(NOW(), INTERVAL 365 DAY),total,0)),2), 0.00) AS year_revenue,
+               IFNULL(ROUND(SUM(total),2), 0.00) AS lifetime_revenue
           FROM {$mepr_db->transactions}
          WHERE txn_type=%s AND status IN (%s,%s) AND gateway=%s
       ",
@@ -793,7 +794,8 @@ class MeprReports {
     $q = $wpdb->prepare("
         SELECT IFNULL(ROUND(SUM(IF(e.created_at > DATE_SUB(NOW(), INTERVAL 7 DAY),t.total,0)),2), 0.00) AS week_refunds_total,
                IFNULL(ROUND(SUM(IF(e.created_at > DATE_SUB(NOW(), INTERVAL 30 DAY),t.total,0)),2), 0.00) AS month_refunds_total,
-               IFNULL(ROUND(SUM(IF(e.created_at > DATE_SUB(NOW(), INTERVAL 365 DAY),t.total,0)),2), 0.00) AS year_refunds_total
+               IFNULL(ROUND(SUM(IF(e.created_at > DATE_SUB(NOW(), INTERVAL 365 DAY),t.total,0)),2), 0.00) AS year_refunds_total,
+               IFNULL(ROUND(SUM(t.total),2), 0.00) AS lifetime_refunds_total
           FROM {$mepr_db->transactions} AS t
           JOIN {$mepr_db->events} AS e
             ON e.evt_id=t.id

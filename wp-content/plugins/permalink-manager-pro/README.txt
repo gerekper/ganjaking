@@ -7,7 +7,7 @@ Tags: permalinks, custom permalinks, url editor, permalinks, woocommerce permali
 Requires at least: 4.4.0
 Requires PHP: 5.4
 Tested up to: 5.6.0
-Stable tag: 2.2.9.4
+Stable tag: 2.2.9.6
 
 Permalink Manager allows to easily change full URL addresses of posts, pages, custom post types, terms and WooCommerce links. You can also set different permalink formats per language or bulk change the URLs.
 
@@ -102,6 +102,14 @@ It is because Permalink Manager overwrites one of the core Wordpress functionali
 8.	Permalink Manager settings.
 
 == Changelog ==
+
+= 2.2.9.6 =
+* Fix - Hotfix for WooCommerce coupon related functions
+
+= 2.2.9.5 =
+* Fix - The custom permalink is generated properly if the product is duplicated in WooCommerce dashboard
+* Enhancement - New settings field - "Exclude drafts"
+* Enhancement - Minor code improvements
 
 = 2.2.9.4 =
 * Fix - The language prefix for default language is now added again when "Use directory for default language" mode is turned on in WPML settings ("Language URL format")

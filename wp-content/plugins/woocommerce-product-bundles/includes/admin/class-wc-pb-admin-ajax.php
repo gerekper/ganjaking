@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin AJAX meta-box handlers.
  *
  * @class    WC_PB_Admin_Ajax
- * @version  6.4.0
+ * @version  6.7.3
  */
 class WC_PB_Admin_Ajax {
 
@@ -331,6 +331,8 @@ class WC_PB_Admin_Ajax {
 
 		// Hide prices.
 		add_filter( 'woocommerce_bundled_item_is_priced_individually', '__return_false' );
+		// Hide descriptions.
+		add_filter( 'woocommerce_bundled_item_description', '__return_false' );
 
 		ob_start();
 		include( WC_PB_ABSPATH . 'includes/admin/meta-boxes/views/html-bundle-edit-form.php' );

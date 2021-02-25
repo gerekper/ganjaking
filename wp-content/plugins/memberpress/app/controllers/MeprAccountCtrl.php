@@ -31,8 +31,7 @@ class MeprAccountCtrl extends MeprBaseCtrl {
 
       if(!empty($enabled_prd_ids)) { //If it's not empty, then the user already has an Enabled subscription for this membership
         $prd = new MeprProduct($prd_id);
-
-        if(!$prd->simultaneous_subscriptions) {
+        if(!$prd->simultaneous_subscriptions && apply_filters( 'maybe_show_broken_sub_message_override', true, $prd )) {
           $errors[] = sprintf(_x('You already have a subscription to this Membership. Please %1$supdate your payment details%2$s on the existing subscription instead of purchasing again.', 'ui', 'memberpress'), '<a href="'.$mepr_options->account_page_url("action=subscriptions").'">', '</a>');
           MeprView::render('/shared/errors', get_defined_vars());
           ?>

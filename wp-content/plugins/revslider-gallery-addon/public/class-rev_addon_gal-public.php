@@ -110,11 +110,11 @@ class Rev_addon_gal_Public {
 	 * @since    2.0.0
 	 */
 	public function gutenberg_block_content_fitler( $block_content, $block ) {
-	
 		if(class_exists( 'RevSliderFunctions' )) {
 		
 			$f = new RevSliderFunctions();
 			$blockName = $f->get_val($block, 'blockName', '');
+			
 			
 			if($blockName === 'core/gallery') {
 			
@@ -142,6 +142,7 @@ class Rev_addon_gal_Public {
 	 *
 	 * @since    1.0.0
 	 * @version  1.0.1 : Exits when other revslider_function
+	 * @version  2.0.1 : checks for slider alias as attribute
 	 */
 	public function rev_addon_gallery($output, $attr){
 		$return = array();
@@ -154,6 +155,11 @@ class Rev_addon_gal_Public {
 		if(isset($output["revslider_function"]) && $output["revslider_function"]!='gallery') return false;
 
 		$slider = isset( $output["rev_addon_gal_slider"] ) ? $output["rev_addon_gal_slider"] : get_option("revslider_gallery_addon");
+
+		//2.0.1
+		if(strpos($slider,'gallery-addon-slider=')){
+			$slider = str_replace('revslider-gallery-addon-slider=', '', $slider);
+		}
 
 		if(!empty($slider)){
 			return do_shortcode('[rev_slider alias="'.$slider.'"][gallery '.$return.'][/rev_slider]');

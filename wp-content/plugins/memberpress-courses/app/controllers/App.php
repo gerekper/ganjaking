@@ -14,23 +14,24 @@ class App extends lib\BaseCtrl {
     add_action( 'init', array( $this, 'maybe_flush_rewrite_rules' ), 99 );
     add_action( 'admin_notices', array( $this, 'courses_activated_admin_notice' ) );
     add_action( 'admin_notices', array( $this, 'required_wordpress_admin_notice' ) );
-    add_action( 'admin_init', array($this,'install')); // DB upgrade is handled automatically here now
-    add_action( 'mepr-process-options', array($this,'store_options'));
+    add_action( 'admin_init', array($this,'install') ); // DB upgrade is handled automatically here now
+    add_action( 'mepr-process-options', array($this,'store_options') );
     add_action( 'mepr_display_options_tabs', array( $this, 'courses_tab' ), 99 );
     add_action( 'mepr_display_options', array( $this, 'courses_tab_content' ) );
-    // add_action('custom_menu_order', array($this,'admin_menu_order'));
-    // add_action('menu_order', array($this,'admin_menu_order'));
-    // add_action('menu_order', array($this,'admin_submenu_order'));
-    add_action( 'admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
-    add_action( 'in_admin_header', array($this, 'mp_admin_header'), 0);
-    add_filter( 'mepr-extend-rules', array($this, 'protect_sections_lessons'), 10, 3);
-    add_action( 'template_redirect', array($this, 'redirect_to_sales_page'));
+    // add_action( 'custom_menu_order', array($this,'admin_menu_order') );
+    // add_action( 'menu_order', array($this,'admin_menu_order') );
+    // add_action( 'menu_order', array($this,'admin_submenu_order') );
+    add_action( 'admin_enqueue_scripts', array($this, 'enqueue_admin_scripts') );
+    add_action( 'in_admin_header', array($this, 'mp_admin_header'), 0 );
+    add_filter( 'mepr-extend-rules', array($this, 'protect_sections_lessons'), 10, 3 );
+    add_action( 'template_redirect', array($this, 'redirect_to_sales_page') );
     add_action( 'customize_register', array($this, 'register_customizer') );
     add_filter( 'post_type_link', array($this, 'lesson_permalink_replace'), 1, 2 );
     add_filter( 'rewrite_rules_array', array($this, 'lesson_permalink_rules') );
     add_filter( 'use_block_editor_for_post_type', array( $this, 'force_block_editor_for_courses' ), 999, 2 );
     add_filter( 'mepr-pre-run-rule-content', array($this, 'show_more_content_on_archive_page'), 10, 3 );
-    add_filter( 'the_title', array($this, 'show_lock_icon'), 1000, 2);
+    add_filter( 'the_title', array($this, 'show_lock_icon') );
+    add_action( 'plugins_loaded', array($this, 'load_language') ); // Must load here or it won't work with PolyLang etc
   }
 
   /**
@@ -62,9 +63,10 @@ class App extends lib\BaseCtrl {
     <?php endif;
   }
 
-  public static function load_language() {
+  public function load_language() {
     $path_from_plugins_folder = \memberpress\courses\PLUGIN_NAME . '/i18n/';
     load_plugin_textdomain( \memberpress\courses\PLUGIN_NAME, false, $path_from_plugins_folder );
+    load_plugin_textdomain( \memberpress\courses\PLUGIN_NAME, false, '/mepr-i18n' );
   }
 
   /**
@@ -420,7 +422,9 @@ class App extends lib\BaseCtrl {
     }
     elseif ($wp_query->post->post_type == models\Lesson::$cpt) {
       $lesson = new models\Lesson($wp_query->post->ID);
-      $course = $lesson->course();
+      if(apply_filters(base\SLUG_KEY . '_redirect_lesson_to_sales', true, $lesson)) {
+        $course = $lesson->course();
+      }
     }
 
     if(!isset($course)) {
@@ -608,8 +612,8 @@ class App extends lib\BaseCtrl {
    *
    * @return [type]
    */
-  public function show_lock_icon($title, $post_id) {
-    $post = get_post($post_id);
+  public function show_lock_icon($title) {
+    $post = get_post( get_the_ID() );
 
     if(!class_exists('MeprRule')) { return $title; }
 

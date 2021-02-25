@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.0.1
+ * @version     1.1.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -196,13 +196,10 @@ if ( ! class_exists( 'WC_SC_Act_Deact' ) ) {
 
 			$all_cache_key = get_option( 'wc_sc_all_cache_key' );
 
-			if ( false === $all_cache_key ) {
-				wp_cache_flush();
-				update_option( 'wc_sc_all_cache_key', array(), 'no' );
-			} elseif ( ! empty( $all_cache_key ) ) {
+			if ( ! empty( $all_cache_key ) ) {
 				$cleared_cache = array();
 				foreach ( $all_cache_key as $key ) {
-					$is_cleared = wp_cache_delete( $key, 'woocommerce_smart_coupons' );
+					$is_cleared = wp_cache_delete( $key );
 					if ( true === $is_cleared ) {
 						$cleared_cache[] = $key;
 					}

@@ -309,7 +309,6 @@ abstract class MeprBaseGateway {
           $this->email_status( "Calling process_trial_payment ...\n\n" . MeprUtils::object_to_string($txn) . "\n\n" . MeprUtils::object_to_string($sub), $this->settings->debug );
           $this->process_trial_payment($txn);
         }
-
         $this->process_create_subscription($txn);
       }
       else {

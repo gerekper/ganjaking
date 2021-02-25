@@ -9,7 +9,7 @@ if(!defined('ABSPATH')) exit();
 
 class RsAddOnBase {
 	
-	const MINIMUM_VERSION = '6.0';
+	const MINIMUM_VERSION = '6.3.2';
 	
 	protected function systemsCheck() {
 		
@@ -75,6 +75,7 @@ class RsAddOnBase {
 		
 		$_handle = 'rs-' . static::$_PluginTitle . '-admin';
 		$_base   = static::$_PluginUrl . 'admin/assets/';
+		$_jsPathMin = file_exists(static::$_PluginPath . 'admin/assets/js/revslider-' . static::$_PluginTitle . '-addon-admin.dev.js') ? '.dev' : '';
 		
 		if($hook === 'toplevel_page_revslider') {
 			
@@ -95,7 +96,7 @@ class RsAddOnBase {
 							case 'slide':
 							
 								wp_enqueue_style($_handle, $_base . 'css/revslider-typewriter-addon-admin.css', array(), static::$_Version);
-								wp_enqueue_script($_handle, $_base . 'js/revslider-typewriter-addon-admin.js',array( 'jquery','revbuilder-admin' ), static::$_Version, true);
+								wp_enqueue_script($_handle, $_base . 'js/revslider-typewriter-addon-admin' . $_jsPathMin . '.js',array( 'jquery','revbuilder-admin' ), static::$_Version, true);
 								wp_localize_script( $_handle, 'revslider_typewriter_addon', self::get_var() );
 								
 							break;
@@ -175,6 +176,7 @@ class RsAddOnBase {
 			'blinkspeed' => __('Blinking Speed','revslider-typewriter-addon'),
 			'blinkinghide' => __('Hide Cursor at End','revslider-typewriter-addon'),
 			'cursor' => __('Cursor','revslider-typewriter-addon'),
+			'color' => __('Cursor Color', 'revslider-typewriter-addon'),
 			'blinkeffect' => __('Blinking Effect','revslider-typewriter-addon'),
 			'deletion' => __('Deletion Behavior','revslider-typewriter-addon'),
 			'deletionspeed' => __('Cursor Deletion Speed','revslider-typewriter-addon'),
@@ -316,6 +318,33 @@ class RsAddOnBase {
 						'helpPath' => 'addOns.revslider-typewriter-addon.cursor_type', 
 						'keywords' => array('addon', 'addons', 'typewriter', 'typewriter addon', 'cursor', 'blink', 'blinking', 'blinking cursor', 'blinking speed', 'speed'), 
 						'description' => __("Choose if the cursor should blink as an underscore or vertical bar character", 'revslider-typewriter-addon'), 
+						'helpStyle' => 'normal', 
+						'article' => 'http://docs.themepunch.com/slider-revolution/typewriter-addon/', 
+						'video' => false,
+						'section' => 'Layer Settings -> TypeWriter',
+						'highlight' => array(
+							
+							'dependencies' => array(
+							
+								'layerselected::text||button',
+								array('path' => '#slide#.layers.#layer#.addOns.revslider-typewriter-addon.enable', 'value' => true, 'option' => 'typewriter_enable'),
+								array('path' => '#slide#.layers.#layer#.addOns.revslider-typewriter-addon.blinking', 'value' => true, 'option' => 'typewriter_blinking')
+								
+							), 
+							'menu' => "#module_layers_trigger, #gst_layer_revslider-typewriter-addon", 
+							'scrollTo' => '.typewriter_layer_blinking_form', 
+							'focus' => "*[data-r='addOns.revslider-typewriter-addon.cursor_type']"
+							
+						)
+						
+					),
+										
+					'color' => array(
+						
+						'title' => __('Cursor Color', 'revslider-typewriter-addon'),
+						'helpPath' => 'addOns.revslider-typewriter-addon.color', 
+						'keywords' => array('addon', 'addons', 'typewriter', 'typewriter addon', 'cursor', 'blink', 'blinking', 'blinking cursor', 'blinking speed', 'color'), 
+						'description' => __("Choose to change the cursor color, transparent will use default font color", 'revslider-typewriter-addon'), 
 						'helpStyle' => 'normal', 
 						'article' => 'http://docs.themepunch.com/slider-revolution/typewriter-addon/', 
 						'video' => false,

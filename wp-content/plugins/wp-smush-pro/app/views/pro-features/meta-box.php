@@ -48,7 +48,8 @@ if ( ! defined( 'WPINC' ) ) {
 						playerColor: "14485f",
 						videoQuality: "hd-only",
 						popover: true,
-						popoverPreventScroll: true
+						popoverPreventScroll: true,
+						popoverContent: 'html'
 					});
 				};
 

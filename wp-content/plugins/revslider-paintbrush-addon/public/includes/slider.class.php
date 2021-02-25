@@ -83,7 +83,7 @@ class RsPaintBrushSliderFront extends RevSliderFunctions {
 		wp_enqueue_script(
 		
 			$handle, 
-			$base . 'js/revolution.addon.' . $this->pluginTitle . '.js', 
+			$base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js', 
 			array('jquery'), 
 			$this->version, 
 			true

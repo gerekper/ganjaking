@@ -29,16 +29,21 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 			add_filter('template_redirect', array($this, 'woocommerce_checkout_fix'), 9);
 
 			if(class_exists('Permalink_Manager_Pro_Functions')) {
-				if(is_admin()){
-					add_filter('woocommerce_coupon_data_tabs', 'Permalink_Manager_Pro_Functions::woocommerce_coupon_tabs');
-					add_action('woocommerce_coupon_data_panels', 'Permalink_Manager_Pro_Functions::woocommerce_coupon_panel');
-					add_action('woocommerce_coupon_options_save', 'Permalink_Manager_Pro_Functions::woocommerce_save_coupon_uri', 9, 2);
+				if(empty($permalink_manager_options['general']['partial_disable']['post_types']) || !in_array('shop_coupon', $permalink_manager_options['general']['partial_disable']['post_types'])) {
+					if(is_admin()) {
+						add_filter('woocommerce_coupon_data_tabs', 'Permalink_Manager_Pro_Functions::woocommerce_coupon_tabs');
+						add_action('woocommerce_coupon_data_panels', 'Permalink_Manager_Pro_Functions::woocommerce_coupon_panel');
+						add_action('woocommerce_coupon_options_save', 'Permalink_Manager_Pro_Functions::woocommerce_save_coupon_uri', 9, 2);
+					}
+
+					add_filter('request', 'Permalink_Manager_Pro_Functions::woocommerce_detect_coupon_code', 1, 1);
 				}
-				add_filter('request', 'Permalink_Manager_Pro_Functions::woocommerce_detect_coupon_code', 1, 1);
+
 				add_filter('permalink_manager_disabled_post_types', 'Permalink_Manager_Pro_Functions::woocommerce_coupon_uris', 9, 1);
 			}
 
 			add_action('woocommerce_product_import_inserted_product_object', array($this, 'woocommerce_generate_permalinks_after_import'), 9, 2);
+			add_action('woocommerce_product_duplicate', array($this, 'woocommerce_generate_permalinks_after_import'), 9, 2);
 			add_filter('permalink_manager_filter_default_post_uri', array($this, 'woocommerce_product_attributes'), 5, 5);
 
 			if(wp_doing_ajax() && class_exists('SitePress')) {
@@ -99,7 +104,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		}
 
 		// 12. My Listing by 27collective
-		if(defined('CASE27_THEME_DIR')) {
+		if(class_exists('\MyListing\Post_Types')) {
 			add_filter('permalink_manager_filter_default_post_uri', array($this, 'ml_listing_custom_fields'), 5, 5 );
 			add_action('mylisting/submission/save-listing-data', array($this, 'ml_set_listing_uri'), 100);
 			add_filter('permalink_manager_filter_query', array($this, 'ml_detect_archives'), 1);
@@ -363,7 +368,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 			$product_id = $object->get_id();
 
 			// Ignore variations
-			if(empty($permalink_manager_uris[$product_id]) && $object->get_type() !== 'variation') {
+			if($object->get_type() !== 'variation') {
 				$permalink_manager_uris[$product_id] = Permalink_Manager_URI_Functions_Post::get_default_post_uri($product_id, false, true);
 
 				update_option('permalink-manager-uris', $permalink_manager_uris);
@@ -482,6 +487,12 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 				}
 			} else if(!empty($element->taxonomy) && !empty($element->term_id)) {
 				$new_url = get_term_link($element, $element->taxonomy);
+
+				// Do not filter if custom canonical URL is set
+				if(class_exists('WPSEO_Taxonomy_Meta')) {
+					$yoast_canonical_url = WPSEO_Taxonomy_Meta::get_term_meta($element, $element->taxonomy, 'canonical' );
+					if(!empty($yoast_canonical_url)) { return $url; }
+				}
 
 				$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 				if($paged > 1) {
@@ -928,7 +939,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	function ml_set_listing_uri($post_id) {
 		global $permalink_manager_uris;
 
-		if(!empty($permalink_manager_uris) && empty($permalink_manager_uris[$post_id])) {
+		if(!empty($permalink_manager_uris)) {
 			$default_uri = Permalink_Manager_URI_Functions_Post::get_default_post_uri($post_id);
 
 			if($default_uri) {

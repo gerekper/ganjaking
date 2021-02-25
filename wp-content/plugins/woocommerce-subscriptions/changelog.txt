@@ -1,5 +1,16 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2021-02-16 - version 3.0.13
+* Fix: Pass an order status array to get_order_report_data() to prevent possible fatals by 3rd parties. PR#3930
+* Fix: Change logic to allow customers to pay for failed order with limited product. PR#3947
+* Fix: Prevent base length from being saved in the DB when retrieved in 'apportion_length'. PR#3954
+* Fix: Prevent errors when using Product Bundles (which uses WCS_Add_Cart_Item) by introducing a WCS_Add_Cart_Item::is_switch_after_fully_reduced_prepaid_term() function. PR#3957
+* Fix: Introduce an SQL Transactions helper with automatic commit/rollback on shutdown. Prevents strange behaviour when a shutdown occurs during a SQL transaction. PR#3827
+* Fix: [PHP 8.0] Change maybe_retry_payment() arg name to prevent unknown variable name errors. PR#3984
+* Fix: Delete '_switch_totals_calc_base_length' meta incorrectly saved in the database on upgrade. PR#3958
+* Fix: Prevent WC_Order_Item_Coupon::offsetGet errors during renewal. PR#4009
+* Dev: Introduce new hooks to various Switch_Totals_Calculator functions. PR#3872
+
 2021-01-06 - version 3.0.12
 * New: Add an order note when subscriptions are deleted after the customer is deleted. PR#3783
 * New: [WC Admin] Register items in new navigation menu. PR#3868

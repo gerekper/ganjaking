@@ -22,6 +22,7 @@ class RsPanoramaSliderFront extends RevSliderFunctions {
 		if(!$isAdmin) add_action('revslider_slider_init_by_data_post', array($this, 'check_addon_active'), 10, 1);	
 		else add_action('wp_enqueue_scripts', array($this, 'add_scripts'));
 		add_action('revslider_fe_javascript_output', array($this, 'write_init_script'), 10, 2);
+		add_action('revslider_add_slider_base_post', array($this, 'write_ajax_script'), 10, 1);
 		
 	}
 	
@@ -114,6 +115,19 @@ class RsPanoramaSliderFront extends RevSliderFunctions {
 
 		}
 
+	}
+	
+	public function write_ajax_script($output){
+		$enabled = $this->isEnabled($output->slider);
+		
+		if(!empty($enabled)) {
+			if($output->ajax_loaded === true){
+				$base   = $this->pluginUrl . 'public/assets/';
+				echo '						<link rel="stylesheet" href="'.$base . 'css/revolution.addon.' . $this->pluginTitle . '.css?ver='.$this->version.'" type="text/css" media="alL" />'."\n";
+				echo '						<script type="text/javascript" src="'.$base . 'js/three.min.js?ver='.$this->version.'"></script>'."\n";
+				echo '						<script type="text/javascript" src="'.$base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js?ver='.$this->version.'"></script>'."\n";
+			}
+		}
 	}
 	
 }

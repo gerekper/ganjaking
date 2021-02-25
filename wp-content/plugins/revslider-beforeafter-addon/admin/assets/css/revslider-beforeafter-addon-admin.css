@@ -69,7 +69,7 @@
 /* THE TOOLBAR TOP NEEDS SOME MODIFICATION */
 .beforeafter_selector { display: inline-block }
 
-.toolbar_rightoriented #beforeafter_selector_wrap .tool_dd_wrap { margin-left: 0px; }
+/*.toolbar_rightoriented #beforeafter_selector_wrap .tool_dd_wrap { margin-left: 0px; }*/
 
 .toolbar_listelement.beaf_toolbar_element.selected {
     background: #006dd2 !important;
@@ -95,11 +95,11 @@
     .toolbar_btn { padding: 0px 0px; }
     .toolbar_btn i.toptoolbaricon.material-icons, .toolbar_selector_icons .toptoolbaricon.material-icons { font-size: 17px; }
 
-    .toolbar_rightoriented .tool_dd_wrap { margin-left: -89px; }
+    /*.toolbar_rightoriented .tool_dd_wrap { margin-left: -89px; }
     .toolbar_rightoriented #toolkit_selector_wrap .tool_dd_wrap { margin-left: -49px }
 
     .toolbar_rightoriented #main_screenselector .tool_dd_wrap { margin-left: -129px !important;}
-    .toolbar_rightoriented #beforeafter_selector_wrap .tool_dd_wrap { margin-left: -5px; }
+    .toolbar_rightoriented #beforeafter_selector_wrap .tool_dd_wrap { margin-left: -5px; }*/
 }
 
 @media only screen and (max-width : 1325px) {
@@ -112,8 +112,8 @@
     .toolbar_btn { padding: 0px 0px; }
     .toolbar_btn i.toptoolbaricon.material-icons, .toolbar_selector_icons .toptoolbaricon.material-icons { font-size: 17px; }
 
-    .toolbar_rightoriented .tool_dd_wrap { margin-left: -129px; }
+   /* .toolbar_rightoriented .tool_dd_wrap { margin-left: -129px; }
     .toolbar_rightoriented #toolkit_selector_wrap .tool_dd_wrap { margin-left: -99px }
 
-    .toolbar_rightoriented #main_screenselector .tool_dd_wrap { margin-left: -159px !important; }
+    .toolbar_rightoriented #main_screenselector .tool_dd_wrap { margin-left: -159px !important; }*/
 }

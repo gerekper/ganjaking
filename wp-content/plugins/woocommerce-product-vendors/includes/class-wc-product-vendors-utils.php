@@ -508,42 +508,6 @@ class WC_Product_Vendors_Utils {
 	}
 
 	/**
-	 * Checks if any of the vendor admins are verified
-	 *
-	 * @access public
-	 * @since 2.1.46
-	 * @version 2.1.46
-	 * @return bool
-	 */
-	public static function is_vendor_approved( $term_id = '' ) {
-		if ( empty( $term_id ) ) {
-			$term_id = self::get_logged_in_vendor();
-		}
-
-		$vendor_data = self::get_vendor_data_by_id( $term_id );
-
-		$admins = $vendor_data['admins'];
-
-		if ( ! is_array( $admins ) ) {
-			$admins = array( $admins );
-		}
-
-		if ( empty ( $admins ) ) {
-			return false;
-		}
-
-		foreach( $admins as $admin ) {
-			if ( ! self::is_pending_vendor( $admin ) &&
-				( self::is_admin_vendor( $admin ) || self::is_manager_vendor( $admin ) )
-			) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
 	 * Get all products that belong to a vendor
 	 *
 	 * @access public

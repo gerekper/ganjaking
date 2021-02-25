@@ -6,6 +6,8 @@ use WPMailSMTP\WP;
 
 /**
  * Class Email represents single email log entry.
+ *
+ * @since 1.5.0
  */
 class Email {
 
@@ -334,16 +336,18 @@ class Email {
 	 * Get the date/time when this email was sent.
 	 *
 	 * @since 1.5.0
+	 * @since 2.6.0 Added UTC timezone.
 	 *
 	 * @return \DateTime
 	 * @throws \Exception Emits exception on incorrect date.
 	 */
 	public function get_date_sent() {
 
-		$date = \DateTime::createFromFormat( WP::datetime_mysql_format(), $this->date_sent );
+		$timezone = new \DateTimeZone( 'UTC' );
+		$date     = \DateTime::createFromFormat( WP::datetime_mysql_format(), $this->date_sent, $timezone );
 
 		if ( $date === false ) {
-			$date = new \DateTime();
+			$date = new \DateTime( 'now', $timezone );
 		}
 
 		return $date;
@@ -504,6 +508,7 @@ class Email {
 	 * DateTime object will be set in property, on save it will be converted to string.
 	 *
 	 * @since 1.5.0
+	 * @since 2.6.0 Added UTC timezone.
 	 *
 	 * @param string $date_sent
 	 *
@@ -519,11 +524,12 @@ class Email {
 		$aa = substr( $date_sent, 0, 4 );
 
 		$valid_date = wp_checkdate( $mm, $jj, $aa, $date_sent );
+		$timezone   = new \DateTimeZone( 'UTC' );
 
 		if ( $valid_date ) {
-			$date_sent = \DateTime::createFromFormat( WP::datetime_mysql_format(), $date_sent );
+			$date_sent = \DateTime::createFromFormat( WP::datetime_mysql_format(), $date_sent, $timezone );
 		} else {
-			$date_sent = new \DateTime();
+			$date_sent = new \DateTime( 'now', $timezone );
 		}
 
 		$this->date_sent = $date_sent;

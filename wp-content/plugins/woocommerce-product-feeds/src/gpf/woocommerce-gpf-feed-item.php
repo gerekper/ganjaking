@@ -862,8 +862,14 @@ class WoocommerceGpfFeedItem {
 	 * Make sure we always send a stock value.
 	 */
 	private function force_stock_status() {
-		if ( ! $this->is_in_stock && empty( $this->additional_elements['availability'] ) ) {
+		// If the product is out of stock, set to out of stock.
+		if ( ! $this->is_in_stock ) {
 			$this->additional_elements['availability'] = array( 'out of stock' );
+			return;
+		}
+		// If the product is in stock, set 'in stock' in the absence of any other value.
+		if ( empty( $this->additional_elements['availability'] ) ) {
+			$this->additional_elements['availability'] = array( 'in stock' );
 		}
 	}
 
@@ -1158,7 +1164,6 @@ class WoocommerceGpfFeedItem {
 			$product    = $this->specific_product;
 			$product_id = $this->specific_id;
 		}
-
 		$product_type = $product->get_type();
 		if ( 'variation' === $product_type ) {
 			// Get the attributes.
@@ -1180,11 +1185,17 @@ class WoocommerceGpfFeedItem {
 				// Otherwise grab the values to use direct from the term relationships.
 				$terms = get_the_terms( $product_id, $value );
 				if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+					$terms  = array_reverse(
+						$this->common->get_term_depth_repository()->order_terms_by_depth( $terms )
+					);
 					$result = wp_list_pluck( $terms, 'name' );
 				} else {
 					// Couldn't find it against the variation - grab the parent product value.
 					$terms = get_the_terms( $product->get_parent_id(), $value );
 					if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+						$terms  = array_reverse(
+							$this->common->get_term_depth_repository()->order_terms_by_depth( $terms )
+						);
 						$result = wp_list_pluck( $terms, 'name' );
 					}
 				}
@@ -1193,6 +1204,9 @@ class WoocommerceGpfFeedItem {
 			// Get the term(s) tagged against the main product.
 			$terms = get_the_terms( $product_id, $value );
 			if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+				$terms  = array_reverse(
+					$this->common->get_term_depth_repository()->order_terms_by_depth( $terms )
+				);
 				$result = wp_list_pluck( $terms, 'name' );
 			}
 		}

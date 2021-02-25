@@ -7,10 +7,12 @@
 	
 	var $,
 		touch = 'ontouchend' in document,
-		_R = jQuery.fn.revolution,
-			_ISM = _R.is_mobile();
+		_R;
 
 	window.RsLiquideffectAddOn = function(_$, slider, base, lazyType) {
+		
+		_R = jQuery.fn.revolution;
+		
 		
 		if(!_$ || typeof PIXI === 'undefined') return;
 		PIXI.utils.skipHello();
@@ -322,14 +324,14 @@
 		this.settings = slide.data('liquideffectsettings');  
 		this.orig = slide.data('liquideffectorig');  
 		
-		this.displacement = new PIXI.Sprite.fromImage(this.settings.image, true);
+		this.displacement = new PIXI.Sprite.fromImage(this.settings.image);
 		this.displacement.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;  
 		this.displacement.scale.x = 2;
 		this.displacement.scale.y = 2;
 		this.displacement.anchor.set(0.5);
 		
 		var sprite = this.settings.sprite,
-			texture = new PIXI.Texture.fromImage(sprite, true),
+			texture = new PIXI.Texture.fromImage(sprite),
 			container = new PIXI.Container();
 		
 		this.img = new PIXI.Sprite(texture);
@@ -710,8 +712,8 @@
 				this.displacement.scale.set(1);
 			}
 			
-			this.displacement.x = this.w / 2;
-			this.displacement.y = this.h / 2; 
+			this.displacement.x = this.slideWidth / 2;			
+			this.displacement.y = this.slideHeight / 2;
 			this.displacement.rotation.x = 0;
 			this.displacement.rotation.y = 0;
 			this.displacement.rotation = 0;

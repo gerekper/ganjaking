@@ -1,5 +1,9 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2021-02-03 - version 1.6.43
+* Tweak - WC 5.0 compatibility.
+* Tweak - WordPress 5.6.1 compatibility.
+
 2021-01-14 - version 1.6.42
 * Tweak - Point to general settings link when checking coupon setting.
 * Fix - Add compatibility with WooCommerce Pre-Orders.

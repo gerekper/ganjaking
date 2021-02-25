@@ -652,13 +652,12 @@ function wc_od_get_first_delivery_date( $args = array(), $context = '' ) {
 		 */
 		if (
 			( wc_string_to_bool( $delivery_days_status[ $wday ] ) || ( $shipping_timestamp === $timestamp && 0 < $min_delivery_days ) ) &&
-			! wc_od_is_disabled_day( $timestamp, $args['disabled_days_args'], $context ) && // The day isn't disabled for delivery.
-			$delivery_date->is_valid() // The date is available for delivery.
+			! wc_od_is_disabled_day( $timestamp, $args['disabled_days_args'], $context ) // The day isn't disabled for delivery.
 		) {
 			// Decrease the minimum delivery days.
 			$min_delivery_days--;
 
-			if ( 0 > $min_delivery_days ) {
+			if ( 0 > $min_delivery_days && $delivery_date->is_valid() ) {
 				$first_delivery_date = $timestamp;
 			}
 		}

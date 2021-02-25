@@ -110,14 +110,13 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 					),
 					'setup_redirects' => array(
 						'type' => 'single_checkbox',
-						'label' => __('Old custom permalinks redirect', 'permalink-manager'),
+						'label' => __('Save old custom permalinks as redirects', 'permalink-manager'),
 						'input_class' => '',
 						'pro' => true,
 						'disabled' => true,
 						'description' => sprintf('%s<br />%s',
-							__('<strong>Permalink Manager can automatically set-up extra redirects after the custom permalink is changed.</strong>', 'permalink-manager'),
-							__('If enabled, Permalink Manage will add redirect for earlier version of custom permalink after you change it (eg. with URI Editor or Regenerate/reset tool).', 'permalink-manager'),
-							__('You can disable this feature if you use another plugin for redirects, eg. Yoast SEO Premium or Redirection.', 'permalink-manager')
+							__('If enabled, Permalink Manage will save the "extra redirect" for earlier version of custom permalink after you change it (eg. with URI Editor or Regenerate/reset tool).', 'permalink-manager'),
+							__('You can disable this feature if you would like to use another plugin for redirects, eg. Yoast SEO Premium or Redirection.', 'permalink-manager')
 						)
 					),
 					'sslwww_redirect' => array(
@@ -170,13 +169,7 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 						'label' => __('Breadcrumbs support', 'permalink-manager'),
 						'input_class' => '',
 						'description' => __('If enabled, the HTML breadcrumbs will be filtered by Permalink Manager to mimic the current URL structure.<br />Works with: <strong>WooCommerce, Yoast SEO, RankMath and SEOPress</strong> breadcrumbs.', 'permalink-manager')
-					),
-					'partial_disable' => array(
-						'type' => 'checkbox',
-						'label' => __('Excluded content types', 'permalink-manager'),
-						'choices' => $content_types,
-						'description' => __('Permalink Manager will ignore and not filter the custom permalinks of all selected above post types & taxonomies.', 'permalink-manager')
-					),
+					)
 				)
 			),
 			'advanced' => array(
@@ -186,14 +179,11 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 				'fields' => array(
 					'show_native_slug_field' => array(
 						'type' => 'single_checkbox',
-						'label' => __('Show "Native slug" field', 'permalink-manager'),
-						'input_class' => '',
-						'description' => __('If enabled, it would be possible to edit the native slug via URI Editor on single post/term edit page.', 'permalink-manager')
+						'label' => __('Show "Native slug" field in URI Editor', 'permalink-manager'),
 					),
 					'pagination_redirect' => array(
 						'type' => 'single_checkbox',
 						'label' => __('Force 404 on non-existing pagination pages', 'permalink-manager'),
-						'input_class' => '',
 						'description' => __('If enabled, the non-existing pagination pages (for single posts) will return 404 ("Not Found") error.<br /><strong>Please disable it, if you encounter any problems with pagination pages or use custom pagination system.</strong>', 'permalink-manager')
 					),
 					'disable_slug_sanitization' => array(
@@ -224,6 +214,17 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 						'description' => sprintf('%s',
 							__('Enable this option if you would like to automatically remove redundant permalinks & duplicated redirects.', 'permalink-manager')
 						)
+					),
+					'partial_disable' => array(
+						'type' => 'checkbox',
+						'label' => __('Exclude content types', 'permalink-manager'),
+						'choices' => $content_types,
+						'description' => __('Permalink Manager will ignore and not filter the custom permalinks of all selected above post types & taxonomies.', 'permalink-manager')
+					),
+					'ignore_drafts' => array(
+						'type' => 'single_checkbox',
+						'label' => __('Exclude drafts', 'permalink-manager'),
+						'description' => __('If enabled, the custom permalinks for post drafts will not be saved.', 'permalink-manager')
 					),
 				)
 			)

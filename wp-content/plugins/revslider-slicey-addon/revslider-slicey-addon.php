@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Slicey Add-On
 Plugin URI: http://www.themepunch.com/
 Description: Display a continously sliding set of images for your slide backgrounds
 Author: ThemePunch
-Version: 2.0.4
+Version: 2.1.0
 Author URI: http://themepunch.com
 */
 

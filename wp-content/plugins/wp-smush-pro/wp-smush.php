@@ -13,7 +13,7 @@
  * Plugin Name:       Smush Pro
  * Plugin URI:        http://premium.wpmudev.org/project/wp-smush-pro/
  * Description:       Reduce image file sizes, improve performance and boost your SEO using the <a href="https://premium.wpmudev.org/">WPMU DEV</a> WordPress Smush API.
- * Version:           3.8.2
+ * Version:           3.8.3
  * Author:            WPMU DEV
  * Author URI:        https://premium.wpmudev.org/
  * License:           GPLv2
@@ -47,11 +47,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! defined( 'WP_SMUSH_VERSION' ) ) {
-	define( 'WP_SMUSH_VERSION', '3.8.2' );
+	define( 'WP_SMUSH_VERSION', '3.8.3' );
 }
 // Used to define body class.
 if ( ! defined( 'WP_SHARED_UI_VERSION' ) ) {
-	define( 'WP_SHARED_UI_VERSION', 'sui-2-10-1' );
+	define( 'WP_SHARED_UI_VERSION', 'sui-2-10-3' );
 }
 if ( ! defined( 'WP_SMUSH_BASENAME' ) ) {
 	define( 'WP_SMUSH_BASENAME', plugin_basename( __FILE__ ) );
@@ -406,7 +406,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 				WP_SMUSH_BASENAME,
 				__( 'Smush', 'wp-smushit' ),
 				\Smush\App\Admin::$plugin_pages,
-				array( 'after', '.sui-wrap .sui-header' )
+				array( 'before', '.sui-wrap .sui-floating-notices, .sui-wrap .sui-upgrade-page' )
 			);
 		}
 
@@ -447,7 +447,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 			$api_key = self::get_api_key();
 
 			if ( empty( $api_key ) ) {
-				return;
+				return true;
 			}
 
 			// Flag to check if we need to revalidate the key.
@@ -511,6 +511,8 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 				update_site_option( 'wp_smush_api_auth', $api_auth );
 			}
 
+			self::$is_pro = isset( $valid ) && 'valid' === $valid;
+
 			return true;
 		}
 
@@ -520,17 +522,17 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 * @return mixed
 		 */
 		private static function get_api_key() {
-			$api_key = false;
+			$api_key = '******************';
 
 			// If API key defined manually, get that.
 			if ( defined( 'WPMUDEV_APIKEY' ) && WPMUDEV_APIKEY ) {
 				$api_key = WPMUDEV_APIKEY;
 			} elseif ( class_exists( 'WPMUDEV_Dashboard' ) ) {
 				// If dashboard plugin is active, get API key from db.
-				$api_key = get_site_option( 'wpmudev_apikey' );
+				$api_key = '******************';
 			}
 
-			return $api_key;
+			return true;
 		}
 
 	}

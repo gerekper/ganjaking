@@ -75,10 +75,10 @@ if ( strlen( $link ) > 0 && 'none' !== $link ) {
 	} elseif ( 'image' === $link ) {
 		$image_block = '<a href="{{ post_image_url }}" title="{{ post_title }}" class="vc_gitem-link vc-zone-link"></a>';
 	} elseif ( 'image_lightbox' === $link ) {
-		if ( ! isset( $this->prettyphoto_rel ) ) {
-			$this->prettyphoto_rel = ' data-rel="prettyPhoto[rel-' . get_the_ID() . '-' . wp_rand() . ']"';
+		if ( ! isset( $this->lightbox_rel ) ) {
+			$this->lightbox_rel = ' data-lightbox="lightbox[rel-' . get_the_ID() . '-' . wp_rand() . ']"';
 		}
-		$image_block .= '<a href="{{ post_image_url }}" title="{{ post_title }}" ' . $this->prettyphoto_rel . ' data-vc-gitem-zone="prettyphotoLink" class="vc_gitem-link prettyphoto vc-zone-link vc-prettyphoto-link"></a>';
+		$image_block .= '<a href="{{ post_image_url }}" title="{{ post_title }}" ' . $this->lightbox_rel . ' data-vc-gitem-zone="prettyphotoLink" class="vc_gitem-link prettyphoto vc-zone-link vc-prettyphoto-link"></a>';
 	}
 	$image_block = apply_filters( 'vc_gitem_zone_image_block_link', $image_block, $link, 'vc_gitem-link vc-zone-link' );
 }

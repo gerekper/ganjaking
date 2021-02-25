@@ -474,7 +474,7 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 		$clean = str_replace(array('&lt', '&gt', '&amp'), '', $clean);
 
 		$percent_sign = ($keep_percent_sign) ? "\%" : "";
-		$sanitize_regex = apply_filters("permalink_manager_sanitize_regex", "/[^\p{Xan}a-zA-Z0-9{$percent_sign}\/_\.|+, -]/ui", $percent_sign);
+		$sanitize_regex = apply_filters("permalink_manager_sanitize_regex", "/[^\p{Xan}\p{Thai}a-zA-Z0-9{$percent_sign}\/_\.|+, -]/ui", $percent_sign);
 		$clean = preg_replace($sanitize_regex, '', $clean);
 		$clean = ($force_lowercase) ? strtolower($clean) : $clean;
 

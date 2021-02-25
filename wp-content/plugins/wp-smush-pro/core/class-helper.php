@@ -99,6 +99,9 @@ class Helper {
 			$file_path = get_attached_file( $attachment_id, true );
 		}
 
+		// Turn the filter off again. We'll call this method when we want the file to be downloaded.
+		add_filter( 'as3cf_get_attached_file_copy_back_to_local', '__return_false' );
+
 		return $file_path;
 	}
 
@@ -147,15 +150,10 @@ class Helper {
 	 *
 	 * @return bool
 	 */
-	public static function file_exists( $id, $file_path ) {
+	public static function file_exists( $id, $file_path = '' ) {
 		// If not attachment id is given return false.
 		if ( empty( $id ) ) {
 			return false;
-		}
-
-		// Get file path, if not provided.
-		if ( empty( $file_path ) ) {
-			$file_path = self::get_attached_file( $id );
 		}
 
 		$s3 = WP_Smush::get_instance()->core()->s3;
@@ -164,10 +162,48 @@ class Helper {
 		if ( is_object( $s3 ) && method_exists( $s3, 'is_image_on_s3' ) && $s3->is_image_on_s3( $id ) ) {
 			$file_exists = true;
 		} else {
+			// Get file path, if not provided.
+			if ( empty( $file_path ) ) {
+				$file_path = self::get_attached_file( $id );
+			}
 			$file_exists = file_exists( $file_path );
 		}
 
 		return $file_exists;
+	}
+
+	/**
+	 * Removes the main file from an attachement when S3 is enabled and the file is on S3.
+	 *
+	 * The method @see self::get_attached_file() downloads the main image
+	 * from S3 into the server. That method is called for certain process.
+	 * This method should clean up the local file after those processes are done.
+	 *
+	 * @since 3.8.3
+	 *
+	 * @param int $attachment_id Image ID.
+	 */
+	public static function remove_main_file_from_server_when_in_s3( $attachment_id ) {
+		// Skip if the image wasn't downloaded.
+		if ( 0 === did_action( 'smush_s3_integration_fetch_file' ) ) {
+			return;
+		}
+
+		$s3 = WP_Smush::get_instance()->core()->s3;
+
+		// If S3 is enabled.
+		if ( is_object( $s3 ) && method_exists( $s3, 'is_image_on_s3' ) && $s3->is_image_on_s3( $attachment_id ) ) {
+			global $as3cf;
+
+			// Remove the local file only when S3 is removing them.
+			if ( '1' !== $as3cf->get_setting( 'remove-local-file' ) ) {
+				return;
+			}
+			$file_path = get_attached_file( $attachment_id );
+			if ( file_exists( $file_path ) ) {
+				unlink( $file_path );
+			}
+		}
 	}
 
 	/**

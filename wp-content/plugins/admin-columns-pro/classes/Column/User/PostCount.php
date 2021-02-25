@@ -12,7 +12,7 @@ class PostCount extends AC\Column\User\PostCount
 	implements Sorting\Sortable {
 
 	public function sorting() {
-		return new Sorting\Model\User\PostCount( $this->get_post_types(), [ 'publish', 'private' ] );
+		return new Sorting\Model\User\PostCount( $this->get_post_types(), $this->get_selected_post_status() );
 	}
 
 	/**

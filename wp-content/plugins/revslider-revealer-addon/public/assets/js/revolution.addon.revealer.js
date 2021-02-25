@@ -2,7 +2,7 @@
  * @author    ThemePunch <info@themepunch.com>
  * @link      http://www.themepunch.com/
  * @copyright 2019 ThemePunch
- * @version   2.0.0
+ * @version   2.1.0
  */
 
 ;(function() {
@@ -14,22 +14,10 @@
 		var opt = $.fn.revolution && $.fn.revolution[slider[0].id] ? $.fn.revolution[slider[0].id] : false;
 		if(!opt) return;
 		
-		var scriptsLoaded,
-			delayReady,
-			options;
-		
-		slider.on('scriptsloaded', function() {
+		var options;
 			
-			scriptsLoaded = true;
-			if(delayReady) slider.revstart();
-			
-		});
-		
-		if(!window.hasOwnProperty('RsAddonRevealerCustom')) {
-
-			options = opt.revealer;
-			
-		}
+		if(!window.hasOwnProperty('RsAddonRevealerCustom'))  options = opt.revealer;
+					
 		else {
 
 			options = window.RsAddonRevealerCustom;
@@ -37,7 +25,7 @@
 			if(hash.length === 2 && window.RsAddonRevealerCustom.hasOwnProperty(hash[1]) && hash[1] !== 'itm_1') {
 				
 				options = window.RsAddonRevealerCustom[hash[1]];
-				if(options.hasOwnProperty('spinner')) spinner = options.spinnerHTML;
+				//if(options.hasOwnProperty('spinner')) spinner = options.spinnerHTML;
 				
 			}
 			else {
@@ -54,21 +42,15 @@
 			finished,
 			timer;
 			
-		if(options.spinner !== 'default') {
+		/*if(options.spinner !== 'default') {
 		
-			if(!isFalse(opt.spinner)) {
-				
-				window.requestAnimationFrame(checkSpinner);
-				
-			}
-			else {
-				
+			if(!isFalse(opt.spinner)) window.requestAnimationFrame(checkSpinner);							
+			else {				
 				opt.spinner = 'on';
-				setSpinner();
-				
-			}
-		
-		}
+				setSpinner();				
+			}		
+		}*/
+		delay = Math.max(200,delay);		
 		
 		if(direction === 'none') {
 				
@@ -87,9 +69,10 @@
 		var wrap = $('<div class="rs_addon_revealer" />'),
 			opens = direction.search('open') !== -1,
 			corner = direction.search('corner') !== -1,
-			ease = options.easing.split('.');
-			
-		ease = ease.length === 2 ? punchgs[ease[0]][ease[1]] : punchgs.hasOwnProperty(ease[0]) ? punchgs[ease[0]] : punchgs.Power3.easeInOut;
+			ease = options.easing;
+		
+		ease = ease===undefined ? 'power3.inOut' : ease;
+
 		var special = opt.sliderLayout === 'fullwidth' && direction.search('skew') !== -1,
 			optionsOne = {ease: ease, onComplete: onFinish},
 			optionsTwo = {ease: ease},
@@ -104,7 +87,7 @@
 			hasClip,
 			abort,
 			tw;
-		
+				
 		if(isNaN(duration)) duration = '300';
 		duration = parseInt(duration, 10) * 0.001;
 		
@@ -120,40 +103,30 @@
 			var defs;
 			color = processColor(color);
 			
-			if(!color[1]) {
-				
+			if(!color[1]) {				
 				color = color[0];
-				defs = '';
-				
+				defs = '';				
 			}
 			else {
-
 				var gradient = drawFill(color);
 				color = gradient[0];
-				defs = gradient[1];
-				
+				defs = gradient[1];				
 			}
 			
 			sideOne = '<svg version="1.1" viewBox="0 0 500 500" preserveAspectRatio="none">' + defs;
 			
 		}
-		
-		if(!calcNeeded) {
-			
-			if(delay) {
-
-				delayStart = true;
-				opt.waitForInit = true;
-				slider.height('100%');
 				
+		if(!calcNeeded) {			
+			if(delay) {				
+				//opt.waitForInit = true;
+				slider.height('100%');				
 			}
 			onReady();
 			
 		} 
-		else {
-			
-			window.addEventListener('resize', onResize);
-			
+		else {			
+			window.addEventListener('resize', onResize);			
 			if(!special) slider.one('revolution.slide.onloaded', onReady);	
 			else slider.addClass('rs_addon_revealer_special').one('revolution.slide.onafterswap', onReady);			
 			
@@ -297,59 +270,36 @@
 			if(opens) sideTwo = $(sideTwo + '" />').appendTo(wrap);
 			
 			wrap.appendTo(slider);
-			if(!special) slider.one('revolution.slide.onafterswap', onStart);
-			
-			if(preloader && preloader.length) opt.loader = preloader;
-			
-			if(delayStart) {
-				
-				timer = setTimeout(function() {
-					
-					delayReady = true;
-					if(scriptsLoaded) {
-							
-						slider.revstart();
 						
-					}
-					
-				}, delay);
-				
-			}
-			else if(special) {
-				
-				slider.removeClass('rs_addon_revealer_special');
-				onStart();
-				
+			
+			if(!special) slider.one('revolution.slide.onafterswap',onStart);
+			if(preloader && preloader.length) opt.loader = preloader;
+
+			//Wait for InitEnded before Slider can Start ! Need a Start Trigger, other way it will wait endless
+			if (opt.initEnded!==true) {				
+				slider.one('revolution.slide.waitingforinit',function() {										
+					onStart();					
+				});
+			} else {				
+				if(special) {				
+					slider.removeClass('rs_addon_revealer_special');
+					onStart();					
+				}
 			}
 			
 		}
 		
-		function onStart() {
-			
+		function onStart() {			
 			if(abort) return;
 			if(isFalse(opt.stopLoop)) slider.revpause();
 			if(!preloader || !preloader.length) preloader = slider.find('rs-loader');
-			if(preloader.length) {
-				
-				opt.loader = preloader;
-				
-				var obj = {opacity: 0, ease: punchgs.Power3.easeOut, onComplete: callback};
-				if(calcNeeded && delay) obj.delay = delay * 0.001;
-				
-				punchgs.TweenLite.to(preloader, 0.3, obj);
-				
+			if(preloader.length) {				
+				opt.loader = preloader;				
+				var obj = {opacity: 0, ease: 'power3.inOut', onComplete: callback};
+				if(delay) obj.delay = delay * 0.001;				
+				tpGS.gsap.to(preloader, 0.3, obj);				
 			}
-			else {
-				
-				if(calcNeeded && delay) {
-						
-					timer = setTimeout(callback, delay);
-					
-				}
-				else callback();
-				
-			}
-			
+			else if(delay) timer = setTimeout(callback, delay); else callback();			
 		}
 			
 		function animateClip() {
@@ -360,11 +310,10 @@
 			optionsOne.point = 100;
 				
 			var start = {point: 0};
-			tw = new punchgs.TweenLite(start, duration, optionsOne);
+			optionsOne.onUpdate = function() {	slider.css('clip-path', 'circle(' + start.point + '% at 50% 50%)');}
 			
-			tw.eventCallback('onUpdate', function() {	
-				slider.css('clip-path', 'circle(' + start.point + '% at 50% 50%)');
-			});
+			tw = tpGS.gsap.to(start, duration, optionsOne);
+						
 			
 		}
 		
@@ -373,8 +322,8 @@
 			if(abort) return;
 			if(overlay) animateOverlay();
 			
-			punchgs.TweenLite.to(wrap.find('.rs_addon_point1'), duration, optionsOne);
-			punchgs.TweenLite.to(wrap.find('.rs_addon_point2'), duration, optionsTwo);
+			tpGS.gsap.to(wrap.find('.rs_addon_point1'), duration, optionsOne);
+			tpGS.gsap.to(wrap.find('.rs_addon_point2'), duration, optionsTwo);
 			
 		}
 		
@@ -382,25 +331,27 @@
 			
 			if(abort) return;
 			if(overlay) animateOverlay();
+			//if (opt.sliderisrunning===undefined) jQuery(slider).revstart();
 			
-			punchgs.TweenLite.to(sideOne, duration, optionsOne);
-			if(opens) punchgs.TweenLite.to(sideTwo, duration, optionsTwo);
+			tpGS.gsap.to(sideOne, duration, optionsOne);
+			if(opens) tpGS.gsap.to(sideTwo, duration, optionsTwo);
 			
 		}
 		
 		function animateOverlay() {
 			
 			var dur = options.overlay_duration,
-				easing = options.overlay_easing.split('.'),
+				easing = options.overlay_easing,
 				del = options.overlay_delay;
-			
+			easing = easing===undefined ? "power3.inOut" : easing;
+
 			if(isNaN(del)) del = 0;
 			del = parseInt(del, 10) * 0.001;
 			
 			if(isNaN(dur)) dur = '300';
 			dur = parseInt(dur, 10) * 0.001;
 			
-			punchgs.TweenLite.to(overlay, dur, {opacity: 0, ease: punchgs[easing[0]][easing[1]], delay: del, onComplete: onFinish});
+			tpGS.gsap.to(overlay, dur, {opacity: 0, ease: easing, delay: del, onComplete: onFinish});
 			
 		}
 		
@@ -428,7 +379,7 @@
 			abort = true;
 			
 			slider.off('revolution.slide.onloaded', onReady).off('revolution.slide.onafterswap', onStart);
-			punchgs.TweenLite.killTweensOf($('.rs_addon_revealer').find('*'));
+			tpGS.gsap.killTweensOf($('.rs_addon_revealer').find('*'));
 			
 			if(tw) {
 				tw.eventCallback('onUpdate', null);
@@ -440,19 +391,15 @@
 			
 		}
 		
-		function checkSpinner() {
+		/*function checkSpinner() {
 			
 			var preloader = slider.find('rs-loader');
-			if(preloader.length) {
-				
+			if(preloader.length) {				
 				preloader.remove();
-				setSpinner();
-				
+				setSpinner();				
 			}
-			else {
-				
-				window.requestAnimationFrame(checkSpinner);
-				
+			else {				
+				window.requestAnimationFrame(checkSpinner);				
 			}
 			
 		}
@@ -463,7 +410,7 @@
 			preloader.html(spinner.replace(/{{color}}/g, options.spinnerColor));
 			opt.loader = preloader;
 			
-		}
+		}*/
 		
 	};
 	

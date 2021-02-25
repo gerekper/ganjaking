@@ -9,7 +9,7 @@ if(!defined('ABSPATH')) exit();
 
 class RsAddOnLiquideffectBase {
 	
-	const MINIMUM_VERSION = '6.0';
+	const MINIMUM_VERSION = '6.4';
 	
 	protected function systemsCheck() {
 		
@@ -153,6 +153,7 @@ class RsAddOnLiquideffectBase {
 				'distortion' => __('Distortion', $_textdomain),
 				'placeholder' => __('Select', $_textdomain),
 				'active' => __('Active', $_textdomain),
+				'use' => __('Draw Using', $_textdomain),
 				'settings' => __('Distortion Effect', $_textdomain),
 				'loadsettings' => __('Load Settings', $_textdomain),
 				'map' => __('Distortion Map', $_textdomain),
@@ -207,6 +208,27 @@ class RsAddOnLiquideffectBase {
 						'menu' => "#module_slide_trigger, #gst_slide_revslider-liquideffect-addon", 
 						'scrollTo' => '#form_slide_revslider-liquideffect-addon', 
 						'focus' => "#distortion_enable"
+						
+					)
+					
+				),
+
+				'use' => array(
+
+					'buttonTitle' => __('Distortion Draw Using', 'revslider-liquideffect-addon'), 
+					'title' => __('Draw Using', 'revslider-liquideffect-addon'),
+					'helpPath' => 'addOns.revslider-liquideffect-addon.use', 
+					'keywords' => array('addon', 'addons', 'distortion', 'distortion addon', 'distortion use'), 
+					'description' => __("Use default image to draw or use background canvas to make your distortions cooler", 'revslider-liquideffect-addon'), 
+					'helpStyle' => 'normal', 
+					'article' => 'http://docs.themepunch.com/slider-revolution/distortion-addon/', 
+					'video' => false,
+					'section' => 'Slide Settings -> Distortion',
+					'highlight' => array(
+					
+						'menu' => "#module_slide_trigger, #gst_slide_revslider-liquideffect-addon", 
+						'scrollTo' => '#form_slide_revslider-liquideffect-addon', 
+						'hover' => "#draw_using"
 						
 					)
 					
@@ -306,7 +328,7 @@ class RsAddOnLiquideffectBase {
 						)
 						
 					),
-					
+
 					'speedx' => array(
 						
 						'buttonTitle' => __('Distortion Speed X', 'revslider-liquideffect-addon'), 

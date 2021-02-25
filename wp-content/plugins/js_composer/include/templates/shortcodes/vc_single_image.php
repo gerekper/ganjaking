@@ -145,11 +145,11 @@ switch ( $onclick ) {
 		break;
 
 	case 'link_image':
-		wp_enqueue_script( 'prettyphoto' );
-		wp_enqueue_style( 'prettyphoto' );
+		wp_enqueue_script( 'lightbox2' );
+		wp_enqueue_style( 'lightbox2' );
 
-		$a_attrs['class'] = 'prettyphoto';
-		$a_attrs['data-rel'] = 'prettyPhoto[rel-' . get_the_ID() . '-' . wp_rand() . ']';
+		$a_attrs['class'] = '';
+		$a_attrs['data-lightbox'] = 'lightbox[rel-' . get_the_ID() . '-' . wp_rand() . ']';
 
 		// backward compatibility
 		if ( ! vc_has_class( 'prettyphoto', $el_class ) && 'external_link' === $source ) {

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.0
+ * @version     1.5.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -47,6 +47,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 				add_filter( 'wc_sc_coupon_amount', array( $this, 'valid_display_amount' ), 11, 2 );
 				add_filter( 'wc_sc_coupon_design_thumbnail_src_set', array( $this, 'coupon_design_thumbnail_src_set' ), 10, 2 );
 				add_filter( 'wc_sc_percent_discount_types', array( $this, 'percent_discount_types' ), 10, 2 );
+				add_filter( 'wc_sc_is_auto_apply', array( $this, 'is_auto_apply' ), 10, 2 );
 			}
 
 		}
@@ -286,9 +287,13 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 
 			if ( ! empty( $old_order_item_ids ) ) {
 
+				$old_order_item_ids = array_map( 'absint', $old_order_item_ids );
+
 				$meta_keys   = array( '_variation_id', '_product_id' );
 				$how_many    = count( $old_order_item_ids );
 				$placeholder = array_fill( 0, $how_many, '%d' );
+
+				$meta_keys = esc_sql( $meta_keys );
 
 				// @codingStandardsIgnoreStart.
 				$query_to_fetch_product_ids = $wpdb->prepare(
@@ -298,9 +303,9 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 						WHEN woim.meta_key = %s AND woim.meta_value > 0 THEN woim.meta_value
 					END) AS product_id
 					FROM {$wpdb->prefix}woocommerce_order_itemmeta AS woim
-					WHERE woim.order_item_id IN ( " . implode( ',', $placeholder ) . ' )
+					WHERE woim.order_item_id IN ( " . implode( ',', $placeholder ) . " )
 						AND woim.meta_key IN ( %s, %s )
-					GROUP BY woim.order_item_id',
+					GROUP BY woim.order_item_id",
 					array_merge( $meta_keys, $old_order_item_ids, array_reverse( $meta_keys ) )
 				);
 				// @codingStandardsIgnoreEnd.
@@ -532,7 +537,12 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 				foreach ( $order_items as $order_item ) {
 					$send_coupons_on_renewals = 'no';
 					if ( ! empty( $order_item['variation_id'] ) ) {
-						$send_coupons_on_renewals = get_post_meta( $order_item['variation_id'], 'send_coupons_on_renewals', true );
+						$coupon_titles = get_post_meta( $order_item['variation_id'], '_coupon_title', true );
+						if ( empty( $coupon_titles ) ) {
+							$send_coupons_on_renewals = get_post_meta( $order_item['product_id'], 'send_coupons_on_renewals', true );
+						} else {
+							$send_coupons_on_renewals = get_post_meta( $order_item['variation_id'], 'send_coupons_on_renewals', true );
+						}
 					} elseif ( ! empty( $order_item['product_id'] ) ) {
 						$send_coupons_on_renewals = get_post_meta( $order_item['product_id'], 'send_coupons_on_renewals', true );
 					} else {
@@ -1131,6 +1141,22 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 			);
 			$discount_types              = array_merge( $discount_types, $subs_percent_discount_types );
 			return $discount_types;
+		}
+
+		/**
+		 * Function to check if a coupon can be auto applied or not
+		 *
+		 * @param boolean $is_auto_apply Is auto apply.
+		 * @param array   $args Additional arguments.
+		 * @return boolean
+		 */
+		public function is_auto_apply( $is_auto_apply = true, $args = array() ) {
+			$cart_total                 = ( ! empty( $args['cart_total'] ) ) ? floatval( $args['cart_total'] ) : 0;
+			$cart_contains_subscription = self::is_cart_contains_subscription();
+			if ( false === $is_auto_apply && empty( $cart_total ) && true === $cart_contains_subscription ) {
+				$is_auto_apply = true;
+			}
+			return $is_auto_apply;
 		}
 
 		/**

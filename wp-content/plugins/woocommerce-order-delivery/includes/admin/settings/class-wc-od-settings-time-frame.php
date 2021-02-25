@@ -116,8 +116,8 @@ class WC_OD_Settings_Time_Frame extends WC_OD_Settings_API {
 	public function enqueue_scripts() {
 		$suffix = wc_od_get_scripts_suffix();
 
-		wp_enqueue_style( 'jquery-timepicker', WC_OD_URL . 'assets/css/lib/jquery.timepicker.css', array(), '1.11.15' );
-		wp_enqueue_script( 'jquery-timepicker', WC_OD_URL . 'assets/js/lib/jquery.timepicker.min.js', array( 'jquery' ), '1.11.15', true );
+		wp_enqueue_style( 'jquery-timepicker', WC_OD_URL . 'assets/css/lib/jquery.timepicker.css', array(), '1.13.18' );
+		wp_enqueue_script( 'jquery-timepicker', WC_OD_URL . 'assets/js/lib/jquery.timepicker.min.js', array( 'jquery' ), '1.13.18', true );
 		wp_enqueue_script( 'wc-od-admin-settings-time-frame', WC_OD_URL . "assets/js/admin/settings-time-frame{$suffix}.js", array( 'jquery', 'jquery-timepicker' ), WC_OD_VERSION, true );
 	}
 }

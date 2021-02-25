@@ -21,7 +21,7 @@ jQuery(function( $ ) {
 			this.statusToggle();
 			this.shippingMethodsFieldsToggle();
 
-			if ( $eventCalendar.length && $.isFunction( $.fn.WC_OD_Calendar ) ) {
+			if ( $eventCalendar.length && typeof $.fn.WC_OD_Calendar === 'function' ) {
 				// Init calendar.
 				if ( 'delivery' === wc_od_settings_l10n.eventsType ) {
 					$eventCalendar.WC_OD_Delivery_Calendar( wc_od_settings_l10n );
@@ -51,7 +51,7 @@ jQuery(function( $ ) {
 			}
 		},
 		statusToggle: function() {
-			$( '.wc-od-input-toggle input[type="checkbox"]' ).change(function() {
+			$( '.wc-od-input-toggle input[type="checkbox"]' ).on( 'change', function() {
 				var $toggle = $( this ).siblings( 'span' );
 
 				if ( $( this ).prop( 'checked' ) ) {
@@ -92,7 +92,7 @@ jQuery(function( $ ) {
 			});
 		},
 		shippingMethodsFieldsToggle: function() {
-			$( 'select#shipping_methods_option' ).change( function() {
+			$( 'select#shipping_methods_option' ).on( 'change', function() {
 				if ( 'specific' === $( this ).val() ) {
 					$( this ).closest('tr').next( 'tr' ).hide();
 					$( this ).closest('tr').next().next( 'tr' ).show();
@@ -103,7 +103,7 @@ jQuery(function( $ ) {
 					$( this ).closest('tr').next( 'tr' ).hide();
 					$( this ).closest('tr').next().next( 'tr' ).hide();
 				}
-			}).change();
+			}).trigger( 'change' );
 		}
 	};
 

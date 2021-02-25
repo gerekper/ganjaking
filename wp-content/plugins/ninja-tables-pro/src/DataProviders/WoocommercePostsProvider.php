@@ -40,6 +40,8 @@ class WoocommercePostsProvider
             return;
         }
 
+	    ninjaTablesValidateNonce();
+
         $quertTerms = $this->getWooQueryTerms();
         wp_send_json_success([
             'query_terms' => $quertTerms
@@ -51,6 +53,7 @@ class WoocommercePostsProvider
         if (!current_user_can(ninja_table_admin_role())) {
             return;
         }
+	    ninjaTablesValidateNonce();
 
         $tableId = intval($_REQUEST['table_id']);
         $query_selections = $_REQUEST['query_selections'];
@@ -111,6 +114,7 @@ class WoocommercePostsProvider
         if (!current_user_can(ninja_table_admin_role())) {
             return;
         }
+	    ninjaTablesValidateNonce();
         $messages = array();
 
         if (empty($_REQUEST['post_title'])) {
@@ -247,6 +251,7 @@ class WoocommercePostsProvider
         if (!current_user_can(ninja_table_admin_role())) {
             return;
         }
+	    ninjaTablesValidateNonce();
 
         $postCustomAttributes = $this->getPostDynamicColumnAtrributes();
         $postCustomAttributes[] = $this->getWooProductAtrributes();
@@ -410,6 +415,7 @@ class WoocommercePostsProvider
 
     public function getTableDataOptions()
     {
+	    ninjaTablesValidateNonce();
         $data = array(
             'custom_fields' => array(
                 array(

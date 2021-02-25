@@ -69,8 +69,8 @@ if ( 'nivo' === $type ) {
 }
 
 if ( 'link_image' === $onclick ) {
-	wp_enqueue_script( 'prettyphoto' );
-	wp_enqueue_style( 'prettyphoto' );
+	wp_enqueue_script( 'lightbox2' );
+	wp_enqueue_style( 'lightbox2' );
 }
 
 $flex_fx = '';
@@ -88,7 +88,7 @@ if ( '' === $images ) {
 	$images = '-1,-2,-3';
 }
 
-$pretty_rel_random = ' data-rel="prettyPhoto[rel-' . get_the_ID() . '-' . wp_rand() . ']"';
+$pretty_rel_random = ' data-lightbox="lightbox[rel-' . get_the_ID() . '-' . wp_rand() . ']"';
 
 if ( 'custom_link' === $onclick ) {
 	$custom_links = vc_value_from_safe( $custom_links );
@@ -139,7 +139,7 @@ foreach ( $images as $i => $image ) {
 			break;
 
 		case 'link_image':
-			$link_start = '<a class="prettyphoto" href="' . esc_url( $large_img_src ) . '"' . $pretty_rel_random . '>';
+			$link_start = '<a class="" href="' . esc_url( $large_img_src ) . '"' . $pretty_rel_random . '>';
 			$link_end = '</a>';
 			break;
 

@@ -262,6 +262,8 @@ class MeprAppHelper {
           $upgrade_str = '';
         }
 
+        $payment_required = MeprHooks::apply_filters('mepr_signup_payment_required', $payment_required, $product);
+
         if($obj->trial_days > 0) {
           list($conv_trial_type, $conv_trial_count) = MeprUtils::period_type_from_days($obj->trial_days);
 
@@ -340,7 +342,7 @@ class MeprAppHelper {
   public static function display_emails($etype='MeprBaseEmail',$args=array()) {
     ?><div class="mepr-emails-wrap"><?php
 
-    $emails = MeprEmailFactory::all($etype,$args);
+    $emails = apply_filters('mepr_display_emails', MeprEmailFactory::all($etype,$args), $etype, $args);
 
     foreach( $emails as $email ) {
       if($email->show_form) { $email->display_form(); }

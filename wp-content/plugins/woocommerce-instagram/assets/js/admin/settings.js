@@ -46,7 +46,7 @@
 				});
 
 			// Reset changes on click the save button.
-			$( '[name="save"]' ).click( function() {
+			$( '[name="save"]' ).on( 'click', function() {
 				wcInstagramSettings.hasChanges = false;
 			});
 

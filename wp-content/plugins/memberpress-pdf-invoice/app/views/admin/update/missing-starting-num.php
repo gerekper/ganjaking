@@ -1,0 +1,2 @@
+<?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');} ?>
+<div class="notice notice-warning is-dismissible" style="padding: 10px;"><?php printf(__('<b>MemberPress PDF Invoice doesn\'t have a Next Invoice Number set.</b> Go to the MemberPress %1$ssettings page%2$s to add one so that invoice numbers can be generated.', 'memberpress-pdf-invoice'), '<a href="'.admin_url('admin.php?page=memberpress-options').'">','</a>'); ?></div>

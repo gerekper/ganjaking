@@ -18,6 +18,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		add_filter( 'permalink_manager_filter_post_sample_uri', array($this, 'control_trailing_slashes'), 9);
 		add_filter( 'wpseo_canonical', array($this, 'control_trailing_slashes'), 9);
 		add_filter( 'wpseo_opengraph_url', array($this, 'control_trailing_slashes'), 9);
+		add_filter( 'paginate_links', array($this, 'control_trailing_slashes'), 9);
 
 		/**
 		 * Detect & canonical URL/redirect functions
@@ -451,7 +452,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		$trailing_slash_setting = (!empty($permalink_manager_options['general']['trailing_slashes'])) ? $permalink_manager_options['general']['trailing_slashes'] : "";
 
 		// Remove trailing slashes from URLs that end with file extension (eg. .html)
-		if(preg_match('/.*\.([a-zA-Z]{3,4})\/?$/', $permalink)) {
+		if(preg_match('/(http(?:s)?:\/\/(?:[^\/]+)\/.*\.([a-zA-Z]{3,4}))\/?$/', $permalink)) {
 			$permalink = preg_replace('/^(?!http(?:s):\/\/[^\/]+\/$)(.+?)([\/]*)(\[\?\#][^\/]+|$)/', '$1$3', $permalink); // Instead of untrailingslashit()
 		} else {
 			// Add trailing slashes
@@ -594,7 +595,6 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 					if(!is_array($redirects)) { continue; }
 
 					if(in_array($uri, $redirects) || in_array($decoded_url, $redirects) || (is_numeric($endpoint_value) && in_array($endpoint_url, $redirects))) {
-
 						// Post is detected
 						if(is_numeric($element)) {
 							$correct_permalink = get_permalink($element);
@@ -604,6 +604,9 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 							$term_id = intval(preg_replace("/[^0-9]/", "", $element));
 							$correct_permalink = get_term_link($term_id);
 						}
+
+						// The custom redirect is found so there is no need to query the rest of array
+						continue;
 					}
 				}
 
@@ -654,7 +657,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			/**
 			 * 1E. Old slug redirect
 			 */
-			if($old_slug_redirect && !empty($pm_query['uri']) && empty($wp_query->query_vars['do_not_redirect']) && is_404()) {
+			if($old_slug_redirect && !empty($pm_query['uri']) && empty($wp_query->query_vars['do_not_redirect']) && is_404() && empty($correct_permalink)) {
 				$slug = basename($pm_query['uri']);
 
 				$post_id = $wpdb->get_var($wpdb->prepare("SELECT post_id from {$wpdb->postmeta} WHERE meta_key = '_wp_old_slug' AND meta_value = %s", $slug));

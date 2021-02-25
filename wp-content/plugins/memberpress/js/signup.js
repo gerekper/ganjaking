@@ -127,11 +127,16 @@
         }
       }
 
+      if(form.find('input[name="mpgft-signup-gift-checkbox"]').length > 0){
+        settings.data.mpgft_gift_checkbox = $('input[name="mpgft-signup-gift-checkbox"]').is(':checked');
+      }
+
       // Let's update terms
       settings.data.action = 'mepr_update_price_string';
       $.ajax(settings)
       .done(function (response) {
         if (response && typeof response == 'object' && response.status === 'success') {
+          form.trigger('meprPriceStringUpdated', [response]);
           if(price_string.length) {
             var scroll_top = price_string.offset().top;
             price_string.html(response.price_string).parent().css({ opacity: 0 });
@@ -157,15 +162,21 @@
       });
 
       // Let's update SPC Invoice
-      settings.data.action = 'mepr_update_spc_invoice_table';
-      $.ajax(settings)
-      .done(function (response) {
-        if (response && typeof response == 'object' && response.status === 'success') {
-          $(form).find('.mepr-transaction-invoice-wrapper > div').replaceWith(response.invoice);
-        }
-        $(form).find('.mepr-invoice-loader').hide();
-        $(form).find(".mepr-transaction-invoice-wrapper .mp_invoice").css({ opacity: 1 });
-      });
+      if (MeprSignup.spc_enabled == '1'){
+        settings.data.action = 'mepr_update_spc_invoice_table';
+
+        // Show SPC invoice table loader
+        form.find('.mepr-invoice-loader').fadeIn();
+
+        $.ajax(settings)
+        .done(function (response) {
+          if (response && typeof response == 'object' && response.status === 'success') {
+            $(form).find('.mepr-transaction-invoice-wrapper > div').replaceWith(response.invoice);
+          }
+          $(form).find('.mepr-invoice-loader').hide();
+          $(form).find(".mepr-transaction-invoice-wrapper .mp_invoice").css({ opacity: 1 });
+        });
+      }
     }
 
 
@@ -259,7 +270,8 @@
           $(this).attr('name') == 'mepr-address-one' ||
           $(this).attr('name') == 'mepr-address-state' ||
           $(this).attr('name') == 'mepr_vat_customer_type' ||
-          $(this).attr('name') == 'mepr_vat_number'
+          $(this).attr('name') == 'mepr_vat_number' ||
+          $(this).attr('name') == 'mpgft-signup-gift-checkbox'
         ) {
           let form = $(this).closest(".mepr-signup-form");
           meprUpdatePriceTerms(form);
@@ -271,6 +283,15 @@
     $('body').on('mepr-geolocated', '.mepr-form .mepr-countries-dropdown', function () {
       meprUpdatePriceTerms($(this).closest('.mepr-signup-form'), true);
     });
+
+
+    $(".mepr-replace-file").each(function(){
+      $(this).closest('div').find('.mepr-file-uploader').hide();
+    });
+    $('body').on('click', '.mepr-replace-file', function (e) {
+      $(this).closest('div').find('.mepr-file-uploader').toggle();
+    });
+
 
   });
 })(jQuery);

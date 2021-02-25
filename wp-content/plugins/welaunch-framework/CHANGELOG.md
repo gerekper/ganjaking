@@ -1,5 +1,10 @@
 # Changelog
 ======
+1.0.2
+======
+- FIX:	Updater now centralized in this plugin
+
+======
 1.0.1
 ======
 - NEW:	Bundle support

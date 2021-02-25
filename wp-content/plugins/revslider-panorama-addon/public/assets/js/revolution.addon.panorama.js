@@ -270,6 +270,7 @@
 		
 		var sphere = new THREE.SphereGeometry(parseInt(options.sphere.radius, 10), parseInt(options.sphere.wsegments, 10), parseInt(options.sphere.hsegments, 10));
 		this.texture = new THREE.TextureLoader();
+		this.texture.crossOrigin = '';
 		this.texture.minFilter = THREE.LinearFilter;
 			
 		sphere.applyMatrix(new THREE.Matrix4().makeScale(-1, 1, 1));

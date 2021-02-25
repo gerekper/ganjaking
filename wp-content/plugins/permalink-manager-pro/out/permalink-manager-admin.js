@@ -167,7 +167,7 @@ jQuery(document).ready(function() {
 				type: 'POST',
 				async: true,
 				data: {
-					action: 'detect_duplicates',
+					action: 'pm_detect_duplicates',
 					custom_uris: all_custom_uris_values
 				},
 				success: function(data) {
@@ -571,8 +571,6 @@ jQuery(document).ready(function() {
 				if(typeof auto_update !== "undefined" && auto_update == 1) {
 					custom_uri_field.attr('readonly', 'readonly');
 				}
-
-				console.log(auto_update);
 
 				// Set the element ID
 				jQuery('#edit-' + post_id).find('.permalink-manager-edit-uri-element-id').val(post_id);

@@ -270,7 +270,7 @@ class WC_Dropshipping_Admin
 				break;
 
 			case 'inventory':
-				echo '<p><a title="Inventory Upload for ' . $ds['name'] . '" href="' . admin_url('admin-ajax.php') . '?action=get_CSV_upload_form&width=600&height=350&term_id=' . $term_id . '" class="thickbox button-primary csvwindow" term_id="' . $term_id . '" >Inventory CSV</a></p>';
+				echo '<p><a title="Import ' . $ds['name'] . '&apos;s Inventory Status in .CSV Format" href="' . admin_url('admin-ajax.php') . '?action=get_CSV_upload_form&width=600&height=350&term_id=' . $term_id . '" class="thickbox button-primary csvwindow" term_id="' . $term_id . '" >Import Inventory .CSV</a></p>';
 
 				break;
 		}
@@ -311,6 +311,10 @@ class WC_Dropshipping_Admin
 		$this->display_edit_form_fields($meta);
 	}
 
+	//
+	// Menu options : Products > Suppliers > Add New Dropshipping Supplier
+	//
+
 	public function display_add_form_fields($data)
 	{
 		add_thickbox();
@@ -327,7 +331,7 @@ class WC_Dropshipping_Admin
 
 
 
-				<p>Your store\'s account number with this dropshipper. Leave blank if you don\'t have an account number</p>
+				<p>Your store&apos;s account number with this supplier. Leave blank if you don&apos;t have an account number</p>
 
 
 
@@ -347,16 +351,20 @@ class WC_Dropshipping_Admin
 
 
 
-				<p>When a customer purchases product from you the dropshipper is sent an email notification. List the email addresses that should be notified when a new order is placed for this dropshipper.<p>
+				<p>When a customer purchases a product from you, the supplier will be sent an notification via email. List the supplier&apos;s email addresses that should be notified when a new order is placed.<p>
 
 
 
 			</div>';
 	}
 
+	//
+	// Menu options : Products > Suppliers > Edit Dropshipping Supplier
+	//
+
 	public function display_edit_form_fields($data)
 	{
-		$csv_types = array('quantity' => 'Quantity on Hand', 'indicator' => 'Indicator');
+		$csv_types = array('quantity' => 'Quantity on Hand', 'indicator' => 'In-Stock Indicator');
 
 		echo '<tr class="term-account_number-wrap">
 
@@ -370,7 +378,7 @@ class WC_Dropshipping_Admin
 
 
 
-						<p>Your store\'s account number with this dropshipper. Leave blank if you don\'t have an account number</p></td>
+						<p>Your store&apos;s account number with this supplier. Leave blank if you don&apos;t have an account number</p></td>
 
 
 
@@ -390,7 +398,7 @@ class WC_Dropshipping_Admin
 
 
 
-						<p>When a customer purchases product from you the dropshipper is sent an email notification. List the email addresses that should be notified when a new order is placed for this dropshipper.<p></td>
+						<p>When a customer purchases a product from you, the supplier will be sent an notification via email. List the supplier&apos;s email addresses that should be notified when a new order is placed.<p></td>
 
 
 
@@ -406,7 +414,7 @@ class WC_Dropshipping_Admin
 
 
 
-				<p>(If you do not receive inventory statuses by CSV from this supplier then just leave these settings blank)</p>
+				<p>(If you do not receive inventory statuses from your supplier in the form of a .CSV file, leave these settings blank)</p>
 
 
 
@@ -418,7 +426,7 @@ class WC_Dropshipping_Admin
 
 
 
-						<th><label for="csv_delimiter" >CSV column delimiter</label></th>
+						<th><label for="csv_delimiter" >CSV File Column Delimiter</label></th>
 
 
 
@@ -426,7 +434,7 @@ class WC_Dropshipping_Admin
 
 
 
-						<p>Please indicate what character is used to separate fields in the CSV. Normally this is a comma</p></td>
+						<p>Please indicate what character is used to separate fields in the CSV file. Normally this is a comma</p></td>
 
 
 
@@ -438,7 +446,7 @@ class WC_Dropshipping_Admin
 
 
 
-						<th><label for="csv_column_sku" >CSV sku column #</label></th>
+						<th><label for="csv_column_sku" >CSV SKU Column #</label></th>
 
 
 
@@ -446,7 +454,7 @@ class WC_Dropshipping_Admin
 
 
 
-						<p>Please indicate which column in the CSV is the product SKU. This should be the manufacturers SKU. Dropship Manager Pro will append the SKU code for this suppler automatically when you upload</p></td>
+						<p>Please indicate which column in the CSV file corresponds to product SKUs. Note that this should be the same SKU that the manufacturer uses. WooCommerce Dropshipping will automatically add the SKU code for products from this suppler when you upload a .CSV file</p></td>
 
 
 
@@ -458,7 +466,7 @@ class WC_Dropshipping_Admin
 
 
 
-						<th><label for="csv_type">CSV type</label></th>
+						<th><label for="csv_type">CSV Type</label></th>
 
 
 
@@ -478,7 +486,7 @@ class WC_Dropshipping_Admin
 
 
 
-						<p>Please indicate how the CSV data should be read. <Br />Quantity on hand - this means that the CSV contains a column showing the suppliers remaining stock</p></td>
+						<p>Please indicate how the .CSV file&apos;s data should be read. <br /><br /><b>Quantity on Hand </b>- If your supplier sends you a .CSV file that contains the quantity that they have remaining in their inventory, you should use this method. Any number above zero indicates that the product is still in stock.<br /><b>In-Stock Indicator </b> - Use this method if your supplier sends you a .CSV file that includes a column indicating whether or not a product is in stock.  This is typically in either a Y/N or 1/0 format to indicate whether or not the product is in stock.</p></td>
 
 
 
@@ -490,7 +498,7 @@ class WC_Dropshipping_Admin
 
 
 
-						<th><label for="csv_column_qty" >CSV quantity column #</label></th>
+						<th><label for="csv_column_qty" >CSV Inventory Quantity Column #</label></th>
 
 
 
@@ -498,7 +506,7 @@ class WC_Dropshipping_Admin
 
 
 
-						<p>If you are using a CSV to update in-stock status please indicate which column in the csv is the inventory quantity remaining</p></td>
+						<p>Please indicate which column in the .CSV file corresponds to the quantity of inventory available</p></td>
 
 
 
@@ -510,7 +518,7 @@ class WC_Dropshipping_Admin
 
 
 
-						<th><label for="csv_column_indicator" >CSV Indicator column #</label></th>
+						<th><label for="csv_column_indicator" >In-Stock Indicator Column #</label></th>
 
 
 
@@ -518,7 +526,7 @@ class WC_Dropshipping_Admin
 
 
 
-						<p>If you are using a CSV to update in-stock status please indicate which column in the csv indicates the in-stock status</p></td>
+						<p>Please indicate which column in the .CSV file indicates whether or not a product is in stock</p></td>
 
 
 
@@ -530,7 +538,7 @@ class WC_Dropshipping_Admin
 
 
 
-						<th><label for="csv_indicator_instock" >CSV Indicator In-stock value</label></th>
+						<th><label for="csv_indicator_instock" >In-Stock Indicator Value</label></th>
 
 
 
@@ -538,7 +546,7 @@ class WC_Dropshipping_Admin
 
 
 
-						<p>If you are using a CSV to update in-stock status please indicate which column in the csv indicates the in-stock value</p></td>
+						<p>Please input the value (ie. Y or 1) in the column defined above that indicates whether or not a product is in stock </p></td>
 
 
 
@@ -945,6 +953,12 @@ class WC_Dropshipping_Admin
 				$options['hide_shipping_price'] = '0';
 			}
 
+			if (isset($_POST['hide_tax'])) {
+				$options['hide_tax'] = '1';
+			} else {
+				$options['hide_tax'] = '0';
+			}
+
 			if (isset($_POST['total_price'])) {
 				$options['total_price'] = '1';
 			} else {
@@ -1068,6 +1082,14 @@ class WC_Dropshipping_Admin
 			$csvcheck = '';
 		}
 
+		if ( isset($_POST['packing_slip_header']) ) {
+			if ( '' != $_POST['packing_slip_header'] ) {
+				$options['packing_slip_header'] = $_POST['packing_slip_header'];
+			} else {
+				$options['packing_slip_header'] = '';
+			}
+		}
+
 		if (isset($options['full_information'])) {
 			$full_information = $options['full_information'];
 		} else {
@@ -1132,6 +1154,12 @@ class WC_Dropshipping_Admin
 			$hide_shipping_price = $options['hide_shipping_price'];
 		} else {
 			$hide_shipping_price = '';
+		}
+
+		if (isset($options['hide_tax'])) {
+			$hide_tax = $options['hide_tax'];
+		} else {
+			$hide_tax = '';
 		}
 
 		if (isset($options['total_price'])) {
@@ -1333,6 +1361,12 @@ class WC_Dropshipping_Admin
 			$hide_shipping_price = ' ';
 		}
 
+		if ($hide_tax == '1') {
+			$hide_tax = ' checked="checked" ';
+		} else {
+			$hide_tax = ' ';
+		}
+
 		if ($total_price == '1') {
 			$total_price = ' checked="checked" ';
 		} else {
@@ -1463,10 +1497,10 @@ class WC_Dropshipping_Admin
 
 		$woocommerce_url = plugins_url() . '/woocommerce/';
 
-		echo '<h3>Aliexpress CBE Settings</h3>';
+		echo '<h3>AliExpress Chrome Browser Extension (CBE) Settings</h3>';
 		echo '<table>
 				<tr>
-					<td><h4>Enable Aliexpress Support:</h4></td>
+					<td><h4>Enable Support for the AliExpress CBE:</h4></td>
 					<td>
 						<span>
 						<td><input name="ali_cbe_enable_name" type="checkbox" ' . $ali_cbe_enable_checkbox . ' /></td>
@@ -1478,10 +1512,10 @@ class WC_Dropshipping_Admin
 			if ($ali_cbe_enable_setting == '1'){
 				echo '<table>
 						<tr>
-						 	<td><h4>Generate aliexpress key: </h4></td>
+						 	<td><h4>Generate AliExpress API Key: </h4></td>
 							<td>
 								<span>
-								<button type="button" id="generate_ali_key" class="button-primary">Generate AliExpress Key</button>
+								<button type="button" id="generate_ali_key" class="button-primary">Generate AliExpress API Key</button>
 								</span>
 							<td>
 						</tr>
@@ -1508,14 +1542,16 @@ class WC_Dropshipping_Admin
 
 		echo '<table>
 				<tr>
-					<td><h4>Markup Method:</h4></td>
+					<td><h4>Price Markup Method:</h4></td>
+					<td><img class="help_tip" data-tip="This setting controls whether the prices listed for products on your WooCommerce store are marked up by a given percentage or by a fixed amount when compared to the AliExpress supplier&apos;s prices" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 					<td>
 						<span>
 							<td>
 								<select name="ali_cbe_price_rate_name">
-	  							<option value="ali_cbe_price_rate_percent_offset" '. @$ali_cbe_price_rate_selected_1 .'>Percent Offset</option>
-	  							<option value="ali_cbe_fixed_price_offset"'. @$ali_cbe_price_rate_selected_2 .'>Fixed Price Offset</option>
+	  							<option value="ali_cbe_price_rate_percent_offset" '. @$ali_cbe_price_rate_selected_1 .'>Percentage Offset</option>
+	  							<option value="ali_cbe_fixed_price_offset"'. @$ali_cbe_price_rate_selected_2 .'>Fixed Amount Offset</option>
 								</select>
+
 							</td>
 						</span>
 					<td>
@@ -1524,21 +1560,23 @@ class WC_Dropshipping_Admin
 
 			echo '<table>
 					<tr>
-						<td><h4>Markup Value:</h4></td>
+						<td><h4>Markup Offset Value:</h4></td>
+						<td><img class="help_tip" data-tip="This setting will either contain a percentage or fixed amount based on the chosen price markup method above" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 						<td>
 							<span>
 							<td><input name="ali_cbe_price_rate_value_name" value="' . @$options['ali_cbe_price_rate_value_name'] . '" size="5" /></td>
+
 							</span>
 						<td>
 					</tr>
 				</table>';
 		}
 	}
-		echo '<h3>Email Notifications</h3>
+		echo '<h3>Supplier Email Notifications</h3>
 
 
 
-			<p>When an order switches to processing status, emails are sent to each supplier to notify them to ship the products. These options control the supplier email notification</p>
+			<p>When an order&apos;s status switches to processing, emails are sent to each supplier to notify them to ship their products. You can set a custom message for the suppliers in the box below to be included in these emails</p>
 
 
 
@@ -1554,7 +1592,7 @@ class WC_Dropshipping_Admin
 
 
 
-					<td><img class="help_tip" data-tip="This note will appear on the email a supplier will receive with your order notification" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+					<td><img class="help_tip" data-tip="This note will appear on emails that suppliers will receive with your order notifications" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
 
 
@@ -1566,503 +1604,31 @@ class WC_Dropshipping_Admin
 
 
 
+
+
 			</table>';
 
-		echo '<h3>Packing slip</h3>
+
+
+		echo '<h3>.CSV File Inventory Update Settings</h3>
 
 
 
-			<p>These options control the information on the generated packing slip that is sent to your supplier. <br />Talk to your supplier to make sure they print out and include this packing slip with each order so that your customer will see it</p>
+			<p>These options relate to how your store processes data imported from CSV spreadsheet files, if you receive them from your supplier</p>
 
 
 
 			<table>
 
-
-
 				<tr>
 
 
 
-					<p><b>NOTE:</b> For best results, keep logo dimensions within 200x60 px</p>
+					<td><label for="inventory_pad">Inventory Padding:</label></td>
 
 
 
-					<td><label for="packing_slip_url_to_logo" >Url to logo:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="This logo will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="packing_slip_url_to_logo" value="' . @$options['packing_slip_url_to_logo'] . '" size="100" /></td>
-
-
-
-				</tr>
-
-
-
-				<tr>
-
-
-
-					<td><label for="packing_slip_url_to_logo_width" >Logo Width:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="Custom width of the logo in the PDF packingslip for e.g 58px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="packing_slip_url_to_logo_width" value="' . @$options['packing_slip_url_to_logo_width'] . '" size="5" /></td>
-
-
-
-				</tr>
-
-
-
-				<tr>
-
-
-
-					<td><label for="packing_slip_company_name" >Company Name:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="This address will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="packing_slip_company_name" value="' . @$options['packing_slip_company_name'] . '" size="100" /></td>
-
-
-
-				</tr>
-
-
-
-				<tr>
-
-
-
-					<td><label for="packing_slip_address" >Address:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="This address will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="packing_slip_address" value="' . @$options['packing_slip_address'] . '" size="100" /></td>
-
-
-
-				</tr>
-
-
-
-				<tr>
-
-
-
-					<td><label for="packing_slip_customer_service_email" >Customer service email:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="This email address will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="packing_slip_customer_service_email" value="' . @$options['packing_slip_customer_service_email'] . '" size="50" /></td>
-
-
-
-				</tr>
-
-
-
-				<tr>
-
-
-
-					<td><label for="packing_slip_customer_service_phone">Customer service phone:</label></td>
-
-
-
-					<td><img class="help_tip"  data-tip="This phone number will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="packing_slip_customer_service_phone" value="' . @$options['packing_slip_customer_service_phone'] . '" size="50" /></td>
-
-
-
-				</tr><tr>
-
-
-
-					<td ><label for="packing_slip_thankyou">Thank you mesage:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="This message will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><textarea name="packing_slip_thankyou" cols="45" >' . @$options['packing_slip_thankyou'] . '</textarea></td>
-
-
-
-				</tr>
-
-
-
-			</table>';
-
-		echo '<h3>Packing Slip Language Conversion</h3>
-
-
-
-                 <p>These options control the language of the labels which are used on the generated packing slip that is sent to your supplier. <br/>
-
-
-
-                 The default labels are appearing in the left and then you can specify corresponding converted label (to be used for<br/> all the notification emails) at the right text field. If you leave it empty then the default will appear in packing slip.</p>
-
-
-
-			<table>
-
-
-
-				<tr>
-
-
-
-					<p><b>NOTE:</b> For best results, please make sure that the converted text that you mention, is not too large to be contained within a packing slip table cell.<br/> If you specify a converted text which if more in length, then in the packing slip it may get wrapped to the next line and hence may disturb the current elements alignment.</p>
-
-
-
-					<td><label for="dropship_chosen_shipping_method" >Chosen Shipping Method:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="This shipping method will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="dropship_chosen_shipping_method" value="' . @$options['dropship_chosen_shipping_method'] . '" size="50" maxlength="50" /></td>
-
-
-
-				</tr>
-
-
-
-				<tr>
-
-
-
-					<td><label for="dropship_payment_type" >Payment Type:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="This Payment type will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="dropship_payment_type" value="' . @$options['dropship_payment_type'] . '" size="50" maxlength="50"/></td>
-
-
-
-				</tr>
-
-
-
-				<tr>
-
-
-
-					<td><label for="dropship_image" >Image:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="This image will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="dropship_image" value="' . @$options['dropship_image'] . '" size="50" maxlength="50" /></td>
-
-
-
-				</tr>
-
-
-
-				<tr>
-
-
-
-					<td><label for="dropship_sku" >SKU:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="This will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="dropship_sku" value="' . @$options['dropship_sku'] . '" size="50" maxlength="50" /></td>
-
-
-
-				</tr>
-
-
-
-				<tr>
-
-
-
-					<td><label for="dropship_product" >Product:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="This will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="dropship_product" value="' . @$options['dropship_product'] . '" size="50" maxlength="50" /></td>
-
-
-
-				</tr>
-
-
-
-				<tr>
-
-
-
-					<td><label for="dropship_quantity">Quantity:</label></td>
-
-
-
-					<td><img class="help_tip"  data-tip="This will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="dropship_quantity" value="' . @$options['dropship_quantity'] . '" size="50" maxlength="50"/></td>
-
-
-
-				</tr>
-
-
-
-				<tr>
-
-
-
-					<td><label for="type_of_package_conversion">Type Of Package:</label></td>
-
-
-
-					<td><img class="help_tip"  data-tip="This will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="type_of_package_conversion" value="' . @$options['type_of_package_conversion'] . '" size="50" maxlength="50"/></td>
-
-
-
-				</tr>
-
-
-
-				<tr>
-
-
-
-					<td ><label for="dropship_price">Price:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="This message will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="dropship_price" value="' . @$options['dropship_price'] . '" size="50" maxlength="50" /></td>
-
-
-
-				</tr>
-
-
-
-				<tr>
-
-
-
-					<td ><label for="dropship_company_address">Company Address:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="This  will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="dropship_company_address" value="' . @$options['dropship_company_address'] . '" size="50" maxlength="50" /></td>
-
-
-
-				</tr>
-
-
-
-				<tr>
-
-
-
-				  <td ><label for="dropship_billing_address_email">Billing Address:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="This message will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="dropship_billing_address_email" value="' . @$options['dropship_billing_address_email'] . '" size="50" maxlength="50"/></td>
-
-
-
-				</tr>
-
-
-
-				<tr>
-
-
-
-					<td ><label for="dropship_shipping_address_email">Shipping Address:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="This will appear on the PDF packingslip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="dropship_shipping_address_email" value="' . @$options['dropship_shipping_address_email'] . '" size="50" maxlength="50" /></td>
-
-
-
-				</tr>
-
-
-
-			</table>';
-
-		echo '<h3>Any additional comment to be displayed</h3>
-
-
-
-               <p>Max length: 200 characters</p>
-
-
-
-               <p>
-
-
-
-               		<b>NOTE:</b>
-
-
-
-               		Please make sure this content as small as possible so that it fits properly at
-
-
-
-					the bottom of Pdf slip.
-
-
-
-				</p>
-
-
-
-	        <table>
-
-
-
-	            <tr>
-
-
-
-					<td>
-
-
-
-						<label for="dropship_additional_comment" >Comment:</label>
-
-
-
-					</td>
-
-
-
-					<td>
-
-
-
-						<img class="help_tip" data-tip="This message will be displayed below the packing slip email and PDF notification." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"/>
-
-
-
-					</td>
-
-
-
-					<td>
-
-
-
-						<textarea name="dropship_additional_comment" maxlength="200" rows="4" cols="50">' . @$options['dropship_additional_comment'] . '</textarea>
-
-
-
-					</td>
-
-
-
-				</tr>
-
-
-
-	        </table>';
-
-		echo '<h3>Inventory Stock Status Update</h3>
-
-
-
-			<p>These options control how the importing of supplier inventory spreadsheets</p>
-
-
-
-			<table>
-
-
-
-				<tr>
-
-
-
-					<td><label for="inventory_pad">Inventory pad:</label></td>
-
-
-
-					<td><img class="help_tip" data-tip="If inventory stock falls below this number it will be considered out of stock. <br>Set to zero if you want to chance that your supplier will not have the item in stock by the time you submit your order." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+					<td><img class="help_tip" data-tip="If the supplier&apos;s stock falls below this number on an imported spreadsheet, the item will be considered out of stock in your store. <br>Set this to zero if you want to directly use the inventory numbers your supplier gives you, or higher if you want to ensure that they don&apos;t sell out of their products before you make a sale." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
 
 
@@ -2104,11 +1670,186 @@ class WC_Dropshipping_Admin
 
 			</table>';
 
-		echo '<h3>Send CSV in E-mail </h3>
+
+
+		echo '<h3>Packing Slips</h3>
 
 
 
-			<p>Following option controls, if you want to send a CSV file, containing order details, as an attachment to the order email which is sent to supplier</p>
+			<p>When the suppliers recieve the email notification to notify them to ship products, this plugin generates packing slips to be included with each order. These options control the information on the generated packing slips. <br />Talk to your supplier to make sure they print out and include the packing slips with each order so that your customers will see them</p>
+
+
+
+			<table>
+
+			<tr>
+
+
+				<td><label for="packing_slip_header" >Packing Slip Title:</label></td>
+
+
+
+				<td><img class="help_tip" data-tip="This will be the custom title of the packing slip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+
+
+
+				<td><input name="packing_slip_header" value="' . @$options['packing_slip_header'] . '" size="100" /></td>
+
+
+
+			</tr>
+
+				<tr>
+
+
+
+					<p><b>NOTE:</b> For best results, please keep logo dimensions within 200x60 px</p>
+
+
+
+					<td><label for="packing_slip_url_to_logo" >Company Logo URL:</label></td>
+
+
+
+					<td><img class="help_tip" data-tip="Please specify the URL where your company&apos;s logo can be found" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+
+
+
+					<td><input name="packing_slip_url_to_logo" value="' . @$options['packing_slip_url_to_logo'] . '" size="100" /></td>
+
+
+
+				</tr>
+
+
+
+				<tr>
+
+
+
+					<td><label for="packing_slip_url_to_logo_width" >Company Logo Width:</label></td>
+
+
+
+					<td><img class="help_tip" data-tip="Please specify the width of your company logo in pixels" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+
+
+
+					<td><input name="packing_slip_url_to_logo_width" value="' . @$options['packing_slip_url_to_logo_width'] . '" size="5" /></td>
+
+
+
+				</tr>
+
+
+
+				<tr>
+
+
+
+					<td><label for="packing_slip_company_name" >Company Name:</label></td>
+
+
+
+					<td><img class="help_tip" data-tip="Please enter the name of your company" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+
+
+
+					<td><input name="packing_slip_company_name" value="' . @$options['packing_slip_company_name'] . '" size="100" /></td>
+
+
+
+				</tr>
+
+
+
+				<tr>
+
+
+
+					<td><label for="packing_slip_address" >Address:</label></td>
+
+
+
+					<td><img class="help_tip" data-tip="Please enter your company&apos;s mailing address. This address will appear on your packing slips" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+
+
+
+					<td><input name="packing_slip_address" value="' . @$options['packing_slip_address'] . '" size="100" /></td>
+
+
+
+				</tr>
+
+
+
+				<tr>
+
+
+
+					<td><label for="packing_slip_customer_service_email" >Customer Service Email:</label></td>
+
+
+
+					<td><img class="help_tip" data-tip="Please enter the email address at which customers can reach your company if they have service issues" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+
+
+
+					<td><input name="packing_slip_customer_service_email" value="' . @$options['packing_slip_customer_service_email'] . '" size="50" /></td>
+
+
+
+				</tr>
+
+
+
+				<tr>
+
+
+
+					<td><label for="packing_slip_customer_service_phone">Customer Service Phone Number:</label></td>
+
+
+
+					<td><img class="help_tip"  data-tip="Please enter the phone number at which customers can reach your company if they have service issues" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+
+
+
+					<td><input name="packing_slip_customer_service_phone" value="' . @$options['packing_slip_customer_service_phone'] . '" size="50" /></td>
+
+
+
+				</tr><tr>
+
+
+
+					<td ><label for="packing_slip_thankyou">Footer Message:</label></td>
+
+
+
+					<td><img class="help_tip" data-tip="This message will appear at the bottom of the packing slip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+
+
+
+					<td><textarea name="packing_slip_thankyou" cols="45" >' . @$options['packing_slip_thankyou'] . '</textarea></td>
+
+
+
+				</tr>
+
+
+
+			</table>';
+
+		echo '<h3>Packing Slip Verbiage</h3>
+
+
+
+                 <p>These options control the wording of the labels which are used on the generated packing slip that is sent to your supplier.  This can be used to create non-English packing slips, or to change the wording used on the packing slips <br/>
+
+
+
+                 The default terms are listed on the left side, and you can specify a custom term or phrase to replace them with. These terms will be used in all of your packing slips. If you leave the given boxes empty then the default terms will appear in packing slip.</p>
 
 
 
@@ -2120,7 +1861,274 @@ class WC_Dropshipping_Admin
 
 
 
-					<td><label for="csv_inmail">Send CSV to Supplier:</label></td>
+					<p><b>NOTE:</b> For best results, please make sure that any custom terms or phrases listed below are kept to a reasonable legnth. If your terms are too long, it may cause text wrapping and alignment issues with your packing slips.</p>
+
+
+
+					<td><label for="dropship_chosen_shipping_method" >Chosen Shipping Method:</label></td>
+
+
+
+
+					<td><input name="dropship_chosen_shipping_method" value="' . @$options['dropship_chosen_shipping_method'] . '" size="50" maxlength="50" /></td>
+
+
+
+				</tr>
+
+
+
+				<tr>
+
+
+
+					<td><label for="dropship_payment_type" >Payment Type:</label></td>
+
+
+
+					<td><input name="dropship_payment_type" value="' . @$options['dropship_payment_type'] . '" size="50" maxlength="50"/></td>
+
+
+
+				</tr>
+
+
+
+				<tr>
+
+
+
+					<td><label for="dropship_image" >Image:</label></td>
+
+
+
+
+					<td><input name="dropship_image" value="' . @$options['dropship_image'] . '" size="50" maxlength="50" /></td>
+
+
+
+				</tr>
+
+
+
+				<tr>
+
+
+
+					<td><label for="dropship_sku" >SKU:</label></td>
+
+
+
+
+					<td><input name="dropship_sku" value="' . @$options['dropship_sku'] . '" size="50" maxlength="50" /></td>
+
+
+
+				</tr>
+
+
+
+				<tr>
+
+
+
+					<td><label for="dropship_product" >Product:</label></td>
+
+
+
+
+					<td><input name="dropship_product" value="' . @$options['dropship_product'] . '" size="50" maxlength="50" /></td>
+
+
+
+				</tr>
+
+
+
+				<tr>
+
+
+
+					<td><label for="dropship_quantity">Quantity:</label></td>
+
+
+
+
+					<td><input name="dropship_quantity" value="' . @$options['dropship_quantity'] . '" size="50" maxlength="50"/></td>
+
+
+
+				</tr>
+
+
+
+				<tr>
+
+
+
+					<td><label for="type_of_package_conversion">Type Of Package:</label></td>
+
+
+
+
+					<td><input name="type_of_package_conversion" value="' . @$options['type_of_package_conversion'] . '" size="50" maxlength="50"/></td>
+
+
+
+				</tr>
+
+
+
+				<tr>
+
+
+
+					<td ><label for="dropship_price">Price:</label></td>
+
+
+
+
+					<td><input name="dropship_price" value="' . @$options['dropship_price'] . '" size="50" maxlength="50" /></td>
+
+
+
+				</tr>
+
+
+
+				<tr>
+
+
+
+					<td ><label for="dropship_company_address">Company Address:</label></td>
+
+
+
+
+					<td><input name="dropship_company_address" value="' . @$options['dropship_company_address'] . '" size="50" maxlength="50" /></td>
+
+
+
+				</tr>
+
+
+
+				<tr>
+
+
+
+				  <td ><label for="dropship_billing_address_email">Billing Address:</label></td>
+
+
+
+
+					<td><input name="dropship_billing_address_email" value="' . @$options['dropship_billing_address_email'] . '" size="50" maxlength="50"/></td>
+
+
+
+				</tr>
+
+
+
+				<tr>
+
+
+
+					<td ><label for="dropship_shipping_address_email">Shipping Address:</label></td>
+
+
+
+
+					<td><input name="dropship_shipping_address_email" value="' . @$options['dropship_shipping_address_email'] . '" size="50" maxlength="50" /></td>
+
+
+
+				</tr>
+
+
+
+			</table>';
+
+		echo '<h3>Additional Comments</h3>
+
+
+
+               <p>Max length: 200 characters</p>
+
+
+
+               <p>
+
+
+
+               		<b>NOTE:</b>
+
+
+
+               		This message appears below the shipper&apos;s address near the bottom left corner of the packing slip, but above the footer message.  If you add too much text, it will not display properly.
+
+
+
+				</p>
+
+
+
+	        <table>
+
+
+
+	            <tr>
+
+
+
+					<td>
+
+
+
+						<label for="dropship_additional_comment" >Comments:</label>
+
+
+
+					</td>
+
+
+
+					<td>
+
+
+
+						<textarea name="dropship_additional_comment" maxlength="200" rows="4" cols="50">' . @$options['dropship_additional_comment'] . '</textarea>
+
+
+
+					</td>
+
+
+
+				</tr>
+
+
+
+	        </table>';
+
+
+		echo '<h3>Send Order Details CSV to Suppliers</h3>
+
+
+
+			<p>This option controls whether or not you want to send a .CSV spreadsheet file as an attachment with the regular order notification emails that are sent to your suppliers</p>
+
+
+
+			<table>
+
+
+
+				<tr>
+
+
+
+					<td><label for="csv_inmail">Send CSV with Supplier Notifications:</label></td>
 
 
 
@@ -2134,7 +2142,7 @@ class WC_Dropshipping_Admin
 
 			</table>';
 
-		echo '<h3>Send your full order information</h3>
+		echo '<h3>Miscellaneous Packing Slip Options</h3>
 
 
 
@@ -2146,7 +2154,7 @@ class WC_Dropshipping_Admin
 
 
 
-					<td><label for="full_information"><b>Do you want to also send your full order information as a PDF to your supplier to use as a packing slip?:</b></label></td>
+					<td><label for="full_information"><b>Send full order information as a PDF to your supplier to use as a packing slip:</b></label></td>
 
 
 
@@ -2176,7 +2184,7 @@ class WC_Dropshipping_Admin
 
 
 
-					<td><label for="show_logo">Show logo in the header:</label></td>
+					<td><label for="show_logo">Include your company logo in the header section of the packing slip:</label></td>
 
 
 
@@ -2202,7 +2210,7 @@ class WC_Dropshipping_Admin
 
 
 
-					<td><label for="order_date">Show order date beside order number:</label></td>
+					<td><label for="order_date">Include order date in the packing slip:</label></td>
 
 
 
@@ -2228,7 +2236,7 @@ class WC_Dropshipping_Admin
 
 
 
-					<td><label for="product_price">Show product prices:</label></td>
+					<td><label for="product_price">Show product prices in the packing slip:</label></td>
 
 
 
@@ -2245,7 +2253,7 @@ class WC_Dropshipping_Admin
 		echo '<p></p>
 			<table>
 				<tr>
-					<td><label for="total_price">Show Total Price in supplier email:</label></td>
+					<td><label for="total_price">Show the total price in the packing slip:</label></td>
 					<td><input name="total_price" type="checkbox" ' . $total_price . ' /></td>
 				</tr>
 			</table>';
@@ -2253,10 +2261,18 @@ class WC_Dropshipping_Admin
 		echo '<p></p>
 			<table>
 				<tr>
-					<td><label for="hide_shipping_price">Hide Shipping Price in supplier email:</label></td>
+					<td><label for="hide_shipping_price">Hide the shipping cost in the packing slip:</label></td>
 					<td><input name="hide_shipping_price" type="checkbox" ' . $hide_shipping_price . ' /></td>
 				</tr>
 			</table>';
+
+			echo '<p></p>
+				<table>
+					<tr>
+						<td><label for="hide_tax">Hide Tax in supplier email:</label></td>
+						<td><input name="hide_tax" type="checkbox" ' . $hide_tax . ' /></td>
+					</tr>
+				</table>';
 
 		echo '<p></p>
 
@@ -2270,7 +2286,7 @@ class WC_Dropshipping_Admin
 
 
 
-					<td><label for="shipping">Show shipping information:</label></td>
+					<td><label for="shipping">Include shipping information in the packing slip:</label></td>
 
 
 
@@ -2296,7 +2312,7 @@ class WC_Dropshipping_Admin
 
 
 
-					<td><label for="shipping">Show user phone number to supplier:</label></td>
+					<td><label for="shipping">Include the customer&apos;s phone number in the packing slip:</label></td>
 
 
 
@@ -2322,7 +2338,7 @@ class WC_Dropshipping_Admin
 
 
 
-					<td><label for="hidesuppliername">Hide supplier name on Confirmation email:</label></td>
+					<td><label for="hidesuppliername">Hide the supplier names on order confirmation emails:</label></td>
 
 
 
@@ -2339,7 +2355,7 @@ class WC_Dropshipping_Admin
 		echo '<p></p>
 			<table>
 				<tr>
-					<td><label for="hidesuppliername">Show Supplier name on product page:</label></td>
+					<td><label for="hidesuppliername">Show supplier names on product pages:</label></td>
 
 					<td><input name="hide_suppliername_on_product_page" type="checkbox" ' . $hide_suppliername_on_product_page . ' /></td>
 				</tr>
@@ -2357,9 +2373,9 @@ class WC_Dropshipping_Admin
 
 
 
-					<td><label for="type_of_package">Additional field in Add/Edit product to specify "Type of Package"
+					<td><label for="type_of_package">Include an additional field in the "Add/Edit Product" menu to specify the "Type of Package"
 
-						<img class="help_tip" data-tip="This will also be added as an additional column in the pdf packing slip" style="margin: 0 0 0 0px;" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16">: </label></td>
+						<img class="help_tip" data-tip="This will also be added as an additional column in the packing slip" style="margin: 0 0 0 0px;" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16">: </label></td>
 
 
 
@@ -2385,7 +2401,7 @@ class WC_Dropshipping_Admin
 
 
 
-					<td><label for="hideorderdetail_suppliername">Hide supplier name on Order detail page:</label></td>
+					<td><label for="hideorderdetail_suppliername">Hide supplier names on the Order Details page:</label></td>
 
 
 
@@ -2439,7 +2455,7 @@ class WC_Dropshipping_Admin
 
 			<table>
 				<tr>
-					<td><label for="customer_note">Display the "Customer Note" into the Dropshipper packing slip:</label></td>
+					<td><label for="customer_note">Include the "Customer Note" into the Dropshipper packing slip:</label></td>
 					<td><input name="customer_note" type="checkbox" ' . $customer_note . ' /></td>
 				</tr>
 			</table>';
@@ -2456,7 +2472,7 @@ class WC_Dropshipping_Admin
 
 
 
-					<td><label for="cost_of_goods">Need to show "Cost of Goods"  instead of actual "Selling Price" of products, in PDF packing slip:</label></td>
+					<td><label for="cost_of_goods">Show "Cost of Goods"  instead of the store&apos;s actual "Selling Price" of products in the packing slip:</label></td>
 
 
 
@@ -2523,7 +2539,7 @@ class WC_Dropshipping_Admin
 
 				<tr>
 
-					<td><label for="store_name">Add store name in the CSV filename:</label></td>
+					<td><label for="store_name">Include store name in the order notification CSV filename:</label></td>
 
 					<td><input name="store_name" type="checkbox" ' . $name_store . ' /></td>
 
@@ -2537,7 +2553,7 @@ class WC_Dropshipping_Admin
 
 				<tr>
 
-					<td><label for="store_address">Add website address of the store in the CSV filename:</label></td>
+					<td><label for="store_address">Include the store&apos;s URL in the order notification CSV filename:</label></td>
 
 					<td><input name="store_address" type="checkbox" ' . $address_store . ' /></td>
 
@@ -2551,7 +2567,7 @@ class WC_Dropshipping_Admin
 
 				<tr>
 
-					<td><label for="complete_email">Send an addition email to supplier when order completed:</label></td>
+					<td><label for="complete_email">Send an additional email to the supplier when the order is completed:</label></td>
 
 					<td><input name="complete_email" type="checkbox" ' . $email_complete . ' /></td>
 				</tr>
@@ -2561,7 +2577,7 @@ class WC_Dropshipping_Admin
 
 			<table>
 				<tr>
-					<td><label for="order_complete_link">Allow suppliers to mark their orders as shipped by clicking a link on the email, without logging in:</label></td>
+					<td><label for="order_complete_link">Allow suppliers to mark their orders as shipped by clicking a link on the email, without logging in to your store:</label></td>
 
 					<td><input name="order_complete_link" type="checkbox" ' . $link_complete_order . ' /></td>
 
@@ -2575,7 +2591,7 @@ class WC_Dropshipping_Admin
 
 				<tr>
 
-					<td><label for="sendemail">When admin create a new supplier, send registration details to supplier email:</label></td>
+					<td><label for="sendemail">When an admin creates a new supplier, send registration details to the supplier&apos;s email:</label></td>
 
 					<td><input name="email_supplier" type="checkbox" ' . $supplier_email . ' /></td>
 				</tr>
@@ -2585,8 +2601,8 @@ class WC_Dropshipping_Admin
 		echo '<p></p>
 			<table>
 				<tr>
-					<td><label for="cnf_mail">Sent "Read notification email" to merchant
-					<img class="help_tip" data-tip="Allow [Read notification email] to be sent to the merchant, as soon as dropshipper open the order notification email." style="margin: 0 0 0 0px;" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16">: </label></td>
+					<td><label for="cnf_mail">Notify via email when suppliers open order notification emails
+					<img class="help_tip" data-tip="A notification will be sent to your store when a supplier opens order notification emails that you send out." style="margin: 0 0 0 0px;" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16">: </label></td>
 
 					<td><input name="cnf_mail" type="checkbox" ' . $cnf_mail . ' /></td>
 				</tr>
@@ -2596,7 +2612,7 @@ class WC_Dropshipping_Admin
 		echo '<p></p>
 			<table>
 				<tr>
-					<td><label for="std_mail">Send standerd Woo mail format Email notification:</label></td>
+					<td><label for="std_mail">Use the standard WooCommerce mail format for email notification:</label></td>
 
 					<td><input name="std_mail" type="checkbox" ' . $std_mail . ' /></td>
 				</tr>
@@ -2615,7 +2631,7 @@ class WC_Dropshipping_Admin
 
 
 
-					<td><label for="cc_mail">Please check this, if you do not want admin/merchant to receive the notification email in CC:</label></td>
+					<td><label for="cc_mail">Don&apos;t cc: the store admin when sending order notification emails to suppliers</label></td>
 
 
 
@@ -2629,7 +2645,7 @@ class WC_Dropshipping_Admin
 
 			</table>';
 
-		echo '<h3>SMTP Optional</h3>
+		echo '<h3>SMTP Options</h3>
 
 
 
@@ -2645,7 +2661,7 @@ class WC_Dropshipping_Admin
 
 
 
-					<td><label for="smtp_check">Check this option if you are using SMTP mail function in your website:</label></td>
+					<td><label for="smtp_check">Check this option if you are using SMTP to send emails from your WooCommerce store:</label></td>
 
 
 
@@ -2659,7 +2675,7 @@ class WC_Dropshipping_Admin
 
 			</table>';
 
-		echo '<h2>Email sender information (if empty then it will pick these settings from woocommerce default settings)</h2>
+		echo '<h2>Email Sender Information (if left empty, emails sent from the store will use default WooCommerce settings)</h2>
 
 
 
@@ -2679,7 +2695,7 @@ class WC_Dropshipping_Admin
 
 
 
-							<label for="from_name">"From" name <img class="help_tip"  data-tip="This option will override default functionality of woocommerce" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></label>
+							<label for="from_name">Emails sent from the store should show this sender name: <img class="help_tip"  data-tip="This option will override default functionality of woocommerce" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></label>
 
 
 
@@ -2711,7 +2727,7 @@ class WC_Dropshipping_Admin
 
 
 
-							<label for="from_email">"From" address <img class="help_tip"  data-tip="This option will override default functionality of woocommerce" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></label>
+							<label for="from_email">Emails sent from the store should show this sender email address:<img class="help_tip"  data-tip="This option will override default WooCommerce functionality" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></label>
 
 
 

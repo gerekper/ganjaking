@@ -10,11 +10,15 @@
  * Edit product
  */
 #woocommerce-product-data {
+
 	ul.wc-tabs {
+
 		li.store_credit_options {
+
 			a {
-				&:before {
-					content: '\f524';
+
+				&::before {
+					content: "\f524";
 				}
 			}
 		}
@@ -22,16 +26,19 @@
 }
 
 .woocommerce_options_panel {
+
 	.options_group_heading {
 		margin: 0;
-		padding: .75em 1em;
+		padding: 0.75em 1em;
 		border-bottom: 1px solid #eee;
 		background-color: #fdfdfd;
 		font-size: 1em;
 	}
 
 	p.form-field {
+
 		&.time-period {
+
 			.fields-container {
 				display: block;
 				width: 50%;
@@ -52,9 +59,13 @@
 }
 
 @media only screen and (max-width: 1280px) {
+
 	.woocommerce_options_panel {
+
 		p.form-field {
+
 			&.time-period {
+
 				.fields-container {
 					width: 80%;
 				}
@@ -64,13 +75,14 @@
 }
 
 #wc-store-credit-coupon-usage {
+
 	.inside {
 		margin: 0;
 		padding: 0;
 	}
 }
 
-.store_credit_coupon_usage {
+.store-credit-coupon-usage {
 	margin: 0;
 	overflow: auto;
 
@@ -91,6 +103,10 @@
 			color: #555;
 			user-select: none;
 
+			&:last-of-type {
+				text-align: right;
+			}
+
 			&:last-child {
 				padding-right: 12px;
 			}
@@ -106,15 +122,14 @@
 			line-height: 26px;
 			vertical-align: top;
 			border-bottom: 1px dotted #ececec;
+
+			&:last-of-type {
+				text-align: right;
+			}
 		}
 
 		tbody tr:last-child td {
 			border-bottom: none;
-		}
-
-		th:last-of-type,
-		td:last-of-type {
-			text-align: right;
 		}
 	}
 }

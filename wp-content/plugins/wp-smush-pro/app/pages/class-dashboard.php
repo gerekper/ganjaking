@@ -318,7 +318,7 @@ class Dashboard extends Abstract_Page {
 						'webp'
 					);
 
-					if ( ! WP_Smush::get_instance()->core()->mod->webp->is_configured() ) {
+					if ( true !== WP_Smush::get_instance()->core()->mod->webp->is_configured() ) {
 						$this->add_meta_box(
 							'webp_config',
 							__( 'Configurations', 'wp-smushit' ),
@@ -328,6 +328,8 @@ class Dashboard extends Abstract_Page {
 							'webp'
 						);
 					}
+
+					$this->modals['webp-delete-all'] = array();
 				}
 			}
 		}
@@ -345,6 +347,8 @@ class Dashboard extends Abstract_Page {
 					'box_content_class' => "sui-box-body {$box_body_class}",
 				)
 			);
+
+			$this->modals['restore-images'] = array();
 		}
 
 		if ( 'settings' === $this->get_current_tab() && ( is_network_admin() || $this->should_render() ) ) {
@@ -356,6 +360,8 @@ class Dashboard extends Abstract_Page {
 				array( $this, 'common_metabox_footer' ),
 				'settings'
 			);
+
+			$this->modals['reset-settings'] = array();
 		}
 
 		if ( 'tutorials' === $this->get_current_tab() && $this->should_render() ) {
@@ -397,7 +403,7 @@ class Dashboard extends Abstract_Page {
 				return;
 			}
 
-			if ( WP_Smush::get_instance()->core()->mod->webp->is_configured() ) {
+			if ( true === WP_Smush::get_instance()->core()->mod->webp->is_configured() ) {
 				echo '<i id="webp-tab-icon" class="sui-icon-check-tick sui-success" aria-hidden="true"></i>';
 			} else {
 				echo '<i id="webp-tab-icon" class="sui-icon-warning-alert sui-warning" aria-hidden="true"></i>';
@@ -1124,6 +1130,22 @@ class Dashboard extends Abstract_Page {
 	protected function get_tutorials_data() {
 		return array(
 			array(
+				'title'             => __( 'Smush Pro Now Supports Local WebP Conversion (No CDN Required)', 'wp-smushit' ),
+				'content'           => __( 'Until now, next-gen WebP images could only be served by activating Smush Pro’s CDN. But by popular demand, Smush Pro now also supports local WebP image conversion.', 'wp-smushit' ),
+				'thumbnail_full'    => 'tutorial-5-thumbnail.png',
+				'thumbnail_full_2x' => 'tutorial-5-thumbnail@2x.png',
+				'url'               => 'https://premium.wpmudev.org/blog/local-webp-support-smush/',
+				'read_time'         => 6,
+			),
+			array(
+				'title'             => __( 'Optimizing Your WordPress Site Performance with Smush, Hummingbird, and The Hub', 'wp-smushit' ),
+				'content'           => __( 'The Hub’s Performance tab lets you quickly optimize and manage site performance with Hummingbird and Smush from a single tab.', 'wp-smushit' ),
+				'thumbnail_full'    => 'tutorial-4-thumbnail.png',
+				'thumbnail_full_2x' => 'tutorial-4-thumbnail@2x.png',
+				'url'               => 'https://premium.wpmudev.org/blog/optimizing-your-wordpress-site-performance-with-smush-hummingbird-and-the-hub/',
+				'read_time'         => 10,
+			),
+			array(
 				'title'             => __( 'How to Get the Most Out of Smush Image Optimization', 'wp-smushit' ),
 				'content'           => __( 'Set your site up for maximum success. Learn how to get the most out of Smush and streamline your images for peak site performance.', 'wp-smushit' ),
 				'thumbnail_full'    => 'tutorial-1-thumbnail.png',
@@ -1293,7 +1315,6 @@ class Dashboard extends Abstract_Page {
 			array(
 				'errors'      => $errors,
 				'images'      => $images,
-				'root_path'   => $core->mod->dir->get_root_path(),
 				'upgrade_url' => $upgrade_url,
 			)
 		);
@@ -1462,7 +1483,7 @@ class Dashboard extends Abstract_Page {
 			'webp/meta-box-header',
 			array(
 				'is_disabled'   => ! $this->settings->get( 'webp_mod' ) || ! WP_Smush::get_instance()->core()->s3->setting_status(),
-				'is_configured' => WP_Smush::get_instance()->core()->mod->webp->is_configured(),
+				'is_configured' => true === WP_Smush::get_instance()->core()->mod->webp->is_configured(),
 			)
 		);
 	}

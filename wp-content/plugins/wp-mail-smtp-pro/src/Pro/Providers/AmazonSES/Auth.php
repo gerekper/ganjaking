@@ -21,10 +21,13 @@ class Auth extends AuthAbstract {
 	 */
 	const AWS_US_EAST_1      = 'us-east-1'; // phpcs:ignore
 	const AWS_US_EAST_2      = 'us-east-2'; // phpcs:ignore
+	const AWS_US_WEST_1      = 'us-west-1'; // phpcs:ignore
 	const AWS_US_WEST_2      = 'us-west-2'; // phpcs:ignore
 	const AWS_EU_WEST_1      = 'eu-west-1'; // phpcs:ignore
 	const AWS_EU_WEST_2      = 'eu-west-2'; // phpcs:ignore
+	const AWS_EU_WEST_3      = 'eu-west-3'; // phpcs:ignore
 	const AWS_EU_CENTRAL_1   = 'eu-central-1'; // phpcs:ignore
+	const AWS_EU_NORTH_1     = 'eu-north-1'; // phpcs:ignore
 	const AWS_AP_SOUTH_1     = 'ap-south-1'; // phpcs:ignore
 	const AWS_AP_NORTHEAST_1 = 'ap-northeast-1'; // phpcs:ignore
 	const AWS_AP_NORTHEAST_2 = 'ap-northeast-2'; // phpcs:ignore
@@ -120,10 +123,13 @@ class Auth extends AuthAbstract {
 		return [
 			self::AWS_US_EAST_1      => esc_html__( 'US East (N. Virginia)', 'wp-mail-smtp-pro' ),
 			self::AWS_US_EAST_2      => esc_html__( 'US East (Ohio)', 'wp-mail-smtp-pro' ),
+			self::AWS_US_WEST_1      => esc_html__( 'US West (N. California)', 'wp-mail-smtp-pro' ),
 			self::AWS_US_WEST_2      => esc_html__( 'US West (Oregon)', 'wp-mail-smtp-pro' ),
 			self::AWS_EU_WEST_1      => esc_html__( 'EU (Ireland)', 'wp-mail-smtp-pro' ),
 			self::AWS_EU_WEST_2      => esc_html__( 'EU (London)', 'wp-mail-smtp-pro' ),
+			self::AWS_EU_WEST_3      => esc_html__( 'EU (Paris)', 'wp-mail-smtp-pro' ),
 			self::AWS_EU_CENTRAL_1   => esc_html__( 'EU (Frankfurt)', 'wp-mail-smtp-pro' ),
+			self::AWS_EU_NORTH_1     => esc_html__( 'EU (Stockholm)', 'wp-mail-smtp-pro' ),
 			self::AWS_AP_SOUTH_1     => esc_html__( 'Asia Pacific (Mumbai)', 'wp-mail-smtp-pro' ),
 			self::AWS_AP_NORTHEAST_1 => esc_html__( 'Asia Pacific (Tokyo)', 'wp-mail-smtp-pro' ),
 			self::AWS_AP_NORTHEAST_2 => esc_html__( 'Asia Pacific (Seoul)', 'wp-mail-smtp-pro' ),
@@ -153,6 +159,10 @@ class Auth extends AuthAbstract {
 				'lat' => 40.417286,
 				'lon' => - 82.907120,
 			],
+			self::AWS_US_WEST_1      => [
+				'lat' => 36.778259,
+				'lon' => - 119.417931,
+			],
 			self::AWS_US_WEST_2      => [
 				'lat' => 45.3573,
 				'lon' => - 122.6068,
@@ -165,9 +175,17 @@ class Auth extends AuthAbstract {
 				'lat' => 51.5074,
 				'lon' => 0.1278,
 			],
+			self::AWS_EU_WEST_3      => [
+				'lat' => 48.864716,
+				'lon' => 2.349014,
+			],
 			self::AWS_EU_CENTRAL_1   => [
 				'lat' => 50.1109,
 				'lon' => 8.6821,
+			],
+			self::AWS_EU_NORTH_1     => [
+				'lat' => 59.334591,
+				'lon' => 18.063240,
 			],
 			self::AWS_AP_SOUTH_1     => [
 				'lat' => 19.0760,

@@ -121,7 +121,7 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
      * @return RequestInterface
      * @throws \InvalidArgumentException if the method is not POST
      */
-    public static function convertPostToGet(\WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request)
+    public static function convertPostToGet(\WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request, $additionalQueryParams = "")
     {
         if ($request->getMethod() !== 'POST') {
             throw new \InvalidArgumentException('Expected a POST request but ' . 'received a ' . $request->getMethod() . ' request.');
@@ -129,7 +129,7 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
         $sr = $request->withMethod('GET')->withBody(\WPMailSMTP\Vendor\GuzzleHttp\Psr7\stream_for(''))->withoutHeader('Content-Type')->withoutHeader('Content-Length');
         // Move POST fields to the query if they are present
         if ($request->getHeaderLine('Content-Type') === 'application/x-www-form-urlencoded') {
-            $body = (string) $request->getBody();
+            $body = (string) $request->getBody() . $additionalQueryParams;
             $sr = $sr->withUri($sr->getUri()->withQuery($body));
         }
         return $sr;

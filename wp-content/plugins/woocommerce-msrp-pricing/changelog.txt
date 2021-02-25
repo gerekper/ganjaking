@@ -1,5 +1,9 @@
 *** WooCommerce MSRP Pricing ***
 
+2021.02.02 - version 3.2.0
+* Change: Work around warnings caused when REST product hooks fired with incomplete product objects
+* Change: WooCommerce 4.9 & 5.0 compatibility
+
 2020.12.07 - version 3.1.2
 * Change: WooCommerce 4.8 compatibility
 

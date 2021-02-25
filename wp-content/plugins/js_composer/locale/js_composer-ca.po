@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPBakery Page Builder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-11 11:19+0200\n"
-"PO-Revision-Date: 2019-11-11 11:19+0200\n"
+"POT-Creation-Date: 2021-02-18 16:46+0200\n"
+"PO-Revision-Date: 2021-02-18 16:47+0200\n"
 "Last-Translator: Albert Parera\n"
 "Language-Team: WPBakery\n"
 "Language: ca\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;esc_attr__;esc_html__;esc_attr_e;esc_html_e\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: ./config/.\n"
 "X-Poedit-SearchPath-1: ./include/.\n"
@@ -66,7 +66,7 @@ msgstr "Negre clàssic"
 
 #: config/./buttons/shortcode-vc-btn.php:50
 #: config/./buttons/shortcode-vc-btn.php:163
-#: config/./buttons/shortcode-vc-cta.php:183
+#: config/./buttons/shortcode-vc-cta.php:154
 #: config/./content/shortcode-vc-column-text.php:16
 #: config/./content/vc-custom-heading-element.php:28
 #: config/./deprecated/shortcode-vc-button.php:20
@@ -110,7 +110,7 @@ msgid "Add link to button."
 msgstr "Afegiu un enllaç al botó."
 
 #: config/./buttons/shortcode-vc-btn.php:64
-#: config/./buttons/shortcode-vc-cta.php:134
+#: config/./buttons/shortcode-vc-cta.php:105
 #: config/./content/shortcode-vc-line-chart.php:35
 #: config/./content/shortcode-vc-message.php:119
 #: config/./content/shortcode-vc-round-chart.php:34
@@ -139,8 +139,8 @@ msgid "Modern"
 msgstr "Modern"
 
 #: config/./buttons/shortcode-vc-btn.php:70
-#: config/./buttons/shortcode-vc-cta.php:137
-#: config/./buttons/shortcode-vc-cta.php:172
+#: config/./buttons/shortcode-vc-cta.php:108
+#: config/./buttons/shortcode-vc-cta.php:143
 #: config/./tta/shortcode-vc-tta-accordion.php:28
 #: config/./tta/shortcode-vc-tta-tabs.php:28
 #: config/./tta/shortcode-vc-tta-tour.php:28
@@ -148,7 +148,7 @@ msgid "Classic"
 msgstr "Clàssic"
 
 #: config/./buttons/shortcode-vc-btn.php:71
-#: config/./buttons/shortcode-vc-cta.php:138
+#: config/./buttons/shortcode-vc-cta.php:109
 #: config/./content/shortcode-vc-line-chart.php:39
 #: config/./content/shortcode-vc-round-chart.php:38
 #: config/./tta/shortcode-vc-tta-accordion.php:30
@@ -158,7 +158,7 @@ msgid "Flat"
 msgstr "Pla"
 
 #: config/./buttons/shortcode-vc-btn.php:72
-#: config/./buttons/shortcode-vc-cta.php:139
+#: config/./buttons/shortcode-vc-cta.php:110
 #: config/./tta/shortcode-vc-tta-accordion.php:31
 #: config/./tta/shortcode-vc-tta-tabs.php:31
 #: config/./tta/shortcode-vc-tta-tour.php:31
@@ -166,12 +166,12 @@ msgid "Outline"
 msgstr "Contorn"
 
 #: config/./buttons/shortcode-vc-btn.php:73
-#: config/./buttons/shortcode-vc-cta.php:140
+#: config/./buttons/shortcode-vc-cta.php:111
 msgid "3d"
 msgstr "3d"
 
 #: config/./buttons/shortcode-vc-btn.php:74
-#: config/./buttons/shortcode-vc-cta.php:141
+#: config/./buttons/shortcode-vc-cta.php:112
 #: config/./content/shortcode-vc-hoverbox.php:161
 #: config/./content/shortcode-vc-line-chart.php:41
 #: config/./content/shortcode-vc-message.php:33
@@ -266,7 +266,7 @@ msgid "Select hover text color for your element."
 msgstr "Seleccioneu el color de text en passar per sobre de l'element."
 
 #: config/./buttons/shortcode-vc-btn.php:211
-#: config/./buttons/shortcode-vc-cta.php:122
+#: config/./buttons/shortcode-vc-cta.php:93
 #: config/./content/shortcode-vc-hoverbox.php:147
 #: config/./content/shortcode-vc-message.php:126
 #: config/./deprecated/shortcode-vc-button2.php:46
@@ -283,7 +283,7 @@ msgid "Select button shape."
 msgstr "Seleccioneu la forma del botó."
 
 #: config/./buttons/shortcode-vc-btn.php:216
-#: config/./buttons/shortcode-vc-cta.php:127
+#: config/./buttons/shortcode-vc-cta.php:98
 #: config/./content/shortcode-vc-hoverbox.php:152
 #: config/./content/shortcode-vc-message.php:132
 #: config/./content/vc-icon-element.php:187
@@ -298,7 +298,7 @@ msgid "Rounded"
 msgstr "Arrodonit"
 
 #: config/./buttons/shortcode-vc-btn.php:217
-#: config/./buttons/shortcode-vc-cta.php:126
+#: config/./buttons/shortcode-vc-cta.php:97
 #: config/./content/shortcode-vc-hoverbox.php:151
 #: config/./content/shortcode-vc-message.php:131
 #: config/./content/vc-icon-element.php:186
@@ -309,7 +309,7 @@ msgid "Square"
 msgstr "Quadrat"
 
 #: config/./buttons/shortcode-vc-btn.php:218
-#: config/./buttons/shortcode-vc-cta.php:128
+#: config/./buttons/shortcode-vc-cta.php:99
 #: config/./content/shortcode-vc-hoverbox.php:153
 #: config/./content/shortcode-vc-message.php:133
 #: config/./tta/shortcode-vc-tta-accordion.php:42
@@ -319,7 +319,7 @@ msgid "Round"
 msgstr "Rodó"
 
 #: config/./buttons/shortcode-vc-btn.php:223
-#: config/./buttons/shortcode-vc-cta.php:170
+#: config/./buttons/shortcode-vc-cta.php:141
 #: config/./content/shortcode-vc-line-chart.php:102
 #: config/./content/shortcode-vc-message.php:139
 #: config/./content/shortcode-vc-pie.php:44
@@ -369,7 +369,7 @@ msgstr "Seleccioneu la mida del botó."
 #: config/./buttons/shortcode-vc-btn.php:252
 #: config/./content/shortcode-vc-hoverbox.php:199
 #: config/./content/shortcode-vc-separator.php:25
-#: config/./content/shortcode-vc-video.php:58
+#: config/./content/shortcode-vc-video.php:61
 #: config/./content/shortcode-vc-zigzag.php:34
 #: config/./deprecated/shortcode-vc-button2.php:34
 #: config/./grids/class-vc-grids-common.php:448
@@ -395,14 +395,14 @@ msgstr "En línea"
 
 #: config/./buttons/shortcode-vc-btn.php:259
 #: config/./buttons/shortcode-vc-btn.php:285
-#: config/./buttons/shortcode-vc-cta.php:210
-#: config/./buttons/shortcode-vc-cta.php:229
+#: config/./buttons/shortcode-vc-cta.php:181
+#: config/./buttons/shortcode-vc-cta.php:200
 #: config/./content/shortcode-vc-hoverbox.php:203
 #: config/./content/shortcode-vc-separator.php:29
 #: config/./content/shortcode-vc-single-image.php:108
 #: config/./content/shortcode-vc-text-separator.php:63
 #: config/./content/shortcode-vc-text-separator.php:74
-#: config/./content/shortcode-vc-video.php:62
+#: config/./content/shortcode-vc-video.php:65
 #: config/./content/shortcode-vc-zigzag.php:38
 #: config/./content/vc-icon-element.php:230
 #: config/./deprecated/shortcode-vc-button2.php:38
@@ -423,14 +423,14 @@ msgstr "Esquerra"
 
 #: config/./buttons/shortcode-vc-btn.php:261
 #: config/./buttons/shortcode-vc-btn.php:287
-#: config/./buttons/shortcode-vc-cta.php:211
-#: config/./buttons/shortcode-vc-cta.php:230
+#: config/./buttons/shortcode-vc-cta.php:182
+#: config/./buttons/shortcode-vc-cta.php:201
 #: config/./content/shortcode-vc-hoverbox.php:204
 #: config/./content/shortcode-vc-separator.php:30
 #: config/./content/shortcode-vc-single-image.php:109
 #: config/./content/shortcode-vc-text-separator.php:64
 #: config/./content/shortcode-vc-text-separator.php:75
-#: config/./content/shortcode-vc-video.php:63
+#: config/./content/shortcode-vc-video.php:66
 #: config/./content/shortcode-vc-zigzag.php:39
 #: config/./content/vc-icon-element.php:231
 #: config/./deprecated/shortcode-vc-button2.php:40
@@ -455,7 +455,7 @@ msgstr "Dreta"
 #: config/./content/shortcode-vc-single-image.php:110
 #: config/./content/shortcode-vc-text-separator.php:62
 #: config/./content/shortcode-vc-text-separator.php:73
-#: config/./content/shortcode-vc-video.php:64
+#: config/./content/shortcode-vc-video.php:67
 #: config/./content/shortcode-vc-zigzag.php:37
 #: config/./content/vc-icon-element.php:232
 #: config/./deprecated/shortcode-vc-button2.php:39
@@ -475,7 +475,7 @@ msgid "Set full width button?"
 msgstr "Establir l'amplada completa?"
 
 #: config/./buttons/shortcode-vc-btn.php:276
-#: config/./buttons/shortcode-vc-cta.php:222
+#: config/./buttons/shortcode-vc-cta.php:193
 #: config/./content/shortcode-vc-text-separator.php:53
 #: config/./tta/shortcode-vc-tta-section.php:15
 msgid "Add icon?"
@@ -491,8 +491,8 @@ msgid "Select icon alignment."
 msgstr "Seleccioneu l'alineació de la icona."
 
 #: config/./buttons/shortcode-vc-btn.php:297
-#: config/./buttons/shortcode-vc-cta.php:238
-#: config/./buttons/shortcode-vc-cta.php:244
+#: config/./buttons/shortcode-vc-cta.php:209
+#: config/./buttons/shortcode-vc-cta.php:215
 #: config/./content/shortcode-vc-message.php:162
 #: config/./content/shortcode-vc-message.php:179
 #: config/./content/shortcode-vc-message.php:196
@@ -515,12 +515,6 @@ msgid "Icon"
 msgstr "Icona"
 
 #: config/./buttons/shortcode-vc-btn.php:310
-#: config/./content/shortcode-vc-message.php:175
-#: config/./content/shortcode-vc-message.php:192
-#: config/./content/shortcode-vc-message.php:209
-#: config/./content/shortcode-vc-message.php:242
-#: config/./content/shortcode-vc-message.php:258
-#: config/./content/shortcode-vc-message.php:277
 #: config/./content/vc-icon-element.php:46
 #: config/./content/vc-icon-element.php:65
 #: config/./content/vc-icon-element.php:84
@@ -531,12 +525,12 @@ msgid "Select icon from library."
 msgstr "Seleccioneu la icona de la biblioteca."
 
 #: config/./buttons/shortcode-vc-btn.php:316
-#: config/./buttons/shortcode-vc-cta.php:257
+#: config/./buttons/shortcode-vc-cta.php:228
 #: config/./containers/shortcode-vc-column-inner.php:23
 #: config/./containers/shortcode-vc-column.php:101
 #: config/./content/shortcode-vc-column-text.php:23
 #: config/./content/shortcode-vc-empty-space.php:24
-#: config/./content/shortcode-vc-flickr.php:67
+#: config/./content/shortcode-vc-flickr.php:79
 #: config/./content/shortcode-vc-gallery.php:146
 #: config/./content/shortcode-vc-gmaps.php:37
 #: config/./content/shortcode-vc-hoverbox.php:231
@@ -551,7 +545,7 @@ msgstr "Seleccioneu la icona de la biblioteca."
 #: config/./content/shortcode-vc-single-image.php:217
 #: config/./content/shortcode-vc-text-separator.php:122
 #: config/./content/shortcode-vc-toggle.php:82
-#: config/./content/shortcode-vc-video.php:70
+#: config/./content/shortcode-vc-video.php:73
 #: config/./content/shortcode-vc-zigzag.php:78
 #: config/./content/vc-custom-heading-element.php:90
 #: config/./content/vc-icon-element.php:245
@@ -586,14 +580,14 @@ msgid "Element ID"
 msgstr "ID de l'element"
 
 #: config/./buttons/shortcode-vc-btn.php:318
-#: config/./buttons/shortcode-vc-cta.php:259
+#: config/./buttons/shortcode-vc-cta.php:230
 #: config/./containers/shortcode-vc-column-inner.php:25
 #: config/./containers/shortcode-vc-column.php:103
 #: config/./containers/shortcode-vc-row.php:184
 #: config/./containers/shortcode-vc-section.php:138
 #: config/./content/shortcode-vc-column-text.php:25
 #: config/./content/shortcode-vc-empty-space.php:26
-#: config/./content/shortcode-vc-flickr.php:69
+#: config/./content/shortcode-vc-flickr.php:81
 #: config/./content/shortcode-vc-gallery.php:148
 #: config/./content/shortcode-vc-gmaps.php:39
 #: config/./content/shortcode-vc-hoverbox.php:233
@@ -608,7 +602,7 @@ msgstr "ID de l'element"
 #: config/./content/shortcode-vc-single-image.php:219
 #: config/./content/shortcode-vc-text-separator.php:124
 #: config/./content/shortcode-vc-toggle.php:84
-#: config/./content/shortcode-vc-video.php:72
+#: config/./content/shortcode-vc-video.php:75
 #: config/./content/shortcode-vc-zigzag.php:80
 #: config/./content/vc-custom-heading-element.php:92
 #: config/./content/vc-icon-element.php:247
@@ -648,7 +642,7 @@ msgstr ""
 "les %sespecificacions del w3c%s)."
 
 #: config/./buttons/shortcode-vc-btn.php:322
-#: config/./buttons/shortcode-vc-cta.php:263
+#: config/./buttons/shortcode-vc-cta.php:234
 #: config/./containers/shortcode-vc-column-inner.php:29
 #: config/./containers/shortcode-vc-column.php:107
 #: config/./containers/shortcode-vc-row-inner.php:78
@@ -656,7 +650,7 @@ msgstr ""
 #: config/./containers/shortcode-vc-section.php:150
 #: config/./content/shortcode-vc-column-text.php:29
 #: config/./content/shortcode-vc-empty-space.php:30
-#: config/./content/shortcode-vc-flickr.php:73
+#: config/./content/shortcode-vc-flickr.php:85
 #: config/./content/shortcode-vc-gallery.php:152
 #: config/./content/shortcode-vc-gmaps.php:43
 #: config/./content/shortcode-vc-hoverbox.php:237
@@ -671,7 +665,7 @@ msgstr ""
 #: config/./content/shortcode-vc-single-image.php:223
 #: config/./content/shortcode-vc-text-separator.php:128
 #: config/./content/shortcode-vc-toggle.php:88
-#: config/./content/shortcode-vc-video.php:76
+#: config/./content/shortcode-vc-video.php:79
 #: config/./content/shortcode-vc-zigzag.php:84
 #: config/./content/vc-custom-heading-element.php:96
 #: config/./content/vc-icon-element.php:251
@@ -733,7 +727,7 @@ msgid "Extra class name"
 msgstr "Classe CSS extra"
 
 #: config/./buttons/shortcode-vc-btn.php:324
-#: config/./buttons/shortcode-vc-cta.php:265
+#: config/./buttons/shortcode-vc-cta.php:236
 #: config/./containers/shortcode-vc-column-inner.php:32
 #: config/./containers/shortcode-vc-column.php:109
 #: config/./containers/shortcode-vc-row-inner.php:80
@@ -741,7 +735,7 @@ msgstr "Classe CSS extra"
 #: config/./containers/shortcode-vc-section.php:152
 #: config/./content/shortcode-vc-column-text.php:31
 #: config/./content/shortcode-vc-empty-space.php:32
-#: config/./content/shortcode-vc-flickr.php:75
+#: config/./content/shortcode-vc-flickr.php:87
 #: config/./content/shortcode-vc-gallery.php:154
 #: config/./content/shortcode-vc-gmaps.php:45
 #: config/./content/shortcode-vc-hoverbox.php:239
@@ -756,7 +750,7 @@ msgstr "Classe CSS extra"
 #: config/./content/shortcode-vc-single-image.php:225
 #: config/./content/shortcode-vc-text-separator.php:130
 #: config/./content/shortcode-vc-toggle.php:90
-#: config/./content/shortcode-vc-video.php:78
+#: config/./content/shortcode-vc-video.php:81
 #: config/./content/shortcode-vc-zigzag.php:86
 #: config/./content/vc-custom-heading-element.php:98
 #: config/./content/vc-icon-element.php:253
@@ -833,7 +827,7 @@ msgid "Enter onclick action code."
 msgstr "Introduïu un codi per a l'acció «onclick»."
 
 #: config/./buttons/shortcode-vc-btn.php:344
-#: config/./buttons/shortcode-vc-cta.php:269
+#: config/./buttons/shortcode-vc-cta.php:240
 #: config/./containers/shortcode-vc-column-inner.php:36
 #: config/./containers/shortcode-vc-column.php:113
 #: config/./containers/shortcode-vc-row-inner.php:84
@@ -841,7 +835,7 @@ msgstr "Introduïu un codi per a l'acció «onclick»."
 #: config/./containers/shortcode-vc-section.php:156
 #: config/./content/shortcode-vc-column-text.php:35
 #: config/./content/shortcode-vc-empty-space.php:36
-#: config/./content/shortcode-vc-flickr.php:79
+#: config/./content/shortcode-vc-flickr.php:91
 #: config/./content/shortcode-vc-gallery.php:158
 #: config/./content/shortcode-vc-gmaps.php:49
 #: config/./content/shortcode-vc-hoverbox.php:243
@@ -856,7 +850,7 @@ msgstr "Introduïu un codi per a l'acció «onclick»."
 #: config/./content/shortcode-vc-single-image.php:229
 #: config/./content/shortcode-vc-text-separator.php:139
 #: config/./content/shortcode-vc-toggle.php:95
-#: config/./content/shortcode-vc-video.php:82
+#: config/./content/shortcode-vc-video.php:85
 #: config/./content/shortcode-vc-zigzag.php:90
 #: config/./content/vc-custom-heading-element.php:102
 #: config/./content/vc-icon-element.php:257
@@ -885,7 +879,7 @@ msgid "CSS box"
 msgstr "Caixa CSS"
 
 #: config/./buttons/shortcode-vc-btn.php:346
-#: config/./buttons/shortcode-vc-cta.php:271
+#: config/./buttons/shortcode-vc-cta.php:242
 #: config/./containers/shortcode-vc-column-inner.php:38
 #: config/./containers/shortcode-vc-column.php:115
 #: config/./containers/shortcode-vc-row-inner.php:86
@@ -893,7 +887,7 @@ msgstr "Caixa CSS"
 #: config/./containers/shortcode-vc-section.php:158
 #: config/./content/shortcode-vc-column-text.php:37
 #: config/./content/shortcode-vc-empty-space.php:38
-#: config/./content/shortcode-vc-flickr.php:81
+#: config/./content/shortcode-vc-flickr.php:93
 #: config/./content/shortcode-vc-gallery.php:160
 #: config/./content/shortcode-vc-gmaps.php:51
 #: config/./content/shortcode-vc-hoverbox.php:245
@@ -908,7 +902,7 @@ msgstr "Caixa CSS"
 #: config/./content/shortcode-vc-single-image.php:231
 #: config/./content/shortcode-vc-text-separator.php:141
 #: config/./content/shortcode-vc-toggle.php:97
-#: config/./content/shortcode-vc-video.php:84
+#: config/./content/shortcode-vc-video.php:87
 #: config/./content/shortcode-vc-zigzag.php:92
 #: config/./content/vc-custom-heading-element.php:104
 #: config/./content/vc-icon-element.php:259
@@ -936,12 +930,12 @@ msgid "Design Options"
 msgstr "Opcions de disseny"
 
 #: config/./buttons/shortcode-vc-btn.php:354
-#: config/./buttons/shortcode-vc-cta.php:214
+#: config/./buttons/shortcode-vc-cta.php:185
 msgid "Button"
 msgstr "Botó"
 
 #: config/./buttons/shortcode-vc-btn.php:358
-#: config/./buttons/shortcode-vc-cta.php:279
+#: config/./buttons/shortcode-vc-cta.php:250
 #: config/./containers/shortcode-vc-row.php:11
 #: config/./containers/shortcode-vc-section.php:11
 #: config/./content/shortcode-vc-column-text.php:10
@@ -981,7 +975,7 @@ msgstr "Botó"
 #: config/./tta/shortcode-vc-tta-section.php:79
 #: config/./tta/shortcode-vc-tta-tabs.php:15
 #: config/./tta/shortcode-vc-tta-tour.php:15
-#: include/./autoload/vendors/gravity_forms.php:36
+#: include/./autoload/vendors/gravity_forms.php:37
 #: include/./autoload/vendors/shortcode-vc-gutenberg.php:10
 #: include/./classes/settings/automapper/class-vc-automapper.php:186
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:35
@@ -1010,100 +1004,100 @@ msgid "Eye catching button"
 msgstr "Botó de crida d'atenció"
 
 #: config/./buttons/shortcode-vc-cta.php:11
-#: config/./buttons/shortcode-vc-cta.php:80
+#: config/./buttons/shortcode-vc-cta.php:52
 #: config/./content/shortcode-vc-toggle.php:7
 #: config/./deprecated/shortcode-vc-cta-button2.php:17
 #: include/./classes/settings/automapper/class-vc-automapper.php:203
 msgid "Heading"
 msgstr "Encapçalament"
 
-#: config/./buttons/shortcode-vc-cta.php:44
-#: config/./buttons/shortcode-vc-cta.php:98
+#: config/./buttons/shortcode-vc-cta.php:30
+#: config/./buttons/shortcode-vc-cta.php:69
 #: config/./deprecated/shortcode-vc-cta-button2.php:25
 msgid "Subheading"
 msgstr "Subencapçalament"
 
-#: config/./buttons/shortcode-vc-cta.php:83
+#: config/./buttons/shortcode-vc-cta.php:55
 #: config/./deprecated/shortcode-vc-cta-button2.php:20
 msgid "Hey! I am first heading line feel free to change me"
 msgstr "Hola! Sóc la primera línia de l'encapçalament. Canvia'm com vulguis"
 
-#: config/./buttons/shortcode-vc-cta.php:84
+#: config/./buttons/shortcode-vc-cta.php:56
 #: config/./content/shortcode-vc-hoverbox.php:91
 #: config/./deprecated/shortcode-vc-cta-button2.php:21
 msgid "Enter text for heading line."
 msgstr "Introduïu un text per a la línia d'encapçalament."
 
-#: config/./buttons/shortcode-vc-cta.php:89
-#: config/./buttons/shortcode-vc-cta.php:106
+#: config/./buttons/shortcode-vc-cta.php:61
+#: config/./buttons/shortcode-vc-cta.php:77
 #: config/./content/shortcode-vc-hoverbox.php:96
 #: config/./content/shortcode-vc-hoverbox.php:121
 #: config/./content/shortcode-vc-toggle.php:32
 msgid "Use custom font?"
 msgstr "Voleu utilitzar una font personalitzada?"
 
-#: config/./buttons/shortcode-vc-cta.php:91
+#: config/./buttons/shortcode-vc-cta.php:63
 #: config/./content/shortcode-vc-hoverbox.php:98
 #: config/./content/shortcode-vc-toggle.php:34
 #: include/./params/vc_grid_item/shortcodes.php:108
 msgid "Enable Google fonts."
 msgstr "S'habiliten les fonts de Google."
 
-#: config/./buttons/shortcode-vc-cta.php:101
+#: config/./buttons/shortcode-vc-cta.php:72
 #: config/./deprecated/shortcode-vc-cta-button2.php:28
 msgid "Enter text for subheading line."
 msgstr "Introduïu un text per a la línia del subencapçalament."
 
-#: config/./buttons/shortcode-vc-cta.php:108
+#: config/./buttons/shortcode-vc-cta.php:79
 #: config/./content/shortcode-vc-hoverbox.php:123
 msgid "Enable custom font option."
 msgstr "Activa l'opció de font personalitzada."
 
-#: config/./buttons/shortcode-vc-cta.php:114
+#: config/./buttons/shortcode-vc-cta.php:85
 #: config/./deprecated/shortcode-vc-cta-button2.php:46
 msgid "Text alignment"
 msgstr "Alineació del text"
 
-#: config/./buttons/shortcode-vc-cta.php:118
+#: config/./buttons/shortcode-vc-cta.php:89
 #: config/./deprecated/shortcode-vc-cta-button2.php:49
 msgid "Select text alignment in \"Call to Action\" block."
 msgstr "Seleccioneu l'alineació del text en el bloc \"Crida a l'acció\"."
 
-#: config/./buttons/shortcode-vc-cta.php:130
+#: config/./buttons/shortcode-vc-cta.php:101
 msgid "Select call to action shape."
 msgstr "Seleccioneu la forma de la crida a l'acció."
 
-#: config/./buttons/shortcode-vc-cta.php:144
+#: config/./buttons/shortcode-vc-cta.php:115
 msgid "Select call to action display style."
 msgstr "Seleccioneu l'estil de la crida a l'acció."
 
-#: config/./buttons/shortcode-vc-cta.php:148
+#: config/./buttons/shortcode-vc-cta.php:119
 #: config/./content/shortcode-vc-hoverbox.php:169
 #: config/./content/vc-icon-element.php:196
 #: config/./deprecated/shortcode-vc-cta-button2.php:53
 msgid "Background color"
 msgstr "Color del fons"
 
-#: config/./buttons/shortcode-vc-cta.php:150
+#: config/./buttons/shortcode-vc-cta.php:121
 #: config/./content/shortcode-vc-hoverbox.php:171
 msgid "Select custom background color."
 msgstr "Seleccioneu un color de fons personalitzat."
 
-#: config/./buttons/shortcode-vc-cta.php:159
+#: config/./buttons/shortcode-vc-cta.php:130
 #: include/./params/font_container/font_container.php:121
 msgid "Text color"
 msgstr "Color del text"
 
-#: config/./buttons/shortcode-vc-cta.php:161
+#: config/./buttons/shortcode-vc-cta.php:132
 msgid "Select custom text color."
 msgstr "Seleccioneu el color de text personalitzat."
 
-#: config/./buttons/shortcode-vc-cta.php:174
+#: config/./buttons/shortcode-vc-cta.php:145
 #: config/./content/shortcode-vc-hoverbox.php:162
 msgid "Select color schema."
 msgstr "Seleccioneu un esquema de color."
 
-#: config/./buttons/shortcode-vc-cta.php:185
+#: config/./buttons/shortcode-vc-cta.php:156
 #: config/./deprecated/shortcode-vc-cta-button2.php:61
 msgid ""
 "I am promo text. Click edit button to change this text. Lorem ipsum dolor "
@@ -1114,7 +1108,7 @@ msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, "
 "luctus nec ullamcorper mattis, pulvinar dapibus leo."
 
-#: config/./buttons/shortcode-vc-cta.php:189
+#: config/./buttons/shortcode-vc-cta.php:160
 #: config/./containers/shortcode-vc-column-inner.php:42
 #: config/./containers/shortcode-vc-column.php:119
 #: config/./content/shortcode-vc-hoverbox.php:181
@@ -1125,30 +1119,30 @@ msgstr ""
 msgid "Width"
 msgstr "Amplada"
 
-#: config/./buttons/shortcode-vc-cta.php:199
+#: config/./buttons/shortcode-vc-cta.php:170
 msgid "Select call to action width (percentage)."
 msgstr "Seleccioneu l'ample de la crida a l'acció (percentatge)."
 
-#: config/./buttons/shortcode-vc-cta.php:203
+#: config/./buttons/shortcode-vc-cta.php:174
 #: config/./content/shortcode-vc-hoverbox.php:211
 msgid "Add button"
 msgstr "Afegeix un botó"
 
-#: config/./buttons/shortcode-vc-cta.php:204
+#: config/./buttons/shortcode-vc-cta.php:175
 #: config/./content/shortcode-vc-hoverbox.php:212
 msgid "Add button for call to action."
 msgstr "Afegeix un botó per la crida a l'acció."
 
-#: config/./buttons/shortcode-vc-cta.php:207
-#: config/./buttons/shortcode-vc-cta.php:226
-#: include/./autoload/vendors/gravity_forms.php:53
-#: include/./autoload/vendors/gravity_forms.php:68
-#: include/./autoload/vendors/gravity_forms.php:83
+#: config/./buttons/shortcode-vc-cta.php:178
+#: config/./buttons/shortcode-vc-cta.php:197
+#: include/./autoload/vendors/gravity_forms.php:54
+#: include/./autoload/vendors/gravity_forms.php:69
+#: include/./autoload/vendors/gravity_forms.php:84
 msgid "No"
 msgstr "No"
 
-#: config/./buttons/shortcode-vc-cta.php:208
-#: config/./buttons/shortcode-vc-cta.php:227
+#: config/./buttons/shortcode-vc-cta.php:179
+#: config/./buttons/shortcode-vc-cta.php:198
 #: config/./containers/shortcode-vc-row-inner.php:41
 #: config/./containers/shortcode-vc-row.php:61
 #: config/./containers/shortcode-vc-row.php:91
@@ -1158,8 +1152,8 @@ msgstr "No"
 msgid "Top"
 msgstr "A dalt"
 
-#: config/./buttons/shortcode-vc-cta.php:209
-#: config/./buttons/shortcode-vc-cta.php:228
+#: config/./buttons/shortcode-vc-cta.php:180
+#: config/./buttons/shortcode-vc-cta.php:199
 #: config/./containers/shortcode-vc-row-inner.php:43
 #: config/./containers/shortcode-vc-row.php:62
 #: config/./containers/shortcode-vc-row.php:93
@@ -1171,23 +1165,23 @@ msgstr "A dalt"
 msgid "Bottom"
 msgstr "A baix"
 
-#: config/./buttons/shortcode-vc-cta.php:223
+#: config/./buttons/shortcode-vc-cta.php:194
 msgid "Add icon for call to action."
 msgstr "Afegeix una icona a la crida a l'acció."
 
-#: config/./buttons/shortcode-vc-cta.php:236
+#: config/./buttons/shortcode-vc-cta.php:207
 msgid "Place icon on border?"
 msgstr "Voleu posar la icona a la vora?"
 
-#: config/./buttons/shortcode-vc-cta.php:237
+#: config/./buttons/shortcode-vc-cta.php:208
 msgid "Display icon on call to action element border."
 msgstr "Mostra la icona a la vora de l'element de crida a l'acció."
 
-#: config/./buttons/shortcode-vc-cta.php:276
+#: config/./buttons/shortcode-vc-cta.php:247
 msgid "Call to Action"
 msgstr "Crida a l'acció"
 
-#: config/./buttons/shortcode-vc-cta.php:280
+#: config/./buttons/shortcode-vc-cta.php:251
 #: config/./deprecated/shortcode-vc-cta-button.php:16
 #: config/./deprecated/shortcode-vc-cta-button2.php:13
 msgid "Catch visitors attention with CTA block"
@@ -1393,9 +1387,9 @@ msgstr "Si està marcat, es mostrarà un vídeo com a fons de la fila."
 #: config/./social/shortcode-vc-tweetmeme.php:210
 #: config/./social/shortcode-vc-tweetmeme.php:247
 #: config/./wp/shortcode-vc-wp-posts.php:34
-#: include/./autoload/vendors/gravity_forms.php:54
-#: include/./autoload/vendors/gravity_forms.php:69
-#: include/./autoload/vendors/gravity_forms.php:84
+#: include/./autoload/vendors/gravity_forms.php:55
+#: include/./autoload/vendors/gravity_forms.php:70
+#: include/./autoload/vendors/gravity_forms.php:85
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:52
 #: include/./classes/vendors/plugins/acf/shortcode.php:50
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:74
@@ -1709,8 +1703,8 @@ msgstr "Seleccioneu la posició de les columnes dins de les files."
 #: config/./tta/shortcode-vc-tta-section.php:70
 #: config/./tta/shortcode-vc-tta-tour.php:225
 #: config/./tta/shortcode-vc-tta-tour.php:226
-#: include/./classes/core/class-vc-base.php:711
-#: include/./classes/core/class-vc-base.php:714
+#: include/./classes/core/class-vc-base.php:702
+#: include/./classes/core/class-vc-base.php:705
 msgid "Section"
 msgstr "Secció"
 
@@ -1910,43 +1904,43 @@ msgstr "Per trobar el flickID visiteu %s."
 msgid "Number of photos"
 msgstr "Nombre de fotos"
 
-#: config/./content/shortcode-vc-flickr.php:42
+#: config/./content/shortcode-vc-flickr.php:54
 msgid "Select number of photos to display."
 msgstr "Seleccioneu el nombre de fotos a mostrar."
 
-#: config/./content/shortcode-vc-flickr.php:46
+#: config/./content/shortcode-vc-flickr.php:58
 msgid "Type"
 msgstr "Tipus"
 
-#: config/./content/shortcode-vc-flickr.php:49
+#: config/./content/shortcode-vc-flickr.php:61
 msgid "User"
 msgstr "Usuari"
 
-#: config/./content/shortcode-vc-flickr.php:50
+#: config/./content/shortcode-vc-flickr.php:62
 msgid "Group"
 msgstr "Grup"
 
-#: config/./content/shortcode-vc-flickr.php:52
+#: config/./content/shortcode-vc-flickr.php:64
 msgid "Select photo stream type."
 msgstr "Seleccioneu el tipus de «stream» de les fotos."
 
-#: config/./content/shortcode-vc-flickr.php:56
+#: config/./content/shortcode-vc-flickr.php:68
 msgid "Display order"
 msgstr "Ordre de visualització"
 
-#: config/./content/shortcode-vc-flickr.php:59
+#: config/./content/shortcode-vc-flickr.php:71
 msgid "Latest first"
 msgstr "Més recents primer"
 
-#: config/./content/shortcode-vc-flickr.php:60
+#: config/./content/shortcode-vc-flickr.php:72
 #: config/./content/shortcode-vc-posts-slider.php:138
 #: config/./wp/shortcode-vc-wp-links.php:45
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:130
-#: include/./params/loop/loop.php:472
+#: include/./params/loop/loop.php:498
 msgid "Random"
 msgstr "Aleatori"
 
-#: config/./content/shortcode-vc-flickr.php:62
+#: config/./content/shortcode-vc-flickr.php:74
 msgid "Select photo display order."
 msgstr "Seleccioneu l'ordre de les fotografies."
 
@@ -2090,8 +2084,10 @@ msgstr "Enllaç a la imatge gran"
 #: config/./content/shortcode-vc-gallery.php:113
 #: config/./content/shortcode-vc-images-carousel.php:38
 #: config/./content/shortcode-vc-single-image.php:184
-msgid "Open prettyPhoto"
-msgstr "Obre-ho amb prettyPhoto"
+#, fuzzy
+#| msgid "Stripes Light"
+msgid "Open Lightbox"
+msgstr "Franges clares"
 
 #: config/./content/shortcode-vc-gallery.php:114
 #: config/./content/shortcode-vc-single-image.php:185
@@ -2465,11 +2461,11 @@ msgstr "Dos"
 #: config/./grids/class-vc-grids-common.php:283
 #: config/./tta/shortcode-vc-tta-section.php:48
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:128
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1268
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1301
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1364
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1478
-#: include/./params/loop/loop.php:464 include/./params/vc_link/vc_link.php:16
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1269
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1302
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1365
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1479
+#: include/./params/loop/loop.php:490 include/./params/vc_link/vc_link.php:16
 msgid "Title"
 msgstr "Títol"
 
@@ -2591,7 +2587,9 @@ msgstr "Biblioteca d'icones"
 
 #: config/./content/shortcode-vc-message.php:149
 #: config/./content/vc-icon-element.php:18
-msgid "Font Awesome"
+#, fuzzy
+#| msgid "Font Awesome"
+msgid "Font Awesome 5"
 msgstr "Font Awesome"
 
 #: config/./content/shortcode-vc-message.php:150
@@ -2620,9 +2618,19 @@ msgid "Mono Social"
 msgstr "Mono Social"
 
 #: config/./content/shortcode-vc-message.php:158
-#: config/./content/vc-icon-element.php:28
-msgid "Select icon library."
+#, fuzzy
+#| msgid "Select icon library."
+msgid "Choose icon library."
 msgstr "Seleccioneu la biblioteca d'icones."
+
+#: config/./content/shortcode-vc-message.php:175
+#: config/./content/shortcode-vc-message.php:192
+#: config/./content/shortcode-vc-message.php:209
+#: config/./content/shortcode-vc-message.php:242
+#: config/./content/shortcode-vc-message.php:258
+#: config/./content/shortcode-vc-message.php:277
+msgid "Choose icon from library."
+msgstr "Trieu la icona des de la biblioteca."
 
 #: config/./content/shortcode-vc-message.php:283
 msgid "Message text"
@@ -2715,7 +2723,7 @@ msgstr ""
 "mostrar totes les diapositives)."
 
 #: config/./content/shortcode-vc-posts-slider.php:53
-#: include/./params/loop/loop.php:334
+#: include/./params/loop/loop.php:359
 #: include/./templates/pages/partials/vc-roles-parts/_post_types.tpl.php:18
 #: include/./templates/pages/partials/vc-roles-parts/_post_types.tpl.php:19
 msgid "Post types"
@@ -2810,8 +2818,8 @@ msgstr ""
 #: config/./content/shortcode-vc-posts-slider.php:123
 #: config/./wp/shortcode-vc-wp-categories.php:7
 #: config/./wp/shortcode-vc-wp-categories.php:20
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:618
-#: include/./params/loop/loop.php:336
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:619
+#: include/./params/loop/loop.php:362
 msgid "Categories"
 msgstr "Categories"
 
@@ -2828,55 +2836,55 @@ msgstr ""
 #: config/./grids/class-vc-grids-common.php:277
 #: config/./wp/shortcode-vc-wp-links.php:39
 #: config/./wp/shortcode-vc-wp-pages.php:24
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:249
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:304
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:372
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:539
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:584
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:664
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:752
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:814
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:909
-#: include/./params/loop/loop.php:332
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:250
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:305
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:373
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:540
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:585
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:665
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:753
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:815
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:910
+#: include/./params/loop/loop.php:357
 msgid "Order by"
 msgstr "Ordena per"
 
 #: config/./content/shortcode-vc-posts-slider.php:133
 #: config/./grids/class-vc-grids-common.php:280
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:125
-#: include/./params/loop/loop.php:455
+#: include/./params/loop/loop.php:481
 msgid "Date"
 msgstr "Data"
 
 #: config/./content/shortcode-vc-posts-slider.php:134
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:126
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1499
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1538
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1500
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1539
 msgid "ID"
 msgstr "ID"
 
 #: config/./content/shortcode-vc-posts-slider.php:135
 #: config/./grids/class-vc-grids-common.php:282
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:127
-#: include/./params/loop/loop.php:335 include/./params/loop/loop.php:460
+#: include/./params/loop/loop.php:361 include/./params/loop/loop.php:486
 msgid "Author"
 msgstr "Autor"
 
 #: config/./content/shortcode-vc-posts-slider.php:137
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:129
-#: include/./params/loop/loop.php:468
+#: include/./params/loop/loop.php:494
 msgid "Modified"
 msgstr "Modificat"
 
 #: config/./content/shortcode-vc-posts-slider.php:139
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:131
-#: include/./params/loop/loop.php:476
+#: include/./params/loop/loop.php:502
 msgid "Comment count"
 msgstr "Nombre de comentaris"
 
 #: config/./content/shortcode-vc-posts-slider.php:140
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:132
-#: include/./params/loop/loop.php:480
+#: include/./params/loop/loop.php:506
 msgid "Menu order"
 msgstr "Posició del menú"
 
@@ -2887,30 +2895,30 @@ msgstr "Indiqueu com ordenar les entrades obtingudes. Més a %s."
 
 #: config/./content/shortcode-vc-posts-slider.php:146
 #: config/./grids/class-vc-grids-common.php:305
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:259
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:314
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:382
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:549
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:594
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:674
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:762
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:824
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:919
-#: include/./params/loop/loop.php:333
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:260
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:315
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:383
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:550
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:595
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:675
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:763
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:825
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:920
+#: include/./params/loop/loop.php:358
 msgid "Sort order"
 msgstr "Sentit de l'ordre"
 
 #: config/./content/shortcode-vc-posts-slider.php:149
 #: config/./grids/class-vc-grids-common.php:309
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:139
-#: include/./params/loop/loop.php:499
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:140
+#: include/./params/loop/loop.php:525
 msgid "Descending"
 msgstr "Descendent"
 
 #: config/./content/shortcode-vc-posts-slider.php:150
 #: config/./grids/class-vc-grids-common.php:310
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:140
-#: include/./params/loop/loop.php:495
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:141
+#: include/./params/loop/loop.php:521
 msgid "Ascending"
 msgstr "Ascendent"
 
@@ -3370,14 +3378,16 @@ msgid "Select video width (percentage)."
 msgstr "Seleccioneu l'amplada del vídeo (percentatge)."
 
 #: config/./content/shortcode-vc-video.php:47
-msgid "Video aspect ration"
+#, fuzzy
+#| msgid "Video aspect ration"
+msgid "Video aspect ratio"
 msgstr "Relació d'aspecte del vídeo"
 
-#: config/./content/shortcode-vc-video.php:54
+#: config/./content/shortcode-vc-video.php:57
 msgid "Select video aspect ratio."
 msgstr "Seleccioneu la relació d'aspecte del vídeo."
 
-#: config/./content/shortcode-vc-video.php:60
+#: config/./content/shortcode-vc-video.php:63
 msgid "Select video alignment."
 msgstr "Seleccioneu l'alineació del vídeo."
 
@@ -3519,6 +3529,10 @@ msgstr "Icones cridaners procedents de llibreries"
 #: config/./content/vc-icon-element.php:24
 msgid "Material"
 msgstr "Material"
+
+#: config/./content/vc-icon-element.php:28
+msgid "Select icon library."
+msgstr "Seleccioneu la biblioteca d'icones."
 
 #: config/./content/vc-icon-element.php:173
 msgid "Select custom icon color."
@@ -3874,6 +3888,7 @@ msgstr "Afegiu entrades, pàgines, etc. per Títol."
 #, php-format
 msgid "Build custom query according to %sWordPress Codex%s."
 msgstr ""
+"Creeu una consulta personalitzada d'acord amb el %sCòdex de WordPress%s."
 
 #: config/./grids/class-vc-grids-common.php:160
 msgid "Narrow data source"
@@ -4072,7 +4087,7 @@ msgstr "Filtra per"
 #: config/./grids/class-vc-grids-common.php:459
 #: config/./grids/class-vc-grids-common.php:473
 #: config/./grids/class-vc-grids-common.php:487
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:842
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:843
 msgid "Filter"
 msgstr "Filtre"
 
@@ -5689,7 +5704,7 @@ msgstr ""
 
 #: config/./tta/shortcode-vc-tta-tabs.php:211
 #: config/./tta/shortcode-vc-tta-tabs.php:212
-#: include/./classes/core/class-vc-base.php:710
+#: include/./classes/core/class-vc-base.php:701
 #: include/./classes/shortcodes/vc-tab.php:6
 msgid "Tab"
 msgstr "Pestanya horitzontal"
@@ -6035,7 +6050,7 @@ msgid "Your most used tags in cloud format"
 msgstr "Les teves etiquetes més utilitzades en format núvol"
 
 #: config/./wp/shortcode-vc-wp-tagcloud.php:32
-#: include/./params/loop/loop.php:337
+#: include/./params/loop/loop.php:363
 msgid "Tags"
 msgstr "Etiquetes"
 
@@ -6249,14 +6264,15 @@ msgstr "Gestor de Rols"
 
 #: include/./autoload/vc-pages/pages.php:50
 #: include/./autoload/vc-pages/pages.php:63
-#: include/./classes/core/class-vc-base.php:699
+#: include/./classes/core/class-vc-base.php:690
 #: include/./classes/editors/class-vc-backend-editor.php:92
 #: include/./classes/editors/navbar/class-vc-navbar.php:98
+#: include/./classes/updaters/class-vc-updater.php:129
 msgid "WPBakery Page Builder"
 msgstr "Maquetador Visual"
 
 #: include/./autoload/vc-pages/welcome-screen.php:38
-#: include/./classes/core/class-vc-base.php:566
+#: include/./classes/core/class-vc-base.php:567
 msgid "About"
 msgstr "Quant a"
 
@@ -6315,68 +6331,63 @@ msgstr ""
 
 #: include/./autoload/vc-pointers-backend-editor.php:75
 #: include/./autoload/vc-pointers-frontend-editor.php:53
-#, fuzzy, php-format
-#| msgid ""
-#| "P.S. Learn more at our <a href=\"%s\" target=\"_blank\">Knowledge Base</"
-#| "a>."
+#, php-format
 msgid "P.S. Learn more at our %sKnowledge Base%s."
-msgstr ""
-"P.D .: Descobriu-ne més a la nostra <a href=\"%s\" target=\"_blank\">base de "
-"coneixements</a>."
+msgstr "P.D.: Descobriu-ne més a la nostra %s base de coneixements%s."
 
 #: include/./autoload/vendors/gravity_forms.php:21
 msgid "No Gravity forms found."
-msgstr "Formularis Gravity Form no trobats."
+msgstr "No s'han trobat formularis de Gravity Form."
 
-#: include/./autoload/vendors/gravity_forms.php:26
+#: include/./autoload/vendors/gravity_forms.php:27
 msgid "Select a form to display."
 msgstr "Seleccioneu el formulari que s'ha de mostrar."
 
-#: include/./autoload/vendors/gravity_forms.php:33
+#: include/./autoload/vendors/gravity_forms.php:34
 msgid "Gravity Form"
 msgstr "Gravity Form"
 
-#: include/./autoload/vendors/gravity_forms.php:37
+#: include/./autoload/vendors/gravity_forms.php:38
 msgid "Place Gravity form"
 msgstr "Inseriu un Gravity form"
 
-#: include/./autoload/vendors/gravity_forms.php:41
+#: include/./autoload/vendors/gravity_forms.php:42
 msgid "Form"
 msgstr "Formulari"
 
-#: include/./autoload/vendors/gravity_forms.php:45
+#: include/./autoload/vendors/gravity_forms.php:46
 msgid "Select a form to add it to your post or page."
 msgstr "Seleccioneu el formulari que s'ha d'afegir a l'entrada o a la pàgina."
 
-#: include/./autoload/vendors/gravity_forms.php:50
+#: include/./autoload/vendors/gravity_forms.php:51
 msgid "Display Form Title"
 msgstr "Mostra el títol del formulari"
 
-#: include/./autoload/vendors/gravity_forms.php:57
+#: include/./autoload/vendors/gravity_forms.php:58
 msgid "Would you like to display the forms title?"
 msgstr "Voleu mostrar el títol del formulari?"
 
-#: include/./autoload/vendors/gravity_forms.php:65
+#: include/./autoload/vendors/gravity_forms.php:66
 msgid "Display Form Description"
 msgstr "Mostra la descripció del formulari"
 
-#: include/./autoload/vendors/gravity_forms.php:72
+#: include/./autoload/vendors/gravity_forms.php:73
 msgid "Would you like to display the forms description?"
 msgstr "Voleu mostrar la descripció dels formularis?"
 
-#: include/./autoload/vendors/gravity_forms.php:80
+#: include/./autoload/vendors/gravity_forms.php:81
 msgid "Enable AJAX?"
 msgstr "Activar AJAX?"
 
-#: include/./autoload/vendors/gravity_forms.php:87
+#: include/./autoload/vendors/gravity_forms.php:88
 msgid "Enable AJAX submission?"
 msgstr "Activar l'enviament amb AJAX?"
 
-#: include/./autoload/vendors/gravity_forms.php:95
+#: include/./autoload/vendors/gravity_forms.php:96
 msgid "Tab Index"
 msgstr "Índex de Pestanya"
 
-#: include/./autoload/vendors/gravity_forms.php:97
+#: include/./autoload/vendors/gravity_forms.php:98
 msgid ""
 "(Optional) Specify the starting tab index for the fields of this form. Leave "
 "blank if you're not sure what this is."
@@ -6393,7 +6404,7 @@ msgid "Disable Gutenberg Editor."
 msgstr "Desactiva l’editor Gutenberg."
 
 #: include/./autoload/vendors/shortcode-vc-gutenberg.php:7
-#: include/./classes/core/class-vc-base.php:703
+#: include/./classes/core/class-vc-base.php:694
 msgid "Gutenberg Editor"
 msgstr "Editor Gutenberg"
 
@@ -6401,55 +6412,55 @@ msgstr "Editor Gutenberg"
 msgid "Insert Gutenberg editor in your layout"
 msgstr "Inseriu l'editor Gutenberg al vostre disseny"
 
-#: include/./classes/core/class-vc-base.php:562
+#: include/./classes/core/class-vc-base.php:563
 #: include/./templates/pages/vc-settings/index.php:7
 msgid "WPBakery Page Builder Settings"
 msgstr "Configuració del maquetador visual WPBakery Page Builder"
 
-#: include/./classes/core/class-vc-base.php:563
-#: include/./classes/core/class-vc-base.php:698
+#: include/./classes/core/class-vc-base.php:564
+#: include/./classes/core/class-vc-base.php:689
 #: include/./templates/pages/vc-welcome/index.php:27
 msgid "Settings"
 msgstr "Ajustos"
 
-#: include/./classes/core/class-vc-base.php:565
+#: include/./classes/core/class-vc-base.php:566
 msgid "About WPBakery Page Builder"
 msgstr "Quant a WPBakery Page Builder"
 
-#: include/./classes/core/class-vc-base.php:694
+#: include/./classes/core/class-vc-base.php:685
 msgid "Add/remove picture"
 msgstr "Afegeix / Elimina la imatge"
 
-#: include/./classes/core/class-vc-base.php:695
+#: include/./classes/core/class-vc-base.php:686
 msgid "Finish Adding Images"
 msgstr "Acabar d'afegir Imatges"
 
-#: include/./classes/core/class-vc-base.php:696
+#: include/./classes/core/class-vc-base.php:687
 msgid "Add Image"
 msgstr "Afegeix una imatge"
 
-#: include/./classes/core/class-vc-base.php:697
+#: include/./classes/core/class-vc-base.php:688
 msgid "Add Images"
 msgstr "Afegeix imatges"
 
-#: include/./classes/core/class-vc-base.php:700
+#: include/./classes/core/class-vc-base.php:691
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:101
 msgid "Backend Editor"
 msgstr "Editor del Tauler"
 
-#: include/./classes/core/class-vc-base.php:701
+#: include/./classes/core/class-vc-base.php:692
 msgid "Frontend Editor"
 msgstr "Editor del Frontal"
 
-#: include/./classes/core/class-vc-base.php:702
+#: include/./classes/core/class-vc-base.php:693
 msgid "Classic Mode"
 msgstr "Mode Clàssic"
 
-#: include/./classes/core/class-vc-base.php:704
+#: include/./classes/core/class-vc-base.php:695
 msgid "Enter template name you want to save."
 msgstr "Introduïu el nom de la plantilla que voleu desar."
 
-#: include/./classes/core/class-vc-base.php:705
+#: include/./classes/core/class-vc-base.php:696
 msgid ""
 "Confirm deleting \"{template_name}\" template, press Cancel to leave. This "
 "action cannot be undone."
@@ -6457,41 +6468,41 @@ msgstr ""
 "Confirma l'eliminació de la plantilla \"{template_name}\". Clica a Cancel·la "
 "per sortir. Aquesta acció no es pot desfer."
 
-#: include/./classes/core/class-vc-base.php:706
+#: include/./classes/core/class-vc-base.php:697
 msgid "Press OK to delete section, Cancel to leave"
 msgstr "Prem OK per eliminar la secció, Cancel·la per sortir"
 
-#: include/./classes/core/class-vc-base.php:707
+#: include/./classes/core/class-vc-base.php:698
 msgid "Drag and drop me in the column"
 msgstr "Arrossegueu-me i deixeu-me anar a la columna"
 
-#: include/./classes/core/class-vc-base.php:708
+#: include/./classes/core/class-vc-base.php:699
 msgid "Press OK to delete \"{tab_name}\" tab, Cancel to leave"
 msgstr ""
 "Prem OK per eliminar la pestanya \"{template_name}\". Cancel·la per sortir"
 
-#: include/./classes/core/class-vc-base.php:709
+#: include/./classes/core/class-vc-base.php:700
 #: include/./classes/shortcodes/vc-tour.php:23
 msgid "Slide"
 msgstr "Lliscador"
 
-#: include/./classes/core/class-vc-base.php:712
+#: include/./classes/core/class-vc-base.php:703
 msgid "Please enter new tab title"
 msgstr "Si us plau, introduïu un nou títol de pestanya"
 
-#: include/./classes/core/class-vc-base.php:713
+#: include/./classes/core/class-vc-base.php:704
 msgid "Press OK to delete \"{tab_name}\" section, Cancel to leave"
 msgstr "Prem OK per eliminar la secció \"{tab_name}\". Cancel·la per sortir"
 
-#: include/./classes/core/class-vc-base.php:715
+#: include/./classes/core/class-vc-base.php:706
 msgid "Please enter new section title"
 msgstr "Introduïu el nou títol de la secció"
 
-#: include/./classes/core/class-vc-base.php:716
+#: include/./classes/core/class-vc-base.php:707
 msgid "Error. Please try again."
 msgstr "Error. Torna-ho a provar."
 
-#: include/./classes/core/class-vc-base.php:717
+#: include/./classes/core/class-vc-base.php:708
 msgid ""
 "If you close this window all shortcode settings will be lost. Close this "
 "window?"
@@ -6499,83 +6510,83 @@ msgstr ""
 "Si tanques aquesta finestra, es perdran tots els ajustos dels shortcodes. "
 "Tancar aquesta finestra?"
 
-#: include/./classes/core/class-vc-base.php:718
+#: include/./classes/core/class-vc-base.php:709
 msgid "Select element type"
 msgstr "Seleccioneu el tipus d'element"
 
-#: include/./classes/core/class-vc-base.php:719
+#: include/./classes/core/class-vc-base.php:710
 msgid "Media gallery"
 msgstr "Mediateca"
 
-#: include/./classes/core/class-vc-base.php:720
+#: include/./classes/core/class-vc-base.php:711
 msgid "Element settings"
 msgstr "Configuració de l'element"
 
-#: include/./classes/core/class-vc-base.php:721
+#: include/./classes/core/class-vc-base.php:712
 msgid "Add tab"
 msgstr "Afegeix una pestanya"
 
-#: include/./classes/core/class-vc-base.php:722
+#: include/./classes/core/class-vc-base.php:713
 msgid "Are you sure you want to convert to new version?"
 msgstr "¿Segur que voleu actualitzar a la nova versió?"
 
-#: include/./classes/core/class-vc-base.php:723
+#: include/./classes/core/class-vc-base.php:714
 msgid "Loading..."
 msgstr "S'està carregant..."
 
-#: include/./classes/core/class-vc-base.php:725
+#: include/./classes/core/class-vc-base.php:716
 msgid "Set Image"
 msgstr "Estableix la imatge"
 
-#: include/./classes/core/class-vc-base.php:726
+#: include/./classes/core/class-vc-base.php:717
 msgid "Are you sure that you want to remove all your data?"
 msgstr "N'esteu segurs que voleu eliminar totes les vostres dades?"
 
-#: include/./classes/core/class-vc-base.php:727
+#: include/./classes/core/class-vc-base.php:718
 msgid "Loop settings"
 msgstr "Configuració del bucle"
 
-#: include/./classes/core/class-vc-base.php:728
+#: include/./classes/core/class-vc-base.php:719
 msgid "Custom row layout"
 msgstr "Disposició de fila personalitzada"
 
-#: include/./classes/core/class-vc-base.php:729
+#: include/./classes/core/class-vc-base.php:720
 msgid "Wrong row layout format! Example: 1/2 + 1/2 or span6 + span6."
 msgstr "Format de fila incorrecte! Exemple: 1/2 + 1/2 o span6 + span6."
 
-#: include/./classes/core/class-vc-base.php:730
+#: include/./classes/core/class-vc-base.php:721
 msgid "Row background color"
 msgstr "Color fons de la Fila"
 
-#: include/./classes/core/class-vc-base.php:731
+#: include/./classes/core/class-vc-base.php:722
 msgid "Row background image"
 msgstr "Imatge de fons de la Fila"
 
-#: include/./classes/core/class-vc-base.php:732
+#: include/./classes/core/class-vc-base.php:723
 msgid "Column background color"
 msgstr "Color fons de la Columna"
 
-#: include/./classes/core/class-vc-base.php:733
+#: include/./classes/core/class-vc-base.php:724
 msgid "Column background image"
 msgstr "Imatge fons de la columna"
 
-#: include/./classes/core/class-vc-base.php:734
+#: include/./classes/core/class-vc-base.php:725
 msgid "Guides ON"
 msgstr "Guies ON"
 
-#: include/./classes/core/class-vc-base.php:735
+#: include/./classes/core/class-vc-base.php:726
 msgid "Guides OFF"
 msgstr "Guies OFF"
 
-#: include/./classes/core/class-vc-base.php:736
+#: include/./classes/core/class-vc-base.php:727
 msgid "New template successfully saved."
 msgstr "La plantilla nova s'ha desat correctament."
 
-#: include/./classes/core/class-vc-base.php:737
+#: include/./classes/core/class-vc-base.php:728
 msgid "Template added to the page."
 msgstr "S'ha afegit la plantilla a la pàgina."
 
-#: include/./classes/core/class-vc-base.php:738
+#: include/./classes/core/class-vc-base.php:729
 msgid ""
 "Template added to the page. Template has ID attributes, make sure that they "
 "are not used more than once on the same page."
@@ -6583,63 +6594,63 @@ msgstr ""
 "S'ha afegit la plantilla a la pàgina. La plantilla té atributs d'ID. "
 "Assegureu-vos que no els utilitzeu més d'una vegada en la mateixa pàgina."
 
-#: include/./classes/core/class-vc-base.php:739
+#: include/./classes/core/class-vc-base.php:730
 msgid "Template successfully removed."
 msgstr "La plantilla s'ha eliminat correctament."
 
-#: include/./classes/core/class-vc-base.php:740
+#: include/./classes/core/class-vc-base.php:731
 msgid "Template is empty: There is no content to be saved as a template."
 msgstr ""
 "La plantilla està buida: no hi ha cap contingut que desar com a plantilla."
 
-#: include/./classes/core/class-vc-base.php:741
+#: include/./classes/core/class-vc-base.php:732
 msgid "Error while saving template."
 msgstr "S'ha produït un error en desar la plantilla."
 
-#: include/./classes/core/class-vc-base.php:742
+#: include/./classes/core/class-vc-base.php:733
 msgid "Page settings updated!"
 msgstr "Configuració de la pàgina actualitzada!"
 
-#: include/./classes/core/class-vc-base.php:743
+#: include/./classes/core/class-vc-base.php:734
 msgid "Update all"
 msgstr "Actualitza-ho tot"
 
-#: include/./classes/core/class-vc-base.php:744
+#: include/./classes/core/class-vc-base.php:735
 msgid "The changes you made will be lost if you navigate away from this page."
 msgstr "Si abandones aquesta pàgina es perdran tots els canvis."
 
-#: include/./classes/core/class-vc-base.php:745
+#: include/./classes/core/class-vc-base.php:736
 #, php-format
 msgid "%s saved!"
 msgstr "%s desat!"
 
-#: include/./classes/core/class-vc-base.php:746
+#: include/./classes/core/class-vc-base.php:737
 #, php-format
 msgid "%s deleted!"
 msgstr "%s suprimit!"
 
-#: include/./classes/core/class-vc-base.php:747
+#: include/./classes/core/class-vc-base.php:738
 #, php-format
 msgid "%%s cloned. %sEdit now?%s"
 msgstr "%%s clonat. %sL'edites ara?%s"
 
-#: include/./classes/core/class-vc-base.php:748
+#: include/./classes/core/class-vc-base.php:739
 msgid "Loading Google Font failed"
 msgstr "Ha fallat la càrrega de Google Font"
 
-#: include/./classes/core/class-vc-base.php:749
+#: include/./classes/core/class-vc-base.php:740
 msgid "Loading Font..."
 msgstr "Carregant la font..."
 
-#: include/./classes/core/class-vc-base.php:750
+#: include/./classes/core/class-vc-base.php:741
 msgid "Unable to load Google Fonts"
 msgstr "No es pot carregar Google Fonts"
 
-#: include/./classes/core/class-vc-base.php:751
+#: include/./classes/core/class-vc-base.php:742
 msgid "no title"
 msgstr "sense títol"
 
-#: include/./classes/core/class-vc-base.php:752
+#: include/./classes/core/class-vc-base.php:743
 msgid ""
 "Error while applying filter to the image. Check your server and memory "
 "settings."
@@ -6647,25 +6658,25 @@ msgstr ""
 "Hi ha un error en aplicar el filtre a la imatge. Comproveu la vostra "
 "configuració del servidor i la memòria."
 
-#: include/./classes/core/class-vc-base.php:753
+#: include/./classes/core/class-vc-base.php:744
 msgid "Saved!"
 msgstr "Desat!"
 
-#: include/./classes/core/class-vc-base.php:754
+#: include/./classes/core/class-vc-base.php:745
 msgid "Failed to Save!"
 msgstr "Error en desar!"
 
-#: include/./classes/core/class-vc-base.php:755
+#: include/./classes/core/class-vc-base.php:746
 msgid "You are about to delete this preset. This action can not be undone."
 msgstr ""
 "Estàs a punt d'eliminar aquest valor predefinit. Aquesta acció no es pot "
 "desfer."
 
-#: include/./classes/core/class-vc-base.php:756
+#: include/./classes/core/class-vc-base.php:747
 msgid "Downloaded"
 msgstr "Baixats"
 
-#: include/./classes/core/class-vc-base.php:757
+#: include/./classes/core/class-vc-base.php:748
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:132
 #: include/./classes/editors/navbar/class-vc-navbar.php:177
 #: include/./params/vc_grid_item/editor/navbar/class-vc-navbar-grid-item.php:51
@@ -6674,21 +6685,27 @@ msgstr "Baixats"
 msgid "Update"
 msgstr "Actualitza"
 
-#: include/./classes/core/class-vc-base.php:758
+#: include/./classes/core/class-vc-base.php:749
 msgid "Failed to download template"
 msgstr "La descàrrega de la plantilla ha fallat"
 
-#: include/./classes/core/class-vc-base.php:759
+#: include/./classes/core/class-vc-base.php:750
 msgid "Element successfully removed."
 msgstr "Element eliminat correctament."
 
-#: include/./classes/core/class-vc-base.php:760
+#: include/./classes/core/class-vc-base.php:751
 msgid "Successfully updated!"
 msgstr "S'ha actualitzat correctament!"
 
-#: include/./classes/core/class-vc-base.php:761
+#: include/./classes/core/class-vc-base.php:752
 msgid "Gutenberg plugin doesn't work properly. Please check Gutenberg plugin."
 msgstr "L’extensió Gutenberg no funciona correctament. Verifiqueu-la."
+
+#: include/./classes/core/class-vc-base.php:753
+msgid ""
+"Custom HTML is disabled for your user role. Please contact your site "
+"Administrator to change your capabilities."
+msgstr ""
 
 #: include/./classes/core/class-vc-shared-library.php:331
 msgid "Pink"
@@ -6758,7 +6775,7 @@ msgid "Wrong setting_name for shortcode:%s. Base can't be modified."
 msgstr ""
 "Setting_name incorrecte per al shortcode: %s. La Base no pot ser modificada."
 
-#: include/./classes/core/shared-templates/class-vc-shared-templates.php:276
+#: include/./classes/core/shared-templates/class-vc-shared-templates.php:281
 #: include/./templates/editors/popups/shared-templates/category.tpl.php:100
 msgid "Template library"
 msgstr "Biblioteca de plantilles"
@@ -6865,18 +6882,18 @@ msgstr ""
 msgid "Edit"
 msgstr "Edita"
 
-#: include/./classes/editors/class-vc-frontend-editor.php:473
+#: include/./classes/editors/class-vc-frontend-editor.php:484
 #, php-format
 msgid "Edit %s with WPBakery Page Builder"
 msgstr "Edita %s amb el maquetator visual"
 
-#: include/./classes/editors/class-vc-frontend-editor.php:482
+#: include/./classes/editors/class-vc-frontend-editor.php:493
 msgid "(no title)"
 msgstr "(sense títol)"
 
-#: include/./classes/editors/class-vc-frontend-editor.php:500
-#: include/./classes/editors/class-vc-frontend-editor.php:516
-#: include/./classes/editors/class-vc-frontend-editor.php:561
+#: include/./classes/editors/class-vc-frontend-editor.php:511
+#: include/./classes/editors/class-vc-frontend-editor.php:527
+#: include/./classes/editors/class-vc-frontend-editor.php:572
 msgid "Edit with WPBakery Page Builder"
 msgstr "Edita al frontal"
 
@@ -7009,7 +7026,7 @@ msgstr "Previsualitzar plantilles"
 
 #: include/./classes/editors/popups/class-vc-templates-panel-editor.php:190
 #: include/./classes/editors/popups/class-vc-templates-panel-editor.php:217
-#: include/./templates/editors/partials/vc_welcome_block.tpl.php:52
+#: include/./templates/editors/partials/vc_welcome_block.tpl.php:51
 #: include/./templates/editors/popups/shared-templates/category.tpl.php:121
 #: include/./templates/editors/popups/shared-templates/category.tpl.php:123
 msgid "Add template"
@@ -7272,7 +7289,7 @@ msgstr ""
 msgid "Dismiss this notice."
 msgstr "Descarta aquest avís."
 
-#: include/./classes/settings/class-vc-roles.php:125
+#: include/./classes/settings/class-vc-roles.php:126
 msgid "Roles settings successfully saved."
 msgstr "La configuració de rols s'ha desat correctament."
 
@@ -7655,11 +7672,6 @@ msgstr "Edita aquesta columna"
 msgid "Delete this column"
 msgstr "Elimina aquesta columna"
 
-#: include/./classes/shortcodes/vc-flickr.php:58
-#: include/./templates/shortcodes/vc_flickr.php:42
-msgid "View stream on flickr"
-msgstr "Veure stream a flickr"
-
 #: include/./classes/shortcodes/vc-gallery.php:73
 #: include/./classes/shortcodes/vc-media-grid.php:127
 #: include/./params/default_params.php:275
@@ -7775,50 +7787,46 @@ msgstr "Alterna la fila"
 msgid "Add image"
 msgstr "Afegeix una imatge"
 
-#: include/./classes/updaters/class-vc-updater.php:140
+#: include/./classes/updaters/class-vc-updater.php:136
 msgid "Error! Can't connect to filesystem"
 msgstr "Error! No es pot connectar al sistema de fitxers"
 
-#: include/./classes/updaters/class-vc-updater.php:149
-#, fuzzy, php-format
-#| msgid ""
-#| "To receive automatic updates license activation is required. Please visit "
-#| "%s to activate your WPBakery Page Builder."
+#: include/./classes/updaters/class-vc-updater.php:145
+#, php-format
 msgid ""
 "To receive automatic updates license activation is required. Please visit "
 "%sSettings%s to activate your WPBakery Page Builder."
 msgstr ""
 "Per rebre les actualitzacions automàticament cal l'activació de la "
-"llicència. Visiteu %s per activar el maquetador visual de WPBakery."
+"llicència. Visiteu la %sConfiguració%s per activar el maquetador visual de "
+"WPBakery."
 
-#: include/./classes/updaters/class-vc-updater.php:149
+#: include/./classes/updaters/class-vc-updater.php:145
 #: include/./classes/updaters/class-vc-updating-manager.php:204
 msgid "Got WPBakery Page Builder in theme?"
 msgstr "Teniu un WPBakery Page Builder al vostre tema?"
 
-#: include/./classes/updaters/class-vc-updater.php:152
+#: include/./classes/updaters/class-vc-updater.php:148
 msgid "Getting download link..."
 msgstr "Obtenint l'enllaç de descàrrega..."
 
-#: include/./classes/updaters/class-vc-updater.php:158
+#: include/./classes/updaters/class-vc-updater.php:154
 msgid "Download link could not be retrieved"
 msgstr "No s'ha pogut obtenir l'enllaç de descàrrega"
 
-#: include/./classes/updaters/class-vc-updater.php:165
+#: include/./classes/updaters/class-vc-updater.php:161
 msgid "Downloading package..."
 msgstr "Descarregant el paquet..."
 
 #: include/./classes/updaters/class-vc-updating-manager.php:204
-#, fuzzy, php-format
-#| msgid ""
-#| "To receive automatic updates license activation is required. Please visit "
-#| "%s to activate your WPBakery Page Builder."
+#, php-format
 msgid ""
 "To receive automatic updates license activation is required. Please visit "
 "%ssettings%s to activate your WPBakery Page Builder."
 msgstr ""
-"Per rebre les actualitzacions automàticament cal l'activació de la "
-"llicència. Visiteu %s per activar el maquetador visual de WPBakery."
+"Per rebre les actualitzacions automàticament cal l'activació d'una "
+"llicència. Visiteu la %sconfiguració%s per activar el maquetador visual de "
+"WPBakery."
 
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:18
 #: include/./classes/vendors/plugins/acf/shortcode.php:18
@@ -7827,8 +7835,6 @@ msgstr "Nom del camp"
 
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:22
 #: include/./classes/vendors/plugins/acf/shortcode.php:22
-#, fuzzy
-#| msgid "Select field from group."
 msgid "Choose field from group."
 msgstr "Seleccioneu un camp del grup."
 
@@ -7991,75 +7997,75 @@ msgid "Select your Revolution Slider."
 msgstr "Seleccioneu el Revolution Slider."
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:133
-#, fuzzy
-#| msgid "Menu order"
 msgid "Menu order & title"
-msgstr "Posició del menú"
+msgstr "Ordre de menú i títol"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:134
-#, fuzzy
-#| msgid "Include only"
 msgid "Include"
-msgstr "Només incloure"
+msgstr "Incloure"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:146
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:135
+msgid "Custom post__in"
+msgstr "post__in personalitzat"
+
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:147
 msgid "Cart"
 msgstr "Cistella"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:149
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:165
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:181
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:199
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:228
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:283
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:338
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:360
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:423
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:455
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:482
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:518
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:573
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:643
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:696
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:731
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:793
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:888
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:150
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:166
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:182
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:200
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:229
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:284
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:339
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:361
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:424
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:456
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:483
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:519
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:574
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:644
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:697
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:732
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:794
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:889
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:150
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:151
 msgid "Displays the cart contents"
 msgstr "Mostra el contingut de la cistella"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:162
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:163
 msgid "Checkout"
 msgstr "Finalitza la compra"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:166
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:167
 msgid "Displays the checkout"
 msgstr "Mostra finalitzar compra"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:178
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:179
 msgid "Order Tracking Form"
 msgstr "Seguiment de la comanda"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:182
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:183
 msgid "Lets a user see the status of an order"
 msgstr "Permet que els usuaris segueixin l'estat de la seva comanda"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:196
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:197
 msgid "My Account"
 msgstr "El meu compte"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:200
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:201
 msgid "Shows the \"my account\" section"
 msgstr "Mostra la secció \"el meu compte\""
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:204
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:205
 msgid "Order count"
 msgstr "Nombre de comandes"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:208
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:209
 msgid ""
 "You can specify the number or order to show, it's set by default to 15 (use "
 "-1 to display all orders.)"
@@ -8067,47 +8073,42 @@ msgstr ""
 "Especifiqueu el nombre de comanda a mostrar. Per defecte 15 (-1 per a "
 "mostrar totes les comandes)."
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:225
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:226
 msgid "Recent products"
 msgstr "Productes recents"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:229
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:230
 msgid "Lists recent products"
 msgstr "Llista de productes recents"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:233
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:288
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:523
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:648
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:701
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:736
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:798
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:893
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:234
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:289
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:894
 msgid "Per page"
 msgstr "Per pàgina"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:237
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:292
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:238
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:293
 msgid ""
 "The \"per_page\" shortcode determines how many products to show on the page"
 msgstr ""
 "El shortcode \"per_page\" determina quants productes es mostren a la pàgina"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:241
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:296
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:365
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:531
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:604
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:656
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:709
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:744
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:806
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:901
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:242
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:297
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:366
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:532
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:605
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:657
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:710
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:745
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:807
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:902
 msgid "Columns"
 msgstr "Columnes"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:245
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:300
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:246
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:301
 msgid ""
 "The columns attribute controls how many columns wide the products should be "
 "before wrapping."
@@ -8115,223 +8116,233 @@ msgstr ""
 "L'atribut columna controla quantes columnes han de tenir els productes abans "
 "de saltar de línia."
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:255
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:310
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:545
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:590
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:670
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:758
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:820
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:915
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:256
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:311
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:546
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:591
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:671
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:759
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:821
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:916
 #, php-format
 msgid "Select how to sort retrieved products. More at %s."
 msgstr "Seleccioneu com ordenar els productes recuperats. Més en %s."
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:265
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:320
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:555
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:600
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:680
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:768
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:830
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:925
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:266
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:321
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:556
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:601
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:681
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:769
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:831
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:926
 #, php-format
 msgid "Designates the ascending or descending order. More at %s."
 msgstr "Indica l'ordre ascendent o descendent. Més en %s."
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:280
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:281
 msgid "Featured products"
 msgstr "Productes destacats"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:284
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:285
 msgid "Display products set as \"featured\""
 msgstr "Mostra pels roductes marcats com \"destacat\""
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:335
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:336
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:20
 msgid "Product"
 msgstr "Producte"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:339
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:340
 msgid "Show a single product by ID or SKU"
 msgstr "Mostra un sol producte per ID o SKU"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:343
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:428
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:460
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:487
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:344
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:429
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:461
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:488
 msgid "Select identificator"
 msgstr "Seleccioneu l'identificador"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:345
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:430
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:462
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:489
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:346
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:431
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:463
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:490
 msgid "Input product ID or product SKU or product title to see suggestions"
 msgstr "Escriu l'ID, un SKU o un nom de producte per veure suggeriments"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:357
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:392
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:358
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:393
 msgid "Products"
 msgstr "Productes"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:361
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:362
 msgid "Show multiple products by ID or SKU."
 msgstr "Mostra diversos productes per ID o SKU."
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:378
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:379
 #, php-format
 msgid "Select how to sort retrieved products. More at %s. Default by Title"
 msgstr ""
 "Seleccioneu com ordenar els productes. Més en %s. Per defecte per títol"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:388
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:389
 #, php-format
 msgid ""
 "Designates the ascending or descending order. More at %s. Default by ASC"
 msgstr "Indica l'ordre ascendent o descendent. Més en %s. Per defecte ASC"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:401
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:402
 msgid "Enter List of Products"
 msgstr "Introduïu una llista de productes"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:420
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:421
 msgid "Add to cart"
 msgstr "Afegeix a la cistella"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:424
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:425
 msgid "Show multiple products by ID or SKU"
 msgstr "Mostra diversos productes per ID o SKU"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:438
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:439
 msgid "Wrapper inline style"
 msgstr "Estil en línia de l'embolcall"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:452
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:453
 msgid "Add to cart URL"
 msgstr "URL d'afegir a la cistella"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:456
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:457
 msgid "Show URL on the add to cart button"
 msgstr "Mostra la url al botó d'afegir a la cistella"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:479
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:480
 msgid "Product page"
 msgstr "Pàgina del producte"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:483
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:484
 msgid "Show single product by ID or SKU"
 msgstr "Mostra un únic producte per ID o SKU"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:515
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:516
 msgid "Product category"
 msgstr "Categoria del producte"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:519
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:520
 msgid "Show multiple products in a category"
 msgstr "Mostra diversos productes d'una categoria"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:527
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:652
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:705
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:740
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:802
-msgid "How much items per page to show"
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:524
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:649
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:702
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:737
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:799
+msgid "Limit"
+msgstr ""
+
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:528
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:653
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:706
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:741
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:803
+#, fuzzy
+#| msgid "How much items per page to show"
+msgid "How much items to show"
 msgstr "Quants elements voleu mostrar per pàgina"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:535
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:608
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:660
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:713
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:748
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:810
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:905
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:536
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:609
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:661
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:714
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:749
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:811
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:906
 msgid "How much columns grid"
 msgstr "Quantes columnes voleu en la graella"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:559
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:560
 msgid "Category"
 msgstr "Categoria"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:563
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:564
 msgid "Product category list"
 msgstr "Llista de categories dels productes"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:570
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:571
 msgid "Product categories"
 msgstr "Categories del producte"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:574
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:575
 msgid "Display product categories loop"
 msgstr "Mostra el bucle de les categories de producte"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:578
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:612
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:579
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:613
 msgid "Number"
 msgstr "Número"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:580
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:581
 msgid "The `number` field is used to display the number of products."
 msgstr "El camp \"Número\" s'usa per mostrar el nombre de productes."
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:614
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:615
 msgid "Hide empty"
 msgstr "Amaga els buits"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:625
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:626
 msgid "List of product categories"
 msgstr "Llista de categories del producte"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:640
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:641
 msgid "Sale products"
 msgstr "Productes en oferta"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:644
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:732
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:645
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:733
 msgid "List all products on sale"
 msgstr "Llista tots els productes en oferta"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:693
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:694
 msgid "Best Selling Products"
 msgstr "Productes més venuts"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:697
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:698
 msgid "List best selling products on sale"
 msgstr "Llista dels productes més venuts en oferta"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:728
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:729
 msgid "Top Rated Products"
 msgstr "Els productes més ben valorats"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:790
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:791
 msgid "Product Attribute"
 msgstr "Atribut del producte"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:794
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:795
 msgid "List products with an attribute shortcode"
 msgstr "Llista els productes amb atribut al shortcode"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:834
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:835
 msgid "Attribute"
 msgstr "Atribut"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:838
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:839
 msgid "List of product taxonomy attribute"
 msgstr "Llista l'atribut de la taxonomia del producte"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:846
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:847
 msgid "Taxonomy values"
 msgstr "Valors de la taxonomia"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:883
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:884
 msgid "Related Products"
 msgstr "Productes relacionats"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:889
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:890
 msgid "List related products"
 msgstr "Mostra els productes relacionats"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:897
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:898
 msgid ""
 "Please note: the \"per_page\" shortcode argument will determine how many "
 "products are shown on a page. This will not add pagination to the shortcode. "
@@ -8339,119 +8350,119 @@ msgstr ""
 "Tingueu en compte que l'argument \"per_page\" determinarà quants productes "
 "es mostraran en una pàgina. Això no afegirà paginació al shortcode. "
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1268
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1304
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1367
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1404
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1481
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1269
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1305
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1368
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1405
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1482
 msgid "Id"
 msgstr "Id"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1268
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1296
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1359
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1473
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1269
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1297
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1360
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1474
 msgid "Sku"
 msgstr "Codi"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1404
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1405
 msgid "Name"
 msgstr "Nom"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1404
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1405
 msgid "Slug"
 msgstr "Resum"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1498
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1499
 msgid "SKU"
 msgstr "CODI"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1500
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1501
 msgid "Price"
 msgstr "Preu"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1501
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1502
 msgid "Regular Price"
 msgstr "Preu habitual"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1502
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1503
 msgid "Sale Price"
 msgstr "Preu rebaixat"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1503
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1504
 msgid "Price html"
 msgstr "Html del preu"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1504
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1505
 msgid "Reviews count"
 msgstr "Nombre de ressenyes"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1505
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1506
 msgid "Short description"
 msgstr "Descripció breu"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1506
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1507
 msgid "Dimensions"
 msgstr "Dimensions"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1507
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1508
 msgid "Rating count"
 msgstr "Nombre de valoracions"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1508
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1509
 msgid "Weight"
 msgstr "Pes"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1509
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1510
 msgid "Is on sale"
 msgstr "Està en oferta"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1510
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1550
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1511
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1551
 msgid "Custom field"
 msgstr "Camp personalitzat"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1539
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1540
 msgid "Order number"
 msgstr "Número de comanda"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1540
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1541
 msgid "Currency"
 msgstr "Moneda"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1541
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1542
 msgid "Total"
 msgstr "Total"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1542
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1543
 msgid "Status"
 msgstr "Estat"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1543
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1544
 msgid "Payment method"
 msgstr "Forma de pagament"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1544
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1545
 msgid "Billing address city"
 msgstr "Població per a l'adreça de facturació"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1545
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1546
 msgid "Billing address country"
 msgstr "País per a l'adreça de facturació"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1546
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1547
 msgid "Shipping address city"
 msgstr "Població per a l'adreça d'enviament"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1547
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1548
 msgid "Shipping address country"
 msgstr "País per a l'adreça d'enviament"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1548
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1549
 msgid "Customer Note"
 msgstr "Nota del client"
 
-#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1549
+#: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:1550
 msgid "Customer API"
 msgstr "API para el cliente"
 
@@ -8512,7 +8523,7 @@ msgstr "Clau personalitzada de la comanda"
 msgid "Added"
 msgstr "Afegit"
 
-#: include/./helpers/helpers.php:1223 include/./params/loop/loop.php:338
+#: include/./helpers/helpers.php:1223 include/./params/loop/loop.php:364
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
@@ -9052,39 +9063,39 @@ msgstr "Afegeix"
 
 #: include/./params/gutenberg/class-vc-gutenberg-param.php:79
 msgid "Add New Gutenberg attr"
-msgstr ""
+msgstr "Afegeix un nou «attr» de Gutenberg"
 
 #: include/./params/gutenberg/class-vc-gutenberg-param.php:80
 msgid "New Gutenberg attr"
-msgstr ""
+msgstr "Nou «attr» de Gutenberg"
 
 #: include/./params/gutenberg/class-vc-gutenberg-param.php:81
 msgid "Edit Gutenberg attr"
-msgstr ""
+msgstr "Edita l’«attr» de Gutenberg"
 
 #: include/./params/gutenberg/class-vc-gutenberg-param.php:82
 msgid "View Gutenberg attr"
-msgstr ""
+msgstr "Veure l'«attr» de Gutenberg"
 
 #: include/./params/gutenberg/class-vc-gutenberg-param.php:83
 msgid "All Gutenberg attrs"
-msgstr ""
+msgstr "Tots els «attrs» de Gutenberg"
 
 #: include/./params/gutenberg/class-vc-gutenberg-param.php:84
 msgid "Search Gutenberg attrs"
-msgstr ""
+msgstr "Cerca els «attrs» de Gutenberg"
 
 #: include/./params/gutenberg/class-vc-gutenberg-param.php:85
 msgid "Parent Gutenberg attrs:"
-msgstr ""
+msgstr "«attrs» superiors de Gutenberg:"
 
 #: include/./params/gutenberg/class-vc-gutenberg-param.php:86
 msgid "No Gutenberg attrs found."
-msgstr ""
+msgstr "No s’han trobat «attrs» de Gutenberg."
 
 #: include/./params/gutenberg/class-vc-gutenberg-param.php:87
 msgid "No Gutenberg attrs found in Trash."
-msgstr ""
+msgstr "No s’han trobat «attrs» de Gutenberg a la paperera."
 
 #: include/./params/iconpicker/iconpicker.php:90
 msgid "From all categories"
@@ -9098,11 +9109,15 @@ msgstr "Sense categoritzar"
 msgid "Build query"
 msgstr "Construeix una consulta"
 
-#: include/./params/loop/loop.php:331
+#: include/./params/loop/loop.php:356
 msgid "Post count"
 msgstr "Número d'entrada"
 
-#: include/./params/loop/loop.php:339
+#: include/./params/loop/loop.php:360
+msgid "Ignore Sticky posts"
+msgstr ""
+
+#: include/./params/loop/loop.php:365
 msgid "Individual posts/pages"
 msgstr "Entrades / Pàgines individuals"
 
@@ -9638,14 +9653,14 @@ msgstr "Selecciona l'URL"
 msgid "URL"
 msgstr "URL"
 
-#: include/./templates/editors/backend_editor.tpl.php:56
+#: include/./templates/editors/backend_editor.tpl.php:60
 #: include/./templates/editors/vc_ui-template-preview.tpl.php:82
 #: include/./templates/params/vc_grid_item/editor/vc_grid_item_editor.tpl.php:18
 #: include/./templates/params/vc_grid_item/editor/vc_ui-template-preview.tpl.php:84
 msgid "Loading, please wait..."
 msgstr "S'està carregant, espereu..."
 
-#: include/./templates/editors/backend_editor.tpl.php:58
+#: include/./templates/editors/backend_editor.tpl.php:62
 #: include/./templates/editors/vc_ui-template-preview.tpl.php:83
 #: include/./templates/params/vc_grid_item/editor/vc_grid_item_editor.tpl.php:20
 #: include/./templates/params/vc_grid_item/editor/vc_ui-template-preview.tpl.php:85
@@ -9772,39 +9787,39 @@ msgstr "Cerqueu una plantilla pel seu nom"
 msgid "Element Settings"
 msgstr "Configuració de l'element"
 
-#: include/./templates/editors/partials/vc_welcome_block.tpl.php:18
+#: include/./templates/editors/partials/vc_welcome_block.tpl.php:17
 msgid "You have blank page"
 msgstr "Teniu la pàgina en blanc"
 
-#: include/./templates/editors/partials/vc_welcome_block.tpl.php:20
+#: include/./templates/editors/partials/vc_welcome_block.tpl.php:19
 msgid "Start adding content or templates"
 msgstr "Comenceu afegint contingut o plantilles"
 
-#: include/./templates/editors/partials/vc_welcome_block.tpl.php:29
-#: include/./templates/editors/partials/vc_welcome_block.tpl.php:60
+#: include/./templates/editors/partials/vc_welcome_block.tpl.php:28
+#: include/./templates/editors/partials/vc_welcome_block.tpl.php:59
 #: include/./templates/editors/popups/vc_ui-panel-add-element.tpl.php:11
 msgid "Add Element"
 msgstr "Afegeix un element"
 
-#: include/./templates/editors/partials/vc_welcome_block.tpl.php:32
+#: include/./templates/editors/partials/vc_welcome_block.tpl.php:31
 #: include/./templates/editors/popups/vc_ui-panel-preset.tpl.php:33
 msgid "Add element"
 msgstr "Afegeix un element"
 
-#: include/./templates/editors/partials/vc_welcome_block.tpl.php:41
+#: include/./templates/editors/partials/vc_welcome_block.tpl.php:40
 msgid "Add text block"
 msgstr "Afegeix un bloc de text"
 
-#: include/./templates/editors/partials/vc_welcome_block.tpl.php:43
+#: include/./templates/editors/partials/vc_welcome_block.tpl.php:42
 msgid "Add Text Block"
 msgstr "Afegeix un bloc de text"
 
-#: include/./templates/editors/partials/vc_welcome_block.tpl.php:66
+#: include/./templates/editors/partials/vc_welcome_block.tpl.php:65
 #, php-format
 msgid "Don't know where to start? Visit our %s."
 msgstr "No sabeu per on començar? Visiteu la nostra %s."
 
-#: include/./templates/editors/partials/vc_welcome_block.tpl.php:66
+#: include/./templates/editors/partials/vc_welcome_block.tpl.php:65
 msgid "knowledge base"
 msgstr "base de coneixements"
 
@@ -9971,13 +9986,14 @@ msgstr ""
 
 #: include/./templates/pages/partials/vc-roles-parts/_backend_editor.tpl.php:14
 msgid "Disable Classic editor"
-msgstr "Desactivaa l'editor clàssic"
+msgstr "Desactiva l'editor clàssic"
 
 #: include/./templates/pages/partials/vc-roles-parts/_backend_editor.tpl.php:20
 #: include/./templates/pages/partials/vc-roles-parts/_dragndrop.tpl.php:12
 #: include/./templates/pages/partials/vc-roles-parts/_frontend_editor.tpl.php:16
 #: include/./templates/pages/partials/vc-roles-parts/_grid_builder.tpl.php:14
 #: include/./templates/pages/partials/vc-roles-parts/_post_settings.tpl.php:11
+#: include/./templates/pages/partials/vc-roles-parts/_unfiltered_html.tpl.php:12
 msgid "Enabled"
 msgstr "Activades"
 
@@ -9994,6 +10010,7 @@ msgstr "Activat per defecte"
 #: include/./templates/pages/partials/vc-roles-parts/_presets.tpl.php:13
 #: include/./templates/pages/partials/vc-roles-parts/_settings.tpl.php:19
 #: include/./templates/pages/partials/vc-roles-parts/_templates.tpl.php:13
+#: include/./templates/pages/partials/vc-roles-parts/_unfiltered_html.tpl.php:13
 msgid "Disabled"
 msgstr "Desactivats"
 
@@ -10104,6 +10121,16 @@ msgstr ""
 "predeterminades. Nota: \"Aplicar només les plantilles\" impedeix als usuaris "
 "guardar noves plantilles i esborrar les existents."
 
+#: include/./templates/pages/partials/vc-roles-parts/_unfiltered_html.tpl.php:15
+msgid "Unfiltered HTML"
+msgstr ""
+
+#: include/./templates/pages/partials/vc-roles-parts/_unfiltered_html.tpl.php:16
+#, fuzzy
+#| msgid "Welcome to WPBakery Page Builder"
+msgid "Allow to use Custom HTML in WPBakery Page Builder."
+msgstr "Us donem la benvinguda al maquetador visual WPBakery Page Builder"
+
 #: include/./templates/pages/vc-settings/default-template-post-type.tpl.php:14
 msgid "Post type"
 msgstr "Tipus d'entrada"
@@ -10144,8 +10171,12 @@ msgid "Reset"
 msgstr "Restableix"
 
 #: include/./templates/pages/vc-settings/tab.php:47
+#, fuzzy
+#| msgid ""
+#| "Guide tours are shown in VC editors to help you to start working with "
+#| "editors. You can see them again by clicking button above."
 msgid ""
-"Guide tours are shown in VC editors to help you to start working with "
+"Guide tours are shown in WPBakery editors to help you to start working with "
 "editors. You can see them again by clicking button above."
 msgstr ""
 "Les visites guiades es mostren en els editors del maquetador visual per "
@@ -10426,36 +10457,29 @@ msgstr ""
 "%s a support.wpbakery.com."
 
 #: include/./templates/pages/vc-welcome/vc-resources.php:29
-#, fuzzy, php-format
-#| msgid ""
-#| "Before applying for support please make sure you understand the rules of "
-#| "support and go through all steps described and listed in %sSupport Policy"
-#| "$s in order to get your issues solved as soon as possible."
+#, php-format
 msgid ""
 "Before applying for support please make sure you understand the rules of "
 "support and go through all steps described and listed in %sSupport Policy%s "
 "in order to get your issues solved as soon as possible."
 msgstr ""
-"Abans d'enviar una sol·licitud de suport, assegurreu-vos que enteneu les "
+"Abans d'enviar una sol·licitud de suport, assegureu-vos que enteneu les "
 "normes de suport i que heu seguit tots els passos detallats en la %sPolítica "
-"de Suport%s, per tal de que les vostres incidències siguin resoltes a la "
+"de Suport%s, per tal de què les vostres incidències siguin resoltes a la "
 "major brevetat."
 
 #: include/./templates/pages/vc-welcome/vc-welcome.php:11
-msgid "WordPress 5.0 Compatible"
-msgstr "Compatible amb el WordPress 5.0"
+#, fuzzy
+#| msgid "Activate WPBakery Page Builder"
+msgid "A Hassle-Free WordPress Page Builder"
+msgstr "Activeu WPBakery Page Builder"
 
 #: include/./templates/pages/vc-welcome/vc-welcome.php:13
 msgid ""
-"WPBakery Page Builder goes hand in hand with the latest releases of "
-"WordPress. Want to stay up to date with WordPress 5.0? No problem, WPBakery "
-"Page Builder is fully compatible with the latest WordPress version and the "
-"new editor."
+"Build complex, content-rich pages in minutes instead of weeks. No "
+"programming knowledge required. Use frontend or backend editor to design "
+"your layouts and manage content."
 msgstr ""
-"WPBakery pàgina Builder va de la mà amb els últims llançaments del "
-"WordPress. Voleu mantenir-vos al dia amb el WordPress 5.0? Cap problema, "
-"WPBakery Page Builder és totalment compatible amb l'última versió del "
-"WordPress i el nou editor."
 
 #: include/./templates/params/column_offset/template.tpl.php:21
 #, php-format
@@ -10507,6 +10531,10 @@ msgstr "Enllaç permanent per %s"
 msgid "Empty section. Edit page to add content here."
 msgstr "Secció buida. Afegiu contingut aquí per editar la pàgina."
 
+#: include/./templates/shortcodes/vc_flickr.php:68
+msgid "View stream on flickr"
+msgstr "Veure stream a flickr"
+
 #: include/./templates/shortcodes/vc_item.php:19
 msgid "Item"
 msgstr "Element"
@@ -10535,6 +10563,23 @@ msgstr "Piuleu a"
 #: include/./templates/shortcodes/vc_tweetmeme.php:33
 msgid "Tweet"
 msgstr "Piula això"
+
+#~ msgid "Open prettyPhoto"
+#~ msgstr "Obre-ho amb prettyPhoto"
+
+#~ msgid "WordPress 5.0 Compatible"
+#~ msgstr "Compatible amb el WordPress 5.0"
+
+#~ msgid ""
+#~ "WPBakery Page Builder goes hand in hand with the latest releases of "
+#~ "WordPress. Want to stay up to date with WordPress 5.0? No problem, "
+#~ "WPBakery Page Builder is fully compatible with the latest WordPress "
+#~ "version and the new editor."
+#~ msgstr ""
+#~ "WPBakery pàgina Builder va de la mà amb els últims llançaments del "
+#~ "WordPress. Voleu mantenir-vos al dia amb el WordPress 5.0? Cap problema, "
+#~ "WPBakery Page Builder és totalment compatible amb l'última versió del "
+#~ "WordPress i el nou editor."
 
 #~ msgctxt ""
 #~ "Overrides the “Set featured image” phrase for this post type. Added in 4.3"

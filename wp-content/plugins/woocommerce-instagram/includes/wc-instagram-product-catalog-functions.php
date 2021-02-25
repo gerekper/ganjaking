@@ -64,8 +64,8 @@ function wc_instagram_get_product_catalog( $the_catalog ) {
 	if ( ! $catalog ) {
 		$catalogs = wc_instagram_get_product_catalogs();
 
-		if ( is_numeric( $the_catalog ) ) {
-			$catalog = ( isset( $catalogs[ $the_catalog ] ) ? $catalogs[ $the_catalog ] : false );
+		if ( is_numeric( $the_catalog ) && isset( $catalogs[ $the_catalog ] ) ) {
+			$catalog = $catalogs[ $the_catalog ];
 		} elseif ( is_string( $the_catalog ) ) {
 			foreach ( $catalogs as $data ) {
 				if ( isset( $data['slug'] ) && $the_catalog === $data['slug'] ) {

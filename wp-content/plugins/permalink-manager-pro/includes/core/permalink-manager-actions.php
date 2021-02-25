@@ -12,7 +12,7 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 		if(is_admin()) {
 			add_action('wp_ajax_pm_bulk_tools', array($this, 'pm_bulk_tools'));
 			add_action('wp_ajax_pm_save_permalink', array($this, 'pm_save_permalink'));
-			add_action('wp_ajax_detect_duplicates',  array($this, 'ajax_detect_duplicates') );
+			add_action('wp_ajax_pm_detect_duplicates',  array($this, 'ajax_detect_duplicates') );
 		}
 
 		add_action('clean_permalinks_event', array($this, 'clean_permalinks_hook'));

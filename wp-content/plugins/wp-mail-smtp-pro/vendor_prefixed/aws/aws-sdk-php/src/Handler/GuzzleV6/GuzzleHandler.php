@@ -33,10 +33,14 @@ class GuzzleHandler
     public function __invoke(\WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request, array $options = [])
     {
         $request = $request->withHeader('User-Agent', $request->getHeaderLine('User-Agent') . ' ' . \WPMailSMTP\Vendor\GuzzleHttp\default_user_agent());
-        return $this->client->sendAsync($request, $this->parseOptions($options))->otherwise(static function (\Exception $e) {
+        return $this->client->sendAsync($request, $this->parseOptions($options))->otherwise(static function ($e) {
             $error = ['exception' => $e, 'connection_error' => $e instanceof \WPMailSMTP\Vendor\GuzzleHttp\Exception\ConnectException, 'response' => null];
             if ($e instanceof \WPMailSMTP\Vendor\GuzzleHttp\Exception\RequestException && $e->getResponse()) {
                 $error['response'] = $e->getResponse();
+            } else {
+                if (\class_exists('Error') && $e instanceof \Error && $e->getResponse()) {
+                    $error['response'] = $e->getResponse();
+                }
             }
             return new \WPMailSMTP\Vendor\GuzzleHttp\Promise\RejectedPromise($error);
         });

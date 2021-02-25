@@ -1,4 +1,8 @@
 *** Gravity Forms Product Add-Ons Changelog ***
+2021.02.12 - version 3.3.18
+    * Update:  WC and WP Updates.
+    * Update:  General code cleanup.
+
 2020.11.23 - version 3.3.17
     * Update:  Allow the Gravity Forms Options total to be filtered by WooCommerce Dynamic Pricing if that option is enabled.
     * Update:  WC and WP Updates.

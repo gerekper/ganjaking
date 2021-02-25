@@ -4,12 +4,13 @@
 # Björn Scheppler <bjoern.scheppler@gmail.com>, 2016
 # Lukas Huggenberg, 2019
 # Mark Howells-Mead <permanent.tourist@gmail.com>, 2020
+# Steffen Dressler <steffen@gourami.de>, 2021
 # Tobias Schutter <info@codepress.nl>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns Pro\n"
-"PO-Revision-Date: 2020-09-15 08:03+0000\n"
-"Last-Translator: Tobias Schutter <info@codepress.nl>\n"
+"PO-Revision-Date: 2021-01-25 21:36+0000\n"
+"Last-Translator: Steffen Dressler <steffen@gourami.de>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/codepress/admin-columns-pro/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -927,7 +928,7 @@ msgstr "Einstellungen"
 
 #: admin-columns-pro/classes/Editing/Settings/BulkEditing.php:34
 msgid "Enable Bulk Editing"
-msgstr ""
+msgstr "Mehrfachbearbeitung aktivieren"
 
 #: admin-columns-pro/classes/Editing/Settings/BulkEditing.php:55
 msgid "Bulk Editing"
@@ -1644,11 +1645,11 @@ msgstr "Ja"
 
 #: admin-columns-pro/classes/Editing/Model/User/Fullname.php:19
 msgid "First Name"
-msgstr ""
+msgstr "Vorname"
 
 #: admin-columns-pro/classes/Editing/Model/User/Fullname.php:20
 msgid "Last Name"
-msgstr ""
+msgstr "Nachname"
 
 #: admin-columns-pro/classes/Editing/Model/User/Username.php:36
 msgid "The username already exists."
@@ -1892,7 +1893,7 @@ msgstr "Massenaktionen"
 #: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterCategory.php13,
 #: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterProductCategory.php:12
 msgid "Category"
-msgstr ""
+msgstr "Kategorie"
 
 #: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterMediaItem.php:13
 msgid "Media Items"
@@ -1907,7 +1908,7 @@ msgstr "Datum"
 
 #: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterPostFormat.php:13
 msgid "Post Format"
-msgstr ""
+msgstr "Beitragsformat"
 
 #: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/Filters.php:12
 msgid "Filters"
@@ -2114,7 +2115,7 @@ msgstr "Cross-Sells"
 
 #: ac-addon-woocommerce/classes/Column/Product/Customers.php:17
 msgid "Customers"
-msgstr ""
+msgstr "Kunden"
 
 #: ac-addon-woocommerce/classes/Column/Product/Dimensions.php:79
 msgid "Length"
@@ -2180,7 +2181,7 @@ msgstr "Nicht vorrätig"
 
 #: ac-addon-woocommerce/classes/Column/Product/StockStatus.php:40
 msgid "On backorder"
-msgstr ""
+msgstr "Auf Lieferrückstand"
 
 #: ac-addon-woocommerce/classes/Column/Product/Upsells.php:19
 msgid "Upsells"
@@ -2204,7 +2205,7 @@ msgstr "Lagerhaltung wird vom Eltern-Produkt verwaltet"
 
 #: ac-addon-woocommerce/classes/Column/ProductVariation/Taxonomy.php:17
 msgid "Product Taxonomy"
-msgstr ""
+msgstr "Produkt-Taxonomie"
 
 #: ac-addon-woocommerce/classes/Column/ShopCoupon/CouponDescription.php:19
 msgid "Description"
@@ -2291,7 +2292,7 @@ msgstr "Produktkategorien"
 
 #: ac-addon-woocommerce/classes/Column/ShopOrder/ProductTags.php:17
 msgid "Product Tags"
-msgstr ""
+msgstr "Produkt-Schlagwörter"
 
 #: ac-addon-woocommerce/classes/Column/ShopOrder/Purchased.php:21
 msgid "Purchased"
@@ -2376,7 +2377,7 @@ msgstr "Veröffentlicht"
 #: ac-addon-woocommerce/classes/Export/Product/Sale.php:34
 msgctxt "Product on sale from (date)"
 msgid "Until"
-msgstr ""
+msgstr "Bis"
 
 #: ac-addon-woocommerce/classes/Filtering/Comment/ProductReview.php:32
 msgid "Exclude Product Reviews"
@@ -2440,15 +2441,15 @@ msgstr "Wird nicht empfohlen"
 
 #: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterOrderCustomer.php:12
 msgid "Registered Customer"
-msgstr ""
+msgstr "Registrierter Kunde"
 
 #: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterProductStockStatus.php:12
 msgid "Stock Status"
-msgstr ""
+msgstr "Lagerstatus"
 
 #: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterProductType.php:12
 msgid "Product Type"
-msgstr ""
+msgstr "Produkttyp"
 
 #: ac-addon-woocommerce/classes/Settings/Product/Attributes.php:30
 msgid "All attributes"
@@ -2563,7 +2564,7 @@ msgstr "Rechnungsstellung"
 
 #: ac-addon-woocommerce/classes/Settings/User/Order.php:57
 msgid "Amount"
-msgstr ""
+msgstr "Betrag"
 
 #: ac-addon-woocommerce/classes/Settings/User/Products.php:42
 msgid "Total products purchased"
@@ -2575,7 +2576,7 @@ msgstr "Einzelne gekaufte Produkte"
 
 #: ac-addon-woocommerce/classes/Settings/User/Ratings.php:40
 msgid "Number of ratings"
-msgstr ""
+msgstr "Anzahl der Bewertungen"
 
 #: ac-addon-woocommerce/classes/Settings/User/Ratings.php:41
 msgid "Average rating"

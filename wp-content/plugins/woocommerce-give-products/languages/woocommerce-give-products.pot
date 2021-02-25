@@ -1,15 +1,15 @@
-# Copyright (C) 2020 WooCommerce
+# Copyright (C) 2021 WooCommerce
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Give Products 1.1.12\n"
+"Project-Id-Version: WooCommerce Give Products 1.1.13\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-give-products\n"
-"POT-Creation-Date: 2020-12-01 20:34:24+00:00\n"
+"POT-Creation-Date: 2021-02-02 21:03:25+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
@@ -43,51 +43,51 @@ msgstr ""
 msgid "[{site_title}] Gifted order ({order_number}) - {order_date}"
 msgstr ""
 
-#: includes/emails/class-wc-given-order.php:124
+#: includes/emails/class-wc-given-order.php:125
 msgid "Enable/Disable"
 msgstr ""
 
-#: includes/emails/class-wc-given-order.php:126
+#: includes/emails/class-wc-given-order.php:127
 msgid "Enable this email notification"
 msgstr ""
 
-#: includes/emails/class-wc-given-order.php:130
+#: includes/emails/class-wc-given-order.php:131
 msgid "Subject"
 msgstr ""
 
-#: includes/emails/class-wc-given-order.php:132
+#: includes/emails/class-wc-given-order.php:133
 msgid ""
 "This controls the email subject line. Leave blank to use the default "
 "subject: <code>%s</code>."
 msgstr ""
 
-#: includes/emails/class-wc-given-order.php:137
+#: includes/emails/class-wc-given-order.php:138
 msgid "Email Heading"
 msgstr ""
 
-#: includes/emails/class-wc-given-order.php:139
+#: includes/emails/class-wc-given-order.php:140
 msgid ""
 "This controls the main heading contained within the email notification. "
 "Leave blank to use the default heading: <code>%s</code>."
 msgstr ""
 
-#: includes/emails/class-wc-given-order.php:144
+#: includes/emails/class-wc-given-order.php:145
 msgid "Email type"
 msgstr ""
 
-#: includes/emails/class-wc-given-order.php:146
+#: includes/emails/class-wc-given-order.php:147
 msgid "Choose which format of email to send."
 msgstr ""
 
-#: includes/emails/class-wc-given-order.php:150
+#: includes/emails/class-wc-given-order.php:151
 msgid "Plain text"
 msgstr ""
 
-#: includes/emails/class-wc-given-order.php:151
+#: includes/emails/class-wc-given-order.php:152
 msgid "HTML"
 msgstr ""
 
-#: includes/emails/class-wc-given-order.php:152
+#: includes/emails/class-wc-given-order.php:153
 msgid "Multipart"
 msgstr ""
 

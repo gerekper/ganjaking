@@ -163,7 +163,7 @@ class WC_Memberships_Meta_Box_View_Product_Restriction_Rule extends \WC_Membersh
 
 					<?php if ( $is_variable_product ) : ?>
 
-						<td class="purchasing-discount-applies-to product-variation-column">
+						<td class="product-restriction-applies-to product-variation-column">
 							<p class="form-field"><?php esc_html_e( 'Any variation', 'woocommerce-memberships' ); ?></p>
 						</td>
 

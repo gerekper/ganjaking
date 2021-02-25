@@ -130,8 +130,9 @@ class WC_OD_Meta_Box_Order_Delivery {
 		}
 
 		// Process delivery time frame.
-		if ( $posted_delivery_date ) {
-			$delivery_time_frame = ( isset( $_POST['_delivery_time_frame'] ) ? wc_clean( wp_unslash( $_POST['_delivery_time_frame'] ) ) : '' ); // WPCS: CSRF ok, sanitization ok.
+		$delivery_time_frame = ( isset( $_POST['_delivery_time_frame'] ) ? wc_clean( wp_unslash( $_POST['_delivery_time_frame'] ) ) : '' ); // phpcs:ignore: WordPress.Security.NonceVerification
+
+		if ( $posted_delivery_date && ( ! empty( $delivery_time_frame['time_from'] ) || ! empty( $delivery_time_frame['time_to'] ) ) ) {
 			wc_od_update_order_meta( $order_id, '_delivery_time_frame', $delivery_time_frame, true );
 		} else {
 			wc_od_delete_order_meta( $order_id, '_delivery_time_frame', true );

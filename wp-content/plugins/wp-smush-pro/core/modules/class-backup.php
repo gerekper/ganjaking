@@ -137,6 +137,9 @@ class Backup extends Abstract_Module {
 			'height' => $height,
 		);
 
+		// Add to the cached list.
+		$this->add_to_images_with_backups_cache_list( $attachment_id );
+
 		return update_post_meta( $attachment_id, '_wp_attachment_backup_sizes', $backup_sizes );
 	}
 
@@ -187,14 +190,20 @@ class Backup extends Abstract_Module {
 		 */
 		WP_Smush::get_instance()->core()->mod->webp->delete_images( $attachment_id );
 
-
 		// Restore Full size -> get other image sizes -> restore other images.
 		// Get the Original Path.
-		$file_path = Helper::get_attached_file( $attachment_id );
+		$file_path = get_attached_file( $attachment_id );
 
 		// Add WordPress 5.3 support for -scaled images size.
 		if ( false !== strpos( $file_path, '-scaled.' ) && function_exists( 'wp_get_original_image_path' ) ) {
-			$file_path = wp_get_original_image_path( $attachment_id );
+			// The scaled images' paths are re-saved when getting the original image.
+			// This avoids storing the S3's url in there.
+			add_filter( 'as3cf_get_attached_file', array( $this, 'skip_as3cf_url_get_attached_file' ), 10, 4 );
+
+			$file_path = wp_get_original_image_path( $attachment_id, true );
+
+			// And go back to normal after retrieving the original path.
+			remove_filter( 'as3cf_get_attached_file', array( $this, 'skip_as3cf_url_get_attached_file' ), 10 );
 		}
 
 		// Get the backup path.
@@ -267,8 +276,14 @@ class Backup extends Abstract_Module {
 			$restored = @copy( $file_path . '_backup', $file_path );
 		}
 
+		// Prevent the image from being offloaded during 'wp_generate_attachment_metadata'.
+		add_filter( 'as3cf_wait_for_generate_attachment_metadata', '__return_true' );
+
 		// Generate all other image size, and update attachment metadata.
 		$metadata = wp_generate_attachment_metadata( $attachment_id, $file_path );
+
+		// Aaand go back to normal.
+		remove_filter( 'as3cf_wait_for_generate_attachment_metadata', '__return_true' );
 
 		// Update metadata to db if it was successfully generated.
 		if ( ! empty( $metadata ) && ! is_wp_error( $metadata ) ) {
@@ -288,6 +303,9 @@ class Backup extends Abstract_Module {
 
 			// Delete resize savings.
 			delete_post_meta( $attachment_id, WP_SMUSH_PREFIX . 'resize_savings' );
+
+			// Remove from the cached list.
+			$this->remove_from_images_with_backups_cache_list( $attachment_id );
 
 			// Get the Button html without wrapper.
 			$button_html = WP_Smush::get_instance()->library()->generate_markup( $attachment_id );
@@ -321,6 +339,21 @@ class Backup extends Abstract_Module {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Returns the original file instead of S3 URL.
+	 *
+	 * @since 3.8.3
+	 *
+	 * @param string             $url S3 URL.
+	 * @param string             $file Local file.
+	 * @param int                $attachment_id Attachment ID.
+	 * @param Media_Library_Item $as3cf_item Instance of Media_Library_Item.
+	 * @return string
+	 */
+	public function skip_as3cf_url_get_attached_file( $url, $file, $attachment_id, $as3cf_item ) {
+		return $file;
 	}
 
 	/**
@@ -438,6 +471,47 @@ class Backup extends Abstract_Module {
 	}
 
 	/**
+	 * Adds an attachment to the cached list of images with backup.
+	 *
+	 * @since 3.8.3
+	 *
+	 * @param integer $attachment_id Attachment ID to add to the list.
+	 */
+	private function add_to_images_with_backups_cache_list( $attachment_id ) {
+		$images        = wp_cache_get( 'images_with_backups', 'wp-smush' );
+		$attachment_id = strval( $attachment_id );
+
+		if ( empty( $images ) ) {
+			$images = array( $attachment_id );
+		} elseif ( ! in_array( $attachment_id, $images, true ) ) {
+			$images[] = $attachment_id;
+		}
+
+		wp_cache_set( 'images_with_backups', $images, 'wp-smush' );
+	}
+
+	/**
+	 * Removes an attachment from the cached list of images with backup.
+	 *
+	 * @since 3.8.3
+	 *
+	 * @param integer $attachment_id Attachment ID to add to the list.
+	 */
+	private function remove_from_images_with_backups_cache_list( $attachment_id ) {
+		$images        = wp_cache_get( 'images_with_backups', 'wp-smush' );
+		$attachment_id = strval( $attachment_id );
+
+		if ( ! empty( $images ) && in_array( $attachment_id, $images, true ) ) {
+
+			$index = array_search( $attachment_id, $images, true );
+			if ( false !== $index ) {
+				unset( $images[ $index ] );
+				wp_cache_set( 'images_with_backups', array_values( $images ), 'wp-smush' );
+			}
+		}
+	}
+
+	/**
 	 * Get the number of attachments that can be restored.
 	 *
 	 * @since 3.2.2
@@ -528,6 +602,9 @@ class Backup extends Abstract_Module {
 
 		// If file exists, corresponding to our backup path, delete it.
 		@unlink( $backup_name );
+
+		// Remove from the cached list.
+		$this->remove_from_images_with_backups_cache_list( $image_id );
 
 		// Check meta for rest of the sizes.
 		if ( ! empty( $meta ) && ! empty( $meta['sizes'] ) ) {

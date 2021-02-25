@@ -7,10 +7,8 @@
 
 if(!defined('ABSPATH')) exit();
 
-$rs_slider		= new RevSliderFunctionsAdmin();
-$overview_data	= $rs_slider->get_slider_overview();
 
-$system_config	= $rs_slider->get_system_requirements();
+$system_config	= $rsaf->get_system_requirements();
 $current_user	= wp_get_current_user();
 $revslider_valid = get_option('revslider-valid', 'false');
 $latest_version	= get_option('revslider-latest-version', RS_REVISION);
@@ -26,7 +24,7 @@ if($time < '12'){
 }elseif($time >= '12' && $time < '17'){
 	$hi = __('Good Afternoon ', 'revslider');
 }
-$rs_languages	= $rs_slider->get_available_languages();
+$rs_languages	= $rsaf->get_available_languages();
 ?>
 <div id="rb_tlw">
 	<?php
@@ -229,9 +227,9 @@ $rs_languages	= $rs_slider->get_available_languages();
 </div>
 
 <script type="text/javascript">
-	window.sliderLibrary = JSON.parse(<?php echo $rs_slider->json_encode_client_side(array('sliders' => $overview_data)); ?>);
-	window.rs_system = JSON.parse(<?php echo $rs_slider->json_encode_client_side($system_config); ?>);
-	var rvs_f_initOverView_Once = false
+	window.sliderLibrary = JSON.parse(<?php echo $rsaf->json_encode_client_side(array('sliders' => $rs_od)); ?>);
+	window.rs_system = JSON.parse(<?php echo $rsaf->json_encode_client_side($system_config); ?>);
+	var rvs_f_initOverView_Once = false;
 	if (document.readyState === "loading") 
 		document.addEventListener('readystatechange',function(){
 			if ((document.readyState === "interactive" || document.readyState === "complete") && !rvs_f_initOverView_Once) {

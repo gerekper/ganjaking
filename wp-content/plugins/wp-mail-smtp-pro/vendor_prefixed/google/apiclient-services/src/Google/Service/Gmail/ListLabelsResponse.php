@@ -23,14 +23,14 @@ class Google_Service_Gmail_ListLabelsResponse extends \WPMailSMTP\Vendor\Google_
     protected $labelsType = 'Google_Service_Gmail_Label';
     protected $labelsDataType = 'array';
     /**
-     * @param Google_Service_Gmail_Label
+     * @param Google_Service_Gmail_Label[]
      */
     public function setLabels($labels)
     {
         $this->labels = $labels;
     }
     /**
-     * @return Google_Service_Gmail_Label
+     * @return Google_Service_Gmail_Label[]
      */
     public function getLabels()
     {

@@ -118,6 +118,11 @@ class Mailer extends MailerAbstract {
 			return;
 		}
 
+		// Email will not be sent if the header's name is not prepended with 'X-'.
+		if ( ! in_array( substr( $name, 0, 2 ), [ 'x-', 'X-' ], true ) ) {
+			$name = 'X-' . $name;
+		}
+
 		$headers = isset( $this->body['message']['internetMessageHeaders'] ) ? (array) $this->body['message']['internetMessageHeaders'] : array();
 
 		// Do not allow duplicate names.

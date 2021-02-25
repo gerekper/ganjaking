@@ -3,7 +3,7 @@
 Plugin Name: MemberPress Importer
 Plugin URI: http://memberpress.com
 Description: Allows you to import Users, Products, Subscriptions, Transactions, Coupons and Rules from a csv file
-Version: 1.6.5
+Version: 1.6.7
 Author: Caseproof, LLC
 Author URI: http://caseproof.com
 Text Domain: memberpress-importer

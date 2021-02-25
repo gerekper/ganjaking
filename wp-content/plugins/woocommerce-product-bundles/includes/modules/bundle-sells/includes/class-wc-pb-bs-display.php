@@ -100,6 +100,9 @@ class WC_PB_BS_Display {
 				return;
 			}
 
+			// Syncing at this point will prevent infinite loops in some edge cases.
+			$bundle->sync();
+
 			if ( false === wp_style_is( 'wc-bundle-css', 'enqueued' ) ) {
 				wp_enqueue_style( 'wc-bundle-css' );
 			}

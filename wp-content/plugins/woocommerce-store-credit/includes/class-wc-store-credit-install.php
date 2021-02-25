@@ -286,7 +286,7 @@ class WC_Store_Credit_Install {
 			       meta.meta_value = 'store_credit'"
 		);
 
-		return ( !! $count );
+		return ( 0 < (int) $count );
 	}
 
 	/**

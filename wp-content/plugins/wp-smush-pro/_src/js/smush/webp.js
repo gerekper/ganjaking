@@ -53,7 +53,6 @@
 			}
 
 			this.maybeShowDeleteAllSuccessNotice();
-			this.maybeShowInstructionsNotice();
 
 			/**
 			 * Handles the "Deactivate" and "Get Started" buttons on the WebP page.
@@ -139,8 +138,7 @@
 					if ('undefined' !== typeof res.success && res.success) {
 						const scanPromise = this.runScan();
 						scanPromise.onload = () => {
-							location.search =
-								location.search + '&notice=webp-toggled';
+							location.search = location.search;
 						}
 					} else if ('undefined' !== typeof res.data.message) {
 						this.showNotice(res.data.message);
@@ -390,29 +388,6 @@
 
 			window.SUI.openNotice(
 				'wp-smush-webp-delete-all-notice',
-				noticeMessage,
-				noticeOptions
-			);
-		},
-
-		maybeShowInstructionsNotice() {
-			if (!document.getElementById('wp-smush-webp-instructions-notice')) {
-				return;
-			}
-			const noticeContainer = document.getElementById(
-					'wp-smush-webp-instructions-notice'
-				),
-				noticeMessage = `<p>${noticeContainer.dataset.message}</p>`,
-				noticeOptions = {
-					type: 'info',
-					icon: 'info',
-					dismiss: {
-						show: true,
-					},
-				};
-
-			window.SUI.openNotice(
-				'wp-smush-webp-instructions-notice',
 				noticeMessage,
 				noticeOptions
 			);

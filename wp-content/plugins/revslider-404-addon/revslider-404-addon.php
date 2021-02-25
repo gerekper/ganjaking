@@ -16,7 +16,7 @@
  * Plugin Name:       Slider Revolution 404 Page Add-On
  * Plugin URI:        https://revolution.themepunch.com
  * Description:       Build your own 404 Page with Slider Revolution!
- * Version:           2.0.0
+ * Version:           2.0.1
  * Author:            ThemePunch
  * Author URI:        https://www.themepunch.com
  * License:           GPL-2.0+
@@ -31,7 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 
-define("REV_ADDON_404_VERSION", "2.0.0");
+define("REV_ADDON_404_VERSION", "2.0.1");
 define("REV_ADDON_404_URL", str_replace('index.php','',plugins_url( 'index.php', __FILE__ )));
 
 

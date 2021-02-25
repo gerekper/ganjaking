@@ -26,6 +26,7 @@ class CsvProvider
         if (!current_user_can(ninja_table_admin_role())) {
             return;
         }
+        ninjaTablesValidateNonce();
 
         $tableCreated = false;
         $tableId = isset($_REQUEST['ID']) ? $_REQUEST['ID'] : null;

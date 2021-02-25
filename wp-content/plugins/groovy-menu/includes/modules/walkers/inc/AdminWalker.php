@@ -223,6 +223,10 @@ class AdminWalker extends WalkerNavMenu {
 			}
 		}
 
+		if ( $this->frozenLink( $item ) ) {
+			$itemTypeLabel .= ' [' . esc_html__( 'Frozen', 'groovy-menu' ) . ']';
+		}
+
 		?>
 	<li id="menu-item-<?php echo $item_id; ?>" class="<?php echo implode( ' ', $classes ); ?>">
 		<div class="menu-item-bar">

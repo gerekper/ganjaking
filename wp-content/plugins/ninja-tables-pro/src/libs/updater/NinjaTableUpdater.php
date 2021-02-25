@@ -35,7 +35,7 @@ class NinjaTableUpdater
      * @param array $_plugin_update_data Optional data to generate link for activating or purchasing.
      *                                      Needs admin_page_url, purchase_url, plugin_name, license_status to work
      */
-    function __construct($_api_url, $_plugin_file, $_api_data = null, $_plugin_update_data)
+    function __construct($_api_url, $_plugin_file, $_api_data = null, $_plugin_update_data = null)
     {
         $this->api_url = trailingslashit($_api_url);
         $this->api_data = $_api_data;

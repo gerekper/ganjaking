@@ -33,6 +33,13 @@ $columns = $table_vars['original_columns'];
                                         <input name="<?php echo $column['key']; ?>"
                                                class="nt_form_input nt_data_item nt_input_<?php echo $column['key']; ?>"
                                                type="text"/>
+                                    <?php } else if ($column['data_type'] == 'number') { ?>
+                                        <input name="<?php echo $column['key']; ?>"
+                                               data-number="yes"
+                                               class="nt_form_input nt_data_item nt_input_<?php echo $column['key']; ?>"
+                                               pattern="^[0-9.,]*"
+                                               title="please input proper number"
+                                               type="text"/>
                                     <?php } else if ($column['data_type'] == 'textarea') { ?>
                                         <textarea data-type="textarea" name="<?php echo $column['key']; ?>"
                                                   class="nt_form_textarea nt_data_item nt_input_<?php echo $column['key']; ?>"></textarea>

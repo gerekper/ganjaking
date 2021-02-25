@@ -12,6 +12,23 @@ jQuery( function( $ ) {
 
 					.on( 'click', 'button.configure_bundle', { action: 'configure' }, this.clicked_edit_button )
 					.on( 'click', 'button.edit_bundle', { action: 'edit' }, this.clicked_edit_button );
+
+				$( document.body )
+
+					.on( 'click', 'input.bundled_product_checkbox', this.toggle_optional_item );
+			},
+
+			toggle_optional_item: function( event ) {
+
+				var $input     = $( this ),
+					is_checked = $input.is( ':checked' ),
+					$content   = $input.closest( '.details' ).find( '.bundled_item_cart_content' );
+
+				if ( is_checked ) {
+					$content.show();
+				} else {
+					$content.hide();
+				}
 			},
 
 			clicked_edit_button: function( event ) {

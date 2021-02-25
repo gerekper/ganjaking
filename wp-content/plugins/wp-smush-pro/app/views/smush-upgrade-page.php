@@ -22,7 +22,7 @@ $upgrade_url = add_query_arg(
 			<div class="sui-upgrade-page-header__content">
 				<h1><?php esc_html_e( 'Upgrade to Smush Pro', 'wp-smushit' ); ?></h1>
 				<p><?php esc_html_e( 'Get Smush Pro and bulk optimize every image you’ve ever added to your site with one-click. Save 2x more with lossy Super-Smush. Serve stunning, high-quality images from 45 locations around the globe with our blazing-fast CDN.', 'wp-smushit' ); ?></p>
-				<p><?php esc_html_e( 'Automatically compress and resize huge photos up to 32MB. Double your savings and fix your Google PageSpeed with the best image optimizer WordPress has ever known.', 'wp-smushit' ); ?></p>
+				<p><?php esc_html_e( 'Automatically compress and resize huge photos without any size limitations. Double your savings and fix your Google PageSpeed with the best image optimizer WordPress has ever known.', 'wp-smushit' ); ?></p>
 				<a href="<?php echo esc_url( add_query_arg( 'utm_campaign', 'smush_propage_topbutton', $upgrade_url ) ); ?>" class="sui-button sui-button-lg sui-button-purple" target="_blank">
 					<?php esc_html_e( 'Try Smush Pro for Free', 'wp-smushit' ); ?>
 				</a>
@@ -74,7 +74,8 @@ $upgrade_url = add_query_arg(
 							playerColor: "14485f",
 							videoQuality: "hd-only",
 							popover: true,
-							popoverPreventScroll: true
+							popoverPreventScroll: true,
+							popoverContent: 'html'
 						});
 					};
 
@@ -103,7 +104,7 @@ $upgrade_url = add_query_arg(
 			<div class="sui-upgrade-page-features__item">
 				<i class="sui-icon-unlock" aria-hidden="true"></i>
 				<h3><?php esc_html_e( 'No limits, no restrictions', 'wp-smushit' ); ?></h3>
-				<p><?php esc_html_e( 'Need a one-click bulk optimization solution for compressing your entire existing image library fast and easy? Pro unlocks unlimited bulk smushing, and lifts the image size limit from 5Mb to 32Mb.', 'wp-smushit' ); ?></p>
+				<p><?php esc_html_e( 'Need a one-click bulk optimization solution for compressing your entire existing image library fast and easy? Pro unlocks unrestricted bulk smushing, and lifts the image size limit from 5MB to completely unlimited.', 'wp-smushit' ); ?></p>
 			</div>
 			<div class="sui-upgrade-page-features__item">
 				<i class="sui-icon-graph-line" aria-hidden="true"></i>

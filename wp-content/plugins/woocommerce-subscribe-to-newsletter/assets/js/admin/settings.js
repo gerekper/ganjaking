@@ -11,14 +11,14 @@
 
 	var wcExtensionSettings = {
 		init: function() {
-			$( '#woocommerce_newsletter_service' ).change(function() {
+			$( '#woocommerce_newsletter_service' ).on( 'change', function() {
 				$( '.form-table' )
 					.find( '[id^=woocommerce_mailchimp_], [id^=woocommerce_cmonitor_], [id^=woocommerce_mailpoet_]' )
 					.closest( 'tr' )
 					.hide();
 
 				$( '#mainform [id^=woocommerce_' + $( this ).val() + '_]' ).closest( 'tr' ).show();
-			}).change();
+			}).trigger( 'change' );
 		}
 	};
 

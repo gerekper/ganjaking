@@ -98,7 +98,7 @@ class Mailer extends MailerAbstract {
 		$sender = $this->options->get( $this->mailer, 'user_details' );
 		$from   = sprintf(
 			'"%1$s" <%2$s>',
-			$name,
+			wp_slash( $name ),
 			isset( $sender['email'] ) ? $sender['email'] : ''
 		);
 
@@ -226,6 +226,13 @@ class Mailer extends MailerAbstract {
 		$name = isset( $reply_to[0][1] ) ? $reply_to[0][1] : false;
 
 		if ( ! filter_var( $addr, FILTER_VALIDATE_EMAIL ) ) {
+			return;
+		}
+
+		// Prevent the authorized email address from being set as the reply-to address. It causes issues for Zoho Mail.
+		$sender = $this->options->get( $this->mailer, 'user_details' );
+
+		if ( isset( $sender['email'] ) && $addr === $sender['email'] ) {
 			return;
 		}
 

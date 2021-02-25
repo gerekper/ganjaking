@@ -11,6 +11,8 @@ class Sortable
             return;
         }
 
+	    ninjaTablesValidateNonce();
+
         global $wpdb;
 
         $tableName = $wpdb->prefix.ninja_tables_db_table_name();
@@ -126,6 +128,8 @@ class Sortable
         if (!ninja_table_admin_role()) {
             return;
         }
+
+	    ninjaTablesValidateNonce();
 
         global $wpdb;
         $tableName = ninja_tables_db_table_name();

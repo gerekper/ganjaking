@@ -406,3 +406,402 @@
 02-03-2021 @ 19:36:04 -     WooSlider - WooCommerce Products Slideshow by WooCommerce – 1.0.22
 02-03-2021 @ 19:36:04 -     WP Rocket by WP Media – 3.8.3
 02-03-2021 @ 19:36:04 -     Yoast SEO: WooCommerce by Team Yoast – 13.9
+02-03-2021 @ 19:45:39 - 3.0.12 upgrade complete from Subscriptions v0 while WooCommerce WC_VERSION 4.9.2 and database version 4.9.2 was active.
+02-03-2021 @ 19:45:39 - Environment info:
+02-03-2021 @ 19:45:39 -     WordPress Version : 5.6
+02-03-2021 @ 19:45:39 - Active Plugins:
+02-03-2021 @ 19:45:39 -     Contact Form 7 by Takayuki Miyoshi – 5.3.2
+02-03-2021 @ 19:45:39 -     Dynamic Featured Image by Ankit Pokhrel – 3.7.0
+02-03-2021 @ 19:45:39 -     WPBakery Page Builder by Michael M - WPBakery.com – 6.5.0
+02-03-2021 @ 19:45:39 -     MemberPress WooCommerce by Caseproof, LLC – 1.0.5
+02-03-2021 @ 19:45:39 -     Permalink Manager Pro by Maciej Bis – 2.2.9.4
+02-03-2021 @ 19:45:39 -     Porto Theme - Functionality by P-Themes – 2.0.3
+02-03-2021 @ 19:45:39 -     reCaptcha for WooCommerce by I Thirteen Web Solution – 2.6
+02-03-2021 @ 19:45:39 -     Slider Revolution by ThemePunch – 6.3.8
+02-03-2021 @ 19:45:39 -     SUMO Reward Points by Fantastic Plugins – 25.8
+02-03-2021 @ 19:45:39 -     WooCommerce Dynamic Pricing & Discounts by RightPress – 2.3.8
+02-03-2021 @ 19:45:39 -     WooChimp by RightPress – 2.2.7
+02-03-2021 @ 19:45:39 -     WooCommerce 360° Image by WooCommerce – 1.1.19
+02-03-2021 @ 19:45:39 -     WooCommerce Account Funds by Themesquad – 2.3.9
+02-03-2021 @ 19:45:39 -     WooCommerce Additional Variation Images by WooCommerce – 1.8.1
+02-03-2021 @ 19:45:39 -     WooCommerce Address Validation by SkyVerge – 2.8.0
+02-03-2021 @ 19:45:39 -     WooCommerce Advanced Notifications by WooCommerce – 1.2.29
+02-03-2021 @ 19:45:39 -     WooCommerce Advanced Product Labels by Jeroen Sormani – 1.1.7
+02-03-2021 @ 19:45:39 -     WooCommerce Advanced Ajax Layered Navigation by WooCommerce – 1.4.26
+02-03-2021 @ 19:45:39 -     WooCommerce All Products For Subscriptions by SomewhereWarm – 3.1.24
+02-03-2021 @ 19:45:39 -     WooCommerce Amazon Fulfillment by Never Settle – 3.3.5
+02-03-2021 @ 19:45:39 -     WooCommerce Anti Fraud by OPMC Australia Pty Ltd – 3.4
+02-03-2021 @ 19:45:39 -     WooCommerce API Manager by Todd Lahman LLC – 2.3.8
+02-03-2021 @ 19:45:39 -     WooCommerce Authorize.Net Reporting by SkyVerge – 1.12.0
+02-03-2021 @ 19:45:39 -     WooCommerce Bookings by WooCommerce – 1.15.34
+02-03-2021 @ 19:45:39 -     WooCommerce Boost Sales Premium by Andy Ha (villatheme.com) – 1.4.2
+02-03-2021 @ 19:45:39 -     WooCommerce Box Office by WooCommerce – 1.1.30
+02-03-2021 @ 19:45:39 -     WooCommerce Brands by WooCommerce – 1.6.23
+02-03-2021 @ 19:45:39 -     WooCommerce Bulk Stock Management by WooCommerce – 2.2.31
+02-03-2021 @ 19:45:39 -     WooCommerce Bulk Variations by Lucas Stark – 1.6.6
+02-03-2021 @ 19:45:39 -     WooCommerce Cart Add-Ons by WooCommerce – 1.15.34
+02-03-2021 @ 19:45:39 -     WooCommerce Cart Notices by SkyVerge – 1.13.0
+02-03-2021 @ 19:45:39 -     Cart Reports for WooCommerce by WooCommerce – 1.2.9
+02-03-2021 @ 19:45:39 -     WooCommerce Catalog Visibility Options by Lucas Stark – 3.2.14
+02-03-2021 @ 19:45:39 -     WooCommerce Chained Products by StoreApps – 2.9.9
+02-03-2021 @ 19:45:39 -     WooCommerce Checkout Add-Ons by SkyVerge – 2.5.1
+02-03-2021 @ 19:45:39 -     WooCommerce Checkout Field Editor by WooCommerce – 1.5.38
+02-03-2021 @ 19:45:39 -     WooCommerce Composite Products by SomewhereWarm – 7.1.6
+02-03-2021 @ 19:45:39 -     WooCommerce Conditional Content by Lucas Stark – 2.1.5
+02-03-2021 @ 19:45:39 -     WooCommerce Conditional Shipping and Payments by SomewhereWarm – 1.8.11
+02-03-2021 @ 19:45:39 -     WooCommerce Cost of Goods by SkyVerge – 2.10.0
+02-03-2021 @ 19:45:39 -     WooCommerce Coupon Campaigns & Tracking by WooCommerce – 1.1.16
+02-03-2021 @ 19:45:39 -     WooCommerce Currency Converter by WooCommerce – 1.6.25
+02-03-2021 @ 19:45:39 -     WooCommerce Customer/Order/Coupon Export by SkyVerge – 5.3.0
+02-03-2021 @ 19:45:39 -     WooCommerce Customer/Order/Coupon CSV Import Suite by SkyVerge – 3.10.0
+02-03-2021 @ 19:45:39 -     WooCommerce Customer/Order XML Export Suite by SkyVerge – 2.6.3
+02-03-2021 @ 19:45:39 -     WooCommerce Deposits by WooCommerce – 1.5.6
+02-03-2021 @ 19:45:39 -     WooCommerce Distance Rate Shipping by Automattic – 1.0.26
+02-03-2021 @ 19:45:39 -     WooCommerce Drip by WooCommerce – 1.2.24
+02-03-2021 @ 19:45:39 -     WooCommerce Dropshipping by WooCommerce – 2.11
+02-03-2021 @ 19:45:39 -     WooCommerce Dynamic Pricing by Lucas Stark – 3.1.22
+02-03-2021 @ 19:45:39 -     WooCommerce E-Mail Attachments (by Inoplugs) by InoPlugs – 3.0.11
+02-03-2021 @ 19:45:39 -     Follow-Up Emails by WooCommerce – 4.9.10
+02-03-2021 @ 19:45:39 -     WooCommerce Force Sells by WooCommerce – 1.1.27
+02-03-2021 @ 19:45:39 -     WooCommerce Free Gift Coupons by Kathy Darling – 3.0.5
+02-03-2021 @ 19:45:39 -     WooCommerce FreshBooks by SkyVerge – 3.14.1
+02-03-2021 @ 19:45:39 -     WooCommerce Freshdesk by Automattic – 1.1.26
+02-03-2021 @ 19:45:39 -     WooCommerce Chase Paymentech Gateway by SkyVerge – 1.16.0
+02-03-2021 @ 19:45:39 -     WooCommerce Intuit Payments Gateway by SkyVerge – 2.8.3
+02-03-2021 @ 19:45:39 -     WooCommerce PayPal Pro (Classic and PayFlow Editions) Gateway by WooCommerce – 4.5.1
+02-03-2021 @ 19:45:39 -     WooCommerce Purchase Order Payment Gateway by WooCommerce – 1.2.12
+02-03-2021 @ 19:45:39 -     WooCommerce Servired/RedSys Spain Gateway by José Conti – 14.0.2
+02-03-2021 @ 19:45:39 -     WooCommerce Stripe Gateway by WooCommerce – 4.5.5
+02-03-2021 @ 19:45:39 -     WooCommerce WorldPay Gateway by Andrew Benbow – 4.1.7
+02-03-2021 @ 19:45:39 -     WooCommerce Give Products by WooCommerce – 1.1.12
+02-03-2021 @ 19:45:39 -     WooCommerce Google Analytics Pro by SkyVerge – 1.10.0
+02-03-2021 @ 19:45:39 -     WooCommerce Gravity Forms Product Add-Ons by Lucas Stark – 3.3.17
+02-03-2021 @ 19:45:39 -     WooCommerce Help Scout by WooCommerce – 2.6
+02-03-2021 @ 19:45:39 -     WooCommerce Instagram by Themesquad – 3.4.1
+02-03-2021 @ 19:45:39 -     WooCommerce Measurement Price Calculator by SkyVerge – 3.19.0
+02-03-2021 @ 19:45:39 -     MailChimp for WooCommerce Memberships by SkyVerge – 1.4.0
+02-03-2021 @ 19:45:39 -     WooCommerce Memberships by SkyVerge – 1.21.2
+02-03-2021 @ 19:45:39 -     WooCommerce Min/Max Quantities by WooCommerce – 2.4.20
+02-03-2021 @ 19:45:39 -     WooCommerce Mix and Match Products by Kathy Darling – 1.10.6
+02-03-2021 @ 19:45:39 -     WooCommerce MSRP Pricing by Ademti Software Ltd. – 3.1.2
+02-03-2021 @ 19:45:39 -     WooCommerce Nested Category Layout by SkyVerge – 1.16.0
+02-03-2021 @ 19:45:39 -     WooCommerce Notification Premium by Andy Ha (villatheme.com) – 1.4.2.2
+02-03-2021 @ 19:45:39 -     WooCommerce One Page Checkout by Automattic – 1.7.10
+02-03-2021 @ 19:45:39 -     WooCommerce Order Barcodes by WooCommerce – 1.3.23
+02-03-2021 @ 19:45:39 -     WooCommerce Order Delivery by Themesquad – 1.8.5
+02-03-2021 @ 19:45:39 -     WooCommerce Order Status Control by SkyVerge – 1.14.0
+02-03-2021 @ 19:45:39 -     WooCommerce Order Status Manager by SkyVerge – 1.12.2
+02-03-2021 @ 19:45:39 -     WooCommerce PDF Invoices by Andrew Benbow – 4.10.3
+02-03-2021 @ 19:45:39 -     WooCommerce Photography by WooCommerce – 1.0.27
+02-03-2021 @ 19:45:39 -     WooCommerce Print Invoices/Packing Lists by SkyVerge – 3.11.0
+02-03-2021 @ 19:45:39 -     WooCommerce Points and Rewards by WooCommerce – 1.6.42
+02-03-2021 @ 19:45:39 -     WooCommerce Pre-Orders by WooCommerce – 1.5.29
+02-03-2021 @ 19:45:39 -     WooCommerce Product Add-ons by WooCommerce – 3.3.1
+02-03-2021 @ 19:45:39 -     WooCommerce Product Bundles by SomewhereWarm – 6.7.2
+02-03-2021 @ 19:45:39 -     WooCommerce Product CSV Import Suite by WooCommerce – 1.10.38
+02-03-2021 @ 19:45:39 -     WooCommerce Product Documents by SkyVerge – 1.13.0
+02-03-2021 @ 19:45:39 -     WooCommerce Product Enquiry Form by WooCommerce – 1.2.17
+02-03-2021 @ 19:45:39 -     WooCommerce Google Product Feed by Ademti Software Ltd. – 9.4.1
+02-03-2021 @ 19:45:39 -     WooCommerce Product Finder by WooCommerce – 1.2.17
+02-03-2021 @ 19:45:39 -     WooCommerce Product Retailers by SkyVerge – 1.15.0
+02-03-2021 @ 19:45:39 -     WooCommerce Product Reviews Pro by SkyVerge – 1.17.1
+02-03-2021 @ 19:45:39 -     WooCommerce Product Search by itthinx – 3.5.1
+02-03-2021 @ 19:45:39 -     WooCommerce Product Vendors by WooCommerce – 2.1.47
+02-03-2021 @ 19:45:39 -     WooCommerce Products Compare by WooCommerce – 1.0.23
+02-03-2021 @ 19:45:39 -     WooCommerce Quick View by WooCommerce – 1.4.0
+02-03-2021 @ 19:45:39 -     WooCommerce Recommendation Engine by Lucas Stark – 3.2.5
+02-03-2021 @ 19:45:39 -     WooCommerce Review for Discount by WooCommerce – 1.6.19
+02-03-2021 @ 19:45:39 -     WooCommerce Sale Flash Pro by WooCommerce – 1.2.19
+02-03-2021 @ 19:45:39 -     WooCommerce Sales Report Email by WooCommerce – 1.1.19
+02-03-2021 @ 19:45:39 -     WooCommerce Sequential Order Numbers Pro by SkyVerge – 1.17.0
+02-03-2021 @ 19:45:39 -     WooCommerce Shipment Tracking by WooCommerce – 1.6.26
+02-03-2021 @ 19:45:39 -     WooCommerce Flat Rate Box Shipping by WooCommerce – 2.0.15
+02-03-2021 @ 19:45:39 -     WooCommerce Local Pickup Plus by SkyVerge – 2.9.2
+02-03-2021 @ 19:45:39 -     WooCommerce Ship to Multiple Addresses by WooCommerce – 3.6.25
+02-03-2021 @ 19:45:39 -     WooCommerce Shipping Per Product v2 by WooCommerce – 2.3.12
+02-03-2021 @ 19:45:39 -     WooCommerce Smart Coupons by StoreApps – 4.15.0
+02-03-2021 @ 19:45:39 -     WooCommerce Social Login by SkyVerge – 2.11.0
+02-03-2021 @ 19:45:39 -     WooCommerce Splash Popup by WooCommerce – 1.2.19
+02-03-2021 @ 19:45:39 -     WooCommerce Store Credit by Themesquad – 3.4.3
+02-03-2021 @ 19:45:39 -     WooCommerce Subscribe to Newsletter by Themesquad – 2.9.1
+02-03-2021 @ 19:45:39 -     WooCommerce Subscription Downloads by WooCommerce – 1.1.31
+02-03-2021 @ 19:45:39 -     WooCommerce Subscriptions Gifting by WooCommerce – 2.1.2
+02-03-2021 @ 19:45:39 -     WooCommerce Subscriptions by WooCommerce – 3.0.12
+02-03-2021 @ 19:45:39 -     WooCommerce Tab Manager by SkyVerge – 1.14.0
+02-03-2021 @ 19:45:39 -     WooCommerce Table Rate Shipping by WooCommerce – 3.0.30
+02-03-2021 @ 19:45:39 -     WooCommerce TM Extra Product Options by themeComplete – 5.0.12.11
+02-03-2021 @ 19:45:39 -     WooCommerce Twilio SMS Notifications by SkyVerge – 1.15.1
+02-03-2021 @ 19:45:39 -     WooCommerce Waitlist by Neil Pie – 2.2.0
+02-03-2021 @ 19:45:39 -     WooCommerce Warranty Requests by WooCommerce – 1.9.21
+02-03-2021 @ 19:45:39 -     WooCommerce WishLists by Lucas Stark – 2.2.3
+02-03-2021 @ 19:45:39 -     WooCommerce by Automattic – 4.9.2
+02-03-2021 @ 19:45:39 -     WooSlider - WooCommerce Products Slideshow by WooCommerce – 1.0.22
+02-03-2021 @ 19:45:39 -     WP Rocket by WP Media – 3.8.3
+02-03-2021 @ 19:45:39 -     WP Sitemap Page by Tony Archambeau – 1.6.2
+02-03-2021 @ 19:45:39 -     Yoast SEO: WooCommerce by Team Yoast – 13.9
+02-03-2021 @ 19:45:42 - 3.0.12 upgrade complete from Subscriptions v0 while WooCommerce WC_VERSION 4.9.2 and database version 4.9.2 was active.
+02-03-2021 @ 19:45:42 - Environment info:
+02-03-2021 @ 19:45:42 -     WordPress Version : 5.6
+02-03-2021 @ 19:45:42 - Active Plugins:
+02-03-2021 @ 19:45:42 -     Contact Form 7 by Takayuki Miyoshi – 5.3.2
+02-03-2021 @ 19:45:42 -     Dynamic Featured Image by Ankit Pokhrel – 3.7.0
+02-03-2021 @ 19:45:42 -     WPBakery Page Builder by Michael M - WPBakery.com – 6.5.0
+02-03-2021 @ 19:45:42 -     MemberPress WooCommerce by Caseproof, LLC – 1.0.5
+02-03-2021 @ 19:45:42 -     Permalink Manager Pro by Maciej Bis – 2.2.9.4
+02-03-2021 @ 19:45:42 -     Porto Theme - Functionality by P-Themes – 2.0.3
+02-03-2021 @ 19:45:42 -     reCaptcha for WooCommerce by I Thirteen Web Solution – 2.6
+02-03-2021 @ 19:45:42 -     Slider Revolution by ThemePunch – 6.3.8
+02-03-2021 @ 19:45:42 -     SUMO Reward Points by Fantastic Plugins – 25.8
+02-03-2021 @ 19:45:42 -     WooCommerce Dynamic Pricing & Discounts by RightPress – 2.3.8
+02-03-2021 @ 19:45:42 -     WooChimp by RightPress – 2.2.7
+02-03-2021 @ 19:45:42 -     WooCommerce 360° Image by WooCommerce – 1.1.19
+02-03-2021 @ 19:45:42 -     WooCommerce Account Funds by Themesquad – 2.3.9
+02-03-2021 @ 19:45:42 -     WooCommerce Additional Variation Images by WooCommerce – 1.8.1
+02-03-2021 @ 19:45:42 -     WooCommerce Address Validation by SkyVerge – 2.8.0
+02-03-2021 @ 19:45:42 -     WooCommerce Advanced Notifications by WooCommerce – 1.2.29
+02-03-2021 @ 19:45:42 -     WooCommerce Advanced Product Labels by Jeroen Sormani – 1.1.7
+02-03-2021 @ 19:45:42 -     WooCommerce Advanced Ajax Layered Navigation by WooCommerce – 1.4.26
+02-03-2021 @ 19:45:42 -     WooCommerce All Products For Subscriptions by SomewhereWarm – 3.1.24
+02-03-2021 @ 19:45:42 -     WooCommerce Amazon Fulfillment by Never Settle – 3.3.5
+02-03-2021 @ 19:45:42 -     WooCommerce Anti Fraud by OPMC Australia Pty Ltd – 3.4
+02-03-2021 @ 19:45:42 -     WooCommerce API Manager by Todd Lahman LLC – 2.3.8
+02-03-2021 @ 19:45:42 -     WooCommerce Authorize.Net Reporting by SkyVerge – 1.12.0
+02-03-2021 @ 19:45:42 -     WooCommerce Bookings by WooCommerce – 1.15.34
+02-03-2021 @ 19:45:42 -     WooCommerce Boost Sales Premium by Andy Ha (villatheme.com) – 1.4.2
+02-03-2021 @ 19:45:42 -     WooCommerce Box Office by WooCommerce – 1.1.30
+02-03-2021 @ 19:45:42 -     WooCommerce Brands by WooCommerce – 1.6.23
+02-03-2021 @ 19:45:42 -     WooCommerce Bulk Stock Management by WooCommerce – 2.2.31
+02-03-2021 @ 19:45:42 -     WooCommerce Bulk Variations by Lucas Stark – 1.6.6
+02-03-2021 @ 19:45:42 -     WooCommerce Cart Add-Ons by WooCommerce – 1.15.34
+02-03-2021 @ 19:45:42 -     WooCommerce Cart Notices by SkyVerge – 1.13.0
+02-03-2021 @ 19:45:42 -     Cart Reports for WooCommerce by WooCommerce – 1.2.9
+02-03-2021 @ 19:45:42 -     WooCommerce Catalog Visibility Options by Lucas Stark – 3.2.14
+02-03-2021 @ 19:45:42 -     WooCommerce Chained Products by StoreApps – 2.9.9
+02-03-2021 @ 19:45:42 -     WooCommerce Checkout Add-Ons by SkyVerge – 2.5.1
+02-03-2021 @ 19:45:42 -     WooCommerce Checkout Field Editor by WooCommerce – 1.5.38
+02-03-2021 @ 19:45:42 -     WooCommerce Composite Products by SomewhereWarm – 7.1.6
+02-03-2021 @ 19:45:42 -     WooCommerce Conditional Content by Lucas Stark – 2.1.5
+02-03-2021 @ 19:45:42 -     WooCommerce Conditional Shipping and Payments by SomewhereWarm – 1.8.11
+02-03-2021 @ 19:45:42 -     WooCommerce Cost of Goods by SkyVerge – 2.10.0
+02-03-2021 @ 19:45:42 -     WooCommerce Coupon Campaigns & Tracking by WooCommerce – 1.1.16
+02-03-2021 @ 19:45:42 -     WooCommerce Currency Converter by WooCommerce – 1.6.25
+02-03-2021 @ 19:45:42 -     WooCommerce Customer/Order/Coupon Export by SkyVerge – 5.3.0
+02-03-2021 @ 19:45:42 -     WooCommerce Customer/Order/Coupon CSV Import Suite by SkyVerge – 3.10.0
+02-03-2021 @ 19:45:42 -     WooCommerce Customer/Order XML Export Suite by SkyVerge – 2.6.3
+02-03-2021 @ 19:45:42 -     WooCommerce Deposits by WooCommerce – 1.5.6
+02-03-2021 @ 19:45:42 -     WooCommerce Distance Rate Shipping by Automattic – 1.0.26
+02-03-2021 @ 19:45:42 -     WooCommerce Drip by WooCommerce – 1.2.24
+02-03-2021 @ 19:45:42 -     WooCommerce Dropshipping by WooCommerce – 2.11
+02-03-2021 @ 19:45:42 -     WooCommerce Dynamic Pricing by Lucas Stark – 3.1.22
+02-03-2021 @ 19:45:42 -     WooCommerce E-Mail Attachments (by Inoplugs) by InoPlugs – 3.0.11
+02-03-2021 @ 19:45:42 -     Follow-Up Emails by WooCommerce – 4.9.10
+02-03-2021 @ 19:45:42 -     WooCommerce Force Sells by WooCommerce – 1.1.27
+02-03-2021 @ 19:45:42 -     WooCommerce Free Gift Coupons by Kathy Darling – 3.0.5
+02-03-2021 @ 19:45:42 -     WooCommerce FreshBooks by SkyVerge – 3.14.1
+02-03-2021 @ 19:45:42 -     WooCommerce Freshdesk by Automattic – 1.1.26
+02-03-2021 @ 19:45:42 -     WooCommerce Chase Paymentech Gateway by SkyVerge – 1.16.0
+02-03-2021 @ 19:45:42 -     WooCommerce Intuit Payments Gateway by SkyVerge – 2.8.3
+02-03-2021 @ 19:45:42 -     WooCommerce PayPal Pro (Classic and PayFlow Editions) Gateway by WooCommerce – 4.5.1
+02-03-2021 @ 19:45:42 -     WooCommerce Purchase Order Payment Gateway by WooCommerce – 1.2.12
+02-03-2021 @ 19:45:42 -     WooCommerce Servired/RedSys Spain Gateway by José Conti – 14.0.2
+02-03-2021 @ 19:45:42 -     WooCommerce Stripe Gateway by WooCommerce – 4.5.5
+02-03-2021 @ 19:45:42 -     WooCommerce WorldPay Gateway by Andrew Benbow – 4.1.7
+02-03-2021 @ 19:45:42 -     WooCommerce Give Products by WooCommerce – 1.1.12
+02-03-2021 @ 19:45:42 -     WooCommerce Google Analytics Pro by SkyVerge – 1.10.0
+02-03-2021 @ 19:45:42 -     WooCommerce Gravity Forms Product Add-Ons by Lucas Stark – 3.3.17
+02-03-2021 @ 19:45:42 -     WooCommerce Help Scout by WooCommerce – 2.6
+02-03-2021 @ 19:45:42 -     WooCommerce Instagram by Themesquad – 3.4.1
+02-03-2021 @ 19:45:42 -     WooCommerce Measurement Price Calculator by SkyVerge – 3.19.0
+02-03-2021 @ 19:45:42 -     MailChimp for WooCommerce Memberships by SkyVerge – 1.4.0
+02-03-2021 @ 19:45:42 -     WooCommerce Memberships by SkyVerge – 1.21.2
+02-03-2021 @ 19:45:42 -     WooCommerce Min/Max Quantities by WooCommerce – 2.4.20
+02-03-2021 @ 19:45:42 -     WooCommerce Mix and Match Products by Kathy Darling – 1.10.6
+02-03-2021 @ 19:45:42 -     WooCommerce MSRP Pricing by Ademti Software Ltd. – 3.1.2
+02-03-2021 @ 19:45:42 -     WooCommerce Nested Category Layout by SkyVerge – 1.16.0
+02-03-2021 @ 19:45:42 -     WooCommerce Notification Premium by Andy Ha (villatheme.com) – 1.4.2.2
+02-03-2021 @ 19:45:42 -     WooCommerce One Page Checkout by Automattic – 1.7.10
+02-03-2021 @ 19:45:42 -     WooCommerce Order Barcodes by WooCommerce – 1.3.23
+02-03-2021 @ 19:45:42 -     WooCommerce Order Delivery by Themesquad – 1.8.5
+02-03-2021 @ 19:45:42 -     WooCommerce Order Status Control by SkyVerge – 1.14.0
+02-03-2021 @ 19:45:42 -     WooCommerce Order Status Manager by SkyVerge – 1.12.2
+02-03-2021 @ 19:45:42 -     WooCommerce PDF Invoices by Andrew Benbow – 4.10.3
+02-03-2021 @ 19:45:42 -     WooCommerce Photography by WooCommerce – 1.0.27
+02-03-2021 @ 19:45:42 -     WooCommerce Print Invoices/Packing Lists by SkyVerge – 3.11.0
+02-03-2021 @ 19:45:42 -     WooCommerce Points and Rewards by WooCommerce – 1.6.42
+02-03-2021 @ 19:45:42 -     WooCommerce Pre-Orders by WooCommerce – 1.5.29
+02-03-2021 @ 19:45:42 -     WooCommerce Product Add-ons by WooCommerce – 3.3.1
+02-03-2021 @ 19:45:42 -     WooCommerce Product Bundles by SomewhereWarm – 6.7.2
+02-03-2021 @ 19:45:42 -     WooCommerce Product CSV Import Suite by WooCommerce – 1.10.38
+02-03-2021 @ 19:45:42 -     WooCommerce Product Documents by SkyVerge – 1.13.0
+02-03-2021 @ 19:45:42 -     WooCommerce Product Enquiry Form by WooCommerce – 1.2.17
+02-03-2021 @ 19:45:42 -     WooCommerce Google Product Feed by Ademti Software Ltd. – 9.4.1
+02-03-2021 @ 19:45:42 -     WooCommerce Product Finder by WooCommerce – 1.2.17
+02-03-2021 @ 19:45:42 -     WooCommerce Product Retailers by SkyVerge – 1.15.0
+02-03-2021 @ 19:45:42 -     WooCommerce Product Reviews Pro by SkyVerge – 1.17.1
+02-03-2021 @ 19:45:42 -     WooCommerce Product Search by itthinx – 3.5.1
+02-03-2021 @ 19:45:42 -     WooCommerce Product Vendors by WooCommerce – 2.1.47
+02-03-2021 @ 19:45:42 -     WooCommerce Products Compare by WooCommerce – 1.0.23
+02-03-2021 @ 19:45:42 -     WooCommerce Quick View by WooCommerce – 1.4.0
+02-03-2021 @ 19:45:42 -     WooCommerce Recommendation Engine by Lucas Stark – 3.2.5
+02-03-2021 @ 19:45:42 -     WooCommerce Review for Discount by WooCommerce – 1.6.19
+02-03-2021 @ 19:45:42 -     WooCommerce Sale Flash Pro by WooCommerce – 1.2.19
+02-03-2021 @ 19:45:42 -     WooCommerce Sales Report Email by WooCommerce – 1.1.19
+02-03-2021 @ 19:45:42 -     WooCommerce Sequential Order Numbers Pro by SkyVerge – 1.17.0
+02-03-2021 @ 19:45:42 -     WooCommerce Shipment Tracking by WooCommerce – 1.6.26
+02-03-2021 @ 19:45:42 -     WooCommerce Flat Rate Box Shipping by WooCommerce – 2.0.15
+02-03-2021 @ 19:45:42 -     WooCommerce Local Pickup Plus by SkyVerge – 2.9.2
+02-03-2021 @ 19:45:42 -     WooCommerce Ship to Multiple Addresses by WooCommerce – 3.6.25
+02-03-2021 @ 19:45:42 -     WooCommerce Shipping Per Product v2 by WooCommerce – 2.3.12
+02-03-2021 @ 19:45:42 -     WooCommerce Smart Coupons by StoreApps – 4.15.0
+02-03-2021 @ 19:45:42 -     WooCommerce Social Login by SkyVerge – 2.11.0
+02-03-2021 @ 19:45:42 -     WooCommerce Splash Popup by WooCommerce – 1.2.19
+02-03-2021 @ 19:45:42 -     WooCommerce Store Credit by Themesquad – 3.4.3
+02-03-2021 @ 19:45:42 -     WooCommerce Subscribe to Newsletter by Themesquad – 2.9.1
+02-03-2021 @ 19:45:42 -     WooCommerce Subscription Downloads by WooCommerce – 1.1.31
+02-03-2021 @ 19:45:42 -     WooCommerce Subscriptions Gifting by WooCommerce – 2.1.2
+02-03-2021 @ 19:45:42 -     WooCommerce Subscriptions by WooCommerce – 3.0.12
+02-03-2021 @ 19:45:42 -     WooCommerce Tab Manager by SkyVerge – 1.14.0
+02-03-2021 @ 19:45:42 -     WooCommerce Table Rate Shipping by WooCommerce – 3.0.30
+02-03-2021 @ 19:45:42 -     WooCommerce TM Extra Product Options by themeComplete – 5.0.12.11
+02-03-2021 @ 19:45:42 -     WooCommerce Twilio SMS Notifications by SkyVerge – 1.15.1
+02-03-2021 @ 19:45:42 -     WooCommerce Waitlist by Neil Pie – 2.2.0
+02-03-2021 @ 19:45:42 -     WooCommerce Warranty Requests by WooCommerce – 1.9.21
+02-03-2021 @ 19:45:42 -     WooCommerce WishLists by Lucas Stark – 2.2.3
+02-03-2021 @ 19:45:42 -     WooCommerce by Automattic – 4.9.2
+02-03-2021 @ 19:45:42 -     WooSlider - WooCommerce Products Slideshow by WooCommerce – 1.0.22
+02-03-2021 @ 19:45:42 -     WP Rocket by WP Media – 3.8.3
+02-03-2021 @ 19:45:42 -     WP Sitemap Page by Tony Archambeau – 1.6.2
+02-03-2021 @ 19:45:42 -     Yoast SEO: WooCommerce by Team Yoast – 13.9
+02-03-2021 @ 19:45:42 - 3.0.12 upgrade complete from Subscriptions v0 while WooCommerce WC_VERSION 4.9.2 and database version 4.9.2 was active.
+02-03-2021 @ 19:45:42 - Environment info:
+02-03-2021 @ 19:45:42 -     WordPress Version : 5.6
+02-03-2021 @ 19:45:42 - Active Plugins:
+02-03-2021 @ 19:45:42 -     Contact Form 7 by Takayuki Miyoshi – 5.3.2
+02-03-2021 @ 19:45:42 -     Dynamic Featured Image by Ankit Pokhrel – 3.7.0
+02-03-2021 @ 19:45:42 -     WPBakery Page Builder by Michael M - WPBakery.com – 6.5.0
+02-03-2021 @ 19:45:42 -     MemberPress WooCommerce by Caseproof, LLC – 1.0.5
+02-03-2021 @ 19:45:42 -     Permalink Manager Pro by Maciej Bis – 2.2.9.4
+02-03-2021 @ 19:45:42 -     Porto Theme - Functionality by P-Themes – 2.0.3
+02-03-2021 @ 19:45:42 -     reCaptcha for WooCommerce by I Thirteen Web Solution – 2.6
+02-03-2021 @ 19:45:42 -     Slider Revolution by ThemePunch – 6.3.8
+02-03-2021 @ 19:45:42 -     SUMO Reward Points by Fantastic Plugins – 25.8
+02-03-2021 @ 19:45:42 -     WooCommerce Dynamic Pricing & Discounts by RightPress – 2.3.8
+02-03-2021 @ 19:45:42 -     WooChimp by RightPress – 2.2.7
+02-03-2021 @ 19:45:42 -     WooCommerce 360° Image by WooCommerce – 1.1.19
+02-03-2021 @ 19:45:42 -     WooCommerce Account Funds by Themesquad – 2.3.9
+02-03-2021 @ 19:45:42 -     WooCommerce Additional Variation Images by WooCommerce – 1.8.1
+02-03-2021 @ 19:45:42 -     WooCommerce Address Validation by SkyVerge – 2.8.0
+02-03-2021 @ 19:45:42 -     WooCommerce Advanced Notifications by WooCommerce – 1.2.29
+02-03-2021 @ 19:45:42 -     WooCommerce Advanced Product Labels by Jeroen Sormani – 1.1.7
+02-03-2021 @ 19:45:42 -     WooCommerce Advanced Ajax Layered Navigation by WooCommerce – 1.4.26
+02-03-2021 @ 19:45:42 -     WooCommerce All Products For Subscriptions by SomewhereWarm – 3.1.24
+02-03-2021 @ 19:45:42 -     WooCommerce Amazon Fulfillment by Never Settle – 3.3.5
+02-03-2021 @ 19:45:42 -     WooCommerce Anti Fraud by OPMC Australia Pty Ltd – 3.4
+02-03-2021 @ 19:45:42 -     WooCommerce API Manager by Todd Lahman LLC – 2.3.8
+02-03-2021 @ 19:45:42 -     WooCommerce Authorize.Net Reporting by SkyVerge – 1.12.0
+02-03-2021 @ 19:45:42 -     WooCommerce Bookings by WooCommerce – 1.15.34
+02-03-2021 @ 19:45:42 -     WooCommerce Boost Sales Premium by Andy Ha (villatheme.com) – 1.4.2
+02-03-2021 @ 19:45:42 -     WooCommerce Box Office by WooCommerce – 1.1.30
+02-03-2021 @ 19:45:42 -     WooCommerce Brands by WooCommerce – 1.6.23
+02-03-2021 @ 19:45:42 -     WooCommerce Bulk Stock Management by WooCommerce – 2.2.31
+02-03-2021 @ 19:45:42 -     WooCommerce Bulk Variations by Lucas Stark – 1.6.6
+02-03-2021 @ 19:45:42 -     WooCommerce Cart Add-Ons by WooCommerce – 1.15.34
+02-03-2021 @ 19:45:42 -     WooCommerce Cart Notices by SkyVerge – 1.13.0
+02-03-2021 @ 19:45:42 -     Cart Reports for WooCommerce by WooCommerce – 1.2.9
+02-03-2021 @ 19:45:42 -     WooCommerce Catalog Visibility Options by Lucas Stark – 3.2.14
+02-03-2021 @ 19:45:42 -     WooCommerce Chained Products by StoreApps – 2.9.9
+02-03-2021 @ 19:45:42 -     WooCommerce Checkout Add-Ons by SkyVerge – 2.5.1
+02-03-2021 @ 19:45:42 -     WooCommerce Checkout Field Editor by WooCommerce – 1.5.38
+02-03-2021 @ 19:45:42 -     WooCommerce Composite Products by SomewhereWarm – 7.1.6
+02-03-2021 @ 19:45:42 -     WooCommerce Conditional Content by Lucas Stark – 2.1.5
+02-03-2021 @ 19:45:42 -     WooCommerce Conditional Shipping and Payments by SomewhereWarm – 1.8.11
+02-03-2021 @ 19:45:42 -     WooCommerce Cost of Goods by SkyVerge – 2.10.0
+02-03-2021 @ 19:45:42 -     WooCommerce Coupon Campaigns & Tracking by WooCommerce – 1.1.16
+02-03-2021 @ 19:45:42 -     WooCommerce Currency Converter by WooCommerce – 1.6.25
+02-03-2021 @ 19:45:42 -     WooCommerce Customer/Order/Coupon Export by SkyVerge – 5.3.0
+02-03-2021 @ 19:45:42 -     WooCommerce Customer/Order/Coupon CSV Import Suite by SkyVerge – 3.10.0
+02-03-2021 @ 19:45:42 -     WooCommerce Customer/Order XML Export Suite by SkyVerge – 2.6.3
+02-03-2021 @ 19:45:42 -     WooCommerce Deposits by WooCommerce – 1.5.6
+02-03-2021 @ 19:45:42 -     WooCommerce Distance Rate Shipping by Automattic – 1.0.26
+02-03-2021 @ 19:45:42 -     WooCommerce Drip by WooCommerce – 1.2.24
+02-03-2021 @ 19:45:42 -     WooCommerce Dropshipping by WooCommerce – 2.11
+02-03-2021 @ 19:45:42 -     WooCommerce Dynamic Pricing by Lucas Stark – 3.1.22
+02-03-2021 @ 19:45:42 -     WooCommerce E-Mail Attachments (by Inoplugs) by InoPlugs – 3.0.11
+02-03-2021 @ 19:45:42 -     Follow-Up Emails by WooCommerce – 4.9.10
+02-03-2021 @ 19:45:42 -     WooCommerce Force Sells by WooCommerce – 1.1.27
+02-03-2021 @ 19:45:42 -     WooCommerce Free Gift Coupons by Kathy Darling – 3.0.5
+02-03-2021 @ 19:45:42 -     WooCommerce FreshBooks by SkyVerge – 3.14.1
+02-03-2021 @ 19:45:42 -     WooCommerce Freshdesk by Automattic – 1.1.26
+02-03-2021 @ 19:45:42 -     WooCommerce Chase Paymentech Gateway by SkyVerge – 1.16.0
+02-03-2021 @ 19:45:42 -     WooCommerce Intuit Payments Gateway by SkyVerge – 2.8.3
+02-03-2021 @ 19:45:42 -     WooCommerce PayPal Pro (Classic and PayFlow Editions) Gateway by WooCommerce – 4.5.1
+02-03-2021 @ 19:45:42 -     WooCommerce Purchase Order Payment Gateway by WooCommerce – 1.2.12
+02-03-2021 @ 19:45:42 -     WooCommerce Servired/RedSys Spain Gateway by José Conti – 14.0.2
+02-03-2021 @ 19:45:42 -     WooCommerce Stripe Gateway by WooCommerce – 4.5.5
+02-03-2021 @ 19:45:42 -     WooCommerce WorldPay Gateway by Andrew Benbow – 4.1.7
+02-03-2021 @ 19:45:42 -     WooCommerce Give Products by WooCommerce – 1.1.12
+02-03-2021 @ 19:45:42 -     WooCommerce Google Analytics Pro by SkyVerge – 1.10.0
+02-03-2021 @ 19:45:42 -     WooCommerce Gravity Forms Product Add-Ons by Lucas Stark – 3.3.17
+02-03-2021 @ 19:45:42 -     WooCommerce Help Scout by WooCommerce – 2.6
+02-03-2021 @ 19:45:42 -     WooCommerce Instagram by Themesquad – 3.4.1
+02-03-2021 @ 19:45:42 -     WooCommerce Measurement Price Calculator by SkyVerge – 3.19.0
+02-03-2021 @ 19:45:42 -     MailChimp for WooCommerce Memberships by SkyVerge – 1.4.0
+02-03-2021 @ 19:45:42 -     WooCommerce Memberships by SkyVerge – 1.21.2
+02-03-2021 @ 19:45:42 -     WooCommerce Min/Max Quantities by WooCommerce – 2.4.20
+02-03-2021 @ 19:45:42 -     WooCommerce Mix and Match Products by Kathy Darling – 1.10.6
+02-03-2021 @ 19:45:42 -     WooCommerce MSRP Pricing by Ademti Software Ltd. – 3.1.2
+02-03-2021 @ 19:45:42 -     WooCommerce Nested Category Layout by SkyVerge – 1.16.0
+02-03-2021 @ 19:45:42 -     WooCommerce Notification Premium by Andy Ha (villatheme.com) – 1.4.2.2
+02-03-2021 @ 19:45:42 -     WooCommerce One Page Checkout by Automattic – 1.7.10
+02-03-2021 @ 19:45:42 -     WooCommerce Order Barcodes by WooCommerce – 1.3.23
+02-03-2021 @ 19:45:42 -     WooCommerce Order Delivery by Themesquad – 1.8.5
+02-03-2021 @ 19:45:42 -     WooCommerce Order Status Control by SkyVerge – 1.14.0
+02-03-2021 @ 19:45:42 -     WooCommerce Order Status Manager by SkyVerge – 1.12.2
+02-03-2021 @ 19:45:42 -     WooCommerce PDF Invoices by Andrew Benbow – 4.10.3
+02-03-2021 @ 19:45:42 -     WooCommerce Photography by WooCommerce – 1.0.27
+02-03-2021 @ 19:45:42 -     WooCommerce Print Invoices/Packing Lists by SkyVerge – 3.11.0
+02-03-2021 @ 19:45:42 -     WooCommerce Points and Rewards by WooCommerce – 1.6.42
+02-03-2021 @ 19:45:42 -     WooCommerce Pre-Orders by WooCommerce – 1.5.29
+02-03-2021 @ 19:45:42 -     WooCommerce Product Add-ons by WooCommerce – 3.3.1
+02-03-2021 @ 19:45:42 -     WooCommerce Product Bundles by SomewhereWarm – 6.7.2
+02-03-2021 @ 19:45:42 -     WooCommerce Product CSV Import Suite by WooCommerce – 1.10.38
+02-03-2021 @ 19:45:42 -     WooCommerce Product Documents by SkyVerge – 1.13.0
+02-03-2021 @ 19:45:42 -     WooCommerce Product Enquiry Form by WooCommerce – 1.2.17
+02-03-2021 @ 19:45:42 -     WooCommerce Google Product Feed by Ademti Software Ltd. – 9.4.1
+02-03-2021 @ 19:45:42 -     WooCommerce Product Finder by WooCommerce – 1.2.17
+02-03-2021 @ 19:45:42 -     WooCommerce Product Retailers by SkyVerge – 1.15.0
+02-03-2021 @ 19:45:42 -     WooCommerce Product Reviews Pro by SkyVerge – 1.17.1
+02-03-2021 @ 19:45:42 -     WooCommerce Product Search by itthinx – 3.5.1
+02-03-2021 @ 19:45:42 -     WooCommerce Product Vendors by WooCommerce – 2.1.47
+02-03-2021 @ 19:45:42 -     WooCommerce Products Compare by WooCommerce – 1.0.23
+02-03-2021 @ 19:45:42 -     WooCommerce Quick View by WooCommerce – 1.4.0
+02-03-2021 @ 19:45:42 -     WooCommerce Recommendation Engine by Lucas Stark – 3.2.5
+02-03-2021 @ 19:45:42 -     WooCommerce Review for Discount by WooCommerce – 1.6.19
+02-03-2021 @ 19:45:42 -     WooCommerce Sale Flash Pro by WooCommerce – 1.2.19
+02-03-2021 @ 19:45:42 -     WooCommerce Sales Report Email by WooCommerce – 1.1.19
+02-03-2021 @ 19:45:42 -     WooCommerce Sequential Order Numbers Pro by SkyVerge – 1.17.0
+02-03-2021 @ 19:45:42 -     WooCommerce Shipment Tracking by WooCommerce – 1.6.26
+02-03-2021 @ 19:45:42 -     WooCommerce Flat Rate Box Shipping by WooCommerce – 2.0.15
+02-03-2021 @ 19:45:42 -     WooCommerce Local Pickup Plus by SkyVerge – 2.9.2
+02-03-2021 @ 19:45:42 -     WooCommerce Ship to Multiple Addresses by WooCommerce – 3.6.25
+02-03-2021 @ 19:45:42 -     WooCommerce Shipping Per Product v2 by WooCommerce – 2.3.12
+02-03-2021 @ 19:45:42 -     WooCommerce Smart Coupons by StoreApps – 4.15.0
+02-03-2021 @ 19:45:42 -     WooCommerce Social Login by SkyVerge – 2.11.0
+02-03-2021 @ 19:45:42 -     WooCommerce Splash Popup by WooCommerce – 1.2.19
+02-03-2021 @ 19:45:42 -     WooCommerce Store Credit by Themesquad – 3.4.3
+02-03-2021 @ 19:45:42 -     WooCommerce Subscribe to Newsletter by Themesquad – 2.9.1
+02-03-2021 @ 19:45:42 -     WooCommerce Subscription Downloads by WooCommerce – 1.1.31
+02-03-2021 @ 19:45:42 -     WooCommerce Subscriptions Gifting by WooCommerce – 2.1.2
+02-03-2021 @ 19:45:42 -     WooCommerce Subscriptions by WooCommerce – 3.0.12
+02-03-2021 @ 19:45:42 -     WooCommerce Tab Manager by SkyVerge – 1.14.0
+02-03-2021 @ 19:45:42 -     WooCommerce Table Rate Shipping by WooCommerce – 3.0.30
+02-03-2021 @ 19:45:42 -     WooCommerce TM Extra Product Options by themeComplete – 5.0.12.11
+02-03-2021 @ 19:45:42 -     WooCommerce Twilio SMS Notifications by SkyVerge – 1.15.1
+02-03-2021 @ 19:45:42 -     WooCommerce Waitlist by Neil Pie – 2.2.0
+02-03-2021 @ 19:45:42 -     WooCommerce Warranty Requests by WooCommerce – 1.9.21
+02-03-2021 @ 19:45:42 -     WooCommerce WishLists by Lucas Stark – 2.2.3
+02-03-2021 @ 19:45:42 -     WooCommerce by Automattic – 4.9.2
+02-03-2021 @ 19:45:42 -     WooSlider - WooCommerce Products Slideshow by WooCommerce – 1.0.22
+02-03-2021 @ 19:45:42 -     WP Rocket by WP Media – 3.8.3
+02-03-2021 @ 19:45:42 -     WP Sitemap Page by Tony Archambeau – 1.6.2
+02-03-2021 @ 19:45:42 -     Yoast SEO: WooCommerce by Team Yoast – 13.9

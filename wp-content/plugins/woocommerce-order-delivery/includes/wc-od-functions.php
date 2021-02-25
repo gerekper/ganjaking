@@ -764,7 +764,7 @@ function wc_od_enqueue_datepicker( $context = '' ) {
 	wp_enqueue_style( 'bootstrap-datepicker', WC_OD_URL . 'assets/css/lib/bootstrap-datepicker.css', array(), '1.9.0' );
 	wp_add_inline_style( 'bootstrap-datepicker', wc_od_get_datepicker_custom_styles( $context ) );
 
-	wp_enqueue_script( 'bootstrap-datepicker', WC_OD_URL . 'assets/js/lib/bootstrap-datepicker/bootstrap-datepicker.min.js', array( 'jquery' ), '1.9.0', true );
+	wp_enqueue_script( 'bootstrap-datepicker', WC_OD_URL . 'assets/js/lib/bootstrap-datepicker/bootstrap-datepicker.min.js', array( 'jquery' ), '1.9.0-custom', true );
 
 	$datepicker_locale = wc_od_get_datepicker_locale_url();
 	if ( $datepicker_locale ) {

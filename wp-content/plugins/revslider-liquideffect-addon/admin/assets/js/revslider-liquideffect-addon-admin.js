@@ -82,6 +82,7 @@
 			return _===undefined || _.map===undefined ? 
 				{
 					enable: false,
+					use: 'default',
 					map: {
 						image: 'Ripple',
 						custom: '',
@@ -180,7 +181,14 @@
 			_h += '<div class="collapsable" style="display:block !important; padding: 0">';																
 			_h += ' 	<div style="padding: 20px 20px 0 20px">';
 			_h += '			<label_a>'+bricks.active+'</label_a';
-			_h += ' 		><input type="checkbox" id="distortion_enable" class="slideinput easyinit" data-r="addOns.'+slug+'.enable" data-showhide="#distortion_slide_settings" data-showhidedep="true" value="off">';
+			_h += ' 		><input type="checkbox" id="distortion_enable" class="slideinput easyinit" data-r="addOns.'+slug+'.enable" data-showhide="#distortion_slide_settings,#distortion_use_wrap" data-showhidedep="true" value="off">';
+			_h += '			<row class="direktrow" id="distortion_use_wrap">';
+			_h += ' 			<label_a>' + bricks.use + '</label_a';
+			_h += '    			><select id="draw_using" class="slideinput tos2 nosearchbox easyinit" data-r="addOns.'+slug+'.use">';
+			_h += ' 				<option value="default">Default Image</option>';
+			_h += ' 				<option value="canvas">Canvas</option>';
+			_h += '    			</select>';
+			_h += '			</row>';
 			_h += ' 		<div class="div10"></div>';
 			_h += ' 	</div>';
 			_h += ' 	<div id="distortion_slide_settings">';

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.0.3
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -460,7 +460,7 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 					/* translators: %s: singular name for store credit */
 					$balance_left_txt = ! empty( $store_credit_label['singular'] ) ? sprintf( __( '%s Balance ', 'woocommerce-smart-coupons' ), esc_html( ucwords( $store_credit_label['singular'] ) ) ) : __( 'Store Credit / Gift Card Balance', 'woocommerce-smart-coupons' );
 					echo '<br /><h3>' . esc_html( $balance_left_txt ) . ': </h3>';
-					echo '<ul>' . $store_credit_balance . '</ul><br />'; // phpcs:ignore
+					echo '<ul>' . wp_kses_post( $store_credit_balance ) . '</ul><br />'; // phpcs:ignore
 				}
 			}
 		}

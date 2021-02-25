@@ -1,4 +1,11 @@
 *** WorldPay Changelog ***
+2021.02.17 - version 4.1.9
+ * $order->get_currency() for refunds
+
+2021.02.13 - version 4.1.8
+ * New notice for CloudFlare
+ * WC 5.0
+
 2021.01.13 - version 4.1.7
  * Make sure _transaction_id is available for refunds
  * WC 4.9

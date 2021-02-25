@@ -1,7 +1,7 @@
 <?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');} ?>
 <div class="mp_wrapper">
-  <div class="grid">
-    <?php foreach($my_courses as $course): ?>
+  <?php foreach($my_courses as $course): ?>
+    <div class="grid">
       <div class="col-1-2 grid-pad">
         <a href="<?php echo get_permalink($course->ID); ?>">
           <?php echo $course->post_title; ?>
@@ -15,7 +15,8 @@
           </div>
         <?php endif; ?>
       </div>
-    <?php endforeach; ?>
+    </div>
+  <?php endforeach; ?>
 
     <div class="navigation">
       <div class="alignleft">
@@ -26,5 +27,4 @@
       </div>
     </div>
 
-  </div>
 </div>

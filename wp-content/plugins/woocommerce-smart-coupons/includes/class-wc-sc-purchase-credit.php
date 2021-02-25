@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.0
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -164,9 +164,9 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 								validateCreditCalled();
 								jQuery('input#hidden_credit').remove();
 								if ( jQuery('input[name=quantity]').length ) {
-									jQuery('input[name=quantity]').append('<input type=\"hidden\" id=\"hidden_credit\" name=\"credit_called[" . $product_id . "]\" value=\"'+jQuery('input#credit_called').val()+'\" />');
+									jQuery('input[name=quantity]').append('<input type=\"hidden\" id=\"hidden_credit\" name=\"credit_called[" . absint( $product_id ) . "]\" value=\"'+jQuery('input#credit_called').val()+'\" />');
 								} else {
-									jQuery('input[name=\"add-to-cart\"]').after('<input type=\"hidden\" id=\"hidden_credit\" name=\"credit_called[" . $product_id . "]\" value=\"'+jQuery('input#credit_called').val()+'\" />');
+									jQuery('input[name=\"add-to-cart\"]').after('<input type=\"hidden\" id=\"hidden_credit\" name=\"credit_called[" . absint( $product_id ) . "]\" value=\"'+jQuery('input#credit_called').val()+'\" />');
 								}
 							});
 

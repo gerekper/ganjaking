@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.8.0
- * @version     1.0.0
+ * @version     1.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -120,7 +120,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Categories' ) ) {
 			$terms = get_the_terms( $post_id, 'sc_coupon_category' );
 			if ( ! empty( $terms ) ) {
 				foreach ( $terms as $term ) {
-					$content[] = '<a href="' . admin_url( 'edit.php?sc_coupon_category=' . $term->slug . '&post_type=shop_coupon' ) . '">' . $term->name . '</a>';
+					$content[] = '<a href="' . esc_url( admin_url( 'edit.php?sc_coupon_category=' . $term->slug . '&post_type=shop_coupon' ) ) . '">' . esc_html( $term->name ) . '</a>';
 				}
 				echo join( ', ', $content ); // phpcs:ignore
 			} else {

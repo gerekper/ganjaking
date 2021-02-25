@@ -220,6 +220,7 @@ class RevSliderWpml extends RevSliderFunctions {
 	}
 }
 
+global $rs_wmpl;
 $rs_wmpl = new RevSliderWpml();
 
 /**

@@ -1165,7 +1165,7 @@ class Smush {
 		const self = this;
 
 		this.deferred.done( function() {
-			self.button.removeProp( 'continue_smush' );
+			self.button.removeAttr( 'continue_smush' );
 
 			if ( self.errors.length ) {
 				/** @param {string} wp_smush_msgs.error_in_bulk */

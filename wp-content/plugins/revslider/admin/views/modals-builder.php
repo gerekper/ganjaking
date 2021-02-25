@@ -24,7 +24,7 @@ if(!defined('ABSPATH')) exit();
 					<div id="add_skin_color" class="basic_action_button layerinput autosize rightbutton"><i class="material-icons">color_lens</i><?php _e('Add Skin', 'revslider');?></div><div class="tp-clearfix"></div>
 					<div class="div40"></div>
 					<div class="global_sas_wrap">
-						<label_a style="max-width:none; width:auto;"><?php _e('Show this Modal on Editor launch', 'revslider');?></label_a><input type="checkbox" id="sr_show_glob_skins" class="sliderinput easyinit" data-r="skins.colorsAtStart" checked="checked">
+						<label_a style="max-width:none; width:auto;"><?php _e('Show this Modal on Editor launch', 'revslider');?></label_a><input type="checkbox" id="sr_show_glob_skins" class="sliderinput easyinit" data-r="skins.colorsAtStart">
 					</div>
 				</div>
 			</div>
@@ -879,6 +879,9 @@ if(!defined('ABSPATH')) exit();
 
 							<!-- DELAY -->
 							<div id="laction_delay"><label_a><?php _e('Action Delay', 'revslider');?></label_a><input class="easyinit actioninput" data-numeric="true" data-allowed="ms" type="text" id="layer_action_delay" data-r="actions.action.#actionindex#.action_delay" placeholder="0"></div>
+
+							<!-- REPEAT DELAY -->
+							<div id="lraction_delay"><label_a><?php _e('Trigger Repeat Delay', 'revslider');?></label_a><input class="easyinit actioninput" data-numeric="true" data-allowed="ms" type="text" id="layer_action_repeat" data-r="actions.action.#actionindex#.action_repeats" placeholder="0"></div>
 						</div><!-- END OF INPUT FIELD LIST OF THE SELECTED ACTION -->
 					</div>
 				</div>

@@ -3,8 +3,8 @@ Contributors:nik00726
 Tags:Recpatcha
 Requires at least:3.0
 Tested up to:5.6
-Version:2.6
-Stable tag:2.6
+Version:2.9
+Stable tag:2.9
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -19,14 +19,43 @@ Protect your eCommerce site with google recptcha.
 
 **=Features=**
 
+1. Support both reRecapcha V2 and V3.
 
-1. Signup Protection
+2. Login reCaptcha
 
-2. Login protection
+3. Registration reCaptcha
 
-3. Forgot Password protection
+4. Lost password reCaptcha
 
-4. Checkout protection
+5. Guest checkout reCaptcha
+
+6. Login user checkout reCaptcha
+
+7. Add payment method reCaptcha
+
+8. WooCommerce pay for order captcha
+
+9. WP-Login reCaptcha
+
+10. WP-Register reCaptcha
+
+11.WP-Lost password reCaptcha
+
+12.Custom label for reCaptcha
+
+13.Custom error messages
+
+14.Recaptcha dark/light theme
+
+15.Captcha full/compact mode
+
+16.Auto-detect user language
+
+17.Disable submit button until captcha checked
+
+18.Reset captcha on order postback error
+
+
 
 
 
@@ -58,6 +87,29 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.9 =
+
+* Added reCAPTCHA for product review form.
+* Added recaptcha v2 language selection
+* Fixed recaptcha duplication on Elavon credit card pay for order
+
+
+= 2.8 =
+
+* Fixed problem with Elavon payment processor legacy mode.
+
+
+= 2.7 =
+
+
+* Added support for Elavon payment processor
+
+* Added new option "Disable on the fly reCAPTCHA v3 token generation" that will allow you to use this option if two submit button fighting for taking control. So use only if you have problem 
+  with submit button.
+  
+* Fixed problem with javascript errors, When the html of page is minified.
+
 
 = 2.6 =
 

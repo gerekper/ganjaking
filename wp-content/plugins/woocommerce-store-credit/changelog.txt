@@ -1,5 +1,15 @@
 *** Store Credit Changelog ***
 
+2021-02-22 - version 3.5.0
+* Tweak - Register items in the new navigation menu.
+* Tweak - Connected the 'Send Store Credit' page to WC Admin.
+* Tweak - Tested compatibility up to WC 5.1.
+* Dev - Introduce new PHP 5.3 minimum requirement.
+
+2020-12-29 - version 3.4.4
+* Tweak - Tested compatibility with WC 4.9.
+* Fix - Added missing group parameter when clearing the customer coupons cache.
+
 2020-12-17 - version 3.4.3
 * Fix - Enqueue the scripts for the 'Send Credit' page when using a non-ASCII language.
 

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.9.0
+ * @version     2.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -891,7 +891,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		public function sc_check_if_flushed_rules() {
 			$sc_check_flushed_rules = get_option( 'sc_flushed_rules', 'notfound' );
 			if ( 'notfound' === $sc_check_flushed_rules ) {
-				flush_rewrite_rules();
+				flush_rewrite_rules(); // phpcs:ignore
 				update_option( 'sc_flushed_rules', 'found', 'no' );
 			}
 		}
@@ -1471,18 +1471,21 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 						foreach ( $result as $post_id ) {
 
-							$coupon_meta = get_post_meta( $post_id, 'customer_email', true );
+							$coupon_meta           = get_post_meta( $post_id, 'customer_email', true );
+							$is_update_coupon_meta = false;
 
-							foreach ( $coupon_meta as $key => $email_id ) {
-
-								if ( $email_id === $old_customers_email_id ) {
-
-									$coupon_meta[ $key ] = $post_email;
+							if ( ! empty( $coupon_meta ) ) {
+								foreach ( $coupon_meta as $key => $email_id ) {
+									if ( $email_id === $old_customers_email_id ) {
+										$coupon_meta[ $key ]   = $post_email;
+										$is_update_coupon_meta = true;
+									}
 								}
 							}
 
-							update_post_meta( $post_id, 'customer_email', $coupon_meta );
-
+							if ( true === $is_update_coupon_meta ) {
+								update_post_meta( $post_id, 'customer_email', $coupon_meta );
+							}
 						} //end foreach
 					}
 				}
@@ -3233,10 +3236,12 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 							}
 						}).get();
 						if ( selected && selected.length > 0 ) {
-							let url = '<?php echo esc_url_raw( $print_url ); ?>' + '=' + selected.join(',');
+							let url = decodeURIComponent( '<?php echo rawurlencode( (string) $print_url ); ?>' );
+								url += '=' + selected.join(',');
 							window.open( url, '_blank' );
 						} else {
-							alert( '<?php echo esc_js( __( 'Please select at least one coupon to print.', 'woocommerce-smart-coupons' ) ); ?>' );
+							let sc_print_notice = decodeURIComponent( '<?php echo rawurlencode( (string) __( 'Please select at least one coupon to print.', 'woocommerce-smart-coupons' ) ); ?>' );
+							alert( sc_print_notice );
 						}
 					});
 					<?php } ?>
@@ -3324,6 +3329,13 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		 */
 		public function generate_coupons_code( $post = array(), $get = array(), $post_ids = array(), $coupon_postmeta_headers = array() ) {
 			global $wpdb, $wp, $wp_query;
+
+			if ( ! empty( $post_ids ) ) {
+				if ( ! is_array( $post_ids ) ) {
+					$post_ids = array( $post_ids );
+				}
+				$post_ids = array_map( 'absint', $post_ids );
+			}
 
 			$data = array();
 			if ( ! empty( $post ) && isset( $post['generate_and_import'] ) ) {
@@ -3421,6 +3433,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				if ( $this->is_wc_gte_30() ) {
 					$headers[] = 'date_expires';
 				}
+				$headers            = esc_sql( $headers );
 				$how_many_headers   = count( $headers );
 				$header_placeholder = array_fill( 0, $how_many_headers, '%s' );
 
@@ -3912,7 +3925,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 							--sc-color3: <?php echo esc_html( $third_color ); ?>;
 						}
 					</style>
-					<style type="text/css"><?php echo $this->get_coupon_styles( $design ); // phpcs:ignore ?></style>
+					<style type="text/css"><?php echo esc_html( wp_strip_all_tags( $this->get_coupon_styles( $design ), true ) ); // phpcs:ignore ?></style>
 				<?php
 			}
 

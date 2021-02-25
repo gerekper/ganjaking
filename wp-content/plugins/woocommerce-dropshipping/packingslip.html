@@ -44,6 +44,16 @@
 
 	$product_price_colspan = 5;
 
+	if (isset($order_info['options']['packing_slip_header'])){
+		if ('' !== $order_info['options']['packing_slip_header'] ){
+			$packing_slip_header = $order_info['options']['packing_slip_header']. ' - ';
+		}else{
+			$packing_slip_header = '';
+		}
+	}else{
+		$packing_slip_header = '';
+	}
+
 	if ( $order_info['options']['product_price'] == '0' ) {
 		$product_price_colspan = $product_price_colspan - 1;
 	}
@@ -71,7 +81,7 @@
 
 		<td align="center">
 
-			<h2 style="color:#fff;">[<?php echo 'Order #'.$order_info['custom_order_number']; ?>]
+			<h2 style="color:#fff;">[<?php echo $packing_slip_header. 'Order #' .$order_info['custom_order_number']; ?>]
 
 				<span>
 
@@ -837,7 +847,7 @@
 					}
 
 
-					$rows .= '<tr border="0" style="'.$woo_body_text_color.' '.$woo_body_bg_color.'">';
+
 
 					if(isset($order_info['tax_label'])){
 						$order_tax_label = $order_info['tax_label'];
@@ -849,9 +859,12 @@
 
 							if($order_info['options']['cost_of_goods'] == '0') {
 
-								$rows .= '<td align="right" colspan="'.$product_price_colspan.'">'.$order_tax_label.'</td>';
-
-								$rows .= '<td align="center">'.$currency_sym.$order_total_tax.'</td>';
+								if(($order_info['options']['hide_tax'] == '0') || ($order_info['options']['hide_tax'] == '')){
+									$rows .= '<tr border="0" style="'.$woo_body_text_color.' '.$woo_body_bg_color.'">';
+										$rows .= '<td align="right" colspan="'.$product_price_colspan.'">'.$order_tax_label.'</td>';
+										$rows .= '<td align="center">'.$currency_sym.$order_total_tax.'</td>';
+									$rows .='</tr>';
+								}
 
 							}
 
@@ -859,19 +872,15 @@
 						} else {
 
 							if($order_info['options']['cost_of_goods'] == '0') {
-
-								$rows .= '<td align="right" colspan="'.$product_price_colspan.'">'.$order_tax_label.'</td>';
-
-								$rows .= '<td align="center">'.$currency_sym.$order_total_tax .'</td>';
-
+								$rows .= '<tr border="0" style="'.$woo_body_text_color.' '.$woo_body_bg_color.'">';
+									$rows .= '<td align="right" colspan="'.$product_price_colspan.'">'.$order_tax_label.'</td>';
+									$rows .= '<td align="center">'.$currency_sym.$order_total_tax .'</td>';
+								$rows .='</tr>';
 							}
 
 						}
 
 						// Tax price End
-
-
-					$rows .='</tr>';
 
 
 
@@ -945,6 +954,9 @@
 		$shipping_add = get_post_meta($order_info['id'], '_shipping_address', true);
 
 	?>
+
+		<?php if ( $order_info['options']['shipping'] == '1' ) { ?>
+
 
 		<?php if(($order_info['options']['billing_address'] == '1') || ( $order_info['options']['shipping_address'] == '1')){ ?>
 
@@ -1077,19 +1089,6 @@
 						<?php
 
 					} ?>
-
-				</td>
-
-			</tr>
-
-			<tr>
-					<td width="100%;" colspan="<?php echo $misc_colspan; ?>" align="left" style="color: <?php echo $woo_body_text_color_only; ?>;">
-
-						<?php if($order_info['options']['dropship_additional_comment']) {
-
-						echo @$order_info['options']['dropship_additional_comment'];
-
-						} ?>
 
 				</td>
 
@@ -1254,7 +1253,7 @@
 
 						<?php
 
-						} ?>
+						} } ?>
 
 					</td>
 

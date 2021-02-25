@@ -1,5 +1,23 @@
 == Changelog ==
 
+= 5.4.2 =
+Release Date: February 8th, 2021
+
+* [Fixed] The title was not saved correctly
+* [Fixed] Column set permissions were not saved correctly
+* [Improved] Some column labels will automatically change when altering a specific setting
+
+= 5.4.1 =
+Release Date: February 3rd, 2021
+
+* [Added] Support management for columns on the Reusable Blocks (Gutenberg) list table
+* [Fixed] The 'Standard' post format does now filter correctly
+* [Fixed] Fixed javascript Violation errors
+* [Improved] When the Saved Filters do not match the column settings, you'll now get a useful message instead of a fatal error
+* [Updated] Admin Columns Core changes ( 4.2.6 )
+* [Added] User Column: First and Last Post(type)
+* [Improved] It's now possible to select a post status for the Post Count column (User)
+
 = 5.4 =
 Release Date: December 15th, 2020
 

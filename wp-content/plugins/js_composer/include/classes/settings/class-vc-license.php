@@ -126,8 +126,11 @@ class Vc_License {
 	 * @return bool
 	 */
 	public function finishActivationDeactivation( $activation, $user_token ) {
-		
+		if ( ! $this->isValidToken( $user_token ) ) {
+			$this->showError( esc_html__( 'Token is not valid or has expired', 'js_composer' ) );
 
+			return false;
+		}
 
 		if ( $activation ) {
 			$url = self::$support_host . '/finish-license-activation';
@@ -156,20 +159,40 @@ class Vc_License {
 			remove_filter( 'https_ssl_verify', '__return_false' );
 		}
 
-		
+		if ( is_wp_error( $response ) ) {
+			$this->showError( sprintf( esc_html__( '%s. Please try again.', 'js_composer' ), $response->get_error_message() ) );
+
+			return false;
+		}
+
+		if ( 200 !== $response['response']['code'] ) {
+			$this->showError( sprintf( esc_html__( 'Server did not respond with OK: %s', 'js_composer' ), $response['response']['code'] ) );
+
+			return false;
+		}
 
 		$json = json_decode( $response['body'], true );
 
+		if ( ! $json || ! isset( $json['status'] ) ) {
+			$this->showError( esc_html__( 'Invalid response structure. Please contact us for support.', 'js_composer' ) );
+
+			return false;
+		}
+
+		if ( ! $json['status'] ) {
+			$this->showError( esc_html__( 'Something went wrong. Please contact us for support.', 'js_composer' ) );
+
+			return false;
+		}
 
 		if ( $activation ) {
-			
-			
-			
-			$this->setLicenseKey( 'B5E0B5F8DD8689E6ACA49DD6E6E1A930' );
+			if ( ! isset( $json['license_key'] ) || ! $this->isValidFormat( $json['license_key'] ) ) {
+				$this->showError( esc_html__( 'Invalid response structure. Please contact us for support.', 'js_composer' ) );
 
-			
+				return false;
+			}
 
-			
+			$this->setLicenseKey( $json['license_key'] );
 
 			add_action( 'admin_notices', array(
 				$this,
@@ -193,7 +216,7 @@ class Vc_License {
 	 * @return boolean
 	 */
 	public function isActivated() {
-		return true;
+		return (bool) $this->getLicenseKey();
 	}
 
 	/**
@@ -202,9 +225,18 @@ class Vc_License {
 	 * Function is used by support portal to check if VC w/ specific license is still installed
 	 */
 	public function checkLicenseKeyFromRemote() {
-		$license_key = 'B5E0B5F8DD8689E6ACA49DD6E6E1A930';
-		$response = array( 'status' => true );
-			die( wp_json_encode( $response ) );
+		$license_key = vc_request_param( 'license_key' );
+
+		if ( ! $this->isValid( $license_key ) ) {
+			$response = array(
+				'status' => false,
+				'error' => esc_html__( 'Invalid license key', 'js_composer' ),
+			);
+		} else {
+			$response = array( 'status' => true );
+		}
+
+		die( wp_json_encode( $response ) );
 	}
 
 	/**
@@ -269,9 +301,11 @@ class Vc_License {
 	 * @param string $license_key
 	 */
 	public function setLicenseKey( $license_key ) {
-		
-			vc_settings()->set( self::$license_key_option, 'B5E0B5F8DD8689E6ACA49DD6E6E1A930' );
-		
+		if ( vc_is_network_plugin() ) {
+			update_site_option( 'wpb_js_' . self::$license_key_option, $license_key );
+		} else {
+			vc_settings()->set( self::$license_key_option, $license_key );
+		}
 	}
 
 	/**
@@ -280,9 +314,13 @@ class Vc_License {
 	 * @return string
 	 */
 	public function getLicenseKey() {
-		
+		if ( vc_is_network_plugin() ) {
+			$value = get_site_option( 'wpb_js_' . self::$license_key_option );
+		} else {
+			$value = vc_settings()->get( self::$license_key_option );
+		}
 
-		return 'B5E0B5F8DD8689E6ACA49DD6E6E1A930';
+		return $value;
 	}
 
 	/**
@@ -292,9 +330,10 @@ class Vc_License {
 	 *
 	 * @return bool
 	 */
-		public function isValid( $license_key ) {
-		return true;
+	public function isValid( $license_key ) {
+		return $license_key === $this->getLicenseKey();
 	}
+
 	/**
 	 * Set up license activation notice if needed
 	 *
@@ -468,14 +507,18 @@ class Vc_License {
 	 *
 	 * @return boolean
 	 */
-		public function isValidToken( $token_to_check, $ttl_in_seconds = 1200 ) {
+	public function isValidToken( $token_to_check, $ttl_in_seconds = 1200 ) {
 		$token = $this->getLicenseKeyToken();
 
-		
+		if ( ! $token_to_check || sha1( $token ) !== $token_to_check ) {
+			return false;
+		}
 
 		$chunks = explode( '|', $token );
 
-		
+		if ( intval( $chunks[0] ) < ( current_time( 'timestamp' ) - $ttl_in_seconds ) ) {
+			return false;
+		}
 
 		return true;
 	}
@@ -493,7 +536,7 @@ class Vc_License {
 	public function isValidFormat( $license_key ) {
 		$pattern = '/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i';
 
-		return true;
+		return (bool) preg_match( $pattern, $license_key );
 	}
 
 	/**

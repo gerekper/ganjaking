@@ -7,7 +7,7 @@ use memberpress\courses\helpers as helpers;
 
 <div class="mpcs-sidebar-wrapper">
 
-  <?php do_action(base\SLUG_KEY . 'classroom_start_sidebar'); ?>
+  <?php do_action(base\SLUG_KEY . '_classroom_start_sidebar'); ?>
 
   <!-- Featured Image -->
   <figure class="figure">
@@ -53,5 +53,5 @@ use memberpress\courses\helpers as helpers;
     }
     ?>
 
-  <?php do_action(base\SLUG_KEY . 'classroom_end_sidebar'); ?>
+  <?php do_action(base\SLUG_KEY . '_classroom_end_sidebar'); ?>
 </div>

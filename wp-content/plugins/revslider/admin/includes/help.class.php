@@ -1310,19 +1310,6 @@ class RevSliderHelp {
 									$f => "#sr_source_facebook_transient"
 								)
 							),
-							'page_url' => array(
-								$t => __("Page URL", 'revsliderhelp'),
-								$h => "source.facebook.pageURL",
-								$k => array("facebook", "page url"),
-								$d => __("Enter your Facebook Page URL for the API query", 'revsliderhelp'),
-								$a => $u . "module-content/#facebook",
-								$hl => array(
-									$dp => array(array($p => 'settings.sourcetype', $v => 'facebook', $o => 'slider_sourcetype_facebook')), 
-									$m => "#module_settings_trigger, #gst_sl_4", 
-									$st => '#form_slider_content_facebook', 
-									$f => "*[name='sr_src_facebook_pageURL']"
-								)
-							),
 							'source' => array(
 								$di => "slider_source_facebook_typesource",
 								$t => __("Source", 'revsliderhelp'),
@@ -5278,7 +5265,7 @@ class RevSliderHelp {
 							$t => __("Slide Transition", 'revsliderhelp'),
 							$h => "added_slide_transition",
 							$k => array("slide", "slide settings", "slide animation", "slide transition", "animation", "transition"),
-							$d => __("Represents a transition for the current Slide's main background when the Slides change", 'revsliderhelp'),
+							$d => __("Represents the transition that will animate one slide's background out and the next slide's background in when switching sides.", 'revsliderhelp'),
 							$a => $u . "slide-animation/",
 							$hl => array(
 								$m => "#module_slide_trigger, #gst_slide_2", 
@@ -5286,64 +5273,660 @@ class RevSliderHelp {
 								$f => ".added_slide_transition{first}"
 							)
 						),
+						'favorit_transitions' => array(
+							$t => __("Favorite Slide Transition", 'revsliderhelp'),
+							$h => "slideChange.favorit",
+							$k => array("slide", "slide settings", "slide animation", "slide transition", "animation", "transition", "favorit", "favorite", "favourite"),
+							$d => __("ON: Show only favorited transitions. OFF: Show all available transitions", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2", 
+								$st => '#sl_trans_favorit', 
+								$f => "#sl_trans_favorit_inp"
+							)
+						),
+						'slide_transition_timing' => array(
+							$t => __("Slide Transition Timing", 'revsliderhelp'),
+							$h => "#slide_transsettings",
+							$k => array("slide transition", "slide animation", "animation timing", "transition timing"),
+							$d => __("Configure the slide's transition animation timing settings such as 'Duration', 'Pause 'Between' behavior, 'Flow' and 'Index Order'", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidebasic_ts_wrapbrtn > div", 
+								$st => '#form_sanimation_sframes_innerwrap', 
+								$f => "#slidebasic_ts_wrapbrtn"
+							)
+						),
+						
 						'duration' => array(
 							$t => __("Transition Duration", 'revsliderhelp'),
-							$h => "timeline.duration.#curslidetrans#",
+							$h => "slideChange.speed",
 							$k => array("slide transition", "slide animation", "animation duration", "transition duration", "animation time", "transition time"),
-							$d => __("The Slide animation's total time for the selected transition", 'revsliderhelp'),
+							$d => __("The total time, (in milliseconds), it takes to complete the slide's animation transition", 'revsliderhelp'),
 							$a => $u . "slide-animation/",
 							$hl => array(
-								$m => "#module_slide_trigger, #gst_slide_2", 
-								$st => '#form_slidebg_transition', 
-								$f => "#sl_trans_duration"
+								$m => "#module_slide_trigger, #gst_slide_2,#slidebasic_ts_wrapbrtn > div", 
+								$st => '#sltrans_all_globals', 
+								$f => "#sltrans_duration"
 							)
 						),
+
+						'pause_between' => array(
+							$t => __("Transition Break", 'revsliderhelp'),
+							$h => "slideChange.p",
+							$k => array("slide transition", "slide animation", "animation pause", "transition pause", "through dark", "through light"),
+							$d => __("Add a pause between slides. When active, this option animates an exiting slide out to a dark/light/transparent background, pauses for a moment, then animates the next slide in. Note: Pausing has no effect on the very first animation of a slider.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2,#slidebasic_ts_wrapbrtn > div", 
+								$st => '#sltrans_all_globals', 
+								$f => "#sltrans_breaking"
+							)
+						),
+
+						'transition_flow' => array(
+							$t => __("Transition Flow", 'revsliderhelp'),
+							$h => "slideChange.f",
+							$k => array("slide transition", "slide animation", "animation flow", "transition flow"),
+							$d => __("If using a 'Rows', 'Columns' or 'Boxes' transition, this option controls animation direction and timing for all the separate elements, generating a flow effect as each one moves. It defines the direction in which initial movement of elements should be staggered, and which element should be animated first & last, e.g. starting from the center or edges, changing based on slide direction, flowing randomly etc.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2,#slidebasic_ts_wrapbrtn > div", 
+								$st => '#sltrans_all_globals', 
+								$f => "#sltrans_from"
+							)
+						),
+
+						'transition_flow_speed' => array(
+							$t => __("Transition Flow Speed", 'revsliderhelp'),
+							$h => "slideChange.d",
+							$k => array("slide transition", "slide animation", "animation flow speed", "transition flow speed"),
+							$d => __("If using a 'Rows', 'Columns' or 'Boxes' transition, this option controls the animation speed of each individual element. Increasing the number, up to a maximum of 100, makes elements move quicker and reduces the time until each begins moving. The minimum, and slowest, setting is 5. Changing this value also automatically recalculates the slide transition duration.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2,#slidebasic_ts_wrapbrtn > div", 
+								$st => '#sltrans_all_globals', 
+								$f => "#sltrans_fromdelay"
+							)
+						),
+
+						'transition_index_order' => array(
+							$t => __("Transition Order", 'revsliderhelp'),
+							$h => "slideChange.o",
+							$k => array("slide transition", "slide animation", "animation index order", "transition order"),
+							$d => __("Define whether the slide transitioning in should appear over the slide going out, or if the slide going out should appear over the one coming in. If set to Auto, a selection will be inferred automatically based on other settings.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2,#slidebasic_ts_wrapbrtn > div", 
+								$st => '#sltrans_all_globals', 
+								$f => "#sltrans_order"
+							)
+						),
+						'transition_in_mask' => array(
+							$t => __("Transition Mask", 'revsliderhelp'),
+							$h => "slideChange.in.m",
+							$k => array("slide transition", "slide animation mask", "animation mask", "transition mask"),
+							$d => __("On animated rows and columns, activating the transition mask does two things: 1) Makes the motion of elements start at the edge of their own row/column rather than the edge of their full container. 2) Ensures elements don't overlap one another.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidein_ts_wrapbrtn > div", 
+								$st => '#sltrans_all_globals', 
+								$f => "#sltrans_in_mask_wrap"
+							)
+						),
+
+						'transition_motion' => array(
+							$t => __("Transition Motion Blur", 'revsliderhelp'),
+							$h => "slideChange.in.mou",
+							$k => array("slide transition", "slide animation blur", "animation motion blur", "transition blur", "motion blur"),
+							$d => __("Add a light motion blur effect to slide transition animations. Enabling this setting will update other values as well.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidein_ts_wrapbrtn > div", 
+								$st => '#sltrans_all_globals', 
+								$f => "#sltrans_in_motionswitch_wrap"
+							)
+						),
+
+						'transition_motion_blur' => array(
+							$t => __("Transition Motion Blur Val", 'revsliderhelp'),
+							$h => "slideChange.in.mo",
+							$k => array("slide transition", "slide animation blur", "animation motion blur", "transition blur", "motion blur"),
+							$d => __("If 'Transition Motion Blur' is on, the 'Transition Motion Blur Val' determines the width of the blur effect in pixels", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidein_ts_wrapbrtn > div", 
+								$st => '#sltrans_all_globals', 
+								$f => "#sltrans_filter_motion"
+							)
+						),
+
 						'easing_in' => array(
 							$t => __("Animation 'In' Easing", 'revsliderhelp'),
-							$h => "timeline.easeIn.#curslidetrans#",
+							$h => "slideChange.in.e",
 							$k => array("slide transition", "slide animation", "animation easing", "transition easing"),
-							$d => __("The easing equation for the 'IN' animation", 'revsliderhelp'),
+							$d => __("The easing equation for the 'In' animation, i.e. how the animation speeds up and slows down during playback.", 'revsliderhelp'),
 							$a => $u . "slide-animation/",
 							$hl => array(
-								$m => "#module_slide_trigger, #gst_slide_2", 
+								$m => "#module_slide_trigger, #gst_slide_2, #slidein_ts_wrapbrtn > div", 
 								$st => '#form_slidebg_transition', 
-								$f => "#sl_trans_appear_ease"
+								$f => "#sltrans_in_ease"
 							)
 						),
+						
+						'cols_in' => array(
+							$t => __("Animation 'In'  Columns / Boxes", 'revsliderhelp'),
+							$h => "slideChange.in.col",
+							$k => array("slide transition", "slide animation", "animation columns", "transition colums", "slots", "boxes", "columns"),
+							$d => __("If using a 'Columns' or 'Boxes' transition, this option specifies the number of vertical columns into which the animation should be split.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidein_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_in_col"
+							)
+						),
+
+						'rows_in' => array(
+							$t => __("Animation 'In'  Rows / Boxes", 'revsliderhelp'),
+							$h => "slideChange.in.row",
+							$k => array("slide transition", "slide animation", "animation columns", "transition colums", "slots", "boxes", "columns"),
+							$d => __("If using a 'Rows' or 'Boxes' transition, this option specifies the number of horizontal rows into which the animation should be split.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidein_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_in_col"
+							)
+						),
+						'xtrans_in' => array(
+							$t => __("Animation 'In' - Horizontal Move", 'revsliderhelp'),
+							$h => "slideChange.in.x",
+							$k => array("slide transition", "slide animation", "animation transform", "transition horizontal"),
+							$d => __("Optionally add horizontal motion to elements in Columns/Rows/Boxes transitions. Accepts three possible formats denoting either random, cycles or direction based movement. 1) Random: {min,max} Applies a random amount of movement within a specified range. E.g, {-45,45} to slide in by an amount between -45% and 45% of the element's width. 2) Cycles: [val,val,val] Cycles through applying specified movement amounts sequentially from one element to the next, in the order determined by the 'Flow' setting. E.g. [-10,10,25] will apply a -10% motion to the first element, 10% to the next, then 25%, then the sequence repeats. 3) Direction Based: (val) e.g. (45) to add 45% motion when going to the next slide, and -45% when going to the previous slide.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidein_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_in_x"
+							)
+						),
+						'ytrans_in' => array(
+							$t => __("Animation 'In' - Vertical Move", 'revsliderhelp'),
+							$h => "slideChange.in.y",
+							$k => array("slide transition", "slide animation", "animation transform", "transition horizontal"),
+							$d => __("Optionally add vertical motion to elements in Columns/Rows/Boxes transitions. Accepts three possible formats denoting either random, cycles or direction based movement. 1) Random: {min,max} Applies a random amount of movement within a specified range. E.g, {-45,45} to slide in by an amount between -45% and 45% of the element's height. 2) Cycles: [val,val,val] Cycles through applying specified movement amounts sequentially from one element to the next, in the order determined by the 'Flow' setting. E.g. [-10,10,25] will apply a -10% motion to the first element, 10% to the next, then 25%, then the sequence repeats. 3) Direction Based: (val) e.g. (45) to add 45% motion when going to the next slide, and -45% when going to the previous slide.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidein_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_in_y"
+							)
+						),
+						'xscale_in' => array(
+							$t => __("Animation 'In' - Horizontal Scale", 'revsliderhelp'),
+							$h => "slideChange.in.sx",
+							$k => array("slide transition", "slide animation", "animation transform", "transition horizontal","slide scale", "transition scale", "scale"),
+							$d => __("Optionally add horizontal scaling (growth or shrinking) to elements in Columns/Rows/Boxes transitions. Accepts three possible formats denoting either fixed, random or cycles based scaling. 1) Fixed: (val) A single value between 0 and 500. A value of 1 has no effect, < 1 scales down (shrinks), and > 1 scales up (grows). 2) Random: {min,max} Applies a random amount of horizontal scaling within a specified range. E.g, {0,2.5} will randomly generate scaling on each element of between 0% and 250%. 3) Cycles: [val,val,val] Cycles through applying specified horizontal scaling amounts sequentially from one element to the next, in the order determined by the 'Flow' setting. E.g. [0,1.5,0.2] will apply a 0% scaling to the first element, 150% to the next, then 20%, then the sequence repeats.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidein_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_in_scalex"
+							)
+						),
+						'yscale_in' => array(
+							$t => __("Animation 'In'  - Vertical Scale", 'revsliderhelp'),
+							$h => "slideChange.in.sy",
+							$k => array("slide transition", "slide animation", "animation transform", "transition horizontal", "slide scale", "transition scale", "scale"),
+							$d => __("Optionally add vertical scaling (growth or shrinking) to elements in Columns/Rows/Boxes transitions. Accepts three possible formats denoting either fixed, random or cycles based scaling. 1) Fixed: (val) A single value between 0 and 500. A value of 1 has no effect, < 1 scales down (shrinks), and > 1 scales up (grows). 2) Random: {min,max} Applies a random amount of vertical scaling within a specified range. E.g, {0,2.5} will randomly generate scaling on each element of between 0% and 250%. 3) Cycles: [val,val,val] Cycles through applying specified vertical scaling amounts sequentially from one element to the next, in the order determined by the 'Flow' setting. E.g. [0,1.5,0.2] will apply a 0% scaling to the first element, 150% to the next, then 20%, then the sequence repeats.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidein_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_in_scaley"
+							)
+						),
+						'opactiy_in' => array(
+							$t => __("Animation 'In' - Transparency", 'revsliderhelp'),
+							$h => "slideChange.in.o",
+							$k => array("slide transition", "slide animation", "animation transparency"),
+							$d => __("The standard input range is 0 to 1, where 0 is completely transparent and 1 is fully opaque. In most cases you should use a value between 0 and 1, however, if necessary you can reduce the value down as far as -3, which will allow you to time the opacity animation differently than the 'In’ animation. The lower the value, the longer the transparency animation will be delayed compared to the rest of the ’In’ animation. This can be helpful in harmonizing complex animations.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidein_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_in_fade"
+							)							
+						),
+						'rotation_in' => array(
+							$t => __("Animation 'In' - Rotation", 'revsliderhelp'),
+							$h => "slideChange.in.r",
+							$k => array("slide transition", "slide animation", "animation rotation", "transition rotation"),
+							$d => __("Optionally add rotation to elements in Columns/Rows/Boxes transitions. Accepts three possible formats denoting either random, cycles or direction based rotation. 1) Random: {min,max} Applies a random amount of rotation within a specified range. E.g, {-45,45} to rotate by an amount between -45 and 45 degrees. 2) Cycles: [val,val,val] Cycles through applying specified movement amounts sequentially from one element to the next, in the order determined by the 'Flow' setting. E.g. [-10,10,25] will apply a -10 degree rotation to the first element, 10 degrees to the next, then 25 degrees, then the sequence repeats. 3) Direction Based: (val) e.g. (45) to add a 45 degree rotation when going to the next slide, and -45 degree rotation when going to the previous slide.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidein_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_in_rotation"
+							)
+						),
+						'transition_out_mask' => array(
+							$t => __("Transition Mask", 'revsliderhelp'),
+							$h => "slideChange.out.m",
+							$k => array("slide transition", "slide animation mask", "animation mask", "transition mask"),
+							$d => __("On animated rows and columns, activating the transition mask does two things: 1) Makes the motion of elements start at the edge of their own row/column rather than the edge of their full container. 2) Ensures elements don't overlap one another.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slideout_ts_wrapbrtn > div", 
+								$st => '#sltrans_all_globals', 
+								$f => "#sltrans_out_mask_wrap"
+							)
+						),
+
+						'auto_out' => array(
+							$t => __("Animation 'Out' Automatically", 'revsliderhelp'),
+							$h => "slideChange.out.a",
+							$k => array("slide transition", "slide animation", "animation out", "transition auto", "auto animation", "auto transition"),
+							$d => __("When toggled to ON this option will automatically generate the best possible 'Out' animation, based on the settings of the 'In' animation. ", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slideout_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#slidechangeouta"
+							)
+						),
+
 						'easing_out' => array(
 							$t => __("Animation 'Out' Easing", 'revsliderhelp'),
-							$h => "timeline.easeOut.#curslidetrans#",
+							$h => "slideChange.out.e",
 							$k => array("slide transition", "slide animation", "animation easing", "transition easing"),
-							$d => __("The easing equation for the 'OUT' animation", 'revsliderhelp'),
+							$d => __("The easing equation for the 'Out' animation, i.e. how the animation speeds up and slows down during playback.", 'revsliderhelp'),
 							$a => $u . "slide-animation/",
 							$hl => array(
-								$m => "#module_slide_trigger, #gst_slide_2", 
+								$m => "#module_slide_trigger, #gst_slide_2, #slideout_ts_wrapbrtn > div", 
 								$st => '#form_slidebg_transition', 
-								$f => "#sl_trans_disappear_ease"
+								$f => "#sltrans_out_ease"
 							)
 						),
-						'slots' => array(
-							$t => __("Slots/Boxes", 'revsliderhelp'),
-							$h => "timeline.slots.#curslidetrans#",
-							$k => array("slide transition", "slide animation", "animation slots", "transition slots", "slots"),
-							$d => __("The number of slots/boxes to use for slot-based transitions", 'revsliderhelp'),
+						
+						'cols_out' => array(
+							$t => __("Animation 'Out'  Columns / Boxes", 'revsliderhelp'),
+							$h => "slideChange.out.col",
+							$k => array("slide transition", "slide animation", "animation columns", "transition colums", "slots", "boxes", "columns"),
+							$d => __("If using a 'Columns' or 'Boxes' transition, this option specifies the number of vertical columns into which the animation should be split.", 'revsliderhelp'),
 							$a => $u . "slide-animation/",
 							$hl => array(
-								$m => "#module_slide_trigger, #gst_slide_2", 
+								$m => "#module_slide_trigger, #gst_slide_2, #slideout_ts_wrapbrtn > div", 
 								$st => '#form_slidebg_transition', 
-								$f => "#sl_tr_box_amount"
+								$f => "#sltrans_in_col"
 							)
 						),
-						'rotation' => array(
-							$t => __("Rotation", 'revsliderhelp'),
-							$h => "timeline.rotation.#curslidetrans#",
+
+						'rows_out' => array(
+							$t => __("Animation 'Out'  Rows / Boxes", 'revsliderhelp'),
+							$h => "slideChange.out.row",
+							$k => array("slide transition", "slide animation", "animation columns", "transition colums", "slots", "boxes", "columns"),
+							$d => __("If using a 'Rows' or 'Boxes' transition, this option specifies the number of horizontal rows into which the animation should be split.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slideout_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_out_col"
+							)
+						),
+						'xtrans_out' => array(
+							$t => __("Animation 'Out' - Horizontal Move", 'revsliderhelp'),
+							$h => "slideChange.out.x",
+							$k => array("slide transition", "slide animation", "animation transform", "transition horizontal"),
+							$d => __("Optionally add horizontal motion to elements in Columns/Rows/Boxes transitions. Accepts three possible formats denoting either random, cycles or direction based movement. 1) Random: {min,max} Applies a random amount of movement within a specified range. E.g, {-45,45} to slide in by an amount between -45% and 45% of the element's width. 2) Cycles: [val,val,val] Cycles through applying specified movement amounts sequentially from one element to the next, in the order determined by the 'Flow' setting. E.g. [-10,10,25] will apply a -10% motion to the first element, 10% to the next, then 25%, then the sequence repeats. 3) Direction Based: (val) e.g. (45) to add 45% motion when going to the next slide, and -45% when going to the previous slide.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slideout_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_out_x"
+							)
+						),
+						'ytrans_out' => array(
+							$t => __("Animation 'Out' - Vertical Move", 'revsliderhelp'),
+							$h => "slideChange.out.y",
+							$k => array("slide transition", "slide animation", "animation transform", "transition horizontal"),
+							$d => __("Optionally add vertical motion to elements in Columns/Rows/Boxes transitions. Accepts three possible formats denoting either random, cycles or direction based movement. 1) Random: {min,max} Applies a random amount of movement within a specified range. E.g, {-45,45} to slide in by an amount between -45% and 45% of the element's height. 2) Cycles: [val,val,val] Cycles through applying specified movement amounts sequentially from one element to the next, in the order determined by the 'Flow' setting. E.g. [-10,10,25] will apply a -10% motion to the first element, 10% to the next, then 25%, then the sequence repeats. 3) Direction Based: (val) e.g. (45) to add 45% motion when going to the next slide, and -45% when going to the previous slide.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slideout_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_out_y"
+							)
+						),
+						'xscale_out' => array(
+							$t => __("Animation 'Out' - Horizontal Scale", 'revsliderhelp'),
+							$h => "slideChange.out.sx",
+							$k => array("slide transition", "slide animation", "animation transform", "transition horizontal","slide scale", "transition scale", "scale"),
+							$d => __("Optionally add horizontal scaling (growth or shrinking) to elements in Columns/Rows/Boxes transitions. Accepts three possible formats denoting either fixed, random or cycles based scaling. 1) Fixed: (val) A single value between 0 and 500. A value of 1 has no effect, < 1 scales down (shrinks), and > 1 scales up (grows). 2) Random: {min,max} Applies a random amount of horizontal scaling within a specified range. E.g, {0,2.5} will randomly generate scaling on each element of between 0% and 250%. 3) Cycles: [val,val,val] Cycles through applying specified horizontal scaling amounts sequentially from one element to the next, in the order determined by the 'Flow' setting. E.g. [0,1.5,0.2] will apply a 0% scaling to the first element, 150% to the next, then 20%, then the sequence repeats.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slideout_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_out_scalex"
+							)
+						),
+						'yscale_out' => array(
+							$t => __("Animation 'Out' - Vertical Scale", 'revsliderhelp'),
+							$h => "slideChange.out.sy",
+							$k => array("slide transition", "slide animation", "animation transform", "transition horizontal", "slide scale", "transition scale", "scale"),
+							$d => __("Optionally add vertical scaling (growth or shrinking) to elements in Columns/Rows/Boxes transitions. Accepts three possible formats denoting either fixed, random or cycles based scaling. 1) Fixed: (val) A single value between 0 and 500. A value of 1 has no effect, < 1 scales down (shrinks), and > 1 scales up (grows). 2) Random: {min,max} Applies a random amount of vertical scaling within a specified range. E.g, {0,2.5} will randomly generate scaling on each element of between 0% and 250%. 3) Cycles: [val,val,val] Cycles through applying specified vertical scaling amounts sequentially from one element to the next, in the order determined by the 'Flow' setting. E.g. [0,1.5,0.2] will apply a 0% scaling to the first element, 150% to the next, then 20%, then the sequence repeats.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slideout_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_out_scaley"
+							)
+						),
+						'opactiy_out' => array(
+							$t => __("Animation 'Out' - Transparency", 'revsliderhelp'),
+							$h => "slideChange.out.o",
+							$k => array("slide transition", "slide animation", "animation transform", "transition horizontal"),
+							$d => __("The standard input range is 0 to 1, where 0 is completely transparent and 1 is fully opaque. In most cases you should use a value between 0 and 1, however, if necessary you can reduce the value down as far as -3, which will allow you to time the opacity animation differently than the 'Out’ animation. The lower the value, the quicker the transparency animation will be compared to the rest of the ‘Out’ animation. This can be helpful in harmonizing complex animations.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slideout_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_out_fade"
+							)							
+						),
+						'rotation_out' => array(
+							$t => __("Animation 'Out' - Rotation", 'revsliderhelp'),
+							$h => "slideChange.out.r",
 							$k => array("slide transition", "slide animation", "animation rotation", "transition rotation"),
-							$d => __("An optional rotation to apply to the Slide's transition", 'revsliderhelp'),
+							$d => __("Optionally add rotation to elements in Columns/Rows/Boxes transitions. Accepts three possible formats denoting either random, cycles or direction based rotation. 1) Random: {min,max} Applies a random amount of rotation within a specified range. E.g, {-45,45} to rotate by an amount between -45 and 45 degrees. 2) Cycles: [val,val,val] Cycles through applying specified movement amounts sequentially from one element to the next, in the order determined by the 'Flow' setting. E.g. [-10,10,25] will apply a -10 degree rotation to the first element, 10 degrees to the next, then 25 degrees, then the sequence repeats. 3) Direction Based: (val) e.g. (45) to add a 45 degree rotation when going to the next slide, and -45 degree rotation when going to the previous slide.", 'revsliderhelp'),
 							$a => $u . "slide-animation/",
 							$hl => array(
-								$m => "#module_slide_trigger, #gst_slide_2", 
+								$m => "#module_slide_trigger, #gst_slide_2, #slideout_ts_wrapbrtn > div", 
 								$st => '#form_slidebg_transition', 
-								$f => "#sl_trans_slot_rotation"
+								$f => "#sltrans_out_rotation"
+							)
+						),
+
+						'allfilters' => array(
+							$t => __("Slide Animation Filters", 'revsliderhelp'),
+							$h => "slideChange.filter.u",
+							$k => array("slide transition", "slide animation", "animation filters", "filters"),
+							$d => __("Enable or disable filter effects on slide transition animations ", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidefilter_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#slidechangefilteru"
+							)
+						),
+						'easing_filter' => array(
+							$t => __("Filter Animation Easing", 'revsliderhelp'),
+							$h => "slideChange.filter.e",
+							$k => array("slide transition", "slide animation", "animation filter easing", "transition filter easing"),
+							$d => __("Set the easing amount for any filter effect animations to help you correctly time them with the rest of the transition.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidefilter_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_filter_ease"
+							)
+						),
+
+						'blur_filter' => array(
+							$t => __("Slider Transition Blur Filter", 'revsliderhelp'),
+							$h => "slideChange.filter.b",
+							$k => array("slide transition", "slide animation", "animation filter blur", "transition filter blur", "blur"),
+							$d => __("Apply a blur filter effect during the slide transition animation. This option sets the width of the blur in pixels, with a value of 0 representing no blur.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidefilter_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#slidechangefilterb"
+							)
+						),
+						'grayscale_filter' => array(
+							$t => __("Slider Transition Grayscale Filter", 'revsliderhelp'),
+							$h => "slideChange.filter.g",
+							$k => array("slide transition", "slide animation", "animation filter grayscale", "transition filter grayscale", "grayscale"),
+							$d => __("Apply a grayscale filter effect that reduces color during the slide transition animation. The minimum value is 0, which represents full color, and the maximum value is 100, which represents entirely black and white.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidefilter_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#slidechangefilterg"
+							)
+						),
+						'sephia_filter' => array(
+							$t => __("Slider Transition Sepia Filter", 'revsliderhelp'),
+							$h => "slideChange.filter.s",
+							$k => array("slide transition", "slide animation", "animation filter sephia", "transition filter sephia", "sephia", "sepia", "animation filter sepia", "transition filter sepia"),
+							$d => __("Apply a sepia color filter effect during the slide transition animation. The minimum value is 0, which represents full color, and the maximum value is 100, which represents full sepia.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidefilter_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#slidechangefilters"
+							)
+						),
+						'brightness_filter' => array(
+							$t => __("Slider Transition Brightness Filter", 'revsliderhelp'),
+							$h => "slideChange.filter.h",
+							$k => array("slide transition", "slide animation", "animation filter brightness", "transition filter brightness", "brightness"),
+							$d => __("Apply a brightness filter effect during the slide transition animation. A value of 100% represents normal brightness. Any value higher than 100% increases brightness, while values lower than 100% decrease brightness.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidefilter_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#slidechangefilterh"
+							)
+						),
+						'contrast_filter' => array(
+							$t => __("Slider Transition Contrast Filter", 'revsliderhelp'),
+							$h => "slideChange.filter.c",
+							$k => array("slide transition", "slide animation", "animation filter contrast", "transition filter contrast", "contrast"),
+							$d => __("Apply a contrast filter effect during the slide transition animation. The maximum value is 100, which represents normal contrast, and values 99 or lower reduce contrast, down to a minimum of 0.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidefilter_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#slidechangefilterc"
+							)
+						),
+						'invert_filter' => array(
+							$t => __("Slider Transition Invert Filter", 'revsliderhelp'),
+							$h => "slideChange.filter.i",
+							$k => array("slide transition", "slide animation", "animation filter invert", "transition filter invert", "contrast"),
+							$d => __("Apply a color inversion filter effect during the slide transition animation. The minimum value is 0, which represents normal color, and the maximum value is 100, which represents completely inverted color.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slidefilter_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#slidechangefilteri"
+							)
+						),
+						
+						
+						
+						'ddd_effect' => array(
+							$t => __("Slider Transition 3D Effect", 'revsliderhelp'),
+							$h => "slideChange.d3.f",
+							$k => array("slide transition", "slide animation", "animation 3d effect", "3d effect", "3d"),
+							$d => __("Apply a 3D effect to the entire slide during the transition animation. Available effects are: 'Cube', 'In Cube', 'Fly Out Throw In', and 'Clap Out Clap In'", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slide3d_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_3d_effect"
+							)
+						),
+
+						'ddd_direction' => array(
+							$t => __("3D Effect Direction", 'revsliderhelp'),
+							$h => "slideChange.d3.d",
+							$k => array("slide transition", "slide animation", "animation 3d effect", "3d effect", "3d"),
+							$d => __("Choose whether the 3D effect animation should move in a horizontal or vertical direction", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slide3d_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_3d_dir"
+							)
+						),
+
+						'ddd_ease' => array(
+							$t => __("3D Effect Ease", 'revsliderhelp'),
+							$h => "slideChange.d3.e",
+							$k => array("slide transition", "slide animation", "animation 3d effect", "3d effect", "3d"),
+							$d => __("The easing equation for the 3D effect animation, i.e. how the animation speeds up and slows down during playback", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slide3d_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_3d_ease"
+							)
+						),
+
+						'ddd_slidecolor' => array(
+							$t => __("3D Effect Side Color", 'revsliderhelp'),
+							$h => "slideChange.d3.c",
+							$k => array("slide transition", "slide animation", "animation 3d effect", "3d effect", "3d"),
+							$d => __("When using the 3D animated 'Cube' or 'In Cube' 3D effect, this option sets the color of any visible side of the animated cube that isn't already covered by slide content.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slide3d_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#s_wall_bg_color"
+							)
+						),
+
+						'ddd_depth' => array(
+							$t => __("3D Effect Depth", 'revsliderhelp'),
+							$h => "slideChange.d3.z",
+							$k => array("slide transition", "slide animation", "animation 3d effect", "3d effect", "3d"),
+							$d => __("This option defines how much depth a 3D animated effect appears to have. Increasing the value make the far side of the effect look further away.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slide3d_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#slidechangedddz"
+							)
+						),
+
+						'ddd_room' => array(
+							$t => __("3D Effect Room Rotation", 'revsliderhelp'),
+							$h => "slideChange.d3.t",
+							$k => array("slide transition", "slide animation", "animation 3d effect", "3d effect", "3d"),
+							$d => __("Adds rotation on an additional axis when using a 3D animation effect, i.e. if '3D Effect Direction' is set to horizontal this option will also add vertical rotation, and vice versa. Either positive or negative values can be used in order to create rotation in one direction or the other.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slide3d_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#slidechangedddroom"
+							)
+						),
+
+						'ddd_flyrotation' => array(
+							$t => __("Fly Out Throw In Z Rotation", 'revsliderhelp'),
+							$h => "slideChange.d3.fz",
+							$k => array("slide transition", "slide animation", "animation 3d effect", "3d effect", "3d"),
+							$d => __("When using the 'Fly Out Throw In' 3D effect animation, this option controls rotation of the slide on the Z axis. In other words, setting either a positive or negative value can make the slide look like it's rolling or swinging in from the side.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slide3d_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_3d_fdz"
+							)
+						),
+
+						'ddd_flyout' => array(
+							$t => __("Fly Out Distance", 'revsliderhelp'),
+							$h => "slideChange.d3.fdo",
+							$k => array("slide transition", "slide animation", "animation 3d effect", "3d effect", "3d"),
+							$d => __("When using the 'Fly Out Throw In' 3D effect animation, this option controls the distance by which the slide will appear to 'fly out' of the container. At a value of 1 the slide will move a distance equal to 100% of its own width / height. At 2 it moves a distance twice its own size, at 0.5 the distance will be half its own size, and so on.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slide3d_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_3d_fdo"
+							)
+						),
+
+						'ddd_flyin' => array(
+							$t => __("Throw In Distance", 'revsliderhelp'),
+							$h => "slideChange.d3.fdi",
+							$k => array("slide transition", "slide animation", "animation 3d effect", "3d effect", "3d"),
+							$d => __("When using the 'Fly Out Throw In' 3D effect animation, this option controls the distance by which the slide will appear to 'throw in' from outside the container. At a value of 1 the slide will move a distance equal to 100% of its own width / height. At 2 it moves a distance twice its own size, at 0.5 the distance will be half its own size, and so on.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slide3d_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sltrans_3d_fzi"
+							)
+						),
+
+						'ddd_shadowuse' => array(
+							$t => __("3D Shadow", 'revsliderhelp'),
+							$h => "slideChange.d3.su",
+							$k => array("slide transition", "slide animation", "animation 3d effect", "3d effect", "3d", "shadow"),
+							$d => __("Toggle a shadow effect on 3D transition animations. The shadow appears as a gradient that runs across the face of the slider while its moving, and helps enhance the feeling of depth.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slide3d_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sl_ddd_shadow_u"
+							)
+						),
+
+						'ddd_shadowmin' => array(
+							$t => __("3D Shadow Minimum Strength", 'revsliderhelp'),
+							$h => "slideChange.d3.smi",
+							$k => array("slide transition", "slide animation", "animation 3d effect", "3d effect", "3d", "shadow"),
+							$d => __("The minimum strength of the 3D animation's shadow at its lightest point. Can be set between 0 and 0.5.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slide3d_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sl_ddd_shadow_min"
+							)
+						),
+
+						'ddd_shadowmax' => array(
+							$t => __("3D Shadow Maximum Strength", 'revsliderhelp'),
+							$h => "slideChange.d3.sma",
+							$k => array("slide transition", "slide animation", "animation 3d effect", "3d effect", "3d", "shadow"),
+							$d => __("The maximum strength of the 3D animation's shadow at its darkest point. Can be set between 0.5 and 1.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slide3d_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sl_ddd_shadow_max"
+							)
+						),
+
+						'ddd_shadowlimit' => array(
+							$t => __("3D Shadow Limitation", 'revsliderhelp'),
+							$h => "slideChange.d3.sl",
+							$k => array("slide transition", "slide animation", "animation 3d effect", "3d effect", "3d", "shadow"),
+							$d => __("The limit on the distance between minimum and maximum strength points in the shadow. A value of 1 creates a gradient across the full slide, 0.5 creates gradient across 50% of the slide, and so on.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slide3d_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#sl_ddd_shadow_limit"
+							)
+						),
+
+						'ddd_shadowcolor' => array(
+							$t => __("3D Shadow Color", 'revsliderhelp'),
+							$h => "slideChange.d3.sc",
+							$k => array("slide transition", "slide animation", "animation 3d effect", "3d effect", "3d", "shadow"),
+							$d => __("The color of the 3D shadow effect.", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2, #slide3d_ts_wrapbrtn > div", 
+								$st => '#form_slidebg_transition', 
+								$f => "#slide_shadow_color"
 							)
 						)
 					),

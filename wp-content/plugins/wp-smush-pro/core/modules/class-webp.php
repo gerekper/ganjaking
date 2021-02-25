@@ -81,7 +81,7 @@ class WebP extends Abstract_Module {
 	 * @return bool
 	 */
 	public function is_configured( $force = false ) {
-		if ( isset( $this->is_configured ) && ! $force ) {
+		if ( ! is_null( $this->is_configured ) && ! $force ) {
 			return $this->is_configured;
 		}
 
@@ -101,16 +101,25 @@ class WebP extends Abstract_Module {
 		$this->create_test_files();
 		$udir       = $this->get_upload_dir();
 		$test_image = $udir['upload_url'] . '/smush-webp-test.png';
-		$args       = array(
-			'headers' => array(
-				'Accept' => 'image/webp',
-			),
-		);
 
-		$response     = wp_remote_get( $test_image, $args );
-		$content_type = wp_remote_retrieve_header( $response, 'content-type' );
+		$args['headers']['Accept'] = 'image/webp';
 
-		return ( 'image/webp' === $content_type );
+		// Add support for basic auth in WPMU DEV staging.
+		if ( isset( $_SERVER['WPMUDEV_HOSTING_ENV'] ) && 'staging' === $_SERVER['WPMUDEV_HOSTING_ENV'] && isset( $_SERVER['PHP_AUTH_USER'] ) ) {
+			$args['headers']['Authorization'] = 'Basic ' . base64_encode( $_SERVER['PHP_AUTH_USER'] . ':' . $_SERVER['PHP_AUTH_PW'] );
+		}
+
+		$response = wp_remote_get( $test_image, $args );
+		$code     = wp_remote_retrieve_response_code( $response );
+
+		// Check the image's format when the request was successful.
+		if ( 200 === $code ) {
+			$content_type = wp_remote_retrieve_header( $response, 'content-type' );
+			return 'image/webp' === $content_type;
+		}
+
+		// Return the response code and message otherwise.
+		return new \WP_Error( $code, wp_remote_retrieve_response_message( $response ) );
 	}
 
 	/**
@@ -201,12 +210,17 @@ class WebP extends Abstract_Module {
 			restore_current_blog();
 		}
 
-		$uplood_rel_path = substr( $upload['basedir'], strlen( ABSPATH ) );
-		$webp_rel_path   = substr( dirname( $upload['basedir'] ), strlen( ABSPATH ) ) . '/smush-webp';
+		// Getting relative paths.
+		// Environments like Flywheel have an ABSPATH that's not used in the paths.
+		$path_base = false !== strpos( $upload['basedir'], ABSPATH ) ? ABSPATH : dirname( WP_CONTENT_DIR );
+
+		$upload_rel_path = substr( $upload['basedir'], strlen( $path_base ) );
+		$upload_rel_path = ltrim( $upload_rel_path, '/' );
+		$webp_rel_path   = dirname( $upload_rel_path ) . '/smush-webp';
 
 		$upload_dir_info = array(
 			'upload_path'     => $upload['basedir'],
-			'upload_rel_path' => $uplood_rel_path,
+			'upload_rel_path' => $upload_rel_path,
 			'upload_url'      => $upload['baseurl'],
 			'webp_path'       => dirname( $upload['basedir'] ) . '/smush-webp',
 			'webp_rel_path'   => $webp_rel_path,
@@ -329,7 +343,7 @@ class WebP extends Abstract_Module {
 
 		// File path for original image.
 		if ( empty( $main_file ) ) {
-			$main_file = Helper::get_attached_file( $image_id );
+			$main_file = get_attached_file( $image_id );
 		}
 
 		// Not a supported image? Exit.
@@ -406,32 +420,6 @@ class WebP extends Abstract_Module {
 		if ( 'webp-deleted' === $show_message ) {
 			$message = __( 'WebP files were deleted successfully.', 'wp-smushit' );
 			echo '<div role="alert" id="wp-smush-webp-delete-all-notice" data-message="' . esc_attr( $message ) . '" class="sui-notice" aria-live="assertive"></div>';
-		}
-
-		// Notice pointing Bulk Smush tool to convert images to webp.
-		if ( $this->settings->get( 'webp_mod' ) && 'webp-toggled' === $show_message ) {
-			$message = sprintf(
-				/* translators: %1$s - opening link tag, %2$s - </a> */
-				esc_html__( 'Use the %1$sBulk Smush%2$s tool to convert all the images in your media library to WebP format. ', 'wp-smushit' ),
-				! is_multisite() ? '<a href="' . network_admin_url( 'admin.php?page=smush' ) . '">' : '',
-				! is_multisite() ? '</a>' : ''
-			);
-
-			if ( ! is_multisite() ) {
-				if ( ! $this->settings->get( 'auto' ) ) {
-					$message .= sprintf(
-						/* translators: %1$s - opening link tag, %2$s - </a> */
-						esc_html__( 'You can also enable %3$sAutomatic Compression%2$s to convert newly uploaded image files automatically going forward.', 'wp-smushit' ),
-						'<a href="' . network_admin_url( 'admin.php?page=smush' ) . '">',
-						'</a>',
-						'<a href="' . network_admin_url( 'admin.php?page=smush' ) . '#column-wp-smush-bulk">'
-					);
-				} else {
-					$message .= __( 'Newly uploaded images will be automatically converted to WebP format.', 'wp-smushit' );
-				}
-			}
-
-			echo '<div role="alert" id="wp-smush-webp-instructions-notice" data-message="' . esc_attr( $message ) . '" class="sui-notice" aria-live="assertive"></div>';
 		}
 	}
 

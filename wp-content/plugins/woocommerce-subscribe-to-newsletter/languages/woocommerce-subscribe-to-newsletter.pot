@@ -1,15 +1,15 @@
-# Copyright (C) 2020 Themesquad
+# Copyright (C) 2021 Themesquad
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Subscribe to Newsletter 2.9.1\n"
+"Project-Id-Version: WooCommerce Subscribe to Newsletter 2.9.3\n"
 "Report-Msgid-Bugs-To: "
 "https://github.com/woocommerce/woocommerce-subscribe-to-newsletter/issues\n"
-"POT-Creation-Date: 2020-09-07 09:42:01+00:00\n"
+"POT-Creation-Date: 2021-02-03 12:03:11+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
@@ -30,79 +30,79 @@ msgstr ""
 msgid "Select a list..."
 msgstr ""
 
-#: includes/class-wc-cm-integration.php:100
+#: includes/class-wc-cm-integration.php:99
 msgid "Unable to load data from Campaign Monitor - check your API key."
 msgstr ""
 
-#: includes/class-wc-cm-integration.php:126
-#: includes/class-wc-mailchimp-newsletter-integration.php:211
-#: includes/class-wc-mailpoet-integration.php:113
+#: includes/class-wc-cm-integration.php:125
+#: includes/class-wc-mailchimp-newsletter-integration.php:210
+#: includes/class-wc-mailpoet-integration.php:112
 msgid "Total subscribers"
 msgstr ""
 
-#: includes/class-wc-cm-integration.php:127
+#: includes/class-wc-cm-integration.php:126
 msgid "Subscribers today"
 msgstr ""
 
-#: includes/class-wc-cm-integration.php:128
+#: includes/class-wc-cm-integration.php:127
 msgid "Subscribers this month"
 msgstr ""
 
-#: includes/class-wc-cm-integration.php:129
+#: includes/class-wc-cm-integration.php:128
 msgid "Unsubscribes this month"
 msgstr ""
 
-#: includes/class-wc-cm-integration.php:135
+#: includes/class-wc-cm-integration.php:134
 msgid "Unable to load stats from Campaign Monitor"
 msgstr ""
 
-#: includes/class-wc-cm-integration.php:185
+#: includes/class-wc-cm-integration.php:184
 msgid "Unexpected response from Campaign Monitor API."
 msgstr ""
 
-#: includes/class-wc-cm-integration.php:187
+#: includes/class-wc-cm-integration.php:186
 msgid "HTTP status code %s with following response: %s."
 msgstr ""
 
-#: includes/class-wc-cm-integration.php:191
+#: includes/class-wc-cm-integration.php:190
 msgid "Email subscription failed (Campaign Monitor)"
 msgstr ""
 
-#: includes/class-wc-mailchimp-newsletter-integration.php:171
+#: includes/class-wc-mailchimp-newsletter-integration.php:170
 #. translators: 1: list code 2: list error
 msgid "Unable to load lists() from MailChimp: (%1$s) %2$s"
 msgstr ""
 
-#: includes/class-wc-mailchimp-newsletter-integration.php:206
+#: includes/class-wc-mailchimp-newsletter-integration.php:205
 msgid "Unable to load stats from MailChimp"
 msgstr ""
 
-#: includes/class-wc-mailchimp-newsletter-integration.php:212
-#: includes/class-wc-mailpoet-integration.php:114
+#: includes/class-wc-mailchimp-newsletter-integration.php:211
+#: includes/class-wc-mailpoet-integration.php:113
 msgid "Unsubscribes"
 msgstr ""
 
-#: includes/class-wc-mailchimp-newsletter-integration.php:213
+#: includes/class-wc-mailchimp-newsletter-integration.php:212
 msgid "Subscribers since last newsletter"
 msgstr ""
 
-#: includes/class-wc-mailchimp-newsletter-integration.php:214
+#: includes/class-wc-mailchimp-newsletter-integration.php:213
 msgid "Unsubscribes since last newsletter"
 msgstr ""
 
-#: includes/class-wc-mailchimp-newsletter-integration.php:263
+#: includes/class-wc-mailchimp-newsletter-integration.php:262
 msgid "Email subscription failed (Mailchimp)"
 msgstr ""
 
-#: includes/class-wc-mailpoet-integration.php:164
+#: includes/class-wc-mailpoet-integration.php:163
 msgid "No error messages were returned by MailPoet."
 msgstr ""
 
-#: includes/class-wc-mailpoet-integration.php:169
+#: includes/class-wc-mailpoet-integration.php:168
 msgid "Email subscription failed (MailPoet)"
 msgstr ""
 
-#: includes/class-wc-mailpoet-integration.php:170
+#: includes/class-wc-mailpoet-integration.php:169
 msgid "Error:"
 msgstr ""
 
@@ -142,7 +142,7 @@ msgstr ""
 msgid "Newsletter subscribers"
 msgstr ""
 
-#: woocommerce-subscribe-to-newsletter.php:311
+#: woocommerce-subscribe-to-newsletter.php:315
 msgid "User subscribed to newsletter via PayPal Express return page."
 msgstr ""
 
@@ -363,7 +363,7 @@ msgstr ""
 #: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:109
 #: includes/class-wc-newsletter-subscription-checkout.php:79
 #: includes/class-wc-newsletter-subscription-register.php:42
-#: woocommerce-subscribe-to-newsletter.php:240
+#: woocommerce-subscribe-to-newsletter.php:244
 msgctxt "subscription checkbox label"
 msgid "Subscribe to our newsletter"
 msgstr ""

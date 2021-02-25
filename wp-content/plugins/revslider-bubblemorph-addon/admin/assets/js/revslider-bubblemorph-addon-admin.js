@@ -71,6 +71,9 @@
 		
 		//EXTEND LAYER TYPES
 		function extendLayerTypes() {
+			RVS.S.layerIcons = jQuery.extend(true, RVS.S.layerIcons, {
+				bubblemorph: "bubble_chart"
+			});
 			
 			RVS.F.extendLayerTypes({ 
 			

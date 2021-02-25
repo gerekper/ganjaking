@@ -36,7 +36,9 @@
 				//AJAX TO LOAD CONTENT
 				RVS.F.ajaxRequest("wp_ajax_get_values_"+slug, {}, function(response){						
 					if (response.data) 
-						setContent($.parseJSON(response.data));							
+						try{
+							setContent(JSON.parse(response.data));							
+						}catch(e){}
 					else
 						setContent();	
 					RVS.F.updateSelectsWithSpecialOptions();					
@@ -54,7 +56,7 @@
 		
 		function updateInputFieldDependencies() {
 			RVS.F.initOnOff(addon.configpanel);
-			addon.configpanel.find('.tos2.nosearchbox').select2({
+			addon.configpanel.find('.tos2.nosearchbox').select2RS({
 				minimumResultsForSearch:"Infinity",
 				placeholder:"Select From List"
 			});				

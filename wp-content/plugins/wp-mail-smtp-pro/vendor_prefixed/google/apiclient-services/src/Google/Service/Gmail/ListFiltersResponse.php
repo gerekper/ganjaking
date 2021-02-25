@@ -23,14 +23,14 @@ class Google_Service_Gmail_ListFiltersResponse extends \WPMailSMTP\Vendor\Google
     protected $filterType = 'Google_Service_Gmail_Filter';
     protected $filterDataType = 'array';
     /**
-     * @param Google_Service_Gmail_Filter
+     * @param Google_Service_Gmail_Filter[]
      */
     public function setFilter($filter)
     {
         $this->filter = $filter;
     }
     /**
-     * @return Google_Service_Gmail_Filter
+     * @return Google_Service_Gmail_Filter[]
      */
     public function getFilter()
     {

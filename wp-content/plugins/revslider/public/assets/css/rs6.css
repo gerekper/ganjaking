@@ -325,7 +325,7 @@ rs-module { position:relative;overflow:hidden;display: block; }
 
 rs-module.disableVerticalScroll { -ms-touch-action: pan-x; touch-action: pan-x; }
 
-/*rs-carousel-wrap,*/
+
 rs-pzimg-wrap,
 rs-sbg-effectwrap,
 rs-sbg { display: block; pointer-events: none  }
@@ -363,6 +363,8 @@ rs-module img{
 	padding:0px;
 	border:none;
 }
+
+
 
 rs-module .no-slides-text{font-weight:bold;text-align:center;padding-top:80px;}
 
@@ -495,6 +497,18 @@ rs-layer-wrap,
 rs-mask-wrap,
 rs-cbg-mask-wrap
  { transform-style:flat;}
+
+
+/* ANY SAFARI NEEDS IN CAROUSEL SOME HELP TO AVOID FLICKERING, LOVELY....*/ 
+ @media not all and (min-resolution:.001dpcm) { 
+ 	@media {
+		 rs-carousel-wrap rs-layer-wrap,
+		 rs-carousel-wrap rs-loop-wrap {
+		 	-webkit-backface-visibility: hidden;
+			-webkit-transform-style: preserve-3d;
+		 }
+	}
+}
 
  
 .safarifix rs-layer-wrap {
@@ -631,9 +645,10 @@ rs-column rs-layer { vertical-align: inherit }*/
 rs-layer.rs-nointeraction,
 .rs-layer.rs-nointeraction { 
 	pointer-events: none !important
+
 }
 
-rs-static-layers	{position:absolute; z-index:101; top:0px;left:0px; display: block; width: 100%;height: 100%; pointer-events: none;overflow: hidden}
+rs-static-layers	{position:absolute; z-index:101; top:0px;left:0px; display: block; width: 100%;height: 100%; pointer-events: none; overflow: hidden}
 
 /* new static layers position option */
 rs-static-layers.rs-stl-back {	
@@ -659,8 +674,6 @@ rs-static-layers.rs-stl-back {
 img.tp-slider-alternative-image	{	
 	width:100%; height:auto;
 }
-
-
 
 
 /******************************
@@ -1105,6 +1118,8 @@ rs-progress-vis 				{ 	display:block;width: 100%;height: 100%; position: absolut
 	/*zoom:1;*/
 }
 
+/*rs-carousel-wrap rs-layer.rs-layer img {   transform: translateZ(-0.0001px)}*/
+
 
 .rs-layer.slidelink { cursor:pointer;width:100%;height:100%; }
 .rs-layer.slidelink a {	width:100%;height:100%;display:block}
@@ -1426,7 +1441,17 @@ rs-pzimg-wrap { display: block; }
 body.rtl .rs-pzimg {left: 0 !important}
 
 
+/*******************************
+	- CUBE & CANVAS SETTINGS -
+********************************/
+.rs_fake_cube {transform-style:preserve-3d}
+.rs_fake_cube,
+.rs_fake_cube_wall { position:absolute; -webkit-backface-visibility:hidden; backface-visibility:hidden; left:0px; top:0px; z-index: 0 }
 
+.rs-builder-mode rs-sbg-wrap canvas,
+rs-sbg canvas { overflow: hidden; z-index: 5; -webkit-backface-visibility:hidden; backface-visibility:hidden;}
+
+			
 /***************************
 	- 3D SHADOW MODE -
 ***************************/

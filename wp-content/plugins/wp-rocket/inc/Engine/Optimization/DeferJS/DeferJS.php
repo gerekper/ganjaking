@@ -148,6 +148,10 @@ class DeferJS {
 				continue;
 			}
 
+			if ( preg_match( '/(application\/ld\+json)/i', $inline_js[0] ) ) {
+				continue;
+			}
+
 			if ( empty( $inline_exclusions ) || preg_match( "/({$inline_exclusions})/msi", $inline_js['content'] ) ) {
 				continue;
 			}
@@ -220,6 +224,7 @@ class DeferJS {
 			'static.mailerlite.com/data/(.*).js',
 			'cdn.voxpow.com/static/libs/v1/(.*).js',
 			'cdn.voxpow.com/media/trackers/js/(.*).js',
+			'use.typekit.net',
 		];
 
 		$exclude_defer_js = array_unique( array_merge( $exclude_defer_js, $this->options->get( 'exclude_defer_js', [] ) ) );

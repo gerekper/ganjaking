@@ -138,7 +138,7 @@ class MeprStripeCtrl extends MeprBaseCtrl
       }
 
       // Prevent duplicate charges if the user is already subscribed
-      if($usr->is_already_subscribed_to($product->ID) && !$product->simultaneous_subscriptions && !$product->allow_renewal) {
+      if($usr->is_already_subscribed_to($product->ID) && !$product->simultaneous_subscriptions && !$product->allow_renewal && !$product->allow_gifting) {
         wp_send_json(array(
           'error' => sprintf(
             /* translators: %1$s: open link tag, %2$s: close link tag */

@@ -25,14 +25,14 @@ class Google_Service_Gmail_ListMessagesResponse extends \WPMailSMTP\Vendor\Googl
     public $nextPageToken;
     public $resultSizeEstimate;
     /**
-     * @param Google_Service_Gmail_Message
+     * @param Google_Service_Gmail_Message[]
      */
     public function setMessages($messages)
     {
         $this->messages = $messages;
     }
     /**
-     * @return Google_Service_Gmail_Message
+     * @return Google_Service_Gmail_Message[]
      */
     public function getMessages()
     {

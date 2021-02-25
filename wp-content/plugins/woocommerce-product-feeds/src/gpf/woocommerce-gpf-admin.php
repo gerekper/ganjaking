@@ -21,6 +21,7 @@ class WoocommerceGpfAdmin {
 	 * @var WoocommerceGpfCacheStatus
 	 */
 	protected $cache_status;
+
 	/**
 	 * @var WoocommerceProductFeedsFeedImageManager
 	 */
@@ -143,15 +144,26 @@ class WoocommerceGpfAdmin {
 	 * @return  array          The revised list of plugin links.
 	 */
 	public function add_settings_link( $links ) {
-		$settings_url  = add_query_arg(
+		$settings_url = add_query_arg(
 			[
 				'page' => 'wc-settings',
 				'tab'  => 'gpf',
 			],
 			admin_url( 'admin.php' )
 		);
-		$settings_link = sprintf( '<a href="%s">%s</a>', $settings_url, __( 'Settings', 'woocommerce_gpf' ) );
-		$links[]       = $settings_link;
+		$links[]      = sprintf(
+			'<a href="%s">%s</a>',
+			esc_attr( $settings_url ),
+			__( 'Settings', 'woocommerce_gpf' )
+		);
+		$links[]      = sprintf(
+			'<a href="https://docs.woocommerce.com/document/google-product-feed-setting-up-your-feed-google-merchant-centre/">%s</a>',
+			__( 'Set up guide', 'woocommerce_gpf' )
+		);
+		$links[]      = sprintf(
+			'<a href="https://docs.woocommerce.com/document/google-product-feed-troubleshooting/">%s</a>',
+			__( 'Troubleshooting', 'woocommerce_gpf' )
+		);
 
 		return $links;
 	}
@@ -846,89 +858,6 @@ class WoocommerceGpfAdmin {
 	}
 
 	/**
-	 * Used to render the drop-down of valid gender options
-	 *
-	 * @access private
-	 *
-	 * @param string $key The key being processed
-	 * @param string $current_data The current value of this key
-	 *
-	 * @return string
-	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
-	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-	 */
-	private function render_gender( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
-		$variables = $this->default_field_variables( $key, $loop_idx );
-		$variables = $this->default_selected_choices(
-			array( 'male', 'female', 'unisex' ),
-			$current_data,
-			$variables
-		);
-
-		return $this->template_loader->get_template_with_variables(
-			'woo-gpf',
-			'field-row-default-gender',
-			$variables
-		);
-	}
-
-	/**
-	 * Used to render the drop-down of valid energy efficiency class options
-	 *
-	 * @access private
-	 *
-	 * @param string $key The key being processed
-	 * @param string $current_data The current value of this key
-	 *
-	 * @return string
-	 *
-	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
-	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-	 */
-	private function render_energy_efficiency_class( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
-		$variables = $this->default_field_variables( $key, $loop_idx );
-		$variables = $this->default_selected_choices(
-			array( 'A+++', 'A++', 'A+', 'A', 'B', 'C', 'D', 'E', 'F', 'G' ),
-			$current_data,
-			$variables
-		);
-
-		return $this->template_loader->get_template_with_variables(
-			'woo-gpf',
-			'field-row-default-energy-efficiency-label',
-			$variables
-		);
-	}
-
-	/**
-	 * Used to render the drop-down of valid conditions
-	 *
-	 * @access private
-	 *
-	 * @param string $key The key being processed
-	 * @param string $current_data The current value of this key
-	 *
-	 * @return string
-	 *
-	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
-	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-	 */
-	private function render_condition( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
-		$variables = $this->default_field_variables( $key, $loop_idx );
-		$variables = $this->default_selected_choices(
-			array( 'new', 'refurbished', 'used' ),
-			$current_data,
-			$variables
-		);
-
-		return $this->template_loader->get_template_with_variables(
-			'woo-gpf',
-			'field-row-default-condition',
-			$variables
-		);
-	}
-
-	/**
 	 * Render large text box for title field.
 	 *
 	 * @access private
@@ -972,35 +901,6 @@ class WoocommerceGpfAdmin {
 	private function render_description( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		return '';
 	}
-
-	/**
-	 * Used to render the drop-down of valid availability
-	 *
-	 * @access private
-	 *
-	 * @param string $key The key being processed
-	 * @param string $current_data The current value of this key
-	 *
-	 * @return string
-	 *
-	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
-	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-	 */
-	private function render_availability( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
-		$variables = $this->default_field_variables( $key, $loop_idx );
-		$variables = $this->default_selected_choices(
-			array( 'in stock', 'available for order', 'preorder', 'out of stock' ),
-			$current_data,
-			$variables
-		);
-
-		return $this->template_loader->get_template_with_variables(
-			'woo-gpf',
-			'field-row-default-availability',
-			$variables
-		);
-	}
-
 
 	/**
 	 * Let people choose whether a product is_bundle.
@@ -1055,102 +955,6 @@ class WoocommerceGpfAdmin {
 		);
 	}
 
-
-	/**
-	 * Used to render the drop-down of valid age groups
-	 *
-	 * @access private
-	 *
-	 * @param string $key The key being processed
-	 * @param string $current_data The current value of this key
-	 *
-	 * @return string
-	 *
-	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
-	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-	 */
-	private function render_age_group( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
-		$variables = $this->default_field_variables( $key, $loop_idx );
-		$variables = $this->default_selected_choices(
-			array( 'newborn', 'infant', 'toddler', 'kids', 'adult' ),
-			$current_data,
-			$variables
-		);
-
-		return $this->template_loader->get_template_with_variables(
-			'woo-gpf',
-			'field-row-default-age-group',
-			$variables
-		);
-	}
-
-	/**
-	 * Used to render the drop-down of valid pickup methods
-	 *
-	 * @access private
-	 *
-	 * @param string $key The key being processed
-	 * @param string $current_data The current value of this key
-	 *
-	 * @return string
-	 *
-	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
-	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-	 */
-	private function render_pickup_method( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
-		$variables = $this->default_field_variables( $key, $loop_idx );
-		$variables = $this->default_selected_choices(
-			[ 'buy', 'reserve', 'ship to store', 'not supported' ],
-			$current_data,
-			$variables
-		);
-
-		return $this->template_loader->get_template_with_variables(
-			'woo-gpf',
-			'field-row-default-pickup-method',
-			$variables
-		);
-	}
-
-	/**
-	 * Used to render the drop-down of valid pickup SLAs
-	 *
-	 * @access private
-	 *
-	 * @param string $key The key being processed
-	 * @param string $current_data The current value of this key
-	 *
-	 * @return string
-	 *
-	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
-	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-	 */
-	private function render_pickup_sla( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
-		$variables = $this->default_field_variables( $key, $loop_idx );
-		$variables = $this->default_selected_choices(
-			[
-				'same day',
-				'next day',
-				'1-day',
-				'2-day',
-				'3-day',
-				'4-day',
-				'5-day',
-				'6-day',
-				'7-day',
-				'multi-week',
-			],
-			$current_data,
-			$variables
-		);
-
-		return $this->template_loader->get_template_with_variables(
-			'woo-gpf',
-			'field-row-default-pickup-sla',
-			$variables
-		);
-	}
-
 	/**
 	 * Used to render the drop-down of valid size types
 	 *
@@ -1164,73 +968,16 @@ class WoocommerceGpfAdmin {
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
-	private function render_size_type( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
-		$variables = $this->default_field_variables( $key, $loop_idx );
-		$variables = $this->default_selected_choices(
-			array( 'regular', 'petite', 'plus', 'big and tall', 'maternity' ),
-			$current_data,
-			$variables
+	private function render_generic_select( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
+		$variables            = $this->default_field_variables( $key, $loop_idx );
+		$variables['options'] = $this->build_select_options(
+			$this->product_fields[ $key ]['options_callback'](),
+			$current_data
 		);
 
 		return $this->template_loader->get_template_with_variables(
 			'woo-gpf',
-			'field-row-default-size-type',
-			$variables
-		);
-	}
-
-	/**
-	 * Used to render the drop-down of valid size systems
-	 *
-	 * @access private
-	 *
-	 * @param string $key The key being processed
-	 * @param string $current_data The current value of this key
-	 *
-	 * @return string
-	 *
-	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
-	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-	 */
-	private function render_size_system( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
-		$variables = $this->default_field_variables( $key, $loop_idx );
-		$variables = $this->default_selected_choices(
-			array( 'US', 'UK', 'EU', 'AU', 'BR', 'CN', 'FR', 'DE', 'IT', 'JP', 'MEX' ),
-			$current_data,
-			$variables
-		);
-
-		return $this->template_loader->get_template_with_variables(
-			'woo-gpf',
-			'field-row-default-size-system',
-			$variables
-		);
-	}
-
-	/**
-	 * Used to render the drop-down of valid "adult" options
-	 *
-	 * @access private
-	 *
-	 * @param string $key The key being processed
-	 * @param string $current_data The current value of this key
-	 *
-	 * @return string
-	 *
-	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
-	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-	 */
-	private function render_adult( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
-		$variables = $this->default_field_variables( $key, $loop_idx );
-		$variables = $this->default_selected_choices(
-			array( 'yes', 'no' ),
-			$current_data,
-			$variables
-		);
-
-		return $this->template_loader->get_template_with_variables(
-			'woo-gpf',
-			'field-row-default-adult',
+			'field-row-default-generic-select',
 			$variables
 		);
 	}
@@ -1440,39 +1187,6 @@ class WoocommerceGpfAdmin {
 		}
 
 		return $output;
-	}
-
-	/**
-	 * Used to render the drop-down of values for google_funded_promotion_eligibility.
-	 *
-	 * @access private
-	 *
-	 * @param string $key The key being processed
-	 * @param string $current_data The current value of this key
-	 *
-	 * @return string
-	 *
-	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
-	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-	 */
-	private function render_google_funded_promotion_eligibility(
-		$key,
-		$current_data = null,
-		$placeholder = null,
-		$loop_idx = null
-	) {
-		$variables = $this->default_field_variables( $key, $loop_idx );
-		$variables = $this->default_selected_choices(
-			array( 'all', 'none' ),
-			$current_data,
-			$variables
-		);
-
-		return $this->template_loader->get_template_with_variables(
-			'woo-gpf',
-			'field-row-default-google-funded-promotion-eligibility',
-			$variables
-		);
 	}
 
 	private function get_google_taxonomy_locale() {
@@ -2058,5 +1772,27 @@ class WoocommerceGpfAdmin {
 		}
 		$this->settings = $_POST['woocommerce_gpf_config'];
 		update_option( 'woocommerce_gpf_config', $this->settings );
+	}
+
+	/**
+	 * @param $options
+	 *
+	 * @return string
+	 */
+	private function build_select_options( $options, $current_data ) {
+		$result = '';
+		foreach ( $options as $value => $description ) {
+			$result .= $this->template_loader->get_template_with_variables(
+				'woo-gpf',
+				'field-row-default-generic-select-option',
+				[
+					'value'       => $value,
+					'description' => $description,
+					'selected'    => ( $current_data === $value ) ? 'selected' : '',
+				]
+			);
+		}
+
+		return $result;
 	}
 }

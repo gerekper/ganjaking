@@ -13,6 +13,7 @@
  * @type string             $theme_location Theme location to be used. Must be registered with register_nav_menu()
  *                                          in order to be selectable by the user.
  * @type bool               $is_disable     If true - menu do not show
+ *                                          }
  *
  * @return string  if $gm_echo is true then return empty string (by default)
  */
@@ -539,17 +540,7 @@ function groovyMenu( $args = array() ) {
 				<div class="gm-container">';
 
 	if ( 5 === $header_style ) {
-		$output_html .= '<span class="gm-menu-btn--expanded">
-						<span class="gm-menu-btn__inner">';
-
-		$menu_icon = 'fa fa-bars';
-		if ( ! empty( $styles->getGlobal( 'misc_icons', 'menu_icon' ) ) ) {
-			$menu_icon = $styles->getGlobal( 'misc_icons', 'menu_icon' );
-		}
-
-		$output_html .= '	<i class="' . esc_attr( $menu_icon ) . '"></i>
-					</span>
-					</span>';
+		$output_html .= '<div class="gm-menu-btn--expanded hamburger"><div class="hamburger-box"><div class="hamburger-inner"></div></div></div>';
 	}
 
 
@@ -597,6 +588,12 @@ function groovyMenu( $args = array() ) {
 		$logo_arr['mobile-alt']        = $styles->getGlobal( 'logo', 'logo_mobile_alt' ) ? : $logo_arr['mobile'];
 		$logo_arr['sticky-mobile']     = $styles->getGlobal( 'logo', 'logo_sticky_mobile' ) ? : $logo_arr['mobile'];
 		$logo_arr['sticky-alt-mobile'] = $styles->getGlobal( 'logo', 'logo_sticky_alt_mobile' ) ? : $logo_arr['sticky-mobile'];
+
+		if ( 5 === $header_style && $groovyMenuSettings['sidebarExpandingMenuSecondLogoEnable'] ) {
+			if ( ! empty( $groovyMenuSettings['sidebarExpandingMenuSecondLogo'] ) ) {
+				$logo_arr['expanded'] = $styles->getGlobal( 'logo', $groovyMenuSettings['sidebarExpandingMenuSecondLogo'] ) ? : $logo_arr['default'];
+			}
+		}
 
 		if ( $groovyMenuSettings['useAltLogoAtTop'] ) {
 			unset( $logo_arr['default'] );
@@ -662,16 +659,43 @@ function groovyMenu( $args = array() ) {
 				}
 			}
 
-			$img_src_wpml = esc_url( apply_filters( 'wpml_translate_single_string', $img_src, 'groovy-menu', 'Global settings - Logo image file URL (id:' . $attach_id . ')' ) );
-			if ( ! empty( $img_src_wpml ) ) {
-				$img_src = $img_src_wpml;
-			}
-
 			// Image Alt attribute.
 			if ( $groovyMenuSettings['logoShowAlt'] ) {
 				$img_alt = $groovyMenuSettings['logoShowTitleAsAlt'] ? get_the_title( $attach_id ) : get_post_meta( $attach_id, '_wp_attachment_image_alt', true );
 				$img_alt = esc_attr( $img_alt );
 			}
+
+			// Filter for WPML logo image SRC changes.
+			$img_src_wpml = esc_url( apply_filters( 'wpml_translate_single_string', $img_src, 'groovy-menu', 'Global settings - Logo image file URL (id:' . $attach_id . ')' ) );
+			if ( ! empty( $img_src_wpml ) ) {
+				$img_src = $img_src_wpml;
+			}
+
+
+			/**
+			 * Can change logo image src by key.
+			 *
+			 * @param string $img_src   Full source URL for logo image.
+			 * @param string $key       Logo image key. Possible keys:
+			 *                          'default', 'alt', 'sticky', 'sticky-alt', 'mobile', 'mobile-alt', 'sticky-mobile', 'sticky-alt-mobile'.
+			 * @param string $attach_id id by WP Media Library.
+			 *
+			 * @since 2.4.4
+			 */
+			$img_src = apply_filters( 'gm_logo_change_src_by_key', $img_src, $key, $attach_id );
+
+			/**
+			 * Can change logo image alt by key.
+			 *
+			 * @param string $img_src   Full source URL for logo image.
+			 * @param string $key       Logo image key. Possible keys:
+			 *                          'default', 'alt', 'sticky', 'sticky-alt', 'mobile', 'mobile-alt', 'sticky-mobile', 'sticky-alt-mobile'.
+			 * @param string $attach_id id by WP Media Library.
+			 *
+			 * @since 2.4.4
+			 */
+			$img_alt = apply_filters( 'gm_logo_change_alt_by_key', $img_alt, $key, $attach_id );
+
 
 			switch ( $key ) {
 				case 'default':
@@ -777,8 +801,15 @@ function groovyMenu( $args = array() ) {
 	$output_html .= ob_get_clean();
 
 
-	$output_html .= '<div class="gm-main-menu-wrapper">
-						<nav id="gm-main-menu">';
+	$output_html .= '<div class="gm-main-menu-wrapper">';
+
+	if ( 2 === $header_style && $groovyMenuSettings['minimalisticMenuFullscreen'] ) {
+		$output_html .= '<span class="gm-fullscreen-close"><svg height="32" width="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+    <path fill-rule="evenodd" d="M 16 32 C 7.16 32 0 24.84 0 16 C 0 7.16 7.16 0 16 0 C 24.84 0 32 7.16 32 16 C 32 24.84 24.84 32 16 32 Z M 16 2 C 8.27 2 2 8.27 2 16 C 2 23.73 8.27 30 16 30 C 23.73 30 30 23.73 30 16 C 30 8.27 23.73 2 16 2 Z M 17.35 16 C 17.35 16 20.71 19.37 20.71 19.37 C 21.09 19.74 21.09 20.34 20.71 20.71 C 20.34 21.09 19.74 21.09 19.37 20.71 C 19.37 20.71 16 17.35 16 17.35 C 16 17.35 12.63 20.71 12.63 20.71 C 12.26 21.09 11.66 21.09 11.29 20.71 C 10.91 20.34 10.91 19.74 11.29 19.37 C 11.29 19.37 14.65 16 14.65 16 C 14.65 16 11.29 12.63 11.29 12.63 C 10.91 12.26 10.91 11.66 11.29 11.29 C 11.66 10.91 12.26 10.91 12.63 11.29 C 12.63 11.29 16 14.65 16 14.65 C 16 14.65 19.37 11.29 19.37 11.29 C 19.74 10.91 20.34 10.91 20.71 11.29 C 21.09 11.66 21.09 12.26 20.71 12.63 C 20.71 12.63 17.35 16 17.35 16 Z" />
+</svg></span>';
+	}
+
+	$output_html .= '<nav id="gm-main-menu">';
 
 
 	ob_start();
@@ -1118,6 +1149,10 @@ function groovyMenu( $args = array() ) {
 		$output_html .= '<div class="gm-mobile-postwrap"></div>';
 		$output_html .= '</aside>';
 	} // end of if $show_mobile_menu.
+
+	if ( $groovyMenuSettings['dropdownOverlay'] ) {
+		$output_html .= '<div class="gm-dropdown-overlay"></div>';
+	}
 
 	ob_start();
 	/**

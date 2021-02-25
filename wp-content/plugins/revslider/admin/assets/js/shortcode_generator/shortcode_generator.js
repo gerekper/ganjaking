@@ -180,6 +180,10 @@ RVS.SC = RVS.SC === undefined ? {} : RVS.SC;
 					revslider_react.props.setAttributes(obj);
 					revslider_react.forceUpdate();
 				break;
+				case 'divi':
+					revslider_divi.props._onChange(revslider_divi.props.name, RVS.SC.BLOCK.content);
+					revslider_divi.setState(RVS.SC.BLOCK);
+				break;
 				default:break;
 			}
 		},
@@ -219,15 +223,15 @@ RVS.SC = RVS.SC === undefined ? {} : RVS.SC;
 			
 		},
 		
-		openBlockSettings : function(type,sc){
-			
+		openBlockSettings : function(type,sc){			
+			if (RVS===undefined || RVS.SC===undefined) return;
 			if (RVS.ENV.activated!==true) RVS.F.showRegisterSliderInfo();
 			if (sc===undefined && RVS.SC.BLOCK===undefined) return;			
 			RVS.SC.BLOCK = sc!==undefined ?  RVS.SC.scToBlock(sc) : RVS.SC.BLOCK===undefined || RVS.SC.BLOCK.text===undefined ? RVS.SC.scToBlock(RVS.SC.BLOCK.content) : RVS.SC.scToBlock(RVS.SC.BLOCK.text);
 
 			if (RVS!==undefined && RVS.SC!==undefined && RVS.SC.BLOCK!==undefined && RVS.SC.BLOCK.alias.length>0) {	
 				RVS.SC.type = type;
-				//Ajax Call to get the original Layout
+				//Ajax Call to get the original Layout				
 			      RVS.F.ajaxRequest('getSliderSizeLayout', { alias : RVS.SC.BLOCK.alias }, function(response) {    
 			      	
 			          if(response.success) {  
@@ -236,8 +240,8 @@ RVS.SC = RVS.SC === undefined ? {} : RVS.SC;
 			          		 RVS.SC.BLOCK.origlayout = response.layout;
 			          		 RVS.SC.BLOCK.slidertitle = response.slidertitle!==undefined ? response.slidertitle : response.sliderTitle!==undefined ? response.sliderTitle : response.title!==undefined ? response.title : RVS.SC.BLOCK.slidertitle;			  
 			                if(typeof RVS.SC.BLOCK.layout === "undefined" || RVS.SC.BLOCK.layout==="") RVS.SC.BLOCK.layout = RVS.SC.BLOCK.origlayout;
-			          	}          			             
-			            RVS.F.showWaitAMinute({fadeIn:0,text:RVS_LANG.loadingcontent});
+			          	}          				          			             
+			            RVS.F.showWaitAMinute({fadeOut:0,text:RVS_LANG.loadingcontent});
 			            RVS.C.RBBS = jQuery('#rbm_blocksettings');				
 						RVS.F.initOnOff(RVS.C.RBBS);
 						RVS.F.RSDialog.create({modalid:'#rbm_blocksettings', bgopacity:0.5});

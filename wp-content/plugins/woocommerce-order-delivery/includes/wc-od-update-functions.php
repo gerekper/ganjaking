@@ -155,3 +155,42 @@ function wc_od_update_160_rename_delivery_date_field_setting() {
 function wc_od_update_160_db_version() {
 	WC_OD_Install::update_db_version( '1.6.0' );
 }
+
+/**
+ * Deletes empty delivery time frame values from the order metadata.
+ */
+function wc_od_update_186_delete_empty_time_frames_from_orders() {
+	global $wpdb;
+
+	// phpcs:disable WordPress.DB.SlowDBQuery
+
+	$wpdb->delete(
+		$wpdb->postmeta,
+		array(
+			'meta_key'   => '_delivery_time_frame',
+			'meta_value' => '',
+		)
+	);
+
+	$wpdb->delete(
+		$wpdb->postmeta,
+		array(
+			'meta_key'   => '_delivery_time_frame',
+			'meta_value' => maybe_serialize(
+				array(
+					'time_from' => '',
+					'time_to'   => '',
+				)
+			),
+		)
+	);
+
+	// phpcs:enable WordPress.DB.SlowDBQuery
+}
+
+/**
+ * Update DB Version.
+ */
+function wc_od_update_186_db_version() {
+	WC_OD_Install::update_db_version( '1.8.6' );
+}

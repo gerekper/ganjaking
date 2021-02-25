@@ -3,12 +3,12 @@
   Plugin Name: WP Reset PRO
   Plugin URI: https://wpreset.com/
   Description: Easily undo any change on the site by restoring a snapshot, or reset the entire site or any of its parts to the default values.
-  Version: 5.80
+  Version: 5.81
   Author: WebFactory Ltd
   Author URI: https://www.webfactoryltd.com/
   Text Domain: wp-reset
 
-  Copyright 2015 - 2020  Web factory Ltd  (email: wpreset@webfactoryltd.com)
+  Copyright 2015 - 2021  Web factory Ltd  (email: wpreset@webfactoryltd.com)
 
   This program is NOT free software.
 
@@ -275,6 +275,10 @@ class WP_Reset
 
         $def_options = array('tools_snapshots' => false, 'events_snapshots' => false, 'snapshots_autoupload' => false, 'autosnapshots_autoupload' => false, 'snapshots_upload_delete' => false, 'scheduled_snapshots' => false, 'prune_snapshots' => false, 'prune_snapshots_details' => 'days-5', 'adminbar_snapshots' => true, 'optimize_tables' => false, 'snapshots_size_alert' => 1000, 'throttle_ajax' => false, 'fix_datetime' => false, 'alternate_db_connection' => false, 'ajax_snapshots_export' => false, 'cloud_snapshots' => false, 'onboarding_done' => false, 'whitelabel' => false, 'debug' => false, 'cloud_service' => 'none', 'cloud_data' => array('dropbox' => false, 'gdrive' => false, 'icedrive' => false));
         
+        if(!array_key_exists('cloud_data', $options['options'])){
+            $options['options']['cloud_data'] = array('dropbox' => false, 'gdrive' => false, 'icedrive' => false);
+        }
+
         if(!array_key_exists('icedrive', $options['options']['cloud_data'])){
             $options['options']['cloud_data']['icedrive'] = false;
         }
@@ -6359,7 +6363,7 @@ class WP_Reset
      *
      * @return null
      */
-    private function __clone()
+    public function __clone()
     {
     }
 
@@ -6369,7 +6373,7 @@ class WP_Reset
      *
      * @return null
      */
-    private function __sleep()
+    public function __sleep()
     {
     }
 
@@ -6379,7 +6383,7 @@ class WP_Reset
      *
      * @return null
      */
-    private function __wakeup()
+    public function __wakeup()
     {
     }
 } // WP_Reset class

@@ -102,6 +102,8 @@ class MeprRemindersHelper {
       )
     );
 
+    $lookup = MeprHooks::apply_filters( 'mepr_reminder_lookup', $lookup, $reminder );
+
     return $lookup[ $reminder->trigger_event][$reminder->trigger_timing][$field];
   }
 

@@ -3,19 +3,19 @@
  * Plugin Name: WooCommerce Subscribe to Newsletter
  * Plugin URI: https://woocommerce.com/products/newsletter-subscription/
  * Description: Allow users to subscribe to your newsletter via the checkout page and via a sidebar widget. Supports MailChimp and Campaign Monitor and also MailChimp ecommerce360 tracking. Go to WooCommerce > Settings > Newsletter to configure the plugin.
- * Version: 2.9.1
+ * Version: 2.9.3
  * Author: Themesquad
  * Author URI: https://themesquad.com
  * Requires at least: 4.4
- * Tested up to: 5.4
+ * Tested up to: 5.6
  * WC requires at least: 2.6
- * WC tested up to: 4.3
+ * WC tested up to: 5.0
  * Woo: 18605:9b4ddf6c5bcc84c116ede70d840805fe
  *
  * Text Domain: woocommerce-subscribe-to-newsletter
  * Domain Path: /languages/
  *
- * Copyright: © 2020 WooCommerce.
+ * Copyright: © 2021 WooCommerce.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -95,7 +95,7 @@ if ( is_woocommerce_active() ) {
 			 * @since 2.5.0
 			 */
 			public function define_constants() {
-				$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_VERSION', '2.9.1' );
+				$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_VERSION', '2.9.3' );
 				$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_PATH', plugin_dir_path( __FILE__ ) );
 				$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_URL', plugin_dir_url( __FILE__ ) );
 				$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_BASENAME', plugin_basename( __FILE__ ) );
@@ -207,6 +207,10 @@ if ( is_woocommerce_active() ) {
 			 * Registers custom widgets.
 			 */
 			public function init_widget() {
+				if ( ! class_exists( 'WC_Widget', false ) ) {
+					include_once WC_ABSPATH . '/includes/abstracts/abstract-wc-widget.php';
+				}
+
 				include_once dirname( __FILE__ ) . '/includes/class-wc-widget-subscribe-to-newsletter.php';
 
 				register_widget( 'WC_Widget_Subscribe_To_Newsletter' );

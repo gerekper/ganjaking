@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.6
-Stable tag: 2.4.3
+Stable tag: 2.4.7
 Requires PHP: 7.0
 License: Themeforest Split Licence
 License URI: -
@@ -66,9 +66,37 @@ Source: https://select2.github.io/
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
 
+= 2.4.7 =
+* Add: New setting for nav-menu item "Mega menu dropdown custom width". Is apply for container of menu.
+* Add: New setting for nav-menu item "Frozen link". Disabled opening link at click, other features remains working.
+* Add: New setting for Mega Menu "Highlight the titles of the megamenu on hover state and active". It's apply for mega menu titles that contain links. Highlight the title with colors according to the settings as for usual menu items.
+* Add: Added setting that allow choose animation for Side Icon (hamburger) for the Expanding sidebar menu type.
+* Fix: Fixed visualization of late transition of the sticky menu to its normal state.
+* Fix: The default logo position is shifted below the Side icon in the Expanded menu type.
+* Fix: Added setting for the size of the stroke line thickness, padding and background color for the Side icon (hamburger) in the Expanded menu type. The settings are located in Styles > Side icon.
+* Fix: Take into account 0 line width for Side border & Top level menu bottom border in Expanded menu type.
+* Fix: Improved animation speed when dividing lines appear in Top level menu items and animation of changing logos in Expanded menu type.
+
+= 2.4.6 =
+* Add: Added Fullscreen menu type, the settings are placed in Minimalistic menu section.
+* Add: New setting "Use another Logo image for open state of menu" for Expanding menu type.
+* Fix: Improved style compatibility for some themes with CSS Reset.
+
+= 2.4.5 =
+* Improve: The code of Groovy Menu has been optimized to work with large menus.
+* Fix: The bug that prevents the Groovy Menu normal working when using several plugins for minify JS code and caching site pages has been fixed.
+
+= 2.4.4 =
+* Add: New feature is added "Page overlay when menu drops down".
+* Add: Added new drop drown appearance style - "Slide from left / right".
+* Add: New WordPress filter for the ability to dynamically change the Logo image.
+* Fix: Add ID prefix for mobile nav-menu items. Prevent "The ID is not unique" issue.
+* Fix: Issue with arise horizontal scroll when enabled setting "Mega menu container wide" in case integration inside builder such as Divi builder.
+* Fix: Changed JS preset initialization method. It can prevent an error that occurs in rare cases with complex integrations.
+
 = 2.4.3 =
 * Add: Added new setting "Enable to handle anchor links for 'Menu blocks' content", placed in "General -> Scrollbar & One page" section. Is allow to enable anchor links in "Menu blocks" and smooth scroll.
-* Fix: Fixed work of JS scripts in case multiple integrations methods of Groovy menu at the same time
+* Fix: Fixed work of JS scripts in case multiple integrations methods of Groovy menu at the same time.
 
 = 2.4.2 =
 * Fix: Prevent double initialization for JavaScript from Groovy Menu. Such a case could have been with custom integration.

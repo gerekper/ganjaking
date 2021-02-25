@@ -258,6 +258,11 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 					$input_template = "<label for='%s[]'><input type='checkbox' %s value='%s' name='%s[]' %s /> %s</label>";
 
 					if(empty($choice['label']) && is_array($choice)) {
+						if(in_array($choice_value, array('post_types', 'taxonomies'))) {
+							$group_labela = array('post_types' => __('Post types', 'permalink-manager'), 'taxonomies' => __('Taxonomies', 'permalink-manager'));
+							$fields .= sprintf('<p>%s</p>', $group_labela[$choice_value]);
+						}
+
 						foreach($choice as $sub_choice_value => $sub_choice) {
 							$label = (!empty($sub_choice['label'])) ? $sub_choice['label'] : $sub_choice;
 							$atts = (!empty($value[$choice_value]) && in_array($sub_choice_value, $value[$choice_value])) ? "checked='checked'" : "";
@@ -1030,11 +1035,17 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		if(defined('PERMALINK_MANAGER_PRO') && PERMALINK_MANAGER_PRO == true) {
 			$is_pro = true;
 		} else {
-			$is_pro = true;
+			$is_pro = false;
 		}
 
 		// Check if license is active
-		
+		if(class_exists('Permalink_Manager_Pro_Functions')) {
+			$exp_date = Permalink_Manager_Pro_Functions::get_expiration_date(true);
+
+			$is_pro = ($exp_date > 1) ? false : true;
+		} else {
+			$is_pro = false;
+		}
 
 		return $is_pro;
 	}

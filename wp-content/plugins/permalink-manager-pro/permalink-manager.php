@@ -4,7 +4,7 @@
 * Plugin Name:       Permalink Manager Pro
 * Plugin URI:        https://permalinkmanager.pro?utm_source=plugin
 * Description:       Advanced plugin that allows to set-up custom permalinks (bulk editors included), slugs and permastructures (WooCommerce compatible).
-* Version:           2.2.9.4
+* Version:           2.2.9.6
 * Author:            Maciej Bis
 * Author URI:        http://maciejbis.net/
 * License:           GPL-2.0+
@@ -19,13 +19,13 @@
 if (!defined('WPINC')) {
 	die;
 }
-update_site_option('permalink-manager-licence-key', 'nullmasterinbabiato');
+
 if(!class_exists('Permalink_Manager_Class')) {
 
 	// Define the directories used to load plugin files.
 	define( 'PERMALINK_MANAGER_PLUGIN_NAME', 'Permalink Manager' );
 	define( 'PERMALINK_MANAGER_PLUGIN_SLUG', 'permalink-manager' );
-	define( 'PERMALINK_MANAGER_VERSION', '2.2.9.3' );
+	define( 'PERMALINK_MANAGER_VERSION', '2.2.9.6' );
 	define( 'PERMALINK_MANAGER_FILE', __FILE__ );
 	define( 'PERMALINK_MANAGER_DIR', untrailingslashit(dirname(__FILE__)) );
 	define( 'PERMALINK_MANAGER_BASENAME', plugin_basename(__FILE__));
@@ -58,6 +58,7 @@ if(!class_exists('Permalink_Manager_Class')) {
 			$classes = array(
 				'core' => array(
 					'helper-functions' => 'Permalink_Manager_Helper_Functions',
+					'uri-functions' => 'Permalink_Manager_URI_Functions',
 					'uri-functions-post' => 'Permalink_Manager_URI_Functions_Post',
 					'uri-functions-tax' => 'Permalink_Manager_URI_Functions_Tax',
 					'admin-functions' => 'Permalink_Manager_Admin_Functions',
@@ -180,6 +181,7 @@ if(!class_exists('Permalink_Manager_Class')) {
 						'post_types' => array('attachment', 'tribe_events')
 					),
 					'deep_detect' => 1,
+					'ignore_drafts' => 0,
 					'edit_uris_cap' => 'publish_posts',
 				),
 				'licence' => array()

@@ -79,6 +79,8 @@ class RsLiquidEffectSlideFront extends RevSliderFunctions {
 			
 		}
 		
+		$use = $this->get_val($addOn, 'use', 'default');
+		
 		$map_ar = $this->get_val($addOn, 'map', array());
 		$animation_ar = $this->get_val($addOn, 'animation', array());
 		$transition_ar = $this->get_val($addOn, 'transition', array());
@@ -107,7 +109,7 @@ class RsLiquidEffectSlideFront extends RevSliderFunctions {
 		}
 		
 		$settings = array(
-			
+			'use' => $use,
 			'image' => $imagemap,
 			'imagesize' => $imagesize,
 			

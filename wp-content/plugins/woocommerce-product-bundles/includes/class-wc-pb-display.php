@@ -242,6 +242,7 @@ class WC_PB_Display {
 			'tax_display_shop'               => esc_attr( get_option( 'woocommerce_tax_display_shop' ) ),
 			'calc_taxes'                     => esc_attr( get_option( 'woocommerce_calc_taxes' ) ),
 			'photoswipe_enabled'             => current_theme_supports( 'wc-product-gallery-lightbox' ) ? 'yes' : 'no',
+			'zoom_enabled'                   => 'no',
 			'force_min_max_qty_input'        => 'yes'
 		) );
 

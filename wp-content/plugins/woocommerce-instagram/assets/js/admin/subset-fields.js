@@ -36,12 +36,12 @@ jQuery( function( $ ) {
 			var that = this;
 
 			$.each( this.subsets, function( key ) {
-				$( '#' + key + '_option' ).change( function() {
+				$( '#' + key + '_option' ).on( 'change', function() {
 					that.subsetToggle( $( this ) );
 					that.setSubsetOption( key, $( this ).val() );
-				}).change();
+				}).trigger( 'change' );
 
-				$( '#specific_' + key + ', #all_except_' + key ).change( function() {
+				$( '#specific_' + key + ', #all_except_' + key ).on( 'change', function() {
 					var option = $( this ).attr( 'id' ).replace( '_' + key, '' );
 
 					if ( option === that.subsets[ key ].option ) {

@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @package     WooCommerce Smart Coupons/Templates
  *
- * @version     1.1.1
+ * @version     1.2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,9 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<label for="credit_called">
 				<?php
 				if ( ! empty( $currency_symbol ) ) {
-					echo stripslashes( $smart_coupon_store_gift_page_text ) . ' (' . $currency_symbol . ')'; // phpcs:ignore
+					echo wp_kses_post( stripslashes( $smart_coupon_store_gift_page_text ) . ' (' . $currency_symbol . ')' ); // phpcs:ignore
 				} else {
-					echo stripslashes( $smart_coupon_store_gift_page_text ); // phpcs:ignore
+					echo wp_kses_post( stripslashes( $smart_coupon_store_gift_page_text ) ); // phpcs:ignore
 				}
 				?>
 			</label>

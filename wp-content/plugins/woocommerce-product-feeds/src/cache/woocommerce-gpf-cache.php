@@ -201,10 +201,13 @@ class WoocommerceGpfCache {
 		}
 		$pending = as_get_scheduled_actions(
 			[
-				'hook'   => 'woocommerce_product_feeds_cache_rebuild_product',
-				'args'   => [ $post_id ],
-				'status' => \ActionScheduler_Store::STATUS_PENDING,
-			]
+				'hook'     => 'woocommerce_product_feeds_cache_rebuild_product',
+				'args'     => [ $post_id ],
+				'status'   => \ActionScheduler_Store::STATUS_PENDING,
+				'per_page' => 1,
+				'orderby'  => 'none',
+			],
+			'ids'
 		);
 		if ( empty( $pending ) ) {
 			as_schedule_single_action(
@@ -224,10 +227,13 @@ class WoocommerceGpfCache {
 		}
 		$pending = as_get_scheduled_actions(
 			[
-				'hook'   => 'woocommerce_product_feeds_cache_clear_product',
-				'args'   => [ $post_id ],
-				'status' => \ActionScheduler_Store::STATUS_PENDING,
-			]
+				'hook'     => 'woocommerce_product_feeds_cache_clear_product',
+				'args'     => [ $post_id ],
+				'status'   => \ActionScheduler_Store::STATUS_PENDING,
+				'per_page' => 1,
+				'orderby'  => 'none',
+			],
+			'ids'
 		);
 		if ( empty( $pending ) ) {
 			as_schedule_single_action(

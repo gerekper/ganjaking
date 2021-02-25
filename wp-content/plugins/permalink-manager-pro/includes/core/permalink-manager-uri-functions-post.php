@@ -476,7 +476,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 				}
 
 				if(($old_uri != $new_uri) || ($old_post_name != $new_post_name) && !(empty($new_uri))) {
-					$permalink_manager_uris[$row['ID']] = $new_uri;
+					$permalink_manager_uris[$row['ID']] = trim($new_uri, '/');
 					$updated_array[] = array('item_title' => $row['post_title'], 'ID' => $row['ID'], 'old_uri' => $old_uri, 'new_uri' => $new_uri, 'old_slug' => $old_slug, 'new_slug' => $new_slug);
 					$updated_slugs_count++;
 				}
@@ -626,6 +626,9 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		// Check if post type is disabled
 		if(Permalink_Manager_Helper_Functions::is_disabled($post->post_type, 'post_type')) { return $html; }
 
+		// Ignore drafts
+		if(!empty($permalink_manager_options["general"]["ignore_drafts"]) && !empty($post->post_status) && $post->post_status == 'draft') { return $html; }
+
 		// Stop the hook (if needed)
 		$show_uri_editor = apply_filters("permalink_manager_hide_uri_editor_post_{$post->post_type}", true);
 		if(!$show_uri_editor) { return $html; }
@@ -735,6 +738,9 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		// Check if post type is allowed
 		if(empty($post_object->post_type) || Permalink_Manager_Helper_Functions::is_disabled($post_object->post_type, 'post_type')) { return $post_id; };
 
+		// Exclude drafts
+		if(!empty($permalink_manager_options["general"]["ignore_drafts"]) && !empty($post_object->post_status) && $post_object->post_status == 'draft') { return $post_id; }
+
 		// Stop the hook (if needed)
 		$allow_new_uri = apply_filters("permalink_manager_allow_new_post_uri", true, $post_object);
 		if(!$allow_new_uri) { return $post_id; }
@@ -782,6 +788,9 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 
 		// Check if post type is allowed
 		if(empty($post->post_type) || Permalink_Manager_Helper_Functions::is_disabled($post->post_type, 'post_type')) { return $post_id; };
+
+		// Exclude drafts
+		if(!empty($permalink_manager_options["general"]["ignore_drafts"]) && !empty($post->post_status) && $post->post_status == 'draft') { return $post_id; }
 
 		// Stop the hook (if needed)
 		$allow_update_uri = apply_filters("permalink_manager_allow_update_post_uri", true, $post);
@@ -843,5 +852,3 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 	}
 
 }
-
-?>

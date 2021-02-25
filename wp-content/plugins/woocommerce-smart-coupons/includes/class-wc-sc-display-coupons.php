@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.5.0
+ * @version     1.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -69,6 +69,8 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 			add_action( 'wp_loaded', array( $this, 'maybe_enable_store_notice_for_coupon' ) );
 
 			add_action( 'wc_ajax_wc_sc_get_attached_coupons', array( $this, 'ajax_get_attached_coupons' ) );
+
+			add_filter( 'safecss_filter_attr_allow_css', array( $this, 'check_safecss' ), 20, 2 );
 
 		}
 
@@ -172,7 +174,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 						<?php
 				}
 				?>
-				<h3><?php echo __( stripslashes( $available_coupons_heading ), 'woocommerce-smart-coupons' ); // phpcs:ignore ?></h3>
+				<h3><?php echo esc_html__( stripslashes( $available_coupons_heading ), 'woocommerce-smart-coupons' ); // phpcs:ignore ?></h3>
 					<div id="sc-cc">
 						<div id="all_coupon_container" class="sc-coupons-list">
 				<?php
@@ -429,7 +431,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 			?>
 			<script type="text/javascript">
 				jQuery(function(){
-					let product_type = '<?php echo esc_js( $product_type ); ?>';
+					let product_type = decodeURIComponent( '<?php echo rawurlencode( (string) $product_type ); ?>' );
 
 					function reload_attached_coupons( product_id ) {
 						if ( product_id != '' && product_id != undefined ) {
@@ -439,7 +441,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 								dataType: 'html',
 								data: {
 									product_id: product_id,
-									security: '<?php echo esc_js( wp_create_nonce( 'wc-sc-get-attached-coupons' ) ); ?>'
+									security: decodeURIComponent( '<?php echo rawurlencode( wp_create_nonce( 'wc-sc-get-attached-coupons' ) ); ?>' )
 								},
 								success: function( response ) {
 									if ( null !== response && typeof 'undefined' !== response && '' !== response ) {
@@ -458,7 +460,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 								jQuery('input[name=variation_id]').val( default_variation_id ).trigger( 'change' );
 							}
 						} else {
-							reload_attached_coupons( '<?php echo esc_js( $post->ID ); ?>' );
+							reload_attached_coupons( decodeURIComponent( '<?php echo rawurlencode( $post->ID ); ?>' ) );
 						}
 					}, 10);
 
@@ -652,6 +654,30 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 			echo wp_kses_post( $response );
 
 			die();
+		}
+
+		/**
+		 * Function to allow CSS from this plugin
+		 *
+		 * @param boolean $allow_css Whether the CSS in the test string is considered safe.
+		 * @param string  $css_test_string The CSS string to test.
+		 * @return boolean
+		 */
+		public function check_safecss( $allow_css = false, $css_test_string = '' ) {
+			$backtrace           = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS );  // phpcs:ignore
+			$backtrace_functions = wp_list_pluck( $backtrace, 'function' );
+			$allowed_css         = array(
+				'sc-color',
+			);
+			if ( false === $allow_css && in_array( 'sc_endpoint_content', $backtrace_functions, true ) ) {
+				foreach ( $allowed_css as $css ) {
+					if ( false !== strpos( $css_test_string, $css ) ) {
+						$allow_css = true;
+						break;
+					}
+				}
+			}
+			return $allow_css;
 		}
 
 		/**
@@ -921,7 +947,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 			}
 
 			?>
-			<style type="text/css"><?php echo $this->get_coupon_styles( $design ); // phpcs:ignore ?></style>
+			<style type="text/css"><?php echo esc_html( wp_strip_all_tags( $this->get_coupon_styles( $design ), true ) ); // phpcs:ignore ?></style>
 			<?php
 			if ( 'custom-design' !== $design ) {
 				if ( ! wp_style_is( 'smart-coupon-designs' ) ) {
@@ -1092,6 +1118,54 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 			}
 			?>
 			<?php
+
+			$allowed_html = wp_kses_allowed_html( 'post' );
+
+			$additional_allowed_html = array(
+				'svg'    => array(
+					'fill'                => true,
+					'viewbox'             => true,
+					'stroke'              => true,
+					'class'               => true,
+					'style'               => true,
+					'xmlns'               => true,
+					'preserveaspectratio' => true,
+				),
+				'path'   => array(
+					'stroke-linecap'  => true,
+					'stroke-linejoin' => true,
+					'stroke-width'    => true,
+					'd'               => true,
+					'fill'            => true,
+					'class'           => true,
+				),
+				'g'      => array(
+					'stroke-miterlimit' => true,
+					'stroke-linecap'    => true,
+					'stroke-linejoin'   => true,
+					'stroke-width'      => true,
+				),
+				'circle' => array(
+					'cx' => true,
+					'cy' => true,
+					'r'  => true,
+				),
+				'defs'   => array(),
+				'style'  => array(),
+			);
+
+			$additional_allowed_html = apply_filters( 'wc_sc_kses_allowed_html_for_coupon', $additional_allowed_html, array( 'source' => $this ) );
+
+			if ( ! empty( $additional_allowed_html ) ) {
+				foreach ( $additional_allowed_html as $tag => $attributes ) {
+					if ( ! empty( $attributes ) && array_key_exists( $tag, $allowed_html ) ) {
+						$allowed_html[ $tag ] = array_merge( $allowed_html[ $tag ], $attributes );
+					} else {
+						$allowed_html[ $tag ] = $attributes;
+					}
+				}
+			}
+
 			$smart_coupons_block = '';
 
 			if ( ! empty( $coupon_block_data['smart_coupons']['html'] ) ) {
@@ -1106,7 +1180,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 						<h4><?php echo ! empty( $store_credit_label['plural'] ) ? esc_html( ucwords( $store_credit_label['plural'] ) ) : esc_html__( 'Store Credits', 'woocommerce-smart-coupons' ); ?></h4>
 						<div id="sc-cc">
 							<div id="all_coupon_container" class="sc-coupons-list">
-							<?php echo $smart_coupons_block; // phpcs:ignore ?>
+							<?php echo wp_kses( $smart_coupons_block, $allowed_html ); // phpcs:ignore ?>
 							</div>
 						</div>
 					<?php
@@ -1134,7 +1208,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 						<h4><?php echo esc_html__( 'Discount Coupons', 'woocommerce-smart-coupons' ); ?></h4>
 						<div id="sc-cc">
 							<div id="all_coupon_container" class="sc-coupons-list">
-							<?php echo $valid_coupons_block; // phpcs:ignore ?>
+							<?php echo wp_kses( $valid_coupons_block, $allowed_html ); // phpcs:ignore ?>
 							</div>
 						</div>
 					</div>
@@ -1162,7 +1236,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 						<p><?php echo esc_html__( 'List of coupons which can not be used. The reason can be based on its usage restrictions, usage limits, expiry date.', 'woocommerce-smart-coupons' ); ?></p>
 						<div id="sc-cc">
 							<div id="all_coupon_container" class="sc-coupons-list">
-								<?php echo $invalid_coupons_block; // phpcs:ignore ?>
+								<?php echo wp_kses( $invalid_coupons_block, $allowed_html ); // phpcs:ignore ?>
 							</div>
 						</div>
 					</div>
@@ -1853,7 +1927,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 					text-align: right;
 				}
 			</style>
-			<style type="text/css"><?php echo $this->get_coupon_styles( $design ); // phpcs:ignore ?></style>
+			<style type="text/css"><?php echo esc_html( wp_strip_all_tags( $this->get_coupon_styles( $design ), true ) ); // phpcs:ignore ?></style>
 			<?php
 			if ( 'custom-design' !== $design ) {
 				if ( ! wp_style_is( 'smart-coupon-designs' ) ) {
@@ -1899,7 +1973,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 								$coupon_id = $coupon->get_id();
 								if ( empty( $coupon_id ) ) {
 									if ( true === $is_meta_box ) {
-										$coupon_post = get_page_by_title( $coupon_data['code'], ARRAY_A, 'shop_coupon' );
+										$coupon_post = ( function_exists( 'wpcom_vip_get_page_by_title' ) ) ? wpcom_vip_get_page_by_title( $coupon_data['code'], ARRAY_A, 'shop_coupon' ) : get_page_by_title( $coupon_data['code'], ARRAY_A, 'shop_coupon' ); // phpcs:ignore
 										if ( ! empty( $coupon_post['ID'] ) ) {
 											$coupon    = new WC_Coupon( $coupon_post['ID'] );
 											$coupon_id = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_id' ) ) ) ? $coupon->get_id() : 0;

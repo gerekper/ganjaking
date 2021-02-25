@@ -3,11 +3,11 @@
 Plugin Name: MemberPress Toolbox - Manual Member Approval
 Plugin URI: https://meprtoolbox.com/product/limit-signups/
 Description: Manually approve members before they can access protected content.
-Version: 1.1.5
+Version: 1.1.6
 Author: MemberPress Toolbox
 Author URI: https://meprtoolbox.com/
 Text Domain: mpmma
-Copyright: 2012-2020
+Copyright: 2012-2021
 */
 
 if(!defined('ABSPATH')) { die('You are not allowed to call this page directly.'); }
@@ -31,6 +31,8 @@ if(is_plugin_active('memberpress/memberpress.php')) {
 }
 
 /** CHANGELOG
+*** 1.1.6
+***** Fix for Stripe on Single Page Checkout
 *** 1.1.5
 ***** Fix small syntax typos
 *** 1.1.4
@@ -41,7 +43,7 @@ if(is_plugin_active('memberpress/memberpress.php')) {
 ***** Added logging of who updated member's status last
 *** 1.1.1
 ***** Added option to disable Held for Approval email
-***** Don't let rejected members login ... duh
+***** Don't let rejected members login
 *** 1.1.0
 ***** Added option for MP template wrap on emails
 ***** Added option to allow users to stay logged in (hide content)

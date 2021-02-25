@@ -83,6 +83,7 @@ class Png2jpg extends Abstract_Module {
 		}
 
 		if ( empty( $file ) ) {
+			// This downloads the file from S3 when S3 is enabled.
 			$file = Helper::get_attached_file( $id );
 		}
 
@@ -141,7 +142,7 @@ class Png2jpg extends Abstract_Module {
 	 *
 	 * @return bool Whether to convert the PNG or not
 	 */
-	private function should_convert( $id, $file ) {
+	private function should_convert( $id, $file = '' ) {
 		// Get the Transparency conversion settings.
 		$convert_png = $this->settings->get( 'png_to_jpg' );
 
@@ -149,20 +150,18 @@ class Png2jpg extends Abstract_Module {
 			return false;
 		}
 
-		// Whether to convert transparent images or not.
-		$transparent_settings = $this->settings->get_setting( WP_SMUSH_PREFIX . 'transparent_png', false );
-
-		$convert_transparent = $transparent_settings['convert'];
-
-		// Transparency Check.
 		$this->is_transparent = $this->is_transparent( $id, $file );
 
-		// If we are suppose to convert transparent images, skip is transparent check.
-		if ( $convert_transparent || ! $this->is_transparent ) {
-			return true;
+		// The $file is provided when it'll be used later on (when smushing),
+		// and it's empty when only checking whether an image should be converted.
+		if ( empty( $file ) ) {
+			// The local file is downloaded by $this->is_transparent() and
+			// isn't used anymore when we're only checking whether to convert.
+			Helper::remove_main_file_from_server_when_in_s3( $id );
 		}
 
-		return false;
+		// Only convert non-transparent images.
+		return ! $this->is_transparent;
 	}
 
 	/**
@@ -199,10 +198,6 @@ class Png2jpg extends Abstract_Module {
 		// Check if registered size is supposed to be converted or not.
 		if ( 'full' !== $size && WP_Smush::get_instance()->core()->mod->smush->skip_image_size( $size ) ) {
 			return false;
-		}
-
-		if ( empty( $file ) ) {
-			$file = Helper::get_attached_file( $id );
 		}
 
 		/** Whether to convert to jpg or not */
@@ -262,6 +257,16 @@ class Png2jpg extends Abstract_Module {
 		// Update File path, Attached File, GUID.
 		$meta = empty( $meta ) ? wp_get_attachment_metadata( $id ) : $meta;
 		$mime = Helper::get_mime_type( $n_file_path );
+
+		/**
+		 * If there's no fileinfo extension installed, the mime type will be returned as false.
+		 * As a fallback, we set it manually.
+		 *
+		 * @since 3.8.3
+		 */
+		if ( false === $mime ) {
+			$mime = 'conversion' === $o_type ? 'image/jpeg' : 'image/png';
+		}
 
 		// Update File Path, Attached file, Mime Type for Image.
 		if ( 'full' === $size_k ) {
@@ -435,7 +440,7 @@ class Png2jpg extends Abstract_Module {
 		$file = Helper::get_attached_file( $id );
 
 		// Whether to convert to jpg or not.
-		$should_convert = $this->can_be_converted( $id );
+		$should_convert = $this->can_be_converted( $id, 'full', '', $file );
 
 		if ( ! $should_convert ) {
 			return $meta;
@@ -446,8 +451,6 @@ class Png2jpg extends Abstract_Module {
 		if ( ! $this->is_transparent ) {
 			// Perform the conversion, and update path.
 			$result = $this->convert_to_jpg( $id, $file, $result['meta'] );
-		} else {
-			$result = $this->convert_tpng_to_jpg( $id, $file, $result['meta'] );
 		}
 
 		$savings['full'] = ! empty( $result['savings'] ) ? $result['savings'] : '';
@@ -471,9 +474,8 @@ class Png2jpg extends Abstract_Module {
 					if ( ! $this->is_transparent ) {
 						// Perform the conversion, and update path.
 						$result = $this->convert_to_jpg( $id, $s_file, $result['meta'], $size_k );
-					} else {
-						$result = $this->convert_tpng_to_jpg( $id, $s_file, $result['meta'], $size_k );
 					}
+
 					if ( ! empty( $result['savings'] ) ) {
 						$savings[ $size_k ] = $result['savings'];
 					}
@@ -498,113 +500,6 @@ class Png2jpg extends Abstract_Module {
 		update_post_meta( $id, WP_SMUSH_PREFIX . 'pngjpg_savings', $savings );
 
 		return $result['meta'];
-	}
-
-	/**
-	 * Convert a transparent PNG to JPG, with specified background color
-	 *
-	 * @param string $id    Attachment ID.
-	 * @param string $file  File Path Original Image.
-	 * @param string $meta  Attachment Meta.
-	 * @param string $size  Image size. set to 'full' by default.
-	 *
-	 * @return array Savings and Updated Meta
-	 */
-	private function convert_tpng_to_jpg( $id = '', $file = '', $meta = '', $size = 'full' ) {
-		$result = array(
-			'meta'    => $meta,
-			'savings' => '',
-		);
-
-		// Flag: Whether the image was converted or not.
-		if ( 'full' === $size ) {
-			$result['converted'] = false;
-		}
-
-		// If any of the values is not set.
-		if ( empty( $id ) || empty( $file ) || empty( $meta ) ) {
-			return $result;
-		}
-
-		// Get the File name without ext.
-		$n_file = pathinfo( $file );
-
-		if ( empty( $n_file['dirname'] ) || empty( $n_file['filename'] ) ) {
-			return $result;
-		}
-
-		$n_file['filename'] = wp_unique_filename( $n_file['dirname'], $n_file['filename'] . '.jpg' );
-
-		// Updated File name.
-		$n_file = path_join( $n_file['dirname'], $n_file['filename'] );
-
-		$transparent_png = $this->settings->get_setting( WP_SMUSH_PREFIX . 'transparent_png' );
-
-		/**
-		 * Filter Background Color for Transparent PNGs
-		 */
-		$bg = apply_filters( 'wp_smush_bg', $transparent_png['background'], $id, $size );
-
-		$quality = $this->get_quality( $file );
-
-		if ( $this->supports_imagick() ) {
-			try {
-				$imagick = new Imagick( $file );
-				$imagick->setImageBackgroundColor( new ImagickPixel( '#' . $bg ) );
-				$imagick->setImageAlphaChannel( 11 );
-				$imagick->setImageFormat( 'JPG' );
-				$imagick->setCompressionQuality( $quality );
-				$imagick->writeImage( $n_file );
-			} catch ( Exception $e ) {
-				error_log( 'WP Smush PNG to JPG Conversion error in ' . __FILE__ . ' at ' . __LINE__ . ' ' . $e->getMessage() );
-				return $result;
-			}
-		} else {
-			// Use GD for conversion.
-			// Get data from PNG.
-			$input = imagecreatefrompng( $file );
-
-			// Width and Height of image.
-			list( $width, $height ) = getimagesize( $file );
-
-			// Create New image.
-			$output = imagecreatetruecolor( $width, $height );
-
-			// set background color for GD.
-			$r = hexdec( '0x' . strtoupper( substr( $bg, 0, 2 ) ) );
-			$g = hexdec( '0x' . strtoupper( substr( $bg, 2, 2 ) ) );
-			$b = hexdec( '0x' . strtoupper( substr( $bg, 4, 2 ) ) );
-
-			// Set the Background color.
-			$rgb = imagecolorallocate( $output, $r, $g, $b );
-
-			// Fill Background.
-			imagefilledrectangle( $output, 0, 0, $width, $height, $rgb );
-
-			// Create New image.
-			imagecopy( $output, $input, 0, 0, 0, 0, $width, $height );
-
-			// Create JPG.
-			imagejpeg( $output, $n_file, $quality );
-		}
-
-		// Replace file, and get savings.
-		$result = $this->replace_file( $file, $result, $n_file );
-
-		if ( ! empty( $result['savings'] ) ) {
-			if ( 'full' === $size ) {
-				$result['converted'] = true;
-			}
-			// Update the File Details. and get updated meta.
-			$result['meta'] = $this->update_image_path( $id, $file, $n_file, $meta, $size );
-
-			/**
-			 *  Perform a action after the image URL is updated in post content
-			 */
-			do_action( 'wp_smush_image_url_changed', $id, $file, $n_file, $size );
-		}
-
-		return $result;
 	}
 
 	/**

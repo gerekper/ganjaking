@@ -233,5 +233,3 @@ if ( ! defined( 'WPINC' ) ) {
 	</div>
 
 </form>
-
-<?php $this->view( 'reset-settings', array(), 'modals' ); ?>

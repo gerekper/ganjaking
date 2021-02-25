@@ -29,7 +29,9 @@
 				RVS.F.ajaxRequest("wp_ajax_get_values_"+slug, {}, function(response){
 
 					if (response.data) 
-						setContent($.parseJSON(response.data));							
+						try{
+							setContent(JSON.parse(response.data));							
+						} catch(e){}
 					else
 						setContent();	
 					RVS.F.updateSelectsWithSpecialOptions();					

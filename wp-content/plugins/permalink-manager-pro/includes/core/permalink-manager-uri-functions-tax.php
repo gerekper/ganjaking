@@ -329,7 +329,7 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 				}
 
 				if(($old_uri != $new_uri) || ($old_term_name != $new_term_name)) {
-					$permalink_manager_uris[$term_permalink_id] = $new_uri;
+					$permalink_manager_uris[$term_permalink_id] = trim($new_uri, '/');
 					$updated_array[] = array('item_title' => $row['name'], 'ID' => $row['term_id'], 'old_uri' => $old_uri, 'new_uri' => $new_uri, 'old_slug' => $old_term_name, 'new_slug' => $new_term_name, 'tax' => $this_term->taxonomy);
 					$updated_slugs_count++;
 				}

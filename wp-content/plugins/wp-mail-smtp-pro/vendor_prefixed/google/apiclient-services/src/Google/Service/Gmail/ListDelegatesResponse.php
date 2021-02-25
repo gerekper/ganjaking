@@ -23,14 +23,14 @@ class Google_Service_Gmail_ListDelegatesResponse extends \WPMailSMTP\Vendor\Goog
     protected $delegatesType = 'Google_Service_Gmail_Delegate';
     protected $delegatesDataType = 'array';
     /**
-     * @param Google_Service_Gmail_Delegate
+     * @param Google_Service_Gmail_Delegate[]
      */
     public function setDelegates($delegates)
     {
         $this->delegates = $delegates;
     }
     /**
-     * @return Google_Service_Gmail_Delegate
+     * @return Google_Service_Gmail_Delegate[]
      */
     public function getDelegates()
     {

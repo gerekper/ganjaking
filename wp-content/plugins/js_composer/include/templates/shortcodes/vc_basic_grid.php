@@ -22,8 +22,8 @@ $class_to_filter = 'vc_grid-container vc_clearfix wpb_content_element ' . $this-
 $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
-wp_enqueue_script( 'prettyphoto' );
-wp_enqueue_style( 'prettyphoto' );
+wp_enqueue_script( 'lightbox2' );
+wp_enqueue_style( 'lightbox2' );
 
 if ( 'true' === $this->atts['btn_add_icon'] ) {
 	vc_icon_element_fonts_enqueue( $this->atts['btn_i_type'] );

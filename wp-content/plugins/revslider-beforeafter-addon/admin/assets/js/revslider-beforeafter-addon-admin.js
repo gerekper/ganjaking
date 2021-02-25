@@ -393,7 +393,7 @@
 		_h += '			<label_a>'+bricks.environment+'</label_a><select id="beaficon_layerlist" class="layerinput tos2 nosearchbox easyinit callEvent" data-evt="change_beaficon_layerlist" data-r="addOns.'+slug+'.position" data-theme="dark">';
 		_h += '			<option value="before">'+bricks.before+'</option>';
 		_h += '			<option value="after">'+bricks.after+'</option>';
-		_h += '			</select><linebreak/>';			
+		_h += '			</select><linebreak></linebreak>';			
 		_h += '</div>';
 
 		addon.forms.layergeneral.append($(_h));			
@@ -426,12 +426,12 @@
 		var _h = "";
 		_h += '<div  class="form_inner_header"><i class="material-icons">flip</i>'+bricks.general+'</div>';
 		_h += '<div class="collapsable" style="display:block !important">';	
-		_h += '		<label_a>'+bricks.active+'</label_a><input type="checkbox" class="slideinput easyinit"  data-r="addOns.'+slug+'.enable" data-showhide=".beforeafter_slide_settings" data-showhidedep="true" value="on" data-evt="beforeAfterEnabled"><linebreak/>';
+		_h += '		<label_a>'+bricks.active+'</label_a><input type="checkbox" class="slideinput easyinit"  data-r="addOns.'+slug+'.enable" data-showhide=".beforeafter_slide_settings" data-showhidedep="true" value="on" data-evt="beforeAfterEnabled"><linebreak></linebreak>';
 		_h += '		<div class="beforeafter_slide_settings">';
 		_h += '			<label_a>'+bricks.direction+'</label_a><select class="slideinput tos2 nosearchbox easyinit" data-r="addOns.'+slug+'.direction" data-theme="dark">';
 		_h += '			<option value="horizontal">'+bricks.horizontal+'</option>';
 		_h += '			<option value="vertical">'+bricks.vertical+'</option>';
-		_h += '			</select><linebreak/>';
+		_h += '			</select><linebreak></linebreak>';
 		_h += '<label_a>'+bricks.initsplit+'</label_a><input class="slideinput valueduekeyboard easyinit" data-numeric="true" data-allowed="%" data-r="addOns.'+slug+'.moveTo.#size#.v" data-min="0" data-max="100" type="text">';
 		_h += '</div>';
 		_h += '</div>';						
@@ -440,13 +440,13 @@
 		// ANIMATION
 		_h += '		<div  class="form_inner_header"><i class="material-icons">more_vert</i>'+bricks.initsettings+'</div>';
 		_h += '		<div class="collapsable" style="display:block !important">';	
-		_h += '			<label_a>'+bricks.delay+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="ms" data-r="addOns.'+slug+'.delay" data-min="0" data-max="5000" type="text"><linebreak/>';
-		_h += '			<label_a>'+bricks.duration+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="ms" data-r="addOns.'+slug+'.time" data-min="0" data-max="5000" type="text"><linebreak/>';
-		_h += '			<label_a>'+bricks.easing+'</label_a><select class="slideinput tos2 nosearchbox easyinit easingSelect" data-r="addOns.'+slug+'.easing" data-theme="dark"></select><linebreak/>';
+		_h += '			<label_a>'+bricks.delay+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="ms" data-r="addOns.'+slug+'.delay" data-min="0" data-max="5000" type="text"><linebreak></linebreak>';
+		_h += '			<label_a>'+bricks.duration+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="ms" data-r="addOns.'+slug+'.time" data-min="0" data-max="5000" type="text"><linebreak></linebreak>';
+		_h += '			<label_a>'+bricks.easing+'</label_a><select class="slideinput tos2 nosearchbox easyinit easingSelect" data-r="addOns.'+slug+'.easing" data-theme="dark"></select><linebreak></linebreak>';
 		_h += '			<label_a>'+bricks.animateout+'</label_a><select class="slideinput tos2 nosearchbox easyinit" data-r="addOns.'+slug+'.animateOut" data-theme="dark">';
 		_h += '			<option value="fade">'+bricks.fade+'</option>';
 		_h += '			<option value="collapse">'+bricks.collapse+'</option>';
-		_h += '			</select><linebreak/>';			
+		_h += '			</select><linebreak></linebreak>';			
 		_h += '		</div>';
 		
 		// TEASER						
@@ -457,40 +457,40 @@
 		_h += '			<option value="initial">'+bricks.teainitial+'</option>';
 		_h += '			<option value="infinite">'+bricks.tealoop+'</option>';
 		_h += '			<option value="once">'+bricks.teaonce+'</option>';
-		_h += '			</select><linebreak/>';
+		_h += '			</select><linebreak></linebreak>';
 		_h += '			<div class="beaf_teasersettings beaf_teasersettings_hide_val">';
 		_h += '				<label_a>'+bricks.animateout+'</label_a><select class="slideinput tos2 nosearchbox easyinit" data-r="addOns.'+slug+'.teaser.type" data-theme="dark">';
 		_h += '				<option value="repel">'+bricks.repel+'</option>';
 		_h += '				<option value="attract">'+bricks.attract+'</option>';
-		_h += '				</select><linebreak/>';			
-		_h += '				<label_a>'+bricks.distance+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.teaser.distance" data-min="0" data-max="2400" type="text"><linebreak/>';
-		_h += '				<label_a>'+bricks.speed+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="ms" data-r="addOns.'+slug+'.teaser.speed" data-min="0" data-max="5000" type="text"><linebreak/>';			
+		_h += '				</select><linebreak></linebreak>';			
+		_h += '				<label_a>'+bricks.distance+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.teaser.distance" data-min="0" data-max="2400" type="text"><linebreak></linebreak>';
+		_h += '				<label_a>'+bricks.speed+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="ms" data-r="addOns.'+slug+'.teaser.speed" data-min="0" data-max="5000" type="text"><linebreak></linebreak>';			
 		_h += '				<label_a>'+bricks.easing+'</label_a><select class="slideinput tos2 nosearchbox easyinit" data-r="addOns.'+slug+'.teaser.easing" data-theme="dark">';
 		_h += '				<option value="ease-out">Out</option>';
 		_h += '				<option value="ease-in">In</option>';
 		_h += '				<option value="ease-in-out">InOut</option>';
 		_h += '				<option value="ease">Ease</option>';
 		_h += '				<option value="linear">'+bricks.linear+'</option>';
-		_h += '				</select><linebreak/>';
-		_h += '				<label_a>'+bricks.delay+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="ms" data-r="addOns.'+slug+'.teaser.delay" data-min="0" data-max="5000" type="text"><linebreak/>';
+		_h += '				</select><linebreak></linebreak>';
+		_h += '				<label_a>'+bricks.delay+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="ms" data-r="addOns.'+slug+'.teaser.delay" data-min="0" data-max="5000" type="text"><linebreak></linebreak>';
 		_h += '			</div>';
 		_h += '		</div>';
 
 		// TEASER						
 		_h += '		<div id="beforeafter_arrow_settings" class="form_inner_header"><i class="material-icons">swap_horiz</i>'+bricks.arrowsettings+'</div>';
 		_h += '		<div class="collapsable" style="display:block !important">';
-		_h += '			<label_a>'+bricks.arrowanim+'</label_a><input type="checkbox" class="slideinput easyinit"  data-r="addOns.'+slug+'.shift.set" data-showhide=".beforeafter_slide_shift_settings" data-showhidedep="true" value="on"><linebreak/>';
+		_h += '			<label_a>'+bricks.arrowanim+'</label_a><input type="checkbox" class="slideinput easyinit"  data-r="addOns.'+slug+'.shift.set" data-showhide=".beforeafter_slide_shift_settings" data-showhidedep="true" value="on"><linebreak></linebreak>';
 		_h += '			<div class="beforeafter_slide_shift_settings">';
-		_h += '				<label_a>'+bricks.offset+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.shift.offset" data-min="0" data-max="2400" type="text"><linebreak/>';
-		_h += '				<label_a>'+bricks.speed+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="ms" data-r="addOns.'+slug+'.shift.speed" data-min="0" data-max="5000" type="text"><linebreak/>';			
+		_h += '				<label_a>'+bricks.offset+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.shift.offset" data-min="0" data-max="2400" type="text"><linebreak></linebreak>';
+		_h += '				<label_a>'+bricks.speed+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="ms" data-r="addOns.'+slug+'.shift.speed" data-min="0" data-max="5000" type="text"><linebreak></linebreak>';			
 		_h += '				<label_a>'+bricks.easing+'</label_a><select class="slideinput tos2 nosearchbox easyinit" data-r="addOns.'+slug+'.shift.easing" data-theme="dark">';
 		_h += '				<option value="ease-out">Out</option>';
 		_h += '				<option value="ease-in">In</option>';
 		_h += '				<option value="ease-in-out">InOut</option>';
 		_h += '				<option value="ease">Ease</option>';
 		_h += '				<option value="linear">'+bricks.linear+'</option>';
-		_h += '				</select><linebreak/>';
-		_h += '				<label_a>'+bricks.delay+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="ms" data-r="addOns.'+slug+'.shift.delay" data-min="0" data-max="5000" type="text"><linebreak/>';
+		_h += '				</select><linebreak></linebreak>';
+		_h += '				<label_a>'+bricks.delay+'</label_a><input class="slideinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="ms" data-r="addOns.'+slug+'.shift.delay" data-min="0" data-max="5000" type="text"><linebreak></linebreak>';
 		_h += '			</div>';
 		_h += '		</div>';
 
@@ -700,9 +700,9 @@
 		_h += '		<div id="beforeafter_arrows" class="ssm_content selected">'; 
 		_h += '			<div id="beforeafter_iconselector_wrap">';			
 		_h += '				<label_a>'+bricks.horizontal+'</label_a><div class="triggerEvent beforeafter_iconpicker" data-helpkey="beforeafter-icon" data-shortreturn="true" data-evt="addIcontoBeforeAfter" data-closeafterpick="true" data-iconparent="#beforeafter_iconselector_wrap" data-classlist="beforeaftericonpicker" data-insertinto="#beaf_icon_left"><i id="beaf_iconp_left" class="fa-chevron-left"></i></div>';
-		_h += '<div class="triggerEvent beforeafter_iconpicker" data-evt="addIcontoBeforeAfter" data-iconparent="#beforeafter_iconselector_wrap" data-helpkey="beforeafter-icon" data-shortreturn="true"  data-closeafterpick="true"  data-classlist="beforeaftericonpicker" data-insertinto="#beaf_icon_right"><i id="beaf_iconp_right" class="fa-chevron-right"></i></div><linebreak/>';
+		_h += '<div class="triggerEvent beforeafter_iconpicker" data-evt="addIcontoBeforeAfter" data-iconparent="#beforeafter_iconselector_wrap" data-helpkey="beforeafter-icon" data-shortreturn="true"  data-closeafterpick="true"  data-classlist="beforeaftericonpicker" data-insertinto="#beaf_icon_right"><i id="beaf_iconp_right" class="fa-chevron-right"></i></div><linebreak></linebreak>';
 		_h += '				<label_a>'+bricks.vertical+'</label_a><div class="triggerEvent beforeafter_iconpicker" data-helpkey="beforeafter-icon" data-evt="addIcontoBeforeAfter" data-shortreturn="true"  data-closeafterpick="true"  data-iconparent="#beforeafter_iconselector_wrap" data-classlist="beforeaftericonpicker" data-insertinto="#beaf_icon_up"><i id="beaf_iconp_up" class="fa-chevron-up"></i></div>';
-		_h += '<div class="triggerEvent beforeafter_iconpicker" data-evt="addIcontoBeforeAfter" data-iconparent="#beforeafter_iconselector_wrap" data-helpkey="beforeafter-icon" data-shortreturn="true"  data-closeafterpick="true"  data-classlist="beforeaftericonpicker" data-insertinto="#beaf_icon_down"><i id="beaf_iconp_down" class="fa-chevron-down"></i></div><linebreak/>';			
+		_h += '<div class="triggerEvent beforeafter_iconpicker" data-evt="addIcontoBeforeAfter" data-iconparent="#beforeafter_iconselector_wrap" data-helpkey="beforeafter-icon" data-shortreturn="true"  data-closeafterpick="true"  data-classlist="beforeaftericonpicker" data-insertinto="#beaf_icon_down"><i id="beaf_iconp_down" class="fa-chevron-down"></i></div><linebreak></linebreak>';			
 		_h += ' 			<div style="display:none">';
 		_h += '					<input class="sliderinput easyinit callEvent" data-evt="beafUpdateIconPicker" data-evtparam="#beaf_iconp_left" id="beaf_icon_left" data-r="addOns.'+slug+'.icon.left" type="text">';
 		_h += '					<input class="sliderinput easyinit callEvent" data-evt="beafUpdateIconPicker" data-evtparam="#beaf_iconp_right" id="beaf_icon_right" data-r="addOns.'+slug+'.icon.right" type="text">';
@@ -712,48 +712,48 @@
 		_h += '			</div>';
 
 		_h += '			<div class="div15"></div>';			
-		_h += '			<label_a>'+bricks.iconsize+'</label_a><input class="sliderinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="" data-r="addOns.'+slug+'.icon.size" data-min="0" data-max="5000" type="text"><linebreak/>';
-		_h += '			<label_a>'+bricks.iconspacing+'</label_a><input class="sliderinput valueduekeyboard  easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.icon.space" data-min="0" data-max="1000" type="text"><linebreak/>';						
-		_h += '			<label_a>'+bricks.iconcolor+'</label_a><input type="text" id="beforeafter_iconcolor" data-editing="' + bricks.iconcolor + '" class="my-color-field sliderinput easyinit" data-visible="true" data-r="addOns.'+slug+'.icon.color" value="#000000"><linebreak/>';								
+		_h += '			<label_a>'+bricks.iconsize+'</label_a><input class="sliderinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="" data-r="addOns.'+slug+'.icon.size" data-min="0" data-max="5000" type="text"><linebreak></linebreak>';
+		_h += '			<label_a>'+bricks.iconspacing+'</label_a><input class="sliderinput valueduekeyboard  easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.icon.space" data-min="0" data-max="1000" type="text"><linebreak></linebreak>';						
+		_h += '			<label_a>'+bricks.iconcolor+'</label_a><input type="text" id="beforeafter_iconcolor" data-editing="' + bricks.iconcolor + '" class="my-color-field sliderinput easyinit" data-visible="true" data-r="addOns.'+slug+'.icon.color" value="#000000"><linebreak></linebreak>';								
 		_h += '			<div class="div10"></div>';
-		_h += '			<label_a>'+bricks.iconshadow+'</label_a><input type="checkbox" class="sliderinput easyinit"  data-r="addOns.'+slug+'.icon.shadow.set" data-showhide=".beforeafter_icon_shadow" data-showhidedep="true" value="on"><linebreak/>';
+		_h += '			<label_a>'+bricks.iconshadow+'</label_a><input type="checkbox" class="sliderinput easyinit"  data-r="addOns.'+slug+'.icon.shadow.set" data-showhide=".beforeafter_icon_shadow" data-showhidedep="true" value="on"><linebreak></linebreak>';
 		_h += '			<div class="beforeafter_icon_shadow">';
-		_h += '				<label_a>'+bricks.shadowblur+'</label_a><input class="sliderinput valueduekeyboard  easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.icon.shadow.blur" data-min="0" data-max="1000" type="text"><linebreak/>';
-		_h += '				<label_a>'+bricks.shadowcolor+'</label_a><input type="text" id="beforeafter_iconshadowcolor" data-editing="' + bricks.shadowcolor + '" class="my-color-field sliderinput easyinit" data-visible="true" data-r="addOns.'+slug+'.icon.shadow.color" value="#000000"><linebreak/>';
+		_h += '				<label_a>'+bricks.shadowblur+'</label_a><input class="sliderinput valueduekeyboard  easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.icon.shadow.blur" data-min="0" data-max="1000" type="text"><linebreak></linebreak>';
+		_h += '				<label_a>'+bricks.shadowcolor+'</label_a><input type="text" id="beforeafter_iconshadowcolor" data-editing="' + bricks.shadowcolor + '" class="my-color-field sliderinput easyinit" data-visible="true" data-r="addOns.'+slug+'.icon.shadow.color" value="#000000"><linebreak></linebreak>';
 		_h += '			</div>'; // END OF BEFORE AFTER SHADOWS 
 		_h += '		</div>'; // END OF BEFORE AFTER ARROWS 
 
 		// DRAG CONTAINER
 		_h += '		<div id="beforeafter_dragcontainer" class="ssm_content">';
-		_h += '			<label_a>'+bricks.padding+'</label_a><input class="sliderinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.drag.padding" data-min="0" data-max="5000" type="text"><linebreak/>';
-		_h += '			<label_a>'+bricks.borderradius+'</label_a><input class="sliderinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="px,%" data-r="addOns.'+slug+'.drag.radius" data-min="0" data-max="5000" type="text"><linebreak/>';
-		_h += '			<label_a>'+bricks.bgcolor+'</label_a><input type="text" id="beforeafter_dragbgcolor" data-editing="' + bricks.bgcolor + '" class="my-color-field sliderinput easyinit" data-visible="true" data-r="addOns.'+slug+'.drag.bgcolor" value="#000000"><linebreak/>';			
+		_h += '			<label_a>'+bricks.padding+'</label_a><input class="sliderinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.drag.padding" data-min="0" data-max="5000" type="text"><linebreak></linebreak>';
+		_h += '			<label_a>'+bricks.borderradius+'</label_a><input class="sliderinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="px,%" data-r="addOns.'+slug+'.drag.radius" data-min="0" data-max="5000" type="text"><linebreak></linebreak>';
+		_h += '			<label_a>'+bricks.bgcolor+'</label_a><input type="text" id="beforeafter_dragbgcolor" data-editing="' + bricks.bgcolor + '" class="my-color-field sliderinput easyinit" data-visible="true" data-r="addOns.'+slug+'.drag.bgcolor" value="#000000"><linebreak></linebreak>';			
 		_h += '			<div class="div10"></div>';
-		_h += '			<label_a>'+bricks.border+'</label_a><input type="checkbox" class="sliderinput easyinit"  data-r="addOns.'+slug+'.drag.border.set" data-showhide=".beforeafter_drag_border" data-showhidedep="true" value="on"><linebreak/>';			
+		_h += '			<label_a>'+bricks.border+'</label_a><input type="checkbox" class="sliderinput easyinit"  data-r="addOns.'+slug+'.drag.border.set" data-showhide=".beforeafter_drag_border" data-showhidedep="true" value="on"><linebreak></linebreak>';			
 		_h += '			<div class="beforeafter_drag_border">';
-		_h += '				<label_a>'+bricks.borderwidth+'</label_a><input class="sliderinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.drag.border.width" data-min="0" data-max="5000" type="text"><linebreak/>';
-		_h += '				<label_a>'+bricks.bordercolor+'</label_a><input type="text" id="beforeafter_dragbordercolor" data-editing="' + bricks.bordercolor + '" class="my-color-field sliderinput easyinit" data-visible="true" data-r="addOns.'+slug+'.drag.border.color" value="#000000"><linebreak/>';
+		_h += '				<label_a>'+bricks.borderwidth+'</label_a><input class="sliderinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.drag.border.width" data-min="0" data-max="5000" type="text"><linebreak></linebreak>';
+		_h += '				<label_a>'+bricks.bordercolor+'</label_a><input type="text" id="beforeafter_dragbordercolor" data-editing="' + bricks.bordercolor + '" class="my-color-field sliderinput easyinit" data-visible="true" data-r="addOns.'+slug+'.drag.border.color" value="#000000"><linebreak></linebreak>';
 		_h += '				<div class="div15"></div>';
 		_h += '			</div>';
 
-		_h += '			<label_a>'+bricks.boxshadow+'</label_a><input type="checkbox" class="sliderinput easyinit"  data-r="addOns.'+slug+'.drag.boxshadow.set" data-showhide=".beforeafter_boxshadow_drag_shadow" data-showhidedep="true" value="on"><linebreak/>';			
+		_h += '			<label_a>'+bricks.boxshadow+'</label_a><input type="checkbox" class="sliderinput easyinit"  data-r="addOns.'+slug+'.drag.boxshadow.set" data-showhide=".beforeafter_boxshadow_drag_shadow" data-showhidedep="true" value="on"><linebreak></linebreak>';			
 		_h += '			<div class="beforeafter_boxshadow_drag_shadow">';
-		_h += '				<label_a>'+bricks.shadowblur+'</label_a><input class="sliderinput valueduekeyboard  easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.drag.boxshadow.blur" data-min="0" data-max="1000" type="text"><linebreak/>';
-		_h += '				<label_a>'+bricks.shadowstrength+'</label_a><input class="sliderinput valueduekeyboard  easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.drag.boxshadow.strength" data-min="0" data-max="1000" type="text"><linebreak/>';
-		_h += '				<label_a>'+bricks.shadowcolor+'</label_a><input type="text" id="beforeafter_dragboxshadowcolor" data-editing="' + bricks.shadowcolor + '" class="my-color-field sliderinput easyinit" data-visible="true" data-r="addOns.'+slug+'.drag.boxshadow.color" value="#000000"><linebreak/>';
+		_h += '				<label_a>'+bricks.shadowblur+'</label_a><input class="sliderinput valueduekeyboard  easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.drag.boxshadow.blur" data-min="0" data-max="1000" type="text"><linebreak></linebreak>';
+		_h += '				<label_a>'+bricks.shadowstrength+'</label_a><input class="sliderinput valueduekeyboard  easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.drag.boxshadow.strength" data-min="0" data-max="1000" type="text"><linebreak></linebreak>';
+		_h += '				<label_a>'+bricks.shadowcolor+'</label_a><input type="text" id="beforeafter_dragboxshadowcolor" data-editing="' + bricks.shadowcolor + '" class="my-color-field sliderinput easyinit" data-visible="true" data-r="addOns.'+slug+'.drag.boxshadow.color" value="#000000"><linebreak></linebreak>';
 		_h += '			</div>'; // END OF BEFORE AFTER SHADOWS 			
 		_h += '		</div>'; // END OF DRAG CONTAINER
 
 		// DIVIDER SETTINGS
 		_h += '		<div id="beforeafter_dividerline" class="ssm_content">'; 
-		_h += '			<label_a>'+bricks.linesize+'</label_a><input class="sliderinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.divider.size" data-min="0" data-max="5000" type="text"><linebreak/>';
-		_h += '			<label_a>'+bricks.linecolor+'</label_a><input type="text" id="beforeafter_dragbgcolor" data-editing="' + bricks.linecolor + '" class="my-color-field sliderinput easyinit" data-visible="true" data-r="addOns.'+slug+'.divider.color" value="#000000"><linebreak/>';
+		_h += '			<label_a>'+bricks.linesize+'</label_a><input class="sliderinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.divider.size" data-min="0" data-max="5000" type="text"><linebreak></linebreak>';
+		_h += '			<label_a>'+bricks.linecolor+'</label_a><input type="text" id="beforeafter_dragbgcolor" data-editing="' + bricks.linecolor + '" class="my-color-field sliderinput easyinit" data-visible="true" data-r="addOns.'+slug+'.divider.color" value="#000000"><linebreak></linebreak>';
 		_h += '			<div class="div10"></div>';
-		_h += '			<label_a>'+bricks.lineshadow+'</label_a><input type="checkbox" class="sliderinput easyinit"  data-r="addOns.'+slug+'.divider.shadow.set" data-showhide=".beforeafter_divider_shadow" data-showhidedep="true" value="on"><linebreak/>';
+		_h += '			<label_a>'+bricks.lineshadow+'</label_a><input type="checkbox" class="sliderinput easyinit"  data-r="addOns.'+slug+'.divider.shadow.set" data-showhide=".beforeafter_divider_shadow" data-showhidedep="true" value="on"><linebreak></linebreak>';
 		_h += '			<div class="beforeafter_divider_shadow">';
-		_h += '				<label_a>'+bricks.shadowblur+'</label_a><input class="sliderinput valueduekeyboard  easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.divider.shadow.blur" data-min="0" data-max="1000" type="text"><linebreak/>';
-		_h += '				<label_a>'+bricks.shadowstrength+'</label_a><input class="sliderinput valueduekeyboard  easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.divider.shadow.strength" data-min="0" data-max="1000" type="text"><linebreak/>';
-		_h += '				<label_a>'+bricks.shadowcolor+'</label_a><input type="text" id="beforeafter_dividershadowcolor" data-editing="' + bricks.shadowcolor + '" class="my-color-field sliderinput easyinit" data-visible="true" data-r="addOns.'+slug+'.divider.shadow.color" value="#000000"><linebreak/>';
+		_h += '				<label_a>'+bricks.shadowblur+'</label_a><input class="sliderinput valueduekeyboard  easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.divider.shadow.blur" data-min="0" data-max="1000" type="text"><linebreak></linebreak>';
+		_h += '				<label_a>'+bricks.shadowstrength+'</label_a><input class="sliderinput valueduekeyboard  easyinit"  data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.divider.shadow.strength" data-min="0" data-max="1000" type="text"><linebreak></linebreak>';
+		_h += '				<label_a>'+bricks.shadowcolor+'</label_a><input type="text" id="beforeafter_dividershadowcolor" data-editing="' + bricks.shadowcolor + '" class="my-color-field sliderinput easyinit" data-visible="true" data-r="addOns.'+slug+'.divider.shadow.color" value="#000000"><linebreak></linebreak>';
 		_h += '			</div>'; // END OF BEFORE AFTER SHADOWS 
 		
 		_h += '		</div>'; // END OF DIVIDER SETTINGS
@@ -763,8 +763,8 @@
 		_h += '			<longoption><i class="material-icons">mouse</i><label_a>'+bricks.animonstg+'</label_a><input type="checkbox" class="sliderinput easyinit"  data-r="addOns.'+slug+'.onclick.set" data-showhide=".beforeafter_mouseclick" data-showhidedep="true" value="on"></longoption>';	
 		_h += '			<div class="div10"></div>';
 		_h += '			<div class="beforeafter_mouseclick">';
-		_h += '				<label_a>'+bricks.duration+'</label_a><input class="sliderinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="ms" data-r="addOns.'+slug+'.onclick.time" data-min="0" data-max="50000" type="text"><linebreak/>';
-		_h += '				<label_a>' + bricks.easing + '</label_a><select class="sliderinput tos2 nosearchbox easyinit easingSelect" data-r="addOns.'+slug+'.onclick.easing" data-theme="dark"></select><linebreak/>';
+		_h += '				<label_a>'+bricks.duration+'</label_a><input class="sliderinput valueduekeyboard easyinit"  data-numeric="true" data-allowed="ms" data-r="addOns.'+slug+'.onclick.time" data-min="0" data-max="50000" type="text"><linebreak></linebreak>';
+		_h += '				<label_a>' + bricks.easing + '</label_a><select class="sliderinput tos2 nosearchbox easyinit easingSelect" data-r="addOns.'+slug+'.onclick.easing" data-theme="dark"></select><linebreak></linebreak>';
 		_h += '				<label_a>' + bricks.mousecursor + '</label_a><select class="sliderinput tos2 nosearchbox easyinit" data-r="addOns.'+slug+'.onclick.cursor" data-theme="dark">';
 		_h += '				<option value="pointer">pointer</option>';
 		_h += '				<option value="default">default</option>';
@@ -777,7 +777,7 @@
 		_h += '				<option value="row-resize">row-resize</option>';
 		_h += '				<option value="ew-resize">ew-resize</option>';
 		_h += '				<option value="ns-resize">ns-resize</option>';
-		_h += '				</select><linebreak/>';
+		_h += '				</select><linebreak></linebreak>';
 		_h += '			</div>';						
 		_h += '		</div>'; // END OF MISC SETTINGS
 		_h += '	</div>'; // END OF BEFOREAFTER FORM WRAP

@@ -17,6 +17,7 @@ class FrontendWalker extends WalkerNavMenu {
 
 	protected $currentLvl            = 0;
 	protected $isMegaMenu            = false;
+	protected $megaMenuCustomWidth   = false;
 	protected $megaMenuCnt           = 0;
 	protected $megaMenuColStarted    = false;
 	protected $megaMenuCols          = 5;
@@ -39,6 +40,15 @@ class FrontendWalker extends WalkerNavMenu {
 		$styles        = '';
 		$wrapper_class = 'gm-dropdown-menu-wrapper';
 
+		$custom_width            = $this->dropdownCustomWidth( $this->currentItem );
+		$custom_wrapper_in_style = '';
+		if ( $this->isMegaMenu && ! empty( $this->megaMenuCustomWidth ) && 1 === $this->currentLvl ) {
+			$wrapper_class .= ' gm-custom-dropdown-width';
+
+			$custom_wrapper_in_style = 'min-width: ' . $custom_width . 'px !important; max-width: ' . $custom_width . 'px !important;';
+			$custom_wrapper_in_style = ' style' . '="' . $custom_wrapper_in_style . '"';
+		}
+
 		if ( ! $this->isMegaMenu || ( $this->isMegaMenu && 2 !== $this->currentLvl ) ) {
 
 			if ( $this->isMegaMenu && $depth >= 2 ) {
@@ -54,6 +64,10 @@ class FrontendWalker extends WalkerNavMenu {
 				$styles .= 'background-repeat: ' . $this->getBackgroundRepeat( $this->currentItem ) . ';';
 				$styles .= 'background-position: ' . $this->getBackgroundPosition( $this->currentItem ) . ';';
 
+				if ( $this->isMegaMenu && ! empty( $this->megaMenuCustomWidth ) && 1 === $this->currentLvl ) {
+					$styles .= 'max-width: ' . $custom_width . 'px !important;';
+				}
+
 				// wrap with html param.
 				$styles = 'style' . '="' . $styles . '"';
 
@@ -66,7 +80,7 @@ class FrontendWalker extends WalkerNavMenu {
 			$lvl_title_wrapper = '<div class="gm-dropdown-menu-title"></div>';
 		}
 
-		$output .= "\n$indent<div class=\"{$wrapper_class}\">{$lvl_title_wrapper}<ul class=\"{$classes}\" {$styles}>\n";
+		$output .= "\n$indent<div class=\"{$wrapper_class}\"{$custom_wrapper_in_style}>{$lvl_title_wrapper}<ul class=\"{$classes}\" {$styles}>\n";
 	}
 
 
@@ -104,7 +118,8 @@ class FrontendWalker extends WalkerNavMenu {
 
 		// Reset MegaMenu param if menu-item on the top level.
 		if ( 0 === $depth ) {
-			$this->isMegaMenu = false;
+			$this->isMegaMenu          = false;
+			$this->megaMenuCustomWidth = false;
 		}
 
 		$item_output   = '';
@@ -149,12 +164,25 @@ class FrontendWalker extends WalkerNavMenu {
 		if ( 1 === $depth && $this->isMegaMenu && ! $show_in_mobile ) {
 
 			global $groovyMenuSettings;
-			$styles          = new GroovyMenuStyle();
-			$is_title_as_url = $groovyMenuSettings['megamenuTitleAsLink'];
+			$styles                 = new GroovyMenuStyle();
+			$is_title_as_url        = $groovyMenuSettings['megamenuTitleAsLink'];
+			$is_title_as_url_accent = $groovyMenuSettings['megamenuTitleAsLinkAccent'];
+			$title_classes          = array();
+			$title_class_names      = '';
+
+			if ( $is_title_as_url && $is_title_as_url_accent ) {
+				$title_classes = empty( $item->classes ) ? array() : (array) $item->classes;
+				foreach ( $title_classes as $index => $title_class ) {
+					if ( 'menu-item' === $title_class ) {
+						$title_classes[ $index ] = 'gm-mega-menu-title-item';
+						break;
+					}
+				}
+			}
 
 			if ( $headerStyle && in_array( $headerStyle, array( 2, 3, 5 ), true ) ) {
 
-				$gridClass = 'mobile-grid-100 grid-100';
+				$title_classes[] = 'mobile-grid-100 grid-100';
 
 			} else {
 
@@ -189,10 +217,16 @@ class FrontendWalker extends WalkerNavMenu {
 					$colNumder = '20'; // 20 by default. 5 cols
 				}
 
-				$gridClass = 'mobile-grid-100 grid-' . $colNumder;
+				$title_classes[] = 'mobile-grid-100 grid-' . $colNumder;
 			}
 
-			$output .= '<div class="gm-mega-menu__item ' . $gridClass . '">';
+			if ( $is_title_as_url && $is_title_as_url_accent ) {
+				$title_class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $title_classes ), $item, $args, $depth ) );
+			} else {
+				$title_class_names = join( ' ', $title_classes );
+			}
+
+			$output .= '<div class="gm-mega-menu__item ' . esc_attr( $title_class_names ) . '">';
 
 			if ( ! $gm_thumb_settings['with_url'] && $gm_thumb_settings['display'] && 'above' === $gm_thumb_settings['position'] ) {
 				$output .= $gm_thumb_settings['html'];
@@ -464,13 +498,24 @@ class FrontendWalker extends WalkerNavMenu {
 				$this->megaMenuCols = $this->megaMenuCols( $item );
 				$classes[]          = 'mega-gm-dropdown';
 				$this->isMegaMenu   = true;
+
+				$custom_width = $this->dropdownCustomWidth( $this->currentItem );
+				if ( ! empty( $custom_width ) ) {
+					$this->megaMenuCustomWidth = $custom_width;
+				}
+			}
+
+			if ( $this->frozenLink( $this->currentItem ) ) {
+				$classes[] = 'gm-frozen-link';
 			}
 
 			$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth ) );
 			$class_names = trim( $class_names ) ? ' class="' . esc_attr( $class_names ) . '"' : '';
 
-			$id = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args, $depth );
-			$id = $id ? ' id="' . esc_attr( $id ) . '"' : ' id="menu-item-' . esc_attr( $item->ID ) . '"';
+			$mobile_id_prefix = $show_in_mobile ? 'mobile-' : '';
+
+			$id = apply_filters( 'nav_menu_item_id', 'menu-item-' . $mobile_id_prefix . $item->ID, $item, $args, $depth );
+			$id = $id ? ' id="' . esc_attr( $id ) . '"' : ' id="menu-item-' . $mobile_id_prefix . esc_attr( $item->ID ) . '"';
 
 			$output .= $indent . '<li' . $id . $class_names . '>';
 
@@ -536,7 +581,7 @@ class FrontendWalker extends WalkerNavMenu {
 					'right' => '',
 				);
 
-				// Icon
+				// if exist custom HTML Icon - then show it first.
 				if ( $this->getUseHtmlAsIcon( $item ) ) {
 					$html_icon_content = $this->getHtmlIconContent( $item );
 					if ( ! empty( $html_icon_content ) ) {
@@ -547,6 +592,8 @@ class FrontendWalker extends WalkerNavMenu {
 							$badge['left'] .= $badge_content;
 						}
 					}
+
+					// if exist classic Icon - then show it second.
 				} elseif ( $this->getIcon( $item ) ) {
 					$badge_content = '<span class="gm-menu-item__icon ' . $this->getIcon( $item ) . '"></span>';
 					if ( 0 === $depth && in_array( $headerStyle, array( 4 ), true ) ) {
@@ -554,6 +601,12 @@ class FrontendWalker extends WalkerNavMenu {
 					} else {
 						$badge['left'] .= $badge_content;
 					}
+
+					// if no one Icon set & we get icon sidebar or expanded sidebar - then show first letter of nav-0menu title.
+				} elseif ( 0 === $depth && in_array( $headerStyle, array( 4, 5 ), true ) && ! $show_in_mobile ) {
+					$badge_content = '<span class="gm-menu-item__icon">' . $this->getFirstLetterAsIcon( $item ) . '</span>';
+
+					$badge['left'] .= $badge_content;
 				}
 
 				$badge_enable = $this->getBadgeEnable( $item );
@@ -806,8 +859,9 @@ class FrontendWalker extends WalkerNavMenu {
 
 		$output .= '</div></div></div></li>';
 
-		$this->isMegaMenu   = false;
-		$this->megaMenuPost = '';
+		$this->isMegaMenu          = false;
+		$this->megaMenuCustomWidth = false;
+		$this->megaMenuPost        = '';
 
 	}
 

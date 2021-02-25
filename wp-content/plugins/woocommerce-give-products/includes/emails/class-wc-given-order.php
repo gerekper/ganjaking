@@ -77,11 +77,12 @@ class WC_Given_Order extends WC_Email {
         wc_get_template(
             $this->template_html,
             array(
-                'order'         => $this->object,
-                'email_heading' => $this->get_heading(),
-                'sent_to_admin' => false,
-                'plain_text'    => false,
-                'email'         => $this->recipient,
+                'order'           => $this->object,
+                'email_heading'   => $this->get_heading(),
+                'sent_to_admin'   => false,
+                'plain_text'      => false,
+                'recipient_email' => $this->recipient,
+                'email'           => $this,
             ),
             '',
             $this->template_base

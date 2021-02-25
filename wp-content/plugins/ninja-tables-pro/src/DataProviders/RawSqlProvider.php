@@ -46,6 +46,7 @@ class RawSqlProvider
         if (!current_user_can(ninja_table_admin_role())) {
             return;
         }
+	    ninjaTablesValidateNonce();
 
         $hasPermission = apply_filters('ninja_table_sql_permission', '');
         if ($hasPermission != 'yes') {
@@ -106,7 +107,7 @@ class RawSqlProvider
             return;
         }
 
-
+	    ninjaTablesValidateNonce();
 
         $hasPermission = apply_filters('ninja_table_sql_permission', '');
         if ($hasPermission != 'yes') {
@@ -428,6 +429,8 @@ class RawSqlProvider
         if (!current_user_can(ninja_table_admin_role())) {
             return;
         }
+
+	    ninjaTablesValidateNonce();
 
         $hasPermission = apply_filters('ninja_table_sql_permission', '');
         if ($hasPermission != 'yes') {

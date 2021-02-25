@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.7.0
- * @version     1.1.0
+ * @version     1.2.0
  * @package     woocommerce-smart-coupons/templates/
  */
 
@@ -79,7 +79,7 @@ $bloginfo = get_bloginfo( 'name', 'display' );
 				border: 1px solid #ccc !important;
 			}
 		</style>
-		<style type="text/css"><?php echo ( isset( $coupon_styles ) && ! empty( $coupon_styles ) ) ? $coupon_styles : ''; // phpcs:ignore ?></style>
+		<style type="text/css"><?php echo ( isset( $coupon_styles ) && ! empty( $coupon_styles ) ) ? esc_html( wp_strip_all_tags( $coupon_styles, true ) ) : ''; // phpcs:ignore ?></style>
 		<?php
 		if ( 'custom-design' !== $design ) {
 			?>
@@ -190,7 +190,7 @@ $bloginfo = get_bloginfo( 'name', 'display' );
 					?>
 					<div class="wc-sc-terms-page-content">
 						<?php
-							echo $terms_page_content; // phpcs:ignore 
+							echo wp_kses_post( $terms_page_content ); // phpcs:ignore 
 						?>
 					</div>
 					<?php

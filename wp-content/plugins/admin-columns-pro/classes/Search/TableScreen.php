@@ -8,6 +8,7 @@ use AC\Registrable;
 use AC\Request;
 use ACP;
 use ACP\Search\Settings\HideOnScreen;
+use LogicException;
 
 abstract class TableScreen
 	implements Registrable {
@@ -78,10 +79,23 @@ abstract class TableScreen
 				continue;
 			}
 
-			$bindings[] = $column->search()->get_query_bindings(
-				$rule['operator'],
-				new Value( $rule['value'], $rule['value_type'] )
-			);
+			try {
+				$bindings[] = $column->search()->get_query_bindings(
+					$rule['operator'],
+					new Value( $rule['value'], $rule['value_type'] )
+				);
+			} catch ( LogicException $e ) {
+
+				// Error message
+				$message = sprintf( __( 'Smart filter for %s could not be applied.', 'codepress-admin-columns' ), sprintf( '<strong>%s</strong>', $column->get_custom_label() ) );
+				$message = sprintf( '%s %s', $message, __( 'Try to re-apply the filter.', 'codepress-admin-columns' ) );
+
+				( new AC\Message\Notice( $message ) )
+					->set_type( AC\Message\Notice::WARNING )
+					->register();
+
+				continue;
+			}
 		}
 
 		QueryFactory::create(

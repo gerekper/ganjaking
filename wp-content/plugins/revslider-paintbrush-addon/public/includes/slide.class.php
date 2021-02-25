@@ -158,7 +158,7 @@ class RsPaintBrushSlideFront extends RevSliderFunctions {
 			$fixEdges  = $this->get_val($blur, 'fixedges', array());
 			
 			$size     = $this->get_val($brush, 'size', '80');
-			$strength     = $this->get_val($brush, 'strength', '30');
+			$strength     = $this->get_val($brush, 'strength', '0');
 		
 		
 			$amount   = $this->get_val($blur, 'amount', '10');

@@ -5449,6 +5449,8 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				esc_html_e( 'Add a credit card for Pay with 1click', 'woocommerce-redsys' );
 				echo '<br /><input type="radio" id="tokens" name="tokentype" value="tokens" checked><label for="tokens">' . esc_html__( 'Add a credit card for Pay with 1clic', 'woocommerce-redsys' ) . '</label>';
 			}
+		} else {
+			echo $this->description;
 		}
 	}
 	/**
@@ -6208,8 +6210,8 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'redsys', '$dsexpirymonth: ' . $dsexpirymonth );
 				$this->log->add( 'redsys', ' ' );
 			}
-			if ( empty( $dsexpiryyear ) ||  $dsexpiryyear === '20') {
-				$dsexpiryyear  = '32';
+			if ( empty( $dsexpiryyear ) ||  $dsexpiryyear === '20' || $dsexpiryyear === '2020' ) {
+				$dsexpiryyear  = '2099';
 				$dsexpirymonth = '12';
 			}
 			
@@ -6535,7 +6537,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$dscardnumbercomp = 'unknown';
 		}
 
-		if ( ! empty( $dsexpiryyear ) &&  '2020' !== $dsexpiryyear ) {
+		if ( ! empty( $dsexpiryyear ) && '2020' !== $dsexpiryyear && '20' !==  $dsexpiryyear ) {
 			 $dsexpiryyear = $dsexpiryyear;
 		} else {
 			 $dsexpiryyear = '2099';

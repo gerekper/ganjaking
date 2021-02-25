@@ -297,7 +297,7 @@ mcg_guide_image { width: 280px; height: 160px; background-position: top left; ba
 #objectlibrary { -webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;-webkit-touch-callout: none;text-rendering: optimizeLegibility;}
 #objectlibrary .tponoffwrap.off .tponoff_inner { transform: translateX(0px); }
 #objectlibrary i.material-icons.reset_select {    cursor: pointer; width: 25px;height: 25px;line-height: 25px !important;text-align: center;font-size: 17px !important; border-radius:3px; margin-top: 12px;color: #fff;background: #006dd2;display: inline-block;margin-right: 10px; display: none}
-#objectlibrary { z-index: 100000; position: fixed; width: 100%; height: 100%; top: 0px;left: 0px; background: #202224; display:none;}
+#objectlibrary { z-index: 100002; position: fixed; width: 100%; height: 100%; top: 0px;left: 0px; background: #202224; display:none;}
 #ol_filters_wrap { width: 250px; height:100%; position: absolute; left: 0px; top: 0px; background: #323438; z-index: 45; }
 #rs_q_close,
 #ol_close { position: relative;  vertical-align: top; text-align: center; color: #b7bbc0; cursor: pointer; z-index: 100000; font-size:30px;margin-left: 20px}

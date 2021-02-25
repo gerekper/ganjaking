@@ -788,7 +788,7 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
   public function product() {
     //Don't do static caching stuff here
 
-    return MeprHooks::apply_filters( 'mepr_subscription_product', new MeprProduct($this->product_id) );
+    return MeprHooks::apply_filters( 'mepr_subscription_product', new MeprProduct($this->product_id), $this );
   }
 
   // Has one through membership

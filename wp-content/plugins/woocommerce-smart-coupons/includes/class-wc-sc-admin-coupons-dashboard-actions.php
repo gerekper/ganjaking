@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.4.0
- * @version     1.0.0
+ * @version     1.1.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -89,18 +89,18 @@ if ( ! class_exists( 'WC_SC_Admin_Coupons_Dashboard_Actions' ) ) {
 				return $actions;
 			}
 
-			$coupon_code      = $post->post_title;
-			$coupon_id        = $post->ID;
+			$coupon_code      = ( ! empty( $post->post_title ) ) ? $post->post_title : '';
+			$coupon_id        = ( ! empty( $post->ID ) ) ? $post->ID : 0;
 			$coupon_share_url = home_url( '/?coupon-code=' . $coupon_code );
 
-			$actions['copy'] = '<a href="#" id="sc-click-to-copy-' . $coupon_id . '" onclick="sc_copy_to_clipboard(' . "'" . $coupon_code . "'" . ')" data-clipboard-action="copy" data-clipboard-target=".row-title" title="' . __( 'Copy this coupon code', 'woocommerce-smart-coupons' ) . '" rel="permalink">' . __( 'Copy', 'woocommerce-smart-coupons' ) . '</a>';
+			$actions['copy'] = '<a href="#" id="sc-click-to-copy-' . esc_attr( $coupon_id ) . '" onclick="sc_copy_to_clipboard(' . "'" . esc_js( $coupon_code ) . "'" . ')" data-clipboard-action="copy" data-clipboard-target=".row-title" title="' . __( 'Copy this coupon code', 'woocommerce-smart-coupons' ) . '" rel="permalink">' . __( 'Copy', 'woocommerce-smart-coupons' ) . '</a>';
 
-			$actions['share-link'] = '<a href="#" id="sc-click-to-share-' . $coupon_id . '" onclick="sc_copy_to_clipboard(' . "'" . $coupon_share_url . "'" . ')" data-clipboard-action="copy" data-clipboard-target=".row-title" title="' . __( 'Copy coupon shareable link and apply via URL', 'woocommerce-smart-coupons' ) . '" rel="permalink">' . __( 'Get shareable link', 'woocommerce-smart-coupons' ) . '</a>';
+			$actions['share-link'] = '<a href="#" id="sc-click-to-share-' . esc_attr( $coupon_id ) . '" onclick="sc_copy_to_clipboard(' . "'" . esc_js( $coupon_share_url ) . "'" . ')" data-clipboard-action="copy" data-clipboard-target=".row-title" title="' . __( 'Copy coupon shareable link and apply via URL', 'woocommerce-smart-coupons' ) . '" rel="permalink">' . __( 'Get shareable link', 'woocommerce-smart-coupons' ) . '</a>';
 
 			if ( function_exists( 'duplicate_post_plugin_activation' ) ) {
 				return $actions;
 			} else {
-				$actions['duplicate'] = '<a href="' . wp_nonce_url( admin_url( 'admin.php?action=duplicate_coupon&amp;post=' . $coupon_id ), 'woocommerce-duplicate-coupon_' . $coupon_id ) . '" title="' . __( 'Make a duplicate from this coupon', 'woocommerce-smart-coupons' ) . '" rel="permalink">' . __( 'Duplicate', 'woocommerce-smart-coupons' ) . '</a>';
+				$actions['duplicate'] = '<a href="' . esc_url( wp_nonce_url( admin_url( 'admin.php?action=duplicate_coupon&amp;post=' . $coupon_id ), 'woocommerce-duplicate-coupon_' . $coupon_id ) ) . '" title="' . __( 'Make a duplicate from this coupon', 'woocommerce-smart-coupons' ) . '" rel="permalink">' . __( 'Duplicate', 'woocommerce-smart-coupons' ) . '</a>';
 			}
 
 			return $actions;

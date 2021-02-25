@@ -1,6 +1,8 @@
 <?php
 if(!defined('ABSPATH')) exit();
 
+if(!isset($navigations)) $navigations = array();
+
 $navigations[] = array(
 	'id' => 1000,
 	'handle' => 'hesperiden',

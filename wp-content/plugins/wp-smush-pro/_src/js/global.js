@@ -1,3 +1,5 @@
+import '../scss/common.scss';
+
 /* global ajaxurl */
 
 document.addEventListener( 'DOMContentLoaded', function() {

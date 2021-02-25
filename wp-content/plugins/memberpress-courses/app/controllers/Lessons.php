@@ -217,22 +217,22 @@ class Lessons extends lib\BaseCtrl {
     $user_progress->completed_at = lib\Utils::ts_to_mysql_date(time());
     $user_progress->store();
 
-    \do_action(base\SLUG_KEY . 'completed_lesson', $user_progress);
+    \do_action(base\SLUG_KEY . '_completed_lesson', $user_progress);
 
     if(false == $has_started_course){
-      \do_action(base\SLUG_KEY . 'started_course', $user_progress);
+      \do_action(base\SLUG_KEY . '_started_course', $user_progress);
     }
 
     if(false == $has_started_section){
-      \do_action(base\SLUG_KEY . 'started_section', $user_progress, $section->id);
+      \do_action(base\SLUG_KEY . '_started_section', $user_progress, $section->id);
     }
 
     if(models\UserProgress::has_completed_course($current_user->ID, $course->ID)){
-      \do_action(base\SLUG_KEY . 'completed_course', $user_progress);
+      \do_action(base\SLUG_KEY . '_completed_course', $user_progress);
     }
 
     if(models\UserProgress::has_completed_section($current_user->ID, $section->id)){
-      \do_action(base\SLUG_KEY . 'completed_course', $user_progress);
+      \do_action(base\SLUG_KEY . '_completed_course', $user_progress);
     }
 
     lib\Utils::exit_with_status(200, json_encode(array('message' => __('Progress was recorded for this User and Lesson', 'memberpress-courses'))));

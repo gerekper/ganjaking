@@ -180,6 +180,7 @@ add_action('ninja_table_rendering_table_vars', function ($tableVars, $tableId) {
 }, 100, 2);
 
 add_action('wp_ajax_ninjatable_get_custom_table_filters', function () {
+	ninjaTablesValidateNonce();
     $tableId = intval($_REQUEST['table_id']);
     $custom_filter = new CustomFilters();
     $custom_filter->checkPermission();
@@ -210,6 +211,7 @@ add_action('wp_ajax_ninjatable_get_custom_table_filters', function () {
 });
 
 add_action('wp_ajax_ninjatable_update_custom_table_filters', function () {
+	ninjaTablesValidateNonce();
     $tableId = intval($_REQUEST['table_id']);
     $custom_filter = new CustomFilters();
     $custom_filter->checkPermission();

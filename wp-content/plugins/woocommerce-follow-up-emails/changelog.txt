@@ -1,5 +1,9 @@
 *** WooCommerce Follow-Up Emails ***
 
+2021-02-02 - version 4.9.11
+* Fix - Fix - Remove extra blank lines added to live emails when using the `WooCommerce` template.
+* Tweak - WC 5.0 compatibility.
+
 2020-12-15 - version 4.9.10
 * Fix - Allow sending manual emails for more than one product at a time.
 * Fix - Send scheduled emails on schedule when sent in batches instead of sending them immediately.

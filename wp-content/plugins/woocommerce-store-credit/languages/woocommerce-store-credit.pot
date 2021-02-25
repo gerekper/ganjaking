@@ -1,17 +1,17 @@
-# Copyright (C) 2020 Themesquad
-# This file is distributed under the GNU General Public License v3.0.
+# Copyright (C) 2021 Themesquad
+# This file is distributed under the same license as the WooCommerce Store Credit plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Store Credit 3.4.3\n"
+"Project-Id-Version: WooCommerce Store Credit 3.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-store-credit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-12-17T16:21:33+00:00\n"
+"POT-Creation-Date: 2021-02-22T15:17:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.5.0-alpha-59d879d\n"
+"X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: woocommerce-store-credit\n"
 
 #. Plugin Name of the plugin
@@ -44,6 +44,32 @@ msgstr ""
 
 #: includes/abstracts/abstract-wc-store-credit-singleton.php:57
 msgid "Unserializing instances of this class is forbidden."
+msgstr ""
+
+#: includes/admin/class-wc-store-credit-admin-menu.php:36
+msgctxt "page title"
+msgid "Send Store Credit"
+msgstr ""
+
+#: includes/admin/class-wc-store-credit-admin-menu.php:37
+msgctxt "menu title"
+msgid "Send Store Credit"
+msgstr ""
+
+#: includes/admin/class-wc-store-credit-admin-menu.php:51
+#: includes/admin/class-wc-store-credit-admin-menu.php:79
+msgid "Send Store Credit"
+msgstr ""
+
+#: includes/admin/class-wc-store-credit-admin-menu.php:70
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:52
+#: includes/class-wc-store-credit-privacy.php:22
+#: includes/class-wc-store-credit-products.php:46
+msgid "Store Credit"
+msgstr ""
+
+#: includes/admin/class-wc-store-credit-admin-menu.php:89
+msgid "Settings"
 msgstr ""
 
 #: includes/admin/class-wc-store-credit-admin-meta-boxes.php:53
@@ -251,33 +277,23 @@ msgctxt "setting label"
 msgid "Coupon code format"
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin.php:56
-msgctxt "page title"
-msgid "Send Store Credit"
-msgstr ""
-
-#: includes/admin/class-wc-store-credit-admin.php:57
-msgctxt "menu title"
-msgid "Send Store Credit"
-msgstr ""
-
-#: includes/admin/class-wc-store-credit-admin.php:180
+#: includes/admin/class-wc-store-credit-admin.php:172
 msgctxt "aria-label: settings link"
 msgid "View WooCommerce Store Credit settings"
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin.php:181
+#: includes/admin/class-wc-store-credit-admin.php:173
 msgctxt "plugin action link"
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin.php:204
+#: includes/admin/class-wc-store-credit-admin.php:196
 #: includes/admin/notices/sell-credit.php:32
 msgctxt "aria-label: documentation link"
 msgid "View WooCommerce Store Credit documentation"
 msgstr ""
 
-#: includes/admin/class-wc-store-credit-admin.php:205
+#: includes/admin/class-wc-store-credit-admin.php:197
 msgctxt "plugin row link"
 msgid "Docs"
 msgstr ""
@@ -301,12 +317,6 @@ msgstr ""
 
 #: includes/admin/meta-boxes/class-wc-store-credit-meta-box-coupon-usage.php:81
 msgid "Credit used"
-msgstr ""
-
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:52
-#: includes/class-wc-store-credit-privacy.php:22
-#: includes/class-wc-store-credit-products.php:46
-msgid "Store Credit"
 msgstr ""
 
 #: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:79
@@ -787,12 +797,12 @@ msgid "Send credit to someone?"
 msgstr ""
 
 #. translators: %s: WooCommerce version
-#: woocommerce-store-credit.php:60
+#: woocommerce-store-credit.php:61
 msgctxt "admin notice"
 msgid "<strong>WooCommerce Store Credit</strong> requires WooCommerce %s or higher."
 msgstr ""
 
-#: woocommerce-store-credit.php:62
+#: woocommerce-store-credit.php:63
 msgctxt "admin notice"
 msgid "<strong>WooCommerce Store Credit</strong> requires WooCommerce to be activated to work."
 msgstr ""

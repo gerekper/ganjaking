@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.5.0
+ * @version     1.7.0
  * @package     woocommerce-smart-coupons/includes/
  */
 
@@ -267,8 +267,8 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 					--sc-color3: <?php echo esc_html( $third_color ); ?>;
 				}
 			</style>
-			<style type="text/css"><?php echo $this->get_coupon_styles(); // phpcs:ignore ?></style>
-			<style type="text/css"><?php echo $this->get_coupon_styles( 'email-coupon' ); // phpcs:ignore ?></style>
+			<style type="text/css"><?php echo esc_html( wp_strip_all_tags( $this->get_coupon_styles(), true ) ); // phpcs:ignore ?></style>
+			<style type="text/css"><?php echo esc_html( wp_strip_all_tags( $this->get_coupon_styles( 'email-coupon' ), true ) ); // phpcs:ignore ?></style>
 			<?php
 		}
 
@@ -427,7 +427,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				),
 				array(
 					'name'     => __( 'Number of coupons to show', 'woocommerce-smart-coupons' ),
-					'desc'     => __( 'How many coupons (at max) should be shown on cart/checkout page?', 'woocommerce-smart-coupons' ),
+					'desc'     => __( 'How many coupons (at max) should be shown on cart, checkout & my account page? If set to 0 (zero) then coupons will not be displayed at all on the website.', 'woocommerce-smart-coupons' ),
 					'id'       => 'wc_sc_setting_max_coupon_to_show',
 					'type'     => 'number',
 					'desc_tip' => true,
@@ -911,7 +911,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 				jQuery(function(){
 					jQuery('body').on('click', 'button#hide_notice_delete_credit_after_usage', function(){
 						jQuery.ajax({
-							url: '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>',
+							url: decodeURIComponent( '<?php echo rawurlencode( admin_url( 'admin-ajax.php' ) ); ?>' ),
 							type: 'post',
 							dataType: 'json',
 							data: {
@@ -953,7 +953,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 			?>
 			<tr valign="top">
 				<th scope="row" class="titledesc">
-					<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo $tooltip_html; // phpcs:ignore ?></label>
+					<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> <?php echo wp_kses_post( $tooltip_html ); // phpcs:ignore ?></label>
 				</th>
 				<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 					<fieldset id="sc-cc">

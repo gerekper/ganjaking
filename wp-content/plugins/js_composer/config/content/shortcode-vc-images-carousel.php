@@ -35,7 +35,7 @@ return array(
 			'heading' => esc_html__( 'On click action', 'js_composer' ),
 			'param_name' => 'onclick',
 			'value' => array(
-				esc_html__( 'Open prettyPhoto', 'js_composer' ) => 'link_image',
+				esc_html__( 'Open Lightbox', 'js_composer' ) => 'link_image',
 				esc_html__( 'None', 'js_composer' ) => 'link_no',
 				esc_html__( 'Open custom links', 'js_composer' ) => 'custom_link',
 			),

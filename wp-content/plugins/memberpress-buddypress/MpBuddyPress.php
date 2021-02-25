@@ -68,7 +68,6 @@ class MpBuddyPress {
           //Update WP fields
           $user->display_name = trim($user->first_name . ' ' . $user->last_name);
           $user->store();
-          update_user_meta($user->ID, 'nickname', $user->display_name); //might as well
 
           //Make sure we don't do this every page load
           update_user_meta($user->ID, 'bp_flname_sync', 1);

@@ -53,14 +53,17 @@ class CredentialProvider
     const ENV_TOKEN_FILE = 'AWS_WEB_IDENTITY_TOKEN_FILE';
     const ENV_SHARED_CREDENTIALS_FILE = 'AWS_SHARED_CREDENTIALS_FILE';
     /**
-     * Create a default credential provider that first checks for environment
-     * variables, then checks for the "default" profile in ~/.aws/credentials,
+     * Create a default credential provider that
+     * first checks for environment variables,
+     * then checks for assumed role via web identity,
+     * then checks for cached SSO credentials from the CLI,
+     * then check for credential_process in the "default" profile in ~/.aws/credentials,
+     * then checks for the "default" profile in ~/.aws/credentials,
+     * then for credential_process in the "default profile" profile in ~/.aws/config,
      * then checks for "profile default" profile in ~/.aws/config (which is
-     * the default profile of AWS CLI), then tries to make a GET Request to
-     * fetch credentials if Ecs environment variable is presented, then checks
-     * for credential_process in the "default" profile in ~/.aws/credentials,
-     * then for credential_process in the "default profile" profile in
-     * ~/.aws/config, and finally checks for EC2 instance profile credentials.
+     * the default profile of AWS CLI),
+     * then tries to make a GET Request to fetch credentials if ECS environment variable is presented,
+     * finally checks for EC2 instance profile credentials.
      *
      * This provider is automatically wrapped in a memoize function that caches
      * previously provided credentials.
@@ -72,19 +75,25 @@ class CredentialProvider
      */
     public static function defaultProvider(array $config = [])
     {
-        $cacheable = ['web_identity', 'sso', 'ecs', 'process_credentials', 'process_config', 'instance'];
+        $cacheable = ['web_identity', 'sso', 'process_credentials', 'process_config', 'ecs', 'instance'];
         $defaultChain = ['env' => self::env(), 'web_identity' => self::assumeRoleWithWebIdentityCredentialProvider($config)];
         if (!isset($config['use_aws_shared_config_files']) || $config['use_aws_shared_config_files'] !== \false) {
             $defaultChain['sso'] = self::sso('profile default', self::getHomeDir() . '/.aws/config', $config);
+            $defaultChain['process_credentials'] = self::process();
             $defaultChain['ini'] = self::ini();
+            $defaultChain['process_config'] = self::process('profile default', self::getHomeDir() . '/.aws/config');
             $defaultChain['ini_config'] = self::ini('profile default', self::getHomeDir() . '/.aws/config');
         }
-        if (!empty(\getenv(\WPMailSMTP\Vendor\Aws\Credentials\EcsCredentialProvider::ENV_URI))) {
-            $defaultChain['ecs'] = self::ecsCredentials($config);
+        $shouldUseEcsCredentialsProvider = \getenv(\WPMailSMTP\Vendor\Aws\Credentials\EcsCredentialProvider::ENV_URI);
+        // getenv() is not thread safe - fall back to $_SERVER
+        if ($shouldUseEcsCredentialsProvider === \false) {
+            $shouldUseEcsCredentialsProvider = isset($_SERVER[\WPMailSMTP\Vendor\Aws\Credentials\EcsCredentialProvider::ENV_URI]) ? $_SERVER[\WPMailSMTP\Vendor\Aws\Credentials\EcsCredentialProvider::ENV_URI] : \false;
         }
-        $defaultChain['process_credentials'] = self::process();
-        $defaultChain['process_config'] = self::process('profile default', self::getHomeDir() . '/.aws/config');
-        $defaultChain['instance'] = self::instanceProfile($config);
+        if (!empty($shouldUseEcsCredentialsProvider)) {
+            $defaultChain['ecs'] = self::ecsCredentials($config);
+        } else {
+            $defaultChain['instance'] = self::instanceProfile($config);
+        }
         if (isset($config['credentials']) && $config['credentials'] instanceof \WPMailSMTP\Vendor\Aws\CacheInterface) {
             foreach ($cacheable as $provider) {
                 if (isset($defaultChain[$provider])) {

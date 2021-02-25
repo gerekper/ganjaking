@@ -151,14 +151,22 @@ $color = isset($invoice->color) && !empty($invoice->color) ? $invoice->color : '
         <td>
         </td>
         <td>
-        <?php printf( '<p><span class="green-label">%s:</span> %s</p>', esc_html__( 'Invoice NO', 'memberpress-pdf-invoice' ), strtoupper( $invoice->invoice_number ) ); ?>
+
+        <?php if(absint($invoice->credit_number) > 0) : ?>
+          <?php printf( '<p><span class="green-label">%s:</span> %s</p>', esc_html__( 'CREDIT NOTE NO', 'memberpress-pdf-invoice' ), strtoupper( $invoice->credit_number ) ); ?>
+          <?php printf( '<p><span class="green-label">%s:</span> %s</p>', esc_html__( 'ORIG. Invoice NO', 'memberpress-pdf-invoice' ), strtoupper( $invoice->invoice_number ) ); ?>
+        <?php else: ?>
+          <?php printf( '<p><span class="green-label">%s:</span> %s</p>', esc_html__( 'Invoice NO', 'memberpress-pdf-invoice' ), strtoupper( $invoice->invoice_number ) ); ?>
+        <?php endif; ?>
         <p><?php echo date_i18n( 'F d, Y', $invoice->paid_at ) ?></p>
         </td>
       </tr>
     </table>
-
-    <h1 id="header"><?php esc_html_e( 'Invoice', 'memberpress-pdf-invoice' ) ?></h1>
-
+    <?php if(absint($invoice->credit_number) > 0) : ?>
+      <h1 id="header"><?php esc_html_e( 'Credit Note', 'memberpress-pdf-invoice' ) ?></h1>
+    <?php else: ?>
+      <h1 id="header"><?php esc_html_e( 'Invoice', 'memberpress-pdf-invoice' ) ?></h1>
+    <?php endif; ?>
     <table id="content">
       <thead>
         <tr>

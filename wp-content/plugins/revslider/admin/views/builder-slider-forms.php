@@ -311,7 +311,17 @@ $api = 'revapi'; // . $slider_id;
 				<div class="div5"></div>
 			</div>
 
-
+			<!-- SLIDER  OVERLAY  -->
+			<div id="form_slider_layout_decboovsh" class="form_inner open">
+				<div class="form_inner_header"><i class="material-icons">drag_indicator</i><?php _e('Overlay', 'revslider');?></div>
+				<div class="collapsable">
+						<!-- SLIDER OVERLAY -->
+						<label_a><?php _e('Overlay', 'revslider');?></label_a><select data-evt="drawBGOverlay" id="sr_overlay" class="dottedoverlay sliderinput tos2 nosearchbox easyinit callEvent" data-r="layout.bg.dottedOverlay"></select>
+						<label_a><?php _e('Size', 'revslider');?></label_a><input data-numeric="true" data-allowed="none" data-min="0"  data-r="layout.bg.dottedOverlaySize" data-evt="drawBGOverlay"  type="text"  class="sliderinput valueduekeyboard  easyinit callEvent" placeholder="none" >
+						<label_a><?php _e('Color 1', 'revslider');?></label_a><input type="text" data-editing="Background Overlay Color 1" data-evt="drawBGOverlay" name="sliderbgoverlaycolor_a" id="slideroverlaybgcolor_a" class="my-color-field sliderinput easyinit" data-visible="true" data-r="layout.bg.dottedColorA" value="transparent">
+						<label_a><?php _e('Color 2', 'revslider');?></label_a><input type="text" data-editing="Background Overlay Color 2" data-evt="drawBGOverlay" name="sliderbgoverlaycolor_b" id="slideroverlaybgcolor_b" class="my-color-field sliderinput easyinit" data-visible="true" data-r="layout.bg.dottedColorB" value="transparent">
+				</div>
+			</div>
 
 			<!-- SLIDER POSITION -->
 			<div id="form_slidergeneral_general_sr_position" class="form_inner open">
@@ -401,10 +411,8 @@ $api = 'revapi'; // . $slider_id;
 			</div>
 			<!-- SLIDER LAYOUT MODULE PADDING , OVERLAY and SHADOW -->
 			<div id="form_slider_layout_decboovsh" class="form_inner open">
-				<div class="form_inner_header"><i class="material-icons">flip_to_back</i><?php _e('Border, Overlay & Shadow', 'revslider');?></div>
-				<div class="collapsable">
-						<!-- SLIDER OVERLAY -->
-						<label_a><?php _e('Overlay', 'revslider');?></label_a><select data-evt="sliderBGUpdate" id="sr_overlay" class="sliderinput tos2 nosearchbox easyinit" data-r="layout.bg.dottedOverlay" ><option value="none" selected="selected"><?php _e('none', 'revslider');?></option><option value="twoxtwo"><?php _e('2 x 2 Black', 'revslider');?></option><option value="twoxtwowhite"><?php _e('2 x 2 White', 'revslider');?></option><option value="threexthree"><?php _e('3 x 3 Black', 'revslider');?></option><option value="threexthreewhite"><?php _e('3 x 3 White', 'revslider');?></option></select>
+				<div class="form_inner_header"><i class="material-icons">flip_to_back</i><?php _e('Border & Shadow', 'revslider');?></div>
+				<div class="collapsable">						
 						<!-- SLIDER SHADOW -->
 						<label_a><?php _e('Shadow Type', 'revslider');?></label_a><select data-evt="sliderBGUpdate" id="sr_shadow" class="sliderinput tos2 nosearchbox easyinit" data-r="layout.bg.shadow" ><option value="0"><?php _e('No Shadow', 'revslider');?></option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option></select>
 						<!-- PADDING -->
@@ -608,7 +616,7 @@ if (RevSliderEventsManager::isEventsExists()) {
 									<div class="div15"></div>
 								</div>
 								<div class="sorts_ dep_ cat_tag_ related_ popular_ recent_"><label_a><?php _e('Max Posts', 'revslider');?></label_a><input class="sliderinput valueduekeyboard smallinput easyinit" data-r="source.post.maxPosts" data-min="0" data-max="500" type="text" id="sr_source_post_maxposts"><span class="linebreak"></span></div>
-								<div class="sorts_ dep_ cat_tag_ related_ popular_ recent_"><label_a><?php _e('Limit Excerpt', 'revslider');?></label_a><input data-allowed="words,chars" data-numeric="true" class="sliderinput valueduekeyboard smallinput easyinit" data-r="source.post.excerptLimit" data-min="0" data-max="500" type="text" id="sr_source_post_limitexc"><span class="linebreak"></span></div>
+								<div class="sorts_ dep_ cat_tag_ related_ popular_ recent_"><label_a><?php _e('Limit Excerpt', 'revslider');?></label_a><input data-allowed="chars,words" data-numeric="true" class="sliderinput valueduekeyboard smallinput easyinit" data-r="source.post.excerptLimit" data-min="0" data-max="500" type="text" id="sr_source_post_limitexc"><span class="linebreak"></span></div>
 							</div>
 						</div>		<!-- END OF POST SORTING AND SETTINGS -->
 					</div><!-- END OF FETCH CONTAINER -->
@@ -760,10 +768,7 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 						<div class="token_source_container token_source_account">
 							<label_a><?php _e('Connected To', 'revslider');?></label_a><input type="text" placeholder="<?php _e('Not yet Connected', 'revslider');?>" id="intagram_connect_with" class="sliderinput valueduekeyboard easyinit" data-r="source.instagram.connect_with" disabled />
 							<row>
-								<div id="get_insta_token" class="basic_action_button fullbutton" data-goto="<?php echo RevSliderInstagram::get_login_url(); ?>"><i class="material-icons">person_add</i><?php _e('Connect an Instagram Account', 'revslider' ); ?></div>
-								<!--<a href="<?php echo RevSliderInstagram::get_login_url(); ?>" class="basic_action_button fullbutton">
-									<i class="material-icons">person_add</i><?php _e('Connect an Instagram Account', 'revslider' ); ?>
-								</a>-->
+								<div id="get_insta_token" class="basic_action_button fullbutton save_and_goto_button" data-goto="<?php echo RevSliderInstagram::get_login_url(); ?>"><i class="material-icons">person_add</i><?php _e('Connect an Instagram Account', 'revslider' ); ?></div>
 							</row>
 							<row>
 								<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
@@ -819,7 +824,6 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 					<div class="collapsable">
 						<label_a><?php _e('Slides (<25)', 'revslider');?></label_a><input placeholder="<?php _e('Amount of Slides', 'revslider');?>" class=" sliderinput valueduekeyboard  easyinit" data-r="source.facebook.count" data-min="0" data-max="500" type="text" id="sr_source_facebook_count"><span class="linebreak"></span>
 						<label_a><?php _e('Cache (sec)', 'revslider');?></label_a><input placeholder="<?php _e('i.e. 1200', 'revslider');?>" class=" sliderinput valueduekeyboard  easyinit" data-r="source.facebook.transient" data-min="0" data-max="500" type="text" id="sr_source_facebook_transient"><span class="linebreak"></span>
-						<label_a><?php _e('Page URL', 'revslider');?></label_a><input placeholder="<?php _e('Enter FaceBook Page URL', 'revslider');?>" data-evt="facebooksourcechange" data-r="source.facebook.pageURL" type="text"  name="sr_src_facebook_pageURL" class="easyinit sliderinput"><span class="linebreak"></span>
 						<label_a><?php _e('Source', 'revslider');?></label_a><select id="facebook-typesource" data-evt="facebooksourcechange" data-theme="wideopentos2" class="sliderinput tos2 nosearchbox easyinit" data-r="source.facebook.typeSource" data-show=".facebook_*val*_settings" data-hide=".facebook_source_settings">
 							<option value="album"><?php _e('Album', 'revslider');?></option>
 							<option value="timeline"><?php _e('TimeLine', 'revslider');?></option>
@@ -827,12 +831,30 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 						<div class="facebook_album_settings facebook_source_settings">
 							<label_a><?php _e('Select Album', 'revslider');?></label_a><select id="sr_src_facebok_album" name="sr_src_facebok_album" data-theme="wideopentos2" class="sliderinput tos2 searchbox easyinit" data-r="source.facebook.album"></select>
 						</div>
-						<label_a><?php _e('Access Token', 'revslider');?></label_a><input placeholder="<?php _e('Enter the Access Token', 'revslider');?>" data-r="source.facebook.appId" type="text"  data-evt="facebooksourcechange" name="sr_src_facebook_appid" class="easyinit sliderinput"><span class="linebreak"></span>
-						<div class="div10"></div>
-						<row >
-							<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
-							<contenthalf><div class="function_info"><?php _e('Please <a target="_blank" href="https://www.sliderrevolution.com/faq/instagram-stream-setup-instructions-with-access-token/">generate</a> your Access Token in Facebook.', 'revslider');?></div></contenthalf>
-						</row>
+						<label_a><?php _e('Token Source', 'revslider')?></label_a><select id="sr_source_facebook_token_source"  class="sliderinput easyinit tos2 nosearchbox" data-show=".facebook_token_source_*val*" data-hide=".facebook_token_source_container" data-r="source.facebook.token_source">
+							<option value="account" selected="selected"><?php _e('From Account', 'revslider');?></option>
+							<option value="manual"><?php _e('Manual', 'revslider');?></option>
+						</select><span class="linebreak"></span>
+						<div class="facebook_token_source_container facebook_token_source_account">
+							<label_a><?php _e('Connected To', 'revslider');?></label_a><input type="text" placeholder="<?php _e('Not yet Connected', 'revslider');?>" id="facebook_connect_with" class="sliderinput valueduekeyboard easyinit" data-r="source.facebook.connect_with" disabled />
+							<row>
+								<div id="get_facebook_token" class="basic_action_button fullbutton save_and_goto_button" data-goto="<?php echo RevSliderFacebook::get_login_url(); ?>"><i class="material-icons">person_add</i><?php _e('Connect Facebook Account', 'revslider' ); ?></div>
+							</row>
+							<row>
+								<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
+								<contenthalf><div class="function_info"><?php _e('You will be redirected to Facebook and then back to the editor. Current settings will be auto saved.', 'revslider');?></div></contenthalf>
+							</row>
+						</div>
+						<div class="facebook_token_source_container facebook_token_source_manual">
+							<label_a><?php _e('Access Token', 'revslider');?></label_a><input type="text" placeholder="<?php _e('Enter the Access Token', 'revslider');?>" data-r="source.facebook.appId"  name="sr_src_facebook_appid" class="easyinit sliderinput"><span class="linebreak"></span>
+							<label_a><?php _e('Page ID', 'revslider');?></label_a><input type="text" placeholder="<?php _e('Enter Facebook Page ID', 'revslider');?>" data-r="source.facebook.page_id" name="sr_src_facebook_page_id" class="easyinit sliderinput"><span class="linebreak"></span>
+							<div class="div10"></div>
+							<row>
+								<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
+								<contenthalf><div class="function_info"><?php _e('Check the FAQ on <a target="_blank" href="https://www.sliderrevolution.com/faq/facebook-stream-setup-instructions-access-token/">how to generate</a> Access Token and get Page ID.', 'revslider');?></div></contenthalf>
+							</row>
+						</div>
+
 					</div><!-- END OF COLLAPSABLE -->
 				</div><!-- END OF FACEBOOK SETTINGS -->
 			</div><!-- END OF FACEBOOK VISIBILITY  -->
@@ -975,7 +997,7 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 						<label_a><?php _e('Transitions', 'revslider')?></label_a><select id="sr_gen_fs_transition" class="sliderinput tos2 searchbox easyinit slideAnimSelect" data-theme="wideopentos2" data-r="general.firstSlide.type">
 							</select>
 						<label_a><?php _e('Duration', 'revslider');?></label_a><input data-numeric="true" data-allowed="ms" class="sliderinput valueduekeyboard  easyinit" data-r="general.firstSlide.duration" data-min="0" data-max="1000000" type="text" id="sr_gen_fsduration" />
-						<label_a><?php _e('Slot Amount', 'revslider');?></label_a><input data-numeric="true" data-allowed="none" class="sliderinput valueduekeyboard smallinput easyinit" data-r="general.firstSlide.slotAmount" data-min="0" data-max="1000000" type="text" id="sr_gen_fsslotamount">
+						<!--<label_a><?php _e('Slot Amount', 'revslider');?></label_a><input data-numeric="true" data-allowed="none" class="sliderinput valueduekeyboard smallinput easyinit" data-r="general.firstSlide.slotAmount" data-min="0" data-max="1000000" type="text" id="sr_gen_fsslotamount">-->
 					</div>
 				</div>
 			</div>

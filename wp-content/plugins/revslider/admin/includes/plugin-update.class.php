@@ -227,6 +227,11 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 			$upd->change_global_settings_to_6_2_0();
 			$upd->set_version($version);
 		}
+		
+		//add this so that sliders will be updated if under 6.4.0
+		if(version_compare($version, '6.4.0', '<')){
+			$upd->set_version('6.4.0');
+		}
 	}
 	
 	/**
@@ -258,6 +263,10 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 		if(version_compare($slider->get_setting('version', '1.0.0'), '6.2.0', '<')){
 			$upd->change_animations_settings_to_6_2_0(); //check if new navigations are added through import
 			$upd->upgrade_slider_to_6_2_0($slider);
+		}
+		
+		if(version_compare($slider->get_setting('version', '1.0.0'), '6.4.0', '<')){
+			$upd->upgrade_slider_to_6_4_0($slider);
 		}
 	}
 	
@@ -512,6 +521,120 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 				}
 				
 				$slider->update_settings(array('version' => '6.2.0'));
+			}
+		}
+	}
+	
+	
+	/** check to convert the given Slider to latest versions
+	 * @since: 6.4.0
+	 * check in all layers, if we have an gradient in idle and if we need to push it to the hover animation
+	 **/
+	public function upgrade_slider_to_6_4_0($sliders = false){
+		$sr = new RevSliderSlider();
+		$sl = new RevSliderSlide();
+		
+		$sliders = ($sliders === false) ? $sr->get_sliders() : array($sliders); //do it on all Sliders if false
+		
+		if(!empty($sliders) && is_array($sliders)){
+			foreach($sliders as $slider){
+				if(version_compare($slider->get_setting('version', '1.0.0'), '6.4.0', '<')){
+					$params = $slider->get_params();
+					$params['version'] = '6.4.0';
+					
+					if($this->get_val($params, array('layout', 'bg'), false) !== false){
+						$do = strtolower($this->get_val($params, array('layout', 'bg', 'dottedOverlay'), ''));
+						if(strpos($do, 'white') !== false)		 $this->set_val($params, array('layout', 'bg', 'dottedColorB'), '#FFFFFF');
+						if(strpos($do, 'twoxtwo') !== false)	 $this->set_val($params, array('layout', 'bg', 'dottedOverlay'), '1');
+						if(strpos($do, 'threexthree') !== false) $this->set_val($params, array('layout', 'bg', 'dottedOverlay'), '2');
+					}
+					
+					$slider->update_params($params, true);
+				}
+				
+				$slides = $slider->get_slides(false, true);
+				$static_id = $sl->get_static_slide_id($slider->get_id());
+				if($static_id !== false){
+					$msl = new RevSliderSlide();
+					if(strpos($static_id, 'static_') === false){
+						$static_id = 'static_'. $static_id;
+					}
+					$msl->init_by_id($static_id);
+					if($msl->get_id() !== ''){
+						$slides = array_merge($slides, array($msl));
+					}
+				}
+				
+				if(!empty($slides) && is_array($slides)){
+					foreach($slides as $slide){
+						$settings = $slide->get_settings();
+						//on slides
+						if(version_compare($this->get_val($settings, 'version', '1.0.0'), '6.4.0', '<')){
+							$params			= $slide->get_params();
+							$params['version'] = '6.4.0';
+							
+							$do	= $this->get_val($params, array('bg', 'video', 'dottedOverlay'), 'none');
+							if(strpos($do, 'white') !== false)		 $this->set_val($params, array('bg', 'video', 'dottedColorB'), '#FFFFFF');
+							if(strpos($do, 'twoxtwo') !== false)	 $this->set_val($params, array('bg', 'video', 'dottedOverlay'), '1');
+							if(strpos($do, 'threexthree') !== false) $this->set_val($params, array('bg', 'video', 'dottedOverlay'), '2');
+							
+							$slide->set_params($params);
+							$slide->save_params();
+							
+							$slide->settings['version'] = '6.4.0';
+							$slide->save_settings();
+						}
+						
+						//on layers
+						$layers = $slide->get_layers();
+						
+						if(!empty($layers) && is_array($layers)){
+							$save = false;
+							foreach($layers as $lk => $layer){
+								$version = $this->get_val($layer, 'version', '1.0.0');
+								
+								if(version_compare($version, '6.4.0', '<')){
+									$save		 = true;
+									$layers[$lk]['version'] = '6.4.0';
+									
+									if($this->get_val($layer, 'type', 'text') === 'video'){
+										$do = $this->get_val($layer, array('media', 'dotted'));
+										if(strpos($do, 'white') !== false)		 $this->set_val($layers, array($lk, 'media', 'dottedColorB'), '#FFFFFF');
+										if(strpos($do, 'twoxtwo') !== false)	 $this->set_val($layers, array($lk, 'media', 'dotted'), '1');
+										if(strpos($do, 'threexthree') !== false) $this->set_val($layers, array($lk, 'media', 'dotted'), '2');
+									}
+									
+									if($this->get_val($layer, 'type', 'text') === 'shape') continue;
+									$idle_bg = $this->get_val($layer, array('idle', 'backgroundColor'), '');
+									if(
+										strpos($idle_bg, 'gradient') === false &&
+										strpos($idle_bg, 'radial') === false && 
+										strpos($idle_bg, 'linear') === false && 
+										strpos($idle_bg, '&type') === false
+									) continue;
+									if($this->get_val($layer, array('hover', 'usehover'), false) === false) continue;
+									
+									$hover_bg = $this->get_val($layer, array('hover', 'backgroundColor'), '');
+									if(
+										strpos($hover_bg, 'gradient') !== false ||
+										strpos($hover_bg, 'radial') !== false || 
+										strpos($hover_bg, 'linear') !== false || 
+										strpos($hover_bg, '&type') !== false
+									) continue;
+									
+									$layers[$lk]['hover']['backgroundColor'] = $idle_bg;
+								}
+							}
+							
+							if($save){
+								$slide->set_layers_raw($layers);
+								$slide->save_layers();
+							}
+						}
+					}
+				}
+				
+				$slider->update_settings(array('version' => '6.4.0'));
 			}
 		}
 	}
@@ -1829,7 +1952,6 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 								'appId' => $slider->get_param('facebook-app-id', ''),
 								'appSecret' => $slider->get_param('facebook-app-secret', ''),
 								'count' => $slider->get_param('facebook-count', ''),
-								'pageURL' => $slider->get_param('facebook-page-url', ''),
 								'transient' => $slider->get_param('facebook-transient', 1200),
 								'typeSource' => $slider->get_param('facebook-type-source', 'album'),
 							),

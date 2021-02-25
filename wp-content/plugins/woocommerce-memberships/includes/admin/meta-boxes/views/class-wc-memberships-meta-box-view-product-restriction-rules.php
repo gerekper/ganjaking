@@ -74,9 +74,11 @@ class WC_Memberships_Meta_Box_View_Product_Restriction_Rules extends \WC_Members
 					<?php else : ?>
 
 						<?php if ( $is_variable_product ) : ?>
+
 							<th scope="col" class="product-restriction-applies-to product-variation-column">
 								<?php esc_html_e( 'Applies to', 'woocommerce-memberships' ); ?>
 							</th>
+
 						<?php endif; ?>
 
 						<th scope="col" class="product-restriction-membership-plan membership-plan-column">
@@ -177,8 +179,8 @@ class WC_Memberships_Meta_Box_View_Product_Restriction_Rules extends \WC_Members
 
 												<th scope="row" class="check-column"></th>
 
-												<td class="purchasing-discount-applies-to product-variation-column">
-													<p class="form-field"><?php echo esc_html( $variation->get_formatted_name() ); ?></p>
+												<td class="product-restriction-applies-to product-variation-column">
+													<p class="form-field"><?php echo $variation->get_formatted_name(); ?></p>
 												</td>
 
 												<td class="product-restriction-membership-plan membership-plan-column">

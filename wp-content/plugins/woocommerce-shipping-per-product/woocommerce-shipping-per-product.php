@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Shipping Per Product v2
  * Plugin URI: https://woocommerce.com/products/per-product-shipping/
  * Description: Per product shipping allows you to define different shipping costs for products, based on customer location. These costs can be added to other shipping methods, or used as a standalone shipping method.
- * Version: 2.3.12
+ * Version: 2.3.13
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 3.3
@@ -11,7 +11,7 @@
  * WC requires at least: 2.6
  * WC tested up to: 4.5
  *
- * Copyright: © 2020 WooCommerce
+ * Copyright: © 2021 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
@@ -44,7 +44,7 @@ function woocommerce_shipping_per_product_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Shipping_Per_Product_Init' ) ) :
-	define( 'PER_PRODUCT_SHIPPING_VERSION', '2.3.12' ); // WRCS: DEFINED_VERSION.
+	define( 'PER_PRODUCT_SHIPPING_VERSION', '2.3.13' ); // WRCS: DEFINED_VERSION.
 	define( 'PER_PRODUCT_SHIPPING_FILE', __FILE__ );
 
 	/**
@@ -114,7 +114,8 @@ if ( ! class_exists( 'WC_Shipping_Per_Product_Init' ) ) :
 		 * Load shipping method class and related hooks.
 		 */
 		public function load_shipping_method() {
-			add_filter( 'woocommerce_cart_shipping_packages', array( $this, 'split_shipping_packages_per_product' ) );
+			// Priority 15 because Filter must trigger after Advanced Shipping Packages because it expects there to be only one package.
+			add_filter( 'woocommerce_cart_shipping_packages', array( $this, 'split_shipping_packages_per_product' ), 15 );
 			add_filter( 'woocommerce_shipping_methods', array( $this, 'register_shipping_method' ) );
 		}
 

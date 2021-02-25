@@ -2,15 +2,15 @@
 /**
  * Plugin Name: WooCommerce Give Products
  * Description: Allow shop owners to freely gift products to users.
- * Version: 1.1.12
+ * Version: 1.1.13
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 4.0.0
  * Tested up to: 5.6
- * WC tested up to: 4.7
+ * WC tested up to: 5.0
  * WC requires at least: 2.6
  *
- * Copyright: © 2020 WooCommerce
+ * Copyright: © 2021 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Woo: 521947:c76e4d6a4935f9d2ba635d2c459e813e
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'WC_Give_Products' ) ) {
 
-	define( 'WC_GIVE_PRODUCTS_VERSION', '1.1.12' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_GIVE_PRODUCTS_VERSION', '1.1.13' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Main plugin class.

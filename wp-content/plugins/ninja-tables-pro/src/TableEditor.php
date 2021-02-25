@@ -37,6 +37,8 @@ class TableEditor
             return;
         }
 
+        ninjaTablesValidateNonce();
+
         $tableId = intval($_REQUEST['table_id']);
         // check if the table is editable
         $defaultSettings = array(
@@ -105,6 +107,7 @@ class TableEditor
         if (!ninja_table_admin_role()) {
             return;
         }
+        ninjaTablesValidateNonce();
 
         $tableId = intval($_REQUEST['table_id']);
         $settings = wp_unslash($_REQUEST['settings']);
@@ -299,6 +302,7 @@ class TableEditor
 
     public function routeUpdateRow()
     {
+    	ninjaTablesValidateNonce('ninja_table_public_nonce');
         $tableId = intval($_REQUEST['table_id']);
         $rowId = false;
         if (isset($_REQUEST['row_id']) && $_REQUEST['row_id']) {
@@ -418,6 +422,7 @@ class TableEditor
 
     public function routeDeleteRow()
     {
+    	ninjaTablesValidateNonce('ninja_table_public_nonce');
         $tableId = intval($_POST['table_id']);
         $rowId = intval($_POST['row_id']);
         $provider = ninja_table_get_data_provider($tableId);

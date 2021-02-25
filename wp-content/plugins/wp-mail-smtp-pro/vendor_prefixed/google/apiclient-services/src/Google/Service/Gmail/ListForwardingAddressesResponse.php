@@ -23,14 +23,14 @@ class Google_Service_Gmail_ListForwardingAddressesResponse extends \WPMailSMTP\V
     protected $forwardingAddressesType = 'Google_Service_Gmail_ForwardingAddress';
     protected $forwardingAddressesDataType = 'array';
     /**
-     * @param Google_Service_Gmail_ForwardingAddress
+     * @param Google_Service_Gmail_ForwardingAddress[]
      */
     public function setForwardingAddresses($forwardingAddresses)
     {
         $this->forwardingAddresses = $forwardingAddresses;
     }
     /**
-     * @return Google_Service_Gmail_ForwardingAddress
+     * @return Google_Service_Gmail_ForwardingAddress[]
      */
     public function getForwardingAddresses()
     {

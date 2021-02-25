@@ -1,5 +1,10 @@
 *** WooCommerce Memberships Changelog ***
 
+2021.02.19 - version 1.21.3
+ * Fix - Prevent issues with numeric options in dropdown profile fields
+ * Fix - Address some CSS styling issues within the Memberships rules meta box in smaller viewports
+ * Fix - When saving a profile field from the admin and there are issues related to inputs in one meta box tab, switch the tab to foreground to highlight the issue
+
 2021.01.26 - version 1.21.2
  * Fix - Make the "Redirect members upon login" setting effective also when users are logging in from the standard WordPress login form
 

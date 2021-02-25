@@ -67,6 +67,7 @@ class Settings extends AC\Settings\Column
 		     ->set( 'setting', $filter );
 
 		$filter_label = $this->create_element( 'text', 'filter_label' )
+		                     ->set_attribute( 'data-default-translation', $this->get_default_translation_string() )
 		                     ->set_attribute( 'placeholder', $this->get_filter_label_default() );
 
 		// Sub settings
@@ -105,10 +106,14 @@ class Settings extends AC\Settings\Column
 		}
 
 		if ( $this->column instanceof Filterable && ! $this->column->filtering()->is_ranged() ) {
-			$label = sprintf( __( "Any %s", 'codepress-admin-columns' ), $label );
+			$label = sprintf( $this->get_default_translation_string(), $label );
 		}
 
 		return $label;
+	}
+
+	private function get_default_translation_string() {
+		return __( "Any %s", 'codepress-admin-columns' );
 	}
 
 	/**

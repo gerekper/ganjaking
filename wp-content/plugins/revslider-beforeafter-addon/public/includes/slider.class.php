@@ -70,6 +70,9 @@ class RsBeforeAfterSliderFront extends RevSliderFunctions {
 		
 		$handle = 'rs-' . $this->pluginTitle . '-front';
 		$base   = $this->pluginUrl . 'public/assets/';
+
+		$path = $base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js';
+		$_jsPathMin = file_exists(RS_BEFOREAFTER_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
 		
 		wp_enqueue_style(
 		
@@ -92,7 +95,7 @@ class RsBeforeAfterSliderFront extends RevSliderFunctions {
 		wp_enqueue_script(
 		
 			$handle, 
-			$base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js', 
+			$base . 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', 
 			array('jquery'), 
 			$this->version, 
 			true
@@ -231,7 +234,7 @@ class RsBeforeAfterSliderFront extends RevSliderFunctions {
 			if(!empty($divider_shadow)) {
 
 				$strength = $this->get_val($divider_shadow_ar, 'strength', '3');
-				$color    = $this->get_val($divider_shadow_ar, 'rgba(0, 0, 0, 0.35)');
+				$color    = $this->get_val($divider_shadow_ar, 'color', 'rgba(0, 0, 0, 0.35)');
 				$blur     = $this->get_val($divider_shadow_ar, 'blur', '10');
 				
 				echo ',' . "\n";

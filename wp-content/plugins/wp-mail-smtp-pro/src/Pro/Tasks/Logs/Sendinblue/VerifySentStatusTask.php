@@ -57,7 +57,8 @@ class VerifySentStatusTask extends VerifySentStatusTaskAbstract {
 
 		if (
 			! is_a( $response, 'WPMailSMTP\Vendor\SendinBlue\Client\Model\GetEmailEventReport' ) ||
-			! method_exists( $response, 'getEvents' )
+			! method_exists( $response, 'getEvents' ) ||
+			empty( $response->getEvents() )
 		) {
 			$this->maybe_retry( $email_log_id, $try, $email );
 

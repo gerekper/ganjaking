@@ -60,7 +60,7 @@ class Control {
 				$options['control'][ $key ] = (bool) $value;
 			}
 		} else {
-			$controls = wp_mail_smtp()->pro->get_control()->get_controls( true );
+			$controls = $this->get_controls( true );
 
 			// All emails are on by default (not disabled).
 			foreach ( $controls as $control ) {

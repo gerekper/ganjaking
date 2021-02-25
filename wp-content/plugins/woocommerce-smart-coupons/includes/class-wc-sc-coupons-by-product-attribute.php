@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.1.0
+ * @version     1.2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -39,6 +39,8 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 			add_filter( 'wc_smart_coupons_export_headers', array( $this, 'export_headers' ) );
 			add_filter( 'smart_coupons_parser_postmeta_defaults', array( $this, 'postmeta_defaults' ) );
 			add_filter( 'is_protected_meta', array( $this, 'make_action_meta_protected' ), 10, 3 );
+			add_filter( 'sc_generate_coupon_meta', array( $this, 'generate_coupon_attribute_meta' ), 10, 2 );
+			add_action( 'wc_sc_new_coupon_generated', array( $this, 'copy_coupon_attributes_meta' ) );
 		}
 
 		/**
@@ -515,6 +517,51 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 			}
 
 			return $protected;
+		}
+
+		/**
+		 * Add product's attribute in coupon meta
+		 *
+		 * @param  array $data The row data.
+		 * @param  array $post The POST values.
+		 * @return array Modified data
+		 */
+		public function generate_coupon_attribute_meta( $data = array(), $post = array() ) {
+
+			$product_attribute_ids = ( isset( $post['wc_sc_product_attribute_ids'] ) ) ? wc_clean( wp_unslash( $post['wc_sc_product_attribute_ids'] ) ) : array(); // phpcs:ignore
+			$data['wc_sc_product_attribute_ids'] = implode( '|', $product_attribute_ids ); // Store attribute ids as delimited data instead of serialized data.
+
+			$exclude_product_attribute_ids = ( isset( $post['wc_sc_exclude_product_attribute_ids'] ) ) ? wc_clean( wp_unslash( $post['wc_sc_exclude_product_attribute_ids'] ) ) : array(); // phpcs:ignore
+			$data['wc_sc_exclude_product_attribute_ids'] = implode( '|', $exclude_product_attribute_ids ); // Store attribute ids as delimited data instead of serialized data.
+
+			return $data;
+		}
+
+		/**
+		 * Function to copy product's attribute meta in newly generated coupon
+		 *
+		 * @param  array $args The arguments.
+		 */
+		public function copy_coupon_attributes_meta( $args = array() ) {
+
+			$new_coupon_id = ( ! empty( $args['new_coupon_id'] ) ) ? absint( $args['new_coupon_id'] ) : 0;
+			$coupon        = ( ! empty( $args['ref_coupon'] ) ) ? $args['ref_coupon'] : false;
+
+			if ( empty( $new_coupon_id ) || empty( $coupon ) ) {
+				return;
+			}
+
+			if ( $this->is_wc_gte_30() ) {
+				$product_attribute_ids         = $coupon->get_meta( 'wc_sc_product_attribute_ids' );
+				$exclude_product_attribute_ids = $coupon->get_meta( 'wc_sc_exclude_product_attribute_ids' );
+			} else {
+				$old_coupon_id                 = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
+				$product_attribute_ids         = get_post_meta( $old_coupon_id, 'wc_sc_product_attribute_ids', true );
+				$exclude_product_attribute_ids = get_post_meta( $old_coupon_id, 'wc_sc_exclude_product_attribute_ids', true );
+			}
+			update_post_meta( $new_coupon_id, 'wc_sc_product_attribute_ids', $product_attribute_ids );
+			update_post_meta( $new_coupon_id, 'wc_sc_exclude_product_attribute_ids', $exclude_product_attribute_ids );
+
 		}
 	}
 }

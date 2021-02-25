@@ -3,7 +3,7 @@
 Plugin Name: MemberPress + BuddyPress Integration
 Plugin URI: http://www.memberpress.com/
 Description: Integrates MemberPress with BuddyPress
-Version: 1.1.8
+Version: 1.1.10
 Author: Caseproof, LLC
 Author URI: http://caseproof.com/
 Text Domain: memberpress-buddypress
@@ -38,6 +38,7 @@ if(is_plugin_active('memberpress/memberpress.php')) {
 }
 
 function mepr_buddypress_load_language() {
+  if(!defined('MPBP_I18N_PATH')) { return; }
   $path = str_replace(WP_PLUGIN_DIR, '', MPBP_I18N_PATH);
   load_plugin_textdomain('memberpress-buddypress', false, $path);
 }

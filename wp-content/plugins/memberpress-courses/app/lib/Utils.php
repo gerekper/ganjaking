@@ -493,7 +493,7 @@ class Utils {
     return $data;
   }
 
-  public static function get_user_by($field = 'login', $value) {
+  public static function get_user_by($field, $value) {
     self::_include_pluggables('get_user_by');
     return get_user_by($field, $value);
   }

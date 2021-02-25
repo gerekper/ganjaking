@@ -125,12 +125,10 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 	/**
 	 * get the short library with categories and how many elements exist
 	 **/
-	public function get_short_library(){
-		
+	public function get_short_library($sliders = false){
 		$template = new RevSliderTemplate();
 		$library = new RevSliderObjectLibrary();
-		$sliders = $this->get_slider_overview();
-		
+		$sliders = ($sliders === false) ? $this->get_slider_overview() : $sliders;
 		
 		$slider_cat = array();
 		if(!empty($sliders)){
@@ -194,7 +192,6 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 		$rs_slider	= new RevSliderSlider();
 		$rs_slide	= new RevSliderSlide();
 		$sliders	= $rs_slider->get_sliders(false);
-
 		$rs_folder	= new RevSliderFolder();
 		$folders	= $rs_folder->get_folders();
 		
@@ -206,22 +203,33 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 				$slider_list[] = $slider->get_id();
 			}
 			
-			$slides_raw = $rs_slide->get_all_slides_raw($slider_list);
+			$_slides_raw = $rs_slide->get_all_slides_raw($slider_list);
+			$slides_raw = $this->get_val($_slides_raw, 'first_slides', array());
+			$slides_ids = $this->get_val($_slides_raw, 'slide_ids', array());
 			
-			foreach($sliders as $slider){
+			foreach($sliders as $k => $slider){
+				$slide_ids = array();
 				$slides = array();
 				$sid = $slider->get_id();
 				foreach($slides_raw as $s => $r){
 					if($r->get_slider_id() !== $sid) continue;
 					
+					foreach($slides_ids as $_s => $_sv){
+						if($this->get_val($_sv, 'slider_id') === $sid){
+							$slide_ids[] = $this->get_val($_sv, 'id');
+							unset($slides_ids[$_s]);
+						}
+					}
 					$slides[] = $r;
 					unset($slides_raw[$s]);
 				}
+				if(empty($slide_ids)) $slide_ids = false;
 				
 				$slides = (empty($slides)) ? false : $slides;
 				
 				$slider->init_layer = false;
-				$data[] = $slider->get_overview_data(false, $slides);
+				$data[] = $slider->get_overview_data(false, $slides, $slide_ids);
+				unset($sliders[$k]);
 			}
 		}
 		
@@ -605,6 +613,14 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 	 */
 	public function get_javascript_multilanguage(){
 		$lang = array(
+			'up' => __('Up', 'revslider'),
+			'down' => __('Down', 'revslider'),
+			'left' => __('Left', 'revslider'),
+			'right' => __('Right', 'revslider'),
+			'horizontal' => __('Horizontal', 'revslider'),
+			'vertical' => __('Vertical', 'revslider'),
+			'reversed' => __('Reverse', 'revslider'),
+			
 			'previewnotworking' => __('The preview could not be loaded due to some conflict with another WordPress theme or plugin', 'revslider'),
 			'checksystemnotworking' => __('Server connection issues, contact your hosting provider for further assistance', 'revslider'),
 			'editskins' => __('Edit Skin List', 'revslider'),
@@ -728,7 +744,6 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'addto' => __('Add To', 'revslider'),
 			'createnewcategory' => __('Create New Category', 'revslider'),
 			'updatenow' => __('Update Now', 'revslider'),
-			'updateNow' => __('Update Now', 'revslider'),
 			'securityupdate' => __('Install Critical Update', 'revslider'),
 			'toplevels' => __('Higher Level', 'revslider'),
 			'siblings' => __('Current Level', 'revslider'),
@@ -781,6 +796,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'sticky_slide' => __('Slide Options', 'revslider'),
 			'sticky_layer' => __('Layer Options', 'revslider'),
 			'imageCouldNotBeLoaded' => __('Set a Slide Background Image to use this feature', 'revslider'),
+			'slideTransPresets' => __('Slide Transition Presets', 'revslider'),
 			'oppps' => __('Ooppps....', 'revslider'),
 			'no_nav_changes_done' => __('None of the Settings changed. There is Nothing to Save', 'revslider'),
 			'no_preset_name' => __('Enter Preset Name to Save or Delete', 'revslider'),
@@ -814,7 +830,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'importfailure' => __('An Error Occured while importing', 'revslider'),
 			'successImportFile' => __('File Succesfully Imported', 'revslider'),
 			'importReport' => __('Import Report', 'revslider'),
-			
+			'updateNow' => __('Update Now', 'revslider'),
 			'activateToUpdate' => __('Activate To Update', 'revslider'),
 			'activated' => __('Activated', 'revslider'),
 			'notActivated' => __('Not Activated', 'revslider'),			
@@ -949,10 +965,15 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'installtemplateandaddons' => __('Install Template & Addon(s)', 'revslider'),
 			'licencerequired' => __('Activate License', 'revslider'),
 			'searcforicon' => __('Search Icons...', 'revslider'),
-			'savecurrenttemplate' => __('Save Current Template', 'revslider'),
+			'savecurrenttemplate' => __('Current Settings (Click to Save as Preset)', 'revslider'),
+			'customtransitionpresets' => __('Custom Presets', 'revslider'),
+			'customtemplates' => __('Custom', 'revslider'),
 			'overwritetemplate' => __('Overwrite Template ?', 'revslider'),
 			'deletetemplate' => __('Delete Template ?', 'revslider'),
 			'credits' => __('Credits', 'revslider'),
+			'randomanimation' => __('Random Animation', 'revslider'),
+			'transition' => __('Transition', 'revslider'),
+			'duration' => __('Duration', 'revslider'),
 			'notinstalled' => __('Not Installed', 'revslider'),
 			'enabled' => __('Enabled', 'revslider'),
 			'global' => __('Global', 'revslider'),
@@ -1100,7 +1121,53 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'customsvgfile' => __('Custom SVG File', 'revslider'),
 			'savecustomfile' => __('Import File', 'revslider'),
 			'customfile' => __('Custom  File', 'revslider'),
-			'uploadfirstitem' => __('Upload Your 1st Item', 'revslider')
+			'uploadfirstitem' => __('Upload Your 1st Item', 'revslider'),
+			'sltr_full' => __('Full', 'revslider'),
+			'sltr_basic' => __('Base', 'revslider'),
+			'sltr_fade' => __('Fade', 'revslider'),
+			'sltr_fades' => __('Fade', 'revslider'),
+			'sltr_slideinout' => __('Slide In, Slide Out', 'revslider'),
+			'sltr_slideinoutfadein' => __('Slide & Fade In, Slide Out', 'revslider'),
+			'sltr_slideinoutfadeinout' => __('Slide & Fade In, Slide & Fade Out', 'revslider'),
+			'sltr_dddeffects' => __('3D Effects', 'revslider'),
+			'sltr_slide' => __('Slide', 'revslider'),
+			'sltr_slideover' => __('Simple Slide', 'revslider'),
+			'sltr_remove' => __('Masked Slide Out', 'revslider'),
+			'sltr_slidefadeinslideout' => __('Slide & Fade In, Slide Out', 'revslider'),
+			'sltr_slidefadeinout' => __('Slide & Fade In Slide & Fade Out', 'revslider'),
+			'sltr_parallax' => __('Parallax Slide', 'revslider'),
+			'sltr_zoom' => __('Zoom', 'revslider'),			
+			'sltr_zoomslidein' => __('Slide In, Zoom Out', 'revslider'),
+			'sltr_zoomslideout' => __('Zoom In, Slide Out', 'revslider'),
+			'sltr_special' => __('Special', 'revslider'),
+			'sltr_double' => __('Double Effect', 'revslider'),
+			'sltr_filter' => __('Filter', 'revslider'),
+			'sltr_effects' => __('Effects', 'revslider'),
+			'sltr_cuts' => __('Paper Cuts', 'revslider'),
+			'sltr_special' => __('Special', 'revslider'),
+			'sltr_columns' => __('Columns', 'revslider'),
+			'sltr_curtain' => __('Curtain', 'revslider'),
+			'sltr_rotation' => __('Rotation', 'revslider'),
+			'sltr_rows' => __('Rows', 'revslider'),			
+			'sltr_circle' => __('Circle', 'revslider'),
+			'sltr_boxes' => __('Boxes', 'revslider'),
+			'sltr_random' => __('Random', 'revslider'),
+			'dov_1' => __('Dotted Small', 'revslider'),
+			'dov_2' => __('Dotted Medium', 'revslider'),
+			'dov_3' => __('Dotted Large', 'revslider'),
+			'dov_4' => __('Horizontal Small', 'revslider'),
+			'dov_5' => __('Horizontal Medium', 'revslider'),
+			'dov_6' => __('Horizontal Large', 'revslider'),
+			'dov_7' => __('Vertical Small', 'revslider'),
+			'dov_8' => __('Vertical Medium', 'revslider'),
+			'dov_9' => __('Vertical Large', 'revslider'),
+			'dov_10' => __('Circles Small', 'revslider'),
+			'dov_11' => __('Circles Medium', 'revslider'),
+			'dov_12' => __('Diagonal 1', 'revslider'),
+			'dov_13' => __('Diagonal 2', 'revslider'),
+			'dov_14' => __('Diagonal 3', 'revslider'),
+			'dov_15' => __('Diagonal 4', 'revslider'),
+			'dov_16' => __('Cross', 'revslider')
 
 			
 		);

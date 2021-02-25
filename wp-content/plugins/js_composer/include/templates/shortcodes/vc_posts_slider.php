@@ -65,8 +65,8 @@ if ( 'flexslider' === $type || 'flexslider_fade' === $type || 'fading' === $type
 }
 
 if ( 'link_image' === $link ) {
-	wp_enqueue_script( 'prettyphoto' );
-	wp_enqueue_style( 'prettyphoto' );
+	wp_enqueue_script( 'lightbox2' );
+	wp_enqueue_style( 'lightbox2' );
 }
 
 $query_args = array(
@@ -132,7 +132,7 @@ $query_args['order'] = $order;
 // Run query
 $my_query = new WP_Query( $query_args );
 
-$pretty_rel_random = ' data-rel="prettyPhoto[rel-' . get_the_ID() . '-' . wp_rand() . ']"';
+$pretty_rel_random = ' data-lightbox="lightbox[rel-' . get_the_ID() . '-' . wp_rand() . ']"';
 if ( 'custom_link' === $link ) {
 	$custom_links = explode( ',', vc_value_from_safe( $custom_links ) );
 }
@@ -173,9 +173,9 @@ while ( $my_query->have_posts() ) {
 			if ( '' !== $p_video ) {
 				$p_link = $p_video;
 			} else {
-				$p_link = $p_img_large[0];
+				$p_link = isset( $p_img_large[0] ) ? $p_img_large[0] : '';
 			}
-			$link_image_start = '<a class="link_image prettyphoto" href="' . esc_url( $p_link ) . '" ' . $pretty_rel_random . ' title="' . the_title_attribute( 'echo=0' ) . '" >';
+			$link_image_start = '<a class="link_image" href="' . esc_url( $p_link ) . '" ' . $pretty_rel_random . ' title="' . the_title_attribute( 'echo=0' ) . '" >';
 		} elseif ( 'custom_link' === $link ) {
 			if ( isset( $custom_links[ $i ] ) ) {
 				$slide_custom_link = $custom_links[ $i ];

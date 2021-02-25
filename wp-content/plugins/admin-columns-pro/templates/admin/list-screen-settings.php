@@ -11,7 +11,7 @@ use AC\Form\Element\Select; ?>
 			<small>(<?= __( 'optional', 'codepress-admin-columns' ); ?>)</small>
 		</div>
 	</header>
-	<form class="ac-setbox__fields" method="post">
+	<form data-form-part="preferences">
 
 		<div class="ac-setbox__row">
 			<div class="ac-setbox__row__th">
@@ -77,8 +77,8 @@ use AC\Form\Element\Select; ?>
 					<div class="ac-setbox__row__fields">
 						<div class="ac-setbox__row__fields__inner">
 							<div class="radio-labels radio-labels">
-								<label class="ac-setting-input_filter"><input name="settings[horizontal_scrolling]" type="radio" value="on" <?php checked( $pref_hs, 'on' ); ?>><?= __( 'Yes' ); ?></label>
-								<label class="ac-setting-input_filter"><input name="settings[horizontal_scrolling]" type="radio" value="off" <?php checked( $pref_hs, 'off' ); ?>><?= __( 'No' ); ?></label>
+								<label class="ac-setting-input_filter"><input name="horizontal_scrolling" type="radio" value="on" <?php checked( $pref_hs, 'on' ); ?>><?= __( 'Yes' ); ?></label>
+								<label class="ac-setting-input_filter"><input name="horizontal_scrolling" type="radio" value="off" <?php checked( $pref_hs, 'off' ); ?>><?= __( 'No' ); ?></label>
 							</div>
 						</div>
 					</div>
@@ -95,12 +95,12 @@ use AC\Form\Element\Select; ?>
 						<div class="ac-setbox__row__fields__inner">
 							<div class="radio-labels radio-labels">
 								<?php
-								$select = new Select( 'settings[sorting]', [
+								$select = new Select( 'sorting', [
 									0 => __( 'Default' ),
 								] );
 								echo $select->set_attribute( 'data-sorting', $pref_sorting );
 
-								$select = new Select( 'settings[sorting_order]', [
+								$select = new Select( 'sorting_order', [
 									'asc'  => __( 'Ascending' ),
 									'desc' => __( 'Descending' ),
 								] );

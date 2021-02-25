@@ -40,15 +40,6 @@ $color = ( '' !== $color ) ? ' wpb_' . $color : '';
 $size = ( '' !== $size && 'wpb_regularsize' !== $size ) ? ' wpb_' . $size : ' ' . $size;
 
 $a_class = '';
-if ( '' !== $el_class ) {
-	$tmp_class = explode( ' ', $el_class );
-	if ( in_array( 'prettyphoto', $tmp_class, true ) ) {
-		wp_enqueue_script( 'prettyphoto' );
-		wp_enqueue_style( 'prettyphoto' );
-		$a_class .= ' prettyphoto';
-		$el_class = str_ireplace( 'prettyphoto', '', $el_class );
-	}
-}
 
 if ( '' !== $href ) {
 	$button = '<span class="wpb_button ' . esc_attr( $color . $size . $icon ) . '">' . $title . $i_icon . '</span>';

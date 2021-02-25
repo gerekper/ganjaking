@@ -15,7 +15,7 @@ class RsBackupBase extends RsAddOnBackupBase {
 					 $_PluginUrl     = RS_BACKUP_PLUGIN_URL,
 					 $_PluginTitle   = 'backup',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '2.0.1';
+				     $_Version       = '2.0.2';
 	
 	public function __construct() {
 		

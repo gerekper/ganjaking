@@ -16,7 +16,7 @@
  * Plugin Name:       Slider Revolution Previous and Next Posts Add-On
  * Plugin URI:        http://revolution.themepunch.com
  * Description:       Add previous and next Posts to your single post with style & Slider Revolution
- * Version:           2.0.1
+ * Version:           2.0.2
  * Author:            ThemePunch
  * Author URI:        http://www.themepunch.com
  * License:           GPL-2.0+
@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define("REV_ADDON_PREVNEXT_POSTS_VERSION", "2.0.1");
+define("REV_ADDON_PREVNEXT_POSTS_VERSION", "2.0.2");
 define("REV_ADDON_PREVNEXT_POSTS_URL", str_replace('index.php','',plugins_url( 'index.php', __FILE__ )));
 
 

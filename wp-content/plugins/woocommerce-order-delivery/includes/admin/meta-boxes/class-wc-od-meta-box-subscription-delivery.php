@@ -126,8 +126,9 @@ class WC_OD_Meta_Box_Subscription_Delivery {
 			wc_od_delete_order_meta( $post_id, '_delivery_date', true );
 		}
 
-		if ( $delivery_date ) {
-			$delivery_time_frame = ( isset( $_POST['_delivery_time_frame'] ) ? wc_clean( wp_unslash( $_POST['_delivery_time_frame'] ) ) : '' ); // WPCS: CSRF ok, sanitization ok.
+		$delivery_time_frame = ( isset( $_POST['_delivery_time_frame'] ) ? wc_clean( wp_unslash( $_POST['_delivery_time_frame'] ) ) : '' ); // phpcs:ignore: WordPress.Security.NonceVerification
+
+		if ( $delivery_date && ! empty( $delivery_time_frame ) ) {
 			wc_od_update_order_meta( $post_id, '_delivery_time_frame', $delivery_time_frame, true );
 		} else {
 			wc_od_delete_order_meta( $post_id, '_delivery_time_frame', true );

@@ -102,8 +102,24 @@ class WC_Instagram_Product_Catalog_Item_Variation extends WC_Instagram_Product_C
 	 * Gets the product description.
 	 *
 	 * @since 3.0.1
+	 *
+	 * @return string
 	 */
 	public function get_description() {
 		return $this->get_prop_with_parent_fallback( 'description' );
+	}
+
+	/**
+	 * Gets the product short description.
+	 *
+	 * @since 3.4.2
+	 *
+	 * @return string
+	 */
+	public function get_short_description() {
+		// Variations don't have short descriptions.
+		$parent = $this->get_parent();
+
+		return ( $parent ? $parent->get_short_description() : '' );
 	}
 }

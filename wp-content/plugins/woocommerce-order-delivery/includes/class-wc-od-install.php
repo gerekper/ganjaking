@@ -38,6 +38,10 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 				'wc_od_update_160_rename_delivery_date_field_setting',
 				'wc_od_update_160_db_version',
 			),
+			'1.8.6' => array(
+				'wc_od_update_186_delete_empty_time_frames_from_orders',
+				'wc_od_update_186_db_version',
+			),
 		);
 
 		/**

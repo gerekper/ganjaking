@@ -180,7 +180,8 @@ div#mepr-product-thank-you-message {
 #mepr-product-payment-methods-wrap,
 #mepr-product-profile-fields-wrap,
 #mepr-product-disable-address-fields-wrap,
-.mepr-product-adv-item {
+#mepr-product-allow-gifting-fields-wrap,
+.mepr-product-adv-item{
   margin-top:20px;
 }
 

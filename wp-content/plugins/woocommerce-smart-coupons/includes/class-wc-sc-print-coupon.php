@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.7.0
- * @version     1.1.0
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -248,7 +248,7 @@ if ( ! class_exists( 'WC_SC_Print_Coupon' ) ) {
 						jQuery('body').on('click', '#wc_sc_terms_notice a.wc_sc_terms_notice_remove, #wc_sc_terms_notice a.wc_sc_terms_redirect', function(){
 							let notice_action = jQuery( this ).data('action');
 							jQuery.ajax({
-								url: '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>',
+								url: decodeURIComponent( '<?php echo rawurlencode( admin_url( 'admin-ajax.php' ) ); ?>' ),
 								type: 'post',
 								dataType: 'json',
 								data: {

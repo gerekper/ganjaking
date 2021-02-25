@@ -382,7 +382,7 @@ class Media_Library extends Abstract_Module {
 
 		$skip_msg = array(
 			'large_size' => $smush_orgnl_txt,
-			'size_limit' => esc_html__( "Image couldn't be smushed as it exceeded the 5Mb size limit, Pro users can smush images with size up to 32Mb.", 'wp-smushit' ),
+			'size_limit' => esc_html__( "Image couldn't be smushed as it exceeded the 5Mb size limit, Pro users can smush images without any size restriction.", 'wp-smushit' ),
 		);
 
 		$skip_rsn = '';
@@ -572,7 +572,7 @@ class Media_Library extends Abstract_Module {
 		}
 
 		// If image needs to be resized.
-		if ( $this->core->mod->resize->should_resize( $id ) ) {
+		if ( $this->core->mod->resize->should_resize( $id, $attachment_data ) ) {
 			return true;
 		}
 

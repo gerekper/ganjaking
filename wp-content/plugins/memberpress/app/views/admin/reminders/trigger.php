@@ -24,6 +24,7 @@
   */ ?>
   <option value="before_cc-expires" <?php selected($trigger,'before_cc-expires'); ?>><?php _e("before Credit Card Expires", 'memberpress'); ?></option>
   <option value="after_cc-expires" <?php selected($trigger,'after_cc-expires'); ?>><?php _e("after Credit Card Expires", 'memberpress'); ?></option>
+  <?php MeprHooks::do_action('mepr-reminder-trigger-option', $trigger); ?>
 </select>
 <input type="hidden" name="<?php echo MeprReminder::$trigger_timing_str; ?>" id="<?php echo MeprReminder::$trigger_timing_str; ?>" value="<?php echo $reminder->trigger_timing; ?>" />
 <input type="hidden" name="<?php echo MeprReminder::$trigger_event_str; ?>" id="<?php echo MeprReminder::$trigger_event_str; ?>" value="<?php echo $reminder->trigger_event; ?>" />

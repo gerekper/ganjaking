@@ -59,8 +59,7 @@ class WC_Mailpoet_Integration {
 	/**
 	 * get_lists function.
 	 *
-	 * @access public
-	 * @return void
+	 * @return array
 	 */
 	public function get_lists() {
 		if ( ! $this->is_plugin_installed() ) {

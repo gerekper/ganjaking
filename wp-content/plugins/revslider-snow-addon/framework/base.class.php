@@ -82,8 +82,9 @@ class RsAddOnSnowBase {
 			
 			$_handle = 'rs-' . static::$_PluginTitle . '-admin';
 			$_base   = static::$_PluginUrl . 'admin/assets/';
-						
-			wp_enqueue_script($_handle, $_base . 'js/revslider-snow-addon-admin.js', array('jquery', 'revbuilder-admin'), static::$_Version, true);
+			$_jsPathMin = file_exists(static::$_PluginPath . 'admin/assets/js/revslider-' . static::$_PluginTitle . '-addon-admin.dev.js') ? '.dev' : '';
+			$tempvar = $_base . 'js/revslider-snow-addon-admin ' . $_jsPathMin . '.js';		
+			wp_enqueue_script($_handle, $_base . 'js/revslider-snow-addon-admin' . $_jsPathMin . '.js', array('jquery', 'revbuilder-admin'), static::$_Version, true);
 			wp_localize_script( $_handle, 'revslider_snow_addon', self::get_var() );
 		}
 		

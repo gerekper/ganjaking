@@ -109,7 +109,7 @@ class Options extends OptionsAbstract {
 					<?php endforeach; ?>
 				</select>
 				<p class="desc">
-					<?php esc_html_e( 'The region in which your Zoho Account Data resides. One of the valid Zoho data centers.', 'wp-mail-smtp-pro' ); ?><br/>
+					<?php esc_html_e( 'The data center location used by your Zoho account', 'wp-mail-smtp-pro' ); ?><br/>
 				</p>
 			</div>
 		</div>
@@ -224,7 +224,7 @@ class Options extends OptionsAbstract {
 
 					if ( ! empty( $user['email'] ) && ! empty( $user['display_name'] ) ) {
 						printf(
-							/* translators: %s - Display name and email, as received from Zoho API. */
+							/* translators: %s - Display name and email, as received from oAuth provider. */
 							esc_html__( 'Connected as %s', 'wp-mail-smtp-pro' ),
 							'<code>' . esc_html( $user['display_name'] . ' <' . $user['email'] . '>' ) . '</code>'
 						);
@@ -283,5 +283,26 @@ class Options extends OptionsAbstract {
 		$options->set( $old_opt );
 
 		Debug::clear();
+	}
+
+	/**
+	 * Get zoho domains in label/value pairs.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @return array
+	 */
+	public function get_zoho_domains() {
+
+		$data = [];
+
+		foreach ( $this->zoho_domains as $value => $label ) {
+			$data[] = [
+				'label' => $label,
+				'value' => $value,
+			];
+		}
+
+		return $data;
 	}
 }

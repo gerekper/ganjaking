@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.0
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -344,7 +344,7 @@ if ( ! class_exists( 'WC_SC_Product_Fields' ) ) {
 									return m;
 								},
 								ajax: {
-									url:         '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>',
+									url:         decodeURIComponent( '<?php echo rawurlencode( admin_url( 'admin-ajax.php' ) ); ?>' ),
 									dataType:    'json',
 									quietMillis: 250,
 									data: function( term, page ) {

@@ -108,7 +108,7 @@ class MeprProductsHelper {
     <?php
   }
 
-  public static function get_user_types_dropdown($chosen = null, $id) {
+  public static function get_user_types_dropdown($chosen, $id) {
     ?>
       <select name="<?php echo MeprProduct::$who_can_purchase_str.'-user_type'; ?>[]" class="user_types_dropdown" data-value="<?php echo $id; ?>">
         <option value="everyone" <?php selected('everyone', $chosen); ?>><?php _e('Everyone', 'memberpress'); ?></option>
@@ -168,6 +168,7 @@ class MeprProductsHelper {
       $tmp_txn->id = 0;
       $tmp_txn->user_id = (isset($current_user->ID))?$current_user->ID:0;
       $tmp_txn->load_product_vars($product, $coupon_code, true);
+      $tmp_txn = MeprHooks::apply_filters('mepr_display_invoice_txn', $tmp_txn);
 
       if(empty($coupon_code)) { //We've already validated the coupon before including signup_form.php
         if($product->register_price_action == 'custom') {
@@ -194,6 +195,8 @@ class MeprProductsHelper {
       $tmp_sub->load_product_vars($product, $coupon_code,true);
       $tmp_sub->maybe_prorate();
 
+      $tmp_sub = MeprHooks::apply_filters('mepr_display_invoice_sub', $tmp_sub);
+
       if($product->register_price_action == 'custom' && empty($coupon_code) && !$tmp_sub->prorated_trial) {
         echo stripslashes($product->register_price);
       }
@@ -219,6 +222,7 @@ class MeprProductsHelper {
       $tmp_sub->user_id = (isset($current_user->ID))?$current_user->ID:0;
       $tmp_sub->load_product_vars($product, $coupon_code,true);
       $tmp_sub->maybe_prorate();
+      $tmp_sub = MeprHooks::apply_filters('mepr_display_invoice_sub', $tmp_sub);
     }
 
     $invoice_html = MeprTransactionsHelper::get_invoice($tmp_txn, $tmp_sub);

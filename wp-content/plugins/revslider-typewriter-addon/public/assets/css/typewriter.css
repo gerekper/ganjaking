@@ -1,18 +1,25 @@
-rs-layer[data-typewriter]:after {
-	
+/*
+	* @desc we don't need to load this file anymore
+	* @since 2.1.0
+	* @JM
+	*/
+/*
+rs-layer[data-typewriter]:before,
+rs-layer[data-typewriter]:after,
+.rs-layer[data-typewriter]:before,
+.rs-layer[data-typewriter]:after {
 	position: absolute;
-	
 }
 
-rs-layer[data-typewriter-blinking]:after {
-	
+rs-layer[data-typewriter-blinking]:before,
+rs-layer[data-typewriter-blinking]:after,
+.rs-layer[data-typewriter-blinking]:before,
+.rs-layer[data-typewriter-blinking]:after {
 	position: static;
-	
 }
 
 @keyframes tp-typewriter {
-	
 	from {visibility: visible}
 	to {visibility: hidden}
-	
 }
+*

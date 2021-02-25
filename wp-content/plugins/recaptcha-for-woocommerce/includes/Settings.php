@@ -9,6 +9,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 
 	class I13_WooCommerce_Settings_Page extends WC_Settings_Page {
 	
+	
 
 		// Your class and your code / logic 
 
@@ -23,9 +24,9 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 
 			// only add this if you need to add sections for your settings tab
 			add_action('woocommerce_sections_' . $this->id, array($this, 'output_sections'));
-						add_action( 'woocommerce_admin_field_custom_type', array($this, 'output_custom_type'), 10, 1 );
-						add_action( 'woocommerce_admin_field_custom_type_text', array($this, 'output_custom_type_text'), 10, 1 );
-						add_action( 'woocommerce_admin_field_custom_type_number', array($this, 'output_custom_type_number'), 10, 1 );
+			add_action('woocommerce_admin_field_custom_type', array($this, 'output_custom_type'), 10, 1);
+			add_action('woocommerce_admin_field_custom_type_text', array($this, 'output_custom_type_text'), 10, 1);
+			add_action('woocommerce_admin_field_custom_type_number', array($this, 'output_custom_type_number'), 10, 1);
 		}
 				
 				
@@ -34,24 +35,24 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 			?>
 				   <tr valign="top">
 							<th scope="row" class="titledesc">
-									<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> </label>
+									<label for="<?php echo esc_attr($value['id']); ?>"><?php echo esc_html($value['title']); ?> </label>
 							</th>
-							<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
+							<td class="forminp forminp-<?php echo esc_attr(sanitize_title($value['type'])); ?>">
 									<input
-											name="<?php echo esc_attr( $value['id'] ); ?>"
-											id="<?php echo esc_attr( $value['id'] ); ?>"
+											name="<?php echo esc_attr($value['id']); ?>"
+											id="<?php echo esc_attr($value['id']); ?>"
 											type="number"
-											style="<?php echo esc_attr( $value['css'] ); ?>"
-											value="<?php echo esc_attr( $option_value ); ?>"
-											class="<?php echo esc_attr( $value['class'] ); ?>" 
+											style="<?php echo esc_attr($value['css']); ?>"
+											value="<?php echo esc_attr($option_value); ?>"
+											class="<?php echo esc_attr($value['class']); ?>" 
 											step="0.1"
-											placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
+											placeholder="<?php echo esc_attr($value['placeholder']); ?>"
 										   
-											/><?php echo esc_html( $value['suffix'] ); ?> 
+											/><?php echo esc_html($value['suffix']); ?> 
 							</td>
 					</tr>
 					
-				<?php    
+			<?php    
 		}
 				
 		public  function output_custom_type_text( $value) {
@@ -61,11 +62,11 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 									&nbsp;
 							</th>
 							<td class="forminp forminp-text" style="padding-top:0px;padding-bottom: 0px">
-							<?php echo  '<b>' . esc_html(__('Note :- ', 'recaptcha-for-woocommerce')) . '</b>' . esc_html($value['desc']); ?>
+			 <?php echo  '<b>' . esc_html(__('Note :- ', 'recaptcha-for-woocommerce')) . '</b>' . esc_html($value['desc']); ?>
 							</td>
 					</tr>
 					
-				<?php    
+			<?php    
 		}
 				
 		public  function output_custom_type( $value) {
@@ -93,6 +94,9 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 
 											var radioValue = jQuery(this).val();
 											changeVisbility(radioValue);
+																						if(radioValue=="v3"){
+																							alert("<?php echo esc_html(__('Recaptcha V3 does not show any challenge like I am not robot etc. ReCaptcha V3 uses a behind-the-scenes scoring system to detect abusive traffic, and lets you decide the minimum passing score. Please note that there is no user interaction shown in reRecapcha V3 meaning that no recaptcha challenge is shown to solve.', 'recaptcha-for-woocommerce')); ?>");
+																						}
 
 									  });
 
@@ -115,6 +119,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 												jQuery('label[for="i13_recapcha_error_msg_captcha_no_response_v3"]').parent().parent().hide();
 												jQuery('label[for="i13_recapcha_no_conflict_v3"]').parent().parent().parent().hide();
 												jQuery('label[for="i13_recapcha_no_conflict"]').parent().parent().parent().show();
+												jQuery('label[for="i13_recapcha_v2_lang"]').parent().parent().show();
 											}
 											else{
 
@@ -133,6 +138,10 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 												
 												jQuery('label[for="i13_recapcha_no_conflict_v3"]').parent().parent().parent().show();
 												jQuery('label[for="i13_recapcha_no_conflict"]').parent().parent().parent().hide();
+												jQuery('label[for="i13_recapcha_v2_lang"]').parent().parent().hide();
+																								
+																								
+																								
 											}
 
 									  }
@@ -144,7 +153,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 							</td>
 						</tr>
 						
-			  <?php          
+			<?php          
 		}
 			   
 
@@ -157,6 +166,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 			'forgotpassword' => __('Woo Lost Password Captcha', 'recaptcha-for-woocommerce'),
 			'guestcheckout' => __('Woo Checkout Captcha', 'recaptcha-for-woocommerce'),
 			'add_payment_method' => __('Woo Add Payment Method Captcha', 'recaptcha-for-woocommerce'),
+							'woo_review' => __('Woo Product Review Form Captcha', 'recaptcha-for-woocommerce'),
 			'wp_login' => __('WP Login Captcha', 'recaptcha-for-woocommerce'),
 			'wp_register' => __('WP Registration Captcha', 'recaptcha-for-woocommerce'),
 			'wp_lostpassword' => __('WP Lost Password Captcha', 'recaptcha-for-woocommerce')
@@ -175,177 +185,183 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 				 * @since 1.0.0
 				 * @param array $settings Array of the plugin settings
 				 */
-								$reCapcha_version = get_option('i13_recapcha_version'); 
+				 $reCapcha_version = get_option('i13_recapcha_version'); 
 				if ('v2'==strtolower($reCapcha_version)) {
 									
 					$settings = apply_filters(
-							'i13woocomm_signup', array(
-							'section_title_recpacha_on_signup' => array(
-							'name' => __('Recaptcha On Registration Page', 'recaptcha-for-woocommerce'),
-							'type' => 'title',
-							'desc' => '',
-							'id' => 'wc_settings_tab_recapcha_signup'
-							),
-							'i13_recapcha_enable_on_signup' => array(
-							'name' => __('Enable Recaptcha on Signup', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_enable_on_signup'
-							),
-							'i13_recapcha_signup_title' => array(
-							'name' => __('Recaptcha Field Title', 'recaptcha-for-woocommerce'),
-							'type' => 'text',
-							'id' => 'i13_recapcha_signup_title',
-							'default' => 'Captcha',
-							),
+						'i13woocomm_signup', array(
+						'section_title_recpacha_on_signup' => array(
+						'name' => __('Recaptcha On Registration Page', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_signup'
+						),
+						'i13_recapcha_enable_on_signup' => array(
+						'name' => __('Enable Recaptcha on Signup', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_signup'
+						),
+						'i13_recapcha_signup_title' => array(
+						'name' => __('Recaptcha Field Title', 'recaptcha-for-woocommerce'),
+						'type' => 'text',
+						'id' => 'i13_recapcha_signup_title',
+						'default' => 'Captcha',
+						),
 																	'i13_recapcha_hide_label_signup' => array(
-							'name' => __('Hide Label', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_hide_label_signup',
+						'name' => __('Hide Label', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_hide_label_signup',
 																	 'default' => 'no',   
 																	 'desc' => __('Hide label on form?', 'recaptcha-for-woocommerce')    
-							),    
-							'i13_recapcha_signup_theme' => array(
-							'name' => __('Recaptcha Theme', 'recaptcha-for-woocommerce'),
-							'type' => 'radio',
-							'id' => 'i13_recapcha_signup_theme',
-							'options' => array('light' => __('Light', 'recaptcha-for-woocommerce'), 'dark' => __('Dark', 'recaptcha-for-woocommerce')),
-							'default' => 'light',
-							),
-							'i13_recapcha_signup_size' => array(
-							'name' => __('Recaptcha Size', 'recaptcha-for-woocommerce'),
-							'type' => 'radio',
-							'id' => 'i13_recapcha_signup_size',
-							'options' => array('normal' => __('Normal', 'recaptcha-for-woocommerce'), 'compact' => __('Compact', 'recaptcha-for-woocommerce')),
-							'default' => 'normal',
-							),
+						),    
+						'i13_recapcha_signup_theme' => array(
+						'name' => __('Recaptcha Theme', 'recaptcha-for-woocommerce'),
+						'type' => 'radio',
+						'id' => 'i13_recapcha_signup_theme',
+						'options' => array('light' => __('Light', 'recaptcha-for-woocommerce'), 'dark' => __('Dark', 'recaptcha-for-woocommerce')),
+						'default' => 'light',
+						),
+						'i13_recapcha_signup_size' => array(
+						'name' => __('Recaptcha Size', 'recaptcha-for-woocommerce'),
+						'type' => 'radio',
+						'id' => 'i13_recapcha_signup_size',
+						'options' => array('normal' => __('Normal', 'recaptcha-for-woocommerce'), 'compact' => __('Compact', 'recaptcha-for-woocommerce')),
+						'default' => 'normal',
+						),
 																	'i13_recapcha_disable_submitbtn_woo_signup' => array(
-							'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
+						'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
 																	'desc' => __('Disable submit button until recaptcha validate.', 'recaptcha-for-woocommerce'),    
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_disable_submitbtn_woo_signup'
-							),      
-							array(
-							'type' => 'sectionend',
-							'id' => 'wc_settings_tab_recapcha_signup',
-							)
-							)
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_disable_submitbtn_woo_signup'
+						),      
+						array(
+						'type' => 'sectionend',
+						'id' => 'wc_settings_tab_recapcha_signup',
+						)
+						)
 					);
 				} else {
 									
-						$settings = apply_filters(
-								'i13woocomm_signup', array(
-								'section_title_recpacha_on_signup' => array(
-								'name' => __('Recaptcha On Registration Page', 'recaptcha-for-woocommerce'),
-								'type' => 'title',
-								'desc' => '',
-								'id' => 'wc_settings_tab_recapcha_signup'
-								),
-								'i13_recapcha_enable_on_signup' => array(
-								'name' => __('Enable Recaptcha on Signup', 'recaptcha-for-woocommerce'),
-								'type' => 'checkbox',
-								'id' => 'i13_recapcha_enable_on_signup'
-								),
-								'i13_recapcha_signup_score_threshold_v3' => array(
-								'name' => __('Recaptcha score threshold', 'recaptcha-for-woocommerce'),
-								'type' => 'custom_type_number',
-								'id' => 'i13_recapcha_signup_score_threshold_v3',
-								'default' => '0.5',
-								 'desc'=>__('Instead of showing a CAPTCHA challenge, reCAPTCHA v3 returns a score so you can choose the most appropriate action for your website. The score is based on interactions with your site and enables you to take an appropriate action for your site. Recaptcha will rank traffic and interactions based on a score of 0.0 to 1.0, with a 1.0 being a good interaction and scores closer to 0.0 indicating a good likelihood that the traffic was generated by bots', 'recaptcha-for-woocommerce')
-								),
-								'i13_recapcha_signup_action_v3' => array(
-								'name' => __('Recaptcha Action Name', 'recaptcha-for-woocommerce'),
-								'type' => 'text',
-								'id' => 'i13_recapcha_signup_action_v3',
-								'default' => 'signup',
-								 'desc'=>__('In reCAPTCHA v3, Google introducing a new concept called “Action” —a tag that you can use to define the key steps of your user journey and enable reCAPTCHA to run its risk analysis in context.', 'recaptcha-for-woocommerce')   
-								),
-													 
-								array(
-								'type' => 'sectionend',
-								'id' => 'wc_settings_tab_recapcha_signup',
-								)
-								)
-						);
+					$settings = apply_filters(
+						'i13woocomm_signup', array(
+						'section_title_recpacha_on_signup' => array(
+						'name' => __('Recaptcha On Registration Page', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_signup'
+						),
+						'i13_recapcha_enable_on_signup' => array(
+						'name' => __('Enable Recaptcha on Signup', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_signup'
+						),
+						'i13_recapcha_signup_score_threshold_v3' => array(
+						'name' => __('Recaptcha score threshold', 'recaptcha-for-woocommerce'),
+						'type' => 'custom_type_number',
+						'id' => 'i13_recapcha_signup_score_threshold_v3',
+						'default' => '0.5',
+						'desc'=>__('Instead of showing a CAPTCHA challenge, reCAPTCHA v3 returns a score so you can choose the most appropriate action for your website. The score is based on interactions with your site and enables you to take an appropriate action for your site. Recaptcha will rank traffic and interactions based on a score of 0.0 to 1.0, with a 1.0 being a good interaction and scores closer to 0.0 indicating a good likelihood that the traffic was generated by bots', 'recaptcha-for-woocommerce')
+						),
+						'i13_recapcha_signup_action_v3' => array(
+						'name' => __('Recaptcha Action Name', 'recaptcha-for-woocommerce'),
+						'type' => 'text',
+						'id' => 'i13_recapcha_signup_action_v3',
+						'default' => 'signup',
+						'desc'=>__('In reCAPTCHA v3, Google introducing a new concept called “Action” —a tag that you can use to define the key steps of your user journey and enable reCAPTCHA to run its risk analysis in context.', 'recaptcha-for-woocommerce')   
+						),
+						'i13_recapcha_wp_disable_submit_token_generation_v3_woo_signup' => array(
+																	'name' => __('Disable on the fly reCAPTCHA v3 token generation', 'recaptcha-for-woocommerce'),
+																	'type' => 'checkbox',
+																	'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_signup',
+																	'desc'=>__('Use only when there is problem with other plugin that use submit button.', 'recaptcha-for-woocommerce'),
+																	'default'=>'no'
+																),                     
+						array(
+						'type' => 'sectionend',
+						'id' => 'wc_settings_tab_recapcha_signup',
+						)
+						)
+					);
 									 
 									
 				}
 			} else if ('login' == $current_section) {
 
-								$reCapcha_version = get_option('i13_recapcha_version'); 
+				 $reCapcha_version = get_option('i13_recapcha_version'); 
 				if ('v2'==strtolower($reCapcha_version)) {
 									
 					$settings = apply_filters(
-							'i13woocomm_login_settings', array(
-							'section_title_recpacha_on_login' => array(
-							'name' => __('Recaptcha On Login Page', 'recaptcha-for-woocommerce'),
-							'type' => 'title',
-							'desc' => '',
-							'id' => 'wc_settings_tab_recapcha_login'
-							),
-							'i13_recapcha_enable_on_login' => array(
-							'name' => __('Enable Recaptcha on Login', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_enable_on_login'
-							),
-							'i13_recapcha_login_title' => array(
-							'name' => __('Recaptcha Field Title', 'recaptcha-for-woocommerce'),
-							'type' => 'text',
-							'id' => 'i13_recapcha_login_title',
-							'default' => 'Captcha',
-							),
+						'i13woocomm_login_settings', array(
+						'section_title_recpacha_on_login' => array(
+						'name' => __('Recaptcha On Login Page', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_login'
+						),
+						'i13_recapcha_enable_on_login' => array(
+						'name' => __('Enable Recaptcha on Login', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_login'
+						),
+						'i13_recapcha_login_title' => array(
+						'name' => __('Recaptcha Field Title', 'recaptcha-for-woocommerce'),
+						'type' => 'text',
+						'id' => 'i13_recapcha_login_title',
+						'default' => 'Captcha',
+						),
 																	'i13_recapcha_hide_label_login' => array(
-							'name' => __('Hide Label', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_hide_label_login',
+						'name' => __('Hide Label', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_hide_label_login',
 																	 'default' => 'no',   
 																	 'desc' => __('Hide label on form?', 'recaptcha-for-woocommerce')   
-							),     
-							'i13_recapcha_login_theme' => array(
-							'name' => __('Recaptcha Theme', 'recaptcha-for-woocommerce'),
-							'type' => 'radio',
-							'id' => 'i13_recapcha_login_theme',
-							'options' => array('light' => __('Light', 'recaptcha-for-woocommerce'), 'dark' => __('Dark', 'recaptcha-for-woocommerce')),
-							'default' => 'light',
-							),
-							'i13_recapcha_login_size' => array(
-							'name' => __('Recaptcha Size', 'recaptcha-for-woocommerce'),
-							'type' => 'radio',
-							'id' => 'i13_recapcha_login_size',
-							'options' => array('normal' => __('Normal', 'recaptcha-for-woocommerce'), 'compact' => __('Compact', 'recaptcha-for-woocommerce')),
-							'default' => 'normal',
-							),
-							 'i13_recapcha_disable_submitbtn_woo_login' => array(
-							'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
-							 'desc' => __('Disable submit button until recaptcha validate.', 'recaptcha-for-woocommerce'),    
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_disable_submitbtn_woo_login'
-							),      
-							 'i13_recapcha_custom_wp_login_form_login' => array(
-							'name' => __('Have custom wp login form', 'recaptcha-for-woocommerce'),
-							 'desc' => __('Using custom login form with using wp_login_form', 'recaptcha-for-woocommerce'),    
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_custom_wp_login_form_login'
-							),      
-							array(
-							'type' => 'sectionend',
-							'id' => 'wc_settings_tab_recapcha_login',
-							))
+						),     
+						'i13_recapcha_login_theme' => array(
+						'name' => __('Recaptcha Theme', 'recaptcha-for-woocommerce'),
+						'type' => 'radio',
+						'id' => 'i13_recapcha_login_theme',
+						'options' => array('light' => __('Light', 'recaptcha-for-woocommerce'), 'dark' => __('Dark', 'recaptcha-for-woocommerce')),
+						'default' => 'light',
+						),
+						'i13_recapcha_login_size' => array(
+						'name' => __('Recaptcha Size', 'recaptcha-for-woocommerce'),
+						'type' => 'radio',
+						'id' => 'i13_recapcha_login_size',
+						'options' => array('normal' => __('Normal', 'recaptcha-for-woocommerce'), 'compact' => __('Compact', 'recaptcha-for-woocommerce')),
+						'default' => 'normal',
+						),
+						'i13_recapcha_disable_submitbtn_woo_login' => array(
+						'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
+						'desc' => __('Disable submit button until recaptcha validate.', 'recaptcha-for-woocommerce'),    
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_disable_submitbtn_woo_login'
+						),      
+						'i13_recapcha_custom_wp_login_form_login' => array(
+						'name' => __('Have custom wp login form', 'recaptcha-for-woocommerce'),
+						'desc' => __('Using custom login form with using wp_login_form', 'recaptcha-for-woocommerce'),    
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_custom_wp_login_form_login'
+						),      
+						array(
+						'type' => 'sectionend',
+						'id' => 'wc_settings_tab_recapcha_login',
+						))
 					);
 				} else {
 									
-					  $settings = apply_filters(
-							'i13woocomm_login_settings', array(
-							'section_title_recpacha_on_login' => array(
-							'name' => __('Recaptcha On Login Page', 'recaptcha-for-woocommerce'),
-							'type' => 'title',
-							'desc' => '',
-							'id' => 'wc_settings_tab_recapcha_login'
-							),
-							'i13_recapcha_enable_on_login' => array(
-							'name' => __('Enable Recaptcha on Login', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_enable_on_login'
-							),
+					$settings = apply_filters(
+						'i13woocomm_login_settings', array(
+						'section_title_recpacha_on_login' => array(
+						'name' => __('Recaptcha On Login Page', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_login'
+						),
+						'i13_recapcha_enable_on_login' => array(
+						'name' => __('Enable Recaptcha on Login', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_login'
+						),
 							 'i13_recapcha_login_score_threshold_v3' => array(
 								'name' => __('Recaptcha score threshold', 'recaptcha-for-woocommerce'),
 								'type' => 'custom_type_number',
@@ -360,90 +376,97 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 								'default' => 'login',
 								 'desc'=>__('In reCAPTCHA v3, Google introducing a new concept called “Action” —a tag that you can use to define the key steps of your user journey and enable reCAPTCHA to run its risk analysis in context.', 'recaptcha-for-woocommerce')   
 								),
-															 '  i13_recapcha__v3_custom_wp_login_form_login' => array(
-																'name' => __('Have custom wp login form', 'recaptcha-for-woocommerce'),
-																 'desc' => __('Using custom login form with using wp_login_form', 'recaptcha-for-woocommerce'),    
-																'type' => 'checkbox',
-																'id' => 'i13_recapcha__v3_custom_wp_login_form_login'
-																), 
+																'  i13_recapcha__v3_custom_wp_login_form_login' => array(
+																	   'name' => __('Have custom wp login form', 'recaptcha-for-woocommerce'),
+																		'desc' => __('Using custom login form with using wp_login_form', 'recaptcha-for-woocommerce'),    
+																	   'type' => 'checkbox',
+																	   'id' => 'i13_recapcha__v3_custom_wp_login_form_login'
+																	   ), 
+																	'i13_recapcha_wp_disable_submit_token_generation_v3_woo_login' => array(
+																		'name' => __('Disable on the fly reCAPTCHA v3 token generation', 'recaptcha-for-woocommerce'),
+																		'type' => 'checkbox',
+																		'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_login',
+																		'desc'=>__('Use only when there is problem with other plugin that use submit button.', 'recaptcha-for-woocommerce'),
+																		'default'=>'no'
+																),
 														 
-							array(
-							'type' => 'sectionend',
-							'id' => 'wc_settings_tab_recapcha_login',
-							))
+						array(
+						'type' => 'sectionend',
+						'id' => 'wc_settings_tab_recapcha_login',
+						))
 					);
 									
 				}
 			} else if ('forgotpassword' == $current_section) {
 
-							$reCapcha_version = get_option('i13_recapcha_version'); 
+				$reCapcha_version = get_option('i13_recapcha_version'); 
 				if ('v2'==strtolower($reCapcha_version)) {
 					$settings = apply_filters(
-							'i13woocomm_forgotpassword_settings', array(
-							'section_title_recpacha_on_lost_password' => array(
-							'name' => __('Recaptcha On Lost Password Page', 'recaptcha-for-woocommerce'),
-							'type' => 'title',
-							'desc' => '',
-							'id' => 'wc_settings_tab_recapcha_lostpassword'
-							),
-							'i13_recapcha_enable_on_lostpassword' => array(
-							'name' => __('Enable Recaptcha on Lost Password', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_enable_on_lostpassword'
-							),
-							'i13_recapcha_lostpassword_title' => array(
-							'name' => __('Recaptcha Field Title', 'recaptcha-for-woocommerce'),
-							'type' => 'text',
-							'id' => 'i13_recapcha_lostpassword_title',
-							'default' => 'Captcha',
-							),
+						'i13woocomm_forgotpassword_settings', array(
+						'section_title_recpacha_on_lost_password' => array(
+						'name' => __('Recaptcha On Lost Password Page', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_lostpassword'
+						),
+						'i13_recapcha_enable_on_lostpassword' => array(
+						'name' => __('Enable Recaptcha on Lost Password', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_lostpassword'
+						),
+						'i13_recapcha_lostpassword_title' => array(
+						'name' => __('Recaptcha Field Title', 'recaptcha-for-woocommerce'),
+						'type' => 'text',
+						'id' => 'i13_recapcha_lostpassword_title',
+						'default' => 'Captcha',
+						),
 																	'i13_recapcha_hide_label_lostpassword' => array(
-							'name' => __('Hide Label', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_hide_label_lostpassword',
+						'name' => __('Hide Label', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_hide_label_lostpassword',
 																	 'default' => 'no',   
 																	 'desc' => __('Hide label on form?', 'recaptcha-for-woocommerce')   
-							),      
-							'i13_recapcha_lostpassword_theme' => array(
-							'name' => __('Recaptcha Theme', 'recaptcha-for-woocommerce'),
-							'type' => 'radio',
-							'id' => 'i13_recapcha_lostpassword_theme',
-							'options' => array('light' => __('Light', 'recaptcha-for-woocommerce'), 'dark' => __('Dark', 'recaptcha-for-woocommerce')),
-							'default' => 'light',
-							),
-							'i13_recapcha_lostpassword_size' => array(
-							'name' => __('Recaptcha Size', 'recaptcha-for-woocommerce'),
-							'type' => 'radio',
-							'id' => 'i13_recapcha_lostpassword_size',
-							'options' => array('normal' => __('Normal', 'recaptcha-for-woocommerce'), 'compact' => __('Compact', 'recaptcha-for-woocommerce')),
-							'default' => 'normal',
-							),
+						),      
+						'i13_recapcha_lostpassword_theme' => array(
+						'name' => __('Recaptcha Theme', 'recaptcha-for-woocommerce'),
+						'type' => 'radio',
+						'id' => 'i13_recapcha_lostpassword_theme',
+						'options' => array('light' => __('Light', 'recaptcha-for-woocommerce'), 'dark' => __('Dark', 'recaptcha-for-woocommerce')),
+						'default' => 'light',
+						),
+						'i13_recapcha_lostpassword_size' => array(
+						'name' => __('Recaptcha Size', 'recaptcha-for-woocommerce'),
+						'type' => 'radio',
+						'id' => 'i13_recapcha_lostpassword_size',
+						'options' => array('normal' => __('Normal', 'recaptcha-for-woocommerce'), 'compact' => __('Compact', 'recaptcha-for-woocommerce')),
+						'default' => 'normal',
+						),
 																	 'i13_recapcha_disable_submitbtn_woo_lostpassword' => array(
-							'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
+						'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
 																	'desc' => __('Disable submit button until recaptcha validate.', 'recaptcha-for-woocommerce'),    
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_disable_submitbtn_woo_lostpassword'
-							),      
-							array(
-							'type' => 'sectionend',
-							'id' => 'wc_settings_tab_recapcha_lostpassword',
-							))
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_disable_submitbtn_woo_lostpassword'
+						),      
+						array(
+						'type' => 'sectionend',
+						'id' => 'wc_settings_tab_recapcha_lostpassword',
+						))
 					);
 				} else {
 									
-					 $settings = apply_filters(
-							'i13woocomm_forgotpassword_settings', array(
-							'section_title_recpacha_on_lost_password' => array(
-							'name' => __('Recaptcha On Lost Password Page', 'recaptcha-for-woocommerce'),
-							'type' => 'title',
-							'desc' => '',
-							'id' => 'wc_settings_tab_recapcha_lostpassword'
-							),
-							'i13_recapcha_enable_on_lostpassword' => array(
-							'name' => __('Enable Recaptcha on Lost Password', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_enable_on_lostpassword'
-							),
+					$settings = apply_filters(
+						'i13woocomm_forgotpassword_settings', array(
+						'section_title_recpacha_on_lost_password' => array(
+						'name' => __('Recaptcha On Lost Password Page', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_lostpassword'
+						),
+						'i13_recapcha_enable_on_lostpassword' => array(
+						'name' => __('Enable Recaptcha on Lost Password', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_lostpassword'
+						),
 							 'i13_recapcha_lostpassword_score_threshold_v3' => array(
 								'name' => __('Recaptcha score threshold', 'recaptcha-for-woocommerce'),
 								'type' => 'custom_type_number',
@@ -457,153 +480,161 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 								'id' => 'i13_recapcha_lostpassword_action_v3',
 								'default' => 'forgot_password',
 								 'desc'=>__('In reCAPTCHA v3, Google introducing a new concept called “Action” —a tag that you can use to define the key steps of your user journey and enable reCAPTCHA to run its risk analysis in context.', 'recaptcha-for-woocommerce')   
-								),    
-							array(
-							'type' => 'sectionend',
-							'id' => 'wc_settings_tab_recapcha_lostpassword',
-							))
+								), 
+															'i13_recapcha_wp_disable_submit_token_generation_v3_woo_fpass' => array(
+																'name' => __('Disable on the fly reCAPTCHA v3 token generation', 'recaptcha-for-woocommerce'),
+																'type' => 'checkbox',
+																'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_fpass',
+																'desc'=>__('Use only when there is problem with other plugin that use submit button.', 'recaptcha-for-woocommerce'),
+																'default'=>'no'
+															),
+
+						array(
+						'type' => 'sectionend',
+						'id' => 'wc_settings_tab_recapcha_lostpassword',
+						))
 					);
 									
 				}
 			} else if ('guestcheckout' == $current_section) {
 
-							$reCapcha_version = get_option('i13_recapcha_version'); 
+				$reCapcha_version = get_option('i13_recapcha_version'); 
 				if ('v2'==strtolower($reCapcha_version)) {
 					$settings = apply_filters(
-							'i13woocomm_guestcheckout_settings', array(
-							'section_title_recpacha_on_guestcheckout' => array(
-							'name' => __('Recaptcha on Checkout', 'recaptcha-for-woocommerce'),
-							'type' => 'title',
-							'desc' => '',
-							'id' => 'wc_settings_tab_recapcha_guestcheckout'
-							),
-							'i13_recapcha_enable_on_guestcheckout' => array(
-							'name' => __('Enable Recaptcha on Guest Checkout', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_enable_on_guestcheckout'
-							),
-							'i13_recapcha_enable_on_logincheckout' => array(
-							'name' => __('Enable Recaptcha on Login Checkout', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_enable_on_logincheckout'
-							),
-							'i13_recapcha_enable_on_payfororder' => array(
-							'name' => __('Enable Recaptcha on Pay For Order', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_enable_on_payfororder',
-																	 'desc' => __('WooCommerce allow faild order to pay again. In this case captcha must be needed to prevent fraud', 'recaptcha-for-woocommerce'),   
-							),
-							'i13_recapcha_guestcheckout_title' => array(
-							'name' => __('Recaptcha Field Title', 'recaptcha-for-woocommerce'),
-							'type' => 'text',
-							'id' => 'i13_recapcha_guestcheckout_title',
-							'default' => 'Captcha',
-							),
-							'i13_recapcha_hide_label_checkout' => array(
-							'name' => __('Hide Label', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_hide_label_checkout',
+						'i13woocomm_guestcheckout_settings', array(
+						'section_title_recpacha_on_guestcheckout' => array(
+						'name' => __('Recaptcha on Checkout', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_guestcheckout'
+						),
+						'i13_recapcha_enable_on_guestcheckout' => array(
+						'name' => __('Enable Recaptcha on Guest Checkout', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_guestcheckout'
+						),
+						'i13_recapcha_enable_on_logincheckout' => array(
+						'name' => __('Enable Recaptcha on Login Checkout', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_logincheckout'
+						),
+						'i13_recapcha_enable_on_payfororder' => array(
+						'name' => __('Enable Recaptcha on Pay For Order', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_payfororder',
+																	 'desc' => __('WooCommerce allow failed order to pay again. In this case captcha must be needed to prevent fraud', 'recaptcha-for-woocommerce'),   
+						),
+						'i13_recapcha_guestcheckout_title' => array(
+						'name' => __('Recaptcha Field Title', 'recaptcha-for-woocommerce'),
+						'type' => 'text',
+						'id' => 'i13_recapcha_guestcheckout_title',
+						'default' => 'Captcha',
+						),
+						'i13_recapcha_hide_label_checkout' => array(
+						'name' => __('Hide Label', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_hide_label_checkout',
 																	 'default' => 'no',  
 																	  'desc' => __('Hide label on form?', 'recaptcha-for-woocommerce')  
-							),  					'i13_recapcha_checkout_timeout' => array(
-							'name' => __('Recaptcha Validity', 'recaptcha-for-woocommerce'),
-							'type' => 'number',
+						),                      'i13_recapcha_checkout_timeout' => array(
+						'name' => __('Recaptcha Validity', 'recaptcha-for-woocommerce'),
+						'type' => 'number',
 																	'id' => 'i13_recapcha_checkout_timeout',
-							'default' => '3',
+						'default' => '3',
 																	'desc' => __('Some payment processor needs more time to process an order. So captcha will valid for a given number of minutes once reCaptcha is validate. 0 means require validation on each request. Default value is 3 minute will used if you leave blank.', 'recaptcha-for-woocommerce'),
-							),
-							'i13_recapcha_guestcheckout_theme' => array(
-							'name' => __('Recaptcha Theme', 'recaptcha-for-woocommerce'),
-							'type' => 'radio',
-							'id' => 'i13_recapcha_guestcheckout_theme',
-							'options' => array('light' => __('Light', 'recaptcha-for-woocommerce'), 'dark' => __('Dark', 'recaptcha-for-woocommerce')),
-							'default' => 'light',
-							),
-							'i13_recapcha_guestcheckout_size' => array(
-							'name' => __('Recaptcha Size', 'recaptcha-for-woocommerce'),
-							'type' => 'radio',
-							'id' => 'i13_recapcha_guestcheckout_size',
-							'options' => array('normal' => __('Normal', 'recaptcha-for-woocommerce'), 'compact' => __('Compact', 'recaptcha-for-woocommerce')),
-							'default' => 'normal',
-							),
-							'i13_recapcha_guestcheckout_refresh' => array(
-							'name' => __('Recaptcha Refresh Title', 'recaptcha-for-woocommerce'),
-							'type' => 'text',
-							'id' => 'i13_recapcha_guestcheckout_refresh',
-							'default' => 'Refresh Captcha',
-							),
+						),
+						'i13_recapcha_guestcheckout_theme' => array(
+						'name' => __('Recaptcha Theme', 'recaptcha-for-woocommerce'),
+						'type' => 'radio',
+						'id' => 'i13_recapcha_guestcheckout_theme',
+						'options' => array('light' => __('Light', 'recaptcha-for-woocommerce'), 'dark' => __('Dark', 'recaptcha-for-woocommerce')),
+						'default' => 'light',
+						),
+						'i13_recapcha_guestcheckout_size' => array(
+						'name' => __('Recaptcha Size', 'recaptcha-for-woocommerce'),
+						'type' => 'radio',
+						'id' => 'i13_recapcha_guestcheckout_size',
+						'options' => array('normal' => __('Normal', 'recaptcha-for-woocommerce'), 'compact' => __('Compact', 'recaptcha-for-woocommerce')),
+						'default' => 'normal',
+						),
+						'i13_recapcha_guestcheckout_refresh' => array(
+						'name' => __('Recaptcha Refresh Title', 'recaptcha-for-woocommerce'),
+						'type' => 'text',
+						'id' => 'i13_recapcha_guestcheckout_refresh',
+						'default' => 'Refresh Captcha',
+						),
 																	'i13_recapcha_disable_submitbtn_guestcheckout' => array(
-							'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
+						'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
 																	'desc' => __('Disable submit button until recaptcha validate for guest checkout.', 'recaptcha-for-woocommerce'),    
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_disable_submitbtn_guestcheckout'
-							),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_disable_submitbtn_guestcheckout'
+						),
 																	'i13_recapcha_disable_submitbtn_logincheckout' => array(
-							'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
+						'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
 																	'desc' => __('Disable submit button until recaptcha validate for login checkout.', 'recaptcha-for-woocommerce'),    
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_disable_submitbtn_logincheckout'
-							),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_disable_submitbtn_logincheckout'
+						),
 																	'i13_recapcha_disable_submitbtn_payfororder' => array(
-							'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
+						'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
 																	'desc' => __('Disable submit button until recaptcha validate for pay for order.', 'recaptcha-for-woocommerce'),    
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_disable_submitbtn_payfororder'
-							),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_disable_submitbtn_payfororder'
+						),
 																											'i13_recapcha_guest_recpacha_refersh_on_error' => array(
-							'name' => __('Refresh captcha on guest checkout error', 'recaptcha-for-woocommerce'),
+						'name' => __('Refresh captcha on guest checkout error', 'recaptcha-for-woocommerce'),
 																	'desc' => __('Refresh captcha on guest checkout error', 'recaptcha-for-woocommerce'),    
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_guest_recpacha_refersh_on_error'
-							),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_guest_recpacha_refersh_on_error'
+						),
 																																					'i13_recapcha_login_recpacha_refersh_on_error' => array(
-							'name' => __('Refresh captcha on login checkout error', 'recaptcha-for-woocommerce'),
+						'name' => __('Refresh captcha on login checkout error', 'recaptcha-for-woocommerce'),
 																	'desc' => __('Refresh captcha on login checkout error', 'recaptcha-for-woocommerce'),    
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_login_recpacha_refersh_on_error'
-							),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_login_recpacha_refersh_on_error'
+						),
 
 
-							array(
-							'type' => 'sectionend',
-							'id' => 'wc_settings_tab_recapcha_guestcheckout',
-							)
-							)
+						array(
+						'type' => 'sectionend',
+						'id' => 'wc_settings_tab_recapcha_guestcheckout',
+						)
+						)
 					);
 				} else {
 									
 									
-					   $settings = apply_filters(
-							'i13woocomm_guestcheckout_settings', array(
-							'section_title_recpacha_on_guestcheckout' => array(
-							'name' => __('Recaptcha on Checkout', 'recaptcha-for-woocommerce'),
-							'type' => 'title',
-							'desc' => '',
-							'id' => 'wc_settings_tab_recapcha_guestcheckout'
-							),
-							'i13_recapcha_enable_on_guestcheckout' => array(
-							'name' => __('Enable Recaptcha on Guest Checkout', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_enable_on_guestcheckout'
-							),
-							'i13_recapcha_enable_on_logincheckout' => array(
-							'name' => __('Enable Recaptcha on Login Checkout', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_enable_on_logincheckout'
-							),
-							'i13_recapcha_enable_on_payfororder' => array(
-							'name' => __('Enable Recaptcha on Pay For Order', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_enable_on_payfororder',
-																	 'desc' => __('WooCommerce allow faild order to pay again. In this case captcha must be needed to prevent fraud', 'recaptcha-for-woocommerce'),   
-							),
-							'i13_recapcha_checkout_timeout' => array(
-							'name' => __('Recaptcha Validity', 'recaptcha-for-woocommerce'),
-							'type' => 'number',
+					$settings = apply_filters(
+						'i13woocomm_guestcheckout_settings', array(
+						'section_title_recpacha_on_guestcheckout' => array(
+						'name' => __('Recaptcha on Checkout', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_guestcheckout'
+						),
+						'i13_recapcha_enable_on_guestcheckout' => array(
+						'name' => __('Enable Recaptcha on Guest Checkout', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_guestcheckout'
+						),
+						'i13_recapcha_enable_on_logincheckout' => array(
+						'name' => __('Enable Recaptcha on Login Checkout', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_logincheckout'
+						),
+						'i13_recapcha_enable_on_payfororder' => array(
+						'name' => __('Enable Recaptcha on Pay For Order', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_payfororder',
+																	 'desc' => __('WooCommerce allow failed order to pay again. In this case captcha must be needed to prevent fraud', 'recaptcha-for-woocommerce'),   
+						),
+						'i13_recapcha_checkout_timeout' => array(
+						'name' => __('Recaptcha Validity', 'recaptcha-for-woocommerce'),
+						'type' => 'number',
 							 'id' => 'i13_recapcha_checkout_timeout',
-							'default' => '3',
+						'default' => '3',
 							 'desc' => __('Some payment processor needs more time to process an order. So captcha will valid for a given number of minutes once reCaptcha is validate. 0 means require validation on each request. Default value is 3 minute will used if you leave blank.', 'recaptcha-for-woocommerce'),
-							),
+						),
 							 'i13_recapcha_checkout_score_threshold_v3' => array(
 								'name' => __('Recaptcha score threshold', 'recaptcha-for-woocommerce'),
 								'type' => 'custom_type_number',
@@ -618,89 +649,95 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 								'default' => 'checkout',
 								 'desc'=>__('In reCAPTCHA v3, Google introducing a new concept called “Action” —a tag that you can use to define the key steps of your user journey and enable reCAPTCHA to run its risk analysis in context.', 'recaptcha-for-woocommerce')   
 								),     
-
-							array(
-							'type' => 'sectionend',
-							'id' => 'wc_settings_tab_recapcha_guestcheckout',
-							)
-							)
+														'i13_recapcha_wp_disable_submit_token_generation_v3_woo_checkout' => array(
+																'name' => __('Disable on the fly reCAPTCHA v3 token generation', 'recaptcha-for-woocommerce'),
+																'type' => 'checkbox',
+																'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_checkout',
+																'desc'=>__('Use only when there is problem with other plugin that use submit button.', 'recaptcha-for-woocommerce'),
+																'default'=>'no'
+															),    
+						array(
+						'type' => 'sectionend',
+						'id' => 'wc_settings_tab_recapcha_guestcheckout',
+						)
+						)
 					);
 									
 				}
 			} else if ('wp_login' == $current_section) {
 
-							$reCapcha_version = get_option('i13_recapcha_version'); 
+				$reCapcha_version = get_option('i13_recapcha_version'); 
 				if ('v2'==strtolower($reCapcha_version)) {
 									
 					$settings = apply_filters(
-					'i13woocomm_wplogin_settings', array(
-					'section_title_recpacha_on_wplogin' => array(
-					'name' => __('Recaptcha On WP Login', 'recaptcha-for-woocommerce'),
-					'type' => 'title',
-					'desc' => '',
-					'id' => 'wc_settings_tab_recapcha_wplogin'
-					),
-					'i13_recapcha_enable_on_wplogin' => array(
-					'name' => __('Enable Recaptcha on WP Login', 'recaptcha-for-woocommerce'),
-					'type' => 'checkbox',
-					'id' => 'i13_recapcha_enable_on_wplogin'
-					),
-					'i13_recapcha_wplogin_title' => array(
-					'name' => __('Recaptcha Field Title', 'recaptcha-for-woocommerce'),
-					'type' => 'text',
-					'id' => 'i13_recapcha_wplogin_title',
-					'default' => 'Captcha',
-					),
-										'i13_recapcha_hide_label_wplogin' => array(
-										'name' => __('Hide Label', 'recaptcha-for-woocommerce'),
-										'type' => 'checkbox',
-										'id' => 'i13_recapcha_hide_label_wplogin',
+						'i13woocomm_wplogin_settings', array(
+						'section_title_recpacha_on_wplogin' => array(
+						'name' => __('Recaptcha On WP Login', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_wplogin'
+						),
+						'i13_recapcha_enable_on_wplogin' => array(
+						'name' => __('Enable Recaptcha on WP Login', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_wplogin'
+						),
+						'i13_recapcha_wplogin_title' => array(
+						'name' => __('Recaptcha Field Title', 'recaptcha-for-woocommerce'),
+						'type' => 'text',
+						'id' => 'i13_recapcha_wplogin_title',
+						'default' => 'Captcha',
+						),
+						'i13_recapcha_hide_label_wplogin' => array(
+						'name' => __('Hide Label', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_hide_label_wplogin',
 										 'default' => 'no',
 										 'desc' => __('Hide label on form?', 'recaptcha-for-woocommerce')   
-										), 
-					'i13_recapcha_wplogin_theme' => array(
-					'name' => __('Recaptcha Theme', 'recaptcha-for-woocommerce'),
-					'type' => 'radio',
-					'id' => 'i13_recapcha_wplogin_theme',
-					'options' => array('light' => __('Light', 'recaptcha-for-woocommerce'), 'dark' => __('Dark', 'recaptcha-for-woocommerce')),
-					'default' => 'light',
-					),
-					'i13_recapcha_wplogin_size' => array(
-					'name' => __('Recaptcha Size', 'recaptcha-for-woocommerce'),
-					'type' => 'radio',
-					'id' => 'i13_recapcha_wplogin_size',
-					'options' => array('normal' => __('Normal', 'recaptcha-for-woocommerce'), 'compact' => __('Compact', 'recaptcha-for-woocommerce')),
-					'default' => 'normal',
-					),
-					'i13_recapcha_disable_submitbtn_wp_login' => array(
-					'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
-					'desc' => __('Disable submit button until recaptcha validate.', 'recaptcha-for-woocommerce'),    
-					'type' => 'checkbox',
-					'id' => 'i13_recapcha_disable_submitbtn_wp_login'
-					),     
-					array(
-					'type' => 'sectionend',
-					'id' => 'wc_settings_tab_recapcha_wplogin',
-					)
-					)
+						), 
+						'i13_recapcha_wplogin_theme' => array(
+						'name' => __('Recaptcha Theme', 'recaptcha-for-woocommerce'),
+						'type' => 'radio',
+						'id' => 'i13_recapcha_wplogin_theme',
+						'options' => array('light' => __('Light', 'recaptcha-for-woocommerce'), 'dark' => __('Dark', 'recaptcha-for-woocommerce')),
+						'default' => 'light',
+						),
+						'i13_recapcha_wplogin_size' => array(
+						'name' => __('Recaptcha Size', 'recaptcha-for-woocommerce'),
+						'type' => 'radio',
+						'id' => 'i13_recapcha_wplogin_size',
+						'options' => array('normal' => __('Normal', 'recaptcha-for-woocommerce'), 'compact' => __('Compact', 'recaptcha-for-woocommerce')),
+						'default' => 'normal',
+						),
+						'i13_recapcha_disable_submitbtn_wp_login' => array(
+						'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
+						'desc' => __('Disable submit button until recaptcha validate.', 'recaptcha-for-woocommerce'),    
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_disable_submitbtn_wp_login'
+						),     
+						array(
+						'type' => 'sectionend',
+						'id' => 'wc_settings_tab_recapcha_wplogin',
+						)
+						)
 					);
 				} else {
 								 
 								 
-					   $settings = apply_filters(
-					'i13woocomm_wplogin_settings', array(
-					'section_title_recpacha_on_wplogin' => array(
-					'name' => __('Recaptcha On WP Login', 'recaptcha-for-woocommerce'),
-					'type' => 'title',
-					'desc' => '',
-					'id' => 'wc_settings_tab_recapcha_wplogin'
-					),
-					'i13_recapcha_enable_on_wplogin' => array(
-					'name' => __('Enable Recaptcha on WP Login', 'recaptcha-for-woocommerce'),
-					'type' => 'checkbox',
-					'id' => 'i13_recapcha_enable_on_wplogin'
-					),
-					'i13_recapcha_wp_login_score_threshold_v3' => array(
+					$settings = apply_filters(
+						'i13woocomm_wplogin_settings', array(
+						'section_title_recpacha_on_wplogin' => array(
+						'name' => __('Recaptcha On WP Login', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_wplogin'
+						),
+						'i13_recapcha_enable_on_wplogin' => array(
+						'name' => __('Enable Recaptcha on WP Login', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_wplogin'
+						),
+						'i13_recapcha_wp_login_score_threshold_v3' => array(
 											   'name' => __('Recaptcha score threshold', 'recaptcha-for-woocommerce'),
 											   'type' => 'custom_type_number',
 											   'id' => 'i13_recapcha_wp_login_score_threshold_v3',
@@ -720,26 +757,26 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 																							  'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3',
 												  'desc'=>__('Use only when there is problem with other plugin that use submit button.', 'recaptcha-for-woocommerce')
 											   ),
-					array(
-					'type' => 'sectionend',
-					'id' => 'wc_settings_tab_recapcha_wplogin',
-					)
-					   )
+						array(
+						'type' => 'sectionend',
+						'id' => 'wc_settings_tab_recapcha_wplogin',
+						)
+						)
 					);
 				}
 			
 			} else if ('add_payment_method' == $current_section) {
 
-							$reCapcha_version = get_option('i13_recapcha_version'); 
+				$reCapcha_version = get_option('i13_recapcha_version'); 
 				if ('v2'==strtolower($reCapcha_version)) {
 									
 					$settings = apply_filters(
-					'i13woocomm_addpaymentmethod_settings', array(
-					'section_title_recpacha_on_addpaymentmethod' => array(
-					'name' => __('Recaptcha On Add Payment Method Login', 'recaptcha-for-woocommerce'),
-					'type' => 'title',
-					'desc' => '',
-					'id' => 'wc_settings_tab_recapcha_addpaymentmethod'
+						'i13woocomm_addpaymentmethod_settings', array(
+						'section_title_recpacha_on_addpaymentmethod' => array(
+						'name' => __('Recaptcha On Add Payment Method', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_addpaymentmethod'
 											),
 											'i13_recapcha_enable_on_addpaymentmethod' => array(
 											'name' => __('Enable Recaptcha on Add Payment Method', 'recaptcha-for-woocommerce'),
@@ -783,17 +820,17 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 											'type' => 'sectionend',
 											'id' => 'wc_settings_tab_recapcha_addpaymentmethod',
 											)
-					)
+						)
 					);
 				} else {
 									
-							$settings = apply_filters(
-						   'i13woocomm_addpaymentmethod_settings', array(
-						   'section_title_recpacha_on_addpaymentmethod' => array(
-						   'name' => __('Recaptcha On Add Payment Method Login', 'recaptcha-for-woocommerce'),
-						   'type' => 'title',
-						   'desc' => '',
-						   'id' => 'wc_settings_tab_recapcha_addpaymentmethod'
+					$settings = apply_filters(
+						'i13woocomm_addpaymentmethod_settings', array(
+						'section_title_recpacha_on_addpaymentmethod' => array(
+						'name' => __('Recaptcha On Add Payment Method Login', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_addpaymentmethod'
 												   ),
 												   'i13_recapcha_enable_on_addpaymentmethod' => array(
 												   'name' => __('Enable Recaptcha on Add Payment Method', 'recaptcha-for-woocommerce'),
@@ -814,27 +851,34 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 													'default' => 'add_payment_method',
 													 'desc'=>__('In reCAPTCHA v3, Google introducing a new concept called “Action” —a tag that you can use to define the key steps of your user journey and enable reCAPTCHA to run its risk analysis in context.', 'recaptcha-for-woocommerce')   
 													),    
+																										'i13_recapcha_wp_disable_submit_token_generation_v3_woo_add_pay_method' => array(
+																											'name' => __('Disable on the fly reCAPTCHA v3 token generation', 'recaptcha-for-woocommerce'),
+																											'type' => 'checkbox',
+																											'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_add_pay_method',
+																											'desc'=>__('Use only when there is problem with other plugin that use submit button.', 'recaptcha-for-woocommerce'),
+																											'default'=>'no'
+																										),
 												   array(
 												   'type' => 'sectionend',
 												   'id' => 'wc_settings_tab_recapcha_addpaymentmethod',
 												   )
-							)
-						   );
+						)
+					);
 									
 				}
 			
 			} else if ('wp_register' == $current_section) {
 
-							$reCapcha_version = get_option('i13_recapcha_version'); 
+				$reCapcha_version = get_option('i13_recapcha_version'); 
 				if ('v2'==strtolower($reCapcha_version)) {
 									
 					$settings = apply_filters(
-					'i13woocomm_wpregister_settings', array(
-					'section_title_recpacha_on_wplogin' => array(
-					'name' => __('Recaptcha On WP Registration', 'recaptcha-for-woocommerce'),
-					'type' => 'title',
-					'desc' => '',
-					'id' => 'wc_settings_tab_recapcha_wpregister'
+						'i13woocomm_wpregister_settings', array(
+						'section_title_recpacha_on_wplogin' => array(
+						'name' => __('Recaptcha On WP Registration', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_wpregister'
 											),
 											'i13_recapcha_enable_on_wpregister' => array(
 											'name' => __('Enable Recaptcha on WP Registration', 'recaptcha-for-woocommerce'),
@@ -878,11 +922,11 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 											'type' => 'sectionend',
 											'id' => 'wc_settings_tab_recapcha_wpregister',
 											)
-					)
+						)
 					);
 				} else {
 									
-					   $settings = apply_filters(
+					$settings = apply_filters(
 						'i13woocomm_wpregister_settings', array(
 						'section_title_recpacha_on_wplogin' => array(
 						'name' => __('Recaptcha On WP Registration', 'recaptcha-for-woocommerce'),
@@ -909,39 +953,46 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 													'id' => 'i13_recapcha_wp_register_method_action_v3',
 													'default' => 'wp_registration',
 													 'desc'=>__('In reCAPTCHA v3, Google introducing a new concept called “Action” —a tag that you can use to define the key steps of your user journey and enable reCAPTCHA to run its risk analysis in context.', 'recaptcha-for-woocommerce')   
-													),     
+													),    
+																										'i13_recapcha_wp_disable_submit_token_generation_v3_woo_wp_register' => array(
+																											'name' => __('Disable on the fly reCAPTCHA v3 token generation', 'recaptcha-for-woocommerce'),
+																											'type' => 'checkbox',
+																											'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_wp_register',
+																											'desc'=>__('Use only when there is problem with other plugin that use submit button.', 'recaptcha-for-woocommerce'),
+																											'default'=>'no'
+																										),
 												array(
 												'type' => 'sectionend',
 												'id' => 'wc_settings_tab_recapcha_wpregister',
 												)
 						)
-						);
+					);
 									
 				}
 
 			} else if ('wp_lostpassword' == $current_section) {
 
-							$reCapcha_version = get_option('i13_recapcha_version'); 
+				$reCapcha_version = get_option('i13_recapcha_version'); 
 				if ('v2'==strtolower($reCapcha_version)) {
 					$settings = apply_filters(
-							'i13woocomm_wplostpassword_settings', array(
-							'section_title_recpacha_on_wplostpassword' => array(
-							'name' => __('Recaptcha On WP Lost Password', 'recaptcha-for-woocommerce'),
-							'type' => 'title',
-							'desc' => '',
-							'id' => 'wc_settings_tab_recapcha_wplostpassword'
-							),
-							'i13_recapcha_enable_on_wplostpassword' => array(
-							'name' => __('Enable Recaptcha on WP Lost Password', 'recaptcha-for-woocommerce'),
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_enable_on_wplostpassword'
-							),
-							'i13_recapcha_wplostpassword_title' => array(
-							'name' => __('Recaptcha Field Title', 'recaptcha-for-woocommerce'),
-							'type' => 'text',
-							'id' => 'i13_recapcha_wplostpassword_title',
-							'default' => 'Captcha',
-							),
+						'i13woocomm_wplostpassword_settings', array(
+						'section_title_recpacha_on_wplostpassword' => array(
+						'name' => __('Recaptcha On WP Lost Password', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_wplostpassword'
+						),
+						'i13_recapcha_enable_on_wplostpassword' => array(
+						'name' => __('Enable Recaptcha on WP Lost Password', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_wplostpassword'
+						),
+						'i13_recapcha_wplostpassword_title' => array(
+						'name' => __('Recaptcha Field Title', 'recaptcha-for-woocommerce'),
+						'type' => 'text',
+						'id' => 'i13_recapcha_wplostpassword_title',
+						'default' => 'Captcha',
+						),
 															   'i13_recapcha_hide_label_wplostpassword' => array(
 																	'name' => __('Hide Label', 'recaptcha-for-woocommerce'),
 																	'type' => 'checkbox',
@@ -949,69 +1000,180 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 																	 'default' => 'no',   
 																	  'desc' => __('Hide label on form?', 'recaptcha-for-woocommerce') 
 																	),      
-							'i13_recapcha_wplostpassword_theme' => array(
-							'name' => __('Recaptcha Theme', 'recaptcha-for-woocommerce'),
-							'type' => 'radio',
-							'id' => 'i13_recapcha_wplostpassword_theme',
-							'options' => array('light' => __('Light', 'recaptcha-for-woocommerce'), 'dark' => __('Dark', 'recaptcha-for-woocommerce')),
-							'default' => 'light',
-							),
-							'i13_recapcha_wplostpassword_size' => array(
-							'name' => __('Recaptcha Size', 'recaptcha-for-woocommerce'),
-							'type' => 'radio',
-							'id' => 'i13_recapcha_wplostpassword_size',
-							'options' => array('normal' => __('Normal', 'recaptcha-for-woocommerce'), 'compact' => __('Compact', 'recaptcha-for-woocommerce')),
-							'default' => 'normal',
-							),
+						'i13_recapcha_wplostpassword_theme' => array(
+						'name' => __('Recaptcha Theme', 'recaptcha-for-woocommerce'),
+						'type' => 'radio',
+						'id' => 'i13_recapcha_wplostpassword_theme',
+						'options' => array('light' => __('Light', 'recaptcha-for-woocommerce'), 'dark' => __('Dark', 'recaptcha-for-woocommerce')),
+						'default' => 'light',
+						),
+						'i13_recapcha_wplostpassword_size' => array(
+						'name' => __('Recaptcha Size', 'recaptcha-for-woocommerce'),
+						'type' => 'radio',
+						'id' => 'i13_recapcha_wplostpassword_size',
+						'options' => array('normal' => __('Normal', 'recaptcha-for-woocommerce'), 'compact' => __('Compact', 'recaptcha-for-woocommerce')),
+						'default' => 'normal',
+						),
 																	 'i13_recapcha_disable_submitbtn_wp_lost_password' => array(
-							'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
+						'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
 																	'desc' => __('Disable submit button until recaptcha validate.', 'recaptcha-for-woocommerce'),    
-							'type' => 'checkbox',
-							'id' => 'i13_recapcha_disable_submitbtn_wp_lost_password'
-							),      
-							array(
-							'type' => 'sectionend',
-							'id' => 'wc_settings_tab_recapcha_wplostpassword',
-							)
-							)
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_disable_submitbtn_wp_lost_password'
+						),      
+						array(
+						'type' => 'sectionend',
+						'id' => 'wc_settings_tab_recapcha_wplostpassword',
+						)
+						)
 					);
 				} else {
 									
-						$settings = apply_filters(
-								'i13woocomm_wplostpassword_settings', array(
-								'section_title_recpacha_on_wplostpassword' => array(
-								'name' => __('Recaptcha On WP Lost Password', 'recaptcha-for-woocommerce'),
-								'type' => 'title',
-								'desc' => '',
-								'id' => 'wc_settings_tab_recapcha_wplostpassword'
-								),
-								'i13_recapcha_enable_on_wplostpassword' => array(
-								'name' => __('Enable Recaptcha on WP Lost Password', 'recaptcha-for-woocommerce'),
-								'type' => 'checkbox',
-								'id' => 'i13_recapcha_enable_on_wplostpassword'
-								),
-								 'i13_recapcha_wp_lost_password_score_threshold_v3' => array(
-								'name' => __('Recaptcha score threshold', 'recaptcha-for-woocommerce'),
-								'type' => 'custom_type_number',
-								'id' => 'i13_recapcha_wp_lost_password_score_threshold_v3',
-								'default' => '0.5',
-								 'desc'=>__('Instead of showing a CAPTCHA challenge, reCAPTCHA v3 returns a score so you can choose the most appropriate action for your website. The score is based on interactions with your site and enables you to take an appropriate action for your site. Recaptcha will rank traffic and interactions based on a score of 0.0 to 1.0, with a 1.0 being a good interaction and scores closer to 0.0 indicating a good likelihood that the traffic was generated by bots', 'recaptcha-for-woocommerce')
-								),
-								'i13_recapcha_wp_lost_password_method_action_v3' => array(
-								'name' => __('Recaptcha Action Name', 'recaptcha-for-woocommerce'),
-								'type' => 'text',
-								'id' => 'i13_recapcha_wp_lost_password_method_action_v3',
-								'default' => 'wp_forgot_password',
-								 'desc'=>__('In reCAPTCHA v3, Google introducing a new concept called “Action” —a tag that you can use to define the key steps of your user journey and enable reCAPTCHA to run its risk analysis in context.', 'recaptcha-for-woocommerce')   
-								),     
-								array(
-								'type' => 'sectionend',
-								'id' => 'wc_settings_tab_recapcha_wplostpassword',
+					$settings = apply_filters(
+						'i13woocomm_wplostpassword_settings', array(
+						'section_title_recpacha_on_wplostpassword' => array(
+						'name' => __('Recaptcha On WP Lost Password', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_wplostpassword'
+						),
+						'i13_recapcha_enable_on_wplostpassword' => array(
+						'name' => __('Enable Recaptcha on WP Lost Password', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_wplostpassword'
+						),
+						'i13_recapcha_wp_lost_password_score_threshold_v3' => array(
+						'name' => __('Recaptcha score threshold', 'recaptcha-for-woocommerce'),
+						'type' => 'custom_type_number',
+						'id' => 'i13_recapcha_wp_lost_password_score_threshold_v3',
+						'default' => '0.5',
+						'desc'=>__('Instead of showing a CAPTCHA challenge, reCAPTCHA v3 returns a score so you can choose the most appropriate action for your website. The score is based on interactions with your site and enables you to take an appropriate action for your site. Recaptcha will rank traffic and interactions based on a score of 0.0 to 1.0, with a 1.0 being a good interaction and scores closer to 0.0 indicating a good likelihood that the traffic was generated by bots', 'recaptcha-for-woocommerce')
+						),
+						'i13_recapcha_wp_lost_password_method_action_v3' => array(
+						'name' => __('Recaptcha Action Name', 'recaptcha-for-woocommerce'),
+						'type' => 'text',
+						'id' => 'i13_recapcha_wp_lost_password_method_action_v3',
+						'default' => 'wp_forgot_password',
+						'desc'=>__('In reCAPTCHA v3, Google introducing a new concept called “Action” —a tag that you can use to define the key steps of your user journey and enable reCAPTCHA to run its risk analysis in context.', 'recaptcha-for-woocommerce')   
+						),    
+																'i13_recapcha_wp_disable_submit_token_generation_v3_woo_wp_fpass' => array(
+																	'name' => __('Disable on the fly reCAPTCHA v3 token generation', 'recaptcha-for-woocommerce'),
+																	'type' => 'checkbox',
+																	'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_wp_fpass',
+																	'desc'=>__('Use only when there is problem with other plugin that use submit button.', 'recaptcha-for-woocommerce'),
+																	'default'=>'no'
+																),    
+						array(
+						'type' => 'sectionend',
+						'id' => 'wc_settings_tab_recapcha_wplostpassword',
+						)
 								)
-								)
-						);
+					);
 									
 				}
+								
+								
+			} else if ('woo_review' == $current_section) {
+
+				$reCapcha_version = get_option('i13_recapcha_version'); 
+				if ('v2'==strtolower($reCapcha_version)) {
+					$settings = apply_filters(
+						'i13woocomm_woo_review_settings', array(
+						'section_title_recpacha_on_woo_review' => array(
+						'name' => __('Recaptcha on product review form', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_woo_review'
+						),
+						'i13_recapcha_enable_on_woo_review' => array(
+						'name' => __('Enable Recaptcha on product review form', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_woo_review'
+						),
+						'i13_recapcha_woo_review_title' => array(
+						'name' => __('Recaptcha Field Title', 'recaptcha-for-woocommerce'),
+						'type' => 'text',
+						'id' => 'i13_recapcha_woo_review_title',
+						'default' => 'Captcha',
+						),
+															   'i13_recapcha_hide_label_woo_review' => array(
+																	'name' => __('Hide Label', 'recaptcha-for-woocommerce'),
+																	'type' => 'checkbox',
+																	'id' => 'i13_recapcha_hide_label_woo_review',
+																	 'default' => 'no',   
+																	  'desc' => __('Hide label on form?', 'recaptcha-for-woocommerce') 
+																	),      
+						'i13_recapcha_woo_review_theme' => array(
+						'name' => __('Recaptcha Theme', 'recaptcha-for-woocommerce'),
+						'type' => 'radio',
+						'id' => 'i13_recapcha_woo_review_theme',
+						'options' => array('light' => __('Light', 'recaptcha-for-woocommerce'), 'dark' => __('Dark', 'recaptcha-for-woocommerce')),
+						'default' => 'light',
+						),
+						'i13_recapcha_woo_review_size' => array(
+						'name' => __('Recaptcha Size', 'recaptcha-for-woocommerce'),
+						'type' => 'radio',
+						'id' => 'i13_recapcha_woo_review_size',
+						'options' => array('normal' => __('Normal', 'recaptcha-for-woocommerce'), 'compact' => __('Compact', 'recaptcha-for-woocommerce')),
+						'default' => 'normal',
+						),
+																	 'i13_recapcha_disable_submitbtn_woo_review' => array(
+						'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
+																	'desc' => __('Disable submit button until recaptcha validate.', 'recaptcha-for-woocommerce'),    
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_disable_submitbtn_woo_review'
+						),      
+						array(
+						'type' => 'sectionend',
+						'id' => 'wc_settings_tab_recapcha_woo_review',
+						)
+						)
+					);
+				} else {
+									
+					$settings = apply_filters(
+						'i13woocomm_woo_review_settings', array(
+						'section_title_recpacha_on_woo_review' => array(
+						'name' => __('Recaptcha on product review form', 'recaptcha-for-woocommerce'),
+						'type' => 'title',
+						'desc' => '',
+						'id' => 'wc_settings_tab_recapcha_woo_review'
+						),
+						'i13_recapcha_enable_on_woo_review' => array(
+						'name' => __('Enable Recaptcha on product review form', 'recaptcha-for-woocommerce'),
+						'type' => 'checkbox',
+						'id' => 'i13_recapcha_enable_on_woo_review'
+						),
+						'i13_recapcha_woo_review_score_threshold_v3' => array(
+						'name' => __('Recaptcha score threshold', 'recaptcha-for-woocommerce'),
+						'type' => 'custom_type_number',
+						'id' => 'i13_recapcha_woo_review_score_threshold_v3',
+						'default' => '0.5',
+						'desc'=>__('Instead of showing a CAPTCHA challenge, reCAPTCHA v3 returns a score so you can choose the most appropriate action for your website. The score is based on interactions with your site and enables you to take an appropriate action for your site. Recaptcha will rank traffic and interactions based on a score of 0.0 to 1.0, with a 1.0 being a good interaction and scores closer to 0.0 indicating a good likelihood that the traffic was generated by bots', 'recaptcha-for-woocommerce')
+						),
+						'i13_recapcha_woo_review_method_action_v3' => array(
+						'name' => __('Recaptcha Action Name', 'recaptcha-for-woocommerce'),
+						'type' => 'text',
+						'id' => 'i13_recapcha_woo_review_method_action_v3',
+						'default' => 'review',
+						'desc'=>__('In reCAPTCHA v3, Google introducing a new concept called “Action” —a tag that you can use to define the key steps of your user journey and enable reCAPTCHA to run its risk analysis in context.', 'recaptcha-for-woocommerce')   
+						),    
+																'i13_recapcha_wp_disable_submit_token_generation_v3_woo_review' => array(
+																	'name' => __('Disable on the fly reCAPTCHA v3 token generation', 'recaptcha-for-woocommerce'),
+																	'type' => 'checkbox',
+																	'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_review',
+																	'desc'=>__('Use only when there is problem with other plugin that use submit button.', 'recaptcha-for-woocommerce'),
+																	'default'=>'no'
+																),    
+						array(
+						'type' => 'sectionend',
+						'id' => 'wc_settings_tab_recapcha_woo_review',
+						)
+								)
+					);
+									
+				}
+								
+								
 			} else {
 
 				/**
@@ -1021,10 +1183,8 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 				 * @param array $settings Array of the plugin settings
 				 */
 				$settings = apply_filters(
-										
-									   
 					'i13woocomm_general_settings', array(
-									   'section_title' => array(
+					'section_title' => array(
 					'name' => __('Recaptcha Settings', 'recaptcha-for-woocommerce'),
 					'type' => 'title',
 					'desc' => '<b>' . __('Please use this guideline to get <a target="_blank" href="http://blog.i13websolution.com/how-to-get-google-recaptcha-v2-checkbox-keys/"> reCaptcha keys V2 (checkbox) </a> &nbsp;&nbsp;&nbsp;&nbsp; <a target="_blank" href="http://blog.i13websolution.com/how-to-get-google-recaptcha-v3-keys/"> reCaptcha keys V3 </a></b>', 'recaptcha-for-woocommerce') ,
@@ -1039,11 +1199,11 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 					'default' => 'v2',
 										
 					),
-										 'custom_type_text' => array(
-													'type' => 'custom_type_text',
-													'id'   => 'i13_recapcha_custom_type',
-													'desc'=>__('ReCaptcha V3 Uses a behind-the-scenes scoring system to detect abusive traffic, and lets you decide the minimum passing score. Please note that there is no user interaction shown in reRecapcha V3 meaning that no recaptcha challenge is shown to solve.', 'recaptcha-for-woocommerce') 
-											),
+					'custom_type_text' => array(
+					'type' => 'custom_type_text',
+					'id'   => 'i13_recapcha_custom_type',
+					'desc'=>__('Recaptcha V3 does not show any challenge like I am not robot etc. ReCaptcha V3 uses a behind-the-scenes scoring system to detect abusive traffic, and lets you decide the minimum passing score. Please note that there is no user interaction shown in reRecapcha V3 meaning that no recaptcha challenge is shown to solve.', 'recaptcha-for-woocommerce') 
+					),
 					'i13_recapcha_site_key' => array(
 					'name' => __('Site Key', 'recaptcha-for-woocommerce'),
 					'type' => 'text',
@@ -1122,11 +1282,93 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 					'type' => 'checkbox',
 					'id' => 'i13_recapcha_no_conflict_v3',
 					'desc' => __('When checked, other reCAPTCHA occurrences on this plugin sections like checkout, registration, login etc are forcefully removed, to prevent conflicts. Only check if your site is having compatibility issues or instructed to by support.', 'recaptcha-for-woocommerce')
-					)    
-										,
-									   'custome_type' => array(
-											'type' => 'custom_type',
-											'id'   => 'i13_recapcha_custom_type'
+					),
+						  array(
+							  'name'    => __('Language Code', 'recaptcha-for-woocommerce'),
+							  'desc'    => __('Choose language for recaptcha V2 when shown. For example translation of I am not robot.', 'recaptcha-for-woocommerce'),
+							  'id'      => 'i13_recapcha_v2_lang',
+							  'css'     => 'min-width:150px;',
+							  'std'     => 'left', 
+							  'default' => 'en', 
+							  'type'    => 'select',
+							  'options' => array(
+								'ar'        => __('Arabic', 'recaptcha-for-woocommerce'),
+								'af'       => __('Afrikaans', 'recaptcha-for-woocommerce'),
+								'am'       => __('Amharic', 'recaptcha-for-woocommerce'),
+								'hy'       => __('Armenian', 'recaptcha-for-woocommerce'),
+								'az'       => __('Azerbaijani', 'recaptcha-for-woocommerce'),
+								'eu'       => __('Basque', 'recaptcha-for-woocommerce'),
+								'bn'       => __('Bengali', 'recaptcha-for-woocommerce'),
+								'bg'       => __('Bulgarian', 'recaptcha-for-woocommerce'),
+								'ca'       => __('Catalan', 'recaptcha-for-woocommerce'),
+								'zh-HK'       => __('Chinese (Hong Kong)', 'recaptcha-for-woocommerce'),
+								'zh-CN'       => __('Chinese (Simplified)', 'recaptcha-for-woocommerce'),
+								'zh-TW'       => __('Chinese (Traditional)', 'recaptcha-for-woocommerce'),
+								'hr'       => __('Croatian', 'recaptcha-for-woocommerce'),
+								'cs'       => __('Czech', 'recaptcha-for-woocommerce'),
+								'da'       => __('Danish', 'recaptcha-for-woocommerce'),
+								'nl'       => __('Dutch', 'recaptcha-for-woocommerce'),
+								'en-GB'       => __('English (UK)', 'recaptcha-for-woocommerce'),
+								'en'       => __('English (US)', 'recaptcha-for-woocommerce'),
+								'et'       => __('Estonian', 'recaptcha-for-woocommerce'),
+								'fil'       => __('Filipino', 'recaptcha-for-woocommerce'),
+								'fil'       => __('Finnish', 'recaptcha-for-woocommerce'),
+								'fr'       => __('French', 'recaptcha-for-woocommerce'),
+								'fr-CA'       => __('French (Canadian)', 'recaptcha-for-woocommerce'),
+								'gl'       => __('Galician', 'recaptcha-for-woocommerce'),
+								'ka'       => __('Georgian', 'recaptcha-for-woocommerce'),
+								'de'       => __('German', 'recaptcha-for-woocommerce'),
+								'de-AT'       => __('German (Austria)', 'recaptcha-for-woocommerce'),
+								'de-CH'       => __('German (Switzerland)', 'recaptcha-for-woocommerce'),
+								'el'       => __('Greek', 'recaptcha-for-woocommerce'),
+								'gu'       => __('Gujarati', 'recaptcha-for-woocommerce'),
+								'iw'       => __('Hebrew', 'recaptcha-for-woocommerce'),
+								'hi'       => __('Hindi', 'recaptcha-for-woocommerce'),
+								'hu'       => __('Hungarain', 'recaptcha-for-woocommerce'),
+								'is'       => __('Icelandic', 'recaptcha-for-woocommerce'),
+								'id'       => __('Indonesian', 'recaptcha-for-woocommerce'),
+								'it'       => __('Italian', 'recaptcha-for-woocommerce'),
+								'ja'       => __('Japanese', 'recaptcha-for-woocommerce'),
+								'kn'       => __('Kannada', 'recaptcha-for-woocommerce'),
+								'ko'       => __('Korean', 'recaptcha-for-woocommerce'),
+								'lo'       => __('Laothian', 'recaptcha-for-woocommerce'),
+								'lv'       => __('Latvian', 'recaptcha-for-woocommerce'),
+								'lt'       => __('Lithuanian', 'recaptcha-for-woocommerce'),
+								'ms'       => __('Malay', 'recaptcha-for-woocommerce'),
+								'ml'       => __('Malayalam', 'recaptcha-for-woocommerce'),
+								'mr'       => __('Marathi', 'recaptcha-for-woocommerce'),
+								'mn'       => __('Mongolian', 'recaptcha-for-woocommerce'),
+								'no'       => __('Norwegian', 'recaptcha-for-woocommerce'),
+								'fa'       => __('Persian', 'recaptcha-for-woocommerce'),
+								'pl'       => __('Polish', 'recaptcha-for-woocommerce'),
+								'pt'       => __('Portuguese', 'recaptcha-for-woocommerce'),
+								'pt-BR'       => __('Portuguese (Brazil)', 'recaptcha-for-woocommerce'),
+								'pt-PT'       => __('Portuguese (Portugal)', 'recaptcha-for-woocommerce'),
+								'ro'       => __('Romanian', 'recaptcha-for-woocommerce'),
+								'ru'       => __('Russian', 'recaptcha-for-woocommerce'),
+								'sr'       => __('Serbian', 'recaptcha-for-woocommerce'),
+								'si'       => __('Sinhalese', 'recaptcha-for-woocommerce'),
+								'sk'       => __('Slovak', 'recaptcha-for-woocommerce'),
+								'sl'       => __('Slovenian', 'recaptcha-for-woocommerce'),
+								'es'       => __('Spanish', 'recaptcha-for-woocommerce'),
+								'es-419'       => __('Spanish (Latin America)', 'recaptcha-for-woocommerce'),
+								'sw'       => __('Swahili', 'recaptcha-for-woocommerce'),
+								'sv'       => __('Swedish', 'recaptcha-for-woocommerce'),
+								'ta'       => __('Tamil', 'recaptcha-for-woocommerce'),
+								'te'       => __('Telugu', 'recaptcha-for-woocommerce'),
+								'th'       => __('Thai', 'recaptcha-for-woocommerce'),
+								'tr'       => __('Turkish', 'recaptcha-for-woocommerce'),
+								'uk'       => __('Ukrainian', 'recaptcha-for-woocommerce'),
+								'ur'       => __('Urdu', 'recaptcha-for-woocommerce'),
+								'vi'       => __('Vietnamese', 'recaptcha-for-woocommerce'),
+								'zu'       => __('Zulu', 'recaptcha-for-woocommerce'),
+											
+							  ),
+												
+							),
+					'custome_type' => array(
+					'type' => 'custom_type',
+					'id'   => 'i13_recapcha_custom_type'
 										),
 					array(
 					'type' => 'sectionend',

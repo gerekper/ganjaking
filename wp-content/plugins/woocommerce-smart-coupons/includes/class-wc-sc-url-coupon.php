@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.2
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -158,7 +158,8 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 					}
 					$redirect_url = get_permalink( $page_id );
 				} else {
-					$redirect_url = get_permalink( get_page_by_title( $coupon_args['sc-page'] ) );
+					$page_id = ( function_exists( 'wpcom_vip_get_page_by_title' ) ) ? wpcom_vip_get_page_by_title( $coupon_args['sc-page'] ) : get_page_by_title( $coupon_args['sc-page'] ); // phpcs:ignore
+					$redirect_url = get_permalink( $page_id );
 				}
 
 				if ( empty( $redirect_url ) ) {

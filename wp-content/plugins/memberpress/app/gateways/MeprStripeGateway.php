@@ -581,9 +581,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
           if($sub->txn_count == 0 && !($sub->trial && $sub->trial_amount == 0.00)) {
             $sub->status = MeprSubscription::$cancelled_str;
           }
-          else {
-            $sub->status = MeprSubscription::$active_str;
-          }
+
           $sub->gateway = $this->id;
           $sub->expire_txns(); //Expire associated transactions for the old subscription
           $sub->store();

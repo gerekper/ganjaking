@@ -187,11 +187,11 @@ class Vc_Shared_Templates {
 		) ) );
 
 		$templateId = vc_request_param( 'id' );
-			/* NULLED BY NULLMASTER */
-		$status = true;
-		$file = dirname( __FILE__ ) . '/xml/' . $templateId . '.xml';
+		$requestUrl = $this->getTemplateDownloadLink( $templateId );
+		$status = false;
+		$file = $this->downloadTemplate( $requestUrl );
 		$data = array();
-		if ( $file ) {
+		if ( is_string( $file ) && ! empty( $file ) ) {
 			new Vc_WXR_Parser_Plugin();
 			$importer = new Vc_WP_Import();
 			ob_start();
@@ -257,7 +257,11 @@ class Vc_Shared_Templates {
 			}
 
 			return $downloadedTemplateFile;
-	
+		} elseif ( isset( $body['error'] ) ) {
+			return array(
+				'code' => 1,
+				'message' => $body['error'],
+			);
 		}
 
 		return false;

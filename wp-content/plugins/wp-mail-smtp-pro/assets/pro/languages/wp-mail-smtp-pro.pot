@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Mail SMTP 2.5.3\n"
+"Project-Id-Version: WP Mail SMTP 2.6.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-mail-smtp-pro\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-11-23T05:46:42+00:00\n"
+"POT-Creation-Date: 2021-02-01T12:40:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: wp-mail-smtp-pro\n"
@@ -468,7 +468,7 @@ msgstr ""
 
 #: src/Pro/Emails/Logs/Admin/SinglePage.php:227
 #: src/Pro/Emails/Logs/Admin/Table.php:113
-#: src/Pro/Providers/Providers.php:153
+#: src/Pro/Providers/Providers.php:181
 msgid "Sent"
 msgstr ""
 
@@ -565,12 +565,12 @@ msgid "Are you sure that you want to delete this email log? This action cannot b
 msgstr ""
 
 #: src/Pro/Emails/Logs/Logs.php:240
-#: src/Pro/Providers/Providers.php:158
+#: src/Pro/Providers/Providers.php:186
 msgid "OK"
 msgstr ""
 
 #: src/Pro/Emails/Logs/Logs.php:241
-#: src/Pro/Providers/Providers.php:160
+#: src/Pro/Providers/Providers.php:188
 msgid "Icon"
 msgstr ""
 
@@ -583,12 +583,12 @@ msgid "Heads up!"
 msgstr ""
 
 #: src/Pro/Emails/Logs/Logs.php:244
-#: src/Pro/Providers/Providers.php:164
+#: src/Pro/Providers/Providers.php:192
 msgid "Yes"
 msgstr ""
 
 #: src/Pro/Emails/Logs/Logs.php:245
-#: src/Pro/Providers/Providers.php:162
+#: src/Pro/Providers/Providers.php:190
 msgid "Cancel"
 msgstr ""
 
@@ -630,43 +630,43 @@ msgstr ""
 msgid "There was an error while upgrading the database. Please contact %1$s support with this information: %2$s."
 msgstr ""
 
-#: src/Pro/License/License.php:125
-#: src/Pro/Providers/Providers.php:186
+#: src/Pro/License/License.php:123
+#: src/Pro/Providers/Providers.php:215
 msgid "Something went wrong. Please try again later."
 msgstr ""
 
-#: src/Pro/License/License.php:194
+#: src/Pro/License/License.php:192
 msgid "Verify Key"
 msgstr ""
 
-#: src/Pro/License/License.php:204
+#: src/Pro/License/License.php:202
 msgid "Deactivate Key"
 msgstr ""
 
 #. translators: $s - license type.
-#: src/Pro/License/License.php:215
+#: src/Pro/License/License.php:213
 msgid "Your license key type is %s."
 msgstr ""
 
-#: src/Pro/License/License.php:229
+#: src/Pro/License/License.php:227
 msgid "If your license has been upgraded or is incorrect, <a href=\"#\" id=\"wp-mail-smtp-setting-license-key-refresh\">click here to force a refresh</a>."
 msgstr ""
 
-#: src/Pro/License/License.php:305
+#: src/Pro/License/License.php:303
 msgid "There was an error connecting to the remote key API. Please try again later."
 msgstr ""
 
-#: src/Pro/License/License.php:326
+#: src/Pro/License/License.php:324
 msgid "Congratulations! This site is now receiving automatic updates."
 msgstr ""
 
 #: src/Pro/License/License.php:418
-#: src/Pro/License/License.php:534
+#: src/Pro/License/License.php:536
 msgid "There was an error connecting to the remote server. Please try again later."
 msgstr ""
 
 #: src/Pro/License/License.php:442
-#: src/Pro/License/License.php:647
+#: src/Pro/License/License.php:649
 msgid "Your license key for WP Mail SMTP Pro is invalid. The key no longer exists or the user associated with the key has been deleted. Please use a different key to continue receiving automatic updates."
 msgstr ""
 
@@ -675,162 +675,200 @@ msgid "Your license key for WP Mail SMTP Pro has expired. Please renew your lice
 msgstr ""
 
 #: src/Pro/License/License.php:480
-#: src/Pro/License/License.php:638
+#: src/Pro/License/License.php:640
 msgid "Your license key for WP Mail SMTP Pro has been disabled. Please use a different key to continue receiving automatic updates."
 msgstr ""
 
-#: src/Pro/License/License.php:500
+#: src/Pro/License/License.php:502
 msgid "Your key has been refreshed successfully."
 msgstr ""
 
-#: src/Pro/License/License.php:556
+#: src/Pro/License/License.php:558
 msgid "You have deactivated the key from this site successfully."
 msgstr ""
 
 #. translators: %s - plugin settings page URL.
-#: src/Pro/License/License.php:594
-#: src/Pro/License/License.php:748
+#: src/Pro/License/License.php:596
+#: src/Pro/License/License.php:750
 msgid "Please <a href=\"%s\">enter and activate</a> your license key for WP Mail SMTP Pro to enable automatic updates."
 msgstr ""
 
 #. translators: %s - WPMailSMTP.com login page URL.
-#: src/Pro/License/License.php:617
-#: src/Pro/License/License.php:764
+#: src/Pro/License/License.php:619
+#: src/Pro/License/License.php:766
 msgid "Your license key for WP Mail SMTP Pro has expired. <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Please click here to renew your license key and continue receiving automatic updates.</a>"
 msgstr ""
 
 #. translators: %s - plugin settings page URL.
-#: src/Pro/License/License.php:782
+#: src/Pro/License/License.php:784
 msgid "Your license key for WP Mail SMTP Pro has been disabled. Please <a href=\"%s\">enter and activate</a> a different key for WP Mail SMTP Pro to continue receiving automatic updates."
 msgstr ""
 
 #. translators: %s - plugin settings page URL.
-#: src/Pro/License/License.php:798
+#: src/Pro/License/License.php:800
 msgid "Your license key for WP Mail SMTP Pro is invalid. Please <a href=\"%s\">enter and activate</a> a different key for WP Mail SMTP Pro to continue receiving automatic updates."
 msgstr ""
 
-#: src/Pro/License/License.php:813
+#: src/Pro/License/License.php:815
 msgid "Your WP Mail SMTP Pro license is active and valid."
 msgstr ""
 
-#: src/Pro/Multisite.php:107
+#: src/Pro/Multisite.php:112
 msgid "Multisite"
 msgstr ""
 
-#: src/Pro/Multisite.php:114
+#: src/Pro/Multisite.php:119
 msgid "Settings control"
 msgstr ""
 
-#: src/Pro/Multisite.php:122
+#: src/Pro/Multisite.php:127
 msgid "Make the plugin settings global network-wide"
 msgstr ""
 
-#: src/Pro/Multisite.php:126
+#: src/Pro/Multisite.php:131
 msgid "If disabled, each subsite of this multisite will have its own WP Mail SMTP settings page that has to be configured separately."
 msgstr ""
 
-#: src/Pro/Multisite.php:128
+#: src/Pro/Multisite.php:133
 msgid "If enabled, these global settings will manage email sending for all subsites of this multisite."
 msgstr ""
 
-#: src/Pro/Pro.php:310
+#: src/Pro/Multisite.php:497
+msgid "Clear these errors"
+msgstr ""
+
+#: src/Pro/Pro.php:322
 msgid "Go to WP Mail SMTP Settings page"
 msgstr ""
 
-#: src/Pro/Pro.php:311
+#: src/Pro/Pro.php:323
 msgid "Settings"
 msgstr ""
 
-#: src/Pro/Pro.php:317
+#: src/Pro/Pro.php:329
 msgid "Go to WPMailSMTP.com documentation page"
 msgstr ""
 
-#: src/Pro/Pro.php:318
+#: src/Pro/Pro.php:330
 msgid "Docs"
 msgstr ""
 
-#: src/Pro/Pro.php:324
+#: src/Pro/Pro.php:336
 msgid "Go to WPMailSMTP.com support page"
 msgstr ""
 
-#: src/Pro/Pro.php:325
+#: src/Pro/Pro.php:337
 msgid "Support"
 msgstr ""
 
-#: src/Pro/Pro.php:380
+#: src/Pro/Pro.php:392
 msgid "There was an error while processing the authentication request. Please try again."
 msgstr ""
 
-#: src/Pro/Pro.php:387
+#: src/Pro/Pro.php:399
 msgid "There was an error while processing the authentication request. Please make sure that you have Client ID and Client Secret both valid and saved."
 msgstr ""
 
 #. translators: %s - error code, returned by Zoho API.
-#: src/Pro/Pro.php:395
+#: src/Pro/Pro.php:407
 msgid "There was an error while processing the authentication request: %s. Please try again."
 msgstr ""
 
-#: src/Pro/Pro.php:404
+#: src/Pro/Pro.php:416
 msgid "You have successfully linked the current site with your Microsoft API project. Now you can start sending emails through Outlook."
 msgstr ""
 
-#: src/Pro/Pro.php:410
+#: src/Pro/Pro.php:422
 msgid "You have successfully linked the current site with your Zoho Mail API project. Now you can start sending emails through Zoho Mail."
 msgstr ""
 
-#: src/Pro/Pro.php:448
+#: src/Pro/Pro.php:460
 msgid "Auto-updates are not available."
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Auth.php:121
-msgid "US East (N. Virginia)"
+#: src/Pro/Pro.php:673
+#: src/Pro/Providers/Providers.php:251
+#: src/Pro/Providers/Providers.php:295
+msgid "Please provide a valid email address."
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Auth.php:122
-msgid "US East (Ohio)"
+#: src/Pro/Pro.php:675
+msgid "Please provide a domain."
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Auth.php:123
-msgid "US West (Oregon)"
+#: src/Pro/Pro.php:751
+msgid "You don't have the permission to perform this action."
+msgstr ""
+
+#: src/Pro/Pro.php:757
+msgid "Please enter a valid license key!"
+msgstr ""
+
+#: src/Pro/Pro.php:767
+msgid "License functionality missing!"
 msgstr ""
 
 #: src/Pro/Providers/AmazonSES/Auth.php:124
-msgid "EU (Ireland)"
+msgid "US East (N. Virginia)"
 msgstr ""
 
 #: src/Pro/Providers/AmazonSES/Auth.php:125
-msgid "EU (London)"
+msgid "US East (Ohio)"
 msgstr ""
 
 #: src/Pro/Providers/AmazonSES/Auth.php:126
-msgid "EU (Frankfurt)"
+msgid "US West (N. California)"
 msgstr ""
 
 #: src/Pro/Providers/AmazonSES/Auth.php:127
-msgid "Asia Pacific (Mumbai)"
+msgid "US West (Oregon)"
 msgstr ""
 
 #: src/Pro/Providers/AmazonSES/Auth.php:128
-msgid "Asia Pacific (Tokyo)"
+msgid "EU (Ireland)"
 msgstr ""
 
 #: src/Pro/Providers/AmazonSES/Auth.php:129
-msgid "Asia Pacific (Seoul)"
+msgid "EU (London)"
 msgstr ""
 
 #: src/Pro/Providers/AmazonSES/Auth.php:130
-msgid "Asia Pacific (Singapore)"
+msgid "EU (Paris)"
 msgstr ""
 
 #: src/Pro/Providers/AmazonSES/Auth.php:131
-msgid "Asia Pacific (Sydney)"
+msgid "EU (Frankfurt)"
 msgstr ""
 
 #: src/Pro/Providers/AmazonSES/Auth.php:132
-msgid "Canada (Central)"
+msgid "EU (Stockholm)"
 msgstr ""
 
 #: src/Pro/Providers/AmazonSES/Auth.php:133
+msgid "Asia Pacific (Mumbai)"
+msgstr ""
+
+#: src/Pro/Providers/AmazonSES/Auth.php:134
+msgid "Asia Pacific (Tokyo)"
+msgstr ""
+
+#: src/Pro/Providers/AmazonSES/Auth.php:135
+msgid "Asia Pacific (Seoul)"
+msgstr ""
+
+#: src/Pro/Providers/AmazonSES/Auth.php:136
+msgid "Asia Pacific (Singapore)"
+msgstr ""
+
+#: src/Pro/Providers/AmazonSES/Auth.php:137
+msgid "Asia Pacific (Sydney)"
+msgstr ""
+
+#: src/Pro/Providers/AmazonSES/Auth.php:138
+msgid "Canada (Central)"
+msgstr ""
+
+#: src/Pro/Providers/AmazonSES/Auth.php:139
 msgid "South America (São Paulo)"
 msgstr ""
 
@@ -855,7 +893,7 @@ msgid "Email"
 msgstr ""
 
 #: src/Pro/Providers/AmazonSES/IdentitiesTable.php:100
-#: src/Pro/Providers/Providers.php:280
+#: src/Pro/Providers/Providers.php:309
 msgid "Domain"
 msgstr ""
 
@@ -881,7 +919,7 @@ msgid "Resend a verification email to this address"
 msgstr ""
 
 #: src/Pro/Providers/AmazonSES/Identity.php:190
-#: src/Pro/Providers/Providers.php:154
+#: src/Pro/Providers/Providers.php:182
 msgid "Resend"
 msgstr ""
 
@@ -898,7 +936,7 @@ msgid "Amazon SES"
 msgstr ""
 
 #: src/Pro/Providers/AmazonSES/Options.php:35
-msgid "Send emails using your Amazon AWS account and its SES service, all while keeping your login credentials safe."
+msgid "Send emails using your <b>Amazon AWS</b> account and its <b>SES</b> service, all while keeping your login credentials safe."
 msgstr ""
 
 #. translators: %s - WPMailSMTP.com URL.
@@ -906,116 +944,116 @@ msgstr ""
 msgid "Read our <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Amazon SES documentation</a> to learn how to configure Amazon SES and improve your email deliverability."
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:52
-msgid "The Amazon SES mailer will be a good choice for technically advanced users who already have experience working with Amazon's web services. If you aren't sure whether this mailer sounds like the right fit for your site, then we recommend considering one of our other mailer options."
+#: src/Pro/Providers/AmazonSES/Options.php:53
+msgid "The Amazon SES mailer will be a good choice for technically advanced users who already have experience working with Amazon's web services.<br><br>If you aren't sure whether this mailer sounds like the right fit for your site, then we recommend considering one of our other mailer options."
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:86
+#: src/Pro/Providers/AmazonSES/Options.php:98
 msgid "Access Key ID"
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:103
+#: src/Pro/Providers/AmazonSES/Options.php:115
 msgid "Secret Access Key"
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:127
+#: src/Pro/Providers/AmazonSES/Options.php:139
 msgid "Closest Region"
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:146
+#: src/Pro/Providers/AmazonSES/Options.php:158
 msgid "--- Select region ---"
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:153
+#: src/Pro/Providers/AmazonSES/Options.php:165
 msgid "The closest Amazon SES region to your website was preselected."
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:155
+#: src/Pro/Providers/AmazonSES/Options.php:167
 msgid "Please select the Amazon SES API region which is the closest to where your website is hosted."
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:157
+#: src/Pro/Providers/AmazonSES/Options.php:169
 msgid "This can help to decrease network latency between your site and Amazon SES, which will speed up email sending."
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:160
+#: src/Pro/Providers/AmazonSES/Options.php:172
 msgid "To access this section, please click the Save Settings button."
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:169
+#: src/Pro/Providers/AmazonSES/Options.php:181
 msgid "SES Identities"
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:242
+#: src/Pro/Providers/AmazonSES/Options.php:254
 msgid "Here are the domains and email addresses that have been verified and can be used as the From Email address."
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:248
+#: src/Pro/Providers/AmazonSES/Options.php:260
 msgid "No registered domains or emails."
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:249
+#: src/Pro/Providers/AmazonSES/Options.php:261
 msgid "You will not be able to send emails until you verify at least one domain or email address."
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:255
+#: src/Pro/Providers/AmazonSES/Options.php:267
 msgid "Add new SES identity"
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:257
+#: src/Pro/Providers/AmazonSES/Options.php:269
 msgid "Add New"
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:281
+#: src/Pro/Providers/AmazonSES/Options.php:293
 msgid "Verify Domain"
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:283
+#: src/Pro/Providers/AmazonSES/Options.php:295
 msgid "Verify Email Address"
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:286
+#: src/Pro/Providers/AmazonSES/Options.php:298
 msgid "Please enter a domain"
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:287
+#: src/Pro/Providers/AmazonSES/Options.php:299
 msgid "Please enter a valid email address"
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:290
+#: src/Pro/Providers/AmazonSES/Options.php:302
 msgid "Enter the domain name above to verify it on Amazon SES and generate the required DNS TXT record."
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:293
+#: src/Pro/Providers/AmazonSES/Options.php:305
 msgid "Enter a valid email address above. A verification email will be sent to the email address you entered."
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:296
+#: src/Pro/Providers/AmazonSES/Options.php:308
 msgid "Verify"
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:314
+#: src/Pro/Providers/AmazonSES/Options.php:326
 msgid "Verify SES identity"
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:326
+#: src/Pro/Providers/AmazonSES/Options.php:338
 msgid "To access this section, please add an Access Key ID and Secret Access Key, select the Closest Region, then click the Save Settings button."
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:374
+#: src/Pro/Providers/AmazonSES/Options.php:386
 msgid "Please add this TXT record to your domain's DNS settings:"
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:376
+#: src/Pro/Providers/AmazonSES/Options.php:388
 msgid "Name:"
 msgstr ""
 
-#: src/Pro/Providers/AmazonSES/Options.php:381
+#: src/Pro/Providers/AmazonSES/Options.php:393
 msgid "Value:"
 msgstr ""
 
 #. translators: %s - URL to Amazon SES documentation.
-#: src/Pro/Providers/AmazonSES/Options.php:388
+#: src/Pro/Providers/AmazonSES/Options.php:400
 msgid "For information on how to add TXT DNS records, please <br><a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">refer to the Amazon SES documentation</a>."
 msgstr ""
 
@@ -1028,127 +1066,121 @@ msgstr ""
 msgid "Send emails using your personal or business Outlook account, all while keeping your login credentials safe.<br><br>Read our <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Outlook documentation</a> to learn how to configure Outlook and improve your email deliverability."
 msgstr ""
 
-#: src/Pro/Providers/Outlook/Options.php:47
-msgid "The Outlook mailer is a great choice if you're already using paid email services with Microsoft, as you'll have the benefit of high email sending limits without signing up for a separate service. Due to the fairly complex setup, however, this option is recommended for more technical users. If you'd prefer a more straightforward setup, then we'd recommend considering one of the other mailer options."
+#: src/Pro/Providers/Outlook/Options.php:48
+msgid "The Outlook mailer is a great choice if you're already using paid email services with Microsoft, as you'll have the benefit of high email sending limits without signing up for a separate service. Due to the fairly complex setup, however, this option is recommended for more technical users.<br><br>If you'd prefer a more straightforward setup, then we'd recommend considering one of the other mailer options."
 msgstr ""
 
-#: src/Pro/Providers/Outlook/Options.php:87
+#: src/Pro/Providers/Outlook/Options.php:92
 msgid "Application ID"
 msgstr ""
 
-#: src/Pro/Providers/Outlook/Options.php:102
+#: src/Pro/Providers/Outlook/Options.php:107
 msgid "Application Password"
 msgstr ""
 
-#: src/Pro/Providers/Outlook/Options.php:124
+#: src/Pro/Providers/Outlook/Options.php:129
 #: src/Pro/Providers/Zoho/Options.php:158
 msgid "Redirect URI"
 msgstr ""
 
-#: src/Pro/Providers/Outlook/Options.php:132
+#: src/Pro/Providers/Outlook/Options.php:137
 #: src/Pro/Providers/Zoho/Options.php:166
 msgid "Copy URL to clipboard"
 msgstr ""
 
-#: src/Pro/Providers/Outlook/Options.php:137
+#: src/Pro/Providers/Outlook/Options.php:142
 msgid "This is the page on your site that you will be redirected to after you have authenticated with Microsoft."
 msgstr ""
 
-#: src/Pro/Providers/Outlook/Options.php:139
+#: src/Pro/Providers/Outlook/Options.php:144
 msgid "You need to copy this URL into \"Authentication > Redirect URIs\" web field for your application on Microsoft Azure site for your project there."
 msgstr ""
 
-#: src/Pro/Providers/Outlook/Options.php:148
+#: src/Pro/Providers/Outlook/Options.php:153
 #: src/Pro/Providers/Zoho/Options.php:182
 msgid "Authorization"
 msgstr ""
 
-#: src/Pro/Providers/Outlook/Options.php:176
+#: src/Pro/Providers/Outlook/Options.php:181
 msgid "Allow plugin to send emails using your Microsoft account"
 msgstr ""
 
-#: src/Pro/Providers/Outlook/Options.php:179
+#: src/Pro/Providers/Outlook/Options.php:184
 #: src/Pro/Providers/Zoho/Options.php:213
 msgid "Click the button above to confirm authorization."
 msgstr ""
 
-#: src/Pro/Providers/Outlook/Options.php:185
+#: src/Pro/Providers/Outlook/Options.php:190
 #: src/Pro/Providers/Zoho/Options.php:219
 msgid "Remove Connection"
 msgstr ""
 
-#. translators: %s - Display name and email, as received from Microsoft API.
-#. translators: %s - Display name and email, as received from Zoho API.
-#: src/Pro/Providers/Outlook/Options.php:194
+#. translators: %s - Display name and email, as received from oAuth provider.
+#: src/Pro/Providers/Outlook/Options.php:199
 #: src/Pro/Providers/Zoho/Options.php:228
 msgid "Connected as %s"
 msgstr ""
 
-#: src/Pro/Providers/Outlook/Options.php:201
+#: src/Pro/Providers/Outlook/Options.php:206
 msgid "Removing the connection will give you an ability to redo the connection or link to another Microsoft account."
 msgstr ""
 
-#: src/Pro/Providers/Outlook/Options.php:209
+#: src/Pro/Providers/Outlook/Options.php:214
 msgid "To access this section, please add an Application ID and Application Password, then click the Save Settings button."
 msgstr ""
 
-#: src/Pro/Providers/Providers.php:152
+#: src/Pro/Providers/Providers.php:180
 msgid "Sending..."
 msgstr ""
 
-#: src/Pro/Providers/Providers.php:155
+#: src/Pro/Providers/Providers.php:183
 msgid "Are you sure you want to delete this email address? You will need to add and verify it again if you want to use it in the future."
 msgstr ""
 
-#: src/Pro/Providers/Providers.php:156
+#: src/Pro/Providers/Providers.php:184
 msgid "Something went wrong, please reload the page and try again."
 msgstr ""
 
-#: src/Pro/Providers/Providers.php:157
+#: src/Pro/Providers/Providers.php:185
 msgid "Please make sure that the email address is valid."
 msgstr ""
 
-#: src/Pro/Providers/Providers.php:161
+#: src/Pro/Providers/Providers.php:189
 msgid "Resend failed!"
 msgstr ""
 
-#: src/Pro/Providers/Providers.php:163
+#: src/Pro/Providers/Providers.php:191
 msgid "Close"
 msgstr ""
 
-#: src/Pro/Providers/Providers.php:165
+#: src/Pro/Providers/Providers.php:193
 msgid "Are you sure you want to delete this domain? You will need to add and verify it again if you want to use it in the future."
 msgstr ""
 
-#: src/Pro/Providers/Providers.php:166
+#: src/Pro/Providers/Providers.php:194
 msgid "Add verified domain"
 msgstr ""
 
-#: src/Pro/Providers/Providers.php:167
+#: src/Pro/Providers/Providers.php:195
 msgid "The AWS SES identities could not load because of an error."
 msgstr ""
 
-#: src/Pro/Providers/Providers.php:222
-#: src/Pro/Providers/Providers.php:266
-msgid "Please provide a valid email address."
-msgstr ""
-
-#: src/Pro/Providers/Providers.php:224
-#: src/Pro/Providers/Providers.php:268
+#: src/Pro/Providers/Providers.php:253
+#: src/Pro/Providers/Providers.php:297
 msgid "Please provide a domain name."
 msgstr ""
 
 #. translators: %s - email address.
-#: src/Pro/Providers/Providers.php:236
+#: src/Pro/Providers/Providers.php:265
 msgid "Please check inbox of <code>%s</code> address for a verification email."
 msgstr ""
 
 #. translators: %1$s - "Email address" or "Domain"; %2$s - actual email address or domain name.
-#: src/Pro/Providers/Providers.php:277
+#: src/Pro/Providers/Providers.php:306
 msgid "%1$s <code>%2$s</code> was successfully deleted."
 msgstr ""
 
-#: src/Pro/Providers/Providers.php:280
+#: src/Pro/Providers/Providers.php:309
 msgid "Email address"
 msgstr ""
 
@@ -1166,7 +1198,7 @@ msgid "Region"
 msgstr ""
 
 #: src/Pro/Providers/Zoho/Options.php:112
-msgid "The region in which your Zoho Account Data resides. One of the valid Zoho data centers."
+msgid "The data center location used by your Zoho account"
 msgstr ""
 
 #: src/Pro/Providers/Zoho/Options.php:121
@@ -1239,7 +1271,7 @@ msgid "Your site is unable to reach wpmailsmtp.com, and returned the error: %s"
 msgstr ""
 
 #: src/Pro/Tasks/Logs/Mailgun/VerifySentStatusTask.php:101
-#: src/Pro/Tasks/Logs/Sendinblue/VerifySentStatusTask.php:90
+#: src/Pro/Tasks/Logs/Sendinblue/VerifySentStatusTask.php:91
 #: src/Pro/Tasks/Logs/SMTPcom/VerifySentStatusTask.php:109
 msgid "The email failed to be delivered. No specific reason was provided by the API."
 msgstr ""

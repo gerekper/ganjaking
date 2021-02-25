@@ -58,6 +58,8 @@ class RsLiquideffectSliderFront extends RevSliderFunctions {
 		
 		$handle = 'rs-' . $this->pluginTitle . '-front';
 		$base   = $this->pluginUrl . 'public/assets/';
+		$path = $base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js';
+		$_jsPathMin = file_exists(RS_LIQUIDEFFECT_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
 		
 		wp_enqueue_style(
 		
@@ -81,7 +83,7 @@ class RsLiquideffectSliderFront extends RevSliderFunctions {
 		wp_enqueue_script(
 		
 			$handle, 
-			$base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js', 
+			$base . 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', 
 			array('jquery', 'pixi'), 
 			$this->version, 
 			true

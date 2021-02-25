@@ -94,6 +94,7 @@ class RsParticlesSlideFront extends RevSliderFunctions {
 	public function write_slide_attributes($slider, $slide) {
 		
 		$enabled = $this->isEnabled($slider);
+		
 		if(empty($enabled)) return;
 		
 		$addOn = $this->isEnabled($slide);

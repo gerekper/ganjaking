@@ -53,9 +53,10 @@ class RsBubblemorphSliderFront extends RevSliderFunctions {
 	}
 	
 	public function add_scripts() {
-		
 		$handle = 'rs-' . $this->pluginTitle . '-front';
 		$base = $this->pluginUrl . 'public/assets/';
+		$path = $base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js';
+		$_jsPathMin = file_exists(RS_BUBBLEMORPH_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
 		
 		wp_enqueue_style(
 		
@@ -69,7 +70,7 @@ class RsBubblemorphSliderFront extends RevSliderFunctions {
 		wp_enqueue_script(
 		
 			$handle, 
-			$base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js', 
+			$base . 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', 
 			array('jquery'), 
 			$this->version, 
 			true
@@ -100,7 +101,8 @@ class RsBubblemorphSliderFront extends RevSliderFunctions {
 		if(!empty($addOn)) {
 		
 			$id = $slider->get_id();
-			$carousel = $this->get_val($slider, 'type', 'standard')  !== 'carousel' ? 'false' : 'true';
+			$params = $this->get_val($slider, 'params', array());
+			$carousel = $this->get_val($params, 'type', 'standard')  !== 'carousel' ? 'false' : 'true';
 			
 			echo "\n";
 			echo "\t\t\t\t\t\t" . 'BubbleMorphAddOn(jQuery, revapi' . $id . ', ' . $carousel . ');' . "\n";

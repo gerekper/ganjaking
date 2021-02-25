@@ -52,14 +52,14 @@ class Google_Service_Gmail_MessagePart extends \WPMailSMTP\Vendor\Google_Collect
         return $this->filename;
     }
     /**
-     * @param Google_Service_Gmail_MessagePartHeader
+     * @param Google_Service_Gmail_MessagePartHeader[]
      */
     public function setHeaders($headers)
     {
         $this->headers = $headers;
     }
     /**
-     * @return Google_Service_Gmail_MessagePartHeader
+     * @return Google_Service_Gmail_MessagePartHeader[]
      */
     public function getHeaders()
     {
@@ -82,14 +82,14 @@ class Google_Service_Gmail_MessagePart extends \WPMailSMTP\Vendor\Google_Collect
         return $this->partId;
     }
     /**
-     * @param Google_Service_Gmail_MessagePart
+     * @param Google_Service_Gmail_MessagePart[]
      */
     public function setParts($parts)
     {
         $this->parts = $parts;
     }
     /**
-     * @return Google_Service_Gmail_MessagePart
+     * @return Google_Service_Gmail_MessagePart[]
      */
     public function getParts()
     {

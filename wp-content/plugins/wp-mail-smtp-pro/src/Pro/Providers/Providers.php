@@ -3,6 +3,7 @@
 namespace WPMailSMTP\Pro\Providers;
 
 use WPMailSMTP\Debug;
+use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Providers\AmazonSES\Auth as SESAuth;
 use WPMailSMTP\Pro\Providers\AmazonSES\Options as SESOptions;
 use WPMailSMTP\Pro\Providers\Outlook\Auth as MSAuth;
@@ -94,23 +95,50 @@ class Providers {
 		$state = sanitize_key( $_GET['state'] );
 		$code  = preg_replace( '/[^a-zA-Z0-9_\-.]/', '', $_GET['code'] ); // phpcs:ignore
 
-		$auth = new MSAuth();
+		$auth         = new MSAuth();
+		$redirect_url = wp_mail_smtp()->get_admin()->get_admin_page_url();
+
+		$plugin_options       = new Options();
+		$outlook_options      = $plugin_options->get_group( 'outlook' );
+		$is_setup_wizard_auth = ! empty( $outlook_options['is_setup_wizard_auth'] );
+
+		if ( $is_setup_wizard_auth ) {
+			$auth->update_is_setup_wizard_auth( false );
+
+			$redirect_url = \WPMailSMTP\Admin\SetupWizard::get_site_url() . '#/step/configure_mailer/outlook';
+		}
 
 		if ( ! wp_verify_nonce( $state, $auth->state_key ) ) {
 			$url = add_query_arg(
 				'error',
 				'microsoft_no_code',
-				wp_mail_smtp()->get_admin()->get_admin_page_url()
+				$redirect_url
 			);
 		} else {
+			Debug::clear();
 			// Save the code.
 			$auth->process_auth( $code );
 			$auth->get_client( true );
 
+			if ( $is_setup_wizard_auth ) {
+				$error = Debug::get_last();
+
+				if ( ! empty( $error ) ) {
+					wp_safe_redirect(
+						add_query_arg(
+							'error',
+							'microsoft_unsuccessful_oauth',
+							$redirect_url
+						)
+					);
+					exit;
+				}
+			}
+
 			$url = add_query_arg(
 				'success',
 				'microsoft_site_linked',
-				wp_mail_smtp()->get_admin()->get_admin_page_url()
+				$redirect_url
 			);
 		}
 
@@ -169,6 +197,7 @@ class Providers {
 				'ses_add_identity_modal_content' => SESOptions::prepare_add_new_identity_content(),
 				'ses_add_identity_modal_title'   => SESOptions::prepare_add_new_identity_title(),
 				'loader_white_small'             => wp_mail_smtp()->prepare_loader( 'white', 'sm' ),
+				'nonce'                          => wp_create_nonce( 'wp-mail-smtp-pro-admin' ),
 			)
 		);
 	}

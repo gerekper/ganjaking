@@ -18,7 +18,7 @@ class MeprTwoFactorIntegration {
   }
 
   public function add_two_factor_nav() {
-    if(class_exists('Two_Factor_Core')) { ?>
+    if(defined('TWO_FACTOR_DIR')) { ?>
       <?php
       $mepr_options = MeprOptions::fetch();
       $account_url = $mepr_options->account_page_url();
@@ -36,7 +36,7 @@ class MeprTwoFactorIntegration {
       return null;
     }
 
-    if(class_exists('Two_Factor_Core')) {
+    if(defined('TWO_FACTOR_DIR')) {
       $user = MeprUtils::get_currentuserinfo();
 
       if ( ! empty( $_POST ) ) {

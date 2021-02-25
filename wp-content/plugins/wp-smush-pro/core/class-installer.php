@@ -111,6 +111,11 @@ class Installer {
 				delete_site_option( WP_SMUSH_PREFIX . 'hide_blackfriday_modal' );
 			}
 
+			if ( version_compare( $version, '3.8.3', '<' ) ) {
+				// Delete this unused setting, leftover from old smush.
+				delete_option( WP_SMUSH_PREFIX . 'transparent_png' );
+			}
+
 			// Create/upgrade directory smush table.
 			self::directory_smush_table();
 

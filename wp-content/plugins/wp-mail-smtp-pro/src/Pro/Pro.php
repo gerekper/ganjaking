@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Pro;
 
+use WPMailSMTP\Debug;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Emails\Logs\EmailsCollection;
 use WPMailSMTP\Pro\Emails\Logs\Logs;
@@ -93,6 +94,17 @@ class Pro {
 		add_filter( 'wp_mail_smtp_usage_tracking_get_data', [ $this, 'usage_tracking_get_data' ] );
 		add_filter( 'wp_mail_smtp_admin_pages_misc_tab_show_usage_tracking_setting', '__return_false' );
 		add_filter( 'wp_mail_smtp_usage_tracking_is_enabled', '__return_true' );
+
+		// Setup wizard hooks.
+		add_filter( 'wp_mail_smtp_admin_setup_wizard_prepare_mailer_options', [ $this, 'setup_wizard_prepare_mailer_options' ] );
+		add_action( 'wp_mail_smtp_admin_setup_wizard_get_oauth_url', [ $this, 'prepare_oauth_url_redirect' ], 10, 2 );
+		add_action( 'wp_mail_smtp_admin_setup_wizard_license_exists', [ $this, 'does_license_key_exist' ] );
+		add_action( 'wp_ajax_wp_mail_smtp_vue_get_amazon_ses_identities', [ $this, 'get_amazon_ses_identities' ] );
+		add_action( 'wp_ajax_wp_mail_smtp_vue_amazon_ses_identity_registration', [ $this, 'amazon_ses_identity_registration' ] );
+		add_action( 'wp_ajax_wp_mail_smtp_vue_verify_license_key', [ $this, 'verify_license_key' ] );
+
+		// Maybe cancel Pro recurring AS tasks for PHP 8 compatibility in v2.6.
+		add_filter( 'wp_mail_smtp_migration_cancel_recurring_tasks', [ $this, 'maybe_cancel_recurring_as_tasks_for_v26' ] );
 	}
 
 	/**
@@ -545,5 +557,234 @@ class Pro {
 		$data['wp_mail_smtp_pro_disabled_controls']    = $disabled_controls;
 
 		return $data;
+	}
+
+	/**
+	 * Setup any additional PRO mailer options for the Setup Wizard.
+	 * This data is passed via `wp_localize_script` before the Vue app is initialized.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param array $data The default mailer options data.
+	 *
+	 * @return array
+	 */
+	public function setup_wizard_prepare_mailer_options( $data ) {
+
+		if ( key_exists( 'amazonses', $data ) && empty( $data['amazonses']['disabled'] ) ) {
+			$amazon_regions   = \WPMailSMTP\Pro\Providers\AmazonSES\Auth::get_regions_names();
+			$prepared_regions = [];
+
+			foreach ( $amazon_regions as $value => $label ) {
+				$prepared_regions[] = [
+					'label' => $label,
+					'value' => $value,
+				];
+			}
+
+			$data['amazonses']['region_options'] = $prepared_regions;
+		}
+
+		if ( key_exists( 'outlook', $data ) && empty( $data['outlook']['disabled'] ) ) {
+			$data['outlook']['redirect_uri'] = \WPMailSMTP\Pro\Providers\Outlook\Auth::get_plugin_auth_url();
+		}
+
+		if ( key_exists( 'zoho', $data ) && empty( $data['zoho']['disabled'] ) ) {
+			$data['zoho']['redirect_uri']   = \WPMailSMTP\Pro\Providers\Zoho\Auth::get_plugin_auth_url();
+			$data['zoho']['domain_options'] = wp_mail_smtp()->get_providers()->get_options( 'zoho' )->get_zoho_domains();
+		}
+
+		return $data;
+	}
+
+	/**
+	 * A filter hook to check if license key exists.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @return bool
+	 */
+	public function does_license_key_exist() {
+
+		$license = Options::init()->get( 'license', 'key' );
+
+		return ! empty( $license );
+	}
+
+	/**
+	 * AJAX callback for getting the current Amazon SES Identities in a JS friendly format.
+	 *
+	 * @since 2.6.0
+	 */
+	public function get_amazon_ses_identities() {
+
+		check_ajax_referer( 'wpms-admin-nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error();
+		}
+
+		$options      = new Options();
+		$ses_settings = isset( $_POST['value'] ) ? wp_slash( json_decode( wp_unslash( $_POST['value'] ), true ) ) : []; // phpcs:ignore
+
+		if ( empty( $ses_settings ) ) {
+			wp_send_json_error();
+		}
+
+		// Update Amazon SES settings with current settings to retrieve the SES Identities for.
+		$options->set( [ 'amazonses' => $ses_settings ], false, false );
+
+		$table = new \WPMailSMTP\Pro\Providers\AmazonSES\IdentitiesTable();
+		$table->prepare_items();
+
+		$error = Debug::get_last();
+
+		if ( ! $table->has_items() && ! empty( $error ) ) {
+			Debug::clear();
+
+			wp_send_json_error( $error );
+		}
+
+		wp_send_json_success(
+			[
+				'columns' => $table->get_columns_for_js(),
+				'data'    => $table->get_items_for_js(),
+			]
+		);
+	}
+
+	/**
+	 * AJAX callback for the Amazon SES identity registration processing.
+	 *
+	 * @since 2.6.0
+	 */
+	public function amazon_ses_identity_registration() {
+
+		check_ajax_referer( 'wpms-admin-nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error();
+		}
+
+		$type  = isset( $_POST['type'] ) ? sanitize_key( wp_unslash( $_POST['type'] ) ) : '';
+		$value = isset( $_POST['value'] ) ? sanitize_text_field( wp_unslash( $_POST['value'] ) ) : '';
+
+		if ( $type === 'email' && ! is_email( $value ) ) {
+			wp_send_json_error( esc_html__( 'Please provide a valid email address.', 'wp-mail-smtp-pro' ) );
+		} elseif ( $type === 'domain' && empty( $value ) ) {
+			wp_send_json_error( esc_html__( 'Please provide a domain.', 'wp-mail-smtp-pro' ) );
+		}
+
+		$ses = new \WPMailSMTP\Pro\Providers\AmazonSES\Auth();
+
+		// Verify domain for easier conditional checking below.
+		$domain_txt = ( $type === 'domain' ) ? $ses->do_verify_domain( $value ) : '';
+
+		if ( $type === 'email' && $ses->do_verify_email( $value ) === true ) {
+			wp_send_json_success(
+				[
+					'type'  => $type,
+					'value' => esc_html( $value ),
+				]
+			);
+		} elseif ( $type === 'domain' && ! empty( $domain_txt ) ) {
+			wp_send_json_success(
+				[
+					'type'       => $type,
+					'value'      => esc_html( $value ),
+					'domain_txt' => $domain_txt,
+				]
+			);
+		} else {
+			$error = Debug::get_last();
+			Debug::clear();
+
+			wp_send_json_error(
+				esc_html( $error )
+			);
+		}
+	}
+
+	/**
+	 * Prepare the oAuth URL redirect for the PRO oAuth mailers.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param array  $data   The default oAuth data.
+	 * @param string $mailer The mailer to prepare the redirect URL for.
+	 *
+	 * @return array
+	 *
+	 * @throws \Exception If auth classes fail to initialize.
+	 */
+	public function prepare_oauth_url_redirect( $data, $mailer ) {
+
+		$auth = null;
+
+		switch ( $mailer ) {
+			case 'outlook':
+				$auth = new \WPMailSMTP\Pro\Providers\Outlook\Auth();
+				break;
+
+			case 'zoho':
+				$auth = new \WPMailSMTP\Pro\Providers\Zoho\Auth();
+				break;
+		}
+
+		if ( ! empty( $auth ) && $auth->is_clients_saved() && $auth->is_auth_required() ) {
+			$data['oauth_url'] = $auth->get_auth_url();
+		}
+
+		return $data;
+	}
+
+	/**
+	 * AJAX callback for verifying the license key.
+	 *
+	 * @since 2.6.0
+	 */
+	public function verify_license_key() {
+
+		check_ajax_referer( 'wpms-admin-nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( esc_html__( 'You don\'t have the permission to perform this action.', 'wp-mail-smtp-pro' ) );
+		}
+
+		$license_key = ! empty( $_POST['license_key'] ) ? sanitize_key( $_POST['license_key'] ) : '';
+
+		if ( empty( $license_key ) ) {
+			wp_send_json_error( esc_html__( 'Please enter a valid license key!', 'wp-mail-smtp-pro' ) );
+		}
+
+		$license_object = $this->get_license();
+
+		// Let the License class handle the rest via AJAX.
+		if ( method_exists( $license_object, 'verify_key' ) ) {
+			$license_object->verify_key( $license_key, true );
+		}
+
+		wp_send_json_error( esc_html__( 'License functionality missing!', 'wp-mail-smtp-pro' ) );
+	}
+
+	/**
+	 * Add any Pro AS tasks that need to be temporary canceled (reset) for PHP 8 compatibility in v2.6 release.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param array $tasks The default tasks that will be canceled.
+	 *
+	 * @return array
+	 */
+	public function maybe_cancel_recurring_as_tasks_for_v26( $tasks ) {
+
+		// Get the Logs retention period setting.
+		$retention_period = Options::init()->get( 'logs', 'log_retention_period' );
+
+		if ( ! empty( $retention_period ) ) {
+			$tasks[] = '\WPMailSMTP\Pro\Tasks\EmailLogCleanupTask';
+		}
+
+		return $tasks;
 	}
 }

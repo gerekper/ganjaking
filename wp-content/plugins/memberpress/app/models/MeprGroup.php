@@ -143,10 +143,11 @@ class MeprGroup extends MeprCptModel {
         JOIN {$wpdb->postmeta} AS pm_group_order
           ON p.ID = pm_group_order.post_id
          AND pm_group_order.meta_key = %s
+       WHERE p.post_status = %s
        ORDER BY pm_group_order.meta_value * 1
     "; // * 1 = easy way to cast strings as numbers in SQL
 
-    $query = $wpdb->prepare($query, MeprProduct::$group_id_str, $this->ID, MeprProduct::$group_order_str);
+    $query = $wpdb->prepare($query, MeprProduct::$group_id_str, $this->ID, MeprProduct::$group_order_str, 'publish');
 
     $res = $wpdb->get_col($query);
 

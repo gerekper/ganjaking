@@ -43,30 +43,21 @@ import Scanner from '../smush/directory-scanner';
 			this.wp_smush_msgs = window.wp_smush_msgs || {};
 
 			/**
-			 * Folder select: Choose Folder in Directory Smush tab clicked.
-			 */
-			$( 'div.sui-wrap' ).on( 'click', 'button.wp-smush-browse', function(
-				e
-			) {
-				e.preventDefault();
-
-				// Hide all the notices.
-				$( 'div.wp-smush-scan-result div.wp-smush-notice' ).hide();
-
-				// Remove notice.
-				$( 'div.wp-smush-info' ).remove();
-
-				// Display file tree for directory Smush.
-				self.initFileTree();
-			} );
-
-			/**
 			 * Open the "Select Smush directory" modal.
 			 */
 			$('button.wp-smush-browse, a.wp-smush-dir-link').on(
 				'click',
 				function (e) {
 					e.preventDefault();
+
+					if ( $( e.currentTarget ).hasClass( 'wp-smush-browse' ) ) {
+						// Hide all the notices.
+						$( 'div.wp-smush-scan-result div.wp-smush-notice' ).hide();
+
+						// Remove notice.
+						$( 'div.wp-smush-info' ).remove();
+					}
+
 					window.SUI.openModal(
 						'wp-smush-list-dialog',
 						e.currentTarget,
@@ -107,12 +98,11 @@ import Scanner from '../smush/directory-scanner';
 				// Display the spinner
 				spinner.addClass( 'sui-icon-loader sui-loading' );
 
-				const selectedFolders = self.tree.getSelectedNodes(),
-					absPath = $( 'input[name="wp-smush-base-path"]' ).val(); // Absolute path.
+				const selectedFolders = self.tree.getSelectedNodes();
 
 				const paths = [];
 				selectedFolders.forEach( function( folder ) {
-					paths.push( absPath + '/' + folder.key );
+					paths.push( folder.key );
 				} );
 
 				// Send a ajax request to get a list of all the image files

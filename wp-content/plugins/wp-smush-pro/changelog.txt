@@ -6,6 +6,23 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.8.3 ( 2021-02-10 ) =
+
+- Enhance: Allow local WebP on WPMU DEV staging sites
+- Enhance: Display the WebP test request code and message in the status on failure
+- Enhance: Remove unused setting and methods for converting transparent PNGs to JPEG
+- Enhance: Validate the paths submitted by the user for Directory smush
+- Enhance: Compatibility with WP Offload Media
+- Fix: Bulk Smush getting stuck after 100 images on free version
+- Fix: Loading of Wistia assets on free version
+- Fix: Data usage option not being saved on the free version during the onboarding wizard
+- Fix: Do not adjust sizes attribute when automatic resizing on CDN is disabled
+- Fix: WebP rules path is wrong in Flywheel sites
+- Fix: Extra horizontal line after the last row of the WebP metabox
+- Fix: Choose Directory modal not opening when in tabs other than "Directory Smush"
+- Fix: Cached list of attachments with backups getting out of sync with backups
+- Fix: Empty images in media library after PNG to JPG conversion on servers without "fileinfo" extension
+
 = 3.8.2 ( 2020-12-09 ) =
 
 - Enhance: Compatibility with PHP 8.0
@@ -157,4 +174,4 @@ Change Log:
 
 
 
-888839-1607537885-au
+902402-1612966985-au

@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
  * @copyright 2019 ThemePunch
@@ -1068,12 +1068,11 @@ class RevSliderSlide extends RevSliderFunctions {
 			if($additions['fb_type'] == 'album'){
 				//$this->image_url	= 'https://graph.facebook.com/'.$this->get_val($this->post_data, 'id').'/picture';
 				$image_array = $this->get_val($this->post_data, 'images');
-				$this->image_url	=  isset($image_array[0]->source) ? $image_array[0]->source : $this->get_val($this->post_data, 'picture', $this->image_thumb);
+				$this->image_url	=  isset($image_array[0]['source']) ? $image_array[0]['source'] : $this->get_val($this->post_data, 'picture', $this->image_thumb);
 				$this->image_thumb	= $this->get_val($this->post_data, 'picture', $this->image_thumb);
 			}else{
-				$img = $this->get_facebook_timeline_image();
-				$this->image_url	= $img;
-				$this->image_thumb	= ($img !== '') ? $img : $this->image_thumb;
+				$this->image_url	= $this->get_val($this->post_data, 'full_picture', $this->image_thumb);
+				$this->image_thumb	= $this->get_val($this->post_data, 'picture', $this->image_thumb);
 			}
 			
 			$this->image_url = (empty($this->image_url)) ? RS_PLUGIN_URL.'public/assets/assets/sources/facebook.png' : $this->image_url;
@@ -1202,7 +1201,7 @@ class RevSliderSlide extends RevSliderFunctions {
 		$caption = $this->get_val($this->post_data, 'caption');
 		$link	 = $this->get_val($this->post_data, 'link');
 		$link	 = (empty($link)) ? 'https://www.instagram.com/p/' . $this->get_val($this->post_data, 'shortcode') : $link;
-		$this->set_param('title', $caption);
+		$this->set_param('title', $this->get_val($caption, 'text'));
 		$this->set_param(array('publish', 'state'), 'published');
 
 		if($this->get_val($this->params, array('seo', 'set'), false) && $this->get_val($this->params, array('seo', 'type'), 'regular') == 'regular'){
@@ -1601,9 +1600,22 @@ class RevSliderSlide extends RevSliderFunctions {
 		
 		switch($stream_type){
 			case 'facebook':
+
+				if($additions['fb_type'] == 'album'){
+					$image_array = $this->get_val($this->post_data, 'images');
+					$this->image_url	=  isset($image_array[0]['source']) ? $image_array[0]['source'] : $this->get_val($this->post_data, 'picture', $this->image_thumb);
+					$this->image_thumb	= $this->get_val($this->post_data, 'picture', $this->image_thumb);
+				}else{
+					$this->image_url	= $this->get_val($this->post_data, 'full_picture', $this->image_thumb);
+					$this->image_thumb	= $this->get_val($this->post_data, 'picture', $this->image_thumb);
+				}
+
+
 				if($this->get_val($additions, 'fb_type') == 'album'){
 					$fb_img_thumbnail = $this->get_val($this->post_data, 'picture');
-					$fb_img = 'https://graph.facebook.com/'.$this->get_val($this->post_data, 'id').'/picture';
+
+					$image_array = $this->get_val($this->post_data, 'images');
+					$fb_img	= isset($image_array[0]['source']) ? $image_array[0]['source'] : $this->get_val($this->post_data, 'picture');
 					
 					$attr1 = array(
 						'title'		=> $this->get_val($this->post_data, 'name'),
@@ -1612,7 +1624,7 @@ class RevSliderSlide extends RevSliderFunctions {
 						'date'		=> $this->convert_post_date($this->get_val($this->post_data, 'created_time'), true),
 						'date_modified'	=> $this->convert_post_date($this->get_val($this->post_data, 'updated_time'), true),
 						'author_name'	=> $this->get_val($this->post_data, array('from', 'name')),
-						'likes'		=> count($this->get_val($this->post_data, array('likes', 'data'))),
+						'likes'		=> intval($this->get_val($this->post_data, array('likes', 'summary', 'total_count'))),
 						'stream_image_url' => $fb_img,
 						'img_urls'	=> array(
 							'full'	=> array(
@@ -1626,20 +1638,27 @@ class RevSliderSlide extends RevSliderFunctions {
 						)
 					);
 				}else{
-					$post_url = explode('_', $this->get_val($this->post_data, 'id'));
-					$img = $this->get_facebook_timeline_image();
+					$fb_img_thumbnail = $this->get_val($this->post_data, 'picture');
+					$fb_img = $this->get_val($this->post_data, 'full_picture');
+
 					$attr1 = array(
 						'title'		=> $this->get_val($this->post_data, 'message'),
 						'content'	=> $this->get_val($this->post_data, 'message'),
-						'link'		=> 'https://www.facebook.com/'.$this->get_val($additions, 'fb_user_id').'/posts/'.$this->get_val($post_url, 1),
+						'link'		=> $this->get_val($this->post_data, 'permalink_url'),
 						'date'		=> $this->convert_post_date($this->get_val($this->post_data, 'created_time'), true),
 						'date_modified'	=> $this->convert_post_date($this->get_val($this->post_data, 'updated_time'), true),
 						'author_name'	=> $this->get_val($this->post_data, array('from', 'name')),
 						'likes'		=> intval($this->get_val($this->post_data, array('likes', 'summary', 'total_count'))),
-						'stream_image_url' => $img,
+						'stream_image_url' => $fb_img,
 						'img_urls'	=> array(
-							'url' => $img,
-							'tag' => '<img src="'.$img.'" data-no-retina />'
+							'full'	=> array(
+								'url' => $fb_img,
+								'tag' => '<img src="'.$fb_img.'" data-no-retina />'
+							),
+							'thumbnail' => array(
+								'url' => $fb_img_thumbnail,
+								'tag' => '<img src="'.$fb_img_thumbnail.'" data-no-retina />'
+							)
 						)
 					);
 				}
@@ -2249,23 +2268,44 @@ class RevSliderSlide extends RevSliderFunctions {
 	 * get all slides of all given slider_ids raw
 	 **/
 	public function get_all_slides_raw($slider_ids){
-		return $this->get_slides_by_slider_id($slider_ids, false, false, false, false);
+		$first_slides	= $this->get_slides_by_slider_id($slider_ids, false, false, false, false, true);
+		$slide_ids		= $this->get_slide_ids_by_slider_id($slider_ids);
+		return array('first_slides' => $first_slides, 'slide_ids' => $slide_ids);
+	}
+	
+	/**
+	 * get all slide ids from the slider list
+	 * @since: 6.3.10
+	 **/
+	public function get_slide_ids_by_slider_id($slider_ids){
+		global $wpdb;
+		
+		if(is_array($slider_ids) && !empty($slider_ids)){
+			$in  = str_repeat('%d,', count($slider_ids) - 1) . '%d';
+			$slides_data = $wpdb->get_results($wpdb->prepare("SELECT `id`, `slider_id`, `slide_order` FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDES." WHERE slider_id IN(".$in.") ORDER BY slider_id,slide_order ASC", $slider_ids), ARRAY_A);
+		}else{
+			$slides_data = $wpdb->get_results($wpdb->prepare("SELECT `id`, `slider_id`, `slide_order` FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDES." WHERE slider_id = %d".$first_sql." ORDER BY slide_order ASC", $slider_ids), ARRAY_A);
+		}
+		
+		return $slides_data;
 	}
 	
 	/**
 	 * get all slides from specific slider id
 	 * @before: RevSliderSlider::getSlidesFromGallery
 	 **/
-	public function get_slides_by_slider_id($slider_id, $published = false, $wmpl = false, $first = false, $init_layer = true){
+	public function get_slides_by_slider_id($slider_id, $published = false, $wmpl = false, $first = false, $init_layer = true, $fetch_single = false){
 		global $wpdb;
 		
-		$slides		 = array();
-		$children	 = array();
+		$slides		= array();
+		$children	= array();
+		$first_sql	= ($fetch_single === true) ? " AND `slide_order` = '1'" : '';
+		
 		if(is_array($slider_id) && !empty($slider_id)){
 			$in  = str_repeat('%d,', count($slider_id) - 1) . '%d';
-			$slides_data = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDES." WHERE slider_id IN(".$in.") ORDER BY slider_id,slide_order ASC", $slider_id), ARRAY_A);
+			$slides_data = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDES." WHERE slider_id IN(".$in.")".$first_sql." ORDER BY slider_id,slide_order ASC", $slider_id), ARRAY_A);
 		}else{
-			$slides_data = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDES." WHERE slider_id = %d ORDER BY slide_order ASC", $slider_id), ARRAY_A);
+			$slides_data = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDES." WHERE slider_id = %d".$first_sql." ORDER BY slide_order ASC", $slider_id), ARRAY_A);
 		}
 		foreach($slides_data as $slide_data){
 			$slide	= new RevSliderSlide();
@@ -2640,51 +2680,139 @@ class RevSliderSlide extends RevSliderFunctions {
 			foreach($this->layers as $key => $layer){
 				$font = $this->get_val($layer, array('idle', 'fontFamily'), 'Roboto');
 				
-				foreach($all_fonts as $f){
-					if(strtolower(str_replace(array('"', "'", ' '), '', $f['label'])) == strtolower(str_replace(array('"', "'", ' '), '', $font)) && ($f['type'] == 'googlefont' || $f['type'] === 'custom' && isset($f['url']) && isset($f['frontend']) && $f['frontend'] === true)){
-						
-						if(!isset($fonts[$f['label']])){
-							$fonts[$f['label']] = array('variants' => array(), 'subsets' => array());
-						}
-						if($f['type'] === 'custom') $fonts[$f['label']]['url'] = $f['url'];
-						
-						if($full){ //if full, add all.
-							//switch the variants around here!
-							$mv = array();
-							if(!empty($f['variants'])){
-								foreach($f['variants'] as $fvk => $fvv){
-									$mv[$fvv] = $fvv;
-								}
-							}
-							$fonts[$f['label']] = array('variants' => $mv, 'subsets' => $f['subsets']);
-						}else{ //Otherwise add only current font-weight plus italic or not
-							$fw = $this->normalize_device_settings($this->get_val($layer, array('idle', 'fontWeight'), '400'), array('d' => true, 'n' => true, 't' => true, 'm' => true), 'array', array('400'));
-							$fs = $this->get_val($layer, array('idle', 'fontStyle'), '');
+				$_fonts = array();
+				$_fonts[$font] = array(
+					'fontWeight' => $this->get_val($layer, array('idle', 'fontWeight'), '400'),
+					'fontStyle'	=> $this->get_val($layer, array('idle', 'fontStyle'), ''),
+					'addition'	=> array(),
+				);
+				
+				//$text = strtolower(str_replace(' ', '', $this->get_val($layer, 'text', '')));
+				$text = $this->get_val($layer, 'text', '');
+				
+				//search for font family
+				//search for font weight
+				preg_match_all('/<[^>]+((?<=style=").*?(?=")|(?<=style=\').*?(?=\'))/i', $text, $matches);
+				if(isset($matches[1])) $matches = $matches[1];
+				
+				if(!empty($matches)){
+					foreach($matches as $match){
+						$match = explode(';', $match);
+						if(empty($match)) continue;
+						$found = array();
+						foreach($match as $m => $v){
+							if(empty($v)) continue;
+							$_match = explode(':', $v);
+							if(empty($_match)) continue;
 							
-							if($fs == true){
-								foreach($fw as $mf => $w){
-									//we check if italic is available at all for the font!
-									if($w == '400'){
-										if(array_search('italic', $f['variants']) !== false)
-											$fw[$mf] = 'italic';
-									}else{
-										if(array_search($w.'italic', $f['variants']) !== false){
-											$fw[$mf.'italic'] = $w.'italic';
+							$style = trim(strtolower($this->get_val($_match, 0)));
+							$style_value = trim($this->get_val($_match, 1));
+							if($style === 'font-family'){
+								$found['font-family'] = $style_value;
+							}elseif($style === 'font-weight'){
+								$found['font-weight'] = $style_value;
+							}elseif($style === 'font-style'){
+								$found['font-style'] = $style_value;
+							}
+							/*elseif($style === 'font'){
+								$_font = explode(' ', $style_value);
+								if(!empty($_font)){
+									foreach($_font as $_fv){
+										$_fv = str_replace(array('"', "'"), '', trim($_fv));
+										if(intval($_fv) > 0 || strtolower($_fv) === 'bold'){
+											$found['font-weight'] = $_fv;
+										}elseif(strtolower($_fv) === 'italic'){
+											$found['font-style'] = $_fv;
+										}else{
+											
 										}
 									}
 								}
+								$found['font'] = $style_value;
+							}*/
+						}
+						if(!empty($found)){
+							$use_font = $font;
+							if(isset($found['font-family'])){
+								if(!isset($_fonts[$found['font-family']])){
+									$_fonts[$found['font-family']] = array('fontWeight' => array(), 'fontStyle'	=> false, 'addition' => array());
+								}
+								$use_font = $found['font-family'];
 							}
 							
-							
-							foreach($fw as $mf => $w){
-								$fonts[$f['label']]['variants'][$w] = true;
+							if(isset($found['font-weight'])){
+								if(strtolower($found['font-weight']) === 'bold') $found['font-weight'] = '600';
+								if(!in_array($found['font-weight'], $_fonts[$use_font]['addition'])){
+									$_fonts[$use_font]['addition'][] = $found['font-weight'];
+								}
 							}
 							
-							if(isset($f['subsets'])){
-								$fonts[$f['label']]['subsets'] = $f['subsets']; //subsets always get added, needs to be done then by the Slider Settings
+							if(isset($found['font-style'])){
+								if(!in_array($found['font-style'], $_fonts[$use_font]['addition'])){
+									//$_fonts[$use_font]['addition'][] = $found['font-style'];
+									$_fonts[$use_font]['fontStyle'] = true;
+								}
 							}
 						}
-						break;
+					}
+				}
+				
+				if(!empty($_fonts)){
+					foreach($_fonts as $font => $_font_values){
+						foreach($all_fonts as $f){
+							if(strtolower(str_replace(array('"', "'", ' '), '', $f['label'])) == strtolower(str_replace(array('"', "'", ' '), '', $font)) && ($f['type'] == 'googlefont' || $f['type'] === 'custom' && isset($f['url']) && isset($f['frontend']) && $f['frontend'] === true)){
+								
+								if(!isset($fonts[$f['label']])){
+									$fonts[$f['label']] = array('variants' => array(), 'subsets' => array());
+								}
+								if($f['type'] === 'custom') $fonts[$f['label']]['url'] = $f['url'];
+								
+								if($full){ //if full, add all.
+									//switch the variants around here!
+									$mv = array();
+									if(!empty($f['variants'])){
+										foreach($f['variants'] as $fvk => $fvv){
+											$mv[$fvv] = $fvv;
+										}
+									}
+									$fonts[$f['label']] = array('variants' => $mv, 'subsets' => $f['subsets']);
+								}else{ //Otherwise add only current font-weight plus italic or not
+									$fw = $this->normalize_device_settings($this->get_val($_font_values, 'fontWeight', '400'), array('d' => true, 'n' => true, 't' => true, 'm' => true), 'array', array('400'));
+									$fs = $this->get_val($_font_values, 'fontStyle', '');
+									
+									$_addition = $this->get_val($_font_values, 'addition');
+									if(!empty($_addition) && is_array($_addition)){
+										foreach($_addition as $_add){
+											$fw[$_add] = $_add;
+										}
+									}
+									
+									if($fs == true){
+										foreach($fw as $mf => $w){
+											//we check if italic is available at all for the font!
+											if($w == '400'){
+												if(array_search('italic', $f['variants']) !== false)
+													$fw[$mf] = 'italic';
+											}else{
+												if(array_search($w.'italic', $f['variants']) !== false){
+													$fw[$mf.'italic'] = $w.'italic';
+												}
+											}
+										}
+									}
+									
+									
+									foreach($fw as $mf => $w){
+										$fonts[$f['label']]['variants'][$w] = true;
+									}
+									
+									if(isset($f['subsets'])){
+										$fonts[$f['label']]['subsets'] = $f['subsets']; //subsets always get added, needs to be done then by the Slider Settings
+									}
+								}
+								break;
+							}
+						}
 					}
 				}
 			}

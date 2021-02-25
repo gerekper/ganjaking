@@ -86,6 +86,7 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 			app.license.bindActions();
 			app.amazonses.bindActions();
 			app.amazonses.loadIdentities();
+			app.multisite.bindActions();
 		},
 
 		/**
@@ -837,8 +838,65 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 							.fadeIn( 200 );
 					} );
 			}
-		}
+		},
 
+		/**
+		 * Multisite specific methods.
+		 *
+		 * @since 2.6.0
+		 *
+		 * @type {object}
+		 */
+		multisite: {
+
+			/**
+			 * Register all multisite events.
+			 *
+			 * @since 2.6.0
+			 */
+			bindActions: function() {
+				$( document ).on( 'click', '.js-wp-mail-smtp-clear-network-wide-error-notices', this.clearErrorMessages );
+			},
+
+			/**
+			 * AJAX call to clear the error notices.
+			 *
+			 * @since 2.6.0
+			 *
+			 * @param {object} event The jQuery event object.
+			 *
+			 * @returns {boolean} If additional processing was skipped.
+			 */
+			clearErrorMessages: function( event ) {
+				event.preventDefault();
+
+				if ( app.doingAjax ) {
+					return false;
+				}
+
+				$.ajax( {
+					url: ajaxurl,
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						action: 'wp_mail_smtp_pro_multisite_clear_error_notices',
+						_ajax_nonce: wp_mail_smtp_pro.nonce
+					},
+					beforeSend: function() {
+						app.doingAjax = true;
+					}
+				} )
+					.done( function( response ) {
+						if ( response.success ) {
+							window.location.reload();
+							return false;
+						}
+					} )
+					.complete( function() {
+						app.doingAjax = false;
+					} );
+			}
+		}
 	};
 
 	// Provide access to public functions/properties.

@@ -80,18 +80,40 @@ class RsBubblemorphSlideFront extends RevSliderFunctions {
 	}
 	
 	private function convertSizes($val, $def) {
-		
+		$min = $def;
+		$max = 0;
+		$isNumeric = false;
+		$isEnabled = 0;
+
 		$d = $this->get_val($val, 'd', array());
-		$m = $this->get_val($val, 'm', array());
 		$n = $this->get_val($val, 'n', array());
 		$t = $this->get_val($val, 't', array());
+		$m = $this->get_val($val, 'm', array());
+
+		foreach($val as $key => $value){
+			if( isset($value['e']) && $value['e'] === true){
+				if($value['v'] < $min) $min = $value['v'];
+				if($value['v'] > $max) $max = $value['v'];
+			}
+			$isNumeric = is_numeric($value['v']);
+
+			if (isset($value['e'])) $isEnabled++;	
+		}
+
+		if($isNumeric && $isEnabled > 1){
+			$d = (isset($d['e']) && $d['e'] === true) ? $this->get_val($d, 'v', $def) : $max;
+			$n = (isset($n['e']) && $n['e'] === true) ? $this->get_val($n, 'v', $def) : $max;
+			$t = (isset($t['e']) && $t['e'] === true) ? $this->get_val($t, 'v', $def) : $min;
+			$m = (isset($m['e']) && $m['e'] === true) ? $this->get_val($m, 'v', $def) : $min;
+		} else {
+			$d = $this->get_val($d, 'v', $def);
+			$n = $this->get_val($n, 'v', $def);
+			$t = $this->get_val($t, 'v', $def);
+			$m = $this->get_val($m, 'v', $def);
+		}
 		
-		$d = $this->get_val($d, 'v', $def);
-		$m = $this->get_val($m, 'v', $def);
-		$n = $this->get_val($n, 'v', $def);
-		$t = $this->get_val($t, 'v', $def);
 		
-		return array($d, $m, $n, $t);
+		return array($d, $n, $t, $m);
 		
 	}
 	

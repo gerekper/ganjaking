@@ -81,16 +81,14 @@
 		
 		beforeSwap: function(e, data) {
 			
-			if(this.checkRemoved()) return;			
-			jQuery(data.slider).find('.rs-addon-strip-active').removeClass('rs-addon-strip-active');
-			if(data.nextslide.hasClass('rs-addon-strip')) {
-				
-				data.nextslide.addClass('rs-addon-strip-active');
-				$.data(
-				
+			if(this.checkRemoved()) return;		
+
+			jQuery("#"+data.slider).find('.rs-addon-strip-active').removeClass('rs-addon-strip-active');
+			if(data.nextslide.hasClass('rs-addon-strip')) {				
+				data.nextslide.addClass('rs-addon-strip-active');				
+				$.data(				
 					data.nextslide[0], 
-					'rs-addon-strip-' + data.nextslide[0].getAttribute('data-key')
-					
+					'rs-addon-strip-' + data.nextslide[0].getAttribute('data-key')					
 				).start();
 				
 			}
@@ -104,13 +102,12 @@
 			/*
 				data.currentSlide and data.prevSlide are not correct anymore
 			*/
-			jQuery(data.slider).find('.rs-addon-strip').not('.rs-addon-strip-active').each(function() {
-				
-				$.data(
-				
+
+			
+			jQuery('#'+data.slider).find('.rs-addon-strip').not('.rs-addon-strip-active').each(function() {				
+				$.data(				
 					this, 
-					'rs-addon-strip-' + this.getAttribute('data-key')
-					
+					'rs-addon-strip-' + this.getAttribute('data-key')					
 				).onStop();
 				
 			});
@@ -162,9 +159,9 @@
 	
 	function onTween() {
 		
-		var obj = {ease: punchgs.Linear.easeNone, onComplete: onReset, onCompleteParams: [this]};
+		var obj = {ease: "none", onComplete: onReset, onCompleteParams: [this]};
 		obj[this.direction] = this.moveTo;
-		
+				
 		if(!this.carousel) {
 		
 			punchgs.TweenLite.to(this.strip, this.time, obj);

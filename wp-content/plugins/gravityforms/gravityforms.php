@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.4.22.3
+Version: 2.4.22.5
 Author: Gravity Forms
 Author URI: https://gravityforms.com
 License: GPL-2.0+
@@ -26,10 +26,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses.
 */
-
-update_option( 'rg_gforms_key', 'activated' );
-update_option( 'gform_pending_installation', false );
-delete_option( 'rg_gforms_message' );
 
 //------------------------------------------------------------------------------------------------------------------
 //---------- Gravity Forms License Key -----------------------------------------------------------------------------
@@ -214,7 +210,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.4.22.3';
+	public static $version = '2.4.22.5';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -2122,30 +2118,7 @@ class GFForms {
 	 * @return string $page_text The changelog. Error message if there's an issue.
 	 */
 	public static function get_changelog() {
-		$key                = GFCommon::get_key();
-		$body               = "key=$key";
-		$options            = array( 'method' => 'POST', 'timeout' => 3, 'body' => $body );
-		$options['headers'] = array(
-			'Content-Type'   => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
-			'Content-Length' => strlen( $body ),
-			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
-			'Referer'        => get_bloginfo( 'url' )
-		);
-
-		$raw_response = GFCommon::post_to_manager( 'changelog.php', GFCommon::get_remote_request_params(), $options );
-
-		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
-			$page_text = sprintf( esc_html__( 'Oops!! Something went wrong. %sPlease try again or %scontact us%s.', 'gravityforms' ), '<br/>', "<a href='https://www.gravityforms.com/support/'>", '</a>' );
-		} else {
-			$page_text = $raw_response['body'];
-			if ( substr( $page_text, 0, 10 ) != '<!--GFM-->' ) {
-				$page_text = '';
-			} else {
-				$page_text = '<div style="background-color:white">' . $page_text . '<div>';
-			}
-		}
-
-		return stripslashes( $page_text );
+		
 	}
 
 	//------------------------------------------------------
@@ -4742,37 +4715,51 @@ class GFForms {
 	 */
 	public static function maybe_auto_update( $update, $item ) {
 
-		if ( isset( $item->slug ) && $item->slug == 'gravityforms' ) {
-
-			GFCommon::log_debug( 'GFForms::maybe_auto_update() - Starting auto-update for gravityforms.' );
-
-			$auto_update_disabled = self::is_auto_update_disabled();
-			GFCommon::log_debug( 'GFForms::maybe_auto_update() - $auto_update_disabled: ' . var_export( $auto_update_disabled, true ) );
-
-			if ( $auto_update_disabled || version_compare( GFForms::$version, $item->new_version, '=>' ) ) {
-				GFCommon::log_debug( 'GFForms::maybe_auto_update() - Aborting update.' );
-
-				return false;
-			}
-
-			$current_major = implode( '.', array_slice( preg_split( '/[.-]/', GFForms::$version ), 0, 1 ) );
-			$new_major     = implode( '.', array_slice( preg_split( '/[.-]/', $item->new_version ), 0, 1 ) );
-
-			$current_branch = implode( '.', array_slice( preg_split( '/[.-]/', GFForms::$version ), 0, 2 ) );
-			$new_branch     = implode( '.', array_slice( preg_split( '/[.-]/', $item->new_version ), 0, 2 ) );
-
-			if ( $current_major == $new_major && $current_branch == $new_branch ) {
-				GFCommon::log_debug( __METHOD__ . '() - OK to update.' );
-
-				return true;
-			} else {
-				GFCommon::log_debug( __METHOD__ . '() - Aborting update. Not on the same major version.' );
-
-				return false;
-			}
+		if ( ! isset( $item->slug ) || $item->slug !== 'gravityforms' ) {
+			return $update;
 		}
 
-		return $update;
+		GFCommon::log_debug( 'GFForms::maybe_auto_update() - Starting auto-update for gravityforms.' );
+
+		$auto_update_disabled = self::is_auto_update_disabled();
+		GFCommon::log_debug( 'GFForms::maybe_auto_update() - $auto_update_disabled: ' . var_export( $auto_update_disabled, true ) );
+
+		if ( $auto_update_disabled || version_compare( GFForms::$version, $item->new_version, '>=' ) ) {
+			GFCommon::log_debug( 'GFForms::maybe_auto_update() - Aborting update.' );
+
+			return false;
+		}
+
+		if ( self::should_update_to_version( $item->new_version ) ) {
+			GFCommon::log_debug( __METHOD__ . '() - OK to update.' );
+
+			return true;
+		} else {
+			GFCommon::log_debug( __METHOD__ . '() - Aborting update. Not on the same major version.' );
+
+			return false;
+		}
+
+	}
+
+	/**
+	 * Determines if the current version should update to the offered version.
+	 *
+	 * @since 2.4.22.4
+	 *
+	 * @param string $offered_ver The version number to be compared against the installed version number.
+	 *
+	 * @return bool
+	 */
+	public static function should_update_to_version( $offered_ver ) {
+		if ( version_compare( GFForms::$version, $offered_ver, '>=' ) ) {
+			return false;
+		}
+
+		$current_branch = implode( '.', array_slice( preg_split( '/[.-]/', GFForms::$version ), 0, 2 ) );
+		$new_branch     = implode( '.', array_slice( preg_split( '/[.-]/', $offered_ver ), 0, 2 ) );
+
+		return $current_branch == $new_branch;
 	}
 
 	/**
@@ -4782,46 +4769,11 @@ class GFForms {
 	 * @access  public
 	 *
 	 * @used-by GFForms::maybe_auto_update()
-	 * @used    DISALLOW_FILE_MODS
-	 * @used    WP_INSTALLING
-	 * @used    AUTOMATIC_UPDATER_DISABLED
-	 * @used    GFORM_DISABLE_AUTO_UPDATE
 	 *
 	 * @return bool True if auto update is disabled.  False otherwise.
 	 */
 	public static function is_auto_update_disabled() {
-
-		// Currently WordPress won't ask Gravity Forms to update if background updates are disabled.
-		// Let's double check anyway.
-
-		// WordPress background updates are disabled if you don't want file changes.
-		if ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS ) {
-			return true;
-		}
-
-		if ( defined( 'WP_INSTALLING' ) ) {
-			return true;
-		}
-
-		$wp_updates_disabled = defined( 'AUTOMATIC_UPDATER_DISABLED' ) && AUTOMATIC_UPDATER_DISABLED;
-
-		/**
-		 * Overrides the WordPress AUTOMATIC_UPDATER_DISABLED constant.
-		 *
-		 * @since Unknown
-		 *
-		 * @param bool $wp_updates_disabled True if disables.  False otherwise.
-		 */
-		$wp_updates_disabled = apply_filters( 'automatic_updater_disabled', $wp_updates_disabled );
-
-		if ( $wp_updates_disabled ) {
-			GFCommon::log_debug( __METHOD__ . '() - Background updates are disabled in WordPress.' );
-
-			return true;
-		}
-
-		// Now check Gravity Forms Background Update Settings
-
+		// Check Gravity Forms Background Update Settings.
 		$enabled = get_option( 'gform_enable_background_updates' );
 		GFCommon::log_debug( 'GFForms::is_auto_update_disabled() - $enabled: ' . var_export( $enabled, true ) );
 
@@ -4875,7 +4827,8 @@ class GFForms {
 			return $no_update_message;
 		}
 
-		if ( rgar( $plugin_data, 'auto-update-forced' ) ) {
+		$background_updates = get_option( 'gform_enable_background_updates' );
+		if ( $background_updates ) {
 			// auto-updates are enabled, so clicking on this will disable them.
 			$message = esc_html__( 'Disable auto-updates', 'gravityforms' );
 			$action  = 'disable';
@@ -5153,6 +5106,15 @@ class GFForms {
 		foreach ( $forms as $form ) {
 			$forms_options[ absint( $form->id ) ] = $form->title;
 		}
+
+		/**
+		 * Modify the list of available forms displayed in the shortcode builder.
+		 *
+		 * @since 2.4.23
+		 *
+		 * @param array $forms_options A collection of active forms on site.
+		 */
+		$forms_options = apply_filters( 'gform_shortcode_builder_forms', $forms_options );
 
 		$default_attrs = array(
 			array(

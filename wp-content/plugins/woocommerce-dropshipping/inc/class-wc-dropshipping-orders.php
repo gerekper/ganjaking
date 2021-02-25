@@ -56,7 +56,7 @@ class WC_Dropshipping_Orders {
     }
 
 	public function add_order_meta_box_order_processing( $actions ) {
-		$actions['resend_dropship_supplier_notifications'] = 'Resend Dropship Supplier Notifications';
+		$actions['resend_dropship_supplier_notifications'] = 'Resend Notifications to Dropshipping Suppliers';
 		return $actions;
 	}
 
@@ -408,7 +408,15 @@ class WC_Dropshipping_Orders {
 		$show_logo = $options['show_logo'];
 		$bill = $options['billing_phone'];
 
-		$from_name = $options['from_name'];
+		if ( isset($order_info['options']['packing_slip_header'] ) ){
+			if ( '' !== $order_info['options']['packing_slip_header'] ){
+				$from_name = $order_info['options']['packing_slip_header']. ' ' .$options['from_name'];
+			}else{
+				$from_name = $options['from_name'];
+			}
+		}else{
+			$from_name = $options['from_name'];
+		}
 
 		$from_email = $options['from_email'];
 

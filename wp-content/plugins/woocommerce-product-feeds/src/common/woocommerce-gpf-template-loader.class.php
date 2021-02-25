@@ -49,7 +49,7 @@ class WoocommerceGpfTemplateLoader extends Gamajo_Template_Loader {
 	 *
 	 * @return string             The rendered output.
 	 */
-	public function get_template_with_variables( $slug, $name = null, $variables ) {
+	public function get_template_with_variables( $slug, $name = null, $variables = [] ) {
 		ob_start();
 		$this->get_template_part( $slug, $name );
 		$content = ob_get_clean();
@@ -70,7 +70,7 @@ class WoocommerceGpfTemplateLoader extends Gamajo_Template_Loader {
 	 *
 	 * @return string             The rendered output.
 	 */
-	public function output_template_with_variables( $slug, $name = null, $variables ) {
+	public function output_template_with_variables( $slug, $name = null, $variables = [] ) {
 		echo $this->get_template_with_variables( $slug, $name, $variables );
 	}
 }

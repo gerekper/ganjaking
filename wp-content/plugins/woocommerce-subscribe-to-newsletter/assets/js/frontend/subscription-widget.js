@@ -21,7 +21,7 @@
 			 * Init.
 			 */
 			init: function () {
-				$( 'form#subscribeform' ).submit( function( event ) {
+				$( 'form#subscribeform' ).on( 'submit', function( event ) {
 					var $form   = $( this ),
 					    $submit = $form.find( 'input[type="submit"]' );
 

@@ -7,6 +7,7 @@ class Permission
      */
     public static function get()
     {
+	    ninjaTablesValidateNonce();
         $roles = get_editable_roles();
         $formatted = array();
         foreach ($roles as $key => $role) {
@@ -35,6 +36,7 @@ class Permission
      */
     public static function set()
     {
+	    ninjaTablesValidateNonce();
         if(current_user_can('manage_options')) {
             $capability = isset($_REQUEST['capability']) ? $_REQUEST['capability'] : [];
             $sql_permission =  isset($_REQUEST['sql_permission']) ? sanitize_text_field($_REQUEST['sql_permission']) : 'no';

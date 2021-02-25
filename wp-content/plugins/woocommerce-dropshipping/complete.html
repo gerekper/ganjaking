@@ -54,6 +54,16 @@
 
 	$misc_colspan = $product_price_colspan + 1;
 
+	if (isset($order_info['options']['packing_slip_header'])){
+		if ('' !== $order_info['options']['packing_slip_header'] ){
+			$packing_slip_header = $order_info['options']['packing_slip_header']. ' - ';
+		}else{
+			$packing_slip_header = '';
+		}
+	}else{
+		$packing_slip_header = '';
+	}
+
 ?>
 
 
@@ -71,7 +81,7 @@
 
 		<td align="center">
 
-			<h2 style="color: #fff;">[<?php echo 'Order #'.$order_info['custom_order_number'] .' is completed'; ?>]
+			<h2 style="color: #fff;">[<?php echo $packing_slip_header. 'Order #' .$order_info['custom_order_number'] .' is completed'; ?>]
 
 				<span>
 
@@ -849,9 +859,13 @@
 
 							if($order_info['options']['cost_of_goods'] == '0') {
 
-								$rows .= '<td align="right" colspan="'.$product_price_colspan.'">'.$order_tax_label.'</td>';
+								if(($order_info['options']['hide_tax'] == '0') || ($order_info['options']['hide_tax'] == '')){
 
-								$rows .= '<td align="center">'.$currency_sym.$order_total_tax.'</td>';
+									$rows .= '<td align="right" colspan="'.$product_price_colspan.'">'.$order_tax_label.'</td>';
+
+									$rows .= '<td align="center">'.$currency_sym.$order_total_tax.'</td>';
+
+								}
 
 							}
 

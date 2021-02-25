@@ -25,7 +25,7 @@ use WPMailSMTP\Vendor\Monolog\Formatter\GelfMessageFormatter;
 class GelfHandler extends \WPMailSMTP\Vendor\Monolog\Handler\AbstractProcessingHandler
 {
     /**
-     * @var Publisher the publisher object that sends the message to the server
+     * @var Publisher|PublisherInterface|IMessagePublisher the publisher object that sends the message to the server
      */
     protected $publisher;
     /**

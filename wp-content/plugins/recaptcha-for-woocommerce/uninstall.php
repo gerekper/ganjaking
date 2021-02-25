@@ -97,7 +97,23 @@ $options_installed = array(
 		'i13_recapcha_no_conflict_v3',
 		'i13_recapcha_wp_disable_submit_token_generation_v3',
 		'i13_recapcha_custom_wp_login_form_login',
-		'i13_recapcha__v3_custom_wp_login_form_login'
+		'i13_recapcha__v3_custom_wp_login_form_login',
+				'i13_recapcha_wp_disable_submit_token_generation_v3_woo_signup',
+				'i13_recapcha_wp_disable_submit_token_generation_v3_woo_login',
+				'i13_recapcha_wp_disable_submit_token_generation_v3_woo_fpass',
+				'i13_recapcha_wp_disable_submit_token_generation_v3_woo_add_pay_method',
+				'i13_recapcha_wp_disable_submit_token_generation_v3_woo_wp_register',
+				'i13_recapcha_wp_disable_submit_token_generation_v3_woo_wp_fpass',
+				'i13_recapcha_wp_disable_submit_token_generation_v3_woo_checkout',
+				'i13_recapcha_enable_on_woo_review',
+				'i13_recapcha_woo_review_title',
+				'i13_recapcha_enable_on_woo_review',
+				'i13_recapcha_hide_label_woo_review',
+				'i13_recapcha_woo_review_theme',
+				'i13_recapcha_woo_review_size',
+				'i13_recapcha_disable_submitbtn_woo_review',
+				'i13_recapcha_woo_review_score_threshold_v3',
+				'i13_recapcha_woo_review_method_action_v3',
 
 );
 

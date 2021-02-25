@@ -42,7 +42,7 @@
 			var that = this;
 
 			// Use the catalog title to generate the slug.
-			this.getFormField( 'title' ).keyup( debounce(
+			this.getFormField( 'title' ).on( 'keyup', debounce(
 			function() {
 					if ( that.autoUpdateSlug ) {
 						that.refreshCatalogSlug( $( this ).val() );
@@ -61,7 +61,7 @@
 			this.$body.on( 'wc_instagram_product_catalog_slug_updated', function ( event, slug ) {
 				that.autoUpdateSlug = ( that.autoUpdateSlug && '' === slug );
 				that.toggleFormFields( 'slug', true );
-				that.getFormField( 'slug' ).val( slug ).change();
+				that.getFormField( 'slug' ).val( slug ).trigger( 'change' );
 			});
 
 			this.$body.on( 'wc_instagram_subset_values_updated', function ( event, subset, data ) {
@@ -77,25 +77,25 @@
 			});
 
 			// Handle the visibility of the fields related to product variations.
-			this.getFormField( 'include_variations' ).change( function () {
+			this.getFormField( 'include_variations' ).on( 'change', function () {
 				var checked = $( this ).prop( 'checked' );
 
 				that.toggleFormFields( 'product_group_id', checked );
 				that.toggleFormFields( 'variation_description_field', checked );
-			}).change();
+			}).trigger( 'change' );
 
 			// Handle the visibility of the 'custom_mpn' field.
-			this.getFormField( 'product_mpn' ).change( function () {
+			this.getFormField( 'product_mpn' ).on( 'change', function() {
 				that.toggleFormFields( 'custom_mpn', ( 'custom' === $( this ).val() ) );
-			}).change();
+			}).trigger( 'change' );
 
 			// Handle the visibility of the 'tax_country' field.
-			this.getFormField( 'include_tax' ).change( function () {
+			this.getFormField( 'include_tax' ).on( 'change', function () {
 				that.toggleFormFields('tax_country', 'base' !== wc_instagram_product_catalog_params.tax_based_on && $( this ).prop( 'checked' ) );
-			}).change();
+			}).trigger( 'change' );
 
 			if ( this.$deleteLink ) {
-				this.$deleteLink.click( function( event ) {
+				this.$deleteLink.on( 'click', function( event ) {
 					if ( ! window.confirm( $( this ).data( 'confirm' ) ) ) {
 						event.preventDefault();
 						return false;
@@ -234,6 +234,7 @@
 		return function() {
 			var context = this,
 				args = arguments,
+				callNow = ( immediate && ! timeout ),
 				later = function() {
 					timeout = null;
 
@@ -241,8 +242,6 @@
 						func.apply( context, args );
 					}
 			};
-
-			var callNow = ( immediate && ! timeout );
 
 			clearTimeout( timeout );
 

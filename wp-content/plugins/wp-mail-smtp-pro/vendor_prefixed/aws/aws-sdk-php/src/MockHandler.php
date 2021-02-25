@@ -6,6 +6,7 @@ use WPMailSMTP\Vendor\Aws\Exception\AwsException;
 use WPMailSMTP\Vendor\GuzzleHttp\Promise;
 use WPMailSMTP\Vendor\GuzzleHttp\Promise\RejectedPromise;
 use WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface;
+use Exception;
 /**
  * Returns promises that are rejected or fulfilled using a queue of
  * Aws\ResultInterface and Aws\Exception\AwsException objects.
@@ -41,10 +42,10 @@ class MockHandler implements \Countable
     public function append()
     {
         foreach (\func_get_args() as $value) {
-            if ($value instanceof \WPMailSMTP\Vendor\Aws\ResultInterface || $value instanceof \WPMailSMTP\Vendor\Aws\Exception\AwsException || \is_callable($value)) {
+            if ($value instanceof \WPMailSMTP\Vendor\Aws\ResultInterface || $value instanceof \Exception || \is_callable($value)) {
                 $this->queue[] = $value;
             } else {
-                throw new \InvalidArgumentException('Expected an Aws\\ResultInterface or Aws\\Exception\\AwsException.');
+                throw new \InvalidArgumentException('Expected an Aws\\ResultInterface or Exception.');
             }
         }
     }

@@ -57,11 +57,20 @@ class RsTypewriterSliderFront extends RevSliderFunctions {
 		$handle = 'rs-' . $this->pluginTitle . '-front';
 		$base   = $this->pluginUrl . 'public/assets/';
 		
-		wp_enqueue_style($handle, $base . 'css/' . $this->pluginTitle . '.css', array(), $this->version);
+		// $path = $base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js';
+		$_jsPathMin = file_exists(RS_TYPEWRITER_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
+		
+		/*
+		* @desc we don't need the stylesheet anymore
+		* @since 2.1.0
+		* @JM
+		*/
+		// wp_enqueue_style($handle, $base . 'css/' . $this->pluginTitle . '.css', array(), $this->version);
+		
 		wp_enqueue_script(
 		
 			$handle, 
-			$base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js', 
+			$base . 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', 
 			array('jquery'), 
 			$this->version, 
 			true

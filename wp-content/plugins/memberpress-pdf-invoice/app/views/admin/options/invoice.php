@@ -101,24 +101,37 @@ MeprAppHelper::info_tooltip(
         ?>
       </td>
     </tr>
-    <!-- <tr valign="top">
+    <tr valign="top">
       <th scope="row">
-        <label for="<?php // echo $mepr_options->attr_slug( 'biz_invoice_no' ); ?>"><?php // _e( 'Invoice Number', 'memberpress-pdf-invoice' ); ?></label>
+        <label for="<?php echo $mepr_options->attr_slug( 'biz_invoice_format' ); ?>"><?php _e( 'Invoice No. Format', 'memberpress-pdf-invoice' ); ?></label>
       </th>
       <td>
         <div class="mb-5">
-          <input type="text" class="regular-text" name="<?php //echo $mepr_options->attr_slug( 'biz_invoice_no' ); ?>" value="<?php // echo $mepr_options->attr( 'biz_invoice_no' ); ?>" id="mepr-invoice-no">
+          <input type="text" class="regular-text" name="<?php echo $mepr_options->attr_slug( 'biz_invoice_format' ); ?>" value="<?php echo $mepr_options->attr( 'biz_invoice_format' ); ?>" id="mepr-invoice-no">
         </div>
         <div>
           <select id="var-mepr-invoice-no">
-            <?php // foreach ( MePdfInvoicesHelper::get_invoice_vars() as $var ) : ?>
-              <option value="{$<?php // echo $var; ?>}">{$<?php // echo $var; ?>}</option>
-            <?php // endforeach; ?>
+            <?php foreach ( MePdfInvoicesHelper::get_invoice_vars() as $var ) : ?>
+              <option value="{$<?php echo $var; ?>}">{$<?php echo $var; ?>}</option>
+            <?php endforeach; ?>
           </select>
-          <a href="#" class="button mepr-insert-email-var" data-variable-id="var-mepr-invoice-no" data-textarea-id="mepr-invoice-no"><?php // _e( 'Insert &uarr;', 'memberpress-pdf-invoice' ); ?></a>
+          <a href="#" class="button mepr-insert-email-var" data-variable-id="var-mepr-invoice-no" data-textarea-id="mepr-invoice-no"><?php _e( 'Insert &uarr;', 'memberpress-pdf-invoice' ); ?></a>
         </div>
       </td>
-    </tr> -->
+    </tr>
+    <tr valign="top">
+      <th scope="row">
+        <label for="<?php echo $mepr_options->attr_slug( 'inv_starting_number' ); ?>"><?php _e( 'Next Invoice No.', 'memberpress-pdf-invoice' ); ?></label>
+      </th>
+      <td>
+        <div class="mb-5">
+          <input type="text" class="regular-text" name="<?php echo $mepr_options->attr_slug( 'inv_starting_number' ); ?>" value="<?php echo $mepr_options->attr( 'inv_starting_number' ); ?>" id="mepr-invoice-no"><br/>
+          <?php if(empty($mepr_options->attr( 'inv_starting_number' ))) : ?>
+            <small><?php printf(_x('NOTICE: You already have %1$d existing completed transactions. We recommend starting at a number higher than %1$d.', 'ui', 'memberpress', 'memberpress-pdf-invoice'), MePdfInvoiceNumber::completed_refunded_transactions() ) ?></small>
+          <?php endif; ?>
+        </div>
+      </td>
+    </tr>
     <tr valign="top">
       <th scope="row">
         <label for="<?php echo $mepr_options->attr_slug( 'biz_address_format' ); ?>"><?php _e( 'Business Address Format', 'memberpress-pdf-invoice' ); ?></label>

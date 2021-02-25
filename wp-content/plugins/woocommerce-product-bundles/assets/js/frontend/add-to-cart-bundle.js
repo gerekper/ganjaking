@@ -2317,7 +2317,7 @@ console.log( has_up_front_price_component );
 		this.init_photoswipe = function() {
 
 			if ( $.fn.wc_product_gallery ) {
-				this.$bundled_item_image.wc_product_gallery( { zoom_enabled: false, flexslider_enabled: false } );
+				this.$bundled_item_image.wc_product_gallery( { zoom_enabled: 'yes' === wc_bundle_params.zoom_enabled, flexslider_enabled: false } );
 			} else {
 				window.console.warn( 'Failed to initialize PhotoSwipe for bundled item images. Your theme declares PhotoSwipe support, but function \'$.fn.wc_product_gallery\' is undefined.' );
 			}

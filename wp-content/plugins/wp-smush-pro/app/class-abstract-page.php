@@ -42,6 +42,15 @@ abstract class Abstract_Page {
 	protected $meta_boxes = array();
 
 	/**
+	 * Modals to render.
+	 *
+	 * @since 3.8.3
+	 *
+	 * @var array
+	 */
+	protected $modals = array();
+
+	/**
 	 * Submenu tabs.
 	 *
 	 * @var array
@@ -423,7 +432,7 @@ abstract class Abstract_Page {
 
 		// Load page header.
 		$this->render_page_header();
-		$this->show_modals();
+		$this->render_modals();
 		$this->render_inner_content();
 
 		// Nonce field.
@@ -434,34 +443,45 @@ abstract class Abstract_Page {
 	}
 
 	/**
-	 * Show onboarding and new feature dialogs.
+	 * Renders all the modals to be used in the page.
 	 *
 	 * @since 3.7.0
 	 */
-	private function show_modals() {
+	private function render_modals() {
 		$hide_quick_setup = false !== get_option( 'skip-smush-setup' );
 
 		// Show configure screen for only a new installation and for only network admins.
 		if ( ( ! is_multisite() && ! $hide_quick_setup ) || ( is_multisite() && ! is_network_admin() && ! $this->settings->is_network_enabled() && ! $hide_quick_setup ) ) {
-			$this->view( 'onboarding', array(), 'modals' );
-			$this->view( 'checking-files', array(), 'modals' );
+			$this->modals['onboarding']     = array();
+			$this->modals['checking-files'] = array();
 		}
 
-		// Show new features modal the modal wasn't dismissed.
-		if ( ! get_site_option( WP_SMUSH_PREFIX . 'show_upgrade_modal' ) ) {
-			return;
-		}
+		// Show new features modal if the modal wasn't dismissed.
+		if ( get_site_option( WP_SMUSH_PREFIX . 'show_upgrade_modal' ) ) {
 
-		// Display only on single installs and on Network admin for multisites.
-		if ( ( ! is_multisite() && $hide_quick_setup ) || ( is_multisite() && is_network_admin() ) ) {
-			$cta_url = $this->get_tab_url( 'webp' );
+			// Display only on single installs and on Network admin for multisites.
+			if ( ( ! is_multisite() && $hide_quick_setup ) || ( is_multisite() && is_network_admin() ) ) {
+				$cta_url = $this->get_tab_url( 'webp' );
 
-			// In MU, use the main site URL if the 'webp' tab isn't shown on the Network admin.
-			if ( is_multisite() && empty( $this->tabs['webp'] ) ) {
-				$cta_url = menu_page_url( 'smush', false ) . '&view=webp';
+				// In MU, use the main site URL if the 'webp' tab isn't shown on the Network admin.
+				if ( is_multisite() && empty( $this->tabs['webp'] ) ) {
+					$cta_url = menu_page_url( 'smush', false ) . '&view=webp';
+				}
+
+				$this->modals['updated'] = array( 'cta_url' => $cta_url );
 			}
+		}
 
-			$this->view( 'updated', array( 'cta_url' => $cta_url ), 'modals' );
+		$screen = get_current_screen();
+		if ( ! empty( $screen ) && ! empty( $screen->base ) && ( 'toplevel_page_smush' === $screen->base || 'toplevel_page_smush-network' === $screen->base ) ) {
+			// Modal for the "Choose Directory" link in the summary box.
+			$this->modals['directory-list']  = array();
+			$this->modals['progress-dialog'] = array();
+		}
+
+		// Render all modals.
+		foreach ( $this->modals as $modal_file => $args ) {
+			$this->view( $modal_file, $args, 'modals' );
 		}
 	}
 

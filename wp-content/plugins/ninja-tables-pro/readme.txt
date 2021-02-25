@@ -5,7 +5,7 @@ Tags:  table, Data Tables, WP Data tables, WordPress table Plugin, Table Grid, w
 Requires at least: 4.5
 Requires PHP: 5.4 or greater
 Tested up to: 5.5.3
-Stable tag: 4.1.3
+Stable tag: 4.1.5
 
 == Description ==
 
@@ -28,6 +28,17 @@ Manual Install:
 Upload the plugin files to the /wp-content/plugins/ directory, then activate the plugin.
 
 == Changelog ==
+
+=4.1.5 (Date: Feb 13, 2021)
+- Improves formula support for European numbers.
+- Fixes exact match filtering for multi-select.
+
+=4.1.4 (Date: Feb 08, 2021)
+- Fixes calculation for European formatted numbers.
+- Fixes frontend CSV export issue for accented characters.
+- Fixes TablePress import order.
+- Fixes elementor popup.
+- Fixes WP latest jQuery update issues.
 
 =4.1.3 (Date: Nov 23, 2020)
 - Fixes Google Sheets data fetching issue for some specific servers

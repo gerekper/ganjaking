@@ -26,7 +26,9 @@ class AssumeRoleWithWebIdentityCredentialProvider
     /** @var integer */
     private $retries;
     /** @var integer */
-    private $attempts;
+    private $authenticationAttempts;
+    /** @var integer */
+    private $tokenFileReadAttempts;
     /**
      * The constructor attempts to load config from environment variables.
      * If not set, the following config options are used:
@@ -51,7 +53,8 @@ class AssumeRoleWithWebIdentityCredentialProvider
             throw new \InvalidArgumentException("'WebIdentityTokenFile' must be an absolute path.");
         }
         $this->retries = (int) \getenv(self::ENV_RETRIES) ?: (isset($config['retries']) ? $config['retries'] : 3);
-        $this->attempts = 0;
+        $this->authenticationAttempts = 0;
+        $this->tokenFileReadAttempts = 0;
         $this->session = isset($config['SessionName']) ? $config['SessionName'] : 'aws-sdk-php-' . \round(\microtime(\true) * 1000);
         $region = isset($config['region']) ? $config['region'] : 'us-east-1';
         if (isset($config['client'])) {
@@ -82,6 +85,14 @@ class AssumeRoleWithWebIdentityCredentialProvider
                         }
                         $token = \file_get_contents($this->tokenFile);
                     }
+                    if (empty($token)) {
+                        if ($this->tokenFileReadAttempts < $this->retries) {
+                            \sleep(\pow(1.2, $this->tokenFileReadAttempts));
+                            $this->tokenFileReadAttempts++;
+                            continue;
+                        }
+                        throw new \WPMailSMTP\Vendor\Aws\Exception\CredentialsException("InvalidIdentityToken from file: {$this->tokenFile}");
+                    }
                 } catch (\Exception $exception) {
                     throw new \WPMailSMTP\Vendor\Aws\Exception\CredentialsException("Error reading WebIdentityTokenFile from " . $this->tokenFile, 0, $exception);
                 }
@@ -90,8 +101,8 @@ class AssumeRoleWithWebIdentityCredentialProvider
                     $result = $client->assumeRoleWithWebIdentity($assumeParams);
                 } catch (\WPMailSMTP\Vendor\Aws\Exception\AwsException $e) {
                     if ($e->getAwsErrorCode() == 'InvalidIdentityToken') {
-                        if ($this->attempts < $this->retries) {
-                            \sleep(\pow(1.2, $this->attempts));
+                        if ($this->authenticationAttempts < $this->retries) {
+                            \sleep(\pow(1.2, $this->authenticationAttempts));
                         } else {
                             throw new \WPMailSMTP\Vendor\Aws\Exception\CredentialsException("InvalidIdentityToken, retries exhausted");
                         }
@@ -101,7 +112,7 @@ class AssumeRoleWithWebIdentityCredentialProvider
                 } catch (\Exception $e) {
                     throw new \WPMailSMTP\Vendor\Aws\Exception\CredentialsException("Error retrieving web identity credentials: " . $e->getMessage() . " (" . $e->getCode() . ")");
                 }
-                $this->attempts++;
+                $this->authenticationAttempts++;
             }
             (yield $this->client->createCredentials($result));
         });

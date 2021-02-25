@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 
 $orders = WC_Store_Credit_Meta_Box_Coupon_Usage::get_orders( $coupon );
 ?>
-<div class="store_credit_coupon_usage">
+<div class="store-credit-coupon-usage">
 	<?php if ( empty( $orders ) ) : ?>
 		<p class="empty-message"><?php esc_html_e( 'This coupon has not been used yet.', 'woocommerce-store-credit' ); ?></p>
 	<?php else : ?>

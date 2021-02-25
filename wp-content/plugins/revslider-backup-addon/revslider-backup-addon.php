@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Backup Add-On
 Plugin URI: http://www.themepunch.com/
 Description: Add Backup-Filters to your Slider Images
 Author: ThemePunch
-Version: 2.0.1
+Version: 2.0.2
 Author URI: http://themepunch.com
 */
 

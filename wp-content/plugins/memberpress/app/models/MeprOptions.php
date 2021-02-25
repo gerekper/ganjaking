@@ -852,6 +852,7 @@ class MeprOptions {
   public function thankyou_page_url($args = '') {
     $thank_you_page_id = 0;
     $args_array = wp_parse_args($args);
+    $url = home_url();
     if(isset($args_array['membership_id'])) {
       $product = new MeprProduct($args_array['membership_id']);
       if($product->thank_you_page_enabled && $product->thank_you_page_type == 'page') {
@@ -870,14 +871,14 @@ class MeprOptions {
       $link = MeprUtils::get_permalink($thank_you_page_id);
 
       if(!empty($args)) {
-        return $link.MeprAppCtrl::get_param_delimiter_char($link).$args;
+        $url = $link.MeprAppCtrl::get_param_delimiter_char($link).$args;
       }
       else {
-        return $link;
+        $url = $link;
       }
     }
 
-    return home_url(); // default to the home url
+    return MeprHooks::apply_filters('mepr-thankyou-page-url', $url, $args_array);
   }
 
   private function set_address_fields() {

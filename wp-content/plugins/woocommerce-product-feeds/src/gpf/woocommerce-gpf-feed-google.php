@@ -87,7 +87,6 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 			'sub'      => array(),
 			'sup'      => array(),
 			'div'      => array(),
-			'span'     => array(),
 			'dl'       => array(),
 			'dt'       => array(),
 			'dd'       => array(),
@@ -109,8 +108,6 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 			return $max_lengths;
 		}
 		// Max lengths for core fields
-		$max_lengths['title']       = 150;
-		$max_lengths['description'] = 5000;
 		// Max lengths for non-core fields
 		foreach ( $this->woocommerce_gpf_common->product_fields as $field_name => $field_config ) {
 			if ( isset( $field_config['google_len'] ) ) {
@@ -209,7 +206,12 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		}
 
 		// Strip out any disallowed tags, preserving their contents.
-		$product_description = wp_kses( $feed_item->description, $this->allowed_description_markup );
+		// Enforce max length here so we can do it after unnecessary markup stripped.
+		$product_description = mb_substr(
+			wp_kses( $feed_item->description, $this->allowed_description_markup ),
+			0,
+			5000
+		);
 
 		$output  = '';
 		$output .= "    <item>\n";
@@ -250,11 +252,6 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 						// specification update September 2014.
 						if ( 'available for order' === $element_value ) {
 							$element_value = 'in stock';
-						}
-						// Only send the value if the product is in stock, otherwise force to
-						// "out of stock".
-						if ( ! $feed_item->is_in_stock ) {
-							$element_value = 'out of stock';
 						}
 					}
 					if ( 'identifier_exists' === $element_name ) {
@@ -411,7 +408,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 	 * @return string
 	 */
 	protected function generate_item_id( $feed_item ) {
-		return '      <g:ID>' . $feed_item->guid . "</g:ID>\n";
+		return '      <g:id>' . $feed_item->guid . "</g:id>\n";
 	}
 
 	/**

@@ -1,3 +1,5 @@
+import '../../scss/resize-detection.scss';
+
 /**
  * Image resize detection (IRD).
  *

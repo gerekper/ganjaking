@@ -132,7 +132,8 @@
             $output .= '</div>';
             $output .= '<a href="post-new.php?post_type=docs" class="betterdocs-add-new-link"><span class="add-new-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="20px" fill="#b0b2ba"><path d="M 14.970703 2.9726562 A 2.0002 2.0002 0 0 0 13 5 L 13 13 L 5 13 A 2.0002 2.0002 0 1 0 5 17 L 13 17 L 13 25 A 2.0002 2.0002 0 1 0 17 25 L 17 17 L 25 17 A 2.0002 2.0002 0 1 0 25 13 L 17 13 L 17 5 A 2.0002 2.0002 0 0 0 14.970703 2.9726562 z"></path></svg></span><span class="add-new-text">Add New Docs</span></a>';
             $output .= '</div>';
-        } else {
+        } 
+        if (empty($terms) && empty($uncategorized_docs)) {
             $output .= '<div class="betterdocs-single-listing">';
             $output .= '<div class="betterdocs-single-listing-inner">';
             $output .= '<h4 class="betterdocs-single-listing-title">No Categories Found</h4>';

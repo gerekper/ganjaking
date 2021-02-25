@@ -84,7 +84,7 @@
 				that.setEditing( false );
 			});
 
-			this.$input.change( function() {
+			this.$input.on( 'change', function() {
 				that.value = $( this ).val();
 
 				that.setEditing( false );

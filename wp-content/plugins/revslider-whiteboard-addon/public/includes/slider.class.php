@@ -36,8 +36,18 @@ class rs_whiteboard_fe_slider extends RevSliderFunctions {
 	}
 	
 	public function add_scripts(){
+		$whiteboardTitle = 'whiteboard';
+		$base = WHITEBOARD_PLUGIN_URL . 'public/assets/';
+		$path = $base . 'js/revolution.addon.' . $whiteboardTitle . '.min.js';
+		$_jsPathMin = file_exists(WHITEBOARD_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $whiteboardTitle . '.js') ? '' : '.min';
 
-		wp_enqueue_script('rs-whiteboard', WHITEBOARD_PLUGIN_URL . 'public/assets/js/revolution.addon.whiteboard.min.js', array('jquery', 'revmin'), WHITEBOARD_VERSION, true);
+		wp_enqueue_script(
+			'rs-whiteboard', 
+			$base . 'js/revolution.addon.' . $whiteboardTitle . $_jsPathMin . '.js', 
+			array('jquery', 'revmin'), 
+			WHITEBOARD_VERSION, 
+			true
+		);
 		
 	}
 	

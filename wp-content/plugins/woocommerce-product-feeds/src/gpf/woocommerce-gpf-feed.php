@@ -130,21 +130,45 @@ abstract class WoocommerceGpfFeed {
 	/**
 	 * Escape a value for use in XML.
 	 *
-	 * Uses WordPress' esc_xml if available.
+	 * Uses WordPress' esc_xml if available. Otherwise @see old_esc_xml()
 	 *
 	 * @param $value
 	 *
 	 * @return string
 	 */
 	protected function esc_xml( $value ) {
-		if ( function_exists( 'esc_xml' ) ) {
-			return esc_xml( $value );
-		}
 		$value = preg_replace(
 			'/[\x00-\x08\x0B\x0C\x0E-\x1F\x80-\x9F]/u',
 			'',
 			$value
 		);
+
+		// Use old-style CDATA escaping if esc_xml() not present.
+		if ( ! function_exists( 'esc_xml' ) ) {
+			return $this->old_esc_xml( $value );
+		}
+
+		// WordPress' esc_xml() can return an empty string on some failure cases it would seem,
+		// so, we'll grab the result and only use if either the input was empty, or
+		// the escaped content is non-empty.
+		$escaped = esc_xml( $value );
+		if ( empty( $value ) || ! empty( $escaped ) ) {
+			return esc_xml( $value );
+		}
+
+		// If we get here, we had a non-empty input string, but got an empty string back
+		// from esc_xml(). We fall back on old-style CDATA escaping.
+		return $this->old_esc_xml( $value );
+	}
+
+	/**
+	 * Trim out bogus UTF-8 chars, and CDATA wrap the string.
+	 *
+	 * @param $value
+	 *
+	 * @return string
+	 */
+	protected function old_esc_xml( $value ) {
 		$value = str_replace( ']]>', ']]]]><![CDATA[>', $value );
 
 		return '<![CDATA[' . $value . ']]>';

@@ -191,7 +191,7 @@ class MpmmaAppCtrl {
   }
 
   public function maybe_redirect_to_page() {
-    if(MeprUtils::is_user_logged_in()) {
+    if(MeprUtils::is_user_logged_in() && (!defined('DOING_AJAX') || DOING_AJAX == false)) {
       $user = MeprUtils::get_currentuserinfo();
 
       if(isset($user->ID) && $user->ID > 0 && !MeprUtils::is_mepr_admin($user->ID)) {

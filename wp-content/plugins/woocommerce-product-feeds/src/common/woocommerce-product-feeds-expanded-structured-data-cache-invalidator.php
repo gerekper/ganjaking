@@ -108,7 +108,10 @@ class WoocommerceProductFeedsExpandedStructuredDataCacheInvalidator {
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
-	public function invalidate_schema_cache( $product_id, $wc_product ) {
+	public function invalidate_schema_cache( $product_id, $wc_product = null ) {
+		if ( is_null( $wc_product ) ) {
+			$wc_product = wc_get_product( $product_id );
+		}
 		if ( ! $wc_product ) {
 			return;
 		}

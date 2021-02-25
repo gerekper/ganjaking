@@ -213,6 +213,8 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
     static $unique_suffix = 0;
     $unique_suffix++;
 
+    $payment_required = MeprHooks::apply_filters('mepr_signup_payment_required', $product->adjusted_price($mepr_coupon_code) > 0.00 ? true : false, $product);
+
     if($mepr_options->enable_spc) {
       MeprView::render('/checkout/spc_form', get_defined_vars());
     }
@@ -609,6 +611,9 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
     $payment_required = true;
     $product = new MeprProduct(sanitize_key(wp_unslash($prd_id)));
 
+    if(isset($_POST['mpgft_gift_checkbox']) && "true" == $_POST['mpgft_gift_checkbox']){
+      $product->allow_renewal = false;
+    }
     ob_start();
     MeprProductsHelper::display_invoice( $product, $code, $payment_required );
     $price_string = ob_get_clean();
@@ -616,7 +621,8 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
     wp_send_json(array(
       'status' => 'success',
       'price_string' => $price_string,
-      'payment_required' => $payment_required
+      'payment_required' => $payment_required,
+      'is_gift' => MeprHooks::apply_filters( 'mepr_signup_product_is_gift', false, $product)
     ));
   }
 

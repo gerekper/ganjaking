@@ -24,21 +24,47 @@ $is_configured = $webp->is_configured();
 	<?php esc_html_e( 'Status', 'wp-smushit' ); ?>
 </span>
 
-<?php if ( $is_configured ) : ?>
+<?php if ( true === $is_configured ) : ?>
 	<div class="sui-notice sui-notice-success">
 		<div class="sui-notice-content">
 			<div class="sui-notice-message">
 				<i class="sui-notice-icon sui-icon-info sui-md" aria-hidden="true"></i>
 				<p>
 					<?php
-					if ( ! isset( $_SERVER['WPMUDEV_HOSTED'] ) ) :
-						esc_html_e( 'WebP conversion is active and working well.', 'wp-smushit' );
-					else :
-						if ( ! apply_filters( 'wpmudev_branding_hide_branding', false ) ) :
-							esc_html_e( 'WebP conversion is active and working well. Since your site is hosted with WPMU DEV, WebP conversion has been automatically configured and no further actions are required.', 'wp-smushit' );
+					esc_html_e( 'WebP conversion is active and working well.', 'wp-smushit' );
+
+					if ( isset( $_SERVER['WPMUDEV_HOSTED'] ) ) :
+						if ( ! apply_filters( 'wpmudev_branding_hide_doc_link', false ) ) :
+							esc_html_e( " Since your site is hosted with WPMU DEV, we've automatically preconfigured the conversion for you.", 'wp-smushit' );
 						else :
-							esc_html_e( 'WebP conversion is active and working well. Your hosting has automatically pre-configured the conversion for you and no further actions are required.', 'wp-smushit' );
+							esc_html_e( ' Your hosting provider has preconfigured the conversion for you.', 'wp-smushit' );
 						endif;
+					endif;
+					?>
+				</p>
+				<p>
+					<?php
+					printf(
+						/* translators: 1. opening 'b' tag, 2. closing 'b' tag, 3. opening 'a' tag, 4. closing 'a' tag */
+						esc_html__( '%1$sNote:%2$s You need to use the %3$sBulk Smush%4$s tool to convert all your images as WebP format. ', 'wp-smushit' ),
+						'<b>',
+						'</b>',
+						! is_multisite() ? '<a href="' . esc_url( network_admin_url( 'admin.php?page=smush' ) ) . '">' : '',
+						( ! is_multisite() ? '</a>' : '' )
+					);
+
+					if ( ! is_multisite() ) :
+						if ( ! $this->settings->get( 'auto' ) ) {
+							printf(
+								/* translators: %1$s - opening link tag, %2$s - </a> */
+								esc_html__( 'You can also enable %3$sAutomatic Compression%2$s to convert newly uploaded image files automatically going forward.', 'wp-smushit' ),
+								'<a href="' . esc_url( network_admin_url( 'admin.php?page=smush' ) ) . '">',
+								'</a>',
+								'<a href="' . esc_url( network_admin_url( 'admin.php?page=smush' ) ) . '#column-wp-smush-bulk">'
+							);
+						} else {
+							esc_html_e( 'Newly uploaded images will be automatically converted to WebP format.', 'wp-smushit' );
+						}
 					endif;
 					?>
 				</p>
@@ -62,11 +88,22 @@ $is_configured = $webp->is_configured();
 		<div class="sui-notice-content">
 			<div class="sui-notice-message">
 				<i class="sui-notice-icon sui-icon-warning-alert sui-md" aria-hidden="true"></i>
-				<?php if ( 'apache' === $webp->get_server_type() && $webp->is_htaccess_written() ) : ?>
-					<p><?php esc_html_e( 'The rules have been applied, however, the images have still not been converted to WebP.  We recommend to contact your server provider to know more about the cause of this issue.', 'wp-smushit' ); ?></p>
-				<?php else : ?>
-					<p><?php esc_html_e( "Server configurations haven't been applied yet. Make configurations below to start serving images in WebP format.", 'wp-smushit' ); ?></p>
-				<?php endif; ?>
+				<p>
+					<?php
+					if ( is_wp_error( $is_configured ) ) :
+						printf(
+							/* translators: 1. error code, 2. error message. */
+							esc_html__( 'We couldn\'t check the WebP server rules status because there was an error with the test request. Please contact support for assitance. Code %1$s: %2$s.', 'wp-smushit' ),
+							esc_html( $is_configured->get_error_code() ),
+							esc_html( $is_configured->get_error_message() )
+						);
+					elseif ( 'apache' === $webp->get_server_type() && $webp->is_htaccess_written() ) :
+						esc_html_e( "The server rules have been applied but the server doesn't seem to be serving your images as WebP. We recommend contacting your hosting provider to learn more about the cause of this issue.", 'wp-smushit' );
+					else :
+						esc_html_e( "Server configurations haven't been applied yet. Make configurations below to start serving images in WebP format.", 'wp-smushit' );
+					endif;
+					?>
+				</p>
 
 				<?php if ( ! WP_Smush::get_instance()->core()->s3->setting_status() ) : ?>
 					<p>
@@ -101,6 +138,16 @@ $is_configured = $webp->is_configured();
 		<span class="smush-filename-extension smush-extension-png">
 			<?php esc_html_e( 'png', 'wp-smushit' ); ?>
 		</span>
+		<span class="sui-description">
+			<?php
+			printf(
+				/* translators: 1. opening 'a' tag to docs, 2. closing 'a' tag. */
+				esc_html__( 'To verify if the JPG and PNG images are being served correctly as WebP files, please refer to our %1$sDocumentation%2$s.', 'wp-smushit' ),
+				'<a href="https://premium.wpmudev.org/docs/wpmu-dev-plugins/smush/#verifying-webp-output" target="_blank">',
+				'</a>'
+			);
+			?>
+		</span>
 	</div>
 </div>
 
@@ -131,7 +178,7 @@ $is_configured = $webp->is_configured();
 
 			<span class="sui-description">
 				<?php
-				esc_html_e( 'Note: This feature won’t delete the WebP files converted via CDN, only the files generated via the local WebP feature.', 'wp-smushit' );
+				esc_html_e( 'This feature won’t delete the WebP files converted via CDN, only the files generated via the local WebP feature.', 'wp-smushit' );
 				?>
 			</span>
 		</div>
@@ -149,9 +196,6 @@ $is_configured = $webp->is_configured();
 		</div>
 
 		<div class="sui-box-settings-col-2">
-			<p class="sui-description" style="margin-bottom: 5px;">
-				<?php esc_html_e( 'Note: Deactivation won’t delete existing WebP images.', 'wp-smushit' ); ?>
-			</p>
 
 			<button class="sui-button sui-button-ghost" id="smush-toggle-webp-button" data-action="disable">
 				<span class="sui-loading-text">
@@ -159,8 +203,11 @@ $is_configured = $webp->is_configured();
 				</span>
 				<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
 			</button>
+
+			<span class="sui-description">
+				<?php esc_html_e( 'Deactivation won’t delete existing WebP images.', 'wp-smushit' ); ?>
+			</span>
 		</div>
 	</div>
 
 <?php endif; ?>
-<?php $this->view( 'webp-delete-all', array(), 'modals' ); ?>

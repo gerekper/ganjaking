@@ -1,5 +1,16 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2021.02.05 - version 4.16.5
+* Fix: Product attributes restrictions are not getting copied in auto-generated coupons
+* Fix: Coupons are not getting sent on renewals only in case of variable subscription
+* Fix: Auto-apply coupons not working for 'Recurring Product % Discount' coupon if the sign up fee is 0 (zero)
+* Update: POT file
+
+2021.02.01 - version 4.16.0
+* New: Tested up to WooCommerce 4.9.2
+* Update: Improvements related to sanitizing & escaping data
+* Update: POT file
+
 2021.01.15 - version 4.15.0
 * New: Tested up to WooCommerce 4.9.0
 * Fix: Error 'Invalid payment method' when fully paid via store credit [WPML]

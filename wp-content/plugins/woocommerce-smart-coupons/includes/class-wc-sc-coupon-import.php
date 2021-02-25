@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.0
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -920,7 +920,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 								<?php
 							} else {
 								?>
-								<form enctype="multipart/form-data" id="import-upload-form" method="post" action="<?php echo esc_attr( wp_nonce_url( $action, 'import-upload' ) ); ?>">
+								<form enctype="multipart/form-data" id="import-upload-form" method="post" action="<?php echo esc_url( wp_nonce_url( $action, 'import-upload' ) ); ?>">
 									<div class="sc-import-input-file-container">
 										<label for="upload" class="button button-hero sc-file-container">
 											<span class="sc-file-container-label"><?php echo esc_html__( 'Choose a CSV file', 'woocommerce-smart-coupons' ); ?> <span class="dashicons dashicons-upload"></span></span>

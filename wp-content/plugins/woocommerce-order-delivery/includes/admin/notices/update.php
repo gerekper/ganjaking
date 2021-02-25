@@ -24,7 +24,7 @@ $update_url = wp_nonce_url(
 	</p>
 </div>
 <script type="text/javascript">
-	jQuery( '.wc-update-now' ).click( 'click', function() {
+	jQuery( '.wc-update-now' ).on( 'click', function() {
 		return window.confirm( '<?php echo esc_js( _x( 'It is strongly recommended that you backup your database before proceeding. Are you sure you wish to run the updater now?', 'admin notice', 'woocommerce-order-delivery' ) ); ?>' ); // jshint ignore:line
 	});
 </script>

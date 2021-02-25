@@ -14,7 +14,7 @@ class Courses extends lib\BaseCtrl {
     add_action('pre_get_posts', array($this, 'filter_courses_archive'));
     add_action('save_post', array($this, 'delete_transients'), 10, 2 );
     add_filter('the_content', array($this, 'page_router'), 10);
-    add_filter('template_include', array($this, 'override_template'));
+    add_filter('template_include', array($this, 'override_template'), 999999); // High priority so we have the last say here
     add_filter('mepr-rule-do-redirection', array( $this, 'prevent_courses_view_redirect' ) );
     add_shortcode('mpcs-my-courses', array($this, 'my_courses_shortcode'));
     add_shortcode('mpcs-section-overview', array($this, 'section_overview_shortcode'));
@@ -158,6 +158,7 @@ class Courses extends lib\BaseCtrl {
   */
   public static function course_overview_shortcode($attributes) {
     $content = '';
+    global $post;
 
     if(isset($attributes['course_id']) && is_numeric($attributes['course_id'])) {
       $course = new models\Course($attributes['course_id']);

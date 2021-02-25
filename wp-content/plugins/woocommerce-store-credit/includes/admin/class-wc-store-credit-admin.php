@@ -20,7 +20,6 @@ class WC_Store_Credit_Admin {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'includes' ) );
-		add_action( 'admin_menu', array( $this, 'admin_menu' ), 15 );
 		add_action( 'admin_init', array( $this, 'add_notices' ), 30 );
 		add_action( 'current_screen', array( $this, 'setup_screen' ), 20 );
 		add_action( 'check_ajax_referer', array( $this, 'setup_screen' ), 20 );
@@ -40,6 +39,7 @@ class WC_Store_Credit_Admin {
 	public function includes() {
 		include_once 'wc-store-credit-admin-functions.php';
 		include_once 'wc-store-credit-meta-box-functions.php';
+		include_once 'class-wc-store-credit-admin-menu.php';
 		include_once 'class-wc-store-credit-admin-notices.php';
 		include_once 'class-wc-store-credit-admin-meta-boxes.php';
 		include_once 'class-wc-store-credit-admin-send-credit-page.php';
@@ -49,18 +49,10 @@ class WC_Store_Credit_Admin {
 	 * Adds menu items.
 	 *
 	 * @since 3.0.0
+	 * @deprecated {version}
 	 */
 	public function admin_menu() {
-		$send_credit_page = add_submenu_page(
-			'woocommerce',
-			_x( 'Send Store Credit', 'page title', 'woocommerce-store-credit' ),
-			_x( 'Send Store Credit', 'menu title', 'woocommerce-store-credit' ),
-			'manage_woocommerce',
-			wc_store_credit_get_send_credit_menu_slug(),
-			array( 'WC_Store_Credit_Admin_Send_Credit_Page', 'output' )
-		);
-
-		add_action( 'load-' . $send_credit_page, array( 'WC_Store_Credit_Admin_Send_Credit_Page', 'init' ) );
+		wc_deprecated_function( __FUNCTION__, '{version}', 'WC_Store_Credit_Admin_Menu::register_menu()' );
 	}
 
 	/**

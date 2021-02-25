@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Paint-Brush Add-On
 Plugin URI: http://www.themepunch.com/
 Description: Draw images onto your slides on-mouse-move
 Author: ThemePunch
-Version: 2.1.6
+Version: 2.1.9
 Author URI: http://themepunch.com
 */
 

@@ -133,7 +133,7 @@ class Admin {
 		wp_register_style( 'smush-admin', WP_SMUSH_URL . 'app/assets/css/smush-admin.min.css', array(), WP_SMUSH_VERSION );
 
 		// Styles that can be used on all pages in the WP backend.
-		wp_register_style( 'smush-admin-common', WP_SMUSH_URL . 'app/assets/css/smush-common.min.css', array(), WP_SMUSH_VERSION );
+		wp_register_style( 'smush-admin-common', WP_SMUSH_URL . 'app/assets/css/smush-global.min.css', array(), WP_SMUSH_VERSION );
 
 		// Dismiss update info.
 		WP_Smush::get_instance()->core()->mod->smush->dismiss_update_info();
@@ -326,7 +326,23 @@ class Admin {
 		$screen = get_current_screen();
 		if ( ! empty( $screen ) && ( 'upload' === $screen->id || in_array( $screen->id, self::$plugin_pages, true ) ) ) {
 			?>
-
+			<div id="wp-smush-invalid-member" data-message="<?php esc_attr_e( 'Validating..', 'wp-smushit' ); ?>" class="hidden notice notice-warning is-dismissible">
+				<p>
+					<?php
+					printf(
+					/* translators: $1$s: recheck link, $2$s: closing a tag, %3$s; contact link, %4$s: closing a tag */
+						esc_html__(
+							'It looks like Smush couldn’t verify your WPMU DEV membership so Pro features have been disabled for now. If you think this is an error, run a %1$sre-check%2$s or get in touch with our %3$ssupport team%4$s.',
+							'wp-smushit'
+						),
+						'<a href="#" id="wp-smush-revalidate-member" data-message="%s">',
+						'</a>',
+						'<a href="https://premium.wpmudev.org/contact" target="_blank">',
+						'</a>'
+					);
+					?>
+				</p>
+			</div>
 			<?php
 		}
 	}

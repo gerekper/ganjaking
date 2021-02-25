@@ -62,8 +62,7 @@ class WC_CM_Integration {
 	/**
 	 * get_lists function.
 	 *
-	 * @access public
-	 * @return void
+	 * @return array
 	 */
 	public function get_lists() {
 		$cmonitor_lists = get_transient( 'wc_cm_list_' . md5( $this->api_key ) );

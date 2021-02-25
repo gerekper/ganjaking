@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.8.6
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -326,8 +326,9 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 				</div>
 				<script type="text/javascript">
 					jQuery(function(){
+						let sc_directory_permission_notice = decodeURIComponent( '<?php echo rawurlencode( __( 'Bulk generation is disabled since uploads directory is not writable. Please ensure uploads directory is writable before starting bulk generate process.', 'woocommerce-smart-coupons' ) ); ?>' );
 						jQuery('#generate_and_import').addClass('disabled')
-						.attr( 'data-tip', '<?php echo esc_js( __( 'Bulk generation is disabled since uploads directory is not writable. Please ensure uploads directory is writable before starting bulk generate process.', 'woocommerce-smart-coupons' ) ); ?>' )
+						.attr( 'data-tip', sc_directory_permission_notice )
 						.tipTip({
 							'attribute': 'data-tip',
 							'fadeIn':    50,
@@ -406,7 +407,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 					</div>
 					<script type="text/javascript">
 						jQuery(function(){
-							let admin_ajax_url = '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>';
+							let admin_ajax_url = <?php echo wp_json_encode( esc_url( admin_url( 'admin-ajax.php' ) ) ); ?>;
 							let current_interval = false;
 							function wc_sc_start_coupon_background_progress_timer( total_seconds, target_dom ) {
 								var timer = total_seconds, hours, minutes, seconds;
@@ -703,6 +704,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 				$file_name     = basename( $file_path );
 				$dirname       = dirname( $file_path );
 				$mime_type     = 'text/x-csv';
+				$upload_dir    = wp_get_upload_dir();
 
 				if ( class_exists( 'ZipArchive' ) ) {
 					$zip       = new ZipArchive();
@@ -729,14 +731,18 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 					header( 'Content-Transfer-Encoding: binary' );
 					header( 'Content-Disposition: attachment; filename="' . sanitize_file_name( $file_name ) . '";' );
 					readfile( $file_path ); // phpcs:ignore
-					unlink( $file_path );
+					if ( ! empty( $upload_dir['path'] ) && false !== strpos( $file_path, $upload_dir['path'] ) ) {
+						unlink( $file_path ); // phpcs:ignore
+					}
 				} else {
 					echo esc_html__( 'Failed to create export file.', 'woocommerce-smart-coupons' );
 					exit();
 				}
 
 				if ( file_exists( $csv_file_path ) ) {
-					unlink( $csv_file_path );
+					if ( ! empty( $upload_dir['path'] ) && false !== strpos( $csv_file_path, $upload_dir['path'] ) ) {
+						unlink( $csv_file_path ); // phpcs:ignore
+					}
 				}
 
 				delete_option( 'woo_sc_action_data' );
@@ -1007,6 +1013,8 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 			$wc_csv_coupon_import->parser = new WC_SC_Coupon_Parser( 'shop_coupon' );
 			$woocommerce_smart_coupon     = WC_Smart_Coupons::get_instance();
 
+			$upload_dir = wp_get_upload_dir();
+
 			if ( isset( $posted_data['export_file'] ) && is_array( $posted_data['export_file'] ) ) {
 
 				$export_file   = $posted_data['export_file'];
@@ -1084,7 +1092,9 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 							);
 
 							fclose( $csv_file_handler ); // phpcs:ignore
-							unlink( $csvfilename );
+							if ( ! empty( $upload_dir['path'] ) && false !== strpos( $csvfilename, $upload_dir['path'] ) ) {
+								unlink( $csvfilename ); // phpcs:ignore
+							}
 							update_option( 'woo_sc_is_email_imported_coupons', 'no', 'no' );
 							delete_option( 'bulk_coupon_action_woo_sc' );
 

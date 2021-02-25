@@ -200,7 +200,7 @@ function loadPage(url, push){
 											$infiniteScrollContainer.infinitescroll('reset');
 											$infiniteScrollContainer.infinitescroll('binding','unbind');
 											$infiniteScrollContainer.data('infinitescroll', null);
-											jQuery(window).unbind('.infscr');
+											jQuery(window).off('.infscr');
 											init_infinite_scroll($infiniteScrollContainer);
 											$infiniteScrollContainer.infinitescroll('bind');
 										}

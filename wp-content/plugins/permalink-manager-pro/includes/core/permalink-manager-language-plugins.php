@@ -15,10 +15,9 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 		// 1. WPML, Polylang & TranslatePress
 		if($sitepress_settings || !empty($polylang->links_model->options) || class_exists('TRP_Translate_Press')) {
 			// Detect Post/Term function
-			if(!empty($permalink_manager_options['general']['fix_language_mismatch'])) {
-				add_filter('permalink_manager_detected_post_id', array($this, 'fix_language_mismatch'), 9, 3);
-				add_filter('permalink_manager_detected_term_id', array($this, 'fix_language_mismatch'), 9, 3);
-			}
+			add_filter('permalink_manager_detected_post_id', array($this, 'fix_language_mismatch'), 9, 3);
+			add_filter('permalink_manager_detected_term_id', array($this, 'fix_language_mismatch'), 9, 3);
+
 			// Fix posts page
 			// else {
 				add_filter('permalink_manager_filter_query', array($this, 'fix_posts_page'), 5, 5);
@@ -204,7 +203,9 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 	}
 
 	function fix_language_mismatch($item_id, $uri_parts, $is_term = false) {
-		global $wp, $language_code;
+		global $wp, $language_code, $permalink_manager_options;
+
+		$mode = (!empty($permalink_manager_options['general']['fix_language_mismatch'])) ? $permalink_manager_options['general']['fix_language_mismatch'] : 0;
 
 		if($is_term) {
 			$element = get_term($item_id);
@@ -226,11 +227,28 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 		// Stop if no term or post is detected
 		if(empty($element)) { return false; }
 
-		$language_code = self::get_language_code($element);
+		// Get the language code of the found post/term
+		$element_language_code = self::get_language_code($element);
 
-		if(!empty($uri_parts['lang']) && ($uri_parts['lang'] != $language_code)) {
-			$wpml_item_id = apply_filters('wpml_object_id', $element_id, $element_type);
-			$item_id = (is_numeric($wpml_item_id)) ? $wpml_item_id : $item_id;
+		// Get the detected language code
+		if(defined('ICL_LANGUAGE_CODE')) {
+			$detected_language_code = ICL_LANGUAGE_CODE;
+		} else if(!empty($uri_parts['lang'])) {
+			$detected_language_code = $uri_parts['lang'];
+		} else {
+			return $item_id;
+		}
+
+		if($detected_language_code !== $element_language_code) {
+			// A. Display the content in requested language
+			if($mode == 1) {
+				$wpml_item_id = apply_filters('wpml_object_id', $element_id, $element_type);
+				$item_id = (is_numeric($wpml_item_id)) ? $wpml_item_id : $item_id;
+			}
+			// C. Display "404 error"
+			else {
+				$item_id = 0;
+			}
 		}
 
 		return $item_id;

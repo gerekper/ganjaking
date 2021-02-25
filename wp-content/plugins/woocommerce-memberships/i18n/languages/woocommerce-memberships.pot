@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Memberships 1.21.2\n"
+"Project-Id-Version: WooCommerce Memberships 1.21.3\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2021-01-26 16:16:42+00:00\n"
+"POT-Creation-Date: 2021-02-19 10:42:25+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -100,8 +100,8 @@ msgstr ""
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-content-restriction-rule.php:177
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-content-restriction-rules.php:71
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rule.php:174
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:83
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:186
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:85
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:188
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-purchasing-discount-rule.php:188
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-purchasing-discount-rules.php:86
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-purchasing-discount-rules.php:188
@@ -2924,8 +2924,8 @@ msgstr ""
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-content-restriction-rule.php:197
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-content-restriction-rules.php:77
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rule.php:208
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:93
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:218
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:95
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:220
 #: templates/myaccount/my-membership-content.php:63
 #: templates/myaccount/my-membership-products.php:63
 #: templates/myaccount/my-membership-sensei.php:80
@@ -2934,7 +2934,7 @@ msgstr ""
 
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-content-restriction-rule.php:259
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rule.php:271
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:281
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:283
 #. translators: Placeholders: %1$s - an opening HTML tag, %2$s - a closing HTML
 #. tag, %3$s - a numeric value, %4$s - a period, such as day(s), month(s), etc.
 #. - The result will look something like: "after 3 day(s)"
@@ -2964,19 +2964,19 @@ msgid "When will members gain access to content?"
 msgstr ""
 
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-content-restriction-rules.php:107
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:125
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:127
 msgid "There are no rules yet. Click below to add one."
 msgstr ""
 
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-content-restriction-rules.php:111
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:131
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:133
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-purchasing-discount-rules.php:135
 #. translators: Placeholder: %s outputs "Add a Membership Plan" action link
 msgid "Add a Membership Plan"
 msgstr ""
 
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-content-restriction-rules.php:113
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:132
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:134
 #. translators: Placeholder: %s outputs "Add a Membership Plan" action link
 msgid "To create restriction rules, please %s"
 msgstr ""
@@ -2988,12 +2988,12 @@ msgid ""
 msgstr ""
 
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-content-restriction-rules.php:131
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:323
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:325
 msgid "Add New Rule"
 msgstr ""
 
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-content-restriction-rules.php:137
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:327
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:329
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-purchasing-discount-rules.php:285
 msgid "Delete Selected"
 msgstr ""
@@ -3046,8 +3046,8 @@ msgid "Any variation"
 msgstr ""
 
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rule.php:193
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:89
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:203
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:91
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:205
 msgid "Only members can"
 msgstr ""
 
@@ -3072,21 +3072,21 @@ msgid ""
 "You can %1$sedit this rule on the membership plan screen%2$s."
 msgstr ""
 
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:78
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:79
 msgid "Applies to"
 msgstr ""
 
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:94
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:96
 msgid "When will members gain access to products?"
 msgstr ""
 
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:134
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:136
 msgid ""
 "This product can be viewed & purchased by all customers. Add a rule to "
 "restrict viewing and/or purchasing to members."
 msgstr ""
 
-#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:300
+#: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-product-restriction-rules.php:302
 #: includes/admin/meta-boxes/views/class-wc-memberships-meta-box-view-purchasing-discount-rules.php:255
 #. translators: Placeholders: %1$s - opening HTML <a> tag, %2$s - closing </a>
 #. HTML tag

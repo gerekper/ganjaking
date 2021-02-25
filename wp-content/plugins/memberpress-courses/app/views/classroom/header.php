@@ -26,7 +26,7 @@ $logo = wp_get_attachment_url(helpers\Options::val($options,'classroom-logo'));
 <body <?php body_class($classes); ?>>
 
 <header id="mpcs-navbar" class="navbar">
-  <?php do_action(base\SLUG_KEY . 'classroom_start_header'); ?>
+  <?php do_action(base\SLUG_KEY . '_classroom_start_header'); ?>
 
   <!-- Logo & Back Button -->
   <section class="navbar-section">
@@ -84,7 +84,7 @@ $logo = wp_get_attachment_url(helpers\Options::val($options,'classroom-logo'));
             <ul class="menu">
               <li><a href="<?php echo esc_url_raw($loggedin_url) ?>"><?php esc_html_e("Logged in", "memberpress-courses") ?></a></li>
               <li><a href="<?php echo esc_url($loggedout_url) ?>"><?php esc_html_e("Logged out", "memberpress-courses") ?></a></li>
-              <?php do_action(base\SLUG_KEY . 'classroom_preview_menu'); ?>
+              <?php do_action(base\SLUG_KEY . '_classroom_preview_menu'); ?>
             </ul>
           </div>
         <?php } ?>
@@ -105,7 +105,7 @@ $logo = wp_get_attachment_url(helpers\Options::val($options,'classroom-logo'));
                 <li><a href="<?php echo get_dashboard_url() ?>" target="_blank"><?php esc_html_e("WP Dashboard", "memberpress-courses") ?></a></li>
               <?php } ?>
               <li><a href="<?php echo $logout_url ?>"><?php esc_html_e("Logout", "memberpress-courses") ?></a></li>
-              <?php do_action(base\SLUG_KEY . 'classroom_user_menu'); ?>
+              <?php do_action(base\SLUG_KEY . '_classroom_user_menu'); ?>
             </ul>
           </div>
         <?php } ?>
@@ -117,5 +117,5 @@ $logo = wp_get_attachment_url(helpers\Options::val($options,'classroom-logo'));
       <?php
     }
   ?>
-  <?php do_action(base\SLUG_KEY . 'classroom_end_header'); ?>
+  <?php do_action(base\SLUG_KEY . '_classroom_end_header'); ?>
 </header>

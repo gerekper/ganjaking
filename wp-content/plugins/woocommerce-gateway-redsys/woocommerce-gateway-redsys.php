@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
  * Plugin URI: https://woocommerce.com/products/redsys-gateway/
  * Description: Extends WooCommerce with RedSys gateway.
- * Version: 14.0.2
+ * Version: 14.0.3
  * Author: José Conti
  * Author URI: https://www.joseconti.com/
  * Tested up to: 5.6
@@ -18,7 +18,7 @@
  */
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '14.0.2' );
+	define( 'REDSYS_VERSION', '14.0.3' );
 }
 
 if ( ! defined( 'REDSYS_PLUGIN_URL_P' ) ) {

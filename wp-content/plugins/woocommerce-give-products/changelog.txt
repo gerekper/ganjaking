@@ -1,5 +1,9 @@
 *** WooCommerce Give Products Changelog ***
 
+2021-02-02 - version 1.1.13
+* Fix - Pass $email arg to WC core email header/footer template hooks to avoid errors.
+* Tweak - WC 5.0 compatibility.
+
 2020-12-01 - version 1.1.12
 * Tweak - WC 4.7 compatibility.
 * Tweak - WordPress 5.6 compatibility.

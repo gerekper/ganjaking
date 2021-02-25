@@ -21,11 +21,11 @@ class WC_Dropshipping_CSV_Import {
 						<input type="hidden" name="action" value="CSV_upload_form" />';
 						//wp_nonce_field( 'editedtag');
 						wp_nonce_field( 'CSV_upload_form');
-		echo '			<p>If your wholesale supplier provides a spreadsheet indicating inventory levels you can upload the CSV here to set products status to in-stock or out-of-stock.
-						Configure which columns to use on the spreadsheet in the supplier admin</p>
+		echo '			<p>If your supplier provides a spreadsheet in .CSV format indicating their inventory levels (Quantity on Hand) or whether or not their products are in stock (In-Stock Indicator) you can import the .CSV file here to update your inventory status.
+						Before uploading a .CSV file, please configure which columns to use on the spreadsheet by mousing over the supplier&apos;s name and select "Edit"</p>
 						<table>
 							<tr>
-									<th>CSV File</th>
+									<th>CSV File Location:</th>
 							</tr>
 							<tr>
 								<td>
@@ -175,7 +175,7 @@ class WC_Dropshipping_CSV_Import {
 		        	}
 			}
 		} else {
-			echo '<p>There was an error processing the CSV</p>';
+			echo '<p>There was an error processing the .CSV file.  If this error persists, please contact OPMC support.</p>';
 		}
 		// announce that we've finished
 		do_action('wc_dropship_manager_inventory_status_update_completed');

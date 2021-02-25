@@ -67,6 +67,7 @@ class DynamoDbHandler extends \WPMailSMTP\Vendor\Monolog\Handler\AbstractProcess
         if ($this->version === 3) {
             $formatted = $this->marshaler->marshalItem($filtered);
         } else {
+            /** @phpstan-ignore-next-line */
             $formatted = $this->client->formatAttributes($filtered);
         }
         $this->client->putItem(array('TableName' => $this->table, 'Item' => $formatted));

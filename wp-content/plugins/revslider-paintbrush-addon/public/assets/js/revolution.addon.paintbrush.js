@@ -1,12 +1,40 @@
-/* 
+/**
+ * @preserve
  * @author    ThemePunch <info@themepunch.com>
  * @link      http://www.themepunch.com/
  * @copyright 2019 ThemePunch
- * Version 2.1.6
-*/
+ * @version 2.1.9
+ */
 
 ;(function() {
-	
+	var isFirefox = false;
+	var radMin = Math.PI / 2 - 0.4;
+	var radMax = Math.PI / 2 + 0.4;
+	var TMBlock = {
+		x: 0,
+		y: 0,
+		block: false
+	};
+
+	function setTMBlock(e) {
+		TMBlock.x = e.clientX;
+		TMBlock.y = e.clientY;
+		TMBlock.block = false;
+	}
+
+	function calculateTMBlock(e) {
+		var dx = TMBlock.x - e.clientX;
+		var dy = TMBlock.y - e.clientY;
+		var angle = Math.abs(Math.atan2(dy, dx));
+
+		if (angle > radMin && angle < radMax) {
+			TMBlock.block = 'no';
+		} else {
+			TMBlock.block = 'yes';
+		}
+	}
+
+
 	jQuery('rs-slide[data-revaddonpaintbrush]').each(function() {
 		
 		var $this = jQuery(this),
@@ -70,7 +98,8 @@
 		
 		var opts = $.fn.revolution && $.fn.revolution[api[0].id] ? $.fn.revolution[api[0].id] : false;
 		if(!opts) return;
-		
+		isFirefox = $.fn.revolution.isFirefox();
+
 		api.on('revolution.slide.onloaded', function() {
 			
 			var css = '',
@@ -222,6 +251,10 @@
 		this.fixEdges = fixEdges;
 		this.edgeFix = edgeFix;
 		this.frame = undefined;
+
+		if(isFirefox){
+			this.options.shadowBlur /= 2;
+		}
 		
 		if(scaleblur) {
 			
@@ -260,23 +293,46 @@
 		
 		start: function() {
 			
-			if(!this.options.carousel) this.slider.on('mousemove touchmove', this.onMove.bind(this));
-			else this.slide.on('mousemove touchmove', this.onMove.bind(this));
+			if(!this.options.carousel) {
+				this.slider.on('touchstart', this.onTouchStart.bind(this));
+				this.slider.on('mousemove touchmove', this.onMove.bind(this));
+			} else {
+				this.slide.on('touchstart', this.onTouchStart.bind(this));
+				this.slide.on('mousemove touchmove', this.onMove.bind(this));
+			}
 			
 			this.slider.on('revolution.slide.afterdraw', this.sizer.bind(this));
 			this.resize();
+			
+		},
+
+		onTouchStart: function(e) {
+			
+			if (touch) {
+				var e = e.originalEvent;
+				if (e.touches) e = e.touches[0];
+				setTMBlock(e);
+			}
 			
 		},
 		
 		onMove: function(e) {
 			
 			if(this.pause) return;
-			if(touch) {
-				
+			if (TMBlock.block === 'no') return;
+
+			if (touch) {
+				var te = e;
 				e = e.originalEvent;
-				e.preventDefault();
-				if(e.touches) e = e.touches[0];
-				
+				if (e.touches) e = e.touches[0];
+
+				if (!TMBlock.block) calculateTMBlock(e);
+				if (TMBlock.block === 'yes') {
+					te.preventDefault();
+				}
+				if (TMBlock.block === 'no') {
+					return;
+				}
 			}
 			
 			var rect = this.canvas.getBoundingClientRect();

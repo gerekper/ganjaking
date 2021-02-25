@@ -1,0 +1,404 @@
+/* 
+ * @author    ThemePunch <info@themepunch.com>
+ * @link      http://www.themepunch.com/
+ * @copyright 2020 ThemePunch
+*/
+
+.tp-lottie {
+	overflow: hidden !important;
+}
+
+.tp-lottie:after {
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -50px 0 0 -50px;
+	font-family: "Material Icons";
+	/* content: "whatshot"; */
+	color: #fff !important;
+	opacity: 0.25;
+	font-size: 100px;
+	line-height: 100px;
+}
+
+.downloadlottieanim svg {
+	width: 50% !important;
+	height: 50% !important;
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	transform: translate(-50%, -50%) !important;
+}
+
+.uploadfirstlottieitem {
+	background: url(../images/uploadfirstitem.png);
+
+}
+
+.toolbar_btn.help-hover-lottie .add_layer[data-subtype="lottie"] {
+	background: #3f444a !important;
+	z-index: 99999
+}
+
+#add_layer_toolbar_wrap.help-hover-lottie #add_layer_main_wrap>.add_layer[data-subtype="lottie"]:after {
+
+	position: absolute;
+	bottom: -5px;
+	left: 65%;
+	margin-left: 10px;
+	width: 17px;
+	height: 22px;
+	background: url(../images/hand.png) no-repeat center center;
+	content: "";
+	z-index: 99999;
+
+}
+
+.getLottieFromObjectLibrary {
+	float: right;
+}
+
+#lottieDefaultDurationWrap {
+	display: block;
+	position: relative;
+}
+
+#lottieDefaultDuration {
+	display: block;
+	position: absolute;
+	right: 5px;
+	top: 0;
+	color: #777c80;
+	height: 30px;
+	text-align: right;
+	line-height: 30px;
+}
+
+#lottie_scroll_type {
+	display: flex;
+	width: 185px;
+	box-sizing: border-box;
+	float: right;
+	padding-bottom: 10px;
+}
+
+#lottie_scroll_type .lottie_scroll_button {
+	margin: 0 1px;
+}
+
+.lottie_scroll_action {
+	display: block;
+	position: relative;
+	border: 1px solid #3f444a;
+	margin-top: 20px;
+	padding: 20px 20px 10px 10px;
+}
+
+.lottie_scroll_action:last-child {
+	margin-bottom: 10px;
+}
+
+.lottie_scroll_action .direktrow {
+	display: flex;
+	overflow: hidden;
+	align-items: center;
+	justify-content: flex-start;
+	padding-bottom: 5px;
+}
+
+.lottie_scroll_action .direktrow oneshort,
+.lottie_scroll_action .direktrow onelong {
+	min-width: 0;
+}
+
+.lottie_scroll_action .direktrow label_a {
+	min-width: 70px;
+	max-width: 70px;
+}
+
+.lottie_scroll_action .direktrow onelong {
+	width: 120px;
+}
+
+.lottie_scroll_type_label.basic_action_button {
+	display: block;
+	position: absolute;
+	border: 0;
+	width: auto;
+	transform: translateY(-50%);
+	font-size: 12px;
+	left: 10px;
+	top: 0;
+	padding: 5px;
+	padding-right: 10px;
+	margin: 0;
+	height: auto;
+	width: auto;
+	line-height: 1;
+	background-color: #3a3e44;
+}
+
+#lottie_scroll_wrap .lottie_scroll_type_label.basic_action_button span {
+	display: inline;
+	vertical-align: text-bottom;
+}
+
+#lottie_scroll_wrap .lottie_scroll_type_label.basic_action_button i {
+	display: inline;
+	font-size: 17px;
+	margin: 0;
+	margin-right: 5px;
+	vertical-align: text-bottom;
+
+}
+
+.lottie_scroll_action .remove_lottie_scroll_action.autosize {
+	display: flex;
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+	border-radius: 0;
+}
+
+.lottie_layer_wrap {
+	margin: 0;
+}
+
+.lottieLayer {
+	position: relative;
+	background: #222;
+	margin: 0;
+	font-size: 10;
+	background: #2a2c2f;
+	color: #b7bbc0;
+	border: 0;
+	margin-bottom: 1px;
+	height: 30px;
+	cursor: pointer;
+}
+
+.lottieLayer:hover{
+	color: #fff;
+}
+
+.lottieLayer label_a{
+	height: 30px;
+	line-height: 30px;
+	color: inherit;
+}
+
+.lottieLayer:after {
+	font-family: "Material Icons";
+	content: 'arrow_drop_down';
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	right: 0;
+	top: 0;
+	height: 30px;
+	width: 30px;
+	font-size: 20px;
+	transform: rotateZ(-90deg);
+	border-top: solid 1px #323438;
+}
+
+.RSAccordionOpen .lottieLayer:after {
+	font-family: "Material Icons";
+	content: 'arrow_drop_down';
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	right: 0;
+	top: 0;
+	height: 30px;
+	width: 30px;
+	font-size: 20px;
+	transform: rotateZ(0deg) !important;
+	border: 0;
+	border-left: solid 1px #323438;
+}
+
+#lottieGroupedColors .revbuilder-colorpicker.revbuilder-cpicker-master-wrap input,
+#lottieLayers .revbuilder-colorpicker.revbuilder-cpicker-master-wrap input {
+	display: none;
+}
+
+#lottieLayers .revbuilder-colorpicker.revbuilder-cpicker-master-wrap {
+	margin: 0;
+}
+
+#lottieGroupedColors .revbuilder-colorpicker.revbuilder-cpicker-master-wrap {
+	margin: 2.5px;
+}
+
+#lottieGroupedStrokes input {
+	display: inline;
+	margin: 2.5px !important;
+	max-width: 65px;
+}
+
+#lottie_editor_wrap{
+	position: relative;
+	padding-top: 5px;
+}
+
+#lottie_editor_wrap .revbuilder-colorpicker.revbuilder-cpicker-master-wrap:hover {
+	background-color: #40444a;
+}
+
+.lottie_layer_wrap {
+	border: 0;
+}
+
+.lottie_field_wrap {
+	display: flex;
+	justify-content: space-between;
+}
+
+.lottie_field_wrap .field_right_wrap {
+	display: flex;
+	align-items: center;
+	margin: 2px 0;
+	justify-content: flex-end;
+}
+
+.lottie_field_wrap:last-child {
+	margin-bottom: 3px;
+}
+
+.lottie_field_wrap.hasEffect {
+	display: none;
+}
+
+.lottie_field_wrap label_a {
+	min-width: 100px;
+	max-width: 100px;
+}
+
+.emptyLayer,
+.hiddenAsset {
+	display: none;
+}
+
+.lottie_fields_wrap .lottie_field_wrap:first-child{
+	margin-top: 3px;
+}
+
+.lottie_fields_wrap .lottie_field_wrap:last-child{
+	margin-bottom: 4px;
+}
+
+.lottie_field_wrap .field_right_wrap > * {
+	min-width: 0;
+	margin: 0 2.5px !important;
+	margin-right: 5px !important;
+}
+
+#lottieLayers,
+#lottieGroupedColors,
+#lottieGroupedStrokes {
+	padding: 10px 0;
+}
+
+#lottieLayers .edit_gradient {
+	width: auto;
+	min-width: 0;
+	margin: 0;
+	padding: 0 5px;
+	background: #2a2c2f;
+	margin-left: 5px;
+}
+
+#lottieLayers .edit_gradient i {
+	margin: 0;
+	padding: 0;
+}
+
+.grad_value_fields {
+	display: none;
+}
+
+#rbm_addon_lottie {
+	position: relative;
+}
+
+#lottie_gradient_editor_area {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%
+}
+
+#rbm_lottie_conWrap {
+	position: relative;
+}
+
+.lottieGradientHandle {
+	width: 26px;
+	height: 26px;
+	color: white;
+	font-size: 26px;
+	line-height: 26px !important;
+	text-align: center;
+	position: absolute;
+	z-index: 30;
+	border-radius: 100%;
+}
+
+#rbm_lottie_handleWrap {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	mix-blend-mode: difference;
+	z-index: 99;
+}
+
+#lottie_gr_lineHandle {
+	top: 0;
+	left: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	pointer-events: none;
+	z-index: 10000;
+}
+
+#lottie_gr_linePath {
+	stroke: white;
+	mix-blend-mode: difference;
+}
+
+#display_frame_label {
+	display: block;
+	position: absolute;
+	top: 11px;
+	width: 50px;
+	left: -20.5px;
+	text-align: center;
+	color: #777c80;
+}
+
+#lottie_df_timeline{
+	position: relative;
+	display: inline-block;
+	width: 200px;
+	height: 5px;
+	background-color: #2a2c2f;
+	margin: 13px 9px 10px 0px;
+	border-radius: 4px;
+}
+
+#lottie_df_simulator{
+	margin-right: 4px;
+}

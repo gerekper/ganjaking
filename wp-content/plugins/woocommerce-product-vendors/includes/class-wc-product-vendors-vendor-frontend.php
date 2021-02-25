@@ -38,8 +38,6 @@ class WC_Product_Vendors_Vendor_Frontend {
 
 		add_action( 'wp_enqueue_scripts', array( $self, 'register_frontend_scripts_styles' ) );
 
-		add_action( 'pre_get_posts', array( $self, 'restrict_unverified_vendor_profiles' ) );
-
     	return true;
 	}
 
@@ -218,34 +216,6 @@ class WC_Product_Vendors_Vendor_Frontend {
 			if ( ! empty( $vendor_data['profile'] ) && 'yes' === get_option( 'wcpv_vendor_settings_vendor_display_profile', 'yes' ) ) {
 
 				echo '<div class="wcpv-vendor-profile entry-summary">' . wpautop( wp_kses_post( do_shortcode( $vendor_data['profile'] ) ) ) . '</div>' . PHP_EOL;
-			}
-		}
-
-		return true;
-	}
-
-	/**
-	 * Restricts display of vendor profiles to those with verified admins
-	 *
-	 * @access public
-	 * @since 2.1.46
-	 * @version 2.1.46
-	 * @return bool
-	 */
-	public function restrict_unverified_vendor_profiles() {
-		global $wp_query;
-
-		$term =	$wp_query->queried_object;
-
-		if ( ! is_object( $term ) || empty( $term->term_id ) ) {
-			return;
-		}
-
-		if ( is_tax( WC_PRODUCT_VENDORS_TAXONOMY, $term->term_id ) ) {
-			// is vendor approved?
-			if ( ! WC_Product_Vendors_Utils::is_vendor_approved( $term->term_id ) ) {
-				$wp_query->set_404();
-				return;
 			}
 		}
 

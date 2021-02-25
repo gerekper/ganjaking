@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.4.0
+ * @version     1.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -455,7 +455,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 			}
 
 			?>
-			<style type="text/css"><?php echo $this->get_coupon_styles( $design, array( 'is_email' => $is_email ) ); // phpcs:ignore ?></style>
+			<style type="text/css"><?php echo esc_html( wp_strip_all_tags( $this->get_coupon_styles( $design, array( 'is_email' => $is_email ) ), true ) ); // phpcs:ignore ?></style>
 			<?php
 			if ( ! in_array( $design, array( 'custom-design', 'email-coupon' ), true ) ) {
 				?>
@@ -815,7 +815,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 								$design = 'basic';
 							}
 							?>
-							<style type="text/css"><?php echo $this->get_coupon_styles( $design ); // phpcs:ignore ?></style>
+							<style type="text/css"><?php echo esc_html( wp_strip_all_tags( $this->get_coupon_styles( $design ), true ) ); // phpcs:ignore ?></style>
 							<?php
 							if ( 'custom-design' !== $design ) {
 								?>

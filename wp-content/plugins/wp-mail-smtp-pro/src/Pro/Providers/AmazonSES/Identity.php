@@ -202,4 +202,26 @@ class Identity {
 		<?php
 		return ob_get_clean();
 	}
+
+	/**
+	 * Get all Indetity data.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @return array
+	 */
+	public function get_all() {
+
+		return [
+			'value'     => $this->get_value(),
+			'type'      => $this->get_type(),
+			'status'    => $this->get_status(),
+			'txt_token' => $this->get_txt_token(),
+			'actions'   => [
+				'view_dns' => $this->is_domain() && $this->get_status() === 'Pending',
+				'resend'   => $this->is_email() && $this->get_status() === 'Pending',
+				'delete'   => true,
+			],
+		];
+	}
 }

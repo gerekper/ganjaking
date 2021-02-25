@@ -146,15 +146,18 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 
 		if( self::get_payment_response_url( $settings['dynamiccallback'] ) === 'yes' ) {
 			$callbackurl   	= site_url( 'wp-content/plugins/woocommerce-gateway-worldpay/wpcallback.php' );
-			$successurl   	= site_url( 'wp-content/plugins/woocommerce-gateway-worldpay/wpcallback.php' );
 		} else {
 			$callbackurl   	= str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Gateway_Worldpay_Form', home_url( '/' ) ) );
-			$successurl    	= str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Gateway_Worldpay_Form', home_url( '/' ) ) );
+			// Add utm_nooverride if required
+			$callbackurl   	= self::get_callback_url( $callbackurl );
 		}
 
 		// Setup the url for orders that are cancelled at WorldPay
 		$failureurl 		= str_replace( '&amp;', '&', $order->get_cancel_order_url() );
 		$failureurl 		= str_replace( 'https:', 'http:', $failureurl );
+
+		// Add utm_nooverride if required
+		$failureurl   	= self::get_callback_url( $failureurl );
 
 		$worldpay_args['instId'] 	= self::get_instid( $settings['instId'] );
 		$worldpay_args['cartId'] 	= str_replace( self::clean_array(), '',  $order_key . '-' . $output_order_num . '-' . time() );
@@ -202,7 +205,7 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 
 		$worldpay_args['MC_callback'] 			= $callbackurl;
 		$worldpay_args['MC_callback-ppe'] 		= $callbackurl;
-		$worldpay_args['MC_SuccessURL'] 		= $successurl;
+		$worldpay_args['MC_SuccessURL'] 		= $callbackurl;
 		$worldpay_args['MC_FailureURL'] 		= $failureurl;
 		$worldpay_args['MC_order'] 				= $order_id;
 		$worldpay_args['MC_transactionNumber'] 	= '1';
@@ -762,6 +765,10 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 
 	}
 
+	/**
+	 * [get_signaturefields description]
+	 * @return [type] [description]
+	 */
 	protected static function get_signaturefields() {
 		$settings = get_option( 'woocommerce_worldpay_settings' );
 
@@ -770,6 +777,29 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 		}
 
 		return DEFAULT_WORLDPAY_SIGNATURE_FIELDS;
+
+	}
+
+	/**
+	 * [get_callback_url description]
+	 * @param  [type] $url [description]
+	 * @return [type]      [description]
+	 */
+	protected static function get_callback_url( $url ) {
+
+		$settings 		= get_option( 'woocommerce_worldpay_settings' );
+
+		if( isset( $settings['addgautm'] ) && $settings['addgautm'] == 'yes' ) {
+
+			// We don't know if the URL already has the parameter so we should remove it just in case
+			$url = remove_query_arg( 'utm_nooverride', $url );
+
+			// Now add the utm_nooverride query arg to the URL
+			$url = add_query_arg( 'utm_nooverride', '1', $url );
+
+		}
+
+		return $url;
 
 	}
 

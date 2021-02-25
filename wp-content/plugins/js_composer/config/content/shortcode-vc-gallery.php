@@ -110,7 +110,7 @@ return array(
 			'value' => array(
 				esc_html__( 'None', 'js_composer' ) => '',
 				esc_html__( 'Link to large image', 'js_composer' ) => 'img_link_large',
-				esc_html__( 'Open prettyPhoto', 'js_composer' ) => 'link_image',
+				esc_html__( 'Open Lightbox', 'js_composer' ) => 'link_image',
 				esc_html__( 'Open custom link', 'js_composer' ) => 'custom_link',
 			),
 			'description' => esc_html__( 'Select action for click action.', 'js_composer' ),

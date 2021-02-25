@@ -316,3 +316,6 @@ $woocommerce_gpf_di['WoocommerceGpfWoocommerceMinMaxQuantityStepControlSingle'] 
 $woocommerce_gpf_di['WoocommerceGpfWoocommerceMultilingual']                    = function ( $c ) {
 	return new WoocommerceGpfWoocommerceMultilingual();
 };
+$woocommerce_gpf_di['WoocommerceGpfPwBulkEdit']                                 = function ( $c ) {
+	return new WoocommerceGpfPwBulkEdit( $c['WoocommerceGpfCommon'] );
+};

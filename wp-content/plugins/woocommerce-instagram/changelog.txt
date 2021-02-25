@@ -1,5 +1,16 @@
 *** WooCommerce Instagram Changelog ***
 
+2021-02-22 - version 3.4.3
+* Tweak - Tested compatibility up to WC 5.1.
+* Fix - Catalog feeds were accessible although there wasn't any Facebook account connected.
+
+2020-12-29 - version 3.4.2
+* Tweak - Replaced deprecated jQuery functionality.
+* Tweak - Use the short description as a fallback for the large description in the product catalog.
+* Tweak - Improved the description fallbacks for product variations in the product catalog.
+* Tweak - Tested compatibility with WC 4.9.
+* Fix - Fixed error 404 on the feed URL when the catalog slug is a numeric value.
+
 2020-11-26 - version 3.4.1
 * Tweak - Improved PHP 8 support.
 * Tweak - Tested compatibility with WC 4.8.

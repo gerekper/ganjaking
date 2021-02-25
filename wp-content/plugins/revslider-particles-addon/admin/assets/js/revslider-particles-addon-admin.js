@@ -8,10 +8,11 @@
 
 		// TRANSLATABLE CONTENT
 		var addon = {},
+
 			slug = "revslider-particles-addon",
 			bricks = revslider_particles_addon.bricks;
 			
-		
+		RVS.PARTICLES = addon;
 
 		// INITIALISE THE ADDON
 		RVS.DOC.on(slug+'_init',function() {	
@@ -72,7 +73,7 @@
 		function getDefaults() {
 			
 			return { 
-			
+				responsive:false,
 				particles: {
 					shape: 'circle',
 					number: 80,
@@ -95,6 +96,7 @@
 						distance: 150
 					},
 					particle: {
+						ocolor:false,
 						color: '#ffffff',
 						opacity: 100,
 						opacityMin: 25,
@@ -356,17 +358,13 @@
 			
 			if(this.className.search('selected') !== -1) {
 				
-				if(this.className.search('custom-particle') === -1) {
-					
-					addon.selectedIcons[addon.selectedIcons.length] = this.dataset.icon;
-				
-				}
+				if(this.className.search('custom-particle') === -1) 					
+					addon.selectedIcons[addon.selectedIcons.length] = this.dataset.icon;								
 				else {
 
 					var svg = $(this).find('svg'),
 						size = '',
-						view;
-						
+						view;					
 					if(svg.length) view = svg[0].getAttribute('viewBox');
 					if(view) {
 						
@@ -374,9 +372,12 @@
 						if(view.length) size = '::' + view[view.length - 1];
 
 					}
+
 					
-					addon.selectedIcons[addon.selectedIcons.length] = this.dataset.path + size;
-				
+					if (this.dataset.path!==undefined)
+						addon.selectedIcons[addon.selectedIcons.length] = this.dataset.path + size;
+					else 
+						addon.selectedIcons[addon.selectedIcons.length] = svg[0].innerHTML + "::" + svg[0].viewBox.baseVal.width+" "+svg[0].viewBox.baseVal.height;											
 				}
 				
 			}
@@ -388,56 +389,68 @@
 			$('.particles-icon').removeClass('selected');
 			$('#particles-custom-svgs').html(getCustomSvgs());
 			
-			var svgs = RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].particles.shape.split(','),
+			var svgs = RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].particles.shape.indexOf(':RSV6.3.0+:')===-1 ? RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].particles.shape.split(',') : RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].particles.shape.split('|__|'),
 				len = svgs.length;
+			svgs[0] = svgs[0].replace(':RSV6.3.0+:','');
 			
+
 			for(var i = 0; i < len; i++) {
-				
-				if(svgs[i].charAt(0) !== 'M') {	
+				if (svgs[i].indexOf('undefined')>=0) continue;	
+				if(svgs[i].indexOf('path')==-1 && svgs[i].charAt(0) !== 'M' && svgs[i].charAt(0) !== 'm') {	
 					$('.pei_' + svgs[i]).addClass('selected');
 				}
-				else {
-					$('.particles-icon[data-path="' + svgs[i].split('::')[0] + '"]').addClass('selected');
+				else {					
+					//$('.particles-icon[data-path="' + svgs[i].split('::')[0] + '"]').addClass('selected');
 				}
 				
 			}
 			
 		}
 		
-		function getCustomIcon(path, size) {
+		function getCustomIcon(path, size, viewBox) {
 			
-			if(!size) {
+						
+			if (path.indexOf('path')===-1) {
+				if(!size) {
 			
-				if(path.search('::') === -1) {
-					size = '24';
+					if(path.search('::') === -1) {
+						size = '24';
+					}
+					else {
+						path = path.split('::');
+						size = path[1];
+						path = path[0];
+					}			
 				}
-				else {
-					path = path.split('::');
-					size = path[1];
-					path = path[0];
-				}
 			
+				return '<span class="particles-icon custom-particle selected" data-path="' + path + '"><svg xmlns="http://www.w3.og/2000/svg" viewBox="0 0 ' + size + ' ' + size + '"><path fill="#777c80" d="' + path + '"></path></svg></span>';
 			}
-			return '<span class="particles-icon custom-particle selected" data-path="' + path + '"><svg xmlns="http://www.w3.og/2000/svg" viewBox="0 0 ' + size + ' ' + size + '"><path fill="#777c80" d="' + path + '"></path></svg></span>';
+			else {				
+				if (viewBox===undefined) {
+					path = path.split('::');
+					viewBox = path[1];
+					path = path[0];					
+				}
+				return '<span class="particles-icon custom-particle selected"><svg xmlns="http://www.w3.og/2000/svg" viewBox="0 0 ' + viewBox + '">'+path+'</svg></span>';
+			}
 			
 		}
 		
 		function getCustomSvgs() {
 			
-			if(displayChecks()) return;
-			
-			var svgs = RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].particles.shape.split(','),
+			if(displayChecks()) return;			
+			var svgs = (RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].particles.shape.indexOf(':RSV6.3.0+:')===-1) ? RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].particles.shape.split(',') : RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].particles.shape.split('|__|'),
 				len = svgs.length,
 				icons = '';
+			svgs[0] = svgs[0].replace(':RSV6.3.0+:','');
 			
 			for(var i = 0; i < len; i++) {
 				
-				if(svgs[i].charAt(0) === 'M') icons += getCustomIcon(svgs[i]);
+				if(svgs[i].indexOf('path')>=0 || svgs[i].charAt(0) === 'M' || svgs[i].charAt(0) === 'm') icons += getCustomIcon(svgs[i]);
 				
 			}
 			
-			return icons;
-			
+			return icons;			
 		}
 		
 		function displayChecks() {
@@ -467,11 +480,16 @@
 					method = $this.hasClass('selected') ? 'removeClass' : 'addClass';
 
 				$this[method]('selected');
-				addon.selectedIcons = [];
+				addon.selectedIcons = [];				
 				icons.each(getIcons);
-				
-				RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].particles.shape = addon.selectedIcons.toString();
-				
+				RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].particles.shape = ":RSV6.3.0+:";
+				var o = 0;
+				for (var i in addon.selectedIcons) {
+					if (!addon.selectedIcons.hasOwnProperty(i)) continue;
+					if (o!==0) RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].particles.shape +='|__|';
+					o++;					
+					RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].particles.shape +=addon.selectedIcons[i];
+				}				
 			},
 			
 			checkContainers: function() {
@@ -526,24 +544,29 @@
 			
 			addSvg: function() {
 				
-				RVS.F.openObjectLibrary({types: ['svgs'], filter: 'all', selected: ['svgs'], success: {icon: 'particleSvgSelected'}});
+				RVS.F.openObjectLibrary({types: ['svgs','svgcustom'], filter: 'all', selected: ['svgs'], success: {icon: 'particleSvgSelected'}});
 				
 			},
 			
 			svgSelected: function(e, p) {
 				
 				if(!p || !p.path) {
-					
-					console.log('Particle SVG could not be selected');
+					RVS.F.showInfo({content:'Particle SVG could not be selected', type:"warning", showdelay:0, hidedelay:2, hideon:"", event:"" });					
 					return;
 					
 				}
 				
-				var viewBox = $(p.ref).find('svg').attr('width'),
-					svg = getCustomIcon(p.path, viewBox);
+				/*if (p.svg.find('path').length>1) {
+					RVS.F.showInfo({content:'SVG is too complex. Use 1 Path only', type:"warning", showdelay:0, hidedelay:2, hideon:"", event:"" });					
+					return;
+				}*/
+				
+				var width = p.svg.attr('width'),
+					viewBox = p.viewBox.baseVal.width+" "+p.viewBox.baseVal.height,
+					svg = getCustomIcon(p.svgfull, width , viewBox);
 					
 				$(svg).insertBefore(addon.forms.svgs);
-				RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].particles.shape += ',' + p.path + '::' + viewBox;
+				RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].particles.shape += '|__|' + p.svgfull + '::' + viewBox;
 
 			},
 			
@@ -687,7 +710,7 @@
 			
 			};	
 
-			var _h,				
+			var _h = "",				
 				plist = RVS.F.createPresets({ 		
 					groupid:"particle_templates",			
 					title:bricks.pelib,
@@ -723,6 +746,7 @@
 				if(!addon.svgs.hasOwnProperty(i)) continue;
 				_h += '			<span class="particles-icon pei_'+i+'" data-icon="'+i+'"><svg xmlns="http://www.w3.og/2000/svg" viewBox="0 0 24 24"><path fill="#777c80" d="'+addon.svgs[i]+'"></path></svg></span>';
 			}
+			
 			_h += '<div id="particles-custom-svgs">' + getCustomSvgs() + '</div>';
 			_h += '				<input type="hidden" class="slideinput easyinit" id="particles_shape" data-r="addOns.'+slug+'.particles.shape" type="text">';
 			_h += ' 			<div style="clear: both"></div>';
@@ -734,26 +758,28 @@
 			_h += '			<longoption><i class="material-icons">scatter_plot</i><label_a>'+bricks.amount+'</label_a><input class="slideinput valueduekeyboard easyinit" id="particles_amount" data-numeric="true" data-allowed="" data-r="addOns.'+slug+'.particles.number" data-min="0" data-max="5000" type="text"></longoption>';
 			_h += '			<longoption><i class="material-icons">all_out</i><label_a>'+bricks.size+'</label_a><input class="slideinput valueduekeyboard  easyinit" id="particles_size" data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.particles.size" data-min="0" data-max="1000" type="text"></longoption>';						
 			_h += '			<longoption><i class="material-icons">bubble_chart</i><label_a>'+bricks.randomsize+'</label_a><input type="checkbox" class="slideinput easyinit"  data-r="addOns.'+slug+'.particles.random" data-showhide=".particle_size_random" data-showhidedep="true" value="on"></longoption>';
-			_h += '			<div class="div5"></div>';
+			//_h += '			<div class="div5"></div>';
 			_h += '			<longoption class="particle_size_random"><i class="material-icons">all_out</i><label_a>'+bricks.minsize+'</label_a><input class="slideinput valueduekeyboard  easyinit" id="particles_minsize" data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.particles.sizeMin" data-min="0" data-max="1000" type="text"></longoption>';
-			_h += '	        <longoption><i class="material-icons">phonelink_lock</i><label_a>'+bricks.hideonmobile+'</label_a><input type="checkbox" class="slideinput easyinit" data-r="addOns.'+slug+'.hideOnMobile" value="off">';
+			_h += '	        <longoption><i class="material-icons">phonelink_lock</i><label_a>'+bricks.hideonmobile+'</label_a><input type="checkbox" class="slideinput easyinit" data-r="addOns.'+slug+'.hideOnMobile" value="off"></longoption>';
+			_h += '	        <longoption><i class="material-icons">launch</i><label_a>'+bricks.responsive+'</label_a><input type="checkbox" class="slideinput easyinit" data-r="addOns.'+slug+'.responsive" value="off"></longoption>';
 			_h += '		</div>'; // END OF PARTICLE SETTINGS
 
 			// PARTICLE STYLING - COLOR & OPACITY
 			_h += '		<div id="particle_styling" class="ssm_content">';			
+			_h += '			<longoption><i class="material-icons">color_lens</i><label_a>'+bricks.originalcolor+'</label_a><input type="checkbox" class="slideinput easyinit"  data-r="addOns.'+slug+'.styles.particle.ocolor" value="on"></longoption>';				
 			_h += '			<longoption><i class="material-icons">layers</i><label_a>'+bricks.zindex+'</label_a><input class="slideinput  easyinit" id="particle_zindex" data-r="addOns.'+slug+'.styles.particle.zIndex" type="text"></longoption>';
 			_h += '			<longoption style="display:none"><i class="material-icons">color_lens</i><label_a>'+bricks.particlecolor+'</label_a><input id="particle_particle_colors" class="slideinput easyinit" data-r="addOns.'+slug+'.styles.particle.color" type="text" data-helpkey="particles-particle-color"></longoption>';								
 			_h += '			<div id="particle_particle_colors_wrap" class="particle_color_wraps"></div>';
 			_h += '			<div class="div25"></div>';	
 			_h += '			<longoption><i class="material-icons">opacity</i><label_a>'+bricks.partopa+'</label_a><input class="slideinput valueduekeyboard easyinit" id="particles_opacity" data-numeric="true" data-allowed="%" data-r="addOns.'+slug+'.styles.particle.opacity" data-min="0" data-max="100" type="text"></longoption>';
 			_h += '			<longoption><i class="material-icons">shuffle</i><label_a>'+bricks.randopa+'</label_a><input type="checkbox" class="slideinput easyinit"  data-r="addOns.'+slug+'.styles.particle.opacityRandom" data-showhide=".particle_random_opacity" data-showhidedep="true" value="on"></longoption>';
-			_h += '			<div class="div5"></div>';	
+			//_h += '			<div class="div5"></div>';	
 			_h += '			<longoption class="particle_random_opacity"><i class="material-icons">opacity</i><label_a>'+bricks.minopa+'</label_a><input class="slideinput valueduekeyboard  easyinit" id="particles_min_opacity" data-numeric="true" data-allowed="%" data-r="addOns.'+slug+'.styles.particle.opacityMin" data-min="0" data-max="100" type="text"></longoption>';
 			_h += '			<div class="div25"></div>';
 			// PARTICLE STYLING - BORDERS
 			_h += '			<longoption><i class="material-icons">border_outer</i><label_a>'+bricks.borders+'</label_a><input type="checkbox" class="slideinput easyinit"  data-r="addOns.'+slug+'.styles.border.enable" data-showhide=".particle_border_enabled" data-showhidedep="true" value="on"></longoption>';				
 			_h += '			<div class="particle_border_enabled">';	
-			_h += '			<div class="div5"></div>';
+			//_h += '			<div class="div5"></div>';
 			_h += '				<longoption style="display:none"><i class="material-icons">color_lens</i><label_a>'+bricks.bordercolor+'</label_a><input id="particle_border_colors" class="slideinput easyinit" data-r="addOns.'+slug+'.styles.border.color" type="text" data-helpkey="particles-border-color"></longoption>';								
 			_h += '				<div id="particle_border_colors_wrap" class="particle_color_wraps"></div>';	
 			_h += '				<longoption><i class="material-icons">border_color</i><label_a>'+bricks.borsize+'</label_a><input class="slideinput valueduekeyboard easyinit" id="particles_border_size" data-numeric="true" data-allowed="" data-r="addOns.'+slug+'.styles.border.size" data-min="0" data-max="100" type="text"></longoption>';
@@ -763,7 +789,7 @@
 			// PARTICLE STYLING - LINES
 			_h += '			<longoption><i class="material-icons">timeline</i><label_a>'+bricks.conlin+'</label_a><input type="checkbox" class="slideinput easyinit"  data-r="addOns.'+slug+'.styles.lines.enable" data-showhide=".particle_lines_enabled" data-showhidedep="true" value="on"></longoption>';
 			_h += '			<div class="particle_lines_enabled">';				
-			_h += '			<div class="div5"></div>';
+			//_h += '			<div class="div5"></div>';
 			_h += '				<longoption style="display:none"><i class="material-icons">color_lens</i><label_a>'+bricks.linescolor+'</label_a><input id="particle_lines_colors" class="slideinput easyinit" data-r="addOns.'+slug+'.styles.lines.color" type="text" data-helpkey="particles-lines-color"></longoption>';								
 			_h += '				<div id="particle_lines_colors_wrap" class="particle_color_wraps"></div>';					
 			_h += '				<longoption><i class="material-icons">line_weight</i><label_a>'+bricks.linwidth+'</label_a><input class="slideinput valueduekeyboard easyinit" id="particles_lines_size" data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.styles.lines.width" data-min="0" data-max="200" type="text"></longoption>';
@@ -776,7 +802,7 @@
 			_h += '		<div id="particle_movement_wrap" class="ssm_content">';			
 			_h += '			<longoption><i class="material-icons">control_camera</i><label_a>'+bricks.movement+'</label_a><input type="checkbox" class="slideinput easyinit"  data-r="addOns.'+slug+'.movement.enable" data-showhide=".particle_movement" data-showhidedep="true" value="on"></longoption>';
 			_h += '			<div class="particle_movement">';				
-			_h += '				<div class="div5"></div>';
+			//_h += '				<div class="div5"></div>';
 			_h += '				<longoption><i class="material-icons">timer</i><label_a>'+bricks.speed+'</label_a><input class="slideinput valueduekeyboard easyinit" id="particles_mov_speed" data-numeric="true" data-allowed="" data-r="addOns.'+slug+'.movement.speed" data-min="0" data-max="200" type="text"></longoption>';
 			_h += '				<longoption><i class="material-icons">shuffle</i><label_a>'+bricks.vspeed+'</label_a><input type="checkbox" class="slideinput easyinit"  data-r="addOns.'+slug+'.movement.randomSpeed" data-showhide=".particle_randomspeed" data-showhidedep="true" value="on"></longoption>';
 			_h += '				<div class="particle_randomspeed">';								
@@ -845,8 +871,9 @@
 			_h += '				<longoption><i class="material-icons">timer</i><label_a>'+bricks.speed+'</label_a><input class="slideinput valueduekeyboard  easyinit" data-numeric="true" data-allowed="" data-r="addOns.'+slug+'.pulse.size.speed" data-min="0" data-max="1000" type="text"></longoption>';
 			_h += '				<longoption><i class="material-icons">all_out</i><label_a>'+bricks.minsize+'</label_a><input class="slideinput valueduekeyboard  easyinit" data-numeric="true" data-allowed="px" data-r="addOns.'+slug+'.pulse.size.min" data-min="0" data-max="1000" type="text"></longoption>';
 			_h += '				<longoption><i class="material-icons">sync</i><label_a>'+bricks.sync+'</label_a><input type="checkbox" class="slideinput easyinit"  data-r="addOns.'+slug+'.pulse.size.sync" value="on"></longoption>';	
-			_h += ' 		</div>';
 			_h += '			<div class="div25"></div>';
+			_h += ' 		</div>';
+			
 
 			_h += '			<longoption><i class="material-icons">opacity</i><label_a>'+bricks.apopa+'</label_a><input type="checkbox" class="slideinput easyinit" data-r="addOns.'+slug+'.pulse.opacity.enable" data-showhide=".particle_animate_opacity" data-showhidedep="true" value="on"></longoption>';				
 			_h += ' 		<div class="particle_animate_opacity">';

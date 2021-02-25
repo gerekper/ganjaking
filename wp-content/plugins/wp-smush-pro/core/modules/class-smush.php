@@ -770,7 +770,7 @@ class Smush extends Abstract_Module {
 							$existing_stats_size = (object) $existing_stats['sizes'][ $size_name ];
 
 							// Store the original image size.
-							$stats['sizes'][ $size_name ]->size_before = ( ! empty( $existing_stats_size->size_before ) && $existing_stats_size->size_before > $stats['sizes'][ $size_name ]->size_before ) ? $existing_stats_size->size_before : $stats['sizes'][ $size_name ]->size_before;		 		 				 		  	 	 		
+							$stats['sizes'][ $size_name ]->size_before = ( ! empty( $existing_stats_size->size_before ) && $existing_stats_size->size_before > $stats['sizes'][ $size_name ]->size_before ) ? $existing_stats_size->size_before : $stats['sizes'][ $size_name ]->size_before;
 
 							// Update compression percent and bytes saved for each size.
 							$stats['sizes'][ $size_name ]->bytes   = $stats['sizes'][ $size_name ]->bytes + $existing_stats_size->bytes;
@@ -919,8 +919,11 @@ class Smush extends Abstract_Module {
 		// Check if auto is enabled.
 		$auto_smush = $this->is_auto_smush_enabled();
 
+		// Allow downloading the file from S3 all throughout the process.
+		do_action( 'smush_s3_integration_fetch_file' );
+
 		// Get the file path for backup.
-		$attachment_file_path = Helper::get_attached_file( $id );
+		$attachment_file_path = get_attached_file( $id );
 
 		Helper::check_animated_status( $attachment_file_path, $id );
 
@@ -986,8 +989,11 @@ class Smush extends Abstract_Module {
 
 		$attachment_id = absint( (int) $attachment_id );
 
+		// Allow downloading the file from S3 all throughout the process.
+		do_action( 'smush_s3_integration_fetch_file' );
+
 		// Get the file path for backup.
-		$attachment_file_path = Helper::get_attached_file( $attachment_id );
+		$attachment_file_path = get_attached_file( $attachment_id );
 
 		Helper::check_animated_status( $attachment_file_path, $attachment_id );
 

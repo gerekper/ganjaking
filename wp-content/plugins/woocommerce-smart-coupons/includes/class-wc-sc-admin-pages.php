@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -336,7 +336,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 				?>
 				<script type="text/javascript">
 					jQuery(function(){
-						let is_marketing = '<?php echo esc_js( ( $this->is_wc_gte_44() ) ? 'yes' : 'no' ); ?>';
+						let is_marketing = decodeURIComponent( '<?php echo rawurlencode( ( $this->is_wc_gte_44() ) ? 'yes' : 'no' ); ?>' );
 						// Highlight Coupons menu when visiting Bulk Generate/Import Coupons/Send Store Credit/Coupon category tab.
 						let sa_wc_menu_selector           = 'toplevel_page_woocommerce';
 						let sa_wc_marketing_menu_selector = 'toplevel_page_woocommerce-marketing';
@@ -1210,7 +1210,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 			?>
 			<script type="text/javascript">
 				jQuery(function(){
-					var editor_id = '<?php echo esc_html( $editor_id ); ?>';
+					var editor_id = decodeURIComponent( '<?php echo rawurlencode( (string) $editor_id ); ?>' );
 					var sc_check_decimal = function( amount ){
 						var ex = /^\d*\.?(\d{1,2})?$/;
 						if ( ex.test( amount ) == false ) {

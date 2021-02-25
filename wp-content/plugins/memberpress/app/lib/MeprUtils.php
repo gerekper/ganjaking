@@ -1324,9 +1324,10 @@ class MeprUtils {
     }
 
     $usr = $obj->user();
+    $disable_email = MeprHooks::apply_filters("mepr_send_email_disable", false, $obj, $user_class, $admin_class);
 
     try {
-      if( !is_null($user_class) ) {
+      if( !is_null($user_class) && false == $disable_email ) {
         $uemail = MeprEmailFactory::fetch($user_class);
         $uemail->to = $usr->formatted_email();
 
@@ -1338,7 +1339,7 @@ class MeprUtils {
         }
       }
 
-      if( !is_null($admin_class) ) {
+      if( !is_null($admin_class) && false == $disable_email ) {
         $aemail = MeprEmailFactory::fetch($admin_class);
 
         if($force) {

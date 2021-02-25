@@ -871,6 +871,14 @@ if ( ! class_exists( 'GroovyMenuStyle' ) ) {
 			unset( $preset_settings['compiled_css'] );
 			unset( $preset_settings['compiled_css_rtl'] );
 
+			if (
+				isset( $preset_settings['header']['style'] ) &&
+				2 === $preset_settings['header']['style'] &&
+				! empty( $preset_settings['minimalistic_menu_fullscreen'] )
+			) {
+				$preset_settings['scrollbar_enable'] = true;
+			}
+
 			$preset_settings = wp_json_encode( $preset_settings );
 			$preset_key      = md5( rand() . uniqid() . time() );
 

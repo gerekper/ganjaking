@@ -132,7 +132,7 @@ class RsAddOnParticlesBase {
 				'borders' => __('Borders  & Strokes',$_textDomain),
 				'borsize' => __('Border Size',$_textDomain),
 				'boropa' => __('Border Opacity',$_textDomain),
-				'conlin' => __('Conneted Lines',$_textDomain),
+				'conlin' => __('Connected Lines',$_textDomain),
 				'linwidth' => __('Connected Line Width',$_textDomain),
 				'linopa' => __('Connected Line Opacity',$_textDomain),
 				'lindist' => __('Distance between Particles',$_textDomain),
@@ -166,14 +166,14 @@ class RsAddOnParticlesBase {
 				'bsize' => __('Bubble Size',$_textDomain),
 				'bop' => __('Bubble Opacity',$_textDomain),
 				'gdist' => __('Grab Distance',$_textDomain),
-				'gop' => __('Grap Opacity',$_textDomain),
+				'gop' => __('Grab Opacity',$_textDomain),
 				'rdist' => __('Repulse Distance',$_textDomain),
 				'rease' => __('Repulse Easing',$_textDomain),
 				'hmode' => __('Hover Mode',$_textDomain),
 				'cmode' => __('Click Mode',$_textDomain),
 				'nohover' => __('No Mouse Hover',$_textDomain),
 				'noclick' => __('No Click Action',$_textDomain),
-				'sync' => __('Synchronise',$_textDomain),
+				'sync' => __('Synchronize',$_textDomain),
 				'apsize' => __('Animate Particle Size',$_textDomain),
 				'apopa' => __('Animate Particle Opacity',$_textDomain),
 				'colorvariant' => __('Color Variant',$_textDomain),
@@ -185,7 +185,9 @@ class RsAddOnParticlesBase {
 				'custompres' => __('Custom Presets',$_textDomain),
 				'hideonmobile' => __('Disable on Mobile',$_textDomain),
 				'objectlibrary' => __('SVG Library', $_textDomain),
+				'originalcolor' => __('Use Custom Original Color', $_textDomain),
 				'bubblemessage' => __('Bubble clicking is not compatible with Hovers', $_textDomain),
+				'responsive' => __('Responsive', $_textDomain)
 			)
 		);
 	

@@ -8,7 +8,7 @@
  * Plugin Name:       Slider Revolution Coming Soon & Maintenance Add-on
  * Plugin URI:        https://www.themepunch.com
  * Description:       Very simple Coming Soon & Maintenance Page by RevSlider
- * Version:           2.1.1
+ * Version:           2.1.3
  * Author:            ThemePunch
  * Author URI:        https://www.themepunch.com
  * License:           GPL-2.0+
@@ -20,7 +20,7 @@
 // If this file is called directly, abort.
 if(!defined('WPINC')){ die; }
 
-define("REV_ADDON_MAINTENANCE_VERSION", "2.1.1");
+define("REV_ADDON_MAINTENANCE_VERSION", "2.1.3");
 define("REV_ADDON_MAINTENANCE_URL", str_replace('index.php','',plugins_url( 'index.php', __FILE__ )));
 $rs_maintanence_script_added = false;
 

@@ -155,9 +155,9 @@ class WC_Store_Credit_Coupons {
 		foreach ( $allowed_emails as $email ) {
 			$key = sanitize_key( $email );
 
-			wp_cache_delete( "wc_store_credit_customer_all_coupons_{$key}" );
-			wp_cache_delete( "wc_store_credit_customer_active_coupons_{$key}" );
-			wp_cache_delete( "wc_store_credit_customer_exhausted_coupons_{$key}" );
+			wp_cache_delete( "wc_store_credit_customer_all_coupons_{$key}", 'store_credit' );
+			wp_cache_delete( "wc_store_credit_customer_active_coupons_{$key}", 'store_credit' );
+			wp_cache_delete( "wc_store_credit_customer_exhausted_coupons_{$key}", 'store_credit' );
 		}
 	}
 }

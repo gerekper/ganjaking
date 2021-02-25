@@ -367,7 +367,9 @@ class MeprUsage {
         'month_revenue'       => $rev_stats->month_revenue,
         'month_refunds_total' => $rev_stats->month_refunds_total,
         'year_revenue'        => $rev_stats->year_revenue,
-        'year_refunds_total'  => $rev_stats->month_refunds_total
+        'year_refunds_total'  => $rev_stats->year_refunds_total,
+        'lifetime_revenue' => $rev_stats->lifetime_revenue,
+        'lifetime_refunds_total' => $rev_stats->lifetime_refunds_total
       );
     }
 

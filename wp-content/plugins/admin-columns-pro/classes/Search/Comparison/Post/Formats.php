@@ -42,6 +42,10 @@ class Formats extends Comparison
 	 * @inheritDoc
 	 */
 	protected function create_query_bindings( $operator, Value $value ) {
+		if ( 'post-format-standard' === $value->get_value() ) {
+			return $this->create_non_existent_post_format_bindings();
+		}
+
 		$tax_query = ComparisonFactory::create(
 			$this->taxonomy,
 			$operator,
@@ -52,6 +56,15 @@ class Formats extends Comparison
 		$bindings = new Bindings\Post();
 
 		return $bindings->tax_query( $tax_query->get_expression() );
+	}
+
+	private function create_non_existent_post_format_bindings() {
+		$bindings = new Bindings\Post();
+
+		return $bindings->tax_query( [
+			'taxonomy' => $this->taxonomy,
+			'operator' => 'NOT EXISTS',
+		] );
 	}
 
 }

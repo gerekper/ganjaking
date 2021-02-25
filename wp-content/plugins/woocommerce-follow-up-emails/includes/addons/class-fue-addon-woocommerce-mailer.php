@@ -1271,6 +1271,8 @@ class FUE_Addon_Woocommerce_Mailer {
 		add_filter( 'fue_mail_method', array( $this, 'set_wc_email_to_send' ) );
 
 		if (! $disable_wrap ) {
+			// Only use <body> content if previously converted to DOMDocument
+			$email_data['message'] = $this->get_email_body_content( $email_data['message']);
 			$email_data['message'] = $mailer->wrap_message( $email_data['subject'], $email_data['message'] );
 		} else {
 			$email_data['message'] = wpautop( wptexturize( $email_data['message'] ) );
@@ -1351,5 +1353,31 @@ class FUE_Addon_Woocommerce_Mailer {
 		$total = function_exists('wc_price') ? wc_price( $order->get_total() ) : wc_price( $order->get_total() );
 		$total = strip_tags( $total );
 		return $total;
+	}
+
+	/**
+	 * Get the actual content of an email message, extracting it from the <body> tag if
+	 * a full HTML document is provided.
+	 *
+	 * @since 4.9.11
+	 *
+	 * @param string $message The email message to parse.
+	 *
+	 * @return string The actual content of the document.
+	 */
+	private function get_email_body_content( $message  ) {
+		$dom = new DOMDocument();
+		$dom->loadHTML( $message );
+		$domBody = $dom->getElementsByTagName('body');
+
+		if($domBody->length > 0) {
+			$message = '';
+			/** @var DomNode $child */
+			foreach($domBody->item(0)->childNodes as $child) {
+				$message .= $child->ownerDocument->saveHTML($child);
+			}
+		}
+
+		return $message;
 	}
 }

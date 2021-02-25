@@ -63,7 +63,7 @@ if ($wpml->wpml_exists()) {
 						<label_a><?php _e('', 'revslider');?></label_a><div data-evt="updateslidebasic" data-evtparam="kenburnupdate" class="basic_action_button  longbutton callEventButton"><i class="material-icons">refresh</i><?php _e('Refresh Source', 'revslider');?></div>
 					</div><!--
 					--><div class="slidebg_solid_settings slide_bg_settings">
-						<label_a><?php _e('BG Color', 'revslider');?></label_a><input type="text" data-evt="updateslidebasic" data-editing="<?php _e('Background Color', 'revslider');?>" name="slide_bg_color" id="s_bg_color" data-visible="true" class="my-color-field slideinput easyinit" data-r="bg.color" value="#fff">																	
+						<label_a><?php _e('BG Color', 'revslider');?></label_a><input type="text" data-evt="updateslidebasic" data-editing="<?php _e('Background Color', 'revslider');?>" name="slide_bg_color" id="s_bg_color" data-visible="true" class="my-color-field slideinput easyinit" data-r="bg.color" value="#fff">
 					</div><!--
 					--><div class="slidebg_trans_settings slide_bg_settings">						
 					</div><!--
@@ -84,13 +84,14 @@ if ($wpml->wpml_exists()) {
 					</div><!--
 					--><div class="slidebg_html5_settings slide_bg_settings">
 						<label_a><?php _e('MPEG', 'revslider');?></label_a><input id="s_bg_mpeg_src" data-evt="updateslidebasic" class="slideinput easyinit nmarg" type="text" data-r="bg.mpeg" placeholder="<?php _e('Enter MPEG Source', 'revslider');?>">
-						<label_a></label_a><div data-evt="updateslidebasic" data-target="#s_bg_mpeg_src" data-rid="#slide#.slide.bg.videoId" class="getVideoFromMediaLibrary basic_action_button longbutton "><i class="material-icons">style</i><?php _e('Media Library', 'revslider');?></div>
+						<label_a></label_a><div data-evt="updateslidebasicmpeg" data-target="#s_bg_mpeg_src" data-rid="#slide#.slide.bg.videoId" class="getVideoFromMediaLibrary basic_action_button longbutton "><i class="material-icons">style</i><?php _e('Media Library', 'revslider');?></div>
 						<label_a></label_a><div data-evt="updateslidebasic" data-target="#s_bg_mpeg_src" data-r="bg.mpeg" class="getVideoFromObjectLibrary basic_action_button longbutton "><i class="material-icons">camera_enhance</i><?php _e('Object Library', 'revslider');?></div>
 						<!--<label_a><?php _e('WEBM', 'revslider');?></label_a><div class="input_with_buttonextenstion"><input id="s_bg_webm_src" data-evt="updateslidebasic" class="slideinput easyinit nmarg" type="text" data-r="bg.mpeg" placeholder="<?php _e('Optional WEBM Source', 'revslider');?>"><div data-evt="updateslidebasic" data-target="#s_bg_webm_src" class="getVideoFromMediaLibrary basic_action_button onlyicon dark_action_button callEventButton"><i class="material-icons">style</i></div></div>-->
 						<!--<label_a><?php _e('OGV', 'revslider');?></label_a><div class="input_with_buttonextenstion"><input id="s_bg_ogv_src" data-evt="updateslidebasic" class="slideinput easyinit nmarg" type="text" data-r="bg.ogv" placeholder="<?php _e('Optional OGV Source', 'revslider');?>"><div data-evt="updateslidebasic" data-target="#s_bg_ogv_src" class="getVideoFromMediaLibrary basic_action_button  onlyicon dark_action_button callEventButton"><i class="material-icons">style</i></div></div>-->
 						<div class="div25"></div>
-						<label_a><?php _e('Poster Image', 'revslider');?></label_a><div data-evt="updateslidebasic" data-evtparam="double" data-r="#slide#.slide.bg.image" data-rid="#slide#.slide.bg.imageId" data-lib="#slide#.slide.bg.imageLib" data-sty="#slide#.slide.bg.imageSourceType" class="getImageFromMediaLibrary basic_action_button longbutton "><i class="material-icons">style</i><?php _e('Media Library', 'revslider');?></div>
-						<label_a></label_a><div  data-evt="updateslidebasic" data-evtparam="double" data-r="#slide#.slide.bg.image" data-rid="#slide#.slide.bg.imageId" data-lib="#slide#.slide.bg.imageLib" data-sty="#slide#.slide.bg.imageSourceType" class="getImageFromObjectLibrary basic_action_button longbutton callEventButton"><i class="material-icons">camera_enhance</i><?php _e('Object Library', 'revslider');?></div>
+						<label_a><?php _e('Poster Image', 'revslider');?></label_a><div data-evt="gethtml5posterimage" data-evtparam="slide" class="basic_action_button longbutton callEventButton"><i class="material-icons">linked_camera</i><?php _e('Get Start Frame', 'revslider');?></div>
+						<label_a></label_a><div data-evt="updateslidebasic" data-evtparam="double" data-r="#slide#.slide.bg.image" data-rid="#slide#.slide.bg.imageId" data-lib="#slide#.slide.bg.imageLib" data-sty="#slide#.slide.bg.imageSourceType" class="getImageFromMediaLibrary basic_action_button longbutton "><i class="material-icons">style</i><?php _e('Media Library', 'revslider');?></div>
+						<label_a></label_a><div  data-evt="updateslidebasic" data-evtparam="double" data-r="#slide#.slide.bg.image" data-rid="#slide#.slide.bg.imageId" data-lib="#slide#.slide.bg.imageLib" data-sty="#slide#.slide.bg.imageSourceType" class="getImageFromObjectLibrary basic_action_button longbutton callEventButton"><i class="material-icons">camera_enhance</i><?php _e('Object Library', 'revslider');?></div>						
 						<!--<label_a></label_a><div data-evt="updateslidebasic" class="basic_action_button longbutton "><i class="material-icons">camera_enhance</i><?php _e('Object Library', 'revslider');?></div>-->
 						<label_a></label_a><div data-evt="updateslidebasic" data-r="#slide#.slide.bg.image" data-rid="#slide#.slide.bg.imageId" data-lib="#slide#.slide.bg.imageLib" data-sty="#slide#.slide.bg.imageSourceType" class="removePosterImage basic_action_button longbutton"><i class="material-icons">delete</i><?php _e('Remove', 'revslider');?></div><span class="linebreak"></span>
 					</div><!--					
@@ -131,10 +132,7 @@ if ($wpml->wpml_exists()) {
 									<div class="div15"></div>
 
 									<div class="slide_bg_fit slide_bg_fit_percentage">
-										<row class="direktrow">
-											<onelong><label_icon class="ui_width"></label_icon><input data-allowed="%" data-numeric="true" id="slide_bg_fitX" data-evt="updateslidebasic" class="slideinput easyinit withsuffix" type="text" data-r="bg.fitX"></onelong>
-											<oneshort><label_icon class="ui_height"></label_icon><input data-allowed="%" data-numeric="true" id="slide_bg_fitY" data-evt="updateslidebasic" class="slideinput easyinit withsuffix" type="text" data-r="bg.fitY"></oneshort>
-										</row>
+										<label_a><?php _e('Scale Width', 'revslider');?></label_a><input data-allowed="%" data-numeric="true" id="slide_bg_fitX" data-evt="updateslidebasic" class="slideinput easyinit withsuffix" type="text" data-r="bg.fitX">
 									</div>
 									<label_a><?php _e('Repeat', 'revslider');?></label_a><select data-theme="dark" id="slide_bg_repeat"  data-evt="updateslidebasic" class="slideinput tos2 nosearchbox easyinit"  data-r="bg.repeat">
 										<option value="no-repeat" selected="selected">no-repeat</option>
@@ -211,8 +209,12 @@ if ($wpml->wpml_exists()) {
 					<div class="slidebg_youtube_settings slidebg_vimeo_settings slidebg_html5_settings slide_bg_settings">
 						<div class="div10"></div>
 						<label_a><?php _e('Aspect Ratio', 'revslider');?></label_a><select data-theme="dark" id="slide_vid_aratio" class="slideinput tos2 nosearchbox easyinit"  data-r="bg.video.ratio"><option value="16:9">16:9</option><option value="4:3">4:3</option></select><span class="linebreak"></span>
-						<div id="slide_dotted_overlay">
-							<label_a><?php _e('Overlay', 'revslider');?></label_a><select data-evt="updateslidebasic" id="sl_vid_overlay" class="slideinput tos2 nosearchbox easyinit" data-r="bg.video.dottedOverlay" data-theme="dark"><option value="none" selected="selected"><?php _e('none', 'revslider');?></option><option value="twoxtwo"><?php _e('2 x 2 Black', 'revslider');?></option><option value="twoxtwowhite"><?php _e('2 x 2 White', 'revslider');?></option><option value="threexthree"><?php _e('3 x 3 Black', 'revslider');?></option><option value="threexthreewhite"><?php _e('3 x 3 White', 'revslider');?></option></select><span class="linebreak"></span>
+						<div id="slide_dotted_overlay">							
+							<!-- SLIDE VIDEO OVERLAY -->
+							<label_a><?php _e('Overlay', 'revslider');?></label_a><select data-evt="updateslidebasic" id="sl_vid_overlay" class="dottedoverlay slideinput tos2 nosearchbox easyinit callEvent" data-r="bg.video.dottedOverlay"></select>
+							<label_a><?php _e('Overlay Size', 'revslider');?></label_a><input data-numeric="true" data-allowed="none" data-min="0"  data-r="bg.video.dottedOverlaySize" data-evt="drawBGOverlay"  type="text"  class="slideinput valueduekeyboard  easyinit callEvent" placeholder="none" >
+							<label_a><?php _e('O. Color 1', 'revslider');?></label_a><input type="text" data-editing="Video Overlay Color 1" data-evt="updateslidebasic" name="slidebgoverlaycolor_a" id="slideoverlaybgcolor_a" class="my-color-field slideinput easyinit" data-visible="true" data-r="bg.video.dottedColorA" value="transparent">
+							<label_a><?php _e('O. Color 2', 'revslider');?></label_a><input type="text" data-editing="Video Overlay Color 2" data-evt="updateslidebasic" name="slidebgoverlaycolor_b" id="slideoverlaybgcolor_b" class="my-color-field slideinput easyinit" data-visible="true" data-r="bg.video.dottedColorB" value="transparent">
 						</div>
 						<!--<label_a><?php _e('Loop Mode', 'revslider');?></label_a><select data-theme="dark" id="slide_vid_loop" class="slideinput tos2 nosearchbox easyinit"  data-r="bg.video.loop">
 							<option value="none"><?php _e('Disable', 'revslider');?></option>
@@ -399,31 +401,244 @@ if ($wpml->wpml_exists()) {
 		<div id="form_slide_transition"  class="formcontainer form_menu_inside collapsed" data-select="#gst_slide_2" >
 			<!--<div class="collectortabwrap"><div id="collectortab_form_slide_transition" class="collectortab form_menu_inside" data-forms='["#form_slidebg_transition"]'><?php _e('Animation', 'revslider');?></div></div>			-->
 			<!--<div class="form_intoaccordion"><i class="material-icons">arrow_drop_down</i></div>-->
-			<!-- TRANSITION EXAMPLES -->
-			<div id="form_slidebg_transition" class="form_inner">
-				<div class="form_inner_header"><i class="material-icons">photo_filter</i><?php _e('Slide Animation', 'revslider');?></div>
-				<div class="collapsable" style="display:block">
 
-					<div id="active_transitions" class="saw_cells">
-						<label_full><?php _e('Active Transition Order', 'revslider');?></label_full>
-						<ul id="active_transitions_innerwrap"></ul>
-						<label_a></label_a><div class="autosize rightbutton basic_action_button callEventButton" data-evt="showhidetransitions"><i class="material-icons">add</i><?php _e('Add Transition', 'revslider');?></div>
+			<!--  SLIDE ANIMATION & PRESETS -->
+			<div id="form_slidebg_transition" class="form_inner">
+				<div class="form_inner_header"><i class="material-icons">photo_filter</i><?php _e('Transition Presets', 'revslider');?></div>
+				<div class="collapsable" style="display:block">	
+					<div id="active_transitions" class="saw_cells">						
+						<div id="active_transitions_innerwrap"></div>	
+						<longoption class="centered_longoption" id="sl_trans_favorit"><i class="material-icons">star</i><label_a><?php _e('Show Only Favorites', 'revslider');?></label_a><input type="checkbox" id="sl_trans_favorit_inp" class="easyinit slideinput callEvent" data-evt="updateSlideAnimationFavoits" data-r="slideChange.favorit"></longoption>
+						<div class="div20"></div>					
+						<div class="presets_liste" id="active_transitions_innerwrap_results"></div>						
 						<div class="tp-clearfix"></div>
 						<div id="transition_selector" style="display:none"></div>
+					</div>														
+				</div>
+			</div>
+			<!-- ADVANCED SETTINGS FOR ANIMATION -->
+			<div id="form_sanimation_sframes_advanced" class="form_inner open">
+				<div class="form_inner_header"><i class="material-icons">tune</i><?php _e('Advanced', 'revslider');?></div>
+				<div id="form_sanimation_sframes_innerwrap" class="collapsable">
+					<!-- LAYER FRAME TRANSFORM  -->
+					<div id="slide_maintranssettings_wrap" class="slide_transsettings_wrap">
+						<div id="slidebasic_ts_wrapbrtn" class="ts_wrapbrtn"><div data-showtrans="#slide_transsettings" data-frametarget="slide" class="transtarget_selector selected" ><?php _e('Timing', 'revslider');?></div></div><!--
+						--><div style="display:inline-block"><div id="slidein_ts_wrapbrtn" class="ts_wrapbrtn"><div data-showtrans="#slidein_transsettings" class="transtarget_selector" ><?php _e('In', 'revslider');?></div></div></div><!--
+						--><div style="display:inline-block"><div id="slideout_ts_wrapbrtn" class="ts_wrapbrtn"><div data-showtrans="#slideout_transsettings" class="transtarget_selector"><?php _e('Out', 'revslider');?></div></div></div><!--
+						--><div style="display:inline-block"><div id="slidefilter_ts_wrapbrtn" class="ts_wrapbrtn"><div data-showtrans="#slidefilter_transsettings" class="transtarget_selector"><?php _e('Filters', 'revslider');?></div></div></div><!--
+						--><div style="display:inline-block"><div id="slide3d_ts_wrapbrtn" class="ts_wrapbrtn"><div data-showtrans="#slide3d_transsettings" class="transtarget_selector"><?php _e('3D', 'revslider');?></div></div></div><!--						
+					--></div>
+					<div class="div20"></div>
+					<!-- SLIDE IN TRANSFORMATIONS -->
+					<div id="slide_transsettings" class="group_transsettings">
+						<div style="display:none"><label_a><?php _e('Effect', 'revslider');?></label_a><select id="sltrans_effect" data-showprio="hide" data-show="._ST_*val*_SHOW, ._ST_ALL" data-hide="._ST_*val*_HIDE" class="slideinput tos2 nosearchbox easyinit callEvent" data-evt="updateSlideAnimationView" data-r="slideChange.e" data-theme="dark">
+							<option value="none"><?php _e('None', 'revslider');?></option>
+							<option value="basic"><?php _e('Basic Transforms', 'revslider');?></option>								
+							<option value="slidingoverlay"><?php _e('Sliding Overlays', 'revslider');?></option>								
+							</select>
+						</div>
+						<div id="sltrans_all_globals">
+							<div id="slideframespeed_wrap"><label_a><?php _e('Duration', 'revslider');?></label_a><input id="sltrans_duration" class="callEvent withsuffix slideinput valueduekeyboard smallinput easyinit input_with_presets" data-suffix="ms" data-numeric="true" data-allowed="random,default,ms" data-presets_text="$C$1000ms!$I$Default!$R$Random" data-presets_val="1000!default!random!" data-evt="updateSlideTransitionTimeLine" data-r="slideChange.speed" data-steps="300" type="text"><div id="slideframespeed_sub"></div></div>
+							<div id="sltrans_pause">
+								<label_a><?php _e('Pause Between', 'revslider');?></label_a><select id="sltrans_breaking" class="slideinput tos2 nosearchbox easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom" data-r="slideChange.p" data-theme="dark">
+									<option value="none"><?php _e('No Pause', 'revslider');?></option>
+									<option value="dark"><?php _e('Pause with Dark Background', 'revslider');?></option>
+									<option value="light"><?php _e('Pause with Light Background', 'revslider');?></option>
+									<option value="transparent"><?php _e('Pause with Transparent BG', 'revslider');?></option>									
+								</select><span class="linebreak"></span>
+							</div>
+							<div id="sltrans_flow">
+								<label_a><?php _e('Flow', 'revslider');?></label_a><select id="sltrans_from" class="slideinput tos2 nosearchbox easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-showprio="hide" data-show="._STFD_ALL" data-hide="._STFD_*val*_HIDE" data-r="slideChange.f" data-theme="dark">
+									<option value="default"><?php _e('Default', 'revslider');?></option>
+									<option value="start"><?php _e('Forwards', 'revslider');?></option>
+									<option value="end"><?php _e('Backwards', 'revslider');?></option>
+									<option value="center"><?php _e('From Center', 'revslider');?></option>
+									<option value="edges"><?php _e('From Edges', 'revslider');?></option>
+									<option value="slidebased"><?php _e('Slide Direction Based', 'revslider');?></option>
+									<option value="oppslidebased"><?php _e('Mirror Slide Direction', 'revslider');?></option>
+									<option value="nodelay"><?php _e('No Delays', 'revslider');?></option>
+									<option value="random"><?php _e('Random', 'revslider');?></option>
+								</select><span class="linebreak"></span>
+								<div class="_STFD_nodelay_HIDE _STFD_ALL"><label_a><?php _e('Flow Speed', 'revslider');?></label_a><input id="sltrans_fromdelay" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-allowed="" data-evt="updateSlideTransitionTimeLine" data-numeric="true" data-r="slideChange.d" data-min="5" data-max="100"  type="text"></div>
+								<label_a><?php _e('Index Order', 'revslider');?></label_a><select id="sltrans_order" class="slideinput tos2 nosearchbox easyinit callEvent" data-evt="updateSlideAnimation"  data-evtparam="tocustom"  data-r="slideChange.o" data-theme="dark">
+									<option value="inout"><?php _e('Auto / Default', 'revslider');?></option>
+									<option value="forceinout"><?php _e('In Over Out', 'revslider');?></option>
+									<option value="outin"><?php _e('Out over In', 'revslider');?></option>
+								</select><span class="linebreak"></span>
+							</div>
+						</div>
+					</div>
+					<!-- SLIDE IN TRANSFORMATIONS -->
+					<div id="slidein_transsettings" class="group_transsettings" style="display:none">
+						<!-- TRANSFORM IN BASIC SETTINGS-->
+						<div id="sltrans_in_full_wrap">							
+							<row class="direktrow" id="sltrans_in_rowcol_wrap">
+								<onelong><label_a><?php _e('Cols', 'revslider');?></label_a><input id="sltrans_in_col" class="slideinput valueduekeyboard smallinput easyinit input_with_presets callEvent" data-evt="colrowslideanimchange" data-numeric="true" data-allowed="random,default" data-presets_text="$C$1!$C$2!$C$5!$C$10!$R$Random!$I$Default" data-presets_val="1!2!5!10!random!default!"  data-r="slideChange.in.col" data-evtparam="in.col" data-steps="0" data-min="1" data-max="500"  type="text"></onelong>
+								<oneshort><label_a style="overflow:visible"><?php _e('Rows', 'revslider');?></label_a><input id="sltrans_in_row" class="slideinput valueduekeyboard smallinput easyinit input_with_presets callEvent" data-evt="colrowslideanimchange" data-numeric="true" data-allowed="random,default" data-presets_text="$C$1!$C$2!$C$5!$C$10!$R$Random!$I$Default" data-presets_val="1!2!5!10!random!default!"  data-evtparam="in.row" data-r="slideChange.in.row" data-steps="1" data-min="0" data-max="500"  type="text"></oneshort>						
+							</row>
+							<div id="sltrans_in_ease_wrap"><label_a><?php _e('Ease', 'revslider');?></label_a><select id="sltrans_in_ease" class="slideinput tos2 nosearchbox easyinit easingSelect callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-r="slideChange.in.e" data-theme="dark"></select></div>
+							<row class="direktrow" id="sltrans_in_mamo_wrap">
+								<onelong id="sltrans_in_mask_wrap"><label_a><?php _e('Mask', 'revslider');?></label_a><input type="checkbox" class="easyinit slideinput callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-r="slideChange.in.m"></onelong>
+								<oneshort id="sltrans_in_motionswitch_wrap"><label_a style="overflow: visible;margin-left: -12px;margin-right: 22px;"><?php _e('Motion', 'revslider');?></label_a><input type="checkbox" data-change="sltrans_in_fade" data-changeto='0' data-changewhen="true" data-disable="#sltrans_in_opa_wrap" data-enable="#sltrans_in_motion_wrap" data-showhide="#sltrans_in_motion_overlay_wrap" data-showhidedep="true" data-disableenable="switch" class="easyinit slideinput callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-r="slideChange.in.mou"></oneshort>
+							</row>
+							<row class="direktrow" id="sltrans_in_xy_wrap">				
+								<onelong class="dyn_inp_wrap" id="sltrans_in_x_wrap"><label_icon class="ui_x"></label_icon><input id="sltrans_in_x" class="rsdyn_inp slideinput valueduekeyboard smallinput easyinit input_with_presets callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-numeric="true" data-allowed="%,random,cycle,dir" data-presets_text="<b>val</b> - Standard!<b>{min,max}</b> - Random!<b>[val|val|val]</b> - Cycles!<b>(val)</b> - Direction Based" data-presets_val="100%!{-20,20}![-50|50]!(100%)" data-r="slideChange.in.x" data-steps="1" data-min="-300" data-max="300" type="text"></onelong>
+								<oneshort class="dyn_inp_wrap" id="sltrans_in_y_wrap"><label_icon class="ui_y"></label_icon><input id="sltrans_in_y" class="rsdyn_inp slideinput valueduekeyboard smallinput easyinit input_with_presets callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-numeric="true" data-allowed="%,random,cycle,dir" data-presets_text="<b>val</b> - Standard!<b>{min,max}</b> - Random!<b>[val|val|val]</b> - Cycles!<b>(val)</b> - Direction Based" data-presets_val="100%!{-20,20}![-50|50]!(100%)" data-r="slideChange.in.y" data-steps="1" data-min="-300" data-max="300" type="text"></oneshort>						
+							</row>
+							<row class="direktrow"  id="sltrans_in_rzo_wrap">				
+								<onelong class="dyn_inp_wrap" id="sltrans_in_rota_wrap"><label_icon class="ui_rotatez"></label_icon><input id="sltrans_in_rotation" class="rsdyn_inp slideinput valueduekeyboard smallinput easyinit input_with_presets callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom" data-numeric="true" data-allowed="deg,random,cycle,dir" data-presets_text="<b>deg</b> - Standard!<b>{min,max}</b> - Random!<b>[val|val|val]</b> - Cycles!<b>(val)</b> - Direction Based" data-presets_val="45deg!{-20,20}![-50|50]!(45deg)" data-r="slideChange.in.r" data-steps="45" type="text"></onelong>
+								<oneshort id="sltrans_in_opa_wrap"><label_icon class="ui_opacity"></label_icon><input id="sltrans_in_fade" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-evt="updateSlideAnimation"   data-numeric="true" data-allowed="." data-r="slideChange.in.o" data-steps="0.1" data-min="-3" data-max="1" type="text"></oneshort>
+							</row>
+							<row class="direktrow" id="sltrans_in_sxsy_wrap">
+								<onelong class="dyn_inp_wrap" id="sltrans_in_sx_wrap"><label_icon class="ui_scalex"></label_icon><input id="sltrans_in_scalex" class="rsdyn_inp slideinput valueduekeyboard smallinput easyinit input_with_presets callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-numeric="true" data-allowed=".,random,cycle" data-presets_text="<b>val</b> - Standard!<b>{min,max}</b> - Random!<b>[val|val|val]</b> - Cycles" data-presets_val="1.5!{0,3}![0.3|1.5]" data-r="slideChange.in.sx" data-steps="0.1" data-min="0" data-max="500" type="text"></onelong>
+								<oneshort class="dyn_inp_wrap" id="sltrans_in_sy_wrap"><label_icon class="ui_scaley"></label_icon><input id="sltrans_in_scaley" class="rsdyn_inp slideinput valueduekeyboard smallinput easyinit input_with_presets callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-numeric="true" data-allowed=".,random,cycle" data-presets_text="<b>val</b> - Standard!<b>{min,max}</b> - Random!<b>[val|val|val]</b> - Cycles" data-presets_val="1.5!{0,3}![0.3|1.5]" data-r="slideChange.in.sy" data-steps="0.1" data-min="0" data-max="500" type="text"></oneshort>						
+							</row>
+							<row class="direktrow"  id="sltrans_in_motionand_wrap">				
+								<onelong class="dyn_inp_wrap" id="sltrans_in_motion_wrap"><i class="label_icon material-icons">blur_linear</i><input id="sltrans_filter_motion" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-numeric="true" data-allowed="px" data-min="0" data-max="100" data-r="slideChange.in.mo" type="text"></onelong>
+								<oneshort></oneshort>
+							</row>				
+							<row id="sltrans_in_motion_overlay_wrap"><label_a><?php _e('Overlay', 'revslider');?></label_a><select
+								id="sltrans_in_motion_overlay" class="slideinput tos2 nosearchbox easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-r="slideChange.in.moo" data-theme="dark">
+									<option value="none"><?php _e('None', 'revslider');?></option>
+									<option value="partial"><?php _e('Partial', 'revslider');?></option>
+									<option value="full"><?php _e('Full', 'revslider');?></option>
+								</select>
+							</row>
+							<div id="sltrans_in_extensions_wrap"></div>
+						</div>
+					</div>
+					<!-- SLIDE OUT TRANSFORMATIONS -->
+					<div id="slideout_transsettings" class="group_transsettings" style="display:none">
+						<div id="sltrans_out_full_wrap">							
+							<!-- TRANSFORM OUT BASIC SETTINGS -->																		
+							<longoption id="sltrans_in_auto_input_wrap"><label_a><?php _e('Use Auto Animation', 'revslider');?></label_a><input id="slidechangeouta" type="checkbox" class="easyinit slideinput callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-showhide="#sltrans_out_auto" data-showhidedep="false" data-r="slideChange.out.a"></longoption>
+							<div id="sltrans_out_auto">
+								<div class="div25"></div>
+								<row class="direktrow" id="sltrans_out_rowcol_wrap">
+									<onelong><label_a><?php _e('Cols', 'revslider');?></label_a><input id="sltrans_out_col" class="slideinput valueduekeyboard smallinput easyinit input_with_presets callEvent" data-evt="colrowslideanimchange" data-numeric="true" data-allowed="random,default" data-presets_text="$C$1!$C$2!$C$5!$C$10!$R$Random!$I$Default" data-presets_val="1!2!5!10!random!default!"  data-r="slideChange.out.col" data-evtparam="out.col" data-steps="0" data-min="1" data-max="500"  type="text"></onelong>
+									<oneshort><label_a style="overflow:visible"><?php _e('Rows', 'revslider');?></label_a><input id="sltrans_out_row" class="slideinput valueduekeyboard smallinput easyinit input_with_presets callEvent" data-evt="colrowslideanimchange" data-numeric="true" data-allowed="random,default" data-presets_text="$C$1!$C$2!$C$5!$C$10!$R$Random!$I$Default" data-presets_val="1!2!5!10!random!default!"  data-evtparam="out.row" data-r="slideChange.out.row" data-steps="1" data-min="0" data-max="500"  type="text"></oneshort>
+								</row>
+								<div id="sltrans_out_ease_wrap"><label_a><?php _e('Ease', 'revslider');?></label_a><select id="sltrans_out_ease" class="slideinput tos2 nosearchbox easyinit easingSelect callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-r="slideChange.out.e" data-theme="dark"></select></div>
+								<row class="direktrow">
+									<onelong id="sltrans_out_mask_wrap"><label_a><?php _e('Mask', 'revslider');?></label_a><input type="checkbox" class="rsdyn_inp easyinit slideinput callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-r="slideChange.out.m"></onelong>
+									<oneshort></oneshort>
+								</row>							
+								<row class="direktrow"  id="sltrans_out_xy_wrap">				
+									<onelong class="dyn_inp_wrap" id="sltrans_out_x_wrap"><label_icon class="ui_x"></label_icon><input id="sltrans_out_x" class="rsdyn_inp slideinput valueduekeyboard smallinput easyinit input_with_presets callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-numeric="true" data-allowed="%,random,cycle,dir" data-presets_text="<b>val</b> - Standard!<b>{min,max}</b> - Random!<b>[val|val|val]</b> - Cycles!<b>(val)</b> - Direction Based" data-presets_val="100%!{-20,20}![-50|50]!(100%)" data-r="slideChange.out.x" data-steps="1" data-min="-300" data-max="300" type="text"></onelong>
+									<oneshort class="dyn_inp_wrap" id="sltrans_out_y_wrap"><label_icon class="ui_y"></label_icon><input id="sltrans_out_y" class="rsdyn_inp slideinput valueduekeyboard smallinput easyinit input_with_presets callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-numeric="true" data-allowed="%,random,cycle,dir" data-presets_text="<b>val</b> - Standard!<b>{min,max}</b> - Random!<b>[val|val|val]</b> - Cycles!<b>(val)</b> - Direction Based" data-presets_val="100%!{-20,20}![-50|50]!(100%)" data-r="slideChange.out.y" data-steps="1" data-min="-300" data-max="300" type="text"></oneshort>						
+								</row>
+								<row class="direktrow"  id="sltrans_out_rzo_wrap">				
+									<onelong class="dyn_inp_wrap" id="sltrans_out_rota_wrap"><label_icon class="ui_rotatez"></label_icon><input id="sltrans_out_rotation" class="rsdyn_inp slideinput valueduekeyboard smallinput easyinit input_with_presets callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-numeric="true" data-allowed="deg,random,cycle,dir" data-presets_text="<b>deg</b> - Standard!<b>{min,max}</b> - Random!<b>[val|val|val]</b> - Cycles!<b>(val)</b> - Direction Based" data-presets_val="45deg!{-20,20}![-50|50]!(45deg)" data-r="slideChange.out.r" data-steps="45" type="text"></onelong>
+									<oneshort id="sltrans_out_opa_wrap"><label_icon class="ui_opacity"></label_icon><input id="sltrans_out_fade" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-numeric="true" data-allowed="." data-r="slideChange.out.o" data-steps="0.1" data-min="-3" data-max="1" type="text"></oneshort>
+								</row>
+								<row class="direktrow" id="sltrans_out_sxsy_wrap">
+									<onelong class="dyn_inp_wrap" id="sltrans_out_sx_wrap"><label_icon class="ui_scalex"></label_icon><input id="sltrans_out_scalex" class="rsdyn_inp slideinput valueduekeyboard smallinput easyinit input_with_presets callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-numeric="true" data-allowed=".,random,cycle" data-presets_text="<b>val</b> - Standard!<b>{min,max}</b> - Random!<b>[val|val|val]</b> - Cycles" data-presets_val="1.5!{0,3}![0.3|1.5]"  data-r="slideChange.out.sx" data-steps="0.1" data-min="0" data-max="500" type="text"></onelong>
+									<oneshort class="dyn_inp_wrap" id="sltrans_out_sy_wrap"><label_icon class="ui_scaley"></label_icon><input id="sltrans_out_scaley" class="rsdyn_inp slideinput valueduekeyboard smallinput easyinit input_with_presets callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-numeric="true" data-allowed=".,random,cycle" data-presets_text="<b>val</b> - Standard!<b>{min,max}</b> - Random!<b>[val|val|val]</b> - Cycles" data-presets_val="1.5!{0,3}![0.3|1.5]"  data-r="slideChange.out.sy" data-steps="0.1" data-min="0" data-max="500" type="text"></oneshort>						
+								</row>
+								<div id="sltrans_in_extensions_wrap">
+								</div>							
+							</div>								
+						</div>
+					</div>
+					<!-- SLIDE FILTER TRANSFORMATIONS -->
+					<div id="slidefilter_transsettings" class="group_transsettings" style="display:none">
+						<div id="sltrans_filters_wrap">
+							<div id="sltrans_in_filters_wrap">								
+								<longoption id="sltrans_filter_input_wrap"><label_a><?php _e('Use Filter Effects', 'revslider');?></label_a><input id="slidechangefilteru" type="checkbox" class="easyinit slideinput callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-showhide="#sltrans_filter_sets" data-showhidedep="true" data-r="slideChange.filter.u"></longoption>						
+								<div id="sltrans_filter_sets">
+									<div class="div25"></div>
+									<label_a><?php _e('Ease', 'revslider');?></label_a><select id="sltrans_filter_ease" class="slideinput tos2 nosearchbox easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-r="slideChange.filter.e" data-theme="dark">
+										<option value="default"><?php _e('Default', 'revslider');?></option>
+										<option value="late"><?php _e('Small Delay', 'revslider');?></option>
+										<option value="late2"><?php _e('Middle Delay', 'revslider');?></option>
+										<option value="late3"><?php _e('Large Delay', 'revslider');?></option>								
+									</select><span class="linebreak"></span>												
+									<row class="direktrow">
+										<onelong><label_icon class="ui_blur"></label_icon><input id="slidechangefilterb" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-numeric="true" data-allowed="px" data-min="0" data-max="100" data-r="slideChange.filter.b" type="text"></onelong>
+										<oneshort><i class="label_icon material-icons inshort">filter_vintage</i><input id="slidechangefilters" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-numeric="true" data-allowed="%,px" data-min="0" data-max="100" data-r="slideChange.filter.s" type="text"></oneshort>
+									</row>
+									<row class="direktrow">
+										<onelong><label_icon class="ui_grayscale"></label_icon><input id="slidechangefilterg" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-numeric="true" data-allowed="%" data-min="0" data-max="100" data-r="slideChange.filter.g" type="text"></onelong>
+										<oneshort><label_icon class="ui_brightness"></label_icon><input id="slidechangefilterh" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom" data-numeric="true" data-allowed="%" data-min="0" data-max="10000" data-r="slideChange.filter.h" type="text"></oneshort>
+									</row>
+									<row class="direktrow">
+										<onelong><i class="label_icon material-icons">photo_filter</i><input id="slidechangefilterc" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom" data-numeric="true" data-allowed="%,px" data-min="0" data-max="100" data-r="slideChange.filter.c" type="text"></onelong>
+										<oneshort><i class="label_icon material-icons inshort">invert_colors</i><input id="slidechangefilteri" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom" data-numeric="true" data-allowed="%,px" data-min="0" data-max="100" data-r="slideChange.filter.i" type="text"></oneshort>
+									</row>								
+								</div>									
+							</div>				
+						</div>
+					</div>
+					<!-- SLIDE 3D TRANSFORMATIONS -->
+					<div id="slide3d_transsettings" class="group_transsettings" style="display:none">
+						<div id="sltrans_3d_wrap">
+							<div id="sltrans_in_3d_wrap">																
+								<div id="sltrans_3d_sets">
+									<div class="div25"></div>
+									<label_a><?php _e('3D Effect', 'revslider');?></label_a><select id="sltrans_3d_effect" class="slideinput tos2 nosearchbox easyinit callEvent" data-showprio="show" data-show="._3DST_*val*_SHOW" data-hide="._3DST_ALL"  data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-r="slideChange.d3.f" data-theme="dark">
+										<option value="none"><?php _e('None', 'revslider');?></option>
+										<option value="cube"><?php _e('Cube', 'revslider');?></option>
+										<option value="incube"><?php _e('In Cube', 'revslider');?></option>
+										<option value="fly"><?php _e('Fly Out Throw In', 'revslider');?></option>								
+										<option value="turn"><?php _e('Clap Out Clap In', 'revslider');?></option>								
+									</select><span class="linebreak"></span>
+									<label_a><?php _e('Direction', 'revslider');?></label_a><select id="sltrans_3d_dir" class="slideinput tos2 nosearchbox easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-r="slideChange.d3.d" data-theme="dark">
+										<option value="horizontal"><?php _e('Horizontal', 'revslider');?></option>
+										<option value="vertical"><?php _e('Vertical', 'revslider');?></option>										
+									</select><span class="linebreak"></span>
+									<label_a><?php _e('Ease', 'revslider');?></label_a><select id="sltrans_3d_ease" class="slideinput tos2 nosearchbox easyinit easingSelect callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-r="slideChange.d3.e" data-theme="dark"></select>
+									<div class="_3DST_cube_SHOW _3DST_incube_SHOW _3DST_ALL">
+										<div class="div25"></div>
+										<label_a><?php _e('Side Color', 'revslider');?></label_a><input type="text" data-evt="updateSlideAnimation" data-evtparam="tocustom" data-editing="<?php _e('Background Wall Color', 'revslider');?>" name="slide_wall_bg_color" id="s_wall_bg_color" data-visible="true" class="my-color-field slideinput easyinit" data-r="slideChange.d3.c" data-mode="single">
+									</div>
+									<div class="_3DST_cube_SHOW _3DST_incube_SHOW _3DST_ALL _3DST_fly_SHOW">
+										<div class="div25"></div>
+										<label_a><?php _e('Z Distance', 'revslider');?></label_a><input id="slidechangedddz" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom" data-numeric="true" data-allowed="" data-min="0" data-max="1000" data-r="slideChange.d3.z" type="text">
+										<label_a><?php _e('Room Rotation', 'revslider');?></label_a><input id="slidechangedddroom" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom" data-numeric="true" data-allowed="" data-min="-180" data-max="180" data-r="slideChange.d3.t" type="text">										
+									</div>									
+									<div class="_3DST_ALL _3DST_fly_SHOW">
+										<div class="div25"></div>
+										<label_a><?php _e('Z Rotation', 'revslider');?></label_a><input id="sltrans_3d_fdz" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom" data-numeric="true" data-allowed="" data-min="-180" data-max="180" data-r="slideChange.d3.fz" type="text">
+										<label_a><?php _e('Distance In', 'revslider');?></label_a><select id="sltrans_3d_fdi" class="slideinput tos2 nosearchbox easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-r="slideChange.d3.fdi" data-theme="dark">
+											<option value="0.5"><?php _e('0.5', 'revslider');?></option>
+											<option value="0.75"><?php _e('0.75', 'revslider');?></option>
+											<option value="1"><?php _e('1', 'revslider');?></option>
+											<option value="1.25"><?php _e('1.25', 'revslider');?></option>
+											<option value="1.5"><?php _e('1.5', 'revslider');?></option>
+											<option value="2"><?php _e('2', 'revslider');?></option>
+										</select><span class="linebreak"></span>
+										<label_a><?php _e('Distance Out', 'revslider');?></label_a><select id="sltrans_3d_fdo" class="slideinput tos2 nosearchbox easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-r="slideChange.d3.fdo" data-theme="dark">
+											<option value="0.5"><?php _e('0.5', 'revslider');?></option>
+											<option value="0.75"><?php _e('0.75', 'revslider');?></option>
+											<option value="1"><?php _e('1', 'revslider');?></option>
+											<option value="1.25"><?php _e('1.25', 'revslider');?></option>
+											<option value="1.5"><?php _e('1.5', 'revslider');?></option>
+											<option value="2"><?php _e('2', 'revslider');?></option>
+										</select><span class="linebreak"></span>
+									</div>
+									<div class="div25"></div>
+									<label_a><?php _e('Shadow Effect', 'revslider');?></label_a><input id="sl_ddd_shadow_u" type="checkbox" class="easyinit slideinput callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-showhide="#3dcubeshadow" data-showhidedep="true" data-r="slideChange.d3.su">
+									<div id="3dcubeshadow">
+										<label_a><?php _e('Min. Strength', 'revslider');?></label_a><input id="sl_ddd_shadow_min" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom" data-numeric="true" data-allowed="" data-min="0" data-max="0.5" data-r="slideChange.d3.smi" type="text">
+										<label_a><?php _e('Max. Strength', 'revslider');?></label_a><input id="sl_ddd_shadow_max" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom" data-numeric="true" data-allowed="" data-min="0.5" data-max="1" data-r="slideChange.d3.sma" type="text">
+										<label_a><?php _e('Limit at', 'revslider');?></label_a><input id="sl_ddd_shadow_limit" class="slideinput valueduekeyboard smallinput easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom" data-numeric="true" data-allowed="" data-min="0.2" data-max="1" data-r="slideChange.d3.sl" type="text">
+										<label_a><?php _e('Shadow Color', 'revslider');?></label_a><input id="slide_shadow_color" type="text" data-evt="updateSlideAnimation" data-evtparam="tocustom" data-editing="<?php _e('Shadow Color', 'revslider');?>" name="slide_shadow_color"  data-visible="true" class="my-color-field slideinput easyinit" data-r="slideChange.d3.sc" data-mode="single">
+									</div>
+								</div>									
+							</div>				
+						</div>
 					</div>
 				</div>
 			</div>
-			<div id="form_slidebg_transition_settings" class="form_inner">
-				<div class="form_inner_header"><i class="material-icons">build</i><span id="cur_transition_sub_settings"><?php _e('Fade Settings', 'revslider');?></span></div>
-				<div class="collapsable" style="display:block">
-					<div id="active_transitions_settings" class="saw_cells">
-						<label_icon class="ui_duration singlerow"></label_icon><input id="sl_trans_duration" class="withsuffix slideinput valueduekeyboard smallinput easyinit input_with_presets" data-suffix="ms" data-numeric="true" data-allowed="random,default,ms" data-presets_text="$C$1000ms!$I$Default!$R$Random" data-presets_val="1000!default!random!" data-evt="updateSlideTransitionTimeLine" data-r="timeline.duration.#curslidetrans#" data-steps="300" type="text"><span class="linebreak"></span>
-						<label_icon class="ui_easing_in singlerow"></label_icon><select id="sl_trans_appear_ease" class="slideinput tos2 nosearchbox easyinit easingSelect" data-r="timeline.easeIn.#curslidetrans#" data-theme="dark"></select><span class="linebreak"></span>
-						<label_icon class="ui_easing_out singlerow"></label_icon><select id="sl_trans_disappear_ease" class="slideinput tos2 nosearchbox easyinit easingSelect" data-r="timeline.easeOut.#curslidetrans#" data-theme="dark"></select><span class="linebreak"></span>
-						<label_icon class="ui_slotamount singlerow"></label_icon><input id="sl_tr_box_amount" class="slideinput valueduekeyboard smallinput easyinit input_with_presets" data-numeric="true" data-allowed="random,default" data-presets_text="$C$1!$C$2!$C$5!$C$10!$I$Default!$R$Random" data-presets_val="1!2!5!10!default!random!"  data-r="timeline.slots.#curslidetrans#" data-steps="1" data-min="1" data-max="500" type="text"><span class="linebreak"></span>
-						<label_icon class="ui_slotrotation singlerow"></label_icon><input id="sl_trans_slot_rotation" class="slideinput valueduekeyboard smallinput easyinit input_with_presets" data-numeric="true" data-allowed="random,default" data-presets_text="$C$0!$C$45!$C$90!$C$180!$I$Default!$R$Random" data-presets_val="0!45!90!180!default!random!"  data-r="timeline.rotation.#curslidetrans#" data-steps="45" type="text"><span class="linebreak"></span>						
+			<!-- ADVANCED SETTINGS FOR ANIMATION -->
+			<div id="form_sanimation_sframes_alternates" class="form_inner open">
+				<div class="form_inner_header"><i class="material-icons">slow_motion_video</i><?php _e('Alternated Transitions', 'revslider');?></div>
+				<div id="form_sanimation_sfalternates_innerwrap" class="collapsable">
+					<div id="sanimation_sfalternates">
 					</div>
-				</div><!-- END OF COLLAPSABLE -->
+					<div class="autosize rightbutton basic_action_button callEventButton" data-evt="addslidetransition"><i class="material-icons">add</i>Add Transition</div>
+					<div class="div25"></div>
+				</div>
 			</div>
 		</div>
 	</div>

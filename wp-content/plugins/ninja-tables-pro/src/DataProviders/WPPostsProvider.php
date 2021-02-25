@@ -26,6 +26,7 @@ class WPPostsProvider
         if(!current_user_can(ninja_table_admin_role())) {
             return;
         }
+	    ninjaTablesValidateNonce();
         $messages = array();
         if (!($tableId = $_REQUEST['tableId'])) {
             // Validate Title
@@ -242,6 +243,7 @@ class WPPostsProvider
 
     public function getTableDataOptions()
     {
+	    ninjaTablesValidateNonce();
         wp_send_json_success([
             'custom_fields' => $this->getPostDynamicColumnAtrributes()
         ]);

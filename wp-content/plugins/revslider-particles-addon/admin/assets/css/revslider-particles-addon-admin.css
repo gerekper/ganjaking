@@ -18,6 +18,7 @@
 
 }
 
+.particles-icon:before { display: none!important }
 .particles-icon svg { width: 20px; height: 20px; }
 
 .particles-icon.selected {	

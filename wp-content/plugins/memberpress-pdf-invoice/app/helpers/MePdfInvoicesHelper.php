@@ -62,6 +62,14 @@ class MePdfInvoicesHelper {
         'default'     => '{$invoice_num}',
         'validations' => array(),
       ),
+      'biz_invoice_format'            => array(
+        'default'     => '{$invoice_num}',
+        'validations' => array(),
+      ),
+      'inv_starting_number'                => array(
+        'default'     => '',
+        'validations' => array(),
+      ),
       'biz_invoice_color'                => array(
         'default'     => '#3993d1',
         'validations' => array(),

@@ -33,21 +33,10 @@ class UserClient {
 	 * @return bool|object
 	 */
 	public function get_user_data() {
-		$cached_data = get_transient( 'wp_rocket_customer_data' );
-
-		if ( false !== $cached_data ) {
-			return $cached_data;
-		}
-
-		$data = $this->get_raw_user_data();
-
-		if ( false === $data ) {
-			return false;
-		}
-
-		set_transient( 'wp_rocket_customer_data', $data, DAY_IN_SECONDS );
-
-		return $data;
+		return (object) [
+			'licence_account'    => '-1',
+			'licence_expiration' => 1893456000,
+		];
 	}
 
 	/**

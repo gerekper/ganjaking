@@ -10,7 +10,7 @@
  *
  * @param {jQuery} $ The jQuery instance.
  */
-/* global ajaxurl */
+/* global ajaxurl, JSON */
 jQuery(function( $ ) {
 
 	'use strict';
@@ -179,14 +179,14 @@ jQuery(function( $ ) {
 						}
 					});
 
-					self.$modalForm.find( '.actions .cancel' ).click(function( event ) {
+					self.$modalForm.find( '.actions .cancel' ).on( 'click', function( event ) {
 						event.preventDefault();
 						self.$modal.dialog( 'close' );
 
 						return false;
 					});
 
-					self.$modalForm.find( '.actions .delete' ).click(function( event ) {
+					self.$modalForm.find( '.actions .delete' ).on( 'click', function( event ) {
 						event.preventDefault();
 						if ( window.confirm( self.options.modalTexts['delete'] ) ) {
 							if ( self.currentEvent ) {
@@ -202,7 +202,7 @@ jQuery(function( $ ) {
 		_bindEvents : function() {
 			var self = this;
 
-			this.$modalForm.submit(function( event ) {
+			this.$modalForm.on( 'submit', function( event ) {
 				var eventData;
 
 				event.preventDefault();
@@ -382,7 +382,7 @@ jQuery(function( $ ) {
 		$.WC_OD_Calendar.apply( this, arguments );
 
 		this.options = $.extend( {}, defaults, this.options );
-		this.options.countryStates = $.parseJSON( this.options.countryStates );
+		this.options.countryStates = JSON.parse( this.options.countryStates );
 	};
 
 	$.WC_OD_Delivery_Calendar.prototype = $.extend( {}, $.WC_OD_Calendar.prototype, {

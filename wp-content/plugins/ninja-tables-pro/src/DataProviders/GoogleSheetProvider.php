@@ -36,7 +36,7 @@ class GoogleSheetProvider
             $xpath = new \DomXPath($dom);
 
             $columns = [];
-            $firstRow = $xpath->query('//table//tbody//tr')[0];
+            $firstRow = $xpath->query('//table//tbody//tr')->item(0);
             if ($firstRow) {
                 foreach ($firstRow->getElementsByTagName('td') as $index => $node) {
                     $headerName = trim($node->nodeValue);
@@ -95,7 +95,7 @@ class GoogleSheetProvider
             $columns = [];
             $allRows = $xpath->query('//table//tbody//tr');
 
-            $firstRow = $allRows[0];
+            $firstRow = $allRows->item(0);
             if ($firstRow) {
                 foreach ($firstRow->getElementsByTagName('td') as $index => $node) {
                     $headerName = trim($node->nodeValue);
@@ -145,7 +145,7 @@ class GoogleSheetProvider
                 } else {
                     $innerHTML = $td->nodeValue;
                 }
-                if(!$innerHTML) {
+                if ($innerHTML != '0' && !$innerHTML) {
                     $innerHTML = ''; // adding empty string
                 }
                 $newRow[] = $innerHTML;

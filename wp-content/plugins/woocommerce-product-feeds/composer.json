@@ -23,6 +23,7 @@
             "./src/common/woocommerce-product-feeds-expanded-structured-data.php",
             "./src/common/woocommerce-product-feeds-expanded-structured-data-cache-invalidator.php",
             "./src/common/woocommerce-product-feeds-feed-image-manager.php",
+            "./src/common/woocommerce-product-feeds-field-options.php",
             "./src/common/woocommerce-product-feeds-integration-manager.php",
             "./src/common/woocommerce-product-feeds-term-depth-repository.php",
 
@@ -55,11 +56,13 @@
             "./src/prf/woocommerce-prf-google-review-feed.php",
             "./src/prf/woocommerce-prf-google-review-product-info.php",
 
+            "./src/integrations/pwbe-woocommerce-gpf.php",
             "./src/integrations/woocommerce-cost-of-goods.php",
             "./src/integrations/woocommerce-gpf-currency-switcher-for-woocommerce.php",
             "./src/integrations/woocommerce-gpf-multicurrency.php",
             "./src/integrations/woocommerce-gpf-price-by-country.php",
             "./src/integrations/woocommerce-gpf-product-brands-for-woocommerce.php",
+            "./src/integrations/woocommerce-gpf-pw-bulk-edit.php",
             "./src/integrations/woocommerce-gpf-the-content-protection.php",
             "./src/integrations/woocommerce-gpf-woocommerce-composite-products.php",
             "./src/integrations/woocommerce-gpf-woocommerce-min-max-quantity-step-control-single.php",

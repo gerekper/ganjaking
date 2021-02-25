@@ -88,7 +88,7 @@ class WC_Dropshipping_Product {
 
 
 	public function wc_new_supplier_column( $columns ) {
-	    $columns['supplier'] = 'Dropship Supplier';
+	    $columns['supplier'] = 'Dropshipping Supplier';
 	    return $columns;
 	}
 
@@ -175,7 +175,7 @@ class WC_Dropshipping_Product {
 	}
 
 	public function dropship_supplier_meta_box() {
-		 add_meta_box( 'dropship_supplier', 'Drop Ship Supplier',array($this,'dropship_supplier_metabox'),'product' ,'side','core');
+		 add_meta_box( 'dropship_supplier', 'Dropshipping Supplier',array($this,'dropship_supplier_metabox'),'product' ,'side','core');
 	}
 
 	public function dropship_supplier_metabox( $post ) {
@@ -194,7 +194,7 @@ class WC_Dropshipping_Product {
 		echo '<div id="taxonomy-'.$taxonomy.'" class="categorydiv">
 			<!-- Display tabs-->
 			<ul id="'.$taxonomy.'-tabs" class="category-tabs">
-				<li class="tabs"><a href="#'.$taxonomy.'-all" tabindex="3">Select a Drop Shipping Supplier</a></li>
+				<li class="tabs"><a href="#'.$taxonomy.'-all" tabindex="3">Select a Dropshipping Supplier</a></li>
 			</ul>
 			<!-- Display taxonomy terms -->
 			<div id="'.$taxonomy.'-all" class="tabs-panel">

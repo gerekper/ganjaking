@@ -177,7 +177,7 @@ class Ajax {
 			}
 
 			// Skip premium features if not a member.
-			if ( ! in_array( $name, Settings::$basic_features, true ) && ! WP_Smush::is_pro() ) {
+			if ( ! in_array( $name, Settings::$basic_features, true ) && 'usage' !== $name && ! WP_Smush::is_pro() ) {
 				continue;
 			}
 
@@ -874,8 +874,11 @@ class Ajax {
 			);
 		}
 
+		// Allow downloading the file from S3 all throughout the process.
+		do_action( 'smush_s3_integration_fetch_file' );
+
 		// Get the file path for backup.
-		$attachment_file_path = Helper::get_attached_file( $attachment_id );
+		$attachment_file_path = get_attached_file( $attachment_id );
 
 		Helper::check_animated_status( $attachment_file_path, $attachment_id );
 
@@ -1135,7 +1138,7 @@ class Ajax {
 
 		wp_send_json_success(
 			array(
-				'is_configured' => WP_Smush::get_instance()->core()->mod->webp->is_configured( true ) ? '1' : '0',
+				'is_configured' => true === WP_Smush::get_instance()->core()->mod->webp->is_configured( true ) ? '1' : '0',
 			)
 		);
 	}

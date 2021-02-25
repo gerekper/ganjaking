@@ -258,7 +258,7 @@ function wc_memberships_profile_field_form_field( \SkyVerge\WooCommerce\Membersh
 
 		// show a empty placeholder to force the user to select a value
 		if ( empty( $field_args['default'] ) || ( $value && ! isset( $field_args['options'][ $value ] ) ) ) {
-			$field_args['options'] = array_merge( [ '' => '' ], $field_args['options'] );
+			$field_args['options'] = [ '' => '' ] + $field_args['options'];
 		}
 
 		$field = woocommerce_form_field( $field_key, array_merge( $field_args, [ 'return' => true ] ), $value );

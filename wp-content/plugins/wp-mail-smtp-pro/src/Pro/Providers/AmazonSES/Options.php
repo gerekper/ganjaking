@@ -32,7 +32,7 @@ class Options extends OptionsAbstract {
 				'logo_url'    => wp_mail_smtp()->assets_url . '/images/providers/aws.svg',
 				'slug'        => self::SLUG,
 				'title'       => esc_html__( 'Amazon SES', 'wp-mail-smtp-pro' ),
-				'description' => esc_html__( 'Send emails using your Amazon AWS account and its SES service, all while keeping your login credentials safe.', 'wp-mail-smtp-pro' ) . '<br><br>' .
+				'description' => wp_kses( __( 'Send emails using your <b>Amazon AWS</b> account and its <b>SES</b> service, all while keeping your login credentials safe.', 'wp-mail-smtp-pro' ), [ 'b' => [] ] ) . '<br><br>' .
 				                 // phpcs:disable
 				                 sprintf(
 					                 wp_kses( /* translators: %s - WPMailSMTP.com URL. */
@@ -49,9 +49,21 @@ class Options extends OptionsAbstract {
 				                 ),
 								// phpcs:enable
 				'notices'     => array(
-					'educational' => esc_html__( 'The Amazon SES mailer will be a good choice for technically advanced users who already have experience working with Amazon\'s web services. If you aren\'t sure whether this mailer sounds like the right fit for your site, then we recommend considering one of our other mailer options.', 'wp-mail-smtp-pro' ),
+					'educational' => wp_kses(
+						__( 'The Amazon SES mailer will be a good choice for technically advanced users who already have experience working with Amazon\'s web services.<br><br>If you aren\'t sure whether this mailer sounds like the right fit for your site, then we recommend considering one of our other mailer options.', 'wp-mail-smtp-pro' ),
+						[
+							'br' => [],
+						]
+					),
 				),
 				'php'         => '5.6',
+				'supports'    => [
+					'from_email'       => true,
+					'from_name'        => true,
+					'return_path'      => false,
+					'from_email_force' => true,
+					'from_name_force'  => true,
+				],
 			)
 		);
 	}

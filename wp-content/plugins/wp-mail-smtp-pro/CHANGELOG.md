@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.6.0] - 2021-02-02
+### Added:
+- New plugin Setup Wizard.
+- One click plugin upgrade (Lite to Pro).
+- New Amazon SES regions: North California, Paris, Stockholm.
+- Ability to clear error notices in multisite setups with plugin options editable network-wide.
+- SendGrid Invalid API key error message and mitigation steps on the Email Test page.
+
+### Fixed:
+- Plugin settings overwriting checkboxes with default values when network-wide option is enabled on Multisite installation.
+- Unused Return Path option removed for the Amazon SES mailer.
+- Zoho mailer error when "reply-to" header was set to the Zoho authorized email address.
+- Outlook mailer not sending emails with custom email headers missing prepended 'X-'.
+- Email Log: Save correct sent date/time (UTC).
+- License type text displayed in plugin settings.
+- PHP fatal error on undefined Pro mailer object when switching to Lite version.
+- PHP warning in Sendinblue email sent verification task.
+- PHP 8 support.
+
 ## [2.5.3] - 2020-11-23
 ### Fixed:
 - Other SMTP password decryption on network-wide enabled WPMS subsites.

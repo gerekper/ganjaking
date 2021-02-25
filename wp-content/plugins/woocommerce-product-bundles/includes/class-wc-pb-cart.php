@@ -995,7 +995,7 @@ class WC_PB_Cart {
 	 * @param  array  $cart_item_data
 	 * @return boolean
 	 */
-	private function bundled_add_to_cart( $bundle_id, $product, $quantity = 1, $variation_id = '', $variation = '', $cart_item_data ) {
+	private function bundled_add_to_cart( $bundle_id, $product, $quantity = 1, $variation_id = '', $variation = array(), $cart_item_data = array() ) {
 
 		if ( $quantity <= 0 ) {
 			return false;

@@ -232,7 +232,7 @@ class Revslider_Weather_Addon_Public extends RevSliderFunctions {
 				
 				/**
 				 * Shift day ahead if day 0 is not current day
-				 * @since    2.0.1
+				 * @since    2.0.2
 				 */
 				if( date_i18n( get_option( 'date_format' ), $revslider_weather->data[0]->ts ) != date_i18n( get_option( 'date_format' ), time() ) ){
 					$day++;

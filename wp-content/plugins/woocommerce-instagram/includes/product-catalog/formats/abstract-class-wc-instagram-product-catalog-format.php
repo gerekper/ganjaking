@@ -296,22 +296,38 @@ abstract class WC_Instagram_Product_Catalog_Format {
 				$value = ( $product_item->get_google_product_category() ? $product_item->get_google_product_category() : $product_catalog->get_google_product_category() );
 				break;
 			case 'description':
-				$value = '';
+				$value    = '';
+				$alt_prop = 'short_description';
 
 				if ( $product_item instanceof WC_Instagram_Product_Catalog_Item_Variation ) {
 					$desc_field = $product_catalog->get_variation_description_field();
 
 					if ( 0 === strpos( $desc_field, 'parent_' ) ) {
 						$parent = $product_item->get_parent();
-						$value  = ( 'parent_description' === $desc_field ? $parent->get_description() : $parent->get_short_description() );
+
+						if ( $parent ) {
+							$value = ( 'parent_description' === $desc_field ? $parent->get_description() : $parent->get_short_description() );
+
+							// Fallback to the alternative parent description.
+							if ( ! $value ) {
+								$value = ( 'parent_description' === $desc_field ? $parent->get_short_description() : $parent->get_description() );
+							}
+						}
 					}
-				} elseif ( 'short_description' === $product_catalog->get_description_field() ) {
-					$value = $product->get_short_description();
+
+					// Use the variation description.
+					if ( ! $value ) {
+						$value = $product_item->get_description();
+					}
+				} else {
+					$desc_field = $product_catalog->get_description_field();
+					$value      = $product_item->get_prop( $desc_field );
+					$alt_prop   = ( 'description' === $desc_field ? 'short_description' : 'description' );
 				}
 
-				// Use the 'description' field as a fallback.
+				// Use alternative property as a fallback.
 				if ( ! $value ) {
-					$value = $product_item->get_prop( $prop );
+					$value = $product_item->get_prop( $alt_prop );
 				}
 
 				// Strip HTML tags.

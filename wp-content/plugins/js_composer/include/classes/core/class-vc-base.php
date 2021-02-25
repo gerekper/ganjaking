@@ -437,7 +437,7 @@ class Vc_Base {
 	 * @access public
 	 */
 	public function frontCss() {
-		wp_register_style( 'flexslider', vc_asset_url( 'lib/bower/flexslider/flexslider.min.css' ), array(), WPB_VC_VERSION );
+		wp_register_style( 'flexslider', vc_asset_url( 'lib/flexslider/flexslider.min.css' ), array(), WPB_VC_VERSION );
 		wp_register_style( 'nivo-slider-css', vc_asset_url( 'lib/bower/nivoslider/nivo-slider.min.css' ), array(), WPB_VC_VERSION );
 		wp_register_style( 'nivo-slider-theme', vc_asset_url( 'lib/bower/nivoslider/themes/default/default.min.css' ), array( 'nivo-slider-css' ), WPB_VC_VERSION );
 		wp_register_style( 'prettyphoto', vc_asset_url( 'lib/prettyphoto/css/prettyPhoto.min.css' ), array(), WPB_VC_VERSION );
@@ -445,7 +445,7 @@ class Vc_Base {
 		wp_register_style( 'vc_font_awesome_5_shims', vc_asset_url( 'lib/bower/font-awesome/css/v4-shims.min.css' ), array(), WPB_VC_VERSION );
 		wp_register_style( 'vc_font_awesome_5', vc_asset_url( 'lib/bower/font-awesome/css/all.min.css' ), array( 'vc_font_awesome_5_shims' ), WPB_VC_VERSION );
 		wp_register_style( 'vc_animate-css', vc_asset_url( 'lib/bower/animate-css/animate.min.css' ), array(), WPB_VC_VERSION );
-
+		wp_register_style( 'lightbox2', vc_asset_url( 'lib/bower/lightbox2/dist/css/lightbox.min.css' ), array(), WPB_VC_VERSION );
 		$front_css_file = vc_asset_url( 'css/js_composer.min.css' );
 		$upload_dir = wp_upload_dir();
 		$vc_upload_dir = vc_upload_dir();
@@ -494,6 +494,7 @@ class Vc_Base {
 	 */
 	public function frontJsRegister() {
 		wp_register_script( 'prettyphoto', vc_asset_url( 'lib/prettyphoto/js/jquery.prettyPhoto.min.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
+		wp_register_script( 'lightbox2', vc_asset_url( 'lib/bower/lightbox2/dist/js/lightbox.min.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
 		wp_register_script( 'vc_waypoints', vc_asset_url( 'lib/vc_waypoints/vc-waypoints.min.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
 
 		// @deprecated used in old tabs
@@ -507,7 +508,7 @@ class Vc_Base {
 
 		wp_register_script( 'twbs-pagination', vc_asset_url( 'lib/bower/twbs-pagination/jquery.twbsPagination.min.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
 		wp_register_script( 'nivo-slider', vc_asset_url( 'lib/bower/nivoslider/jquery.nivo.slider.pack.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
-		wp_register_script( 'flexslider', vc_asset_url( 'lib/bower/flexslider/jquery.flexslider-min.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
+		wp_register_script( 'flexslider', vc_asset_url( 'lib/flexslider/jquery.flexslider.min.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
 		wp_register_script( 'wpb_composer_front_js', vc_asset_url( 'js/dist/js_composer_front.min.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
 
 		/**

@@ -1,6 +1,6 @@
 /***************************************************
  * REVOLUTION 6.0.0 BACKUP ADDON
- * @version: 2.0 (11.07.2018)
+ * @version: 2.0.2 (03-12-2020)
  * @author ThemePunch
 ***************************************************/
 
@@ -128,11 +128,11 @@
 		
 		}
 		
-		if(!addon.initialised && revslider_backup_addon.enabled) init();
+		//if(!addon.initialised && revslider_backup_addon.enabled) init();
 		
 		// INITIALISE THE ADDON
 		RVS.DOC.on(slug+'_init',function() {
-			
+
 			if(!addon.initialised) init();
 			revslider_backup_addon.enabled = _truefalse(RVS.LIB.ADDONS[slug].enable);
 			
@@ -164,7 +164,7 @@
 					
 		// CREATE INPUT FIELDS
 		function createSlideSettingsFields() {
-			
+
 			var _h = '';										
 			_h += '<div class="form_inner_header"><i class="material-icons">backup</i>'+bricks.backup_addon+'</div>';
 			_h += '<br>';
@@ -220,7 +220,7 @@
 		function onInit() {
 		
 			if(typeof RVS.S.slideId === 'undefined') setTimeout(onInit, 500);
-			else RVS.DOC.trigger(slug+'_init');
+			else if(RVS && RVS.C && RVS.C.theRightToolbar !== undefined) RVS.DOC.trigger(slug+'_init');
 		
 		}
 		

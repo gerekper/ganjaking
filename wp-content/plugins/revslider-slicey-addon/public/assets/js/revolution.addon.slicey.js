@@ -1,28 +1,22 @@
 /********************************************
  * REVOLUTION 5.0+ EXTENSION - SLICED
- * @version: 2.0.4 (02.04.2020)
+ * @version: 2.0.6 (04.05.2020)
  * @requires jquery.themepunch.revolution.js
  * @author ThemePunch
 *********************************************/
 
 ;(function($) {
 	
-	var _R = jQuery.fn.revolution,
-			_ISM = _R.is_mobile();
-	window.RevSliderSlicey = function(slider) {
-		
-		
+	var _R,_ISM;	
+	window.RevSliderSlicey = function(slider) {				
 		var hasSlicey = slider.find('.tp-slicey').length;
-		if(!hasSlicey) return;
-		
+		if(!hasSlicey) return;		
 		$('<style type="text/css">.tp-slicey {overflow: visible !important}</style>').appendTo($('head'));
-		slider.one('revolution.slide.onloaded', function() {
-						
-			var _R = jQuery.fn,
-				opt = _R.revolution && _R.revolution[slider[0].id] ? _R.revolution[slider[0].id] : false;
-				
-			if(opt) init(slider, opt,slider[0].id);
-			
+		slider.one('revolution.slide.onloaded', function() {			
+			_R = jQuery.fn.revolution;
+			if (_R===undefined) return;
+			_ISM = _R.is_mobile();					
+			if(_R[slider[0].id]) init(slider, _R[slider[0].id],slider[0].id);			
 		});
 	
 	};
@@ -233,7 +227,7 @@
 
 
 				_.blurAnimation.eventCallback("onUpdate", function(_,ls) {									
-					punchgs.TweenLite.set(ls.slicedbox_wrapper,{position:"absolute",msFilter:'blur('+_.blurElement.a+'px)',filter:'blur('+_.blurElement.a+'px)',webkitFilter:'blur('+_.blurElement.a+'px)'});
+					punchgs.TweenLite.set(ls.slicedbox_wrapper,{position:"absolute",'filter':'blur('+_.blurElement.a+'px)',filter:'blur('+_.blurElement.a+'px)','-webkit-filter':'blur('+_.blurElement.a+'px)'});
 				},[_,ls]);
 				_.slicedanimation.add(_.blurAnimation,0);			
 			}

@@ -36,6 +36,7 @@ class WoocommerceProductFeedsIntegrationManager {
 		$this->product_bundles_integration();
 		$this->woocommerce_min_max_quantity_step_control_single_integration();
 		$this->woocommerce_multilingual_integration();
+		$this->pw_bulk_edit_integration();
 	}
 
 	private function product_brands_for_woocommerce_integration() {
@@ -53,9 +54,11 @@ class WoocommerceProductFeedsIntegrationManager {
 	}
 
 	private function the_content_protection_integration() {
-		if ( ! defined( 'ELEMENTOR_VERSION' ) ) {
+		if ( ! defined( 'ELEMENTOR_VERSION' ) &&
+			 ! defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
 			return;
 		}
+
 		$this->container['WoocommerceGpfTheContentProtection']->run();
 	}
 
@@ -153,5 +156,12 @@ class WoocommerceProductFeedsIntegrationManager {
 			return;
 		}
 		$this->container['WoocommerceGpfWoocommerceMultilingual']->run();
+	}
+
+	private function pw_bulk_edit_integration() {
+		if ( ! defined( 'PWBE_VERSION' ) ) {
+			return;
+		}
+		$this->container['WoocommerceGpfPwBulkEdit']->run();
 	}
 }

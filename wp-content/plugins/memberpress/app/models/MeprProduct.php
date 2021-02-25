@@ -416,6 +416,8 @@ class MeprProduct extends MeprCptModel implements MeprProductInterface {
       }
     }
 
+    $product_price = MeprHooks::apply_filters('mepr_adjusted_price', $product_price, $coupon_code, $this);
+
     return MeprUtils::format_float($product_price);
   }
 

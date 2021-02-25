@@ -6,7 +6,6 @@
  *
  * @var int    $errors       Number of errors during directory scan.
  * @var array  $images       Array of images with errors.
- * @var string $root_path    Root path.
  * @var string $upgrade_url  Upgrade URL.
  *
  * @var Smush\App\Pages\Dashboard $this  Dashboard page.
@@ -17,14 +16,6 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 ?>
-
-<?php wp_nonce_field( 'smush_get_dir_list', 'list_nonce' ); ?>
-<?php wp_nonce_field( 'smush_get_image_list', 'image_list_nonce' ); ?>
-
-<!-- Directory Path -->
-<input type="hidden" class="wp-smush-dir-path" value="" />
-<input type="hidden" name="wp-smush-base-path" value="<?php echo esc_attr( $root_path ); ?>" />
-
 <div class="wp-smush-scan-result">
 	<?php if ( ! apply_filters( 'wpmudev_branding_hide_branding', false ) ) : ?>
 		<span class="wp-smush-no-image">
@@ -89,10 +80,3 @@ if ( ! defined( 'WPINC' ) ) {
 
 	<?php wp_nonce_field( 'wp_smush_all', 'wp-smush-all' ); ?>
 </div>
-
-<?php
-$screen = get_current_screen();
-if ( ! empty( $screen ) && ! empty( $screen->base ) && ( 'toplevel_page_smush' === $screen->base || 'toplevel_page_smush-network' === $screen->base ) ) {
-	$this->view( 'directory-list', array(), 'modals' );
-	$this->view( 'progress-dialog', array(), 'modals' );
-}

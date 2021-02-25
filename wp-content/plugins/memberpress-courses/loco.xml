@@ -6,6 +6,7 @@
         <directory>.</directory>
       </source>
       <target>
+        <directory base="WP_PLUGIN_DIR">mepr-i18n</directory>
         <directory>i18n</directory>
       </target>
       <template locked="true">

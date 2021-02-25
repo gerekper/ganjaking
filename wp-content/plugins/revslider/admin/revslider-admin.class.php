@@ -93,7 +93,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 			}
 		}
 	}
-
+	
 	/**
 	 * enqueue all admin scripts
 	 **/
@@ -161,7 +161,9 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 			if($view == 'slide' && $this->dev_mode){
 				wp_enqueue_script('revbuilder-help', RS_PLUGIN_URL . 'admin/assets/js/modules/helpinit.js', array('jquery', 'revbuilder-admin'), RS_REVISION, false);
 				wp_enqueue_script('revbuilder-toolbar', RS_PLUGIN_URL . 'admin/assets/js/modules/rightclick.js', array('jquery', 'revbuilder-admin'), RS_REVISION, false);
-				wp_enqueue_script('revbuilder-effects', RS_PLUGIN_URL . 'admin/assets/js/modules/timeline.js', array('jquery','revbuilder-admin'), RS_REVISION, false);
+				wp_enqueue_script('revbuilder-effects', RS_PLUGIN_URL . 'admin/assets/js/modules/timeline.js', array('jquery','revbuilder-admin'), RS_REVISION, false);				
+				wp_enqueue_script('revbuilder-panzoom', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.panzoom.js', array('jquery','revbuilder-admin'), RS_REVISION, false);
+				wp_enqueue_script('revbuilder-slideanim', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.slideanims.js', array('jquery','revbuilder-admin'), RS_REVISION, false);
 				wp_enqueue_script('revbuilder-layer', RS_PLUGIN_URL . 'admin/assets/js/modules/layer.js', array('jquery','revbuilder-admin'), RS_REVISION, false);
 				wp_enqueue_script('revbuilder-layertools', RS_PLUGIN_URL . 'admin/assets/js/modules/layertools.js', array('jquery','revbuilder-admin'), RS_REVISION, false);
 				wp_enqueue_script('revbuilder-quick-style', RS_PLUGIN_URL . 'admin/assets/js/modules/quickstyle.js', array('jquery','revbuilder-admin'), RS_REVISION, false);
@@ -171,8 +173,10 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 				wp_enqueue_script('revbuilder-slide', RS_PLUGIN_URL . 'admin/assets/js/modules/slide.js', array('jquery','revbuilder-admin'), RS_REVISION, false);
 				wp_enqueue_script('revbuilder-slider', RS_PLUGIN_URL . 'admin/assets/js/modules/slider.js', array('jquery','revbuilder-admin'), RS_REVISION, false);
 				wp_enqueue_script('revbuilder', RS_PLUGIN_URL . 'admin/assets/js/builder.js', array('jquery','revbuilder-admin', 'jquery-ui-sortable'), RS_REVISION, false);
+				add_action('admin_print_scripts', array($this, 'add_editor_mode'), 1);
 			}elseif($view == 'slide' && !$this->dev_mode){
 				wp_enqueue_script('revbuilder-editor', RS_PLUGIN_URL . 'admin/assets/js/modules/editor.min.js', array('jquery', 'revbuilder-admin', 'jquery-ui-sortable'), RS_REVISION, false);
+				add_action('admin_print_scripts', array($this, 'add_editor_mode'), 1);
 			}
 
 			if($view == '' || $view == 'sliders'){
@@ -201,6 +205,17 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		
 		//include all media upload scripts
 		$this->add_media_upload_includes();
+	}
+	
+	/**
+	 * adds needed JavaScript to the header
+	 * to tell the scripts that we are in the editor
+	 * @since: 6.4.0
+	 **/
+	public function add_editor_mode(){
+		echo '<script type="text/javascript">'."\n";
+		echo "var _R_is_Editor = 'true';\n";
+		echo '</script>'."\n";
 	}
 
 	/**
@@ -433,7 +448,8 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		add_action('wp_ajax_revslider_ajax_action', array($this, 'do_ajax_action')); //ajax response to save slider options.
 		add_action('wp_ajax_revslider_ajax_call_front', array($this, 'do_front_ajax_action'));
 		add_action('wp_ajax_nopriv_revslider_ajax_call_front', array($this, 'do_front_ajax_action')); //for not logged in users
-
+		
+		
 		if(isset($pagenow) && $pagenow == 'plugins.php'){
 			add_action('admin_notices', array($this, 'add_plugins_page_notices'));
 		}
@@ -443,6 +459,9 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		
 		$instagram = new RevSliderInstagram();
 		$instagram->add_actions();
+
+		$facebook = new RevSliderFacebook();
+		$facebook->add_actions();
 	}
 
 	/**
@@ -1403,6 +1422,13 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 						$this->ajax_response_error(__('Slider could not be loaded', 'revslider'));
 					}
 					
+					//check if an update is needed
+					if(version_compare($slider->get_param(array('settings', 'version')), get_option('revslider_update_version', '6.0.0'), '<')){
+						$upd = new RevSliderPluginUpdate();
+						$upd->upgrade_slider_to_latest($slider);
+						$slider->init_by_id($slider_id);
+					}
+					
 					//create static Slide if the Slider not yet has one
 					$static_slide_id = $slide->get_static_slide_id($slider_id);
 					$static_slide_id = (intval($static_slide_id) === 0) ? $slide->create_slide($slider_id, '', true) : $static_slide_id;
@@ -1704,6 +1730,16 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 
 					$this->ajax_response_success(__('Favorite Changed', 'revslider'));
 				break;
+				/*case 'set_transition_favorite':
+					$do		= 'replace';
+					$type	= 'slide_transitions';
+					$transitions = $this->get_val($data, 'transisions');
+
+					$favorite = new RevSliderFavorite();
+					$favorite->set_favorite($do, $type, $transitions);
+
+					$this->ajax_response_success(__('Transition Favorite Changed', 'revslider'));
+				break;*/
 				case 'load_library_object':
 					$library = new RevSliderObjectLibrary();
 
@@ -2043,34 +2079,25 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					$this->ajax_response_data(array('presets' => $color_presets));
 				break;
 				case 'get_facebook_photosets':
-					if(!empty($data['url'])){
-						$facebook = new RevSliderFacebook();
-						$return = $facebook->get_photo_set_photos_options($data['url'], $data['album'], $data['app_id']);
-						
-						if(empty($return)){
-							$error = __('Could not fetch Facebook albums', 'revslider');
-							$this->ajax_response_error($error);	
-						}
-						else {
-							if( !isset( $return[0] ) || $return[0] != "error" ) {
-								$this->ajax_response_success(__('Successfully fetched Facebook albums', 'revslider'), array('html' => implode(' ', $return)));
-							}
-							else {
-								$error = $return[1];
-								$this->ajax_response_error($error);	
-							}
-						}
-						
-						/*
-						if(!empty($return) && ( isset($return[0]) ) ){
-							$this->ajax_response_success(__('Successfully fetched Facebook albums', 'revslider'), array('html' => implode(' ', $return)));
-						}else{
-							$error = __('Could not fetch Facebook albums', 'revslider');
-							$this->ajax_response_error($error);	
-						}*/
-					}else{
-						$this->ajax_response_success(__('Cleared Albums', 'revslider'), array('html' => implode(' ', $return)));
+					if(empty($data['app_id'])){
+						$this->ajax_response_error(__('Facebook API error: Empty Access Token', 'revslider'));
 					}
+					if(empty($data['page_id'])){
+						$this->ajax_response_error(__('Facebook API error: Empty Page ID', 'revslider'));
+					}
+
+					$facebook = new RevSliderFacebook();
+					$return = $facebook->get_photo_set_photos_options($data['app_id'], $data['page_id']);
+
+					if(empty($return)){
+						$error = __('Could not fetch Facebook albums', 'revslider');
+						$this->ajax_response_error($error);
+					}
+					if(!empty($return['error'])){
+						$this->ajax_response_error(__('Facebook API error: ', 'revslider') . $return['message']);
+					}
+
+					$this->ajax_response_success(__('Successfully fetched Facebook albums', 'revslider'), array('html' => implode(' ', $return)));
 				break;
 				case 'get_flickr_photosets':
 					$error = __('Could not fetch flickr photosets', 'revslider');
@@ -2127,6 +2154,32 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					$sizes = $this->get_addon_sizes($addons);
 					
 					$this->ajax_response_data(array('addons' => $sizes));
+				break;
+				case 'save_custom_templates_slidetransitions':
+					$return = $this->save_custom_slidetransitions($data);
+					return ($return === false || intval($return) === 0) ? $this->ajax_response_success(__('Slide transition template could not be saved', 'revslider')) : $this->ajax_response_success(__('Slide transition template saved', 'revslider'), array('data' => array('id' => $return)));
+				break;
+				case 'delete_custom_templates_slidetransitions':
+					$return = $this->delete_custom_slidetransitions($data);
+					return ($return) ? $this->ajax_response_success(__('Slide transition template deleted', 'revslider')) : $this->ajax_response_error(__('Slide transition template could not be deleted', 'revslider'));
+				break;
+				case 'create_image_from_raw':
+					$mpeg = $this->get_val($data, 'mpeg', '');
+					$slideid = $this->get_val($data, 'slideid', 0);
+					$bitmap = $this->get_val($data, 'bitmap', '');
+					$mpeg = basename($mpeg);
+					if(empty($mpeg)) return $this->ajax_response_error(__('mpeg not set', 'revslider'));
+					
+					$return = $this->import_media_raw($mpeg, $slideid, $bitmap);
+					
+					if(!is_array($return) && ($return === false || intval($return) === 0)){
+						return ($return === false) ? $this->ajax_response_error(__('Image could not be created', 'revslider')) : $this->ajax_response_error($return);
+					}
+					if(isset($return['id'])){
+						$return['path'] = wp_get_attachment_url($return['id']);
+					}
+					
+					return $this->ajax_response_data($return);
 				break;
 				case 'get_v5_slider_list':
 					$admin = new RevSliderFunctionsAdmin();
@@ -2195,6 +2248,10 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		if($is_verified){
 			$data = $this->get_post_var('data', false);
 			switch($this->get_post_var('client_action', false)){
+				case 'get_transitions':
+					$transitions = $this->get_base_transitions();
+					$this->ajax_response_data(array('transitions' => $transitions));
+				break;
 				case 'get_slider_html':
 					$alias = $this->get_post_var('alias', '');
 					$usage = $this->get_post_var('usage', '');
@@ -2327,15 +2384,15 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 			if(!in_array($this->view, $this->allowed_views)){
 				$this->throw_error(__('Bad Request', 'revslider'));
 			}
-
-			switch ($this->view){
-			//switch URLs to corresponding php files
-			case 'slide':
-				$view = 'builder';
+			
+			switch($this->view){
+				//switch URLs to corresponding php files
+				case 'slide':
+					$view = 'builder';
 				break;
-			case 'sliders':
-			default:
-				$view = 'overview';
+				case 'sliders':
+				default:
+					$view = 'overview';
 				break;
 			}
 

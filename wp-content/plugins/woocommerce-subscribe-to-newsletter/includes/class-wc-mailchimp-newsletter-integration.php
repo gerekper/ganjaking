@@ -154,8 +154,7 @@ if ( ! class_exists( 'WC_Mailchimp_Newsletter_Integration' ) ) {
 		/**
 		 * get_lists function.
 		 *
-		 * @access public
-		 * @return void
+		 * @return array
 		 */
 		public function get_lists() {
 			$mailchimp_lists = get_transient( 'wc_mc_list_' . md5( $this->api_key ) );
@@ -170,7 +169,7 @@ if ( ! class_exists( 'WC_Mailchimp_Newsletter_Integration' ) ) {
 						/* translators: 1: list code 2: list error */
 						echo '<div class="error"><p>' . sprintf( esc_html__( 'Unable to load lists() from MailChimp: (%1$s) %2$s', 'woocommerce-subscribe-to-newsletter' ), $lists->status, $lists->detail ) . '</p></div>';
 
-						return false;
+						return array();
 
 					} else {
 						foreach ( $lists->lists as $list ) {

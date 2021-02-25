@@ -299,11 +299,8 @@ class RevSliderSliderExport extends RevSliderSlider {
 								if($this->get_val($layer, array('media', 'mp4Url'), '') != '')	$this->used_videos[$this->get_val($layer, array('media', 'mp4Url'), '')] = true;
 								if($this->get_val($layer, array('media', 'webmUrl'), '') != '')	$this->used_videos[$this->get_val($layer, array('media', 'webmUrl'), '')] = true;
 								if($this->get_val($layer, array('media', 'ogvUrl'), '') != '')	$this->used_videos[$this->get_val($layer, array('media', 'ogvUrl'), '')] = true;
-							}elseif(!in_array($this->get_val($layer, array('media', 'mediaType')), array('html5', 'audio'))){ //video cover image
+							}else{ //if(!in_array($this->get_val($layer, array('media', 'mediaType')), array('html5', 'audio')))
 								if($this->get_val($layer, array('media', 'audioUrl')) != '') $this->used_videos[$this->get_val($layer, array('media', 'audioUrl'))] = true;
-							}
-							
-							if($this->get_val($layer, array('media', 'mediaType')) != 'html5'){
 								$this->set_val($layer, array('media', 'mp4Url'), '');
 								$this->set_val($layer, array('media', 'webmUrl'), '');
 								$this->set_val($layer, array('media', 'ogvUrl'), '');

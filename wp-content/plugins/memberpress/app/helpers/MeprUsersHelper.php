@@ -162,8 +162,7 @@ class MeprUsersHelper {
         break;
 
       case 'file':
-        $file_headers = @get_headers($value);
-        if(strpos($file_headers[0], '200 OK')){
+        if( self::uploaded_file_exists($value) ){
           if(MeprUtils::is_logged_in_and_an_admin()){
             printf('<a href="%s" class="mepr-view-file" target="_blank">%s | </a>', esc_url($value), esc_html__('View', 'memberpress'));
           }
@@ -407,6 +406,21 @@ class MeprUsersHelper {
     $dir['path'] = $dir['basedir'] . '/mepr/userfiles';
     $dir['url'] = $dir['baseurl'] . '/mepr/userfiles';
     return $dir;
+  }
+
+  /**
+   * Checks of uploaded file exists
+   * @param mixed $url accepts URL
+   *
+   * @return bool
+   */
+  public function uploaded_file_exists($url){
+    $upload_dir = wp_get_upload_dir();
+    $filename = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_FILENAME);
+    $extension = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
+    $path = $upload_dir['basedir'] . '/mepr/userfiles/';
+    $file = $path . $filename .'.'. $extension;
+    return file_exists($file);
   }
 
 

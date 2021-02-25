@@ -103,6 +103,13 @@
 												'description' 	=> __( 'This specifies which account will receive the funds. Only add account details here if you are not using the default account to receive money, most people will leave this blank.', 'woocommerce_worlday' ),
 												'default' 		=> $this->default_accid
 												),
+				'addgautm' 				=> array(
+												'title' 		=> __( 'Add utm_nooverride to URLs', 'woocommerce_worlday' ),
+												'type'          => 'checkbox',
+				    							'options'       => array('no'=>'No','yes'=>'Yes'),
+												'description' 	=> __( 'Add utm_nooverride to URLs for Google Analytics', 'woocommerce_worlday' ),
+												'default' 		=> $this->default_addgautm
+												),
 				'checkout_options' 		=> array(
 												'title' 		=> __( 'Checkout Options', 'woocommerce_worlday' ),
 												'type' 			=> 'title',

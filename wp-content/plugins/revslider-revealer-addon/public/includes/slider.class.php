@@ -28,7 +28,22 @@ if(class_exists('RevSliderFunctions')) {
 			
 			add_action('revslider_fe_javascript_output', array($this, 'write_init_script'), 10, 2);
 			add_action('revslider_fe_javascript_option_output', array($this, 'write_init_options'), 10, 1);
+			add_action('revslider_disable_first_trans', array($this, 'disable_first_trans'), 10, 2);
 			
+		}
+		
+		/*
+		* @desc slider's first trans now auto-disabled with this new filter
+		* @since 2.2.1
+		* @JM
+		*/
+		public function disable_first_trans($val, $slider) {
+			$addOn = $this->isEnabled($slider);
+			
+			if(!empty($addOn)) {
+				return false;
+			}	
+			return $val;
 		}
 		
 		// HANDLE ALL TRUE/FALSE
@@ -51,8 +66,16 @@ if(class_exists('RevSliderFunctions')) {
 			$addOn = $this->get_val($addOns, 'revslider-' . $this->pluginTitle . '-addon', false);
 			if(empty($addOn)) return false;
 			
-			$enabled = $this->get_val($addOn, 'enable', false);
-			if($this->isFalse($enabled)) return false;
+			/*
+			* @desc traditional on/off doesn't exist anymore for this Addon, 
+			        and so it's all just based on the reveal selection now in the editor which can be "none"
+			* @since 2.2.1
+			* @JM
+			*/
+			// $enabled = $this->get_val($addOn, 'enable', false);
+			// if($this->isFalse($enabled)) return false;
+			$direction = $this->get_val($addOn, 'direction', 'none');
+			if($direction === 'none') return false;
 			
 			return $addOn;
 		
@@ -62,6 +85,8 @@ if(class_exists('RevSliderFunctions')) {
 			
 			$handle = 'rs-' . $this->pluginTitle . '-front';
 			$base = $this->pluginUrl . 'public/assets/';
+			$path = $base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js';
+			$_jsPathMin = file_exists(RS_REVEALER_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
 			
 			wp_enqueue_style(
 			
@@ -84,7 +109,7 @@ if(class_exists('RevSliderFunctions')) {
 			wp_enqueue_script(
 			
 				$handle, 
-				$base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js', 
+				$base . 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', 
 				array('jquery'), 
 				$this->version, 
 				true
@@ -195,6 +220,13 @@ if(class_exists('RevSliderFunctions')) {
 				$overlay_delay = $this->minMax($overlay_delay);
 				$duration = $this->minMax($duration);
 				$overlay_duration = $this->minMax($overlay_duration);
+				
+				/*
+				* @desc always override first transition
+				* @since 2.2.1
+				* @JM
+				*/
+				echo $tabs . 'fanim: {speed:300},' . "\n";
 				
 				echo $tabs . 'revealer: {' . "\n";
 				echo $tabsa . 'direction: "' . $direction . '",' . "\n";

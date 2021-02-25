@@ -289,15 +289,6 @@ class MeprTransaction extends MeprBaseMetaModel implements MeprProductInterface,
     }
   }
 
-  public static function completed_transactions_by_date_range($start_date, $end_date) {
-    global $wpdb;
-    $mepr_db = new MeprDb();
-
-    $query = $wpdb->prepare("SELECT * FROM {$mepr_db->transactions} WHERE status='complete' AND created_at >= %s AND created_at <= %s", $start_date, $end_date);
-
-    return $wpdb->get_results($query);
-  }
-
   public static function get_all_ids_by_user_id($user_id, $order_by = '', $limit = '') {
     global $wpdb;
 
@@ -592,7 +583,7 @@ class MeprTransaction extends MeprBaseMetaModel implements MeprProductInterface,
   public function product() {
     //Don't do static caching stuff here
 
-    return MeprHooks::apply_filters( 'mepr_transaction_product', new MeprProduct($this->product_id) );
+    return MeprHooks::apply_filters( 'mepr_transaction_product', new MeprProduct($this->product_id), $this );
   }
 
   // Has one through membership

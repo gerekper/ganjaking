@@ -15,7 +15,7 @@ class RsExplodinglayersBase extends RsAddOnExplodinglayersBase {
 					 $_PluginUrl     = RS_EXPLODINGLAYERS_PLUGIN_URL,
 					 $_PluginTitle   = 'explodinglayers',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '2.1.1';
+				     $_Version       = '2.1.4';
 	
 	public function __construct() {
 		
