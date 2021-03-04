@@ -22,11 +22,11 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_10_1;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_10_4;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_10_1\\SV_WC_Payment_Gateway_Admin_Order' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_10_4\\SV_WC_Payment_Gateway_Admin_Order' ) ) :
 
 
 /**
@@ -161,13 +161,13 @@ class SV_WC_Payment_Gateway_Admin_Order {
 
 				?>
 					<script type="text/javascript">
-						jQuery( document ).ready( function ( $ ) {
-							if ( 0 == $( 'select[name^=action] option[value=wc_capture_charge]' ).size() ) {
+						jQuery( function ( $ ) {
+							if ( 0 === $( 'select[name^=action] option[value=wc_capture_charge]' ).length ) {
 								$( 'select[name^=action]' ).append(
 									$( '<option>' ).val( '<?php echo esc_js( 'wc_capture_charge' ); ?>' ).text( '<?php _e( 'Capture Charge', 'woocommerce-plugin-framework' ); ?>' )
 								);
 							}
-						});
+						} );
 					</script>
 				<?php
 			}

@@ -22,7 +22,7 @@ if ( typeof intuit !== "undefined" ) {
 }
 
 
-jQuery( document ).ready( $ => {
+jQuery( function ( $ ) {
 
 	const $clientId     = $( `#wc_gateway_${wc_intuit_payments.gateway_id}_client_id` );
 	const $clientSecret = $( `#wc_gateway_${wc_intuit_payments.gateway_id}_client_secret` );

@@ -3,6 +3,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
+
 class WC_PCSVIS_Admin_Screen {
 
 	/**
@@ -13,6 +16,9 @@ class WC_PCSVIS_Admin_Screen {
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'admin_print_styles', array( $this, 'admin_scripts' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+
+		// Register menu items in the new WooCommerce navigation.
+		add_action( 'admin_menu', array( $this, 'register_navigation_items' ) );
 	}
 
 	/**
@@ -40,6 +46,24 @@ class WC_PCSVIS_Admin_Screen {
 	 */
 	public function admin_menu() {
 		$page = add_submenu_page( 'woocommerce', __( 'CSV Import Suite', 'woocommerce-product-csv-import-suite' ), __( 'CSV Import Suite', 'woocommerce-product-csv-import-suite' ), apply_filters( 'woocommerce_csv_product_role', 'manage_woocommerce' ), 'woocommerce_csv_import_suite', array( $this, 'output' ) );
+	}
+
+	/**
+	 * Register the navigation items in the WooCommerce navigation.
+	 */
+	public function register_navigation_items() {
+		if ( ! class_exists( Menu::class ) || ! class_exists( Screen::class ) ) {
+			return;
+		}
+
+		Menu::add_plugin_item(
+			array(
+				'id'         => 'woocommerce_csv_import_suite',
+				'title'      => __( 'CSV Import Suite', 'woocommerce-product-csv-import-suite' ),
+				'capability' => 'manage_woocommerce',
+				'url'        => 'woocommerce_csv_import_suite',
+			)
+		);
 	}
 
 	/**

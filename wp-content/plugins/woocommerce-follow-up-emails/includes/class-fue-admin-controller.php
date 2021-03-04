@@ -199,7 +199,6 @@ class FUE_Admin_Controller {
 	public static function list_emails_page() {
 		$types          = Follow_Up_Emails::get_email_types();
 		$campaigns      = get_terms( 'follow_up_email_campaign', array( 'hide_empty' => false ) );
-		$bccs           = get_option( 'fue_bcc_types', false );
 		$from_addresses = get_option( 'fue_from_email_types', false );
 		$from_names     = get_option( 'fue_from_name_types', false );
 

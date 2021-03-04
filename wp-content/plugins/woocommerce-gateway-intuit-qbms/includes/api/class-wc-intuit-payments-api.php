@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_4 as Framework;
 
 /**
  * The base Payments API class.
@@ -739,103 +739,6 @@ class WC_Intuit_Payments_API extends Framework\SV_WC_API_Base implements Framewo
 	 * @param \WC_Order $order order object
 	 */
 	public function update_tokenized_payment_method( \WC_Order $order ) { }
-
-
-	/** Deprecated Methods ********************************************************************************************/
-
-
-	/**
-	 * Gets an oAuth request token.
-	 *
-	 * TODO: remove after 2021-01 or in v3.0.0 {DM 2020-01-14}
-	 *
-	 * @since 2.0.0
-	 * @deprecated 2.6.2-dev.1
-	 *
-	 * @param string $callback_url the URL to send the request token data
-	 * @return \WC_Intuit_Payments_API_oAuth_Response the response object
-	 */
-	public function oauth_get_request_token( $callback_url ) {
-
-		wc_deprecated_function( __METHOD__, '2.6.2-dev.1' );
-
-		return null;
-	}
-
-
-	/**
-	 * Gets an oAuth access token.
-	 *
-	 * TODO: remove after 2021-01 or in v3.0.0 {DM 2020-01-14}
-	 *
-	 * @since 2.0.0
-	 * @deprecated 2.6.2-dev.1
-	 *
-	 * @param string $request_token the previously generated request token
-	 * @param string $token_secret the previously generated request token secret
-	 * @param string $verifier the previously generated request token verifier
-	 * @return \WC_Intuit_Payments_API_oAuth_Response the response object
-	 */
-	public function oauth_get_access_token( $request_token, $token_secret, $verifier ) {
-
-		wc_deprecated_function( __METHOD__, '2.6.2-dev.1' );
-
-		return null;
-	}
-
-
-	/**
-	 * Disconnects from the Payments API.
-	 *
-	 * TODO: remove after 2021-01 or in v3.0.0 {DM 2020-01-14}
-	 *
-	 * @since 2.0.0
-	 * @deprecated 2.6.2-dev.1
-	 *
-	 * @return \WC_Intuit_Payments_API_oAuth_Response the response object
-	 */
-	public function oauth_reconnect() {
-
-		wc_deprecated_function( __METHOD__, '2.6.2-dev.1' );
-
-		return null;
-	}
-
-
-	/**
-	 * Disconnects from the Payments API.
-	 *
-	 * TODO: remove after 2021-01 or in v3.0.0 {DM 2020-01-14}
-	 *
-	 * @since 2.0.0
-	 * @deprecated 2.6.2-dev.1s
-	 *
-	 * @return \WC_Intuit_Payments_API_oAuth_Response the response object
-	 */
-	public function oauth_disconnect() {
-
-		wc_deprecated_function( __METHOD__, '2.6.2-dev.1' );
-
-		return null;
-	}
-
-
-	/**
-	 * Gets the oAuth header parameters.
-	 *
-	 * TODO: remove after 2021-01 or in v3.0.0 {DM 2020-01-14}
-	 *
-	 * @since 4.6.0
-	 * @deprecated 2.6.2-dev.1
-	 *
-	 * @return array
-	 */
-	protected function get_oauth_header_params() {
-
-		wc_deprecated_function( __METHOD__, '2.6.2-dev.1' );
-
-		return [];
-	}
 
 
 }

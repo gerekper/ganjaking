@@ -1,5 +1,10 @@
 *** Product CSV Import Suite Changelog ***
 
+2021-02-24 - version 1.10.39
+* Add - Menu item to the new WC Navigation.
+* Tweak - WC 5.0 compatibility.
+* Tweak - WP 5.6 compatibility.
+
 2020-11-05 - version 1.10.38
 * Fix - Use core's status functions instead of hardcoding for validations.
 

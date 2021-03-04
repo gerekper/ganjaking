@@ -56,6 +56,10 @@ final class Request implements AC\Registrable {
 			return;
 		}
 
+		if( empty( $data->list_screen_ids ) ){
+			return;
+		}
+
 		$response = $this->response_factory->create(
 			$this->get_list_screens_from_request( $data->list_screen_ids )
 		);

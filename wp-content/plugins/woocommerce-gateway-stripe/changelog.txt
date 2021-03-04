@@ -1,4 +1,36 @@
 *** Changelog ***
+= 4.9.0 - 2021-02-24 =
+* Fix    - Add fees as line items sent to Stripe to prevent Level 3 errors.
+* Fix    - Adding a SEPA payment method doesn't work.
+* Fix    - Apple Pay domain verification with live secret key.
+* Fix    - Display the correct accepted card branding depending on store currency and location.
+* Fix    - Remove duplicate Apple Pay domain registration Inbox notes.
+* Add    - Copy Apple Pay domain registration file and trigger domain registration on domain name change.
+* Update - Notes and status when refunding order with charge authorization.
+
+= 4.8.0 - 2021-01-28 =
+* Fix   - Filter more disallowed characters from statement descriptors.
+* Fix   - Payment request button for Puerto Rico.
+* Fix   - Handle error if country is not supported for payment request button.
+* Fix   - Trim the refund reason to a max of 500 characters.
+* Tweak - Display warning on webhook secret when server time is off from device time.
+
+= 4.7.0 - 2020-12-22 =
+* Fix - Updating subscription payment methods from the "My Account" page now adds a note to the subscription.
+* Fix - Link is now correctly formatted in readme.txt.
+* Fix - Using SCA cards for subscriptions renewal payments now works as intended.
+* Fix - Cards added under "My Account -> Payment Methods -> Add Payment Method" will now handle SCA properly.
+* Fix - Changing a payment method for a subscription in "My Account -> Subscriptions" will now handle SCA properly.
+* Fix - Missing space causing fatal errors for certain WooCommerce Inbox Note features.
+
+= 4.6.0 - 2020-12-15 =
+* Tweak - Update packages for Composer 2 compatibility.
+* Tweak - Use full jQuery function calls instead of soon-to-be-deprecated shorthands.
+* Tweak - Use JSON.parse() instead of jQuery.parseJSON().
+* Tweak - Remove holiday messaging from Apple Pay note after Dec 22.
+* Fix   - Compatibility with the Stripe for WooCommerce plugin.
+* Fix   - Guard against fatal errors caused by WC_Admin_Note.
+* Fix   - Display error message when payment made with payment request buttons fails.
 
 = 4.5.5 - 2020-11-17 =
 * Fix - Guard against fatal errors that may occur on inbox data store load.

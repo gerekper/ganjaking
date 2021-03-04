@@ -26,7 +26,8 @@ namespace SkyVerge\WooCommerce\Intuit;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_4 as Framework;
+use WC_Intuit_Payments;
 
 /**
  * The Intuit plugin lifecycle handler.
@@ -53,27 +54,8 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 			'2.3.0',
 			'2.4.0',
 			'2.6.0',
+			'3.0.0',
 		];
-
-		// TODO: Remove legacy options by version 3.0 or August 2020 {JB 2019-08-27}
-		// wc_intuit_payments_access_token
-		// wc_intuit_payments_refresh_token
-		// wc_intuit_payments_access_token_expiry
-		// wc_intuit_payments_sandbox_access_token
-		// wc_intuit_payments_sandbox_refresh_token
-		// wc_intuit_payments_sandbox_access_token_expiry
-		// wc_intuit_payments_credit_card_oauth_token
-		// wc_intuit_payments_credit_card_sandbox_oauth_token
-		// wc_intuit_payments_credit_card_oauth_token_secret
-		// wc_intuit_payments_credit_card_sandbox_oauth_token_secret
-		// wc_intuit_payments_credit_card_oauth_token_expiry
-		// wc_intuit_payments_credit_card_sandbox_oauth_token_expiry
-		// wc_intuit_payments_echeck_oauth_token
-		// wc_intuit_payments_echeck_sandbox_oauth_token
-		// wc_intuit_payments_echeck_oauth_token_secret
-		// wc_intuit_payments_echeck_sandbox_oauth_token_secret
-		// wc_intuit_payments_echeck_oauth_token_expiry
-		// wc_intuit_payments_echeck_sandbox_oauth_token_expiry
 	}
 
 
@@ -226,11 +208,6 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 	 */
 	protected function upgrade_to_2_4_0() {
 
-		// probably safe to say if QBMS is still being used, there isn't any OAuth info to upgrade
-		if ( $this->get_plugin()->is_qbms_active() ) {
-			return;
-		}
-
 		$this->migrate_gateway_oauth_settings( \WC_Intuit_Payments::CREDIT_CARD_ID );
 		$this->migrate_gateway_oauth_settings( \WC_Intuit_Payments::ECHECK_ID );
 	}
@@ -332,6 +309,56 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 		$rows = $wpdb->update( $wpdb->postmeta, [ 'meta_value' => 'intuit_payments_credit_card' ], [ 'meta_key' => '_recurring_payment_method', 'meta_value' => 'intuit_qbms_credit_card' ] );
 
 		$this->get_plugin()->log( sprintf( '%d orders updated for recurring payment method meta', $rows ) );
+	}
+
+
+	/**
+	 * Upgrade the plugin to v3.0.0
+	 *
+	 * @since 3.0.0
+	 */
+	protected function upgrade_to_3_0_0() {
+
+		if ( 'intuit_qbms' === get_option( 'wc_intuit_payments_active_integration' ) ) {
+			update_option( 'wc_intuit_payments_show_intuit_qbms_retired_admin_notice', 'yes' );
+			update_option( 'wc_intuit_payments_active_integration', WC_Intuit_Payments::PLUGIN_ID );
+		}
+
+		$this->remove_legacy_options();
+	}
+
+
+	/**
+	 * Removes legacy gateway options.
+	 *
+	 * @since 3.0.0
+	 */
+	private function remove_legacy_options() {
+
+		foreach (
+			[
+				'wc_intuit_payments_access_token',
+				'wc_intuit_payments_refresh_token',
+				'wc_intuit_payments_access_token_expiry',
+				'wc_intuit_payments_sandbox_access_token',
+				'wc_intuit_payments_sandbox_refresh_token',
+				'wc_intuit_payments_sandbox_access_token_expiry',
+				'wc_intuit_payments_credit_card_oauth_token',
+				'wc_intuit_payments_credit_card_sandbox_oauth_token',
+				'wc_intuit_payments_credit_card_oauth_token_secret',
+				'wc_intuit_payments_credit_card_sandbox_oauth_token_secret',
+				'wc_intuit_payments_credit_card_oauth_token_expiry',
+				'wc_intuit_payments_credit_card_sandbox_oauth_token_expiry',
+				'wc_intuit_payments_echeck_oauth_token',
+				'wc_intuit_payments_echeck_sandbox_oauth_token',
+				'wc_intuit_payments_echeck_oauth_token_secret',
+				'wc_intuit_payments_echeck_sandbox_oauth_token_secret',
+				'wc_intuit_payments_echeck_oauth_token_expiry',
+				'wc_intuit_payments_echeck_sandbox_oauth_token_expiry',
+			] as $option
+		) {
+			delete_option( $option );
+		}
 	}
 
 

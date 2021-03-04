@@ -3,12 +3,12 @@
   Plugin Name: WP Reset PRO
   Plugin URI: https://wpreset.com/
   Description: Easily undo any change on the site by restoring a snapshot, or reset the entire site or any of its parts to the default values.
-  Version: 5.81
+  Version: 5.83
   Author: WebFactory Ltd
   Author URI: https://www.webfactoryltd.com/
   Text Domain: wp-reset
 
-  Copyright 2015 - 2021  Web factory Ltd  (email: wpreset@webfactoryltd.com)
+  Copyright 2015 - 2020  Web factory Ltd  (email: wpreset@webfactoryltd.com)
 
   This program is NOT free software.
 
@@ -42,7 +42,7 @@ class WP_Reset
 {
     protected static $instance = null;
     public $version = 0;
-    public $er_version = 1.1;
+    public $er_version = 1.2;
     public $plugin_url = '';
     public $plugin_dir = '';
     public $licensing_servers = array('https://dashboard.wpreset.com/api/');
@@ -101,8 +101,6 @@ class WP_Reset
 
         add_action('plugins_loaded', array($this, 'admin_actions'));
 
-        $this->prune_autosnapshots();
-
         $this->core_tables = array_map(function ($tbl) {
             global $wpdb;
             return $wpdb->prefix . $tbl;
@@ -133,6 +131,7 @@ class WP_Reset
         global $wp_reset_cloud, $wp_reset_js_notice, $wp_reset_licensing;
 
         $wp_reset_cloud = new WP_Reset_Cloud();
+        
         $options = $this->get_options();
 
         $wp_reset_licensing = new WF_Licensing_WPR(array(
@@ -212,6 +211,10 @@ class WP_Reset
                 $wp_reset_js_notice = array('type' => 'success', 'text' => $cloud_name . ' connected successfully!');
             }
         }
+
+        $this->prune_autosnapshots();
+        $this->prune_cloud_autosnapshots();
+        
     } // admin_actions
 
 
@@ -273,12 +276,8 @@ class WP_Reset
             $change = true;
         }
 
-        $def_options = array('tools_snapshots' => false, 'events_snapshots' => false, 'snapshots_autoupload' => false, 'autosnapshots_autoupload' => false, 'snapshots_upload_delete' => false, 'scheduled_snapshots' => false, 'prune_snapshots' => false, 'prune_snapshots_details' => 'days-5', 'adminbar_snapshots' => true, 'optimize_tables' => false, 'snapshots_size_alert' => 1000, 'throttle_ajax' => false, 'fix_datetime' => false, 'alternate_db_connection' => false, 'ajax_snapshots_export' => false, 'cloud_snapshots' => false, 'onboarding_done' => false, 'whitelabel' => false, 'debug' => false, 'cloud_service' => 'none', 'cloud_data' => array('dropbox' => false, 'gdrive' => false, 'icedrive' => false));
+        $def_options = array('tools_snapshots' => false, 'events_snapshots' => false, 'snapshots_autoupload' => false, 'autosnapshots_autoupload' => false, 'snapshots_upload_delete' => false, 'scheduled_snapshots' => false, 'prune_snapshots' => false, 'prune_snapshots_details' => 'days-5', 'prune_cloud_snapshots' => false, 'prune_cloud_snapshots_details' => 'days-5', 'adminbar_snapshots' => true, 'optimize_tables' => false, 'snapshots_size_alert' => 1000, 'throttle_ajax' => false, 'fix_datetime' => false, 'alternate_db_connection' => false, 'ajax_snapshots_export' => false, 'cloud_snapshots' => false, 'onboarding_done' => false, 'whitelabel' => false, 'debug' => false, 'cloud_service' => 'none', 'cloud_data' => array('dropbox' => false, 'gdrive' => false, 'icedrive' => false));
         
-        if(!array_key_exists('cloud_data', $options['options'])){
-            $options['options']['cloud_data'] = array('dropbox' => false, 'gdrive' => false, 'icedrive' => false);
-        }
-
         if(!array_key_exists('icedrive', $options['options']['cloud_data'])){
             $options['options']['cloud_data']['icedrive'] = false;
         }
@@ -1681,6 +1680,13 @@ class WP_Reset
             }
         } elseif ($tool == 'delete_snapshots') {
             $cnt = $this->do_delete_snapshots($extra_data);
+            if (is_wp_error($cnt)) {
+                wp_send_json_error($cnt->get_error_message());
+            } else {
+                wp_send_json_success($cnt);
+            }
+        }  elseif ($tool == 'delete_cloud_snapshots') {
+            $cnt = $this->do_delete_cloud_snapshots($extra_data);
             if (is_wp_error($cnt)) {
                 wp_send_json_error($cnt->get_error_message());
             } else {
@@ -4135,8 +4141,33 @@ class WP_Reset
             'size-500' => 'when total snapshot size exceeds 500 MB',
             'size-1000' => 'when total snapshot size exceeds 1000 MB',
         );
-        echo '<div class="sub-option-group">Delete automatic snapshots: <select id="option_prune_snapshots_details">';
+        echo '<div class="sub-option-group">Delete automatic snapshots: <select id="option_prune_snapshots_details" style="width:240px;">';
         WP_Reset_Utility::create_select_options($prune_details, $options['prune_snapshots_details']);
+        echo '</select></div></div>';
+
+        echo '<div class="option-group">';
+        WP_Reset_Utility::create_toogle_switch('option_prune_cloud_snapshots', array('saved_value' => $options['prune_cloud_snapshots'], 'class' => 'has-suboption'));
+        echo '<div class="option-group-desc">Automatically delete automatic snapshots uploaded to the cloud</div>';
+        $cloud_prune_details = array(
+            'days-1' => 'older than one day',
+            'days-3' => 'older than 3 days',
+            'days-5' => 'older than 5 days',
+            'days-7' => 'older than 7 days',
+            'days-10' => 'older than 10 days',
+            'days-15' => 'older than 15 days',
+            'days-30' => 'older than 30 days',
+            'cnt-10' => 'when there are more than 10 snapshots saved',
+            'cnt-20' => 'when there are more than 20 snapshots saved',
+            'cnt-50' => 'when there are more than 50 snapshots saved',
+            'cnt-100' => 'when there are more than 100 snapshots saved',
+            'size-50' => 'when total snapshot size exceeds 50 MB',
+            'size-100' => 'when total snapshot size exceeds 100 MB',
+            'size-200' => 'when total snapshot size exceeds 200 MB',
+            'size-500' => 'when total snapshot size exceeds 500 MB',
+            'size-1000' => 'when total snapshot size exceeds 1000 MB',
+        );
+        echo '<div class="sub-option-group">Delete automatic snapshots from cloud: <select id="option_prune_cloud_snapshots_details" style="width:240px;">';
+        WP_Reset_Utility::create_select_options($cloud_prune_details, $options['prune_cloud_snapshots_details']);
         echo '</select></div></div>';
 
         echo '<div class="option-group">';
@@ -4365,11 +4396,18 @@ class WP_Reset
         echo '<div class="dropdown">
         <a class="button dropdown-toggle" href="#">Actions</a>
         <div class="dropdown-menu">
-        <a title="Import a snapshot" href="#" class="dropdown-item import-snapshot">' . __('Import Snapshot', 'wp-reset') . '</a>
-        <a title="Refresh cloud snapshots" href="#" class="dropdown-item refresh-cloud-snapshots">' . __('Refresh Cloud Snapshots', 'wp-reset') . '</a>
-        <a title="Delete all user snapshots" data-snapshots="selected_user" href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete selected snapshots" data-text-wait="Deleting snapshots. Please wait." data-text-confirm="Are you sure you want to delete the selected user created snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete Selected User Snapshots', 'wp-reset') . '</a>
-        <a title="Delete selected user snapshots" data-snapshots="user" href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete all snapshots" data-text-wait="Deleting snapshots. Please wait." data-text-confirm="Are you sure you want to delete all user created snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete All User Snapshots', 'wp-reset') . '</a>
-        </div>
+        <a title="Import a snapshot" href="#" class="dropdown-item import-snapshot">' . __('Import Snapshot', 'wp-reset') . '</a>';
+
+        echo '<a title="Delete all user snapshots" data-snapshots="selected_user" href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete selected snapshots" data-text-wait="Deleting snapshots. Please wait." data-text-confirm="Are you sure you want to delete the selected user created snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete Selected User Snapshots', 'wp-reset') . '</a>';
+        echo '<a title="Delete selected user snapshots" data-snapshots="user" href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete all snapshots" data-text-wait="Deleting snapshots. Please wait." data-text-confirm="Are you sure you want to delete all user created snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete All User Snapshots', 'wp-reset') . '</a>';
+        
+        if (!empty($options['cloud_service']) && array_key_exists($options['cloud_service'], $this->cloud_services)){
+            echo '<a title="Refresh cloud snapshots" href="#" class="dropdown-item refresh-cloud-snapshots"><span title="Cloud Actions" class="dashicons dashicons-cloud cloud-action-icon"></span>' . __('Refresh Cloud Snapshots', 'wp-reset') . '</a>';
+            echo '<a title="Delete all user cloud snapshots" data-snapshots="user" href="#" class="dropdown-item delete-cloud-snapshots delete-button" data-btn-confirm="Delete all user snapshots from the cloud" data-text-wait="Deleting user snapshots from the cloud. Please wait." data-text-confirm="Are you sure you want to delete all user snapshots from the cloud? There is NO UNDO.<br>Deleting the cloud snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted."><span title="Cloud Actions" class="dashicons dashicons-cloud cloud-action-icon"></span>' . __('Delete All User Snapshots from the Cloud', 'wp-reset') . '</a>';
+            echo '<a title="Delete selected user snapshots" data-snapshots=selected_user href="#" class="dropdown-item delete-cloud-snapshots delete-button" data-btn-confirm="Delete selected user snapshots from the cloud" data-text-wait="Deleting selected user snapshots from the cloud. Please wait." data-text-confirm="Are you sure you want to delete the selected user snapshots from the cloud? There is NO UNDO.<br>Deleting the cloud snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted."><span title="Cloud Actions" class="dashicons dashicons-cloud cloud-action-icon"></span>' . __('Delete Selected User Snapshots from the Cloud', 'wp-reset') . '</a>';
+        }
+        
+        echo '</div>
         </div>';
         echo '</th></tr>';
         echo '<tr class="table-empty hidden"><td colspan="5" class="textcenter">There are no user created snapshots. <a href="#" class="create-new-snapshot">Create a new snapshot.</a></td></tr>';
@@ -4387,13 +4425,19 @@ class WP_Reset
         echo '<tr><th></th><th class="ss-date">Date</th><th>Description</th><th class="ss-size">Size</th><th class="ss-actions">';
         echo '<div class="dropdown">
         <a class="button dropdown-toggle" href="#">Actions</a>
-        <div class="dropdown-menu">
-        <a title="Delete all auto snapshots" data-snapshots="auto" href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete all snapshots" data-text-wait="Deleting snapshots. Please wait." data-text-confirm="Are you sure you want to delete all automatic snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete All Auto Snapshots', 'wp-reset') . '</a>
-        <a title="Delete selected auto snapshots" data-snapshots=selected_auto href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete selected auto snapshots" data-text-wait="Deleting selected automatic snapshots. Please wait." data-text-confirm="Are you sure you want to delete the selected automatic snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete Selected Automatic Snapshots', 'wp-reset') . '</a>
-        </div>
+        <div class="dropdown-menu">        
+        <a title="Delete all auto snapshots" data-snapshots="auto" href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete all snapshots" data-text-wait="Deleting snapshots. Please wait." data-text-confirm="Are you sure you want to delete all automatic snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete All Automatic Snapshots', 'wp-reset') . '</a>
+        <a title="Delete selected auto snapshots" data-snapshots=selected_auto href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete selected auto snapshots" data-text-wait="Deleting selected automatic snapshots. Please wait." data-text-confirm="Are you sure you want to delete the selected automatic snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete Selected Automatic Snapshots', 'wp-reset') . '</a>';
+        
+        if (!empty($options['cloud_service']) && array_key_exists($options['cloud_service'], $this->cloud_services)){
+            echo '<a title="Refresh cloud snapshots" href="#" class="dropdown-item refresh-cloud-snapshots"><span title="Cloud Actions" class="dashicons dashicons-cloud cloud-action-icon"></span>' . __('Refresh Cloud Snapshots', 'wp-reset') . '</a>';
+            echo '<a title="Delete all auto snapshots from the cloud" data-snapshots="auto" href="#" class="dropdown-item delete-cloud-snapshots delete-button" data-btn-confirm="Delete all automatic snapshots from the cloud" data-text-wait="Deleting automatic snapshots from the cloud. Please wait." data-text-confirm="Are you sure you want to delete all automatic snapshots from the cloud? There is NO UNDO.<br>Deleting the cloud snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted."><span title="Cloud Actions" class="dashicons dashicons-cloud cloud-action-icon"></span>' . __('Delete All Automatic Snapshots from the Cloud', 'wp-reset') . '</a>';
+            echo '<a title="Delete selected auto snapshots from the cloud" data-snapshots=selected_auto href="#" class="dropdown-item delete-cloud-snapshots delete-button" data-btn-confirm="Delete selected automatic snapshots from the cloud" data-text-wait="Deleting selected automatic snapshots from the cloud. Please wait." data-text-confirm="Are you sure you want to delete the selected automatic snapshots from the cloud? There is NO UNDO.<br>Deleting the cloud snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted."><span title="Cloud Actions" class="dashicons dashicons-cloud cloud-action-icon"></span>' . __('Delete Selected Automatic Snapshots from the Cloud', 'wp-reset') . '</a>';
+        }
+        echo '</div>
         </div>';
         echo '</th></tr>';
-        echo '<tr class="table-empty hidden"><td colspan="4" class="textcenter">There are no automatic snapshots.<br>If enabled in <a href="#snapshot-options-group" class="change-tab" data-tab="4">snapshot options</a> they will generate automatically on plugin and theme update, activate, deactivate and similar events.</td></tr>';
+        echo '<tr class="table-empty hidden"><td colspan="5" class="textcenter">There are no automatic snapshots.<br>If enabled in <a href="#snapshot-options-group" class="change-tab" data-tab="4">snapshot options</a> they will generate automatically on plugin and theme update, activate, deactivate and similar events.</td></tr>';
         foreach ((array) $ss_auto as $ss) {
             echo $this->get_snapshot_row($ss, 'auto');
         } // foreach
@@ -4525,7 +4569,7 @@ class WP_Reset
 
 
         uasort($snapshots, function ($a, $b) {
-            return strtotime($a['timestamp']) > strtotime($b['timestamp']);
+            return strtotime($a['timestamp']) > strtotime($b['timestamp']) ? 1:-1;
         });
 
         return $snapshots;
@@ -4912,7 +4956,7 @@ class WP_Reset
      *
      * @return bool|WP_Error true on success, or error object on fail.
      */
-    function parse_sql_dump($wprdb, $db_dump_file_sql, $line_ending = PHP_EOL, $ajax)
+    function parse_sql_dump($wprdb, $db_dump_file_sql, $line_ending = PHP_EOL, $ajax = false)
     {
         $options = $this->get_options();
         $tables = array();
@@ -5236,7 +5280,7 @@ class WP_Reset
     
 
     /**
-     * Delete all snapshots
+     * Delete all/selected snapshots
      *
      * @return bool|WP_Error True on success, or error object on fail.
      */
@@ -5274,6 +5318,54 @@ class WP_Reset
             }
         }
 
+        return $deleted_snapshots;
+    } // do_delete_snapshots
+
+
+    /**
+     * Delete all/selected cloud snapshots
+     *
+     * @return bool|WP_Error True on success, or error object on fail.
+     */
+    function do_delete_cloud_snapshots($params = array())
+    {
+        global $wp_reset_cloud;
+        $cloud_snapshots = $wp_reset_cloud->get_cloud_snapshots();
+        
+        $deleted_snapshots = 0;
+
+        if($params['delete'] == 'selected'){
+            foreach($params['ids'] as $uid){
+                if(array_key_exists($uid, $cloud_snapshots)){
+                    $delete_result = $wp_reset_cloud->cloud_snapshot_delete($uid);
+                    if (is_wp_error($delete_result)) {
+                        return $delete_result;
+                    } else {
+                        $deleted_snapshots++;
+                    }
+                }
+            }
+        } else {
+            foreach ($cloud_snapshots as $uid => $snapshot) {
+                if (($params['delete'] == 'auto' && $snapshot['auto'] == true) || 
+                    ($params['delete'] == 'user' && (
+                        !array_key_exists('auto', $snapshot) || 
+                        $snapshot['auto'] == false)
+                    )
+                ) {
+                    $delete_result = $wp_reset_cloud->cloud_snapshot_delete($uid);
+                    if (is_wp_error($delete_result)) {
+                        return $delete_result;
+                    } else {
+                        $deleted_snapshots++;
+                    }
+                }
+            }
+        }
+
+        if($deleted_snapshots > 0){
+            $wp_reset_cloud->cloud_snapshot_refresh();
+        }
         return $deleted_snapshots;
     } // do_delete_snapshots
 
@@ -6009,6 +6101,71 @@ class WP_Reset
                 $this->do_delete_snapshot($sid);
             }
         }
+        return true;
+    } // prune_autosnapshots
+
+
+    /**
+     * Prune autosnapshots
+     *
+     * @return bool
+     */
+    function prune_cloud_autosnapshots($force = false)
+    {
+        global $wp_reset_cloud;
+        $options = $this->get_all_options();
+
+        if (!$force && ($options['options']['prune_cloud_snapshots'] != 1 || rand(0, 100) < 90)) {
+            return false;
+        }
+
+        $snapshots = $wp_reset_cloud->get_cloud_snapshots();
+        $snapshot_dates = array();
+        $snapshot_sizes = array();
+        $delete = array();
+
+        foreach ($snapshots as $sid => $snapshot) {
+            if (isset($snapshot['auto']) && ($snapshot['auto'] == 'true' || $snapshot['auto'] == '1' || $snapshot['auto'] === true)) {
+                $snapshot_dates[$sid] = strtotime($snapshot['timestamp']);
+                if(!isset($snapshot['file_size'])){
+                    $snapshot['file_size'] = 0;
+                }
+                $snapshot_sizes[$sid] = round(($snapshot['file_size'] + $snapshot['tbl_size']) / 10485.76) / 100; // Size in MB with 2 decimal places
+            } 
+        }
+        arsort($snapshot_dates);
+
+        if (substr($options['options']['prune_cloud_snapshots_details'], 0, 4) == 'size') {
+            $tmp = explode('-', $options['options']['prune_cloud_snapshots_details']);
+            $max_size = (int) $tmp[1];
+            $current_size = 0;
+            foreach ($snapshot_sizes as $id => $size) {
+                $current_size += $size;
+                if ($current_size > $max_size) {
+                    $delete[$sid] = $size;
+                }
+            }
+        } else if (substr($options['options']['prune_cloud_snapshots_details'], 0, 3) == 'cnt') {
+            $tmp = explode('-', $options['options']['prune_cloud_snapshots_details']);
+            $tmp = (int) $tmp[1];
+            $delete = array_slice($snapshot_dates, $tmp);
+        } else {
+            $tmp = explode('-', $options['options']['prune_cloud_snapshots_details']);
+            $tmp = strtotime(current_time('mysql')) - ((int) $tmp[1] * 60 * 60 * 24);
+
+            foreach ($snapshot_dates as $sid => $timestamp) {
+                if ($timestamp < $tmp) {
+                    $delete[$sid] = $timestamp;
+                }
+            }
+        }
+
+        if (count($delete) > 0) {
+            foreach ($delete as $sid => $data) {
+                $wp_reset_cloud->cloud_snapshot_delete($sid);
+            }
+        }
+
         return true;
     } // prune_autosnapshots
 

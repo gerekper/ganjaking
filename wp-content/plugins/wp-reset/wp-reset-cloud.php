@@ -870,6 +870,7 @@ class WP_Reset_Cloud
      */
     public function wpreset_collection_item_delete($item_id)
     {
+        global $wp_reset;
 
         $response = $this->query_cloud_server(
             array(
@@ -882,9 +883,9 @@ class WP_Reset_Cloud
         if ($response['success'] == true) {
             return $response['data'];
         } else if (isset($response['data'])) {
-            return new WP_Error('1', $response['data']);
+            $wp_reset->log('error', $response['data']);
         } else {
-            return new WP_Error('1', 'An error occurred deleting the collection item from the cloud.');
+            $wp_reset->log('error', 'An error occurred deleting the collection item from the cloud.');
         }
     } // wpreset_collection_upload
 
@@ -1065,10 +1066,8 @@ class WP_Reset_Cloud
             return array('action' => 'snapshots_refresh', 'continue' => 1, 'message' => 'Refreshing cloud snapshots');
         } else if (isset($response['data'])) {
             $wp_reset->log('error', 'Cloud: Error deleteting snapshot ' . $response['data']);
-            return new WP_Error('1', $response['data']);
         } else {
             $wp_reset->log('error', 'Cloud: Error deleteting snapshot: unknown error');
-            return new WP_Error('1', 'An error occurred deleting the snapshot from the cloud.');
         }
     } // wpreset_snapshot_delete
 
@@ -1812,17 +1811,14 @@ class WP_Reset_Cloud
                 $this->dropbox->Delete('/' . $cloud_snapshots[$snapshot_uid]['cloud_path']);
             } catch (WPRDropboxException $e) {
                 $wp_reset->log('error', 'Deleting snapshot ' . $wp_reset->log_format_snapshot_name($snapshot_uid) . ' from Dropbox failed: ' . $e->getMessage());
-                return new WP_Error(1, 'An error occurred deleting the snapshot from Dropbox: ' . $e->getMessage());
             }
 
             $wp_reset->log('success', 'Deleted snapshot ' . $wp_reset->log_format_snapshot_name($snapshot_uid) . ' from Dropbox successfully');
             return array('action' => 'snapshots_refresh', 'continue' => 1, 'message' => 'Refreshing cloud snapshots');
         } else if (isset($response['data'])) {
-            $wp_reset->log('error', 'Deleting snapshot ' . $wp_reset->log_format_snapshot_name($snapshot_uid) . ' from Dropbox failed: ' . $response['data']);
-            return new WP_Error('1', $response['data']);
+            $wp_reset->log('error', 'Deleting snapshot ' . $wp_reset->log_format_snapshot_name($snapshot_uid) . ' from Dropbox failed: ' . $response['data']);            
         } else {
-            $wp_reset->log('error', 'Deleting snapshot ' . $wp_reset->log_format_snapshot_name($snapshot_uid) . ' from Dropbox failed: Unknown error');
-            return new WP_Error('1', 'An error occurred deleting the snapshot from the cloud.');
+            $wp_reset->log('error', 'Deleting snapshot ' . $wp_reset->log_format_snapshot_name($snapshot_uid) . ' from Dropbox failed: Unknown error');            
         }
     } // dropbox_snapshot_delete
 
@@ -1837,6 +1833,8 @@ class WP_Reset_Cloud
      */
     public function dropbox_collection_item_delete($collection_id, $collection_item_data)
     {
+        global $wp_reset;
+        
         $this->dropbox = $this->get_dropbox_client(true);
 
         if (is_wp_error($this->dropbox)) {
@@ -1846,7 +1844,7 @@ class WP_Reset_Cloud
         try {
             $this->dropbox->Delete('/' . $collection_item_data['zip_filename']);
         } catch (WPRDropboxException $e) {
-            return new WP_Error(1, 'An error occurred deleting the collection item from Dropbox: ' . $e->getMessage());
+            $wp_reset->log('error', 'An error occurred deleting the collection item from Dropbox: ' . $e->getMessage());
         }
 
         return true;
@@ -2207,6 +2205,8 @@ class WP_Reset_Cloud
      */
     public function pcloud_snapshot_delete($snapshot_uid)
     {
+        global $wp_reset;
+        
         $response = $this->query_cloud_server(
             array(
                 'cloud_action' => 'delete_snapshot',
@@ -2225,14 +2225,14 @@ class WP_Reset_Cloud
                 $pcloudFile = new pCloud\File();
                 $pcloudFile->delete((int)$cloud_snapshots[$snapshot_uid]['cloud_path']);
             } catch (Exception $e) {
-                return new WP_Error(1, 'An error occurred deleting the snapshot from pCloud: ' . $e->getMessage());
+                $wp_reset->log('error', 'An error occurred deleting the snapshot from pCloud: ' . $e->getMessage());
             }
 
             return array('action' => 'snapshots_refresh', 'continue' => 1, 'message' => 'Refreshing cloud snapshots');
         } else if (isset($response['data'])) {
-            return new WP_Error('1', $response['data']);
+            $wp_reset->log('error', $response['data']);
         } else {
-            return new WP_Error('1', 'An error occurred deleting the snapshot from the cloud.');
+            $wp_reset->log('error', 'An error occurred deleting the snapshot from the cloud.');
         }
     } // pcloud_snapshot_delete
 
@@ -2247,6 +2247,8 @@ class WP_Reset_Cloud
      */
     public function pcloud_collection_item_delete($collection_id, $collection_item_data)
     {
+        global $wp_reset;
+        
         $this->pcloud = $this->get_pcloud_client(true);
 
         if (is_wp_error($this->pcloud)) {
@@ -2257,7 +2259,7 @@ class WP_Reset_Cloud
             $pcloudFile = new pCloud\File();
             $pcloudFile->delete((int)$collection_item_data['zip_filename']);
         } catch (Exception $e) {
-            return new WP_Error(1, 'An error occurred deleting the collection item from pCloud: ' . $e->getMessage());
+            $wp_reset->log('error', 'An error occurred deleting the collection item from pCloud: ' . $e->getMessage());
         }
 
         return true;
@@ -2675,6 +2677,8 @@ class WP_Reset_Cloud
      */
     public function icedrive_snapshot_delete($snapshot_uid)
     {
+        global $wp_reset;
+        
         $response = $this->query_cloud_server(
             array(
                 'cloud_action' => 'delete_snapshot',
@@ -2692,14 +2696,14 @@ class WP_Reset_Cloud
             try {
                 $this->icedrive->request('DELETE', $cloud_snapshots[$snapshot_uid]['cloud_path']);
             } catch (Exception $e) {
-                return new WP_Error(1, 'An error occurred deleting the snapshot from Icedrive: ' . $e->getMessage());
+                $wp_reset->log('error', 'An error occurred deleting the snapshot from Icedrive: ' . $e->getMessage());
             }
 
             return array('action' => 'snapshots_refresh', 'continue' => 1, 'message' => 'Refreshing cloud snapshots');
         } else if (isset($response['data'])) {
-            return new WP_Error('1', $response['data']);
+            $wp_reset->log('error', $response['data']);
         } else {
-            return new WP_Error('1', 'An error occurred deleting the snapshot from the cloud.');
+            $wp_reset->log('error', 'An error occurred deleting the snapshot from the cloud.');
         }
     } // icedrive_snapshot_delete
 
@@ -2714,6 +2718,8 @@ class WP_Reset_Cloud
      */
     public function icedrive_collection_item_delete($collection_id, $collection_item_data)
     {
+        global $wp_reset;
+        
         $this->icedrive = $this->get_icedrive_client(true);
 
         if (is_wp_error($this->icedrive)) {
@@ -2723,7 +2729,7 @@ class WP_Reset_Cloud
         try {
             $this->icedrive->request('DELETE', $collection_item_data['zip_filename']);
         } catch (Exception $e) {
-            return new WP_Error(1, 'An error occurred deleting the collection item from Icedrive: ' . $e->getMessage());
+            $wp_reset->log('error', 'An error occurred deleting the collection item from Icedrive: ' . $e->getMessage());
         }
 
         return true;

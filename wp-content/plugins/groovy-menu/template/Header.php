@@ -212,6 +212,12 @@ function groovyMenu( $args = array() ) {
 	if ( class_exists( 'GroovyMenuActions' ) ) {
 		// Do custom shortcodes from preset.
 		GroovyMenuActions::do_preset_shortcodes( $styles );
+
+		if ( 'true' === $groovyMenuSettings['header']['toolbar'] && $groovyMenuSettings['toolbarMenuEnable'] ) {
+			// Do custom shortcodes from preset.
+			GroovyMenuActions::check_toolbar_menu( $styles );
+		}
+
 	}
 
 

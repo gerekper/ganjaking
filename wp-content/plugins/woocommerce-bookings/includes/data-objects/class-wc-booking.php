@@ -285,8 +285,36 @@ class WC_Booking extends WC_Bookings_Data {
 		}
 
 		// Fire the events of valid status has been transitioned.
+		/**
+		 * Hook: woocommerce_booking_{new_status}
+		 *
+		 * @since 1.10.0
+		 *
+		 * @param int        $booking_id Booking id.
+		 * @param WC_Booking $booking    Booking object.
+		 */
 		do_action( 'woocommerce_booking_' . $this->status_transitioned['to'], $this->get_id(), $this );
+		/**
+		 * Hook: woocommerce_booking_{old_status}_to_{new_status}
+		 *
+		 * @since 1.10.0
+		 *
+		 * @param int        $booking_id Booking id.
+		 * @param WC_Booking $booking    Booking object.
+		 */
 		do_action( 'woocommerce_booking_' . $this->status_transitioned['from'] . '_to_' . $this->status_transitioned['to'], $this->get_id(), $this );
+
+		/**
+		 * Hook: woocommerce_booking_status_changed
+		 *
+		 * @since %VERSION%
+		 *
+		 * @param string     $from       Previous status.
+		 * @param string     $to         New (current) status.
+		 * @param int        $booking_id Booking id.
+		 * @param WC_Booking $booking    Booking object.
+		 */
+		do_action( 'woocommerce_booking_status_changed', $this->status_transitioned['from'], $this->status_transitioned['to'], $this->get_id(), $this );
 	}
 
 	/*

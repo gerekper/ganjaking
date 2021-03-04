@@ -23,7 +23,7 @@ class FUE_Reports {
 		add_action('template_redirect', array($this, 'link_clicked'));
 
 		// sending
-		add_filter('fue_before_sending_email', array($this, 'inject_pixel_tracker'), 10, 3);
+		add_filter( 'fue_before_sending_email', array( $this, 'inject_pixel_tracker' ), 30, 3 );
 
 		// daily summary content
 		add_filter( 'fue_adhoc_email_message', array($this, 'generate_daily_summary_html'), 10, 2 );

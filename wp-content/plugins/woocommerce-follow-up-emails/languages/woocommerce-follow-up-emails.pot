@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Follow-Up Emails 4.9.11\n"
+"Project-Id-Version: Follow-Up Emails 4.9.12\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-follow-up-emails\n"
-"POT-Creation-Date: 2021-02-02 20:02:32+00:00\n"
+"POT-Creation-Date: 2021-02-23 15:42:29+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1713,7 +1713,7 @@ msgid "New Tweet"
 msgstr ""
 
 #: includes/class-fue-admin-controller.php:22
-#: includes/class-fue-admin-controller.php:381
+#: includes/class-fue-admin-controller.php:380
 #: templates/reports/user_view.php:88
 msgid "Scheduled Emails"
 msgstr ""
@@ -1744,56 +1744,56 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:233
+#: includes/class-fue-admin-controller.php:232
 msgid "Processing Emails"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:236
+#: includes/class-fue-admin-controller.php:235
 msgid "batch"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:237
+#: includes/class-fue-admin-controller.php:236
 msgid "batches"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:286
-#: includes/class-fue-admin-controller.php:305 templates/updater.php:14
+#: includes/class-fue-admin-controller.php:285
+#: includes/class-fue-admin-controller.php:304 templates/updater.php:14
 msgid "Data Update"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:373
+#: includes/class-fue-admin-controller.php:372
 msgid "This will delete ALL scheduled emails! Continue?"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:476
+#: includes/class-fue-admin-controller.php:475
 #: includes/reports/class-fue-reports.php:732
 #: templates/coupons/coupon-list-table.php:115
 #: templates/reports/overview.php:148
 msgid "Email Name"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:477
+#: includes/class-fue-admin-controller.php:476
 msgid "Processing request..."
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:478
+#: includes/class-fue-admin-controller.php:477
 msgid ""
 "A follow-up email with the same settings already exists. Do you want to "
 "create it anyway?"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:479
+#: includes/class-fue-admin-controller.php:478
 msgid "A similar follow-up email already exists. Do you wish to continue?"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:480
+#: includes/class-fue-admin-controller.php:479
 #: includes/class-fue-subscribers-lists-list-table.php:94
 #: templates/add-ons/templates-list.php:57
 #: templates/add-ons/templates-list.php:67
 msgid "Save"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:480
+#: includes/class-fue-admin-controller.php:479
 msgid "Build your email"
 msgstr ""
 
@@ -3270,7 +3270,7 @@ msgstr ""
 msgid "View in browser"
 msgstr ""
 
-#: includes/sending/class-fue-sending-mailer.php:1217
+#: includes/sending/class-fue-sending-mailer.php:1214
 msgid "Sent email"
 msgstr ""
 
@@ -6031,7 +6031,7 @@ msgstr ""
 msgid "https://woocommerce.com"
 msgstr ""
 
-#: includes/class-fue-admin-controller.php:238
+#: includes/class-fue-admin-controller.php:237
 msgctxt "Data updater action label"
 msgid "processed"
 msgstr ""

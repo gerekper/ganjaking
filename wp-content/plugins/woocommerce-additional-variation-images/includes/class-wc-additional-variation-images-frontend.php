@@ -48,7 +48,7 @@ class WC_Additional_Variation_Images_Frontend {
 		$localized_vars = apply_filters(
 			'wc_ajax_wc_additional_variation_images_localized_vars',
 			array(
-				'ajax_url'             => WC_AJAX::get_endpoint( '%%endpoint%%' ), 
+				'ajax_url'             => WC_AJAX::get_endpoint( '%%endpoint%%' ),
 				'ajaxImageSwapNonce'   => wp_create_nonce( '_wc_additional_variation_images_nonce' ),
 				'gallery_images_class' => apply_filters( 'wc_additional_variation_images_gallery_images_class', '.product .images .flex-control-nav, .product .images .thumbnails' ),
 				'main_images_class'    => apply_filters( 'wc_additional_variation_images_main_images_class', '.woocommerce-product-gallery' ),
@@ -92,11 +92,11 @@ class WC_Additional_Variation_Images_Frontend {
 			wp_send_json_error();
 		}
 
-		$gallery_html = '<div class="woocommerce-product-gallery woocommerce-product-gallery--wcavi woocommerce-product-gallery--variation-'. absint( $variation_id ) .' woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-' . esc_attr( apply_filters( 'woocommerce_product_thumbnails_columns', 4 ) ) . ' images" data-columns="' . esc_attr( apply_filters( 'woocommerce_product_thumbnails_columns', 4 ) ) . '" style="opacity: 0; transition: opacity .25s ease-in-out;">';
+		$gallery_html  = '<div class="woocommerce-product-gallery woocommerce-product-gallery--wcavi woocommerce-product-gallery--variation-' . absint( $variation_id ) . ' woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-' . esc_attr( apply_filters( 'woocommerce_product_thumbnails_columns', 4 ) ) . ' images" data-columns="' . esc_attr( apply_filters( 'woocommerce_product_thumbnails_columns', 4 ) ) . '" style="opacity: 0; transition: opacity .25s ease-in-out;">';
 		$gallery_html .= '<figure class="woocommerce-product-gallery__wrapper">';
 
 		foreach ( $image_ids as $id ) {
-			$gallery_html .= wc_get_gallery_image_html( $id, false );
+			$gallery_html .= apply_filters( 'woocommerce_single_product_image_thumbnail_html', wc_get_gallery_image_html( $id, false ), $id );
 		}
 
 		$gallery_html .= '</figure></div>';

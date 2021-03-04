@@ -27,6 +27,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 	const IS_SHOW_FEATURED_IMAGE = 'groovy_menu_is_show_featured_image';
 	const ICON_CLASS = 'groovy_menu_icon_class';
 	const MEGAMENU_DROPDOWN_CUSTOM_WIDTH = 'groovy_menu_megamenu_dropdown_custom_width';
+	const MEGAMENU_DROPDOWN_POSITION_START = 'groovy_menu_megamenu_dropdown_position_start';
 	const MEGAMENU_BACKGROUND = 'groovy_menu_megamenu_background';
 	const MEGAMENU_BACKGROUND_POSITION = 'groovy_menu_megamenu_background_position';
 	const MEGAMENU_BACKGROUND_REPEAT = 'groovy_menu_megamenu_background_repeat';
@@ -217,14 +218,22 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 				'megamenu-dropdown-custom-width' => [
 					'id'          => 'megamenu-dropdown-custom-width',
 					'label'       => esc_attr__( 'Mega menu dropdown custom width', 'groovy-menu' ),
-					'description' => esc_attr__( 'Is apply for container of menu. Leave blank or write zero for default state', 'groovy-menu' ),
+					'description' => esc_attr__( 'Is apply for container of menu. Leave blank or write zero for default state', 'groovy-menu' ) . '. ' . esc_attr__( 'Ignoring canvas for megamenu', 'groovy-menu' ),
 					'type'        => 'number',
 					'default'     => '',
 					'min-value'   => '0',
 					'max-value'   => '5000',
 					'value-type'  => 'px',
 					'save_id'     => self::MEGAMENU_DROPDOWN_CUSTOM_WIDTH,
-					'lver'        => false,
+					'field_class' => 'megamenu-options-depend',
+				],
+				'megamenu-dropdown-position-start' => [
+					'id'          => 'megamenu-dropdown-position-start',
+					'label'       => esc_attr__( 'Set position of Menu block dropdown as aligned from the start of top level menu item', 'groovy-menu' ),
+					'description' => esc_attr__( 'Ignoring canvas for megamenu', 'groovy-menu' ),
+					'type'        => 'checkbox',
+					'default'     => false,
+					'save_id'     => self::MEGAMENU_DROPDOWN_POSITION_START,
 					'field_class' => 'megamenu-options-depend',
 				],
 				'megamenu-bg'                    => [
@@ -785,6 +794,25 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 		}
 
 		$val = $this->getGMNavMenuMetaWithCheck( $item_id, self::DO_NOT_SHOW_TITLE, true );
+		if ( '' === $val ) {
+			$val = false;
+		}
+
+		return $val;
+	}
+
+	/**
+	 * @param object $item Object with menu item meta data.
+	 *
+	 * @return bool
+	 */
+	protected function megaMenuDropdownPositionStart( $item ) {
+		$item_id = $this->getId( $item );
+		if ( empty( $item_id ) ) {
+			return false;
+		}
+
+		$val = $this->getGMNavMenuMetaWithCheck( $item_id, self::MEGAMENU_DROPDOWN_POSITION_START, true );
 		if ( '' === $val ) {
 			$val = false;
 		}

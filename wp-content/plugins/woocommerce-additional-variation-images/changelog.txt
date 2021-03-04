@@ -1,5 +1,16 @@
 *** WooCommerce Additional Variation Images Changelog ***
 
+2021-02-22 - version 1.9.0
+* Fix - Added the missing `woocommerce_single_product_image_thumbnail_html` hook.
+* Fix - Fixed a conflict with "Default Variations" where multiple galleries could be loaded at once.
+* Fix - Remove usage of jQuery catch.
+* Fix - Support for Multiple Galleries if several are shown on the same page.
+* Fix - Update node-sass to 4.14.1.
+
+2021-02-11 - version 1.8.2
+* Tweak - WC 5.0 compatibility.
+* Tweak - WP 5.6 compatibility.
+
 2021-01-05 - version 1.8.1
 * Fix - Replace deprecated jQuery methods `.ready` and `.isFunction`.
 

@@ -1,5 +1,12 @@
 *** WooCommerce Intuit QBMS Gateway Changelog ***
 
+2021.03.01 - version 3.0.0
+ * Misc - Remove the legacy QBMS gateway
+
+2020.12.15 - version 2.9.0
+ * Misc - Add compatibility for WooCommerce 4.7
+ * Misc - Require PHP 7.0 or newer
+
 2020.11.25 - version 2.8.3
  * Misc - Add support for PHP 8
 

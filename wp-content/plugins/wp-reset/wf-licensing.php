@@ -144,7 +144,6 @@ if (false === class_exists('WF_Licensing_WPR')) {
       );
 
 	  return $default;
-
       $options = get_option('wf_licensing_' . $this->prefix, array());
       $options = array_merge($default, $options);
 

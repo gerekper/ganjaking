@@ -503,6 +503,11 @@ class FrontendWalker extends WalkerNavMenu {
 				if ( ! empty( $custom_width ) ) {
 					$this->megaMenuCustomWidth = $custom_width;
 				}
+
+				$megaMenuPositionStart = $this->megaMenuDropdownPositionStart( $this->currentItem );
+				if ( ! empty( $megaMenuPositionStart ) && $megaMenuPositionStart ) {
+					$classes[] = 'gm-custom-dropdown-position-start';
+				}
 			}
 
 			if ( $this->frozenLink( $this->currentItem ) ) {

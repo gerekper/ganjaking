@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Type\DataType;
 use WP_Query;
 
 class Taxonomy extends AbstractModel {
@@ -12,8 +13,8 @@ class Taxonomy extends AbstractModel {
 	 */
 	private $taxonomy;
 
-	public function __construct( $taxonomy ) {
-		parent::__construct();
+	public function __construct( $taxonomy, $show_empty = null ) {
+		parent::__construct( new DataType( DataType::STRING ), $show_empty );
 
 		$this->taxonomy = (string) $taxonomy;
 	}

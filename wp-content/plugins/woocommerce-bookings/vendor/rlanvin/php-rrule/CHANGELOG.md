@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [2.2.2] - 2021-01-09
+
+### Fixed
+
+- Fix `getOccurrencesAfter` returns empty array when `$inclusive` is `false` and `$limit` is not set [#93](https://github.com/rlanvin/php-rrule/pull/93)
+
+## [2.2.1] - 2020-12-09
+
+### Fixed
+
+- Fix support for `DateTimeImmutable` [#90](https://github.com/rlanvin/php-rrule/issues/90)
+
 ## [2.2.0] - 2019-11-01
 
 ### Added
@@ -190,7 +202,9 @@
 
 - First release, everything before that was unversioned (`dev-master` was used).
 
-[Unreleased]: https://github.com/rlanvin/php-rrule/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/rlanvin/php-rrule/compare/v2.2.2...HEAD
+[2.2.2]: https://github.com/rlanvin/php-rrule/compare/v2.2.1...v2.2.2
+[2.2.1]: https://github.com/rlanvin/php-rrule/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/rlanvin/php-rrule/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/rlanvin/php-rrule/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/rlanvin/php-rrule/compare/v2.0.0-rc1...v2.0.0

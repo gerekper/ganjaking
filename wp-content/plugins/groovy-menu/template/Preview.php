@@ -66,6 +66,19 @@ if ( $custom_js ) {
 	$output_custom_media .= "\n" . '<' . esc_attr( $tag_name ) . '>' . $custom_js . '</' . esc_attr( $tag_name ) . '>';
 }
 
+
+if ( class_exists( 'GroovyMenuActions' ) ) {
+	// Do custom shortcodes from preset.
+	GroovyMenuActions::do_preset_shortcodes( $styles );
+
+	if ( 'true' === $groovyMenuSettings['header']['toolbar'] && $groovyMenuSettings['toolbarMenuEnable'] ) {
+		// Do custom shortcodes from preset.
+		GroovyMenuActions::check_toolbar_menu( $styles );
+	}
+
+}
+
+
 // Disable admin bar.
 add_filter( 'show_admin_bar', '__return_false' );
 remove_action( 'wp_head', '_admin_bar_bump_cb' );

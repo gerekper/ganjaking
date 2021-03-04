@@ -1321,7 +1321,7 @@ class RevSliderFunctions extends RevSliderData {
 		
 		$items = array();
 		foreach($base_transitions as $m => $bt){
-			if(!is_string($m) && $m === 'random' || $m === 'custom' || ($main !== 'all' && $main !== $m)) continue;
+			if(!is_string($m) || $m === 'random' || $m === 'custom' || ($main !== 'all' && $main !== $m)) continue;
 			foreach($bt as $g => $_bt){
 				if(is_array($_bt) && $g !== 'icon' && (empty($grp) || isset($grp[$g]))){
 					foreach($_bt as $e => $__bt){

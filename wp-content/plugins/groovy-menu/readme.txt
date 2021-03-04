@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.6
-Stable tag: 2.4.7
+Stable tag: 2.4.9
 Requires PHP: 7.0
 License: Themeforest Split Licence
 License URI: -
@@ -65,6 +65,23 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.4.9 =
+* Improve: Submenu appearance style for minimalistic menu type.
+* Add: New feature that allows to add an additional menu to the toolbar. Placed in section of "General > Toolbar Menu".
+* Add: New setting "Align toolbar to the center".
+* Fix: Fix for issue of "Submenu appearance style" with "Animate from bottom" for Expanded and Sidebar types of menu.
+
+= 2.4.8 =
+* Improve: Hamburger behavior and settings.
+* Add: New hover style "Fade in" to submenu hover style.
+* Add: New setting for nav-menu item "Set position of Menu block dropdown as aligned from the start of top level menu item". It applies to a container of the menu.
+* Add: New settings "Prevent auto closing of the mobile menu". Is prevent automatically closing of the mobile menu when scrolling, resizing the page or tapping outside the menu area.
+* Fix: "transitionend" event bug that appears with a low value of "Expand animation duration" setting.
+* Fix: Prevent opening a menu item with a dropdown link at first click for mobile menu.
+* Fix: Small fix of the animation for "Minimalistic menu open type > Slide menu and container".
+* Fix: Fixed FOUC effect with the fixed sticky menu.
+* Fix: Bug with positioned badges for a mobile menu with relative position.
 
 = 2.4.7 =
 * Add: New setting for nav-menu item "Mega menu dropdown custom width". Is apply for container of menu.

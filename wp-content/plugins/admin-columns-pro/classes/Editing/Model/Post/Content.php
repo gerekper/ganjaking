@@ -14,7 +14,7 @@ class Content extends Model\Post {
 
 		return [
 			self::VIEW_BULK_EDITABLE => false,
-			self::VIEW_TYPE          => $setting->get_editable_type(),
+			self::VIEW_TYPE          => $setting ? $setting->get_editable_type(): 'textarea',
 		];
 	}
 

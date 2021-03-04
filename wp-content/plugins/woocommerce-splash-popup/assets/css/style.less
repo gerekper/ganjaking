@@ -1,0 +1,29 @@
+@import url(mixins.less);
+div.pp_woocommerce {
+	.pp_inline {
+		padding:30px;
+		.borderbox;
+	}
+	.pp_content {
+		.splash-content {
+			p:last-child {
+				margin-bottom:0;
+			}
+			ul.products {
+				margin-left:0;
+				margin-right:0;
+				width:100%;
+				.clearfix;
+				padding:0;
+				li.product {
+					width:22.05%;
+					margin-right:3.8%;
+					margin-left:0;
+					&.last {
+						margin-right:0;
+					}
+				}
+			}
+		}
+	}
+}

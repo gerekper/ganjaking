@@ -427,7 +427,7 @@ class WP_Reset_Tools
   {
     global $wp_reset;
     $options = $wp_reset->get_options();
-    $params = shortcode_atts(array('tools_snapshots' => false, 'events_snapshots' => false, 'snapshots_autoupload' => false, 'autosnapshots_autoupload' => false, 'snapshots_upload_delete' => false, 'scheduled_snapshots' => false, 'prune_snapshots' => false, 'prune_snapshots_details' => false, 'adminbar_snapshots' => false, 'optimize_tables' => false, 'snapshots_size_alert' => 1000, 'throttle_ajax' => false, 'fix_datetime' => false, 'alternate_db_connection' => false, 'ajax_snapshots_export' => false, 'cloud_service' => 'wpr'), (array) $params);
+    $params = shortcode_atts(array('tools_snapshots' => false, 'events_snapshots' => false, 'snapshots_autoupload' => false, 'autosnapshots_autoupload' => false, 'snapshots_upload_delete' => false, 'scheduled_snapshots' => false, 'prune_snapshots' => false, 'prune_snapshots_details' => false, 'prune_cloud_snapshots' => false, 'prune_cloud_snapshots_details' => false, 'adminbar_snapshots' => false, 'optimize_tables' => false, 'snapshots_size_alert' => 1000, 'throttle_ajax' => false, 'fix_datetime' => false, 'alternate_db_connection' => false, 'ajax_snapshots_export' => false, 'cloud_service' => 'wpr'), (array) $params);
 
     $options['events_snapshots'] = (int) $params['events_snapshots'];
     $options['snapshots_autoupload'] = (int) $params['snapshots_autoupload'];
@@ -437,6 +437,8 @@ class WP_Reset_Tools
     $options['scheduled_snapshots'] = (int) $params['scheduled_snapshots'];
     $options['prune_snapshots'] = (int) $params['prune_snapshots'];
     $options['prune_snapshots_details'] = trim($params['prune_snapshots_details']);
+    $options['prune_cloud_snapshots'] = (int) $params['prune_cloud_snapshots'];
+    $options['prune_cloud_snapshots_details'] = trim($params['prune_cloud_snapshots_details']);
     $options['adminbar_snapshots'] = (int) $params['adminbar_snapshots'];
     $options['optimize_tables'] = (int) $params['optimize_tables'];
     $options['snapshots_size_alert'] = (int) $params['snapshots_size_alert'];

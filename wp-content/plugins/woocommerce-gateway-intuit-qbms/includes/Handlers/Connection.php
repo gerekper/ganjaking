@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\Intuit\Handlers;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_4 as Framework;
 
 class Connection {
 
@@ -236,27 +236,6 @@ class Connection {
 	}
 
 
-	/** Conditional methods *******************************************************************************************/
-
-
-	/**
-	 * Determines if the connection can be reconnected.
-	 *
-	 * TODO: remove after 2021-01 or in v3.0.0 {DM 2020-01-14}
-	 *
-	 * @since 2.4.0
-	 * @deprecated 2.6.2-dev.1
-	 *
-	 * @return bool
-	 */
-	public function can_reconnect() {
-
-		wc_deprecated_function( __METHOD__, '2.6.2-dev.1' );
-
-		return true;
-	}
-
-
 	/** Setter methods ************************************************************************************************/
 
 
@@ -299,27 +278,6 @@ class Connection {
 	public function set_access_token_expiry( $expiry ) {
 
 		return update_option( $this->get_token_option_name() . '_access_token_expiry', $expiry );
-	}
-
-
-	/**
-	 * Sets the token secret.
-	 *
-	 * This is only used with OAuth v1.0.
-	 *
-	 * TODO: remove after 2021-01 or in v3.0.0 {DM 2020-01-14}
-	 *
-	 * @since 2.4.0
-	 * @deprecated 2.6.2-dev.1
-	 *
-	 * @param $value
-	 * @return bool
-	 */
-	public function set_token_secret( $value ) {
-
-		wc_deprecated_function( __METHOD__, '2.6.2-dev.1' );
-
-		return false;
 	}
 
 
@@ -452,26 +410,6 @@ class Connection {
 	public function get_access_token_expiry() {
 
 		return get_option( $this->get_token_option_name() . '_access_token_expiry', '' );
-	}
-
-
-	/**
-	 * Gets the stored access token secret.
-	 *
-	 * This is only used for OAuth v1.0.
-	 *
-	 * TODO: remove after 2021-01 or in v3.0.0 {DM 2020-01-14}
-	 *
-	 * @since 2.4.0
-	 * @deprecated 2.6.2-dev.1
-	 *
-	 * @return string
-	 */
-	public function get_token_secret() {
-
-		wc_deprecated_function( __METHOD__, '2.6.2-dev.1' );
-
-		return '';
 	}
 
 

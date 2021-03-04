@@ -374,7 +374,6 @@ jQuery(document).ready(function ($) {
             tmp = wpr_swal.getContent();
             icedrive_user = $(tmp).find("#icedrive_user").val();
             icedrive_pass = $(tmp).find("#icedrive_pass").val();
-            console.log(icedrive_user + "/" + icedrive_pass);
             block_ui();
           if (result.value) {
             $.get({
@@ -504,6 +503,8 @@ jQuery(document).ready(function ($) {
           snapshots_size_alert: $("#option_snapshots_size_alert").val(),
           prune_snapshots: Number($("#option_prune_snapshots").is(":checked")),
           prune_snapshots_details: $("#option_prune_snapshots_details").val(),
+          prune_cloud_snapshots: Number($("#option_prune_cloud_snapshots").is(":checked")),
+          prune_cloud_snapshots_details: $("#option_prune_cloud_snapshots_details").val(),
           adminbar_snapshots: Number(
             $("#option_adminbar_snapshots").is(":checked")
           ),
@@ -2932,6 +2933,39 @@ jQuery(document).ready(function ($) {
     return false;
   }); // delete snapshots button in WPR
 
+  // delete cloud snapshots button in WPR
+  $(document).on("click", ".delete-cloud-snapshots", function (e) {
+    e.preventDefault();
+    var delete_cloud_snapshots = $(this).data("snapshots");
+    var selected_snapshots = [];
+    if($(this).data("snapshots") == 'selected_user'){
+        $.each($("input[name='selected_snapshots']:checked"), function(){
+            selected_snapshots.push($(this).val());
+        });
+        delete_cloud_snapshots = 'selected';
+    }
+    if($(this).data("snapshots") == 'selected_auto'){
+        $.each($("input[name='selected_autosnapshots']:checked"), function(){
+            selected_snapshots.push($(this).val());
+        });
+        delete_cloud_snapshots = 'selected';
+    }
+
+    if(delete_cloud_snapshots == 'selected' && selected_snapshots.length == 0){
+        wpr_swal.fire({
+            type: "error",
+            title: 'No snapshots selected',
+        });
+        return;
+    }
+    run_tool_confirm(this, "delete_cloud_snapshots", {
+      delete: delete_cloud_snapshots,
+      ids: selected_snapshots
+    });
+
+    return false;
+  }); // delete snapshots button in WPR
+
   // Collections
   var collections_ajax_queue = [];
   var collections_ajax_queue_count = 0;
@@ -4127,6 +4161,7 @@ jQuery(document).ready(function ($) {
               tool_name == "restore_snapshot" ||
               tool_name == "delete_snapshot" ||
               tool_name == "delete_snapshots" ||
+              tool_name == "delete_cloud_snapshots" ||
               tool_name == "drop_custom_tables"
             ) {
               location.reload();

@@ -409,7 +409,7 @@ class FUE_Sending_Mailer {
 		}
 
 		// remove pixel tracking for web version views
-		remove_filter('fue_before_sending_email', array($GLOBALS['fue_reports'], 'inject_pixel_tracker'), 10, 3);
+		remove_filter( 'fue_before_sending_email', array( $GLOBALS['fue_reports'], 'inject_pixel_tracker' ), 30, 3 );
 		$email_data = apply_filters( 'fue_before_sending_email', $email_data, $email, $queue_item );
 
 		return $email_data['message'];
@@ -1069,7 +1069,6 @@ class FUE_Sending_Mailer {
 		$cc         = '';
 
 		$global_bcc = get_option('fue_bcc', '');
-		$types_bcc  = get_option('fue_bcc_types', array());
 
 		$email_bcc  = isset( $email_meta['bcc'] )
 						? $email_meta['bcc']
@@ -1077,8 +1076,6 @@ class FUE_Sending_Mailer {
 
 		if ( $email_bcc ) {
 			$cc = $email_bcc;
-		} elseif ( isset($types_bcc[$email->type]) && !empty($types_bcc[$email->type]) ) {
-			$cc = $types_bcc[$email->type];
 		} elseif ( !empty($global_bcc) && is_email( $global_bcc ) ) {
 			$cc = $global_bcc;
 		}

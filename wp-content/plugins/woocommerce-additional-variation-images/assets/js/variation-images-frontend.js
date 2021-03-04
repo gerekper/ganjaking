@@ -2,7 +2,7 @@
 	const callback = () => {
 		const endpoint = wc_additional_variation_images_local.ajax_url.toString().replace( '%%endpoint%%', 'wc_additional_variation_images_get_images' )
 		const endpointNonce = wc_additional_variation_images_local.ajaxImageSwapNonce;
-		const loadedGalleries = [];
+		const galleryStatus = {};
 
 		const jqueryFunctionExists = function (name) {
 			return typeof jQuery.fn[name] === 'function';
@@ -38,71 +38,112 @@
 			jQueryTriggerEvent( 'wc_additional_variation_images_frontend_lightbox_done' );
 		};
 
-		const loadGallery = function ( variationId = 0, callback = null ) {
-			jQuery( wc_additional_variation_images_local.gallery_images_class ).block({
-				message: null,
-				overlayCSS: {
-					background: '#fff',
-					opacity: 0.6
-				}
-			});
-
-			jQuery.when( getImages( variationId ) ).then( function( response ) {
-				loadedGalleries.push( variationId );
-
-				if ( response && response.main_images.length ) {
-					const variationSelector = '.woocommerce-product-gallery--variation-' + variationId;
-
-					// Append gallery HTML and init.
-					jQuery( wc_additional_variation_images_local.main_images_class ).first().before( response.main_images );
-					jQuery( variationSelector ).wc_product_gallery();
-					initLightbox();
-				}
-
-				jQuery( wc_additional_variation_images_local.gallery_images_class ).unblock();
-				showGallery( variationId );
-			} );
+		const blockUiParams = {
+			message: null,
+			overlayCSS: {
+				background: '#fff',
+				opacity: 0.6
+			}
 		};
 
-		const showOriginalGallery = function () {
-			const mainNotVariationSelector = wc_additional_variation_images_local.main_images_class + ':not(.woocommerce-product-gallery--wcavi)';
+		const loadGallery = function ( variationId = 0, callback ) {
+			const loadingGallery = jQuery.Deferred( callback );
 
-			if ( jQuery( mainNotVariationSelector ).is(':visible') ) {
+			if ( galleryStatus[ variationId ] && galleryStatus[ variationId ].promise.state() === 'resolved' ) {
+				return loadingGallery.resolve( variationId, galleryStatus[ variationId ].result );
+			}
+
+			if ( ! galleryStatus[ variationId ] || galleryStatus[ variationId ].promise.state() === 'rejected' ) {
+				const promise = getImages( variationId );
+
+				galleryStatus[ variationId ] = {
+					promise: promise,
+					result: '',
+				}
+			}
+
+			jQuery.when( galleryStatus[ variationId ].promise ).then( function( response ) {
+				galleryStatus[ variationId ].result = response.main_images || '';
+				loadingGallery.resolve( variationId, galleryStatus[ variationId ].result );
+			}, function() {
+				loadingGallery.reject();
+			} );
+
+			return loadingGallery.promise();
+		};
+
+		const showGallery = function ( variationId = 0, variationForm ) {
+			const $container = jQuery( variationForm ).closest( '.product' );
+
+			if ( $container.length === 0 ) {
 				return;
 			}
 
-			jQuery( wc_additional_variation_images_local.main_images_class + ':visible' ).hide();
-			jQuery( mainNotVariationSelector ).show();
-		};
+			const $allGalleries    = $container.find( wc_additional_variation_images_local.main_images_class );
+			const $originalGallery = $container.find( wc_additional_variation_images_local.main_images_class + ':not(.woocommerce-product-gallery--wcavi)' );
 
-		const showGallery = function ( variationId = 0 ) {
-			const variationSelector = '.woocommerce-product-gallery--variation-' + variationId;
-			const variationGallery = document.querySelector(variationSelector);
+			const showSelectedGallery = function ( $galleryToShow ) {
+				const $visible = $container.find( wc_additional_variation_images_local.main_images_class + ':visible' );
 
-			// Gallery does not exist so query it.
-			if ( variationGallery === null ) {
-				showOriginalGallery();
-			} else {
-				jQuery( wc_additional_variation_images_local.main_images_class + ':visible' ).hide();
-				jQuery( variationSelector ).show();
+				if ( $galleryToShow.is( ':hidden' ) || $visible.length > 1 ) {
+					$visible.hide();
+					$galleryToShow.show();
+				}
 			}
+
+			const getGallery = function( variationId ) {
+				return $container.find( '.woocommerce-product-gallery--variation-' + variationId );
+			};
+
+			const galleryExists = function( variationId ) {
+				return getGallery( variationId ).length > 0;
+			};
+
+			const initGallery = function( galleryVariationId ) {
+				const gallery = getGallery( galleryVariationId );
+
+				if ( gallery.length ) {
+					gallery.wc_product_gallery();
+					initLightbox();
+				}
+			};
+
+			const createGallery = function( galleryVariationId, galleryHtml ) {
+				$allGalleries.first().after( galleryHtml );
+				initGallery( galleryVariationId );
+			};
+
+			// Store the selected variation ID at container level so it can be looked up once promises resolve.
+			$container.data( 'currentVariationId', variationId );
+
+			// Show original if no variation is defined.
+			if ( variationId === 0 ) {
+				return showSelectedGallery( $originalGallery );
+			}
+
+			// Load the gallery using a promise, and when resolved, show the variation gallery.
+			loadGallery( variationId, function() {
+				$allGalleries.block( blockUiParams );
+			} ).then( function( galleryVariationId, galleryHtml ) {
+				if ( ! galleryExists( galleryVariationId ) ) {
+					createGallery( galleryVariationId, galleryHtml );
+				}
+				if ( galleryVariationId === $container.data( 'currentVariationId' ) ) {
+					showSelectedGallery( getGallery( galleryVariationId ) );
+				}
+			} ).always( function() {
+				$allGalleries.unblock();
+			} );
 		};
 
 		// Core triggers events through jQuery.
 		jQuery( 'form.variations_form' )
 			.on( 'reset_data', function( event, variation ) {
-				showOriginalGallery();
+				showGallery( 0, event.target );
 			})
 			.on( 'show_variation', function( event, variation ) {
 				jQueryTriggerEvent( 'wc_additional_variation_images_frontend_before_show_variation' );
-
-				const variationId = parseInt( variation.variation_id, 10 );
-
-				if ( loadedGalleries.indexOf( variationId ) === -1 ) {
-					loadGallery( variationId );
-				} else {
-					showGallery( variationId );
-				}
+				showGallery( parseInt( variation.variation_id, 10 ), event.target );
 			});
 
 		jQueryTriggerEvent( 'wc_additional_variation_images_frontend_init' );

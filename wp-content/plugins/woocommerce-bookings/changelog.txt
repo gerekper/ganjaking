@@ -1,5 +1,16 @@
 *** WooCommerce Bookings Changelog ***
 
+2021-02-24 - version 1.15.36
+* Fix - Dev - Fix unit testing infrastructure and make it compatible with PHP 8.
+* Fix - Fix the JS error when displaying the booking detail in Calendar > Day view.
+* Fix - Register menu items with WC Navigation.
+* Fix - WC no longer uses SemVer, so update to support L-2 version of WC.
+* Tweak - WC 5.0 compatibility.
+* Tweak - WP 5.6 compatibility.
+
+2021-01-26 - version 1.15.35
+* Fix - Dev: Add new hook `woocommerce_booking_status_changed` with status values as arguments.
+
 2021-01-18 - version 1.15.34
 * Fix - Fix: Prevent critical errors by passing correct number of args to `woocommerce_email_header` in email templates.
 * Tweak - WC 4.9 compatibility.

@@ -1,4 +1,18 @@
 <div class="slider-revolution-update-list">
+	<h3 class="version-number">Version 6.4.2 (26th February 2021)</h3>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+		<li>Video with unusual aspect ratios zoom in after slide animation. object-fit:cover is now removed from html5 videos</li>
+		<li>Material icon size conflict with WPBakery plugin resolved</li>
+		<li>Retina display shows blurry background images after Slide background animation</li>
+		<li>Random slide background animations break the editor and does not show transitions on frontend</li>
+		<li>Background rendering on auto size, % size, background aligns and background repeats like repeat-x and repeat-y do not render well since version 6.4.0</li>
+	</ul>
+	<div class="change"><strong style="font-weight:700">Changes</strong></div>
+	<ul>
+		<li>Slides are now numbered in the actions choices for better usability</li>
+	</ul>
+	
 	<h3 class="version-number">Version 6.4.1 (24th February 2021)</h3>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
 	<ul>
@@ -50,6 +64,7 @@
 		<li>Fast clicking on carousel would trigger "cancel" event on carousel and carousel would fail</li>
 		<li>Added protection against third party plugins/themes conflict with slider background images</li>
 		<li>Clicking outside of a modal fails to close the modal</li>
+		<li>Fixed Chrome artifact issue when using parallax with blur animation</li>
 	</ul>
 	
 	<h3 class="version-number">Version 6.3.10 (8th February 2021)</h3>

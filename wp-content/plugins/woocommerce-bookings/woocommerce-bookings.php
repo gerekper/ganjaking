@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Bookings
  * Plugin URI: https://woocommerce.com/products/woocommerce-bookings/
  * Description: Setup bookable products such as for reservations, services and hires.
- * Version: 1.15.34
+ * Version: 1.15.36
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-bookings
  * Domain Path: /languages
  * Tested up to: 5.6
- * WC tested up to: 4.9
+ * WC tested up to: 5.0
  * WC requires at least: 2.6
  *
  * Copyright: © 2021 WooCommerce
@@ -22,6 +22,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
 
 // phpcs:disable WordPress.Files.FileName
 
@@ -78,7 +81,7 @@ function woocommerce_bookings_activate() {
 
 if ( ! class_exists( 'WC_Bookings' ) ) :
 
-	define( 'WC_BOOKINGS_VERSION', '1.15.34' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BOOKINGS_VERSION', '1.15.36' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_BOOKINGS_TEMPLATE_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/templates/' );
 	define( 'WC_BOOKINGS_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 	define( 'WC_BOOKINGS_MAIN_FILE', __FILE__ );
@@ -124,6 +127,88 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 			 * Large priority ensures this occurs after WooCommerce Admin has loaded.
 			 */
 			add_action( 'plugins_loaded', array( $this, 'show_activation_notice' ), 100 );
+
+			// Register menu items in the new WooCommerce navigation.
+			add_action( 'admin_menu', array( $this, 'register_navigation_items' ), 6 );
+		}
+
+		/**
+		 * Register the navigation items in the WooCommerce navigation.
+		 */
+		public static function register_navigation_items() {
+			if (
+				! class_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Menu' ) ||
+				! class_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Screen' )
+			) {
+				return;
+			}
+
+			Menu::add_plugin_category(
+				array(
+					'id'         => 'woocommerce-bookings',
+					'title'      => 'WooCommerce Bookings',
+				)
+			);
+
+			$booking_item = Menu::get_post_type_items(
+				'wc_booking',
+				array(
+					'parent' => 'woocommerce-bookings',
+				)
+			);
+
+			Menu::add_plugin_item(
+				array(
+					'id'         => 'woocommerce-bookings-add',
+					'title'      => __( 'Add Booking', 'woocommerce-bookings' ),
+					'capability'    => 'edit_wc_bookings',
+					'url'        => 'edit.php?post_type=wc_booking&page=create_booking',
+					'parent'     => 'woocommerce-bookings',
+					'order'      => 1,
+				)
+			);
+
+			Menu::add_plugin_item(
+				array(
+					'id'         => 'woocommerce-bookings-calendar',
+					'title'      => __( 'Calendar', 'woocommerce-bookings' ),
+					'capability'    => 'edit_wc_bookings',
+					'url'        => 'edit.php?post_type=wc_booking&page=booking_calendar',
+					'parent'     => 'woocommerce-bookings',
+				)
+			);
+
+			Menu::add_plugin_item(
+				array(
+					'id'         => 'woocommerce-bookings-notification',
+					'title'      => __( 'Send Notification', 'woocommerce-bookings' ),
+					'capability'    => 'edit_wc_bookings',
+					'url'        => 'edit.php?post_type=wc_booking&page=booking_notification',
+					'parent'     => 'woocommerce-bookings',
+				)
+			);
+
+			Menu::add_setting_item(
+				array(
+					'id'            => 'woocommerce-bookings-settings',
+					'title'         => __( 'Bookings', 'woocommerce-bookings' ),
+					'capability'    => 'manage_bookings_settings',
+					'url'           => 'edit.php?post_type=wc_booking&page=wc_bookings_settings',
+				)
+			);
+			
+			$resource_item = Menu::get_post_type_items(
+				'bookable_resource',
+				array(
+					'parent' => 'woocommerce-bookings',
+				)
+			);
+
+			Menu::add_plugin_item( $booking_item['all'] );
+			Menu::add_plugin_item( $resource_item['all'] );
+			Menu::add_plugin_item( $resource_item['new'] );
+			Screen::register_post_type( 'wc_booking' );
+			Screen::register_post_type( 'bookable_resource' );
 		}
 
 		/**

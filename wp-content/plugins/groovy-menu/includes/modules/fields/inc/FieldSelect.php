@@ -18,10 +18,14 @@ class FieldSelect extends \GroovyMenu\FieldField {
 			);
 		}
 
+		$additional_class = ' gm-gui__module__name__' . $this->name;
+
 		?>
-		<div class="gm-gui__module__ui gm-gui__module__select-wrapper">
-			<select data-value="<?php echo esc_attr( $this->getValue() ); ?>" data-name="<?php echo esc_attr( $this->name ); ?>"
-				class="gm-select" name="<?php echo esc_attr( $this->getName() ); ?>" data-default="<?php echo esc_attr( $this->getDefault() ); ?>">
+		<div class="gm-gui__module__ui gm-gui__module__select-wrapper<?php echo esc_attr( $additional_class ); ?>">
+			<select data-value="<?php echo esc_attr( $this->getValue() ); ?>"
+				data-name="<?php echo esc_attr( $this->name ); ?>"
+				class="gm-select" name="<?php echo esc_attr( $this->getName() ); ?>"
+				data-default="<?php echo esc_attr( $this->getDefault() ); ?>">
 				<?php foreach ( $this->field['options'] as $key => $option ) {
 					$optionName = $option;
 					if ( is_array( $option ) ) {

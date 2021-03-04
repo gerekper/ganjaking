@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns Pro\n"
-"PO-Revision-Date: 2020-09-15 08:03+0000\n"
-"Last-Translator: Tobias Schutter <info@codepress.nl>\n"
+"PO-Revision-Date: 2021-02-25 09:49+0000\n"
+"Last-Translator: Emre Erkan <kara+transifex@karalamalar.net>\n"
 "Language-Team: Turkish (http://www.transifex.com/codepress/admin-columns-pro/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,7 +88,7 @@ msgstr "Çevrimiçi belgeler"
 
 #: admin-columns-pro/classes/Admin/Settings.php:324
 msgid "Other"
-msgstr ""
+msgstr "Diğer"
 
 #: admin-columns-pro/classes/Admin/Settings.php:328
 msgid "Default"
@@ -192,7 +192,7 @@ msgstr "Dışa aktarım karması için geçersiz değer sağlandı."
 
 #: admin-columns-pro/classes/Export/TableScreenOptions.php:56
 msgid "Export Button"
-msgstr ""
+msgstr "Dışarı aktar düğmesi"
 
 #: admin-columns-pro/classes/Export/TableScreenOptions.php63,
 #: admin-columns-pro/templates/admin/section-export.php9,
@@ -489,16 +489,16 @@ msgstr "JSON olarak dışa aktar"
 
 #: admin-columns-pro/templates/admin/section-export.php:25
 msgid "Looking for PHP Export?"
-msgstr ""
+msgstr "PHP dışarı aktarma mı bakıyorsunuz?"
 
 #: admin-columns-pro/templates/admin/section-export.php:27
 msgid "Read about its successor: %s"
-msgstr ""
+msgstr "Halefi hakkında bilgi edinin: %s"
 
 #: admin-columns-pro/templates/admin/section-export.php27,
 #: admin-columns-pro/templates/admin/section-local-storage.php:3
 msgid "Local Storage"
-msgstr ""
+msgstr "Yerel depolama"
 
 #: admin-columns-pro/templates/admin/section-import.php:9
 msgid "Import"
@@ -590,7 +590,7 @@ msgstr "Filtreleri kaydet"
 #: admin-columns-pro/templates/table/segment-modal.php13,
 #: admin-columns-pro/classes/Search/Asset/Script/Table.php:47
 msgid "Available to all users"
-msgstr ""
+msgstr "Tüm kullanıcılara açık"
 
 #: admin-columns-pro/templates/table/segment-modal.php:22
 msgid "Save a set of custom smart filters for later use."
@@ -608,7 +608,7 @@ msgstr "Filtre uygulanmış listeyi yüklemek için bir segmente tıklayın."
 
 #: admin-columns-pro/templates/table/segment-modal.php:45
 msgid "Make available to all users"
-msgstr ""
+msgstr "Tüm kullanıcıların kullanımına sun"
 
 #: admin-columns-pro/templates/table/segment-modal.php:56
 msgid "Save"
@@ -817,7 +817,7 @@ msgstr "Alt sayfalar"
 
 #: admin-columns-pro/classes/Column/Post/GutenbergBlocks.php:15
 msgid "Gutenberg Blocks"
-msgstr ""
+msgstr "Gutenberg blokları"
 
 #: admin-columns-pro/classes/Column/Post/Images.php:17
 msgid "Images"
@@ -862,7 +862,7 @@ msgstr[1] "%s sürüm"
 #: admin-columns-pro/classes/Column/Post/Shortcode.php14,
 #: admin-columns-pro/classes/Settings/Column/Shortcodes.php:25
 msgid "Shortcode"
-msgstr ""
+msgstr "Kısa kod"
 
 #: admin-columns-pro/classes/Column/Taxonomy/Excerpt.php:16
 msgid "Excerpt"
@@ -894,7 +894,7 @@ msgstr "belgelerimiz"
 
 #: admin-columns-pro/classes/Editing/Admin/CustomFieldEditing.php:44
 msgid "Enable editing for Custom Fields."
-msgstr ""
+msgstr "Özel alanlar için düzenlemeyi etkinleştirin."
 
 #: admin-columns-pro/classes/Editing/Admin/CustomFieldEditing.php46,
 #: admin-columns-pro/classes/Sorting/Admin/ShowAllResults.php:24
@@ -924,7 +924,7 @@ msgstr "ayarlar ekranı"
 
 #: admin-columns-pro/classes/Editing/Settings/BulkEditing.php:34
 msgid "Enable Bulk Editing"
-msgstr ""
+msgstr "Toplu düzenlemeyi etkinleştir"
 
 #: admin-columns-pro/classes/Editing/Settings/BulkEditing.php:55
 msgid "Bulk Editing"
@@ -937,7 +937,7 @@ msgstr "Metin alanı"
 
 #: admin-columns-pro/classes/Editing/Settings/Content.php:36
 msgid "WYSIWYG"
-msgstr ""
+msgstr "WYSIWYG"
 
 #: admin-columns-pro/classes/Editing/Settings/Content.php41,
 #: admin-columns-pro/classes/Editing/Settings/Excerpt.php:41
@@ -962,7 +962,7 @@ msgstr "İstekte bulunulan dosya indirilemiyor."
 
 #: admin-columns-pro/classes/Export/Settings/Column.php:27
 msgid "Enable Export"
-msgstr ""
+msgstr "Dışarı aktarmayı etkinleştir"
 
 #: admin-columns-pro/classes/Filtering/Markup/Dropdown.php46,
 #: ac-addon-woocommerce/classes/Filtering/ShopOrder/CustomerMessage.php:30
@@ -1019,7 +1019,7 @@ msgstr "Yüklenen dosya herhangi bir sütun ayarı içermiyor."
 
 #: admin-columns-pro/classes/Migrate/Import/Request.php:148
 msgid "Columns settings with id %s could not be saved."
-msgstr ""
+msgstr "%s kimliğine sahip sütun ayarları kaydedilemedi."
 
 #: admin-columns-pro/classes/Migrate/Import/Request.php:168
 msgid "Successfully imported %s for %s."
@@ -1111,11 +1111,11 @@ msgstr "Alan türü"
 
 #: admin-columns-pro/classes/Settings/Column/Gutenberg.php:25
 msgid "Block Count"
-msgstr ""
+msgstr "BLok sayısı"
 
 #: admin-columns-pro/classes/Settings/Column/Gutenberg.php:26
 msgid "Block Structure"
-msgstr ""
+msgstr "BLok yapısı"
 
 #: admin-columns-pro/classes/Settings/Column/User.php:15
 msgid "Gravatar"
@@ -1152,17 +1152,17 @@ msgstr "bbPress"
 msgid ""
 "You're using Yoast SEO columns. Support for these columns have been moved to"
 " the new Yoast SEO integration."
-msgstr ""
+msgstr "Yoast SEO sütunlarını kullanıyorsunuz. Bu sütunlar için destek yeni Yoast SEO bütünleştirmesine taşındı."
 
 #: admin-columns-pro/classes/ThirdParty/YoastSeo/DeprecatedAddon.php:28
 msgid ""
 "If you want to keep using Yoast SEO columns, please download and install the"
 " Yoast integration from %s."
-msgstr ""
+msgstr "Eğer Yoast SEO sütunlarını kullanmaya devam etmek istiyorsanız, lütfen Yoast bütünleştirmesini %s üzerinden indirip kurun."
 
 #: admin-columns-pro/classes/ThirdParty/YoastSeo/DeprecatedAddon.php:29
 msgid "the add-ons tab"
-msgstr ""
+msgstr "eklentiler sekmesi"
 
 #: admin-columns-pro/templates/admin/page/settings-section-sorting.php:3
 msgid "Reset sorting preferences"
@@ -1641,11 +1641,11 @@ msgstr "Evet"
 
 #: admin-columns-pro/classes/Editing/Model/User/Fullname.php:19
 msgid "First Name"
-msgstr ""
+msgstr "Ad"
 
 #: admin-columns-pro/classes/Editing/Model/User/Fullname.php:20
 msgid "Last Name"
-msgstr ""
+msgstr "Soyad"
 
 #: admin-columns-pro/classes/Editing/Model/User/Username.php:36
 msgid "The username already exists."
@@ -1653,7 +1653,7 @@ msgstr "Bu kullanıcı adı zaten var."
 
 #: admin-columns-pro/classes/Export/Asset/Script/Table.php:33
 msgid "Something went wrong during exporting. Please try again."
-msgstr ""
+msgstr "Dışarı aktarım sırasında bir şeyler ters gitti. Lütfen yeniden deneyin."
 
 #: admin-columns-pro/classes/Export/Asset/Script/Table.php:34
 msgid "Processed {0} of {1} items ({2}%)."
@@ -1677,7 +1677,7 @@ msgstr "Dosyayı indir"
 msgid ""
 "You are currently generating an export file. Leaving the page will cancel "
 "this process. Are you sure you want to leave the page?"
-msgstr ""
+msgstr "Şu anda bir dışarı aktarma dosyası oluşturuyorsunuz. Bu sayfayı terk etmek süreci durduracaktır. Sayfadan ayrılmak istediğinizden emin misiniz?"
 
 #: admin-columns-pro/classes/Filtering/Markup/Ranged/Date.php:12
 msgid "Start date"
@@ -1820,7 +1820,7 @@ msgstr "Kaydedilmiş filtreler"
 
 #: admin-columns-pro/classes/Search/Settings/HideOnScreen/SmartFilters.php:12
 msgid "Smart Filters"
-msgstr ""
+msgstr "Akıllı filtreler"
 
 #: admin-columns-pro/classes/Settings/Column/NetworkSite/Options.php:17
 msgid "Option"
@@ -1889,11 +1889,11 @@ msgstr "Toplu eylemler"
 #: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterCategory.php13,
 #: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterProductCategory.php:12
 msgid "Category"
-msgstr ""
+msgstr "Kategorisi"
 
 #: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterMediaItem.php:13
 msgid "Media Items"
-msgstr ""
+msgstr "Ortam öğeleri"
 
 #: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterPostDate.php13,
 #: ac-addon-events-calendar/classes/Column/Event/DisplayDate.php18,
@@ -1904,7 +1904,7 @@ msgstr "Tarih"
 
 #: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/FilterPostFormat.php:13
 msgid "Post Format"
-msgstr ""
+msgstr "Yazı biçimi"
 
 #: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/Filters.php:12
 msgid "Filters"
@@ -2111,7 +2111,7 @@ msgstr "Çapraz satışlar"
 
 #: ac-addon-woocommerce/classes/Column/Product/Customers.php:17
 msgid "Customers"
-msgstr ""
+msgstr "Müşteriler"
 
 #: ac-addon-woocommerce/classes/Column/Product/Dimensions.php:79
 msgid "Length"
@@ -2177,7 +2177,7 @@ msgstr "Stokta yok"
 
 #: ac-addon-woocommerce/classes/Column/Product/StockStatus.php:40
 msgid "On backorder"
-msgstr ""
+msgstr "Yok satıldı"
 
 #: ac-addon-woocommerce/classes/Column/Product/Upsells.php:19
 msgid "Upsells"
@@ -2193,7 +2193,7 @@ msgstr "Fiyat dönemi"
 
 #: ac-addon-woocommerce/classes/Column/ProductVariation/SKU.php:36
 msgid "SKU from product"
-msgstr ""
+msgstr "Üründen SKU"
 
 #: ac-addon-woocommerce/classes/Column/ProductVariation/Stock.php:39
 msgid "Stock managed by product"
@@ -2201,7 +2201,7 @@ msgstr "Ürün tarafından yönetilen stok"
 
 #: ac-addon-woocommerce/classes/Column/ProductVariation/Taxonomy.php:17
 msgid "Product Taxonomy"
-msgstr ""
+msgstr "Ürün taksonomisi"
 
 #: ac-addon-woocommerce/classes/Column/ShopCoupon/CouponDescription.php:19
 msgid "Description"
@@ -2288,7 +2288,7 @@ msgstr "Ürün kategorileri"
 
 #: ac-addon-woocommerce/classes/Column/ShopOrder/ProductTags.php:17
 msgid "Product Tags"
-msgstr ""
+msgstr "Ürün etiketleri"
 
 #: ac-addon-woocommerce/classes/Column/ShopOrder/Purchased.php:21
 msgid "Purchased"
@@ -2373,7 +2373,7 @@ msgstr "Yayımlanmış"
 #: ac-addon-woocommerce/classes/Export/Product/Sale.php:34
 msgctxt "Product on sale from (date)"
 msgid "Until"
-msgstr ""
+msgstr "Bitiş tarihi"
 
 #: ac-addon-woocommerce/classes/Filtering/Comment/ProductReview.php:32
 msgid "Exclude Product Reviews"
@@ -2437,15 +2437,15 @@ msgstr "Öne çıkarılmamış"
 
 #: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterOrderCustomer.php:12
 msgid "Registered Customer"
-msgstr ""
+msgstr "Kayıtlı kullanıcı"
 
 #: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterProductStockStatus.php:12
 msgid "Stock Status"
-msgstr ""
+msgstr "Stok durumu"
 
 #: ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterProductType.php:12
 msgid "Product Type"
-msgstr ""
+msgstr "Ürün tipi"
 
 #: ac-addon-woocommerce/classes/Settings/Product/Attributes.php:30
 msgid "All attributes"
@@ -2560,7 +2560,7 @@ msgstr "Faturalama"
 
 #: ac-addon-woocommerce/classes/Settings/User/Order.php:57
 msgid "Amount"
-msgstr ""
+msgstr "Miktar"
 
 #: ac-addon-woocommerce/classes/Settings/User/Products.php:42
 msgid "Total products purchased"
@@ -2572,7 +2572,7 @@ msgstr "Satın alınan benzersiz ürünler"
 
 #: ac-addon-woocommerce/classes/Settings/User/Ratings.php:40
 msgid "Number of ratings"
-msgstr ""
+msgstr "Derecelendirme sayısı"
 
 #: ac-addon-woocommerce/classes/Settings/User/Ratings.php:41
 msgid "Average rating"

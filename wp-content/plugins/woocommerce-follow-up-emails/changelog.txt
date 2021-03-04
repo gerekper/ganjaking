@@ -1,5 +1,10 @@
 *** WooCommerce Follow-Up Emails ***
 
+2021-02-23 - version 4.9.12
+* Fix - Add tracking pixel after wrapping email headers.
+* Fix - Convert to UTF8 before decoding HTML.
+* Fix - Remove usage of BCC per email type.
+
 2021-02-02 - version 4.9.11
 * Fix - Fix - Remove extra blank lines added to live emails when using the `WooCommerce` template.
 * Tweak - WC 5.0 compatibility.

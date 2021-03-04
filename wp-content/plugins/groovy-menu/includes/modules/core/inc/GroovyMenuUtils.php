@@ -1933,6 +1933,7 @@ class GroovyMenuUtils {
 	 * @return bool|string
 	 */
 	public static function check_lic( $immediately = false ) {
+		
 		return true;
 		if ( ! $immediately && get_transient( GROOVY_MENU_DB_VER_OPTION . '__lic_cache' ) ) {
 			$lic_opt = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic' );

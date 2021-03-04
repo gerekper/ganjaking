@@ -5,11 +5,11 @@
  * Description: Take credit card payments on your store using Stripe.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 4.5.5
+ * Version: 4.9.0
  * Requires at least: 4.4
- * Tested up to: 5.5
+ * Tested up to: 5.6
  * WC requires at least: 3.0
- * WC tested up to: 4.3
+ * WC tested up to: 5.0
  * Text Domain: woocommerce-gateway-stripe
  * Domain Path: /languages
  *
@@ -22,10 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Required minimums and constants
  */
-define( 'WC_STRIPE_VERSION', '4.5.5' ); // WRCS: DEFINED_VERSION.
+define( 'WC_STRIPE_VERSION', '4.9.0' ); // WRCS: DEFINED_VERSION.
 define( 'WC_STRIPE_MIN_PHP_VER', '5.6.0' );
 define( 'WC_STRIPE_MIN_WC_VER', '3.0' );
-define( 'WC_STRIPE_FUTURE_MIN_WC_VER', '3.0' );
+define( 'WC_STRIPE_FUTURE_MIN_WC_VER', '3.3' );
 define( 'WC_STRIPE_MAIN_FILE', __FILE__ );
 define( 'WC_STRIPE_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 define( 'WC_STRIPE_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -54,7 +54,7 @@ function woocommerce_stripe_wc_not_supported() {
 	echo '<div class="error"><p><strong>' . sprintf( esc_html__( 'Stripe requires WooCommerce %1$s or greater to be installed and active. WooCommerce %2$s is no longer supported.', 'woocommerce-gateway-stripe' ), WC_STRIPE_MIN_WC_VER, WC_VERSION ) . '</strong></p></div>';
 }
 
-function wc_stripe() {
+function woocommerce_gateway_stripe() {
 
 	static $plugin;
 
@@ -99,7 +99,7 @@ function wc_stripe() {
 			 *
 			 * @return void
 			 */
-			private function __clone() {}
+			public function __clone() {}
 
 			/**
 			 * Private unserialize method to prevent unserializing of the *Singleton*
@@ -107,13 +107,13 @@ function wc_stripe() {
 			 *
 			 * @return void
 			 */
-			private function __wakeup() {}
+			public function __wakeup() {}
 
 			/**
 			 * Protected constructor to prevent creating a new instance of the
 			 * *Singleton* via the `new` operator from outside of this class.
 			 */
-			private function __construct() {
+			public function __construct() {
 				add_action( 'admin_init', array( $this, 'install' ) );
 
 				$this->init();
@@ -388,5 +388,5 @@ function woocommerce_gateway_stripe_init() {
 		return;
 	}
 
-	wc_stripe();
+	woocommerce_gateway_stripe();
 }

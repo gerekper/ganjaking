@@ -22,11 +22,11 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_10_1;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_10_4;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_10_1\\SV_WC_Payment_Gateway_Hosted' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_10_4\\SV_WC_Payment_Gateway_Hosted' ) ) :
 
 
 /**
@@ -247,24 +247,28 @@ abstract class SV_WC_Payment_Gateway_Hosted extends SV_WC_Payment_Gateway {
 
 		// attempt to automatically submit the form and redirect
 		wc_enqueue_js('
-			$( "body" ).block( {
-					message: "<img src=\"' . esc_url( $this->get_plugin()->get_framework_assets_url() . '/images/ajax-loader.gif' ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . esc_html( $args['thanks_message'] ) . '",
-					overlayCSS: {
-						background: "#fff",
-						opacity: 0.6
-					},
-					css: {
-						padding:         20,
-						textAlign:       "center",
-						color:           "#555",
-						border:          "3px solid #aaa",
-						backgroundColor: "#fff",
-						cursor:          "wait",
-						lineHeight:      "32px"
-					}
-				} );
+			( function( $ ) {
 
-			$( "#submit_' . $this->get_id() . '_payment_form" ).click();
+				$( "body" ).block( {
+						message: "<img src=\"' . esc_url( $this->get_plugin()->get_framework_assets_url() . '/images/ajax-loader.gif' ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . esc_html( $args['thanks_message'] ) . '",
+						overlayCSS: {
+							background: "#fff",
+							opacity: 0.6
+						},
+						css: {
+							padding:         20,
+							textAlign:       "center",
+							color:           "#555",
+							border:          "3px solid #aaa",
+							backgroundColor: "#fff",
+							cursor:          "wait",
+							lineHeight:      "32px"
+						}
+					} );
+
+				$( "#submit_' . $this->get_id() . '_payment_form" ).click();
+
+			} ) ( jQuery );
 		');
 
 		echo '<p>' . esc_html( $args['message'] ) . '</p>';

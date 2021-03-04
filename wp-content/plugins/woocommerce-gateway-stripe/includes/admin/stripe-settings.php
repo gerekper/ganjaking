@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( wc_stripe()->connect->is_connected() ) {
+if ( woocommerce_gateway_stripe()->connect->is_connected() ) {
 	$reset_link = add_query_arg(
 		array(
 			'_wpnonce'                     => wp_create_nonce( 'reset_stripe_api_credentials' ),
@@ -20,7 +20,7 @@ if ( wc_stripe()->connect->is_connected() ) {
 		'</span>'
 	);
 } else {
-	$oauth_url = wc_stripe()->connect->get_oauth_url();
+	$oauth_url = woocommerce_gateway_stripe()->connect->get_oauth_url();
 
 	if ( ! is_wp_error( $oauth_url ) ) {
 		$api_credentials_text = sprintf(
@@ -130,7 +130,7 @@ return apply_filters(
 		'statement_descriptor'          => array(
 			'title'       => __( 'Statement Descriptor', 'woocommerce-gateway-stripe' ),
 			'type'        => 'text',
-			'description' => __( 'Statement descriptors are limited to 22 characters, cannot use the special characters >, <, ", \, \', *, and must not consist solely of numbers. This will appear on your customer\'s statement in capital letters.', 'woocommerce-gateway-stripe' ),
+			'description' => __( 'Statement descriptors are limited to 22 characters, cannot use the special characters >, <, ", \, \', *, /, (, ), {, }, and must not consist solely of numbers. This will appear on your customer\'s statement in capital letters.', 'woocommerce-gateway-stripe' ),
 			'default'     => '',
 			'desc_tip'    => true,
 		),
@@ -146,7 +146,7 @@ return apply_filters(
 			'title'       => __( 'Payment Request Buttons', 'woocommerce-gateway-stripe' ),
 			'label'       => sprintf(
 				/* translators: 1) br tag 2) Stripe anchor tag 3) Apple anchor tag 4) Stripe dashboard opening anchor tag 5) Stripe dashboard closing anchor tag */
-				__( 'Enable Payment Request Buttons. (Apple Pay/Google Pay) %1$sBy using Apple Pay, you agree to %2$s and %3$s\'s terms of service. (Apple Pay domain verification is performed automatically; configuration can be found on the %4$sStripe dashboard%5$s.)', 'woocommerce-gateway-stripe' ),
+				__( 'Enable Payment Request Buttons. (Apple Pay/Google Pay) %1$sBy using Apple Pay, you agree to %2$s and %3$s\'s terms of service. (Apple Pay domain verification is performed automatically in live mode; configuration can be found on the %4$sStripe dashboard%5$s.)', 'woocommerce-gateway-stripe' ),
 				'<br />',
 				'<a href="https://stripe.com/apple-pay/legal" target="_blank">Stripe</a>',
 				'<a href="https://developer.apple.com/apple-pay/acceptable-use-guidelines-for-websites/" target="_blank">Apple</a>',

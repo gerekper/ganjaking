@@ -333,7 +333,7 @@ class Frontend {
 						$checkout_fields['add_ons'][ $add_on->get_id() ] = [
 							'type'              => 'wc_checkout_add_ons_file',
 							// cost is added in the template, so it is not included in validation messages
-							'label'             => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label() ),
+							'label'             => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label(), $add_on->get_cost_html() ),
 							'required'          => $add_on->is_required(),
 							'custom_attributes' => [
 								'data-description' => $add_on->get_description(),
@@ -348,7 +348,7 @@ class Frontend {
 						$checkout_fields['add_ons'][ $add_on->get_id() ] = [
 							'type'              => $add_on->get_type(),
 							// cost is added in the template, so it is not included in validation messages
-							'label'             => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label() ),
+							'label'             => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label(), $add_on->get_cost_html() ),
 							'required'          => $add_on->is_required(),
 							// load from session or use default
 							'default'           => $this->checkout_get_add_on_value( $add_on->get_default_value(), $add_on->get_id() ),
@@ -366,7 +366,7 @@ class Frontend {
 						$checkout_fields['add_ons'][ $add_on->get_id() ] = [
 							'type'              => 'wc_checkout_add_ons_checkbox',
 							// cost is added in the template, so it is not included in validation messages
-							'label'             => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label() ),
+							'label'             => $this->get_formatted_label( $add_on->get_name(), $add_on->get_label(), $add_on->get_cost_html() ),
 							'required'          => $add_on->is_required(),
 							'default'           => 'default',
 							// load from session or use default

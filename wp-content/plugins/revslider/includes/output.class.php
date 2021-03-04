@@ -2406,7 +2406,8 @@ ICON SET
 rs-module .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
-  font-style: normal;  
+  font-style: normal;
+	font-size: inherit;
   display: inline-block;  
   text-transform: none;
   letter-spacing: normal;
@@ -5833,12 +5834,17 @@ rs-module .material-icons {
 		
 		$preset = $slide->get_param(array('slideChange', 'preset'), false);
 		$rnd_transition = '';
+		if(is_string($transition) && in_array($transition, array('random', 'random-static', 'random-premium'), true)){
+			$duration = $this->get_html_slide_anim_duration(); //get duration and set it to 1000 if smaller than 500
+			if(intval($duration) < 300) $duration = 750;
+			$preset = 'rndany';
+			$transition = '';
+		}
 		if($preset !== false && strpos($preset, 'rnd') === 0){
 			$rnd_main = $this->get_val($base_transitions, array('random', $preset, 'rndmain'), '');
 			$rnd_grp = $this->get_val($base_transitions, array('random', $preset, 'rndgrp'), '');
 			$rnd_transition = $this->get_random_slide_transition($rnd_main, $rnd_grp, $base_transitions);
 			//get values for the random transition and store it in $data
-			
 			if(!empty($rnd_transition)){
 				$data = $this->get_slide_transition_values($rnd_transition, $base_transitions);
 				$this->frontend_action = true;
@@ -5863,11 +5869,10 @@ rs-module .material-icons {
 			
 			if(!is_array($data)) $data = array();
 			
-			$duration = $this->get_html_slide_anim_duration();			
+			$duration = (!isset($duration)) ? $this->get_html_slide_anim_duration() : $duration;
 			if(in_array($transition, array('3dcurtain-vertical', '3dcurtain-horizontal'), true)){
 				$duration = (empty($duration) || $duration == '') ? 500 : intval(intval($duration) / 3);
-			} else
-			if($duration=='' && strpos($transition,'slidingoverlay') !== false) {				
+			}elseif($duration == '' && strpos($transition, 'slidingoverlay') !== false){				
 				$duration = 2000;
 			}
 			$anim .= ($duration === '') ? '' : 'ms:'.$duration.';';

@@ -160,8 +160,13 @@ abstract class Model extends ACP\Model {
 	 * Register column field settings
 	 */
 	public function register_settings() {
+		$can_bulk_edit = isset( $this->get_view_settings()[ self::VIEW_BULK_EDITABLE ] ) ? $this->get_view_settings()[ self::VIEW_BULK_EDITABLE ] : true;
+
 		$this->column->add_setting( new Editing\Settings( $this->column ) );
-		$this->column->add_setting( new Editing\Settings\BulkEditing( $this->column ) );
+
+		if ( $can_bulk_edit ) {
+			$this->column->add_setting( new Editing\Settings\BulkEditing( $this->column ) );
+		}
 	}
 
 }

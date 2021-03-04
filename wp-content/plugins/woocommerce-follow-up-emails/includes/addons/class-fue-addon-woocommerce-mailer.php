@@ -1366,6 +1366,10 @@ class FUE_Addon_Woocommerce_Mailer {
 	 * @return string The actual content of the document.
 	 */
 	private function get_email_body_content( $message  ) {
+		if ( function_exists( 'mb_convert_encoding' ) ) {
+			$message = mb_convert_encoding( $message, 'HTML-ENTITIES', 'UTF-8' );
+		}
+
 		$dom = new DOMDocument();
 		$dom->loadHTML( $message );
 		$domBody = $dom->getElementsByTagName('body');

@@ -6,7 +6,7 @@
  * Description: Accept credit cards in WooCommerce with the Intuit Payments gateway
  * Author: SkyVerge
  * Author URI: https://woocommerce.com/
- * Version: 2.8.3
+ * Version: 3.0.0
  * Text Domain: woocommerce-gateway-intuit-payments
  * Domain Path: /i18n/languages/
  *
@@ -22,8 +22,8 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 272221:56ee7c24d725409e3244401ed625b4f3
- * WC requires at least: 3.0.9
- * WC tested up to: 4.7.1
+ * WC requires at least: 3.5
+ * WC tested up to: 5.0.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -51,16 +51,16 @@ class WC_Intuit_Payments_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '5.6.0';
+	const MINIMUM_PHP_VERSION = '7.0';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '4.4';
+	const MINIMUM_WP_VERSION = '5.2';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.0.9';
+	const MINIMUM_WC_VERSION = '3.5';
 
 	/** SkyVerge plugin framework version */
-	const FRAMEWORK_VERSION = '5.10.1';
+	const FRAMEWORK_VERSION = '5.10.4';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Intuit Payments Gateway';
@@ -91,8 +91,6 @@ class WC_Intuit_Payments_Loader {
 
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
-
-			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}

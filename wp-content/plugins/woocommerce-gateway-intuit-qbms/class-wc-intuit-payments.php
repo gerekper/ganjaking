@@ -24,7 +24,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_1 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_4 as Framework;
 
 /**
  * The main class for the Intuit Payments Gateway.  This class handles all the
@@ -42,7 +42,7 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 
 	/** string the plugin version number */
-	const VERSION = '2.8.3';
+	const VERSION = '3.0.0';
 
 	/** string the plugin id */
 	const PLUGIN_ID = 'intuit_payments';
@@ -96,7 +96,7 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 			self::PLUGIN_ID,
 			self::VERSION,
 			array(
-				'gateways'     => $this->get_active_gateways(),
+				'gateways'     => $this->get_available_gateways(),
 				'require_ssl'  => true,
 				'supports'     => array(
 					self::FEATURE_CUSTOMER_ID,
@@ -112,9 +112,6 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 		// register connection scripts earlier so that they are available when the setup wizard is rendered and the gateway scripts are enqueued
 		add_action( 'init', [ $this, 'register_connection_scripts' ] );
-
-		// handle switching between the active integrations
-		add_action( 'admin_action_wc_intuit_payments_change_integration', array( $this, 'change_integration' ) );
 	}
 
 
@@ -128,65 +125,20 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 		$plugin_path = $this->get_plugin_path();
 
 		require_once( $plugin_path . '/includes/Handlers/Payment_Form.php' );
+		require_once( $plugin_path . '/includes/Handlers/Connection.php' );
+		require_once( $plugin_path . '/includes/abstract-wc-gateway-intuit-payments.php' );
+		require_once( $plugin_path . '/includes/class-wc-gateway-intuit-payments-credit-card.php' );
+		require_once( $plugin_path . '/includes/class-wc-gateway-intuit-payments-echeck.php' );
+		require_once( $plugin_path . '/includes/api/class-wc-intuit-payments-api-oauth-helper.php' );
+		require_once( $plugin_path . '/includes/class-wc-intuit-payments-ajax.php' );
 
-		// QBMS classes
-		if ( $this->is_qbms_active() ) {
+		$this->payments_ajax_instance = new WC_Intuit_Payments_AJAX( $this );
 
-			require_once( $plugin_path . '/includes/qbms/class-wc-gateway-intuit-qbms.php' );
-			require_once( $plugin_path . '/includes/qbms/handlers/class-wc-gateway-intuit-qbms-capture-handler.php' );
-			require_once( $plugin_path . '/includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php' );
-			// require_once( $plugin_path . '/includes/qbms/class-wc-gateway-intuit-qbms-echeck.php' );  // commented out until/if QBMS really supports echecks
-			require_once( $plugin_path . '/includes/qbms/class-wc-intuit-qbms-payment-token-handler.php' );
-			require_once( $plugin_path . '/includes/qbms/class-wc-intuit-qbms-payment-token.php' );
+		require_once( $plugin_path . '/includes/class-wc-intuit-payments-tokens-handler.php' );
 
-			if ( is_admin() ) {
-				require_once( $plugin_path . '/includes/qbms/class-wc-intuit-qbms-payment-token-editor.php' );
-			}
-
-		} else {
-
-			require_once( $plugin_path . '/includes/Handlers/Connection.php' );
-			require_once( $plugin_path . '/includes/abstract-wc-gateway-intuit-payments.php' );
-			require_once( $plugin_path . '/includes/class-wc-gateway-intuit-payments-credit-card.php' );
-			require_once( $plugin_path . '/includes/class-wc-gateway-intuit-payments-echeck.php' );
-			require_once( $plugin_path . '/includes/api/class-wc-intuit-payments-api-oauth-helper.php' );
-
-			require_once( $plugin_path . '/includes/class-wc-intuit-payments-ajax.php' );
-
-			$this->payments_ajax_instance = new WC_Intuit_Payments_AJAX( $this );
-
-			require_once( $plugin_path . '/includes/class-wc-intuit-payments-tokens-handler.php' );
-
-			if ( is_admin() ) {
-				require_once( $plugin_path . '/includes/class-wc-intuit-payments-admin-token-editor.php' );
-			}
+		if ( is_admin() ) {
+			require_once( $plugin_path . '/includes/class-wc-intuit-payments-admin-token-editor.php' );
 		}
-	}
-
-
-	/**
-	 * Gets the deprecated/removed hooks.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @return array
-	 */
-	protected function get_deprecated_hooks() {
-
-		return [
-			'wc_gateway_intuit_qbms_manage_my_payment_methods' => [
-				'version'     => '2.0.0',
-				'removed'     => true,
-				'replacement' => 'wc_' . $this->get_id() . '_my_payment_methods_table_title',
-				'map'         => false,
-			],
-			'wc_gateway_intuit_qbms_tokenize_payment_method_text' => [
-				'version'     => '2.0.0',
-				'removed'     => true,
-				'replacement' => 'wc_' . self::QBMS_CREDIT_CARD_ID . '_tokenize_payment_method_text',
-				'map'         => true,
-			],
-		];
 	}
 
 
@@ -203,7 +155,7 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 		// the fourth parameter ($ver) must be explicit null to fully remove it from the script import URL
 		wp_register_script(
 			'wc-intuit-payments-connect',
-			'https://js.appcenter.intuit.com/Content/IA/intuit.ipp.anywhere-1.3.3.js',
+			'https://appcenter.intuit.com/Content/IA/intuit.ipp.anywhere-1.3.3.js',
 			[],
 			null
 		);
@@ -220,48 +172,13 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 	 *
 	 * @return array
 	 */
-	protected function get_active_integration_dependencies() {
+	protected function get_active_integration_dependencies(): array {
 
-		$dependencies = array(
-			'php_extensions' => array(),
-			'php_functions'  => array(),
-			'php_settings'   => array(),
-		);
-
-		if ( $this->is_qbms_active() ) {
-
-			$dependencies['php_extensions'] = array(
-				'SimpleXML',
-				'xmlwriter',
-				'dom',
-				'iconv',
-			);
-
-		} else {
-
-			$dependencies['php_extensions'] = array(
-				'openssl',
-				'json',
-			);
-		}
-
-		return $dependencies;
-	}
-
-
-	/**
-	 * Gets the active gateways based on the currently activated integration.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @return array
-	 */
-	protected function get_active_gateways() {
-
-		$available_gateways = $this->get_available_gateways();
-		$active_integration = $this->get_active_integration();
-
-		return ! empty( $available_gateways[ $active_integration ] ) ? $available_gateways[ $active_integration ] : array();
+		return [
+			'php_extensions' => [ 'openssl', 'json' ],
+			'php_functions'  => [],
+			'php_settings'   => [],
+		];
 	}
 
 
@@ -274,18 +191,10 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 	 */
 	protected function get_available_gateways() {
 
-		$gateways = array(
-			self::PLUGIN_ID => array(
-				self::CREDIT_CARD_ID => self::CREDIT_CARD_CLASS_NAME,
-				self::ECHECK_ID      => self::ECHECK_CLASS_NAME,
-			),
-			self::QBMS_PLUGIN_ID => array(
-				self::QBMS_CREDIT_CARD_ID => self::QBMS_CREDIT_CARD_CLASS_NAME,
-				// self::QBMS_ECHECK_ID      => self::QBMS_ECHECK_CLASS_NAME,
-			),
-		);
-
-		return $gateways;
+		return [
+			self::CREDIT_CARD_ID => self::CREDIT_CARD_CLASS_NAME,
+			self::ECHECK_ID      => self::ECHECK_CLASS_NAME,
+		];
 	}
 
 
@@ -308,143 +217,27 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 	/**
 	 * Determines if the legacy QBMS gateway is active.
 	 *
+	 * @deprecated
+	 *
 	 * @since 2.0.0
+	 * @since 3.0.0 always returns false
 	 *
 	 * @return bool
 	 */
 	public function is_qbms_active() {
 
-		return self::QBMS_PLUGIN_ID === $this->get_active_integration();
-	}
-
-
-	/**
-	 * Gets the plugin action links.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param array $actions associative array of action names to anchor tags
-	 * @return array associative array of plugin action links
-	 */
-	public function plugin_action_links( $actions ) {
-
-		$actions = parent::plugin_action_links( $actions );
-
-		// don't allow switching back to QBMS if already on Payments and we haven't switched previously
-		if ( self::QBMS_PLUGIN_ID !== $this->get_active_integration() && ! get_option( 'wc_' . self::PLUGIN_ID . '_allow_legacy', false ) ) {
-			return $actions;
-		}
-
-		$gateway_actions = array();
-
-		$available_gateways = $this->get_available_gateways();
-
-		$insert_after = 'configure';
-
-		// use <gateway> links
-		foreach ( $available_gateways as $integration => $gateways ) {
-
-			if ( $integration === $this->get_active_integration() ) {
-
-				end( $gateways );
-
-				$insert_after = 'configure_' . key( $gateways );
-
-				continue;
-			}
-
-			$gateway_actions[ "change_integration_{$integration}" ] = $this->get_change_integration_link( $integration );
-		}
-
-		return Framework\SV_WC_Helper::array_insert_after( $actions, $insert_after, $gateway_actions );
-	}
-
-
-	/**
-	 * Gets the link for changing the active integration.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param string $integration the integration ID
-	 * @return string
-	 */
-	protected function get_change_integration_link( $integration ) {
-
-		$url = $this->get_change_integration_url( $integration );
-
-		if ( self::QBMS_PLUGIN_ID === $integration ) {
-			$name = esc_html__( 'Use Legacy QBMS Gateway', 'woocommerce-gateway-intuit-payments' );
-		} else {
-			$name = esc_html__( 'Use Payments Gateway', 'woocommerce-gateway-intuit-payments' );
-		}
-
-		return sprintf( '<a href="%1$s" title="%2$s">%2$s</a>', esc_url( $url ), $name );
-	}
-
-
-	/**
-	 * Gets the action URL for changing the active integration.
-	 *
-	 * @since 2.6.0
-	 *
-	 * @param string $integration integration to change to
-	 * @return string
-	 */
-	protected function get_change_integration_url( $integration ) {
-
-		$params = [
-			'action'      => 'wc_intuit_payments_change_integration',
-			'integration' => $integration,
-		];
-
-		return wp_nonce_url( add_query_arg( $params, 'admin.php' ), $this->get_file() );
+		return false;
 	}
 
 
 	/**
 	 * Handles switching between the active integration.
 	 *
+	 * @deprecated
 	 * @since 2.0.0
 	 */
 	public function change_integration() {
-
-		// security check
-		if ( ! wp_verify_nonce( $_GET['_wpnonce'], $this->get_file() ) || ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_redirect( wp_get_referer() );
-			exit;
-		}
-
-		$valid_integrations = array(
-			self::PLUGIN_ID,
-			self::QBMS_PLUGIN_ID,
-		);
-
-		if ( empty( $_GET['integration'] ) || ! in_array( $_GET['integration'], $valid_integrations, true ) ) {
-			wp_redirect( wp_get_referer() );
-			exit;
-		}
-
-		// if switching _to_ the payments integration, allow switching back to legacy in case there are issues
-		if ( self::PLUGIN_ID === $_GET['integration'] ) {
-
-			update_option( 'wc_' . self::PLUGIN_ID . '_allow_legacy', 'yes' );
-
-			// remove the OAuth version option, which may have been previously set when upgrading to v2.1.0
-			// this will fall back to OAuth 2.0, which is likely what should be used by folks switching from legacy QBMS
-			delete_option( 'wc_' . $this->get_id() . '_oauth_version' );
-
-			// migrate the QBMS order data so that subscriptions continue to process (once connected, of course)
-			$this->get_lifecycle_handler()->migrate_order_data();
-		}
-
-		// switch the integration
-		update_option( 'wc_intuit_payments_active_integration', wc_clean( $_GET['integration'] ) );
-
-		$return_url = add_query_arg( array( 'integration_switched' => 1 ), 'plugins.php' );
-
-		// back to whence we came
-		wp_redirect( $return_url );
-		exit;
+		_doing_it_wrong( __FUNCTION__, __( 'Switching between integrations is no longer available.', 'woocommerce-gateway-intuit-payments' ), '3.0.0' );
 	}
 
 
@@ -462,17 +255,6 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 		parent::add_admin_notices();
 
-		if ( isset( $_GET['integration_switched'] ) ) {
-
-			if ( $this->is_qbms_active() ) {
-				$message = __( 'Intuit QBMS Gateway is now active.', 'woocommerce-gateway-intuit-payments' );
-			} else {
-				$message = __( 'Intuit Payments Gateway is now active.', 'woocommerce-gateway-intuit-payments' );
-			}
-
-			$this->get_admin_notice_handler()->add_admin_notice( $message, 'integration-switched', array( 'dismissible' => false ) );
-		}
-
 		// if we detected an invalid connection error, show a notice
 		if ( 'no' === get_option( 'wc_intuit_payments_connected' ) ) {
 
@@ -489,37 +271,48 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 				'notice_class'            => 'error',
 			) );
 		}
+
+		$this->maybe_add_intuit_qbms_retired_admin_notice();
 	}
 
 
 	/**
-	 * Adds any delayed admin notices.
+	 * Checks whether to display the QBMS retired admin notice.
 	 *
-	 * @internal
-	 *
-	 * @since 2.3.5
+	 * @since 3.0.0
 	 */
-	public function add_delayed_admin_notices() {
+	private function maybe_add_intuit_qbms_retired_admin_notice() {
 
-		parent::add_delayed_admin_notices();
-
-		// add the QBMS deprecation notice
-		if ( $this->is_qbms_active() ) {
-
-			$message = sprintf(
-				/* translators: Placeholders: %1$s - plugin name, %2$s - <a> tag, %3$s - </a> tag */
-				__( '%1$s: The legacy QBMS integration is now retired and you may experience errors processing payments. %2$sClick here%3$s to switch to the Payments gateway and start connecting to the new API, or %4$sread more about the Payments gateway in the documentation%5$s.', 'woocommerce-gateway-intuit-payments' ),
-				esc_html( $this->get_plugin_name() ),
-				'<a href="' . esc_url( $this->get_change_integration_url( self::PLUGIN_ID ) ) . '">', '</a>',
-				'<a href="https://docs.woocommerce.com/document/woocommerce-intuit-qbms/#section-5" target="_blank">', '</a>'
-			);
-
-			$this->get_admin_notice_handler()->add_admin_notice( $message, 'qbms-deprecated', [
-				'dismissible'             => false,
-				'always_show_on_settings' => true,
-				'notice_class'            => 'error',
-			] );
+		if ( 'yes' === get_option( 'wc_intuit_payments_show_intuit_qbms_retired_admin_notice' ) ) {
+			$this->add_intuit_qbms_retired_admin_notice();
 		}
+	}
+
+
+	/**
+	 * Displays the QBMS retired admin notice.
+	 *
+	 * @since 3.0.0
+	 */
+	private function add_intuit_qbms_retired_admin_notice() {
+
+		$message = sprintf(
+			/** translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag, %3$s - <a> tag, %4$s - </a> tag, %5$s - <a> tag, %6$s - </a> tag */
+			__( '%1$sHeads up!%2$s The QBMS gateway has been retired. %3$sClick here for instructions%4$s on using the Intuit Payments gateway and please %5$scontact support%6$s with any questions or concerns.', 'woocommerce-gateway-intuit-payments' ),
+			'<strong>', '</strong>',
+			'<a href="https://docs.woocommerce.com/document/woocommerce-intuit-qbms/#oauth-migration" target="_blank">', '</a>',
+			'<a href="https://woocommerce.com/my-account/create-a-ticket/" target="_blank">', '</a>'
+		);
+
+		$this->get_admin_notice_handler()->add_admin_notice(
+			$message,
+			$this->get_gateway()->get_id_dasherized() . '-qbms-retired-notice',
+			[
+				'dismissible'             => $this->get_gateway()->is_configured(),
+				'always_show_on_settings' => false,
+				'notice_class'            => 'notice-warning',
+			]
+		);
 	}
 
 
@@ -809,11 +602,6 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 	 * @since 2.5.0
 	 */
 	protected function init_setup_wizard_handler() {
-
-		// don't init the wizard if QBMS is enabled
-		if ( $this->is_qbms_active() ) {
-			return;
-		}
 
 		parent::init_setup_wizard_handler();
 
