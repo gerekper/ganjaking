@@ -99,7 +99,7 @@ if ( ! class_exists( 'Porto_Product_Swatches_Tab' ) ) {
 								$global_attribute = true;
 							}
 
-							$terms          = get_terms( $name, array( 'hide_empty' => false ) );
+							$terms          = get_terms( array( 'taxonomy' => $name, 'hide_empty' => false ) );
 							$selected_terms = isset( $attributes[ $name ] ) ? $attributes[ $name ] : array();
 							foreach ( $terms as $term ) {
 								if ( in_array( $term->slug, $selected_terms ) ) {

@@ -1,4 +1,7 @@
 <?php
+
+use Instagram\Includes\WIS_Plugin;
+
 $premium = "";
 if ( ! WIS_Plugin::app()->is_premium() ) {
 	$premium = " PREMIUM";

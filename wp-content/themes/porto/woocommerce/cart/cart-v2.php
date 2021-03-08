@@ -114,7 +114,7 @@ $porto_woo_version = porto_get_woo_version_number();
 								?>
 								<tr>
 									<td colspan="6" class="actions px-md-2">
-										<?php if ( version_compare( $porto_woo_version, '2.5', '<' ) ? WC()->cart->coupons_enabled() : wc_coupons_enabled() ) { ?>
+										<?php if ( wc_coupons_enabled() ) { ?>
 											<div class="cart_totals_toggle">
 												<div id="panel-cart-discount" class="d-sm-flex justify-content-between">
 													<div class="coupon">

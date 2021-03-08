@@ -101,10 +101,10 @@ jQuery(document).ready(function($) {
     );
     if (hasSelectiveRefresh) {
 
-        $(window).on('load', function() {
-            setTimeout(function() {
+        wp.customize.preview.bind('active', function() {
+            theme.requestFrame(function() {
                 $('head > style#porto-style-inline-css').removeAttr('title');
-            }, 1000);
+            });
         });
 
         wp.customize.selectiveRefresh.bind('partial-content-rendered', function (placement) {

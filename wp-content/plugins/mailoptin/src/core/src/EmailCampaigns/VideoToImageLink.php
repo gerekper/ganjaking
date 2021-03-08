@@ -22,10 +22,11 @@ class VideoToImageLink
     {
         $return = preg_replace_callback(
             [
-                '/<iframe.*src="(?:.+)?youtube(?:-nocookie)?.com\/(?:embed|\?)?\/([a-z0-9-_]+).+".+<\/iframe>/i',
-                '/https:\/\/(?:www.)?youtube(?:-nocookie)?.com\/\watch\?v=([a-z0-9-_]+)/i'
+                '/https:\/\/(?:www.)?youtube(?:-nocookie)?.com\/\watch\?v=([a-z0-9\-_]+)/i', // placed first to avoid recursion
+                '/<iframe.*src="(?:.+)?youtube(?:-nocookie)?.com\/(?:embed|\?)?\/([a-z0-9\-_]+).+".+<\/iframe>/i'
             ],
             function ($matches) {
+
                 return $this->convertYoutube($matches[1]);
             },
             $subject
@@ -40,8 +41,8 @@ class VideoToImageLink
     {
         $return = preg_replace_callback(
             [
-                '/<iframe.*src="(?:.+)?player.vimeo.com\/video\/(\d+).+".+<\/iframe>/',
-                '/https:\/\/(?:www .)?vimeo.com\/([\d]+)/'
+                '/https:\/\/(?:www .)?vimeo.com\/([\d]+)/',
+                '/<iframe.*src="(?:.+)?player.vimeo.com\/video\/(\d+).+".+<\/iframe>/'
             ],
             function ($matches) {
                 return $this->convertVimeo($matches[1]);
@@ -74,7 +75,8 @@ class VideoToImageLink
     protected function convertYoutube($id)
     {
         $youtube_play_button_overlay = MAILOPTIN_ASSETS_URL . 'images/youtube-play-button-overlay.png';
-        if (defined('W3GUY_LOCAL')) $youtube_play_button_overlay = 'https://cl.ly/2c9f6a11fc29/download/Image%2525202019-03-12%252520at%25252010.56.57%252520AM.png';
+
+        if (defined('W3GUY_LOCAL')) $youtube_play_button_overlay = 'https://i.imgur.com/QH1IyIm.png';
 
         $result = wp_remote_get(sprintf('https://www.youtube.com/oembed?format=json&url=https://youtube.com/watch?v=%s', $id));
 

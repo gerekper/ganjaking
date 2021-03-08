@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 use Composer\AutoloadWPMediaImagifyWordPressPlugin\ClassLoader as ClassLoaderWPMediaImagifyWordPressPlugin;
 
 
-class ComposerStaticInit2116327342b2712a938927c34e967e8f
+class ComposerStaticInitee5f379dcd1f5ddc8ae5536c97dc2605
 {
     public static $prefixLengthsPsr4 = array (
         'I' => 
@@ -148,6 +148,7 @@ class ComposerStaticInit2116327342b2712a938927c34e967e8f
         'Composer\\Installers\\Plugin' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/Plugin.php',
         'Composer\\Installers\\PortoInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/PortoInstaller.php',
         'Composer\\Installers\\PrestashopInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/PrestashopInstaller.php',
+        'Composer\\Installers\\ProcessWireInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/ProcessWireInstaller.php',
         'Composer\\Installers\\PuppetInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/PuppetInstaller.php',
         'Composer\\Installers\\PxcmsInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/PxcmsInstaller.php',
         'Composer\\Installers\\RadPHPInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/RadPHPInstaller.php',
@@ -159,6 +160,7 @@ class ComposerStaticInit2116327342b2712a938927c34e967e8f
         'Composer\\Installers\\ShopwareInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/ShopwareInstaller.php',
         'Composer\\Installers\\SilverStripeInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/SilverStripeInstaller.php',
         'Composer\\Installers\\SiteDirectInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/SiteDirectInstaller.php',
+        'Composer\\Installers\\StarbugInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/StarbugInstaller.php',
         'Composer\\Installers\\SyDESInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/SyDESInstaller.php',
         'Composer\\Installers\\SyliusInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/SyliusInstaller.php',
         'Composer\\Installers\\Symfony1Installer' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/Symfony1Installer.php',
@@ -295,9 +297,9 @@ class ComposerStaticInit2116327342b2712a938927c34e967e8f
     public static function getInitializer(ClassLoaderWPMediaImagifyWordPressPlugin $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2116327342b2712a938927c34e967e8f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2116327342b2712a938927c34e967e8f::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2116327342b2712a938927c34e967e8f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitee5f379dcd1f5ddc8ae5536c97dc2605::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitee5f379dcd1f5ddc8ae5536c97dc2605::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitee5f379dcd1f5ddc8ae5536c97dc2605::$classMap;
 
         }, null, ClassLoaderWPMediaImagifyWordPressPlugin::class);
     }

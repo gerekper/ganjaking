@@ -1,0 +1,597 @@
+.wyt-container .donate {
+    padding: 5px 15px 10px;
+    display: inline-block;
+    position: relative;
+    color: #000;
+    background: #ffd751;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #b4b4b4;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.wyt-container .donate a {
+    outline: 0;
+    cursor: pointer
+}
+
+.wyt-container .donate span:before {
+    color: #ce1f00;
+    font: 400 20px/1 dashicons;
+    font-family: dashicons;
+    font-size: 24px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    font-stretch: normal;
+    line-height: 1;
+    content: '\f487';
+    position: relative;
+    display: inline-block;
+    top: 4px;
+    margin-right: 4px;
+}
+
+.wyt-container .pressthis a, .wyt-container .pressthis-bookmarklet a,
+.wyt-container .pressthis a:active, .wyt-container .pressthis-bookmarklet a:active,
+.wyt-container .pressthis a:focus, .wyt-container .pressthis-bookmarklet a:focus,
+.wyt-container .pressthis a:hover, .wyt-container .pressthis-bookmarklet a:hover {
+    cursor: pointer;
+    background: #53b5d9;
+    border: 1px solid #0074a2;
+    color: #ffffff;
+    font-weight: bold
+}
+
+.wyt-container .jr_insta_error {
+    border-left: 4px solid #dd3d36;
+    -moz-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
+    padding: 5px 12px;
+}
+
+.wyt-container .wyt-radio {
+    margin-right: 20px
+}
+
+.wyt-container .wyt-search-for-container {
+    display: block;
+    margin-bottom: 7px;
+}
+
+.wyt-container .wyt-seach-for {
+    width: 90px;
+    display: inline-block;
+    vertical-align: middle
+}
+
+.wyt-container .wyt-advanced {
+    text-decoration: none;
+    border: none
+}
+
+.wyt-container .wyt-advanced:focus {
+    outline: 0;
+    border: none;
+    box-shadow: none
+}
+
+.wyt-container .wyt-advanced-input div {
+    border: 1px solid #cfcfcf;
+    padding: 10px;
+    margin: 25px 0 0;
+}
+
+.wyt-container .wyt-advanced-input .wyt-advanced-title {
+    margin: -22px 0 0 0;
+    background-color: white;
+    width: 160px;
+    padding: 3px 10px;
+    border: 1px solid #cfcfcf;
+}
+
+.wyt-container .wyt-description {
+    color: #777;
+    font-size: smaller;
+    clear: both;
+    display: block;
+    margin-top: 5px;
+}
+
+.wyt-container .wyt-description.hide-media-library, .wyt-container .wyt-description.hide-instagram {
+    display: none
+}
+
+.wyt-container .switch {
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+    width: 45px;
+    height: 24px;
+}
+
+.wyt-container .switch input {
+    display: none;
+}
+
+.wyt-container .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.wyt-container .slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 0px;
+    bottom: 0px;
+    border: 1px solid #e5e5e5;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.wyt-container input:checked + .slider {
+    background-color: #0085ba;
+}
+
+.wyt-container input:focus + .slider {
+    box-shadow: 0 0 1px #0085ba;
+}
+
+.wyt-container input:checked + .slider:before {
+    -webkit-transform: translateX(22px);
+    -ms-transform: translateX(22px);
+    transform: translateX(22px);
+}
+
+.wyt-container .slider.round {
+    border-radius: 34px;
+}
+
+.wyt-container .slider.round:before {
+    border-radius: 50%;
+}
+
+.wyt-container .donate-buttons {
+    text-align: center
+}
+
+.wyt-container .donate-button-link {
+    cursor: pointer
+}
+
+.wyt-btn-Youtube-account {
+    padding: 10px 20px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all .5s ease-in-out;
+    font-weight: 600;
+    background-color: #4267B2;
+    box-shadow: none;
+    border: 0;
+    margin-top: 5px !important;
+}
+
+.wyt-btn-Youtube-account-disabled {
+    opacity: 0.5 !important;
+}
+
+.btn-instagram-account-disabled {
+    opacity: 0.5;
+}
+
+.instagram-account-pro {
+    padding: 5px;
+}
+
+.wyt-spinner {
+    background: url(../img/spinner.gif) no-repeat;
+    background-size: 20px 20px;
+    display: inline-block;
+    visibility: hidden;
+    float: right;
+    vertical-align: middle;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    width: 20px;
+    height: 20px;
+    margin: 4px 10px 0;
+}
+
+.wyt-text-token {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.00) !important;
+}
+
+.wyt-help-text {
+    font-size: 16px;
+    margin: 10px 0px 0px 10px;
+}
+
+.wyt-help-text p {
+    font-size: 16px;
+}
+
+i.wyt-shortcode-icon {
+    background: url(../img/wyt_icon_shortcode.png) center no-repeat;
+}
+
+/* MODAL popup*/
+.wyt_accounts_modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-width: 100%;
+    height: 400px;
+    max-height: 100%;
+    z-index: 1010;
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: white;
+    border: 1px solid #32323280;
+    border-radius: 10px;
+    -webkit-box-shadow: 1px 1px 3px 0px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: 1px 1px 3px 0px rgba(50, 50, 50, 0.5);
+    box-shadow: 1px 1px 3px 0px rgba(50, 50, 50, 0.5);
+}
+
+#wyt_add_account_modal {
+    height: 230px !important;
+}
+
+.wyt_closed {
+    display: none !important;
+}
+
+.wyt_modal_content {
+    position: initial;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    padding: 15px 20px 15px 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+.wyt_modal_header {
+    position: initial;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: 20px;
+    padding: 15px 20px 25px 20px;
+    overflow: hidden;
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+
+}
+
+.wyt_modal_overlay {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.wyt-overlay-spinner {
+    background: url(../img/spinner.svg) no-repeat;
+    background-size: 100px 100px;
+    vertical-align: middle;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    visibility: hidden;
+    z-index: 1001;
+}
+
+.is-active {
+    visibility: visible !important;
+}
+
+.wyt-row {
+    width: 95%;
+    min-width: 1120px;
+    display: flex;
+}
+
+.wyt-col-1 {
+    float: left;
+    width: 20%;
+}
+
+.wyt-col-2 {
+    float: left;
+    width: 80%;
+}
+
+.wyt-col-full {
+    float: left;
+    width: 100%;
+}
+
+.wyt-row-style {
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.wyt-col1-style {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.wyt-col-full-style {
+    height: 50px;
+    font-weight: bold;
+    font-size: 14px;
+    padding-left: 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.wyt-col1-style img {
+    border: 1px solid #dadada;
+    border-radius: 10px;
+    vertical-align: middle;
+}
+
+.wyt-col2-style {
+    font-weight: bold;
+    font-size: 14px;
+    padding-left: 5px;
+}
+
+.wyt-col2-style p {
+    vertical-align: middle;
+}
+
+.wyt-page-title {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.wyt-page-title h1 {
+    vertical-align: middle;
+    color: #000000;
+    text-shadow: 1px 1px 1px #ccc;
+}
+
+.wyt-div-added {
+    display: inline-block;
+    background-color: #d3dec1;
+    border: 1px solid green;
+    border-radius: 5px;
+    text-align: center;
+    word-break: break-word;
+    width: 100px;
+    float: right;
+    font-size: 12px;
+    line-height: 1.1;
+    padding: 5px 0px;
+}
+
+.wyt-widgets-container {
+    padding: 20px 0 0 0;
+    /*margin-right: 20px;*/
+}
+
+.wyt-col-16 {
+    float: left;
+    width: 16.66666666%;
+}
+
+.wyt-demo-widgets {
+    width: auto;
+    padding: 15px;
+    margin: 0 20px 20px 0;
+    background: #fafafa;
+    color: #23282d;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+}
+
+.wyt-demo-widgets .wyt-demo-widefat {
+    color: black;
+    font-family: monospace;
+    text-align: center;
+}
+
+.wyt-demo-shortcode {
+    margin: 10px 0 10px 0;
+    text-align: center;
+}
+
+.wyt-demo-shortcode p {
+    margin: 0 !important;
+    padding: 0 10px 10px 10px !important;
+}
+
+.wyt-demo-shortcode input {
+    padding: 0 !important;
+    width: 95%;
+    font-size: 12px;
+}
+
+.wyt-demo-shortcode span.wyt_demo_pro:after {
+    display: inline-block;
+    position: relative;
+    content: 'PRO';
+    background: #ff5722;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 10px;
+    line-height: 1;
+    font-style: normal;
+    padding: 4px 6px;
+    margin-left: 4px;
+    vertical-align: top;
+    top: 0;
+    left: 0;
+    right: auto;
+    z-index: 11;
+    cursor: pointer;
+}
+
+.wyt-add-form {
+    display: inline-block;
+    padding: 0 10px;
+
+}
+
+
+
+.wyt-add-form label {
+    vertical-align: top;
+    margin-top: 4px;
+}
+
+.wyt-add-form label:first-of-type {
+    padding-right: 10px;
+}
+
+.wyt-table > tbody > tr > td {
+    background-color: white;
+    vertical-align: baseline;
+    font-size: 15px;
+}
+
+.wyt-table > thead > tr > th {
+    font-weight: bold;
+    background-color: #e8e8e8;
+}
+
+.wyt-table td.profile-picture {
+    width: 80px;
+    text-align: center;
+}
+
+.wyt-table td.profile-picture img {
+    border-radius: 100%;
+}
+.wyt-table td .wyt-delete-account {
+    font-size: 15px;
+}
+
+.yt-channel-container{
+    box-shadow: 0 0 5px rgba(0,0,0,0.15);
+    margin: 10px 10px;
+    border: solid 1px lightgray;
+    border-radius: 5px;
+    height: 410px;
+}
+
+.yt-channel-link{
+    background-color: #eeeeee !important;
+    padding: 3% 10%;
+    border-radius: 5px;
+
+}
+
+.yt-channel-link:hover{
+    color: white !important;
+    background-color: #999 !important;
+}
+
+.yt-channel-img-container{
+    display: flex;
+    justify-content: center !important;
+}
+
+.yt-channel-title{
+    margin: 12% 0 3% 0;
+    text-align: center;
+    font-size: large;
+    font-weight: 600;
+}
+
+.yt-channel-desc{
+    line-height: 2;
+    margin-top: 1vh;
+}
+
+.ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.ellipsis-5-lines {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+}
+
+.ellipsis-2-lines {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.yt-channel-inner{
+    padding: 10% 2%;
+}
+
+.wyt-close-icon{
+    position: absolute;
+    right: -12px;
+    top: -12px;
+}
+
+.wyt-manual{
+    margin-top: 50px;
+    text-align: center;
+    width: 100%
+}
+
+.wyt-step{
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.wyt-manual-img{
+    width: 60%;
+    height: auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.wyt-step-text{
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+.wyt-intro{
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    margin-bottom: 50px;
+}
+
+

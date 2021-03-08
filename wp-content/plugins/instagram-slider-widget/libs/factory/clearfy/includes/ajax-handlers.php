@@ -15,12 +15,12 @@ if( !defined('ABSPATH') ) {
 /**
  * Обработчик ajax запросов для виджета подписки на новости
  *
- * @param Wbcr_Factory442_Plugin $plugin_instance
+ * @param Wbcr_Factory445_Plugin $plugin_instance
  *
  * @since 2.3.0
  *
  */
-function wbcr_factory_clearfy_233_subscribe($plugin_instance)
+function wbcr_factory_clearfy_236_subscribe($plugin_instance)
 {
 	$plugin_name = $plugin_instance->request->post('plugin_name', null, true);
 
@@ -34,11 +34,11 @@ function wbcr_factory_clearfy_233_subscribe($plugin_instance)
 	check_admin_referer("clearfy_subscribe_for_{$plugin_name}");
 
 	if( empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) ) {
-		wp_send_json_error(['error_message' => __('You did not send your email address or it is incorrect!', 'wbcr_factory_clearfy_233')]);
+		wp_send_json_error(['error_message' => __('You did not send your email address or it is incorrect!', 'wbcr_factory_clearfy_236')]);
 	}
 
 	if( empty($group_id) ) {
-		wp_send_json_error(['error_message' => __('Group ID is empty!', 'wbcr_factory_clearfy_233')]);
+		wp_send_json_error(['error_message' => __('Group ID is empty!', 'wbcr_factory_clearfy_236')]);
 	}
 
 	$response = wp_remote_post('https://clearfy.pro/wp-json/mailerlite/v1/subscribe/', [
@@ -63,7 +63,7 @@ function wbcr_factory_clearfy_233_subscribe($plugin_instance)
 		wp_send_json_success(['subscribed' => $data['subscribed']]);
 	}
 
-	wp_send_json_error(['error_message' => __('Unknown error while trying to subscribe to newsletter.', 'wbcr_factory_clearfy_233')]);
+	wp_send_json_error(['error_message' => __('Unknown error while trying to subscribe to newsletter.', 'wbcr_factory_clearfy_236')]);
 
 	die();
 }
@@ -71,12 +71,12 @@ function wbcr_factory_clearfy_233_subscribe($plugin_instance)
 /**
  * Обработчик ajax запросов для проверки, активации, деактивации лицензионного ключа
  *
- * @param Wbcr_Factory442_Plugin $plugin_instance
+ * @param Wbcr_Factory445_Plugin $plugin_instance
  *
  * @since         2.0.7
  *
  */
-function wbcr_factory_clearfy_233_check_license($plugin_instance)
+function wbcr_factory_clearfy_236_check_license($plugin_instance)
 {
 
 	$plugin_name = $plugin_instance->request->post('plugin_name', null, true);
@@ -91,7 +91,7 @@ function wbcr_factory_clearfy_233_check_license($plugin_instance)
 	check_admin_referer("clearfy_activate_license_for_{$plugin_name}");
 
 	if( empty($action) || !in_array($action, ['activate', 'deactivate', 'sync', 'unsubscribe']) ) {
-		wp_send_json_error(['error_message' => __('Licensing action not passed or this action is prohibited!', 'wbcr_factory_clearfy_233')]);
+		wp_send_json_error(['error_message' => __('Licensing action not passed or this action is prohibited!', 'wbcr_factory_clearfy_236')]);
 		die();
 	}
 
@@ -102,23 +102,23 @@ function wbcr_factory_clearfy_233_check_license($plugin_instance)
 		switch( $action ) {
 			case 'activate':
 				if( empty($license_key) || strlen($license_key) > 32 ) {
-					wp_send_json_error(['error_message' => __('License key is empty or license key too long (license key is 32 characters long)', 'wbcr_factory_clearfy_233')]);
+					wp_send_json_error(['error_message' => __('License key is empty or license key too long (license key is 32 characters long)', 'wbcr_factory_clearfy_236')]);
 				} else {
 					$plugin_instance->premium->activate($license_key);
-					$success_message = __('Your license has been successfully activated', 'wbcr_factory_clearfy_233');
+					$success_message = __('Your license has been successfully activated', 'wbcr_factory_clearfy_236');
 				}
 				break;
 			case 'deactivate':
 				$plugin_instance->premium->deactivate();
-				$success_message = __('The license is deactivated', 'wbcr_factory_clearfy_233');
+				$success_message = __('The license is deactivated', 'wbcr_factory_clearfy_236');
 				break;
 			case 'sync':
 				$plugin_instance->premium->sync();
-				$success_message = __('The license has been updated', 'wbcr_factory_clearfy_233');
+				$success_message = __('The license has been updated', 'wbcr_factory_clearfy_236');
 				break;
 			case 'unsubscribe':
 				$plugin_instance->premium->cancel_paid_subscription();
-				$success_message = __('Subscription success cancelled', 'wbcr_factory_clearfy_233');
+				$success_message = __('Subscription success cancelled', 'wbcr_factory_clearfy_236');
 				break;
 		}
 	} catch( Exception $e ) {

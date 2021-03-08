@@ -7,10 +7,11 @@ Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Social Slider Widget is a responsive "instagram slider widget" that shows latest images from a public instagram user or a hashtag.
+Social Slider Widget is a responsive "instagram slider widget" that shows latest images from a public instagram user or a hashtag, shows youtube videos from channel link
 
 == Description ==
 = Display Instagram feeds in widgets, posts, pages, or anywhere else using shortcodes. =
+= Display Youtube videos in widgets, posts, pages, or anywhere else using shortcodes. =
 
 == Important ==
 The plugin has moved to the new Instagram Basic Display API.
@@ -49,6 +50,7 @@ In the Pro version, you can:
 * **use Masonry or Highlight for feeds;**
 * **display captions for images and videos;**
 * **View the photos and videos from your feed in a beautiful pop-up lightbox which allows users to experience your content without leaving your site;**
+* **display description, comments of the video in Pop Up;**
 Learn more about the [Pro version](https://cm-wp.com/instagram-slider-widget) or watch the [demo](https://cm-wp.com/instagram-slider-widget/#demos).
 
 ### Feedback and support ###
@@ -108,6 +110,21 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 10. Highlight
 
 == Changelog ==
+
+= 1.9.2 =
+* Hotfix: Inability to display the first picture
+
+= 1.9.1 =
+* Added: Display stories from business account (PRO)
+* Fixed: Template Slider Overlay
+* Minor bug fixes
+
+= 1.9.0 =
+* Added: Widgets to display content from Youtube
+* Added: Display images from hashtag
+* Added: Setting to turn off the icons on the images
+* Fixed: Display more 25 images from account
+* Bug fixes
 
 = 1.8.6 =
 * Fixed: Big images in widget
@@ -218,9 +235,9 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 * Minor fix for instagram json change
 
 = 1.4.1 =
-* Fixed Instagram update that stoped hashtags from working
+* Fixed Instagram update that stopped hashtags from working
 * Fixed hellip that showed when using wp trim words
-* Modified the function that saved images localy to only save as attachments
+* Modified the function that saved images locally to only save as attachments
 
 = 1.4.0 =
 * Fixed the issue where duplicate images were being inserted into Media Library
@@ -234,7 +251,7 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 = 1.3.2 =
 * Fixed deeplink issue with smartphones. Contributors via wordpress forum @ricksportel
 * Added option to block users when searching for hashtag. Sponsored by VirtualStrides.com
-* Modified sizes to show square croped and original sizes
+* Modified sizes to show square cropped and original sizes
 * Added new wordpress size only for instagram plugin - regenerating thumbnails might be required.
 * Added option to stop Pinterest pinning on images
 
@@ -247,13 +264,13 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 = 1.3.0 =
 * Added Option to search for hashtags
 * Added Limit for number of words to appear in caption
-* Fixed 500 server error that accured when loading 15+ images
+* Fixed 500 server error that occurred when loading 15+ images
 * Fixed css for some themes
 
 = 1.2.3 =
 * Added Links for Instagram Hashtags
-* Updtated flexislider to 2.5.0
-* Added Slide Speed in miliseconds
+* Updated flexislider to 2.5.0
+* Added Slide Speed in milliseconds
 * Brought back Image Size for images loaded directly from Instagram
 * Changed CSS for thumbnails Template
 * Added Thumbnails Without borders template
@@ -271,7 +288,7 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 * Option not to insert images into media library
 
 = 1.2.0 =
-* Full Rewritte of the plugin
+* Full Rewrite of the plugin
 
 = 1.1.3 =
 * bug fix not working after wordpresss update
@@ -289,7 +306,7 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 
 = 1.1.0 =
 * Added Option to link images to a Custom URL
-* Added Option to link images to localy saved instagram images
+* Added Option to link images to locally saved instagram images
 * Fixed flexislider namespace causing problems in sites using flexislider
 * Rename css classes to match new flexislider namespace
 
@@ -303,7 +320,7 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 
 = 1.0.2 =
 * Compatibility for php older than 5.3
-* Stlying fix for thumbnail layout
+* Styling fix for thumbnail layout
 * Added Option to Randomise Images
 
 = 1.0.1 =
@@ -312,4 +329,4 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 * Bug Fixes
 
 = 1.0 =
-* First Realease
+* First Release

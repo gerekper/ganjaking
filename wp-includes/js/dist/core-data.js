@@ -82,7 +82,7 @@ this["wp"] = this["wp"] || {}; this["wp"]["coreData"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 479);
+/******/ 	return __webpack_require__(__webpack_require__.s = 478);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -907,7 +907,7 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 479:
+/***/ 478:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2477,7 +2477,9 @@ function getQueryParts(query) {
         // fields from the response even if we explicitely asked for it.
         // Example: Asking for titles in posts without title support.
         if (key === '_fields') {
-          parts.fields = get_normalized_comma_separable(value);
+          parts.fields = get_normalized_comma_separable(value); // Make sure to normalize value for `stableKey`
+
+          value = parts.fields.join();
         } // While it could be any deterministic string, for simplicity's
         // sake mimic querystring encoding for stable key.
         //
@@ -3449,6 +3451,17 @@ function selectors_objectSpread(target) { for (var i = 1; i < arguments.length; 
 
 
 /**
+ * Shared reference to an empty array for cases where it is important to avoid
+ * returning a new array reference on every invocation, as in a connected or
+ * other pure component which performs `shouldComponentUpdate` check on props.
+ * This should be used as a last resort, since the normalized data should be
+ * maintained by the reducer result in state.
+ *
+ * @type {Array}
+ */
+
+var EMPTY_ARRAY = [];
+/**
  * Returns true if a request is in progress for embed preview data, or false
  * otherwise.
  *
@@ -3665,7 +3678,7 @@ function getEntityRecords(state, kind, name, query) {
   var queriedState = Object(external_this_lodash_["get"])(state.entities.data, [kind, name, 'queriedData']);
 
   if (!queriedState) {
-    return [];
+    return EMPTY_ARRAY;
   }
 
   return getQueriedItems(queriedState, query);

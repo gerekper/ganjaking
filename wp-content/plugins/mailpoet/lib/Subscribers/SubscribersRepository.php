@@ -18,6 +18,14 @@ use MailPoetVendor\Doctrine\ORM\Query\Expr\Join;
  * @extends Repository<SubscriberEntity>
  */
 class SubscribersRepository extends Repository {
+  protected $ignoreColumnsForUpdate = [
+    'wp_user_id',
+    'is_woocommerce_user',
+    'email',
+    'created_at',
+    'last_subscribed_at',
+  ];
+
   protected function getEntityClassName() {
     return SubscriberEntity::class;
   }
@@ -116,9 +124,13 @@ class SubscribersRepository extends Repository {
 
       // Delete subscriber custom fields
       $subscriberCustomFieldTable = $entityManager->getClassMetadata(SubscriberCustomFieldEntity::class)->getTableName();
+      $subscriberTable = $entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
       $entityManager->getConnection()->executeUpdate("
          DELETE scs FROM $subscriberCustomFieldTable scs
+         JOIN $subscriberTable s ON s.`id` = scs.`subscriber_id`
          WHERE scs.`subscriber_id` IN (:ids)
+         AND s.`is_woocommerce_user` = false
+         AND s.`wp_user_id` IS NULL
       ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY]);
 
       $queryBuilder = $entityManager->createQueryBuilder();
@@ -160,10 +172,15 @@ class SubscribersRepository extends Repository {
     }
 
     $subscriberSegmentsTable = $this->entityManager->getClassMetadata(SubscriberSegmentEntity::class)->getTableName();
+    $segmentsTable = $this->entityManager->getClassMetadata(SegmentEntity::class)->getTableName();
     $count = $this->entityManager->getConnection()->executeUpdate("
        DELETE ss FROM $subscriberSegmentsTable ss
+       JOIN $segmentsTable s ON s.id = ss.segment_id AND s.`type` = :typeDefault
        WHERE ss.`subscriber_id` IN (:ids)
-    ", ['ids' => $ids], ['ids' => Connection::PARAM_INT_ARRAY]);
+    ", [
+      'ids' => $ids,
+      'typeDefault' => SegmentEntity::TYPE_DEFAULT,
+    ], ['ids' => Connection::PARAM_INT_ARRAY]);
 
     return $count;
   }
@@ -203,8 +220,8 @@ class SubscribersRepository extends Repository {
       ->createQueryBuilder()
       ->select('s')
       ->from(SubscriberEntity::class, 's')
-      ->join(SubscriberSegmentEntity::class, 'ss')
-      ->join(SegmentEntity::class, 'segment')
+      ->join('s.subscriberSegments', 'ss')
+      ->join('ss.segment', 'segment')
       ->where('segment.type = :segmentType')
       ->setParameter('segmentType', SegmentEntity::TYPE_WC_USERS)
       ->andWhere('s.isWoocommerceUser = true')
@@ -237,5 +254,36 @@ class SubscribersRepository extends Repository {
       ->getQuery()->execute();
 
     return count($ids);
+  }
+
+  public function findWpUserIdAndEmailByEmails(array $emails): array {
+    return $this->entityManager->createQueryBuilder()
+      ->select('s.wpUserId AS wp_user_id, LOWER(s.email) AS email')
+      ->from(SubscriberEntity::class, 's')
+      ->where('s.email IN (:emails)')
+      ->setParameter('emails', $emails)
+      ->getQuery()->getResult();
+  }
+
+  public function findIdAndEmailByEmails(array $emails): array {
+    return $this->entityManager->createQueryBuilder()
+      ->select('s.id, s.email')
+      ->from(SubscriberEntity::class, 's')
+      ->where('s.email IN (:emails)')
+      ->setParameter('emails', $emails)
+      ->getQuery()->getResult();
+  }
+
+  /**
+   * @return int[]
+   */
+  public function findIdsOfDeletedByEmails(array $emails): array {
+    return $this->entityManager->createQueryBuilder()
+    ->select('s.id')
+    ->from(SubscriberEntity::class, 's')
+    ->where('s.email IN (:emails)')
+    ->andWhere('s.deletedAt IS NOT NULL')
+    ->setParameter('emails', $emails)
+    ->getQuery()->getResult();
   }
 }

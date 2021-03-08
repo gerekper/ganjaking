@@ -5,15 +5,18 @@ namespace MailPoet\Subscribers\ImportExport\Import;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Models\CustomField;
+use MailPoet\CustomFields\CustomFieldsRepository;
+use MailPoet\Entities\CustomFieldEntity;
+use MailPoet\Entities\SubscriberCustomFieldEntity;
+use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Entities\SubscriberSegmentEntity;
 use MailPoet\Models\ModelValidator;
-use MailPoet\Models\Newsletter;
-use MailPoet\Models\Subscriber;
-use MailPoet\Models\SubscriberCustomField;
-use MailPoet\Models\SubscriberSegment;
+use MailPoet\Newsletter\Options\NewsletterOptionsRepository;
 use MailPoet\Segments\WP;
 use MailPoet\Subscribers\ImportExport\ImportExportFactory;
+use MailPoet\Subscribers\ImportExport\ImportExportRepository;
 use MailPoet\Subscribers\Source;
+use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Util\DateConverter;
 use MailPoet\Util\Helpers;
 use MailPoet\Util\Security;
@@ -35,11 +38,37 @@ class Import {
   const DB_QUERY_CHUNK_SIZE = 100;
   const STATUS_DONT_UPDATE = 'dont_update';
 
+  public const ACTION_CREATE = 'create';
+  public const ACTION_UPDATE = 'update';
+
   /** @var WP */
   private $wpSegment;
 
-  public function __construct(WP $wpSegment, $data) {
+  /** @var CustomFieldsRepository */
+  private $customFieldsRepository;
+
+  /** @var ImportExportRepository */
+  private $importExportRepository;
+
+  /** @var NewsletterOptionsRepository */
+  private $newsletterOptionsRepository;
+
+  /** @var SubscribersRepository */
+  private $subscriberRepository;
+
+  public function __construct(
+    WP $wpSegment,
+    CustomFieldsRepository $customFieldsRepository,
+    ImportExportRepository $importExportRepository,
+    NewsletterOptionsRepository $newsletterOptionsRepository,
+    SubscribersRepository $subscriberRepository,
+    array $data
+  ) {
     $this->wpSegment = $wpSegment;
+    $this->customFieldsRepository = $customFieldsRepository;
+    $this->importExportRepository = $importExportRepository;
+    $this->newsletterOptionsRepository = $newsletterOptionsRepository;
+    $this->subscriberRepository = $subscriberRepository;
     $this->validateImportData($data);
     $this->subscribersData = $this->transformSubscribersData(
       $data['subscribers'],
@@ -59,7 +88,7 @@ class Import {
     $this->createdAt = Carbon::createFromTimestamp(WPFunctions::get()->currentTime('timestamp'));
     $this->updatedAt = Carbon::createFromTimestamp(WPFunctions::get()->currentTime('timestamp') + 1);
     $this->requiredSubscribersFields = [
-      'status' => Subscriber::STATUS_SUBSCRIBED,
+      'status' => SubscriberEntity::STATUS_SUBSCRIBED,
       'first_name' => '',
       'last_name' => '',
       'created_at' => $this->createdAt,
@@ -114,23 +143,24 @@ class Import {
         $newSubscribers = $this->setLinkToken($newSubscribers);
         $createdSubscribers =
           $this->createOrUpdateSubscribers(
-            'create',
+            self::ACTION_CREATE,
             $newSubscribers,
             $this->subscribersCustomFields
           );
       }
+
       if ($existingSubscribers['data'] && $this->updateSubscribers) {
         $allowedStatuses = [
-          Subscriber::STATUS_SUBSCRIBED,
-          Subscriber::STATUS_UNSUBSCRIBED,
-          Subscriber::STATUS_INACTIVE,
+          SubscriberEntity::STATUS_SUBSCRIBED,
+          SubscriberEntity::STATUS_UNSUBSCRIBED,
+          SubscriberEntity::STATUS_INACTIVE,
         ];
         if (in_array($this->existingSubscribersStatus, $allowedStatuses, true)) {
           $existingSubscribers = $this->addField($existingSubscribers, 'status', $this->existingSubscribersStatus);
         }
         $updatedSubscribers =
           $this->createOrUpdateSubscribers(
-            'update',
+            self::ACTION_UPDATE,
             $existingSubscribers,
             $this->subscribersCustomFields
           );
@@ -147,7 +177,7 @@ class Import {
     $segments = $importFactory->getSegments();
     $welcomeNotificationsInSegments =
       ($createdSubscribers || $updatedSubscribers) ?
-        Newsletter::getWelcomeNotificationsForSegments($this->segmentsIds) :
+        $this->newsletterOptionsRepository->findWelcomeNotificationsForSegments($this->segmentsIds) :
         false;
 
     return [
@@ -175,12 +205,12 @@ class Import {
       }
       // if this is a custom column
       if (in_array($column, $this->subscribersCustomFields)) {
-        $customField = CustomField::findOne($column);
-        if (!$customField instanceof CustomField) {
+        $customField = $this->customFieldsRepository->findOneById($column);
+        if (!$customField instanceof CustomFieldEntity) {
           continue;
         }
         // validate date type
-        if ($customField->type === 'date') {
+        if ($customField->getType() === CustomFieldEntity::TYPE_DATE) {
           $validationRule = 'datetime';
           $data = array_map(
             function($index, $date) use($validationRule, &$invalidRecords) {
@@ -222,11 +252,7 @@ class Import {
       // with just wp_user_id and email fields: [[wp_user_id, email], [wp_user_id, email], ...]
       $tempExistingSubscribers = array_merge(
         $tempExistingSubscribers,
-        Subscriber::select('wp_user_id')
-          ->selectExpr('LOWER(email)', 'email')
-          ->whereIn('email', $subscribersEmails)
-          ->whereNull('deleted_at')
-          ->findArray()
+        $this->subscriberRepository->findWpUserIdAndEmailByEmails($subscribersEmails)
       );
     }
     if (!$tempExistingSubscribers) {
@@ -264,19 +290,15 @@ class Import {
   public function deleteExistingTrashedSubscribers($subscribersData) {
     $existingTrashedRecords = array_filter(
       array_map(function($subscriberEmails) {
-        return Subscriber::selectMany(['id'])
-          ->whereIn('email', $subscriberEmails)
-          ->whereNotNull('deleted_at')
-          ->findArray();
+        return $this->subscriberRepository->findIdsOfDeletedByEmails($subscriberEmails);
       }, array_chunk($subscribersData['email'], self::DB_QUERY_CHUNK_SIZE))
     );
-    if (!$existingTrashedRecords) return;
     $existingTrashedRecords = Helpers::flattenArray($existingTrashedRecords);
+    if (!$existingTrashedRecords) {
+      return;
+    }
     foreach (array_chunk($existingTrashedRecords, self::DB_QUERY_CHUNK_SIZE) as $subscriberIds) {
-      Subscriber::whereIn('id', $subscriberIds)
-        ->deleteMany();
-      SubscriberSegment::whereIn('subscriber_id', $subscriberIds)
-        ->deleteMany();
+      $this->subscriberRepository->bulkDelete($subscriberIds);
     }
   }
 
@@ -308,7 +330,7 @@ class Import {
       return $defaultStatus;
     }, $subscribersData['data']['status']);
 
-    if ($defaultStatus === Subscriber::STATUS_SUBSCRIBED) {
+    if ($defaultStatus === SubscriberEntity::STATUS_SUBSCRIBED) {
       if (!in_array('last_subscribed_at', $subscribersData['fields'])) {
         $subscribersData['fields'][] = 'last_subscribed_at';
       }
@@ -335,7 +357,7 @@ class Import {
     $subscribersData['fields'][] = 'link_token';
     $subscribersData['data']['link_token'] = array_map(
       function () {
-        return Security::generateRandomString(Subscriber::LINK_TOKEN_LENGTH);
+        return Security::generateRandomString(SubscriberEntity::LINK_TOKEN_LENGTH);
       }, array_fill(0, $subscribersCount, null)
     );
     return $subscribersData;
@@ -362,9 +384,9 @@ class Import {
   }
 
   public function createOrUpdateSubscribers(
-    $action,
-    $subscribersData,
-    $subscribersCustomFields = false
+    string $action,
+    array $subscribersData,
+    array $subscribersCustomFields = []
   ) {
     $subscribersCount = count($subscribersData['data'][key($subscribersData['data'])]);
     $subscribers = array_map(function($index) use ($subscribersData) {
@@ -373,14 +395,15 @@ class Import {
       }, $subscribersData['fields']);
     }, range(0, $subscribersCount - 1));
     foreach (array_chunk($subscribers, self::DB_QUERY_CHUNK_SIZE) as $data) {
-      if ($action == 'create') {
-        Subscriber::createMultiple(
+      if ($action === self::ACTION_CREATE) {
+        $this->importExportRepository->insertMultiple(
+          SubscriberEntity::class,
           $subscribersData['fields'],
           $data
         );
-      }
-      if ($action == 'update') {
-        Subscriber::updateMultiple(
+      } elseif ($action === self::ACTION_UPDATE) {
+        $this->importExportRepository->updateMultiple(
+          SubscriberEntity::class,
           $subscribersData['fields'],
           $data,
           $this->updatedAt
@@ -388,8 +411,8 @@ class Import {
       }
     }
     $createdOrUpdatedSubscribers = [];
-    foreach (array_chunk($subscribersData['data']['email'], self::DB_QUERY_CHUNK_SIZE) as $data) {
-      foreach (Subscriber::selectMany(['id', 'email'])->whereIn('email', $data)->findArray() as $createdOrUpdatedSubscriber) {
+    foreach (array_chunk($subscribersData['data']['email'], self::DB_QUERY_CHUNK_SIZE) as $emails) {
+      foreach ($this->subscriberRepository->findIdAndEmailByEmails($emails) as $createdOrUpdatedSubscriber) {
         // ensure emails loaded from the DB are lowercased (imported emails are lowercased as well)
         $createdOrUpdatedSubscriber['email'] = mb_strtolower($createdOrUpdatedSubscriber['email']);
         $createdOrUpdatedSubscribers[] = $createdOrUpdatedSubscriber;
@@ -413,18 +436,18 @@ class Import {
   }
 
   public function createOrUpdateCustomFields(
-    $action,
-    $createdOrUpdatedSubscribers,
-    $subscribersData,
-    $subscribersCustomFieldsIds
+    string $acion,
+    array $createdOrUpdatedSubscribers,
+    array $subscribersData,
+    array $subscribersCustomFieldsIds
   ) {
     // check if custom fields exist in the database
-    $subscribersCustomFieldsIds = Helpers::flattenArray(
-      CustomField::whereIn('id', $subscribersCustomFieldsIds)
-        ->select('id')
-        ->findArray()
-    );
-    if (!$subscribersCustomFieldsIds) return;
+    $subscribersCustomFieldsIds = array_map(function(CustomFieldEntity $customField): int {
+      return (int)$customField->getId();
+    }, $this->customFieldsRepository->findBy(['id' => $subscribersCustomFieldsIds]));
+    if (!$subscribersCustomFieldsIds) {
+      return;
+    }
     // assemble a two-dimensional array: [[custom_field_id, subscriber_id, value], [custom_field_id, subscriber_id, value], ...]
     $subscribersCustomFieldsData = [];
     $subscribersEmails = array_flip($subscribersData['data']['email']);
@@ -437,16 +460,28 @@ class Import {
           (int)$field,
           $createdOrUpdatedSubscriber['id'],
           $values[$subscriberIndex],
+          $this->createdAt,
         ];
       }
     }
+    $columns = [
+      'custom_field_id',
+      'subscriber_id',
+      'value',
+      'created_at',
+    ];
     foreach (array_chunk($subscribersCustomFieldsData, self::DB_QUERY_CHUNK_SIZE) as $subscribersCustomFieldsDataChunk) {
-      SubscriberCustomField::createMultiple(
+      $this->importExportRepository->insertMultiple(
+        SubscriberCustomFieldEntity::class,
+        $columns,
         $subscribersCustomFieldsDataChunk
       );
-      if ($action === 'update') {
-        SubscriberCustomField::updateMultiple(
-          $subscribersCustomFieldsDataChunk
+      if ($acion === self::ACTION_UPDATE) {
+        $this->importExportRepository->updateMultiple(
+          SubscriberCustomFieldEntity::class,
+          $columns,
+          $subscribersCustomFieldsDataChunk,
+          $this->updatedAt
         );
       }
     }
@@ -457,9 +492,26 @@ class Import {
   }
 
   public function addSubscribersToSegments($subscribersIds, $segmentsIds) {
+    $columns = [
+      'subscriber_id',
+      'segment_id',
+      'created_at',
+    ];
     foreach (array_chunk($subscribersIds, self::DB_QUERY_CHUNK_SIZE) as $subscriberIdsChunk) {
-      SubscriberSegment::subscribeManyToSegments(
-        $subscriberIdsChunk, $segmentsIds
+      $data = [];
+      foreach ($segmentsIds as $segmentId) {
+        $data = array_merge($data, array_map(function ($subscriberId) use ($segmentId): array {
+          return [
+            $subscriberId,
+            $segmentId,
+            $this->createdAt,
+          ];
+        }, $subscriberIdsChunk));
+      }
+      $this->importExportRepository->insertMultiple(
+        SubscriberSegmentEntity::class,
+        $columns,
+        $data
       );
     }
   }

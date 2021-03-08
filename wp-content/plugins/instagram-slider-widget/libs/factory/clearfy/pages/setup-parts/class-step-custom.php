@@ -1,6 +1,6 @@
 <?php
 
-namespace WBCR\FactoryClearfy233\Pages;
+namespace WBCR\FactoryClearfy236\Pages;
 
 /**
  * Step
@@ -18,10 +18,10 @@ class Step_Custom extends Step {
 	public function render_button($continue = true, $skip = false, $custom_title = null, $align = 'right')
 	{
 		$this->set_button_handler();
-		$button_title = !empty($custom_title) ? $custom_title : __('Continue', 'wbcr_factory_clearfy_233');
+		$button_title = !empty($custom_title) ? $custom_title : __('Continue', 'wbcr_factory_clearfy_236');
 
 		if( !$this->get_next_id() ) {
-			$button_title = __('Finish', 'wbcr_factory_clearfy_233');
+			$button_title = __('Finish', 'wbcr_factory_clearfy_236');
 		}
 
 		if( !in_array($align, ['center', 'left', 'right']) ) {
@@ -29,13 +29,13 @@ class Step_Custom extends Step {
 		}
 
 		?>
-		<form method="post" id="w-factory-clearfy-233__setup-form-<?php echo $this->get_id() ?>" class="form-horizontal">
-			<div class="w-factory-clearfy-233__form-buttons" style="text-align: <?php echo esc_attr($align); ?>">
+		<form method="post" id="w-factory-clearfy-236__setup-form-<?php echo $this->get_id() ?>" class="form-horizontal">
+			<div class="w-factory-clearfy-236__form-buttons" style="text-align: <?php echo esc_attr($align); ?>">
 				<?php if( $skip ): ?>
-					<input type="submit" name="skip_button_<?php echo $this->get_id() ?>" class="button-primary button button-large w-factory-clearfy-233__skip-button" value="<?php _e('Skip', 'wbcr_factory_clearfy_233') ?>">
+					<input type="submit" name="skip_button_<?php echo $this->get_id() ?>" class="button-primary button button-large w-factory-clearfy-236__skip-button" value="<?php _e('Skip', 'wbcr_factory_clearfy_236') ?>">
 				<?php endif; ?>
 				<?php if( $continue ): ?>
-					<input type="submit" name="continue_button_<?php echo $this->get_id() ?>" class="button-primary button button-large w-factory-clearfy-233__continue-button" value="<?php echo $button_title; ?>">
+					<input type="submit" name="continue_button_<?php echo $this->get_id() ?>" class="button-primary button button-large w-factory-clearfy-236__continue-button" value="<?php echo $button_title; ?>">
 				<?php endif; ?>
 			</div>
 		</form>

@@ -97,12 +97,18 @@
 
     dl.variation {
         margin-bottom: 0;
-        font-size: 9px;
+        font-size: .625rem;
         text-transform: uppercase;
     }
 
-    dt, dd, dd p {
+    dt, dd {
+        display: inline-block;
+        margin: side-values(0 5px 0 0);
         font-weight: 400;
+    }
+
+    dd p {
+        font-size: inherit;
     }
 
     th {
@@ -117,6 +123,7 @@
 
     tbody td.product-name {
         font-weight: 500;
+        word-break: break-word;
     }
 
     tfoot tr:first-child th, tfoot tr:first-child td {

@@ -150,6 +150,10 @@ class CF7
             'moName'  => esc_html__('Full Name', 'mailoptin'),
         ];
 
+        if (in_array($saved_integration, Init::no_name_mapping_connections())) {
+            unset($custom_fields['moName']);
+        }
+
         if ( ! empty($saved_integration) && $saved_integration != 'leadbank') {
 
             if (defined('MAILOPTIN_DETACH_LIBSODIUM')) {

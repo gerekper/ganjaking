@@ -3,8 +3,8 @@ Contributors: funnycat
 Donate link: http://www.infowebmaster.fr/dons.php
 Tags: sitemap, generator, page list, site map, html sitemap, sitemap generator, dynamic sitemap, seo
 Requires at least: 3.0
-Tested up to: 5.2.2
-Stable tag: 1.6.3
+Tested up to: 5.6.2
+Stable tag: 1.6.4
 License: GPLv2 or later
 
 
@@ -101,6 +101,8 @@ If you want to add another language, feel free to [contact me](http://en.tonyarc
 
 == Changelog ==
 
+= 1.6.3 and 1.6.4 =
+* compatibility to PHP 8
 = 1.6.1 =
 * Nothing really new, but up-to-date
 = 1.6 =

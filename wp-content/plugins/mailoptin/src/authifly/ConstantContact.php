@@ -106,9 +106,9 @@ class ConstantContact extends OAuth2
     {
         $data                                         = array();
         $data['email_addresses']                      = array();
-        $data['email_addresses'][0]['id']             = $list_id;
         $data['email_addresses'][0]['status']         = 'ACTIVE';
         $data['email_addresses'][0]['confirm_status'] = 'CONFIRMED';
+        $data['email_addresses'][0]['opt_in_source'] = 'ACTION_BY_VISITOR';
         $data['email_addresses'][0]['email_address']  = $email_address;
         if ( ! empty($custom_fields) && is_array($custom_fields)) {
             $index = 1;

@@ -51,7 +51,9 @@ class Connect
 
                 $ninjaFormActionClass = "MailOptin\\NinjaFormsConnect\\Integrations\\$key";
 
-                $actions[$key] = new $ninjaFormActionClass();
+                if (class_exists($ninjaFormActionClass)) {
+                    $actions[$key] = new $ninjaFormActionClass();
+                }
             }
         }
 

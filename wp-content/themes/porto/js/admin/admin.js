@@ -957,7 +957,6 @@ jQuery(function($) {
             $(this).attr('src', $(this).data('original'));
             $(this).removeAttr('data-original');
         });
-        $('.blocks-wrapper').waitForImages(function() {
             $this.removeClass('disabled');
             $.magnificPopup.open({
                 items: {
@@ -971,11 +970,15 @@ jQuery(function($) {
                 callbacks: {
                     change: function() {
                         setTimeout(function() {
+                        var $blocks_list = $('.blocks-wrapper .blocks-list');
                             if (!$('.blocks-wrapper .blocks-list').hasClass('initialized')) {
-                                $('.blocks-wrapper .blocks-list').addClass('initialized').isotope({
+                            $blocks_list.addClass('initialized').isotope({
                                     itemSelector: '.block',
                                     layoutMode: 'masonry'
                                 });
+                            $blocks_list.waitForImages(function() {
+                                $blocks_list.isotope('layout');
+                            });
 
                                 $('.mfp-wrap.blocks-cont').on('scroll', function() {
                                     var $this = $(this),
@@ -991,14 +994,14 @@ jQuery(function($) {
                                 });
 
                                 $('.mfp-wrap.blocks-cont').trigger('scroll');
+                        } else {
+                            $blocks_list.isotope('layout');
                             }
-                            $('.blocks-wrapper .blocks-list').isotope('layout');
                         }, 100);
                     }
                 }
             });
         });
-    });
 
     // cancel import button
     $('#porto-import-no').on('click', function() {

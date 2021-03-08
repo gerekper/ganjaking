@@ -423,11 +423,11 @@
         },
         {
             "name": "mailoptin/authifly",
-            "version": "0.2.1611573634",
-            "version_normalized": "0.2.1611573634.0",
+            "version": "0.2.1614346377",
+            "version_normalized": "0.2.1614346377.0",
             "dist": {
                 "type": "zip",
-                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_tvenU/mailoptinauthifly-0-2-1611573634.zip"
+                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_jp1wC/mailoptinauthifly-0-2-1614346377.zip"
             },
             "require": {
                 "composer/installers": "~1.0",
@@ -473,11 +473,11 @@
         },
         {
             "name": "mailoptin/connections",
-            "version": "0.2.1611573651",
-            "version_normalized": "0.2.1611573651.0",
+            "version": "0.2.1614367867",
+            "version_normalized": "0.2.1614367867.0",
             "dist": {
                 "type": "zip",
-                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1w5lyE/mailoptinconnections-0-2-1611573651.zip"
+                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1d4sJS/mailoptinconnections-0-2-1614367867.zip"
             },
             "require": {
                 "composer/installers": "~1.0",
@@ -509,6 +509,7 @@
                     "MailOptin\\MailerliteConnect\\": "MailerliteConnect/",
                     "MailOptin\\HubspotConnect\\": "HubspotConnect/",
                     "MailOptin\\InfusionsoftConnect\\": "InfusionsoftConnect/",
+                    "MailOptin\\CleverReachConnect\\": "CleverReachConnect/",
                     "MailOptin\\JiltConnect\\": "JiltConnect/",
                     "MailOptin\\MailsterConnect\\": "MailsterConnect/",
                     "MailOptin\\DripConnect\\": "DripConnect/",
@@ -548,17 +549,17 @@
         },
         {
             "name": "mailoptin/core",
-            "version": "0.1.0-alpha.1611570658",
-            "version_normalized": "0.1.0.0-alpha1611570658",
+            "version": "0.1.0-alpha.1614367861",
+            "version_normalized": "0.1.0.0-alpha1614367861",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mailoptin/core.git",
-                "reference": "d5a3275c9be19c1b9300922b0ce16e663be10142"
+                "reference": "114e717c6fe57a222064c9f9af0f36a1b4c1c5ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mailoptin/core/zipball/d5a3275c9be19c1b9300922b0ce16e663be10142",
-                "reference": "d5a3275c9be19c1b9300922b0ce16e663be10142",
+                "url": "https://api.github.com/repos/mailoptin/core/zipball/114e717c6fe57a222064c9f9af0f36a1b4c1c5ce",
+                "reference": "114e717c6fe57a222064c9f9af0f36a1b4c1c5ce",
                 "shasum": ""
             },
             "require": {
@@ -566,10 +567,10 @@
                 "composer/installers": "~1.0",
                 "league/csv": "7.2.0",
                 "nesbot/carbon": "^1.32",
-                "pelago/emogrifier": "^1.0",
+                "pelago/emogrifier": "3.1.0",
                 "soundasleep/html2text": "~0.5"
             },
-            "time": "2021-01-25T08:56:24+00:00",
+            "time": "2021-02-26T19:28:56+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "autoload": {
@@ -586,7 +587,7 @@
             "description": "Core lib for MailOptin",
             "support": {
                 "issues": "https://github.com/mailoptin/core/issues",
-                "source": "https://github.com/mailoptin/core/tree/0.1.0-alpha.1611570658"
+                "source": "https://github.com/mailoptin/core/tree/0.1.0-alpha.1614367861"
             },
             "install-path": "../../src/core"
         },
@@ -660,37 +661,42 @@
         },
         {
             "name": "pelago/emogrifier",
-            "version": "v1.2.2",
-            "version_normalized": "1.2.2.0",
+            "version": "v3.1.0",
+            "version_normalized": "3.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MyIntervals/emogrifier.git",
-                "reference": "fef6a4d3a6cefb2fdc8e749a3f3a100ab43f883a"
+                "reference": "f6a5c7d44612d86c3901c93f1592f5440e6b2cd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MyIntervals/emogrifier/zipball/fef6a4d3a6cefb2fdc8e749a3f3a100ab43f883a",
-                "reference": "fef6a4d3a6cefb2fdc8e749a3f3a100ab43f883a",
+                "url": "https://api.github.com/repos/MyIntervals/emogrifier/zipball/f6a5c7d44612d86c3901c93f1592f5440e6b2cd8",
+                "reference": "f6a5c7d44612d86c3901c93f1592f5440e6b2cd8",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0,<=7.3.99"
+                "ext-dom": "*",
+                "ext-libxml": "*",
+                "php": "^5.6 || ~7.0 || ~7.1 || ~7.2 || ~7.3 || ~7.4",
+                "symfony/css-selector": "^2.8 || ^3.0 || ^4.0 || ^5.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.8.27",
-                "squizlabs/php_codesniffer": "^3.3.0"
+                "friendsofphp/php-cs-fixer": "^2.15.3",
+                "phpmd/phpmd": "^2.7.0",
+                "phpunit/phpunit": "^5.7.27",
+                "squizlabs/php_codesniffer": "^3.5.0"
             },
-            "time": "2018-12-10T08:26:52+00:00",
+            "time": "2019-12-26T19:37:31+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1.x-dev"
+                    "dev-master": "4.0.x-dev"
                 }
             },
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Pelago\\": "Classes/"
+                    "Pelago\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -698,16 +704,6 @@
                 "MIT"
             ],
             "authors": [
-                {
-                    "name": "John Reeve",
-                    "email": "jreeve@pelagodesign.com"
-                },
-                {
-                    "name": "Cameron Brooks"
-                },
-                {
-                    "name": "Jaime Prado"
-                },
                 {
                     "name": "Oliver Klee",
                     "email": "github@oliverklee.de"
@@ -717,8 +713,18 @@
                     "email": "zoli.szabo+github@gmail.com"
                 },
                 {
+                    "name": "John Reeve",
+                    "email": "jreeve@pelagodesign.com"
+                },
+                {
                     "name": "Jake Hotson",
                     "email": "jake@qzdesign.co.uk"
+                },
+                {
+                    "name": "Cameron Brooks"
+                },
+                {
+                    "name": "Jaime Prado"
                 }
             ],
             "description": "Converts CSS styles into inline style attributes in your HTML code",
@@ -791,6 +797,74 @@
                 "source": "https://github.com/soundasleep/html2text/tree/master"
             },
             "install-path": "../soundasleep/html2text"
+        },
+        {
+            "name": "symfony/css-selector",
+            "version": "v3.4.47",
+            "version_normalized": "3.4.47.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/css-selector.git",
+                "reference": "da3d9da2ce0026771f5fe64cb332158f1bd2bc33"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/da3d9da2ce0026771f5fe64cb332158f1bd2bc33",
+                "reference": "da3d9da2ce0026771f5fe64cb332158f1bd2bc33",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8"
+            },
+            "time": "2020-10-24T10:57:07+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\CssSelector\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Jean-François Simon",
+                    "email": "jeanfrancois.simon@sensiolabs.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony CssSelector Component",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/css-selector/tree/v3.4.47"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "../symfony/css-selector"
         },
         {
             "name": "symfony/polyfill-mbstring",

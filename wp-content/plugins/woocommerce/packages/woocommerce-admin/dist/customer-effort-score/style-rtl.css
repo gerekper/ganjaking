@@ -128,7 +128,8 @@ body.admin-color-sunrise {
       .woocommerce-customer-effort-score__selection .components-base-control__field {
         flex-direction: row; } }
   .woocommerce-customer-effort-score__selection .components-radio-control__option:not(:last-child) {
-    margin-bottom: 0; }
+    margin-bottom: 0;
+    margin-left: 4px; }
   .woocommerce-customer-effort-score__selection .components-radio-control__option input {
     position: absolute;
     opacity: 0; }
@@ -147,6 +148,7 @@ body.admin-color-sunrise {
     background-color: peach;
     color: #135e96; }
   .woocommerce-customer-effort-score__selection .components-radio-control__option input:checked + label {
+    outline: 2px solid #006088;
     background-color: #e6f1f5; }
   .woocommerce-customer-effort-score__selection .components-radio-control__option label::before {
     display: block;

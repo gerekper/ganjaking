@@ -1,4 +1,7 @@
 <?php
+
+use Instagram\Includes\WIS_Plugin;
+
 $current_url = admin_url( 'admin.php?page=settings-' . WIS_Plugin::app()->getPluginName() );
 $current_tab = 'instagram';
 $TABS        = array(
@@ -7,6 +10,12 @@ $TABS        = array(
 		'caption' => 'Instagram',
 		'icon'    => 'instagram',
 		'url'     => $current_url . "&tab=instagram",
+	),
+	'Youtube' => array(
+		'current' => false,
+		'caption' => 'Youtube',
+		'icon'    => 'youtube',
+		'url'     => $current_url . "&tab=Youtube",
 	),
 );
 if ( isset( $_GET['tab'] ) && ! empty( $_GET['tab'] ) ) {

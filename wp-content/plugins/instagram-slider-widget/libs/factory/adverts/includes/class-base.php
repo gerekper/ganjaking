@@ -1,6 +1,6 @@
 <?php
 
-namespace WBCR\Factory_Adverts_120;
+namespace WBCR\Factory_Adverts_123;
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,7 +28,7 @@ class Base {
 	 *
 	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
 	 * @since  1.0.1
-	 * @var \Wbcr_Factory442_Plugin
+	 * @var \Wbcr_Factory445_Plugin
 	 */
 	private $plugin;
 
@@ -53,7 +53,7 @@ class Base {
 	 *
 	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
 	 * @since  1.0.1
-	 * @var \WBCR\Factory_Adverts_120\Creative_Motion_API
+	 * @var \WBCR\Factory_Adverts_123\Creative_Motion_API
 	 */
 	private $api;
 
@@ -82,9 +82,9 @@ class Base {
 	 *
 	 * @since 1.0.0 Added
 	 *
-	 * @param \Wbcr_Factory442_Plugin $plugin
+	 * @param \Wbcr_Factory445_Plugin $plugin
 	 */
-	public function __construct( \Wbcr_Factory442_Plugin $plugin, $settings ) {
+	public function __construct( \Wbcr_Factory445_Plugin $plugin, $settings ) {
 		$this->plugin = $plugin;
 
 		$this->settings = wp_parse_args( $settings, [
@@ -257,7 +257,7 @@ class Base {
 				$content = $this->get_debug_message( 'dashboard_widget' );
 			}
 
-			require_once FACTORY_ADVERTS_120_DIR . '/includes/class-dashboard-widget.php';
+			require_once FACTORY_ADVERTS_123_DIR . '/includes/class-dashboard-widget.php';
 			new Dashboard_Widget( $this->plugin, $content );
 		}
 	}

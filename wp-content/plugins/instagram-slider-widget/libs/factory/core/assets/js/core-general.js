@@ -8,11 +8,11 @@
 (function($) {
 	'use strict';
 
-	if( !$.wfactory_442 ) {
-		$.wfactory_442 = {};
+	if( !$.wfactory_445 ) {
+		$.wfactory_445 = {};
 	}
 
-	$.wfactory_442.filters = $.wfactory_442.filters || {
+	$.wfactory_445.filters = $.wfactory_445.filters || {
 
 		/**
 		 * A set of registered filters.
@@ -79,20 +79,20 @@
 		}
 	};
 
-	$.wfactory_442.hooks = $.wfactory_442.hooks || {
+	$.wfactory_445.hooks = $.wfactory_445.hooks || {
 
 		/**
 		 * Applies filters to a given input value.
 		 */
 		run: function(filterName, args) {
-			$.wfactory_442.filters.run(filterName, args);
+			$.wfactory_445.filters.run(filterName, args);
 		},
 
 		/**
 		 * Registers a new filter.
 		 */
 		add: function(filterName, callback, priority) {
-			$.wfactory_442.filters.add(filterName, callback, priority);
+			$.wfactory_445.filters.add(filterName, callback, priority);
 		}
 	};
 

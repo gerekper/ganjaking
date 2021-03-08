@@ -20,7 +20,7 @@
 			 * This event is intended for installation, removal, activation, deactivation of external add-ons
 			 */
 
-			$(document).on('click', '.wfactory-442-process-button', function() {
+			$(document).on('click', '.wfactory-445-process-button', function() {
 				var $this = $(this),
 					button_i18n = $(this).data('i18n'),
 					plugin_slug = $(this).data('slug'),
@@ -30,11 +30,11 @@
 					wpnonce = $(this).data('wpnonce');
 
 				var action = ('creativemotion' === storage)
-				             ? 'wfactory-442-creativemotion-install-plugin'
+				             ? 'wfactory-445-creativemotion-install-plugin'
 				             : 'install-plugin';
 
 				if( storage === 'freemius' || ((storage === 'wordpress' || storage === 'creativemotion' || storage === 'internal') && (plugin_action === 'activate' || plugin_action === 'deactivate')) ) {
-					action = 'wfactory-442-intall-component';
+					action = 'wfactory-445-intall-component';
 				} else if( storage === 'wordpress' && plugin_action === 'delete' ) {
 					action = 'delete-plugin';
 				}
@@ -54,11 +54,11 @@
 
 				$this.addClass('disabled').text(button_i18n.loading);
 
-				$.wfactory_442.hooks.run('core/components/pre_update', [$this, data]);
+				$.wfactory_445.hooks.run('core/components/pre_update', [$this, data]);
 
 				self.sendRequest(data, function(response) {
 					if( !response || !response.success ) {
-						$.wfactory_442.hooks.run('core/components/update_error', [
+						$.wfactory_445.hooks.run('core/components/update_error', [
 							$this,
 							data,
 							response
@@ -80,7 +80,7 @@
 								$this.removeClass('button-default').addClass('button-primary');
 							}
 
-							$.wfactory_442.hooks.run('core/components/installed', [
+							$.wfactory_445.hooks.run('core/components/installed', [
 								$this,
 								data,
 								response
@@ -96,7 +96,7 @@
 								$this.removeClass('button-primary').addClass('button-default');
 							}
 
-							$.wfactory_442.hooks.run('core/components/pre_activate', [
+							$.wfactory_445.hooks.run('core/components/pre_activate', [
 								$this,
 								data,
 								response
@@ -124,7 +124,7 @@
 								$this.removeClass('button-default').addClass('button-primary');
 							}
 
-							$.wfactory_442.hooks.run('core/components/deactivated', [
+							$.wfactory_445.hooks.run('core/components/deactivated', [
 								$this,
 								data,
 								response
@@ -134,7 +134,7 @@
 
 							plugin_action = 'install';
 
-							$.wfactory_442.hooks.run('core/components/deleted', [$this, data, response]);
+							$.wfactory_445.hooks.run('core/components/deleted', [$this, data, response]);
 						}
 					} else {
 						if( plugin_action === 'install' ) {
@@ -144,7 +144,7 @@
 
 					$this.text(button_i18n[plugin_action]);
 
-					$.wfactory_442.hooks.run('core/components/updated', [$this, data, response]);
+					$.wfactory_445.hooks.run('core/components/updated', [$this, data, response]);
 				});
 
 				return false;
@@ -169,7 +169,7 @@
 				.addClass('disabled')
 				.text(button_i18n.preparation);
 
-			sendData.action = 'wfactory-442-prepare-component';
+			sendData.action = 'wfactory-445-prepare-component';
 
 			this.sendRequest(sendData, function(response) {
 				componentButton.removeClass('disabled');
@@ -177,7 +177,7 @@
 				if( !response || !response.success ) {
 					componentButton.text(button_i18n['activate']);
 
-					$.wfactory_442.hooks.run('core/components/activation_error', [
+					$.wfactory_445.hooks.run('core/components/activation_error', [
 						componentButton,
 						sendData,
 						response
@@ -187,7 +187,7 @@
 
 				componentButton.removeClass('button-primary').text(button_i18n['deactivate']);
 
-				$.wfactory_442.hooks.run('core/components/activated', [
+				$.wfactory_445.hooks.run('core/components/activated', [
 					componentButton,
 					sendData,
 					response
@@ -210,7 +210,7 @@
 					console.log(xhr.responseText);
 					console.log(thrownError);
 
-					$.wfactory_442.hooks.run('core/components/ajax_error', [
+					$.wfactory_445.hooks.run('core/components/ajax_error', [
 						xhr,
 						ajaxOptions,
 						thrownError

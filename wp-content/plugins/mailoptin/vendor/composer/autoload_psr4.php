@@ -8,7 +8,8 @@ $baseDir = dirname($vendorDir);
 return array(
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
-    'Pelago\\' => array($vendorDir . '/pelago/emogrifier/Classes'),
+    'Symfony\\Component\\CssSelector\\' => array($vendorDir . '/symfony/css-selector'),
+    'Pelago\\' => array($vendorDir . '/pelago/emogrifier/src'),
     'Mailchimp\\http\\' => array($vendorDir . '/thinkshout/mailchimp-api-php/src/http'),
     'Mailchimp\\' => array($vendorDir . '/thinkshout/mailchimp-api-php/src'),
     'MailOptin\\ZohoCampaignsConnect\\' => array($baseDir . '/src/connections/ZohoCampaignsConnect'),
@@ -55,6 +56,7 @@ return array(
     'MailOptin\\ConvertFoxConnect\\' => array($baseDir . '/src/connections/ConvertFoxConnect'),
     'MailOptin\\ContactForm7Connect\\' => array($baseDir . '/src/connections/ContactForm7Connect'),
     'MailOptin\\Connections\\' => array($baseDir . '/src/connections'),
+    'MailOptin\\CleverReachConnect\\' => array($baseDir . '/src/connections/CleverReachConnect'),
     'MailOptin\\CampaignMonitorConnect\\' => array($baseDir . '/src/connections/CampaignMonitorConnect'),
     'MailOptin\\AweberConnect\\' => array($baseDir . '/src/connections/AweberConnect'),
     'MailOptin\\ActiveCampaignConnect\\' => array($baseDir . '/src/connections/ActiveCampaignConnect'),

@@ -5,7 +5,16 @@ namespace MailPoet\Form\Block;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\WP\Functions as WPFunctions;
+
 class Divider {
+  /** @var WPFunctions */
+  private $wp;
+
+  public function __construct(WPFunctions $wp) {
+    $this->wp = $wp;
+  }
+
   const DEFAULT_ATTRIBUTES = [
     'height' => 1,
     'type' => 'divider',
@@ -23,8 +32,8 @@ class Divider {
     if (!empty($block['params']['class_name'])) {
       $classes[] = $block['params']['class_name'];
     }
-    $classAttr = join(' ', $classes);
-    $height = $block['params']['height'] ?? self::DEFAULT_ATTRIBUTES['height'];
+    $classAttr = $this->wp->escAttr(join(' ', $classes));
+    $height = $this->wp->escAttr($block['params']['height'] ?? self::DEFAULT_ATTRIBUTES['height']);
     return "<div class='{$classAttr}' style='height: {$height}px;'>"
     . $this->renderDivider($block)
     . '</div>';
@@ -46,7 +55,7 @@ class Divider {
       "height: {$dividerHeight}px",
       "width: $width%",
     ];
-    $style = implode(";", $dividerStyles);
+    $style = $this->wp->escAttr(implode(";", $dividerStyles));
     return "<div class='mailpoet_divider' data-automation-id='form_divider' style='$style'></div>";
   }
 }

@@ -157,11 +157,18 @@ switch ( $onclick ) {
 		break;
 
 	case 'link_image':
-		wp_enqueue_script( 'prettyphoto' );
-		wp_enqueue_style( 'prettyphoto' );
 
-		$a_attrs['class'] = 'prettyphoto';
-		$a_attrs['data-rel']   = 'prettyPhoto[rel-' . get_the_ID() . '-' . wp_rand() . ']';
+		if ( wp_script_is( 'lightbox2', 'registered' ) || wp_script_is( 'lightbox2', 'enqueued' ) ) {
+			wp_enqueue_script( 'lightbox2' );
+			wp_enqueue_style( 'lightbox2' );
+			$a_attrs['class']         = '';
+			$a_attrs['data-lightbox'] = 'lightbox[rel-' . get_the_ID() . '-' . wp_rand() . ']';
+		} else {
+			wp_enqueue_script( 'prettyphoto' );
+			wp_enqueue_style( 'prettyphoto' );
+			$a_attrs['class']    = 'prettyphoto';
+			$a_attrs['data-rel'] = 'prettyPhoto[rel-' . get_the_ID() . '-' . wp_rand() . ']';
+		}
 
 		// backward compatibility
 		if ( ! porto_has_class( 'prettyphoto', $el_class ) && 'external_link' === $source ) {

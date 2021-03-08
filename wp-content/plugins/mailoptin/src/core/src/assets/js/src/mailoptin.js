@@ -744,11 +744,14 @@ define(['jquery', 'js.cookie', 'mailoptin_globals', 'pikaday', 'moModal', 'moExi
              * Track number of page views.
              */
             track_page_views: function () {
-                var prev_count = Cookies.get('mo_page_views_counter');
-                var count = (prev_count === undefined) ? 0 : prev_count;
 
-                // cookie expiration is missing thus making it a session cookie.
-                Cookies.set('mo_page_views_counter', ++count);
+                if (mailoptin_globals.is_new_returning_visitors_cookies === 'true') {
+                    var prev_count = Cookies.get('mo_page_views_counter');
+                    var count = (prev_count === undefined) ? 0 : prev_count;
+
+                    // cookie expiration is missing thus making it a session cookie.
+                    Cookies.set('mo_page_views_counter', ++count);
+                }
             },
 
             set_visitor_cookies: function () {

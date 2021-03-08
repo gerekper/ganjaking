@@ -561,6 +561,10 @@
 	opacity: 0.7;
 }
 
+.no-isw-icons:before {
+	background-image: none !important;
+}
+
 .GraphSidecar:before
 {
 	position: absolute;

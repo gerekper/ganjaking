@@ -7,6 +7,8 @@
  */
 
 // Exit if accessed directly
+use Instagram\Includes\WIS_Plugin;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

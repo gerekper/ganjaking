@@ -73,6 +73,10 @@ class FormidableForm extends FrmFormAction
             'moName'  => esc_html__('Full Name', 'mailoptin'),
         ];
 
+        if (in_array($saved_integration, Init::no_name_mapping_connections())) {
+            unset($custom_fields['moName']);
+        }
+
         $form_fields = FrmField::getAll('fi.form_id=' . (int)$args['form']->id . " and fi.type not in ('break', 'divider', 'end_divider', 'html', 'captcha', 'form')", 'field_order');
 
         if ( ! empty($saved_integration) && $saved_integration != 'leadbank') {

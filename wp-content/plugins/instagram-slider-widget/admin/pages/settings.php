@@ -1,6 +1,8 @@
 <?php
 
 // Exit if accessed directly
+use Instagram\Includes\WIS_Plugin;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -27,7 +29,7 @@ class WIS_SettingsPage extends WIS_Page {
 	 * Mainly used to navigate between pages.
 	 *
 	 * @since 1.0.0
-	 * @see   FactoryPages441_AdminPage
+	 * @see   FactoryPages444_AdminPage
 	 *
 	 * @var string
 	 */
@@ -131,6 +133,16 @@ class WIS_SettingsPage extends WIS_Page {
 			'control.dropdown',
 			'control.checkbox',
 		], 'bootstrap' );
+
+		wp_enqueue_style( 'wyoutube-admin-styles', WYT_PLUGIN_URL . '/admin/assets/css/wyoutube-admin.css', array(), WYT_PLUGIN_VERSION );
+		wp_enqueue_script( 'wyoutube-admin-script', WYT_PLUGIN_URL . '/admin/assets/js/wyoutube-admin.js', array( 'jquery' ), WYT_PLUGIN_VERSION, true );
+		wp_localize_script( 'wyoutube-admin-script', 'wyt', array(
+			'nonce'          => wp_create_nonce( 'wyt_nonce' ),
+			'remove_account' => __( 'Are you sure want to delete this account?', 'yft' ),
+		) );
+		wp_localize_script( 'wyoutube-admin-script', 'add_account_nonce', array(
+			'nonce' => wp_create_nonce( "addAccountByToken" ),
+		) );
 	}
 
 	public function indexAction() {
@@ -143,7 +155,7 @@ class WIS_SettingsPage extends WIS_Page {
 				case "facebook":
 					WIS_FacebookSlider::app()->FACEBOOK->tabAction();
 					break;
-				case "youtube":
+				case "Youtube":
 					$this->youtube();
 					break;
 			}
@@ -201,7 +213,26 @@ class WIS_SettingsPage extends WIS_Page {
 	 * Логика на вкладке Ютуба
 	 */
 	public function youtube() {
-		//require_once WIS_PLUGIN_DIR . '/includes/socials/class.wis_youtube.php';
+
+		if(isset($_POST['wyt_api_key']) && $_POST['wyt_api_key'] != null){
+			$this->plugin->update_youtube_api_key($_POST['wyt_api_key']);
+
+			if(isset($_POST['wyt_feed_link']) && $_POST['wyt_feed_link'] != null){
+
+				$link = $_POST['wyt_feed_link'];
+				$start_with_string = 'https://www.youtube.com/channel/';
+
+				if(stripos($link, $start_with_string) === false) return false;
+
+				$id = explode('/channel/', $link)[1];
+				$id = explode('/', $id)[0];
+
+				$profile = $this->plugin->youtube_api->getUserById($id)->items[0];
+				$profile->snippet->channelId = $id;
+				$this->plugin->update_youtube_feed( $profile );
+
+			}
+		}
 	}
 
 }

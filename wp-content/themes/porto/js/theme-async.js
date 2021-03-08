@@ -1250,8 +1250,13 @@ jQuery(document).ready(function($) {
 		$('.lightbox:not(.manual)').each(function() {
 			var $this = $(this),
 				opts;
-
 			var pluginOptions = $this.data('plugin-options');
+
+			// WPBakery lightbox plugin compatibility issue
+			if ($this.attr('id') == 'lightbox' && typeof pluginOptions == 'undefined') {
+				return;
+			}
+
 			if (pluginOptions)
 				opts = pluginOptions;
 

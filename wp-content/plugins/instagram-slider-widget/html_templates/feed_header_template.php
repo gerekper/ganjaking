@@ -14,7 +14,6 @@ $profile_url     = "https://www.instagram.com/$username/";
 ?>
 
 <div class="wis-feed-header">
-    <a href="<?php echo esc_url( $profile_url ) ?>" target="_blank" style="text-decoration: none;border: 0 !important;">
         <div class="wis-box">
             <div class="wis-header-img">
                 <div class="wis-round wis-header-neg">
@@ -24,13 +23,15 @@ $profile_url     = "https://www.instagram.com/$username/";
                      width="50" height="50">
             </div>
             <div class="wis-header-info">
-                <p class="wis-header-info-username"><?php echo esc_html( $username ) ?></p>
+                <a href="<?php echo esc_url( $profile_url ) ?>" target="_blank" style="text-decoration: none;border: 0 !important;">
+                    <p class="wis-header-info-username"><?php echo esc_html( $username ) ?></p>
+                </a>
                 <p style="margin-top: 0; font-size: 11px">
                     <span class="fa fa-image">&nbsp;<?php echo esc_html( $posts_count ) ?></span>&nbsp;&nbsp;
                     <span class="fa fa-user">&nbsp;<?php echo esc_html( $followers ) ?></span>
                 </p>
             </div>
         </div>
-    </a>
+
 </div>
 <br>

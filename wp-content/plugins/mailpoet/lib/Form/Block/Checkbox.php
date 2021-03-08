@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Form\BlockWrapperRenderer;
+use MailPoet\WP\Functions as WPFunctions;
 
 class Checkbox {
 
@@ -15,9 +16,13 @@ class Checkbox {
   /** @var BlockWrapperRenderer */
   private $wrapper;
 
-  public function __construct(BlockRendererHelper $rendererHelper, BlockWrapperRenderer $wrapper) {
+  /** @var WPFunctions */
+  private $wp;
+
+  public function __construct(BlockRendererHelper $rendererHelper, BlockWrapperRenderer $wrapper, WPFunctions $wp) {
     $this->rendererHelper = $rendererHelper;
     $this->wrapper = $wrapper;
+    $this->wp = $wp;
   }
 
   public function render(array $block, array $formSettings): string {
@@ -59,7 +64,7 @@ class Checkbox {
       $html .= '</label>';
     }
 
-    $html .= '<span class="mailpoet_error_' . $block['id'] . '"></span>';
+    $html .= '<span class="mailpoet_error_' . $this->wp->escAttr($block['id']) . '"></span>';
 
     return $this->wrapper->render($block, $html);
   }

@@ -26,10 +26,16 @@ class Connections
     }
 
     /**
-     * @return Connections
+     * @param bool $removeCache
+     *
+     * @return Connections|null
      */
-    public static function instance()
+    public static function instance($removeCache = false)
     {
+        if ($removeCache) {
+            return new self(get_option(MAILOPTIN_CONNECTIONS_DB_OPTION_NAME));
+        }
+
         static $instance = null;
 
         if (is_null($instance)) {

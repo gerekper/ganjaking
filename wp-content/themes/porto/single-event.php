@@ -97,7 +97,7 @@ tick_sep_size="desktop:17px;"]'
 				<?php endif; ?>
 					<div class="post-event-content custom-margin-1 m-b-xlg">
 						<?php if ( $has_event_date ) : ?>
-							<span class="event-date d-none"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $event_start_date ) ); ?><time><?php echo esc_html( $event_start_time ); ?></time></span>
+							<span class="event-date d-none"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $event_start_date ) ); ?><time datetime="<?php echo esc_attr( get_the_date( 'Y-m-d', get_the_ID() ) ); ?>"><?php echo esc_html( $event_start_time ); ?></time></span>
 						<?php endif; ?>
 						<h2 class="font-weight-bold text-color-dark m-b-none"><?php the_title(); ?></h2>
 						<span class="custom-event-infos">

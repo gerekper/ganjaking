@@ -1,6 +1,10 @@
 <?php
 
+namespace Instagram\Includes;
+
 // Exit if accessed directly
+use WIS_InstagramSlider;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -12,11 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright (c) 2019 Webraftic Ltd
  * @version       1.0
  */
-class WIS_Plugin extends Wbcr_Factory442_Plugin {
+class WIS_Plugin extends \Wbcr_Factory445_Plugin {
 
 	/**
 	 * @see self::app()
-	 * @var Wbcr_Factory442_Plugin
+	 * @var \Wbcr_Factory445_Plugin
 	 */
 	private static $app;
 
@@ -24,6 +28,10 @@ class WIS_Plugin extends Wbcr_Factory442_Plugin {
 	 * @var array Список слайдеров
 	 */
 	public $sliders = array();
+
+
+	/** @var \YoutubeFeed\Api\YoutubeApi $youtube_api */
+	public $youtube_api;
 
 	/**
 	 * Статический метод для быстрого доступа к интерфейсу плагина.
@@ -34,7 +42,7 @@ class WIS_Plugin extends Wbcr_Factory442_Plugin {
 	 * Используется для получения настроек плагина, информации о плагине, для доступа к вспомогательным
 	 * классам.
 	 *
-	 * @return Wbcr_Factory442_Plugin
+	 * @return \Wbcr_Factory445_Plugin
 	 */
 	public static function app() {
 		return self::$app;
@@ -60,7 +68,7 @@ class WIS_Plugin extends Wbcr_Factory442_Plugin {
 	 * @param string $plugin_path
 	 * @param array $data
 	 *
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function __construct( $plugin_path, $data ) {
 		parent::__construct( $plugin_path, $data );
@@ -80,9 +88,11 @@ class WIS_Plugin extends Wbcr_Factory442_Plugin {
 			$this->front_scripts();
 		}
 
+		$this->youtube_api = new \YoutubeFeed\Api\YoutubeApi();
+
 		$this->global_scripts();
 
-
+		add_action( 'wp_ajax_wyt_delete_account', array( $this, 'delete_feed' ) );
 	}
 
 	protected function init_activation() {
@@ -103,6 +113,7 @@ class WIS_Plugin extends Wbcr_Factory442_Plugin {
 		self::app()->registerPage( 'WIS_AboutPage', WIS_PLUGIN_DIR . '/admin/pages/about.php' );
         self::app()->registerPage( 'WIS_LicensePage', WIS_PLUGIN_DIR . '/admin/pages/license.php' );
         self::app()->registerPage( 'WIS_ComponentsPage', WIS_PLUGIN_DIR . '/admin/pages/components.php' );
+        self::app()->registerPage( 'Manual', WIS_PLUGIN_DIR . '/admin/pages/manual.php' );
 
         add_action('plugins_loaded', function (){
             if( defined('SPFD_PLUGIN_DIR')){
@@ -240,5 +251,73 @@ class WIS_Plugin extends Wbcr_Factory442_Plugin {
 				  </div>';
 		}
 	}
+
+	public function update_youtube_api_key( $api_key ) {
+		if($api_key){
+			$this->youtube_api->setApiKey($api_key);
+			return WIS_Plugin::app()->updateOption(WYT_API_KEY_OPTION_NAME, $api_key);
+		}
+		return false;
+	}
+
+	public function update_youtube_feed( $profile ) {
+		if ( $profile ) {
+			$pro = WIS_Plugin::app()->getOption( WYT_ACCOUNT_OPTION_NAME, [] );
+			if ( ! is_array( $pro ) ) {
+				$pro = [];
+			}
+			$pro[$profile->snippet->channelId] = $profile;
+
+			return WIS_Plugin::app()->updateOption( WYT_ACCOUNT_OPTION_NAME, $pro );
+		}
+
+		return false;
+	}
+
+	/**
+	 * Ajax Call to delete account
+	 * @return void
+	 */
+	public function delete_feed() {
+		if ( isset( $_POST['id'] ) && ! empty( $_POST['id'] ) ) {
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_die( - 1 );
+			} else {
+				check_ajax_referer( 'wyt_nonce', 'nonce' );
+
+				$accounts = WIS_Plugin::app()->getPopulateOption( WYT_ACCOUNT_OPTION_NAME, [] );
+				$item_id = esc_html( $_POST['id']);
+				if ( isset( $accounts[ $item_id ] ) ) {
+					unset( $accounts[ $item_id ] );
+				}
+
+				WIS_Plugin::app()->updatePopulateOption( WYT_ACCOUNT_OPTION_NAME, $accounts );
+
+				wp_send_json_success( __( 'Feed deleted successfully', 'yft' ) );
+			}
+		}
+	}
+
+    /**
+     * Get feeds or feed from database
+     *
+     * @param $id
+     *
+     * @return array
+     */
+    public function get_youtube_feeds( $id = 0 ) {
+        if ( $id ) {
+            $feeds = $this->getOption( WYT_ACCOUNT_OPTION_NAME, [] );
+            if ( is_array( $feeds ) && ! empty( $feeds ) ) {
+                foreach ( $feeds as $feed ) {
+                    if ( isset( $feed->channelId ) && $feed->channelId == $id ) {
+                        return $feed;
+                    }
+                }
+            }
+        }
+
+        return $this->getOption( WYT_ACCOUNT_OPTION_NAME, [] );
+    }
 
 }

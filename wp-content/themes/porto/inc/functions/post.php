@@ -326,7 +326,7 @@ if ( ! function_exists( 'porto_post_date' ) ) :
 	function porto_post_date( $echo = true ) {
 		$result  = '<span class="day">' . esc_html( get_the_date( 'd', get_the_ID() ) ) . '</span>';
 		$result .= '<span class="month">' . esc_html( get_the_date( 'M', get_the_ID() ) ) . '</span>';
-		$result .= '<time>' . esc_html( get_the_date( '', get_the_ID() ) ) . '</time>';
+		$result .= '<time datetime="' . esc_attr( get_the_date( 'Y-m-d', get_the_ID() ) ) . '">' . esc_html( get_the_date( '', get_the_ID() ) ) . '</time>';
 		if ( $echo ) {
 			echo porto_filter_output( $result );
 		} else {

@@ -1151,6 +1151,10 @@ if ( class_exists( 'WP_Importer' ) ) {
 								$value = maybe_unserialize( $meta['value'] );
 							}
 
+							if ( 'vcvSourceAssetsFiles' == $key || 'vcv-pageContent' == $key ) {
+								$value = $this->vcv_update_urls( $value );
+							}
+
 							if ( $post_exists ) {
 								delete_post_meta( $post_id, $key );
 							}
@@ -1218,6 +1222,19 @@ if ( class_exists( 'WP_Importer' ) ) {
 			}
 
 			unset( $this->posts );
+		}
+
+		private function vcv_update_urls( $value ) {
+			if ( is_array( $value ) ) {
+				foreach ( $value as $key => $v ) {
+					$value[ $key ] = $this->vcv_update_urls( $v );
+				}
+			} else {
+				$value = str_replace( 'PORTO_FUNC_URI', str_replace( '/shortcodes/', '', PORTO_SHORTCODES_URL ), $value );
+				$value = str_replace( 'PORTO_PLUGINS_URI', esc_url( plugins_url() ), $value );
+				$value = str_replace( 'PORTO_URI', esc_url( PORTO_URI . '/' ), $value );
+			}
+			return $value;
 		}
 
 		/**

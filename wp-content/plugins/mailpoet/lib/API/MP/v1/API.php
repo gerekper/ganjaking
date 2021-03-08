@@ -11,6 +11,7 @@ use MailPoet\Models\Segment;
 use MailPoet\Models\Subscriber;
 use MailPoet\Models\SubscriberSegment;
 use MailPoet\Newsletter\Scheduler\WelcomeScheduler;
+use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\ConfirmationEmailMailer;
 use MailPoet\Subscribers\NewSubscriberNotificationMailer;
 use MailPoet\Subscribers\RequiredCustomFieldValidator;
@@ -36,18 +37,23 @@ class API {
   /** @var WelcomeScheduler */
   private $welcomeScheduler;
 
+  /** @var SettingsController */
+  private $settings;
+
   public function __construct(
     NewSubscriberNotificationMailer $newSubscriberNotificationMailer,
     ConfirmationEmailMailer $confirmationEmailMailer,
     RequiredCustomFieldValidator $requiredCustomFieldValidator,
     ApiDataSanitizer $customFieldsDataSanitizer,
-    WelcomeScheduler $welcomeScheduler
+    WelcomeScheduler $welcomeScheduler,
+    SettingsController $settings
   ) {
     $this->newSubscriberNotificationMailer = $newSubscriberNotificationMailer;
     $this->confirmationEmailMailer = $confirmationEmailMailer;
     $this->requiredCustomFieldValidator = $requiredCustomFieldValidator;
     $this->customFieldsDataSanitizer = $customFieldsDataSanitizer;
     $this->welcomeScheduler = $welcomeScheduler;
+    $this->settings = $settings;
   }
 
   public function getSubscriberFields() {
@@ -121,6 +127,7 @@ class API {
     $scheduleWelcomeEmail = (isset($options['schedule_welcome_email']) && $options['schedule_welcome_email'] === false) ? false : true;
     $sendConfirmationEmail = (isset($options['send_confirmation_email']) && $options['send_confirmation_email'] === false) ? false : true;
     $skipSubscriberNotification = (isset($options['skip_subscriber_notification']) && $options['skip_subscriber_notification'] === true) ? true : false;
+    $signupConfirmationEnabled = (bool)$this->settings->get('signup_confirmation.enabled');
 
     if (empty($listIds)) {
       throw new APIException(__('At least one segment ID is required.', 'mailpoet'), APIException::SEGMENT_REQUIRED);
@@ -166,17 +173,30 @@ class API {
 
     SubscriberSegment::subscribeToSegments($subscriber, $foundSegmentsIds);
 
+    // set status depending on signup confirmation setting
+    if ($subscriber->status !== Subscriber::STATUS_SUBSCRIBED) {
+      if ($signupConfirmationEnabled === true) {
+        $subscriber->set('status', Subscriber::STATUS_UNCONFIRMED);
+      } else {
+        $subscriber->set('status', Subscriber::STATUS_SUBSCRIBED);
+      }
+
+      $subscriber->save();
+      if ($subscriber->getErrors() !== false) {
+        throw new APIException(
+          WPFunctions::get()->__(sprintf('Failed to save a status of a subscriber : %s', strtolower(implode(', ', $subscriber->getErrors()))), 'mailpoet'),
+          APIException::FAILED_TO_SAVE_SUBSCRIBER
+        );
+      }
+    }
+
     // schedule welcome email
     if ($scheduleWelcomeEmail && $subscriber->status === Subscriber::STATUS_SUBSCRIBED) {
       $this->_scheduleWelcomeNotification($subscriber, $foundSegmentsIds);
     }
 
     // send confirmation email
-    if (
-      $sendConfirmationEmail
-      && $subscriber->status === Subscriber::STATUS_UNCONFIRMED
-      && (int)$subscriber->countConfirmations === 0
-    ) {
+    if ($sendConfirmationEmail) {
       $result = $this->_sendConfirmationEmail($subscriber);
       if (!$result && $subscriber->getErrors()) {
         throw new APIException(
@@ -360,7 +380,7 @@ class API {
   }
 
   protected function _sendConfirmationEmail(Subscriber $subscriber) {
-    return $this->confirmationEmailMailer->sendConfirmationEmail($subscriber);
+    return $this->confirmationEmailMailer->sendConfirmationEmailOnce($subscriber);
   }
 
   protected function _scheduleWelcomeNotification(Subscriber $subscriber, array $segments) {

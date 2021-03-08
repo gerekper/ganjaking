@@ -5,7 +5,16 @@ namespace MailPoet\Form\Block;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\WP\Functions as WPFunctions;
+
 class Paragraph {
+  /** @var WPFunctions */
+  private $wp;
+
+  public function __construct(WPFunctions $wp) {
+    $this->wp = $wp;
+  }
+
   public function render(array $block): string {
     $content = ($block['params']['content'] ?? '');
     return $this->wrapContent($content, $block);
@@ -54,7 +63,7 @@ class Paragraph {
       return null;
     }
     return 'class="'
-    . join(' ', $classes)
+    . $this->wp->escAttr(join(' ', $classes))
     . '"';
   }
 
@@ -79,7 +88,7 @@ class Paragraph {
       return null;
     }
     return 'style="'
-      . join('; ', $styles)
+      . $this->wp->escAttr(join('; ', $styles))
       . '"';
   }
 }

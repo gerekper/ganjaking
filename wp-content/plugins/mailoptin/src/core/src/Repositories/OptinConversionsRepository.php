@@ -103,7 +103,7 @@ class OptinConversionsRepository extends AbstractRepository
      *
      * @param int $conversion_id
      *
-     * @return string
+     * @return mixed
      */
     public static function get($conversion_id)
     {

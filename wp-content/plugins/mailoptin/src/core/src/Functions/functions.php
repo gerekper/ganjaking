@@ -6,6 +6,8 @@ use Html2Text\Html2Text;
 use MailOptin\Core\Logging\CampaignLogPersistence;
 use MailOptin\Core\Logging\CampaignLogRepository;
 use MailOptin\Core\PluginSettings\Settings;
+use Pelago\Emogrifier\CssInliner;
+use Pelago\Emogrifier\HtmlProcessor\HtmlPruner;
 use W3Guy\Custom_Settings_Page_Api;
 use MailOptin\Core\Repositories\OptinCampaignsRepository as OCR;
 use MailOptin\Core\Repositories\EmailCampaignRepository;
@@ -70,7 +72,7 @@ function limit_text($text, $limit = 150)
     $limit = ! is_int($limit) || 0 === $limit ? 150 : $limit;
 
     // <p> not included cos it sometimes break layout and besides wpautop adds it back
-    $tags = apply_filters('mo_limit_text_tags', '<a><img><em><strong><blockquote><ul><ol><li>');
+    $tags = apply_filters('mo_limit_text_tags', '<a><img><em><i><code><ins><del><strong><blockquote><ul><ol><li><h1><h2><h3><h4><h5><h6><b>');
 
     $text = strip_shortcodes(strip_tags(stripslashes($text), $tags));
 
@@ -312,18 +314,21 @@ function post_can_new_post_notification($post)
     return false;
 }
 
-function emogrify($content, $shouldKeepInvisibleNodes = false)
+function emogrify($content)
 {
     if (apply_filters('mo_disable_email_emogrify', false)) return $content;
 
-    $emogrifier = new \Pelago\Emogrifier();
-    $emogrifier->setHtml($content);
+    // check if emogrifier library is supported.
+    if ( ! class_exists('DOMDocument')) return $content;
 
-    if ($shouldKeepInvisibleNodes) {
-        $emogrifier->disableInvisibleNodeRemoval();
-    }
+    try {
+        // doc https://github.com/MyIntervals/emogrifier/tree/f6a5c7d44612d86c3901c93f1592f5440e6b2cd8
+        // version 3.1.0 'cos it's PHP 5.6 and higher.
+        $content = CssInliner::fromHtml($content)->inlineCss('')->render();
 
-    return $emogrifier->emogrify();
+    } catch (\Exception $e) {}
+
+    return $content;
 }
 
 /**

@@ -69,7 +69,6 @@ class ConversionExport
 
         $writer = Writer::createFromFileObject(new \SplTempFileObject()); //the CSV file will be created using a temporary File
         $writer->setNewline("\r\n"); //use windows line endings for compatibility with some csv libraries
-        $writer->setOutputBOM(Writer::BOM_UTF8); //adding the BOM sequence on output
         $writer->insertOne($header);
         $writer->insertAll($contents);
         // Because you are providing the filename you don't have to

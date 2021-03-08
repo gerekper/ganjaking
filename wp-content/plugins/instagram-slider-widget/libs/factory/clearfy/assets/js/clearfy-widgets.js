@@ -25,9 +25,9 @@ jQuery(function($) {
 				if( !response || !response.success ) {
 					if( response.data ) {
 						console.log(response.data.error_message);
-						noticeId = $.wbcr_factory_clearfy_233.app.showNotice('Error: [' + response.data.error_message + ']', 'danger');
+						noticeId = $.wbcr_factory_clearfy_236.app.showNotice('Error: [' + response.data.error_message + ']', 'danger');
 						setTimeout(function() {
-							$.wbcr_factory_clearfy_233.app.hideNotice(noticeId);
+							$.wbcr_factory_clearfy_236.app.hideNotice(noticeId);
 						}, 5000);
 					} else {
 						console.log(response);
@@ -52,9 +52,9 @@ jQuery(function($) {
 				console.log(xhr.responseText);
 				console.log(thrownError);
 
-				var noticeId = $.wbcr_factory_clearfy_233.app.showNotice('Error: [' + thrownError + '] Status: [' + xhr.status + '] Error massage: [' + xhr.responseText + ']', 'danger');
+				var noticeId = $.wbcr_factory_clearfy_236.app.showNotice('Error: [' + thrownError + '] Status: [' + xhr.status + '] Error massage: [' + xhr.responseText + ']', 'danger');
 				setTimeout(function() {
-					$.wbcr_factory_clearfy_233.app.hideNotice(noticeId);
+					$.wbcr_factory_clearfy_236.app.hideNotice(noticeId);
 				}, 5000);
 			}
 		});

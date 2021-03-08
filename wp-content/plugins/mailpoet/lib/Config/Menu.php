@@ -18,7 +18,6 @@ use MailPoet\AdminPages\Pages\Settings;
 use MailPoet\AdminPages\Pages\Subscribers;
 use MailPoet\AdminPages\Pages\SubscribersExport;
 use MailPoet\AdminPages\Pages\SubscribersImport;
-use MailPoet\AdminPages\Pages\Update;
 use MailPoet\AdminPages\Pages\WelcomeWizard;
 use MailPoet\AdminPages\Pages\WooCommerceSetup;
 use MailPoet\DI\ContainerWrapper;
@@ -353,19 +352,6 @@ class Menu {
       ]
     );
 
-    // Update page
-    $this->wp->addSubmenuPage(
-      true,
-      $this->setPageTitle(__('Update', 'mailpoet')),
-      $this->wp->__('Update', 'mailpoet'),
-      AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,
-      'mailpoet-update',
-      [
-        $this,
-        'update',
-      ]
-    );
-
     // Migration page
     $this->wp->addSubmenuPage(
       true,
@@ -405,10 +391,6 @@ class Menu {
 
   public function wooCommerceSetup() {
     $this->container->get(WooCommerceSetup::class)->render();
-  }
-
-  public function update() {
-    $this->container->get(Update::class)->render();
   }
 
   public function premium() {

@@ -75,7 +75,7 @@ class APIClass
      */
     public function get_lists()
     {
-        $response = $this->make_request('lists');
+        $response = $this->make_request('lists/1/1000');
 
         /**
          * 
