@@ -1414,10 +1414,11 @@ function porto_add_product_attribute_color_variation( $attribute_taxonomy, $i ) 
 	<select multiple="multiple" data-placeholder="<?php esc_attr_e( 'Select terms', 'woocommerce' ); ?>" class="multiselect attribute_values wc-enhanced-select" name="attribute_values[<?php echo esc_attr( $i ); ?>][]">
 		<?php
 		$args      = array(
+			'taxonomy'   => 'pa_' . $attribute_taxonomy->attribute_name,
 			'orderby'    => 'name',
 			'hide_empty' => 0,
 		);
-		$all_terms = get_terms( 'pa_' . $attribute_taxonomy->attribute_name, apply_filters( 'woocommerce_product_attribute_terms', $args ) );
+		$all_terms = get_terms( apply_filters( 'woocommerce_product_attribute_terms', $args ) );
 		if ( $all_terms ) {
 			foreach ( $all_terms as $term ) {
 				$options = ! empty( $options ) ? $options : array();
@@ -2091,8 +2092,9 @@ if ( ! function_exists( 'porto_woocommerce_subcategory_thumbnail' ) ) :
 					'height' => $image[2],
 				);
 			}
-
-			$image        = $image[0];
+			if ( $image ) {
+				$image = $image[0];
+			}
 			$image_srcset = function_exists( 'wp_get_attachment_image_srcset' ) ? wp_get_attachment_image_srcset( $thumbnail_id, $small_thumbnail_size ) : false;
 			$image_sizes  = function_exists( 'wp_get_attachment_image_sizes' ) ? wp_get_attachment_image_sizes( $thumbnail_id, $small_thumbnail_size ) : false;
 
@@ -2235,7 +2237,8 @@ if ( ! function_exists( 'porto_woocommerce_add_to_cart_notification_html' ) ) :
 			<div class="success-message-container d-none">
 				<div class="msg-box">
 					<div class="msg">
-						<?php printf( esc_html__( "%s has been added to your cart", 'porto' ), '<div class="product-name"></div>' ); ?>:
+						<?php /* translators: product name div */ ?>
+						<?php printf( esc_html__( '%s has been added to your cart', 'porto' ), '<div class="product-name"></div>' ); ?>:
 					</div>
 				</div>
 				<button class="btn btn-modern btn-sm btn-gray viewcart btn-sm" data-link=""><?php esc_html_e( 'View Cart', 'porto' ); ?></button>

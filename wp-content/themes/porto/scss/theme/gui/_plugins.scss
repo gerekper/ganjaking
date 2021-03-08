@@ -41,14 +41,45 @@ ul[class^="wsp-"] li a:before,
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.sidebar-menu li.menu-item > .arrow:before,
-.mejs-overlay-button:before,
-.mejs-controls .mejs-button button,
-.product-image .viewcart:before {
+.sidebar-menu li.menu-item > .arrow:before {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.porto-tooltip-wrap {
+    font-family: inherit
+}
+.porto-tooltip-wrap .tooltip-inner {
+    max-width: 300px;
+    background-color: rgba(0, 113, 161, .7);
+    transition: background-color .2s
+}
+.porto-block.has-pb-edit:hover {
+    outline: 1px solid rgba(0, 136, 204, 0.4);
+}
+.porto-tooltip-wrap:hover .tooltip-inner {
+    background-color: #0071a1
+}
+.porto-tooltip-wrap .tooltip-inner a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 12px
+}
+.porto-tooltip-wrap.bs-tooltip-top .arrow:before {
+    border-top-color: #0071a1;
+    opacity: .7;
+    transition: opacity .2s
+}
+.porto-tooltip-wrap.bs-tooltip-bottom .arrow::before {
+    border-bottom-color: #0071a1;
+    opacity: .7;
+    transition:opacity .2s
+}
+.porto-tooltip-wrap.bs-tooltip-top:hover .arrow::before,
+.porto-tooltip-wrap.bs-tooltip-bottom:hover .arrow::before {
+    opacity: 1
+}
 /* fix Bootstrap tooltip on magnific popup */
 .lightbox-opened .tooltip {
     z-index: 9045

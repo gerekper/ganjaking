@@ -1,9 +1,9 @@
 <?php
 
-namespace WBCR\Factory_442\Updates;
+namespace WBCR\Factory_445\Updates;
 
 // Exit if accessed directly
-use Wbcr_Factory442_Plugin;
+use Wbcr_Factory445_Plugin;
 
 if( !defined('ABSPATH') ) {
 	exit;
@@ -57,11 +57,11 @@ class Github_Repository extends Repository {
 	/**
 	 * Wordpress constructor.
 	 *
-	 * @param Wbcr_Factory442_Plugin $plugin
+	 * @param Wbcr_Factory445_Plugin $plugin
 	 * @param bool $is_premium
 	 * @since 4.4.1
 	 */
-	public function __construct(Wbcr_Factory442_Plugin $plugin, array $settings = [])
+	public function __construct(Wbcr_Factory445_Plugin $plugin, array $settings = [])
 	{
 		$settings = wp_parse_args($settings, [
 			'github_username' => '',
@@ -86,7 +86,7 @@ class Github_Repository extends Repository {
 
 	public function init()
 	{
-		add_filter('upgrader_source_selection', array($this, 'change_source_package'), 10, 2);
+		//add_filter('upgrader_source_selection', array($this, 'change_source_package'), 10, 4);
 	}
 
 	/**
@@ -176,7 +176,7 @@ class Github_Repository extends Repository {
 	 * @since 4.4.1
 	 *
 	 */
-	public function change_source_package($source, $remote_source)
+	/*public function change_source_package($source, $remote_source, $upgrader, $hook_extra)
 	{
 		global $wp_filesystem;
 
@@ -184,8 +184,7 @@ class Github_Repository extends Repository {
 			return $source;
 		}
 
-		if( false !== strpos(basename($source), $this->plugin_slug) ) {
-
+		if( !empty($hook_extra) && "plugin" === $hook_extra['type'] && "update" === $hook_extra['action'] && basename($source) === $this->plugin_slug ) {
 			$new_source = $wp_filesystem->wp_content_dir() . 'upgrade/' . $this->plugin_slug;
 
 			$wp_filesystem->move($source, $new_source);
@@ -194,7 +193,7 @@ class Github_Repository extends Repository {
 		}
 
 		return $source;
-	}
+	}*/
 
 	/**
 	 * Метод получает информацию о последнем релизе на Github

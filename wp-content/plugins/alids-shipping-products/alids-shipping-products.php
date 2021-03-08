@@ -4,11 +4,11 @@
  * Plugin URI: https://alidropship.com/addons/alishipping/
  * Description: Easily import and customize real shipping methods from AliExpress
  * Author: Pavel Shishkin
- * Version: 1.3.49
+ * Version: 1.3.51
  * Author URI: https://yellowduck.me/
  */
 
-if( ! defined('sSHIP_VERSION') ) define( 'sSHIP_VERSION', '1.3.49' );
+if( ! defined('sSHIP_VERSION') ) define( 'sSHIP_VERSION', '1.3.51' );
 if( ! defined('sSHIP_PATH') )    define( 'sSHIP_PATH', plugin_dir_path( __FILE__ ) );
 if( ! defined('sSHIP_URL') )     define( 'sSHIP_URL', str_replace( [ 'https:', 'http:' ], '', plugins_url('alids-shipping-products') ) );
 if( ! defined('sSHIP_CODE') )    define( 'sSHIP_CODE', 'ion72' );

@@ -35,8 +35,8 @@ abstract class AbstractConnect
     public function get_oauth_url($slug)
     {
         return add_query_arg([
-            'redirect_url' => MAILOPTIN_CONNECTIONS_SETTINGS_PAGE,
-            'moconnect_nonce'        => wp_create_nonce('mo_save_oauth_credentials')
+            'redirect_url'    => MAILOPTIN_CONNECTIONS_SETTINGS_PAGE,
+            'moconnect_nonce' => wp_create_nonce('mo_save_oauth_credentials')
         ],
             MAILOPTIN_OAUTH_URL . "/$slug/"
         );
@@ -180,7 +180,7 @@ abstract class AbstractConnect
             mkdir($error_log_folder, 0755);
         }
 
-        error_log($message . "\r\n\r\n", 3, "{$error_log_folder}{$filename}.log");
+        error_log(current_time('mysql') . ': ' . $message . "\r\n\r\n", 3, "{$error_log_folder}{$filename}.log");
 
         $email_campaign_name = EmailCampaignRepository::get_email_campaign_name($email_campaign_id);
 
@@ -285,7 +285,7 @@ abstract class AbstractConnect
             mkdir($error_log_folder, 0755);
         }
 
-        $response = error_log($message . "\r\n", 3, "{$error_log_folder}{$filename}.log");
+        $response = error_log(current_time('mysql') . ': ' . $message . "\r\n", 3, "{$error_log_folder}{$filename}.log");
 
         if ( ! apply_filters('mailoptin_disable_send_optin_error_email', false, $optin_campaign_id)) {
             self::send_optin_error_email($optin_campaign_id, $message);
@@ -495,10 +495,10 @@ $footer_content";
 
             // try refresh twice before failing.
             $response = wp_remote_get($url);
-            $result   = json_decode(wp_remote_retrieve_body($response), true);
+            $result   = json_decode($response_body = wp_remote_retrieve_body($response), true);
 
             if ( ! isset($result['success']) || $result['success'] !== true) {
-                throw new \Exception('Error failed to refresh ' . json_encode($result), 9990009909);
+                throw new \Exception('Error failed to refresh ' . $response_body);
             }
         }
 

@@ -154,6 +154,8 @@ class GFMailOptin extends \GFFeedAddOn
      */
     public function merge_vars_field_map()
     {
+        $saved_integration = $this->get_setting('mailoptinSelectIntegration');
+
         $field_map = [
             'moEmail' => [
                 'name'       => 'moEmail',
@@ -167,7 +169,9 @@ class GFMailOptin extends \GFFeedAddOn
             ],
         ];
 
-        $saved_integration = $this->get_setting('mailoptinSelectIntegration');
+        if (in_array($saved_integration, Init::no_name_mapping_connections())) {
+            unset($field_map['moName']);
+        }
 
         $saved_list = $this->get_setting('mailoptinSelectList');
 

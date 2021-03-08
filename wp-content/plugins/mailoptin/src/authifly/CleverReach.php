@@ -14,12 +14,12 @@ class CleverReach extends OAuth2
     /**
      * {@inheritdoc}
      */
-    protected $apiBaseUrl = 'https://rest.cleverreach.com/';
+    protected $apiBaseUrl = 'https://rest.cleverreach.com/v3/';
 
     /**
      * {@inheritdoc}
      */
-    protected $authorizeUrl = 'https://rest.cleverreach.com/oauth/authorize.php?client_id=oFCjc7uBbJ&grant=basic&response_type=code&redirect_uri=https://www.cleverrach.com';
+    protected $authorizeUrl = 'https://rest.cleverreach.com/oauth/authorize.php';
 
     /**
      * {@inheritdoc}
@@ -40,83 +40,86 @@ class CleverReach extends OAuth2
     {
         parent::initialize();
 
-        $this->tokenRefreshParameters = [
-            'grant_type'    => 'refresh_token',
-            'refresh_token' => $this->getStoredData('refresh_token'),
-            'client_id'     => $this->clientId,
-            'client_secret' => $this->clientSecret,
-            'redirect_uri'  => $this->callback,
+        $this->tokenRefreshHeaders = [
+            'Authorization' => 'Basic ' . base64_encode($this->clientId . ":" . $this->clientSecret)
         ];
 
-        /** Hubspot explicitly require access token to be set as Bearer.  */
+        $refresh_token = $this->getStoredData('refresh_token');
 
-        // if access token is found in storage, utilize else
-        $storage_access_token = $this->getStoredData('access_token');
-        if (!empty($storage_access_token)) {
-            $this->apiRequestHeaders = [
-                'Authorization' => 'Bearer ' . $storage_access_token,
-                'Content-Type'  => 'application/json'
-            ];
+        if (empty($refresh_token)) {
+            $refresh_token = $this->config->get('refresh_token');
         }
 
-        // use the one supplied in config.
+        $this->tokenRefreshParameters['refresh_token'] = $refresh_token;
+
+        $access_token = $this->getStoredData('access_token');
+
         $config_access_token = $this->config->get('access_token');
-        if (!empty($config_access_token)) {
+
+        if ( ! empty($config_access_token)) {
+            $access_token = $config_access_token;
+        }
+
+        if ( ! empty($access_token)) {
             $this->apiRequestHeaders = [
-                'Authorization' => 'Bearer ' . $config_access_token,
-                'Content-Type'  => 'application/json'
+                'Authorization' => 'Bearer ' . $access_token
             ];
         }
     }
 
     /**
-     * Return the contact lists for a portal.
-     *
-     * @param integer $count max number of results to fetch
+     * Return the array of groups (receiver lists)
      *
      * @return array
      */
-    public function getEmailList($count = 250)
+    public function getGroupList()
     {
-        $response = $this->apiRequest("/mailings", "GET", ['count' => $count]);
-        $data     = new Data\Collection($response);
-        $lists    = $data->filter('lists')->toArray();
-
-        if (!is_array($lists)) {
-            return array();
-        }
+        $groups = $this->apiRequest("groups");
 
         $filtered = [];
-        foreach ($lists as $list) {
-            $filtered[$list->listId] = $list->name;
+        foreach ($groups as $group) {
+            $filtered[$group->id] = $group->name;
         }
 
         return $filtered;
     }
 
-    /**
-     * Get custom fields.
-     *
-     *
-     * @return array
-     */
-    public function getListCustomFields()
+    public function get_custom_fields($group_id = '')
     {
-        $fields = $this->apiRequest("properties/v1/contacts/properties");
+        $attributes_response = (array)$this->apiRequest("attributes");
 
-        if (empty($fields)) {
-            return array();
+        $group_response = [];
+
+        if ( ! empty($group_id)) {
+            $group_response = (array)$this->apiRequest("groups/$group_id/attributes");
         }
 
-        $filtered = array();
-        foreach ($fields as $field) {
+        $fields = array_merge($attributes_response, $group_response);
 
-            //Ensure the field is not automatically set by Hubspot
-            if ($field->readOnlyDefinition) {
-                continue;
+        $filtered = [];
+
+        foreach ($fields as $field) {
+            if ($field->group_id == 0) {
+                $filtered['global_attributes'][$field->name] = $field->description;
+            } else {
+                $filtered['attributes'][$field->name] = $field->description;
             }
 
-            $filtered[$field->name] = $field->label;
+        }
+
+        return $filtered;
+    }
+
+    public function getTags($limit = 20, $group_id = 0)
+    {
+        $response = $this->apiRequest("tags", "GET", ['limit' => $limit, 'group_id' => $group_id]);
+
+        $fields = (new Data\Collection($response))->toArray();
+
+        $filtered = [];
+        foreach ($fields as $key => $field) {
+            $filtered[$field->tag] = $field->tag;
+
         }
 
         return $filtered;
@@ -125,46 +128,43 @@ class CleverReach extends OAuth2
     /**
      * Add subscriber to an email list.
      *
-     * @param string $list_id
-     * @param array $payload
+     * @param string $group_id
+     * @param string $email
+     * @param array $subscriber_data
      *
      * @return object
      * @throws InvalidArgumentException
      */
-    public function addSubscriber($list_id, $email, $contact_data = [])
+    public function addSubscriber($group_id, $email, $subscriber_data = [])
     {
-        if (empty($list_id)) {
-            throw new InvalidArgumentException('List ID is missing');
+        if (empty($group_id)) {
+            throw new InvalidArgumentException('Group ID is missing');
         }
 
         if (empty($email)) {
             throw new InvalidArgumentException('Email address is missing');
         }
 
-        $response = $this->apiRequest("contacts/v1/contact/createOrUpdate/email/$email", 'POST', $contact_data);
-
-        if (!empty($response->vid) && 'all' != $list_id) {
-            $this->addSubscriberToList($list_id, $email);
-        }
-
-        return $response;
+        return $this->apiRequest("groups/$group_id/receivers/upsert", 'POST', $subscriber_data);
     }
 
     /**
-     * Adds subscriber to an email list.
+     * @param array $payload
+     * @param array $headers
      *
-     * @param string $list_id
-     * @param string $email
-     *
-     * @return object
+     * @return mixed
      * @throws InvalidArgumentException
      */
-    private function addSubscriberToList($list_id, $email)
+    public function sendMailing($payload, $headers = [])
     {
-        $params = (object)[
-            'emails' => [$email]
-        ];
+        $headers = array_replace(['Content-Type' => 'application/json'], $headers);
 
-        return $this->apiRequest("contacts/v1/lists/$list_id/add", 'POST', $params);
+        $response = $this->apiRequest('mailings', 'POST', $payload, $headers);
+
+        if (isset($response->error)) {
+            throw new InvalidArgumentException($response[0]->error_message, $this->httpClient->getResponseHttpCode());
+        }
+
+        return $response;
     }
 }

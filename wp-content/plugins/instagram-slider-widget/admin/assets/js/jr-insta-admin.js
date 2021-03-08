@@ -7,7 +7,92 @@
 
     })
 
+
+    $(document).bind('DOMSubtreeModified', function () {
+        showPage = function(i, device){
+            if(device === 'desk'){
+                $('#desk_tab_content_' + i).show();
+                $('#desk_tab_' + i).addClass("active");
+
+                $('#mob_tab_content_' + i).hide();
+                $('#mob_tab_' + i).removeClass("active");
+            }
+
+            if(device === 'mob') {
+                $('#mob_tab_content_' + i).show();
+                $('#mob_tab_' + i).addClass("active");
+
+                $('#desk_tab_content_' + i).hide();
+                $('#desk_tab_' + i).removeClass("active");
+            }
+        }
+
+        jQuery.fn.lightTabs = function(options){
+            var createTabs = function(){
+                tabs = this;
+                data_widget_id = tabs.getAttribute("data-widget-id")
+                slider_id = data_widget_id.split('-')[1]
+                i = slider_id;
+
+                showPage(i, 'desk');
+            };
+            return this.each(createTabs);
+        };
+
+        jQuery(document).find(".desk_tab").click(function (){
+            let mob_tab_id = this.getAttribute('data-tab-id');
+            showPage(mob_tab_id, 'desk')
+        });
+        jQuery(document).find(".mob_tab").click(function (){
+            let mob_tab_id = this.getAttribute('data-tab-id');
+            showPage(mob_tab_id, 'mob')
+        });
+    });
+
+
     $(document).ready(function ($) {
+
+        showPage = function(i, device){
+            if(device === 'desk'){
+                $('#desk_tab_content_' + i).show();
+                $('#desk_tab_' + i).addClass("active");
+
+                $('#mob_tab_content_' + i).hide();
+                $('#mob_tab_' + i).removeClass("active");
+            }
+
+            if(device === 'mob') {
+                $('#mob_tab_content_' + i).show();
+                $('#mob_tab_' + i).addClass("active");
+
+                $('#desk_tab_content_' + i).hide();
+                $('#desk_tab_' + i).removeClass("active");
+            }
+        }
+
+        jQuery.fn.lightTabs = function(options){
+            var createTabs = function(){
+                tabs = this;
+                data_widget_id = tabs.getAttribute("data-widget-id")
+                slider_id = data_widget_id.split('-')[1]
+                i = slider_id;
+
+                showPage(i, 'desk');
+            };
+            return this.each(createTabs);
+        };
+
+        jQuery(document).find(".desk_tab").click(function (){
+            let mob_tab_id = this.getAttribute('data-tab-id');
+            showPage(mob_tab_id, 'desk')
+        });
+        jQuery(document).find(".mob_tab").click(function (){
+            let mob_tab_id = this.getAttribute('data-tab-id');
+            showPage(mob_tab_id, 'mob')
+        });
+
+
+
         $(".isw-tabs").lightTabs();
 
         var template = $('.jr-container select[id$="template"]')
@@ -435,47 +520,5 @@
         });
 
     }); // Document Ready
-
-    jQuery.fn.lightTabs = function(options){
-
-        var createTabs = function(){
-            tabs = this;
-            data_widget_id = tabs.getAttribute("data-widget-id")
-            slider_id = data_widget_id.split('-')[1]
-            i = slider_id;
-
-            showPage = function(i, device){
-
-                if(device === 'desk'){
-                    $('#desk_tab_content_' + i).show();
-                    $('#desk_tab_' + i).addClass("active");
-
-                    $('#mob_tab_content_' + i).hide();
-                    $('#mob_tab_' + i).removeClass("active");
-                }
-
-                if(device === 'mob') {
-                    $('#mob_tab_content_' + i).show();
-                    $('#mob_tab_' + i).addClass("active");
-
-                    $('#desk_tab_content_' + i).hide();
-                    $('#desk_tab_' + i).removeClass("active");
-                }
-            }
-
-            showPage(i, 'desk');
-
-            $(".desk_tab").click(function (){
-               let desk_tab_id = this.getAttribute('data-tab-id');
-               showPage(desk_tab_id, 'desk')
-
-            });
-            $(".mob_tab").click(function (){
-                let mob_tab_id = this.getAttribute('data-tab-id');
-                showPage(mob_tab_id, 'mob')
-            });
-        };
-        return this.each(createTabs);
-    };
 
 })(jQuery);

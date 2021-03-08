@@ -111,6 +111,16 @@ $wrapper        = porto_get_wrapper_type();
 				<?php
 				else :
 					echo '<footer id="footer" class="footer-builder">';
+					if ( ( $porto_settings['show-footer-tooltip'] && $porto_settings['footer-tooltip'] ) || $porto_settings['footer-ribbon'] ) {
+						echo '<div class="container z-index-1">';
+						if ( $porto_settings['footer-ribbon'] ) :
+							?>
+							<div class="footer-ribbon"><?php echo wp_kses_post( $porto_settings['footer-ribbon'] ); ?></div>
+							<?php
+						endif;
+						get_template_part( 'footer/footer_tooltip' );
+						echo '</div>';
+					}
 					echo do_shortcode( '[porto_block id="' . intval( $footer_id ) . '"]' );
 					echo '</footer>';
 				endif;

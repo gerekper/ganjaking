@@ -73,22 +73,37 @@ class Connect extends AbstractOntraportConnect implements ConnectionInterface
 
             if (empty($tag_array) || false === $tag_array) {
 
-                $response = $this->ontraportInstance()->make_request('/Tags');
+                $offset = 0;
+                $loop   = true;
 
-                if (isset($response['data']) && is_array($response['data'])) {
+                $tag_array = [];
 
-                    $gdpr_tag = apply_filters('mo_connections_ontraport_acceptance_tag', 'GDPR');
+                while ($loop === true) {
 
-                    $tag_array = [];
+                    $response = $this->ontraportInstance()->make_request('Tags', ['start' => $offset]);
 
-                    foreach ($response['data'] as $tag) {
-                        if ($tag['tag_name'] == $gdpr_tag) continue;
-                        $id             = $tag['tag_id'];
-                        $tag_array[$id] = $tag['tag_name'];
+                    if (isset($response['data']) && is_array($response['data'])) {
+
+                        $gdpr_tag = apply_filters('mo_connections_ontraport_acceptance_tag', 'GDPR');
+
+                        foreach ($response['data'] as $tag) {
+
+                            if ($tag['tag_name'] == $gdpr_tag) continue;
+
+                            $id             = $tag['tag_id'];
+                            $tag_array[$id] = $tag['tag_name'];
+                        }
+
+
+                        if (count($response['data']) < 50) {
+                            $loop = false;
+                        }
+
+                        $offset += 50;
                     }
-
-                    set_transient($cache_key, $tag_array, 10 * MINUTE_IN_SECONDS);
                 }
+
+                set_transient($cache_key, $tag_array, 10 * MINUTE_IN_SECONDS);
             }
 
             return $tag_array;

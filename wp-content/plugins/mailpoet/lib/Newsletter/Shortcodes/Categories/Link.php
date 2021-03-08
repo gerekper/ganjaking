@@ -74,7 +74,7 @@ class Link implements CategoryInterface {
       case 'newsletter_view_in_browser_url':
         $url = NewsletterUrl::getViewInBrowserUrl(
           $newsletterModel,
-          $wpUserPreview ? null : $subscriber,
+          $wpUserPreview ? null : $subscriberModel,
           $queueModel,
           $wpUserPreview
         );

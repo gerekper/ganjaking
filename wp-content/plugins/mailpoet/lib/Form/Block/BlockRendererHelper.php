@@ -28,19 +28,25 @@ class BlockRendererHelper {
 
   public function getInputValidation(array $block, array $extraRules = []): string {
     $rules = [];
+    $blockId = $this->wp->escAttr($block['id']);
 
-    if ($block['id'] === 'email') {
+    if ($blockId === 'email') {
       $rules['required'] = true;
       $rules['minlength'] = ModelValidator::EMAIL_MIN_LENGTH;
       $rules['maxlength'] = ModelValidator::EMAIL_MAX_LENGTH;
       $rules['error-message'] = __('Please specify a valid email address.', 'mailpoet');
     }
 
-    if ($block['id'] === 'segments') {
+    if (($blockId === 'first_name') || ($blockId === 'last_name')) {
+      $rules['pattern'] = "^[^><]*$";
+      $rules['error-message'] = __('Please specify a valid name', 'mailpoet');
+    }
+
+    if ($blockId === 'segments') {
       $rules['required'] = true;
       $rules['mincheck'] = 1;
-      $rules['group'] = $block['id'];
-      $rules['errors-container'] = '.mailpoet_error_' . $block['id'];
+      $rules['group'] = $blockId;
+      $rules['errors-container'] = '.mailpoet_error_' . $blockId;
       $rules['required-message'] = __('Please select a list', 'mailpoet');
     }
 
@@ -54,19 +60,19 @@ class BlockRendererHelper {
         $rules['pattern'] = "^[\d\+\-\.\(\)\/\s]*$";
         $rules['error-message'] = __('Please specify a valid phone number', 'mailpoet');
       } else {
-        $rules['type'] = $block['params']['validate'];
+        $rules['type'] = $this->wp->escAttr($block['params']['validate']);
       }
     }
 
     if (in_array($block['type'], ['radio', 'checkbox'])) {
-      $rules['group'] = 'custom_field_' . $block['id'];
-      $rules['errors-container'] = '.mailpoet_error_' . $block['id'];
+      $rules['group'] = 'custom_field_' . $blockId;
+      $rules['errors-container'] = '.mailpoet_error_' . $blockId;
       $rules['required-message'] = __('Please select at least one option', 'mailpoet');
     }
 
     if ($block['type'] === 'date') {
-      $rules['group'] = 'custom_field_' . $block['id'];
-      $rules['errors-container'] = '.mailpoet_error_' . $block['id'];
+      $rules['group'] = 'custom_field_' . $blockId;
+      $rules['errors-container'] = '.mailpoet_error_' . $blockId;
     }
 
     $validation = [];
@@ -130,7 +136,7 @@ class BlockRendererHelper {
     if (isset($styles['bold'])) {
       $rules[] = 'font-weight: bold;';
     }
-    return $rules ? 'style="' . implode("", $rules) . '"' : '';
+    return $rules ? 'style="' . $this->wp->escAttr(implode("", $rules)) . '"' : '';
   }
 
   public function renderInputPlaceholder(array $block): string {
@@ -166,7 +172,7 @@ class BlockRendererHelper {
   public function getFieldLabel(array $block = []): string {
     return (isset($block['params']['label'])
             && strlen(trim($block['params']['label'])) > 0)
-            ? trim($block['params']['label']) : '';
+            ? $this->wp->escHtml(trim($block['params']['label'])) : '';
   }
 
   public function getFieldValue($block = []) {

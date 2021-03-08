@@ -1,5 +1,7 @@
 <?php
 
+use Instagram\Includes\WIS_Plugin;
+
 require_once WIS_PLUGIN_DIR . '/includes/socials/class.wis_facebook.php';
 
 /**

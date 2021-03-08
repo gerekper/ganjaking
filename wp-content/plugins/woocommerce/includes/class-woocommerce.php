@@ -8,6 +8,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
+use Automattic\WooCommerce\Internal\DownloadPermissionsAdjuster;
 use Automattic\WooCommerce\Proxies\LegacyProxy;
 
 /**
@@ -22,7 +23,7 @@ final class WooCommerce {
 	 *
 	 * @var string
 	 */
-	public $version = '4.9.2';
+	public $version = '5.0.0';
 
 	/**
 	 * WooCommerce Schema version.
@@ -202,6 +203,9 @@ final class WooCommerce {
 		add_action( 'switch_blog', array( $this, 'wpdb_table_fix' ), 0 );
 		add_action( 'activated_plugin', array( $this, 'activated_plugin' ) );
 		add_action( 'deactivated_plugin', array( $this, 'deactivated_plugin' ) );
+
+		// These classes set up hooks on instantiation.
+		wc_get_container()->get( DownloadPermissionsAdjuster::class );
 	}
 
 	/**
@@ -801,6 +805,10 @@ final class WooCommerce {
 	public function activated_plugin( $filename ) {
 		include_once dirname( __FILE__ ) . '/admin/helper/class-wc-helper.php';
 
+		if ( '/woocommerce.php' === substr( $filename, -16 ) ) {
+			set_transient( 'woocommerce_activated_plugin', $filename );
+		}
+
 		WC_Helper::activated_plugin( $filename );
 	}
 
@@ -897,7 +905,7 @@ final class WooCommerce {
 			'https://wordpress.org/plugins/woocommerce/',
 			'https://github.com/woocommerce/woocommerce/releases'
 		);
-		printf( '<div class="error"><p>%s %s</p></div>', $message_one, $message_two ); /* WPCS: xss ok. */
+		printf( '<div class="error"><p>%s %s</p></div>', $message_one, $message_two ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**

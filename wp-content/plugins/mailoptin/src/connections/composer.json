@@ -21,6 +21,7 @@
       "MailOptin\\MailerliteConnect\\": "MailerliteConnect/",
       "MailOptin\\HubspotConnect\\": "HubspotConnect/",
       "MailOptin\\InfusionsoftConnect\\": "InfusionsoftConnect/",
+      "MailOptin\\CleverReachConnect\\": "CleverReachConnect/",
       "MailOptin\\JiltConnect\\": "JiltConnect/",
       "MailOptin\\MailsterConnect\\": "MailsterConnect/",
       "MailOptin\\DripConnect\\": "DripConnect/",

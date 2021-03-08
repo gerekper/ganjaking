@@ -1,5 +1,7 @@
 <?php
 
+use Instagram\Includes\WIS_Plugin;
+
 /**
  * WIS_InstagramSlider Class
  */
@@ -30,6 +32,9 @@ class WIS_InstagramSlider extends WP_Widget {
 	 * @var array
 	 */
 	public $options_linkto;
+
+	/** @var WYT_Widget $wyt_widget */
+	public $wyt_widget;
 
 	public static function app() {
 		return self::$app;
@@ -72,7 +77,6 @@ class WIS_InstagramSlider extends WP_Widget {
 		 */
 		$this->options_linkto = apply_filters( 'wis/options/link_to', $this->options_linkto );
 
-
 		// Shortcode
 		add_shortcode( 'jr_instagram', array( $this, 'shortcode' ) );
 
@@ -113,6 +117,12 @@ class WIS_InstagramSlider extends WP_Widget {
 			'id'          => 'jr-insta-shortcodes',
 			'description' => __( "1. Drag Social Slider Widget here. 2. Fill in the fields and hit save. 3. Copy the shortocde generated at the bottom of the widget form and use it on posts or pages.", 'instagram-slider-widget' )
 		) );
+
+		register_sidebar( array(
+			'name'        => __( 'Youtube Widget - Shortcode Generator', 'instagram-slider-widget' ),
+			'id'          => 'wyoutube-shortcodes',
+			'description' => __( "1. Drag Youtube Widget here. 2. Fill in the fields and hit save. 3. Copy the shortocde generated at the bottom of the widget form and use it on posts or pages.", 'instagram-slider-widget' )
+		) );
 	}
 
 	/**
@@ -142,6 +152,7 @@ class WIS_InstagramSlider extends WP_Widget {
 	private function has_widget($widget_name){
 		$places = get_option('sidebars_widgets');
 		unset($places['wp_inactive_widgets']);
+		unset($places['wyoutube-shortcodes']);
 		unset($places['jr-insta-shortcodes']);
 		unset($places['array_version']);
 
@@ -230,6 +241,7 @@ class WIS_InstagramSlider extends WP_Widget {
 		$instance['caption_words']        	= isset( $new_instance['caption_words'] ) ? $new_instance['caption_words'] : 20;
 		$instance['enable_control_buttons'] = isset( $new_instance['enable_control_buttons'] ) ? $new_instance['enable_control_buttons'] : 0;
 		$instance['show_feed_header']     	= isset( $new_instance['show_feed_header'] ) ? $new_instance['show_feed_header'] : 0;
+		$instance['enable_stories']     	= isset( $new_instance['enable_stories'] ) ? $new_instance['enable_stories'] : 0;
 		$instance['keep_ratio'] 			= isset( $new_instance['keep_ratio'] ) ? $new_instance['keep_ratio'] : 0;
 		$instance['slick_img_size']       	= isset( $new_instance['slick_img_size'] ) ? absint( $new_instance['slick_img_size'] ) : 300;
 		$instance['slick_slides_to_show'] 	= isset( $new_instance['slick_slides_to_show'] ) ? $new_instance['slick_slides_to_show'] : 3;
@@ -239,6 +251,7 @@ class WIS_InstagramSlider extends WP_Widget {
 		$instance['highlight_offset']     	= isset( $new_instance['highlight_offset'] ) ? $new_instance['highlight_offset'] : 1;
 		$instance['highlight_pattern']    	= isset( $new_instance['highlight_pattern'] ) ? $new_instance['highlight_pattern'] : 6;
 		$instance['enable_ad'] 			  	= isset( $new_instance['enable_ad'] ) ? $new_instance['enable_ad'] : 0;
+		$instance['enable_icons'] 			= isset( $new_instance['enable_icons'] ) ? $new_instance['enable_icons'] : 0;
 		$instance['orderby']                = isset( $new_instance['orderby'] ) ? $new_instance['orderby'] : 'rand';
 		$instance['images_link']          	= isset( $new_instance['images_link'] ) ? $new_instance['images_link'] : 'image_url';
 		$instance['blocked_words']        	= isset( $new_instance['blocked_words'] ) && ! empty( $new_instance['blocked_words'] ) ? $new_instance['blocked_words'] : false;
@@ -258,6 +271,7 @@ class WIS_InstagramSlider extends WP_Widget {
 		$instance['m_caption_words']        	= isset( $new_instance['m_caption_words'] ) ? $new_instance['m_caption_words'] : (isset( $new_instance['caption_words'] ) ? $new_instance['caption_words'] : 20) ;
 		$instance['m_enable_control_buttons'] 	= isset( $new_instance['m_enable_control_buttons'] ) ? $new_instance['m_enable_control_buttons'] : (isset( $new_instance['enable_control_buttons'] ) ? $new_instance['enable_control_buttons'] : 0) ;
 		$instance['m_show_feed_header']       	= isset( $new_instance['m_show_feed_header'] ) ? $new_instance['m_show_feed_header'] : (isset( $new_instance['show_feed_header'] ) ? $new_instance['show_feed_header'] : 0) ;
+		$instance['m_enable_stories']       	= isset( $new_instance['m_enable_stories'] ) ? $new_instance['m_enable_stories'] : (isset( $new_instance['enable_stories'] ) ? $new_instance['enable_stories'] : 0) ;
 		$instance['m_keep_ratio'] 				= isset( $new_instance['m_keep_ratio'] ) ? $new_instance['m_keep_ratio'] : (isset( $new_instance['keep_ratio'] ) ? $new_instance['keep_ratio'] : 0) ;
 		$instance['m_slick_img_size']       	= isset( $new_instance['m_slick_img_size'] ) ? absint( $new_instance['m_slick_img_size'] ) : (isset( $new_instance['slick_img_size'] ) ? absint( $new_instance['slick_img_size'] ) : 300) ;
 		$instance['m_slick_slides_to_show'] 	= isset( $new_instance['m_slick_slides_to_show'] ) ? $new_instance['m_slick_slides_to_show'] : (isset( $new_instance['slick_slides_to_show'] ) ? $new_instance['slick_slides_to_show'] : 3) ;
@@ -267,6 +281,7 @@ class WIS_InstagramSlider extends WP_Widget {
 		$instance['m_highlight_offset']     	= isset( $new_instance['m_highlight_offset'] ) ? $new_instance['m_highlight_offset'] : (isset( $new_instance['highlight_offset'] ) ? $new_instance['highlight_offset'] : 1) ;
 		$instance['m_highlight_pattern']    	= isset( $new_instance['m_highlight_pattern'] ) ? $new_instance['m_highlight_pattern'] : (isset( $new_instance['highlight_pattern'] ) ? $new_instance['highlight_pattern'] : 6) ;
 		$instance['m_enable_ad'] 				= isset( $new_instance['m_enable_ad'] ) ? $new_instance['m_enable_ad'] : (isset( $new_instance['enable_ad'] ) ? $new_instance['enable_ad'] : 0) ;
+		$instance['m_enable_icons'] 			= isset( $new_instance['m_enable_icons'] ) ? $new_instance['m_enable_icons'] : (isset( $new_instance['enable_icons'] ) ? $new_instance['enable_icons'] : 0) ;
 		$instance['m_orderby']              	= isset( $new_instance['m_orderby'] ) ? $new_instance['m_orderby'] : (isset( $new_instance['orderby'] ) ? $new_instance['orderby'] : 'rand') ;
 		$instance['m_images_link']          	= isset( $new_instance['m_images_link'] ) ? $new_instance['m_images_link'] : (isset( $new_instance['images_link'] ) ? $new_instance['images_link'] : 'image_url') ; 'image_url';
 		$instance['m_blocked_words']        	= isset( $new_instance['m_blocked_words'] ) && ! empty( $new_instance['m_blocked_words'] ) ? $new_instance['m_blocked_words'] : (isset( $new_instance['blocked_words'] ) && ! empty( $new_instance['blocked_words'] ) ? $new_instance['blocked_words'] : false) ;
@@ -339,8 +354,10 @@ class WIS_InstagramSlider extends WP_Widget {
             'enable_control_buttons' => 0,
             'keep_ratio' => 0,
             'enable_ad' => 0,
+            'enable_icons' => 0,
 			'slick_slides_padding' => 0,
 			'show_feed_header'     => 1,
+			'enable_stories'     => 1,
 			'highlight_offset'     => 1,
 			'highlight_pattern'    => 6,
 
@@ -357,6 +374,7 @@ class WIS_InstagramSlider extends WP_Widget {
 			'm_caption_words' => 20,
 			'm_enable_control_buttons' => 0,
 			'm_show_feed_header' => 1,
+			'm_enable_stories' => 1,
 			'm_keep_ratio' => 0,
 			'm_slick_img_size' => 300,
 			'm_slick_slides_to_show' => 3,
@@ -366,6 +384,7 @@ class WIS_InstagramSlider extends WP_Widget {
 			'm_highlight_offset' => 1,
 			'm_highlight_pattern' => 6,
 			'm_enable_ad' => 0,
+			'm_enable_icons' => 0,
 			'm_orderby' => 'rand',
 			'm_images_link' => 'image_link',
 			'm_blocked_words' => '',
@@ -481,6 +500,7 @@ class WIS_InstagramSlider extends WP_Widget {
 			$caption_words        	= isset( $args['caption_words'] ) ? $args['caption_words'] : 20;
 			$enable_control_buttons = isset( $args['enable_control_buttons'] ) ? $args['enable_control_buttons'] : 0;
 			$show_feed_header     	= isset( $args['show_feed_header'] ) ? $args['show_feed_header'] : 0;
+			$enable_stories     	= isset( $args['enable_stories'] ) ? $args['enable_stories'] : 0;
 			$keep_ratio 			= isset( $args['keep_ratio'] ) ? $args['keep_ratio'] : 0;
 			$slick_img_size       	= isset( $args['slick_img_size'] ) ? absint( $args['slick_img_size'] ) : 300;
 			$slick_slides_to_show 	= isset( $args['slick_slides_to_show'] ) ? $args['slick_slides_to_show'] : 3;
@@ -490,6 +510,7 @@ class WIS_InstagramSlider extends WP_Widget {
 			$highlight_offset     	= isset( $args['highlight_offset'] ) ? $args['highlight_offset'] : 1;
 			$highlight_pattern    	= isset( $args['highlight_pattern'] ) ? $args['highlight_pattern'] : 6;
 			$enable_ad 			  	= isset( $args['enable_ad'] ) ? $args['enable_ad'] : 0;
+			$enable_icons 			= isset( $args['enable_icons'] ) ? $args['enable_icons'] : 0;
 			$orderby                = isset( $args['orderby'] ) ? $args['orderby'] : 'rand';
 			$images_link          	= isset( $args['images_link'] ) ? $args['images_link'] : 'image_url';
 			$blocked_words        	= isset( $args['blocked_words'] ) && ! empty( $args['blocked_words'] ) ? $args['blocked_words'] : false;
@@ -509,6 +530,7 @@ class WIS_InstagramSlider extends WP_Widget {
 			$caption_words        	= isset( $args['m_caption_words'] ) ? $args['m_caption_words'] : (isset( $args['caption_words'] ) ? $args['caption_words'] :  20);
 			$enable_control_buttons = isset( $args['m_enable_control_buttons'] ) ? $args['m_enable_control_buttons'] : (isset( $args['enable_control_buttons'] ) ? $args['enable_control_buttons'] :  0);
 			$show_feed_header       = isset( $args['m_show_feed_header'] ) ? $args['m_show_feed_header'] : (isset( $args['show_feed_header'] ) ? $args['show_feed_header'] :  0);
+			$enable_stories         = isset( $args['m_enable_stories'] ) ? $args['m_enable_stories'] : (isset( $args['enable_stories'] ) ? $args['enable_stories'] :  0);
 			$keep_ratio 			= isset( $args['m_keep_ratio'] ) ? $args['m_keep_ratio'] : (isset( $args['keep_ratio'] ) ? $args['keep_ratio'] :  0);
 			$slick_img_size       	= isset( $args['m_slick_img_size'] ) ? absint( $args['m_slick_img_size'] ) : (isset( $args['slick_img_size'] ) ? $args['slick_img_size'] :  300);
 			$slick_slides_to_show 	= isset( $args['m_slick_slides_to_show'] ) ? $args['m_slick_slides_to_show'] : (isset( $args['slick_slides_to_show'] ) ? $args['slick_slides_to_show'] :  3);
@@ -518,6 +540,7 @@ class WIS_InstagramSlider extends WP_Widget {
 			$highlight_offset     	= isset( $args['m_highlight_offset'] ) ? $args['m_highlight_offset'] : (isset( $args['highlight_offset'] ) ? $args['highlight_offset'] :  1);
 			$highlight_pattern    	= isset( $args['m_highlight_pattern'] ) ? $args['m_highlight_pattern'] : (isset( $args['highlight_pattern'] ) ? $args['highlight_pattern'] :  6);
 			$enable_ad 				= isset( $args['m_enable_ad'] ) ? $args['m_enable_ad'] : (isset( $args['enable_ad'] ) ? $args['enable_ad'] :  0);
+			$enable_icons 		    = isset( $args['m_enable_icons'] ) ? $args['m_enable_icons'] : (isset( $args['enable_icons'] ) ? $args['enable_icons'] :  0);
 			$orderby              	= isset( $args['m_orderby'] ) ? $args['m_orderby'] : (isset( $args['orderby'] ) ? $args['orderby'] :  'rand');
 			$images_link          	= isset( $args['m_images_link'] ) ? $args['m_images_link'] : (isset( $args['images_link'] ) ? $args['images_link'] :  'image_url');
 			$blocked_words        	= isset( $args['m_blocked_words'] ) && ! empty( $args['m_blocked_words'] ) ? $args['m_blocked_words'] : (isset( $args['images_link'] ) ? $args['images_link'] :  false);
@@ -568,6 +591,7 @@ class WIS_InstagramSlider extends WP_Widget {
             'enable_control_buttons' => $enable_control_buttons,
             'keep_ratio' => $keep_ratio,
             'enable_ad' => $enable_ad,
+            'enable_icons' => $enable_icons,
             'slick_slides_padding' => $slick_slides_padding,
 			'slick_slides_to_show' => $slick_slides_to_show,
 			'highlight_offset'     => $highlight_offset,
@@ -583,7 +607,6 @@ class WIS_InstagramSlider extends WP_Widget {
 		//$this->widget_scripts_enqueue();
 
 		if ( $template != 'thumbs' && $template != 'thumbs-no-border' ) {
-
 			$template_args['description'] = $description;
 			$direction_nav                = ( $controls == 'prev_next' ) ? 'true' : 'false';
 			$control_nav                  = ( $controls == 'numberless' ) ? 'true' : 'false';
@@ -593,6 +616,12 @@ class WIS_InstagramSlider extends WP_Widget {
 				$images_div_class = 'pllexislider pllexislider-normal instaslider-nr-' . $widget_id;
 				$slider_script    = "<script type='text/javascript'>" . "\n" . "	jQuery(document).ready(function($) {" . "\n" . "		$('.instaslider-nr-{$widget_id}').pllexislider({" . "\n" . "			animation: '{$animation}'," . "\n" . "			slideshowSpeed: {$slidespeed}," . "\n" . "			directionNav: {$direction_nav}," . "\n" . "			controlNav: {$control_nav}," . "\n" . "			prevText: ''," . "\n" . "			nextText: ''," . "\n" . "		});" . "\n" . "	});" . "\n" . "</script>" . "\n";
 			}
+
+			if ( $template == 'slider-overlay' ) {
+				$images_div_class = 'pllexislider pllexislider-overlay instaslider-nr-' . $widget_id;
+				$slider_script    = "<script type='text/javascript'>" . "\n" . "  jQuery(document).ready(function($) {" . "\n" . "    $('.instaslider-nr-{$widget_id}').pllexislider({" . "\n" . "      animation: '{$animation}'," . "\n" . "      slideshowSpeed: {$slidespeed}," . "\n" . "      directionNav: {$direction_nav}," . "\n" . "      controlNav: {$control_nav}," . "\n" . "      prevText: ''," . "\n" . "      nextText: ''," . "\n" . "      start: function(slider){" . "\n" . "        slider.hover(" . "\n" . "          function () {" . "\n" . "            slider.find('.pllex-control-nav, .pllex-direction-nav').stop(true,true).fadeIn();" . "\n" . "            slider.find('.jr-insta-datacontainer').fadeIn();" . "\n" . "          }," . "\n" . "          function () {" . "\n" . "            slider.find('.pllex-control-nav, .pllex-direction-nav').stop(true,true).fadeOut();" . "\n" . "            slider.find('.jr-insta-datacontainer').fadeOut();" . "\n" . "          }" . "\n" . "        );" . "\n" . "      }" . "\n" . "    });" . "\n" . "  });" . "\n" . "</script>" . "\n";
+			}
+
 			if ( $template == 'slick_slider' || $template == 'masonry' || $template == 'highlight' ||  $template == 'showcase') {
 				//return $this->pro_display_images($args);
                 if(defined('WISP_PLUGIN_ACTIVE') && WISP_PLUGIN_ACTIVE == true){
@@ -682,6 +711,8 @@ class WIS_InstagramSlider extends WP_Widget {
 						$template_args['link_to'] = get_permalink( $id );
 					} elseif ( 'custom_url' == $images_link ) {
 						$template_args['link_to'] = $custom_url;
+					} elseif( 'none' == $images_link ) {
+						$template_args['link_to'] = 'none';
 					}
 
 					$image_thumb_url        = get_post_meta( $id, 'jr_insta_sizes', true );
@@ -725,6 +756,8 @@ class WIS_InstagramSlider extends WP_Widget {
 							$template_args['link_to'] = $image_data['url'];
 						} elseif ( 'custom_url' == $images_link ) {
 							$template_args['link_to'] = $custom_url;
+						} elseif( 'none' == $images_link ) {
+							$template_args['link_to'] = 'none';
 						}
 
 						$template_args['type']       = $image_data['type'];
@@ -786,7 +819,7 @@ class WIS_InstagramSlider extends WP_Widget {
 			$images_div = '';
 			if ( $account ) {
 				$account_data = $account;
-			} else {
+			} else if ( $search !== 'hashtag' ) {
 				$data         = WIS_Plugin::app()->getOption( 'profiles_data_by_username' );
 				$data         = $data['entry_data']['ProfilePage']['0']['graphql']['user'];
 				$account_data = array(
@@ -800,9 +833,16 @@ class WIS_InstagramSlider extends WP_Widget {
 			}
 
 			if ( $show_feed_header && $search == 'account_business' ) {
-				$images_div .= $this->render_layout_template( 'feed_header_template', $account_data );
+				if($this->WIS->is_premium()){
+					$images_div .= WIS_Premium::app()->display_header_with_stories($account, $account_data, $images_data['stories'], $enable_stories);
+				} else {
+					$images_div .= $this->render_layout_template( 'feed_header_template', $account_data );
+				}
 			}
 			$images_div .= "<div class='{$images_div_class}'>\n";
+
+			unset($images_data['stories']);
+
 			if ( is_array( $images_data ) && ! empty( $images_data ) ) {
 				if ( isset( $images_data['error'] ) ) {
 					return $images_data['error'];
@@ -826,10 +866,12 @@ class WIS_InstagramSlider extends WP_Widget {
 
 				$output = $slider_script . $images_div . $images_ul;
 
-				foreach ( $images_data as $image_data ) {
+				foreach ( $images_data as $key => $image_data ) {
+
+					if($key === 'stories') continue;
 
 					if ( 'image_link' == $images_link ) {
-						$template_args['link_to'] = $image_data['link'];
+						$template_args['link_to'] = $image_data['link'] ?? '';
 					} elseif ( 'user_url' == $images_link ) {
 						$template_args['link_to'] = 'https://www.instagram.com/' . $username . '/';
 					} elseif ( 'image_url' == $images_link ) {
@@ -838,10 +880,10 @@ class WIS_InstagramSlider extends WP_Widget {
 						$template_args['link_to'] = $custom_url;
 					}
 
-					$template_args['type']      = $image_data['type'];
-					$template_args['image']     = $image_data['image'];
-					$template_args['caption']   = $image_data['caption'];
-					$template_args['timestamp'] = $image_data['timestamp'];
+					$template_args['type']      = $image_data['type'] ?? '';
+					$template_args['image']     = $image_data['image'] ?? '';
+					$template_args['caption']   = $image_data['caption'] ?? '';
+					$template_args['timestamp'] = isset($image_data['timestamp']) ? $image_data['timestamp'] : false;
 					$template_args['username']  = isset( $image_data['username'] ) ? $image_data['username'] : '';
 
 					$output .= $this->get_template( $template, $template_args );
@@ -894,7 +936,7 @@ class WIS_InstagramSlider extends WP_Widget {
 	 */
 	private function get_template( $template, $args ) {
 
-		$link_to   = isset( $args['link_to'] ) ? $args['link_to'] : false;
+		$link_to   = isset( $args['link_to'] ) ? $args['link_to'] : 'none';
 		$image_url = isset( $args['image'] ) ? $args['image'] : false;
 		$type      = isset( $args['type'] ) ? $args['type'] : '';
 
@@ -923,7 +965,7 @@ class WIS_InstagramSlider extends WP_Widget {
         $image_src       = "<img alt='" . $caption . "' src='{$clean_image_url}' $nopin class='{$type}' style='opacity: 0;'>";
 		$image_output    = $image_src;
 
-		if ( $link_to ) {
+		if ( $link_to && $link_to != 'none') {
 			$image_output = "<a href='$link_to' target='_blank' rel='nofollow noreferrer'";
 
 			if ( ! empty( $args['link_rel'] ) ) {
@@ -971,7 +1013,8 @@ class WIS_InstagramSlider extends WP_Widget {
 			$output .= "</li>";
 			// Template : Slider with text Overlay on mouse over
 		} elseif ( $template == 'slider-overlay' ) {
-			$output .= "<li class='" . $type . "'>";
+			$icons = $args['enable_icons'] ? "" : " no-isw-icons";
+			$output .= "<li class='" . $type . $icons . "'>";
 
 			//$output .= $image_output;
 			$output .= "<div id='jr-image-overlay' style='background: url({$image_url}) no-repeat center center; background-size: cover;'>{$image_output}</div>";
@@ -1006,6 +1049,7 @@ class WIS_InstagramSlider extends WP_Widget {
 
 			// Template : Thumbnails no text
 		} elseif ( $template == 'thumbs' || $template == 'thumbs-no-border' ) {
+			$type .= $args['enable_icons'] ? "" : " no-isw-icons";
 			$output .= "<li class='{$type}'>";
 			$output .= "<div style='background: url({$image_url}) no-repeat center center; background-size: cover;'>{$image_output}</div>";
 			//$output .= "<div></div>";
@@ -1215,6 +1259,14 @@ class WIS_InstagramSlider extends WP_Widget {
 					if ( 200 == wp_remote_retrieve_response_code( $response ) ) {
 						$media   = json_decode( wp_remote_retrieve_body( $response ), true );
 						$results = $media['data'];
+
+						$stories_url = self::USERS_SELF_URL_NEW . $account['id'] . "/stories";
+						$url =  add_query_arg(['access_token' => $account['token'], 'fields' => 'media_type,media_url,permalink,timestamp'], $stories_url);
+						$stories_response = wp_remote_get($url);
+						if(200 == wp_remote_retrieve_response_code( $stories_response )){
+							$stories = json_decode( wp_remote_retrieve_body( $stories_response ), true );
+							$results['stories'] = $stories['data'];
+						}
 						$results = apply_filters('wis/images/count', $results, $media, $nr_images, true);
 						$next_max_id = null;
 						if ( ! empty( $media['pagination'] ) ) {
@@ -1223,6 +1275,8 @@ class WIS_InstagramSlider extends WP_Widget {
 						if ( ! count( $results ) ) {
 							return [ 'error' => __( 'There are no publications in this account yet', 'instagram-slider-widget' ) ];
 						}
+
+
 					} else {
 						if ( $instaData ) {
 							$results = $instaData;
@@ -1257,8 +1311,8 @@ class WIS_InstagramSlider extends WP_Widget {
 				}
 
 			} else { //hashtag
-				//$account = $this->getAccountForHashtag();
-				$account = false;
+				$account = $this->getAccountForHashtag();
+				//$account = false;
 				if ( $account ) {
 					$args     = array(
 						'access_token' => $account['token'],
@@ -1272,6 +1326,7 @@ class WIS_InstagramSlider extends WP_Widget {
 						$args     = array(
 							'access_token' => $account['token'],
 							'user_id'      => $account['id'],
+							//,timestamp
 							'fields'       => "id,caption,media_type,media_url,comments_count,like_count,permalink,children{media_type,media_url}",
 							'limit'        => 50,
 						);
@@ -1288,6 +1343,7 @@ class WIS_InstagramSlider extends WP_Widget {
 					$url      = str_replace( '{tag}', urlencode( trim( $search_string ) ), self::TAG_URL );
 					$response = wp_remote_get( $url, array( 'sslverify' => false, 'timeout' => 60 ) );
 					$results  = json_decode( $response['body'], true );
+					$hashtag_response_status = $response['response']['code'];
 				}
 
 			}
@@ -1311,6 +1367,7 @@ class WIS_InstagramSlider extends WP_Widget {
 					if ( empty( $entry_data ) ) {
 						return [ 'error' => __( 'No images found', 'instagram-slider-widget' ) ];
 					}
+
 					$i = 0;
 					foreach ( $entry_data as $current => $result ) {
 						if ( ! isset( $result['caption'] ) ) {
@@ -1318,6 +1375,9 @@ class WIS_InstagramSlider extends WP_Widget {
 						}
 
 						if ( $i >= $nr_images ) {
+							if(isset($entry_data['stories'])){
+								$instaData['stories'] = $entry_data['stories'];
+							}
 							break;
 						} else {
 							$i ++;
@@ -1346,7 +1406,7 @@ class WIS_InstagramSlider extends WP_Widget {
 							$image_data = $this->to_media_model_from_account( $result );
 						} elseif ( 'account_business' == $search ) {
 							$image_data = $this->to_media_model_from_account_business( $result );
-						} elseif ( 'hashtag' == $search && $results['graphql']['hashtag'] ) {
+						} elseif ( 'hashtag' == $search && $results['hashtag'] ) {
 							$image_data = $this->to_media_model_from_hashtag( $result );
 						} elseif ( 'user' == $search ) {
 							$image_data             = $this->media_model( $result['node'] );
@@ -1404,7 +1464,9 @@ class WIS_InstagramSlider extends WP_Widget {
 					} // end -> foreach
 
 				} // end -> ( $results ) && is_array( $results ) )
-
+				elseif( isset($hashtag_response_status) && $hashtag_response_status == 429 && is_user_logged_in() && $search == 'hashtag'){
+					return [ 'error' => __( "Can't receive images by hashtag. Please connect a business account and try again.", 'instagram-slider-widget' ) ];
+				}
 			} else {
 
 				return $response['response']['message'];
@@ -1699,22 +1761,24 @@ class WIS_InstagramSlider extends WP_Widget {
 					break;
 			}
 
+			$media_url = isset($value['media_url']) ? $value['media_url'] : $value['children']['data'][0]['media_url'];
+
 			$m['id']            = $value['id'];
 			$m['caption']       = $this->sanitize( $value['caption'] );
 			$m['link']          = $value['permalink'];
 			$m['comment_count'] = $value['comments_count'];
-			$m['url']           = $value['media_url'];
+			$m['url']           = $media_url;
 			$m['likes_count']   = $value['like_count'];
 
-			$m['sizes']['thumbnail'] = $value['media_url'];
-			$m['sizes']['low']       = $value['media_url'];
-			$m['sizes']['standard']  = $value['media_url'];
-			$m['sizes']['full']      = $value['media_url'];
+			$m['sizes']['thumbnail'] = $media_url;
+			$m['sizes']['low']       = $media_url;
+			$m['sizes']['standard']  = $media_url;
+			$m['sizes']['full']      = $media_url;
 
 			if ( $media['media_type'] == 'VIDEO' ) {
 				$size = getimagesize( $value['thumbnail_url'] );
 			} else {
-				$size = getimagesize( $value['media_url'] );
+				$size = getimagesize( $media_url );
 			}
 			if ( is_array( $size ) ) {
 				$m['height'] = $size[1];
@@ -2336,6 +2400,10 @@ class WIS_InstagramSlider extends WP_Widget {
 
 	public static function isMobile() {
 		return preg_match("/(android|ios|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+	}
+
+	private function to_stories_from_account_business( $result ) {
+
 	}
 
 } // end of class WIS_InstagramSlider

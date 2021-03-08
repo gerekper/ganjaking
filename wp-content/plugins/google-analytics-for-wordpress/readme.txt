@@ -3,8 +3,8 @@ Contributors: chriscct7, smub
 Donate link: http://www.wpbeginner.com/wpbeginner-needs-your-help/
 Tags: WordPress analytics, google analytics, google analytics dashboard, google analytics widget, WooCommerce stats, analytics dashboard, universal google analytics, statistics, tracking, stats, google, google analytics by yoast, ga, monster insights, monsterinsights, universal analytics, web stats, ecommerce, ecommerce tracking
 Requires at least: 3.8.0
-Tested up to: 5.6
-Stable tag: 7.15.1
+Tested up to: 5.7
+Stable tag: 7.16.2
 Requires PHP: 5.2
 License: GPL v3
 
@@ -73,6 +73,8 @@ We have created customized Google Analytics reports to help you filter through t
 * **Search Console Report** shows you exactly how well your website is ranking in Google, so you can further optimize your SEO to grow your organic traffic.
 
 * **Custom Dimensions Report** helps you dig deeper by showing you useful stats like who are your most popular authors, what are the best publication times, which are your most popular categories or tags, how well are your Yoast focus keywords and SEO score performing, and more.
+
+* **Site Speed Report** makes it easy to track loading times for your website and get the information you need to improve.
 
 Our custom Google Analytics Dashboard reports are based on over 12+ years of online business experience. We built MonsterInsights to be the Google Analytics plugin that we wish we had.
 
@@ -207,10 +209,13 @@ We understand Google Analytics better than any other analytics plugin for WordPr
 * Custom Dimensions Tracking - Enable Google analytics custom dimensions tracking for WordPress.
 * Author Tracking - See author stats and discover who's the most popular author on your site.
 * Popular Post Tracking - See which blog post and section is the most popular.
+* Contextual Insights - Get actionable tips on how to improve engagement and get more visitors based on your site's traffic.
+* Headline Analyzer - Get more clicks and improve SEO following suggestions from our Headline Analyzer directly in the WordPress editor
 * Custom Post Type Tracking - Track the performance of your custom post types.
 * Referral Tracking - See how visitors are finding your website to better focus your marketing efforts.
 * Performance Tracking - Control the performance rate and sample rate for your Google Analytics report.
 * Enhanced Link Attribution - Get better analytics with enhanced link attribution.
+* Email Summaries - Your site's traffic report delivered straight to your inbox every week.
 * Google Analytics for AMP - Add proper Google Analytics tracking for Google AMP.
 * Google Analytics for Facebook Instant Articles - Add proper Google Analytics tracking for Facebook Analytics.
 * Google Analytics GDPR Compliance - EU compliance addon helps you improve Google Analytics GDPR compliance by adding anonymize IP, cookie consent for Google Analytics, opt-out tracking, and more.
@@ -280,6 +285,18 @@ You can also learn about other <a href="http://www.wpbeginner.com/category/plugi
 4. Want more features? <a href="https://www.monsterinsights.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">Purchase MonsterInsights Pro</a>!
 
 == Changelog ==
+= 7.16.2: February 22, 2021 =
+- Tweak: We improved our gtag.js compatibility layer with support for custom trackers used in the analytics.js format for some integrations.
+
+= 7.16.1: February 17, 2021 =
+- Tweak: We made an adjustment to our gtag.js compatibility layer to improve support for all analytics.js event sending syntax.
+- Fix: We fixed an issue with lightbox scripts using images hosted on external CDN servers.
+
+= 7.16.0: February 11, 2021 =
+- New: MonsterInsights is now updated to use Google Global Site Tag (gtag.js) including our exclusive analytics.js compatibility helper that makes existing events integrations work without needing any adjustments.
+- Tweak: We made adjustments to ensure future compatibility with PHP8 with our classes.
+- Tweak: We made some improvements to our admin panel CSS styles for better compatibility with other plugins.
+
 = 7.15.1: January 27, 2021 =
 - Fix: Our cross-domain option for the gtag.js tracking code was causing an issue.
 

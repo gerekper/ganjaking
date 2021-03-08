@@ -356,6 +356,10 @@ class MailOptin extends \WPForms_Provider
             ]
         ];
 
+        if (in_array($account_id, Init::no_name_mapping_connections())) {
+            unset($provider_fields[1]);
+        }
+
         if (defined('MAILOPTIN_DETACH_LIBSODIUM')) {
 
             $this->api_connect($account_id);

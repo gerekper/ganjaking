@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $product, $porto_settings, $porto_woocommerce_loop, $porto_product_layout;
+global $product, $porto_settings, $porto_product_layout;
 
 if ( empty( $product ) || ! $product->exists() ) {
 	return;
@@ -43,11 +43,14 @@ if ( 'left_sidebar' == $porto_product_layout ) {
 }
 
 if ( $products->have_posts() ) :
+	global $porto_woocommerce_loop;
+
 	$porto_woocommerce_loop['columns'] = isset( $porto_settings['product-related-cols'] ) ? $porto_settings['product-related-cols'] : $porto_settings['product-cols'];
 
 	if ( ! $porto_woocommerce_loop['columns'] ) {
 		$porto_woocommerce_loop['columns'] = 4;
 	}
+
 	?>
 	<div class="related products">
 		<div class="<?php echo esc_attr( $container_class ); ?>">

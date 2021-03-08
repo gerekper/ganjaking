@@ -24,25 +24,25 @@ use Yoast\WP\SEO\Repositories\Indexable_Repository;
  *
  * Class that contains all relevant data for rendering the meta tags.
  *
- * @property string      $canonical
- * @property string      $title
- * @property string      $description
- * @property string      $id
- * @property string      $site_name
- * @property string      $wordpress_site_name
- * @property string      $site_url
- * @property string      $company_name
- * @property int         $company_logo_id
- * @property int         $site_user_id
- * @property string      $site_represents
- * @property array|false $site_represents_reference
- * @property bool        $breadcrumbs_enabled
- * @property string      schema_page_type
- * @property string      $main_schema_id
- * @property bool        $open_graph_enabled
- * @property string      $open_graph_publisher
- * @property string      $twitter_card
- * @property string      $page_type
+ * @property string       $canonical
+ * @property string       $title
+ * @property string       $description
+ * @property string       $id
+ * @property string       $site_name
+ * @property string       $wordpress_site_name
+ * @property string       $site_url
+ * @property string       $company_name
+ * @property int          $company_logo_id
+ * @property int          $site_user_id
+ * @property string       $site_represents
+ * @property array|false  $site_represents_reference
+ * @property string       schema_page_type
+ * @property string       $main_schema_id
+ * @property string|array $main_entity_of_page
+ * @property bool         $open_graph_enabled
+ * @property string       $open_graph_publisher
+ * @property string       $twitter_card
+ * @property string       $page_type
  */
 class Meta_Tags_Context extends Abstract_Presentation {
 
@@ -353,24 +353,6 @@ class Meta_Tags_Context extends Abstract_Presentation {
 	}
 
 	/**
-	 * Generates whether or not breadcrumbs are enabled.
-	 *
-	 * @return bool Whether or not breadcrumbs are enabled.
-	 */
-	public function generate_breadcrumbs_enabled() {
-		$breadcrumbs_enabled = \current_theme_supports( 'yoast-seo-breadcrumbs' );
-		if ( ! $breadcrumbs_enabled ) {
-			$breadcrumbs_enabled = $this->options->get( 'breadcrumbs-enable', false );
-		}
-
-		if ( ! empty( $this->blocks['yoast-seo/breadcrumbs'] ) ) {
-			$breadcrumbs_enabled = true;
-		}
-
-		return $breadcrumbs_enabled;
-	}
-
-	/**
 	 * Returns whether or not open graph is enabled.
 	 *
 	 * @return bool Whether or not open graph is enabled.
@@ -508,6 +490,32 @@ class Meta_Tags_Context extends Abstract_Presentation {
 			'presentation' => $this->presentation,
 		];
 	}
+
+	/* ********************* DEPRECATED METHODS ********************* */
+
+	/**
+	 * Generates whether or not breadcrumbs are enabled.
+	 *
+	 * @codeCoverageIgnore
+	 *
+	 * @return bool Whether or not breadcrumbs are enabled.
+	 *
+	 * @deprecated 15.8
+	 */
+	public function generate_breadcrumbs_enabled() {
+		_deprecated_function( __METHOD__, 'WPSEO 15.8' );
+		$breadcrumbs_enabled = \current_theme_supports( 'yoast-seo-breadcrumbs' );
+		if ( ! $breadcrumbs_enabled ) {
+			$breadcrumbs_enabled = $this->options->get( 'breadcrumbs-enable', false );
+		}
+
+		if ( ! empty( $this->blocks['yoast-seo/breadcrumbs'] ) ) {
+			$breadcrumbs_enabled = true;
+		}
+
+		return $breadcrumbs_enabled;
+	}
 }
 
 \class_alias( Meta_Tags_Context::class, 'WPSEO_Schema_Context' );
+

@@ -9,24 +9,6 @@ use MailOptin\Core\PluginSettings\Connections;
 
 class AbstractHubspotConnect extends AbstractConnect
 {
-    /** @var \MailOptin\Core\PluginSettings\Connections */
-    protected $connections_settings;
-
-    protected $access_token;
-
-    protected $refresh_token;
-
-    protected $expires_at;
-
-    public function __construct()
-    {
-        $this->connections_settings = Connections::instance();
-        $this->access_token         = $this->connections_settings->hubspot_access_token();
-        $this->refresh_token        = $this->connections_settings->hubspot_refresh_token();
-        $this->expires_at           = $this->connections_settings->hubspot_expires_at();
-        parent::__construct();
-    }
-
     /**
      * Is hubspot successfully connected to?
      *
@@ -48,7 +30,10 @@ class AbstractHubspotConnect extends AbstractConnect
      */
     public function hubspotInstance()
     {
-        $access_token = $this->access_token;
+        $connections_settings = Connections::instance(true);
+        $access_token         = $connections_settings->hubspot_access_token();
+        $refresh_token        = $connections_settings->hubspot_refresh_token();
+        $expires_at           = $connections_settings->hubspot_expires_at();
 
         if (empty($access_token)) {
             throw new \Exception(__('Hubspot access token not found.', 'mailoptin'));
@@ -64,15 +49,15 @@ class AbstractHubspotConnect extends AbstractConnect
         $instance = new Hubspot($config, null,
             new OAuthCredentialStorage([
                 'hubspot.access_token'  => $access_token,
-                'hubspot.refresh_token' => $this->refresh_token,
-                'hubspot.expires_at'    => $this->expires_at,
+                'hubspot.refresh_token' => $refresh_token,
+                'hubspot.expires_at'    => $expires_at,
             ]));
 
         if ($instance->hasAccessTokenExpired()) {
 
             try {
 
-                $result = $this->oauth_token_refresh('hubspot', $this->refresh_token);
+                $result = $this->oauth_token_refresh('hubspot', $refresh_token);
 
                 $option_name = MAILOPTIN_CONNECTIONS_DB_OPTION_NAME;
                 $old_data    = get_option($option_name, []);

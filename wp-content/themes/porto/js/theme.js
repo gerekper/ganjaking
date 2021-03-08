@@ -5897,6 +5897,41 @@ function porto_init($wrap) {
 			initAlignFull();
 		});
 	}
+
+	if (js_porto_vars.user_edit_pages) {
+		var porto_init_builder_tooltip = function($obj) {
+
+			$obj.find('.pb-edit-link').each(function() {
+				var $this = $(this),
+					title = $this.data('title');
+				$this.next('.porto-block').addClass('has-pb-edit').tooltip({
+					html: true,
+					template: '<div class="tooltip porto-tooltip-wrap" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>',
+					trigger: 'manual',
+					title: '<a href="' + $this.data('link') + '"><i class="porto-icon-edit mr-1"></i>' + title + '</a>',
+					delay: 300
+				});
+				var tooltipData = $this.next('.porto-block').data('bs.tooltip');
+				$(tooltipData.element).on('mouseenter.bs.tooltip', function(e) {
+					tooltipData._enter(e);
+				});
+				$(tooltipData.element).on('mouseleave.bs.tooltip', function(e) {
+					tooltipData._leave(e);
+				});
+			});
+		};
+		porto_init_builder_tooltip($(document.body));
+		$('.skeleton-loading').on('skeleton-loaded', function() {
+			porto_init_builder_tooltip($(this));
+		});
+		$(document.body).on('mouseenter mouseleave', '.tooltip[role="tooltip"]', function(e) {
+			var $element = $('.porto-block[aria-describedby="' + $(this).attr('id') + '"]');
+			if ($element.length && $element.data('bs.tooltip')) {
+				var fn_name = 'mouseenter' == e.type ? '_enter' : '_leave';
+				$element.data('bs.tooltip')[fn_name](false, $element.data('bs.tooltip'));
+			}
+		});
+	}
 })( window.theme, jQuery );
 
 // Porto Sticky icon bar on mobile

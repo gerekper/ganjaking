@@ -11,7 +11,12 @@ class Init
 
     public static function text_tag_connections()
     {
-        return ['AweberConnect', 'MailChimpConnect', 'ConvertFoxConnect', 'SendlaneConnect', 'DripConnect', 'ActiveCampaignConnect', 'ZohoCRMConnect', 'JiltConnect', 'WeMailConnect'];
+        return ['AweberConnect', 'MailChimpConnect', 'ConvertFoxConnect', 'SendlaneConnect', 'DripConnect', 'ActiveCampaignConnect', 'ZohoCRMConnect', 'JiltConnect', 'WeMailConnect', 'CleverReachConnect'];
+    }
+
+    public static function no_name_mapping_connections()
+    {
+        return ['CleverReachConnect'];
     }
 
     public static function init()
@@ -36,6 +41,7 @@ class Init
         \MailOptin\Ctctv3Connect\Connect::get_instance();
         \MailOptin\HubspotConnect\Connect::get_instance();
         \MailOptin\InfusionsoftConnect\Connect::get_instance();
+        \MailOptin\CleverReachConnect\Connect::get_instance();
         \MailOptin\JiltConnect\Connect::get_instance();
         \MailOptin\MailerliteConnect\Connect::get_instance();
         \MailOptin\EmailOctopusConnect\Connect::get_instance();

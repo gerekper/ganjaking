@@ -874,6 +874,7 @@ function porto_scripts() {
 			'submenu_back'              => esc_js( __( 'Back', 'porto' ) ),
 			'porto_nonce'               => wp_create_nonce( 'porto-nonce' ),
 			'use_skeleton_screen'       => ! empty( $porto_settings['show-skeleton-screen'] ) ? array_map( 'esc_js', $porto_settings['show-skeleton-screen'] ) : array(),
+			'user_edit_pages'           => current_user_can( 'edit_pages' ),
 		);
 
 		if ( ! empty( $porto_settings['show-skeleton-screen'] ) && in_array( 'quickview', $porto_settings['show-skeleton-screen'] ) && class_exists( 'Woocommerce' ) && $porto_settings['product-quickview'] ) {

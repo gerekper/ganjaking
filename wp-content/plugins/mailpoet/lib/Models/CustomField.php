@@ -5,6 +5,7 @@ namespace MailPoet\Models;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Entities\CustomFieldEntity;
 use MailPoet\Util\DateConverter;
 use MailPoet\WP\Functions as WPFunctions;
 
@@ -16,12 +17,12 @@ use MailPoet\WP\Functions as WPFunctions;
 
 class CustomField extends Model {
   public static $_table = MP_CUSTOM_FIELDS_TABLE; // phpcs:ignore PSR2.Classes.PropertyDeclaration
-  const TYPE_DATE = 'date';
-  const TYPE_TEXT = 'text';
-  const TYPE_TEXTAREA = 'textarea';
-  const TYPE_RADIO = 'radio';
-  const TYPE_CHECKBOX = 'checkbox';
-  const TYPE_SELECT = 'select';
+  const TYPE_DATE = CustomFieldEntity::TYPE_DATE;
+  const TYPE_TEXT = CustomFieldEntity::TYPE_TEXT;
+  const TYPE_TEXTAREA = CustomFieldEntity::TYPE_TEXTAREA;
+  const TYPE_RADIO = CustomFieldEntity::TYPE_RADIO;
+  const TYPE_CHECKBOX = CustomFieldEntity::TYPE_CHECKBOX;
+  const TYPE_SELECT = CustomFieldEntity::TYPE_SELECT;
 
   public function __construct() {
     parent::__construct();

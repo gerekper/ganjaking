@@ -9,34 +9,6 @@ use MailOptin\Core\PluginSettings\Connections;
 
 class AbstractZohoCRMConnect extends AbstractConnect
 {
-    /** @var \MailOptin\Core\PluginSettings\Connections */
-    protected $connections_settings;
-
-    protected $access_token;
-
-    protected $refresh_token;
-
-    protected $expires_at;
-
-    protected $location;
-
-    protected $accounts_server;
-
-    protected $api_domain;
-
-    public function __construct()
-    {
-        $this->connections_settings = Connections::instance();
-        $this->access_token         = $this->connections_settings->zohocrm_access_token();
-        $this->refresh_token        = $this->connections_settings->zohocrm_refresh_token();
-        $this->expires_at           = $this->connections_settings->zohocrm_expires_at();
-        $this->location             = $this->connections_settings->zohocrm_location();
-        $this->api_domain           = $this->connections_settings->zohocrm_api_domain();
-        $this->accounts_server      = $this->connections_settings->zohocrm_accounts_server();
-
-        parent::__construct();
-    }
-
     /**
      * Is Constant Contact successfully connected to?
      *
@@ -58,7 +30,13 @@ class AbstractZohoCRMConnect extends AbstractConnect
      */
     public function zcrmInstance()
     {
-        $access_token = $this->access_token;
+        $connections_settings = Connections::instance(true);
+        $access_token         = $connections_settings->zohocrm_access_token();
+        $refresh_token        = $connections_settings->zohocrm_refresh_token();
+        $expires_at           = $connections_settings->zohocrm_expires_at();
+        $location             = $connections_settings->zohocrm_location();
+        $api_domain           = $connections_settings->zohocrm_api_domain();
+        $accounts_server      = $connections_settings->zohocrm_accounts_server();
 
         if (empty($access_token)) {
             throw new \Exception(__('Zoho CRM access token not found.', 'mailoptin'));
@@ -73,20 +51,20 @@ class AbstractZohoCRMConnect extends AbstractConnect
         $instance = new Zoho($config, null,
             new OAuthCredentialStorage([
                 'zoho.access_token'    => $access_token,
-                'zoho.refresh_token'   => $this->refresh_token,
-                'zoho.expires_at'      => $this->expires_at,
-                'zoho.api_domain'      => $this->api_domain,
-                'zoho.location'        => $this->location,
-                'zoho.accounts_server' => $this->accounts_server,
+                'zoho.refresh_token'   => $refresh_token,
+                'zoho.expires_at'      => $expires_at,
+                'zoho.api_domain'      => $api_domain,
+                'zoho.location'        => $location,
+                'zoho.accounts_server' => $accounts_server,
             ]));
 
-        $instance->apiBaseUrl = $this->api_domain . '/crm/v2/';
+        $instance->apiBaseUrl = $api_domain . '/crm/v2/';
 
         if ($instance->hasAccessTokenExpired()) {
 
             try {
 
-                $result = $this->oauth_token_refresh('zohocrm', $this->refresh_token, ['location' => $this->location]);
+                $result = $this->oauth_token_refresh('zohocrm', $refresh_token, ['location' => $location]);
 
                 $option_name = MAILOPTIN_CONNECTIONS_DB_OPTION_NAME;
                 $old_data    = get_option($option_name, []);
@@ -108,9 +86,9 @@ class AbstractZohoCRMConnect extends AbstractConnect
                         'zoho.access_token'    => $result['data']['access_token'],
                         'zoho.expires_at'      => $expires_at,
                         'zoho.api_domain'      => $result['data']['api_domain'],
-                        'zoho.location'        => $this->location,
-                        'zoho.refresh_token'   => $this->refresh_token,
-                        'zoho.accounts_server' => $this->accounts_server,
+                        'zoho.location'        => $location,
+                        'zoho.refresh_token'   => $refresh_token,
+                        'zoho.accounts_server' => $accounts_server,
                     ]));
 
                 $instance->apiBaseUrl = $result['data']['api_domain'] . '/crm/v2/';

@@ -8,7 +8,6 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\AdminPages\PageRenderer;
 use MailPoet\Config\Installer;
 use MailPoet\Config\ServicesChecker;
-use MailPoet\Entities\SegmentEntity;
 use MailPoet\Segments\SegmentsSimpleListRepository;
 use MailPoet\Settings\Hosts;
 use MailPoet\Settings\Pages;
@@ -75,7 +74,7 @@ class Settings {
 
     $data = [
       'settings' => $settings,
-      'segments' => $this->segmentsListRepository->getListWithSubscribedSubscribersCounts([SegmentEntity::TYPE_DEFAULT]),
+      'segments' => $this->segmentsListRepository->getListWithSubscribedSubscribersCounts(),
       'premium_key_valid' => !empty($premiumKeyValid),
       'mss_key_valid' => !empty($mpApiKeyValid),
       'pages' => Pages::getAll(),

@@ -1,6 +1,8 @@
 <?php
 
 // Exit if accessed directly
+use Instagram\Includes\WIS_Plugin;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -27,7 +29,7 @@ class WIS_WidgetsPage extends WIS_Page {
 	 * Mainly used to navigate between pages.
 	 *
 	 * @since 1.0.0
-	 * @see   FactoryPages441_AdminPage
+	 * @see   FactoryPages444_AdminPage
 	 *
 	 * @var string
 	 */
@@ -140,6 +142,7 @@ class WIS_WidgetsPage extends WIS_Page {
 	public function indexAction() {
 		$sidebars_widgets = get_option( 'sidebars_widgets', [] );
 		$insta_widgets    = get_option( 'widget_jr_insta_slider', [] );
+		$youtube_widgets  = get_option( 'widget_wyoutube_feed', [] );
 		$demo_widgets     = include( WIS_PLUGIN_DIR . "/includes/demo_widgets.php" );
 		$account          = $this->get_current_account();
 
@@ -172,7 +175,7 @@ class WIS_WidgetsPage extends WIS_Page {
 		if ( ! empty( $sidebars_widgets ) ) {
 			foreach ( $sidebars_widgets as $key => $sidebar ) {
 				foreach ( $sidebar as $widget ) {
-					if ( strstr( $widget, 'jr_insta_slider' ) ) {
+					if ( strstr( $widget, 'jr_insta_slider' ) || strstr( $widget, 'wyoutube_feed' ) ) {
 						wp_list_widget_controls( $key, $wp_registered_sidebars[ $key ]['name'] );
 						$isset_widgets = true;
 						break;
@@ -190,6 +193,7 @@ class WIS_WidgetsPage extends WIS_Page {
 			'content'       => $widgets,
 			'insta_widgets' => $insta_widgets,
 			'demo_widgets'  => $demo_widgets,
+			'youtube_widgets' => $youtube_widgets
 		];
 		echo $this->render( '', $data );
 	}

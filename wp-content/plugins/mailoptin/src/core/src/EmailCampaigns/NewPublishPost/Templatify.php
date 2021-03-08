@@ -82,7 +82,7 @@ class Templatify implements TemplatifyInterface
         $content = (new VideoToImageLink($templatified_content))->forge();
 
         if ( ! is_customize_preview()) {
-            $content = \MailOptin\Core\emogrify($content, true);
+            $content = \MailOptin\Core\emogrify($content);
         }
 
         return $this->replace_footer_placeholder_tags(

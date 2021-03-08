@@ -1,5 +1,21 @@
 ﻿== Changelog ==
 
+= 1.2.35.0 =
+* Added CleverReach integration.
+* Increased moosend email list number to 1k.
+* Switched to mailoptin handle for localization js script.
+* Do not set pageview cookie in lite or when mailoptin_enable_init_js_cookies filter is false.
+* Fixed: preg_replace_callback() Compilation failed: invalid range in character class at offset.
+* Removed code from Exception trigger in abstractConnect.
+
+= 1.2.34.4 =
+* Added missing integrations to Ninja Forms.
+* Fixed fatal error when integration not found in Ninja Forms.
+* Fixed issue causing post formatting in email campaign to be skewed.
+* Fixed fatal error caused by emogrify incompatibility with other plugins.
+* Fixed issue with oauth refresh failing.
+* Added timestamp to error logging.
+
 = 1.2.34.3 =
 * Change oauth integrations nonce key to prevent error in connecting integrations.
 * Fixed bug where images wasn’t included in automation emails.

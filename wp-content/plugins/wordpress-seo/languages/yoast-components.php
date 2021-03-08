@@ -74,6 +74,24 @@ $generated_i18n_strings = array(
 	// Reference: node_modules/@yoast/components/help-icon/HelpIcon.js:50
 	__( '(Opens in a new browser tab)', 'wordpress-seo' ),
 
+	// Reference: node_modules/@yoast/components/image-select/ImageSelectButtons.js:32
+	__( 'Replace image', 'wordpress-seo' ),
+
+	// Reference: node_modules/@yoast/components/image-select/ImageSelectButtons.js:33
+	__( 'Select image', 'wordpress-seo' ),
+
+	// Reference: node_modules/@yoast/components/image-select/ImageSelectButtons.js:42
+	__( 'Remove image', 'wordpress-seo' ),
+
+	// Reference: node_modules/@yoast/components/inputs/DurationInput.js:138
+	__( 'hours', 'wordpress-seo' ),
+
+	// Reference: node_modules/@yoast/components/inputs/DurationInput.js:152
+	__( 'minutes', 'wordpress-seo' ),
+
+	// Reference: node_modules/@yoast/components/inputs/DurationInput.js:167
+	__( 'seconds', 'wordpress-seo' ),
+
 	// Reference: node_modules/yoast-components/composites/LinkSuggestions/LinkSuggestion.js:65
 	__( 'Copy link', 'wordpress-seo' ),
 

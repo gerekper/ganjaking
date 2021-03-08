@@ -3,13 +3,7 @@
 Plugin Name: WP Sitemap Page
 Plugin URI: http://tonyarchambeau.com/
 Description: Add a sitemap on any page/post using the simple shortcode [wp_sitemap_page]
-<<<<<<< .mine
-Version: 1.6.2
-||||||| .r1142557
-Version: 1.5.4
-=======
-Version: 1.6.1
->>>>>>> .r2114646
+Version: 1.6.4
 Author: Tony Archambeau
 Author URI: http://tonyarchambeau.com/
 Text Domain: wp-sitemap-page
@@ -657,7 +651,7 @@ function wsp_return_content_type_page($is_title_displayed = true, $is_get_only_p
  * @param str $order
  * @return str $return
  */
-function wsp_return_content_type_post( $is_title_displayed=true, $display_nofollow=false, $display_post_only_once, $is_category_title_wording_displayed=true, 
+function wsp_return_content_type_post( $is_title_displayed=true, $display_nofollow=false, $display_post_only_once=true, $is_category_title_wording_displayed=true, 
 										$wsp_exclude_pages=array(), $sort_categories=null, $sort=null, $order=null ) {
 	
 	// init
@@ -872,7 +866,7 @@ function wsp_return_content_type_author( $is_title_displayed=true, $display_nofo
  * @param str $wsp_exclude_pages
  * @return str $return
  */
-function wsp_return_content_type_cpt_lists( $is_title_displayed=true, $display_nofollow=false, $wsp_exclude_pages ) {
+function wsp_return_content_type_cpt_lists( $is_title_displayed=true, $display_nofollow=false, $wsp_exclude_pages='' ) {
 	
 	// init
 	$return = '';
@@ -921,7 +915,7 @@ function wsp_return_content_type_cpt_lists( $is_title_displayed=true, $display_n
  * @param str $sort
  * @return str $return
  */
-function wsp_return_content_type_cpt_items( $is_title_displayed=true, $display_nofollow=false, $cpt, $post_type, $wsp_exclude_pages, $sort=null ) {
+function wsp_return_content_type_cpt_items( $is_title_displayed=true, $display_nofollow=false, $cpt='', $post_type='', $wsp_exclude_pages='', $sort=null ) {
 	
 	// init
 	$return = '';
@@ -981,7 +975,7 @@ function wsp_return_content_type_cpt_items( $is_title_displayed=true, $display_n
  * @param str $wsp_exclude_pages
  * @return str $return
  */
-function wsp_return_content_type_taxonomies_lists($is_title_displayed=true, $display_nofollow=false, $wsp_exclude_pages) {
+function wsp_return_content_type_taxonomies_lists($is_title_displayed=true, $display_nofollow=false, $wsp_exclude_pages='') {
 	
 	// init
 	$return = '';
@@ -1025,7 +1019,7 @@ function wsp_return_content_type_taxonomies_lists($is_title_displayed=true, $dis
  * @param str $wsp_exclude_pages
  * @return str $return
  */
-function wsp_return_content_type_taxonomy_items( $is_title_displayed=true, $display_nofollow=false, $taxonomy_obj, $wsp_exclude_taxonomy ) {
+function wsp_return_content_type_taxonomy_items( $is_title_displayed=true, $display_nofollow=false, $taxonomy_obj=null, $wsp_exclude_pages='' ) {
 	
 	// init
 	$return = '';

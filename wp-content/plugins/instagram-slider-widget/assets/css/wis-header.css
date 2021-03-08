@@ -54,14 +54,15 @@
 	border-radius: 50px !important;
 }
 
-.wis-feed-header:hover, .wis-feed-header:hover p
+.wis-header-info:hover p
 {
 	cursor: pointer;
 	text-decoration: none;
 	color: #ed1e24;
 }
 
-.wis-feed-header:hover .wis-header-neg
+.wis-header-img:hover .wis-header-neg
 {
 	opacity: 0.5;
+	cursor: pointer;
 }

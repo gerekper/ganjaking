@@ -9,34 +9,6 @@ use MailOptin\Core\PluginSettings\Connections;
 
 class AbstractZohoCampaignsConnect extends AbstractConnect
 {
-    /** @var \MailOptin\Core\PluginSettings\Connections */
-    protected $connections_settings;
-
-    protected $access_token;
-
-    protected $refresh_token;
-
-    protected $expires_at;
-
-    protected $location;
-
-    protected $accounts_server;
-
-    protected $api_domain;
-
-    public function __construct()
-    {
-        $this->connections_settings = Connections::instance();
-        $this->access_token         = $this->connections_settings->zohocampaigns_access_token();
-        $this->refresh_token        = $this->connections_settings->zohocampaigns_refresh_token();
-        $this->expires_at           = $this->connections_settings->zohocampaigns_expires_at();
-        $this->location             = $this->connections_settings->zohocampaigns_location();
-        $this->accounts_server      = $this->connections_settings->zohocampaigns_accounts_server();
-        $this->api_domain           = $this->connections_settings->zohocampaigns_api_domain();
-
-        parent::__construct();
-    }
-
     /**
      * Is Constant Contact successfully connected to?
      *
@@ -51,20 +23,19 @@ class AbstractZohoCampaignsConnect extends AbstractConnect
 
     public function parse_location($location)
     {
-        if ($location == 'us') {
-            $location = 'com';
-        }
-
-        if ($location == 'eu') {
-            $location = 'eu';
-        }
-
-        if ($location == 'au') {
-            $location = 'com.au';
-        }
-
-        if ($location == 'cn') {
-            $location = 'com.cn';
+        switch ($location) {
+            case 'us':
+                $location = 'com';
+                break;
+            case 'eu':
+                $location = 'eu';
+                break;
+            case 'au':
+                $location = 'com.au';
+                break;
+            case 'cn':
+                $location = 'com.cn';
+                break;
         }
 
         return $location;
@@ -79,7 +50,13 @@ class AbstractZohoCampaignsConnect extends AbstractConnect
      */
     public function zcInstance()
     {
-        $access_token = $this->access_token;
+        $connections_settings = Connections::instance(true);
+        $access_token         = $connections_settings->zohocampaigns_access_token();
+        $refresh_token        = $connections_settings->zohocampaigns_refresh_token();
+        $expires_at           = $connections_settings->zohocampaigns_expires_at();
+        $location             = $connections_settings->zohocampaigns_location();
+        $accounts_server      = $connections_settings->zohocampaigns_accounts_server();
+        $api_domain           = $connections_settings->zohocampaigns_api_domain();
 
         if (empty($access_token)) {
             throw new \Exception(__('Zoho Campaigns access token not found.', 'mailoptin'));
@@ -93,21 +70,21 @@ class AbstractZohoCampaignsConnect extends AbstractConnect
 
         $instance = new Zoho($config, null,
             new OAuthCredentialStorage([
-                'zoho.access_token'    => $this->access_token,
-                'zoho.refresh_token'   => $this->refresh_token,
-                'zoho.expires_at'      => $this->expires_at,
-                'zoho.location'        => $this->location,
-                'zoho.api_domain'      => $this->api_domain,
-                'zoho.accounts_server' => $this->accounts_server,
+                'zoho.access_token'    => $access_token,
+                'zoho.refresh_token'   => $refresh_token,
+                'zoho.expires_at'      => $expires_at,
+                'zoho.location'        => $location,
+                'zoho.api_domain'      => $api_domain,
+                'zoho.accounts_server' => $accounts_server,
             ]));
 
-        $instance->apiBaseUrl = sprintf('https://campaigns.zoho.%s/api/v1.1/', $this->parse_location($this->location));
+        $instance->apiBaseUrl = sprintf('https://campaigns.zoho.%s/api/v1.1/', $this->parse_location($location));
 
         if ($instance->hasAccessTokenExpired()) {
 
             try {
 
-                $result = $this->oauth_token_refresh('zohocampaigns', $this->refresh_token, ['location' => $this->location]);
+                $result = $this->oauth_token_refresh('zohocampaigns', $refresh_token, ['location' => $location]);
 
                 $option_name = MAILOPTIN_CONNECTIONS_DB_OPTION_NAME;
                 $old_data    = get_option($option_name, []);

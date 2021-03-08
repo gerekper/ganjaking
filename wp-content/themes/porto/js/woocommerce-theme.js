@@ -1478,6 +1478,25 @@
 						} else {
 							zoomConfig.borderSize = js_porto_vars.zoom_border;
 						}
+
+						if (!self.$elements.length) {
+							var $images_grid = $('.product-images-block');
+							if ($images_grid.length) {
+								$images_grid.find('img').each(function() {
+									var $this = $(this);
+									zoomConfig.zoomContainer = $this.parent();
+									if ($.fn.elevateZoom) {
+										$this.elevateZoom(zoomConfig);
+									} else {
+										setTimeout(function() {
+											if ($.fn.elevateZoom) {
+												$this.elevateZoom(zoomConfig);
+											}
+										}, 1000);
+									}
+								});
+							}
+						}
 					}
 
 					self.$elements.each(function() {
@@ -2111,7 +2130,7 @@
 								}
 							});
 
-							if (theme.product_image_popup && typeof links != 'undefined') {
+							if (theme.product_image_popup && Array.isArray(links) && links.length) {
 								links[0].src = o_href;
 								links[0].title = o_title;
 							}
@@ -2183,7 +2202,7 @@
 							$shop_single_image.attr( 'alt', variation_title );
 							$shop_single_image.attr( 'href', variation_link );
 							$shop_thumb_image.attr( 'src', variation_thumb );
-							if (theme.product_image_popup && typeof links != 'undefined') {
+							if (theme.product_image_popup && Array.isArray(links) && links.length) {
 								links[0].src = variation_link;
 								links[0].title = variation_title;
 							}
@@ -2193,7 +2212,7 @@
 							$shop_single_image.attr( 'alt', imagetitle );
 							$shop_single_image.attr( 'href', imagehref );
 							$shop_thumb_image.attr( 'src', thumbimage );
-							if (theme.product_image_popup && typeof links != 'undefined') {
+							if (theme.product_image_popup && Array.isArray(links) && links.length) {
 								links[0].src = imagehref;
 								links[0].title = imagetitle;
 							}
@@ -2511,7 +2530,7 @@
 					if (typeof $this.data('sort_id') == 'undefined') {
 						$form.find('input[name="orderby"]').val($form.find('input[name="original_orderby"]').val());
 					}
-					if ($form.find('input[name="category"]').val() && typeof $form.data('original_cat_id') == 'undefined') {
+					if (typeof $form.data('original_cat_id') == 'undefined') {
 						$form.data('original_cat_id', $form.find('input[name="category"]').val());
 					}
 					if ($this.data('cat_id')) {

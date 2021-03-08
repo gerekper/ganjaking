@@ -4,6 +4,9 @@
  * @var array $insta_widgets
  * @var array $demo_widgets
  */
+
+use Instagram\Includes\WIS_Plugin;
+
 ?>
 <div class="wis-widgets-container">
     <h2><?= __( 'Recommended widget templates', 'instagram-slider-widget' ); ?></h2>
@@ -64,7 +67,7 @@
     </style>
     <script>
         jQuery(document).ready(function ($) {
-            $('.widget:not([id*="jr_insta_slider"])').remove();
+            $('.widget:not([id*="jr_insta_slider"]) .widget:not([id*="wyotube_feed"])').remove();
             //$('[id*="jr_insta_slider"]').before($('#jr_insta_shortcode').val())
             $('.sidebar-name').find('button.handlediv').remove();
         });

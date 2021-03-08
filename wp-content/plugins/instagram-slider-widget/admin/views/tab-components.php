@@ -1,10 +1,11 @@
 <?php
 
-/*use WBCR\Titan\Plugin;*/
-
 /**
  * @var array $components
  */
+
+use Instagram\Includes\WIS_Plugin;
+
 ?>
 <div class="wbcr-factory-page-group-header"><?php
 
@@ -53,7 +54,7 @@
                         <a target="_blank" href="<?php echo esc_url($component['url']) ?>"
                            class="button button-default read-more"><?php _e('Read more', 'instagram-slider-widget'); ?></a>
                     <?php else: ?>
-                        <?php WIS_Plugin::app()->get_install_component_button('wordpress', $component['slug'])->render_button(); ?>
+                        <?php  WIS_Plugin::app()->get_install_component_button('wordpress', $component['slug'])->render_button(); ?>
                     <?php endif; ?>
                 <?php endif; ?>
             </div>

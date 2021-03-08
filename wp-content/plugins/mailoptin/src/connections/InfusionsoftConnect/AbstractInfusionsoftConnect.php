@@ -9,24 +9,6 @@ use MailOptin\Core\PluginSettings\Connections;
 
 class AbstractInfusionsoftConnect extends AbstractConnect
 {
-    /** @var \MailOptin\Core\PluginSettings\Connections */
-    protected $connections_settings;
-
-    protected $access_token;
-
-    protected $refresh_token;
-
-    protected $expires_at;
-
-    public function __construct()
-    {
-        $this->connections_settings = Connections::instance();
-        $this->access_token         = $this->connections_settings->infusionsoft_access_token();
-        $this->refresh_token        = $this->connections_settings->infusionsoft_refresh_token();
-        $this->expires_at           = $this->connections_settings->infusionsoft_expires_at();
-        parent::__construct();
-    }
-
     /**
      * Is infusionsoft successfully connected to?
      *
@@ -48,7 +30,10 @@ class AbstractInfusionsoftConnect extends AbstractConnect
      */
     public function infusionsoftInstance()
     {
-        $access_token = $this->access_token;
+        $connections_settings = Connections::instance(true);
+        $access_token         = $connections_settings->infusionsoft_access_token();
+        $refresh_token        = $connections_settings->infusionsoft_refresh_token();
+        $expires_at           = $connections_settings->infusionsoft_expires_at();
 
         if (empty($access_token)) {
             throw new \Exception(__('Infusionsoft access token not found.', 'mailoptin'));
@@ -62,15 +47,15 @@ class AbstractInfusionsoftConnect extends AbstractConnect
         $instance = new Infusionsoft($config, null,
             new OAuthCredentialStorage([
                 'infusionsoft.access_token'  => $access_token,
-                'infusionsoft.refresh_token' => $this->refresh_token,
-                'infusionsoft.expires_at'    => $this->expires_at,
+                'infusionsoft.refresh_token' => $refresh_token,
+                'infusionsoft.expires_at'    => $expires_at,
             ]));
 
         if ($instance->hasAccessTokenExpired()) {
 
             try {
 
-                $result   = $this->oauth_token_refresh('infusionsoft', $this->refresh_token);
+                $result   = $this->oauth_token_refresh('infusionsoft', $refresh_token);
 
                 $option_name = MAILOPTIN_CONNECTIONS_DB_OPTION_NAME;
                 $old_data    = get_option($option_name, []);

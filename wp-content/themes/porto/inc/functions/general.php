@@ -824,7 +824,7 @@ if ( ! function_exists( 'porto_is_vc_preview' ) ) :
 		if ( ! defined( 'VCV_VERSION' ) || ! current_user_can( 'edit_posts' ) ) {
 			return false;
 		}
-		if ( isset( $_REQUEST['vcv-action'] ) && 'frontend' == $_REQUEST['vcv-action'] && isset( $_REQUEST['vcv-source-id'] ) ) {
+		if ( ( is_admin() && isset( $_REQUEST['vcv-action'] ) && 'frontend' == $_REQUEST['vcv-action'] && isset( $_REQUEST['vcv-source-id'] ) ) || ( ! is_admin() && isset( $_REQUEST['vcv-source-id'] ) ) ) {
 			return true;
 		}
 		return false;
@@ -854,12 +854,13 @@ if ( ! function_exists( 'porto_output_tagged_content' ) ) :
 		if ( ! $content ) {
 			return '';
 		}
+		add_filter( 'wp_kses_allowed_html', 'porto_custom_wpkses_post_tags', 10, 2 );
+		$content = wp_kses_post( $content );
+		remove_filter( 'wp_kses_allowed_html', 'porto_custom_wpkses_post_tags', 10, 2 );
 		if ( ! defined( 'ELEMENTOR_VERSION' ) ) {
-			return apply_filters( 'the_content', wp_kses_post( $content ) );
+			return apply_filters( 'the_content', $content );
 		} else {
-			add_filter( 'wp_kses_allowed_html', 'porto_custom_wpkses_post_tags', 10, 2 );
-			$content = do_shortcode( wp_kses_post( $content ) );
-			remove_filter( 'wp_kses_allowed_html', 'porto_custom_wpkses_post_tags', 10, 2 );
+			$content = do_shortcode( $content );
 			return function_exists( 'porto_shortcode_format_content' ) ? porto_shortcode_format_content( $content ) : $content;
 		}
 	}

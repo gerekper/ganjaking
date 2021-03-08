@@ -94,10 +94,12 @@ class MoosendConnect extends \NF_Abstracts_ActionNewsletter
             'label' => sprintf(esc_html__('Email %srequired%s', 'mailoptin'), '<small style="color:red">(', ')</small>'),
         ];
 
-        $nf_fields[] = [
-            'value' => 'moName',
-            'label' => esc_html__('Full Name', 'mailoptin')
-        ];
+        if ( ! in_array($this->connection, Init::no_name_mapping_connections())) {
+            $nf_fields[] = [
+                'value' => 'moName',
+                'label' => esc_html__('Full Name', 'mailoptin')
+            ];
+        }
 
         $instance = $this->connection_instance();
 

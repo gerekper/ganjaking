@@ -22,6 +22,11 @@ abstract class Repository {
   /** @var DoctrineEntityRepository */
   protected $doctrineRepository;
 
+  /** @var string[] */
+  protected $ignoreColumnsForUpdate = [
+    'created_at',
+  ];
+
   public function __construct(EntityManager $entityManager) {
     $this->entityManager = $entityManager;
     $this->classMetadata = $entityManager->getClassMetadata($this->getEntityClassName());
@@ -75,8 +80,7 @@ abstract class Repository {
   }
 
   public function truncate() {
-    $cmd = $this->entityManager->getClassMetadata($this->getEntityClassName());
-    $tableName = $cmd->getTableName();
+    $tableName = $this->classMetadata->getTableName();
     $connection = $this->entityManager->getConnection();
     $connection->query('SET FOREIGN_KEY_CHECKS=0');
     $q = "TRUNCATE $tableName";

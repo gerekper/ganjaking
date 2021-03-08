@@ -120,7 +120,7 @@ $porto_woo_version = porto_get_woo_version_number();
 							</div>
 						<?php } ?>
 						<div class="cart-actions pt-right">
-							<button type="submit" class="btn btn-default btn-lg" name="update_cart" value="<?php esc_attr_e( 'Update Cart', 'porto' ); ?>"><?php esc_html_e( 'Update Cart', 'porto' ); ?></button>
+							<button type="submit" class="btn btn-default btn-lg" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
 							<?php do_action( 'woocommerce_cart_actions' ); ?>
 						</div>
 						<?php wp_nonce_field( 'woocommerce-cart' ); ?>

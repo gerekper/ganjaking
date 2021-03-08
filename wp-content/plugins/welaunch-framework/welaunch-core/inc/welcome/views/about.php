@@ -49,6 +49,12 @@ defined( 'ABSPATH' ) || exit;
 							License: <?php echo $license ?>
 						</small>
 					</p>
+					<form action="<?php echo esc_url($_SERVER['REQUEST_URI']) ?>" method="POST" style="margin-bottom: 50px;">
+						<input type="hidden" name="action" value="welaunch_remove_license">
+						<input type="hidden" name="item" value="<?php echo $itemName ?>">
+						<input type="submit" value="Remove License" class="btn button">
+					</form>
+					
 				</div>
 
 				<?php

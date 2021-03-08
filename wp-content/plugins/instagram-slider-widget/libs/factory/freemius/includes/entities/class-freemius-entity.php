@@ -1,6 +1,6 @@
 <?php
 
-namespace WBCR\Factory_Freemius_130\Entities;
+namespace WBCR\Factory_Freemius_133\Entities;
 
 use stdClass;
 

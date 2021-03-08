@@ -20,7 +20,7 @@
     clear: both;
 
     a:not(.btn) {
-        transition: all .1s ease-in-out;
+        transition: .1s ease-in-out;
         &:hover {
             text-decoration: none;
         }
