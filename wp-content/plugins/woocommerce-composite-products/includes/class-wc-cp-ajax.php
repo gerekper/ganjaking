@@ -87,10 +87,11 @@ class WC_CP_AJAX {
 		$component_scenario_data   = $product->get_current_scenario_data( array( $component_id ) );
 
 		wp_send_json( array(
-			'result'          => 'success',
-			'options_data'    => $component_options_data,
-			'scenario_data'   => $component_scenario_data[ 'scenario_data' ][ $component_id ],
-			'pagination_data' => $component_pagination_data
+			'result'                   => 'success',
+			'options_data'             => $component_options_data,
+			'scenario_data'            => $component_scenario_data[ 'scenario_data' ][ $component_id ],
+			'conditional_options_data' => $component_scenario_data[ 'conditional_options_data' ][ $component_id ],
+			'pagination_data'          => $component_pagination_data
 		) );
 	}
 

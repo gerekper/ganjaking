@@ -3,7 +3,7 @@
  * WooCommerce Store Credit Admin Menu.
  *
  * @package WC_Store_Credit/Admin
- * @since   {version}
+ * @since   3.5.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -18,7 +18,7 @@ class WC_Store_Credit_Admin_Menu {
 	/**
 	 * Init.
 	 *
-	 * @since {version}
+	 * @since 3.5.0
 	 */
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'register_menu' ), 15 );
@@ -28,7 +28,7 @@ class WC_Store_Credit_Admin_Menu {
 	/**
 	 * Registers the WordPress menu items.
 	 *
-	 * @since {version}
+	 * @since 3.5.0
 	 */
 	public static function register_menu() {
 		$send_credit_page = add_submenu_page(
@@ -57,7 +57,7 @@ class WC_Store_Credit_Admin_Menu {
 	/**
 	 * Registers the navigation items in the WC Navigation Menu.
 	 *
-	 * @since {version}
+	 * @since 3.5.0
 	 */
 	public static function register_nav_items() {
 		if ( ! class_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Menu' ) ) {

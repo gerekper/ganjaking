@@ -59,5 +59,4 @@ class GF_Installation_Wizard_Step_License_Key extends GF_Installation_Wizard_Ste
 	function get_previous_button_text() {
 		return '';
 	}
-
 }

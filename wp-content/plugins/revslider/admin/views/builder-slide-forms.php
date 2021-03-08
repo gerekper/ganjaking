@@ -159,7 +159,7 @@ if ($wpml->wpml_exists()) {
 										<div class="triggerselect slide_bg_position_selector bg_alignselector" data-select="#slide_bg_position" data-val="center bottom" id="slide_bg_position_center-bottom"></div>
 										<div class="triggerselect slide_bg_position_selector bg_alignselector" data-select="#slide_bg_position" data-val="right bottom" id="slide_bg_position_right-bottom"></div>
 									</div>
-									<div class="bg_align_xy">
+									<div class="bg_align_xy slide_bg_fit slide_bg_fit_percentage slide_bg_fit_auto">
 										<div class="triggerselect slide_bg_position_selector bg_alignselector" data-select="#slide_bg_position" data-val="percentage" id="slide_bg_position_percentage"></div>
 										<xy_label><?php _e('X% Y%', 'revslider');?></xy_label>
 									</div>
@@ -208,20 +208,8 @@ if ($wpml->wpml_exists()) {
 					<!-- YOUTUBE / VIMEO HTML5 SETTINGS-->
 					<div class="slidebg_youtube_settings slidebg_vimeo_settings slidebg_html5_settings slide_bg_settings">
 						<div class="div10"></div>
-						<label_a><?php _e('Aspect Ratio', 'revslider');?></label_a><select data-theme="dark" id="slide_vid_aratio" class="slideinput tos2 nosearchbox easyinit"  data-r="bg.video.ratio"><option value="16:9">16:9</option><option value="4:3">4:3</option></select><span class="linebreak"></span>
-						<div id="slide_dotted_overlay">							
-							<!-- SLIDE VIDEO OVERLAY -->
-							<label_a><?php _e('Overlay', 'revslider');?></label_a><select data-evt="updateslidebasic" id="sl_vid_overlay" class="dottedoverlay slideinput tos2 nosearchbox easyinit callEvent" data-r="bg.video.dottedOverlay"></select>
-							<label_a><?php _e('Overlay Size', 'revslider');?></label_a><input data-numeric="true" data-allowed="none" data-min="0"  data-r="bg.video.dottedOverlaySize" data-evt="drawBGOverlay"  type="text"  class="slideinput valueduekeyboard  easyinit callEvent" placeholder="none" >
-							<label_a><?php _e('O. Color 1', 'revslider');?></label_a><input type="text" data-editing="Video Overlay Color 1" data-evt="updateslidebasic" name="slidebgoverlaycolor_a" id="slideoverlaybgcolor_a" class="my-color-field slideinput easyinit" data-visible="true" data-r="bg.video.dottedColorA" value="transparent">
-							<label_a><?php _e('O. Color 2', 'revslider');?></label_a><input type="text" data-editing="Video Overlay Color 2" data-evt="updateslidebasic" name="slidebgoverlaycolor_b" id="slideoverlaybgcolor_b" class="my-color-field slideinput easyinit" data-visible="true" data-r="bg.video.dottedColorB" value="transparent">
-						</div>
-						<!--<label_a><?php _e('Loop Mode', 'revslider');?></label_a><select data-theme="dark" id="slide_vid_loop" class="slideinput tos2 nosearchbox easyinit"  data-r="bg.video.loop">
-							<option value="none"><?php _e('Disable', 'revslider');?></option>
-							<option value="loop"><?php _e('Slider Timer paused', 'revslider');?></option>
-							<option value="loopandnoslidestop"><?php _e('Slider Timer keep going', 'revslider');?></option>
-						</select><span class="linebreak"></span>-->						
-						<longoption><i class="material-icons">open_with</i><label_a><?php _e('Force Cover Mode', 'revslider');?></label_a><input type="checkbox"  id="sl_vid_force_cover" class="slideinput easyinit" data-r="bg.video.forceCover" data-showhide="#slide_dotted_overlay" data-showhidedep="true"/></longoption>
+						<label_a><?php _e('Aspect Ratio', 'revslider');?></label_a><select data-theme="dark" id="slide_vid_aratio" class="slideinput tos2 nosearchbox easyinit"  data-r="bg.video.ratio"><option value="16:9">16:9</option><option value="4:3">4:3</option></select><span class="linebreak"></span>									
+						<longoption><i class="material-icons">aspect_ratio</i><label_a><?php _e('Video Fit Cover', 'revslider');?></label_a><input type="checkbox"  id="sl_vid_fit_cover" class="slideinput easyinit" data-r="bg.video.fitCover"/></longoption>						
 						<longoption><i class="material-icons">pause</i><label_a ><?php _e('Pause Timer during Play', 'revslider');?></label_a><input type="checkbox" class="easyinit slideinput" data-r="bg.video.pausetimer"></longoption>
 						<longoption><i class="material-icons">loop</i><label_a ><?php _e('Loop Media', 'revslider');?></label_a><input type="checkbox" class="easyinit slideinput" id="sl_vid_loop_me" data-change="sl_vid_nextslide" data-changeto="false" data-changewhennot="false" data-r="bg.video.loop"></longoption>										
 						<longoption><i class="material-icons">query_builder</i><label_a><?php _e('Start after Slide Transition', 'revslider');?></label_a><input type="checkbox"  id="sl_vid_after_slide_trans" class="slideinput easyinit" data-r="bg.video.startAfterTransition"/></longoption>
@@ -241,7 +229,15 @@ if ($wpml->wpml_exists()) {
 					<div class="div15"></div>
 					<div class="slidebg_youtube_settings slide_bg_settings"><label_a><?php _e('Arguments', 'revslider');?></label_a><input id="slide_vid_argsyt" class="slideinput easyinit" type="text" data-r="bg.video.args"><span class="linebreak"></span></div>
 					<div class="slidebg_vimeo_settings slide_bg_settings"><label_a><?php _e('Arguments', 'revslider');?></label_a><input id="slide_vid_argvim" class="slideinput easyinit" type="text" data-r="bg.video.argsVimeo"><span class="linebreak"></span></div>
-
+					<div class="div15"></div>
+					<div class="slidebg_youtube_settings slidebg_vimeo_settings slidebg_html5_settings slide_bg_settings">
+						<div class="form_inner_header" stlye="margin: 0px -20px 25px;"><i class="material-icons">chrome_reader_mode</i><span id="selected_slide_source"></span><?php _e('Overlay', 'revslider');?></div>
+						<!-- SLIDE VIDEO OVERLAY -->
+						<label_a><?php _e('Overlay', 'revslider');?></label_a><select data-evt="updateslidebasic" id="sl_vid_overlay" class="dottedoverlay slideinput tos2 nosearchbox easyinit callEvent" data-r="bg.video.dottedOverlay"></select>
+						<label_a><?php _e('Overlay Size', 'revslider');?></label_a><input data-numeric="true" data-allowed="none" data-min="0"  data-r="bg.video.dottedOverlaySize" data-evt="drawBGOverlay"  type="text"  class="slideinput valueduekeyboard  easyinit callEvent" placeholder="none" >
+						<label_a><?php _e('O. Color 1', 'revslider');?></label_a><input type="text" data-editing="Video Overlay Color 1" data-evt="updateslidebasic" name="slidebgoverlaycolor_a" id="slideoverlaybgcolor_a" class="my-color-field slideinput easyinit" data-visible="true" data-r="bg.video.dottedColorA" value="transparent">
+						<label_a><?php _e('O. Color 2', 'revslider');?></label_a><input type="text" data-editing="Video Overlay Color 2" data-evt="updateslidebasic" name="slidebgoverlaycolor_b" id="slideoverlaybgcolor_b" class="my-color-field slideinput easyinit" data-visible="true" data-r="bg.video.dottedColorB" value="transparent">
+					</div>
 				</div>
 			</div><!-- END OF SOURCE SETTINGS -->			
 		</div>

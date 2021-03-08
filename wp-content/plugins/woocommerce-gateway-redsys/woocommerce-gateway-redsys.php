@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
  * Plugin URI: https://woocommerce.com/products/redsys-gateway/
  * Description: Extends WooCommerce with RedSys gateway.
- * Version: 14.0.3
+ * Version: 15.0.2
  * Author: José Conti
  * Author URI: https://www.joseconti.com/
  * Tested up to: 5.6
  * WC requires at least: 3.0
- * WC tested up to: 4.9
+ * WC tested up to: 5.1
  * Woo: 187871:50392593e834002d8bee386333d1ed3c
  * Text Domain: woocommerce-redsys
  * Domain Path: /languages/
@@ -18,7 +18,7 @@
  */
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '14.0.3' );
+	define( 'REDSYS_VERSION', '15.0.2' );
 }
 
 if ( ! defined( 'REDSYS_PLUGIN_URL_P' ) ) {
@@ -34,7 +34,7 @@ if ( ! defined( 'REDSYS_CHECK_WOO_CONNECTION' ) ) {
 }
 
 if ( ! defined( 'REDSYS_POST_UPDATE_URL_P' ) ) {
-	define( 'REDSYS_POST_UPDATE_URL_P', 'https://redsys.joseconti.com/2021/01/14/woocommerce-redsys-gateway-14-0-x/' );
+	define( 'REDSYS_POST_UPDATE_URL_P', 'https://redsys.joseconti.com/2021/02/23/woocommerce-redsys-gateway-15-0-x/' );
 }
 
 if ( ! defined( 'REDSYS_POST_PSD2_URL' ) ) {
@@ -515,9 +515,12 @@ function woocommerce_gateway_redsys_premium_init() {
 			// Ajax carga deposits.
 			add_action( 'wp_ajax_redsys_charge_depo_action', array( 'WC_Gateway_redsys', 'redsys_charge_depo_js_callback' ) );
 		}
-		// $redsys_class_insite = new WC_Gateway_InSite_Redsys();!
+		// $redsys_class_insite = new WC_Gateway_InSite_Redsys();! Borrar?.
 		add_action( 'wp_ajax_check_token_insite_from_action', array( 'WC_Gateway_InSite_Redsys', 'check_token_insite_from_action' ) );
 		add_action( 'wp_ajax_nopriv_check_token_insite_from_action', array( 'WC_Gateway_InSite_Redsys', 'check_token_insite_from_action' ) );
+		// Conservar.
+		add_action( 'wp_ajax_check_token_insite_from_action_checkout', array( 'WC_Gateway_InSite_Redsys', 'check_token_insite_from_action_checkout' ) );
+		add_action( 'wp_ajax_nopriv_check_token_insite_from_action_checkout', array( 'WC_Gateway_InSite_Redsys', 'check_token_insite_from_action_checkout' ) );
 	}
 	add_action( 'admin_init', 'redsys_add_actions' );
 	add_filter( 'bulk_actions-edit-shop_order', array( 'WC_Gateway_Preauthorizations_Redsys', 'preauthorizationsredsys_add_bulk_actions' ) );
@@ -640,24 +643,9 @@ function woocommerce_gateway_redsys_premium_init() {
 				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
 			}
 		} elseif ( $chosen_payment_method === 'insite' ) {
-			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'insite' );
-			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'insite' );
-
-			if ( ! empty( $textb ) ) {
-				$textb = 'background-color:' . $textb . ';';
-			} else {
-				$textb = '';
-			}
-			if ( ! empty( $text ) ) {
-				$text = 'color:' . $text . ';';
-			} else {
-				$text = '';
-			}
-
-			if ( $textb !== '' || $text !== '' ) {
-				$cssbutton = 'style="' . $textb . '' . $text . '" ';
-				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
-			}
+			$cssbutton = 'style="' . $textb . '' . $text . '" ';
+			$cssbutton = 'style="display:none; visibility: hidden;" ';
+			$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
 		} elseif ( $chosen_payment_method === 'preauthorizationsredsys' ) {
 			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'preauthorizationsredsys' );
 			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'preauthorizationsredsys' );
@@ -753,25 +741,31 @@ function woocommerce_gateway_redsys_premium_init() {
 				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
 			}
 		}
-		?>
-		<script type="text/javascript">
-			(function($){
+		return $html;
+	}
+	add_filter( 'woocommerce_order_button_html', 'redsys_color_button_text' );
+	function redsys_refresh_checkout_on_payment_methods_change(){
+	    ?>
+	    <script type="text/javascript">
+	        (function($){
 				$('form.checkout').on( 'change', 'input[name^="payment_method"]', function() {
-					var t = { updateTimer: !1,  dirtyInput: !1,
+						var t = { updateTimer: !1,  dirtyInput: !1,
 						reset_update_checkout_timer: function() {
 							clearTimeout(t.updateTimer)
 						},  trigger_update_checkout: function() {
-								t.reset_update_checkout_timer(), t.dirtyInput = !1,
+							t.reset_update_checkout_timer(), t.dirtyInput = !1,
 								$(document.body).trigger("update_checkout")
 							}
 						};
 						t.trigger_update_checkout();
 					});
-				}
-			)(jQuery);
-		</script>
-		<?php
-		return $html;
+			} )(jQuery);
+			jQuery( document.body ).on( 'checkout_error', function() {
+			    setTimeout(location.reload.bind(location), 4000);
+			} );
+			
+	    </script>
+	    <?php
 	}
-	add_filter( 'woocommerce_order_button_html', 'redsys_color_button_text' );
+	add_action( 'woocommerce_review_order_after_payment', 'redsys_refresh_checkout_on_payment_methods_change' );
 }

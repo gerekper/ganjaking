@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Product Class.
  *
  * @class    WC_Product_Composite
- * @version  7.1.4
+ * @version  8.0.0
  */
 class WC_Product_Composite extends WC_Product {
 
@@ -96,7 +96,7 @@ class WC_Product_Composite extends WC_Product {
 	 *
 	 * @param  mixed $composite
 	 */
-	public function __construct( $composite ) {
+	public function __construct( $composite = 0 ) {
 
 		// Initialize private properties.
 		$this->load_defaults();
@@ -234,6 +234,11 @@ class WC_Product_Composite extends WC_Product {
 	 * @return bool
 	 */
 	private function sync_raw_prices() {
+
+		// Don't do anything here while syncing.
+		if ( doing_action( 'wp_ajax_woocommerce_do_ajax_product_import' ) ) {
+			return false;
+		}
 
 		// Initialize min/max raw prices.
 		$min_raw_price = $max_raw_price = $this->get_price( 'sync' );
@@ -1113,12 +1118,7 @@ class WC_Product_Composite extends WC_Product {
 		$components = $this->get_components();
 
 		if ( empty( $components ) ) {
-
-			if ( 'rest' === $context ) {
-				return array();
-			} else {
-				return false;
-			}
+			return array();
 		}
 
 		$composite_data = array();
@@ -1203,21 +1203,89 @@ class WC_Product_Composite extends WC_Product {
 
 					if ( ! empty( $data[ 'component_data' ] ) && is_array( $data[ 'component_data' ] ) ) {
 						foreach ( $data[ 'component_data' ] as $component_id => $component_data ) {
-							$configuration[] = array(
+
+							if ( ! isset( $data[ 'modifier' ][ $component_id ] ) ) {
+								continue;
+							}
+
+							if ( 'masked' === $data[ 'modifier' ][ $component_id ] ) {
+								continue;
+							}
+
+							$modifier = isset( $data[ 'modifier' ][ $component_id ] ) ? $data[ 'modifier' ][ $component_id ] : 'in';
+
+							if ( 'in' === $modifier && array_map( 'intval', $component_data ) === array( 0 ) ) {
+								$modifier = 'any';
+							}
+
+							$component_configuration = array(
 								'component_id'      => strval( $component_id ),
-								'component_options' => $component_data,
-								'options_modifier'  => isset( $data[ 'modifier' ][ $component_id ] ) ? $data[ 'modifier' ][ $component_id ] : 'in'
+								'options_modifier'  => $modifier
 							);
+
+							if ( 'any' !== $modifier ) {
+								$component_configuration[ 'component_options' ] = array_map( 'intval', $component_data );
+							}
+
+							$configuration[] = $component_configuration;
 						}
 					}
 
 					if ( ! empty( $data[ 'scenario_actions' ] ) && is_array( $data[ 'scenario_actions' ] ) ) {
 						foreach ( $data[ 'scenario_actions' ] as $action_id => $action_data ) {
-							$actions[] = array(
-								'action_id'   => strval( $action_id ),
-								'is_active'   => isset( $action_data[ 'is_active' ] ) && 'yes' === $action_data[ 'is_active' ],
-								'action_data' => array_diff_key( $action_data, array( 'is_active' => 1 ) )
-							);
+
+							if ( 'compat_group' === $action_id ) {
+
+								$actions[] = array(
+									'action_id'   => strval( $action_id ),
+									'is_active'   => isset( $action_data[ 'is_active' ] ) && 'yes' === $action_data[ 'is_active' ]
+								);
+
+							} elseif ( 'conditional_components' === $action_id ) {
+
+								$actions[] = array(
+									'action_id'         => strval( $action_id ),
+									'is_active'         => isset( $action_data[ 'is_active' ] ) && 'yes' === $action_data[ 'is_active' ],
+									'hidden_components' => ! empty( $action_data[ 'hidden_components' ] ) ? array_map( 'strval', $action_data[ 'hidden_components' ] ) : array()
+								);
+
+							} elseif ( 'conditional_options' === $action_id ) {
+
+								$action_configuration = array();
+
+								if ( ! empty( $action_data[ 'component_data' ] ) && is_array( $data[ 'component_data' ] ) ) {
+
+									foreach ( $action_data[ 'component_data' ] as $component_id => $component_data ) {
+
+										if ( ! isset( $action_data[ 'modifier' ][ $component_id ] ) ) {
+											continue;
+										}
+
+										if ( 'masked' === $action_data[ 'modifier' ][ $component_id ] ) {
+											continue;
+										}
+
+										$action_configuration[] = array(
+											'component_id'      => strval( $component_id ),
+											'component_options' => array_map( 'intval', $component_data ),
+											'options_modifier'  => isset( $action_data[ 'modifier' ][ $component_id ] ) ? $action_data[ 'modifier' ][ $component_id ] : 'in'
+										);
+									}
+								}
+
+								$actions[] = array(
+									'action_id'      => strval( $action_id ),
+									'is_active'      => isset( $action_data[ 'is_active' ] ) && 'yes' === $action_data[ 'is_active' ],
+									'hidden_options' => $action_configuration
+								);
+
+							} else {
+								$actions[] = array(
+									'action_id'   => strval( $action_id ),
+									'is_active'   => isset( $action_data[ 'is_active' ] ) && 'yes' === $action_data[ 'is_active' ],
+									'action_data' => array_diff_key( $action_data, array( 'is_active' => 1 ) )
+								);
+							}
 						}
 					}
 
@@ -1227,7 +1295,7 @@ class WC_Product_Composite extends WC_Product {
 						'description'   => esc_html( $data[ 'description' ] ),
 						'configuration' => $configuration,
 						'actions'       => $actions,
-						'enabled'       => ! isset( $data[ 'enabled' ] ) || 'no' === $data[ 'enabled' ] ? false : true
+						'enabled'       => isset( $data[ 'enabled' ] ) && 'no' === $data[ 'enabled' ] ? false : true
 					);
 				}
 			}
@@ -1468,6 +1536,7 @@ class WC_Product_Composite extends WC_Product {
 		$data = $this->get_scenario_data( 'edit' );
 
 		$components             = $this->get_components();
+		$component_ids          = array_keys( $components );
 		$component_options      = array();
 		$component_options_data = array();
 
@@ -1484,38 +1553,87 @@ class WC_Product_Composite extends WC_Product {
 					$data[ $scenario_id ][ 'component_data' ] = array();
 				}
 
-				if ( empty( $scenario_data[ 'scenario_actions' ] ) ) {
-					$data[ $scenario_id ][ 'scenario_actions' ] = array();
+				if ( empty( $scenario_data[ 'modifier' ] ) ) {
+					$data[ $scenario_id ][ 'modifier' ] = array();
 				}
 
-				if ( empty( $data[ $scenario_id ][ 'scenario_actions' ][ 'compat_group' ] ) ) {
-					$data[ $scenario_id ][ 'scenario_actions' ][ 'compat_group' ] = array();
-				}
+				if ( empty( $scenario_data[ 'scenario_actions' ] ) || ! is_array( $scenario_data[ 'scenario_actions' ] ) ) {
+					$data[ $scenario_id ][ 'scenario_actions' ] = array(
+						'compat_group' => array(
+							'is_active' => 'yes'
+						)
+					);
 
-				if ( empty( $data[ $scenario_id ][ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] ) || 'yes' !== $data[ $scenario_id ][ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] ) {
-					$data[ $scenario_id ][ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] = 'no';
-				}
+				} else {
 
-				if ( empty( $data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ] ) ) {
-					$data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ] = array();
-				}
+					if ( empty( $scenario_data[ 'scenario_actions' ][ 'compat_group' ] ) ) {
+						$data[ $scenario_id ][ 'scenario_actions' ][ 'compat_group' ] = array(
+							'is_active' => 'no'
+						);
+					} elseif ( empty( $scenario_data[ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] ) || 'yes' !== $scenario_data[ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] ) {
+						$data[ $scenario_id ][ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] = 'no';
+					}
 
-				if ( empty( $data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'is_active' ] ) || 'yes' !== $data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'is_active' ] ) {
-					$data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'is_active' ] = 'no';
+					if ( empty( $scenario_data[ 'scenario_actions' ][ 'conditional_components' ] ) ) {
+						$data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ] = array(
+							'is_active'         => 'no',
+							'hidden_components' => array()
+						);
+					} elseif ( empty( $scenario_data[ 'scenario_actions' ][ 'conditional_components' ][ 'is_active' ] ) || 'yes' !== $scenario_data[ 'scenario_actions' ][ 'conditional_components' ][ 'is_active' ] ) {
+						$data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'is_active' ] = 'no';
+					}
+
+					if ( empty( $data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'hidden_components' ] ) || ! is_array( $data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'hidden_components' ] ) ) {
+						$data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'hidden_components' ] = array();
+					}
+
+					if ( empty( $scenario_data[ 'scenario_actions' ][ 'conditional_options' ] ) ) {
+						$data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ] = array(
+							'is_active'      => 'no',
+							'modifier'       => array(),
+							'component_data' => array()
+						);
+					} elseif ( empty( $scenario_data[ 'scenario_actions' ][ 'conditional_options' ][ 'is_active' ] ) || 'yes' !== $scenario_data[ 'scenario_actions' ][ 'conditional_options' ][ 'is_active' ] ) {
+						$data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'is_active' ] = 'no';
+					}
+
+					if ( empty( $data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ] ) || ! is_array( $data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ] ) ) {
+						$data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ] = array();
+					}
+
+					if ( empty( $data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'modifier' ] ) || ! is_array( $data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'modifier' ] ) ) {
+						$data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'modifier' ] = array();
+					}
 				}
 
 				/*
-				 * Validate scenario configuration.
+				 * Clean up deleted data.
+				 */
+
+				$data[ $scenario_id ][ 'modifier' ]       = array_intersect_key( $scenario_data[ 'modifier' ], $components );
+				$data[ $scenario_id ][ 'component_data' ] = array_intersect_key( $scenario_data[ 'component_data' ], $components );
+
+				$data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'hidden_components' ] = array_intersect( $data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'hidden_components' ], $component_ids );
+				$data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ]       = array_intersect_key( $data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ], $components );
+				$data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'modifier' ]             = array_intersect_key( $data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'modifier' ], $components );
+
+				/*
+				 * Validate configuration.
 				 */
 
 				$all_masked = true;
 
 				foreach ( $components as $component_id => $component ) {
 
-					if ( empty( $scenario_data[ 'modifier' ][ $component_id ] ) ) {
-						if ( empty( $scenario_data[ 'component_data' ][ $component_id ] ) ) {
-							$data[ $scenario_id ][ 'modifier' ][ $component_id ] = 'masked';
-						} else {
+					if ( ! isset( $data[ $scenario_id ][ 'component_data' ][ $component_id ] ) && ! isset( $data[ $scenario_id ][ 'modifier' ][ $component_id ] ) ) {
+						$data[ $scenario_id ][ 'modifier' ][ $component_id ] = 'masked';
+					}
+
+					if ( empty( $data[ $scenario_id ][ 'modifier' ][ $component_id ] ) ) {
+
+						$data[ $scenario_id ][ 'modifier' ][ $component_id ] = 'masked';
+
+						if ( ! empty( $data[ $scenario_id ][ 'component_data' ][ $component_id ] ) ) {
 							$data[ $scenario_id ][ 'modifier' ][ $component_id ] = 'in';
 						}
 					}
@@ -1525,7 +1643,7 @@ class WC_Product_Composite extends WC_Product {
 					}
 
 					if ( 'not-in' === $data[ $scenario_id ][ 'modifier' ][ $component_id ] ) {
-						if ( empty( $scenario_data[ 'component_data' ][ $component_id ] ) || WC_CP_Helpers::in_array_key( $data[ $scenario_id ][ 'component_data' ], $component_id, 0 ) ) {
+						if ( WC_CP_Helpers::in_array_key( $data[ $scenario_id ][ 'component_data' ], $component_id, 0 ) ) {
 							$data[ $scenario_id ][ 'modifier' ][ $component_id ] = 'in';
 						}
 					}
@@ -1534,7 +1652,7 @@ class WC_Product_Composite extends WC_Product {
 						$all_masked = false;
 					}
 
-					if ( empty( $scenario_data[ 'component_data' ] ) || WC_CP_Helpers::in_array_key( $scenario_data[ 'component_data' ], $component_id, 0 ) ) {
+					if ( WC_CP_Helpers::in_array_key( $data[ $scenario_id ][ 'component_data' ], $component_id, 0 ) ) {
 						$data[ $scenario_id ][ 'component_data' ][ $component_id ] = array( 0 );
 						continue;
 					}
@@ -1553,7 +1671,7 @@ class WC_Product_Composite extends WC_Product {
 
 							if ( $parent_id ) {
 
-								if ( ! in_array( $parent_id, $scenario_data[ 'component_data' ][ $component_id ] ) ) {
+								if ( ! in_array( $parent_id, $data[ $scenario_id ][ 'component_data' ][ $component_id ] ) ) {
 									$validated_configuration[] = $id_in_scenario;
 								}
 

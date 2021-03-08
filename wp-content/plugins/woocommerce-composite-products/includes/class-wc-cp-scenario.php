@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Scenario object.
  *
  * @class    WC_CP_Scenario
- * @version  4.0.0
+ * @version  8.0.0
  */
 class WC_CP_Scenario {
 
@@ -104,8 +104,51 @@ class WC_CP_Scenario {
 
 		if ( ! empty( $scenario_data[ 'scenario_actions' ] ) && is_array( $scenario_data[ 'scenario_actions' ] ) ) {
 			foreach ( $scenario_data[ 'scenario_actions' ] as $action_id => $action_data ) {
-				$actions[ strval( $action_id ) ] = array_merge( array_diff_key( $action_data, array( 'is_active' => 1 ) ), array( 'is_active' => isset( $action_data[ 'is_active' ] ) && 'yes' === $action_data[ 'is_active' ] ) );
+
+				$parsed_data = array_merge( array_diff_key( $action_data, array( 'is_active' => 1 ) ), array( 'is_active' => isset( $action_data[ 'is_active' ] ) && 'yes' === $action_data[ 'is_active' ] ) );
+
+				if ( 'conditional_components' === $action_id ) {
+					if ( empty( $action_data[ 'hidden_components' ] ) ) {
+						$parsed_data[ 'is_active' ] = false;
+					}
+				}
+
+				if ( 'conditional_options' === $action_id ) {
+
+					$action_configuration = array();
+
+					if ( ! empty( $action_data[ 'component_data' ] ) && is_array( $action_data[ 'component_data' ] ) ) {
+						foreach ( $action_data[ 'component_data' ] as $component_id => $component_data ) {
+
+							$modifier = 'masked';
+
+							if ( isset( $action_data[ 'modifier' ][ $component_id ] ) && 'not-in' === $action_data[ 'modifier' ][ $component_id ] ) {
+								$modifier = 'not-in';
+							} elseif ( isset( $action_data[ 'modifier' ][ $component_id ] ) && 'in' === $action_data[ 'modifier' ][ $component_id ] ) {
+								$modifier = 'in';
+							}
+
+							if ( 'masked' === $modifier ) {
+								continue;
+							}
+
+							$is_optional    = isset( $scenario_data[ 'optional_components' ] ) && is_array( $scenario_data[ 'optional_components' ] ) && in_array( $component_id, $scenario_data[ 'optional_components' ] );
+							$component_data = array_map( 'intval', $component_data );
+
+							$action_configuration[ strval( $component_id ) ] = array(
+								'component_options' => $component_data,
+								'options_modifier'  => $modifier,
+								'is_optional'       => $is_optional
+							);
+						}
+					}
+
+					$parsed_data[ 'configuration' ] = $action_configuration;
+				}
+
+				$actions[ strval( $action_id ) ] = $parsed_data;
 			}
+
 		} else {
 			$actions[ 'compat_group' ] = array(
 				'is_active' => true
@@ -160,7 +203,7 @@ class WC_CP_Scenario {
 		$modifier     = isset( $this->configuration_data[ $component_id ][ 'options_modifier' ] ) ? $this->configuration_data[ $component_id ][ 'options_modifier' ] : 'in';
 
 		// Any product or variation...
-		if ( empty( $this->configuration_data[ $component_id ][ 'component_options' ] ) || $this->contains_id( $component_id, 0 ) ) {
+		if ( '0' === $this->id || $this->contains_id( $component_id, 0 ) ) {
 			$contains = true;
 			if ( $product_id === -1 && ( ! isset( $this->configuration_data[ $component_id ][ 'is_optional' ] ) || ! $this->configuration_data[ $component_id ][ 'is_optional' ] ) ) {
 				$contains = false;
@@ -198,6 +241,72 @@ class WC_CP_Scenario {
 				}
 			} else {
 				if ( ! $this->contains_id( $component_id, $product_id ) ) {
+					$contains = true;
+				}
+			}
+		}
+
+		return $contains;
+	}
+
+	/**
+	 * Returns true if the scenario hides a product/variation ID selection in a specific component. Uses 'WC_CP_Scenario::contains_id' but also takes exclusion rules into account.
+	 * When checking a variation, it also checks the parent.
+	 *
+	 * @param  string  $component_id
+	 * @param  int     $product_id
+	 * @param  int     $variation_id
+	 * @return boolean
+	 */
+	public function hides_component_option( $component_id, $product_id, $variation_id = 0 ) {
+
+		if ( ! $this->has_action( 'conditional_options' ) ) {
+			return false;
+		}
+
+		$configuration = $this->actions_data[ 'conditional_options' ][ 'configuration' ];
+
+		if ( empty( $configuration[ $component_id ] ) ) {
+			return false;
+		}
+
+		$component_id = strval( $component_id );
+		$modifier     = isset( $configuration[ $component_id ][ 'options_modifier' ] ) ? $configuration[ $component_id ][ 'options_modifier' ] : 'masked';
+
+		if ( 'masked' === $modifier ) {
+			return false;
+		}
+
+		$exclude  = 'not-in' === $modifier;
+		$contains = false;
+
+		if ( $variation_id > 0 && $product_id > 0 ) {
+			if ( false === $exclude ) {
+				if ( $this->contains_id( $component_id, $variation_id, $configuration ) || $this->contains_id( $component_id, $product_id, $configuration ) ) {
+					$contains = true;
+				}
+			} else {
+				if ( ! $this->contains_id( $component_id, $variation_id, $configuration ) && ! $this->contains_id( $component_id, $product_id, $configuration ) ) {
+					$contains = true;
+				}
+			}
+		} elseif ( $product_id > 0 ) {
+			if ( false === $exclude ) {
+				if ( $this->contains_id( $component_id, $product_id, $configuration ) ) {
+					$contains = true;
+				}
+			} else {
+				if ( ! $this->contains_id( $component_id, $product_id, $configuration ) ) {
+					$contains = true;
+				}
+			}
+		} elseif ( $product_id === -1 && $configuration[ $component_id ][ 'is_optional' ] ) {
+			if ( false === $exclude ) {
+				if ( $this->contains_id( $component_id, $product_id, $configuration ) ) {
+					$contains = true;
+				}
+			} else {
+				if ( ! $this->contains_id( $component_id, $product_id, $configuration ) ) {
 					$contains = true;
 				}
 			}
@@ -349,13 +458,16 @@ class WC_CP_Scenario {
 	/**
 	 * Returns true if a component option ID is defined in the scenario. Also @see 'WC_CP_Scenario::contains_product'.
 	 *
-	 * @param  string  $component_id
-	 * @param  int     $id
+	 * @param  string       $component_id
+	 * @param  int          $id
+	 * @param  array|false  $data
 	 * @return boolean
 	 */
-	private function contains_id( $component_id, $id ) {
+	private function contains_id( $component_id, $id, $configuration = false ) {
 
-		if ( ! empty( $this->configuration_data[ $component_id ][ 'component_options' ] ) && is_array( $this->configuration_data[ $component_id ][ 'component_options' ] ) && in_array( $id, $this->configuration_data[ $component_id ][ 'component_options' ] ) ) {
+		$configuration = false === $configuration ? $this->configuration_data : $configuration;
+
+		if ( ! empty( $configuration[ $component_id ][ 'component_options' ] ) && is_array( $configuration[ $component_id ][ 'component_options' ] ) && in_array( $id, $configuration[ $component_id ][ 'component_options' ] ) ) {
 			return true;
 		} else {
 			return false;

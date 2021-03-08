@@ -25,12 +25,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '15.9',
-    'version' => '15.9.0.0',
+    'pretty_version' => '15.9.1',
+    'version' => '15.9.1.0',
     'aliases' => 
     array (
     ),
-    'reference' => '08d841eacd81f796881b74f1ff2cf3e3dffe0ea9',
+    'reference' => 'aeeef47fdd75e6281bfd3ce28d5723d3aa60d16e',
     'name' => 'yoast/wordpress-seo',
   ),
   'versions' => 
@@ -69,12 +69,12 @@ private static $installed = array (
     ),
     'yoast/wordpress-seo' => 
     array (
-      'pretty_version' => '15.9',
-      'version' => '15.9.0.0',
+      'pretty_version' => '15.9.1',
+      'version' => '15.9.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '08d841eacd81f796881b74f1ff2cf3e3dffe0ea9',
+      'reference' => 'aeeef47fdd75e6281bfd3ce28d5723d3aa60d16e',
     ),
   ),
 );
@@ -299,7 +299,6 @@ self::$canGetVendors = method_exists('Composer\Autoload\ClassLoader', 'getRegist
 $installed = array();
 
 if (self::$canGetVendors) {
-
 foreach (ClassLoader::getRegisteredLoaders() as $vendorDir => $loader) {
 if (isset(self::$installedByVendor[$vendorDir])) {
 $installed[] = self::$installedByVendor[$vendorDir];

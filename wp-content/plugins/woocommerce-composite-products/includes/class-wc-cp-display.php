@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Products display functions and filters.
  *
  * @class    WC_CP_Display
- * @version  7.1.2
+ * @version  8.0.0
  */
 class WC_CP_Display {
 
@@ -281,11 +281,12 @@ class WC_CP_Display {
 			'i18n_loading_options'                     => __( '<span class="source">%s</span> &rarr; updating options&hellip;', 'woocommerce-composite-products' ),
 			'i18n_selection_request_timeout'           => __( 'Your selection could not be updated. If the issue persists, please refresh the page and try again.', 'woocommerce-composite-products' ),
 			'i18n_selection_title_aria'                => _x( 'Your selection: %s','aria selection title', 'woocommerce-composite-products' ),
+			'discounted_price_decimals'                => wc_cp_price_num_decimals( 'extended' ),
+			'currency_format_num_decimals'             => wc_cp_price_num_decimals(),
+			'currency_format_decimal_sep'              => wc_cp_price_decimal_sep(),
+			'currency_format_thousand_sep'             => wc_cp_price_thousand_sep(),
 			'currency_symbol'                          => get_woocommerce_currency_symbol(),
-			'currency_position'                        => stripslashes( get_option( 'woocommerce_currency_pos' ) ),
-			'currency_format_num_decimals'             => absint( get_option( 'woocommerce_price_num_decimals' ) ),
-			'currency_format_decimal_sep'              => stripslashes( get_option( 'woocommerce_price_decimal_sep' ) ),
-			'currency_format_thousand_sep'             => stripslashes( get_option( 'woocommerce_price_thousand_sep' ) ),
+			'currency_position'                        => esc_attr( stripslashes( get_option( 'woocommerce_currency_pos' ) ) ),
 			'currency_format_trim_zeros'               => false === apply_filters( 'woocommerce_price_trim_zeros', false ) ? 'no' : 'yes',
 			'script_debug_level'                       => array(), /* 'debug', 'debug:views', 'debug:events', 'debug:models', 'debug:scenarios', 'debug:animations' */
 			'show_quantity_buttons'                    => 'no',

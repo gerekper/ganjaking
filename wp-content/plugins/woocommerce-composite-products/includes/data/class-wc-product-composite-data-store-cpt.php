@@ -960,7 +960,7 @@ class WC_Product_Composite_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		);
 
 		if ( empty( $product_ids ) ) {
-			return $results;
+			return 'all' === $return ? $results : $results[ $return ];
 		}
 
 		$results_cache_key = 'expanded_component_options_' . md5( json_encode( $product_ids ) );

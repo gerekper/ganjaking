@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * API functions to support product modifications when contained in Composites.
  *
  * @class    WC_CP_Products
- * @version  6.2.3
+ * @version  8.0.0
  */
 class WC_CP_Products {
 
@@ -346,7 +346,7 @@ class WC_CP_Products {
 		$discounted_price = $price;
 
 		if ( ! empty( $price ) && ! empty( $discount ) ) {
-			$discounted_price = round( ( double ) $price * ( 100 - $discount ) / 100, wc_cp_price_num_decimals() );
+			$discounted_price = round( ( double ) $price * ( 100 - $discount ) / 100, wc_cp_price_num_decimals( 'extended' ) );
 		}
 
 		return $discounted_price;
@@ -452,7 +452,7 @@ class WC_CP_Products {
 					} else {
 						$regular_price = $price;
 					}
-					$price                   = empty( $discount ) ? $price : round( ( double ) $regular_price * ( 100 - $discount ) / 100, wc_cp_price_num_decimals() );
+					$price                   = empty( $discount ) ? $price : round( ( double ) $regular_price * ( 100 - $discount ) / 100, wc_cp_price_num_decimals( 'extended' ) );
 					$prices[ $variation_id ] = apply_filters( 'woocommerce_composited_variation_price', $price, $variation_id, $discount, $filtered_component_option );
 				} else {
 					$prices[ $variation_id ] = 0;

@@ -1,5 +1,30 @@
 <div class="slider-revolution-update-list">
+	<h3 class="version-number">Version 6.4.3 (9th March 2021)</h3>
+	<div class="change"><strong style="font-weight:700">Changes</strong></div>
+	<ul>
+		<li>HTML5 video and background layer have a new option 'Video Fit Cover', by default this option is enabled to fit videos as cover. Disable it in case of video size jumps on slide change.</li>
+		<li>Force cover option on bg videos has been removed, the overlay option is now always available on bg videos</li>
+	</ul>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+		<li>Layer videos without poster image and paused not showing until revisiting the slide</li>
+		<li>Filter willow breaks in Safari the background visibility. Safari will show a simple black and white filter instead</li>
+		<li>HTML5 video does not playing when the preload options are set to 'disabled'</li>
+		<li>Navigation thumb shows more thumbs on mobile due to a width calculation bug</li>
+		<li>Slider not resizing on touch screen desktop screens</li>
+		<li>Background video was getting pushed out of view if filter is set on slide</li>
+		<li>Long videos sometimes buffer. Logic for how videos start playing has been changed to address this but it still depends on browser's prediction and can't be always gauranteed</li>
+		<li>Overlay pattern was not working on video layer</li>
+		<li>Backend canvas was not clearing completely if browser was zoomed in</li>
+		<li>Justified carousel ignores aspect ratio at the first load if external images are used</li>
+		<li>Max amount of thumbnails is not working if the thumbnail space is set with the px suffix</li>
+	</ul>
+	
 	<h3 class="version-number">Version 6.4.2 (26th February 2021)</h3>
+	<div class="change"><strong style="font-weight:700">Changes</strong></div>
+	<ul>
+		<li>Slides are now numbered in the actions choices for better usability</li>
+	</ul>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
 	<ul>
 		<li>Video with unusual aspect ratios zoom in after slide animation. object-fit:cover is now removed from html5 videos</li>
@@ -7,10 +32,6 @@
 		<li>Retina display shows blurry background images after Slide background animation</li>
 		<li>Random slide background animations break the editor and does not show transitions on frontend</li>
 		<li>Background rendering on auto size, % size, background aligns and background repeats like repeat-x and repeat-y do not render well since version 6.4.0</li>
-	</ul>
-	<div class="change"><strong style="font-weight:700">Changes</strong></div>
-	<ul>
-		<li>Slides are now numbered in the actions choices for better usability</li>
 	</ul>
 	
 	<h3 class="version-number">Version 6.4.1 (24th February 2021)</h3>

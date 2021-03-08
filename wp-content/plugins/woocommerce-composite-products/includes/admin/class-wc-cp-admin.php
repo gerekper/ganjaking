@@ -265,12 +265,14 @@ class WC_CP_Admin {
 				'save_composite_nonce'         => wp_create_nonce( 'wc_bto_save_composite' ),
 				'add_component_nonce'          => wp_create_nonce( 'wc_bto_add_component' ),
 				'add_scenario_nonce'           => wp_create_nonce( 'wc_bto_add_scenario' ),
+				'add_state_nonce'              => wp_create_nonce( 'wc_bto_add_state' ),
 				'get_product_categories_nonce' => wp_create_nonce( 'wc_bto_get_product_categories' ),
 				'layouts'                      => array_keys( WC_Product_Composite::get_layout_options() ),
 				'wc_placeholder_img_src'       => wc_placeholder_img_src(),
 				'is_first_composite'           => isset( $_GET[ 'wc_cp_first_composite' ] ) ? 'yes' : 'no',
 				'is_wc_version_gte_3_2'        => WC_CP_Core_Compatibility::is_wc_version_gte( '3.2' ) ? 'yes' : 'no',
 				// Strings.
+				'i18n_save_error'              => __( 'Your settings could not be saved. Please refresh the page and try again.', 'woocommerce-composite-products' ),
 				'i18n_no_default'              => __( 'No default option&hellip;', 'woocommerce-composite-products' ),
 				'i18n_all'                     => __( 'Any Product or Variation', 'woocommerce-composite-products' ),
 				'i18n_none'                    => _x( 'No selection', 'optional component property controlled in scenarios', 'woocommerce-composite-products' ),
@@ -280,6 +282,7 @@ class WC_CP_Admin {
 				'i18n_set_defaults_static'     => __( 'The Default Option field cannot be cleared &ndash; you have added a single <strong>Component Option</strong> without checking the <strong>Optional</strong> box.', 'woocommerce-composite-products' ),
 				'i18n_set_defaults'            => __( 'A Default Option must be chosen in all non-optional Components when the <strong>Catalog Price</strong> display method is set to <strong>Use Defaults</strong>.', 'woocommerce-composite-products' ),
 				'i18n_scenarios_panel_blocked' => __( 'To configure Scenarios, the changes you made under the Components tab must be saved. Save changes now?', 'woocommerce-composite-products' ),
+				'i18n_states_panel_blocked'    => __( 'To configure States, the changes you made under the Components tab must be saved. Save changes now?', 'woocommerce-composite-products' ),
 				// Strings duplicated from core.
 				'i18n_matches_1'               => _x( 'One result is available, press enter to select it.', 'enhanced select', 'woocommerce' ),
 				'i18n_matches_n'               => _x( '%qty% results are available, use up and down arrow keys to navigate.', 'enhanced select', 'woocommerce' ),

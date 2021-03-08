@@ -9,7 +9,6 @@ update_option( 'rg_gforms_key','B5E0B5F8-DD8689E6-ACA49DD6-E6E1A930' );
 update_option( 'gf_site_secret' ,true);
 update_option( 'gform_upgrade_status', false );
 update_option( 'rg_gforms_message', '' );
-
 /**
  * Class GFCommon
  *
@@ -2689,9 +2688,8 @@ Content-Type: text/html;
 	}
 
 	public static function get_version_info( $cache = true ) {
-		$version_info = array( 'is_valid_key' => '1', 'version' => '2.4.22.4', 'url' => '', 'is_error' => '0' );
+	$version_info = array( 'is_valid_key' => '1', 'version' => '2.4.23', 'url' => '', 'is_error' => '0' );
 		return $version_info;
-		
 		$version_info = get_option( 'gform_version_info' );
 		if ( ! $cache ) {
 			$version_info = null;

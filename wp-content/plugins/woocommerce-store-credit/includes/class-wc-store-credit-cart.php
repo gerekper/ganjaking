@@ -38,6 +38,7 @@ class WC_Store_Credit_Cart {
 		 */
 		add_action( 'woocommerce_after_calculate_totals', array( $this, 'after_calculate_totals' ), 1000 );
 		add_action( 'woocommerce_checkout_create_order', array( $this, 'create_order' ) );
+		add_action( 'woocommerce_cart_emptied', array( $this, 'cart_emptied' ) );
 	}
 
 	/**
@@ -194,6 +195,17 @@ class WC_Store_Credit_Cart {
 		$cart_discounts->update_shipping_discount_items( $order );
 		$cart_discounts->update_credit_discounts( $order );
 		$cart_discounts->update_credit_used( $order );
+	}
+
+
+	/**
+	 * Cart emptied.
+	 *
+	 * @since 3.5.1
+	 */
+	public function cart_emptied() {
+		// Clear the cart discounts.
+		$this->cart_discounts = null;
 	}
 }
 

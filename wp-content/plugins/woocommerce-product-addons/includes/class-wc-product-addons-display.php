@@ -32,6 +32,7 @@ class WC_Product_Addons_Display {
 		// Change buttons/cart urls.
 		add_filter( 'add_to_cart_text', array( $this, 'add_to_cart_text' ), 15 );
 		add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'add_to_cart_text' ), 15, 2 );
+		add_filter( 'woocommerce_product_has_options', array( $this, 'has_options' ), 15, 2 );
 		add_filter( 'woocommerce_add_to_cart_url', array( $this, 'add_to_cart_url' ), 10, 1 );
 		add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'add_to_cart_url' ), 10, 2 );
 		add_filter( 'woocommerce_product_supports', array( $this, 'ajax_add_to_cart_supports' ), 10, 3 );
@@ -60,7 +61,7 @@ class WC_Product_Addons_Display {
 			is_checkout() ||
 			is_account_page() ||
 			is_shop() ||
-			( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'product_page') )
+			( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'product_page' ) )
 		) {
 			wp_enqueue_style( 'woocommerce-addons-css', WC_PRODUCT_ADDONS_PLUGIN_URL . '/assets/css/frontend.css', array( 'dashicons' ), WC_PRODUCT_ADDONS_VERSION );
 			wp_enqueue_script( 'jquery-tiptip', WC()->plugin_url() . '/assets/js/jquery-tiptip/jquery.tipTip.min.js', array( 'jquery' ), WC_VERSION, true );
@@ -105,16 +106,16 @@ class WC_Product_Addons_Display {
 			$currency_pos = get_option( 'woocommerce_currency_pos' );
 
 			switch ( $currency_pos ) {
-				case 'left' :
+				case 'left':
 					$format = '%1$s%2$s';
 					break;
-				case 'right' :
+				case 'right':
 					$format = '%2$s%1$s';
 					break;
-				case 'left_space' :
+				case 'left_space':
 					$format = '%1$s&nbsp;%2$s';
 					break;
-				case 'right_space' :
+				case 'right_space':
 					$format = '%2$s&nbsp;%1$s';
 					break;
 			}
@@ -191,9 +192,14 @@ class WC_Product_Addons_Display {
 
 				echo $this->get_addon_html( $addon );
 
-				wc_get_template( 'addons/addon-end.php', array(
-					'addon' => $addon,
-				), 'woocommerce-product-addons', $this->plugin_path() . '/templates/' );
+				wc_get_template(
+					'addons/addon-end.php',
+					array(
+						'addon' => $addon,
+					),
+					'woocommerce-product-addons',
+					$this->plugin_path() . '/templates/'
+				);
 			}
 
 			do_action( 'woocommerce_product_addons_end', $post_id );
@@ -279,9 +285,14 @@ class WC_Product_Addons_Display {
 	 * @param array $addon Add-on field data.
 	 */
 	public function get_image_html( $addon ) {
-		wc_get_template( 'addons/image.php', array(
-			'addon' => $addon,
-		), 'woocommerce-product-addons', $this->plugin_path() . '/templates/' );
+		wc_get_template(
+			'addons/image.php',
+			array(
+				'addon' => $addon,
+			),
+			'woocommerce-product-addons',
+			$this->plugin_path() . '/templates/'
+		);
 	}
 
 	/**
@@ -290,9 +301,14 @@ class WC_Product_Addons_Display {
 	 * @param array $addon Add-on field data.
 	 */
 	public function get_checkbox_html( $addon ) {
-		wc_get_template( 'addons/checkbox.php', array(
-			'addon' => $addon,
-		), 'woocommerce-product-addons', $this->plugin_path() . '/templates/' );
+		wc_get_template(
+			'addons/checkbox.php',
+			array(
+				'addon' => $addon,
+			),
+			'woocommerce-product-addons',
+			$this->plugin_path() . '/templates/'
+		);
 	}
 
 	/**
@@ -301,9 +317,14 @@ class WC_Product_Addons_Display {
 	 * @param array $addon Add-on field data.
 	 */
 	public function get_radiobutton_html( $addon ) {
-		wc_get_template( 'addons/radiobutton.php', array(
-			'addon' => $addon,
-		), 'woocommerce-product-addons', $this->plugin_path() . '/templates/' );
+		wc_get_template(
+			'addons/radiobutton.php',
+			array(
+				'addon' => $addon,
+			),
+			'woocommerce-product-addons',
+			$this->plugin_path() . '/templates/'
+		);
 	}
 
 	/**
@@ -312,9 +333,14 @@ class WC_Product_Addons_Display {
 	 * @param array $addon Add-on field data.
 	 */
 	public function get_select_html( $addon ) {
-		wc_get_template( 'addons/select.php', array(
-			'addon' => $addon,
-		), 'woocommerce-product-addons', $this->plugin_path() . '/templates/' );
+		wc_get_template(
+			'addons/select.php',
+			array(
+				'addon' => $addon,
+			),
+			'woocommerce-product-addons',
+			$this->plugin_path() . '/templates/'
+		);
 	}
 
 	/**
@@ -323,9 +349,14 @@ class WC_Product_Addons_Display {
 	 * @param array $addon Add-on field data.
 	 */
 	public function get_custom_text_html( $addon ) {
-		wc_get_template( 'addons/custom-text.php', array(
-			'addon' => $addon,
-		), 'woocommerce-product-addons', $this->plugin_path() . '/templates/' );
+		wc_get_template(
+			'addons/custom-text.php',
+			array(
+				'addon' => $addon,
+			),
+			'woocommerce-product-addons',
+			$this->plugin_path() . '/templates/'
+		);
 	}
 
 	/**
@@ -334,9 +365,14 @@ class WC_Product_Addons_Display {
 	 * @param array $addon Add-on field data.
 	 */
 	public function get_custom_textarea_html( $addon ) {
-		wc_get_template( 'addons/custom-textarea.php', array(
-			'addon' => $addon,
-		), 'woocommerce-product-addons', $this->plugin_path() . '/templates/' );
+		wc_get_template(
+			'addons/custom-textarea.php',
+			array(
+				'addon' => $addon,
+			),
+			'woocommerce-product-addons',
+			$this->plugin_path() . '/templates/'
+		);
 	}
 
 	/**
@@ -345,10 +381,15 @@ class WC_Product_Addons_Display {
 	 * @param array $addon Add-on field data.
 	 */
 	public function get_file_upload_html( $addon ) {
-		wc_get_template( 'addons/file-upload.php', array(
-			'addon'    => $addon,
-			'max_size' => size_format( wp_max_upload_size() ),
-		), 'woocommerce-product-addons', $this->plugin_path() . '/templates/' );
+		wc_get_template(
+			'addons/file-upload.php',
+			array(
+				'addon'    => $addon,
+				'max_size' => size_format( wp_max_upload_size() ),
+			),
+			'woocommerce-product-addons',
+			$this->plugin_path() . '/templates/'
+		);
 	}
 
 	/**
@@ -357,9 +398,14 @@ class WC_Product_Addons_Display {
 	 * @param array $addon Add-on field data.
 	 */
 	public function get_custom_price_html( $addon ) {
-		wc_get_template( 'addons/custom-price.php', array(
-			'addon' => $addon,
-		), 'woocommerce-product-addons', $this->plugin_path() . '/templates/' );
+		wc_get_template(
+			'addons/custom-price.php',
+			array(
+				'addon' => $addon,
+			),
+			'woocommerce-product-addons',
+			$this->plugin_path() . '/templates/'
+		);
 	}
 
 	/**
@@ -368,9 +414,14 @@ class WC_Product_Addons_Display {
 	 * @param array $addon Add-on field data.
 	 */
 	public function get_input_multiplier_html( $addon ) {
-		wc_get_template( 'addons/input-multiplier.php', array(
-			'addon' => $addon,
-		), 'woocommerce-product-addons', $this->plugin_path() . '/templates/' );
+		wc_get_template(
+			'addons/input-multiplier.php',
+			array(
+				'addon' => $addon,
+			),
+			'woocommerce-product-addons',
+			$this->plugin_path() . '/templates/'
+		);
 	}
 
 	/**
@@ -419,6 +470,21 @@ class WC_Product_Addons_Display {
 		}
 
 		return $text;
+	}
+
+	/**
+	 * Product has options filter. This tells WooCommerce if a product has required options. This will prevent the user
+	 * adding the item to the cart without first selecting them on the product page.
+	 *
+	 * @param boolean $has_options True if the product has options.
+	 * @param object  $product Product object.
+	 * @return boolean
+	 */
+	public function has_options( $has_options, $product ) {
+		if ( $product && $this->check_required_addons( $product->get_id() ) ) {
+			$has_options = true;
+		}
+		return $has_options;
 	}
 
 	/**
@@ -511,10 +577,13 @@ class WC_Product_Addons_Display {
 
 		if ( ! empty( $product_fields ) && is_callable( array( $meta, 'get_data' ) ) ) {
 			$meta_data      = $meta->get_data();
-			$product_fields = array_filter( $product_fields, function( $field ) use ( $meta_data ) {
-				return isset( $field['name'] ) && isset( $field['type'] )
+			$product_fields = array_filter(
+				$product_fields,
+				function( $field ) use ( $meta_data ) {
+					return isset( $field['name'] ) && isset( $field['type'] )
 					&& $field['name'] == $meta_data['key'] && 'custom_textarea' == $field['type'];
-			} );
+				}
+			);
 
 			if ( ! empty( $product_fields ) ) {
 				// Overwrite display value since core has already removed newlines

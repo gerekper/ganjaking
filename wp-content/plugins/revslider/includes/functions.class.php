@@ -441,27 +441,26 @@ class RevSliderFunctions extends RevSliderData {
 	 * before: RevSliderOperations::getPostTypesWithCatsForClient();
 	 */
 	public function get_post_types_with_categories_for_client(){
-		$post_types		= $this->get_post_types_with_categories();
-		$globalCounter	= 0;
-		$arrOutput		= array();
-		foreach($post_types as $postType => $arrTaxWithCats){
-
-			$arrCats = array();
-			foreach($arrTaxWithCats as $tax){
-				$taxName	= $tax['name'];
-				$taxTitle	= $tax['title'];
-				$globalCounter++;
-				$arrCats['option_disabled_'.$globalCounter] = '---- '.$taxTitle.' ----';
-				foreach($tax['cats'] as $catID=>$catTitle){
-					$arrCats[$taxName.'_'.$catID] = $catTitle;
+		$post_types	= $this->get_post_types_with_categories();
+		$c			= 0;
+		$ret		= array();
+		foreach($post_types as $pt => $taxwcats){
+			$cat = array();
+			foreach($taxwcats as $tk => $tax){
+				$taxName = $this->get_val($tax, 'name');
+				$c++;
+				$cat['option_disabled_'.$c] = '---- '. $this->get_val($tax, 'title') .' ----';
+				foreach($tax['cats'] as $catID => $catTitle){
+					$cat[$taxName.'_'.$catID] = $catTitle;
 				}
+				unset($taxwcats[$tk]);
 			}//loop tax
 
-			$arrOutput[$postType] = $arrCats;
+			$ret[$pt] = $cat;
 
 		}//loop types
 		
-		return $arrOutput;
+		return $ret;
 	}
 	
 	

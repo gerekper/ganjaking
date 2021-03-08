@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Data tabs/panels for the Composite type.
  *
  * @class    WC_CP_Meta_Box_Product_Data
- * @version  7.0.3
+ * @version  8.0.0
  */
 class WC_CP_Meta_Box_Product_Data {
 
@@ -36,9 +36,28 @@ class WC_CP_Meta_Box_Product_Data {
 	private static $product_categories_tree;
 
 	/**
+	 * Store of generated ids.
+	 *
+	 * @since 8.0.0
+	 *
+	 * @var array
+	 */
+	private static $generated_ids = array();
+
+	/**
 	 * Hook in.
 	 */
 	public static function init() {
+
+		// Processes and saves type-specific data.
+		add_action( 'woocommerce_admin_process_product_object', array( __CLASS__, 'process_composite_data' ) );
+
+		/*----------------------------------*/
+		/*  Product Data.                   */
+		/*----------------------------------*/
+
+		// Allows the selection of the 'composite product' type.
+		add_filter( 'product_type_options', array( __CLASS__, 'add_composite_type_options' ) );
 
 		// Creates the admin Components and Scenarios panel tabs.
 		add_action( 'woocommerce_product_data_tabs', array( __CLASS__, 'composite_product_data_tabs' ) );
@@ -47,18 +66,9 @@ class WC_CP_Meta_Box_Product_Data {
 		add_action( 'woocommerce_product_data_panels', array( __CLASS__, 'composite_data_panel' ) );
 		add_action( 'woocommerce_product_options_stock', array( __CLASS__, 'composite_stock_info' ) );
 
-		// Allows the selection of the 'composite product' type.
-		add_filter( 'product_type_options', array( __CLASS__, 'add_composite_type_options' ) );
-
 		// Add Shipping type image select.
 		add_action( 'woocommerce_product_options_shipping', array( __CLASS__, 'shipping_type_admin_html' ), 10000 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'js_handle_container_classes' ) );
-
-		// Processes and saves type-specific data.
-		add_action( 'woocommerce_admin_process_product_object', array( __CLASS__, 'process_composite_data' ) );
-
-		// Add a notice if calculating min/max catalog price in the background.
-		add_action( 'admin_notices', array( __CLASS__, 'maybe_add_catalog_price_notice' ), 0 );
 
 		/*----------------------------------*/
 		/*  Composite writepanel options.   */
@@ -71,9 +81,10 @@ class WC_CP_Meta_Box_Product_Data {
 		/*  Component meta boxes.          */
 		/*---------------------------------*/
 
+		// Component metaboxes.
 		add_action( 'woocommerce_composite_component_admin_html', array( __CLASS__, 'component_admin_html' ), 10, 4 );
 
-		// Basic component config options.
+		// Component metabox contents.
 		add_action( 'woocommerce_composite_component_admin_config_html', array( __CLASS__, 'component_options_group_pre' ), 0, 3 );
 		add_action( 'woocommerce_composite_component_admin_config_html', array( __CLASS__, 'component_config_title' ), 10, 3 );
 		add_action( 'woocommerce_composite_component_admin_config_html', array( __CLASS__, 'component_config_description' ), 15, 3 );
@@ -100,7 +111,7 @@ class WC_CP_Meta_Box_Product_Data {
 		add_action( 'woocommerce_composite_component_admin_config_html', array( __CLASS__, 'component_config_display_prices' ), 50, 3 );
 		add_action( 'woocommerce_composite_component_admin_config_html', array( __CLASS__, 'component_options_group_post' ), 55, 3 );
 
-		// Advanced component configuration.
+		// Component metabox contents - advanced.
 		add_action( 'woocommerce_composite_component_admin_advanced_html', array( __CLASS__, 'component_options_group_pre_sa' ), 0, 3 );
 		add_action( 'woocommerce_composite_component_admin_advanced_html', array( __CLASS__, 'component_select_action_options' ), 0, 3 );
 		add_action( 'woocommerce_composite_component_admin_advanced_html', array( __CLASS__, 'component_options_group_post' ), 0, 3 );
@@ -122,16 +133,21 @@ class WC_CP_Meta_Box_Product_Data {
 		/*  Scenario meta boxes html.  */
 		/*-----------------------------*/
 
+		// Scenario metaboxes.
 		add_action( 'woocommerce_composite_scenario_admin_html', array( __CLASS__, 'scenario_admin_html' ), 10, 5 );
+		// State metaboxes.
+		add_action( 'woocommerce_composite_state_admin_html', array( __CLASS__, 'state_admin_html' ), 10, 5 );
 
-		// Scenario options.
+		// Scenario metabox contents.
 		add_action( 'woocommerce_composite_scenario_admin_info_html', array( __CLASS__, 'scenario_info' ), 10, 4 );
 		add_action( 'woocommerce_composite_scenario_admin_config_html', array( __CLASS__, 'scenario_config' ), 10, 4 );
+		// State metabox contents.
+		add_action( 'woocommerce_composite_state_admin_info_html', array( __CLASS__, 'state_info' ), 10, 4 );
+		add_action( 'woocommerce_composite_state_admin_config_html', array( __CLASS__, 'state_config' ), 10, 4 );
 
-		// "Dependency Group" action.
-		add_action( 'woocommerce_composite_scenario_admin_actions_html', array( __CLASS__, 'scenario_action_compat_group' ), 10, 4 );
 		// "Hide Components" action.
-		add_action( 'woocommerce_composite_scenario_admin_actions_html', array( __CLASS__, 'scenario_action_hide_components' ), 15, 4 );
+		add_action( 'woocommerce_composite_scenario_admin_actions_html', array( __CLASS__, 'scenario_action_hide_components' ), 10, 4 );
+		add_action( 'woocommerce_composite_scenario_admin_actions_html', array( __CLASS__, 'scenario_action_hide_options' ), 10, 4 );
 
 		/*--------------------------------*/
 		/*  "Sold Individually" Options.  */
@@ -140,19 +156,26 @@ class WC_CP_Meta_Box_Product_Data {
 		add_action( 'woocommerce_product_options_sold_individually', array( __CLASS__, 'sold_individually_options' ) );
 
 		/*--------------------------------*/
-		/*  Support.                      */
+		/*  Notices.                      */
 		/*--------------------------------*/
 
-		// Add a notice if prices not set.
-		add_action( 'admin_notices', array( __CLASS__, 'maybe_add_non_purchasable_notice' ), 0 );
+		/*
+		 * Add a notice on page load if:
+		 *
+		 * - Calculating min/max catalog price in the background.
+		 * - Prices not set.
+		 * - A states migration if pending.
+		 */
+		add_action( 'admin_notices', array( __CLASS__, 'maybe_add_metabox_load_notices' ), 0 );
+
+		/*---------------------------------------------------*/
+		/*  Print condition JS templates in footer.          */
+		/*---------------------------------------------------*/
+
+		add_action( 'admin_footer', array( __CLASS__, 'print_conditions_js_templates' ) );
 	}
 
-	/**
-	 * Add a notice if prices not set.
-	 *
-	 * @return void
-	 */
-	public static function maybe_add_non_purchasable_notice() {
+	public static function maybe_add_metabox_load_notices() {
 
 		global $post_id;
 
@@ -176,9 +199,62 @@ class WC_CP_Meta_Box_Product_Data {
 			return;
 		}
 
+		self::maybe_add_non_purchasable_notice( $product );
+		self::maybe_add_catalog_price_notice( $product );
+		self::maybe_add_states_migration_notice( $product );
+	}
+
+	/**
+	 * Add a notice if prices not set.
+	 *
+	 * @param  WC_Product_Composite  $product
+	 * @return void
+	 */
+	public static function maybe_add_non_purchasable_notice( $product ) {
+
 		if ( false === $product->contains( 'priced_individually' ) && '' === $product->get_price( 'edit' ) ) {
 			$notice = sprintf( __( '&quot;%1$s&quot; is not purchasable just yet. But, fear not &ndash; setting up <a href="%2$s" target="_blank">pricing options</a> only takes a minute! <ul class="cp_notice_list"><li>To give &quot;%1$s&quot; a static base price, navigate to <strong>Product Data > General</strong> and fill in the <strong>Regular Price</strong> field.</li><li>To preserve the prices and taxes of products chosen in Components, go to <strong>Product Data > Components</strong> and enable <strong>Priced Individually</strong> for each Component whose price must be preserved.</li></ul> Then, save your changes.', 'woocommerce-composite-products' ), $product->get_title(), WC_CP()->get_resource_url( 'pricing-options' ) );
 			WC_CP_Admin_Notices::add_notice( $notice, 'warning' );
+		}
+	}
+
+	/**
+	 * Add a notice if calculating min/max catalog price in the background.
+	 *
+	 * @since  4.0.0
+	 *
+	 * @param  WC_Product_Composite  $product
+	 * @return void
+	 */
+	public static function maybe_add_catalog_price_notice( $product ) {
+
+		$shop_price_calc_notice = '';
+		$shop_price_calc_status = $product->get_shop_price_calc_status( 'edit' );
+
+		if ( 'pending' === $shop_price_calc_status ) {
+			$shop_price_calc_notice = sprintf( __( 'The catalog price of "%s" is currently being calculated in the background. During this time, its price will be hidden.', 'woocommerce-composite-products' ), get_the_title( $post_id ) );
+		} elseif ( 'failed' === $shop_price_calc_status ) {
+			$shop_price_calc_notice = sprintf( __( 'The catalog price of "%1$s" could not be calculated within the default time limit. This may happen when adding Scenarios to Composite Products that contain many Components and a large number of product/variation options. For assistance, please check out the <a href="%2$s" target="_blank">documentation</a>, or <a href="%3$s" target="_blank">get in touch with us</a>.', 'woocommerce-composite-products' ), get_the_title( $post_id ), WC_CP()->get_resource_url( 'catalog-price-option' ), WC_CP()->get_resource_url( 'ticket-form' ) );
+		}
+
+		if ( $shop_price_calc_notice ) {
+			WC_CP_Admin_Notices::add_notice( $shop_price_calc_notice, 'warning', false );
+		}
+	}
+
+	/**
+	 * Add a notice if a states migration is pending.
+	 *
+	 * @since  8.0.0
+	 *
+	 * @param  WC_Product_Composite  $product
+	 * @return void
+	 */
+	public static function maybe_add_states_migration_notice( $product ) {
+
+		if ( self::get_global_object_states_data( $product, 'needs_migration' ) ) {
+			$notice = __( 'The <strong>Activate Options</strong> Scenario Action is no longer supported. All Scenarios that made use of this Action prior to Composite Products version 8.0 have been converted to <strong>States</strong>. To conditionally hide Component Options in new Composite Products, use the new <strong>Hide Component Options</strong> Scenario Action. <strong>States</strong> are not supported in new Composite Products.', 'woocommerce-composite-products' );
+			WC_CP_Admin_Notices::add_notice( $notice, array( 'dismiss_class' => 'cp_states', 'type' => 'info' ) );
 		}
 	}
 
@@ -536,7 +612,7 @@ class WC_CP_Meta_Box_Product_Data {
 					if ( 'composite' === select_val ) {
 
 						// Force virtual container to always show the shipping tab.
-						virtual_checkbox.prop( 'checked', false ).change();
+						virtual_checkbox.prop( 'checked', false ).trigger( 'change' );
 
 						if ( 'unassembled' === bto_type_options.find( 'input.composite_type_option:checked' ).first().val() ) {
 							shipping_product_data.addClass( 'composite_unassembled' );
@@ -590,14 +666,12 @@ class WC_CP_Meta_Box_Product_Data {
 	 * @return void
 	 */
 	public static function component_admin_html( $id, $data, $composite_id, $toggle = 'closed' ) {
-
 		$tabs = self::get_component_tabs();
-
 		include( WC_CP_ABSPATH . 'includes/admin/meta-boxes/views/html-component.php' );
 	}
 
 	/**
-	 * Load component meta box in 'woocommerce_composite_component_admin_html'.
+	 * Load scenario meta box in 'woocommerce_composite_scenario_admin_html'.
 	 *
 	 * @param  int    $id
 	 * @param  array  $scenario_data
@@ -607,35 +681,21 @@ class WC_CP_Meta_Box_Product_Data {
 	 * @return void
 	 */
 	public static function scenario_admin_html( $id, $scenario_data, $composite_data, $composite_id, $toggle = 'closed' ) {
-
 		include( WC_CP_ABSPATH . 'includes/admin/meta-boxes/views/html-scenario.php' );
 	}
 
 	/**
-	 * Add "Activate Options" scenario action.
+	 * Load state meta box in 'woocommerce_composite_state_admin_html'.
 	 *
 	 * @param  int    $id
-	 * @param  array  $scenario_data
+	 * @param  array  $state_data
 	 * @param  array  $composite_data
-	 * @param  int    $product_id
+	 * @param  int    $composite_id
+	 * @param  string $toggle
 	 * @return void
 	 */
-	public static function scenario_action_compat_group( $id, $scenario_data, $composite_data, $product_id ) {
-
-		$defines_compat_group = isset( $scenario_data[ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] ) ? $scenario_data[ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] : 'yes';
-
-		?>
-		<div class="scenario_action_compat_group" >
-			<div class="form-field">
-				<label for="scenario_action_compat_group_<?php echo $id; ?>">
-					<?php echo __( 'Activate Options', 'woocommerce-composite-products' ); ?>
-				</label>
-				<input id="scenario_action_compat_group_<?php echo $id; ?>" type="checkbox" class="checkbox"<?php echo ( $defines_compat_group === 'yes' ? ' checked="checked"' : '' ); ?> name="bto_scenario_data[<?php echo $id; ?>][scenario_actions][compat_group][is_active]" <?php echo ( $defines_compat_group === 'yes' ? ' value="1"' : '' ); ?> /><?php
-					echo wc_help_tip( __( 'Allow customers to choose the combination of products/variations specified in the Configuration section of this Scenario.', 'woocommerce-composite-products' ) );
-				?>
-			</div>
-		</div>
-		<?php
+	public static function state_admin_html( $id, $state_data, $composite_data, $composite_id, $toggle = 'closed' ) {
+		include( WC_CP_ABSPATH . 'includes/admin/meta-boxes/views/html-state.php' );
 	}
 
 	/**
@@ -653,17 +713,18 @@ class WC_CP_Meta_Box_Product_Data {
 		$hidden_components = ! empty( $scenario_data[ 'scenario_actions' ][ 'conditional_components' ][ 'hidden_components' ] ) ? $scenario_data[ 'scenario_actions' ][ 'conditional_components' ][ 'hidden_components' ] : array();
 
 		?>
-		<div class="scenario_action_conditional_components_group" >
-			<div class="form-field toggle_conditional_components">
+		<div class="scenario_action_config_group scenario_action_conditional_components_group" >
+			<div class="toggle_scenario_action_config">
 				<label for="scenario_action_conditional_components_<?php echo $id; ?>">
-					<?php echo __( 'Hide Components', 'woocommerce-composite-products' ); ?>
+				<input id="scenario_action_conditional_components_<?php echo $id; ?>" type="checkbox" class="checkbox scenario_action_conditional_components_input" <?php echo ( $hide_components === 'yes' ? ' checked="checked"' : '' ); ?> name="bto_scenario_data[<?php echo $id; ?>][scenario_actions][conditional_components][is_active]" <?php echo ( $hide_components === 'yes' ? ' value="1"' : '' ); ?> />
+					<?php
+					echo __( 'Hide Components', 'woocommerce-composite-products' );
+					echo wc_help_tip( __( 'Enable this option to hide one or more Components when the specified Conditions are satisfied.', 'woocommerce-composite-products' ) );
+					?>
 				</label>
-				<input id="scenario_action_conditional_components_<?php echo $id; ?>" type="checkbox" class="checkbox" <?php echo ( $hide_components === 'yes' ? ' checked="checked"' : '' ); ?> name="bto_scenario_data[<?php echo $id; ?>][scenario_actions][conditional_components][is_active]" <?php echo ( $hide_components === 'yes' ? ' value="1"' : '' ); ?> /><?php
-					echo wc_help_tip( __( 'Enable this option to conditionally hide one or more Components based on the matching conditions specified in the Configuration section.', 'woocommerce-composite-products' ) );
-				?>
 			</div>
-			<div class="form-field action_components" <?php echo ( $hide_components === 'no' ? ' style="display:none;"' : '' ); ?> >
-				<select id="bto_conditional_components_ids_<?php echo $id; ?>" name="bto_scenario_data[<?php echo $id; ?>][scenario_actions][conditional_components][hidden_components][]" style="width: 100%;" class="sw-select2 conditional_components_ids" data-wrap="-tipped" multiple="multiple" data-placeholder="<?php echo __( 'Select components&hellip;', 'woocommerce-composite-products' ); ?>"><?php
+			<div class="action_config action_components" <?php echo ( $hide_components === 'no' ? ' style="display:none;"' : '' ); ?> >
+				<select id="bto_conditional_components_ids_<?php echo $id; ?>" name="bto_scenario_data[<?php echo $id; ?>][scenario_actions][conditional_components][hidden_components][]" style="width: 100%;" class="sw-select2 conditional_components_ids" multiple="multiple" data-placeholder="<?php echo __( 'Select components&hellip;', 'woocommerce-composite-products' ); ?>"><?php
 
 					foreach ( $composite_data as $component_id => $component_data ) {
 
@@ -674,6 +735,135 @@ class WC_CP_Meta_Box_Product_Data {
 					}
 
 				?></select>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Add "Hide Options" scenario action.
+	 *
+	 * @since 8.0.0
+	 *
+	 * @param  int    $id
+	 * @param  array  $scenario_data
+	 * @param  array  $composite_data
+	 * @param  int    $product_id
+	 * @return void
+	 */
+	public static function scenario_action_hide_options( $id, $scenario_data, $composite_data, $product_id ) {
+
+		$has_hidden_options = isset( $scenario_data[ 'scenario_actions' ][ 'conditional_options' ][ 'is_active' ] ) ? $scenario_data[ 'scenario_actions' ][ 'conditional_options' ][ 'is_active' ] : 'no';
+		$post_name          = 'bto_scenario_data[' . $id . '][scenario_actions][conditional_options]';
+		$modifiers          = array(
+			'in'     => __( 'hide', 'woocommerce-composite-products' ),
+			'not-in' => __( 'hide all except', 'woocommerce-composite-products' )
+		);
+
+		?>
+		<div class="scenario_action_config_group scenario_action_conditional_options_group" >
+			<div class="toggle_scenario_action_config">
+				<label for="scenario_action_conditional_options_<?php echo $id; ?>">
+					<input id="scenario_action_conditional_options_<?php echo $id; ?>" type="checkbox" class="checkbox scenario_action_conditional_options_input" <?php echo ( $has_hidden_options === 'yes' ? ' checked="checked"' : '' ); ?> name="<?php echo $post_name; ?>[is_active]" <?php echo ( $has_hidden_options === 'yes' ? ' value="1"' : '' ); ?> />
+					<?php
+					echo __( 'Hide Component Options', 'woocommerce-composite-products' );
+					echo wc_help_tip( __( 'Enable this option to hide one or more Component Options when the specified Conditions are satisfied.', 'woocommerce-composite-products' ) );
+					?>
+				</label>
+			</div>
+			<div class="action_config action_options" <?php echo ( $has_hidden_options === 'no' ? ' style="display:none;"' : '' ); ?>>
+				<div class="sw-form-os">
+					<?php
+
+					$conditional_options_by_component = array();
+
+					if ( ! empty( $scenario_data[ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ] ) ) {
+						foreach ( $scenario_data[ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ] as $component_id => $component_options ) {
+
+							if ( ! isset( $composite_data[ $component_id ] ) ) {
+								continue;
+							}
+
+							$modifier = 'in';
+
+							if ( isset( $scenario_data[ 'scenario_actions' ][ 'conditional_options' ][ 'modifier' ][ $component_id ] ) && 'not-in' === $scenario_data[ 'scenario_actions' ][ 'conditional_options' ][ 'modifier' ][ $component_id ] ) {
+								$modifier = 'not-in';
+							} elseif ( isset( $scenario_data[ 'scenario_actions' ][ 'conditional_options' ][ 'modifier' ][ $component_id ] ) && 'masked' === $scenario_data[ 'scenario_actions' ][ 'conditional_options' ][ 'modifier' ][ $component_id ] ) {
+								$modifier = 'masked';
+							}
+
+							if ( 'masked' === $modifier ) {
+								continue;
+							}
+
+							if ( is_array( $component_options ) ) {
+
+								// Flatten data.
+								$conditional_options_by_component[] = array(
+									'component_id'    => $component_id,
+									'modifier'        => $modifier,
+									'optional'        => 'yes' === $composite_data[ $component_id ][ 'optional' ] ? true : false,
+									'post_name'       => $post_name,
+									'component_data'  => $composite_data[ $component_id ]
+								);
+							}
+						}
+					}
+
+					$conditional_options_by_component_count = count( $conditional_options_by_component );
+
+					?>
+					<div class="os_container widefat<?php echo $conditional_options_by_component_count ? '' : ' os_empty'; ?>" data-os_count="<?php echo $conditional_options_by_component_count; ?>" data-os_post_name="<?php echo $post_name; ?>" data-unique_additions="yes">
+						<div class="os_boarding<?php echo $conditional_options_by_component_count ? '' : ' active'; ?>">
+							<div class="icon">
+								<i class="dashicons dashicons-networking"></i>
+							</div>
+							<div class="text"><?php esc_html_e( 'Choose a Component to get started.', 'woocommerce-composite-products' ); ?></br><?php esc_html_e( 'Then, select the options you\'d like to hide.', 'woocommerce-composite-products' ); ?></div>
+						</div>
+						<div class="os_list <?php echo $conditional_options_by_component_count ? '' : ' hidden'; ?>" data-os_modifiers="<?php echo esc_attr( json_encode( $modifiers ) ); ?>">
+
+							<?php foreach ( $conditional_options_by_component as $condition_index => $condition_data ) { ?>
+								<div class="os_row" data-os_index="<?php echo $condition_index; ?>">
+									<div class="os_select">
+										<div class="sw-enhanced-select">
+											<?php self::print_condition_components_dropdown( $composite_data, $condition_data[ 'component_id' ] ); ?>
+										</div>
+									</div>
+									<div class="os_content">
+										<?php
+										$scenario_selections = self::get_condition_component_selections( $scenario_data[ 'scenario_actions' ][ 'conditional_options' ], $condition_data[ 'component_data' ] );
+										self::print_condition_component_admin_fields_html( $condition_data, $product_id, $scenario_selections, $modifiers ); ?>
+									</div>
+									<div class="os_remove column-wc_actions">
+										<a href="#" data-tip="<?php esc_html_e( 'Remove', 'woocommerce-composite-products' ) ?>" class="button wc-action-button trash help_tip"></a>
+									</div>
+								</div><!-- os_row -->
+							<?php } ?>
+
+						</div><!-- os-list -->
+
+						<div class="os_add os_row<?php echo $conditional_options_by_component_count ? '' : ' os_add--boarding'; ?>">
+							<div class="os_select">
+								<div class="sw-enhanced-select">
+									<?php self::print_condition_components_dropdown( $composite_data, false, array( 'add' => esc_html__( 'Select component&hellip;', 'woocommerce-composite-products' ) ) ); ?>
+								</div>
+							</div>
+							<div class="os_content">
+								<div class="os_row_inner">
+									<div class="os_modifier">
+										<div class="os--disabled"></div>
+									</div>
+									<div class="os_value">
+										<div class="os--disabled"></div>
+									</div>
+								</div>
+							</div>
+							<div class="os_remove">
+							</div>
+						</div><!-- os_add -->
+
+					</div><!-- os-container -->
+				</div>
 			</div>
 		</div>
 		<?php
@@ -692,25 +882,40 @@ class WC_CP_Meta_Box_Product_Data {
 
 		$title       = isset( $scenario_data[ 'title' ] ) ? $scenario_data[ 'title' ] : '';
 		$description = isset( $scenario_data[ 'description' ] ) ? $scenario_data[ 'description' ] : '';
+		$field_type  = isset( $scenario_data[ 'is_state' ] ) && $scenario_data[ 'is_state' ] ? 'state' : 'scenario';
+		$field_name  = 'state' === $field_type ? 'bto_state_data' : 'bto_scenario_data';
 
 		?>
-		<div class="scenario_title">
+		<div class="<?php echo $field_name; ?>_title">
 			<div class="form-field">
 				<label>
-					<?php echo __( 'Scenario Name', 'woocommerce-composite-products' ); ?>
+					<?php echo 'state' === $field_type ? __( 'State Name', 'woocommerce-composite-products' ) : __( 'Scenario Name', 'woocommerce-composite-products' ); ?>
 				</label>
-				<input type="text" class="scenario_title component_text_input" name="bto_scenario_data[<?php echo $id; ?>][title]" value="<?php echo esc_attr( $title ); ?>"/>
+				<input type="text" class="<?php echo $field_name; ?>_title component_text_input" name="<?php echo $field_name; ?>[<?php echo $id; ?>][title]" value="<?php echo esc_attr( $title ); ?>"/>
 			</div>
 		</div>
-		<div class="scenario_description">
+		<div class="<?php echo $field_name; ?>_description">
 			<div class="form-field">
 				<label>
-					<?php echo __( 'Scenario Description', 'woocommerce-composite-products' ); ?>
+					<?php echo 'state' === $field_type ? __( 'State Description', 'woocommerce-composite-products' ) : __( 'Scenario Description', 'woocommerce-composite-products' ); ?>
 				</label>
-				<textarea class="scenario_description" name="bto_scenario_data[<?php echo $id; ?>][description]" id="scenario_description_<?php echo $id; ?>" placeholder="" rows="2" cols="20"><?php echo esc_textarea( $description ); ?></textarea>
+				<textarea class="<?php echo $field_name; ?>_description" name="<?php echo $field_name; ?>[<?php echo $id; ?>][description]" id="<?php echo $field_type; ?>_description_<?php echo $id; ?>" placeholder="" rows="2" cols="20"><?php echo esc_textarea( $description ); ?></textarea>
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Add state title and description options.
+	 *
+	 * @param  int    $id
+	 * @param  array  $state_data
+	 * @param  array  $composite_data
+	 * @param  int    $product_id
+	 * @return void
+	 */
+	public static function state_info( $id, $state_data, $composite_data, $product_id ) {
+		self::scenario_info( $id, $state_data, $composite_data, $product_id );
 	}
 
 	/**
@@ -730,223 +935,124 @@ class WC_CP_Meta_Box_Product_Data {
 			$composite_product_object_data = array();
 		}
 
-		?><div class="scenario_config_group"><?php
+		$field_type = isset( $scenario_data[ 'is_state' ] ) && $scenario_data[ 'is_state' ] ? 'state' : 'scenario';
+		$post_name  = 'state' === $field_type ? 'bto_state_data[' . $id . ']' : 'bto_scenario_data[' . $id . ']';
+		$conditions = array();
 
-			foreach ( $composite_data as $component_id => $component_data ) {
+		if ( ! empty( $scenario_data[ 'component_data' ] ) ) {
+			foreach ( $scenario_data[ 'component_data' ] as $component_id => $component_options ) {
 
-				$modifier = 'masked';
-
-				if ( isset( $scenario_data[ 'modifier' ][ $component_id ] ) ) {
-
-					$modifier = $scenario_data[ 'modifier' ][ $component_id ];
-
-				} elseif ( ! doing_action( 'wp_ajax_woocommerce_add_composite_scenario' ) ) {
-
-					$exclude = isset( $scenario_data[ 'exclude' ][ $component_id ] ) ? $scenario_data[ 'exclude' ][ $component_id ] : 'no';
-
-					if ( 'no' === $exclude ) {
-						$modifier = 'in';
-					} elseif ( 'yes' === $exclude ) {
-						$modifier = 'not-in';
-					}
+				if ( ! isset( $composite_data[ $component_id ] ) ) {
+					continue;
 				}
 
-				$append_component_id = false;
-				$component_title_occ = 0;
-				$component_title     = esc_html( $component_data[ 'title' ] );
+				$modifier = 'in';
 
-				foreach ( $composite_data as $component_id_inner => $component_data_inner ) {
-					if ( $component_title === esc_html( $component_data_inner[ 'title' ] ) ) {
-						$component_title_occ++;
-					}
+				if ( isset( $scenario_data[ 'modifier' ][ $component_id ] ) && 'not-in' === $scenario_data[ 'modifier' ][ $component_id ] ) {
+					$modifier = 'not-in';
+				} elseif ( isset( $scenario_data[ 'modifier' ][ $component_id ] ) && 'masked' === $scenario_data[ 'modifier' ][ $component_id ] ) {
+					$modifier = 'masked';
+				} elseif ( isset( $scenario_data[ 'exclude' ][ $component_id ] ) && 'yes' === $scenario_data[ 'exclude' ][ $component_id ] ) {
+					$modifier = 'not-in';
 				}
 
-				$append_component_id = $component_title_occ > 1;
+				if ( 'masked' === $modifier ) {
+					continue;
+				}
 
-				?><div class="bto_scenario_selector">
-					<div class="form-field">
-						<label for="bto_scenario_match_component_<?php echo $id . ' ' . $component_id; ?>"><?php
-							echo  $component_title;
-							if ( $append_component_id ) {
-								echo '<span class="component-id-label">' . sprintf( _x( 'ID: %s', 'component id', 'woocommerce-composite-products' ), $component_id ) . '</span>';
-							}
-						?></label>
-						<div class="bto_scenario_match_component_wrapper">
-							<input id="bto_scenario_match_component_<?php echo $id . ' ' . $component_id; ?>" type="checkbox" class="bto_scenario_match_component checkbox"<?php echo ( $modifier !== 'masked' ? ' checked="checked"' : '' ); ?> name="bto_scenario_data[<?php echo $id; ?>][match_component][<?php echo $component_id; ?>]" <?php echo ( $modifier !== 'masked' ? ' value="1"' : '' ); ?> /><?php
-								echo wc_help_tip( sprintf( __( 'Include/exclude options from <strong>%s</strong> in this Scenario.', 'woocommerce-composite-products' ), $component_title ) );
-							?>
-						</div>
-					</div>
-					<div class="form-field bto_scenario_matching_conditions_wrapper" <?php echo ( $modifier === 'masked' ? ' style="display:none;"' : '' ); ?> >
-						<div class="bto_scenario_modifier_wrapper">
-							<select class="bto_scenario_modifier sw-select2" data-wrap="-tipped" style="width: 100%" name="bto_scenario_data[<?php echo $id; ?>][modifier][<?php echo $component_id; ?>]">
-								<option <?php selected( $modifier, 'in', true ); ?> value="in"><?php echo __( 'is', 'woocommerce-composite-products' ); ?></option>
-								<option <?php selected( $modifier, 'not-in', true ); ?> value="not-in"><?php echo __( 'is not', 'woocommerce-composite-products' ); ?></option>
-							</select>
-						</div>
-						<div class="bto_scenario_selector_inner"><?php
+				if ( is_array( $component_options ) ) {
 
-							$component_options_cache_key = 'component_' . $component_id . '_options';
-							$component_options           = WC_CP_Helpers::cache_get( $component_options_cache_key );
+					// If `in` modifier and any value, transform to `in-any` modifier.
+					if ( 'in' === $modifier && $component_options === array( 0 ) ) {
+						$modifier = 'in-any';
+					}
 
-							if ( null === $component_options ) {
-								$component_options = WC_CP_Component::query_component_options( $component_data );
-								WC_CP_Helpers::cache_set( $component_options_cache_key, $component_options );
-							}
-
-							$composite_data_store    = WC_Data_Store::load( 'product-composite' );
-							$component_options_count = count( $composite_data_store->get_expanded_component_options( $component_options, 'merged' ) );
-							$component_options_data  = array();
-
-							$ajax_threshold                 = apply_filters( 'woocommerce_composite_scenario_admin_products_ajax_threshold', 30, $component_id, $product_id );
-							$global_ajax_threshold          = isset( $composite_product_object_data[ 'component_options_ajax_threshold' ] ) ? $composite_product_object_data[ 'component_options_ajax_threshold' ] : false;
-							$global_ajax_threshold_exceeded = $global_ajax_threshold && isset( $composite_product_object_data[ 'component_options_count' ] ) && $composite_product_object_data[ 'component_options_count' ] >= $global_ajax_threshold;
-							$use_ajax                       = $global_ajax_threshold_exceeded || $component_options_count >= $ajax_threshold;
-
-							if ( false === $use_ajax ) {
-
-								foreach ( $component_options as $component_option_id ) {
-
-									$component_option = self::get_component_option( $component_option_id );
-
-									if ( false === $component_option ) {
-										continue;
-									}
-
-									$component_options_data[ $component_option_id ] = $component_option;
-								}
-							}
-
-							if ( false === $use_ajax ) {
-
-								$scenario_options    = array();
-								$scenario_selections = array();
-
-								if ( $component_data[ 'optional' ] === 'yes' ) {
-
-									if ( isset( $scenario_data[ 'component_data' ] ) && WC_CP_Helpers::in_array_key( $scenario_data[ 'component_data' ], $component_id, -1 ) ) {
-										$scenario_selections[] = -1;
-									}
-
-									$scenario_options[ -1 ] = _x( 'No selection', 'optional component property controlled in scenarios', 'woocommerce-composite-products' );
-								}
-
-								if ( isset( $scenario_data[ 'component_data' ] ) && WC_CP_Helpers::in_array_key( $scenario_data[ 'component_data' ], $component_id, 0 ) ) {
-									$scenario_selections[] = 0;
-								}
-
-								$scenario_options[ 0 ] = __( 'Any Product or Variation', 'woocommerce-composite-products' );
-
-								foreach ( $component_options_data as $option_id => $option_data ) {
-
-									$title         = $option_data->get_title();
-									$product_type  = $option_data->get_type();
-									$product_title = 'variable' === $product_type ? WC_CP_Helpers::get_product_title( $option_data, '', __( 'Any Variation', 'woocommerce-composite-products' ) ) : WC_CP_Helpers::get_product_title( $option_data );
-
-									if ( isset( $scenario_data[ 'component_data' ] ) && WC_CP_Helpers::in_array_key( $scenario_data[ 'component_data' ], $component_id, $option_id ) ) {
-										$scenario_selections[] = $option_id;
-									}
-
-									$scenario_options[ $option_id ] = $product_title;
-
-									if ( $product_type === 'variable' ) {
-
-										$component_option_variations_cache_key = 'component_option_variations_' . $option_id;
-										$component_option_variations           = WC_CP_Helpers::cache_get( $component_option_variations_cache_key );
-
-										if ( null === $component_option_variations ) {
-											$component_option_variations = WC_CP_Helpers::get_product_variation_descriptions( $option_data, 'flat' );
-											WC_CP_Helpers::cache_set( $component_option_variations_cache_key, $component_option_variations );
-										}
-
-										if ( ! empty( $component_option_variations ) ) {
-
-											foreach ( $component_option_variations as $variation_id => $description ) {
-
-												if ( isset( $scenario_data[ 'component_data' ] ) && WC_CP_Helpers::in_array_key( $scenario_data[ 'component_data' ], $component_id, $variation_id ) ) {
-													$scenario_selections[] = $variation_id;
-												}
-
-												$scenario_options[ $variation_id ] = $description;
-											}
-										}
-									}
-								}
-
-								$no_selection = _x( 'No selection', 'optional component property controlled in scenarios', 'woocommerce-composite-products' );
-								$optional_tip = $component_data[ 'optional' ] === 'yes' ? sprintf( __( '<br/><br/><strong>Advanced Tip</strong> &ndash; The <strong>%1$s</strong> option refers to a state where none of the available products is selected. You can use it in combination with product references to create selection dependencies, or even to make <strong>%2$s</strong> conditionally <strong>Optional</strong>.', 'woocommerce-composite-products' ), $no_selection, $component_title ) : '';
-								$select_tip   = sprintf( __( 'Select products and variations from <strong>%1$s</strong>.<br/><br/><strong>Tip</strong> &ndash; Choose <strong>Any Product or Variation</strong> to add all <strong>%1$s</strong> products and variations in this Scenario.%2$s', 'woocommerce-composite-products' ), $component_title, $optional_tip );
-
-								?><select id="bto_scenario_ids_<?php echo $id; ?>_<?php echo $component_id; ?>" name="bto_scenario_data[<?php echo $id; ?>][component_data][<?php echo $component_id; ?>][]" style="width: 100%;" class="sw-select2 bto_scenario_ids" data-wrap="-tipped" multiple="multiple" data-placeholder="<?php echo __( 'Select products &amp; variations&hellip;', 'woocommerce-composite-products' ); ?>"><?php
-
-									foreach ( $scenario_options as $scenario_option_id => $scenario_option_description ) {
-										$option_selected = in_array( $scenario_option_id, $scenario_selections ) ? 'selected="selected"' : '';
-										echo '<option ' . $option_selected . 'value="' . $scenario_option_id . '">' . $scenario_option_description . '</option>';
-									}
-
-								?></select>
-								<span class="bto_scenario_select tips" data-tip="<?php echo $select_tip; ?>"></span><?php
-
-							} else {
-
-								$selections_in_scenario = array();
-
-								if ( ! empty( $scenario_data[ 'component_data' ] ) ) {
-
-									foreach ( $scenario_data[ 'component_data' ][ $component_id ] as $product_id_in_scenario ) {
-
-										if ( $product_id_in_scenario == -1 ) {
-											if ( $component_data[ 'optional' ] === 'yes' ) {
-												$selections_in_scenario[ $product_id_in_scenario ] = _x( 'No selection', 'optional component property controlled in scenarios', 'woocommerce-composite-products' );
-											}
-										} elseif ( $product_id_in_scenario == 0 ) {
-											$selections_in_scenario[ $product_id_in_scenario ] = __( 'Any Product or Variation', 'woocommerce-composite-products' );
-										} else {
-
-											$product_in_scenario = self::get_component_option( $product_id_in_scenario, true );
-
-											if ( false === $product_in_scenario ) {
-												continue;
-											}
-
-											if ( ! in_array( WC_CP_Core_Compatibility::get_product_id( $product_in_scenario ), $component_options ) ) {
-												continue;
-											}
-
-											if ( $product_in_scenario->get_type() === 'variation' ) {
-												$selections_in_scenario[ $product_id_in_scenario ] = WC_CP_Helpers::get_product_variation_title( $product_in_scenario );
-											} elseif ( $product_in_scenario->get_type() === 'variable' ) {
-												$selections_in_scenario[ $product_id_in_scenario ] = WC_CP_Helpers::get_product_title( $product_in_scenario, '', __( 'Any Variation', 'woocommerce-composite-products' ) );
-											} else {
-												$selections_in_scenario[ $product_id_in_scenario ] = WC_CP_Helpers::get_product_title( $product_in_scenario );
-											}
-										}
-									}
-								}
-
-								$no_selection = _x( 'No selection', 'optional component property controlled in scenarios', 'woocommerce-composite-products' );
-								$optional_tip = $component_data[ 'optional' ] === 'yes' ? sprintf( __( '<br/><br/><strong>Advanced Tip</strong> &ndash; The <strong>%1$s</strong> option refers to a state where none of the available products is selected. You can use it in combination with product references to create selection dependencies, or even to make <strong>%2$s</strong> conditionally <strong>Optional</strong>.', 'woocommerce-composite-products' ), $no_selection, $component_title ) : '';
-								$search_tip   = sprintf( __( 'Search for products and variations from <strong>%1$s</strong>.<br/><br/><strong>Tip</strong> &ndash; Choose <strong>Any Product or Variation</strong> to add all <strong>%1$s</strong> products and variations in this Scenario.%2$s', 'woocommerce-composite-products' ), $component_title, $optional_tip );
-
-								?><select id="bto_scenario_ids_<?php echo $id; ?>_<?php echo $component_id; ?>" name="bto_scenario_data[<?php echo $id; ?>][component_data][<?php echo $component_id; ?>][]" class="sw-select2-search--products" data-wrap="-tipped" multiple="multiple" style="width: 100%;" data-include="<?php echo esc_attr( json_encode( array( 'composite_id' => $product_id, 'component_id' => $component_id ) ) ); ?>" data-limit="100" data-component_optional="<?php echo $component_data[ 'optional' ]; ?>" data-action="woocommerce_json_search_products_and_variations_in_component" data-placeholder="<?php echo  __( 'Search for products &amp; variations&hellip;', 'woocommerce-composite-products' ); ?>"><?php
-
-									if ( ! empty( $selections_in_scenario ) ) {
-
-										foreach ( $selections_in_scenario as $selection_id_in_scenario => $selection_in_scenario ) {
-											echo '<option value="' . $selection_id_in_scenario . '" selected="selected">' . $selection_in_scenario . '</option>';
-										}
-									}
-
-								?></select>
-								<span class="bto_scenario_search tips" data-tip="<?php echo $search_tip; ?>"></span><?php
-							}
-
-						?></div>
-					</div>
-				</div><?php
+					// Flatten data.
+					$conditions[] = array(
+						'component_id'    => $component_id,
+						'modifier'        => $modifier,
+						'optional'        => 'yes' === $composite_data[ $component_id ][ 'optional' ] ? true : false,
+						'post_name'       => $post_name,
+						'component_data'  => $composite_data[ $component_id ]
+					);
+				}
 			}
+		}
 
-		?></div><?php
+		$conditions_count = count( $conditions );
+
+		?>
+		<div class="sw-form-os">
+			<div class="os_container widefat wc-cp-<?php echo $field_type; ?>-conditions-container <?php echo $conditions_count ? '' : 'os_empty'; ?>" data-os_count="<?php echo $conditions_count; ?>" data-os_post_name="<?php echo $post_name; ?>" data-unique_additions="yes">
+				<div class="os_boarding<?php echo $conditions_count ? '' : ' active'; ?>">
+					<div class="icon">
+						<i class="dashicons <?php echo ( 'state' === $field_type ? 'cp-fa-state' : 'dashicons-randomize' ); ?>"></i>
+					</div><?php
+						if ( 'state' === $field_type ) {
+							?><div class="text"><?php esc_html_e( 'First, add some Components.', 'woocommerce-composite-products' ); ?></br><?php esc_html_e( 'Then, choose products or variations that can be bought together.', 'woocommerce-composite-products' ); ?></div><?php
+						} else {
+							?><div class="text"><?php esc_html_e( 'First, add some Conditions.', 'woocommerce-composite-products' ); ?></br><?php esc_html_e( 'Then, choose an Action to trigger when these Conditions are satisfied.', 'woocommerce-composite-products' ); ?></div><?php
+						}
+					?>
+				</div>
+				<div class="os_list"<?php echo $conditions_count ? '' : ' class="hidden"'; ?>>
+
+					<?php foreach ( $conditions as $condition_index => $condition_data ) { ?>
+						<div class="os_row" data-os_index="<?php echo $condition_index; ?>">
+							<div class="os_select">
+								<div class="sw-enhanced-select">
+									<?php self::print_condition_components_dropdown( $composite_data, $condition_data[ 'component_id' ] ); ?>
+								</div>
+							</div>
+							<div class="os_content">
+								<?php
+								$scenario_selections = self::get_condition_component_selections( $scenario_data, $condition_data[ 'component_data' ] );
+								self::print_condition_component_admin_fields_html( $condition_data, $product_id, $scenario_selections ); ?>
+							</div>
+							<div class="os_remove column-wc_actions">
+								<a href="#" data-tip="<?php esc_html_e( 'Remove', 'woocommerce-composite-products' ) ?>" class="button wc-action-button trash help_tip"></a>
+							</div>
+						</div><!-- os_row -->
+					<?php } ?>
+
+				</div><!-- os-list -->
+
+				<div class="os_add os_row<?php echo $conditions_count ? '' : ' os_add--boarding'; ?>">
+					<div class="os_select">
+						<div class="sw-enhanced-select">
+							<?php self::print_condition_components_dropdown( $composite_data, false, array( 'add' => 'state' === $field_type ? esc_html__( 'Add component&hellip;', 'woocommerce-composite-products' ) : esc_html__( 'Add condition&hellip;', 'woocommerce-composite-products' ) ) ); ?>
+						</div>
+					</div>
+					<div class="os_content">
+						<div class="os_row_inner">
+							<div class="os_modifier">
+								<div class="os--disabled"></div>
+							</div>
+							<div class="os_value">
+								<div class="os--disabled"></div>
+							</div>
+						</div>
+					</div>
+					<div class="os_remove">
+					</div>
+				</div><!-- os_add -->
+
+			</div><!-- os-container -->
+		</div>
+		<?php
+	}
+
+	/**
+	 * Add state config options.
+	 *
+	 * @param  int    $id
+	 * @param  array  $state_data
+	 * @param  array  $composite_data
+	 * @param  int    $product_id
+	 * @return void
+	 */
+	public static function state_config( $id, $state_data, $composite_data, $product_id ) {
+		self::scenario_config( $id, $state_data, $composite_data, $product_id );
 	}
 
 	/**
@@ -1339,6 +1445,7 @@ class WC_CP_Meta_Box_Product_Data {
 	 * @return void
 	 */
 	public static function component_config_options( $id, $data, $product_id ) {
+		global $composite_product_object_data;
 
 		$query_type          = isset( $data[ 'query_type' ] ) ? $data[ 'query_type' ] : 'product_ids';
 		$selected_categories = isset( $data[ 'assigned_category_ids' ] ) ? $data[ 'assigned_category_ids' ] : array();
@@ -1359,8 +1466,25 @@ class WC_CP_Meta_Box_Product_Data {
 		 */
 		$select_by = apply_filters( 'woocommerce_composite_component_query_types', $select_by, $data, $product_id );
 
+		// Calculate the ajax usage param for the conditions stack.
+		$rendered_with_ajax = empty( $data[ 'component_id' ] );
+		$use_ajax           = false;
+		if ( ! $rendered_with_ajax && isset( $composite_product_object_data[ 'component_use_ajax' ][ $data[ 'component_id' ] ] ) ) {
+			$use_ajax = (bool) $composite_product_object_data[ 'component_use_ajax' ][ $data[ 'component_id' ] ];
+		}
+
+		// Calculate attributes for the conditions stack.
+		$options_attr = '';
+		if ( ! $rendered_with_ajax && ! $use_ajax ) {
+			$component_options = self::get_condition_component_options( $data );
+			$options_attr      = esc_attr( json_encode( $component_options ) );
+			$options_attr      = ' data-component_options="' . $options_attr . '"';
+			$options_attr     .= ' data-is_optional="' . $data[ 'optional' ] . '"';
+			$options_attr     .= ' data-use_ajax="' . $use_ajax ? 'yes' : 'no' . '"';
+			$options_attr     .= ' id="component_query_type_' . $data[ 'component_id' ] . '"';
+		}
 		?>
-		<div class="component_query_type">
+		<div class="component_query_type"<?php echo $options_attr; ?>>
 			<div class="form-field">
 				<label>
 					<?php echo __( 'Component Options', 'woocommerce-composite-products' ); ?>
@@ -1379,27 +1503,27 @@ class WC_CP_Meta_Box_Product_Data {
 		<div class="component_selector bto_selector component_query_type_selector bto_multiselect component_query_type_product_ids">
 			<div class="form-field"><?php
 
-				$product_id_options = array();
+				?><select id="bto_ids_<?php echo $id; ?>" class="sw-select2-search--products products_selector" data-wrap="-tipped" name="bto_data[<?php echo $id; ?>][assigned_ids][]" multiple="multiple" style="width: 100%;" data-limit="100" data-action="woocommerce_json_search_component_options" data-placeholder="<?php echo  __( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-sortable="true"><?php
 
-				if ( ! empty( $data[ 'assigned_ids' ] ) ) {
+					$product_id_options = array();
 
-					$component_options = $data[ 'assigned_ids' ];
+					if ( ! empty( $data[ 'assigned_ids' ] ) ) {
 
-					foreach ( $component_options as $component_option_id ) {
+						$component_options = $data[ 'assigned_ids' ];
 
-						$component_option = self::get_component_option( $component_option_id );
+						foreach ( $component_options as $component_option_id ) {
 
-						if ( false === $component_option ) {
-							continue;
-						}
+							$component_option = self::get_component_option( $component_option_id );
 
-						if ( $product_title = WC_CP_Helpers::get_product_title( $component_option ) ) {
-							$product_id_options[ $component_option_id ] = $product_title;
+							if ( false === $component_option ) {
+								continue;
+							}
+
+							if ( $product_title = WC_CP_Helpers::get_product_title( $component_option ) ) {
+								$product_id_options[ $component_option_id ] = $product_title;
+							}
 						}
 					}
-				}
-
-				?><select id="bto_ids_<?php echo $id; ?>" class="sw-select2-search--products products_selector" data-wrap="-tipped" name="bto_data[<?php echo $id; ?>][assigned_ids][]" multiple="multiple" style="width: 100%;" data-limit="100" data-action="woocommerce_json_search_component_options" data-placeholder="<?php echo  __( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-sortable="true"><?php
 
 					if ( ! empty( $product_id_options ) ) {
 						foreach ( $product_id_options as $product_id => $product_name ) {
@@ -1797,7 +1921,7 @@ class WC_CP_Meta_Box_Product_Data {
 	 */
 	public static function composite_product_data_tabs( $tabs ) {
 
-		global $post, $product_object, $composite_product_object;
+		global $post, $product_object, $composite_product_object, $composite_product_object_data;
 
 		/*
 		 * Create a global composite-type object to use for populating fields.
@@ -1810,6 +1934,8 @@ class WC_CP_Meta_Box_Product_Data {
 		} else {
 			$composite_product_object = $product_object;
 		}
+
+		self::set_global_object_data( $composite_product_object );
 
 		$tabs[ 'cp_components' ] = array(
 			'label'    => __( 'Components', 'woocommerce-composite-products' ),
@@ -1824,6 +1950,16 @@ class WC_CP_Meta_Box_Product_Data {
 			'class'    => array( 'show_if_composite', 'composite_scenarios', 'bto_product_tab' ),
 			'priority' => 48
 		);
+
+		if ( self::display_states_panel() ) {
+
+			$tabs[ 'cp_states' ] = array(
+				'label'    => __( 'States', 'woocommerce-composite-products' ),
+				'target'   => 'bto_state_data',
+				'class'    => array( 'show_if_composite', 'composite_states', 'bto_product_tab' ),
+				'priority' => 48
+			);
+		}
 
 		$tabs[ 'inventory' ][ 'class' ][] = 'show_if_composite';
 
@@ -1854,10 +1990,15 @@ class WC_CP_Meta_Box_Product_Data {
 		$merged_component_options      = array();
 
 		$composite_data = $composite_product_object->get_composite_data( 'edit' );
+		$scenarios_data = $composite_product_object->get_scenario_data( 'edit' );
+
+		$composite_product_object_data[ 'component_options_count' ] = 0;
+		$composite_product_object_data[ 'component_options' ]       = array();
+		$composite_product_object_data[ 'component_use_ajax' ]      = array();
+		$composite_product_object_data[ 'has_states' ]              = self::get_global_object_states_data( $composite_product_object, 'has_states' );
+		$composite_product_object_data[ 'needs_states_migration' ]  = self::get_global_object_states_data( $composite_product_object, 'needs_migration' );
 
 		if ( ! empty( $composite_data ) ) {
-
-			$composite_product_object_data[ 'component_options_count' ] = 0;
 
 			foreach ( $composite_data as $component_id => $component_data ) {
 
@@ -1869,14 +2010,122 @@ class WC_CP_Meta_Box_Product_Data {
 					WC_CP_Helpers::cache_set( $component_options_cache_key, $component_options );
 				}
 
-				$merged_component_options = array_unique( array_merge( $merged_component_options, $component_options ) );
-
+				$merged_component_options                                              = array_unique( array_merge( $merged_component_options, $component_options ) );
 				$composite_product_object_data[ 'component_options' ][ $component_id ] = $component_options;
 			}
 
 			$composite_product_object_data[ 'component_options_count' ]          = count( $merged_component_options );
 			$composite_product_object_data[ 'component_options_ajax_threshold' ] = apply_filters( 'woocommerce_composite_admin_component_options_ajax_threshold', 200 );
+
+			// Ajax method on component options.
+			$component_options_count        = $composite_product_object_data[ 'component_options_count' ];
+			$global_ajax_threshold          = $composite_product_object_data[ 'component_options_ajax_threshold' ];
+			$global_ajax_threshold_exceeded = $global_ajax_threshold && $component_options_count >= $global_ajax_threshold;
+
+			foreach ( $composite_data as $component_id => $component_data ) {
+
+				$ajax_threshold          = apply_filters( 'woocommerce_composite_scenario_admin_products_ajax_threshold', 100, $component_id, $composite_product_object->get_id() );
+
+				$component_options_count = count( $composite_product_object_data[ 'component_options' ][ $component_id ] );
+				if ( ! $global_ajax_threshold_exceeded && $component_options_count < $ajax_threshold ) {
+
+					// If no global AJAX, try to expand each component.
+					$composite_data_store    = WC_Data_Store::load( 'product-composite' );
+					$component_options_count = count( $composite_data_store->get_expanded_component_options( $composite_product_object_data[ 'component_options' ][ $component_id ], 'merged' ) );
+				}
+
+				// Determine ajax usage.
+				$composite_product_object_data[ 'component_use_ajax' ][ $component_id ] = $global_ajax_threshold_exceeded || $component_options_count >= $ajax_threshold;
+			}
 		}
+	}
+
+	/**
+	 * Whether to display the States panel or not.
+	 * By default only available to users who already utilized state-based logic before v8.0.0 became available.
+	 *
+	 * @since  8.0.0
+	 *
+	 * @return boolean
+	 */
+	protected static function display_states_panel() {
+
+		global $composite_product_object, $composite_product_object_data;
+
+		$has_states = isset( $composite_product_object_data[ 'has_states' ] ) ? $composite_product_object_data[ 'has_states' ] : self::get_global_object_states_data( $composite_product_object, 'has_states' );
+
+		return apply_filters( 'woocommerce_composite_states_panel_enabled', $has_states, $composite_product_object );
+	}
+
+	/**
+	 * Whether a Composite has States and/or needs a States migration.
+	 *
+	 * @since  8.0.0
+	 *
+	 * @param  WC_Product_Composite
+	 * @return boolean
+	 */
+	protected static function get_global_object_states_data( $product, $prop = 'has_states' ) {
+
+		$cache_key = null;
+
+		if ( 'has_states' === $prop ) {
+			$cache_key = 'has_states';
+		} elseif ( 'needs_migration' === $prop ) {
+			$cache_key = 'needs_states_migration';
+		}
+
+		if ( ! $cache_key ) {
+			return null;
+		}
+
+		$value = WC_CP_Helpers::cache_get( 'composite_' . $cache_key . '_' . $product->get_id() );
+
+		if ( null === $value ) {
+			self::set_global_object_states_data( $product );
+		}
+
+		return WC_CP_Helpers::cache_get( 'composite_' . $cache_key . '_' . $product->get_id() );
+	}
+
+	/**
+	 * Calculates whether a Composite has States and/or needs a States migration.
+	 *
+	 * @since  8.0.0
+	 *
+	 * @param  WC_Product_Composite
+	 * @return void
+	 */
+	protected static function set_global_object_states_data( $product ) {
+
+		$scenarios_data         = $product->get_scenario_data( 'edit' );
+		$has_states             = false;
+		$needs_states_migration = false;
+
+		if ( ! empty( $scenarios_data ) ) {
+
+			foreach ( $scenarios_data as $scenario_id => $scenario_data ) {
+
+				if ( isset( $scenario_data[ 'scenario_actions' ] ) && is_array( $scenario_data[ 'scenario_actions' ] ) ) {
+
+					if ( isset( $scenario_data[ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] ) && 'yes' === $scenario_data[ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] ) {
+
+						$has_states = true;
+
+						if ( ! isset( $scenario_data[ 'version' ] ) ) {
+							$needs_states_migration = true;
+						}
+
+						if ( $needs_states_migration ) {
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		WC_CP_Helpers::cache_set( 'composite_has_states_' . $product->get_id(), $has_states );
+		WC_CP_Helpers::cache_set( 'composite_needs_states_migration_' . $product->get_id(), $needs_states_migration );
 	}
 
 	/**
@@ -1886,16 +2135,50 @@ class WC_CP_Meta_Box_Product_Data {
 	 */
 	public static function composite_data_panel() {
 
-		global $composite_product_object;
+		global $composite_product_object, $composite_product_object_data;
 
 		$composite_id   = $composite_product_object->get_id();
 		$composite_data = $composite_product_object->get_composite_data( 'edit' );
 		$scenarios_data = $composite_product_object->get_scenario_data( 'edit' );
+		$states_data    = array();
 
-		self::set_global_object_data( $composite_product_object );
+		// Split up old Scenarios to new Scenarios + States.
+		if ( $composite_product_object_data[ 'has_states' ] ) {
+
+			foreach ( $scenarios_data as $scenario_id => $scenario_data ) {
+
+				$is_compat_group          = false;
+				$has_other_active_actions = false;
+
+				if ( isset( $scenario_data[ 'scenario_actions' ] ) && is_array( $scenario_data[ 'scenario_actions' ] ) ) {
+
+					$is_compat_group = isset( $scenario_data[ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] ) && 'yes' === $scenario_data[ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ];
+
+					foreach ( $scenario_data[ 'scenario_actions' ] as $action_id => $action_data ) {
+						if ( 'compat_group' !== $action_id && isset( $action_data[ 'is_active' ] ) && 'yes' === $action_data[ 'is_active' ] ) {
+							$has_other_active_actions = true;
+							break;
+						}
+					}
+
+				} else {
+					$is_compat_group = true;
+				}
+
+				// Is this a 'compat_group' scenario? Add it to the States panel.
+				if ( $is_compat_group ) {
+					$states_data[ $scenario_id ] = $scenario_data;
+				}
+
+				// Does this scenario have other actions than 'compat_group'? If not, remove it from the Scenarios panel.
+				if ( ! $has_other_active_actions ) {
+					unset( $scenarios_data[ $scenario_id ] );
+				}
+			}
+		}
 
 		?>
-		<div id="bto_product_data" class="bto_panel panel woocommerce_options_panel wc-metaboxes-wrapper">
+		<div id="bto_product_data" class="bto_panel panel woocommerce_options_panel wc-metaboxes-wrapper" style="display:none">
 			<div class="options_group_general">
 				<?php
 				/**
@@ -1925,7 +2208,7 @@ class WC_CP_Meta_Box_Product_Data {
 			</div>
 
 		</div>
-		<div id="bto_scenario_data" class="bto_panel panel woocommerce_options_panel wc-metaboxes-wrapper">
+		<div id="bto_scenario_data" class="bto_panel panel woocommerce_options_panel wc-metaboxes-wrapper" style="display:none">
 			<div class="options_group scenarios_config_group bto_clearfix <?php echo empty( $scenarios_data ) ? 'options_group--boarding' : ''; ?>">
 
 				<div id="bto_scenarios_inner"><?php
@@ -1947,7 +2230,8 @@ class WC_CP_Meta_Box_Product_Data {
 
 								foreach ( $scenarios_data as $scenario_id => $scenario_data ) {
 
-									$scenario_data[ 'scenario_id' ] = $scenario_id;
+									$scenario_data[ 'scenario_id' ]                  = $scenario_id;
+									$scenario_data[ 'has_non_effective_conditions' ] = self::has_non_effective_conditions( $scenario_data, array_flip( array_keys( $composite_data ) ) );
 
 									/**
 									 * Action 'woocommerce_composite_scenario_admin_html'.
@@ -1970,8 +2254,8 @@ class WC_CP_Meta_Box_Product_Data {
 								?><div class="bto_boarding__scenarios bto_scenarios__boarding--scenarios_empty">
 									<div class="bto_boarding__scenarios__message">
 										<h3><?php _e( 'Scenarios', 'woocommerce-composite-products' ); ?></h3>
-										<p><?php _e( 'Use Scenarios to specify valid Composite configurations, and/or conditionally hide Components.', 'woocommerce-composite-products' ); ?>
-										<br/><?php echo sprintf( __( 'Need assistance? <a href="%1$s" target="_blank">Check out the documentation</a>, or <a href="%2$s" target="_blank">get in touch with us</a>.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'advanced-guide' ), WC_CP()->get_resource_url( 'ticket-form' ) ); ?>
+										<p><?php _e( 'Use Scenarios to conditionally hide Components and Component Options.', 'woocommerce-composite-products' ); ?>
+										<br/><?php echo sprintf( __( 'Need assistance? Check out the <a href="%1$s" target="_blank">documentation</a>, or <a href="%2$s" target="_blank">get in touch</a> with us.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'advanced-guide' ), WC_CP()->get_resource_url( 'ticket-form' ) ); ?>
 										</p>
 									</div>
 								</div><?php
@@ -1989,7 +2273,7 @@ class WC_CP_Meta_Box_Product_Data {
 							<div class="bto_boarding__scenarios__message">
 								<h3><?php _e( 'Scenarios', 'woocommerce-composite-products' ); ?></h3>
 								<p><?php echo sprintf( __( 'First, <a href="%s" target="_blank">create some Components</a> by navigating to the Components tab.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'guide' ) ); ?>
-								<br/><?php echo sprintf( __( 'Then, return here to <a href="%s" target="_blank">define Scenarios</a>.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'advanced-guide' ) ); ?>
+								<br/><?php echo sprintf( __( 'Then, return here to <a href="%s" target="_blank">add Scenarios</a>.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'advanced-guide' ) ); ?>
 								</p>
 							</div>
 						</div><?php
@@ -1998,10 +2282,85 @@ class WC_CP_Meta_Box_Product_Data {
 				?></div>
 			</div>
 		</div><?php
-	}
 
-	public static function composite_shipping_type_admin_html() {
+		// Only display the States panel if States exist.
+		if ( self::display_states_panel() ) {
 
+			?><div id="bto_state_data" class="bto_panel panel woocommerce_options_panel wc-metaboxes-wrapper" style="display:none">
+				<div class="options_group states_config_group bto_clearfix <?php echo empty( $states_data ) ? 'options_group--boarding' : ''; ?>">
+
+					<div id="bto_states_inner"><?php
+
+						if ( ! empty( $composite_data ) ) {
+
+							?><p class="toolbar">
+								<span class="bulk_toggle_wrapper">
+									<a href="#" class="close_all"><?php _e( 'Close all', 'woocommerce' ); ?></a>
+									<a href="#" class="expand_all"><?php _e( 'Expand all', 'woocommerce' ); ?></a>
+								</span>
+							</p>
+
+							<div class="bto_states wc-metaboxes"><?php
+
+								if ( ! empty( $states_data ) ) {
+
+									$i = 0;
+
+									foreach ( $states_data as $state_id => $state_data ) {
+
+										$state_data[ 'state_id' ] = $state_id;
+										$state_data[ 'is_state' ] = true;
+
+										/**
+										 * Action 'woocommerce_composite_state_admin_html'.
+										 *
+										 * @param   int     $i
+										 * @param   array   $state_data
+										 * @param   array   $composite_data
+										 * @param   string  $composite_id
+										 * @param   string  $state
+										 *
+										 * @hooked  {@see state_admin_html} - 10
+										 */
+										do_action( 'woocommerce_composite_state_admin_html', $i, $state_data, $composite_data, $composite_id, 'closed' );
+
+										$i++;
+									}
+
+								} else {
+
+									?><div class="bto_boarding__states bto_state__boarding--state_empty">
+										<div class="bto_boarding__states__message">
+											<h3><?php _e( 'States', 'woocommerce-composite-products' ); ?></h3>
+											<p><?php _e( 'Use States to specify combinations of Component Options that can be bought together.', 'woocommerce-composite-products' ); ?>
+											<br/><?php echo sprintf( __( 'Need assistance? Check out the <a href="%1$s" target="_blank">documentation</a>, or <a href="%2$s" target="_blank">get in touch</a> with us.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'advanced-guide' ), WC_CP()->get_resource_url( 'ticket-form' ) ); ?>
+											</p>
+										</div>
+									</div><?php
+								}
+
+							?></div>
+
+							<p class="bto_action_button_wrapper bto_action_button_wrapper--add_scenario">
+								<button type="button" class="button add_bto_state"><?php _e( 'Add State', 'woocommerce-composite-products' ); ?></button>
+							</p><?php
+
+						} else {
+
+							?><div class="bto_boarding__states bto_states__boarding--components_empty">
+								<div class="bto_boarding__states__message">
+									<h3><?php _e( 'States', 'woocommerce-composite-products' ); ?></h3>
+									<p><?php echo sprintf( __( 'First, <a href="%s" target="_blank">create some Components</a> by navigating to the Components tab.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'guide' ) ); ?>
+									<br/><?php echo sprintf( __( 'Then, return here to <a href="%s" target="_blank">add States</a>.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'advanced-guide' ) ); ?>
+									</p>
+								</div>
+							</div><?php
+						}
+
+					?></div>
+				</div>
+			</div><?php
+		}
 	}
 
 	/**
@@ -2095,58 +2454,15 @@ class WC_CP_Meta_Box_Product_Data {
 	}
 
 	/**
-	 * Add a notice if calculating min/max catalog price in the background.
-	 *
-	 * @since  4.0.0
-	 *
-	 * @return void
-	 */
-	public static function maybe_add_catalog_price_notice() {
-
-		global $post_id;
-
-		// Get admin screen ID.
-		$screen    = get_current_screen();
-		$screen_id = $screen ? $screen->id : '';
-
-		if ( 'product' !== $screen_id ) {
-			return;
-		}
-
-		$product_type = WC_Product_Factory::get_product_type( $post_id );
-
-		if ( 'composite' !== $product_type ) {
-			return;
-		}
-
-		$product = wc_get_product( $post_id );
-
-		if ( ! $product ) {
-			return;
-		}
-
-		$shop_price_calc_notice = '';
-		$shop_price_calc_status = $product->get_shop_price_calc_status( 'edit' );
-
-		if ( 'pending' === $shop_price_calc_status ) {
-			$shop_price_calc_notice = sprintf( __( 'The catalog price of "%s" is currently being calculated in the background. During this time, its price will be hidden.', 'woocommerce-composite-products' ), get_the_title( $post_id ) );
-		} elseif ( 'failed' === $shop_price_calc_status ) {
-			$shop_price_calc_notice = sprintf( __( 'The catalog price of "%1$s" could not be calculated within the default time limit. This may happen when adding Scenarios to Composite Products that contain many Components and a large number of product/variation options. For assistance, please check out the <a href="%2$s" target="_blank">documentation</a>, or <a href="%3$s" target="_blank">get in touch with us</a>.', 'woocommerce-composite-products' ), get_the_title( $post_id ), WC_CP()->get_resource_url( 'catalog-price-option' ), WC_CP()->get_resource_url( 'ticket-form' ) );
-		}
-
-		if ( $shop_price_calc_notice ) {
-			WC_CP_Admin_Notices::add_notice( $shop_price_calc_notice, 'warning', false );
-		}
-	}
-
-	/**
 	 * Save composite configuration: Components and Scenarios tab fields.
 	 *
 	 * @param  int    $composite_id
 	 * @param  array  $posted_composite_data
-	 * @return array
+	 * @return void
 	 */
 	public static function save_configuration( $composite_id, $posted_composite_data ) {
+
+		global $composite_product_object, $thepostid, $post;
 
 		$product = new WC_Product_Composite( $composite_id );
 
@@ -2156,6 +2472,12 @@ class WC_CP_Meta_Box_Product_Data {
 
 			$product->set( $props );
 			$product->save();
+
+			$composite_product_object = $product;
+			$thepostid                = $product->get_id();
+			$post                     = get_post( $thepostid );
+
+			self::set_global_object_data( $product );
 		}
 	}
 
@@ -2217,13 +2539,16 @@ class WC_CP_Meta_Box_Product_Data {
 		 * Components and Scenarios.
 		 */
 
-		$untitled_component_exists           = false;
-		$zero_product_item_exists            = false;
-		$untitled_scenario_exists            = false;
-		$undefined_matching_conditions_exist = false;
+		$untitled_component_exists      = false;
+		$zero_product_item_exists       = false;
+		$incomplete_scenario_exists     = false;
+		$incomplete_state_exists        = false;
+		$non_effective_conditions_exist = false;
+
 		$individually_priced_options_count   = 0;
 		$composite_data                      = array();
 		$component_options                   = array();
+		$current_component_ids               = array_keys( $product->get_composite_data( 'edit' ) );
 
 		if ( isset( $posted_composite_data[ 'bto_data' ] ) ) {
 
@@ -2238,8 +2563,7 @@ class WC_CP_Meta_Box_Product_Data {
 
 				$bto_ids     = isset( $post_data[ 'assigned_ids' ] ) ? $post_data[ 'assigned_ids' ] : '';
 				$bto_cat_ids = isset( $post_data[ 'assigned_category_ids' ] ) ? $post_data[ 'assigned_category_ids' ] : '';
-
-				$group_id    = isset ( $post_data[ 'group_id' ] ) ? wp_unslash( $post_data[ 'group_id' ] ) : ( current_time( 'timestamp' ) + $counter );
+				$group_id    = isset( $post_data[ 'group_id' ] ) ? wp_unslash( $post_data[ 'group_id' ] ) : self::generate_id( $current_component_ids );
 				$counter++;
 
 				$composite_data[ $group_id ] = array();
@@ -2643,9 +2967,9 @@ class WC_CP_Meta_Box_Product_Data {
 				 */
 
 				if ( isset( $post_data[ 'position' ] ) ) {
-					$ordering[ (int) $post_data[ 'position' ] ] = $group_id;
+					$ordering[ $group_id ] = (int) $post_data[ 'position' ];
 				} else {
-					$ordering[ count( $ordering ) ] = $group_id;
+					$ordering[ $group_id ] = 1000000;
 				}
 
 				/**
@@ -2659,11 +2983,11 @@ class WC_CP_Meta_Box_Product_Data {
 				$composite_data[ $group_id ] = apply_filters( 'woocommerce_composite_process_component_data', $composite_data[ $group_id ], $post_data, $group_id, $composite_id );
 			}
 
-			ksort( $ordering );
+			asort( $ordering );
 			$ordered_composite_data = array();
 			$ordering_loop          = 0;
 
-			foreach ( $ordering as $group_id ) {
+			foreach ( $ordering as $group_id => $position ) {
 				$ordered_composite_data[ $group_id ]               = $composite_data[ $group_id ];
 				$ordered_composite_data[ $group_id ][ 'position' ] = $ordering_loop;
 				$ordering_loop++;
@@ -2673,45 +2997,34 @@ class WC_CP_Meta_Box_Product_Data {
 			/*  Scenarios.              */
 			/*--------------------------*/
 
-			// Convert posted data coming from select2 v3/4 ajax inputs.
-			$compat_scenario_data = array();
-
-			if ( isset( $posted_composite_data[ 'bto_scenario_data' ] ) ) {
-				foreach ( $posted_composite_data[ 'bto_scenario_data' ] as $scenario_id => $scenario_post_data ) {
-
-					$compat_scenario_data[ $scenario_id ] = $scenario_post_data;
-
-					if ( isset( $scenario_post_data[ 'component_data' ] ) ) {
-						foreach ( $scenario_post_data[ 'component_data' ] as $component_id => $products_in_scenario ) {
-
-							if ( ! empty( $products_in_scenario ) ) {
-								if ( is_array( $products_in_scenario ) ) {
-									$compat_scenario_data[ $scenario_id ][ 'component_data' ][ $component_id ] = array_unique( array_map( 'intval', $products_in_scenario ) );
-								} else {
-									$compat_scenario_data[ $scenario_id ][ 'component_data' ][ $component_id ] = array_unique( array_map( 'intval', explode( ',', $products_in_scenario ) ) );
-								}
-							} else {
-								$compat_scenario_data[ $scenario_id ][ 'component_data' ][ $component_id ] = array();
-							}
-						}
-
-					} else {
-						$compat_scenario_data[ $scenario_id ][ 'component_data' ] = array();
-					}
-				}
-
-				$posted_composite_data[ 'bto_scenario_data' ] = $compat_scenario_data;
-			}
-			// End conversion.
-
 			// Start processing.
 			$current_scenario_data      = $product->get_scenario_data( 'edit' );
 			$ordered_scenario_data      = array();
 			$scenario_data              = array();
 			$component_options_data     = array();
-			$compat_group_actions_exist = false;
 
-			if ( isset( $posted_composite_data[ 'bto_scenario_data' ] ) ) {
+			$posted_scenario_data = isset( $posted_composite_data[ 'bto_scenario_data' ] ) && is_array( $posted_composite_data[ 'bto_scenario_data' ] ) ? $posted_composite_data[ 'bto_scenario_data' ] : array();
+			$posted_state_data    = isset( $posted_composite_data[ 'bto_state_data' ] ) && is_array( $posted_composite_data[ 'bto_state_data' ] ) ? $posted_composite_data[ 'bto_state_data' ] : array();
+
+			$current_scenario_ids = array_keys( $current_scenario_data );
+			$component_ids        = array_keys( $ordered_composite_data );
+
+			// Backup old data if needed.
+			if ( self::get_global_object_states_data( $product, 'needs_migration' ) ) {
+				if ( ! $product->meta_exists( '_bto_scenario_data_v7' ) ) {
+					update_post_meta( $product->get_id(), '_bto_scenario_data_v7', $current_scenario_data );
+				}
+			}
+
+			// Convert States to Scenarios.
+			if ( ! empty( $posted_state_data ) ) {
+				foreach ( $posted_state_data as $state_post_data ) {
+					$state_post_data[ 'is_state' ] = true;
+					$posted_scenario_data[] = $state_post_data;
+				}
+			}
+
+			if ( isset( $posted_scenario_data ) ) {
 
 				$composite_data_store = WC_Data_Store::load( 'product-composite' );
 
@@ -2719,33 +3032,38 @@ class WC_CP_Meta_Box_Product_Data {
 					$component_options_data[ $component_id ] = $composite_data_store->get_expanded_component_options( $options, 'all' );
 				}
 
-				$counter           = 0;
 				$scenario_ordering = array();
 
-				foreach ( $posted_composite_data[ 'bto_scenario_data' ] as $scenario_post_data ) {
+				foreach ( $posted_scenario_data as $scenario_post_data ) {
 
 					$copied_from_current = false;
+					$is_incomplete       = false;
 
 					// Scenario already saved in the past?
 					if ( isset( $scenario_post_data[ 'scenario_id' ] ) ) {
 
-						$scenario_id = wp_unslash( $scenario_post_data[ 'scenario_id' ] );
+						$current_scenario_id = wp_unslash( $scenario_post_data[ 'scenario_id' ] );
+
+						// If this State was also posted as a Scenario...
+						if ( isset( $scenario_post_data[ 'is_state' ] ) && isset( $scenario_data[ $current_scenario_id ] ) ) {
+							// Generate a new id for it.
+							$scenario_id = self::generate_id( $current_scenario_ids );
+						} else {
+							$scenario_id = $current_scenario_id;
+						}
 
 						// No fields posted?
-						if ( ! isset( $scenario_post_data[ 'dirty' ] ) && isset( $current_scenario_data[ $scenario_id ] ) ) {
-
-							$scenario_data[ $scenario_id ] = $current_scenario_data[ $scenario_id ];
-
-							$copied_from_current = true;
+						if ( ! isset( $scenario_post_data[ 'dirty' ] ) && isset( $current_scenario_data[ $current_scenario_id ] ) ) {
+							$scenario_data[ $scenario_id ] = $current_scenario_data[ $current_scenario_id ];
+							$copied_from_current           = $current_scenario_id;
+						} else {
+							$scenario_data[ $scenario_id ] = array();
 						}
 
 					} else {
 
-						$scenario_id = current_time( 'timestamp' ) + $counter;
-
+						$scenario_id = self::generate_id( $current_scenario_ids );
 						$scenario_data[ $scenario_id ] = array();
-
-						$counter++;
 					}
 
 					/*
@@ -2763,159 +3081,299 @@ class WC_CP_Meta_Box_Product_Data {
 					 */
 
 					if ( isset( $scenario_post_data[ 'position' ] ) ) {
-						$scenario_ordering[ ( int ) $scenario_post_data[ 'position' ] ] = $scenario_id;
+						$scenario_ordering[ $scenario_id ] = ( int ) $scenario_post_data[ 'position' ];
 					} else {
-						$scenario_ordering[ count( $scenario_ordering ) ] = $scenario_id;
+						$scenario_ordering[ $scenario_id ] = 1000000;
 					}
 
+					// Copied? Update 'compat_group' state and move on.
 					if ( $copied_from_current ) {
-						continue;
-					}
 
-					/*
-					 * Save scenario title.
-					 */
+						// Is this a State?
+						if ( isset( $scenario_post_data[ 'is_state' ] ) ) {
 
-					if ( isset( $scenario_post_data[ 'title' ] ) && ! empty( $scenario_post_data[ 'title' ] ) ) {
-						$scenario_data[ $scenario_id ][ 'title' ] = strip_tags( wp_unslash( $scenario_post_data[ 'title' ] ) );
-					} else {
+							$scenario_data[ $scenario_id ][ 'scenario_actions' ] = array(
+								'compat_group' => array(
+									'is_active' => 'yes'
+								)
+							);
 
-						$untitled_scenario_exists = true;
-
-						$scenario_data[ $scenario_id ][ 'title' ] = __( 'Untitled Scenario', 'woocommerce-composite-products' );
-					}
-
-					/*
-					 * Save scenario description.
-					 */
-
-					if ( isset( $scenario_post_data[ 'description' ] ) && ! empty( $scenario_post_data[ 'description' ] ) ) {
-						$scenario_data[ $scenario_id ][ 'description' ] = wp_kses_post( wp_unslash( $scenario_post_data[ 'description' ] ) );
-					} else {
-						$scenario_data[ $scenario_id ][ 'description' ] = '';
-					}
-
-					/*
-					 * Save scenario action(s).
-					 */
-
-					$scenario_data[ $scenario_id ][ 'scenario_actions' ] = array();
-
-					// "Dependency Group" action.
-					if ( isset( $scenario_post_data[ 'scenario_actions' ][ 'compat_group' ] ) ) {
-						if ( ! empty( $scenario_post_data[ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] ) ) {
-							$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] = 'yes';
-							$compat_group_actions_exist = true;
-						}
-					} else {
-						$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] = 'no';
-					}
-
-					// "Hide Components" action.
-					if ( isset( $scenario_post_data[ 'scenario_actions' ][ 'conditional_components' ] ) ) {
-						if ( ! empty( $scenario_post_data[ 'scenario_actions' ][ 'conditional_components' ][ 'is_active' ] ) ) {
-							$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'is_active' ] = 'yes';
-							$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'hidden_components' ] = ! empty( $scenario_post_data[ 'scenario_actions' ][ 'conditional_components' ][ 'hidden_components' ] ) ? $scenario_post_data[ 'scenario_actions' ][ 'conditional_components' ][ 'hidden_components' ] : array();
-						}
-					} else {
-						$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'is_active' ] = 'no';
-					}
-
-					/*
-					 * Save component options in scenario.
-					 */
-
-					$scenario_data[ $scenario_id ][ 'component_data' ] = array();
-
-					$all_masked = true;
-
-					foreach ( $ordered_composite_data as $group_id => $group_data ) {
-
-						if ( empty( $scenario_post_data[ 'match_component' ][ $group_id ] ) ) {
-
-							$scenario_data[ $scenario_id ][ 'modifier' ][ $group_id ] = 'masked';
+							if ( $copied_from_current !== $scenario_id && isset( $scenario_data[ $copied_from_current ] ) ) {
+								// Make sure that the 'compat_group' action is deactivated in the already-created Scenario.
+								$scenario_data[ $copied_from_current ][ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] = 'no';
+							}
 
 						} else {
 
-							$all_masked = false;
-
-							$scenario_data[ $scenario_id ][ 'modifier' ][ $group_id ] = 'in';
-
-							if ( isset( $scenario_post_data[ 'modifier' ][ $group_id ] ) && $scenario_post_data[ 'modifier' ][ $group_id ] === 'not-in' ) {
-
-								if ( ! empty( $scenario_post_data[ 'component_data' ][ $group_id ] ) && ! WC_CP_Helpers::in_array_key( $scenario_post_data[ 'component_data' ], $group_id, 0 ) ) {
-									$scenario_data[ $scenario_id ][ 'modifier' ][ $group_id ] = 'not-in';
-								}
+							if ( isset( $scenario_data[ $scenario_id ][ 'scenario_actions' ] ) && is_array( $scenario_data[ $scenario_id ][ 'scenario_actions' ] ) ) {
+								$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'compat_group' ] = array( 'is_active' => 'no' );
+							} else {
+								$scenario_data[ $scenario_id ][ 'scenario_actions' ] = array(
+									'compat_group' => array(
+										'is_active' => 'no'
+									)
+								);
 							}
 						}
 
-						if ( ! empty( $scenario_post_data[ 'component_data' ][ $group_id ] ) ) {
+					} else {
 
+						/*
+						 * Save scenario title.
+						 */
+
+						if ( isset( $scenario_post_data[ 'title' ] ) && ! empty( $scenario_post_data[ 'title' ] ) ) {
+							$scenario_data[ $scenario_id ][ 'title' ] = strip_tags( wp_unslash( $scenario_post_data[ 'title' ] ) );
+						} else {
+							$scenario_data[ $scenario_id ][ 'title' ] = __( 'Untitled Scenario', 'woocommerce-composite-products' );
+						}
+
+						/*
+						 * Save scenario description.
+						 */
+
+						if ( isset( $scenario_post_data[ 'description' ] ) && ! empty( $scenario_post_data[ 'description' ] ) ) {
+							$scenario_data[ $scenario_id ][ 'description' ] = wp_kses_post( wp_unslash( $scenario_post_data[ 'description' ] ) );
+						} else {
+							$scenario_data[ $scenario_id ][ 'description' ] = '';
+						}
+
+						/*
+						 * Save configuration.
+						 */
+
+						// Sanitize values posted with v3/v4 select2 selects.
+						$scenario_post_data[ 'component_data' ] = isset( $scenario_post_data[ 'component_data' ] ) ? $scenario_post_data[ 'component_data' ] : array();
+
+						foreach ( $scenario_post_data[ 'component_data' ] as $component_id => $products_in_scenario ) {
+
+							if ( ! empty( $products_in_scenario ) ) {
+								if ( is_array( $products_in_scenario ) ) {
+									$scenario_post_data[ 'component_data' ][ $component_id ] = array_unique( array_map( 'intval', $products_in_scenario ) );
+								} else {
+									$scenario_post_data[ 'component_data' ][ $component_id ] = array_unique( array_map( 'intval', explode( ',', $products_in_scenario ) ) );
+								}
+							} else {
+								$scenario_post_data[ 'component_data' ][ $component_id ] = array();
+							}
+						}
+
+						$scenario_data[ $scenario_id ][ 'component_data' ] = array();
+
+						$all_masked = true;
+
+						foreach ( $ordered_composite_data as $group_id => $group_data ) {
+
+							$scenario_data[ $scenario_id ][ 'modifier' ][ $group_id ]       = 'masked';
 							$scenario_data[ $scenario_id ][ 'component_data' ][ $group_id ] = array();
 
-							if ( isset( $scenario_post_data[ 'component_data' ] ) && WC_CP_Helpers::in_array_key( $scenario_post_data[ 'component_data' ], $group_id, 0 ) ) {
-								$scenario_data[ $scenario_id ][ 'component_data' ][ $group_id ][] = 0;
-								continue;
-							}
+							if ( ! empty( $scenario_post_data[ 'component_data' ][ $group_id ] ) ) {
 
-							if ( isset( $scenario_post_data[ 'component_data' ] ) && WC_CP_Helpers::in_array_key( $scenario_post_data[ 'component_data' ], $group_id, -1 ) ) {
-								$scenario_data[ $scenario_id ][ 'component_data' ][ $group_id ][] = -1;
-							}
+								if ( WC_CP_Helpers::in_array_key( $scenario_post_data[ 'component_data' ], $group_id, 0 ) ) {
 
-							foreach ( $scenario_post_data[ 'component_data' ][ $group_id ] as $id_in_scenario ) {
+									$scenario_data[ $scenario_id ][ 'component_data' ][ $group_id ][] = 0;
 
-								if ( (int) $id_in_scenario === -1 || (int) $id_in_scenario === 0 ) {
-									continue;
-								}
+								} else {
 
-								$parent_id = isset( $component_options_data[ $group_id ][ 'mapped' ][ $id_in_scenario ] ) ? $component_options_data[ $group_id ][ 'mapped' ][ $id_in_scenario ] : false;
-
-								if ( $parent_id ) {
-
-									if ( ! in_array( $parent_id, $scenario_post_data[ 'component_data' ][ $group_id ] ) ) {
-										$scenario_data[ $scenario_id ][ 'component_data' ][ $group_id ][] = $id_in_scenario;
+									if ( isset( $scenario_post_data[ 'component_data' ] ) && WC_CP_Helpers::in_array_key( $scenario_post_data[ 'component_data' ], $group_id, -1 ) ) {
+										$scenario_data[ $scenario_id ][ 'component_data' ][ $group_id ][] = -1;
 									}
 
-								} elseif ( in_array( $id_in_scenario, $component_options[ $group_id ] ) ) {
-									$scenario_data[ $scenario_id ][ 'component_data' ][ $group_id ][] = $id_in_scenario;
+									foreach ( $scenario_post_data[ 'component_data' ][ $group_id ] as $id_in_scenario ) {
+
+										if ( (int) $id_in_scenario === -1 || (int) $id_in_scenario === 0 ) {
+											continue;
+										}
+
+										$parent_id = isset( $component_options_data[ $group_id ][ 'mapped' ][ $id_in_scenario ] ) ? $component_options_data[ $group_id ][ 'mapped' ][ $id_in_scenario ] : false;
+
+										if ( $parent_id ) {
+
+											if ( ! in_array( $parent_id, $scenario_post_data[ 'component_data' ][ $group_id ] ) ) {
+												$scenario_data[ $scenario_id ][ 'component_data' ][ $group_id ][] = $id_in_scenario;
+											}
+
+										} elseif ( in_array( $id_in_scenario, $component_options[ $group_id ] ) ) {
+											$scenario_data[ $scenario_id ][ 'component_data' ][ $group_id ][] = $id_in_scenario;
+										}
+									}
 								}
 							}
 
+							if ( empty( $scenario_data[ $scenario_id ][ 'component_data' ][ $group_id ] ) ) {
+								$scenario_data[ $scenario_id ][ 'component_data' ][ $group_id ] = array( 0 );
+							}
+
+							if ( ! empty( $scenario_post_data[ 'match_component' ][ $group_id ] ) ) {
+
+								$all_masked = false;
+
+								$scenario_data[ $scenario_id ][ 'modifier' ][ $group_id ] = 'in';
+
+								if ( isset( $scenario_post_data[ 'modifier' ][ $group_id ] ) ) {
+
+									if ( 'not-in' === $scenario_post_data[ 'modifier' ][ $group_id ] ) {
+										$scenario_data[ $scenario_id ][ 'modifier' ][ $group_id ] = ! WC_CP_Helpers::in_array_key( $scenario_data[ $scenario_id ][ 'component_data' ], $group_id, 0 ) ? 'not-in' : 'in';
+									} elseif ( 'in-any' === $scenario_post_data[ 'modifier' ][ $group_id ] ) {
+										$scenario_data[ $scenario_id ][ 'modifier' ][ $group_id ]       = 'in';
+										$scenario_data[ $scenario_id ][ 'component_data' ][ $group_id ] = array( 0 );
+									}
+								}
+							}
+						}
+
+						// Don't save incomplete scenarios/states.
+						if ( $all_masked ) {
+
+							unset( $scenario_data[ $scenario_id ] );
+
+							$is_incomplete = true;
+
+							if ( isset( $scenario_post_data[ 'is_state' ] ) ) {
+								$incomplete_state_exists = true;
+							} else {
+								$incomplete_scenario_exists = true;
+							}
+
+							continue;
+						}
+
+						/*
+						 * Save scenario action(s).
+						 */
+
+						$scenario_data[ $scenario_id ][ 'scenario_actions' ] = array();
+
+						// States are internally saved using the 'compat_group' action type.
+
+						if ( isset( $scenario_post_data[ 'is_state' ] ) ) {
+							$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] = 'yes';
 						} else {
-							$scenario_data[ $scenario_id ][ 'component_data' ][ $group_id ] = array( 0 );
+							$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'compat_group' ][ 'is_active' ] = 'no';
+						}
+
+						// "Hide Components" action.
+
+						$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'is_active' ]         = 'no';
+						$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'hidden_components' ] = array();
+
+						if ( ! isset( $scenario_post_data[ 'is_state' ] ) && isset( $scenario_post_data[ 'scenario_actions' ][ 'conditional_components' ] ) && ! empty( $scenario_post_data[ 'scenario_actions' ][ 'conditional_components' ][ 'is_active' ] ) ) {
+
+							$hidden_components = ! empty( $scenario_post_data[ 'scenario_actions' ][ 'conditional_components' ][ 'hidden_components' ] ) ? array_intersect( $scenario_post_data[ 'scenario_actions' ][ 'conditional_components' ][ 'hidden_components' ], $component_ids ) : array();
+
+							if ( ! empty( $hidden_components ) ) {
+								$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'is_active' ]         = 'yes';
+								$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_components' ][ 'hidden_components' ] = $hidden_components;
+							}
+						}
+
+						// "Hide Component Options" action.
+
+						$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'is_active' ]      = 'no';
+						$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ] = array();
+
+						if ( ! isset( $scenario_post_data[ 'is_state' ] ) && isset( $scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ] ) && ! empty( $scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'is_active' ] ) ) {
+
+							$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'is_active' ] = 'yes';
+
+							// Sanitize values posted with v3/v4 select2 selects.
+							$scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ] = ! empty( $scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ] ) ? $scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ] : array();
+
+							foreach ( $scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ] as $component_id => $conditional_products_in_scenario ) {
+
+								if ( ! empty( $conditional_products_in_scenario ) ) {
+									if ( is_array( $conditional_products_in_scenario ) ) {
+										$scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ][ $component_id ] = array_unique( array_map( 'intval', $conditional_products_in_scenario ) );
+									} else {
+										$scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ][ $component_id ] = array_unique( array_map( 'intval', explode( ',', $conditional_products_in_scenario ) ) );
+									}
+								} else {
+									$scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ][ $component_id ] = array();
+								}
+							}
+
+							$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ] = array();
+
+							$all_masked = true;
+
+							foreach ( $ordered_composite_data as $group_id => $group_data ) {
+
+								$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'modifier' ][ $group_id ]       = 'masked';
+								$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ][ $group_id ] = array();
+
+								if ( ! empty( $scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ][ $group_id ] ) ) {
+
+									if ( isset( $scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ] ) && WC_CP_Helpers::in_array_key( $scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ], $group_id, -1 ) ) {
+										$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ][ $group_id ][] = -1;
+									}
+
+									foreach ( $scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ][ $group_id ] as $id_in_scenario ) {
+
+										if ( (int) $id_in_scenario === -1 || (int) $id_in_scenario === 0 ) {
+											continue;
+										}
+
+										$parent_id = isset( $component_options_data[ $group_id ][ 'mapped' ][ $id_in_scenario ] ) ? $component_options_data[ $group_id ][ 'mapped' ][ $id_in_scenario ] : false;
+
+										if ( $parent_id ) {
+
+											if ( ! in_array( $parent_id, $scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ][ $group_id ] ) ) {
+												$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ][ $group_id ][] = $id_in_scenario;
+											}
+
+										} elseif ( in_array( $id_in_scenario, $component_options[ $group_id ] ) ) {
+											$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ][ $group_id ][] = $id_in_scenario;
+										}
+									}
+								}
+
+								$has_options = ! empty( $scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ][ $group_id ] );
+
+								if ( ! empty( $scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'match_component' ][ $group_id ] ) && $has_options ) {
+
+									$all_masked = false;
+
+									$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'modifier' ][ $group_id ] = 'in';
+
+									if ( isset( $scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'modifier' ][ $group_id ] ) && $scenario_post_data[ 'scenario_actions' ][ 'conditional_options' ][ 'modifier' ][ $group_id ] === 'not-in' ) {
+										$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'modifier' ][ $group_id ] = 'not-in';
+									}
+								}
+							}
+
+							if ( $all_masked ) {
+								$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'is_active' ]      = 'no';
+								$scenario_data[ $scenario_id ][ 'scenario_actions' ][ 'conditional_options' ][ 'component_data' ] = array();
+							}
 						}
 					}
 
-					if ( $all_masked ) {
+					$scenario_data[ $scenario_id ][ 'version' ] = WC_CP()->plugin_version( true );
 
-						unset( $scenario_data[ $scenario_id ] );
+					if ( ! $copied_from_current ) {
 
-						$undefined_matching_conditions_exist = true;
-
-						continue;
+						/**
+						 * Filter the scenario data before saving. Add custom errors via 'add_notice()'.
+						 *
+						 * @param  array   $scenario_data
+						 * @param  array   $post_data
+						 * @param  string  $scenario_id
+						 * @param  array   $composite_data
+						 * @param  string  $composite_id
+						 */
+						$scenario_data[ $scenario_id ] = apply_filters( 'woocommerce_composite_process_scenario_data', $scenario_data[ $scenario_id ], $scenario_post_data, $scenario_id, $ordered_composite_data, $composite_id );
 					}
-
-					/**
-					 * Filter the scenario data before saving. Add custom errors via 'add_notice()'.
-					 *
-					 * @param  array   $scenario_data
-					 * @param  array   $post_data
-					 * @param  string  $scenario_id
-					 * @param  array   $composite_data
-					 * @param  string  $composite_id
-					 */
-					$scenario_data[ $scenario_id ] = apply_filters( 'woocommerce_composite_process_scenario_data', $scenario_data[ $scenario_id ], $scenario_post_data, $scenario_id, $ordered_composite_data, $composite_id );
 				}
 
 				/*
 				 * Re-order and save position data.
 				 */
 
-				ksort( $scenario_ordering );
+				asort( $scenario_ordering );
 
 				$ordering_loop = 0;
 
-				foreach ( $scenario_ordering as $scenario_id ) {
+				foreach ( $scenario_ordering as $scenario_id => $position ) {
 
 					if ( ! isset( $scenario_data[ $scenario_id ] ) ) {
 						continue;
@@ -2927,17 +3385,28 @@ class WC_CP_Meta_Box_Product_Data {
 				}
 			}
 
-			/*
-			 * Verify defaults.
-			 */
-
 			if ( ! empty( $ordered_scenario_data ) ) {
 
-				// Stacked layout notice.
-				if ( 'single' === $props[ 'layout' ] && $compat_group_actions_exist ) {
-					$info = __( 'For a more streamlined user experience in applications that involve Scenarios and dependent Component Options, it is recommended to choose the <strong>Progressive</strong>, <strong>Stepped</strong> or <strong>Componentized</strong> layout.', 'woocommerce-composite-products' );
-					self::add_notice( $info, 'info' );
+				/*
+				 * Check Conditions for presence of Components with no effect on hidden Components or Component Options.
+				 */
+
+				$component_indexes = array_flip( array_keys( $ordered_composite_data ) );
+
+				foreach ( $ordered_scenario_data as $scenario_id => $scenario_data ) {
+
+					if ( $non_effective_conditions_exist ) {
+						break;
+					}
+
+					if ( self::has_non_effective_conditions( $scenario_data, $component_indexes ) ) {
+						$non_effective_conditions_exist = true;
+					}
 				}
+
+				/*
+				 * Verify defaults.
+				 */
 
 				$default_configuration = array();
 				$optional_components   = array();
@@ -3009,15 +3478,90 @@ class WC_CP_Meta_Box_Product_Data {
 			self::add_notice( __( 'Add at least one valid <strong>Component Option</strong> to each Component. Component Options can be added by selecting products individually, or by choosing product categories.', 'woocommerce-composite-products' ), 'error' );
 		}
 
-		if ( $untitled_scenario_exists ) {
-			self::add_notice( __( 'Please give a valid <strong>Name</strong> to all Scenarios before saving.', 'woocommerce-composite-products' ), 'error' );
+		if ( $incomplete_scenario_exists ) {
+			self::add_notice( __( 'Some of your Scenarios were incomplete and could not be saved. Please add some <strong>Conditions</strong> and configure at least one <strong>Action</strong> in every Scenario before saving.', 'woocommerce-composite-products' ), 'error' );
 		}
 
-		if ( $undefined_matching_conditions_exist ) {
-			self::add_notice( __( 'Some Scenarios could not be saved. Please define matching conditions for at least one Component in the <strong>Configuration</strong> section of each Scenario before saving.', 'woocommerce-composite-products' ), 'error' );
+		if ( $incomplete_state_exists ) {
+			self::add_notice( __( 'Some of your States were incomplete and could not be saved. Please add some <strong>Components</strong> in every State before saving.', 'woocommerce-composite-products' ), 'error' );
+		}
+
+		if ( $non_effective_conditions_exist ) {
+			self::add_notice( __( 'Please review your Scenarios. It might be possible to simplify, split up, or delete some of them. When creating Scenarios, remember that it\'s only possible to hide Components and Component Options based on product/variation selections made <strong>in preceeding Components</strong> only.', 'woocommerce-composite-products' ), 'warning' );
 		}
 
 		return $props;
+	}
+
+	/**
+	 * Checks if a Scenario includes Conditions with partial or no effect on their Actions.
+	 *
+	 * @param  array  $scenario_data
+	 * @param  array  $component_indexes
+	 * @return bool
+	 */
+	protected static function has_non_effective_conditions( $scenario_data, $component_indexes ) {
+
+		$has_non_effective_conditions   = false;
+		$first_action_component_index   = 10000;
+		$last_condition_component_index = 0;
+
+		if ( ! empty( $scenario_data[ 'modifier' ] ) ) {
+
+			foreach ( $scenario_data[ 'modifier' ] as $component_id => $component_modifier ) {
+
+				if ( 'masked' === $component_modifier ) {
+					continue;
+				}
+
+				if ( 'in' === $component_modifier && isset( $scenario_data[ 'component_data' ][ $component_id ] ) && array( 0 ) === $scenario_data[ 'component_data' ][ $component_id ] ) {
+					continue;
+				}
+
+				if ( $component_indexes[ $component_id ] > $last_condition_component_index ) {
+					$last_condition_component_index = $component_indexes[ $component_id ];
+				}
+			}
+		}
+
+		if ( ! empty( $scenario_data[ 'scenario_actions' ] ) ) {
+
+			foreach ( $scenario_data[ 'scenario_actions' ] as $action => $action_data ) {
+
+				if ( ! isset( $action_data[ 'is_active' ] ) || 'yes' !== $action_data[ 'is_active' ] ) {
+					continue;
+				}
+
+				if ( $action === 'conditional_components' && ! empty( $action_data[ 'hidden_components' ] ) && is_array( $action_data[ 'hidden_components' ] ) ) {
+
+					foreach ( $action_data[ 'hidden_components' ] as $component_id ) {
+						if ( $component_indexes[ $component_id ] < $first_action_component_index ) {
+							$first_action_component_index = $component_indexes[ $component_id ];
+						}
+					}
+				}
+
+				if ( $action === 'conditional_options' && ! empty( $action_data[ 'modifier' ] ) && is_array( $action_data[ 'modifier' ] ) ) {
+
+					foreach ( $action_data[ 'modifier' ] as $component_id => $component_modifier ) {
+
+						if ( 'masked' === $component_modifier ) {
+							continue;
+						}
+
+						if ( $component_indexes[ $component_id ] < $first_action_component_index ) {
+							$first_action_component_index = $component_indexes[ $component_id ];
+						}
+					}
+				}
+			}
+
+			if ( $last_condition_component_index >= $first_action_component_index ) {
+				$has_non_effective_conditions = true;
+			}
+		}
+
+		return $has_non_effective_conditions;
 	}
 
 	/**
@@ -3027,8 +3571,12 @@ class WC_CP_Meta_Box_Product_Data {
 	 * @param string  $type
 	 */
 	public static function add_notice( $content, $type ) {
+
 		WC_CP_Admin_Notices::add_notice( $content, $type, true );
-		self::$ajax_notices[] = strip_tags( html_entity_decode( $content ) );
+
+		if ( 'warning' !== $type ) {
+			self::$ajax_notices[] = strip_tags( html_entity_decode( $content ) );
+		}
 	}
 
 	/**
@@ -3103,6 +3651,32 @@ class WC_CP_Meta_Box_Product_Data {
 	}
 
 	/**
+	 * Generate a unique timestamp and use it as id.
+	 *
+	 * @since  8.0.0
+	 *
+	 * @param  array  $existing_ids
+	 * @return int
+	 */
+	protected static function generate_id( $existing_ids ) {
+
+		$generated_id    = current_time( 'timestamp' );
+		$blacklisted_ids = array_merge( $existing_ids, self::$generated_ids );
+		$found_unique_id = false;
+
+		while ( ! $found_unique_id ) {
+			$generated_id++;
+			if ( ! in_array( $generated_id, $blacklisted_ids ) ) {
+				$found_unique_id = true;
+			}
+		}
+
+		self::$generated_ids[] = $generated_id;
+
+		return $generated_id;
+	}
+
+	/**
 	 * Filters disabled scenarios.
 	 *
 	 * @since  7.0.1
@@ -3112,6 +3686,337 @@ class WC_CP_Meta_Box_Product_Data {
 	 */
 	public static function filter_disabled_scenarios( $scenario_data ) {
 		return ! isset( $scenario_data[ 'enabled' ] ) || 'no' !== $scenario_data[ 'enabled' ];
+	}
+
+	/**
+	 * Print component condition admin fields html.
+	 *
+	 * @since  8.0.0
+	 *
+	 * @param  array   $condition_data
+	 * @param  int     $composite_id
+	 * @param  array   $selected
+	 * @param  array   $modifiers
+	 * @return void
+	 */
+	protected static function print_condition_component_admin_fields_html( $condition_data, $composite_id, $selected = array(), $modifiers = array() ) {
+
+		global $composite_product_object_data;
+
+		if ( empty( $composite_product_object_data ) ) {
+			$composite_product_object_data = array();
+		}
+
+		// Parse condition data.
+		$post_name    = $condition_data[ 'post_name' ];
+		$component_id = $condition_data[ 'component_id' ];
+		$modifiers    = ! empty( $modifiers ) ? $modifiers : array(
+			'in'     => __( 'is', 'woocommerce-composite-products' ),
+			'not-in' => __( 'is not', 'woocommerce-composite-products' ),
+			'in-any' => __( 'is any', 'woocommerce-composite-products' )
+		);
+
+		$modifier     = isset( $condition_data[ 'modifier' ] ) ? $condition_data[ 'modifier' ] : 'in';
+		$is_optional  = isset( $condition_data[ 'optional' ] ) ? $condition_data[ 'optional' ] : 'no';
+		$use_ajax     = isset( $condition_data[ 'use_ajax' ] ) ? (bool) $condition_data[ 'use_ajax' ] : ( isset( $composite_product_object_data[ 'component_use_ajax' ][ $component_id ] ) ? $composite_product_object_data[ 'component_use_ajax' ][ $component_id ] : false );
+
+		?>
+		<div class="os_row_inner">
+			<div class="os_modifier">
+				<div class="sw-enhanced-select">
+					<input type="hidden" name="<?php echo $post_name; ?>[match_component][<?php echo $component_id; ?>]" value="1"/>
+					<select name="<?php echo $post_name; ?>[modifier][<?php echo $component_id; ?>]">
+						<?php foreach ( $modifiers as $modifier_key => $modifier_label ) { ?>
+							<option value="<?php echo esc_attr( $modifier_key ); ?>" <?php selected( $modifier, $modifier_key, true ); ?>><?php echo $modifier_label; ?></option>
+						<?php } ?>
+					</select>
+				</div>
+			</div>
+			<div class="os_value">
+				<div data-modifiers="in,not-in"<?php echo in_array( $modifier, array( 'in', 'not-in' ) ) ? '' : ' style="display:none;"'; ?>>
+					<?php
+					if ( false === $use_ajax ) {
+
+						$scenario_options = ! empty( $condition_data[ 'component_data' ] ) ? self::get_condition_component_options( $condition_data[ 'component_data' ] ) : array();
+
+						?><select name="<?php echo $post_name; ?>[component_data][<?php echo $component_id; ?>][]" style="width: 100%;" class="sw-select2 bto_scenario_ids" multiple="multiple" data-placeholder="<?php echo __( 'Select products and variations&hellip;', 'woocommerce-composite-products' ); ?>"><?php
+						if ( ! empty( $scenario_options ) ) {
+							foreach ( $scenario_options as $scenario_option_id => $scenario_option_description ) {
+								$option_selected = in_array( $scenario_option_id, array_keys( $selected ) ) ? 'selected="selected"' : '';
+								echo '<option ' . $option_selected . 'value="' . $scenario_option_id . '">' . $scenario_option_description . '</option>';
+							}
+						} elseif ( ! empty( $condition_data[ 'component_options_html' ] ) ) {
+							echo $condition_data[ 'component_options_html' ];
+						}
+
+						?></select><?php
+
+					} else {
+
+						?><select name="<?php echo $post_name; ?>[component_data][<?php echo $component_id; ?>][]" class="sw-select2-search--products" multiple="multiple" style="width: 100%;" data-include="<?php echo esc_attr( json_encode( array( 'composite_id' => $composite_id, 'component_id' => $component_id ) ) ); ?>" data-limit="100" data-component_optional="<?php echo $is_optional; ?>" data-action="woocommerce_json_search_products_and_variations_in_component" data-placeholder="<?php echo  __( 'Search for products and variations&hellip;', 'woocommerce-composite-products' ); ?>"><?php
+
+							if ( ! empty( $selected ) ) {
+
+								foreach ( $selected as $selection_id_in_condition => $selection_in_condition ) {
+									echo '<option value="' . $selection_id_in_condition . '" selected="selected">' . $selection_in_condition . '</option>';
+								}
+							}
+
+						?></select><?php
+					}
+
+					?>
+				</div>
+				<div class="os--disabled" data-modifiers="in-any"<?php echo in_array( $modifier, array( 'in-any' ) ) ? '' : ' style="display:none;"'; ?>></div>
+			</div>
+		</div><?php
+	}
+
+	/**
+	 * Get condition's components selections.
+	 *
+	 * @since 8.0.0
+	 *
+	 * @param  array  $scenario_data
+	 * @param  array  $component_data
+	 * @return array
+	 */
+	public static function get_condition_component_selections( $scenario_data, $component_data ) {
+		global $composite_product_object_data;
+
+		$component_id           = $component_data[ 'component_id' ];
+		$selections_in_scenario = array();
+
+		if ( ! empty( $scenario_data[ 'component_data' ] ) ) {
+
+			foreach ( $scenario_data[ 'component_data' ][ $component_id ] as $product_id_in_scenario ) {
+
+				if ( $product_id_in_scenario == -1 ) {
+					if ( $component_data[ 'optional' ] === 'yes' ) {
+						$selections_in_scenario[ $product_id_in_scenario ] = _x( 'No selection', 'optional component property controlled in scenarios', 'woocommerce-composite-products' );
+					}
+				} elseif ( $product_id_in_scenario == 0 ) {
+					$selections_in_scenario[ $product_id_in_scenario ] = __( 'Any Product or Variation', 'woocommerce-composite-products' );
+				} else {
+
+					$product_in_scenario = self::get_component_option( $product_id_in_scenario, true );
+
+					if ( false === $product_in_scenario ) {
+						continue;
+					}
+
+					if ( ! empty( $composite_product_object_data[ 'component_data' ][ $component_id ] ) && ! in_array( WC_CP_Core_Compatibility::get_product_id( $product_in_scenario ), $composite_product_object_data[ 'component_data' ][ $component_id ] ) ) {
+						continue;
+					}
+
+					if ( $product_in_scenario->get_type() === 'variation' ) {
+						$selections_in_scenario[ $product_id_in_scenario ] = WC_CP_Helpers::get_product_variation_title( $product_in_scenario );
+					} elseif ( $product_in_scenario->get_type() === 'variable' ) {
+						$selections_in_scenario[ $product_id_in_scenario ] = WC_CP_Helpers::get_product_title( $product_in_scenario, '', __( 'Any Variation', 'woocommerce-composite-products' ) );
+					} else {
+						$selections_in_scenario[ $product_id_in_scenario ] = WC_CP_Helpers::get_product_title( $product_in_scenario );
+					}
+				}
+			}
+		}
+
+		return $selections_in_scenario;
+	}
+
+	/**
+	 * Get condition's components options.
+	 *
+	 * @since 8.0.0
+	 *
+	 * @param  array  $component_data
+	 * @return array
+	 */
+	public static function get_condition_component_options( $component_data ) {
+
+		$component_id                = $component_data[ 'component_id' ];
+		$component_options_cache_key = 'component_' . $component_id . '_options';
+		$component_options           = WC_CP_Helpers::cache_get( $component_options_cache_key );
+
+		if ( null === $component_options ) {
+			$component_options = WC_CP_Component::query_component_options( $component_data );
+			WC_CP_Helpers::cache_set( $component_options_cache_key, $component_options );
+		}
+
+		$component_options_data = array();
+		foreach ( $component_options as $component_option_id ) {
+
+			$component_option = self::get_component_option( $component_option_id );
+
+			if ( false === $component_option ) {
+				continue;
+			}
+
+			$component_options_data[ $component_option_id ] = $component_option;
+		}
+
+		// Build scenario_options.
+		$scenario_options = array();
+
+		if ( $component_data[ 'optional' ] === 'yes' ) {
+
+			$scenario_options[ -1 ] = _x( 'No selection', 'optional component property controlled in scenarios', 'woocommerce-composite-products' );
+		}
+
+		foreach ( $component_options_data as $option_id => $option_data ) {
+
+			$title                          = $option_data->get_title();
+			$product_type                   = $option_data->get_type();
+			$product_title                  = 'variable' === $product_type ? WC_CP_Helpers::get_product_title( $option_data, '', __( 'Any Variation', 'woocommerce-composite-products' ) ) : WC_CP_Helpers::get_product_title( $option_data );
+			$scenario_options[ $option_id ] = $product_title;
+
+			if ( $product_type === 'variable' ) {
+
+				$component_option_variations_cache_key = 'component_option_variations_' . $option_id;
+				$component_option_variations           = WC_CP_Helpers::cache_get( $component_option_variations_cache_key );
+
+				if ( null === $component_option_variations ) {
+					$component_option_variations = WC_CP_Helpers::get_product_variation_descriptions( $option_data, 'flat' );
+					WC_CP_Helpers::cache_set( $component_option_variations_cache_key, $component_option_variations );
+				}
+
+				if ( ! empty( $component_option_variations ) ) {
+
+					foreach ( $component_option_variations as $variation_id => $description ) {
+						$scenario_options[ $variation_id ] = $description;
+					}
+				}
+			}
+		}
+
+		return $scenario_options;
+	}
+
+	/**
+	 * Prints JS templates for the conditions stack.
+	 *
+	 * @since 8.0.0
+	 *
+	 * @return void
+	 */
+	public static function print_conditions_js_templates() {
+
+		global $composite_product_object;
+		if ( ! is_a( $composite_product_object, 'WC_Product' ) ) {
+			return;
+		}
+
+		$composite_id   = $composite_product_object->get_id();
+		$composite_data = $composite_product_object->get_composite_data( 'edit' );
+
+		// Generating for {{{ data.os_content }}}.
+		?><script type="text/template" id="tmpl-wc_cp_flat_condition_content"><?php
+
+			// Template args.
+			$template_condition_data	= array(
+				'component_id'           => '{{{ data.os_component_id }}}',
+				'post_name'              => '{{{ data.os_post_name }}}',
+				'optional'               => '{{{ data.os_optional_component }}}',
+				'component_options_html' => '{{{ data.os_component_options_html }}}',
+				'use_ajax'               => false,
+			);
+
+			self::print_condition_component_admin_fields_html( $template_condition_data, $composite_id );
+
+		?></script><?php
+
+		// Generating for {{{ data.os_component_options_html }}}.
+		?><script type="text/template" id="tmpl-wc_cp_condition_component_option">
+			<option value="{{{ data.option_value }}}">{{{ data.option_label }}}</option>
+		</script><?php
+
+		// Generating for {{{ data.os_content }}}.
+		?><script type="text/template" id="tmpl-wc_cp_ajax_condition_content"><?php
+
+			// Template args.
+			$template_condition_data	= array(
+				'component_id' => '{{{ data.os_component_id }}}',
+				'post_name'    => '{{{ data.os_post_name }}}',
+				'optional'     => '{{{ data.os_optional_component }}}',
+				'use_ajax'     => true,
+			);
+
+			self::print_condition_component_admin_fields_html( $template_condition_data, $composite_id );
+
+		?></script><?php
+
+		// Generating condition row.
+		?>
+		<script type="text/template" id="tmpl-wc_cp_condition_row">
+			<div class="os_row" data-os_index="{{{ data.os_index }}}">
+				<div class="os_select">
+					<div class="sw-enhanced-select">
+						<select class="os_type">{{{ data.os_components }}}</select>
+					</div>
+				</div>
+				<div class="os_content">
+					{{{ data.os_content }}}
+				</div>
+				<div class="os_remove column-wc_actions">
+					<a href="#" class="button wc-action-button trash help_tip" data-tip="<?php echo __( 'Remove', 'woocommerce-composite-products' ) ?>"></a>
+				</div>
+			</div>
+		</script>
+		<?php
+	}
+
+	/**
+	 * Get condition's components dropdown html.
+	 *
+	 * @since 8.0.0
+	 *
+	 * @param  array  $composite_data
+	 * @param  mixed  $selected_id
+	 * @param  array  $additional_options (Optional)
+	 * @return void
+	 */
+	public static function print_condition_components_dropdown( $composite_data, $selected_id = false, $additional_options = array() ) {
+
+		// Init.
+		$components          = array();
+		$append_component_id = false;
+
+		// Loop components.
+		foreach ( $composite_data as $component_id => $component_data ) {
+
+			// Calculate title.
+			$component_title_occ = 0;
+			$component_title     = esc_html( $component_data[ 'title' ] );
+
+			foreach ( $composite_data as $component_id_inner => $component_data_inner ) {
+				if ( $component_title === esc_html( $component_data_inner[ 'title' ] ) ) {
+					$component_title_occ++;
+				}
+			}
+
+			if ( $component_title_occ > 1 ) {
+				$append_component_id = true;
+				break;
+			}
+
+			$components[ $component_id ] = $component_title;
+		}
+
+		?><select class="os_type"><?php
+
+			if ( ! empty( $additional_options ) ) {
+				$selected_id = null;
+				foreach ( $additional_options as $key => $value ) {
+					?><option value="<?php echo $key ?>" selected="selected"><?php echo $value ?></option><?php
+				}
+			}
+
+			foreach ( $composite_data as $component_id => $component_data ) {
+				$component_title = esc_html( trim( $component_data[ 'title' ] ) );
+				?><option value="<?php echo $component_id ?>" <?php echo $component_id === $selected_id ? 'selected="selected"' : ''; ?>><?php
+					echo ! $append_component_id ? $component_title : sprintf( '%1$s (ID: %2$s)', $component_title, $component_id );
+				?></option><?php
+			}
+		?></select><?php
 	}
 
 	/*

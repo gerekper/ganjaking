@@ -1,7 +1,7 @@
 <?php
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -18,13 +18,13 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_redsys_option( $option, $gateway ) {
-		
+
 		$options = get_option( 'woocommerce_' . $gateway . '_settings' );
-		
+
 		if ( ! empty( $options ) ) {
 			$redsys_options = maybe_unserialize( $options );
 			if ( array_key_exists( $option, $redsys_options ) ) {
-				$option_value = $redsys_options[$option];
+				$option_value = $redsys_options[ $option ];
 				return $option_value;
 			} else {
 				return false;
@@ -37,13 +37,13 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_redsys_token_r( $order_id ) {
-		
+
 		if ( ! is_a( $order_id, 'WC_Abstract_Order' ) ) {
 			$order = wc_get_order( $order_id );
 		}
 		if ( $order ) {
 			foreach ( $order->get_items() as $item_id => $item_values ) {
-				$product_id = $item_values->get_product_id(); 
+				$product_id = $item_values->get_product_id();
 				$get        = get_post_meta( $product_id, '_redsystokenr', true );
 				if ( 'yes' === $get ) {
 					return true;
@@ -59,53 +59,53 @@ class WC_Gateway_Redsys_Global {
 	 */
 	function clean_data( $out ) {
 
-		$out = str_replace ( "Á", "A", $out );
-		$out = str_replace ( "À", "A", $out );
-		$out = str_replace ( "Ä", "A", $out );
-		$out = str_replace ( "É", "E", $out );
-		$out = str_replace ( "È", "E", $out );
-		$out = str_replace ( "Ë", "E", $out );
-		$out = str_replace ( "Í", "I", $out );
-		$out = str_replace ( "Ì", "I", $out );
-		$out = str_replace ( "Ï", "I", $out );
-		$out = str_replace ( "Ó", "O", $out );
-		$out = str_replace ( "Ò", "O", $out );
-		$out = str_replace ( "Ö", "O", $out );
-		$out = str_replace ( "Ú", "U", $out );
-		$out = str_replace ( "Ù", "U", $out );
-		$out = str_replace ( "Ü", "U", $out );
-		$out = str_replace ( "á", "a", $out );
-		$out = str_replace ( "à", "a", $out );
-		$out = str_replace ( "ä", "a", $out );
-		$out = str_replace ( "é", "e", $out );
-		$out = str_replace ( "è", "e", $out );
-		$out = str_replace ( "ë", "e", $out );
-		$out = str_replace ( "í", "i", $out );
-		$out = str_replace ( "ì", "i", $out );
-		$out = str_replace ( "ï", "i", $out );
-		$out = str_replace ( "ó", "o", $out );
-		$out = str_replace ( "ò", "o", $out );
-		$out = str_replace ( "ö", "o", $out );
-		$out = str_replace ( "ú", "u", $out );
-		$out = str_replace ( "ù", "u", $out );
-		$out = str_replace ( "ü", "u", $out );
-		$out = str_replace ( "Ñ", "N", $out );
-		$out = str_replace ( "ñ", "n", $out );
-		$out = str_replace ( "&", "-", $out );
-		$out = str_replace ( "<", " ", $out );
-		$out = str_replace ( ">", " ", $out );
-		$out = str_replace ( "/", " ", $out );
-		$out = str_replace ( "\"", " ", $out );
-		$out = str_replace ( "'", " ", $out );
-		$out = str_replace ( "\"", " ", $out );
-		$out = str_replace ( "?", " ", $out );
-		$out = str_replace ( "¿", " ", $out );
-		$out = str_replace ( "º", " ", $out );
-		$out = str_replace ( "ª", " ", $out );
-		$out = str_replace ( "#", " ", $out );
-		$out = str_replace ( "&", " ", $out );
-		$out = str_replace ( "@", " ", $out );
-		
+		$out = str_replace( 'Á', 'A', $out );
+		$out = str_replace( 'À', 'A', $out );
+		$out = str_replace( 'Ä', 'A', $out );
+		$out = str_replace( 'É', 'E', $out );
+		$out = str_replace( 'È', 'E', $out );
+		$out = str_replace( 'Ë', 'E', $out );
+		$out = str_replace( 'Í', 'I', $out );
+		$out = str_replace( 'Ì', 'I', $out );
+		$out = str_replace( 'Ï', 'I', $out );
+		$out = str_replace( 'Ó', 'O', $out );
+		$out = str_replace( 'Ò', 'O', $out );
+		$out = str_replace( 'Ö', 'O', $out );
+		$out = str_replace( 'Ú', 'U', $out );
+		$out = str_replace( 'Ù', 'U', $out );
+		$out = str_replace( 'Ü', 'U', $out );
+		$out = str_replace( 'á', 'a', $out );
+		$out = str_replace( 'à', 'a', $out );
+		$out = str_replace( 'ä', 'a', $out );
+		$out = str_replace( 'é', 'e', $out );
+		$out = str_replace( 'è', 'e', $out );
+		$out = str_replace( 'ë', 'e', $out );
+		$out = str_replace( 'í', 'i', $out );
+		$out = str_replace( 'ì', 'i', $out );
+		$out = str_replace( 'ï', 'i', $out );
+		$out = str_replace( 'ó', 'o', $out );
+		$out = str_replace( 'ò', 'o', $out );
+		$out = str_replace( 'ö', 'o', $out );
+		$out = str_replace( 'ú', 'u', $out );
+		$out = str_replace( 'ù', 'u', $out );
+		$out = str_replace( 'ü', 'u', $out );
+		$out = str_replace( 'Ñ', 'N', $out );
+		$out = str_replace( 'ñ', 'n', $out );
+		$out = str_replace( '&', '-', $out );
+		$out = str_replace( '<', ' ', $out );
+		$out = str_replace( '>', ' ', $out );
+		$out = str_replace( '/', ' ', $out );
+		$out = str_replace( '"', ' ', $out );
+		$out = str_replace( "'", ' ', $out );
+		$out = str_replace( '"', ' ', $out );
+		$out = str_replace( '?', ' ', $out );
+		$out = str_replace( '¿', ' ', $out );
+		$out = str_replace( 'º', ' ', $out );
+		$out = str_replace( 'ª', ' ', $out );
+		$out = str_replace( '#', ' ', $out );
+		$out = str_replace( '&', ' ', $out );
+		$out = str_replace( '@', ' ', $out );
+
 		return $out;
 	}
 	/**
@@ -127,8 +127,8 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function set_token_type( $token_num, $type ) {
-		if ( $token_num &&  $type ) {
-			update_option( 'token_type_' . $token_num, $type);
+		if ( $token_num && $type ) {
+			update_option( 'token_type_' . $token_num, $type );
 		}
 	}
 	/**
@@ -138,9 +138,9 @@ class WC_Gateway_Redsys_Global {
 		if ( $token_num ) {
 			$redsys_txnid = get_option( 'txnid_' . $token_num, false );
 			if ( $redsys_txnid ) {
-				return  $redsys_txnid;
+				return $redsys_txnid;
 			} else {
-				return '999999999999999'; //Temporal return for old tokens.
+				return '999999999999999'; // Temporal return for old tokens.
 			}
 		}
 		return false;
@@ -152,9 +152,9 @@ class WC_Gateway_Redsys_Global {
 		if ( $token_num ) {
 			$redsys_token_type = get_option( 'token_type_' . $token_num, false );
 			if ( $redsys_token_type ) {
-				return  $redsys_token_type;
+				return $redsys_token_type;
 			} else {
-				return 'R'; //Temporal return for old tokens.
+				return 'R'; // Temporal return for old tokens.
 			}
 		}
 		return false;
@@ -174,9 +174,9 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_ds_response() {
-		
+
 		include_once REDSYS_PLUGIN_DATA_PATH_P . 'dsresponse.php';
-		
+
 		$dsresponse = array();
 		$dsresponse = redsys_return_dsresponse();
 		return $dsresponse;
@@ -195,14 +195,45 @@ class WC_Gateway_Redsys_Global {
 	/**
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
+	function get_country_codes() {
+
+		include_once REDSYS_PLUGIN_DATA_PATH_P . 'countries.php';
+
+		$countries = array();
+		$countries = redsys_get_country_code();
+		return $countries;
+	}
+	/**
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
+	function get_country_codes_3( $country_code_2 ) {
+
+		$countries = array();
+		$countries = $this->get_country_codes();
+
+		if ( $countries ) {
+			foreach ( $countries as $country => $valor ) {
+				$country_2_up = strtoupper( $country_code_2 );
+				if ( $country_2_up === $country ) {
+					return $valor;
+				} else {
+					continue;
+				}
+			}
+		}
+		return false;
+	}
+	/**
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function is_ds_error( $error_code = null ) {
-		
+
 		$ds_errors = array();
 		$ds_errors = $this->get_ds_error();
-		
+
 		if ( $error_code ) {
 			foreach ( $ds_errors as $ds_error => $value ) {
-				if ( ( string ) $ds_error === ( string ) $error_code ) {
+				if ( (string) $ds_error === (string) $error_code ) {
 					return true;
 				} else {
 					continue;
@@ -216,15 +247,15 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function is_ds_response( $error_code = null ) {
-		
+
 		$ds_response  = array();
 		$ds_responses = $this->get_ds_response();
-		
+
 		if ( $error_code ) {
 			foreach ( $ds_responses as $ds_response => $value ) {
-				if ( ( string ) $ds_response === ( string ) $error_code ) {
+				if ( (string) $ds_response === (string) $error_code ) {
 					return true;
-				} 
+				}
 				continue;
 			}
 			return false;
@@ -235,13 +266,13 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function is_msg_error( $error_code = null ) {
-		
+
 		$msg_errors = array();
 		$msg_errors = $this->get_msg_error();
-		
+
 		if ( $error_code ) {
 			foreach ( $msg_errors as $msg_error => $value ) {
-				if ( ( string ) $msg_error === ( string ) $error_code ) {
+				if ( (string) $msg_error === (string) $error_code ) {
 					return true;
 				} else {
 					continue;
@@ -263,7 +294,7 @@ class WC_Gateway_Redsys_Global {
 			if ( ! empty( $error_code ) ) {
 				if ( ! empty( $smg_errors ) ) {
 					foreach ( $smg_errors as $msg_error => $value ) {
-						if ( ( string ) $msg_error === ( string ) $error_code ) {
+						if ( (string) $msg_error === (string) $error_code ) {
 							return $value;
 						} else {
 							continue;
@@ -288,7 +319,7 @@ class WC_Gateway_Redsys_Global {
 			if ( ! empty( $error_code ) ) {
 				if ( ! empty( $ds_errors ) ) {
 					foreach ( $ds_errors as $ds_error => $value ) {
-						if ( ( string ) $ds_error === ( string ) $error_code ) {
+						if ( (string) $ds_error === (string) $error_code ) {
 							return $value;
 						} else {
 							continue;
@@ -313,7 +344,7 @@ class WC_Gateway_Redsys_Global {
 			if ( ! empty( $error_code ) ) {
 				if ( ! empty( $ds_responses ) ) {
 					foreach ( $ds_responses as $ds_response => $value ) {
-						if ( ( string ) $ds_response === ( string ) $error_code ) {
+						if ( (string) $ds_response === (string) $error_code ) {
 							return $value;
 						} else {
 							continue;
@@ -330,7 +361,7 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function is_redsys_error( $error_code = null ) {
-		
+
 		if ( $error_code ) {
 			if ( $this->is_ds_error( $error_code ) ) {
 				return true;
@@ -348,7 +379,7 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_error( $error_code = null ) {
-		
+
 		if ( $error_code ) {
 			if ( $this->is_ds_error( $error_code ) ) {
 				return $this->get_error_by_code( $error_code );
@@ -366,7 +397,7 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_error_type( $error_code = null ) {
-		
+
 		if ( $error_code ) {
 			if ( $this->is_ds_error( $error_code ) ) {
 				return 'ds_error';
@@ -395,9 +426,9 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function allowed_currencies() {
-		
+
 		include_once REDSYS_PLUGIN_DATA_PATH_P . 'allowed-currencies.php';
-		
+
 		$currencies = array();
 		$currencies = redsys_return_allowed_currencies();
 		return $currencies;
@@ -406,9 +437,9 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_redsys_languages() {
-		
+
 		include_once REDSYS_PLUGIN_DATA_PATH_P . 'languages.php';
-		
+
 		$languages = array();
 		$languages = redsys_return_languages();
 		return $languages;
@@ -417,9 +448,9 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_redsys_wp_languages() {
-		
+
 		include_once REDSYS_PLUGIN_DATA_PATH_P . 'wplanguages.php';
-		
+
 		$languages = array();
 		$languages = redsys_return_all_languages_code();
 		return $languages;
@@ -428,9 +459,9 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_orders_type() {
-		
+
 		include_once REDSYS_PLUGIN_DATA_PATH_P . 'redsys-types.php';
-		
+
 		$types = array();
 		$types = redsys_return_types();
 		return $types;
@@ -439,7 +470,7 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_lang_code( $lang = 'en' ) {
-		
+
 		$lang = trim( $lang );
 
 		$languages = array();
@@ -447,7 +478,7 @@ class WC_Gateway_Redsys_Global {
 
 		if ( ! empty( $languages ) ) {
 			foreach ( $languages as $language => $value ) {
-				if ( ( string ) $language === ( string ) $lang ) {
+				if ( (string) $language === (string) $lang ) {
 					return $value;
 				} else {
 					continue;
@@ -462,7 +493,7 @@ class WC_Gateway_Redsys_Global {
 	 */
 	function order_exist( $order_id ) {
 		$post_status = get_post_status( $order_id );
-		
+
 		if ( false === $post_status ) {
 			return false;
 		} else {
@@ -479,7 +510,7 @@ class WC_Gateway_Redsys_Global {
 	 */
 	function post_exist( $order_id ) {
 		$post_status = get_post_status( $order_id );
-		
+
 		if ( false === $post_status ) {
 			return false;
 		} else {
@@ -490,9 +521,9 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function is_redsys_order( $order_id, $type = null ) {
-		
+
 		$post_status = $this->order_exist( $order_id );
-		
+
 		if ( $post_status ) {
 			$order        = new WC_Order( $order_id );
 			$gateway      = $order->get_payment_method();
@@ -501,7 +532,7 @@ class WC_Gateway_Redsys_Global {
 			if ( ! empty( $redsys_types ) ) {
 				if ( ! $type ) {
 					foreach ( $redsys_types as $redsys_type ) {
-						if ( ( string ) $redsys_type === ( string ) $gateway ) {
+						if ( (string) $redsys_type === (string) $gateway ) {
 							return true;
 						}
 						continue;
@@ -523,9 +554,9 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_gateway( $order_id ) {
-		
+
 		$post_status = $this->order_exist( $order_id );
-		
+
 		if ( $post_status ) {
 			$order   = new WC_Order( $order_id );
 			$gateway = $order->get_payment_method();
@@ -567,10 +598,20 @@ class WC_Gateway_Redsys_Global {
 	/**
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
+	function get_order_mumber( $order_id ) {
+		$number = get_post_meta( $order_id, '_payment_order_number_redsys', true );
+		if ( ! $number ) {
+			return false;
+		}
+		return $number;
+	}
+	/**
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function get_status_pending() {
-		
+
 		include_once REDSYS_PLUGIN_DATA_PATH_P . 'redsys-status-paid.php';
-		
+
 		$status = array();
 		$status = redsys_return_status_paid();
 		return apply_filters( 'redsys_status_pending', $status );
@@ -589,7 +630,7 @@ class WC_Gateway_Redsys_Global {
 			$status_paid = $this->get_status_pending();
 			if ( $status_paid ) {
 				foreach ( $status_paid as $spaid ) {
-					if ( ( string ) $status === ( string ) $spaid ) {
+					if ( (string) $status === (string) $spaid ) {
 						return false;
 					}
 					continue;
@@ -607,7 +648,7 @@ class WC_Gateway_Redsys_Global {
 	 */
 	function is_gateway_enabled( $gateway ) {
 		$is_enabled = $this->get_redsys_option( 'enabled', $gateway );
-		
+
 		if ( 'yes' === $is_enabled ) {
 			return true;
 		} else {
@@ -622,8 +663,8 @@ class WC_Gateway_Redsys_Global {
 		$token        = WC_Payment_Tokens::get( $token_id );
 		$year         = $token->get_expiry_year();
 		$month        = $token->get_expiry_month();
-		$act_year     = date('Y');
-		$act_month    = date('m');
+		$act_year     = date( 'Y' );
+		$act_month    = date( 'm' );
 		$delete_token = $this->get_redsys_option( 'deletetoken', 'redsys' );
 		if ( $year >= $act_year ) {
 			if ( $year > $act_year ) {
@@ -631,13 +672,13 @@ class WC_Gateway_Redsys_Global {
 			} elseif ( $year === $act_year && $month >= $act_month ) {
 				return true;
 			} else {
-				if ( 'yes' === $delete_token ) { 
+				if ( 'yes' === $delete_token ) {
 					WC_Payment_Tokens::delete( $token_id );
 				}
 				return false;
 			}
 		} else {
-			if ( 'yes' === $delete_token ) { 
+			if ( 'yes' === $delete_token ) {
 				WC_Payment_Tokens::delete( $token_id );
 			}
 			return false;
@@ -687,7 +728,7 @@ class WC_Gateway_Redsys_Global {
 			} else {
 				$tokens = WC_Payment_Tokens::get_customer_tokens( get_current_user_id(), 'redsys' );
 				foreach ( $tokens as $token ) {
-					$token_id = $token->get_token();
+					$token_id  = $token->get_token();
 					$type_type = $this->get_token_type( $token_id );
 					if ( $type === $type_type ) {
 						if ( $token->get_gateway_id() === 'redsys' ) {
@@ -711,7 +752,7 @@ class WC_Gateway_Redsys_Global {
 	 */
 	function get_users_token_bulk( $user_id, $type = false ) {
 		$customer_token = false;
-		$tokens = WC_Payment_Tokens::get_customer_tokens( $user_id, 'redsys' );
+		$tokens         = WC_Payment_Tokens::get_customer_tokens( $user_id, 'redsys' );
 		if ( ! $type ) {
 			foreach ( $tokens as $token ) {
 				if ( $token->get_gateway_id() === 'redsys' ) {
@@ -757,7 +798,6 @@ class WC_Gateway_Redsys_Global {
 					}
 				}
 			}
-			
 		}
 		return $customer_token;
 	}
@@ -771,9 +811,9 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function prepare_order_number( $order_id ) {
-		$transaction_id   = str_pad( $order_id , 12 , '0' , STR_PAD_LEFT );
-		$transaction_id1  = mt_rand( 1, 999 ); // lets to create a random number
-		$transaction_id2  = substr_replace( $transaction_id, $transaction_id1, 0,-9 ); // new order number
+		$transaction_id  = str_pad( $order_id, 12, '0', STR_PAD_LEFT );
+		$transaction_id1 = mt_rand( 1, 999 ); // lets to create a random number
+		$transaction_id2 = substr_replace( $transaction_id, $transaction_id1, 0, -9 ); // new order number
 		return $transaction_id2;
 	}
 	/**
@@ -796,11 +836,11 @@ class WC_Gateway_Redsys_Global {
 		foreach ( $order->get_items() as $item ) {
 			$product_id .= $item->get_product_id() . ', ';
 			$name       .= $item->get_name() . ', ';
-			$sku        .= get_post_meta( $item->get_product_id(), '_sku', true) . ', ';
+			$sku        .= get_post_meta( $item->get_product_id(), '_sku', true ) . ', ';
 		}
 		// Can be order, id, name or sku
 		$description_type = $this->get_redsys_option( 'descripredsys', $gateway );
-		
+
 		if ( 'id' === $description_type ) {
 			$description = $product_id;
 		} elseif ( 'name' === $description_type ) {
@@ -837,50 +877,75 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function create_add_payment_method_number() {
-		
+
 		$current_number = get_option( 'number_ad_paymnt_mehod' );
-		
+
 		if ( ! $current_number ) {
 			update_option( 'number_ad_paymnt_mehod', '1' );
 			$number_to_send = str_pad( '1', 12, '0', STR_PAD_LEFT );
 			return $number_to_send;
 		} else {
-			$new_number     = intval( $current_number ) + 1;
-			$string_number  = strval( $new_number );
+			$new_number    = intval( $current_number ) + 1;
+			$string_number = strval( $new_number );
 			update_option( 'number_ad_paymnt_mehod', $string_number );
 			$number_to_send = str_pad( $string_number, 12, '0', STR_PAD_LEFT );
-			return $number_to_send; 
+			return $number_to_send;
+		}
+	}
+	/**
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
+	function create_checkout_insite_number() {
+
+		$current_number = get_option( 'number_insite_checkout' );
+
+		if ( ! $current_number ) {
+			update_option( 'number_insite_checkout', '1' );
+			$number_to_send = '1' . str_pad( '1', 11, '0', STR_PAD_LEFT );
+			return $number_to_send;
+		} else {
+			$new_number    = intval( $current_number ) + 1;
+			$string_number = strval( $new_number );
+			update_option( 'number_insite_checkout', $string_number );
+			$number_to_send = '1' . str_pad( $string_number, 11, '0', STR_PAD_LEFT );
+			return $number_to_send;
 		}
 	}
 	/**
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_url_add_payment_method( $gateway, $user_id, $token_type ) {
-		
-		$number  = $this->create_add_payment_method_number();
+
+		$number = $this->create_add_payment_method_number();
 		set_transient( $number, $user_id, 600 );
 		set_transient( $number . '_get_method', 'yes', 600 );
 		set_transient( $number . '_token_type', $token_type, 600 );
-		//wc_get_endpoint_url( 'add_payment_method' )
+		// wc_get_endpoint_url( 'add_payment_method' )
 		$pay_url = wc_get_endpoint_url( 'add-redsys-method', $number, wc_get_endpoint_url( 'add-payment-method' ) );
 
-		return add_query_arg( array(
-			'redsys-payment-method' => $number,
-			'redsys-gateway'        => $gateway,
-			'redsys-token'          => $token_type,
-		), $pay_url );
+		return add_query_arg(
+			array(
+				'redsys-payment-method' => $number,
+				'redsys-gateway'        => $gateway,
+				'redsys-token'          => $token_type,
+			),
+			$pay_url
+		);
 	}
 	/**
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_url_redsys_payment( $order_id ) {
-		
-		$pay_url = home_url() . '/redirect-redsys-pay';
-		//$pay_url = WC()->api_request_url( 'redirect-redsys-pay' );
 
-		return add_query_arg( array(
-			'redsys-order-id' => $order_id,
-		), $pay_url );
+		$pay_url = home_url() . '/redirect-redsys-pay';
+		// $pay_url = WC()->api_request_url( 'redirect-redsys-pay' );
+
+		return add_query_arg(
+			array(
+				'redsys-order-id' => $order_id,
+			),
+			$pay_url
+		);
 	}
 	/**
 	 * Copyright: (C) 2013 - 2021 José Conti
@@ -905,9 +970,9 @@ class WC_Gateway_Redsys_Global {
 			if ( $type === $type_type ) {
 				if ( $token->get_gateway_id() === 'redsys' ) {
 					$valid_token = $this->check_if_token_is_valid( $token->get_id() );
-					//if ( $valid_token ) {
+					// if ( $valid_token ) {
 						echo $token->get_token() . "\r\n";
-				//	}
+					// }
 					continue;
 				} else {
 					continue;
@@ -953,4 +1018,4 @@ class WC_Gateway_Redsys_Global {
 			return false;
 		}
 	}
-} 
+}

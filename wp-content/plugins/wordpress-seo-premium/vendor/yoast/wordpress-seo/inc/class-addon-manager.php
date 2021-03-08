@@ -116,6 +116,8 @@ class WPSEO_Addon_Manager {
 	 * @return stdClass|false Subscription data when found, false when not found.
 	 */
 	public function get_subscription( $slug ) {
+		return true;
+
 		foreach ( $this->get_subscriptions() as $subscription ) {
 			if ( $subscription->product->slug === $slug ) {
 				return $subscription;
@@ -190,6 +192,15 @@ class WPSEO_Addon_Manager {
 	 */
 	public function has_valid_subscription( $slug ) {
 		return true;
+
+		$subscription = $this->get_subscription( $slug );
+
+		// An non-existing subscription is never valid.
+		if ( $subscription === false ) {
+			return false;
+		}
+
+		return ! $this->has_subscription_expired( $subscription );
 	}
 
 	/**
@@ -214,6 +225,10 @@ class WPSEO_Addon_Manager {
 
 			if ( version_compare( $installed_plugin['Version'], $subscription->product->version, '<' ) ) {
 				$data->response[ $plugin_file ] = $this->convert_subscription_to_plugin( $subscription );
+			}
+			else {
+				// Still convert subscription when no updates is available.
+				$data->no_update[ $plugin_file ] = $this->convert_subscription_to_plugin( $subscription );
 			}
 		}
 
@@ -319,7 +334,7 @@ class WPSEO_Addon_Manager {
 	 * @return bool Has the plugin expired.
 	 */
 	protected function has_subscription_expired( $subscription ) {
-		return false;
+		return ( strtotime( $subscription->expiry_date ) - time() ) < 0;
 	}
 
 	/**
@@ -335,25 +350,26 @@ class WPSEO_Addon_Manager {
 		$changelog = str_replace( '</h3', '</h4', str_replace( '<h3', '<h4', $changelog ) );
 
 		return (object) [
-			'new_version'   => $subscription->product->version,
-			'name'          => $subscription->product->name,
-			'slug'          => $subscription->product->slug,
-			'url'           => $subscription->product->store_url,
-			'last_update'   => $subscription->product->last_updated,
-			'homepage'      => $subscription->product->store_url,
-			'download_link' => $subscription->product->download,
-			'package'       => $subscription->product->download,
-			'sections'      => [
+			'new_version'      => $subscription->product->version,
+			'name'             => $subscription->product->name,
+			'slug'             => $subscription->product->slug,
+			'url'              => $subscription->product->store_url,
+			'last_update'      => $subscription->product->last_updated,
+			'homepage'         => $subscription->product->store_url,
+			'download_link'    => $subscription->product->download,
+			'package'          => $subscription->product->download,
+			'sections'         => [
 				'changelog' => $changelog,
 				'support'   => $this->get_support_section(),
 			],
-			'icons'         => [
+			'icons'            => [
 				'2x' => $this->get_icon( $subscription->product->slug ),
 			],
-			'banners'       => $this->get_banners( $subscription->product->slug ),
-			'tested'        => YOAST_SEO_WP_TESTED,
-			'requires'      => YOAST_SEO_WP_REQUIRED,
-			'requires_php'  => YOAST_SEO_PHP_REQUIRED,
+			'update_supported' => true,
+			'banners'          => $this->get_banners( $subscription->product->slug ),
+			'tested'           => YOAST_SEO_WP_TESTED,
+			'requires'         => YOAST_SEO_WP_REQUIRED,
+			'requires_php'     => YOAST_SEO_PHP_REQUIRED,
 		];
 	}
 

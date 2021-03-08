@@ -49,10 +49,10 @@ class WC_Store_Credit_Admin {
 	 * Adds menu items.
 	 *
 	 * @since 3.0.0
-	 * @deprecated {version}
+	 * @deprecated 3.5.0
 	 */
 	public function admin_menu() {
-		wc_deprecated_function( __FUNCTION__, '{version}', 'WC_Store_Credit_Admin_Menu::register_menu()' );
+		wc_deprecated_function( __FUNCTION__, '3.5.0', 'WC_Store_Credit_Admin_Menu::register_menu()' );
 	}
 
 	/**

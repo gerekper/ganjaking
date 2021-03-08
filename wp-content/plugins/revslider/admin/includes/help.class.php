@@ -5102,19 +5102,20 @@ class RevSliderHelp {
 										$f => "#slide_vid_loop"
 									)
 								),
-								'force_cover' => array(
-									$t => __("Force Cover", 'revsliderhelp'),
-									$h => "bg.video.forceCover",
+								'fitCover' => array(
+									$t => __("Video Fit Cover", 'revsliderhelp'),
+									$h => "bg.video.fitCover",
 									$k => array("cover", "force cover"),
-									$d => __("Ensures that the video will be displayed full-width and full-height regardless of its aspect ratio", 'revsliderhelp'),
+									$d => __("Video will fit in container with CSS property object-fit cover. Disable this option in case video size jumps on slide change.", 'revsliderhelp'),
 									$a => $u . "slide-background/#video-settings",
 									$hl => array(
-										$dp => array(array($p => '#slide#.slide.bg.type', $v => 'youtube::vimeo::html5', $o => 'slide_bg_type')),
+										$dp => array(array($p => '#slide#.slide.bg.type', $v => 'html5', $o => 'slide_bg_type')),
 										$m => "#module_slide_trigger, #gst_slide_1", 
 										$st => '#form_slidebg_ssettings', 
-										$f => "#sl_vid_force_cover"
+										$f => "#sl_vid_fit_cover"
 									)
 								),
+								
 								'next_slide_at_end' => array(
 									$t => __("Next Slide at End", 'revsliderhelp'),
 									$h => "bg.video.nextSlideAtEnd",
@@ -6703,6 +6704,21 @@ class RevSliderHelp {
 										)
 									)
 								),
+
+								'fitCover' => array(
+									$t => __("Video Fit Cover", 'revsliderhelp'),
+									$h => "media.fitCover",
+									$k => array("fit cover", "video size", "video fit cover"),
+									$d => __("Video will fit in container with CSS property object-fit cover. Disable this option in case video size jumps on slide change.", 'revsliderhelp'),
+									$a => $u . "layer-video-audio-settings/",
+									$hl => array(
+										$dp => array('layerselected::video'), 
+										$m => "#module_layers_trigger, #gst_layer_1", 
+										$st => '#form_layercontent_content_video', 
+										$f => "#video_layer_fit_cover"
+									)
+								),
+
 								'preloading' => array(
 									'preload' => array(
 										$t => __("Preload", 'revsliderhelp'),

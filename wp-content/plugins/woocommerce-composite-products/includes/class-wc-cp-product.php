@@ -300,8 +300,8 @@ class WC_CP_Product {
 					}
 
 					if ( $discount = $this->get_discount() ) {
-						$this->min_price = empty( $min_regular_price ) ? $min_regular_price : round( (double) $min_regular_price * ( 100 - $discount ) / 100, wc_cp_price_num_decimals() );
-						$this->max_price = empty( $max_regular_price ) ? $max_regular_price : round( (double) $max_regular_price * ( 100 - $discount ) / 100, wc_cp_price_num_decimals() );
+						$this->min_price = empty( $min_regular_price ) ? $min_regular_price : round( (double) $min_regular_price * ( 100 - $discount ) / 100, wc_cp_price_num_decimals( 'extended' ) );
+						$this->max_price = empty( $max_regular_price ) ? $max_regular_price : round( (double) $max_regular_price * ( 100 - $discount ) / 100, wc_cp_price_num_decimals( 'extended' ) );
 					} else {
 						$this->min_price = $min_regular_price;
 						$this->max_price = $max_regular_price;
@@ -574,7 +574,7 @@ class WC_CP_Product {
 		}
 
 		if ( $discount = $this->get_discount() ) {
-			$price = empty( $regular_price ) ? $regular_price : round( (double) $regular_price * ( 100 - $discount ) / 100, wc_cp_price_num_decimals() );
+			$price = empty( $regular_price ) ? $regular_price : round( (double) $regular_price * ( 100 - $discount ) / 100, wc_cp_price_num_decimals( 'extended' ) );
 		}
 
 		/**

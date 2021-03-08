@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin Add Scenario markup
+ * Scenario metabox
  *
  * @version 4.0.0
  */
@@ -28,7 +28,7 @@ $is_ajax = isset( $scenario_data[ 'is_ajax' ] ) && true === $scenario_data[ 'is_
 			<?php
 			$toggle_class = ( 'yes' === $scenario_data[ 'enabled' ] ) ? 'woocommerce-input-toggle--enabled' : 'woocommerce-input-toggle--disabled';
 			?>
-			<span id="active-toggle" class="woocommerce-input-toggle <?php echo $toggle_class; ?>"></span>
+			<span class="woocommerce-input-toggle <?php echo $toggle_class; ?>"></span>
 			<span class="scenario_name_inner">
 				<?php
 					if ( ! empty( $scenario_data[ 'title' ] ) ) {
@@ -37,6 +37,10 @@ $is_ajax = isset( $scenario_data[ 'is_ajax' ] ) && true === $scenario_data[ 'is_
 				?>
 			</span>
 		</strong>
+		<?php
+			$non_effective_conditions_notice = __( 'Please review this Scenario to make sure it works as intended. When creating Scenarios, remember that it\'s only possible to hide Components and Component Options based on product/variation selections made <strong>in preceeding Components</strong> only.', 'woocommerce-composite-products' );
+			echo sprintf( '<div class="woocommerce-help-tip scenario-help-tip scenario-help-tip--non-effective-conditions" %s data-tip="%s"></div>', $is_ajax || empty( $scenario_data[ 'title' ] ) || empty( $scenario_data[ 'has_non_effective_conditions' ] ) ? 'style="display:none"' : '', $non_effective_conditions_notice );
+		?>
 		<div class="handle">
 
 			<input type="hidden" name="bto_scenario_data[<?php echo $id; ?>][enabled]" class="enabled" value="<?php echo $scenario_data[ 'enabled' ]; ?>"/>

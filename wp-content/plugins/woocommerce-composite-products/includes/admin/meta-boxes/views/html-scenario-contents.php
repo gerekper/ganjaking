@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin Scenario metabox contents
+ * Scenario metabox contents
  *
  * @version 4.0.0
  */
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 */
 	do_action( 'woocommerce_composite_scenario_admin_info_html', $id, $scenario_data, $composite_data, $composite_id );
 
-	?><div class="hr-section"><?php echo __( 'Configuration', 'woocommerce-composite-products' ); ?></div><?php
+	?><div class="hr-section"><?php echo __( 'Conditions', 'woocommerce-composite-products' ); ?></div><?php
 
 	/**
 	 * Action 'woocommerce_composite_scenario_admin_config_html'.

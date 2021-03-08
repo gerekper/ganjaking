@@ -2557,7 +2557,7 @@ msgid "Dribbble"
 msgstr "Dribbble"
 
 #: admin/views/overview.php:186
-msgid "Signup to our Newsletter"
+msgid "Sign up to our Newsletter"
 msgstr "注册我们的时事通讯"
 
 #: admin/views/overview.php:187

@@ -2104,10 +2104,10 @@ jQuery.fn.wc_get_composite_script = function() {
 					composite.console_log( 'debug:models', '\nAdding totals...' );
 
 					var totals = {
-						price:          price_data.base_price_totals.price,
-						regular_price:  price_data.base_price_totals.regular_price,
-						price_incl_tax: price_data.base_price_totals.price_incl_tax,
-						price_excl_tax: price_data.base_price_totals.price_excl_tax
+						price:          wc_cp_number_round( price_data.base_price_totals.price ),
+						regular_price:  wc_cp_number_round( price_data.base_price_totals.regular_price ),
+						price_incl_tax: wc_cp_number_round( price_data.base_price_totals.price_incl_tax ),
+						price_excl_tax: wc_cp_number_round( price_data.base_price_totals.price_excl_tax )
 					};
 
 					price_data.base_display_price = totals.price;
@@ -2116,10 +2116,10 @@ jQuery.fn.wc_get_composite_script = function() {
 
 						var component_totals = typeof( price_data_array ) === 'undefined' ? model.get( 'component_' + components[ component_index ].component_id + '_totals' ) : price_data_array[ 'component_' + components[ component_index ].component_id + '_totals' ];
 
-						totals.price          += component_totals.price;
-						totals.regular_price  += component_totals.regular_price;
-						totals.price_incl_tax += component_totals.price_incl_tax;
-						totals.price_excl_tax += component_totals.price_excl_tax;
+						totals.price          += wc_cp_number_round( component_totals.price );
+						totals.regular_price  += wc_cp_number_round( component_totals.regular_price );
+						totals.price_incl_tax += wc_cp_number_round( component_totals.price_incl_tax );
+						totals.price_excl_tax += wc_cp_number_round( component_totals.price_excl_tax );
 					}
 
 					// Pass through 'composite_totals' filter - @see WC_CP_Filters_Manager class.
@@ -2614,19 +2614,20 @@ jQuery.fn.wc_get_composite_script = function() {
 						available_options: available_options,
 
 						/*
-						 * Valid products and variations, including the current selection and the empty '' option.
-						 */
-						active_options: available_options.slice(),
-
-						/*
 						 * Products and variations state in current view, including the empty '' option. The current selection is excluded if not in view.
 						 */
-						options_state: { active: _.pluck( _.where( this.available_options_data, { is_in_view: true } ), 'option_id' ), inactive: [] },
+						options_state: {
+							active: _.pluck( _.where( this.available_options_data, { is_in_view: true } ), 'option_id' ),
+							inactive: []
+						},
 
 						/**
-						 * 'compat_group' scenarios when the options state was calculated.
+						 * 'compat_group' and 'conditional_options' scenarios when the options state was calculated.
 						 */
-						options_in_scenarios: composite.scenarios.clean_masked_scenarios( composite.scenarios.get_scenarios_by_type( 'compat_group' ), self.component_id )
+						options_in_scenarios: {
+							compat_group: composite.scenarios.clean_masked_scenarios( composite.scenarios.get_scenarios_by_type( 'compat_group' ), self.component_id ),
+							conditional_options: composite.scenarios.get_scenarios_by_type( 'conditional_options', self.component_id )
+						}
 					};
 
 					this.set( params );
@@ -2728,7 +2729,8 @@ jQuery.fn.wc_get_composite_script = function() {
 								model.available_options_data = response.options_data;
 
 								// Update component scenario data.
-								composite.scenarios.set_component_scenario_data( self.component_id, response.scenario_data );
+								composite.scenarios.set_scenario_data( response.scenario_data, self.component_id );
+								composite.scenarios.set_conditional_options_scenario_data( response.conditional_options_data, self.component_id );
 
 								// Update component pagination data.
 								model.set( response.pagination_data );
@@ -2742,7 +2744,8 @@ jQuery.fn.wc_get_composite_script = function() {
 								model.available_options_data = _.union( _.where( model.available_options_data, { is_in_view: true } ), _.map( response.options_data, function( option_data ) { return _.extend( option_data, { is_appended: true } ); } ) );
 
 								// Merge component scenario data.
-								composite.scenarios.merge_component_scenario_data( self.component_id, response.scenario_data );
+								composite.scenarios.merge_scenario_data( response.scenario_data, self.component_id );
+								composite.scenarios.merge_conditional_options_scenario_data( response.conditional_options_data, self.component_id );
 
 								// Update component pagination data.
 								model.set( response.pagination_data );
@@ -2803,6 +2806,21 @@ jQuery.fn.wc_get_composite_script = function() {
 					}
 				},
 
+				intersection_exists: function( product_in_states, active_scenarios ) {
+
+					var intersect = false;
+
+					for ( var s = 0, s_max = product_in_states.length; s < s_max; s++ ) {
+
+						if ( $.inArray( product_in_states[ s ], active_scenarios ) > -1 ) {
+							intersect = true;
+							break;
+						}
+					}
+
+					return intersect;
+				},
+
 				refresh_options: function( options ) {
 
 					composite.console_log( 'debug:models', '\nUpdating "' + self.get_title() + '" options: ' + _.map( options, function( num ) { return num === '' ? '0' : num; } ) );
@@ -2828,93 +2846,104 @@ jQuery.fn.wc_get_composite_script = function() {
 
 					composite.debug_indent_incr();
 
-					var active_options          = [],
-						active_scenarios        = [],
-						options_state           = { active: [], inactive: [] },
-						component_id            = self.component_id,
-						scenario_data           = composite.scenarios.get_scenario_data().scenario_data,
-						item_scenario_data      = scenario_data[ component_id ],
-						is_optional             = false,
-						invalid_product_found   = false,
-						invalid_variation_found = false;
+					var active_cg_scenarios                = [],
+						active_co_scenarios                = [],
+						options_state                      = { active: [], inactive: [] },
+						component_id                       = self.component_id,
+						scenario_data                      = composite.scenarios.get_scenario_data().scenario_data,
+						scenario_data_component            = scenario_data[ component_id ],
+						conditional_options_data           = composite.scenarios.get_scenario_data().conditional_options_data,
+						conditional_options_data_component = conditional_options_data[ component_id ],
+						is_optional                        = false,
+						invalid_product_found              = false,
+						invalid_variation_found            = false;
 
 					// Get active 'compat_group' scenarios up to this component.
-					active_scenarios = composite.scenarios.calculate_active_scenarios( 'compat_group', self, true, true );
+					active_cg_scenarios = composite.scenarios.calculate_active_scenarios( 'compat_group', self, true, true );
 
-					composite.console_log( 'debug:models', '\nReference scenarios: [' + active_scenarios + ']' );
+					composite.console_log( 'debug:models', '\nReference scenarios: [' + active_cg_scenarios + ']' );
 					composite.console_log( 'debug:models', 'Removing scenarios where the current component is masked...' );
 
-					active_scenarios = composite.scenarios.clean_masked_scenarios( active_scenarios, component_id );
+					active_cg_scenarios = composite.scenarios.clean_masked_scenarios( active_cg_scenarios, component_id );
 
 					// Enable all options if all active scenarios ignore this component.
-					if ( active_scenarios.length === 0 ) {
-						active_scenarios.push( '0' );
+					if ( active_cg_scenarios.length === 0 ) {
+						active_cg_scenarios.push( '0' );
 					}
+
+					// Get active 'conditional_options' scenarios up to this component.
+					active_co_scenarios = composite.scenarios.calculate_active_scenarios( 'conditional_options', self, true, true );
 
 					composite.console_log( 'debug:models', '\nUpdating \'Component_Options_Model\': "' + self.get_title() + '", Attribute: "options_in_scenarios"...' );
 
-					if ( ! _.isEqual( this.get( 'options_in_scenarios' ), active_scenarios ) ) {
-						composite.console_log( 'debug:models', '\nActive options scenarios changed - [' + this.get( 'options_in_scenarios' ) + '] => [' + active_scenarios + '].\n' );
+					if ( ! _.isEqual( this.get( 'options_in_scenarios' ), { compat_group: active_cg_scenarios, conditional_options: active_co_scenarios } ) ) {
+						composite.console_log( 'debug:models', '\nActive options scenarios changed.\n' );
 					} else {
-						composite.console_log( 'debug:models', '\nActive options scenarios unchanged - [' + this.get( 'options_in_scenarios' ) + '] => [' + active_scenarios + '].\n' );
+						composite.console_log( 'debug:models', '\nActive options scenarios unchanged.\n' );
 					}
 
 					composite.debug_indent_incr();
-					this.set( { options_in_scenarios: active_scenarios } );
+					this.set( {
+						options_in_scenarios: {
+							compat_group: active_cg_scenarios,
+							conditional_options: active_co_scenarios
+						}
+					} );
 					composite.debug_indent_decr();
 
 					/*
-					 * Set component 'optional' status by adding the '' product ID to the 'active_options' array.
+					 * Set component 'optional' status by adding the '' product ID to the 'options_state' array.
 					 */
 
-					if ( 0 in item_scenario_data ) {
-
-						var optional_in_scenarios = item_scenario_data[ 0 ];
-
-						for ( var s = 0, s_max = optional_in_scenarios.length; s < s_max; s++ ) {
-
-							if ( $.inArray( optional_in_scenarios[ s ], active_scenarios ) > -1 ) {
-								is_optional = true;
-								break;
-							}
+					if ( 0 in scenario_data_component ) {
+						if ( this.intersection_exists( scenario_data_component[ 0 ], active_cg_scenarios ) ) {
+							is_optional = true;
 						}
+					}
 
-						options_state.inactive.push( '' );
+					if ( 0 in conditional_options_data_component ) {
+						if ( this.intersection_exists( conditional_options_data_component[ 0 ], active_co_scenarios ) ) {
+							is_optional = false;
+						}
+					}
 
-					} else if ( false === self.is_visible() ) {
+					if ( false === self.is_visible() ) {
 						is_optional = true;
 					}
 
 					if ( is_optional ) {
 						composite.console_log( 'debug:models', 'Component set as optional.' );
-						active_options.push( '' );
 						options_state.active.push( '' );
+					} else {
+						options_state.inactive.push( '' );
 					}
 
 					/*
-					 * Add compatible products to the 'active_options' array.
+					 * Add compatible products to the 'options_state' array.
 					 */
 					for ( var index = 0, length = this.available_options_data.length; index < length; index++ ) {
 
-						var option_data          = this.available_options_data[ index ],
-						    product_id           = option_data.option_id,
-							product_in_scenarios = ( product_id in item_scenario_data ) ? item_scenario_data[ product_id ] : [],
-							is_compatible        = false;
+						var option_data                 = this.available_options_data[ index ],
+							product_id                  = option_data.option_id,
+							product_in_states           = ( product_id in scenario_data_component ) ? scenario_data_component[ product_id ] : [],
+							product_hidden_in_scenarios = ( product_id in conditional_options_data_component ) ? conditional_options_data_component[ product_id ] : [],
+							is_compatible               = false;
 
 						composite.console_log( 'debug:models', 'Updating selection #' + product_id + ':' );
-						composite.console_log( 'debug:models', '	Selection in scenarios: [' + product_in_scenarios + ']' );
+						composite.console_log( 'debug:models', '	Selection in states: [' + product_in_states + ']' );
+						composite.console_log( 'debug:models', '	Selection hidden by scenarios: [' + product_hidden_in_scenarios + ']' );
 
-						for ( var z = 0, z_max = product_in_scenarios.length; z < z_max; z++ ) {
+						if ( this.intersection_exists( product_in_states, active_cg_scenarios ) ) {
+							is_compatible = true;
+						}
 
-							if ( $.inArray( product_in_scenarios[ z ], active_scenarios ) > -1 ) {
-								is_compatible = true;
-								break;
-							}
+						if ( this.intersection_exists( product_hidden_in_scenarios, active_co_scenarios ) ) {
+							is_compatible = false;
 						}
 
 						if ( is_compatible ) {
+
 							composite.console_log( 'debug:models', '	Selection enabled.' );
-							active_options.push( product_id );
 
 							if ( option_data.is_in_view ) {
 								options_state.active.push( product_id );
@@ -2948,7 +2977,8 @@ jQuery.fn.wc_get_composite_script = function() {
 						var chosen_variation = self.get_selected_variation(),
 							variation_data   = self.component_selection_model.get_available_variations_data(),
 							variation_id,
-							variation_in_scenarios,
+							variation_in_states,
+							variation_hidden_in_scenarios,
 							is_variation_compatible;
 
 						composite.console_log( 'debug:models', '	Checking variations...' );
@@ -2962,29 +2992,27 @@ jQuery.fn.wc_get_composite_script = function() {
 						 */
 						for ( var i = 0, i_max = variation_data.length; i < i_max; i++ ) {
 
-							variation_id  = variation_data[ i ].variation_id.toString();
-							is_variation_compatible = false;
-
-							variation_in_scenarios = ( variation_id in item_scenario_data ) ? item_scenario_data[ variation_id ] : [];
+							variation_id                  = variation_data[ i ].variation_id.toString();
+							is_variation_compatible       = false;
+							variation_in_states           = ( variation_id in scenario_data_component ) ? scenario_data_component[ variation_id ] : [];
+							variation_hidden_in_scenarios = ( variation_id in conditional_options_data_component ) ? conditional_options_data_component[ variation_id ] : [];
 
 							composite.console_log( 'debug:models', '		Checking variation #' + variation_id + ':' );
-							composite.console_log( 'debug:models', '		Selection in scenarios: [' + variation_in_scenarios + ']' );
+							composite.console_log( 'debug:models', '		Selection in states: [' + variation_in_states + ']' );
+							composite.console_log( 'debug:models', '		Selection hidden by scenarios: [' + variation_hidden_in_scenarios + ']' );
 
-							for ( var k = 0, k_max = variation_in_scenarios.length; k < k_max; k++ ) {
+							if ( this.intersection_exists( variation_in_states, active_cg_scenarios ) ) {
+								is_variation_compatible = true;
+							}
 
-								var scenario_id = variation_in_scenarios[ k ];
-
-								if ( $.inArray( scenario_id, active_scenarios ) > -1 ) {
-									is_variation_compatible = true;
-									break;
-								}
+							if ( this.intersection_exists( variation_hidden_in_scenarios, active_co_scenarios ) ) {
+								is_variation_compatible = false;
 							}
 
 							if ( is_variation_compatible ) {
 
 								composite.console_log( 'debug:models', '		Variation enabled.' );
 
-								active_options.push( variation_id );
 								options_state.active.push( variation_id );
 
 							} else {
@@ -3045,18 +3073,6 @@ jQuery.fn.wc_get_composite_script = function() {
 					 */
 
 					if ( maybe_update_model ) {
-
-						if ( ! _.isEqual( this.get( 'active_options' ), active_options ) ) {
-							composite.console_log( 'debug:models', '\nActive options changed - [' + _.map( this.get( 'active_options' ), function( num ) { return num === '' ? '0' : num; } ) + '] => [' + _.map( active_options, function( num ) { return num === '' ? '0' : num; } ) + '].\n' );
-						} else {
-							composite.console_log( 'debug:models', '\nActive options unchanged - [' + _.map( this.get( 'active_options' ), function( num ) { return num === '' ? '0' : num; } ) + '] => [' + _.map( active_options, function( num ) { return num === '' ? '0' : num; } ) + '].\n' );
-						}
-
-						// Set active options.
-						composite.debug_indent_incr();
-						this.set( { active_options: active_options } );
-						composite.debug_indent_decr();
-
 
 						if ( ! _.isEqual( this.get( 'options_state' ), options_state ) ) {
 							composite.console_log( 'debug:models', '\nOptions state changed.\n' );
@@ -3388,12 +3404,14 @@ jQuery.fn.wc_get_composite_script = function() {
 					this.set_addons_price( selected_addons_price );
 					this.set_addons_regular_price( selected_addons_regular_price );
 
-					if ( this.get( 'selected_addons' ) !== selected_addons_data ) {
+					var serialized_addons_data = JSON.stringify( selected_addons_data );
+
+					if ( ! _.isEqual( this.get( 'selected_addons' ), serialized_addons_data ) ) {
 
 						composite.console_log( 'debug:models', '\nUpdating \'Component_Selection_Model\': "' + self.get_title() + '", Attribute: "selected_addons"...' );
 
 						composite.debug_indent_incr();
-						this.set( { selected_addons: selected_addons_data } );
+						this.set( { selected_addons: serialized_addons_data } );
 						composite.debug_indent_decr();
 					}
 				},
@@ -3598,7 +3616,7 @@ jQuery.fn.wc_get_composite_script = function() {
 							queue:    false,
 							on_complete: function() {
 								if ( composite.is_finalized && 'yes' === wc_composite_params.accessible_focus_enabled ) {
-									component.$component_pagination.filter( '.top' ).find( '.woocommerce-result-count' ).focus();
+									component.$component_pagination.filter( '.top' ).find( '.woocommerce-result-count' ).trigger( 'focus' );
 								}
 							}
 						} );
@@ -3673,7 +3691,7 @@ jQuery.fn.wc_get_composite_script = function() {
 
 								// Focus and announce change.
 								if ( component.has_options_style( 'thumbnails' ) && 'yes' === wc_composite_params.accessible_focus_enabled ) {
-									component.$component_summary_content.find( '.composited_product_title' ).focus();
+									component.$component_summary_content.find( '.composited_product_title' ).trigger( 'focus' );
 								}
 							}
 						} );
@@ -4762,7 +4780,7 @@ jQuery.fn.wc_get_composite_script = function() {
 								if ( ! view.widget_qty_synced ) {
 									composite.console_log( 'debug:views', '\nCopying widget #' + view.is_in_widget + ' quantity value into composite add-to-cart quantity field...' );
 									view.widget_qty_synced = true;
-									composite.composite_add_to_cart_button_view.$el_qty.val( view.$el_qty.val() ).change();
+									composite.composite_add_to_cart_button_view.$el_qty.val( view.$el_qty.val() ).trigger( 'change' );
 									view.widget_qty_synced = false;
 								}
 							} );
@@ -4775,7 +4793,7 @@ jQuery.fn.wc_get_composite_script = function() {
 								var view = event.data.view;
 
 								composite.console_log( 'debug:views', '\nCopying composite add-to-cart quantity value into widget #' + view.is_in_widget + ' quantity field...' );
-								view.$el_qty.val( composite.composite_add_to_cart_button_view.$el_qty.val() ).change();
+								view.$el_qty.val( composite.composite_add_to_cart_button_view.$el_qty.val() ).trigger( 'change' );
 							} );
 						}
 					}
@@ -7069,12 +7087,15 @@ jQuery.fn.wc_get_composite_script = function() {
 
 				options_in_scenarios_changed: function() {
 
-					this.must_reload_options = true;
+					if ( this.model.reload_options_on_scenarios_change() ) {
+					
+						this.must_reload_options = true;
 
-					if ( this.model.reload_options_on_scenarios_change() && 'single' === composite.settings.layout ) {
-						this.scenarios_changed_load_options();
-					} else {
-						composite.console_log( 'debug:views', '\nScheduling "' + self.get_title() + '" options reload...' );
+						if ( 'single' === composite.settings.layout ) {
+							this.scenarios_changed_load_options();
+						} else {
+							composite.console_log( 'debug:views', '\nScheduling "' + self.get_title() + '" options reload...' );
+						}
 					}
 				},
 
@@ -7116,7 +7137,7 @@ jQuery.fn.wc_get_composite_script = function() {
 
 					if ( ! $thumbnail.hasClass( 'selected' ) ) {
 						var value = $thumbnail.data( 'val' );
-						self.$component_options_select.val( value ).change();
+						self.$component_options_select.val( value ).trigger( 'change' );
 					}
 
 					return false;
@@ -7133,7 +7154,7 @@ jQuery.fn.wc_get_composite_script = function() {
 
 					if ( ! $container.hasClass( 'selected' ) ) {
 						var value = $this.val();
-						self.$component_options_select.val( value ).change();
+						self.$component_options_select.val( value ).trigger( 'change' );
 					}
 				},
 
@@ -7893,6 +7914,7 @@ jQuery.fn.wc_get_composite_script = function() {
 				$relocation_reference:        false,
 				load_height:                  0,
 
+				render_addons_totals_timer:   false,
 				flushing_component_options:   false,
 				blocked:                      false,
 
@@ -7989,29 +8011,23 @@ jQuery.fn.wc_get_composite_script = function() {
 					/**
 					 * Update model upon changing quantities.
 					 */
-					self.$el.on( 'input change', '.component_wrap input.qty', function( e ) {
+					self.$el.on( 'input change', '.component_wrap input.qty', { view: this }, function( event ) {
 
-						var $input = $( this ),
-							min    = parseFloat( $input.attr( 'min' ) ),
-							max    = parseFloat( $input.attr( 'max' ) );
+						var view     = event.data.view,
+							keep_in_range  = 'change' === event.type && ( wc_composite_params.force_min_max_qty_input === 'yes' || view.is_blocked() ),
+							quantity = view.get_updated_quantity( keep_in_range );
 
-						if ( wc_composite_params.force_min_max_qty_input === 'yes' || self.component_selection_view.is_blocked() ) {
-							if ( 'change' === e.type && min >= 0 && ( parseFloat( $input.val() ) < min || isNaN( parseFloat( $input.val() ) ) ) ) {
-								$input.val( min );
-							}
-
-							if ( 'change' === e.type && max > 0 && parseFloat( $input.val() ) > max ) {
-								$input.val( max );
-							}
+						if ( keep_in_range ) {
+							$( this ).val( quantity );
 						}
 
-						self.component_selection_model.update_selected_quantity( parseInt( $input.val() ) );
+						self.component_selection_model.update_selected_quantity( quantity );
 					} );
 
 					/**
 					 * Initialize prettyPhoto/phptoSwipe script when component selection scripts are initialized.
 					 */
-					self.$el.on( 'wc-composite-component-loaded', { view: this }, function() {
+					self.$el.on( 'wc-composite-component-loaded', function() {
 
 						// Init PhotoSwipe if present.
 						if ( 'yes' === wc_composite_params.photoswipe_enabled && typeof PhotoSwipe !== 'undefined' ) {
@@ -8064,7 +8080,7 @@ jQuery.fn.wc_get_composite_script = function() {
 					self.$el.on( 'click', '.clear_component_options', function() {
 
 						if ( 'yes' === wc_composite_params.accessible_focus_enabled && self.$step_title_aria ) {
-							self.$step_title_aria.focus();
+							self.$step_title_aria.trigger( 'focus' );
 						}
 
 						if ( $( this ).hasClass( 'reset_component_options' ) ) {
@@ -8074,7 +8090,7 @@ jQuery.fn.wc_get_composite_script = function() {
 						var empty_option = self.$component_options_select.find( 'option[value=""]' );
 
 						if ( empty_option.length > 0 && false === empty_option.first().prop( 'disabled' ) ) {
-							self.$component_options_select.val( '' ).change();
+							self.$component_options_select.val( '' ).trigger( 'change' );
 						}
 
 						return false;
@@ -8092,7 +8108,7 @@ jQuery.fn.wc_get_composite_script = function() {
 						self.set_active();
 
 						if ( empty_option.length > 0 && false === empty_option.first().prop( 'disabled' ) ) {
-							self.$component_options_select.val( '' ).change();
+							self.$component_options_select.val( '' ).trigger( 'change' );
 						}
 
 						self.block_next_steps();
@@ -8103,7 +8119,7 @@ jQuery.fn.wc_get_composite_script = function() {
 					/**
 					 * Update model upon changing addons selections.
 					 */
-					self.$el.on( 'updated_addons', this.updated_addons_handler );
+					self.$el.on( 'updated_addons', { view: this }, this.updated_addons_handler );
 
 					/**
 					 * Update composite totals when a new NYP price is entered.
@@ -8158,6 +8174,44 @@ jQuery.fn.wc_get_composite_script = function() {
 					 * Update the selection title when the quantity is changed.
 					 */
 					composite.actions.add_action( 'component_quantity_changed', this.quantity_changed_handler, 100, this );
+
+					/**
+					 * Update the addons totals when addons change.
+					 */
+					composite.actions.add_action( 'component_addons_changed', this.addons_changed_handler, 100, this );	
+
+					/**
+					 * Update the addons totals when a new variation selection is made.
+					 */
+					composite.actions.add_action( 'component_selection_changed', this.addons_changed_handler, 100, this );
+
+				},
+
+				/**
+				 * Get the updated quantity.
+				 */
+				get_updated_quantity: function( keep_in_range ) {
+
+					var $input = self.$component_quantity,
+						qty    = parseFloat( $input.val() ),
+						min    = parseFloat( $input.attr( 'min' ) ),
+						max    = parseFloat( $input.attr( 'max' ) );
+
+					if ( keep_in_range ) {
+						if ( min >= 0 && ( qty < min || isNaN( qty ) ) ) {
+							qty = min;
+						}
+
+						if ( max > 0 && qty > max ) {
+							qty = max;
+						}
+					}
+
+					if ( isNaN( qty ) ) {
+						qty = 0;
+					}
+
+					return parseInt( qty, 10 );
 				},
 
 				/**
@@ -8256,7 +8310,7 @@ jQuery.fn.wc_get_composite_script = function() {
 						if ( _.includes( changed, 'variations' ) ) {
 
 							if ( this.autoselect_attributes() ) {
-								self.$component_summary_content.find( '.variations select' ).last().change();
+								self.$component_summary_content.find( '.variations select' ).last().trigger( 'change' );
 							}
 						}
 					}
@@ -8335,34 +8389,57 @@ jQuery.fn.wc_get_composite_script = function() {
 				},
 
 				/**
-				 * Updates the selection title when the quantity is changed.
+				 * Updates the selection title and the selected product addons when the quantity is changed.
 				 */
 				quantity_changed_handler: function( step ) {
 
 					if ( step.step_id === self.step_id ) {
+						
 						this.update_selection_title( this.model );
+
+						var addons_data = this.get_updated_addons_data();
+
+						if ( addons_data ) {
+							self.component_selection_model.update_selected_addons( addons_data.data, addons_data.raw_price, addons_data.raw_regular_price );
+						}
 					}
 				},
 
 				/**
-				 * Renders addons totals and updates the model upon changing addons selections.
+				 * Updates the addons totals when addons change.
 				 */
-				updated_addons_handler: function( event ) {
+				addons_changed_handler: function( step ) {
 
-					if ( $( event.target ).hasClass( 'bundled_item_cart_content' ) ) {
-						return;
+					if ( step.step_id !== self.step_id ) {
+						return false;
+					}
+
+					if ( ! composite.is_initialized ) {
+						return false;
+					}
+
+					var view = this;
+
+					clearTimeout( view.render_addons_totals_timer );
+					view.render_addons_totals_timer = setTimeout( function() {
+						view.render_addons_totals();
+					}, 10 );
+				},
+
+				/**
+				 * Updates the model upon changing addons selections.
+				 */
+				get_updated_addons_data: function() {
+
+					if ( ! self.has_addons() ) {
+						return false;
 					}
 
 					var addons_raw_price         = 0,
 						addons_raw_regular_price = 0,
-						addons_data              = [],
+						addons_data              = self.$component_addons_totals ? self.$component_addons_totals.data( 'price_data' ) : [],
+						quantity                 = self.get_selected_quantity(),
 						tax_ratios               = composite.data_model.price_data.price_tax_ratios[ self.component_id ];
-
-					if ( ! self.has_addons() ) {
-						return;
-					}
-
-					addons_data = self.$component_addons_totals.data( 'price_data' );
 
 					for ( var addon_data_index = 0, addons_data_length = addons_data.length; addon_data_index < addons_data_length; addon_data_index++ ) {
 
@@ -8383,7 +8460,7 @@ jQuery.fn.wc_get_composite_script = function() {
 							}
 
 							// Custom Price fields always behave as Flat-Fee.
-							addon_raw_price = addon_raw_price / self.get_selected_quantity();
+							addon_raw_price = quantity ? addon_raw_price / quantity : 0;
 
 							addons_raw_regular_price += addon_raw_price;
 							addons_raw_price         += addon_raw_price;
@@ -8394,21 +8471,68 @@ jQuery.fn.wc_get_composite_script = function() {
 								addons_raw_regular_price += addon.cost_raw_pu;
 								addons_raw_price         += addon.cost_raw_pu;
 							} else if ( 'flat_fee' === addon.price_type ) {
-								addons_raw_regular_price += addon.cost_raw / self.get_selected_quantity();
-								addons_raw_price         += addon.cost_raw / self.get_selected_quantity();
+								addons_raw_regular_price += quantity ? addon.cost_raw / quantity : 0;
+								addons_raw_price         += quantity ? addon.cost_raw / quantity : 0;
 							} else if ( 'percentage_based' === addon.price_type ) {
 								addons_raw_regular_price += addon.cost_raw_pct * composite.data_model.price_data.regular_prices[ self.component_id ];
 								addons_raw_price         += addon.cost_raw_pct * composite.data_model.price_data.prices[ self.component_id ];
 							}
 						}
+
+						addons_data[ addon_data_index ].qty               = quantity;
+						addons_data[ addon_data_index ].raw_price         = addons_raw_price;
+						addons_data[ addon_data_index ].raw_regular_price = addons_raw_regular_price;
 					}
 
 					addons_raw_price         = addons_raw_price || 0.0;
 					addons_raw_regular_price = addons_raw_regular_price || addons_raw_price;
 
-					self.component_selection_model.update_selected_addons( addons_data, addons_raw_price, addons_raw_regular_price );
+					return {
+						data: addons_data,
+						raw_price: addons_raw_price,
+						raw_regular_price: addons_raw_regular_price
+					};
+				},
+
+				/**
+				 * Handles addons selection changes.
+				 */
+				updated_addons_handler: function( event ) {
+
+					if ( $( event.target ).hasClass( 'bundled_item_cart_content' ) ) {
+						return;
+					}
+
+					if ( ! self.has_addons() ) {
+						return;
+					}
+
+					var view        = event.data.view,
+						addons_data = view.get_updated_addons_data();
+
+					// Always restore totals state because PAO empties it before the 'updated_addons' event.
+					if ( self.component_addons_totals_html ) {
+						self.$component_addons_totals.html( self.component_addons_totals_html );
+					}
+
+					if ( addons_data ) {
+						self.component_selection_model.update_selected_addons( addons_data.data, addons_data.raw_price, addons_data.raw_regular_price );
+					}
+
+					event.stopPropagation();
+				},
+
+				/**
+				 * Renders a component subtotal.
+				 */
+				render_addons_totals: function() {
+
+					if ( ! self.has_addons() ) {
+						return;
+					}
 
 					var price_data   = composite.data_model.price_data,
+						tax_ratios   = composite.data_model.price_data.price_tax_ratios[ self.component_id ],
 						addons_price = price_data.addons_prices[ self.component_id ];
 
 					addons_price = addons_price || 0.0;
@@ -8435,17 +8559,13 @@ jQuery.fn.wc_get_composite_script = function() {
 								self.$component_addons_totals.html( addons_totals_html ).slideDown( 200 );
 
 							} else {
-
-								// Put totals html back in as PAO just emptied the div.
-								self.$component_addons_totals.html( self.component_addons_totals_html ).slideUp( 200 );
+								self.$component_addons_totals.slideUp( 200 );
 							}
 
 						} else {
-							self.$component_addons_totals.empty();
+							self.$component_addons_totals.slideUp( 200 );
 						}
 					}
-
-					event.stopPropagation();
 				},
 
 				/**
@@ -8627,7 +8747,7 @@ jQuery.fn.wc_get_composite_script = function() {
 
 					var option_id = self.get_selected_product( false );
 
-					self.$component_options_select.val( option_id ).change();
+					self.$component_options_select.val( option_id ).trigger( 'change' );
 
 					this.unblock();
 
@@ -9437,24 +9557,6 @@ jQuery.fn.wc_get_composite_script = function() {
 		 *
 		 *
 		 *
-		 * Action 'active_options_changed':
-		 *
-		 * Triggered when the active/enabled Component Options of a Component change.
-		 *
-		 * @param  WC_CP_Component  component
-		 *
-		 * @hooked Action 'active_options_changed_{step.step_id}' - 0
-		 *
-		 *
-		 *
-		 * Action 'active_options_changed_{step.step_id}':
-		 *
-		 * Triggered when the active/enabled Component Options of the Component with id === step_id change.
-		 *
-		 * @hooked void
-		 *
-		 *
-		 *
 		 * Action 'available_options_changed':
 		 *
 		 * Triggered when the Component Options available in a Component change.
@@ -9827,10 +9929,10 @@ jQuery.fn.wc_get_composite_script = function() {
 						 * Dispatch action when a selected addons change event is triggered.
 						 */
 						step.component_selection_model.on( 'change:selected_addons', function() {
-							// Run 'component_addons_changed' action - @see WC_CP_Actions_Dispatcher class description.
-							dispatcher.do_action( 'component_addons_changed', [ step ] );
 							// Run 'component_selection_content_changed' action - @see WC_CP_Actions_Dispatcher class description.
 							dispatcher.do_action( 'component_selection_content_changed', [ step ] );
+							// Run 'component_addons_changed' action - @see WC_CP_Actions_Dispatcher class description.
+							dispatcher.do_action( 'component_addons_changed', [ step ] );
 						} );
 
 						/*
@@ -9849,14 +9951,6 @@ jQuery.fn.wc_get_composite_script = function() {
 						step.component_options_model.on( 'change:options_state', function() {
 							// Run 'component_options_state_changed' action - @see WC_CP_Actions_Dispatcher class description.
 							dispatcher.do_action( 'component_options_state_changed', [ step ] );
-						} );
-
-						/*
-						 * Dispatch action when the active options change.
-						 */
-						step.component_options_model.on( 'change:active_options', function() {
-							// Run 'active_options_changed' action - @see WC_CP_Actions_Dispatcher class description.
-							dispatcher.do_action( 'active_options_changed', [ step ] );
 						} );
 
 						/*
@@ -9965,14 +10059,6 @@ jQuery.fn.wc_get_composite_script = function() {
 			dispatcher.add_action( 'component_options_state_changed', function( step ) {
 				// Run 'component_options_state_changed_{step.step_id}' action - @see WC_CP_Actions_Dispatcher class description.
 				dispatcher.do_action( 'component_options_state_changed_' + step.step_id );
-			}, 0, this );
-
-			/*
-			 * Dispatch step action associated with the 'active_options_changed' action.
-			 */
-			dispatcher.add_action( 'active_options_changed', function( step ) {
-				// Run 'active_options_changed_{step.step_id}' action - @see WC_CP_Actions_Dispatcher class description.
-				dispatcher.do_action( 'active_options_changed_' + step.step_id );
 			}, 0, this );
 
 			/*
@@ -10647,15 +10733,67 @@ jQuery.fn.wc_get_composite_script = function() {
 		/**
 		 * Replaces stored scenario data for a given component, for instance when refreshing the component options view.
 		 */
-		this.set_component_scenario_data = function( component_id, component_scenario_data ) {
+		this.set_scenario_data = function( scenario_data, component_id ) {
 
-			manager_data.scenario_data.scenario_data[ component_id ] = component_scenario_data;
+			component_id = component_id ? component_id : false;
+
+			if ( false === component_id ) {
+				manager_data.scenario_data = scenario_data;
+			} else {
+				manager_data.scenario_data.scenario_data[ component_id ] = scenario_data;
+			}
 		};
 
 		/**
 		 * Append scenario data to a given component, in order to include data for more products.
 		 */
-		this.merge_component_scenario_data = function( component_id, component_scenario_data ) {
+		this.merge_scenario_data = function( scenario_data, component_id ) {
+
+			component_id = component_id ? component_id : false;
+
+			if ( false === component_id ) {
+
+				for ( var c_id in scenario_data ) {
+
+					if ( ! scenario_data.hasOwnProperty( c_id ) ) {
+						continue;
+					}
+
+					for ( var product_id in scenario_data[ c_id ] ) {
+
+						if ( ! scenario_data[ c_id ].hasOwnProperty( product_id ) ) {
+							continue;
+						}
+
+						manager_data.scenario_data.scenario_data[ c_id ][ product_id ] = scenario_data[ c_id ][ product_id ];
+					}
+				}
+
+			} else {
+
+				for ( var product_id in scenario_data ) {
+
+					if ( ! scenario_data.hasOwnProperty( product_id ) ) {
+						continue;
+					}
+
+					manager_data.scenario_data.scenario_data[ component_id ][ product_id ] = scenario_data[ product_id ];
+				}
+			}
+		};
+
+		/**
+		 * Replaces stored conditional options scenario data for a given component, for instance when refreshing the component options view.
+		 */
+		this.set_conditional_options_scenario_data = function( component_scenario_data, component_id ) {
+
+			manager_data.scenario_data.conditional_options_data[ component_id ] = component_scenario_data;
+		};
+
+		/**
+		 * Append scenario data to a given component, in order to include data for more products.
+		 */
+		this.merge_conditional_options_scenario_data = function( component_scenario_data, component_id ) {
 
 			for ( var product_id in component_scenario_data ) {
 
@@ -10663,7 +10801,7 @@ jQuery.fn.wc_get_composite_script = function() {
 					continue;
 				}
 
-				manager_data.scenario_data.scenario_data[ component_id ][ product_id ] = component_scenario_data[ product_id ];
+				manager_data.scenario_data.conditional_options_data[ component_id ][ product_id ] = component_scenario_data[ product_id ];
 			}
 		};
 
@@ -11491,7 +11629,7 @@ jQuery.fn.wc_get_composite_script = function() {
 
 									if ( 'yes' === wc_composite_params.accessible_focus_enabled && step.$step_title_aria ) {
 										setTimeout( function() {
-											step.$step_title_aria.focus();
+											step.$step_title_aria.trigger( 'focus' );
 										}, 250 );
 									}
 
@@ -12101,7 +12239,7 @@ jQuery.fn.wc_get_composite_script = function() {
 		WC_CP_Component.prototype.is_selected_product_valid = function( active_options ) {
 
 			if ( typeof( active_options ) === 'undefined' ) {
-				active_options = this.component_options_model.get( 'active_options' );
+				active_options = this.component_options_model.get( 'options_state' ).active;
 			}
 
 			return this.component_selection_model.get( 'selected_product' ) === '' || _.includes( active_options, this.component_selection_model.get( 'selected_product' ) );
@@ -12113,7 +12251,7 @@ jQuery.fn.wc_get_composite_script = function() {
 		WC_CP_Component.prototype.is_selected_variation_valid = function( active_options ) {
 
 			if ( typeof( active_options ) === 'undefined' ) {
-				active_options = this.component_options_model.get( 'active_options' );
+				active_options = this.component_options_model.get( 'options_state' ).active;
 			}
 
 			return this.component_selection_model.get( 'selected_variation' ) === '' || _.includes( active_options, this.component_selection_model.get( 'selected_variation' ) );
@@ -12469,7 +12607,7 @@ jQuery.fn.wc_get_composite_script = function() {
 					$summary_content.wc_variation_form();
 
 					// Fire change in order to save 'variation_id' input.
-					$summary_content.find( '.variations select' ).last().change();
+					$summary_content.find( '.variations select' ).last().trigger( 'change' );
 
 					// Complete all pending animations.
 					$summary_content.find( 'div' ).stop( true, true );
@@ -12573,7 +12711,7 @@ jQuery.fn.wc_get_composite_script = function() {
 		 */
 		WC_CP_Component.prototype.is_optional = function() {
 
-			var is_optional = _.includes( this.component_options_model.get( 'active_options' ), '' );
+			var is_optional = _.includes( this.component_options_model.get( 'options_state' ).active, '' );
 
 			// Pass through 'component_is_optional' filter - @see WC_CP_Filters_Manager class.
 			return this.composite.filters.apply_filters( 'component_is_optional', [ is_optional, this ] );

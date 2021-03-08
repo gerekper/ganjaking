@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin AJAX meta-box handlers.
  *
  * @class     WC_CP_Admin_Ajax
- * @version   7.0.6
+ * @version   8.0.0
  */
 class WC_CP_Admin_Ajax {
 
@@ -47,6 +47,9 @@ class WC_CP_Admin_Ajax {
 
 		// Add scenario.
 		add_action( 'wp_ajax_woocommerce_add_composite_scenario', array( __CLASS__, 'ajax_add_scenario' ) );
+
+		// Add scenario.
+		add_action( 'wp_ajax_woocommerce_add_composite_state', array( __CLASS__, 'ajax_add_state' ) );
 
 		// Search products and variations.
 		add_action( 'wp_ajax_woocommerce_json_search_component_options', array( __CLASS__, 'search_component_options' ) );
@@ -220,7 +223,17 @@ class WC_CP_Admin_Ajax {
 
 		wc_delete_product_transients( $post_id );
 
-		wp_send_json( WC_CP_Meta_Box_Product_Data::$ajax_notices );
+		ob_start();
+
+		WC_CP_Meta_Box_Product_Data::composite_data_panel();
+
+		$html = ob_get_clean();
+
+		wp_send_json( array(
+			'result'  => 'success',
+			'notices' => WC_CP_Meta_Box_Product_Data::$ajax_notices,
+			'html'    => $html
+		) );
 	}
 
 	/**
@@ -279,9 +292,41 @@ class WC_CP_Admin_Ajax {
 		 * @param  int     $post_id
 		 * @param  string  $state
 		 *
-		 * @hooked {@see scenario_admin_html} - 10
 		 */
 		do_action( 'woocommerce_composite_scenario_admin_html', $id, $scenario_data, $composite_data, $post_id, 'open' );
+
+		die();
+	}
+
+	/**
+	 * Handles adding states via ajax.
+	 *
+	 * @return void
+	 */
+	public static function ajax_add_state() {
+
+		check_ajax_referer( 'wc_bto_add_state', 'security' );
+
+		$id      = isset( $_POST[ 'id' ] ) ? intval( $_POST[ 'id' ] ) : 0;
+		$post_id = isset( $_POST[ 'post_id' ] ) ? intval( $_POST[ 'post_id' ] ) : 0;
+
+		$composite      = new WC_Product_Composite( $post_id );
+		$composite_data = $composite->get_composite_data( 'edit' );
+		$state_data     = array( 'is_ajax' => true, 'is_state' => true );
+
+		WC_CP_Meta_Box_Product_Data::set_global_object_data( $composite );
+
+		/**
+		 * Action 'woocommerce_composite_scenario_admin_html'.
+		 *
+		 * @param  int     $id
+		 * @param  array   $state_data
+		 * @param  array   $composite_data
+		 * @param  int     $post_id
+		 * @param  string  $state
+		 *
+		 */
+		do_action( 'woocommerce_composite_state_admin_html', $id, $state_data, $composite_data, $post_id, 'open' );
 
 		die();
 	}

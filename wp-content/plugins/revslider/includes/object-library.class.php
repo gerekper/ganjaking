@@ -720,6 +720,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		}
 
 		$image_path	= $this->upload_dir['basedir'] . $this->object_orig_path . $object_handle;
+		$_image_path = $this->upload_dir['basedir'] . $this->object_orig_path;
 		$image_url	= $this->upload_dir['baseurl'] . $this->object_orig_path;
 
 		if(!file_exists($image_path)) return '';
@@ -728,8 +729,10 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		if($full === false){
 			$file_split = explode('.', $object_handle);
 
-			if(count($file_split) === 2){
+			if(count($file_split) === 2 && file_exists($_image_path.$file_split[0].'-'.$size.'.'.$file_split[1])){
 				$image_url .= $file_split[0].'-'.$size.'.'.$file_split[1];
+			}else{
+				$image_url .= $object_handle;
 			}
 		}else{
 			$image_url .= $object_handle;

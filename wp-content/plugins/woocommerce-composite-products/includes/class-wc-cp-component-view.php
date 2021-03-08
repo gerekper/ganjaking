@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Maintains component view state.
  *
  * @class    WC_CP_Component_View
- * @version  7.0.0
+ * @version  8.0.0
  */
 class WC_CP_Component_View {
 
@@ -128,9 +128,14 @@ class WC_CP_Component_View {
 			$data                   = $this->component->get_data();
 			$data[ 'assigned_ids' ] = $this->component->get_options();
 
-			// At this point, we can also filter the IDs when requesting options that match specific scenarios.
+			// At this point, we can also filter the IDs when requesting options that match specific states.
 			if ( ! empty( $args[ 'options_in_scenarios' ] ) ) {
-				$data[ 'assigned_ids' ] = $this->get_options_in_scenarios( $data[ 'assigned_ids' ], $args[ 'options_in_scenarios' ] );
+				if ( ! empty( $args[ 'options_in_scenarios' ][ 'compat_group' ] ) ) {
+					$data[ 'assigned_ids' ] = $this->filter_options_in_states( $data[ 'assigned_ids' ], $args[ 'options_in_scenarios' ][ 'compat_group' ] );
+				}
+				if ( ! empty( $args[ 'options_in_scenarios' ][ 'conditional_options' ] ) ) {
+					$data[ 'assigned_ids' ] = $this->filter_conditional_options( $data[ 'assigned_ids' ], $args[ 'options_in_scenarios' ][ 'conditional_options' ] );
+				}
 			}
 
 			/**
@@ -153,31 +158,63 @@ class WC_CP_Component_View {
 	}
 
 	/**
-	 * Filter option IDs matching specific scenario IDs.
+	 * Filter option IDs matching specific state IDs.
+	 *
+	 * @since  8.0.0
 	 *
 	 * @param  array  $options
 	 * @param  array  $scenarios
 	 * @return array
 	 */
-	private function get_options_in_scenarios( $options, $scenarios ) {
+	private function filter_options_in_states( $options, $states ) {
 
-		if ( in_array( '0', $scenarios ) ) {
+		if ( in_array( '0', $states ) ) {
 			return $options;
 		}
 
 		$component_id         = $this->component->get_id();
-		$options_map          = $this->component->get_composite()->scenarios()->get_map( array( $component_id => $options ), $scenarios );
+		$options_map          = $this->component->get_composite()->scenarios()->get_map( array( $component_id => $options ), $states );
 		$options_in_scenarios = array();
 
 		if ( ! empty( $options_map[ $component_id ] ) ) {
 			foreach ( $options_map[ $component_id ] as $product_id => $product_in_scenarios ) {
-				if ( sizeof( array_intersect( $product_in_scenarios, $scenarios ) ) > 0 && in_array( $product_id, $options ) ) {
+				if ( sizeof( array_intersect( $product_in_scenarios, $states ) ) > 0 && in_array( $product_id, $options ) ) {
 					$options_in_scenarios[] = $product_id;
 				}
 			}
 		}
 
 		return $options_in_scenarios;
+	}
+
+	/**
+	 * Filter option IDs hidden in scenarios.
+	 *
+	 * @since  8.0.0
+	 *
+	 * @param  array  $options
+	 * @param  array  $scenarios
+	 * @return array
+	 */
+	private function filter_conditional_options( $options, $scenarios ) {
+
+		if ( empty( $scenarios ) ) {
+			return $options;
+		}
+
+		$component_id   = $this->component->get_id();
+		$options_map    = $this->component->get_composite()->scenarios()->get_map( array( $component_id => $options ), $scenarios, 'conditional_options' );
+		$hidden_options = array();
+
+		if ( ! empty( $options_map[ $component_id ] ) ) {
+			foreach ( $options_map[ $component_id ] as $product_id => $product_in_scenarios ) {
+				if ( sizeof( array_intersect( $product_in_scenarios, $scenarios ) ) > 0 && in_array( $product_id, $options ) ) {
+					$hidden_options[] = $product_id;
+				}
+			}
+		}
+
+		return array_diff( $options, $hidden_options );
 	}
 
 	/**

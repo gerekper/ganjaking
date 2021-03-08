@@ -216,6 +216,7 @@ if(!defined('ABSPATH')) exit();
 						<label_a><?php _e('MPEG', 'revslider');?></label_a><input id="layer_mpeg_src" data-evt="updatelayerpostermpeg" class="layerinput easyinit nmarg callEvent" type="text" data-r="media.mp4Url" placeholder="<?php _e('Enter MPEG Source', 'revslider');?>">
 						<label_a></label_a><div id="video_layer_media_library_button" data-evt="" data-rid="media.id" data-target="#layer_mpeg_src" class="getVideoFromMediaLibrary basic_action_button layerinput longbutton  callEventButton"><i class="material-icons">style</i><?php _e('Media Library', 'revslider');?></div>
 						<label_a></label_a><div  id="video_layer_object_library_button" data-evt="updatelayerimagesrc" data-target="#layer_mpeg_src" data-r="media.mp4Url" class="getVideoFromObjectLibrary basic_action_button layerinput longbutton callEventButton"><i class="material-icons">camera_enhance</i><?php _e('Object Library', 'revslider');?></div>
+						<longoption><i class="material-icons">aspect_ratio</i><label_a><?php _e('Video Fit Cover', 'revslider');?></label_a><input type="checkbox"  id="video_layer_fit_cover" class="layerinput easyinit" data-r="media.fitCover"/></longoption>
 					</div>
 					<div class="div15"></div>
 					<div id="" class="layerbg_html5_settings layerbg_audio_settings layer_bg_settings">

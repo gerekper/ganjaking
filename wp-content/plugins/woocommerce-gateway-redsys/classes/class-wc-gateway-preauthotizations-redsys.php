@@ -5668,7 +5668,7 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			$dscardnumbercomp = 'unknown';
 		}
 
-		if ( ! empty( $dsexpiryyear ) ) {
+		if ( ! empty( $dsexpiryyear ) && '2020' !== $dsexpiryyear && '20' !==  $dsexpiryyear ) {
 			 $dsexpiryyear = $dsexpiryyear;
 		} else {
 			 $dsexpiryyear = '2099';

@@ -1226,7 +1226,8 @@ function wc_cp_composited_single_variation_attribute_options( $args ) {
 	$html .= $attribute_options;
 
 	if ( end( $attribute_keys ) === $attribute_name ) {
-		$html .= wp_kses_post( apply_filters( 'woocommerce_reset_variations_link', '<div class="reset_variations_wrapper"><a class="reset_variations" href="#">' . esc_html__( 'Clear', 'woocommerce-composite-products' ) . '</a></div>' ) );
+		// Change 'reset_variations_wrapper_fixed' to 'reset_variations_wrapper' if you want the 'Clear' link to slide in/out of view.
+		$html .= wp_kses_post( apply_filters( 'woocommerce_reset_variations_link', '<div class="reset_variations_wrapper_fixed"><a class="reset_variations" href="#">' . esc_html__( 'Clear', 'woocommerce-composite-products' ) . '</a></div>' ) );
 	}
 
 	return $html;

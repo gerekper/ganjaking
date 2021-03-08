@@ -1,25 +1,23 @@
-### 2.4.22.5
+### 2.4.23 | 2021-03-03
 - Added the [gform_shortcode_builder_forms](https://docs.gravityforms.com/gform_shortcode_builder_forms/) and [gform_block_form_forms](https://docs.gravityforms.com/gform_block_form_forms/) filters enabling the forms available for embedding to be overridden.
-
-### 2.4.22.4
-- Fixed an issue where the form editor block was generating notices in the JavaScript console.
+- Updated the REST API settings page to require the settings to be updated before adding new API keys.
+- Updated the submission process to allow some payment add-ons to fix errors raised when a form includes an invisible Recaptcha.
+- Fixed an issue with jQuery 3.0 breaking multiselect conditional logic.
+- Fixed an issue with the file upload field where validation fails for certain file types.
+- Fixed an issue where the form editor block generates notices in the JavaScript console.
+- Fixed an issue that makes multi-page forms with AJAX enabled use the wrong tabindex.
 - Fixed an issue with sorting forms in PHP 8.
-- Fixed issue with auto-updates and PHP 8.
+- Fixed an issue with auto-updates and PHP 8.
+- Fixed an issue with the sales page when using MySQL 8+.
+- Fixed fatal error in PHP 8 on some Gravity Forms pages.
+- Fixed checkbox and radio style issues for Twenty Twenty-One Theme.
+- Fixed an issue where dates/times on the system report and entries list page can output nothing but "at" when the date/time formats on the WordPress general settings page are empty.
+- AF: Fixed an issue where an uninformative error is displayed if the add-on feed table does not exist.
 - AF: Added a new method that allows add-ons to fix authentication issues.
 - API: Made the $args argument optional in `GF_Results_Cache::calculate()`;
+- API: Updated the [gform_file_upload_markup](https://docs.gravityforms.com/gform_file_upload_markup/) JS filter to include response as the sixth parameter.
+- API: Added a new JavaScript function "gformIsRecaptchaPending" to help resolve submission errors raised by some payment add-ons when a form includes an invisible Recaptcha.
 
-### 2.4.22.3
-- Updated the [gform_file_upload_markup](https://docs.gravityforms.com/gform_file_upload_markup/) JS filter to include response as the sixth parameter.
-- Fixed an issue where dates/times on the system report and entries list page can output nothing but "at" when the date/time formats on the WordPress general settings page are empty.
-
-### 2.4.22.2
-- Fixed checkbox and radio style issues for Twenty Twenty-One Theme.
-- Updated how file type checks work to avoid false positives.
-- Fixed issue with SQL statements containing "lead" in MySQL 8+
-- Fixed fatal error in PHP 8 on Gravity Forms pages.
-
-### 2.4.22.1
-- Fixed issue with jQuery 3.0 breaking multiselect conditional logic.
 
 ### 2.4.22 | 2020-12-22
 - Added security enhancements.

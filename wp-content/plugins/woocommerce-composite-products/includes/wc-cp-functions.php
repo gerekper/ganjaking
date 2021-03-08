@@ -454,12 +454,22 @@ function wc_cp_price_thousand_sep() {
  *
  * @return string
  */
-function wc_cp_price_num_decimals() {
-	$wc_price_num_decimals = WC_CP_Helpers::cache_get( 'wc_price_num_decimals' );
+function wc_cp_price_num_decimals( $context = '' ) {
+
+	$wc_price_num_decimals_cache_key = 'wc_price_num_decimals' . ( 'extended' === $context ? '_ext' : '' );
+	$wc_price_num_decimals           = WC_CP_Helpers::cache_get( $wc_price_num_decimals_cache_key );
+
 	if ( null === $wc_price_num_decimals ) {
-		$wc_price_num_decimals = absint( get_option( 'woocommerce_price_num_decimals', 2 ) );
-		WC_CP_Helpers::cache_set( 'wc_price_num_decimals', apply_filters( 'wc_get_price_decimals', $wc_price_num_decimals ) );
+		
+		if ( 'extended' === $context ) {
+			$wc_price_num_decimals = wc_get_rounding_precision();
+		} else {
+			$wc_price_num_decimals = wc_get_price_decimals();
+		}
+		
+		WC_CP_Helpers::cache_set( $wc_price_num_decimals_cache_key, $wc_price_num_decimals );
 	}
+
 	return $wc_price_num_decimals;
 }
 

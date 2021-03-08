@@ -1,5 +1,13 @@
 *** Product Addons Changelog ***
 
+2021-03-03 - version 3.4.1
+* Fix - Fix products with add-ons not accepting coupons set to exclude sale items.
+
+2021-02-22 - version 3.4.0
+* Fix - Improve display of products with add-ons in Cart and Checkout blocks.
+* Fix - Prevent products with required addons being added to the cart without options selected.
+* Fix - Update node-sass to 4.14.1.
+
 2021-01-27 - version 3.3.1
 * Fix - Scroll to required multiple choice add-ons of rabio button type when trying to add to cart a product without choosing the add-on.
 * Fix - Product total price will update instantly when writing a number in a quantity add-on.

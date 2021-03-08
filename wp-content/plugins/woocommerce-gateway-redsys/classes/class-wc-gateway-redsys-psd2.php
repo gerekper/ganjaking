@@ -601,8 +601,8 @@ class WC_Gateway_Redsys_PSD2 {
 			$Ds_Merchant_EMV3DS['billAddrCity']     = $this->clean_data( $order->get_billing_city() );
 			$Ds_Merchant_EMV3DS['billAddrLine1']    = $this->clean_data( $order->get_billing_address_1() );
 			$Ds_Merchant_EMV3DS['billAddrPostCode'] = $this->clean_data( $order->get_billing_postcode() );
-			$Ds_Merchant_EMV3DS['billAddrState']    = strtolower( $this->clean_data( $order->get_billing_state() ) );
-			$Ds_Merchant_EMV3DS['billAddrCountry']  = strtolower( $this->clean_data( $order->get_billing_country() ) );
+			$Ds_Merchant_EMV3DS['billAddrState']    = strtoupper( $this->clean_data( $order->get_billing_state() ) );
+			$Ds_Merchant_EMV3DS['billAddrCountry']  = WCRed()->get_country_codes_3( $order->get_billing_country() );
 			$Ds_Merchant_EMV3DS['Email']            = $this->get_email( $order );
 			$Ds_Merchant_EMV3DS['acctInfo']         = $acctInfo;
 			$Ds_Merchant_EMV3DS['homePhone']        = array( 'subscriber' => $this->get_homephone( $order ) );
@@ -618,8 +618,8 @@ class WC_Gateway_Redsys_PSD2 {
 				$Ds_Merchant_EMV3DS['shipAddrCity']     = $this->clean_data( $order->get_shipping_city() );
 				$Ds_Merchant_EMV3DS['shipAddrLine1']    = $this->clean_data( $order->get_shipping_address_1() );
 				$Ds_Merchant_EMV3DS['shipAddrPostCode'] = $this->clean_data( $order->get_shipping_postcode() );
-				$Ds_Merchant_EMV3DS['shipAddrState']    = strtolower( $this->clean_data( $order->get_shipping_state() ) );
-				$Ds_Merchant_EMV3DS['shipAddrCountry']  = strtolower( $this->clean_data( $order->get_shipping_country() ) );
+				$Ds_Merchant_EMV3DS['shipAddrState']    = strtoupper( $this->clean_data( $order->get_shipping_state() ) );
+				$Ds_Merchant_EMV3DS['shipAddrCountry']  = WCRed()->get_country_codes_3( $order->get_shipping_country() );
 				if ( $order->get_shipping_address_2() !== '' ) {
 					$Ds_Merchant_EMV3DS['shipAddrLine2'] = $this->clean_data( $order->get_shipping_address_2() );
 				}

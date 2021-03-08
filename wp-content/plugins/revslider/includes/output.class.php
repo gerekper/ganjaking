@@ -1879,7 +1879,8 @@ class RevSliderOutput extends RevSliderFunctions {
 			echo '">';
 		}
 		
-		echo ($special_type === false && $layertype !== 'video') ? apply_filters('revslider_layer_content', stripslashes($html_layer), $html_layer, $this->slider->get_id(), $this->slide, $layer).' ' : '';
+		//echo ($special_type === false && $layertype !== 'video') ? apply_filters('revslider_layer_content', stripslashes($html_layer), $html_layer, $this->slider->get_id(), $this->slide, $layer).' ' : '';
+		echo ($special_type === false && $layertype !== 'video') ? apply_filters('revslider_layer_content', $html_layer, $html_layer, $this->slider->get_id(), $this->slide, $layer).' ' : '';
 		
 		if($toggle_data['allow'] === true){
 			echo '</div>';
@@ -4566,6 +4567,7 @@ rs-module .material-icons {
 		
 		if(!in_array($video_type, array('streamyoutube', 'streamyoutubeboth', 'youtube', 'streamvimeo', 'streamvimeoboth', 'vimeo', 'streaminstagram', 'streaminstagramboth', 'html5'), true)) return '';
 		
+		$data['video']['vfc'] = $this->get_val($layer, array('media', 'fitCover'), true);		
 		$http	 = (is_ssl()) ? 'https://' : 'http://';
 		$vid	 = trim($this->get_val($layer, array('media', 'id')));
 		$mute	 = $this->get_val($layer, array('media', 'mute'), true);
@@ -5562,7 +5564,8 @@ rs-module .material-icons {
 		//$data['video']['autoplay'] = 'true'; //default, so dont write
 		//$data['video']['apf'] = false; //default, so dont write
 		
-		if($slide->get_param(array('bg', 'video', 'forceCover'), true) == false){ $data['video']['fc'] = false; }
+		
+		$data['video']['vfc'] = $slide->get_param(array('bg', 'video', 'fitCover'), true); //video fit cover
 		$do	= $slide->get_param(array('bg', 'video', 'dottedOverlay'), 'none');
 		if($do !== 'none'){
 			$data['video']['do'] = $do;

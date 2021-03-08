@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Component abstraction. Contains data and maintains view state.
  *
  * @class    WC_CP_Component
- * @version  7.0.0
+ * @version  8.0.0
  */
 class WC_CP_Component implements ArrayAccess {
 
@@ -346,7 +346,7 @@ class WC_CP_Component implements ArrayAccess {
 				$selected_option = '';
 			}
 
-			if ( '' === $selected_option && false === $this->is_optional() && 'defaults' === $this->get_composite()->get_shop_price_calc() ) {
+			if ( '' === $selected_option && false === $this->is_optional() && 'defaults' === $this->get_composite()->get_shop_price_calc() && ! empty( $options ) ) {
 				$selected_option = $options[0];
 			}
 		}
@@ -834,13 +834,13 @@ class WC_CP_Component implements ArrayAccess {
 	public function hide_disabled_options() {
 
 		/**
-		 * Filter to decide whether incompatible component options will be hidden.
+		 * Controls whether disabled component options will be hidden or greyed out.
 		 *
 		 * @param  boolean               $paginate
 		 * @param  string                $component_id
 		 * @param  WC_Product_Composite  $product
 		 */
-		return apply_filters( 'woocommerce_component_options_hide_incompatible', false, $this->id, $this->composite );
+		return apply_filters( 'woocommerce_component_options_hide_incompatible', true, $this->id, $this->composite );
 	}
 
 	/**

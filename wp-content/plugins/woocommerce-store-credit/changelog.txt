@@ -1,5 +1,8 @@
 *** Store Credit Changelog ***
 
+2021-03-02 - version 3.5.1
+* Fix - Fixed wrong Order total when applying a discount to the shipping costs and the coupon is not applicable to all cart items.
+
 2021-02-22 - version 3.5.0
 * Tweak - Register items in the new navigation menu.
 * Tweak - Connected the 'Send Store Credit' page to WC Admin.

@@ -3,10 +3,10 @@
 Contributors: SomewhereWarm
 Tags: woocommerce, composite, products, product, kits, builder, configurator, bundle, step, complex, combo, components, combine, personalized, configurable
 Requires at least: 4.4
-Tested up to: 5.5
-Stable tag: 7.1.6
+Tested up to: 5.6
+Stable tag: 8.0.0
 WC requires at least: 3.1
-WC tested up to: 4.8
+WC tested up to: 5.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 

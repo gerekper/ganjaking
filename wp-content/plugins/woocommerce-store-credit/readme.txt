@@ -4,7 +4,7 @@ Tags: woocommerce, credit, coupons
 Requires at least: 4.7
 Tested up to: 5.6
 Requires PHP: 5.3
-Stable tag: 3.5.0
+Stable tag: 3.5.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.4
@@ -24,6 +24,9 @@ Create 'Store Credit' coupons for customers which are redeemable at checkout.
 Visit our [Product page](http://docs.woocommerce.com/document/woocommerce-store-credit/) to read the documentation and get support.
 
 == Changelog ==
+
+= 3.5.1 March 2, 2021 =
+* Fix - Fixed wrong Order total when applying a discount to the shipping costs and the coupon is not applicable to all cart items.
 
 = 3.5.0 February 22, 2021 =
 * Tweak - Register items in the new navigation menu.

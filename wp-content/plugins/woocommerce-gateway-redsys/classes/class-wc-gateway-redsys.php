@@ -37,8 +37,8 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$this->testurlws            = 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl';
 		$this->testsha256           = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
 		$this->testmode             = $this->get_option( 'testmode' );
-		$this->method_title         = __( 'Redsys (by José Conti)', 'woocommerce-redsys' );
-		$this->method_description   = __( 'Redsys works redirecting customers to Redsys or paying directly without leaving the website if you have active payment with 1 click and a terminal not secure.', 'woocommerce-redsys' );
+		$this->method_title         = __( 'Redsys Redirection (by José Conti)', 'woocommerce-redsys' );
+		$this->method_description   = __( 'This payment form works redirecting customers to Redsys or paying directly without leaving the website if you have active payment with 1 click and the user has a token saved.', 'woocommerce-redsys' );
 		$this->not_use_https        = $this->get_option( 'not_use_https' );
 		$this->notify_url           = add_query_arg( 'wc-api', 'WC_Gateway_redsys', home_url( '/' ) );
 		$this->notify_url_not_https = str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Gateway_redsys', home_url( '/' ) ) );
@@ -128,9 +128,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'warning_checkout_test_mode' ) );
 		
 		// Yith Subscriptions Premium.
-		if ( defined( 'YITH_YWSBS_PREMIUM' ) ) {
+		// if ( defined( 'YITH_YWSBS_PREMIUM' ) ) {
 			add_action( 'ywsbs_pay_renew_order_with_' . $this->id, array( $this, 'renew_yith_subscription' ), 10, 1 );
-		}
+		// }
 
 		// WooCommerce Subscriptions.
 		if ( class_exists( 'WC_Subscriptions_Order' ) ) {
@@ -815,7 +815,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 		return $url;
 	}
-
 	/**
 	* Copyright: (C) 2013 - 2021 José Conti
 	*/
@@ -1565,7 +1564,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$miObj->setParameter( 'DS_MERCHANT_IDENTIFIER', $customer_token );
 				}
 				if ( ! empty( $redsys->merchantgroup ) ) {
-					$miObj->setParameter( 'DS_MERCHANT_GROUP', $this->merchantgroup );
+					$miObj->setParameter( 'DS_MERCHANT_GROUP', $redsys->merchantgroup );
 				}
 				$miObj->setParameter( 'DS_MERCHANT_DIRECTPAYMENT', 'false' ); // TODO: Añadir una lógica para que el administrador pueda seleccionar si lo quiere en true o en fasle. True en todos trae probelmas por configuraciones en Redsys.
 				$ds_merchant_data           = 'yes';
@@ -1764,7 +1763,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$miObj->setParameter( 'DS_MERCHANT_TERMINAL', $redsys_data_send['DSMerchantTerminal'] );
 		$miObj->setParameter( 'DS_MERCHANT_MERCHANTURL', $redsys_data_send['final_notify_url'] );
 		$miObj->setParameter( 'DS_MERCHANT_URLOK', $redsys_data_send['url_ok'] );
-		$miObj->setParameter( 'DS_MERCHANT_URLKO', $redsys_data_send['returnfromredsys'] );
+		$miObj->setParameter( 'DS_MERCHANT_URLKO', $redsys_data_send['url_ok'] );
 		$miObj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $redsys_data_send['gatewaylanguage'] );
 		$miObj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', $redsys_data_send['product_description'] );
 		$miObj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $redsys_data_send['merchant_name'] );
@@ -3241,10 +3240,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	
 	public function renew_yith_subscription( $renewal_order = null, $is_manual_renew = null ) {
 
+		/*
 		if ( ! defined( 'YITH_YWSBS_PREMIUM' ) ) {
 			return;
 		}
-		
+		*/
 		$order_id         = $renewal_order->get_id();
 		$amount_to_charge = $renewal_order->get_total();
 		$redsys_done      = get_post_meta( $order_id, '_redsys_done', true );
@@ -5450,7 +5450,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				echo '<br /><input type="radio" id="tokens" name="tokentype" value="tokens" checked><label for="tokens">' . esc_html__( 'Add a credit card for Pay with 1clic', 'woocommerce-redsys' ) . '</label>';
 			}
 		} else {
-			echo $this->description;
+			echo '<p> ' . $this->description . '</p>';
 		}
 	}
 	/**
@@ -6148,14 +6148,47 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$dscargtype           = $miObj->getParameter( 'Ds_Card_Type' );
 		$dserrorcode          = $miObj->getParameter( 'Ds_ErrorCode' );
 		$dpaymethod           = $miObj->getParameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
-		$response             = intval( $response );
+		$response             = (int)$response;
 		$secretsha256         = get_transient( 'redsys_signature_' . sanitize_title( $ordermi ) );
 		$is_add_method        = get_transient( $ordermi . '_get_method' );
 		$order1               = $ordermi;
+
+		if ( 'yes' === $this->debug ) {
+			$this->log->add( 'redsys', '$version: ' . $version );
+			$this->log->add( 'redsys', '$data: ' . $data );
+			$this->log->add( 'redsys', '$remote_sign: ' . $remote_sign );
+			$this->log->add( 'redsys', '$us$threeDSMethodDataer_id: ' . $threeDSMethodData );
+			$this->log->add( 'redsys', '$usesecretsha256: ' . $usesecretsha256 );
+			$this->log->add( 'redsys', '$total: ' . $total );
+			$this->log->add( 'redsys', '$ordermi: ' . $ordermi );
+			$this->log->add( 'redsys', '$dscode: ' . $dscode );
+			$this->log->add( 'redsys', '$currency_code: ' . $currency_code );
+			$this->log->add( 'redsys', '$response: ' . $response );
+			$this->log->add( 'redsys', '$id_trans: ' . $id_trans );
+			$this->log->add( 'redsys', '$dsdate: ' . $dsdate );
+			$this->log->add( 'redsys', '$dshour: ' . $dshour );
+			$this->log->add( 'redsys', '$dstermnal: ' . $dstermnal );
+			$this->log->add( 'redsys', '$dsmerchandata: ' . $dsmerchandata );
+			$this->log->add( 'redsys', '$dssucurepayment: ' . $dssucurepayment );
+			$this->log->add( 'redsys', '$dscardcountry: ' . $dscardcountry );
+			$this->log->add( 'redsys', '$dsconsumercountry: ' . $dsconsumercountry );
+			$this->log->add( 'redsys', '$dstransactiontype: ' . $dstransactiontype );
+			$this->log->add( 'redsys', '$dsmerchantidenti: ' . $dsmerchantidenti );
+			$this->log->add( 'redsys', '$dscardbrand: ' . $dscardbrand );
+			$this->log->add( 'redsys', '$dsmechandata: ' . $dsmechandata );
+			$this->log->add( 'redsys', '$dscargtype: ' . $dscargtype );
+			$this->log->add( 'redsys', '$dserrorcode: ' . $dserrorcode );
+			$this->log->add( 'redsys', '$dpaymethod: ' . $dpaymethod );
+			$this->log->add( 'redsys', '$response: ' . $response );
+			$this->log->add( 'redsys', '$secretsha256: ' . $secretsha256 );
+			$this->log->add( 'redsys', '$is_add_method: ' . $is_add_method );
+			$this->log->add( 'redsys', '$order1: ' . $order1 );
+		}
+		
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
 			$this->log->add( 'redsys', '$ordermi: ' . $ordermi );
-			$this->log->add( 'redsys', '$is_add_method; ' . $is_add_method );
+			$this->log->add( 'redsys', '$is_add_method: ' . $is_add_method );
 		}
 		if ( 'yes' !== $is_add_method ) {
 			$order2               = WCRed()->clean_order_number( $order1 );
@@ -6171,7 +6204,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
 				$this->log->add( 'redsys', '/*****************************/' );
-				$this->log->add( 'redsys', ' User is Adding a Crdir Card  ' );
+				$this->log->add( 'redsys', ' User is Adding a Credit Card  ' );
 				$this->log->add( 'redsys', '/*****************************/' );
 				$this->log->add( 'redsys', ' ' );
 			}
@@ -6393,7 +6426,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 		
 		// refund.
+
 		if ( '3' === $dstransactiontype ) {
+			if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', 'Is refund' );
+				}
 			if ( 900 === $response ) {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', 'Response 900 (refund)' );
@@ -8761,16 +8798,28 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		if ( is_checkout() && ! is_wc_endpoint_url( 'order-pay' ) ) { ?>
 			<script type="text/javascript">
 			// Script necesario para capturar los datos a enviar a Redsys por la PSD2
-			document.getElementById( 'billing_agente_navegador').value  = navigator.userAgent;
-			document.getElementById( 'billing_idioma_navegador').value  = navigator.language;
-			document.getElementById( 'billing_altura_pantalla').value   = screen.height;
-			document.getElementById( 'billing_anchura_pantalla').value  = screen.width;
-			document.getElementById( 'billing_profundidad_color').value = screen.colorDepth;
 			var d = new Date();
-			document.getElementById( 'billing_diferencia_horaria').value = d.getTimezoneOffset();
+			if ( document.getElementById( 'billing_agente_navegador') ) {
+				document.getElementById( 'billing_agente_navegador').value  = navigator.userAgent;
+			}
+			if ( document.getElementById( 'billing_idioma_navegador') ) {
+				document.getElementById( 'billing_idioma_navegador').value  = navigator.language;
+			}
+			if ( document.getElementById( 'billing_altura_pantalla') ) {
+				document.getElementById( 'billing_altura_pantalla').value   = screen.height;
+			}
+			if ( document.getElementById( 'billing_anchura_pantalla') ) {
+				document.getElementById( 'billing_anchura_pantalla').value  = screen.width;
+			}
+			if ( document.getElementById( 'billing_profundidad_color') ) {
+				document.getElementById( 'billing_profundidad_color').value = screen.colorDepth;
+			}
+			if ( document.getElementById( 'billing_diferencia_horaria') ) {
+				document.getElementById( 'billing_diferencia_horaria').value = d.getTimezoneOffset();
+			}
 			</script>
 			<style>
-			/* CSS necesario para esconder de forma correcta los campos de captura de fatos para Redsys por la PSD2 */
+			/* CSS necesario para esconder de forma correcta los campos de captura de datos para Redsys por la PSD2 */
 			.hidden.form-row-wide.redsys {
 				display: none;
 				visibility:hidden;
@@ -8837,12 +8886,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		/**
 		* Copyright: (C) 2013 - 2021 José Conti
 		*/
-		$fields['billing']['billing_agente_navegador']['priority']   = 1001;
-		$fields['billing']['billing_idioma_navegador']['priority']   = 1002;
-		$fields['billing']['billing_altura_pantalla']['priority']    = 1003;
-		$fields['billing']['billing_anchura_pantalla']['priority']   = 1004;
-		$fields['billing']['billing_profundidad_color']['priority']  = 1005;
-		$fields['billing']['billing_diferencia_horaria']['priority'] = 1006;
+		$fields['billing']['billing_agente_navegador']['priority']   = 120;
+		$fields['billing']['billing_idioma_navegador']['priority']   = 120;
+		$fields['billing']['billing_altura_pantalla']['priority']    = 120;
+		$fields['billing']['billing_anchura_pantalla']['priority']   = 120;
+		$fields['billing']['billing_profundidad_color']['priority']  = 120;
+		$fields['billing']['billing_diferencia_horaria']['priority'] = 120;
 		return $fields;
 	}
 	public function save_field_update_order_meta( $order_id ) {

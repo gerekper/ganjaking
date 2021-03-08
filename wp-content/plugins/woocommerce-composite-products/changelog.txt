@@ -1,5 +1,16 @@
 *** WooCommerce Composite Products ***
 
+2021.03.02 - version 8.0.0
+* Important - The REST API schema of Scenarios has been updated to support (1) the new 'Hide Component Options' action and (2) the 'any' Conditions modifier in a clean way. Please update your code, this is a breaking change!
+* Important - When using Scenarios to conditionally disable Component Options, the disabled products/variations are now hidden - not greyed-out!
+* Feature - Added new 'Hide Component Options' scenario action for hiding product/variation selections using conditional logic.
+* Feature - Introduced 'Product Data > States' panel for hiding product/variation selections using state-based logic. Replaces the 'Activate Options' scenario action for Composite Products created prior to version 8.0. Unsupported for new Composite Products.
+* Fix - Fixed an issue that prevented component subtotals with Product Add-Ons from updating correctly.
+* Fix - Prevented a REST API fatal error in POST/PUT context in some scenarios.
+* Fix - Component totals are now rounded before calculating the Composite total, to prevent inconsistencies between the total calculated via JS and the catalog price of a Composite.
+* Tweak - Increased the discounted price precision relative to the store precision to prevent Component subtotal errors such as: $10 x 10 = $100 before discount, and ( $9.5 rounded to $10 ) x 10 = $100 after 5% discount.
+* Tweak - Reduce movement on the screen by keeping the 'Clear' variation attributes link visible at all times.
+
 2020.12.06 - version 7.1.6
 * Tweak - Make sure Stripe quick pay buttons are hidden in Composite Product pages.
 

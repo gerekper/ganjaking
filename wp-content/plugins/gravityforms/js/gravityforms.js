@@ -1838,6 +1838,27 @@ function renderRecaptcha() {
 
 }
 
+/**
+ * Helper function to determine whether a recaptcha is pending.
+ *
+ * @since 2.4.23
+ *
+ * @param {Object} form jQuery form object.
+ * @returns {boolean}
+ */
+function gformIsRecaptchaPending( form ) {
+	var recaptcha = form.find( '.ginput_recaptcha' ),
+		recaptchaResponse;
+
+	if ( !recaptcha.length || recaptcha.data( 'size' ) !== 'invisible' ) {
+		return false;
+	}
+
+	recaptchaResponse = recaptcha.find( '.g-recaptcha-response' );
+
+	return !( recaptchaResponse.length && recaptchaResponse.val() );
+}
+
 //----------------------------------------
 //----- SINGLE FILE UPLOAD FUNCTIONS -----
 //----------------------------------------

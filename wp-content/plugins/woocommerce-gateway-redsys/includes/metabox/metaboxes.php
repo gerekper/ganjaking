@@ -13,12 +13,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 function add_redsys_meta_box() {
 	if (  WCRed()->is_redsys_order( get_the_ID() ) ) {
 		
-		$date = WCRed()->get_order_date( get_the_ID() );
-		$hour = WCRed()->get_order_hour( get_the_ID() );
-		$auth = WCRed()->get_order_auth( get_the_ID() );
+		$date   = WCRed()->get_order_date( get_the_ID() );
+		$hour   = WCRed()->get_order_hour( get_the_ID() );
+		$auth   = WCRed()->get_order_auth( get_the_ID() );
+		$number = WCRed()->get_order_mumber( get_the_ID() );
 		
 		echo '<h4>' . esc_html__('Payment Details', 'woocommerce-redsys') . '</h4>';
 		echo '<p><strong>' . esc_html__( 'Paid with', 'woocommerce-redsys' ) . ': </strong><br />' . WCRed()->get_gateway( get_the_ID() )  . '</p>';
+		if ( $number ) {
+			echo '<p><strong>' . esc_html__( 'Redsys Order Number', 'woocommerce-redsys' ) . ': </strong><br />' . esc_html( $number ) . '</p>';
+		}
 		if ( $date ) {
 			echo '<p><strong>' . esc_html__( 'Redsys Date', 'woocommerce-redsys' ) . ': </strong><br />' . esc_html( $date ) . '</p>';
 		}

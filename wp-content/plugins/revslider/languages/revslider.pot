@@ -2518,7 +2518,7 @@ msgid "Dribbble"
 msgstr ""
 
 #: admin/views/overview.php:186
-msgid "Signup to our Newsletter"
+msgid "Sign up to our Newsletter"
 msgstr ""
 
 #: admin/views/overview.php:187

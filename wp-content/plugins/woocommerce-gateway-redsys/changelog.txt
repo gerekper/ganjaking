@@ -1,9 +1,30 @@
 *** Redsys Gateway Change Log ***
 
+2021.03.03 - version 15.0.2
+
+* REFACTORING: InSite Refactoring to charge after abandoning the checkout page.
+* NEW: Added WoOCommerce Errors to checkput about credit card payments.
+
+2021.02.25 - version 15.0.1
+
+* WORKAROUND: InSite post different types of data from real terminal & test terminal. This is a Workaround form fix this problem.
+* FIXED: Fixed a InSite Log line.
+
+2021.02.23 - version 15.0.0
+
+* NEW: Refactoring InSite
+* NEW: Added Credit card form on the checkout page
+* NEW: TRA for InSite
+* NEW: Added SHA256 test settings to InSite
+* NEW: Added User test to InSite
+* NEW: Added Redsys order number meta in every Redsys plugin edit Order.
+* FIXED: KO Return from Redsys when is Add Method.
+* FIXED: Now PSD2 use numeric code indeed Alpha-2
+
 2021.01.28 - version 14.0.3
 
-* Workaround with the Ds_ExpiryDate because redsys stop to send it by default.
-* Fixed Redsys (by Jose Conti) checkout description.
+* FIXED: Workaround with the Ds_ExpiryDate because redsys stop to send it by default.
+* FIXED: Fixed Redsys (by Jose Conti) checkout description.
 
 2021.01.18 - version 14.0.2
 

@@ -99,7 +99,7 @@ class WC_Store_Credit_Discounts_Cart extends WC_Store_Credit_Discounts {
 		$this->calculate_shipping_totals();
 
 		$cart_total_tax = round(
-			$this->cart()->get_cart_contents_total() +
+			$this->cart()->get_cart_contents_tax() +
 			$this->cart()->get_fee_tax() +
 			$this->cart()->get_shipping_tax(),
 			wc_get_price_decimals()

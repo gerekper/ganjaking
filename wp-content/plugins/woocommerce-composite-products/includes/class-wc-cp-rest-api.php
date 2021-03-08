@@ -370,28 +370,56 @@ class WC_CP_REST_API {
 						'configuration' => array(
 							'description' => __( 'Scenario matching conditions.', 'woocommerce-composite-products' ),
 							'type'        => 'array',
+							'required'    => true,
 							'context'     => array( 'view', 'edit' ),
 							'items'       => array(
-								'type'       => 'object',
-								'properties'  => array(
-									'component_id'      => array(
-										'description' => __( 'Component ID.', 'woocommerce-composite-products' ),
-										'type'        => 'string',
-										'context'     => array( 'view', 'edit' )
+								'oneOf' => array(
+									array(
+										'type'                 => 'object',
+										'additionalProperties' => false,
+										'properties'           => array(
+											'component_id'         => array(
+												'description'          => __( 'Component ID.', 'woocommerce-composite-products' ),
+												'type'                 => 'string',
+												'required'             => true,
+												'context'              => array( 'view', 'edit' )
+											),
+											'options_modifier'      => array(
+												'description'           => __( 'Comparison modifier for the referenced product/variation IDs.', 'woocommerce-composite-products' ),
+												'type'                  => 'string',
+												'required'              => true,
+												'context'               => array( 'view', 'edit' ),
+												'enum'                  => array( 'any' )
+											)
+										)
 									),
-									'component_options' => array(
-										'description' => __( 'Product/variation IDs in component targeted by the scenario (0 = any product or variation, -1 = no selection)', 'woocommerce-composite-products' ),
-										'type'        => 'array',
-										'items'       => array(
-											'type'       => 'integer'
-										),
-										'context'     => array( 'view', 'edit' )
-									),
-									'options_modifier'  => array(
-										'description' => __( 'Comparison modifier for the referenced product/variation IDs.', 'woocommerce-composite-products' ),
-										'type'        => 'string',
-										'context'     => array( 'view', 'edit' ),
-										'enum'        => array( 'in', 'not-in', 'masked' )
+									array(
+										'type'                 => 'object',
+										'additionalProperties' => false,
+										'properties'           => array(
+											'component_id'         => array(
+												'description'          => __( 'Component ID.', 'woocommerce-composite-products' ),
+												'type'                 => 'string',
+												'required'             => true,
+												'context'              => array( 'view', 'edit' )
+											),
+											'component_options'    => array(
+												'description'          => __( 'Product/variation IDs in component targeted by the scenario (-1 = no selection)', 'woocommerce-composite-products' ),
+												'type'                 => 'array',
+												'required'             => true,
+												'items'                => array(
+													'type'              => 'integer'
+												),
+												'context'           => array( 'view', 'edit' )
+											),
+											'options_modifier'      => array(
+												'description'           => __( 'Comparison modifier for the referenced product/variation IDs.', 'woocommerce-composite-products' ),
+												'type'                  => 'string',
+												'required'              => true,
+												'context'               => array( 'view', 'edit' ),
+												'enum'                  => array( 'in', 'not-in' )
+											)
+										)
 									)
 								)
 							)
@@ -401,23 +429,126 @@ class WC_CP_REST_API {
 							'type'        => 'array',
 							'context'     => array( 'view', 'edit' ),
 							'items'       => array(
-								'type'       => 'object',
-								'properties' => array(
-									'action_id'   => array(
-										'description' => __( 'Scenario action ID (by default \'compat_group\' or \'conditional_components\').', 'woocommerce-composite-products' ),
-										'type'        => 'string',
-										'enum'        => array( 'compat_group', 'conditional_components' ),
-										'context'     => array( 'view', 'edit' )
+								'oneOf' => array(
+									array(
+										'type'                 => 'object',
+										'additionalProperties' => false,
+										'properties'           => array(
+											'action_id'            => array(
+												'description'          => __( 'Scenario action ID (by default \'compat_group\' or \'conditional_components\').', 'woocommerce-composite-products' ),
+												'type'                 => 'string',
+												'required'             => true,
+												'enum'                 => array( 'compat_group' ),
+												'context'              => array( 'view', 'edit' )
+											),
+											'is_active'            => array(
+												'description'          => __( 'Indicates whether the scenario action is active.', 'woocommerce-composite-products' ),
+												'type'                 => 'boolean',
+												'required'             => true,
+												'context'              => array( 'view', 'edit' )
+											)
+										)
 									),
-									'is_active'   => array(
-										'description' => __( 'Indicates whether the scenario action is active.', 'woocommerce-composite-products' ),
-										'type'        => 'boolean',
-										'context'     => array( 'view', 'edit' )
+									array(
+										'type'                 => 'object',
+										'additionalProperties' => false,
+										'properties'           => array(
+											'action_id'            => array(
+												'description'          => __( 'Scenario action ID (by default \'compat_group\' or \'conditional_components\').', 'woocommerce-composite-products' ),
+												'type'                 => 'string',
+												'required'             => true,
+												'enum'                 => array( 'conditional_components' ),
+												'context'              => array( 'view', 'edit' )
+											),
+											'is_active'            => array(
+												'description'          => __( 'Indicates whether the scenario action is active.', 'woocommerce-composite-products' ),
+												'type'                 => 'boolean',
+												'required'             => true,
+												'context'              => array( 'view', 'edit' )
+											),
+											'hidden_components'          => array(
+												'description'          => __( 'Components to hide.', 'woocommerce-composite-products' ),
+												'type'                 => 'array',
+												'required'             => true,
+												'items'                => array(
+													'type'                => 'string'
+												),
+												'context'              => array( 'view', 'edit' )
+											)
+										)
 									),
-									'action_data' => array(
-										'description' => __( 'Scenario action data.', 'woocommerce-composite-products' ),
-										'type'        => 'object',
-										'context'     => array( 'view', 'edit' )
+									array(
+										'type'                 => 'object',
+										'additionalProperties' => false,
+										'properties'           => array(
+											'action_id'            => array(
+												'description'          => __( 'Scenario action ID (by default \'compat_group\' or \'conditional_components\').', 'woocommerce-composite-products' ),
+												'type'                 => 'string',
+												'required'             => true,
+												'enum'                 => array( 'conditional_options' ),
+												'context'              => array( 'view', 'edit' )
+											),
+											'is_active'            => array(
+												'description'          => __( 'Indicates whether the scenario action is active.', 'woocommerce-composite-products' ),
+												'type'                 => 'boolean',
+												'required'             => true,
+												'context'              => array( 'view', 'edit' )
+											),
+											'hidden_options'          => array(
+												'description'          => __( 'Component options to hide.', 'woocommerce-composite-products' ),
+												'type'                 => 'array',
+												'required'             => true,
+												'context'              => array( 'view', 'edit' ),
+												'items'                => array(
+													'type'                => 'object',
+													'properties'           => array(
+														'component_id'         => array(
+															'description'          => __( 'Component ID.', 'woocommerce-composite-products' ),
+															'type'                 => 'string',
+															'context'              => array( 'view', 'edit' )
+														),
+														'component_options'    => array(
+															'description'          => __( 'Product/variation IDs to hide in component (-1 = no selection)', 'woocommerce-composite-products' ),
+															'type'                 => 'array',
+															'items'                => array(
+																'type'                => 'integer'
+															),
+															'context'              => array( 'view', 'edit' )
+														),
+														'options_modifier'     => array(
+															'description'          => __( 'Comparison modifier for the referenced product/variation IDs.', 'woocommerce-composite-products' ),
+															'type'                 => 'string',
+															'context'              => array( 'view', 'edit' ),
+															'enum'                 => array( 'in', 'not-in' )
+														)
+													)
+												)
+											)
+										)
+									),
+									array(
+										'type'                 => 'object',
+										'additionalProperties' => false,
+										'properties'           => array(
+											'action_id'            => array(
+												'description'          => __( 'Scenario action ID (by default \'compat_group\' or \'conditional_components\').', 'woocommerce-composite-products' ),
+												'type'                 => 'string',
+												'required'             => true,
+												'context'              => array( 'view', 'edit' )
+											),
+											'is_active'            => array(
+												'description'          => __( 'Indicates whether the scenario action is active.', 'woocommerce-composite-products' ),
+												'type'                 => 'boolean',
+												'required'             => true,
+												'context'              => array( 'view', 'edit' )
+											),
+											'action_data'          => array(
+												'description'          => __( 'Scenario action data.', 'woocommerce-composite-products' ),
+												'type'                 => 'object',
+												'required'             => true,
+												'context'              => array( 'view', 'edit' )
+											)
+										)
 									)
 								)
 							)
@@ -1034,8 +1165,8 @@ class WC_CP_REST_API {
 	 */
 	public static function sanitize_rest_api_scenario_data( $data ) {
 
-		$validated_configuration = array();
-		$validated_actions       = array();
+		$sanitized_configuration = array();
+		$sanitized_actions       = array();
 
 		if ( ! empty( $data[ 'configuration' ] ) && is_array( $data[ 'configuration' ] ) ) {
 			foreach ( $data[ 'configuration' ] as $component_config_data ) {
@@ -1046,7 +1177,7 @@ class WC_CP_REST_API {
 
 				$component_id = strval( $component_config_data[ 'component_id' ] );
 
-				if ( in_array( $component_id, wp_list_pluck( $validated_configuration, 'component_id' ) ) ) {
+				if ( in_array( $component_id, wp_list_pluck( $sanitized_configuration, 'component_id' ) ) ) {
 					continue;
 				}
 
@@ -1054,10 +1185,10 @@ class WC_CP_REST_API {
 					$component_config_data[ 'component_options' ] = array( 0 );
 				}
 
-				$validated_configuration[] = array(
+				$sanitized_configuration[] = array(
 					'component_id'      => $component_id,
 					'component_options' => array_map( 'intval', $component_config_data[ 'component_options' ] ),
-					'options_modifier'  => isset( $component_config_data[ 'options_modifier' ] ) && in_array( $component_config_data[ 'options_modifier' ], array( 'in', 'not-in', 'masked' ) ) ? $component_config_data[ 'options_modifier' ] : 'in'
+					'options_modifier'  => isset( $component_config_data[ 'options_modifier' ] ) && in_array( $component_config_data[ 'options_modifier' ], array( 'in', 'not-in' ) ) ? $component_config_data[ 'options_modifier' ] : 'in'
 				);
 			}
 		}
@@ -1071,23 +1202,79 @@ class WC_CP_REST_API {
 
 				$action_id = strval( $action_data[ 'action_id' ] );
 
-				if ( in_array( $action_id, wp_list_pluck( $validated_actions, 'action_id' ) ) ) {
+				if ( in_array( $action_id, wp_list_pluck( $sanitized_actions, 'action_id' ) ) ) {
 					continue;
 				}
 
-				$validated_actions[] = array(
+				$action = array(
 					'action_id'   => $action_id,
-					'action_data' => ! empty( $action_data[ 'action_data' ] ) && is_array( $action_data[ 'action_data' ] ) ? $action_data[ 'action_data' ] : array(),
 					'is_active'   => isset( $action_data[ 'is_active' ] ) && wc_string_to_bool( $action_data[ 'is_active' ] )
 				);
+
+				if ( 'conditional_components' === $action_id ) {
+
+					if ( isset( $action_data[ 'hidden_components' ] ) && is_array( $action_data[ 'hidden_components' ] ) ) {
+
+						$action[ 'hidden_components' ] = array_map( 'strval', $action_data[ 'hidden_components' ] );
+
+					} elseif ( isset( $action_data[ 'action_data' ][ 'hidden_components' ] ) && is_array( $action_data[ 'action_data' ][ 'hidden_components' ] ) ) {
+
+						$action[ 'hidden_components' ] = array_map( 'strval', $action_data[ 'action_data' ][ 'hidden_components' ] );
+
+					} else {
+
+						$action[ 'is_active' ] = null;
+					}
+
+				} elseif ( 'conditional_options' === $action_id ) {
+
+					if ( ! empty( $action_data[ 'hidden_options' ] ) && is_array( $action_data[ 'hidden_options' ] ) ) {
+
+						foreach ( $action_data[ 'hidden_options' ] as $hidden_options_index => $hidden_options_data ) {
+
+							if ( empty( $hidden_options_data[ 'component_id' ] ) ) {
+								$action[ 'is_active' ] = null;
+								break;
+							}
+
+							$action_data[ 'hidden_options' ][ $hidden_options_index ][ 'component_id' ] = strval( $hidden_options_data[ 'component_id' ] );
+
+							if ( empty( $hidden_options_data[ 'component_options' ] ) || ! is_array( $hidden_options_data[ 'component_options' ] ) ) {
+								$action[ 'is_active' ] = null;
+								break;
+							}
+
+							$action_data[ 'hidden_options' ][ $hidden_options_index ][ 'component_options' ] = array_map( 'intval', $hidden_options_data[ 'component_options' ] );
+
+							if ( empty( $hidden_options_data[ 'options_modifier' ] ) || ! in_array( $hidden_options_data[ 'options_modifier' ], array( 'in', 'not-in' ) ) ) {
+								$action[ 'is_active' ] = null;
+								break;
+							}
+						}
+
+						if ( null !== $action[ 'is_active' ] ) {
+							$action[ 'hidden_options' ] = $action_data[ 'hidden_options' ];
+						}
+
+					} else {
+						$action[ 'is_active' ] = null;
+					}
+
+				} elseif ( isset( $action_data[ 'action_data' ] ) && is_array( $action_data[ 'action_data' ] ) ) {
+
+					$action[ 'action_data' ] = $action_data[ 'action_data' ];
+				}
+
+				$sanitized_actions[] = $action;
 			}
 		}
 
 		return array(
 			'name'          => ! empty( $data[ 'name' ] ) ? strip_tags( $data[ 'name' ] ) : '',
 			'description'   => isset( $data[ 'description' ] ) ? wp_kses_post( $data[ 'description' ] ) : '',
-			'configuration' => $validated_configuration,
-			'actions'       => $validated_actions
+			'configuration' => $sanitized_configuration,
+			'actions'       => $sanitized_actions,
+			'enabled'       => wc_string_to_bool( $data[ 'enabled' ] )
 		);
 	}
 
@@ -1100,14 +1287,23 @@ class WC_CP_REST_API {
 	public static function validate_rest_api_scenario_data( $data ) {
 
 		if ( empty( $data[ 'name' ] ) ) {
-			throw new WC_REST_Exception( 'woocommerce_rest_invalid_scenario_data', __( 'Invalid data - Undefined name.', 'woocommerce-composite-products' ), 400 );
+			throw new WC_REST_Exception( 'woocommerce_rest_invalid_scenario_data', __( 'Invalid data - Undefined sceario name.', 'woocommerce-composite-products' ), 400 );
+		}
+
+		if ( ! empty( $action[ 'actions' ] ) ) {
+
+			foreach ( $action[ 'actions' ] as $action ) {
+				if ( null === $action[ 'is_active' ] ) {
+					throw new WC_REST_Exception( 'woocommerce_rest_invalid_scenario_data', __( 'Invalid data - Incorrect scenario action data.', 'woocommerce-composite-products' ), 400 );
+				}
+			}
 		}
 
 		return $data;
 	}
 
 	/**
-	 * Converts scenario data supplied using the api schema to the internal schema.
+	 * Converts scenario data supplied using the REST API schema to the internal schema.
 	 *
 	 * @param  array  $scenario_rest_api_data
 	 * @return array
@@ -1128,20 +1324,39 @@ class WC_CP_REST_API {
 		}
 
 		if ( ! empty( $data[ 'actions' ] ) ) {
+
 			foreach ( $data[ 'actions' ] as $action_data ) {
 
 				$action_id = $action_data[ 'action_id' ];
 
-				$actions_data[ $action_id ] = array_merge( $action_data[ 'action_data' ], array( 'is_active' => wc_bool_to_string( $action_data[ 'is_active' ] ) ) );
+				$actions_data[ $action_id ] = array(
+					'is_active' => wc_bool_to_string( $action_data[ 'is_active' ] )
+				);
+
+				if ( 'conditional_components' === $action_id ) {
+
+					$actions_data[ $action_id ][ 'hidden_components' ] = $action_data[ 'hidden_components' ];
+
+				} elseif ( 'conditional_options' === $action_id ) {
+
+					$actions_data[ $action_id ][ 'component_data' ] = array_combine( wp_list_pluck( $action_data[ 'hidden_options' ], 'component_id' ), wp_list_pluck( $action_data[ 'hidden_options' ], 'component_options' ) );
+					$actions_data[ $action_id ][ 'modifier' ]       = array_combine( wp_list_pluck( $action_data[ 'hidden_options' ], 'component_id' ), wp_list_pluck( $action_data[ 'hidden_options' ], 'options_modifier' ) );
+
+				} elseif ( ! empty( $action_data[ 'action_data' ] ) ) {
+
+					$actions_data[ $action_id ] = array_merge( $actions_data[ $action_id ], $action_data[ 'action_data' ] );
+				}
 			}
 		}
 
 		return array(
-			'component_data'   => $component_data,
+			'title'            => isset( $data[ 'name' ] ) ? $data[ 'name' ] : '',
+			'version'          => WC_CP()->plugin_version( true ),
+			'enabled'          => wc_bool_to_string( $data[ 'enabled' ] ),
 			'modifier'         => $modifier_data,
-			'scenario_actions' => $actions_data,
 			'description'      => isset( $data[ 'description' ] ) ? $data[ 'description' ] : '',
-			'title'            => isset( $data[ 'name' ] ) ? $data[ 'name' ] : ''
+			'component_data'   => $component_data,
+			'scenario_actions' => $actions_data
 		);
 	}
 
@@ -1245,6 +1460,10 @@ class WC_CP_REST_API {
 	 * @param  array     $request
 	 */
 	public static function add_composite_to_order( $order, $request ) {
+
+		if ( ! is_a( $order, 'WC_Order' ) ) {
+			return $order;
+		}
 
 		$items_to_remove = array();
 
@@ -1531,9 +1750,9 @@ class WC_CP_REST_API {
 					continue;
 				}
 
-				add_filter( 'woocommerce_get_product_from_item', array( WC_CP()->order, 'get_product_from_item' ), 10, 3 );
-				$product = $order->get_product_from_item( $order_items[ $order_data_item_id ] );
-				remove_filter( 'woocommerce_get_product_from_item', array( WC_CP()->order, 'get_product_from_item' ), 10, 3 );
+				add_filter( 'woocommerce_order_item_product', array( WC_CP()->order, 'get_product_from_item' ), 10, 2 );
+				$product = $order_items[ $order_data_item_id ]->get_product();
+				remove_filter( 'woocommerce_order_item_product', array( WC_CP()->order, 'get_product_from_item' ), 10, 2 );
 
 				$order_data[ 'line_items' ][ $order_data_item_index ][ 'product_data' ][ 'price' ]                  = $product->get_price();
 				$order_data[ 'line_items' ][ $order_data_item_index ][ 'product_data' ][ 'sale_price' ]             = $product->get_sale_price() ? $product->get_sale_price() : null;
