@@ -2,9 +2,9 @@
 Contributors:nik00726
 Tags:Recpatcha
 Requires at least:3.0
-Tested up to:5.6
-Version:2.9
-Stable tag:2.9
+Tested up to:5.7
+Version:2.11
+Stable tag:2.11
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -87,6 +87,17 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.11 =
+
+* Added option to enable/disable recaptcha for stripe payment request buttons (Google Pay and Apple Pay)
+
+
+
+= 2.10 =
+
+* Added option to disable on the fly reRecapcha v3 generation for checkout
+* Disable recaptcha plugin when while using REST end point
 
 = 2.9 =
 

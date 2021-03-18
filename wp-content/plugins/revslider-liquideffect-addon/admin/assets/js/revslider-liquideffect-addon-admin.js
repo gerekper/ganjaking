@@ -75,58 +75,58 @@
 			}	
 			
 		});
-		
-		// write default data
-		function checkSlideDefaults(_) {
-			
-			return _===undefined || _.map===undefined ? 
-				{
+    	
+	// write default data
+	function checkSlideDefaults(_) {
+	
+		return _===undefined || _.map===undefined ? 
+			{
+				enable: false,
+				use: 'default',
+				map: {
+					image: 'Ripple',
+					custom: '',
+					size: 'Large',
+       				imagescale: 120,
+				},
+				animation: {
+					enable: true,
+					speedx: 2,
+					speedy: 20,
+					rotation: 0,
+					rotationx: 20,
+					rotationy: 0,
+					scalex: 20,
+					scaley: 20
+				},
+				transition: {
+					enable: true,
+					cross: true,
+					duration: 1000,
+					easing: 'Power3.easeOut',
+					speedx: 2,
+					speedy: 100,
+					rotation: 0,
+					rotationx: 20,
+					rotationy: 0,
+					scalex: 2,
+					scaley: 1280,
+					power: false
+				},
+				interaction: {
 					enable: false,
-					use: 'default',
-					map: {
-						image: 'Ripple',
-						custom: '',
-						size: 'Large'
-					},
-					animation: {
-						enable: true,
-						speedx: 2,
-						speedy: 20,
-						rotation: 0,
-						rotationx: 20,
-						rotationy: 0,
-						scalex: 20,
-						scaley: 20
-					},
-					transition: {
-						enable: true,
-						cross: true,
-						duration: 1000,
-						easing: 'Power3.easeOut',
-						speedx: 2,
-						speedy: 100,
-						rotation: 0,
-						rotationx: 20,
-						rotationy: 0,
-						scalex: 2,
-						scaley: 1280,
-						power: false
-					},
-					interaction: {
-						enable: false,
-						event: 'mousemove',
-						duration: 500,
-						easing: 'Power2.easeOut',
-						speedx: 0,
-						speedy: 0,
-						rotation: 0,
-						scalex: 2,
-						scaley: 1280,
-						disablemobile: false
-					}
-				} : _;	
+					event: 'mousemove',
+					duration: 500,
+					easing: 'Power2.easeOut',
+					speedx: 0,
+					speedy: 0,
+					rotation: 0,
+					scalex: 2,
+					scaley: 1280,
+					disablemobile: false
+				}
+			} : jQuery.extend(true,{map:{imagescale:120}},_);	 // ADD NEW MAP.IMAGESCALE IF NOT EXISTING YET
 		}
-		
 		//Migrate Datas
 		function slideDefaults() {
 
@@ -235,6 +235,10 @@
 			_h += '					<label_a></label_a';
 			_h += ' 				><div id="distortion_preview" style="display: inline-block; margin-bottom: 10px; width: 185px; height: 100px; background-size: cover; background-repeat: none; background-position: center center"></div>';
 			_h += ' 			</div>';
+      _h += '       <div id="distortion_image-scale">';
+      _h += '					<label_a>' + bricks.imagescale + '</label_a';
+			_h += '     			><input type="text" class="slideinput easyinit" data-r="addOns.'+slug+'.map.imagescale" data-numeric="true" data-allowed="%" data-min="50" data-max="150" value="120">';
+      _h += '       </div>';
 			_h += ' 		</div>';
 			_h += ' 		<div id="distortion_animation_wrap" class="form_inner_header"><i class="material-icons">movie</i>'+bricks.animation+'</div>';
 			_h += ' 		<div style="padding: 20px">';

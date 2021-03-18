@@ -170,5 +170,3 @@ class RevSliderPageTemplate {
 
 	}
 }
-
-?>

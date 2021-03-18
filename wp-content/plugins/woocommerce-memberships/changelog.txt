@@ -1,5 +1,9 @@
 *** WooCommerce Memberships Changelog ***
 
+2021.03.09 - version 1.21.4
+ * Fix - When importing profile fields that allow multiple options, ensure that comma separated values can be read and successfully imported for those fields
+ * Fix - Display corresponding profile fields for product variations that grant access to an associated plan
+
 2021.02.19 - version 1.21.3
  * Fix - Prevent issues with numeric options in dropdown profile fields
  * Fix - Address some CSS styling issues within the Memberships rules meta box in smaller viewports

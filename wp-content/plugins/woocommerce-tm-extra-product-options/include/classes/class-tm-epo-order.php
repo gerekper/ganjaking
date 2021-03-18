@@ -47,17 +47,30 @@ class THEMECOMPLETE_EPO_Order {
 		// Alter the product thumbnail in order
 		add_filter( 'woocommerce_admin_order_item_thumbnail', array( $this, 'woocommerce_admin_order_item_thumbnail' ), 50, 3 );
 
-		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.7.0', '<' ) ) {
-			// Add meta to order
-			add_action( 'woocommerce_add_order_item_meta', array( $this, 'woocommerce_add_order_item_meta' ), 50, 2 );
+		if ( THEMECOMPLETE_EPO()->tm_epo_legacy_meta_data === 'yes' ) {
+
 			// Adds options to the array of items/products of an order 
 			add_filter( 'woocommerce_order_get_items', array( $this, 'woocommerce_order_get_items' ), 10, 2 );
-		} else {
-			// Add meta to order
-			add_action( 'woocommerce_checkout_create_order_line_item', array( $this, 'woocommerce_checkout_create_order_line_item' ), 50, 3 );
-			// Adds options to the array of items/products of an order 
 			add_filter( 'woocommerce_order_item_get_formatted_meta_data', array( $this, 'woocommerce_order_item_get_formatted_meta_data' ), 10, 2 );
-			add_action( 'woocommerce_order_item_meta_start', array( $this, 'woocommerce_order_item_meta_start' ), 10, 4 );
+
+		} else {
+
+			if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.7.0', '<' ) ) {
+				// Adds options to the array of items/products of an order 
+				add_filter( 'woocommerce_order_get_items', array( $this, 'woocommerce_order_get_items' ), 10, 2 );
+			} else {
+				// Adds options to the array of items/products of an order 
+				add_filter( 'woocommerce_order_item_get_formatted_meta_data', array( $this, 'woocommerce_order_item_get_formatted_meta_data' ), 10, 2 );
+				add_action( 'woocommerce_order_item_meta_start', array( $this, 'woocommerce_order_item_meta_start' ), 10, 4 );
+			}
+
+		}
+
+		// Add meta to order
+		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.7.0', '<' ) ) {
+			add_action( 'woocommerce_add_order_item_meta', array( $this, 'woocommerce_add_order_item_meta' ), 50, 2 );
+		} else {
+			add_action( 'woocommerce_checkout_create_order_line_item', array( $this, 'woocommerce_checkout_create_order_line_item' ), 50, 3 );
 		}
 
 		// WC 2.7x only Flag admin order page
@@ -139,6 +152,18 @@ class THEMECOMPLETE_EPO_Order {
 				$_backup_cart = maybe_unserialize( $_backup_cart[0] );
 			}
 			$cart_item_meta['tmcartfee'] = $_backup_cart[0];
+		}
+
+
+		$_backup_cart = isset( $item['item_meta']['tmdata'] ) ? $item['item_meta']['tmdata'] : FALSE;
+		if ( ! $_backup_cart ) {
+			$_backup_cart = isset( $item['item_meta']['_tmdata'] ) ? $item['item_meta']['_tmdata'] : FALSE;
+		}
+		if ( $_backup_cart && is_array( $_backup_cart ) && isset( $_backup_cart[0] ) ) {
+			if ( is_string( $_backup_cart[0] ) ) {
+				$_backup_cart = maybe_unserialize( $_backup_cart[0] );
+			}
+			$cart_item_meta['tmdata'] = $_backup_cart[0];
 		}
 
 		$cart_item_meta = apply_filters( 'wc_epo_woocommerce_order_again_cart_item_data', $cart_item_meta, $item );
@@ -279,6 +304,9 @@ class THEMECOMPLETE_EPO_Order {
 		if ( ! empty( $values['tmcartfee'] ) ) {
 			wc_add_order_item_meta( $item_id, '_tmcartfee_data', array( $values['tmcartfee'] ) );
 		}
+		if ( ! empty( $values['tmdata'] ) ) {
+			wc_add_order_item_meta( $item_id, '_tmdata', array( $values['tmdata'] ) );
+		}
 
 		do_action( 'wc_epo_order_item_meta', $item_id, FALSE, $values );
 
@@ -300,7 +328,9 @@ class THEMECOMPLETE_EPO_Order {
 		if ( ! empty( $values['tmcartfee'] ) ) {
 			$item->add_meta_data( '_tmcartfee_data', array( $values['tmcartfee'] ) );
 		}
-
+		if ( ! empty( $values['tmdata'] ) ) {
+			$item->add_meta_data( '_tmdata', array( $values['tmdata'] ) );
+		}
 		do_action( 'wc_epo_order_item_meta', $item, $cart_item_key, $values );
 
 	}
@@ -491,7 +521,7 @@ class THEMECOMPLETE_EPO_Order {
 
 					$epovalue = apply_filters( 'wc_epo_value_in_order', $epovalue, $epo['price'], $epo, $item, $item_id, $order );
 
-					if ( $epovalue !== '' && ! is_array( $epo['value'] ) && ( ( ! empty( $epo['hidevalueinorder'] ) && $epo['hidevalueinorder'] == 'price' ) || empty( $epo['hidevalueinorder'] ) ) ) {
+					if ( $epovalue !== '' && ! is_array( $epo['value'] ) && ( ( ! empty( $epo['hidevalueinorder'] ) && $epo['hidevalueinorder'] === 'price' ) || empty( $epo['hidevalueinorder'] ) ) ) {
 						$epo['value'] .= ' <small>' . $epovalue . '</small>';
 					}
 
@@ -667,7 +697,11 @@ class THEMECOMPLETE_EPO_Order {
 
 		add_filter( 'woocommerce_is_attribute_in_product_name', array( $this, 'woocommerce_is_attribute_in_product_name' ), 10, 3 );
 
-		add_action( 'woocommerce_order_items_table', array( $this, 'woocommerce_order_items_table' ), 10 );
+		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.7.0', '<' ) ) {
+			add_action( 'woocommerce_order_items_table', array( $this, 'woocommerce_order_items_table' ), 10 );
+		} else {
+			add_action( 'woocommerce_order_details_after_order_table_items', array( $this, 'woocommerce_order_items_table' ), 10 );
+		}
 
 		$order_currency = is_callable( array( $order, 'get_currency' ) ) ? $order->get_currency() : $order->get_order_currency();
 		$currency_arg   = array( 'currency' => $order_currency );
@@ -678,6 +712,17 @@ class THEMECOMPLETE_EPO_Order {
 		global $woocommerce;
 
 		foreach ( $items as $item_id => $item ) {
+
+			$type = '';
+			if ( is_array( $item) ) {
+				$type = $item['type'];
+			} else if ( is_object( $item) && is_callable( array( $item, 'get_type' ) ) ){
+				$type = $item->get_type();
+			}
+
+			if ( ! in_array( $type, array( 'line_item', 'fee' ) ) ) {
+				continue;
+			}
 
 			if (isset($item->tc_added_meta) && !empty($item->tc_added_meta)){
 				$return_items[ $item_id ] = $item;
@@ -961,7 +1006,7 @@ class THEMECOMPLETE_EPO_Order {
 										$current_meta[] = (object) array(
 											'id'          => $current_meta_key,
 											'key'         => $key,
-											"display_key" => $key,
+											'display_key' => $key,
 											'value'       => $currentvalue,
 										);
 									}

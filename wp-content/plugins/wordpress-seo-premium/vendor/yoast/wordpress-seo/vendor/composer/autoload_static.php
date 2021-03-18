@@ -4,9 +4,13 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit44a6b4b4a280f8329deca4e469ffb8c2
+class ComposerStaticInitebc3de18fe28d6fe89f2595a99b2b589
 {
     public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'Psr\\Container\\' => 14,
+        ),
         'C' => 
         array (
             'Composer\\Installers\\' => 20,
@@ -14,6 +18,10 @@ class ComposerStaticInit44a6b4b4a280f8329deca4e469ffb8c2
     );
 
     public static $prefixDirsPsr4 = array (
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
         'Composer\\Installers\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
@@ -118,6 +126,9 @@ class ComposerStaticInit44a6b4b4a280f8329deca4e469ffb8c2
         'Composer\\Installers\\YawikInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/YawikInstaller.php',
         'Composer\\Installers\\ZendInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/ZendInstaller.php',
         'Composer\\Installers\\ZikulaInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/ZikulaInstaller.php',
+        'Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
+        'Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
+        'Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',
         'WPSEO_Abstract_Capability_Manager' => __DIR__ . '/../..' . '/admin/capabilities/class-abstract-capability-manager.php',
         'WPSEO_Abstract_Metabox_Tab_With_Sections' => __DIR__ . '/../..' . '/admin/metabox/class-abstract-sectioned-metabox-tab.php',
         'WPSEO_Abstract_Post_Filter' => __DIR__ . '/../..' . '/admin/filters/class-abstract-post-filter.php',
@@ -931,9 +942,9 @@ class ComposerStaticInit44a6b4b4a280f8329deca4e469ffb8c2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit44a6b4b4a280f8329deca4e469ffb8c2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit44a6b4b4a280f8329deca4e469ffb8c2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit44a6b4b4a280f8329deca4e469ffb8c2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitebc3de18fe28d6fe89f2595a99b2b589::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitebc3de18fe28d6fe89f2595a99b2b589::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitebc3de18fe28d6fe89f2595a99b2b589::$classMap;
 
         }, null, ClassLoader::class);
     }

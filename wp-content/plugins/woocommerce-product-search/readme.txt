@@ -3,8 +3,8 @@ Contributors: itthinx
 Tags: search, search engine, product search, woocommerce, ajax, ajax search, display, info, instant, instant search, information, marketing, product, products, product search, promotion, quick, quick search, relevance, search, search relevance, weight, weights
 Requires at least: 5.0
 Requires PHP: 7.0
-Tested up to: 5.6
-Stable tag: 3.5.1
+Tested up to: 5.7
+Stable tag: 3.6.0
 
 The best Search Engine and Search Experience for WooCommerce.
 

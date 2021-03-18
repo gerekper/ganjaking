@@ -73,5 +73,6 @@ return array(
     'WoocommerceProductFeedsIntegrationManager' => $baseDir . '/src/common/woocommerce-product-feeds-integration-manager.php',
     'WoocommerceProductFeedsMain' => $baseDir . '/src/woocommerce-product-feeds-main.php',
     'WoocommerceProductFeedsTermDepthRepository' => $baseDir . '/src/common/woocommerce-product-feeds-term-depth-repository.php',
+    'WoocommerceProductFeedsWcSetupTasks' => $baseDir . '/src/common/woocommerce-product-feeds-wc-setup-tasks.php',
     'WoocommerceProductVendors' => $baseDir . '/src/integrations/woocommerce-product-vendors.php',
 );

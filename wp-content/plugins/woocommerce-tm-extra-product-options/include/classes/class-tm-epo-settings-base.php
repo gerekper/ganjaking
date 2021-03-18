@@ -592,6 +592,14 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 				'type'    => 'checkbox',
 			),
 			array(
+				'title'   => esc_html__( 'Check for empty product price', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check this to have the plugin set to zero the product price when it is empty.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_add_product_price_check',
+				'class'   => 'tcprice',
+				'default' => 'yes',
+				'type'    => 'checkbox',
+			),
+			array(
 				'title'   => esc_html__( 'Use the "From" string on displayed product prices', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Check this to alter the price display of a product when it has extra options with prices.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_use_from_on_price',
@@ -759,6 +767,13 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 				'desc'    => esc_html__( 'Check to strip the html tags from emails', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_strip_html_from_emails',
 				'default' => 'yes',
+				'type'    => 'checkbox',
+			),
+			array(
+				'title'   => esc_html__( 'Legacy meta data', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check to enable legacy meta data functionality.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_legacy_meta_data',
+				'default' => 'no',
 				'type'    => 'checkbox',
 			),
 			array(
@@ -996,6 +1011,20 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 				'default' => '',
 				'type'    => 'text',
 			),
+			array(
+				'title'   => esc_html__( 'Add button text on associated products', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enter a text replace add button text on associated products.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_add_button_text_associated_products',
+				'default' => '',
+				'type'    => 'text',
+			),
+			array(
+				'title'   => esc_html__( 'Remove button text on associated products', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enter a text replace remove button text on associated products.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_remove_button_text_associated_products',
+				'default' => '',
+				'type'    => 'text',
+			),
 
 			array( 'type' => 'tm_sectionend', 'id' => 'epo_page_options' ),
 		);
@@ -1116,7 +1145,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 				'id'      => 'tm_epo_global_js_css_mode',
 				'class'   => 'tcglobal1 chosen_select',
 				'css'     => 'min-width:300px;',
-				'default' => '',
+				'default' => 'dev',
 				'type'    => 'select',
 				'options' => array(
 					''         => esc_html__( 'Single minified file', 'woocommerce-tm-extra-product-options' ),
@@ -1288,7 +1317,6 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 				'options' => array(
 					'left'  => esc_html__( 'Left of the label', 'woocommerce-tm-extra-product-options' ),
 					'right' => esc_html__( 'Right of the label', 'woocommerce-tm-extra-product-options' ),
-
 				),
 			),
 			array(

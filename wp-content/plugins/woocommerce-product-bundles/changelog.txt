@@ -1,5 +1,25 @@
 *** WooCommerce Product Bundles ***
 
+2021.03.06 - version 6.7.7
+* Fix - Fixed a fatal error caused by bundling subscription-type products while 'Priced Individually' is disabled.
+* Fix - Fixed a tax-related infinite loop caused by a regression in version 6.7.6.
+
+2021.03.04 - version 6.7.6
+* Dev - Added 'woocommerce_after_bundle_price', 'woocommerce_before_bundle_availability', and 'woocommerce_before_bundle_add_to_cart_button' hooks.
+* Tweak - Increased the discounted price precision relative to the store precision to prevent errors such as: $10 x 10 = $100 before discount, and ( $9.5 rounded to $10 ) x 10 = $100 after 5% discount.
+* Fix - Bundled item totals are now rounded before calculating the Bundle total, to prevent inconsistencies between the total calculated via JS and the catalog price of a Bundle.
+* Fix - Fixed 'Too few arguments to function WC_PB_Order::get_product_from_item' error when reading order data via the REST API.
+
+2021.02.22 - version 6.7.5
+* Fix - Prevented a fatal error thrown while initializing the plugin if WooCommerce is not activated.
+* Fix - Prevented a REST API fatal error in POST/PUT context in some scenarios.
+
+2021.02.15 - version 6.7.4
+* Tweak - Use the core 'WC_Background_Process' library for synchronizing stock data between bundled products and bundles in the background.
+* Tweak - Removed quantity multipliers from bundled product titles when using the Tabular layout.
+* Tweak - Changed bundled product ID label color to match WordPress palette under 'Product Data > Bundled Products'.
+* Fix - Fixed an issue that prevented bundled item Product Add-Ons subtotals from updating correctly.
+
 2021.02.05 - version 6.7.3
 * Fix - Fixed PHP 8 'Required parameter $cart_item_data follows optional parameter $quantity' warning.
 * Fix - 'Add' checkbox not working for Variable bundled items when configuring Product Bundles in editable orders.

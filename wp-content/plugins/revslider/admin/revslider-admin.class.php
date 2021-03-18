@@ -353,8 +353,8 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	 * @before: RevSliderBaseAdmin::onSavePost();
 	 */
 	public static function on_save_post(){
-		$f = new RevSliderFunctions();
-		
+		$f = RevSliderGlobals::instance()->get('RevSliderFunctions');
+
 		$post_id = $f->get_post_var('ID');
 
 		if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id; //protection against autosave
@@ -403,7 +403,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		$upgrade	= new RevSliderUpdate(RS_REVISION);
 		$library	= new RevSliderObjectLibrary();
 		$template	= new RevSliderTemplate();
-		$validated	= get_option('revslider-valid', 'false');
+		$validated	= 'true';
 		$stablev	= get_option('revslider-stable-version', '0');
 
 		$uol = (isset($_REQUEST['update_object_library'])) ? true : false;
@@ -1725,21 +1725,11 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					$type = $this->get_val($data, 'type', 'slider');
 					$id = esc_attr($this->get_val($data, 'id'));
 
-					$favorite = new RevSliderFavorite();
+					$favorite = RevSliderGlobals::instance()->get('RevSliderFavorite');
 					$favorite->set_favorite($do, $type, $id);
 
 					$this->ajax_response_success(__('Favorite Changed', 'revslider'));
 				break;
-				/*case 'set_transition_favorite':
-					$do		= 'replace';
-					$type	= 'slide_transitions';
-					$transitions = $this->get_val($data, 'transisions');
-
-					$favorite = new RevSliderFavorite();
-					$favorite->set_favorite($do, $type, $transitions);
-
-					$this->ajax_response_success(__('Transition Favorite Changed', 'revslider'));
-				break;*/
 				case 'load_library_object':
 					$library = new RevSliderObjectLibrary();
 

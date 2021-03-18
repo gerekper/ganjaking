@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Display-related functions and filters.
  *
  * @class    WC_PB_BS_Display
- * @version  6.6.2
+ * @version  6.7.6
  */
 class WC_PB_BS_Display {
 
@@ -110,9 +110,6 @@ class WC_PB_BS_Display {
 			if ( false === wp_script_is( 'wc-add-to-cart-bundle', 'enqueued' ) ) {
 				wp_enqueue_script( 'wc-add-to-cart-bundle' );
 			}
-
-			wp_register_style( 'wc-pb-bs-single', WC_PB()->plugin_url() . '/includes/modules/bundle-sells/assets/css/single-product.css', false, WC_PB()->version, 'all' );
-			wp_enqueue_style( 'wc-pb-bs-single' );
 
 			/*
 			 * Show Bundle-Sells section title.

@@ -222,6 +222,7 @@
 					var is_hide_label;
 
 					target = $( element );
+					tip = undefined;
 
 					if ( target.data( 'tm-has-tm-tip' ) === undefined ) {
 						is_swatch = target.attr( 'data-tm-tooltip-swatch' );
@@ -247,12 +248,15 @@
 							label = target.closest( '.cpf_hide_element' );
 						}
 						if ( label.length === 0 ) {
-							label = target.closest( '.cpf-section' ).find( '.tc-section-inner-wrap' );
+							label = target.closest( '.cpf-section' ).find( '.tc-section-inner-wrap .tm-description' );
 						}
 						findlabel = label.find( '.checkbox-image-label,.radio-image-label,.tm-tip-html' );
 
 						if ( findlabel.length === 0 ) {
 							findlabel = label.next( '.checkbox-image-label,.radio-image-label,.tm-tip-html' );
+						}
+						if ( findlabel.length === 0 && label.is( '.tm-description' ) ) {
+							findlabel = label;
 						}
 						label = findlabel;
 

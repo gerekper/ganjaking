@@ -141,4 +141,3 @@ class RevSliderWidget extends WP_Widget {
  * @since: 5.0
  **/
 class RevSlider_Widget extends RevSliderWidget {}
-?>

@@ -2259,7 +2259,7 @@ label:hover .tm-epo-style.tc {
 	font-size: 1.5em;
 }
 
-.float_editbox .tm-tags-container .tm-tab, .builder_drag_elements .tm-tags-container .tm-tab {
+.float-editbox .tm-tags-container .tm-tab, .builder_drag_elements .tm-tags-container .tm-tab {
 	display: block;
 	padding: 1em;
 }
@@ -2725,7 +2725,7 @@ label:hover .tm-epo-style.tc {
 	padding: 1em 2em;
 }
 
-.float_editbox {
+.float-editbox {
 	bottom: 77px;
 	left: 0;
 	padding: 0;
@@ -2743,7 +2743,7 @@ label:hover .tm-epo-style.tc {
 }
 
 .tc-question.flasho .header,
-.tc-question.flasho .float_editbox,
+.tc-question.flasho .float-editbox,
 .tc-question.flasho .footer {
 	position: static;
     background: #fff;
@@ -2806,7 +2806,7 @@ label:hover .tm-epo-style.tc {
 	margin-right: 10px;
 }
 
-.float_editbox .tm-box h4.open {
+.float-editbox .tm-box h4.open {
 	color: #392dbb;
 	background-color: #FFF;
 	border-width: 2px 2px 0 2px;
@@ -2816,7 +2816,7 @@ label:hover .tm-epo-style.tc {
 	border-style: solid;
 }
 
-.float_editbox .tm-box h4:focus {
+.float-editbox .tm-box h4:focus {
 	outline: 0;
 	color: #392dbb;
 	border-width: 2px 2px 0 2px;
@@ -2839,7 +2839,7 @@ label:hover .tm-epo-style.tc {
 	border-radius: 5px 5px 0 0;
 }
 
-.float_editbox .tm-box h4 {
+.float-editbox .tm-box h4 {
 	color: #9b96b5;
 	font-weight: normal;
 	line-height: 21px;
@@ -2853,7 +2853,7 @@ label:hover .tm-epo-style.tc {
 	border-color: transparent;
 }
 
-.float_editbox .tm-tab-headers {
+.float-editbox .tm-tab-headers {
 	position: relative;
 	z-index: 100;
 	background: linear-gradient(to right, #fcfcfd, #fbfbfc);
@@ -3173,7 +3173,7 @@ label:hover .tm-epo-style.tc {
 	margin: 1em 0 !important;
 }
 
-.float_editbox .tm-tab {
+.float-editbox .tm-tab {
 	bottom: 0;
 	display: none;
 	left: 0;
@@ -3195,7 +3195,7 @@ label:hover .tm-epo-style.tc {
 	position: relative;
 }
 
-.float_editbox .tm-tabs {
+.float-editbox .tm-tabs {
 	bottom: 0;
 	left: 0;
 	position: absolute;
@@ -4298,36 +4298,36 @@ li.tc-var-field {
 	width: 8px;
 }
 
-.float_editbox .tm-tab::-webkit-scrollbar {
+.float-editbox .tm-tab::-webkit-scrollbar {
 	background: #eae8f2;
 	width: 14px;
 }
 
-.float_editbox .tm-tab::-webkit-scrollbar-button,
+.float-editbox .tm-tab::-webkit-scrollbar-button,
 .select2-dropdown.tc-dropdown ul.select2-results__options::-webkit-scrollbar-button,
 .woocommerce .tm_wrapper table.form-table textarea::-webkit-scrollbar-button {
 	background: #eae8f2;
 }
 
-.float_editbox .tm-tab::-webkit-scrollbar-thumb,
+.float-editbox .tm-tab::-webkit-scrollbar-thumb,
 .select2-dropdown.tc-dropdown ul.select2-results__options::-webkit-scrollbar-thumb,
 .woocommerce .tm_wrapper table.form-table textarea::-webkit-scrollbar-thumb {
 	background: linear-gradient(to top, #3d72de, #362bb5);
 }
 
-.float_editbox .tm-tab::-webkit-resizer,
+.float-editbox .tm-tab::-webkit-resizer,
 .select2-dropdown.tc-dropdown ul.select2-results__options::-webkit-resizer,
 .woocommerce .tm_wrapper table.form-table textarea::-webkit-resizer {
 	background: transparent;
 }
 
-.float_editbox .tm-tab::-webkit-scrollbar-corner,
+.float-editbox .tm-tab::-webkit-scrollbar-corner,
 .select2-dropdown.tc-dropdown ul.select2-results__options::-webkit-scrollbar-corner,
 .woocommerce .tm_wrapper table.form-table textarea::-webkit-scrollbar-corner {
 	background: transparent;
 }
 
-.float_editbox .tm-tab,
+.float-editbox .tm-tab,
 .select2-dropdown.tc-dropdown ul.select2-results__options,
 .woocommerce .tm_wrapper table.form-table textarea {
 	scrollbar-color: #362bb5 #eae8f2;

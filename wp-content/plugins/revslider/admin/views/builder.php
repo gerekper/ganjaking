@@ -8,12 +8,12 @@
 if(!defined('ABSPATH')) exit();
 
 $rs_data = new RevSliderData();
-$rs_f = new RevSliderFunctions();
+$rs_f = RevSliderGlobals::instance()->get('RevSliderFunctions');
 $slider = new RevSliderSlider();
 $slide = new RevSliderSlide();
 $rs_nav = new RevSliderNavigation();
 $wpml = new RevSliderWpml();
-$rs_favorite = new RevSliderFavorite();
+$rs_favorite = RevSliderGlobals::instance()->get('RevSliderFavorite');
 
 $slide_id = RevSliderFunctions::esc_attr_deep($rs_f->get_get_var('id'));
 $slide_alias = RevSliderFunctions::esc_attr_deep($rs_f->get_get_var('alias'));

@@ -284,6 +284,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 	/**
 	 * delete custom animations
 	 * @before: RevSliderOperations::deleteCustomAnim();
+	 * @param int $animation_id
 	 */
 	public function delete_animation($animation_id){
 		global $wpdb;
@@ -298,6 +299,9 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 	 * @since: 5.3.0
 	 * create a page with revslider shortcodes included
 	 * @before: RevSliderOperations::create_slider_page();
+	 * @param array $added
+	 * @param array $modals
+	 * @param array $additions
 	 **/
 	public static function create_slider_page($added, $modals = array(), $additions = array()){
 		global $wp_version;
@@ -370,6 +374,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 	/**
 	 * add notices from ThemePunch
 	 * @since: 4.6.8
+	 * @return array
 	 */
 	public function add_notices(){
 		$_n = array();
@@ -533,8 +538,6 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 		$return		 = array('error' => __('File not found', 'revslider'));
 		
 		switch($error){
-			case UPLOAD_ERR_OK:
-				break;
 			case UPLOAD_ERR_NO_FILE:
 				return array('error' => __('No file sent', 'revslider'));
 			case UPLOAD_ERR_INI_SIZE:
@@ -620,7 +623,6 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'horizontal' => __('Horizontal', 'revslider'),
 			'vertical' => __('Vertical', 'revslider'),
 			'reversed' => __('Reverse', 'revslider'),
-			
 			'previewnotworking' => __('The preview could not be loaded due to some conflict with another WordPress theme or plugin', 'revslider'),
 			'checksystemnotworking' => __('Server connection issues, contact your hosting provider for further assistance', 'revslider'),
 			'editskins' => __('Edit Skin List', 'revslider'),
@@ -797,32 +799,8 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'sticky_layer' => __('Layer Options', 'revslider'),
 			'imageCouldNotBeLoaded' => __('Set a Slide Background Image to use this feature', 'revslider'),
 			'slideTransPresets' => __('Slide Transition Presets', 'revslider'),
-			'oppps' => __('Ooppps....', 'revslider'),
-			'no_nav_changes_done' => __('None of the Settings changed. There is Nothing to Save', 'revslider'),
-			'no_preset_name' => __('Enter Preset Name to Save or Delete', 'revslider'),
-			'customlayergrid_size_title' => __('Custom Size is currently Disabled', 'revslider'),
-			'customlayergrid_size_content' => __('The Current Size is set to calculate the Layer grid sizes Automatically.<br>Do you want to continue with Custom Sizes or do you want to keep the Automatically generated sizes ?', 'revslider'),
-			'customlayergrid_answer_a' => __('Keep Auto Sizes', 'revslider'),
-			'customlayergrid_answer_b' => __('Use Custom Sizes', 'revslider'),
-			'removinglayer_title' => __('What should happen Next?', 'revslider'),
-			'removinglayer_attention' => __('Need Attention by removing', 'revslider'),
-			'removinglayer_content' => __('Where do you want to move the Inherited Layers?', 'revslider'),
-			'dragAndDropFile' => __('Drag & Drop Import File', 'revslider'),
-			'or' => __('or', 'revslider'),
-			'clickToChoose' => __('Click to Choose', 'revslider'),
-			'embed' => __('Embed', 'revslider'),
-			'export' => __('Export', 'revslider'),
 			'exporthtml' => __('HTML', 'revslider'),
-			'delete' => __('Delete', 'revslider'),
-			'duplicate' => __('Duplicate', 'revslider'),
-			'preview' => __('Preview', 'revslider'),
-			'tags' => __('Tags', 'revslider'),
-			'folders' => __('Folder', 'revslider'),
-			'rename' => __('Rename', 'revslider'),
-			'root' => __('Root Level', 'revslider'),
 			'simproot' => __('Root', 'revslider'),
-			'show' => __('Show', 'revslider'),
-			'perpage' => __('Per Page', 'revslider'),
 			'releaseToAddLayer' => __('Release to Add Layer', 'revslider'),
 			'releaseToUpload' => __('Release to Upload file', 'revslider'),
 			'moduleZipFile' => __('Module .zip', 'revslider'),
@@ -886,7 +864,6 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'backgroundvideo' => __('Background Video', 'revslider'),
 			'videoactiveslide' => __('Video in Active Slide', 'revslider'),
 			'firstvideo' => __('Video in Active Slide', 'revslider'),
-			'triggeredby' => __('Behavior', 'revslider'),
 			'addaction' => __('Add Action to ', 'revslider'),
 			'ol_images' => __('Images', 'revslider'),
 			'ol_layers' => __('Layer Objects', 'revslider'),
@@ -924,7 +901,6 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'fontBIG' => __('FONT', 'revslider'),
 			'redownloadTemplate' => __('Re-Download Online', 'revslider'),
 			'createBlankPage' => __('Create Blank Page', 'revslider'),
-			'please_wait_a_moment' => __('Please Wait a Moment', 'revslider'),
 			'changingscreensize' => __('Changing Screen Size', 'revslider'),
 			'qs_headlines' => __('Headlines', 'revslider'),
 			'qs_content' => __('Content', 'revslider'),
@@ -935,7 +911,6 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'saveslide' => __('Saving Slide', 'revslider'),
 			'loadconfig' => __('Loading Configuration', 'revslider'),
 			'updateselects' => __('Updating Lists', 'revslider'),
-			'lastslide' => __('Last Slide', 'revslider'),
 			'textlayers' => __('Text Layers', 'revslider'),
 			'globalLayers' => __('Global Layers', 'revslider'),
 			'slidersettings' => __('Slider Settings', 'revslider'),
@@ -974,7 +949,6 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'randomanimation' => __('Random Animation', 'revslider'),
 			'transition' => __('Transition', 'revslider'),
 			'duration' => __('Duration', 'revslider'),
-			'notinstalled' => __('Not Installed', 'revslider'),
 			'enabled' => __('Enabled', 'revslider'),
 			'global' => __('Global', 'revslider'),
 			'install_and_activate' => __('Install Add-On', 'revslider'),
@@ -1144,7 +1118,6 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'sltr_filter' => __('Filter', 'revslider'),
 			'sltr_effects' => __('Effects', 'revslider'),
 			'sltr_cuts' => __('Paper Cuts', 'revslider'),
-			'sltr_special' => __('Special', 'revslider'),
 			'sltr_columns' => __('Columns', 'revslider'),
 			'sltr_curtain' => __('Curtain', 'revslider'),
 			'sltr_rotation' => __('Rotation', 'revslider'),
@@ -1259,8 +1232,6 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 								}
 							}
 						}
-					}else{
-						//either external URL or not available anymore in the media library
 					}
 				}
 			}
@@ -1426,4 +1397,3 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 		return $_lang;
 	}
 }
-?>

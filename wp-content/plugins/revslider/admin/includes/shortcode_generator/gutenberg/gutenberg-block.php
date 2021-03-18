@@ -103,4 +103,3 @@ if(!class_exists('RevSliderGutenberg')){
 		}
 	}
 }
-?>

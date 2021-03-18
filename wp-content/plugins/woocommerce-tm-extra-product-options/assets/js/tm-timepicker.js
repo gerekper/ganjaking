@@ -421,7 +421,7 @@
 						.css( {
 							cursor: 'pointer'
 						} )
-						.focus( function() {
+						.on( 'focus', function() {
 							$input.trigger( 'focus' );
 						} );
 				}
@@ -734,7 +734,7 @@
 						$.datepicker._setTime( tp_inst.inst, update );
 					} else {
 						this.value = tp_inst.formattedTime;
-						this.blur();
+						this.trigger( 'blur' );
 					}
 				} );
 
@@ -1132,7 +1132,7 @@
 			this.timeDefined = true;
 			if ( hasChanged ) {
 				this._updateDateTime();
-				//this.$input.focus(); // may automatically open the picker on setDate
+				//this.$input.trigger(' focus' ); // may automatically open the picker on setDate
 			}
 		},
 

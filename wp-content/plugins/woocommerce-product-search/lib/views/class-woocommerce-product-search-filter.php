@@ -677,6 +677,16 @@ class WooCommerce_Product_Search_Filter {
 			}
 		}
 
+		if ( !empty( $_REQUEST['product-page'] ) ) {
+			$product_page = intval( $_REQUEST['product-page'] );
+			if ( $product_page < 0 ) {
+				$product_page = null;
+			}
+			if ( $product_page !== null ) {
+				$paged = $product_page;
+			}
+		}
+
 		if ( ( $paged > $wps_products->max_num_pages ) && isset( $wps_products_paged ) ) {
 			$paged = $wps_products_paged;
 		}
@@ -689,8 +699,9 @@ class WooCommerce_Product_Search_Filter {
 				apply_filters(
 					'woocommerce_pagination_args',
 					array(
-						'base'      => esc_url_raw( str_replace( 999999999, '%#%', remove_query_arg( 'add-to-cart', get_pagenum_link( 999999999, false ) ) ) ),
-						'format'    => '',
+
+						'base'      => esc_url_raw( add_query_arg( 'product-page', '%#%', false ) ),
+						'format'    => '?product-page=%#%',
 						'add_args'  => false,
 						'current'   => $paged,
 						'total'     => intval( $wps_products->max_num_pages ),
@@ -893,6 +904,16 @@ class WooCommerce_Product_Search_Filter {
 		if ( !$paged ) {
 			$paged = 1;
 		}
+		if ( $atts['show_pagination'] ) {
+			$product_page = !empty( $_REQUEST['product-page'] ) ? intval( $_REQUEST['product-page'] ) : null;
+			if ( $product_page < 0 ) {
+				$product_page = null;
+			}
+			if ( $product_page !== null ) {
+				$paged = $product_page;
+			}
+		}
+
 		$woocommerce_loop['paged']   = $paged;
 		$query_args['paged']         = $paged;
 
@@ -943,6 +964,19 @@ class WooCommerce_Product_Search_Filter {
 		if ( $products->have_posts() ) {
 
 			update_post_caches( $products->posts, array( 'product', 'product_variation' ) );
+
+			$loop_args = array(
+				'columns' => $columns,
+				'name'    => 'products',
+				'is_shortcode' => true,
+				'is_search' => false,
+				'is_paginated' => $atts['show_pagination'],
+				'total' => $atts['show_pagination'] ? $products->found_posts : count( $products->posts ),
+				'total_pages' => $atts['show_pagination'] ? $products->max_num_pages : 1,
+				'per_page' => $products->get( 'posts_per_page' ),
+				'current_page' => $atts['show_pagination'] ? max( 1, $products->get( 'paged', 1 ) ) : 1
+			);
+			wc_setup_loop( $loop_args );
 
 			do_action( "woocommerce_before_{$loop_name}_loop", $atts );
 			woocommerce_product_loop_start();

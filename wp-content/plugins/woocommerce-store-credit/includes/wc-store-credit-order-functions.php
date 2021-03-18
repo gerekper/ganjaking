@@ -56,6 +56,7 @@ function wc_store_credit_get_order_coupon_type( $the_order, $coupon_item ) {
 	$type = '';
 
 	if ( $coupon_item instanceof WC_Order_Item ) {
+		$coupon_name = $coupon_item->get_name();
 		$coupon_data = $coupon_item->get_meta( 'coupon_data', true );
 
 		if ( is_array( $coupon_data ) && ! empty( $coupon_data['discount_type'] ) ) {
@@ -64,6 +65,8 @@ function wc_store_credit_get_order_coupon_type( $the_order, $coupon_item ) {
 			$type = $coupon_item->get_meta( 'discount_type', true );
 		}
 	} elseif ( is_array( $coupon_item ) ) {
+		$coupon_name = $coupon_item['name'];
+
 		if ( ! empty( $coupon_item['discount_type'] ) ) {
 			$type = $coupon_item['discount_type'];
 		} elseif ( ! empty( $coupon_item['id'] ) ) {
@@ -71,9 +74,9 @@ function wc_store_credit_get_order_coupon_type( $the_order, $coupon_item ) {
 		}
 	}
 
-	if ( ! $type && ! empty( $coupon_item['name'] ) ) {
+	if ( ! $type && ! empty( $coupon_name ) ) {
 		// Let's try with the coupon object.
-		$coupon_id = wc_store_credit_get_coupon_id_by_code( $coupon_item['name'] );
+		$coupon_id = wc_store_credit_get_coupon_id_by_code( $coupon_name );
 
 		if ( $coupon_id ) {
 			$coupon = wc_store_credit_get_coupon( $coupon_id );
@@ -83,7 +86,7 @@ function wc_store_credit_get_order_coupon_type( $the_order, $coupon_item ) {
 			$credit_used = wc_get_store_credit_used_for_order( $the_order, 'per_coupon' );
 
 			// It's in the credit used. So, it's a store credit coupon.
-			if ( ! empty( $credit_used[ $coupon_item['name'] ] ) ) {
+			if ( ! empty( $credit_used[ $coupon_name ] ) ) {
 				$type = 'store_credit';
 			}
 		}

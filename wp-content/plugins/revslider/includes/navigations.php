@@ -373,5 +373,3 @@ $navigations[] = array(
 	'markup' => "<div class=\"tp-tab-wrapper\">\n<div class=\"tp-tab-number\">{{param1}}</div>\n<div class=\"tp-tab-divider\"></div>\n<div class=\"tp-tab-title-mask\">\n<div class=\"tp-tab-title\">{{title}}</div>\n</div>\n</div>",
 	'settings' => '{"dim":{"width":"300","height":"40"},"placeholders":{"font-family":{"title":"Font-Family","type":"font-family","data":"Playfair Display"},"title-color":{"title":"Title-Color","type":"color","data":"#ffffff"},"title-size":{"title":"Title-Font-Size","type":"custom","data":"40"},"desc-color":{"title":"Desc-Color","type":"color","data":"#ffffff"},"desc-size":{"title":"Desc-Font-Size","type":"custom","data":"20"},"desc-font-weight":{"title":"Desc-Font-Weight","type":"custom","data":"400"},"title-weight":{"title":"Title-Weight","type":"custom","data":"400"},"basicwidth":{"title":"Basic-Width","type":"custom","data":"80"},"bgcolor":{"title":"Background","type":"color","data":"rgba(0,0,0,0.15)"},"bghovercolor":{"title":"Hover-Background","type":"color","data":"rgba(0,0,0,0.25)"},"handybg":{"title":"Handy-Background","type":"color","data":"rgba(0,0,0,0.75)"}},"presets":{},"version":"6.0.0"}',
 );
-
-?>

@@ -98,6 +98,7 @@ class ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b
         'WoocommerceProductFeedsIntegrationManager' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-integration-manager.php',
         'WoocommerceProductFeedsMain' => __DIR__ . '/../..' . '/src/woocommerce-product-feeds-main.php',
         'WoocommerceProductFeedsTermDepthRepository' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-term-depth-repository.php',
+        'WoocommerceProductFeedsWcSetupTasks' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-wc-setup-tasks.php',
         'WoocommerceProductVendors' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-vendors.php',
     );
 

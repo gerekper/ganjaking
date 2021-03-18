@@ -30,7 +30,7 @@ defined( 'ABSPATH' ) || exit;
             <?php endif; ?>
     		<?php 
     		include( THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-variable.php' );
-    		do_action( 'wc_epo_associated_product_display', $current_product, $tm_element_settings['uniqid'], $priced_individually, $args['discount'], $args['discount_type'] );
+    		do_action( 'wc_epo_associated_product_display', $current_product, $tm_element_settings['uniqid'] . '.' . $option['_default_value_counter'], $priced_individually, $args['discount'], $args['discount_type'] );
     		include( THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-quantity.php' );
     		?>
             <?php if ($show_meta) : ?>

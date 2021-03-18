@@ -74,11 +74,6 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 			}
 		}
 	
-		if(empty($this->googlefonts)){
-			//direct inclusion for direct searching of google font
-			include(RS_PLUGIN_PATH.'includes/googlefonts.php');
-			$this->googlefonts = $googlefonts;
-		}
 		if(empty($this->upd_animations)){
 			$this->upd_animations = $this->get_layer_animations();
 			/**
@@ -124,6 +119,14 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 				}
 			}
 			*/
+		}
+	}
+
+	public function init_googlefonts(){
+		if(empty($this->googlefonts)){
+			//direct inclusion for direct searching of google font
+			include(RS_PLUGIN_PATH.'includes/googlefonts.php');
+			$this->googlefonts = $googlefonts;
 		}
 	}
 
@@ -276,7 +279,7 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 	 **/
 	public function get_css_navigations(){
 		if(empty($this->css_navigations)){
-			$css_parser = new RevSliderCssParser();
+			$css_parser = RevSliderGlobals::instance()->get('RevSliderCssParser');
 			$this->css_navigations = $css_parser->get_database_classes(true);
 		}
 		return $this->css_navigations;
@@ -835,7 +838,7 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 	public function update_css_styles(){
 		global $wpdb;
 
-		$css = new RevSliderCssParser();
+		$css = RevSliderGlobals::instance()->get('RevSliderCssParser');
 		$styles = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . RevSliderFront::TABLE_CSS, ARRAY_A);
 		$default_classes = $css->default_css_classes();
 
@@ -3095,6 +3098,8 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 	 * @since: 6.0.0
 	 **/
 	public function migrate_layer_to_6_0($layer, $blank, $slide, $slider){ //blank default should be false!
+
+		$this->init_googlefonts();
 		$color_picker		= new RSColorpicker();
 		
 		$video_data			= $this->get_val($layer, 'video_data', array());
@@ -6730,5 +6735,3 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 		return '#'.implode('', $rgb);
 	}
 }
-
-?>

@@ -907,7 +907,13 @@ class Automation extends \WC_Data {
 			do_action( 'wc_customer_order_export_update_automation_schedule', $this->get_id(), $this );
 		}
 
-		parent::apply_changes();
+		// replace data with changed values
+		foreach ( $this->changes as $changed_key => $changed_value ) {
+			$this->data[ $changed_key ] = $changed_value;
+		}
+
+		// clean up changes
+		$this->changes = [];
 	}
 
 

@@ -704,6 +704,8 @@ class WooCommerce_Product_Search_Indexer {
 
 	public function index( $post_id ) {
 
+		do_action( 'woocommerce_product_search_indexer_index_start', $post_id );
+
 		wps_log_info( 'Indexing ' . $post_id );
 
 		global $wpdb;
@@ -1084,6 +1086,8 @@ class WooCommerce_Product_Search_Indexer {
 
 			}
 		}
+
+		do_action( 'woocommerce_product_search_indexer_index_end', $post_id );
 	}
 
 	public function get_object_type_id( $object_type = null, $context = null, $context_table = null, $context_column = null, $context_key = null ) {

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Price functions and hooks.
  *
  * @class    WC_PB_Product_Prices
- * @version  6.3.3
+ * @version  6.7.7
  */
 class WC_PB_Product_Prices {
 
@@ -26,6 +26,13 @@ class WC_PB_Product_Prices {
 	 * @var boolean
 	 */
 	private static $filtering_variable_price_html = false;
+
+	/**
+	 * Flag indicating whether 'get_extended_price_precision' is being used to filter WC decimals.
+	 *
+	 * @var boolean
+	 */
+	private static $filtering_price_decimals = false;
 
 	/**
 	 * Bundled items whose prices are currently being filtered -- all states.
@@ -130,14 +137,14 @@ class WC_PB_Product_Prices {
 	 * Filters the 'woocommerce_price_num_decimals' option to use the internal WC rounding precision.
 	 */
 	public static function extend_price_display_precision() {
-		add_filter( 'option_woocommerce_price_num_decimals', array( 'WC_PB_Core_Compatibility', 'wc_get_rounding_precision' ) );
+		add_filter( 'wc_get_price_decimals', array( __CLASS__, 'get_extended_price_precision' ) );
 	}
 
 	/**
 	 * Reset applied filters to the 'woocommerce_price_num_decimals' option.
 	 */
 	public static function reset_price_display_precision() {
-		remove_filter( 'option_woocommerce_price_num_decimals', array( 'WC_PB_Core_Compatibility', 'wc_get_rounding_precision' ) );
+		remove_filter( 'wc_get_price_decimals', array( __CLASS__, 'get_extended_price_precision' ) );
 	}
 
 	/**
@@ -181,6 +188,28 @@ class WC_PB_Product_Prices {
 	}
 
 	/**
+	 * Get extended rounding precision.
+	 *
+	 * @since  6.7.7
+	 *
+	 * @param  int  $decimals
+	 * @return int
+	 */
+	public static function get_extended_price_precision( $decimals = null ) {
+
+		// Prevent infinite loops through 'wc_pb_price_num_decimals'.
+		if ( ! is_null( $decimals ) && self::$filtering_price_decimals ) {
+			return $decimals;
+		}
+
+		self::$filtering_price_decimals = true;
+		$decimals = wc_pb_price_num_decimals( 'extended' );
+		self::$filtering_price_decimals = false;
+
+		return $decimals;
+	}
+
+	/**
 	 * Discounted bundled item price precision. Defaults to the price display precision, a.k.a. wc_get_price_decimals.
 	 *
 	 * @since  5.7.8
@@ -188,7 +217,7 @@ class WC_PB_Product_Prices {
 	 * @return int
 	 */
 	public static function get_discounted_price_precision() {
-		return apply_filters( 'woocommerce_bundled_item_discounted_price_precision', wc_get_price_decimals() );
+		return wc_pb_price_num_decimals( 'extended' );
 	}
 
 	/**

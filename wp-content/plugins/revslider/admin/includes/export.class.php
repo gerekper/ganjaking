@@ -485,14 +485,17 @@ class RevSliderSliderExport extends RevSliderSlider {
 	 * @before: RevSliderOperations::getFullCustomAnimationByID()
 	 */
 	public function get_custom_animation_by_id($id){
+		global $revslider_animations;
+
 		$this->fill_animations();
+		if(empty($revslider_animations)) return false;
 		
-		foreach($this->animations as $animation){
+		foreach($revslider_animations as $animation){
 			if($animation['id'] == $id){
 				return array(
 					'id'	 => $animation['id'],
 					'handle' => $animation['handle'],
-					'params' => json_decode(str_replace("'", '"', $this->get_val($animation, 'params', array())), true),
+					'params' => $animation['params'],
 					'settings' => $animation['settings']
 				);
 			}
@@ -823,5 +826,3 @@ class RevSliderSliderExport extends RevSliderSlider {
 		return $this->export_url_zip;
 	}
 }
-
-?>

@@ -594,7 +594,12 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 						'id' => 'i13_recapcha_login_recpacha_refersh_on_error'
 						),
 
-
+												'i13_recaptcha_login_recpacha_for_req_btn' => array(
+													'name' => __('Enable captcha for payment request buttons', 'recaptcha-for-woocommerce'),
+													'desc' => __('If you have enabled payment request buttons for checkout directly from product or cart page you can enable captcha. For example Google Pay, Apple Pay available in stripe.', 'recaptcha-for-woocommerce'),    
+													'type' => 'checkbox',
+													'id' => 'i13_recaptcha_login_recpacha_for_req_btn'
+												),    
 						array(
 						'type' => 'sectionend',
 						'id' => 'wc_settings_tab_recapcha_guestcheckout',
@@ -655,7 +660,13 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 																'id' => 'i13_recapcha_wp_disable_submit_token_generation_v3_woo_checkout',
 																'desc'=>__('Use only when there is problem with other plugin that use submit button.', 'recaptcha-for-woocommerce'),
 																'default'=>'no'
-															),    
+															),   
+																'i13_recaptcha_v3_login_recpacha_for_req_btn' => array(
+																	'name' => __('Enable captcha for payment request buttons', 'recaptcha-for-woocommerce'),
+																	'desc' => __('If you have enabled payment request buttons for checkout directly from product or cart page you can enable captcha. For example Google Pay, Apple Pay available in stripe.', 'recaptcha-for-woocommerce'),    
+																	'type' => 'checkbox',
+																	'id' => 'i13_recaptcha_v3_login_recpacha_for_req_btn'
+																),
 						array(
 						'type' => 'sectionend',
 						'id' => 'wc_settings_tab_recapcha_guestcheckout',

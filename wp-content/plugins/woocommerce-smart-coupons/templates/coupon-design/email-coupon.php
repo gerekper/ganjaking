@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @package     WooCommerce Smart Coupons/Templates
  *
- * @version     1.0.1
+ * @version     1.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -58,8 +58,8 @@ $style_colors = 'background-color: ' . $background_color . '; color: ' . $foregr
 		echo '<div class="discount-description">' . esc_html( $coupon_description ) . '</div>';
 	}
 
-	if ( ! empty( $expiry_date ) ) {
-		echo '<div class="coupon-expire">' . esc_html( $expiry_date ) . '</div>';
+	if ( ! empty( $coupon_expiry ) ) {
+		echo '<div class="coupon-expire">' . esc_html( $coupon_expiry ) . '</div>';
 	}
 
 	echo '</div>';

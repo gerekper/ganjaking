@@ -124,15 +124,8 @@ class RevSliderData {
 			
 			$settings = $this->get_val($value, 'settings', '');
 			$type = $this->get_val($value, 'type', '');
-			if($type == '' && $settings == '' || $type == $pre){
+			if($type == '' && $settings == ''){
 				$temp[$value['id']] = $value;
-				$temp[$value['id']]['id'] = $value['id'];
-				$sort[$value['id']] = $value['handle'];
-			}
-
-			if($settings == 'in' && $pre == 'in' || $settings == 'out' && $pre == 'out' || $settings == 'loop' && $pre == 'loop'){
-				$temp[$value['id']] = $value['params'];
-				$temp[$value['id']]['settings'] = $settings;
 				$temp[$value['id']]['id'] = $value['id'];
 				$sort[$value['id']] = $value['handle'];
 			}
@@ -225,7 +218,7 @@ class RevSliderData {
 	 * before: RevSliderOperations::getCaptionsContentArray();
 	 */
 	public function get_captions_array($handle = false){
-		$css = new RevSliderCssParser();
+		$css = RevSliderGlobals::instance()->get('RevSliderCssParser');
 		if(empty($this->css)){
 			$this->fill_css();
 		}
@@ -894,5 +887,3 @@ class RevSliderData {
 		return ($raw) ? $transitions : json_decode($transitions, true);
 	}
 }
-
-?>

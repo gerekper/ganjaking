@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Permalink Manager Lite\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-23 20:44+0000\n"
-"PO-Revision-Date: 2021-02-05 17:23+0000\n"
+"PO-Revision-Date: 2021-02-25 15:36+0000\n"
 "Last-Translator: admin\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -22,7 +22,7 @@ msgstr ""
 "<a href=\"mailto:contact@permalinkmanager.pro\">contact@permalinkmanager."
 "pro</a>まで、ご意見をお送り下さい。"
 
-#: includes/core/permalink-manager-third-parties.php:299
+#: includes/core/permalink-manager-third-parties.php:313
 msgid "\"Custom Permalinks\" URIs were imported!"
 msgstr "「カスタム パーマリンク」URIは、インポートされました！"
 
@@ -64,17 +64,6 @@ msgstr "302 リダイレクト"
 #, php-format
 msgid "<a %s>Click here</a> to go to the list of updated slugs"
 msgstr "更新されたスラッグのリストは、<a %s>ここをクリック</a> "
-
-#: includes/core/permalink-manager-admin-functions.php:901
-#, php-format
-msgid ""
-"<span><strong>Need more functionalities and dedicated support?</strong> Buy "
-"Permalink Manager Pro and apply <a href=\"https://permalinkmanager.pro/buy-"
-"permalink-manager-pro/\">PMLITE coupon code</a> to get 10% off.</a></span>"
-msgstr ""
-"<span><strong>さらなる機能と専用サポートが必要ですか？</strong>Permalink Manager "
-"Proを購入して10%割引の<a href=\"https://permalinkmanager.pro/buy-permalink-manager-"
-"pro/\">PMLITEクーポンコード</a>を適用してください。</a></span>"
 
 #: includes/core/permalink-manager-admin-functions.php:716
 #, php-format
@@ -358,7 +347,8 @@ msgstr "カスタム パーマリンク"
 msgid "Custom redirects"
 msgstr "カスタム リダイレクト"
 
-#: includes/core/permalink-manager-third-parties.php:698
+#: includes/core/permalink-manager-third-parties.php:445
+#: includes/core/permalink-manager-third-parties.php:765
 #: includes/core/permalink-manager-uri-functions-tax.php:488
 #: includes/views/permalink-manager-tools.php:70
 msgid "Custom URI"
@@ -585,7 +575,7 @@ msgid ""
 "the posts imported with WP All Import plugin."
 msgstr ""
 
-#: includes/core/permalink-manager-third-parties.php:699
+#: includes/core/permalink-manager-third-parties.php:766
 #, php-format
 msgid ""
 "If empty, a default permalink based on your current <a href=\"%s\" "
@@ -655,7 +645,7 @@ msgstr ""
 msgid ""
 "If enabled, the HTML breadcrumbs will be filtered by Permalink Manager to "
 "mimic the current URL structure.<br />Works with: <strong>WooCommerce, Yoast "
-"SEO, RankMath and SEOPress</strong> breadcrumbs."
+"SEO, Slim Seo, RankMath and SEOPress</strong> breadcrumbs."
 msgstr ""
 
 #: includes/views/permalink-manager-settings.php:187
@@ -795,7 +785,7 @@ msgstr "更新済みのアイテムのリスト"
 msgid "Maciej Bis"
 msgstr "Maciej Bis"
 
-#: includes/core/permalink-manager-admin-functions.php:939
+#: includes/core/permalink-manager-admin-functions.php:931
 msgid "Manage redirects"
 msgstr "リダイレクトを管理"
 
@@ -827,7 +817,7 @@ msgstr "新しいURI"
 msgid "No"
 msgstr "いいえ"
 
-#: includes/core/permalink-manager-third-parties.php:302
+#: includes/core/permalink-manager-third-parties.php:316
 msgid "No \"Custom Permalinks\" URIs were imported!"
 msgstr "「カスタム パーマリンク」 URIはインポートされませんでした！"
 
@@ -887,7 +877,7 @@ msgstr "ページ毎"
 msgid "Permalink Duplicates"
 msgstr "重複したパーマリンク"
 
-#: includes/core/permalink-manager-third-parties.php:694
+#: includes/core/permalink-manager-third-parties.php:761
 #: includes/core/permalink-manager-gutenberg.php:29
 #: includes/core/permalink-manager-admin-functions.php:111
 #: includes/core/permalink-manager-admin-functions.php:111
@@ -1079,7 +1069,7 @@ msgstr "以下の全てのURIを保存する"
 msgid "Save old custom permalinks as redirects"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:912
+#: includes/core/permalink-manager-admin-functions.php:904
 msgid "Save permalink"
 msgstr "パーマリンクを保存する"
 
@@ -1270,7 +1260,7 @@ msgstr ""
 "この機能は、（古い）オリジナルのパーマリンクをPermalink Managerで設定された（新しい）カスタム "
 "パーマリンクにリダイレクトするために使用されます。"
 
-#: includes/core/permalink-manager-admin-functions.php:1057
+#: includes/core/permalink-manager-admin-functions.php:1049
 #, php-format
 msgid ""
 "This functionality is available only in <a href=\"%s\" target=\"_blank\">"

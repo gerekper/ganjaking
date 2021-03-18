@@ -38,7 +38,7 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '5.3.0';
+	const VERSION = '5.3.1';
 
 	/** @var WC_Customer_Order_CSV_Export single instance of this plugin */
 	protected static $instance;

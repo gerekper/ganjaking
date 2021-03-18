@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -367,7 +367,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 				'post_date_gmt'  => ( $post['post_date_gmt'] ) ? gmdate( 'Y-m-d H:i:s', strtotime( $post['post_date_gmt'] ) ) : '',
 				'post_content'   => $post['post_content'],
 				'post_excerpt'   => $post['post_excerpt'],
-				'post_title'     => strtolower( $post['post_title'] ),
+				'post_title'     => $post['post_title'],
 				'post_name'      => ( $post['post_name'] ) ? $post['post_name'] : sanitize_title( $post['post_title'] ),
 				'post_status'    => $post['post_status'],
 				'post_parent'    => $post_parent,

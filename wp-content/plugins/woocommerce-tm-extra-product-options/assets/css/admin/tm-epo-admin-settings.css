@@ -169,6 +169,12 @@
 	border-image: linear-gradient(to right, red, orange, yellow, green, cyan, blue, violet) 1 1 stretch;
 }
 
+.tc-button.tc.tc-reset-button {
+	background: #ffeeee;
+	color: #ff0000;
+	border-color: #ff0000;
+}
+
 .tm-settings-wrap a {
 	color: #ffa811;
 	text-decoration: none;
@@ -825,15 +831,160 @@
 }
 
 .tm-settings-wrap,
-.tm-settings-wrap div {
-	box-sizing: border-box;
-}
-
-.tm-settings-wrap,
 .flasho {
 	font-size: 14px;
 	line-height: 1.42857143;
 	font-family: 'Roboto', 'Open Sans', Helvetica, Arial, sans-serif;
+}
+
+.tm_wrapper, .tm_wrapper div, .flasho, .flasho div, .bsbb, .tm-bsbb-all * {
+	box-sizing: border-box;
+}
+
+.flasho2 {
+	padding: 1em;
+	background: none repeat scroll 0 0 #FFFFFF;
+	height: 100%;
+	overflow: auto;
+	width: 100%;
+}
+
+.flasho {
+	background: linear-gradient(to right, #fcfcfd, #fbfbfc);
+	color: #fff;
+	border: 1px solid;
+	left: 0;
+	position: absolute;
+	top: 0;
+	z-index: 101;
+	box-shadow: 0px 0px 1px 10px rgba(0, 0, 0, 0.03), 0px 0px 50px 13px rgba(0, 0, 255, 0.1);
+	max-height: 100%;
+	border-radius: 0;
+	max-width: 100%;
+	overflow: hidden;
+}
+
+.flasho.tm_wrapper .message0x0, .tm_options_group .message0x0 {
+	border-radius: 0;
+	border-width: 0 0 0px;
+	border-color: #ecf0f1;
+	border-style: none none dotted;
+	margin: 0;
+	height: auto;
+	overflow: hidden;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	background: #FFF;
+	-ms-flex-align: center !important;
+	align-items: center;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+
+.flasho.tm_wrapper .message0x0:last-child {
+	border: 0;
+}
+
+.flasho .header {
+	left: 0;
+	line-height: 2em;
+	padding: 2.5em 2.2em;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+.flasho .header h3 {
+	color: #63728b;
+	font-size: 22px;
+	font-weight: 400;
+	line-height: 28px;
+	margin: 0;
+	letter-spacing: 1px;
+	float: left;
+}
+
+.flasho .header .tm-element-uniqid {
+	color: #362bb5;
+	font-size: 12px;
+	background: #fff;
+	position: absolute;
+	right: -1px;
+	top: -1px;
+	padding: 1em;
+	line-height: 12px;
+	border: 1px solid #edf0f3;
+}
+
+.flasho .footer {
+	bottom: 0;
+	height: 77px;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	border-radius: 0 0 10px 10px;
+	text-align: right;
+	width: 100%;
+	z-index: 2;
+}
+
+.flasho .footer .inner {
+	border-top: 1px solid #ecf0f1;
+	line-height: 30px;
+	padding: 1em 2em;
+}
+
+.float-editbox {
+	bottom: 77px;
+	left: 0;
+	padding: 0;
+	position: absolute;
+	right: 0;
+	top: 7em;
+	width: 100%;
+}
+
+.tc-question.flasho {
+	border: 0;
+	box-shadow: 0px 0px 1px 10px rgba(0, 0, 0, 0.1), 0px 0px 50px 13px rgba(0, 0, 255, 0.05);
+	background: transparent;
+	width: auto !important;
+}
+
+.tc-question.flasho .header,
+.tc-question.flasho .float-editbox,
+.tc-question.flasho .footer {
+	position: static;
+	background: #fff;
+	text-align: center;
+	border-radius: 0;
+}
+
+.tc-question.flasho .header h3 {
+	width: 100%;
+	text-align: center;
+	float: none;
+}
+
+.tc-question.flasho .footer .inner {
+	border: 0;
+}
+
+.fl-overlay {
+	background: #000;
+	position: fixed;
+	display: block;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.fl-overlay.forfullsize {
+	background: #eee;
 }
 
 .tm-settings-wrap {

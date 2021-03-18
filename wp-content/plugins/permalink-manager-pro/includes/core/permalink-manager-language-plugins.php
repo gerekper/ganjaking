@@ -242,8 +242,7 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 		if($detected_language_code !== $element_language_code) {
 			// A. Display the content in requested language
 			if($mode == 1) {
-				$wpml_item_id = apply_filters('wpml_object_id', $element_id, $element_type);
-				$item_id = (is_numeric($wpml_item_id)) ? $wpml_item_id : $item_id;
+				$item_id = apply_filters('wpml_object_id', $element_id, $element_type);
 			}
 			// C. Display "404 error"
 			else {

@@ -894,18 +894,10 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 			}
 		}
 
-		// 9. Extra discount
-		if(self::is_pro_active() == false) {
-			$html .= sprintf(
-				"<div class=\"default-permalink-row save-row columns-container hidden\"><div>%s</div></div>",
-				__('<span><strong>Need more functionalities and dedicated support?</strong> Buy Permalink Manager Pro and apply <a href="https://permalinkmanager.pro/buy-permalink-manager-pro/">PMLITE coupon code</a> to get 10% off.</a></span>', 'permalink-manager')
-			);
-		}
-
-		// 10. Custom redirects
+		// 9. Custom redirects
 		$html .= ($element->ID) ? self::display_redirect_panel($id) : self::display_redirect_panel("tax-{$id}");
 
-		// 11. Extra save button for Gutenberg
+		// 10. Extra save button for Gutenberg
 		if($gutenberg) {
 			$html .= sprintf(
 				"<div class=\"default-permalink-row save-row columns-container hidden\"><div><a href=\"#\" class=\"button button-primary\" id=\"permalink-manager-save-button\">%s</a></div></div>",
@@ -940,7 +932,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		);
 
 		$html .= "<div id=\"redirect-panel-inside\">";
-		if(self::is_pro_active() && class_exists('Permalink_Manager_Pro_Addons')) {
+		if(class_exists('Permalink_Manager_Pro_Addons')) {
 			$html .= Permalink_Manager_Pro_Addons::display_redirect_form($element_id);
 		} else {
 			$html .= self::pro_text(true);

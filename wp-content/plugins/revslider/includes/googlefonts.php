@@ -5256,5 +5256,3 @@ $googlefonts = array(
 'category' => 'display'
 )
 );
-
-?>

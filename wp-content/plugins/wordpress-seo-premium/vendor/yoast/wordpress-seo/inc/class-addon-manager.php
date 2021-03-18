@@ -117,7 +117,6 @@ class WPSEO_Addon_Manager {
 	 */
 	public function get_subscription( $slug ) {
 		return true;
-
 		foreach ( $this->get_subscriptions() as $subscription ) {
 			if ( $subscription->product->slug === $slug ) {
 				return $subscription;
@@ -192,7 +191,6 @@ class WPSEO_Addon_Manager {
 	 */
 	public function has_valid_subscription( $slug ) {
 		return true;
-
 		$subscription = $this->get_subscription( $slug );
 
 		// An non-existing subscription is never valid.

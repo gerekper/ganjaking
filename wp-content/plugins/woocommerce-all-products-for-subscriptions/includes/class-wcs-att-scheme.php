@@ -110,9 +110,15 @@ class WCS_ATT_Scheme implements ArrayAccess {
 
 		$this->data[ 'key' ] = $this->data[ 'id' ] = $this->key;
 
-		/*
-		 * Syncing.
-		 */
+		$this->update_sync_status();
+	}
+
+	/**
+	 * Updates the 'is_synced' prop.
+	 *
+	 * @return void
+	 */
+	protected function update_sync_status() {
 
 		$this->data[ 'is_synced' ] = false;
 
@@ -539,6 +545,30 @@ class WCS_ATT_Scheme implements ArrayAccess {
 			$this->data[ 'sale_price' ] = wc_format_decimal( $value );
 			$this->data[ 'price' ]      = '' !== $this->data[ 'sale_price' ] && $this->data[ 'sale_price' ] < $this->data[ 'regular_price' ] ? $this->data[ 'sale_price' ] : $this->data[ 'regular_price' ];
 		}
+	}
+
+	/**
+	 * Sets the sync date.
+	 *
+	 * @param  mixed  $value
+	 */
+	public function set_sync_date( $value ) {
+
+		if ( is_array( $value ) ) {
+
+			if ( ! empty( $value[ 'day' ] ) && ! empty( $value[ 'month' ] ) ) {
+
+				$this->data[ 'sync_date' ] = array(
+					'day'   => $value[ 'day' ],
+					'month' => $value[ 'month' ]
+				);
+			}
+
+		} else {
+			$this->data[ 'sync_date' ] = absint( $value );
+		}
+
+		$this->update_sync_status();
 	}
 
 	/*

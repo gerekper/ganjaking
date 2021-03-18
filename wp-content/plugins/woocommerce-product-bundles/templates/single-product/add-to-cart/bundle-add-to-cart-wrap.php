@@ -21,24 +21,46 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	if ( $is_purchasable ) {
 
-		/**
-		 * 'woocommerce_before_add_to_cart_button' action.
-		 */
+		/** WC Core action. */
 		do_action( 'woocommerce_before_add_to_cart_button' );
 
 		?><div class="bundle_wrap">
 			<div class="bundle_price"></div>
+			<?php
+				/**
+				 * 'woocommerce_bundles_after_bundle_price' action.
+				 *
+				 * @since 6.7.6
+				 */
+				do_action( 'woocommerce_after_bundle_price' );
+			?>
 			<div class="bundle_error" style="display:none">
 				<div class="woocommerce-info">
 					<ul class="msg"></ul>
 				</div>
 			</div>
-			<div class="bundle_availability"><?php
-
+			<?php
+				/**
+				 * 'woocommerce_bundles_after_bundle_price' action.
+				 *
+				 * @since 6.7.6
+				 */
+				do_action( 'woocommerce_before_bundle_availability' );
+			?>
+			<div class="bundle_availability">
+			<?php
 				// Availability html.
 				echo $availability_html;
-
-			?></div>
+			?>
+			</div>
+			<?php
+				/**
+				 * 'woocommerce_bundles_after_bundle_price' action.
+				 *
+				 * @since 6.7.6
+				 */
+				do_action( 'woocommerce_before_bundle_add_to_cart_button' );
+			?>
 			<div class="bundle_button"><?php
 
 				/**

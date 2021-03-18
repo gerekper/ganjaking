@@ -979,6 +979,10 @@ class WC_PB_REST_API {
 	 */
 	public static function add_bundle_to_order( $order, $request ) {
 
+		if ( ! is_a( $order, 'WC_Order' ) ) {
+			return $order;
+		}
+
 		$items_to_remove = array();
 
 		foreach ( $order->get_items( 'line_item' ) as $item_id => $item ) {
@@ -1262,9 +1266,9 @@ class WC_PB_REST_API {
 					continue;
 				}
 
-				add_filter( 'woocommerce_get_product_from_item', array( WC_PB()->order, 'get_product_from_item' ) );
-				$product = $order->get_product_from_item( $order_items[ $order_data_item_id ] );
-				remove_filter( 'woocommerce_get_product_from_item', array( WC_PB()->order, 'get_product_from_item' ) );
+				add_filter( 'woocommerce_order_item_product', array( WC_PB()->order, 'get_product_from_item' ), 10, 2 );
+				$product = $order_items[ $order_data_item_id ]->get_product();
+				remove_filter( 'woocommerce_order_item_product', array( WC_PB()->order, 'get_product_from_item' ), 10, 2 );
 
 				$order_data[ 'line_items' ][ $order_data_item_index ][ 'product_data' ][ 'price' ]                  = $product->get_price();
 				$order_data[ 'line_items' ][ $order_data_item_index ][ 'product_data' ][ 'sale_price' ]             = $product->get_sale_price() ? $product->get_sale_price() : null;

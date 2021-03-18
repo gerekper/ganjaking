@@ -99,11 +99,18 @@ class WCS_ATT_Display_Product {
 		// Non-recurring (one-time) option.
 		if ( false === $force_subscription ) {
 
-			$none_string = _x( 'one time', 'product subscription selection - negative response', 'woocommerce-all-products-for-subscriptions' );
+			$none_option_description = _x( 'one time', 'product subscription selection - negative response', 'woocommerce-all-products-for-subscriptions' );
+			$none_option_has_price   = apply_filters( 'wcsatt_single_product_one_time_option_has_price', false, $product, $parent_product );
+
+			if ( $none_option_has_price ) {
+				$none_option_description = sprintf( _x( '%s one time', 'product subscription selection - negative response', 'woocommerce-all-products-for-subscriptions' ), WCS_ATT_Product_Prices::get_price_html( $product, false, array() ) );
+			}
+
+			$none_option_price_class = $none_option_has_price ? 'price' : 'no-price';
 
 			$options[] = array(
 				'class'       => 'one-time-option',
-				'description' => apply_filters( 'wcsatt_single_product_one_time_option_description', $none_string, $product ),
+				'description' => apply_filters( 'wcsatt_single_product_one_time_option_description', '<span class="' . $none_option_price_class . ' one-time-price">' . $none_option_description . '</span>', $product ),
 				'value'       => '0',
 				'selected'    => '0' === $default_subscription_scheme_option_value,
 				'data'        => apply_filters( 'wcsatt_single_product_one_time_option_data', array(), $product, $parent_product )
@@ -282,12 +289,18 @@ class WCS_ATT_Display_Product {
 
 				if ( 'radio' === $prompt_type ) {
 
-					$subscription_cta = WCS_ATT_Product_Prices::get_price_html( $product, null, $prompt_html_args );
+					$subscription_cta        = WCS_ATT_Product_Prices::get_price_html( $product, null, $prompt_html_args );
+					$one_time_cta            = __( 'One-time purchase', 'woocommerce-all-products-for-subscriptions' );
+					$once_time_cta_has_price = apply_filters( 'wcsatt_single_product_one_time_cta_has_price', false, $product, $parent_product );
+
+					if ( $once_time_cta_has_price ) {
+						$one_time_cta = sprintf( __( 'One-time for %s', 'woocommerce-all-products-for-subscriptions' ), '<span class="price one-time-price">' . WCS_ATT_Product_Prices::get_price_html( $product, false, array() ) . '</span>' );
+					}
 
 					ob_start();
 
 					wc_get_template( 'single-product/product-subscription-options-prompt-radio.php', array(
-						'one_time_cta'     => __( 'One-time purchase', 'woocommerce-all-products-for-subscriptions' ),
+						'one_time_cta'     => $one_time_cta,
 						'subscription_cta' => $subscription_cta
 					), false, WCS_ATT()->plugin_path() . '/templates/' );
 

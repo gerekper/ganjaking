@@ -445,14 +445,22 @@
 		var isi;
 		var optionsprice;
 		var product_price_bto = [];
+		var item;
+		var container_id;
+		var item_id;
+		var wc_cp_composite_scripts = window.wc_cp_composite_scripts;
 
 		if ( alternativeCart && cpf_bto_price.length > 0 ) {
 			product_price = parseFloat( $.epoAPI.math.toFloat( cpf_bto_price.val(), 0 ) );
 		} else if ( ! alternativeCart && cpf_bto_price_all.length > 0 ) {
+			item = main_product.find( tcAPI.compositeSelector );
+			container_id = get_composite_container_id( item );
 			cpf_bto_price_all.each( function() {
 				field = $( this );
+				item_id = get_composite_item_id( field.closest( '.composite_component' ) );
+
 				// skip hidden fields from scenarios
-				if ( field.closest( '.composite_component' ).is( ':hidden' ) ) {
+				if ( wc_cp_composite_scripts && wc_cp_composite_scripts[ container_id ].scenarios.is_component_hidden( item_id ) ) {
 					return;
 				}
 				fieldValue = field.val();

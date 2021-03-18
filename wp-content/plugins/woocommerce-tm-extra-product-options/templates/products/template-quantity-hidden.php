@@ -11,6 +11,9 @@ defined( 'ABSPATH' ) || exit;
 
 $input_id     = uniqid( 'quantity_' );
 $input_name   = $name . '_quantity';
+if ( $option['_default_value_counter'] !== '' ){
+    $input_name   = $name . '_' . $option['_default_value_counter'] . '_quantity';
+}
 $input_value  = isset( $_REQUEST[ $name . '_quantity' ] ) ? $_REQUEST[ $name . '_quantity' ] : $quantity_min;
 $classes      = array('tm-qty', 'tm-bsbb', 'tm-hidden');
 $max_value    = $quantity_max;

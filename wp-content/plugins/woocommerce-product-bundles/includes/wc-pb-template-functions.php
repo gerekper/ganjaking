@@ -157,7 +157,7 @@ function wc_pb_template_bundled_item_title( $bundled_item, $bundle ) {
 	$min_qty = $bundled_item->get_quantity( 'min' );
 	$max_qty = $bundled_item->get_quantity( 'max' );
 
-	$qty     = $min_qty > 1 && $min_qty === $max_qty ? $min_qty : '';
+	$qty     = 'tabular' !== $bundle->get_layout() && $min_qty > 1 && $min_qty === $max_qty ? $min_qty : '';
 
 	wc_get_template( 'single-product/bundled-item-title.php', array(
 		'quantity'     => $qty,

@@ -75,6 +75,19 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 			add_action( 'woocommerce_admin_settings_sanitize_option_tm_epo_js_code', array( $this, 'tm_return_raw' ), 10, 3 );
 
 			add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
+
+			add_action( 'admin_footer', array( $this, 'script_templates' ) );
+		}
+
+		/**
+		 * Print script templates
+		 *
+		 * @since 1.0
+		 */
+		public function script_templates() {
+
+			wc_get_template( 'tc-js-admin-templates.php', array(), NULL, THEMECOMPLETE_EPO_PLUGIN_PATH . '/assets/js/admin/' );
+
 		}
 
 		/**
@@ -230,7 +243,10 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 			echo '</div>';
 			echo '<div class="tm-tabs-wrapper">';
 			echo '<div class="header tm-flexrow tm-justify-content-between"><h3 class="tm-flexcol">' . esc_html__( 'Extra Product Options Settings', 'woocommerce-tm-extra-product-options' ) . '</h3>';
-			echo '<button type="submit" class="tc tc-button tc-save-button tm-flexcol" type="submit">' . esc_html__( 'Save changes', 'woocommerce-tm-extra-product-options' ) . '</button>';
+			echo '<div class="tm-flexcol">';
+			echo '<button type="submit" class="tc tc-button tc-reset-button tm-flexcol" type="submit">' . esc_html__( 'Reset settings', 'woocommerce-tm-extra-product-options' ) . '</button>';
+			echo '&nbsp;<button type="submit" class="tc tc-button tc-save-button tm-flexcol" type="submit">' . esc_html__( 'Save changes', 'woocommerce-tm-extra-product-options' ) . '</button>';
+			echo '</div>';
 			echo '</div>';
 
 		}
@@ -256,7 +272,12 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 
 		public function tm_settings_hook_all_end() {
 			echo '</div>'; // .tm-tabs-wrapper
-			echo '<div class="tm-footer"><button type="submit" class="tc tc-button tc-save-button" type="submit">' . esc_html__( 'Save changes', 'woocommerce-tm-extra-product-options' ) . '</button></div>';
+			echo '<div class="tm-footer">';
+			echo '<div class="tm-flexcol">';
+			echo '<button type="submit" class="tc tc-button tc-reset-button tm-flexcol" type="submit">' . esc_html__( 'Reset settings', 'woocommerce-tm-extra-product-options' ) . '</button>';
+			echo '&nbsp;<button type="submit" class="tc tc-button tc-save-button tm-flexcol" type="submit">' . esc_html__( 'Save changes', 'woocommerce-tm-extra-product-options' ) . '</button>';
+			echo '</div>';
+			echo '</div>';
 			echo '</div>'; // .transition.tm-tabs
 			echo '</div>'; //.tm-settings-wrap
 		}

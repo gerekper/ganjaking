@@ -1,0 +1,5 @@
+<wpml-config>
+    <custom-fields>
+        <custom-field action="copy">_swatch_type</custom-field>
+    </custom-fields>  
+</wpml-config>

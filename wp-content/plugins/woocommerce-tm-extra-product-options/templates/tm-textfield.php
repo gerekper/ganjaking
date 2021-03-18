@@ -43,9 +43,17 @@ defined( 'ABSPATH' ) || exit;
 			<?php if ( ! empty( $tax_obj ) ) {
 				echo 'data-tax-obj="' . esc_attr( $tax_obj ) . '" ';
 			} ?>
-           type="<?php echo esc_attr( $input_type ); ?>"<?php
-		if ( $input_type == "number" ) {
+           type="<?php if ( $input_type === 'decimal') { echo 'number'; } else { echo esc_attr( $input_type ); } ?>"<?php
+		if ( $input_type === "number" ) {
 			echo ' step="any" pattern="[0-9]" inputmode="numeric"';
+			if ( isset( $min ) && $min !== '' ) {
+				echo ' min="' . esc_attr( $min ) . '"';
+			}
+			if ( isset( $max ) && $max !== '' ) {
+				echo ' max="' . esc_attr( $max ) . '"';
+			}
+		} else if ( $input_type === "decimal" ) {
+			echo ' step="any" pattern="[0-9]*" inputmode="numeric"';
 			if ( isset( $min ) && $min !== '' ) {
 				echo ' min="' . esc_attr( $min ) . '"';
 			}

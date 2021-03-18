@@ -178,6 +178,7 @@ class WCS_ATT_Integration_PB_CP {
 		add_filter( 'woocommerce_add_cart_item', array( __CLASS__, 'set_child_item_schemes' ), 0, 2 );
 
 		// Pass subscription details placeholder to JS script.
+		add_filter( 'wcsatt_single_product_one_time_option_data', array( __CLASS__, 'bundle_one_time_option_data' ), 10, 2 );
 		add_filter( 'wcsatt_single_product_subscription_option_data', array( __CLASS__, 'bundle_subscription_option_data' ), 10, 3 );
 
 		/*
@@ -826,6 +827,25 @@ class WCS_ATT_Integration_PB_CP {
 		}
 
 		return $cart_item;
+	}
+
+	/**
+	 * Pass one-time option price placeholder to JS script.
+	 *
+	 * @since  3.0.0
+	 *
+	 * @param  array       $data
+	 * @param  WC_Product  $product
+	 * @return array
+	 */
+	public static function bundle_one_time_option_data( $data, $product ) {
+
+		if ( self::is_bundle_type_product( $product ) ) {
+			$data[ 'prompt_details_html' ] = sprintf( __( 'One-time for %s', 'woocommerce-all-products-for-subscriptions' ), '<span class="price one-time-price">%p</span>' );
+			$data[ 'option_details_html' ] = sprintf( _x( '%s one time', 'product subscription selection - negative response', 'woocommerce-all-products-for-subscriptions' ), '%p' );
+		}
+
+		return $data;
 	}
 
 	/**

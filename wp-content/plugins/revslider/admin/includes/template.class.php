@@ -24,7 +24,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 	 * @since: 5.0.5
 	 */
 	public function _download_template($uid){
-		$rslb	= new RevSliderLoadBalancer();
+		$rslb	= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
 		$return	= false;
 		$uid	= $this->clear_uid($uid);
 		$uid	= esc_attr($uid);
@@ -98,7 +98,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 	 * @since: 5.0.5
 	 */
 	public function _get_template_list($force = false){
-		$rslb		= new RevSliderLoadBalancer();
+		$rslb		= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
 		$last_check	= get_option('revslider-templates-check');
 		
 		if($last_check == false){ //first time called
@@ -236,9 +236,10 @@ class RevSliderTemplate extends RevSliderFunctions {
 	/**
 	 * Update the Images get them from Server and check for existance on each image
 	 * @since: 5.0.5
+	 * @param bool $img
 	 */
 	private function _update_images($img = false){
-		$rslb	= new RevSliderLoadBalancer();
+		$rslb	= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
 		$templates = get_option('rs-templates', array());
 		$chk	= $this->check_curl_connection();
 		$curl	= ($chk) ? new WP_Http_Curl() : false;
@@ -364,21 +365,21 @@ class RevSliderTemplate extends RevSliderFunctions {
 	 * Copy a Slide to the Template Slide list
 	 * @since: 5.0
 	 * @before: RevSliderTemplate::copySlideToTemplates()
+	 * @param int $slide_id
+	 * @param string $slide_title
+	 * @param array $slide_settings
 	 */
 	public function copy_slide_to_templates($slide_id, $slide_title, $slide_settings = array()){
+		global $wpdb;
+
 		if(intval($slide_id) == 0) return false;
 		$slide_title = sanitize_text_field($slide_title);
 		if(strlen(trim($slide_title)) < 3) return false;
-		
-		global $wpdb;
-		
+
 		$duplicate = $wpdb->get_row($wpdb->prepare("SELECT * FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDES ." WHERE id = %s", $slide_id), ARRAY_A);
-		
-		if(empty($duplicate)) // slide not found
-			return false;
+		if(empty($duplicate)) return false;
 		
 		unset($duplicate['id']);
-		
 		$duplicate['slider_id']		= -1; //-1 sets it to be a template
 		$duplicate['slide_order']	= -1;
 		
@@ -443,13 +444,13 @@ class RevSliderTemplate extends RevSliderFunctions {
 	 * get default ThemePunch default Slides
 	 * @since: 5.0
 	 * @before: RevSliderTemplate::getThemePunchTemplateSlides()
+	 * @param bool $sliders
 	 */
 	public function get_tp_template_slides($sliders = false){
 		global $wpdb;
 		
 		$templates		= array();
-		$slide_defaults	= array();
-		
+
 		if($sliders == false){
 			$sliders = $this->get_tp_template_sliders();
 		}
@@ -531,14 +532,10 @@ class RevSliderTemplate extends RevSliderFunctions {
 	 */
 	public function get_default_template_sliders(){
 		global $wpdb;
-		
-		$sliders = array();
-		$check = array();
-		
+
 		//add themepunch default Sliders here
 		$check = $wpdb->get_results("SELECT * FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE type = 'template'", ARRAY_A);
-		
-		$sliders = apply_filters('revslider_set_template_sliders', $sliders);
+		$sliders = apply_filters('revslider_set_template_sliders', array());
 		
 		/**
 		 * Example		 
@@ -556,14 +553,10 @@ class RevSliderTemplate extends RevSliderFunctions {
 							$img = $this->get_val($slider, 'img');
 							$sliders[$key][$skey] = $installed;
 							$sliders[$key][$skey]['img'] = $this->_check_file_path($img, true, false);
-							
-							$sliders[$key]['alias']	  = $sliders[$key]['alias']; //.'-template'
 							$sliders[$key]['version'] = $this->get_val($slider, 'version', '');
 							if(isset($slider['is_new'])) $sliders[$key]['is_new'] = true;
-							
 							$preview = (isset($slider['preview'])) ? $slider['preview'] : false;
 							if($preview !== false) $sliders[$key]['preview'] = $preview;
-							
 							break;
 						}
 					}
@@ -595,11 +588,11 @@ class RevSliderTemplate extends RevSliderFunctions {
 	 * get default ThemePunch default Sliders
 	 * @since: 5.0
 	 * @before: RevSliderTemplate::getThemePunchTemplateSliders()
+	 *
 	 */
 	public function get_tp_template_sliders($uid = false){
 		global $wpdb;
-		
-		$sliders	 = array();
+
 		$plugin_list = array();
 		
 		//add themepunch default Sliders here
@@ -630,8 +623,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 						$id		 = $this->get_val($installed, 'id');
 						unset($installed['id']);
 						
-						$defaults[$key]['alias']	 = $defaults[$key]['alias']; //.'-template'
-						$defaults[$key]				 = array_merge($defaults[$key], $installed);
+						$defaults[$key] = array_merge($defaults[$key], $installed);
 						$defaults[$key]['installed'] = $id;
 						$defaults[$key]['img']		 = $this->_check_file_path($slider['img'], true, false);
 						$defaults[$key]['version']	 = $slider['version'];
@@ -668,9 +660,6 @@ class RevSliderTemplate extends RevSliderFunctions {
 					}
 					
 					if($full_installed){
-						//if($this->get_val($defaults[$dk], 'installed') !== false){
-							//unset($defaults[$dk]['installed']);
-						//}
 						$defaults[$dk]['installed'] = true;
 					}
 				}
@@ -678,7 +667,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 		}
 		
 		if(!empty($defaults)){
-			$favorite = new RevSliderFavorite();
+			$favorite = RevSliderGlobals::instance()->get('RevSliderFavorite');
 			
 			foreach($defaults as $dk => $default){
 				if($uid !== false && $uid !== $this->get_val($default, 'uid')){
@@ -696,9 +685,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 						$defaults[$dk]['plugin_require'][$pr]['installed'] = ($plugin_list[$path] === true) ? true : false;
 					}
 				}
-				
-				//$defaults[$dk]['img'] = $this->_check_file_path($defaults[$dk]['img'], true, false);
-				$defaults[$dk]['img'] = $defaults[$dk]['img'];
+
 				$tags	= $defaults[$dk]['filter'];
 				$tags[]	= $defaults[$dk]['cat'];
 				$defaults[$dk]['tags'] = $tags;
@@ -726,7 +713,6 @@ class RevSliderTemplate extends RevSliderFunctions {
 	 */
 	public function get_tp_template_sliders_for_library($leave_counter = false){
 		$templates = $this->get_tp_template_sliders();
-		$addons = array();
 		if(!empty($templates)){
 			foreach($templates as $k => $t){
 				if(isset($templates[$k]['params'])) unset($templates[$k]['params']);
@@ -895,13 +881,9 @@ class RevSliderTemplate extends RevSliderFunctions {
 	 * Check if Curl can be used
 	 */
 	public function check_curl_connection(){
-		
 		if($this->curl_check !== null) return $this->curl_check;
-		
 		$curl = new WP_Http_Curl();
-		
 		$this->curl_check = $curl->test();
-		
 		return $this->curl_check;
 	}
 	
@@ -983,5 +965,3 @@ class RevSliderTemplate extends RevSliderFunctions {
 		return preg_replace("/[^a-zA-Z0-9\s]/", '', $uid);
 	}
 }
-
-?>

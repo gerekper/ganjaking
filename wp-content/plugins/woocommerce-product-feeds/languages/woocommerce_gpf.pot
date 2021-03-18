@@ -1,9 +1,9 @@
 # Copyright (C) 2017 Ademti Software Ltd.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Google Product Feed 9.6.0\n"
+"Project-Id-Version: WooCommerce Google Product Feed 9.6.1\n"
 "Report-Msgid-Bugs-To: https://plugins.leewillis.co.uk/support\n"
-"POT-Creation-Date: 2021-02-16 09:44:57+00:00\n"
+"POT-Creation-Date: 2021-03-08 11:29:19+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -134,85 +134,85 @@ msgstr ""
 msgid "Added via filters"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:157
+#: src/gpf/woocommerce-gpf-admin.php:166
 msgid "Settings"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:161
+#: src/gpf/woocommerce-gpf-admin.php:170
 msgid "Set up guide"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:165
+#: src/gpf/woocommerce-gpf-admin.php:174
 msgid "Troubleshooting"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:209 src/gpf/woocommerce-gpf-admin.php:497
+#: src/gpf/woocommerce-gpf-admin.php:218 src/gpf/woocommerce-gpf-admin.php:506
 #: templates/woo-gpf-meta-edit-intro.php:3
 msgid "Product Feed Information"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:438 src/gpf/woocommerce-gpf-admin.php:632
+#: src/gpf/woocommerce-gpf-admin.php:447 src/gpf/woocommerce-gpf-admin.php:641
 msgid "Default: "
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:441 src/gpf/woocommerce-gpf-admin.php:545
-#: src/gpf/woocommerce-gpf-admin.php:635 src/gpf/woocommerce-gpf-admin.php:771
+#: src/gpf/woocommerce-gpf-admin.php:450 src/gpf/woocommerce-gpf-admin.php:554
+#: src/gpf/woocommerce-gpf-admin.php:644 src/gpf/woocommerce-gpf-admin.php:780
 #: src/integrations/woocommerce-gpf-pw-bulk-edit.php:135
 msgid "Use default"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:501
+#: src/gpf/woocommerce-gpf-admin.php:510
 msgid ""
 "Set values here if you want to override the information for this specific "
 "variation. If information should apply to all variations, then set it "
 "against the main product."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:773
+#: src/gpf/woocommerce-gpf-admin.php:782
 msgid "No default"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:818
+#: src/gpf/woocommerce-gpf-admin.php:827
 msgid "Hide this product from the feed"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1352
+#: src/gpf/woocommerce-gpf-admin.php:1361
 msgid "Product Feeds"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1402
+#: src/gpf/woocommerce-gpf-admin.php:1411
 msgid "Use value from existing product field: "
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1407
+#: src/gpf/woocommerce-gpf-admin.php:1416
 msgid "No"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1478
+#: src/gpf/woocommerce-gpf-admin.php:1487
 #. Translators: %s is the name of the taxonomy
 msgid "<em>%s</em> taxonomy"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1484
+#: src/gpf/woocommerce-gpf-admin.php:1493
 #. Translators: %s is the name of the field
 msgid "<em>%s</em> field"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1489
+#: src/gpf/woocommerce-gpf-admin.php:1498
 #. Translators: %1$s is the name of the meta field, %2$s is the raw meta key
 msgid "<em>%1$s</em> meta (%2$s)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1498
+#: src/gpf/woocommerce-gpf-admin.php:1507
 #. Translators: %s is the description of where the data will be pulled from.
 msgid "Uses value from %s if set."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1611
+#: src/gpf/woocommerce-gpf-admin.php:1620
 msgid "Store default: <br>"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1744
+#: src/gpf/woocommerce-gpf-admin.php:1753
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
@@ -1413,6 +1413,13 @@ msgstr ""
 #: src/common/woocommerce-product-feeds-field-options.php:126
 msgctxt "Option for \"size type\" field"
 msgid "Maternity"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-feed-item.php:438
+#. Translators: %s is the list of variation attributes to be added to the
+#. product title to identify this particular variation.
+msgctxt "Variation product suffix wrapper"
+msgid " (%s)"
 msgstr ""
 
 #: src/integrations/woocommerce-gpf-pw-bulk-edit.php:117

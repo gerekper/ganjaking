@@ -10,7 +10,7 @@ class Permalink_Manager_Pro_Addons extends Permalink_Manager_Class {
 	}
 
 	public function init() {
-		if(Permalink_Manager_Admin_Functions::is_pro_active()) {
+		// if(Permalink_Manager_Admin_Functions::is_pro_active()) {
 			add_filter( 'permalink_manager_sections', array($this, 'add_admin_section'), 5 );
 
 			// Stop Words
@@ -18,7 +18,7 @@ class Permalink_Manager_Pro_Addons extends Permalink_Manager_Class {
 
 			add_filter( 'permalink_manager_tools_fields', array($this, 'filter_tools_fields'), 9, 2 );
 			add_filter( 'permalink_manager_permastructs_fields', array($this, 'filter_permastructure_fields'), 9 );
-		}
+		// }
 
 		add_filter( 'permalink_manager_settings_fields', array($this, 'filter_settings_fields'), 9 );
 	}
@@ -138,10 +138,10 @@ class Permalink_Manager_Pro_Addons extends Permalink_Manager_Class {
 		);
 
 		// 2. Unblock some fields
-		if(Permalink_Manager_Admin_Functions::is_pro_active()) {
+		// if(Permalink_Manager_Admin_Functions::is_pro_active()) {
 			unset($fields['seo']['fields']['setup_redirects']['pro']);
 			unset($fields['seo']['fields']['setup_redirects']['disabled']);
-		}
+		// }
 
 		return $fields;
 	}

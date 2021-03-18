@@ -1,5 +1,8 @@
 *** WooCommerce Customer/Order/Coupon Export Changelog ***
 
+2021.03.05 - version 5.3.1
+ * Fix - Ensure that when editing an Automated Export, the Export Options select fields are updated as well
+
 2021.01.22 - version 5.3.0
  * Feature - Merge the Export Refunds Only free add on into the core plugin
  * Feature - Merge the Export Vat Number free add on into the core plugin

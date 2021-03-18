@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
-"POT-Creation-Date: 2021-01-26 08:35:45+00:00\n"
+"POT-Creation-Date: 2021-02-15 16:09:32+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -58,14 +58,14 @@ msgstr ""
 msgid "Filter by link clicked"
 msgstr ""
 
-#: mailpoet-premium.php:51
+#: mailpoet-premium.php:50
 msgid ""
 "MailPoet Premium requires PHP version 7.1.8 or newer (version 7.4 "
 "recommended). Please read our [link]instructions[/link] on how to resolve "
 "this issue."
 msgstr ""
 
-#: mailpoet-premium.php:67
+#: mailpoet-premium.php:66
 msgid ""
 "MailPoet Premium cannot start because it is missing core files. Please "
 "reinstall the plugin."
@@ -195,27 +195,32 @@ msgstr ""
 msgid "An error occurred while saving data."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Forms.php:80 mp3/lib/API/JSON/v1/Forms.php:98
-#: mp3/lib/API/JSON/v1/Forms.php:183 mp3/lib/API/JSON/v1/Forms.php:267
-#: mp3/lib/API/JSON/v1/Forms.php:285 mp3/lib/API/JSON/v1/Forms.php:299
-#: mp3/lib/API/JSON/v1/Forms.php:328
+#: mp3/lib/API/JSON/v1/Forms.php:88 mp3/lib/API/JSON/v1/Forms.php:106
+#: mp3/lib/API/JSON/v1/Forms.php:191 mp3/lib/API/JSON/v1/Forms.php:284
+#: mp3/lib/API/JSON/v1/Forms.php:302 mp3/lib/API/JSON/v1/Forms.php:316
+#: mp3/lib/API/JSON/v1/Forms.php:345
 msgid "This form does not exist."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Forms.php:89 mp3/lib/API/JSON/v1/Newsletters.php:154
+#: mp3/lib/API/JSON/v1/Forms.php:97 mp3/lib/API/JSON/v1/Newsletters.php:154
 msgid "You need to specify a status."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Forms.php:106
+#: mp3/lib/API/JSON/v1/Forms.php:114
 msgid "Invalid status. Allowed values are (%1$s), you specified %2$s"
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Forms.php:189
+#: mp3/lib/API/JSON/v1/Forms.php:197
 msgid "New form"
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Forms.php:309 mp3/lib/API/JSON/v1/Segments.php:193
+#: mp3/lib/API/JSON/v1/Forms.php:237
+msgid "Only administrator can edit forms containing Custom HTML block."
+msgstr ""
+
+#: mp3/lib/API/JSON/v1/Forms.php:326
 #: mp3/lib/Newsletter/NewsletterSaveController.php:154
+#: mp3/lib/Segments/SegmentSaveController.php:37
 msgid "Copy of %s"
 msgstr ""
 
@@ -271,22 +276,30 @@ msgstr ""
 msgid "Error when activating MailPoet Premium plugin."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Segments.php:84 mp3/lib/API/JSON/v1/Segments.php:142
-#: mp3/lib/API/JSON/v1/Segments.php:169 mp3/lib/API/JSON/v1/Segments.php:182
-#: mp3/lib/API/JSON/v1/Segments.php:210 mp3/lib/API/MP/v1/API.php:135
-#: mp3/lib/API/MP/v1/API.php:210
+#: mp3/lib/API/JSON/v1/Segments.php:81 mp3/lib/API/JSON/v1/Segments.php:142
+#: mp3/lib/API/JSON/v1/Segments.php:172 mp3/lib/API/JSON/v1/Segments.php:184
+#: mp3/lib/API/JSON/v1/Segments.php:206 mp3/lib/API/MP/v1/API.php:142
+#: mp3/lib/API/MP/v1/API.php:230
 msgid "This list does not exist."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Segments.php:109 mp3/lib/Models/CustomField.php:26
+#: mp3/lib/API/JSON/v1/Segments.php:106 mp3/lib/Models/CustomField.php:26
 #: mp3/lib/Models/NewsletterOptionField.php:18 mp3/lib/Models/Segment.php:28
 #: mp3/views/form/templatesLegacy/settings/field_form.hbs:53
 #: mp3/views/subscribers/importExport/import/step_data_manipulation.html:14
 msgid "Please specify a name."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Segments.php:113
+#: mp3/lib/API/JSON/v1/Segments.php:110
 msgid "Another record already exists. Please specify a different \"name\"."
+msgstr ""
+
+#: mp3/lib/API/JSON/v1/Segments.php:122 mp3/lib/API/JSON/v1/Segments.php:152
+msgid "This list cannot be moved to trash."
+msgstr ""
+
+#: mp3/lib/API/JSON/v1/Segments.php:197
+msgid "Duplicating of segment failed."
 msgstr ""
 
 #: mp3/lib/API/JSON/v1/SendingQueue.php:74
@@ -409,8 +422,8 @@ msgstr ""
 #: mp3/lib/API/JSON/v1/Subscribers.php:451
 #: mp3/lib/API/JSON/v1/Subscribers.php:467
 #: mp3/lib/API/JSON/v1/Subscribers.php:479
-#: mp3/lib/API/JSON/v1/Subscribers.php:494 mp3/lib/API/MP/v1/API.php:129
-#: mp3/lib/API/MP/v1/API.php:204 mp3/lib/API/MP/v1/API.php:354
+#: mp3/lib/API/JSON/v1/Subscribers.php:494 mp3/lib/API/MP/v1/API.php:136
+#: mp3/lib/API/MP/v1/API.php:224 mp3/lib/API/MP/v1/API.php:374
 msgid "This subscriber does not exist."
 msgstr ""
 
@@ -455,60 +468,60 @@ msgstr ""
 msgid "You have not specified any user flags to be saved."
 msgstr ""
 
-#: mp3/lib/API/MP/v1/API.php:54
+#: mp3/lib/API/MP/v1/API.php:60
 #: mp3/lib/Form/Templates/Templates/InitialForm.php:22
 #: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:48
 #: mp3/lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:40
-#: mp3/tests/integration/API/MP/APITest.php:40 mp3/views/form/editor.html:165
+#: mp3/tests/integration/API/MP/APITest.php:41 mp3/views/form/editor.html:166
 #: mp3/views/help.html:68 mp3/views/newsletter/editor.html:1104
 #: mp3/views/newsletter/editor.html:1105 mp3/views/segments.html:117
 #: mp3/views/subscription/manage_subscription.html:9
 msgid "Email"
 msgstr ""
 
-#: mp3/lib/API/MP/v1/API.php:62
+#: mp3/lib/API/MP/v1/API.php:68
 #: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:49
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:138
-#: mp3/tests/integration/API/MP/APITest.php:48 mp3/views/form/editor.html:156
+#: mp3/tests/integration/API/MP/APITest.php:49 mp3/views/form/editor.html:157
 #: mp3/views/subscribers/subscribers.html:72
 msgid "First name"
 msgstr ""
 
-#: mp3/lib/API/MP/v1/API.php:70
+#: mp3/lib/API/MP/v1/API.php:76
 #: mp3/lib/Subscribers/ImportExport/ImportExportFactory.php:50
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:147
-#: mp3/tests/integration/API/MP/APITest.php:56 mp3/views/form/editor.html:158
+#: mp3/tests/integration/API/MP/APITest.php:57 mp3/views/form/editor.html:159
 #: mp3/views/subscribers/subscribers.html:73
 msgid "Last name"
 msgstr ""
 
-#: mp3/lib/API/MP/v1/API.php:123 mp3/lib/API/MP/v1/API.php:198
+#: mp3/lib/API/MP/v1/API.php:130 mp3/lib/API/MP/v1/API.php:218
 msgid "At least one segment ID is required."
 msgstr ""
 
-#: mp3/lib/API/MP/v1/API.php:158 mp3/lib/API/MP/v1/API.php:230
+#: mp3/lib/API/MP/v1/API.php:165 mp3/lib/API/MP/v1/API.php:250
 msgid "List with ID %s does not exist."
 msgid_plural "Lists with IDs %s do not exist."
 msgstr[0] ""
 msgstr[1] ""
 
-#: mp3/lib/API/MP/v1/API.php:253
+#: mp3/lib/API/MP/v1/API.php:273
 msgid "Subscriber email address is required."
 msgstr ""
 
-#: mp3/lib/API/MP/v1/API.php:261
+#: mp3/lib/API/MP/v1/API.php:281
 msgid "This subscriber already exists."
 msgstr ""
 
-#: mp3/lib/API/MP/v1/API.php:314
+#: mp3/lib/API/MP/v1/API.php:334
 msgid "List name is required."
 msgstr ""
 
-#: mp3/lib/API/MP/v1/API.php:322
+#: mp3/lib/API/MP/v1/API.php:342
 msgid "This list already exists."
 msgstr ""
 
-#: mp3/lib/API/MP/v1/API.php:344
+#: mp3/lib/API/MP/v1/API.php:364
 msgid "Failed to add list"
 msgstr ""
 
@@ -663,7 +676,7 @@ msgstr ""
 msgid "Manage segments"
 msgstr ""
 
-#: mp3/lib/Config/Capabilities.php:77 mp3/lib/Config/Menu.php:466
+#: mp3/lib/Config/Capabilities.php:77 mp3/lib/Config/Menu.php:448
 #: mp3/lib/Config/PrivacyPolicy.php:12
 msgid "MailPoet"
 msgstr ""
@@ -765,89 +778,84 @@ msgstr[1] ""
 msgid "Settings imported"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:110 mp3/lib/Config/Menu.php:111
+#: mp3/lib/Config/Menu.php:109 mp3/lib/Config/Menu.php:110
 #: mp3/views/newsletters.html:86
 msgid "Emails"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:135
+#: mp3/lib/Config/Menu.php:134
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:40
 #: mp3/views/newsletter/editor.html:356 mp3/views/newsletters.html:88
 #: mp3/views/newsletters.html:214
 msgid "Newsletter"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:136 mp3/views/newsletter/editor.html:320
+#: mp3/lib/Config/Menu.php:135 mp3/views/newsletter/editor.html:320
 msgid "Newsletter Editor"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:148 mp3/lib/Config/Menu.php:149
+#: mp3/lib/Config/Menu.php:147 mp3/lib/Config/Menu.php:148
 #: mp3/views/forms.html:47 mp3/views/mp2migration.html:13
 msgid "Forms"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:173 mp3/lib/Config/Menu.php:174
+#: mp3/lib/Config/Menu.php:172 mp3/lib/Config/Menu.php:173
 msgid "Form Editor"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:193 mp3/lib/Config/Menu.php:194
+#: mp3/lib/Config/Menu.php:192 mp3/lib/Config/Menu.php:193
 msgid "Select Form Template"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:214 mp3/lib/Config/Menu.php:215
+#: mp3/lib/Config/Menu.php:213 mp3/lib/Config/Menu.php:214
 #: mp3/views/subscribers/subscribers.html:34
 msgid "Subscribers"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:239 mp3/lib/Config/Menu.php:240
+#: mp3/lib/Config/Menu.php:238 mp3/lib/Config/Menu.php:239
 #: mp3/views/subscribers/importExport/import.html:6
 #: mp3/views/subscribers/importExport/import.html:101
 #: mp3/views/subscribers/subscribers.html:133
 msgid "Import"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:252 mp3/lib/Config/Menu.php:253
+#: mp3/lib/Config/Menu.php:251 mp3/lib/Config/Menu.php:252
 #: mp3/views/subscribers/importExport/export.html:6
 #: mp3/views/subscribers/importExport/export.html:80
 #: mp3/views/subscribers/subscribers.html:134
 msgid "Export"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:265 mp3/lib/Config/Menu.php:266
+#: mp3/lib/Config/Menu.php:264 mp3/lib/Config/Menu.php:265
 #: mp3/views/forms.html:81 mp3/views/newsletters.html:143
 #: mp3/views/newsletters.html:271 mp3/views/segments.html:36
 #: mp3/views/subscribers/subscribers.html:93
 msgid "Lists"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:290 mp3/lib/Config/Menu.php:291
+#: mp3/lib/Config/Menu.php:289 mp3/lib/Config/Menu.php:290
 #: mp3/views/mp2migration.html:14 mp3/views/newsletters.html:144
 #: mp3/views/settings.html:34
 msgid "Settings"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:303 mp3/lib/Config/Menu.php:304
+#: mp3/lib/Config/Menu.php:302 mp3/lib/Config/Menu.php:303
 msgid "Help"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:317 mp3/lib/Config/Menu.php:318
+#: mp3/lib/Config/Menu.php:316 mp3/lib/Config/Menu.php:317
 msgid "Premium"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:330 mp3/lib/Config/Menu.php:331
+#: mp3/lib/Config/Menu.php:329 mp3/lib/Config/Menu.php:330
 msgid "Welcome Wizard"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:343 mp3/lib/Config/Menu.php:344
+#: mp3/lib/Config/Menu.php:342 mp3/lib/Config/Menu.php:343
 msgid "WooCommerce Setup"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:356 mp3/lib/Config/Menu.php:357
-#: mp3/views/segments.html:67
-msgid "Update"
-msgstr ""
-
-#: mp3/lib/Config/Menu.php:369
+#: mp3/lib/Config/Menu.php:355
 msgid "Migration"
 msgstr ""
 
@@ -2268,7 +2276,7 @@ msgstr ""
 msgid "Value cannot be empty"
 msgstr ""
 
-#: mp3/lib/Form/AssetsController.php:91
+#: mp3/lib/Form/AssetsController.php:90
 msgid "An error has happened while performing a request, please try again later."
 msgstr ""
 
@@ -2276,127 +2284,131 @@ msgstr ""
 msgid "Please specify a valid email address."
 msgstr ""
 
-#: mp3/lib/Form/Block/BlockRendererHelper.php:41 mp3/views/form/editor.html:121
+#: mp3/lib/Form/Block/BlockRendererHelper.php:38
+msgid "Please specify a valid name"
+msgstr ""
+
+#: mp3/lib/Form/Block/BlockRendererHelper.php:46 mp3/views/form/editor.html:122
 #: mp3/views/newsletters.html:274
 msgid "Please select a list"
 msgstr ""
 
-#: mp3/lib/Form/Block/BlockRendererHelper.php:46
+#: mp3/lib/Form/Block/BlockRendererHelper.php:51
 msgid "This field is required."
 msgstr ""
 
-#: mp3/lib/Form/Block/BlockRendererHelper.php:52
+#: mp3/lib/Form/Block/BlockRendererHelper.php:57
 msgid "Please specify a valid phone number"
 msgstr ""
 
-#: mp3/lib/Form/Block/BlockRendererHelper.php:61
+#: mp3/lib/Form/Block/BlockRendererHelper.php:66
 msgid "Please select at least one option"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:60
+#: mp3/lib/Form/Block/Date.php:66
 msgid "Please select a day"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:62 mp3/lib/Form/Block/Date.php:189
-#: mp3/views/form/editor.html:141
+#: mp3/lib/Form/Block/Date.php:68 mp3/lib/Form/Block/Date.php:195
+#: mp3/views/form/editor.html:142
 #: mp3/views/form/templatesLegacy/blocks/date_days.hbs:3
 #: mp3/views/subscribers/subscribers.html:131
 msgid "Day"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:69
+#: mp3/lib/Form/Block/Date.php:75
 msgid "Please select a month"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:71 mp3/lib/Form/Block/Date.php:133
-#: mp3/views/form/editor.html:142
+#: mp3/lib/Form/Block/Date.php:77 mp3/lib/Form/Block/Date.php:139
+#: mp3/views/form/editor.html:143
 #: mp3/views/form/templatesLegacy/blocks/date_months.hbs:3
 #: mp3/views/subscribers/subscribers.html:130
 msgid "Month"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:78
+#: mp3/lib/Form/Block/Date.php:84
 msgid "Please select a year"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:80 mp3/lib/Form/Block/Date.php:96
-#: mp3/lib/Form/Block/Date.php:163
+#: mp3/lib/Form/Block/Date.php:86 mp3/lib/Form/Block/Date.php:102
+#: mp3/lib/Form/Block/Date.php:169
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:82
-#: mp3/views/form/editor.html:143
+#: mp3/views/form/editor.html:144
 #: mp3/views/form/templatesLegacy/blocks/date_years.hbs:5
 #: mp3/views/subscribers/subscribers.html:129
 msgid "Year"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:93
+#: mp3/lib/Form/Block/Date.php:99
 msgid "Year, month, day"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:94
+#: mp3/lib/Form/Block/Date.php:100
 msgid "Year, month"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:95
+#: mp3/lib/Form/Block/Date.php:101
 msgid "Month (January, February,...)"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:110 mp3/views/newsletters.html:302
+#: mp3/lib/Form/Block/Date.php:116 mp3/views/newsletters.html:302
 #: mp3/views/subscribers/importExport/import.html:60
 msgid "January"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:110 mp3/views/newsletters.html:303
+#: mp3/lib/Form/Block/Date.php:116 mp3/views/newsletters.html:303
 #: mp3/views/subscribers/importExport/import.html:61
 msgid "February"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:110 mp3/views/newsletters.html:304
+#: mp3/lib/Form/Block/Date.php:116 mp3/views/newsletters.html:304
 #: mp3/views/subscribers/importExport/import.html:62
 msgid "March"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:110 mp3/views/newsletters.html:305
+#: mp3/lib/Form/Block/Date.php:116 mp3/views/newsletters.html:305
 #: mp3/views/subscribers/importExport/import.html:63
 msgid "April"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:111 mp3/views/newsletters.html:306
+#: mp3/lib/Form/Block/Date.php:117 mp3/views/newsletters.html:306
 #: mp3/views/newsletters.html:318
 #: mp3/views/subscribers/importExport/import.html:64
 msgid "May"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:111 mp3/views/newsletters.html:307
+#: mp3/lib/Form/Block/Date.php:117 mp3/views/newsletters.html:307
 #: mp3/views/subscribers/importExport/import.html:65
 msgid "June"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:111 mp3/views/newsletters.html:308
+#: mp3/lib/Form/Block/Date.php:117 mp3/views/newsletters.html:308
 #: mp3/views/subscribers/importExport/import.html:66
 msgid "July"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:111 mp3/views/newsletters.html:309
+#: mp3/lib/Form/Block/Date.php:117 mp3/views/newsletters.html:309
 #: mp3/views/subscribers/importExport/import.html:67
 msgid "August"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:111 mp3/views/newsletters.html:310
+#: mp3/lib/Form/Block/Date.php:117 mp3/views/newsletters.html:310
 #: mp3/views/subscribers/importExport/import.html:68
 msgid "September"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:112 mp3/views/newsletters.html:311
+#: mp3/lib/Form/Block/Date.php:118 mp3/views/newsletters.html:311
 #: mp3/views/subscribers/importExport/import.html:69
 msgid "October"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:112 mp3/views/newsletters.html:312
+#: mp3/lib/Form/Block/Date.php:118 mp3/views/newsletters.html:312
 #: mp3/views/subscribers/importExport/import.html:70
 msgid "November"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:112 mp3/views/newsletters.html:313
+#: mp3/lib/Form/Block/Date.php:118 mp3/views/newsletters.html:313
 #: mp3/views/subscribers/importExport/import.html:71
 msgid "December"
 msgstr ""
@@ -2415,7 +2427,7 @@ msgstr ""
 msgid "Sample page to preview your form"
 msgstr ""
 
-#: mp3/lib/Form/Renderer.php:82
+#: mp3/lib/Form/Renderer.php:79
 msgid "Please leave this field empty"
 msgstr ""
 
@@ -2494,7 +2506,7 @@ msgstr ""
 msgid "Sending frequency limit has been reached."
 msgstr ""
 
-#: mp3/lib/Mailer/Methods/AmazonSES.php:61
+#: mp3/lib/Mailer/Methods/AmazonSES.php:68
 msgid "Unsupported Amazon SES region"
 msgstr ""
 
@@ -2733,7 +2745,7 @@ msgid "Issue Number"
 msgstr ""
 
 #: mp3/lib/Newsletter/Shortcodes/ShortcodesHelper.php:60
-#: mp3/views/form/editor.html:137
+#: mp3/views/form/editor.html:138
 #: mp3/views/form/templatesLegacy/settings/field_form.hbs:41
 #: mp3/views/newsletters.html:429
 msgid "Date"
@@ -3319,36 +3331,36 @@ msgstr ""
 msgid "New Order: #{order_number}"
 msgstr ""
 
-#: mp3/mailpoet.php:54
+#: mp3/mailpoet.php:53
 msgid ""
 "MailPoet plugin requires WordPress version 4.6 or newer. Please read our "
 "[link]instructions[/link] on how to resolve this issue."
 msgstr ""
 
-#: mp3/mailpoet.php:62
+#: mp3/mailpoet.php:61
 msgid ""
 "MailPoet requires PHP version 7.1.8 or newer (7.4 recommended). You are "
 "running version [version]."
 msgstr ""
 
-#: mp3/mailpoet.php:65
+#: mp3/mailpoet.php:64
 msgid "Please read our [link]instructions[/link] on how to upgrade your site."
 msgstr ""
 
-#: mp3/mailpoet.php:73
+#: mp3/mailpoet.php:72
 msgid ""
 "If you can’t upgrade the PHP version, [link]install this version[/link] of "
 "MailPoet. Remember to not update MailPoet ever again!"
 msgstr ""
 
-#: mp3/mailpoet.php:93
+#: mp3/mailpoet.php:92
 msgid ""
 "MailPoet plugin cannot run under Microsoft's Internet Information Services "
 "(IIS) web server. We recommend that you use a web server powered by Apache "
 "or NGINX."
 msgstr ""
 
-#: mp3/mailpoet.php:107
+#: mp3/mailpoet.php:106
 msgid ""
 "MailPoet cannot start because it is missing core files. Please reinstall "
 "the plugin."
@@ -3833,363 +3845,363 @@ msgstr ""
 msgid "Disable these emails"
 msgstr ""
 
-#: mp3/views/form/editor.html:53
+#: mp3/views/form/editor.html:54
 msgid "Display the form"
 msgstr ""
 
-#: mp3/views/form/editor.html:54
+#: mp3/views/form/editor.html:55
 msgid "Enable"
 msgstr ""
 
-#: mp3/views/form/editor.html:56
+#: mp3/views/form/editor.html:57
 msgid "The changes you made may not be saved"
 msgstr ""
 
-#: mp3/views/form/editor.html:57 mp3/views/newsletters.html:427
+#: mp3/views/form/editor.html:58 mp3/views/newsletters.html:427
 #: mp3/views/segments.html:99 mp3/views/subscribers/subscribers.html:136
 msgid "Back"
 msgstr ""
 
-#: mp3/views/form/editor.html:58
+#: mp3/views/form/editor.html:59
 msgid "Form"
 msgstr ""
 
-#: mp3/views/form/editor.html:60
+#: mp3/views/form/editor.html:61
 #: mp3/views/newsletter/templates/blocks/social/settings.hbs:27
 #: mp3/views/newsletter/templates/components/sidebar/styles.hbs:2
 msgid "Styles"
 msgstr ""
 
-#: mp3/views/form/editor.html:61
+#: mp3/views/form/editor.html:62
 msgid "Background Color"
 msgstr ""
 
-#: mp3/views/form/editor.html:62
+#: mp3/views/form/editor.html:63
 msgid "Background Image"
 msgstr ""
 
-#: mp3/views/form/editor.html:63
+#: mp3/views/form/editor.html:64
 msgid "Select Image…"
 msgstr ""
 
-#: mp3/views/form/editor.html:64
+#: mp3/views/form/editor.html:65
 msgid "Font Size"
 msgstr ""
 
-#: mp3/views/form/editor.html:65
+#: mp3/views/form/editor.html:66
 msgid "Font Color"
 msgstr ""
 
-#: mp3/views/form/editor.html:66
+#: mp3/views/form/editor.html:67
 msgid "Inherit from theme"
 msgstr ""
 
-#: mp3/views/form/editor.html:67
+#: mp3/views/form/editor.html:68
 msgid "Inherit style from theme"
 msgstr ""
 
-#: mp3/views/form/editor.html:79
+#: mp3/views/form/editor.html:80
 msgid "Apply styles to all inputs"
 msgstr ""
 
-#: mp3/views/form/editor.html:86
+#: mp3/views/form/editor.html:87
 msgid "Form saved."
 msgstr ""
 
-#: mp3/views/form/editor.html:87
+#: mp3/views/form/editor.html:88
 msgid "Cookies reset — you will see all your dismissed popup forms again."
 msgstr ""
 
-#: mp3/views/form/editor.html:88
+#: mp3/views/form/editor.html:89
 msgid "Custom field saved."
 msgstr ""
 
-#: mp3/views/form/editor.html:90
+#: mp3/views/form/editor.html:91
 msgid ""
 "Display your form in a fixed horizontal bar at the top or bottom of posts "
 "or pages."
 msgstr ""
 
-#: mp3/views/form/editor.html:92
+#: mp3/views/form/editor.html:93
 msgid "Display your form in a slide–in form on top of your page content."
 msgstr ""
 
-#: mp3/views/form/editor.html:94
+#: mp3/views/form/editor.html:95
 msgid "Display your form in a pop-up window."
 msgstr ""
 
-#: mp3/views/form/editor.html:95
+#: mp3/views/form/editor.html:96
 msgid "Display on exit-intent"
 msgstr ""
 
-#: mp3/views/form/editor.html:96
+#: mp3/views/form/editor.html:97
 msgid "Show the form immediately if the visitor attempts to leave the site."
 msgstr ""
 
-#: mp3/views/form/editor.html:97
+#: mp3/views/form/editor.html:98
 msgid "Exit-intent display"
 msgstr ""
 
-#: mp3/views/form/editor.html:99
+#: mp3/views/form/editor.html:100
 msgid ""
 "This form placement allows you to add this form at the end of all the pages "
 "or posts, below the content."
 msgstr ""
 
-#: mp3/views/form/editor.html:112
+#: mp3/views/form/editor.html:113
 msgid "Show animation on display"
 msgstr ""
 
-#: mp3/views/form/editor.html:114
+#: mp3/views/form/editor.html:115
 msgid "You can add this form to a [link]widget area of your theme[/link] (new tab)."
 msgstr ""
 
-#: mp3/views/form/editor.html:115
+#: mp3/views/form/editor.html:116
 msgid ""
 "Or in any page or post as a block, or with this shortcode if you prefer "
 "[shortcode]."
 msgstr ""
 
-#: mp3/views/form/editor.html:116
+#: mp3/views/form/editor.html:117
 msgid "Use [link]PHP[/link] or [link]iFrame[/link]."
 msgstr ""
 
-#: mp3/views/form/editor.html:117
+#: mp3/views/form/editor.html:118
 msgid "This form adds the subscribers to these lists"
 msgstr ""
 
-#: mp3/views/form/editor.html:118
+#: mp3/views/form/editor.html:119
 msgid "After submit…"
 msgstr ""
 
-#: mp3/views/form/editor.html:119
+#: mp3/views/form/editor.html:120
 msgid "Show message"
 msgstr ""
 
-#: mp3/views/form/editor.html:120
+#: mp3/views/form/editor.html:121
 msgid "Go to Page"
 msgstr ""
 
-#: mp3/views/form/editor.html:122
+#: mp3/views/form/editor.html:123
 msgid "Fields"
 msgstr ""
 
-#: mp3/views/form/editor.html:123
+#: mp3/views/form/editor.html:124
 msgid "Custom Fields"
 msgstr ""
 
-#: mp3/views/form/editor.html:124
+#: mp3/views/form/editor.html:125
 msgid "Layout"
 msgstr ""
 
-#: mp3/views/form/editor.html:125
+#: mp3/views/form/editor.html:126
 msgid "Number of lines"
 msgstr ""
 
-#: mp3/views/form/editor.html:128
+#: mp3/views/form/editor.html:129
 msgid "This field will be deleted for all your subscribers. Are you sure?"
 msgstr ""
 
-#: mp3/views/form/editor.html:129
+#: mp3/views/form/editor.html:130
 #: mp3/views/form/templatesLegacy/settings/field_form.hbs:21
 msgid "Text Input"
 msgstr ""
 
-#: mp3/views/form/editor.html:130
+#: mp3/views/form/editor.html:131
 #: mp3/views/form/templatesLegacy/settings/field_form.hbs:25
 msgid "Text Area"
 msgstr ""
 
-#: mp3/views/form/editor.html:131
+#: mp3/views/form/editor.html:132
 #: mp3/views/form/templatesLegacy/settings/field_form.hbs:29
 msgid "Radio buttons"
 msgstr ""
 
-#: mp3/views/form/editor.html:132
+#: mp3/views/form/editor.html:133
 #: mp3/views/form/templatesLegacy/settings/field_form.hbs:33
 msgid "Checkbox"
 msgstr ""
 
-#: mp3/views/form/editor.html:135
+#: mp3/views/form/editor.html:136
 msgid "Display on posts with these categories"
 msgstr ""
 
-#: mp3/views/form/editor.html:136
+#: mp3/views/form/editor.html:137
 msgid "Display on posts with these tags"
 msgstr ""
 
-#: mp3/views/form/editor.html:138
+#: mp3/views/form/editor.html:139
 #: mp3/views/form/templatesLegacy/settings/date_types.hbs:2
 msgid "Type of date"
 msgstr ""
 
-#: mp3/views/form/editor.html:139
+#: mp3/views/form/editor.html:140
 #: mp3/views/form/templatesLegacy/settings/date_formats.hbs:9
 msgid "Order"
 msgstr ""
 
-#: mp3/views/form/editor.html:140
+#: mp3/views/form/editor.html:141
 msgid "Preselect today’s date"
 msgstr ""
 
-#: mp3/views/form/editor.html:149
+#: mp3/views/form/editor.html:150
 msgid "Validate for"
 msgstr ""
 
-#: mp3/views/form/editor.html:150
+#: mp3/views/form/editor.html:151
 #: mp3/views/form/templatesLegacy/settings/validate.hbs:6
 msgid "Nothing"
 msgstr ""
 
-#: mp3/views/form/editor.html:151
+#: mp3/views/form/editor.html:152
 #: mp3/views/form/templatesLegacy/settings/validate.hbs:11
 msgid "Numbers only"
 msgstr ""
 
-#: mp3/views/form/editor.html:152
+#: mp3/views/form/editor.html:153
 #: mp3/views/form/templatesLegacy/settings/validate.hbs:16
 msgid "Alphanumerical"
 msgstr ""
 
-#: mp3/views/form/editor.html:153
+#: mp3/views/form/editor.html:154
 #: mp3/views/form/templatesLegacy/settings/validate.hbs:21
 msgid "Phone number, (+,-,#,(,) and spaces allowed)"
 msgstr ""
 
-#: mp3/views/form/editor.html:154
+#: mp3/views/form/editor.html:155
 #: mp3/views/form/templatesLegacy/settings/values.hbs:4
 msgid "Add item"
 msgstr ""
 
-#: mp3/views/form/editor.html:155
+#: mp3/views/form/editor.html:156
 msgid "Mandatory field"
 msgstr ""
 
-#: mp3/views/form/editor.html:157
+#: mp3/views/form/editor.html:158
 msgid "Input field used to catch subscribers’ first names."
 msgstr ""
 
-#: mp3/views/form/editor.html:159
+#: mp3/views/form/editor.html:160
 msgid "Input field used to catch subscribers’ last names."
 msgstr ""
 
-#: mp3/views/form/editor.html:160
+#: mp3/views/form/editor.html:161
 msgid "List selection"
 msgstr ""
 
-#: mp3/views/form/editor.html:161
+#: mp3/views/form/editor.html:162
 msgid "Allow your subscribers to select which list(s) they want to subscribe to."
 msgstr ""
 
-#: mp3/views/form/editor.html:162
+#: mp3/views/form/editor.html:163
 msgid "Select list(s):"
 msgstr ""
 
-#: mp3/views/form/editor.html:163
+#: mp3/views/form/editor.html:164
 #: mp3/views/subscribers/importExport/import.html:52
 msgid "Please select at least one list"
 msgstr ""
 
-#: mp3/views/form/editor.html:164
+#: mp3/views/form/editor.html:165
 msgid "Select the segment that you want to add"
 msgstr ""
 
-#: mp3/views/form/editor.html:166
+#: mp3/views/form/editor.html:167
 msgid "Input field used to catch subscribers’ email addresses."
 msgstr ""
 
-#: mp3/views/form/editor.html:167
+#: mp3/views/form/editor.html:168
 msgid "Submit button"
 msgstr ""
 
-#: mp3/views/form/editor.html:168
+#: mp3/views/form/editor.html:169
 msgid "Button used to submit the form."
 msgstr ""
 
-#: mp3/views/form/editor.html:170
+#: mp3/views/form/editor.html:171
 msgid "Email input or submit is missing. Try reloading the form editor."
 msgstr ""
 
-#: mp3/views/form/editor.html:172
+#: mp3/views/form/editor.html:173
 msgid "Display label within input"
 msgstr ""
 
-#: mp3/views/form/editor.html:175
+#: mp3/views/form/editor.html:176
 msgid "Custom HTML"
 msgstr ""
 
-#: mp3/views/form/editor.html:176
+#: mp3/views/form/editor.html:177
 msgid "Display custom text or HTML code in your form."
 msgstr ""
 
-#: mp3/views/form/editor.html:177
+#: mp3/views/form/editor.html:178
 msgid ""
 "Subscribe to our newsletter and join [mailpoet_subscribers_count] other "
 "subscribers."
 msgstr ""
 
-#: mp3/views/form/editor.html:179
+#: mp3/views/form/editor.html:180
 #: mp3/views/form/templatesLegacy/settings/field.hbs:61
 msgid "Automatically add paragraphs"
 msgstr ""
 
-#: mp3/views/form/editor.html:180
+#: mp3/views/form/editor.html:181
 msgid "Create Custom Field"
 msgstr ""
 
-#: mp3/views/form/editor.html:181
+#: mp3/views/form/editor.html:182
 msgid "Create a new custom field for your subscribers."
 msgstr ""
 
-#: mp3/views/form/editor.html:182
+#: mp3/views/form/editor.html:183
 msgid "New Custom Field."
 msgstr ""
 
-#: mp3/views/form/editor.html:186
+#: mp3/views/form/editor.html:187
 msgid "The custom field [name] already exists. Please choose another name."
 msgstr ""
 
-#: mp3/views/form/editor.html:187
+#: mp3/views/form/editor.html:188
 msgid "This is what the success message looks like."
 msgstr ""
 
-#: mp3/views/form/editor.html:188
+#: mp3/views/form/editor.html:189
 msgid "This is what the error message looks like."
 msgstr ""
 
-#: mp3/views/form/editor.html:189
+#: mp3/views/form/editor.html:190
 msgid "Form Preview"
 msgstr ""
 
-#: mp3/views/form/editor.html:190
+#: mp3/views/form/editor.html:191
 msgid "Font Family"
 msgstr ""
 
-#: mp3/views/form/editor.html:191
+#: mp3/views/form/editor.html:192
 msgid "Theme’s default fonts"
 msgstr ""
 
-#: mp3/views/form/editor.html:210
+#: mp3/views/form/editor.html:211
 msgid ""
 "Psssst. We try our best to show you what the widget might look like, but "
 "better check the final result on your website."
 msgstr ""
 
-#: mp3/views/form/editor.html:211
+#: mp3/views/form/editor.html:212
 msgid ""
 "Psssst. Forms on mobile appear smaller automatically because it’s better "
 "for SEO."
 msgstr ""
 
-#: mp3/views/form/editor.html:212
+#: mp3/views/form/editor.html:213
 msgid "Close Button Style"
 msgstr ""
 
-#: mp3/views/form/editor.html:213
+#: mp3/views/form/editor.html:214
 msgid "A video tour of the form editor"
 msgstr ""
 
-#: mp3/views/form/front_end_form.html:69
+#: mp3/views/form/front_end_form.html:73
 msgid "An error occurred, make sure you have filled all the required fields."
 msgstr ""
 
@@ -7079,6 +7091,10 @@ msgstr ""
 msgid "List \"%$1s\" has been duplicated."
 msgstr ""
 
+#: mp3/views/segments.html:67
+msgid "Update"
+msgstr ""
+
 #: mp3/views/segments.html:68
 msgid "Force Sync"
 msgstr ""
@@ -8595,66 +8611,6 @@ msgstr ""
 msgid "Simply click on this link to stop receiving emails from us."
 msgstr ""
 
-#: mp3/views/update.html:6
-msgid "Thanks for updating MailPoet"
-msgstr ""
-
-#: mp3/views/update.html:9 mp3/views/update.html:69
-msgid "Thanks, now take me to where I was going."
-msgstr ""
-
-#: mp3/views/update.html:13
-msgid "List of Changes"
-msgstr ""
-
-#: mp3/views/update.html:24
-msgid "See readme.txt for a changelog."
-msgstr ""
-
-#: mp3/views/update.html:26
-msgid "View all changes"
-msgstr ""
-
-#: mp3/views/update.html:32 mp3/views/update.html:61
-msgid "Care to Give Your Opinion?"
-msgstr ""
-
-#: mp3/views/update.html:48
-msgid "Do you enjoy using MailPoet?"
-msgstr ""
-
-#: mp3/views/update.html:50
-msgid ""
-"If you have the time, we’d really appreciate it if you left us a review on "
-"the WordPress Plugin Directory."
-msgstr ""
-
-#: mp3/views/update.html:51
-msgid "Every star counts."
-msgstr ""
-
-#: mp3/views/update.html:54
-msgid "No thanks"
-msgstr ""
-
-#: mp3/views/update.html:55
-msgid "Next time"
-msgstr ""
-
-#: mp3/views/update.html:56
-msgid "Rate now"
-msgstr ""
-
-#: mp3/views/update.html:58
-msgid "Care to share criticism or a feature request instead?"
-msgstr ""
-
-#: mp3/views/update.html:59
-msgid ""
-"Click on the question mark (?) in the blue circle at the bottom right of "
-"this page to send us a message."
-msgstr ""
-
 #: mp3/views/welcome_wizard.html:33
 msgid "Welcome! Let’s get you started on the right foot."
 msgstr ""
@@ -8861,7 +8817,7 @@ msgctxt "Error code (inside parentheses)"
 msgid "code: %s"
 msgstr ""
 
-#: mp3/lib/AdminPages/Pages/Settings.php:99
+#: mp3/lib/AdminPages/Pages/Settings.php:98
 msgctxt "Notice in Settings when WooCommerce is not enabled"
 msgid ""
 "You need to have WooCommerce active to access the MailPoet email customizer "
@@ -8901,22 +8857,22 @@ msgctxt "Search input for product category (ecommerce)"
 msgid "Search category"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:123
+#: mp3/lib/Config/Menu.php:122
 msgctxt "newsletters per page (screen options)"
 msgid "Number of newsletters per page"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:161
+#: mp3/lib/Config/Menu.php:160
 msgctxt "forms per page (screen options)"
 msgid "Number of forms per page"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:227
+#: mp3/lib/Config/Menu.php:226
 msgctxt "subscribers per page (screen options)"
 msgid "Number of subscribers per page"
 msgstr ""
 
-#: mp3/lib/Config/Menu.php:278
+#: mp3/lib/Config/Menu.php:277
 msgctxt "segments per page (screen options)"
 msgid "Number of segments per page"
 msgstr ""
@@ -9648,7 +9604,7 @@ msgctxt "Text in a web form. First line of \"10% off, especially for you.\""
 msgid "10% off,"
 msgstr ""
 
-#: mp3/lib/Form/Widget.php:139 mp3/views/form/editor.html:214
+#: mp3/lib/Form/Widget.php:139 mp3/views/form/editor.html:215
 #: mp3/views/forms.html:80
 msgctxt "fallback for forms without a name in a form list"
 msgid "no name"
@@ -9727,102 +9683,102 @@ msgctxt "Default category slug"
 msgid "Uncategorized"
 msgstr ""
 
-#: mp3/views/form/editor.html:55
+#: mp3/views/form/editor.html:56
 msgctxt "A placeholder for form name input"
 msgid "Add form name"
 msgstr ""
 
-#: mp3/views/form/editor.html:59
+#: mp3/views/form/editor.html:60
 msgctxt "A settings section heading"
 msgid "Settings"
 msgstr ""
 
-#: mp3/views/form/editor.html:81
+#: mp3/views/form/editor.html:82
 msgctxt "A settings section heading"
 msgid "Custom field settings"
 msgstr ""
 
-#: mp3/views/form/editor.html:82
+#: mp3/views/form/editor.html:83
 msgctxt "A settings section heading"
 msgid "Form settings"
 msgstr ""
 
-#: mp3/views/form/editor.html:83
+#: mp3/views/form/editor.html:84
 msgctxt "A settings section heading"
 msgid "Form Placement"
 msgstr ""
 
-#: mp3/views/form/editor.html:85
+#: mp3/views/form/editor.html:86
 msgctxt "A settings section heading"
 msgid "Custom CSS"
 msgstr ""
 
-#: mp3/views/form/editor.html:68
+#: mp3/views/form/editor.html:69
 msgctxt "A label for checkbox in form style settings"
 msgid "Display Fullwidth"
 msgstr ""
 
-#: mp3/views/form/editor.html:69
+#: mp3/views/form/editor.html:70
 msgctxt "A label for checkbox in form style settings"
 msgid "Bold"
 msgstr ""
 
-#: mp3/views/form/editor.html:70
+#: mp3/views/form/editor.html:71
 msgctxt "A label for checkbox in form style settings"
 msgid "Border Size"
 msgstr ""
 
-#: mp3/views/form/editor.html:71
+#: mp3/views/form/editor.html:72
 msgctxt "A label for checkbox in form style settings"
 msgid "Border Radius"
 msgstr ""
 
-#: mp3/views/form/editor.html:78
+#: mp3/views/form/editor.html:79
 msgctxt "A label for checkbox in form style settings"
 msgid "Border Color"
 msgstr ""
 
-#: mp3/views/form/editor.html:72
+#: mp3/views/form/editor.html:73
 msgctxt "A label for form style settings"
 msgid "Input Padding"
 msgstr ""
 
-#: mp3/views/form/editor.html:73
+#: mp3/views/form/editor.html:74
 msgctxt "A label for form style settings"
 msgid "Form Padding"
 msgstr ""
 
-#: mp3/views/form/editor.html:74
+#: mp3/views/form/editor.html:75
 msgctxt "A label for form style settings"
 msgid "Alignment"
 msgstr ""
 
-#: mp3/views/form/editor.html:75
+#: mp3/views/form/editor.html:76
 msgctxt "An alignment value for form editor"
 msgid "left"
 msgstr ""
 
-#: mp3/views/form/editor.html:76
+#: mp3/views/form/editor.html:77
 msgctxt "An alignment value for form editor"
 msgid "center"
 msgstr ""
 
-#: mp3/views/form/editor.html:77
+#: mp3/views/form/editor.html:78
 msgctxt "An alignment value for form editor"
 msgid "right"
 msgstr ""
 
-#: mp3/views/form/editor.html:80
+#: mp3/views/form/editor.html:81
 msgctxt "A label for form width settings"
 msgid "Form width"
 msgstr ""
 
-#: mp3/views/form/editor.html:84
+#: mp3/views/form/editor.html:85
 msgctxt "A label for a select box"
 msgid "Form placement"
 msgstr ""
 
-#: mp3/views/form/editor.html:89 mp3/views/form/template_selection.html:36
+#: mp3/views/form/editor.html:90 mp3/views/form/template_selection.html:36
 #: mp3/views/forms.html:99
 msgctxt ""
 "This is a text on a widget that leads to settings for form placement - form "
@@ -9830,7 +9786,7 @@ msgctxt ""
 msgid "Fixed bar"
 msgstr ""
 
-#: mp3/views/form/editor.html:91 mp3/views/form/template_selection.html:37
+#: mp3/views/form/editor.html:92 mp3/views/form/template_selection.html:37
 #: mp3/views/forms.html:100
 msgctxt ""
 "This is a text on a widget that leads to settings for form placement - form "
@@ -9838,7 +9794,7 @@ msgctxt ""
 msgid "Slide–in"
 msgstr ""
 
-#: mp3/views/form/editor.html:93 mp3/views/form/template_selection.html:38
+#: mp3/views/form/editor.html:94 mp3/views/form/template_selection.html:38
 #: mp3/views/forms.html:101
 msgctxt ""
 "This is a text on a widget that leads to settings for form placement - form "
@@ -9846,251 +9802,251 @@ msgctxt ""
 msgid "Pop-up"
 msgstr ""
 
-#: mp3/views/form/editor.html:98 mp3/views/form/template_selection.html:39
+#: mp3/views/form/editor.html:99 mp3/views/form/template_selection.html:39
 #: mp3/views/forms.html:98
 msgctxt "This is a text on a widget that leads to settings for form placement"
 msgid "Below pages"
 msgstr ""
 
-#: mp3/views/form/editor.html:100
+#: mp3/views/form/editor.html:101
 msgctxt "This is a text on a switch if a form should be displayed bellow all pages"
 msgid "Display on all pages"
 msgstr ""
 
-#: mp3/views/form/editor.html:101
+#: mp3/views/form/editor.html:102
 msgctxt "This is a text on a switch if a form should be displayed bellow all posts"
 msgid "Display on all posts/products"
 msgstr ""
 
-#: mp3/views/form/editor.html:102 mp3/views/form/template_selection.html:40
+#: mp3/views/form/editor.html:103 mp3/views/form/template_selection.html:40
 #: mp3/views/forms.html:102
 msgctxt "Placement of the form using theme widget"
 msgid "Others (widget)"
 msgstr ""
 
-#: mp3/views/form/editor.html:103
+#: mp3/views/form/editor.html:104
 msgctxt "Label on a selection of different times"
 msgid "Display with a delay of"
 msgstr ""
 
-#: mp3/views/form/editor.html:104
+#: mp3/views/form/editor.html:105
 msgctxt "Placement of a fixed bar form, on top of the page or on the bottom"
 msgid "Position"
 msgstr ""
 
-#: mp3/views/form/editor.html:105
+#: mp3/views/form/editor.html:106
 msgctxt "Placement of a fixed bar form, on top of the page or on the bottom"
 msgid "top"
 msgstr ""
 
-#: mp3/views/form/editor.html:106
+#: mp3/views/form/editor.html:107
 msgctxt "Placement of a fixed bar form, on top of the page or on the bottom"
 msgid "bottom"
 msgstr ""
 
-#: mp3/views/form/editor.html:107
+#: mp3/views/form/editor.html:108
 msgctxt "Placement of a slide in form, on the left or right side of the page"
 msgid "left"
 msgstr ""
 
-#: mp3/views/form/editor.html:108
+#: mp3/views/form/editor.html:109
 msgctxt "Placement of a slide in  form, on the left or right side of the page"
 msgid "right"
 msgstr ""
 
-#: mp3/views/form/editor.html:109
+#: mp3/views/form/editor.html:110
 msgctxt "times selection should be in the end \"30 sec\""
 msgid "%1s sec"
 msgstr ""
 
-#: mp3/views/form/editor.html:110
+#: mp3/views/form/editor.html:111
 msgctxt "Text on a button to save and close a form"
 msgid "Close"
 msgstr ""
 
-#: mp3/views/form/editor.html:111
+#: mp3/views/form/editor.html:112
 msgctxt "Label in the form placement section (Other form placements)"
 msgid "Shortcode & other"
 msgstr ""
 
-#: mp3/views/form/editor.html:113
+#: mp3/views/form/editor.html:114
 msgctxt "Value in a selectbox with a list of animations"
 msgid "No Animation"
 msgstr ""
 
-#: mp3/views/form/editor.html:126
+#: mp3/views/form/editor.html:127
 msgctxt "Text on the save button"
 msgid "Update custom field"
 msgstr ""
 
-#: mp3/views/form/editor.html:127
+#: mp3/views/form/editor.html:128
 msgctxt "Text on the delete button"
 msgid "Delete this custom field"
 msgstr ""
 
-#: mp3/views/form/editor.html:133
+#: mp3/views/form/editor.html:134
 #: mp3/views/form/templatesLegacy/settings/field_form.hbs:37
 msgctxt "Form input type"
 msgid "Select"
 msgstr ""
 
-#: mp3/views/form/editor.html:134
+#: mp3/views/form/editor.html:135
 msgctxt "It is a placeholder in the select box - verb"
 msgid "Select"
 msgstr ""
 
-#: mp3/views/form/editor.html:144
+#: mp3/views/form/editor.html:145
 msgctxt "Number of rows in textarea"
 msgid "1 line"
 msgstr ""
 
-#: mp3/views/form/editor.html:145
+#: mp3/views/form/editor.html:146
 msgctxt "Number of rows in textarea"
 msgid "2 lines"
 msgstr ""
 
-#: mp3/views/form/editor.html:146
+#: mp3/views/form/editor.html:147
 msgctxt "Number of rows in textarea"
 msgid "3 lines"
 msgstr ""
 
-#: mp3/views/form/editor.html:147
+#: mp3/views/form/editor.html:148
 msgctxt "Number of rows in textarea"
 msgid "4 lines"
 msgstr ""
 
-#: mp3/views/form/editor.html:148
+#: mp3/views/form/editor.html:149
 msgctxt "Number of rows in textarea"
 msgid "5 lines"
 msgstr ""
 
-#: mp3/views/form/editor.html:169
+#: mp3/views/form/editor.html:170
 msgctxt "a default value for a subscription form button"
 msgid "Subscribe!"
 msgstr ""
 
-#: mp3/views/form/editor.html:171
+#: mp3/views/form/editor.html:172
 msgctxt "settings for a label of an input"
 msgid "Label"
 msgstr ""
 
-#: mp3/views/form/editor.html:173
+#: mp3/views/form/editor.html:174
 msgctxt "Settings - if label should be displayed"
 msgid "Display label"
 msgstr ""
 
-#: mp3/views/form/editor.html:174
+#: mp3/views/form/editor.html:175
 msgctxt "The name of the block in the editor"
 msgid "Divider / Spacer"
 msgstr ""
 
-#: mp3/views/form/editor.html:178
+#: mp3/views/form/editor.html:179
 msgctxt "Textarea label"
 msgid "Custom text"
 msgstr ""
 
-#: mp3/views/form/editor.html:183
+#: mp3/views/form/editor.html:184
 msgctxt "Label on form submit button."
 msgid "Create"
 msgstr ""
 
-#: mp3/views/form/editor.html:184
+#: mp3/views/form/editor.html:185
 msgctxt "Label for form field for custom input name"
 msgid "Field name"
 msgstr ""
 
-#: mp3/views/form/editor.html:185
+#: mp3/views/form/editor.html:186
 msgctxt "Label for form field for custom input type"
 msgid "Select a field type"
 msgstr ""
 
-#: mp3/views/form/editor.html:192
+#: mp3/views/form/editor.html:193
 msgctxt "Heading in the font selection list: Arial, Times, ..."
 msgid "Standard fonts"
 msgstr ""
 
-#: mp3/views/form/editor.html:193
+#: mp3/views/form/editor.html:194
 msgctxt "Heading in the font selection list for a list of custom fonts"
 msgid "Custom fonts"
 msgstr ""
 
-#: mp3/views/form/editor.html:194
+#: mp3/views/form/editor.html:195
 msgctxt "Settings in the spacer block"
 msgid "Height"
 msgstr ""
 
-#: mp3/views/form/editor.html:195
+#: mp3/views/form/editor.html:196
 msgctxt "Settings in the spacer block"
 msgid "Enable Divider"
 msgstr ""
 
-#: mp3/views/form/editor.html:196
+#: mp3/views/form/editor.html:197
 msgctxt "How a background image will be rendered: scale, fit or tile"
 msgid "Scale"
 msgstr ""
 
-#: mp3/views/form/editor.html:197
+#: mp3/views/form/editor.html:198
 msgctxt "How a background image will be rendered: scale, fit or tile"
 msgid "Fit"
 msgstr ""
 
-#: mp3/views/form/editor.html:198
+#: mp3/views/form/editor.html:199
 msgctxt "How a background image will be rendered: scale, fit or tile"
 msgid "Tile"
 msgstr ""
 
-#: mp3/views/form/editor.html:199
+#: mp3/views/form/editor.html:200
 msgctxt "Settings in the divider block (solid, dotted, …)"
 msgid "Divider Style"
 msgstr ""
 
-#: mp3/views/form/editor.html:200
+#: mp3/views/form/editor.html:201
 msgctxt "Setting in the divider block"
 msgid "Solid"
 msgstr ""
 
-#: mp3/views/form/editor.html:201
+#: mp3/views/form/editor.html:202
 msgctxt "Setting in the divider block"
 msgid "Dashed"
 msgstr ""
 
-#: mp3/views/form/editor.html:202
+#: mp3/views/form/editor.html:203
 msgctxt "Setting in the divider block"
 msgid "Dotted"
 msgstr ""
 
-#: mp3/views/form/editor.html:203
+#: mp3/views/form/editor.html:204
 msgctxt "Settings in the divider block"
 msgid "Divider Height"
 msgstr ""
 
-#: mp3/views/form/editor.html:204
+#: mp3/views/form/editor.html:205
 msgctxt "Settings in the divider block"
 msgid "Divider Width"
 msgstr ""
 
-#: mp3/views/form/editor.html:205
+#: mp3/views/form/editor.html:206
 msgctxt "Settings in the divider block"
 msgid "Color"
 msgstr ""
 
-#: mp3/views/form/editor.html:206
+#: mp3/views/form/editor.html:207
 msgctxt "heading above the settings"
 msgid "Success Message Color"
 msgstr ""
 
-#: mp3/views/form/editor.html:207
+#: mp3/views/form/editor.html:208
 msgctxt "heading above the settings"
 msgid "Error Message Color"
 msgstr ""
 
-#: mp3/views/form/editor.html:208
+#: mp3/views/form/editor.html:209
 #: mp3/views/newsletter/templates/components/newsletterPreview.hbs:6
 msgctxt "Desktop browser preview mode"
 msgid "Desktop"
 msgstr ""
 
-#: mp3/views/form/editor.html:209
+#: mp3/views/form/editor.html:210
 #: mp3/views/newsletter/templates/components/newsletterPreview.hbs:9
 msgctxt "Mobile browser preview mode"
 msgid "Mobile"
@@ -11207,7 +11163,7 @@ msgctxt ""
 "/wp-admin/admin.php?page=mailpoet-premium"
 msgid ""
 "“I’ve been a customer for a few years I have received the best support "
-"every single time. Thank you guys, you are great.” – disneyfamilytees"
+"every single time. Thank you guys, you are great.”"
 msgstr ""
 
 #: mp3/views/premium.html:313
@@ -11218,7 +11174,7 @@ msgid ""
 "“I had a little problem and Jack wrote me back to help very soon. His way "
 "to interact is very kind and professional… Very good customer support in "
 "case you have a problem. The plugin works very well and it has a lot of "
-"fantastic new features. I’m satisfied!” – anselmo"
+"fantastic new features. I’m satisfied!”"
 msgstr ""
 
 #: mp3/views/premium.html:317
@@ -11227,7 +11183,7 @@ msgctxt ""
 "/wp-admin/admin.php?page=mailpoet-premium"
 msgid ""
 "“Hard to fault MailPoet plugin and the support team behind it. Very happy "
-"with the speed and quality of help and the regular upgrades.” – tpoulos"
+"with the speed and quality of help and the regular upgrades.”"
 msgstr ""
 
 #: mp3/views/premium.html:326

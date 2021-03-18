@@ -72,7 +72,7 @@ class RevSliderWooCommerce extends RevSliderFunctions {
 	 * before: RevSliderWooCommerce::getMetaQuery();
 	 */
 	public static function get_meta_query($args){
-		$f = new RevSliderFunctions();
+		$f = RevSliderGlobals::instance()->get('RevSliderFunctions');
 		$reg_price_from		= $f->get_val($args, array('source', 'woo', 'regPriceFrom'));
 		$reg_price_to		= $f->get_val($args, array('source', 'woo', 'regPriceTo'));
 		$sale_price_from	= $f->get_val($args, array('source', 'woo', 'salePriceFrom'));
@@ -138,5 +138,3 @@ class RevSliderWooCommerce extends RevSliderFunctions {
 	}
 	
 }	//end of the class
-	
-?>

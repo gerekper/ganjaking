@@ -111,7 +111,7 @@ class RevSliderUpdate {
 
 
 	public function _retrieve_update_info(){
-		$rslb = new RevSliderLoadBalancer();
+		$rslb = RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
 		$data = new stdClass;
 
 		// Build request
@@ -142,7 +142,7 @@ class RevSliderUpdate {
 	
 	
 	public function _retrieve_version_info(){
-		$rslb		= new RevSliderLoadBalancer();
+		$rslb		= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
 		$last_check	= get_option('revslider-update-check-short');
 		
 		// Check for updates
@@ -214,4 +214,3 @@ class RevSliderUpdate {
  * @since: 5.0
  **/
 class UniteUpdateClassRev extends RevSliderUpdate {}
-?>

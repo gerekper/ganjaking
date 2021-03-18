@@ -2,7 +2,7 @@
 /* 
  * @author    ThemePunch <info@themepunch.com>
  * @link      http://www.themepunch.com/
- * @copyright 2018 ThemePunch
+ * @copyright 2021 ThemePunch
 */
 
 if(!defined('ABSPATH')) exit();
@@ -167,6 +167,7 @@ class RsAddOnLiquideffectBase {
 				'mouse' => __('Mouse Event', $_textdomain),
 				'easing' => __('Easing', $_textdomain),
 				'duration' => __('Duration', $_textdomain),
+        'imagescale' => __('Image Scale', $_textdomain),
 				'mobile' => __('Disable Mobile', $_textdomain),
 				'note' => __('Slide Main Background Image not set', $_textdomain),
 				'bmlibrary' => __('Distortion Effect Library', $_textdomain),

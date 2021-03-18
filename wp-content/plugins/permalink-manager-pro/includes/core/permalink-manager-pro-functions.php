@@ -354,10 +354,16 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 								$rel_post = $rel_elements;
 							}
 
-							$rel_post_id = (!empty($rel_post->ID)) ? $rel_post->ID : $rel_elements;
+							if(!empty($rel_post->ID)) {
+								$rel_post_object = $rel_post;
+							} else if(is_numeric($rel_elements)) {
+								$rel_post_object = get_post($rel_elements);
+							}
 
 							// Get the replacement slug
-							$custom_field_value = (is_numeric($rel_post_id)) ? get_page_uri($rel_post_id) : "";
+							if(!empty($rel_post_object->ID)) {
+								$custom_field_value = Permalink_Manager_Helper_Functions::force_custom_slugs($rel_post_object->post_name, $rel_post_object);
+							}
 						}
 					}
 					// C. Text field
@@ -485,7 +491,7 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 	 */
 	public static function woocommerce_coupon_uris($post_types) {
 		$post_types = array_diff($post_types, array('shop_coupon'));
-		
+
 		return $post_types;
 	}
 

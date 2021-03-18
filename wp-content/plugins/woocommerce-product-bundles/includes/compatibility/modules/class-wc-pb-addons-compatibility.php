@@ -440,7 +440,7 @@ class WC_PB_Addons_Compatibility {
 			}
 
 			// Only let add-ons adjust prices if PB doesn't modify bundled item prices in any way.
-			if ( $bundled_item->is_priced_individually() && ! $bundled_item->get_discount( 'cart' ) ) {
+			if ( $bundled_item && $bundled_item->is_priced_individually() && ! $bundled_item->get_discount( 'cart' ) ) {
 				$adjust = true;
 			}
 		}

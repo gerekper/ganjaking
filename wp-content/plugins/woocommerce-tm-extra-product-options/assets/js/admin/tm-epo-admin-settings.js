@@ -204,6 +204,78 @@
 		item.addClass( 'active' );
 	}
 
+	function doConfirm( title, func, funcThis, funcArgs ) {
+		var $_html = $.epoAPI.template.html( window.wp.template( 'tc-floatbox' ), {
+			id: 'temp_for_floatbox_insert',
+			title: title,
+			html: '',
+			uniqid: '',
+			update: TMEPOADMINSETTINGSJS.i18n_yes,
+			cancel: TMEPOADMINSETTINGSJS.i18n_no
+		} );
+		var clicked = false;
+
+		$.tcFloatBox( {
+			closefadeouttime: 0,
+			overlayopacity: 0.6,
+			animateOut: '',
+			fps: 1,
+			ismodal: true,
+			refresh: 'fixed',
+			width: '50%',
+			height: 'auto',
+			classname: 'flasho tm_wrapper tc-question',
+			data: $_html,
+			cancelEvent: function( inst ) {
+				if ( clicked ) {
+					return;
+				}
+				clicked = true;
+
+				inst.destroy();
+			},
+			cancelClass: '.floatbox-cancel',
+			updateEvent: function( inst ) {
+				if ( clicked ) {
+					return;
+				}
+				clicked = true;
+
+				func.apply( funcThis, funcArgs );
+
+				inst.destroy();
+			},
+			updateClass: '.floatbox-update',
+			isconfirm: true
+		} );
+	}
+
+	function doPost( form, data, refresh ) {
+		form.block( {
+			message: null
+		} );
+
+		$.post(
+			TMEPOADMINSETTINGSJS.ajax_url,
+			data,
+			function( response ) {
+				if ( response ) {
+					if ( response.error === 1 ) {
+						toastr.error( response.message, TMEPOADMINSETTINGSJS.i18n_epo );
+					} else {
+						toastr.success( response.message, TMEPOADMINSETTINGSJS.i18n_epo );
+						if ( refresh ) {
+							window.location.reload();
+						}
+					}
+				}
+			},
+			'json'
+		).always( function() {
+			form.unblock();
+		} );
+	}
+
 	$( document ).ready( function() {
 		var tm_settings_wrap = $( '.tm-settings-wrap' );
 		var tm_settings_wrap_checkbox;
@@ -263,8 +335,8 @@
 					prevnext = $this.prev( '.tm-section-menu-item' );
 				}
 				if ( prevnext && prevnext.length ) {
-					$this.blur();
-					prevnext.focus().trigger( 'click' );
+					$this.trigger( 'blur' );
+					prevnext.trigger(' focus' ).trigger( 'click' );
 					e.preventDefault();
 				}
 			} );
@@ -327,26 +399,20 @@
 
 				e.preventDefault();
 
-				form.block( {
-					message: null
+				doPost( form, data );
+			} );
+
+			$( document ).on( 'click', '.tc-reset-button', function( e ) {
+				var form = $( this ).closest( 'form' );
+				var data = $.extend( true, {}, {
+					action: 'tm_reset_settings',
+					save: 'save',
+					security: TMEPOADMINSETTINGSJS.settings_nonce
 				} );
 
-				$.post(
-					TMEPOADMINSETTINGSJS.ajax_url,
-					data,
-					function( response ) {
-						if ( response ) {
-							if ( response.error === 1 ) {
-								toastr.error( response.message, TMEPOADMINSETTINGSJS.i18n_epo );
-							} else {
-								toastr.success( response.message, TMEPOADMINSETTINGSJS.i18n_epo );
-							}
-						}
-					},
-					'json'
-				).always( function() {
-					form.unblock();
-				} );
+				e.preventDefault();
+
+				doConfirm( TMEPOADMINSETTINGSJS.i18n_reset_settings, doPost, this, [ form, data, true ] );
 			} );
 
 			$( '.tm-settings-wrap .tm-tabs' ).tmtabs();

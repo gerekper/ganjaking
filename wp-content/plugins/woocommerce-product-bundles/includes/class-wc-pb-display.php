@@ -230,10 +230,10 @@ class WC_PB_Display {
 			'i18n_zero_qty_error'            => __( 'Please choose at least 1 item.', 'woocommerce-product-bundles' ),
 			'i18n_recurring_price_join'      => sprintf( _x( '%1$s,</br>%2$s', 'subscription price html', 'woocommerce-product-bundles' ), '%r', '%c' ),
 			'i18n_recurring_price_join_last' => sprintf( _x( '%1$s, and</br>%2$s', 'subscription price html', 'woocommerce-product-bundles' ), '%r', '%c' ),
-			'responsive_breakpoint'          => 380,
+			'discounted_price_decimals'      => WC_PB_Product_Prices::get_discounted_price_precision(),
 			'currency_symbol'                => get_woocommerce_currency_symbol(),
 			'currency_position'              => esc_attr( stripslashes( get_option( 'woocommerce_currency_pos' ) ) ),
-			'currency_format_num_decimals'   => wc_get_price_decimals(),
+			'currency_format_num_decimals'   => wc_pb_price_num_decimals(),
 			'currency_format_decimal_sep'    => esc_attr( stripslashes( get_option( 'woocommerce_price_decimal_sep' ) ) ),
 			'currency_format_thousand_sep'   => esc_attr( stripslashes( get_option( 'woocommerce_price_thousand_sep' ) ) ),
 			'currency_format_trim_zeros'     => false === apply_filters( 'woocommerce_price_trim_zeros', false ) ? 'no' : 'yes',
@@ -242,6 +242,7 @@ class WC_PB_Display {
 			'tax_display_shop'               => esc_attr( get_option( 'woocommerce_tax_display_shop' ) ),
 			'calc_taxes'                     => esc_attr( get_option( 'woocommerce_calc_taxes' ) ),
 			'photoswipe_enabled'             => current_theme_supports( 'wc-product-gallery-lightbox' ) ? 'yes' : 'no',
+			'responsive_breakpoint'          => 380,
 			'zoom_enabled'                   => 'no',
 			'force_min_max_qty_input'        => 'yes'
 		) );
@@ -616,7 +617,7 @@ class WC_PB_Display {
 
 					$bundled_item_qty     = $bundled_cart_item[ 'data' ]->is_sold_individually() ? 1 : $bundled_cart_item[ 'quantity' ] / $cart_item[ 'quantity' ];
 					$bundled_item_price   = WC_PB_Product_Prices::get_product_price( $bundled_cart_item[ 'data' ], array( 'price' => $bundled_item_raw_price, 'calc' => $calc_type, 'qty' => $bundled_item_qty ) );
-					$bundled_items_price += wc_format_decimal( (double) $bundled_item_price, wc_get_price_decimals() );
+					$bundled_items_price += wc_format_decimal( (double) $bundled_item_price, wc_pb_price_num_decimals() );
 				}
 
 				$price = wc_price( (double) $bundle_price + $bundled_items_price );
@@ -743,7 +744,7 @@ class WC_PB_Display {
 					}
 
 					$bundled_item_price    = WC_PB_Product_Prices::get_product_price( $bundled_cart_item[ 'data' ], array( 'price' => $bundled_item_raw_price, 'calc' => $calc_type, 'qty' => $bundled_cart_item[ 'quantity' ] ) );
-					$bundled_items_price  += wc_format_decimal( (double) $bundled_item_price, wc_get_price_decimals() );
+					$bundled_items_price  += wc_format_decimal( (double) $bundled_item_price, wc_pb_price_num_decimals() );
 				}
 
 				$subtotal = $this->format_subtotal( $cart_item[ 'data' ], (double) $bundle_price + $bundled_items_price );
@@ -1466,8 +1467,8 @@ class WC_PB_Display {
 						$cloned_item = clone $item;
 
 						foreach ( $children as $child ) {
-							$cloned_item->set_subtotal( $cloned_item->get_subtotal( 'edit' ) + round( $child->get_subtotal( 'edit' ), wc_get_price_decimals() ) );
-							$cloned_item->set_subtotal_tax( $cloned_item->get_subtotal_tax( 'edit' ) + round( $child->get_subtotal_tax( 'edit' ), wc_get_price_decimals() ) );
+							$cloned_item->set_subtotal( $cloned_item->get_subtotal( 'edit' ) + round( $child->get_subtotal( 'edit' ), wc_pb_price_num_decimals() ) );
+							$cloned_item->set_subtotal_tax( $cloned_item->get_subtotal_tax( 'edit' ) + round( $child->get_subtotal_tax( 'edit' ), wc_pb_price_num_decimals() ) );
 						}
 
 						$cloned_item->child_subtotals_added = 'yes';

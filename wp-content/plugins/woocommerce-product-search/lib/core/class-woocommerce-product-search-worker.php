@@ -286,6 +286,9 @@ class WooCommerce_Product_Search_Worker {
 					)
 				);
 			}
+		} else {
+
+			$error = $response;
 		}
 		return $error;
 	}

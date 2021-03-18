@@ -221,7 +221,7 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 				$imagep  = wp_make_link_relative($imagep);
 				$imagel  = wp_make_link_relative($imagel);
 			}
-		}		
+		}
 
 		if ( empty( $image ) ) {
 			$image = '';
@@ -323,7 +323,7 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 				$swatch[]     = array( 'data-tm-tooltip-swatch-img-lbl-desc' => 'on' );
 			}
 
-			if ( ! empty( $use_images ) ) {
+			if ( empty( $use_colors ) && ! empty( $image ) ) {
 
 				if ( $tm_epo_no_lazy_load == 'no' ) {
 					if ( $checked && ! empty( $imagec ) ) {

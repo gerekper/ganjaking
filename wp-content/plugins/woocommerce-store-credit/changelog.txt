@@ -1,5 +1,10 @@
 *** Store Credit Changelog ***
 
+2021-03-08 - version 3.5.2
+* Tweak - Added compatibility with WP 5.7.
+* Fix - Fixed wrong amount displayed in the discount row of the Order details when displaying prices with tax included.
+* Fix - Fixed deprecated ArrayAccess warning when fetching a property of a WC_Order_Item_Coupon object.
+
 2021-03-02 - version 3.5.1
 * Fix - Fixed wrong Order total when applying a discount to the shipping costs and the coupon is not applicable to all cart items.
 

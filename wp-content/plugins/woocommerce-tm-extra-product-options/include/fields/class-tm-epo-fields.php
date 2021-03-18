@@ -89,6 +89,7 @@ class THEMECOMPLETE_EPO_FIELDS {
 			$copy_element['price_rules']          = $price_rule;
 			$currency_price                       = THEMECOMPLETE_EPO()->calculate_price( $this->post_data, $copy_element, $this->key, $this->attribute, $this->per_product_pricing, $this->cpf_product_price, $this->variation_id, '', $currency, $current_currency, $price_per_currencies );
 			$price_per_currency[ $currency ]      = $currency_price;
+
 		}
 
 		return $price_per_currency;
@@ -122,8 +123,8 @@ class THEMECOMPLETE_EPO_FIELDS {
 		$this->element             = $element;
 		$this->loop                = $loop;
 		$this->form_prefix         = $form_prefix;
-		$this->tmcp_attributes     = THEMECOMPLETE_EPO()->get_post_names( $element['options'], $element['type'], $loop, $form_prefix );
-		$this->tmcp_attributes_fee = THEMECOMPLETE_EPO()->get_post_names( $element['options'], $element['type'], $loop, $form_prefix, THEMECOMPLETE_EPO()->cart_fee_name );
+		$this->tmcp_attributes     = THEMECOMPLETE_EPO()->get_post_names( $element['options'], $element['type'], $loop, $form_prefix, "", $element );
+		$this->tmcp_attributes_fee = THEMECOMPLETE_EPO()->get_post_names( $element['options'], $element['type'], $loop, $form_prefix, THEMECOMPLETE_EPO()->cart_fee_name, $element );
 
 		$is_fee = FALSE;
 		if ( isset( $this->element['is_cart_fee'] ) ) {
@@ -273,7 +274,7 @@ class THEMECOMPLETE_EPO_FIELDS {
 		// select placeholder check 
 		if ( isset( $this->element['options'][ esc_attr( $this->key ) ] ) ) {
 			$_price = THEMECOMPLETE_EPO()->calculate_price( $this->post_data, $this->element, $this->key, $this->attribute, $this->per_product_pricing, $this->cpf_product_price, $this->variation_id );
-			
+
 			$use_images = ! empty( $this->element['use_images'] ) ? $this->element['use_images'] : "";
 			if ( $use_images ) {
 				$_image_key = array_search( $this->key, $this->element['option_values'] );

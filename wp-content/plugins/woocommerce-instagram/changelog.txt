@@ -1,5 +1,10 @@
 *** WooCommerce Instagram Changelog ***
 
+2021-03-08 - version 3.4.4
+* Tweak - Open hashtag images in a new tab.
+* Tweak - Tested compatibility with WP 5.7.
+* Fix - Catalog forms were accessible although there wasn't any Facebook account connected.
+
 2021-02-22 - version 3.4.3
 * Tweak - Tested compatibility up to WC 5.1.
 * Fix - Catalog feeds were accessible although there wasn't any Facebook account connected.

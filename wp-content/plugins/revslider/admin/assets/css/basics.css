@@ -1192,8 +1192,8 @@ GUTENBERG BLOCK EXTENSION
 .rs_wp_plg_act_button,
 .rs_optimizer_button.components-button.is-default,
 .rs_optimizer_button.components-button.is-secondary,
-.compose-mode .vc_btn-content i.revslider_vc_material-icons,
-.revslider_vc_material-icons.material-icons {
+body:not(.wpb-js-composer) span:not(.vc_btn-content) i.revslider_vc_material-icons,
+span:not(.vc_btn-content) .revslider_vc_material-icons.material-icons {
     margin-right: 0px;
     margin-bottom: 0px;    
     font-family: 'Material Icons';
@@ -1229,13 +1229,20 @@ GUTENBERG BLOCK EXTENSION
 .rs_wp_plg_act_button:hover,
 .rs_optimizer_button.components-button.is-default:hover,
 .rs_optimizer_button.components-button.is-secondary:hover,
-.compose-mode .vc_btn-content i.revslider_vc_material-icons:hover,
-.revslider_vc_material-icons.material-icons:hover {
+body:not(.wpb-js-composer) span:not(.vc_btn-content) i.revslider_vc_material-icons:hover,
+span:not(.vc_btn-content) .revslider_vc_material-icons.material-icons:hover {
 	border-color: #5e35b1;
     background: #5e35b1;
     color: #fff;
     box-shadow: none;    
     border-radius: 2px;    
+}
+
+/* 6.4.4 */
+#visual_composer_content .revslider_vc_material-icons.material-icons,
+.wpb-js-composer .revslider_vc_material-icons.material-icons {
+  font-size: 18px;
+  color: #fff;
 }
 
 .rs_optimizer_button_wrapper:hover {

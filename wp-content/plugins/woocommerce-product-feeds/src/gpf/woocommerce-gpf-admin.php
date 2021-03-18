@@ -28,6 +28,11 @@ class WoocommerceGpfAdmin {
 	protected $feed_image_manager;
 
 	/**
+	 * @var WoocommerceProductFeedsWcSetupTasks
+	 */
+	protected $wc_setup_tasks;
+
+	/**
 	 * @var array
 	 */
 	private $settings = array();
@@ -56,19 +61,22 @@ class WoocommerceGpfAdmin {
 	 * @param WoocommerceGpfCache $woocommerce_gpf_cache
 	 * @param WoocommerceGpfCacheStatus $woocommerce_gpf_cache_status
 	 * @param WoocommerceProductFeedsFeedImageManager $woocommerce_product_feeds_feed_image_manager
+	 * @param WoocommerceProductFeedsWcSetupTasks $wc_setup_tasks
 	 */
 	public function __construct(
 		WoocommerceGpfCommon $woocommerce_gpf_common,
 		WoocommerceGpfTemplateLoader $woocommerce_gpf_template_loader,
 		WoocommerceGpfCache $woocommerce_gpf_cache,
 		WoocommerceGpfCacheStatus $woocommerce_gpf_cache_status,
-		WoocommerceProductFeedsFeedImageManager $woocommerce_product_feeds_feed_image_manager
+		WoocommerceProductFeedsFeedImageManager $woocommerce_product_feeds_feed_image_manager,
+		WoocommerceProductFeedsWcSetupTasks $wc_setup_tasks
 	) {
 		$this->common             = $woocommerce_gpf_common;
 		$this->template_loader    = $woocommerce_gpf_template_loader;
 		$this->cache              = $woocommerce_gpf_cache;
 		$this->cache_status       = $woocommerce_gpf_cache_status;
 		$this->feed_image_manager = $woocommerce_product_feeds_feed_image_manager;
+		$this->wc_setup_tasks     = $wc_setup_tasks;
 	}
 
 	/**
@@ -85,6 +93,7 @@ class WoocommerceGpfAdmin {
 		add_action( 'admin_init', array( $this, 'admin_init' ), 11 );
 		add_action( 'admin_print_styles', array( $this, 'enqueue_styles' ) );
 		add_action( 'admin_print_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'woocommerce_init', array( $this->wc_setup_tasks, 'initialise' ) );
 
 		// Extend category admin page.
 		add_action( 'product_cat_add_form_fields', array( $this, 'category_meta_box' ), 99, 2 ); // After left-col

@@ -75,6 +75,8 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 
 		// Ajax save settings 
 		add_action( 'wp_ajax_tm_save_settings', array( $this, 'tm_save_settings' ) );
+		// Ajax reset settings 
+		add_action( 'wp_ajax_tm_reset_settings', array( $this, 'tm_reset_settings' ) );
 
 		// File manager 
 		add_action( 'wp_ajax_tm_mn_movetodir', array( $this, 'tm_mn_movetodir' ) );
@@ -484,6 +486,53 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 				)
 			);
 		}
+		die();
+	}
+
+	/**
+	 * Reset plugin settings (via ajax)
+	 *
+	 * @since 1.0
+	 */
+	public function tm_reset_settings() {
+
+		check_ajax_referer( 'settings-nonce', 'security' );
+
+		$error   = 0;
+		$message = esc_html__( 'Your settings have been reset.', 'woocommerce-tm-extra-product-options' );
+
+		$thissettings_options = THEMECOMPLETE_EPO_SETTINGS()->settings_options();
+
+		foreach ( $thissettings_options as $key => $value ) {
+			$thissettings_array[ $key ] = THEMECOMPLETE_EPO_SETTINGS()->get_setting_array( $key, $value );
+		}
+		$settings = array();
+		$settings = array_merge( $settings, array( array( 'type' => 'tm_tabs_header' ) ) );
+
+		foreach ( $thissettings_array as $key => $value ) {
+			$settings = array_merge( $settings, $value );
+			foreach ( $value as $k => $v ) {
+				if ( isset( $v['type'] ) && isset( $v['id'] ) && isset( $v['default'] ) && $v['type'] !== 'tm_title' ){
+					$_POST[ $v['id'] ] = $v['default'];
+				}
+			}
+		}
+		$options = apply_filters( 'tm_' . THEMECOMPLETE_EPO_ADMIN_SETTINGS_ID . '_settings',
+			$settings
+		);
+
+		if ( class_exists( 'WC_Admin_Settings' ) && is_callable( array( 'WC_Admin_Settings', 'save' ) ) ) {
+			WC_Admin_Settings::save_fields( $options );
+		} else {
+			$error   = 1;
+			$message = esc_html__( 'There was an error saving the settings.', 'woocommerce-tm-extra-product-options' );
+		}
+		wp_send_json(
+			array(
+				'error'   => $error,
+				'message' => $message,
+			)
+		);
 		die();
 	}
 

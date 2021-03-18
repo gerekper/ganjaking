@@ -1,11 +1,15 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2021.03.08 - version 9.6.1
+* New: Add setup tasks to WooCommerce homepage
+* Change: Make variation suffix wrapper translatable
+
 2021.02.16 - version 9.6.0
 * New: Integration with PW Bulk Edit
 * Change: Additional documentation links next to plugin on Plugins screen
 * Change: Lowercase ID tag in Google feed. Improves 3rd party feed compatibility
 * Change: Re-work of tag stripping / length calculations to increase content sendable in Google feed.
-* Fix: Under rare circumstances descriptions could arrive epty due to issues with XML escaping
+* Fix: Under rare circumstances descriptions could arrive empty due to issues with XML escaping
 
 2021.02.02 - version 9.5.0
 * Change: Tweaks to action scheduler queries run when cache is active 

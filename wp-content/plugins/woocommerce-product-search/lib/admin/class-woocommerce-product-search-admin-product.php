@@ -29,13 +29,6 @@ if ( !defined( 'ABSPATH' ) ) {
 class WooCommerce_Product_Search_Admin_Product {
 
 	/**
-	 * Variation processing threshold.
-	 *
-	 * @var int
-	 */
-	const THRESHOLD = 3;
-
-	/**
 	 * Hooks.
 	 */
 	public static function init() {
@@ -59,111 +52,11 @@ class WooCommerce_Product_Search_Admin_Product {
 				add_filter( 'manage_product_cat_custom_column', array( __CLASS__, 'product_cat_column' ), 10, 3 );
 			}
 
-			add_action( 'save_post', array( __CLASS__, 'save_post' ), 10000, 3 );
-
-			add_action( 'deleted_post', array( __CLASS__, 'deleted_post' ), 10000 );
-
 			add_action( 'created_term', array( __CLASS__, 'created_term' ), 10, 3 );
 
 			add_action( 'edited_term', array( __CLASS__, 'edited_term' ), 10, 3 );
 
-			add_action( 'delete_term', array( __CLASS__, 'delete_term' ), 10000, 5 );
-
-			add_action( 'edited_term_taxonomies', array( __CLASS__, 'edited_term_taxonomies' ) );
-
-			add_action( 'deleted_term_relationships', array( __CLASS__, 'deleted_term_relationships' ), 10000, 3 );
 		}
-	}
-
-	public static function save_post( $post_id = null, $post = null, $update = false ) {
-
-		global $wpdb;
-
-		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE || wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) ) ) {
-		} else {
-			$post_type = get_post_type( $post_id );
-			if ( $post_type === 'product' ) {
-				$guardian = new WooCommerce_Product_Search_Guardian();
-				$guardian->start();
-				$indexer = new WooCommerce_Product_Search_Indexer();
-				$post_status = get_post_status( $post_id );
-				switch ( $post_status ) {
-					case 'publish' :
-					case 'pending' :
-					case 'draft' :
-					case 'private' :
-						$indexer->index( $post_id );
-
-						$variation_ids = $wpdb->get_col( $wpdb->prepare(
-							"SELECT ID FROM $wpdb->posts WHERE post_parent = %d AND post_type = 'product_variation'",
-							intval( $post_id )
-						) );
-						if ( is_array( $variation_ids ) ) {
-							$variation_ids = array_unique( array_map( 'intval', $variation_ids ) );
-							$threshold = is_numeric( WPS_DEFER_VARIATIONS_THRESHOLD ) ? intval( WPS_DEFER_VARIATIONS_THRESHOLD ) : self::THRESHOLD;
-							if ( $threshold < 0 ) {
-								$threshold = 0;
-							}
-							if ( $threshold > 0 ) {
-								$processed = 0;
-								foreach( $variation_ids as $variation_id ) {
-									if ( $guardian->is_ok() ) {
-										$indexer->index( $variation_id );
-										$processed++;
-										if ( $processed >= $threshold ) {
-											wps_log_info(
-												'WooCommerce Product Search - ' .
-												esc_html__( 'Info', 'woocommerce-product-search' ) .
-												' : ' .
-												sprintf(
-													esc_html__( 'Deferred further variation processing on reaching threshold (%d).', 'woocommerce-product-search' ),
-													$threshold
-												)
-											);
-											break;
-										}
-									} else {
-										wps_log_info(
-											'WooCommerce Product Search - ' .
-											esc_html__( 'Info', 'woocommerce-product-search' ) .
-											' : ' .
-											esc_html__( 'Deferred variation processing to avoid PHP resource limit issues.', 'woocommerce-product-search' )
-										);
-										break;
-									}
-								}
-							}
-						}
-						break;
-					default :
-						$indexer->purge( $post_id );
-				}
-				unset( $indexer );
-			}
-		}
-	}
-
-	public static function deleted_post( $post_id = null ) {
-		$post_type = get_post_type( $post_id );
-		if ( $post_type === 'product' ) {
-			$indexer = new WooCommerce_Product_Search_Indexer();
-			$indexer->purge( $post_id );
-			unset( $indexer );
-		}
-	}
-
-	/**
-	 * Triggered on removal of object-term relationship.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param int $object_id object ID for which the object-term relationship has been deleted
-	 * @param array $tt_ids term taxonomy IDs
-	 * @param string $taxonomy taxonomy slug
-	 */
-	public static function deleted_term_relationships( $object_id, $tt_ids, $taxonomy ) {
-
-		self::deleted_post( $object_id );
 	}
 
 	/**
@@ -335,7 +228,6 @@ class WooCommerce_Product_Search_Admin_Product {
 
 		$product_taxonomies = WooCommerce_Product_Search_Indexer::get_applicable_product_taxonomies();
 		if ( in_array( $taxonomy, $product_taxonomies ) ) {
-			$indexer = new WooCommerce_Product_Search_Indexer();
 			$options = get_option( 'woocommerce-product-search', array() );
 			$use_weights = isset( $options[ WooCommerce_Product_Search::USE_WEIGHTS ] ) ? $options[ WooCommerce_Product_Search::USE_WEIGHTS ] : WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT;
 			if ( $use_weights ) {
@@ -344,73 +236,6 @@ class WooCommerce_Product_Search_Admin_Product {
 					update_term_meta( $term_id, '_search_weight', intval( $search_weight ) );
 				} else {
 					delete_term_meta( $term_id, '_search_weight' );
-				}
-
-				$indexer->process_term_weights( array( $term_id ) );
-			}
-
-			$indexer->preprocess_terms();
-
-			$indexer->process_terms( $term_id );
-		}
-	}
-
-	/**
-	 * Triggered on removal of term.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param int $term term ID
-	 * @param int $tt_id term taxonomy ID
-	 * @param string $taxonomy taxonomy slug
-	 * @param WP_Term|array|WP_Error|null $deleted_term deleted term
-	 * @param array $object_ids term object IDs
-	 */
-	public static function delete_term( $term, $tt_id, $taxonomy, $deleted_term, $object_ids ) {
-
-		$product_taxonomies = WooCommerce_Product_Search_Indexer::get_applicable_product_taxonomies();
-		if ( in_array( $taxonomy, $product_taxonomies ) ) {
-			$indexer = new WooCommerce_Product_Search_Indexer();
-			$indexer->process_terms( intval( $term ) );
-
-			if ( $taxonomy === 'product_cat' ) {
-				$indexer->process_term_weights();
-			}
-		}
-	}
-
-	/**
-	 * Updated related terms.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param array $edit_tt_ids
-	 */
-	public static function edited_term_taxonomies( $edit_tt_ids ) {
-
-		global $wpdb;
-		if ( is_array( $edit_tt_ids ) && count( $edit_tt_ids ) > 0 ) {
-
-			$taxonomies = WooCommerce_Product_Search_Indexer::get_applicable_product_taxonomies();
-			if ( count( $taxonomies ) > 0 ) {
-				$edit_tt_ids = array_map( 'intval', $edit_tt_ids );
-				$query =
-					"SELECT DISTINCT term_id FROM $wpdb->term_taxonomy " .
-					'WHERE term_taxonomy_id IN ( ' . implode( ',', $edit_tt_ids ) . ' ) ' .
-					'AND ' .
-					"taxonomy IN ( '" . implode( "','", esc_sql( $taxonomies ) ) . "' ) ";
-				$term_ids = $wpdb->get_col( $query );
-				if ( count( $term_ids ) > 0 ) {
-					$term_ids = array_unique( array_map( 'intval', $term_ids ) );
-					$indexer = new WooCommerce_Product_Search_Indexer();
-					$options = get_option( 'woocommerce-product-search', array() );
-					$use_weights = isset( $options[ WooCommerce_Product_Search::USE_WEIGHTS ] ) ? $options[ WooCommerce_Product_Search::USE_WEIGHTS ] : WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT;
-					if ( $use_weights ) {
-
-						$indexer->process_term_weights( $term_ids );
-					}
-
-					$indexer->process_terms( $term_ids );
 				}
 			}
 		}

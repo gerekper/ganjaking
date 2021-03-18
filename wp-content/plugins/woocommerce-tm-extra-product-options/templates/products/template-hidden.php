@@ -19,14 +19,14 @@ defined( 'ABSPATH' ) || exit;
 <li class="tmcp-field-wrap tc-product-hidden">
     <div class="tc-epo-element-product-holder tc-epo-element-product-<?php echo esc_attr( $layout_mode ); ?>">
         <label class="tm-epo-field-label<?php echo esc_attr( $class_label ); ?>" for="<?php echo esc_attr( $id ); ?>">
-            <input type="checkbox" class="<?php echo esc_attr( $fieldtype ); ?> tc-epo-field-product tm-epo-field tmcp-checkbox" name="<?php echo esc_attr( $name ); ?>" data-no-price-change="1" data-placeholder="<?php echo esc_attr( $placeholder ); ?>" data-price="" data-rules="" data-original-rules="" data-no-price="<?php echo esc_attr( ! $priced_individually ); ?>" id="<?php echo esc_attr( $id ); ?>" <?php
+            <input type="checkbox" class="<?php echo esc_attr( $fieldtype ); ?> tc-epo-field-product tc-epo-field-product-hidden tm-epo-field tmcp-checkbox" name="<?php echo esc_attr( $name ); ?>" data-no-price-change="1" data-placeholder="<?php echo esc_attr( $placeholder ); ?>" data-price="" data-rules="" data-original-rules="" data-no-price="<?php echo esc_attr( ! $priced_individually ); ?>" id="<?php echo esc_attr( $id ); ?>" <?php
 			if ( isset( $element_data_attr ) && is_array( $element_data_attr ) ) {
 				THEMECOMPLETE_EPO_HTML()->create_attribute_list( $element_data_attr );
 			}
 			if ( isset( $required ) && ! empty( $required ) ) { 
 				echo ' required '; 
 			}
-			
+
 				if ( is_array( $options ) ):
 					foreach ( $options as $option ) :?>
                         <?php 

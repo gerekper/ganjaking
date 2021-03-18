@@ -225,6 +225,18 @@
 					</tr>
 
 				<?php } }?>
+
+				<?php if( $order_info['options']['checkout_order_number'] ): ?>
+
+					<tr>
+						<td class="order_number" colspan="3" style="<?php echo $woo_body_text_color; echo $woo_body_bg_color; ?> border-top:1px solid <?php echo $woo_base_color_only; ?>;">
+							<?php echo 'Order Number :'; ?>
+							<?php echo get_post_meta( $order_info['id'], '_wc_dropshipping_order_number', true ); ?>
+						</td>
+					</tr>
+
+				<?php endif; ?>
+
 				<tr>
 					<td class="woocommerce_email_base_color" id="woocommerce_email_base_color" colspan="3" style="<?php echo $woo_body_text_color; ?> border-top:1px solid <?php echo $woo_base_color_only; ?>;">
 
@@ -328,7 +340,7 @@
 
 			if(isset($dropshipper_shipping_info)) { ?>
 
-					<table><tr><td>
+					<table><tr><td class="tracking_number" colspan="3" style="<?php echo $woo_body_text_color; echo $woo_body_bg_color; ?> border-top:1px solid <?php echo $woo_base_color_only; ?>;">
 
 				Tracking Number: <?php echo @$dropshipper_shipping_info['tracking_number']; ?>
 

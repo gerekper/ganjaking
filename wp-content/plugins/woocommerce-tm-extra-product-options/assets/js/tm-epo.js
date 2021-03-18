@@ -496,7 +496,7 @@
 	}
 
 	// Taxes setup
-	function get_price_including_tax( price, _cart, element, force ) {
+	function get_price_including_tax( price, _cart, element, force, variation, pricetype, doubleforce ) {
 		var taxable;
 		var tax_rate;
 		var prices_include_tax;
@@ -522,6 +522,12 @@
 			modded_taxes_of_one = _cart.attr( 'data-modded-taxes-of-one' );
 
 			if ( _cart.data( 'current_variation' ) !== undefined ) {
+				current_variation = _cart.data( 'current_variation' );
+			} else if ( variation !== undefined ) {
+				current_variation = variation;
+			}
+
+			if ( current_variation !== undefined ) {
 				current_variation = _cart.data( 'current_variation' );
 				taxable = current_variation.tc_is_taxable;
 				tax_rate = current_variation.tc_tax_rate;
@@ -553,8 +559,8 @@
 					} else if ( non_base_location_prices === '1' ) {
 						price = parseFloat( price ) - ( base_taxes_of_one * price ) + ( modded_taxes_of_one * price );
 					}
-				} else {
-					price = parseFloat( price ) * ( 1 + ( tax_rate / 100 ) );
+				} else if ( element || current_variation === undefined || doubleforce ) {
+					price = parseFloat( price ) + ( parseFloat( price ) * taxes_of_one );
 				}
 			}
 		}
@@ -563,12 +569,13 @@
 		return price;
 	}
 
-	function get_price_excluding_tax( price, _cart, element, force ) {
+	function get_price_excluding_tax( price, _cart, element, force, variation, pricetype, doubleforce ) {
 		var taxable;
 		var tax_rate;
-		var base_taxes_of_one;
+		var taxes_of_one;
 		var prices_include_tax;
 		var current_variation;
+		var tax_display_mode;
 
 		if ( ! Number.isFinite( parseFloat( price ) ) ) {
 			price = 0;
@@ -576,17 +583,24 @@
 		price = price * 10000;
 
 		if ( _cart ) {
+			tax_display_mode = _cart.attr( 'data-tax-display-mode' );
+
 			taxable = _cart.attr( 'data-taxable' );
 			tax_rate = _cart.attr( 'data-tax-rate' );
-			base_taxes_of_one = _cart.attr( 'data-base-taxes-of-one' );
+			taxes_of_one = _cart.attr( 'data-taxes-of-one' );
 			prices_include_tax = _cart.attr( 'data-prices-include-tax' );
 
 			if ( _cart.data( 'current_variation' ) !== undefined ) {
 				current_variation = _cart.data( 'current_variation' );
+			} else if ( variation !== undefined ) {
+				current_variation = variation;
+			}
+			if ( current_variation !== undefined ) {
 				taxable = current_variation.tc_is_taxable;
 				tax_rate = current_variation.tc_tax_rate;
-				base_taxes_of_one = current_variation.tc_base_taxes_of_one;
+				taxes_of_one = current_variation.tc_taxes_of_one;
 			}
+
 			if ( element ) {
 				if ( element.data( 'tax-obj' ) ) {
 					tax_rate = element.data( 'tax-obj' );
@@ -599,8 +613,14 @@
 				}
 			}
 
-			if ( ( taxable && prices_include_tax === '1' ) || force ) {
-				price = parseFloat( price ) - parseFloat( base_taxes_of_one * price );
+			if ( taxable ) {
+				if ( prices_include_tax === '1' || force ) {
+					if ( tax_display_mode === 'incl' ) {
+						// This should never run on this function
+					} else if ( element || current_variation === undefined || force || doubleforce ) {
+						price = parseFloat( price ) - parseFloat( taxes_of_one * price );
+					}
+				}
 			}
 		}
 		price = price / 10000;
@@ -608,7 +628,7 @@
 		return price;
 	}
 
-	function tm_set_tax_price( value, _cart, element ) {
+	function tm_set_tax_price( value, _cart, element, pricetype, force, variation, doubleforce ) {
 		var tax_display_mode;
 
 		if ( ! Number.isFinite( parseFloat( value ) ) ) {
@@ -617,9 +637,9 @@
 		if ( _cart ) {
 			tax_display_mode = _cart.attr( 'data-tax-display-mode' );
 			if ( tax_display_mode === 'incl' ) {
-				value = get_price_including_tax( value, _cart, element );
+				value = get_price_including_tax( value, _cart, element, force, variation, pricetype, doubleforce );
 			} else {
-				value = get_price_excluding_tax( value, _cart, element );
+				value = get_price_excluding_tax( value, _cart, element, force, variation, pricetype, doubleforce );
 			}
 		}
 		return value;
@@ -652,13 +672,13 @@
 	}
 
 	// Return a formatted currency value
-	function tm_set_price( value, _cart, notax, taxstring, element ) {
+	function tm_set_price( value, _cart, notax, taxstring, element, pricetype ) {
 		var inc_tax_string = '';
 		var val;
 		var sign = TMEPOJS.plus_sign + ' ';
 
 		if ( ! notax ) {
-			value = tm_set_tax_price( value, _cart, element );
+			value = tm_set_tax_price( value, _cart, element, pricetype );
 		}
 
 		val = Math.abs( value );
@@ -1386,7 +1406,7 @@
 
 					pop = $( '#tm-section-pop-up' );
 
-					pop.find( '.float_editbox' ).prepend( section );
+					pop.find( '.float-editbox' ).prepend( section );
 
 					section.find( '.tm-section-link' ).hide();
 					section.find( '.tm-section-pop' ).show();
@@ -1433,7 +1453,11 @@
 	}
 
 	function getQtyElement( currentCart ) {
-		return currentCart.find( tcAPI.qtySelector ).last();
+		var qty = currentCart.find( tcAPI.qtySelector ).last();
+		if ( qty.length === 0 ) {
+			qty = currentCart.find( tcAPI.associateQtySelector ).last();
+		}
+		return qty;
 	}
 
 	function getCurrentQty( currentCart ) {
@@ -2282,7 +2306,7 @@
 		} );
 	} // End Conditional logic
 
-	// Return a formatted currency value without tax
+	// Return price value without tax
 	function tm_set_price_without_tax( value, _cart ) {
 		var taxable;
 		var tax_rate;
@@ -2303,6 +2327,50 @@
 		return value;
 	}
 
+	// Return price with tax
+	function tm_set_price_with_tax( value, _cart ) {
+		var taxable;
+		var tax_rate;
+		var tax_display_mode;
+		var prices_include_tax;
+
+		if ( _cart ) {
+			taxable = _cart.attr( 'data-taxable' );
+			tax_rate = _cart.attr( 'data-tax-rate' );
+			tax_display_mode = _cart.attr( 'data-tax-display-mode' );
+			prices_include_tax = _cart.attr( 'data-prices-include-tax' );
+			if ( taxable && tax_display_mode !== 'incl' && prices_include_tax === '1' ) {
+				value = parseFloat( value ) * ( 1 + ( tax_rate / 100 ) );
+			}
+		}
+
+		return value;
+	}
+
+	// Return  price
+	function tm_set_backend_price( value, _cart ) {
+		var taxable;
+		var tax_display_mode;
+		var prices_include_tax;
+
+		if ( _cart ) {
+			taxable = _cart.attr( 'data-taxable' );
+			tax_display_mode = _cart.attr( 'data-tax-display-mode' );
+			prices_include_tax = _cart.attr( 'data-prices-include-tax' );
+			if ( taxable ) {
+				if ( prices_include_tax === '1' ) {
+					if ( tax_display_mode !== 'incl' ) {
+						value = tm_set_price_with_tax( value, _cart );
+					}
+				} else if ( prices_include_tax !== '1' && tax_display_mode === 'incl' ) {
+					value = tm_set_price_without_tax( value, _cart );
+				}
+			}
+		}
+
+		return value;
+	}
+
 	// Return a formatted currency value
 	function tm_set_price_totals( value, _cart, notax, taxstring, element ) {
 		var inc_tax_string = '';
@@ -2310,7 +2378,7 @@
 		var val;
 
 		if ( ! notax ) {
-			value = tm_set_tax_price( value, _cart, element );
+			value = tm_set_tax_price( value, _cart, element, undefined, true );
 		}
 		val = Math.abs( value );
 		if ( _cart && taxstring ) {
@@ -3438,6 +3506,20 @@
 		return pricetype;
 	}
 
+	function wordLength( str ) {
+		var regex = /\S+/gu;
+		var m;
+		var len = 0;
+		while ( ( m = regex.exec( str ) ) !== null ) {
+			// This is necessary to avoid infinite loops with zero-width matches
+			if ( m.index === regex.lastIndex ) {
+				regex.lastIndex++;
+			}
+			len = len + m.length;
+		}
+		return len;
+	}
+
 	/**
 	 * Set field price rules
 	 */
@@ -3461,6 +3543,8 @@
 		var pricetype;
 		var price;
 		var original_price;
+		var raw_price;
+		var raw_original_price;
 		var formatted_price;
 		var original_formatted_price;
 		var textlength;
@@ -3512,7 +3596,6 @@
 			apply_dpd = args.apply_dpd;
 			per_product_pricing = args.per_product_pricing;
 		}
-
 		product_price = $.epoAPI.applyFilter( 'tc_alter_product_price', product_price, element, cart, epoTotalsContainer, bundleid );
 		product_original_price = $.epoAPI.applyFilter( 'tc_alter_product_original_price', product_original_price, element, cart, epoTotalsContainer );
 
@@ -3712,19 +3795,19 @@
 				original_price = 0;
 				break;
 			case 'word':
-				price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * ( setter.val().split( /\w+/ ).length - 1 );
-				original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * ( setter.val().split( /\w+/ ).length - 1 );
+				price = tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) * wordLength( setter.val() );
+				original_price = tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) * wordLength( setter.val() );
 				break;
 			case 'wordpercent':
-				price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price * ( setter.val().split( /\w+/ ).length - 1 );
-				original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price * ( setter.val().split( /\w+/ ).length - 1 );
+				price = ( tm_apply_dpd( price, epoTotalsContainer, apply_dpd ) / 100 ) * product_price * wordLength( setter.val() );
+				original_price = ( tm_apply_dpd( original_price, epoTotalsContainer, apply_dpd ) / 100 ) * product_original_price * wordLength( setter.val() );
 				break;
 			case 'wordnon':
 				freechars = parseInt( setter.attr( 'data-freechars' ), 10 );
 				if ( ! Number.isFinite( freechars ) ) {
 					freechars = 0;
 				}
-				textlength = setter.val().split( /\w+/ ).length - 1 - freechars;
+				textlength = wordLength( setter.val() ) - freechars;
 				if ( textlength < 0 ) {
 					textlength = 0;
 				}
@@ -3736,7 +3819,7 @@
 				if ( ! Number.isFinite( freechars ) ) {
 					freechars = 0;
 				}
-				textlength = setter.val().split( /\w+/ ).length - 1 - freechars;
+				textlength = wordLength( setter.val() ) - freechars;
 				if ( textlength < 0 ) {
 					textlength = 0;
 				}
@@ -3853,20 +3936,29 @@
 				break;
 		}
 
+		if ( ! raw_price ) {
+			raw_price = price;
+		}
+		if ( ! raw_original_price ) {
+			raw_original_price = original_price;
+		}
+
 		if ( element.data( 'tm-quantity' ) ) {
 			price = price * parseFloat( element.data( 'tm-quantity' ) );
 			original_price = original_price * parseFloat( element.data( 'tm-quantity' ) );
+			raw_price = raw_price * parseFloat( element.data( 'tm-quantity' ) );
+			raw_original_price = raw_original_price * parseFloat( element.data( 'tm-quantity' ) );
 		}
 
-		formatted_price = tm_set_price( price, epoTotalsContainer, false, false, setter );
-		original_formatted_price = tm_set_price( original_price, epoTotalsContainer, false, false, setter );
+		formatted_price = tm_set_price( price, epoTotalsContainer, false, false, setter, pricetype );
+		original_formatted_price = tm_set_price( original_price, epoTotalsContainer, false, false, setter, pricetype );
 
 		element.data( 'price_set', 1 );
 		setter.data( 'price_set', 1 );
-		setter.data( 'raw_price', price );
-		setter.data( 'raw_original_price', original_price );
-		setter.data( 'price', tm_set_tax_price( price, epoTotalsContainer, setter ) );
-		setter.data( 'original_price', tm_set_tax_price( original_price, epoTotalsContainer, setter ) );
+		setter.data( 'raw_price', raw_price );
+		setter.data( 'raw_original_price', raw_original_price );
+		setter.data( 'price', tm_set_tax_price( price, epoTotalsContainer, setter, pricetype ) );
+		setter.data( 'original_price', tm_set_tax_price( original_price, epoTotalsContainer, setter, pricetype ) );
 		if ( ! setter_override ) {
 			tm_update_price( setter.closest( '.tmcp-field-wrap' ).find( '.tc-price' ), price, formatted_price, original_price, original_formatted_price );
 			element.data( 'price-changed', 1 );
@@ -4091,7 +4183,7 @@
 				realSetter = setter.closest( 'select' );
 			}
 
-			productPrice = parseFloat( $.epoAPI.applyFilter( 'tc_alter_product_price', originalProductPrice, realSetter, _cart, epoObject.this_epo_totals_container, bid ) );
+			productPrice = parseFloat( $.epoAPI.applyFilter( 'tc_alter_product_price', productPrice, realSetter, _cart, epoObject.this_epo_totals_container, bid ) );
 
 			id = $.epoAPI.dom.id( realSetter.attr( 'name' ) );
 			productId = $( '.tc-totals-form.tm-totals-form-' + _cart.attr( 'data-cart-id' ) ).attr( 'data-product-id' );
@@ -6628,13 +6720,13 @@
 		// fails for taxxed produccts as it displays the backend price only.
 		if ( variation && 'display_price' in variation ) {
 			product_price = variation.display_price;
-			totalsHolder.data( 'price', product_price );
+
 			totalsHolder.data( 'priceIsWithDiscount', '1' );
 			// Fancy product Designer
 			totalsHolder.removeData( 'tcprice' );
 		} else if ( variations && variation && variation.variation_id && variations[ variation.variation_id ] !== undefined ) {
 			product_price = variations[ variation.variation_id ];
-			totalsHolder.data( 'price', product_price );
+
 			// Fancy product Designer
 			totalsHolder.removeData( 'tcprice' );
 		} else if ( variation && $( variation.price_html ).find( '.amount:last' ).length ) {
@@ -6643,10 +6735,13 @@
 			product_price = product_price.replace( TMEPOJS.currency_format_decimal_sep, '.' );
 			product_price = product_price.replace( /[^0-9.]/g, '' );
 			product_price = parseFloat( product_price );
-			totalsHolder.data( 'price', product_price );
+
 			// Fancy product Designer
 			totalsHolder.removeData( 'tcprice' );
 		}
+
+		product_price = tm_set_backend_price( product_price, totalsHolder );
+		totalsHolder.data( 'price', product_price );
 
 		totalsHolderContainer.find( '.cpf-product-price' ).val( product_price );
 
@@ -7633,26 +7728,46 @@
 
 				qtyalt = productContainerWraps.find( tcAPI.associateQtySelector );
 				if ( $this.is( ':checkbox' ) ) {
-					if ( $this.is( ':checked' ) ) {
-						productContainerWraps.addClass( 'tc-active-product' );
-						if ( qtyalt.val() === '0' ) {
-							if ( qtyalt.attr( 'min' ) === '0' ) {
-								qtyalt.val( 1 ).trigger( 'change' );
-							} else {
-								qtyalt.val( qtyalt.attr( 'min' ) ).trigger( 'change' );
+					if ( $this.is( '.tc-epo-field-product-hidden' ) ) {
+						if ( $this.is( ':checked' ) ) {
+							productContainerWraps.addClass( 'tc-active-product' );
+							if ( qtyalt.val() === '0' ) {
+								if ( qtyalt.attr( 'min' ) === '0' ) {
+									qtyalt.val( 1 ).trigger( 'change' );
+								} else {
+									qtyalt.val( qtyalt.attr( 'min' ) ).trigger( 'change' );
+								}
 							}
+						} else {
+							productContainerWraps.removeClass( 'tc-active-product' );
+							qtyalt.val( 0 );
+							qtyalt.closest( '.tm-quantity-alt' ).removeClass( 'tm-hidden' );
+							qtyalt.closest( '.tm-quantity-alt' ).find( '.single_add_to_cart_product' ).trigger( 'cpfqtybutton' );
+							productContainerWraps.find( tcAPI.associatedEpoCart ).trigger( 'tm-epo-update' );
 						}
-					} else {
-						productContainerWraps.removeClass( 'tc-active-product' );
-						qtyalt.val( 0 );
-						qtyalt.closest( '.tm-quantity-alt' ).removeClass( 'tm-hidden' );
-						qtyalt.closest( '.tm-quantity-alt' ).find( '.single_add_to_cart_product' ).trigger( 'cpfqtybutton' );
-						productContainerWraps.find( tcAPI.associatedEpoCart ).trigger( 'tm-epo-update' );
-					}
 
-					value = $this.val();
-					type = $this.attr( 'data-type' );
-					elementContainer.find( '.tc-epo-element-product-li-container' ).removeClass( 'tm-hidden' );
+						value = $this.val();
+						type = $this.attr( 'data-type' );
+						elementContainer.find( '.tc-epo-element-product-li-container' ).removeClass( 'tm-hidden' );
+					} else {
+						if ( ! $this.is( ':checked' ) ) {
+							if ( hasProductContainerWrap ) {
+								thisProductContainerWrap.addClass( 'tm-hidden' );
+							}
+							if ( ! ( data && data.forced ) ) {
+								return;
+							}
+							skip = true;
+						} else if ( hasProductContainerWrap ) {
+							//productContainerWraps.addClass( 'tm-hidden' );
+							thisProductContainerWrap.removeClass( 'tm-hidden' );
+						}
+						if ( ! skip ) {
+							value = $this.val();
+							type = $this.attr( 'data-type' );
+							elementContainer.find( '.tc-epo-element-product-li-container' ).removeClass( 'tm-hidden' );
+						}
+					}
 				} else if ( $this.is( ':radio' ) ) {
 					if ( ! $this.is( ':checked' ) ) {
 						if ( hasProductContainerWrap ) {
@@ -7681,7 +7796,12 @@
 					return;
 				}
 
-				variableProductContainers = elementContainer.find( '.tc-epo-element-product-container' );
+				if ( $this.is( '.tc-epo-field-product-checkbox' ) ) {
+					variableProductContainers = thisProductContainerWrap.find( '.tc-epo-element-product-container' );
+				} else {
+					variableProductContainers = elementContainer.find( '.tc-epo-element-product-container' );
+				}
+
 				thisVariableProductContainer = variableProductContainers.filter( '[data-product_id="' + value + '"]' );
 
 				if ( ! value ) {
@@ -7716,6 +7836,7 @@
 						layout_mode: elementContainer.attr( 'data-product-layout-mode' ),
 						uniqid: elementContainer.attr( 'data-uniqid' ),
 						name: $this.attr( 'name' ),
+						counter: $this.attr( 'data-counter' ),
 						quantity_min: elementContainer.attr( 'data-quantity-min' ),
 						quantity_max: elementContainer.attr( 'data-quantity-max' ),
 						priced_individually: elementContainer.attr( 'data-priced-individually' ),
@@ -7801,7 +7922,7 @@
 				qtyMin = $.epoAPI.math.toInt( $this.attr( 'min' ) );
 				qtyMax = $.epoAPI.math.toInt( $this.attr( 'max' ) );
 
-				if ( epoField.is( ':checkbox' ) ) {
+				if ( epoField.is( '.tc-epo-field-product-hidden' ) && epoField.is( ':checkbox' ) ) {
 					if ( checked.length === 0 && $this.val() !== '0' ) {
 						epoField.prop( 'checked', true ).trigger( 'change' );
 						checked = epoField.filter( ':checked' );
@@ -8063,7 +8184,7 @@
 				showTotal = fetch.showTotal;
 				elementsLength = fetch.elementsLength;
 
-				fetch = fetchOptionPrices( currentEpoObject, epoHolder, '.tc-epo-field-product', noSyncTotal, original_total, floatingBoxData, showTotal );
+				fetch = fetchOptionPrices( currentEpoObject, epoHolder, '.tc-epo-field-product', noSyncTotal, 0, floatingBoxData, showTotal );
 				noSyncTotal = fetch.total;
 				noSyncOriginalTotal = fetch.original_total;
 				floatingBoxData = fetch.floatingBoxData;
@@ -8242,17 +8363,17 @@
 			raw_product_total_price = parseFloat( product_total_price + total_plus_fee + extraFee );
 			raw_product_total_original_price = parseFloat( product_total_price + original_total_plus_fee + extraFee );
 
-			productPrice = tm_set_tax_price( productPrice, totalsHolder );
-			product_total_price = tm_set_tax_price( product_total_price, totalsHolder );
-			total = tm_set_tax_price( total, totalsHolder );
-			_total = tm_set_tax_price( _total, totalsHolder );
-			cart_fee_options_total = tm_set_tax_price( cart_fee_options_total, totalsHolder );
-			total_plus_fee = tm_set_tax_price( total_plus_fee, totalsHolder );
-			original_total = tm_set_tax_price( original_total, totalsHolder );
-			_original_total = tm_set_tax_price( _original_total, totalsHolder );
-			cart_fee_options_original_total = tm_set_tax_price( cart_fee_options_original_total, totalsHolder );
-			original_total_plus_fee = tm_set_tax_price( original_total_plus_fee, totalsHolder );
-			extraFee = tm_set_tax_price( extraFee, totalsHolder );
+			productPrice = tm_set_tax_price( productPrice, totalsHolder, undefined, undefined, undefined, undefined, true );
+			product_total_price = tm_set_tax_price( product_total_price, totalsHolder, undefined, undefined, undefined, undefined, true );
+			total = tm_set_tax_price( total, totalsHolder, undefined, undefined, undefined, undefined, true );
+			_total = tm_set_tax_price( _total, totalsHolder, undefined, undefined, undefined, undefined, true );
+			cart_fee_options_total = tm_set_tax_price( cart_fee_options_total, totalsHolder, undefined, undefined, undefined, undefined, true );
+			total_plus_fee = tm_set_tax_price( total_plus_fee, totalsHolder, undefined, undefined, undefined, undefined, true );
+			original_total = tm_set_tax_price( original_total, totalsHolder, undefined, undefined, undefined, undefined, true );
+			_original_total = tm_set_tax_price( _original_total, totalsHolder, undefined, undefined, undefined, undefined, true );
+			cart_fee_options_original_total = tm_set_tax_price( cart_fee_options_original_total, totalsHolder, undefined, undefined, undefined, undefined, true );
+			original_total_plus_fee = tm_set_tax_price( original_total_plus_fee, totalsHolder, undefined, undefined, undefined, undefined, true );
+			extraFee = tm_set_tax_price( extraFee, totalsHolder, undefined, undefined, undefined, undefined, true );
 
 			formatted_options_total = tm_set_price_totals( total, totalsHolder, true, true );
 			formatted_fees_total = tm_set_price_totals( cart_fee_options_total, totalsHolder, true, true );
@@ -8482,7 +8603,7 @@
 				}
 
 				_fprice = $.epoAPI.applyFilter( 'tc_adjust_native_price', _fprice, product_total_price );
-				_f_regular_price = tm_set_tax_price( _f_regular_price, totalsHolder );
+				_f_regular_price = tm_set_tax_price( _f_regular_price, totalsHolder, undefined, undefined, undefined, undefined, true );
 				_f_regular_price = formatPrice( _f_regular_price );
 				_f_regular_price = $.epoAPI.applyFilter( 'tc_adjust_native_regular_price', _f_regular_price, product_total_price );
 
@@ -8832,7 +8953,7 @@
 						.each( function( i, el ) {
 							variationForm.find( "[data-attribute_name='attribute_" + $.epoAPI.dom.id( $( el ).find( '.tm-epo-variation-element' ).first().attr( 'data-tm-for-variation' ) ) + "']" ).trigger( 'focusin' );
 						} );
-					field.blur();
+					field.trigger( 'blur' );
 					variationForm.trigger( 'woocommerce_update_variation_values_tmlogic' );
 				} );
 
@@ -8908,7 +9029,7 @@
 							variationForm.find( '#' + $.epoAPI.dom.id( $( this ).find( '.tm-epo-variation-element' ).first().attr( 'data-tm-for-variation' ) ) ).trigger( 'focusin' );
 						} );
 
-					field.blur();
+					field.trigger( 'blur' );
 					variationForm.trigger( 'woocommerce_update_variation_values_tmlogic' );
 				} )
 				.off( 'focusin.cpfv' )
@@ -8936,7 +9057,7 @@
 					var form = $( this );
 
 					totalsHolder.data( 'is-on-sale', variation.tc_is_on_sale );
-					totalsHolder.data( 'regular-price', variation.display_regular_price );
+					totalsHolder.data( 'regular-price', tm_set_backend_price( variation.display_regular_price, totalsHolder ) );
 
 					jWindow.trigger( 'tm-epo-found-variation', {
 						epo: epoObject,

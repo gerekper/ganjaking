@@ -42,6 +42,10 @@ defined( 'ABSPATH' ) or exit;
 class Profile_Fields {
 
 
+	/** @var string action name for getting profile fields for a product */
+	const GET_PRODUCT_PROFILE_FIELDS_ACTION = 'get-product-profile-fields';
+
+
 	/**
 	 * Profile fields frontend handler constructor.
 	 *
@@ -50,12 +54,12 @@ class Profile_Fields {
 	public function __construct() {
 
 		/** process profile fields showing in product pages @see Profile_Fields_Handler::set_member_profile_fields_from_purchase() */
-		add_action( 'woocommerce_before_add_to_cart_button',                [ $this, 'add_product_page_profile_fields' ] );
-		add_filter( 'woocommerce_add_to_cart_validation',                   [ $this, 'validate_product_profile_fields_submission' ], 10, 6 );
-		add_filter( 'woocommerce_add_cart_item_data',                       [ $this, 'add_product_profile_fields_cart_item_data' ], 10, 3 );
-		add_filter( 'woocommerce_get_item_data',                            [ $this, 'display_product_profile_fields_cart_item_data' ], 10, 2 );
-		add_action( 'woocommerce_checkout_create_order_line_item',          [ $this, 'add_product_profile_fields_to_order_item' ], 10, 3 );
-		add_filter( 'woocommerce_hidden_order_itemmeta',                    [ $this, 'hide_order_item_profile_fields' ] );
+		add_action( 'woocommerce_before_add_to_cart_button',       [ $this, 'add_product_page_profile_fields' ] );
+		add_filter( 'woocommerce_add_to_cart_validation',          [ $this, 'validate_product_profile_fields_submission' ], 10, 6 );
+		add_filter( 'woocommerce_add_cart_item_data',              [ $this, 'add_product_profile_fields_cart_item_data' ], 10, 3 );
+		add_filter( 'woocommerce_get_item_data',                   [ $this, 'display_product_profile_fields_cart_item_data' ], 10, 2 );
+		add_action( 'woocommerce_checkout_create_order_line_item', [ $this, 'add_product_profile_fields_to_order_item' ], 10, 3 );
+		add_filter( 'woocommerce_hidden_order_itemmeta',           [ $this, 'hide_order_item_profile_fields' ] );
 
 		// process profile fields showing in registration forms
 		add_action( 'woocommerce_register_form',                                [ $this, 'add_sign_up_form_profile_fields' ], 999 ); // very low priority to attach our fields last before the registration button
@@ -73,19 +77,37 @@ class Profile_Fields {
 	 * @internal
 	 *
 	 * @since 1.19.0
+	 *
+	 * @param int $product_id optional ID of the product to use, will utilize current product from context otherwise (default)
 	 */
-	public function add_product_page_profile_fields() {
+	public function add_product_page_profile_fields( $product_id = 0 ) {
 		global $product;
 
-		if ( ! $product instanceof \WC_Product || ! Profile_Fields_Handler::is_using_profile_fields() ) {
+		// bail early if no profile fields defined in the first place
+		if ( ! Profile_Fields_Handler::is_using_profile_fields() ) {
 			return;
 		}
 
-		$membership_plans = $this->get_non_member_plans_for_product( $product );
+		if ( empty( $product_id ) ) {
+			$wc_product = $product;
+		} else {
+			$wc_product = wc_get_product( $product_id );
+		}
+
+		if ( ! $wc_product instanceof \WC_Product ) {
+			return;
+		}
+
+		$membership_plans = $this->get_non_member_plans_for_product( $wc_product );
+
+		// bail as no plans found related to the product
+		if ( empty( $membership_plans ) ) {
+			return;
+		}
 
 		$profile_fields = $this->get_profile_fields_for_submission( [
 			'membership_plan_ids' => array_keys( $membership_plans ),
-			'visibility'          => Profile_Fields_Handler::VISIBILITY_PRODUCT_PAGE
+			'visibility'          => Profile_Fields_Handler::VISIBILITY_PRODUCT_PAGE,
 		] );
 
 		if ( ! empty( $profile_fields ) ) {
@@ -225,7 +247,8 @@ class Profile_Fields {
 	 */
 	public function add_product_profile_fields_cart_item_data( $cart_item_data, $product_id, $variation_id ) {
 
-		$product = wc_get_product( $product_id );
+		// use variation id instead of parent product if set
+		$product = wc_get_product( $variation_id ?: $product_id );
 
 		if ( ! $product instanceof \WC_Product || ! $this->should_process_product_profile_fields_submission( $product ) ) {
 			return $cart_item_data;
@@ -468,7 +491,7 @@ class Profile_Fields {
 	 */
 	public function validate_product_profile_fields_submission( $valid, $product_id, $quantity, $variation_id = '', $variations = [], $cart_item_data = [] ) {
 
-		$product = wc_get_product( $product_id );
+		$product = wc_get_product( $variation_id ?: $product_id );
 
 		if ( ! $product instanceof \WC_Product || ! $this->should_process_product_profile_fields_submission( $product ) ) {
 			return $valid;

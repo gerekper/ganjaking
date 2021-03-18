@@ -19,7 +19,6 @@ class RevSliderCssParser extends RevSliderFunctions {
 		$this->css = $css;
 	}
 	
-	
 	/**
 	 * get array of slide classes, between two sections.
 	 * @before: RevSliderCssParser::getArrClasses()
@@ -826,5 +825,3 @@ class RevSliderCssParser extends RevSliderFunctions {
 		return ($raw) ? $ret : 'rgba('.$ret.')';
     }
 }
-
-?>

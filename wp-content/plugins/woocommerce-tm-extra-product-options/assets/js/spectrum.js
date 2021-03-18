@@ -1657,7 +1657,7 @@
 			}
 
 			// Prevent clicks from bubbling up to document.  This would cause it to be hidden.
-			container.click( stopPropagation );
+			container.on( 'click', stopPropagation );
 
 			// Handle user typed input
 			[ textInput, boundElement ].forEach( function( input ) {

@@ -13,17 +13,14 @@ class WC_Dropshipping_Admin
 	public function __construct()
 	{
 		require_once('class-wc-dropshipping-product.php');
-
 		require_once('class-wc-dropshipping-csv-import.php');
 
 		$this->product = new WC_Dropshipping_Product();
-
 		$this->csv = new WC_Dropshipping_CSV_Import();
 
 		// admin menu
 
 		add_action('admin_enqueue_scripts', array($this, 'admin_styles'));
-
 		add_action('admin_enqueue_scripts', array($this, 'my_admin_scripts'));
 
 		// admin dropship supplier
@@ -31,21 +28,13 @@ class WC_Dropshipping_Admin
 		$this->ali_prod_filter = new Ali_Product_Filter();
 
 		add_action('create_dropship_supplier', array($this, 'create_term'), 5, 3);
-
 		add_action('delete_dropship_supplier', array($this, 'delete_term'), 5);
-
 		add_action('created_term', array($this, 'save_category_fields'), 10, 3);
-
 		add_action('edit_term', array($this, 'save_category_fields'), 10, 3);
-
 		add_action('dropship_supplier_add_form_fields', array($this, 'add_category_fields'));
-
 		add_action('dropship_supplier_edit_form_fields', array($this, 'edit_category_fields'), 10, 2);
-
 		add_action('wp_ajax_CSV_upload_form', array($this, 'ajax_save_category_fields'));
-
 		add_filter('manage_edit-dropship_supplier_columns', array($this, 'manage_columns'), 10, 1);
-
 		add_action('manage_dropship_supplier_custom_column', array($this, 'column_content'), 10, 3);
 
 
@@ -65,19 +54,14 @@ class WC_Dropshipping_Admin
 		//add_action( 'woocommerce_update_options_dropship_manager', array($this,'update_settings') );
 
 		add_filter('woocommerce_get_sections_email', array($this, 'add_settings_tab'), 50);
-
 		add_action('woocommerce_settings_email', array($this, 'dropship_manager_settings_tab'), 10, 1);
-
 		add_action('woocommerce_settings_save_email', array($this, 'update_settings'));
 
 		/*add_action('init', array($this,'cloneUserRole'));*/
 
 		add_action('admin_menu', array($this, 'my_remove_menu_pages'));
-
 		add_action('admin_menu', array($this, 'dropshipper_order_list_page'));
-
 		add_action('wp_ajax_dropshipper_shipping_info_edited', array($this, 'dropshipper_shipping_info_edited_callback'));
-
 		add_filter(
 			'woocommerce_order_item_get_formatted_meta_data',
 			array($this, 'mobilefolk_order_item_get_formatted_meta_data'),
@@ -88,9 +72,7 @@ class WC_Dropshipping_Admin
 		// register the ajax action or generate api key callback function
 
 		add_action('wp_ajax_email_ali_api_key', array($this, 'email_ali_api_key'));
-
 		add_action('wp_ajax_nopriv_email_ali_api_key', array($this, 'email_ali_api_key'));
-
 		add_action('wp_ajax_hide_cbe_message', array($this, 'hide_cbe_message'));
 	}
 
@@ -113,17 +95,12 @@ class WC_Dropshipping_Admin
 		}
 
 		$urlParts = parse_url($input);
-
 		$domain = preg_replace('/^www\./', '', $urlParts['host']);
-
 		$aliexpresskey = generate_aliexpress_key($domain);
-
 		$admin_email = get_bloginfo('admin_email');
 
 		$to = $admin_email;
-
 		$subject = 'Your AliExpress Key';
-
 		$message = "Your aliexpress key for " . $domain . " is: " . $aliexpresskey;
 
 		wp_mail($to, $subject, $message);
@@ -177,16 +154,10 @@ class WC_Dropshipping_Admin
 
 		if(array_key_exists("success", $_GET) && trim($_GET['success']) == 'no'){
 			wp_enqueue_script('my-jquery-min-script', plugins_url() . '/' . $base_name[0] . '/assets/js/jquery.min.js', array('jquery'), true);
-
 			wp_enqueue_script('popper.min.js.map', plugins_url() . '/' . $base_name[0] . '/assets/js/popper.min.js', array('jquery'), true);
-
 			wp_enqueue_script('my-bootstrap-script', plugins_url() . '/' . $base_name[0] . '/assets/js/bootstrap.min.js', array('jquery'), true);
-
 			wp_enqueue_script('my-custom-script', plugins_url() . '/' . $base_name[0] . '/assets/js/custom-modal.js', array('jquery'), true);
 		} else {
-
-
-
 			wp_enqueue_script( 'jquery' );
 			wp_enqueue_script("jquery-ui-datepicker");
 			wp_enqueue_script("jquery-blockui");
@@ -195,8 +166,6 @@ class WC_Dropshipping_Admin
 			wp_enqueue_script("jquery-ui-core");
 			wp_enqueue_script("jquery-tiptip");
 			wp_enqueue_script("jquery-ui-dialog");
-
-
 			wp_enqueue_script('my-great-script', plugins_url() . '/' . $base_name[0] . '/assets/js/myscript.js', array('jquery'), '1.0.1', true);
 		}
 	}
@@ -224,19 +193,11 @@ class WC_Dropshipping_Admin
 	public function manage_columns($cols)
 	{
 		unset($cols['description']);
-
 		unset($cols['slug']);
-
 		unset($cols['posts']);
-
-
-
 		//$cols['account_number'] = 'Account Number';
-
 		$cols['order_email_addresses'] = 'Email Addresses';
-
 		$cols['inventory'] = '';
-
 		$cols['posts'] = 'Count';
 
 		return $cols;
@@ -320,41 +281,14 @@ class WC_Dropshipping_Admin
 		add_thickbox();
 
 		echo '<div class="form-field term-account_number-wrap">
-
-
-
 				<label for="account_number" >Account #</label>
-
-
-
 				<input type="text" size="40" name="account_number" value="' . $data['account_number'] . '" />
-
-
-
 				<p>Your store&apos;s account number with this supplier. Leave blank if you don&apos;t have an account number</p>
-
-
-
 			</div>
-
-
-
 			<div class="form-field term-order_email_addresses-wrap">
-
-
-
 				<label for="order_email_addresses" >Email Addresses</label>
-
-
-
 				<input type="text" size="40" name="order_email_addresses" value="' . $data['order_email_addresses'] . '" required />
-
-
-
 				<p>When a customer purchases a product from you, the supplier will be sent an notification via email. List the supplier&apos;s email addresses that should be notified when a new order is placed.<p>
-
-
-
 			</div>';
 	}
 
@@ -367,109 +301,39 @@ class WC_Dropshipping_Admin
 		$csv_types = array('quantity' => 'Quantity on Hand', 'indicator' => 'In-Stock Indicator');
 
 		echo '<tr class="term-account_number-wrap">
-
-
-
 						<th><label for="account_number" >Account #</label></th>
-
-
-
 						<td><input type="text" size="40" name="account_number" value="' . $data['account_number'] . '" />
-
-
-
 						<p>Your store&apos;s account number with this supplier. Leave blank if you don&apos;t have an account number</p></td>
-
-
-
 					</tr>
-
-
 
 					<tr  class="term-order_email_addresses-wrap">
-
-
-
 						<th><label for="order_email_addresses" >Email Addresses</label></th>
-
-
-
 						<td><input type="text" size="40" name="order_email_addresses" value="' . $data['order_email_addresses'] . '" required />
-
-
-
 						<p>When a customer purchases a product from you, the supplier will be sent an notification via email. List the supplier&apos;s email addresses that should be notified when a new order is placed.<p></td>
-
-
-
 					</tr>
-
-
-
 				</table>
 
-
-
 				<h3>Supplier Inventory CSV Import Settings</h3>
-
-
-
 				<p>(If you do not receive inventory statuses from your supplier in the form of a .CSV file, leave these settings blank)</p>
-
-
-
 				<table class="form-table">
-
-
-
 					<tr  class="term-csv_delimiter-wrap">
-
-
-
 						<th><label for="csv_delimiter" >CSV File Column Delimiter</label></th>
-
-
-
 						<td><input type="text" size="2" name="csv_delimiter" value="' . $data['csv_delimiter'] . '" />
-
-
-
 						<p>Please indicate what character is used to separate fields in the CSV file. Normally this is a comma</p></td>
-
-
-
 					</tr>
 
 
 
 					<tr  class=" term-column_sku-wrap">
-
-
-
 						<th><label for="csv_column_sku" >CSV SKU Column #</label></th>
-
-
-
 						<td><input type="text" size="2" name="csv_column_sku" value="' . $data['csv_column_sku'] . '" />
-
-
-
 						<p>Please indicate which column in the CSV file corresponds to product SKUs. Note that this should be the same SKU that the manufacturer uses. WooCommerce Dropshipping will automatically add the SKU code for products from this suppler when you upload a .CSV file</p></td>
-
-
-
 					</tr>
 
 
 
 					<tr  class=" term-csv_type-wrap">
-
-
-
 						<th><label for="csv_type">CSV Type</label></th>
-
-
-
 						<td><select name="csv_type" id="csv_type" >';
 
 		foreach ($csv_types as $csv_type => $description) {
@@ -483,104 +347,35 @@ class WC_Dropshipping_Admin
 		}
 
 		echo '</select>
-
-
-
 						<p>Please indicate how the .CSV file&apos;s data should be read. <br /><br /><b>Quantity on Hand </b>- If your supplier sends you a .CSV file that contains the quantity that they have remaining in their inventory, you should use this method. Any number above zero indicates that the product is still in stock.<br /><b>In-Stock Indicator </b> - Use this method if your supplier sends you a .CSV file that includes a column indicating whether or not a product is in stock.  This is typically in either a Y/N or 1/0 format to indicate whether or not the product is in stock.</p></td>
-
-
-
 					</tr>
-
-
-
 					<tr  class="csv_quantity csv_types">
-
-
-
 						<th><label for="csv_column_qty" >CSV Inventory Quantity Column #</label></th>
-
-
-
 						<td><input type="text" size="2" name="csv_column_qty" value="' . $data['csv_column_qty'] . '" />
-
-
-
 						<p>Please indicate which column in the .CSV file corresponds to the quantity of inventory available</p></td>
-
-
-
 					</tr>
 
 
-
 					<tr  class="csv_indicator csv_types">
-
-
-
 						<th><label for="csv_column_indicator" >In-Stock Indicator Column #</label></th>
-
-
-
 						<td><input type="text" size="2" name="csv_column_indicator" value="' . $data['csv_column_indicator'] . '" />
-
-
-
 						<p>Please indicate which column in the .CSV file indicates whether or not a product is in stock</p></td>
-
-
-
 					</tr>
 
-
-
 					<tr  class="csv_indicator csv_types">
-
-
-
 						<th><label for="csv_indicator_instock" >In-Stock Indicator Value</label></th>
-
-
-
 						<td><input type="text" size="2" name="csv_indicator_instock" value="' . $data['csv_indicator_instock'] . '" />
-
-
-
 						<p>Please input the value (ie. Y or 1) in the column defined above that indicates whether or not a product is in stock </p></td>
-
-
-
 					</tr>';
 	}
 
 	/*public function cloneUserRole()	{
-
-
-
 		 global $wp_roles;
-
-
-
 		 if (!isset($wp_roles))
-
-
-
 		 $wp_roles = new WP_Roles();
-
-
-
 		 $adm = $wp_roles->get_role('subscriber');
-
-
-
 		 // Adding a new role with all admin caps.
-
-
-
 		 $wp_roles->add_role('dropshipper', 'Dropshipper', $adm->capabilities);
-
-
-
 	}*/
 
 	public function my_remove_menu_pages()
@@ -590,45 +385,25 @@ class WC_Dropshipping_Admin
 		if ( in_array( 'dropshipper', (array) $user->roles ) ) {
 
 			remove_menu_page('edit-comments.php');
-
 			remove_menu_page('index.php');
-
 			remove_menu_page('link-manager.php'); // Links
-
 			remove_menu_page('posts.php');
-
 			remove_menu_page('edit.php');
-
 			remove_menu_page('edit.php?post_type=elementor_library'); // Elementor
-
 			remove_menu_page('elementor'); // Elementor
-
 			//remove_menu_page('Posts.php');
-
 			remove_menu_page('tools.php'); // Tools
-
 			remove_meta_box('dashboard_quick_press', 'dashboard', 'side'); //Quick Press widget
-
 			remove_meta_box('dashboard_recent_drafts', 'dashboard', 'side'); //Recent Drafts
-
 			remove_meta_box('dashboard_primary', 'dashboard', 'side'); //WordPress.com Blog
-
 			remove_meta_box('dashboard_secondary', 'dashboard', 'side'); //Other WordPress News
-
 			remove_meta_box('dashboard_incoming_links', 'dashboard', 'normal'); //Incoming Links
-
 			remove_meta_box('dashboard_plugins', 'dashboard', 'normal'); //Plugins
-
 			remove_meta_box('dashboard_right_now', 'dashboard', 'normal'); //Right Now
-
 			remove_meta_box('rg_forms_dashboard', 'dashboard', 'normal'); //Gravity Forms
-
 			remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal'); //Recent Comments
-
 			remove_meta_box('icl_dashboard_widget', 'dashboard', 'normal'); //Multi Language Plugin
-
 			remove_meta_box('dashboard_activity', 'dashboard', 'normal'); //Activity
-
 			remove_meta_box('e-dashboard-overview', 'dashboard', 'normal'); // Elementor Activity
 
 		}
@@ -640,17 +415,11 @@ class WC_Dropshipping_Admin
 
 		$user = wp_get_current_user();
 		if ( in_array( 'dropshipper', (array) $user->roles ) ) {
-
 			$page_title = 'Order Lists';
-
 			$menu_title = 'Order List';
-
 			$capability = 'dropshipper';
-
 			$menu_slug  = 'dropshipper-order-list';
-
 			$function   = 'dropshipper_order_list';
-
 			$icon_url   = 'dashicons-media-code';
 
 			add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function);
@@ -680,8 +449,6 @@ class WC_Dropshipping_Admin
 		} else {
 			if ($taxonomy == 'dropship_supplier') {
 
-
-
 				// do update
 
 				$meta = $this->get_dropship_supplier_fields();
@@ -709,65 +476,45 @@ class WC_Dropshipping_Admin
 
 				if (!empty($username) && !empty($email) && !$user_id && email_exists($email) == false) {
 					$random_password = wp_generate_password($length = 12, $include_standard_special_chars = false);
-
 					$user_id = wp_create_user($username, $random_password, $email);
-
 					update_user_meta($user_id, 'supplier_id', $term_id);
-
 					$user_id_role = new WP_User($user_id);
-
 					$user_id_role->set_role('dropshipper');
-
 					$loginurl = wp_login_url();
 					/*Send User Password*/
 
-					if ($email_supplier == '1') {
-						$to = $email;
+					if ( isset( $email_supplier ) ) {
+						if ($email_supplier == '1') {
+							$to = $email;
+							$subject = 'Registration Detail';
+							$from = get_option('admin_email');
 
-						$subject = 'Registration Detail';
+						// To send HTML mail, the Content-type header must be set
+							$headers  = 'MIME-Version: 1.0' . "\r\n";
+							$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
-						$from = get_option('admin_email');
+						// Create email headers
+							$headers .= 'From: ' . $from . "\r\n"
+								. 'Reply-To: ' . $from . "\r\n"
+								. 'X-Mailer: PHP/' . phpversion();
 
-					// To send HTML mail, the Content-type header must be set
+						// Compose a simple HTML email message
+							$message = '<html><body>';
+							$message .= '<h1 style="color:#f40;">Hi ' . $user_id_role->display_name . '!</h1>';
+							$message .= '<p style="color:#080;font-size:15px;">Thanks For Registration</p>';
 
-						$headers  = 'MIME-Version: 1.0' . "\r\n";
+						//$message .= '<p style="disply:none">Your Email:&nbsp;'. $email .'</p>';
+							$message .= '<p>Your User Name:&nbsp;' . $user_id_role->display_name . '</p>';
+							$message .= '<p>Your Password:&nbsp;' . $random_password . '</p>';
+							$message .= '<p>Change Your Password Once you login</p>';
+							$message .= '<p>Login URL: '.$loginurl.'</p>';
+							$message .= '</body></html>';
 
-						$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+							wp_mail($to, $subject, $message, $headers);
 
-					// Create email headers
+						//mail($to, $subject, $message, $headers);
 
-						$headers .= 'From: ' . $from . "\r\n"
-							. 'Reply-To: ' . $from . "\r\n"
-							. 'X-Mailer: PHP/' . phpversion();
-
-					// Compose a simple HTML email message
-
-						$message = '<html><body>';
-
-						$message .= '<h1 style="color:#f40;">Hi ' . $user_id_role->display_name . '!</h1>';
-
-						$message .= '<p style="color:#080;font-size:15px;">Thanks For Registration</p>';
-
-
-
-					//$message .= '<p style="disply:none">Your Email:&nbsp;'. $email .'</p>';
-
-						$message .= '<p>Your User Name:&nbsp;' . $user_id_role->display_name . '</p>';
-
-						$message .= '<p>Your Password:&nbsp;' . $random_password . '</p>';
-
-						$message .= '<p>Change Your Password Once you login</p>';
-
-						$message .= '<p>Login URL: '.$loginurl.'</p>';
-
-						$message .= '</body></html>';
-
-						wp_mail($to, $subject, $message, $headers);
-
-
-
-					//mail($to, $subject, $message, $headers);
-
+						}
 					}
 				} else {
 					$random_password = __('User already exists.  Password inherited.');
@@ -792,9 +539,7 @@ class WC_Dropshipping_Admin
 	public function create_term($term_id, $tt_id = '', $taxonomy = '')
 	{
 		if ($taxonomy != 'dropship_supplier' && !taxonomy_is_product_attribute($taxonomy)) return;
-
 		$meta_name = taxonomy_is_product_attribute($taxonomy) ? 'order_' . esc_attr($taxonomy) : 'order';
-
 		update_term_meta($term_id, $meta_name, 0);
 	}
 
@@ -805,17 +550,12 @@ class WC_Dropshipping_Admin
 	public function delete_term($term_id, $taxonomy = '')
 	{
 		if ($taxonomy != 'dropship_supplier' && !taxonomy_is_product_attribute($taxonomy)) return;
-
 		$meta_name = taxonomy_is_product_attribute($taxonomy) ? 'order_' . esc_attr($taxonomy) : 'order';
-
 		$term_id = (int)$term_id;
-
 		update_term_meta($term_id, $meta_name, 0);
 
 		if (!$term_id) return;
-
 		global $wpdb;
-
 		$wpdb->query("DELETE FROM {$wpdb->termmeta} WHERE `term_id` = " . $term_id);
 	}
 
@@ -915,6 +655,12 @@ class WC_Dropshipping_Admin
 				$options['std_mail'] = '1';
 			} else {
 				$options['std_mail'] = '0';
+			}
+
+			if (isset($_POST['checkout_order_number'])) {
+				$options['checkout_order_number'] = '1';
+			} else {
+				$options['checkout_order_number'] = '0';
 			}
 
 			if (isset($_POST['show_pay_type'])) {
@@ -1118,6 +864,12 @@ class WC_Dropshipping_Admin
 			$std_mail = $options['std_mail'];
 		} else {
 			$std_mail = '';
+		}
+
+		if (isset($options['checkout_order_number'])) {
+			$checkout_order_number = $options['checkout_order_number'];
+		} else {
+			$checkout_order_number = 0;
 		}
 
 		if (isset($options['show_pay_type'])) {
@@ -1337,6 +1089,12 @@ class WC_Dropshipping_Admin
 			$std_mail = ' ';
 		}
 
+		if ($checkout_order_number == '1') {
+			$checkout_order_number = ' checked="checked" ';
+		} else {
+			$checkout_order_number = ' ';
+		}
+
 		if ($show_pay_type == '1' || $show_pay_type == '') {
 			$show_pay_type = ' checked="checked" ';
 		} else {
@@ -1522,21 +1280,9 @@ class WC_Dropshipping_Admin
 					</table>';
 
 		echo '<table>
-
-
-
 				<tr id="hide_key">
-
-
-
 				 	<td id="ali_api_key"></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 
@@ -1565,7 +1311,6 @@ class WC_Dropshipping_Admin
 						<td>
 							<span>
 							<td><input name="ali_cbe_price_rate_value_name" value="' . @$options['ali_cbe_price_rate_value_name'] . '" size="5" /></td>
-
 							</span>
 						<td>
 					</tr>
@@ -1573,681 +1318,204 @@ class WC_Dropshipping_Admin
 		}
 	}
 		echo '<h3>Supplier Email Notifications</h3>
-
-
-
 			<p>When an order&apos;s status switches to processing, emails are sent to each supplier to notify them to ship their products. You can set a custom message for the suppliers in the box below to be included in these emails</p>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<td><label for="email_order_note">Email order note:</label></td>
-
-
-
 					<td><img class="help_tip" data-tip="This note will appear on emails that suppliers will receive with your order notifications" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
 					<td><textarea name="email_order_note" cols="45" >' . @$options['email_order_note'] . '</textarea></td>
-
-
-
 				</tr>
-
-
-
-
-
 			</table>';
-
 
 
 		echo '<h3>.CSV File Inventory Update Settings</h3>
-
-
-
 			<p>These options relate to how your store processes data imported from CSV spreadsheet files, if you receive them from your supplier</p>
-
-
-
 			<table>
-
 				<tr>
-
-
-
 					<td><label for="inventory_pad">Inventory Padding:</label></td>
-
-
-
 					<td><img class="help_tip" data-tip="If the supplier&apos;s stock falls below this number on an imported spreadsheet, the item will be considered out of stock in your store. <br>Set this to zero if you want to directly use the inventory numbers your supplier gives you, or higher if you want to ensure that they don&apos;t sell out of their products before you make a sale." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="inventory_pad" value="' . @$options['inventory_pad'] . '" size="3" /></td>
-
-
-
+					<td><input name="inventory_pad" value="' . @$options['inventory_pad'] . '" size="1" /></td>
 				</tr>
 
-
-
 				<!--<tr>
-
-
-
 					<td valign="top"><label for="url_product_feed">Url to product feed:</label></td>
-
-
-
 					<td><img class="help_tip" data-tip="After updating the in-stock/out of stock status this url will be called to regenerate your product feed. <br />(Just leave blank if you don\'t have a product feed)" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
 					<td>
-
-
-
 						<input name="url_product_feed" value="' . @$options['url_product_feed'] . '" size="100" />
-
-
-
 					</td>
-
-
-
 				</tr>-->
-
-
-
 			</table>';
-
 
 
 		echo '<h3>Packing Slips</h3>
-
-
-
 			<p>When the suppliers recieve the email notification to notify them to ship products, this plugin generates packing slips to be included with each order. These options control the information on the generated packing slips. <br />Talk to your supplier to make sure they print out and include the packing slips with each order so that your customers will see them</p>
-
-
-
 			<table>
-
 			<tr>
-
-
 				<td><label for="packing_slip_header" >Packing Slip Title:</label></td>
-
-
-
 				<td><img class="help_tip" data-tip="This will be the custom title of the packing slip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
 				<td><input name="packing_slip_header" value="' . @$options['packing_slip_header'] . '" size="100" /></td>
-
-
-
 			</tr>
-
 				<tr>
-
-
-
 					<p><b>NOTE:</b> For best results, please keep logo dimensions within 200x60 px</p>
-
-
-
 					<td><label for="packing_slip_url_to_logo" >Company Logo URL:</label></td>
-
-
-
 					<td><img class="help_tip" data-tip="Please specify the URL where your company&apos;s logo can be found" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="packing_slip_url_to_logo" value="' . @$options['packing_slip_url_to_logo'] . '" size="100" /></td>
-
-
-
+					<td><input name="packing_slip_url_to_logo" value="' . @$options['packing_slip_url_to_logo'] . '" size="75" /></td>
 				</tr>
 
-
-
 				<tr>
-
-
-
 					<td><label for="packing_slip_url_to_logo_width" >Company Logo Width:</label></td>
-
-
-
 					<td><img class="help_tip" data-tip="Please specify the width of your company logo in pixels" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="packing_slip_url_to_logo_width" value="' . @$options['packing_slip_url_to_logo_width'] . '" size="5" /></td>
-
-
-
+					<td><input name="packing_slip_url_to_logo_width" value="' . @$options['packing_slip_url_to_logo_width'] . '" size="1" /></td>
 				</tr>
 
-
-
 				<tr>
-
-
-
 					<td><label for="packing_slip_company_name" >Company Name:</label></td>
-
-
-
 					<td><img class="help_tip" data-tip="Please enter the name of your company" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="packing_slip_company_name" value="' . @$options['packing_slip_company_name'] . '" size="100" /></td>
-
-
-
+					<td><input name="packing_slip_company_name" value="' . @$options['packing_slip_company_name'] . '" size="30" /></td>
 				</tr>
 
-
-
 				<tr>
-
-
-
 					<td><label for="packing_slip_address" >Address:</label></td>
-
-
-
 					<td><img class="help_tip" data-tip="Please enter your company&apos;s mailing address. This address will appear on your packing slips" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="packing_slip_address" value="' . @$options['packing_slip_address'] . '" size="100" /></td>
-
-
-
+					<td><input name="packing_slip_address" value="' . @$options['packing_slip_address'] . '" size="50" /></td>
 				</tr>
 
-
-
 				<tr>
-
-
-
 					<td><label for="packing_slip_customer_service_email" >Customer Service Email:</label></td>
-
-
-
 					<td><img class="help_tip" data-tip="Please enter the email address at which customers can reach your company if they have service issues" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="packing_slip_customer_service_email" value="' . @$options['packing_slip_customer_service_email'] . '" size="50" /></td>
-
-
-
+					<td><input name="packing_slip_customer_service_email" value="' . @$options['packing_slip_customer_service_email'] . '" size="30" /></td>
 				</tr>
 
-
-
 				<tr>
-
-
-
 					<td><label for="packing_slip_customer_service_phone">Customer Service Phone Number:</label></td>
-
-
-
 					<td><img class="help_tip"  data-tip="Please enter the phone number at which customers can reach your company if they have service issues" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
-					<td><input name="packing_slip_customer_service_phone" value="' . @$options['packing_slip_customer_service_phone'] . '" size="50" /></td>
-
-
-
+					<td><input name="packing_slip_customer_service_phone" value="' . @$options['packing_slip_customer_service_phone'] . '" size="10" /></td>
 				</tr><tr>
 
-
-
 					<td ><label for="packing_slip_thankyou">Footer Message:</label></td>
-
-
-
 					<td><img class="help_tip" data-tip="This message will appear at the bottom of the packing slip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-
-
-
 					<td><textarea name="packing_slip_thankyou" cols="45" >' . @$options['packing_slip_thankyou'] . '</textarea></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 		echo '<h3>Packing Slip Verbiage</h3>
-
-
-
                  <p>These options control the wording of the labels which are used on the generated packing slip that is sent to your supplier.  This can be used to create non-English packing slips, or to change the wording used on the packing slips <br/>
-
-
-
                  The default terms are listed on the left side, and you can specify a custom term or phrase to replace them with. These terms will be used in all of your packing slips. If you leave the given boxes empty then the default terms will appear in packing slip.</p>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<p><b>NOTE:</b> For best results, please make sure that any custom terms or phrases listed below are kept to a reasonable legnth. If your terms are too long, it may cause text wrapping and alignment issues with your packing slips.</p>
-
-
-
 					<td><label for="dropship_chosen_shipping_method" >Chosen Shipping Method:</label></td>
-
-
-
-
-					<td><input name="dropship_chosen_shipping_method" value="' . @$options['dropship_chosen_shipping_method'] . '" size="50" maxlength="50" /></td>
-
-
-
+					<td><input name="dropship_chosen_shipping_method" value="' . @$options['dropship_chosen_shipping_method'] . '" size="30" maxlength="50" /></td>
 				</tr>
-
-
-
 				<tr>
-
-
-
 					<td><label for="dropship_payment_type" >Payment Type:</label></td>
-
-
-
-					<td><input name="dropship_payment_type" value="' . @$options['dropship_payment_type'] . '" size="50" maxlength="50"/></td>
-
-
-
+					<td><input name="dropship_payment_type" value="' . @$options['dropship_payment_type'] . '" size="30" maxlength="50"/></td>
 				</tr>
 
-
-
 				<tr>
-
-
-
 					<td><label for="dropship_image" >Image:</label></td>
-
-
-
-
-					<td><input name="dropship_image" value="' . @$options['dropship_image'] . '" size="50" maxlength="50" /></td>
-
-
-
+					<td><input name="dropship_image" value="' . @$options['dropship_image'] . '" size="30" maxlength="50" /></td>
 				</tr>
 
-
-
 				<tr>
-
-
-
 					<td><label for="dropship_sku" >SKU:</label></td>
-
-
-
-
-					<td><input name="dropship_sku" value="' . @$options['dropship_sku'] . '" size="50" maxlength="50" /></td>
-
-
-
+					<td><input name="dropship_sku" value="' . @$options['dropship_sku'] . '" size="30" maxlength="50" /></td>
 				</tr>
 
-
-
 				<tr>
-
-
-
 					<td><label for="dropship_product" >Product:</label></td>
-
-
-
-
-					<td><input name="dropship_product" value="' . @$options['dropship_product'] . '" size="50" maxlength="50" /></td>
-
-
-
+					<td><input name="dropship_product" value="' . @$options['dropship_product'] . '" size="30" maxlength="50" /></td>
 				</tr>
 
-
-
 				<tr>
-
-
-
 					<td><label for="dropship_quantity">Quantity:</label></td>
-
-
-
-
-					<td><input name="dropship_quantity" value="' . @$options['dropship_quantity'] . '" size="50" maxlength="50"/></td>
-
-
-
+					<td><input name="dropship_quantity" value="' . @$options['dropship_quantity'] . '" size="30" maxlength="50"/></td>
 				</tr>
 
-
-
 				<tr>
-
-
-
 					<td><label for="type_of_package_conversion">Type Of Package:</label></td>
-
-
-
-
-					<td><input name="type_of_package_conversion" value="' . @$options['type_of_package_conversion'] . '" size="50" maxlength="50"/></td>
-
-
-
+					<td><input name="type_of_package_conversion" value="' . @$options['type_of_package_conversion'] . '" size="30" maxlength="50"/></td>
 				</tr>
 
-
-
 				<tr>
-
-
-
 					<td ><label for="dropship_price">Price:</label></td>
-
-
-
-
-					<td><input name="dropship_price" value="' . @$options['dropship_price'] . '" size="50" maxlength="50" /></td>
-
-
-
+					<td><input name="dropship_price" value="' . @$options['dropship_price'] . '" size="30" maxlength="50" /></td>
 				</tr>
 
-
-
 				<tr>
-
-
-
 					<td ><label for="dropship_company_address">Company Address:</label></td>
-
-
-
-
-					<td><input name="dropship_company_address" value="' . @$options['dropship_company_address'] . '" size="50" maxlength="50" /></td>
-
-
-
+					<td><input name="dropship_company_address" value="' . @$options['dropship_company_address'] . '" size="30" maxlength="50" /></td>
 				</tr>
 
-
-
 				<tr>
-
-
-
-				  <td ><label for="dropship_billing_address_email">Billing Address:</label></td>
-
-
-
-
-					<td><input name="dropship_billing_address_email" value="' . @$options['dropship_billing_address_email'] . '" size="50" maxlength="50"/></td>
-
-
-
+					<td ><label for="dropship_billing_address_email">Billing Address:</label></td>
+					<td><input name="dropship_billing_address_email" value="' . @$options['dropship_billing_address_email'] . '" size="30" maxlength="50"/></td>
 				</tr>
 
-
-
 				<tr>
-
-
-
 					<td ><label for="dropship_shipping_address_email">Shipping Address:</label></td>
-
-
-
-
-					<td><input name="dropship_shipping_address_email" value="' . @$options['dropship_shipping_address_email'] . '" size="50" maxlength="50" /></td>
-
-
-
+					<td><input name="dropship_shipping_address_email" value="' . @$options['dropship_shipping_address_email'] . '" size="30" maxlength="50" /></td>
 				</tr>
-
-
-
 			</table>';
 
 		echo '<h3>Additional Comments</h3>
-
-
-
-               <p>Max length: 200 characters</p>
-
-
-
-               <p>
-
-
-
-               		<b>NOTE:</b>
-
-
-
-               		This message appears below the shipper&apos;s address near the bottom left corner of the packing slip, but above the footer message.  If you add too much text, it will not display properly.
-
-
-
+				<p>Max length: 200 characters</p>
+				<p>
+					<b>NOTE:</b>
+					This message appears below the shipper&apos;s address near the bottom left corner of the packing slip, but above the footer message.  If you add too much text, it will not display properly.
 				</p>
-
-
-
-	        <table>
-
-
-
-	            <tr>
-
-
-
+			<table>
+				<tr>
 					<td>
-
-
-
 						<label for="dropship_additional_comment" >Comments:</label>
-
-
-
 					</td>
-
-
-
 					<td>
-
-
-
-						<textarea name="dropship_additional_comment" maxlength="200" rows="4" cols="50">' . @$options['dropship_additional_comment'] . '</textarea>
-
-
-
+						<textarea name="dropship_additional_comment" maxlength="200" rows="4" cols="30">' . @$options['dropship_additional_comment'] . '</textarea>
 					</td>
-
-
-
 				</tr>
-
-
-
 	        </table>';
 
 
 		echo '<h3>Send Order Details CSV to Suppliers</h3>
-
-
-
 			<p>This option controls whether or not you want to send a .CSV spreadsheet file as an attachment with the regular order notification emails that are sent to your suppliers</p>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<td><label for="csv_inmail">Send CSV with Supplier Notifications:</label></td>
-
-
-
 					<td><input name="csv_inmail" type="checkbox" ' . $csvInMail . ' /></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 		echo '<h3>Miscellaneous Packing Slip Options</h3>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<td><label for="full_information"><b>Send full order information as a PDF to your supplier to use as a packing slip:</b></label></td>
-
-
-
 					<td><input name="full_information" class="fullinfo" type="checkbox" ' . $checkfull . ' /></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 		echo '<div class="slidesection_bkp">
-
-
-
 			<p></p>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<td><label for="show_logo">Include your company logo in the header section of the packing slip:</label></td>
-
-
-
 					<td><input name="show_logo" type="checkbox" ' . $logoshow . ' /></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 		echo '<p></p>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<td><label for="order_date">Include order date in the packing slip:</label></td>
-
-
-
 					<td><input name="order_date" type="checkbox" ' . $date_order . ' /></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 		echo '<p></p>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<td><label for="product_price">Show product prices in the packing slip:</label></td>
-
-
-
 					<td><input name="product_price" type="checkbox" ' . $price_product . ' /></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 		echo '<p></p>
@@ -2275,170 +1543,60 @@ class WC_Dropshipping_Admin
 				</table>';
 
 		echo '<p></p>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<td><label for="shipping">Include shipping information in the packing slip:</label></td>
-
-
-
 					<td><input name="shipping" type="checkbox" ' . $product_shipping . ' /></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 		echo '<p></p>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<td><label for="shipping">Include the customer&apos;s phone number in the packing slip:</label></td>
-
-
-
 					<td><input name="billing_phone" type="checkbox" ' . $phone_billing . ' /></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 		echo '<p></p>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<td><label for="hidesuppliername">Hide the supplier names on order confirmation emails:</label></td>
-
-
-
 					<td><input name="hide_suppliername" type="checkbox" ' . $suppliername_hide . ' /></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 		echo '<p></p>
 			<table>
 				<tr>
 					<td><label for="hidesuppliername">Show supplier names on product pages:</label></td>
-
 					<td><input name="hide_suppliername_on_product_page" type="checkbox" ' . $hide_suppliername_on_product_page . ' /></td>
 				</tr>
 			</table>';
 
 		echo '<p></p>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<td><label for="type_of_package">Include an additional field in the "Add/Edit Product" menu to specify the "Type of Package"
-
-						<img class="help_tip" data-tip="This will also be added as an additional column in the packing slip" style="margin: 0 0 0 0px;" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16">: </label></td>
-
-
-
+					<img class="help_tip" data-tip="This will also be added as an additional column in the packing slip" style="margin: 0 0 0 0px;" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16">: </label></td>
 					<td><input name="type_of_package" type="checkbox" ' . $type_of_package . ' /></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 		echo '<p></p>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<td><label for="hideorderdetail_suppliername">Hide supplier names on the Order Details page:</label></td>
-
-
-
 					<td><input name="hideorderdetail_suppliername" type="checkbox" ' . $suppliername_hideorderdetail . ' /></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 		echo '<p></p>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<td><label for="payment_method">Show shipping method:</label></td>
-
-
-
 					<td><input name="payment_method" type="checkbox" ' . $method_payment . ' /></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 		echo '<p></p>
@@ -2461,138 +1619,73 @@ class WC_Dropshipping_Admin
 			</table>';
 
 		echo '<p></p>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<td><label for="cost_of_goods">Show "Cost of Goods"  instead of the store&apos;s actual "Selling Price" of products in the packing slip:</label></td>
-
-
-
 					<td><input name="cost_of_goods" type="checkbox" ' . $cost_of_goods . ' /></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 		echo '<p></p>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<td><label for="billing_address">Show billing address at the bottom:</label></td>
-
-
-
 					<td><input name="billing_address" type="checkbox" ' . $address_billing . ' /></td>
-
 				</tr>
-
 			</table>';
 
 		echo '<p></p>
-
 			<table>
-
 				<tr>
-
 					<td><label for="shipping_address">Show shipping address at the bottom:</label></td>
-
 					<td><input name="shipping_address" type="checkbox" ' . $address_shipping . ' /></td>
-
 				</tr>
-
 			</table>';
 
 		echo '<p></p>
-
 			<table>
-
 				<tr>
 					<td><label for="product_image">Show product thumbnail image:</label></td>
-
 					<td><input name="product_image" type="checkbox" ' . $image_product . ' /></td>
 				</tr>
 			</table>';
 
 		echo '<p></p>
-
 			<table>
-
 				<tr>
-
 					<td><label for="store_name">Include store name in the order notification CSV filename:</label></td>
-
 					<td><input name="store_name" type="checkbox" ' . $name_store . ' /></td>
-
 				</tr>
-
 			</table>';
 
 		echo '<p></p>
-
 			<table>
-
 				<tr>
-
 					<td><label for="store_address">Include the store&apos;s URL in the order notification CSV filename:</label></td>
-
 					<td><input name="store_address" type="checkbox" ' . $address_store . ' /></td>
-
 				</tr>
-
 			</table>';
 
 		echo '<p></p>
-
 			<table>
-
 				<tr>
-
 					<td><label for="complete_email">Send an additional email to the supplier when the order is completed:</label></td>
-
 					<td><input name="complete_email" type="checkbox" ' . $email_complete . ' /></td>
 				</tr>
 			</table>';
 
 		echo '<p></p>
-
 			<table>
 				<tr>
 					<td><label for="order_complete_link">Allow suppliers to mark their orders as shipped by clicking a link on the email, without logging in to your store:</label></td>
-
 					<td><input name="order_complete_link" type="checkbox" ' . $link_complete_order . ' /></td>
-
 				</tr>
-
 			</table>';
 
 		echo '<p></p>
-
 			<table>
-
 				<tr>
-
 					<td><label for="sendemail">When an admin creates a new supplier, send registration details to the supplier&apos;s email:</label></td>
-
 					<td><input name="email_supplier" type="checkbox" ' . $supplier_email . ' /></td>
 				</tr>
 
@@ -2603,7 +1696,6 @@ class WC_Dropshipping_Admin
 				<tr>
 					<td><label for="cnf_mail">Notify via email when suppliers open order notification emails
 					<img class="help_tip" data-tip="A notification will be sent to your store when a supplier opens order notification emails that you send out." style="margin: 0 0 0 0px;" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16">: </label></td>
-
 					<td><input name="cnf_mail" type="checkbox" ' . $cnf_mail . ' /></td>
 				</tr>
 
@@ -2613,154 +1705,55 @@ class WC_Dropshipping_Admin
 			<table>
 				<tr>
 					<td><label for="std_mail">Use the standard WooCommerce mail format for email notification:</label></td>
-
 					<td><input name="std_mail" type="checkbox" ' . $std_mail . ' /></td>
 				</tr>
-
 			</table>';
 
-		echo '<p></p>
-
-
-
-			<table>
-
-
-
+			echo '<p></p>
+				<table>
+					<tr>
+						<td><label for="checkout_order_number">Include order number field on checkout</label></td>
+						<td><input name="checkout_order_number" type="checkbox" ' . $checkout_order_number . ' /></td>
+					</tr>
+				</table>';
+			echo '<p></p>
 				<tr>
-
-
-
 					<td><label for="cc_mail">Don&apos;t cc: the store admin when sending order notification emails to suppliers</label></td>
-
-
-
 					<td><input name="cc_mail" type="checkbox" ' . $cc_mail . ' /></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 		echo '<h3>SMTP Options</h3>
-
-
-
 			<p></p>
-
-
-
 			<table>
-
-
-
 				<tr>
-
-
-
 					<td><label for="smtp_check">Check this option if you are using SMTP to send emails from your WooCommerce store:</label></td>
-
-
-
 					<td><input name="smtp_check" type="checkbox" ' . $check_smtp . ' /></td>
-
-
-
 				</tr>
-
-
-
 			</table>';
 
 		echo '<h2>Email Sender Information (if left empty, emails sent from the store will use default WooCommerce settings)</h2>
-
-
-
 			<table class="form-table">
-
-
-
 				<tbody>
-
-
-
 					<tr valign="top">
-
-
-
 						<th scope="row" class="titledesc">
-
-
-
 							<label for="from_name">Emails sent from the store should show this sender name: <img class="help_tip"  data-tip="This option will override default functionality of woocommerce" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></label>
-
-
-
 						</th>
-
-
-
 						<td class="forminp forminp-text">
-
-
-
-							<input name="from_name" id="from_name" type="text" style="min-width:300px;" value="' . $from_name . '" class="" placeholder="">
-
-
-
+							<input name="from_name" id="from_name" type="text" size="30" value="' . $from_name . '" class="" placeholder="">
 						</td>
-
-
-
 					</tr>
-
-
-
 					<tr valign="top">
-
-
-
 						<th scope="row" class="titledesc">
-
-
-
 							<label for="from_email">Emails sent from the store should show this sender email address:<img class="help_tip"  data-tip="This option will override default WooCommerce functionality" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></label>
-
-
-
 						</th>
-
-
-
 						<td class="forminp forminp-email">
-
-
-
-							<input name="from_email" id="from_email" type="email" style="min-width:300px;" value="' . $from_email . '" class="" placeholder="" multiple="multiple">
-
-
+							<input name="from_email" id="from_email" type="email" size="30" value="' . $from_email . '" class="" placeholder="" multiple="multiple">
 							<input type="hidden" name="show_admin_notice_option" value="0" />
-
-
 						</td>
-
-
-
 					</tr>
-
-
-
 				</tbody>
-
-
-
 			</table>
-
-
-
 		</div>';
 	}
 }

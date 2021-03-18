@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product-related functions and filters.
  *
  * @class    WC_PB_BS_Product
- * @version  6.0.0
+ * @version  6.7.6
  */
 class WC_PB_BS_Product {
 
@@ -45,7 +45,16 @@ class WC_PB_BS_Product {
 			$bundle_sell_ids = $product->get_meta( '_wc_pb_bundle_sell_ids', true );
 
 			if ( ! empty( $bundle_sell_ids ) && is_array( $bundle_sell_ids ) ) {
+
 				$bundle_sell_ids = array_map( 'intval', $bundle_sell_ids );
+
+				// Clean up unsupported product types.
+				foreach ( $bundle_sell_ids as $bundle_sell_index => $bundle_sell_id ) {
+					$product_type = WC_Product_Factory::get_product_type( $bundle_sell_id );
+					if ( ! in_array( $product_type, array( 'simple', 'subscription' ) ) ) {
+						unset( $bundle_sell_ids[ $bundle_sell_index ] );
+					}
+				}
 			}
 
 			/**

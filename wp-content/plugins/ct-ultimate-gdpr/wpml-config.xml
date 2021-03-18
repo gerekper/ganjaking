@@ -1,0 +1,52 @@
+<wpml-config>
+    <admin-texts>
+        <key name="ct-ultimate-gdpr-cookie">
+            <key name="cookie_content"/>
+            <key name="cookie_group_popup_header_content"/>
+            <key name="cookie_popup_label_accept"/>
+            <key name="cookie_popup_label_read_more"/>
+            <key name="cookie_popup_label_settings"/>
+            <key name="cookie_group_popup_label_save"/>
+            <key name="cookie_group_popup_label_will"/>
+            <key name="cookie_group_popup_label_wont"/>
+            <key name="cookie_group_popup_label_block_all"/>
+            <key name="cookie_group_popup_label_essentials"/>
+            <key name="cookie_group_popup_label_functionality"/>
+            <key name="cookie_group_popup_label_analytics"/>
+            <key name="cookie_group_popup_label_advertising"/>
+            <key name="cookie_group_popup_features_available_group_2"/>
+            <key name="cookie_group_popup_features_nonavailable_group_2"/>
+            <key name="cookie_group_popup_features_available_group_3"/>
+            <key name="cookie_group_popup_features_nonavailable_group_3"/>
+            <key name="cookie_group_popup_features_available_group_4"/>
+            <key name="cookie_group_popup_features_nonavailable_group_4"/>
+            <key name="cookie_group_popup_features_available_group_5"/>
+            <key name="cookie_group_popup_features_nonavailable_group_5"/>
+            <key name="cookie_protection_shortcode_label"/>
+            <key name="services_arforms_description"/>
+            <key name="services_bbpress_description"/>
+            <key name="services_buddypress_description"/>
+            <key name="services_contact-form-7_description"/>
+            <key name="services_eform_description"/>
+            <key name="services_events-manager_description"/>
+            <key name="services_facebook-pixel_description"/>
+            <key name="services_flamingo_description"/>
+            <key name="services_formcraft_description"/>
+            <key name="services_formidable-forms_description"/>
+            <key name="services_gravity-forms_description"/>
+            <key name="services_mailchimp_description"/>
+            <key name="services_mailpoet_description"/>
+            <key name="services_mailster_description"/>
+            <key name="services_quform_description"/>
+            <key name="services_woocommerce_description"/>
+            <key name="services_wordfence_description"/>
+            <key name="services_wp-comments_description"/>
+            <key name="services_wp-job-manager_description"/>
+            <key name="services_wp-posts_description"/>
+            <key name="services_wp-simple-paypal-shopping-cart_description"/>
+            <key name="services_wp-user_description"/>
+            <key name="services_youtube_description"/>
+        </key>
+        <key name="simple_string_option"/>
+    </admin-texts>
+</wpml-config>

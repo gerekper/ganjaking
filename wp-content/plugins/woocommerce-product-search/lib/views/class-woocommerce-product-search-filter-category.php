@@ -855,11 +855,6 @@ class WooCommerce_Product_Search_Filter_Category {
 			$output .= '}';
 			$output .= '});';
 
-			$output .= sprintf(
-				'jQuery( "#%s" ).trigger( "apply-selectize" );',
-				esc_attr( 'product-search-filter-select-' . $taxonomy . '-' . $n )
-			);
-
 			$output .= '}';
 			$output .= '} );';
 			$output .= '</script>';

@@ -228,4 +228,3 @@ $rs_wmpl = new RevSliderWpml();
  * @since: 5.0
  **/
 class UniteWpmlRev extends RevSliderWpml {}
-?>

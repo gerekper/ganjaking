@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Class.
  *
  * @class    WC_Product_Bundle
- * @version  6.7.0
+ * @version  6.7.7
  */
 class WC_Product_Bundle extends WC_Product {
 
@@ -633,6 +633,8 @@ class WC_Product_Bundle extends WC_Product {
 
 			$group_mode = $this->get_group_mode();
 
+			$data[ 'layout' ] = $this->get_layout();
+
 			$data[ 'hide_total_on_validation_fail' ] = 'no';
 
 			$data[ 'zero_items_allowed' ] = self::group_mode_has( $group_mode, 'parent_item' ) ? 'yes' : 'no';
@@ -737,7 +739,7 @@ class WC_Product_Bundle extends WC_Product {
 				$data[ 'recurring_html' ][ $bundled_item->get_id() ] = '';
 				$data[ 'recurring_keys' ][ $bundled_item->get_id() ] = '';
 
-				if ( $bundled_item->is_subscription() && ! $bundled_item->is_variable_subscription() ) {
+				if ( $bundled_item->is_priced_individually() && $bundled_item->is_subscription() && ! $bundled_item->is_variable_subscription() ) {
 
 					$data[ 'recurring_prices' ][ $bundled_item->get_id() ]         = $bundled_item->get_recurring_price( 'min' );
 					$data[ 'regular_recurring_prices' ][ $bundled_item->get_id() ] = $bundled_item->get_regular_recurring_price( 'min' );
@@ -914,7 +916,7 @@ class WC_Product_Bundle extends WC_Product {
 						'price' => $this->$price_fn(),
 						'qty'   => $qty,
 						'calc'  => $price_calc,
-					) ), wc_get_price_decimals() );
+					) ), wc_pb_price_num_decimals() );
 
 					$bundled_items = $this->get_bundled_items();
 
@@ -939,7 +941,7 @@ class WC_Product_Bundle extends WC_Product {
 									'strict'     => $strict,
 									'calc'       => $price_calc,
 									'prop'       => $price_prop
-								) ), wc_get_price_decimals() );
+								) ), wc_pb_price_num_decimals() );
 							}
 						}
 
@@ -1061,7 +1063,7 @@ class WC_Product_Bundle extends WC_Product {
 
 			foreach ( $bundled_items as $bundled_item_id => $bundled_item ) {
 
-				if ( $bundled_item->is_subscription() ) {
+				if ( $bundled_item->is_subscription() && $bundled_item->is_priced_individually() ) {
 
 					$bundled_product    = $bundled_item->product;
 					$bundled_product_id = $bundled_item->get_product_id();
@@ -1089,7 +1091,7 @@ class WC_Product_Bundle extends WC_Product {
 					$subs_details[ $sub_string ][ 'price' ]         += $bundled_item->get_quantity( 'min', array( 'context' => 'price', 'check_optional' => true ) ) * WC_PB_Product_Prices::get_product_price( $product, array( 'price' => $bundled_item->min_recurring_price, 'calc' => 'display' ) );
 					$subs_details[ $sub_string ][ 'regular_price' ] += $bundled_item->get_quantity( 'min', array( 'context' => 'price', 'check_optional' => true ) ) * WC_PB_Product_Prices::get_product_price( $product, array( 'price' => $bundled_item->min_regular_recurring_price, 'calc' => 'display' ) );
 
-					if ( $bundled_item->is_variable_subscription() && $bundled_item->is_priced_individually() ) {
+					if ( $bundled_item->is_variable_subscription() ) {
 
 						$bundled_item->add_price_filters();
 
@@ -1294,7 +1296,7 @@ class WC_Product_Bundle extends WC_Product {
 			 */
 			$price = apply_filters( 'woocommerce_get_bundle_price_html', $price, $this );
 
-			if ( $this->contains( 'subscriptions' ) ) {
+			if ( $this->contains( 'subscriptions_priced_individually' ) ) {
 				$price = $this->apply_subs_price_html( $price );
 			}
 

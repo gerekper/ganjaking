@@ -141,9 +141,9 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 				$search_for_color = 'transparent';
 			}
 		}
-		
+
 		$unique_indentifier = $args['element_counter'] . "-" . $args['field_counter'] . "-" . $args['tabindex'] . $args['form_prefix'] . uniqid();
-		
+
 		if ( ( ! empty( $element['use_colors'] ) || ! empty( $element['use_images'] ) ) && ( $search_for_color === 'transparent' || preg_match( '/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/', $search_for_color ) ) ) {			
 			$tmhexcolor   = 'tmhexcolor_' . $unique_indentifier;
 			$litmhexcolor = 'tm-li-unique-' . $unique_indentifier;

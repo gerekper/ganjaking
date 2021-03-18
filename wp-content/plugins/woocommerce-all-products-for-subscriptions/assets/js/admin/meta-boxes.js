@@ -208,9 +208,9 @@ jQuery( function( $ ) {
 	function update_panel_classes() {
 
 		if ( $wcsatt_schemes.length > 0 ) {
-			$wcsatt_data_tab.removeClass( 'planless' );
+			$wcsatt_data_tab.removeClass( 'planless onboarding' );
 		} else {
-			$wcsatt_data_tab.addClass( 'planless' );
+			$wcsatt_data_tab.addClass( 'planless onboarding' );
 		}
 
 		if ( $wcsatt_schemes.length > 1 ) {
@@ -333,11 +333,6 @@ jQuery( function( $ ) {
 			update_general_options();
 			toggle_one_time_shipping();
 
-		} )
-
-		// Remove onboarding elements when adding component.
-		.one( 'woocommerce_subscription_scheme_added', function() {
-			$wcsatt_data_tab.removeClass( 'onboarding' );
 		} );
 
 	$wcsatt_schemes_wrapper

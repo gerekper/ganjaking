@@ -1219,6 +1219,9 @@ final class THEMECOMPLETE_EPO_Admin_base {
 				'i18n_mn_delete_folder' => esc_html__( 'Are you sure you want to delete this folder and all of its contents?', 'woocommerce-tm-extra-product-options' ),
 				'i18n_mn_delete_file'   => esc_html__( 'Are you sure you want to delete this file?', 'woocommerce-tm-extra-product-options' ),
 				'i18n_error_title'      => esc_html__( 'Error', 'woocommerce-tm-extra-product-options' ),
+				'i18n_reset_settings'   => esc_html__( 'Are you sure you want to reset the settings?', 'woocommerce-tm-extra-product-options' ),
+				'i18n_yes'              => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ),
+				'i18n_no'               => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ),
 			);
 			wp_localize_script( 'themecomplete-epo-admin-settings', 'TMEPOADMINSETTINGSJS', $params );
 			wp_enqueue_script( 'themecomplete-epo-admin-settings' );
