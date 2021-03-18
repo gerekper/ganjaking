@@ -410,7 +410,8 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 		     && isset( $_SERVER['REQUEST_METHOD'] )
 		     && strtolower( $_SERVER['REQUEST_METHOD'] ) === 'post'
 		     && isset( $_SERVER['CONTENT_LENGTH'] )
-		     && (float) $_SERVER['CONTENT_LENGTH'] > $postMax
+			 && (float) $_SERVER['CONTENT_LENGTH'] > $postMax
+			 && ( ! isset( $_GET ) ||  ( isset( $_GET ) && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $_GET['post_type'], 'ct_template' ) && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $_GET['action'], 'oxy_render_' ) ) )
 		) {
 			$message = sprintf( esc_html__( 'Trying to upload files larger than %s is not allowed!', 'woocommerce-tm-extra-product-options' ), $postMax );
 		}

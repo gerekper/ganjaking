@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-05 17:20+0000\n"
+"POT-Creation-Date: 2021-02-25 15:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -20,7 +20,7 @@ msgid ""
 "contact@permalinkmanager.pro</a>."
 msgstr ""
 
-#: includes/core/permalink-manager-third-parties.php:299
+#: includes/core/permalink-manager-third-parties.php:313
 msgid "\"Custom Permalinks\" URIs were imported!"
 msgstr ""
 
@@ -61,14 +61,6 @@ msgstr ""
 #: includes/core/permalink-manager-admin-functions.php:717
 #, php-format
 msgid "<a %s>Click here</a> to go to the list of updated slugs"
-msgstr ""
-
-#: includes/core/permalink-manager-admin-functions.php:901
-#, php-format
-msgid ""
-"<span><strong>Need more functionalities and dedicated support?</strong> Buy "
-"Permalink Manager Pro and apply <a href=\"https://permalinkmanager.pro/buy-"
-"permalink-manager-pro/\">PMLITE coupon code</a> to get 10% off.</a></span>"
 msgstr ""
 
 #: includes/core/permalink-manager-admin-functions.php:716
@@ -334,7 +326,8 @@ msgstr ""
 msgid "Custom redirects"
 msgstr ""
 
-#: includes/core/permalink-manager-third-parties.php:698
+#: includes/core/permalink-manager-third-parties.php:445
+#: includes/core/permalink-manager-third-parties.php:765
 #: includes/core/permalink-manager-uri-functions-tax.php:488
 #: includes/views/permalink-manager-tools.php:70
 msgid "Custom URI"
@@ -555,7 +548,7 @@ msgid ""
 "the posts imported with WP All Import plugin."
 msgstr ""
 
-#: includes/core/permalink-manager-third-parties.php:699
+#: includes/core/permalink-manager-third-parties.php:766
 #, php-format
 msgid ""
 "If empty, a default permalink based on your current <a href=\"%s\" "
@@ -613,7 +606,7 @@ msgstr ""
 msgid ""
 "If enabled, the HTML breadcrumbs will be filtered by Permalink Manager to "
 "mimic the current URL structure.<br />Works with: <strong>WooCommerce, Yoast "
-"SEO, RankMath and SEOPress</strong> breadcrumbs."
+"SEO, Slim Seo, RankMath and SEOPress</strong> breadcrumbs."
 msgstr ""
 
 #: includes/views/permalink-manager-settings.php:187
@@ -745,7 +738,7 @@ msgstr ""
 msgid "Maciej Bis"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:939
+#: includes/core/permalink-manager-admin-functions.php:931
 msgid "Manage redirects"
 msgstr ""
 
@@ -777,7 +770,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: includes/core/permalink-manager-third-parties.php:302
+#: includes/core/permalink-manager-third-parties.php:316
 msgid "No \"Custom Permalinks\" URIs were imported!"
 msgstr ""
 
@@ -835,7 +828,7 @@ msgstr ""
 msgid "Permalink Duplicates"
 msgstr ""
 
-#: includes/core/permalink-manager-third-parties.php:694
+#: includes/core/permalink-manager-third-parties.php:761
 #: includes/core/permalink-manager-gutenberg.php:29
 #: includes/core/permalink-manager-admin-functions.php:111
 #: includes/core/permalink-manager-admin-functions.php:111
@@ -1023,7 +1016,7 @@ msgstr ""
 msgid "Save old custom permalinks as redirects"
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:912
+#: includes/core/permalink-manager-admin-functions.php:904
 msgid "Save permalink"
 msgstr ""
 
@@ -1205,7 +1198,7 @@ msgid ""
 " custom permalinks set with Permalink Manager."
 msgstr ""
 
-#: includes/core/permalink-manager-admin-functions.php:1057
+#: includes/core/permalink-manager-admin-functions.php:1049
 #, php-format
 msgid ""
 "This functionality is available only in <a href=\"%s\" target=\"_blank\">"

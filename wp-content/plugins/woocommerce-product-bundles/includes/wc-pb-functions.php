@@ -449,6 +449,36 @@ function wc_pb_is_bundle_container_order_item( $order_item ) {
 
 /*
 |--------------------------------------------------------------------------
+| Formatting.
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * Get precision depending on context.
+ *
+ * @return string
+ */
+function wc_pb_price_num_decimals( $context = '' ) {
+
+	$wc_price_num_decimals_cache_key = 'wc_price_num_decimals' . ( 'extended' === $context ? '_ext' : '' );
+	$wc_price_num_decimals           = WC_PB_Helpers::cache_get( $wc_price_num_decimals_cache_key );
+
+	if ( null === $wc_price_num_decimals ) {
+
+		if ( 'extended' === $context ) {
+			$wc_price_num_decimals = wc_get_rounding_precision();
+		} else {
+			$wc_price_num_decimals = wc_get_price_decimals();
+		}
+
+		WC_PB_Helpers::cache_set( $wc_price_num_decimals_cache_key, $wc_price_num_decimals );
+	}
+
+	return $wc_price_num_decimals;
+}
+
+/*
+|--------------------------------------------------------------------------
 | Conditionals.
 |--------------------------------------------------------------------------
 */

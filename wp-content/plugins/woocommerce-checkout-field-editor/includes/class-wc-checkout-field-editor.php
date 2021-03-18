@@ -1,6 +1,9 @@
 <?php
 
-use \Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
+use Automattic\WooCommerce\Admin\Features\Features;
+
 
 /**
  * WC_Checkout_Field_Editor class.
@@ -51,7 +54,13 @@ class WC_Checkout_Field_Editor {
 
 		add_action( 'admin_print_scripts-' . $this->screen_id, array( $this, 'scripts' ) );
 
-		if ( ! class_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Menu' ) ) {
+		if (
+			! class_exists( 'Features' ) ||
+			! method_exists( Screen::class, 'register_post_type' ) ||
+			! method_exists( Menu::class, 'add_plugin_item' ) ||
+			! method_exists( Menu::class, 'add_plugin_category' ) ||
+			! Features::is_enabled( 'navigation' )
+		) {
 			return;
 		}
 

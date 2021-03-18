@@ -16,7 +16,7 @@ class THEMECOMPLETE_EPO_FIELDS_select extends THEMECOMPLETE_EPO_FIELDS {
 	 * @since 1.0
 	 */
 	public function display_field( $element = array(), $args = array() ) {
-		
+
 		$changes_product_image = empty( $element['changes_product_image'] ) ? "" : $element['changes_product_image'];
 
 		$class_label = '';

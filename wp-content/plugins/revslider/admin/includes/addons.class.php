@@ -57,10 +57,10 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 				if(!is_object($addon)) continue;
 				if(array_key_exists($addon->slug.'/'.$addon->slug.'.php', $plugins)){
 					$addons[$k]->full_title	= $plugins[$addon->slug.'/'.$addon->slug.'.php']['Name'];
-					$addons[$k]->active		= (is_plugin_active($addon->slug.'/'.$addon->slug.'.php')) ? true : false;
+					$addons[$k]->active = is_plugin_active($addon->slug.'/'.$addon->slug.'.php');
 					$addons[$k]->installed	= $plugins[$addon->slug.'/'.$addon->slug.'.php']['Version'];
 				}else{
-					$addons[$k]->active		= false;
+					$addons[$k]->active = false;
 					$addons[$k]->installed	= false;
 				}
 			}
@@ -112,9 +112,7 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 	 * @since 6.0
 	 */
 	public function install_addon($addon, $force = false){
-		if(get_option('revslider-valid', 'false') !== 'true') return __('Please activate Slider Revolution', 'revslider');
-		
-		//check if downloaded already
+				//check if downloaded already
 		$plugins	= get_plugins();
 		$addon_path = $addon.'/'.$addon.'.php';
 		if(!array_key_exists($addon_path, $plugins) || $force == true || !file_exists(WP_PLUGIN_DIR.'/'.$addon_path)){
@@ -134,17 +132,12 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 	 * @since    1.0.0
 	 */
 	public function download_addon($addon){
-		global $wp_version, $rslb;
-		
-		if(get_option('revslider-valid', 'false') !== 'true') return __('Please activate Slider Revolution', 'revslider');
+		global $rslb;
 		
 		$plugin_slug	= basename($addon);
-		$plugin_result	= false;
-		$plugin_message	= 'UNKNOWN';
-		
-		$code = get_option('revslider-code', '');
-		
 		if(0 !== strpos($plugin_slug, 'revslider-')) die( '-1' );
+
+		$code = get_option('revslider-code', '');
 		
 		$done	= false;
 		$count	= 0;
@@ -168,7 +161,7 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 			$count++;
 		}while($done == false && $count < 5);
 		
-		if($get && $get['body'] != 'invalid' && wp_remote_retrieve_response_code($get) == 200){
+		
 			$upload_dir	= wp_upload_dir();
 			$file		= $upload_dir['basedir']. '/revslider/templates/' . $plugin_slug . '.zip';
 			@mkdir(dirname($file), 0777, true);
@@ -204,7 +197,7 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 			
 			@unlink($file);
 			return true;
-		}
+		
 		
 		//$result = activate_plugin( $plugin_slug.'/'.$plugin_slug.'.php' );
 		return false;
@@ -237,10 +230,9 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 	 */
 	public function deactivate_addon($addon){
 		// Verify that the incoming request is coming with the security nonce
-		$result = deactivate_plugins($addon);
-		return (is_wp_error($result)) ? false : true;
+		deactivate_plugins($addon);
+		return true;
 	}
 }
 
 class Rev_addon_Admin extends RevSliderAddons {}
-?>

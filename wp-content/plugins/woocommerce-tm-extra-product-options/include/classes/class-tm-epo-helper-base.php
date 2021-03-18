@@ -1723,4 +1723,21 @@ final class THEMECOMPLETE_EPO_HELPER_base {
 		return (string) $glued_string;
 	}
 
+	public function array_intersect_key_wildcard ( $arr, $arr2 ) {
+		$ret = [];
+
+		foreach( $arr2 as $key=>$value){
+			$nee = str_replace( '\\*', '[0-9]+?', preg_quote( $key, '/' ) );
+			$nee = preg_grep( '/^' . $nee . '$/i', array_keys( $arr ) );
+			$ret[] = array_intersect_key( $arr, array_flip( $nee ) );
+		}
+		$array = [];
+		foreach( $ret as $key=>$value){
+			$array = array_merge( $array, $value );
+		}
+
+		return $array;
+	}
+
+
 }

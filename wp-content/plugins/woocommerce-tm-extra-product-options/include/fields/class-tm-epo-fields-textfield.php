@@ -28,6 +28,14 @@ class THEMECOMPLETE_EPO_FIELDS_textfield extends THEMECOMPLETE_EPO_FIELDS {
 		}
 		$get_default_value = apply_filters( 'wc_epo_default_value', $get_default_value, $element );
 
+		$input_type = isset( $element['price_rules_type'] ) && isset( $element['price_rules_type'][0] ) && isset( $element['price_rules_type'][0][0] )
+		? (
+		in_array( $element['price_rules_type'][0][0], array( 'step', 'currentstep' ) )
+		|| ( isset( $element['validation1'] ) && ( $element['validation1'] == "number" || $element['validation1'] == "digits" ) )
+			? ( isset( $element['validation1'] ) && ( $element['validation1'] == "number" ) ? 'decimal' : 'number' ) : 'text'
+		)
+		: 'text';
+
 		return array(
 			'textbeforeprice'   => isset( $element['text_before_price'] ) ? $element['text_before_price'] : "",
 			'textafterprice'    => isset( $element['text_after_price'] ) ? $element['text_after_price'] : "",
@@ -41,13 +49,7 @@ class THEMECOMPLETE_EPO_FIELDS_textfield extends THEMECOMPLETE_EPO_FIELDS {
 			'get_default_value' => $get_default_value,
 			'quantity'          => isset( $element['quantity'] ) ? $element['quantity'] : "",
 			'freechars'         => isset( $element['freechars'] ) ? $element['freechars'] : "",
-			'input_type'        => isset( $element['price_rules_type'] ) && isset( $element['price_rules_type'][0] ) && isset( $element['price_rules_type'][0][0] )
-				? (
-				in_array( $element['price_rules_type'][0][0], array( 'step', 'currentstep' ) )
-				|| ( isset( $element['validation1'] ) && ( $element['validation1'] == "number" || $element['validation1'] == "digits" ) )
-					? 'number' : 'text'
-				)
-				: 'text',
+			'input_type'        => $input_type,
 		);
 	}
 
@@ -86,7 +88,7 @@ class THEMECOMPLETE_EPO_FIELDS_textfield extends THEMECOMPLETE_EPO_FIELDS {
 					$val = preg_replace( "/\r\n/", "\n", $val );
 				}
 				if ( $val !== '' && ( $val !== FALSE && strlen( $val ) < intval( $this->element['min_chars'] ) ) ) {
-					$passed    = FALSE;var_dump_pre($val);
+					$passed    = FALSE;
 					$message[] = sprintf( esc_html__( 'You must enter at least %s characters for "%s".', 'woocommerce-tm-extra-product-options' ), intval( $this->element['min_chars'] ), $this->element['label'] );
 					break;
 				}

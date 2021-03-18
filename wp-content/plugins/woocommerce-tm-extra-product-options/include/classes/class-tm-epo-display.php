@@ -143,7 +143,7 @@ class THEMECOMPLETE_EPO_Display {
 
 
 	/**
-	 * Get the tax rate of the give tax classes
+	 * Get the tax rate of the given tax classes
 	 *
 	 * @param $classes
 	 *
@@ -211,6 +211,7 @@ class THEMECOMPLETE_EPO_Display {
 
 			$tax_rate = $this->get_tax_rate( themecomplete_get_tax_class( $variation ) );
 
+			$taxes_of_one = 0;
 			$base_taxes_of_one   = 0;
 			$modded_taxes_of_one = 0;
 
@@ -237,9 +238,11 @@ class THEMECOMPLETE_EPO_Display {
 					$prices_include_tax = wc_prices_include_tax();
 				}
 
+				$taxes_of_one = array_sum( WC_Tax::calc_tax( $price_of_one, $tax_rates, wc_prices_include_tax() ) );
 				$base_taxes_of_one   = array_sum( WC_Tax::calc_tax( $price_of_one, $base_tax_rates, TRUE ) );
 				$modded_taxes_of_one = array_sum( WC_Tax::calc_tax( $price_of_one - $base_taxes_of_one, $tax_rates, FALSE ) );
 
+				$taxes_of_one        = $taxes_of_one / ( pow( 10, $precision ) );
 				$base_taxes_of_one   = $base_taxes_of_one / ( pow( 10, $precision ) );
 				$modded_taxes_of_one = $modded_taxes_of_one / ( pow( 10, $precision ) );
 
@@ -250,6 +253,7 @@ class THEMECOMPLETE_EPO_Display {
 			$array["tc_is_taxable"]               = $variation->is_taxable();
 			$array["tc_base_tax_rate"]            = $base_tax_rate;
 			$array["tc_base_taxes_of_one"]        = $base_taxes_of_one;
+			$array["tc_taxes_of_one"]             = $taxes_of_one;
 			$array["tc_modded_taxes_of_one"]      = $modded_taxes_of_one;
 			$array["tc_non_base_location_prices"] = $non_base_location_prices;
 			$array["tc_is_on_sale"]               = $variation->is_on_sale();
@@ -1192,7 +1196,7 @@ class THEMECOMPLETE_EPO_Display {
 							$variations_builder_element_start_args = $args;
 						}
 
-						if ( ( $element['type'] != "variations" && $element['enabled'] ) || $element['type'] === "variations" ) {
+						if ( ( $element['type'] !== "variations" && $element['enabled'] ) || $element['type'] === "variations" ) {
 
 							$field_counter = 0;
 
@@ -2251,7 +2255,7 @@ class THEMECOMPLETE_EPO_Display {
 	 * @param bool   $is_from_shortcode
 	 */
 	private function print_price_fields( $product_id = 0, $form_prefix = "", $is_from_shortcode = FALSE ) {
-		
+
 		if ($product_id instanceof WC_PRODUCT){
 			$product = $product_id;
 			$product_id = themecomplete_get_id($product);
@@ -2406,7 +2410,7 @@ class THEMECOMPLETE_EPO_Display {
 		}
 
 		$variations = array();
-		
+
 		if ( in_array( themecomplete_get_product_type( $product ), apply_filters( 'wc_epo_variable_product_type', array( "variable" ), $product ) ) && THEMECOMPLETE_EPO()->tm_epo_no_variation_prices_array !== 'yes' ) {
 
 			foreach ( $product->get_available_variations() as $variation ) {
@@ -2431,8 +2435,8 @@ class THEMECOMPLETE_EPO_Display {
 					);
 				} else {
 					$variation_price = $product_variation->get_price();
-				}				
-				
+				}
+
 				if (isset($variation['attributes']) && is_array($variation['attributes'])){
 					$atts = 0;
 					foreach ($variation['attributes'] as $att => $value_att) {
@@ -2477,6 +2481,7 @@ class THEMECOMPLETE_EPO_Display {
 
 		}
 
+		$taxes_of_one = 0;
 		$base_taxes_of_one   = 0;
 		$modded_taxes_of_one = 0;
 
@@ -2489,6 +2494,10 @@ class THEMECOMPLETE_EPO_Display {
 			$base_tax_rate  = 0;
 			foreach ( $base_tax_rates as $key => $value ) {
 				$base_tax_rate = $base_tax_rate + floatval( $value['rate'] );
+			}
+			$tax_rate  = 0;
+			foreach ( $tax_rates as $key => $value ) {
+				$tax_rate = $tax_rate + floatval( $value['rate'] );
 			}
 			$is_vat_exempt            = ( ! empty( WC()->customer ) && WC()->customer->is_vat_exempt() ) == TRUE ? 1 : 0;
 			$non_base_location_prices = ( $tax_rates !== $base_tax_rates && apply_filters( 'woocommerce_adjust_non_base_location_prices', TRUE ) ) == TRUE ? 1 : 0;

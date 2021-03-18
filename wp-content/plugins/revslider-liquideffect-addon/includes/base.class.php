@@ -2,7 +2,7 @@
 /* 
  * @author    ThemePunch <info@themepunch.com>
  * @link      http://www.themepunch.com/
- * @copyright 2018 ThemePunch
+ * @copyright 2021 ThemePunch
 */
 
 if(!defined('ABSPATH')) exit();
@@ -15,7 +15,7 @@ class RsLiquideffectBase extends RsAddOnLiquideffectBase {
 					 $_PluginUrl     = RS_LIQUIDEFFECT_PLUGIN_URL,
 					 $_PluginTitle   = 'liquideffect',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '2.1.1';
+				     $_Version       = '2.1.2';
 	
 	public function __construct() {
 		

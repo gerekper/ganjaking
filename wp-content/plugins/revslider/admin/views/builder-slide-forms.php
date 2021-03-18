@@ -117,7 +117,7 @@ if ($wpml->wpml_exists()) {
 				<div class="collapsable">
 
 					<!-- BACKGROUND / COVER IMAGE SETTINGS -->
-					<div class="slidebg_image_settings slidebg_external_settings slide_bg_settings">
+<div class="slidebg_image_settings slidebg_external_settings slide_bg_settings">
 
 						<div id="ken_burn_bg_setting_off">
 							<div id="slide_bg_settings_wrapper">
@@ -159,7 +159,7 @@ if ($wpml->wpml_exists()) {
 										<div class="triggerselect slide_bg_position_selector bg_alignselector" data-select="#slide_bg_position" data-val="center bottom" id="slide_bg_position_center-bottom"></div>
 										<div class="triggerselect slide_bg_position_selector bg_alignselector" data-select="#slide_bg_position" data-val="right bottom" id="slide_bg_position_right-bottom"></div>
 									</div>
-									<div class="bg_align_xy slide_bg_fit slide_bg_fit_percentage slide_bg_fit_auto">
+									<div class="bg_align_xy">
 										<div class="triggerselect slide_bg_position_selector bg_alignselector" data-select="#slide_bg_position" data-val="percentage" id="slide_bg_position_percentage"></div>
 										<xy_label><?php _e('X% Y%', 'revslider');?></xy_label>
 									</div>
@@ -203,13 +203,14 @@ if ($wpml->wpml_exists()) {
 						<label_a><?php _e('Width Attrib.', 'revslider');?></label_a><input id="slide_bg_width" data-evt="updateslidebasic" class="slideinput easyinit" type="text" data-r="bg.width" data-numeric="true" data-allowed="px">
 						<label_a><?php _e('Height Attrib.', 'revslider');?></label_a><input data-numeric="true" data-allowed="px" id="slide_bg_height" data-evt="updateslidebasic" class="slideinput easyinit" type="text" data-r="bg.height">
 					</div>
-
-
+					
 					<!-- YOUTUBE / VIMEO HTML5 SETTINGS-->
+					<div class="slidebg_html5_settings slide_bg_settings">
+						<longoption><i class="material-icons">aspect_ratio</i><label_a><?php _e('Video Fit Cover', 'revslider');?></label_a><input type="checkbox"  id="sl_vid_fit_cover" class="slideinput easyinit" data-r="bg.video.fitCover"/></longoption>						
+					</div>
 					<div class="slidebg_youtube_settings slidebg_vimeo_settings slidebg_html5_settings slide_bg_settings">
 						<div class="div10"></div>
 						<label_a><?php _e('Aspect Ratio', 'revslider');?></label_a><select data-theme="dark" id="slide_vid_aratio" class="slideinput tos2 nosearchbox easyinit"  data-r="bg.video.ratio"><option value="16:9">16:9</option><option value="4:3">4:3</option></select><span class="linebreak"></span>									
-						<longoption><i class="material-icons">aspect_ratio</i><label_a><?php _e('Video Fit Cover', 'revslider');?></label_a><input type="checkbox"  id="sl_vid_fit_cover" class="slideinput easyinit" data-r="bg.video.fitCover"/></longoption>						
 						<longoption><i class="material-icons">pause</i><label_a ><?php _e('Pause Timer during Play', 'revslider');?></label_a><input type="checkbox" class="easyinit slideinput" data-r="bg.video.pausetimer"></longoption>
 						<longoption><i class="material-icons">loop</i><label_a ><?php _e('Loop Media', 'revslider');?></label_a><input type="checkbox" class="easyinit slideinput" id="sl_vid_loop_me" data-change="sl_vid_nextslide" data-changeto="false" data-changewhennot="false" data-r="bg.video.loop"></longoption>										
 						<longoption><i class="material-icons">query_builder</i><label_a><?php _e('Start after Slide Transition', 'revslider');?></label_a><input type="checkbox"  id="sl_vid_after_slide_trans" class="slideinput easyinit" data-r="bg.video.startAfterTransition"/></longoption>
@@ -434,7 +435,7 @@ if ($wpml->wpml_exists()) {
 							</select>
 						</div>
 						<div id="sltrans_all_globals">
-							<div id="slideframespeed_wrap"><label_a><?php _e('Duration', 'revslider');?></label_a><input id="sltrans_duration" class="callEvent withsuffix slideinput valueduekeyboard smallinput easyinit input_with_presets" data-suffix="ms" data-numeric="true" data-allowed="random,default,ms" data-presets_text="$C$1000ms!$I$Default!$R$Random" data-presets_val="1000!default!random!" data-evt="updateSlideTransitionTimeLine" data-r="slideChange.speed" data-steps="300" type="text"><div id="slideframespeed_sub"></div></div>
+							<div id="slideframespeed_wrap"><label_a><?php _e('Duration', 'revslider');?></label_a><input id="sltrans_duration" class="callEvent withsuffix slideinput valueduekeyboard smallinput easyinit input_with_presets" data-suffix="ms" data-numeric="true" data-allowed="default,ms" data-presets_text="$C$1000ms!$I$Default" data-presets_val="1000!default" data-evt="updateSlideTransitionTimeLine" data-r="slideChange.speed" data-steps="300" type="text"><div id="slideframespeed_sub"></div></div>
 							<div id="sltrans_pause">
 								<label_a><?php _e('Pause Between', 'revslider');?></label_a><select id="sltrans_breaking" class="slideinput tos2 nosearchbox easyinit callEvent" data-evt="updateSlideAnimation" data-evtparam="tocustom" data-r="slideChange.p" data-theme="dark">
 									<option value="none"><?php _e('No Pause', 'revslider');?></option>
@@ -950,8 +951,3 @@ if ($wpml->wpml_exists()) {
 	</div>
 
 </div><!-- END OF SLIDE SETTINGS -->
-
-
-
-
-

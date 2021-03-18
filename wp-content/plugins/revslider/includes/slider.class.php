@@ -8,7 +8,6 @@
 if(!defined('ABSPATH')) exit();
 
 global $rs_do_init_action;
-
 $rs_do_init_action = true;
 
 class RevSliderSlider extends RevSliderFunctions {
@@ -28,9 +27,9 @@ class RevSliderSlider extends RevSliderFunctions {
 	 * can cause heavy ram usage on slider overview page if we have 100+ Sliders
 	 **/
 	public $init_layer = true;
-	
-	
+
 	public function __construct(){
+		parent::__construct();
 		$this->map = array();
 	}
 	
@@ -253,6 +252,8 @@ class RevSliderSlider extends RevSliderFunctions {
 	/**
 	 * init by id or alias
 	 * @before: RevSliderSlider::initByMixed();
+	 * @param mixed $mixed  slider id or alias
+	 * @param bool $show_error
 	 */
 	public function init_by_mixed($mixed, $show_error = true){
 
@@ -267,6 +268,8 @@ class RevSliderSlider extends RevSliderFunctions {
 	/**
 	 * initialize the slider data by given id
 	 * before: RevSliderSlider::initByID();
+	 * @param int $sid  slider id
+	 * @param bool $show_error
 	 */
 	public function init_by_id($sid, $show_error = true){
 		global $wpdb;
@@ -286,6 +289,8 @@ class RevSliderSlider extends RevSliderFunctions {
 	/**
 	 * initialize the slider data by given alias
 	 * @before: RevSliderSlider::initByAlias();
+	 * @param string $alias  slider alias
+	 * @param bool $show_error
 	 */
 	public function init_by_alias($alias, $show_error = true){
 		global $wpdb;
@@ -370,55 +375,12 @@ class RevSliderSlider extends RevSliderFunctions {
 		}
 	}
 	
-	
-	/**
-	 * set specific slider param
-	 * @since: 5.1.1
-	 */
-	/*public function set_param($name, $value){
-		if(is_array($name)){
-			$n = count($name);
-			switch(count($name)){
-				case 1:
-					$this->params[$name[0]] = $value;
-				break;
-				case 2:
-					$this->params[$name[0]][$name[1]] = $value;
-				break;
-				case 3:
-					$this->params[$name[0]][$name[1]][$name[2]] = $value;
-				break;
-				case 4:
-					$this->params[$name[0]][$name[1]][$name[2]][$name[3]] = $value;
-				break;
-				case 5:
-					$this->params[$name[0]][$name[1]][$name[2]][$name[3]][$name[4]] = $value;
-				break;
-				case 6:
-					$this->params[$name[0]][$name[1]][$name[2]][$name[3]][$name[4]][$name[5]] = $value;
-				break;
-				case 7:
-					$this->params[$name[0]][$name[1]][$name[2]][$name[3]][$name[4]][$name[5]][$name[6]] = $value;
-				break;
-				case 8:
-					$this->params[$name[0]][$name[1]][$name[2]][$name[3]][$name[4]][$name[5]][$name[6]][$name[7]] = $value;
-				break;
-				case 9:
-					$this->params[$name[0]][$name[1]][$name[2]][$name[3]][$name[4]][$name[5]][$name[6]][$name[7]][$name[8]] = $value;
-				break;
-				case 10:
-					$this->params[$name[0]][$name[1]][$name[2]][$name[3]][$name[4]][$name[5]][$name[6]][$name[7]][$name[8]][$name[9]] = $value;
-				break;
-			}
-		}else{
-			$this->params[$name] = $value;
-		}
-	}*/
-	
-	
 	/**
 	 * return certain param of current initialized Slider
 	 * before: RevSliderSlider::get_param()
+	 * @param mixed $key
+	 * @param string $default
+	 * @return mixed
 	 */
 	public function get_param($key, $default = ''){
 		if(!is_array($key)){
@@ -502,8 +464,7 @@ class RevSliderSlider extends RevSliderFunctions {
 	 */
 	public function is_posts(){
 		$source = $this->get_param('sourcetype', 'gallery');
-
-		return (in_array($source, array('post', 'posts', 'specific_posts', 'specific_post', 'current_post', 'woocommerce', 'woo'), true)) ? true : false;
+		return in_array($source, array('post', 'posts', 'specific_posts', 'specific_post', 'current_post', 'woocommerce', 'woo'), true);
 	}
 	
 	
@@ -513,8 +474,7 @@ class RevSliderSlider extends RevSliderFunctions {
 	 */
 	public function is_posts_pre60(){
 		$source = $this->get_param('source_type', 'gallery');
-
-		return (in_array($source, array('post', 'posts', 'specific_posts', 'specific_post', 'current_post', 'woocommerce', 'woo'), true)) ? true : false;
+		return in_array($source, array('post', 'posts', 'specific_posts', 'specific_post', 'current_post', 'woocommerce', 'woo'), true);
 	}
 	
 	
@@ -522,7 +482,7 @@ class RevSliderSlider extends RevSliderFunctions {
 	 * return if the slider source is from specific posts
 	 */
 	public function is_specific_posts(){
-		return (in_array($this->get_param('source_type', 'gallery'), array('specific_posts', 'specific_post'), true)) ? true : false;
+		return in_array($this->get_param('source_type', 'gallery'), array('specific_posts', 'specific_post'), true);
 	}
 
 
@@ -532,7 +492,6 @@ class RevSliderSlider extends RevSliderFunctions {
 	 */
 	public function is_stream(){
 		$source = $this->get_param('sourcetype', 'gallery');
-		
 		return (!in_array($source, array('post', 'posts', 'specific_posts', 'specific_post', 'current_post', 'woocommerce', 'woo', 'gallery'), true)) ? $source : false;
 	}
 	
@@ -543,7 +502,6 @@ class RevSliderSlider extends RevSliderFunctions {
 	 */
 	public function is_stream_pre60(){
 		$source = $this->get_param('source_type', 'gallery');
-		
 		return (!in_array($source, array('post', 'posts', 'specific_posts', 'specific_post', 'current_post', 'woocommerce', 'woo', 'gallery'), true)) ? $source : false;
 	}
 	
@@ -582,7 +540,7 @@ class RevSliderSlider extends RevSliderFunctions {
 	 * @obsolete since 6.0 as it was moved to the favorite.class.php
 	 */
 	public function is_favorite(){
-		return ($this->get_val($this->settings, 'favorite', 'false') == 'true') ? true : false;
+		return $this->get_val($this->settings, 'favorite', 'false') == 'true';
 	}
 	
 	
@@ -591,10 +549,7 @@ class RevSliderSlider extends RevSliderFunctions {
 	 */
 	public function get_slider_count(){
 		global $wpdb;
-		
-		$count = count($wpdb->get_results("SELECT COUNT(*) FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE `type` = '' OR `type` IS NULL", ARRAY_A));
-		
-		return $count;
+		return count($wpdb->get_results("SELECT COUNT(*) FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE `type` = '' OR `type` IS NULL", ARRAY_A));
 	}
 	
 	
@@ -626,9 +581,7 @@ class RevSliderSlider extends RevSliderFunctions {
 	 **/
 	public function get_alias_by_id($slider_id){
 		global $wpdb;
-		
 		$record = $wpdb->get_row($wpdb->prepare("SELECT `alias` FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE id = %s LIMIT 0,1", array($slider_id)), ARRAY_A);
-		
 		return (!empty($record)) ? $this->get_val($record, 'alias') : false;
 	}
 	
@@ -765,7 +718,7 @@ class RevSliderSlider extends RevSliderFunctions {
 		if($return_id === true){
 			return (!empty($alias_exists)) ? $alias_exists['id'] : false;
 		}else{
-			return (!empty($alias_exists)) ? true : false;
+			return !empty($alias_exists);
 		}
 	}
 	
@@ -790,7 +743,7 @@ class RevSliderSlider extends RevSliderFunctions {
 	 * delete all slides
 	 * @before: RevSliderSlider::deleteAllSlides();
 	 */
-	private function delete_all_slides(){
+	public function delete_all_slides(){
 		global $wpdb;
 		
 		$wpdb->delete($wpdb->prefix . RevSliderFront::TABLE_SLIDES, array('slider_id' => $this->id));
@@ -1011,7 +964,6 @@ class RevSliderSlider extends RevSliderFunctions {
 		
 		
 		//duplicate slides and add them to the new Slider
-		$slides_ids = array();
 		$slides = $wpdb->get_results($wpdb->prepare("SELECT * FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDES ." WHERE slider_id = %s", $this->id), ARRAY_A);
 		if(!empty($slides)){
 			foreach($slides as $slide){
@@ -1037,8 +989,6 @@ class RevSliderSlider extends RevSliderFunctions {
 			
 			$wpdb->insert($wpdb->prefix . RevSliderFront::TABLE_STATIC_SLIDES, $record);
 			$static_id = $wpdb->insert_id;
-		}else{ //create static slide as there is no static slide yet
-			
 		}
 		
 		//update actions
@@ -1140,8 +1090,7 @@ class RevSliderSlider extends RevSliderFunctions {
 				
 				foreach($actions as $ak => $a){
 					if($this->get_val($a, 'action', '') !== 'open_modal') continue;
-				
-					//$mm = $this->get_val($a, 'openmodal', '');
+
 					$v = intval($this->get_val($a, 'openmodalId', 0)); //only openmodal is set (alias), openmodalId is not set!
 					
 					if(isset($slider_ids[$v])){
@@ -1278,9 +1227,8 @@ class RevSliderSlider extends RevSliderFunctions {
 		if(empty($slider_id)){ //create slider	
 			$result		= $wpdb->insert($wpdb->prefix . RevSliderFront::TABLE_SLIDER, $slider_data);
 			$slider_id	= ($result) ? $wpdb->insert_id : false;
-			
 		}else{ //update slider
-			$result = $wpdb->update($wpdb->prefix . RevSliderFront::TABLE_SLIDER, $slider_data, array('id' => $slider_id));
+			$wpdb->update($wpdb->prefix . RevSliderFront::TABLE_SLIDER, $slider_data, array('id' => $slider_id));
 		}
 		
 		return $slider_id;
@@ -1293,10 +1241,8 @@ class RevSliderSlider extends RevSliderFunctions {
 	 */
 	public function update_params($update, $replace = false){
 		global $wpdb;
-		
 		$this->params = ($replace) ? $update : array_merge($this->params, $update);
-		
-		$response = $wpdb->update($wpdb->prefix . RevSliderFront::TABLE_SLIDER, array('params' => json_encode($this->params)), array('id' => $this->id));
+		$wpdb->update($wpdb->prefix . RevSliderFront::TABLE_SLIDER, array('params' => json_encode($this->params)), array('id' => $this->id));
 	}
 	
 	
@@ -1306,10 +1252,8 @@ class RevSliderSlider extends RevSliderFunctions {
 	 */
 	public function update_settings($update){
 		global $wpdb;
-		
 		$this->settings = array_merge($this->settings, $update);
-		
-		$response = $wpdb->update($wpdb->prefix . RevSliderFront::TABLE_SLIDER, array('settings' => json_encode($this->settings)), array('id' => $this->id));
+		$wpdb->update($wpdb->prefix . RevSliderFront::TABLE_SLIDER, array('settings' => json_encode($this->settings)), array('id' => $this->id));
 	}
 	
 	
@@ -1329,7 +1273,7 @@ class RevSliderSlider extends RevSliderFunctions {
 			foreach($this->slides as $slide){
 				$counter++;
 				$id				= $slide->get_id();
-				$numbers[$id]	= $counter;				
+				$numbers[$id]	= $counter;
 			}
 		}
 		
@@ -1372,10 +1316,7 @@ class RevSliderSlider extends RevSliderFunctions {
 	 */
 	public static function get_sliders_short_list(){
 		global $wpdb;
-		$slider_data = $wpdb->get_results($wpdb->prepare("SELECT id, title, alias FROM " . $wpdb->prefix . RevSliderFront::TABLE_SLIDER . " WHERE `type` != 'folder' AND `type` != 'template' ORDER BY %s %s", array('id', 'ASC')));
-		$slider_data = (object)$slider_data;
-		
-		return $slider_data;
+		return (object)$wpdb->get_results($wpdb->prepare("SELECT id, title, alias FROM " . $wpdb->prefix . RevSliderFront::TABLE_SLIDER . " WHERE `type` != 'folder' AND `type` != 'template' ORDER BY %s %s", array('id', 'ASC')));
 	}
 	
 	
@@ -1760,7 +1701,6 @@ class RevSliderSlider extends RevSliderFunctions {
 				
 				if($subtype === 'current_post'){
 					global $post;
-					//$posts = $this->get_specific_posts(array($post->ID));
 					$posts = $this->get_specific_posts(array('', $post->ID));
 				}elseif(in_array($subtype, array('specific_posts', 'specific_post'), true)){
 					$posts = $this->get_specific_posts($gal_ids);
@@ -1891,7 +1831,7 @@ class RevSliderSlider extends RevSliderFunctions {
 		}
 		
 		$get_relateds		= apply_filters('revslider_get_related_posts', $query, $post_id);
-		$tag_related_posts	= get_posts($get_relateds);		
+		$tag_related_posts	= get_posts($get_relateds);
 		
 		if(count($tag_related_posts) < $max_posts){
 			$ignore = array();
@@ -2289,7 +2229,7 @@ class RevSliderSlider extends RevSliderFunctions {
 	public function get_overview_data($slider = false, $slides = false, $slide_ids = false){
 		//if we are pre 6.0.0, we have to create the data from the old data instead of the new format!
 		
-		$favorite	= new RevSliderFavorite();
+		$favorite	= RevSliderGlobals::instance()->get('RevSliderFavorite');
 		$slider		= ($slider == false || $slider instanceof RevSliderFolder) ? $this : $slider;
 		$post60		= (version_compare($slider->get_setting('version', '1.0.0'), '6.0.0', '<')) ? false : true;
 		$id			= 0;
@@ -2326,7 +2266,7 @@ class RevSliderSlider extends RevSliderFunctions {
 			'tags'		=> $this->get_tags(),
 			'favorite'	=> $favorite->is_favorite('modules', $sid),
 			'children'	=> ($slider instanceof RevSliderFolder) ? $slider->get_children() : array(),
-			'folder'	=> ($slider instanceof RevSliderFolder) ? true : false
+			'folder'	=> $slider instanceof RevSliderFolder
 		);
 	}
 	

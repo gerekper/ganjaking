@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The bunded item class is a product container that initializes and holds pricing, availability and variation/attribute-related data for a bundled product.
  *
  * @class    WC_Bundled_Item
- * @version  6.7.0
+ * @version  6.7.7
  */
 class WC_Bundled_Item {
 
@@ -1648,13 +1648,20 @@ class WC_Bundled_Item {
 			$variation_data[ 'regular_recurring_price' ] = $variation_data[ 'regular_price' ];
 			$variation_data[ 'recurring_price' ]         = $variation_data[ 'price' ];
 
-			$signup_fee = WC_Subscriptions_Product::get_sign_up_fee( $bundled_variation );
+			if ( $this->is_priced_individually() ) {
 
-			$variation_data[ 'regular_price' ] = $signup_fee;
-			$variation_data[ 'price' ]         = $signup_fee;
+				$signup_fee = WC_Subscriptions_Product::get_sign_up_fee( $bundled_variation );
 
-			$variation_data[ 'recurring_html' ] = WC_PB_Product_Prices::get_recurring_price_html_component( $bundled_variation );
-			$variation_data[ 'recurring_key' ]  = str_replace( '_synced', '', WC_Subscriptions_Cart::get_recurring_cart_key( array( 'data' => $bundled_variation ), ' ' ) );
+				$variation_data[ 'regular_price' ] = $signup_fee;
+				$variation_data[ 'price' ]         = $signup_fee;
+
+				$variation_data[ 'recurring_html' ] = WC_PB_Product_Prices::get_recurring_price_html_component( $bundled_variation );
+				$variation_data[ 'recurring_key' ]  = str_replace( '_synced', '', WC_Subscriptions_Cart::get_recurring_cart_key( array( 'data' => $bundled_variation ), ' ' ) );
+
+			} else {
+
+				$variation_data[ 'price_html' ] = '';
+			}
 		}
 
 		// Modify availability data.
@@ -1698,6 +1705,7 @@ class WC_Bundled_Item {
 				$variation_data[ 'image' ][ 'sizes' ]  = function_exists( 'wp_get_attachment_image_sizes' ) ? wp_get_attachment_image_sizes( $variation_data[ 'image_id' ], $variation_thumbnail_size ) : false;
 			}
 		}
+
 		return $variation_data;
 	}
 
@@ -2346,7 +2354,7 @@ class WC_Bundled_Item {
 			}
 		}
 
-		return round( $price, WC_PB_Core_Compatibility::wc_get_rounding_precision() );
+		return round( $price, WC_PB_Product_Prices::get_extended_price_precision() );
 	}
 
 	/**

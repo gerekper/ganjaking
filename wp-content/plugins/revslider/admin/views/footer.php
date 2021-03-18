@@ -6,5 +6,3 @@
  */
 
 if(!defined('ABSPATH')) exit();
-
-?>

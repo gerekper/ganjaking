@@ -6,13 +6,12 @@ Description: Slider Revolution - Premium responsive slider
 Author: ThemePunch
 Text Domain: revslider
 Domain Path: /languages
-Version: 6.4.3
+Version: 6.4.4
 Author URI: https://themepunch.com/
 */
 
 // If this file is called directly, abort.
 update_option( 'revslider-valid', 'true' );
-update_option( 'revslider-code', 'active' );
 update_option( 'revslider-temp-active-notice', 'false' );
 update_option('revslider-code', '073e077f-b600-41e4-8b74-767431910d31');
 if(!defined('WPINC')){ die; }
@@ -21,8 +20,7 @@ if(class_exists('RevSliderFront')){
 	die('ERROR: It looks like you have more than one instance of Slider Revolution installed. Please remove additional instances for this plugin to work again.');
 }
 
-
-define('RS_REVISION',			'6.4.3');
+define('RS_REVISION',			'6.4.4');
 define('RS_PLUGIN_PATH',		plugin_dir_path(__FILE__));
 define('RS_PLUGIN_SLUG_PATH',	plugin_basename(__FILE__));
 define('RS_PLUGIN_FILE_PATH',	__FILE__);
@@ -30,7 +28,7 @@ define('RS_PLUGIN_SLUG',		apply_filters('set_revslider_slug', 'revslider'));
 define('RS_PLUGIN_URL',			get_rs_plugin_url());
 define('RS_PLUGIN_URL_CLEAN',	str_replace(array('http://', 'https://'), '//', RS_PLUGIN_URL));
 define('RS_DEMO',				false);
-define('RS_TP_TOOLS',			'6.4.3'); //holds the version of the tp-tools script, load only the latest!
+define('RS_TP_TOOLS',			'6.4.4'); //holds the version of the tp-tools script, load only the latest!
 
 global $revslider_fonts;
 global $revslider_is_preview_mode;
@@ -44,7 +42,7 @@ $revslider_save_post = false;
 $revslider_addon_notice_merged = 0;
 $revslider_animations = array();
 
-//include frameword files
+//include framework files
 require_once(RS_PLUGIN_PATH . 'includes/data.class.php');
 require_once(RS_PLUGIN_PATH . 'includes/functions.class.php');
 require_once(RS_PLUGIN_PATH . 'includes/em-integration.class.php');
@@ -60,14 +58,23 @@ require_once(RS_PLUGIN_PATH . 'admin/includes/widget.class.php');
 require_once(RS_PLUGIN_PATH . 'includes/extension.class.php');
 require_once(RS_PLUGIN_PATH . 'includes/favorite.class.php');
 require_once(RS_PLUGIN_PATH . 'includes/aq-resizer.class.php');
-require_once(RS_PLUGIN_PATH . 'includes/external-sources.class.php');
 require_once(RS_PLUGIN_PATH . 'includes/page-template.class.php');
+
+require_once(RS_PLUGIN_PATH . 'includes/EspressoDev/InstagramBasicDisplayException.php');
+require_once(RS_PLUGIN_PATH . 'includes/EspressoDev/InstagramBasicDisplay.php');
+require_once(RS_PLUGIN_PATH . 'includes/external/facebook.class.php');
+require_once(RS_PLUGIN_PATH . 'includes/external/flickr.class.php');
+require_once(RS_PLUGIN_PATH . 'includes/external/instagram.class.php');
+require_once(RS_PLUGIN_PATH . 'includes/external/twitter.class.php');
+require_once(RS_PLUGIN_PATH . 'includes/external/vimeo.class.php');
+require_once(RS_PLUGIN_PATH . 'includes/external/youtube.class.php');
 
 require_once(RS_PLUGIN_PATH . 'includes/slider.class.php');
 require_once(RS_PLUGIN_PATH . 'includes/slide.class.php');
 require_once(RS_PLUGIN_PATH . 'includes/output.class.php');
 require_once(RS_PLUGIN_PATH . 'public/revslider-front.class.php');
 
+require_once(RS_PLUGIN_PATH . 'includes/globals.class.php');
 require_once(RS_PLUGIN_PATH . 'includes/backwards.php');
 
 //divi
@@ -81,38 +88,50 @@ try{
 
 		if(is_admin() && $output->_is_gutenberg_page()) return false;
 
-		extract(shortcode_atts(array('alias'	=> ''), $args, 'rev_slider'));
-		extract(shortcode_atts(array('settings' => ''), $args, 'rev_slider'));
-		extract(shortcode_atts(array('order'	=> ''), $args, 'rev_slider'));
-		extract(shortcode_atts(array('usage'	=> ''), $args, 'rev_slider'));
-		extract(shortcode_atts(array('modal'	=> ''), $args, 'rev_slider'));
-		extract(shortcode_atts(array('layout'	=> ''), $args, 'rev_slider'));
-		extract(shortcode_atts(array('offset'	=> ''), $args, 'rev_slider'));
-		extract(shortcode_atts(array('skin'		=> ''), $args, 'rev_slider'));
-		extract(shortcode_atts(array('zindex'	=> ''), $args, 'rev_slider'));
+		$sc_attr = shortcode_atts(
+			array(
+				'alias' => '',
+				'settings' => '',
+				'order' => '',
+				'usage' => '',
+				'modal' => '',
+				'layout' => '',
+				'offset' => '',
+				'skin' => '',
+				'zindex' => '',
+			),
+			$args,
+			'rev_slider'
+		);
 
-		$slider_alias = ($alias != '') ? $alias : $output->get_val($args, 0); //backwards compatibility
+		$slider_alias = ($sc_attr['alias'] != '') ? $sc_attr['alias'] : $output->get_val($args, 0); //backwards compatibility
 
 		//this fixes an issue with the Visual Composer extension
 		if(empty($slider_alias)){
 			return (function_exists('is_user_logged_in') && is_user_logged_in()) ? '<div><img src="' . RS_PLUGIN_URL_CLEAN . 'admin/assets/images/rs6_logo_2x.png"></div>' : '';
 		}
 
-		$output->set_custom_order($order);
-		$output->set_custom_settings($settings);
-		$output->set_custom_skin($skin);
+		$output->set_custom_order($sc_attr['order']);
+		$output->set_custom_settings($sc_attr['settings']);
+		$output->set_custom_skin($sc_attr['skin']);
 
 		$gallery_ids = $output->check_for_shortcodes($mid_content); //check for example on gallery shortcode and do stuff
 		if($gallery_ids !== false) $output->set_gallery_ids($gallery_ids);
 
 		ob_start();
-		$slider = $output->add_slider_to_stage($slider_alias, $usage, $layout, $offset, $modal);
+		$slider = $output->add_slider_to_stage(
+			$slider_alias,
+			$sc_attr['usage'],
+			$sc_attr['layout'],
+			$sc_attr['offset'],
+			$sc_attr['modal']
+		);
 		$content = ob_get_contents();
 		ob_clean();
 		ob_end_clean();
 
-		if(!empty($zindex)){
-			$content = '<div class="wp-block-themepunch-revslider" style="z-index:'.$zindex.';">' .$content. '</div>';
+		if(!empty($sc_attr['zindex'])){
+			$content = '<div class="wp-block-themepunch-revslider" style="z-index:'.$sc_attr['zindex'].';">' .$content. '</div>';
 		}
 
 		if(!empty($slider)){
@@ -120,23 +139,20 @@ try{
 				case 'compress':
 					$content = str_replace(array("\n", "\r"), '', $content);
 					return $content;
-				break;
 				case 'echo':
 					global $revslider_save_post;
 					if($revslider_save_post) return $content;
-
 					echo $content; //bypass the filters
 				break;
 				default:
 					return $content;
-				break;
 			}
 		}else{
 			return $content;
 		}
 	}
 
-	$rslb = new RevSliderLoadBalancer();
+	$rslb = RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
 	$rslb->refresh_server_list();
 	add_shortcode('rev_slider', 'rev_slider_shortcode');
 	add_action('save_post', array('RevSliderFront', 'set_post_saving'));
@@ -220,4 +236,3 @@ function get_rs_plugin_url(){
 
 	return $url;
 }
-?>

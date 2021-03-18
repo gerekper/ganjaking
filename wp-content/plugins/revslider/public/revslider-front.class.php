@@ -51,8 +51,8 @@ class RevSliderFront extends RevSliderFunctions {
 	public static function add_actions(){
 		global $wp_version, $revslider_is_preview_mode;
 
-		$func	 = new RevSliderFunctions();
-		$css	 = new RevSliderCssParser();
+		$func	 = RevSliderGlobals::instance()->get('RevSliderFunctions');
+		$css	 = RevSliderGlobals::instance()->get('RevSliderCssParser');
 		$rs_ver	 = apply_filters('revslider_remove_version', RS_REVISION);
 		$global	 = $func->get_global_settings();
 		$inc_global = $func->_truefalse($func->get_val($global, 'allinclude', true));
@@ -147,7 +147,7 @@ class RevSliderFront extends RevSliderFunctions {
 	 */
 	public static function load_icon_fonts(){
 		global $fa_var, $fa_icon_var, $pe_7s_var;
-		$func	= new RevSliderFunctions();
+		$func	= RevSliderGlobals::instance()->get('RevSliderFunctions');
 		$global	= $func->get_global_settings();
 		$ignore_fa = $func->_truefalse($func->get_val($global, 'fontawesomedisable', false));
 		
@@ -162,7 +162,7 @@ class RevSliderFront extends RevSliderFunctions {
 	 * @since: 6.0
 	 */
 	public static function load_google_fonts(){ 
-		$func	= new RevSliderFunctions();
+		$func	= RevSliderGlobals::instance()->get('RevSliderFunctions');
 		$fonts	= $func->print_clean_font_import();
 		if(!empty($fonts)){
 			echo $fonts."\n";
@@ -525,7 +525,7 @@ class RevSliderFront extends RevSliderFunctions {
 			//create CSS entries
 			$result = $wpdb->get_row("SELECT COUNT( DISTINCT id ) AS NumberOfEntrys FROM " . $wpdb->prefix . self::TABLE_CSS);
 			if(!empty($result) && $result->NumberOfEntrys == 0){
-				$css_class = new RevSliderCssParser();
+				$css_class = RevSliderGlobals::instance()->get('RevSliderCssParser');
 				$css_class->import_css_captions();
 			}
 
@@ -629,5 +629,3 @@ class RevSliderFront extends RevSliderFunctions {
 	}
 	
 }
-
-?>

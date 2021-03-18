@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.0
+ * @version     1.4.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -673,9 +673,15 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 							'wc_sc_is_auto_generate',
 							$is_auto_generate,
 							array(
-								'coupon_id'     => $coupon_id,
-								'auto_generate' => $auto_generation_of_code,
-								'coupon_obj'    => $coupon,
+								'coupon_id'          => $coupon_id,
+								'auto_generate'      => $auto_generation_of_code,
+								'coupon_obj'         => $coupon,
+								'coupon_amount'      => $amount,
+								'current_receiver'   => $email_id,
+								'receiver_email_ids' => $email,
+								'receivers_messages' => $receivers_messages,
+								'order_id'           => $order_id,
+								'order_item'         => $order_item,
 							)
 						);
 
@@ -952,7 +958,18 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 									if ( isset( $sc_called_credit_details[ $item_id ] ) && ! empty( $sc_called_credit_details[ $item_id ] ) ) {
 
 										if ( $this->is_coupon_amount_pick_from_product_price( array( $coupon_title ) ) ) {
-											$email_to_credit[ $receivers_emails[ $coupon_id ][0] ][] = $coupon_id . ':' . $sc_called_credit_details[ $item_id ];
+											$credit_price = $sc_called_credit_details[ $item_id ];
+											// Allow 3rd party plugins to modify the amount before generating credit.
+											$credit_price = apply_filters(
+												'wc_sc_credit_called_price_order',
+												$credit_price,
+												array(
+													'source'  => $this,
+													'item_id' => $item_id,
+													'order_obj' => $order,
+												)
+											);
+											$email_to_credit[ $receivers_emails[ $coupon_id ][0] ][] = $coupon_id . ':' . $credit_price;
 										} else {
 											$email_to_credit[ $receivers_emails[ $coupon_id ][0] ][] = $coupon_id . ':' . $coupon_amount;
 										}

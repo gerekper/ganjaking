@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'b2a4de1647bd81b07596f60f84f227d15860d895',
+    'reference' => 'c7c87bb4703886c877be16632814aac06333d153',
     'name' => 'yoast/wordpress-seo-premium',
   ),
   'versions' => 
@@ -112,12 +112,12 @@ private static $installed = array (
     ),
     'guzzlehttp/promises' => 
     array (
-      'pretty_version' => '1.4.0',
-      'version' => '1.4.0.0',
+      'pretty_version' => '1.4.1',
+      'version' => '1.4.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '60d379c243457e073cff02bc323a2a86cb355631',
+      'reference' => '8e7d04f1f6450fef59366c399cfad4b9383aa30d',
     ),
     'guzzlehttp/psr7' => 
     array (
@@ -701,12 +701,12 @@ private static $installed = array (
     ),
     'yoast/wordpress-seo' => 
     array (
-      'pretty_version' => '15.9.1',
-      'version' => '15.9.1.0',
+      'pretty_version' => '15.9.2',
+      'version' => '15.9.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'aeeef47fdd75e6281bfd3ce28d5723d3aa60d16e',
+      'reference' => '4fceb7b60be6e70fe96959110911e31f5bbddc71',
     ),
     'yoast/wordpress-seo-premium' => 
     array (
@@ -715,7 +715,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'b2a4de1647bd81b07596f60f84f227d15860d895',
+      'reference' => 'c7c87bb4703886c877be16632814aac06333d153',
     ),
     'yoast/wp-test-utils' => 
     array (

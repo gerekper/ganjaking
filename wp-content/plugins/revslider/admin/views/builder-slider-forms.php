@@ -7,7 +7,7 @@
 
 if(!defined('ABSPATH')) exit();
 
-$rs_f = new RevSliderFunctions();
+$rs_f = RevSliderGlobals::instance()->get('RevSliderFunctions');
 //$rs_info	= new RevSliderSliderInfo($slider_id);
 
 // GET POST TYPED AND CATEGORIES

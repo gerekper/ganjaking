@@ -121,6 +121,3 @@ newSlider.snap = _d(obj.snap,{
 		</div>
 	</div>
 </div><!-- END OF TIMELINE  -->
-
-
-

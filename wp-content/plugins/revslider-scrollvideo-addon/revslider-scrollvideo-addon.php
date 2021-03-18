@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Scroll Video Add-On
 Plugin URI: http://www.themepunch.com/
 Description: Draw and Animate Scrollvideo on Canvas as Layers in Slider Revolution
 Author: ThemePunch
-Version: 2.0.3
+Version: 2.0.4
 Author URI: http://themepunch.com
 */
 

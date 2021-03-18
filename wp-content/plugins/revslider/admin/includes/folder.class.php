@@ -154,4 +154,3 @@ class RevSliderFolder extends RevSliderSlider {
 		return $this->set_val($this->settings, 'children', $children);
 	}
 }
-?>

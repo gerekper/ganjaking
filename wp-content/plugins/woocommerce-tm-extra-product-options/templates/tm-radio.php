@@ -91,19 +91,23 @@ defined( 'ABSPATH' ) || exit;
 			// $src && swatch_html are generated above
 			switch ( $label_mode ) {
 				case 'images':
-					echo '<img class="tmlazy ' . esc_attr( $border_type ) . ' radio_image' . esc_attr( $swatch_class ) . '" '
-						. 'alt="' . esc_attr( strip_tags( $label_to_display ) ) . '" ';
-					echo wp_kses_post( $src );
-					echo wp_kses_post( $swatch_html ); 
-					echo ' />';
+					if ( ! empty( $src ) ){
+						echo '<img class="tmlazy ' . esc_attr( $border_type ) . ' radio_image' . esc_attr( $swatch_class ) . '" '
+							. 'alt="' . esc_attr( strip_tags( $label_to_display ) ) . '" ';
+						echo wp_kses_post( $src );
+						echo wp_kses_post( $swatch_html ); 
+						echo ' />';
+					}
 					echo '<span class="tc-label radio-image-label">' . apply_filters( 'wc_epo_kses', wp_kses_post( $label_to_display ), $label_to_display ) . '</span>';
 				break;
 				case 'startimages':
-					echo '<img class="tmlazy ' . esc_attr( $border_type ) . ' radio_image' . esc_attr( $swatch_class ) . '" '
-						. 'alt="' . esc_attr( strip_tags( $label_to_display ) ) . '" ';
-					echo wp_kses_post( $src );
-					echo wp_kses_post( $swatch_html );
-					echo ' />';
+					if ( ! empty( $src ) ){
+						echo '<img class="tmlazy ' . esc_attr( $border_type ) . ' radio_image' . esc_attr( $swatch_class ) . '" '
+							. 'alt="' . esc_attr( strip_tags( $label_to_display ) ) . '" ';
+						echo wp_kses_post( $src );
+						echo wp_kses_post( $swatch_html );
+						echo ' />';
+					}
 					if ( ! empty( $label_to_display ) ){
 						echo '<span class="tc-label radio-image-label-inline">' . apply_filters( 'wc_epo_kses', wp_kses_post( $label_to_display ), $label_to_display ) . '</span>'; 
 					}
@@ -113,12 +117,13 @@ defined( 'ABSPATH' ) || exit;
 					if ( ! empty( $label_to_display ) ){
 						echo '<span class="tc-label radio-image-label-inline">' . apply_filters( 'wc_epo_kses', wp_kses_post( $label_to_display ), $label_to_display ) . '</span>'; 
 					}
-
-					echo '<img class="tmlazy ' . esc_attr( $border_type ) . ' radio_image' . esc_attr( $swatch_class ) . '" '
-						. 'alt="' . esc_attr( strip_tags( $label_to_display ) ) . '" ';
-					echo wp_kses_post( $src );
-					echo wp_kses_post( $swatch_html );
-					echo ' />';
+					if ( ! empty( $src ) ){
+						echo '<img class="tmlazy ' . esc_attr( $border_type ) . ' radio_image' . esc_attr( $swatch_class ) . '" '
+							. 'alt="' . esc_attr( strip_tags( $label_to_display ) ) . '" ';
+						echo wp_kses_post( $src );
+						echo wp_kses_post( $swatch_html );
+						echo ' />';
+					}
 				break;
 
 				case 'color':

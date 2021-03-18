@@ -12,12 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'WP_Async_Request', false ) ) {
-	include_once( WC_ABSPATH . 'includes/libraries/wp-async-request.php' );
-}
-
-if ( ! class_exists( 'WP_Background_Process', false ) ) {
-	include_once( WC_ABSPATH . 'includes/libraries/wp-background-process.php' );
+if ( ! class_exists( 'WC_Background_Process', false ) ) {
+	include_once( WC_ABSPATH . 'includes/abstracts/class-wc-background-process.php' );
 }
 
 /**
@@ -26,9 +22,23 @@ if ( ! class_exists( 'WP_Background_Process', false ) ) {
  * Uses https://github.com/A5hleyRich/wp-background-processing to handle tasks in the background.
  *
  * @class    WC_PB_DB_Sync_Task_Runner
- * @version  6.5.0
+ * @version  6.7.4
  */
-class WC_PB_DB_Sync_Task_Runner extends WP_Background_Process {
+class WC_PB_DB_Sync_Task_Runner extends WC_Background_Process {
+
+	/**
+	 * Fallback to cron every minute.
+	 *
+	 * @var int
+	 */
+	protected $cron_interval = 1;
+
+	/**
+	 * Limit the queue size just in case loopback + cron don't work.
+	 *
+	 * @var int
+	 */
+	protected $queue_max_size = 10;
 
 	/**
 	 * Initiate new background process.
@@ -94,6 +104,128 @@ class WC_PB_DB_Sync_Task_Runner extends WP_Background_Process {
 	protected function schedule_event() {
 		if ( ! wp_next_scheduled( $this->cron_hook_identifier ) ) {
 			wp_schedule_event( time() + 10, $this->cron_interval_identifier, $this->cron_hook_identifier );
+		}
+	}
+
+	/**
+	 * Get batch key prefix.
+	 *
+	 * @param  boolean $escape
+	 * @return string
+	 */
+	protected function get_batch_key_prefix( $escaped = false ) {
+		global $wpdb;
+		return apply_filters( 'woocommerce_bundles_sync_task_runner_esc_batch_query_prefix', $escaped ) ? $wpdb->esc_like( $this->identifier . '_batch_' ) : $this->identifier . '_batch_';
+	}
+
+	/**
+	 * Get batch.
+	 *
+	 * @return stdClass Return the first batch from the queue.
+	 */
+	protected function get_batch() {
+		global $wpdb;
+
+		$table        = $wpdb->options;
+		$column       = 'option_name';
+		$key_column   = 'option_id';
+		$value_column = 'option_value';
+
+		if ( is_multisite() ) {
+			$table        = $wpdb->sitemeta;
+			$column       = 'meta_key';
+			$key_column   = 'meta_id';
+			$value_column = 'meta_value';
+		}
+
+		$key = $this->get_batch_key_prefix( true ) . '%';
+
+		$query = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE {$column} LIKE %s ORDER BY {$key_column} ASC LIMIT 1", $key ) ); // @codingStandardsIgnoreLine.
+
+		$batch       = new stdClass();
+		$batch->key  = $query->$column;
+		$batch->data = array_filter( (array) maybe_unserialize( $query->$value_column ) );
+
+		return $batch;
+	}
+
+	/**
+	 * Is queue empty.
+	 *
+	 * @return bool
+	 */
+	protected function is_queue_empty() {
+		global $wpdb;
+
+		$table  = $wpdb->options;
+		$column = 'option_name';
+
+		if ( is_multisite() ) {
+			$table  = $wpdb->sitemeta;
+			$column = 'meta_key';
+		}
+
+		$key = $this->get_batch_key_prefix( true ) . '%';
+
+		$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE {$column} LIKE %s", $key ) ); // @codingStandardsIgnoreLine.
+
+		return ! ( $count > 0 );
+	}
+
+	/**
+	 * Is queue full.
+	 *
+	 * @return bool
+	 */
+	protected function is_queue_full() {
+		global $wpdb;
+
+		$table  = $wpdb->options;
+		$column = 'option_name';
+
+		if ( is_multisite() ) {
+			$table  = $wpdb->sitemeta;
+			$column = 'meta_key';
+		}
+
+		$key = $this->get_batch_key_prefix( true ) . '%';
+
+		$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE {$column} LIKE %s", $key ) ); // @codingStandardsIgnoreLine.
+
+		return $count >= apply_filters( 'woocommerce_bundles_sync_task_runner_queue_max_size', $this->queue_max_size );
+	}
+
+	/**
+	 * Delete all batches.
+	 *
+	 * @return WC_Background_Process
+	 */
+	public function delete_all_batches() {
+		global $wpdb;
+
+		$table  = $wpdb->options;
+		$column = 'option_name';
+
+		if ( is_multisite() ) {
+			$table  = $wpdb->sitemeta;
+			$column = 'meta_key';
+		}
+
+		$key = $this->get_batch_key_prefix( true ) . '%';
+
+		$wpdb->query( $wpdb->prepare( "DELETE FROM {$table} WHERE {$column} LIKE %s", $key ) ); // @codingStandardsIgnoreLine.
+
+		return $this;
+	}
+
+	/**
+	 * Check if the queue is full before adding a new item.
+	 *
+	 * @return bool
+	 */
+	public function save() {
+		if ( ! $this->is_queue_full() ) {
+			parent::save();
 		}
 	}
 

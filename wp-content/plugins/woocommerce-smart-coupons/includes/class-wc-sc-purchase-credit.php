@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.4.0
+ * @version     1.5.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -132,13 +132,10 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 			if ( ! empty( $coupons ) && $this->is_coupon_amount_pick_from_product_price( $coupons ) && ( ! ( '' !== $product->get_price() || ( is_plugin_active( 'woocommerce-name-your-price/woocommerce-name-your-price.php' ) && ( get_post_meta( $product_id, '_nyp', true ) === 'yes' ) ) ) ) ) {
 
 				$js = "
-							var validateCreditCalled = function(){
-								var enteredCreditAmount = jQuery('input#credit_called').val();
-								var minCreditAmount     = jQuery('input#credit_called').attr('min');
-								var maxCreditAmount     = jQuery('input#credit_called').attr('max');
-								    enteredCreditAmount = parseFloat( enteredCreditAmount );
-								    minCreditAmount     = parseFloat( minCreditAmount );
-								    maxCreditAmount     = parseFloat( maxCreditAmount );
+							const minCreditAmount      = parseFloat( jQuery('input#credit_called').attr('min') );
+							const maxCreditAmount      = parseFloat( jQuery('input#credit_called').attr('max') );
+							var   validateCreditCalled = function(){
+								var enteredCreditAmount  = parseFloat( jQuery('input#credit_called').val() );
 								if ( isNaN(enteredCreditAmount) || enteredCreditAmount < minCreditAmount || ( maxCreditAmount > 0 && enteredCreditAmount > maxCreditAmount ) ) {
 									var creditErrorMsg = '" . __( 'Invalid amount.', 'woocommerce-smart-coupons' ) . "';
 									if ( isNaN(enteredCreditAmount) ) {
@@ -169,7 +166,6 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 									jQuery('input[name=\"add-to-cart\"]').after('<input type=\"hidden\" id=\"hidden_credit\" name=\"credit_called[" . absint( $product_id ) . "]\" value=\"'+jQuery('input#credit_called').val()+'\" />');
 								}
 							});
-
 
 							jQuery('button.single_add_to_cart_button').on('click', function(e) {
 								if ( validateCreditCalled() == false ) {
@@ -428,9 +424,33 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 			$gift_certificate = ( is_object( WC()->session ) && is_callable( array( WC()->session, 'get' ) ) ) ? WC()->session->get( 'credit_called' ) : array();
 
 			if ( ! empty( $gift_certificate ) && isset( $gift_certificate[ $cart_item_key ] ) && ! empty( $gift_certificate[ $cart_item_key ] ) ) {
-				return wc_price( $gift_certificate[ $cart_item_key ] );
+				$price = $gift_certificate[ $cart_item_key ];
+				// Hook for 3rd party plugin to modify value of the credit.
+				$price = apply_filters(
+					'wc_sc_credit_called_price_cart',
+					$price,
+					array(
+						'source'        => $this,
+						'cart_item_key' => $cart_item_key,
+						'cart_item'     => $cart_item,
+						'credit_called' => $gift_certificate,
+					)
+				);
+				return wc_price( $price );
 			} elseif ( ! empty( $cart_item['credit_amount'] ) ) {
-				return wc_price( $cart_item['credit_amount'] );
+				$price = $cart_item['credit_amount'];
+				// Hook for 3rd party plugin to modify value of the credit.
+				$price = apply_filters(
+					'wc_sc_credit_called_price_cart',
+					$price,
+					array(
+						'source'        => $this,
+						'cart_item_key' => $cart_item_key,
+						'cart_item'     => $cart_item,
+						'credit_called' => $gift_certificate,
+					)
+				);
+				return wc_price( $price );
 			}
 
 			return $product_price;

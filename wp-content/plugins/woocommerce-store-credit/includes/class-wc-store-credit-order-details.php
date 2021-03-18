@@ -29,6 +29,7 @@ class WC_Store_Credit_Order_Details {
 		add_action( 'woocommerce_admin_order_totals_after_shipping', array( $this, 'admin_order_store_credit' ) );
 		add_filter( 'woocommerce_get_order_item_totals', array( $this, 'add_order_store_credit_row' ), 10, 3 );
 		add_filter( 'woocommerce_order_get_discount_total', array( $this, 'get_discount_total' ), 10, 2 );
+		add_filter( 'woocommerce_order_get_discount_tax', array( $this, 'get_discount_tax' ), 10, 2 );
 		add_filter( 'woocommerce_order_get_shipping_total', array( $this, 'get_shipping_total' ), 10, 2 );
 		add_filter( 'woocommerce_order_get_shipping_tax', array( $this, 'get_shipping_tax' ), 10, 2 );
 		add_filter( 'woocommerce_order_shipping_method', array( $this, 'shipping_method' ), 10, 2 );
@@ -268,6 +269,33 @@ class WC_Store_Credit_Order_Details {
 		}
 
 		return $discount_total;
+	}
+
+	/**
+	 * Filters the order 'discount_tax' value.
+	 *
+	 * This filter is only called for 'view' context.
+	 *
+	 * @since 3.5.2
+	 *
+	 * @param float    $discount_tax The discounted amount.
+	 * @param WC_Order $order        The order instance.
+	 * @return float
+	 */
+	public function get_discount_tax( $discount_tax, $order ) {
+		if ( wc_store_credit_apply_before_tax( $order ) ) {
+			/*
+			 * Remove store credit from the tax discount when displaying it.
+			 * The store credit discount is displayed in a different row.
+			 */
+			$credit = array_sum( wc_get_store_credit_discounts_for_order( $order, 'total', array( 'cart_tax' ) ) );
+
+			if ( 0 < $credit ) {
+				$discount_tax -= $credit;
+			}
+		}
+
+		return $discount_tax;
 	}
 
 	/**

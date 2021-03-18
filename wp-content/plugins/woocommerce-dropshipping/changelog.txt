@@ -1,5 +1,10 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2021-03-12 - version 2.13
+* PLUGINS-872 Dropshipping - Make field sizes more reasonable
+* PLUGINS-920 Dropshipping - customisations
+* PLUGINS-865 Support for CBE 1.1
+
 2021-02-18 - version 2.12
 * PLUGINS-921 - Fix library file size (fonts)
 * PLUGINS-860 - Add settings to hide TAX on packing slip

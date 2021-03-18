@@ -1,5 +1,21 @@
 *** WooCommerce Product Search ***
 
+2021.03.06 - version 3.6.0
+* WordPress 5.6 compatible.
+* WordPress 5.7 compatible.
+* WooCommerce 5.0 compatible.
+* WooCommerce 5.1 compatible.
+* Improved welcome styling.
+* Updated included fonts.
+* Updated the Storefront-specific CSS to explicitly use font-weight 900 for star rating, as Storefront (currently at 3.5.0) only imports the 900 font-weight Font Awesome Free but we also use 400, it got overridden resulting in hollow stars instead of solid ones.
+* Added support for WooCommerce Admin navigation with sections for overview, reports, settings and the assistant.
+* Fixed incorrect pagination links produced by the [woocommerce_product_filter_products] shortcode in certain conditions.
+* Fixed our cron test not indicating an error when performing the HTTP request using the POST method fails to obtain a response.
+* Fixed message indicating deferred processing should not be logged when there are no further variations to process.
+* Updated the indexing strategy to handle extended cases of product modifications via API and keep our index in sync.
+* Updated the compatibility with WPML to solve issues introduced by WPML filter hooks that revert terms to their originals instead of their translations.
+* Fixed an issue where filter thumbnails would initially not be displayed when dropdown style is used for category or attribute filters.
+
 2021.01.14 - version 3.5.1
 * Fixed products on back-order would not be included in results when there are more products out of stock than in stock.
 

@@ -2,8 +2,8 @@
 Contributors: woocommerce, themesquad
 Tags: woocommerce, instagram, hashtag, product, showcase
 Requires at least: 4.4
-Tested up to: 5.6
-Stable tag: 3.4.3
+Tested up to: 5.7
+Stable tag: 3.4.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.2
@@ -29,6 +29,11 @@ Visit our [product page](https://woocommerce.com/products/woocommerce-instagram/
 For help setting up and configuring the extension please refer to our [user guide](https://docs.woocommerce.com/document/woocommerce-instagram/).
 
 == Changelog ==
+
+= 3.4.4 March 08, 2021 =
+* Tweak - Open hashtag images in a new tab.
+* Tweak - Tested compatibility with WP 5.7.
+* Fix - Catalog forms were accessible although there wasn't any Facebook account connected.
 
 = 3.4.3 February 22, 2021 =
 * Tweak - Tested compatibility up to WC 5.1.

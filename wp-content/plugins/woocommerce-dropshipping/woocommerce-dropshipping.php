@@ -3,9 +3,9 @@
  * Plugin Name: WooCommerce Dropshipping
  * Plugin URI: http://woocommerce.com/products/woocommerce-dropshipping/
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
- * Version: 2.12
- * Author: WooCommerce
- * Author URI: http://woocommerce.com/
+ * Version: 2.13
+ * Author: OPMC Australia Pty Ltd
+ * Author URI: https://opmc.com.au/
  * Developer: OPMC
  * Developer URI: https://opmc.com.au/
  * Requires at least: 4.5
@@ -108,6 +108,7 @@ final class WC_Dropshipping {
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
 		add_action( 'admin_init', array($this, 'change_cost_of_goods_key'));
 		add_action( 'admin_init', array($this, 'show_admin_notice_options'));
+		add_filter( 'plugin_action_links', array( $this, 'wc_dropshipping_plugin_links' ), 10, 4 );
 	}
 
 	public function init () {
@@ -118,6 +119,9 @@ final class WC_Dropshipping {
 		}
 		require_once('inc/class-wc-dropshipping-orders.php');
 		$this->orders = new WC_Dropshipping_Orders();
+
+		require_once('inc/class-wc-dropshipping-checkout.php');
+		$this->checkout = new WC_Dropshipping_Checkout();
 
 		// Limit Capabilities of Dropshipper
 		add_action( 'wp_before_admin_bar_render', array($this, 'limit_dropshipper_capabilities'), 99 );
@@ -156,6 +160,20 @@ final class WC_Dropshipping {
 			update_option( $this->plugin_slug . '-version', $this->version );
 		 	add_role( 'dropshipper', 'Dropshipper', array( 'read' => true, 'edit_posts' => true ) );
 		}
+	}
+
+	/**
+	 * Plugin page links
+	 */
+	function wc_dropshipping_plugin_links( $actions, $plugin_file, $plugin_data, $context ) {
+
+		$new_actions = array();
+
+		$new_actions[ 'wc_dropship_settings' ] = '<a href="/wp-admin/admin.php?page=wc-settings&tab=email&section=dropship_manager">' . __( 'Settings', 'woocommerce-dropshipping' ) . '</a>';
+    $new_actions[ 'wc_dropship_docs' ] = '<a target="_blank" href="https://docs.woocommerce.com/document/woocommerce-dropshipping/">' . __( 'Docs', 'woocommerce-dropshipping' ) . '</a>';
+
+    return array_merge( $new_actions, $actions );
+
 	}
 
 

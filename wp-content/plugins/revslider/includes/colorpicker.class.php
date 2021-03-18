@@ -640,5 +640,3 @@ if(!class_exists('RSColorpicker')){
 		
 	}
 }
-
-?>

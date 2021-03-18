@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add stuff to existing subscriptions.
  *
  * @class    WCS_ATT_Manage_Add_Product
- * @version  3.1.6
+ * @version  3.1.25
  */
 class WCS_ATT_Manage_Add_Product extends WCS_ATT_Abstract_Module {
 
@@ -344,9 +344,22 @@ class WCS_ATT_Manage_Add_Product extends WCS_ATT_Abstract_Module {
 
 		// A subscription scheme key should be posted already if we are supposed to do any matching.
 		if ( WCS_ATT_Product::supports_feature( $product, 'subscription_scheme_options_product_single' ) ) {
+
 			if ( empty( $subscription_scheme ) ) {
 				return;
 			}
+
+			$subscription_scheme_object = WCS_ATT_Product_Schemes::get_subscription_scheme( $product, 'object', $subscription_scheme );
+
+			if ( empty( $subscription_scheme_object ) ) {
+				return;
+			}
+
+			// Disable syncing. If we don't do it at this point 'WCS_ATT_Manage_Add::add_cart_subscription' starts to behave in weird ways.
+			if ( $subscription_scheme_object->is_synced() ) {
+				$subscription_scheme_object->set_sync_date( 0 );
+			}
+
 		// Extract the scheme details from the subscription and create a dummy scheme.
 		} else {
 

@@ -132,6 +132,8 @@ class WooCommerce_Product_Search {
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-controller.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-guardian.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-indexer.php';
+			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-product-processor.php';
+			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-term-processor.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-worker.php';
 			if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
 				require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-service.php';
@@ -427,6 +429,7 @@ class WooCommerce_Product_Search {
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-thumbnail.php';
 			if ( is_admin() ) {
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin.php';
+				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-navigation.php';
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-product.php';
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-taxonomy.php';
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-notice.php';

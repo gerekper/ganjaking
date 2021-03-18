@@ -113,8 +113,8 @@
 					prevnext = $( this ).closest( '.tm-box' ).prev().find( options.header );
 				}
 				if ( prevnext && prevnext.length ) {
-					$this.blur();
-					prevnext.focus().trigger( 'click' );
+					$this.trigger( 'blur' );
+					prevnext.trigger(' focus' ).trigger( 'click' );
 					e.preventDefault();
 				}
 			} );

@@ -7,8 +7,6 @@
 
 if(!defined('ABSPATH')) exit();
 
-//$rs_slide_template = array();
-
 class RevSliderSlide extends RevSliderFunctions {
 	
 	private $id;
@@ -75,18 +73,21 @@ class RevSliderSlide extends RevSliderFunctions {
 	 * old version of RevSliderSlide->set_layers_raw()
 	 **/
 	public function setLayersRaw($layers){
-		return $this->set_layers_raw($layers);
+		$this->set_layers_raw($layers);
 	}
 	
 	/**
 	 * old version of RevSliderSlide->save_layers()
 	 */
 	public function saveLayers(){
-		return $this->save_layers();
+		$this->save_layers();
 	}
 	
 	/**
 	 * old version of RevSliderSlide->get_val()
+	 * @param string $name
+	 * @param string $default
+	 * @return string
 	 */
 	public function getParam($name, $default = null){
 		if($default === null){
@@ -111,6 +112,7 @@ class RevSliderSlide extends RevSliderFunctions {
 	/**
 	 * set slide ID
 	 * before: RevSliderSlide::setID();
+	 * @param int $id
 	 */
 	public function set_id($id){
 		$this->id = $id;
@@ -262,6 +264,7 @@ class RevSliderSlide extends RevSliderFunctions {
 	/**
 	 * get the overview data of a slide
 	 * @since: 6.1.2
+	 * @return array
 	 */
 	public function get_overview_data(){
 		return array(
@@ -276,6 +279,8 @@ class RevSliderSlide extends RevSliderFunctions {
 	/**
 	 * get the id of the static slide
 	 * before: RevSliderSlide::getStaticSlideID()
+	 * @param int $slider_id
+	 * @return mixed
 	 */
 	public function get_static_slide_id($slider_id){
 		global $wpdb;
@@ -292,11 +297,12 @@ class RevSliderSlide extends RevSliderFunctions {
 	 * Check if Slide Exists with given ID
 	 * @since: 5.0
 	 * @before: RevSliderSlide::isSlideByID();
+	 * @param int $slideid
+	 * @return bool
 	 */
 	public function exist_by_id($slideid){
 		global $wpdb;
-		
-		$record = array();
+
 		try{
 			if(strpos($slideid, 'static_') !== false){
 				$slide_id = str_replace('static_', '', $slideid);
@@ -315,6 +321,7 @@ class RevSliderSlide extends RevSliderFunctions {
 	/**
 	 * initialize a slide by id
 	 * before: RevSliderSlide::initByID();
+	 * @param int $slide_id
 	 */
 	public function init_by_id($slide_id){
 		global $wpdb;
@@ -341,6 +348,7 @@ class RevSliderSlide extends RevSliderFunctions {
 	/**
 	 * init by another slide
 	 * @before: RevSliderSlide::initBySlide();
+	 * @param RevSliderSlide $slide
 	 */
 	public function init_by_slide(RevSliderSlide $slide){
 		$slide = apply_filters('revslider_slide_initBySlide', $slide, $this);
@@ -355,7 +363,6 @@ class RevSliderSlide extends RevSliderFunctions {
 		$this->image_path	= $slide->image_path;
 		$this->image_filename = $slide->image_filename;
 		$this->params		= $slide->get_params();
-		//$this->params['bg'] = (array)$this->params['bg'];
 		$this->layers		= $slide->get_layers();
 		$this->settings		= $slide->get_settings();
 		$this->children		= $slide->children;
@@ -383,12 +390,10 @@ class RevSliderSlide extends RevSliderFunctions {
 		$params = $this->json_decode_slashes($params);
 		$settings = $this->get_val($data, 'settings', array());
 		$settings = $this->json_decode_slashes($settings);
-		//$this->settings = array_merge($this->settings, $settings);
 		$this->settings = $settings;
 		$this->settings['version'] = $this->get_val($params, 'version', $this->get_val($this->settings, 'version', RS_REVISION));
 		if(isset($params['version'])) unset($params['version']);
-		
-		//$this->params = array_merge($this->params, $params); //preserve old data by the use of array_merge()
+
 		$this->params = $params;
 		
 		$layers = $this->get_val($data, 'layers', array());
@@ -415,8 +420,7 @@ class RevSliderSlide extends RevSliderFunctions {
 	 **/
 	public function save_slide_advanced($slide_id, $data, $slider_id){
 		if(!$this->exist_by_id($slide_id)){
-			$static = (strpos($slide_id, 'static_') !== false) ? true : false;
-			
+			$static = strpos($slide_id, 'static_') !== false;
 			$slide_id = $this->create_slide($slider_id, '', $static, $slide_id);
 			if(!$this->exist_by_id($slide_id)){
 				return false;
@@ -430,8 +434,6 @@ class RevSliderSlide extends RevSliderFunctions {
 		$version = $this->get_val($params, 'version', $this->get_val($this->settings, 'version', RS_REVISION));
 		if(!empty($params)){
 			if(isset($params['version'])) unset($params['version']);
-			
-			//$this->params = array_merge_recursive($this->params, $params);
 			$this->params = array_replace_recursive($this->params, $params);
 			$this->save_params();
 		}
@@ -439,7 +441,6 @@ class RevSliderSlide extends RevSliderFunctions {
 		$layers = $this->get_val($data, 'layers', array());
 		$layers = $this->json_decode_slashes($layers);
 		if(!empty($layers)){
-			//$this->layers = array_merge_recursive($this->layers, $layers);
 			$this->layers = array_replace_recursive($this->layers, $layers);
 			$this->save_layers();
 		}
@@ -448,7 +449,6 @@ class RevSliderSlide extends RevSliderFunctions {
 		$settings = $this->json_decode_slashes($settings);
 		if(!empty($settings)){
 			$settings['version'] = $version;
-			//$this->settings = array_merge_recursive($this->settings, $settings);
 			$this->settings = array_replace_recursive($this->settings, $settings);
 			$this->save_settings();
 		}
@@ -463,9 +463,7 @@ class RevSliderSlide extends RevSliderFunctions {
 	 */
 	public function delete_slide_by_id($slide_id){
 		global $wpdb;
-		
 		$return = $wpdb->delete($wpdb->prefix . RevSliderFront::TABLE_SLIDES, array('id' => $slide_id));
-		
 		do_action('revslider_slide_deleteSlide', $slide_id);
 		
 		return $return;
@@ -507,11 +505,13 @@ class RevSliderSlide extends RevSliderFunctions {
 	
 	/**
 	 * change slide_order of a slide
+	 * @param int $slide_id
+	 * @param string $slide_order
 	 */
 	public function change_slide_order($slide_id, $slide_order){
 		global $wpdb;
 		
-		$ret = $wpdb->update($wpdb->prefix . RevSliderFront::TABLE_SLIDES, array('slide_order' => $slide_order), array('id' => $slide_id));
+		$wpdb->update($wpdb->prefix . RevSliderFront::TABLE_SLIDES, array('slide_order' => $slide_order), array('id' => $slide_id));
 	}
 	
 	
@@ -521,13 +521,11 @@ class RevSliderSlide extends RevSliderFunctions {
 	  * @removed in 6.2.18 -> @change 6.2.16: $template_id will not be written if the current post id is not the post_id to prevent malfunctioning
 	 */
 	public function init_by_post_data($data, RevSliderSlide $template, $slider_id){
-		//global $rs_slide_template;
-		
+
 		$post_id	 = $this->get_val($data, 'ID');
-		$c_post_id	 = @get_the_ID();
 		$template_id = get_post_meta($post_id, 'slide_template', true);
 		//only change the template if we are in the post itself, not if we are in another revslider that is post based!
-		$template_id = ($template_id == '') ? 'default' : $template_id; // || (intval($c_post_id) !== 0 && intval($post_id) !== intval($c_post_id))
+		$template_id = ($template_id == '') ? 'default' : $template_id;
 	
 		$this->post_data = apply_filters('revslider_slide_initByPostData', $data, $template, $slider_id, $this);
 		
@@ -544,7 +542,6 @@ class RevSliderSlide extends RevSliderFunctions {
 				}else{
 					$this->init_by_slide($template);
 				}
-				//$rs_slide_template[$template_id] = $template_id;
 			}catch(Exception $e){
 				$this->init_by_slide($template);
 			}
@@ -552,7 +549,6 @@ class RevSliderSlide extends RevSliderFunctions {
 		}else{
 			//init by global template
 			$this->init_by_slide($template);
-			//$rs_slide_template[$template->id] = $template->id;
 		}
 		
 		//set some slide params
@@ -624,12 +620,14 @@ class RevSliderSlide extends RevSliderFunctions {
 		$post_id		= $this->get_val($post, 'ID');
 		$slider_source	= $this->get_slider_param($slider_id, 'source', array());
 		$source_type	= $this->get_slider_param($slider_id, 'sourcetype', 'gallery');
+		$lazyload		= ($this->get_slider_param($slider_id, array('general', 'lazyLoad'), false) != 'none') ? true : false;
+		$class			= 'tp-rs-img';
+		$class			.= ($lazyload === true) ? ' rs-lazyload' : '';
 		$excerpt_limit	= ($source_type == 'woocommerce' || $source_type == 'woo') ? $this->get_val($slider_source, array('woo', 'excerptLimit'), 55) : $this->get_val($slider_source, array('post', 'excerptLimit'), 55);
-		$type			= 'char';
 		if(strpos($excerpt_limit, 'chars') !== false){
 			$type			= 'chars';
 			$excerpt_limit	= str_replace('chars', '', $excerpt_limit);
-		}else{ //strpos($excerpt_limit, 'char') !== false || 
+		}else{
 			$type			= 'words';
 			$excerpt_limit	= str_replace('char', '', $excerpt_limit); //char is a fallback from before 6.3.4
 			$excerpt_limit	= str_replace('words', '', $excerpt_limit);
@@ -646,6 +644,7 @@ class RevSliderSlide extends RevSliderFunctions {
 		$cats		= $this->get_val($post, array('source', 'post', 'category'));
 		$img_sizes	= $this->get_all_image_sizes();
 		$ptid		= get_post_thumbnail_id($post_id);
+		
 		$attr		= array(
 			'title'			=> $this->get_val($post, 'post_title'),
 			'alias'			=> $this->get_val($post, 'post_name'),
@@ -670,7 +669,7 @@ class RevSliderSlide extends RevSliderFunctions {
 			if($featured_image_url !== false){
 				$attr['img_urls'][$img_handle] = array(
 					'url' => $featured_image_url[0],
-					'tag' => '<img src="'.$featured_image_url[0].'" width="'.$featured_image_url[1].'" height="'.$featured_image_url[2].'" data-no-retina />'
+					'tag' => '<img class="'.$class.'" src="'.$featured_image_url[0].'" width="'.$featured_image_url[1].'" height="'.$featured_image_url[2].'" data-no-retina />'
 				);
 			}
 		}
@@ -1020,7 +1019,6 @@ class RevSliderSlide extends RevSliderFunctions {
 				$this->init_by_twitter($a['slider_id'], $a['additions']);
 			break;
 			case 'instagram':
-				//$this->post_data = $this->get_val($this->post_data, 'node', array());
 				$this->init_by_instagram($a['slider_id'], $a['additions']);
 			break;
 			case 'flickr':
@@ -1066,7 +1064,6 @@ class RevSliderSlide extends RevSliderFunctions {
 		
 		if($this->get_val($this->params, array('bg', 'type')) == 'image'){ //if image is choosen, use featured image as background
 			if($additions['fb_type'] == 'album'){
-				//$this->image_url	= 'https://graph.facebook.com/'.$this->get_val($this->post_data, 'id').'/picture';
 				$image_array = $this->get_val($this->post_data, 'images');
 				$this->image_url	=  isset($image_array[0]['source']) ? $image_array[0]['source'] : $this->get_val($this->post_data, 'picture', $this->image_thumb);
 				$this->image_thumb	= $this->get_val($this->post_data, 'picture', $this->image_thumb);
@@ -1220,15 +1217,6 @@ class RevSliderSlide extends RevSliderFunctions {
 				$is[$k] = $im->url;
 			}
 
-			/*if(isset($is[$img_res])){
-				$this->image_url	= $is[$img_res];
-				$this->image_thumb	= $is['thumbnail'];
-			}else{
-				$this->image_url	= $this->get_val($this->post_data, 'display_src');
-				$this->image_thumb	= $this->get_val($this->post_data, 'thumbnail_src');
-			}
-			*/
-			
 			$this->image_url = $this->get_val($this->post_data, 'display_url');
 			$this->image_thumb = $this->get_val($this->post_data, 'thumbnail_src', $this->image_thumb);
 			
@@ -1242,7 +1230,6 @@ class RevSliderSlide extends RevSliderFunctions {
 		$videos = $this->get_val($this->post_data, array('videos', 'standard_resolution', 'url'));
 		if(!empty($videos)){
 			$this->set_param('slide_bg_instagram', $videos); //set video for background video
-			//$this->set_param(array('bg', 'type'), 'streaminstagram'); //set background type
 			$this->set_param(array('bg', 'mpeg'), $videos); //set video for background video
 		}
 		
@@ -1509,8 +1496,6 @@ class RevSliderSlide extends RevSliderFunctions {
 			break;
 			case 'youtube':
 			case 'vimeo':
-				//$text = str_replace(array('%image_url_'.$img_handle.'%', '{{image_url_'.$img_handle.'}}'), $this->get_val($attr, array('img_urls', $img_handle, 'url')), $text);
-				//$text = str_replace(array('%image_'.$img_handle.'%', '{{image_'.$img_handle.'}}'), $this->get_val($attr, array('img_urls', $img_handle, 'tag')), $text);
 			case 'twitter':
 			case 'instagram':
 			case 'flickr':
@@ -1534,6 +1519,8 @@ class RevSliderSlide extends RevSliderFunctions {
 		$a				= apply_filters('revslider_slide_setLayersByStreamData_pre', array('layers' => $this->layers, 'params' => $this->params), $slider_id, $stream_type, $additions, $this);
 		$this->params	= $this->get_val($a, 'params');
 		$this->layers	= $this->get_val($a, 'layers');
+		$additions['lazyload'] = ($this->get_slider_param($slider_id, array('general', 'lazyLoad'), false) != 'none') ? true : false;
+		
 		$attr			= $this->return_stream_data($stream_type, $additions);
 		
 		if(!empty($this->layers)){
@@ -1597,6 +1584,8 @@ class RevSliderSlide extends RevSliderFunctions {
 		$img_sizes = $this->get_all_image_sizes($stream_type);
 		$attr = array();
 		$attr = apply_filters('revslider_slide_return_stream_data_pre', $attr, $stream_type, $additions, $img_sizes);
+		$ll = ($this->get_val($additions, 'lazyload', false) === true) ? ' rs-lazyload' : '';
+		$class = ' class="tp-rs-img'.$ll.'"';
 		
 		switch($stream_type){
 			case 'facebook':
@@ -1629,11 +1618,11 @@ class RevSliderSlide extends RevSliderFunctions {
 						'img_urls'	=> array(
 							'full'	=> array(
 								'url' => $fb_img,
-								'tag' => '<img src="'.$fb_img.'" data-no-retina />'
+								'tag' => '<img'.$class.' src="'.$fb_img.'" data-no-retina />'
 							),
 							'thumbnail' => array(
 								'url' => $fb_img_thumbnail,
-								'tag' => '<img src="'.$fb_img_thumbnail.'" data-no-retina />'
+								'tag' => '<img'.$class.' src="'.$fb_img_thumbnail.'" data-no-retina />'
 							)
 						)
 					);
@@ -1653,11 +1642,11 @@ class RevSliderSlide extends RevSliderFunctions {
 						'img_urls'	=> array(
 							'full'	=> array(
 								'url' => $fb_img,
-								'tag' => '<img src="'.$fb_img.'" data-no-retina />'
+								'tag' => '<img'.$class.' src="'.$fb_img.'" data-no-retina />'
 							),
 							'thumbnail' => array(
 								'url' => $fb_img_thumbnail,
-								'tag' => '<img src="'.$fb_img_thumbnail.'" data-no-retina />'
+								'tag' => '<img'.$class.' src="'.$fb_img_thumbnail.'" data-no-retina />'
 							)
 						)
 					);
@@ -1700,7 +1689,7 @@ class RevSliderSlide extends RevSliderFunctions {
 					$attr1['img_urls'] = array(
 						'large' => array(
 							'url' => $img,
-							'tag' => '<img src="'.$img.'" width="'.$w.'" height="'.$h.'" data-no-retina />'
+							'tag' => '<img'.$class.' src="'.$img.'" width="'.$w.'" height="'.$h.'" data-no-retina />'
 						)
 					);
 				}
@@ -1713,10 +1702,6 @@ class RevSliderSlide extends RevSliderFunctions {
 					'link'		=> 'https://www.instagram.com/p/'. $this->get_val($this->post_data, 'shortcode'),
 					'date'		=> date_i18n(get_option('date_format').' '.get_option('time_format'), $this->get_val($this->post_data, 'taken_at_timestamp', false)),
 					'author_name' => $this->get_val($additions, 'instagram_user'), //$this->get_val($this->post_data, 'user_info', '')
-					//'likes'		=> $this->get_val($this->post_data, array('edge_liked_by', 'count')),
-					//'likes' => $this->get_val($likes_raw, 'count'),
-					//'num_comments' => $this->get_val($this->post_data, array('edge_media_to_comment', 'count')),
-					//'num_comments' => $this->get_val($comments_raw, 'count'),
 				);
 				
 				$inst_img = $this->get_val($this->post_data, 'display_url', '');
@@ -1726,26 +1711,26 @@ class RevSliderSlide extends RevSliderFunctions {
 					$attr1['stream_image_url'] = $inst_img;
 					$attr1['img_urls']['original'] = array(
 						'url' => $inst_img, 
-						'tag' => '<img src="'.$inst_img.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" data-no-retina />'
+						'tag' => '<img'.$class.' src="'.$inst_img.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" data-no-retina />'
 					);
 					$attr1['img_urls']['original_size'] = array(
 						'url' => $inst_img, 
-						'tag' => '<img src="'.$inst_img.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" data-no-retina />'
+						'tag' => '<img'.$class.' src="'.$inst_img.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" data-no-retina />'
 					);
 					$attr1['img_urls']['large'] = array(
 						'url' => $inst_img, 
-						'tag' => '<img src="'.$inst_img.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" data-no-retina />'
+						'tag' => '<img'.$class.' src="'.$inst_img.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" data-no-retina />'
 					);
 				}
 				if(!empty($inst_thumb)){
 					$attr1['stream_image_url'] = (!isset($attr1['stream_image_url'])) ? $inst_thumb : $attr1['stream_image_url'];
 					$attr1['img_urls']['thumb'] = array(
 						'url' => $inst_thumb,
-						'tag' => '<img src="'.$inst_thumb.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" data-no-retina />'
+						'tag' => '<img'.$class.' src="'.$inst_thumb.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" data-no-retina />'
 					);
 					$attr1['img_urls']['thumbnail'] = array(
 						'url' => $inst_thumb,
-						'tag' => '<img src="'.$inst_thumb.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" data-no-retina />'
+						'tag' => '<img'.$class.' src="'.$inst_thumb.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" data-no-retina />'
 					);
 				}
 			break;
@@ -1759,16 +1744,16 @@ class RevSliderSlide extends RevSliderFunctions {
 					'views'		=> $this->get_val($this->post_data, 'views'),
 					'stream_image_url' => $this->get_val($this->post_data, 'url_o'),
 					'img_urls'	=> array(
-						'square' 	 => array('url' => $this->get_val($this->post_data, 'url_sq'), 'tag' => '<img src="'.$this->get_val($this->post_data, 'url_sq').'" width="'.$this->get_val($this->post_data, 'width_sq').'" height="'.$this->get_val($this->post_data, 'height_sq').'" data-no-retina />'),
-						'large-square' => array('url' => $this->get_val($this->post_data, 'url_q'), 'tag' => '<img src="'.$this->get_val($this->post_data, 'url_q').'" width="'.$this->get_val($this->post_data, 'width_q').'" height="'.$this->get_val($this->post_data, 'height_q').'"  data-no-retina />'),
-						'thumbnail'  => array('url' => $this->get_val($this->post_data, 'url_t'), 'tag' => '<img src="'.$this->get_val($this->post_data, 'url_t').'" width="'.$this->get_val($this->post_data, 'width_t').'" height="'.$this->get_val($this->post_data, 'height_t').'"  data-no-retina />'),
-						'small' 	 => array('url' => $this->get_val($this->post_data, 'url_s'), 'tag' => '<img src="'.$this->get_val($this->post_data, 'url_s').'" width="'.$this->get_val($this->post_data, 'width_s').'" height="'.$this->get_val($this->post_data, 'height_s').'"  data-no-retina />'),
-						'small-320'  => array('url' => $this->get_val($this->post_data, 'url_n'), 'tag' => '<img src="'.$this->get_val($this->post_data, 'url_n').'" width="'.$this->get_val($this->post_data, 'width_n').'" height="'.$this->get_val($this->post_data, 'height_n').'"  data-no-retina />'),
-						'medium' 	 => array('url' => $this->get_val($this->post_data, 'url_m'), 'tag' => '<img src="'.$this->get_val($this->post_data, 'url_m').'" width="'.$this->get_val($this->post_data, 'width_m').'" height="'.$this->get_val($this->post_data, 'height_m').'"  data-no-retina />'),
-						'medium-640' => array('url' => $this->get_val($this->post_data, 'url_z'), 'tag' => '<img src="'.$this->get_val($this->post_data, 'url_z').'" width="'.$this->get_val($this->post_data, 'width_z').'" height="'.$this->get_val($this->post_data, 'height_z').'"  data-no-retina />'),
-						'medium-800' => array('url' => $this->get_val($this->post_data, 'url_c'), 'tag' => '<img src="'.$this->get_val($this->post_data, 'url_c').'" width="'.$this->get_val($this->post_data, 'width_c').'" height="'.$this->get_val($this->post_data, 'height_c').'"  data-no-retina />'),
-						'large' 	 => array('url' => $this->get_val($this->post_data, 'url_l'), 'tag' => '<img src="'.$this->get_val($this->post_data, 'url_l').'" width="'.$this->get_val($this->post_data, 'width_l').'" height="'.$this->get_val($this->post_data, 'height_l').'"  data-no-retina />'),
-						'original'	 => array('url' => $this->get_val($this->post_data, 'url_o'), 'tag' => '<img src="'.$this->get_val($this->post_data, 'url_o').'" width="'.$this->get_val($this->post_data, 'width_o').'" height="'.$this->get_val($this->post_data, 'height_o').'"  data-no-retina />')
+						'square' 	 => array('url' => $this->get_val($this->post_data, 'url_sq'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_sq').'" width="'.$this->get_val($this->post_data, 'width_sq').'" height="'.$this->get_val($this->post_data, 'height_sq').'" data-no-retina />'),
+						'large-square' => array('url' => $this->get_val($this->post_data, 'url_q'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_q').'" width="'.$this->get_val($this->post_data, 'width_q').'" height="'.$this->get_val($this->post_data, 'height_q').'"  data-no-retina />'),
+						'thumbnail'  => array('url' => $this->get_val($this->post_data, 'url_t'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_t').'" width="'.$this->get_val($this->post_data, 'width_t').'" height="'.$this->get_val($this->post_data, 'height_t').'"  data-no-retina />'),
+						'small' 	 => array('url' => $this->get_val($this->post_data, 'url_s'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_s').'" width="'.$this->get_val($this->post_data, 'width_s').'" height="'.$this->get_val($this->post_data, 'height_s').'"  data-no-retina />'),
+						'small-320'  => array('url' => $this->get_val($this->post_data, 'url_n'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_n').'" width="'.$this->get_val($this->post_data, 'width_n').'" height="'.$this->get_val($this->post_data, 'height_n').'"  data-no-retina />'),
+						'medium' 	 => array('url' => $this->get_val($this->post_data, 'url_m'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_m').'" width="'.$this->get_val($this->post_data, 'width_m').'" height="'.$this->get_val($this->post_data, 'height_m').'"  data-no-retina />'),
+						'medium-640' => array('url' => $this->get_val($this->post_data, 'url_z'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_z').'" width="'.$this->get_val($this->post_data, 'width_z').'" height="'.$this->get_val($this->post_data, 'height_z').'"  data-no-retina />'),
+						'medium-800' => array('url' => $this->get_val($this->post_data, 'url_c'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_c').'" width="'.$this->get_val($this->post_data, 'width_c').'" height="'.$this->get_val($this->post_data, 'height_c').'"  data-no-retina />'),
+						'large' 	 => array('url' => $this->get_val($this->post_data, 'url_l'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_l').'" width="'.$this->get_val($this->post_data, 'width_l').'" height="'.$this->get_val($this->post_data, 'height_l').'"  data-no-retina />'),
+						'original'	 => array('url' => $this->get_val($this->post_data, 'url_o'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_o').'" width="'.$this->get_val($this->post_data, 'width_o').'" height="'.$this->get_val($this->post_data, 'height_o').'"  data-no-retina />')
 					)
 				);
 			break;
@@ -1800,10 +1785,10 @@ class RevSliderSlide extends RevSliderFunctions {
 						);
 						switch($additions['yt_type']){
 							case 'channel':
-								$attr1['img_urls'][$name]['tag'] = '<img src="'.$this->get_val($vals, 'url').'" data-no-retina />';
+								$attr1['img_urls'][$name]['tag'] = '<img'.$class.' src="'.$this->get_val($vals, 'url').'" data-no-retina />';
 							break;
 							case 'playlist':
-								$attr1['img_urls'][$name]['tag'] = '<img src="'.$this->get_val($vals, 'url').'" width="'.$this->get_val($vals, 'width').'" height="'.$this->get_val($vals, 'height').'" data-no-retina />';
+								$attr1['img_urls'][$name]['tag'] = '<img'.$class.' src="'.$this->get_val($vals, 'url').'" width="'.$this->get_val($vals, 'width').'" height="'.$this->get_val($vals, 'height').'" data-no-retina />';
 							break;
 						}
 					}
@@ -1828,7 +1813,7 @@ class RevSliderSlide extends RevSliderFunctions {
 						$attr1['stream_image_url'] = (!isset($attr1['stream_image_url'])) ? $this->get_val($this->post_data, $name) : $attr1['stream_image_url'];
 						$attr1['img_urls'][$name] = array(
 							'url' => $this->get_val($this->post_data, $name),
-							'tag' => '<img src="'.$this->get_val($this->post_data, $name).'" data-no-retina />'
+							'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, $name).'" data-no-retina />'
 						);
 					}
 				}
@@ -1839,66 +1824,7 @@ class RevSliderSlide extends RevSliderFunctions {
 		
 		return apply_filters('revslider_slide_return_stream_data_post', $attr, $stream_type, $additions, $img_sizes);
 	}
-	
-	
-	/**
-	 * Get the timeline image
-	 **/
-	public function get_facebook_timeline_image(){
-		$return = '';
-		
-		$object_id = $this->get_val($this->post_data, 'object_id', '');
-		$picture = $this->get_val($this->post_data, 'picture', '');
-		if( $this->get_val($this->post_data, 'full_picture', '') ){
-			$return = $this->get_val($this->post_data, 'full_picture', '');
-		}
-		elseif(!empty($object_id)){
-			$return = 'https://graph.facebook.com/'.$this->get_val($this->post_data, 'object_id', '').'/picture';//$photo->picture;
 
-		}elseif(!empty($picture)) {
-			
-			$image_url = $this->decode_facebook_url($this->get_val($this->post_data, 'picture', ''));
-			
-			
-			$image_url = parse_str(parse_url($image_url, PHP_URL_QUERY), $array);
-			$image_url = explode('&', $this->get_val($array, 'url'));
-			
-			/* patch for when url returned as "fbstaging://" */
-			$fbstaging = $this->get_val($image_url, 0);
-	        if(strpos($fbstaging, 'fbstaging') !== false){
-	            
-	            $new_url = $this->get_val($this->post_data, 'picture', '');
-	            $new_url = explode('&w=', $new_url);
-	            
-	            if(count($new_url) > 1){
-	                $end_url = explode('&url=', $new_url[1]);                   
-	                if(count($end_url) > 1) $image_url = array($new_url[0] . '&url=' . $end_url[1]);
-	            }
-	        }
-	        /* END patch */
-	        
-	        $return = $this->get_val($image_url, 0);
-		}
-		
-		return apply_filters('revslider_slide_get_facebook_timeline_image', $return, $object_id, $picture, $this);
-	}
-	
-	
-	/**
-	 * Decode a facebook url
-	 **/
-	public function decode_facebook_url($url){
-		$url = str_replace('u00253A', ':', $url);
-		$url = str_replace('\u00255C\u00252F', '/', $url);
-		$url = str_replace('u00252F', '/', $url);
-		$url = str_replace('u00253F', '?', $url);
-		$url = str_replace('u00253D', '=', $url);
-		$url = str_replace('u002526', '&', $url);
-		
-		return $url;
-	}
-	
-	
 	/**
 	 * save layers to the database
 	 * @since: 5.0
@@ -1934,67 +1860,7 @@ class RevSliderSlide extends RevSliderFunctions {
 			$this->params[$name] = $value;
 		}
 	}
-	
-	
-	/*public function set_param($keys, $value){
-		$array =& $this->array;
-		foreach ($keys as $key) {
-			if (!isset($array[$key])) {
-				$array[$key] = array();
-			}
-			$array =& $array[$key];
-		}
-		if (!in_array($value, $array)) {
-			$array[] = $value;
-		}
-    }*/
-	
-	/**
-	 * set parameter
-	 * @since: 5.0
-	 * @before: RevSliderSlide::set_param();
-	 */
-	/*public function set_param($name, $value){
-		if(is_array($name)){
-			$n = count($name);
-			switch(count($name)){
-				case 1:
-					$this->params[$name[0]] = $value;
-				break;
-				case 2:
-					$this->params[$name[0]][$name[1]] = $value;
-				break;
-				case 3:
-					$this->params[$name[0]][$name[1]][$name[2]] = $value;
-				break;
-				case 4:
-					$this->params[$name[0]][$name[1]][$name[2]][$name[3]] = $value;
-				break;
-				case 5:
-					$this->params[$name[0]][$name[1]][$name[2]][$name[3]][$name[4]] = $value;
-				break;
-				case 6:
-					$this->params[$name[0]][$name[1]][$name[2]][$name[3]][$name[4]][$name[5]] = $value;
-				break;
-				case 7:
-					$this->params[$name[0]][$name[1]][$name[2]][$name[3]][$name[4]][$name[5]][$name[6]] = $value;
-				break;
-				case 8:
-					$this->params[$name[0]][$name[1]][$name[2]][$name[3]][$name[4]][$name[5]][$name[6]][$name[7]] = $value;
-				break;
-				case 9:
-					$this->params[$name[0]][$name[1]][$name[2]][$name[3]][$name[4]][$name[5]][$name[6]][$name[7]][$name[8]] = $value;
-				break;
-				case 10:
-					$this->params[$name[0]][$name[1]][$name[2]][$name[3]][$name[4]][$name[5]][$name[6]][$name[7]][$name[8]][$name[9]] = $value;
-				break;
-			}
-		}else{
-			$this->params[$name] = $value;
-		}
-	}*/
-	
-	
+
 	/**
 	 * get parameter from params array. if no default, then the param is a must!
 	 * before: RevSliderSlide::get_param()
@@ -2284,7 +2150,7 @@ class RevSliderSlide extends RevSliderFunctions {
 			$in  = str_repeat('%d,', count($slider_ids) - 1) . '%d';
 			$slides_data = $wpdb->get_results($wpdb->prepare("SELECT `id`, `slider_id`, `slide_order` FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDES." WHERE slider_id IN(".$in.") ORDER BY slider_id,slide_order ASC", $slider_ids), ARRAY_A);
 		}else{
-			$slides_data = $wpdb->get_results($wpdb->prepare("SELECT `id`, `slider_id`, `slide_order` FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDES." WHERE slider_id = %d".$first_sql." ORDER BY slide_order ASC", $slider_ids), ARRAY_A);
+			$slides_data = $wpdb->get_results($wpdb->prepare("SELECT `id`, `slider_id`, `slide_order` FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDES." WHERE slider_id = %d ORDER BY slide_order ASC", $slider_ids), ARRAY_A);
 		}
 		
 		return $slides_data;
@@ -2469,7 +2335,6 @@ class RevSliderSlide extends RevSliderFunctions {
 							$image['style']	= array('background-size' => 'cover');
 						break;
 					}
-					//$image['type'] = 'transparent';
 				}else{
 					$image = $this->get_image_attributes($layouttype);
 				}
@@ -2714,22 +2579,6 @@ class RevSliderSlide extends RevSliderFunctions {
 							}elseif($style === 'font-style'){
 								$found['font-style'] = $style_value;
 							}
-							/*elseif($style === 'font'){
-								$_font = explode(' ', $style_value);
-								if(!empty($_font)){
-									foreach($_font as $_fv){
-										$_fv = str_replace(array('"', "'"), '', trim($_fv));
-										if(intval($_fv) > 0 || strtolower($_fv) === 'bold'){
-											$found['font-weight'] = $_fv;
-										}elseif(strtolower($_fv) === 'italic'){
-											$found['font-style'] = $_fv;
-										}else{
-											
-										}
-									}
-								}
-								$found['font'] = $style_value;
-							}*/
 						}
 						if(!empty($found)){
 							$use_font = $font;
@@ -2956,6 +2805,8 @@ class RevSliderSlide extends RevSliderFunctions {
 	 * add "a" tags to links within a text
 	 * @since: 5.0
 	 * @before: RevSliderBase::add_wrap_around_url()
+	 * @param string $text
+	 * @return string
 	 */
 	public function add_wrap_around_url($text){
 		$reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
@@ -2973,13 +2824,13 @@ class RevSliderSlide extends RevSliderFunctions {
 	/**
 	 * get wp-content path
 	 * before: RevSliderFunctionsWP::getPathContent()
+	 * @return string
 	 */
 	public function get_content_path(){
 		if(is_multisite()){
 			$path = (!defined('BLOGUPLOADDIR')) ? ABSPATH.'wp-content/' : BLOGUPLOADDIR;
 		}else{
 			$path = (!defined('WP_CONTENT_DIR')) ? WP_CONTENT_DIR.'/' : ABSPATH.'wp-content/'; //FIX FOR PHP5
-			//$path = (!empty(WP_CONTENT_DIR)) ? WP_CONTENT_DIR.'/' : ABSPATH.'wp-content/';
 		}
 		
 		return $path;
@@ -2989,11 +2840,10 @@ class RevSliderSlide extends RevSliderFunctions {
 	/**
 	 * get image relative path from image url (from upload)
 	 * before: RevSliderFunctionsWP::getImagePathFromURL()
+	 * @param string $url
 	 */
 	public function get_image_path_from_url($url){
-		$path = str_replace($this->get_base_url(), '', $url);
-		
-		return $path;
+		return str_replace($this->get_base_url(), '', $url);
 	}
 }
 

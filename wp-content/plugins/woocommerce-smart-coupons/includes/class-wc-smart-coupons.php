@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.0.0
+ * @version     2.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -92,6 +92,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			add_filter( 'woocommerce_coupon_is_valid', array( $this, 'is_smart_coupon_valid' ), 10, 3 );
 			add_filter( 'woocommerce_coupon_is_valid', array( $this, 'is_user_usage_limit_valid' ), 10, 3 );
 			add_filter( 'woocommerce_coupon_is_valid_for_product', array( $this, 'smart_coupons_is_valid_for_product' ), 10, 4 );
+			add_filter( 'woocommerce_coupon_validate_expiry_date', array( $this, 'validate_expiry_time' ), 10, 3 );
 			add_filter( 'woocommerce_apply_individual_use_coupon', array( $this, 'smart_coupons_override_individual_use' ), 10, 3 );
 			add_filter( 'woocommerce_apply_with_individual_use_coupon', array( $this, 'smart_coupons_override_with_individual_use' ), 10, 4 );
 
@@ -201,6 +202,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			include_once 'compat/class-wc-sc-wpml-compatibility.php';
 			include_once 'compat/class-wcopc-sc-compatibility.php';
 			include_once 'compat/class-wcs-sc-compatibility.php';
+			include_once 'compat/class-wc-sc-wmc-compatibility.php';
 
 			include_once 'class-wc-sc-admin-welcome.php';
 			include_once 'class-wc-sc-background-coupon-importer.php';
@@ -390,7 +392,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				$expiry_date = strtotime( $expiry_date );
 			}
 
-			$expires_string = gmdate( 'd-M-Y', $expiry_date ); // Added to shorten the expiry date.
+			$expires_string = date_i18n( get_option( 'date_format', 'd-M-Y' ), $expiry_date );
 
 			return apply_filters(
 				'wc_sc_formatted_coupon_expiry_date',
@@ -1644,11 +1646,47 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		}
 
 		/**
+		 * Validate expiry time
+		 *
+		 * @param boolean      $expired Whether the coupon is expired or not.
+		 * @param WC_Coupon    $coupon The coupon object.
+		 * @param WC_Discounts $discounts The discount object.
+		 * @return boolean
+		 */
+		public function validate_expiry_time( $expired = false, $coupon = null, $discounts = null ) {
+			// If coupon is not expired, no need to check it further.
+			if ( false === $expired ) {
+				return $expired;
+			}
+
+			$coupon_date_expires = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_date_expires' ) ) ) ? $coupon->get_date_expires() : ( ( is_object( $coupon ) && is_callable( array( $coupon, 'get_meta' ) ) ) ? $coupon->get_meta( 'date_expires' ) : 0 );
+			if ( is_object( $coupon_date_expires ) && is_callable( array( $coupon_date_expires, 'getTimestamp' ) ) ) {
+				$expiry_date = $coupon_date_expires->getTimestamp();
+			} elseif ( ! empty( $coupon_date_expires ) && is_numeric( $coupon_date_expires ) ) {
+				$expiry_date = intval( $coupon_date_expires );
+			} else {
+				return $expired;
+			}
+
+			if ( ! empty( $expiry_date ) ) {
+				$expiry_time = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_meta' ) ) ) ? $coupon->get_meta( 'wc_sc_expiry_time' ) : null;
+				if ( is_null( $expiry_time ) || in_array( $expiry_time, array( '', 0, '0' ), true ) ) {
+					return $expired;
+				} elseif ( ! empty( $expiry_time ) ) {
+					$expiry_timestamp = intval( $expiry_date ) + intval( $expiry_time );
+					return time() > $expiry_timestamp;
+				}
+			}
+
+			return $expired;
+		}
+
+		/**
 		 * Function to keep valid coupons when individual use coupon is applied
 		 *
-		 * @param  array              $coupons_to_keep Coupons to keep.
-		 * @param  WC_Coupons|boolean $the_coupon Coupon object.
-		 * @param  array              $applied_coupons Array of applied coupons.
+		 * @param  array             $coupons_to_keep Coupons to keep.
+		 * @param  WC_Coupon|boolean $the_coupon Coupon object.
+		 * @param  array             $applied_coupons Array of applied coupons.
 		 * @return array              $coupons_to_keep
 		 */
 		public function smart_coupons_override_individual_use( $coupons_to_keep = array(), $the_coupon = false, $applied_coupons = array() ) {
@@ -1668,10 +1706,10 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		/**
 		 * Force apply store credit even if the individual coupon already exists in cart
 		 *
-		 * @param  boolean            $is_apply Apply with individual use coupon.
-		 * @param  WC_Coupons|boolean $the_coupon Coupon object.
-		 * @param  WC_Coupons|boolean $applied_coupon Coupon object.
-		 * @param  array              $applied_coupons Array of applied coupons.
+		 * @param  boolean           $is_apply Apply with individual use coupon.
+		 * @param  WC_Coupon|boolean $the_coupon Coupon object.
+		 * @param  WC_Coupon|boolean $applied_coupon Coupon object.
+		 * @param  array             $applied_coupons Array of applied coupons.
 		 * @return boolean
 		 */
 		public function smart_coupons_override_with_individual_use( $is_apply = false, $the_coupon = false, $applied_coupon = false, $applied_coupons = array() ) {
@@ -3456,7 +3494,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 									p.post_status,
 									p.post_parent,
 									p.menu_order,
-									DATE_FORMAT(p.post_date,'%%d-%%m-%%Y %%h:%%i') AS post_date,
+									DATE_FORMAT(p.post_date,'%%d-%%m-%%Y %%H:%%i:%%s') AS post_date,
 									GROUP_CONCAT(pm.meta_key order by pm.meta_id SEPARATOR '###') AS coupon_meta_key,
 									GROUP_CONCAT(pm.meta_value order by pm.meta_id SEPARATOR '###') AS coupon_meta_value
 								FROM {$wpdb->prefix}posts as p JOIN {$wpdb->prefix}postmeta as pm ON (p.ID = pm.post_id
@@ -3479,6 +3517,11 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 					unset( $result['coupon_meta_key'] );
 					unset( $result['coupon_meta_value'] );
+
+					if ( ! empty( $result['post_date'] ) ) {
+						$timestamp           = strtotime( $result['post_date'] ) + 1;
+						$result['post_date'] = gmdate( 'd-m-Y H:i:s', $timestamp );
+					}
 
 					$id          = $result['ID'];
 					$data[ $id ] = $result;

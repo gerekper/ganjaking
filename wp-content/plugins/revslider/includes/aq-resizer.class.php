@@ -209,5 +209,3 @@ if(!function_exists('rev_aq_resize')){
         return (!empty($image) || $image === false) ? $image : $url;
     }
 }
-
-?>

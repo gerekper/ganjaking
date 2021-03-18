@@ -214,4 +214,3 @@ class RevSliderExtension {
 
 global $revext;
 $revext	= new RevSliderExtension();
-?>

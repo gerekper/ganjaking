@@ -492,6 +492,13 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 					}
 				}
 			} else {
+				if ( $layout_mode === "checkbox" || $layout_mode === "thumbnailmultiple" ){
+					if ( THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add == "no" && isset( $this->post_data[ 'tmcp_' . $args['name_inc'] . '_' . $_default_value_counter ] ) ) {
+						$selected_value = $this->post_data[ 'tmcp_' . $args['name_inc'] . '_' . $_default_value_counter ];
+					} elseif ( isset( $_GET[ 'tmcp_' . $args['name_inc'] ] ) ) {
+						$selected_value = $_GET[ 'tmcp_' . $args['name_inc'] . '_' . $_default_value_counter ];
+					}
+				}
 				if ( $is_default_value && ! empty( $element['default_value_override'] ) && isset( $element['default_value'] ) ) {
 					$selected = TRUE;
 				} elseif ( esc_attr( stripcslashes( $selected_value ) ) == esc_attr( $product_id ) ) {
@@ -550,22 +557,28 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 				}
 
 				$option = array(
-					'selected'             => $selected,
-					'current'              => TRUE,
-					'value_to_show'        => $product_id,
-					'css_class'            => $css_class,
-					'data_price'           => $price,
-					'tm_tooltip_html'      => '',
-					'data_rules'           => wp_json_encode( array( $price ) ),
-					'data_original_rules'  => wp_json_encode( array( $regular_price ) ),
-					'data_rulestype'       => wp_json_encode( array( '' ) ),
-					'data_text'            => $title,
-					'data_type'            => $type,
-					'data_hide_amount'     => $hide_amount,
-					'text'                 => $title,
-					'attributes'           => $attributes,
-					'available_variations' => $available_variations,
+					'selected'               => $selected,
+					'current'                => TRUE,
+					'value_to_show'          => $product_id,
+					'css_class'              => $css_class,
+					'data_price'             => $price,
+					'tm_tooltip_html'        => '',
+					'data_rules'             => wp_json_encode( array( $price ) ),
+					'data_original_rules'    => wp_json_encode( array( $regular_price ) ),
+					'data_rulestype'         => wp_json_encode( array( '' ) ),
+					'data_text'              => $title,
+					'data_type'              => $type,
+					'data_hide_amount'       => $hide_amount,
+					'text'                   => $title,
+					'attributes'             => $attributes,
+					'available_variations'   => $available_variations,
+					'_default_value_counter' => '',
+					'counter'                => $_default_value_counter,
 				);
+
+				if ( $layout_mode === "checkbox" || $layout_mode === "thumbnailmultiple" ) {
+					$option['_default_value_counter'] = $_default_value_counter;
+				}
 
 				$option    = apply_filters( 'wc_epo_product_option', $option, $key, $product_id, $element, $_default_value_counter );
 				$options[] = $option;
@@ -581,7 +594,6 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 			$cart_item     = WC()->cart->get_cart_item( $cart_item_key );
 
 			if ( $cart_item ) {
-
 				if ( isset( $cart_item['tmpost_data'] ) ) {
 					$cart_data = $cart_item['tmpost_data'];
 				}

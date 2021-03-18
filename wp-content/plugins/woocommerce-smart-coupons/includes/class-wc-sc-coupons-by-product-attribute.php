@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.2.0
+ * @version     1.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -136,14 +136,22 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 					}
 				}
 				if ( ! empty( $attribute_taxonomies_name ) ) {
+					$args = array(
+						'orderby'    => 'name',
+						'hide_empty' => 0,
+					);
+					$args = apply_filters( 'woocommerce_product_attribute_terms', $args );
 					if ( version_compare( $wp_version, '4.5.0', '>=' ) ) {
 						$attribute_taxonomies_terms = get_terms(
-							array(
-								'taxonomy' => $attribute_taxonomies_name,
+							array_merge(
+								array(
+									'taxonomy' => $attribute_taxonomies_name,
+								),
+								$args
 							)
 						);
 					} else {
-						$attribute_taxonomies_terms = get_terms( $attribute_taxonomies_name );
+						$attribute_taxonomies_terms = get_terms( $attribute_taxonomies_name, $args );
 					}
 					if ( ! empty( $attribute_taxonomies_terms ) && is_array( $attribute_taxonomies_terms ) ) {
 						foreach ( $attribute_taxonomies_terms as $attribute_taxonomy_term ) {
@@ -256,8 +264,11 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Product_Attribute' ) ) {
 		 */
 		public function validate( $valid = false, $product = null, $coupon = null, $values = null ) {
 
+			$backtrace = wp_list_pluck( debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ), 'function' ); // phpcs:ignore
+
 			// If coupon is already invalid, no need for further checks.
-			if ( true !== $valid ) {
+			// Ignore this check if the discount type is a non-product-type discount.
+			if ( true !== $valid && ! in_array( 'handle_non_product_type_coupons', $backtrace, true ) ) {
 				return $valid;
 			}
 

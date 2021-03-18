@@ -212,8 +212,9 @@ class WC_Memberships_Frontend {
 				'mime_types'    => $this->get_supported_mime_types(),
 
 				'nonces'        => [
-					'profile_field_upload_file' => wp_create_nonce( 'member-profile-field-upload-file' ),
-					'profile_field_remove_file' => wp_create_nonce( 'member-profile-field-remove-file' ),
+					'profile_field_upload_file'  => wp_create_nonce( 'member-profile-field-upload-file' ),
+					'profile_field_remove_file'  => wp_create_nonce( 'member-profile-field-remove-file' ),
+					'get_product_profile_fields' => wp_create_nonce( Profile_Fields::GET_PRODUCT_PROFILE_FIELDS_ACTION ),
 				],
 
 				'i18n'          => [

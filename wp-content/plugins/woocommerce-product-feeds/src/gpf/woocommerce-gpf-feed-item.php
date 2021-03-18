@@ -433,7 +433,15 @@ class WoocommerceGpfFeedItem {
 			$include_labels = apply_filters( 'woocommerce_gpf_include_attribute_labels_in_title', true );
 			$suffix         = wc_get_formatted_variation( $this->specific_product, true, $include_labels );
 			if ( ! empty( $suffix ) ) {
-				$this->title .= ' (' . $suffix . ')';
+				$this->title .= sprintf(
+					// Translators: %s is the list of variation attributes to be added to the product title to identify this particular variation.
+					_x(
+						' (%s)',
+						'Variation product suffix wrapper',
+						'woocommerce_gpf'
+					),
+					$suffix
+				);
 			}
 		}
 		$this->title = apply_filters(

@@ -25,9 +25,8 @@ class RevSliderEventsManager extends RevSliderFunctions {
 	 * check if events class exists
 	 */
 	public static function isEventsExists(){
-		return (defined('EM_VERSION') && defined('EM_PRO_MIN_VERSION')) ? true : false;
+		return defined('EM_VERSION') && defined('EM_PRO_MIN_VERSION');
 	}
-	
 	
 	/**
 	 * get sort by list
@@ -91,7 +90,8 @@ class RevSliderEventsManager extends RevSliderFunctions {
 				$query[] = array('key' => '_end_ts', 'value' => $start_next_month, 'compare' => '>=');
 			break;
 			default:
-				$this->throw_error('Wrong event filter');
+				$f = RevSliderGlobals::instance()->get('RevSliderFunctions');
+				$f->throw_error('Wrong event filter');
 			break;
 		} 
 		
@@ -126,7 +126,7 @@ class RevSliderEventsManager extends RevSliderFunctions {
 		
 		if($postType != EM_POST_TYPE_EVENT) return array();
 	
-		$f			 = new RevSliderFunctions();
+		$f			 = RevSliderGlobals::instance()->get('RevSliderFunctions');
 		$event		 = new EM_Event($postID, 'post_id');
 		$location	 = $event->get_location();
 		$ev			 = $event->to_array();
@@ -179,6 +179,3 @@ class RevSliderEventsManager extends RevSliderFunctions {
 	}
 	
 }
-
-//$rs_em = new RevSliderEventsManager();
-?>

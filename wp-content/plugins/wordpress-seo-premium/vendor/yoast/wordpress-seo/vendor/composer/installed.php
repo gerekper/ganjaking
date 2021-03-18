@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '15.9.1',
-    'version' => '15.9.1.0',
+    'pretty_version' => '15.9.2',
+    'version' => '15.9.2.0',
     'aliases' => 
     array (
     ),
-    'reference' => 'aeeef47fdd75e6281bfd3ce28d5723d3aa60d16e',
+    'reference' => '4fceb7b60be6e70fe96959110911e31f5bbddc71',
     'name' => 'yoast/wordpress-seo',
   ),
   'versions' => 
@@ -19,6 +19,15 @@
       array (
       ),
       'reference' => 'b93bcf0fa1fccb0b7d176b0967d969691cd74cca',
+    ),
+    'psr/container' => 
+    array (
+      'pretty_version' => '1.0.0',
+      'version' => '1.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b7ce3b176482dbbc1245ebf52b181af44c2cf55f',
     ),
     'roundcube/plugin-installer' => 
     array (
@@ -45,12 +54,12 @@
     ),
     'yoast/wordpress-seo' => 
     array (
-      'pretty_version' => '15.9.1',
-      'version' => '15.9.1.0',
+      'pretty_version' => '15.9.2',
+      'version' => '15.9.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'aeeef47fdd75e6281bfd3ce28d5723d3aa60d16e',
+      'reference' => '4fceb7b60be6e70fe96959110911e31f5bbddc71',
     ),
   ),
 );

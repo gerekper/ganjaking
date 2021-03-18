@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Memberships 1.21.3\n"
+"Project-Id-Version: WooCommerce Memberships 1.21.4\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2021-02-19 10:42:25+00:00\n"
+"POT-Creation-Date: 2021-03-09 05:57:47+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3773,73 +3773,73 @@ msgstr ""
 msgid "Membership Plan Restored"
 msgstr ""
 
-#: includes/class-wc-memberships-ajax.php:452
+#: includes/class-wc-memberships-ajax.php:491
 msgid "An account is already registered with your email address. Please log in."
 msgstr ""
 
-#: includes/class-wc-memberships-ajax.php:456
+#: includes/class-wc-memberships-ajax.php:495
 msgid "An account is already registered with this email address."
 msgstr ""
 
-#: includes/class-wc-memberships-ajax.php:464
+#: includes/class-wc-memberships-ajax.php:503
 msgid "Please ensure you have entered valid user information."
 msgstr ""
 
-#: includes/class-wc-memberships-ajax.php:528
+#: includes/class-wc-memberships-ajax.php:567
 #: includes/class-wc-memberships-user-membership.php:1966
 msgid "An error occurred."
 msgstr ""
 
-#: includes/class-wc-memberships-ajax.php:807
-#: includes/class-wc-memberships-ajax.php:861
+#: includes/class-wc-memberships-ajax.php:846
+#: includes/class-wc-memberships-ajax.php:900
 msgid "Must specify a valid job process name and job ID."
 msgstr ""
 
-#: includes/class-wc-memberships-ajax.php:819
-#: includes/class-wc-memberships-ajax.php:874
+#: includes/class-wc-memberships-ajax.php:858
+#: includes/class-wc-memberships-ajax.php:913
 #. translators: Placeholder: %s - a background job task run by Memberships
 #. translators: Placeholder: %s - a batch job task name run by Memberships
 msgid "Unknown job process \"%s\"."
 msgstr ""
 
-#: includes/class-wc-memberships-ajax.php:868
+#: includes/class-wc-memberships-ajax.php:907
 #. translators: Placeholder: %s - a batch job task name run by Memberships
 msgid "Could not find Memberships job handler for \"%s\"."
 msgstr ""
 
-#: includes/class-wc-memberships-ajax.php:880
+#: includes/class-wc-memberships-ajax.php:919
 #. translators: Placeholder: %s - batch job ID
 msgid "Could not remove batch job \"%s\"."
 msgstr ""
 
-#: includes/class-wc-memberships-ajax.php:907
+#: includes/class-wc-memberships-ajax.php:946
 msgid "Must specify a valid Membership Plan ID."
 msgstr ""
 
-#: includes/class-wc-memberships-ajax.php:913
+#: includes/class-wc-memberships-ajax.php:952
 #. translators: Placeholder: %s Membership PLan ID
 msgid "Could not get a valid published plan with ID %s."
 msgstr ""
 
-#: includes/class-wc-memberships-ajax.php:1000
+#: includes/class-wc-memberships-ajax.php:1039
 msgid "Could not start rescheduling user memberships events."
 msgstr ""
 
-#: includes/class-wc-memberships-ajax.php:1023
+#: includes/class-wc-memberships-ajax.php:1062
 msgid "Invalid or missing export parameters."
 msgstr ""
 
-#: includes/class-wc-memberships-ajax.php:1045
+#: includes/class-wc-memberships-ajax.php:1084
 #. translators: Placeholder: %s - error message
 msgid "An error occurred while starting the export process. %s"
 msgstr ""
 
-#: includes/class-wc-memberships-ajax.php:1062
+#: includes/class-wc-memberships-ajax.php:1101
 #: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:207
 msgid "You need to provide a valid CSV file to import memberships from."
 msgstr ""
 
-#: includes/class-wc-memberships-ajax.php:1089
+#: includes/class-wc-memberships-ajax.php:1128
 #. translators: Placeholder: %s - optional error message
 msgid "An error occurred while starting the import process. %s"
 msgstr ""
@@ -4868,64 +4868,64 @@ msgid ""
 "complete it%4$s."
 msgstr ""
 
-#: includes/frontend/class-wc-memberships-frontend.php:221
+#: includes/frontend/class-wc-memberships-frontend.php:222
 #. translators: Placeholder: %1$s - error code, %2$s - error message
 msgid "Error %1$s: %2$s"
 msgstr ""
 
-#: includes/frontend/class-wc-memberships-frontend.php:320
-#: includes/frontend/class-wc-memberships-frontend.php:551
+#: includes/frontend/class-wc-memberships-frontend.php:321
+#: includes/frontend/class-wc-memberships-frontend.php:552
 msgid "Invalid membership."
 msgstr ""
 
-#: includes/frontend/class-wc-memberships-frontend.php:330
+#: includes/frontend/class-wc-memberships-frontend.php:331
 msgid "Membership cancelled by customer."
 msgstr ""
 
-#: includes/frontend/class-wc-memberships-frontend.php:339
+#: includes/frontend/class-wc-memberships-frontend.php:340
 msgid "Your membership was cancelled."
 msgstr ""
 
-#: includes/frontend/class-wc-memberships-frontend.php:353
+#: includes/frontend/class-wc-memberships-frontend.php:354
 msgid "Cannot cancel this membership."
 msgstr ""
 
-#: includes/frontend/class-wc-memberships-frontend.php:384
+#: includes/frontend/class-wc-memberships-frontend.php:385
 msgid ""
 "Cannot automatically log in. Please log into your account and renew this "
 "membership manually."
 msgstr ""
 
-#: includes/frontend/class-wc-memberships-frontend.php:547
+#: includes/frontend/class-wc-memberships-frontend.php:548
 msgid "Cannot renew this membership. Please contact us if you need assistance."
 msgstr ""
 
-#: includes/frontend/class-wc-memberships-frontend.php:560
+#: includes/frontend/class-wc-memberships-frontend.php:561
 msgid "Invalid renewal URL."
 msgstr ""
 
-#: includes/frontend/class-wc-memberships-frontend.php:565
+#: includes/frontend/class-wc-memberships-frontend.php:566
 msgid "Invalid renewal token."
 msgstr ""
 
-#: includes/frontend/class-wc-memberships-frontend.php:573
+#: includes/frontend/class-wc-memberships-frontend.php:574
 msgid "Your renewal token has expired."
 msgstr ""
 
-#: includes/frontend/class-wc-memberships-frontend.php:579
+#: includes/frontend/class-wc-memberships-frontend.php:580
 msgid "Please log in to renew this membership from your account page."
 msgstr ""
 
-#: includes/frontend/class-wc-memberships-frontend.php:581
+#: includes/frontend/class-wc-memberships-frontend.php:582
 msgid "Please renew this membership from your account page."
 msgstr ""
 
-#: includes/frontend/class-wc-memberships-frontend.php:635
+#: includes/frontend/class-wc-memberships-frontend.php:636
 #. translators: Placeholder: %s - a product to purchase to renew a membership
 msgid "Renew your membership by purchasing %s."
 msgstr ""
 
-#: includes/frontend/class-wc-memberships-frontend.php:636
+#: includes/frontend/class-wc-memberships-frontend.php:637
 msgid "You must be logged to renew your membership."
 msgstr ""
 
@@ -5585,11 +5585,11 @@ msgstr ""
 msgid "Membership created from %s's import."
 msgstr ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1185
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1195
 msgid "Could not find User Memberships to import from uploaded file."
 msgstr ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1190
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1200
 #. translators: Placeholder: %s - User Memberships to import found in uploaded
 #. file
 msgid "%s record found in file."
@@ -5597,7 +5597,7 @@ msgid_plural "%s records found in file."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1195
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1205
 #. translators: Placeholder: %s - User Memberships processed during import from
 #. file
 msgid "%s row processed for import."
@@ -5605,49 +5605,49 @@ msgid_plural "%s rows processed for import."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1201
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1211
 #. translators: Placeholder: %s - User Memberships created in import
 msgid "%s new User Membership created."
 msgid_plural "%s new User Memberships created."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1206
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1216
 #. translators: Placeholder: %s - User Memberships updated during import
 msgid "%s existing User Membership updated."
 msgid_plural "%s existing User Memberships updated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1211
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1221
 #. translators: Placeholder: %s - users created during import
 msgid "%s new user was created during import."
 msgid_plural "%s new users were created during import."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1216
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1226
 #. translators: Placeholder: %s - skipped User Memberships to import from file
 msgid "%s row skipped."
 msgid_plural "%s rows skipped."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1226
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1236
 msgid "Some required profile fields had empty values and were not imported."
 msgstr ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1230
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1240
 msgid ""
 "Some profile fields could not be populated for users based on their "
 "assigned membership plans."
 msgstr ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1234
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1244
 msgid "Some profile fields had invalid values and were not imported."
 msgstr ""
 
-#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1244
+#: includes/utilities/class-wc-memberships-csv-import-user-memberships.php:1254
 msgid "However, no User Memberships were created or updated with the given options."
 msgstr ""
 

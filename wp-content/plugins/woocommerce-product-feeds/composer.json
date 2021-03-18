@@ -26,6 +26,7 @@
             "./src/common/woocommerce-product-feeds-field-options.php",
             "./src/common/woocommerce-product-feeds-integration-manager.php",
             "./src/common/woocommerce-product-feeds-term-depth-repository.php",
+            "./src/common/woocommerce-product-feeds-wc-setup-tasks.php",
 
             "./src/cache/woocommerce-gpf-cache.php",
             "./src/cache/woocommerce-gpf-abstract-cache-rebuild-job.php",

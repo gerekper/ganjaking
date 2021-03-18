@@ -333,7 +333,7 @@ class WooCommerce_Product_Search_Admin {
 			$content .= wp_kses(
 				sprintf(
 					__( 'Live search statistics are available in the <a href="%s">Search</a> section of the reports.', 'woocommerce-product-search' ),
-					esc_url( admin_url( 'admin.php?page=wc-reports&tab=search' ) )
+					esc_url( WooCommerce_Product_Search_Admin_Navigation::get_report_url( 'searches' ) )
 				),
 				array( 'a' => array( 'href' => array(), 'class' => array() ) )
 			);
@@ -912,7 +912,7 @@ class WooCommerce_Product_Search_Admin {
 		}
 		echo '&mdash;';
 		echo '<li class="tab-header">';
-		echo '<a href="' . esc_url( admin_url( 'admin.php?page=wc-reports&tab=search' ) ) . '">' . esc_html__( 'Reports', 'woocommerce-product-search' ) . '</a>';
+		echo '<a href="' . esc_url(  WooCommerce_Product_Search_Admin_Navigation::get_report_url( 'searches' ) ) . '">' . esc_html__( 'Reports', 'woocommerce-product-search' ) . '</a>';
 		echo '</li>';
 
 		echo '<li class="tab-header">';
@@ -1254,7 +1254,7 @@ class WooCommerce_Product_Search_Admin {
 				echo wp_kses(
 					sprintf(
 						__( 'Live search statistics are available in the <a href="%s">Search</a> section of the reports.', 'woocommerce-product-search' ),
-						esc_url( admin_url( 'admin.php?page=wc-reports&tab=search' ) )
+						esc_url( WooCommerce_Product_Search_Admin_Navigation::get_report_url( 'searches' ) )
 					),
 					array( 'a' => array( 'href' => array(), 'class' => array() ) )
 				);
@@ -2376,7 +2376,7 @@ class WooCommerce_Product_Search_Admin {
 			$show_welcome_url = wp_nonce_url( add_query_arg( WooCommerce_Product_Search_Admin_Notice::SHOW_WELCOME_NOTICE, true, $current_url ), 'show', 'wps_notice' );
 			$links[] = '<a href="' . esc_url( $show_welcome_url ) . '">' . esc_html__( 'Welcome', 'woocommerce-product-search' ) . '</a>';
 			$links[] = '<a style="font-weight:bold" href="' . esc_url( $settings_url ) . '">' . esc_html__( 'Settings', 'woocommerce-product-search' ) . '</a>';
-			$links[] = '<a style="font-weight:bold" href="' . esc_url( admin_url( 'admin.php?page=wc-reports&tab=search' ) ) . '">' . esc_html__( 'Reports', 'woocommerce-product-search' ) . '</a>';
+			$links[] = '<a style="font-weight:bold" href="' . esc_url(  WooCommerce_Product_Search_Admin_Navigation::get_report_url( 'searches' ) ) . '">' . esc_html__( 'Reports', 'woocommerce-product-search' ) . '</a>';
 		}
 		return $links;
 	}

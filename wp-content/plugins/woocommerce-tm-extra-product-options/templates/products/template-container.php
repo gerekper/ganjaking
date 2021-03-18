@@ -21,6 +21,10 @@ defined( 'ABSPATH' ) || exit;
 			$current_product->set_price($current_price);  
 		}
 
+		if ( ! isset( $option ) ) {
+			$option['_default_value_counter'] = '';
+		}
+
 		include( THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-item.php' );
 	}
 

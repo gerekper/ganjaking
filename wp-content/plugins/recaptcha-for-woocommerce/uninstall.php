@@ -114,6 +114,8 @@ $options_installed = array(
 				'i13_recapcha_disable_submitbtn_woo_review',
 				'i13_recapcha_woo_review_score_threshold_v3',
 				'i13_recapcha_woo_review_method_action_v3',
+				'i13_recaptcha_login_recpacha_for_req_btn',
+				'i13_recaptcha_v3_login_recpacha_for_req_btn'
 
 );
 

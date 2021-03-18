@@ -1,0 +1,238 @@
+# Copyright (C) 2021 Element Stark
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Variation Swatches and Photos 3.1.3\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-swatches\n"
+"POT-Creation-Date: 2021-02-13 14:20:30+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n1.0.0\n"
+
+#: classes/class-wc-swatches-product-attribute-images.php:134
+#: classes/class-wc-swatches-product-attribute-images.php:193
+#: classes/class-wc-swatches-product-data-tab.php:323
+#: classes/class-wc-swatches-product-data-tab.php:331
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-attribute-images.php:134
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-attribute-images.php:193
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:323
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:331
+msgid "Color"
+msgstr ""
+
+#: classes/class-wc-swatches-product-attribute-images.php:146
+#: classes/class-wc-swatches-product-attribute-images.php:251
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-attribute-images.php:146
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-attribute-images.php:251
+msgid "Thumbnail"
+msgstr ""
+
+#: classes/class-wc-swatches-product-attribute-images.php:152
+#: classes/class-wc-swatches-product-attribute-images.php:217
+#: classes/class-wc-swatches-product-data-tab.php:350
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-attribute-images.php:152
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-attribute-images.php:217
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:350
+msgid "Upload/Add image"
+msgstr ""
+
+#: classes/class-wc-swatches-product-attribute-images.php:153
+#: classes/class-wc-swatches-product-attribute-images.php:218
+#: classes/class-wc-swatches-product-data-tab.php:351
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-attribute-images.php:153
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-attribute-images.php:218
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:351
+msgid "Remove image"
+msgstr ""
+
+#: classes/class-wc-swatches-product-attribute-images.php:168
+#: classes/class-wc-swatches-product-data-tab.php:161
+#: classes/class-wc-swatches-product-data-tab.php:244
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-attribute-images.php:168
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:161
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:244
+msgid "Type"
+msgstr ""
+
+#: classes/class-wc-swatches-product-attribute-images.php:172
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-attribute-images.php:172
+msgid "None"
+msgstr ""
+
+#: classes/class-wc-swatches-product-attribute-images.php:173
+#: classes/class-wc-swatches-product-data-tab.php:303
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-attribute-images.php:173
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:303
+msgid "Color Swatch"
+msgstr ""
+
+#: classes/class-wc-swatches-product-attribute-images.php:174
+#: classes/class-wc-swatches-product-attribute-images.php:210
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-attribute-images.php:174
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-attribute-images.php:210
+msgid "Photo"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:52
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:52
+msgid "Product Attribute Name"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:55
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:55
+msgid "Attribute Control Type"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:105
+#: classes/class-wc-swatches-product-data-tab.php:167
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:105
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:167
+msgid "Taxonomy Colors and Images"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:105
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:105
+msgid "Custom Product Colors and Images"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:107
+#: classes/class-wc-swatches-product-data-tab.php:170
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:107
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:170
+msgid "Radio Buttons"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:169
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:169
+msgid "Custom Colors and Images"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:178
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:178
+msgid "Layout"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:181
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:181
+msgid "No Label"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:181
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:181
+msgid "Show label above"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:181
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:181
+msgid "Show label below"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:192
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:192
+msgid "Size"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:210
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:210
+msgid "WooCommerce default select boxes will be used for this product attribute"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:221
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:221
+msgid ""
+"The color swatch and image configuration will be used from the %s taxonomy. "
+" Navigate to Products -> Attributes to edit the shared swatches and images "
+"for this product attribute."
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:229
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:229
+msgid "Attribute Configuration"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:238
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:238
+msgid "Preview"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:241
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:241
+msgid "Attribute"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:303
+#: classes/class-wc-swatches-product-data-tab.php:324
+#: classes/class-wc-swatches-product-data-tab.php:341
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:303
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:324
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:341
+msgid "Image"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:318
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:318
+msgid "Attribute Color or Image"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:347
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:347
+msgid "Thumbnail Preview"
+msgstr ""
+
+#: classes/class-wc-swatches-product-data-tab.php:376
+#: dist/woocommerce-variation-swatches-and-photos/classes/class-wc-swatches-product-data-tab.php:376
+msgid ""
+"Add a at least one attribute / variation combination to this product that "
+"has been configured with color swatches or photos. After you add the "
+"attributes from the \"Attributes\" tab and create a variation, save the "
+"product and you will see the option to configure the swatch or photo picker "
+"here."
+msgstr ""
+
+#: dist/woocommerce-variation-swatches-and-photos/woocommerce-swatches-main.php:98
+#: woocommerce-swatches-main.php:98
+msgid "Swatches and Photos"
+msgstr ""
+
+#: dist/woocommerce-variation-swatches-and-photos/woocommerce-swatches-main.php:99
+#: woocommerce-swatches-main.php:99
+msgid "The default size for color swatches and photos."
+msgstr ""
+
+#: dist/woocommerce-variation-swatches-and-photos/woocommerce-swatches-template-functions.php:22
+#: dist/woocommerce-variation-swatches-and-photos/woocommerce-swatches-template-functions.php:38
+#: dist/woocommerce-variation-swatches-and-photos/woocommerce-swatches-template-functions.php:119
+#: dist/woocommerce-variation-swatches-and-photos/woocommerce-swatches-template-functions.php:135
+#: woocommerce-swatches-template-functions.php:22
+#: woocommerce-swatches-template-functions.php:38
+#: woocommerce-swatches-template-functions.php:119
+#: woocommerce-swatches-template-functions.php:135
+msgid "Choose an option"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Variation Swatches and Photos"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/variation-swatches-and-photos/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"WooCommerce Swatches and Photos allows you to configure colors and photos "
+"for shoppers on your site to use when picking variations."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Element Stark"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.elementstark.com/about"
+msgstr ""

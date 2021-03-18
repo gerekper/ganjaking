@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      http://www.themepunch.com/
- * @copyright 2018 ThemePunch
+ * @copyright 2021 ThemePunch
  */
 
 if( !defined( 'ABSPATH') ) exit();
@@ -87,6 +87,7 @@ class RsLiquidEffectSlideFront extends RevSliderFunctions {
 		$interaction_ar = $this->get_val($addOn, 'interaction', array());
 		
 		$imagemap = $this->get_val($map_ar, 'image', 'ripple');
+    $imagescale = $this->get_val($map_ar, 'imagescale', 120);
 		$autoplay = $this->get_val($animation_ar, 'enable', false);
 		$transition  = $this->get_val($transition_ar, 'enable', false);
 		$interactive = $this->get_val($interaction_ar, 'enable', false);
@@ -112,7 +113,7 @@ class RsLiquidEffectSlideFront extends RevSliderFunctions {
 			'use' => $use,
 			'image' => $imagemap,
 			'imagesize' => $imagesize,
-			
+			'imagescale' => $imagescale
 		);
 		
 		if($autoplay) {

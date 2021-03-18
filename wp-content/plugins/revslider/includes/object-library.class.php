@@ -18,6 +18,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 	private $curl_check			= null;
 	private $font_icon_paths;
 	public	$upload_dir;
+	public	$download_path;
 	public	$svg_remove_path;
 	public	$allowed_types		= array('thumb', 'video', 'video_thumb');
 	public	$allowed_categories	= array('svgcustom');
@@ -48,8 +49,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 	 * @since: 5.3.0
 	 */
 	public function _get_list($force = false){
-		global $wp_version;
-		$rslb		= new RevSliderLoadBalancer();
+		$rslb		= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
 		$last_check	= get_option('revslider-library-check');
 
 		if($last_check == false){ //first time called
@@ -140,10 +140,8 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 	 */
 	public function _does_exist($url){
 		$url = str_replace($this->upload_dir['baseurl'] . $this->object_orig_path, '', $url);
-
-		return (file_exists($this->upload_dir['basedir'] . $this->object_orig_path . $url)) ? true : false;
+		return file_exists($this->upload_dir['basedir'] . $this->object_orig_path . $url);
 	}
-
 
 	/**
 	 * check if certain object needs to be redownloaded
@@ -152,17 +150,13 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 	public function _check_object_exist($object_url){
 		//then check if it is existing
 		if($this->_is_object($object_url)){
-			if($this->_does_exist($object_url)){
-				//all cool
-			}else{ //if not, redownload if allowed
-				//need to redownload
+			if(!$this->_does_exist($object_url)){ //if not, redownload if allowed
 				$fnwe = explode('/', $object_url);
 				$fnwe = $fnwe[count($fnwe) - 1];
 				$this->_get_object_thumb($fnwe, 'orig');
 			}
 		}
 	}
-
 
 	/**
 	 * get certain object handle by the given ID
@@ -185,14 +179,11 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		return $handle;
 	}
 
-
 	/**
 	 * get certain objects thumbnail, download if needed and if not, simply return path
 	 * @since: 5.3.0
 	 */
 	public function _get_object_thumb($object_handle, $type, $download = false){
-		global $wp_version;
-
 		if(intval($object_handle) > 0){
 			$object_handle = $this->get_object_handle_by_id($object_handle);
 		}else{ //check if we are original image and if not change it to original image
@@ -226,7 +217,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 					if($validated == 'false' && !in_array($type, $this->allowed_types, true)){
 						$error = __('Plugin not activated', 'revslider');
 					}else{
-						$rslb	= new RevSliderLoadBalancer();
+						$rslb	= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
 						$code	= ($validated == 'false') ? '' : get_option('revslider-code', '');
 						$rattr	= array(
 							'library_version' => urlencode(self::LIBRARY_VERSION),
@@ -261,8 +252,6 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 							$error = __('Error downloading object', 'revslider');
 						}
 					}
-				}else{
-					//cant download file
 				}
 
 				if($image_data !== false && $image_data !== ''){
@@ -338,7 +327,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 	 * @since: 6.0.0
 	 */
 	public function _get_object_layers($object_id){
-		$rslb		= new RevSliderLoadBalancer();
+		$rslb		= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
 		$error		= '';
 
 		if(intval($object_id) > 0){
@@ -386,8 +375,6 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 					$error = __('Error downloading layers data', 'revslider');
 				}
 			}
-		}else{
-			//cant download file
 		}
 
 		//could not connect to server
@@ -493,7 +480,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		$full = get_option('rs-library', array());
 		$objects = $this->get_val($full, 'objects', array());
 		if(!empty($objects)){
-			$favorite = new RevSliderFavorite();
+			$favorite = RevSliderGlobals::instance()->get('RevSliderFavorite');;
 
 			foreach($objects as $key => $obj){
 				$t = 'thumb';
@@ -544,73 +531,6 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 
 		return $objects;
 	}
-
-
-	/**
-	 * load images or videos from the media library into a list
-	 **/
-	/*public function load_wp_objects($type, $after = false){
-		$args = array(
-			'post_type'		 => 'attachment',
-			'post_mime_type' => $type,
-			'orderby'		 => 'post_date',
-			'order'			 => 'desc',
-			'posts_per_page' => '-1',
-			'post_status'    => 'inherit'
-		);
-
-		//$date = '2019-10-07 08:06:00';
-		if($after !== false){
-			$args['date_query'] = array(array('after' => $after));
-		}
-
-		$wpml = new RevSliderWpml();
-		if($wpml->wpml_exists()){
-			global $sitepress;
-			$sitepress->switch_lang('all');
-		}
-
-		$loop	= new WP_Query($args);
-		$return = array();
-		$up_url = $this->get_val($this->upload_dir, 'baseurl');
-		if(!empty($loop->posts)){
-			foreach($loop->posts as $image){
-				$mt = (strpos($this->get_val($image, 'post_mime_type'), 'image/') !== false) ? 'image' : '';
-				$mt = (strpos($this->get_val($image, 'post_mime_type'), 'video/') !== false) ? 'video' : $mt;
-				$data = wp_get_attachment_metadata($image->ID);
-
-				if($data === false) continue;
-
-				$sizes = ($mt === 'video') ? array('full') : array_keys($this->get_val($data, 'sizes'));
-				$img_url = ($mt === 'video') ? wp_get_attachment_url($image->ID) : $up_url.'/'.str_replace(basename($data['file']), '', $data['file']).$this->get_val($data, array('sizes', 'thumbnail', 'file'));
-				$handle = ($mt === 'video') ? basename($img_url) : basename($data['file']);
-
-				$mime = explode('/', $this->get_val($image, 'post_mime_type'));
-				$mime = $this->get_val($mime, 1);
-				$return[$image->ID] = array(
-					'id'			=> $image->ID,
-					//'handle'		=> $this->get_val($image, 'post_name'), // basename($data['file']) ?
-					'handle'		=> $handle, //basename($data['file']),
-					'tags'			=> array($mime),
-					'description'	=> $this->get_val($image, 'post_excerpt'),
-					'width'			=> $this->get_val($data, 'width'),
-					'height'		=> $this->get_val($data, 'height'),
-					'version'		=> '1.0',
-					'plugin_version'=> '',
-					'added'			=> $this->get_val($image, 'post_date'),
-					'acive'			=> 1,
-					'title' 		=> $this->get_val($image, 'post_title'), //basename($data['file']),
-					//'img' 			=> $up_url.'/'.$this->get_val($data, 'file'),
-					'img' 			=> $img_url, //$up_url.'/'.$path.$this->get_val($data, array('sizes', 'thumbnail', 'file')), //, 'file'
-					'orig'			=> '',
-					'sizes'			=> $sizes
-				);
-			}
-		}
-
-		return $return;
-	}*/
-
 
 	public function get_objects_categories($type = 'all'){
 		//type 1 = object
@@ -701,11 +621,8 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 	 */
 	public function check_curl_connection(){
 		if($this->curl_check !== null) return $this->curl_check;
-
 		$curl = new WP_Http_Curl();
-
 		$this->curl_check = $curl->test();
-
 		return $this->curl_check;
 	}
 
@@ -740,76 +657,6 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 
 		return $image_url;
 	}
-
-	/**
-	 * Returns an URL if it is an object library image, depending on the choosen width/height or the chosen image size
-	 */
-	/*public function get_correct_size_url($image_path, $imgres, $library_size = array()){
-
-		if(!is_array($imgres)){
-			//wordpress full, medium ect
-			//or check current device and change depending on device
-			$img_sizes = get_intermediate_image_sizes();
-			if(isset($img_sizes[$imgres]) && isset($img_sizes[$imgres]['width']) && isset($img_sizes[$imgres]['height'])){
-				$imgres = array($img_sizes[$imgres]['width'], $img_sizes[$imgres]['height']);
-			}
-		}else{
-			/**
-			 * check if we have a % and if yes, turn the image back to what was selected in the beginning instead of how it was scaled
-			 * as it is already an array, it can be the following:
-			 * px
-			 * %
-			 * empty, then this means auto
-			 * if %, then always get the image that was selected
-			 **/
-	/*		if(isset($library_size['width']) && isset($library_size['height'])){
-				foreach($imgres as $res){
-					if(strpos($res, '%') !== false || $res == 'SET'){
-						$imgres = array($library_size['width'], $library_size['height']);
-						break;
-					}
-				}
-			}
-		}
-
-		if(is_array($imgres)){
-			//check if file exists
-			if(!file_exists($image_path)) return $image_path;
-
-			$upload_directory         = $this->upload_dir['basedir'] . $this->object_orig_path;
-			$upload_url         	  = $this->upload_dir['baseurl'] . $this->object_orig_path;
-
-			//we got width and high, lets check which one to use
-			$file_name_with_ending    = explode("/", $image_path);
-			$file_name_with_ending    = $file_name_with_ending[count($file_name_with_ending) - 1];
-			$file_name_without_ending = explode(".", $file_name_with_ending);
-			$file_ending              = $file_name_without_ending[count($file_name_without_ending) - 1];
-			$file_name_without_ending = $file_name_without_ending[count($file_name_without_ending) - 2];
-
-			$sizes = array('75', '50', '25', '10');
-			$imgsize = getimagesize($image_path);
-
-			if($imgsize !== false) {
-				$orig_width = $imgsize['0'];
-				$orig_height = $imgsize['1'];
-
-				foreach($sizes as $size){
-					$width = round($orig_width / 100 * $size, 0);
-					$height = round($orig_height / 100 * $size, 0);
-
-					if($width >= $imgres[0] && $height >= $imgres[1]){
-						$modified_file_name_without_ending = $file_name_without_ending . '-' . $size;
-						if(file_exists($upload_directory.$modified_file_name_without_ending.'.'.$file_ending)) {
-							$image_path = $upload_url.$modified_file_name_without_ending.'.'.$file_ending;
-						}
-					}
-				}
-			}
-		}
-
-		return $image_path;
-	}
-	*/
 
 	public function retrieve_all_object_data(){
 		$obj = $this->load_objects_with_svg();
@@ -939,7 +786,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 	 * @before: RevSliderBase::get_svg_sets_full();
 	 **/
 	public function get_svg_sets_full(){
-		$favorite = new RevSliderFavorite();
+		$favorite = RevSliderGlobals::instance()->get('RevSliderFavorite');;
 		$svg_sets = $this->get_svg_sets_url();
 		$svg	  = array();
 		$id		  = 1;
@@ -987,13 +834,10 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 	 * get all custom svgs
 	 **/
 	public function get_custom_svgs(){
-		//return array();
-		
-		$favorite = new RevSliderFavorite();
+		$favorite = RevSliderGlobals::instance()->get('RevSliderFavorite');;
 		$library  = get_option('rs-custom-library', array());
 		$svgcustom = array();
-		$id		  = 1;
-		
+
 		if(!empty($library)){
 			foreach($library as $category => $values){
 				if($category !== 'svgcustom') continue;
@@ -1012,11 +856,11 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 
 
 	public function get_font_icons(){
-		$css		= new RevSliderCssParser();
+		$css		= RevSliderGlobals::instance()->get('RevSliderCssParser');
 		$font_icons = array();
 
 		//check all fonts folders
-		$favorite = new RevSliderFavorite();
+		$favorite = RevSliderGlobals::instance()->get('RevSliderFavorite');
 
 		foreach($this->font_icon_paths as $file){
 			//let the fonts be read by the CSS class
@@ -1144,8 +988,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 	 * get the custom tags
 	 **/
 	public function get_custom_tags(){
-		$tags = get_option('rs-custom-library-tags', array());
-		return $tags;
+		return get_option('rs-custom-library-tags', array());
 	}
 
 
@@ -1256,17 +1099,15 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		$tag		= $this->get_val($customs, 'tag', false);
 		if($lib_type === 'svgcustom'){
 			if($tag !== false){
-				$obj = new RevSliderObjectLibrary();
-				$new = $obj->create_custom_tag($tag, $lib_type);
+				$new = $this->create_custom_tag($tag, $lib_type);
 				if(!is_array($new)){
-					if(!is_array($customs)) $customs = array('type' => 'svgcustom');
 					$customs['tag']	= 'All';
 					$customs['id']	= 0;
 				}else{
-					if(!is_array($customs)) $customs = array('type' => 'svgcustom');
 					$customs['tag']	= $this->get_val($new, 'name', 'All');
 					$customs['id']	= $this->get_val($new, 'id', 0);
 				}
+				if(!is_array($customs)) $customs = array('type' => 'svgcustom');
 			}
 			
 			$return = $this->import_custom_svg_file($data, $customs);
@@ -1313,7 +1154,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		
 		$return = apply_filters('revslider_edit_custom_library_item', $return, $id, $type, $name, $tags);
 		
-		return ($return === true) ? true : false;
+		return $return === true;
 	}
 	
 	/**
@@ -1339,7 +1180,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		
 		$return = apply_filters('revslider_delete_custom_library_item', $return, $id, $type);
 		
-		return ($return === true) ? true : false;
+		return $return === true;
 	}
 	
 	/**
@@ -1347,27 +1188,24 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 	 */
 	private function import_custom_svg_file($data, $customs){
 		require_once(ABSPATH . 'wp-admin/includes/file.php');
-	
 		$import_file = $this->get_val($_FILES, 'import_file');
-		
 		$error		 = $this->get_val($import_file, 'error');
 		switch($error){
-			case UPLOAD_ERR_OK:
-				break;
 			case UPLOAD_ERR_NO_FILE:
 				$this->throw_error(__('No file sent.', 'revslider'));
+				break;
 			case UPLOAD_ERR_INI_SIZE:
 			case UPLOAD_ERR_FORM_SIZE:
 				$this->throw_error(__('Exceeded filesize limit.', 'revslider'));
+				break;
 			default:
-			break;
 		}
+
 		$path		= $this->get_val($import_file, 'tmp_name');
 		$name		= $this->get_val($import_file, 'name');
 		$type		= $this->get_val($import_file, 'type');
 		$library	= get_option('rs-custom-library', array());
 		$tag		= $this->get_val($customs, 'tag', false);
-		//$tagID		= $this->get_val($customs, 'tagID', false);
 		$tagID		= $this->get_val($customs, 'id', false);
 		$lib_type	= $this->get_val($customs, 'type');
 		$lib_type	= $this->sanitize_tag_name($lib_type);
@@ -1375,40 +1213,38 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		if(!in_array($lib_type, $this->allowed_categories)) $this->throw_error(__('Category does not exist', 'revslider'));
 		if(isset($path['error'])) $this->throw_error($path['error']);
 		if(file_exists($path) == false) $this->throw_error(__('Import file not found', 'revslider'));
-		
-		WP_Filesystem();
+
 		global $wp_filesystem;
+		WP_Filesystem();
 		
 		$import	= array();
 		$finfo	= finfo_open(FILEINFO_MIME_TYPE);
 		$info	= finfo_file($finfo, $path);
 		$zip	= false;
-		
+
 		switch($info){
 			case 'image/svg':
 			case 'image/svg+xml':
 				$import[] = $path;
 			break;
 			case 'application/zip':
-				$zip	= true;
+				$zip = true;
+				$this->download_path = RS_PLUGIN_PATH.'rstempsvg/';
+				$this->svg_remove_path = $this->download_path;
 				@$wp_filesystem->delete($this->download_path, true);
 				$file	= unzip_file($path, $this->download_path);
-				
+
 				if(is_wp_error($file)){
 					@define('FS_METHOD', 'direct'); //lets try direct.
-					
 					WP_Filesystem(); //WP_Filesystem() needs to be called again since now we use direct!
 					
 					$file = unzip_file($path, $this->download_path);
 					if(is_wp_error($file)){
-						$this->download_path = RS_PLUGIN_PATH.'rstempsvg/';
-						$this->svg_remove_path	 = $this->download_path;
-						$file				 = unzip_file($path, $this->download_path);
-						
+						$file = unzip_file($path, $this->download_path);
 						if(is_wp_error($file)){
 							$file_basename	= basename($path);
 							$this->download_path = str_replace($file_basename, '', $path);
-							$file			= unzip_file($path, $this->download_path);
+							$file = unzip_file($path, $this->download_path);
 						}
 					}
 				}
@@ -1453,7 +1289,6 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 						if(strval($k) === strval($tagID)){
 							$found	= true;
 							$tag	= $v;
-							$tagID	= $tagID;
 							break;
 						}
 					}else{
@@ -1520,7 +1355,6 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 			if($found === false) $_id += 1;
 			$_name = str_replace(array('.svg', '-', '_'), array('', ' ', ' '), $handle);
 			$_data = array(
-				//'file' => $new,
 				'id'	 => $_id,
 				'handle' => $handle,
 				'title'	 => $this->sanitize_tag_name($_name),
@@ -1540,22 +1374,16 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		}
 		
 		update_option('rs-custom-library', $library);
-		
 		$wp_filesystem->delete($this->svg_remove_path, true);
 		
 		return $library[$lib_type];
 	}
-	
 
 	/**
 	 * sanitize a tag name, remove illegal characters
 	 **/
 	public function sanitize_tag_name($name){
-		$name = trim($name);
-		$name = preg_replace('/[^a-zA-Z0-9 ]/', '', $name);
-
+		$name = preg_replace('/[^a-zA-Z0-9 ]/', '', trim($name));
 		return (strlen($name) < 3) ? false : $name;
 	}
 }
-
-?>

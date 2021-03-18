@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for the 'Bundle' type.
  *
  * @class    WC_PB_Meta_Box_Product_Data
- * @version  6.6.0
+ * @version  6.7.4
  */
 class WC_PB_Meta_Box_Product_Data {
 
@@ -498,6 +498,16 @@ class WC_PB_Meta_Box_Product_Data {
 
 				self::add_admin_error( sprintf( __( 'The chosen <strong>Item Grouping</strong> option is invalid. %s', 'woocommerce-product-bundles' ), $group_modes_without_parent_msg ) );
 
+			}
+
+			/*
+			 * Show non-mandatory bundle notice.
+			 */
+			if ( 'none' !== $product->get_group_mode( 'edit' ) && $product->get_bundled_items() && ! $product->contains( 'mandatory' ) ) {
+
+				$notice = __( 'This bundle does not contain any mandatory items. To control the minimum and/or maximum number of items that customers must choose in this bundle, use the <strong>Min Bundle Size</strong> and <strong>Max Bundle Size</strong> fields under <strong>Product Data > Bundled Products</strong>.', 'woocommerce-product-bundles' );
+
+				self::add_admin_notice( $notice, array( 'dismiss_class' => 'process_data_min_max', 'type' => 'info' ) );
 			}
 
 			// Clear dismissible welcome notice.

@@ -1,0 +1,348 @@
+*** WooCommerce Variation Swatches and Photos ***
+2021.02.12 - version 3.1.3
+    * Version:  WP and WC compatibility tags
+
+2020.08.18 - version 3.1.2
+    * Version:  WP and WC compatibility tags
+
+2020.05.06 - version 3.1.1
+    * Version:  WP and WC compatibility tags
+
+2020.04.08 - version 3.1.0
+    * New:  Added in several actions inside of the rendering of the swatches to allow better control of wrapper classes and other customizations.
+    * Update: Fix issue with incorrect formatting of the product data tab item.
+    * Version compatibility updates.
+
+2019.05.07 - version 3.0.12
+    * Update:  Resolve warning in loading custom image sizes.
+    * Update:  Fix compatibility warnings with WooCommerce 3.6
+    * Update:  Make sure up to date .pot file is included in distribution.
+
+2019.01.02 - version 3.0.11
+    * Update: Do not overwrite default attribute selectors when in the admin, causes problems with adding variable items to manual orders.
+    * Update: Set default swatch configuration if none found for an attribute.
+    * Update:  Allow sizes to be set on Taxonomy Images an Colors
+    * Update:  Fix size lookup to include built in WP Sizes.
+
+2018.10.23 - version 3.0.10
+    * Update:  Added woocommerce_swatches_picker_default_label filter so users can add a default label.
+    * Update:  Tested to WC 3.5.0
+
+2018.08.22 - version 3.0.9
+    * Update:  Version bump for WC and WP.
+    * Fix:  Compatibility for WC 3.4.2
+
+2018.06.01 - version 3.0.8
+    * Fix:  Compatibility for WC 3.4.1
+
+2018.02.13 - version 3.0.7
+    * Fix:  Fix a JS error when swatches are loaded via AJAX on initial load.
+    * Update:  Hide select2 inputs inside of swatch-controls.
+
+2018.01.09 - version 3.0.6
+    * Update:  Additional tweak for the check variations trigger to allow users to select an in stock item properly the first time.
+    * Update:  Correct handling of out of stock items that are selected as defaults.
+    * Update:  Version updates.   Tested WC 3.3.0
+
+2017.11.28 - version 3.0.5
+    * Update:  Plugin Header Updates
+    * Update:  Tested to WC 3.2.5
+    * Update:  Check for valid attachment image before attempting to load.  Fixes a warning in very rare situations.
+    * New:  Added term description to the WC_Swatch_Term for customizers to use.
+    * Update:  Trigger check variations so out of stock items which are the defaults are deselected properly.
+
+2017.08.18 - version 3.0.4
+    * Fix:  Fix compatibility issue in AJAX handler where variation_id was being referenced incorrectly.
+
+2017.04.05 - version 3.0.3
+    * Fix:  Fix fatal error when loading swatches via AJAX.
+
+2017.03.07 - version 3.0.2
+    * Update:  Render image alt text for image swatches.
+
+2017.02.06 - version 3.0.1
+    * Fix:  Rebind variation forms when part of a composite product and a new composite option is shown.
+
+2016.12.25 - version 3.0.0
+    * Update:   WC 2.7 Ready
+
+2017.01.10 - version 2.1.11
+    * Update:  Compatibility with WC 2.6.7 and greater for default attribute selections.
+
+2016.12.09 - version 2.1.10
+    * Update:   Adds small amount of padding around radio inputs.
+    * Update:   Tested to WP 4.7
+
+2016.11.02 - version 2.1.9
+    * Update:  Better Compatibility with WooCommerce Composite Products.  Fixes an issue where a composite product with multiple options would not allow you to select a swatch
+                after you had selected a product from the composite dropdown.
+
+2016.10.12 - version 2.1.8
+    * Fix:  Fix issue where the Crop setting on the Swatches Image Size would always be selected regardless of what the user actually configured.
+    * Fix:  Fix issue where swatch configuration would be lost if the product attribute slug was changed.
+
+2016.10.05 - version 2.1.7
+    * Update:  Use the WooCommerce Placeholder image from core using filters rather than hardcoded.
+
+2016.10.04 - version 2.1.6
+    * Update:  Correctly hide labels when clicking the clear / reset button.
+    * Update:  Correctly show label below swatches rather than to the right when the Below option is selected.
+    * Update:  Version bump for assets, tested to.
+
+2016.08.04 - version 2.1.5
+    * Update:  Added "Label Below" option.
+
+2016.04.14 - version 2.1.4
+	* Fix:  Compatibility with WooCommerce Quick View. 
+	
+2016.02.17 - version 2.1.3
+	* Update:  wc_core_dropdown_variation_attribute_options to match latest wc_dropdown_variation_attribute_options function. 
+	* Update:  Render label for default variation selections. 
+	
+2016.02.15 - version 2.1.2
+	* Update:  Use inline display:none to hide the default select when swatches or radios are being used. 
+	
+2016.02.09 - version 2.1.1
+	* Update: Generate .pot file. 
+	* Update: Load text domain from 'wc_swatches_and_photos', WP_LANG_DIR . '/woocommerce/wc_swatches_and_photos-' . $locale . '.mo' 
+	* Note, Put your custom plugin translations in your WordPress language directory, located at: WP_LANG_DIR . '/woocommerce/wc_swatches_and_photos-' . $locale . '.mo'
+
+2016.01.19 - version 2.1.0
+	* Fix:  Adds labels back in.
+	* Update:  Adds Radio Buttons as an option when choosing a swatch type.  
+	* Update:  Handle AJAX loading of the variations form.  
+		Loads product variations via an AJAX call to prevent huge amounts of data being rendered on data attributes for the form tag. 
+		Improves the core user experience by enabling and disabling options in default select boxes. WooCommerce core does not do this when it's using AJAX for processing. 
+		Uses optimized functions for fast retrieval of variation data. 
+		Reverts changes made in 2.0.3 to completely disable AJAX processing. 
+	* Update:  Use newer style media library for managing image swatches. 
+	* Update:  Admin UI tweak to correctly show and live update the attribute color or image label. 
+
+2016.01.14 - version 2.0.3
+	* Fix:  Disable AJAX variation processing when swatches are being used on a product. 
+	
+2016.01.14 - version 2.0.2
+	* Fix:  Fixes issue caused by undefined index on variable products created when the extension was not active. 
+	
+2016.01.04 - version 2.0.1
+	* Update: Version bump for plugin files. 
+	
+2016.01.04 - version 2.0.0
+	* Change:  Vastly simplify how the script processes available variations and controls the swatches which are available. 
+		   This rewrite no longer overrides the variable.php file and therefore no longer needs to have template files.  
+		   The same filters which were present in 1.7.1 are available for control of the plugin output.  
+		   
+		   The main difference is that we link the variation selections to the normal WooCommerce attribute selection drop downs.  
+		   By linking them in this way, all inventory controls will use the same behavior as if swatches were not enabled. This also uses
+		   all core WooCommerce functions to reset the product image and variation selections.   This will provide better compatibility with 3rd party 
+		   plugins which modify how images are displayed.
+
+
+2015.10.15 - version 1.7.1
+	* Fix: Remove action element from variable form to prevent issues with caching on WP Engine servers. 
+	* Fix: Correctly render the swatch thumbnmail when adding new product attributes to a product attribute taxonomy. 
+
+2015.09.21 - version 1.7.0
+	* Fix:  Fixes issues when upgrading to WC 2.4x and having default variation attributes selected. 
+	
+2015.08.25 - version 1.6.9
+	* Fix:  Fixes compatibility issue with WC 2.4x and default variation selections. 
+	
+2015.07.24 - version 1.6.8
+	* Fix:  Fixes an issue with mismatched version numbers between change log and plugin. 
+	
+2015.07.16 - version 1.6.7
+	* WooCommerce 2.4.x compatibility. 
+	
+2015.03.27 - version 1.6.6
+	* Fix:  Correct handling of variations which are out of stock. 
+	* Fix:  Undefined variable warning. 
+
+2015.02.12 - version 1.6.5
+	* Fix: When using a variation with specific variations and an any variation configuration, update behavior to follow WooCommerce.  
+		The Any variation configuration should be the last item in the list rather than the first. 
+		
+2015.01.28 - version 1.6.4 
+	* Fix for showing taxonomy attributes in the drop down when the only attributes are attached to private or 
+		protected products. 
+
+2015.01.27 - version 1.6.3 
+	* Admin CSS updates for WooCommerce >= 2.3.0
+	
+2015.01.27 - version 1.6.2
+	* Added templates for various parts of the swatches output.  
+		* input-picker.php for rendering a swatch
+		* input-select.php for rendering a default select box. 
+		* table.php for rendering the wrapping table. 
+		
+2015.01.27 - version 1.6.1
+	* Added actions before and after the select input. 
+		<?php do_action( 'woocommerce_swatches_before_select', $name, $options, $this ); ?>
+		<?php do_action( 'woocommerce_swatches_after_select', $name, $options, $this ); ?>
+
+		
+2014.12.08 - version 1.6.0
+	* Fixes selecting the correct variation when clicking on the link from the cart page. 
+	
+2014.12.04 - version 1.5.9
+	* Revert adding the variations class to the wrapper table. 
+
+2014.12.01 - version 1.5.8
+	* Fixes javascript error regarding setting the label text when attributes are numeric. 
+	* Adds the variations class to the wrapping table to inherit WooCommerce CSS styles for labels. 
+	* Adds in basic css for swatch labels. 
+
+2014.11.18 - version 1.5.7
+	* Updates to resolve issues with the label not being displayed when choosing variations. 
+	* Updates to allow turning off Hard Crop on swatches image size in WooCommerce settings. 
+
+2014.11.17 - version 1.5.6
+	* Force variations to be visible in admin when managing stock and hide items from catalog is true. 
+	* Display out of stock message when using stock management and no variations are available. 
+
+2014.10.29 - version 1.5.5
+	* Update for default selections.  Fixes problem hashing a default empty value.
+	* Update to escape jquery selectors to prevent language issues. 
+	* Admin update to fix color selectors to prevent language issues. 
+
+2014.10.20 - version 1.5.4
+	* Fix to allow updating the swatches and photos image size in the latest versions of WooCommerce. 
+
+2014.09.26 - version 1.5.3
+	* Fix swatches and variable subscriptions 
+	* Default selection updates. 
+
+2014.09.16 - version 1.5.2
+	* Fixed default attribute selection. 
+	
+2014.08.27 - version 1.5.1
+	* Fixed backwards compatibility issues with version 1.5.0 or less. 
+	
+2014.08.21 - version 1.5.0
+	* Added support for XCache caching pluign. 
+	* Added support for Arabic, chinese and japanese characters when used as values in product attribute variations.
+	* Fix to only bind JS when swatches are present. 
+
+2014.07.30 - version 1.4.9
+	* Updated support for WooCommerce Quick View. 
+	
+2014.07.29 - version 1.4.8
+	* Check for the string, attribute, when looping though selections.  Fixes issues where other frameworks ( MooTools ) adds additional 
+		properties to newly constructed objects. 
+
+2014.05.16 - version 1.4.7
+	* Fix:  Change logic in determining when variations are available from is_visible to is_purchasable. 
+
+2014.04.16 - version 1.4.6
+	* Add swatch image size back on the "Products" tab in WC 2.1x
+	
+2014.04.15 - version 1.4.5
+	* Hide reset link by default. 
+        * Changed version on enqueued scripts to resolve any caching issues. 
+
+2014.04.09 - version 1.4.4
+	* Fix for drop downs and swatches when both have a default value. 
+
+2014.04.08 - version 1.4.3
+	* Reset label when Reset Selection is clicked. 
+	* Only show reset label when variation options have been selected. 
+
+2014.03.25 - version 1.4.2
+	* Added wpml-confg file per WPML. 
+	* Maybe unserialize options, per WPML. 
+
+2014.02.19 - version 1.4.1
+	* Added proper template overrides.  Use woocommerce-swatches/single-product/variable.php to your theme to override the main swatches template. 
+
+2014.01.14 - version 1.4.0
+	* WooCommerce 2.1x Compatibility
+
+2013.11.13 - version 1.3.5
+	* Fix:  New label options were not being processed properly in all situations. 
+
+2013.10.21 - version 1.3.4
+	* New:  Added optional labels above the selection area when using swatches.  Configure this new setting
+		under the Layout field when editing a product's swatch configuration. 
+
+2013.10.18 - version 1.3.3
+	* Update: remove double shash in enqueued assets. 
+
+2013.10.16 - version 1.3.2
+	* Update: Added clear selections button. 
+
+2013.08.21 - version 1.3.1
+	* Fix: Custom product attributes and default selections. 
+
+2013.07.24 - version 1.3.0
+	* Fix: Use $product->add_to_cart_url() on the variation form so WooCommerce adds the item to the cart 
+			properly. 
+
+2013.06.18 - version 1.2.9
+	* Update: Default image size 32px if size is empty. 
+
+2013.06.11 - version 1.2.8
+ * Swatches and quick view compatibility
+
+2013.05.20 - version 1.2.7
+  * Fixes
+    * The Swatches and Photos size is correctly registered from the settings screen.
+
+2013.04.04 - version 1.2.6
+  * Fixes
+    * PHP 5.4 compatibility
+
+2013.04.02 - version 1.2.5
+ * Fixes
+    * Sanitize title on all attribute names since 2.x
+
+2013.03.22 - version 1.2.4
+* Updates
+    * Properties of WC_Swatch_Term updated from protected to public
+    * Added the following filters to allow developers to customize properties of the swatches shown on the single-product page
+    *  $href = apply_filters('woocommerce_swatches_get_swatch_href', '#', &$this); //Filters the href of the wrapping anchor tag.
+    *  $anchor_class = apply_filters('woocommerce_swatches_get_swatch_anchor_css_class', 'swatch-anchor', &$this); //Filter the class of the wrapping anchor tag.
+    *  $image_class = apply_filters('woocommerce_swatches_get_swatch_image_css_class', 'swatch-img', &$this); //Filter the class of the image itself.
+    *  $image_alt = apply_filters('woocommerce_swatches_get_swatch_image_alt', 'thumbnail', &$this); //Filter the alternate text of the image itself.
+ * Fixes
+    * Lowercase all attribute names since 2.x
+
+
+2013.03.11 - version 1.2.2
+ * Minor update to resolve conflict with Advanced Custom Fields javascript
+
+2013.03.08 - version 1.2.1
+  * Fixes problem with styles for thick box not being enqueued.
+
+2013.02.12 - version 1.2
+  * WC 2.0 Support
+
+2012.12.04 - version 1.1.2
+  * Swap title on wrapping link for image zoom compatibility
+
+2012.12.04 - version 1.1.1
+ * New updater
+
+2012.11.27 - version 1.1.0
+ *Modified variation form, and variation properties that are available in the script handler.  Since we are now using the default WooCommerce show / hide variation code.
+
+2012.11.21 - version 1.0.6
+ * Updated events which are triggered when variation is selected.  Used to trigger gravity form total updates.
+
+2012.10.01 - version 1.0.5
+ * Compatibility with zoom plugin and swatches and photos
+
+2012.09.14 - version 1.0.4
+ * Fix to render woocommerce default select boxes when no pickers are enabled
+
+2012.09.04 - version 1.0.3
+ * Added title and alt attributes to the main product image
+
+2012.09.03 - version 1.0.2
+ * Removed console log
+ * wp_get_attachment_image_src so size works
+
+2012.06.20 - version 1.0.1
+ * Fixed issue with permissions in media upload box from individual products.
+
+2012.06.14 - version 1.0
+ * First Release

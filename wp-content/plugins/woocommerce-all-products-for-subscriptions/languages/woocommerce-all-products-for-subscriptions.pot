@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce All Products For Subscriptions 3.1.24\n"
+"Project-Id-Version: WooCommerce All Products For Subscriptions 3.1.25\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
-"POT-Creation-Date: 2021-01-29 12:13:42+00:00\n"
+"POT-Creation-Date: 2021-03-10 11:11:28+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -79,7 +79,7 @@ msgid "Between Subscription Plans"
 msgstr ""
 
 #: includes/admin/class-wcs-att-admin.php:257
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:206
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:198
 msgid "Add Plan"
 msgstr ""
 
@@ -121,7 +121,7 @@ msgid "Disabled"
 msgstr ""
 
 #: includes/admin/class-wcs-att-admin.php:413
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:339
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:331
 msgid "Inherit from product"
 msgstr ""
 
@@ -130,7 +130,7 @@ msgid "Inherit from chosen variation"
 msgstr ""
 
 #: includes/admin/class-wcs-att-admin.php:415
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:340
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:332
 msgid "Override product"
 msgstr ""
 
@@ -152,7 +152,7 @@ msgstr ""
 
 #: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:95
 #: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:108
-#: includes/display/class-wcs-att-display-product.php:290
+#: includes/display/class-wcs-att-display-product.php:293
 msgid "One-time purchase"
 msgstr ""
 
@@ -186,69 +186,65 @@ msgid "e.g. \"Choose a subscription plan\""
 msgstr ""
 
 #: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:174
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:191
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:190
 msgid "Subscription Plans"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:192
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:191
 msgid "Want to make this product available on subscription?"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:193
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:192
 msgid "Add some subscription plans to get started!"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:201
-msgid "No subscription plans found. Add one now?"
-msgstr ""
-
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:253
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:245
 msgid "Interval"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:255
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:247
 msgid "Subscription interval"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:261
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:253
 msgid "Subscription period"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:268
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:260
 msgid "Choose the subscription billing interval and period."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:277
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:269
 msgid "Length"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:281
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:273
 msgid "Choose the subscription billing length."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:336
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:328
 msgid "Price"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:354
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:346
 msgid "Regular Price"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:364
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:356
 msgid "Sale Price"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:377
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:408
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:369
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:400
 msgid "Discount %"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:378
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:409
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:370
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:401
 msgid "Discount applied on the <strong>Regular Price</strong> of the product."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:461
+#: includes/admin/meta-boxes/class-wcs-att-meta-box-product-data.php:453
 msgid "Please enter positive subscription discount values, between 0-100."
 msgstr ""
 
@@ -276,27 +272,27 @@ msgstr ""
 msgid "%1$s version %2$s (out of date)"
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:626
+#: includes/class-wcs-att-cart.php:638
 msgid "Please choose a new subscription plan."
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:632
+#: includes/class-wcs-att-cart.php:644
 msgid ""
 "The &quot;%1$s&quot; subscription that you signed up for is no longer "
 "available. %2$s"
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:639 includes/class-wcs-att-cart.php:660
+#: includes/class-wcs-att-cart.php:651 includes/class-wcs-att-cart.php:672
 msgid ""
 "The &quot;%s&quot; subscription that you signed up for has changed. Please "
 "remove the product from your cart and try again."
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:647
+#: includes/class-wcs-att-cart.php:659
 msgid "Please choose a plan to proceed."
 msgstr ""
 
-#: includes/class-wcs-att-cart.php:653
+#: includes/class-wcs-att-cart.php:665
 msgid "&quot;%1$s&quot; is only available with a subscription plan. %2$s"
 msgstr ""
 
@@ -362,40 +358,45 @@ msgstr ""
 msgid "%s each year"
 msgstr ""
 
-#: includes/display/class-wcs-att-display-product.php:400
+#: includes/display/class-wcs-att-display-product.php:297
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:844
+msgid "One-time for %s"
+msgstr ""
+
+#: includes/display/class-wcs-att-display-product.php:413
 msgid "Deliver:"
 msgstr ""
 
-#: includes/display/class-wcs-att-display-product.php:404
+#: includes/display/class-wcs-att-display-product.php:417
 msgid "Renew:"
 msgstr ""
 
-#: includes/display/class-wcs-att-display-product.php:407
+#: includes/display/class-wcs-att-display-product.php:420
 msgid "Choose a plan:"
 msgstr ""
 
-#: includes/display/class-wcs-att-display-product.php:435
+#: includes/display/class-wcs-att-display-product.php:448
 msgid "Choose a purchase plan:"
 msgstr ""
 
-#: includes/display/class-wcs-att-display-product.php:435
+#: includes/display/class-wcs-att-display-product.php:448
 msgid "Choose a subscription plan:"
 msgstr ""
 
-#: includes/display/class-wcs-att-display-product.php:495
-#: includes/display/class-wcs-att-display-product.php:654
+#: includes/display/class-wcs-att-display-product.php:508
+#: includes/display/class-wcs-att-display-product.php:667
 msgid "Sign up"
 msgstr ""
 
-#: includes/display/class-wcs-att-display-product.php:646
+#: includes/display/class-wcs-att-display-product.php:659
 msgid "Select options"
 msgstr ""
 
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:1214
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:1234
 msgid "Between Product Bundle Configurations"
 msgstr ""
 
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:1228
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:1248
 msgid "Between Composite Product Configurations"
 msgstr ""
 
@@ -412,11 +413,11 @@ msgid ""
 "for assistance."
 msgstr ""
 
-#: includes/modules/management/add/class-wcs-att-manage-add-product.php:421
+#: includes/modules/management/add/class-wcs-att-manage-add-product.php:434
 msgid "&quot;%s&quot; is out of stock."
 msgstr ""
 
-#: includes/modules/management/add/class-wcs-att-manage-add-product.php:427
+#: includes/modules/management/add/class-wcs-att-manage-add-product.php:440
 #. translators: 1: product name 2: quantity in stock
 msgid "&quot;%1$s&quot; does not have enough stock (%2$s remaining)."
 msgstr ""
@@ -633,37 +634,43 @@ msgctxt "product subscription selection - negative response"
 msgid "one time"
 msgstr ""
 
-#: includes/display/class-wcs-att-display-product.php:264
+#: includes/display/class-wcs-att-display-product.php:106
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:845
+msgctxt "product subscription selection - negative response"
+msgid "%s one time"
+msgstr ""
+
+#: includes/display/class-wcs-att-display-product.php:271
 msgctxt "Subscribe call-to-action - checkbox"
 msgid "Choose a subscription plan"
 msgstr ""
 
-#: includes/display/class-wcs-att-display-product.php:373
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:869
+#: includes/display/class-wcs-att-display-product.php:386
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:889
 msgctxt "discounted dropdown option price"
 msgid "%1$s (%2$s off)"
 msgstr ""
 
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:869
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:889
 #: includes/product/class-wcs-att-product-prices.php:587
 #: includes/product/class-wcs-att-product-prices.php:595
 msgctxt "dropdown option discount"
 msgid "%s%%"
 msgstr ""
 
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:871
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:891
 msgctxt "dropdown option sale price"
 msgid "%1$s (was %2$s)"
 msgstr ""
 
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:1130
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:1150
 msgctxt "used in order note"
 msgid ""
 "\"%1$s\" (Product ID: #%2$d) removal triggered by \"%3$s\" via the My "
 "Account page."
 msgstr ""
 
-#: includes/integrations/class-wcs-att-integration-pb-cp.php:1185
+#: includes/integrations/class-wcs-att-integration-pb-cp.php:1205
 msgctxt "used in order note"
 msgid ""
 "\"%1$s\" (Product ID: #%2$d) removal un-done by \"%3$s\" via the My Account "

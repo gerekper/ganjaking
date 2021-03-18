@@ -22,6 +22,7 @@
  */
 
 use SkyVerge\WooCommerce\Memberships\Data_Stores;
+use SkyVerge\WooCommerce\Memberships\Frontend\Profile_Fields as Profile_Fields_Frontend;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields\Profile_Field_Definition;
 use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
@@ -87,6 +88,44 @@ class WC_Memberships_AJAX {
 		add_action( 'wp_ajax_wc_memberships_reschedule_user_memberships_events', array( $this, 'reschedule_user_memberships_events' ) );
 		add_action( 'wp_ajax_wc_memberships_export_user_memberships',            array( $this, 'export_user_memberships' ) );
 		add_action( 'wp_ajax_wc_memberships_import_user_memberships',            array( $this, 'import_user_memberships' ) );
+
+		// fetch product variation profile fields html
+		add_action( 'wp_ajax_wc_memberships_get_variation_profile_fields', [ $this, 'get_product_profile_fields' ] );
+		add_action( 'wp_ajax_nopriv_wc_memberships_get_variation_profile_fields', [ $this, 'get_product_profile_fields' ] );
+	}
+
+
+	/**
+	 * Gets profile fields HTML for a product that grants access to a plan.
+	 *
+	 * @internal
+	 *
+	 * @since 1.21.4
+	 */
+	public function get_product_profile_fields() {
+
+		/* @var Profile_Fields_Frontend $profile_fields_frontend instance */
+		if ( ! class_exists( Profile_Fields_Frontend::class, false ) ) {
+			$profile_fields_frontend = wc_memberships()->load_class( '/includes/frontend/Profile_Fields.php', Profile_Fields_Frontend::class );
+		} elseif ( $frontend = wc_memberships()->get_frontend_instance() ) {
+			$profile_fields_frontend = $frontend->get_profile_fields_instance();
+		} else {
+			wp_send_json_error( 'Could not load profile fields front end instance.' );
+		}
+
+		check_ajax_referer( Profile_Fields_Frontend::GET_PRODUCT_PROFILE_FIELDS_ACTION, 'security' );
+
+		$product_id = (int) filter_input( INPUT_POST, 'product_id', FILTER_SANITIZE_NUMBER_INT );
+
+		if ( 0 === $product_id || ! $profile_fields_frontend ) {
+			wp_send_json_error( 'Could not determine product or variation to get profile fields for.' );
+		}
+
+		ob_start();
+
+		$profile_fields_frontend->add_product_page_profile_fields( $product_id );
+
+		wp_send_json_success( ob_get_clean() );
 	}
 
 

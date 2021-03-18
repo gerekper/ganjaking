@@ -726,7 +726,7 @@
 						caretPos = caretPos + txtToAdd.length;
 						txtarea.selectionStart = caretPos;
 						txtarea.selectionEnd = caretPos;
-						txtarea.focus();
+						txtarea.trigger(' focus' );
 						txtarea.scrollTop = scrollPos;
 					} );
 
@@ -799,7 +799,7 @@
 			} );
 
 			keydownEvent = function( event ) {
-				if ( event.keyCode == 13 ) {
+				if ( event.keyCode === 13 ) {
 					event.preventDefault();
 
 					$.tmEPOAdmin.force_current_edit_label = true;
@@ -883,7 +883,7 @@
 				input = $( "<input type='text' value='" + value + "' name='tm_meta[tmfbuilder][" + input + "][]' class='t tm-internal-name'>" );
 
 				edit.append( input );
-				input.focus();
+				input.trigger(' focus' );
 				$( document ).on( 'mouseup', mouseupEvent );
 				$( document ).on( 'keydown', keydownEvent );
 			} );
@@ -4000,7 +4000,7 @@
 		// Element delete button
 		builder_delete_onClick: function( e ) {
 			e.preventDefault();
-			$( this ).blur();
+			$( this ).trigger( 'blur' );
 			$.tmEPOAdmin.doConfirm( TMEPOGLOBALADMINJS.i18n_builder_delete, $.tmEPOAdmin.builder_delete_do, this );
 		},
 
@@ -4060,7 +4060,7 @@
 		// Section delete button
 		builder_section_delete_onClick: function( e ) {
 			e.preventDefault();
-			$( this ).blur();
+			$( this ).trigger( 'blur' );
 			$.tmEPOAdmin.doConfirm( TMEPOGLOBALADMINJS.i18n_builder_delete, $.tmEPOAdmin.builder_section_delete_do, this );
 		},
 
@@ -6328,7 +6328,8 @@
 		QTags = window.QTags;
 		quicktags = window.quicktags;
 		tinyMCE = window.tinyMCE;
-		TMEPOOPTIONSJS = $.epoAPI.util.parseJSON( window.TMEPOOPTIONSJS );
+		// This should be in JSON by WordPress
+		TMEPOOPTIONSJS = window.TMEPOOPTIONSJS.data;
 		wc_enhanced_select_params = window.wc_enhanced_select_params;
 
 		// deep cloning the array

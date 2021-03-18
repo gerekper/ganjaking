@@ -419,7 +419,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 			
 				$static_css = $this->get_static_css();
 				if($static_css !== ''){
-					$css = new RevSliderCssParser();
+					$css = RevSliderGlobals::instance()->get('RevSliderCssParser');
 					echo '<style type="text/css">';
 					echo $css->compress_css($static_css);
 					echo '</style>'."\n";
@@ -576,4 +576,3 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 		<?php
 	}
 }
-?>

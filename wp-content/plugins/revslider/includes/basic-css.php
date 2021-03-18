@@ -636,5 +636,3 @@ border-width:0px;
 border-color:rgb(0, 0, 0);
 border-style:none;
 }';
-
-?>

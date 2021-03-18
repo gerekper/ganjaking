@@ -76,9 +76,9 @@ function wc_pb_number_format( number ) {
 /**
  * Rounds price values according to WC settings.
  */
-function wc_pb_number_round( number ) {
+function wc_pb_number_round( number, decimals ) {
 
-	var precision         = wc_bundle_params.currency_format_num_decimals,
+	var precision         = typeof( decimals ) === 'undefined' ? wc_bundle_params.currency_format_num_decimals : parseInt( decimals, 10 ),
 		factor            = Math.pow( 10, precision ),
 		tempNumber        = number * factor,
 		roundedTempNumber = Math.round( tempNumber );
@@ -380,7 +380,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 			 * Initialize.
 			 */
 
-			this.$bundle_data.triggerHandler( 'woocommerce-product-bundle-initializing', [ this ] );
+			this.$bundle_data.trigger( 'woocommerce-product-bundle-initializing', [ this ] );
 
 			$.each( this.bundled_items, function( index, bundled_item ) {
 				bundled_item.init_scripts();
@@ -721,7 +721,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 			// CP compatibility.
 			if ( bundle.is_composited() ) {
 				bundle.$bundle_quantity.on( 'input change', function() {
-					bundle.update_bundle();
+					bundle.$bundle_data.trigger( 'woocommerce-product-bundle-update' );
 				} );
 			}
 
@@ -777,6 +777,24 @@ jQuery.fn.wc_get_bundle_script = function() {
 					}
 
 					target_bundle.update_totals();
+				} )
+
+				.on( 'woocommerce-bundled-item-totals-changed', function( event, bundled_item ) {
+
+					if ( bundled_item.has_addons() ) {
+						bundled_item.render_addons_totals();
+					}
+				} )
+
+				.on( 'woocommerce-product-bundle-update', function( event, triggered_by ) {
+
+					var target_bundle = typeof( triggered_by ) === 'undefined' ? bundle : triggered_by.get_bundle();
+
+					if ( triggered_by ) {
+						target_bundle.update_bundle( triggered_by );
+					} else {
+						target_bundle.update_bundle();
+					}
 				} );
 		};
 
@@ -803,30 +821,34 @@ jQuery.fn.wc_get_bundle_script = function() {
 				/**
 				 * Update totals upon changing quantities.
 				 */
-				.on( 'input change', 'input.bundled_qty', function( e ) {
+				.on( 'input change', 'input.bundled_qty', function( event ) {
 
 					var $input = $( this ),
+						qty    = parseFloat( $input.val() ),
 						min    = parseFloat( $input.attr( 'min' ) ),
 						max    = parseFloat( $input.attr( 'max' ) );
 
-					if ( wc_bundle_params.force_min_max_qty_input === 'yes' ) {
+					if ( wc_bundle_params.force_min_max_qty_input === 'yes' && 'change' === event.type ) {
 
-						if ( e.type === 'change' && min >= 0 && ( parseFloat( $input.val() ) < min || isNaN( parseFloat( $input.val() ) ) ) ) {
-							$input.val( min );
+						if ( min >= 0 && ( qty < min || isNaN( qty ) ) ) {
+							qty = min;
 						}
 
-						if ( e.type === 'change' && max > 0 && parseFloat( $input.val() ) > max ) {
-							$input.val( max );
+						if ( max > 0 && qty > max ) {
+							qty = max;
 						}
+
+						$input.val( qty );
 					}
 
 					// A zero quantity item is considered optional by NYP.
 					if( bundled_item.is_nyp() && ! bundled_item.is_optional() && min === 0 ) {
-						bundled_item.$nyp.data( 'optional_status', parseFloat( $input.val() ) > 0 ? true : false );
+						bundled_item.$nyp.data( 'optional_status', qty > 0 ? true : false );
 					}
 
 					bundled_item.update_selection_title();
-					bundle.update_bundle( bundled_item );
+
+					bundle.$bundle_data.trigger( 'woocommerce-product-bundle-update', [ bundled_item ] );
 				} )
 
 				.on( 'change', '.bundled_product_optional_checkbox input', function( event ) {
@@ -885,7 +907,8 @@ jQuery.fn.wc_get_bundle_script = function() {
 					}
 
 					bundled_item.update_selection_title();
-					bundle.update_bundle( bundled_item );
+
+					bundle.$bundle_data.trigger( 'woocommerce-product-bundle-update', [ bundled_item ] );
 
 					event.stopPropagation();
 				} )
@@ -924,7 +947,8 @@ jQuery.fn.wc_get_bundle_script = function() {
 					}
 
 					bundled_item.update_selection_title();
-					bundle.update_bundle( bundled_item );
+
+					bundle.$bundle_data.trigger( 'woocommerce-product-bundle-update', [ bundled_item ] );
 
 					event.stopPropagation();
 				} )
@@ -965,7 +989,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 					bundle.price_data.backorders_allowed[ bundled_item.bundled_item_id ]              = '';
 					bundle.price_data.backorders_require_notification[ bundled_item.bundled_item_id ] = '';
 
-					// Add .images class to bundled_product_images div ( required by the variations script to flip images ).
+					// Add .images class to bundled_product_images div (required by the variations script to flip images).
 					if ( bundled_item.is_selected() ) {
 						bundled_item.maybe_add_wc_core_gallery_class();
 					}
@@ -977,8 +1001,8 @@ jQuery.fn.wc_get_bundle_script = function() {
 
 								// Prevent from appearing as out of stock.
 								bundled_item.$bundled_item_cart.find( '.bundled_item_wrap .stock' ).addClass( 'disabled' );
-
-								bundle.update_bundle( bundled_item );
+								// Trigger bundle update.
+								bundle.$bundle_data.trigger( 'woocommerce-product-bundle-update', [ bundled_item ] );
 								return false;
 							}
 						} );
@@ -999,44 +1023,12 @@ jQuery.fn.wc_get_bundle_script = function() {
 					 */
 					.on( 'updated_addons', function( event ) {
 
-						var addons_price         = bundle.get_addons_raw_price( bundled_item ),
-							regular_addons_price = bundle.has_pct_addons( bundled_item ) ? bundle.get_addons_raw_price( bundled_item, 'regular' ) : addons_price;
+						// Always restore totals state because PAO empties it before the 'updated_addons' event.
+						bundled_item.$addons_totals.html( bundled_item.addons_totals_html );
 
-						if ( bundle.price_data.addons_prices[ bundled_item.bundled_item_id ] !== addons_price || bundle.price_data.regular_addons_prices[ bundled_item.bundled_item_id ] !== regular_addons_price ) {
-							bundle.price_data.addons_prices[ bundled_item.bundled_item_id ]         = addons_price;
-							bundle.price_data.regular_addons_prices[ bundled_item.bundled_item_id ] = regular_addons_price;
-							bundle.update_bundle( bundled_item );
-						}
-
-						if ( bundled_item.show_addons_totals ) {
-
-							var qty           = bundled_item.get_quantity(),
-								tax_ratios    = bundle.price_data.prices_tax[ bundled_item.bundled_item_id ],
-								addons_totals = bundle.get_taxed_totals( addons_price, addons_price, tax_ratios, qty );
-
-							if ( addons_totals.price > 0 ) {
-
-								var price              = Number( bundle.price_data.prices[ bundled_item.bundled_item_id ] ),
-									total              = price + Number( addons_price ),
-									totals             = bundle.get_taxed_totals( total, total, tax_ratios, qty ),
-									price_html         = wc_pb_price_format( totals.price ),
-									price_html_suffix  = bundle.get_formatted_price_suffix( bundle.price_data, totals ),
-									addons_totals_html = '<span class="price">' + '<span class="subtotal">' + wc_bundle_params.i18n_subtotal + '</span>' + price_html + price_html_suffix + '</span>';
-
-								// Save for later use.
-								bundled_item.addons_totals_html = addons_totals_html;
-
-								bundled_item.$addons_totals.html( addons_totals_html ).slideDown( 200 );
-
-							} else {
-
-								// Put totals html back in as PAO just emptied the div.
-								bundled_item.$addons_totals.html( bundled_item.addons_totals_html ).slideUp( 200 );
-							}
-						}
+						bundle.$bundle_data.trigger( 'woocommerce-product-bundle-update', [ bundled_item ] );
 
 						event.stopPropagation();
-
 					} );
 			}
 
@@ -1053,11 +1045,10 @@ jQuery.fn.wc_get_bundle_script = function() {
 							bundle.price_data.prices[ bundled_item.bundled_item_id ]         = nyp_price;
 							bundle.price_data.regular_prices[ bundled_item.bundled_item_id ] = nyp_price;
 
-							bundle.update_bundle( bundled_item );
+							bundle.$bundle_data.trigger( 'woocommerce-product-bundle-update', [ bundled_item ] );
 						}
 
 						event.stopPropagation();
-
 					} );
 			}
 		};
@@ -1228,12 +1219,12 @@ jQuery.fn.wc_get_bundle_script = function() {
 				bundle.add_validation_message( wc_bundle_params.i18n_unavailable_text );
 			} else {
 				// Validate 3rd party constraints.
-				bundle.$bundle_data.triggerHandler( 'woocommerce-product-bundle-validate', [ bundle ] );
+				bundle.$bundle_data.trigger( 'woocommerce-product-bundle-validate', [ bundle ] );
 			}
 
 			// Validation status changed?
 			if ( validation_status !== bundle.api.get_bundle_validation_status() ) {
-				bundle.$bundle_data.triggerHandler( 'woocommerce-product-bundle-validation-status-changed', [ bundle ] );
+				bundle.$bundle_data.trigger( 'woocommerce-product-bundle-validation-status-changed', [ bundle ] );
 			}
 
 			/*
@@ -1367,7 +1358,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 				cart.data( 'quantity', bundle.price_data.quantities[ bundled_item_id ] );
 
 				// Check variable products.
-				if ( ( bundled_item.get_product_type() === 'variable' || bundled_item.get_product_type() === 'variable-subscription' ) && bundled_item.get_variation_id() === '' ) {
+				if ( bundled_item.is_variable_product_type() && bundled_item.get_variation_id() === '' ) {
 					bundle.price_data.prices[ bundled_item_id ]                   = 0.0;
 					bundle.price_data.regular_prices[ bundled_item_id ]           = 0.0;
 					bundle.price_data.recurring_prices[ bundled_item_id ]         = 0.0;
@@ -1375,15 +1366,19 @@ jQuery.fn.wc_get_bundle_script = function() {
 					bundle.price_data.prices_tax[ bundled_item_id ]               = false;
 				}
 
-				// Cast amounts.
 				bundle.price_data.prices[ bundled_item_id ]                   = Number( bundle.price_data.prices[ bundled_item_id ] );
 				bundle.price_data.regular_prices[ bundled_item_id ]           = Number( bundle.price_data.regular_prices[ bundled_item_id ] );
 
-				bundle.price_data.addons_prices[ bundled_item_id ]            = Number( bundle.price_data.addons_prices[ bundled_item_id ] );
-				bundle.price_data.regular_addons_prices[ bundled_item_id ]    = Number( bundle.price_data.regular_addons_prices[ bundled_item_id ] );
-
 				bundle.price_data.recurring_prices[ bundled_item_id ]         = Number( bundle.price_data.recurring_prices[ bundled_item_id ] );
 				bundle.price_data.regular_recurring_prices[ bundled_item_id ] = Number( bundle.price_data.regular_recurring_prices[ bundled_item_id ] );
+
+				// Calculate addons prices.
+				if ( bundled_item.has_addons() ) {
+					bundled_item.update_addons_prices();
+				}
+
+				bundle.price_data.addons_prices[ bundled_item_id ]            = Number( bundle.price_data.addons_prices[ bundled_item_id ] );
+				bundle.price_data.regular_addons_prices[ bundled_item_id ]    = Number( bundle.price_data.regular_addons_prices[ bundled_item_id ] );
 			} );
 		};
 
@@ -1513,14 +1508,22 @@ jQuery.fn.wc_get_bundle_script = function() {
 				// Filter bundled item totals.
 				recurring_totals = bundle.filters.apply_filters( 'bundled_item_recurring_totals', [ recurring_totals, bundled_item, qty ] );
 
+				var item_totals_changed = false;
+
 				if ( bundle.totals_changed( price_data[ 'bundled_item_' + bundled_item.bundled_item_id + '_totals' ], totals ) ) {
+					item_totals_changed    = true;
 					bundle.dirty_subtotals = true;
 					price_data[ 'bundled_item_' + bundled_item.bundled_item_id + '_totals' ] = totals;
 				}
 
 				if ( bundle.totals_changed( price_data[ 'bundled_item_' + bundled_item.bundled_item_id + '_recurring_totals' ], recurring_totals ) ) {
+					item_totals_changed    = true;
 					bundle.dirty_subtotals = true;
 					price_data[ 'bundled_item_' + bundled_item.bundled_item_id + '_recurring_totals' ] = recurring_totals;
+				}
+
+				if ( item_totals_changed ) {
+					bundle.$bundle_data.trigger( 'woocommerce-bundled-item-totals-changed', [ bundled_item ] );
 				}
 
 			} );
@@ -1536,7 +1539,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 		this.calculate_totals = function( price_data_array ) {
 
 			if ( typeof( price_data_array ) === 'undefined' ) {
-				bundle.$bundle_data.triggerHandler( 'woocommerce-product-bundle-calculate-totals', [ bundle ] );
+				bundle.$bundle_data.trigger( 'woocommerce-product-bundle-calculate-totals', [ bundle ] );
 			}
 
 			var price_data     = typeof( price_data_array ) === 'undefined' ? bundle.price_data : price_data_array,
@@ -1544,10 +1547,10 @@ jQuery.fn.wc_get_bundle_script = function() {
 
 			// Non-recurring (sub)totals.
 			var subtotals, totals = {
-				price:          price_data.base_price_totals.price,
-				regular_price:  price_data.base_price_totals.regular_price,
-				price_incl_tax: price_data.base_price_totals.price_incl_tax,
-				price_excl_tax: price_data.base_price_totals.price_excl_tax
+				price:          wc_pb_number_round( price_data.base_price_totals.price ),
+				regular_price:  wc_pb_number_round( price_data.base_price_totals.regular_price ),
+				price_incl_tax: wc_pb_number_round( price_data.base_price_totals.price_incl_tax ),
+				price_excl_tax: wc_pb_number_round( price_data.base_price_totals.price_excl_tax )
 			};
 
 			$.each( bundle.bundled_items, function( index, bundled_item ) {
@@ -1560,10 +1563,10 @@ jQuery.fn.wc_get_bundle_script = function() {
 
 				if ( typeof item_totals !== 'undefined' ) {
 
-					totals.price          += item_totals.price;
-					totals.regular_price  += item_totals.regular_price;
-					totals.price_incl_tax += item_totals.price_incl_tax;
-					totals.price_excl_tax += item_totals.price_excl_tax;
+					totals.price          += wc_pb_number_round( item_totals.price );
+					totals.regular_price  += wc_pb_number_round( item_totals.regular_price );
+					totals.price_incl_tax += wc_pb_number_round( item_totals.price_incl_tax );
+					totals.price_excl_tax += wc_pb_number_round( item_totals.price_excl_tax );
 				}
 
 			} );
@@ -1754,7 +1757,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 
 					recurring_totals_data.push( price_data.recurring_totals[ recurring_total_key ] );
 				}
-console.log( has_up_front_price_component );
+
 				$.each( recurring_totals_data, function( recurring_component_index, recurring_component_data ) {
 
 					var formatted_recurring_price         = recurring_component_data.price == 0 ? wc_bundle_params.i18n_free : wc_pb_price_format( recurring_component_data.price ),
@@ -1873,10 +1876,10 @@ console.log( has_up_front_price_component );
 				bundle.$bundle_price.slideUp( 200 );
 			}
 
-			bundle.$bundle_data.triggerHandler( 'woocommerce-product-bundle-updated-totals', [ bundle ] );
+			bundle.$bundle_data.trigger( 'woocommerce-product-bundle-updated-totals', [ bundle ] );
 		};
 
-		this.updated_addons_handler = function( event ) {
+		this.updated_addons_handler = function() {
 			bundle.updated_totals_task();
 		};
 
@@ -1921,6 +1924,10 @@ console.log( has_up_front_price_component );
 			}
 
 			if ( ! qty ) {
+				return 0;
+			}
+
+			if ( is_bundled_item && bundled_item.is_variable_product_type() && bundled_item.get_variation_id() === '' ) {
 				return 0;
 			}
 
@@ -2028,7 +2035,7 @@ console.log( has_up_front_price_component );
 
 			$.each( bundle.bundled_items, function( index, bundled_item ) {
 
-				if ( bundled_item.is_subscription( type ) ) {
+				if ( bundled_item.is_subscription( type ) && bundled_item.is_priced_individually() ) {
 
 					bundled_subs[ index ] = bundled_item;
 					has_sub               = true;
@@ -2102,6 +2109,7 @@ console.log( has_up_front_price_component );
 
 			this.$reset_bundled_variations      = false;
 
+			this.render_addons_totals_timer     = false;
 			this.show_addons_totals             = false;
 			this.addons_totals_html             = '';
 
@@ -2117,6 +2125,7 @@ console.log( has_up_front_price_component );
 			this.product_id                     = typeof( bundle.price_data.product_ids[ this.bundled_item_id ] ) === 'undefined' ? '' : bundle.price_data.product_ids[ this.bundled_item_id ].toString();
 			this.nyp                            = typeof( bundle.price_data.product_ids[ this.bundled_item_id ] ) === 'undefined' ? false : bundle.price_data.is_nyp[ this.bundled_item_id ] === 'yes';
 			this.sold_individually              = typeof( bundle.price_data.product_ids[ this.bundled_item_id ] ) === 'undefined' ? false : bundle.price_data.is_sold_individually[ this.bundled_item_id ] === 'yes';
+			this.priced_individually            = typeof( bundle.price_data.product_ids[ this.bundled_item_id ] ) === 'undefined' ? false : bundle.price_data.is_priced_individually[ this.bundled_item_id ] === 'yes';
 			this.variation_id                   = '';
 
 			this.has_wc_core_gallery_class      = this.$bundled_item_image.hasClass( 'images' );
@@ -2144,6 +2153,10 @@ console.log( has_up_front_price_component );
 			} else {
 				this.$addons_totals = false;
 			}
+		};
+
+		this.get_bundle = function() {
+			return bundle;
 		};
 
 		this.get_title = function( strip_tags ) {
@@ -2349,6 +2362,10 @@ console.log( has_up_front_price_component );
 				bundled_item_qty_val = parseInt( this.$bundled_item_qty.attr( 'min' ), 10 );
 			}
 
+			if ( 'tabular' === bundle.price_data.layout ) {
+				bundled_item_qty_val = 1;
+			}
+
 			var selection_title           = this.bundled_item_title,
 				selection_qty_string      = bundled_item_qty_val > 1 ? wc_bundle_params.i18n_qty_string.replace( '%s', bundled_item_qty_val ) : '',
 				selection_optional_string = ( this.is_optional() && this.get_optional_suffix() !== '' ) ? wc_bundle_params.i18n_optional_string.replace( '%s', this.get_optional_suffix() ) : '',
@@ -2378,6 +2395,68 @@ console.log( has_up_front_price_component );
 
 		this.has_required_addons = function() {
 			return this.$required_addons && this.$required_addons.length > 0;
+		};
+
+		this.update_addons_prices = function() {
+
+			var addons_price         = bundle.get_addons_raw_price( this ),
+				regular_addons_price = bundle.has_pct_addons( this ) ? bundle.get_addons_raw_price( this, 'regular' ) : addons_price;
+
+			if ( bundle.price_data.addons_prices[ this.bundled_item_id ] !== addons_price || bundle.price_data.regular_addons_prices[ this.bundled_item_id ] !== regular_addons_price ) {
+				bundle.price_data.addons_prices[ this.bundled_item_id ]         = addons_price;
+				bundle.price_data.regular_addons_prices[ this.bundled_item_id ] = regular_addons_price;
+			}
+		};
+
+		this.render_addons_totals = function() {
+
+			var bundled_item = this;
+
+			clearTimeout( this.render_addons_totals_timer );
+
+			this.render_addons_totals_timer = setTimeout( function() {
+				bundled_item.render_addons_totals_task();
+			}, 10 );
+		};
+
+		this.render_addons_totals_task = function() {
+
+			if ( ! this.has_addons ) {
+				return;
+			}
+
+			var addons_price = bundle.price_data.addons_prices[ this.bundled_item_id ];
+
+			if ( this.show_addons_totals ) {
+
+				if ( ! this.is_variable_product_type() || this.get_variation_id() !== '' ) {
+
+					var qty           = this.get_quantity(),
+						tax_ratios    = bundle.price_data.prices_tax[ this.bundled_item_id ],
+						addons_totals = bundle.get_taxed_totals( addons_price, addons_price, tax_ratios, qty );
+
+					if ( addons_totals.price > 0 ) {
+
+						var price              = Number( bundle.price_data.prices[ this.bundled_item_id ] ),
+							total              = price + Number( addons_price ),
+							totals             = bundle.get_taxed_totals( total, total, tax_ratios, qty ),
+							price_html         = wc_pb_price_format( totals.price ),
+							price_html_suffix  = bundle.get_formatted_price_suffix( bundle.price_data, totals ),
+							addons_totals_html = '<span class="price">' + '<span class="subtotal">' + wc_bundle_params.i18n_subtotal + '</span>' + price_html + price_html_suffix + '</span>';
+
+						// Save for later use.
+						this.addons_totals_html = addons_totals_html;
+
+						this.$addons_totals.html( addons_totals_html ).slideDown( 200 );
+
+					} else {
+						this.$addons_totals.slideUp( 200 );
+					}
+
+				} else {
+					this.$addons_totals.slideUp( 200 );
+				}
+			}
 		};
 
 		this.has_single_variation = function() {
@@ -2412,6 +2491,10 @@ console.log( has_up_front_price_component );
 
 		this.is_sold_individually = function() {
 			return this.sold_individually;
+		};
+
+		this.is_priced_individually = function() {
+			return this.priced_individually;
 		};
 
 		this.maybe_add_wc_core_gallery_class = function() {

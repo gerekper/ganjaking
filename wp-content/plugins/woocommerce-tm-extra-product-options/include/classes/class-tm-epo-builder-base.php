@@ -254,7 +254,9 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 */
 	public function admin_footer() {
 		wp_register_script( 'themecomplete-footer-admin-js', false, array(), false, true );
-		wp_localize_script( 'themecomplete-footer-admin-js', 'TMEPOOPTIONSJS', wp_json_encode( $this->jsbuilder ) );
+		wp_localize_script( 'themecomplete-footer-admin-js', 'TMEPOOPTIONSJS', array(
+			"data" => $this->jsbuilder )
+		);
 		wp_enqueue_script( 'themecomplete-footer-admin-js' );
 	}
 
@@ -2194,6 +2196,14 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 												"text"  => esc_html__( "Thumbnails", 'woocommerce-tm-extra-product-options' ),
 												"value" => "thumbnail",
 											),
+											array(
+												"text"  => esc_html__( "Checkboxes", 'woocommerce-tm-extra-product-options' ),
+												"value" => "checkbox",
+											),
+											array(
+												"text"  => esc_html__( "Thumbnails multiple", 'woocommerce-tm-extra-product-options' ),
+												"value" => "thumbnailmultiple",
+											),
 										),
 										"label"            => esc_html__( "Layout mode", 'woocommerce-tm-extra-product-options' ),
 										"desc"             => esc_html__( "Select how the products will be presented.", 'woocommerce-tm-extra-product-options' ),
@@ -2612,7 +2622,6 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"default"     => "1",
 			"type"        => "text",
 			"tags"        => array(
-				"class" => "n",
 				"id"    => "builder_" . $name . "_step",
 				"name"  => "tm_meta[tmfbuilder][" . $name . "_step][]",
 				"value" => "",

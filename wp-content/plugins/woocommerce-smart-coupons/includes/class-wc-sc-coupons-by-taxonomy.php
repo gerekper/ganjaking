@@ -6,7 +6,7 @@
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
  * @since       4.13.0
- * @version     1.1.0
+ * @version     1.2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -526,8 +526,11 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Taxonomy' ) ) {
 		 */
 		public function validate( $valid = false, $product = null, $coupon = null, $values = null ) {
 
+			$backtrace = wp_list_pluck( debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ), 'function' ); // phpcs:ignore
+
 			// If coupon is already invalid, no need for further checks.
-			if ( true !== $valid ) {
+			// Ignore this check if the discount type is a non-product-type discount.
+			if ( true !== $valid && ! in_array( 'handle_non_product_type_coupons', $backtrace, true ) ) {
 				return $valid;
 			}
 
@@ -535,29 +538,42 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Taxonomy' ) ) {
 				return $valid;
 			}
 
+			$product_ids = array();
+
 			if ( $this->is_wc_gte_30() ) {
-				$coupon_id  = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_id' ) ) ) ? $coupon->get_id() : 0;
-				$product_id = ( is_object( $product ) && is_callable( array( $product, 'get_id' ) ) ) ? $product->get_id() : 0;
+				$coupon_id     = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_id' ) ) ) ? $coupon->get_id() : 0;
+				$product_ids[] = ( is_object( $product ) && is_callable( array( $product, 'get_id' ) ) ) ? $product->get_id() : 0;
+				$product_ids[] = ( is_object( $product ) && is_callable( array( $product, 'get_parent_id' ) ) ) ? $product->get_parent_id() : 0;
 			} else {
-				$coupon_id  = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
-				$product_id = ( ! empty( $product->id ) ) ? $product->id : 0;
+				$coupon_id     = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
+				$product_ids[] = ( ! empty( $product->id ) ) ? $product->id : 0;
+				$product_ids[] = ( is_object( $product ) && is_callable( array( $product, 'get_parent' ) ) ) ? $product->get_parent() : 0;
 			}
 
-			if ( ! empty( $coupon_id ) ) {
+			$product_ids = array_unique( array_filter( $product_ids ) );
 
+			if ( ! empty( $coupon_id ) ) {
 				$taxonomy_restrictions = get_post_meta( $coupon_id, 'wc_sc_taxonomy_restrictions', true );
 
 				if ( ! empty( $taxonomy_restrictions ) ) {
 					$term_ids = $this->get_restricted_term_ids( array( 'taxonomy_restrictions' => $taxonomy_restrictions ) );
 
-					$include_ids = ( ! empty( $term_ids['include'] ) || is_array( $term_ids['include'] ) ) ? $term_ids['include'] : array();
-					$exclude_ids = ( ! empty( $term_ids['exclude'] ) || is_array( $term_ids['exclude'] ) ) ? $term_ids['exclude'] : array();
+					$include_ids = array();
+					$exclude_ids = array();
+
+					if ( isset( $term_ids['include'] ) && is_array( $term_ids['include'] ) ) {
+						$include_ids = $term_ids['include'];
+					}
+
+					if ( isset( $term_ids['exclude'] ) && is_array( $term_ids['exclude'] ) ) {
+						$exclude_ids = $term_ids['exclude'];
+					}
 
 					$taxonomies      = wp_list_pluck( $taxonomy_restrictions, 'tax' );
 					$args            = array(
 						'fields' => 'ids',
 					);
-					$object_term_ids = wp_get_object_terms( $product_id, $taxonomies, $args );
+					$object_term_ids = wp_get_object_terms( $product_ids, $taxonomies, $args );
 					$object_term_ids = array_unique( array_filter( $object_term_ids ) );
 
 					$taxonomy_found = true;
@@ -644,8 +660,16 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Taxonomy' ) ) {
 					if ( ! empty( $items_to_validate ) && is_array( $items_to_validate ) ) {
 						$term_ids = $this->get_restricted_term_ids( array( 'taxonomy_restrictions' => $taxonomy_restrictions ) );
 
-						$include_ids = ( ! empty( $term_ids['include'] ) || is_array( $term_ids['include'] ) ) ? $term_ids['include'] : array();
-						$exclude_ids = ( ! empty( $term_ids['exclude'] ) || is_array( $term_ids['exclude'] ) ) ? $term_ids['exclude'] : array();
+						$include_ids = array();
+						$exclude_ids = array();
+
+						if ( isset( $term_ids['include'] ) && is_array( $term_ids['include'] ) ) {
+							$include_ids = $term_ids['include'];
+						}
+
+						if ( isset( $term_ids['exclude'] ) && is_array( $term_ids['exclude'] ) ) {
+							$exclude_ids = $term_ids['exclude'];
+						}
 
 						$taxonomies = wp_list_pluck( $taxonomy_restrictions, 'tax' );
 
@@ -673,13 +697,15 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Taxonomy' ) ) {
 
 							$excluded_products = array();
 							foreach ( $invalid_products as $invalid_product ) {
-								$product_id   = ( is_object( $invalid_product ) && is_callable( array( $invalid_product, 'get_id' ) ) ) ? $invalid_product->get_id() : 0;
-								$product_name = ( is_object( $invalid_product ) && is_callable( array( $invalid_product, 'get_name' ) ) ) ? $invalid_product->get_name() : '';
+								$product_ids   = array();
+								$product_ids[] = ( is_object( $invalid_product ) && is_callable( array( $invalid_product, 'get_id' ) ) ) ? $invalid_product->get_id() : 0;
+								$product_ids[] = ( is_object( $invalid_product ) && is_callable( array( $invalid_product, 'get_parent_id' ) ) ) ? $invalid_product->get_parent_id() : 0;
+								$product_name  = ( is_object( $invalid_product ) && is_callable( array( $invalid_product, 'get_name' ) ) ) ? $invalid_product->get_name() : '';
 
 								$args            = array(
 									'fields' => 'ids',
 								);
-								$object_term_ids = wp_get_object_terms( $product_id, $taxonomies, $args );
+								$object_term_ids = wp_get_object_terms( $product_ids, $taxonomies, $args );
 								$object_term_ids = array_unique( array_filter( $object_term_ids ) );
 
 								if ( ! empty( $object_term_ids ) && is_array( $object_term_ids ) ) {

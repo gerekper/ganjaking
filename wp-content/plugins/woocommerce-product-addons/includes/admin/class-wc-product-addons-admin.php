@@ -9,7 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use \Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
+use Automattic\WooCommerce\Admin\Features\Features;
 
 /**
  * Product_Addon_Admin class.
@@ -42,7 +44,13 @@ class WC_Product_Addons_Admin {
 	public function admin_menu() {
 		$page = add_submenu_page( 'edit.php?post_type=product', __( 'Add-ons', 'woocommerce-product-addons' ), __( 'Add-ons', 'woocommerce-product-addons' ), 'manage_woocommerce', 'addons', array( $this, 'global_addons_admin' ) );
 
-		if ( ! class_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Menu' ) ) {
+		if (
+			! class_exists( 'Features' ) ||
+			! method_exists( Screen::class, 'register_post_type' ) ||
+			! method_exists( Menu::class, 'add_plugin_item' ) ||
+			! method_exists( Menu::class, 'add_plugin_category' ) ||
+			! Features::is_enabled( 'navigation' )
+		) {
 			return;
 		}
 

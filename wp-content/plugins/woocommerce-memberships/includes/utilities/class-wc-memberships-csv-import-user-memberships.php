@@ -894,6 +894,16 @@ class WC_Memberships_CSV_Import_User_Memberships extends \WC_Memberships_Job_Han
 
 				try {
 
+					// in case of multi-value profile fields, ensure the value to set is of array type
+					if ( is_string( $value ) ) {
+
+						$definition = Profile_Fields::get_profile_field_definition( $key );
+
+						if ( $definition && $definition->is_multiple() ) {
+							$value = array_map( 'trim', explode( ',', $value ) );
+						}
+					}
+
 					$user_membership->set_profile_field( $key, $value );
 
 				} catch ( \Exception $exception ) {

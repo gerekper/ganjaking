@@ -1,5 +1,15 @@
 *** Changelog ***
 
+2021-03-14 - version 2.11
+
+* Added option to enable/disable recaptcha for stripe payment request buttons (Google Pay and Apple Pay)
+
+
+2021-03-11 - version 2.10
+
+* Added option to disable on the fly reRecapcha v3 generation for checkout
+* Disable recaptcha plugin when while using REST end point
+
 2021-02-22 - version 2.9
 
 * Added reCAPTCHA for product review form.

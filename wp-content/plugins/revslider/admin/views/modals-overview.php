@@ -43,12 +43,7 @@ if(!defined('ABSPATH')) exit();
 						</div>
 						<div class="div75"></div>
 					</div>
-					<?php
-					if(get_option('revslider-valid', 'false') == 'true') { ?>
 						<div id="open_welcome_register_form" class="big_purple_linkbutton"><?php _e('Lets get Started with ' );?> <b> <?php printf(__('Slider Revolution %s', 'revslider'), RS_REVISION); ?></b></div>
-					<?php } else { ?>
-						<div id="open_welcome_register_form" class="big_purple_linkbutton"><?php _e('Activate Slider Revolution to');?> <b> <i class="material-icons">lock</i> <?php _e('Unlock all Features');?></b></div>
-					<?php } ?>
 				</div>
 			</div>
 		</div>

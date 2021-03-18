@@ -37,13 +37,19 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 					}
 
 					add_filter('request', 'Permalink_Manager_Pro_Functions::woocommerce_detect_coupon_code', 1, 1);
+					add_filter('permalink_manager_disabled_post_types', 'Permalink_Manager_Pro_Functions::woocommerce_coupon_uris', 9, 1);
 				}
-
-				add_filter('permalink_manager_disabled_post_types', 'Permalink_Manager_Pro_Functions::woocommerce_coupon_uris', 9, 1);
 			}
 
-			add_action('woocommerce_product_import_inserted_product_object', array($this, 'woocommerce_generate_permalinks_after_import'), 9, 2);
-			add_action('woocommerce_product_duplicate', array($this, 'woocommerce_generate_permalinks_after_import'), 9, 2);
+			// WooCommerce Import/Export
+			add_filter('woocommerce_product_export_product_default_columns', array($this, 'woocommerce_csv_custom_uri_column'), 9);
+			add_filter('woocommerce_product_export_product_column_custom_uri', array($this, 'woocommerce_export_custom_uri_value'), 9, 3);
+
+			add_filter('woocommerce_csv_product_import_mapping_options', array($this, 'woocommerce_csv_custom_uri_column'), 9);
+			add_filter('woocommerce_csv_product_import_mapping_default_columns', array($this, 'woocommerce_csv_custom_uri_column'), 9);
+			add_action('woocommerce_product_import_inserted_product_object', array($this, 'woocommerce_csv_import_custom_uri'), 9, 2);
+
+			add_action('woocommerce_product_duplicate', array($this, 'woocommerce_generate_permalinks_after_duplicate'), 9, 2);
 			add_filter('permalink_manager_filter_default_post_uri', array($this, 'woocommerce_product_attributes'), 5, 5);
 
 			if(wp_doing_ajax() && class_exists('SitePress')) {
@@ -211,6 +217,10 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 			else if(function_exists('geodir_location_page_id') && !empty($post->ID) && geodir_location_page_id() == $post->ID) {
 				$wp_query->query_vars['do_not_redirect'] = 1;
 			}
+			// RankMath Pro
+			else if(isset($query_vars['schema-preview'])) {
+				$wp_query->query_vars['do_not_redirect'] = 1;
+			}
 		}
 
 		// WPForo
@@ -361,17 +371,17 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		}
 	}
 
-	function woocommerce_generate_permalinks_after_import($object, $data) {
+	function woocommerce_generate_permalinks_after_duplicate($new_product, $old_product) {
 		global $permalink_manager_uris;
 
-		if(!empty($object)) {
-			$product_id = $object->get_id();
+		if(!empty($new_product)) {
+			$product_id = $new_product->get_id();
 
 			// Ignore variations
-			if($object->get_type() !== 'variation') {
-				$permalink_manager_uris[$product_id] = Permalink_Manager_URI_Functions_Post::get_default_post_uri($product_id, false, true);
+			if($new_product->get_type() !== 'variation') {
+				$custom_uri = Permalink_Manager_URI_Functions_Post::get_default_post_uri($product_id, false, true);
 
-				update_option('permalink-manager-uris', $permalink_manager_uris);
+				Permalink_Manager_URI_Functions::save_single_uri($product_id, $custom_uri, false, true);
 			}
 		}
 	}
@@ -423,6 +433,59 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		}
 
 		return $permalink;
+	}
+
+	/**
+	 * 4A. WooCommerce CSV Import/Export
+	 */
+	function woocommerce_csv_custom_uri_column($columns) {
+		if(!is_array($columns)) { return $columns; }
+
+		$label = __('Custom URI', 'permalink-manager');
+		$key = 'custom_uri';
+
+		if(current_filter() == 'woocommerce_csv_product_import_mapping_default_columns') {
+			$columns[$label] = $key;
+		} else {
+			$columns[$key] = $label;
+		}
+
+		return $columns;
+	}
+
+	function woocommerce_export_custom_uri_value($value, $product, $column_id) {
+		if(empty($value) && !empty($product)) {
+			$product_id = $product->get_id();
+
+			// Get custom permalink or default permalink
+			$value = Permalink_Manager_URI_Functions_Post::get_post_uri($product_id);
+		}
+
+		return $value;
+	}
+
+	function woocommerce_csv_import_custom_uri($product, $data) {
+		global $permalink_manager_uris;
+
+		if(!empty($product)) {
+			$product_id = $product->get_id();
+
+			// Ignore variations
+			if($product->get_type() == 'variation') {
+				return;
+			}
+
+			// A. Use default permalink if "Custom URI" is not set and did not exist before
+			if(empty($permalink_manager_uris[$product_id]) && empty($data['custom_uri'])) {
+				$custom_uri = Permalink_Manager_URI_Functions_Post::get_default_post_uri($product_id, false, true);
+			} else if(!empty($data['custom_uri'])) {
+				$custom_uri = Permalink_Manager_Helper_Functions::sanitize_title($data['custom_uri']);
+			} else {
+				return;
+			}
+
+			Permalink_Manager_URI_Functions::save_single_uri($product_id, $custom_uri, false, true);
+		}
 	}
 
 	/**

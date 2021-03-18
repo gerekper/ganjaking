@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Cart support.
  *
  * @class    WCS_ATT_Cart
- * @version  3.1.20
+ * @version  3.1.25
  */
 class WCS_ATT_Cart {
 
@@ -168,7 +168,7 @@ class WCS_ATT_Cart {
 		if ( $context instanceof WC_Product ) {
 
 			// Unsupported product type?
-			if ( ! self::is_supported_product_type( $context ) ) {
+			if ( ! self::is_supported( $context ) ) {
 				return false;
 			}
 
@@ -177,7 +177,7 @@ class WCS_ATT_Cart {
 			foreach ( WC()->cart->cart_contents as $cart_item ) {
 
 				// Unsupported product type?
-				if ( ! self::is_supported_product_type( $cart_item ) ) {
+				if ( ! self::is_supported( $cart_item ) ) {
 					return false;
 				}
 
@@ -300,7 +300,7 @@ class WCS_ATT_Cart {
 	 */
 	public static function add_cart_item_data( $cart_item, $product_id, $variation_id ) {
 
-		if ( self::is_supported_product_type( $product_id ) && ! isset( $cart_item[ 'wcsatt_data' ] ) ) { // Might be set - @see 'WCS_ATT_Order::restore_cart_item_from_order_item'.
+		if ( self::is_supported( array_merge( $cart_item, array( 'product_id' => $product_id ) ) ) && ! isset( $cart_item[ 'wcsatt_data' ] ) ) { // Might be set - @see 'WCS_ATT_Order::restore_cart_item_from_order_item'.
 
 			$posted_subscription_scheme_key = WCS_ATT_Product_Schemes::get_posted_subscription_scheme( $product_id );
 
@@ -321,7 +321,7 @@ class WCS_ATT_Cart {
 	 */
 	public static function load_cart_item_data_from_session( $cart_item, $item_session_values ) {
 
-		if ( self::is_supported_product_type( $cart_item ) && isset( $item_session_values[ 'wcsatt_data' ] ) ) {
+		if ( self::is_supported( $cart_item ) && isset( $item_session_values[ 'wcsatt_data' ] ) ) {
 			$cart_item[ 'wcsatt_data' ] = $item_session_values[ 'wcsatt_data' ];
 		}
 
@@ -339,7 +339,7 @@ class WCS_ATT_Cart {
 	 */
 	public static function apply_subscription_scheme( $cart_item ) {
 
-		if ( self::is_supported_product_type( $cart_item ) ) {
+		if ( self::is_supported( $cart_item ) ) {
 
 			$scheme_to_apply = self::get_subscription_scheme( $cart_item );
 
@@ -579,18 +579,30 @@ class WCS_ATT_Cart {
 	 * @param  mixed  $arg
 	 * @return boolean
 	 */
-	public static function is_supported_product_type( $arg ) {
+	public static function is_supported( $arg ) {
 
 		$product_type = '';
 
+		if ( is_array( $arg ) ) {
+
+			$cart_item = $arg;
+
+			if ( isset( $cart_item[ 'data' ] ) ) {
+				$product_type = $cart_item[ 'data' ]->get_type();
+			} elseif ( isset( $cart_item[ 'product_id' ] ) ) {
+				$product_type = WCS_ATT_Core_Compatibility::get_product_type( $cart_item[ 'product_id' ] );
+			}
+
+			/**
+			 * When passing cart item data, filter result via 'wcsatt_cart_item_is_supported'.
+			 *
+			 * @since  3.1.25
+			 */
+			return apply_filters( 'wcsatt_cart_item_is_supported', in_array( $product_type, WCS_ATT()->get_supported_product_types() ), $cart_item );
+		}
+
 		if ( is_a( $arg, 'WC_Product' ) ) {
 			$product_type = $arg->get_type();
-		} elseif ( is_array( $arg ) ) {
-			if ( isset( $arg[ 'data' ] ) ) {
-				$product_type = $arg[ 'data' ]->get_type();
-			} elseif ( isset( $arg[ 'product_id' ] ) ) {
-				$product_type = WCS_ATT_Core_Compatibility::get_product_type( $arg[ 'product_id' ] );
-			}
 		} else {
 			$product_type = WCS_ATT_Core_Compatibility::get_product_type( absint( $arg ) );
 		}
@@ -676,9 +688,13 @@ class WCS_ATT_Cart {
 
 		// Add query string parameter only if the product is visible.
 		if ( $html ) {
+
 			$scheme_key = self::get_subscription_scheme( $cart_item );
-			$key        = 'convert_to_sub_' . $cart_item[ 'product_id' ];
-			$html       = add_query_arg( array( $key => WCS_ATT_Product_Schemes::stringify_subscription_scheme_key( $scheme_key ) ), $html );
+
+			if ( ! is_null( $scheme_key ) ) {
+				$key  = 'convert_to_sub_' . $cart_item[ 'product_id' ];
+				$html = add_query_arg( array( $key => WCS_ATT_Product_Schemes::stringify_subscription_scheme_key( $scheme_key ) ), $html );
+			}
 		}
 
 		return $html;
@@ -752,8 +768,21 @@ class WCS_ATT_Cart {
 	 * @return boolean
 	 */
 	public static function is_convertible_to_sub( $arg ) {
-		_deprecated_function( __METHOD__ . '()', '2.0.0', 'WCS_ATT_Cart::is_supported_product_type()' );
-		return self::is_supported_product_type( $arg );
+		_deprecated_function( __METHOD__ . '()', '2.0.0', 'WCS_ATT_Cart::is_supported()' );
+		return self::is_supported( $arg );
+	}
+
+	/**
+	 * True if a product or cart item is allowed to have subscription schemes attached by SATT.
+	 *
+	 * @deprecated 3.1.25
+	 *
+	 * @param  int|array  $arg
+	 * @return boolean
+	 */
+	public static function is_supported_product_type( $arg ) {
+		_deprecated_function( __METHOD__ . '()', '3.1.25', 'WCS_ATT_Cart::is_supported()' );
+		return self::is_supported( $arg );
 	}
 }
 

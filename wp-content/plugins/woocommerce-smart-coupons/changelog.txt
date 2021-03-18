@@ -1,5 +1,23 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2021.03.08 - version 4.17.5
+* Fix: Expiry date is not being displayed in the coupon that is sent in the email
+* Fix: Prevent the modification of the minimum & maximum amount during the purchase of credit of any amount from the browser
+* Update: Additional arguments for filter 'wc_sc_is_auto_generate'
+* Update: POT file
+
+2021.02.24 - version 4.17.0
+* New: Tested up to WooCommerce 5.0.0 & WordPress 5.6.2
+* Fix: Expiry time is not being considered during coupon validation
+* Fix: Generated store credit amount is not considering currency [Multi Currency for WooCommerce By VillaTheme]
+* Fix: Sometimes the latest imported coupons are not getting activated if the code already exists
+* Fix: Incorrect validation of the fields 'Product attributes' & 'Exclude attributes' under Coupon data > Usage restriction tab
+* Fix: Validation based on product taxonomies not working if the taxonomy is related to the parent product
+* Update: Use the date format of the website to display expiry date in the coupons
+* Update: Added hook to control the number of attributes for field 'Product attributes' & 'Exclude attributes' under Coupon data > Usage restriction tab
+* Update: Correction in a few PHPDocBlocks
+* Update: POT file
+
 2021.02.05 - version 4.16.5
 * Fix: Product attributes restrictions are not getting copied in auto-generated coupons
 * Fix: Coupons are not getting sent on renewals only in case of variable subscription

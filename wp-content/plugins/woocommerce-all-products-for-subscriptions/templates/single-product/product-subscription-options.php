@@ -51,4 +51,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 			}
 		?></ul>
 	</div>
+	<?php
+		/**
+		 * 'wcsatt_display_subscriptions_matching_cart' action.
+		 *
+		 * @since  3.1.25
+		 */
+		do_action( 'wcsatt_after_product_subscription_options' );
+	?>
 </div>

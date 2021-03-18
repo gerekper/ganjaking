@@ -80,5 +80,3 @@ if(!class_exists('ThemePunch_Newsletter')) {
 		
 	}
 }
-
-?>

@@ -368,7 +368,11 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 					$query[$endpoint] = true;
 				} else if($endpoint == 'page') {
 					$endpoint = 'paged';
-					$query[$endpoint] = $endpoint_value;
+					if(is_numeric($endpoint_value)) {
+						$query[$endpoint] = $endpoint_value;
+					} else {
+						$query = $old_query;
+					}
 				} else if($endpoint == 'trackback') {
 					$endpoint = 'tb';
 					$query[$endpoint] = 1;
@@ -589,6 +593,15 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 				// Make sure that URIs with non-ASCII characters are also detected + Check the URLs that end with number
 				$decoded_url = urldecode($uri);
 				$endpoint_url = "{$uri}/{$endpoint_value}";
+
+				// Convert to lowercase to make case insensitive
+				$force_lowercase = apply_filters('permalink_manager_force_lowercase_uris', true);
+
+				if($force_lowercase) {
+					$uri = strtolower($uri);
+					$decoded_url = strtolower($decoded_url);
+					$endpoint_url = strtolower($endpoint_url);
+				}
 
 				// Check if the URI is not assigned to any post/term's redirects
 				foreach($permalink_manager_redirects as $element => $redirects) {

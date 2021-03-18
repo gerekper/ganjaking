@@ -829,7 +829,8 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 					$element['type'], 
 					$field_loop, 
 					$form_prefix, 
-					$this->subscription_fee_name 
+					$this->subscription_fee_name,
+					$element
 				)
 			)
 		);
@@ -981,7 +982,7 @@ final class THEMECOMPLETE_EPO_CP_subscriptions {
 	 */
 	public function wc_epo_validate_field_field_names( $field_names, $object, $element, $loop, $form_prefix ) {
 
-		$subscription_field_names = THEMECOMPLETE_EPO()->get_post_names( $element['options'], $element['type'], $loop, $form_prefix, $this->subscription_fee_name );
+		$subscription_field_names = THEMECOMPLETE_EPO()->get_post_names( $element['options'], $element['type'], $loop, $form_prefix, $this->subscription_fee_name, $element );
 
 		$is_subscription_fee = FALSE;
 		if ( is_array( $element['is_subscription_fee'] ) ) {

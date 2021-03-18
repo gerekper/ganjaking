@@ -102,6 +102,8 @@ class WC_Instagram_Admin {
 				WC_Admin_Settings::add_message( _x( 'Your Instagram account was connected successfully.', 'settings notice', 'woocommerce-instagram' ) );
 			} elseif ( 'failed' === $notice ) {
 				WC_Admin_Settings::add_error( _x( 'Authentication failed or canceled by the user.', 'settings error', 'woocommerce-instagram' ) );
+			} elseif ( 'catalog_deleted' === $notice ) {
+				WC_Admin_Settings::add_message( _x( 'Catalog deleted successfully.', 'settings notice', 'woocommerce-instagram' ) );
 			} else {
 				WC_Admin_Settings::add_error( _x( 'An unexpected error occurred.', 'settings error', 'woocommerce-instagram' ) );
 			}

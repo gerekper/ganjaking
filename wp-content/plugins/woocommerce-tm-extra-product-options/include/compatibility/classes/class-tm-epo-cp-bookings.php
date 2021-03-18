@@ -65,7 +65,7 @@ final class THEMECOMPLETE_EPO_CP_bookings {
 		add_filter( 'booking_form_calculated_booking_cost', array( $this, 'adjust_booking_cost_old' ), 10, 3 );
 		//for 1.15x
 		add_filter( 'woocommerce_bookings_calculated_booking_cost', array( $this, 'adjust_booking_cost' ), 10, 3 );
-
+		add_filter( 'wc_epo_adjust_cart_item_before', array( $this, 'wc_epo_adjust_cart_item_before' ), 10, 1 );
 		add_filter( 'wc_epo_adjust_cart_item', array( $this, 'wc_epo_adjust_cart_item' ), 10, 1 );
 
 		add_filter( 'tm_epo_settings_headers', array( $this, 'tm_epo_settings_headers' ), 10, 1 );
@@ -221,21 +221,35 @@ final class THEMECOMPLETE_EPO_CP_bookings {
 	}
 
 	/**
+	 * Set booking flag
+	 *
+	 * @since 1.0
+	 */
+	public function wc_epo_adjust_cart_item_before( $cart_item ) {
+		$cart_item['tc_epo_booking_original_price_adjustment'] = 0;
+
+		return $cart_item;
+	}
+
+	/**
 	 * Set original product price in cart
 	 *
 	 * @since 1.0
 	 */
 	public function wc_epo_adjust_cart_item( $cart_item ) {
+
 		if (
 			isset( $cart_item['data'] )
 			&& is_object( $cart_item['data'] )
 			&& property_exists( $cart_item['data'], "id" )
 			&& themecomplete_get_id( $cart_item['data'] )
+			&& empty( $cart_item['tc_epo_booking_original_price_adjustment'] )
 		) {
 			if ( $cart_item['data']->is_type( 'booking' ) ) {
 
 				if ( ! empty( $cart_item['tmcartepo'] ) ) {
 					$cart_item['tm_epo_product_original_price'] = $cart_item['tm_epo_product_original_price'] - $cart_item['tm_epo_options_prices'];
+					$cart_item['tc_epo_booking_original_price_adjustment'] = 1;
 				}
 
 			}

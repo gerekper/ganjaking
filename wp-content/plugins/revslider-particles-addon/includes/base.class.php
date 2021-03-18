@@ -2,7 +2,7 @@
 /* 
  * @author    ThemePunch <info@themepunch.com>
  * @link      http://www.themepunch.com/
- * @copyright 2017 ThemePunch
+ * @copyright 2021 ThemePunch
 */
 
 if(!defined('ABSPATH')) exit();
@@ -15,7 +15,7 @@ class RsParticlesBase extends RsAddOnParticlesBase {
 					 $_PluginUrl     = RS_PARTICLES_PLUGIN_URL,
 					 $_PluginTitle   = 'particles',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '2.3.2';
+				     $_Version       = '2.3.4';
 	
 	public function __construct() {
 		

@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             <span data-uniqid="{{{ data.uniqid }}}" class="tm-element-uniqid">{{{ data.uniqidtext }}}{{{ data.uniqid }}}</span>
             <# } #>
     </div>
-    <div id="{{{ data.id }}}" class="float_editbox">{{{ data.html }}}</div>
+    <div id="{{{ data.id }}}" class="float-editbox">{{{ data.html }}}</div>
     <div class="footer">
         <div class="inner">
             <button type="button" class="tc tc-button floatbox-update">{{{ data.update }}}</button>&nbsp;
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="header">
         <h3>{{{ data.title }}}</h3>
     </div>
-    <div id="{{{ data.id }}}" class="float_editbox">{{{ data.html }}}</div>
+    <div id="{{{ data.id }}}" class="float-editbox">{{{ data.html }}}</div>
     <div class="footer">
         <div class="inner">
             <button type="button" class="tc tc-button floatbox-edit-update">{{{ data.update }}}</button>&nbsp;
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="header">
         <h3>{{{ data.title }}}</h3>
     </div>
-    <div id="{{{ data.id }}}" class="float_editbox">{{{ data.html }}}</div>
+    <div id="{{{ data.id }}}" class="float-editbox">{{{ data.html }}}</div>
     <div class="footer">
         <div class="inner">
             <button type="button" class="tc tc-button floatbox-cancel">{{{ data.cancel }}}</button>

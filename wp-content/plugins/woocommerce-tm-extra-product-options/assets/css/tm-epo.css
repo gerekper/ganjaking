@@ -2090,7 +2090,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	margin: 0.5em 0;
 }
 
-.float_editbox .section_popup .tm-section-label {
+.float-editbox .section_popup .tm-section-label {
     display: none;
 }
 
@@ -2319,7 +2319,6 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	font-size: 1em !important;
 	display: inline !important;
 	background: none !important;
-	vertical-align: middle !important;
 }
 
 .tm-extra-product-options .tmcp-field-wrap .tc-price .amount {
@@ -2501,7 +2500,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	z-index: 101;
 }
 
-.flasho.tm-color .float_editbox {
+.flasho.tm-color .float-editbox {
 	background: #fff none repeat scroll 0 0;
 	bottom: 55px;
 	left: 0;
@@ -2574,7 +2573,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 	box-shadow: 0px 1px 15px 1px rgba(0, 0, 0, 0.2);
 }
 
-.float_editbox {
+.float-editbox {
 	background: #fff;
 	bottom: 55px;
 	left: 0;
@@ -4662,15 +4661,16 @@ body[data-form-style="minimal"] .tc-extra-product-options .minimal-form-input la
 }
 
 /* Elementor and theme fixes */
-.woocommerce .oxy-woo-element div.product .woocommerce-variation-add-to-cart,
-.fullwidth-button .cart:not(.variations_form), .fullwidth-button .woocommerce-variation-add-to-cart.variations_button,
+.woocommerce .oxy-woo-element div.product.tm-has-options .woocommerce-variation-add-to-cart,
+.tm-has-options .fullwidth-button .cart:not(.variations_form), 
+.tm-has-options .fullwidth-button .woocommerce-variation-add-to-cart.variations_button,
 .thb-product-main-row .summary form.cart,
-.single-product div.product form.cart,
-.single-product div.product .single-button-wrapper,
-.single-product div.product .entry-summary form.cart:not(.variations_form):not(.grouped_form),
-.single-product div.product .variations_button,
-.woocommerce div.product.elementor form.cart.variations_form .woocommerce-variation-add-to-cart,
-.woocommerce div.product.elementor form.cart:not(.grouped_form):not(.variations_form) {
+.single-product div.product.tm-has-options form.cart,
+.single-product div.product.tm-has-options .single-button-wrapper,
+.single-product div.product.tm-has-options .entry-summary form.cart:not(.variations_form):not(.grouped_form),
+.single-product div.product.tm-has-options .variations_button,
+.woocommerce div.product.elementor.tm-has-options form.cart.variations_form .woocommerce-variation-add-to-cart,
+.woocommerce div.product.elementor.tm-has-options form.cart:not(.grouped_form):not(.variations_form) {
 	-ms-flex-wrap: wrap !important;
 	flex-wrap: wrap !important;
 }

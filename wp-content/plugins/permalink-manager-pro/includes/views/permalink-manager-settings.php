@@ -168,7 +168,7 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 						'type' => 'single_checkbox',
 						'label' => __('Breadcrumbs support', 'permalink-manager'),
 						'input_class' => '',
-						'description' => __('If enabled, the HTML breadcrumbs will be filtered by Permalink Manager to mimic the current URL structure.<br />Works with: <strong>WooCommerce, Yoast SEO, RankMath and SEOPress</strong> breadcrumbs.', 'permalink-manager')
+						'description' => __('If enabled, the HTML breadcrumbs will be filtered by Permalink Manager to mimic the current URL structure.<br />Works with: <strong>WooCommerce, Yoast SEO, Slim Seo, RankMath and SEOPress</strong> breadcrumbs.', 'permalink-manager')
 					)
 				)
 			),

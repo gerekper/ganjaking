@@ -31,46 +31,91 @@ class WC_Instagram_Integration extends WC_Integration {
 		$this->method_title       = _x( 'Instagram', 'settings page title', 'woocommerce-instagram' );
 		$this->method_description = _x( 'Connect your Instagram Business account.', 'settings page description', 'woocommerce-instagram' );
 
-		add_action( 'init', array( $this, 'init_settings_api' ) );
+		add_action( 'init', array( $this, 'init' ) );
 		add_action( "woocommerce_update_options_integration_{$this->id}", array( $this, 'process_admin_options' ) );
+	}
+
+	/**
+	 * Init.
+	 *
+	 * @since 3.4.4
+	 */
+	public function init() {
+		if ( ! isset( $_GET['section'] ) || 'instagram' !== $_GET['section'] ) { // phpcs:ignore WordPress.Security.NonceVerification
+			return;
+		}
+
+		$catalog_id = $this->get_catalog_id();
+
+		if ( '' !== $catalog_id && ! wc_instagram_is_connected() ) {
+			wp_die( 'Something went wrong' );
+		}
+
+		if ( is_numeric( $catalog_id ) ) {
+			$action = ( isset( $_GET['action'] ) ? wc_clean( wp_unslash( $_GET['action'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
+
+			if ( $action ) {
+				$this->process_catalog_action( $catalog_id, $action );
+			}
+		}
+
+		$this->init_settings_api( $catalog_id );
+	}
+
+	/**
+	 * Gets the current catalog ID.
+	 *
+	 * @since 3.4.4
+	 *
+	 * @return string
+	 */
+	protected function get_catalog_id() {
+		$catalog_id = '';
+
+		// phpcs:disable WordPress.Security.NonceVerification
+		if ( isset( $_GET['catalog_id'] ) ) {
+			$catalog_id = (string) wc_clean( wp_unslash( $_GET['catalog_id'] ) );
+		} elseif ( isset( $_POST['catalog_id'] ) && wc_instagram_is_request( 'ajax' ) ) {
+			$catalog_id = (string) wc_clean( wp_unslash( $_POST['catalog_id'] ) );
+		}
+		// phpcs:enable WordPress.Security.NonceVerification
+
+		return $catalog_id;
+	}
+
+	/**
+	 * Processes a catalog action.
+	 *
+	 * @since 3.4.4
+	 *
+	 * @param string $catalog_id The catalog ID.
+	 * @param string $action     The action to process.
+	 */
+	protected function process_catalog_action( $catalog_id, $action ) {
+		if ( 'download' === $action ) {
+			$format = ( ! empty( $_GET['format'] ) ? wc_clean( wp_unslash( $_GET['format'] ) ) : 'xml' ); // phpcs:ignore WordPress.Security.NonceVerification
+			$this->export_product_catalog( $catalog_id, $format );
+		} elseif ( 'delete' === $action ) {
+			$this->delete_product_catalog( $catalog_id );
+		}
 	}
 
 	/**
 	 * Initializes the settings API.
 	 *
 	 * @since 3.0.0
+	 * @since 3.4.4 Added parameter `$catalog_id`.
+	 *
+	 * @param string $catalog_id Optional. The catalog ID. Default empty.
 	 */
-	public function init_settings_api() {
-		// phpcs:disable WordPress.Security.NonceVerification
-		if ( isset( $_GET['section'] ) && 'instagram' === $_GET['section'] && isset( $_GET['catalog_id'] ) ) {
-			$catalog_id = (string) wc_clean( wp_unslash( $_GET['catalog_id'] ) );
-			$action     = ( isset( $_GET['action'] ) ? wc_clean( wp_unslash( $_GET['action'] ) ) : '' );
-
-			if ( 'download' === $action ) {
-				$format = ( ! empty( $_GET['format'] ) ? wc_clean( wp_unslash( $_GET['format'] ) ) : 'xml' );
-				$this->export_product_catalog( $catalog_id, $format );
-			} elseif ( 'delete' === $action ) {
-				$this->delete_product_catalog( $catalog_id );
-			} elseif ( 'deleted' === $action ) {
-				WC_Admin_Settings::add_message( _x( 'Catalog deleted successfully.', 'settings notice', 'woocommerce-instagram' ) );
-			} else {
-				include_once 'admin/settings/class-wc-instagram-settings-product-catalog.php';
-				$this->settings_api = new WC_Instagram_Settings_Product_Catalog( $catalog_id );
-				return;
-			}
-		}
-
-		if ( wc_instagram_is_request( 'ajax' ) && isset( $_POST['catalog_id'] ) ) {
+	public function init_settings_api( $catalog_id = '' ) {
+		if ( '' !== $catalog_id ) {
 			include_once 'admin/settings/class-wc-instagram-settings-product-catalog.php';
-
-			$catalog_id         = (string) wc_clean( wp_unslash( $_POST['catalog_id'] ) );
 			$this->settings_api = new WC_Instagram_Settings_Product_Catalog( $catalog_id );
-			return;
+		} else {
+			include_once 'admin/settings/class-wc-instagram-settings-general.php';
+			$this->settings_api = new WC_Instagram_Settings_General();
 		}
-
-		include_once 'admin/settings/class-wc-instagram-settings-general.php';
-		$this->settings_api = new WC_Instagram_Settings_General();
-		// phpcs:enable WordPress.Security.NonceVerification
 	}
 
 	/**
@@ -160,15 +205,7 @@ class WC_Instagram_Integration extends WC_Integration {
 
 		update_option( 'wc_instagram_product_catalogs', $product_catalogs );
 
-		wp_safe_redirect(
-			wc_instagram_get_settings_url(
-				array(
-					'catalog_id' => $catalog_id,
-					'action'     => 'deleted',
-				)
-			)
-		);
-		exit();
+		wp_safe_redirect( wc_instagram_get_settings_url( array( 'notice' => 'catalog_deleted' ) ) );
 	}
 
 	/**

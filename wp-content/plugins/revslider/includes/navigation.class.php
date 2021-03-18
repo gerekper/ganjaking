@@ -382,7 +382,7 @@ class RevSliderNavigation extends RevSliderFunctions {
 	 * @since: x.x.x
 	 **/
 	public function add_placeholder_sub_modifications($css, $handle, $type, $placeholders, $slide, $output){
-		$css_class	= new RevSliderCssParser();
+		$css_class	= RevSliderGlobals::instance()->get('RevSliderCssParser');
 		$c_css		= '';
 		
 		if(!is_array($placeholders)) $placeholders = json_decode($placeholders, true);
@@ -684,5 +684,3 @@ class RevSliderNavigation extends RevSliderFunctions {
 	}
 	
 }
-
-?>

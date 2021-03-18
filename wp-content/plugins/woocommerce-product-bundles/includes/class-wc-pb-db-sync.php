@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Hooks for DB lifecycle management of products, bundles, bundled items and their meta.
  *
  * @class    WC_PB_DB_Sync
- * @version  6.4.0
+ * @version  6.7.4
  */
 class WC_PB_DB_Sync {
 
@@ -493,11 +493,6 @@ class WC_PB_DB_Sync {
 
 				if ( ! self::$sync_task_runner->is_running() ) {
 
-					// Give background processing a chance to work - 2 second grace period.
-					if ( false === get_site_transient( 'wc_pb_db_sync_task_runner_manual_lock' ) ) {
-						set_site_transient( 'wc_pb_db_sync_task_runner_manual_lock', microtime(), 2 );
-					}
-
 					// Remote post to self.
 					self::$sync_task_runner->dispatch();
 				}
@@ -505,15 +500,6 @@ class WC_PB_DB_Sync {
 			} else {
 
 				WC_PB_Core_Compatibility::log( 'No IDs found.', 'info', 'wc_pb_db_sync_tasks' );
-			}
-
-		// Give background processing a chance to work before considering a manual run...
-		} elseif ( false === get_site_transient( 'wc_pb_db_sync_task_runner_manual_lock' ) ) {
-
-			if ( self::$sync_task_runner->is_queued() && ! self::$sync_task_runner->is_running() ) {
-
-				WC_PB_Core_Compatibility::log( 'Task runner idling. Attempting to run queued tasks manually...', 'info', 'wc_pb_db_sync_tasks' );
-				do_action( self::$sync_task_runner->get_cron_hook_identifier() );
 			}
 		}
 	}

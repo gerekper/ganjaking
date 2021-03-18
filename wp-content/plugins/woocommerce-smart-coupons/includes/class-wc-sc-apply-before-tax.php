@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.0.4
+ * @version     1.1.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -385,8 +385,8 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 		/**
 		 * Discount details for store credit
 		 *
-		 * @param  array      $discounts The discount details.
-		 * @param  WC_Coupons $coupon    The coupon object.
+		 * @param  array     $discounts The discount details.
+		 * @param  WC_Coupon $coupon    The coupon object.
 		 * @return array
 		 */
 		public function store_credit_discounts_array( $discounts = array(), $coupon = null ) {

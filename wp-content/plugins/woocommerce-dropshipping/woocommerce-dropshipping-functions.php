@@ -50,8 +50,10 @@ if ( ! function_exists( 'wc_dropshipping_get_dropship_supplier_by_product_id' ) 
 		if($productdata != 'yes') {
 			$terms = get_the_terms( intval( $product_id ), 'dropship_supplier' );
 		}
-		if ($terms && ! is_wp_error($terms) && 0 < count( $terms ) ) {
-			$supplier = wc_dropshipping_get_dropship_supplier( intval( $terms[0]->term_id ) ); // load the term. there can only be one supplier notified per product
+		if ( isset($terms) ){
+			if ($terms && ! is_wp_error($terms) && 0 < count( $terms ) ) {
+				$supplier = wc_dropshipping_get_dropship_supplier( intval( $terms[0]->term_id ) ); // load the term. there can only be one supplier notified per product
+			}
 		}
 		return $supplier;
 	}
@@ -65,11 +67,28 @@ if (! function_exists( 'wc_dropshipping_get_base_path' ) ) {
 
 
 
+add_action('wp_ajax_woocommerce_dropshippers_pod_received', 'pod_received_callback');
+add_action('wp_ajax_nopriv_woocommerce_dropshippers_pod_received', 'pod_received_callback');
+
 add_action('wp_ajax_woocommerce_dropshippers_mark_as_shipped', 'woocommerce_dropshippers_mark_as_shipped_callback');
 add_action('wp_ajax_nopriv_woocommerce_dropshippers_mark_as_shipped', 'woocommerce_dropshippers_mark_as_shipped_callback');
+
+function pod_received_callback(){
+	$order_id = $_GET['orderid'];
+	$supplier_id = $_GET['supplierid'];
+	$order_number = $_GET['order_number'];
+
+	update_post_meta( $order_id, $order_number . '_' . $supplier_id . '_status', 'received' );
+
+	header('Location:'.$_GET['return'].'admin.php?page=dropshipper-order-list');
+
+	die;
+}
+
 function woocommerce_dropshippers_mark_as_shipped_callback(){
 	$order_id = $_GET['orderid'];
 	$supplier_id = @$_GET['supplierid'];
+	$order_number = @$_GET['order_number'];
 
 	$dKey = 'order_'.$order_id;
 	$dOptions = get_dropship_option();
@@ -163,6 +182,7 @@ function dropshipper_order_list() {
 						<th scope="col" id="client" class="manage-column column-client-info">Client Info</th>
 						<th scope="col" id="client" class="manage-column column-client-info">Contact Info</th>
 						<th scope="col" id="shipping" class="manage-column column-shipping-info">Shipping Info</th>
+						<th scope="col" id="pod_header" class="manage-column column-pod">POD</th>
 						<th scope="col" id="status" class="manage-column column-status-info">Status</th>
 					</tr>
 				</thead>
@@ -171,17 +191,31 @@ function dropshipper_order_list() {
 				$user_id = get_current_user_id();
 				$supplier_id = get_user_meta($user_id, 'supplier_id');
 
+				function show_pod_content( $meta_value, $order_id, $supplier_pod_id, $pod_ajax_url  ) {
+					if ( $meta_value == 'received' ) {
+						return 'Received';
+					} else {
+						return 'Not Received </br> </br> <a href="'.$pod_ajax_url.'" id="pod_received_' . $order_id . '_' . $supplier_pod_id . '" class="button button-primary" href="" style="margin-top:2px">Mark as Received</a>';
+					}
+				}
 
 				if ( $the_query->have_posts() ) {
 					while ( $the_query->have_posts() ) : $the_query->the_post();
-	      				$order = wc_get_order( get_the_ID() );
-								$new_order_id = $order->get_order_number();
-	      				$items = $order->get_items();
-	      				$fake_ajax_url = wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&return='.admin_url().'&orderid=' . get_the_ID() . '&supplierid=' . @$supplier_id[0]), 'woocommerce_dropshippers_mark_as_shipped' );
-	      				$upload_dir = wp_get_upload_dir();
-	      				$pdfpath =$upload_dir['baseurl'].'/'.$new_order_id.'/'.$new_order_id.'_'.$term->slug.'.pdf';
+    				$order = wc_get_order( get_the_ID() );
+						$new_order_id = $order->get_order_number();
+						$order_number = $new_order_id;
+						$supplier_pod_id = '_supplier_pod_'.get_current_user_id();
+						$supplier_pod = get_post_meta( $order_number, $order_number . '_' . $supplier_pod_id . '_status', true);
+    				$items = $order->get_items();
+						$fake_ajax_url = wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&return='.admin_url().'&orderid=' . get_the_ID() . '&supplierid=' . @$supplier_id[0]), 'woocommerce_dropshippers_mark_as_shipped' );
+    				$pod_ajax_url = wp_nonce_url( admin_url( 'admin-ajax.php?action=woocommerce_dropshippers_pod_received&return='.admin_url().'&orderid=' . get_the_ID() . '&supplierid=' . $supplier_pod_id . '&order_number=' . $order_number), 'woocommerce_dropshippers_pod_received' );
+    				$upload_dir = wp_get_upload_dir();
+    				$pdfpath =$upload_dir['baseurl'].'/'.$new_order_id.'/'.$new_order_id.'_'.$term->slug.'.pdf';
 
-	      				$dropshipper_shipping_info = get_post_meta($new_order_id, 'dropshipper_shipping_info_'.get_current_user_id(), true);
+    				$dropshipper_shipping_info = get_post_meta($new_order_id, 'dropshipper_shipping_info_'.get_current_user_id(), true);
+
+						$supplier_id = 'dropshipper_shipping_info_' . get_current_user_id();
+
 						if(!$dropshipper_shipping_info){
 							$dropshipper_shipping_info = array(
 								'date' => '',
@@ -191,16 +225,6 @@ function dropshipper_order_list() {
 							);
 						}
 
-							/*	$ds = wc_dropshipping_get_dropship_supplier_by_product_id( intval( $item['product_id'] ) );
-								if ($ds['order_email_addresses'] == $uemail) {*/
-									//$product = $order->get_product_from_item( $item );
-
-									//$prod_info = WC_Dropshipping_Orders::get_order_product_info($item,$product);
-
-
-
-
-
 					   echo '<tr><td class="id column-id" data-colname="id">'.$new_order_id.'</td>
 						<td class="date column-date" data-colname="date">'.get_the_date().'</td>';
 
@@ -208,11 +232,14 @@ function dropshipper_order_list() {
 						if ( count( $items ) > 0 ) {
 							foreach( $items as $item_id => $item ) {
 								$ds = wc_dropshipping_get_dropship_supplier_by_product_id( intval( $item['product_id'] ) );
-								if ($ds['order_email_addresses'] == $uemail) {
-							echo '<p>'. $product_name = $item->get_name(). '</p>';
+								if( is_array ( $ds && !empty( $ds ) ) ) {
+									if ($ds['order_email_addresses'] == $uemail) {
+											echo '<p>'. $product_name = $item->get_name(). '</p>';
+										}
 									}
 								}
 						}
+
 						echo '</td>
 
 						<td class="client column-client" data-colname="client">'. $order->get_formatted_shipping_address() .'</td>
@@ -225,6 +252,7 @@ function dropshipper_order_list() {
 							<br>
 							<button id="open_dropshipper_dialog_'.$new_order_id.'" class="button button-primary" onclick="open_dropshipper_dialog('.$new_order_id.')" style="margin-top:2px">Edit Shipping Info</button>
 						</td>
+						<td class="client-email column-client-email" data-colname="client-email">' . show_pod_content( $supplier_pod, $new_order_id, $supplier_pod_id, $pod_ajax_url ) . '<br><div class="row-actions"><span></div></td>
 						<td class="status column-status" data-colname="status">'. $order->get_status().'<br>';
 							if($order->get_status() != 'completed') {
 							echo '<a id="mark_dropshipped_'.$new_order_id.'" class="button button-primary" href="'.$fake_ajax_url.'" style="margin-top:2px">Mark as Complete</a>
@@ -248,6 +276,7 @@ function dropshipper_order_list() {
 						<th scope="col" id="client" class="manage-column column-client-info">Client Info</th>
 						<th scope="col" id="client" class="manage-column column-client-info">Contact Info</th>
 						<th scope="col" id="shipping" class="manage-column column-shipping-info">Shipping Info</th>
+						<th scope="col" id="pod_header" class="manage-column column-pod">POD</th>
 						<th scope="col" id="status" class="manage-column column-status-info">Status</th>
 					</tr>
 				</tfoot>

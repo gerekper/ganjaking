@@ -839,7 +839,7 @@ final class THEMECOMPLETE_EPO_CP_currency {
 		// Retrieve exchange rates from the configuration
 		$exchange_rate = FALSE;
 		if ( class_exists( 'WC_Product_Price_Based_Country' ) && function_exists( 'WCPBC' ) ) {
-			
+
 			if ( function_exists( 'wcpbc_the_zone' )  && wcpbc_the_zone() ) {
 			    $exchange_rate = wcpbc_the_zone()->get_exchange_rate();
 			}
@@ -869,7 +869,7 @@ final class THEMECOMPLETE_EPO_CP_currency {
 			}
 
 		}
-		
+
 		if ( ! $exchange_rate ) {
 			return $amount;
 		}

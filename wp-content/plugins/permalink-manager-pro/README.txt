@@ -1,13 +1,13 @@
 === Permalink Manager Pro ===
 Contributors: mbis
 Donate link: https://www.paypal.me/Bismit
-License: GPLv3
+License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: permalinks, custom permalinks, url editor, permalinks, woocommerce permalinks
 Requires at least: 4.4.0
 Requires PHP: 5.4
-Tested up to: 5.6.0
-Stable tag: 2.2.9.6
+Tested up to: 5.7.0
+Stable tag: 2.2.9.7
 
 Permalink Manager allows to easily change full URL addresses of posts, pages, custom post types, terms and WooCommerce links. You can also set different permalink formats per language or bulk change the URLs.
 
@@ -103,10 +103,15 @@ It is because Permalink Manager overwrites one of the core Wordpress functionali
 
 == Changelog ==
 
-= 2.2.9.6 =
+= 2.2.9.7 (11/03/2021) =
+* Enhancement - Support for WooCommerce CSV Product Importer/Exporter added
+* Enhancement - Better support for relationship field (ACF)
+* Fix - The custom redirects are now case-insensitive
+
+= 2.2.9.6 (08/02/2021) =
 * Fix - Hotfix for WooCommerce coupon related functions
 
-= 2.2.9.5 =
+= 2.2.9.5 (08/02/2021) =
 * Fix - The custom permalink is generated properly if the product is duplicated in WooCommerce dashboard
 * Enhancement - New settings field - "Exclude drafts"
 * Enhancement - Minor code improvements

@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Cart Add-Ons
  * Plugin URI: https://woocommerce.com/products/cart-add-ons/
  * Description: A tool for driving incremental and impulse purchases once customers are in the shopping cart. It extends the concept of upsells and cross-sells at the product level, and engages your customers at the moment they are most likely to increase spending.
- * Version: 1.15.35
+ * Version: 2.0.0
  * Author: WooCommerce
  * Tested up to: 5.6
  * WC requires at least: 4.0
@@ -30,17 +30,20 @@
  * @package woocommerce-cart-add-ons
  */
 
+
+use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
+use Automattic\WooCommerce\Admin\Features\Features;
 /**
  * Localisation
  **/
 
-use \Automattic\WooCommerce\Admin\Features\Navigation\Menu;
 
 load_plugin_textdomain( 'sfn_cart_addons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 add_filter( 'woocommerce_translations_updates_for_woocommerce-cart-add-ons', '__return_true' );
 
 
-define( 'WC_CART_ADDONS_VERSION', '1.15.35' ); // WRCS: DEFINED_VERSION.
+define( 'WC_CART_ADDONS_VERSION', '2.0.0' ); // WRCS: DEFINED_VERSION.
 
 // Activation.
 register_activation_hook( __FILE__, array( 'SFN_Cart_Addons', 'activate' ) );
@@ -117,7 +120,13 @@ class SFN_Cart_Addons {
 		// Register our help tab.
 		add_action( 'load-' . $admin_page, array( $this, 'register_help_tab' ) );
 
-		if ( ! class_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Menu' ) ) {
+		if (
+			! class_exists( 'Features' ) ||
+			! method_exists( Screen::class, 'register_post_type' ) ||
+			! method_exists( Menu::class, 'add_plugin_item' ) ||
+			! method_exists( Menu::class, 'add_plugin_category' ) ||
+			! Features::is_enabled( 'navigation' )
+		) {
 			return;
 		}
 

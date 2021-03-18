@@ -1125,5 +1125,17 @@ class THEMECOMPLETE_EPO_WPML_base {
 
 		return $wpml_translation_by_id;
 	}
+
+	public function get_price_in_currency( $price = 0, $currency = '' ){
+		global $woocommerce_wpml;
+		if ( $this->is_multi_currency() ){
+			if ( is_callable( array( $woocommerce_wpml->multi_currency, 'convert_price_amount' ) ) ) {
+				$price = $woocommerce_wpml->multi_currency->convert_price_amount( $price, $currency );
+			} elseif ( property_exists( $woocommerce_wpml->multi_currency, 'prices' ) && is_callable( array( $woocommerce_wpml->multi_currency->prices, 'convert_price_amount' ) ) ) {
+				$price = $woocommerce_wpml->multi_currency->prices->convert_price_amount( $price, $currency );
+			}
+		}
+		return $price;
+	}
 }
 
