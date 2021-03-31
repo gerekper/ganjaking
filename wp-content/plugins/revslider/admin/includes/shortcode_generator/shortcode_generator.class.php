@@ -265,7 +265,6 @@ class RevSliderShortcodeWizard extends RevSliderFunctions {
 	}
 
 	public static function enqueue_files(){
-
 		echo '<div id="rb_modal_underlay" style="display:none"></div>';
 
 		require_once(RS_PLUGIN_PATH . 'admin/views/modals-copyright.php');

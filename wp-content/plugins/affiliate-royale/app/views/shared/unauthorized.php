@@ -1,2 +1,0 @@
-<?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');} ?>
-<p><?php printf(__('You\'re unauthorized to view this page. Why don\'t you %1$sLogin%2$s and try again.', 'affiliate-royale', 'easy-affiliate'), '<a href="'. $loginURL . '">', '</a>'); ?></p>

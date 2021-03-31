@@ -27,7 +27,7 @@ use SkyVerge\WooCommerce\Memberships\Admin\Views\Modals\Profile_Field\Confirm_De
 use SkyVerge\WooCommerce\Memberships\Admin\Views\Modals\User_Membership\Confirm_Edit_Profile_Fields;
 use SkyVerge\WooCommerce\Memberships\Admin\Profile_Fields;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields as Profile_Fields_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -96,8 +96,10 @@ class WC_Memberships_Admin {
 		add_action( 'admin_menu', [ $this, 'add_import_export_admin_page' ] );
 		// init profile fields page
 		add_action( 'admin_menu', [ $this, 'add_profile_fields_admin_page' ] );
+
 		// add navigation menu items
-		add_action( 'admin_menu', [ $this, 'add_enhanced_navigation_items' ] );
+		add_action( 'admin_menu',                        [ $this, 'add_enhanced_navigation_items' ] );
+		add_filter( 'woocommerce_navigation_menu_items', [ $this, 'edit_enhanced_navigation_items' ] );
 
 		// add additional bulk actions to memberships-restrictable post types
 		// TODO when WordPress 4.7 is the minimum required version, this may be updated to use new hooks {FN 2018-11-05}
@@ -452,6 +454,7 @@ class WC_Memberships_Admin {
 	 * Adds menu items for the enhanced WooCommerce navigation feature.
 	 *
 	 * TODO in the future reorganize some of the strings passed in this method's calls to keep things DRY {FN 2020-11-13}
+	 * For example, if autoloading is supported, different components could offer a method to retrieve their menu item name and such.
 	 *
 	 * @internal
 	 *
@@ -459,7 +462,7 @@ class WC_Memberships_Admin {
 	 */
 	public function add_enhanced_navigation_items() {
 
-		if ( ! class_exists( Enhanced_Navigation_Menu::class ) || ! class_exists( Enhanced_Navigation_Screen::class ) ) {
+		if ( ! Framework\SV_WC_Helper::is_wc_navigation_enabled() ) {
 			return;
 		}
 
@@ -467,7 +470,7 @@ class WC_Memberships_Admin {
 		Enhanced_Navigation_Screen::register_post_type( 'wc_membership_plan' );
 		Enhanced_Navigation_Menu::add_plugin_category( [
 			'id'    => 'woocommerce-memberships',
-			'title' => wc_memberships()->get_plugin_name(),
+			'title' => __( 'Memberships', 'woocommerce-memberships' ),
 		] );
 
 		$user_memberships = Enhanced_Navigation_Menu::get_post_type_items(
@@ -487,7 +490,7 @@ class WC_Memberships_Admin {
 			'wc_membership_plan',
 			[
 				'parent' => 'woocommerce-memberships',
-				'title'  => __( 'Membership Plans', 'woocommerce-memberships' ),
+				'title'  => __( 'Plans', 'woocommerce-memberships' ),
 				'order'  => 2,
 			]
 		);
@@ -515,6 +518,36 @@ class WC_Memberships_Admin {
 			'parent'     => 'woocommerce-memberships',
 			'order'      => 4,
 		] );
+	}
+
+
+	/**
+	 * Tweaks the WooCommerce enhanced navigation menu item names.
+	 *
+	 * Ensures there are no duplicate Memberships entries.
+	 *
+	 * @internal
+	 *
+	 * @since 1.21.5
+	 *
+	 * @param array $menu_items
+	 * @return array
+	 */
+	public function edit_enhanced_navigation_items( $menu_items ) {
+
+		foreach ( (array) $menu_items as $i => $menu_item ) {
+
+			if ( isset( $menu_items[ $i ]['title'] ) && ! in_array( $i, [ 'woocommerce-memberships', 'settings-memberships' ], true ) && __( 'Memberships', 'woocommerce-memberships' ) === $menu_items[ $i ]['title'] ) {
+
+				if ( isset( $menu_items['woocommerce-memberships']['title'] ) ) {
+					$menu_items['woocommerce-memberships']['title'] = wc_memberships()->get_plugin_name();
+				}
+
+				break;
+			}
+		}
+
+		return $menu_items;
 	}
 
 
@@ -1441,9 +1474,12 @@ class WC_Memberships_Admin {
 
 			if ( is_array( $tabs ) ) :
 
+				// render, but do not show tabs if WooCommerce enhanced navigation is used (preserve regular screen)
+				$hide_in_enhanced_navigation = Framework\SV_WC_Helper::is_wc_navigation_enabled() ? 'style="display: none;"' : '';
+
 				?>
 				<div class="wrap woocommerce">
-					<h2 class="nav-tab-wrapper woo-nav-tab-wrapper">
+					<h2 class="nav-tab-wrapper woo-nav-tab-wrapper" <?php echo $hide_in_enhanced_navigation; ?>>
 						<?php $current_tab = $this->get_current_tab(); ?>
 						<?php $current_tab = 'members' === $current_tab && 'admin_page_wc_memberships_import_export' === $screen->id ? 'import-export' : $current_tab; ?>
 						<?php foreach ( $tabs as $tab_id => $tab ) : ?>

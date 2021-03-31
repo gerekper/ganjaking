@@ -18,15 +18,15 @@
  *
  * @package   SkyVerge/WooCommerce/Plugin/Classes
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2019, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2020, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_5_0;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_10_6;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_5_0\\SV_WC_Helper' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_10_6\\SV_WC_Helper' ) ) :
 
 
 /**
@@ -480,10 +480,11 @@ class SV_WC_Helper {
 			$product   = $item->get_product();
 			$name      = $item->get_name();
 			$quantity  = $item->get_quantity();
+			$sku       = $product instanceof \WC_Product ? $product->get_sku() : '';
 			$item_desc = [];
 
 			// add SKU to description if available
-			if ( $sku = $product->get_sku() ) {
+			if ( ! empty( $sku ) ) {
 				$item_desc[] = sprintf( 'SKU: %s', $sku );
 			}
 
@@ -542,6 +543,25 @@ class SV_WC_Helper {
 		}
 
 		return $is_virtual;
+	}
+
+
+	/**
+	 * Determines if a shop has any published virtual products.
+	 *
+	 * @since 5.10.0
+	 *
+	 * @return bool
+	 */
+	public static function shop_has_virtual_products() {
+
+		$virtual_products = wc_get_products( [
+			'virtual' => true,
+			'status'  => 'publish',
+			'limit'   => 1,
+		] );
+
+		return sizeof( $virtual_products ) > 0;
 	}
 
 
@@ -941,6 +961,64 @@ class SV_WC_Helper {
 		global $current_screen;
 
 		return isset( $current_screen->$prop ) && $id === $current_screen->$prop;
+	}
+
+
+	/**
+	 * Determines if viewing an enhanced admin screen.
+	 *
+	 * @since 5.6.0
+	 *
+	 * @return bool
+	 */
+	public static function is_enhanced_admin_screen() {
+
+		return is_admin() && SV_WC_Plugin_Compatibility::is_enhanced_admin_available() && ( \Automattic\WooCommerce\Admin\Loader::is_admin_page() || \Automattic\WooCommerce\Admin\Loader::is_embed_page() );
+	}
+
+
+	/**
+	 * Determines whether the new WooCommerce enhanced navigation is supported and enabled.
+	 *
+	 * @since 5.10.6
+	 *
+	 * @return bool
+	 */
+	public static function is_wc_navigation_enabled() {
+
+		return
+			is_callable( [ \Automattic\WooCommerce\Admin\Features\Navigation\Screen::class, 'register_post_type' ] ) &&
+			is_callable( [ \Automattic\WooCommerce\Admin\Features\Navigation\Menu::class, 'add_plugin_item' ] ) &&
+			is_callable( [ \Automattic\WooCommerce\Admin\Features\Navigation\Menu::class, 'add_plugin_category' ] ) &&
+			is_callable( [ \Automattic\WooCommerce\Admin\Features\Features::class, 'is_enabled' ] ) &&
+			\Automattic\WooCommerce\Admin\Features\Features::is_enabled( 'navigation' );
+	}
+
+
+	/**
+	 * Determines if the current request is for a WC REST API endpoint.
+	 *
+	 * @see \WooCommerce::is_rest_api_request()
+	 *
+	 * @since 5.9.0
+	 *
+	 * @return bool
+	 */
+	public static function is_rest_api_request() {
+
+		if ( is_callable( 'WC' ) && is_callable( [ WC(), 'is_rest_api_request' ] ) ) {
+			return (bool) WC()->is_rest_api_request();
+		}
+
+		if ( empty( $_SERVER['REQUEST_URI'] ) || ! function_exists( 'rest_get_url_prefix' ) ) {
+			return false;
+		}
+
+		$rest_prefix         = trailingslashit( rest_get_url_prefix() );
+		$is_rest_api_request = false !== strpos( $_SERVER['REQUEST_URI'], $rest_prefix );
+
+		/* applies WooCommerce core filter */
+		return (bool) apply_filters( 'woocommerce_is_rest_api_request', $is_rest_api_request );
 	}
 
 

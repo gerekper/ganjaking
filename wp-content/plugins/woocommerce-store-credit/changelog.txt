@@ -1,5 +1,10 @@
 *** Store Credit Changelog ***
 
+2021-03-15 - version 3.6.0
+* Feature - Display the receiver fields expanded on the Store Credit product page.
+* Tweak - Optionally, remove the plugin options when uninstalling it.
+* Tweak - Check the minimum requirements before initializing the plugin.
+
 2021-03-08 - version 3.5.2
 * Tweak - Added compatibility with WP 5.7.
 * Fix - Fixed wrong amount displayed in the discount row of the Order details when displaying prices with tax included.

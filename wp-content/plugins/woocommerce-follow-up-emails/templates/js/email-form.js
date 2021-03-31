@@ -1,6 +1,6 @@
 var fue_editor_events_attached = false, fue_timer = null;
 jQuery( function ( $ ) {
-    $("form#post").submit(function() {
+    $( 'form#post' ).on( 'submit', function() {
         var content = fue_get_editor_content();
         if (!content.trim()) {
             // is empty or whitespace
@@ -10,7 +10,7 @@ jQuery( function ( $ ) {
         }
 
         return true;
-    });
+    } );
 
     // Inject a label before the Title textfield
     $("#titlewrap").prepend('<label for="title" class="fue-label">Name</label>');
@@ -22,7 +22,7 @@ jQuery( function ( $ ) {
     $('div.panel-wrap').each(function(){
         $(this).find('div.panel').slice(1).hide();
     });
-    $('#fue-email-details').on("click", "ul.fue-tabs a", function(){
+    $( '#fue-email-details' ).on( 'click', 'ul.fue-tabs a', function() {
         var panel_wrap =  $(this).closest('div.panel-wrap');
         $('ul.fue-tabs li', panel_wrap).removeClass('active');
         $(this).parent().addClass('active');
@@ -30,20 +30,20 @@ jQuery( function ( $ ) {
         $( $(this).attr('href') ).show();
 
         return false;
-    });
+    } );
 
     // Post Status selector
     $(".misc-pub-post-status").remove();
-    $(".misc-pub-email-status a.edit-post-status").click( function( event ) {
+    $( '.misc-pub-email-status a.edit-post-status' ).on( 'click', function( event ) {
         if ( $("#post_status").is( ':hidden' ) ) {
-            $("#post_status").slideDown('fast').find('select').focus();
+            $("#post_status").slideDown('fast').find('select').trigger( 'focus' );
             $(this).hide();
         }
         event.preventDefault();
-    });
+    } );
 
     // Email Type
-    $("#email_type").on("change", function() {
+    $( '#email_type' ).on( 'change', function() {
         var val = $(this).val();
         var nonce = $( this ).data( 'nonce' );
 
@@ -56,20 +56,20 @@ jQuery( function ( $ ) {
             fue_update_email_type(val, nonce);
         }
 
-    }).change();
+    } ).trigger( 'change' );
 
     // Email Template
-    $("#template").on("change", function() {
+    $( '#template' ).on( 'change', function() {
         var val = $(this).val();
         var nonce = $( this ).data( 'nonce' );
 
         if ( val !== "" ) {
             fue_update_email_template( val, nonce );
         }
-    }).change();
+    } ).trigger( 'change' );
 
     // Interval Type
-    jQuery("#fue-email-details").on("change", "#interval_type", function() {
+    jQuery( '#fue-email-details' ).on( 'change', '#interval_type', function() {
 
         jQuery(".adjust_date_tr").hide();
 
@@ -127,15 +127,15 @@ jQuery( function ( $ ) {
 
         jQuery("body").trigger("fue_interval_type_changed", [jQuery(this).val()]);
 
-    }).change();
+    } ).trigger( 'change' );
 
     // Interval Duration
-    jQuery("#fue-email-details").on("change", "#interval_duration", function() {
+    jQuery( '#fue-email-details' ).on( 'change', '#interval_duration', function() {
         fue_toggle_elements();
-    }).change();
+    } ).trigger( 'change' );
 
     // Test Email.
-    jQuery("#fue-email-test").on("click", "#test_send", function() {
+    jQuery( '#fue-email-test' ).on( 'click', '#test_send', function() {
         var $btn    = jQuery(this);
         var old_val = $btn.val();
         var $email  = jQuery( '#email' );
@@ -146,7 +146,7 @@ jQuery( function ( $ ) {
 
         $btn
             .val("Please wait...")
-            .attr("disabled", true);
+            .prop( 'disabled', true );
 
         var data = {
             'action' : 'fue_send_test_email',
@@ -169,45 +169,45 @@ jQuery( function ( $ ) {
 
             $btn
                 .val(old_val)
-                .removeAttr("disabled");
+                .prop( 'disabled', false );
         });
-    });
+    } );
 
     // Move focus to the Subject field after pressing the TAB key on the Title field
-    $("#post-body-content").on('keydown', '#title', function(e) {
+    $( '#post-body-content' ).on( 'keydown', '#title', function( e ) {
         var keyCode = e.keyCode || e.which;
 
         if (keyCode === 9) {
             e.preventDefault();
 
             // move focus to the subject field
-            $("#post_excerpt").focus();
+            $( '#post_excerpt' ).trigger( 'focus' );
         }
-    });
+    } );
 
     // GA Tracking switch
-    $("#fue-email-details").on("change", "#tracking_on", function() {
+    $( '#fue-email-details').on( 'change', '#tracking_on', function() {
         if (jQuery(this).prop("checked")) {
             jQuery(".tracking_on").show();
         } else {
             jQuery(".tracking_on").hide();
         }
-    });
+    } );
 
     // Custom Fields
-    jQuery("#use_custom_field").change(function() {
+    jQuery( '#use_custom_field' ).on( 'change', function() {
         if (jQuery(this).prop("checked")) {
             jQuery(".show-if-custom-field").show();
         } else {
             jQuery(".show-if-custom-field").hide();
         }
-    }).change();
+    } ).trigger( 'change' );
 
-    jQuery("#custom_fields").change(function() {
+    jQuery( '#custom_fields' ).on( 'change', function() {
         if (jQuery(this).val() === "Select a product first.") return;
         jQuery(".show-if-cf-selected").show();
         jQuery("#custom_field").val("{cf "+ jQuery("#product_id").val() +" "+ jQuery(this).val() +"}");
-    }).change();
+    } ).trigger( 'change' );
 
     // Event for updating the metaboxes
     $('body').on( 'updated_email_type updated_email', function() {
@@ -282,7 +282,7 @@ jQuery( function ( $ ) {
                 '.var_customer_email', '#fue-email-variables-list .non-signup'
             ];
 
-            jQuery("option.interval_duration_date").attr("disabled", "disabled");
+            jQuery( 'option.interval_duration_date' ).prop( 'disabled', true );
 
             for (x = 0; x < hide.length; x++) {
                 jQuery(hide[x]).hide();
@@ -316,7 +316,7 @@ jQuery( function ( $ ) {
             show = ['.always_send_tr', '.interval_type_order_total_above', '.interval_type_order_total_below', '.interval_type_purchase_above_one', '.interval_type_total_purchases', '.interval_type_total_orders', '.interval_type_total_purchases', '.interval_type_after_last_purchase', '.interval_type_span'];
             hide = ['.adjust_date_tr', '.interval_type_option', '.always_send_tr', '.signup_description', '.product_description_tr', '.product_tr', '.category_tr', '.use_custom_field_tr', '.custom_field_tr', '.interval_duration_date'];
 
-            jQuery("option.interval_duration_date").attr("disabled", "disabled");
+            jQuery( 'option.interval_duration_date' ).prop( 'disabled', true );
 
             for (x = 0; x < hide.length; x++) {
                 jQuery(hide[x]).hide();
@@ -376,8 +376,8 @@ jQuery( function ( $ ) {
             $(".adjust_date_tr").show();
         }
 
-        $("#send_coupon").change();
-        $("#tracking_on").change();
+        $( '#send_coupon' ).trigger( 'change' );
+        $( '#tracking_on' ).trigger( 'change' );
         $( '.save_email.button-primary' ).prop( 'disabled', false );
     }
 
@@ -395,7 +395,7 @@ jQuery( function ( $ ) {
 
             $("#fue-email-details-content").show();
 
-            $('ul.fue-tabs li:visible').eq(0).find('a').click();
+            $( 'ul.fue-tabs li:visible' ).eq( 0 ).find( 'a' ).trigger( 'click' );
 
             fue_toggle_elements();
 
@@ -419,11 +419,11 @@ jQuery( function ( $ ) {
             $('body').trigger('updated_variables_list');
 
             // Hide variables that rely on #interval_type's value
-            $('#interval_type').trigger('change');
+            $( '#interval_type' ).trigger( 'change' );
 
             $("#fue-email-variables").unblock();
 
-            $("#send_coupon").trigger("change");
+            $( '#send_coupon' ).trigger( 'change' );
 
             bind_tooltips();
         });
@@ -639,21 +639,21 @@ jQuery().ready(function() {
         } );
     }
 
-    jQuery("button#content-html").click(function() {
+    jQuery( 'button#content-html' ).on( 'click', function() {
         dummy.remove();
-    });
+    } );
 
     var content_dummy = function() {
-        dummy.click(function() {
-            tinyMCE.get('content').focus();
+        dummy.on( 'click', function() {
+            tinyMCE.get( 'content' ).trigger( 'focus' );
             dummy.remove();
-        });
+        } );
 
         if ( !ifr_body.hasClass("has-focus") ) {
             timer = setInterval(function() {
                 if ( ifr_body.hasClass('has-focus') ) {
                     clearInterval( timer );
-                    dummy.trigger("click");
+                    dummy.trigger( 'click' );
                 }
             }, 500);
         }

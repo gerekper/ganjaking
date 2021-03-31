@@ -8,6 +8,7 @@ class MeprPayPalGateway extends MeprBasePayPalGateway {
   /** Used in the view to identify the gateway */
   public function __construct() {
     $this->name = __("PayPal Express Checkout", 'memberpress');
+    $this->key = __('paypalexpress', 'memberpress');
     $this->has_spc_form = false;
 
     $this->set_defaults();
@@ -512,7 +513,7 @@ class MeprPayPalGateway extends MeprBasePayPalGateway {
         array(
           'TRIALBILLINGPERIOD' => 'Day',
           'TRIALBILLINGFREQUENCY' => $sub->trial_days,
-          'TRIALAMT' => $sub->trial_amount,
+          'TRIALAMT' => $sub->trial_total,
           'TRIALTOTALBILLINGCYCLES' => 1
         ),
         $args
@@ -756,7 +757,7 @@ class MeprPayPalGateway extends MeprBasePayPalGateway {
       $txn->trans_num  = $sub->subscr_id . '-' . uniqid();
       $txn->status     = MeprTransaction::$confirmed_str;
       $txn->txn_type   = MeprTransaction::$subscription_confirmation_str;
-      $txn->expires_at = MeprUtils::ts_to_mysql_date(time() + MeprUtils::days(1), 'Y-m-d 23:59:59');
+      $txn->expires_at = MeprUtils::ts_to_mysql_date($sub->get_expires_at());
       $txn->set_subtotal(0.00); // Just a confirmation txn
       $txn->store();
     }

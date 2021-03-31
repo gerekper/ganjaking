@@ -214,13 +214,13 @@ if ( isset($_POST) && !empty($_POST) ) { // phpcs:ignore WordPress.Security.Nonc
 
 <script type="text/javascript">
 jQuery(document).ready(function($) {
-	$("#frm").submit(function() {
-		$("#save").attr("disabled", true);
-	});
+	$( '#frm' ).on( 'submit', function() {
+		$( '#save' ).prop( 'disabled', true );
+	} );
 
 	jQuery(".send-type-div").hide();
 
-	jQuery("#send_type").change(function() {
+	jQuery( '#send_type' ).on( 'change', function() {
 		jQuery(".send-type-div").hide();
 		switch (jQuery(this).val()) {
 
@@ -240,25 +240,25 @@ jQuery(document).ready(function($) {
 				break;
 
 		}
-	}).change();
+	} ).trigger( 'change' );
 
-	jQuery("#tracking_on").change(function() {
+	jQuery( '#tracking_on').on( 'change', function() {
 		if (jQuery(this).prop("checked")) {
 			jQuery(".tracking_on").show();
 		} else {
 			jQuery(".tracking_on").hide();
 		}
-	}).change();
+	} ).trigger( 'change' );
 
-	jQuery("#interval_type").change(function() {
+	jQuery( '#interval_type' ).on( 'change', function() {
 		if (jQuery(this).val() != "cart") {
 			jQuery(".not-cart").show();
 		} else {
 			jQuery(".not-cart").hide();
 		}
-	}).change();
+	} ).trigger( 'change' );
 
-	jQuery("#interval_duration").change(function() {
+	jQuery( '#interval_duration' ).on( 'change', function() {
 		if (jQuery(this).val() == "date") {
 			jQuery(".hide-if-date").hide();
 			jQuery(".show-if-date").show();
@@ -267,8 +267,8 @@ jQuery(document).ready(function($) {
 			jQuery(".show-if-date").hide();
 		}
 
-		jQuery("#email_type").change();
-	}).change();
+		jQuery( '#email_type').trigger( 'change' );
+	} ).trigger( 'change' );
 
 	jQuery( '.date, #timeframe_to' ).datepicker( {
 		dateFormat: 'yy-mm-dd',
@@ -283,24 +283,24 @@ jQuery(document).ready(function($) {
 
 	<?php do_action('fue_manual_email_form_script'); ?>
 
-	jQuery("#send_again").change(function() {
+	jQuery( '#send_again').on( 'change', function() {
 		if (jQuery(this).prop("checked")) {
 			jQuery(".class_send_again").show();
 		} else {
 			jQuery(".class_send_again").hide();
 		}
-	}).change();
+	} ).trigger( 'change' );
 
-	jQuery("#schedule_email").change(function() {
+	jQuery( '#schedule_email' ).on( 'change', function() {
 		if (jQuery(this).prop("checked")) {
 			jQuery(".sending_schedule_picker").show();
 		} else {
 			jQuery(".sending_schedule_picker").hide();
 		}
-	}).change();
+	} ).trigger( 'change' );
 
 	// Test Email
-	jQuery("div.email-form").on("click", "#test_send", function() {
+	jQuery( 'div.email-form' ).on( 'click', '#test_send', function() {
 		var $btn    = jQuery(this);
 		var old_val = $btn.val();
 
@@ -312,7 +312,7 @@ jQuery(document).ready(function($) {
 
 		$btn
 			.val("Please wait...")
-			.attr("disabled", true);
+			.prop( 'disabled', true );
 
 		var data = {
 			'action' : 'fue_send_test_email',
@@ -335,9 +335,9 @@ jQuery(document).ready(function($) {
 
 			$btn
 				.val(old_val)
-				.removeAttr("disabled");
+				.prop( 'disabled', false );
 		});
-	});
+	} );
 
 	jQuery(".tips, .help_tip").tipTip({
 		'attribute' : 'title',

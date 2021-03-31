@@ -186,11 +186,11 @@
               <input type="checkbox" name="<?php echo $mepr_options->allow_suspend_subs_str; ?>" id="<?php echo $mepr_options->allow_suspend_subs_str; ?>" <?php checked($mepr_options->allow_suspend_subs); ?> />
               <span>
                 <?php _e('Allow Members to Pause &amp; Resume their own subscriptions', 'memberpress'); ?>
-                <?php MeprAppHelper::info_tooltip( 'mepr-suspend-resume',
-                                                   __('Pausing &amp; Resuming Subscriptions', 'memberpress'),
-                                                   __('This option will only be available if this is enabled and the user purchased their subsciption using PayPal or Stripe.', 'memberpress') ); ?>
               </span>
             </label>
+            <?php MeprAppHelper::info_tooltip( 'mepr-suspend-resume',
+                                                   __('Pausing &amp; Resuming Subscriptions', 'memberpress'),
+                                                   __('This option will only be available if this is enabled and the user purchased their subsciption using PayPal or Stripe.', 'memberpress') ); ?>
           </div>
         </div>
       </div>
@@ -470,7 +470,7 @@
         <label for="<?php echo $mepr_options->admin_email_addresses_str; ?>"><?php _e('Admin Email Addresses:', 'memberpress'); ?>
           <?php MeprAppHelper::info_tooltip( 'mepr-admin-email-addresses',
                                              __('Notification Email Addresses', 'memberpress'),
-                                             __('This is a comma separated list of email addresses that will recieve admin notifications. This defaults to your admin email set in "Settings" -> "General" -> "E-mail Address"', 'memberpress') ); ?>
+                                             __('This is a comma separated list of email addresses that will receive admin notifications. This defaults to your admin email set in "Settings" -> "General" -> "E-mail Address"', 'memberpress') ); ?>
         </label>
         <input type="text" id="<?php echo $mepr_options->admin_email_addresses_str; ?>" name="<?php echo $mepr_options->admin_email_addresses_str; ?>" class="regular-text" value="<?php echo stripslashes($mepr_options->admin_email_addresses); ?>" />
       </div>

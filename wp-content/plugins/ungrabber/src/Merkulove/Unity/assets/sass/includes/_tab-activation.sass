@@ -1,0 +1,112 @@
+// Activation Tab
+.mdp-tab-name-activation
+
+  h3
+    margin-bottom: 30px !important
+    font-family: "Roboto", sans-serif
+    font-size: 1.2em
+
+  // Tab content
+  .mdp-activation
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+
+    // Activation form
+    .mdp-activation-form
+      width: 100%
+      position: relative
+      padding-bottom: 30px
+
+      .mdc-input-width
+        max-width: 100%
+        height: 64px
+
+        input
+          font-size: 18px
+
+        label.mdc-floating-label--float-above
+          margin-top: -12px
+          background: linear-gradient( to bottom, rgba( 255, 255, 255, 1 ), rgba( 255, 255, 255, 0 ) )
+
+    // FAQ
+    .mdp-activation-faq
+      width: calc( 60% - 30px )
+
+      h3
+        font-size: 1.2em !important
+
+    // Subscribe
+    .mdp-subscribe-form
+      width: 40%
+
+      p
+        font-size: 14px
+        color: rgba( 10, 33, 56, .75 )
+        margin-bottom: 1.5rem
+
+        &.mdp-subscribe-form-message-error,
+        &.mdp-subscribe-form-message-success
+          padding: 16px
+          border-radius: 8px
+          transition: .1s
+
+        &.mdp-subscribe-form-message-error
+          border: 1px solid rgba( 255, 69, 0, .5 )
+          color: rgba( 255, 69, 0, 1 )
+
+        &.mdp-subscribe-form-message-success
+          border: 1px solid rgba( 73, 167, 68, .5 )
+          color: rgba( 73, 167, 68, 1 )
+
+      .mdc-input-width
+        max-width: 100%
+        height: 48px
+
+      .mdc-text-field
+        margin-bottom: 1.25em
+        height: 48px
+        width: 100%
+
+      .mdc-ripple-upgraded:hover::before
+        opacity: 0
+
+// Subscribe Form
+#mdp-subscribe
+  height: 40px
+  background: rgba(2, 116, 230, .07)
+  box-shadow: none
+  font-size: 14px
+  font-weight: 400
+  color: rgba(2, 116, 230, 1)
+  border: 1px solid rgba(2, 116, 230, 0.05)
+
+  &:hover
+    text-decoration: none
+    background: rgba(2, 116, 230, 0.1)
+    color: rgba(2, 116, 230, 1)
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,.05), 0 4px 5px 0 rgba(0,0,0,.03), 0 1px 10px 0 rgba(0,0,0,.03)
+
+/* Responsiveness */
+@media screen and (max-width: 1080px)
+
+  .mdp-tab-name-activation
+    .mdp-activation
+      flex-direction: column
+
+      .mdp-activation-form,
+      .mdp-activation-faq,
+      .mdp-subscribe-form,
+      .mdc-input-width
+        width: 100%
+        max-width: 100% !important
+
+@media screen and (max-width: 782px)
+
+  .mdp-tab-name-activation
+    .mdp-activation
+
+      .mdp-activation-faq,
+      .mdp-activation-form,
+      .mdp-subscribe-form
+        width: calc( 100% - 60px )

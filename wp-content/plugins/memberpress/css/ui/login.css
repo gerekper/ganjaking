@@ -6,6 +6,10 @@
   position: absolute;
   right: 0;
   top: 0;
+  display: flex;
+  width: auto;
+  height: 100%;
+  align-items: center;
   background: 0 0;
   color: #85929E;
   text-decoration: none;
@@ -29,7 +33,7 @@
 
 .button.mp-hide-pw:active {
   background: 0 0;
-  color: ##5D6D7E;
+  color: #5D6D7E;
   text-decoration: none;
   padding: 1em 1.4em;
   border: none;

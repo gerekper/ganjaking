@@ -169,6 +169,7 @@ class MeprProductsHelper {
       $tmp_txn->user_id = (isset($current_user->ID))?$current_user->ID:0;
       $tmp_txn->load_product_vars($product, $coupon_code, true);
       $tmp_txn = MeprHooks::apply_filters('mepr_display_invoice_txn', $tmp_txn);
+      $tmp_txn->expires_at = date(get_option('date_format'), $product->get_expires_at(time()));
 
       if(empty($coupon_code)) { //We've already validated the coupon before including signup_form.php
         if($product->register_price_action == 'custom') {
@@ -194,6 +195,7 @@ class MeprProductsHelper {
       $tmp_sub->user_id = (isset($current_user->ID))?$current_user->ID:0;
       $tmp_sub->load_product_vars($product, $coupon_code,true);
       $tmp_sub->maybe_prorate();
+      $tmp_sub->expires_at = date(get_option('date_format'), $product->get_expires_at(time()));
 
       $tmp_sub = MeprHooks::apply_filters('mepr_display_invoice_sub', $tmp_sub);
 
@@ -270,7 +272,11 @@ class MeprProductsHelper {
       $renewal_str .= sprintf(__(' (renewal for %s to %s)', 'memberpress'), $new_created_at, $new_expires_at);
     }
 
-    return $renewal_str;
+    return MeprHooks::apply_filters(
+      'mepr-product-renewal-string',
+      $renewal_str,
+      $product
+    );
   }
 
 } //End class

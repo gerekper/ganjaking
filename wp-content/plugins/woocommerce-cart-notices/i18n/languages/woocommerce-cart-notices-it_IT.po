@@ -1,0 +1,667 @@
+# Copyright (C) 2019 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Cart Notices 1.11.0\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
+"form/\n"
+"POT-Creation-Date: 2021-03-16 06:48:13+00:00\n"
+"PO-Revision-Date: 2021-03-16 14:48+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#: class-wc-cart-notices.php:519
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d ora"
+msgstr[1] "%d ore"
+
+#: class-wc-cart-notices.php:522
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minuto"
+msgstr[1] "%d minuti"
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Cart Notices"
+msgstr "WooCommerce Cart Notices"
+
+#: includes/admin/class-wc-cart-notices-admin.php:86
+msgid "Minimum Amount"
+msgstr "Ammontare minimo"
+
+#: includes/admin/class-wc-cart-notices-admin.php:87
+msgid "Deadline"
+msgstr "Scadenza"
+
+#: includes/admin/class-wc-cart-notices-admin.php:88
+msgid "Referer"
+msgstr "Provenienza"
+
+#: includes/admin/class-wc-cart-notices-admin.php:89
+msgid "Products in Cart"
+msgstr "Prodotti nel carrello"
+
+#: includes/admin/class-wc-cart-notices-admin.php:90
+msgid "Categories in Cart"
+msgstr "Categorie nel carrello"
+
+#: includes/admin/class-wc-cart-notices-admin.php:124
+msgid "You must choose a Notice Type"
+msgstr "Devi selezionare un tipo di avviso"
+
+#: includes/admin/class-wc-cart-notices-admin.php:130
+msgid "You must provide a Notice Name"
+msgstr "Devi dare un nome all'avviso"
+
+#: includes/admin/class-wc-cart-notices-admin.php:141
+msgid "That name is already in use"
+msgstr "Questo nome è già in uso"
+
+#: includes/admin/class-wc-cart-notices-admin.php:146
+msgid "Target amount must be positive number, or empty"
+msgstr ""
+"Il target ammontare deve essere un numero positivo, altrimenti lasciare "
+"vuoto il campo"
+
+#: includes/admin/class-wc-cart-notices-admin.php:151
+msgid "Threshold amount must be positive number, or empty"
+msgstr ""
+"La soglia dell'ammontare deve essere un numero positivo, altrimenti lasciare "
+"vuoto il campo"
+
+#: includes/admin/class-wc-cart-notices-admin.php:156
+msgid "Deadline hour must be in 24-hour format, between 1 to 24"
+msgstr ""
+"L'orario di scadenza deve essere in formato 24 ore, con un valore compreso "
+"tra 1 e 24"
+
+#: includes/admin/class-wc-cart-notices-admin.php:364
+#: includes/admin/class-wc-cart-notices-admin.php:387
+#: includes/admin/class-wc-cart-notices-admin.php:574
+#: includes/admin/views/admin-options.php:74
+msgid "Cart Notices"
+msgstr "Avvisi nel carrello"
+
+#: includes/admin/class-wc-cart-notices-admin.php:394
+msgid "All Notices"
+msgstr "Avvisi nel carrello"
+
+#: includes/admin/class-wc-cart-notices-admin.php:402
+msgid "Add New Notice"
+msgstr "Aggiungi nuovo avviso"
+
+#: includes/admin/class-wc-cart-notices-admin.php:494
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Non si dispone di permessi sufficienti per accedere alla pagina."
+
+#: includes/admin/class-wc-cart-notices-admin.php:577
+msgid "Delete data"
+msgstr "Elimina dati"
+
+#: includes/admin/class-wc-cart-notices-admin.php:578
+msgid "Delete all Cart Notices data on uninstall"
+msgstr "Elimina tutti gli avvisi nel carrello nella disinstallazione"
+
+#: includes/admin/views/admin-options.php:66
+msgid "Cart Notice"
+msgstr "Avviso nel carrello"
+
+#: includes/admin/views/admin-options.php:78
+msgid "Add cart notice"
+msgstr "Aggiungi avviso nel carrello"
+
+#: includes/admin/views/admin-options.php:89
+#: includes/admin/views/admin-options.php:221
+#: includes/admin/views/admin-options.php:338
+msgid "Name"
+msgstr "Nome"
+
+#: includes/admin/views/admin-options.php:92
+#: includes/admin/views/admin-options.php:224
+#: includes/admin/views/admin-options.php:299
+msgid "Type"
+msgstr "Tipo"
+
+#: includes/admin/views/admin-options.php:95
+#: includes/admin/views/admin-options.php:227
+msgid "Message"
+msgstr "Messaggio"
+
+#: includes/admin/views/admin-options.php:98
+#: includes/admin/views/admin-options.php:230
+#: includes/admin/views/admin-options.php:398
+msgid "Call to Action"
+msgstr "Call to Action"
+
+#: includes/admin/views/admin-options.php:101
+#: includes/admin/views/admin-options.php:233
+#: includes/admin/views/admin-options.php:412
+msgid "Call to Action URL"
+msgstr "Call to Action URL"
+
+#: includes/admin/views/admin-options.php:104
+#: includes/admin/views/admin-options.php:236
+msgid "Other"
+msgstr "Altro"
+
+#: includes/admin/views/admin-options.php:114
+msgid "No notices configured"
+msgstr "Nessun avviso configurato"
+
+#: includes/admin/views/admin-options.php:131
+msgid "Edit"
+msgstr "Modifica"
+
+#: includes/admin/views/admin-options.php:137
+msgid "Disable"
+msgstr "Disabilita"
+
+#: includes/admin/views/admin-options.php:137
+msgid "Enable"
+msgstr "Abilita"
+
+#: includes/admin/views/admin-options.php:143
+msgid "Delete"
+msgstr "Elimina"
+
+#. translators: %s - formatted amount quantity
+#: includes/admin/views/admin-options.php:168
+msgid "Target amount: %s"
+msgstr "Target ammontare: %s"
+
+#. translators: %s - formatted amount quantity
+#: includes/admin/views/admin-options.php:170
+msgid "Threshold amount: %s"
+msgstr "Soglia ammontare: %s"
+
+#: includes/admin/views/admin-options.php:176
+msgid "Deadline Hour: %s"
+msgstr "Orario scadenza: %s"
+
+#: includes/admin/views/admin-options.php:177
+msgid "Active Days: %s"
+msgstr "Giorni attivi: %s"
+
+#. translators: %s - website
+#: includes/admin/views/admin-options.php:184
+msgid "Referring Site: %s"
+msgstr "Sito di provenienza: %s"
+
+#: includes/admin/views/admin-options.php:190
+msgid "Products: %s"
+msgstr "Prodotti: %s"
+
+#: includes/admin/views/admin-options.php:193
+msgid "Minimum quantity: %s"
+msgstr "Quantità minima: %s"
+
+#: includes/admin/views/admin-options.php:197
+msgid "Maximum quantity: %s"
+msgstr "Quantità massima: %s"
+
+#: includes/admin/views/admin-options.php:203
+msgid "Categories: %s"
+msgstr "Categorie: %s"
+
+#: includes/admin/views/admin-options.php:245
+msgid "Shortcode Reference"
+msgstr "Shortcode"
+
+#: includes/admin/views/admin-options.php:247
+msgid ""
+"In addition to the default placement on the cart/checkout pages, you can "
+"embed one or all of the notices anywhere on the site with the following "
+"shortcodes:"
+msgstr ""
+"Oltre a mostrare gli avvisi nelle pagine del carrello o della cassa, puoi "
+"mostrare qualunque avviso in qualunque pagina del sito tramite i seguenti "
+"shortcode:"
+
+#. translators: %s - shortcode snippet
+#: includes/admin/views/admin-options.php:252
+msgid "%s will embed all notices"
+msgstr "%s includerà tutti gli avvisi"
+
+#. translators: %s - shortcode snippet
+#: includes/admin/views/admin-options.php:255
+msgid "%s will embed just the notice named XXX"
+msgstr "%s includerà solo gli avvisi etichettati XXX"
+
+#. translators: %s - shortcode snippet
+#: includes/admin/views/admin-options.php:258
+msgid "%s will embed just the minimum amount notices"
+msgstr "%s includerà solo gli avvisi di ammontare minimo"
+
+#. translators: %s - shortcode snippet
+#: includes/admin/views/admin-options.php:261
+msgid "%s will embed just the deadline notices"
+msgstr "%s includerà solo gli avvisi di scadenza"
+
+#. translators: %s - shortcode snippet
+#: includes/admin/views/admin-options.php:264
+msgid "%s will embed just the referer notices"
+msgstr "%s includerà solo gli avvisi di provenienza"
+
+#. translators: %s - shortcode snippet
+#: includes/admin/views/admin-options.php:267
+msgid "%s will embed just the products in cart notices"
+msgstr "%s includerà solo i prodotti negli avvisi di scadenza"
+
+#. translators: %s - shortcode snippet
+#: includes/admin/views/admin-options.php:270
+msgid "%s will embed just the categories in cart notices"
+msgstr "%s includerà solo le categorie negli avvisi nel carrello"
+
+#: includes/admin/views/admin-options.php:279
+msgid "Create a new cart notice"
+msgstr "Crea un nuovo avviso nel carrello"
+
+#: includes/admin/views/admin-options.php:280
+#: includes/admin/views/admin-options.php:714
+msgid "Update cart notice"
+msgstr "Aggiorna avviso nel carrello"
+
+#: includes/admin/views/admin-options.php:305
+msgid "Choose One"
+msgstr "Scegline uno"
+
+#: includes/admin/views/admin-options.php:318
+msgid ""
+"This notice will appear on the cart/checkout pages only when the order total "
+"is less than the Target Amount, and/or is greater than or equal to the "
+"Threshold Amount and is convenient for encouraging customers to increase "
+"their order to qualify for free shipping."
+msgstr ""
+"Questo avviso verrà mostrato nelle pagine del carrello e della cassa solo "
+"quando il totale dell'ordine è inferiore al target dell'ammontare, e/o "
+"maggiore o uguale alla soglia dell'ammontare, ed è conveniente per "
+"incoraggiare i clienti ad aumentare l'ammontare del loro ordine per poter "
+"beneficiare della spedizione gratuita."
+
+#: includes/admin/views/admin-options.php:321
+msgid ""
+"This notice will appear on the cart/checkout pages only on the Active Days, "
+"and up to the Deadline Hour, based on your WordPress timezone."
+msgstr ""
+"Questo avviso verrà mostrato nelle pagine del carrello e della cassa solo "
+"nei giorni attivi e fino all'orario di scadenza, in base al fuso orario "
+"impostato in WordPress."
+
+#: includes/admin/views/admin-options.php:324
+msgid ""
+"This notice will appear on the cart/checkout pages only when the customer "
+"originated from the configured site."
+msgstr ""
+"Questo avviso verrà mostrato nelle pagine del carrello e della cassa solo "
+"quando il cliente proviene dal sito indicato."
+
+#: includes/admin/views/admin-options.php:327
+msgid ""
+"This notice will appear on the cart/checkout pages when any of the "
+"configured products appear within the cart."
+msgstr ""
+"Questo avviso verrà mostrato nelle pagine del carrello e della cassa quando "
+"uno dei prodotti indicati è presente nel carrello."
+
+#: includes/admin/views/admin-options.php:330
+msgid ""
+"This notice will appear on the cart/checkout pages when any of the cart "
+"products belong to any of the categories configured below."
+msgstr ""
+"Questo avviso verrà mostrato nelle pagine del carrello e della cassa quando "
+"uno dei prodotti presenti nel carrello appartiene a una delle categorie "
+"indicate nel campo sottostante."
+
+#: includes/admin/views/admin-options.php:344
+msgid ""
+"Provide a name so you can easily recognize this notice within the admin."
+msgstr ""
+"Indica un nome così potrai facilmente riconoscere questo avviso "
+"nell'amministrazione."
+
+#: includes/admin/views/admin-options.php:352
+msgid "Enabled"
+msgstr "Abilitato"
+
+#: includes/admin/views/admin-options.php:363
+msgid "Notice Message"
+msgstr "Messaggio avviso"
+
+#: includes/admin/views/admin-options.php:367
+msgid "Depending on the notice type you may use the following variables:"
+msgstr "A seconda del tipo di avviso puoi usare le seguenti variabili:"
+
+#: includes/admin/views/admin-options.php:372
+msgid ""
+"With type 'Minimum Amount' this is the amount required to meet the minimum "
+"order amount."
+msgstr ""
+"Con il tipo \"Ammontare minimo\", questo è l'ammontare al di sotto "
+"dell'ammontare minimo dell'ordine."
+
+#: includes/admin/views/admin-options.php:373
+msgid ""
+"With type 'Deadline' this is the amount of time remaining, ie '1 hour 15 "
+"minutes' or '25 minutes', etc."
+msgstr ""
+"Con il tipo \"Scadenza\" questo è l'ammontare di tempo rimanente, ad esempio "
+"\"1 ora 15 minuti\" oppure \"25 minuti\", ecc."
+
+#: includes/admin/views/admin-options.php:374
+msgid ""
+"With type 'Products in Cart' or 'Categories in Cart' these are the matching "
+"product names."
+msgstr ""
+"Con il tipo \"Prodotti nel carrello\" o \"Categorie nel carrello\", questi "
+"sono i prodotti eleggibili."
+
+#: includes/admin/views/admin-options.php:375
+msgid "With type 'Products in Cart' this is the product quantity."
+msgstr ""
+"Con il tipo \"Prodotti nel carrello\" questa è la quantità dei prodotti."
+
+#: includes/admin/views/admin-options.php:376
+msgid ""
+"With type 'Products in Cart' and 'Maximum Quantity for Notice' configured "
+"this is the product quantity less than the maximum."
+msgstr ""
+"Con il tipo \"Prodotti nel carrello\" e \"Quantità massima\" configurata, "
+"questa è la quantità prodotti inferiore al massimo."
+
+#: includes/admin/views/admin-options.php:377
+msgid ""
+"With type 'Products in Cart' and 'Minimum Quantity for Notice' configured "
+"this is the product quantity over the minimum."
+msgstr ""
+"Con il tipo \"Prodotti nel carrello\" e \"Quantità minima\" configurata, "
+"questa è la quantità di prodotti minima."
+
+#: includes/admin/views/admin-options.php:378
+msgid "With type 'Categories in Cart' these are the matching category names."
+msgstr ""
+"Con il tipo \"Categorie del carrello\" queste sono le categorie prescelte."
+
+#: includes/admin/views/admin-options.php:404
+msgid "Optional call to action button text, rendered next to the cart notice"
+msgstr ""
+"Testo bottone Call To Action opzionale: verrà mostrato a fianco all'avviso "
+"nel carrello"
+
+#: includes/admin/views/admin-options.php:418
+msgid ""
+"Optional call to action url, this is where the user will go upon clicking "
+"the Call to Action button"
+msgstr ""
+"URL Call To Action opzionale: l'utente verrà reindirizzato verso questo URL "
+"se clicca sul bottone del Call To Action"
+
+#: includes/admin/views/admin-options.php:426
+msgid "Target Amount"
+msgstr "Target ammontare"
+
+#. translators: Placeholders: %1$s - <strong>, %2$s - </strong>, %3$s - <a>,
+#. %4$s - </a>
+#: includes/admin/views/admin-options.php:433
+msgid ""
+"Optional target amount for the notice; the cart total must be %1$sless than"
+"%2$s this amount for the notice to be displayed. If not set, and the "
+"%3$sFree Shipping shipment method%4$s is enabled, the \"Minimum order amount"
+"\" from the shipping method will be used."
+msgstr ""
+"Target opzionale dell'ammontare per attivare l'avviso; il totale del "
+"carrello dovrà essere %1$sinferiore a%2$s questo ammontare affinché l'avviso "
+"venga mostrato. Se non impostato, e se il metodo %3$sSpedizione gratuita%4$s "
+"è abilitato, l'ammontare minimo dell'ordine del metodo di spedizione verrà "
+"utilizzato invece."
+
+#: includes/admin/views/admin-options.php:445
+msgid "Threshold Amount"
+msgstr "Soglia ammontare"
+
+#. translators: Placeholders: %1$s - <strong>, %2$s - </strong>
+#: includes/admin/views/admin-options.php:452
+msgid ""
+"Optional threshold amount to activate the notice. If set, the cart must "
+"contain %1$sat least%2$s this total amount for the notice to be displayed."
+msgstr ""
+"Soglia opzionale dell'ammontare per attivare l'avviso. Se impostato, il "
+"carrello dovrà contenere %1$salmeno%2$s questo ammontare affinché l'avviso "
+"venga mostrato."
+
+#: includes/admin/views/admin-options.php:462
+msgid "Deadline Hour"
+msgstr "Orario scadenza"
+
+#: includes/admin/views/admin-options.php:468
+msgid "Deadline hour in 24-hour format, this can be 1 to 24."
+msgstr "Orario scadenza in formato 24 ore, questo può essere da 1 a 24."
+
+#: includes/admin/views/admin-options.php:477
+msgid "Active Days"
+msgstr "Giorni attivi"
+
+#: includes/admin/views/admin-options.php:495
+msgid "Select the days on which you want this notice to be active."
+msgstr "Seleziona i giorni in cui vuoi che questo avviso sia attivo."
+
+#: includes/admin/views/admin-options.php:503
+msgid "Referring Site"
+msgstr "Sito di provenienza"
+
+#: includes/admin/views/admin-options.php:509
+msgid ""
+"When the visitor originates from this server, they will be shown the referer "
+"cart notice. Example: www.google.com."
+msgstr ""
+"Se il visitatore proviene da questo server, verrà mostrato loro l'avviso di "
+"provenienza. Ad esempio: www.google.com."
+
+#: includes/admin/views/admin-options.php:517
+msgid "\"Show Notice\" Products"
+msgstr "Prodotti \"Mostra avviso\""
+
+#: includes/admin/views/admin-options.php:528
+#: includes/admin/views/admin-options.php:586
+msgid "Search for a product&hellip;"
+msgstr "Cerca un prodotto&hellip;"
+
+#: includes/admin/views/admin-options.php:539
+msgid "Show the notice if any selected product is in the cart."
+msgstr ""
+"Mostra l'avviso se uno dei prodotti selezionati è presente nel carrello."
+
+#: includes/admin/views/admin-options.php:547
+msgid "Minimum Quantity for Notice"
+msgstr "Quantità minima per l'avviso"
+
+#: includes/admin/views/admin-options.php:553
+msgid ""
+"Optional minimum product quantity required to activate the notice.  If set, "
+"the quantity of the products selected above must be greater than or equal to "
+"this amount."
+msgstr ""
+"Quantità minima richiesta per attivare l'avviso (opzionale). Se impostata, "
+"la quantità dei prodotti selezionata deve essere uguale o superiore a questo "
+"ammontare."
+
+#: includes/admin/views/admin-options.php:561
+msgid "Maximum Quantity for Notice"
+msgstr "Quantità massima per l'avviso"
+
+#: includes/admin/views/admin-options.php:567
+msgid ""
+"Optional maximum product quantity allowed to activate the notice.  If set, "
+"the quantity of the products selected above must be less than or equal to "
+"this amount."
+msgstr ""
+"Quantità massima consentita per attivare l'avviso (opzionale). Se impostata, "
+"la quantità dei prodotti selezionata deve essere uguale o superiore a questo "
+"ammontare."
+
+#: includes/admin/views/admin-options.php:575
+msgid "\"Hide Notice\" Products"
+msgstr "Prodotti \"Nascondi avviso\""
+
+#: includes/admin/views/admin-options.php:597
+msgid "Hide the notice if any selected product is in the cart."
+msgstr ""
+"Nascondi l'avviso se uno dei prodotti selezionati è presente nel carrello."
+
+#: includes/admin/views/admin-options.php:605
+msgid "Shipping Countries"
+msgstr "Paesi di spedizione"
+
+#: includes/admin/views/admin-options.php:614
+msgid "Choose Countries&hellip;"
+msgstr "Scegli paesi&hellip;"
+
+#: includes/admin/views/admin-options.php:621
+msgid ""
+"Optional list of countries used to trigger the message when the shipping "
+"country is available and matches one of the countries selected here."
+msgstr ""
+"Indica facoltativamente una lista di paesi utilizzata per decidere se "
+"mostrare il messaggio quando il paese di spedizione è disponibile e coincide "
+"con uno dei paesi selezionati."
+
+#: includes/admin/views/admin-options.php:629
+msgid "\"Show\" Categories"
+msgstr "Categorie \"Mostra avviso\""
+
+#: includes/admin/views/admin-options.php:642
+#: includes/admin/views/admin-options.php:673
+msgid "Search for a category&hellip;"
+msgstr "Cerca una categoria&hellip;"
+
+#: includes/admin/views/admin-options.php:652
+msgid "Show the notice if any selected category is in the cart."
+msgstr ""
+"Mostra l'avviso se una delle categorie selezionate è presente nel carrello."
+
+#: includes/admin/views/admin-options.php:660
+msgid "\"Hide\" Categories"
+msgstr "Categorie \"Nascondi avviso\""
+
+#: includes/admin/views/admin-options.php:683
+msgid "Hide the notice if any selected category is in the cart."
+msgstr ""
+"Nascondi l'avviso se una delle categorie selezionate è presente nel carrello."
+
+#: includes/admin/views/admin-options.php:708
+msgid "Create cart notice"
+msgstr "Crea avviso nel carrello"
+
+#: includes/admin/views/admin-options.php:745
+msgid "Cannot render this example notice without shipping zone."
+msgstr ""
+"Non è possibile mostrare questo avviso di esempio senza una zona di "
+"spedizione."
+
+#: includes/admin/views/admin-options.php:763
+msgid "Example Notice"
+msgstr "Avviso di esempio"
+
+#. translators: %s - Formatted minimum order amount
+#: includes/admin/views/admin-options.php:775
+msgid ""
+"With the current configuration your cart notice will display when the order "
+"total is less than %s and will resemble:"
+msgstr ""
+"Nella configurazione attuale, il tuo avviso nel carrello verrà mostrato "
+"quando il totale dell'ordine è inferiore a %s e sarà come il seguente:"
+
+#. translators: %s - Formatted amount
+#: includes/admin/views/admin-options.php:783
+msgid ""
+"With the current configuration your cart notice will display when the order "
+"total is greater than or equal to %s and will resemble:"
+msgstr ""
+"Nella configurazione attuale, il tuo avviso nel carrello verrà mostrato "
+"quando il totale dell'ordine è maggiore o uguale a %s e sarà come il "
+"seguente:"
+
+#. translators: Placeholders: %1$s Threshold order amount, %2$s Target amount
+#: includes/admin/views/admin-options.php:791
+msgid ""
+"With the current configuration your cart notice will display when the order "
+"total is between %1$s and %2$s and will resemble:"
+msgstr ""
+"Nella configurazione attuale, il tuo avviso nel carrello verrà mostrato "
+"quando il totale dell'ordine è compreso tra %1$s e %2$s e sarà come il "
+"seguente:"
+
+#: includes/admin/views/admin-options.php:800
+msgid "With the current configuration your cart notice will resemble: "
+msgstr ""
+"Nella configurazione attuale, il tuo avviso nel carrello sarà come il "
+"seguente: "
+
+#: includes/admin/views/admin-options.php:810
+msgid "No notice"
+msgstr "Nessun avviso"
+
+#: includes/admin/views/admin-options.php:823
+msgid ""
+"Add <strong>{amount_under}</strong> to your cart in order to receive free "
+"shipping!"
+msgstr ""
+"Aggiungi <strong>{amount_under}</strong> al carrello per poter avere la "
+"spedizione gratuita!"
+
+#: includes/admin/views/admin-options.php:824
+msgid ""
+"Order within the next <strong>{time}</strong> and your order ships today!"
+msgstr ""
+"Ordina entro le prossime <strong>{time}</strong> e il tuo ordine verrà "
+"spedito oggi!"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.woocommerce.com/products/cart-notices/"
+msgstr "http://www.woocommerce.com/products/cart-notices/"
+
+#. Description of the plugin/theme
+msgid ""
+"Add dynamic notices above the cart and checkout to help increase your sales!"
+msgstr ""
+"Aggiungi avvisi dinamici in cima al carrello e alla cassa per aiutarti ad "
+"aumentare le tue vendite!"
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr "SkyVerge"
+
+#. Author URI of the plugin/theme
+msgid "http://www.woocommerce.com"
+msgstr "http://www.woocommerce.com"
+
+#: includes/admin/views/admin-options.php:176
+msgctxt "No deadline hour"
+msgid "none"
+msgstr "nessuno"
+
+#: includes/admin/views/admin-options.php:177
+msgctxt "No active days"
+msgid "none"
+msgstr "nessuno"
+
+#: includes/admin/views/admin-options.php:184
+msgctxt "No referring site"
+msgid "none"
+msgstr "nessuno"
+
+#: includes/admin/views/admin-options.php:190
+msgctxt "No products"
+msgid "none"
+msgstr "nessuno"
+
+#: includes/admin/views/admin-options.php:203
+msgctxt "No categories"
+msgid "none"
+msgstr "nessuna"

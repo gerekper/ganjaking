@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Memberships 1.21.4\n"
+"Project-Id-Version: WooCommerce Memberships 1.21.5\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2021-03-09 05:57:47+00:00\n"
+"POT-Creation-Date: 2021-03-16 09:08:52+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -86,7 +86,9 @@ msgstr ""
 
 #: class-wc-memberships.php:1208 includes/Blocks.php:129
 #: includes/admin/class-wc-memberships-admin-users.php:141
-#: includes/admin/class-wc-memberships-admin.php:1315
+#: includes/admin/class-wc-memberships-admin.php:473
+#: includes/admin/class-wc-memberships-admin.php:540
+#: includes/admin/class-wc-memberships-admin.php:1348
 #: includes/admin/class-wc-memberships-settings.php:44
 #: includes/admin/meta-boxes/class-wc-memberships-meta-box-post-memberships-data.php:58
 #: includes/admin/meta-boxes/class-wc-memberships-meta-box-product-memberships-data.php:61
@@ -406,10 +408,10 @@ msgstr ""
 
 #: includes/admin/Profile_Fields/List_Screen.php:87
 #: includes/admin/Views/Meta_Boxes/User_Membership/Profile_Fields.php:72
-#: includes/admin/class-wc-memberships-admin.php:511
-#: includes/admin/class-wc-memberships-admin.php:570
-#: includes/admin/class-wc-memberships-admin.php:571
-#: includes/admin/class-wc-memberships-admin.php:1437
+#: includes/admin/class-wc-memberships-admin.php:514
+#: includes/admin/class-wc-memberships-admin.php:603
+#: includes/admin/class-wc-memberships-admin.php:604
+#: includes/admin/class-wc-memberships-admin.php:1470
 msgid "Profile Fields"
 msgstr ""
 
@@ -711,8 +713,8 @@ msgid "Access from"
 msgstr ""
 
 #: includes/admin/class-wc-memberships-admin-membership-plans.php:88
-#: includes/admin/class-wc-memberships-admin.php:477
-#: includes/admin/class-wc-memberships-admin.php:1425
+#: includes/admin/class-wc-memberships-admin.php:480
+#: includes/admin/class-wc-memberships-admin.php:1458
 #: includes/class-wc-memberships-post-types.php:141
 #: includes/class-wc-memberships-system-status-report.php:196
 msgid "Members"
@@ -820,12 +822,12 @@ msgid ""
 msgstr ""
 
 #: includes/admin/class-wc-memberships-admin-products.php:235
-#: includes/admin/class-wc-memberships-admin.php:626
+#: includes/admin/class-wc-memberships-admin.php:659
 msgid "Disallow restrictions rules"
 msgstr ""
 
 #: includes/admin/class-wc-memberships-admin-products.php:236
-#: includes/admin/class-wc-memberships-admin.php:627
+#: includes/admin/class-wc-memberships-admin.php:660
 msgid "Allow restriction rules"
 msgstr ""
 
@@ -1086,30 +1088,29 @@ msgstr ""
 msgid "Add a membership manually."
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:490
-#: includes/admin/class-wc-memberships-admin.php:1429
-#: includes/class-wc-memberships-post-types.php:111
-msgid "Membership Plans"
+#: includes/admin/class-wc-memberships-admin.php:493
+#: includes/admin/class-wc-memberships-admin.php:1462
+msgid "Plans"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:501
-#: includes/admin/class-wc-memberships-admin.php:541
-#: includes/admin/class-wc-memberships-admin.php:542
-#: includes/admin/class-wc-memberships-admin.php:1433
+#: includes/admin/class-wc-memberships-admin.php:504
+#: includes/admin/class-wc-memberships-admin.php:574
+#: includes/admin/class-wc-memberships-admin.php:575
+#: includes/admin/class-wc-memberships-admin.php:1466
 msgid "Import / Export"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:767
+#: includes/admin/class-wc-memberships-admin.php:800
 #. translators: Placeholder: %s - post type name (plural)
 msgid "No %s have been marked as public."
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:771
+#: includes/admin/class-wc-memberships-admin.php:804
 #. translators: Placeholder: %s - post type name (plural)
 msgid "No %s have been unmarked as public."
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:780
+#: includes/admin/class-wc-memberships-admin.php:813
 #. translators: Placeholder: %1$s - processed items (number), %2$s - post type
 #. name (singular), %3$s - post type name (plural)
 msgid ""
@@ -1121,7 +1122,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-memberships-admin.php:784
+#: includes/admin/class-wc-memberships-admin.php:817
 #. translators: Placeholder: %1$s - processed items (number), %2$s - post type
 #. name (singular), %3$s - post type name (plural)
 msgid ""
@@ -1133,96 +1134,97 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-memberships-admin.php:1251
+#: includes/admin/class-wc-memberships-admin.php:1284
 msgid "Are you sure that you want to permanently delete this membership?"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1252
+#: includes/admin/class-wc-memberships-admin.php:1285
 msgid "Are you sure that you want to permanently delete these memberships?"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1253
+#: includes/admin/class-wc-memberships-admin.php:1286
 msgid "Please select a user."
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1254
+#: includes/admin/class-wc-memberships-admin.php:1287
 #: includes/admin/modals/class-wc-memberships-modal-reschedule-user-memberships-events.php:48
 msgid "Reschedule"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1255
+#: includes/admin/class-wc-memberships-admin.php:1288
 #: includes/admin/class-wc-memberships-import-export-handler.php:262
 msgid "Export User Memberships"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1256
+#: includes/admin/class-wc-memberships-admin.php:1289
 msgid "Please upload a file to import memberships from."
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1257
+#: includes/admin/class-wc-memberships-admin.php:1290
 msgid "Are you sure you want to cancel this export?"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1258
+#: includes/admin/class-wc-memberships-admin.php:1291
 msgid "Are you sure you want to cancel this import?"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1259
+#: includes/admin/class-wc-memberships-admin.php:1292
 msgid "Are you sure you want to stop the current batch process?"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1260
+#: includes/admin/class-wc-memberships-admin.php:1293
 msgid ""
 "One or more of your rules uses a blank \"Title\" field - blank rules apply "
 "the rule to all content. This may restrict all content or products, or "
 "offer discounts on all products."
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1261
+#: includes/admin/class-wc-memberships-admin.php:1294
 msgid ""
 "On the Restrict Content tab, all content under the specified post type or "
 "taxonomy will be restricted to plan members"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1262
+#: includes/admin/class-wc-memberships-admin.php:1295
 msgid ""
 "On the Restrict Products tab, all products will be restricted to plan "
 "members"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1263
+#: includes/admin/class-wc-memberships-admin.php:1296
 msgid ""
 "On the Purchasing Discounts tab, all products will have a discount for plan "
 "members"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1264
+#: includes/admin/class-wc-memberships-admin.php:1297
 msgid "Please confirm to save the rules or cancel to review without saving."
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1265
+#: includes/admin/class-wc-memberships-admin.php:1298
 msgid ""
 "The profile field should have visibility preferences if editable by a "
 "member."
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1277
+#: includes/admin/class-wc-memberships-admin.php:1310
 msgid "Select one option"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1278
+#: includes/admin/class-wc-memberships-admin.php:1311
 msgid "Select one or more options"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1315
+#: includes/admin/class-wc-memberships-admin.php:1348
 msgid "This section shows troubleshooting information for WooCommerce Memberships."
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1429
-msgid "Plans"
+#: includes/admin/class-wc-memberships-admin.php:1462
+#: includes/class-wc-memberships-post-types.php:111
+msgid "Membership Plans"
 msgstr ""
 
-#: includes/admin/class-wc-memberships-admin.php:1485
+#: includes/admin/class-wc-memberships-admin.php:1521
 #. translators: Placeholders: %1$s - the 'woocommerce_my_account' shortcode,
 #. %2$s - the 'order_count' shortcode attribute
 msgid ""
@@ -5887,43 +5889,43 @@ msgid "Filter"
 msgstr ""
 
 #: includes/admin/class-wc-memberships-admin-user-memberships.php:1170
-#: includes/admin/class-wc-memberships-admin.php:1267
+#: includes/admin/class-wc-memberships-admin.php:1300
 msgctxt "Comparator: <value> is <something>"
 msgid "is"
 msgstr ""
 
 #: includes/admin/class-wc-memberships-admin-user-memberships.php:1171
-#: includes/admin/class-wc-memberships-admin.php:1268
+#: includes/admin/class-wc-memberships-admin.php:1301
 msgctxt "Comparator: <value> is not <something>"
 msgid "is not"
 msgstr ""
 
 #: includes/admin/class-wc-memberships-admin-user-memberships.php:1173
-#: includes/admin/class-wc-memberships-admin.php:1269
+#: includes/admin/class-wc-memberships-admin.php:1302
 msgctxt "Comparator: <value> includes <something>"
 msgid "includes"
 msgstr ""
 
 #: includes/admin/class-wc-memberships-admin-user-memberships.php:1174
-#: includes/admin/class-wc-memberships-admin.php:1270
+#: includes/admin/class-wc-memberships-admin.php:1303
 msgctxt "Comparator: <value> doesn't include <something>"
 msgid "doesn't include"
 msgstr ""
 
 #: includes/admin/class-wc-memberships-admin-user-memberships.php:1175
-#: includes/admin/class-wc-memberships-admin.php:1271
+#: includes/admin/class-wc-memberships-admin.php:1304
 msgctxt "Comparator: <value> is empty"
 msgid "is empty"
 msgstr ""
 
 #: includes/admin/class-wc-memberships-admin-user-memberships.php:1198
-#: includes/admin/class-wc-memberships-admin.php:1274
+#: includes/admin/class-wc-memberships-admin.php:1307
 msgctxt "Checkbox field status"
 msgid "selected"
 msgstr ""
 
 #: includes/admin/class-wc-memberships-admin-user-memberships.php:1199
-#: includes/admin/class-wc-memberships-admin.php:1275
+#: includes/admin/class-wc-memberships-admin.php:1308
 msgctxt "Checkbox field status"
 msgid "unselected"
 msgstr ""

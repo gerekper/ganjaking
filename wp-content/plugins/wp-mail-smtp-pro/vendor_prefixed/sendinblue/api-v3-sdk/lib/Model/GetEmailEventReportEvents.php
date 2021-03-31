@@ -51,13 +51,13 @@ class GetEmailEventReportEvents implements \WPMailSMTP\Vendor\SendinBlue\Client\
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['email' => 'string', 'date' => '\\DateTime', 'subject' => 'string', 'messageId' => 'string', 'event' => 'string', 'reason' => 'string', 'tag' => 'string', 'ip' => 'string', 'link' => 'string', 'from' => 'string'];
+    protected static $swaggerTypes = ['email' => 'string', 'date' => '\\DateTime', 'subject' => 'string', 'messageId' => 'string', 'event' => 'string', 'reason' => 'string', 'tag' => 'string', 'ip' => 'string', 'link' => 'string', 'from' => 'string', 'templateId' => 'int'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['email' => 'email', 'date' => 'date-time', 'subject' => null, 'messageId' => null, 'event' => null, 'reason' => null, 'tag' => null, 'ip' => null, 'link' => null, 'from' => 'email'];
+    protected static $swaggerFormats = ['email' => 'email', 'date' => 'date-time', 'subject' => null, 'messageId' => null, 'event' => null, 'reason' => null, 'tag' => null, 'ip' => null, 'link' => null, 'from' => 'email', 'templateId' => 'int64'];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -82,19 +82,19 @@ class GetEmailEventReportEvents implements \WPMailSMTP\Vendor\SendinBlue\Client\
      *
      * @var string[]
      */
-    protected static $attributeMap = ['email' => 'email', 'date' => 'date', 'subject' => 'subject', 'messageId' => 'messageId', 'event' => 'event', 'reason' => 'reason', 'tag' => 'tag', 'ip' => 'ip', 'link' => 'link', 'from' => 'from'];
+    protected static $attributeMap = ['email' => 'email', 'date' => 'date', 'subject' => 'subject', 'messageId' => 'messageId', 'event' => 'event', 'reason' => 'reason', 'tag' => 'tag', 'ip' => 'ip', 'link' => 'link', 'from' => 'from', 'templateId' => 'templateId'];
     /**
      * Array of attributes to setter functions (for deserialization of responses)
      *
      * @var string[]
      */
-    protected static $setters = ['email' => 'setEmail', 'date' => 'setDate', 'subject' => 'setSubject', 'messageId' => 'setMessageId', 'event' => 'setEvent', 'reason' => 'setReason', 'tag' => 'setTag', 'ip' => 'setIp', 'link' => 'setLink', 'from' => 'setFrom'];
+    protected static $setters = ['email' => 'setEmail', 'date' => 'setDate', 'subject' => 'setSubject', 'messageId' => 'setMessageId', 'event' => 'setEvent', 'reason' => 'setReason', 'tag' => 'setTag', 'ip' => 'setIp', 'link' => 'setLink', 'from' => 'setFrom', 'templateId' => 'setTemplateId'];
     /**
      * Array of attributes to getter functions (for serialization of requests)
      *
      * @var string[]
      */
-    protected static $getters = ['email' => 'getEmail', 'date' => 'getDate', 'subject' => 'getSubject', 'messageId' => 'getMessageId', 'event' => 'getEvent', 'reason' => 'getReason', 'tag' => 'getTag', 'ip' => 'getIp', 'link' => 'getLink', 'from' => 'getFrom'];
+    protected static $getters = ['email' => 'getEmail', 'date' => 'getDate', 'subject' => 'getSubject', 'messageId' => 'getMessageId', 'event' => 'getEvent', 'reason' => 'getReason', 'tag' => 'getTag', 'ip' => 'getIp', 'link' => 'getLink', 'from' => 'getFrom', 'templateId' => 'getTemplateId'];
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name
@@ -144,6 +144,7 @@ class GetEmailEventReportEvents implements \WPMailSMTP\Vendor\SendinBlue\Client\
     const EVENT_DEFERRED = 'deferred';
     const EVENT_BLOCKED = 'blocked';
     const EVENT_UNSUBSCRIBED = 'unsubscribed';
+    const EVENT_ERROR = 'error';
     /**
      * Gets allowable values of the enum
      *
@@ -151,7 +152,7 @@ class GetEmailEventReportEvents implements \WPMailSMTP\Vendor\SendinBlue\Client\
      */
     public function getEventAllowableValues()
     {
-        return [self::EVENT_BOUNCES, self::EVENT_HARD_BOUNCES, self::EVENT_SOFT_BOUNCES, self::EVENT_DELIVERED, self::EVENT_SPAM, self::EVENT_REQUESTS, self::EVENT_OPENED, self::EVENT_CLICKS, self::EVENT_INVALID, self::EVENT_DEFERRED, self::EVENT_BLOCKED, self::EVENT_UNSUBSCRIBED];
+        return [self::EVENT_BOUNCES, self::EVENT_HARD_BOUNCES, self::EVENT_SOFT_BOUNCES, self::EVENT_DELIVERED, self::EVENT_SPAM, self::EVENT_REQUESTS, self::EVENT_OPENED, self::EVENT_CLICKS, self::EVENT_INVALID, self::EVENT_DEFERRED, self::EVENT_BLOCKED, self::EVENT_UNSUBSCRIBED, self::EVENT_ERROR];
     }
     /**
      * Associative array for storing property values
@@ -177,6 +178,7 @@ class GetEmailEventReportEvents implements \WPMailSMTP\Vendor\SendinBlue\Client\
         $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
         $this->container['link'] = isset($data['link']) ? $data['link'] : null;
         $this->container['from'] = isset($data['from']) ? $data['from'] : null;
+        $this->container['templateId'] = isset($data['templateId']) ? $data['templateId'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -426,6 +428,27 @@ class GetEmailEventReportEvents implements \WPMailSMTP\Vendor\SendinBlue\Client\
     public function setFrom($from)
     {
         $this->container['from'] = $from;
+        return $this;
+    }
+    /**
+     * Gets templateId
+     *
+     * @return int
+     */
+    public function getTemplateId()
+    {
+        return $this->container['templateId'];
+    }
+    /**
+     * Sets templateId
+     *
+     * @param int $templateId ID of the template (only available if the email is template based)
+     *
+     * @return $this
+     */
+    public function setTemplateId($templateId)
+    {
+        $this->container['templateId'] = $templateId;
         return $this;
     }
     /**

@@ -94,15 +94,15 @@ get_header();
 	<script>
 	jQuery(document).ready(function($) {
 
-		$(".fue-unsubscribe-form :input[type=checkbox]").change(function() {
+		$( '.fue-unsubscribe-form :input[type=checkbox]' ).on( 'change', function() {
 			var num_checked = $(".fue-unsubscribe-form :input[type=checkbox]:checked").length;
 
 			if ( num_checked > 0 ) {
-				$("#fue_submit").attr("disabled", false);
+				$( '#fue_submit' ).prop( 'disabled', false );
 			} else {
-				$("#fue_submit").attr("disabled", true);
+				$( '#fue_submit' ).prop( 'disabled', true );
 			}
-		}).change();
+		} ).trigger( 'change' );
 
 	} );
 	</script>

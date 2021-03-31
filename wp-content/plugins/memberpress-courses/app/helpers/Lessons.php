@@ -172,7 +172,7 @@ class Lessons {
       $options = \get_option('mpcs-options');
 
       \ob_start();
-        require(base\VIEWS_PATH . '/lessons/classroom-buttons.php');
+        require(\MeprView::file('/lessons/courses_classroom_buttons'));
       $nav_links = \ob_get_clean();
 
       return $nav_links;

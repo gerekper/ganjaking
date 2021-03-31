@@ -29,15 +29,6 @@ class RevSliderInstagram extends RevSliderFunctions {
 	const QUERY_ERROR = 'ig_error_message';
 
 	/**
-	 * API key
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $api_key    Instagram API key
-	 */
-	private $api_key;
-
-	/**
 	 * Stream Array
 	 *
 	 * @since    1.0.0
@@ -56,27 +47,60 @@ class RevSliderInstagram extends RevSliderFunctions {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      number    $transient_sec Transient time in seconds
+	 * @var int  $transient_sec Transient time in seconds
 	 */
 	private $transient_sec;
+
 	/**
 	 * Transient for token refresh in seconds
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      number    $transient_token_sec Transient time in seconds
+	 * @var int  $transient_token_sec Transient time in seconds
 	 */
 	private $transient_token_sec;
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
-	 * @param      string    $api_key	Instagram API key.
+	 * @since 1.0.0
+	 * @param int $transient_sec  Transient time in seconds
 	 */
 	public function __construct($transient_sec = 86400){
 		$this->transient_sec = $transient_sec;
 		$this->transient_token_sec = 86400 * 30; // 30 days
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getTransientSec()
+	{
+		return $this->transient_sec;
+	}
+
+	/**
+	 * @param int $transient_sec
+	 */
+	public function setTransientSec($transient_sec)
+	{
+		$this->transient_sec = $transient_sec;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getTransientTokenSec()
+	{
+		return $this->transient_token_sec;
+	}
+
+	/**
+	 * @param int $transient_token_sec
+	 */
+	public function setTransientTokenSec($transient_token_sec)
+	{
+		$this->transient_token_sec = $transient_token_sec;
 	}
 
 	public function add_actions()

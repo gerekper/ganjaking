@@ -160,6 +160,8 @@ class MeprSubscriptionsCtrl extends MeprBaseCtrl
     $sub->trial = isset($trial) ? (boolean) $trial : false;
     $sub->trial_days = (int) $trial_days;
     $sub->trial_amount = MeprUtils::format_currency_us_float( $trial_amount );
+    $sub->trial_tax_amount = (isset($trial_tax_amount) ? (float) $trial_tax_amount : 0.0);
+    $sub->trial_total = (isset($trial_total) ? (float) $trial_total : 0.0);
     if(isset($created_at) && (empty($created_at) || is_null($created_at))) {
       $sub->created_at = MeprUtils::ts_to_mysql_date(time());
     }

@@ -15,7 +15,7 @@ class Courses extends lib\BaseCtrl {
     add_action('save_post', array($this, 'delete_transients'), 10, 2 );
     add_filter('the_content', array($this, 'page_router'), 10);
     add_filter('template_include', array($this, 'override_template'), 999999); // High priority so we have the last say here
-    add_filter('mepr-rule-do-redirection', array( $this, 'prevent_courses_view_redirect' ) );
+    // add_filter('mepr-rule-do-redirection', array( $this, 'prevent_courses_view_redirect' ) );
     add_shortcode('mpcs-my-courses', array($this, 'my_courses_shortcode'));
     add_shortcode('mpcs-section-overview', array($this, 'section_overview_shortcode'));
     add_shortcode('mpcs-course-overview', array($this, 'course_overview_shortcode'));
@@ -35,7 +35,7 @@ class Courses extends lib\BaseCtrl {
         $course = new models\Course($post->ID);
         $new_template = locate_template($course->page_template);
         if(helpers\App::is_classroom()){
-          $template = base\VIEWS_PATH . '/classroom/single-course.php';
+          $template = \MeprView::file('/classroom/courses_single_course');
         }
         elseif(isset($new_template) && !empty($new_template)) {
           return $new_template;
@@ -55,23 +55,23 @@ class Courses extends lib\BaseCtrl {
     }
 
     if(is_post_type_archive( models\Course::$cpt ) && helpers\App::is_classroom()){
-      $template = base\VIEWS_PATH . '/classroom/archive-course.php';
+      $template = \MeprView::file('/classroom/courses_archive_course');
     }
 
     return $template;
   }
 
-  /**
-   * Prevent redirects from occurring on the Courses view
-   *
-   * @param  boolean  $should_redirect  Whether a redirect should perform.
-   *
-   * @return boolean
-   */
-  public function prevent_courses_view_redirect( $should_redirect ) {
-    global $post;
-    return models\Course::$cpt == $post->post_type && helpers\App::is_classroom() ? false : $should_redirect;
-  }
+  // /**
+  //  * Prevent redirects from occurring on the Courses view
+  //  *
+  //  * @param  boolean  $should_redirect  Whether a redirect should perform.
+  //  *
+  //  * @return boolean
+  //  */
+  // public function prevent_courses_view_redirect( $should_redirect ) {
+  //   global $post;
+  //   return models\Course::$cpt == $post->post_type && helpers\App::is_classroom() ? false : $should_redirect;
+  // }
 
   /**
   * Render my courses list html for shortcode
@@ -299,49 +299,84 @@ class Courses extends lib\BaseCtrl {
 
     $user_id = \get_current_user_id();
     $transients = \get_option('mpcs-transients', array());
+    $options = \get_option('mpcs-options');
 
-    // If 'My Courses' is clicked, return enrolled courses first
-    if('mycourses' === self::get_param('type')){
-      if ( false == ( get_transient( 'mpcs_enrolled_mycourses_'.$user_id ) ) ) {
+    //Get the Courses the user has Started
+    if ( false == ( get_transient( 'mpcs_enrolled_courses_'.$user_id ) ) ) {
+      $progress = models\UserProgress::find_all_by_user($user_id);
+      $courses_started = array_unique( array_column($progress, 'course_id') );
 
-        $courses = get_posts(array('post_type' => models\Course::$cpt, 'posts_per_page' => -1, 'orderby' => 'title', 'order' => 'ASC'));
+      if (empty($courses_started)) {
+        $courses_started = array ( 0 );
+      }
 
+      $my_course_ids = get_posts(array('post_type' => models\Course::$cpt, 'posts_per_page' => -1, 'post__in' => $courses_started, 'orderby' => 'title', 'order' => 'ASC', 'fields' => 'ids'));
+
+      set_transient( 'mpcs_enrolled_courses_'.$user_id, $my_course_ids, 24 * HOUR_IN_SECONDS );
+      $transients[] = 'mpcs_enrolled_courses_'.$user_id;
+      \update_option('mpcs-transients', $transients);
+    }
+    else{
+      $my_course_ids = get_transient( 'mpcs_enrolled_courses_'.$user_id );
+    }
+
+   // Get all Courses
+   if ( false === ( $all_course_ids = get_transient( 'mpcs_all_courses'.$user_id ) ) ) {
+      $courses = get_posts(array('post_type' => models\Course::$cpt, 'posts_per_page' => -1, 'post__not_in' => $my_course_ids, 'orderby' => 'title', 'order' => 'ASC'));
+
+      // Remove courses users are not allowed to view, if applicable
+      if(false == \MeprUtils::is_logged_in_and_an_admin() && !$options['show-protected-courses']){
+        $courses = array_filter($courses, function($course){
+          return false == \MeprRule::is_locked($course);
+        });
+      }
+
+      $all_course_ids = array_column( $courses, 'ID' );
+      $course_ids = array_merge($my_course_ids, $all_course_ids);
+
+      set_transient( 'mpcs_all_courses', $all_course_ids, 24 * HOUR_IN_SECONDS );
+      $transients[] = 'mpcs_all_courses';
+      \update_option('mpcs-transients', $transients);
+    }else{
+      $course_ids = get_transient( 'mpcs_all_courses' );
+    }
+
+    // If 'My Courses' is clicked, show only courses the user has access to
+    if('mycourses' === self::get_param('type')) {
+      if(empty($all_course_ids)) {
+        $all_course_ids = array (0); //Empty arrays apply no filter on get_posts
+      }
+
+      //Get Courses User has access too
+      if ( false == ( get_transient( 'mpcs_mycourses_'.$user_id ) ) ) {
+        $mepr_user = new \MeprUser($user_id);
+
+        // Remove courses the user does not have access to
         if(false == \MeprUtils::is_logged_in_and_an_admin()){
-          // Remove courses users are not allowed to view but
-          // get all courses if user is admin
-          $courses = array_filter($courses, function($course){
-            return false == \MeprRule::is_locked($course);
+          $allowed_courses = array_filter($courses, function($course) use ($mepr_user) {
+            return false == \MeprRule::is_locked_for_user($mepr_user, $course);
           });
         }
 
-        $enrolled_courses_id = array_column( $courses, 'ID' );
+        if(isset($allowed_courses)) {
+          $course_ids = array_column( $allowed_courses, 'ID' );
+        }
 
-        $progress = models\UserProgress::find_all_by_user($user_id);
-        $courses_started = array_unique( array_column($progress, 'course_id') );
-        $enrolled_courses_id = \array_unique( \array_merge($courses_started, $enrolled_courses_id) );
-        set_transient( 'mpcs_enrolled_mycourses_'.$user_id, $enrolled_courses_id, 24 * HOUR_IN_SECONDS );
-        $transients[] = 'mpcs_enrolled_mycourses_'.$user_id;
-        \update_option('mpcs-transients', $transients);
-      }
-      else{
-        $enrolled_courses_id = get_transient( 'mpcs_enrolled_mycourses_'.$user_id );
-      }
-    }
-    else{
-      // Get all courses the user is allowed to view
-      if ( false === ( $enrolled_courses_id = get_transient( 'mpcs_enrolled_courses_'.$user_id ) ) ) {
-        $courses = get_posts(array('post_type' => models\Course::$cpt, 'posts_per_page' => -1, 'orderby' => 'title', 'order' => 'ASC'));
-
-        $enrolled_courses_id = array_column( $courses, 'ID' );
-        set_transient( 'mpcs_enrolled_courses_'.$user_id, $enrolled_courses_id, 24 * HOUR_IN_SECONDS );
-        $transients[] = 'mpcs_enrolled_courses_'.$user_id;
-        \update_option('mpcs-transients', $transients);
+        set_transient( 'mpcs_mycourses_'.$user_id, $course_ids, 24 * HOUR_IN_SECONDS );
+        $transients[] = 'mpcs_mycourses_'.$user_id;
+        \update_option('mpcs-mpcs_mycourses_', $transients);
+      } else{
+        $course_ids = get_transient( 'mpcs_mycourses_'.$user_id );
       }
     }
 
+    if(empty($course_ids)) {
+      $course_ids = array ( 0 );
+    }
     // Filter archive by allowed courses
-    $query->set('post__in', $enrolled_courses_id);
+    $query->set('post__in', $course_ids);
     $query->set('orderby', 'post__in');
+    $query->set('posts_per_page', 6);
 
     // Display only enabled courses in "All Courses" list
     if('mycourses' !== self::get_param('type')){
@@ -352,9 +387,6 @@ class Courses extends lib\BaseCtrl {
         )
       ));
     }
-
-    $query->set('order', 'ASC');
-    $query->set('posts_per_page', 6);
 
     // Author filter
     if($author = self::get_param('author')){
@@ -391,12 +423,7 @@ class Courses extends lib\BaseCtrl {
     if ( models\Course::$cpt !== $post->post_type )
       return; // restrict the filter to a specific post type
 
-    // let's get and delete transients
-    $transients = \get_option('mpcs-transients', array());
-    foreach ($transients as $transient) {
-      delete_transient( $transient );
-    }
-    \delete_option('mpcs-transients');
+    helpers\Courses::delete_transients();
   }
 
 

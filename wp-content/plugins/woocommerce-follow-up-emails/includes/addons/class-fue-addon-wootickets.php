@@ -179,13 +179,13 @@ class FUE_Addon_Wootickets {
 	 */
 	public function manual_js() {
 		?>
-		jQuery("#send_type").change(function() {
+		jQuery( '#send_type' ).on( 'change', function() {
 			switch (jQuery(this).val()) {
 				case "event_attendees":
 					jQuery(".send-type-event-attendees").show();
 					break;
 			}
-		});
+		} );
 	<?php
 	}
 
@@ -1275,16 +1275,16 @@ class FUE_Addon_Wootickets {
 				generate_list_dropdowns();
 
 				$("#topics-filter").prepend('<input type="hidden" name="fue_list_name" id="fue_list_name" value="" />');
-				$("#bulk-action-selector-top, #bulk-action-selector-bottom").change(function() {
+				$( '#bulk-action-selector-top, #bulk-action-selector-bottom' ).on( 'change', function() {
 					var $list = $(this).parent().find(".fue_list");
 					if ( $(this).val() == "fue_list_import" ) {
 						$list.show();
 					} else {
 						$list.hide();
 					}
-				});
+				} );
 
-				$("#topics-filter").submit(function() {
+				$( '#topics-filter' ).on( 'submit', function() {
 					var action = -1;
 					var list;
 
@@ -1306,7 +1306,7 @@ class FUE_Addon_Wootickets {
 						$("#fue_list_name").val( list_name );
 						return true;
 					}
-				});
+				} );
 
 				function generate_list_dropdowns() {
 					var list_top = $("#list_template_top").html();

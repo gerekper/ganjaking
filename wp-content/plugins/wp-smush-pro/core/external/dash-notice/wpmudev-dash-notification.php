@@ -10,7 +10,7 @@ if ( ! class_exists( 'WPMUDEV_Dashboard_Notice4' ) ) {
 		var $product_name = false;
 		var $product_update = false;
 		var $theme_pack = 128;
-		var $server_url = 'https://premium.wpmudev.org/api/dashboard/v1/';
+		var $server_url = 'https://wpmudev.com/api/dashboard/v1/';
 		var $update_count = 0;
 
 		function __construct() {
@@ -310,7 +310,7 @@ if ( ! class_exists( 'WPMUDEV_Dashboard_Notice4' ) ) {
 			if ( !$this->is_allowed_screen() ) return;
 			?>
 			<script type="text/javascript">
-				!function($){function n(){function n(){a.fadeIn(500)}function i(){a.fadeTo(100,0,function(){a.slideUp(100,function(){a.remove()})})}function t(n,t){"0"!==e?(a.attr("data-message",t),a.addClass("saving"),s.action=n,jQuery.post(window.ajaxurl,s,i)):i()}var a=jQuery(".wdpun-notice"),e=a.find("input[name=msg_id]").val(),o=a.find(".wdpun-button-notice-dismiss"),s={};s.msg_id=e,o.click(function(n){n.preventDefault(),t("wdpun-dismiss",o.data("msg"))}),window.setTimeout(n,500)}$(n)}(jQuery);
+				!function($){function n(){function n(){a.fadeIn(500)}function i(){a.fadeTo(100,0,function(){a.slideUp(100,function(){a.remove()})})}function t(n,t){"0"!==e?(a.attr("data-message",t),a.addClass("saving"),s.action=n,jQuery.post(window.ajaxurl,s,i)):i()}var a=jQuery(".wdpun-notice"),e=a.find("input[name=msg_id]").val(),o=a.find(".wdpun-button-notice-dismiss"),s={};s.msg_id=e,o.on("click",function(n){n.preventDefault(),t("wdpun-dismiss",o.data("msg"))}),window.setTimeout(n,500)}$(n)}(jQuery);
 			</script>
 			<?php
 		}
@@ -669,7 +669,7 @@ if ( ! class_exists( 'WPMUDEV_Dashboard_Notice4' ) ) {
 				$res->slug          = 'wpmu-dev-dashboard';
 				$res->version       = '';
 				$res->rating        = 100;
-				$res->homepage      = 'https://premium.wpmudev.org/project/wpmu-dev-dashboard/';
+				$res->homepage      = 'https://wpmudev.com/project/wpmu-dev-dashboard/';
 				$res->download_link = $this->server_url . "download-dashboard";
 				$res->tested        = $cur_wp_version;
 

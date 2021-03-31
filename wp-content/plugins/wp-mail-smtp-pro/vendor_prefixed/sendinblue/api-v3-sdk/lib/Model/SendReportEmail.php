@@ -33,7 +33,7 @@ use WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer;
  * SendReportEmail Class Doc Comment
  *
  * @category Class
- * @description Email sending credentials including subject, body, to, cc etc.
+ * @description Custom attributes for the report email.
  * @package  SendinBlue\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
@@ -52,13 +52,13 @@ class SendReportEmail implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['subject' => 'string', 'to' => 'string[]', 'contentType' => 'string', 'bcc' => 'string[]', 'cc' => 'string[]', 'body' => 'string'];
+    protected static $swaggerTypes = ['to' => 'string[]', 'body' => 'string'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['subject' => null, 'to' => 'email', 'contentType' => null, 'bcc' => 'email', 'cc' => 'email', 'body' => null];
+    protected static $swaggerFormats = ['to' => 'email', 'body' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -83,19 +83,19 @@ class SendReportEmail implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
      *
      * @var string[]
      */
-    protected static $attributeMap = ['subject' => 'subject', 'to' => 'to', 'contentType' => 'contentType', 'bcc' => 'bcc', 'cc' => 'cc', 'body' => 'body'];
+    protected static $attributeMap = ['to' => 'to', 'body' => 'body'];
     /**
      * Array of attributes to setter functions (for deserialization of responses)
      *
      * @var string[]
      */
-    protected static $setters = ['subject' => 'setSubject', 'to' => 'setTo', 'contentType' => 'setContentType', 'bcc' => 'setBcc', 'cc' => 'setCc', 'body' => 'setBody'];
+    protected static $setters = ['to' => 'setTo', 'body' => 'setBody'];
     /**
      * Array of attributes to getter functions (for serialization of requests)
      *
      * @var string[]
      */
-    protected static $getters = ['subject' => 'getSubject', 'to' => 'getTo', 'contentType' => 'getContentType', 'bcc' => 'getBcc', 'cc' => 'getCc', 'body' => 'getBody'];
+    protected static $getters = ['to' => 'getTo', 'body' => 'getBody'];
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name
@@ -133,17 +133,6 @@ class SendReportEmail implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
     {
         return self::$swaggerModelName;
     }
-    const CONTENT_TYPE_TEXT = 'text';
-    const CONTENT_TYPE_HTML = 'html';
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getContentTypeAllowableValues()
-    {
-        return [self::CONTENT_TYPE_TEXT, self::CONTENT_TYPE_HTML];
-    }
     /**
      * Associative array for storing property values
      *
@@ -158,11 +147,7 @@ class SendReportEmail implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
      */
     public function __construct(array $data = null)
     {
-        $this->container['subject'] = isset($data['subject']) ? $data['subject'] : null;
         $this->container['to'] = isset($data['to']) ? $data['to'] : null;
-        $this->container['contentType'] = isset($data['contentType']) ? $data['contentType'] : 'html';
-        $this->container['bcc'] = isset($data['bcc']) ? $data['bcc'] : null;
-        $this->container['cc'] = isset($data['cc']) ? $data['cc'] : null;
         $this->container['body'] = isset($data['body']) ? $data['body'] : null;
     }
     /**
@@ -173,15 +158,8 @@ class SendReportEmail implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-        if ($this->container['subject'] === null) {
-            $invalidProperties[] = "'subject' can't be null";
-        }
         if ($this->container['to'] === null) {
             $invalidProperties[] = "'to' can't be null";
-        }
-        $allowedValues = $this->getContentTypeAllowableValues();
-        if (!\is_null($this->container['contentType']) && !\in_array($this->container['contentType'], $allowedValues, \true)) {
-            $invalidProperties[] = \sprintf("invalid value for 'contentType', must be one of '%s'", \implode("', '", $allowedValues));
         }
         if ($this->container['body'] === null) {
             $invalidProperties[] = "'body' can't be null";
@@ -197,27 +175,6 @@ class SendReportEmail implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
     public function valid()
     {
         return \count($this->listInvalidProperties()) === 0;
-    }
-    /**
-     * Gets subject
-     *
-     * @return string
-     */
-    public function getSubject()
-    {
-        return $this->container['subject'];
-    }
-    /**
-     * Sets subject
-     *
-     * @param string $subject Subject of the email message
-     *
-     * @return $this
-     */
-    public function setSubject($subject)
-    {
-        $this->container['subject'] = $subject;
-        return $this;
     }
     /**
      * Gets to
@@ -241,73 +198,6 @@ class SendReportEmail implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
         return $this;
     }
     /**
-     * Gets contentType
-     *
-     * @return string
-     */
-    public function getContentType()
-    {
-        return $this->container['contentType'];
-    }
-    /**
-     * Sets contentType
-     *
-     * @param string $contentType Type of the message body
-     *
-     * @return $this
-     */
-    public function setContentType($contentType)
-    {
-        $allowedValues = $this->getContentTypeAllowableValues();
-        if (!\is_null($contentType) && !\in_array($contentType, $allowedValues, \true)) {
-            throw new \InvalidArgumentException(\sprintf("Invalid value for 'contentType', must be one of '%s'", \implode("', '", $allowedValues)));
-        }
-        $this->container['contentType'] = $contentType;
-        return $this;
-    }
-    /**
-     * Gets bcc
-     *
-     * @return string[]
-     */
-    public function getBcc()
-    {
-        return $this->container['bcc'];
-    }
-    /**
-     * Sets bcc
-     *
-     * @param string[] $bcc Email addresses of the recipients in bcc
-     *
-     * @return $this
-     */
-    public function setBcc($bcc)
-    {
-        $this->container['bcc'] = $bcc;
-        return $this;
-    }
-    /**
-     * Gets cc
-     *
-     * @return string[]
-     */
-    public function getCc()
-    {
-        return $this->container['cc'];
-    }
-    /**
-     * Sets cc
-     *
-     * @param string[] $cc Email addresses of the recipients in cc
-     *
-     * @return $this
-     */
-    public function setCc($cc)
-    {
-        $this->container['cc'] = $cc;
-        return $this;
-    }
-    /**
      * Gets body
      *
      * @return string
@@ -319,7 +209,7 @@ class SendReportEmail implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
     /**
      * Sets body
      *
-     * @param string $body Body of the email message
+     * @param string $body Custom text message to be presented in the report email.
      *
      * @return $this
      */

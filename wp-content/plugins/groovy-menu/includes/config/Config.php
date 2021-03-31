@@ -1794,11 +1794,29 @@ return array(
 				'type'      => 'group',
 				'serialize' => false,
 			),
-			'scrollbar_enable'                             => array(
+			'scrollbar_enable__start'                      => array(
 				'title'       => esc_html__( 'Enable internal submenus scrollbar', 'groovy-menu' ),
+				'type'        => 'inlineStart',
+				'description' => esc_html__( 'Enable scrolling for long lists of submenus and mega menus', 'groovy-menu' ),
+			),
+			'scrollbar_enable'                             => array(
+				'title'       => esc_html__( 'switch', 'groovy-menu' ),
 				'type'        => 'checkbox',
 				'default'     => true,
-				'description' => esc_html__( 'Enable scrolling for long lists of submenus and mega menus', 'groovy-menu' ),
+				'description' => ''
+			),
+			'scrollbar_enable_wheel_speed'                 => array(
+				'title'     => esc_html__( 'scroll speed', 'groovy-menu' ),
+				'type'      => 'number',
+				'range'     => array( 10, 500 ),
+				'default'   => 50,
+				'unit'      => '%',
+				'step'      => 5,
+				'condition' => array( 'scrollbar_enable', '==', true ),
+			),
+			'scrollbar_enable__end'                        => array(
+				'type'      => 'inlineEnd',
+				'condition' => array( 'toolbar_menu_enable', '==', true ),
 			),
 			'scrollbar_enable_mobile'                      => array(
 				'title'       => esc_html__( 'Enable mobile menu scrollbar', 'groovy-menu' ),
@@ -2411,6 +2429,14 @@ return array(
 				'serialize'         => false,
 				'do_action'         => true,
 			),
+			'action__gm_before_main_header__custom_id'        => array(
+				'title'       => esc_html__( 'Select the Menu Block to show in', 'groovy-menu' ) . ' [' . esc_html__( 'Before Main Header', 'groovy-menu' ) . ']',
+				'description' => esc_html__( 'The content of the selected menu block will be displayed in the action area', 'groovy-menu' ),
+				'type'        => 'select',
+				'options'     => $gm_menu_block_posts_list,
+				'default'     => 0,
+				'condition'   => array( 'header.style', 'in', array( '1', '2' ) ),
+			),
 			'action__gm_after_main_header'                    => array(
 				'title'             => esc_html__( 'After Main Header', 'groovy-menu' ),
 				'type'              => 'textarea',
@@ -2420,6 +2446,14 @@ return array(
 				'default'           => '',
 				'serialize'         => false,
 				'do_action'         => true,
+			),
+			'action__gm_after_main_header__custom_id'         => array(
+				'title'       => esc_html__( 'Select the Menu Block to show in', 'groovy-menu' ) . ' [' . esc_html__( 'After Main Header', 'groovy-menu' ) . ']',
+				'description' => esc_html__( 'The content of the selected menu block will be displayed in the action area', 'groovy-menu' ),
+				'type'        => 'select',
+				'options'     => $gm_menu_block_posts_list,
+				'default'     => 0,
+				'condition'   => array( 'header.style', 'in', array( '1', '2' ) ),
 			),
 			'custom_shortcode_gm__end'                        => array(
 				'type' => 'inlineEnd',
@@ -2566,6 +2600,43 @@ return array(
 				'do_action'         => true,
 			),
 			'custom_shortcode_buttons__end'                   => array(
+				'type' => 'inlineEnd',
+			),
+			'custom_shortcode_hamburger__start'               => array(
+				'title' => esc_html__( 'Insert custom shortcode or raw HTML for', 'groovy-memu' ) . ' ' . esc_html__( 'Mobile Hamburger', 'groovy-menu' ),
+				'type'  => 'inlineStart',
+			),
+			'action__gm_custom_mobile_hamburger'              => array(
+				'title'             => esc_html__( 'Action for', 'groovy-menu' ) . ' ' . esc_html__( 'Custom mobile menu open trigger', 'groovy-menu' ),
+				'type'              => 'textarea',
+				'codemirror_editor' => true,
+				'lang_type'         => 'html',
+				'small_height'      => true,
+				'default'           => '',
+				'serialize'         => false,
+				'do_action'         => true,
+			),
+			'action__gm_before_mobile_hamburger'              => array(
+				'title'             => esc_html__( 'Before hamburger icon', 'groovy-menu' ),
+				'type'              => 'textarea',
+				'codemirror_editor' => true,
+				'lang_type'         => 'html',
+				'small_height'      => true,
+				'default'           => '',
+				'serialize'         => false,
+				'do_action'         => true,
+			),
+			'action__gm_after_mobile_hamburger'               => array(
+				'title'             => esc_html__( 'After hamburger icon', 'groovy-menu' ),
+				'type'              => 'textarea',
+				'codemirror_editor' => true,
+				'lang_type'         => 'html',
+				'small_height'      => true,
+				'default'           => '',
+				'serialize'         => false,
+				'do_action'         => true,
+			),
+			'custom_shortcode_hamburger__end'                 => array(
 				'type' => 'inlineEnd',
 			),
 			'custom_shortcode_mobile__start'                  => array(
@@ -2921,6 +2992,52 @@ return array(
 				'alpha'     => true,
 				'condition' => array( 'hover_style', 'in', array( '3', '4', '6' ) ),
 			),
+			'top_level_text_color_change__start'               => array(
+				'title'     => esc_html__( 'Top level link text color when submenu(s) are opened', 'groovy-menu' ),
+				'type'      => 'inlineStart',
+				'condition' => array(
+					array( 'header.style', 'in', array( '1', '3', '4', '5' ) ),
+					array( 'background_color_change_on_submenu_opened', '==', true ),
+				)
+			),
+			'top_level_text_color_change'                      => array(
+				'title'     => esc_html__( 'normal', 'groovy-menu' ),
+				'type'      => 'colorpicker',
+				'default'   => '#5a5a5a',
+				'alpha'     => true,
+				'condition' => array(
+					array( 'header.style', 'in', array( '1', '3', '4', '5' ) ),
+					array( 'background_color_change_on_submenu_opened', '==', true ),
+				)
+			),
+			'top_level_text_color_change_hover'                => array(
+				'title'     => esc_html__( 'hover and active', 'groovy-menu' ),
+				'type'      => 'colorpicker',
+				'default'   => '#93cb52',
+				'alpha'     => true,
+				'condition' => array(
+					array( 'header.style', 'in', array( '1', '3', '4', '5' ) ),
+					array( 'background_color_change_on_submenu_opened', '==', true ),
+				)
+			),
+			'top_level_text_color_change_hover_2'              => array(
+				'title'     => esc_html__( 'hover and active text color (hover style 3, 4 and 6 only)', 'groovy-menu' ),
+				'type'      => 'colorpicker',
+				'default'   => '#ffffff',
+				'alpha'     => true,
+				'condition' => array(
+					array( 'hover_style', 'in', array( '3', '4', '6' ) ),
+					array( 'header.style', 'in', array( '1', '3', '4', '5' ) ),
+					array( 'background_color_change_on_submenu_opened', '==', true ),
+				)
+			),
+			'top_level_text_color_change__end'                 => array(
+				'type'      => 'inlineEnd',
+				'condition' => array(
+					array( 'header.style', 'in', array( '1', '3', '4', '5' ) ),
+					array( 'background_color_change_on_submenu_opened', '==', true ),
+				)
+			),
 			'sticky_top_level_text_color'                      => array(
 				'title'   => esc_html__( 'Sticky top level text color', 'groovy-menu' ),
 				'type'    => 'colorpicker',
@@ -2939,6 +3056,52 @@ return array(
 				'default'   => '#ffffff',
 				'alpha'     => true,
 				'condition' => array( 'hover_style', 'in', array( '3', '4', '6' ) ),
+			),
+			'sticky_top_level_text_color_change__start'        => array(
+				'title'     => esc_html__( 'Sticky top level text color when submenu(s) are opened', 'groovy-menu' ),
+				'type'      => 'inlineStart',
+				'condition' => array(
+					array( 'header.style', 'in', array( '1', '3', '4', '5' ) ),
+					array( 'sticky_background_color_change_on_submenu_opened', '==', true ),
+				)
+			),
+			'sticky_top_level_text_color_change'               => array(
+				'title'     => esc_html__( 'normal', 'groovy-menu' ),
+				'type'      => 'colorpicker',
+				'default'   => '#5a5a5a',
+				'alpha'     => true,
+				'condition' => array(
+					array( 'header.style', 'in', array( '1', '3', '4', '5' ) ),
+					array( 'sticky_background_color_change_on_submenu_opened', '==', true ),
+				)
+			),
+			'sticky_top_level_text_color_change_hover'         => array(
+				'title'     => esc_html__( 'hover and active', 'groovy-menu' ),
+				'type'      => 'colorpicker',
+				'default'   => '#93cb52',
+				'alpha'     => true,
+				'condition' => array(
+					array( 'header.style', 'in', array( '1', '3', '4', '5' ) ),
+					array( 'sticky_background_color_change_on_submenu_opened', '==', true ),
+				)
+			),
+			'sticky_top_level_text_color_change_hover_2'       => array(
+				'title'     => esc_html__( 'hover and active text color (hover style 3, 4 and 6 only)', 'groovy-menu' ),
+				'type'      => 'colorpicker',
+				'default'   => '#ffffff',
+				'alpha'     => true,
+				'condition' => array(
+					array( 'hover_style', 'in', array( '3', '4', '6' ) ),
+					array( 'header.style', 'in', array( '1', '3', '4', '5' ) ),
+					array( 'sticky_background_color_change_on_submenu_opened', '==', true ),
+				)
+			),
+			'sticky_top_level_text_color_change__end'          => array(
+				'type'      => 'inlineEnd',
+				'condition' => array(
+					array( 'header.style', 'in', array( '1', '3', '4', '5' ) ),
+					array( 'sticky_background_color_change_on_submenu_opened', '==', true ),
+				)
 			),
 			'typography_group'                                 => array(
 				'type'      => 'group',
@@ -3040,6 +3203,23 @@ return array(
 				'condition' => array( 'header.toolbar', '==', 'true' ),
 				'serialize' => false,
 			),
+			'toolbar_type'                                     => array(
+				'title'   => esc_html__( 'Toolbar type', 'groovy-menu' ),
+				'type'    => 'select',
+				'options' => array(
+					'default'   => esc_html__( 'Default Groovy Menu toolbar', 'groovy-menu' ),
+					'menublock' => esc_html__( 'Custom Menu Block toolbar', 'groovy-menu' ),
+				),
+				'default' => 'default',
+			),
+			'toolbar_custom_id'                                => array(
+				'title'       => esc_html__( 'Select Menu Block for custom toolbar wrapper', 'groovy-menu' ),
+				'description' => esc_html__( 'The content of the selected menu block will be displayed in the toolbar wrapper', 'groovy-menu' ),
+				'type'        => 'select',
+				'options'     => $gm_menu_block_posts_list,
+				'default'     => 0,
+				'condition'   => array( 'toolbar_type', 'in', array( 'menublock' ) ),
+			),
 			'hide_toolbar_on_mobile'                           => array(
 				'title'   => esc_html__( 'Hide toolbar on mobile devices', 'groovy-menu' ),
 				'type'    => 'checkbox',
@@ -3048,7 +3228,10 @@ return array(
 			'toolbar_align_center__start'                      => array(
 				'title'     => esc_html__( 'Align toolbar to the center', 'groovy-menu' ),
 				'type'      => 'inlineStart',
-				'condition' => array( 'header.style', 'in', array( '1', '2' ) ),
+				'condition' => array(
+					array( 'toolbar_type', 'in', array( 'default' ) ),
+					array( 'header.style', 'in', array( '1', '2' ) ),
+				),
 			),
 			'toolbar_align_center'                             => array(
 				'title'   => esc_html__( 'Desktop', 'groovy-menu' ),
@@ -3110,53 +3293,61 @@ return array(
 				'alpha'   => true,
 			),
 			'toolbar_additional_info_color'                    => array(
-				'title'   => esc_html__( 'Toolbar additional information color', 'groovy-menu' ),
-				'type'    => 'colorpicker',
-				'default' => 'rgba(104,104,104,1)',
-				'alpha'   => true,
+				'title'     => esc_html__( 'Toolbar additional information color', 'groovy-menu' ),
+				'type'      => 'colorpicker',
+				'default'   => 'rgba(104,104,104,1)',
+				'alpha'     => true,
+				'condition' => array( 'toolbar_type', 'in', array( 'default' ) ),
 			),
 			'wpml_dropdown_bg_color'                           => array(
-				'title'   => esc_html__( 'WPML dropdown background color', 'groovy-menu' ),
-				'type'    => 'colorpicker',
-				'default' => 'rgba(255,255,255,1)',
-				'alpha'   => true,
+				'title'     => esc_html__( 'WPML dropdown background color', 'groovy-menu' ),
+				'type'      => 'colorpicker',
+				'default'   => 'rgba(255,255,255,1)',
+				'alpha'     => true,
+				'condition' => array( 'toolbar_type', 'in', array( 'default' ) ),
 			),
 			'toolbar_additional_info_font_size'                => array(
-				'title'   => esc_html__( 'Toolbar additional information font size', 'groovy-menu' ),
-				'type'    => 'number',
-				'range'   => array( 8, 50 ),
-				'default' => 14,
-				'unit'    => 'px',
+				'title'     => esc_html__( 'Toolbar additional information font size', 'groovy-menu' ),
+				'type'      => 'number',
+				'range'     => array( 8, 50 ),
+				'default'   => 14,
+				'unit'      => 'px',
+				'condition' => array( 'toolbar_type', 'in', array( 'default' ) ),
 			),
 			'hide_toolbar_icon_text_on_mobile'                 => array(
-				'title'   => esc_html__( 'Hide social icon link text on mobile devices', 'groovy-menu' ),
-				'type'    => 'checkbox',
-				'default' => false,
+				'title'     => esc_html__( 'Hide social icon link text on mobile devices', 'groovy-menu' ),
+				'type'      => 'checkbox',
+				'default'   => false,
+				'condition' => array( 'toolbar_type', 'in', array( 'default' ) ),
 			),
 			'toolbar_icon_size'                                => array(
-				'title'   => esc_html__( 'Toolbar social icon size', 'groovy-menu' ),
-				'type'    => 'number',
-				'range'   => array( 8, 50 ),
-				'default' => 16,
-				'unit'    => 'px',
+				'title'     => esc_html__( 'Toolbar social icon size', 'groovy-menu' ),
+				'type'      => 'number',
+				'range'     => array( 8, 50 ),
+				'default'   => 16,
+				'unit'      => 'px',
+				'condition' => array( 'toolbar_type', 'in', array( 'default' ) ),
 			),
 			'toolbar_icon_color'                               => array(
-				'title'   => esc_html__( 'Toolbar social icon color', 'groovy-menu' ),
-				'type'    => 'colorpicker',
-				'default' => 'rgba(104,104,104,1)',
-				'alpha'   => true,
+				'title'     => esc_html__( 'Toolbar social icon color', 'groovy-menu' ),
+				'type'      => 'colorpicker',
+				'default'   => 'rgba(104,104,104,1)',
+				'alpha'     => true,
+				'condition' => array( 'toolbar_type', 'in', array( 'default' ) ),
 			),
 			'toolbar_icon_hover_color'                         => array(
-				'title'   => esc_html__( 'Toolbar social icon hover color', 'groovy-menu' ),
-				'type'    => 'colorpicker',
-				'default' => '#a5e25e',
-				'alpha'   => true,
+				'title'     => esc_html__( 'Toolbar social icon hover color', 'groovy-menu' ),
+				'type'      => 'colorpicker',
+				'default'   => '#a5e25e',
+				'alpha'     => true,
+				'condition' => array( 'toolbar_type', 'in', array( 'default' ) ),
 			),
 			'toolbar_icon_switch_border'                       => array(
 				'title'       => esc_html__( 'Add left/right border to social icons', 'groovy-menu' ),
 				'description' => '',
 				'type'        => 'checkbox',
 				'default'     => false,
+				'condition'   => array( 'toolbar_type', 'in', array( 'default' ) ),
 			),
 			'hamburger_group'                                  => array(
 				'type'      => 'group',

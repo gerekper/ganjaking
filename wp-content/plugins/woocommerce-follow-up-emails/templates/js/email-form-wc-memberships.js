@@ -1,6 +1,6 @@
 jQuery( function( $ ) {
 
-    $("body").on("change", "#interval_type", function() {
+    $( 'body' ).on( 'change', '#interval_type', function() {
         wc_memberships_toggle_fields($("#email_type").val());
     });
     $("body").on("updated_email_type updated_variables_list", function () {
@@ -10,7 +10,7 @@ jQuery( function( $ ) {
     $("body").on("updated_email_details", function () {
         wc_memberships_toggle_fields($("#email_type").val());
 
-        $("#storewide_type").trigger("change");
+        $( '#storewide_type' ).trigger( 'change' );
     });
 
 });

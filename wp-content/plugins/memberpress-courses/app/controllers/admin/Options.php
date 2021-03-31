@@ -20,11 +20,11 @@ class Options extends lib\BaseCtrl {
 
     $options = \get_option('mpcs-options');
 
-    require_once(base\VIEWS_PATH . '/admin/options/form.php');
+    \MeprView::render('/admin/options/courses_form', get_defined_vars());
   }
 
   public function general($options) {
-    require_once(base\VIEWS_PATH . '/admin/options/general.php');
+    \MeprView::render('/admin/options/courses_general', get_defined_vars());
   }
 
 // handle uploaded file here

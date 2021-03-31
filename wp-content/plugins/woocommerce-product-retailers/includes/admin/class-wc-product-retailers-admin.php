@@ -17,13 +17,15 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-product-retailers/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2013-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2013-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use Automattic\WooCommerce\Admin\Features\Navigation\Menu as Enhanced_Navigation_Menu;
+use Automattic\WooCommerce\Admin\Features\Navigation\Screen as Enhanced_Navigation_Screen;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 /**
  * Retailers Admin Class - handles admin UX.
@@ -67,6 +69,10 @@ class WC_Product_Retailers_Admin {
 
 		// add AJAX retailer search
 		add_action( 'wp_ajax_wc_product_retailers_search_retailers', array( $this, 'ajax_search_retailers' ) );
+
+		// add support to WooCommerce Navigation
+		add_action( 'admin_menu', [ $this, 'add_enhanced_navigation_items' ] );
+		add_filter( 'woocommerce_navigation_menu_items', [ $this, 'handle_enhanced_navigation_items' ] );
 	}
 
 
@@ -569,6 +575,73 @@ class WC_Product_Retailers_Admin {
 		}
 
 		wp_send_json( $retailers );
+	}
+
+
+	/**
+	 * Adds support to WooCommerce Navigation.
+	 *
+	 * @internal
+	 *
+	 * @since 1.15.1
+	 */
+	public function add_enhanced_navigation_items() {
+
+		if ( ! Framework\SV_WC_Helper::is_wc_navigation_enabled() ) {
+			return;
+		}
+
+		Enhanced_Navigation_Screen::register_post_type( 'wc_product_retailer' );
+		Enhanced_Navigation_Menu::add_plugin_category( [
+			'id'    => 'woocommerce-product-retailers',
+			'title' => __( 'Retailers', 'woocommerce-product-retailers' ),
+		] );
+
+		$retailers = Enhanced_Navigation_Menu::get_post_type_items(
+			'wc_product_retailer',
+			[
+				'parent' => 'woocommerce-product-retailers',
+			]
+		);
+
+		foreach ( $retailers as $key => $item ) {
+
+			if ( 'default' === $key ) {
+				continue;
+			}
+
+			if ( 'all' === $key && isset( $item['title'] ) ) {
+				$item['title'] = __('All Retailers', 'woocommerce-product-retailers');
+			}
+
+			Enhanced_Navigation_Menu::add_plugin_item( $item );
+		}
+	}
+
+
+	/**
+	 * Handles the WooCommerce Navigation menu items for conflicts.
+	 *
+	 * @internal
+	 *
+	 * @since 1.15.1
+	 *
+	 * @param array $items
+	 * @return array
+	 */
+	public function handle_enhanced_navigation_items( $items ) {
+
+		foreach ( (array) $items as $key => $item ) {
+
+			// change the menu item name if there is another plugin creating a duplicated entry
+			if ( 'woocommerce-product-retailers' !== $key && isset( $item['title'], $item['parent'] ) && 'woocommerce-product-retailers' !== $item['parent'] && __( 'Retailers', 'woocommerce-product-retailers' ) === $item['title'] ) {
+
+				$items['woocommerce-product-retailers']['title'] = __( 'Product retailers', 'woocommerce-product-retailers' );
+				break;
+			}
+		}
+
+		return $items;
 	}
 
 

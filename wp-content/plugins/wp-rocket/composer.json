@@ -37,7 +37,7 @@
 		"php": ">=7.0",
 		"composer/installers": "~1.0",
 		"monolog/monolog": "^1.0",
-		"psr/container": "^1.0"
+		"psr/container": "1.0.0"
 	},
 	"require-dev": {
 		"php": "^7",
@@ -52,14 +52,14 @@
 		"phpunit/phpunit": "^7",
 		"roave/security-advisories": "dev-master",
 		"szepeviktor/phpstan-wordpress": "^0.5.0",
-		"woocommerce/woocommerce": "^3.9.3",
+		"woocommerce/woocommerce": "^3.9",
 		"wp-coding-standards/wpcs": "^2",
 		"wp-media/background-processing": "^1.3",
 		"wp-media/cloudflare": "^1.0",
 		"wp-media/module-rocketcdn": "^1.0",
 		"wp-media/module-varnish": "^1.0",
 		"wp-media/rocket-lazyload-common": "^2",
-		"wp-media/phpunit": "^1.0",
+		"wp-media/phpunit": "1.1.6",
 		"wp-media/wp-imagify-partner": "^1.0",
 		"wpackagist-plugin/amp": "^1.1.4",
 		"wpackagist-plugin/hummingbird-performance": "2.0.1",

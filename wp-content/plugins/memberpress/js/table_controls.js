@@ -1,47 +1,12 @@
 jQuery(document).ready(function($) {
-  //if($('#cspf-table-search').val() == '') {
-  //  $('#cspf-table-search').val($('#cspf-table-search').attr('data-value'));
-  //  $('#cspf-table-search').css('color','#767676');
-  //}
-
-  //$('#cspf-table-search').focus( function() {
-  //  if($('#cspf-table-search').val() == $('#cspf-table-search').attr('data-value')) {
-  //    $('#cspf-table-search').val('');
-  //    $('#cspf-table-search').css('color','#000000');
-  //  }
-  //});
-
-  //$('#cspf-table-search').blur( function() {
-  //  if($('#cspf-table-search').val() == '') {
-  //    $('#cspf-table-search').val($('#cspf-table-search').attr('data-value'));
-  //    $('#cspf-table-search').css('color','#767676');
-  //  }
-  //});
-
-  //$("#cspf-table-search").keyup(function(e) {
-  //  // Apparently 13 is the enter key
-  //  if(e.which == 13) {
-  //    e.preventDefault();
-  //    var loc = window.location.href;
-  //    loc = loc.replace(/&search=[^&]*/gi, '');
-
-  //    if($(this).val() != '')
-  //      window.location = loc + '&search=' + escape($.trim($(this).val()));
-  //    else
-  //      window.location = loc;
-  //  }
-  //});
-
-  $("#cspf-table-search-submit").on('click', function(e) {
-    e.preventDefault();
-
+  function mepr_process_table_search() {
     var loc = window.location.href;
 
     loc = loc.replace(/[&\?]search=[^&]*/gi, '');
     loc = loc.replace(/[&\?]search-field=[^&]*/gi, '');
     loc = loc.replace(/[&\?]paged=[^&]*/gi, ''); // Show first page when search button is clicked
 
-    var search = escape($('#cspf-table-search').val());
+    var search = encodeURIComponent($('#cspf-table-search').val());
     var search_field = $('#cspf-table-search-field').val();
 
     loc = loc + '&search=' + search + '&search-field=' + search_field;
@@ -52,6 +17,19 @@ jQuery(document).ready(function($) {
     }
 
     window.location = loc;
+  }
+
+  $("#cspf-table-search").keyup(function(e) {
+    // Apparently 13 is the enter key
+    if(e.which == 13) {
+      e.preventDefault();
+      mepr_process_table_search();
+    }
+  });
+
+  $("#cspf-table-search-submit").on('click', function(e) {
+    e.preventDefault();
+    mepr_process_table_search();
   });
 
   $(".current-page").keyup(function(e) {

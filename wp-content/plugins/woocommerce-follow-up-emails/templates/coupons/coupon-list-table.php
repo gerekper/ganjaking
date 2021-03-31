@@ -190,7 +190,7 @@ $coupons = FUE_Coupons::get_coupons();
 		jQuery('div.subsubsub_section ul.subsubsub li a').first().addClass('current');
 		jQuery('div.subsubsub_section .section').slice(1).hide();
 
-		jQuery('div.subsubsub_section ul.subsubsub li a').click(function(){
+		jQuery( 'div.subsubsub_section ul.subsubsub li a' ).on( 'click', function() {
 			var $clicked = jQuery(this);
 			var $section = $clicked.closest('.subsubsub_section');
 			var $target  = $clicked.attr('href');
@@ -209,10 +209,10 @@ $coupons = FUE_Coupons::get_coupons();
 			jQuery('#last_tab').val( $target );
 
 			return false;
-		});
+		} );
 
 		if ( '#usage' === window.location.hash ) {
-			jQuery( 'a[href="#usage"]' ).click();
+			jQuery( 'a[href="#usage"]' ).trigger( 'click' );
 		}
 	});
 </script>

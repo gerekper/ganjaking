@@ -9,16 +9,16 @@ jQuery( function ( $ ) {
         sensei_toggle_interval_type_fields( $("#interval_type").val() );
     });
 
-    jQuery("body").on("change", "#interval_type", function() {
+    jQuery( 'body' ).on( 'change', '#interval_type', function() {
         sensei_toggle_interval_type_fields( $(this).val() );
-    });
+    } );
 
-    $("#fue-email-details").on("change", "#course_id", function() {
+    $( '#fue-email-details' ).on( 'change', '#course_id', function() {
         $("#fue-email-details select.condition").trigger("change");
-    });
+    } );
 
     // conditions
-    $("#fue-email-details").on('change', 'select.condition', function() {
+    $( '#fue-email-details' ).on( 'change', 'select.condition', function() {
         var conditions_with_courses = [
             'have_not_started_first_lesson', 'have_not_completed_a_lesson', 'have_not_completed_a_course'
         ];
@@ -30,7 +30,7 @@ jQuery( function ( $ ) {
 
         if ($.inArray( condition, conditions_with_courses ) > -1 ) {
             $(this).parents('fieldset').find('.value-courses').show();
-            $(this).parents('fieldset').find('.value-courses :input').removeAttr('disabled');
+            $( this ).parents( 'fieldset' ).find( '.value-courses :input' ).prop( 'disabled', false );
 
             $("div.value-courses:visible .ajax-select2-init")
                 .removeClass('ajax-select2-init')
@@ -47,18 +47,18 @@ jQuery( function ( $ ) {
 
                     $( '#' + el_id + '.enhanced' ).select2( 'data', data );
                 });
-                $(this).parents('fieldset').find('.value-courses :input').attr('readonly', true);
+                $( this ).parents( 'fieldset' ).find( '.value-courses :input' ).prop( 'readonly', true );
             } else {
-                $(this).parents('fieldset').find('.value-courses :input').removeAttr('readonly');
+                $( this ).parents( 'fieldset' ).find( '.value-courses :input' ).prop( 'readonly', false );
             }
         } else {
             $(this).parents('fieldset').find('.value-courses').hide();
-            $(this).parents('fieldset').find('.value-courses :input').attr('disabled', true);
+            $( this ).parents( 'fieldset' ).find( '.value-courses :input' ).prop( 'disabled', true );
         }
 
         if ($.inArray( condition, conditions_with_lessons ) > -1 ) {
             $(this).parents('fieldset').find('.value-lessons').show();
-            $(this).parents('fieldset').find('.value-lessons :input').removeAttr('disabled');
+            $( this ).parents( 'fieldset' ).find( '.value-lessons :input' ).prop( 'disabled', false );
 
             $("div.value-lessons:visible .ajax-select2-init")
                 .removeClass('ajax-select2-init')
@@ -80,7 +80,7 @@ jQuery( function ( $ ) {
             }
         } else {
             $(this).parents('fieldset').find('.value-lessons').hide();
-            $(this).parents('fieldset').find('.value-lessons :input').attr('disabled', true);
+            $( this ).parents( 'fieldset' ).find( '.value-lessons :input' ).prop( 'disabled', true );
         }
 
         init_select2_fields();
@@ -88,7 +88,7 @@ jQuery( function ( $ ) {
     } );
 
     // Conditions
-    $("#fue-email-details").on('click', '.btn-add-condition', function(e) {
+    $( '#fue-email-details' ).on( 'click', '.btn-add-condition', function( e ) {
         e.preventDefault();
 
         $("div.value-courses:visible .ajax-select2-init")
@@ -101,13 +101,13 @@ jQuery( function ( $ ) {
 
         init_select2_fields();
 
-        $("select.condition").trigger("change");
-    });
+        $( 'select.condition' ).trigger( 'change' );
+    } );
 
     // enable visible input fields
     $('body').on('updated_email_details', function() {
         init_sensei_search();
-        $("#trigger_conditions :input:visible").removeAttr("disabled");
+        $( '#trigger_conditions :input:visible' ).prop( 'disabled', false );
 
         $(".select2-init:visible")
             .addClass('select2')
@@ -121,7 +121,7 @@ jQuery( function ( $ ) {
             .removeClass('ajax-select2-init')
             .addClass('ajax_select2_lessons');
 
-        $("select.condition").trigger("change");
+        $( 'select.condition' ).trigger( 'change' );
 
         init_select2_fields();
     });
@@ -179,7 +179,7 @@ function sensei_toggle_fields( type ) {
             jQuery(show[x]).show();
         }
 
-        jQuery("option.interval_duration_date").attr("disabled", true);
+        jQuery( 'option.interval_duration_date' ).prop( 'disabled', true );
 
         jQuery(".interval_duration_date").hide();
     } else {

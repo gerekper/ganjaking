@@ -272,19 +272,19 @@ else
 		$('div.panel-wrap').each(function(){
 			$(this).find('div.panel').slice(1).hide();
 		});
-		$('#coupon_options').on("click", "ul.coupon_data_tabs a", function(){
+		$( '#coupon_options' ).on( 'click', 'ul.coupon_data_tabs a', function() {
 			var panel_wrap =  $(this).closest('div.panel-wrap');
 			$('ul.coupon_data_tabs li', panel_wrap).removeClass('active');
 			$(this).parent().addClass('active');
 			$('div.panel', panel_wrap).hide();
 			$( $(this).attr('href') ).show();
 			return false;
-		});
-		$('ul.coupon_data_tabs li:visible').eq(0).find('a').click();
+		} );
+		$( 'ul.coupon_data_tabs li:visible' ).eq( 0 ).find( 'a' ).trigger( 'click' );
 
-		jQuery("#prefixes").change(function() {
+		jQuery( '#prefixes' ).on( 'change', function() {
 			jQuery("#prefix").val(jQuery(this).val());
-		});
+		} );
 
 		jQuery( ':input.ajax_select2_products_and_variations' ).filter( ':not(.enhanced)' ).each( function() {
 			var select2_args = {

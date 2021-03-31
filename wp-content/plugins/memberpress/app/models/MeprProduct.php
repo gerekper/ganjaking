@@ -928,7 +928,9 @@ class MeprProduct extends MeprCptModel implements MeprProductInterface {
   public function get_stripe_plan_id($gateway_id, $amount) {
     $meta_key = sprintf('_mepr_stripe_plan_id_%s_%s', $gateway_id, $this->terms_hash($amount));
 
-    return get_post_meta($this->ID, $meta_key, true);
+    $plan_id = get_post_meta($this->ID, $meta_key, true);
+
+    return MeprHooks::apply_filters('mepr-product-get-stripe-plan-id', $plan_id, $this, $gateway_id, $amount);
   }
 
   /**

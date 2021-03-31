@@ -1,5 +1,13 @@
 *** WooCommerce Product Search ***
 
+2021.03.15 - version 3.6.1
+* Fixed PHP 8 deprecated notices in our term walker class due to required parameters following a parameter unnecessarily declared as optional.
+* Fixed product taxonomies named using non-alphanumeric characters would not have their terms indexed.
+* Fixed issues where terms with no related products should be shown, they were not included (requires rebuilding the index to take effect).
+* Using specific Font Awesome solid (900) icon set to avoid clashes with the reduced icon set in its regular (400) icon set. Fixes issues with icons used in Storefront appearing incorrectly.
+* Fixed filter reset not appropriately shown when filters are displayed as type "Select".
+* Improved price slider UX with added support for touch events.
+
 2021.03.06 - version 3.6.0
 * WordPress 5.6 compatible.
 * WordPress 5.7 compatible.

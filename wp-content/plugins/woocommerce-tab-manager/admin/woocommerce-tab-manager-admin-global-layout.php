@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 /**
  * The Default Tab Layout Admin UI and action handler for the WooCommerce Tab Manager plugin
@@ -31,49 +31,56 @@ use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
 
 
 /**
- * Renders the default tab layout which allows global/core/3rd party tabs to be
- * rearranged.
+ * Renders the default tab layout.
  *
- * The following globals and variables are expected:
+ * @internal
  *
- * @access public
- * @global WC_Tab_manager wc_tab_manager() the Tab Manager main class
+ * @since 1.0.0
  */
 function wc_tab_manager_render_layout_page() {
 
-	$tabs = get_option( 'wc_tab_manager_default_layout', false );
+	?>
+	<div class="wrap">
+		<?php
 
-	// show any error messages ?>
-	<form action="admin-post.php" method="post">
-		<div class="wrap woocommerce">
-			<?php if ( isset( $_GET['result'] ) ) : /* show any action messages */ ?>
-				<div id="message" class="updated">
-					<?php
-					$message = sprintf( __( 'Tabs layout %s', 'woocommerce-tab-manager' ), $_GET['result'] );
-					?>
-					<p><strong><?php echo esc_html( $message ) ?></strong></p>
-				</div>
-			<?php endif; ?>
+		// show any action messages
+		if ( isset( $_GET['result'] ) ) :
+
+			?>
+			<div id="message" class="updated">
+				<p><strong><?php
+					/* translators: Placeholder: %s - updated notice (e.g. Tab layout updated, Tab layout saved, etc.) */
+					printf( esc_html__( 'Tabs layout %s', 'woocommerce-tab-manager' ), $_GET['result'] );
+				?></strong></p>
+			</div>
+			<?php
+
+		endif;
+
+		?>
+		<h1 class="wp-heading-inline"><?php esc_html_e( 'Default tab layout', 'woocommerce-tab-manager' ); ?></h1>
+
+		<form action="admin-post.php" method="post">
+
+			<?php $tabs = get_option( 'wc_tab_manager_default_layout', false ); ?>
 
 			<div class="postbox" id="woocommerce-product-data">
-				<h3 class="hndle"><span><?php esc_html_e( 'Default Tab Layout', 'woocommerce-tab-manager' ); ?></span></h3>
 				<div class="inside">
 					<input type="hidden" value="9c065bb457" name="woocommerce_meta_nonce" id="woocommerce_meta_nonce">
 					<input type="hidden" value="/wp-admin/post.php?post=234&amp;action=edit&amp;message=1" name="_wp_http_referer">
-
 					<div class="panel-wrap product_data">
 						<?php wc_tab_manager_sortable_product_tabs( $tabs ); ?>
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<p class="submit">
-			<input type="hidden" name="action" value="wc_tab_manager_default_layout_save" />
-			<input type="submit" name="save" value="<?php esc_attr_e( 'Save Changes', 'woocommerce-tab-manager' ); ?>" class="button-primary" />
-		</p>
-	</form>
+			<p class="submit">
+				<input type="hidden" name="action" value="wc_tab_manager_default_layout_save">
+				<input type="submit" name="save" value="<?php esc_attr_e( 'Save changes', 'woocommerce-tab-manager' ); ?>" class="button-primary">
+			</p>
 
+		</form>
+	</div>
 	<?php
 }
 
@@ -81,8 +88,11 @@ function wc_tab_manager_render_layout_page() {
 add_action( 'admin_post_wc_tab_manager_default_layout_save', 'wc_tab_manager_default_layout_save' );
 
 /**
- * Save the default tab layout settings
- * @access public
+ * Saves the default tab layout settings.
+ *
+ * @internal
+ *
+ * @since 1.0.0
  */
 function wc_tab_manager_default_layout_save() {
 

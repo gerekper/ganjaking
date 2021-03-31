@@ -387,7 +387,7 @@ class Media_Library extends Abstract_Module {
 
 		$skip_rsn = '';
 		if ( ! empty( $skip_msg[ $msg_id ] ) ) {
-			$skip_rsn = '<a href="https://premium.wpmudev.org/project/wp-smush-pro/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_medialibrary_savings" target="_blank">
+			$skip_rsn = '<a href="https://wpmudev.com/project/wp-smush-pro/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_medialibrary_savings" target="_blank">
 				<span class="sui-tooltip sui-tooltip-left sui-tooltip-constrained sui-tooltip-top-right-mobile" data-tooltip="' . $skip_msg[ $msg_id ] . '">
 				<span class="sui-tag sui-tag-purple sui-tag-sm">' . esc_html__( 'PRO', 'wp-smushit' ) .  '</span></span></a>';
 		}
@@ -600,6 +600,11 @@ class Media_Library extends Abstract_Module {
 		// Empty means we need to smush all images. So get all sizes of current site.
 		if ( empty( $image_sizes ) ) {
 			$image_sizes = array_keys( $this->core->image_dimensions() );
+		}
+
+		// Support for WordPress.com hosting Site Accelerator.
+		if ( has_filter( 'wp_image_editors', 'photon_subsizes_override_image_editors' ) ) {
+			return false;
 		}
 
 		$smushed_image_sizes = isset( $wp_smush_data['sizes'] ) && is_array( $wp_smush_data['sizes'] ) ? count( $wp_smush_data['sizes'] ) : 0;

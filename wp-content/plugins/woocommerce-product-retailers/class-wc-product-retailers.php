@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-product-retailers/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2013-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2013-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 /**
  * WooCommerce Product Retailers main plugin class.
@@ -34,7 +34,7 @@ class WC_Product_Retailers extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.15.0';
+	const VERSION = '1.15.1';
 
 	/** @var \WC_Product_Retailers single instance of this plugin */
 	protected static $instance;

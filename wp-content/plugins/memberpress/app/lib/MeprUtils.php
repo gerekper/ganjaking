@@ -1556,6 +1556,10 @@ class MeprUtils {
       if(isset($uemail->product->emails['MeprUserProductWelcomeEmail'])) {
         $email = $uemail->product->emails['MeprUserProductWelcomeEmail'];
         if($email['enabled']) {
+          // Don't resend the product welcome email if the subscription is resumed
+          if($txn->subscription_id > 0 && MeprEvent::get_count_by_event_and_evt_id_and_evt_id_type('subscription-resumed', $txn->subscription_id, 'subscriptions') > 0) {
+            return false;
+          }
 
           $uemail->send(
             $params,

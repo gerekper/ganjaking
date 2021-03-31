@@ -1,0 +1,27 @@
+/**
+ * UnGrabber
+ * A most effective way to protect your online content from being copied or grabbed
+ * Exclusively on https://1.envato.market/ungrabber
+ *
+ * @encoding        UTF-8
+ * @version         3.0.1
+ * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @license         Commercial Software
+ * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
+ * @support         help@merkulov.design
+ **/
+.icon .mdp-ungrabber-widget-icon {
+  width: 100%;
+  height: 29px;
+  display: block; }
+
+.elementor-navigator__element__element-type .mdp-ungrabber-widget-icon {
+  width: 12px;
+  height: 12px; }
+
+.icon .mdp-ungrabber-widget-icon,
+.elementor-navigator__element__element-type .mdp-ungrabber-widget-icon {
+  background-image: url("../../../../../images/logo-color.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain; }

@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 
 <h3 class="sui-box-title">
-	<?php esc_html_e( 'WebP', 'wp-smushit' ); ?>
+	<?php esc_html_e( 'Local WebP', 'wp-smushit' ); ?>
 </h3>
 
 <span

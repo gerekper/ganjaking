@@ -47,9 +47,10 @@ class MeprRulesCtrl extends MeprCptCtrl {
     // Protect WooCommerce Products (this used to be included in our old WC add-on which has since been deprecated)
     include_once(ABSPATH . 'wp-admin/includes/plugin.php');
     if(!is_plugin_active('memberpress-woocommerce/main.php')) {
-      add_filter('woocommerce_is_purchasable',      'MeprRulesCtrl::override_wc_is_purchasable',    11, 2);
-      add_filter('woocommerce_product_is_visible',  'MeprRulesCtrl::override_wc_is_visible',        11, 2);
-      add_filter('mepr-pre-run-rule-content',       'MeprRulesCtrl::dont_hide_wc_product_content',  11, 3);
+      add_filter('woocommerce_is_purchasable',       'MeprRulesCtrl::override_wc_is_purchasable',    11, 2);
+      add_filter('woocommerce_product_is_visible',   'MeprRulesCtrl::override_wc_is_visible',        11, 2);
+      add_filter('woocommerce_variation_is_visible', 'MeprRulesCtrl::override_wc_is_visible',        11, 4);
+      add_filter('mepr-pre-run-rule-content',        'MeprRulesCtrl::dont_hide_wc_product_content',  11, 3);
     }
   }
 
@@ -183,7 +184,7 @@ class MeprRulesCtrl extends MeprCptCtrl {
 
       //Handle SSL
       $redirect_url = ($is_ssl)?str_replace('http:', 'https:', $redirect_url):$redirect_url;
-      MeprUtils::wp_redirect($redirect_url);
+      MeprUtils::wp_redirect(MeprHooks::apply_filters('mepr-rule-redirect-unauthorized-url', $redirect_url, $delim, $uri));
       exit;
     }
 
@@ -198,7 +199,7 @@ class MeprRulesCtrl extends MeprCptCtrl {
 
         //Handle SSL
         $redirect_url = ($is_ssl)?str_replace('http:', 'https:', $redirect_url):$redirect_url;
-        MeprUtils::wp_redirect($redirect_url);
+        MeprUtils::wp_redirect(MeprHooks::apply_filters('mepr-rule-redirect-unauthorized-url', $redirect_url, $delim, $uri));
         exit;
       }
     }
@@ -820,17 +821,17 @@ class MeprRulesCtrl extends MeprCptCtrl {
     if(MeprUtils::is_mepr_admin($user->ID)) {
       $caps[$active_str] = 1;
     }
-    else if(is_array($ids) && !empty($ids)) {
+    else {
       // membership specific active
       if(isset($args[2])) {
         // If it's a membership then check that it's in the active membership subscriptions array
-        if(is_numeric($args[2])) {
+        if(is_numeric($args[2]) && is_array($ids) && !empty($ids)) {
           if(in_array($args[2],$ids)) {
             $caps[$active_str] = 1;
           }
         }
         // If it's spelled out as a product or membership do the same thing here
-        else if(preg_match('/^((product|membership)s?\s*[=:_-]?\s*)?((\d+\s*,\s*)*\d+)$/i',$args[2],$m)) {
+        else if(preg_match('/^((product|membership)s?\s*[=:_-]?\s*)?((\d+\s*,\s*)*\d+)$/i',$args[2],$m) && is_array($ids) && !empty($ids)) {
           $product_ids = array_map('trim', explode(',',$m[3]));
           if(is_array($product_ids) && !empty($product_ids) &&
              ($intersect = array_intersect($product_ids, $ids)) &&
@@ -873,17 +874,37 @@ class MeprRulesCtrl extends MeprCptCtrl {
   public static function override_wc_is_purchasable($is, $prd) {
     if(!$is) { return $is; } //if it's already not purchasable, no need to go further
 
-    $post = get_post($prd->get_id());
+    if(is_object($prd) && $prd->is_type('variation')) {
+        $post = get_post($prd->get_parent_id());
+    } else {
+        $post = get_post($prd->get_id());
+    }
 
     return !MeprRule::is_locked($post);
   }
 
-  public static function override_wc_is_visible($is, $prd_id) {
+  public static function override_wc_is_visible($is, $prd_id, $prd_parent_id = false, $prd = false) {
     if(!$is) { return $is; } //if it's already not visible, no need to go further
+
+    if($prd && $prd->is_type('variation')) {
+      $parent_product = wc_get_product($prd->get_parent_id());
+
+      // If the parent product (product variable) is not purchasable (i.e. it's hidden), hide the variation's attributes.
+      if(!$parent_product->is_purchasable()) {
+        add_filter('woocommerce_get_product_attributes', 'MeprRulesCtrl::hide_product_attributes');
+      }
+
+    }
 
     $post = get_post($prd_id);
 
     return !MeprRule::is_locked($post);
+  }
+
+  public static function hide_product_attributes($attributes) {
+      unset($attributes);
+      $attributes = array(); // Prevent warnings from WC.
+      return $attributes;
   }
 
   //Never hide WooCommerce the_content

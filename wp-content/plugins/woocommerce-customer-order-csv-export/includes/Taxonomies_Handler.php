@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\CSV_Export;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 /**
  * Customer/Order Export taxonomies handler.

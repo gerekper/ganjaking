@@ -38,13 +38,12 @@
 
   <div id="mepr-custom-login-redirect-urls">
     <input type="checkbox" name="<?php echo MeprProduct::$custom_login_urls_enabled_str; ?>" id="<?php echo MeprProduct::$custom_login_urls_enabled_str; ?>" <?php checked($product->custom_login_urls_enabled); ?> />
-    <label for="<?php echo MeprProduct::$custom_login_urls_enabled_str; ?>"><?php _e('Custom Login Redirect URLs', 'memberpress'); ?>
-      <?php
+    <label for="<?php echo MeprProduct::$custom_login_urls_enabled_str; ?>"><?php _e('Custom Login Redirect URLs', 'memberpress'); ?></label>
+    <?php
         MeprAppHelper::info_tooltip('mepr-customize-login-redirections',
                                     __('Custom Login Redirect URLs', 'memberpress'),
                                     __('By default MemberPress will redirect members to the page setup in options. This will allow you to override that default behavior and customize it any way you want.', 'memberpress'));
-      ?>
-    </label>
+    ?>
 
     <div id="mepr-custom-login-urls-area">
       <label><?php _e('Default Login Redirect URL', 'memberpress'); ?></label>

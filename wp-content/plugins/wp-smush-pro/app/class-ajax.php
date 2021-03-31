@@ -517,7 +517,7 @@ class Ajax {
 					 *
 					 * @since 3.2.1
 					 */
-					if ( is_array( $image_sizes ) && count( $image_sizes ) > count( $smush_data['sizes'] ) ) {
+					if ( is_array( $image_sizes ) && count( $image_sizes ) > count( $smush_data['sizes'] ) && ! has_filter( 'wp_image_editors', 'photon_subsizes_override_image_editors' ) ) {
 						// Move this inside an if statement.
 						$attachment_data = wp_get_attachment_metadata( $attachment );
 						if ( isset( $attachment_data['sizes'] ) && count( $attachment_data['sizes'] ) !== count( $smush_data['sizes'] ) ) {

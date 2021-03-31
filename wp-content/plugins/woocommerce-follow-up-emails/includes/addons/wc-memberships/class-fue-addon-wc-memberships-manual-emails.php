@@ -82,13 +82,13 @@ class FUE_Addon_WC_Memberships_Manual_Emails {
 	 */
 	public function manual_form_script() {
 		?>
-		jQuery("#send_type").change(function() {
+		jQuery( '#send_type' ).on( 'change', function() {
 		if ( jQuery(this).val() == "wc_memberships" ) {
 		jQuery(".send-type-wc-memberships").show();
 		} else {
 		jQuery(".send-type-wc-memberships").hide();
 		}
-		}).change();
+		} ).trigger( 'change' );
 	<?php
 	}
 }

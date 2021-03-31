@@ -23,7 +23,8 @@
 
 namespace SkyVerge\WooCommerce\Checkout_Add_Ons\Admin;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On_Factory;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Admin\Handlers\Shop_Order;
@@ -92,6 +93,33 @@ class Admin {
 
 		// must be called outside of `is_admin()` or else the control is hidden
 		add_action( 'customize_register', [ $this, 'add_customizer_settings' ], 15, 1 );
+
+		// add enhanced navigation menu items
+		add_action( 'admin_menu', [ $this, 'add_enhanced_navigation_items' ] );
+	}
+
+
+	/**
+	 * Adds menu items for the enhanced WooCommerce navigation feature.
+	 *
+	 * @internal
+	 *
+	 * @since 2.5.3
+	 */
+	public function add_enhanced_navigation_items() {
+
+		// bail if feature is not enabled
+		if ( ! Framework\SV_WC_Helper::is_wc_navigation_enabled() ) {
+			return;
+		}
+
+		Menu::add_plugin_item( [
+			'id'         => 'wc_checkout_add_ons',
+			'title'      => __( 'Checkout Add-Ons', 'woocommerce-checkout-add-ons' ),
+			'capability' => 'manage_woocommerce',
+			'url'        => 'wc_checkout_add_ons',
+			'parent'     => 'woocommerce',
+		] );
 	}
 
 

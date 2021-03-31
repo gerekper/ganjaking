@@ -12,7 +12,7 @@ jQuery( function ( $ ) {
         $(".show-if-booking-status").hide();
         $(".wc-bookings-selector").show();
 
-        $("#fue-email-details").on("change", "#interval_type", function() {
+        $( '#fue-email-details' ).on( 'change', '#interval_type', function() {
             var val = $(this).val();
 
             if ( $.inArray( val, statuses ) !== -1 ) {
@@ -22,9 +22,9 @@ jQuery( function ( $ ) {
                 $("#meta_bookings_last_status").val('');
             }
 
-        });
+        } );
 
-        $("#interval_type").change();
+        $( '#interval_type' ).trigger( 'change' );
     } );
 
 
@@ -39,7 +39,7 @@ jQuery( function ( $ ) {
                 '.interval_type_after_last_purchase', '.var_customer', 'show-if-booking-status'
             ];
 
-            $("option.interval_duration_date").attr("disabled", true);
+            $( 'option.interval_duration_date' ).prop( 'disabled', true );
 
             for (x = 0; x < hide.length; x++) {
                 $(hide[x]).hide();
@@ -49,7 +49,7 @@ jQuery( function ( $ ) {
                 $(show[x]).show();
             }
 
-            $("#interval_type").change();
+            $( '#interval_type').trigger( 'change' );
         } else {
             var hide = ['.interval_type_before_booking_event', '.interval_type_after_booking', '.interval_type_after_booking_approved', '.var_wc_bookings', '.wc_bookings'];
 

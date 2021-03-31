@@ -310,7 +310,7 @@ select.product-search-filter-attribute {
 .product-search-product_cat-filter-item > a:hover:after,
 .product-search-attribute-filter-item > a:hover:after
 */ {
-	font-family: 'Font Awesome 5 Free';
+	font-family: 'Font Awesome 5 Free Solid';
 	font-weight: 900;
 	font-size: 80%;
 	content: "\f111";
@@ -319,7 +319,7 @@ select.product-search-filter-attribute {
 }
 .product-search-product_cat-filter-item.current-cat > a:hover:after,
 .product-search-attribute-filter-item.current-attribute > a:hover:after {
-	font-family: 'Font Awesome 5 Free';
+	font-family: 'Font Awesome 5 Free Solid';
 	font-weight: 900;
 	font-size: 80%;
 	content: "\f057";
@@ -374,7 +374,7 @@ a.product-search-product_tag-filter-item:hover {
 	display: block;
 }
 .product-search-filter-terms .nav-back:before {
-	font-family: 'Font Awesome 5 Free';
+	font-family: 'Font Awesome 5 Free Solid';
 	font-weight: 900;
 	content: "\f0d8";
 	vertical-align: middle;
@@ -516,7 +516,7 @@ div.product-search-filter-extras a,
 	font-size: 90%;
 	cursor: pointer;
 	padding: 0 2px;
-	font-family: 'Font Awesome 5 Free';
+	font-family: 'Font Awesome 5 Free Solid';
 	font-weight: 900;
 }
 .product-search-filter-terms .cat-parent.expandable > .term-expander .expand {
@@ -563,7 +563,7 @@ div.product-search-filter-extras a,
 }
 .selectize-control a.remove-single,
 .selectize-control a.remove {
-	font-family: 'Font Awesome 5 Free';
+	font-family: 'Font Awesome 5 Free Solid';
 	font-weight: 900;
 	font-size: 80%;
 	vertical-align: text-top;
@@ -600,7 +600,7 @@ div.product-search-filter-extras a,
 
 .selectize-control.ixnorm .selectize-input:after,
 .selectize-control.single.ixnorm .selectize-input:after {
-	font-family: 'Font Awesome 5 Free';
+	font-family: 'Font Awesome 5 Free Solid';
 	font-weight: 900;
 	content: "\f067";
 	display: block;
@@ -709,7 +709,7 @@ html[dir="rtl"] .product-search-filter-terms .selectize-control.single.ixnorm .s
 }
 
 .product-search-filter-extra.rating-filter-option.rating-selected::after {
-	font-family: 'Font Awesome 5 Free';
+	font-family: 'Font Awesome 5 Free Solid';
 	font-weight: 900;
 	font-size: 80%;
 	content: "\f00c";
@@ -744,17 +744,17 @@ body.product-search-filter-loading {
 }
 
 @font-face {
-	font-family: 'Font Awesome 5 Free';
-	font-style: normal;
-	font-weight: 400;
-	src: url("../fonts/fa-regular-400.eot");
-	src: url("../fonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../fonts/fa-regular-400.woff2") format("woff2"), url("../fonts/fa-regular-400.woff") format("woff"), url("../fonts/fa-regular-400.ttf") format("truetype"), url("../fonts/fa-regular-400.svg#fontawesome") format("svg");
-}
-
-@font-face {
-	font-family: 'Font Awesome 5 Free';
+	font-family: 'Font Awesome 5 Free Solid';
 	font-style: normal;
 	font-weight: 900;
 	src: url("../fonts/fa-solid-900.eot");
 	src: url("../fonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("../fonts/fa-solid-900.woff2") format("woff2"), url("../fonts/fa-solid-900.woff") format("woff"), url("../fonts/fa-solid-900.ttf") format("truetype"), url("../fonts/fa-solid-900.svg#fontawesome") format("svg");
+}
+
+@font-face {
+	font-family: 'Font Awesome 5 Free Regular';
+	font-style: normal;
+	font-weight: 400;
+	src: url("../fonts/fa-regular-400.eot");
+	src: url("../fonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../fonts/fa-regular-400.woff2") format("woff2"), url("../fonts/fa-regular-400.woff") format("woff"), url("../fonts/fa-regular-400.ttf") format("truetype"), url("../fonts/fa-regular-400.svg#fontawesome") format("svg");
 }

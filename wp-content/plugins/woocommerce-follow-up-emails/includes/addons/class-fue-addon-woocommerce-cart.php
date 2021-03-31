@@ -79,9 +79,24 @@ class FUE_Addon_Woocommerce_Cart {
 			return;
 		}
 
-		if ( !is_user_logged_in() && $item->user_id > 0 ) {
+		/**
+		* Prepare redirect parameters. If the {cart_url} was prepared with Google Analytics setting,
+		* the parameters added to the original url like UTM tags would be lost on traditional logged-out redirect to cart scenario.
+		* This is why we store the parameters in the cookie and are regenerating the analytics args on redirect.
+		*/
+		$values_to_omit      = array( 'page_id', 'fue_cart_redirect', 'fueid', 'qid' );
+		$all_redirect_params = $_GET;
+		$redirect_parameters = array_filter(
+			$all_redirect_params,
+			function ( $key ) use ( $values_to_omit ) {
+				return ! in_array( $key, $values_to_omit );
+			},
+			ARRAY_FILTER_USE_KEY
+		);
+
+		if ( ! is_user_logged_in() && $item->user_id > 0 ) {
 			// set a cookie to force a redirect to the cart after logging in
-			setcookie( 'fue_cart_redirect', true, 0, SITECOOKIEPATH, COOKIE_DOMAIN );
+			setcookie( 'fue_cart_redirect', json_encode( $redirect_parameters ), 0, SITECOOKIEPATH, COOKIE_DOMAIN );
 			wc_add_notice( __('Please log in to view your saved cart.', 'follow_up_emails'), 'notice' );
 			wp_safe_redirect( get_permalink( wc_get_page_id( 'myaccount' ) ) );
 			exit;
@@ -98,9 +113,18 @@ class FUE_Addon_Woocommerce_Cart {
 	 */
 	public function override_login_redirect( $redirect, $user ) {
 		if ( isset( $_COOKIE['fue_cart_redirect'] ) ) {
-			$redirect = wc_get_cart_url();
+			/**
+			 * If we have data stored in the cookie ( by handle_redirect_to_cart() ) this means that we should generate
+			 * query parameters out of the values. We do this to preserve analytics tracking information embedded in the original {cart_url}.
+			 */
+			$redirect_parameters = json_decode( stripslashes( $_COOKIE['fue_cart_redirect'] ), true );
+			$cart_url = wc_get_cart_url();
+			if ( is_array( $redirect_parameters ) ) {
+				$redirect = add_query_arg( $redirect_parameters, $cart_url );
+			} else {
+				$redirect = $cart_url;
+			}
 		}
-
 		return $redirect;
 	}
 

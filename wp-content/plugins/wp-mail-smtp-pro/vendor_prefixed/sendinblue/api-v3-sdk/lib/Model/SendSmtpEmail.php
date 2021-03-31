@@ -51,13 +51,13 @@ class SendSmtpEmail implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelI
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['sender' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\SendSmtpEmailSender', 'to' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\SendSmtpEmailTo[]', 'bcc' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\SendSmtpEmailBcc[]', 'cc' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\SendSmtpEmailCc[]', 'htmlContent' => 'string', 'textContent' => 'string', 'subject' => 'string', 'replyTo' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\SendSmtpEmailReplyTo', 'attachment' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\SendSmtpEmailAttachment[]', 'headers' => 'object', 'templateId' => 'int', 'params' => 'object', 'tags' => 'string[]'];
+    protected static $swaggerTypes = ['sender' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\SendSmtpEmailSender', 'to' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\SendSmtpEmailTo[]', 'bcc' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\SendSmtpEmailBcc[]', 'cc' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\SendSmtpEmailCc[]', 'htmlContent' => 'string', 'textContent' => 'string', 'subject' => 'string', 'replyTo' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\SendSmtpEmailReplyTo', 'attachment' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\SendSmtpEmailAttachment[]', 'headers' => 'object', 'templateId' => 'int', 'params' => 'object', 'messageVersions' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\SendSmtpEmailMessageVersions[]', 'tags' => 'string[]'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['sender' => null, 'to' => null, 'bcc' => null, 'cc' => null, 'htmlContent' => null, 'textContent' => null, 'subject' => null, 'replyTo' => null, 'attachment' => null, 'headers' => null, 'templateId' => 'int64', 'params' => null, 'tags' => null];
+    protected static $swaggerFormats = ['sender' => null, 'to' => null, 'bcc' => null, 'cc' => null, 'htmlContent' => null, 'textContent' => null, 'subject' => null, 'replyTo' => null, 'attachment' => null, 'headers' => null, 'templateId' => 'int64', 'params' => null, 'messageVersions' => null, 'tags' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -82,19 +82,19 @@ class SendSmtpEmail implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelI
      *
      * @var string[]
      */
-    protected static $attributeMap = ['sender' => 'sender', 'to' => 'to', 'bcc' => 'bcc', 'cc' => 'cc', 'htmlContent' => 'htmlContent', 'textContent' => 'textContent', 'subject' => 'subject', 'replyTo' => 'replyTo', 'attachment' => 'attachment', 'headers' => 'headers', 'templateId' => 'templateId', 'params' => 'params', 'tags' => 'tags'];
+    protected static $attributeMap = ['sender' => 'sender', 'to' => 'to', 'bcc' => 'bcc', 'cc' => 'cc', 'htmlContent' => 'htmlContent', 'textContent' => 'textContent', 'subject' => 'subject', 'replyTo' => 'replyTo', 'attachment' => 'attachment', 'headers' => 'headers', 'templateId' => 'templateId', 'params' => 'params', 'messageVersions' => 'messageVersions', 'tags' => 'tags'];
     /**
      * Array of attributes to setter functions (for deserialization of responses)
      *
      * @var string[]
      */
-    protected static $setters = ['sender' => 'setSender', 'to' => 'setTo', 'bcc' => 'setBcc', 'cc' => 'setCc', 'htmlContent' => 'setHtmlContent', 'textContent' => 'setTextContent', 'subject' => 'setSubject', 'replyTo' => 'setReplyTo', 'attachment' => 'setAttachment', 'headers' => 'setHeaders', 'templateId' => 'setTemplateId', 'params' => 'setParams', 'tags' => 'setTags'];
+    protected static $setters = ['sender' => 'setSender', 'to' => 'setTo', 'bcc' => 'setBcc', 'cc' => 'setCc', 'htmlContent' => 'setHtmlContent', 'textContent' => 'setTextContent', 'subject' => 'setSubject', 'replyTo' => 'setReplyTo', 'attachment' => 'setAttachment', 'headers' => 'setHeaders', 'templateId' => 'setTemplateId', 'params' => 'setParams', 'messageVersions' => 'setMessageVersions', 'tags' => 'setTags'];
     /**
      * Array of attributes to getter functions (for serialization of requests)
      *
      * @var string[]
      */
-    protected static $getters = ['sender' => 'getSender', 'to' => 'getTo', 'bcc' => 'getBcc', 'cc' => 'getCc', 'htmlContent' => 'getHtmlContent', 'textContent' => 'getTextContent', 'subject' => 'getSubject', 'replyTo' => 'getReplyTo', 'attachment' => 'getAttachment', 'headers' => 'getHeaders', 'templateId' => 'getTemplateId', 'params' => 'getParams', 'tags' => 'getTags'];
+    protected static $getters = ['sender' => 'getSender', 'to' => 'getTo', 'bcc' => 'getBcc', 'cc' => 'getCc', 'htmlContent' => 'getHtmlContent', 'textContent' => 'getTextContent', 'subject' => 'getSubject', 'replyTo' => 'getReplyTo', 'attachment' => 'getAttachment', 'headers' => 'getHeaders', 'templateId' => 'getTemplateId', 'params' => 'getParams', 'messageVersions' => 'getMessageVersions', 'tags' => 'getTags'];
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name
@@ -158,6 +158,7 @@ class SendSmtpEmail implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelI
         $this->container['headers'] = isset($data['headers']) ? $data['headers'] : null;
         $this->container['templateId'] = isset($data['templateId']) ? $data['templateId'] : null;
         $this->container['params'] = isset($data['params']) ? $data['params'] : null;
+        $this->container['messageVersions'] = isset($data['messageVersions']) ? $data['messageVersions'] : null;
         $this->container['tags'] = isset($data['tags']) ? $data['tags'] : null;
     }
     /**
@@ -168,9 +169,6 @@ class SendSmtpEmail implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelI
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-        if ($this->container['to'] === null) {
-            $invalidProperties[] = "'to' can't be null";
-        }
         return $invalidProperties;
     }
     /**
@@ -216,7 +214,7 @@ class SendSmtpEmail implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelI
     /**
      * Sets to
      *
-     * @param \SendinBlue\Client\Model\SendSmtpEmailTo[] $to List of email addresses and names (optional) of the recipients. For example, [{\"name\":\"Jimmy\", \"email\":\"jimmy98@example.com\"}, {\"name\":\"Joe\", \"email\":\"joe@example.com\"}]
+     * @param \SendinBlue\Client\Model\SendSmtpEmailTo[] $to Mandatory if messageVersions are not passed, ignored if messageVersions are passed. List of email addresses and names (optional) of the recipients. For example, [{\"name\":\"Jimmy\", \"email\":\"jimmy98@example.com\"}, {\"name\":\"Joe\", \"email\":\"joe@example.com\"}]
      *
      * @return $this
      */
@@ -405,7 +403,7 @@ class SendSmtpEmail implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelI
     /**
      * Sets templateId
      *
-     * @param int $templateId Id of the template
+     * @param int $templateId Id of the template. Mandatory if messageVersions are passed
      *
      * @return $this
      */
@@ -433,6 +431,27 @@ class SendSmtpEmail implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelI
     public function setParams($params)
     {
         $this->container['params'] = $params;
+        return $this;
+    }
+    /**
+     * Gets messageVersions
+     *
+     * @return \SendinBlue\Client\Model\SendSmtpEmailMessageVersions[]
+     */
+    public function getMessageVersions()
+    {
+        return $this->container['messageVersions'];
+    }
+    /**
+     * Sets messageVersions
+     *
+     * @param \SendinBlue\Client\Model\SendSmtpEmailMessageVersions[] $messageVersions You can customize and send out multiple versions of a templateId. Some global parameters such as **to(mandatory), bcc, cc, replyTo, subject** can also be customized specific to each version. The size of individual params in all the messageVersions shall not exceed 100 KB limit and that of cumulative params shall not exceed 1000 KB. This feature is currently in its beta version. You can follow this **step-by-step guide** on how to use **messageVersions** to batch send emails - https://developers.sendinblue.com/docs/batch-send-transactional-emails
+     *
+     * @return $this
+     */
+    public function setMessageVersions($messageVersions)
+    {
+        $this->container['messageVersions'] = $messageVersions;
         return $this;
     }
     /**

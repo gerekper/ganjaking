@@ -71,7 +71,7 @@ abstract class Abstract_Page {
 	 *
 	 * @var string $upgrade_url
 	 */
-	protected $upgrade_url = 'https://premium.wpmudev.org/project/wp-smush-pro/';
+	protected $upgrade_url = 'https://wpmudev.com/project/wp-smush-pro/';
 
 	/**
 	 * Abstract_Page constructor.
@@ -643,9 +643,9 @@ abstract class Abstract_Page {
 				<?php endif; ?>
 				<?php if ( ! apply_filters( 'wpmudev_branding_hide_doc_link', false ) ) : ?>
 					<?php
-					$doc = 'https://premium.wpmudev.org/docs/wpmu-dev-plugins/smush/';
+					$doc = 'https://wpmudev.com/docs/wpmu-dev-plugins/smush/';
 					if ( WP_Smush::is_pro() ) {
-						$doc = 'https://premium.wpmudev.org/docs/wpmu-dev-plugins/smush/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_pluginlist_docs';
+						$doc = 'https://wpmudev.com/docs/wpmu-dev-plugins/smush/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_pluginlist_docs';
 					}
 					?>
 					<a href="<?php echo esc_url( $doc ); ?>" class="sui-button sui-button-ghost" target="_blank">

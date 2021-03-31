@@ -4,7 +4,7 @@
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-tab-manager/
  * Documentation URI: https://docs.woocommerce.com/document/tab-manager/
  * Description: A product tab manager for WooCommerce
- * Version: 1.14.0
+ * Version: 1.14.1
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
  * Text Domain: woocommerce-tab-manager
@@ -23,7 +23,7 @@
  *
  * Woo: 132195:89a9ac74850855cfe772b4b4ee1e31e0
  * WC requires at least: 3.5
- * WC tested up to: 4.7.1
+ * WC tested up to: 5.1.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -59,7 +59,7 @@ class WC_Tab_Manager_Loader {
 	const MINIMUM_WC_VERSION = '3.5';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.5.0';
+	const FRAMEWORK_VERSION = '5.10.6';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Tab Manager';

@@ -56,7 +56,7 @@ if(!empty($products)):
               MeprAppHelper::info_tooltip(
                 'mepr-coupon-trial-days',
                 __('Trial Days Price Text', 'memberpress'),
-                __('Values here that are multiples of 365 will show as years, muplitples of 30 will show as months, multiples of 7 will show as weeks ... otherwise the trial will show up as days.', 'memberpress') );
+                __('Values here that are multiples of 365 will show as years, multiples of 30 will show as months, multiples of 7 will show as weeks ... otherwise the trial will show up as days.', 'memberpress') );
             ?>
           </th>
           <td>

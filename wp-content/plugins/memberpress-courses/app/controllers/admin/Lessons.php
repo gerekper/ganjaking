@@ -44,7 +44,9 @@ class Lessons extends lib\BaseCptCtrl {
         'has_archive' => false,
         'capability_type' => 'page',
         'hierarchical' => false,
-        'register_meta_box_cb' => array( $this, 'add_meta_boxes' ),
+        'register_meta_box_cb' => function () {
+          $this->add_meta_boxes();
+        },
         'rewrite' => array('slug' => '/'.helpers\Courses::get_permalink_base().'/%course_slug%/' . models\Lesson::$permalink_slug, 'with_front' => false),
         'supports' => array('title','editor','thumbnail'),
         'taxonomies' => array(),
@@ -170,6 +172,6 @@ class Lessons extends lib\BaseCptCtrl {
   }
 
   public function lesson_meta_box() {
-    require_once(base\VIEWS_PATH . '/admin/lessons/meta_box.php');
+    require_once(base\VIEWS_PATH . '/admin/lessons/courses_meta_box.php');
   }
 }

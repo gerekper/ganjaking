@@ -15,16 +15,18 @@ class RevSliderLicense extends RevSliderFunctions {
 	 * @before 6.2.0: RevSliderAdmin::activate_plugin();
 	 **/
 	public function activate_plugin($code){
-		$rslb = new RevSliderLoadBalancer();
+		$rslb = RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
 		$data = array('code' => urlencode($code), 'version'	=> urlencode(RS_REVISION), 'product' => urlencode(RS_PLUGIN_SLUG));
 		
 		$response	  = $rslb->call_url('activate.php', $data, 'updates');
 		$version_info = wp_remote_retrieve_body($response);
 		
+	
 		
-		update_option('revslider-valid', 'true');
-		update_option('revslider-code', 'active');
-		return true;
+	
+			update_option('revslider-valid', 'true');
+			update_option('revslider-code', 'active');
+			return true;
 	}
 	
 	
@@ -43,7 +45,12 @@ class RevSliderLicense extends RevSliderFunctions {
 		
 		if(is_wp_error($vi)) return false;
 
-		
+		if($vi == 'valid'){
+			update_option('revslider-valid', 'true');
+			update_option('revslider-code', 'active');
+			
+			return true;
+		}
 		
 		return false;
 	}

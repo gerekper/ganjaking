@@ -23,7 +23,7 @@ class MPCA_User_Admin_Controller {
     // Get a list of the user's subscriptions
     $subscriptions = $user->subscriptions();
 
-    require( MPCA_VIEWS_PATH . '/mpca-edit-user-template.php' );
+    require(MeprView::file('/mpca-edit-user-template'));
   }
 
   public function save_user($user) {

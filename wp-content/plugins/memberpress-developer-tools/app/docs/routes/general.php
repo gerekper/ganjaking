@@ -31,7 +31,7 @@ return array(
         'name' => __('Event', 'memberpress-developer-tools'),
         'type' => 'string',
         'required' => __('Required', 'memberpress-developer-tools'),
-        'valid_values' => '"all", "' . implode($registered_events, '", "') . '"',
+        'valid_values' => '"all", "' . implode('", "', $registered_events) . '"',
         'desc' => __('The Webhook will be triggered by and send data for this Event.', 'memberpress-developer-tools')
       ),
     ),

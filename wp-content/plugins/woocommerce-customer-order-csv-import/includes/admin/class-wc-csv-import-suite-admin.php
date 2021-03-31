@@ -21,7 +21,8 @@
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
+use Automattic\WooCommerce\Admin\Features\Navigation\Menu as EnhancedMenu;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -62,6 +63,12 @@ class WC_CSV_Import_Suite_Admin {
 
 		// add the menu item
 		add_action( 'admin_menu', array( $this, 'add_menu_link' ) );
+
+		// add the same menu names for the WC enhanced navigation
+		add_action( 'admin_menu', [ $this, 'add_enhanced_navigation_items' ] );
+
+		// prevent a conflicting menu item name
+		add_action( 'woocommerce_navigation_menu_items', [ $this, 'filter_duplicate_menu_item_name' ] );
 
 		// load styles/scripts
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_styles_scripts' ) );
@@ -138,6 +145,87 @@ class WC_CSV_Import_Suite_Admin {
 			array( $this, 'render_submenu_pages' )
 		);
 
+	}
+
+
+	/**
+	 * Adds the plugin's menu items to the WooCommerce enhanced navigation.
+	 *
+	 * @internal
+	 *
+	 * @since 3.10.1
+	 */
+	public function add_enhanced_navigation_items() {
+
+		if ( ! Framework\SV_WC_Helper::is_wc_navigation_enabled() ) {
+			return;
+		}
+
+		EnhancedMenu::add_plugin_category( [
+			'id'     => 'woocommerce_csv_import_menu_category',
+			'title'  => __( 'Import', 'woocommerce-csv-import-suite' ),
+			'parent' => 'woocommerce',
+		] );
+
+		EnhancedMenu::add_plugin_item( [
+			'id'         => 'woocommerce_csv_import_menu_import',
+			'title'      => __( 'Import', 'woocommerce-csv-import-suite' ),
+			'capability' => 'manage_woocommerce',
+			'url'        => 'csv_import_suite&tab=import',
+			'parent'     => 'woocommerce_csv_import_menu_category',
+		] );
+
+		EnhancedMenu::add_plugin_item( [
+			'id'         => 'woocommerce_csv_import_menu_import_list',
+			'title'      => __( 'Import List', 'woocommerce-csv-import-suite' ),
+			'capability' => 'manage_woocommerce',
+			'url'        => 'csv_import_suite&tab=import_list',
+			'parent'     => 'woocommerce_csv_import_menu_category',
+		] );
+	}
+
+
+	/**
+	 * Prevents that another plugin with the same menu name will conflict.
+	 *
+	 * @internal
+	 *
+	 * @since 3.10.1
+	 *
+	 * @param array $items the list of current menu items
+	 * @return array a filtered menu item list
+	 */
+	public function filter_duplicate_menu_item_name( array $items ) : array {
+
+		// current menu name used by the default WooCommerce navigation menu
+		$current_menu_name = __( 'CSV Import Suite', 'woocommerce-csv-import-suite' );
+
+		// new menu name used by the enhanced WooCommerce navigation menu
+		$new_menu_name = __( 'Import', 'woocommerce-csv-import-suite' );
+
+		foreach( $items as $key => $value ) {
+
+			// this is the first menu option in the import category and it's not a duplicate case
+			if ( 'woocommerce_csv_import_menu_import' === $key ) {
+				continue;
+			}
+
+			// prevents the current Import menu item added by add_menu_link to be shown
+			if ( isset( $value['url'], $value['title'] ) && 'admin.php?page=csv_import_suite' === $value['url'] && $current_menu_name === $value['title'] ) {
+
+				unset( $items[ $key ] );
+
+				continue;
+			}
+
+			if ( 'woocommerce_csv_import_menu_category' !== $key && $new_menu_name === $value['title'] ) {
+
+				// prevents a duplicate name by changing the Import menu name
+				$items['woocommerce_csv_import_menu_category']['title'] = __( 'Customer/Order/Coupon CSV Import Suite', 'woocommerce-csv-import-suite' );
+			}
+		}
+
+		return $items;
 	}
 
 
@@ -352,10 +440,12 @@ class WC_CSV_Import_Suite_Admin {
 
 		$current_tab = empty( $_GET[ 'tab' ] ) ? 'import' : sanitize_title( $_GET[ 'tab' ] );
 
+		$should_hide_tabs = Framework\SV_WC_Helper::is_wc_navigation_enabled();
+
 		?>
 		<div class="wrap woocommerce">
 			<form method="post" id="mainform" action="" enctype="multipart/form-data">
-				<h2 class="nav-tab-wrapper woo-nav-tab-wrapper">
+				<h2 class="nav-tab-wrapper woo-nav-tab-wrapper" <?php echo $should_hide_tabs ? 'style="display: none;"' : ''; ?>>
 					<?php
 					foreach ( $this->tabs as $tab_id => $tab_title ) :
 						$class = ( $tab_id === $current_tab ) ? array( 'nav-tab', 'nav-tab-active' ) : array( 'nav-tab' );

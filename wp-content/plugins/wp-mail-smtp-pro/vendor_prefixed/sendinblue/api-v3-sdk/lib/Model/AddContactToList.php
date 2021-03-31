@@ -51,13 +51,13 @@ class AddContactToList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mod
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['emails' => 'string[]'];
+    protected static $swaggerTypes = ['emails' => 'string[]', 'ids' => 'int[]'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['emails' => 'email'];
+    protected static $swaggerFormats = ['emails' => 'email', 'ids' => 'int64'];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -82,19 +82,19 @@ class AddContactToList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mod
      *
      * @var string[]
      */
-    protected static $attributeMap = ['emails' => 'emails'];
+    protected static $attributeMap = ['emails' => 'emails', 'ids' => 'ids'];
     /**
      * Array of attributes to setter functions (for deserialization of responses)
      *
      * @var string[]
      */
-    protected static $setters = ['emails' => 'setEmails'];
+    protected static $setters = ['emails' => 'setEmails', 'ids' => 'setIds'];
     /**
      * Array of attributes to getter functions (for serialization of requests)
      *
      * @var string[]
      */
-    protected static $getters = ['emails' => 'getEmails'];
+    protected static $getters = ['emails' => 'getEmails', 'ids' => 'getIds'];
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name
@@ -147,6 +147,7 @@ class AddContactToList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mod
     public function __construct(array $data = null)
     {
         $this->container['emails'] = isset($data['emails']) ? $data['emails'] : null;
+        $this->container['ids'] = isset($data['ids']) ? $data['ids'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -180,13 +181,34 @@ class AddContactToList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mod
     /**
      * Sets emails
      *
-     * @param string[] $emails Emails to add to a list. You can pass a maximum of 150 emails for addition in one request. If you need to add the emails in bulk, please prefer /contacts/import api.
+     * @param string[] $emails Mandatory if IDs are not passed, ignored otherwise. Emails to add to a list. You can pass a maximum of 150 emails for addition in one request. If you need to add the emails in bulk, please prefer /contacts/import api.
      *
      * @return $this
      */
     public function setEmails($emails)
     {
         $this->container['emails'] = $emails;
+        return $this;
+    }
+    /**
+     * Gets ids
+     *
+     * @return int[]
+     */
+    public function getIds()
+    {
+        return $this->container['ids'];
+    }
+    /**
+     * Sets ids
+     *
+     * @param int[] $ids Mandatory if Emails are not passed, ignored otherwise. Emails to add to a list. You can pass a maximum of 150 emails for addition in one request. If you need to add the emails in bulk, please prefer /contacts/import api.
+     *
+     * @return $this
+     */
+    public function setIds($ids)
+    {
+        $this->container['ids'] = $ids;
         return $this;
     }
     /**

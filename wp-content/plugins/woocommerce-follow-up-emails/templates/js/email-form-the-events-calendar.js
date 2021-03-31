@@ -5,10 +5,10 @@ jQuery( function ( $ ) {
 
     // enable visible input fields
     $('body').on('updated_email_details', function() {
-        $("#wootickets_type").change();
+        $( '#wootickets_type' ).trigger( 'change' );
     });
 
-    $("#fue-email-details").on("change", "#wootickets_type", function() {
+    $( '#fue-email-details' ).on( 'change', '#wootickets_type', function() {
         $(".product_tr, .category_tr, .excluded_category_tr").hide();
 
         var type = $(this).val();
@@ -48,9 +48,9 @@ jQuery( function ( $ ) {
                 break;
         }
 
-        $("#ticket_product_id").change();
-        $("#ticket_category_id").change();
-    });
+        $( '#ticket_product_id' ).trigger( 'change' );
+        $( '#ticket_category_id' ).trigger( 'change' );
+    } );
 
     jQuery("body").on("fue_interval_type_changed", function(evt, type) {
         if (type == "before_tribe_event_starts" || type == "after_tribe_event_ends") {
@@ -80,8 +80,8 @@ function wootickets_toggle_fields( type ) {
             jQuery(show[x]).show();
         }
 
-        jQuery("#interval_type").change();
-        jQuery("#wootickets_type").change();
+        jQuery( '#interval_type' ).trigger( 'change' );
+        jQuery( '#wootickets_type' ).trigger( 'change' );
     } else {
         var hide = ['#fue-email-wootickets', '.var_events_calendar', '.interval_type_before_tribe_event_starts', '.interval_type_after_tribe_event_ends', '.tribe_limit_tr', '.ticket_product_tr'];
 
@@ -94,7 +94,7 @@ function wootickets_toggle_fields( type ) {
 jQuery(document).ready(function($) {
     wootickets_toggle_fields( jQuery("#email_type").val() );
 
-    jQuery("#interval_type").change(function() {
+    jQuery( '#interval_type' ).on( 'change', function() {
         var val = jQuery(this).val();
         if ( val == "before_tribe_event_starts" || val == "after_tribe_event_ends" ) {
             jQuery("option.interval_duration_date").attr("disabled", true);
@@ -111,9 +111,9 @@ jQuery(document).ready(function($) {
             jQuery(".tribe_limit_tr").hide();
         }
 
-    }).change();
+    } ).trigger( 'change' );
 
-    $("body").on("change", "#ticket_product_id", function() {
+    $( 'body' ).on( 'change', '#ticket_product_id', function() {
         if ( jQuery(this).val() ) {
             // if selected product contain variations, show option to include variations
             jQuery(".ticket_product_tr").block({ message: null, overlayCSS: { background: '#fff url('+ FUE.ajax_loader +') no-repeat center', opacity: 0.6 } });
@@ -132,6 +132,6 @@ jQuery(document).ready(function($) {
             jQuery("#include_variations").prop("checked", false);
             jQuery(".product_include_variations").hide();
         }
-    });
+    } );
 
 });

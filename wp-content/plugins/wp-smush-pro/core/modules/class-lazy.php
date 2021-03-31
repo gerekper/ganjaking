@@ -75,13 +75,8 @@ class Lazy extends Abstract_Module {
 			return;
 		}
 
-		// If native compat is enabled, and we are on WordPress 5.5 - disable Smush lazy load.
-		if ( isset( $this->options['native'] ) && $this->options['native'] ) {
-			global $wp_version;
-			if ( version_compare( $wp_version, '5.4.999', '>' ) ) {
-				return;
-			}
-		}
+		// Disable WordPress native lazy load.
+		add_filter( 'wp_lazy_loading_enabled', '__return_false' );
 
 		// Load js file that is required in public facing pages.
 		add_action( 'wp_head', array( $this, 'add_inline_styles' ) );

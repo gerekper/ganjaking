@@ -157,12 +157,6 @@ class GetChildDomain implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Model
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-        if ($this->container['domain'] === null) {
-            $invalidProperties[] = "'domain' can't be null";
-        }
-        if ($this->container['active'] === null) {
-            $invalidProperties[] = "'active' can't be null";
-        }
         return $invalidProperties;
     }
     /**

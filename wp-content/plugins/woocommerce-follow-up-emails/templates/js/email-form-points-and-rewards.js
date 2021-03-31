@@ -4,7 +4,7 @@ jQuery( function ( $ ) {
     });
 
     $("body").on( "updated_email_details", function() {
-        $("#interval_type").change();
+        $( '#interval_type' ).trigger( 'change' );
     } );
 } );
 
@@ -14,7 +14,7 @@ function points_rewards_toggle_fields( type ) {
         var show = ['.var_points_and_rewards'];
         var hide = ['.always_send_tr', '.signup_description', '.product_description_tr', '.product_tr', '.category_tr', '.use_custom_field_tr', '.custom_field_tr', '.var_item_name', '.var_item_category', '.var_item_names', '.var_item_categories', '.var_item_name', '.var_item_category', '.interval_type_after_last_purchase', '.interval_duration_date', '.var_customer'];
 
-        jQuery("option.interval_duration_date").attr("disabled", true);
+        jQuery( 'option.interval_duration_date' ).prop( 'disabled', true );
 
         for (x = 0; x < hide.length; x++) {
             jQuery(hide[x]).hide();
@@ -24,13 +24,13 @@ function points_rewards_toggle_fields( type ) {
             jQuery(show[x]).show();
         }
 
-        jQuery("option.interval_duration_date").attr("disabled", true);
+        jQuery( 'option.interval_duration_date' ).prop( 'disabled', true );
 
         jQuery(".interval_duration_date").hide();
 
         jQuery("#interval_type")
             .val("points_earned")
-            .change();
+            .trigger( 'change' );
     } else {
         var hide = ['.interval_type_points_earned', '.interval_type_points_greater_than', '.var_points_and_rewards'];
 
@@ -41,7 +41,7 @@ function points_rewards_toggle_fields( type ) {
 }
 
 jQuery(document).ready(function($) {
-    $("#fue-email-details").on("change", "#interval_type", function() {
+    $( '#fue-email-details').on( 'change', '#interval_type', function() {
         $(".points-greater-than-meta").hide();
         $(".points-total-greater-than-meta").hide();
 
@@ -52,5 +52,5 @@ jQuery(document).ready(function($) {
         if ($(this).val() == "points_total_greater_than") {
             $(".points-total-greater-than-meta").show();
         }
-    });
+    } );
 });

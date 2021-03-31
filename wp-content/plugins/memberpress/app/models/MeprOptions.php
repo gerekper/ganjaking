@@ -764,6 +764,18 @@ class MeprOptions {
     return (!empty($country) && !empty($postcode) && !empty($state) && !empty($city) && !empty($one));
   }
 
+  public function deactivate_license() {
+    $this->mothership_license = '';
+    $this->store(false);
+
+    // Don't need to check the mothership for this one ... we just deactivated
+    update_option('mepr_activated', false);
+
+    // Clear the cache of add-ons
+    delete_site_transient('mepr_addons');
+    delete_site_transient('mepr_all_addons');
+  }
+
   public function payment_method($id = 'default') {
     $pmt_methods = $this->payment_methods();
 

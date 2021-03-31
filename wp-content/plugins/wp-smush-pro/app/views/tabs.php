@@ -26,7 +26,8 @@ if ( ! defined( 'WPINC' ) ) {
 	</ul>
 
 	<div class="sui-sidenav-hide-lg">
-		<select class="sui-mobile-nav">
+		<label class="sui-label"><?php esc_html_e( 'Navigate', 'wp-smushit' ); ?></label>
+		<select class="sui-mobile-nav" style="margin-bottom: 20px;">
 			<?php foreach ( $this->get_tabs() as $tab_id => $name ) : ?>
 				<option value="<?php echo esc_url( $this->get_tab_url( $tab_id ) ); ?>" <?php selected( $this->get_current_tab(), $tab_id ); ?>><?php echo esc_html( $name ); ?></option>
 			<?php endforeach; ?>

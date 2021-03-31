@@ -286,6 +286,13 @@ class Common {
 			$resize = get_post_meta( $id, WP_SMUSH_PREFIX . 'resize_savings' );
 			// Update each translations.
 			foreach ( $image_ids as $attchment_id ) {
+
+				$original_meta = wp_get_attachment_metadata( $attchment_id );
+				// Don't update the meta if the file isn't the same.
+				if ( $original_meta['file'] !== $meta['file'] ) {
+					continue;
+				}
+
 				// Smushed stats.
 				update_post_meta( $attchment_id, Smush::$smushed_meta_key, $stats );
 				// Resize savings.
@@ -480,6 +487,11 @@ class Common {
 
 		// Compatibility with JetPack lazy loading.
 		if ( false !== strpos( $image, 'jetpack-lazy-image' ) ) {
+			return true;
+		}
+
+		// Compatibility with Slider Revolution's lazy loading.
+		if ( false !== strpos( $image, '/revslider/' ) && false !== strpos( $image, 'data-lazyload' ) ) {
 			return true;
 		}
 

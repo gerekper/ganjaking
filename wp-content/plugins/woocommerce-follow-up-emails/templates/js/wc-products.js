@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
 
     // Create a new list
-    $("#woocommerce-product-data").on("click", ".add-new-fue-list", function() {
+    $( '#woocommerce-product-data' ).on( 'click', '.add-new-fue-list', function() {
         var list = $("#new_fue_list");
 
         if ( list.val().length == 0 ) {
@@ -18,7 +18,7 @@ jQuery(document).ready(function($) {
             $("#follow_ups_product_data").unblock();
             list.val("");
         });
-    });
+    } );
 
     function inject_new_list( slug, name ) {
         var html = '<label>\

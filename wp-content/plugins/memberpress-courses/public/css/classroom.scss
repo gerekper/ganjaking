@@ -704,7 +704,7 @@ html, body{
   position: relative;
   top: 4px;
   color: #333;
-  font-weight: bold;
+  // font-weight: bold;
   font-size: 9px;
 }
 
@@ -754,4 +754,484 @@ html, body{
   .wp-block-embed.wp-embed-aspect-9-16
   .wp-block-embed__wrapper::before {
   padding-top: 0%;
+}
+
+/* Comments
+--------------------------------------------- */
+.comment-content a {
+	word-wrap: break-word;
+}
+
+.bypostauthor {
+	display: block;
+}
+
+/* Widgets
+--------------------------------------------- */
+.widget {
+	margin: 0 0 1.5em;
+}
+
+.widget select {
+	max-width: 100%;
+}
+
+/* Media
+--------------------------------------------- */
+.page-content .wp-smiley,
+.entry-content .wp-smiley,
+.comment-content .wp-smiley {
+	border: none;
+	margin-bottom: 0;
+	margin-top: 0;
+	padding: 0;
+}
+
+/* Make sure logo link wraps around logo image. */
+.custom-logo-link {
+	display: inline-block;
+}
+
+/* Captions
+--------------------------------------------- */
+.wp-caption {
+	margin-bottom: 1.5em;
+	max-width: 100%;
+}
+
+.wp-caption img[class*="wp-image-"] {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.wp-caption .wp-caption-text {
+	margin: 0.8075em 0;
+}
+
+.wp-caption-text {
+	text-align: center;
+}
+
+/* Galleries
+--------------------------------------------- */
+.gallery {
+	margin-bottom: 1.5em;
+	display: grid;
+	grid-gap: 1.5em;
+}
+
+.gallery-item {
+	display: inline-block;
+	text-align: center;
+	width: 100%;
+}
+
+.gallery-columns-2 {
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.gallery-columns-3 {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.gallery-columns-4 {
+	grid-template-columns: repeat(4, 1fr);
+}
+
+.gallery-columns-5 {
+	grid-template-columns: repeat(5, 1fr);
+}
+
+.gallery-columns-6 {
+	grid-template-columns: repeat(6, 1fr);
+}
+
+.gallery-columns-7 {
+	grid-template-columns: repeat(7, 1fr);
+}
+
+.gallery-columns-8 {
+	grid-template-columns: repeat(8, 1fr);
+}
+
+.gallery-columns-9 {
+	grid-template-columns: repeat(9, 1fr);
+}
+
+.gallery-caption {
+	display: block;
+}
+
+/*--------------------------------------------------------------
+# Plugins
+--------------------------------------------------------------*/
+
+/* Jetpack infinite scroll
+--------------------------------------------- */
+
+/* Hide the Posts Navigation and the Footer when Infinite Scroll is in use. */
+.infinite-scroll .posts-navigation,
+.infinite-scroll.neverending .site-footer {
+	display: none;
+}
+
+/* Re-display the Theme Footer when Infinite Scroll has reached its end. */
+.infinity-end.neverending .site-footer {
+	display: block;
+}
+
+/*--------------------------------------------------------------
+# Utilities
+--------------------------------------------------------------*/
+
+/* Accessibility
+--------------------------------------------- */
+
+/* Text meant only for screen readers. */
+.screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute !important;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+.screen-reader-text:focus {
+	background-color: #f1f1f1;
+	border-radius: 3px;
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+	clip: auto !important;
+	clip-path: none;
+	color: #21759b;
+	display: block;
+	font-size: 0.875rem;
+	font-weight: 700;
+	height: auto;
+	left: 5px;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	text-decoration: none;
+	top: 5px;
+	width: auto;
+	z-index: 100000;
+}
+
+/* Do not show the outline on the skip link target. */
+#primary[tabindex="-1"]:focus {
+	outline: 0;
+}
+
+/* Alignments
+--------------------------------------------- */
+.alignleft {
+
+	/*rtl:ignore*/
+	float: left;
+
+	/*rtl:ignore*/
+	margin-right: 1.5em;
+	margin-bottom: 1.5em;
+}
+
+.alignright {
+
+	/*rtl:ignore*/
+	float: right;
+
+	/*rtl:ignore*/
+	margin-left: 1.5em;
+	margin-bottom: 1.5em;
+}
+
+.aligncenter {
+	clear: both;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 1.5em;
+}
+
+/* Front end theme for MemberPress pages */
+
+.mp_wrapper {
+  overflow: inherit;
+  /* margin: 10px 0; */
+  /* max-width: 740px !important; */
+  /* margin: 0 auto; */
+  box-sizing: border-box;
+}
+
+.mp_wrapper h1,
+.mp_wrapper h2,
+.mp_wrapper h3 {
+  font-weight: normal;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+.mp_wrapper img {
+  box-shadow: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+.mp_wrapper :focus {
+  outline: 0;
+}
+
+.mp_wrapper form {
+  text-align: left;
+}
+
+.mp_wrapper textarea,
+.mp_wrapper select,
+.mp_wrapper input[type=text],
+.mp_wrapper input[type=url],
+.mp_wrapper input[type=email],
+.mp_wrapper input[type=tel],
+.mp_wrapper input[type=number],
+.mp_wrapper input[type=password] {
+  width: 100%;
+  outline-style: none;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 10px;
+  letter-spacing: normal;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  /* margin-bottom: 10px !important; */
+  display: inline;
+  box-sizing: border-box;
+}
+
+.mepr-stripe-card-element {
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  padding: 10px !important;
+  background-color: white;
+}
+
+.mepr-stripe-card-errors {
+  color: #eb1c26;
+}
+
+.mp_wrapper label,
+.mp_wrapper .mp-row {
+  font-size: inherit;
+  font-family: inherit;
+  letter-spacing: normal;
+  display: inline-block;
+/*
+  font-weight: bold;
+  margin-bottom: 5px;
+*/
+}
+
+.mp_wrapper .mepr-radios-field,
+.mp_wrapper .mepr-checkbox-field,
+.mp_wrapper .mepr-checkboxes-field,
+.mp_wrapper label {
+  width: 100% !important;
+  display: inline-block;
+}
+
+.mp_wrapper .mp-form-row {
+  margin-bottom: 10px;
+  width: 100% !important;
+}
+
+.mp_wrapper input[type=image] {
+  border: none !important;
+  padding: 0 !important;
+  width: auto !important;
+}
+
+.mp_wrapper textarea {
+  outline-style: none;
+  font-size: inherit;
+  font-family: inherit;
+  letter-spacing: normal;
+  padding: 4px 2px 4px 2px;
+  resize: none;
+}
+
+.mp_wrapper .mepr_price label,
+.mp_wrapper .mepr_price .mepr_price_cell,
+.mp_wrapper .mepr_price .mepr_price_cell_label {
+  display: inline !important;
+}
+
+table.mp-table thead,
+table.mp-table tbody,
+table.mp-table tfoot,
+table.mp-table tr,
+table.mp-table th,
+table.mp-table td {
+  border: 0;
+  font-family: inherit;
+  font-size: 100%;
+  font-style: inherit;
+  font-weight: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+table.mp-table {
+  display: block;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-width: 1px 0 0 1px !important;
+  margin-bottom: 24px;
+  width: 100% !important;
+  display: table;
+}
+
+table.mp-table thead {
+  display: table-header-group;
+}
+
+table.mp-table tfoot {
+  display: table-footer-group;
+}
+
+table.mp-table tr {
+  display: table-row;
+}
+
+table.mp-table,
+table.mp-table th,
+table.mp-table td {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+table.mp-table th,
+table.mp-table td {
+  display: table-cell;
+  padding: 8px;
+  border-width: 0 1px 1px 0 !important;
+}
+
+table.mp-table th {
+  text-align: left;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+table.mp-table .mp-currency-cell {
+  text-align: right;
+}
+
+.mepr_error, .mepr_updated {
+  padding: 5px 5px 5px 15px !important;
+  margin-bottom: 25px !important;
+  box-sizing: border-box !important;
+  width: 100%;
+}
+
+.mepr_error {
+  background-color: #feb9bb !important;
+  border: 1px solid #d40022 !important;
+}
+
+.mepr_error ul {
+  padding: 0 0 5px 0 !important;
+  margin: 0 !important;
+}
+
+.mepr_error ul li {
+  list-style-type: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.mepr_updated {
+  background-color: #def4c5 !important;
+  border: 1px solid #4d8c2e !important;
+}
+
+.mepr-form input.invalid,
+.mepr-form select.invalid,
+.mepr-form textarea.invalid,
+.mepr-form label.mepr-checkbox-field.invalid,
+.mepr-form div.mepr-checkboxes-field.invalid,
+.mepr-form div.mepr-radios-field.invalid {
+  border: 2px solid red !important;
+  background-color: #FF6666 !important;
+}
+
+.validation.failed:after {
+  color: red;
+  content: 'Validation failed';
+}
+
+.validation.passed:after {
+  color: green;
+  content: 'Validation passed';
+}
+
+.mepr-radios-field, .mepr-checkboxes-field {
+  display: inline-block !important;
+  width: 250px !important;
+  margin-bottom: 10px !important;
+}
+
+.mepr-radios-field-row, .mepr-checkboxes-field-row {
+  display: block !important;
+  padding-left: 0 !important;
+  margin-left: 2px !important;
+}
+
+input.mepr-form-radios-input, input.mepr-form-checkboxes-input {
+  padding-left: 0;
+  margin-left: 0;
+  width: auto;
+  margin-right: 5px;
+  display: inline !important;
+  text-align: left;
+}
+
+label.mepr-form-radios-label, label.mepr-form-checkboxes-label {
+  display: inline !important;
+  width: 222px !important;
+  max-width: 222px !important;
+  min-width: 222px !important;
+}
+
+.mp_wrapper .mp-form-row label {
+  display: inline !important;
+}
+
+.mepr-hidden {
+  display: none;
+}
+
+.mepr-visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 0;
+  margin: -1px;
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+}
+
+/* users subscriptions list shortcode css */
+.mp_users_subscriptions_list ul {
+  list-style:none !important;
+}
+
+.mp_users_subscriptions_list ul li {
+  padding:5px !important;
+  margin:0 !important;
+}
+
+li.mp_users_subscriptions_list_alt {
+  background:#eee;
 }

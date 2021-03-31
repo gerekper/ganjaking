@@ -391,43 +391,42 @@ class RevSliderSliderImport extends RevSliderSlider {
 				}
 				
 				if(!empty($_navigations)){
-					foreach($_navigations as $navigation){
-						$exist = $wpdb->get_row($wpdb->prepare("SELECT id FROM ".$wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS." WHERE handle = %s AND type = %s", array($this->get_val($navigation, 'handle'), $this->get_val($navigation, 'type'))), ARRAY_A);
+					foreach($_navigations as $_navigation){
+						$exist = $wpdb->get_row($wpdb->prepare("SELECT id FROM ".$wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS." WHERE handle = %s AND type = %s", array($this->get_val($_navigation, 'handle'), $this->get_val($_navigation, 'type'))), ARRAY_A);
 						
-						$old_nav_id = $this->get_val($navigation, 'id', false);
+						$old_nav_id = $this->get_val($_navigation, 'id', false);
 						
 						if($old_nav_id !== false){
-							unset($navigation['id']);
+							unset($_navigation['id']);
 						}
 						
-						foreach($navigation as $v => $s){
+						foreach($_navigation as $v => $s){
 							if(is_array($s) || is_object($s)){
-								$navigation[$v] = json_encode($s);
+								$_navigation[$v] = json_encode($s);
 							}
 						}
 						
-						$rh = $navigation['handle'];
-						$rt = $navigation['type'];
-						$insert_id = '';
+						$rh = $_navigation['handle'];
+						$rt = $_navigation['type'];
 						if(!empty($exist)){ //create new navigation, get the ID
 							if($update_navigation){ //overwrite navigation if exists
-								unset($navigation['handle']);
-								$upd = $wpdb->update($wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS, $navigation, array('handle' => $rh, 'type' => $rt));
+								unset($_navigation['handle']);
+								$upd = $wpdb->update($wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS, $_navigation, array('handle' => $rh, 'type' => $rt));
 								
 								$insert_id = $this->get_val($exist, 'id', $wpdb->insert_id);
 							}else{
 								//insert with new handle
-								$navigation['handle'] = $navigation['handle'].'-'.date('is');
-								$navigation['name'] = $navigation['name'].'-'.date('is');
+								$_navigation['handle'] = $_navigation['handle'].'-'.date('is');
+								$_navigation['name'] = $_navigation['name'].'-'.date('is');
 								//for prior to version 6.0 sliders, the next line needs to stay
-								$this->slider_raw_data	= str_replace($rh.'"', $navigation['handle'].'"', $this->slider_raw_data);
+								$this->slider_raw_data	= str_replace($rh.'"', $_navigation['handle'].'"', $this->slider_raw_data);
 								//for prior to version 6.0 sliders end
-								$navigation['css'] = str_replace('.'.$rh, '.'.$navigation['handle'], $navigation['css']); //change css class to the correct new class
-								$wpdb->insert($wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS, $navigation);
+								$_navigation['css'] = str_replace('.'.$rh, '.'.$_navigation['handle'], $_navigation['css']); //change css class to the correct new class
+								$wpdb->insert($wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS, $_navigation);
 								$insert_id = $wpdb->insert_id;
 							}
 						}else{
-							$wpdb->insert($wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS, $navigation);
+							$wpdb->insert($wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS, $_navigation);
 							$insert_id = $wpdb->insert_id;
 						}
 						
@@ -1417,7 +1416,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 								break;
 								case 'scroll_under':
 									$layer['layer_action']->action = array('a' => 'scroll_under');
-									$layer['layer_action']->scrollunder_offset = array('a' => $this->get_val($value, 'scrollunder_offset'));
+									$layer['layer_action']->scrollunder_offset = array('a' => $this->get_val($layer, 'scrollunder_offset'));
 									
 									unset($layer['scrollunder_offset']);
 								break;
@@ -1606,9 +1605,8 @@ class RevSliderSliderImport extends RevSliderSlider {
 	 **/
 	public function duplicate_template_slider($single_slide){
 		if($this->is_template !== false){ //duplicate the slider now, as we just imported the "template"
+			$mslider = new RevSliderSlider();
 			if($single_slide !== false){ //add now one Slide to the current Slider
-				$mslider = new RevSliderSlider();
-				
 				//change slide_id to correct, as it currently is just a number beginning from 0 as we did not have a correct slide ID yet.
 				$i = 0;
 				$changed = false;
@@ -1624,16 +1622,14 @@ class RevSliderSliderImport extends RevSliderSlider {
 				}
 				
 				if($changed){
-					$return = $mslider->copy_slide_to_slider($single_slide);
+					$mslider->copy_slide_to_slider($single_slide);
 				}else{
 					global $wp_filesystem;
 					
 					$wp_filesystem->delete($this->remove_path, true);
 					return array('success' => false, 'error' => __('could not find correct Slide to copy, please try again.', 'revslider'), 'sliderID' => $this->slider_id);
 				}
-				
 			}else{
-				$mslider = new RevSliderSlider();
 				$this->real_slider_id = $mslider->duplicate_slider_by_id($this->slider_id, true);
 			}
 		
@@ -1847,11 +1843,13 @@ class RevSliderSliderImport extends RevSliderSlider {
 	public static function clear_error_in_string($m){
 		return 's:'.strlen($m[2]).':"'.$m[2].'";';
 	}
-	
+
 	/**
 	 * depending on PHP version, use optional parameter of unserialize
 	 * @since: 6.0.0
-	 **/
+	 * @param string $string
+	 * @return mixed
+	 */
 	public function rs_unserialize($string){
 		return @unserialize($string);
 	}

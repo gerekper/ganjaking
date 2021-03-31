@@ -52,7 +52,7 @@ class Updater {
 	 *
 	 * @var string
 	 */
-	public $remote_url = 'https://wpmailsmtp.com/';
+	public $remote_url = 'https://wpmailsmtp.com/license-api';
 
 	/**
 	 * Version number of the plugin.
@@ -249,48 +249,37 @@ class Updater {
 	}
 
 	/**
-	 * Query the remote URL via wp_remote_post and return a json decoded response.
+	 * Query the remote URL via wp_remote_get and return a json decoded response.
 	 *
 	 * @since 1.5.0
+	 * @since 2.7.0 Switch from POST to GET request.
 	 *
-	 * @param string $action        The name of the $_POST action var.
-	 * @param array  $body          The content to retrieve from the remote URL.
+	 * @param string $action        The name of the request action var.
+	 * @param array  $body          The GET query attributes.
 	 * @param array  $headers       The headers to send to the remote URL.
 	 * @param string $return_format The format for returning content from the remote URL.
 	 *
 	 * @return string|bool          Json decoded response on success, false on failure.
 	 */
-	public function perform_remote_request( $action, $body = array(), $headers = array(), $return_format = 'json' ) {
+	public function perform_remote_request( $action, $body = [], $headers = [], $return_format = 'json' ) {
 
-		// Build the body of the request.
-		$body = wp_parse_args(
+		// Request query parameters.
+		$query_params = wp_parse_args(
 			$body,
-			array(
+			[
 				'tgm-updater-action'     => $action,
 				'tgm-updater-key'        => $this->key,
 				'tgm-updater-wp-version' => get_bloginfo( 'version' ),
 				'tgm-updater-referer'    => site_url(),
-			)
-		);
-		$body = http_build_query( $body, '', '&' );
-
-		// Build the headers of the request.
-		$headers = wp_parse_args(
-			$headers,
-			array(
-				'Content-Type'   => 'application/x-www-form-urlencoded',
-				'Content-Length' => strlen( $body ),
-			)
+			]
 		);
 
-		// Setup variable for wp_remote_post.
-		$post = array(
+		$args = [
 			'headers' => $headers,
-			'body'    => $body,
-		);
+		];
 
 		// Perform the query and retrieve the response.
-		$response      = wp_remote_post( esc_url_raw( $this->remote_url ), $post );
+		$response      = wp_remote_get( add_query_arg( $query_params, $this->remote_url ), $args );
 		$response_code = wp_remote_retrieve_response_code( $response );
 		$response_body = wp_remote_retrieve_body( $response );
 

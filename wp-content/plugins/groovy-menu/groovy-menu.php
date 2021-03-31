@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH' ) || die( 'This script cannot be accessed directly.' );
 /*
 Plugin Name: Groovy Menu
-Version: 2.4.9
+Version: 2.4.11
 Description: Groovy menu is a modern adjustable and flexible menu designed for creating mobile-friendly menus with a lot of options.
 Plugin URI: https://groovymenu.grooni.com/
 Author: Grooni
@@ -11,7 +11,7 @@ Domain Path: /languages/
 */
 
 
-define( 'GROOVY_MENU_VERSION', '2.4.9' );
+define( 'GROOVY_MENU_VERSION', '2.4.11' );
 define( 'GROOVY_MENU_DB_VER_OPTION', 'groovy_menu_db_version' );
 define( 'GROOVY_MENU_PREFIX_WIM', 'groovy-menu-wim' );
 define( 'GROOVY_MENU_DIR', plugin_dir_path( __FILE__ ) );
@@ -76,7 +76,7 @@ function groovy_menu_init_classes() {
 	}
 
 	if ( class_exists( 'GroovyMenuCategoryPreset' ) ) {
-		new GroovyMenuCategoryPreset( array( 'category', 'crane_portfolio_cats', 'post_tag', 'product_cat' ) );
+		new GroovyMenuCategoryPreset();
 	}
 
 	if ( class_exists( 'GroovyMenuSingleMetaPreset' ) ) {
@@ -85,6 +85,18 @@ function groovy_menu_init_classes() {
 
 	if ( class_exists( '\GroovyMenu\AdminWalker' ) ) {
 		\GroovyMenu\AdminWalker::registerWalker();
+	}
+
+	$db_version = get_option( GROOVY_MENU_DB_VER_OPTION );
+	if ( $db_version && version_compare( '2.4.10', $db_version, '>' ) && version_compare( '1.9.9', $db_version, '<' ) ) {
+		$migration_report = get_option( GROOVY_MENU_DB_VER_OPTION . '__report' );
+		if ( empty( $migration_report ) || ! is_array( $migration_report ) ) {
+			$migration_report = array();
+		}
+		$migration_report['cron_job']       = false;
+		$migration_report['dismissed_info'] = true;
+		update_option( GROOVY_MENU_DB_VER_OPTION . '__report', $migration_report );
+		update_option( GROOVY_MENU_DB_VER_OPTION, '2.4.10' );
 	}
 }
 

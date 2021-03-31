@@ -137,16 +137,16 @@
 		var fue_summary_posts = 0;
 		var fue_summary_deleted = 0;
 
-		$(".updater-action").click(function(e) {
+		$( '.updater-action' ).on( 'click', function( e ) {
 			e.preventDefault();
-			$(this).attr("disabled", true);
+			$( this ).prop( 'disabled', true );
 
 			var cb = $(this).data("callback");
 			var fn = eval(cb);
 			if (typeof fn == 'function') {
 				fn();
 			}
-		});
+		} );
 
 		function fue_init_delete_stats_data() {
 			$("#clean_stats_status").show();
@@ -212,10 +212,10 @@
 				} else if ( resp.status == "error") {
 					$("#export_list_message").html("Error: "+ resp.message);
 					$("#export_list_loader").hide();
-					$("#export_list_btn").removeAttr("disabled");
+					$( '#export_list_btn' ).prop( 'disabled', false );
 				} else {
 					$("#export_list_status").hide();
-					$("#export_list_btn").removeAttr("disabled");
+					$( '#export_list_btn' ).prop( 'disabled', false );
 
 					var url = <?php echo wp_json_encode( 'admin-post.php?action=fue_followup_export_list&_wpnonce=' . wp_create_nonce( 'fue-export' ) ); ?>;
 					window.location.href = url + '&id='+ export_id;

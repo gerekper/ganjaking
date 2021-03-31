@@ -2164,7 +2164,7 @@ class RevSliderOutput extends RevSliderFunctions {
 		return true;
 	}
 
-	protected function _getCssJavascript($css_html)
+	public function get_css_javascript($css_html)
 	{
 		$html = '';
 		$css_class = RevSliderGlobals::instance()->get('RevSliderCssParser');
@@ -2212,7 +2212,7 @@ class RevSliderOutput extends RevSliderFunctions {
 			
 			if($css_html == '') return '';
 			
-			$html = $this->_getCssJavascript($css_html);
+			$html = $this->get_css_javascript($css_html);
 		}
 		
 		echo $html;
@@ -2328,7 +2328,7 @@ class RevSliderOutput extends RevSliderFunctions {
 		if($rs_material_icons_css === false) return '';
 		if($rs_material_icons_css_parsed === true) return '';
 
-		$html = $this->_getCssJavascript($rs_material_icons_css);
+		$html = $this->get_css_javascript($rs_material_icons_css);
 
 		$rs_material_icons_css_parsed = true;
 		
@@ -2440,7 +2440,7 @@ rs-module .material-icons {
 			}
 			
 			if(!empty($this->rs_custom_navigation_css)){
-				$html = $this->_getCssJavascript($this->rs_custom_navigation_css);
+				$html = $this->get_css_javascript($this->rs_custom_navigation_css);
 			}
 		}
 		
@@ -7026,7 +7026,7 @@ rs-module .material-icons {
 		$css = $this->slider->get_param(array('codes', 'css'), '');
 		if($css === '') return $html;
 		
-		return $this->_getCssJavascript($this->replace_html_ids($css));
+		return $this->get_css_javascript($this->replace_html_ids($css));
 	}
 
 	/**
@@ -7042,12 +7042,12 @@ rs-module .material-icons {
 			case '1':
 			case '2':
 				$css_html = "#".$this->get_html_id()."_wrapper rs-loader.spinner".$spinner."{ background-color: ". $color ." !important; }";
-				$html = $this->_getCssJavascript($css_html);
+				$html = $this->get_css_javascript($css_html);
 			break;
 			case '3':
 			case '4':
 				$css_html = "#".$this->get_html_id()."_wrapper rs-loader.spinner".$spinner." div { background-color: ". $color ." !important; }";
-				$html = $this->_getCssJavascript($css_html);
+				$html = $this->get_css_javascript($css_html);
 			break;
 			case '0':
 			case '5':
@@ -7621,6 +7621,7 @@ rs-module .material-icons {
 		$global = $this->get_global_settings();
 		$l_type	= $s->get_param('layouttype');
 		$s_type = $s->get_param('type', 'standard');
+		$DPR = $s->get_param(array('general', 'DPR'), 'x2');
 		$csizes = $this->get_responsive_size($this);
 		
 		$fw		= ($l_type == 'fullwidth') ? 'on' : 'off';
@@ -7647,6 +7648,10 @@ rs-module .material-icons {
 			'sliderType' => array(
 				'v' => $s_type,
 				'd' => 'standard'
+			),
+			'DPR' => array(
+				'v' => $DPR,
+				'd' => 'x2'
 			),
 			/*'jsFileLocation' => array(
 				'v' => '//'.$js_loc_r[1] .'public/assets/js/',
@@ -7920,7 +7925,7 @@ rs-module .material-icons {
 		
 		$html = '';
 		if(trim($css) !== ''){
-			$html = $this->_getCssJavascript($css);
+			$html = $this->get_css_javascript($css);
 		}
 
 		return $html;

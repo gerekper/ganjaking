@@ -301,7 +301,7 @@ $api = 'revapi'; // . $slider_id;
 						<longoption class="usefullheight"><i class="material-icons">unfold_more</i><label_a><?php _e('Use Full Height for Content', 'revslider');?></label_a><input type="checkbox"  id="sr_forceOvHid" class="easyinit sliderinput" data-r="size.useFullScreenHeight"/></longoption>
 					</div>
 					<div class="div20"></div>
-					<div class="carouselavailable standardavailable sceneavailable">
+					<div class="carouselavailable standardavailable sceneavailable">						
 						<label_a><?php _e('Perspective', 'revslider');?></label_a><select data-evt="updatePerspective" id="global_pers_type" class="sliderinput tos2 nosearchbox easyinit" data-r="general.perspectiveType" data-show=".global_perspecitve_*val*_settings" data-hide=".global_perspective_settings"> <option value="isometric"><?php _e('Isometric (Global)', 'revslider');?></option><option value="global"><?php _e('3D Uniform (Global)', 'revslider');?></option><option value="local"><?php _e('3D Individual (Local)', 'revslider');?></option></select>
 						<div class="global_perspecitve_global_settings global_perspective_settings">
 							<longoption><label_icon class="ui_perspective"></label_icon><label_a><?php _e('Layer Perspective Globally', 'revslider');?></label_a><input data-allowed="px" data-min="0" data-numeric="true"  id="global_layers_perspectives" data-r="general.perspective"  type="text"  class="sliderinput valueduekeyboard callEvent easyinit"  data-evt="updatePerspective" placeholder="none"></longoption>
@@ -1280,6 +1280,19 @@ if ($wpml->wpml_exists()) {
 					<label_a><?php _e('Lazy Loading', 'revslider')?></label_a><select id="sr_adv_performance_load" class="sliderinput tos2 nosearchbox easyinit" data-r="general.lazyLoad" data-show=".tp-monitor-*val*-speed" data-hide=".tp-monitor-speeds"><option value="all"><?php _e("All", 'revslider');?></option><option value="smart"><?php _e("Smart", 'revslider');?></option><option value="single"><?php _e("Single", 'revslider');?></option><option value="none"><?php _e("No Lazy Loading", 'revslider');?></option></select>
 				</div>
 			</div>
+			<!-- MODULE ADVANCED INNER-->
+			<div id="form_slidergeneral_advanced_DPR" class="form_inner">
+				<div class="form_inner_header"><i class="material-icons">4k</i><?php _e('Device Pixel Ratio', 'revslider');?></div>
+				<div class="collapsable" style="display:block !important">					
+					<label_a><?php _e('Max. BG DPR', 'revslider');?></label_a><select id="sliderbgdpr" class="sliderinput tos2 nosearchbox easyinit" data-r="general.DPR"> <option value="ax1"><?php _e('Auto but Max x1', 'revslider');?></option><option value="ax2"><?php _e('Auto but Max x2', 'revslider');?></option><option value="ax3"><?php _e('Auto but Max x3', 'revslider');?></option><option value="x4"><?php _e('Auto but Max x4', 'revslider');?></option><option value="dpr"><?php _e('Auto', 'revslider');?></option><option value="x1"><?php _e('x1', 'revslider');?></option><option value="x2"><?php _e('x2', 'revslider');?></option><option value="x3"><?php _e('x3', 'revslider');?></option><option value="x4"><?php _e('x4', 'revslider');?></option></select>					
+					<row class="direktrow">
+						<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
+						<contenthalf><div class="function_info"><?php _e('Higher maximum values can have a negative influence on complex canvas animations. Lower values can have a negative influence on image quality on 4k+ devices.', 'revslider');?></div></contenthalf>
+					</row>
+				</div>
+			</div>
+
+			
 
 			<!-- SLIDER FALLBACK SETTINGS -->
 			<div id="form_slidergeneral_advanced_fallback" class="form_inner">

@@ -191,7 +191,7 @@ class MeprAppHelper {
 
     if((float)$price <= 0.00) {
       if( $period_type != 'lifetime' && !empty($coupon) &&
-          $coupon->discount_type == 'percent' && $coupon->discount_amount == 100 ) {
+          (($coupon->discount_type == 'percent' && $coupon->discount_amount == 100) or ($coupon->discount_mode == 'standard' && $obj->trial == false)) ) {
         $price_str = __('Free forever', 'memberpress');
         $payment_required = false;
       }
@@ -232,7 +232,7 @@ class MeprAppHelper {
     else {
       if( $obj->trial ) {
         if( $obj->trial_amount > 0.00 ) {
-          $trial_str = MeprAppHelper::format_currency($obj->trial_amount, $show_symbol);
+          $trial_str = MeprAppHelper::format_currency($obj->trial_total > 0.00 ? $obj->trial_total : $obj->trial_amount, $show_symbol);
           $trial_str = preg_replace("#([{$regex_dp}]000?)([^0-9]*)$#", '$2', (string)$trial_str);
         }
         else
@@ -304,17 +304,22 @@ class MeprAppHelper {
 
     if($period_type == 'lifetime') {
       if($obj->expire_type=='delay') {
-        $expire_str = strtolower( MeprUtils::period_type_name($obj->expire_unit,$obj->expire_after) );
+        $expire_str = MeprUtils::period_type_name($obj->expire_unit,$obj->expire_after);
         $price_str .= sprintf( __( ' for %1$d %2$s', 'memberpress' ), $obj->expire_after, $expire_str );
       }
       else if($obj->expire_type == 'fixed') {
-        $expire_ts = strtotime( $obj->expire_fixed );
         $now = time();
 
-        //Make sure we adjust the year if the membership is a renewable type and the user forgot to bump up the year
-        if($product->allow_renewal) {
-          while($now > $expire_ts) { //Add a year until $now < expiration date
-            $expire_ts += MeprUtils::years(1);
+        if ($obj instanceof MeprTransaction || $obj instanceof MeprSubscription) {
+          $expire_ts = strtotime( $obj->expires_at );
+        } else {
+          $expire_ts = strtotime( $product->expire_fixed );
+
+          //Make sure we adjust the year if the membership is a renewable type and the user forgot to bump up the year
+          if($product->allow_renewal) {
+            while($now > $expire_ts) { //Add a year until $now < expiration date
+              $expire_ts += MeprUtils::years(1);
+            }
           }
         }
 
@@ -490,4 +495,3 @@ class MeprAppHelper {
     <?php
   }
 } //End class
-

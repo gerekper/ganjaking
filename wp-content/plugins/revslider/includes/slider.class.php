@@ -1996,7 +1996,8 @@ class RevSliderSlider extends RevSliderFunctions {
 		
 		switch($sourcetype){
 			case 'facebook':
-				$facebook = new RevSliderFacebook($this->get_param(array('source', 'facebook', 'transient'), '1200'));
+				$facebook = RevSliderGlobals::instance()->get('RevSliderFacebook');
+				$facebook->setTransientSec($this->get_param(array('source', 'facebook', 'transient'), '1200'));
 				if($this->get_param(array('source', 'facebook', 'typeSource'), 'timeline') == 'album'){
 					$posts = $facebook->get_photo_set_photos(
 						$this->get_param(array('source', 'facebook', 'appId')),
@@ -2024,7 +2025,8 @@ class RevSliderSlider extends RevSliderFunctions {
 				$additions['twitter_user']	= $this->get_param(array('source', 'twitter', 'userId'));
 			break;
 			case 'instagram':
-				$instagram	 = new RevSliderInstagram($this->get_param(array('source', 'instagram', 'transient'), '1200'));
+				$instagram = RevSliderGlobals::instance()->get('RevSliderInstagram');
+				$instagram->setTransientSec($this->get_param(array('source', 'instagram', 'transient'), '1200'));
 				$posts = $instagram->get_public_photos($this->get_id(), $this->get_param(array('source', 'instagram', 'token')), $this->get_param(array('source', 'instagram', 'count'), '33'));
 				$max_posts	 = $this->get_param(array('source', 'instagram', 'count'), '33');
 				$profile = $instagram->get_user_profile($this->get_param(array('source', 'instagram', 'token')));

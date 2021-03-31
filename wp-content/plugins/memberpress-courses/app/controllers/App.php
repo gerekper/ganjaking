@@ -18,13 +18,10 @@ class App extends lib\BaseCtrl {
     add_action( 'mepr-process-options', array($this,'store_options') );
     add_action( 'mepr_display_options_tabs', array( $this, 'courses_tab' ), 99 );
     add_action( 'mepr_display_options', array( $this, 'courses_tab_content' ) );
-    // add_action( 'custom_menu_order', array($this,'admin_menu_order') );
-    // add_action( 'menu_order', array($this,'admin_menu_order') );
-    // add_action( 'menu_order', array($this,'admin_submenu_order') );
     add_action( 'admin_enqueue_scripts', array($this, 'enqueue_admin_scripts') );
     add_action( 'in_admin_header', array($this, 'mp_admin_header'), 0 );
     add_filter( 'mepr-extend-rules', array($this, 'protect_sections_lessons'), 10, 3 );
-    add_action( 'template_redirect', array($this, 'redirect_to_sales_page') );
+    add_action( 'template_redirect', array($this, 'redirect_to_sales_page'), 1 );
     add_action( 'customize_register', array($this, 'register_customizer') );
     add_filter( 'post_type_link', array($this, 'lesson_permalink_replace'), 1, 2 );
     add_filter( 'rewrite_rules_array', array($this, 'lesson_permalink_rules') );
@@ -32,6 +29,7 @@ class App extends lib\BaseCtrl {
     add_filter( 'mepr-pre-run-rule-content', array($this, 'show_more_content_on_archive_page'), 10, 3 );
     add_filter( 'the_title', array($this, 'show_lock_icon') );
     add_action( 'plugins_loaded', array($this, 'load_language') ); // Must load here or it won't work with PolyLang etc
+    add_filter( 'mepr_view_paths', array( $this, 'add_view_path' ) );
   }
 
   /**
@@ -90,8 +88,7 @@ class App extends lib\BaseCtrl {
     <div id="courses" class="mepr-options-hidden-pane">
       <?php
         $options = \get_option('mpcs-options');
-        require_once(base\VIEWS_PATH . '/admin/options/form.php');
-        require_once(base\VIEWS_PATH . '/admin/options/general.php');
+        \MeprView::render('/admin/options/courses_form', get_defined_vars());
       ?>
     </div>
     <?php
@@ -114,6 +111,14 @@ class App extends lib\BaseCtrl {
 
       if(!isset($_POST['mpcs-options']['classroom-mode'])) {
         $_POST['mpcs-options']['classroom-mode'] = 0;
+      }
+
+      if(!isset($_POST['mpcs-options']['show-protected-courses'])) {
+        $_POST['mpcs-options']['show-protected-courses'] = 0;
+      }
+
+      if(!isset($_POST['mpcs-options']['remove-instructor-link'])) {
+        $_POST['mpcs-options']['remove-instructor-link'] = 0;
       }
 
       // Maybe update courses slug in classroom menu
@@ -145,6 +150,9 @@ class App extends lib\BaseCtrl {
       }
 
       \update_option('mpcs-options',$_POST['mpcs-options']);
+
+      // Delete Course Listing Transient
+      helpers\Courses::delete_transients();
     }
   }
 
@@ -209,97 +217,16 @@ class App extends lib\BaseCtrl {
     $menu[] = array('', 'read', 'separator-'.base\PLUGIN_NAME, '', 'wp-menu-separator '.base\PLUGIN_NAME);
   }
 
-  /*
-   * Move our custom separator above our admin menu
-   *
-   * @param array $menu_order Menu Order
-   * @return array Modified menu order
-   */
-  public static function admin_menu_order($menu_order) {
-    if(!$menu_order) {
-      return true;
-    }
-
-    if(!is_array($menu_order)) {
-      return $menu_order;
-    }
-
-    // Initialize our custom order array
-    $new_menu_order = array();
-
-    // Menu values
-    $second_sep   = 'separator2';
-    $custom_menus = array('separator-'.base\PLUGIN_NAME, base\PLUGIN_NAME);
-
-    // Loop through menu order and do some rearranging
-    foreach($menu_order as $item) {
-      // Position MemberPress Courses menu above appearance
-      if($second_sep == $item) {
-        // Add our custom menus
-        foreach($custom_menus as $custom_menu) {
-          if(array_search($custom_menu, $menu_order)) {
-            $new_menu_order[] = $custom_menu;
-          }
-        }
-
-        // Add the appearance separator
-        $new_menu_order[] = $second_sep;
-
-      // Skip our menu items down below
-      }
-      elseif(!in_array($item, $custom_menus)) {
-        $new_menu_order[] = $item;
-      }
-    }
-
-    // Return our custom order
-    return $new_menu_order;
-  }
-
-  //Organize the CPT's in our submenu
-  public static function admin_submenu_order($menu_order) {
-    global $submenu;
-
-    static $run = false;
-
-    //no sense in running this everytime the hook gets called
-    if($run) { return $menu_order; }
-
-    //just return if there's no memberpress-courses menu available for the current screen
-    if(!isset($submenu[base\PLUGIN_NAME])) { return $menu_order; }
-
-    $run = true;
-    $new_order = array();
-    $i = 2;
-
-    foreach($submenu[base\PLUGIN_NAME] as $sub) {
-      if($sub[0] == __('Courses', 'memberpress-courses')) {
-        $new_order[0] = $sub;
-      }
-      elseif($sub[0] == __('Lessons', 'memberpress-courses')) {
-        $new_order[1] = $sub;
-      }
-      else {
-        $new_order[$i++] = $sub;
-      }
-    }
-
-    ksort($new_order);
-
-    $submenu[base\PLUGIN_NAME] = $new_order;
-
-    return $menu_order;
-  }
 
   public static function mp_admin_header() {
     global $current_screen;
 
     if($current_screen->post_type === models\Course::$cpt && $current_screen->base == 'post') {
-      require_once(base\VIEWS_PATH . '/admin/courses/curriculum_header.php');
+      \MeprView::render('/admin/courses/courses_curriculum_header', get_defined_vars());
     }
 
     if($current_screen->post_type === models\Lesson::$cpt && $current_screen->base == 'post') {
-      require_once(base\VIEWS_PATH . '/admin/lessons/lesson_header.php');
+      \MeprView::render('/admin/lessons/courses_lesson_header', get_defined_vars());
     }
 
     if($current_screen->id === 'mp-courses_page_memberpress-courses-options') { ?>
@@ -375,7 +302,7 @@ class App extends lib\BaseCtrl {
               $post_rules[] = $rule;
           }
           break;
-        case 'all_tax_post_tag':
+        case 'all_tax_'.ctrl\CourseTags::$tax:
         case 'tax_'.ctrl\CourseTags::$tax.'||cpt_' . models\Course::$cpt:
         case 'tag':
           $lesson = new models\Lesson($context->ID);
@@ -385,7 +312,7 @@ class App extends lib\BaseCtrl {
             }
           }
           break;
-        case 'all_tax_post_category':
+        case 'all_tax_'.ctrl\CourseCategories::$tax:
         case 'tax_'.ctrl\CourseCategories::$tax.'||cpt_' . models\Course::$cpt:
         case 'category':
           $lesson = new models\Lesson($context->ID);
@@ -434,6 +361,7 @@ class App extends lib\BaseCtrl {
     $sales_url = $course->sales_url;
     if(wp_http_validate_url($sales_url)){
       lib\Utils::wp_redirect($sales_url);
+      exit;
     }
   }
 
@@ -628,5 +556,17 @@ class App extends lib\BaseCtrl {
     }
 
     return $title;
+  }
+
+  /**
+   * Add plugin path to memberpress view path
+   *
+   * @param  mixed $paths MemberPress paths
+   *
+   * @return mixed
+   */
+  function add_view_path( $paths ) {
+    array_splice( $paths, 1, 0, base\VIEWS_PATH );
+    return $paths;
   }
 }

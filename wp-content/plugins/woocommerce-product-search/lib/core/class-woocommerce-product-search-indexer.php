@@ -162,19 +162,22 @@ class WooCommerce_Product_Search_Indexer {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @return int[]
+	 * @return [int=>string]
 	 */
 	public function get_processable_term_ids() {
+
 		global $wpdb;
 		$term_ids = array();
 		if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
 			$product_taxonomies = self::get_applicable_product_taxonomies();
 			if ( count( $product_taxonomies ) > 0 ) {
 				$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
-				$query = "SELECT term_id FROM $wpdb->term_taxonomy WHERE taxonomy IN ( '" . implode( "','", esc_sql( $product_taxonomies ) ) . "' ) AND term_id NOT IN (SELECT DISTINCT term_id FROM $object_term_table WHERE object_id = 0)";
-				$term_ids = $wpdb->get_col( $query );
-				if ( is_array( $term_ids ) ) {
-					$term_ids = array_map( 'intval', array_unique( $term_ids ) );
+				$query = "SELECT term_id, taxonomy FROM $wpdb->term_taxonomy WHERE taxonomy IN ( '" . implode( "','", esc_sql( $product_taxonomies ) ) . "' ) AND term_id NOT IN (SELECT DISTINCT term_id FROM $object_term_table WHERE object_id = 0)";
+				$terms = $wpdb->get_results( $query );
+				if ( is_array( $terms ) ) {
+					foreach ( $terms as $term ) {
+						$term_ids[$term->term_id] = $term->taxonomy;
+					}
 				}
 			}
 		}
@@ -212,24 +215,26 @@ class WooCommerce_Product_Search_Indexer {
 
 				$tuples = array();
 				$values = array();
-				foreach ( $term_ids as $term_id ) {
+
+				foreach ( $term_ids as $term_id => $taxonomy ) {
 
 					$size = strlen(
 						"INSERT INTO $object_term_table " .
-						"( object_id, term_id, modified ) " .
+						"( object_id, term_id, modified, taxonomy ) " .
 						"VALUES " . implode( ',', $tuples ) . implode( ' ', $values )
 					);
 					if ( $size > 0.9 * $max ) {
 						break;
 					}
 
-					$tuples[] = '( 0, %d, %s )';
+					$tuples[] = '( 0, %d, %s, %s )';
 					$values[] = intval( $term_id );
 					$values[] = gmdate( 'Y-m-d H:i:s' );
+					$values[] = $taxonomy;
 				}
 				$wpdb->query( $wpdb->prepare(
 					"INSERT INTO $object_term_table " .
-					"( object_id, term_id, modified ) " .
+					"( object_id, term_id, modified, taxonomy ) " .
 					"VALUES " . implode( ',', $tuples ),
 					$values
 				) );
@@ -976,8 +981,12 @@ class WooCommerce_Product_Search_Indexer {
 							$parent_attributes = $parent_product->get_attributes();
 							foreach ( $parent_attributes as $parent_taxonomy => $wc_product_attribute ) {
 								if ( is_string( $parent_taxonomy ) && ( $wc_product_attribute instanceof WC_Product_Attribute ) ) {
-									if ( !$wc_product_attribute->get_variation() ) {
-										$attribute_term_ids = array_merge( $attribute_term_ids, wc_get_product_term_ids( $parent_product_id, $parent_taxonomy ) );
+
+									$parent_taxonomy_name = $wc_product_attribute->get_taxonomy();
+									if ( taxonomy_exists( $parent_taxonomy_name ) ) {
+										if ( !$wc_product_attribute->get_variation() ) {
+											$attribute_term_ids = array_merge( $attribute_term_ids, wc_get_product_term_ids( $parent_product_id, $parent_taxonomy_name ) );
+										}
 									}
 								}
 							}
@@ -999,10 +1008,14 @@ class WooCommerce_Product_Search_Indexer {
 					foreach ( $attributes as $taxonomy => $wc_product_attribute ) {
 						if ( is_string( $taxonomy ) && ( $wc_product_attribute instanceof WC_Product_Attribute ) ) {
 
-							$attribute_term_ids = array_merge( $attribute_term_ids, wc_get_product_term_ids( $product_id, $taxonomy ) );
+							$taxonomy_name = $wc_product_attribute->get_taxonomy();
+							if ( taxonomy_exists( $taxonomy_name ) ) {
 
-							if ( !$wc_product_attribute->get_variation() ) {
-								$taxonomy_inherited[] = $taxonomy;
+								$attribute_term_ids = array_merge( $attribute_term_ids, wc_get_product_term_ids( $product_id, $taxonomy_name ) );
+
+								if ( !$wc_product_attribute->get_variation() ) {
+									$taxonomy_inherited[] = $taxonomy;
+								}
 							}
 						}
 					}
@@ -1011,7 +1024,11 @@ class WooCommerce_Product_Search_Indexer {
 
 					foreach ( $attributes as $taxonomy => $wc_product_attribute ) {
 						if ( is_string( $taxonomy ) && ( $wc_product_attribute instanceof WC_Product_Attribute ) ) {
-							$attribute_term_ids = array_merge( $attribute_term_ids, wc_get_product_term_ids( $product_id, $taxonomy ) );
+
+							$taxonomy_name = $wc_product_attribute->get_taxonomy();
+							if ( taxonomy_exists( $taxonomy_name ) ) {
+								$attribute_term_ids = array_merge( $attribute_term_ids, wc_get_product_term_ids( $product_id, $taxonomy_name ) );
+							}
 						}
 					}
 

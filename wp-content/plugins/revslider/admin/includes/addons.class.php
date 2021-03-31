@@ -112,7 +112,9 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 	 * @since 6.0
 	 */
 	public function install_addon($addon, $force = false){
-				//check if downloaded already
+		if(get_option('revslider-valid', 'false') !== 'true') return __('Please activate Slider Revolution', 'revslider');
+		
+		//check if downloaded already
 		$plugins	= get_plugins();
 		$addon_path = $addon.'/'.$addon.'.php';
 		if(!array_key_exists($addon_path, $plugins) || $force == true || !file_exists(WP_PLUGIN_DIR.'/'.$addon_path)){
@@ -133,6 +135,8 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 	 */
 	public function download_addon($addon){
 		global $rslb;
+		
+		
 		
 		$plugin_slug	= basename($addon);
 		if(0 !== strpos($plugin_slug, 'revslider-')) die( '-1' );

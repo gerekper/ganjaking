@@ -264,7 +264,9 @@ class Files extends lib\BaseCptCtrl {
         'has_archive' => true,
         'capability_type' => 'page',
         'hierarchical' => false,
-        'register_meta_box_cb' => array( $this, 'add_meta_boxes' ),
+        'register_meta_box_cb' => function () {
+          $this->add_meta_boxes();
+        },
         'rewrite' => array('slug' => models\File::$permalink_slug, 'with_font' => false),
         'supports' => array('title'),
       )

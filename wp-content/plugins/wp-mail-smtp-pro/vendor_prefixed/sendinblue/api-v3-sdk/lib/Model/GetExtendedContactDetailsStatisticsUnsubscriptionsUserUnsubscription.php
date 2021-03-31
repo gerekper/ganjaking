@@ -164,9 +164,6 @@ class GetExtendedContactDetailsStatisticsUnsubscriptionsUserUnsubscription imple
         if ($this->container['eventTime'] === null) {
             $invalidProperties[] = "'eventTime' can't be null";
         }
-        if ($this->container['ip'] === null) {
-            $invalidProperties[] = "'ip' can't be null";
-        }
         return $invalidProperties;
     }
     /**

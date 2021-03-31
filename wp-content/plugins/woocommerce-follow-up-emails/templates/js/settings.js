@@ -1,23 +1,23 @@
 jQuery(document).ready(function($) {
 
     // SPF
-    $("#spf_enabled").change(function() {
+    $( '#spf_enabled' ).on( 'change', function() {
         $(".spf, .spf-result").hide();
 
         if ( $(this).is(":checked") ) {
             $(".spf").show();
         }
-    }).change();
+    } ).trigger( 'change' );
 
-    $("#spf_domain").change(function() {
-        $(".validate-spf").attr( "disabled", true );
+    $( '#spf_domain').on( 'change', function() {
+        $( '.validate-spf' ).prop( 'disabled', true );
 
         if ( $(this).val().length > 3 ) {
-            $(".validate-spf").attr( "disabled", false );
+            $( '.validate-spf' ).prop( 'disabled', false );
         }
-    }).change();
+    } ).trigger( 'change' );
 
-    $(".validate-spf").click(function() {
+    $( '.validate-spf' ).on( 'click', function() {
         var domain  = $("#spf_domain").val();
         var ip      = $("#ip_check").val();
         var $btn    = $(this);
@@ -32,7 +32,7 @@ jQuery(document).ready(function($) {
             float: "none"
         });
 
-        $btn.attr("disabled", true);
+        $btn.prop( 'disabled', true );
         $(".spf-dns-result").hide();
 
         $.get(ajaxurl, {
@@ -51,11 +51,11 @@ jQuery(document).ready(function($) {
                 alert('No SPF record found for the domain '+ domain);
             }
 
-            $btn.attr("disabled", false);
+            $btn.prop( 'disabled', false );
         }, 'json' );
-    });
+    } );
 
-    $(".generate-spf-record").click(function() {
+    $( '.generate-spf-record' ).on( 'click', function() {
         var domain  = $("#spf_domain").val();
         var ip      = $("#ip_check").val();
         var $btn    = $(this);
@@ -70,7 +70,7 @@ jQuery(document).ready(function($) {
             float: "none"
         });
 
-        $btn.attr("disabled", true);
+        $btn.prop( 'disabled', true );
         $(".spf-result").hide();
 
         $.get(ajaxurl, {
@@ -88,20 +88,20 @@ jQuery(document).ready(function($) {
                 alert('Error generating an SPF record. '+ resp.error );
             }
 
-            $btn.attr("disabled", false);
+            $btn.prop( 'disabled', false );
         }, 'json' );
-    });
+    } );
 
     //DKIM
-    $("#dkim_enabled").change(function() {
+    $( '#dkim_enabled' ).on( 'change', function() {
         $(".dkim").hide();
 
         if ( $(this).is(":checked") ) {
             $(".dkim").show();
         }
-    }).change();
+    } ).trigger( 'change' );
 
-    $(".generate-dkim-keys").click( function() {
+    $( '.generate-dkim-keys' ).on( 'click', function() {
         var $btn = $(this);
         var data = {
             action: "fue_generate_dkim_keys",
@@ -113,11 +113,11 @@ jQuery(document).ready(function($) {
             display: "inline-block",
             float: "none"
         });
-        $btn.attr("disabled", true);
+        $btn.prop( 'disabled', true );
 
         $.post( ajaxurl, data, function(resp) {
 
-            $btn.attr("disabled", false);
+            $btn.prop( 'disabled', false );
             $(".spf-dkim-spinner").hide();
 
             if ( resp.status ) {
@@ -127,32 +127,32 @@ jQuery(document).ready(function($) {
                 alert( resp.error );
             }
         }, 'json' );
-    });
+    } );
 
     // Emails Settings
     var form_modified = false;
 
-    $("#bounce_handling").change(function() {
+    $( '#bounce_handling' ).on( 'change', function() {
         $(".bounce_enabled").hide();
 
         if ( $(this).is(":checked") ) {
             $(".bounce_enabled").show();
         }
-    }).change();
+    } ).trigger( 'change' );
 
-    $("#bounce_ssl").change(function() {
+    $( '#bounce_ssl' ).on( 'change', function() {
         if ( $(this).is(":checked") ) {
             $("#bounce_port").val("995");
         } else {
             $("#bounce_port").val("110");
         }
-    });
+    } );
 
-    $("#emails_form :input").change(function() {
+    $( '#emails_form :input' ).on( 'change', function() {
         form_modified = true;
     })
 
-    $(".test-bounce").click(function() {
+    $( '.test-bounce' ).on( 'click', function() {
         if ( form_modified ) {
             alert('Your settings have been changed. Please save the form first before running this test.');
             return false;
@@ -168,7 +168,7 @@ jQuery(document).ready(function($) {
                 $( that ).data( 'nonce', resp.new_nonce );
             });
         } );
-    });
+    } );
 
     function fue_bounce_test_check( identifier, count, cb ) {
         var $this   = $(this),

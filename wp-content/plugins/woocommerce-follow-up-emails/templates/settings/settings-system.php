@@ -291,12 +291,12 @@
 </form>
 <script>
 	jQuery(document).ready(function($) {
-		$("#enable_daily_summary").change(function() {
+		$( '#enable_daily_summary' ).on( 'change', function() {
 			if ( $(this).is(":checked") ) {
 				$(".summary_row").show();
 			} else {
 				$(".summary_row").hide();
 			}
-		}).change();
+		} ).trigger( 'change' );
 	});
 </script>

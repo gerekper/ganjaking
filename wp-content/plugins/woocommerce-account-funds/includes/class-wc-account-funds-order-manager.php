@@ -16,11 +16,7 @@ class WC_Account_Funds_Order_Manager {
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'woocommerce_checkout_update_order_meta' ) );
 		add_filter( 'woocommerce_order_item_needs_processing', array( $this, 'order_item_needs_processing' ), 10, 2 );
 		add_action( 'woocommerce_payment_complete', array( $this, 'maybe_remove_funds' ) );
-		add_action( 'woocommerce_order_status_processing', array( $this, 'maybe_remove_funds' ) );
-		add_action( 'woocommerce_order_status_on-hold', array( $this, 'maybe_remove_funds' ) );
-		add_action( 'woocommerce_order_status_completed', array( $this, 'maybe_remove_funds' ) );
-		add_action( 'woocommerce_order_status_cancelled', array( $this, 'maybe_restore_funds' ) );
-		add_action( 'woocommerce_order_status_completed', array( $this, 'maybe_increase_funds' ) );
+		add_action( 'woocommerce_order_status_changed', array( $this, 'order_status_changed' ), 20, 3 );
 		add_filter( 'woocommerce_get_order_item_totals', array( $this, 'get_order_item_totals' ), 10, 2 );
 		add_action( 'woocommerce_checkout_create_order_line_item', array( $this, 'add_order_item_meta' ), 10, 3 );
 		add_filter( 'woocommerce_order_item_product', array( $this, 'order_item_product' ), 10, 2 );
@@ -60,7 +56,7 @@ class WC_Account_Funds_Order_Manager {
 
 	/**
 	 * Try to remove user funds for a refund order (if the order contains any top up products)
-	 * 
+	 *
 	 * @param  int $order_id
 	 * @param  int $refund_id
 	 */
@@ -95,7 +91,7 @@ class WC_Account_Funds_Order_Manager {
 
 	/**
 	 * Try to remove user funds (if not already removed)
-	 * 
+	 *
 	 * @param  int $order_id
 	 */
 	public function maybe_remove_funds( $order_id ) {
@@ -121,7 +117,7 @@ class WC_Account_Funds_Order_Manager {
 
 	/**
 	 * Remove user funds when an order is created
-	 * 
+	 *
 	 * @param int $order_id
 	 */
 	public function woocommerce_checkout_update_order_meta( $order_id ) {
@@ -152,8 +148,28 @@ class WC_Account_Funds_Order_Manager {
 	}
 
 	/**
+	 * Processes a change in the Order status.
+	 *
+	 * @since 2.3.10
+	 *
+	 * @param int    $order_id Order ID.
+	 * @param string $from     The old order status.
+	 * @param string $to       The new order status.
+	 */
+	public function order_status_changed( $order_id, $from, $to ) {
+		if ( in_array( $to, array( 'processing', 'completed' ), true ) ) {
+			$this->maybe_increase_funds( $order_id );
+			$this->maybe_remove_funds( $order_id );
+		} elseif ( 'on-hold' === $to ) {
+			$this->maybe_remove_funds( $order_id );
+		} elseif ( 'cancelled' === $to ) {
+			$this->maybe_restore_funds( $order_id );
+		}
+	}
+
+	/**
 	 * Restore user funds when an order is cancelled
-	 * 
+	 *
 	 * @param  int $order_id
 	 */
 	public function maybe_restore_funds( $order_id ) {
@@ -166,7 +182,7 @@ class WC_Account_Funds_Order_Manager {
 
 	/**
 	 * See if an order contains a deposit
-	 * 
+	 *
 	 * @param  int $order_id
 	 * @return bool
 	 */
@@ -188,7 +204,7 @@ class WC_Account_Funds_Order_Manager {
 
 	/**
 	 * Handle order complete events
-	 * 
+	 *
 	 * @since 1.0.0
 	 * @version 2.1.6
 	 * @param  int $order_id

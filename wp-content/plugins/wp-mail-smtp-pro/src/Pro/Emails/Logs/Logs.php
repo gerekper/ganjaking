@@ -224,6 +224,18 @@ class Logs {
 	}
 
 	/**
+	 * Get plugin settings page URL for Logs.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @return string
+	 */
+	public function get_settings_url() {
+
+		return add_query_arg( 'tab', 'logs', wp_mail_smtp()->get_admin()->get_admin_page_url() );
+	}
+
+	/**
 	 * Enqueue required JS and CSS.
 	 *
 	 * @since 1.5.0

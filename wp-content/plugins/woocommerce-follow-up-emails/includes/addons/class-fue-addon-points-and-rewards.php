@@ -116,14 +116,14 @@ class FUE_Addon_Points_And_Rewards {
 	 */
 	public function manual_js() {
 		?>
-		jQuery("#send_type").change(function() {
+		jQuery( '#send_type' ).on( 'change', function() {
 			switch (jQuery(this).val()) {
 				case "points_rewards_over":
 				case "points_rewards_under":
 					jQuery(".send-type-points_rewards_points").show();
 					break;
 			}
-		}).change();
+		} ).trigger( 'change' );
 	<?php
 	}
 

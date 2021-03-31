@@ -1090,7 +1090,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'references' => __('References', 'revslider'),
 			'colorwillkept' => __('The References will keep their colors after deleting Skin.', 'revslider'),
 			'areyousuredeleteskin' => __('Are you sure to delete Color Skin?', 'revslider'),			
-			'svgcustomimport' => __('Lottie Files Import', 'revslider'),
+			'svgcustomimport' => __('Custom File Import', 'revslider'),
 			'importsvgfiles' => __('Import SVG Files', 'revslider'),
 			'customsvgfile' => __('Custom SVG File', 'revslider'),
 			'savecustomfile' => __('Import File', 'revslider'),

@@ -20,12 +20,7 @@ if ( ! defined( 'WPINC' ) ) {
 	<?php endif; ?>
 	<div class="sui-message-content">
 		<p class="wp-smush-no-images-content">
-			<?php
-			esc_html_e(
-				'Fix the "Serve images in next-gen format" Google PageSpeed recommendation by setting up this feature. Serve WebP versions of your images to supported browsers, and gracefully fall back on JPEGs and PNGs for browsers that don\'t support WebP.',
-				'wp-smushit'
-			);
-			?>
+			<?php esc_html_e( 'Fix the "Serve images in next-gen format" Google PageSpeed recommendation by setting up this feature. Locally serve WebP versions of your images to supported browsers, and gracefully fall back on JPEGs and PNGs for browsers that don\'t support WebP.', 'wp-smushit' ); ?>
 		</p>
 
 		<button class="sui-button sui-button-blue" id="smush-toggle-webp-button" data-action="enable">

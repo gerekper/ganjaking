@@ -7,10 +7,11 @@ class MeprTransactionsHelper {
     $coupon_code = null;
     if($coupon = $txn->coupon()) { $coupon_code = $coupon->post_title; }
 
-    if($obj = $txn->subscription())
+    if($obj = $txn->subscription()) {
       $price = $obj->price;
-    else {
+    } else {
       $obj = $txn->product();
+      $obj->expire_fixed = $txn->expires_at;
 
       //If the txn is expired -- don't check for pro-rations
       if($txn->is_expired())
@@ -118,8 +119,9 @@ class MeprTransactionsHelper {
 
         if($sub->trial && $sub->trial_days) {
           $expires_at_ts                  = strtotime($txn->created_at) + MeprUtils::days($sub->trial_days);
-          $unformatted_payment_total      = $unformatted_payment_subtotal = $sub->trial_amount; // Needs updated after taxes in paid trials is fixed
-          $unformatted_payment_tax_amount = 0.00; // Needs updated after taxes in paid trials is fixed
+          $unformatted_payment_total      = $sub->trial_total;
+          $unformatted_payment_subtotal   = $sub->trial_amount;
+          $unformatted_payment_tax_amount = $sub->trial_tax_amount;
         }
         else {
           $expires_at_ts = $prd->get_expires_at(strtotime($txn->created_at));

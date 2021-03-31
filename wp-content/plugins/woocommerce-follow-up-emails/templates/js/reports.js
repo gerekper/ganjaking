@@ -79,7 +79,7 @@ function draw_ctor_chart() {
 jQuery().ready(function($) {
     $("div.section").slice(1).hide();
 
-    $("h2.reports-overview-tabs a.nav-tab").click(function(e) {
+    $( 'h2.reports-overview-tabs a.nav-tab' ).on( 'click', function( e ) {
         e.preventDefault();
 
         var $clicked    = $(this);
@@ -101,14 +101,14 @@ jQuery().ready(function($) {
         }
 
         return false;
-    });
+    } );
 
     jQuery(".help_tip").tipTip();
     // Subsubsub tabs
     jQuery('div.subsubsub_section ul.subsubsub li a').first().addClass('current');
     jQuery('div.subsubsub_section .section').slice(1).hide();
 
-    jQuery('div.subsubsub_section ul.subsubsub li a').click(function(){
+    jQuery( 'div.subsubsub_section ul.subsubsub li a' ).on( 'click', function() {
         var $clicked = jQuery(this);
         var $section = $clicked.closest('.subsubsub_section');
         var $target  = $clicked.attr('href');
@@ -127,9 +127,9 @@ jQuery().ready(function($) {
         jQuery('#last_tab').val( $target );
 
         return false;
-    });
+    } );
 
-    $("a.table-toggle").click(function(e) {
+    $( 'a.table-toggle' ).on( 'click', function( e ) {
         e.preventDefault();
 
         var tbody = $(this).parents("table").find("tbody");
@@ -147,11 +147,11 @@ jQuery().ready(function($) {
                 .addClass("dashicons-arrow-up");
         }
     });
-});
+} );
 
 jQuery().ready(function() {
     var $ = jQuery.noConflict();
-    jQuery("h2.reports-overview-tabs a").first().click();
+    jQuery("h2.reports-overview-tabs a").first().trigger( 'click' );
 
     $("div.gauge").each(function() {
         var that = this;

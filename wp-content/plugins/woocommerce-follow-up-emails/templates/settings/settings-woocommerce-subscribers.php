@@ -90,20 +90,20 @@
 </table>
 <script>
 	jQuery(document).ready(function($) {
-		$("#enable_checkout_subscription").change(function() {
+		$( '#enable_checkout_subscription' ).on( 'change', function() {
 			if ( $(this).is(":checked") ) {
 				$("tr.checkout-subscription").show();
 			} else {
 				$("tr.checkout-subscription").hide();
 			}
-		}).change();
+		} ).trigger( 'change' );
 
-		$("#enable_account_subscription").change(function() {
+		$( '#enable_account_subscription' ).on( 'change', function() {
 			if ( $(this).is(":checked") ) {
 				$("tr.show-if-account-subscription").show();
 			} else {
 				$("tr.show-if-account-subscription").hide();
 			}
-		}).change();
+		} ).trigger( 'change' );
 	});
 </script>

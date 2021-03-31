@@ -26,7 +26,7 @@ use SkyVerge\WooCommerce\CSV_Export\Export_Formats\CSV\Customers_Export_Format_D
 use SkyVerge\WooCommerce\CSV_Export\Export_Formats\CSV\Orders_Export_Format_Definition;
 use SkyVerge\WooCommerce\CSV_Export\Export_Formats;
 use SkyVerge\WooCommerce\CSV_Export\Taxonomies_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

@@ -88,20 +88,20 @@ $deadline_period            = get_option('fue_sensei_course_incomplete_email_dea
 </table>
 <script>
 (function($) {
-	$("#sensei_course_completed_email").change(function() {
+	$( '#sensei_course_completed_email' ).on( 'change', function() {
 		if ( $(this).is(":checked") ) {
 			$(".sensei_course_completed_email_row").show();
 		} else {
 			$(".sensei_course_completed_email_row").hide();
 		}
-	}).change();
+	} ).trigger( 'change' );
 
-	$("#sensei_course_incomplete_email").change(function() {
+	$( '#sensei_course_incomplete_email').on( 'change', function() {
 		if ( $(this).is(":checked") ) {
 			$(".sensei_course_incomplete_email_row").show();
 		} else {
 			$(".sensei_course_incomplete_email_row").hide();
 		}
-	}).change();
+	} ).trigger( 'change' );
 }(jQuery));
 </script>

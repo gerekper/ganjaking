@@ -103,11 +103,6 @@ class Core {
 	 */
 	public function hooks() {
 
-		// Force from_email_force to always return true if current mailer is Gmail.
-		if ( ( new Options() )->get( 'mail', 'mailer' ) === 'gmail' ) {
-			add_filter( 'wp_mail_smtp_options_get', [ $this, 'gmail_mailer_get_from_email_force' ], 1, 3 );
-		}
-
 		// Action Scheduler requires a special early loading procedure.
 		add_action( 'plugins_loaded', [ $this, 'load_action_scheduler' ], - 10 );
 
@@ -667,7 +662,7 @@ class Core {
 		 *
 		 * @since 2.3.0
 		 */
-		$license_type = is_readable( $this->plugin_path . '/src/Pro/Pro.php' ) ? 'pro' : 'lite';
+		$license_type = is_readable( $this->plugin_path . '/src/Pro/Pro.php' ) ? 'pro' : 'pro';
 		$activated    = get_option( 'wp_mail_smtp_activated', [] );
 
 		if ( empty( $activated[ $license_type ] ) ) {
@@ -702,11 +697,7 @@ class Core {
 
 		$type = Options::init()->get( 'license', 'type' );
 
-		if ( empty( $type ) ) {
-			$type = 'lite';
-		}
-
-		return strtolower( $type );
+		return 'pro';
 	}
 
 	/**
@@ -721,7 +712,7 @@ class Core {
 		$key = Options::init()->get( 'license', 'key' );
 
 		if ( empty( $key ) ) {
-			$key = '';
+			$key = '2d01b5bafc25fb6b79acf2d19782f253';
 		}
 
 		return $key;
@@ -887,6 +878,8 @@ class Core {
 	 *
 	 * The gmail mailer check is performed when this filter is added.
 	 *
+	 * @deprecated 2.7.0
+	 *
 	 * @since 2.2.0
 	 *
 	 * @param mixed  $value The value of the plugin option that is being retrieved via Options::get method.
@@ -896,6 +889,8 @@ class Core {
 	 * @return mixed
 	 */
 	public function gmail_mailer_get_from_email_force( $value, $group, $key ) {
+
+		_deprecated_function( __METHOD__, '2.7.0' );
 
 		if ( $group === 'mail' && $key === 'from_email_force' ) {
 			$value = true;

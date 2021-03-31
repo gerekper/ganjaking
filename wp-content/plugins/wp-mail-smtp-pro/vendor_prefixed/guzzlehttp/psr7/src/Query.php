@@ -62,6 +62,7 @@ final class Query
      * @param int|false $encoding Set to false to not encode, PHP_QUERY_RFC3986
      *                            to encode using RFC3986, or PHP_QUERY_RFC1738
      *                            to encode using RFC1738.
+     *
      * @return string
      */
     public static function build(array $params, $encoding = \PHP_QUERY_RFC3986)

@@ -32,7 +32,7 @@ class MeprAccountHelper
     $product  = $txn->product();
     $user     = $txn->user();
     ?>
-      <?php if(($grp = $product->group()) && $grp->is_upgrade_path && count($grp->products('ids')) > 1): //Can't upgrade to no other options ?>
+      <?php if(($grp = $product->group()) && $grp->is_upgrade_path && count($grp->products('ids')) > 1 && count($grp->buyable_products()) >= 1): //Can't upgrade to no other options ?>
         <div id="mepr-upgrade-txn-<?php echo $txn->id; ?>" class="mepr-white-popup mfp-hide">
           <center>
             <div class="mepr-upgrade-txn-text">

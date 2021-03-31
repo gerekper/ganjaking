@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
 			<label for="webp-server-type" id="label-webp-server-type" class="sui-settings-label" style="font-size:13px;color:#888888;">
 				<?php esc_html_e( 'Server type', 'wp-smushit' ); ?>
 			</label>
-			<select id="webp-server-type" name="webp-server-type" aria-labelledby="label-webp-server-type" aria-describedby="description-webp-server-type">
+			<select class="sui-select" id="webp-server-type" name="webp-server-type" aria-labelledby="label-webp-server-type" aria-describedby="description-webp-server-type">
 				<?php foreach ( $servers as $key => $name ) : ?>
 					<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $detected_server, $key ); ?>><?php echo esc_html( $name ); ?></option>
 				<?php endforeach; ?>
@@ -110,21 +110,25 @@ if ( ! defined( 'WPINC' ) ) {
 
 					<div role="tabpanel" tabindex="0" id="webp-tab-content-manual" class="sui-tab-content" aria-labelledby="webp-tab-manual" hidden>
 						<p class="sui-description">
-							<?php esc_html_e( 'If you are unable to get the automated method working, you can copy the generated code below into your .htaccess file in the uploads directory (wp-content/uploads) to activate WebP conversion. If the file does not exist, you can create one.', 'wp-smushit' ); ?>
+							<?php esc_html_e( 'If you are unable to get the automated method working, follow these steps', 'wp-smushit' ); ?>:
 						</p>
 
 						<ol class="sui-description">
 							<li>
-								<?php esc_html_e( 'Copy & paste the generated code below into your .htaccess file in the uploads directory (wp-content/uploads). If the file does not exist, you can create one', 'wp-smushit' ); ?>
+								<?php
+								printf( /* translators: %1$s - opening <strong>, %2$s - closing </strong> */
+									esc_html__( 'Copy the generated code below and paste it %1$sat the top%2$s of your .htaccess file (before any existing code) in the root directory.', 'wp-smushit' ),
+									'<strong>',
+									'</strong>'
+								);
+								?>
 							</li>
 							<li>
 								<?php
-								printf(
-									/* translators: 1. opening 'a' tag to check Webp conversion status, 2. closing 'a' tag, 3. opening 'a' tag to premium support. */
-									esc_html__( 'Next, %1$sre-check WebP conversion status%2$s to see if it worked. %3$sStill having issues?%2$s', 'wp-smushit' ),
+								printf( /* translators: %1$s - opening 'a' tag to check Webp conversion status, %2$s - closing 'a' tag. */
+									esc_html__( 'Next, %1$sre-check WebP conversion status%2$s to see if it worked.', 'wp-smushit' ),
 									'<a href="#smush-webp-recheck" id="smush-webp-recheck-link">',
-									'</a>',
-									'<a href="https://premium.wpmudev.org/hub/support/#get-support" target="_blank">'
+									'</a>'
 								);
 								?>
 							</li>
@@ -135,7 +139,7 @@ if ( ! defined( 'WPINC' ) ) {
 						<h5 class="sui-settings-label" style="margin-top: 30px; font-size: 13px; color: #333333;"><?php esc_html_e( 'Troubleshooting', 'wp-smushit' ); ?></h5>
 
 						<p class="sui-description">
-							<?php esc_html_e( 'If .htaccess does not work, and you have access to vhosts.conf or httpd.conf try this', 'wp-smushit' ); ?>:
+							<?php esc_html_e( 'If .htaccess does not work, and you have access to vhosts.conf or httpd.conf, try this', 'wp-smushit' ); ?>:
 						</p>
 
 						<ol class="sui-description">
@@ -146,52 +150,19 @@ if ( ! defined( 'WPINC' ) ) {
 								<?php esc_html_e( 'Reload Apache.', 'wp-smushit' ); ?>
 							</li>
 							<li>
-								<?php esc_html_e( "If you don't know where those files are, or you aren't able to reload Apache, you would need to consult with your hosting provider or a system administrator who has access to change the configuration of your server", 'wp-smushit' ); ?>
+								<?php esc_html_e( "If you don't know where those files are, or you aren't able to reload Apache, you would need to consult with your hosting provider or a system administrator who has access to change the configuration of your server.", 'wp-smushit' ); ?>
 							</li>
 						</ol>
 						<p class="sui-description">
 							<?php
-							printf(
-								/* translators: 1. opening 'a' tag to check Webp conversion status, 2. closing 'a' tag, 3. opening 'a' tag to premium support. */
-								esc_html__( 'Next, %1$sre-check WebP conversion status%2$s to see if it worked. %3$sStill having issues?%2$s', 'wp-smushit' ),
-								'<a href="#smush-webp-recheck" id="smush-webp-recheck-link">',
-								'</a>',
-								'<a href="https://premium.wpmudev.org/hub/support/#get-support" target="_blank">'
+							printf( /* translators: %1$s - opening 'a' tag to check Webp conversion status, %2$s - closing 'a' tag */
+								esc_html__( 'Still having trouble? %1$sGet support%2$s.', 'wp-smushit' ),
+								'<a href="https://wpmudev.com/hub/support/#get-support" target="_blank">',
+								'</a>'
 							);
 							?>
-						</li>
+						</p>
 					</div>
-
-					<pre class="sui-code-snippet"><?php echo esc_html( $apache_htaccess_code ); ?></pre>
-
-					<h5 class="sui-settings-label" style="margin-top: 30px; font-size: 13px; color: #333333;"><?php esc_html_e( 'Troubleshooting', 'wp-smushit' ); ?></h5>
-
-					<p class="sui-description">
-						<?php esc_html_e( 'If .htaccess does not work, and you have access to vhosts.conf or httpd.conf try this', 'wp-smushit' ); ?>:
-					</p>
-
-					<ol class="sui-description">
-						<li>
-							<?php esc_html_e( 'Look for your site in the file and find the line that starts with <Directory> - add the code above into that section and save the file.', 'wp-smushit' ); ?>
-						</li>
-						<li>
-							<?php esc_html_e( 'Reload Apache.', 'wp-smushit' ); ?>
-						</li>
-						<li>
-							<?php esc_html_e( 'If you don\'t know where those files are, or you aren\'t able to reload Apache, you would need to consult with your hosting provider or a system administrator who has access to change the configuration of your server.', 'wp-smushit' ); ?>
-						</li>
-					</ol>
-					<p class="sui-description">
-						<?php
-						printf(
-							/* translators: 1. opening 'a' tag to premium support, 2. closing 'a' tag. */
-							esc_html__( 'Still having trouble? %1$sGet support%2$s.', 'wp-smushit' ),
-							'<a href="https://premium.wpmudev.org/hub/support/#get-support" target="_blank">',
-							'</a>'
-						);
-						?>
-					</p>
-
 				</div><!-- /.sui-tabs -->
 
 			</div><!-- #webp-server-instructions-apache -->
@@ -229,7 +200,7 @@ if ( ! defined( 'WPINC' ) ) {
 				printf(
 					/* translators: 1. opening 'a' tag to premium support, 2. closing 'a' tag. */
 					esc_html__( 'Still having trouble? %1$sGet support%2$s.', 'wp-smushit' ),
-					'<a href="https://premium.wpmudev.org/hub/support/#get-support" target="_blank">',
+					'<a href="https://wpmudev.com/hub/support/#get-support" target="_blank">',
 					'</a>'
 				);
 				?>

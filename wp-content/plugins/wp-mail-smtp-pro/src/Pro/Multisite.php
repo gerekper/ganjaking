@@ -234,11 +234,21 @@ class Multisite {
 				'admin_menu',
 				function () {
 					remove_submenu_page( Area::SLUG, Area::SLUG );
-					remove_submenu_page( Area::SLUG, Area::SLUG . '-setup-wizard' );
 
 					if ( ! wp_mail_smtp()->pro->get_logs()->is_enabled() ) {
 						remove_submenu_page( Area::SLUG, Area::SLUG . '-logs' );
 					}
+
+					/*
+					 * We can't remove top level page with function remove_menu_page(), because we need to keep it for visible sub-pages.
+					 * So, we just restrict access to top level page.
+					 */
+					add_action(
+						'load-' . wp_mail_smtp()->get_admin()->hook,
+						function () {
+							wp_die( esc_html__( 'Sorry, you are not allowed to access the WP Mail SMTP settings for individual network subsite. The network-wide setting is enabled, so the plugin settings are only accessible in the network admin dashboard.', 'wp-mail-smtp-pro' ), 403 );
+						}
+					);
 				},
 				100
 			);
@@ -360,9 +370,7 @@ class Multisite {
 	 */
 	public function remove_admin_menu_items() {
 
-		if ( wp_mail_smtp()->pro->get_logs()->is_enabled() ) {
-			remove_submenu_page( Area::SLUG, Area::SLUG . '-logs' );
-		}
+		remove_submenu_page( Area::SLUG, Area::SLUG . '-logs' );
 	}
 
 	/**

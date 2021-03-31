@@ -285,15 +285,7 @@ class MeprOptionsCtrl extends MeprBaseCtrl {
 
       MeprUpdateCtrl::manually_queue_update();
 
-      $mepr_options->mothership_license = '';
-      $mepr_options->store(false);
-
-      // Don't need to check the mothership for this one ... we just deactivated
-      update_option('mepr_activated', false);
-
-      // Clear the cache of add-ons
-      delete_site_transient('mepr_addons');
-      delete_site_transient('mepr_all_addons');
+      $mepr_options->deactivate_license();
 
       $output = sprintf('<div class="notice notice-success"><p>%s</p></div>', esc_html($act['message']));
       $output .= MeprView::get_string('/admin/options/inactive_license', get_defined_vars());
@@ -301,6 +293,8 @@ class MeprOptionsCtrl extends MeprBaseCtrl {
       wp_send_json_success($output);
     }
     catch(Exception $e) {
+      $mepr_options->deactivate_license();
+
       wp_send_json_error($e->getMessage());
     }
   }

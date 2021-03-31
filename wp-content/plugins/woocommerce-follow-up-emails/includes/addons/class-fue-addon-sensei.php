@@ -1067,14 +1067,14 @@ class FUE_Addon_Sensei {
 	 */
 	public function manual_js() {
 		?>
-		jQuery("#send_type").change(function() {
+		jQuery( '#send_type' ).on( 'change', function() {
 			switch (jQuery(this).val()) {
 				case "course":
 					jQuery(".send-type-course").show();
 					break;
 
 			}
-		}).change();
+		} ).trigger( 'change' );
 
 	<?php
 	}

@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 /**
  * WooCommerce Tab Manager admin helper functions
@@ -119,8 +119,8 @@ function wc_tab_manager_sortable_product_tabs( $tabs ) {
 					$product_terms = get_the_terms( $post->ID, 'product_cat' );
 					$product_cats  = array();
 
-					if ( ! is_wp_error( $product_terms ) ) {
-						$product_cats = wp_list_pluck( (array) $product_terms, 'term_id' );
+					if ( is_array( $product_terms ) ) {
+						$product_cats = wp_list_pluck( $product_terms, 'term_id' );
 					}
 				}
 

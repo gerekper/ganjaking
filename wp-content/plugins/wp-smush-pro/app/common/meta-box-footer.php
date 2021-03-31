@@ -29,12 +29,12 @@ if ( 'cdn' === $current_tab && ! WP_Smush::get_instance()->core()->mod->cdn->get
 
 <div class="sui-actions-right">
 	<?php if ( 'integrations' === $current_tab || 'bulk' === $current_tab ) : ?>
-		<label id="smush-submit-description">
+		<label for="wp-smush-save-settings" class="sui-field-prefix">
 			<?php esc_html_e( 'Smush will automatically check for any images that need re-smushing.', 'wp-smushit' ); ?>
 		</label>
 	<?php endif; ?>
 
-	<button type="submit" class="sui-button sui-button-blue" id="wp-smush-save-settings" aria-describedby="smush-submit-description" data-msg="<?php echo esc_attr( $button_msg ); ?>" <?php disabled( $disabled, false, false ); ?>>
+	<button type="submit" class="sui-button sui-button-blue" id="wp-smush-save-settings" data-msg="<?php echo esc_attr( $button_msg ); ?>" <?php disabled( $disabled, false, false ); ?>>
 		<i class="sui-icon-save" aria-hidden="true"></i>
 		<?php echo esc_html( $button_text ); ?>
 	</button>

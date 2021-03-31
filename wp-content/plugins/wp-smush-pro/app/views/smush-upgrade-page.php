@@ -11,7 +11,7 @@ $upgrade_url = add_query_arg(
 		'utm_source' => 'smush',
 		'utm_medium' => 'plugin',
 	),
-	'https://premium.wpmudev.org/project/wp-smush-pro/'
+	'https://wpmudev.com/project/wp-smush-pro/'
 );
 
 ?>
@@ -58,7 +58,7 @@ $upgrade_url = add_query_arg(
 			<h2><?php esc_html_e( 'Optimize unlimited images with Smush Pro', 'wp-smushit' ); ?></h2>
 			<p><?php esc_html_e( 'Learn why Smush Pro is the best image optimization plugin.', 'wp-smushit' ); ?></p>
 			<div class="thumbnail-container">
-				<img src="https://premium.wpmudev.org/wp-content/themes/wpmudev-2015-1/assets/img/projects/Smush-Thumbnail@2x.png?v=2" alt="<?php esc_attr_e( 'Play', 'wp-smushit' ); ?>" id="wistia-play-button" role="button">
+				<img src="https://wpmudev.com/wp-content/themes/wpmudev-2015-1/assets/img/projects/Smush-Thumbnail@2x.png?v=2" alt="<?php esc_attr_e( 'Play', 'wp-smushit' ); ?>" id="wistia-play-button" role="button">
 			</div>
 			<span id="wistia_oegnwrdag1"></span>
 			<script>
@@ -185,22 +185,19 @@ $upgrade_url = add_query_arg(
 	<li><a href="https://profiles.wordpress.org/wpmudev#content-plugins" target="_blank">
 			<?php esc_html_e( 'Free Plugins', 'wp-smushit' ); ?>
 		</a></li>
-	<li><a href="https://premium.wpmudev.org/features/" target="_blank">
-			<?php esc_html_e( 'Membership', 'wp-smushit' ); ?>
-		</a></li>
-	<li><a href="https://premium.wpmudev.org/roadmap/" target="_blank">
+	<li><a href="https://wpmudev.com/roadmap/" target="_blank">
 			<?php esc_html_e( 'Roadmap', 'wp-smushit' ); ?>
 		</a></li>
 	<li><a href="https://wordpress.org/support/plugin/wp-smushit" target="_blank">
 			<?php esc_html_e( 'Support', 'wp-smushit' ); ?>
 		</a></li>
-	<li><a href="https://premium.wpmudev.org/docs/" target="_blank">
+	<li><a href="https://wpmudev.com/docs/" target="_blank">
 			<?php esc_html_e( 'Docs', 'wp-smushit' ); ?>
 		</a></li>
-	<li><a href="https://premium.wpmudev.org/hub-welcome/" target="_blank">
+	<li><a href="https://wpmudev.com/hub-welcome/" target="_blank">
 			<?php esc_html_e( 'The Hub', 'wp-smushit' ); ?>
 		</a></li>
-	<li><a href="https://premium.wpmudev.org/terms-of-service/" target="_blank">
+	<li><a href="https://wpmudev.com/terms-of-service/" target="_blank">
 			<?php esc_html_e( 'Terms of Service', 'wp-smushit' ); ?>
 		</a></li>
 	<li><a href="https://incsub.com/privacy-policy/" target="_blank">

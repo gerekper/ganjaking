@@ -143,13 +143,13 @@ class FUE_Addon_Bookings {
 	 */
 	public function manual_js() {
 		?>
-		jQuery("#send_type").change(function() {
+		jQuery( '#send_type' ).on( 'change', function() {
 			switch (jQuery(this).val()) {
 				case "booked_event":
 					jQuery(".send-type-bookings").show();
 					break;
 			}
-		}).change();
+		} ).trigger( 'change' );
 	<?php
 	}
 
@@ -220,13 +220,13 @@ class FUE_Addon_Bookings {
 	 */
 	public function manual_form_script() {
 		?>
-		jQuery("#send_type").change(function() {
+		jQuery( '#send_type' ).on( 'change', function() {
 			if ( jQuery(this).val() == "booked_event" ) {
 				jQuery(".var_wc_bookings").show();
 			} else {
 				jQuery(".var_wc_bookings").hide();
 			}
-		}).change();
+		} ).trigger( 'change' );
 		<?php
 	}
 

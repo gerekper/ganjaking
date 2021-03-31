@@ -29,7 +29,7 @@ document.addEventListener( 'DOMContentLoaded', function() {
 				'#smush-conflict-notice > button.notice-dismiss'
 			);
 			if ( btn ) {
-				btn.click();
+				btn.trigger('click');
 			}
 		};
 		xhr.send();

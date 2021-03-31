@@ -89,14 +89,15 @@ class TransactionalSMSApi
      * @param  string $phoneNumber Filter the report for a specific phone number (optional)
      * @param  string $event Filter the report for specific events (optional)
      * @param  string $tags Filter the report for specific tags passed as a serialized urlencoded array (optional)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \SendinBlue\Client\Model\GetSmsEventReport
      */
-    public function getSmsEvents($limit = '50', $startDate = null, $endDate = null, $offset = '0', $days = null, $phoneNumber = null, $event = null, $tags = null)
+    public function getSmsEvents($limit = '50', $startDate = null, $endDate = null, $offset = '0', $days = null, $phoneNumber = null, $event = null, $tags = null, $sort = 'desc')
     {
-        list($response) = $this->getSmsEventsWithHttpInfo($limit, $startDate, $endDate, $offset, $days, $phoneNumber, $event, $tags);
+        list($response) = $this->getSmsEventsWithHttpInfo($limit, $startDate, $endDate, $offset, $days, $phoneNumber, $event, $tags, $sort);
         return $response;
     }
     /**
@@ -112,15 +113,16 @@ class TransactionalSMSApi
      * @param  string $phoneNumber Filter the report for a specific phone number (optional)
      * @param  string $event Filter the report for specific events (optional)
      * @param  string $tags Filter the report for specific tags passed as a serialized urlencoded array (optional)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \SendinBlue\Client\Model\GetSmsEventReport, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSmsEventsWithHttpInfo($limit = '50', $startDate = null, $endDate = null, $offset = '0', $days = null, $phoneNumber = null, $event = null, $tags = null)
+    public function getSmsEventsWithHttpInfo($limit = '50', $startDate = null, $endDate = null, $offset = '0', $days = null, $phoneNumber = null, $event = null, $tags = null, $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetSmsEventReport';
-        $request = $this->getSmsEventsRequest($limit, $startDate, $endDate, $offset, $days, $phoneNumber, $event, $tags);
+        $request = $this->getSmsEventsRequest($limit, $startDate, $endDate, $offset, $days, $phoneNumber, $event, $tags, $sort);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -170,13 +172,14 @@ class TransactionalSMSApi
      * @param  string $phoneNumber Filter the report for a specific phone number (optional)
      * @param  string $event Filter the report for specific events (optional)
      * @param  string $tags Filter the report for specific tags passed as a serialized urlencoded array (optional)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSmsEventsAsync($limit = '50', $startDate = null, $endDate = null, $offset = '0', $days = null, $phoneNumber = null, $event = null, $tags = null)
+    public function getSmsEventsAsync($limit = '50', $startDate = null, $endDate = null, $offset = '0', $days = null, $phoneNumber = null, $event = null, $tags = null, $sort = 'desc')
     {
-        return $this->getSmsEventsAsyncWithHttpInfo($limit, $startDate, $endDate, $offset, $days, $phoneNumber, $event, $tags)->then(function ($response) {
+        return $this->getSmsEventsAsyncWithHttpInfo($limit, $startDate, $endDate, $offset, $days, $phoneNumber, $event, $tags, $sort)->then(function ($response) {
             return $response[0];
         });
     }
@@ -193,14 +196,15 @@ class TransactionalSMSApi
      * @param  string $phoneNumber Filter the report for a specific phone number (optional)
      * @param  string $event Filter the report for specific events (optional)
      * @param  string $tags Filter the report for specific tags passed as a serialized urlencoded array (optional)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSmsEventsAsyncWithHttpInfo($limit = '50', $startDate = null, $endDate = null, $offset = '0', $days = null, $phoneNumber = null, $event = null, $tags = null)
+    public function getSmsEventsAsyncWithHttpInfo($limit = '50', $startDate = null, $endDate = null, $offset = '0', $days = null, $phoneNumber = null, $event = null, $tags = null, $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetSmsEventReport';
-        $request = $this->getSmsEventsRequest($limit, $startDate, $endDate, $offset, $days, $phoneNumber, $event, $tags);
+        $request = $this->getSmsEventsRequest($limit, $startDate, $endDate, $offset, $days, $phoneNumber, $event, $tags, $sort);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use($returnType) {
             $responseBody = $response->getBody();
             if ($returnType === '\\SplFileObject') {
@@ -230,11 +234,12 @@ class TransactionalSMSApi
      * @param  string $phoneNumber Filter the report for a specific phone number (optional)
      * @param  string $event Filter the report for specific events (optional)
      * @param  string $tags Filter the report for specific tags passed as a serialized urlencoded array (optional)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSmsEventsRequest($limit = '50', $startDate = null, $endDate = null, $offset = '0', $days = null, $phoneNumber = null, $event = null, $tags = null)
+    protected function getSmsEventsRequest($limit = '50', $startDate = null, $endDate = null, $offset = '0', $days = null, $phoneNumber = null, $event = null, $tags = null, $sort = 'desc')
     {
         if ($limit !== null && $limit > 100) {
             throw new \InvalidArgumentException('invalid value for "$limit" when calling TransactionalSMSApi.getSmsEvents, must be smaller than or equal to 100.');
@@ -276,6 +281,10 @@ class TransactionalSMSApi
         // query params
         if ($tags !== null) {
             $queryParams['tags'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($tags);
+        }
+        // query params
+        if ($sort !== null) {
+            $queryParams['sort'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($sort);
         }
         // body params
         $_tempBody = null;
@@ -556,14 +565,15 @@ class TransactionalSMSApi
      * @param  string $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the report (optional)
      * @param  int $days Number of days in the past including today (positive integer). Not compatible with &#39;startDate&#39; and &#39;endDate&#39; (optional)
      * @param  string $tag Filter on a tag (optional)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \SendinBlue\Client\Model\GetTransacSmsReport
      */
-    public function getTransacSmsReport($startDate = null, $endDate = null, $days = null, $tag = null)
+    public function getTransacSmsReport($startDate = null, $endDate = null, $days = null, $tag = null, $sort = 'desc')
     {
-        list($response) = $this->getTransacSmsReportWithHttpInfo($startDate, $endDate, $days, $tag);
+        list($response) = $this->getTransacSmsReportWithHttpInfo($startDate, $endDate, $days, $tag, $sort);
         return $response;
     }
     /**
@@ -575,15 +585,16 @@ class TransactionalSMSApi
      * @param  string $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the report (optional)
      * @param  int $days Number of days in the past including today (positive integer). Not compatible with &#39;startDate&#39; and &#39;endDate&#39; (optional)
      * @param  string $tag Filter on a tag (optional)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \SendinBlue\Client\Model\GetTransacSmsReport, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTransacSmsReportWithHttpInfo($startDate = null, $endDate = null, $days = null, $tag = null)
+    public function getTransacSmsReportWithHttpInfo($startDate = null, $endDate = null, $days = null, $tag = null, $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetTransacSmsReport';
-        $request = $this->getTransacSmsReportRequest($startDate, $endDate, $days, $tag);
+        $request = $this->getTransacSmsReportRequest($startDate, $endDate, $days, $tag, $sort);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -629,13 +640,14 @@ class TransactionalSMSApi
      * @param  string $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the report (optional)
      * @param  int $days Number of days in the past including today (positive integer). Not compatible with &#39;startDate&#39; and &#39;endDate&#39; (optional)
      * @param  string $tag Filter on a tag (optional)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTransacSmsReportAsync($startDate = null, $endDate = null, $days = null, $tag = null)
+    public function getTransacSmsReportAsync($startDate = null, $endDate = null, $days = null, $tag = null, $sort = 'desc')
     {
-        return $this->getTransacSmsReportAsyncWithHttpInfo($startDate, $endDate, $days, $tag)->then(function ($response) {
+        return $this->getTransacSmsReportAsyncWithHttpInfo($startDate, $endDate, $days, $tag, $sort)->then(function ($response) {
             return $response[0];
         });
     }
@@ -648,14 +660,15 @@ class TransactionalSMSApi
      * @param  string $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the report (optional)
      * @param  int $days Number of days in the past including today (positive integer). Not compatible with &#39;startDate&#39; and &#39;endDate&#39; (optional)
      * @param  string $tag Filter on a tag (optional)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTransacSmsReportAsyncWithHttpInfo($startDate = null, $endDate = null, $days = null, $tag = null)
+    public function getTransacSmsReportAsyncWithHttpInfo($startDate = null, $endDate = null, $days = null, $tag = null, $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetTransacSmsReport';
-        $request = $this->getTransacSmsReportRequest($startDate, $endDate, $days, $tag);
+        $request = $this->getTransacSmsReportRequest($startDate, $endDate, $days, $tag, $sort);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use($returnType) {
             $responseBody = $response->getBody();
             if ($returnType === '\\SplFileObject') {
@@ -681,11 +694,12 @@ class TransactionalSMSApi
      * @param  string $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the report (optional)
      * @param  int $days Number of days in the past including today (positive integer). Not compatible with &#39;startDate&#39; and &#39;endDate&#39; (optional)
      * @param  string $tag Filter on a tag (optional)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTransacSmsReportRequest($startDate = null, $endDate = null, $days = null, $tag = null)
+    protected function getTransacSmsReportRequest($startDate = null, $endDate = null, $days = null, $tag = null, $sort = 'desc')
     {
         $resourcePath = '/transactionalSMS/statistics/reports';
         $formParams = [];
@@ -708,6 +722,10 @@ class TransactionalSMSApi
         // query params
         if ($tag !== null) {
             $queryParams['tag'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($tag);
+        }
+        // query params
+        if ($sort !== null) {
+            $queryParams['sort'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($sort);
         }
         // body params
         $_tempBody = null;

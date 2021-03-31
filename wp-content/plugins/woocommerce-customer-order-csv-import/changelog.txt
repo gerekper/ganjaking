@@ -1,5 +1,8 @@
 *** Customer/Order/Coupon CSV Import Suite Changelog ***
 
+2021.03.15 - version 3.10.1
+ * Feature - Add support for the WooCommerce Navigation admin feature
+
 2020.12.07 - version 3.10.0
  * Misc - Add compatibility for WooCommerce 4.7
  * Misc - Require PHP 7.0 or newer

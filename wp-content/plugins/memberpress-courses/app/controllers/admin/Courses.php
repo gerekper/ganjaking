@@ -301,7 +301,9 @@ class Courses extends lib\BaseCptCtrl {
         'has_archive' => true,
         'capability_type' => 'page',
         'hierarchical' => false,
-        'register_meta_box_cb' => array( $this, 'add_meta_boxes' ),
+        'register_meta_box_cb' => function () {
+          $this->add_meta_boxes();
+        },
         'rewrite' => array('slug' => helpers\Courses::get_permalink_base(), 'with_front' => false),
         'supports' => array('title', 'excerpt', 'editor', 'thumbnail', 'author'),
         'taxonomies' => array()
@@ -323,19 +325,19 @@ class Courses extends lib\BaseCptCtrl {
 
   public function curriculum_meta_box($post) {
     $course = new models\Course($post->ID);
-    require_once(base\VIEWS_PATH . '/admin/courses/curriculum_meta_box.php');
+    require_once(base\VIEWS_PATH . '/admin/courses/courses_curriculum_meta_box.php');
   }
 
   public function course_settings_meta_box($post) {
     $course = new models\Course($post->ID);
-    require_once(base\VIEWS_PATH . '/admin/courses/course_settings_meta_box.php');
+    require_once(base\VIEWS_PATH . '/admin/courses/courses_settings_meta_box.php');
   }
 
   public function page_options_meta_box($post) {
     $course = new models\Course($post->ID);
     $templates = get_page_templates();
   $course = new models\Course($post->ID);
-    require_once(base\VIEWS_PATH . '/admin/courses/page_options_meta_box.php');
+    require_once(base\VIEWS_PATH . '/admin/courses/courses_page_options_meta_box.php');
   }
 
   private static function add_or_reorder_lesson($section_id, $lesson_id, $index) {

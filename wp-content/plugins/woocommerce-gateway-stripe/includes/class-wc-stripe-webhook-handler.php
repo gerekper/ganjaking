@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class WC_Stripe_Webhook_Handler.
  *
  * Handles webhooks from Stripe on sources that are not immediately chargeable.
+ *
  * @since 4.0.0
  */
 class WC_Stripe_Webhook_Handler extends WC_Stripe_Payment_Gateway {
@@ -35,26 +36,32 @@ class WC_Stripe_Webhook_Handler extends WC_Stripe_Payment_Gateway {
 	 * Constructor.
 	 *
 	 * @since 4.0.0
-	 * @version 4.0.0
+	 * @version 5.0.0
 	 */
 	public function __construct() {
 		$this->retry_interval = 2;
-		$stripe_settings      = get_option( 'woocommerce_stripe_settings', array() );
+		$stripe_settings      = get_option( 'woocommerce_stripe_settings', [] );
 		$this->testmode       = ( ! empty( $stripe_settings['testmode'] ) && 'yes' === $stripe_settings['testmode'] ) ? true : false;
 		$secret_key           = ( $this->testmode ? 'test_' : '' ) . 'webhook_secret';
 		$this->secret         = ! empty( $stripe_settings[ $secret_key ] ) ? $stripe_settings[ $secret_key ] : false;
 
-		add_action( 'woocommerce_api_wc_stripe', array( $this, 'check_for_webhook' ) );
+		add_action( 'woocommerce_api_wc_stripe', [ $this, 'check_for_webhook' ] );
+
+		// Get/set the time we began monitoring the health of webhooks by fetching it.
+		// This should be roughly the same as the activation time of the version of the
+		// plugin when this code first appears.
+		WC_Stripe_Webhook_State::get_monitoring_began_at();
 	}
 
 	/**
 	 * Check incoming requests for Stripe Webhook data and process them.
 	 *
 	 * @since 4.0.0
-	 * @version 4.0.0
+	 * @version 5.0.0
 	 */
 	public function check_for_webhook() {
-		if ( ( 'POST' !== $_SERVER['REQUEST_METHOD'] )
+		if ( ! isset( $_SERVER['REQUEST_METHOD'] )
+			|| ( 'POST' !== $_SERVER['REQUEST_METHOD'] )
 			|| ! isset( $_GET['wc-api'] )
 			|| ( 'wc_stripe' !== $_GET['wc-api'] )
 		) {
@@ -65,12 +72,20 @@ class WC_Stripe_Webhook_Handler extends WC_Stripe_Payment_Gateway {
 		$request_headers = array_change_key_case( $this->get_request_headers(), CASE_UPPER );
 
 		// Validate it to make sure it is legit.
-		if ( $this->is_valid_request( $request_headers, $request_body ) ) {
+		$validation_result = $this->validate_request( $request_headers, $request_body );
+		if ( WC_Stripe_Webhook_State::VALIDATION_SUCCEEDED === $validation_result ) {
 			$this->process_webhook( $request_body );
+
+			$notification = json_decode( $request_body );
+			WC_Stripe_Webhook_State::set_last_webhook_success_at( $notification->created );
+
 			status_header( 200 );
 			exit;
 		} else {
 			WC_Stripe_Logger::log( 'Incoming webhook failed validation: ' . print_r( $request_body, true ) );
+			WC_Stripe_Webhook_State::set_last_webhook_failure_at( time() );
+			WC_Stripe_Webhook_State::set_last_error_reason( $validation_result );
+
 			status_header( 400 );
 			exit;
 		}
@@ -80,44 +95,60 @@ class WC_Stripe_Webhook_Handler extends WC_Stripe_Payment_Gateway {
 	 * Verify the incoming webhook notification to make sure it is legit.
 	 *
 	 * @since 4.0.0
-	 * @version 4.0.0
-	 * @param string $request_headers The request headers from Stripe.
-	 * @param string $request_body The request body from Stripe.
-	 * @return bool
+	 * @version 5.0.0
+	 * @param array $request_headers The request headers from Stripe.
+	 * @param array $request_body    The request body from Stripe.
+	 * @return string The validation result (e.g. self::VALIDATION_SUCCEEDED )
 	 */
-	public function is_valid_request( $request_headers = null, $request_body = null ) {
-		if ( null === $request_headers || null === $request_body ) {
-			return false;
+	public function validate_request( $request_headers, $request_body ) {
+		if ( empty( $request_headers ) ) {
+			return WC_Stripe_Webhook_State::VALIDATION_FAILED_EMPTY_HEADERS;
+		}
+		if ( empty( $request_body ) ) {
+			return WC_Stripe_Webhook_State::VALIDATION_FAILED_EMPTY_BODY;
 		}
 
-		if ( ! empty( $request_headers['USER-AGENT'] ) && ! preg_match( '/Stripe/', $request_headers['USER-AGENT'] ) ) {
-			return false;
+		if ( empty( $this->secret ) ) {
+			return $this->validate_request_user_agent( $request_headers );
 		}
 
-		if ( ! empty( $this->secret ) ) {
-			// Check for a valid signature.
-			$signature_format = '/^t=(?P<timestamp>\d+)(?P<signatures>(,v\d+=[a-z0-9]+){1,2})$/';
-			if ( empty( $request_headers['STRIPE-SIGNATURE'] ) || ! preg_match( $signature_format, $request_headers['STRIPE-SIGNATURE'], $matches ) ) {
-				return false;
-			}
-
-			// Verify the timestamp.
-			$timestamp = intval( $matches['timestamp'] );
-			if ( abs( $timestamp - time() ) > 5 * MINUTE_IN_SECONDS ) {
-				return false;
-			}
-
-			// Generate the expected signature.
-			$signed_payload     = $timestamp . '.' . $request_body;
-			$expected_signature = hash_hmac( 'sha256', $signed_payload, $this->secret );
-
-			// Check if the expected signature is present.
-			if ( ! preg_match( '/,v\d+=' . preg_quote( $expected_signature, '/' ) . '/', $matches['signatures'] ) ) {
-				return false;
-			}
+		// Check for a valid signature.
+		$signature_format = '/^t=(?P<timestamp>\d+)(?P<signatures>(,v\d+=[a-z0-9]+){1,2})$/';
+		if ( empty( $request_headers['STRIPE-SIGNATURE'] ) || ! preg_match( $signature_format, $request_headers['STRIPE-SIGNATURE'], $matches ) ) {
+			return WC_Stripe_Webhook_State::VALIDATION_FAILED_SIGNATURE_INVALID;
 		}
 
-		return true;
+		// Verify the timestamp.
+		$timestamp = intval( $matches['timestamp'] );
+		if ( abs( $timestamp - time() ) > 5 * MINUTE_IN_SECONDS ) {
+			return WC_Stripe_Webhook_State::VALIDATION_FAILED_TIMESTAMP_MISMATCH;
+		}
+
+		// Generate the expected signature.
+		$signed_payload     = $timestamp . '.' . $request_body;
+		$expected_signature = hash_hmac( 'sha256', $signed_payload, $this->secret );
+
+		// Check if the expected signature is present.
+		if ( ! preg_match( '/,v\d+=' . preg_quote( $expected_signature, '/' ) . '/', $matches['signatures'] ) ) {
+			return WC_Stripe_Webhook_State::VALIDATION_FAILED_SIGNATURE_MISMATCH;
+		}
+
+		return WC_Stripe_Webhook_State::VALIDATION_SUCCEEDED;
+	}
+
+	/**
+	 * Verify User Agent of the incoming webhook notification. Used as fallback for the cases when webhook secret is missing.
+	 *
+	 * @since 5.0.0
+	 * @version 5.0.0
+	 * @param array $request_headers The request headers from Stripe.
+	 * @return string The validation result (e.g. self::VALIDATION_SUCCEEDED )
+	 */
+	private function validate_request_user_agent( $request_headers ) {
+		$ua_is_valid = empty( $request_headers['USER-AGENT'] ) || preg_match( '/Stripe/', $request_headers['USER-AGENT'] );
+		$ua_is_valid = apply_filters( 'wc_stripe_webhook_is_user_agent_valid', $ua_is_valid, $request_headers );
+
+		return $ua_is_valid ? WC_Stripe_Webhook_State::VALIDATION_SUCCEEDED : WC_Stripe_Webhook_State::VALIDATION_FAILED_USER_AGENT_INVALID;
 	}
 
 	/**
@@ -130,7 +161,7 @@ class WC_Stripe_Webhook_Handler extends WC_Stripe_Payment_Gateway {
 	 */
 	public function get_request_headers() {
 		if ( ! function_exists( 'getallheaders' ) ) {
-			$headers = array();
+			$headers = [];
 
 			foreach ( $_SERVER as $name => $value ) {
 				if ( 'HTTP_' === substr( $name, 0, 5 ) ) {
@@ -151,7 +182,7 @@ class WC_Stripe_Webhook_Handler extends WC_Stripe_Payment_Gateway {
 	 * @since 4.0.0
 	 * @version 4.0.0
 	 * @param object $notification
-	 * @param bool $retry
+	 * @param bool   $retry
 	 */
 	public function process_webhook_payment( $notification, $retry = true ) {
 		// The following 3 payment methods are synchronous so does not need to be handle via webhook.
@@ -172,7 +203,7 @@ class WC_Stripe_Webhook_Handler extends WC_Stripe_Payment_Gateway {
 		$is_pending_receiver = ( 'receiver' === $notification->data->object->flow );
 
 		try {
-			if ( $order->has_status( array( 'processing', 'completed' ) ) ) {
+			if ( $order->has_status( [ 'processing', 'completed' ] ) ) {
 				return;
 			}
 
@@ -263,7 +294,7 @@ class WC_Stripe_Webhook_Handler extends WC_Stripe_Payment_Gateway {
 
 			do_action( 'wc_gateway_stripe_process_webhook_payment_error', $order, $notification, $e );
 
-			$statuses = array( 'pending', 'failed' );
+			$statuses = [ 'pending', 'failed' ];
 
 			if ( $order->has_status( $statuses ) ) {
 				$this->send_failed_order_email( $order_id );
@@ -384,7 +415,7 @@ class WC_Stripe_Webhook_Handler extends WC_Stripe_Payment_Gateway {
 					$order->add_order_note( sprintf( __( 'Stripe charge complete (Charge ID: %s)', 'woocommerce-gateway-stripe' ), $notification->data->object->id ) );
 				}
 
-				if ( is_callable( array( $order, 'save' ) ) ) {
+				if ( is_callable( [ $order, 'save' ] ) ) {
 					$order->save();
 				}
 			}
@@ -433,7 +464,7 @@ class WC_Stripe_Webhook_Handler extends WC_Stripe_Payment_Gateway {
 		/* translators: transaction id */
 		$order->add_order_note( sprintf( __( 'Stripe charge complete (Charge ID: %s)', 'woocommerce-gateway-stripe' ), $notification->data->object->id ) );
 
-		if ( is_callable( array( $order, 'save' ) ) ) {
+		if ( is_callable( [ $order, 'save' ] ) ) {
 			$order->save();
 		}
 	}
@@ -555,11 +586,11 @@ class WC_Stripe_Webhook_Handler extends WC_Stripe_Payment_Gateway {
 
 				// Create the refund.
 				$refund = wc_create_refund(
-					array(
+					[
 						'order_id' => $order_id,
 						'amount'   => $this->get_refund_amount( $notification ),
 						'reason'   => $reason,
-					)
+					]
 				);
 
 				if ( is_wp_error( $refund ) ) {
@@ -705,14 +736,14 @@ class WC_Stripe_Webhook_Handler extends WC_Stripe_Payment_Gateway {
 
 	public function process_payment_intent_success( $notification ) {
 		$intent = $notification->data->object;
-		$order = WC_Stripe_Helper::get_order_by_intent_id( $intent->id );
+		$order  = WC_Stripe_Helper::get_order_by_intent_id( $intent->id );
 
 		if ( ! $order ) {
 			WC_Stripe_Logger::log( 'Could not find order via intent ID: ' . $intent->id );
 			return;
 		}
 
-		if ( ! $order->has_status( array( 'pending', 'failed' ) ) ) {
+		if ( ! $order->has_status( [ 'pending', 'failed' ] ) ) {
 			return;
 		}
 
@@ -731,7 +762,7 @@ class WC_Stripe_Webhook_Handler extends WC_Stripe_Payment_Gateway {
 			$this->process_response( $charge, $order );
 
 		} else {
-			$error_message = $intent->last_payment_error ? $intent->last_payment_error->message : "";
+			$error_message = $intent->last_payment_error ? $intent->last_payment_error->message : '';
 
 			/* translators: 1) The error message that was received from Stripe. */
 			$message = sprintf( __( 'Stripe SCA authentication failed. Reason: %s', 'woocommerce-gateway-stripe' ), $error_message );
@@ -752,14 +783,14 @@ class WC_Stripe_Webhook_Handler extends WC_Stripe_Payment_Gateway {
 
 	public function process_setup_intent( $notification ) {
 		$intent = $notification->data->object;
-		$order = WC_Stripe_Helper::get_order_by_setup_intent_id( $intent->id );
+		$order  = WC_Stripe_Helper::get_order_by_setup_intent_id( $intent->id );
 
 		if ( ! $order ) {
 			WC_Stripe_Logger::log( 'Could not find order via setup intent ID: ' . $intent->id );
 			return;
 		}
 
-		if ( ! $order->has_status( array( 'pending', 'failed' ) ) ) {
+		if ( ! $order->has_status( [ 'pending', 'failed' ] ) ) {
 			return;
 		}
 
@@ -776,7 +807,7 @@ class WC_Stripe_Webhook_Handler extends WC_Stripe_Payment_Gateway {
 				$order->payment_complete();
 			}
 		} else {
-			$error_message = $intent->last_setup_error ? $intent->last_setup_error->message : "";
+			$error_message = $intent->last_setup_error ? $intent->last_setup_error->message : '';
 
 			/* translators: 1) The error message that was received from Stripe. */
 			$message = sprintf( __( 'Stripe SCA authentication failed. Reason: %s', 'woocommerce-gateway-stripe' ), $error_message );

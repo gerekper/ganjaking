@@ -48,11 +48,15 @@
       <input type="hidden" name="user_last_name" value="<?php echo esc_attr($last_name_value); ?>" />
     <?php endif; ?>
 
+    <?php MeprHooks::do_action('mepr-checkout-before-custom-fields', $product->ID); ?>
+
     <?php
       if(!MeprUtils::is_user_logged_in() || (MeprUtils::is_user_logged_in() && $mepr_options->show_fields_logged_in_purchases)) {
         MeprUsersHelper::render_custom_fields($product, 'signup', $unique_suffix);
       }
     ?>
+
+    <?php MeprHooks::do_action('mepr-checkout-after-custom-fields', $product->ID); ?>
 
     <?php if(MeprUtils::is_user_logged_in()): ?>
       <input type="hidden" name="user_email" value="<?php echo esc_attr(stripslashes($mepr_current_user->user_email)); ?>" />

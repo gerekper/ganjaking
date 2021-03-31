@@ -35,32 +35,32 @@
 
 <script>
 	jQuery(document).ready(function($) {
-		$("#delete-all-submit").click(function(e) {
+		$( '#delete-all-submit' ).on( 'click', function( e ) {
 			if ( confirm("<?php esc_html_e('This will delete ALL lists! Continue?', 'follow_up_emails'); ?>") ) {
 				return true;
 			}
 			return false;
-		});
+		} );
 
-		$(".inline-edit").click(function(e) {
+		$( '.inline-edit' ).on( function( e ) {
 			e.preventDefault();
 
 			var id = $(this).data("id");
 			$("#row_"+ id).fadeOut(function() {
 				$("#edit_row_"+ id).fadeIn()
 			});
-		});
+		} );
 
-		$(".btn-cancel").click(function() {
+		$( '.btn-cancel').on( 'click', function() {
 			var tr = $(this).parents("tr.edit-row");
 			var id = $(tr).data("id");
 
 			$("#edit_row_"+ id).fadeOut(function() {
 				$("#row_"+ id).fadeIn();
 			});
-		});
+		} );
 
-		$(".btn-save").click(function() {
+		$( '.btn-save' ).on( 'click', function() {
 			var tr = $(this).parents("tr.edit-row");
 			var id = $(tr).data("id");
 
@@ -86,9 +86,9 @@
 
 				$("#the-list").unblock();
 			});
-		});
+		} );
 
-		$("a.submitdelete").click(function(e) {
+		$( 'a.submitdelete' ).on( 'click', function( e ) {
 			e.preventDefault();
 
 			if ( confirm('<?php esc_html_e('Really delete this list?', 'follow_up_emails'); ?>') ) {
@@ -108,6 +108,6 @@
 					$("#the-list").unblock();
 				});
 			}
-		});
+		} );
 	});
 </script>

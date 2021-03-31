@@ -36,7 +36,7 @@ class Lessons extends lib\BaseCtrl {
           $current_course = $current_section->course();
           $options = \get_option('mpcs-options');
           \ob_start();
-            require(base\VIEWS_PATH . '/lessons/breadcrumbs.php');
+            require(\MeprView::file('/lessons/courses_breadcrumbs'));
           $breadcumbs = \ob_get_clean();
 
           $content = $breadcumbs . $content;
@@ -76,7 +76,7 @@ class Lessons extends lib\BaseCtrl {
           $options = \get_option('mpcs-options');
 
           \ob_start();
-            require(base\VIEWS_PATH . '/lessons/navigation.php');
+            require(\MeprView::file('/lessons/courses_navigation'));
           $nav_links = \ob_get_clean();
 
           $content .= $nav_links;
@@ -104,7 +104,7 @@ class Lessons extends lib\BaseCtrl {
           $new_template = locate_template($course->page_template);
         }
         if( helpers\App::is_classroom()){
-          $template = base\VIEWS_PATH . '/classroom/single-lesson.php';
+          $template = \MeprView::file('/classroom/courses_single_lesson');
         }
         elseif(isset($new_template) && !empty($new_template)) {
           return $new_template;
@@ -267,7 +267,7 @@ class Lessons extends lib\BaseCtrl {
     $options = \get_option('mpcs-options');
 
     \ob_start();
-      require(base\VIEWS_PATH . '/lessons/classroom/navigation.php');
+      require(\MeprView::file('/lessons/classroom/courses_navigation'));
     $nav_links = \ob_get_clean();
 
     return $nav_links;

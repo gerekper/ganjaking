@@ -296,7 +296,7 @@ class MeprUser extends MeprBaseModel {
     return false;
   }
 
-  public function lifetime_subscription_in_group($group_id) {
+  public function lifetime_subscription_in_group($group_id, $exclude_txn_types = array()) {
     if($group_id instanceof MeprGroup && isset($group_id->ID) && $group_id->ID) {
       $group_id = $group_id->ID;
     }
@@ -309,6 +309,8 @@ class MeprUser extends MeprBaseModel {
     $lowest_id_txn = false;
 
     foreach($txns as $txn) {
+      if(!empty($exclude_txn_types) && in_array($txn->txn_type)) { continue; } //skip transactions if the type is excluded
+
       $p = $txn->product();
 
       if((int)$txn->subscription_id == 0 && $p->group_id == $group_id) {
@@ -679,19 +681,21 @@ class MeprUser extends MeprBaseModel {
 
     $already_sent = true;
     // Locals for email view
-    $locals = array(
-      'user_login' => $this->user_login,
-      'first_name' => $this->first_name,
-      'mepr_blogname' => MeprUtils::blogname(),
-      'mepr_blogurl' => home_url(),
-      'reset_password_link' => $this->reset_password_link(),
-    );
+    if ($link = $this->reset_password_link()) {
+      $locals = array(
+        'user_login' => $this->user_login,
+        'first_name' => $this->first_name,
+        'mepr_blogname' => MeprUtils::blogname(),
+        'mepr_blogurl' => home_url(),
+        'reset_password_link' => $link,
+      );
 
-    if($type === 'reset') {
-      $this->send_reset_password_notification($locals);
-    }
-    else {
-      $this->send_set_password_notification($locals);
+      if($type === 'reset') {
+        $this->send_reset_password_notification($locals);
+      }
+      else {
+        $this->send_set_password_notification($locals);
+      }
     }
   }
 
@@ -1204,6 +1208,11 @@ class MeprUser extends MeprBaseModel {
 
     $permalink = $mepr_options->login_page_url();
     $delim = MeprAppCtrl::get_param_delimiter_char($permalink);
+
+    if (is_wp_error($key)) {
+      $_REQUEST['error'] = $key->get_error_message();
+      return false;
+    }
 
     return "{$permalink}{$delim}action=reset_password&mkey={$key}&u=".urlencode($this->user_login);
   }

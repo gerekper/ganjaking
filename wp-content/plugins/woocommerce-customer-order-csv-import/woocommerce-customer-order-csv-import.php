@@ -6,7 +6,7 @@
  * Description: Import customers, coupons and orders straight from the WordPress admin
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 3.10.0
+ * Version: 3.10.1
  * Text Domain: woocommerce-csv-import-suite
  * Domain Path: /i18n/languages/
  *
@@ -23,7 +23,7 @@
  *
  * Woo: 18709:eb00ca8317a0f64dbe185c995e5ea3df
  * WC requires at least: 3.5
- * WC tested up to: 4.7.1
+ * WC tested up to: 5.1.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -59,7 +59,7 @@ class WC_CSV_Import_Suite_Loader {
 	const MINIMUM_WC_VERSION = '3.5';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.10.2';
+	const FRAMEWORK_VERSION = '5.10.6';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Customer/Order/Coupon CSV Import Suite';

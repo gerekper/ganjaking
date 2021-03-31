@@ -3,7 +3,7 @@ jQuery(document).ready(function($){
 		dateFormat: 'yy-mm-dd',
 	} );
 
-    $(".set_interval_reminder").click(function(e) {
+    $( '.set_interval_reminder' ).on( 'click', function( e ) {
         e.preventDefault();
 
         $( '#fue_customer_reminders' ).block({
@@ -29,9 +29,9 @@ jQuery(document).ready(function($){
             $( '#fue_customer_reminders' ).unblock();
             $( '#reminder_note' ).val( '' );
         });
-    });
+    } );
 
-    $(".set_date_reminder").click(function(e) {
+    $( '.set_date_reminder' ).on( 'click', function( e ) {
         e.preventDefault();
 
         $( '#fue_customer_reminders' ).block({
@@ -59,14 +59,14 @@ jQuery(document).ready(function($){
             $( 'ul.customer-reminders' ).prepend( response );
             $( '#fue_customer_reminders' ).unblock();
             $( '#reminder_note' ).val( '' );
-            $("#assign_reminder")
+            $( '#assign_reminder' )
                 .prop("checked", false)
-                .change();
+                .trigger( 'change' );
             $("#assignee").val("");
         });
-    });
+    } );
 
-    $("#fue_customer_reminders").on("click", "a.delete_reminder", function(e) {
+    $( '#fue_customer_reminders' ).on( 'click', 'a.delete_reminder', function( e ) {
         e.preventDefault();
 
         var reminder = $( this ).closest( 'li.reminder' );
@@ -90,9 +90,9 @@ jQuery(document).ready(function($){
         });
 
         return false;
-    });
+    } );
 
-    $(".queue-toggle").on("click", function(e) {
+    $( '.queue-toggle' ).on( 'click', function( e ) {
         e.preventDefault();
 
         var that    = this;
@@ -116,7 +116,7 @@ jQuery(document).ready(function($){
             }
             $(parent).unblock();
         });
-    });
+    } );
 
     function load_customer_notes( nonce = '' ) {
         if ( '' === nonce ) {
@@ -143,7 +143,7 @@ jQuery(document).ready(function($){
         });
     }
 
-    $("a.add_note").click(function(e) {
+    $( 'a.add_note' ).on( 'click', function( e ) {
         e.preventDefault();
 
         if ( $("#add_customer_note").val().length == 0 ) {
@@ -170,9 +170,9 @@ jQuery(document).ready(function($){
             $( '#fue_customer_notes' ).unblock();
             $( '#add_customer_note' ).val( '' );
         });
-    });
+    } );
 
-    $("#fue_customer_notes").on("click", "a.delete_note", function(e) {
+    $( '#fue_customer_notes' ).on( 'click', 'a.delete_note', function( e ) {
         e.preventDefault();
 
         var note = $( this ).closest( 'li.note' );
@@ -196,7 +196,7 @@ jQuery(document).ready(function($){
         });
 
         return false;
-    });
+    } );
 
 	jQuery( ':input.user-search-select' ).filter( ':not(.enhanced)' ).each( function() {
         var select2_args = {
@@ -234,34 +234,34 @@ jQuery(document).ready(function($){
         jQuery( this ).select2( select2_args ).addClass( 'enhanced' );
     } );
 
-    $("#assign_reminder").change(function() {
+    $( '#assign_reminder' ).on( 'change', function() {
         if ( $(this).is(":checked") ) {
             $("#assignee_block").show();
         } else {
             $("#assignee_block").hide();
             $("#assignee")
                 .val("")
-                .change();
+                .trigger( 'change' );
         }
-    }).change();
+    } ).trigger( 'change' );
 
-    $("#send_schedule").change(function() {
+    $( '#send_schedule' ).on( 'change', function() {
         if ( $(this).val() == "now" ) {
             $("p.send-later").hide();
         } else {
             $("p.send-later").show();
         }
-    }).change();
+    } ).trigger( 'change' );
 
-    $("#send_again").change(function() {
+    $( '#send_again' ).on( 'change', function() {
         if ( $(this).is(":checked") ) {
             $(".send-again").show();
         } else {
             $(".send-again").hide();
         }
-    }).change();
+    } ).trigger( 'change' );
 
-    $(".schedule-email").click(function(e) {
+    $( '.schedule-email' ).on( 'click', function( e ) {
         e.preventDefault();
 
         $( '#fue_customer_followups' ).block({
@@ -336,14 +336,14 @@ jQuery(document).ready(function($){
 
             $("#fue_customer_followups").unblock();
         });
-    });
+    } );
 
     function reset_followup_form() {
         $("#email").val("");
 
         $("#send_schedule")
             .val("now")
-            .change();
+            .trigger( 'change' );
         $("#send_date").val("");
         $("#send_time_hour").val("1");
         $("#send_time_minute").val("0");
@@ -351,7 +351,7 @@ jQuery(document).ready(function($){
 
         $("#send_again")
             .prop("checked", false)
-            .change();
+            .trigger( 'change' );
         $("#send_again_value").val("");
         $("#send_again_interval").val("minutes");
     }

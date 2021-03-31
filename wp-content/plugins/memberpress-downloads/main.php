@@ -3,7 +3,7 @@
 Plugin Name: MemberPress Downloads
 Plugin URI: http://www.memberpress.com/
 Description: Downloads Management features for MemberPress.
-Version: 1.1.1
+Version: 1.1.3
 Author: Caseproof, LLC
 Author URI: http://caseproof.com/
 Text Domain: memberpress-downloads

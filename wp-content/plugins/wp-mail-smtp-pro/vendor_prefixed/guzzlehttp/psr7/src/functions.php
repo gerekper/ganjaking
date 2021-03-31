@@ -67,7 +67,7 @@ function uri_for($uri)
  *   number of requested bytes are available. Any additional bytes will be
  *   buffered and used in subsequent reads.
  *
- * @param resource|string|null|int|float|bool|StreamInterface|callable|\Iterator $resource Entity body data
+ * @param resource|string|int|float|bool|StreamInterface|callable|\Iterator|null $resource Entity body data
  * @param array                                                                  $options  Additional options
  *
  * @return StreamInterface
@@ -178,6 +178,7 @@ function try_fopen($filename, $mode)
  * @param StreamInterface $stream Stream to read
  * @param int             $maxLen Maximum number of bytes to read. Pass -1
  *                                to read the entire stream.
+ *
  * @return string
  *
  * @throws \RuntimeException on error.
@@ -295,6 +296,7 @@ function parse_query($str, $urlEncoding = \true)
  * @param int|false $encoding Set to false to not encode, PHP_QUERY_RFC3986
  *                            to encode using RFC3986, or PHP_QUERY_RFC1738
  *                            to encode using RFC1738.
+ *
  * @return string
  *
  * @deprecated build_query will be removed in guzzlehttp/psr7:2.0. Use Query::build instead.
@@ -342,6 +344,7 @@ function mimetype_from_extension($extension)
  * @return array
  *
  * @internal
+ *
  * @deprecated _parse_message will be removed in guzzlehttp/psr7:2.0. Use Message::parseMessage instead.
  */
 function _parse_message($message)
@@ -357,6 +360,7 @@ function _parse_message($message)
  * @return string
  *
  * @internal
+ *
  * @deprecated _parse_request_uri will be removed in guzzlehttp/psr7:2.0. Use Message::parseRequestUri instead.
  */
 function _parse_request_uri($path, array $headers)
@@ -387,6 +391,7 @@ function get_message_body_summary(\WPMailSMTP\Vendor\Psr\Http\Message\MessageInt
  * @return array
  *
  * @internal
+ *
  * @deprecated _caseless_remove will be removed in guzzlehttp/psr7:2.0. Use Utils::caselessRemove instead.
  */
 function _caseless_remove($keys, array $data)

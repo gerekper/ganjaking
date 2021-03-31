@@ -3,7 +3,7 @@
 Plugin Name: MemberPress Developer Tools
 Plugin URI: http://www.memberpress.com/
 Description: Tools for MemberPress Developers.
-Version: 1.1.42
+Version: 1.1.44
 Author: Caseproof, LLC
 Author URI: http://caseproof.com/
 Text Domain: memberpress-developer-tools

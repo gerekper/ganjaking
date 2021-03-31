@@ -591,6 +591,8 @@ class Dir extends Abstract_Module {
 				return $tree;
 			}
 		}
+
+		return array();
 	}
 
 	/**
@@ -761,14 +763,6 @@ class Dir extends Abstract_Module {
 				$validated_dirs[] = $relative_path;
 			}
 
-			// Yes, this is silly. The actual validation is done by self::validate_path(),
-			// this is just to keep RIPS happy.
-			$whitelisted_paths[] = $base_dir;
-			if ( ! in_array( $base_dir, $whitelisted_paths, true ) ) {
-				// The loop 'continues' before reaching this point. This won't execute.
-				throw new \Exception();
-			}
-
 			// Directory Iterator, Exclude . and ..
 			$filtered_dir = new Helpers\Iterator( new RecursiveDirectoryIterator( $base_dir ) );
 
@@ -808,21 +802,15 @@ class Dir extends Abstract_Module {
 			}
 		}
 
-		// Update rest of the images.
-		if ( ! empty( $images ) && $count > 0 ) {
-			$this->store_images( $values, $images );
+		if ( empty( $images ) || 0 === $count ) {
+			return array();
 		}
 
-		// Remove scanned images from cache.
-		wp_cache_delete( 'wp_smush_scanned_images' );
+		// Update rest of the images.
+		$this->store_images( $values, $images );
 
 		// Get the image ids.
-		$images = $this->get_scanned_images();
-
-		// Store scanned images in cache.
-		wp_cache_add( 'wp_smush_scanned_images', $images );
-
-		return $images;
+		return $this->get_scanned_images();
 	}
 
 	/**

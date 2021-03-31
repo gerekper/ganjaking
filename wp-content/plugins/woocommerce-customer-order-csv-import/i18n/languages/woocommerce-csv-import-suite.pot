@@ -1,21 +1,24 @@
-# Copyright (C) 2020 SkyVerge
+# Copyright (C) 2021 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Customer/Order/Coupon CSV Import Suite "
-"3.10.0\n"
+"3.10.1\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-12-07 10:04:21+00:00\n"
+"POT-Creation-Date: 2021-03-15 18:32:17+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
 #: class-wc-csv-import-suite.php:254
-#: includes/admin/class-wc-csv-import-suite-admin.php:349
+#: includes/admin/class-wc-csv-import-suite-admin.php:166
+#: includes/admin/class-wc-csv-import-suite-admin.php:172
+#: includes/admin/class-wc-csv-import-suite-admin.php:204
+#: includes/admin/class-wc-csv-import-suite-admin.php:437
 msgid "Import"
 msgstr ""
 
@@ -23,126 +26,132 @@ msgstr ""
 msgid "WooCommerce Customer/Order/Coupon CSV Import"
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:99
+#: includes/admin/class-wc-csv-import-suite-admin.php:106
 msgid "Import <strong>customers</strong> to your store via a csv file."
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:104
+#: includes/admin/class-wc-csv-import-suite-admin.php:111
 msgid "Import <strong>orders</strong> to your store via a csv file."
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:109
+#: includes/admin/class-wc-csv-import-suite-admin.php:116
 msgid "Import <strong>coupons</strong> to your store via a csv file."
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:130
+#: includes/admin/class-wc-csv-import-suite-admin.php:137
 msgid "CSV Order Import Suite"
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:130
-#: includes/admin/class-wc-csv-import-suite-admin.php:134
+#: includes/admin/class-wc-csv-import-suite-admin.php:137
+#: includes/admin/class-wc-csv-import-suite-admin.php:141
+#: includes/admin/class-wc-csv-import-suite-admin.php:201
 msgid "CSV Import Suite"
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:186
+#: includes/admin/class-wc-csv-import-suite-admin.php:180
+#: includes/admin/class-wc-csv-import-suite-admin.php:438
+msgid "Import List"
+msgstr ""
+
+#: includes/admin/class-wc-csv-import-suite-admin.php:224
+msgid "Customer/Order/Coupon CSV Import Suite"
+msgstr ""
+
+#: includes/admin/class-wc-csv-import-suite-admin.php:274
 msgid ""
 "Something unexpected happened while importing. Your import may or may have "
 "not completed."
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:189
+#: includes/admin/class-wc-csv-import-suite-admin.php:277
 msgid ""
 "Please check your site error log for possible clues as to what may have "
 "happened."
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:191
+#: includes/admin/class-wc-csv-import-suite-admin.php:279
 msgid "Please try again with debug mode enabled to gain insight into what happened."
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:199
+#: includes/admin/class-wc-csv-import-suite-admin.php:287
 #: includes/admin/views/html-import-progress.php:99
 msgid "View detailed results"
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:200
+#: includes/admin/class-wc-csv-import-suite-admin.php:288
 msgid "Hide detailed results"
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:201
+#: includes/admin/class-wc-csv-import-suite-admin.php:289
 #: includes/admin/views/html-import-progress.php:43
 msgid "Import complete."
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:202
+#: includes/admin/class-wc-csv-import-suite-admin.php:290
 #: includes/admin/views/html-import-progress.php:43
 msgid "Some lines were skipped or failed to import. See below for details."
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:292
+#: includes/admin/class-wc-csv-import-suite-admin.php:380
 #. translators: Placeholders: %s - file name
 msgid "Dry run of file %s is complete!"
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:295
+#: includes/admin/class-wc-csv-import-suite-admin.php:383
 #. translators: Placeholders: %s - file name
 msgid "Importing file %s is complete!"
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:299
+#: includes/admin/class-wc-csv-import-suite-admin.php:387
 #. translators: Placeholders: %1$s - opening <a> tag, %2$s - closing </a> tag
 msgid "You can see the import results in the %1$simport progress page%2$s"
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:302
+#: includes/admin/class-wc-csv-import-suite-admin.php:390
 msgid ", then run your live import"
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:314
+#: includes/admin/class-wc-csv-import-suite-admin.php:402
 #. translators: Placeholders: %s - file name
 msgid "Dry run of file %s failed."
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:317
+#: includes/admin/class-wc-csv-import-suite-admin.php:405
 #. translators: Placeholders: %s - file name
 msgid "Importing file %s failed."
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:321
+#: includes/admin/class-wc-csv-import-suite-admin.php:409
 #. translators: Placeholders: %1$s - opening <a> tag, %2$s - closing </a> tag
 msgid "Additional details may be found in the CSV Import %1$slogs%2$s."
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:350
-msgid "Import List"
-msgstr ""
-
-#: includes/admin/class-wc-csv-import-suite-admin.php:475
+#: includes/admin/class-wc-csv-import-suite-admin.php:565
 msgid "%d import job deleted."
 msgid_plural "%d import jobs deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:511
+#: includes/admin/class-wc-csv-import-suite-admin.php:601
 msgid "Import removed from queue."
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:518
+#: includes/admin/class-wc-csv-import-suite-admin.php:608
 #. translators: Placeholders: %s - filename
 msgid "Dry run for %s import stopped and deleted."
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:520
+#: includes/admin/class-wc-csv-import-suite-admin.php:610
 msgid ""
 "Import stopped and deleted. Data already updated or inserted by the import "
 "has not been removed."
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:528
+#: includes/admin/class-wc-csv-import-suite-admin.php:618
 msgid "Information for this dry run has been deleted."
 msgstr ""
 
-#: includes/admin/class-wc-csv-import-suite-admin.php:530
+#: includes/admin/class-wc-csv-import-suite-admin.php:620
 msgid ""
 "Import job deleted. Data imported or updated by this job has not been "
 "removed."

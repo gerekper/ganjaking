@@ -18,7 +18,7 @@ class MPCA_Membership_Controller {
     $ca_enabled = get_post_meta( $product->ID, 'mpca_is_corporate_product', true);
     $num_sub_accounts = get_post_meta( $product->ID, 'mpca_num_sub_accounts', true);
 
-    require( MPCA_VIEWS_PATH . '/mpca-edit-membership-template.php' );
+    require(MeprView::file('/mpca-edit-membership-template'));
   }
 
   public function save_meta($product) {

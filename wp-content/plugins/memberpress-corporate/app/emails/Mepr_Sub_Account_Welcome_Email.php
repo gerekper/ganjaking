@@ -28,7 +28,7 @@ class Mepr_Sub_Account_Welcome_Email extends MeprBaseOptionsUserEmail {
 
   public function body_partial($vars = array()) {
     ob_start();
-    require(MPCA_VIEWS_PATH . '/emails/sub_account_welcome.php');
+    require(MeprView::file('/emails/sub_account_welcome'));
     $view = ob_get_clean();
 
     return $view;

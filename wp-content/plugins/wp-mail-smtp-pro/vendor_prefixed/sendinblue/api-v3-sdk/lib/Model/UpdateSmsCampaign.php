@@ -160,8 +160,8 @@ class UpdateSmsCampaign implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mo
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-        if (!\is_null($this->container['sender']) && \mb_strlen($this->container['sender']) > 11) {
-            $invalidProperties[] = "invalid value for 'sender', the character length must be smaller than or equal to 11.";
+        if (!\is_null($this->container['sender']) && \mb_strlen($this->container['sender']) > 15) {
+            $invalidProperties[] = "invalid value for 'sender', the character length must be smaller than or equal to 15.";
         }
         return $invalidProperties;
     }
@@ -208,14 +208,14 @@ class UpdateSmsCampaign implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mo
     /**
      * Sets sender
      *
-     * @param string $sender Name of the sender. The number of characters is limited to 11
+     * @param string $sender Name of the sender. **The number of characters is limited to 11 for alphanumeric characters and 15 for numeric characters**
      *
      * @return $this
      */
     public function setSender($sender)
     {
-        if (!\is_null($sender) && \mb_strlen($sender) > 11) {
-            throw new \InvalidArgumentException('invalid length for $sender when calling UpdateSmsCampaign., must be smaller than or equal to 11.');
+        if (!\is_null($sender) && \mb_strlen($sender) > 15) {
+            throw new \InvalidArgumentException('invalid length for $sender when calling UpdateSmsCampaign., must be smaller than or equal to 15.');
         }
         $this->container['sender'] = $sender;
         return $this;

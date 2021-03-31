@@ -1,5 +1,11 @@
 *** WooCommerce Account Funds ***
 
+2021-03-16 - version 2.3.10
+* Tweak - Top-up the customer funds when an order with deposit products is marked as processing.
+* Tweak - Tested compatibility up to WC 5.1.
+* Tweak - Tested compatibility with WP 5.7.
+* Fix - Fixed jQuery selector for detecting changes on the Account Funds checkbox field during checkout.
+
 2021-01-26 - version 2.3.9
 * Tweak - Tested compatibility with WC 4.9.
 * Fix - Order status keeps pending after using funds for renewing a subscription.

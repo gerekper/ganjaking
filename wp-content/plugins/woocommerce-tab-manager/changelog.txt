@@ -1,5 +1,10 @@
 *** WooCommerce Tab Manager Changelog ***
 
+2021.03.16 - version 1.14.1
+ * Tweak - Simplify the paths in the Tab Manager admin screen to add a global tab by using a button only
+ * Tweak - Add support for the WooCommerce Navigation admin feature
+ * Localization - Update Italian translation
+
 2020.12.07 - version 1.14.0
  * Misc - Add compatibility for WooCommerce 4.7
  * Misc - Require PHP 7.0 or newer

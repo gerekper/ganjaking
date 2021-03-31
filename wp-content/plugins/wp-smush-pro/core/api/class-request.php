@@ -255,7 +255,7 @@ class Request {
 	 * @return string
 	 */
 	private function get_api_url( $path = '' ) {
-		$url = 'https://premium.wpmudev.org/api/' . $this->service->name . '/' . $this->service->version . '/';
+		$url = 'https://wpmudev.com/api/' . $this->service->name . '/' . $this->service->version . '/';
 		$url = trailingslashit( $url . $path );
 
 		return $url;

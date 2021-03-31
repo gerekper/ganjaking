@@ -131,12 +131,12 @@ class FUE_Addon_Woocommerce_Admin {
 				</p>
 			</div>
 			<script type="text/javascript">
-				jQuery('.fue-update-now').click(function(){
+				jQuery( '.fue-update-now' ).on( 'click', function() {
 					var answer = confirm( '<?php esc_js( __( 'It is strongly recommended that you backup your database before proceeding. Are you sure you wish to run the scanner now?', 'follow_up_emails' ) ); ?>' );
 					return answer;
-				});
+				} );
 
-				jQuery('.fue-disable-scan').click(function() {
+				jQuery('.fue-disable-scan').on( 'click', function() {
 					var container   = jQuery(this).parents("div#message");
 					var message     = '<?php esc_js( __(' Not scanning your existing orders may cause customer and conditional emails to not work accurately. Do you wish to continue?', 'follow_up_emails' ) ); ?>';
 
@@ -152,7 +152,7 @@ class FUE_Addon_Woocommerce_Admin {
 					}
 
 					return false;
-				});
+				} );
 			</script>
 		<?php
 		}
@@ -854,7 +854,7 @@ class FUE_Addon_Woocommerce_Admin {
 	 */
 	public function manual_js() {
 		?>
-		jQuery("#send_type").change(function() {
+		jQuery( '#send_type' ).on( 'change', function() {
 			switch (jQuery(this).val()) {
 				case "customer":
 					jQuery(".send-type-customer").show();
@@ -873,7 +873,7 @@ class FUE_Addon_Woocommerce_Admin {
 					jQuery(".send-type-timeframe").show();
 					break;
 			}
-		});
+		} );
 
 		init_fue_product_search();
 		init_fue_select();

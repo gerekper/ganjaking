@@ -31,7 +31,7 @@ class CtrlFactory {
     // We'll let the autoloader in main.php
     // handle including files containing these classes
     $r = new \ReflectionClass($class);
-    $obj = $r->newInstanceArgs($args);
+    $obj = $r->newInstanceArgs();
 
     $objs[$class] = $obj;
 

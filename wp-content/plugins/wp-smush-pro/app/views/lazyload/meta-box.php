@@ -653,7 +653,7 @@ wp_enqueue_style( 'wp-color-picker' );
 					$wpPickerButton = $wpPicker.find('.wp-color-result');
 
 				// Listen to color change
-				$suiPickerInput.bind('change', function() {
+				$suiPickerInput.on('change', function() {
 					// Change color preview
 					$suiPickerColor.find('span').css({
 						'background-color': $wpPickerButton.css('background-color')
@@ -665,7 +665,7 @@ wp_enqueue_style( 'wp-color-picker' );
 
 				// Open iris picker
 				$suiPicker.find('.sui-button, span[role=button]').on('click', function(e) {
-					$wpPickerButton.click();
+					$wpPickerButton.trigger('click');
 
 					e.preventDefault();
 					e.stopPropagation();
@@ -675,7 +675,7 @@ wp_enqueue_style( 'wp-color-picker' );
 				$suiPickerValue.find('button').on( 'click', function(e) {
 					e.preventDefault();
 
-					$wpPicker.find('.wp-picker-clear').click();
+					$wpPicker.find('.wp-picker-clear').trigger('click');
 					$suiPickerValue.find('input').val('');
 					$suiPickerInput.val('').trigger('change');
 					$suiPickerColor.find('span').css({

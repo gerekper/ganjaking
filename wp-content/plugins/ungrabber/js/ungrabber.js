@@ -1,12 +1,13 @@
 /**
+ * UnGrabber
  * A most effective way to protect your online content from being copied or grabbed
- * Exclusively on Envato Market: https://1.envato.market/ungrabber
+ * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         2.0.1
- * @copyright       Copyright (C) 2018 - 2020 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.1
+ * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
- * @contributors    Alexander Khmelnitskiy (info@alexander.khmelnitskiy.ua), Dmitry Merkulov (dmitry@merkulov.design)
+ * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
  **/
 
@@ -15,46 +16,82 @@
 const UnGrabber = ( function () {
 
     "use strict";
-    
+
+    /**
+     * Ungrabber
+     * @return {{init: init}}
+     * @private
+     */
     function _ungrabber() {
-        
-        function init() {
+
+        /**
+         * Init UnGrabber
+         * @param options
+         */
+        function init( options ) {
+
+            const {
+                selectAll,
+                copy,
+                cut,
+                paste,
+                save,
+                viewSource,
+                printPage,
+                developerTool,
+                windowBlur,
+                tabHidden,
+                readerMode,
+                rightClick,
+                rightClickImage,
+                textSelection,
+                imageDragging
+            } = options;
 
             /** Disable Select All. */
-            if ( mdpUnGrabber.selectAll === 'on' ) { disable_select_all(); }
+            if ( selectAll === 'on' ) { disable_select_all(); }
             
             /** Disable Copy. */
-            if ( mdpUnGrabber.copy === 'on' ) { disable_copy(); }
+            if ( copy === 'on' ) { disable_copy(); }
             
             /** Disable Cut. */
-            if ( mdpUnGrabber.cut === 'true' ) { disable_cut(); }
+            if ( cut === 'true' ) { disable_cut(); }
             
             /** Disable Paste. */
-            if ( mdpUnGrabber.paste === 'on' ) { disable_paste(); }
+            if ( paste === 'on' ) { disable_paste(); }
             
             /** Disable Save. */
-            if ( mdpUnGrabber.save === 'on' ) { disable_save(); }
+            if ( save === 'on' ) { disable_save(); }
             
             /** Disable View Source. */
-            if ( mdpUnGrabber.viewSource === 'on' ) { disable_view_source(); }
+            if ( viewSource === 'on' ) { disable_view_source(); }
             
             /** Disable Print Page. */
-            if ( mdpUnGrabber.printPage === 'on' ) { disable_print_page(); }
+            if ( printPage === 'on' ) { disable_print_page(); }
             
             /** Disable Developer Tool. */
-            if ( mdpUnGrabber.developerTool === 'on' ) { disable_developer_tool(); }
+            if ( developerTool === 'on' ) { disable_developer_tool(); }
+
+            /** Disable Window Blur */
+            if ( windowBlur === 'on' ) { disable_window_blur(); }
+
+            /** Disable Hidden Tab */
+            if ( tabHidden === 'on' ) { disable_tab_hidden(); }
 
             /** Disable Reader Mode. */
-            if ( mdpUnGrabber.readerMode === 'on' ) { disable_reader_mode(); }
+            if ( readerMode === 'on' ) { disable_reader_mode(); }
             
             /** Disable Right Click. */
-            if ( mdpUnGrabber.rightClick === 'on' ) { disable_right_click(); }
+            if ( rightClick === 'on' ) { disable_right_click(); }
+
+            /** Disable Right Click on Image */
+            if ( rightClickImage === 'on' && rightClick === 'off' ) { disable_right_click_image(); }
             
             /** Disable Text Selection. */
-            if ( mdpUnGrabber.textSelection === 'on' ) { disable_text_selection(); }
+            if ( textSelection === 'on' ) { disable_text_selection(); }
                          
             /** Disable Image Dragging by Mouse. */
-            if ( mdpUnGrabber.imageDragging === 'on' ) { disable_image_dragging(); }
+            if ( imageDragging === 'on' ) { disable_image_dragging(); }
         
         }
         
@@ -158,29 +195,43 @@ const UnGrabber = ( function () {
                 event.preventDefault();
             } );
 
-            /** Remove body, if you can open dev tools. */
-            let checkStatus;
+            /** DevTools open on load */
+            if ( window.devtools.isOpen ) { hideBody() }
 
-            let element = new Image();
-            Object.defineProperty( element, 'id', {
-                get:function() {
-                    checkStatus = 'on';
-                    throw new Error( 'Dev tools checker' );
-                }
+            /** DevTools open by user actions */
+            window.addEventListener( 'devtoolschange', event => {
+
+                if ( event.detail.isOpen ) { hideBody() } // Open
+                if ( ! event.detail.isOpen ) { showBody() } // Close
+
             } );
 
-            requestAnimationFrame( function check() {
-                checkStatus = 'off';
-                console.dir( element );
-                if ( 'on' === checkStatus ) {
-                    document.body.parentNode.removeChild( document.body );
-                    document.head.parentNode.removeChild( document.head );
-                    /** Block JS debugger. */
-                    setTimeout(function() { while (true) {eval("debugger");}}, 100);
-                } else {
-                    requestAnimationFrame( check );
-                }
-            } );
+        }
+
+        /**
+         * Disable page content if window state set to blur and
+         * enable page content if window state set to focus
+         */
+        function disable_window_blur() {
+
+            window.addEventListener( 'blur', hideBody );
+            window.addEventListener( 'focus', showBody );
+
+        }
+
+        /**
+         * Disable page content if tab state set to hidden and
+         * enable page content if tab state set to hidden
+         */
+        function disable_tab_hidden() {
+
+            document.addEventListener( "visibilitychange", () => {
+
+                document.hidden ?
+                    hideBody() :
+                    showBody();
+
+            }, false);
 
         }
         
@@ -191,9 +242,9 @@ const UnGrabber = ( function () {
         function disable_right_click() {
             
             document.oncontextmenu = function( e ) {
-                
-                var t = e || window.event;
-                var n = t.target || t.srcElement;
+
+                const t = e || window.event;
+                const n = t.target || t.srcElement;
 
                 if ( n.nodeName !== 'A' ) {
                     return false;  
@@ -223,6 +274,25 @@ const UnGrabber = ( function () {
 
             }, 500 )
             
+        }
+
+        /**
+         * Disable Right Click on Image, Context Menu by Mouse Right Click.
+         * Protect Your Image from Being Copied by Context Menu.
+         */
+        function disable_right_click_image() {
+
+            document.oncontextmenu = function( e ) {
+
+                const t = e || window.event;
+                const n = t.target || t.srcElement;
+
+                if ( 'IMG' === n.nodeName ) {
+                    return false;
+                }
+
+            };
+
         }
         
         /**
@@ -295,7 +365,40 @@ const UnGrabber = ( function () {
             };
             
         }
-        
+
+        /**
+         * Hide body to window object
+         */
+        function hideBody() {
+
+            if ( document.body.innerHTML === '' ) { return }
+
+            window.mdpUngrabberBody = document.body.innerHTML;
+            document.body.innerHTML = '';
+
+        }
+
+        /**
+         * Show body from window object
+         */
+        function showBody() {
+
+            if ( window.mdpUngrabberBody === undefined || window.mdpUngrabberBody.length === 0 ) { return } // Exit if no body in window object
+
+            setTimeout( (  ) => {
+
+                const { mdpUnGrabber } = window;
+                const { developerTool } = mdpUnGrabber;
+
+                if ( developerTool === 'on' && window.devtools.isOpen ) { return } // Don't show body if devtools enabled and open
+
+                document.body.innerHTML = window.mdpUngrabberBody;
+                window.mdpUngrabberBody = '';
+
+            }, 1 );
+
+        }
+
         return {
             init: init
         };
@@ -312,6 +415,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
     if ( typeof( mdpUngrabberDestroyer ) !== 'undefined' ) { return; }
     
     let ungrabber = new UnGrabber();
-    ungrabber.init();
+    ungrabber.init( window.mdpUnGrabber );
     
 });

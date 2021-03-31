@@ -38,6 +38,15 @@ class Table extends \WP_List_Table {
 	protected $options;
 
 	/**
+	 * Number of email logs by different statuses.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @var array
+	 */
+	public $counts;
+
+	/**
 	 * Set up a constructor that references the parent constructor.
 	 * Using the parent reference to set some default configs.
 	 *
@@ -58,11 +67,140 @@ class Table extends \WP_List_Table {
 	}
 
 	/**
+	 * Get the email log statuses for filtering purpose.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @return array Associative array of email log statuses StatusCode=>Name.
+	 */
+	public function get_statuses() {
+
+		$mailer = $this->options->get( 'mail', 'mailer' );
+
+		// In this order statuses will appear in filters bar.
+		$statuses = [
+			Email::STATUS_DELIVERED => __( 'Delivered', 'wp-mail-smtp-pro' ),
+			Email::STATUS_SENT      => __( 'Sent', 'wp-mail-smtp-pro' ),
+			Email::STATUS_WAITING   => __( 'Pending', 'wp-mail-smtp-pro' ),
+			Email::STATUS_UNSENT    => __( 'Failed', 'wp-mail-smtp-pro' ),
+		];
+
+		// Exclude Delivered and Pending statuses for mailers without verification API.
+		if ( ! in_array( $mailer, [ 'mailgun', 'sendinblue', 'smtpcom' ], true ) ) {
+			unset( $statuses[ Email::STATUS_DELIVERED ] );
+			unset( $statuses[ Email::STATUS_WAITING ] );
+		}
+
+		return $statuses;
+	}
+
+	/**
+	 * Get the items counts for various statuses of email log.
+	 *
+	 * @since 2.7.0
+	 */
+	public function get_counts() {
+
+		$this->counts = [];
+
+		// Base params with applied filters.
+		$base_params = $this->get_filters_query_params();
+
+		$total_params = $base_params;
+		unset( $total_params['status'] );
+		$this->counts['total'] = ( new EmailsCollection( $total_params ) )->get_count();
+
+		foreach ( $this->get_statuses() as $status => $name ) {
+			$collection = new EmailsCollection( array_merge( $base_params, [ 'status' => $status ] ) );
+
+			$this->counts[ 'status_' . $status ] = $collection->get_count();
+		}
+
+		/**
+		 * Filters items counts by various statuses of email log.
+		 *
+		 * @since 2.7.0
+		 *
+		 * @param array $counts {
+		 *     Items counts by statuses.
+		 *
+		 *     @type integer $total Total items count.
+		 *     @type integer $status_{$status_key} Items count by status.
+		 * }
+		 */
+		$this->counts = apply_filters( 'wp_mail_smtp_pro_emails_logs_admin_table_get_counts', $this->counts );
+	}
+
+	/**
+	 * Retrieve the view statuses.
+	 *
+	 * @since 2.7.0
+	 */
+	public function get_views() {
+
+		$base_url       = $this->get_filters_base_url();
+		$filters_params = $this->get_filters_query_params();
+
+		$current_status = isset( $filters_params['status'] ) ? $filters_params['status'] : false;
+
+		$views = [];
+
+		if ( $this->counts['total'] > 0 ) {
+			$views['all'] = sprintf(
+				'<a href="%1$s" %2$s>%3$s&nbsp;<span class="count">(%4$d)</span></a>',
+				esc_url( remove_query_arg( 'status', $base_url ) ),
+				$current_status === false ? 'class="current"' : '',
+				esc_html__( 'All', 'wp-mail-smtp-pro' ),
+				intval( $this->counts['total'] )
+			);
+		}
+
+		foreach ( $this->get_statuses() as $status => $status_label ) {
+
+			$count = intval( $this->counts[ 'status_' . $status ] );
+
+			// Skipping status with no emails.
+			if ( $count === 0 ) {
+				continue;
+			}
+
+			$views[ $status ] = sprintf(
+				'<a href="%1$s" %2$s>%3$s&nbsp;<span class="count">(%4$d)</span></a>',
+				esc_url( add_query_arg( 'status', $status, $base_url ) ),
+				$current_status === $status ? 'class="current"' : '',
+				esc_html( $status_label ),
+				$count
+			);
+
+		}
+
+		/**
+		 * Filters items views.
+		 *
+		 * @since 2.7.0
+		 *
+		 * @param array $views {
+		 *     Items views by statuses.
+		 *
+		 *     @type string $all Total items view.
+		 *     @type integer $status_key Items views by status.
+		 * }
+		 * @param array $counts {
+		 *     Items counts by statuses.
+		 *
+		 *     @type integer $total Total items count.
+		 *     @type integer $status_{$status_key} Items count by status.
+		 * }
+		 */
+		return apply_filters( 'wp_mail_smtp_pro_emails_logs_admin_table_get_views', $views, $this->counts );
+	}
+
+	/**
 	 * Define the table columns.
 	 *
 	 * @since 1.5.0
 	 *
-	 * @return array Associate array of slug=>Name columns data.
+	 * @return array Associative array of slug=>Name columns data.
 	 */
 	public function get_columns() {
 
@@ -341,6 +479,61 @@ class Table extends \WP_List_Table {
 	}
 
 	/**
+	 * Get current filters query parameters.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @return array
+	 */
+	public function get_filters_query_params() {
+
+		$params = [];
+
+		if ( ! empty( $_REQUEST['search']['place'] ) && ! empty( $_REQUEST['search']['term'] ) ) { // phpcs:ignore
+			$params['search']['place'] = sanitize_key( $_REQUEST['search']['place'] ); // phpcs:ignore
+			$params['search']['term']  = sanitize_text_field( $_REQUEST['search']['term'] ); // phpcs:ignore
+		}
+
+		// Handle status filter.
+		if ( isset( $_REQUEST['status'] ) ) { // phpcs:ignore
+			$params['status'] = intval( $_REQUEST['status'] ); // phpcs:ignore
+		}
+
+		return $params;
+	}
+
+	/**
+	 * Get current filters base url.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @return string
+	 */
+	public function get_filters_base_url() {
+
+		$base_url       = wp_mail_smtp()->pro->get_logs()->get_admin_page_url();
+		$filters_params = $this->get_filters_query_params();
+
+		if ( isset( $filters_params['search'] ) ) {
+			$base_url = add_query_arg(
+				[
+					'search' => [
+						'place' => $filters_params['search']['place'],
+						'term'  => $filters_params['search']['term'],
+					],
+				],
+				$base_url
+			);
+		}
+
+		if ( isset( $filters_params['status'] ) ) {
+			$base_url = add_query_arg( 'status', $filters_params['status'], $base_url );
+		}
+
+		return $base_url;
+	}
+
+	/**
 	 * Get the data, prepare pagination, process bulk actions.
 	 * Prepare columns for display.
 	 *
@@ -348,6 +541,9 @@ class Table extends \WP_List_Table {
 	 * @since 1.7.0 Added search support.
 	 */
 	public function prepare_items() {
+
+		// Retrieve count.
+		$this->get_counts();
 
 		// Define our column headers.
 		$this->_column_headers = array( $this->get_columns(), array(), $this->get_sortable_columns() );
@@ -361,12 +557,7 @@ class Table extends \WP_List_Table {
 		 * Prepare all the params to pass to our Collection.
 		 * All sanitization is done in that class.
 		 */
-		$params = array();
-
-		if ( ! empty( $_REQUEST['search']['place'] ) && ! empty( $_REQUEST['search']['term'] ) ) { // phpcs:ignore
-			$params['search']['place'] = sanitize_key( $_REQUEST['search']['place'] ); // phpcs:ignore
-			$params['search']['term']  = sanitize_text_field( $_REQUEST['search']['term'] ); // phpcs:ignore
-		}
+		$params = $this->get_filters_query_params();
 
 		// Total amount for pagination with WHERE clause - super quick count DB request.
 		$total_items = ( new EmailsCollection( $params ) )->get_count();
@@ -426,7 +617,7 @@ class Table extends \WP_List_Table {
 		<p class="search-box">
 			<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_html( $text ); ?>:</label>
 			<select name="search[place]">
-				<option value="people" <?php selected( 'people', $search_place ); ?>><?php esc_html_e( 'Emails Addresses', 'wp-mail-smtp-pro' ); ?></option>
+				<option value="people" <?php selected( 'people', $search_place ); ?>><?php esc_html_e( 'Email Addresses', 'wp-mail-smtp-pro' ); ?></option>
 				<option value="headers" <?php selected( 'headers', $search_place ); ?>><?php esc_html_e( 'Subject & Headers', 'wp-mail-smtp-pro' ); ?></option>
 				<option value="content" <?php selected( 'content', $search_place ); ?>><?php esc_html_e( 'Content', 'wp-mail-smtp-pro' ); ?></option>
 			</select>

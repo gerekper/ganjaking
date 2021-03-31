@@ -51,13 +51,13 @@ class GetCampaignStats implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mod
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['listId' => 'int', 'uniqueClicks' => 'int', 'clickers' => 'int', 'complaints' => 'int', 'delivered' => 'int', 'sent' => 'int', 'softBounces' => 'int', 'hardBounces' => 'int', 'uniqueViews' => 'int', 'unsubscriptions' => 'int', 'viewed' => 'int', 'deferred' => 'int'];
+    protected static $swaggerTypes = ['listId' => 'int', 'uniqueClicks' => 'int', 'clickers' => 'int', 'complaints' => 'int', 'delivered' => 'int', 'sent' => 'int', 'softBounces' => 'int', 'hardBounces' => 'int', 'uniqueViews' => 'int', 'unsubscriptions' => 'int', 'viewed' => 'int', 'deferred' => 'int', 'returnBounce' => 'int'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['listId' => 'int64', 'uniqueClicks' => 'int64', 'clickers' => 'int64', 'complaints' => 'int64', 'delivered' => 'int64', 'sent' => 'int64', 'softBounces' => 'int64', 'hardBounces' => 'int64', 'uniqueViews' => 'int64', 'unsubscriptions' => 'int64', 'viewed' => 'int64', 'deferred' => 'int64'];
+    protected static $swaggerFormats = ['listId' => 'int64', 'uniqueClicks' => 'int64', 'clickers' => 'int64', 'complaints' => 'int64', 'delivered' => 'int64', 'sent' => 'int64', 'softBounces' => 'int64', 'hardBounces' => 'int64', 'uniqueViews' => 'int64', 'unsubscriptions' => 'int64', 'viewed' => 'int64', 'deferred' => 'int64', 'returnBounce' => 'int64'];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -82,19 +82,19 @@ class GetCampaignStats implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mod
      *
      * @var string[]
      */
-    protected static $attributeMap = ['listId' => 'listId', 'uniqueClicks' => 'uniqueClicks', 'clickers' => 'clickers', 'complaints' => 'complaints', 'delivered' => 'delivered', 'sent' => 'sent', 'softBounces' => 'softBounces', 'hardBounces' => 'hardBounces', 'uniqueViews' => 'uniqueViews', 'unsubscriptions' => 'unsubscriptions', 'viewed' => 'viewed', 'deferred' => 'deferred'];
+    protected static $attributeMap = ['listId' => 'listId', 'uniqueClicks' => 'uniqueClicks', 'clickers' => 'clickers', 'complaints' => 'complaints', 'delivered' => 'delivered', 'sent' => 'sent', 'softBounces' => 'softBounces', 'hardBounces' => 'hardBounces', 'uniqueViews' => 'uniqueViews', 'unsubscriptions' => 'unsubscriptions', 'viewed' => 'viewed', 'deferred' => 'deferred', 'returnBounce' => 'returnBounce'];
     /**
      * Array of attributes to setter functions (for deserialization of responses)
      *
      * @var string[]
      */
-    protected static $setters = ['listId' => 'setListId', 'uniqueClicks' => 'setUniqueClicks', 'clickers' => 'setClickers', 'complaints' => 'setComplaints', 'delivered' => 'setDelivered', 'sent' => 'setSent', 'softBounces' => 'setSoftBounces', 'hardBounces' => 'setHardBounces', 'uniqueViews' => 'setUniqueViews', 'unsubscriptions' => 'setUnsubscriptions', 'viewed' => 'setViewed', 'deferred' => 'setDeferred'];
+    protected static $setters = ['listId' => 'setListId', 'uniqueClicks' => 'setUniqueClicks', 'clickers' => 'setClickers', 'complaints' => 'setComplaints', 'delivered' => 'setDelivered', 'sent' => 'setSent', 'softBounces' => 'setSoftBounces', 'hardBounces' => 'setHardBounces', 'uniqueViews' => 'setUniqueViews', 'unsubscriptions' => 'setUnsubscriptions', 'viewed' => 'setViewed', 'deferred' => 'setDeferred', 'returnBounce' => 'setReturnBounce'];
     /**
      * Array of attributes to getter functions (for serialization of requests)
      *
      * @var string[]
      */
-    protected static $getters = ['listId' => 'getListId', 'uniqueClicks' => 'getUniqueClicks', 'clickers' => 'getClickers', 'complaints' => 'getComplaints', 'delivered' => 'getDelivered', 'sent' => 'getSent', 'softBounces' => 'getSoftBounces', 'hardBounces' => 'getHardBounces', 'uniqueViews' => 'getUniqueViews', 'unsubscriptions' => 'getUnsubscriptions', 'viewed' => 'getViewed', 'deferred' => 'getDeferred'];
+    protected static $getters = ['listId' => 'getListId', 'uniqueClicks' => 'getUniqueClicks', 'clickers' => 'getClickers', 'complaints' => 'getComplaints', 'delivered' => 'getDelivered', 'sent' => 'getSent', 'softBounces' => 'getSoftBounces', 'hardBounces' => 'getHardBounces', 'uniqueViews' => 'getUniqueViews', 'unsubscriptions' => 'getUnsubscriptions', 'viewed' => 'getViewed', 'deferred' => 'getDeferred', 'returnBounce' => 'getReturnBounce'];
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name
@@ -158,6 +158,7 @@ class GetCampaignStats implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mod
         $this->container['unsubscriptions'] = isset($data['unsubscriptions']) ? $data['unsubscriptions'] : null;
         $this->container['viewed'] = isset($data['viewed']) ? $data['viewed'] : null;
         $this->container['deferred'] = isset($data['deferred']) ? $data['deferred'] : null;
+        $this->container['returnBounce'] = isset($data['returnBounce']) ? $data['returnBounce'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -459,6 +460,27 @@ class GetCampaignStats implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mod
     public function setDeferred($deferred)
     {
         $this->container['deferred'] = $deferred;
+        return $this;
+    }
+    /**
+     * Gets returnBounce
+     *
+     * @return int
+     */
+    public function getReturnBounce()
+    {
+        return $this->container['returnBounce'];
+    }
+    /**
+     * Sets returnBounce
+     *
+     * @param int $returnBounce Total number of non-delivered campaigns for a particular campaign id.
+     *
+     * @return $this
+     */
+    public function setReturnBounce($returnBounce)
+    {
+        $this->container['returnBounce'] = $returnBounce;
         return $this;
     }
     /**

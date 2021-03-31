@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-    $("#fue-subscriptions-form").submit(function() {
+    $( '#fue-subscriptions-form' ).on( 'submit', function() {
         var ids = [];
 
         $("input.chk-fue-list:checked").each(function() {
@@ -18,5 +18,5 @@ jQuery(document).ready(function($) {
         });
 
         return false;
-    });
+    } );
 });

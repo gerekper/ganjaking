@@ -13,9 +13,6 @@ class Account extends lib\BaseCtrl {
     add_action('mepr_account_nav_content', array($this, 'my_courses_list'));
     add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
     add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
-    if(is_admin()) {
-      add_action('edit_user_profile', array($this, 'extra_profile_fields'));
-    }
   }
 
   /**
@@ -62,8 +59,10 @@ class Account extends lib\BaseCtrl {
     </span>
     <?php
   }
+
   /**
   * Render courses list
+  *
   * @see load_hooks(), add_action('mepr_account_nav_content')
   * @param string $action Account page current action
   * @param boolean $show_bookmark Show progress bar
@@ -75,36 +74,28 @@ class Account extends lib\BaseCtrl {
     if(is_user_logged_in() && $action === 'courses') {
       $my_courses = array();
       $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-      $course_query = new \WP_Query(array('post_type' => models\Course::$cpt, 'post_status' => 'publish', 'posts_per_page' => 6, 'paged' => $paged));
-      $course_posts = $course_query->get_posts();
-      foreach ($course_posts as $course) {
-        $current_user = lib\Utils::get_currentuserinfo();
-        $mepr_user = new \MeprUser($current_user->ID);
-        if(lib\Utils::is_logged_in_and_an_admin() || !\MeprRule::is_locked_for_user($mepr_user, $course)) {
-          $my_courses[] = new models\Course($course->ID);
-        }
+      $current_user = lib\Utils::get_currentuserinfo();
+      $mepr_user = new \MeprUser($current_user->ID);
+      $options = \get_option('mpcs-options');
+
+      $courses = get_posts(array('post_type' => models\Course::$cpt, 'post_status' => 'publish', 'posts_per_page' => '-1', 'orderby'=> 'title', 'order' => 'ASC'));
+
+      if(false == \MeprUtils::is_logged_in_and_an_admin() && !$options['show-protected-courses']){
+        $courses = array_filter($courses, function($course) use ( $mepr_user ) {
+          return false == \MeprRule::is_locked_for_user($mepr_user, $course);
+        });
       }
 
-      require(base\VIEWS_PATH . '/account/course_list.php');
-    }
-    // Don't render
-  }
+      $courses_ids = array_column( $courses, 'ID' );
 
-  /**
-  * Render course profile fields
-  * @param WP_User Edit user
-  */
-  public static function extra_profile_fields($user) {
-    $my_courses = array();
+      $course_query = new \WP_Query(array('post_type' => models\Course::$cpt, 'post_status' => 'publish', 'posts_per_page' => 6, 'paged' => $paged, 'orderby'=> 'post__in', 'order' => 'ASC', 'post__in' => $courses_ids));
+      $course_posts = $course_query->get_posts();
 
-    $course_posts = \get_posts(array('post_type' => models\Course::$cpt, 'post_status' => 'publish'));
-    foreach ($course_posts as $course) {
-      $mepr_user = new \MeprUser($user->ID);
-      if(!\MeprRule::is_locked_for_user($mepr_user, $course)) {
+      foreach ($course_posts as $course) {
         $my_courses[] = new models\Course($course->ID);
       }
-    }
 
-    require_once(base\VIEWS_PATH . '/admin/users/extra_profile_fields.php');
+      \MeprView::render('/account/courses_list', get_defined_vars());
+    }
   }
 }

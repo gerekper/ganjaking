@@ -23,7 +23,7 @@
 
 namespace SkyVerge\WooCommerce\CSV_Export\Admin;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2\SV_WC_Helper;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6\SV_WC_Helper;
 
 defined( 'ABSPATH' ) or exit;
 

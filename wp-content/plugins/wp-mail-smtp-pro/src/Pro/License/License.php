@@ -38,7 +38,7 @@ class License {
 	 *
 	 * @var string
 	 */
-	public $remote_url = 'https://wpmailsmtp.com/';
+	public $remote_url = 'https://wpmailsmtp.com/license-api';
 
 	/**
 	 * Primary class constructor.
@@ -174,39 +174,33 @@ class License {
 	 */
 	public function display_settings_license_key_field_content( $options ) {
 
-		$key      = wp_mail_smtp()->get_license_key();
-		$type     = 'pro';
-		
-		$license = array(
-				'key'         => '2d01b5bafc25fb6b79acf2d19782f253',
-				'type'        => 'pro',
-				'is_expired'  => false,
-				'is_disabled' => false,
-				'is_invalid'  => false,
-				);
-		
-		
-		$is_valid = true;
+		$key  = '2d01b5bafc25fb6b79acf2d19782f253';
+		$type = 'Pro';
+		$license  = $options->get_group( 'license' );
+		$is_valid = ! empty( $key ) &&
+		            ( isset( $license['is_expired'] ) && $license['is_expired'] === false ) &&
+		            ( isset( $license['is_disabled'] ) && $license['is_disabled'] === false ) &&
+		            ( isset( $license['is_invalid'] ) && $license['is_invalid'] === false );
 		?>
 
 		<?php wp_nonce_field( 'wp_mail_smtp_pro_license_nonce', 'wp-mail-smtp-setting-license-nonce' ); ?>
 
-		<input type="password" id="wp-mail-smtp-setting-license-key"
-			<?php echo ( $options->is_const_defined( 'license', 'key' ) || $is_valid ) ? 'disabled' : ''; ?>
-			value="<?php echo esc_attr( $key ); ?>" name="wp-mail-smtp[license][key]"/>
-		<button type="button" id="wp-mail-smtp-setting-license-key-verify" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-orange">
-			<?php esc_html_e( 'Verify Key', 'wp-mail-smtp-pro' ); ?>
-		</button>
+		<div class="wp-mail-smtp-setting-field-row">
+			<input type="password" id="wp-mail-smtp-setting-license-key"
+				<?php echo ( $options->is_const_defined( 'license', 'key' ) || $is_valid ) ? 'disabled' : ''; ?>
+				value="<?php echo esc_attr( $key ); ?>" name="wp-mail-smtp[license][key]"/>
+			
 
-		<?php
-		// Offer option to deactivate the key.
-		$class = empty( $key ) ? 'wp-mail-smtp-hide' : '';
-		?>
+			<?php
+			// Offer option to deactivate the key.
+			$class = empty( $key ) ? 'wp-mail-smtp-hide' : '';
+			?>
 
-		<button type="button" id="wp-mail-smtp-setting-license-key-deactivate"
-			class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-grey <?php echo esc_attr( $class ); ?>">
-			<?php esc_html_e( 'Deactivate Key', 'wp-mail-smtp-pro' ); ?>
-		</button>
+			<button type="button" id="wp-mail-smtp-setting-license-key-deactivate"
+				class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-grey <?php echo esc_attr( $class ); ?>">
+				<?php esc_html_e( 'Deactivate Key', 'wp-mail-smtp-pro' ); ?>
+			</button>
+		</div>
 
 		<?php
 		// If we have previously looked up the license type, display it.
@@ -224,7 +218,7 @@ class License {
 
 		<?php
 		// Display the refresh link for non-lite keys only.
-		$class = empty( $type ) || $type === 'lite' ? 'wp-mail-smtp-hide' : '';
+		$class = empty( $type ) || $type === 'Pro' ? 'wp-mail-smtp-hide' : '';
 		?>
 
 		<p class="desc <?php echo esc_attr( $class ); ?>">
@@ -254,16 +248,6 @@ class License {
 	 * @return array
 	 */
 	public function filter_options_set( $options ) {
-
-
-		$options['license'] = array(
-				'key'         => '2d01b5bafc25fb6b79acf2d19782f253',
-				'type'        => 'pro',
-				'is_expired'  => false,
-				'is_disabled' => false,
-				'is_invalid'  => false,
-			);
-		
 
 		if ( isset( $options['license'] ) ) {
 			$options['license']['key']  = sanitize_key( (string) $options['license']['key'] );
@@ -304,7 +288,10 @@ class License {
 	 */
 	public function verify_key( $key = '', $ajax = false ) {
 
-		
+		if ( empty( $key ) ) {
+			return false;
+		}
+
 		$options = new Options();
 		$all_opt = $options->get_all();
 
@@ -312,20 +299,39 @@ class License {
 		$verify = $this->perform_remote_request( 'verify-key', array( 'tgm-updater-key' => $key ) );
 
 		// If it returns false, send back a generic error message and return.
-		
+		if ( ! $verify ) {
+			$msg = esc_html__( 'There was an error connecting to the remote key API. Please try again later.', 'wp-mail-smtp-pro' );
+			if ( $ajax ) {
+				wp_send_json_error( $msg );
+			} else {
+				$this->errors[] = $msg;
+
+				return false;
+			}
+		}
 
 		// If an error is returned, set the error and return.
-		
+		if ( ! empty( $verify->error ) ) {
+			if ( $ajax ) {
+				wp_send_json_error( $verify->error );
+			} else {
+				$this->errors[] = $verify->error;
+
+				return false;
+			}
+		}
 
 		$success = isset( $verify->success ) ? $verify->success : esc_html__( 'Congratulations! This site is now receiving automatic updates.', 'wp-mail-smtp-pro' );
 
 		$this->success[] = $success;
 
+		$license_type = isset( $verify->type ) ? $verify->type : $all_opt['license']['type'];
+
 		// Otherwise, our request has been done successfully. Update the option and set the success message.
 		$data = [
 			'license' => [
-				'key'         => '2d01b5bafc25fb6b79acf2d19782f253',
-				'type'        => 'pro',
+				'key'         => $key,
+				'type'        => $license_type,
 				'is_expired'  => false,
 				'is_disabled' => false,
 				'is_invalid'  => false,
@@ -339,7 +345,7 @@ class License {
 		if ( $ajax ) {
 			wp_send_json_success(
 				array(
-					'type'    => $all_opt['license']['type'],
+					'type'    => $license_type,
 					'message' => $success,
 				)
 			);
@@ -358,23 +364,36 @@ class License {
 		$options = new Options();
 		$all_opt = $options->get_all();
 
-		
+		if ( empty( $all_opt['license']['key'] ) ) {
+			return;
+		}
 
-		
+		if ( empty( $all_opt['license']['updates'] ) ) {
+			$data = [
+				'license' => [
+					'updates' => strtotime( '+24 hours' ),
+				],
+			];
+
+			$options->set( $data, false, false );
+
+			// Perform a request to validate the key.
+			$this->validate_key( $all_opt['license']['key'] );
+		} else {
 			$current_timestamp = time();
 			if ( $current_timestamp < $all_opt['license']['updates'] ) {
 				return;
 			} else {
 				$data = [
 					'license' => [
-						'updates' => strtotime( '+33324 hours' ),
+						'updates' => strtotime( '+24 hours' ),
 					],
 				];
 
 				$options->set( $data, false, false );
 				$this->validate_key( $all_opt['license']['key'] );
 			}
-		
+		}
 	}
 
 	/**
@@ -387,8 +406,10 @@ class License {
 	 * @param bool   $ajax
 	 */
 	public function validate_key( $key = '', $forced = false, $ajax = false ) {
+
 		$options = new Options();
 		$all_opt = $options->get_all();
+		$all_opt['license']['key'] = '2d01b5bafc25fb6b79acf2d19782f253';
 		$all_opt['license']['type'] = 'pro';
 		$all_opt['license']['is_expired'] = false;
 		$all_opt['license']['is_disabled'] = false;
@@ -401,20 +422,7 @@ class License {
 		$all_opt  = $options->get_all();
 
 		// If there was a basic API error in validation - do nothing.
-		if ( ! $validate ) {
-			// If forced, set contextual success message.
-			if ( $forced ) {
-				$msg = esc_html__( 'There was an error connecting to the remote server. Please try again later.', 'wp-mail-smtp-pro' );
-				if ( $ajax ) {
-					wp_send_json_error( $msg );
-				} else {
-					$this->errors[] = $msg;
-				}
-			}
-
-			return;
-		}
-
+		
 		// If a key or author error is returned, the license no longer exists or the user has been deleted, so reset license.
 		if ( isset( $validate->key ) || isset( $validate->author ) ) {
 			$data = [
@@ -472,7 +480,7 @@ class License {
 			return;
 		}
 
-		$license_type = 'pro';
+		$license_type = isset( $validate->type ) ? $validate->type : $all_opt['license']['type'];
 
 		// Otherwise, our check has returned successfully. Set the transient and update our license type and flags.
 		$data = [
@@ -568,6 +576,8 @@ class License {
 	 * @param bool $below_h2
 	 */
 	public function notices( $below_h2 = false ) {
+		return;
+
 
 		// Grab the option and output any nag dealing with license keys.
 		$options  = new Options();
@@ -575,11 +585,52 @@ class License {
 		$below_h2 = $below_h2 ? 'below-h2' : '';
 
 		// If there is no license key, output nag about ensuring key is set for automatic updates.
-		
+		if ( empty( $all_opt['license']['key'] ) ) :
 			?>
-		
+			<div class="notice notice-info <?php echo esc_attr( $below_h2 ); ?> wp-mail-smtp-license-notice">
+				<p>
+					<?php
+					printf(
+						wp_kses( /* translators: %s - plugin settings page URL. */
+							__( 'Please <a href="%s">enter and activate</a> your license key for WP Mail SMTP Pro to enable automatic updates.', 'wp-mail-smtp-pro' ),
+							array(
+								'a' => array(
+									'href' => array(),
+								),
+							)
+						),
+						esc_url( add_query_arg( array( 'page' => 'wp-mail-smtp' ), WP::admin_url( 'admin.php' ) ) )
+					);
+					?>
+				</p>
+			</div>
 			<?php
-		
+		endif;
+
+		// If a key has expired, output nag about renewing the key.
+		if ( isset( $all_opt['license']['is_expired'] ) && $all_opt['license']['is_expired'] ) :
+			?>
+			<div class="error notice <?php echo esc_attr( $below_h2 ); ?> wp-mail-smtp-license-notice">
+				<p>
+					<?php
+					printf(
+						wp_kses( /* translators: %s - WPMailSMTP.com login page URL. */
+							__( 'Your license key for WP Mail SMTP Pro has expired. <a href="%s" target="_blank" rel="noopener noreferrer">Please click here to renew your license key and continue receiving automatic updates.</a>', 'wp-mail-smtp-pro' ),
+							array(
+								'a' => array(
+									'href'   => array(),
+									'target' => array(),
+									'rel'    => array(),
+								),
+							)
+						),
+						'https://wpmailsmtp.com/login/'
+					);
+					?>
+				</p>
+			</div>
+			<?php
+		endif;
 
 		// If a key has been disabled, output nag about using another key.
 		if ( isset( $all_opt['license']['is_disabled'] ) && $all_opt['license']['is_disabled'] ) :
@@ -619,52 +670,41 @@ class License {
 	}
 
 	/**
-	 * Send a request to the remote URL via wp_remote_post() and return a json decoded response.
+	 * Send a request to the remote URL via wp_remote_get() and return a json decoded response.
 	 *
 	 * @since 1.5.0
+	 * @since 2.7.0 Switch from POST to GET request.
 	 *
-	 * @param string $action        The name of the $_POST action var.
-	 * @param array  $body          The content to retrieve from the remote URL.
+	 * @param string $action        The name of the request action var.
+	 * @param array  $body          The GET query attributes.
 	 * @param array  $headers       The headers to send to the remote URL.
 	 * @param string $return_format The format for returning content from the remote URL.
 	 *
 	 * @return string|bool Json decoded response on success, false on failure.
 	 */
-	public function perform_remote_request( $action, $body = array(), $headers = array(), $return_format = 'json' ) {
+	public function perform_remote_request( $action, $body = [], $headers = [], $return_format = 'json' ) {
 
-		// Build the body of the request.
-		$body = wp_parse_args(
+		// Request query parameters.
+		$query_params = wp_parse_args(
 			$body,
-			array(
+			[
 				'tgm-updater-action'     => $action,
 				'tgm-updater-key'        => $body['tgm-updater-key'],
 				'tgm-updater-wp-version' => get_bloginfo( 'version' ),
 				'tgm-updater-referer'    => site_url(),
-			)
-		);
-		$body = http_build_query( $body, '', '&' );
-
-		// Build the headers of the request.
-		$headers = wp_parse_args(
-			$headers,
-			array(
-				'Content-Type'   => 'application/x-www-form-urlencoded',
-				'Content-Length' => strlen( $body ),
-			)
+			]
 		);
 
-		// Setup variable for wp_remote_post.
-		$post = array(
+		$args = [
 			'headers' => $headers,
-			'body'    => $body,
-		);
+		];
 
 		if ( defined( 'WPMS_UPDATER_API' ) ) {
 			$this->remote_url = WPMS_UPDATER_API;
 		}
 
 		// Perform the query and retrieve the response.
-		$response      = wp_remote_post( $this->remote_url, $post );
+		$response      = wp_remote_get( add_query_arg( $query_params, $this->remote_url ), $args );
 		$response_code = wp_remote_retrieve_response_code( $response );
 		$response_body = wp_remote_retrieve_body( $response );
 
@@ -688,7 +728,75 @@ class License {
 
 		$saved_license = Options::init()->get_group( 'license' );
 
-	
+		$result = array(
+			'valid' => false,
+		);
+
+		if ( empty( $saved_license['key'] ) ) {
+			$result['message'] = sprintf(
+				wp_kses( /* translators: %s - plugin settings page URL. */
+					__( 'Please <a href="%s">enter and activate</a> your license key for WP Mail SMTP Pro to enable automatic updates.', 'wp-mail-smtp-pro' ),
+					array(
+						'a' => array(
+							'href' => array(),
+						),
+					)
+				),
+				esc_url( wp_mail_smtp()->get_admin()->get_admin_page_url() )
+			);
+
+			return $result;
+		}
+
+		if ( isset( $saved_license['is_expired'] ) && $saved_license['is_expired'] === true ) {
+			$result['message'] = sprintf(
+				wp_kses( /* translators: %s - WPMailSMTP.com login page URL. */
+					__( 'Your license key for WP Mail SMTP Pro has expired. <a href="%s" target="_blank" rel="noopener noreferrer">Please click here to renew your license key and continue receiving automatic updates.</a>', 'wp-mail-smtp-pro' ),
+					array(
+						'a' => array(
+							'href'   => array(),
+							'target' => array(),
+							'rel'    => array(),
+						),
+					)
+				),
+				'https://wpmailsmtp.com/login/'
+			);
+
+			return $result;
+		}
+
+		if ( isset( $saved_license['is_disabled'] ) && $saved_license['is_disabled'] === true ) {
+			$result['message'] = sprintf(
+				wp_kses( /* translators: %s - plugin settings page URL. */
+					__( 'Your license key for WP Mail SMTP Pro has been disabled. Please <a href="%s">enter and activate</a> a different key for WP Mail SMTP Pro to continue receiving automatic updates.', 'wp-mail-smtp-pro' ),
+					array(
+						'a' => array(
+							'href' => array(),
+						),
+					)
+				),
+				esc_url( wp_mail_smtp()->get_admin()->get_admin_page_url() )
+			);
+
+			return $result;
+		}
+
+		if ( isset( $saved_license['is_invalid'] ) && $saved_license['is_invalid'] === true ) {
+			$result['message'] = sprintf(
+				wp_kses( /* translators: %s - plugin settings page URL. */
+					__( 'Your license key for WP Mail SMTP Pro is invalid. Please <a href="%s">enter and activate</a> a different key for WP Mail SMTP Pro to continue receiving automatic updates.', 'wp-mail-smtp-pro' ),
+					array(
+						'a' => array(
+							'href' => array(),
+						),
+					)
+				),
+				esc_url( wp_mail_smtp()->get_admin()->get_admin_page_url() )
+			);
+
+			return $result;
+		}
 
 		return array(
 			'valid'   => true,

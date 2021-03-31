@@ -355,7 +355,7 @@ abstract class MeprBaseGateway {
           <a href="<?php echo $this->https_url("{$account_url}{$account_delim}action=update&sub={$subscription->id}"); ?>" class="mepr-account-row-action mepr-account-update"><?php _e('Update', 'memberpress'); ?></a>
         <?php endif; ?>
 
-        <?php if(($grp = $product->group()) && count($grp->products('ids')) > 1): //Can't upgrade to no other options ?>
+        <?php if(($grp = $product->group()) && count($grp->products('ids')) > 1 && count($grp->buyable_products()) >= 1): //Can't upgrade to no other options ?>
           <div id="mepr-upgrade-sub-<?php echo $subscription->id; ?>" class="mepr-white-popup mfp-hide">
             <center>
               <div class="mepr-upgrade-sub-text">

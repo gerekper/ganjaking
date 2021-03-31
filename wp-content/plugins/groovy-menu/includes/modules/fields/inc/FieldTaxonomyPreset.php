@@ -22,6 +22,7 @@ class FieldTaxonomyPreset extends \GroovyMenu\FieldField {
 		$default_arr = array( 'default' => '--- ' . esc_html__( 'Default', 'groovy-menu' ) . ' ---' );
 		$none_arr    = array( 'none' => '--- ' . esc_html__( 'Hide Groovy menu', 'groovy-menu' ) . ' ---' );
 		$post_types  = GroovyMenuUtils::getPostTypesExtended();
+		$post_tax    = GroovyMenuUtils::getTaxonomiesExtended();
 		$value_raw   = $this->getValueRaw();
 		$saved_tax   = GroovyMenuUtils::getTaxonomiesPresets( is_string( $value_raw ) ? $value_raw : '', false );
 		$nav_menus   = $default_arr + GroovyMenuUtils::getNavMenus();
@@ -41,9 +42,46 @@ class FieldTaxonomyPreset extends \GroovyMenu\FieldField {
 		?>
 		<div class="gm-gui__module__ui gm-gui__module__taxonomy_preset">
 
+			<div class="gm-gui__module__ui gm-gui__module__internal-title"><?php echo esc_html__( 'Presets for post types and pages', 'groovy-menu' ); ?></div>
 			<?php foreach ( $post_types as $type_name => $type_label ) { ?>
 				<div class="gm-gui__module__ui gm-gui__subselect-wrapper">
-					<p class="gm-gui__module__subselect-title"><?php echo esc_html( $type_label ); ?></p>
+					<p class="gm-gui__module__subselect-title"><?php echo esc_html( $type_label ); ?> (<code><?php echo esc_html( $type_name ); ?></code>)</p>
+
+					<input type="hidden" class="gm-subselect--type" value="post_type">
+
+					<div class="gm-gui__subselect-wrapper--left">
+						<p><?php echo esc_html__( 'Preset', 'groovy-menu' ); ?></p>
+						<select data-default="<?php echo esc_attr( $default['preset'] ); ?>"
+							data-taxonomy="<?php echo esc_attr( $type_name ); ?>"
+							class="gm-subselect gm-subselect--preset">
+							<?php foreach ( $presets as $key => $name ) { ?>
+								<option
+									value="<?php echo esc_attr( $key ); ?>"<?php echo ( isset( $saved_tax[ $type_name ]['preset'] ) && strval( $saved_tax[ $type_name ]['preset'] ) === strval( $key ) ) ? 'selected' : ''; ?>><?php echo esc_html( $name ); ?></option>
+							<?php } ?>
+						</select>
+					</div>
+
+					<div class="gm-gui__subselect-wrapper--right">
+						<p><?php echo esc_html__( 'Menu', 'groovy-menu' ); ?></p>
+						<select data-default="<?php echo esc_attr( $default['menu'] ); ?>"
+							data-taxonomy="<?php echo esc_attr( $type_name ); ?>"
+							class="gm-subselect gm-subselect--navmenu">
+							<?php foreach ( $nav_menus as $key => $name ) { ?>
+								<option
+									value="<?php echo esc_attr( $key ); ?>"<?php echo ( isset( $saved_tax[ $type_name ]['menu'] ) && strval( $saved_tax[ $type_name ]['menu'] ) === strval( $key ) ) ? 'selected' : ''; ?>><?php echo esc_html( $name ); ?></option>
+							<?php } ?>
+						</select>
+					</div>
+
+				</div>
+			<?php } ?>
+
+			<div class="gm-gui__module__ui gm-gui__module__internal-title"><?php echo esc_html__( 'Presets for taxonomies', 'groovy-menu' ); ?></div>
+			<?php foreach ( $post_tax as $type_name => $type_label ) { ?>
+				<div class="gm-gui__module__ui gm-gui__subselect-wrapper">
+					<p class="gm-gui__module__subselect-title"><?php echo esc_html( $type_label ); ?> (<code><?php echo esc_html( $type_name ); ?></code>)</p>
+
+					<input type="hidden" class="gm-subselect--type" value="taxonomy">
 
 					<div class="gm-gui__subselect-wrapper--left">
 						<p><?php echo esc_html__( 'Preset', 'groovy-menu' ); ?></p>
