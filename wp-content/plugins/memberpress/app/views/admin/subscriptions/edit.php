@@ -16,7 +16,9 @@
       <table class="form-table">
         <tbody>
           <tr valign="top"><th scope="row"><label><?php _e('Subscription ID:', 'memberpress'); ?></label></th><td><?php echo $sub->id; ?></td></tr>
+          <?php MeprHooks::do_action('mepr_edit_subscription_table_before', $sub); ?>
           <?php MeprView::render("/admin/subscriptions/form", get_defined_vars()); ?>
+          <?php MeprHooks::do_action('mepr_edit_subscription_table_after', $sub); ?>
         </tbody>
       </table>
       <p class="submit">

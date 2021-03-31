@@ -2,16 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.7.0] - 2021-03-23
+### IMPORTANT
+- Support for PHP 5.5 has been discontinued. If you are running one of those versions, you MUST upgrade PHP before installing or upgrading to WP Mail SMTP v2.7. Failure to do that will disable WP Mail SMTP functionality.
+
+### Added:
+- Dashboard widget with email sending statistic.
+- Email Log: email sent status filters.
+
+### Changed:
+- Updated About us plugin page.
+- Improved Domain Check Results section in Email Test tab.
+- Allow the use of different Gmail aliases as From Email address by disabling the Force From Email setting.
+- The Setup Wizard can now be launched via a button in the plugin settings. The Setup Wizard admin dashboard menu item was removed. 
+
+### Fixed:
+- WP Multisite subsite admins couldn't remove oAuth connections (in Gmail, Outlook and Zoho mailers).
+- Accessible WPMS subsite settings when network-wide setting was enabled.
+
 ## [2.6.0] - 2021-02-02
 ### Added:
 - New plugin Setup Wizard.
-- One click plugin upgrade (Lite to Pro).
+- One-click plugin upgrade (Lite to Pro).
 - New Amazon SES regions: North California, Paris, Stockholm.
 - Ability to clear error notices in multisite setups with plugin options editable network-wide.
 - SendGrid Invalid API key error message and mitigation steps on the Email Test page.
 
 ### Fixed:
-- Plugin settings overwriting checkboxes with default values when network-wide option is enabled on Multisite installation.
+- Plugin settings overwriting checkboxes with default values when a network-wide option is enabled on Multisite installation.
 - Unused Return Path option removed for the Amazon SES mailer.
 - Zoho mailer error when "reply-to" header was set to the Zoho authorized email address.
 - Outlook mailer not sending emails with custom email headers missing prepended 'X-'.

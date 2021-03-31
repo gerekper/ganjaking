@@ -135,10 +135,10 @@ class FUE_Addon_Subscriptions extends FUE_Addon_Woocommerce_Scheduler {
 				<p class="submit"><a href="<?php echo esc_url( add_query_arg( 'tab', 'subscription_update', admin_url( 'admin.php?page=followup-emails' ) ) ); ?>" class="fue-update-now button-primary"><?php esc_html_e( 'Run the updater', 'follow_up_emails' ); ?></a></p>
 			</div>
 			<script type="text/javascript">
-				jQuery('.fue-update-now').click('click', function(){
+				jQuery( '.fue-update-now' ).on( 'click', function() {
 					var answer = confirm( '<?php esc_html_e( 'It is strongly recommended that you backup your database before proceeding. Are you sure you wish to run the updater now?', 'follow_up_emails' ); ?>' );
 					return answer;
-				});
+				} );
 			</script>
 		<?php
 		}
@@ -251,13 +251,13 @@ class FUE_Addon_Subscriptions extends FUE_Addon_Woocommerce_Scheduler {
 	 */
 	public function manual_js() {
 		?>
-		jQuery("#send_type").change(function() {
+		jQuery( '#send_type' ).on( 'change', function() {
 			switch (jQuery(this).val()) {
 				case "active_subscription":
 					jQuery(".send-type-subscription").show();
 					break;
 			}
-		});
+		} );
 		<?php
 	}
 

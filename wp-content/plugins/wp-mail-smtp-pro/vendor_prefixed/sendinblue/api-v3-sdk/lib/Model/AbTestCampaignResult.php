@@ -51,13 +51,13 @@ class AbTestCampaignResult implements \WPMailSMTP\Vendor\SendinBlue\Client\Model
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['winningVersion' => 'string', 'winningCriteria' => 'string', 'winningSubjectLine' => 'string', 'openRate' => 'string', 'clickRate' => 'string', 'winningVersionRate' => 'string'];
+    protected static $swaggerTypes = ['winningVersion' => 'string', 'winningCriteria' => 'string', 'winningSubjectLine' => 'string', 'openRate' => 'string', 'clickRate' => 'string', 'winningVersionRate' => 'string', 'statistics' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\AbTestCampaignResultStatistics', 'clickedLinks' => 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\AbTestCampaignResultClickedLinks'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['winningVersion' => null, 'winningCriteria' => null, 'winningSubjectLine' => null, 'openRate' => null, 'clickRate' => null, 'winningVersionRate' => null];
+    protected static $swaggerFormats = ['winningVersion' => null, 'winningCriteria' => null, 'winningSubjectLine' => null, 'openRate' => null, 'clickRate' => null, 'winningVersionRate' => null, 'statistics' => null, 'clickedLinks' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -82,19 +82,19 @@ class AbTestCampaignResult implements \WPMailSMTP\Vendor\SendinBlue\Client\Model
      *
      * @var string[]
      */
-    protected static $attributeMap = ['winningVersion' => 'winningVersion', 'winningCriteria' => 'winningCriteria', 'winningSubjectLine' => 'winningSubjectLine', 'openRate' => 'openRate', 'clickRate' => 'clickRate', 'winningVersionRate' => 'winningVersionRate'];
+    protected static $attributeMap = ['winningVersion' => 'winningVersion', 'winningCriteria' => 'winningCriteria', 'winningSubjectLine' => 'winningSubjectLine', 'openRate' => 'openRate', 'clickRate' => 'clickRate', 'winningVersionRate' => 'winningVersionRate', 'statistics' => 'statistics', 'clickedLinks' => 'clickedLinks'];
     /**
      * Array of attributes to setter functions (for deserialization of responses)
      *
      * @var string[]
      */
-    protected static $setters = ['winningVersion' => 'setWinningVersion', 'winningCriteria' => 'setWinningCriteria', 'winningSubjectLine' => 'setWinningSubjectLine', 'openRate' => 'setOpenRate', 'clickRate' => 'setClickRate', 'winningVersionRate' => 'setWinningVersionRate'];
+    protected static $setters = ['winningVersion' => 'setWinningVersion', 'winningCriteria' => 'setWinningCriteria', 'winningSubjectLine' => 'setWinningSubjectLine', 'openRate' => 'setOpenRate', 'clickRate' => 'setClickRate', 'winningVersionRate' => 'setWinningVersionRate', 'statistics' => 'setStatistics', 'clickedLinks' => 'setClickedLinks'];
     /**
      * Array of attributes to getter functions (for serialization of requests)
      *
      * @var string[]
      */
-    protected static $getters = ['winningVersion' => 'getWinningVersion', 'winningCriteria' => 'getWinningCriteria', 'winningSubjectLine' => 'getWinningSubjectLine', 'openRate' => 'getOpenRate', 'clickRate' => 'getClickRate', 'winningVersionRate' => 'getWinningVersionRate'];
+    protected static $getters = ['winningVersion' => 'getWinningVersion', 'winningCriteria' => 'getWinningCriteria', 'winningSubjectLine' => 'getWinningSubjectLine', 'openRate' => 'getOpenRate', 'clickRate' => 'getClickRate', 'winningVersionRate' => 'getWinningVersionRate', 'statistics' => 'getStatistics', 'clickedLinks' => 'getClickedLinks'];
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name
@@ -177,6 +177,8 @@ class AbTestCampaignResult implements \WPMailSMTP\Vendor\SendinBlue\Client\Model
         $this->container['openRate'] = isset($data['openRate']) ? $data['openRate'] : null;
         $this->container['clickRate'] = isset($data['clickRate']) ? $data['clickRate'] : null;
         $this->container['winningVersionRate'] = isset($data['winningVersionRate']) ? $data['winningVersionRate'] : null;
+        $this->container['statistics'] = isset($data['statistics']) ? $data['statistics'] : null;
+        $this->container['clickedLinks'] = isset($data['clickedLinks']) ? $data['clickedLinks'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -338,6 +340,48 @@ class AbTestCampaignResult implements \WPMailSMTP\Vendor\SendinBlue\Client\Model
     public function setWinningVersionRate($winningVersionRate)
     {
         $this->container['winningVersionRate'] = $winningVersionRate;
+        return $this;
+    }
+    /**
+     * Gets statistics
+     *
+     * @return \SendinBlue\Client\Model\AbTestCampaignResultStatistics
+     */
+    public function getStatistics()
+    {
+        return $this->container['statistics'];
+    }
+    /**
+     * Sets statistics
+     *
+     * @param \SendinBlue\Client\Model\AbTestCampaignResultStatistics $statistics statistics
+     *
+     * @return $this
+     */
+    public function setStatistics($statistics)
+    {
+        $this->container['statistics'] = $statistics;
+        return $this;
+    }
+    /**
+     * Gets clickedLinks
+     *
+     * @return \SendinBlue\Client\Model\AbTestCampaignResultClickedLinks
+     */
+    public function getClickedLinks()
+    {
+        return $this->container['clickedLinks'];
+    }
+    /**
+     * Sets clickedLinks
+     *
+     * @param \SendinBlue\Client\Model\AbTestCampaignResultClickedLinks $clickedLinks clickedLinks
+     *
+     * @return $this
+     */
+    public function setClickedLinks($clickedLinks)
+    {
+        $this->container['clickedLinks'] = $clickedLinks;
         return $this;
     }
     /**

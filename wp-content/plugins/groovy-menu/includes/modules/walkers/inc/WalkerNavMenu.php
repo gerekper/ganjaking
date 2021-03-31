@@ -945,7 +945,8 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 
 			$is_woocommerce_page = false;
 			if (
-				GroovyMenuUtils::is_shop_and_category_woocommerce_page() ||
+				GroovyMenuUtils::is_shop_woocommerce_page() ||
+				GroovyMenuUtils::is_shop_category_woocommerce_page() ||
 				GroovyMenuUtils::is_additional_woocommerce_page() ||
 				GroovyMenuUtils::is_product_woocommerce_page()
 			) {

@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use \SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use \SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 /**
  * WooCommerce Tab Manager main class.
@@ -34,7 +34,7 @@ class WC_Tab_Manager extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version */
-	const VERSION = '1.14.0';
+	const VERSION = '1.14.1';
 
 	/** @var \WC_Tab_Manager single instance of this plugin */
 	protected static $instance;
@@ -300,16 +300,16 @@ class WC_Tab_Manager extends Framework\SV_WC_Plugin {
 					'name'               => __( 'Tabs', 'woocommerce-tab-manager' ),
 					'singular_name'      => __( 'Tab', 'woocommerce-tab-manager' ),
 					'menu_name'          => _x( 'Tab Manager', 'Admin menu name', 'woocommerce-tab-manager' ),
-					'add_new'            => __( 'Add Tab', 'woocommerce-tab-manager' ),
-					'add_new_item'       => __( 'Add New Tab', 'woocommerce-tab-manager' ),
+					'add_new'            => __( 'Add global tab', 'woocommerce-tab-manager' ),
+					'add_new_item'       => __( 'Add new global tab', 'woocommerce-tab-manager' ),
 					'edit'               => __( 'Edit', 'woocommerce-tab-manager' ),
-					'edit_item'          => __( 'Edit Tab', 'woocommerce-tab-manager' ),
-					'new_item'           => __( 'New Tab', 'woocommerce-tab-manager' ),
-					'view'               => __( 'View Tabs', 'woocommerce-tab-manager' ),
-					'view_item'          => __( 'View Tab', 'woocommerce-tab-manager' ),
-					'search_items'       => __( 'Search Tabs', 'woocommerce-tab-manager' ),
-					'not_found'          => __( 'No Tabs found', 'woocommerce-tab-manager' ),
-					'not_found_in_trash' => __( 'No Tabs found in trash', 'woocommerce-tab-manager' ),
+					'edit_item'          => __( 'Edit tab', 'woocommerce-tab-manager' ),
+					'new_item'           => __( 'New tab', 'woocommerce-tab-manager' ),
+					'view'               => __( 'View tabs', 'woocommerce-tab-manager' ),
+					'view_item'          => __( 'View tab', 'woocommerce-tab-manager' ),
+					'search_items'       => __( 'Search tabs', 'woocommerce-tab-manager' ),
+					'not_found'          => __( 'No tabs found', 'woocommerce-tab-manager' ),
+					'not_found_in_trash' => __( 'No tabs found in trash', 'woocommerce-tab-manager' ),
 				),
 				'description'     => __( 'This is where you can add new tabs that you can add to products.', 'woocommerce-tab-manager' ),
 				'public'          => true,

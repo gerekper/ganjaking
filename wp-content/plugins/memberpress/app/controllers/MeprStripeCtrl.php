@@ -10,6 +10,35 @@ class MeprStripeCtrl extends MeprBaseCtrl
     add_action('wp_ajax_nopriv_mepr_stripe_update_payment_method', array($this, 'update_payment_method'));
     add_action('wp_ajax_mepr_stripe_debug_checkout_error', array($this, 'debug_checkout_error'));
     add_action('wp_ajax_nopriv_mepr_stripe_debug_checkout_error', array($this, 'debug_checkout_error'));
+    add_action('mepr-update-new-user-email', array($this, 'update_user_email'), 10, 1);
+  }
+
+  /**
+   * Update email of stripe user object when customer change email
+   * on Memberpress account page
+   *
+   * @param MeprUser $mepr_current_user
+   */
+  public function update_user_email($mepr_current_user) {
+    $mepr_options = MeprOptions::fetch();
+
+    foreach ( $mepr_options->integrations as $integration ) {
+      if ( $integration['gateway'] == 'MeprStripeGateway' ) {
+        $payment_method = new MeprStripeGateway();
+        $payment_method->load( $integration );
+        $stripe_customer_id = $mepr_current_user->get_stripe_customer_id($payment_method->get_meta_gateway_id());
+
+        if ( empty( $stripe_customer_id ) ) {
+          return;
+        }
+
+        $args = [ 'email' => $mepr_current_user->user_email ];
+
+        try {
+          $payment_method->send_stripe_request( 'customers/' . $stripe_customer_id, $args, 'post' );
+        } catch (\Exception $exception) {}
+      }
+    }
   }
 
   public function confirm_payment() {
@@ -67,6 +96,9 @@ class MeprStripeCtrl extends MeprBaseCtrl
       if (!$usr->ID) {
         wp_send_json(array('error' => __('User not found', 'memberpress')));
       }
+
+      // Prevent duplicate charges if the user is already subscribed
+      $this->check_if_already_subscribed($usr, $product);
     } else {
       // We don't have a transaction ID (i.e. this is the Single Page Checkout), so let's create the user and transaction
       // This code is essentially the same as MeprCheckoutCtrl::process_signup_form
@@ -138,16 +170,7 @@ class MeprStripeCtrl extends MeprBaseCtrl
       }
 
       // Prevent duplicate charges if the user is already subscribed
-      if($usr->is_already_subscribed_to($product->ID) && !$product->simultaneous_subscriptions && !$product->allow_renewal && !$product->allow_gifting) {
-        wp_send_json(array(
-          'error' => sprintf(
-            /* translators: %1$s: open link tag, %2$s: close link tag */
-            esc_html__('You are already subscribed to this item, %1$sclick here%2$s to view your subscriptions.', 'memberpress'),
-            '<a href="' . esc_url(add_query_arg(array('action' => 'subscriptions'), $mepr_options->account_page_url())) . '">',
-            '</a>'
-          )
-        ));
-      }
+      $this->check_if_already_subscribed($usr, $product);
 
       // If we're showing the fields on logged in purchases, let's save them here
       if(!$is_existing_user || ($is_existing_user && $mepr_options->show_fields_logged_in_purchases)) {
@@ -330,6 +353,27 @@ class MeprStripeCtrl extends MeprBaseCtrl
       wp_send_json(array(
         'error' => $e->getMessage(),
         'transaction_id' => $txn->id
+      ));
+    }
+  }
+
+  /**
+   * Ends execution with a JSON error response if the user is already subscribed to this product
+   *
+   * @param MeprUser $usr
+   * @param MeprProduct $product
+   */
+  private function check_if_already_subscribed($usr, $product) {
+    $mepr_options = MeprOptions::fetch();
+
+    if($usr->is_already_subscribed_to($product->ID) && !$product->simultaneous_subscriptions && !$product->allow_renewal && !$product->allow_gifting) {
+      wp_send_json(array(
+        'error' => sprintf(
+          /* translators: %1$s: open link tag, %2$s: close link tag */
+          esc_html__('You are already subscribed to this item, %1$sclick here%2$s to view your subscriptions.', 'memberpress'),
+          '<a href="' . esc_url(add_query_arg(array('action' => 'subscriptions'), $mepr_options->account_page_url())) . '">',
+          '</a>'
+        )
       ));
     }
   }

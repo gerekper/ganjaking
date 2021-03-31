@@ -88,24 +88,6 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		}
 	}
 
-
-	public function _get_object_data($object_handle){
-		$data = array('thumb' => false, 'orig' => false);
-
-		//$file = $this->upload_dir['basedir'] . $this->object_thumb_path . $object_handle;
-		/*if(file_exists($file)){
-			$data['thumb'] = $this->upload_dir['baseurl'] . $this->object_thumb_path . $object_handle;
-		}*/
-
-		$file = $this->upload_dir['basedir'] . $this->object_orig_path . $object_handle;
-		/*if(file_exists($file)){
-			$data['orig'] = $this->upload_dir['baseurl'] . $this->object_orig_path . $object_handle;
-		}*/
-
-		return $data;
-	}
-
-
 	/**
 	 * check if given URL is an object from object library
 	 * @since: 5.3.0
@@ -199,7 +181,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		$file		= $this->upload_dir['basedir'] . $path . $object_handle;
 		$url_file	= $this->upload_dir['baseurl'] . $path . $object_handle;
 		$validated	= get_option('revslider-valid', 'false');
-		$_download	= (!is_file($file)) ? true : false; //check if object thumb is already downloaded
+		$_download	= !is_file($file); //check if object thumb is already downloaded
 
 		if($validated == 'false' && !in_array($type, $this->allowed_types, true)){
 			return array('error' => __('Plugin not activated', 'revslider'));
@@ -343,7 +325,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		if($curl !== false){
 			$validated = get_option('revslider-valid', 'false');
 
-			if($validated == 'false' && !in_array($type, $this->allowed_types)){
+			if($validated == 'false'){
 				$error = __('Plugin not activated', 'revslider');
 			}else{
 				$code	= ($validated == 'false') ? '' : get_option('revslider-code', '');
@@ -497,12 +479,9 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 				$objects[$key]['title'] = $this->get_val($obj, 'name');
 				unset($objects[$key]['name']);
 
-				//$img = $this->_get_object_data($this->get_val($obj, 'handle'));
 				$img = $this->get_val($obj, 'handle');
-				//$objects[$key]['img'] = $this->_get_object_thumb($this->get_val($obj, 'handle'), $t);
 				$objects[$key]['img'] = $this->get_val($obj, 'handle');
 				if($type == '3' || $type == '4'){
-					//$objects[$key]['video_thumb'] = $this->_get_object_thumb($this->get_val($obj, 'video'), 'video_thumb');
 					$objects[$key]['video_thumb'] = array(
 						'error' => false,
 						'url'	=> $this->get_val($obj, 'video'),
@@ -512,8 +491,6 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 				}
 
 				$objects[$key]['orig'] = $this->get_val($img, 'orig', '');
-				//unset($objects[$key]['handle']);
-
 				unset($objects[$key]['type']);
 
 				$tags		= $this->get_val($obj, 'tags', array());
@@ -657,71 +634,6 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 
 		return $image_url;
 	}
-
-	public function retrieve_all_object_data(){
-		$obj = $this->load_objects_with_svg();
-
-		$data = array('html' => array(), 'list' => array());
-		$svgs = $obj['svg'];
-		if(!empty($svgs) && is_array($svgs)){
-			foreach($svgs as $svghandle => $svgfiles){
-				$data['html'][] = array('type' => 'tag', 'handle' => $svghandle, 'name' => $svghandle);
-				$data['html'][] = array('type' => 'inner');
-
-				$data['list'][$svghandle] = array();
-				foreach($svgfiles as $svgfile => $svgpath){
-					$data['list'][$svghandle][] = array(
-						'src'		=> $svgpath,
-						'origsrc'	=> '',
-						'type'		=> 'svg',
-						'group'		=> 'svg',
-						'tags'		=> $svghandle,
-					);
-				}
-			}
-		}
-
-		if(isset($obj['online']) && isset($obj['online']['objects'])){
-			$online = $obj['online']['objects'];
-			if(!empty($online) && is_array($online)){
-				if(isset($obj['online']['tags'])){
-					foreach($obj['online']['tags'] as $t){
-						$data['html'][] = array('type' => 'tag', 'handle' => $t['handle'], 'name' => $t['name']);
-					}
-				}
-				$data['html'][] = array('type' => 'inner');
-
-				$data['list']['png'] = array();
-
-				foreach($online as $online_file){
-					$my_data = $this->_get_object_data($online_file['handle']);
-					$my_tags = array();
-					$group	 = 'image';
-					if($online_file['type'] === '2') $group = 'bgimage';
-					if(isset($online_file['tags']) && !empty($online_file['tags'])){
-						foreach($online_file['tags'] as $t){
-							if(is_array($t) && array_key_exists('handle', $t)){
-								$my_tags[] = $t['handle'];
-							}
-						}
-					}
-					$data['list']['png'][] = array(
-						'src'	 => $my_data['thumb'],
-						'origsrc' => $my_data['orig'],
-						'type'	 => $online_file['type'],
-						'group'	 => $group,
-						'width'	 => $online_file['width'],
-						'height' => $online_file['height'],
-						'tags'	 => implode(',', $my_tags),
-						'name'	 => $online_file['name']
-					);
-				}
-			}
-		}
-
-		return $data;
-	}
-
 
 	/**
 	 * get list of favorites
@@ -1251,7 +1163,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 				
 				if($file){
 					//check all files in download_path and add them to an array list of files
-					$files = list_files($this->download_path, 1);
+					$files = list_files($this->download_path);
 					if(!empty($files)){
 						foreach($files as $file){
 							if(is_dir($file)) continue;

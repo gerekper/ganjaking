@@ -5,7 +5,7 @@
  * @package WP_Smush
  */
 
-use Smush\Core\Core;		 			 		      	  		 
+use Smush\Core\Core;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -50,7 +50,7 @@ if ( ! defined( 'WPINC' ) ) {
 										'utm_medium'   => 'plugin',
 										'utm_campaign' => 'smush_bulksmush_limit_reached_notice',
 									),
-									esc_url( 'https://premium.wpmudev.org/project/wp-smush-pro/' )
+									esc_url( 'https://wpmudev.com/project/wp-smush-pro/' )
 								);
 
 								printf(

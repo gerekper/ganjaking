@@ -135,9 +135,12 @@ class MeprTransaction extends MeprBaseMetaModel implements MeprProductInterface,
     MeprHooks::do_action('mepr_txn_destroy', $this);
     MeprHooks::do_action('mepr_pre_delete_transaction', $this);
     $result = MeprHooks::apply_filters('mepr_delete_transaction', $mepr_db->delete_records($mepr_db->transactions, $args), $args);
+    MeprHooks::do_action('mepr_post_delete_transaction', $id, $user, $result);
+
     if($user && $user->ID > 0) {
       $user->update_member_data(array('txn_count', 'active_txn_count'));
     }
+
     return $result;
   }
 
@@ -1113,7 +1116,7 @@ class MeprTransaction extends MeprBaseMetaModel implements MeprProductInterface,
           $sub = new MeprSubscription($this->rec->subscription_id);
 
           if($sub->trial) {
-            return $sub->trial_amount; // May need to change this to $sub->trial_amount + $sub->trial_tax_amount after tax on trials is fixed
+            return $sub->trial_total;
           }
           else {
             return $sub->total;
@@ -1132,12 +1135,12 @@ class MeprTransaction extends MeprBaseMetaModel implements MeprProductInterface,
         if($this->rec->txn_type == MeprTransaction::$subscription_confirmation_str) {
           $sub = new MeprSubscription($this->rec->subscription_id);
 
-          // if($sub->trial) {
-            // return $sub->trial_tax_amount; // TODO after taxes in trial periods is fixed
-          // }
-          // else {
+           if($sub->trial) {
+             return $sub->trial_tax_amount;
+           }
+           else {
             return $sub->tax_amount;
-          // }
+           }
         }
         else {
           return $this->tax_amount;

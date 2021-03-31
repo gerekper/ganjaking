@@ -29,9 +29,9 @@ jQuery( function( $ ) {
 
     $("#fue-twitter-content").hide();
 
-    $("#post").on("keyup", "#twitter_content", function() {
+    $( '#post' ).on( 'keyup', '#twitter_content', function() {
         fue_twitter_count_characters();
-    });
+    } );
 
     fue_twitter_count_characters();
 

@@ -21,7 +21,7 @@
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 use SkyVerge\WooCommerce\CSV_Import_Suite\Background_Fix_Coupons_Usage_Count;
 
 defined( 'ABSPATH' ) or exit;
@@ -35,7 +35,7 @@ class WC_CSV_Import_Suite extends Framework\SV_WC_Plugin {
 
 
 	/** version number */
-	const VERSION = '3.10.0';
+	const VERSION = '3.10.1';
 
 	/** @var WC_CSV_Import_Suite single instance of this plugin */
 	protected static $instance;

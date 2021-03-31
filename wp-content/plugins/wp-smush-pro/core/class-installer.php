@@ -116,6 +116,12 @@ class Installer {
 				delete_option( WP_SMUSH_PREFIX . 'transparent_png' );
 			}
 
+			if ( version_compare( $version, '3.8.4', '<' ) ) {
+				// Delete the flag to hide a removed tutorial element.
+				delete_option( WP_SMUSH_PREFIX . 'hide_tutorials_from_bulk_smush' );
+				delete_site_option( WP_SMUSH_PREFIX . 'hide_tutorials_from_bulk_smush' );
+			}
+
 			// Create/upgrade directory smush table.
 			self::directory_smush_table();
 

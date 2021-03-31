@@ -1,39 +1,42 @@
 /* mepr custom styles */
 
 .mepr-white-popup {
-  position: relative !important;
-  background: #FFF !important;
-  padding: 20px !important;
-  width: auto !important;
-  max-width: 500px !important;
-  margin: 20px auto !important;
-  text-align: center !important;
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+  text-align: center;
 }
 
 .mepr-white-popup .mepr-btn {
-  -webkit-border-radius: 5 !important;
-  -moz-border-radius: 5 !important;
-  border-radius: 5px !important;
-  font-family: Arial !important;
-  color: #ffffff !important;
-  font-size: 14px !important;
-  background: #3498db !important;
-  padding: 10px 20px 10px 20px !important;
-  text-decoration: none !important;
-  cursor: pointer !important;
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  background: #3498db;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .mepr-white-popup .mepr-btn:hover {
-  background: #3cb0fd !important;
-  text-decoration: none !important;
+  background: #3cb0fd;
+  text-decoration: none;
 }
 
 .mepr-white-popup .mepr-cancel-sub-text {
-  padding-bottom: 20px !important;
+  padding-bottom: 20px;
 }
 
 .mepr-popup-leftalign {
-  text-align: left !important;
+  text-align: left;
 }
 
-
+/* Fix dropdown select field */
+.mepr-upgrade-dropdown {
+  width: 100%;
+}

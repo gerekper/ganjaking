@@ -1,21 +1,81 @@
 # Copyright (C) 2021 Themesquad
-# This file is distributed under the GNU General Public License v3.0.
+# This file is distributed under the same license as the WooCommerce Account Funds plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Account Funds 2.3.9\n"
-"Report-Msgid-Bugs-To: "
-"https://github.com/woocommerce/woocommerce-account-funds/issues\n"
-"POT-Creation-Date: 2021-01-26 14:42:34+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: WooCommerce Account Funds 2.3.10\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-account-funds\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
-"X-Generator: grunt-wp-i18n 1.0.3\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-03-16T16:27:38+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: woocommerce-account-funds\n"
+
+#. Plugin Name of the plugin
+msgid "WooCommerce Account Funds"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://woocommerce.com/products/account-funds/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Allow customers to deposit funds into their accounts and pay with account funds during checkout."
+msgstr ""
+
+#. Author of the plugin
+msgid "Themesquad"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://themesquad.com/"
+msgstr ""
 
 #: includes/admin/class-wc-account-funds-admin-product.php:46
 msgid "Account Funds Deposit"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:65
+msgctxt "aria-label: settings link"
+msgid "View WooCommerce Account Funds settings"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:66
+msgctxt "plugin action link"
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:89
+msgctxt "aria-label: documentation link"
+msgid "View WooCommerce Account Funds documentation"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:90
+msgctxt "plugin row link"
+msgid "Docs"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:95
+msgctxt "aria-label: changelog link"
+msgid "View WooCommerce Account Funds changelog"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:96
+msgctxt "plugin row link"
+msgid "Changelog"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:101
+msgctxt "aria-label: support link"
+msgid "View WooCommerce Account Funds support"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:102
+msgctxt "plugin row link"
+msgid "Support"
 msgstr ""
 
 #: includes/admin/class-wc-account-funds-admin.php:119
@@ -107,15 +167,32 @@ msgid "Partial Funds Payment"
 msgstr ""
 
 #: includes/admin/class-wc-account-funds-admin.php:263
-msgid ""
-"Allow customers to apply available funds and pay the difference via another "
-"gateway."
+msgid "Allow customers to apply available funds and pay the difference via another gateway."
 msgstr ""
 
 #: includes/admin/class-wc-account-funds-admin.php:264
-msgid ""
-"If disabled, users must pay for the entire order using the account funds "
-"payment gateway."
+msgid "If disabled, users must pay for the entire order using the account funds payment gateway."
+msgstr ""
+
+#: includes/admin/notices/update-2-3-7.php:20
+msgctxt "admin notice"
+msgid "WooCommerce Account Funds &#8211; Action required"
+msgstr ""
+
+#: includes/admin/notices/update-2-3-7.php:22
+msgctxt "admin notice"
+msgid "Due to an issue in a previous version of Account Funds, we've detected some orders paid with the <strong>Account Funds</strong> payment gateway in which the funds were not deducted from the customer account properly."
+msgstr ""
+
+#. translators: %s: log URL
+#: includes/admin/notices/update-2-3-7.php:28
+msgctxt "admin notice"
+msgid "See the affected orders <a href=\"%s\">here</a>."
+msgstr ""
+
+#: includes/admin/notices/update-2-3-7.php:35
+msgctxt "admin notice"
+msgid "This update script can automatically deduct the funds from the affected customers' accounts. Alternatively, you can skip the process and update the customers' funds manually."
 msgstr ""
 
 #: includes/admin/notices/update-2-3-7.php:39
@@ -124,6 +201,11 @@ msgstr ""
 
 #: includes/admin/notices/update-2-3-7.php:46
 msgid "Skip the process"
+msgstr ""
+
+#: includes/admin/notices/update-2-3-7.php:53
+msgctxt "admin notice"
+msgid "It is strongly recommended that you backup your database before proceeding. Are you sure you wish to run the updater now?"
 msgstr ""
 
 #: includes/admin/wc-account-funds-admin-functions.php:63
@@ -147,13 +229,13 @@ msgstr ""
 msgid "[Remove]"
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:252
 #. translators: 1: funds available 2: discount
+#: includes/class-wc-account-funds-cart-manager.php:252
 msgid "Use <strong>%1$s</strong> from your funds and get a %2$s discount."
 msgstr ""
 
-#: includes/class-wc-account-funds-cart-manager.php:259
 #. translators: %s: funds available
+#: includes/class-wc-account-funds-cart-manager.php:259
 msgid "Use <strong>%s</strong> from your funds."
 msgstr ""
 
@@ -186,9 +268,7 @@ msgid "%s total deposits in this period"
 msgstr ""
 
 #: includes/class-wc-account-funds-deposits-by-date.php:106
-msgid ""
-"This is the sum of the order totals after any refunds and including "
-"shipping and taxes."
+msgid "This is the sum of the order totals after any refunds and including shipping and taxes."
 msgstr ""
 
 #: includes/class-wc-account-funds-deposits-by-date.php:116
@@ -229,57 +309,51 @@ msgid "Account Funds Increase"
 msgstr ""
 
 #: includes/class-wc-account-funds-email-account-funds-increase.php:41
-msgid ""
-"This email is sent to the customer when account funds are manually "
-"increased."
+msgid "This email is sent to the customer when account funds are manually increased."
 msgstr ""
 
 #: includes/class-wc-account-funds-email-account-funds-increase.php:43
 msgid "Your Account Funds Have Increased"
 msgstr ""
 
-#: includes/class-wc-account-funds-my-account.php:147
 #. translators: %s: minimum Top-Up amount
+#: includes/class-wc-account-funds-my-account.php:147
 msgid "The minimum amount that can be topped up is %s"
 msgstr ""
 
-#: includes/class-wc-account-funds-my-account.php:151
 #. translators: %s: maximum Top-Up amount
+#: includes/class-wc-account-funds-my-account.php:151
 msgid "The maximum amount that can be topped up is %s"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:93
-#: includes/class-wc-account-funds-order-manager.php:117
+#: includes/class-wc-account-funds-order-manager.php:89
+#: includes/class-wc-account-funds-order-manager.php:113
 msgid "Removed %s funds from user #%d"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:163
+#: includes/class-wc-account-funds-order-manager.php:179
 msgid "Restored %s funds to user #%d"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:217
+#: includes/class-wc-account-funds-order-manager.php:233
 msgid "Added %s funds to user #%d"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:243
+#: includes/class-wc-account-funds-order-manager.php:259
 msgid "Funds Used:"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:386
-#: includes/class-wc-account-funds-order-manager.php:413
+#: includes/class-wc-account-funds-order-manager.php:402
+#: includes/class-wc-account-funds-order-manager.php:429
 msgid "Funds Used"
 msgstr ""
 
-#: includes/class-wc-account-funds-order-manager.php:420
+#: includes/class-wc-account-funds-order-manager.php:436
 msgid "Order Total after Funds Used"
 msgstr ""
 
 #: includes/class-wc-account-funds-privacy.php:20
-msgid ""
-"By using this extension, you may be storing personal data or sharing data "
-"with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
-"how this works, including what you may want to include in your privacy "
-"policy.</a>"
+msgid "By using this extension, you may be storing personal data or sharing data with an external service. <a href=\"%s\" target=\"_blank\">Learn more about how this works, including what you may want to include in your privacy policy.</a>"
 msgstr ""
 
 #: includes/class-wc-account-funds-reports.php:23
@@ -290,14 +364,37 @@ msgstr ""
 msgid "Overview"
 msgstr ""
 
+#. translators: 1: Minimum PHP version 2: Current PHP version
+#: includes/class-wc-account-funds-requirements.php:56
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Account Funds</strong> requires PHP %1$s or higher. You are using version %2$s"
+msgstr ""
+
+#. translators: 1: Minimum WordPress version 2: Current WordPress version
+#: includes/class-wc-account-funds-requirements.php:63
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Account Funds</strong> requires WordPress %1$s or higher. You are using version %2$s"
+msgstr ""
+
+#: includes/class-wc-account-funds-requirements.php:68
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Account Funds</strong> requires WooCommerce to be activated to work."
+msgstr ""
+
+#. translators: 1: Minimum WooCommerce version 2: Current WooCommerce version
+#: includes/class-wc-account-funds-requirements.php:72
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Account Funds</strong> requires WooCommerce %1$s or higher. You are using version %2$s"
+msgstr ""
+
 #: includes/class-wc-account-funds-widget.php:15
 #: includes/class-wc-account-funds-widget.php:61
 msgid "My Account Funds"
 msgstr ""
 
+#. translators: %s: account funds amount
 #: includes/class-wc-account-funds-widget.php:37
 #: templates/myaccount/account-funds.php:19
-#. translators: %s: account funds amount
 msgid "You currently have <strong>%s</strong> worth of funds in your account."
 msgstr ""
 
@@ -374,6 +471,11 @@ msgstr ""
 msgid "Account Funds Top-up"
 msgstr ""
 
+#: includes/updates/class-wc-account-funds-updater-2.3.7.php:159
+msgctxt "admin notice"
+msgid "WooCommerce Account Funds update completed."
+msgstr ""
+
 #: templates/emails/customer-account-funds-increase.php:17
 #: templates/emails/plain/customer-account-funds-increase.php:16
 msgid "Your account funds on %1$s have increased from %2$s to %3$s."
@@ -402,8 +504,8 @@ msgstr ""
 msgid "View Cart"
 msgstr ""
 
-#: templates/myaccount/account-funds/topup-in-cart-notice.php:16
 #. translators: %s: Top-up product title
+#: templates/myaccount/account-funds/topup-in-cart-notice.php:16
 msgid "You have \"%s\" in your cart."
 msgstr ""
 
@@ -419,148 +521,16 @@ msgstr ""
 msgid "Top-up Account Funds"
 msgstr ""
 
-#: templates/myaccount/topup-form.php:23
 #. translators: %s: minimum top-up amount
+#: templates/myaccount/topup-form.php:23
 msgid "Minimum: <strong>%s</strong>."
 msgstr ""
 
-#: templates/myaccount/topup-form.php:26
 #. translators: %s: maximum top-up amount
+#: templates/myaccount/topup-form.php:26
 msgid "Maximum: <strong>%s</strong>."
 msgstr ""
 
 #: templates/myaccount/topup-form.php:35
 msgid "Top-up"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce Account Funds"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "https://woocommerce.com/products/account-funds/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"Allow customers to deposit funds into their accounts and pay with account "
-"funds during checkout."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Themesquad"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://themesquad.com/"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:65
-msgctxt "aria-label: settings link"
-msgid "View WooCommerce Account Funds settings"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:66
-msgctxt "plugin action link"
-msgid "Settings"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:89
-msgctxt "aria-label: documentation link"
-msgid "View WooCommerce Account Funds documentation"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:90
-msgctxt "plugin row link"
-msgid "Docs"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:96
-msgctxt "plugin row link"
-msgid "Changelog"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:102
-msgctxt "plugin row link"
-msgid "Support"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:95
-msgctxt "aria-label: changelog link"
-msgid "View WooCommerce Account Funds changelog"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:101
-msgctxt "aria-label: support link"
-msgid "View WooCommerce Account Funds support"
-msgstr ""
-
-#: includes/admin/notices/update-2-3-7.php:20
-msgctxt "admin notice"
-msgid "WooCommerce Account Funds &#8211; Action required"
-msgstr ""
-
-#: includes/admin/notices/update-2-3-7.php:22
-msgctxt "admin notice"
-msgid ""
-"Due to an issue in a previous version of Account Funds, we've detected some "
-"orders paid with the <strong>Account Funds</strong> payment gateway in "
-"which the funds were not deducted from the customer account properly."
-msgstr ""
-
-#: includes/admin/notices/update-2-3-7.php:28
-#. translators: %s: log URL
-msgctxt "admin notice"
-msgid "See the affected orders <a href=\"%s\">here</a>."
-msgstr ""
-
-#: includes/admin/notices/update-2-3-7.php:35
-msgctxt "admin notice"
-msgid ""
-"This update script can automatically deduct the funds from the affected "
-"customers' accounts. Alternatively, you can skip the process and update the "
-"customers' funds manually."
-msgstr ""
-
-#: includes/admin/notices/update-2-3-7.php:53
-msgctxt "admin notice"
-msgid ""
-"It is strongly recommended that you backup your database before proceeding. "
-"Are you sure you wish to run the updater now?"
-msgstr ""
-
-#: includes/class-wc-account-funds-requirements.php:56
-#. translators: 1: Minimum PHP version 2: Current PHP version
-msgctxt "admin notice"
-msgid ""
-"<strong>WooCommerce Account Funds</strong> requires PHP %1$s or higher. You "
-"are using version %2$s"
-msgstr ""
-
-#: includes/class-wc-account-funds-requirements.php:63
-#. translators: 1: Minimum WordPress version 2: Current WordPress version
-msgctxt "admin notice"
-msgid ""
-"<strong>WooCommerce Account Funds</strong> requires WordPress %1$s or "
-"higher. You are using version %2$s"
-msgstr ""
-
-#: includes/class-wc-account-funds-requirements.php:68
-msgctxt "admin notice"
-msgid ""
-"<strong>WooCommerce Account Funds</strong> requires WooCommerce to be "
-"activated to work."
-msgstr ""
-
-#: includes/class-wc-account-funds-requirements.php:72
-#. translators: 1: Minimum WooCommerce version 2: Current WooCommerce version
-msgctxt "admin notice"
-msgid ""
-"<strong>WooCommerce Account Funds</strong> requires WooCommerce %1$s or "
-"higher. You are using version %2$s"
-msgstr ""
-
-#: includes/updates/class-wc-account-funds-updater-2.3.7.php:159
-msgctxt "admin notice"
-msgid "WooCommerce Account Funds update completed."
 msgstr ""

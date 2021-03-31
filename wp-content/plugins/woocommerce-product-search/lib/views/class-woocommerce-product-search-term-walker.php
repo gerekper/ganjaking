@@ -253,7 +253,7 @@ class WooCommerce_Product_Search_Term_Walker extends Walker {
 	 *
 	 * @see Walker::display_element()
 	 */
-	public function display_element( $element, &$children_elements, $max_depth, $depth = 0, $args, &$output ) {
+	public function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
 
 		if ( ! ( ! $element || ( 0 === $element->count && ! empty( $args[0]['hide_empty'] ) ) ) ) {
 			parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );

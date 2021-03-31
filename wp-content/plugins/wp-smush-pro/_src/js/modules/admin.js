@@ -574,6 +574,15 @@ jQuery( function( $ ) {
 	} );
 
 	/**
+	 * Handles the tabs navigation on mobile.
+	 *
+	 * @since 3.8.4
+	 */
+	$('.sui-mobile-nav').on('change', (e) => {
+		window.location.assign($(e.currentTarget).val());
+	});
+
+	/**
 	 * Handle re-check api status button click (Settings)
 	 *
 	 * @since 3.2.0.2
@@ -1045,12 +1054,12 @@ jQuery( function( $ ) {
 			'undefined' !== typeof e.target.dataset.type &&
 			'nextgen' === e.target.dataset.type
 		) {
-			$( '.wp-smush-nextgen-bulk' ).click();
+			$('.wp-smush-nextgen-bulk').trigger('click');
 		} else {
-			$( '.wp-smush-all' ).click();
+			$('.wp-smush-all').trigger('click');
 		}
 
-		$( 'span.sui-notice-dismiss' ).click();
+		$( 'span.sui-notice-dismiss' ).trigger('click');
 	} );
 
 	//Trigger Bulk
@@ -1063,14 +1072,14 @@ jQuery( function( $ ) {
 	} );
 
 	//Allow the checkboxes to be Keyboard Accessible
-	$( '.wp-smush-setting-row .toggle-checkbox' ).focus( function() {
+	$( '.wp-smush-setting-row .toggle-checkbox' ).on( 'focus', function() {
 		//If Space is pressed
 		$( this ).keypress( function( e ) {
 			if ( e.keyCode == 32 ) {
 				e.preventDefault();
 				$( this )
 					.find( '.toggle-checkbox' )
-					.click();
+					.trigger('click');
 			}
 		} );
 	} );
@@ -1122,7 +1131,7 @@ jQuery( function( $ ) {
 	} );
 
 	// Handle PNG to JPG Checkbox toggle, to show/hide Transparent image conversion settings.
-	$( '#wp-smush-png_to_jpg' ).click( function() {
+	$( '#wp-smush-png_to_jpg' ).on( 'click', function() {
 		const self = $( this );
 		const settings_wrap = $( '.wp-smush-png_to_jpg-wrap' );
 

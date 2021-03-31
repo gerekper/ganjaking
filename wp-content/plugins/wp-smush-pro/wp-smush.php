@@ -3,19 +3,19 @@
  * WP Smush plugin
  *
  * Reduce image file sizes, improve performance and boost your SEO using the
- * <a href="https://premium.wpmudev.org/">WPMU DEV</a> WordPress Smush API.
+ * <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
  *
- * @link              http://premium.wpmudev.org/project/wp-smush-pro/
+ * @link              http://wpmudev.com/project/wp-smush-pro/
  * @since             1.0.0
  * @package           WP_Smush
  *
  * @wordpress-plugin
  * Plugin Name:       Smush Pro
- * Plugin URI:        http://premium.wpmudev.org/project/wp-smush-pro/
- * Description:       Reduce image file sizes, improve performance and boost your SEO using the <a href="https://premium.wpmudev.org/">WPMU DEV</a> WordPress Smush API.
- * Version:           3.8.3
+ * Plugin URI:        http://wpmudev.com/project/wp-smush-pro/
+ * Description:       Reduce image file sizes, improve performance and boost your SEO using the <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
+ * Version:           3.8.4
  * Author:            WPMU DEV
- * Author URI:        https://premium.wpmudev.org/
+ * Author URI:        https://wpmudev.com/
  * License:           GPLv2
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       wp-smushit
@@ -47,11 +47,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! defined( 'WP_SMUSH_VERSION' ) ) {
-	define( 'WP_SMUSH_VERSION', '3.8.3' );
+	define( 'WP_SMUSH_VERSION', '3.8.4' );
 }
 // Used to define body class.
 if ( ! defined( 'WP_SHARED_UI_VERSION' ) ) {
-	define( 'WP_SHARED_UI_VERSION', 'sui-2-10-3' );
+	define( 'WP_SHARED_UI_VERSION', 'sui-2-10-5' );
 }
 if ( ! defined( 'WP_SMUSH_BASENAME' ) ) {
 	define( 'WP_SMUSH_BASENAME', plugin_basename( __FILE__ ) );
@@ -322,7 +322,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 * @return bool
 		 */
 		public static function is_pro() {
-			return true;
+			return self::$is_pro;
 		}
 
 		/**
@@ -447,7 +447,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 			$api_key = self::get_api_key();
 
 			if ( empty( $api_key ) ) {
-				return true;
+				return;
 			}
 
 			// Flag to check if we need to revalidate the key.
@@ -512,8 +512,6 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 			}
 
 			self::$is_pro = isset( $valid ) && 'valid' === $valid;
-
-			return true;
 		}
 
 		/**
@@ -522,17 +520,17 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 * @return mixed
 		 */
 		private static function get_api_key() {
-			$api_key = '******************';
+			$api_key = false;
 
 			// If API key defined manually, get that.
 			if ( defined( 'WPMUDEV_APIKEY' ) && WPMUDEV_APIKEY ) {
 				$api_key = WPMUDEV_APIKEY;
 			} elseif ( class_exists( 'WPMUDEV_Dashboard' ) ) {
 				// If dashboard plugin is active, get API key from db.
-				$api_key = '******************';
+				$api_key = get_site_option( 'wpmudev_apikey' );
 			}
 
-			return true;
+			return $api_key;
 		}
 
 	}

@@ -23,7 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Checkout_Add_Ons\Integrations;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

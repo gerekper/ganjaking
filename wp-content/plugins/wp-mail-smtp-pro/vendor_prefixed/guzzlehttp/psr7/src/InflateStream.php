@@ -13,6 +13,8 @@ use WPMailSMTP\Vendor\Psr\Http\Message\StreamInterface;
  *
  * @link http://tools.ietf.org/html/rfc1952
  * @link http://php.net/manual/en/filters.compression.php
+ *
+ * @final
  */
 class InflateStream implements \WPMailSMTP\Vendor\Psr\Http\Message\StreamInterface
 {
@@ -31,6 +33,7 @@ class InflateStream implements \WPMailSMTP\Vendor\Psr\Http\Message\StreamInterfa
     /**
      * @param StreamInterface $stream
      * @param $header
+     *
      * @return int
      */
     private function getLengthOfPossibleFilenameHeader(\WPMailSMTP\Vendor\Psr\Http\Message\StreamInterface $stream, $header)

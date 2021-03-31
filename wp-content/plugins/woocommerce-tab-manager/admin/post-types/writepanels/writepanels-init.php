@@ -29,7 +29,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 /** Product data Tab panel */
 include_once( wc_tab_manager()->get_plugin_path() . '/admin/post-types/writepanels/writepanel-product_data-tabs.php' );

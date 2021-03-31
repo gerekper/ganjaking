@@ -7,6 +7,7 @@ class MeprUserRoles  {
   public function __construct() {
     add_action('mepr-txn-store',                array($this, 'process_status_changes'));
     add_action('mepr-txn-expired',              array($this, 'process_status_changes'), 10, 2);
+    add_action('mepr_post_delete_transaction',  array($this, 'process_destroy_txn'), 10, 3);
     add_action('mepr-product-advanced-metabox', array($this, 'display_product_override'));
     add_action('mepr-product-save-meta',        array($this, 'save_product_override'));
     add_action('profile_update',                array($this, 'process_profile_update'), 10, 2);
@@ -32,6 +33,12 @@ class MeprUserRoles  {
 
       $this->set_users_roles($wp_user);
     }
+  }
+
+  public function process_destroy_txn($id, $user, $result) {
+    $txn = new MeprTransaction(); // Temp txn object to pass to process_status_changes
+    $txn->user_id = $user->ID;
+    $this->process_status_changes($txn);
   }
 
   public function process_status_changes($obj, $sub_status = false) {

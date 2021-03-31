@@ -46,6 +46,9 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
         $this->region = $region;
         $this->unsigned = isset($options['unsigned-body']) ? $options['unsigned-body'] : \false;
     }
+    /**
+     * {@inheritdoc}
+     */
     public function signRequest(\WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request, \WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface $credentials)
     {
         $ldt = \gmdate(self::ISO8601_BASIC);
@@ -86,6 +89,9 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
         }
         return $presignHeaders;
     }
+    /**
+     * {@inheritdoc}
+     */
     public function presign(\WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request, \WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface $credentials, $expires, array $options = [])
     {
         $startTimestamp = isset($options['start_time']) ? $this->convertToTimestamp($options['start_time'], null) : \time();

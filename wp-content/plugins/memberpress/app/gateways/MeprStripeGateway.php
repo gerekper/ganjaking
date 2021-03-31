@@ -9,6 +9,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     $this->name = __("Stripe", 'memberpress');
     $this->icon = MEPR_IMAGES_URL . '/checkout/cards.png';
     $this->desc = __('Pay with your credit card via Stripe', 'memberpress');
+    $this->key = __('stripe', 'memberpress');
     $this->set_defaults();
     $this->has_spc_form = true;
 
@@ -120,7 +121,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     $customer_id = $this->get_customer_id($usr, $payment_method_id);
 
     // Handle zero decimal currencies in Stripe
-    $amount = (MeprUtils::is_zero_decimal_currency())?MeprUtils::format_float(($txn->total), 0):MeprUtils::format_float(($txn->total * 100), 0);
+    $amount = (self::is_zero_decimal_currency())?MeprUtils::format_float(($txn->total), 0):MeprUtils::format_float(($txn->total * 100), 0);
 
     // Create the PaymentIntent on Stripe's servers - if it succeeds the user's card will be charged
     $args = MeprHooks::apply_filters('mepr_stripe_payment_intent_args', array(
@@ -225,7 +226,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     $mepr_options = MeprOptions::fetch();
 
     //Handle zero decimal currencies in Stripe
-    $amount = (MeprUtils::is_zero_decimal_currency())?MeprUtils::format_float(($txn->total), 0):MeprUtils::format_float(($txn->total * 100), 0);
+    $amount = (self::is_zero_decimal_currency())?MeprUtils::format_float(($txn->total), 0):MeprUtils::format_float(($txn->total * 100), 0);
 
     // create the charge on Stripe's servers - this will charge the user's card
     $args = MeprHooks::apply_filters('mepr_stripe_payment_args', array(
@@ -310,9 +311,6 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       //If this isn't for us, bail
       if($sub->gateway != $this->id) { return false; }
 
-      // Needs to be here to get around some funky GoDaddy caching issue
-      $sub->subscr_id = $subscr_id;
-
       $first_txn = $sub->first_txn();
 
       if($first_txn == false || !($first_txn instanceof MeprTransaction)) {
@@ -348,7 +346,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
         }
       }
 
-      if(MeprUtils::is_zero_decimal_currency()) {
+      if(self::is_zero_decimal_currency()) {
         $txn->set_gross((float)$charge->amount);
       }
       else {
@@ -356,6 +354,12 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       }
 
       $txn->store();
+
+      // Reload the subscription in case it was modified while storing the transaction
+      $sub = new MeprSubscription($sub->id);
+
+      // Needs to be here to get around some funky GoDaddy caching issue
+      $sub->subscr_id = $subscr_id;
 
       $this->email_status( "record_subscription_payment:" .
         "\nSubscription: " . MeprUtils::object_to_string($sub) .
@@ -568,7 +572,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
           $txn->trans_num = $charge->id;
           $txn->gateway = $this->id;
 
-          if(MeprUtils::is_zero_decimal_currency()) {
+          if(self::is_zero_decimal_currency()) {
             $txn->set_gross((float)$charge->amount);
           }
           else {
@@ -811,7 +815,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       $tmp_txn->user_id = $usr->ID;
       $tmp_txn->set_subtotal($sub->trial_amount);
 
-      $amount = MeprUtils::is_zero_decimal_currency() ? MeprUtils::format_float($tmp_txn->amount, 0) : MeprUtils::format_float($tmp_txn->amount * 100, 0);
+      $amount = self::is_zero_decimal_currency() ? MeprUtils::format_float($tmp_txn->amount, 0) : MeprUtils::format_float($tmp_txn->amount * 100, 0);
 
       // For paid trials, add the trial payment amount as an invoice item before creating the subscription
       $args = MeprHooks::apply_filters('mepr_stripe_paid_trial_invoice_args', [
@@ -1141,6 +1145,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       $prd = $sub->product();
 
       $customer_id = $usr->get_stripe_customer_id($this->get_meta_gateway_id());
+      $prd->price = $sub->price;
 
       if(is_string($customer_id) && strpos($customer_id, 'cus_') === 0) {
         $customer = $this->retrieve_customer($customer_id);
@@ -1383,6 +1388,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     wp_localize_script('mepr-stripe-form', 'MeprStripeGateway', array(
       'style' => $this->get_element_style(),
       'ajax_url' => admin_url('admin-ajax.php'),
+      'hide_postal_code' =>  intval(MeprHooks::apply_filters('mepr-stripe-form-hide-postal-code', false)),
       'ajax_error' => __('An error occurred, please DO NOT submit the form again as you may be double charged. Please contact us for further assistance instead.', 'memberpress'),
       'invalid_response_error' => __('The response from the server was invalid', 'memberpress'),
       'error_please_try_again' => __('An error occurred, please try again', 'memberpress'),
@@ -1470,10 +1476,10 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     $mepr_options = MeprOptions::fetch();
     $user         = $txn->user();
     $prd          = $txn->product();
-    $amount       = (MeprUtils::is_zero_decimal_currency())?MeprUtils::format_float(($txn->total), 0):MeprUtils::format_float(($txn->total * 100), 0);
+    $amount       = (self::is_zero_decimal_currency())?MeprUtils::format_float(($txn->total), 0):MeprUtils::format_float(($txn->total * 100), 0);
     //Adjust for trial periods/coupons
     if(($sub = $txn->subscription()) && $sub->trial) {
-      $amount = (MeprUtils::is_zero_decimal_currency())?MeprUtils::format_float(($sub->trial_amount), 0):MeprUtils::format_float(($sub->trial_amount * 100), 0);
+      $amount = (self::is_zero_decimal_currency())?MeprUtils::format_float(($sub->trial_amount), 0):MeprUtils::format_float(($sub->trial_amount * 100), 0);
     }
     ?>
       <form action="" method="POST">
@@ -1988,7 +1994,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       $new_plan_id = $this->create_new_plan_id($sub);
 
       //Handle zero decimal currencies in Stripe
-      $amount = (MeprUtils::is_zero_decimal_currency())?MeprUtils::format_float(($sub->price), 0):MeprUtils::format_float(($sub->price * 100), 0);
+      $amount = (self::is_zero_decimal_currency())?MeprUtils::format_float(($sub->price), 0):MeprUtils::format_float(($sub->price * 100), 0);
 
       $args = MeprHooks::apply_filters('mepr_stripe_create_plan_args', array(
         'amount' => $amount,
@@ -2630,7 +2636,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     $txn->set_subtotal($prd->price);
 
     // Handle zero decimal currencies in Stripe
-    $amount = MeprUtils::is_zero_decimal_currency() ? MeprUtils::format_float($txn->amount, 0) : MeprUtils::format_float(($txn->amount * 100), 0);
+    $amount = self::is_zero_decimal_currency() ? MeprUtils::format_float($txn->amount, 0) : MeprUtils::format_float(($txn->amount * 100), 0);
 
     $plan_id = $prd->get_stripe_plan_id($this->get_meta_gateway_id(), $amount);
 
@@ -2739,7 +2745,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       $tmp_txn->user_id = $usr->ID;
       $tmp_txn->set_subtotal($sub->trial_amount);
 
-      $amount = MeprUtils::is_zero_decimal_currency() ? MeprUtils::format_float($tmp_txn->amount, 0) : MeprUtils::format_float($tmp_txn->amount * 100, 0);
+      $amount = self::is_zero_decimal_currency() ? MeprUtils::format_float($tmp_txn->amount, 0) : MeprUtils::format_float($tmp_txn->amount * 100, 0);
 
       // For paid trials, add the trial payment amount as an invoice item before creating the subscription
       $args = MeprHooks::apply_filters('mepr_stripe_paid_trial_invoice_args', [
@@ -2822,7 +2828,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
           $discount_amount = $discount_amount / (1 + ($tax_rate / 100));
         }
 
-        $discount_amount = MeprUtils::is_zero_decimal_currency() ? MeprUtils::format_float($discount_amount, 0) : MeprUtils::format_float($discount_amount * 100, 0);
+        $discount_amount = self::is_zero_decimal_currency() ? MeprUtils::format_float($discount_amount, 0) : MeprUtils::format_float($discount_amount * 100, 0);
       }
 
       if($discount_amount > 0) {
@@ -2936,7 +2942,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
    *
    * @return string
    */
-  private function get_meta_gateway_id() {
+  public function get_meta_gateway_id() {
     $key = $this->id;
 
     if($this->is_test_mode()) {
@@ -2944,5 +2950,22 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     }
 
     return $key;
+  }
+
+  /**
+   * Is the currency a zero-decimal currency?
+   *
+   * 'HUF' is a special case for Stripe - it's a zero-decimal currency that must be multiplied by 100.
+   *
+   * @return bool
+   */
+  public static function is_zero_decimal_currency() {
+    $mepr_options = MeprOptions::fetch();
+
+    if($mepr_options->currency_code == 'HUF') {
+      return false;
+    }
+
+    return MeprUtils::is_zero_decimal_currency();
   }
 }

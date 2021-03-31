@@ -82,7 +82,7 @@ class ListsApi
      * Add existing contacts to a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses of the contacts (required)
+     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -99,7 +99,7 @@ class ListsApi
      * Add existing contacts to a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses of the contacts (required)
+     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -155,7 +155,7 @@ class ListsApi
      * Add existing contacts to a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses of the contacts (required)
+     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -172,7 +172,7 @@ class ListsApi
      * Add existing contacts to a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses of the contacts (required)
+     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -203,7 +203,7 @@ class ListsApi
      * Create request for operation 'addContactToList'
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses of the contacts (required)
+     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -658,14 +658,15 @@ class ListsApi
      * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \SendinBlue\Client\Model\GetContacts
      */
-    public function getContactsFromList($listId, $modifiedSince = null, $limit = '50', $offset = '0')
+    public function getContactsFromList($listId, $modifiedSince = null, $limit = '50', $offset = '0', $sort = 'desc')
     {
-        list($response) = $this->getContactsFromListWithHttpInfo($listId, $modifiedSince, $limit, $offset);
+        list($response) = $this->getContactsFromListWithHttpInfo($listId, $modifiedSince, $limit, $offset, $sort);
         return $response;
     }
     /**
@@ -677,15 +678,16 @@ class ListsApi
      * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \SendinBlue\Client\Model\GetContacts, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getContactsFromListWithHttpInfo($listId, $modifiedSince = null, $limit = '50', $offset = '0')
+    public function getContactsFromListWithHttpInfo($listId, $modifiedSince = null, $limit = '50', $offset = '0', $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetContacts';
-        $request = $this->getContactsFromListRequest($listId, $modifiedSince, $limit, $offset);
+        $request = $this->getContactsFromListRequest($listId, $modifiedSince, $limit, $offset, $sort);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -735,13 +737,14 @@ class ListsApi
      * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContactsFromListAsync($listId, $modifiedSince = null, $limit = '50', $offset = '0')
+    public function getContactsFromListAsync($listId, $modifiedSince = null, $limit = '50', $offset = '0', $sort = 'desc')
     {
-        return $this->getContactsFromListAsyncWithHttpInfo($listId, $modifiedSince, $limit, $offset)->then(function ($response) {
+        return $this->getContactsFromListAsyncWithHttpInfo($listId, $modifiedSince, $limit, $offset, $sort)->then(function ($response) {
             return $response[0];
         });
     }
@@ -754,14 +757,15 @@ class ListsApi
      * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContactsFromListAsyncWithHttpInfo($listId, $modifiedSince = null, $limit = '50', $offset = '0')
+    public function getContactsFromListAsyncWithHttpInfo($listId, $modifiedSince = null, $limit = '50', $offset = '0', $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetContacts';
-        $request = $this->getContactsFromListRequest($listId, $modifiedSince, $limit, $offset);
+        $request = $this->getContactsFromListRequest($listId, $modifiedSince, $limit, $offset, $sort);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use($returnType) {
             $responseBody = $response->getBody();
             if ($returnType === '\\SplFileObject') {
@@ -787,11 +791,12 @@ class ListsApi
      * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getContactsFromListRequest($listId, $modifiedSince = null, $limit = '50', $offset = '0')
+    protected function getContactsFromListRequest($listId, $modifiedSince = null, $limit = '50', $offset = '0', $sort = 'desc')
     {
         // verify the required parameter 'listId' is set
         if ($listId === null || \is_array($listId) && \count($listId) === 0) {
@@ -817,6 +822,10 @@ class ListsApi
         // query params
         if ($offset !== null) {
             $queryParams['offset'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($offset);
+        }
+        // query params
+        if ($sort !== null) {
+            $queryParams['sort'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($sort);
         }
         // path params
         if ($listId !== null) {
@@ -884,14 +893,15 @@ class ListsApi
      * @param  int $folderId Id of the folder (required)
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \SendinBlue\Client\Model\GetFolderLists
      */
-    public function getFolderLists($folderId, $limit = '10', $offset = '0')
+    public function getFolderLists($folderId, $limit = '10', $offset = '0', $sort = 'desc')
     {
-        list($response) = $this->getFolderListsWithHttpInfo($folderId, $limit, $offset);
+        list($response) = $this->getFolderListsWithHttpInfo($folderId, $limit, $offset, $sort);
         return $response;
     }
     /**
@@ -902,15 +912,16 @@ class ListsApi
      * @param  int $folderId Id of the folder (required)
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \SendinBlue\Client\Model\GetFolderLists, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFolderListsWithHttpInfo($folderId, $limit = '10', $offset = '0')
+    public function getFolderListsWithHttpInfo($folderId, $limit = '10', $offset = '0', $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetFolderLists';
-        $request = $this->getFolderListsRequest($folderId, $limit, $offset);
+        $request = $this->getFolderListsRequest($folderId, $limit, $offset, $sort);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -959,13 +970,14 @@ class ListsApi
      * @param  int $folderId Id of the folder (required)
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFolderListsAsync($folderId, $limit = '10', $offset = '0')
+    public function getFolderListsAsync($folderId, $limit = '10', $offset = '0', $sort = 'desc')
     {
-        return $this->getFolderListsAsyncWithHttpInfo($folderId, $limit, $offset)->then(function ($response) {
+        return $this->getFolderListsAsyncWithHttpInfo($folderId, $limit, $offset, $sort)->then(function ($response) {
             return $response[0];
         });
     }
@@ -977,14 +989,15 @@ class ListsApi
      * @param  int $folderId Id of the folder (required)
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFolderListsAsyncWithHttpInfo($folderId, $limit = '10', $offset = '0')
+    public function getFolderListsAsyncWithHttpInfo($folderId, $limit = '10', $offset = '0', $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetFolderLists';
-        $request = $this->getFolderListsRequest($folderId, $limit, $offset);
+        $request = $this->getFolderListsRequest($folderId, $limit, $offset, $sort);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use($returnType) {
             $responseBody = $response->getBody();
             if ($returnType === '\\SplFileObject') {
@@ -1009,11 +1022,12 @@ class ListsApi
      * @param  int $folderId Id of the folder (required)
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFolderListsRequest($folderId, $limit = '10', $offset = '0')
+    protected function getFolderListsRequest($folderId, $limit = '10', $offset = '0', $sort = 'desc')
     {
         // verify the required parameter 'folderId' is set
         if ($folderId === null || \is_array($folderId) && \count($folderId) === 0) {
@@ -1035,6 +1049,10 @@ class ListsApi
         // query params
         if ($offset !== null) {
             $queryParams['offset'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($offset);
+        }
+        // query params
+        if ($sort !== null) {
+            $queryParams['sort'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($sort);
         }
         // path params
         if ($folderId !== null) {
@@ -1298,14 +1316,15 @@ class ListsApi
      *
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \SendinBlue\Client\Model\GetLists
      */
-    public function getLists($limit = '10', $offset = '0')
+    public function getLists($limit = '10', $offset = '0', $sort = 'desc')
     {
-        list($response) = $this->getListsWithHttpInfo($limit, $offset);
+        list($response) = $this->getListsWithHttpInfo($limit, $offset, $sort);
         return $response;
     }
     /**
@@ -1315,15 +1334,16 @@ class ListsApi
      *
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \SendinBlue\Client\Model\GetLists, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getListsWithHttpInfo($limit = '10', $offset = '0')
+    public function getListsWithHttpInfo($limit = '10', $offset = '0', $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetLists';
-        $request = $this->getListsRequest($limit, $offset);
+        $request = $this->getListsRequest($limit, $offset, $sort);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -1367,13 +1387,14 @@ class ListsApi
      *
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getListsAsync($limit = '10', $offset = '0')
+    public function getListsAsync($limit = '10', $offset = '0', $sort = 'desc')
     {
-        return $this->getListsAsyncWithHttpInfo($limit, $offset)->then(function ($response) {
+        return $this->getListsAsyncWithHttpInfo($limit, $offset, $sort)->then(function ($response) {
             return $response[0];
         });
     }
@@ -1384,14 +1405,15 @@ class ListsApi
      *
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getListsAsyncWithHttpInfo($limit = '10', $offset = '0')
+    public function getListsAsyncWithHttpInfo($limit = '10', $offset = '0', $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetLists';
-        $request = $this->getListsRequest($limit, $offset);
+        $request = $this->getListsRequest($limit, $offset, $sort);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use($returnType) {
             $responseBody = $response->getBody();
             if ($returnType === '\\SplFileObject') {
@@ -1415,11 +1437,12 @@ class ListsApi
      *
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getListsRequest($limit = '10', $offset = '0')
+    protected function getListsRequest($limit = '10', $offset = '0', $sort = 'desc')
     {
         if ($limit !== null && $limit > 50) {
             throw new \InvalidArgumentException('invalid value for "$limit" when calling ListsApi.getLists, must be smaller than or equal to 50.');
@@ -1437,6 +1460,10 @@ class ListsApi
         // query params
         if ($offset !== null) {
             $queryParams['offset'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($offset);
+        }
+        // query params
+        if ($sort !== null) {
+            $queryParams['sort'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($sort);
         }
         // body params
         $_tempBody = null;
@@ -1498,7 +1525,7 @@ class ListsApi
      * Delete a contact from a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails adresses of the contact (required)
+     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -1515,7 +1542,7 @@ class ListsApi
      * Delete a contact from a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails adresses of the contact (required)
+     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -1571,7 +1598,7 @@ class ListsApi
      * Delete a contact from a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails adresses of the contact (required)
+     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -1588,7 +1615,7 @@ class ListsApi
      * Delete a contact from a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails adresses of the contact (required)
+     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -1619,7 +1646,7 @@ class ListsApi
      * Create request for operation 'removeContactFromList'
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails adresses of the contact (required)
+     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request

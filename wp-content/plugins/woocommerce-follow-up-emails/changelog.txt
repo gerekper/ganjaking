@@ -1,5 +1,9 @@
 *** WooCommerce Follow-Up Emails ***
 
+2021-03-17 - version 4.9.13
+* Fix - Preserve Google Analytics UTM url params in cart links when not logged in.
+* Fix - Remove deprecated jQuery functions.
+
 2021-02-23 - version 4.9.12
 * Fix - Add tracking pixel after wrapping email headers.
 * Fix - Convert to UTF8 before decoding HTML.

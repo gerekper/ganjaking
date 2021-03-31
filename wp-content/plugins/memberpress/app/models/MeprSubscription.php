@@ -40,6 +40,8 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
         'trial'               => false,
         'trial_days'          => 0,
         'trial_amount'        => 0.00,
+        'trial_tax_amount'    => 0.00,
+        'trial_total'         => 0.00,
         'status'              => MeprSubscription::$pending_str,
         'created_at'          => null,
         'total'               => 0.00,
@@ -84,6 +86,8 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
     if($this->trial) {
       $this->validate_is_numeric($this->trial_days, 0.00, null, 'trial_days');
       $this->validate_is_currency($this->trial_amount, 0.00, null, 'trial_amount');
+      $this->validate_is_currency($this->trial_tax_amount, 0.00, null, 'trial_tax_amount');
+      $this->validate_is_currency($this->trial_total, 0.00, null, 'trial_total');
     }
 
     $this->validate_is_in_array($this->status, $this->statuses, 'status');
@@ -95,7 +99,10 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
     //$this->validate_not_empty($this->tax_desc, 'tax_desc');
     $this->validate_not_empty($this->tax_class, 'tax_class');
 
-    if(!empty($this->cc_last4)) { $this->validate_regex('/^\d{4}$/', trim($this->cc_last4), 'cc_last4'); }
+    if(!empty($this->cc_last4)) {
+      $this->cc_last4 = str_pad(trim($this->cc_last4), 4, '0', STR_PAD_LEFT);
+      $this->validate_regex('/^\d{4}$/', $this->cc_last4, 'cc_last4');
+    }
     if(!empty($this->cc_exp_month)) { $this->validate_regex('/^\d{2}$/', trim($this->cc_exp_month), 'cc_exp_month'); }
     if(!empty($this->cc_exp_year)) { $this->validate_regex('/^\d{2}(\d{2})?$/', $this->cc_exp_year, 'cc_exp_year'); }
   }
@@ -697,6 +704,8 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
     if( $en('trial',         $encols) ) { $cols['trial'] = $wpdb->prepare('%d',0); }
     if( $en('trial_days',    $encols) ) { $cols['trial_days'] = $wpdb->prepare('%d',0); }
     if( $en('trial_amount',  $encols) ) { $cols['trial_amount'] = $wpdb->prepare('%f',0.00); }
+    if( $en('trial_tax_amount',  $encols) ) { $cols['trial_tax_amount'] = $wpdb->prepare('%f',0.00); }
+    if( $en('trial_total',  $encols) ) { $cols['trial_total'] = $wpdb->prepare('%f',0.00); }
     if( $en('status',        $encols) ) { $cols['status'] = $wpdb->prepare('%s',__('None','memberpress')); }
     if( $en('created_at',    $encols) ) { $cols['created_at'] = 'txn.created_at'; }
     if( $en('active',$encols) ) {
@@ -1558,12 +1567,21 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
     // Now try to calculate tax info from the user info
     if($prd->tax_exempt) {
       list($this->price, $this->total, $this->tax_rate, $this->tax_amount, $this->tax_desc, $this->tax_class) = array($gross, $gross, 0.00, 0.00, '', 'standard');
+      if ( $this->trial ) {
+        $this->trial_total = $this->trial_amount;
+      }
     }
     elseif($calculate_taxes && !$prd->tax_exempt && ($usr->ID != 0 || ((int)$usr->ID == 0 && $mepr_options->attr('tax_calc_location') == 'merchant'))) {
       list($this->price, $this->total, $this->tax_rate, $this->tax_amount, $this->tax_desc, $this->tax_class) = $usr->calculate_tax($subtotal, $num_decimals, $prd->ID);
+      if ( $this->trial ) {
+        $this->set_trial_taxes( $this->trial_amount, $num_decimals );
+      }
     }
     elseif($calculate_taxes && 0 == absint($usr->ID)) { // Enables VAT calc for SPC Invoice
       list($this->price, $this->total, $this->tax_rate, $this->tax_amount, $this->tax_desc, $this->tax_class) = $usr->calculate_tax($subtotal, $num_decimals);
+      if ( $this->trial ) {
+        $this->set_trial_taxes( $this->trial_amount, $num_decimals );
+      }
     }
     else { // If all else fails, let's blank out the tax info
       list($this->price, $this->total, $this->tax_rate, $this->tax_amount, $this->tax_desc, $this->tax_class) = array($subtotal, $subtotal, 0.00, 0.00, '', 'standard');
@@ -1584,6 +1602,30 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
     }
 
     $this->apply_tax($subtotal, 2, $subtotal);
+  }
+
+  public function set_trial_taxes( $trial_amount, $num_decimals = 2 ) {
+
+    $mepr_options = MeprOptions::fetch();
+
+    $usr = $this->user();
+
+    if ( $mepr_options->attr( 'tax_calc_type' ) == 'inclusive' ) {
+
+      $usr = $this->user();
+
+      $subtotal = $usr->calculate_subtotal( $this->trial_amount, null, 2, $this->product() );
+      $trial_taxes = $usr->calculate_tax( $subtotal, $num_decimals );
+      $trial_total = $this->trial_amount;
+
+    } else {
+
+      $trial_taxes = $usr->calculate_tax( $this->trial_amount, $num_decimals );
+      $trial_total = $trial_taxes[1];
+    }
+
+    $this->trial_tax_amount = $trial_taxes[3];
+    $this->trial_total = $trial_total;
   }
 
   /** Sets up the transaction total, subtotal and tax based on a gross value.
@@ -1696,7 +1738,7 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
              ) " .
           // If there's a lifetime and an expires at, favor the lifetime
           "
-            ORDER BY t.expires_at
+            ORDER BY t.expires_at, t.status ASC
             LIMIT 1
           ",
           $this->rec->id,

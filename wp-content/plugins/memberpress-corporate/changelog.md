@@ -1,5 +1,74 @@
 # Changelog
 
+## [1.5.15](https://github.com/caseproof/memberpress-corporate/releases/tag/1.5.15) - 2020-10-21
+
+### Changed
+
+- Replace error_log calls with MeprUtils
+
+## [1.5.14](https://github.com/caseproof/memberpress-corporate/releases/tag/1.5.14) - 2020-10-07
+
+### Added
+
+- Add 'mpca-find-by-uui' hook
+
+## [1.5.12](https://github.com/caseproof/memberpress-corporate/releases/tag/1.5.12) - 2020-09-10
+
+### Fixed
+
+- Prevent xss attack
+
+## [1.5.11](https://github.com/caseproof/memberpress-corporate/releases/tag/1.5.11) - 2020-08-28
+
+### Fixed
+
+- Do not send disabled emails
+- Block parent Corporate user from being able to add themselves as a sub account
+
+## [1.5.10](https://github.com/caseproof/memberpress-corporate/releases/tag/1.5.10) - 2020-08-12
+
+### Added
+
+- Add corporate name in welcome email
+
+### Fixed
+
+- Correct logic to get corporate user
+
+## [1.5.9](https://github.com/caseproof/memberpress-corporate/releases/tag/1.5.9) - 2020-04-22
+
+### Fixed
+
+- Fix a display issue with the sub accounts table
+
+## [1.5.8](https://github.com/caseproof/memberpress-corporate/releases/tag/1.5.8) - 2020-03-24
+
+### Added
+
+- Add ability to hide email address in error message
+- Make confirming message translatable
+
+## [1.5.7](https://github.com/caseproof/memberpress-corporate/releases/tag/1.5.7) - 2020-01-22
+
+### Fixed
+
+- Block parent from adding child account
+
+### Changed
+
+- Hide corporate account option if sub-account
+- Remove MeprHooks calls
+
+## [1.5.6](https://github.com/caseproof/memberpress-corporate/releases/tag/1.5.6) - 2019-10-19
+
+### Fixed
+
+- Fix notice errors on the manage sub accounts page
+
+### Added
+
+- Support Loco Translate
+
 ## [1.4.9](https://github.com/caseproof/memberpress-corporate/releases/tag/1.4.9) - 2018-10-09
 
 Updates the copy-to-clipboard functionality and removes dependency from

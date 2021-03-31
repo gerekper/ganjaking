@@ -8,37 +8,67 @@ class GroovyMenuCategoryPreset {
 	const meta_name      = 'gm_custom_preset_id';
 	const meta_menu_name = 'gm_custom_menu_id';
 
-	protected $taxanomies = array();
+	protected $taxonomies = array();
 
 	/**
 	 * GroovyMenuCategoryPreset constructor.
 	 *
-	 * @param $taxanonies
+	 * @param $taxonomies
 	 */
-	public function __construct( $taxanonies ) {
+	public function __construct( $taxonomies = array() ) {
 		global $gm_supported_module;
 
-		if ( ! is_array( $taxanonies ) ) {
-			$taxanonies = array();
+		if ( ! is_array( $taxonomies ) ) {
+			$taxonomies = array();
 		}
 
-		if ( ! empty( $taxanonies ) && is_array( $taxanonies ) ) {
-			foreach ( $taxanonies as $tax ) {
-				if ( empty( $this->taxanomies[ $tax ] ) ) {
-					$this->taxanomies[ $tax ] = $tax;
+		if ( ! empty( $taxonomies ) && is_array( $taxonomies ) ) {
+			foreach ( $taxonomies as $tax ) {
+				if ( empty( $this->taxonomies[ $tax ] ) ) {
+					$this->taxonomies[ $tax ] = $tax;
 				}
 			}
 		}
 
 		if ( ! empty( $gm_supported_module['categories'] ) && is_array( $gm_supported_module['categories'] ) ) {
 			foreach ( $gm_supported_module['categories'] as $category ) {
-				if ( empty( $this->taxanomies[ $category ] ) ) {
-					$this->taxanomies[ $category ] = $category;
+				if ( empty( $this->taxonomies[ $category ] ) ) {
+					$this->taxonomies[ $category ] = $category;
 				}
 			}
 		}
 
-		foreach ( $this->taxanomies as $tax ) {
+		$lver = false;
+		if ( defined( 'GROOVY_MENU_LVER' ) && '2' === GROOVY_MENU_LVER ) {
+			$lver = true;
+		}
+
+		if ( ! $lver ) {
+			add_action( 'init', array( $this, 'init_taxonomies' ), 1010 ); // late init.
+		}
+	}
+
+	/**
+	 * GroovyMenuCategoryPreset init.
+	 */
+	public function init_taxonomies() {
+		$taxonomies = array();
+
+		if ( ! empty( $this->taxonomies ) && is_array( $this->taxonomies ) ) {
+			$taxonomies = $this->taxonomies;
+		}
+
+		$post_tax = GroovyMenuUtils::getTaxonomiesExtended();
+
+		if ( ! empty( $post_tax ) && is_array( $post_tax ) ) {
+			foreach ( $post_tax as $tax_name => $tax_label ) {
+				if ( ! in_array( $tax_name, $taxonomies, true ) ) {
+					$taxonomies[ $tax_name ] = $tax_name;
+				}
+			}
+		}
+
+		foreach ( $taxonomies as $tax ) {
 			add_action( $tax . '_edit_form_fields', array( $this, 'fields' ), 20 );
 			add_action( 'edited_' . $tax, array( $this, 'save' ) );
 		}
@@ -56,7 +86,9 @@ class GroovyMenuCategoryPreset {
 
 		?>
 		<tr class="form-field groovy-menu-fields term_meta__custom_options__field">
-			<th scope="row" valign="top"><label><?php esc_html_e( 'Groovy Menu', 'groovy-menu' ); ?> <?php esc_html_e( 'Preset', 'groovy-menu' ); ?></label></th>
+			<th scope="row" valign="top">
+				<label><?php esc_html_e( 'Groovy Menu', 'groovy-menu' ); ?>: <?php esc_html_e( 'Preset', 'groovy-menu' ); ?></label>
+			</th>
 			<td>
 				<select id="groovy-preset" name="<?php echo esc_attr( self::meta_name ); ?>">
 					<option value=""><?php esc_html_e( 'default', 'groovy-menu' ); ?></option>
@@ -69,7 +101,9 @@ class GroovyMenuCategoryPreset {
 		</tr>
 
 		<tr class="form-field groovy-menu-fields term_meta__custom_options__field">
-			<th scope="row" valign="top"><label><?php esc_html_e( 'Groovy Menu', 'groovy-menu' ); ?> <?php esc_html_e( 'Navigation menu (from Appearance > Menus)', 'groovy-menu' ); ?></label></th>
+			<th scope="row" valign="top">
+				<label><?php esc_html_e( 'Groovy Menu', 'groovy-menu' ); ?>: <?php esc_html_e( 'Navigation menu (from Appearance > Menus)', 'groovy-menu' ); ?></label>
+			</th>
 			<td>
 				<select id="groovy-preset" name="<?php echo esc_attr( self::meta_menu_name ); ?>">
 					<option value=""><?php esc_html_e( 'default', 'groovy-menu' ); ?></option>

@@ -81,7 +81,7 @@
 		$("#new_list").insertAfter($("#bulk-action-selector-bottom"));
 		$("#rename_subscriber").insertAfter($("#bulk-action-selector-bottom"));
 
-		$(".btn-new-list").click(function() {
+		$( '.btn-new-list' ).on( 'click', function() {
 			var name = prompt("<?php esc_html_e('List Name:', 'follow_up_emails'); ?>")
 
 			if ( !name ) {
@@ -100,9 +100,9 @@
 					window.location.reload();
 				}
 			)
-		});
+		} );
 
-		$(".remove-from-list").click(function(e) {
+		$( '.remove-from-list' ).on( 'click', function( e ) {
 			e.preventDefault();
 			var btn         = $(this);
 			var table       = $(this).parents("table");
@@ -116,11 +116,11 @@
 				table.unblock();
 			});
 
-		});
+		} );
 
-		$( '#bulk-action-selector-top' ).change( function() {
+		$( '#bulk-action-selector-top' ).on( 'change', function() {
 			var bulk_action_selector_bottom = $( '#bulk-action-selector-bottom' );
-			bulk_action_selector_bottom.val( $(this).val() ).change();
+			bulk_action_selector_bottom.val( $(this).val() ).trigger( 'change' );
 
 			if ( $.inArray( $(this).val(), [ 'new', 'move', 'rename' ] ) !== -1 ) {
 				// If the top action selected will show an additional field,
@@ -140,12 +140,12 @@
 							input_selector = $( '#new_list input' );
 							break;
 					}
-					input_selector.focus();
+					input_selector.trigger( 'focus' );
 				} );
 			}
 		} );
 
-		$( '#bulk-action-selector-bottom' ).change( function() {
+		$( '#bulk-action-selector-bottom' ).on( 'change', function() {
 			switch ( $(this).val() ) {
 
 				case 'move':
@@ -175,14 +175,14 @@
 			}
 
 			$( '#bulk-action-selector-top' ).val( $( this ).val() );
-		} ).change();
+		} ).trigger( 'change' );
 
 		$("#select_lists").select2();
 
-		$(".run-filter").click(function() {
+		$( '.run-filter' ).on( 'click', function() {
 			var filter = $("#filter_list").val();
 
 			window.location.href = 'admin.php?page=followup-emails-subscribers&list='+ filter;
-		});
+		} );
 	});
 </script>

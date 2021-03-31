@@ -1,5 +1,9 @@
 *** WooCommerce Checkout Add-Ons Changelog ***
 
+2021.03.16 - version 2.5.3
+ * Tweak - Add support for WooCommerce Navigation admin feature
+ * Fix - Ensure taxable add ons are compatible with latest versions of WooCommerce
+
 2021.02.25 - version 2.5.2
  * Fix - Hide the cost information in labels for fields with multiple options
 

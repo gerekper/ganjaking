@@ -33,7 +33,7 @@ use WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer;
  * SendSmtpEmailSender Class Doc Comment
  *
  * @category Class
- * @description Mandatory if &#39;templateId&#39; is not passed. Pass name (optional) and email of sender from which emails will be sent. For example, {&#39;name&#39;:&#39;Mary from MyShop&#39;, &#39;email&#39;:&#39;no-reply@myshop.com&#39;}
+ * @description Mandatory if &#x60;templateId&#x60; is not passed. Pass &#x60;name&#x60; (optional) and &#x60;email&#x60; OR &#x60;id&#x60; of sender from which emails will be sent. &#x60;name&#x60; will be ignored if passed along with sender &#x60;id&#x60;. For example, {\"name\":\"Mary from MyShop\", \"email\":\"no-reply@myshop.com\"} or {\"id\":2}
  * @package  SendinBlue\Client
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
@@ -52,13 +52,13 @@ class SendSmtpEmailSender implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['name' => 'string', 'email' => 'string'];
+    protected static $swaggerTypes = ['name' => 'string', 'email' => 'string', 'id' => 'int'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['name' => null, 'email' => 'email'];
+    protected static $swaggerFormats = ['name' => null, 'email' => 'email', 'id' => 'int64'];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -83,19 +83,19 @@ class SendSmtpEmailSender implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\
      *
      * @var string[]
      */
-    protected static $attributeMap = ['name' => 'name', 'email' => 'email'];
+    protected static $attributeMap = ['name' => 'name', 'email' => 'email', 'id' => 'id'];
     /**
      * Array of attributes to setter functions (for deserialization of responses)
      *
      * @var string[]
      */
-    protected static $setters = ['name' => 'setName', 'email' => 'setEmail'];
+    protected static $setters = ['name' => 'setName', 'email' => 'setEmail', 'id' => 'setId'];
     /**
      * Array of attributes to getter functions (for serialization of requests)
      *
      * @var string[]
      */
-    protected static $getters = ['name' => 'getName', 'email' => 'getEmail'];
+    protected static $getters = ['name' => 'getName', 'email' => 'getEmail', 'id' => 'getId'];
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name
@@ -149,6 +149,7 @@ class SendSmtpEmailSender implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\
     {
         $this->container['name'] = isset($data['name']) ? $data['name'] : null;
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -158,9 +159,6 @@ class SendSmtpEmailSender implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-        if ($this->container['email'] === null) {
-            $invalidProperties[] = "'email' can't be null";
-        }
         return $invalidProperties;
     }
     /**
@@ -185,7 +183,7 @@ class SendSmtpEmailSender implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\
     /**
      * Sets name
      *
-     * @param string $name Name of the sender from which the emails will be sent. Maximum allowed characters are 70.
+     * @param string $name Name of the sender from which the emails will be sent. Maximum allowed characters are 70. Applicable only when email is passed.
      *
      * @return $this
      */
@@ -206,13 +204,34 @@ class SendSmtpEmailSender implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\
     /**
      * Sets email
      *
-     * @param string $email Email of the sender from which the emails will be sent
+     * @param string $email Email of the sender from which the emails will be sent. Mandatory if sender id is not passed.
      *
      * @return $this
      */
     public function setEmail($email)
     {
         $this->container['email'] = $email;
+        return $this;
+    }
+    /**
+     * Gets id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->container['id'];
+    }
+    /**
+     * Sets id
+     *
+     * @param int $id Id of the sender from which the emails will be sent. In order to select a sender with specific pool of IP’s, dedicated ip users shall pass id (instead of email). Mandatory if email is not passed.
+     *
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->container['id'] = $id;
         return $this;
     }
     /**

@@ -34,10 +34,7 @@ class Zapier_Trigger implements Integration_Interface {
 	 * @param Meta_Helper   $meta_helper   The meta helper.
 	 * @param Zapier_Helper $zapier_helper The Zapier helper.
 	 */
-	public function __construct(
-		Meta_Helper $meta_helper,
-		Zapier_Helper $zapier_helper
-	) {
+	public function __construct( Meta_Helper $meta_helper, Zapier_Helper $zapier_helper ) {
 		$this->meta_helper   = $meta_helper;
 		$this->zapier_helper = $zapier_helper;
 	}

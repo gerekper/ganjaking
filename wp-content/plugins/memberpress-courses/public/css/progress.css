@@ -243,3 +243,7 @@ a.mpcs-bookmark-link:hover .mpcs-bookmark-link-title {
   margin-left: 1.5em;
   margin-top: 1.5em;
 }
+
+.center-block{
+  margin: 0 auto;
+}

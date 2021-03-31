@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 /**
  * WooCommerce Tab Manager Admin
@@ -228,56 +228,58 @@ function wc_tab_manager_admin_nav() {
 	// first show any framework notices
 	wc_tab_manager()->get_message_handler()->show_messages();
 
-	$screen          = get_current_screen();
-	$is_list_page    = $screen && 'edit-wc_product_tab' === $screen->id;
-	$is_edit_page    = $screen && 'wc_product_tab' === $screen->id;
-	$is_default_page = $screen && 'admin_page_tab_manager' === $screen->id;
-	$is_admin_page   = $is_list_page || $is_edit_page || $is_default_page;
+	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
 
-	if ( $is_admin_page ) {
-		$tabs_active    = '';
-		$edit_tab_label = __( 'Add Global Tab', 'woocommerce-tab-manager' );
-		$edit_active    = '';
-		$search_query   = '';
-		$default_active = '';
-
-		if ( $is_list_page ) {
-			$tabs_active    = 'nav-tab-active';
-		} else if ( $is_edit_page ) {
-			$edit_active    = 'nav-tab-active';
-		} else if ( $is_default_page ) {
-			$default_active = 'nav-tab-active';
-		}
-		if ( $is_edit_page && isset( $_GET['action'] ) && 'edit' === $_GET['action'] ) {
-			$edit_tab_label = __( 'Edit Tab', 'woocommerce-tab-manager' );
-		}
-
-		if ( ! empty( $_REQUEST['s'] ) ) {
-			$search_query = get_search_query();
-		}
-		?>
-		<h1 class="nav-tab-wrapper woo-nav-tab-wrapper">
-			<a class="nav-tab <?php echo esc_attr( $tabs_active ); ?>" href="<?php echo esc_url( admin_url( 'edit.php?post_type=wc_product_tab' ) ); ?>">
-				<?php esc_html_e( 'Tabs', 'woocommerce-tab-manager' ); ?>
-			</a>
-			<a class="nav-tab <?php echo esc_attr( $edit_active ); ?>" href="<?php echo esc_url( admin_url( 'post-new.php?post_type=wc_product_tab' ) ); ?>">
-				<?php echo esc_attr( $edit_tab_label ); ?>
-			</a>
-			<a class="nav-tab <?php echo esc_attr( $default_active ); ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=' . WC_Tab_Manager::PLUGIN_ID ) ); ?>">
-				<?php esc_html_e( 'Default Tab Layout', 'woocommerce-tab-manager' ); ?>
-			</a>
-			<?php if ( ! empty( $search_query ) ) : ?>
-				<span class="subtitle">
-					<?php /* translators: Placeholders: %s - keyword search query */
-					$search_text = __( 'Search results for &#8220;%s&#8221;', 'woocommerce-tab-manager' );
-					$search_text = sprintf( $search_text, $search_query );
-					echo esc_html( $search_text );
-					?>
-				</span>
-			<?php endif; ?>
-		</h1>
-		<?php
+	if ( ! $screen ) {
+		return;
 	}
+
+	$is_admin_page  = false;
+	$tabs_active    = '';
+	$default_active = '';
+
+	switch ( $screen->id ) {
+		case 'edit-wc_product_tab' :
+			$is_admin_page = true;
+			$tabs_active   = 'nav-tab-active';
+		break;
+		case 'wc_product_tab' :
+			$is_admin_page = true;
+		break;
+		case 'admin_page_tab_manager' :
+			$is_admin_page  = true;
+			$default_active = 'nav-tab-active';
+		break;
+	}
+
+	if ( ! $is_admin_page ) {
+		return;
+	}
+
+	if ( ! empty( $_REQUEST['s'] ) ) {
+		$search_query = get_search_query();
+	}
+
+	$hide_if_enhanced_navigation = Framework\SV_WC_Helper::is_wc_navigation_enabled() ? 'style="display: none;' : '';
+
+	?>
+	<h1 class="nav-tab-wrapper woo-nav-tab-wrapper" <?php echo $hide_if_enhanced_navigation; ?>>
+		<a class="nav-tab <?php echo esc_attr( $tabs_active ); ?>" href="<?php echo esc_url( admin_url( 'edit.php?post_type=wc_product_tab' ) ); ?>">
+			<?php esc_html_e( 'Tabs', 'woocommerce-tab-manager' ); ?>
+		</a>
+		<a class="nav-tab <?php echo esc_attr( $default_active ); ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=' . WC_Tab_Manager::PLUGIN_ID ) ); ?>">
+			<?php esc_html_e( 'Default Tab Layout', 'woocommerce-tab-manager' ); ?>
+		</a>
+		<?php if ( ! empty( $search_query ) ) : ?>
+			<span class="subtitle">
+				<?php /* translators: Placeholder: %s - search query keyword */
+				$search_text = __( 'Search results for &#8220;%s&#8221;', 'woocommerce-tab-manager' );
+				echo esc_html( sprintf( $search_text, $search_query ) );
+				?>
+			</span>
+		<?php endif; ?>
+	</h1>
+	<?php
 }
 
 
@@ -298,4 +300,58 @@ function wp_tab_manager_register_layout_page() {
 		\WC_Tab_Manager::PLUGIN_ID,                                 // unique menu slug
 		'wc_tab_manager_render_layout_page'                         // callback
 	);
+}
+
+
+add_action( 'admin_menu', 'wc_tab_manager_add_enhanced_navigation_items' );
+
+
+/**
+ * Adds support for the WooCommerce Admin Navigation.
+ *
+ * @internal
+ *
+ * @since 1.14.1
+ */
+function wc_tab_manager_add_enhanced_navigation_items() {
+
+	if ( ! Framework\SV_WC_Helper::is_wc_navigation_enabled() ) {
+		return;
+	}
+
+	\Automattic\WooCommerce\Admin\Features\Navigation\Screen::register_post_type( 'wc_product_tab' );
+	\Automattic\WooCommerce\Admin\Features\Navigation\Menu::add_plugin_category( [
+		'id'    => 'woocommerce-tab-manager',
+		'title' => __( 'Tab Manager', 'woocommerce-tab-manager' ),
+	] );
+
+	$post_type = \Automattic\WooCommerce\Admin\Features\Navigation\Menu::get_post_type_items(
+		'wc_product_tab',
+		[
+			'parent' => 'woocommerce-tab-manager',
+			'title'  => __( 'All Tabs', 'woocommerce-tab-manager' ),
+			'order'  => 1,
+		]
+	);
+
+	if ( isset( $post_type['all'] ) ) {
+
+		\Automattic\WooCommerce\Admin\Features\Navigation\Menu::add_plugin_item( $post_type['all'] );
+
+		if ( isset( $post_type['new'] ) ) {
+
+			$post_type['new']['order'] = 2;
+			$post_type['new']['title'] = __( 'Add New Global Tab', 'woocommerce-tab-manager' );
+
+			\Automattic\WooCommerce\Admin\Features\Navigation\Menu::add_plugin_item( $post_type['new'] );
+		}
+	}
+
+	\Automattic\WooCommerce\Admin\Features\Navigation\Menu::add_plugin_item( [
+		'id'     => 'woocommerce-tab-manager-default-layout',
+		'title'  => __( 'Default Tab Layout', 'woocommerce-tab-manager' ),
+		'url'    => 'tab_manager',
+		'parent' => 'woocommerce-tab-manager',
+		'order'  => 3,
+	] );
 }

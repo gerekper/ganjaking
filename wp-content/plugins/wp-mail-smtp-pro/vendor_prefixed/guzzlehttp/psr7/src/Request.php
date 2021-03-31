@@ -14,7 +14,7 @@ class Request implements \WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface
     use MessageTrait;
     /** @var string */
     private $method;
-    /** @var null|string */
+    /** @var string|null */
     private $requestTarget;
     /** @var UriInterface */
     private $uri;
@@ -22,7 +22,7 @@ class Request implements \WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface
      * @param string                               $method  HTTP method
      * @param string|UriInterface                  $uri     URI
      * @param array                                $headers Request headers
-     * @param string|null|resource|StreamInterface $body    Request body
+     * @param string|resource|StreamInterface|null $body    Request body
      * @param string                               $version Protocol version
      */
     public function __construct($method, $uri, array $headers = [], $body = null, $version = '1.1')

@@ -232,7 +232,7 @@ if ($wpml->wpml_exists()) {
 					<div class="slidebg_vimeo_settings slide_bg_settings"><label_a><?php _e('Arguments', 'revslider');?></label_a><input id="slide_vid_argvim" class="slideinput easyinit" type="text" data-r="bg.video.argsVimeo"><span class="linebreak"></span></div>
 					<div class="div15"></div>
 					<div class="slidebg_youtube_settings slidebg_vimeo_settings slidebg_html5_settings slide_bg_settings">
-						<div class="form_inner_header" stlye="margin: 0px -20px 25px;"><i class="material-icons">chrome_reader_mode</i><span id="selected_slide_source"></span><?php _e('Overlay', 'revslider');?></div>
+						<div class="form_inner_header" style="margin: 0px -20px 25px;"><i class="material-icons">chrome_reader_mode</i><span id="selected_slide_source"></span><?php _e('Overlay', 'revslider');?></div>
 						<!-- SLIDE VIDEO OVERLAY -->
 						<label_a><?php _e('Overlay', 'revslider');?></label_a><select data-evt="updateslidebasic" id="sl_vid_overlay" class="dottedoverlay slideinput tos2 nosearchbox easyinit callEvent" data-r="bg.video.dottedOverlay"></select>
 						<label_a><?php _e('Overlay Size', 'revslider');?></label_a><input data-numeric="true" data-allowed="none" data-min="0"  data-r="bg.video.dottedOverlaySize" data-evt="drawBGOverlay"  type="text"  class="slideinput valueduekeyboard  easyinit callEvent" placeholder="none" >

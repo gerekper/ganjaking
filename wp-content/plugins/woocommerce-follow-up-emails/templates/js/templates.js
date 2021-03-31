@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-    $(".edit-html").click(function(e) {
+    $( '.edit-html' ).on( 'click', function( e ) {
         e.preventDefault();
 
         var parent_div = $(this).parents("div").eq(0);
@@ -27,18 +27,18 @@ jQuery(document).ready(function($) {
 
         });
 
-    });
+    } );
 
-    $(".edit-html-close").click(function() {
+    $( '.edit-html-close' ).on( 'click', function() {
         $("#template_editor").slideUp(function() {
             $("ul.fue-templates").slideDown();
         });
 
         $("#current_template").val("");
         $("#editor").val("");
-    });
+    } );
 
-    $(".edit-html-save").click(function() {
+    $( '.edit-html-save' ).on( 'click', function() {
         var source = $("#editor").val()
 
         $(".edit-html-spinner").css({
@@ -69,21 +69,21 @@ jQuery(document).ready(function($) {
             $(".edit-html-spinner").hide();
         }, 'json')
 
-    });
+    } );
 
-    $(".create-template").on("click", function() {
+    $( '.create-template' ).on( 'click', function() {
         $(".templates-new").slideUp(function() {
             $(".template-form").slideDown(function() {
-                $(".switch-tmce").click();
+                $( '.switch-tmce' ).trigger( 'click' );
             });
         })
-    });
+    } );
 
-    $(".cancel-new-template").click(function() {
+    $( '.cancel-new-template' ).on( 'click', function() {
         $("#editor").val("");
         $(".template-form").slideUp(function() {
             $(".templates-new").slideDown();
         })
-    });
+    } );
 
 });

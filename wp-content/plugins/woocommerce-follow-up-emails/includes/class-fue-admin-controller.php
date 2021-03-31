@@ -368,12 +368,12 @@ class FUE_Admin_Controller {
 		</style>
 		<script>
 			jQuery(document).ready(function($) {
-				$("#delete-all-submit").click(function(e) {
+				$( "#delete-all-submit" ).on( 'click', function( e ) {
 					if ( confirm( "<?php echo esc_js( __( 'This will delete ALL scheduled emails! Continue?', 'follow_up_emails' ) ); ?>" ) ) {
 						return true;
 					}
 					return false;
-				});
+				} );
 			});
 		</script>
 		<div class="wrap">

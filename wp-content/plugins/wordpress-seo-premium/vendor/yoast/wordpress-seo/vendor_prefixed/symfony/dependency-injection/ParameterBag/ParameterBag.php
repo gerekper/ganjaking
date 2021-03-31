@@ -169,7 +169,7 @@ class ParameterBag implements \YoastSEO_Vendor\Symfony\Component\DependencyInjec
      * @param string $value     The string to resolve
      * @param array  $resolving An array of keys that are being resolved (used internally to detect circular references)
      *
-     * @return string The resolved string
+     * @return mixed The resolved string
      *
      * @throws ParameterNotFoundException          if a placeholder references a parameter that does not exist
      * @throws ParameterCircularReferenceException if a circular reference if detected
@@ -203,7 +203,7 @@ class ParameterBag implements \YoastSEO_Vendor\Symfony\Component\DependencyInjec
             }
             $resolved = $this->get($key);
             if (!\is_string($resolved) && !\is_numeric($resolved)) {
-                throw new \YoastSEO_Vendor\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('A string value must be composed of strings and/or numbers, but found parameter "%s" of type %s inside string value "%s".', $key, \gettype($resolved), $value));
+                throw new \YoastSEO_Vendor\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('A string value must be composed of strings and/or numbers, but found parameter "%s" of type "%s" inside string value "%s".', $key, \gettype($resolved), $value));
             }
             $resolved = (string) $resolved;
             $resolving[$lcKey] = \true;

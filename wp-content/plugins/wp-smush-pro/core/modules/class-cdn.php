@@ -232,7 +232,7 @@ class CDN extends Abstract_Module {
 				'webp'              => array(
 					'label'       => __( 'Enable WebP conversion', 'wp-smushit' ),
 					'short_label' => __( 'WebP Conversion', 'wp-smushit' ),
-					'desc'        => __( 'Smush can automatically convert and serve your images as WebP to compatible browsers.', 'wp-smushit' ),
+					'desc'        => __( 'Smush can automatically convert and serve your images as WebP from the WPMU DEV CDN to compatible browsers.', 'wp-smushit' ),
 				),
 				'rest_api_support'  => array(
 					'label'       => __( 'Enable REST API support', 'wp-smushit' ),

@@ -77,6 +77,7 @@ class ArchivePage extends PageAbstract {
 							Area::SLUG . '-logs-archive-search-input'
 						);
 
+						$table->views();
 						$table->display();
 					}
 				} else {

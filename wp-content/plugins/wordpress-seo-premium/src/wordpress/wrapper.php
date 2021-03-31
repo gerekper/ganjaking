@@ -1,44 +1,60 @@
 <?php
 
-namespace Yoast\WP\SEO\WordPress;
+namespace Yoast\WP\SEO\Premium\WordPress;
 
-use wpdb;
-use WPSEO_Admin_Asset_Manager;
+use WPSEO_Premium_Prominent_Words_Support;
+use WPSEO_Premium_Prominent_Words_Unindexed_Post_Query;
 use WPSEO_Replace_Vars;
 
 /**
- * Wrapper class for WordPress globals.
+ * Wrapper class for Premium classes.
  *
- * This consists of factory functions to inject WP globals into the dependency container.
+ * This consists of factory functions to inject Premium classes into the dependency container.
  */
 class Wrapper {
 
 	/**
-	 * Wrapper method for returning the wpdb object for use in dependency injection.
+	 * Wrapper method for returning the WPSEO_Replace_Vars object for use in dependency injection.
 	 *
-	 * @return wpdb The wpdb global.
-	 */
-	public static function get_wpdb() {
-		global $wpdb;
-
-		return $wpdb;
-	}
-
-	/**
-	 * Factory function for replace vars helper.
-	 *
-	 * @return WPSEO_Replace_Vars The replace vars helper.
+	 * @return WPSEO_Replace_Vars The WPSEO_Replace_Vars global.
 	 */
 	public static function get_replace_vars() {
-		return new WPSEO_Replace_Vars();
+		static $instance;
+
+		if ( \is_null( $instance ) ) {
+			$instance = new WPSEO_Replace_Vars();
+		}
+
+		return $instance;
 	}
 
 	/**
-	 * Factory function for the admin asset manager.
+	 * Wrapper method for returning the WPSEO_Premium_Prominent_Words_Unindexed_Post_Query object for use in dependency injection.
 	 *
-	 * @return WPSEO_Admin_Asset_Manager The admin asset manager.
+	 * @return WPSEO_Premium_Prominent_Words_Unindexed_Post_Query The WPSEO_Premium_Prominent_Words_Unindexed_Post_Query global.
 	 */
-	public static function get_admin_asset_manager() {
-		return new WPSEO_Admin_Asset_Manager();
+	public static function get_prominent_words_unindex_post_query() {
+		static $instance;
+
+		if ( \is_null( $instance ) ) {
+			$instance = new WPSEO_Premium_Prominent_Words_Unindexed_Post_Query();
+		}
+
+		return $instance;
+	}
+
+	/**
+	 * Wrapper method for returning the WPSEO_Premium_Prominent_Words_Support object for use in dependency injection.
+	 *
+	 * @return WPSEO_Premium_Prominent_Words_Support The WPSEO_Premium_Prominent_Words_Support global.
+	 */
+	public static function get_prominent_words_support() {
+		static $instance;
+
+		if ( \is_null( $instance ) ) {
+			$instance = new WPSEO_Premium_Prominent_Words_Support();
+		}
+
+		return $instance;
 	}
 }

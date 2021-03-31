@@ -135,6 +135,19 @@ class WC_Store_Credit_Meta_Box_Product_Data {
 			'value'       => ( isset( $values['allow_different_receiver'] ) ? $values['allow_different_receiver'] : 'yes' ),
 		);
 
+		$fields['display_receiver_fields'] = array(
+			'id'          => '_store_credit_display_receiver_fields',
+			'label'       => _x( 'Display receiver fields', 'coupon: field label', 'woocommerce-store-credit' ),
+			'description' => _x( 'How to display the receiver fields on page load.', 'coupon: field desc', 'woocommerce-store-credit' ),
+			'desc_tip'    => true,
+			'type'        => 'select',
+			'value'       => ( isset( $values['display_receiver_fields'] ) ? $values['display_receiver_fields'] : 'collapsed' ),
+			'options'     => array(
+				'collapsed' => _x( 'Collapsed', 'setting option', 'woocommerce-store-credit' ),
+				'expanded'  => _x( 'Expanded', 'setting option', 'woocommerce-store-credit' ),
+			),
+		);
+
 		$fields['usage_restriction_section'] = array(
 			'title' => _x( 'Usage restriction', 'coupon: section title', 'woocommerce-store-credit' ),
 			'type'  => 'options_group',
@@ -263,6 +276,25 @@ class WC_Store_Credit_Meta_Box_Product_Data {
 		} else {
 			$product->delete_meta_data( '_store_credit_data' );
 		}
+	}
+
+	/**
+	 * Gets the value for a 'Store Credit' product field.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @global WC_Product $product The current product.
+	 *
+	 * @param string $key     The field key.
+	 * @param mixed  $default Optional. The default value. Default false.
+	 * @return mixed
+	 */
+	public static function get_field_value( $key, $default = false ) {
+		global $product;
+
+		$values = $product->get_meta( '_store_credit_data' );
+
+		return ( isset( $values[ $key ] ) ) ? $values[ $key ] : $default;
 	}
 }
 

@@ -8,8 +8,8 @@
 
 namespace Smush\Core\Modules;
 
+use WP_Error;
 use WP_Smush;
-use Smush\Core\Helper;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -27,15 +27,6 @@ class WebP extends Abstract_Module {
 	 * @var bool $is_configured
 	 */
 	private $is_configured;
-
-	/**
-	 * Get the unique name of this module.
-	 *
-	 * @return string
-	 */
-	public function get_mod_name() {
-		return 'webp';
-	}
 
 	/**
 	 * Initialize the module.
@@ -95,7 +86,7 @@ class WebP extends Abstract_Module {
 	 *
 	 * @since 3.8.0
 	 *
-	 * @return bool
+	 * @return bool|WP_Error
 	 */
 	private function check_server_config() {
 		$this->create_test_files();
@@ -119,11 +110,13 @@ class WebP extends Abstract_Module {
 		}
 
 		// Return the response code and message otherwise.
-		return new \WP_Error( $code, wp_remote_retrieve_response_message( $response ) );
+		return new WP_Error( $code, wp_remote_retrieve_response_message( $response ) );
 	}
 
 	/**
 	 * Code to use on Nginx servers.
+	 *
+	 * @since 3.8.0
 	 *
 	 * @param bool $marker whether to wrap code with marker comment lines.
 	 * @return string
@@ -151,26 +144,41 @@ class WebP extends Abstract_Module {
 			$code = $this->marker_line() . "\n" . $code;
 			$code = $code . "\n" . $this->marker_line( true );
 		}
-		return $code;
+		return apply_filters( 'smush_nginx_webp_rules', $code );
 	}
 
 	/**
 	 * Code to use on Apache servers.
 	 *
-	 * @param bool $marker whether to wrap code with marker comment lines.
+	 * @since 3.8.0
+	 *
+	 * @todo Find out what's wrong with the rules. We shouldn't need these two different RewriteRule.
+	 *
+	 * @param string $location Where the .htaccess file is.
+	 *
 	 * @return string
 	 */
-	public function get_apache_code( $marker = false ) {
+	private function get_apache_code( $location ) {
 		$udir = $this->get_upload_dir();
+
+		$rewrite_path = '%{DOCUMENT_ROOT}/' . $udir['webp_rel_path'];
 
 		$code = '<IfModule mod_rewrite.c>
  RewriteEngine On
- RewriteCond %{DOCUMENT_ROOT}/' . $udir['webp_rel_path'] . '/disable_smush_webp !-f
- RewriteCond %{HTTP_ACCEPT} image/webp
- RewriteCond %{REQUEST_FILENAME} -f
- RewriteCond %{DOCUMENT_ROOT}/' . $udir['webp_rel_path'] . '/$1.$2.webp -f
- RewriteRule ^/?(.+)\.(jpe?g|png)$ /' . $udir['webp_rel_path'] . '/$1.$2.webp [NC,T=image/webp,E=WEBP_image]
-</IfModule>
+ RewriteCond ' . $rewrite_path . '/disable_smush_webp !-f
+ RewriteCond %{HTTP_ACCEPT} image/webp' . "\n";
+
+		if ( 'root' === $location ) {
+			// This works on single sites at root.
+			$code .= ' RewriteCond ' . $rewrite_path . '/$1.webp -f
+ RewriteRule ' . $udir['upload_site_rel_path'] . '/(.*.(?:png|jpe?g))$ ' . $udir['webp_site_rel_path'] . '/$1.webp [NC,T=image/webp]';
+		} else {
+			// This works at /uploads/.
+			$code .= ' RewriteCond ' . $rewrite_path . '/$1.$2.webp -f
+ RewriteRule ^/?(.+)\.(jpe?g|png)$ /' . $udir['webp_rel_path'] . '/$1.$2.webp [NC,T=image/webp]';
+		}
+
+		$code .= "\n" . '</IfModule>
 
 <IfModule mod_headers.c>
  Header append Vary Accept env=WEBP_image
@@ -180,10 +188,23 @@ class WebP extends Abstract_Module {
  AddType image/webp .webp
 </IfModule>';
 
-		if ( true === $marker ) {
-			$code = $this->marker_line() . "\n" . $code;
-			$code = $code . "\n" . $this->marker_line( true );
-		}
+		return apply_filters( 'smush_apache_webp_rules', $code );
+	}
+
+	/**
+	 * Gets the apache rules for printing them in the config tab.
+	 *
+	 * @since 3.8.4
+	 *
+	 * @return string
+	 */
+	public function get_apache_code_to_print() {
+		$location = is_multisite() ? 'uploads' : 'root';
+
+		$code  = $this->marker_line() . "\n";
+		$code .= $this->get_apache_code( $location );
+		$code .= "\n" . $this->marker_line( true );
+
 		return $code;
 	}
 
@@ -210,21 +231,33 @@ class WebP extends Abstract_Module {
 			restore_current_blog();
 		}
 
-		// Getting relative paths.
-		// Environments like Flywheel have an ABSPATH that's not used in the paths.
-		$path_base = false !== strpos( $upload['basedir'], ABSPATH ) ? ABSPATH : dirname( WP_CONTENT_DIR );
+		// Get paths relative to the Document root.
+		$root_path_base = false !== strpos( $upload['basedir'], $_SERVER['DOCUMENT_ROOT'] ) ? $_SERVER['DOCUMENT_ROOT'] : dirname( WP_CONTENT_DIR );
 
-		$upload_rel_path = substr( $upload['basedir'], strlen( $path_base ) );
-		$upload_rel_path = ltrim( $upload_rel_path, '/' );
-		$webp_rel_path   = dirname( $upload_rel_path ) . '/smush-webp';
+		$upload_root_rel_path = ltrim( substr( $upload['basedir'], strlen( $root_path_base ) ), '/' );
+		$webp_root_rel_path   = dirname( $upload_root_rel_path ) . '/smush-webp';
+
+		// Environments like Flywheel have an ABSPATH that's not used in the paths.
+		$site_path_base = false !== strpos( $upload['basedir'], ABSPATH ) ? ABSPATH : dirname( WP_CONTENT_DIR );
+
+		// Sites in subdir installs may have a path different from the one relative to the root.
+		if ( $site_path_base === $root_path_base ) {
+			$upload_site_rel_path = $upload_root_rel_path;
+			$webp_site_rel_path   = $webp_root_rel_path;
+		} else {
+			$upload_site_rel_path = ltrim( substr( $upload['basedir'], strlen( $site_path_base ) ), '/' );
+			$webp_site_rel_path   = dirname( $upload_site_rel_path ) . '/smush-webp';
+		}
 
 		$upload_dir_info = array(
-			'upload_path'     => $upload['basedir'],
-			'upload_rel_path' => $upload_rel_path,
-			'upload_url'      => $upload['baseurl'],
-			'webp_path'       => dirname( $upload['basedir'] ) . '/smush-webp',
-			'webp_rel_path'   => $webp_rel_path,
-			'webp_url'        => dirname( $upload['baseurl'] ) . '/smush-webp',
+			'upload_path'          => $upload['basedir'],
+			'upload_rel_path'      => $upload_root_rel_path, // Relative to DOCUMENT_ROOT.
+			'upload_site_rel_path' => $upload_site_rel_path, // Relative to the site's dir.
+			'upload_url'           => $upload['baseurl'],
+			'webp_path'            => dirname( $upload['basedir'] ) . '/smush-webp',
+			'webp_rel_path'        => $webp_root_rel_path, // Relative to DOCUMENT_ROOT.
+			'webp_site_rel_path'   => $webp_site_rel_path, // Relative to the site's dir.
+			'webp_url'             => dirname( $upload['baseurl'] ) . '/smush-webp',
 		);
 
 		return $upload_dir_info;
@@ -428,23 +461,6 @@ class WebP extends Abstract_Module {
 	 */
 
 	/**
-	 * Get the server code snippet
-	 *
-	 * @param string $server Server name (nginx,apache...).
-	 * @param array  $args optional value to pass to the user function.
-	 *
-	 * @return string
-	 */
-	private function get_server_code_snippet( $server, $args = array() ) {
-		$method = 'get_' . str_replace( array( '-', ' ' ), '', strtolower( $server ) ) . '_code';
-		if ( ! method_exists( $this, $method ) ) {
-			return '';
-		}
-
-		return call_user_func_array( array( $this, $method ), array( $args ) );
-	}
-
-	/**
 	 * Return the server type (Apache, NGINX...)
 	 *
 	 * @return string Server type
@@ -492,58 +508,43 @@ class WebP extends Abstract_Module {
 		);
 	}
 
-	/**
-	 * Get code snippet for a module and server type
-	 *
-	 * @param string $server_type Server type (nginx, apache...).
-	 * @param array  $args optional value.
-	 *
-	 * @return string Code snippet
-	 */
-	private function get_code_snippet( $server_type = '', $args = array() ) {
-		$module_name = $this->get_mod_name();
-
-		if ( ! $server_type ) {
-			$server_type = $this->get_server_type();
-		}
-		$code_snippet = $this->get_server_code_snippet( $server_type, $args );
-		return apply_filters( 'smush_code_snippet', $code_snippet, $server_type, $module_name );
-	}
-
+	/*
+	 * Apache's .htaccess rules handling.
+	*/
 
 	/**
-	 * Get path of .htaccess file located in site root directory.
+	 * Gets the path of .htaccess file for the given location.
 	 *
-	 * @return string;
+	 * @param string $location Location of the .htaccess file to retrieve. root|uploads.
+	 *
+	 * @return string
 	 */
-	private function htaccess_file() {
-		if ( ! function_exists( 'wp_upload_dir' ) ) {
-			require_once ABSPATH . 'wp-includes/functions.php';
+	private function get_htaccess_file( $location ) {
+		if ( 'root' === $location ) {
+			// Get the .htaccess located at the root.
+			$base_dir = get_home_path();
+		} else {
+			// Get the .htaccess located at the uploads directory.
+			if ( ! function_exists( 'wp_upload_dir' ) ) {
+				require_once ABSPATH . 'wp-includes/functions.php';
+			}
+
+			$uploads  = wp_upload_dir();
+			$base_dir = $uploads['basedir'];
 		}
 
-		$uploads = wp_upload_dir();
-
-		return $uploads['basedir'] . '/.htaccess';
-	}
-
-	/**
-	 * Check if .htaccess is writable.
-	 *
-	 * @return bool
-	 */
-	private function is_htaccess_writable() {
-		$file      = $this->htaccess_file();
-		$home_path = get_home_path();
-		return ( ! file_exists( $file ) && is_writable( $home_path ) ) || is_writable( $file );
+		return rtrim( $base_dir, '/' ) . '/.htaccess';
 	}
 
 	/**
 	 * Get unique string to use at marker comment line in .htaccess or nginx config file.
 	 *
+	 * @since 3.8.0
+	 *
 	 * @return string
 	 */
 	private function marker_suffix() {
-		return 'SMUSH-' . strtoupper( $this->get_mod_name() );
+		return 'SMUSH-WEBP';
 	}
 
 	/**
@@ -563,50 +564,98 @@ class WebP extends Abstract_Module {
 	/**
 	 * Check if .htaccess has rules for this module in place.
 	 *
+	 * @since 3.8.0
+	 *
+	 * @param bool|string $location Location of the .htaccess to check.
+	 *
 	 * @return bool
 	 */
-	public function is_htaccess_written() {
-		$file = $this->htaccess_file();
-
+	public function is_htaccess_written( $location = false ) {
 		if ( ! function_exists( 'extract_from_markers' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/misc.php';
 		}
 
-		$existing_rules = array_filter( extract_from_markers( $file, $this->marker_suffix() ) );
-		return ! empty( $existing_rules );
+		$has_rules = false;
+
+		// Remove the rules from all the possible places if not specified.
+		$locations = ! $location ? $this->get_htaccess_locations() : array( $location );
+
+		foreach ( $locations as $name ) {
+			$htaccess  = $this->get_htaccess_file( $name );
+			$has_rules = ! empty( $has_rules ) || array_filter( extract_from_markers( $htaccess, $this->marker_suffix() ) );
+		}
+
+		return $has_rules;
 	}
 
 	/**
-	 * Add rules .htaccess file.
+	 * Tries different rules in different locations of the .htaccess file.
 	 *
 	 * @since 3.8.0
 	 *
 	 * @return bool|string True on success. String with the error message on failure.
 	 */
 	public function save_htaccess() {
-		if ( $this->is_htaccess_written() ) {
-			return esc_html__( 'The .htaccess file already contains the WebP rules from Smush.', 'wp-smushit' );
-		}
-
 		$cannot_write_message = sprintf(
 			/* translators: 1. opening 'a' tag to premium support, 2. closing 'a' tag. */
 			esc_html__( 'We tried to apply the .htaccess rules automatically but we were unable to complete this action. Make sure the file permissions on your .htaccess file are set to 644, or switch to manual mode and apply the rules yourself. If you need further assistance, you can %1$scontact support%2$s for help.', 'wp-smushit' ),
-			'<a href="https://premium.wpmudev.org/hub/support/#get-support" target="_blank">',
+			'<a href="https://wpmudev.com/hub/support/#get-support" target="_blank">',
 			'</a>'
 		);
-		if ( ! $this->is_htaccess_writable() ) {
-			return $cannot_write_message;
+
+		$last_error = sprintf(
+			/* translators: 1. opening 'a' tag to docs, 2. opening 'a' tag to premium support, 3. closing 'a' tag. */
+			esc_html__( 'We tried different rules but your server still isn\'t serving WebP images. Please contact your hosting provider for further assistance. You can also see our %1$stroubleshooting guide%3$s or %2$scontact support%3$s for help.', 'wp-smushit' ),
+			'<a href="https://wpmudev.com/docs/wpmu-dev-plugins/smush/#wordpress-in-its-own-directory" target="_blank">',
+			'<a href="https://wpmudev.com/hub/support/#get-support" target="_blank">',
+			'</a>'
+		);
+
+		$locations = $this->get_htaccess_locations();
+
+		$is_configured = false;
+
+		foreach ( $locations as $location ) {
+			$htaccess = $this->get_htaccess_file( $location );
+
+			$code             = $this->get_apache_code( $location );
+			$code             = explode( "\n", $code );
+			$markers_inserted = insert_with_markers( $htaccess, $this->marker_suffix(), $code );
+			if ( ! $markers_inserted ) {
+				$last_error = $cannot_write_message;
+				continue;
+			}
+
+			$is_configured = $this->check_server_config();
+
+			if ( true === $is_configured ) {
+				break;
+			}
+
+			$this->unsave_htaccess( $location );
 		}
 
-		$code             = $this->get_code_snippet( 'apache' );
-		$code             = explode( "\n", $code );
-		$file             = $this->htaccess_file();
-		$markers_inserted = insert_with_markers( $file, $this->marker_suffix(), $code );
-
-		if ( ! $markers_inserted ) {
-			return $cannot_write_message;
+		if ( $is_configured ) {
+			return true;
 		}
-		return true;
+
+		return $last_error;
+	}
+
+	/**
+	 * Returns the handled locations for the .htaccess.
+	 *
+	 * @since 3.8.3
+	 *
+	 * @return array
+	 */
+	private function get_htaccess_locations() {
+		if ( ! is_multisite() ) {
+			$locations[] = 'root';
+		}
+		$locations[] = 'uploads';
+
+		return $locations;
 	}
 
 	/**
@@ -614,23 +663,27 @@ class WebP extends Abstract_Module {
 	 *
 	 * @since 3.8.0
 	 *
+	 * @param bool|string $location Location of the htaccess to unsave. uploads|root.
+	 *
 	 * @return bool|string True on success. String with the error message on failure.
 	 */
-	public function unsave_htaccess() {
-		if ( ! $this->is_htaccess_written() ) {
+	public function unsave_htaccess( $location = false ) {
+		if ( ! $this->is_htaccess_written( $location ) ) {
 			return esc_html__( "The .htaccess file doesn't contain the WebP rules from Smush.", 'wp-smushit' );
 		}
 
-		$cannot_write_message = esc_html__( 'We were unable to automatically remove the rules. We recommend trying to remove the rules manually. If you don’t have access to the .htaccess file to remove it manually, please consult with your hosting provider to change the configuration on the server.', 'wp-smushit' );
-		if ( ! $this->is_htaccess_writable() ) {
-			return $cannot_write_message;
+		$markers_inserted = false;
+
+		// Remove the rules from all the possible places if not specified.
+		$locations = ! $location ? $this->get_htaccess_locations() : array( $location );
+
+		foreach ( $locations as $name ) {
+			$htaccess         = $this->get_htaccess_file( $name );
+			$markers_inserted = insert_with_markers( $htaccess, $this->marker_suffix(), '' ) || ! empty( $markers_inserted );
 		}
 
-		$file             = $this->htaccess_file();
-		$markers_inserted = insert_with_markers( $file, $this->marker_suffix(), '' );
-
 		if ( ! $markers_inserted ) {
-			return $cannot_write_message;
+			return esc_html__( 'We were unable to automatically remove the rules. We recommend trying to remove the rules manually. If you don’t have access to the .htaccess file to remove it manually, please consult with your hosting provider to change the configuration on the server.', 'wp-smushit' );
 		}
 		return true;
 	}

@@ -41,7 +41,10 @@
         $cardErrors = $cardElement.closest('.mp-form-row').find('.mepr-stripe-card-errors'),
         stripe = Stripe($cardElement.data('stripe-public-key')),
         elements = stripe.elements(),
-        card = elements.create('card', { style: MeprStripeGateway.style }),
+        card = elements.create('card', {
+          style: MeprStripeGateway.style,
+          hidePostalCode: MeprStripeGateway.hide_postal_code === '1' ? true : false
+        }),
         paymentMethodId = $cardElement.data('payment-method-id'),
         wrapperSelector = self.isSpc ? '.mepr-payment-method' : '.mp_payment_form_wrapper',
         $wrapper = $cardElement.closest(wrapperSelector);

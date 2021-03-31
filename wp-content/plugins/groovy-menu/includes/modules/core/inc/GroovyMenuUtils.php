@@ -295,7 +295,7 @@ class GroovyMenuUtils {
 			if ( $get_custom_types ) {
 				switch ( $type ) {
 					case 'post':
-						$post_types_ext['post--single'] = $name . ' (' . esc_html__( 'single pages', 'groovy-menu' ) . ')';
+						$post_types_ext['post--single'] = $name . ' [' . esc_html__( 'single pages', 'groovy-menu' ) . ']';
 						break;
 					case 'page':
 						$post_types_ext['page--is_search'] = esc_html__( 'Search page', 'groovy-menu' );
@@ -305,12 +305,14 @@ class GroovyMenuUtils {
 						$type_obj = get_post_type_object( $type );
 						// Post type can has archive and single pages.
 						if ( is_object( $type_obj ) && ! empty( $type_obj->has_archive ) && $type_obj->has_archive ) {
-							$post_types_ext[ $type . '--single' ] = $name . ' (' . esc_html__( 'single pages', 'groovy-menu' ) . ')';
+							$post_types_ext[ $type . '--single' ] = $name . ' [' . esc_html__( 'single pages', 'groovy-menu' ) . ']';
 						}
 						break;
 				}
 			}
 		}
+
+		unset( $post_types );
 
 		if ( ! $name_as_key ) {
 			$_post_types_ext = array();
@@ -321,6 +323,48 @@ class GroovyMenuUtils {
 		}
 
 		return $post_types_ext;
+
+	}
+
+	/**
+	 * @param bool $name_as_key
+	 *
+	 * @return array
+	 */
+	public static function getTaxonomiesExtended( $name_as_key = true ) {
+
+		$post_tax_ext = array();
+
+		$wp_taxonomies_pub = get_taxonomies(
+			array(
+				'public'            => true,
+				'show_in_nav_menus' => true,
+			),
+			'objects'
+		);
+
+		if ( empty( $wp_taxonomies_pub ) ) {
+			return $post_tax_ext;
+		}
+
+		foreach ( $wp_taxonomies_pub as $type => $tax_data ) {
+			if ( ! empty( $tax_data->label ) ) {
+				$post_tax_ext[ $type ] = $tax_data->label;
+			}
+		}
+
+		unset( $wp_taxonomies_pub );
+
+
+		if ( ! $name_as_key ) {
+			$_post_types_ext = array();
+			foreach ( $post_tax_ext as $type => $name ) {
+				$_post_types_ext[ $name ] = $type;
+			}
+			$post_tax_ext = $_post_types_ext;
+		}
+
+		return $post_tax_ext;
 
 	}
 
@@ -565,11 +609,23 @@ class GroovyMenuUtils {
 
 				$type = 'product--single';
 
-			} elseif ( self::is_shop_and_category_woocommerce_page() || self::is_additional_woocommerce_page() || self::is_product_woocommerce_page() ) {
+			} elseif ( self::is_shop_taxonomy_woocommerce_page() ) {
+
+				$type = 'product'; // by default.
+
+				if ( self::is_shop_category_woocommerce_page() ) {
+					$type = 'product_cat';
+				} elseif ( self::is_shop_tag_woocommerce_page() ) {
+					$type = 'product_tag';
+				} elseif ( is_archive() && is_tax() && ! empty( get_query_var( 'taxonomy' ) ) ) {
+					$type = get_query_var( 'taxonomy' );
+				}
+
+			} elseif ( self::is_shop_woocommerce_page() || self::is_additional_woocommerce_page() || self::is_product_woocommerce_page() ) {
 
 				$type = 'product';
 
-			} elseif ( is_page_template( 'template-blog.php' ) || is_home() ) {
+			} elseif ( is_page_template( 'template-blog.php' ) || is_home() ) { // for home Page condition is is_front_page().
 
 				$type = 'post';
 
@@ -581,21 +637,35 @@ class GroovyMenuUtils {
 
 				$type = is_single() ? 'crane_portfolio--single' : 'crane_portfolio';
 
-			} elseif ( ( is_single() && 'post' === get_post_type() ) || ( is_archive() && 'post' === get_post_type() ) || is_archive() ) {
+			} elseif ( ( is_single() || is_archive() ) && 'post' === get_post_type() && ! is_tax() ) {
 
 				$type = is_single() ? 'post--single' : 'post';
+
+				if ( is_archive() && is_category() ) {
+					$type = 'category';
+				} elseif ( is_archive() && is_tag() ) {
+					$type = 'post_tag';
+				}
 
 			} elseif ( is_page() && 'page' === get_post_type() ) {
 
 				$type = 'page';
 
-			} elseif ( 'posts' === get_option( 'show_on_front' ) ) {
+			} elseif ( is_home() && 'posts' === get_option( 'show_on_front' ) ) {
 				// Check if the blog page is the front page.
 				$type = 'post';
 
 			} elseif ( is_single() ) {
 
 				$type = $type . '--single';
+
+			} elseif ( is_archive() && ! is_tax() && ! empty( get_post_type() ) ) {
+
+				$type = get_post_type();
+
+			} elseif ( is_archive() && is_tax() && ! empty( get_query_var( 'taxonomy' ) ) ) {
+
+				$type = get_query_var( 'taxonomy' );
 
 			}
 
@@ -642,15 +712,71 @@ class GroovyMenuUtils {
 	 *
 	 * @return bool
 	 */
-	public static function is_shop_and_category_woocommerce_page() {
+	public static function is_shop_woocommerce_page() {
 
 		if (
 			function_exists( 'is_woocommerce' ) &&
 			function_exists( 'is_product' ) &&
-			function_exists( 'is_shop' ) &&
+			function_exists( 'is_shop' )
+		) {
+			if ( ! is_product() && ( is_woocommerce() || is_shop() ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Detect current page
+	 *
+	 * @return bool
+	 */
+	public static function is_shop_tag_woocommerce_page() {
+
+		if (
+			function_exists( 'is_product' ) &&
 			function_exists( 'is_product_tag' )
 		) {
-			if ( ! is_product() && ( is_woocommerce() || is_shop() || is_product_tag() ) ) {
+			if ( ! is_product() && is_product_tag() ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Detect current page
+	 *
+	 * @return bool
+	 */
+	public static function is_shop_category_woocommerce_page() {
+
+		if (
+			function_exists( 'is_product' ) &&
+			function_exists( 'is_product_category' )
+		) {
+			if ( ! is_product() && is_product_category() ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Detect current page
+	 *
+	 * @return bool
+	 */
+	public static function is_shop_taxonomy_woocommerce_page() {
+
+		if (
+			function_exists( 'is_product' ) &&
+			function_exists( 'is_product_taxonomy' )
+		) {
+			if ( ! is_product() && is_product_taxonomy() ) {
 				return true;
 			}
 		}
@@ -938,18 +1064,24 @@ class GroovyMenuUtils {
 		$default_values = array(
 			'preset' => 'default',
 			'menu'   => 'default',
+			'type'   => 'post_type',
 		);
 
 		if ( ! empty( $raw_value ) && is_array( $saved_value ) ) {
 			foreach ( $saved_value as $tax_opt ) {
 				$key_value = explode( ':::', $tax_opt );
 				if ( is_array( $key_value ) && isset( $key_value[0] ) && isset( $key_value[1] ) ) {
-					$tax    = $key_value[0];
+					$tax  = $key_value[0];
+					$type = 'post_type';
+					if ( isset( $key_value[2] ) ) {
+						$type = $key_value[2];
+					}
 					$params = explode( '@', $key_value[1] );
 					if ( is_array( $params ) && isset( $params[0] ) && isset( $params[1] ) ) {
 						$saved_tax[ $tax ] = array(
 							'preset' => $params[0],
 							'menu'   => $params[1],
+							'type'   => $type,
 						);
 					} else {
 						$saved_tax[ $tax ] = $default_values;
@@ -992,6 +1124,7 @@ class GroovyMenuUtils {
 		$default_values = array(
 			'preset' => 'default',
 			'menu'   => 'default',
+			'type'   => 'post_type',
 		);
 
 		foreach ( self::getTaxonomiesPresets() as $post_type => $settings ) {
@@ -1003,8 +1136,9 @@ class GroovyMenuUtils {
 		foreach ( $taxonomies as $post_type => $settings ) {
 			$value_preset = empty( $settings['preset'] ) ? $default_values['preset'] : $settings['preset'];
 			$value_menu   = empty( $settings['menu'] ) ? $default_values['menu'] : $settings['menu'];
+			$value_type   = empty( $settings['type'] ) ? $default_values['type'] : $settings['type'];
 
-			$saved_tax[] = $post_type . ':::' . $value_preset . '@' . $value_menu;
+			$saved_tax[] = $post_type . ':::' . $value_preset . '@' . $value_menu . ':::' . $value_type;
 		}
 
 		if ( ! empty( $saved_tax ) ) {
@@ -1029,6 +1163,7 @@ class GroovyMenuUtils {
 		$return_values    = array(
 			'preset' => 'default',
 			'menu'   => 'default',
+			'type'   => 'post_type',
 		);
 
 		if ( ! $override_for_tax ) {
@@ -1933,8 +2068,7 @@ class GroovyMenuUtils {
 	 * @return bool|string
 	 */
 	public static function check_lic( $immediately = false ) {
-		
-		return true;
+	return true;
 		if ( ! $immediately && get_transient( GROOVY_MENU_DB_VER_OPTION . '__lic_cache' ) ) {
 			$lic_opt = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic' );
 			if ( empty( $lic_opt ) || ! $lic_opt ) {

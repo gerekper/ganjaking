@@ -19,7 +19,7 @@ jQuery( function( $ ) {
                 $select.append('<option value="'+ key +'">'+ email_data.product_files[ key ] +'</option>');
             }
 
-            $select.trigger("change");
+            $select.trigger( 'change' );
         }
 
         if ($("#product_id").val() > 0) {
@@ -48,15 +48,15 @@ jQuery( function( $ ) {
         toggle_downloadables_div();
 
         // trigger the conditions toggler
-        $("select.condition:visible").trigger("change");
-        $("#storewide_type").trigger("change");
+        $(' select.condition:visible' ).trigger( 'change' );
+        $( '#storewide_type' ).trigger( 'change' );
     });
 
     $("body").on("updated_email", toggle_variations_row);
 
     init_select2_fields();
 
-    $("#fue-email-details").on("change", "#storewide_type", function () {
+    $( '#fue-email-details' ).on( 'change', '#storewide_type', function () {
         var type = $(this).val();
 
         $(".product_tr, .category_tr, .excluded_category_tr").hide();
@@ -68,7 +68,7 @@ jQuery( function( $ ) {
             $(".product_tr, .category_tr").hide();
             $(".excluded_category_tr").show();
 
-            $("#product_id").trigger("change");
+            $( '#product_id' ).trigger( 'change' );
         } else if (type == "products") {
             $("#category_id").val("");
 
@@ -82,9 +82,9 @@ jQuery( function( $ ) {
             $(".category_tr").show();
             $(".excluded_category_tr").hide();
         }
-    });
+    } );
 
-    $("#fue-email-details").on("change", "#product_id, #include_variations, #category_id", function () {
+    $( '#fue-email-details' ).on( 'change', '#product_id, #include_variations, #category_id', function () {
         $("#fue-email-details").block({
             message: null,
             overlayCSS: {background: '#fff url(' + FUE.ajax_loader + ') no-repeat center', opacity: 0.6}
@@ -109,10 +109,10 @@ jQuery( function( $ ) {
             $("#fue-email-details").unblock();
         }, 'json');
 
-    });
+    } );
 
     // conditions
-    $("#fue-email-details").on('change', 'select.condition', function () {
+    $( '#fue-email-details' ).on( 'change', 'select.condition', function () {
         var conditions_with_value = [
             'order_total_above', 'order_total_below', 'total_orders_above',
             'total_orders_below', 'total_purchases_above', 'total_purchases_below'
@@ -126,10 +126,10 @@ jQuery( function( $ ) {
 
         if ($.inArray(condition, conditions_with_value) > -1) {
             $(this).parents('fieldset').find('span.value').show();
-            $(this).parents('fieldset').find('.value :input').removeAttr('disabled');
+            $( this ).parents( 'fieldset' ).find( '.value :input' ).prop( 'disabled', false );
         } else {
             $(this).parents('fieldset').find('span.value').hide();
-            $(this).parents('fieldset').find('.value :input').attr('disabled', true);
+            $( this ).parents( 'fieldset' ).find( '.value :input' ).prop( 'disabled', true );
         }
 
         if ($.inArray(condition, conditions_with_currency) > -1) {
@@ -140,48 +140,48 @@ jQuery( function( $ ) {
 
         if ($.inArray(condition, conditions_with_products) > -1) {
             $(this).parents('fieldset').find('.value-products').show();
-            $(this).parents('fieldset').find('.value-products :input').removeAttr('disabled');
+            $( this ).parents( 'fieldset' ).find( '.value-products :input' ).prop( 'disabled', false );
 
         } else {
             $(this).parents('fieldset').find('.value-products').hide();
-            $(this).parents('fieldset').find('.value-products :input').attr('disabled', true);
+            $( this ).parents( 'fieldset' ).find( '.value-products :input' ).prop( 'disabled', true );
         }
 
         if ($.inArray(condition, conditions_with_categories) > -1) {
             $(this).parents('fieldset').find('.value-categories').show();
-            $(this).parents('fieldset').find('.value-categories :input').removeAttr('disabled');
+            $( this ).parents( 'fieldset' ).find( '.value-categories :input' ).prop( 'disabled', false );
         } else {
             $(this).parents('fieldset').find('.value-categories').hide();
-            $(this).parents('fieldset').find('.value-categories :input').attr('disabled', true);
+            $( this ).parents( 'fieldset' ).find( '.value-categories :input' ).prop( 'disabled', true );
         }
 
         if ( condition == "payment_method" ) {
             $(this).parents('fieldset').find('.value-payment-method').show();
-            $(this).parents('fieldset').find('.value-payment-method :input').removeAttr('disabled');
+            $( this ).parents( 'fieldset' ).find( '.value-payment-method :input' ).prop( 'disabled', false );
         } else {
             $(this).parents('fieldset').find('.value-payment-method').hide();
-            $(this).parents('fieldset').find('.value-payment-method :input').attr('disabled', true);
+            $( this ).parents( 'fieldset' ).find( '.value-payment-method :input' ).prop( 'disabled', true );
         }
 
         if ( condition == "shipping_method" ) {
             $(this).parents('fieldset').find('.value-shipping-method').show();
-            $(this).parents('fieldset').find('.value-shipping-method :input').removeAttr('disabled');
+            $( this ).parents( 'fieldset' ).find( '.value-shipping-method :input' ).prop( 'disabled', false );
         } else {
             $(this).parents('fieldset').find('.value-shipping-method').hide();
-            $(this).parents('fieldset').find('.value-shipping-method :input').attr('disabled', true);
+            $( this ).parents( 'fieldset' ).find( '.value-shipping-method :input' ).prop( 'disabled', true );
         }
 
-    });
+    } );
 
     // Conditions
-    $("#fue-email-details").on('click', '.btn-add-condition', function (e) {
+    $( '#fue-email-details' ).on( 'click', '.btn-add-condition', function( e ) {
         e.preventDefault();
 
         var id = fue_get_next_condition_id();
         var html = $("#conditions_tpl").html().replace(/_idx_/g, id);
 
         $(html).insertBefore($(this).parents('p'), null);
-        $("#condition_" + id + " :input").removeAttr("disabled");
+        $( '#condition_' + id + ' :input').prop( 'disabled', false );
         $("#condition_" + id + " .select2-init")
             .removeClass('select2-init')
             .addClass('select2');
@@ -191,17 +191,17 @@ jQuery( function( $ ) {
             .addClass('ajax_select2_products_and_variations');
 
         init_select2_fields();
-    });
+    } );
 
-    $("#fue-email-details").on('click', '.btn-remove-condition', function (e) {
+    $( '#fue-email-details' ).on( 'click', '.btn-remove-condition', function( e ) {
         e.preventDefault();
 
         $(this).parents('fieldset').remove();
-    });
+    } );
 
     // enable visible input fields
     $('body').on('updated_email_details', function () {
-        $("#trigger_conditions :input:visible").removeAttr("disabled");
+        $( '#trigger_conditions :input:visible' ).prop( 'disabled', false );
 
         $(".select2-init:visible")
             .addClass('select2')
@@ -211,10 +211,10 @@ jQuery( function( $ ) {
             .removeClass('ajax-select2-init')
             .addClass('ajax_select2_products_and_variations');
 
-        $("select.condition").trigger("change");
+        $( 'select.condition' ).trigger( 'change' );
 
-        $("#send_coupon").trigger("change");
-        $("#interval_type").trigger("change");
+        $( '#send_coupon' ).trigger( 'change' );
+        $( '#interval_type' ).trigger( 'change' );
 
         init_select2_fields();
     });
@@ -232,27 +232,27 @@ jQuery( function( $ ) {
         $.getJSON(ajaxurl, args, function (resp) {
             $("#fue-email-test div.inside").html(resp.html);
             init_select2_fields();
-            $("#test_type").change();
+            $( '#test_type' ).trigger( 'change' );
             $("#fue-email-test").unblock();
         });
 
     });
 
-    $("#fue-email-details").on("change", "#use_custom_field", function () {
+    $( '#fue-email-details' ).on( 'change', '#use_custom_field', function () {
         if ($(this).prop("checked")) {
             $(".show-if-custom-field").show();
         } else {
             $(".show-if-custom-field").hide();
         }
-    });
+    } );
 
-    $("#fue-email-details").on("change", "#custom_fields", function () {
+    $( '#fue-email-details' ).on( 'change', '#custom_fields', function () {
         if ($(this).val() == "Select a product first.") return;
         $(".show-if-cf-selected").show();
         $("#custom_field").val("{cf " + $("#product_id").val() + " " + $(this).val() + "}");
-    });
+    } );
 
-    $("#fue-email-details").on("change", "#send_coupon", function () {
+    $( '#fue-email-details' ).on( 'change', '#send_coupon', function () {
         if ($(this).prop("checked")) {
             $(".var_coupon").show();
             $(".coupon_tr").show();
@@ -260,9 +260,9 @@ jQuery( function( $ ) {
             $(".var_coupon").hide();
             $(".coupon_tr").hide();
         }
-    });
+    } );
 
-    $("#fue-email-test").on("change", "#test_type", function () {
+    $( '#fue-email-test' ).on( 'change', '#test_type', function () {
         if ($(this).val() == "order") {
             $("#test_email_order").show();
             $("#test_email_product").hide();
@@ -270,48 +270,48 @@ jQuery( function( $ ) {
             $("#test_email_product").show();
             $("#test_email_order").hide();
         }
-    });
+    } );
 
     // Interval Type
-    $("#fue-email-details").on("change", "#interval_type", function () {
+    $( '#fue-email-details' ).on( 'change', '#interval_type', function () {
 
         if ( $(this).val() == "downloaded" || $(this).val() == "not_downloaded" ) {
             $("#storewide_type")
                 .val("products")
-                .change()
-                .attr("disabled", true);
+                .trigger( 'change' )
+                .prop( 'disabled', true );
 
             $("#storewide_type_hidden")
-                .removeAttr("disabled")
+                .prop( 'disabled', false )
                 .val("products");
 
             //$(".downloadables_div").show();
         } else {
             //$(".downloadables_div").hide();
-            $("#storewide_type_hidden").attr("disabled", true);
-            $("#storewide_type").removeAttr("disabled");
+            $( '#storewide_type_hidden' ).prop( 'disabled', true );
+            $( '#storewide_type' ).prop( 'disabled', false );
         }
 
         if ( $(this).val() == "coupon" ) {
             $("#storewide_type")
                 .val("all")
-                .attr("disabled", true);
+                .prop( 'disabled', true );
 
             $("#storewide_type_hidden")
-                .removeAttr("disabled")
+                .prop( 'disabled', false )
                 .val("all");
 
             $(".wc-products-selector").hide();
             $(".coupons_div").show();
             $(".var_interval_coupon").show();
         } else {
-            $("#storewide_type_hidden").attr("disabled", true);
-            $("#storewide_type").removeAttr("disabled");
+            $( '#storewide_type_hidden' ).prop( 'disabled', true );
+            $( '#storewide_type' ).prop( 'disabled', false );
             $(".wc-products-selector").show();
             $(".coupons_div").hide();
             $(".var_interval_coupon").hide();
         }
-    });
+    } );
 });
 
 function woocommerce_toggle_fields( type ) {
@@ -334,7 +334,7 @@ function woocommerce_toggle_fields( type ) {
     if ( type == 'customer' ) {
         show = ['.always_send_tr', '.interval_type_option', '.interval_type_span', '.interval_type_order_total_above', '.interval_type_order_total_below', '.interval_type_purchase_above_one', '.interval_type_total_purchases', '.interval_type_total_orders', '.interval_type_total_purchases', '.interval_type_after_last_purchase', '.interval_type_span', '.var_customer', '.use_custom_field_tr'];
         hide = ['.downloadables_div', '.adjust_date_tr', '.always_send_tr', '.signup_description', '.product_description_tr', '.product_tr', '.category_tr', '.var_item_name', '.var_item_category', '.var_item_names', '.var_item_categories', '.var_item_name', '.var_item_category', '.interval_duration_date', '.updated_variables_list', '.custom_field_tr'];
-        jQuery("option.interval_duration_date").attr("disabled", true);
+        jQuery( 'option.interval_duration_date' ).prop( 'disabled', true );
     } else {
         hide.push('.interval_type_order_total_above', '.interval_type_order_total_below', '.interval_type_purchase_above_one', '.interval_type_total_purchases', '.interval_type_total_orders', '.interval_type_total_purchases', '.interval_type_after_last_purchase', '.var_customer');
     }

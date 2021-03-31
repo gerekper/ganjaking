@@ -22,6 +22,7 @@ class Classroom extends App {
     add_filter( 'nav_menu_link_attributes', array($this, 'add_class_to_menu_anchors'), 10, 3 );
     add_filter( 'wp_nav_menu_objects', array($this, 'filter_classroom_menu'), 10, 2);
     add_filter( base\SLUG_KEY . '_customiser_sections', array($this, 'classroom_section') );
+    add_action( 'widgets_init', array($this, 'classroom_widgets') );
   }
 
   /**
@@ -213,6 +214,39 @@ class Classroom extends App {
     }
   }
 
+  /**
+   * Widgetizing Classroom
+   * @return [type]
+   */
+  public function classroom_widgets(){
+    register_sidebar( array(
+      'name'          => _x('Classroom Sidebar', 'ui', 'memberpress-courses'),
+      'description'   => __( 'Widgets in this area will be shown on MemberPress Courses classroom sidebar.', 'memberpress-courses' ),
+      'id'            => 'mpcs_classroom_sidebar',
+      'before_widget' => '<div>',
+      'after_widget'  => '</div>',
+      'before_title'  => '<h2 class="rounded">',
+      'after_title'   => '</h2>',
+    ) );
+    register_sidebar( array(
+      'name'          => _x('Lesson Header', 'ui', 'memberpress-courses'),
+      'description'   => __( 'Widgets in this area will be shown on MemberPress Courses lesson header.', 'memberpress-courses' ),
+      'id'            => 'mpcs_classroom_lesson_header',
+      'before_widget' => '<div>',
+      'after_widget'  => '</div>',
+      'before_title'  => '<h2 class="rounded">',
+      'after_title'   => '</h2>',
+    ) );
+    register_sidebar( array(
+      'name'          => _x('Lesson Footer', 'ui', 'memberpress-courses'),
+      'description'   => __( 'Widgets in this area will be shown on MemberPress Courses lesson footer.', 'memberpress-courses' ),
+      'id'            => 'mpcs_classroom_lesson_footer',
+      'before_widget' => '<div>',
+      'after_widget'  => '</div>',
+      'before_title'  => '<h2 class="rounded">',
+      'after_title'   => '</h2>',
+    ) );
+  }
 
   /**
    * Add CSS classes to a tag
@@ -293,7 +327,6 @@ class Classroom extends App {
 
       .mpcs-classroom .mpcs-progress-ring {
         background-color: rgba(<?php echo $progress_color ?>) !important;
-        background-image: linear-gradient(transparent 50%, rgba(<?php echo $progress_color ?>) 50%), linear-gradient(90deg, rgb(204, 204, 204) 50%, transparent 50%) !important;
       }
 
       .mpcs-classroom .mpcs-course-filter .dropdown .btn span,

@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Store Credit
  * Plugin URI: https://woocommerce.com/products/store-credit/
  * Description: Create "store credit" coupons for customers which are redeemable at checkout.
- * Version: 3.5.2
+ * Version: 3.6.0
  * Author: Themesquad
  * Author URI: https://themesquad.com/
  * Requires at least: 4.7
@@ -39,33 +39,14 @@ if ( ! function_exists( 'woothemes_queue_update' ) ) {
 woothemes_queue_update( plugin_basename( __FILE__ ), 'c4bf3ecec4146cb69081e5b28b6cdac4', '18609' );
 
 /**
- * Check if WooCommerce is active and the minimum requirements are satisfied.
+ * Plugin requirements.
  */
-if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_version' ), '3.4', '<' ) ) {
-	add_action( 'admin_notices', 'wc_store_credit_requirements_notice' );
-	return;
+if ( ! class_exists( 'WC_Store_Credit_Requirements', false ) ) {
+	require_once dirname( __FILE__ ) . '/includes/class-wc-store-credit-requirements.php';
 }
 
-/**
- * Displays an admin notice when the minimum requirements are not satisfied.
- *
- * @since 3.0.0
- */
-function wc_store_credit_requirements_notice() {
-	if ( ! current_user_can( 'activate_plugins' ) ) {
-		return;
-	}
-
-	if ( is_woocommerce_active() ) {
-		/* translators: %s: WooCommerce version */
-		$message = sprintf( _x( '<strong>WooCommerce Store Credit</strong> requires WooCommerce %s or higher.', 'admin notice', 'woocommerce-store-credit' ), '3.4' );
-	} else {
-		$message = _x( '<strong>WooCommerce Store Credit</strong> requires WooCommerce to be activated to work.', 'admin notice', 'woocommerce-store-credit' );
-	}
-
-	if ( $message ) {
-		printf( '<div class="error"><p>%s</p></div>', wp_kses_post( $message ) );
-	}
+if ( ! WC_Store_Credit_Requirements::are_satisfied() ) {
+	return;
 }
 
 // Define WC_STORE_CREDIT_FILE constant.

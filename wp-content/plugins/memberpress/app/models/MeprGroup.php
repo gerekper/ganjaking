@@ -172,6 +172,20 @@ class MeprGroup extends MeprCptModel {
     return $products;
   }
 
+  /**
+   * Returns products that can be bought
+   * @return array MeprProduct[]
+   */
+  public function buyable_products() {
+    global $wpdb;
+    $products = array_filter($this->products(), function ($p){
+      return $p->can_you_buy_me();
+    });
+
+    return (array) $products;
+  }
+
+
   // Returns the product associated through fallback group
   public function fallback_membership() {
     global $wpdb;

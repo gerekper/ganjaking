@@ -408,15 +408,13 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
 
       self::manually_queue_update();
 
-      $mepr_options->mothership_license = '';
-      $mepr_options->store(false);
-
-      // Don't need to check the mothership for this one ... we just deactivated
-      update_option('mepr_activated', false);
+      $mepr_options->deactivate_license();
 
       $message = $act['message'];
     }
     catch(Exception $e) {
+      $mepr_options->deactivate_license();
+
       $errors[] = $e->getMessage();
     }
 
@@ -579,6 +577,17 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
       else {
         $display_name = 'MemberPress Add-On';
         $description = 'MemberPress Add-On';
+      }
+      if ( in_array( $display_name, array(
+        'MemberPress Courses',
+        'MemberPress Downloads',
+        'MemberPress Developer Tools',
+        'MemberPress Corporate Accounts',
+        'MemberPress PDF Invoice',
+        'MemberPress + BuddyPress Integration'
+      ) ) ) {
+        $plugin_slug = ($args->slug === 'memberpress-courses') ? 'memberpress-courses' : str_replace('memberpress', '', $addon_info['TextDomain']);
+        $changelog = "You can read more about the latest changes to $display_name by visiting <a href=\"https://memberpress.com/add-ons/$plugin_slug/\">the change log</a>";
       }
     }
 

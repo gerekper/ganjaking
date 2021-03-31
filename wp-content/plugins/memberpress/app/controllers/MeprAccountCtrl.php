@@ -136,7 +136,16 @@ class MeprAccountCtrl extends MeprBaseCtrl {
     $mepr_current_user = MeprUtils::get_currentuserinfo();
     $expired_subs = $mepr_current_user->subscription_expirations('expired',true);
     $mepr_options = MeprOptions::fetch();
-    $account_url = MeprUtils::get_current_url_without_params();
+
+    // When this option is empty, the "Plain" permalink structure is in use.
+    $url_option = get_option('permalink_structure');
+
+    if(empty($url_option) && isset($post->ID) && $post->ID > 0) {
+        $account_url = MeprUtils::get_permalink($post->ID);
+    } else {
+        $account_url = MeprUtils::get_current_url_without_params();
+    }
+
     $delim = MeprAppCtrl::get_param_delimiter_char($account_url);
 
     MeprView::render('/account/nav', get_defined_vars());
@@ -206,6 +215,7 @@ class MeprAccountCtrl extends MeprBaseCtrl {
         if($mepr_current_user->user_email != $new_email) {
           $mepr_current_user->user_email = $new_email;
           $mepr_current_user->store();
+          MeprHooks::do_action('mepr-update-new-user-email', $mepr_current_user);
         }
 
         //Save the usermeta

@@ -544,7 +544,7 @@ return array(
 			),
 			'taxonomies_preset'     => array(
 				'type'        => 'taxonomyPreset',
-				'title'       => esc_html__( 'Presets for taxonomies', 'groovy-menu' ),
+				'title'       => '',
 				'default'     => array(
 					'preset' => strval( $groovy_menu_preset_class::getDefaultPreset( true ) ),
 					'menu'   => GroovyMenuUtils::getDefaultMenu(),

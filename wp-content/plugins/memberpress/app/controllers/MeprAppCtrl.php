@@ -678,8 +678,7 @@ class MeprAppCtrl extends MeprBaseCtrl {
       wp_enqueue_style( 'dashicons' );
       wp_enqueue_style( 'mp-login-css', MEPR_CSS_URL.'/ui/login.css', null, MEPR_VERSION);
 
-      wp_register_script('mepr-login-i18n', includes_url().'js/dist/i18n.min.js', null , MEPR_VERSION);
-      wp_register_script('mepr-login-js', MEPR_JS_URL.'/login.js', array('jquery', 'underscore'), MEPR_VERSION);
+      wp_register_script('mepr-login-js', MEPR_JS_URL.'/login.js', array('jquery', 'underscore', 'wp-i18n'), MEPR_VERSION);
 
       wp_enqueue_script('mepr-login-i18n');
       wp_enqueue_script('mepr-login-js');
@@ -730,8 +729,7 @@ class MeprAppCtrl extends MeprBaseCtrl {
       wp_enqueue_style( 'dashicons' );
       wp_enqueue_style( 'mp-login-css', MEPR_CSS_URL.'/ui/login.css', null, MEPR_VERSION);
 
-      wp_register_script('mepr-login-i18n', includes_url().'js/dist/i18n.min.js', null , MEPR_VERSION);
-      wp_register_script('mepr-login-js', MEPR_JS_URL.'/login.js', array('jquery', 'underscore'), MEPR_VERSION);
+      wp_register_script('mepr-login-js', MEPR_JS_URL.'/login.js', array('jquery', 'underscore', 'wp-i18n'), MEPR_VERSION);
 
       wp_enqueue_script('mepr-login-i18n');
       wp_enqueue_script('mepr-login-js');

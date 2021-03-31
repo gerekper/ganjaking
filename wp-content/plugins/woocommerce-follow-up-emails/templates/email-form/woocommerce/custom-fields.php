@@ -22,7 +22,7 @@
 					<option value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $key ); ?></option>
 				<?php endforeach; ?>
 			</select>
-			<span class="show-if-cf-selected"><input type="text" readonly onclick="jQuery(this).select();" value="" size="25" id="custom_field" /></span>
+			<span class="show-if-cf-selected"><input type="text" readonly onclick="jQuery(this).trigger('select');" value="" size="25" id="custom_field" /></span>
 		</span>
 	</p>
 </div>

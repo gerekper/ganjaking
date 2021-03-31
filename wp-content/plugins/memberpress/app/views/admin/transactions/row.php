@@ -74,26 +74,15 @@ if(!empty($records))
           <td <?php echo $attributes; ?>>
             <a href="<?php echo admin_url('admin.php?page=memberpress-trans&action=edit&id='.$rec->id); ?>" title="<?php _e('Edit transaction', 'memberpress'); ?>"><b><?php echo $rec->trans_num; ?></b></a> <img src="<?php echo MEPR_IMAGES_URL . '/square-loader.gif'; ?>" alt="<?php _e('Loading...', 'memberpress'); ?>" class="mepr_loader" />
             <div class="mepr-row-actions">
-              <a href="<?php echo admin_url('admin.php?page=memberpress-trans&action=edit&id='.$rec->id); ?>" title="<?php _e('Edit transaction', 'memberpress'); ?>"><?php _e('Edit','memberpress'); ?></a> |
-              <a href="" class="mepr_resend_txn_email" data-value="<?php echo $rec->id; ?>"><?php _e('Send Receipt', 'memberpress'); ?></a> |
-              <?php
-              if($rec->product_id) {
-                $prd = new MeprProduct($rec->product_id);
-                if(isset($prd->emails['MeprUserProductWelcomeEmail']) && $prd->emails['MeprUserProductWelcomeEmail']['enabled']) { ?>
-                  <a href="" class="mepr_send_welcome_email" data-value="<?php echo $rec->id; ?>"><?php _e('Send Welcome', 'memberpress'); ?></a> |
-              <?php
-                } else {
-                  ?>
-                  <a href="" class="mepr_send_welcome_email" data-value="<?php echo $rec->id; ?>"><?php _e('Send Welcome', 'memberpress'); ?></a> |
-                  <?php
-                }
-              } else {
-                ?>
-                <a href="" class="mepr_send_welcome_email" data-value="<?php echo $rec->id; ?>"><?php _e('Send Welcome', 'memberpress'); ?></a> |
+              <a href="<?php echo admin_url('admin.php?page=memberpress-trans&action=edit&id='.$rec->id); ?>" title="<?php _e('Edit transaction', 'memberpress'); ?>"><?php _e('Edit','memberpress'); ?></a>
+              <?php if (!in_array($rec->status, [\MeprTransaction::$pending_str, \MeprTransaction::$failed_str])) { ?>
+                | <a href="" class="mepr_resend_txn_email"
+                     data-value="<?php echo $rec->id; ?>"><?php _e( 'Send Receipt', 'memberpress' ); ?></a> |
+                  <a href="" class="mepr_send_welcome_email"
+                     data-value="<?php echo $rec->id; ?>"><?php _e( 'Send Welcome', 'memberpress' ); ?></a> |
                 <?php
-              }
-              if (class_exists('MePdfInvoicesCtrl')) {  ?>
-                <a href="
+                if ( class_exists( 'MePdfInvoicesCtrl' ) ) { ?>
+                  <a href="
                   <?php
                   echo MeprUtils::admin_url(
                     'admin-ajax.php',
@@ -104,8 +93,10 @@ if(!empty($records))
                     )
                   );
                   ?>
-                " target="_blank"><?php echo esc_html_x( 'PDF Invoice', 'ui', 'memberpress-pdf-invoice', 'memberpress' ); ?></a>  |
-              <?php }
+                "
+                     target="_blank"><?php echo esc_html_x( 'PDF Invoice', 'ui', 'memberpress-pdf-invoice', 'memberpress' ); ?></a>  |
+                <?php }
+              }
               $txn = new MeprTransaction($rec->id);
               if($txn->can('process-refunds')):
               ?>

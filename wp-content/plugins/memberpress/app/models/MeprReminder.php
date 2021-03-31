@@ -423,9 +423,16 @@ class MeprReminder extends MeprCptModel {
       // Just select the actual transaction id
       "SELECT txn.id FROM {$mepr_db->transactions} AS txn " .
 
-       // Make sure this thing is complete or confirmed
-       "WHERE txn.status IN (%s,%s) " .
+       // Make sure that only transactions that are
+       // complete or (confirmed and in a free trial) get picked up
+       "WHERE ( txn.status = %s
+                OR ( txn.status = %s
+                     AND ( SELECT sub.trial
+                             FROM {$mepr_db->subscriptions} AS sub
+                            WHERE sub.id = txn.subscription_id AND sub.trial_amount = 0.00 ) = 1 ) ) " .
 
+         // We don't send on fallback txn
+         " AND txn.txn_type <> %s " .
          // Ensure we grab transactions that are after the trigger period
          "AND DATE_ADD(
                 txn.created_at,
@@ -441,24 +448,15 @@ class MeprReminder extends MeprCptModel {
                 INTERVAL 2 DAY
               ) >= %s " .
 
-         // Ignore "confirmed" transactions that have less than 48 hours between
-         // the created_at and expires_at dates.
-         // That should avoid most free trial period issues.
-         // https://app.asana.com/0/1184143657882493/1151153991947745
-         "AND txn.id NOT IN
-             (SELECT txn3.id
-               FROM {$mepr_db->transactions} AS txn3
-               WHERE  txn3.status = %s AND DATE_ADD(
-                  txn3.created_at,
-                  INTERVAL 2 DAY
-               ) > txn3.expires_at)
-             " .
-
          // Make sure this is the *first* complete transaction
          "AND ( SELECT txn2.id
                   FROM {$mepr_db->transactions} AS txn2
                  WHERE txn2.user_id = txn.user_id
-                   AND txn2.status IN (%s,%s)
+                   AND ( txn2.status = %s
+                    OR ( txn2.status = %s
+                         AND ( SELECT sub.trial
+                                 FROM {$mepr_db->subscriptions} AS sub
+                                WHERE sub.id = txn2.subscription_id AND sub.trial_amount = 0.00 ) = 1 ) )
                    ".$this->get_query_products('txn2.product_id')."
                    AND txn2.created_at < txn.created_at
                  LIMIT 1
@@ -481,9 +479,9 @@ class MeprReminder extends MeprCptModel {
 
       MeprTransaction::$complete_str,
       MeprTransaction::$confirmed_str,
+      MeprTransaction::$fallback_str,
       MeprUtils::db_now(),
       MeprUtils::db_now(),
-      MeprTransaction::$confirmed_str,
       MeprTransaction::$complete_str,
       MeprTransaction::$confirmed_str,
       "{$this->trigger_timing}-{$this->trigger_event}-reminder",

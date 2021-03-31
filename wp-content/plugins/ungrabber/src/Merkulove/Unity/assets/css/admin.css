@@ -1,0 +1,99 @@
+/**
+ * UnGrabber
+ * A most effective way to protect your online content from being copied or grabbed
+ * Exclusively on https://1.envato.market/ungrabber
+ *
+ * @encoding        UTF-8
+ * @version         3.0.1
+ * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @license         Commercial Software
+ * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
+ * @support         help@merkulov.design
+ **/
+/** Tab: Activation. */
+.mdp-tab-name-activation h3 {
+  margin-bottom: 30px !important;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2em; }
+
+.mdp-tab-name-activation .mdp-activation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+  .mdp-tab-name-activation .mdp-activation .mdp-activation-form {
+    width: 100%;
+    position: relative;
+    padding-bottom: 30px; }
+    .mdp-tab-name-activation .mdp-activation .mdp-activation-form .mdc-input-width {
+      max-width: 100%;
+      height: 64px; }
+      .mdp-tab-name-activation .mdp-activation .mdp-activation-form .mdc-input-width input {
+        font-size: 18px; }
+      .mdp-tab-name-activation .mdp-activation .mdp-activation-form .mdc-input-width label.mdc-floating-label--float-above {
+        margin-top: -12px;
+        background: linear-gradient(to bottom, white, rgba(255, 255, 255, 0)); }
+  .mdp-tab-name-activation .mdp-activation .mdp-activation-faq {
+    width: calc( 60% - 30px); }
+    .mdp-tab-name-activation .mdp-activation .mdp-activation-faq h3 {
+      font-size: 1.2em !important; }
+  .mdp-tab-name-activation .mdp-activation .mdp-subscribe-form {
+    width: 40%; }
+    .mdp-tab-name-activation .mdp-activation .mdp-subscribe-form p {
+      font-size: 14px;
+      color: rgba(10, 33, 56, 0.75);
+      margin-bottom: 1.5rem; }
+      .mdp-tab-name-activation .mdp-activation .mdp-subscribe-form p.mdp-subscribe-form-message-error, .mdp-tab-name-activation .mdp-activation .mdp-subscribe-form p.mdp-subscribe-form-message-success {
+        padding: 16px;
+        border-radius: 8px;
+        transition: .1s; }
+      .mdp-tab-name-activation .mdp-activation .mdp-subscribe-form p.mdp-subscribe-form-message-error {
+        border: 1px solid rgba(255, 69, 0, 0.5);
+        color: orangered; }
+      .mdp-tab-name-activation .mdp-activation .mdp-subscribe-form p.mdp-subscribe-form-message-success {
+        border: 1px solid rgba(73, 167, 68, 0.5);
+        color: #49a744; }
+    .mdp-tab-name-activation .mdp-activation .mdp-subscribe-form .mdc-input-width {
+      max-width: 100%;
+      height: 48px; }
+    .mdp-tab-name-activation .mdp-activation .mdp-subscribe-form .mdc-text-field {
+      margin-bottom: 1.25em;
+      height: 48px;
+      width: 100%; }
+    .mdp-tab-name-activation .mdp-activation .mdp-subscribe-form .mdc-ripple-upgraded:hover::before {
+      opacity: 0; }
+
+#mdp-subscribe {
+  height: 40px;
+  background: rgba(2, 116, 230, 0.07);
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: 400;
+  color: #0274e6;
+  border: 1px solid rgba(2, 116, 230, 0.05); }
+  #mdp-subscribe:hover {
+    text-decoration: none;
+    background: rgba(2, 116, 230, 0.1);
+    color: #0274e6;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.05), 0 4px 5px 0 rgba(0, 0, 0, 0.03), 0 1px 10px 0 rgba(0, 0, 0, 0.03); }
+
+/* Responsiveness */
+@media screen and (max-width: 1080px) {
+  .mdp-tab-name-activation .mdp-activation {
+    flex-direction: column; }
+    .mdp-tab-name-activation .mdp-activation .mdp-activation-form,
+    .mdp-tab-name-activation .mdp-activation .mdp-activation-faq,
+    .mdp-tab-name-activation .mdp-activation .mdp-subscribe-form,
+    .mdp-tab-name-activation .mdp-activation .mdc-input-width {
+      width: 100%;
+      max-width: 100% !important; } }
+
+@media screen and (max-width: 782px) {
+  .mdp-tab-name-activation .mdp-activation .mdp-activation-faq,
+  .mdp-tab-name-activation .mdp-activation .mdp-activation-form,
+  .mdp-tab-name-activation .mdp-activation .mdp-subscribe-form {
+    width: calc( 100% - 60px); } }
+
+.mdc-filed-divider {
+  margin-left: -210px;
+  margin-top: 0;
+  margin-bottom: 0; }

@@ -1,18 +1,20 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Mail SMTP 2.6.0\n"
+"Project-Id-Version: WP Mail SMTP 2.7.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-mail-smtp-pro\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-02-01T12:40:00+00:00\n"
+"POT-Creation-Date: 2021-03-22T16:04:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: wp-mail-smtp-pro\n"
 
 #. Plugin Name of the plugin
+#: src/Pro/Admin/DashboardWidget.php:221
+#: src/Pro/Admin/DashboardWidget.php:415
 msgid "WP Mail SMTP"
 msgstr ""
 
@@ -25,11 +27,167 @@ msgid "Reconfigures the <code>wp_mail()</code> function to use Gmail/Mailgun/Sen
 msgstr ""
 
 #. Author of the plugin
+#: src/Pro/Admin/DashboardWidget.php:534
 msgid "WPForms"
 msgstr ""
 
 #. Author URI of the plugin
 msgid "https://wpforms.com/"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:198
+msgid "Confirmed sent emails"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:199
+msgid "Sent emails"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:200
+msgid "Unconfirmed sent emails"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:201
+msgid "Failed emails"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:278
+msgid "Pattie the WP Mail SMTP mascot"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:279
+msgid "Enable Email Logs to View Stats"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:280
+msgid "Automatically keep track of every email sent from your WordPress site and view valuable statistics right here in your dashboard."
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:282
+msgid "Enable Email Logging"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:285
+#: src/Pro/Admin/DashboardWidget.php:538
+msgid "Learn More"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:312
+msgid "View Full Log"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:338
+msgid "Select timespan"
+msgstr ""
+
+#. translators: %d - Number of days.
+#: src/Pro/Admin/DashboardWidget.php:342
+msgid "Last %d day"
+msgid_plural "Last %d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Pro/Admin/DashboardWidget.php:359
+msgid "All Emails"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:360
+msgid "Confirmed Emails"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:361
+msgid "Unconfirmed Emails"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:362
+msgid "Failed Emails"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:367
+msgid "Sent Emails"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:371
+msgid "Select email type"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:398
+msgid "Graph Style"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:402
+msgid "Bar"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:406
+msgid "Line"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:411
+msgid "Color Scheme"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:419
+msgid "WordPress"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:423
+msgid "Save Changes"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:457
+msgid "No email logs for selected period."
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:504
+msgid "Table cell icon"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:532
+msgid "Recommended Plugin:"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:536
+msgid "Install"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:541
+msgid "Dismiss recommended plugin block"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:560
+msgid "No email logs yet"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:561
+msgid "Please check back tomorrow."
+msgstr ""
+
+#. translators: %d number of total emails sent.
+#: src/Pro/Admin/DashboardWidget.php:1055
+msgid "%d total email"
+msgid_plural "%d total emails"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d number of confirmed emails sent.
+#: src/Pro/Admin/DashboardWidget.php:1062
+msgid "%d confirmed"
+msgstr ""
+
+#. translators: %d number of unconfirmed emails sent.
+#: src/Pro/Admin/DashboardWidget.php:1069
+msgid "%d unconfirmed"
+msgstr ""
+
+#. translators: %d number of failed email sent attempts.
+#: src/Pro/Admin/DashboardWidget.php:1076
+msgid "%d failed"
+msgstr ""
+
+#. translators: %d number of sent emails.
+#: src/Pro/Admin/DashboardWidget.php:1088
+msgid "%d sent"
 msgstr ""
 
 #: src/Pro/Emails/Control/Admin/SettingsTab.php:23
@@ -218,7 +376,7 @@ msgid "Full Log"
 msgstr ""
 
 #: src/Pro/Emails/Control/Control.php:182
-msgid "Full log of background update results. Only sent when you are using a development version of WordPress. Sent to the site or network admin."
+msgid "Full log of background update results which includes information about WordPress core, plugins, themes, and translations updates. Only sent when you are using a development version of WordPress. Sent to the site or network admin."
 msgstr ""
 
 #: src/Pro/Emails/Control/Control.php:187
@@ -393,7 +551,7 @@ msgstr ""
 
 #: src/Pro/Emails/Logs/Admin/SinglePage.php:31
 #: src/Pro/Emails/Logs/Admin/SinglePage.php:332
-#: src/Pro/Emails/Logs/Admin/Table.php:151
+#: src/Pro/Emails/Logs/Admin/Table.php:289
 msgid "View Email"
 msgstr ""
 
@@ -410,20 +568,20 @@ msgid "Created"
 msgstr ""
 
 #: src/Pro/Emails/Logs/Admin/SinglePage.php:108
-#: src/Pro/Emails/Logs/Admin/Table.php:73
+#: src/Pro/Emails/Logs/Admin/Table.php:211
 msgid "From"
 msgstr ""
 
 #: src/Pro/Emails/Logs/Admin/SinglePage.php:116
 #: src/Pro/Emails/Logs/Admin/SinglePage.php:131
-#: src/Pro/Emails/Logs/Admin/Table.php:237
-#: src/Pro/Emails/Logs/Admin/Table.php:263
-#: src/Pro/Emails/Logs/Admin/Table.php:290
+#: src/Pro/Emails/Logs/Admin/Table.php:375
+#: src/Pro/Emails/Logs/Admin/Table.php:401
+#: src/Pro/Emails/Logs/Admin/Table.php:428
 msgid "N/A"
 msgstr ""
 
 #: src/Pro/Emails/Logs/Admin/SinglePage.php:123
-#: src/Pro/Emails/Logs/Admin/Table.php:74
+#: src/Pro/Emails/Logs/Admin/Table.php:212
 msgid "To"
 msgstr ""
 
@@ -436,7 +594,7 @@ msgid "Blind Carbon Copy (BCC)"
 msgstr ""
 
 #: src/Pro/Emails/Logs/Admin/SinglePage.php:158
-#: src/Pro/Emails/Logs/Admin/Table.php:72
+#: src/Pro/Emails/Logs/Admin/Table.php:210
 msgid "Subject"
 msgstr ""
 
@@ -462,23 +620,25 @@ msgid "Log Details"
 msgstr ""
 
 #: src/Pro/Emails/Logs/Admin/SinglePage.php:224
-#: src/Pro/Emails/Logs/Admin/Table.php:111
+#: src/Pro/Emails/Logs/Admin/Table.php:82
+#: src/Pro/Emails/Logs/Admin/Table.php:249
 msgid "Delivered"
 msgstr ""
 
 #: src/Pro/Emails/Logs/Admin/SinglePage.php:227
-#: src/Pro/Emails/Logs/Admin/Table.php:113
+#: src/Pro/Emails/Logs/Admin/Table.php:83
+#: src/Pro/Emails/Logs/Admin/Table.php:251
 #: src/Pro/Providers/Providers.php:181
 msgid "Sent"
 msgstr ""
 
 #: src/Pro/Emails/Logs/Admin/SinglePage.php:230
-#: src/Pro/Emails/Logs/Admin/Table.php:115
+#: src/Pro/Emails/Logs/Admin/Table.php:253
 msgid "Waiting for confirmation"
 msgstr ""
 
 #: src/Pro/Emails/Logs/Admin/SinglePage.php:233
-#: src/Pro/Emails/Logs/Admin/Table.php:117
+#: src/Pro/Emails/Logs/Admin/Table.php:255
 msgid "Not Sent"
 msgstr ""
 
@@ -518,41 +678,53 @@ msgstr ""
 msgid "Please use the \"Back to Email Log\" button to return to the list of all saved emails."
 msgstr ""
 
-#: src/Pro/Emails/Logs/Admin/Table.php:75
+#: src/Pro/Emails/Logs/Admin/Table.php:84
+msgid "Pending"
+msgstr ""
+
+#: src/Pro/Emails/Logs/Admin/Table.php:85
+msgid "Failed"
+msgstr ""
+
+#: src/Pro/Emails/Logs/Admin/Table.php:153
+msgid "All"
+msgstr ""
+
+#: src/Pro/Emails/Logs/Admin/Table.php:213
 msgid "Date Sent"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Admin/Table.php:141
+#: src/Pro/Emails/Logs/Admin/Table.php:279
 msgid "View Log"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Admin/Table.php:159
-#: src/Pro/Emails/Logs/Admin/Table.php:321
+#: src/Pro/Emails/Logs/Admin/Table.php:297
+#: src/Pro/Emails/Logs/Admin/Table.php:459
 #: src/Pro/Providers/AmazonSES/Identity.php:199
 msgid "Delete"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Admin/Table.php:429
-msgid "Emails Addresses"
+#: src/Pro/Emails/Logs/Admin/Table.php:620
+msgid "Email Addresses"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Admin/Table.php:430
+#: src/Pro/Emails/Logs/Admin/Table.php:621
 msgid "Subject & Headers"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Admin/Table.php:431
+#: src/Pro/Emails/Logs/Admin/Table.php:622
 msgid "Content"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Admin/Table.php:461
+#: src/Pro/Emails/Logs/Admin/Table.php:652
 msgid "No emails found."
 msgstr ""
 
-#: src/Pro/Emails/Logs/Admin/Table.php:463
+#: src/Pro/Emails/Logs/Admin/Table.php:654
 msgid "No emails have been logged for now."
 msgstr ""
 
-#: src/Pro/Emails/Logs/Admin/Table.php:501
+#: src/Pro/Emails/Logs/Admin/Table.php:692
 msgid "Empty log"
 msgstr ""
 
@@ -560,68 +732,68 @@ msgstr ""
 msgid "Number of log entries per page:"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Logs.php:239
+#: src/Pro/Emails/Logs/Logs.php:251
 msgid "Are you sure that you want to delete this email log? This action cannot be undone."
 msgstr ""
 
-#: src/Pro/Emails/Logs/Logs.php:240
+#: src/Pro/Emails/Logs/Logs.php:252
 #: src/Pro/Providers/Providers.php:186
 msgid "OK"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Logs.php:241
+#: src/Pro/Emails/Logs/Logs.php:253
 #: src/Pro/Providers/Providers.php:188
 msgid "Icon"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Logs.php:242
+#: src/Pro/Emails/Logs/Logs.php:254
 msgid "Are you sure you want to permanently delete all email logs?"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Logs.php:243
+#: src/Pro/Emails/Logs/Logs.php:255
 msgid "Heads up!"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Logs.php:244
+#: src/Pro/Emails/Logs/Logs.php:256
 #: src/Pro/Providers/Providers.php:192
 msgid "Yes"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Logs.php:245
+#: src/Pro/Emails/Logs/Logs.php:257
 #: src/Pro/Providers/Providers.php:190
 msgid "Cancel"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Logs.php:246
+#: src/Pro/Emails/Logs/Logs.php:258
 msgid "An error occurred!"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Logs.php:446
+#: src/Pro/Emails/Logs/Logs.php:458
 msgid "Email Log entry was successfully deleted."
 msgstr ""
 
-#: src/Pro/Emails/Logs/Logs.php:453
+#: src/Pro/Emails/Logs/Logs.php:465
 msgid "Email Log entries were successfully deleted."
 msgstr ""
 
-#: src/Pro/Emails/Logs/Logs.php:460
+#: src/Pro/Emails/Logs/Logs.php:472
 msgid "There was an error while processing your request, and no email log entries were deleted. Please try again."
 msgstr ""
 
-#: src/Pro/Emails/Logs/Logs.php:615
+#: src/Pro/Emails/Logs/Logs.php:627
 msgid "Access rejected."
 msgstr ""
 
-#: src/Pro/Emails/Logs/Logs.php:619
+#: src/Pro/Emails/Logs/Logs.php:631
 msgid "You don't have the capability to perform this action."
 msgstr ""
 
-#: src/Pro/Emails/Logs/Logs.php:631
+#: src/Pro/Emails/Logs/Logs.php:643
 msgid "All email log entries were deleted successfully."
 msgstr ""
 
 #. translators: %s - WPDB error message.
-#: src/Pro/Emails/Logs/Logs.php:636
+#: src/Pro/Emails/Logs/Logs.php:648
 msgid "There was an issue while trying to delete all email log entries. Error message: %s"
 msgstr ""
 
@@ -635,81 +807,81 @@ msgstr ""
 msgid "Something went wrong. Please try again later."
 msgstr ""
 
-#: src/Pro/License/License.php:192
+#: src/Pro/License/License.php:193
 msgid "Verify Key"
 msgstr ""
 
-#: src/Pro/License/License.php:202
+#: src/Pro/License/License.php:203
 msgid "Deactivate Key"
 msgstr ""
 
 #. translators: $s - license type.
-#: src/Pro/License/License.php:213
+#: src/Pro/License/License.php:215
 msgid "Your license key type is %s."
 msgstr ""
 
-#: src/Pro/License/License.php:227
+#: src/Pro/License/License.php:229
 msgid "If your license has been upgraded or is incorrect, <a href=\"#\" id=\"wp-mail-smtp-setting-license-key-refresh\">click here to force a refresh</a>."
 msgstr ""
 
-#: src/Pro/License/License.php:303
+#: src/Pro/License/License.php:305
 msgid "There was an error connecting to the remote key API. Please try again later."
 msgstr ""
 
-#: src/Pro/License/License.php:324
+#: src/Pro/License/License.php:326
 msgid "Congratulations! This site is now receiving automatic updates."
 msgstr ""
 
-#: src/Pro/License/License.php:418
-#: src/Pro/License/License.php:536
+#: src/Pro/License/License.php:420
+#: src/Pro/License/License.php:538
 msgid "There was an error connecting to the remote server. Please try again later."
 msgstr ""
 
-#: src/Pro/License/License.php:442
-#: src/Pro/License/License.php:649
+#: src/Pro/License/License.php:444
+#: src/Pro/License/License.php:651
 msgid "Your license key for WP Mail SMTP Pro is invalid. The key no longer exists or the user associated with the key has been deleted. Please use a different key to continue receiving automatic updates."
 msgstr ""
 
-#: src/Pro/License/License.php:461
+#: src/Pro/License/License.php:463
 msgid "Your license key for WP Mail SMTP Pro has expired. Please renew your license key on WPMailSMTP.com to continue receiving automatic updates."
 msgstr ""
 
-#: src/Pro/License/License.php:480
-#: src/Pro/License/License.php:640
+#: src/Pro/License/License.php:482
+#: src/Pro/License/License.php:642
 msgid "Your license key for WP Mail SMTP Pro has been disabled. Please use a different key to continue receiving automatic updates."
 msgstr ""
 
-#: src/Pro/License/License.php:502
+#: src/Pro/License/License.php:504
 msgid "Your key has been refreshed successfully."
 msgstr ""
 
-#: src/Pro/License/License.php:558
+#: src/Pro/License/License.php:560
 msgid "You have deactivated the key from this site successfully."
 msgstr ""
 
 #. translators: %s - plugin settings page URL.
-#: src/Pro/License/License.php:596
-#: src/Pro/License/License.php:750
+#: src/Pro/License/License.php:598
+#: src/Pro/License/License.php:741
 msgid "Please <a href=\"%s\">enter and activate</a> your license key for WP Mail SMTP Pro to enable automatic updates."
 msgstr ""
 
 #. translators: %s - WPMailSMTP.com login page URL.
-#: src/Pro/License/License.php:619
-#: src/Pro/License/License.php:766
+#: src/Pro/License/License.php:621
+#: src/Pro/License/License.php:757
 msgid "Your license key for WP Mail SMTP Pro has expired. <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Please click here to renew your license key and continue receiving automatic updates.</a>"
 msgstr ""
 
 #. translators: %s - plugin settings page URL.
-#: src/Pro/License/License.php:784
+#: src/Pro/License/License.php:775
 msgid "Your license key for WP Mail SMTP Pro has been disabled. Please <a href=\"%s\">enter and activate</a> a different key for WP Mail SMTP Pro to continue receiving automatic updates."
 msgstr ""
 
 #. translators: %s - plugin settings page URL.
-#: src/Pro/License/License.php:800
+#: src/Pro/License/License.php:791
 msgid "Your license key for WP Mail SMTP Pro is invalid. Please <a href=\"%s\">enter and activate</a> a different key for WP Mail SMTP Pro to continue receiving automatic updates."
 msgstr ""
 
-#: src/Pro/License/License.php:815
+#: src/Pro/License/License.php:806
 msgid "Your WP Mail SMTP Pro license is active and valid."
 msgstr ""
 
@@ -733,78 +905,82 @@ msgstr ""
 msgid "If enabled, these global settings will manage email sending for all subsites of this multisite."
 msgstr ""
 
-#: src/Pro/Multisite.php:497
+#: src/Pro/Multisite.php:249
+msgid "Sorry, you are not allowed to access the WP Mail SMTP settings for individual network subsite. The network-wide setting is enabled, so the plugin settings are only accessible in the network admin dashboard."
+msgstr ""
+
+#: src/Pro/Multisite.php:505
 msgid "Clear these errors"
 msgstr ""
 
-#: src/Pro/Pro.php:322
+#: src/Pro/Pro.php:342
 msgid "Go to WP Mail SMTP Settings page"
 msgstr ""
 
-#: src/Pro/Pro.php:323
+#: src/Pro/Pro.php:343
 msgid "Settings"
 msgstr ""
 
-#: src/Pro/Pro.php:329
+#: src/Pro/Pro.php:349
 msgid "Go to WPMailSMTP.com documentation page"
 msgstr ""
 
-#: src/Pro/Pro.php:330
+#: src/Pro/Pro.php:350
 msgid "Docs"
 msgstr ""
 
-#: src/Pro/Pro.php:336
+#: src/Pro/Pro.php:356
 msgid "Go to WPMailSMTP.com support page"
 msgstr ""
 
-#: src/Pro/Pro.php:337
+#: src/Pro/Pro.php:357
 msgid "Support"
 msgstr ""
 
-#: src/Pro/Pro.php:392
+#: src/Pro/Pro.php:412
 msgid "There was an error while processing the authentication request. Please try again."
 msgstr ""
 
-#: src/Pro/Pro.php:399
+#: src/Pro/Pro.php:419
 msgid "There was an error while processing the authentication request. Please make sure that you have Client ID and Client Secret both valid and saved."
 msgstr ""
 
 #. translators: %s - error code, returned by Zoho API.
-#: src/Pro/Pro.php:407
+#: src/Pro/Pro.php:427
 msgid "There was an error while processing the authentication request: %s. Please try again."
 msgstr ""
 
-#: src/Pro/Pro.php:416
+#: src/Pro/Pro.php:436
 msgid "You have successfully linked the current site with your Microsoft API project. Now you can start sending emails through Outlook."
 msgstr ""
 
-#: src/Pro/Pro.php:422
+#: src/Pro/Pro.php:442
 msgid "You have successfully linked the current site with your Zoho Mail API project. Now you can start sending emails through Zoho Mail."
 msgstr ""
 
-#: src/Pro/Pro.php:460
+#: src/Pro/Pro.php:480
 msgid "Auto-updates are not available."
 msgstr ""
 
-#: src/Pro/Pro.php:673
+#: src/Pro/Pro.php:693
 #: src/Pro/Providers/Providers.php:251
 #: src/Pro/Providers/Providers.php:295
 msgid "Please provide a valid email address."
 msgstr ""
 
-#: src/Pro/Pro.php:675
+#: src/Pro/Pro.php:695
 msgid "Please provide a domain."
 msgstr ""
 
-#: src/Pro/Pro.php:751
+#: src/Pro/Pro.php:771
 msgid "You don't have the permission to perform this action."
 msgstr ""
 
-#: src/Pro/Pro.php:757
+#: src/Pro/Pro.php:777
 msgid "Please enter a valid license key!"
 msgstr ""
 
-#: src/Pro/Pro.php:767
+#: src/Pro/Pro.php:787
 msgid "License functionality missing!"
 msgstr ""
 

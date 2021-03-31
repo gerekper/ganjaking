@@ -122,7 +122,7 @@ endif;
 					printf(
 						/* translators: %1$s: opening a tag, %2$s: closing a tag */
 						esc_html__( 'Make sure your images are the right size for your theme. %1$sLearn more%2$s.', 'wp-smushit' ),
-						'<a href="https://premium.wpmudev.org/blog/smush-pagespeed-image-compression/" target="_blank">',
+						'<a href="https://wpmudev.com/blog/smush-pagespeed-image-compression/" target="_blank">',
 						'</a>'
 					);
 				endif;

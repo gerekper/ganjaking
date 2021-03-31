@@ -31,12 +31,28 @@ class RevSliderFacebook extends RevSliderFunctions {
 	const QUERY_ERROR = 'fb_error_message';
 
 	/**
-	 * @var number  Transient time in seconds
+	 * @var int  Transient time in seconds
 	 */
 	private $transient_sec;
 
 	public function __construct($transient_sec = 1200){
 		$this->transient_sec = 	$transient_sec;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getTransientSec()
+	{
+		return $this->transient_sec;
+	}
+
+	/**
+	 * @param int $transient_sec
+	 */
+	public function setTransientSec($transient_sec)
+	{
+		$this->transient_sec = $transient_sec;
 	}
 
 	public function add_actions()

@@ -1,10 +1,10 @@
 jQuery().ready(function() {
     var $ = jQuery.noConflict();
 
-    $("#fue_dash_period").change(function() {
+    $( '#fue_dash_period' ).on( 'change', function() {
         Cookies.set( 'fue_report_period', $(this).val() );
         window.location.reload();
-    });
+    } );
 
     $("div.gauge").each(function() {
         var that = this;

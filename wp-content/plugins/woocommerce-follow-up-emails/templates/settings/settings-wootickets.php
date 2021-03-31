@@ -90,20 +90,20 @@
 </table>
 <script>
 jQuery(document).ready(function($) {
-	$("#event_booking_notification").change(function() {
+	$( '#event_booking_notification' ).on( 'change', function() {
 		if ( $(this).is(":checked") ) {
 			$("tr.wootickets").show();
 		} else {
 			$("tr.wootickets").hide();
 		}
-	}).change();
+	} ).trigger( 'change' );
 
-	$("#event_booking_notification_schedule").change(function() {
+	$( '#event_booking_notification_schedule' ).on( 'change', function() {
 		$("tr.wootickets.time").hide();
 
 		if ( $(this).val() == "digest" ) {
 			$("tr.wootickets.time").show();
 		}
-	}).change();
+	} ).trigger( 'change' );
 });
 </script>

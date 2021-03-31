@@ -446,10 +446,10 @@ rs-carousel-space { clear:both;display:block;width:100%;height:0px;position:rela
 
 
 .rs-layer.rs-selectable {
-	-moz-user-select: all;
-	-khtml-user-select: all;
-	-webkit-user-select: all;
-	-o-user-select: all;	
+	-moz-user-select: text;
+	-khtml-user-select: text;
+	-webkit-user-select: text;
+	-o-user-select: text;	
 }
 
 
@@ -696,7 +696,7 @@ rs-bgvideo 			{	position: absolute;top:0px;left:0px; width:100%;height:100%;z-in
 .rs-layer.rs-fsv video,
 .rs-layer.rs-fsv iframe,
 .rs-layer.rs-fsv iframe audio,
-.rs-layer.rs-fsv iframe video	{ width:100%; height:100% ; display: none}
+.rs-layer.rs-fsv iframe video	{ width:100%; height:100% ; /*display: none*/}
 
 
 .rs-fsv video				{	background: #000}

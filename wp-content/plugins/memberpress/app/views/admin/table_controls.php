@@ -1,6 +1,6 @@
 <?php
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
-$search  = (isset($_REQUEST['search']) && !empty($_REQUEST['search']))?sanitize_text_field(stripslashes(urldecode($_REQUEST['search']))):'';
+$search  = (isset($_REQUEST['search']) && !empty($_REQUEST['search']))?sanitize_text_field(stripslashes($_REQUEST['search'])):'';
 $perpage = (isset($_REQUEST['perpage']) && !empty($_REQUEST['perpage']))?(int)$_REQUEST['perpage']:10;
 $search_field  = (isset($_REQUEST['search-field']) && !empty($_REQUEST['search-field']))?sanitize_text_field($_REQUEST['search-field']):'';
 ?>

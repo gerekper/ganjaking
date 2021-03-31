@@ -23,7 +23,8 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_2 as Framework;
+use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 use SkyVerge\WooCommerce\CSV_Export\Taxonomies_Handler;
 use SkyVerge\WooCommerce\CSV_Export\Admin\Meta_Boxes\Exported_By;
 use SkyVerge\WooCommerce\CSV_Export\Admin\Automations;
@@ -97,6 +98,12 @@ class WC_Customer_Order_CSV_Export_Admin {
 
 		// add 'CSV Export' link under WooCommerce menu
 		add_action( 'admin_menu', [ $this, 'add_menu_link' ] );
+
+		// add the same menu names for the WooCommerce enhanced navigation
+		add_action( 'admin_menu', [ $this, 'add_enhanced_navigation_items' ] );
+
+		// prevent a conflicting menu item name
+		add_action( 'woocommerce_navigation_menu_items', [ $this, 'filter_duplicate_menu_item_name' ] );
 
 		// render any admin notices
 		add_action( 'admin_notices', [ $this, 'add_admin_notices' ], 10 );
@@ -354,6 +361,95 @@ class WC_Customer_Order_CSV_Export_Admin {
 			'wc_customer_order_csv_export',
 			[ $this, 'render_submenu_pages' ]
 		);
+	}
+
+
+	/**
+	 * Adds the plugin's menu items to the WooCommerce enhanced navigation.
+	 *
+	 * @internal
+	 *
+	 * @since 5.3.2
+	 */
+	public function add_enhanced_navigation_items() {
+
+		if ( ! Framework\SV_WC_Helper::is_wc_navigation_enabled() ) {
+			return;
+		}
+
+		Menu::add_plugin_category( [
+			'id'     => 'wc_customer_order_csv_export_menu_category',
+			'title'  => __( 'Export', 'woocommerce-customer-order-csv-export' ),
+			'parent' => 'woocommerce',
+		] );
+
+		Menu::add_plugin_item( [
+			'id'         => 'wc_customer_order_csv_export_manual',
+			'title'      => __( 'Manual Export', 'woocommerce-customer-order-csv-export' ),
+			'capability' => 'manage_woocommerce_csv_exports',
+			'url'        => 'wc_customer_order_csv_export&tab=export',
+			'parent'     => 'wc_customer_order_csv_export_menu_category',
+		] );
+
+		Menu::add_plugin_item( [
+			'id'         => 'wc_customer_order_csv_export_automations',
+			'title'      => __( 'Automated Exports', 'woocommerce-customer-order-csv-export' ),
+			'capability' => 'manage_woocommerce_csv_exports',
+			'url'        => 'wc_customer_order_csv_export&tab=automations',
+			'parent'     => 'wc_customer_order_csv_export_menu_category',
+		] );
+
+		Menu::add_plugin_item( [
+			'id'         => 'wc_customer_order_csv_export_list',
+			'title'      => __( 'Export List', 'woocommerce-customer-order-csv-export' ),
+			'capability' => 'manage_woocommerce_csv_exports',
+			'url'        => 'wc_customer_order_csv_export&tab=export_list',
+			'parent'     => 'wc_customer_order_csv_export_menu_category',
+		] );
+
+		Menu::add_plugin_item( [
+			'id'         => 'wc_customer_order_csv_export_custom_formats',
+			'title'      => __( 'Custom Formats', 'woocommerce-customer-order-csv-export' ),
+			'capability' => 'manage_woocommerce_csv_exports',
+			'url'        => 'wc_customer_order_csv_export&tab=custom_formats',
+			'parent'     => 'wc_customer_order_csv_export_menu_category',
+		] );
+	}
+
+
+	/**
+	 * Prevents that another plugin with the same menu name will conflict.
+	 *
+	 * @internal
+	 *
+	 * @since 5.3.2
+	 *
+	 * @param array $items the list of current menu items
+	 * @return array a filtered menu item list
+	 */
+	public function filter_duplicate_menu_item_name( array $items ) : array {
+
+		// current menu name
+		$menu_name = __( 'Export', 'woocommerce-customer-order-csv-export' );
+
+		foreach( $items as $key => $value ) {
+
+			// prevents the current export menu item added by add_menu_link to be shown
+			if ( isset( $items[ $key ]['url'] ) && 'admin.php?page=wc_customer_order_csv_export' === $items[ $key ]['url'] ) {
+
+				unset( $items[ $key ] );
+
+				continue;
+			}
+
+			if ( 'wc_customer_order_csv_export_menu_category' !== $key && $menu_name === $items[ $key ]['title'] ) {
+
+				// prevents a duplicate name by changing the Export menu name
+				$items['wc_customer_order_csv_export_menu_category']['title'] = __( 'Customer/Order/Coupon Export', 'woocommerce-customer-order-csv-export' );
+			}
+		}
+
+		return $items;
 	}
 
 
@@ -629,13 +725,14 @@ class WC_Customer_Order_CSV_Export_Admin {
 			return;
 		}
 
-		$current_tab     = empty( $_GET[ 'tab' ] ) ? self::TAB_EXPORT : sanitize_title( $_GET[ 'tab' ] );
-		$current_section = empty( $_REQUEST['section'] ) ? '' : sanitize_title( $_REQUEST['section'] );
+		$current_tab      = empty( $_GET[ 'tab' ] ) ? self::TAB_EXPORT : sanitize_title( $_GET[ 'tab' ] );
+		$current_section  = empty( $_REQUEST['section'] ) ? '' : sanitize_title( $_REQUEST['section'] );
+		$should_hide_tabs = Framework\SV_WC_Helper::is_wc_navigation_enabled();
 
 		?>
 		<div class="wrap woocommerce">
 		<form method="post" id="mainform" action="" enctype="multipart/form-data">
-			<h2 class="nav-tab-wrapper woo-nav-tab-wrapper">
+			<h2 class="nav-tab-wrapper woo-nav-tab-wrapper" <?php echo $should_hide_tabs ? 'style="display: none;"' : ''; ?>>
 				<?php
 				foreach ( $this->get_tabs() as $tab_id => $tab_title ) :
 

@@ -157,9 +157,6 @@ class GetChildrenList implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mode
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-        if ($this->container['count'] === null) {
-            $invalidProperties[] = "'count' can't be null";
-        }
         return $invalidProperties;
     }
     /**

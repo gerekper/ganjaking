@@ -388,8 +388,6 @@ class MeprLoginCtrl extends MeprBaseCtrl {
 
   public function load_shortcode_resources() {
      wp_register_style( 'mp-login-css', MEPR_CSS_URL.'/ui/login.css', null, MEPR_VERSION);
-
-     wp_register_script('mepr-login-i18n', includes_url().'js/dist/i18n.min.js', null , MEPR_VERSION);
-     wp_register_script('mepr-login-js', MEPR_JS_URL.'/login.js', array('jquery', 'underscore'), MEPR_VERSION);
+     wp_register_script('mepr-login-js', MEPR_JS_URL.'/login.js', array('jquery', 'underscore', 'wp-i18n'), MEPR_VERSION);
   }
 }

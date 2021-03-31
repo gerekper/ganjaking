@@ -10,7 +10,7 @@
 
 	var wcAccountFundsCheckout = {
 		init: function() {
-			$( '#order_review' )
+			$( document )
 				.on( 'change', 'input[name=payment_method]', function() {
 					if ( $( '#payment_method_accountfunds' ).length ) {
 						$( 'body' ).trigger( 'update_checkout' );

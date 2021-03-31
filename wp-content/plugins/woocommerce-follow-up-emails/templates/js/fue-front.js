@@ -4,7 +4,7 @@
     for ( var el in email_fields ) {
         var $field = $( email_fields[el] );
 
-        $field.on("change", [el], update_user_email );
+        $field.on( 'change', [el], update_user_email );
     }
 
     function update_user_email( event ) {

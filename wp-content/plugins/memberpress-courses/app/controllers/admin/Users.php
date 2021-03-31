@@ -34,7 +34,7 @@ class Users extends lib\BaseCtrl {
   public static function extra_profile_fields($user) {
     $my_courses = array();
 
-    $course_posts = \get_posts(array('post_type' => models\Course::$cpt, 'post_status' => 'publish'));
+    $course_posts = \get_posts(array('post_type' => models\Course::$cpt, 'post_status' => 'publish', 'numberposts' => -1));
     foreach ($course_posts as $course) {
       $mepr_user = new \MeprUser($user->ID);
       if(!\MeprRule::is_locked_for_user($mepr_user, $course)) {
@@ -43,6 +43,6 @@ class Users extends lib\BaseCtrl {
     }
 
     $show_bookmark = true;
-    require_once(base\VIEWS_PATH . '/admin/users/extra_profile_fields.php');
+    \MeprView::render('/admin/users/courses_profile_fields', get_defined_vars());
   }
 }

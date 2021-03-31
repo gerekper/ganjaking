@@ -56,7 +56,7 @@ class MeprOptionsHelper {
   }
 
   public static function payment_currencies_dropdown($field_name, $payment_currency) {
-    $payment_currencies = MeprHooks::apply_filters('mepr-currency-symbols', array('$', 'US$', '£', '€', '¥', ' kr.', 'Kn', 'R$', '฿', '₹', 'zł', ' лв', ' Ft', 'Rp', 'R', '₪', '﷼', 'CHF', ' din.', ' дин.', 'KSh', 'RM', 'Rs', 'руб', '₽', 'NT$', 'Mex$', 'P', 'lei', 'JOD', '₺', 'S/.', '₱', 'د.إ', 'Kč', '₦', '₩', '₫', 'ƒ', 'GH₵'));
+    $payment_currencies = MeprHooks::apply_filters('mepr-currency-symbols', array('$', 'US$', '£', '€', '¥', ' kr.', 'Kn', 'R$', '฿', '₹', 'zł', ' лв', ' Ft', 'Rp', 'R', '₪', '﷼', 'CHF', ' din.', ' дин.', 'KSh', 'RM', 'Rs', 'руб', '₽', 'NT$', 'Mex$', 'P', 'lei', 'JOD', '₺', 'S/.', '₱', 'د.إ', 'Kč', '₦', '₩', '₫', 'ƒ', 'GH₵', 'S$'));
     $field_value = isset($_POST[$field_name])?$_POST[$field_name]:null;
 
     ?>
@@ -181,7 +181,7 @@ class MeprOptionsHelper {
 
       ob_start();
       ?>
-      <label>
+      <label class="mepr-payment-option-label payment-option-<?php echo ! empty( $payment_method->key ) ? esc_attr( $payment_method->key ) : esc_attr( str_replace( ' ', '-', strtolower( $payment_method->name ) ) ); ?>">
         <input
           type="radio"
           name="<?php echo $field_name; ?>"
@@ -216,7 +216,7 @@ class MeprOptionsHelper {
       $desc_hidden = ($_POST[$field_name] === $payment_method->id ? '' : ' mepr-hidden');
       ob_start();
       ?>
-        <div class="mepr-payment-method <?php echo "{$field_name}-{$payment_method->id}"; ?>">
+        <div class="mepr-payment-method <?php echo "{$field_name}-{$payment_method->id}"; ?> mepr-payment-method-<?php echo $payment_method->key; ?>">
           <div class="mepr-payment-method-desc-text mp-pm-desc-<?php echo $payment_method->id; ?> spc <?php echo $desc_hidden; ?>">
             <?php echo wp_unslash($desc); ?>
           </div>

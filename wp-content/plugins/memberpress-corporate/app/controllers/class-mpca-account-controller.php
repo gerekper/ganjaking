@@ -143,7 +143,7 @@ class MPCA_Account_Controller {
       $app_helper = new MPCA_App_Helper();
 
       // We now have a valid corporate account
-      require(MPCA_VIEWS_PATH . '/mpca-manage-account-template.php');
+      require(MeprView::file('/mpca-manage-account-template'));
     }
   }
 

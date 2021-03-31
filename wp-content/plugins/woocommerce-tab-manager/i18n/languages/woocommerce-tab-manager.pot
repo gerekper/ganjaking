@@ -1,15 +1,15 @@
-# Copyright (C) 2020 SkyVerge
+# Copyright (C) 2021 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Tab Manager 1.14.0\n"
+"Project-Id-Version: WooCommerce Tab Manager 1.14.1\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-12-07 08:48:23+00:00\n"
+"POT-Creation-Date: 2021-03-16 07:19:04+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -125,7 +125,7 @@ msgid "Move to Trash"
 msgstr ""
 
 #: admin/post-types/writepanels/writepanel-product_data-tabs.php:42
-#: admin/woocommerce-tab-manager-admin-init.php:261
+#: admin/woocommerce-tab-manager-admin-init.php:268
 #: class-wc-tab-manager.php:300
 msgid "Tabs"
 msgstr ""
@@ -202,17 +202,18 @@ msgstr ""
 msgid "Custom Tab"
 msgstr ""
 
-#: admin/woocommerce-tab-manager-admin-global-layout.php:52
+#: admin/woocommerce-tab-manager-admin-global-layout.php:53
+#. translators: Placeholder: %s - updated notice (e.g. Tab layout updated, Tab
+#. layout saved, etc.)
 msgid "Tabs layout %s"
 msgstr ""
 
-#: admin/woocommerce-tab-manager-admin-global-layout.php:59
-#: admin/woocommerce-tab-manager-admin-init.php:267
-msgid "Default Tab Layout"
+#: admin/woocommerce-tab-manager-admin-global-layout.php:61
+msgid "Default tab layout"
 msgstr ""
 
-#: admin/woocommerce-tab-manager-admin-global-layout.php:73
-msgid "Save Changes"
+#: admin/woocommerce-tab-manager-admin-global-layout.php:79
+msgid "Save changes"
 msgstr ""
 
 #: admin/woocommerce-tab-manager-admin-init.php:151
@@ -257,17 +258,13 @@ msgstr ""
 msgid "Tab draft updated."
 msgstr ""
 
-#: admin/woocommerce-tab-manager-admin-init.php:239
-msgid "Add Global Tab"
+#: admin/woocommerce-tab-manager-admin-init.php:271
+#: admin/woocommerce-tab-manager-admin-init.php:352
+msgid "Default Tab Layout"
 msgstr ""
 
-#: admin/woocommerce-tab-manager-admin-init.php:252
-#: class-wc-tab-manager.php:306
-msgid "Edit Tab"
-msgstr ""
-
-#: admin/woocommerce-tab-manager-admin-init.php:272
-#. translators: Placeholders: %s - keyword search query
+#: admin/woocommerce-tab-manager-admin-init.php:276
+#. translators: Placeholder: %s - search query keyword
 msgid "Search results for &#8220;%s&#8221;"
 msgstr ""
 
@@ -275,44 +272,60 @@ msgstr ""
 msgid "WooCommerce Tab Manager"
 msgstr ""
 
+#: admin/woocommerce-tab-manager-admin-init.php:325
+msgid "Tab Manager"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-init.php:332
+msgid "All Tabs"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-init.php:344
+msgid "Add New Global Tab"
+msgstr ""
+
 #: class-wc-tab-manager.php:301
 msgid "Tab"
 msgstr ""
 
 #: class-wc-tab-manager.php:303
-msgid "Add Tab"
+msgid "Add global tab"
 msgstr ""
 
 #: class-wc-tab-manager.php:304
-msgid "Add New Tab"
+msgid "Add new global tab"
 msgstr ""
 
 #: class-wc-tab-manager.php:305
 msgid "Edit"
 msgstr ""
 
+#: class-wc-tab-manager.php:306
+msgid "Edit tab"
+msgstr ""
+
 #: class-wc-tab-manager.php:307
-msgid "New Tab"
+msgid "New tab"
 msgstr ""
 
 #: class-wc-tab-manager.php:308
-msgid "View Tabs"
+msgid "View tabs"
 msgstr ""
 
 #: class-wc-tab-manager.php:309
-msgid "View Tab"
+msgid "View tab"
 msgstr ""
 
 #: class-wc-tab-manager.php:310
-msgid "Search Tabs"
+msgid "Search tabs"
 msgstr ""
 
 #: class-wc-tab-manager.php:311
-msgid "No Tabs found"
+msgid "No tabs found"
 msgstr ""
 
 #: class-wc-tab-manager.php:312
-msgid "No Tabs found in trash"
+msgid "No tabs found in trash"
 msgstr ""
 
 #: class-wc-tab-manager.php:314

@@ -1,3 +1,0 @@
-<?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');} ?>
-<?php global $wafp_blogurl; ?>
-<div class="error" style="padding-top: 5px; padding-bottom: 5px;"><?php printf(__('Your WordPress registration settings do not currently allow user registrations.. Go to the %s to enable registrations.', 'affiliate-royale', 'easy-affiliate'), '<a href="'. admin_url("options-general.php") . '">'.__('General Wordpress Settings Page', 'affiliate-royale', 'easy-affiliate').'</a>'); ?></div>

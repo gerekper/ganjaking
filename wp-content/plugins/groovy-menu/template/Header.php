@@ -208,6 +208,7 @@ function groovyMenu( $args = array() ) {
 		$additional_html_class = ' ' . implode( ' ', $groovyMenuSettings['extra_navbar_classes'] );
 	}
 
+	$header_style = intval( $groovyMenuSettings['header']['style'] );
 
 	if ( class_exists( 'GroovyMenuActions' ) ) {
 		// Do custom shortcodes from preset.
@@ -218,6 +219,10 @@ function groovyMenu( $args = array() ) {
 			GroovyMenuActions::check_toolbar_menu( $styles );
 		}
 
+		if ( in_array( $header_style, [ 1, 2 ], true ) ) {
+			// Do custom shortcodes from preset.
+			GroovyMenuActions::check_menu_block_for_actions( $styles );
+		}
 	}
 
 
@@ -355,8 +360,6 @@ function groovyMenu( $args = array() ) {
 		$show_mobile_menu = false;
 	}
 
-	$header_style = intval( $groovyMenuSettings['header']['style'] );
-
 
 	// Clean output, first level.
 	ob_start();
@@ -404,142 +407,163 @@ function groovyMenu( $args = array() ) {
 			$toolbar_phone = apply_filters( 'wpml_translate_single_string', $toolbar_phone, 'groovy-menu', 'Global settings - toolbar phone text' );
 		}
 
+		$toolbar_type      = isset( $groovyMenuSettings['toolbarType'] ) ? $groovyMenuSettings['toolbarType'] : 'default';
+		$toolbar_custom_id = isset( $groovyMenuSettings['toolbarCustomId'] ) ? intval( $groovyMenuSettings['toolbarCustomId'] ) : 0;
+
 		$output_html .= '
 				<div class="gm-toolbar" id="gm-toolbar">
-					<div class="gm-toolbar-bg"></div>
-					<div class="gm-container">
-						<div class="gm-toolbar-left">';
+					<div class="gm-toolbar-bg"></div>';
 
-
-		ob_start();
-		/**
-		 * Fires at the toolbar left as first element output.
-		 *
-		 * @since 1.8.18
-		 */
-		do_action( 'gm_toolbar_left_first' );
-		$output_html .= ob_get_clean();
-
-
-		$output_html .= '<div class="gm-toolbar-contacts">';
-		if ( ! empty( $toolbar_email ) ) {
-			$output_html .= '<span class="gm-toolbar-email">';
-			if ( $styles->getGlobal( 'toolbar', 'toolbar_email_icon' ) ) {
-				$output_html .= '<span class="' . esc_attr( $styles->getGlobal( 'toolbar', 'toolbar_email_icon' ) ) . '"></span>';
+		if ( 'menublock' === $toolbar_type && ! empty( $toolbar_custom_id ) ) {
+			$menu_block_helper  = new \GroovyMenu\WalkerNavMenu();
+			$menu_block_content = $menu_block_helper->getMenuBlockPostContent( $toolbar_custom_id );
+			if ( function_exists( 'groovy_menu_add_custom_styles' ) ) {
+				groovy_menu_add_custom_styles( $toolbar_custom_id );
 			}
-			$output_html .= '<span class="gm-toolbar-contacts__txt">';
-			if ( $styles->getGlobal( 'toolbar', 'toolbar_email_as_link' ) ) {
-				$output_html .= '<a href="mailto:' . esc_attr( $styles->getGlobal( 'toolbar', 'toolbar_email' ) ) . '">' . esc_attr( $styles->getGlobal( 'toolbar', 'toolbar_email' ) ) . '</a>';
-			} else {
-				$output_html .= esc_attr( $toolbar_email );
+			if ( function_exists( 'groovy_menu_add_custom_styles_support' ) ) {
+				groovy_menu_add_custom_styles_support( $toolbar_custom_id );
 			}
-			$output_html .= '</span>';
-			$output_html .= '</span>';
-		}
-		if ( ! empty( $toolbar_phone ) ) {
-			$output_html .= '<span class="gm-toolbar-phone">';
-			if ( $styles->getGlobal( 'toolbar', 'toolbar_phone_icon' ) ) {
-				$output_html .= '<span class="' . esc_attr( $styles->getGlobal( 'toolbar', 'toolbar_phone_icon' ) ) . '"></span>';
-			}
-			$output_html .= '<span class="gm-toolbar-contacts__txt">';
-			if ( $styles->getGlobal( 'toolbar', 'toolbar_phone_as_link' ) ) {
-				$output_html .= '<a href="tel:' . esc_attr( $toolbar_phone ) . '">' . esc_attr( $toolbar_phone ) . '</a>';
-			} else {
-				$output_html .= esc_attr( $toolbar_phone );
-			}
-			$output_html .= '</span>';
-			$output_html .= '</span>';
-		}
-		$output_html .= '</div>';
 
+			$output_html .= '<div class="gm-container gm-block-container">';
 
-		ob_start();
-		/**
-		 * Fires at the toolbar left as last element output.
-		 *
-		 * @since 1.8.18
-		 */
-		do_action( 'gm_toolbar_left_last' );
-		$output_html .= ob_get_clean();
+			$output_html .= $menu_block_content;
+		} else {
 
+			$output_html .= '<div class="gm-container">';
+			$output_html .= '<div class="gm-toolbar-left">';
 
-		$output_html .= '</div>';
-		$output_html .= '<div class="gm-toolbar-right">';
-
-
-		ob_start();
-		/**
-		 * Fires at the toolbar right as first element output.
-		 *
-		 * @since 1.8.18
-		 */
-		do_action( 'gm_toolbar_right_first' );
-		$output_html .= ob_get_clean();
-
-
-		$output_html .= '<ul class="gm-toolbar-socials-list">';
-
-		$link_attr = '';
-		if ( ! empty( $styles->getGlobal( 'social', 'social_set_nofollow' ) ) ) {
-			$link_attr .= 'rel="nofollow noopener" ';
-		}
-		if ( ! empty( $styles->getGlobal( 'social', 'social_set_blank' ) ) ) {
-			$link_attr .= 'target="_blank" ';
-		}
-
-		foreach ( $socials as $social ) {
-			if ( $styles->getGlobal( 'social', 'social_' . $social ) ) {
-
-				$output_html .= '<li class="gm-toolbar-socials-list__item"><a href="' .
-					esc_url( $styles->getGlobal( 'social', 'social_' . $social . '_link' ) ) .
-					'" class="gm-toolbar-social-link" ' .
-					$link_attr .
-					'>';
-
-				$icon = $styles->getGlobal( 'social', 'social_' . $social . '_icon' );
-				if ( $icon ) {
-
-					$output_html .= '<i class="' . esc_attr( $icon ) . '"></i>';
-
-				} else {
-
-					$output_html .= '<i class="fa fa-' . esc_attr( $social ) . '"></i>';
-
-				}
-
-				$link_text = $styles->getGlobal( 'social', 'social_' . $social . '_text' );
-				$link_text = empty( $link_text ) ? '' : trim( $link_text );
-				if ( ! empty( $link_text ) ) {
-					$output_html .= '<span>' . $link_text . '</span>';
-				}
-
-				$output_html .= '</a>';
-				$output_html .= '</li>';
-
-			}
-		}
-
-		$output_html .= '</ul>';
-		if ( $groovyMenuSettings['showWpml'] ) {
 			ob_start();
-			do_action( 'wpml_add_language_selector' );
+			/**
+			 * Fires at the toolbar left as first element output.
+			 *
+			 * @since 1.8.18
+			 */
+			do_action( 'gm_toolbar_left_first' );
 			$output_html .= ob_get_clean();
+
+
+			$output_html .= '<div class="gm-toolbar-contacts">';
+			if ( ! empty( $toolbar_email ) ) {
+				$output_html .= '<span class="gm-toolbar-email">';
+				if ( $styles->getGlobal( 'toolbar', 'toolbar_email_icon' ) ) {
+					$output_html .= '<span class="' . esc_attr( $styles->getGlobal( 'toolbar', 'toolbar_email_icon' ) ) . '"></span>';
+				}
+				$output_html .= '<span class="gm-toolbar-contacts__txt">';
+				if ( $styles->getGlobal( 'toolbar', 'toolbar_email_as_link' ) ) {
+					$output_html .= '<a href="mailto:' . esc_attr( $styles->getGlobal( 'toolbar', 'toolbar_email' ) ) . '">' . esc_attr( $styles->getGlobal( 'toolbar', 'toolbar_email' ) ) . '</a>';
+				} else {
+					$output_html .= esc_attr( $toolbar_email );
+				}
+				$output_html .= '</span>';
+				$output_html .= '</span>';
+			}
+			if ( ! empty( $toolbar_phone ) ) {
+				$output_html .= '<span class="gm-toolbar-phone">';
+				if ( $styles->getGlobal( 'toolbar', 'toolbar_phone_icon' ) ) {
+					$output_html .= '<span class="' . esc_attr( $styles->getGlobal( 'toolbar', 'toolbar_phone_icon' ) ) . '"></span>';
+				}
+				$output_html .= '<span class="gm-toolbar-contacts__txt">';
+				if ( $styles->getGlobal( 'toolbar', 'toolbar_phone_as_link' ) ) {
+					$output_html .= '<a href="tel:' . esc_attr( $toolbar_phone ) . '">' . esc_attr( $toolbar_phone ) . '</a>';
+				} else {
+					$output_html .= esc_attr( $toolbar_phone );
+				}
+				$output_html .= '</span>';
+				$output_html .= '</span>';
+			}
+			$output_html .= '</div>';
+
+
+			ob_start();
+			/**
+			 * Fires at the toolbar left as last element output.
+			 *
+			 * @since 1.8.18
+			 */
+			do_action( 'gm_toolbar_left_last' );
+			$output_html .= ob_get_clean();
+
+
+			$output_html .= '</div>'; // .gm-toolbar-left
+			$output_html .= '<div class="gm-toolbar-right">';
+
+
+			ob_start();
+			/**
+			 * Fires at the toolbar right as first element output.
+			 *
+			 * @since 1.8.18
+			 */
+			do_action( 'gm_toolbar_right_first' );
+			$output_html .= ob_get_clean();
+
+
+			$output_html .= '<ul class="gm-toolbar-socials-list">';
+
+			$link_attr = '';
+			if ( ! empty( $styles->getGlobal( 'social', 'social_set_nofollow' ) ) ) {
+				$link_attr .= 'rel="nofollow noopener" ';
+			}
+			if ( ! empty( $styles->getGlobal( 'social', 'social_set_blank' ) ) ) {
+				$link_attr .= 'target="_blank" ';
+			}
+
+			foreach ( $socials as $social ) {
+				if ( $styles->getGlobal( 'social', 'social_' . $social ) ) {
+
+					$output_html .= '<li class="gm-toolbar-socials-list__item"><a href="' .
+					                esc_url( $styles->getGlobal( 'social', 'social_' . $social . '_link' ) ) .
+					                '" class="gm-toolbar-social-link" ' .
+					                $link_attr .
+					                '>';
+
+					$icon = $styles->getGlobal( 'social', 'social_' . $social . '_icon' );
+					if ( $icon ) {
+
+						$output_html .= '<i class="' . esc_attr( $icon ) . '"></i>';
+
+					} else {
+
+						$output_html .= '<i class="fa fa-' . esc_attr( $social ) . '"></i>';
+
+					}
+
+					$link_text = $styles->getGlobal( 'social', 'social_' . $social . '_text' );
+					$link_text = empty( $link_text ) ? '' : trim( $link_text );
+					if ( ! empty( $link_text ) ) {
+						$output_html .= '<span>' . $link_text . '</span>';
+					}
+
+					$output_html .= '</a>';
+					$output_html .= '</li>';
+
+				}
+			}
+
+			$output_html .= '</ul>';
+			if ( $groovyMenuSettings['showWpml'] ) {
+				ob_start();
+				do_action( 'wpml_add_language_selector' );
+				$output_html .= ob_get_clean();
+			}
+
+
+			ob_start();
+			/**
+			 * Fires at the toolbar right as last element output.
+			 *
+			 * @since 1.8.18
+			 */
+			do_action( 'gm_toolbar_right_last' );
+			$output_html .= ob_get_clean();
+
+
+			$output_html .= '</div>'; // .gm-toolbar-right
+
 		}
 
-
-		ob_start();
-		/**
-		 * Fires at the toolbar right as last element output.
-		 *
-		 * @since 1.8.18
-		 */
-		do_action( 'gm_toolbar_right_last' );
-		$output_html .= ob_get_clean();
-
-
-		$output_html .= '</div>';
-		$output_html .= '</div>';
-		$output_html .= '</div>';
+		$output_html .= '</div>'; // .gm-container
+		$output_html .= '</div>'; // #gm-toolbar.gm-toolbar
 	}
 	$output_html .= '<div class="gm-inner">
 				<div class="gm-inner-bg"></div>
@@ -784,8 +808,33 @@ function groovyMenu( $args = array() ) {
 
 
 	if ( ( $groovyMenuSettings['mobileIndependentCssHamburger'] && 2 !== $header_style ) || $groovyMenuSettings['mobileCustomHamburger'] ) {
-		// do nothing ...
+
+
+		if ( $groovyMenuSettings['mobileCustomHamburger'] ) {
+			ob_start();
+			/**
+			 * Fires for custom mobile hamburger.
+			 *
+			 * @since 2.4.11
+			 */
+			do_action( 'gm_custom_mobile_hamburger' );
+			$output_html .= ob_get_clean();
+		}
+
+
 	} else {
+
+
+		ob_start();
+		/**
+		 * Fires before mobile hamburger.
+		 *
+		 * @since 2.4.11
+		 */
+		do_action( 'gm_before_mobile_hamburger' );
+		$output_html .= ob_get_clean();
+
+
 		$output_html .= '<span class="gm-menu-btn">
 						<span class="gm-menu-btn__inner">';
 		$menu_icon   = 'fa fa-bars';
@@ -795,7 +844,20 @@ function groovyMenu( $args = array() ) {
 		$output_html .= '	<i class="' . esc_attr( $menu_icon ) . '"></i>
 					</span>
 					</span>';
+
+
+		ob_start();
+		/**
+		 * Fires after mobile hamburger.
+		 *
+		 * @since 2.4.11
+		 */
+		do_action( 'gm_after_mobile_hamburger' );
+		$output_html .= ob_get_clean();
+
+
 	}
+
 
 	ob_start();
 	/**

@@ -20,6 +20,10 @@
 
 				// Trigger the initial change event.
 				$( 'select#product-type' ).trigger( 'change' );
+
+				$( '#_store_credit_allow_different_receiver' )
+					.on( 'change', this.toggleReceiverFields )
+					.trigger( 'change' );
 			},
 
 			/**
@@ -28,6 +32,15 @@
 			addShowHideClasses: function() {
 				$( '#general_product_data .pricing.show_if_simple' ).addClass( 'show_if_store_credit' );
 				$( '#general_product_data #_tax_status' ).closest( '.show_if_simple' ).addClass( 'show_if_store_credit' );
+			},
+
+			/**
+			 * Toggle between showing or hiding display receiver fields options.
+			 */
+			toggleReceiverFields: function () {
+				$( '#_store_credit_display_receiver_fields' )
+					.closest( '.form-field' )
+					.toggle( $( this ).prop( 'checked' ) );
 			}
 		};
 

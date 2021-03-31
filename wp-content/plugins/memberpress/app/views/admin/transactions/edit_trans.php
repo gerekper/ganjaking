@@ -19,7 +19,9 @@
       <table class="form-table">
         <tbody>
           <tr valign="top"><th scope="row"><label><?php _e('Transaction ID:', 'memberpress'); ?></label></th><td><?php echo $txn->id; ?></td></tr>
+          <?php MeprHooks::do_action('mepr_edit_transaction_table_before', $txn); ?>
           <?php MeprView::render("/admin/transactions/trans_form", get_defined_vars()); ?>
+          <?php MeprHooks::do_action('mepr_edit_transaction_table_after', $txn); ?>
         </tbody>
       </table>
       <p class="submit">

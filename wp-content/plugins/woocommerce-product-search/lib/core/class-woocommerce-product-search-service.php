@@ -1152,7 +1152,7 @@ class WooCommerce_Product_Search_Service {
 		if ( $post_ids !== null && is_array( $post_ids ) && count( $post_ids ) > 0 ) {
 
 			$hide_empty = !isset( $args['hide_empty'] ) || $args['hide_empty'];
-			if ( true || $hide_empty ) {
+			if ( $hide_empty ) {
 
 				$where[] = "ot.term_id IN ( SELECT DISTINCT term_id FROM $object_term_table WHERE object_id IN (" . implode( ',', esc_sql( $post_ids ) ) . ") )";
 
@@ -1205,7 +1205,6 @@ class WooCommerce_Product_Search_Service {
 			if ( count( $where ) > 0 ) {
 				$query .= "WHERE " . implode( ' AND ', $where );
 			}
-
 			$allowed_term_ids = $wpdb->get_col( $query );
 			$cached = wps_cache_set( $cache_key, $allowed_term_ids, self::GET_TERMS_WHERE_CACHE_GROUP, self::get_cache_lifetime() );
 		}

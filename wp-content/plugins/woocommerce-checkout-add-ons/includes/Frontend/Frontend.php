@@ -23,7 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Checkout_Add_Ons\Frontend;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Add_On_Factory;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Plugin;
@@ -643,7 +643,7 @@ class Frontend {
 
 					if ( $value ) {
 
-						$cost      = $add_on->get_cost();
+						$cost      = $add_on->get_adjustment();
 						$taxable   = $add_on->is_taxable();
 						$tax_class = $add_on->get_tax_class();
 
@@ -831,7 +831,7 @@ class Frontend {
 			break;
 
 			default:
-				$cost = $add_on->get_cost();
+				$cost = $add_on->get_adjustment();
 			break;
 		}
 

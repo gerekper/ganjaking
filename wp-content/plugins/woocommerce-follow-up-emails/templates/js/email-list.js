@@ -4,7 +4,7 @@ jQuery().ready(function() {
 
     var url_hash = window.location.hash;
     if (url_hash != "") {
-        jQuery("a[href="+ url_hash +"]").click();
+        jQuery( 'a[href="' + url_hash + '"]' ).trigger( 'click' );
     }
 
     // Sorting
@@ -25,13 +25,13 @@ jQuery().ready(function() {
             ui.item.css('background-color','#f6f6f6');
         },
         stop:function(event,ui){
-            ui.item.removeAttr('style');
+            ui.item.prop( 'style', false );
             update_priorities();
         }
     });
 
     // Cloning
-    jQuery("a.clone-email").click(function(e) {
+    jQuery( 'a.clone-email' ).on( 'click', function( e ) {
         e.preventDefault();
 
         var name        = prompt(FUE.email_name);
@@ -59,9 +59,9 @@ jQuery().ready(function() {
             });
 
         }
-    });
+    } );
 
-    jQuery( document ).on( 'click', '.archive-email', function(e) {
+    jQuery( document ).on( 'click', '.archive-email', function( e ) {
         e.preventDefault();
 
         var table   = jQuery(this).parents("table");
@@ -97,9 +97,9 @@ jQuery().ready(function() {
             jQuery(table).unblock();
         });
 
-    });
+    } );
 
-    jQuery(".unarchive").on("click", function(e) {
+    jQuery( '.unarchive' ).on( 'click', function( e ) {
         e.preventDefault();
 
         var table   = jQuery(this).parents("table");
@@ -139,9 +139,9 @@ jQuery().ready(function() {
             jQuery(table).unblock();
         });
 
-    });
+    } );
 
-    jQuery(document).on( 'click', '.toggle-activation', function(e) {
+    jQuery( document ).on( 'click', '.toggle-activation', function( e ) {
         e.preventDefault();
 
         var parent  = jQuery(this).parents("table");
@@ -166,7 +166,7 @@ jQuery().ready(function() {
             jQuery(parent).unblock();
         });
 
-    });
+    } );
 
 });
 function update_priorities() {

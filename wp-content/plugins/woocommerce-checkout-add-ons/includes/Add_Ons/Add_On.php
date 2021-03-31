@@ -23,7 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Display_Rules\Display_Rule;
 use SkyVerge\WooCommerce\Checkout_Add_Ons\Add_Ons\Display_Rules\Display_Rule_Factory;
 
@@ -337,46 +337,59 @@ abstract class Add_On extends \WC_Data {
 
 
 	/**
-	 * Returns the add-on cost.
+	 * Gets the add-on cost.
 	 *
-	 * Convenience / Compatibility method.
+	 * TODO remove this method by February 2021 or by version 3.0.0 {FN 2021-03-10}
 	 *
 	 * @since 1.0
 	 * @deprecated since 2.1.2
 	 *
-	 * @return mixed the add-on cost
+	 * @return float the add-on cost
 	 */
 	public function get_cost() {
+
+		wc_deprecated_function( __METHOD__, '2.1.2', __CLASS__ . '::get_adjustment()' );
 
 		return $this->get_adjustment();
 	}
 
 
 	/**
-	 * Returns the add-on cost (including tax).
+	 * Gets the add-on cost (including tax).
 	 *
 	 * @since 1.0
 	 *
-	 * @param string|null $cost Optional. cost to calculate, leave blank to just use get_cost()
-	 * @return mixed the add-on cost including any taxes
+	 * @param string|float|null $cost optional cost to calculate, leave blank to just use the Add On cost adjustment
+	 * @return float the add-on cost including any taxes
 	 */
 	public function get_cost_including_tax( $cost = null ) {
 
-		$_tax  = new \WC_Tax();
-
 		if ( null === $cost ) {
-			$cost = $this->get_cost();
+			$cost = $this->get_adjustment();
 		}
+
+		$cost = (float) $cost;
 
 		if ( $this->is_taxable() ) {
 
-			// Get tax rates
-			$tax_rates    = $_tax->get_rates( $this->get_tax_class() );
-			$add_on_taxes = $_tax->calc_tax( $cost, $tax_rates, false );
+			// get tax rates
+			$raw_tax_rates = \WC_Tax::get_rates_for_tax_class( $this->get_tax_class() );
+			$tax_rates     = [];
+
+			foreach ( $raw_tax_rates as $rate_object ) {
+				$tax_rates[ $rate_object->tax_rate_id ] = [
+					'rate'     => (float) $rate_object->tax_rate,
+					'label'    => $rate_object->tax_rate_name,
+					'shipping' => wc_bool_to_string( $rate_object->tax_rate_shipping ),
+					'compound' => wc_bool_to_string( $rate_object->tax_rate_compound ),
+				];
+			}
+
+			$add_on_taxes = \WC_Tax::calc_tax( $cost, $tax_rates, false );
 
 			// add tax totals to the cost
-			if ( ! empty( $add_on_taxes ) ) {
-				$cost += array_sum( $add_on_taxes );
+			if ( is_array( $add_on_taxes ) && ! empty( $add_on_taxes ) ) {
+				$cost += (float) array_sum( $add_on_taxes );
 			}
 		}
 
@@ -399,7 +412,7 @@ abstract class Add_On extends \WC_Data {
 	public function get_cost_html( $cost = null, $cost_type = null ) {
 
 		if ( null === $cost ) {
-			$cost = $this->get_cost();
+			$cost = $this->get_adjustment();
 		}
 
 		if ( null === $cost_type ) {

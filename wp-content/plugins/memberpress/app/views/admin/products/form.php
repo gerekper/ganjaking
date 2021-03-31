@@ -118,7 +118,7 @@
         <input type="checkbox" name="<?php echo MeprProduct::$trial_str; ?>" id="<?php echo MeprProduct::$trial_str; ?>" <?php echo $checked; ?> /> <label for="_mepr_product_trial"><?php _e('Trial Period', 'memberpress'); ?></label>
         <?php MeprAppHelper::info_tooltip( 'mepr-product-trial-days',
                                            __('Trial Period Info', 'memberpress'),
-                                           __('The trial period is the number of days listed in the "Trial Duration" field. A 1 month trial would be 30 days, 2 months would be 60. Similarly, 1 year would be 365 and 2 years would be 730.', 'memberpress') ); ?>
+                                           __('The trial period is the number of days listed in the "Trial Duration" field. A 1 month trial would be 30 days, 2 months would be 60. Similarly, 1 year would be 365.', 'memberpress') ); ?>
         <div id="disable-trial-notice" class="mepr-meta-sub-pane" data-value="<?php _e('Price must be greater than 0.00 to choose recurring subscriptions.', 'memberpress'); ?>" class="mepr_hidden"></div>
       </p>
       <div class="mepr-product-trial-hidden mepr-sub-box">

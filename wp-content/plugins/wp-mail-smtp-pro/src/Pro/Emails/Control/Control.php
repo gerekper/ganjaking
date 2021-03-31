@@ -179,7 +179,7 @@ class Control {
 					),
 					'dis_auto_updates_full_log'      => array(
 						'label' => esc_html__( 'Full Log', 'wp-mail-smtp-pro' ),
-						'desc'  => esc_html__( 'Full log of background update results. Only sent when you are using a development version of WordPress. Sent to the site or network admin.', 'wp-mail-smtp-pro' ),
+						'desc'  => esc_html__( 'Full log of background update results which includes information about WordPress core, plugins, themes, and translations updates. Only sent when you are using a development version of WordPress. Sent to the site or network admin.', 'wp-mail-smtp-pro' ),
 					),
 				),
 			),

@@ -7,6 +7,10 @@
 if(!defined('ABSPATH')) exit();
 
 class RevSliderHelp {
+
+	/**
+	 * @return array
+	 */
 	public static function getIndex() {
 		$translations = array(
 			'docs' => __('Docs', 'revsliderhelp'),
@@ -27,7 +31,6 @@ class RevSliderHelp {
 			'option' => __('Option', 'revsliderhelp'),
 			'options' => __('Options', 'revsliderhelp'),
 			'faqs' => __('FAQs', 'revsliderhelp'),
-			'options' => __('Options', 'revsliderhelp'),
 			'search' => __('Search Keywords, e.g. "Background"', 'revsliderhelp'),
 			'instructions' => __('Hover over any option to learn more', 'revsliderhelp'),
 			'selectresult' => __('Select a Search Result')
@@ -2852,6 +2855,14 @@ class RevSliderHelp {
 							$d => __("Choose 'All' to LazyLoad all images in the Slider when the Slider first loads, 'Smart' to only LazyLoad the prev/next Slide's images, and 'Single' to only LazyLoad the current Slide's images.", 'revsliderhelp'),
 							$a => $u . "advanced-module-settings/",
 							$hl => array($m => "#module_settings_trigger, #gst_sl_10", $st => '#form_slidergeneral_advanced_loading', $f => "#sr_adv_performance_load")
+						),
+						'bgdpr' => array(
+							$t => __("Device Pixel Ratio", 'revsliderhelp'),
+							$h => "general.DPR",
+							$k => array("dpr", "device aspect ratio", "image quality", "background", "blurry"),
+							$d => __("Allows to use higher DPR on 4k, 5k , Retina displays.  Higher Maximum value can have negativ influence on complex Canvas animations. Lower Value can have negative influence on Image Quality on 4K+ Devices. In cae animations or Pan Zoom are not smooth, try lower DPR, and incase BG Image blurry, try higher DPR.", 'revsliderhelp'),
+							$a => $u . "advanced-module-settings/",
+							$hl => array($m => "#module_settings_trigger, #gst_sl_10", $st => '#form_slidergeneral_advanced_loading', $f => "#sliderbgdpr")
 						),
 						'simplify' => array(
 							$t => __("Simplify on IOS4/IE8", 'revsliderhelp'),

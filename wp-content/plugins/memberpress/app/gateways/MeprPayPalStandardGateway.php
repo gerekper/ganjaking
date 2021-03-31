@@ -5,6 +5,7 @@ class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
   /** Used in the view to identify the gateway */
   public function __construct() {
     $this->name = __("PayPal Standard", 'memberpress');
+    $this->key = __('paypal', 'memberpress');
     $this->has_spc_form = true;
     $this->set_defaults();
 
@@ -640,7 +641,7 @@ class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
       $txn->trans_num  = $sub->subscr_id . '-' . uniqid();
       $txn->status     = MeprTransaction::$confirmed_str;
       $txn->txn_type   = MeprTransaction::$subscription_confirmation_str;
-      $txn->expires_at = MeprUtils::ts_to_mysql_date(time() + MeprUtils::days(1), 'Y-m-d 23:59:59');
+      $txn->expires_at = MeprUtils::ts_to_mysql_date($sub->get_expires_at());
       $txn->set_subtotal(0.00); // Just a confirmation txn
       $txn->store();
     }
@@ -730,7 +731,7 @@ class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
     $sub_vars = array();
 
     //Trial Amount
-    $sub_vars['a1'] = $this->format_currency($sub->trial_amount);
+    $sub_vars['a1'] = $this->format_currency( $sub->trial_total );
 
     //Trial Days, Weeks, Months, or Years
     if($sub->trial_days <= 90) {
@@ -849,6 +850,8 @@ class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
 
     $cancel_url   = $this->notify_url('cancel');
     $cancel_delim = MeprUtils::get_delim($cancel_url);
+    $return_url   = $this->notify_url('return');
+    $return_delim = MeprUtils::get_delim($return_url);
 
     $payment_vars = MeprHooks::apply_filters('mepr_paypal_std_payment_vars', array(
       'cmd'           => '_xclick',
@@ -859,7 +862,7 @@ class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
       'item_number'   => $txn->id,
       'amount'        => $this->format_currency($txn->total),
       'tax_rate'      => MeprUtils::format_float(0.000, 3),
-      'return'        => $this->notify_url('return'),
+      'return'        => $return_url.$return_delim.'txn_id='.$txn->id,
       'cancel_return' => $cancel_url.$cancel_delim.'txn_id='.$txn->id,
       'no_shipping'   => 1,
       'custom'        => json_encode($custom),
@@ -894,14 +897,14 @@ class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
         }
       }
 
+      $sub->set_subtotal($sub->price);
+
       //Handle Trial period stuff
       if($sub->trial) {
         $sub_vars = array_merge($sub_vars, $this->calculate_subscription_trial_vars($sub));
 
         //Set the RETURN differently since we DON'T get an ITEM NUMBER from PayPal on free trial periods doh!
         if($sub->trial_amount <= 0.00) {
-          $return_url   = $this->notify_url('return');
-          $return_delim = MeprUtils::get_delim($return_url);
           $sub_vars['return'] = $return_url.$return_delim.'free_trial_txn_id='.$txn->id;
         }
       }
@@ -1079,9 +1082,9 @@ class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
 
     $mepr_options = MeprOptions::fetch();
 
-    //If PayPal gives us an item_number let's setup this txn now
-    if(isset($_GET['item_number']) && is_numeric($_GET['item_number'])) {
-      $txn      = new MeprTransaction((int)$_GET['item_number']);
+    //If PayPal gives us an txn_id let's setup this txn now
+    if(isset($_GET['txn_id']) && is_numeric($_GET['txn_id'])) {
+      $txn      = new MeprTransaction((int)$_GET['txn_id']);
       $sub      = $txn->subscription();
       $product  = new MeprProduct($txn->product_id);
 

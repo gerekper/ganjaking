@@ -151,7 +151,7 @@ class EmailsCollection implements \Countable, \Iterator {
 			isset( $params['status'] ) &&
 			in_array( $params['status'], self::STATUSES, true )
 		) {
-			$processed['status'] = (int) $params['order'];
+			$processed['status'] = (int) $params['status'];
 		}
 
 		// Search.

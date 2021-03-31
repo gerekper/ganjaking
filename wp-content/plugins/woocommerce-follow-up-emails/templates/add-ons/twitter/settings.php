@@ -89,9 +89,9 @@
 </table>
 
 <script>
-	jQuery(".toggle-guide").click(function(e) {
+	jQuery( '.toggle-guide' ).on( 'click', function( e ) {
 		e.preventDefault();
 
 		jQuery("#twitter-guide").slideToggle();
-	});
+	} );
 </script>

@@ -1,6 +1,3 @@
-$upgrade-image: '../../app/assets/images/hero@2x.png';
-$upgrade-image-mobile: '../../app/assets/images/hero.png';
-
 // This needs to be here.
 @import "modules/variables";
 
@@ -8,7 +5,6 @@ $upgrade-image-mobile: '../../app/assets/images/hero.png';
 @import "~@wpmudev/shared-ui/scss/functions";
 @import "~@wpmudev/shared-ui/scss/colors";
 @import "~@wpmudev/shared-ui/scss/variables";
-$sui-font-path: '~@wpmudev/shared-ui/dist/fonts/';
 @import "~@wpmudev/shared-ui/scss/mixins";
 @import "~@wpmudev/shared-ui/scss/accessibility";
 @import "~@wpmudev/shared-ui/scss/animations";
@@ -24,7 +20,7 @@ $sui-font-path: '~@wpmudev/shared-ui/dist/fonts/';
 @import "~@wpmudev/shared-ui/scss/summary";
 @import "~@wpmudev/shared-ui/scss/list";
 @import "~@wpmudev/shared-ui/scss/tooltips";
-@import "~@wpmudev/shared-ui/scss/select";
+@import "~@wpmudev/shared-ui/scss/select2";
 @import "~@wpmudev/shared-ui/scss/tags";
 @import "~@wpmudev/shared-ui/scss/forms";
 @import "~@wpmudev/shared-ui/scss/radio-checkbox";

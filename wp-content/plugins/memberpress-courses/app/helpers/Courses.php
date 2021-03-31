@@ -278,7 +278,7 @@ class Courses {
     $loggedin_url = add_query_arg('preview', false);
 
     \ob_start();
-      require(base\VIEWS_PATH . '/classroom/header.php');
+      require(\MeprView::file('/classroom/courses_header'));
     $content = \ob_get_clean();
 
     return apply_filters( base\SLUG_KEY . '_classroom_header', $content, $classes, $back_url );
@@ -291,7 +291,7 @@ class Courses {
    */
   public static function get_classroom_sidebar($post){
     \ob_start();
-      require(base\VIEWS_PATH . '/classroom/sidebar.php');
+      require(\MeprView::file('/classroom/courses_sidebar'));
     $content = \ob_get_clean();
 
     return apply_filters( base\SLUG_KEY . '_classroom_sidebar', $content );
@@ -299,7 +299,7 @@ class Courses {
 
   public static function get_classroom_footer(){
     \ob_start();
-      require(base\VIEWS_PATH . '/classroom/footer.php');
+      require(\MeprView::file('/classroom/courses_footer'));
     $footer = \ob_get_clean();
 
     return $footer;
@@ -325,7 +325,7 @@ class Courses {
 
     if($show_bookmark){
       \ob_start();
-        require(base\VIEWS_PATH . '/courses/classroom-sidebar-progress.php');
+        require(\MeprView::file('/courses/courses_classroom_sidebar_progress'));
       $progress_bar = \ob_get_clean();
     }
     return $progress_bar;
@@ -369,7 +369,7 @@ class Courses {
     // If classroom mode is not active, load default section list
     if(! App::is_classroom()) {
       \ob_start();
-        require(base\VIEWS_PATH . '/courses/section_lesson_list.php');
+        require(\MeprView::file('/courses/courses_section_lesson_list'));
       $course_overview = \ob_get_clean();
 
       // Progress Bar above lessons
@@ -383,12 +383,12 @@ class Courses {
     // classroom mode is active, load classroom section list
     if($show_bookmark){
       \ob_start();
-        require(base\VIEWS_PATH . '/courses/classroom-bookmark.php');
+        require(\MeprView::file('/courses/courses_classroom_bookmark'));
       $progress = \ob_get_clean();
     }
 
     \ob_start();
-      require(base\VIEWS_PATH . '/courses/classroom-section-lessons.php');
+      require(\MeprView::file('/courses/courses_classroom_section_lessons'));
     $course_overview = \ob_get_clean();
 
     $course_overview =
@@ -418,7 +418,7 @@ class Courses {
           $bookmark_url = get_permalink($lesson->ID);
         }
           \ob_start();
-            require( base\VIEWS_PATH . '/courses/bookmark.php' );
+            require(\MeprView::file('/courses/courses_bookmark'));
           $content = \ob_get_clean() . $content;
       }
     }
@@ -542,10 +542,10 @@ class Courses {
 
     $course_instructor = '';
     \ob_start();
-      require(base\VIEWS_PATH . '/courses/course-instructor.php');
+      require(\MeprView::file('/courses/courses_instructor'));
     $course_instructor = \ob_get_clean();
 
-    return $course_instructor;
+    return apply_filters( base\SLUG_KEY . '_classroom_instructor', $course_instructor );
   }
 
 
@@ -555,6 +555,18 @@ class Courses {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Deletes all course listings transients
+   * @return [type]
+   */
+  public static function delete_transients(){
+    $transients = \get_option('mpcs-transients', array());
+    foreach ($transients as $transient) {
+      delete_transient( $transient );
+    }
+    \delete_option('mpcs-transients');
   }
 
 

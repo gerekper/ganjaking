@@ -76,7 +76,7 @@ class Hub {
 
 		$status['lazy'] = array(
 			'enabled' => $settings->get( 'lazy_load' ),
-			'native'  => $lazy['native'],
+			'native'  => is_array( $lazy ) && isset( $lazy['native'] ) ? $lazy['native'] : false,
 		);
 
 		$core = \WP_Smush::get_instance()->core();

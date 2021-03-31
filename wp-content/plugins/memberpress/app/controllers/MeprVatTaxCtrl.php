@@ -79,8 +79,13 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
       $country = $_POST['mepr-address-country'];
       $customer_type = $this->get_customer_type();
       $vat_number = $this->get_vat_number();
+      $vat_tax_businesses = get_option('mepr_vat_tax_businesses', false);
 
-      if($customer_type=='business' &&
+      //If customer is a business, then a value must be entered for the vat number
+      //Unless tax all eu business is enabled
+      if ($customer_type=='business' && empty($vat_number) && !$vat_tax_businesses) {
+              $errors['mepr_vat_number'] = __('VAT number is required', 'memberpress');
+      } else if($customer_type=='business' &&
          !empty($vat_number) &&
          !$this->vat_number_is_valid($vat_number, $country)) {
         $errors['mepr_vat_number'] = __('Your VAT number is invalid', 'memberpress');
@@ -133,7 +138,6 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
   /** VAT overrides anything that could possibly be set by the standard tax rate db tables */
   public function find_rate($tax_rate, $country, $state, $postcode, $city, $street, $usr=null, $prd_id = null) {
     $mepr_options = MeprOptions::fetch();
-
     $countries = $this->get_vat_countries();
     $customer_type = $this->get_customer_type($usr);
     $vat_number = $this->get_vat_number($usr);
@@ -189,7 +193,7 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
       // If we're taxing all businesses then vat tax validation doesn't matter
       if( $customer_type=='consumer' ||
           ( $customer_type=='business' &&
-            ( $vat_country==$country ||
+            ( $vat_country==$usr_country ||
               $vat_tax_businesses ||
               !$this->vat_number_is_valid($vat_number, $vies_country) )
           ) ||
@@ -210,6 +214,7 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
     $prd = new MeprProduct( $prd_id );
 
     $tax_rate->tax_rate = $countries[$country]['rate'];
+
     if($prd->ID && $prd->tax_class == 'reduced' && isset($countries[$country]['reduced_rate'])){
       $tax_rate->tax_rate = $countries[$country]['reduced_rate'];
     }

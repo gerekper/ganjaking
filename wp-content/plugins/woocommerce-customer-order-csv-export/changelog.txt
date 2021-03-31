@@ -1,5 +1,8 @@
 *** WooCommerce Customer/Order/Coupon Export Changelog ***
 
+2021.03.15 - version 5.3.2
+ * Feature - Add support for the WooCommerce Navigation admin feature
+
 2021.03.05 - version 5.3.1
  * Fix - Ensure that when editing an Automated Export, the Export Options select fields are updated as well
 

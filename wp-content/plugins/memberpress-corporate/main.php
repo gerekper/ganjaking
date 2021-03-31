@@ -3,7 +3,7 @@
 Plugin Name: MemberPress Corporate Accounts
 Plugin URI: https://www.memberpress.com/
 Description: The MemberPress Corporate Accounts add-on will allow you to allow some of your members to add and manage sub-members. Sometimes these "super" members are called "Parent", "Umbrella", "Group" or "Corporate" Account members.
-Version: 1.5.15
+Version: 1.5.18
 Author: Caseproof, LLC
 Author URI: http://caseproof.com/
 Text Domain: memberpress-corporate

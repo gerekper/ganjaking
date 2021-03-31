@@ -20,7 +20,7 @@ class RevSliderFront extends RevSliderFunctions {
 	const TABLE_LAYER_ANIMATIONS = 'revslider_layer_animations';
 	const TABLE_NAVIGATIONS		 = 'revslider_navigations';
 	const TABLE_SETTINGS		 = 'revslider_settings'; //existed prior 5.0 and still needed for updating from 4.x to any version after 5.x
-	const CURRENT_TABLE_VERSION	 = '1.0.8';
+	const CURRENT_TABLE_VERSION	 = '1.0.9';
 
 	const YOUTUBE_ARGUMENTS		 = 'hd=1&amp;wmode=opaque&amp;showinfo=0&amp;rel=0';
 	const VIMEO_ARGUMENTS		 = 'title=0&amp;byline=0&amp;portrait=0&amp;api=1';
@@ -465,7 +465,8 @@ class RevSliderFront extends RevSliderFunctions {
 			  params LONGTEXT NOT NULL,
 			  settings text NULL,
 			  type VARCHAR(191) NOT NULL DEFAULT '',
-			  UNIQUE KEY id (id)
+			  UNIQUE KEY id (id),
+			  INDEX `type_index` (`type`(8))
 			);";
 			dbDelta($sql);
 
@@ -476,7 +477,8 @@ class RevSliderFront extends RevSliderFunctions {
 			  params LONGTEXT NOT NULL,
 			  layers LONGTEXT NOT NULL,
 			  settings text NOT NULL DEFAULT '',
-			  UNIQUE KEY id (id)
+			  UNIQUE KEY id (id),
+			  INDEX `slider_id_index` (`slider_id`)
 			);";
 			dbDelta($sql);
 
@@ -486,7 +488,8 @@ class RevSliderFront extends RevSliderFunctions {
 			  params LONGTEXT NOT NULL,
 			  layers LONGTEXT NOT NULL,
 			  settings text NOT NULL,
-			  UNIQUE KEY id (id)
+			  UNIQUE KEY id (id),
+			  INDEX `slider_id_index` (`slider_id`)
 			);";
 			dbDelta($sql);
 
@@ -497,7 +500,8 @@ class RevSliderFront extends RevSliderFunctions {
 			  hover LONGTEXT,
 			  advanced LONGTEXT,
 			  params LONGTEXT NOT NULL,
-			  UNIQUE KEY id (id)
+			  UNIQUE KEY id (id),
+			  INDEX `handle_index` (`handle`(64))
 			);";
 			dbDelta($sql);
 

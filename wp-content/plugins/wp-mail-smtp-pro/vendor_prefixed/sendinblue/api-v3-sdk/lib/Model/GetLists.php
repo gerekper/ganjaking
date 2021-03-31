@@ -157,12 +157,6 @@ class GetLists implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelInterf
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-        if ($this->container['lists'] === null) {
-            $invalidProperties[] = "'lists' can't be null";
-        }
-        if ($this->container['count'] === null) {
-            $invalidProperties[] = "'count' can't be null";
-        }
         return $invalidProperties;
     }
     /**

@@ -226,7 +226,12 @@ class MeprCoupon extends MeprCptModel {
     else if($this->discount_mode=='first-payment') {
       $obj->trial = true;
       $obj->trial_days = (($obj instanceof MeprProduct) ? $obj->days_in_my_period() : $obj->days_in_this_period());
-      $obj->trial_amount = $this->apply_discount($obj->price, true, $obj);
+
+      if ($obj instanceof MeprSubscription) {
+        $obj->trial_amount = $this->apply_discount( $obj->product()->price, true, $obj );
+      } else {
+        $obj->trial_amount = $this->apply_discount( $obj->price, true, $obj );
+      }
     }
 
     // Basically, if the subscription does have a trial period

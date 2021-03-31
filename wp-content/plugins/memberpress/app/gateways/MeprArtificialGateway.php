@@ -5,6 +5,7 @@ class MeprArtificialGateway extends MeprBaseRealGateway {
   /** Used in the view to identify the gateway */
   public function __construct() {
     $this->name = __('Offline Payment', 'memberpress');
+    $this->key = __('offline', 'memberpress');
     $this->has_spc_form = true;
     $this->set_defaults();
 
@@ -74,6 +75,10 @@ class MeprArtificialGateway extends MeprBaseRealGateway {
 
     if($gateway !== false && isset($gateway->settings->gateway) && $gateway->settings->gateway == 'MeprArtificialGateway') {
       MeprEvent::record('offline-payment-'.$txn->status, $txn);
+
+      if($txn->status == MeprTransaction::$complete_str) {
+        MeprUtils::send_transaction_receipt_notices($txn);
+      }
     }
   }
 

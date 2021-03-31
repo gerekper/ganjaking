@@ -287,6 +287,8 @@ class MeprDb {
            trial tinyint(1) DEFAULT 0,
            trial_days int(11) DEFAULT 1,
            trial_amount decimal(16,2) DEFAULT 0.00,
+           trial_tax_amount decimal(16,2) DEFAULT 0,
+           trial_total decimal(16,2) DEFAULT 0,
            status varchar(20) DEFAULT '".MeprSubscription::$pending_str."',
            created_at datetime NOT NULL,
            cc_last4 varchar(10) DEFAULT '4242',

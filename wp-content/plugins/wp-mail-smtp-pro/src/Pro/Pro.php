@@ -4,6 +4,7 @@ namespace WPMailSMTP\Pro;
 
 use WPMailSMTP\Debug;
 use WPMailSMTP\Options;
+use WPMailSMTP\Pro\Admin\DashboardWidget;
 use WPMailSMTP\Pro\Emails\Logs\EmailsCollection;
 use WPMailSMTP\Pro\Emails\Logs\Logs;
 use WPMailSMTP\WP;
@@ -89,6 +90,7 @@ class Pro {
 		$this->get_license();
 		$this->get_site_health()->init();
 		$this->disable_wp_auto_update_plugins();
+		$this->get_dashboard_widget();
 
 		// Usage tracking hooks.
 		add_filter( 'wp_mail_smtp_usage_tracking_get_data', [ $this, 'usage_tracking_get_data' ] );
@@ -213,6 +215,24 @@ class Pro {
 		}
 
 		return $multisite;
+	}
+
+	/**
+	 * Get the DashboardWidget object.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @return DashboardWidget
+	 */
+	public function get_dashboard_widget() {
+
+		static $dashboard_widget;
+
+		if ( ! isset( $dashboard_widget ) ) {
+			$dashboard_widget = apply_filters( 'wp_mail_smtp_pro_get_dashboard_widget', new DashboardWidget() );
+		}
+
+		return $dashboard_widget;
 	}
 
 	/**

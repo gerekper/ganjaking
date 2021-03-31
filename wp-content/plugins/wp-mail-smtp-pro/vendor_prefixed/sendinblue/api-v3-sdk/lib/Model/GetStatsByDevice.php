@@ -51,7 +51,7 @@ class GetStatsByDevice implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Mod
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['desktop' => 'map[string,\\SendinBlue\\Client\\Model\\GetDeviceBrowserStats]', 'mobile' => 'map[string,\\SendinBlue\\Client\\Model\\GetDeviceBrowserStats]', 'tablet' => 'map[string,\\SendinBlue\\Client\\Model\\GetDeviceBrowserStats]', 'unknown' => 'map[string,\\SendinBlue\\Client\\Model\\GetDeviceBrowserStats]'];
+    protected static $swaggerTypes = ['desktop' => 'map[string,\\WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetDeviceBrowserStats]', 'mobile' => 'map[string,\\WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetDeviceBrowserStats]', 'tablet' => 'map[string,\\WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetDeviceBrowserStats]', 'unknown' => 'map[string,\\WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetDeviceBrowserStats]'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *

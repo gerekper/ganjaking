@@ -6,6 +6,7 @@
   }
 ?>
 
+<?php MeprHooks::do_action('mepr-stripe-payment-form-before-name-field', $txn); ?>
 <div class="mp-form-row">
   <div class="mp-form-label">
     <label><?php _e('Name on the card:*', 'memberpress'); ?></label>
@@ -14,6 +15,7 @@
   <input type="text" name="card-name" class="mepr-form-input stripe-card-name" required />
 </div>
 
+<?php MeprHooks::do_action('mepr-stripe-payment-form-card-field', $txn); ?>
 <div class="mp-form-row">
   <div class="mp-form-label">
     <label><?php _e('Credit Card:*', 'memberpress'); ?></label>

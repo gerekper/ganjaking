@@ -12,9 +12,7 @@ class S3SignatureV4 extends \WPMailSMTP\Vendor\Aws\Signature\SignatureV4
     /**
      * S3-specific signing logic
      *
-     * @param RequestInterface $request
-     * @param CredentialsInterface $credentials
-     * @return \GuzzleHttp\Psr7\Request|RequestInterface
+     * {@inheritdoc}
      */
     public function signRequest(\WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request, \WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface $credentials)
     {
@@ -26,6 +24,8 @@ class S3SignatureV4 extends \WPMailSMTP\Vendor\Aws\Signature\SignatureV4
     }
     /**
      * Always add a x-amz-content-sha-256 for data integrity.
+     *
+     * {@inheritdoc}
      */
     public function presign(\WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request, \WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface $credentials, $expires, array $options = [])
     {

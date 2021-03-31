@@ -13,9 +13,11 @@ class MPCA_App_Controller {
     add_filter('mepr_user_subscriptions_query_cols',             array($this,'customize_subscription_query_cols'));
     add_filter('mepr_recurring_subscriptions_table_cols',        array($this,'list_table_cols'));
     add_filter('mepr_recurring_subscriptions_table_joins',       array($this,'list_table_sub_joins'));
-    add_filter('mepr_nonrecurring_subscriptions_table_cols',     array($this,'list_table_cols'));
+    add_filter('mepr_nonrecurring_subscriptions_table_cols',     array($this,'list_table_txn_cols'));
     add_filter('mepr_nonrecurring_subscriptions_table_joins',    array($this,'list_table_txn_joins'));
     add_filter('mepr_user_subscriptions_customize_subscription', array($this,'customize_subscription_objects'), 10, 3);
+
+    add_filter( 'mepr_view_paths', array( $this, 'add_view_path' ) );
 
     // Import hooks
     add_filter( 'mepr_import_subscription_post_store', array($this, 'import_subscription') );
@@ -119,12 +121,27 @@ class MPCA_App_Controller {
     return $cols;
   }
 
+  public function list_table_txn_cols($cols) {
+    $cols = $this->list_table_cols($cols);
+    // $cols['parent'] = 'IFNULL(p.user_login,\'\')';
+
+    return $cols;
+  }
+
   public function list_table_sub_joins($joins) {
     return $this->list_table_joins($joins, 'sub', 'subscriptions');
   }
 
   public function list_table_txn_joins($joins) {
-    return $this->list_table_joins($joins, 'txn', 'transactions');
+    global $wpdb;
+    $mp_db = MeprDB::fetch();
+
+    $joins = $this->list_table_joins($joins, 'txn', 'transactions');
+
+    $joins[] = "LEFT JOIN {$mp_db->transactions} AS ptxn ON ptxn.id = txn.parent_transaction_id";
+    $joins[] = "LEFT JOIN {$wpdb->users} AS p ON p.ID = ptxn.user_id";
+
+    return $joins;
   }
 
   private function list_table_joins($joins, $from='sub', $sub_type='subscriptions') {
@@ -199,5 +216,17 @@ class MPCA_App_Controller {
 
   public function load_language() {
     load_plugin_textdomain('memberpress-corporate', false, dirname(plugin_basename(__FILE__)) . '/i18n');
+  }
+
+  /**
+   * Add plugin path to memberpress view path
+   *
+   * @param  mixed $paths MemberPress paths
+   *
+   * @return mixed
+   */
+  function add_view_path( $paths ) {
+    array_splice( $paths, 1, 0, MPCA_VIEWS_PATH );
+    return $paths;
   }
 }

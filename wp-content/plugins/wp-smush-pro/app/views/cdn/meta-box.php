@@ -38,7 +38,7 @@ if ( ! defined( 'WPINC' ) ) {
 				<p><?php echo wp_kses_post( $status_msg ); ?></p>
 				<?php if ( 'error' === $class && 'overcap' === $status ) : ?>
 					<p>
-						<a href="https://premium.wpmudev.org/hub/account/" target="_blank" class="sui-button">
+						<a href="https://wpmudev.com/hub/account/" target="_blank" class="sui-button">
 							<?php esc_html_e( 'Upgrade Plan', 'wp-smushit' ); ?>
 						</a>
 					</p>

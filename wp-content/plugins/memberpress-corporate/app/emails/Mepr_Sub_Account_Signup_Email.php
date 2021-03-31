@@ -24,7 +24,7 @@ class Mepr_Sub_Account_Signup_Email extends MeprBaseOptionsUserEmail {
 
   public function body_partial($vars = array()) {
     ob_start();
-    require(MPCA_VIEWS_PATH . '/emails/sub_account_signup.php');
+    require(MeprView::file('/emails/sub_account_signup'));
     $view = ob_get_clean();
 
     return $view;

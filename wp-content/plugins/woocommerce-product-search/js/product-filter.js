@@ -1291,7 +1291,13 @@ var ix_dropdown_thumbnails = [],
 			} );
 
 			if ( !has_filter ) {
-				has_filter = $( '.product-search-filter-terms .current-cat, .product-search-filter-terms .current-tag, .product-search-filter-terms .current-attribute, .product-search-filter-terms select.selectized option[selected]:not([value=""])' ).length > 0;
+				has_filter = $(
+					'.product-search-filter-terms .current-cat, ' +
+					'.product-search-filter-terms .current-tag, ' +
+					'.product-search-filter-terms .current-attribute, ' +
+					'.product-search-filter-terms select.product-search-filter-items option[selected]:not([value=""]), ' +
+					'.product-search-filter-terms select.selectized option[selected]:not([value=""])'
+				).length > 0;
 			}
 			if ( !has_filter ) {
 				$( '.product-search-filter-min-price, .product-search-filter-max-price' ).each( function( index ) {

@@ -51,13 +51,13 @@ class RemoveContactFromList implements \WPMailSMTP\Vendor\SendinBlue\Client\Mode
      *
      * @var string[]
      */
-    protected static $swaggerTypes = ['emails' => 'string[]', 'all' => 'bool'];
+    protected static $swaggerTypes = ['emails' => 'string[]', 'ids' => 'int[]', 'all' => 'bool'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $swaggerFormats = ['emails' => 'email', 'all' => null];
+    protected static $swaggerFormats = ['emails' => null, 'ids' => 'int64', 'all' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -82,19 +82,19 @@ class RemoveContactFromList implements \WPMailSMTP\Vendor\SendinBlue\Client\Mode
      *
      * @var string[]
      */
-    protected static $attributeMap = ['emails' => 'emails', 'all' => 'all'];
+    protected static $attributeMap = ['emails' => 'emails', 'ids' => 'ids', 'all' => 'all'];
     /**
      * Array of attributes to setter functions (for deserialization of responses)
      *
      * @var string[]
      */
-    protected static $setters = ['emails' => 'setEmails', 'all' => 'setAll'];
+    protected static $setters = ['emails' => 'setEmails', 'ids' => 'setIds', 'all' => 'setAll'];
     /**
      * Array of attributes to getter functions (for serialization of requests)
      *
      * @var string[]
      */
-    protected static $getters = ['emails' => 'getEmails', 'all' => 'getAll'];
+    protected static $getters = ['emails' => 'getEmails', 'ids' => 'getIds', 'all' => 'getAll'];
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name
@@ -147,6 +147,7 @@ class RemoveContactFromList implements \WPMailSMTP\Vendor\SendinBlue\Client\Mode
     public function __construct(array $data = null)
     {
         $this->container['emails'] = isset($data['emails']) ? $data['emails'] : null;
+        $this->container['ids'] = isset($data['ids']) ? $data['ids'] : null;
         $this->container['all'] = isset($data['all']) ? $data['all'] : null;
     }
     /**
@@ -191,6 +192,27 @@ class RemoveContactFromList implements \WPMailSMTP\Vendor\SendinBlue\Client\Mode
         return $this;
     }
     /**
+     * Gets ids
+     *
+     * @return int[]
+     */
+    public function getIds()
+    {
+        return $this->container['ids'];
+    }
+    /**
+     * Sets ids
+     *
+     * @param int[] $ids Mandatory if Emails are not passed, ignored otherwise. Emails to add to a list. You can pass a maximum of 150 emails for addition in one request. If you need to add the emails in bulk, please prefer /contacts/import api.
+     *
+     * @return $this
+     */
+    public function setIds($ids)
+    {
+        $this->container['ids'] = $ids;
+        return $this;
+    }
+    /**
      * Gets all
      *
      * @return bool
@@ -202,7 +224,7 @@ class RemoveContactFromList implements \WPMailSMTP\Vendor\SendinBlue\Client\Mode
     /**
      * Sets all
      *
-     * @param bool $all Required if 'emails' is empty. Remove all existing contacts from a list.  A process will be created in this scenario. You can fetch the process details to know about the progress
+     * @param bool $all Required if none of 'emails' or 'ids' are passed. Remove all existing contacts from a list.  A process will be created in this scenario. You can fetch the process details to know about the progress
      *
      * @return $this
      */

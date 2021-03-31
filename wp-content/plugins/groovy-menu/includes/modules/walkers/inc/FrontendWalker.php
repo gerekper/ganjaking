@@ -58,7 +58,7 @@ class FrontendWalker extends WalkerNavMenu {
 				$classes = "gm-dropdown-menu gm-dropdown-menu--lvl-{$this->currentLvl}";
 			}
 
-			if ( $this->getBackgroundId( $this->currentItem ) ) {
+			if ( $this->isMegaMenu && $this->getBackgroundId( $this->currentItem ) ) {
 				$size    = $this->getBackgroundSize( $this->currentItem );
 				$styles .= 'background-image: url(' . $this->getBackgroundUrl( $this->currentItem, $size ) . ');';
 				$styles .= 'background-repeat: ' . $this->getBackgroundRepeat( $this->currentItem ) . ';';
@@ -610,8 +610,11 @@ class FrontendWalker extends WalkerNavMenu {
 					// if no one Icon set & we get icon sidebar or expanded sidebar - then show first letter of nav-0menu title.
 				} elseif ( 0 === $depth && in_array( $headerStyle, array( 4, 5 ), true ) && ! $show_in_mobile ) {
 					$badge_content = '<span class="gm-menu-item__icon">' . $this->getFirstLetterAsIcon( $item ) . '</span>';
-
-					$badge['left'] .= $badge_content;
+					if ( 4 === $headerStyle ) {
+						$item_output .= $badge_content;
+					} else {
+						$badge['left'] .= $badge_content;
+					}
 				}
 
 				$badge_enable = $this->getBadgeEnable( $item );

@@ -328,6 +328,13 @@ class ClientResolver
         if (\defined('WPMailSMTP\\Vendor\\HHVM_VERSION')) {
             \array_unshift($value, 'HHVM/' . HHVM_VERSION);
         }
+        $disabledFunctions = \explode(',', \ini_get('disable_functions'));
+        if (!\ini_get('safe_mode') && \function_exists('php_uname') && !\in_array('php_uname', $disabledFunctions, \true)) {
+            $osName = \php_uname('s') . '/' . \php_uname('r');
+            if (!empty($osName)) {
+                \array_unshift($value, $osName);
+            }
+        }
         \array_unshift($value, 'aws-sdk-php/' . \WPMailSMTP\Vendor\Aws\Sdk::VERSION);
         $args['ua_append'] = $value;
         $list->appendBuild(static function (callable $handler) use($value) {
@@ -338,10 +345,6 @@ class ClientResolver
     }
     public static function _apply_endpoint($value, array &$args, \WPMailSMTP\Vendor\Aws\HandlerList $list)
     {
-        $parts = \parse_url($value);
-        if (empty($parts['scheme']) || empty($parts['host'])) {
-            throw new \InvalidArgumentException('Endpoints must be full URIs and include a scheme and host');
-        }
         $args['endpoint'] = $value;
     }
     public static function _apply_idempotency_auto_fill($value, array &$args, \WPMailSMTP\Vendor\Aws\HandlerList $list)

@@ -82,7 +82,7 @@ class ContactsApi
      * Add existing contacts to a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses of the contacts (required)
+     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -99,7 +99,7 @@ class ContactsApi
      * Add existing contacts to a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses of the contacts (required)
+     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -155,7 +155,7 @@ class ContactsApi
      * Add existing contacts to a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses of the contacts (required)
+     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -172,7 +172,7 @@ class ContactsApi
      * Add existing contacts to a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses of the contacts (required)
+     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -203,7 +203,7 @@ class ContactsApi
      * Create request for operation 'addContactToList'
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses of the contacts (required)
+     * @param  \SendinBlue\Client\Model\AddContactToList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -1415,31 +1415,31 @@ class ContactsApi
      *
      * Delete a contact
      *
-     * @param  string $email Email (urlencoded) of the contact (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function deleteContact($email)
+    public function deleteContact($identifier)
     {
-        $this->deleteContactWithHttpInfo($email);
+        $this->deleteContactWithHttpInfo($identifier);
     }
     /**
      * Operation deleteContactWithHttpInfo
      *
      * Delete a contact
      *
-     * @param  string $email Email (urlencoded) of the contact (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteContactWithHttpInfo($email)
+    public function deleteContactWithHttpInfo($identifier)
     {
         $returnType = '';
-        $request = $this->deleteContactRequest($email);
+        $request = $this->deleteContactRequest($identifier);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -1475,14 +1475,14 @@ class ContactsApi
      *
      * Delete a contact
      *
-     * @param  string $email Email (urlencoded) of the contact (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteContactAsync($email)
+    public function deleteContactAsync($identifier)
     {
-        return $this->deleteContactAsyncWithHttpInfo($email)->then(function ($response) {
+        return $this->deleteContactAsyncWithHttpInfo($identifier)->then(function ($response) {
             return $response[0];
         });
     }
@@ -1491,15 +1491,15 @@ class ContactsApi
      *
      * Delete a contact
      *
-     * @param  string $email Email (urlencoded) of the contact (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteContactAsyncWithHttpInfo($email)
+    public function deleteContactAsyncWithHttpInfo($identifier)
     {
         $returnType = '';
-        $request = $this->deleteContactRequest($email);
+        $request = $this->deleteContactRequest($identifier);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use($returnType) {
             return [null, $response->getStatusCode(), $response->getHeaders()];
         }, function ($exception) {
@@ -1511,26 +1511,26 @@ class ContactsApi
     /**
      * Create request for operation 'deleteContact'
      *
-     * @param  string $email Email (urlencoded) of the contact (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteContactRequest($email)
+    protected function deleteContactRequest($identifier)
     {
-        // verify the required parameter 'email' is set
-        if ($email === null || \is_array($email) && \count($email) === 0) {
-            throw new \InvalidArgumentException('Missing the required parameter $email when calling deleteContact');
+        // verify the required parameter 'identifier' is set
+        if ($identifier === null || \is_array($identifier) && \count($identifier) === 0) {
+            throw new \InvalidArgumentException('Missing the required parameter $identifier when calling deleteContact');
         }
-        $resourcePath = '/contacts/{email}';
+        $resourcePath = '/contacts/{identifier}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
         $multipart = \false;
         // path params
-        if ($email !== null) {
-            $resourcePath = \str_replace('{' . 'email' . '}', \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toPathValue($email), $resourcePath);
+        if ($identifier !== null) {
+            $resourcePath = \str_replace('{' . 'identifier' . '}', \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toPathValue($identifier), $resourcePath);
         }
         // body params
         $_tempBody = null;
@@ -2111,15 +2111,15 @@ class ContactsApi
      *
      * Get a contact's details
      *
-     * @param  string $email Email (urlencoded) of the contact OR its SMS attribute value (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact OR its SMS attribute value (required)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \SendinBlue\Client\Model\GetExtendedContactDetails
      */
-    public function getContactInfo($email)
+    public function getContactInfo($identifier)
     {
-        list($response) = $this->getContactInfoWithHttpInfo($email);
+        list($response) = $this->getContactInfoWithHttpInfo($identifier);
         return $response;
     }
     /**
@@ -2127,16 +2127,16 @@ class ContactsApi
      *
      * Get a contact's details
      *
-     * @param  string $email Email (urlencoded) of the contact OR its SMS attribute value (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact OR its SMS attribute value (required)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \SendinBlue\Client\Model\GetExtendedContactDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getContactInfoWithHttpInfo($email)
+    public function getContactInfoWithHttpInfo($identifier)
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetExtendedContactDetails';
-        $request = $this->getContactInfoRequest($email);
+        $request = $this->getContactInfoRequest($identifier);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -2182,14 +2182,14 @@ class ContactsApi
      *
      * Get a contact's details
      *
-     * @param  string $email Email (urlencoded) of the contact OR its SMS attribute value (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact OR its SMS attribute value (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContactInfoAsync($email)
+    public function getContactInfoAsync($identifier)
     {
-        return $this->getContactInfoAsyncWithHttpInfo($email)->then(function ($response) {
+        return $this->getContactInfoAsyncWithHttpInfo($identifier)->then(function ($response) {
             return $response[0];
         });
     }
@@ -2198,15 +2198,15 @@ class ContactsApi
      *
      * Get a contact's details
      *
-     * @param  string $email Email (urlencoded) of the contact OR its SMS attribute value (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact OR its SMS attribute value (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContactInfoAsyncWithHttpInfo($email)
+    public function getContactInfoAsyncWithHttpInfo($identifier)
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetExtendedContactDetails';
-        $request = $this->getContactInfoRequest($email);
+        $request = $this->getContactInfoRequest($identifier);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use($returnType) {
             $responseBody = $response->getBody();
             if ($returnType === '\\SplFileObject') {
@@ -2228,26 +2228,26 @@ class ContactsApi
     /**
      * Create request for operation 'getContactInfo'
      *
-     * @param  string $email Email (urlencoded) of the contact OR its SMS attribute value (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact OR its SMS attribute value (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getContactInfoRequest($email)
+    protected function getContactInfoRequest($identifier)
     {
-        // verify the required parameter 'email' is set
-        if ($email === null || \is_array($email) && \count($email) === 0) {
-            throw new \InvalidArgumentException('Missing the required parameter $email when calling getContactInfo');
+        // verify the required parameter 'identifier' is set
+        if ($identifier === null || \is_array($identifier) && \count($identifier) === 0) {
+            throw new \InvalidArgumentException('Missing the required parameter $identifier when calling getContactInfo');
         }
-        $resourcePath = '/contacts/{email}';
+        $resourcePath = '/contacts/{identifier}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
         $multipart = \false;
         // path params
-        if ($email !== null) {
-            $resourcePath = \str_replace('{' . 'email' . '}', \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toPathValue($email), $resourcePath);
+        if ($identifier !== null) {
+            $resourcePath = \str_replace('{' . 'identifier' . '}', \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toPathValue($identifier), $resourcePath);
         }
         // body params
         $_tempBody = null;
@@ -2308,7 +2308,7 @@ class ContactsApi
      *
      * Get email campaigns' statistics for a contact
      *
-     * @param  string $email Email address (urlencoded) of the contact (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
      * @param  \DateTime $startDate Mandatory if endDate is used. Starting date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be lower than equal to endDate (optional)
      * @param  \DateTime $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be greater than equal to startDate (optional)
      *
@@ -2316,9 +2316,9 @@ class ContactsApi
      * @throws \InvalidArgumentException
      * @return \SendinBlue\Client\Model\GetContactCampaignStats
      */
-    public function getContactStats($email, $startDate = null, $endDate = null)
+    public function getContactStats($identifier, $startDate = null, $endDate = null)
     {
-        list($response) = $this->getContactStatsWithHttpInfo($email, $startDate, $endDate);
+        list($response) = $this->getContactStatsWithHttpInfo($identifier, $startDate, $endDate);
         return $response;
     }
     /**
@@ -2326,7 +2326,7 @@ class ContactsApi
      *
      * Get email campaigns' statistics for a contact
      *
-     * @param  string $email Email address (urlencoded) of the contact (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
      * @param  \DateTime $startDate Mandatory if endDate is used. Starting date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be lower than equal to endDate (optional)
      * @param  \DateTime $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be greater than equal to startDate (optional)
      *
@@ -2334,10 +2334,10 @@ class ContactsApi
      * @throws \InvalidArgumentException
      * @return array of \SendinBlue\Client\Model\GetContactCampaignStats, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getContactStatsWithHttpInfo($email, $startDate = null, $endDate = null)
+    public function getContactStatsWithHttpInfo($identifier, $startDate = null, $endDate = null)
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetContactCampaignStats';
-        $request = $this->getContactStatsRequest($email, $startDate, $endDate);
+        $request = $this->getContactStatsRequest($identifier, $startDate, $endDate);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -2383,16 +2383,16 @@ class ContactsApi
      *
      * Get email campaigns' statistics for a contact
      *
-     * @param  string $email Email address (urlencoded) of the contact (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
      * @param  \DateTime $startDate Mandatory if endDate is used. Starting date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be lower than equal to endDate (optional)
      * @param  \DateTime $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be greater than equal to startDate (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContactStatsAsync($email, $startDate = null, $endDate = null)
+    public function getContactStatsAsync($identifier, $startDate = null, $endDate = null)
     {
-        return $this->getContactStatsAsyncWithHttpInfo($email, $startDate, $endDate)->then(function ($response) {
+        return $this->getContactStatsAsyncWithHttpInfo($identifier, $startDate, $endDate)->then(function ($response) {
             return $response[0];
         });
     }
@@ -2401,17 +2401,17 @@ class ContactsApi
      *
      * Get email campaigns' statistics for a contact
      *
-     * @param  string $email Email address (urlencoded) of the contact (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
      * @param  \DateTime $startDate Mandatory if endDate is used. Starting date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be lower than equal to endDate (optional)
      * @param  \DateTime $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be greater than equal to startDate (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContactStatsAsyncWithHttpInfo($email, $startDate = null, $endDate = null)
+    public function getContactStatsAsyncWithHttpInfo($identifier, $startDate = null, $endDate = null)
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetContactCampaignStats';
-        $request = $this->getContactStatsRequest($email, $startDate, $endDate);
+        $request = $this->getContactStatsRequest($identifier, $startDate, $endDate);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use($returnType) {
             $responseBody = $response->getBody();
             if ($returnType === '\\SplFileObject') {
@@ -2433,20 +2433,20 @@ class ContactsApi
     /**
      * Create request for operation 'getContactStats'
      *
-     * @param  string $email Email address (urlencoded) of the contact (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
      * @param  \DateTime $startDate Mandatory if endDate is used. Starting date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be lower than equal to endDate (optional)
      * @param  \DateTime $endDate Mandatory if startDate is used. Ending date (YYYY-MM-DD) of the statistic events specific to campaigns. Must be greater than equal to startDate (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getContactStatsRequest($email, $startDate = null, $endDate = null)
+    protected function getContactStatsRequest($identifier, $startDate = null, $endDate = null)
     {
-        // verify the required parameter 'email' is set
-        if ($email === null || \is_array($email) && \count($email) === 0) {
-            throw new \InvalidArgumentException('Missing the required parameter $email when calling getContactStats');
+        // verify the required parameter 'identifier' is set
+        if ($identifier === null || \is_array($identifier) && \count($identifier) === 0) {
+            throw new \InvalidArgumentException('Missing the required parameter $identifier when calling getContactStats');
         }
-        $resourcePath = '/contacts/{email}/campaignStats';
+        $resourcePath = '/contacts/{identifier}/campaignStats';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2461,8 +2461,8 @@ class ContactsApi
             $queryParams['endDate'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($endDate);
         }
         // path params
-        if ($email !== null) {
-            $resourcePath = \str_replace('{' . 'email' . '}', \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toPathValue($email), $resourcePath);
+        if ($identifier !== null) {
+            $resourcePath = \str_replace('{' . 'identifier' . '}', \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toPathValue($identifier), $resourcePath);
         }
         // body params
         $_tempBody = null;
@@ -2526,14 +2526,15 @@ class ContactsApi
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
      * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \SendinBlue\Client\Model\GetContacts
      */
-    public function getContacts($limit = '50', $offset = '0', $modifiedSince = null)
+    public function getContacts($limit = '50', $offset = '0', $modifiedSince = null, $sort = 'desc')
     {
-        list($response) = $this->getContactsWithHttpInfo($limit, $offset, $modifiedSince);
+        list($response) = $this->getContactsWithHttpInfo($limit, $offset, $modifiedSince, $sort);
         return $response;
     }
     /**
@@ -2544,15 +2545,16 @@ class ContactsApi
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
      * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \SendinBlue\Client\Model\GetContacts, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getContactsWithHttpInfo($limit = '50', $offset = '0', $modifiedSince = null)
+    public function getContactsWithHttpInfo($limit = '50', $offset = '0', $modifiedSince = null, $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetContacts';
-        $request = $this->getContactsRequest($limit, $offset, $modifiedSince);
+        $request = $this->getContactsRequest($limit, $offset, $modifiedSince, $sort);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -2597,13 +2599,14 @@ class ContactsApi
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
      * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContactsAsync($limit = '50', $offset = '0', $modifiedSince = null)
+    public function getContactsAsync($limit = '50', $offset = '0', $modifiedSince = null, $sort = 'desc')
     {
-        return $this->getContactsAsyncWithHttpInfo($limit, $offset, $modifiedSince)->then(function ($response) {
+        return $this->getContactsAsyncWithHttpInfo($limit, $offset, $modifiedSince, $sort)->then(function ($response) {
             return $response[0];
         });
     }
@@ -2615,14 +2618,15 @@ class ContactsApi
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
      * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContactsAsyncWithHttpInfo($limit = '50', $offset = '0', $modifiedSince = null)
+    public function getContactsAsyncWithHttpInfo($limit = '50', $offset = '0', $modifiedSince = null, $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetContacts';
-        $request = $this->getContactsRequest($limit, $offset, $modifiedSince);
+        $request = $this->getContactsRequest($limit, $offset, $modifiedSince, $sort);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use($returnType) {
             $responseBody = $response->getBody();
             if ($returnType === '\\SplFileObject') {
@@ -2647,11 +2651,12 @@ class ContactsApi
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
      * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getContactsRequest($limit = '50', $offset = '0', $modifiedSince = null)
+    protected function getContactsRequest($limit = '50', $offset = '0', $modifiedSince = null, $sort = 'desc')
     {
         if ($limit !== null && $limit > 1000) {
             throw new \InvalidArgumentException('invalid value for "$limit" when calling ContactsApi.getContacts, must be smaller than or equal to 1000.');
@@ -2673,6 +2678,10 @@ class ContactsApi
         // query params
         if ($modifiedSince !== null) {
             $queryParams['modifiedSince'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($modifiedSince);
+        }
+        // query params
+        if ($sort !== null) {
+            $queryParams['sort'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($sort);
         }
         // body params
         $_tempBody = null;
@@ -2737,14 +2746,15 @@ class ContactsApi
      * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \SendinBlue\Client\Model\GetContacts
      */
-    public function getContactsFromList($listId, $modifiedSince = null, $limit = '50', $offset = '0')
+    public function getContactsFromList($listId, $modifiedSince = null, $limit = '50', $offset = '0', $sort = 'desc')
     {
-        list($response) = $this->getContactsFromListWithHttpInfo($listId, $modifiedSince, $limit, $offset);
+        list($response) = $this->getContactsFromListWithHttpInfo($listId, $modifiedSince, $limit, $offset, $sort);
         return $response;
     }
     /**
@@ -2756,15 +2766,16 @@ class ContactsApi
      * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \SendinBlue\Client\Model\GetContacts, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getContactsFromListWithHttpInfo($listId, $modifiedSince = null, $limit = '50', $offset = '0')
+    public function getContactsFromListWithHttpInfo($listId, $modifiedSince = null, $limit = '50', $offset = '0', $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetContacts';
-        $request = $this->getContactsFromListRequest($listId, $modifiedSince, $limit, $offset);
+        $request = $this->getContactsFromListRequest($listId, $modifiedSince, $limit, $offset, $sort);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -2814,13 +2825,14 @@ class ContactsApi
      * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContactsFromListAsync($listId, $modifiedSince = null, $limit = '50', $offset = '0')
+    public function getContactsFromListAsync($listId, $modifiedSince = null, $limit = '50', $offset = '0', $sort = 'desc')
     {
-        return $this->getContactsFromListAsyncWithHttpInfo($listId, $modifiedSince, $limit, $offset)->then(function ($response) {
+        return $this->getContactsFromListAsyncWithHttpInfo($listId, $modifiedSince, $limit, $offset, $sort)->then(function ($response) {
             return $response[0];
         });
     }
@@ -2833,14 +2845,15 @@ class ContactsApi
      * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContactsFromListAsyncWithHttpInfo($listId, $modifiedSince = null, $limit = '50', $offset = '0')
+    public function getContactsFromListAsyncWithHttpInfo($listId, $modifiedSince = null, $limit = '50', $offset = '0', $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetContacts';
-        $request = $this->getContactsFromListRequest($listId, $modifiedSince, $limit, $offset);
+        $request = $this->getContactsFromListRequest($listId, $modifiedSince, $limit, $offset, $sort);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use($returnType) {
             $responseBody = $response->getBody();
             if ($returnType === '\\SplFileObject') {
@@ -2866,11 +2879,12 @@ class ContactsApi
      * @param  \DateTime $modifiedSince Filter (urlencoded) the contacts modified after a given UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ). Prefer to pass your timezone in date-time format for accurate result. (optional)
      * @param  int $limit Number of documents per page (optional, default to 50)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getContactsFromListRequest($listId, $modifiedSince = null, $limit = '50', $offset = '0')
+    protected function getContactsFromListRequest($listId, $modifiedSince = null, $limit = '50', $offset = '0', $sort = 'desc')
     {
         // verify the required parameter 'listId' is set
         if ($listId === null || \is_array($listId) && \count($listId) === 0) {
@@ -2896,6 +2910,10 @@ class ContactsApi
         // query params
         if ($offset !== null) {
             $queryParams['offset'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($offset);
+        }
+        // query params
+        if ($sort !== null) {
+            $queryParams['sort'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($sort);
         }
         // path params
         if ($listId !== null) {
@@ -3160,14 +3178,15 @@ class ContactsApi
      * @param  int $folderId Id of the folder (required)
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \SendinBlue\Client\Model\GetFolderLists
      */
-    public function getFolderLists($folderId, $limit = '10', $offset = '0')
+    public function getFolderLists($folderId, $limit = '10', $offset = '0', $sort = 'desc')
     {
-        list($response) = $this->getFolderListsWithHttpInfo($folderId, $limit, $offset);
+        list($response) = $this->getFolderListsWithHttpInfo($folderId, $limit, $offset, $sort);
         return $response;
     }
     /**
@@ -3178,15 +3197,16 @@ class ContactsApi
      * @param  int $folderId Id of the folder (required)
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \SendinBlue\Client\Model\GetFolderLists, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFolderListsWithHttpInfo($folderId, $limit = '10', $offset = '0')
+    public function getFolderListsWithHttpInfo($folderId, $limit = '10', $offset = '0', $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetFolderLists';
-        $request = $this->getFolderListsRequest($folderId, $limit, $offset);
+        $request = $this->getFolderListsRequest($folderId, $limit, $offset, $sort);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -3235,13 +3255,14 @@ class ContactsApi
      * @param  int $folderId Id of the folder (required)
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFolderListsAsync($folderId, $limit = '10', $offset = '0')
+    public function getFolderListsAsync($folderId, $limit = '10', $offset = '0', $sort = 'desc')
     {
-        return $this->getFolderListsAsyncWithHttpInfo($folderId, $limit, $offset)->then(function ($response) {
+        return $this->getFolderListsAsyncWithHttpInfo($folderId, $limit, $offset, $sort)->then(function ($response) {
             return $response[0];
         });
     }
@@ -3253,14 +3274,15 @@ class ContactsApi
      * @param  int $folderId Id of the folder (required)
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFolderListsAsyncWithHttpInfo($folderId, $limit = '10', $offset = '0')
+    public function getFolderListsAsyncWithHttpInfo($folderId, $limit = '10', $offset = '0', $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetFolderLists';
-        $request = $this->getFolderListsRequest($folderId, $limit, $offset);
+        $request = $this->getFolderListsRequest($folderId, $limit, $offset, $sort);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use($returnType) {
             $responseBody = $response->getBody();
             if ($returnType === '\\SplFileObject') {
@@ -3285,11 +3307,12 @@ class ContactsApi
      * @param  int $folderId Id of the folder (required)
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFolderListsRequest($folderId, $limit = '10', $offset = '0')
+    protected function getFolderListsRequest($folderId, $limit = '10', $offset = '0', $sort = 'desc')
     {
         // verify the required parameter 'folderId' is set
         if ($folderId === null || \is_array($folderId) && \count($folderId) === 0) {
@@ -3311,6 +3334,10 @@ class ContactsApi
         // query params
         if ($offset !== null) {
             $queryParams['offset'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($offset);
+        }
+        // query params
+        if ($sort !== null) {
+            $queryParams['sort'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($sort);
         }
         // path params
         if ($folderId !== null) {
@@ -3377,14 +3404,15 @@ class ContactsApi
      *
      * @param  int $limit Number of documents per page (required)
      * @param  int $offset Index of the first document of the page (required)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \SendinBlue\Client\Model\GetFolders
      */
-    public function getFolders($limit, $offset)
+    public function getFolders($limit, $offset, $sort = 'desc')
     {
-        list($response) = $this->getFoldersWithHttpInfo($limit, $offset);
+        list($response) = $this->getFoldersWithHttpInfo($limit, $offset, $sort);
         return $response;
     }
     /**
@@ -3394,15 +3422,16 @@ class ContactsApi
      *
      * @param  int $limit Number of documents per page (required)
      * @param  int $offset Index of the first document of the page (required)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \SendinBlue\Client\Model\GetFolders, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFoldersWithHttpInfo($limit, $offset)
+    public function getFoldersWithHttpInfo($limit, $offset, $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetFolders';
-        $request = $this->getFoldersRequest($limit, $offset);
+        $request = $this->getFoldersRequest($limit, $offset, $sort);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -3446,13 +3475,14 @@ class ContactsApi
      *
      * @param  int $limit Number of documents per page (required)
      * @param  int $offset Index of the first document of the page (required)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFoldersAsync($limit, $offset)
+    public function getFoldersAsync($limit, $offset, $sort = 'desc')
     {
-        return $this->getFoldersAsyncWithHttpInfo($limit, $offset)->then(function ($response) {
+        return $this->getFoldersAsyncWithHttpInfo($limit, $offset, $sort)->then(function ($response) {
             return $response[0];
         });
     }
@@ -3463,14 +3493,15 @@ class ContactsApi
      *
      * @param  int $limit Number of documents per page (required)
      * @param  int $offset Index of the first document of the page (required)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFoldersAsyncWithHttpInfo($limit, $offset)
+    public function getFoldersAsyncWithHttpInfo($limit, $offset, $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetFolders';
-        $request = $this->getFoldersRequest($limit, $offset);
+        $request = $this->getFoldersRequest($limit, $offset, $sort);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use($returnType) {
             $responseBody = $response->getBody();
             if ($returnType === '\\SplFileObject') {
@@ -3494,11 +3525,12 @@ class ContactsApi
      *
      * @param  int $limit Number of documents per page (required)
      * @param  int $offset Index of the first document of the page (required)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFoldersRequest($limit, $offset)
+    protected function getFoldersRequest($limit, $offset, $sort = 'desc')
     {
         // verify the required parameter 'limit' is set
         if ($limit === null || \is_array($limit) && \count($limit) === 0) {
@@ -3524,6 +3556,10 @@ class ContactsApi
         // query params
         if ($offset !== null) {
             $queryParams['offset'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($offset);
+        }
+        // query params
+        if ($sort !== null) {
+            $queryParams['sort'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($sort);
         }
         // body params
         $_tempBody = null;
@@ -3783,14 +3819,15 @@ class ContactsApi
      *
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \SendinBlue\Client\Model\GetLists
      */
-    public function getLists($limit = '10', $offset = '0')
+    public function getLists($limit = '10', $offset = '0', $sort = 'desc')
     {
-        list($response) = $this->getListsWithHttpInfo($limit, $offset);
+        list($response) = $this->getListsWithHttpInfo($limit, $offset, $sort);
         return $response;
     }
     /**
@@ -3800,15 +3837,16 @@ class ContactsApi
      *
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \SendinBlue\Client\Model\GetLists, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getListsWithHttpInfo($limit = '10', $offset = '0')
+    public function getListsWithHttpInfo($limit = '10', $offset = '0', $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetLists';
-        $request = $this->getListsRequest($limit, $offset);
+        $request = $this->getListsRequest($limit, $offset, $sort);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -3852,13 +3890,14 @@ class ContactsApi
      *
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getListsAsync($limit = '10', $offset = '0')
+    public function getListsAsync($limit = '10', $offset = '0', $sort = 'desc')
     {
-        return $this->getListsAsyncWithHttpInfo($limit, $offset)->then(function ($response) {
+        return $this->getListsAsyncWithHttpInfo($limit, $offset, $sort)->then(function ($response) {
             return $response[0];
         });
     }
@@ -3869,14 +3908,15 @@ class ContactsApi
      *
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getListsAsyncWithHttpInfo($limit = '10', $offset = '0')
+    public function getListsAsyncWithHttpInfo($limit = '10', $offset = '0', $sort = 'desc')
     {
         $returnType = 'WPMailSMTP\\Vendor\\SendinBlue\\Client\\Model\\GetLists';
-        $request = $this->getListsRequest($limit, $offset);
+        $request = $this->getListsRequest($limit, $offset, $sort);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use($returnType) {
             $responseBody = $response->getBody();
             if ($returnType === '\\SplFileObject') {
@@ -3900,11 +3940,12 @@ class ContactsApi
      *
      * @param  int $limit Number of documents per page (optional, default to 10)
      * @param  int $offset Index of the first document of the page (optional, default to 0)
+     * @param  string $sort Sort the results in the ascending/descending order of record creation. Default order is **descending** if &#x60;sort&#x60; is not passed (optional, default to desc)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getListsRequest($limit = '10', $offset = '0')
+    protected function getListsRequest($limit = '10', $offset = '0', $sort = 'desc')
     {
         if ($limit !== null && $limit > 50) {
             throw new \InvalidArgumentException('invalid value for "$limit" when calling ContactsApi.getLists, must be smaller than or equal to 50.');
@@ -3922,6 +3963,10 @@ class ContactsApi
         // query params
         if ($offset !== null) {
             $queryParams['offset'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($offset);
+        }
+        // query params
+        if ($sort !== null) {
+            $queryParams['sort'] = \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toQueryValue($sort);
         }
         // body params
         $_tempBody = null;
@@ -4175,7 +4220,7 @@ class ContactsApi
      * Delete a contact from a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails adresses of the contact (required)
+     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -4192,7 +4237,7 @@ class ContactsApi
      * Delete a contact from a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails adresses of the contact (required)
+     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -4248,7 +4293,7 @@ class ContactsApi
      * Delete a contact from a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails adresses of the contact (required)
+     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -4265,7 +4310,7 @@ class ContactsApi
      * Delete a contact from a list
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails adresses of the contact (required)
+     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -4296,7 +4341,7 @@ class ContactsApi
      * Create request for operation 'removeContactFromList'
      *
      * @param  int $listId Id of the list (required)
-     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails adresses of the contact (required)
+     * @param  \SendinBlue\Client\Model\RemoveContactFromList $contactEmails Emails addresses OR IDs of the contacts (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -4772,33 +4817,33 @@ class ContactsApi
      *
      * Update a contact
      *
-     * @param  string $email Email (urlencoded) of the contact (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
      * @param  \SendinBlue\Client\Model\UpdateContact $updateContact Values to update a contact (required)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function updateContact($email, $updateContact)
+    public function updateContact($identifier, $updateContact)
     {
-        $this->updateContactWithHttpInfo($email, $updateContact);
+        $this->updateContactWithHttpInfo($identifier, $updateContact);
     }
     /**
      * Operation updateContactWithHttpInfo
      *
      * Update a contact
      *
-     * @param  string $email Email (urlencoded) of the contact (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
      * @param  \SendinBlue\Client\Model\UpdateContact $updateContact Values to update a contact (required)
      *
      * @throws \SendinBlue\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateContactWithHttpInfo($email, $updateContact)
+    public function updateContactWithHttpInfo($identifier, $updateContact)
     {
         $returnType = '';
-        $request = $this->updateContactRequest($email, $updateContact);
+        $request = $this->updateContactRequest($identifier, $updateContact);
         try {
             $options = $this->createHttpClientOption();
             try {
@@ -4830,15 +4875,15 @@ class ContactsApi
      *
      * Update a contact
      *
-     * @param  string $email Email (urlencoded) of the contact (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
      * @param  \SendinBlue\Client\Model\UpdateContact $updateContact Values to update a contact (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateContactAsync($email, $updateContact)
+    public function updateContactAsync($identifier, $updateContact)
     {
-        return $this->updateContactAsyncWithHttpInfo($email, $updateContact)->then(function ($response) {
+        return $this->updateContactAsyncWithHttpInfo($identifier, $updateContact)->then(function ($response) {
             return $response[0];
         });
     }
@@ -4847,16 +4892,16 @@ class ContactsApi
      *
      * Update a contact
      *
-     * @param  string $email Email (urlencoded) of the contact (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
      * @param  \SendinBlue\Client\Model\UpdateContact $updateContact Values to update a contact (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateContactAsyncWithHttpInfo($email, $updateContact)
+    public function updateContactAsyncWithHttpInfo($identifier, $updateContact)
     {
         $returnType = '';
-        $request = $this->updateContactRequest($email, $updateContact);
+        $request = $this->updateContactRequest($identifier, $updateContact);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use($returnType) {
             return [null, $response->getStatusCode(), $response->getHeaders()];
         }, function ($exception) {
@@ -4868,31 +4913,31 @@ class ContactsApi
     /**
      * Create request for operation 'updateContact'
      *
-     * @param  string $email Email (urlencoded) of the contact (required)
+     * @param  string $identifier Email (urlencoded) OR ID of the contact (required)
      * @param  \SendinBlue\Client\Model\UpdateContact $updateContact Values to update a contact (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updateContactRequest($email, $updateContact)
+    protected function updateContactRequest($identifier, $updateContact)
     {
-        // verify the required parameter 'email' is set
-        if ($email === null || \is_array($email) && \count($email) === 0) {
-            throw new \InvalidArgumentException('Missing the required parameter $email when calling updateContact');
+        // verify the required parameter 'identifier' is set
+        if ($identifier === null || \is_array($identifier) && \count($identifier) === 0) {
+            throw new \InvalidArgumentException('Missing the required parameter $identifier when calling updateContact');
         }
         // verify the required parameter 'updateContact' is set
         if ($updateContact === null || \is_array($updateContact) && \count($updateContact) === 0) {
             throw new \InvalidArgumentException('Missing the required parameter $updateContact when calling updateContact');
         }
-        $resourcePath = '/contacts/{email}';
+        $resourcePath = '/contacts/{identifier}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
         $multipart = \false;
         // path params
-        if ($email !== null) {
-            $resourcePath = \str_replace('{' . 'email' . '}', \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toPathValue($email), $resourcePath);
+        if ($identifier !== null) {
+            $resourcePath = \str_replace('{' . 'identifier' . '}', \WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer::toPathValue($identifier), $resourcePath);
         }
         // body params
         $_tempBody = null;

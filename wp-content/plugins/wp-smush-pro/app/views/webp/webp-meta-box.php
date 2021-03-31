@@ -15,9 +15,7 @@ $is_configured = $webp->is_configured();
 ?>
 
 <p>
-	<?php
-	esc_html_e( "Serve WebP versions of your images to supported browsers, and gracefully fall back on JPEGs and PNGs for browsers that don't support WebP.", 'wp-smushit' );
-	?>
+	<?php esc_html_e( "Locally serve WebP versions of your images to supported browsers, and gracefully fall back on JPEGs and PNGs for browsers that don't support WebP.", 'wp-smushit' ); ?>
 </p>
 
 <span class="sui-settings-label" style="font-size:13px;color:#333333;font-weight: bold;">
@@ -93,7 +91,7 @@ $is_configured = $webp->is_configured();
 					if ( is_wp_error( $is_configured ) ) :
 						printf(
 							/* translators: 1. error code, 2. error message. */
-							esc_html__( 'We couldn\'t check the WebP server rules status because there was an error with the test request. Please contact support for assitance. Code %1$s: %2$s.', 'wp-smushit' ),
+							esc_html__( "We couldn't check the WebP server rules status because there was an error with the test request. Please contact support for assistance. Code %1\$s: %2\$s.", 'wp-smushit' ),
 							esc_html( $is_configured->get_error_code() ),
 							esc_html( $is_configured->get_error_message() )
 						);
@@ -143,7 +141,7 @@ $is_configured = $webp->is_configured();
 			printf(
 				/* translators: 1. opening 'a' tag to docs, 2. closing 'a' tag. */
 				esc_html__( 'To verify if the JPG and PNG images are being served correctly as WebP files, please refer to our %1$sDocumentation%2$s.', 'wp-smushit' ),
-				'<a href="https://premium.wpmudev.org/docs/wpmu-dev-plugins/smush/#verifying-webp-output" target="_blank">',
+				'<a href="https://wpmudev.com/docs/wpmu-dev-plugins/smush/#verifying-webp-output" target="_blank">',
 				'</a>'
 			);
 			?>
@@ -151,14 +149,15 @@ $is_configured = $webp->is_configured();
 	</div>
 </div>
 
-<?php if ( $is_configured ) : ?>
-
+<?php if ( true === $is_configured ) : ?>
 	<div class="sui-box-settings-row">
 		<div class="sui-box-settings-col-1">
 			<span class="sui-settings-label">
 				<?php esc_html_e( 'Revert WebP Conversion', 'wp-smushit' ); ?>
 			</span>
-			<span class="sui-description"><?php esc_html_e( 'If your server storage space is full, use this feature to revert the WebP conversions by deleting all generated files. The files will fall back to normal PNGs or JPEGs once you delete them.', 'wp-smushit' ); ?></span>
+			<span class="sui-description">
+				<?php esc_html_e( 'If your server storage space is full, use this feature to revert the WebP conversions by deleting all generated files. The files will fall back to normal PNGs or JPEGs once you delete them.', 'wp-smushit' ); ?>
+			</span>
 		</div>
 
 		<div class="sui-box-settings-col-2">

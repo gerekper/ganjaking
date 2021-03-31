@@ -175,8 +175,8 @@ class SendTransacSms implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Model
         if ($this->container['sender'] === null) {
             $invalidProperties[] = "'sender' can't be null";
         }
-        if (\mb_strlen($this->container['sender']) > 11) {
-            $invalidProperties[] = "invalid value for 'sender', the character length must be smaller than or equal to 11.";
+        if (\mb_strlen($this->container['sender']) > 15) {
+            $invalidProperties[] = "invalid value for 'sender', the character length must be smaller than or equal to 15.";
         }
         if ($this->container['recipient'] === null) {
             $invalidProperties[] = "'recipient' can't be null";
@@ -212,14 +212,14 @@ class SendTransacSms implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\Model
     /**
      * Sets sender
      *
-     * @param string $sender Name of the sender. Only alphanumeric characters. No more than 11 characters
+     * @param string $sender Name of the sender. **The number of characters is limited to 11 for alphanumeric characters and 15 for numeric characters**
      *
      * @return $this
      */
     public function setSender($sender)
     {
-        if (\mb_strlen($sender) > 11) {
-            throw new \InvalidArgumentException('invalid length for $sender when calling SendTransacSms., must be smaller than or equal to 11.');
+        if (\mb_strlen($sender) > 15) {
+            throw new \InvalidArgumentException('invalid length for $sender when calling SendTransacSms., must be smaller than or equal to 15.');
         }
         $this->container['sender'] = $sender;
         return $this;
