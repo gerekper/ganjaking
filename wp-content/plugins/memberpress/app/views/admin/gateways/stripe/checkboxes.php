@@ -10,10 +10,6 @@ if ( ! isset( $_GET['display-keys'] ) && ! isset( $_COOKIE['mepr_stripe_display_
 
 <table class="form-table">
   <tbody>
-    <tr valign="top"<?php echo $use_stripe_checkout ? '' : ' class="mepr-hidden"'; ?>>
-      <th scope="row"><label for="<?php echo $use_stripe_checkout_str; ?>"><?php _e('Use Stripe Checkout (Beta)', 'memberpress'); ?></label></th>
-      <td><input class="mepr-stripe-checkout" type="checkbox" name="<?php echo $use_stripe_checkout_str; ?>"<?php echo checked($use_stripe_checkout); ?> /></td>
-    </tr>
     <tr valign="top">
       <th scope="row"><label for="<?php echo $test_mode_str; ?>"><?php _e('Test Mode', 'memberpress'); ?></label></th>
       <td><input class="mepr-stripe-testmode" data-integration="<?php echo $id; ?>" type="checkbox" name="<?php echo $test_mode_str; ?>"<?php echo checked($test_mode); ?> <?php disabled((defined('MEMBERPRESS_STRIPE_TESTING') && MEMBERPRESS_STRIPE_TESTING == true));?> /></td>
@@ -31,6 +27,18 @@ if ( ! isset( $_GET['display-keys'] ) && ! isset( $_COOKIE['mepr_stripe_display_
       <th scope="row"><label><?php _e('Stripe Webhook URL:', 'memberpress'); ?></label></th>
       <td>
         <?php MeprAppHelper::clipboard_input($whk_url); ?>
+      </td>
+    </tr>
+    <tr valign="top">
+      <th scope="row">
+        <label for="<?php echo $stripe_checkout_enabled_str; ?>"><?php _e('Enable Stripe Checkout', 'memberpress'); ?></label>
+        <?php MeprAppHelper::info_tooltip('mepr-stripe-enable-stripe-checkout',
+           __('Enable Stripe Checkout', 'memberpress'),
+           __('Stripe Checkout is a prebuilt, hosted payment page optimized for conversion. Whether you offer one-time purchases or subscriptions, use Checkout to easily and securely accept payments online.', 'memberpress'));
+        ?>
+      </th>
+      <td>
+        <input type="checkbox" class="mepr-toggle-checkbox" data-box="mepr_stripe_checkout_<?php echo $id; ?>_box" name="<?php echo $stripe_checkout_enabled_str; ?>" <?php checked($stripe_checkout_enabled); ?> />
       </td>
     </tr>
     <tr valign="top">

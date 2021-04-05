@@ -3,8 +3,8 @@ Contributors: wpdevteam, re_enter_rupok
 Donate link: https://wpdeveloper.net
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
-Tested up to: 5.6
-Stable tag: 1.4.1
+Tested up to: 5.7
+Stable tag: 1.5.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,14 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+= 1.5.1 - 01/04/2021 =
+- Fixed: PHP error message for BetterDocs_Elementor_Reactions and BetterDocs_Elementor_Multiple_Kb
+
+= 1.5.0 - 24/03/2021 =
+- Added: New Multiple KB widget for Elementor
+- Fixed: BetterDocs Category Grid docs order not working for Elementor
+- Fixed: PHP Notice related to Multiple KB
+- Few minor bug fix and improvements
 
 = 1.4.1 - 02/02/2021 =
 - Fixed: PHP Notice related to Multiple KB

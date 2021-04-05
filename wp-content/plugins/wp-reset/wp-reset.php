@@ -3,12 +3,12 @@
   Plugin Name: WP Reset PRO
   Plugin URI: https://wpreset.com/
   Description: Easily undo any change on the site by restoring a snapshot, or reset the entire site or any of its parts to the default values.
-  Version: 5.83
+  Version: 5.89
   Author: WebFactory Ltd
   Author URI: https://www.webfactoryltd.com/
   Text Domain: wp-reset
 
-  Copyright 2015 - 2020  Web factory Ltd  (email: wpreset@webfactoryltd.com)
+  Copyright 2015 - 2021  Web factory Ltd  (email: wpreset@webfactoryltd.com)
 
   This program is NOT free software.
 
@@ -42,7 +42,7 @@ class WP_Reset
 {
     protected static $instance = null;
     public $version = 0;
-    public $er_version = 1.2;
+    public $er_version = 1.3;
     public $plugin_url = '';
     public $plugin_dir = '';
     public $licensing_servers = array('https://dashboard.wpreset.com/api/');
@@ -100,6 +100,7 @@ class WP_Reset
         add_action('wp_before_admin_bar_render', array($this, 'admin_bar'));
 
         add_action('plugins_loaded', array($this, 'admin_actions'));
+        add_action('admin_head-tools_page_wp-reset', array($this, 'rebrand_css'));
 
         $this->core_tables = array_map(function ($tbl) {
             global $wpdb;
@@ -130,8 +131,6 @@ class WP_Reset
     {
         global $wp_reset_cloud, $wp_reset_js_notice, $wp_reset_licensing;
 
-        $wp_reset_cloud = new WP_Reset_Cloud();
-        
         $options = $this->get_options();
 
         $wp_reset_licensing = new WF_Licensing_WPR(array(
@@ -144,8 +143,58 @@ class WP_Reset
             'js_folder' => plugin_dir_url(__FILE__) . '/js/'
         ));
 
+        if ($this->get_rebranding() !== false) {
+            $this->cloud_services = array();
+        }
+
+        $wp_reset_cloud = new WP_Reset_Cloud();
+
+
         add_filter('wf_licensing_license_formatted_wpr', function ($return) {
             return str_replace('Wpr', 'WP Reset', $return);
+        });
+
+        add_filter('wf_licensing_wpr_query_server_data', function ($lcdata) {
+            global $wp_reset, $wp_reset_cloud;
+            $snapshots = $wp_reset->get_snapshots();
+            $cloud_snapshots = $wp_reset_cloud->get_cloud_snapshots();
+            $snapshot_stats = array();
+            $snapshot_stats = array();
+            for ($i = 45; $i >= 0; $i--){
+                $snapshot_stats[date("Y-m-d", strtotime('-' . $i . ' days'))] = array('m' => 0, 'a' => 0, 'cm' => 0, 'ca' => 0);
+            }
+
+            foreach($snapshots as $snapshot){
+                $snapshot_date = date('Y-m-d', strtotime($snapshot['timestamp']));
+                if(!array_key_exists($snapshot_date, $snapshot_stats)){
+                    continue;
+                }
+
+                if($snapshot['auto'] == true){
+                    $snapshot_stats[$snapshot_date]['a']++;
+                } else {
+                    $snapshot_stats[$snapshot_date]['m']++;
+                }
+            }
+
+            foreach($cloud_snapshots as $snapshot){
+                $snapshot_date = date('Y-m-d', strtotime($snapshot['timestamp']));
+                if(!array_key_exists($snapshot_date, $snapshot_stats)){
+                    continue;
+                }
+                if($snapshot['auto'] == true){
+                    $snapshot_stats[$snapshot_date]['ca']++;
+                } else {
+                    $snapshot_stats[$snapshot_date]['cm']++;
+                }
+            }
+
+            $recovery_url = $wp_reset->wpr_recovery_path(true);
+            if($recovery_url !== false){
+                $lcdata['meta']['ers_url'] = $recovery_url;
+            }
+            $lcdata['meta']['stats'] = $snapshot_stats;
+            return $lcdata;
         });
 
         $this->update_license_storage();
@@ -158,7 +207,11 @@ class WP_Reset
         });
 
         if ($wp_reset_licensing->is_active('wpr_cloud')) {
-            $this->cloud_services = array_merge(array('wpreset' => 'WP Reset Cloud'), $this->cloud_services);
+            $plugin_name = $this->get_rebranding('name');
+            if ($plugin_name === false) {
+                $plugin_name = 'WP Reset';
+            }
+            $this->cloud_services = array_merge(array('wpreset' => $plugin_name . ' Cloud'), $this->cloud_services);
         } else {
             if ($options['cloud_service'] == 'wpreset') {
                 $options['cloud_service'] = 'none';
@@ -214,7 +267,6 @@ class WP_Reset
 
         $this->prune_autosnapshots();
         $this->prune_cloud_autosnapshots();
-        
     } // admin_actions
 
 
@@ -277,12 +329,16 @@ class WP_Reset
         }
 
         $def_options = array('tools_snapshots' => false, 'events_snapshots' => false, 'snapshots_autoupload' => false, 'autosnapshots_autoupload' => false, 'snapshots_upload_delete' => false, 'scheduled_snapshots' => false, 'prune_snapshots' => false, 'prune_snapshots_details' => 'days-5', 'prune_cloud_snapshots' => false, 'prune_cloud_snapshots_details' => 'days-5', 'adminbar_snapshots' => true, 'optimize_tables' => false, 'snapshots_size_alert' => 1000, 'throttle_ajax' => false, 'fix_datetime' => false, 'alternate_db_connection' => false, 'ajax_snapshots_export' => false, 'cloud_snapshots' => false, 'onboarding_done' => false, 'whitelabel' => false, 'debug' => false, 'cloud_service' => 'none', 'cloud_data' => array('dropbox' => false, 'gdrive' => false, 'icedrive' => false));
-        
-        if(!array_key_exists('icedrive', $options['options']['cloud_data'])){
+
+        if (!array_key_exists('cloud_data', $options['options'])) {
+            $options['options']['cloud_data'] = array('dropbox' => false, 'gdrive' => false, 'icedrive' => false);
+        }
+
+        if (!array_key_exists('icedrive', $options['options']['cloud_data'])) {
             $options['options']['cloud_data']['icedrive'] = false;
         }
 
-        if(!array_key_exists('alternate_db_connection', $options['options'])){
+        if (!array_key_exists('alternate_db_connection', $options['options'])) {
             $options['options']['alternate_db_connection'] = false;
         }
 
@@ -290,7 +346,7 @@ class WP_Reset
             $options['options'] = array_merge($def_options, (array) $options['options']);
             $change = true;
         }
-        
+
         if ($change) {
             update_option('wp-reset', $options, true);
         }
@@ -468,7 +524,17 @@ class WP_Reset
      */
     function admin_menu()
     {
-        add_management_page(__('WP Reset PRO', 'wp-reset'), __('WP Reset PRO', 'wp-reset'), 'administrator', 'wp-reset', array($this, 'plugin_page'));
+        $page_title = $this->get_rebranding('name');
+        if ($page_title === false || empty($page_title)) {
+            $page_title = 'WP Reset PRO';
+        }
+
+        $menu_title = $this->get_rebranding('short_name');
+        if ($menu_title === false || empty($menu_title)) {
+            $menu_title = 'WP Reset PRO';
+        }
+
+        add_management_page($page_title, $menu_title, 'administrator', 'wp-reset', array($this, 'plugin_page'));
     } // admin_menu
 
 
@@ -523,7 +589,12 @@ class WP_Reset
     {
         $pointers = array();
 
-        $pointers['welcome'] = array('target' => '#menu-tools', 'edge' => 'left', 'align' => 'right', 'content' => 'Thank you for installing the <b style="font-weight: 800;">WP Reset PRO</b> plugin!<br>Open <a href="' . admin_url('tools.php?page=wp-reset') . '">Tools - WP Reset PRO</a> to access resetting tools and start developing &amp; debugging faster.');
+        $plugin_name = $this->get_rebranding('name');
+        if ($plugin_name === false) {
+            $plugin_name = '<b style="font-weight: 800;">WP Reset PRO</b>';
+        }
+
+        $pointers['welcome'] = array('target' => '#menu-tools', 'edge' => 'left', 'align' => 'right', 'content' => 'Thank you for installing the ' . $plugin_name . ' plugin!<br>Open <a href="' . admin_url('tools.php?page=wp-reset') . '">Tools - ' . $plugin_name . '</a> to access resetting tools and start developing &amp; debugging faster.');
 
         return $pointers;
     } // get_pointers
@@ -560,12 +631,25 @@ class WP_Reset
             wp_localize_script('wp-pointer', 'wp_reset_pointers', $pointers);
         }
 
+        if ($hook == 'plugins.php') {
+            $rebranding = $this->get_rebranding();
+            if (false === $rebranding) {
+                return false;
+            }
+
+            wp_enqueue_script('wp-reset-branding', $this->plugin_url . 'js/branding.js', array('jquery'), $this->version, true);
+            wp_localize_script('wp-reset-branding', 'wpr_rebranding', $rebranding);
+        }
+
         if (!$this->is_plugin_page() && !$options['adminbar_snapshots']) {
             return;
         }
 
         $snapshots = $this->get_snapshots();
         $cloud_snapshots = $wp_reset_cloud->get_cloud_snapshots();
+        if (!is_array($cloud_snapshots)) {
+            $cloud_snapshots = array();
+        }
         $pending_autoupload_snaphots = false;
         foreach ($snapshots as $uid => $snapshot) {
             if (array_key_exists('autoupload', $snapshot) && $snapshot['autoupload'] == true && !array_key_exists($uid, $cloud_snapshots)) {
@@ -625,7 +709,8 @@ class WP_Reset
             'nonce_dismiss_notice' => wp_create_nonce('wp-reset_dismiss_notice'),
             'nonce_run_tool' => wp_create_nonce('wp-reset_run_tool'),
             'nonce_do_reset' => wp_create_nonce('wp-reset_do_reset'),
-            'cloud_service' => array_key_exists($options['cloud_service'], $this->cloud_services) ? 1 : 0
+            'cloud_service' => array_key_exists($options['cloud_service'], $this->cloud_services) ? 1 : 0,
+            'rebranding' => $this->get_rebranding() === false ? 0 : 1
         );
 
         if ($this->is_plugin_page()) {
@@ -768,6 +853,12 @@ class WP_Reset
         }
     } // admin_enqueue_scripts
 
+    function rebrand_css()
+    {
+        if ($this->get_rebranding() !== false) {
+            echo '<style>' . $this->get_rebranding('admin_css_predefined') . $this->get_rebranding('admin_css') . '</style>';
+        }
+    }
 
     /**
      * Add tools to admin bar
@@ -782,6 +873,11 @@ class WP_Reset
             return;
         }
 
+        $plugin_name = $this->get_rebranding('name');
+        if ($plugin_name == false) {
+            $plugin_name = 'WP Reset';
+        }
+
         $options = $this->get_options();
 
         if (
@@ -793,7 +889,7 @@ class WP_Reset
             return;
         }
 
-        $title = '<div class="wpr-adminbar-icon"><img style="height: 22px; padding: 4px; margin-bottom: -10px;" src="' . $this->plugin_url . '/img/wp-reset-icon-small.png" alt="WP Reset" title="WP Reset"></div> <span class="ab-label">WP Reset</span>';
+        $title = '<div class="wpr-adminbar-icon"><img style="height: 22px; padding: 4px; margin-bottom: -10px;" src="' . $this->plugin_url . '/img/wp-reset-icon-small.png" alt="' . $plugin_name . '" title="' . $plugin_name . '"></div> <span class="ab-label">' . $plugin_name . '</span>';
 
         $wp_admin_bar->add_node(array(
             'id'    => 'wpr-reset-ab',
@@ -1038,10 +1134,10 @@ class WP_Reset
      */
     public function delete_folder($folder, $base_folder)
     {
-        if(!file_exists($folder)){
+        if (!file_exists($folder)) {
             return true;
         }
-        
+
         $files = array_diff(scandir($folder), array('.', '..'));
 
         foreach ($files as $file) {
@@ -1685,7 +1781,7 @@ class WP_Reset
             } else {
                 wp_send_json_success($cnt);
             }
-        }  elseif ($tool == 'delete_cloud_snapshots') {
+        } elseif ($tool == 'delete_cloud_snapshots') {
             $cnt = $this->do_delete_cloud_snapshots($extra_data);
             if (is_wp_error($cnt)) {
                 wp_send_json_error($cnt->get_error_message());
@@ -1934,7 +2030,7 @@ class WP_Reset
                         }
 
                         $upgrader->install($url);
-                    }  else if ($collection_item['location'] == 'icedrive') {
+                    } else if ($collection_item['location'] == 'icedrive') {
                         global $wp_reset_cloud;
 
                         if ($options['cloud_service'] != 'icedrive' || is_wp_error($wp_reset_cloud->get_icedrive_client())) {
@@ -2064,7 +2160,7 @@ class WP_Reset
                             $icedrive_client = $wp_reset_cloud->get_icedrive_client();
                             $icedriveFile = $icedrive_client->request('GET', $collection_item['zip_filename']);
                             file_put_contents($this->export_dir_path(basename($collection_item['zip_filename'])), $icedriveFile['body']);
-                            
+
                             $url = $this->export_dir_path(basename($collection_item['zip_filename']), true);
                         } catch (Exception $e) {
                             set_transient('wf_install_error_' . $slug, 'This collection item was not found in the current Icedrive account. Please connect to the Icedrive account you used when adding it. ' . $e->getMessage(), 300);
@@ -2207,10 +2303,10 @@ class WP_Reset
             }
         }
 
-        if(!array_key_exists('snapshots', $autouploader)) {
+        if (!array_key_exists('snapshots', $autouploader)) {
             $autouploader['snapshots'] = array();
         }
-        
+
         foreach ($snapshots as $snapshot) {
             if (array_key_exists('autoupload', $snapshot) && $snapshot['autoupload'] == true) {
                 if (!array_key_exists($snapshot['uid'], $autouploader['snapshots']) && !array_key_exists($snapshot['uid'], $cloud_snapshots)) {
@@ -2396,7 +2492,7 @@ class WP_Reset
         }
 
         if ($autouploader['snapshots'][$autouploader['current_snapshot']]['status'] == 'finished') {
-            if($options['snapshots_upload_delete'] != true && array_key_exists($autouploader['current_snapshot'], $snapshots)) {
+            if ($options['snapshots_upload_delete'] != true && array_key_exists($autouploader['current_snapshot'], $snapshots)) {
                 unset($snapshots[$autouploader['current_snapshot']]['autoupload']);
                 update_option('wp-reset-snapshots', $snapshots);
             }
@@ -2968,7 +3064,13 @@ class WP_Reset
      */
     function plugin_action_links($links)
     {
-        $settings_link = '<a href="' . admin_url('tools.php?page=wp-reset') . '" title="' . __('Open WP Reset PRO Tools', 'wp-reset') . '">' . __('Open Reset Tools', 'wp-reset') . '</a>';
+        $plugin_tools_title = $this->get_rebranding('name');
+        if ($plugin_tools_title !== false) {
+            $plugin_tools_title = 'Open ' . $plugin_tools_title . ' Tools';
+        } else {
+            $plugin_tools_title = 'Open WP Reset PRO Tools';
+        }
+        $settings_link = '<a href="' . admin_url('tools.php?page=wp-reset') . '" title="' . $plugin_tools_title . '">' . __('Open Reset Tools', 'wp-reset') . '</a>';
 
         array_unshift($links, $settings_link);
 
@@ -2998,10 +3100,10 @@ class WP_Reset
 
         $support_link = '<a target="_blank" href="' . $this->generate_web_link('plugins-table-right', '/support/') . '" title="' . __('Get help', 'wp-reset') . '">' . __('Support', 'wp-reset') . '</a>';
         $home_link = '<a target="_blank" href="' . $this->generate_web_link('plugins-table-right') . '" title="' . __('Plugin Homepage', 'wp-reset') . '">' . __('Plugin Homepage', 'wp-reset') . '</a>';
-        
+
         $links[] = $support_link;
         $links[] = $home_link;
-        
+
         return $links;
     } // plugin_meta_links
 
@@ -3036,7 +3138,12 @@ class WP_Reset
             return $text;
         }
 
-        $text = '<i class="wpr-footer"><a href="' . $this->generate_web_link('admin_footer') . '" title="' . __('Visit WP Reset page for more info', 'wp-reset') . '" target="_blank">WP Reset PRO</a> v' . $this->version . '</i>';
+        if ($this->get_rebranding() !== false) {
+            $text = $this->get_rebranding('footer_text');
+        } else {
+            $text = '<i class="wpr-footer"><a href="' . $this->generate_web_link('admin_footer') . '" title="' . __('Visit WP Reset page for more info', 'wp-reset') . '" target="_blank">WP Reset PRO</a> v' . $this->version . '</i>';
+        }
+
 
         return $text;
     } // admin_footer_text
@@ -3102,7 +3209,7 @@ class WP_Reset
     {
         $params = shortcode_atts(array('documentation_link' => false, 'iot_button' => false, 'collapse_button' => false, 'create_snapshot' => false), (array) $params);
 
-        if (false == WP_Reset_Utility::whitelabel_filter()) {
+        if (false == WP_Reset_Utility::whitelabel_filter() || $this->get_rebranding() !== false) {
             $params['documentation_link'] = false;
         }
 
@@ -3153,7 +3260,7 @@ class WP_Reset
         }
 
         $out .= ' id="wpr-ss-' . $ss['uid'] . '" data-ss-uid="' . $ss['uid'] . '" data-ss-type="' . $ss_type . '">';
-        $out .= '<td class="ss-checkbox"><input type="checkbox" name="' . ($ss['auto'] == true? 'selected_autosnapshots':'selected_snapshots') . '" value="' . $ss['uid'] . '" /> </td>';
+        $out .= '<td class="ss-checkbox"><input type="checkbox" name="' . ($ss['auto'] == true ? 'selected_autosnapshots' : 'selected_snapshots') . '" value="' . $ss['uid'] . '" /> </td>';
         $out .= '<td class="ss-date">';
         if (current_time('timestamp') - strtotime($ss['timestamp']) > 12 * HOUR_IN_SECONDS) {
             $out .= date(get_option('date_format'), strtotime($ss['timestamp'])) . '<br>@ ' . date(get_option('time_format'), strtotime($ss['timestamp']));
@@ -3219,7 +3326,7 @@ class WP_Reset
 
         if (isset($ss['local']) && $ss['local'] == true) {
             $menu_item = true;
-            $out .= '<a data-btn-confirm="Delete snapshot" data-text-wait="Deleting snapshot. Please wait." data-text-confirm="Are you sure you want to delete the selected snapshot? There is NO UNDO.<br><br>Deleting the snapshot will not affect the active database tables in any way.<br><br>If the snapshot is uploaded to the cloud it will ONLY be deleted locally. Cloud copy will not be touched." data-text-done="Snapshot has been deleted" title="Permanently delete snapshot" href="#" class="ss-action delete-snapshot delete-button dropdown-item" data-ss-uid="' . $ss['uid'] . '">Delete snapshot</a>';
+            $out .= '<a data-btn-confirm="Delete snapshot" data-text-wait="Deleting snapshot. Please wait." data-text-confirm="Are you sure you want to delete the selected snapshot? There is NO UNDO.<br><br>Deleting the snapshot will not affect the active database tables in any way.<br><br>If the snapshot is uploaded to the cloud it will ONLY be deleted locally. Cloud copy will not be touched." data-text-done="Snapshot has been deleted" title="Permanently delete snapshot" href="#" class="ss-action delete-snapshot delete-button dropdown-item" data-ss-uid="' . $ss['uid'] . '">Delete snapshot from local website</a>';
         }
 
 
@@ -3235,7 +3342,7 @@ class WP_Reset
                 $out .= '<a data-btn-confirm="Delete snapshot from ' . $this->cloud_services[$options['cloud_service']] . '" data-text-wait="Deleting snapshot from ' . $this->cloud_services[$options['cloud_service']] . '. Please wait." data-text-confirm="Are you sure you want to delete the selected snapshot from ' . $this->cloud_services[$options['cloud_service']] . '? There is NO UNDO." data-text-done-singular="Snapshot has been deleted from ' . $this->cloud_services[$options['cloud_service']] . '." title="Delete Snapshot from ' . $this->cloud_services[$options['cloud_service']] . '" href="#" class="ss-action cloud-delete-snapshot delete-button dropdown-item" data-ss-uid="' . $ss['uid'] . '"><span title="Cloud Actions" class="dashicons dashicons-cloud cloud-action-icon"></span> Delete Snapshot from ' . $this->cloud_services[$options['cloud_service']] . '</a>';
             }
         }
-        if($menu_item == false){
+        if ($menu_item == false) {
             $out .= '<a href="#tab-settings" class="dropdown-item">No cloud service enabled</a>';
         }
         $out .= '</div></div>';
@@ -3312,7 +3419,16 @@ class WP_Reset
         if ($options['debug'] == true) {
             echo '<span style="font-size: 48px; line-height: 30px; width: 50px; color: #dd3036;" class="dashicons dashicons-admin-tools"></span>';
         }
-        echo '<img id="logo-icon" src="' . $this->plugin_url . 'img/wp-reset-logo.png" title="' . __('WP Reset PRO', 'wp-reset') . '" alt="' . __('WP Reset PRO', 'wp-reset') . '">';
+
+        $logo = $this->get_rebranding('logo_url');
+        $plugin_name = $this->get_rebranding('name');
+        if ($logo === false || empty($logo)) {
+            echo '<img id="logo-icon" src="' . $this->plugin_url . 'img/wp-reset-logo.png" title="' . __('WP Reset PRO', 'wp-reset') . '" alt="' . __('WP Reset PRO', 'wp-reset') . '">';
+        } else {
+            echo '<img id="logo-icon" src="' . $logo . '" title="' . $plugin_name . '" alt="' . $plugin_name . '">';
+        }
+
+
         echo '</div>';
         echo '</header>';
 
@@ -3429,7 +3545,7 @@ class WP_Reset
         echo '<div class="card">';
         echo '<h4><span class="card-name">Log</span><div class="card-header-right"></div></h4>';
         echo '<div class="card-body">';
-        
+
         echo '<div class="wpr-log-wrapper">';
         $log = $this->get_log();
         if (count($log) == 0) {
@@ -3445,7 +3561,7 @@ class WP_Reset
         echo '</div>';
         echo '<p><a class="button button-delete" href="' . add_query_arg(array('action' => 'wpr_clear_log', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Clear Log</a>';
         //echo '<p><a class="button button-delete" href="' . add_query_arg(array('action' => 'wpr_clear_autouploader', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Clear Autouploader</a>';
-        
+
         echo '</div>';
         echo '</div>';
 
@@ -3457,17 +3573,17 @@ class WP_Reset
         $total_files = 0;
         $total_size = 0;
         $files = $this->scan_folder($this->export_dir_path());
-        if(empty($files)){
+        if (empty($files)) {
             echo 'There are 0 temporary files, totaling 0 bytes';
         } else {
-            foreach($files as $file){
-                if(stripos($file, '.htaccess')){
+            foreach ($files as $file) {
+                if (stripos($file, '.htaccess')) {
                     continue;
                 }
                 $total_files++;
-                $total_size+=filesize($file);
+                $total_size += filesize($file);
             }
-            
+
             echo 'There are ' . $total_files . ' temporary files, totaling ' . WP_Reset_Utility::format_size($total_size);
             echo '<p><a class="button button-delete" href="' . add_query_arg(array('action' => 'wpr_delete_temporary_files', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Delete temporary snapshot files</a></p>';
         }
@@ -3493,25 +3609,25 @@ class WP_Reset
             if ($uid_length !== stripos($table[0], $wpdb->prefix)) {
                 continue;
             }
-            $current_id = substr($table[0], 0, ($uid_length-1));
+            $current_id = substr($table[0], 0, ($uid_length - 1));
 
-            if(array_key_exists($current_id, $snapshots)){
+            if (array_key_exists($current_id, $snapshots)) {
                 continue;
             }
 
-            if(!array_key_exists($current_id, $orphaned_snapshots)){
+            if (!array_key_exists($current_id, $orphaned_snapshots)) {
                 $orphaned_snapshots[$current_id] = array();
             }
             $orphaned_snapshots[$current_id][] = $table[0];
         } // foreach
 
-        if(empty($orphaned_snapshots)){
+        if (empty($orphaned_snapshots)) {
             echo 'There are no orphaned snapshot tables';
         } else {
             echo '<p>The tables below <strong>appear</strong> to have belonged to snapshots that have been deleted. They could have remained behind because of a timeout or other errors when deleting the associated snapshot.</p>';
             echo '<p class="red">Double check the tables names and make sure you want to delete them. There is NO UNDO!</p>';
-            foreach($orphaned_snapshots as $uid => $snapshot){
-                if(array_key_exists($uid, $snapshots)){
+            foreach ($orphaned_snapshots as $uid => $snapshot) {
+                if (array_key_exists($uid, $snapshots)) {
                     continue;
                 }
 
@@ -3520,7 +3636,7 @@ class WP_Reset
                 echo 'Prefix/Snapshot ID: <strong>' . $uid . '</strong><br />';
                 echo '<ul>';
                 echo '<li>Tables:</li>';
-                foreach($snapshot as $table){
+                foreach ($snapshot as $table) {
                     echo '<li>' . $table . '</li>';
                 }
                 echo '</ul>';
@@ -3528,11 +3644,24 @@ class WP_Reset
                 echo '</div>';
             }
         }
-        
+
         echo '</p></div>';
         echo '</div>';
     }
 
+
+    function get_rebranding($key = false)
+    {
+        $license = $this->get_license();
+        if (is_array($license) && array_key_exists('meta', $license) && is_array($license['meta']) && array_key_exists('rebrand', $license['meta']) && !empty($license['meta']['rebrand'])) {
+            if (!empty($key)) {
+                return $license['meta']['rebrand'][$key];
+            }
+            return $license['meta']['rebrand'];
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Echoes content for license tab
@@ -3543,13 +3672,17 @@ class WP_Reset
     {
         global $wp_reset_licensing;
         $options = $this->get_license();
+        $rebranding = $this->get_rebranding();
 
         echo '<div class="card">';
         echo '<h4><span class="card-name">License</span><div class="card-header-right"></div></h4>';
         echo '<div class="card-body">';
-        echo '<p>Your License Key: 798af5ec-37694bca-8b5944cd-3a583792. Enter this key in the license key field. Click the Save & Activate License button.By NullMaster.<br>
-    If you don\'t have a license - <a target="_blank" href="' . $this->generate_web_link('license-tab') . '">purchase one now</a>. In case of problems please <a href="#" class="open-beacon">contact support</a>.</p>';
-        echo '<p>You can manage your licenses in the <a target="_blank" href="' . $this->generate_dashboard_link('license-tab') . '">WP Reset Dashboard</a></p>';
+
+        if ($rebranding === false) {
+            echo '<p>License key is visible on the screen, right after purchasing. You can also find it in the confirmation email sent to the email address provided on purchase.<br>
+        If you don\'t have a license - <a target="_blank" href="' . $this->generate_web_link('license-tab') . '">purchase one now</a>. In case of problems please <a href="#" class="open-beacon">contact support</a>.</p>';
+            echo '<p>You can manage your licenses in the <a target="_blank" href="' . $this->generate_dashboard_link('license-tab') . '">WP Reset Dashboard</a></p>';
+        }
         echo '<table class="form-table"><tbody><tr>
     <th scope="row"><label for="license-key">License Key</label></th>
     <td>
@@ -3559,9 +3692,11 @@ class WP_Reset
         echo '<tr><th scope="row"><label for="">' . __('License Status', 'wp-reset') . '</label></th><td>';
         if ($wp_reset_licensing->is_active()) {
             $license_formatted = $wp_reset_licensing->get_license_formatted();
-            echo '<b style="color: #66b317;">Active</b><br>
-        Type: ' . $license_formatted['name_long'];
-            echo '<br>Valid ' . $license_formatted['valid_until'] . '</td>';
+            echo '<b style="color: #66b317;">Active</b><br>';
+            if ($this->get_rebranding() === false) {
+                echo 'Type: ' . $license_formatted['name_long'];
+                echo '<br>Valid ' . $license_formatted['valid_until'] . '</td>';
+            }
         } else { // not active
             echo '<strong style="color: #ea1919;">Inactive</strong>';
             if (!empty($wp_reset_licensing->get_license('error'))) {
@@ -3607,11 +3742,16 @@ class WP_Reset
         global $wpdb;
         $current_user = wp_get_current_user();
 
+        $plugin_name = $this->get_rebranding('name');
+        if ($plugin_name == false) {
+            $plugin_name = 'WP Reset';
+        }
+
         echo '<div class="card">';
         echo $this->get_card_header(__('Please read carefully before proceeding', 'wp-reset'), 'reset-description', array('collapse_button' => true));
         echo '<div class="card-body">';
         echo '<p>The following table details what data will be deleted (reset or destroyed) when a selected reset tool is run. Please read it! ';
-        if (WP_Reset_Utility::whitelabel_filter()) {
+        if (WP_Reset_Utility::whitelabel_filter() && $this->get_rebranding() === false) {
             echo 'If something is not clear <a href="#" class="open-beacon">contact support</a> before running any tools. It\'s better to ask than to be sorry!';
         }
         echo '</p>';
@@ -3676,7 +3816,7 @@ class WP_Reset
         echo '<li>' . __('see the table above to find out what exactly will be reset or deleted', 'wp-reset') . '</li>';
         echo '<li>' . __('site title, WordPress URL, site URL, site language, search engine visibility and current user will always be restored', 'wp-reset') . '</li>';
         echo '<li>' . __('you will be logged out, automatically logged back in and taken to the admin dashboard', 'wp-reset') . '</li>';
-        echo '<li>' . __('WP Reset plugin will be reactivated if that option is chosen', 'wp-reset') . '</li>';
+        echo '<li>' . $plugin_name . ' ' . __('plugin will be reactivated if that option is chosen', 'wp-reset') . '</li>';
         echo '</ul>';
 
         echo '<p><b>' . __('WP-CLI Support', 'wp-reset') . '</b><br>';
@@ -3701,7 +3841,7 @@ class WP_Reset
         echo $this->get_tool_icons(false, true);
 
         echo '<p><br><label for="reset-options-reactivate-theme"><input type="checkbox" id="reset-options-reactivate-theme" value="1"> ' . __('Reactivate current theme', 'wp-reset') . ' - ' . $theme_name . '</label></p>';
-        echo '<p><label for="reset-options-reactivate-plugins"><input type="checkbox" id="reset-options-reactivate-plugins" value="1"> Reactivate ' . sizeof($active_plugins) . ' currently active plugin' . (sizeof($active_plugins) != 1 ? 's' : '') . ' (WP Reset will reactivate by default)</label></p>';
+        echo '<p><label for="reset-options-reactivate-plugins"><input type="checkbox" id="reset-options-reactivate-plugins" value="1"> Reactivate ' . sizeof($active_plugins) . ' currently active plugin' . (sizeof($active_plugins) != 1 ? 's' : '') . ' (' . $plugin_name . ' will reactivate by default)</label></p>';
 
         echo '<p class="mb0"><a data-confirm-title="Are you sure you want to reset all options?" data-btn-confirm="Reset all options" data-text-wait="Resetting options. Please wait." data-text-confirm="All options stored in the WP options table will be reset.' . $this->get_autosnapshot_tools_modal('Before running the options reset tool') . '" data-text-done="All options have been reset. Reload the page to see changes." data-text-done-singular="All options have been reset. Reload the page to see changes." class="button button-delete" href="#" id="reset-options">Reset all options</a></p>';
         echo '</div>';
@@ -3716,7 +3856,7 @@ class WP_Reset
         echo $this->get_tool_icons(false, true);
 
         echo '<p><br><label for="site-reset-reactivate-theme"><input type="checkbox" id="site-reset-reactivate-theme" value="1"> ' . __('Reactivate current theme', 'wp-reset') . ' - ' . $theme_name . '</label></p>';
-        echo '<p><label for="site-reset-reactivate-wpreset"><input type="checkbox" id="site-reset-reactivate-wpreset" value="1" checked> ' . __('Reactivate WP Reset plugin', 'wp-reset') . '</label></p>';
+        echo '<p><label for="site-reset-reactivate-wpreset"><input type="checkbox" id="site-reset-reactivate-wpreset" value="1" checked> ' . __('Reactivate ' . $plugin_name . ' plugin', 'wp-reset') . '</label></p>';
         echo '<p><label for="site-reset-reactivate-plugins"><input type="checkbox" id="site-reset-reactivate-plugins" value="1"> ' . __('Reactivate all currently active plugins', 'wp-reset') . '</label></p>';
 
         echo '<p>' . __('Type <b>reset</b> in the confirmation field to confirm the reset and then click the "Reset WordPress" button.', 'wp-reset') . '</p>';
@@ -3736,12 +3876,12 @@ class WP_Reset
         if (is_multisite()) {
             echo '<p class="mb0 wpmu-error">This tool is <b>not compatible</b> with WP multisite (WPMU). Using it would delete files shared by multiple sites in the WP network.</p>';
         } else {
-            echo '<p><br><label for="nuclear-reset-reactivate-wpreset"><input type="checkbox" id="nuclear-reset-reactivate-wpreset" value="1" checked> ' . __('Reactivate WP Reset plugin', 'wp-reset') . '</label></p>';
+            echo '<p><br><label for="nuclear-reset-reactivate-wpreset"><input type="checkbox" id="nuclear-reset-reactivate-wpreset" value="1" checked> ' . __('Reactivate ' . $plugin_name . ' plugin', 'wp-reset') . '</label></p>';
 
             echo '<p>' . __('Type <b>reset</b> in the confirmation field to confirm the reset and then click the "Reset WordPress &amp; Delete All Custom Files &amp; Data" button. <b>There is NO UNDO.', 'wp-reset') . '</b></p>';
 
             echo '<p class="mb0"><input id="nuclear_reset_confirm" type="text" placeholder="' . esc_attr__('Type in "reset"', 'wp-reset') . '" value="" autocomplete="off"> &nbsp;';
-            echo '<a data-confirm-title="Are you sure you want to reset WordPress and delete all custom files?" data-btn-confirm="Reset WP &amp; Delete All Custom Files &amp; Data" data-text-wait="Resetting. Please wait." data-text-confirm="WordPress will be completely reset and all files (plugins, themes, uploads) deleted. There is NO UNDO. WP Reset will not make any backups." data-text-done="Done. Page will reload in a few seconds." class="button button-delete" href="#" id="nuclear-reset">' . __('Reset WordPress &amp; Delete All Custom Files &amp; Data', 'wp-reset') . '</a></p>';
+            echo '<a data-confirm-title="Are you sure you want to reset WordPress and delete all custom files?" data-btn-confirm="Reset WP &amp; Delete All Custom Files &amp; Data" data-text-wait="Resetting. Please wait." data-text-confirm="WordPress will be completely reset and all files (plugins, themes, uploads) deleted. There is NO UNDO. ' . $plugin_name . ' will not make any backups." data-text-done="Done. Page will reload in a few seconds." class="button button-delete" href="#" id="nuclear-reset">' . __('Reset WordPress &amp; Delete All Custom Files &amp; Data', 'wp-reset') . '</a></p>';
         }
         echo '</div>';
         echo '</div>'; // nuclear reset
@@ -3756,6 +3896,11 @@ class WP_Reset
     private function tab_tools()
     {
         global $wpdb, $wp_version, $wp_reset_tools;
+
+        $plugin_name = $this->get_rebranding('name');
+        if ($plugin_name === false) {
+            $plugin_name = 'WP Reset';
+        }
         $tools = array(
             'tool-reset-theme-options' => 'Reset Theme Options',
             'tool-delete-transients' => 'Delete Transients',
@@ -3830,7 +3975,7 @@ class WP_Reset
 
         echo $this->get_tool_icons(true, true);
 
-        echo '<p class="mb0"><a data-confirm-title="Are you sure you want to purge all cache?" data-btn-confirm="Purge cache" data-text-wait="Purging cache. Please wait." data-text-confirm="All cache objects will be deleted. There is NO UNDO. WP Reset does not make any file backups." data-text-done="Cache has been purged." data-text-done-singular="Cache has been purged." class="button button-delete" href="#" id="purge-cache">Purge cache</a></p>';
+        echo '<p class="mb0"><a data-confirm-title="Are you sure you want to purge all cache?" data-btn-confirm="Purge cache" data-text-wait="Purging cache. Please wait." data-text-confirm="All cache objects will be deleted. There is NO UNDO. ' . $plugin_name . ' does not make any file backups." data-text-done="Cache has been purged." data-text-done-singular="Cache has been purged." class="button button-delete" href="#" id="purge-cache">Purge cache</a></p>';
         echo '</div>';
         echo '</div>';
 
@@ -3842,7 +3987,7 @@ class WP_Reset
 
         echo $this->get_tool_icons(false, false);
 
-        echo '<p class="mb0"><a data-confirm-title="Are you sure you want to delete all local data?" data-btn-confirm="Delete local data" data-text-wait="Deleting local data. Please wait." data-text-confirm="All local data; cookies, local storage and local session will be deleted. There is NO UNDO. WP Reset does not make backups of local data." data-text-done="%n local data objects have been deleted." data-text-done-singular="One local data object has been deleted." class="button button-delete" href="#" id="delete-local-data">Delete local data</a><a data-confirm-title="Are you sure you want to delete all WP related cookies?" data-btn-confirm="Delete all WordPress cookies" data-text-wait="Deleting WP cookies. Please wait." data-text-confirm="All WP cookies including authentication ones will be deleted. You will have to log in again. There is NO UNDO. WP Reset does not make backups of cookies." data-text-done="All WP cookies have been deleted." data-text-done-singular="All WP cookies been deleted." class="button button-delete" href="#" id="delete-wp-cookies">Delete all WordPress cookies</a></p>';
+        echo '<p class="mb0"><a data-confirm-title="Are you sure you want to delete all local data?" data-btn-confirm="Delete local data" data-text-wait="Deleting local data. Please wait." data-text-confirm="All local data; cookies, local storage and local session will be deleted. There is NO UNDO. ' . $plugin_name . ' does not make backups of local data." data-text-done="%n local data objects have been deleted." data-text-done-singular="One local data object has been deleted." class="button button-delete" href="#" id="delete-local-data">Delete local data</a><a data-confirm-title="Are you sure you want to delete all WP related cookies?" data-btn-confirm="Delete all WordPress cookies" data-text-wait="Deleting WP cookies. Please wait." data-text-confirm="All WP cookies including authentication ones will be deleted. You will have to log in again. There is NO UNDO. ' . $plugin_name . ' does not make backups of cookies." data-text-done="All WP cookies have been deleted." data-text-done-singular="All WP cookies been deleted." class="button button-delete" href="#" id="delete-wp-cookies">Delete all WordPress cookies</a></p>';
         echo '</div>';
         echo '</div>';
 
@@ -3853,7 +3998,7 @@ class WP_Reset
         echo $this->get_tool_icons(false, true);
 
         echo '<p class="mb0">';
-        echo '<a data-confirm-title="Are you sure you want to reset your user roles\' capabilities and delete all custom roles?" data-text-wait="Resetting user roles. Please wait." data-text-confirm="Default user roles\' capabilities will be reset to their default values. All custom roles will be deleted. There is NO UNDO. WP Reset does not make any file backups." data-text-done-singular="User roles have been reset." class="button button-delete" href="#" id="reset-user-roles">Reset user roles</a>';
+        echo '<a data-confirm-title="Are you sure you want to reset your user roles\' capabilities and delete all custom roles?" data-text-wait="Resetting user roles. Please wait." data-text-confirm="Default user roles\' capabilities will be reset to their default values. All custom roles will be deleted. There is NO UNDO. ' . $plugin_name . ' does not make any file backups." data-text-done-singular="User roles have been reset." class="button button-delete" href="#" id="reset-user-roles">Reset user roles</a>';
         echo '</p>';
 
         echo '</div>';
@@ -3914,7 +4059,7 @@ class WP_Reset
 
             echo $this->get_tool_icons(true, true);
 
-            echo '<p class="mb0"><a data-confirm-title="Are you sure you want to delete all themes?" data-btn-confirm="Delete all themes" data-text-wait="Deleting all themes. Please wait." data-text-confirm="All themes will be deleted. There is NO UNDO. WP Reset does not make any file backups." data-text-done="%n themes have been deleted." data-text-done-singular="One theme has been deleted." class="button button-delete" href="#" id="delete-themes">Delete all themes</a></p>';
+            echo '<p class="mb0"><a data-confirm-title="Are you sure you want to delete all themes?" data-btn-confirm="Delete all themes" data-text-wait="Deleting all themes. Please wait." data-text-confirm="All themes will be deleted. There is NO UNDO. ' . $plugin_name . ' does not make any file backups." data-text-done="%n themes have been deleted." data-text-done-singular="One theme has been deleted." class="button button-delete" href="#" id="delete-themes">Delete all themes</a></p>';
         }
         echo '</div>';
         echo '</div>';
@@ -3925,11 +4070,11 @@ class WP_Reset
         if (is_multisite()) {
             echo '<p class="mb0 wpmu-error">This tool is <b>not compatible</b> with WP multisite (WPMU). Using it would delete plugins for all sites in the network since they all share the same plugin files.</p>';
         } else {
-            echo '<p>' . __('All plugins will be deleted except for WP Reset which will remain active.</b>', 'wp-reset') . '</p>';
+            echo '<p>' . __('All plugins will be deleted except for ' . $plugin_name . ' which will remain active.</b>', 'wp-reset') . '</p>';
 
             echo $this->get_tool_icons(true, true);
 
-            echo '<p class="mb0"><a data-confirm-title="Are you sure you want to delete all plugins?" data-btn-confirm="Delete plugins" data-text-wait="Deleting plugins. Please wait." data-text-confirm="All plugins except WP Reset will be deleted. There is NO UNDO. WP Reset does not make any file backups." data-text-done="%n plugins have been deleted." data-text-done-singular="One plugin has been deleted." class="button button-delete" href="#" id="delete-plugins">Delete plugins</a></p>';
+            echo '<p class="mb0"><a data-confirm-title="Are you sure you want to delete all plugins?" data-btn-confirm="Delete plugins" data-text-wait="Deleting plugins. Please wait." data-text-confirm="All plugins except ' . $plugin_name . ' will be deleted. There is NO UNDO. ' . $plugin_name . ' does not make any file backups." data-text-done="%n plugins have been deleted." data-text-done-singular="One plugin has been deleted." class="button button-delete" href="#" id="delete-plugins">Delete plugins</a></p>';
         }
         echo '</div>';
         echo '</div>';
@@ -3945,7 +4090,7 @@ class WP_Reset
         } else {
             echo $this->get_tool_icons(true, false, true);
 
-            echo '<p class="mb0"><a data-confirm-title="Are you sure you want to delete all must use plugins?" data-btn-confirm="Delete must use plugins" data-text-wait="Deleting Must Use plugins. Please wait." data-text-confirm="All must use plugins will be deleted. There is NO UNDO. WP Reset does not make any file backups." data-text-done="%n must use plugins have been deleted." data-text-done-singular="One must use plugin has been deleted." class="button button-delete" href="#" id="delete-mu-plugins">Delete must use plugins</a><a data-confirm-title="Are you sure you want to delete all drop-ins?" data-btn-confirm="Delete drop-ins" data-text-wait="Deleting drop-ins. Please wait." data-text-confirm="All drop-ins will be deleted. There is NO UNDO. WP Reset does not make any file backups." data-text-done="%n drop-ins have been deleted." data-text-done-singular="One drop-in has been deleted." class="button button-delete" href="#" id="delete-dropins">Delete drop-ins</a></p>';
+            echo '<p class="mb0"><a data-confirm-title="Are you sure you want to delete all must use plugins?" data-btn-confirm="Delete must use plugins" data-text-wait="Deleting Must Use plugins. Please wait." data-text-confirm="All must use plugins will be deleted. There is NO UNDO. ' . $plugin_name . ' does not make any file backups." data-text-done="%n must use plugins have been deleted." data-text-done-singular="One must use plugin has been deleted." class="button button-delete" href="#" id="delete-mu-plugins">Delete must use plugins</a><a data-confirm-title="Are you sure you want to delete all drop-ins?" data-btn-confirm="Delete drop-ins" data-text-wait="Deleting drop-ins. Please wait." data-text-confirm="All drop-ins will be deleted. There is NO UNDO. ' . $plugin_name . ' does not make any file backups." data-text-done="%n drop-ins have been deleted." data-text-done-singular="One drop-in has been deleted." class="button button-delete" href="#" id="delete-dropins">Delete drop-ins</a></p>';
         }
         echo '</div>';
         echo '</div>';
@@ -3963,7 +4108,7 @@ class WP_Reset
         if (false != $upload_dir['error']) {
             echo '<p class="mb0"><span style="color:#dd3036;"><b>Tool is not available.</b></span> Folder is not writeable by WordPress. Please check file and folder access rights.</p>';
         } else {
-            echo '<p class="mb0"><a data-confirm-title="Are you sure you want to delete all files &amp; folders in uploads folder?" data-btn-confirm="Delete everything in uploads folder" data-text-wait="Deleting uploads. Please wait." data-text-confirm="All files and folders in uploads will be deleted. There is NO UNDO. WP Reset does not make any file backups." data-text-done="%n files &amp; folders have been deleted." data-text-done-singular="One file or folder has been deleted." class="button button-delete" href="#" id="delete-uploads">Delete all files &amp; folders in uploads folder</a></p>';
+            echo '<p class="mb0"><a data-confirm-title="Are you sure you want to delete all files &amp; folders in uploads folder?" data-btn-confirm="Delete everything in uploads folder" data-text-wait="Deleting uploads. Please wait." data-text-confirm="All files and folders in uploads will be deleted. There is NO UNDO. ' . $plugin_name . ' does not make any file backups." data-text-done="%n files &amp; folders have been deleted." data-text-done-singular="One file or folder has been deleted." class="button button-delete" href="#" id="delete-uploads">Delete all files &amp; folders in uploads folder</a></p>';
         }
         echo '</div>';
         echo '</div>';
@@ -3978,7 +4123,7 @@ class WP_Reset
         if (false === is_writable(trailingslashit(WP_CONTENT_DIR))) {
             echo '<p class="mb0"><span style="color:#dd3036;"><b>Tool is not available.</b></span> Folder is not writeable by WordPress. Please check file and folder access rights.</p>';
         } else {
-            echo '<p class="mb0"><a data-confirm-title="Are you sure you want to delete all folders in wp-content folder?" data-btn-confirm="Delete folders in wp-content folder" data-text-wait="Cleaning wp-content. Please wait." data-text-confirm="All folders in wp-content will be deleted. There is NO UNDO. WP Reset does not make any file backups." data-text-done="%n files &amp; folders have been deleted." data-text-done-singular="One folder or folder has been deleted." class="button button-delete" href="#" id="delete-wp-content">Clean wp-content folder</a></p>';
+            echo '<p class="mb0"><a data-confirm-title="Are you sure you want to delete all folders in wp-content folder?" data-btn-confirm="Delete folders in wp-content folder" data-text-wait="Cleaning wp-content. Please wait." data-text-confirm="All folders in wp-content will be deleted. There is NO UNDO. ' . $plugin_name . ' does not make any file backups." data-text-done="%n files &amp; folders have been deleted." data-text-done-singular="One folder or folder has been deleted." class="button button-delete" href="#" id="delete-wp-content">Clean wp-content folder</a></p>';
         }
         echo '</div>';
         echo '</div>';
@@ -4019,9 +4164,9 @@ class WP_Reset
             echo '<p>Replace current WordPress version with the selected new version. Switching from a previous version, to a newer version is mostly supported and properly handled by the WP installer. Reverting WordPress, rolling back WordPress to a previous version is not supported. Results may vary!</p>';
 
             echo $this->get_tool_icons(true, true);
-           
+
             $wp_versions = $wp_reset_tools->get_wordpress_versions();
-            
+
             echo '<label for="select-wp-version">Available WordPress versions:</label> ';
             echo '<select id="select-wp-version">';
             echo '<option value="">select WordPress version</option>';
@@ -4038,7 +4183,7 @@ class WP_Reset
             echo ' <a data-text-wait="Refreshing list of WordPress versions. Please Wait" id="refresh-wp-versions" class="button" href="#">Refresh list</a>';
 
             echo '<p class="mb0">';
-            echo '<a data-confirm-title="Are you sure you want to switch the WordPress version?" data-text-wait="Switching WP  version. Please wait." data-text-confirm="This tool will replace your current WordPress installation with the new selected version. There is NO UNDO. WP Reset does not make any file backups." data-text-done="WordPress v%n has been installed. Reload the page to finish the process." class="button button-delete" href="#" id="switch-wp-version">Switch WordPress version</a>';
+            echo '<a data-confirm-title="Are you sure you want to switch the WordPress version?" data-text-wait="Switching WP  version. Please wait." data-text-confirm="This tool will replace your current WordPress installation with the new selected version. There is NO UNDO. ' . $plugin_name . ' does not make any file backups." data-text-done="WordPress v%n has been installed. Reload the page to finish the process." class="button button-delete" href="#" id="switch-wp-version">Switch WordPress version</a>';
             echo '</p>';
         }
         echo '</div>';
@@ -4056,8 +4201,8 @@ class WP_Reset
 
             echo $this->get_tool_icons(true, false);
 
-            echo '<p class="mb0"><a data-confirm-title="Are you sure you want to delete the .htaccess file?" data-btn-confirm="Delete .htaccess file" data-text-wait="Deleting .htaccess file. Please wait." data-text-confirm="Htaccess file will be deleted. There is NO UNDO. WP Reset does not make any file backups." data-text-done="Htaccess file has been deleted." data-text-done-singular="Htaccess file has been deleted." class="button button-delete" href="#" id="delete-htaccess">Delete .htaccess file</a>';
-            echo '<a data-confirm-title="Are you sure you want to restore the .htaccess file?" data-btn-confirm="Restore .htaccess file" data-text-wait="Restoring .htaccess file. Please wait." data-text-confirm="Htaccess file will be restored to default. There is NO UNDO. WP Reset does not make any file backups." data-text-done="Htaccess file has been restored." data-text-done-singular="Htaccess file has been restored." class="button" href="#" id="restore-htaccess">Restore .htaccess to default WP values</a></p>';
+            echo '<p class="mb0"><a data-confirm-title="Are you sure you want to delete the .htaccess file?" data-btn-confirm="Delete .htaccess file" data-text-wait="Deleting .htaccess file. Please wait." data-text-confirm="Htaccess file will be deleted. There is NO UNDO. ' . $plugin_name . ' does not make any file backups." data-text-done="Htaccess file has been deleted." data-text-done-singular="Htaccess file has been deleted." class="button button-delete" href="#" id="delete-htaccess">Delete .htaccess file</a>';
+            echo '<a data-confirm-title="Are you sure you want to restore the .htaccess file?" data-btn-confirm="Restore .htaccess file" data-text-wait="Restoring .htaccess file. Please wait." data-text-confirm="Htaccess file will be restored to default. There is NO UNDO. ' . $plugin_name . ' does not make any file backups." data-text-done="Htaccess file has been restored." data-text-done-singular="Htaccess file has been restored." class="button" href="#" id="restore-htaccess">Restore .htaccess to default WP values</a></p>';
         }
         echo '</div>';
         echo '</div>';
@@ -4071,22 +4216,28 @@ class WP_Reset
     private function tab_settings()
     {
         $options = $this->get_options();
-
-        echo '<div class="card">';
-        echo $this->get_card_header('Cloud', 'cloud', array('collapse_button' => true));
-        echo '<div class="card-body">';
-
-        echo '<p>Cloud feature lets you offload snapshots on the selected service to add redundancy and save space on your hosting account. It also stores ZIP files for pro plugins from collections.</p>';
-        echo '<div class="sub-option-group">Cloud service: <select id="option_cloud_service">';
-
         $cloud_options = array_merge(array('none' => 'Disabled'), $this->cloud_services);
-        WP_Reset_Utility::create_select_options($cloud_options, $options['cloud_service']);
-        echo '</select></div>';
+        $plugin_name = $this->get_rebranding('name');
+        if ($plugin_name === false) {
+            $plugin_name = 'WP Reset';
+        }
 
-        echo '<p>Currently supported cloud services: WP Reset Cloud, Dropbox, Google Drive, pCloud.<br>';
-        echo 'Switching the cloud service will not cause any snapshots or collections to be lost. They will be available when you switch back to the cloud service they are saved on.</p>';
-        echo '</div>';
-        echo '</div>';
+        if (count($this->cloud_services) > 0) {
+            echo '<div class="card">';
+            echo $this->get_card_header('Cloud', 'cloud', array('collapse_button' => true));
+            echo '<div class="card-body">';
+
+            echo '<p>Cloud feature lets you offload snapshots on the selected service to add redundancy and save space on your hosting account. It also stores ZIP files for pro plugins from collections.</p>';
+            echo '<div class="sub-option-group">Cloud service: <select id="option_cloud_service">';
+
+            WP_Reset_Utility::create_select_options($cloud_options, $options['cloud_service']);
+            echo '</select></div>';
+
+            echo '<p>Currently supported cloud services: WP Reset Cloud, Dropbox, Google Drive, pCloud.<br>';
+            echo 'Switching the cloud service will not cause any snapshots or collections to be lost. They will be available when you switch back to the cloud service they are saved on.</p>';
+            echo '</div>';
+            echo '</div>';
+        }
 
         echo '<div class="card">';
         echo $this->get_card_header('Options', 'snapshots-options', array('collapse_button' => 1));
@@ -4094,7 +4245,7 @@ class WP_Reset
         echo '<div class="card-body" id="snapshot-options-group">';
         echo '<div class="option-group">';
         WP_Reset_Utility::create_toogle_switch('option_tools_snapshots', array('saved_value' => $options['tools_snapshots']));
-        echo '<div class="option-group-desc">Automatically create snapshots before running WP Reset tools</div>';
+        echo '<div class="option-group-desc">Automatically create snapshots before running ' . $plugin_name . ' tools</div>';
         echo '</div>';
         if (is_multisite()) {
             echo '<p class="wpmu-error mb0">Creating auto snapshots when doing updated and manipulating themes &amp; plugins is <b>not available on WP multisite</b> (WPMU).</p>';
@@ -4105,20 +4256,24 @@ class WP_Reset
             echo '</div>';
         }
 
-        echo '<div class="option-group">';
-        WP_Reset_Utility::create_toogle_switch('option_snapshots_autoupload', array('saved_value' => $options['snapshots_autoupload']));
-        echo '<div class="option-group-desc">Automatically upload user created snapshots to cloud</div>';
-        echo '</div>';
+        if (count($this->cloud_services) > 0) {
+            echo '<div class="option-group">';
+            WP_Reset_Utility::create_toogle_switch('option_snapshots_autoupload', array('saved_value' => $options['snapshots_autoupload']));
+            echo '<div class="option-group-desc">Automatically upload user created snapshots to cloud</div>';
+            echo '</div>';
 
-        echo '<div class="option-group">';
-        WP_Reset_Utility::create_toogle_switch('option_autosnapshots_autoupload', array('saved_value' => $options['autosnapshots_autoupload']));
-        echo '<div class="option-group-desc">Automatically upload automatically created snapshots to cloud</div>';
-        echo '</div>';
+            echo '<div class="option-group">';
+            WP_Reset_Utility::create_toogle_switch('option_autosnapshots_autoupload', array('saved_value' => $options['autosnapshots_autoupload']));
+            echo '<div class="option-group-desc">Automatically upload automatically created snapshots to cloud</div>';
+            echo '</div>';
+        }
 
-        echo '<div class="option-group">';
-        WP_Reset_Utility::create_toogle_switch('option_snapshots_upload_delete', array('saved_value' => $options['snapshots_upload_delete']));
-        echo '<div class="option-group-desc">Automatically delete snapshots after they are uploaded to cloud</div>';
-        echo '</div>';
+        if (count($this->cloud_services) > 0) {
+            echo '<div class="option-group">';
+            WP_Reset_Utility::create_toogle_switch('option_snapshots_upload_delete', array('saved_value' => $options['snapshots_upload_delete']));
+            echo '<div class="option-group-desc">Automatically delete snapshots after they are uploaded to cloud</div>';
+            echo '</div>';
+        }
 
         echo '<div class="option-group">';
         WP_Reset_Utility::create_toogle_switch('option_prune_snapshots', array('saved_value' => $options['prune_snapshots'], 'class' => 'has-suboption'));
@@ -4145,30 +4300,32 @@ class WP_Reset
         WP_Reset_Utility::create_select_options($prune_details, $options['prune_snapshots_details']);
         echo '</select></div></div>';
 
-        echo '<div class="option-group">';
-        WP_Reset_Utility::create_toogle_switch('option_prune_cloud_snapshots', array('saved_value' => $options['prune_cloud_snapshots'], 'class' => 'has-suboption'));
-        echo '<div class="option-group-desc">Automatically delete automatic snapshots uploaded to the cloud</div>';
-        $cloud_prune_details = array(
-            'days-1' => 'older than one day',
-            'days-3' => 'older than 3 days',
-            'days-5' => 'older than 5 days',
-            'days-7' => 'older than 7 days',
-            'days-10' => 'older than 10 days',
-            'days-15' => 'older than 15 days',
-            'days-30' => 'older than 30 days',
-            'cnt-10' => 'when there are more than 10 snapshots saved',
-            'cnt-20' => 'when there are more than 20 snapshots saved',
-            'cnt-50' => 'when there are more than 50 snapshots saved',
-            'cnt-100' => 'when there are more than 100 snapshots saved',
-            'size-50' => 'when total snapshot size exceeds 50 MB',
-            'size-100' => 'when total snapshot size exceeds 100 MB',
-            'size-200' => 'when total snapshot size exceeds 200 MB',
-            'size-500' => 'when total snapshot size exceeds 500 MB',
-            'size-1000' => 'when total snapshot size exceeds 1000 MB',
-        );
-        echo '<div class="sub-option-group">Delete automatic snapshots from cloud: <select id="option_prune_cloud_snapshots_details" style="width:240px;">';
-        WP_Reset_Utility::create_select_options($cloud_prune_details, $options['prune_cloud_snapshots_details']);
-        echo '</select></div></div>';
+        if (count($this->cloud_services) > 0) {
+            echo '<div class="option-group">';
+            WP_Reset_Utility::create_toogle_switch('option_prune_cloud_snapshots', array('saved_value' => $options['prune_cloud_snapshots'], 'class' => 'has-suboption'));
+            echo '<div class="option-group-desc">Automatically delete automatic snapshots uploaded to the cloud</div>';
+            $cloud_prune_details = array(
+                'days-1' => 'older than one day',
+                'days-3' => 'older than 3 days',
+                'days-5' => 'older than 5 days',
+                'days-7' => 'older than 7 days',
+                'days-10' => 'older than 10 days',
+                'days-15' => 'older than 15 days',
+                'days-30' => 'older than 30 days',
+                'cnt-10' => 'when there are more than 10 snapshots saved',
+                'cnt-20' => 'when there are more than 20 snapshots saved',
+                'cnt-50' => 'when there are more than 50 snapshots saved',
+                'cnt-100' => 'when there are more than 100 snapshots saved',
+                'size-50' => 'when total snapshot size exceeds 50 MB',
+                'size-100' => 'when total snapshot size exceeds 100 MB',
+                'size-200' => 'when total snapshot size exceeds 200 MB',
+                'size-500' => 'when total snapshot size exceeds 500 MB',
+                'size-1000' => 'when total snapshot size exceeds 1000 MB',
+            );
+            echo '<div class="sub-option-group">Delete automatic snapshots from cloud: <select id="option_prune_cloud_snapshots_details" style="width:240px;">';
+            WP_Reset_Utility::create_select_options($cloud_prune_details, $options['prune_cloud_snapshots_details']);
+            echo '</select></div></div>';
+        }
 
         echo '<div class="option-group">';
         WP_Reset_Utility::create_toogle_switch('option_ajax_snapshots_export', array('saved_value' => $options['ajax_snapshots_export']));
@@ -4177,7 +4334,7 @@ class WP_Reset
 
         echo '<div class="option-group">';
         WP_Reset_Utility::create_toogle_switch('option_adminbar_snapshots', array('saved_value' => $options['adminbar_snapshots']));
-        echo '<div class="option-group-desc">Show WP Reset menu to administrators in admin bar</div>';
+        echo '<div class="option-group-desc">Show ' . $plugin_name . ' menu to administrators in admin bar</div>';
         echo '</div>';
 
 
@@ -4227,6 +4384,10 @@ class WP_Reset
         global $wp_reset_licensing;
 
         $options = $this->get_options();
+        $plugin_name = $this->get_rebranding('name');
+        if ($plugin_name === false) {
+            $plugin_name = 'WP Reset';
+        }
 
         if (!WP_Reset_Utility::whitelabel_filter()) {
             $license = $wp_reset_licensing->get_license();
@@ -4262,35 +4423,49 @@ class WP_Reset
             }
             echo '</p>';
         } else {
-            echo '<p>Emergency recovery script is not enabled. You can always get it from the <a href="' . trailingslashit($this->licensing_servers[0]) . 'wpr_recovery_download.php" target="_blank">WP Reset website</a> and upload manually when needed or enable it with the button below so it\'s accessible on a secret URL.</p>';
+            echo '<p>Emergency recovery script is not enabled.';
+            if ($this->get_rebranding() === false) {
+                echo 'You can always get it from the <a href="' . trailingslashit($this->licensing_servers[0]) . 'wpr_recovery_download.php" target="_blank">WP Reset website</a> and upload manually when needed or enable it with the button below so it\'s accessible on a secret URL.';
+            }
+            echo '</p>';
             echo '<p><a class="button install-recovery-script" href="#">Enable emergency recovery script</a></p>';
         }
         echo '</div>';
         echo '</div>';
 
         if (WP_Reset_Utility::whitelabel_filter()) {
-            echo '<div class="card">';
-            echo $this->get_card_header('Documentation', 'documentation-support', array());
-            echo '<div class="card-body">';
-            echo '<p>' . __('All tools and functions are explained in detail in <a href="' . $this->generate_web_link('support-tab', '/documentation/') . '" target="_blank">the documentation</a>. We did our best to describe how things work on both the code level and an "average user" level. Most tools have direct links (look for the <span class="dashicons dashicons-editor-help"></span> icon) to specific parts of documentation.', 'wp-reset') . '</p>';
-            echo '<p>If needed you can always <a href="#" class="open-onboarding">run onboarding</a> again to help you test and setup WP Reset</p>';
-            echo '</div>';
-            echo '</div>';
 
-            echo '<div class="card">';
-            echo $this->get_card_header('Contact Support', 'contact-support', array());
-            echo '<div class="card-body">';
-            echo '<p>Please don\'t hesitate to get in touch if you need any help. Try to be as detailed as possible so we can provide the best answer in the first reply. If you\'re unable to use our support widget in the lower right corner - <a href="mailto:wpreset@webfactoryltd.com">email us</a>.</p>';
-            echo '<p>';
+            if ($this->get_rebranding() === false) {
+                echo '<div class="card">';
+                echo $this->get_card_header('Documentation', 'documentation-support', array());
+                echo '<div class="card-body">';
+                echo '<p>' . __('All tools and functions are explained in detail in <a href="' . $this->generate_web_link('support-tab', '/documentation/') . '" target="_blank">the documentation</a>. We did our best to describe how things work on both the code level and an "average user" level. Most tools have direct links (look for the <span class="dashicons dashicons-editor-help"></span> icon) to specific parts of documentation.', 'wp-reset') . '</p>';
+                echo '<p>If needed you can always <a href="#" class="open-onboarding">run onboarding</a> again to help you test and setup ' . $plugin_name . '</p>';
+                echo '</div>';
+                echo '</div>';
+
+                echo '<div class="card">';
+                echo $this->get_card_header('Contact Support', 'contact-support', array());
+                echo '<div class="card-body">';
+                echo '<p>Please don\'t hesitate to get in touch if you need any help. Try to be as detailed as possible so we can provide the best answer in the first reply. If you\'re unable to use our support widget in the lower right corner - <a href="mailto:wpreset@webfactoryltd.com">email us</a>.</p>';
+                echo '<p>';
                 echo '<a href="#" class="button button-primary open-beacon">Contact Support</a>';
                 if ($options['debug'] == true) {
                     echo '<a href="' . admin_url('tools.php?page=wp-reset&wpr_debug=false') . '" class="button button-delete disable-debug-mode">Disable debug mode</a>';
                 } else {
                     echo '<a href="' . admin_url('tools.php?page=wp-reset&wpr_debug=true') . '" data-confirm-title="Are you sure you want to enable debug mode?" data-text-confirm="Debug mode will enable the Debug Tools tab which contains the Log and other tools related only to WP Reset. Only use this if you know what you are doing or have been instructed to do so by support. While debug mode is enabled, any PHP notices and errors will be printed in AJAX responses, so you should not leave the Debug mode enabled during normal use." data-btn-confirm="Enable debug mode" class="enable-debug-mode button button-delete">Enable debug mode</a>';
                 }
-            echo '</p>';
-            echo '</div>';
-            echo '</div>';
+                echo '</p>';
+                echo '</div>';
+                echo '</div>';
+            } else {
+                echo '<div class="card">';
+                echo $this->get_card_header('Contact Support', 'contact-support', array());
+                echo '<div class="card-body">';
+                echo $this->get_rebranding('support_content');
+                echo '</div>';
+                echo '</div>';
+            }
         }
     } // tab_support
 
@@ -4360,21 +4535,21 @@ class WP_Reset
         $space_usage_user = 0;
         $space_usage_auto = 0;
 
-        foreach($snapshots as $snapshot){
-            if(false === $snapshot['local']){
+        foreach ($snapshots as $snapshot) {
+            if (false === $snapshot['local']) {
                 continue;
             }
             $space_usage_total += $snapshot['tbl_size'];
-            if($snapshot['auto']){
+            if ($snapshot['auto']) {
                 $space_usage_auto += $snapshot['tbl_size'];
             } else {
                 $space_usage_user += $snapshot['tbl_size'];
             }
         }
 
-        if($space_usage_total/1000000 > $options['snapshots_size_alert']){
+        if ($space_usage_total / 1000000 > $options['snapshots_size_alert']) {
             echo '<div class="card">';
-            echo '<span style="color: #dd3036;">'. $this->get_card_header('Snapshot Database Usage Alert', 'snapshots-user', array('collapse_button' => 0, 'create_snapshot' => false, 'snapshot_actions' => false)) . '</span>';
+            echo '<span style="color: #dd3036;">' . $this->get_card_header('Snapshot Database Usage Alert', 'snapshots-user', array('collapse_button' => 0, 'create_snapshot' => false, 'snapshot_actions' => false)) . '</span>';
             echo '<div class="card-body">';
             echo '<p style="color: #dd3036;">';
             echo 'Your snapshots are using ' . WP_Reset_Utility::format_size($space_usage_total) . ' total space in the database!<br />';
@@ -4400,13 +4575,13 @@ class WP_Reset
 
         echo '<a title="Delete all user snapshots" data-snapshots="selected_user" href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete selected snapshots" data-text-wait="Deleting snapshots. Please wait." data-text-confirm="Are you sure you want to delete the selected user created snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete Selected User Snapshots', 'wp-reset') . '</a>';
         echo '<a title="Delete selected user snapshots" data-snapshots="user" href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete all snapshots" data-text-wait="Deleting snapshots. Please wait." data-text-confirm="Are you sure you want to delete all user created snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete All User Snapshots', 'wp-reset') . '</a>';
-        
-        if (!empty($options['cloud_service']) && array_key_exists($options['cloud_service'], $this->cloud_services)){
+
+        if (!empty($options['cloud_service']) && array_key_exists($options['cloud_service'], $this->cloud_services)) {
             echo '<a title="Refresh cloud snapshots" href="#" class="dropdown-item refresh-cloud-snapshots"><span title="Cloud Actions" class="dashicons dashicons-cloud cloud-action-icon"></span>' . __('Refresh Cloud Snapshots', 'wp-reset') . '</a>';
             echo '<a title="Delete all user cloud snapshots" data-snapshots="user" href="#" class="dropdown-item delete-cloud-snapshots delete-button" data-btn-confirm="Delete all user snapshots from the cloud" data-text-wait="Deleting user snapshots from the cloud. Please wait." data-text-confirm="Are you sure you want to delete all user snapshots from the cloud? There is NO UNDO.<br>Deleting the cloud snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted."><span title="Cloud Actions" class="dashicons dashicons-cloud cloud-action-icon"></span>' . __('Delete All User Snapshots from the Cloud', 'wp-reset') . '</a>';
             echo '<a title="Delete selected user snapshots" data-snapshots=selected_user href="#" class="dropdown-item delete-cloud-snapshots delete-button" data-btn-confirm="Delete selected user snapshots from the cloud" data-text-wait="Deleting selected user snapshots from the cloud. Please wait." data-text-confirm="Are you sure you want to delete the selected user snapshots from the cloud? There is NO UNDO.<br>Deleting the cloud snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted."><span title="Cloud Actions" class="dashicons dashicons-cloud cloud-action-icon"></span>' . __('Delete Selected User Snapshots from the Cloud', 'wp-reset') . '</a>';
         }
-        
+
         echo '</div>
         </div>';
         echo '</th></tr>';
@@ -4428,8 +4603,8 @@ class WP_Reset
         <div class="dropdown-menu">        
         <a title="Delete all auto snapshots" data-snapshots="auto" href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete all snapshots" data-text-wait="Deleting snapshots. Please wait." data-text-confirm="Are you sure you want to delete all automatic snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete All Automatic Snapshots', 'wp-reset') . '</a>
         <a title="Delete selected auto snapshots" data-snapshots=selected_auto href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete selected auto snapshots" data-text-wait="Deleting selected automatic snapshots. Please wait." data-text-confirm="Are you sure you want to delete the selected automatic snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete Selected Automatic Snapshots', 'wp-reset') . '</a>';
-        
-        if (!empty($options['cloud_service']) && array_key_exists($options['cloud_service'], $this->cloud_services)){
+
+        if (!empty($options['cloud_service']) && array_key_exists($options['cloud_service'], $this->cloud_services)) {
             echo '<a title="Refresh cloud snapshots" href="#" class="dropdown-item refresh-cloud-snapshots"><span title="Cloud Actions" class="dashicons dashicons-cloud cloud-action-icon"></span>' . __('Refresh Cloud Snapshots', 'wp-reset') . '</a>';
             echo '<a title="Delete all auto snapshots from the cloud" data-snapshots="auto" href="#" class="dropdown-item delete-cloud-snapshots delete-button" data-btn-confirm="Delete all automatic snapshots from the cloud" data-text-wait="Deleting automatic snapshots from the cloud. Please wait." data-text-confirm="Are you sure you want to delete all automatic snapshots from the cloud? There is NO UNDO.<br>Deleting the cloud snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted."><span title="Cloud Actions" class="dashicons dashicons-cloud cloud-action-icon"></span>' . __('Delete All Automatic Snapshots from the Cloud', 'wp-reset') . '</a>';
             echo '<a title="Delete selected auto snapshots from the cloud" data-snapshots=selected_auto href="#" class="dropdown-item delete-cloud-snapshots delete-button" data-btn-confirm="Delete selected automatic snapshots from the cloud" data-text-wait="Deleting selected automatic snapshots from the cloud. Please wait." data-text-confirm="Are you sure you want to delete the selected automatic snapshots from the cloud? There is NO UNDO.<br>Deleting the cloud snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted."><span title="Cloud Actions" class="dashicons dashicons-cloud cloud-action-icon"></span>' . __('Delete Selected Automatic Snapshots from the Cloud', 'wp-reset') . '</a>';
@@ -4522,10 +4697,10 @@ class WP_Reset
     {
         $snapshots = get_option('wp-reset-snapshots', array());
 
-        if(!is_array($snapshots)){
+        if (!is_array($snapshots)) {
             $snapshots = array();
         }
-        
+
         foreach ($snapshots as $uid => $snapshot) {
             $snapshots[$uid]['name'] = stripslashes($snapshots[$uid]['name']);
             $snapshots[$uid]['local'] = true;
@@ -4551,7 +4726,12 @@ class WP_Reset
         }
 
         $cloud_snapshots = $wp_reset_cloud->get_cloud_snapshots();
-        $cloud_only_snapshots = array_diff_key($cloud_snapshots, $snapshots);
+        if (is_array($cloud_snapshots)) {
+            $cloud_only_snapshots = array_diff_key($cloud_snapshots, $snapshots);
+        } else {
+            $cloud_snapshots = array();
+            $cloud_only_snapshots = array();
+        }
         $cloud_common_snapshots = array_intersect_key($snapshots, $cloud_snapshots);
 
         $snapshots = array_merge($snapshots, $cloud_only_snapshots);
@@ -4569,7 +4749,7 @@ class WP_Reset
 
 
         uasort($snapshots, function ($a, $b) {
-            return strtotime($a['timestamp']) > strtotime($b['timestamp']) ? 1:-1;
+            return strtotime($a['timestamp']) > strtotime($b['timestamp']) ? 1 : -1;
         });
 
         return $snapshots;
@@ -5221,7 +5401,7 @@ class WP_Reset
 
         do_action('wp_reset_delete_snapshot', $uid, $snapshot_copy);
         $this->log('info', 'Deleted snapshot ' . $uid . ' successfully');
-        
+
         return true;
     } // delete_snapshot
 
@@ -5233,10 +5413,11 @@ class WP_Reset
      *
      * @return bool|WP_Error True on success, or error object on fail.
      */
-    function delete_snapshot_tables($uid = ''){
+    function delete_snapshot_tables($uid = '')
+    {
         global $wpdb;
 
-        if(empty($uid)){
+        if (empty($uid)) {
             $uid = $_GET['uid'];
         }
 
@@ -5266,18 +5447,19 @@ class WP_Reset
      *
      * @return bool|WP_Error True on success, or error object on fail.
      */
-    function delete_temporary_files(){
-        if(file_exists($this->export_dir_path())){
+    function delete_temporary_files()
+    {
+        if (file_exists($this->export_dir_path())) {
             $this->delete_folder($this->export_dir_path(), basename($this->export_dir_path()));
         }
-        
+
         if (!empty($_GET['redirect'])) {
             wp_safe_redirect($_GET['redirect']);
         }
 
         return true;
     }
-    
+
 
     /**
      * Delete all/selected snapshots
@@ -5288,10 +5470,10 @@ class WP_Reset
     {
         $snapshots = $this->get_snapshots();
         $deleted_snapshots = 0;
-        
-        if($params['delete'] == 'selected'){
-            foreach($params['ids'] as $uid){
-                if(array_key_exists($uid, $snapshots)){
+
+        if ($params['delete'] == 'selected') {
+            foreach ($params['ids'] as $uid) {
+                if (array_key_exists($uid, $snapshots)) {
                     $delete_result = $this->do_delete_snapshot($uid);
                     if (is_wp_error($delete_result)) {
                         return $delete_result;
@@ -5302,11 +5484,9 @@ class WP_Reset
             }
         } else {
             foreach ($snapshots as $uid => $snapshot) {
-                if (($params['delete'] == 'auto' && $snapshot['auto'] == true) || 
-                    ($params['delete'] == 'user' && (
-                        !array_key_exists('auto', $snapshot) || 
-                        $snapshot['auto'] == false)
-                    )
+                if (($params['delete'] == 'auto' && $snapshot['auto'] == true) ||
+                    ($params['delete'] == 'user' && (!array_key_exists('auto', $snapshot) ||
+                        $snapshot['auto'] == false))
                 ) {
                     $delete_result = $this->do_delete_snapshot($uid);
                     if (is_wp_error($delete_result)) {
@@ -5331,12 +5511,12 @@ class WP_Reset
     {
         global $wp_reset_cloud;
         $cloud_snapshots = $wp_reset_cloud->get_cloud_snapshots();
-        
+
         $deleted_snapshots = 0;
 
-        if($params['delete'] == 'selected'){
-            foreach($params['ids'] as $uid){
-                if(array_key_exists($uid, $cloud_snapshots)){
+        if ($params['delete'] == 'selected') {
+            foreach ($params['ids'] as $uid) {
+                if (array_key_exists($uid, $cloud_snapshots)) {
                     $delete_result = $wp_reset_cloud->cloud_snapshot_delete($uid);
                     if (is_wp_error($delete_result)) {
                         return $delete_result;
@@ -5347,11 +5527,9 @@ class WP_Reset
             }
         } else {
             foreach ($cloud_snapshots as $uid => $snapshot) {
-                if (($params['delete'] == 'auto' && $snapshot['auto'] == true) || 
-                    ($params['delete'] == 'user' && (
-                        !array_key_exists('auto', $snapshot) || 
-                        $snapshot['auto'] == false)
-                    )
+                if (($params['delete'] == 'auto' && $snapshot['auto'] == true) ||
+                    ($params['delete'] == 'user' && (!array_key_exists('auto', $snapshot) ||
+                        $snapshot['auto'] == false))
                 ) {
                     $delete_result = $wp_reset_cloud->cloud_snapshot_delete($uid);
                     if (is_wp_error($delete_result)) {
@@ -5363,7 +5541,7 @@ class WP_Reset
             }
         }
 
-        if($deleted_snapshots > 0){
+        if ($deleted_snapshots > 0) {
             $wp_reset_cloud->cloud_snapshot_refresh();
         }
         return $deleted_snapshots;
@@ -5464,7 +5642,7 @@ class WP_Reset
                     'db_name' =>  DB_NAME,
                 ));
 
-                $this->log('success', 'Start full dump for '. $uid . '_ to ' . $dump_file_path);
+                $this->log('success', 'Start full dump for ' . $uid . '_ to ' . $dump_file_path);
                 $world_dumper->dump($dump_file_path, $uid . '_');
             } catch (WPR_Shuttle_Exception $e) {
                 return new WP_Error(1, 'Couldn\'t create snapshot: ' . $e->getMessage());
@@ -5511,7 +5689,7 @@ class WP_Reset
                         'db_name' =>  DB_NAME,
                     ));
 
-                    $this->log('success', 'Start individual table dump for '. $step_data['data'] . ' to ' . $dump_file_path);
+                    $this->log('success', 'Start individual table dump for ' . $step_data['data'] . ' to ' . $dump_file_path);
                     $world_dumper->dump($dump_file_path, $step_data['data']);
                 } catch (WPR_Shuttle_Exception $e) {
                     return new WP_Error(1, 'Couldn\'t create snapshot: ' . $e->getMessage());
@@ -5672,7 +5850,7 @@ class WP_Reset
      */
     function verify_zip_integrity($snapshot)
     {
-        if (!array_key_exists('file_size',$snapshot) || $snapshot['file_size'] != filesize($this->autosnapshots_dir_path('wp-reset-snapshot-files-' . $snapshot['uid'] . '.zip'))) {
+        if (!array_key_exists('file_size', $snapshot) || $snapshot['file_size'] != filesize($this->autosnapshots_dir_path('wp-reset-snapshot-files-' . $snapshot['uid'] . '.zip'))) {
             return new WP_Error(1, 'ZIP file size is not correct!');
         }
 
@@ -6062,23 +6240,26 @@ class WP_Reset
         $snapshot_dates = array();
         $snapshot_sizes = array();
         $delete = array();
-
         foreach ($snapshots as $sid => $snapshot) {
-            if (isset($snapshot['auto']) && $snapshot['auto'] == 'true') {
+            if (isset($snapshot['auto']) && ($snapshot['auto'] == 'true' || $snapshot['auto'] == '1' || $snapshot['auto'] == true)) {
                 $snapshot_dates[$sid] = strtotime($snapshot['timestamp']);
+                if(!array_key_exists('file_size',$snapshot)){
+                    $snapshot['file_size'] = 0;
+                }
                 $snapshot_sizes[$sid] = round(($snapshot['file_size'] + $snapshot['tbl_size']) / 10485.76) / 100; // Size in MB with 2 decimal places
-            }
+            } 
         }
+
         arsort($snapshot_dates);
 
         if (substr($options['options']['prune_snapshots_details'], 0, 4) == 'size') {
             $tmp = explode('-', $options['options']['prune_snapshots_details']);
             $max_size = (int) $tmp[1];
             $current_size = 0;
-            foreach ($snapshot_sizes as $id => $size) {
-                $current_size += $size;
+            foreach ($snapshot_dates as $sid => $date) {
+                $current_size += $snapshot_sizes[$sid];
                 if ($current_size > $max_size) {
-                    $delete[$sid] = $size;
+                    $delete[$sid] = $snapshot_sizes[$sid];
                 }
             }
         } else if (substr($options['options']['prune_snapshots_details'], 0, 3) == 'cnt') {
@@ -6127,22 +6308,22 @@ class WP_Reset
         foreach ($snapshots as $sid => $snapshot) {
             if (isset($snapshot['auto']) && ($snapshot['auto'] == 'true' || $snapshot['auto'] == '1' || $snapshot['auto'] === true)) {
                 $snapshot_dates[$sid] = strtotime($snapshot['timestamp']);
-                if(!isset($snapshot['file_size'])){
+                if (!isset($snapshot['file_size'])) {
                     $snapshot['file_size'] = 0;
                 }
                 $snapshot_sizes[$sid] = round(($snapshot['file_size'] + $snapshot['tbl_size']) / 10485.76) / 100; // Size in MB with 2 decimal places
-            } 
+            }
         }
         arsort($snapshot_dates);
-
+        
         if (substr($options['options']['prune_cloud_snapshots_details'], 0, 4) == 'size') {
             $tmp = explode('-', $options['options']['prune_cloud_snapshots_details']);
             $max_size = (int) $tmp[1];
             $current_size = 0;
-            foreach ($snapshot_sizes as $id => $size) {
-                $current_size += $size;
+            foreach ($snapshot_dates as $sid => $date) {
+                $current_size += $snapshot_sizes[$sid];
                 if ($current_size > $max_size) {
-                    $delete[$sid] = $size;
+                    $delete[$sid] = $snapshot_sizes[$sid];
                 }
             }
         } else if (substr($options['options']['prune_cloud_snapshots_details'], 0, 3) == 'cnt') {
@@ -6272,11 +6453,11 @@ class WP_Reset
         if (empty($items['args'][0]) || !in_array($items['action'], $watched_actions)) {
             return false;
         }
-        
+
         $plugin_path = plugin_dir_path(WP_PLUGIN_DIR . '/' . $items['args'][0]);
         $plugin_data = get_plugin_data(WP_PLUGIN_DIR . '/' . $items['args'][0]);
 
-        if($plugin_data['Name'] == 'WP Reset PRO'){
+        if ($plugin_data['Name'] == 'WP Reset PRO') {
             return false;
         }
 
@@ -6376,13 +6557,15 @@ class WP_Reset
     } // get_plugin_path
 
 
-    function clean_snapshot_name($name){
+    function clean_snapshot_name($name)
+    {
         return preg_replace('/[^a-z0-9_s+ \s{}\'\"\:\,\.\/]/i', '', $name);
     }
 
-    function clean_snapshot_items($items){
+    function clean_snapshot_items($items)
+    {
         $cleaned_items = array();
-        foreach($items as $name => $data){
+        foreach ($items as $name => $data) {
             $cleaned_items[$this->clean_snapshot_name($name)] = $data;
         }
         return $cleaned_items;
@@ -6481,7 +6664,7 @@ class WP_Reset
         }
 
         $snapshot['name'] = $this->clean_snapshot_name($snapshot['name']);
-        
+
         $snapshot['auto'] = true;
 
         $this->do_create_snapshot($snapshot);
@@ -6491,10 +6674,10 @@ class WP_Reset
     {
         $options = $this->get_options();
 
-        if($options['alternate_db_connection'] == true){
+        if ($options['alternate_db_connection'] == true) {
             return array('host' => DB_HOST, 'port' => false);
-        } 
-            
+        }
+
         if (strpos(DB_HOST, ':') > 0) {
             $db_host_parts = parse_url(DB_HOST);
             return array('host' => $db_host_parts['host'], 'port' => $db_host_parts['port']);

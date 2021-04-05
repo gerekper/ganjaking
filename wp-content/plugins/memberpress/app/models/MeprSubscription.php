@@ -1585,8 +1585,10 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
     }
     else { // If all else fails, let's blank out the tax info
       list($this->price, $this->total, $this->tax_rate, $this->tax_amount, $this->tax_desc, $this->tax_class) = array($subtotal, $subtotal, 0.00, 0.00, '', 'standard');
+      if ( $this->trial ) {
+        $this->trial_total = $this->trial_amount;
+      }
     }
-
     MeprHooks::do_action('mepr_subscription_apply_tax', $this);
   }
 
@@ -1605,13 +1607,11 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
   }
 
   public function set_trial_taxes( $trial_amount, $num_decimals = 2 ) {
-
     $mepr_options = MeprOptions::fetch();
 
     $usr = $this->user();
 
     if ( $mepr_options->attr( 'tax_calc_type' ) == 'inclusive' ) {
-
       $usr = $this->user();
 
       $subtotal = $usr->calculate_subtotal( $this->trial_amount, null, 2, $this->product() );
@@ -1619,7 +1619,6 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
       $trial_total = $this->trial_amount;
 
     } else {
-
       $trial_taxes = $usr->calculate_tax( $this->trial_amount, $num_decimals );
       $trial_total = $trial_taxes[1];
     }

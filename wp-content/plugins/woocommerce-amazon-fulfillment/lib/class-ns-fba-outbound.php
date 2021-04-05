@@ -230,6 +230,8 @@ if ( ! class_exists( 'NS_FBA_Outbound' ) ) {
 
 			// Map country codes against the respective Amazon Marketplace IDs
 			// @link https://docs.developer.amazonservices.com/en_US/dev_guide/DG_Endpoints.html
+			// these 5 appear to be the only ones included in the European Fulfillment Network
+			// (NL, for instance fails with "Incorrect SellerId" for UK sellers)
 			$marketplace_ids = array(
 				'ES' => 'A1RKKUPIHCS9HS',
 				'GB' => 'A1F83G8C2ARO7P',
@@ -247,6 +249,12 @@ if ( ! class_exists( 'NS_FBA_Outbound' ) ) {
 		 * Send a fulfillment order to FBA
 		 */
 		function send_fulfillment_order( $order_id, $is_manual_send = false ) {
+			if ( ! $is_manual_send && 'yes' === $this->ns_fba->options['ns_fba_manual_only_mode'] ) {
+				$order = new WC_Order( $order_id );
+				$order->add_order_note( __( 'Order was not sent to Amazon because Manual Only mode is on.', $this->ns_fba->text_domain ) );
+				return false;
+			}
+
 			try {
 				if ( $this->ns_fba->is_debug ) {
 					error_log( '<b>Step 2 of 8: </b>INSIDE send_fulfillment_order AND INSIDE try<br /><br />', 3, $this->ns_fba->debug_log_path );
@@ -265,7 +273,7 @@ if ( ! class_exists( 'NS_FBA_Outbound' ) ) {
 
 				// define these early so that they are available for the error logs if an exception is caught before they are used
 				$shipping_address_html = $this->create_fulfillment_address_html( $address );
-				$order_shipping_method = $order->get_shipping_method();
+				$order_shipping_method = apply_filters( 'ns_fba_order_shipping_method_name', $order->get_shipping_method() );
 				$shipping_speed_to_fba = '';
 
 				// we need to keep track of whether or not there are ANY items in the order
@@ -641,6 +649,23 @@ if ( ! class_exists( 'NS_FBA_Outbound' ) ) {
 				return $order_id;
 			} // End try().
 		} //send_fulfillment_order
+
+		function maybe_send_fulfillment_order( $order_id ) {
+			$already_sent = get_post_meta( $order_id, '_sent_to_fba', true );
+			if ( ! $already_sent ) {
+				$this->send_fulfillment_order( $order_id );
+			} else {
+				// Update status back from processing back to completed if order was already sent.
+				// This is because PayPal orders can get set back to processing by IPN *after* order has already been sent and marked complete.
+				// TODO add checking for part-to-fba for full integrity - this could go from part-to-fba to sent-to-fba.
+				$order = wc_get_order( $order_id );
+				if ( 'processing' === $order->get_status() ) {
+					$complete_status = $this->ns_fba->utils->isset_on( $this->ns_fba->options['ns_fba_automatic_completion'] ) ? 'completed' : 'sent-to-fba';
+					$this->set_order_status_safe( $order_id, $complete_status );
+					$order->add_order_note( __( 'Skipping order completion via Amazon: this order already sent.', $this->ns_fba->text_domain ) );
+				}
+			}
+		}
 
 		function create_log_summary_html( $shipping, $speed, $address, $order ) {
 			$summary = '';

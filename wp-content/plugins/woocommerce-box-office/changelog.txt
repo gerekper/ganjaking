@@ -1,5 +1,11 @@
 *** WooCommerce Box Office Changelog ***
 
+2021-03-25 - version 1.1.31
+* Add - Menu item to the new WC Navigation.
+* Fix - Use method_exists to accommodate for backwards compatibility with old WC versions.
+* Tweak - WC 5.1 compatibility.
+* Tweak - WP 5.7 compatibility.
+
 2020-11-05 - version 1.1.30
 * Fix - Dev - Fix incompatibilities with PHP 8.
 * Fix - Limited the editable ticket check to the customer facing edit page post-purchase.

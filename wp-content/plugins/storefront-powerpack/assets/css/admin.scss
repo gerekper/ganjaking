@@ -1,0 +1,15 @@
+#woocommerce-product-data {
+	ul.wc-tabs {
+		li {
+			&.storefront_tab {
+				a {
+					&:before {
+						font-family: WooCommerce;
+						content: "\e900";
+					}
+				}
+			}
+		}
+	}
+}
+

@@ -22,8 +22,9 @@ class Role extends Model {
 
 	public function get_view_settings() {
 		$options = [];
-		if ( $_roles = get_editable_roles() ) {
-			foreach ( $_roles as $k => $role ) {
+
+		if ( function_exists( 'get_editable_roles' ) ) {
+			foreach ( get_editable_roles() as $k => $role ) {
 				$options[ $k ] = translate_user_role( $role['name'] );
 			}
 		}

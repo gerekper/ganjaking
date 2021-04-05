@@ -1,0 +1,50 @@
+@import 'susy';
+@import 'storefront/assets/css/sass/utils/variables';
+@import 'storefront/assets/css/sass/vendors/modular-scale';
+
+.woocommerce-checkout.sp-distraction-free-checkout {
+	.site-header {
+		padding-bottom: ms(5);
+
+		.site-logo-link {
+			margin-bottom: 2.618em;
+		}
+
+		.site-branding {
+			float: none;
+			margin: 0 auto;
+			text-align: center;
+			width: 100%;
+
+			.custom-logo-link {
+				float: none;
+			}
+
+			img {
+				display: inline;
+			}
+		}
+	}
+}
+
+@include susy-media($desktop) {
+	.woocommerce-checkout.sp-distraction-free-checkout {
+		&.page-template-default {
+			.content-area {
+				@include span(8 of 12);
+				float: none;
+				margin: 0 auto;
+			}
+		}
+
+		&.sd-header-sticky {
+			.site-content {
+				padding-top: 2.618em;
+			}
+		}
+
+		.site-content {
+			padding-top: ms(5);
+		}
+	}
+}

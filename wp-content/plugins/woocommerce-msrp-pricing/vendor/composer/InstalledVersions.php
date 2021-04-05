@@ -25,24 +25,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '3.2.0',
-    'version' => '3.2.0.0',
+    'pretty_version' => '3.2.1',
+    'version' => '3.2.1.0',
     'aliases' => 
     array (
     ),
-    'reference' => '882b01e78d480e2bb350181931603f197c39e2a7',
+    'reference' => '9fb4225564f97734e73d04ae647bcf5176c4c160',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => '3.2.0',
-      'version' => '3.2.0.0',
+      'pretty_version' => '3.2.1',
+      'version' => '3.2.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '882b01e78d480e2bb350181931603f197c39e2a7',
+      'reference' => '9fb4225564f97734e73d04ae647bcf5176c4c160',
     ),
   ),
 );
@@ -267,7 +267,6 @@ self::$canGetVendors = method_exists('Composer\Autoload\ClassLoader', 'getRegist
 $installed = array();
 
 if (self::$canGetVendors) {
-
 foreach (ClassLoader::getRegisteredLoaders() as $vendorDir => $loader) {
 if (isset(self::$installedByVendor[$vendorDir])) {
 $installed[] = self::$installedByVendor[$vendorDir];

@@ -23,13 +23,11 @@ get_header();
 	<?php } ?>
 	<div class="betterdocs-archive-wrap betterdocs-archive-category-box betterdocs-archive-category-box-2 betterdocs-archive-main">
 		<?php
-
-			if ( is_tax( 'knowledge_base' ) && BetterDocs_Multiple_Kb::$enable == 1 ) {
-				echo do_shortcode( '[betterdocs_category_box_2 multiple_knowledge_base=true]' );
-			} else {
-				echo do_shortcode( '[betterdocs_category_box_2]' );
-			}
-
+		if ( is_tax( 'knowledge_base' ) && BetterDocs_Multiple_Kb::$enable == 1 ) {
+			echo do_shortcode( '[betterdocs_category_box_2 multiple_knowledge_base=true]' );
+		} else {
+			echo do_shortcode( '[betterdocs_category_box_2]' );
+		}
 		?>
 	</div><!-- .betterdocs-archive-wrap -->
 

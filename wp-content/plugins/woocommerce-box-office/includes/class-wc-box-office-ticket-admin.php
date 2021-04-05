@@ -4,6 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
+
 class WC_Box_Office_Ticket_Admin {
 
 	/**
@@ -46,6 +49,9 @@ class WC_Box_Office_Ticket_Admin {
 
 		// Add create ticket page.
 		add_action( 'admin_menu', array( $this, 'add_create_ticket_page' ) );
+
+		// Register menu items in the new WooCommerce navigation.
+		add_action( 'admin_menu', array( $this, 'register_navigation_items' ) );
 	}
 
 	/**
@@ -538,5 +544,60 @@ class WC_Box_Office_Ticket_Admin {
 	public function create_ticket_page() {
 		$create_page = new WC_Box_Office_Ticket_Create_Admin();
 		$create_page->render( $_POST );
+	}
+
+	/**
+	 * Register the navigation items in the WooCommerce navigation.
+	 */
+	public function register_navigation_items() {
+		if (
+			! method_exists( Screen::class, 'register_post_type' ) ||
+			! method_exists( Menu::class, 'add_plugin_item' ) ||
+			! method_exists( Menu::class, 'add_plugin_category' ) ||
+			! method_exists( Menu::class, 'get_post_type_items' )
+		) {
+			return;
+		}
+
+		Menu::add_plugin_category(
+			array(
+				'id'    => 'woocommerce-box-office',
+				'title' => 'Box Office',
+			)
+		);
+
+		$box_office_item = Menu::get_post_type_items(
+			'event_ticket',
+			array(
+				'parent' => 'woocommerce-box-office',
+				'order'  => 1,
+			)
+		);
+
+		Menu::add_plugin_item( $box_office_item['all'] );
+
+		Menu::add_plugin_item(
+			array(
+				'id'         => 'create_ticket',
+				'title'      => __( 'Create Ticket', 'woocommerce-box-office' ),
+				'capability' => 'manage_woocommerce',
+				'url'        => 'edit.php?post_type=event_ticket&page=create_ticket',
+				'parent'     => 'woocommerce-box-office',
+				'order'      => 2,
+			)
+		);
+
+		Menu::add_plugin_item(
+			array(
+				'id'         => 'ticket_tool',
+				'title'      => __( 'Tools', 'woocommerce-box-office' ),
+				'capability' => 'manage_woocommerce',
+				'url'        => 'edit.php?post_type=event_ticket&page=ticket_tools&tab=export',
+				'parent'     => 'woocommerce-box-office',
+				'order'      => 3,
+			)
+		);
+
+		Screen::register_post_type( 'event_ticket' );
 	}
 }

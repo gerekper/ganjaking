@@ -1930,6 +1930,21 @@ class GFAPI {
 	}
 
 	/**
+	 * Updates the specified feed with the given property value.
+	 *
+	 * @since 2.4.24
+	 *
+	 * @param int    $feed_id        The ID of the feed being updated.
+	 * @param string $property_name  The name of the property (column) being updated.
+	 * @param mixed  $property_value The new value of the specified property.
+	 *
+	 * @return bool|WP_Error
+	 */
+	public static function update_feed_property( $feed_id, $property_name, $property_value ) {
+		return GFFormsModel::update_feed_property( $feed_id, $property_name, $property_value );
+	}
+
+	/**
 	 * Returns the missing_table WP_Error.
 	 *
 	 * @since 2.4.22
@@ -2096,28 +2111,17 @@ class GFAPI {
 	/**
 	 * Checks whether a form ID exists.
 	 *
-	 * @since  1.8
+	 * @since 1.8
+	 * @since 2.4.24 Updated to use GFFormsModel::id_exists_in_table().
 	 */
 	public static function form_id_exists( $form_id ) {
-		global $wpdb;
-		$form_table_name = GFFormsModel::get_form_table_name();
-		$form_id         = intval( $form_id );
-		$result          = $wpdb->get_var(
-			$wpdb->prepare(
-				" SELECT count(id) FROM {$form_table_name}
-                  WHERE id=%d", $form_id
-			)
-		);
-
-		$result = intval( $result );
-
-		return $result > 0;
+		return GFFormsModel::id_exists_in_table( $form_id, GFFormsModel::get_form_table_name() );
 	}
 
 	/**
 	 * Checks if an entry exists for the supplied ID.
 	 *
-	 * @since 2.4.5.8
+	 * @since 2.4.6
 	 *
 	 * @param int $entry_id The ID to be checked.
 	 *
@@ -2125,6 +2129,19 @@ class GFAPI {
 	 */
 	public static function entry_exists( $entry_id ) {
 		return GFFormsModel::entry_exists( $entry_id );
+	}
+
+	/**
+	 * Checks if a feed exists for the supplied ID.
+	 *
+	 * @since 2.4.24
+	 *
+	 * @param int $feed_id The ID to be checked.
+	 *
+	 * @return bool
+	 */
+	public static function feed_exists( $feed_id ) {
+		return GFFormsModel::id_exists_in_table( $feed_id, GFFormsModel::get_addon_feed_table_name() );
 	}
 
 	/**

@@ -350,10 +350,15 @@ class MeprCoupon extends MeprCptModel {
    *
    * @param  string       $gateway_id      The gateway ID
    * @param  string       $discount_amount The coupon discount amount
+   * @param  bool       $onetime
    * @return string|false
    */
-  public function get_stripe_coupon_id($gateway_id, $discount_amount) {
+  public function get_stripe_coupon_id($gateway_id, $discount_amount, $onetime) {
     $meta_key = sprintf('_mepr_stripe_coupon_id_%s_%s', $gateway_id, $this->terms_hash($discount_amount));
+
+    if ($onetime) {
+      $meta_key = sprintf('_mepr_stripe_onetime_coupon_id_%s_%s', $gateway_id, $this->terms_hash($discount_amount));
+    }
 
     return get_post_meta($this->ID, $meta_key, true);
   }
@@ -364,9 +369,14 @@ class MeprCoupon extends MeprCptModel {
    * @param string $gateway_id      The gateway ID
    * @param string $discount_amount The coupon discount amount
    * @param string $coupon_id       The Stripe Coupon ID
+   * @param bool $onetime
    */
-  public function set_stripe_coupon_id($gateway_id, $discount_amount, $coupon_id) {
+  public function set_stripe_coupon_id($gateway_id, $discount_amount, $coupon_id, $onetime) {
     $meta_key = sprintf('_mepr_stripe_coupon_id_%s_%s', $gateway_id, $this->terms_hash($discount_amount));
+
+    if ($onetime) {
+      $meta_key = sprintf('_mepr_stripe_onetime_coupon_id_%s_%s', $gateway_id, $this->terms_hash($discount_amount));
+    }
 
     update_post_meta($this->ID, $meta_key, $coupon_id);
   }

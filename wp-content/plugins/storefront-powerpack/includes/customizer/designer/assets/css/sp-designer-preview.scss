@@ -1,0 +1,33 @@
+$orange: #FFAC33;
+
+.sp-element-border {
+	background: $orange;
+	position: absolute;
+	z-index: 99999;
+}
+
+.sp-element-border-top,
+.sp-element-border-bottom {
+	height: 2px;
+}
+
+.sp-element-border-left,
+.sp-element-border-right {
+	width: 2px;
+}
+
+.sp-element-same {
+	background: transparentize( $orange, .8 );
+}
+
+.sp-element-label {
+	background: $orange;
+	color: #fff;
+	padding: 2px 8px;
+	position: absolute;
+	z-index: 99999;
+	font-size: 12px;
+	font-weight: 700;
+	font-family: monospace;
+	text-shadow: 1px 1px 0 rgba( 0, 0, 0, .2 );
+}

@@ -183,7 +183,7 @@ class GFAutoUpgrade {
 	}
 
 	private function get_changelog() {
-	
+		
 	}
 
 	private function get_version_info( $offering, $use_cache = true ) {

@@ -1,0 +1,28 @@
+@media screen and (min-width: 768px) {
+  .sp-header-sticky .site-header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 1499;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-name: fadeIn; }
+  .sp-header-sticky.admin-bar .site-header {
+    top: 32px; }
+  .sp-fixed-width.sp-header-sticky .site-header {
+    min-width: 75.998em;
+    margin: 0 auto;
+    left: auto;
+    right: auto; } }
+
+@media screen and (max-width: 75.998em) {
+  .sp-fixed-width.sp-header-sticky .site-header {
+    width: 100%;
+    min-width: 0; } }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }

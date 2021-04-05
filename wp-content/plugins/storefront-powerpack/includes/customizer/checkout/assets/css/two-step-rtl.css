@@ -1,0 +1,141 @@
+.sp-two-step-checkout #order_review_heading {
+  display: none !important; }
+
+.sp-two-step-checkout .order-review #order_review_heading {
+  display: block !important; }
+
+.sp-two-step-checkout.sp-two-column-addreses #customer_details .col-1 {
+  width: 41.1764705882%;
+  float: right;
+  margin-left: 5.8823529412%; }
+
+.sp-two-step-checkout.sp-two-column-addreses #customer_details .col-2 {
+  width: 52.9411764706%;
+  float: left;
+  margin-left: 0; }
+
+.sp-two-step-checkout > li:not(.flex-active-slide) {
+  height: 0; }
+
+.sp-two-step-checkout #customer_details,
+.sp-two-step-checkout #order_review_heading,
+.sp-two-step-checkout #order_review,
+.page-template-template-fullwidth-php .sp-two-step-checkout #customer_details,
+.page-template-template-fullwidth-php .sp-two-step-checkout #order_review_heading,
+.page-template-template-fullwidth-php .sp-two-step-checkout #order_review {
+  width: 100%;
+  float: none; }
+
+.page-template-template-fullwidth-php.sp-two-step-checkout #customer_details .col-1,
+.page-template-template-fullwidth-php.sp-two-step-checkout #customer_details .col-2 {
+  width: 100%;
+  float: none; }
+  .page-template-template-fullwidth-php.sp-two-step-checkout #customer_details .col-1 .form-row-first,
+  .page-template-template-fullwidth-php.sp-two-step-checkout #customer_details .col-2 .form-row-first {
+    width: 47.8260869565%;
+    float: right;
+    margin-left: 4.347826087%; }
+  .page-template-template-fullwidth-php.sp-two-step-checkout #customer_details .col-1 .form-row-last,
+  .page-template-template-fullwidth-php.sp-two-step-checkout #customer_details .col-2 .form-row-last {
+    width: 47.8260869565%;
+    float: left;
+    margin-left: 0;
+    float: left;
+    margin-left: 0;
+    margin-right: 0; }
+
+.page-template-template-fullwidth-php.sp-two-step-checkout.sp-two-column-addreses #customer_details .col-1,
+.page-template-template-fullwidth-php.sp-two-step-checkout.sp-two-column-addreses #customer_details .col-2 {
+  width: 47.8260869565%;
+  float: right;
+  margin-left: 4.347826087%; }
+
+.page-template-template-fullwidth-php.sp-two-step-checkout.sp-two-column-addreses #customer_details .col-2 {
+  float: left;
+  margin-left: 0; }
+
+.checkout-slides {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; }
+  .checkout-slides .sp-checkout-control-nav {
+    margin-right: 0;
+    text-align: center;
+    padding: 1em 0 3.632em;
+    margin-bottom: 2.618em; }
+    .checkout-slides .sp-checkout-control-nav li:first-child a:before {
+      content: "";
+      display: block;
+      height: 4px;
+      width: 50%;
+      position: absolute;
+      bottom: -1.1em;
+      left: 0; }
+    .checkout-slides .sp-checkout-control-nav li:nth-child(2) a:before {
+      content: "";
+      display: block;
+      height: 4px;
+      width: 50%;
+      position: absolute;
+      bottom: -1.1em;
+      right: 0; }
+    .checkout-slides .sp-checkout-control-nav li {
+      display: inline-block;
+      margin: 0 -2px;
+      position: relative;
+      width: 50%; }
+      .checkout-slides .sp-checkout-control-nav li:before {
+        display: block;
+        font-weight: 700; }
+      .checkout-slides .sp-checkout-control-nav li a:after {
+        display: block;
+        content: "";
+        width: 1em;
+        height: 1em;
+        position: absolute;
+        bottom: -1.5em;
+        right: 50%;
+        margin-right: -.5em;
+        border-radius: 100%;
+        box-sizing: border-box; }
+      .checkout-slides .sp-checkout-control-nav li a {
+        cursor: default;
+        color: inherit; }
+  .checkout-slides .sp-two-step-checkout {
+    margin-right: 0; }
+    .checkout-slides .sp-two-step-checkout::after {
+      clear: both;
+      content: "";
+      display: table; }
+    .checkout-slides .sp-two-step-checkout > li:not(:first-child) {
+      display: none;
+      -webkit-backface-visibility: hidden; }
+  .checkout-slides .flex-disabled {
+    display: none; }
+
+.flex-direction-nav {
+  margin: 0;
+  position: relative;
+  z-index: 9; }
+  .flex-direction-nav::after {
+    clear: both;
+    content: "";
+    display: table; }
+  .flex-direction-nav li {
+    list-style: none; }
+    .flex-direction-nav li:first-child {
+      float: right; }
+      .flex-direction-nav li:first-child a:before {
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        content: "\f30a";
+        margin-left: .53em; }
+    .flex-direction-nav li:nth-child(2) {
+      float: left; }
+      .flex-direction-nav li:nth-child(2) a:after {
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        content: "\f30b";
+        margin-right: .53em; }
+  .flex-direction-nav a {
+    cursor: pointer; }

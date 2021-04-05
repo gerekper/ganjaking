@@ -1,0 +1,82 @@
+.sp-shop-alignment-left ul.products li.product {
+  text-align: left; }
+  .sp-shop-alignment-left ul.products li.product .star-rating,
+  .sp-shop-alignment-left ul.products li.product img {
+    margin-left: 0; }
+
+.sp-shop-alignment-right ul.products li.product {
+  text-align: right; }
+  .sp-shop-alignment-right ul.products li.product .star-rating,
+  .sp-shop-alignment-right ul.products li.product img {
+    margin-right: 0; }
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(360deg); } }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+
+.jscroll-added .storefront-sorting {
+  display: none; }
+
+.sp-loader {
+  position: relative;
+  height: 1em;
+  font-size: 2.244em; }
+  .sp-loader:before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    content: "\f110";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 1;
+    text-align: center;
+    -webkit-animation: spin linear 1s infinite;
+    animation: spin linear 1s infinite; }
+
+.sp-section-description {
+  text-align: center; }
+
+@media screen and (min-width: 768px) {
+  .single-product.sp-product-gallery-hidden div.product .summary,
+  .single-product.sp-product-gallery-hidden.storefront-full-width-content div.product .summary {
+    width: 100%;
+    float: left;
+    margin-left: 0;
+    margin-right: 0; }
+  .single-product.sp-product-gallery-stacked div.product .images,
+  .single-product.sp-product-gallery-stacked div.product .summary,
+  .single-product.sp-product-gallery-stacked.storefront-full-width-content div.product .images,
+  .single-product.sp-product-gallery-stacked.storefront-full-width-content div.product .summary {
+    width: 100%;
+    float: left;
+    margin-left: 0;
+    margin-right: 0; }
+  .single-product.sp-product-gallery-stacked div.product .images .thumbnails a.zoom {
+    width: 29.4117647059%;
+    float: left;
+    margin-right: 5.8823529412%;
+    margin-right: 5.8823529412%; }
+  .single-product.sp-product-gallery-stacked.storefront-full-width-content div.product .images .thumbnails a.zoom {
+    width: 13.0434782609%;
+    float: left;
+    margin-right: 4.347826087%;
+    margin-right: 4.347826087%; }
+  .site-branding::after,
+  .site-search::after,
+  .main-navigation::after,
+  .secondary-navigation::after,
+  .site-header-cart::after {
+    clear: both;
+    content: "";
+    display: table; } }

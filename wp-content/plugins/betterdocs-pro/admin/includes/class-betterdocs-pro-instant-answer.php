@@ -53,7 +53,6 @@ class BetterDocs_Pro_IA {
             }
         }
 
-
         if( ( isset( $this->bdocs_settings['enable_disable'] ) && $this->bdocs_settings['enable_disable'] == 1 ) || ! isset( $this->bdocs_settings['enable_disable'] ) ) {
             if( is_admin() ) {
                 if( $this->screen === null ) {
@@ -135,15 +134,17 @@ class BetterDocs_Pro_IA {
         }
 
         if( $this->setNempty( 'ia_searchbox_bg', $settings ) ) {
-            $css .= '.betterdocs-search-wrap.MuiPaper-root, .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-container input{background-color:' . $settings['ia_searchbox_bg'] . '}';
+            $css .= '.betterdocs-tab-content-wrapper .bdc-search-box,
+            .betterdocs-tab-content-wrapper .bdc-search-box .search-button,
+            .betterdocs-tab-content-wrapper .bdc-search-box input{background-color:' . $settings['ia_searchbox_bg'] . '}';
         }
 
         if( $this->setNempty( 'ia_searchbox_text', $settings ) ) {
-            $css .= '.betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-container input{color:' . $settings['ia_searchbox_text'] . '}';
+            $css .= '.betterdocs-tab-content-wrapper .bdc-search-box input{color:' . $settings['ia_searchbox_text'] . '}';
         }
 
         if( $this->setNempty( 'ia_searchbox_icon_color', $settings ) ) {
-            $css .= '.betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-icon {fill:' . $settings['ia_searchbox_icon_color'] . '}';
+            $css .= '.betterdocs-tab-content-wrapper .bdc-search-box .search-button svg {fill:' . $settings['ia_searchbox_icon_color'] . '}';
         }
 
         if( $this->setNempty( 'iac_article_bg', $settings ) ) {

@@ -339,7 +339,9 @@ class MeprAppHelper {
       $price_str = $price_str . $tax_str;
     }
 
-    if(!empty($coupon)) { $price_str .= sprintf(__(' with coupon %s','memberpress'), $coupon_code); }
+    if(!empty($coupon)) {
+      $price_str .= sprintf(__(' with coupon %s','memberpress'), $coupon_code);
+    }
 
     return MeprHooks::apply_filters('mepr-price-string', $price_str, $obj, $show_symbol);
   }

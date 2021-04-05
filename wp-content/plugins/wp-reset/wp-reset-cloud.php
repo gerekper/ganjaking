@@ -3,7 +3,7 @@
 /**
  * WP Reset PRO
  * https://wpreset.com/
- * (c) WebFactory Ltd, 2017-2020
+ * (c) WebFactory Ltd, 2015 - 2021
  */
 
 // include only file
@@ -174,6 +174,8 @@ class WP_Reset_Cloud
             'wp_version' => get_bloginfo('version'),
             'site_url' => get_home_url(),
             'site_title' => preg_replace('/[[:^print:]]/', '', get_bloginfo('name')),
+            'access_key' => $license['access_key'],
+            'meta' => 'Array',
         );
 
         $headers = array_merge($headers, $parameters);

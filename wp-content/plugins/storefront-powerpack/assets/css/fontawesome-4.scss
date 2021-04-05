@@ -1,0 +1,31 @@
+// Loader
+.sp-loader {
+	&:before {
+		content: "\f110";
+		font-family: "FontAwesome";
+		font-weight: 400;
+	}
+}
+
+// Two step
+.woocommerce-checkout {
+	.flex-direction-nav {
+		li {
+			&:first-child {
+				a:before {
+					content: "\f177";
+					font-family: "FontAwesome";
+					font-weight: 400;
+				}
+			}
+
+			&:nth-child(2) {
+				a:after {
+					content: "\f178";
+					font-family: "FontAwesome";
+					font-weight: 400;
+				}
+			}
+		}
+	}
+}

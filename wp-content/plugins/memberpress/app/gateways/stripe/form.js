@@ -91,6 +91,7 @@
     self.$form.find('.mepr-loading-gif').show();
 
     self.selectedPaymentMethod = self.getSelectedPaymentMethod();
+    var isStripeCheckoutPageMode = self.$form.find('input[name=mepr_stripe_checkout_page_mode]').val();
 
     if (self.selectedPaymentMethod) {
       var $recaptcha = self.$form.find('[name="g-recaptcha-response"]'),
@@ -112,6 +113,16 @@
         }
       });
     } else {
+      const paymentMethodId = self.$form.find('input[name="mepr_payment_method"]:checked').data('payment-method-type');
+      if (
+        isStripeCheckoutPageMode == '1' && (
+          paymentMethodId == 'Stripe' ||
+          $('[name=mepr_stripe_is_checkout]').val() == '1'
+        )
+      ) {
+        self.redirectToStripeCheckout(e);
+        return;
+      }
       self.form.submit();
     }
   };
@@ -365,6 +376,60 @@
         }
       });
     }
+  };
+
+  /**
+   * Create stripe checkout page session then redirect user o checkout.stripe.com
+   *
+   * @param e
+   */
+  MeprStripeForm.prototype.redirectToStripeCheckout = function(e) {
+    var self = this,
+        data = self.getFormData();
+    $.extend(data, {
+      action: 'mepr_stripe_create_checkout_session',
+      mepr_current_url: document.location.href
+    });
+
+    // We don't want to hit our routes for processing the signup or payment forms
+    delete data.mepr_process_signup_form;
+    delete data.mepr_process_payment_form;
+
+    var formData = new FormData();
+    for (let key in data) {
+      formData.append(key, data[key]);
+    }
+    $.ajax({
+      type: 'POST',
+      url: MeprStripeGateway.ajax_url,
+      data: formData,
+      dataType: 'json',
+      cache: false,
+      processData: false,
+      contentType: false,
+      headers: {
+        'cache-control': 'no-cache'
+      }
+    })
+    .done(function(result) {
+      var stripe = Stripe(result.public_key);
+      return stripe.redirectToCheckout({ sessionId: result.id });
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+      if (jqXHR.status === 0) {
+        // Don't send a debug email for errors with status 0
+        self.handlePaymentError(MeprStripeGateway.error_please_try_again);
+      } else {
+        self.handlePaymentError(MeprStripeGateway.ajax_error);
+        self.debugCheckoutError({
+          status: jqXHR.status,
+          status_text: jqXHR.statusText,
+          response_text: jqXHR.responseText,
+          text_status: textStatus,
+          error_thrown: '' + errorThrown
+        });
+      }
+    });
   };
 
   /**

@@ -1,0 +1,136 @@
+@import 'bourbon';
+@import 'susy';
+@import 'storefront/assets/css/sass/utils/variables';
+
+.sp-shop-alignment-left {
+	ul.products {
+		li.product {
+			text-align: left;
+
+			.star-rating,
+			img {
+				margin-left: 0;
+			}
+		}
+	}
+}
+
+.sp-shop-alignment-right {
+	ul.products {
+		li.product {
+			text-align: right;
+
+			.star-rating,
+			img {
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+@-webkit-keyframes spin {
+    from {
+    	-webkit-transform: rotate(0deg);
+    }
+
+    to {
+    	-webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+    	transform:rotate(0deg);
+    }
+
+    to {
+    	transform:rotate(360deg);
+    }
+}
+
+.jscroll-added {
+	.storefront-sorting {
+		display: none;
+	}
+}
+
+.sp-loader {
+	position: relative;
+	height: 1em;
+	font-size: 2.244em;
+
+	&:before {
+		font-family: 'Font Awesome 5 Free';
+		font-weight: 900;
+		content: "\f110";
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		line-height: 1;
+		text-align: center;
+		-webkit-animation: spin linear 1s infinite;
+		animation: spin linear 1s infinite;
+	}
+}
+
+.sp-section-description {
+	text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+	.single-product.sp-product-gallery-hidden,
+	.single-product.sp-product-gallery-hidden.storefront-full-width-content {
+		div.product {
+			.summary {
+				@include span(full);
+			}
+		}
+	}
+
+	.single-product.sp-product-gallery-stacked,
+	.single-product.sp-product-gallery-stacked.storefront-full-width-content {
+		div.product {
+			.images,
+			.summary {
+				@include span(full);
+			}
+		}
+	}
+
+	.single-product.sp-product-gallery-stacked {
+		div.product {
+			.images {
+				.thumbnails {
+					a.zoom {
+						@include span(3 of 9);
+						margin-right: gutter(9);
+					}
+				}
+			}
+		}
+	}
+
+	.single-product.sp-product-gallery-stacked.storefront-full-width-content {
+		div.product {
+			.images {
+				.thumbnails {
+					a.zoom {
+						@include span(2 of 12);
+						margin-right: gutter();
+					}
+				}
+			}
+		}
+	}
+
+	.site-branding,
+	.site-search,
+	.main-navigation,
+	.secondary-navigation,
+	.site-header-cart {
+		@include clearfix;
+	}
+}

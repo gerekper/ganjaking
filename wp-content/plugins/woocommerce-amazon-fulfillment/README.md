@@ -56,6 +56,22 @@ Available at https://neversettle.it/documentation/ns-fba-woocommerce/
 
 ## Changelog
 
+### 2021-03-29 - version 3.3.8
+* Fixed bug with Amazon settings display logic
+
+### 2021-03-24 - version 3.3.7
+* Added setting for log auto-deletion threshold
+* Fixed bug with plugin not taking effect for network-activated WooCommerce
+* Fixed bug with custom order statuses not being counted as paid in reporting
+
+### 2021-02-16 - version 3.3.6
+* Added bulk order post action for sending orders to Amazon
+* Added manual-only mode for sending orders by admin action but not automatically
+* Fixed PayPal IPN timing irregularity handling
+
+### 2020-10-08 - version 3.3.5
+* Fixed changelog formatting
+
 ### 2020-09-15 - version 3.3.4
 * Added experimental retry failed orders setting
 * Added better request parameter logging for troubleshooting

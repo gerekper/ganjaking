@@ -6,6 +6,8 @@ class MeprStripeCtrl extends MeprBaseCtrl
   public function load_hooks() {
     add_action('wp_ajax_mepr_stripe_confirm_payment', array($this, 'confirm_payment'));
     add_action('wp_ajax_nopriv_mepr_stripe_confirm_payment', array($this, 'confirm_payment'));
+    add_action('wp_ajax_mepr_stripe_create_checkout_session', array($this, 'create_checkout_session'));
+    add_action('wp_ajax_nopriv_mepr_stripe_create_checkout_session', array($this, 'create_checkout_session'));
     add_action('wp_ajax_mepr_stripe_update_payment_method', array($this, 'update_payment_method'));
     add_action('wp_ajax_nopriv_mepr_stripe_update_payment_method', array($this, 'update_payment_method'));
     add_action('wp_ajax_mepr_stripe_debug_checkout_error', array($this, 'debug_checkout_error'));
@@ -41,6 +43,10 @@ class MeprStripeCtrl extends MeprBaseCtrl
     }
   }
 
+  public function create_checkout_session() {
+    $this->do_confirm_payment(true);
+  }
+
   public function confirm_payment() {
     MeprHooks::do_action('mepr_stripe_before_confirm_payment');
 
@@ -61,13 +67,13 @@ class MeprStripeCtrl extends MeprBaseCtrl
     wp_send_json(array('error' => __('An error occurred, please DO NOT submit the form again as you may be double charged. Please contact us for further assistance instead.', 'memberpress')));
   }
 
-  public function do_confirm_payment() {
+  public function do_confirm_payment($is_stripe_checkout_page = false) {
     $stripe_payment_method_id = isset($_POST['payment_method_id']) && is_string($_POST['payment_method_id']) ? sanitize_text_field(wp_unslash($_POST['payment_method_id'])) : '';
     $stripe_payment_intent_id = isset($_POST['payment_intent_id']) && is_string($_POST['payment_intent_id']) ? sanitize_text_field(wp_unslash($_POST['payment_intent_id'])) : '';
     $subscription_id = isset($_POST['subscription_id']) && is_string($_POST['subscription_id']) ? sanitize_text_field(wp_unslash($_POST['subscription_id'])) : '';
     $transaction_id = isset($_POST['mepr_transaction_id']) && is_numeric($_POST['mepr_transaction_id']) ? (int) $_POST['mepr_transaction_id'] : 0;
 
-    if (empty($stripe_payment_method_id) && empty($stripe_payment_intent_id) && empty($subscription_id)) {
+    if (empty($stripe_payment_method_id) && empty($stripe_payment_intent_id) && empty($subscription_id) && !$is_stripe_checkout_page) {
       wp_send_json(array('error' => __('Bad request', 'memberpress')));
     }
 
@@ -243,6 +249,19 @@ class MeprStripeCtrl extends MeprBaseCtrl
     }
 
     try {
+      if ($is_stripe_checkout_page) {
+        if (!isset($sub)) { $sub = $txn->subscription(); }
+
+        $pm->create_checkout_session(
+          $txn,
+          $sub,
+          $product,
+          $usr,
+          $stripe_payment_method_id
+        );
+
+        return;
+      }
       if ($product->is_one_time_payment()) {
         // For one-time payments use a PaymentIntent
         if (empty($stripe_payment_intent_id)) {

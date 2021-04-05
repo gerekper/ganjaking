@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Amazon Fulfillment
  * Plugin URI: https://neversettle.it
  * Description: Integrates Amazon Fulfillment (FBA) with WooCommerce.
- * Version: 3.3.5
+ * Version: 3.3.8
  * Author: Never Settle
  * Author URI: https://neversettle.it
  * Requires at least: 4.7
- * Tested up to: 5.5.3
+ * Tested up to: 5.7
  * WC requires at least: 3.0.0
- * WC tested up to: 4.7.0
+ * WC tested up to: 5.1.0
  * Woo: 669839:b73d2c19a6ff0f06485e0f11eb4bf922
  *
  * Text Domain: ns-fba-for-woocommerce
@@ -55,8 +55,10 @@ register_deactivation_hook( __FILE__, array( 'NS_FBA', 'on_deactivation' ) );
 
 /**
  * Check if WooCommerce is active
-**/
-if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+ */
+$wc_active_for_blog    = in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) );
+$wc_active_for_network = is_multisite() && in_array( 'woocommerce/woocommerce.php', array_keys( get_site_option( 'active_sitewide_plugins', [] ) ) );
+if ( $wc_active_for_blog || $wc_active_for_network ) {
 
 	if ( ! class_exists( 'NS_FBA' ) ) {
 
@@ -74,7 +76,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 * @var string The options string name for this plugin
 			 * @var string $text_domain Domain used for localization
 			 */
-			public $version = '3.3.4';
+			public $version = '3.3.8';
 			public $app_name = 'WooCommerceMCF';
 			private $options_name = 'woocommerce_fba_settings';
 			public $text_domain = 'ns-fba-for-woocommerce';
@@ -214,6 +216,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				// add custom order statuses for fulfillment
 				add_action( 'init', array( $this->wc, 'add_custom_order_status' ) );
 
+				// add bulk send functionality
+				add_filter( 'bulk_actions-edit-shop_order', [ $this, 'register_bulk_actions' ] );
+				add_filter( 'handle_bulk_actions-edit-shop_order', [ $this, 'handle_bulk_actions' ], 10, 3 );
+				add_action( 'admin_notices', [ $this, 'display_bulk_action_message' ] );
+
 				// add plugin upgrade notification
 				// uncomment this in the future when complete and tested
 				//add_action('in_plugin_update_message-woocommerce-amazon-fulfillment/woocommerce-amazon-fulfillment.php', array( $this->maint, 'show_upgrade_notice' ), 10, 2);
@@ -260,7 +267,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 						wp_clear_scheduled_hook( 'ns_fba_clean_logs_daily' );
 					}
 					// add custom action on payment complete to send order data to fulfillment
-					add_action( 'woocommerce_payment_complete', array( $this->outbound, 'send_fulfillment_order' ) );
+					add_action( 'woocommerce_payment_complete', array( $this->outbound, 'maybe_send_fulfillment_order' ) );
+					add_action( 'woocommerce_payment_complete_order_status_processing', array( $this->outbound, 'maybe_send_fulfillment_order' ) );
 					// add 'Send to Amazon FBA' order meta box order action
 					add_action( 'woocommerce_order_actions', array( $this->wc, 'add_order_meta_box_actions' ) );
 					// process 'Send to Amazon FBA' order meta box order action
@@ -344,6 +352,49 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			}
 
 			/**
+			 * Add new bulk order actions
+			 *
+			 * @param array $actions Existing bulk actions
+			 */
+			public function register_bulk_actions( $actions ) {
+				$actions['ns_fba_send'] = __( 'Fulfill with Amazon', 'ns-fba-for-woocommerce' );
+
+				return $actions;
+			}
+
+			/**
+			 * Process/handle new bulk order actions
+			 *
+			 * @param string $redirect
+			 * @param string $action
+			 * @param array $post_ids
+			 *
+			 * @return null
+			 */
+			public function handle_bulk_actions( $redirect, $action, $post_ids ) {
+				if ( 'ns_fba_send' === $action ) {
+					foreach ( $post_ids as $id ) {
+						$this->outbound->send_fulfillment_order( $id, true );
+					}
+
+					return $redirect . '&ns_fba_sent_bulk=' . count( $post_ids );
+				}
+
+				return $redirect;
+			}
+
+			/**
+			 * Display admin notice after using bulk order action for fulfillment submission
+			 */
+			public function display_bulk_action_message() {
+				if ( isset( $_GET['ns_fba_sent_bulk'] ) ) {
+					?>
+					<div class="updated"><p><?php printf( __( '%d order(s) sent to Amazon. Review for confirmation.', 'ns-fba-for-woocommerce' ), $_GET['ns_fba_sent_bulk'] ); ?></p></div>
+					<?php
+				}
+			}
+
+			/**
 			 * Run Deactivation Actions
 			 */
 			public static function on_deactivation() {
@@ -403,6 +454,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					$the_options['ns_fba_manual_order_override'] 	= $this->utils->isset_how( $the_options['ns_fba_manual_order_override'] );
 					$the_options['ns_fba_disable_international'] 	= $this->utils->isset_how( $the_options['ns_fba_disable_international'] );
 					$the_options['ns_fba_manual_item_override'] 	= $this->utils->isset_how( $the_options['ns_fba_manual_item_override'] );
+					$the_options['ns_fba_manual_only_mode']			= $this->utils->isset_how( $the_options['ns_fba_manual_only_mode'] );
 					$the_options['ns_fba_vacation_mode'] 			= $this->utils->isset_how( $the_options['ns_fba_vacation_mode'] );
 					$the_options['ns_fba_perfection_mode'] 			= $this->utils->isset_how( $the_options['ns_fba_perfection_mode'] );
 					$the_options['ns_fba_version']					= $this->version;
@@ -473,6 +525,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				// handle existing installs adding the ns_fba_clean_logs option for the first time
 				if ( empty( $the_options['ns_fba_clean_logs'] ) ) {
 					$the_options ['ns_fba_clean_logs'] = 'no';
+					update_option( $this->options_name, $the_options );
+				}
+
+				// handle existing installs adding the ns_fba_clean_logs_interval option for the first time
+				if ( empty( $the_options['ns_fba_clean_logs_interval'] ) ) {
+					$the_options ['ns_fba_clean_logs_interval'] = 30;
 					update_option( $this->options_name, $the_options );
 				}
 				

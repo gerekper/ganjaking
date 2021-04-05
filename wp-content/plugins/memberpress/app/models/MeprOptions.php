@@ -883,6 +883,9 @@ class MeprOptions {
       $link = MeprUtils::get_permalink($thank_you_page_id);
 
       if(!empty($args)) {
+        if (is_array($args)) {
+          $args = http_build_query($args);
+        }
         $url = $link.MeprAppCtrl::get_param_delimiter_char($link).$args;
       }
       else {
