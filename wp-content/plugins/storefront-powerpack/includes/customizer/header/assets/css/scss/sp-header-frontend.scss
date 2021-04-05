@@ -1,0 +1,73 @@
+@import '../../../../../../node_modules/susy/sass/susy';
+@import 'storefront/assets/css/sass/vendors/modular-scale';
+
+$susy: (
+	columns: 12,
+	gutters: 1,
+	math: fluid,
+	output: float,
+	gutter-position: after,
+
+	use-custom: (
+		box-sizing: false
+	)
+);
+
+@mixin clearfix {
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+@mixin reset() {
+	width: auto;
+	float: none;
+	margin-right: 0;
+	margin-bottom: 0;
+}
+
+@media screen and (min-width: 768px) {
+	.sp-header-active {
+		// Reset
+		.site-header .site-header-cart,
+		.site-header .secondary-navigation,
+		.site-header .main-navigation,
+		.site-header .site-search,
+		.site-header .site-branding {
+			width: auto !important;
+			float: none !important;
+			margin-right: 0 !important;
+			margin-bottom: 0 !important;
+		}
+
+		// Grid classes
+		@for $i from 1 through 12 {
+			.sp-header-span-#{$i} {
+				@include span( $i );
+			}
+
+			.sp-header-pre-#{$i} {
+				@include pre( $i );
+			}
+
+			.sp-header-post-#{$i} {
+				@include post( $i );
+			}
+		}
+
+		.sp-header-row {
+			@include clearfix;
+		}
+
+		.sp-header-empty {
+			@include clearfix;
+			padding: ms(1) 0;
+		}
+
+		.sp-header-last {
+			@include last;
+		}
+	}
+}

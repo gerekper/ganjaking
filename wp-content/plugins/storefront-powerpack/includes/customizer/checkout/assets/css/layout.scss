@@ -1,0 +1,114 @@
+@import 'bourbon';
+@import 'susy';
+@import 'storefront/assets/css/sass/utils/variables';
+
+@media screen and (min-width: 768px) {
+	.sp-stacked {
+		.col2-set,
+		#order_review_heading,
+		#order_review {
+			width: 100%;
+			float: none;
+			clear: both;
+		}
+
+		.col2-set {
+			.col-1,
+			.col-2 {
+				width: 100%;
+				float: none;
+
+				.form-row-first {
+					@include span(4 of 9);
+				}
+
+				.form-row-last {
+					@include span(last 5 of 9);
+					@include last;
+					margin-right: 0;
+				}
+			}
+		}
+
+		&.page-template-template-fullwidth-php {
+			.col2-set,
+			#order_review_heading,
+			#order_review {
+				width: 100%;
+				float: none;
+				clear: both;
+			}
+
+			.col2-set {
+				.col-1,
+				.col-2 {
+					width: 100%;
+					float: none;
+
+					.form-row-first {
+						@include span(6 of 12);
+					}
+
+					.form-row-last {
+						@include span(last 6 of 12);
+						@include last;
+						margin-left: 0;
+					}
+				}
+			}
+		}
+	}
+
+	.sp-two-column-addreses {
+		.col2-set,
+		#order_review_heading,
+		#order_review {
+			width: 100%;
+			float: none;
+		}
+
+		.col2-set {
+			@include clearfix;
+
+			.col-1 {
+				@include span(4 of 9);
+			}
+
+			.col-2 {
+				@include span(last 5 of 9);
+				@include last;
+				margin-left: 0;
+			}
+
+			.form-row-first,
+			.form-row-last {
+				width: 100%;
+				margin-left: 0;
+				margin-right: 0;
+				float: none;
+			}
+		}
+
+		&.page-template-template-fullwidth-php {
+			.col2-set,
+			#order_review_heading,
+			#order_review {
+				width: 100%;
+				float: none;
+			}
+
+			.col2-set {
+				.col-1 {
+
+					@include span(6 of 12);
+				}
+
+				.col-2 {
+					@include span(last 6 of 12);
+					@include last;
+					margin-left: 0;
+				}
+			}
+		}
+	}
+}

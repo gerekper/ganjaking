@@ -111,62 +111,6 @@
   .betterdocs-header-wrapper .betterdocs-sub-header {
     padding: 5px 10px; } }
 
-.betterdocs-search-bar {
-  background-color: #ffffff;
-  z-index: 999;
-  border-radius: 10px 10px 0 0;
-  padding: 15px 0 0; }
-  .betterdocs-search-bar .betterdocs-search-wrap {
-    -webkit-box-shadow: 0 3px 7px 0 rgba(100, 105, 155, 0.08);
-            box-shadow: 0 3px 7px 0 rgba(100, 105, 155, 0.08);
-    border: 1px solid #f2f2f2;
-    margin-left: 10px;
-    width: calc(100% - 20px); }
-    .betterdocs-search-bar .betterdocs-search-wrap.bd-search-box-focused {
-      border-color: #19ca9e; }
-    .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-container {
-      width: calc(100% - 48px);
-      margin: auto; }
-      .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-container input {
-        border: none;
-        font-size: 15px;
-        background-color: transparent;
-        padding-left: 15px;
-        outline: none; }
-        .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-container input::-webkit-input-placeholder {
-          color: #9eaab6;
-          font-size: 15px; }
-        .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-container input::-moz-placeholder {
-          color: #9eaab6;
-          font-size: 15px; }
-        .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-container input::-ms-input-placeholder {
-          color: #9eaab6;
-          font-size: 15px; }
-        .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-container input::placeholder {
-          color: #9eaab6;
-          font-size: 15px; }
-    .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-icon-button,
-    .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-button {
-      padding: 0;
-      width: 48px;
-      margin-right: 0px;
-      right: 0px;
-      -webkit-transform: scale(1);
-          -ms-transform: scale(1);
-              transform: scale(1);
-      display: inline-block;
-      background-color: transparent; }
-      .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-icon-button:hover,
-      .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-button:hover {
-        background-color: transparent; }
-    .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-button-hidden {
-      display: none; }
-      .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-button-hidden.betterdocs-search-icon-button {
-        display: none; }
-    .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-icon {
-      fill: #727380;
-      opacity: 1; }
-
 .betterdocs-brand-wrapper {
   padding-bottom: 15px;
   display: -ms-flexbox;
@@ -286,24 +230,24 @@
       line-height: 1.3; }
       .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-toc {
         display: none; }
-      .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-content {
+      .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container > div {
         margin-top: 20px;
         height: 100%;
         word-break: break-word; }
-        .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-content h1 {
+        .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container > div h1 {
           font-size: 26px; }
-        .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-content h2 {
+        .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container > div h2 {
           font-size: 24px; }
-        .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-content h3 {
+        .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container > div h3 {
           font-size: 22px;
           text-align: left; }
-        .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-content h4 {
+        .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container > div h4 {
           font-size: 20px; }
-        .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-content h5 {
+        .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container > div h5 {
           font-size: 18px; }
-        .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-content h6 {
+        .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container > div h6 {
           font-size: 16px; }
-        .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-content p {
+        .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container > div p {
           line-height: 1.5; }
       .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container h1,
       .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container h2,
@@ -311,7 +255,8 @@
       .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container h4,
       .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container h5,
       .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container h6 {
-        line-height: 1.3; }
+        line-height: 1.3;
+        margin-bottom: .5em; }
         .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container h1 .anchor,
         .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container h2 .anchor,
         .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container h3 .anchor,
@@ -330,6 +275,7 @@
     .betterdocs-messages-container .betterdocs-modal-wrapper.betterdocs-modal-open {
       opacity: 1; }
     .betterdocs-messages-container .betterdocs-modal-wrapper .popup-overlay {
+      width: auto;
       overflow-y: scroll;
       top: 0.3rem !important;
       right: 0.3rem !important;
@@ -946,6 +892,74 @@ textarea {
     width: 20px;
     height: 20px; } }
 
+.bdc-search-box {
+  margin: 10px;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: white;
+  -webkit-transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  -o-transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  height: 48px;
+  border-radius: 3px;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  width: calc(100% - 20px);
+  max-width: 800px; }
+  .bdc-search-box .search-input {
+    -webkit-appearance: textfield;
+       -moz-appearance: textfield;
+            appearance: textfield;
+    border-radius: 3px;
+    padding: 0 20px;
+    width: 100%;
+    border: none;
+    outline: none;
+    cursor: inherit;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    height: 100%;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    -webkit-transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    -o-transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; }
+    .bdc-search-box .search-input::-webkit-input-placeholder {
+      color: #aaa; }
+    .bdc-search-box .search-input::-moz-placeholder {
+      color: #aaa; }
+    .bdc-search-box .search-input::-ms-input-placeholder {
+      color: #aaa; }
+    .bdc-search-box .search-input::placeholder {
+      color: #aaa; }
+    .bdc-search-box .search-input:focus {
+      outline: none; }
+  .bdc-search-box .search-button {
+    border: none;
+    outline: none;
+    margin: 0px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    font-family: Roboto, sans-serif;
+    font-size: 1.5rem;
+    text-decoration: none;
+    cursor: pointer;
+    background: white;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -ms-flex-pack: center;
+        justify-content: center;
+    -ms-flex-align: center;
+        align-items: center;
+    width: 50px;
+    height: 100%;
+    color: #ccc;
+    border-radius: 3px; }
+
 @-webkit-keyframes betterdocs-ia-rotation-lr {
   from {
     -webkit-transform: rotate(-90deg);
@@ -1055,7 +1069,8 @@ textarea {
       align-items: center;
   -ms-flex-pack: center;
       justify-content: center;
-  padding: 10px; }
+  padding: 10px;
+  cursor: pointer; }
   .betterdocs-launcher[type="button"]:focus, .betterdocs-launcher[type="button"]:hover {
     outline: none;
     background-color: #19ca9e; }
@@ -1216,6 +1231,8 @@ textarea {
 .betterdocs-left .betterdocs-widget-container {
   left: 20px;
   right: auto; }
+  .betterdocs-left .betterdocs-widget-container .betterdocs-launcher {
+    margin-right: auto; }
 
 .betterdocs-widget-container {
   display: -ms-flexbox;

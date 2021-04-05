@@ -1,0 +1,120 @@
+@media screen and (min-width: 768px) {
+  .sp-header-active .site-header .site-header-cart,
+  .sp-header-active .site-header .secondary-navigation,
+  .sp-header-active .site-header .main-navigation,
+  .sp-header-active .site-header .site-search,
+  .sp-header-active .site-header .site-branding {
+    width: auto !important;
+    float: none !important;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important; }
+  .sp-header-active .sp-header-span-1 {
+    width: 4.347826087%;
+    float: left;
+    margin-right: 4.347826087%; }
+  .sp-header-active .sp-header-pre-1 {
+    margin-left: 8.6956521739%; }
+  .sp-header-active .sp-header-post-1 {
+    margin-right: 8.6956521739%; }
+  .sp-header-active .sp-header-span-2 {
+    width: 13.0434782609%;
+    float: left;
+    margin-right: 4.347826087%; }
+  .sp-header-active .sp-header-pre-2 {
+    margin-left: 17.3913043478%; }
+  .sp-header-active .sp-header-post-2 {
+    margin-right: 17.3913043478%; }
+  .sp-header-active .sp-header-span-3 {
+    width: 21.7391304348%;
+    float: left;
+    margin-right: 4.347826087%; }
+  .sp-header-active .sp-header-pre-3 {
+    margin-left: 26.0869565217%; }
+  .sp-header-active .sp-header-post-3 {
+    margin-right: 26.0869565217%; }
+  .sp-header-active .sp-header-span-4 {
+    width: 30.4347826087%;
+    float: left;
+    margin-right: 4.347826087%; }
+  .sp-header-active .sp-header-pre-4 {
+    margin-left: 34.7826086957%; }
+  .sp-header-active .sp-header-post-4 {
+    margin-right: 34.7826086957%; }
+  .sp-header-active .sp-header-span-5 {
+    width: 39.1304347826%;
+    float: left;
+    margin-right: 4.347826087%; }
+  .sp-header-active .sp-header-pre-5 {
+    margin-left: 43.4782608696%; }
+  .sp-header-active .sp-header-post-5 {
+    margin-right: 43.4782608696%; }
+  .sp-header-active .sp-header-span-6 {
+    width: 47.8260869565%;
+    float: left;
+    margin-right: 4.347826087%; }
+  .sp-header-active .sp-header-pre-6 {
+    margin-left: 52.1739130435%; }
+  .sp-header-active .sp-header-post-6 {
+    margin-right: 52.1739130435%; }
+  .sp-header-active .sp-header-span-7 {
+    width: 56.5217391304%;
+    float: left;
+    margin-right: 4.347826087%; }
+  .sp-header-active .sp-header-pre-7 {
+    margin-left: 60.8695652174%; }
+  .sp-header-active .sp-header-post-7 {
+    margin-right: 60.8695652174%; }
+  .sp-header-active .sp-header-span-8 {
+    width: 65.2173913043%;
+    float: left;
+    margin-right: 4.347826087%; }
+  .sp-header-active .sp-header-pre-8 {
+    margin-left: 69.5652173913%; }
+  .sp-header-active .sp-header-post-8 {
+    margin-right: 69.5652173913%; }
+  .sp-header-active .sp-header-span-9 {
+    width: 73.9130434783%;
+    float: left;
+    margin-right: 4.347826087%; }
+  .sp-header-active .sp-header-pre-9 {
+    margin-left: 78.2608695652%; }
+  .sp-header-active .sp-header-post-9 {
+    margin-right: 78.2608695652%; }
+  .sp-header-active .sp-header-span-10 {
+    width: 82.6086956522%;
+    float: left;
+    margin-right: 4.347826087%; }
+  .sp-header-active .sp-header-pre-10 {
+    margin-left: 86.9565217391%; }
+  .sp-header-active .sp-header-post-10 {
+    margin-right: 86.9565217391%; }
+  .sp-header-active .sp-header-span-11 {
+    width: 91.3043478261%;
+    float: left;
+    margin-right: 4.347826087%; }
+  .sp-header-active .sp-header-pre-11 {
+    margin-left: 95.652173913%; }
+  .sp-header-active .sp-header-post-11 {
+    margin-right: 95.652173913%; }
+  .sp-header-active .sp-header-span-12 {
+    width: 100%;
+    float: left;
+    margin-left: 0;
+    margin-right: 0; }
+  .sp-header-active .sp-header-pre-12 {
+    margin-left: 104.347826087%; }
+  .sp-header-active .sp-header-post-12 {
+    margin-right: 104.347826087%; }
+  .sp-header-active .sp-header-row:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .sp-header-active .sp-header-empty {
+    padding: 1.618034em 0; }
+    .sp-header-active .sp-header-empty:after {
+      content: "";
+      display: table;
+      clear: both; }
+  .sp-header-active .sp-header-last {
+    float: right;
+    margin-right: 0; } }

@@ -2203,7 +2203,9 @@ class GFAddOnFeedsTable extends WP_List_Table {
 	private $_no_items_callback = array();
 	private $_message_callback = array();
 
-	function __construct( $feeds, $slug, $columns = array(), $bulk_actions, $action_links, $column_value_callback, $no_items_callback, $message_callback, $addon_class ) {
+	function __construct( $feeds, $slug, $columns, $bulk_actions, $action_links, $column_value_callback, $no_items_callback, $message_callback, $addon_class ) {
+		$columns = ( is_array( $columns ) ) ? $columns : array();
+
 		$this->_bulk_actions          = $bulk_actions;
 		$this->_feeds                 = $feeds;
 		$this->_slug                  = $slug;

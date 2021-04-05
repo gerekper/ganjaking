@@ -8,84 +8,812 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-11-12 05:03+0000\n"
+"POT-Creation-Date: 2021-03-23 05:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: betterdocs-pro\n"
 "Language: \n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 
+#: admin/includes/class-betterdocs-analytics.php:144
+msgid " views"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1064
+msgid "<p class=\"no-posts-found\">No posts found!</p>"
+msgstr ""
+
+#: includes/class-multiple-kb.php:81
+msgid ""
+"<strong>You can use:</strong> [betterdocs_category_box_2 column=\"3\" "
+"terms=\"term_ID, term_ID\"]"
+msgstr ""
+
+#: includes/class-multiple-kb.php:89
+msgid ""
+"<strong>You can use:</strong> [betterdocs_category_grid_2 "
+"post_counter=\"true\" icon=\"true\" masonry=\"true\" column=\"3\" "
+"posts_per_grid=\"5\" nested_subcategory=\"true\" terms=\"term_ID, term_ID\"]"
+msgstr ""
+
+#: includes/class-multiple-kb.php:97
+msgid ""
+"<strong>You can use:</strong> [betterdocs_multiple_kb column=\"3\" "
+"terms=\"term_ID, term_ID\"]"
+msgstr ""
+
+#: includes/class-multiple-kb.php:105
+msgid ""
+"<strong>You can use:</strong> [betterdocs_multiple_kb_2 column=\"3\" "
+"terms=\"term_ID, term_ID\"]"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:871
+msgid "Accent Color"
+msgstr ""
+
 #: betterdocs-pro.php:103
 msgid "Activate Now!"
 msgstr ""
 
-#: betterdocs-pro.php:103
-msgid "Install Now!"
-msgstr ""
-
-#: admin/class-betterdocs-pro-admin.php:171
-msgid "Switch to BetterDocs UI"
-msgstr ""
-
-#: admin/class-betterdocs-pro-admin.php:183 
-#: public/partials/template-single/layout-3.php:192 
-#: public/partials/template-single/layout-2.php:211
-msgid "BetterDocs"
+#: includes/class-multiple-kb.php:646 includes/class-multiple-kb.php:697
+msgid "Add Image"
 msgstr ""
 
 #: admin/class-betterdocs-pro-admin.php:186
-msgid "Switch to Classic UI"
-msgstr ""
-
-#: admin/class-betterdocs-pro-admin.php:187
 msgid "Add New Doc"
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin.php:276
-msgid "Multiple KB"
+#: includes/class-multiple-kb.php:259
+msgid "Add New Knowledge Base"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:110 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:332 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:784
-msgid "How did you feel?"
+#: includes/class-multiple-kb.php:261
+msgid "Add or reomve Knowledge Base"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:111 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:341
-msgid "Thanks for your feedback"
+#: admin/partials/betterdocs-pro-admin-analytics-display.php:194
+msgid "All"
 msgstr ""
 
-#: public/betterdocs-shortcodes.php:11 admin/customizer/defaults.php:56
-msgid "What are your Feelings"
+#: includes/class-multiple-kb.php:253 admin/class-betterdocs-pro-admin.php:189
+msgid "All Knowledge Base"
+msgstr ""
+
+#: admin/includes/class-betterdocs-analytics.php:106
+#: admin/includes/class-betterdocs-analytics.php:538
+msgid "Analytics"
+msgstr ""
+
+#: admin/includes/class-betterdocs-analytics.php:542
+msgid "Analytics From"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:246
+#: admin/includes/class-betterdocs-pro-instant-answer.php:692
+msgid "Answer"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:617
+#: admin/includes/class-betterdocs-pro-instant-answer.php:622
+msgid "Appearance Settings"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:384
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:603
+msgid "Area"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:614
+msgid "Area Size"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:202
+msgid "article"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:188
+msgid "articles"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:248
+#: admin/includes/class-betterdocs-pro-instant-answer.php:734
+msgid "Ask"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:981
+msgid "Ask Form Input BG Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:986
+msgid "Ask Form Input Text Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1001
+msgid "Ask Send Button Background"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1006
+msgid "Ask Send Button Hover Background"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:991
+msgid "Ask Send Disabled Button Background"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:996
+msgid "Ask Send Disabled Button Hover Background"
+msgstr ""
+
+#: admin/customizer/customizer.php:198
+msgid "Attachment"
+msgstr ""
+
+#: admin/customizer/customizer.php:148
+msgid "auto"
+msgstr ""
+
+#: admin/includes/licensing/class-betterdocs-licensing.php:173
+msgid "Auto Update"
+msgstr ""
+
+#: admin/customizer/customizer.php:102
+msgid "Background Image"
+msgstr ""
+
+#: admin/customizer/customizer.php:121
+msgid "Background Property"
+msgstr ""
+
+#: admin/class-betterdocs-pro-admin.php:182
+#: public/partials/template-single/layout-3.php:206
+#: public/partials/template-single/layout-2.php:226
+msgid "BetterDocs"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:24
+msgid "BetterDocs Multiple KB"
+msgstr ""
+
+#. Name of the plugin
+msgid "BetterDocs Pro"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:270
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:338
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:458
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:534
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:827
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:932
+msgid "Border"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:278
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:346
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:466
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:543
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:838
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:943
+msgid "Border Radius"
+msgstr ""
+
+#: admin/customizer/customizer.php:318 admin/customizer/customizer.php:539
+msgid "Bottom"
+msgstr ""
+
+#: admin/customizer/customizer.php:686
+msgid "Bottom Left"
+msgstr ""
+
+#: admin/customizer/customizer.php:666
+msgid "Bottom Right"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:220
+msgid "Box"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:93
+msgid "Box Column"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:240
+msgid "Box Padding"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:228
+msgid "Box Spacing"
+msgstr ""
+
+#: includes/class-multiple-kb.php:77
+msgid "Category Box- Layout 3"
+msgstr ""
+
+#: includes/class-multiple-kb.php:85
+msgid "Category Grid- Layout 4"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:650
+msgid "Center"
+msgstr ""
+
+#: admin/customizer/customizer.php:239
+msgid "center bottom"
+msgstr ""
+
+#: admin/customizer/customizer.php:238
+msgid "center center"
+msgstr ""
+
+#: admin/customizer/customizer.php:237
+msgid "center top"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:581
+#: admin/includes/class-betterdocs-pro-instant-answer.php:586
+msgid "Chat Settings"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:738
+msgid "Chat Tab Subtitle One"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:744
+msgid "Chat Tab Subtitle Two"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:679
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:712
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:814
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:907
+msgid "Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:851
+#: admin/includes/class-betterdocs-pro-instant-answer.php:866
+msgid "Color Settings"
+msgstr ""
+
+#: admin/customizer/customizer.php:437
+msgid "Column Background Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:606
+msgid "Column Border Radius"
+msgstr ""
+
+#: admin/customizer/customizer.php:457
+msgid "Column Hover Background Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:479
+msgid "Column Padding"
+msgstr ""
+
+#: admin/partials/betterdocs-pro-admin-analytics-display.php:222
+msgid "Comparison Factor"
+msgstr ""
+
+#: admin/customizer/customizer.php:151
+msgid "contain"
+msgstr ""
+
+#: admin/customizer/customizer.php:82
+msgid "Content Area Background Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:385
+msgid "Content Area Maximum Width"
+msgstr ""
+
+#: admin/customizer/customizer.php:257
+msgid "Content Area Padding"
+msgstr ""
+
+#: admin/customizer/customizer.php:361
+msgid "Content Area Width"
 msgstr ""
 
 #: admin/customizer/customizer.php:957
 msgid "Content Overlap"
 msgstr ""
 
-#: admin/customizer/customizer.php:981
-msgid "Top Box Icon Size"
+#: admin/customizer/customizer.php:854
+msgid "Content Space Between"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:503
+msgid "Content Type"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1430
+msgid "Copy Snippet"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:758
+msgid "Count"
+msgstr ""
+
+#: admin/customizer/customizer.php:934
+msgid "Counter"
+msgstr ""
+
+#: admin/customizer/customizer.php:150
+msgid "cover"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1022
+msgid "Cross Domain Integration Snippet"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1012
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1017
+msgid "Cross Domain Settings"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:591
+msgid "Custom Subject"
+msgstr ""
+
+#: admin/customizer/customizer.php:914
+msgid "Description"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:662
+msgid "Disable Answer Tab"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:829
+msgid "Disable Branding"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:702
+msgid "Disable Chat Tab"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:750
+msgid "Disable Reaction"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:789
+msgid "Disable Response"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:824
+msgid "Disable Response Icon"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:637
+msgid "Disable Search"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:468
+msgid ""
+"Display a list of articles or categories in a chat-like widget to give your "
+"visitors a chance of self-learning about your website."
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:149
+msgid "Div"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:508
+msgid "Docs"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:916
+msgid "Docs Card Background"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:509
+msgid "Docs Categories"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:936
+msgid "Docs Content Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:931
+msgid "Docs Content Font Size"
 msgstr ""
 
 #: admin/customizer/customizer.php:1006
 msgid "Docs List Title Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:1025
-msgid "Reactions"
+#: admin/includes/class-betterdocs-pro-instant-answer.php:926
+msgid "Docs Title Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:921
+msgid "Docs Title Font Size"
+msgstr ""
+
+#: admin/partials/betterdocs-pro-admin-sorting-display.php:62
+#: admin/partials/betterdocs-pro-admin-sorting-display.php:117
+msgid "Draft"
+msgstr ""
+
+#: includes/class-multiple-kb.php:256
+msgid "Edit Knowledge Base"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:349
+#: admin/includes/class-betterdocs-pro-instant-answer.php:598
+msgid "Email Address"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:484
+msgid "Enable IA Live Preview"
+msgstr ""
+
+#: includes/class-multiple-kb.php:66
+msgid "Enable Multiple Knowledge Base"
 msgstr ""
 
 #: admin/customizer/customizer.php:1041
 msgid "Enable Reactions?"
 msgstr ""
 
-#: admin/customizer/customizer.php:1059
-msgid "Reactions Title"
+#: admin/includes/class-betterdocs-pro-instant-answer.php:473
+msgid "Enable/Disable"
 msgstr ""
 
-#: admin/customizer/customizer.php:1082
-msgid "Reactions Text Color"
+#: admin/includes/class-betterdocs-pro-instant-answer.php:457
+#: admin/includes/class-betterdocs-pro-instant-answer.php:462
+msgid "Enable/Disable Instant Answer"
+msgstr ""
+
+#: admin/partials/betterdocs-pro-admin-analytics-display.php:218
+#: admin/partials/betterdocs-pro-admin-analytics-display.php:219
+msgid "End Date"
+msgstr ""
+
+#: admin/includes/class-betterdocs-analytics.php:544
+msgid "Everyone"
+msgstr ""
+
+#: admin/includes/class-betterdocs-analytics.php:553
+msgid "Exclude Bot Analytics"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:956
+msgid "Feedback Icon Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:951
+msgid "Feedback Icon Size"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:946
+msgid "Feedback Title Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:941
+msgid "Feedback Title Size"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1069
+msgid "File Not Found"
+msgstr ""
+
+#: admin/customizer/customizer.php:207
+msgid "fixed"
+msgstr ""
+
+#: admin/customizer/customizer.php:790
+msgid "Font Size"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:250
+#: admin/includes/class-betterdocs-pro-instant-answer.php:746
+msgid "Generally, we reply within 24-48 hours."
+msgstr ""
+
+#: admin/includes/class-betterdocs-analytics.php:545
+msgid "Guests Only"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:141
+msgid "H1"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:142
+msgid "H2"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:143
+msgid "H3"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:144
+msgid "H4"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:145
+msgid "H5"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:146
+msgid "H6"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:886
+msgid "Heading Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:881
+msgid "Heading Font Size"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Help your customers browse the docs and find instant answers through "
+"BetterDocs Instant Answers. Get access to Multiple KB, Insightful Analytics "
+"& many more!"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:116
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:128
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:163
+msgid "Hide"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:300
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:517
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:706
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:901
+msgid "Hover"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:351
+msgid "How can we help?"
+msgstr ""
+
+#: public/class-betterdocs-pro-public.php:107
+#: admin/includes/class-betterdocs-pro-instant-answer.php:333
+#: admin/includes/class-betterdocs-pro-instant-answer.php:785
+msgid "How did you feel?"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://wpdeveloper.net"
+msgstr ""
+
+#. URI of the plugin
+msgid "https:/betterdocs.co"
+msgstr ""
+
+#: admin/customizer/customizer.php:874
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:376
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:410
+msgid "Icon"
+msgstr ""
+
+#: admin/customizer/customizer.php:580
+msgid "Icon Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:153 admin/customizer/customizer.php:178
+#: admin/customizer/customizer.php:205
+msgid "inherit"
+msgstr ""
+
+#: admin/customizer/customizer.php:152 admin/customizer/customizer.php:177
+#: admin/customizer/customizer.php:204
+msgid "initial"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:494
+#: admin/includes/class-betterdocs-pro-instant-answer.php:499
+msgid "Initial Content Settings"
+msgstr ""
+
+#: betterdocs-pro.php:103
+msgid "Install Now!"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:247
+#: admin/includes/class-betterdocs-pro-instant-answer.php:452
+#: admin/includes/class-betterdocs-pro-instant-answer.php:698
+msgid "Instant Answer"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:632
+msgid "Instant Answer Close Icon"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:627
+msgid "Instant Answer Open Icon"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:490
+msgid "Instant Answer Settings"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:685
+msgid "Instant Answer Tab Icon"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:696
+msgid "Instant Answer Tab Subtitle"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:690
+msgid "Instant Answer Tab Title"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:727
+msgid "Instant Chat Tab Icon"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:732
+msgid "Instant Chat Tab Title"
+msgstr ""
+
+#: admin/customizer/customizer.php:768
+msgid "Item Count Color"
+msgstr ""
+
+#: admin/includes/licensing/class-betterdocs-licensing.php:147
+msgid "Just one more step to go!"
+msgstr ""
+
+#: admin/customizer/customizer.php:811
+msgid "KB Description"
+msgstr ""
+
+#: admin/customizer/customizer.php:832
+msgid "KB Description Color"
+msgstr ""
+
+#: includes/class-multiple-kb.php:640 includes/class-multiple-kb.php:684
+msgid "KB Icon"
+msgstr ""
+
+#: includes/class-multiple-kb.php:909
+msgid "Knowledge Bas"
+msgstr ""
+
+#: includes/class-multiple-kb.php:250 includes/class-multiple-kb.php:251
+#: includes/class-multiple-kb.php:262 includes/class-multiple-kb.php:594
+#: includes/class-multiple-kb.php:615
+msgid "Knowledge Base"
+msgstr ""
+
+#: includes/class-multiple-kb.php:911
+msgid "knowledge_base (already used in permalink structure)"
+msgstr ""
+
+#: includes/class-multiple-kb.php:910
+msgid "knowledge_base added to permalink structure"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:856
+msgid "Launcher Background Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:861
+msgid "Launcher Hover Background Color"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:75
+msgid "Layout Options"
+msgstr ""
+
+#: admin/customizer/customizer.php:338 admin/customizer/customizer.php:559
+#: admin/includes/class-betterdocs-pro-instant-answer.php:838
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:646
+msgid "Left"
+msgstr ""
+
+#: admin/customizer/customizer.php:233
+msgid "left bottom"
+msgstr ""
+
+#: admin/customizer/customizer.php:232
+msgid "left center"
+msgstr ""
+
+#: admin/customizer/customizer.php:231
+msgid "left top"
+msgstr ""
+
+#: admin/customizer/customizer.php:149
+msgid "length"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-settings.php:28
+msgid "License"
+msgstr ""
+
+#: admin/customizer/customizer.php:208
+msgid "local"
+msgstr ""
+
+#: admin/class-betterdocs-pro-admin.php:278 admin/customizer/customizer.php:33
+msgid "Multiple KB"
+msgstr ""
+
+#: includes/class-multiple-kb.php:93
+msgid "Multiple KB- Layout 1"
+msgstr ""
+
+#: includes/class-multiple-kb.php:101
+msgid "Multiple KB- Layout 2"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:348
+msgid "Name"
+msgstr ""
+
+#: includes/class-multiple-kb.php:260
+msgid "New Knowledge Base Name"
+msgstr ""
+
+#: includes/class-multiple-kb.php:596 includes/class-multiple-kb.php:619
+msgid "No Knowledge Base"
+msgstr ""
+
+#: includes/class-multiple-kb.php:258
+msgid "No Knowledge Base found."
+msgstr ""
+
+#: admin/customizer/customizer.php:176
+msgid "no-repeat"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:254
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:439
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:673
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:808
+msgid "Normal"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:352
+msgid "Only supports .jpg, .png, .jpeg, .gif files"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:282
+msgid "Opps..."
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:148
+msgid "P"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:481
+msgid "Padding"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1053
+msgid "Please enable Multilple KB"
+msgstr ""
+
+#: admin/customizer/customizer.php:225
+#: admin/includes/class-betterdocs-pro-instant-answer.php:834
+msgid "Position"
+msgstr ""
+
+#: public/partials/template-single/layout-3.php:206
+#: public/partials/template-single/layout-2.php:226
+msgid "Powered by "
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:172
+msgid "Prefix"
+msgstr ""
+
+#: admin/includes/licensing/class-betterdocs-licensing.php:186
+msgid "Premium Support"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:783
+msgid "Reaction Title"
+msgstr ""
+
+#: admin/customizer/customizer.php:1025
+msgid "Reactions"
 msgstr ""
 
 #: admin/customizer/customizer.php:1103
@@ -96,533 +824,354 @@ msgstr ""
 msgid "Reactions Icon Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1141
+#: admin/customizer/customizer.php:1140
 msgid "Reactions Icon Hover Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1160
+#: admin/customizer/customizer.php:1158
 msgid "Reactions Icon Hover Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-analytics.php:62
-msgid "Views"
+#: admin/customizer/customizer.php:1082
+msgid "Reactions Text Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-analytics.php:106 
-#: admin/includes/class-betterdocs-analytics.php:538
-msgid "Analytics"
-msgstr ""
-
-#: admin/includes/class-betterdocs-analytics.php:144
-msgid " views"
-msgstr ""
-
-#: admin/includes/class-betterdocs-analytics.php:542
-msgid "Analytics From"
-msgstr ""
-
-#: admin/includes/class-betterdocs-analytics.php:544
-msgid "Everyone"
-msgstr ""
-
-#: admin/includes/class-betterdocs-analytics.php:545
-msgid "Guests Only"
+#: admin/customizer/customizer.php:1059
+msgid "Reactions Title"
 msgstr ""
 
 #: admin/includes/class-betterdocs-analytics.php:546
 msgid "Registered Users Only"
 msgstr ""
 
-#: admin/includes/class-betterdocs-analytics.php:553
-msgid "Exclude Bot Analytics"
+#: includes/class-multiple-kb.php:647 includes/class-multiple-kb.php:698
+msgid "Remove Image"
+msgstr ""
+
+#: admin/customizer/customizer.php:170
+msgid "Repeat"
+msgstr ""
+
+#: admin/customizer/customizer.php:179
+msgid "repeat"
+msgstr ""
+
+#: admin/customizer/customizer.php:180
+msgid "repeat-x"
+msgstr ""
+
+#: admin/customizer/customizer.php:181
+msgid "repeat-y"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:966
+msgid "Response Icon Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:961
+msgid "Response Icon Size"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:818
+msgid "Response Title"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:976
+msgid "Response Title Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:971
+msgid "Response Title Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:298 admin/customizer/customizer.php:519
+#: admin/includes/class-betterdocs-pro-instant-answer.php:839
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:654
+msgid "Right"
+msgstr ""
+
+#: admin/customizer/customizer.php:236
+msgid "right bottom"
+msgstr ""
+
+#: admin/customizer/customizer.php:235
+msgid "right center"
+msgstr ""
+
+#: admin/customizer/customizer.php:234
+msgid "right top"
+msgstr ""
+
+#: admin/customizer/customizer.php:206
+msgid "scroll"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:901
+msgid "Search Box Background Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:911
+msgid "Search Box Foreground Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:906
+msgid "Search Box Icon Color"
+msgstr ""
+
+#: includes/class-multiple-kb.php:252
+msgid "Search Knowledge Base"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:656
+msgid "Search Placeholder"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:279
+#: admin/includes/class-betterdocs-pro-instant-answer.php:658
+msgid "Search..."
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:529
+#: admin/partials/betterdocs-pro-admin-analytics-display.php:180
+msgid "Select Docs"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:536
+msgid "Select Docs Categories"
 msgstr ""
 
 #: admin/includes/class-betterdocs-analytics.php:556
 msgid "Select if you want to exclude bot analytics."
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:245 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:691
-msgid "Answer"
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:82
+msgid "Select Layout"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:246 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:451 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:697
-msgid "Instant Answer"
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:137
+msgid "Select Tag"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:247 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:733
-msgid "Ask"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:248 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:739
-msgid "Stuck with something? Send us a message."
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:249 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:745
-msgid "Generally, we reply within 24-48 hours."
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:278 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:657
-msgid "Search..."
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:281
-msgid "Opps..."
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:282
-msgid ""
-"We couldn’t find any articles that match your search. Try searching for a\n"
-"        new term."
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:315 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:819
-msgid "Thanks for the feedback"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:347
-msgid "Name"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:348 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:597
-msgid "Email Address"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:349
-msgid "Subject"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:350
-msgid "How can we help?"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:351
-msgid "Only supports .jpg, .png, .jpeg, .gif files"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:352
-msgid "Sending"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:353
+#: admin/includes/class-betterdocs-pro-instant-answer.php:354
 msgid "Send"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:456 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:461
-msgid "Enable/Disable Instant Answer"
+#: admin/includes/class-betterdocs-pro-instant-answer.php:353
+msgid "Sending"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:467
-msgid ""
-"Display a list of articles or categories in a chat-like widget to give your "
-"visitors a chance of self-learning about your website."
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:115
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:127
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:162
+msgid "Show"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:472
-msgid "Enable/Disable"
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:160
+msgid "Show Count"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:483
-msgid "Enable IA Live Preview"
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:113
+msgid "Show Icon"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:489
-msgid "Instant Answer Settings"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:493 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:498
-msgid "Initial Content Settings"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:502
-msgid "Content Type"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:507
-msgid "Docs"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:508
-msgid "Docs Categories"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:528 
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:180
-msgid "Select Docs"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:535
-msgid "Select Docs Categories"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:543
-msgid "Show on Pages"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:552
+#: admin/includes/class-betterdocs-pro-instant-answer.php:553
 msgid "Show on Archive Templates"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:561
-msgid "Show on Texonomy Templates"
+#: admin/includes/class-betterdocs-pro-instant-answer.php:544
+msgid "Show on Pages"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:570
+#: admin/includes/class-betterdocs-pro-instant-answer.php:571
 msgid "Show on Single Pages"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:580 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:585
-msgid "Chat Settings"
+#: admin/includes/class-betterdocs-pro-instant-answer.php:562
+msgid "Show on Texonomy Templates"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:590
-msgid "Custom Subject"
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:125
+msgid "Show Title"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:603
-msgid "Success Message Title"
+#: admin/customizer/customizer.php:142
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:392
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:419
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:774
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:864
+msgid "Size"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:605
-msgid "Thanks"
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:496
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:691
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:884
+msgid "Spacing"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:609
-msgid "Success Message Text"
+#: admin/customizer/customizer.php:412
+msgid "Spacing Between Columns"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:611
-msgid "Your Message Has Been Sent Successfully"
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:147
+msgid "Span"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:616 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:621
-msgid "Appearance Settings"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:626
-msgid "Instant Answer Open Icon"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:631
-msgid "Instant Answer Close Icon"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:636
-msgid "Disable Search"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:655
-msgid "Search Placeholder"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:661
-msgid "Disable Answer Tab"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:684
-msgid "Instant Answer Tab Icon"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:689
-msgid "Instant Answer Tab Title"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:695
-msgid "Instant Answer Tab Subtitle"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:701
-msgid "Disable Chat Tab"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:726
-msgid "Instant Chat Tab Icon"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:731
-msgid "Instant Chat Tab Title"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:737
-msgid "Chat Tab Subtitle One"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:743
-msgid "Chat Tab Subtitle Two"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:749
-msgid "Disable Reaction"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:782
-msgid "Reaction Title"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:788
-msgid "Disable Response"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:817
-msgid "Response Title"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:823
-msgid "Disable Response Icon"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:828
-msgid "Disable Branding"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:833
-msgid "Position"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:837
-msgid "Left"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:838
-msgid "Right"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:843
-msgid "Z-index"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:850 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:865
-msgid "Color Settings"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:855
-msgid "Launcher Background Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:860
-msgid "Launcher Hover Background Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:870
-msgid "Accent Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:875
-msgid "Sub Accent Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:880
-msgid "Heading Font Size"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:885
-msgid "Heading Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:890
-msgid "Sub Heading Size"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:895
-msgid "Sub Heading Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:900
-msgid "Search Box Background Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:905
-msgid "Search Box Icon Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:910
-msgid "Search Box Foreground Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:915
-msgid "Docs Card Background"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:920
-msgid "Docs Title Font Size"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:925
-msgid "Docs Title Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:930
-msgid "Docs Content Font Size"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:935
-msgid "Docs Content Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:940
-msgid "Feedback Title Size"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:945
-msgid "Feedback Title Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:950
-msgid "Feedback Icon Size"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:955
-msgid "Feedback Icon Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:960
-msgid "Response Icon Size"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:965
-msgid "Response Icon Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:970
-msgid "Response Title Size"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:975
-msgid "Response Title Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:980
-msgid "Ask Form Input BG Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:985
-msgid "Ask Form Input Text Color"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:990
-msgid "Ask Send Disabled Button Background"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:995
-msgid "Ask Send Disabled Button Hover Background"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1000
-msgid "Ask Send Button Background"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1005
-msgid "Ask Send Button Hover Background"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1011 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1016
-msgid "Cross Domain Settings"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1021
-msgid "Cross Domain Integration Snippet"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1379
-msgid "Copy Snippet"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-settings.php:28
-msgid "License"
-msgstr ""
-
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:194
-msgid "All"
-msgstr ""
-
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:214 
+#: admin/partials/betterdocs-pro-admin-analytics-display.php:214
 #: admin/partials/betterdocs-pro-admin-analytics-display.php:215
 msgid "Start Date"
 msgstr ""
 
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:218 
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:219
-msgid "End Date"
+#: admin/includes/class-betterdocs-pro-instant-answer.php:249
+#: admin/includes/class-betterdocs-pro-instant-answer.php:740
+msgid "Stuck with something? Send us a message."
 msgstr ""
 
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:222
-msgid "Comparison Factor"
+#: admin/includes/class-betterdocs-pro-instant-answer.php:876
+msgid "Sub Accent Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:896
+msgid "Sub Heading Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:891
+msgid "Sub Heading Size"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:350
+msgid "Subject"
 msgstr ""
 
 #: admin/partials/betterdocs-pro-admin-analytics-display.php:240
 msgid "Submit"
 msgstr ""
 
-#: admin/partials/betterdocs-pro-admin-sorting-display.php:83 
-#: admin/partials/betterdocs-pro-admin-sorting-display.php:133
-msgid "Draft"
+#: admin/includes/class-betterdocs-pro-instant-answer.php:610
+msgid "Success Message Text"
 msgstr ""
 
-#: admin/partials/betterdocs-pro-admin-sorting-display.php:123
-msgid "Uncategorized"
+#: admin/includes/class-betterdocs-pro-instant-answer.php:604
+msgid "Success Message Title"
 msgstr ""
 
-#: admin/includes/licensing/class-betterdocs-licensing.php:147
-msgid "Just one more step to go!"
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:185
+msgid "Suffix"
 msgstr ""
 
-#: admin/includes/licensing/class-betterdocs-licensing.php:173
-msgid "Auto Update"
-msgstr ""
-
-#: admin/includes/licensing/class-betterdocs-licensing.php:174
-msgid "Update the plugin right from your WordPress Dashboard."
-msgstr ""
-
-#: admin/includes/licensing/class-betterdocs-licensing.php:186
-msgid "Premium Support"
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:199
+msgid "Suffix Singular"
 msgstr ""
 
 #: admin/includes/licensing/class-betterdocs-licensing.php:187
 msgid "Supported by professional and courteous staff."
 msgstr ""
 
-#: public/partials/template-single/layout-3.php:167 
-#: public/partials/template-single/layout-2.php:185
+#: admin/class-betterdocs-pro-admin.php:170
+msgid "Switch to BetterDocs UI"
+msgstr ""
+
+#: admin/class-betterdocs-pro-admin.php:185
+msgid "Switch to Classic UI"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:642
+msgid "Text Alignment"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:606
+msgid "Thanks"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:316
+#: admin/includes/class-betterdocs-pro-instant-answer.php:820
+msgid "Thanks for the feedback"
+msgstr ""
+
+#: public/class-betterdocs-pro-public.php:108
+#: admin/includes/class-betterdocs-pro-instant-answer.php:342
+msgid "Thanks for your feedback"
+msgstr ""
+
+#: admin/customizer/customizer.php:894
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:595
+msgid "Title"
+msgstr ""
+
+#: admin/customizer/customizer.php:731
+msgid "Title Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:708
+msgid "Title Font Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:749
+msgid "Title Hover Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:278 admin/customizer/customizer.php:499
+msgid "Top"
+msgstr ""
+
+#: admin/customizer/customizer.php:981
+msgid "Top Box Icon Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:626
+msgid "Top Left"
+msgstr ""
+
+#: admin/customizer/customizer.php:646
+msgid "Top Right"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:306
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:558
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:724
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:969
+msgid "Transition"
+msgstr ""
+
+#: admin/partials/betterdocs-pro-admin-sorting-display.php:107
+msgid "Uncategorized"
+msgstr ""
+
+#: includes/class-multiple-kb.php:257
+msgid "Update Knowledge Base"
+msgstr ""
+
+#: admin/includes/licensing/class-betterdocs-licensing.php:174
+msgid "Update the plugin right from your WordPress Dashboard."
+msgstr ""
+
+#: public/partials/template-single/layout-3.php:182
+#: public/partials/template-single/layout-2.php:200
 #, php-format
 msgid "Updated on %s"
 msgstr ""
 
-#: public/partials/template-single/layout-3.php:192 
-#: public/partials/template-single/layout-2.php:211
-msgid "Powered by "
+#: admin/includes/class-betterdocs-analytics.php:62
+msgid "Views"
 msgstr ""
 
-#. Name of the plugin
-msgid "BetterDocs Pro"
+#: admin/includes/class-betterdocs-pro-instant-answer.php:283
+msgid ""
+"We couldn’t find any articles that match your search. Try searching for a\n"
+"        new term."
 msgstr ""
 
-#. Description of the plugin
-msgid "A better documentation and knowledgebase plugin for WordPress"
-msgstr ""
-
-#. URI of the plugin
-msgid "https:/betterdocs.co"
+#: public/betterdocs-shortcodes.php:13 admin/customizer/defaults.php:56
+msgid "What are your Feelings"
 msgstr ""
 
 #. Author of the plugin
 msgid "WPDeveloper"
 msgstr ""
 
-#. Author URI of the plugin
-msgid "https://wpdeveloper.net"
+#: admin/includes/class-betterdocs-pro-instant-answer.php:612
+msgid "Your Message Has Been Sent Successfully"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:844
+msgid "Z-index"
 msgstr ""

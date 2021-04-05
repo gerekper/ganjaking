@@ -41,9 +41,13 @@ class WC_Instagram_Integration extends WC_Integration {
 	 * @since 3.4.4
 	 */
 	public function init() {
-		if ( ! isset( $_GET['section'] ) || 'instagram' !== $_GET['section'] ) { // phpcs:ignore WordPress.Security.NonceVerification
+		// phpcs:disable WordPress.Security.NonceVerification
+		if ( ! isset( $_GET['tab'] ) || 'integration' !== $_GET['tab'] ||
+			( isset( $_GET['section'] ) && 'instagram' !== $_GET['section'] )
+		) {
 			return;
 		}
+		// phpcs:enable WordPress.Security.NonceVerification
 
 		$catalog_id = $this->get_catalog_id();
 

@@ -1,7 +1,7 @@
 /**
  * WP Reset PRO
  * https://wpreset.com/
- * (c) WebFactory Ltd, 2017-2020
+ * (c) WebFactory Ltd, 2017-2021
  */
 
 jQuery(document).ready(function ($) {
@@ -240,7 +240,11 @@ jQuery(document).ready(function ($) {
         cloud_service = "icedrive";
         break;
       case "wpreset":
-        cloud_name = "WP Reset";
+        if(wp_reset.rebranding !== "0"){
+            cloud_name = wp_reset.rebranding.name + ' Cloud';
+        } else {
+            cloud_name = "WP Reset";
+        }
         cloud_service = "wpreset";
         break;
       default:
@@ -1567,23 +1571,23 @@ jQuery(document).ready(function ($) {
       $(markup).find("#edit-collection-item-license-key").hide();
     }
 
-    if (wp_reset.cloud_service != 1) {
-      $(markup).find(".collection-item-source > label").addClass("disabled");
+    if (wp_reset.cloud_service != 1 && $("#dialog-collection-item-type").length > 0) {
+        $(markup).find(".collection-item-source > label").addClass("disabled");
 
-      $(markup).find("#dialog-collection-item-type").removeProp("checked");
+        $(markup).find("#dialog-collection-item-type").removeProp("checked");
 
-      if (
-        $(markup)
-          .find(".collection-item-source")
-          .html()
-          .indexOf("to upload ZIP") == -1
-      ) {
-        $(markup)
-          .find(".collection-item-source")
-          .append(
-            ' Select a <a class="change-tab" data-tab="4" href="#">cloud service</a> to upload ZIP'
-          );
-      }
+        if (
+            $(markup)
+            .find(".collection-item-source")
+            .html()
+            .indexOf("to upload ZIP") == -1
+        ) {
+            $(markup)
+            .find(".collection-item-source")
+            .append(
+                ' Select a <a class="change-tab" data-tab="4" href="#">cloud service</a> to upload ZIP'
+            );
+        }
     }
     $(markup)
       .find(".dialog-collection-item-slug")
@@ -3743,7 +3747,11 @@ jQuery(document).ready(function ($) {
 
   function onboarding_open_step0() {
     html = '<div class="wpr-onboarding">';
-    html += "<h2>Welcome to WP Reset PRO!</h2>";
+    if(wp_reset.rebranding !== "0"){
+        html += "<h2>Welcome to " + wp_reset.rebranding.name + "!</h2>";
+    } else {
+        html += "<h2>Welcome to WP Reset PRO!</h2>";
+    }
     html +=
       '<p class="textleft">Onboarding takes only a minute. It creates a test snapshot to see if your site meets the requirements, and it sets up the emergency recovery script. Everything found in onboarding can be changed and configured later on too.</p><p class="textleft">If you want to re-run onboarding open the Support tab and click "run onboarding".</p><br>';
     html += "</div>";
@@ -3816,10 +3824,16 @@ jQuery(document).ready(function ($) {
           html +=
             "<h2>We disabled autosnapshots for now. Please resolve the error above and then you can enable auto snapshots in the Snapshots tab.</h2>";
         }
+
+        let plugin_name = 'WP Reset';
+        if(wp_reset.rebranding !== "0"){
+            plugin_name = wp_reset.rebranding.name;
+        }
+
         html +=
           '<div class="option-group"><div class="toggle-wrapper"><input type="checkbox" id="ob_option_tools_snapshots" class="change-single-option" data-option="tools_snapshots" ' +
           (data.data.auto ? 'checked="checked"' : "") +
-          ' value="1" name="ob_option_tools_snapshots"><label for="ob_option_tools_snapshots" class="toggle"><span class="toggle_handler"></span></label></div><div class="option-group-desc">Automatically create snapshots before running WP Reset tools</div></div>';
+          ' value="1" name="ob_option_tools_snapshots"><label for="ob_option_tools_snapshots" class="toggle"><span class="toggle_handler"></span></label></div><div class="option-group-desc">Automatically create snapshots before running ' + plugin_name + ' tools</div></div>';
         html +=
           '<div class="option-group"><div class="toggle-wrapper"><input type="checkbox" id="ob_option_events_snapshots" class="change-single-option" data-option="events_snapshots" ' +
           (data.data.auto ? 'checked="checked"' : "") +
@@ -3880,8 +3894,13 @@ jQuery(document).ready(function ($) {
     html +=
       '<p class="textleft" style="padding-left: 30px; box-sizing: border-box;">';
     html += "<b>Install the script later, when needed</b><br>";
-    html +=
-      'When needed you\'ll install the script from the "Support" tab, or generate a new instance in WP Reset Dashboard, and upload manually via FTP. ';
+    html += 'When needed you\'ll install the script from the "Support" tab';
+    if(wp_reset.rebranding === "0"){
+        html += ', or generate a new instance in WP Reset Dashboard, and upload manually via FTP. ';
+    } else {
+        html += '. ';
+    }
+
     html += "This setup is recommended for production environments.";
     html += "</p>";
     html += "</div>";
@@ -4318,7 +4337,7 @@ jQuery(document).ready(function ($) {
   }); // dismiss notice
 
   // init Help Scout beacon
-  if (wp_reset.is_plugin_page && wp_reset.whitelabel != "1") {
+  if (wp_reset.is_plugin_page && wp_reset.whitelabel != "1" && wp_reset.rebranding === "0") {
     Beacon("config", {
       enableFabAnimation: false,
       display: {},

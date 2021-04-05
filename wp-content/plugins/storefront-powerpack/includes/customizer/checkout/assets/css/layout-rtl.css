@@ -1,0 +1,89 @@
+@media screen and (min-width: 768px) {
+  .sp-stacked .col2-set,
+  .sp-stacked #order_review_heading,
+  .sp-stacked #order_review {
+    width: 100%;
+    float: none;
+    clear: both; }
+  .sp-stacked .col2-set .col-1,
+  .sp-stacked .col2-set .col-2 {
+    width: 100%;
+    float: none; }
+    .sp-stacked .col2-set .col-1 .form-row-first,
+    .sp-stacked .col2-set .col-2 .form-row-first {
+      width: 41.1764705882%;
+      float: right;
+      margin-left: 5.8823529412%; }
+    .sp-stacked .col2-set .col-1 .form-row-last,
+    .sp-stacked .col2-set .col-2 .form-row-last {
+      width: 52.9411764706%;
+      float: left;
+      margin-left: 0;
+      float: left;
+      margin-left: 0;
+      margin-left: 0; }
+  .sp-stacked.page-template-template-fullwidth-php .col2-set,
+  .sp-stacked.page-template-template-fullwidth-php #order_review_heading,
+  .sp-stacked.page-template-template-fullwidth-php #order_review {
+    width: 100%;
+    float: none;
+    clear: both; }
+  .sp-stacked.page-template-template-fullwidth-php .col2-set .col-1,
+  .sp-stacked.page-template-template-fullwidth-php .col2-set .col-2 {
+    width: 100%;
+    float: none; }
+    .sp-stacked.page-template-template-fullwidth-php .col2-set .col-1 .form-row-first,
+    .sp-stacked.page-template-template-fullwidth-php .col2-set .col-2 .form-row-first {
+      width: 47.8260869565%;
+      float: right;
+      margin-left: 4.347826087%; }
+    .sp-stacked.page-template-template-fullwidth-php .col2-set .col-1 .form-row-last,
+    .sp-stacked.page-template-template-fullwidth-php .col2-set .col-2 .form-row-last {
+      width: 47.8260869565%;
+      float: left;
+      margin-left: 0;
+      float: left;
+      margin-left: 0;
+      margin-right: 0; }
+  .sp-two-column-addreses .col2-set,
+  .sp-two-column-addreses #order_review_heading,
+  .sp-two-column-addreses #order_review {
+    width: 100%;
+    float: none; }
+  .sp-two-column-addreses .col2-set::after {
+    clear: both;
+    content: "";
+    display: table; }
+  .sp-two-column-addreses .col2-set .col-1 {
+    width: 41.1764705882%;
+    float: right;
+    margin-left: 5.8823529412%; }
+  .sp-two-column-addreses .col2-set .col-2 {
+    width: 52.9411764706%;
+    float: left;
+    margin-left: 0;
+    float: left;
+    margin-left: 0;
+    margin-right: 0; }
+  .sp-two-column-addreses .col2-set .form-row-first,
+  .sp-two-column-addreses .col2-set .form-row-last {
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+    float: none; }
+  .sp-two-column-addreses.page-template-template-fullwidth-php .col2-set,
+  .sp-two-column-addreses.page-template-template-fullwidth-php #order_review_heading,
+  .sp-two-column-addreses.page-template-template-fullwidth-php #order_review {
+    width: 100%;
+    float: none; }
+  .sp-two-column-addreses.page-template-template-fullwidth-php .col2-set .col-1 {
+    width: 47.8260869565%;
+    float: right;
+    margin-left: 4.347826087%; }
+  .sp-two-column-addreses.page-template-template-fullwidth-php .col2-set .col-2 {
+    width: 47.8260869565%;
+    float: left;
+    margin-left: 0;
+    float: left;
+    margin-left: 0;
+    margin-right: 0; } }

@@ -309,7 +309,7 @@ class MeprUser extends MeprBaseModel {
     $lowest_id_txn = false;
 
     foreach($txns as $txn) {
-      if(!empty($exclude_txn_types) && in_array($txn->txn_type)) { continue; } //skip transactions if the type is excluded
+      if(!empty($exclude_txn_types) && in_array($txn->txn_type, $exclude_txn_types)) { continue; } //skip transactions if the type is excluded
 
       $p = $txn->product();
 

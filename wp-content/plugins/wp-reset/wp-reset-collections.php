@@ -3,7 +3,7 @@
 /**
  * WP Reset PRO
  * https://wpreset.com/
- * (c) WebFactory Ltd, 2017-2020
+ * (c) WebFactory Ltd, 2015 - 2021
  */
 
 
@@ -187,7 +187,7 @@ class WP_Reset_Collections
 
         $out .= '<table class="collection-table">';
         $out .= '<tr><th>Type</th><th>Name &amp; Note</th><th class="actions">Actions</th></tr>';
-        $out .= '<tr class="table-empty hidden"><td colspan="3" class="textcenter"><p><b>Collection is empty.</b><br><a class="add-collection-item" href="#" data-collection-id="' . $collection['id'] . '">Add a plugin from the WP repository or a ZIP archive</a></p></td></tr>';
+        $out .= '<tr class="table-empty hidden"><td colspan="3" class="textcenter"><p><b>Collection is empty.</b><br><a class="add-collection-item" href="#" data-collection-id="' . $collection['id'] . '">Add a plugin from the WP repository ' . (count($wp_reset->cloud_services) > 0 ? 'or a ZIP archive':'') . '</a></p></td></tr>';
         foreach ((array) $collection['items'] as $item) {
             $out .= $this->get_collection_item($item);
         } // foreach
@@ -288,6 +288,10 @@ class WP_Reset_Collections
     {
         global $wp_reset;
 
+        $plugin_name = $wp_reset->get_rebranding('name');
+        if($plugin_name === false){
+            $plugin_name = 'WP Reset';
+        }
         if (is_multisite()) {
             echo '<div class="card">';
             echo '<p class="mb0 wpmu-error">Collections are <b>not compatible</b> with WP multisite (WPMU). Using them would modify plugin and theme files shared by multiple sites in the WP network.</p>';
@@ -298,8 +302,13 @@ class WP_Reset_Collections
         echo '<div class="card">';
         echo $wp_reset->get_card_header('What are Plugin & Theme Collections?', 'collections-info', array('collapse_button' => true));
         echo '<div class="card-body">';
-        echo '<p>' . __('Have a set of plugins (and themes) that you install and activate after every reset? Or on every fresh WP installation? Well, no more clicking install &amp; active for ten minutes! Build the collection once and install it with one click as many times as needed.</p><p>WP Reset stores collections in the cloud so they\'re accessible on every site you build. You can use free plugins and themes from the official repo, and PRO ones by uploading a ZIP file. We\'ll safely store your license keys too, so you have everything in one place.', 'wp-reset') . '</p>';
-        echo '<p>' . __('List of supported PRO plugin for automatic license activation<a href="#" class="toggle-auto-activation-supported-list" style="margin-left:4px;">(show)</a>', 'wp-reset') . '</p>';
+
+        if(count($wp_reset->cloud_services) > 0){
+            echo '<p>' . __('Have a set of plugins (and themes) that you install and activate after every reset? Or on every fresh WP installation? Well, no more clicking install &amp; active for ten minutes! Build the collection once and install it with one click as many times as needed.</p><p>' . $plugin_name . ' stores collections in the cloud so they\'re accessible on every site you build. You can use free plugins and themes from the official repo, and PRO ones by uploading a ZIP file. We\'ll safely store your license keys too, so you have everything in one place.', 'wp-reset') . '</p>';        
+            echo '<p>' . __('List of supported PRO plugin for automatic license activation<a href="#" class="toggle-auto-activation-supported-list" style="margin-left:4px;">(show)</a>', 'wp-reset') . '</p>';
+        } else {
+            echo '<p>' . __('Have a set of plugins (and themes) that you install and activate after every reset? Or on every fresh WP installation? Well, no more clicking install &amp; active for ten minutes! Build the collection once and install it with one click as many times as needed.</p>', 'wp-reset') . '</p>';            
+        }
         echo '<ul class="plain-list auto-activation-supported-list hidden">';
         foreach ($this->license_activation_known_plugins as $plugin) {
             echo '<li>' . $plugin . '</li>';
@@ -310,7 +319,10 @@ class WP_Reset_Collections
         if (WP_Reset_Utility::whitelabel_filter()) {
             echo '<a class="button add-new-collection" href="#">Add new collection</a> &nbsp;';
         }
-        echo '<a class="button reload-collections" href="#">Reload collections from the cloud</a>';
+
+        if(count($wp_reset->cloud_services) > 0){
+            echo '<a class="button reload-collections" href="#">Reload collections from the cloud</a>';
+        }
         echo '</p>';
 
         echo '</div>';
@@ -339,14 +351,20 @@ class WP_Reset_Collections
         echo '<div class="option-group"><span>Type:</span>';
         WP_Reset_Utility::create_toogle_switch('dialog-collection-item-type', array('saved_value' => '', 'value' => 'theme', 'class' => 'collection-item-type'));
         echo '</div>';
-        echo '<div class="option-group"><span>Source:</span>';
-        WP_Reset_Utility::create_toogle_switch('dialog-collection-item-source', array('saved_value' => 'repo', 'value' => 'zip', 'class' => 'collection-item-source'));
-        echo '</div>';
-        echo '<div id="edit-collection-item-source-wp" class="option-group"><span>Slug:</span><select placeholder="Enter plugin or theme repository slug" class="dialog-collection-item-slug" style="width:25em;"></select></div>';
 
+        if(count($wp_reset->cloud_services) > 0){
+            echo '<div class="option-group"><span>Source:</span>';
+            WP_Reset_Utility::create_toogle_switch('dialog-collection-item-source', array('saved_value' => 'repo', 'value' => 'zip', 'class' => 'collection-item-source'));
+            echo '</div>';
+        }
+
+        echo '<div id="edit-collection-item-source-wp" class="option-group"><span>Slug:</span><select placeholder="Enter plugin or theme repository slug" class="dialog-collection-item-slug" style="width:25em;"></select></div>';
+        
         echo '<div class="option-group" id="edit-collection-item-source-zip" style="display:none;"><span>ZIP:</span><input type="file" class="dialog-collection-item-zip" style="width:25em;" />';
         echo '<p class="note">ZIP archive containing an installable plugin or theme. The same archive you\'d use when adding a plugin via Plugins - Add New.</p>';
         echo '</div>';
+        
+
         echo '<div class="option-group" id="edit-collection-item-license-key"><span>License Key:</span><input name="dialog-collection-item-license-key" class="dialog-collection-item-license-key" placeholder="" type="text" class="regular-text" value="">';
         echo '<p class="note">License key is used to automatically activate supported premium plugins and themes, including those using Freemius for license management. For unsupported premium plugins we only securely store the key. If your plugin does not require a license key just leave the field empty.</p>';
         echo '</div>';
@@ -798,7 +816,15 @@ class WP_Reset_Collections
                     }
                     break;
                 case '301-redirects':
-                   
+                    if (class_exists('WF_Licensing_301')) {
+                        global $wf_301_licensing;
+                        if ($wf_301_licensing->validate($license_key)) {
+                            wp_send_json_success();
+                        } else {
+                            wp_send_json_error();
+                        }
+                    }
+                    break;
                 case 'google-maps-widget':
                     if (class_exists('GMWP')) {
                         $tmp = GMWP::validate_activation_code($license_key);
@@ -934,7 +960,13 @@ class WP_Reset_Collections
                     }
                     break;
                 case '301-redirects':
-                    
+                    if (class_exists('WF_Licensing_301')) {
+                        global $wf_301_licensing;
+                        if ($wf_301_licensing->is_active()) {
+                            return 'license_active';
+                        }
+                    }
+                    break;
                 case 'google-maps-widget':
                     if (class_exists('GMWP')) {
                         if (GMWP::is_activated()) {

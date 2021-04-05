@@ -1,0 +1,16 @@
+#OS X
+.DS_Store
+
+# Sass
+.sass-cache
+
+# Grunt
+/node_modules/
+npm-debug.log
+
+# Codekit
+.codekit-cache
+config.codekit
+
+/storefront-powerpack
+/storefront-powerpack.zip

@@ -1,5 +1,8 @@
 *** WooCommerce Instagram Changelog ***
 
+2021-03-18 - version 3.4.5
+* Fix - Fixed fatal error when the Instagram settings page is loaded as the default integration.
+
 2021-03-08 - version 3.4.4
 * Tweak - Open hashtag images in a new tab.
 * Tweak - Tested compatibility with WP 5.7.

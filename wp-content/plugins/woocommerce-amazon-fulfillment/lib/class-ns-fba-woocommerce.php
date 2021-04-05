@@ -21,6 +21,9 @@ if ( ! class_exists( 'NS_FBA_WooCommerce' ) ) {
 			add_action( 'manage_product_posts_custom_column', array( $this, 'manage_new_product_custom_column' ), 10, 2 );
 			add_action( 'wp_ajax_nsfba_button_actions', array( $this, 'nsfba_ajax_button_actions' ) );
 			add_action( 'admin_print_footer_scripts', array( $this, 'nsfba_ajax_button_jquery' ) );
+
+			// Add custom statuses as 'paid' to enable correct reporting.
+            add_filter( 'woocommerce_order_is_paid_statuses', array( $this, 'filter_paid_order_statuses' ) );
 		}
 
 		/**
@@ -116,6 +119,16 @@ if ( ! class_exists( 'NS_FBA_WooCommerce' ) ) {
 					add_action( 'wp_loaded', array( $this, 'ns_fba_insert_fail' ) );
 				}
 			}// End if().
+		}
+
+		/**
+         * Adds custom order statuses to count as 'paid' statuses for reporting
+         *
+		 * @param $statuses Other paid order statuses (processing and completed by default).
+		 * @return array
+		 */
+		public function filter_paid_order_statuses( $statuses ) {
+			return array_merge( $statuses, [ 'sent-to-fba', 'part-to-fba' ] );
 		}
 
 		/**
@@ -347,13 +360,9 @@ if ( ! class_exists( 'NS_FBA_WooCommerce' ) ) {
 		        $value = ( ! empty( $_REQUEST['value'] )) ? $_REQUEST['value'] : '';
 		        //error_log( 'pid = '. $pid );
 		        if ( $request == 'toggle_fba' ) {
-		        	if ( get_post_meta( $pid, 'ns_fba_is_fulfill', true ) == 'no' ) {
-				 		//error_log('Toggle #' . $pid . ' FBA On');
-						update_post_meta( $pid, 'ns_fba_is_fulfill', 'yes' );
-		        	} else {
-		        		//error_log('Toggle #' . $pid . ' FBA Off');
-		        		update_post_meta( $pid, 'ns_fba_is_fulfill', 'no' );
-		        	}
+		            $old_value = get_post_meta( $pid, 'ns_fba_is_fulfill', true );
+		            $new_value = ! $old_value || 'no' === $old_value ? 'yes' : 'no';
+		        	update_post_meta( $pid, 'ns_fba_is_fulfill', $new_value );
 		        }
 		        echo $data;
 		    }

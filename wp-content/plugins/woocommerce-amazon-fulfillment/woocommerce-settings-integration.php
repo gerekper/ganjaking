@@ -172,6 +172,7 @@ class WC_Integration_FBA extends WC_Integration {
 		$this->ns_fba_display_order_tracking	= $this->get_option( 'ns_fba_display_order_tracking' );
 		$this->ns_fba_debug_mode				= $this->get_option( 'ns_fba_debug_mode' );
 		$this->ns_fba_clean_logs				= $this->get_option( 'ns_fba_clean_logs' );
+		$this->ns_fba_clean_interval 			= $this->get_option( 'ns_fba_clean_logs_interval' );
 
 		// SECTION Smart Fulfillment Settings 				--------------------------------------------------------------------
 		$this->ns_fba_manual_order_override		= $this->get_option( 'ns_fba_manual_order_override' );
@@ -186,6 +187,7 @@ class WC_Integration_FBA extends WC_Integration {
 		}
 
 		$this->ns_fba_manual_item_override		= $this->get_option( 'ns_fba_manual_item_override' );
+		$this->ns_fba_manual_only_mode			= $this->get_option( 'ns_fba_manual_only_mode' );
 		$this->ns_fba_vacation_mode				= $this->get_option( 'ns_fba_vacation_mode' );
 		$this->ns_fba_perfection_mode			= $this->get_option( 'ns_fba_perfection_mode' );
 		$this->ns_fba_quantity_max_filter		= $this->get_option( 'ns_fba_quantity_max_filter' );
@@ -692,11 +694,19 @@ class WC_Integration_FBA extends WC_Integration {
 
 				'ns_fba_clean_logs' => array(
 					'title'             => __( 'Enable Daily Log Deletion', $this->text_domain ),
-					'label'             => __( 'Automatically delete error and success logs older than 30 days once per day', $this->text_domain ),
+					'label'             => __( 'Automatically delete error and success logs older than a certain number of days once per day', $this->text_domain ),
 					'description'       => __( 'This schedules a job to remove both error and success logs daily and automatically for log files older than 20 days. Any links in order notes pointing to deleted log files will be broken, but this will help keep logs from growing indefinitely. Default is OFF.', $this->text_domain ),
 					'desc_tip'          => true,
 					'default'           => 'no',
 					'type'              => 'checkbox',
+				),
+
+				'ns_fba_clean_logs_interval' => array(
+					'title'             => __( 'Number of Days to Keep Logs', $this->text_domain ),
+					'label'             => __( 'Define the limit of how old logs should be before being automatically deleted if \'Enable Daily Log Deletion\' is enabled.', $this->text_domain ),
+					'desc_tip'          => true,
+					'default'           => 30,
+					'type'              => 'number',
 				),
 
 				'ns_fba_clean_logs_now'	=> array(
@@ -752,6 +762,15 @@ class WC_Integration_FBA extends WC_Integration {
 					'title'             => __( 'Manual Order Item OVERRIDE', $this->text_domain ),
 					'label'             => __( 'Skip all other item processing rules below when manually submitting an order to Amazon', $this->text_domain ),
 					'description'       => __( 'This will bypass ALL other Order Item Level Processing Rules below <b>when manually sending an order to FBA</b> and force WCAF to try to send ALL items in an order regardless of their individual Product settings. Normally leave this turned ON. This setting does NOT bypass the rules below for automatic fulfillment.', $this->text_domain ),
+					'desc_tip'          => true,
+					'default'           => 'no',
+					'type'              => 'checkbox',
+				),
+
+				'ns_fba_manual_only_mode' => array(
+					'title'             => __( 'Manual Only Mode', $this->text_domain ),
+					'label'             => __( 'Skip automatic order fulfillment', $this->text_domain ),
+					'description'       => __( 'Send orders to Amazon ONLY when manually sent from the order admin page', $this->text_domain ),
 					'desc_tip'          => true,
 					'default'           => 'no',
 					'type'              => 'checkbox',

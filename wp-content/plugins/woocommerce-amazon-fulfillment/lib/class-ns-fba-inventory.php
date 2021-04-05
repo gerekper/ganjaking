@@ -193,7 +193,7 @@ if ( ! class_exists( 'NS_FBA_Inventory' ) ) {
 				}
 			} else {
 				error_log( $i++ . ': <span style="color:red;"> >> Error updating stock' .
-				' with FBA message: ' . $inventory['message'] . "</span><br />\n", 3, $this->ns_fba->inv_log_path );
+				' with FBA message: ' . print_r( $inventory, true ) . "</span><br />\n", 3, $this->ns_fba->inv_log_path );
 			}// End if().
 		}
 

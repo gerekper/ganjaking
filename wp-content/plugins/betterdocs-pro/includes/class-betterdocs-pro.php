@@ -156,6 +156,11 @@ class Betterdocs_Pro
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/customizer/customizer.php';
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/customizer/defaults.php';
 
+        /**
+         * The class responsible for registering widget in elementor and extend single page functionality
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/elementor/class-betterdocs-pro-elementor.php';
+
 		$this->loader = new Betterdocs_Pro_Loader();
 	}
 

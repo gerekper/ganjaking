@@ -1,0 +1,25 @@
+.woocommerce-checkout.sp-distraction-free-checkout .site-header {
+  padding-bottom: 2.617924em; }
+  .woocommerce-checkout.sp-distraction-free-checkout .site-header .site-logo-link {
+    margin-bottom: 2.618em; }
+  .woocommerce-checkout.sp-distraction-free-checkout .site-header .site-branding {
+    float: none;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%; }
+    .woocommerce-checkout.sp-distraction-free-checkout .site-header .site-branding .custom-logo-link {
+      float: none; }
+    .woocommerce-checkout.sp-distraction-free-checkout .site-header .site-branding img {
+      display: inline; }
+
+@media (min-width: 768px) {
+  .woocommerce-checkout.sp-distraction-free-checkout.page-template-default .content-area {
+    width: 65.2173913043%;
+    float: right;
+    margin-left: 4.347826087%;
+    float: none;
+    margin: 0 auto; }
+  .woocommerce-checkout.sp-distraction-free-checkout.sd-header-sticky .site-content {
+    padding-top: 2.618em; }
+  .woocommerce-checkout.sp-distraction-free-checkout .site-content {
+    padding-top: 2.617924em; } }

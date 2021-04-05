@@ -11,7 +11,6 @@ class MeprLoginCtrl extends MeprBaseCtrl {
     add_action('wp_logout', array($this,'logout_redirect_override'), 99999);
     add_filter('init', array($this,'override_wp_login_url_init'));
     add_action('init', array($this, 'process_reset_password_form'));
-    add_action('init', array($this, 'load_shortcode_resources'));
   }
 
   public function logout_link($atts) {
@@ -46,13 +45,6 @@ class MeprLoginCtrl extends MeprBaseCtrl {
   public function render_login_form($atts=array(), $content='', $shortcode=true) {
     global $post;
     $mepr_options = MeprOptions::fetch();
-
-    //Enqueue styles and scripts for show/hide password
-    wp_enqueue_style( 'dashicons' );
-    wp_enqueue_style( 'mp-login-css' );
-
-    wp_enqueue_script('mepr-login-i18n');
-    wp_enqueue_script('mepr-login-js');
 
     if(isset($atts['redirect_to']) && !empty($atts['redirect_to'])) {
       // Security fix. Restrict redirect_to param to safe URLs PT#154812459
@@ -384,10 +376,5 @@ class MeprLoginCtrl extends MeprBaseCtrl {
         $_POST['errors'] = $errors;
       }
     }
-  }
-
-  public function load_shortcode_resources() {
-     wp_register_style( 'mp-login-css', MEPR_CSS_URL.'/ui/login.css', null, MEPR_VERSION);
-     wp_register_script('mepr-login-js', MEPR_JS_URL.'/login.js', array('jquery', 'underscore', 'wp-i18n'), MEPR_VERSION);
   }
 }

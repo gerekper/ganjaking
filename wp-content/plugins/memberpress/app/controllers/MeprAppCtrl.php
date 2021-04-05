@@ -674,7 +674,7 @@ class MeprAppCtrl extends MeprBaseCtrl {
       wp_enqueue_style('mp-account-css', MEPR_CSS_URL.'/ui/account.css', null, MEPR_VERSION);
     }
 
-    if($global_styles || $is_login_page) {
+    if($global_styles || $is_login_page || has_shortcode(get_the_content(null, false, $post) , 'mepr-login-form') || is_active_widget(false, false, 'mepr_login_widget')) {
       wp_enqueue_style( 'dashicons' );
       wp_enqueue_style( 'mp-login-css', MEPR_CSS_URL.'/ui/login.css', null, MEPR_VERSION);
 

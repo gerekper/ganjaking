@@ -1,0 +1,13 @@
+.sp-section-notice {
+  margin: -20px -12px 5px -12px;
+  padding: 15px;
+  font-size: 14px;
+  background-color: #0085ba;
+  color: #fff;
+  border-bottom: 1px solid #006799; }
+  .sp-section-notice .dashicons {
+    color: #ffffff;
+    float: right;
+    margin-left: 1em; }
+  .sp-section-notice.sp-section-notice-header {
+    margin-bottom: 20px; }

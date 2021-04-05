@@ -158,7 +158,7 @@ class GF_API_Keys_Table extends WP_List_Table {
 			</tbody>
 
 		</table>
-	
+		
 		<div>
 			<a class="button-secondary gfbutton gaddon-setting" id="add_setting_button" <?php echo $this->add_key_link(); echo $disabled ?>>Add Key</a>
 		</div>

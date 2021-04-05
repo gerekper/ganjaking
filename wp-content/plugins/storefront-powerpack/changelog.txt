@@ -1,0 +1,125 @@
+*** Storefront Powerpack Changelog ***
+
+2021-03-24 - version 1.6.1
+* Build fixes.
+
+2021-03-24 - version 1.6.0
+* Fix - Designer: Add ID or commenting to CSS inserted in page head (#218).
+* Fix - Hide Checkout customisation options if Checkout block is in use.
+* Tweak - WC 5.1 compatibility.
+* Tweak - WP 5.6 compatibility.
+
+2019.06.27 - version 1.5.0
+* Enhancement - Header Customizer: Add support for floating elements and empty rows.
+* Enhancement - Designer: New "Font Weight" select box for granular control over your typography.
+* Fix - Add back Storefront header wrappers to the "Distraction Free Checkout" option header area.
+* Fix - Update Sticky Header `z-index` value to stop overlapping with the product image full screen lightbox.
+
+2019.03.04 - version 1.4.15
+* Tweak - Use original string when homepage section title is left empty. Useful for multi language sites.
+
+2019.02.06 - version 1.4.14
+* Fix - Ensure that custom color is applied to star ratings.
+* Fix - Add new loop thumbnail selector to Designer.
+* Fix - Improvements to Storefront Designer CSS output for increased CSS specificity.
+* Fix - Filter WooCommerce image sizes to override values set by Storefront.
+
+2018.11.28 - version 1.4.13
+* Tweak - Adds filters to disable specific features of Powerpack programmatically.
+
+2018.09.24 - version 1.4.12
+* Tweak - Allow for custom image sizes when "Max width" option is enabled.
+
+2018.08.13 - version 1.4.11
+* Fix - Removes 'Sticky Order Review' checkbox. This option no longer exists in Storefront.
+
+2018.07.19 - version 1.4.10
+* Fix - Compatibility with FontAwesome 5.
+
+2018.06.25 - version 1.4.9
+* Tweak - Hide options in the Shop panel that do not apply when viewing the Homepage template in the Customizer.
+* Fix - Remove extra margins in the Distraction Free Checkout option on small screen devices.
+* Fix - Remove Breadcrumb from Distraction Free Checkout on Storefront 2.3+.
+
+2018.06.06 - version 1.4.8
+* Tweak - Exclude mobile toggle from being selected when changing the properties of regular buttons.
+* Fix - Update default value for the "Display" setting in the Designer from `inherit` to `inline`.
+* Fix - Ensure that the Sticky Header option only applies to the desktop layout.
+
+2018.05.03 - version 1.4.7
+* Tweak - Compatibility with Storefront 2.3.
+* Tweak - Removed 'Options pagination' setting in the Composite Products integration. This option is now included in the extension.
+
+2018.03.21 - version 1.4.6
+* Fix - Fixed PHP warning introduced in 1.4.5 when using the latest version of WooCommerce.
+
+2018.03.20 - version 1.4.5
+* Fix - Enhanced compatibility between Distraction Free Checkout and Header Customizer.
+* Fix - Updated modules that conflict with WooCommerce 3.3.
+* Tweak - Added fade-in animation to Sticky Header.
+* Tweak - Compatibility with WooCommerce Email Customizer.
+
+2017.12.04 - version 1.4.4
+* Fix - Center logo on distraction free checkout.
+* Fix - Conflict between checkout layout options and distraction free checkout.
+* Fix - Two-step checkout and Select2.
+* Fix - Add body class to increase the Designer CSS output specificity.
+
+2017.09.25 - version 1.4.3
+* Tweak - Use absolute paths on assets enqueues for better compatibility with other plugins.
+
+2017.08.14 - version 1.4.2
+* Fix - Fixes output of short description option in Shop page.
+* Fix - Disable keyboard navigation in Checkout when using the "Two Step Checkout" option.
+
+2017.06.23 - version 1.4.1
+* Fix - Sticky Header scroll when there's a checkout error.
+* Fix - Hide gallery option in single product pages.
+* Fix - Homepage sections descriptions are now translatable.
+* Tweak - Better integration with WooCommerce Composite Products.
+
+2017.05.17 - version 1.4.0
+* Fix - Compatibility with Storefront 2.2.
+* Fix - Conflict with WooCommerce Email Customizer.
+
+2017.02.10 - version 1.3.1
+* Fix - Further compatibility with the Jetpack mobile theme.
+* Fix - Output of custom product data tabs.
+
+2016.12.06 - version 1.3.0
+* Fix - Compatibility with WordPress 4.7
+
+2016.12.01 - version 1.2.1
+ * Fix - Two step checkout process indicator layout on handheld devices.
+ * Fix - Header margin when using distraction free checkout.
+ * Fix - Designer control in RTL.
+ * Fix - Default value for font family.
+ * Fix - Main navigation link selector.
+
+2016.10.24 - version 1.2.0
+* New - Sticky header.
+* Fix - Container overflow when using Two Step Checkout.
+* Tweak - Retired Infinite Scroll in favour of Jetpack Inifine Scroll.
+
+2016.09.28 - version 1.1.1
+* Tweak - Navigation wrapper, main navigation links and widget titles are now customizable in the Designer.
+
+2016.09.27 - version 1.1.0
+* New - Footer text and footer credit options.
+* Fix - Parsing of transparent colors in the Designer on browsers other than Chrome.
+* Fix - Fatal error when using the Jetpack mobile theme.
+
+2016.09.08 - version 1.0.3
+* Fix - Content frame background color when using Storefront Powerpack without WooCommerce.
+* Fix - Storefront Powerpack is now loaded into the init hook with priority 0 (was 10) to ensure that all setting defaults are set.
+
+2016.09.07 - version 1.0.2
+* Fix - Fatal error when using Storefront Powerpack without WooCommerce.
+* Fix - Homepage settings not taking effect.
+
+2016.09.06 - version 1.0.1
+* Fix - Checkboxes not saving in the Customizer.
+* Fix - Customizer setting defaults not being set.
+
+2016.09.06 - version 1.0.0
+* Initial release

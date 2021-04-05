@@ -330,7 +330,7 @@ if ( ! class_exists( 'NS_FBA_Utils' ) ) {
 		}
 
 		function delete_older_logs() {
-			$days = 30;
+			$days = (int) $this->ns_fba->options['ns_fba_clean_logs_interval'] ?: 30;
 			$path_dir = $this->ns_fba->plugin_path . 'logs/';
 			$files_deleted = 0;
 			// Open the directory

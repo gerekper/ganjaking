@@ -1,15 +1,15 @@
-# Copyright (C) 2020 WooCommerce
+# Copyright (C) 2021 WooCommerce
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Box Office 1.1.30\n"
+"Project-Id-Version: WooCommerce Box Office 1.1.31\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-box-office\n"
-"POT-Creation-Date: 2020-11-05 17:56:13+00:00\n"
+"POT-Creation-Date: 2021-03-25 10:27:08+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
@@ -65,7 +65,7 @@ msgstr ""
 
 #: includes/class-wc-box-office-post-types.php:62
 #: includes/class-wc-box-office-product-admin.php:30
-#: includes/class-wc-box-office-ticket-admin.php:312
+#: includes/class-wc-box-office-ticket-admin.php:318
 #: includes/class-wc-box-office-tools.php:195
 #: includes/views/admin/create-ticket-step-3.php:27
 msgid "Ticket"
@@ -249,73 +249,80 @@ msgid ""
 "debugging purposes only and deleting the logs when finished."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:85
+#: includes/class-wc-box-office-ticket-admin.php:91
 msgid "All Ticket Products"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:134
+#: includes/class-wc-box-office-ticket-admin.php:140
 msgid "Ticket Information"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:137
+#: includes/class-wc-box-office-ticket-admin.php:143
 msgid "Ticket Barcode"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:264
+#: includes/class-wc-box-office-ticket-admin.php:270
 msgid "Email Information"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:265
+#: includes/class-wc-box-office-ticket-admin.php:271
 msgid "Email Content"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:266
+#: includes/class-wc-box-office-ticket-admin.php:272
 msgid "Email Log"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:313
+#: includes/class-wc-box-office-ticket-admin.php:319
 #: templates/myaccount/my-tickets.php:34
 msgid "Order"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:314
+#: includes/class-wc-box-office-ticket-admin.php:320
 msgid "Checked-in yet?"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:315
+#: includes/class-wc-box-office-ticket-admin.php:321
 #: includes/views/admin/ticket-email-log-meta-box.php:7
 msgid "Date"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:343
+#: includes/class-wc-box-office-ticket-admin.php:349
 #: includes/class-wc-box-office-ticket-shortcode.php:65
 #: templates/order/order-tickets.php:15
 msgid "Pending"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:363
+#: includes/class-wc-box-office-ticket-admin.php:369
 #: includes/views/admin/ticket-field.php:39
 #: includes/views/admin/ticket-field.php:46
 #: includes/views/admin/ticket-field.php:52
 msgid "Yes"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:412
-#: includes/class-wc-box-office-ticket-admin.php:413
+#: includes/class-wc-box-office-ticket-admin.php:418
+#: includes/class-wc-box-office-ticket-admin.php:419
 #: templates/ticket/scan.php:7
 msgid "Mark as attended"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:415
-#: includes/class-wc-box-office-ticket-admin.php:416
+#: includes/class-wc-box-office-ticket-admin.php:421
+#: includes/class-wc-box-office-ticket-admin.php:422
 msgid "Mark as not checked-in yet"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:530
+#: includes/class-wc-box-office-ticket-admin.php:536
+#: includes/class-wc-box-office-ticket-admin.php:582
 #: includes/views/admin/create-ticket-step-1.php:15
 #: includes/views/admin/create-ticket-step-2.php:11
 #: includes/views/admin/create-ticket-step-2.php:77
 msgid "Create Ticket"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:593
+#: includes/class-wc-box-office-tools.php:52
+#: includes/class-wc-box-office-tools.php:62
+msgid "Tools"
 msgstr ""
 
 #: includes/class-wc-box-office-ticket-ajax.php:31
@@ -509,11 +516,6 @@ msgstr ""
 
 #: includes/class-wc-box-office-tools.php:52 includes/views/admin/tools.php:12
 msgid "Ticket Tools"
-msgstr ""
-
-#: includes/class-wc-box-office-tools.php:52
-#: includes/class-wc-box-office-tools.php:62
-msgid "Tools"
 msgstr ""
 
 #: includes/class-wc-box-office-tools.php:125

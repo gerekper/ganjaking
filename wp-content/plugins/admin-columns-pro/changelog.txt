@@ -1,12 +1,17 @@
 == Changelog ==
 
+= 5.4.4 =
+Release Date: April 2nd, 2021
+
+* [Fixed] Fatal error that occurred on the WPML String translation
+
 = 5.4.3 =
 Release Date: March 2nd, 2021
 
 * [Fixed] Sorting on Post Formats no longer filters out the Standard format
 * [Fixed] Exporting columns settings without any sets selected gave a fatal error
 * [Fixed] WYSIWYG editing does not close in Inline Edit when selecting a style
-* [Improved] The Bulk Edit column settings is now only displayed when bulk editing is available
+* [Improved] The Bulk Edit column settings are now only displayed when bulk editing is available
 
 = 5.4.2 =
 Release Date: February 8th, 2021

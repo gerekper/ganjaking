@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 // Your license KEY.
 if ( ! defined( 'WP_ROCKET_KEY' ) ) {
-	define( 'WP_ROCKET_KEY', '5c7208e0c4bb305405a96d4da60abcd0' );
+	define( 'WP_ROCKET_KEY', '5c7208e0c4bb305405a96d4da60abcd0');
 }
 
 // Your email, the one you used for the purchase.

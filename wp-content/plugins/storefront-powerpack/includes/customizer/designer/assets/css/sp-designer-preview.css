@@ -1,0 +1,26 @@
+.sp-element-border {
+  background: #FFAC33;
+  position: absolute;
+  z-index: 99999; }
+
+.sp-element-border-top,
+.sp-element-border-bottom {
+  height: 2px; }
+
+.sp-element-border-left,
+.sp-element-border-right {
+  width: 2px; }
+
+.sp-element-same {
+  background: rgba(255, 172, 51, 0.2); }
+
+.sp-element-label {
+  background: #FFAC33;
+  color: #fff;
+  padding: 2px 8px;
+  position: absolute;
+  z-index: 99999;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: monospace;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2); }
