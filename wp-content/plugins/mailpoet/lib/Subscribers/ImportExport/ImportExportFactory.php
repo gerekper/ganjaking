@@ -51,6 +51,10 @@ class ImportExportFactory {
       'email' => __('Email', 'mailpoet'),
       'first_name' => __('First name', 'mailpoet'),
       'last_name' => __('Last name', 'mailpoet'),
+      'subscribed_ip' => __('Subscription IP', 'mailpoet'),
+      'created_at' => __('Subscription time', 'mailpoet'),
+      'confirmed_at' => __('Confirmation time', 'mailpoet'),
+      'confirmed_ip' => __('Confirmation IP', 'mailpoet'),
     ];
     if ($this->action === 'export') {
       $fields = array_merge(
@@ -58,7 +62,6 @@ class ImportExportFactory {
         [
           'list_status' => _x('List status', 'Subscription status', 'mailpoet'),
           'global_status' => _x('Global status', 'Subscription status', 'mailpoet'),
-          'subscribed_ip' => __('IP address', 'mailpoet'),
         ]
       );
     }
@@ -70,7 +73,7 @@ class ImportExportFactory {
       return [
         'id' => $fieldId,
         'name' => $fieldName,
-        'type' => ($fieldId === 'confirmed_at') ? 'date' : null,
+        'type' => ($fieldId === 'confirmed_at' || $fieldId === 'created_at') ? 'date' : null,
         'custom' => false,
       ];
     }, array_keys($subscriberFields), $subscriberFields);

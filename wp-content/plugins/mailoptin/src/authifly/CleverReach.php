@@ -3,6 +3,7 @@
 namespace Authifly\Provider;
 
 use Authifly\Adapter\OAuth2;
+use Authifly\Exception\HttpRequestFailedException;
 use Authifly\Exception\InvalidArgumentException;
 use Authifly\Data;
 
@@ -71,6 +72,9 @@ class CleverReach extends OAuth2
      * Return the array of groups (receiver lists)
      *
      * @return array
+     * @throws HttpRequestFailedException
+     * @throws \Authifly\Exception\HttpClientFailureException
+     * @throws \Authifly\Exception\InvalidAccessTokenException
      */
     public function getGroupList()
     {
@@ -125,6 +129,22 @@ class CleverReach extends OAuth2
         return $filtered;
     }
 
+
+    public function getForms()
+    {
+        $response = $this->apiRequest("forms");
+
+        $fields = (new Data\Collection($response))->toArray();
+
+        $filtered = [];
+        foreach ($fields as $key => $field) {
+            $filtered[$field->id] = $field->name;
+
+        }
+
+        return $filtered;
+    }
+
     /**
      * Add subscriber to an email list.
      *
@@ -132,10 +152,15 @@ class CleverReach extends OAuth2
      * @param string $email
      * @param array $subscriber_data
      *
+     * @param array $doi_data
+     *
      * @return object
+     * @throws HttpRequestFailedException
      * @throws InvalidArgumentException
+     * @throws \Authifly\Exception\HttpClientFailureException
+     * @throws \Authifly\Exception\InvalidAccessTokenException
      */
-    public function addSubscriber($group_id, $email, $subscriber_data = [])
+    public function addSubscriber($group_id, $email, $subscriber_data = [], $doi_data = [])
     {
         if (empty($group_id)) {
             throw new InvalidArgumentException('Group ID is missing');
@@ -145,7 +170,43 @@ class CleverReach extends OAuth2
             throw new InvalidArgumentException('Email address is missing');
         }
 
-        return $this->apiRequest("groups/$group_id/receivers/upsert", 'POST', $subscriber_data);
+        $subscriber_data['registered'] = time();
+        $subscriber_data['activated']  = time();
+
+        if ( ! empty($doi_data)) {
+
+            $subscriber_data['activated'] = 0;
+
+            $find_receiver = $this->getSubscribers($group_id, $email);
+
+            if (false != $find_receiver) {
+                $subscriber_data['activated'] = $find_receiver->activated;
+                unset($subscriber_data['registered']);
+            }
+        }
+
+        $receivers_update = $this->apiRequest("groups/$group_id/receivers/upsert", 'POST', $subscriber_data);
+
+        if (isset($receivers_update->activated) && $receivers_update->activated == 0 && ! empty($doi_data)) {
+            $form_id = $doi_data['form_id'];
+            $this->apiRequest("forms/{$form_id}/send/activate", "POST", $doi_data);
+        }
+
+        return $receivers_update;
+    }
+
+
+    public function getSubscribers($group_id, $pool_id)
+    {
+        try {
+
+            $find_receiver = $this->apiRequest("groups/$group_id/receivers/$pool_id");
+
+            return $find_receiver;
+
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -153,7 +214,9 @@ class CleverReach extends OAuth2
      * @param array $headers
      *
      * @return mixed
-     * @throws InvalidArgumentException
+     * @throws HttpRequestFailedException
+     * @throws \Authifly\Exception\HttpClientFailureException
+     * @throws \Authifly\Exception\InvalidAccessTokenException
      */
     public function sendMailing($payload, $headers = [])
     {
@@ -161,10 +224,12 @@ class CleverReach extends OAuth2
 
         $response = $this->apiRequest('mailings', 'POST', $payload, $headers);
 
-        if (isset($response->error)) {
-            throw new InvalidArgumentException($response[0]->error_message, $this->httpClient->getResponseHttpCode());
+        if (isset($response->error) || ! isset($response->id)) {
+            throw new HttpRequestFailedException($response[0]->error_message, $this->httpClient->getResponseHttpCode());
         }
 
-        return $response;
+        $response2 = $this->apiRequest(sprintf('mailings/%s/release', $response->id), 'POST', ['time' => 0], $headers);
+
+        return isset($response2->id);
     }
 }

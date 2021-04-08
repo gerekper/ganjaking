@@ -5,10 +5,14 @@ namespace MailPoet\Models;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\DynamicSegments\Filters\Filter;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Models\Segment as MailPoetSegment;
 use MailPoet\WP\Functions as WPFunctions;
+
+/**
+ * @deprecated This model is deprecated. Use MailPoet\Segments\DynamicSegments\DynamicSegmentsListingRepository and respective Doctrine entities instead.
+ * This class can be removed after 2021-09-25
+ */
 
 /**
  * @property int $id
@@ -22,33 +26,19 @@ class DynamicSegment extends MailPoetSegment {
 
   const TYPE_DYNAMIC = SegmentEntity::TYPE_DYNAMIC;
 
-  /** @var Filter[] */
-  private $filters = [];
-
-  /**
-   * @return Filter[]
-   */
-  public function getFilters() {
-    return $this->filters;
-  }
-
-  /**
-   * @param Filter[] $filters
-   */
-  public function setFilters(array $filters) {
-    $this->filters = $filters;
-  }
-
   public function save() {
+    self::deprecationError(__FUNCTION__);
     $this->set('type', DynamicSegment::TYPE_DYNAMIC);
     return parent::save();
   }
 
   public function dynamicSegmentFilters() {
+    self::deprecationError(__FUNCTION__);
     return $this->has_many(__NAMESPACE__ . '\DynamicSegmentFilter', 'segment_id');
   }
 
   public static function findAll() {
+    self::deprecationError(__FUNCTION__);
     $query = self::select('*');
     return $query->where('type', DynamicSegment::TYPE_DYNAMIC)
       ->whereNull('deleted_at')
@@ -56,6 +46,7 @@ class DynamicSegment extends MailPoetSegment {
   }
 
   public static function listingQuery(array $data = []) {
+    self::deprecationError(__FUNCTION__);
     $query = self::select('*');
     $query->where('type', DynamicSegment::TYPE_DYNAMIC);
     if (isset($data['group'])) {
@@ -68,6 +59,7 @@ class DynamicSegment extends MailPoetSegment {
   }
 
   public static function groups() {
+    self::deprecationError(__FUNCTION__);
     return [
       [
         'name' => 'all',
@@ -83,11 +75,13 @@ class DynamicSegment extends MailPoetSegment {
   }
 
   public function delete() {
+    self::deprecationError(__FUNCTION__);
     DynamicSegmentFilter::where('segment_id', $this->id)->deleteMany();
     return parent::delete();
   }
 
   public static function bulkTrash($orm) {
+    self::deprecationError(__FUNCTION__);
     $count = parent::bulkAction($orm, function($ids) {
       $placeholders = join(',', array_fill(0, count($ids), '?'));
       DynamicSegment::rawExecute(join(' ', [
@@ -101,6 +95,7 @@ class DynamicSegment extends MailPoetSegment {
   }
 
   public static function bulkDelete($orm) {
+    self::deprecationError(__FUNCTION__);
     $count = parent::bulkAction($orm, function($ids) {
       $placeholders = join(',', array_fill(0, count($ids), '?'));
       DynamicSegmentFilter::rawExecute(join(' ', [
@@ -114,5 +109,25 @@ class DynamicSegment extends MailPoetSegment {
     });
 
     return ['count' => $count];
+  }
+
+  /**
+   * @deprecated This is here for displaying the deprecation warning for properties.
+   */
+  public function __get($key) {
+    self::deprecationError('property "' . $key . '"');
+    return parent::__get($key);
+  }
+
+  /**
+   * @deprecated This is here for displaying the deprecation warning for static calls.
+   */
+  public static function __callStatic($name, $arguments) {
+    self::deprecationError($name);
+    return parent::__callStatic($name, $arguments);
+  }
+
+  private static function deprecationError($methodName) {
+    trigger_error('Calling ' . $methodName . ' is deprecated and will be removed. Use MailPoet\Segments\DynamicSegments\DynamicSegmentsListingRepository and respective Doctrine entities instead.', E_USER_DEPRECATED);
   }
 }

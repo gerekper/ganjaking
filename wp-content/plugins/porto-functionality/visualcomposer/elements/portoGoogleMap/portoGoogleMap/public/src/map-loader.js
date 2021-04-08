@@ -36,7 +36,7 @@
 
     mapObj = new google.maps.Map($obj.get(0), mapOptions);
     mapObj.setCenter(coordinateId);
-    mapObj.setZoom(attrs.zoom);
+    mapObj.setZoom(Number(attrs.zoom));
     if (attrs.map_style) {
       mapObj.mapTypes.set('map_style', styledMap);
       mapObj.setMapTypeId('map_style');

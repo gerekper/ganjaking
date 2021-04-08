@@ -110,7 +110,11 @@ class Subscriber extends Model {
     return (bool)$this->isWoocommerceUser;
   }
 
+  /**
+   * @deprecated Use the version in \MailPoet\Subscribers\SubscribersRepository::getCurrentWPUser
+   */
   public static function getCurrentWPUser() {
+    trigger_error('Calling Subscriber::getCurrentWPUser() is deprecated and will be removed. Use MailPoet\Subscribers\SubscribersRepository::getCurrentWPUser(). ', E_USER_DEPRECATED);
     $wpUser = WPFunctions::get()->wpGetCurrentUser();
     if (empty($wpUser->ID)) {
       return false; // Don't look up a subscriber for guests
@@ -262,6 +266,9 @@ class Subscriber extends Model {
     return $orm;
   }
 
+  /**
+   * @deprecated
+   */
   public static function filterWithCustomFieldsForExport($orm) {
     $orm = $orm->select(MP_SUBSCRIBERS_TABLE . '.*');
     $customFields = CustomField::findArray();

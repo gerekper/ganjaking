@@ -546,6 +546,9 @@ var MonsterInsights = function () {
 							setTimeout( __gtagTrackerNoRedirectInboundAsExternal, 1100 );
 						}
 					}
+
+					// Clear out the beforeunload event if it was set to avoid sending false events.
+					setTimeout( maybePreventBeforeUnload, 100 );
 				}
 			} else {
 				maybePreventBeforeUnload();

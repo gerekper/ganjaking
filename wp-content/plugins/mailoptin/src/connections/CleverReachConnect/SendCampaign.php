@@ -68,9 +68,9 @@ class SendCampaign extends AbstractCleverReachConnect
 
             $campaign_title = $this->get_email_campaign_campaign_title($this->email_campaign_id);
 
-            $from_name      = Settings::instance()->from_name();
-            $from_email     = Settings::instance()->from_email();
-            $subject        = $this->campaign_subject;
+            $from_name  = Settings::instance()->from_name();
+            $from_email = Settings::instance()->from_email();
+            $subject    = $this->campaign_subject;
 
             $payload = apply_filters('mailoptin_cleverreach_campaign_settings', [
                 'name'         => $campaign_title,
@@ -94,7 +94,7 @@ class SendCampaign extends AbstractCleverReachConnect
 
             $send_campaign = $this->cleverreachInstance()->sendMailing($payload);
 
-            if (isset($send_campaign->id)) {
+            if (true === $send_campaign) {
                 return parent::ajax_success();
             }
 

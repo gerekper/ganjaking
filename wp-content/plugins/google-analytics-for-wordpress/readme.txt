@@ -4,7 +4,7 @@ Donate link: http://www.wpbeginner.com/wpbeginner-needs-your-help/
 Tags: WordPress analytics, google analytics, google analytics dashboard, google analytics widget, WooCommerce stats, analytics dashboard, universal google analytics, statistics, tracking, stats, google, google analytics by yoast, ga, monster insights, monsterinsights, universal analytics, web stats, ecommerce, ecommerce tracking
 Requires at least: 3.8.0
 Tested up to: 5.7
-Stable tag: 7.16.2
+Stable tag: 7.17.0
 Requires PHP: 5.2
 License: GPL v3
 
@@ -16,7 +16,7 @@ The best Google Analytics plugin for WordPress. See how visitors find and use yo
 
 We believe that it's easy to double your traffic and sales when you know exactly how people find and use your website. <a href="https://www.monsterinsights.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion" rel="friend" title="MonsterInsights">MonsterInsights</a> shows you the stats that matter, so you can grow your business with confidence.
 
-With over 2 million active installs, MonsterInsights is the most popular Google Analytics plugin for WordPress.
+With over 3 million active installs, MonsterInsights is the most popular Google Analytics plugin for WordPress.
 
 At MonsterInsights, we make it "effortless" to properly connect your WordPress site with Google Analytics, so you can start making data-driven decisions to grow your business.
 
@@ -31,7 +31,7 @@ That's why millions of small businesses and top companies like Microsoft, Bloomb
 > <strong>MonsterInsights Pro</strong><br />
 > This plugin is the lite version of MonsterInsights Pro plugin that comes with all the Google analytics tracking features you will ever need including events tracking, ecommerce tracking, custom dimensions tracking, popular post tracing, affiliate link tracking, and tons more. <a href="https://www.monsterinsights.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion" rel="friend" title="MonsterInsights">Click here to purchase the best premium Google Analytics plugin for WordPress now!</a>
 
-We took the pain out of installing Google Analytics in WordPress and made it easy. Here's why over 2 million smart business owners, designers, and developers love MonsterInsights, and you will too!
+We took the pain out of installing Google Analytics in WordPress and made it easy. Here's why over 3 million smart business owners, designers, and developers love MonsterInsights, and you will too!
 
 https://www.youtube.com/watch?v=IbdKpSygp2U
 
@@ -285,6 +285,15 @@ You can also learn about other <a href="http://www.wpbeginner.com/category/plugi
 4. Want more features? <a href="https://www.monsterinsights.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">Purchase MonsterInsights Pro</a>!
 
 == Changelog ==
+= 7.17.0: March 23, 2021 =
+- New: Our contextual education messages will now highlight the report or setting mentioned so it’s easier to make informed decisions.
+- Tweak: We added extra checks to the methods used for sending server-side events with the measurement protocol to prevent preloading plugins from triggering them.
+- Tweak: We made an adjustment to ensure the curated Popular Posts in the widget are randomly displayed.
+- Tweak: We added a filter to allow disabling of the Popular Posts random display of posts.
+- Tweak: We adjusted the way we load the Popular Posts styles to improve performance when the styles are not used.
+- Fix: We improved the analytics.js to gtag.js compatibility layer for more stability and fixed an issue that could interfere with the bounce rate.
+- Fix: We adjusted the loading screens to make it more consistent when loading reports.
+
 = 7.16.2: February 22, 2021 =
 - Tweak: We improved our gtag.js compatibility layer with support for custom trackers used in the analytics.js format for some integrations.
 

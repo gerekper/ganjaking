@@ -2,7 +2,7 @@
 Contributors: creativemotion
 Tags: instagram, instagram feed, instagram gallery, instagram photos, Instagram widget
 Requires at least: 4.8
-Tested up to: 5.6
+Tested up to: 5.7
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -110,6 +110,15 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 10. Highlight
 
 == Changelog ==
+
+= 1.9.4 =
+* Fixed: Empty Youtube settings
+* Fixed: Script localize error
+* Minor fixes
+
+= 1.9.3 =
+* Hotfix: Error while no stories
+* Corrections in the text
 
 = 1.9.2 =
 * Hotfix: Inability to display the first picture

@@ -1114,6 +1114,8 @@ class AjaxHandler
     {
         check_ajax_referer('customizer-fetch-email-list', 'security');
 
+        current_user_has_privilege() || exit;
+
         $custom_post_type = sanitize_text_field($_POST['custom_post_type']);
 
         if ( ! empty($custom_post_type)) {
@@ -1128,6 +1130,8 @@ class AjaxHandler
     public function customizer_optin_map_custom_field()
     {
         check_ajax_referer('customizer-fetch-email-list', 'security');
+
+        current_user_has_privilege() || exit;
 
         $connection            = sanitize_text_field($_POST['connect_service']);
         $list_id               = sanitize_text_field($_POST['list_id']);

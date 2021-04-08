@@ -6,6 +6,7 @@ use MailOptin\Core\Core;
 use MailOptin\Core\Repositories\OptinCampaignMeta;
 use MailOptin\Core\Repositories\OptinCampaignsRepository;
 use MailOptin\Core\Repositories\OptinCampaignStat;
+use MailOptin\Core\Repositories\OptinThemesRepository;
 
 if ( ! class_exists('WP_List_Table')) {
     require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
@@ -32,24 +33,16 @@ class OptinCampaign_List extends \WP_List_Table
      */
     public function __construct($wpdb)
     {
-        $this->lite_themes = [
-            ['type' => 'lightbox', 'class' => 'BareMetal'],
-            ['type' => 'lightbox', 'class' => 'Elegance'],
-            ['type' => 'inpost', 'class' => 'Columbine'],
-            ['type' => 'inpost', 'class' => 'BareMetal'],
-            ['type' => 'inpost', 'class' => 'Elegance'],
-            ['type' => 'sidebar', 'class' => 'Lupin'],
-            ['type' => 'sidebar', 'class' => 'Gridgum']
-        ];
+        $this->lite_themes = OptinThemesRepository::free_themes();
 
         $this->lite_optin_types_support = array_unique(array_reduce($this->lite_themes, function ($carry, $item) {
-            $carry[] = $item['type'];
+            $carry[] = $item['optin_type'];
 
             return $carry;
         }));
 
         foreach ($this->lite_themes as $lite_theme) {
-            $this->fqn_lite_themes[] = $lite_theme['type'] . '/' . $lite_theme['class'];
+            $this->fqn_lite_themes[] = $lite_theme['optin_type'] . '/' . $lite_theme['optin_class'];
         }
 
         $this->wpdb  = $wpdb;
@@ -65,8 +58,8 @@ class OptinCampaign_List extends \WP_List_Table
     public function get_optin_classes_by_type($optin_type)
     {
         return array_reduce($this->lite_themes, function ($carry, $item) use ($optin_type) {
-            if ($item['type'] == $optin_type) {
-                $carry[] = $item['class'];
+            if ($item['optin_type'] == $optin_type) {
+                $carry[] = $item['optin_class'];
             }
 
             return $carry;

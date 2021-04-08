@@ -202,7 +202,9 @@ class Lucid extends AbstractTemplate
 
         $post_title_feature_img = $this->_post_title_feature_img();
 
-        $body                   = <<<HTML
+        $content_ellipsis_button_background_color = $this->content_ellipsis_button_background_color();
+
+        $body = <<<HTML
   <table class="email-wrapper mo-page-bg-color" width="100%" cellpadding="0" cellspacing="0">
     <tr>
       <td align="center">
@@ -230,7 +232,16 @@ class Lucid extends AbstractTemplate
                       <tr>
                         <td>
                           <div class="mo-content-button-alignment">
-                            <a href="{{post.url}}" class="button button--red mo-content-button-background-color mo-content-button-text-color mo-content-read-more-label">[mo_content_ellipsis_button_label]</a>
+                              <!--[if mso]>
+                                <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{post.url}}" style="height:45px;v-text-anchor:middle;width:200px;" arcsize="10%" stroke="f" fillcolor="$content_ellipsis_button_background_color">
+                                  <w:anchorlock/>
+                                    <center>
+                              <![endif]-->
+                              <a class="button button--red mo-content-button-background-color mo-content-button-text-color mo-content-read-more-label" href="{{post.url}}">[mo_content_ellipsis_button_label]</a>
+                              <!--[if mso]>
+                              </center>
+                            </v:roundrect>
+                              <![endif]-->
                           </div>
                         </td>
                       </tr>
@@ -435,7 +446,6 @@ HTML;
       text-align: center;
       text-decoration: none;
       -webkit-text-size-adjust: none;
-      mso-hide: all;
     }
 
     /*Media Queries ------------------------------ */

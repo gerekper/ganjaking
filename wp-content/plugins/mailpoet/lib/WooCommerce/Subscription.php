@@ -5,12 +5,14 @@ namespace MailPoet\WooCommerce;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Models\Segment;
 use MailPoet\Models\Subscriber;
 use MailPoet\Models\SubscriberSegment;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\ConfirmationEmailMailer;
 use MailPoet\Subscribers\Source;
+use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Util\Helpers;
 use MailPoet\WP\Functions as WPFunctions;
 
@@ -32,16 +34,21 @@ class Subscription {
   /** @var ConfirmationEmailMailer */
   private $confirmationEmailMailer;
 
+  /** @var SubscribersRepository */
+  private $subscribersRepository;
+
   public function __construct(
     SettingsController $settings,
     ConfirmationEmailMailer $confirmationEmailMailer,
     WPFunctions $wp,
-    Helper $wcHelper
+    Helper $wcHelper,
+    SubscribersRepository $subscribersRepository
   ) {
     $this->settings = $settings;
     $this->wp = $wp;
     $this->wcHelper = $wcHelper;
     $this->confirmationEmailMailer = $confirmationEmailMailer;
+    $this->subscribersRepository = $subscribersRepository;
   }
 
   public function extendWooCommerceCheckoutForm() {
@@ -74,12 +81,12 @@ class Subscription {
   }
 
   private function isCurrentUserSubscribed() {
-    $subscriber = Subscriber::getCurrentWPUser();
-    if (!$subscriber instanceof Subscriber) {
+    $subscriber = $this->subscribersRepository->getCurrentWPUser();
+    if (!$subscriber instanceof SubscriberEntity) {
       return false;
     }
     $wcSegment = Segment::getWooCommerceSegment();
-    $subscriberSegment = SubscriberSegment::where('subscriber_id', $subscriber->id)
+    $subscriberSegment = SubscriberSegment::where('subscriber_id', $subscriber->getId())
       ->where('segment_id', $wcSegment->id)
       ->findOne();
     return $subscriberSegment instanceof SubscriberSegment

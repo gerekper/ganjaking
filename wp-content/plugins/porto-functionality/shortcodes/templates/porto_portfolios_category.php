@@ -29,7 +29,9 @@ if ( $title ) {
 	);
 }
 
-$cat_args = array();
+$cat_args = array(
+	'taxonomy' => 'portfolio_cat',
+);
 if ( $cat_in ) {
 	$cat_args['orderby'] = 'include';
 	$cat_ids_arr         = explode( ',', $cat_in );
@@ -46,7 +48,7 @@ if ( $number ) {
 	$cat_args['number'] = intval( $number );
 }
 
-$cats = get_terms( 'portfolio_cat', $cat_args );
+$cats = get_terms( $cat_args );
 
 if ( 'stripes' == $category_layout ) {
 	$classes_arr[] = 'zoom' == $thumb_image ? '' : 'thumb-info-' . esc_attr( $thumb_image );

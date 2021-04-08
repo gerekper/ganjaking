@@ -138,10 +138,12 @@ class WIS_InstagramSlider extends WP_Widget {
 		wp_enqueue_script( WIS_Plugin::app()->getPrefix() . 'jquery-pllexi-slider', WIS_PLUGIN_URL . '/assets/js/jquery.flexslider-min.js', array( 'jquery' ), WIS_Plugin::app()->getPluginVersion(), false );
 		//wp_enqueue_script( WIS_Plugin::app()->getPrefix() . 'jr-insta', WIS_PLUGIN_URL.'/assets/js/jr-insta.js', array(  ), WIS_Plugin::app()->getPluginVersion(), false );
 		wp_enqueue_style( WIS_Plugin::app()->getPrefix() . 'wis-header', WIS_PLUGIN_URL . '/assets/css/wis-header.css', array(), WIS_Plugin::app()->getPluginVersion() );
-		wp_localize_script( WIS_Plugin::app()->getPrefix() . 'jr-insta', 'ajax', array(
+
+		$ajax = json_encode([
 			'url'   => admin_url( 'admin-ajax.php' ),
-			'nonce' => wp_create_nonce( "addAccountByToken" ),
-		) );
+			'nonce' => wp_create_nonce( "addAccountByToken" )
+		]);
+		wp_add_inline_script( WIS_Plugin::app()->getPrefix() . 'jr-insta', "var ajax = $ajax;");
 	}
 
 	/**
@@ -841,7 +843,7 @@ class WIS_InstagramSlider extends WP_Widget {
 			}
 			$images_div .= "<div class='{$images_div_class}'>\n";
 
-			unset($images_data['stories']);
+			if( isset( $images_data['stories'] ) ) unset( $images_data['stories'] );
 
 			if ( is_array( $images_data ) && ! empty( $images_data ) ) {
 				if ( isset( $images_data['error'] ) ) {
@@ -1221,7 +1223,7 @@ class WIS_InstagramSlider extends WP_Widget {
 				// ************************************
 				$is_instaLoginPage = ! isset( $results['entry_data']['ProfilePage'] );
 				if ( $is_instaLoginPage ) {
-					return [ 'error' => __( 'Instagram requires authorization to view a user profile. Use autorized account in widget settings', 'instagram-slider-widget' ) ];
+					return [ 'error' => __( 'Instagram requires authorization to view a user profile. Use authorized account in widget settings', 'instagram-slider-widget' ) ];
 				}
 				// ************************************
 			} elseif ( 'account' == $search || 'account_business' == $search ) {

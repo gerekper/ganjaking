@@ -13,10 +13,12 @@ use MailPoet\Cron\Workers\StatsNotifications\Worker;
 use MailPoet\Cron\Workers\SubscriberLinkTokens;
 use MailPoet\Cron\Workers\UnsubscribeTokens;
 use MailPoet\Entities\FormEntity;
+use MailPoet\Entities\NewsletterEntity;
+use MailPoet\Entities\ScheduledTaskEntity;
+use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\Entities\UserFlagEntity;
 use MailPoet\Form\FormsRepository;
 use MailPoet\Mailer\MailerLog;
-use MailPoet\Models\Form;
 use MailPoet\Models\Newsletter;
 use MailPoet\Models\NewsletterLink;
 use MailPoet\Models\ScheduledTask;
@@ -36,6 +38,7 @@ use MailPoet\Subscription\Captcha;
 use MailPoet\Util\Helpers;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
+use MailPoetVendor\Doctrine\ORM\EntityManager;
 
 class Populator {
   public $prefix;
@@ -54,6 +57,8 @@ class Populator {
   private $formsRepository;
   /** @var WP */
   private $wpSegment;
+  /** @var EntityManager */
+  private $entityManager;
 
   public function __construct(
     SettingsController $settings,
@@ -61,6 +66,7 @@ class Populator {
     Captcha $captcha,
     ReferralDetector $referralDetector,
     FormsRepository $formsRepository,
+    EntityManager $entityManager,
     WP $wpSegment
   ) {
     $this->settings = $settings;
@@ -150,6 +156,7 @@ class Populator {
       'FarmersMarket',
     ];
     $this->formsRepository = $formsRepository;
+    $this->entityManager = $entityManager;
   }
 
   public function up() {
@@ -170,6 +177,7 @@ class Populator {
     $this->updateLastSubscribedAt();
     $this->enableStatsNotificationsForAutomatedEmails();
     $this->updateSentUnsubscribeLinksToInstantUnsubscribeLinks();
+    $this->pauseTasksForPausedNewsletters();
 
     $this->scheduleUnsubscribeTokens();
     $this->scheduleSubscriberLinkTokens();
@@ -667,7 +675,7 @@ class Populator {
     if (version_compare($this->settings->get('db_version', '3.23.2'), '3.23.1', '>')) {
       return;
     }
-    Form::updateSuccessMessages();
+    $this->settings->updateSuccessMessages();
   }
 
   private function enableStatsNotificationsForAutomatedEmails() {
@@ -691,6 +699,34 @@ class Populator {
       NewsletterLink::INSTANT_UNSUBSCRIBE_LINK_SHORT_CODE,
       NewsletterLink::UNSUBSCRIBE_LINK_SHORT_CODE
     ));
+  }
+
+  private function pauseTasksForPausedNewsletters() {
+    if (version_compare($this->settings->get('db_version', '3.60.5'), '3.60.4', '>')) {
+      return;
+    }
+
+    $scheduledTaskTable = $this->entityManager->getClassMetadata(ScheduledTaskEntity::class)->getTableName();
+    $sendingQueueTable = $this->entityManager->getClassMetadata(SendingQueueEntity::class)->getTableName();
+    $newsletterTable = $this->entityManager->getClassMetadata(NewsletterEntity::class)->getTableName();
+
+    $query = "
+      UPDATE $scheduledTaskTable as t
+        JOIN $sendingQueueTable as q ON t.id = q.task_id
+        JOIN $newsletterTable as n ON n.id = q.newsletter_id
+        SET t.status = :tStatusPaused
+        WHERE
+          t.status = :tStatusScheduled
+          AND n.status = :nStatusDraft
+    ";
+    $this->entityManager->getConnection()->executeUpdate(
+      $query,
+      [
+        'tStatusPaused' => ScheduledTaskEntity::STATUS_PAUSED,
+        'tStatusScheduled' => ScheduledTaskEntity::STATUS_SCHEDULED,
+        'nStatusDraft' => NewsletterEntity::STATUS_DRAFT,
+      ]
+    );
   }
 
   private function addPlacementStatusToForms() {

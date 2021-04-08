@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '33e876db3405012bffc74498cf08c055b36204b3',
+    'reference' => 'b883462796893e1f9f59ec050e38b9e99dd261f4',
     'name' => 'tujh/instagram-slider-widget',
   ),
   'versions' => 
@@ -41,7 +41,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '33e876db3405012bffc74498cf08c055b36204b3',
+      'reference' => 'b883462796893e1f9f59ec050e38b9e99dd261f4',
     ),
   ),
 );

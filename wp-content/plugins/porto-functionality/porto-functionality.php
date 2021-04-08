@@ -3,7 +3,7 @@
 Plugin Name: Porto Theme - Functionality
 Plugin URI: http://themeforest.net/user/p-themes
 Description: Adds functionality such as Shortcodes, Post Types and Widgets to Porto Theme
-Version: 2.0.3
+Version: 2.0.5
 Author: P-Themes
 Author URI: http://themeforest.net/user/p-themes
 License: GPL2
@@ -163,8 +163,9 @@ class Porto_Functionality {
 		define( 'PORTO_FUNC_FILE', __FILE__ );
 		define( 'PORTO_META_BOXES_PATH', dirname( __FILE__ ) . '/meta_boxes/' );
 		define( 'PORTO_BUILDERS_PATH', dirname( __FILE__ ) . '/builders/' );
+		define( 'PORTO_FUNC_URL', plugin_dir_url( __FILE__ ) );
 		if ( ! in_array( 'porto-shortcodes/porto-shortcodes.php', $active_plugins ) ) {
-			define( 'PORTO_SHORTCODES_URL', plugin_dir_url( __FILE__ ) . 'shortcodes/' );
+			define( 'PORTO_SHORTCODES_URL', PORTO_FUNC_URL . 'shortcodes/' );
 			define( 'PORTO_SHORTCODES_PATH', dirname( __FILE__ ) . '/shortcodes/shortcodes/' );
 			define( 'PORTO_SHORTCODES_WOO_PATH', dirname( __FILE__ ) . '/shortcodes/woo_shortcodes/' );
 			define( 'PORTO_SHORTCODES_LIB', dirname( __FILE__ ) . '/shortcodes/lib/' );

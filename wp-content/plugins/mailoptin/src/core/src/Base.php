@@ -77,16 +77,17 @@ class Base
     {
         register_activation_hook(MAILOPTIN_SYSTEM_FILE_PATH, ['MailOptin\Core\RegisterActivation\Base', 'run_install']);
 
-        global $wp_version;
-        if (version_compare($wp_version, '5.1', '<')) {
+        if (version_compare(get_bloginfo( 'version' ), '5.1', '<')) {
             add_action('wpmu_new_blog', ['MailOptin\Core\RegisterActivation\Base', 'multisite_new_blog_install']);
         } else {
-            add_action('wp_insert_site', function (\WP_Site $new_site) {
+            add_action('wp_initialize_site', function (\WP_Site $new_site) {
                 RegisterActivation\Base::multisite_new_blog_install($new_site->blog_id);
             });
         }
 
         add_action('activate_blog', ['MailOptin\Core\RegisterActivation\Base', 'multisite_new_blog_install']);
+
+        add_filter('wpmu_drop_tables', [$this, 'wpmu_drop_tables']);
 
         RegisterScripts::get_instance();
         AjaxHandler::get_instance();
@@ -114,8 +115,6 @@ class Base
         add_action('plugins_loaded', [$this, 'register_metadata_table']);
 
         add_action('plugins_loaded', [$this, 'db_updates']);
-
-        add_filter('wpmu_drop_tables', array($this, 'wpmu_drop_tables'));
     }
 
     public function db_updates()

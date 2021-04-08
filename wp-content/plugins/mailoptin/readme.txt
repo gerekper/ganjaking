@@ -4,8 +4,8 @@ Donate link: https://mailoptin.io/pricing/
 Tags: popup, popup maker, newsletter, mailchimp, contact form, aweber, popups, constant contact, campaignmonitor, campaign monitor, convertkit, forms, infusionsoft, contact form, wpforms, wpform, cf7, contact form 7, ninja forms, formidable forms, gravity forms, activecampaign, drip, sendy, hubspot, mailerlite, sendinblue, klaviyo, mailjet, ontraport, constantcontact, jilt, vertical response, cleverreach, zoho, sendgrid, zoho crm, zoho campaigns, moosend, godaddy, getgist, sendlane, myemma, fluentcrm, mailster, getresponse, sendfox, wemail, autoresponder, wpml, woocommerce, lightbox, modal, emailoctopus, pop up, email, exit intent, user registration, ninja form
 Requires at least: 4.6
 Requires PHP: 5.6
-Tested up to: 5.6
-Stable tag: 1.2.35.0
+Tested up to: 5.7
+Stable tag: 1.2.35.3
 License: GPL-2.0+
 
 Create popups, optin forms to get email newsletter subscribers via an easy form builder and popup maker. Mailchimp, ConvertKit, Infusionsoft, ActiveCampaign, Campaign Monitor, Constant Contact & more.
@@ -166,6 +166,19 @@ Yes, MailOptin has full translation and localization support. All .mo and .po tr
 10. Elementor form integration with MailOptin
 
 == Changelog ==
+
+= 1.2.35.3 =
+* Fixed slider not working in email dnd builder.
+* Improved email template for outlook.
+
+= 1.2.35.2 =
+* Fixed security issue in our Elementor integration.
+* Extra security hardening.
+
+= 1.2.35.1 =
+* Added double-optin support to CleverReach integration.
+* Fixed settings page conflict Analytify.
+* Fixed issues with Firefox browser.
 
 = 1.2.35.0 =
 * Added CleverReach integration.

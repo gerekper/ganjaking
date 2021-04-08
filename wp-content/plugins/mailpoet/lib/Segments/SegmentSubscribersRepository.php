@@ -5,6 +5,8 @@ namespace MailPoet\Segments;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Entities\DynamicSegmentFilterData;
+use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
@@ -16,6 +18,7 @@ use MailPoetVendor\Doctrine\DBAL\Driver\Statement;
 use MailPoetVendor\Doctrine\DBAL\Query\QueryBuilder;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 use MailPoetVendor\Doctrine\ORM\Query\Expr\Join;
+use MailPoetVendor\Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
 
 class SegmentSubscribersRepository {
   /** @var EntityManager */
@@ -42,12 +45,7 @@ class SegmentSubscribersRepository {
 
   public function getSubscribersCount(int $segmentId, string $status = null): int {
     $segment = $this->getSegment($segmentId);
-    $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
-    $queryBuilder = $this->entityManager
-      ->getConnection()
-      ->createQueryBuilder()
-      ->select("count(DISTINCT $subscribersTable.id)")
-      ->from($subscribersTable);
+    $queryBuilder = $this->createCountQueryBuilder();
 
     if ($segment->isStatic()) {
       $queryBuilder = $this->filterSubscribersInStaticSegment($queryBuilder, $segment, $status);
@@ -59,16 +57,78 @@ class SegmentSubscribersRepository {
     return (int)$result;
   }
 
+  public function getSubscribersCountBySegmentIds(array $segmentIds, string $status = null): int {
+    $segmentRepository = $this->entityManager->getRepository(SegmentEntity::class);
+    $segments = $segmentRepository->findBy(['id' => $segmentIds]);
+    $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+    $queryBuilder = $this->createCountQueryBuilder();
+
+    $subQueries = [];
+    foreach ($segments as $segment) {
+      $segmentQb = $this->createCountQueryBuilder();
+      $segmentQb->select("{$subscribersTable}.id AS inner_id");
+
+      if ($segment->isStatic()) {
+        $segmentQb = $this->filterSubscribersInStaticSegment($segmentQb, $segment, $status);
+      } else {
+        $segmentQb = $this->filterSubscribersInDynamicSegment($segmentQb, $segment, $status);
+      }
+
+      // inner parameters have to be merged to outer queryBuilder
+      $queryBuilder->setParameters(array_merge(
+        $segmentQb->getParameters(),
+        $queryBuilder->getParameters()
+      ));
+      $subQueries[] = $segmentQb->getSQL();
+    }
+
+    $queryBuilder->innerJoin(
+      $subscribersTable,
+      sprintf('(%s)', join(' UNION ', $subQueries)),
+      'inner_subscribers',
+      "inner_subscribers.inner_id = {$subscribersTable}.id"
+    );
+
+    $statement = $this->executeQuery($queryBuilder);
+    $result = $statement->fetchColumn();
+    return (int)$result;
+  }
+
+  public function getDynamicSubscribersCount(DynamicSegmentFilterData $filter): int {
+    $segment = new SegmentEntity('temporary segment', SegmentEntity::TYPE_DYNAMIC, '');
+    $segment->addDynamicFilter(new DynamicSegmentFilterEntity($segment, $filter));
+    $queryBuilder = $this->createCountQueryBuilder();
+    $queryBuilder = $this->filterSubscribersInDynamicSegment($queryBuilder, $segment, null);
+    $statement = $this->executeQuery($queryBuilder);
+    $result = $statement->fetchColumn();
+    return (int)$result;
+  }
+
+  private function createCountQueryBuilder(): QueryBuilder {
+    $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+    return $this->entityManager
+      ->getConnection()
+      ->createQueryBuilder()
+      ->select("count(DISTINCT $subscribersTable.id)")
+      ->from($subscribersTable);
+  }
+
   public function getSubscribersWithoutSegmentCount(): int {
     $queryBuilder = $this->getSubscribersWithoutSegmentCountQuery();
     return (int)$queryBuilder->getQuery()->getSingleScalarResult();
   }
 
-  public function getSubscribersWithoutSegmentCountQuery(): \MailPoetVendor\Doctrine\ORM\QueryBuilder {
+  public function getSubscribersWithoutSegmentCountQuery(): ORMQueryBuilder {
     $queryBuilder = $this->entityManager->createQueryBuilder();
-    return $queryBuilder
+    $queryBuilder
       ->select('COUNT(DISTINCT s) AS subscribersCount')
-      ->from(SubscriberEntity::class, 's')
+      ->from(SubscriberEntity::class, 's');
+    $this->addConstraintsForSubscribersWithoutSegment($queryBuilder);
+    return $queryBuilder;
+  }
+
+  public function addConstraintsForSubscribersWithoutSegment(ORMQueryBuilder $queryBuilder): void {
+    $queryBuilder
       ->leftJoin('s.subscriberSegments', 'ssg')
       ->leftJoin('ssg.segment', 'sg')
       ->leftJoin(SubscriberEntity::class, 's2', Join::WITH, (string)$queryBuilder->expr()->eq('s.id', 's2.id'))
@@ -112,13 +172,14 @@ class SegmentSubscribersRepository {
   ): QueryBuilder {
     $subscribersSegmentsTable = $this->entityManager->getClassMetadata(SubscriberSegmentEntity::class)->getTableName();
     $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+    $parameterName = "segment_{$segment->getId()}"; // When we use this method more times the parameter name has to be unique
     $queryBuilder = $queryBuilder->join(
       $subscribersTable,
       $subscribersSegmentsTable,
       'subsegment',
-      "subsegment.subscriber_id = $subscribersTable.id AND subsegment.segment_id = :segment"
+      "subsegment.subscriber_id = $subscribersTable.id AND subsegment.segment_id = :$parameterName"
     )->andWhere("$subscribersTable.deleted_at IS NULL")
-      ->setParameter('segment', $segment->getId());
+      ->setParameter($parameterName, $segment->getId());
     if ($status) {
       $queryBuilder = $queryBuilder->andWhere("$subscribersTable.status = :status")
         ->andWhere("subsegment.status = :status")
@@ -132,14 +193,18 @@ class SegmentSubscribersRepository {
     SegmentEntity $segment,
     string $status = null
   ): QueryBuilder {
-    $filters = $segment->getDynamicFilters();
+    $filters = [];
+    $dynamicFilters = $segment->getDynamicFilters();
+    foreach ($dynamicFilters as $dynamicFilter) {
+      $filters[] = $dynamicFilter->getFilterData();
+    }
+
     // We don't allow dynamic segment without filers since it would return all subscribers
     // For BC compatibility fetching an empty result
     if (count($filters) === 0) {
       return $queryBuilder->andWhere('0 = 1');
-    }
-    foreach ($filters as $filter) {
-      $queryBuilder = $this->filterHandler->apply($queryBuilder, $filter);
+    } elseif ($segment instanceof SegmentEntity) {
+      $queryBuilder = $this->filterHandler->apply($queryBuilder, $segment);
     }
     $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
     $queryBuilder = $queryBuilder->andWhere("$subscribersTable.deleted_at IS NULL");

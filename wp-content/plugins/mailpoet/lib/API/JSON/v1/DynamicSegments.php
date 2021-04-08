@@ -5,21 +5,22 @@ namespace MailPoet\API\JSON\v1;
 if (!defined('ABSPATH')) exit;
 
 
+use InvalidArgumentException;
 use MailPoet\API\JSON\Endpoint as APIEndpoint;
 use MailPoet\API\JSON\Error;
 use MailPoet\API\JSON\Response;
 use MailPoet\API\JSON\ResponseBuilders\DynamicSegmentsResponseBuilder;
 use MailPoet\Config\AccessControl;
-use MailPoet\DynamicSegments\Exceptions\ErrorSavingException;
-use MailPoet\DynamicSegments\Exceptions\InvalidSegmentTypeException;
-use MailPoet\DynamicSegments\Mappers\DBMapper;
-use MailPoet\DynamicSegments\Mappers\FormDataMapper;
-use MailPoet\DynamicSegments\Persistence\Loading\SingleSegmentLoader;
-use MailPoet\DynamicSegments\Persistence\Saver;
-use MailPoet\Listing\BulkActionController;
+use MailPoet\Entities\SegmentEntity;
 use MailPoet\Listing\Handler;
-use MailPoet\Models\Model;
+use MailPoet\Newsletter\Segment\NewsletterSegmentRepository;
 use MailPoet\Segments\DynamicSegments\DynamicSegmentsListingRepository;
+use MailPoet\Segments\DynamicSegments\Exceptions\InvalidFilterException;
+use MailPoet\Segments\DynamicSegments\FilterDataMapper;
+use MailPoet\Segments\DynamicSegments\SegmentSaveController;
+use MailPoet\Segments\SegmentsRepository;
+use MailPoet\Segments\SegmentSubscribersRepository;
+use MailPoet\UnexpectedValueException;
 use MailPoet\WP\Functions as WPFunctions;
 
 class DynamicSegments extends APIEndpoint {
@@ -28,43 +29,48 @@ class DynamicSegments extends APIEndpoint {
     'global' => AccessControl::PERMISSION_MANAGE_SEGMENTS,
   ];
 
-  /** @var FormDataMapper */
-  private $mapper;
-
-  /** @var Saver */
-  private $saver;
-
-  /** @var SingleSegmentLoader */
-  private $dynamicSegmentsLoader;
-
-  /** @var BulkActionController */
-  private $bulkAction;
-
   /** @var Handler */
   private $listingHandler;
 
   /** @var DynamicSegmentsListingRepository */
   private $dynamicSegmentsListingRepository;
 
+  /** @var SegmentsRepository */
+  private $segmentsRepository;
+
   /** @var DynamicSegmentsResponseBuilder */
   private $segmentsResponseBuilder;
 
+  /** @var SegmentSaveController */
+  private $saveController;
+
+  /** @var SegmentSubscribersRepository */
+  private $segmentSubscribersRepository;
+
+  /** @var FilterDataMapper */
+  private $filterDataMapper;
+
+  /** @var NewsletterSegmentRepository */
+  private $newsletterSegmentRepository;
+
   public function __construct(
-    BulkActionController $bulkAction,
     Handler $handler,
     DynamicSegmentsListingRepository $dynamicSegmentsListingRepository,
     DynamicSegmentsResponseBuilder $segmentsResponseBuilder,
-    $mapper = null,
-    $saver = null,
-    $dynamicSegmentsLoader = null
+    SegmentsRepository $segmentsRepository,
+    SegmentSubscribersRepository $segmentSubscribersRepository,
+    FilterDataMapper $filterDataMapper,
+    SegmentSaveController $saveController,
+    NewsletterSegmentRepository $newsletterSegmentRepository
   ) {
-    $this->bulkAction = $bulkAction;
     $this->listingHandler = $handler;
-    $this->mapper = $mapper ?: new FormDataMapper();
-    $this->saver = $saver ?: new Saver();
-    $this->dynamicSegmentsLoader = $dynamicSegmentsLoader ?: new SingleSegmentLoader(new DBMapper());
     $this->dynamicSegmentsListingRepository = $dynamicSegmentsListingRepository;
     $this->segmentsResponseBuilder = $segmentsResponseBuilder;
+    $this->segmentsRepository = $segmentsRepository;
+    $this->saveController = $saveController;
+    $this->segmentSubscribersRepository = $segmentSubscribersRepository;
+    $this->filterDataMapper = $filterDataMapper;
+    $this->newsletterSegmentRepository = $newsletterSegmentRepository;
   }
 
   public function get($data = []) {
@@ -76,57 +82,61 @@ class DynamicSegments extends APIEndpoint {
       ]);
     }
 
-    try {
-      $segment = $this->dynamicSegmentsLoader->load($id);
-
-      $filters = $segment->getFilters();
-
-      return $this->successResponse(array_merge([
-        'name' => $segment->name,
-        'description' => $segment->description,
-        'id' => $segment->id,
-      ], $filters[0]->toArray()));
-    } catch (\InvalidArgumentException $e) {
+    $segment = $this->segmentsRepository->findOneById($id);
+    if (!$segment instanceof SegmentEntity) {
       return $this->errorResponse([
         Error::NOT_FOUND => WPFunctions::get()->__('This segment does not exist.', 'mailpoet'),
       ]);
+    }
+
+    return $this->successResponse($this->segmentsResponseBuilder->build($segment));
+  }
+
+  public function getCount($data = []) {
+    try {
+      $filterData = $this->filterDataMapper->map($data);
+      $count = $this->segmentSubscribersRepository->getDynamicSubscribersCount($filterData);
+      return $this->successResponse([
+        'count' => $count,
+      ]);
+    } catch (InvalidFilterException $e) {
+      return $this->errorResponse([
+        Error::BAD_REQUEST => $this->getErrorString($e),
+      ], [], Response::STATUS_BAD_REQUEST);
     }
   }
 
   public function save($data) {
     try {
-      $dynamicSegment = $this->mapper->mapDataToDB($data);
-      $this->saver->save($dynamicSegment);
-
-      return $this->successResponse($data);
-    } catch (InvalidSegmentTypeException $e) {
+      $segment = $this->saveController->save($data);
+      return $this->successResponse($this->segmentsResponseBuilder->build($segment));
+    } catch (InvalidFilterException $e) {
       return $this->errorResponse([
         Error::BAD_REQUEST => $this->getErrorString($e),
       ], [], Response::STATUS_BAD_REQUEST);
-    } catch (ErrorSavingException $e) {
-      $statusCode = Response::STATUS_UNKNOWN;
-      if ($e->getCode() === Model::DUPLICATE_RECORD) {
-        $statusCode = Response::STATUS_CONFLICT;
-      }
-      return $this->errorResponse([$statusCode => $e->getMessage()], [], $statusCode);
+    } catch (InvalidArgumentException $e) {
+      return $this->badRequest([
+        Error::BAD_REQUEST  => __('Another record already exists. Please specify a different "name".', 'mailpoet'),
+      ]);
     }
   }
 
-  private function getErrorString(InvalidSegmentTypeException $e) {
+  private function getErrorString(InvalidFilterException $e) {
     switch ($e->getCode()) {
-      case InvalidSegmentTypeException::MISSING_TYPE:
+      case InvalidFilterException::MISSING_TYPE:
         return WPFunctions::get()->__('Segment type is missing.', 'mailpoet');
-      case InvalidSegmentTypeException::INVALID_TYPE:
+      case InvalidFilterException::INVALID_TYPE:
         return WPFunctions::get()->__('Segment type is unknown.', 'mailpoet');
-      case InvalidSegmentTypeException::MISSING_ROLE:
+      case InvalidFilterException::MISSING_ROLE:
         return WPFunctions::get()->__('Please select user role.', 'mailpoet');
-      case InvalidSegmentTypeException::MISSING_ACTION:
+      case InvalidFilterException::MISSING_ACTION:
+      case InvalidFilterException::INVALID_EMAIL_ACTION:
         return WPFunctions::get()->__('Please select email action.', 'mailpoet');
-      case InvalidSegmentTypeException::MISSING_NEWSLETTER_ID:
+      case InvalidFilterException::MISSING_NEWSLETTER_ID:
         return WPFunctions::get()->__('Please select an email.', 'mailpoet');
-      case InvalidSegmentTypeException::MISSING_PRODUCT_ID:
+      case InvalidFilterException::MISSING_PRODUCT_ID:
         return WPFunctions::get()->__('Please select category.', 'mailpoet');
-      case InvalidSegmentTypeException::MISSING_CATEGORY_ID:
+      case InvalidFilterException::MISSING_CATEGORY_ID:
         return WPFunctions::get()->__('Please select product.', 'mailpoet');
       default:
         return WPFunctions::get()->__('An error occurred while saving data.', 'mailpoet');
@@ -134,72 +144,78 @@ class DynamicSegments extends APIEndpoint {
   }
 
   public function trash($data = []) {
-    if (isset($data['id'])) {
-      $id = (int)$data['id'];
-    } else {
+    if (!isset($data['id'])) {
       return $this->errorResponse([
         Error::BAD_REQUEST => WPFunctions::get()->__('Missing mandatory argument `id`.', 'mailpoet'),
       ]);
     }
 
-    try {
-      $segment = $this->dynamicSegmentsLoader->load($id);
-      $segment->trash();
-      return $this->successResponse(
-        $segment->asArray(),
-        ['count' => 1]
-      );
-    } catch (\InvalidArgumentException $e) {
+    $segment = $this->getSegment($data);
+    if ($segment === null) {
       return $this->errorResponse([
         Error::NOT_FOUND => WPFunctions::get()->__('This segment does not exist.', 'mailpoet'),
       ]);
     }
+
+    $activelyUsedNewslettersSubjects = $this->newsletterSegmentRepository->getSubjectsOfActivelyUsedEmailsForSegments([$segment->getId()]);
+    if (isset($activelyUsedNewslettersSubjects[$segment->getId()])) {
+      return $this->badRequest([
+        Error::BAD_REQUEST => str_replace(
+          '%$1s',
+          "'" . join("', '", $activelyUsedNewslettersSubjects[$segment->getId()] ) . "'",
+          _x('Segment cannot be deleted because it’s used for %$1s email', 'Alert shown when trying to delete segment, which is assigned to any automatic emails.', 'mailpoet')
+        ),
+      ]);
+    }
+
+    $this->segmentsRepository->bulkTrash([$segment->getId()], SegmentEntity::TYPE_DYNAMIC);
+    return $this->successResponse(
+      $this->segmentsResponseBuilder->build($segment),
+      ['count' => 1]
+    );
   }
 
   public function restore($data = []) {
-    if (isset($data['id'])) {
-      $id = (int)$data['id'];
-    } else {
+    if (!isset($data['id'])) {
       return $this->errorResponse([
         Error::BAD_REQUEST => WPFunctions::get()->__('Missing mandatory argument `id`.', 'mailpoet'),
       ]);
     }
 
-    try {
-      $segment = $this->dynamicSegmentsLoader->load($id);
-      $segment->restore();
-      return $this->successResponse(
-        $segment->asArray(),
-        ['count' => 1]
-      );
-    } catch (\InvalidArgumentException $e) {
+    $segment = $this->getSegment($data);
+    if ($segment === null) {
       return $this->errorResponse([
         Error::NOT_FOUND => WPFunctions::get()->__('This segment does not exist.', 'mailpoet'),
       ]);
     }
+
+    $this->segmentsRepository->bulkRestore([$segment->getId()], SegmentEntity::TYPE_DYNAMIC);
+    return $this->successResponse(
+      $this->segmentsResponseBuilder->build($segment),
+      ['count' => 1]
+    );
   }
 
   public function delete($data = []) {
-    if (isset($data['id'])) {
-      $id = (int)$data['id'];
-    } else {
+    if (!isset($data['id'])) {
       return $this->errorResponse([
         Error::BAD_REQUEST => WPFunctions::get()->__('Missing mandatory argument `id`.', 'mailpoet'),
       ]);
     }
 
-    try {
-      $segment = $this->dynamicSegmentsLoader->load($id);
-      $segment->delete();
-      return $this->successResponse(null, ['count' => 1]);
-    } catch (\InvalidArgumentException $e) {
+    $segment = $this->getSegment($data);
+    if ($segment === null) {
       return $this->errorResponse([
         Error::NOT_FOUND => WPFunctions::get()->__('This segment does not exist.', 'mailpoet'),
       ]);
     }
+
+    $this->segmentsRepository->bulkDelete([$segment->getId()], SegmentEntity::TYPE_DYNAMIC);
+    return $this->successResponse(null, ['count' => 1]);
   }
 
   public function listing($data = []) {
+    $data['params'] = $data['params'] ?? ['segments']; // Dummy param to apply constraints properly
     $definition = $this->listingHandler->getListingDefinition($data);
     $items = $this->dynamicSegmentsListingRepository->getData($definition);
     $count = $this->dynamicSegmentsListingRepository->getCount($definition);
@@ -215,13 +231,24 @@ class DynamicSegments extends APIEndpoint {
   }
 
   public function bulkAction($data = []) {
-    try {
-      $meta = $this->bulkAction->apply('\MailPoet\Models\DynamicSegment', $data);
-      return $this->successResponse(null, $meta);
-    } catch (\Exception $e) {
-      return $this->errorResponse([
-        $e->getCode() => $e->getMessage(),
-      ]);
+    $definition = $this->listingHandler->getListingDefinition($data['listing']);
+    $ids = $this->dynamicSegmentsListingRepository->getActionableIds($definition);
+    if ($data['action'] === 'trash') {
+      $count = $this->segmentsRepository->bulkTrash($ids, SegmentEntity::TYPE_DYNAMIC);
+    } elseif ($data['action'] === 'restore') {
+      $count = $this->segmentsRepository->bulkRestore($ids, SegmentEntity::TYPE_DYNAMIC);
+    } elseif ($data['action'] === 'delete') {
+      $count = $this->segmentsRepository->bulkDelete($ids, SegmentEntity::TYPE_DYNAMIC);
+    } else {
+      throw UnexpectedValueException::create()
+        ->withErrors([Error::BAD_REQUEST => "Invalid bulk action '{$data['action']}' provided."]);
     }
+    return $this->successResponse(null, ['count' => $count]);
+  }
+
+  private function getSegment(array $data): ?SegmentEntity {
+    return isset($data['id'])
+      ? $this->segmentsRepository->findOneById((int)$data['id'])
+      : null;
   }
 }

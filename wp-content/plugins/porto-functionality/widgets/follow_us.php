@@ -202,7 +202,9 @@ class Porto_Follow_Us_Widget extends WP_Widget {
 		$instance['title']           = strip_tags( $new_instance['title'] );
 		$instance['nofollow']        = $new_instance['nofollow'];
 		if ( isset( $new_instance['default_skin'] ) ) {
-			$instance['default_skin']    = $new_instance['default_skin'];
+			$instance['default_skin'] = $new_instance['default_skin'];
+		} else {
+			$instance['default_skin'] = '';
 		}
 		if ( isset( $new_instance['disable_br'] ) ) {
 			$instance['disable_br']      = $new_instance['disable_br'];

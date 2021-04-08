@@ -7,7 +7,7 @@ function porto_load_sidebar_menu_shortcode() {
 
 	$custom_class = porto_vc_custom_class();
 	$custom_menus = array();
-	$menus        = get_terms( 'nav_menu', array( 'hide_empty' => false ) );
+	$menus        = get_terms( array( 'taxonomy' => 'nav_menu', 'hide_empty' => false ) );
 	if ( is_array( $menus ) && ! empty( $menus ) ) {
 		foreach ( $menus as $single_menu ) {
 			if ( is_object( $single_menu ) && isset( $single_menu->name, $single_menu->term_id ) ) {

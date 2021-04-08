@@ -108,7 +108,6 @@ class Connect extends AbstractConnect implements ConnectionInterface
             'date_of_birth'  => __('Date of Birth', 'mailoptin')
         ];
 
-
         if (self::is_connected()) {
             $custom_fields = fluentcrm_get_option('contact_custom_fields', []);
 

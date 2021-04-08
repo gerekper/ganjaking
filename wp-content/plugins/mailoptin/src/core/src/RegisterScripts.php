@@ -12,7 +12,6 @@ class RegisterScripts
     public function __construct()
     {
         add_action('admin_enqueue_scripts', array($this, 'admin_css'));
-        add_action('admin_enqueue_scripts', array($this, 'mailoptin_only_css'));
         add_action('admin_enqueue_scripts', [$this, 'admin_js']);
         add_action('admin_enqueue_scripts', [$this, 'fancybox_assets']);
         add_action('wp_enqueue_scripts', array($this, 'public_css'));
@@ -36,18 +35,36 @@ class RegisterScripts
     {
         wp_enqueue_script('jquery');
         wp_enqueue_script('underscore');
-        wp_enqueue_script('mailoptin-admin-tooltipster', MAILOPTIN_ASSETS_URL . 'tooltipster/bundle.min.js', array('jquery'), MAILOPTIN_VERSION_NUMBER, true);
-        wp_enqueue_script('mailoptin-admin-tooltipster-init', MAILOPTIN_ASSETS_URL . 'tooltipster/init.js', array('jquery', 'mailoptin-admin-tooltipster'), MAILOPTIN_VERSION_NUMBER, true);
-        wp_enqueue_script('mailoptin-admin-script', MAILOPTIN_ASSETS_URL . 'js/admin/admin-script.js', array('jquery'), MAILOPTIN_VERSION_NUMBER, true);
-        wp_enqueue_script('mailoptin-ab-test-script', MAILOPTIN_ASSETS_URL . 'js/admin/ab-test.js', array('jquery'), MAILOPTIN_VERSION_NUMBER, true);
-        if (defined('MAILOPTIN_LIBSODIUM_ASSETS_URL')) {
-            wp_enqueue_script('mailoptin-highcharts', MAILOPTIN_LIBSODIUM_ASSETS_URL . 'js/admin/highcharts.js', array('jquery'), MAILOPTIN_VERSION_NUMBER, true);
+        $this->mailoptin_only_js();
+        $this->global_js_variables();
+    }
+
+    /**
+     * MailOptin Only JS
+     */
+    public function mailoptin_only_js()
+    {
+        $screen = get_current_screen();
+
+        $base_text = $screen->base;
+
+        if (strpos($base_text, 'mailoptin') !== false || is_customize_preview()) {
+
+            if (defined('MAILOPTIN_LIBSODIUM_ASSETS_URL')) {
+                wp_enqueue_script('mailoptin-highcharts', MAILOPTIN_LIBSODIUM_ASSETS_URL . 'js/admin/highcharts.js', array('jquery'), MAILOPTIN_VERSION_NUMBER, true);
+            }
+
+            wp_enqueue_script('mailoptin-admin-tooltipster', MAILOPTIN_ASSETS_URL . 'tooltipster/bundle.min.js', array('jquery'), MAILOPTIN_VERSION_NUMBER, true);
+            wp_enqueue_script('mailoptin-admin-tooltipster-init', MAILOPTIN_ASSETS_URL . 'tooltipster/init.js', array('jquery', 'mailoptin-admin-tooltipster'), MAILOPTIN_VERSION_NUMBER, true);
+            wp_enqueue_script('mailoptin-ab-test-script', MAILOPTIN_ASSETS_URL . 'js/admin/ab-test.js', array('jquery'), MAILOPTIN_VERSION_NUMBER, true);
+
+            wp_enqueue_script('mailoptin-add-optin-campaign', MAILOPTIN_ASSETS_URL . 'js/admin/new-optin-campaign.js', array('jquery'), MAILOPTIN_VERSION_NUMBER, true);
+            wp_enqueue_script('mailoptin-optin-type-selection', MAILOPTIN_ASSETS_URL . 'js/admin/optin-type-selection.js', array('jquery'), MAILOPTIN_VERSION_NUMBER, true);
+            wp_enqueue_script('mailoptin-add-email-campaign', MAILOPTIN_ASSETS_URL . 'js/admin/new-email-campaign.js', array('jquery'), MAILOPTIN_VERSION_NUMBER, true);
+            wp_enqueue_script('mailoptin-admin-script', MAILOPTIN_ASSETS_URL . 'js/admin/admin-script.js', array('jquery'), MAILOPTIN_VERSION_NUMBER, true);
+
+            do_action('mo_admin_js_enqueue');
         }
-        wp_enqueue_script('mailoptin-add-optin-campaign', MAILOPTIN_ASSETS_URL . 'js/admin/new-optin-campaign.js', array('jquery'), MAILOPTIN_VERSION_NUMBER, true);
-        wp_enqueue_script('mailoptin-optin-type-selection', MAILOPTIN_ASSETS_URL . 'js/admin/optin-type-selection.js', array('jquery'), MAILOPTIN_VERSION_NUMBER, true);
-        wp_enqueue_script('mailoptin-add-email-campaign', MAILOPTIN_ASSETS_URL . 'js/admin/new-email-campaign.js', array('jquery'), MAILOPTIN_VERSION_NUMBER, true);
-        $this->global_js_variables('jquery');
-        do_action('mo_admin_js_enqueue');
     }
 
     /**
@@ -297,26 +314,21 @@ class RegisterScripts
     }
 
     /**
-     * Admin CSS.
-     */
-    public function admin_css()
-    {
-        wp_enqueue_style('mailoptin-admin-tooltipster', MAILOPTIN_ASSETS_URL . 'tooltipster/bundle.min.css', [], MAILOPTIN_VERSION_NUMBER);
-        wp_enqueue_style('mailoptin-admin-tooltipster-borderless', MAILOPTIN_ASSETS_URL . 'tooltipster/borderless.min.css', [], MAILOPTIN_VERSION_NUMBER);
-        wp_enqueue_style('mailoptin-admin-tooltipster-light', MAILOPTIN_ASSETS_URL . 'tooltipster/light.min.css', [], MAILOPTIN_VERSION_NUMBER);
-        wp_enqueue_style('mailoptin-admin', MAILOPTIN_ASSETS_URL . 'css/admin/admin.css', [], filemtime(MAILOPTIN_ASSETS_DIR . 'css/admin/admin.css'));
-    }
-
-    /**
      * Mailoptin only css to fix conflicts
      */
-    public function mailoptin_only_css()
+    public function admin_css()
     {
         $screen = get_current_screen();
 
         $base_text = $screen->base;
 
         if (strpos($base_text, 'mailoptin') !== false || is_customize_preview()) {
+
+            wp_enqueue_style('mailoptin-admin-tooltipster', MAILOPTIN_ASSETS_URL . 'tooltipster/bundle.min.css', [], MAILOPTIN_VERSION_NUMBER);
+            wp_enqueue_style('mailoptin-admin-tooltipster-borderless', MAILOPTIN_ASSETS_URL . 'tooltipster/borderless.min.css', [], MAILOPTIN_VERSION_NUMBER);
+            wp_enqueue_style('mailoptin-admin-tooltipster-light', MAILOPTIN_ASSETS_URL . 'tooltipster/light.min.css', [], MAILOPTIN_VERSION_NUMBER);
+            wp_enqueue_style('mailoptin-admin', MAILOPTIN_ASSETS_URL . 'css/admin/admin.css', [], filemtime(MAILOPTIN_ASSETS_DIR . 'css/admin/admin.css'));
+
             wp_enqueue_style('mo-pure-css-toggle-buttons', MAILOPTIN_ASSETS_URL . 'js/customizer-controls/toggle-control/pure-css-togle-buttons.css', array(), false);
 
             $css = '

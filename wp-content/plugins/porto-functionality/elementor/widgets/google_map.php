@@ -92,7 +92,7 @@ class Porto_Elementor_Google_Map_Widget extends \Elementor\Widget_Base {
 			array(
 				'type'        => Controls_Manager::TEXT,
 				'label'       => __( 'Latitude', 'porto-functionality' ),
-				'default'     => '18.591212',
+				'default'     => '40.7528214',
 				'description' => '<a href="http://universimmedia.pagesperso-orange.fr/geo/loc.htm" target="_blank">' . __( 'Here is a tool', 'porto-functionality' ) . '</a> ' . __( 'where you can find Latitude & Longitude of your location', 'porto-functionality' ),
 			)
 		);
@@ -102,7 +102,7 @@ class Porto_Elementor_Google_Map_Widget extends \Elementor\Widget_Base {
 			array(
 				'type'        => Controls_Manager::TEXT,
 				'label'       => __( 'Longitude', 'porto-functionality' ),
-				'default'     => '73.741261',
+				'default'     => '-73.9580603',
 				'description' => '<a href="http://universimmedia.pagesperso-orange.fr/geo/loc.htm" target="_blank">' . __( 'Here is a tool', 'porto-functionality' ) . '</a> ' . __( 'where you can find Latitude & Longitude of your location', 'porto-functionality' ),
 			)
 		);

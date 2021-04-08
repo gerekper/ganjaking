@@ -243,7 +243,6 @@ return array(
     'MailOptin\\Core\\Admin\\Customizer\\CustomControls\\EmailContentBuilder\\Elements\\Text' => $baseDir . '/src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Text.php',
     'MailOptin\\Core\\Admin\\Customizer\\CustomControls\\EmailContentBuilder\\Misc' => $baseDir . '/src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Misc.php',
     'MailOptin\\Core\\Admin\\Customizer\\CustomControls\\WP_Customize_Ace_Editor_Control' => $baseDir . '/src/core/src/Admin/Customizer/CustomControls/WP_Customize_Ace_Editor_Control.php',
-    'MailOptin\\Core\\Admin\\Customizer\\CustomControls\\WP_Customize_Autocomplete_Input_Control' => $baseDir . '/src/core/src/Admin/Customizer/CustomControls/WP_Customize_Autocomplete_Input_Control.php',
     'MailOptin\\Core\\Admin\\Customizer\\CustomControls\\WP_Customize_Button_Set_Control' => $baseDir . '/src/core/src/Admin/Customizer/CustomControls/WP_Customize_Button_Set_Control.php',
     'MailOptin\\Core\\Admin\\Customizer\\CustomControls\\WP_Customize_Chosen_Select_Control' => $baseDir . '/src/core/src/Admin/Customizer/CustomControls/WP_Customize_Chosen_Select_Control.php',
     'MailOptin\\Core\\Admin\\Customizer\\CustomControls\\WP_Customize_Chosen_Single_Select_Control' => $baseDir . '/src/core/src/Admin/Customizer/CustomControls/WP_Customize_Chosen_Single_Select_Control.php',

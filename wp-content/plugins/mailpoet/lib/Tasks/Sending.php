@@ -5,6 +5,7 @@ namespace MailPoet\Tasks;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Logging\LoggerFactory;
 use MailPoet\Models\ScheduledTask;
 use MailPoet\Models\ScheduledTaskSubscriber;
 use MailPoet\Models\SendingQueue;
@@ -100,9 +101,21 @@ class Sending {
     foreach ($tasks as $task) {
       if (!empty($queuesIndex[$task->id])) {
         $result[] = self::create($task, $queuesIndex[$task->id]);
+      } else {
+        static::handleInvalidTask($task);
       }
     }
     return $result;
+  }
+
+  public static function handleInvalidTask(ScheduledTask $task) {
+    $loggerFactory = LoggerFactory::getInstance();
+    $loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->addError(
+      'invalid sending task found',
+      ['task_id' => $task->id]
+    );
+    $task->status = ScheduledTask::STATUS_INVALID;
+    $task->save();
   }
 
   public static function createFromScheduledTask(ScheduledTask $task) {
@@ -155,6 +168,14 @@ class Sending {
   public function save() {
     $this->task->save();
     $this->queue->save();
+    $errors = $this->getErrors();
+    if ($errors) {
+      $loggerFactory = LoggerFactory::getInstance();
+      $loggerFactory->getLogger(LoggerFactory::TOPIC_NEWSLETTERS)->addError(
+        'error saving sending task',
+        ['task_id' => $this->task->id, 'queue_id' => $this->queue->id, 'errors' => $errors]
+      );
+    }
     return $this;
   }
 

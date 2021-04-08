@@ -4,13 +4,6 @@
 import { __ } from '@wordpress/i18n';
 import triggerFetch from '@wordpress/api-fetch';
 import {
-	useCheckoutContext,
-	useShippingDataContext,
-	useCustomerDataContext,
-	usePaymentMethodDataContext,
-	useValidationContext,
-} from '@woocommerce/base-context';
-import {
 	useEffect,
 	useRef,
 	useCallback,
@@ -18,11 +11,17 @@ import {
 	useMemo,
 } from '@wordpress/element';
 import { useStoreCart, useStoreNotices } from '@woocommerce/base-hooks';
+import { formatStoreApiErrorMessage } from '@woocommerce/base-utils';
 
 /**
  * Internal dependencies
  */
 import { preparePaymentData } from './utils';
+import { useCheckoutContext } from '../../checkout-state';
+import { useShippingDataContext } from '../../shipping';
+import { useCustomerDataContext } from '../../customer';
+import { usePaymentMethodDataContext } from '../../payment-methods';
+import { useValidationContext } from '../../../shared';
 
 /**
  * CheckoutProcessor component.
@@ -200,21 +199,12 @@ const CheckoutProcessor = () => {
 				fetchResponse.json().then( function ( response ) {
 					if ( ! fetchResponse.ok ) {
 						// We received an error response.
-						if ( response.body && response.body.message ) {
-							addErrorNotice( response.body.message, {
+						addErrorNotice(
+							formatStoreApiErrorMessage( response ),
+							{
 								id: 'checkout',
-							} );
-						} else {
-							addErrorNotice(
-								__(
-									'Something went wrong. Please contact us to get assistance.',
-									'woocommerce'
-								),
-								{
-									id: 'checkout',
-								}
-							);
-						}
+							}
+						);
 						dispatchActions.setHasError();
 					}
 					dispatchActions.setAfterProcessing( response );
@@ -237,6 +227,9 @@ const CheckoutProcessor = () => {
 					if ( response.data?.cart ) {
 						receiveCart( response.data.cart );
 					}
+					addErrorNotice( formatStoreApiErrorMessage( response ), {
+						id: 'checkout',
+					} );
 					dispatchActions.setHasError();
 					dispatchActions.setAfterProcessing( response );
 					setIsProcessingOrder( false );

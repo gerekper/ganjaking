@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Composer\\Installers\\AglInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AglInstaller.php',
     'Composer\\Installers\\AimeosInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
     'Composer\\Installers\\AnnotateCmsInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AnnotateCmsInstaller.php',
@@ -566,6 +565,7 @@ return array(
     'Yoast\\WP\\SEO\\Builders\\Primary_Term_Builder' => $baseDir . '/src/builders/primary-term-builder.php',
     'Yoast\\WP\\SEO\\Commands\\Command_Interface' => $baseDir . '/src/commands/command-interface.php',
     'Yoast\\WP\\SEO\\Commands\\Index_Command' => $baseDir . '/src/commands/index-command.php',
+    'Yoast\\WP\\SEO\\Conditionals\\Admin\\Doing_Post_Quick_Edit_Save_Conditional' => $baseDir . '/src/conditionals/admin/doing-post-quick-edit-save-conditional.php',
     'Yoast\\WP\\SEO\\Conditionals\\Admin\\Estimated_Reading_Time_Conditional' => $baseDir . '/src/conditionals/admin/estimated-reading-time-conditional.php',
     'Yoast\\WP\\SEO\\Conditionals\\Admin\\Post_Conditional' => $baseDir . '/src/conditionals/admin/post-conditional.php',
     'Yoast\\WP\\SEO\\Conditionals\\Admin\\Posts_Overview_Or_Ajax_Conditional' => $baseDir . '/src/conditionals/admin/posts-overview-or-ajax-conditional.php',
@@ -760,6 +760,7 @@ return array(
     'Yoast\\WP\\SEO\\Integrations\\Watchers\\Indexable_Term_Watcher' => $baseDir . '/src/integrations/watchers/indexable-term-watcher.php',
     'Yoast\\WP\\SEO\\Integrations\\Watchers\\Option_Titles_Watcher' => $baseDir . '/src/integrations/watchers/option-titles-watcher.php',
     'Yoast\\WP\\SEO\\Integrations\\Watchers\\Option_Wpseo_Watcher' => $baseDir . '/src/integrations/watchers/option-wpseo-watcher.php',
+    'Yoast\\WP\\SEO\\Integrations\\Watchers\\Primary_Category_Quick_Edit_Watcher' => $baseDir . '/src/integrations/watchers/primary-category-quick-edit-watcher.php',
     'Yoast\\WP\\SEO\\Integrations\\Watchers\\Primary_Term_Watcher' => $baseDir . '/src/integrations/watchers/primary-term-watcher.php',
     'Yoast\\WP\\SEO\\Integrations\\XMLRPC' => $baseDir . '/src/integrations/xmlrpc.php',
     'Yoast\\WP\\SEO\\Loadable_Interface' => $baseDir . '/src/loadable-interface.php',

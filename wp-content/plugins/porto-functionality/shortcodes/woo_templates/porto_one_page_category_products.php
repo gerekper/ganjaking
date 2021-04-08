@@ -99,8 +99,8 @@ $subcategory_class = 'sub-category products pcols-lg-' . $columns . ' pcols-md-'
 $output          = '';
 $output         .= '<div class="' . esc_attr( $wrapper_classes ) . '">';
 $terms           = get_terms(
-	'product_cat',
 	array(
+		'taxonomy'   => 'product_cat',
 		'parent'     => 0,
 		'hide_empty' => ( 'yes' == $hide_empty ? true : false ),
 		'orderby'    => $category_orderby,

@@ -1,0 +1,1184 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooSlider v1.0.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2012-09-03 10:43:01+0000\n"
+"Last-Translator: Matty <matt@woothemes.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED KINGDOM\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: classes/class-wooslider-admin.php:66
+#: classes/class-wooslider-posttypes.php:121
+#@ wooslider
+msgid "Slideshows"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:91
+#: classes/class-wooslider-admin.php:99
+#@ wooslider
+msgid "Insert Slideshow"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:93
+#@ wooslider
+msgid "Advanced Settings"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:95
+#@ wooslider
+msgid "Optionally override the default slideshow settings using the fields below."
+msgstr ""
+
+#: classes/class-wooslider-admin.php:161
+#@ wooslider
+msgid "Slideshow Type"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:169
+#@ wooslider
+msgid "The type of slideshow to insert"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:401
+#@ wooslider
+msgid "Number of Images"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:401
+#@ wooslider
+msgid "The maximum number of images to display"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:402
+#: classes/class-wooslider-admin.php:437
+#: classes/class-wooslider-admin.php:511
+#@ wooslider
+msgid "Use thumbnails for Pagination"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:402
+#@ wooslider
+msgid "Use thumbnails for pagination, instead of \"dot\" indicators"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:435
+#@ wooslider
+msgid "Number of Slides"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:435
+#@ wooslider
+msgid "The maximum number of slides to display"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:437
+#: classes/class-wooslider-admin.php:511
+#@ wooslider
+msgid "Use thumbnails for pagination, instead of \"dot\" indicators (uses featured image)"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:496
+#@ wooslider
+msgid "None"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:496
+#@ wooslider
+msgid "Full"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:496
+#@ wooslider
+msgid "Natural"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:510
+#@ wooslider
+msgid "Number of Posts"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:510
+#@ wooslider
+msgid "The maximum number of posts to display"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:512
+#@ wooslider
+msgid "Link the post title to it's post"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:512
+#@ wooslider
+msgid "Link the post title to it's single post screen"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:514
+#@ wooslider
+msgid "Layout"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:514
+#@ wooslider
+msgid "The layout to use when displaying posts"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:515
+#@ wooslider
+msgid "Overlay"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:515
+#@ wooslider
+msgid "The type of overlay to use when displaying the post text"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:516
+#@ wooslider
+msgid "Categories"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:516
+#@ wooslider
+msgid "The categories from which to display posts"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:517
+#@ wooslider
+msgid "Tags"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:517
+#@ wooslider
+msgid "The tags from which to display posts"
+msgstr ""
+
+#: classes/class-wooslider-frontend.php:185
+#: classes/class-wooslider-settings.php:146
+#@ wooslider
+msgid "Previous"
+msgstr ""
+
+#: classes/class-wooslider-frontend.php:186
+#: classes/class-wooslider-settings.php:154
+#@ wooslider
+msgid "Next"
+msgstr ""
+
+#: classes/class-wooslider-frontend.php:187
+#: classes/class-wooslider-settings.php:162
+#@ wooslider
+msgid "Play"
+msgstr ""
+
+#: classes/class-wooslider-frontend.php:188
+#: classes/class-wooslider-settings.php:170
+#@ wooslider
+msgid "Pause"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:88
+#@ wooslider
+msgctxt "taxonomy general name"
+msgid "Slide Groups"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:89
+#@ wooslider
+msgctxt "taxonomy singular name"
+msgid "Slide Group"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:90
+#@ wooslider
+msgid "Search Slide Groups"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:91
+#@ wooslider
+msgid "All Slide Groups"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:92
+#@ wooslider
+msgid "Parent Slide Group"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:93
+#@ wooslider
+msgid "Parent Slide Group:"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:94
+#@ wooslider
+msgid "Edit Slide Group"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:95
+#@ wooslider
+msgid "Update Slide Group"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:96
+#@ wooslider
+msgid "Add New Slide Group"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:97
+#@ wooslider
+msgid "New Slide Group Name"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:436
+#: classes/class-wooslider-posttypes.php:98
+#@ wooslider
+msgid "Slide Groups"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:121
+#: classes/class-wooslider-settings.php:108
+#@ wooslider
+msgid "Slide"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:121
+#: classes/class-wooslider-utils.php:31
+#@ wooslider
+msgid "Slides"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:135
+#, php-format
+#@ wooslider
+msgctxt "post type general name"
+msgid "%s"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:136
+#, php-format
+#@ wooslider
+msgctxt "post type singular name"
+msgid "%s"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:137
+#, php-format
+#@ wooslider
+msgctxt ""
+msgid "Add New %s"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:138
+#, php-format
+#@ wooslider
+msgid "Add New %s"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:139
+#, php-format
+#@ wooslider
+msgid "Edit %s"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:140
+#, php-format
+#@ wooslider
+msgid "New %s"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:141
+#, php-format
+#@ wooslider
+msgid "All %s"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:142
+#, php-format
+#@ wooslider
+msgid "View %s"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:143
+#, php-format
+#@ wooslider
+msgid "Search %s"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:144
+#, php-format
+#@ wooslider
+msgid "No %s found"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:145
+#, php-format
+#@ wooslider
+msgid "No %s found in Trash"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:180
+#: classes/class-wooslider-posttypes.php:183
+#, php-format
+#@ default
+#@ wooslider
+msgid "%s updated."
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:181
+#@ wooslider
+msgid "Custom field updated."
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:182
+#@ wooslider
+msgid "Custom field deleted."
+msgstr ""
+
+#. translators: %s: date and time of the revision
+#: classes/class-wooslider-posttypes.php:185
+#, php-format
+#@ wooslider
+msgid "%2$s restored to revision from %1$s"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:186
+#, php-format
+#@ default
+msgid "%2$s published."
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:187
+#, php-format
+#@ wooslider
+msgid "%s saved."
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:188
+#, php-format
+#@ wooslider
+msgid "%2$s submitted."
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:189
+#, php-format
+#@ wooslider
+msgid "%s scheduled for: <strong>%1$s</strong>."
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:191
+#@ default
+msgid " M j, Y @ G:i"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:192
+#, php-format
+#@ wooslider
+msgid "%s draft updated."
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:207
+#@ wooslider
+msgid "Enter a title for this slide here"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:223
+#@ wooslider
+msgctxt "column name"
+msgid "Slide Title"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:224
+#@ wooslider
+msgctxt "column name"
+msgid "Featured Image"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:225
+#@ wooslider
+msgctxt "column name"
+msgid "Slide Groups"
+msgstr ""
+
+#: classes/class-wooslider-posttypes.php:251
+#@ wooslider
+msgid "No Slide Groups Specified"
+msgstr ""
+
+#: classes/class-wooslider-settings-api.php:131
+#@ wooslider
+msgid "Override init_sections() in your class."
+msgstr ""
+
+#: classes/class-wooslider-settings-api.php:142
+#@ wooslider
+msgid "Override init_fields() in your class."
+msgstr ""
+
+#: classes/class-wooslider-settings-api.php:161
+#@ wooslider
+msgid "All"
+msgstr ""
+
+#: classes/class-wooslider-settings-api.php:343
+#@ wooslider
+msgid "Powered by"
+msgstr ""
+
+#: classes/class-wooslider-settings-api.php:782
+#, php-format
+#@ wooslider
+msgid "%s is a required field"
+msgstr ""
+
+#: classes/class-wooslider-settings-api.php:793
+#, php-format
+#@ wooslider
+msgid "%s updated"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:70
+#: classes/class-wooslider-settings.php:317
+#@ wooslider
+msgid "General Settings"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:71
+#: classes/class-wooslider-settings.php:319
+#@ wooslider
+msgid "Settings to apply to all slideshows, unless overridden."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:75
+#: classes/class-wooslider-settings.php:330
+#@ wooslider
+msgid "Control Settings"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:76
+#: classes/class-wooslider-settings.php:332
+#@ wooslider
+msgid "Customise the ways in which slideshows can be controlled."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:80
+#: classes/class-wooslider-settings.php:350
+#@ wooslider
+msgid "Button Settings"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:81
+#: classes/class-wooslider-settings.php:352
+#@ wooslider
+msgid "Customise the texts of the various slideshow buttons."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:102
+#: classes/class-wooslider-settings.php:321
+#@ wooslider
+msgid "Animation"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:103
+#@ wooslider
+msgid "The slider animation"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:108
+#@ wooslider
+msgid "Fade"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:112
+#: classes/class-wooslider-settings.php:322
+#@ wooslider
+msgid "Slide Direction"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:113
+#@ wooslider
+msgid "The direction to slide (if using the \"Slide\" animation)"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:118
+#@ wooslider
+msgid "Horizontal"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:118
+#@ wooslider
+msgid "Vertical"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:122
+#: classes/class-wooslider-settings.php:323
+#@ wooslider
+msgid "Slideshow Speed"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:123
+#@ wooslider
+msgid "Set the delay between each slide animation (in seconds)"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:132
+#: classes/class-wooslider-settings.php:324
+#@ wooslider
+msgid "Animation Speed"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:133
+#@ wooslider
+msgid "Set the duration of each slide animation (in seconds)"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:143
+#: classes/class-wooslider-settings.php:354
+#@ wooslider
+msgid "\"Previous\" Link Text"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:144
+#@ wooslider
+msgid "The text to display on the \"Previous\" button."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:151
+#: classes/class-wooslider-settings.php:355
+#@ wooslider
+msgid "\"Next\" Link Text"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:152
+#@ wooslider
+msgid "The text to display on the \"Next\" button."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:159
+#: classes/class-wooslider-settings.php:356
+#@ wooslider
+msgid "\"Play\" Button Text"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:160
+#@ wooslider
+msgid "The text to display on the \"Play\" button."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:167
+#: classes/class-wooslider-settings.php:357
+#@ wooslider
+msgid "\"Pause\" Button Text"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:168
+#@ wooslider
+msgid "The text to display on the \"Pause\" button."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:177
+#: classes/class-wooslider-settings.php:334
+#@ wooslider
+msgid "Animate the slideshows automatically"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:185
+#: classes/class-wooslider-settings.php:335
+#@ wooslider
+msgid "Adjust the height of the slideshow to the height of the current slide"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:193
+#: classes/class-wooslider-settings.php:336
+#@ wooslider
+msgid "Display the \"Previous/Next\" navigation"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:201
+#: classes/class-wooslider-settings.php:337
+#@ wooslider
+msgid "Display the slideshow pagination"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:209
+#: classes/class-wooslider-settings.php:338
+#@ wooslider
+msgid "Enable keyboard navigation"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:217
+#: classes/class-wooslider-settings.php:339
+#@ wooslider
+msgid "Enable the mousewheel navigation"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:225
+#: classes/class-wooslider-settings.php:340
+#@ wooslider
+msgid "Enable the \"Play/Pause\" event"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:233
+#: classes/class-wooslider-settings.php:341
+#@ wooslider
+msgid "Randomize the order of slides in slideshows"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:241
+#: classes/class-wooslider-settings.php:342
+#@ wooslider
+msgid "Loop the slideshow animations"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:249
+#: classes/class-wooslider-settings.php:343
+#@ wooslider
+msgid "Pause the slideshow autoplay when using the pagination or \"Previous/Next\" navigation"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:257
+#: classes/class-wooslider-settings.php:344
+#@ wooslider
+msgid "Pause the slideshow autoplay when hovering over a slide"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:310
+#: classes/class-wooslider-settings.php:366
+#: classes/class-wooslider-settings.php:436
+#@ wooslider
+msgid "Overview"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:312
+#@ wooslider
+msgid "This screen contains all the default settings for your slideshows created by WooSlider (animation duration, speeds, display of slideshow controls, etc). Anything set here will apply to all WooSlider slideshows, unless overridden by a slideshow."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:321
+#@ wooslider
+msgid "The default animation to use for your slideshows (\"slide\" or \"fade\")."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:322
+#@ wooslider
+msgid "Slide the slideshows either vertically or horizontally (works only with the \"slide\" animation)."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:322
+#@ wooslider
+msgid "NOTE: When sliding vertically, all slides need to have the same height."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:323
+#@ wooslider
+msgid "The delay between each slide animation (in seconds)."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:324
+#@ wooslider
+msgid "The duration of each slide animation (in seconds)."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:334
+#@ wooslider
+msgid "Whether or not to automatically animate between the slides (the alternative is to slide only when using the controls)."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:335
+#@ wooslider
+msgid "Alternatively, the slideshow will take the height from it's tallest slide."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:336
+#@ wooslider
+msgid "Show/hide the \"Previous\" and \"Next\" button controls."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:337
+#@ wooslider
+msgid "Show/hide the pagination bar below the slideshow."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:338
+#@ wooslider
+msgid "Enable navigation of this slideshow via the \"left\" and \"right\" arrow keys on the viewer's computer keyboard."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:339
+#@ wooslider
+msgid "Enable navigation of this slideshow via the viewer's computer mousewheel."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:340
+#@ wooslider
+msgid "Show/hide the \"Play/Pause\" button below the slideshow for pausing and resuming the automated slideshow."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:341
+#@ wooslider
+msgid "Display the slides in the slideshow in a random order."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:342
+#@ wooslider
+msgid "When arriving at the end of the slideshow, carry on sliding from the first slide, indefinitely."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:343
+#@ wooslider
+msgid "Pause the slideshow automation when the viewer decides to navigate using the manual controls."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:344
+#@ wooslider
+msgid "Pause the slideshow automation when the viewer hovers over the slideshow."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:354
+#@ wooslider
+msgid "The text for the \"Previous\" button."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:355
+#@ wooslider
+msgid "The text for the \"Next\" button."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:356
+#@ wooslider
+msgid "The text for the \"Play\" button."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:357
+#@ wooslider
+msgid "The text for the \"Pause\" button."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:455
+#@ wooslider
+msgid "For more information:"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:456
+#@ wooslider
+msgid "Support Desk"
+msgstr ""
+
+#: classes/class-wooslider-utils.php:30
+#@ wooslider
+msgid "Attached Images"
+msgstr ""
+
+#: classes/class-wooslider-utils.php:32
+#: widgets/widget-wooslider-posts.php:38
+#@ wooslider
+msgid "Posts"
+msgstr ""
+
+#: classes/class-wooslider-utils.php:44
+#@ wooslider
+msgid "Text Left"
+msgstr ""
+
+#: classes/class-wooslider-utils.php:45
+#@ wooslider
+msgid "Text Right"
+msgstr ""
+
+#: classes/class-wooslider-utils.php:46
+#@ wooslider
+msgid "Text Top"
+msgstr ""
+
+#: classes/class-wooslider-utils.php:47
+#@ wooslider
+msgid "Text Bottom"
+msgstr ""
+
+#: classes/class-wooslider.php:68
+#@ wooslider
+msgid "Slideshow Settings"
+msgstr ""
+
+#: classes/class-wooslider.php:69
+#@ wooslider
+msgid "Settings"
+msgstr ""
+
+#: widgets/widget-wooslider-attachments.php:31
+#@ wooslider
+msgid "A slideshow of the images attached to the current page/post"
+msgstr ""
+
+#: widgets/widget-wooslider-attachments.php:33
+#@ wooslider
+msgid "Attached Images Slideshow (WooSlider)"
+msgstr ""
+
+#: widgets/widget-wooslider-attachments.php:38
+#@ wooslider
+msgid "Images"
+msgstr ""
+
+#: widgets/widget-wooslider-base.php:45
+#@ wooslider
+msgid "A slideshow of the content on your site"
+msgstr ""
+
+#: widgets/widget-wooslider-base.php:47
+#@ wooslider
+msgid "Slideshow (WooSlider)"
+msgstr ""
+
+#: widgets/widget-wooslider-base.php:260
+#@ wooslider
+msgid "Title (optional):"
+msgstr ""
+
+#: widgets/widget-wooslider-base.php:297
+#@ wooslider
+msgid "Customise Advanced Settings"
+msgstr ""
+
+#: widgets/widget-wooslider-base.php:299
+#@ wooslider
+msgid "Save the widget settings with this checkbox checked to customise slideshow settings."
+msgstr ""
+
+#: widgets/widget-wooslider-posts.php:31
+#@ wooslider
+msgid "A slideshow of posts on your site"
+msgstr ""
+
+#: widgets/widget-wooslider-posts.php:33
+#@ wooslider
+msgid "Posts Slideshow (WooSlider)"
+msgstr ""
+
+#: widgets/widget-wooslider-slides.php:31
+#@ wooslider
+msgid "A slideshow of slides on your site"
+msgstr ""
+
+#: widgets/widget-wooslider-slides.php:33
+#@ wooslider
+msgid "Slides Slideshow (WooSlider)"
+msgstr ""
+
+#: classes/class-woothemes-plugin-updater.php:147
+#@ wooslider
+msgid "WooThemes Updates"
+msgstr ""
+
+#: classes/class-woothemes-plugin-updater.php:167
+#@ wooslider
+msgid "WooThemes Plugin Updater"
+msgstr ""
+
+#: classes/class-woothemes-plugin-updater.php:174
+#@ wooslider
+msgid "WooThemes Username"
+msgstr ""
+
+#: classes/class-woothemes-plugin-updater.php:178
+#@ wooslider
+msgid "WooThemes Password"
+msgstr ""
+
+#: classes/class-woothemes-plugin-updater.php:187
+#@ wooslider
+msgid "Login"
+msgstr ""
+
+#: classes/class-woothemes-plugin-updater.php:238
+#@ wooslider
+msgid "Switch WooThemes Account"
+msgstr ""
+
+#: classes/class-woothemes-plugin-updater.php:240
+#, php-format
+#@ wooslider
+msgid "You are currently logged in as %1$s. To switch to a different WooThemes account, please fill in the login details below."
+msgstr ""
+
+#: classes/class-woothemes-plugin-updater.php:243
+#@ wooslider
+msgid "Update your Plugins"
+msgstr ""
+
+#: classes/class-woothemes-plugin-updater.php:250
+#@ wooslider
+msgid "Login Error"
+msgstr ""
+
+#: classes/class-woothemes-plugin-updater.php:252
+#@ wooslider
+msgid "The login details supplied are invalid. Please try again."
+msgstr ""
+
+#: classes/class-woothemes-plugin-updater.php:262
+#@ wooslider
+msgid "Enable WooThemes Plugin Updates."
+msgstr ""
+
+#: classes/class-woothemes-plugin-updater.php:264
+#, php-format
+#@ wooslider
+msgid "Please <a href=\"%1$s\">login</a> to enable automatic plugin updates."
+msgstr ""
+
+#: classes/class-woothemes-plugin-updater.php:277
+#@ wooslider
+msgid "Hide This Message"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:513
+#@ wooslider
+msgid "Display the post's excerpt"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:513
+#@ wooslider
+msgid "Display the post's excerpt on each slide"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:368
+#@ wooslider
+msgid "This screen provides access to all of your posts. You can customize the display of this screen to suit your workflow."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:373
+#@ wooslider
+msgid "Screen Content"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:375
+#@ wooslider
+msgid "You can customize the display of this screen’s contents in a number of ways:"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:377
+#@ wooslider
+msgid "You can hide/display columns based on your needs and decide how many slides to list per screen using the Screen Options tab."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:378
+#@ wooslider
+msgid "You can filter the list of slides by status using the text links in the upper left to show All, Published, Draft, or Trashed slides. The default view is to show all slides."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:379
+#@ wooslider
+msgid "You can view slides in a simple title list or with an excerpt. Choose the view you prefer by clicking on the icons at the top of the list on the right."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:380
+#@ wooslider
+msgid "You can refine the list to show only slides from a specific month by using the dropdown menus above the slides list. Click the Filter button after making your selection. You also can refine the list by clicking on the slide groups in the slides list."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:386
+#@ wooslider
+msgid "Available Actions"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:388
+#@ wooslider
+msgid "Hovering over a row in the posts list will display action links that allow you to manage your post. You can perform the following actions:"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:390
+#@ wooslider
+msgid "Edit"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:390
+#@ wooslider
+msgid "takes you to the editing screen for that slide. You can also reach that screen by clicking on the slide title."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:391
+#@ wooslider
+msgid "Quick Edit"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:391
+#@ wooslider
+msgid "provides inline access to the metadata of your slide, allowing you to update slide details without leaving this screen."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:392
+#@ wooslider
+msgid "Trash"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:392
+#@ wooslider
+msgid "removes your slide from this list and places it in the trash, from which you can permanently delete it."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:393
+#@ wooslider
+msgid "Preview"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:393
+#@ wooslider
+msgid "will show you what your draft slide will look like if you publish it. View will take you to your live site to view the slide. Which link is available depends on your slide's status."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:399
+#@ wooslider
+msgid "Bulk Actions"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:401
+#@ wooslider
+msgid "You can also edit or move multiple slides to the trash at once. Select the slides you want to act on using the checkboxes, then select the action you want to take from the Bulk Actions menu and click Apply."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:402
+#@ wooslider
+msgid "When using Bulk Edit, you can change the metadata (slide groups, etc) for all selected slides at once. To remove a slide from the grouping, just click the x next to its name in the Bulk Edit area that appears."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:410
+#@ wooslider
+msgid "Customize This Display"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:412
+#@ wooslider
+msgid "The title field and the big Slide Editing Area are fixed in place, but you can reposition all the other boxes using drag and drop, and can minimize or expand them by clicking the title bar of each box. Use the Screen Options tab to unhide more boxes (Excerpt, Featured Image) or to choose a 1- or 2-column layout for this screen."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:417
+#@ wooslider
+msgid "Title and Content Editor"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:419
+#@ wooslider
+msgid "Title"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:419
+#@ wooslider
+msgid "Enter a title for your slide."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:420
+#@ wooslider
+msgid "Content Editor"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:420
+#@ wooslider
+msgid "Enter the text for your slide. There are two modes of editing: Visual and HTML. Choose the mode by clicking on the appropriate tab. Visual mode gives you a WYSIWYG editor. Click the last icon in the row to get a second row of controls. The HTML mode allows you to enter raw HTML along with your slide text. You can insert media files by clicking the icons above the content editor and following the directions. You can go to the distraction-free writing screen via the Fullscreen icon in Visual mode (second to last in the top row) or the Fullscreen button in HTML mode (last in the row). Once there, you can make buttons visible by hovering over the top area. Exit Fullscreen back to the regular content editor. This content area is a blank canvas for each slide. Any content added here will display in the slide.\t"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:425
+#@ wooslider
+msgid "Publish Box"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:427
+#@ wooslider
+msgid "Publish"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:427
+#@ wooslider
+msgid "You can set the terms of publishing your slide in the Publish box. For Status, Visibility, and Publish (immediately), click on the Edit link to reveal more options. Visibility includes options for password-protecting a post or making it stay at the front of each slideshow it is in (sticky). Publish (immediately) allows you to set a future or past date and time, so you can schedule a slide to be published in the future or backdate a slide."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:428
+#@ wooslider
+msgid "Featured Image"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:428
+#@ wooslider
+msgid "This allows you to associate an image with your slide without inserting it. This is used only if the \"thumbnails\" pagination setting is enabled. Otherwise, the featured image is not used."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:438
+#@ wooslider
+msgid "You can use slide groups to define groupings of slides to be displayed in various WooSlider slideshows."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:443
+#@ wooslider
+msgid "Adding Slide Groups"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:445
+#@ wooslider
+msgid "When adding a new slide group on this screen, you’ll fill in the following fields:"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:447
+#@ wooslider
+msgid "Name"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:447
+#@ wooslider
+msgid "The name is how it appears on your site."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:448
+#@ wooslider
+msgid "Slug"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:448
+#@ wooslider
+msgid "The “slug” is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens."
+msgstr ""
+
+#: classes/class-wooslider-settings.php:449
+#@ wooslider
+msgid "Description"
+msgstr ""
+
+#: classes/class-wooslider-settings.php:449
+#@ wooslider
+msgid "The description is not prominent by default; however, some themes may display it (WooSlider doesn't display this anywhere by default)."
+msgstr ""
+
+#: classes/class-wooslider-admin.php:179
+#@ wooslider
+msgid "Slideshow Theme"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:187
+#@ wooslider
+msgid "The desired slideshow theme"
+msgstr ""
+
+#: classes/class-wooslider-utils.php:79
+#@ wooslider
+msgid "Default"
+msgstr ""
+
+#: widgets/widget-wooslider-base.php:266
+#@ wooslider
+msgid "Slideshow Theme:"
+msgstr ""
+
+#: classes/class-wooslider-admin.php:436
+#@ wooslider
+msgid "The slide groups from which to display slides"
+msgstr ""
+

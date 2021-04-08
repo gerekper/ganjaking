@@ -1,0 +1,230 @@
+*** WooSlider Changelog ***
+
+2021-02-02 - version 2.5.0
+ * Update - Remove WooThemes Update Plugin reference.
+* Tweak - WP 5.6 compatibility.
+* Tweak - WC 5.0 compatibility.
+
+2018.05.22 - version 2.4.3
+ * Update - WC tested up to 3.4
+
+2017.07.05 - version 2.4.2
+ * Fix - Fixes lazy loading output by adding optional attr filters and jquery filter for start callback.
+   classes/class-wooslider-frontend.php,
+   classes/class-wooslider-sliders.php
+
+2017.06.08 - version 2.4.1
+ * Fix - Updated to use the latest version of FlexSlider, 2.6.3, fixes fade animation bug.
+   assets/js/jquery.flexslider.js
+ * Fix - Fixes handling of comma separated tag string when the output function is used in a theme (eg. Canvas).
+   classes/class-wooslider-sliders.php
+
+2016.08.05 - version 2.4.0
+ * Tweak - Fixes overflow for slideshows and big height images not allowing selection of content below the slider.
+   assets/js/jquery.flexslider.js
+ * Fix - Fixes settings navigation tabs not loading section correctly.
+   assets/js/tabs-navigation.js
+ * Fix - nonce typo fixed.
+   classes/class-wooslider-posttypes.php
+
+2015.11.11 - version 2.3.0
+ * Tweak - Ensures the necessary JavaScripts load only if slideshows are present on the current screen.
+   /classes/class-wooslider-frontend.php
+ * New - Add option to choose the content type for your slides when selecting a slider type of Posts
+   /classes/class-wooslider-admin.php,
+   /classes/class-wooslider-sliders.php
+ * Update - Updated to use the latest version of FlexSlider, 2.6.0, various under the hood fixes and improvements.
+   assets/js/jquery.flexslider.js
+
+2015.06.23 - version 2.2.2
+ * Tweak - modifies how the image size choice works so that all registered image sizes are shown as an option.
+
+2015.06.12 - version 2.2.1
+ * Update - Updated to use the latest version of FlexSlider, 2.5.0, various under the hood fixes and improvements.
+   assets/js/jquery.flexslider.js
+
+2015.02.27 - version 2.2.0
+ * Update - Updated to use the latest version of FlexSlider, 2.4.0, various fixes and improvements.
+   assets/js/jquery.flexslider.js
+
+2014.07.31 - version 2.1.0
+ * Fix - Fix issue with PHP noticed being shown when adding a slider via the Add Media screen.
+   classes/class-wooslider-sliders.php
+
+ * Fix - Fix 'Undefined Property' PHP notice.
+   classes/class-wooslider-settings-api.php
+
+ * Tweak - Update to FitVids to latest version - 1.1
+   assets/js/jquery.fitvids.js
+
+ * Tweak - Use CSS instead of JavaScript animations.
+   classes/class-wooslider-frontend.php
+
+ * New - Add option to display captions on attachments slider.
+   classes/class-wooslider-admin.php,
+   classes/class-wooslider-sliders.php
+
+ * Tweak - Add tweak to dynamically hide Slide options that cannot be used together.
+   assets/js/shortcode-creator.js,
+   assets/js/shortcode-creator.min.js,
+   classes/class-wooslider-admin.php
+
+ * New - Add option to remove sticky posts from displaying in the Posts slider.
+   classes/class-wooslider-admin.php,
+   classes/class-wooslider-sliders.php
+
+ * New - Add option to select the image size in the Slides slider.
+   classes/class-wooslider-admin.php,
+   classes/class-wooslider-sliders.php
+
+ * New - Add option to select the number of visible images in a carousel slider.
+   classes/class-wooslider-admin.php,
+   classes/class-wooslider-frontend.php
+
+ * Fix - Fix mousewheel issue where the area bellow a slider with different slide heights would still repond to the event.
+   assets/css/style.css
+
+2014.01.28 - version 2.0.2
+ * New - Add 'display_title' parameter to Posts slider
+   /classes/class-wooslider-sliders.php
+
+ * New - Add "has-featured-image" class to slides that have one.
+   /classes/class-wooslider-sliders.php
+
+ * Fix - Fix empty link tags in slides
+   /classes/class-wooslider-sliders.php
+
+ * New - Add falback to slides with no featured image in the image slider, they now default to the content only slide layout
+   /classes/class-wooslider-sliders.php
+
+ * New - Add support for shortcodes to the Slides slider content.
+   /classes/class-wooslider-sliders.php
+
+ * New - Added filters on content output
+   /classes/class-wooslider-sliders.php
+
+ * Fix - Fix issue with initial slider height
+   /classes/class-wooslider-frontend.php
+
+ * Fix - Fix issue with oembed data being modified on all videos, now applied only to videos in 'slide' post type
+   /classes/class-wooslider-frontend.php
+
+ * Fix - Fix issue with videos not being properly discovered by provider APIs on first page load
+   /classes/class-wooslider-sliders.php
+
+2013.12.19 - version 2.0.1
+ * New - Add order settings for Slides post type by date or menu order
+   /classes/class-wooslider-admin.php,
+   /classes/class-wooslider-sliders.php,
+   /classes/class-wooslider-utils.php
+
+ * Fix - Slide URL not saving
+   /classes/class-wooslider-posttypes.php,
+   /classes/class-wooslider-sliders.php
+
+ * Fix - Incorrect callback API variables
+   /classes/class-wooslider-frontend.php
+
+ * Fix - Removed extra quote causing validation issue
+   /classes/class-wooslider-sliders.php
+
+ * Fix - Multiple slide pages not working in a Slides type slider
+   /classes/class-wooslider-sliders.php
+
+ * Fix - IDs with capital letters and spaces causing errors
+   /inc/wooslider-template.php
+
+ * Tweak - Rename 'wooslidercontent' to 'data-wooslidercontent' for HTML5 validation
+   /classes/class-wooslider-frontend.php,
+   /classes/class-wooslider-sliders.php
+
+2013.09.09 - version 2.0.0
+ * /classes/class-wooslider-admin.php - Change thumbnail option from checkbox to select. generate_default_conditional_fields() now uses a filter instead of looking for internal methods.
+ * /classes/class-wooslider-fontend.php - add callbacks, add support for carousel.
+ * /classes/class-wooslider-sliders.php - add render_carousel function, handle carousel option.
+ * /classes/class-wooslider-posttypes.php - Adds logic to handle the "Slide URL" meta box.
+ * /classes/class-wooslider-settings-api.php - Adds support for settings screen tabs, to be used in future versions of WooSlider.
+ * /inc/wooslider-template.php - Add html output for carousel.
+ * /assets/js/jquery.fitvids.js - ADDED.
+
+2013.02.01 - version 1.0.9
+ * /inc/woo-functions.php - Added is_woocommerce_active
+ * /inc/class-wc-dependencies.php - Added to detect WooCommerce
+
+2012.12.06 - version 1.0.7
+ * /assets/js/jquery.flexslider.js - Introduce non-minified version of FlexSlider, for debugging in SCRIPT_DEBUG mode.
+ * /assets/js/jquery.flexslider.min.js - Upgrade to the latest version of FlexSlider. RENAMED from "-min" to ".min" in accordance with the WordPress script file naming convention.
+ * /assets/js/shortcode-creator.js - Code standards optimisations.
+ * /assets/js/jquery.mousewheel.js,
+ * /assets/js/jquery.mousewheel.min.js - Introduce jQuery Mousewheel script, for use with the "mousewheel" parameter.
+ * /assets/css/style.css - Adds basic resets for slides, images within slides and control navigation for better theme compatibility.
+ * /classes/class-wooslider-sliders.php - Adds orderby and order arguments for attachment based sliders, default to menu_order to support drag/drop ordering of attachment slides. Pass settings through when retrieving slides. For future use and enhancements.
+ * /classes/class-wooslider-admin.php - Introduces "id" parameter, to assign a specific ID value to a slideshow. Adds minified version of the script, as well as SCRIPT_DEBUG logic. Introduce FlexSlider "sync" parameter.
+ * /classes/class-wooslider-frontend.php - Adjusts slideshow JavaScript generation to account for new custom "id" field. Introduce FlexSlider "sync" parameter.
+ * /classes/class-wooslider-updater.php - REMOVED
+ * /classes/class-wooslider.php - Removes logic for loading the previous plugin updater code.
+ * /inc/wooslider-template.php - Adds support for the new custom "id" field.
+ * /inc/woo-functions.php - Introduces functionality for integration with the "WooThemes Updater" plugin.
+ * wooslider.php - Integrate with the "WooThemes Updater" plugin.
+
+2012.11.08 - version 1.0.6
+ * /assets/css/global.css - Adjust CSS for the admin menu icon for WordPress 3.5-beta compatibility.
+ * /classes/class-wooslider-settings.php - Add setting to control "touch" parameter.
+ * /classes/class-wooslider-admin.php - Update version number on "global.css' enqueue. Fix and update the "shortcode-creator" script enqueue. Load "shortcode-creator" JavaScript in the header instead of the footer.
+ * /classes/class-wooslider-posttypes.php - Change image dimensions in admin columns to include height value. Fixes "undefined offset" notice.
+ * /classes/class-wooslider-sliders.php - Remove get_the_ID() from the call to get_the_excerpt() when rendering "posts" slideshows. Fixes "undefined index" on "thumbnails" when rendering "posts" slideshows.
+ * /classes/class-wooslider-frontend.php - Load slideshow JavaScript directly in "wp_footer" instead of using a transient to load via a separate URL. Removed "trigger_javascript_generator()" method, as no longer used. Added logic for outputting "touch" parameter in generated JavaScript.
+ * /inc/wooslider-template.php - Don't display the slideshow markup if there are no slides rendered. Add the ability to use do_action( 'wooslider' ) to display a slideshow instead of using the template tag.
+ * /assets/js/tabs-navigation.js - Compatibilty with jQuery 1.8.2 in WordPress 3.5 beta.
+
+2012.09.03 - version 1.0.5
+ * /assets/css/flexslider.css - Make sure ".carousel" and the general clearfix styles are prefixed with ".wooslider". Add missing browser-prefixed box-shadow properties to ".wooslider".
+ * /classes/class-wooslider-admin.php - Adjust logic for the popup's JavaScript and conditional fields loading, to fix issue when Network Activated on a WordPress MultiSite Network.
+ * /classes/class-wooslider-sliders.php - Make sure the thumbnails generate correctly for the "Attached Images Slideshow" widget. Wrap $slides in the "wooslider_get_slides" filter, passing through $slides, $type and $args. Link the post thumbnail to the post if the "link title to it's post" option is enabled in the "posts" slideshow type. Add basic support for the [embed] shortcode to the "slides" slideshow type.
+ * /widgets/widget-wooslider-slides.php - Make sure the "Slide Groups" functionality works correctly in the "Slides Slideshow" widget.
+ * /widgets/widget-wooslider-attachments.php - Make sure $instance keys are unset correctly if added to $extra_args, to prevent them being added to $settings as well.
+ * /inc/wooslider-template.php - Minor refinements and updates to the "[wooslider]" shortcode.
+ * /lang/wooslider-en_GB.po - Rescan language translation file.
+ * /lang/wooslider-xx_XX.pot - Rescan language translation file.
+
+2012.08.22 - version 1.0.4
+ * /classes/class-wooslider-settings.php - Added contextual help for each WooSlider administration screen. Made sure that contextual help displays only where necessary within the WordPress admin. Specifiy "settings_version" as the WooSlider version.
+ * /classes/class-wooslider-settings-api.php - Add support for the "settings_version" property, to be displayed next to the title of the settings screen.
+ * /classes/class-wooslider-frontend.php - Fixed logic around the generation of the JavaScript for the boolean settings. Fixes issue of navigation not being able to be disabled. Add get_theme() method.
+ * /classes/class-wooslider-admin.php - Add support and markup in the popup for the "theme" field.
+ * /classes/class-wooslider-utils.php - Add get_slider_themes() method.
+ * /classes/class-wooslider-posttypes.php - Make "slide-page" taxonomy non-hierarchical. Hide "Popular" section above the "Add Slide Group" form in the WordPress admin. Remove unused "remove_wooframework_metabox()" method.
+ * /inc/wooslider-template.php - Add support for the "theme" field in the output function, using the get_theme() method in the frontend class.
+ * /widgets/widget-wooslider-base.php - Add support for theme selection, if multiple themes are available. Make sure settings aren't overridden if the "Customise Advanced Settings" checkbox isn't checked.
+ * /widgets/widget-wooslider-attachments.php - Make sure settings aren't overridden if the "Customise Advanced Settings" checkbox isn't checked.
+ * /widgets/widget-wooslider-posts.php - Make sure settings aren't overridden if the "Customise Advanced Settings" checkbox isn't checked.
+ * /widgets/widget-wooslider-slides.php - Make sure settings aren't overridden if the "Customise Advanced Settings" checkbox isn't checked.
+ * /assets/css/settings.css - Add styling for the settings version number display.
+ * /lang/wooslider-en_GB.po - Rescan language translation file.
+ * /lang/wooslider-xx_XX.pot - Rescan language translation file.
+
+2012.08.16 - version 1.0.3
+ * /classes/class-wooslider-frontend.php - Change 'true' to a boolean true to fix checkbox logic error. Make sure the booelan values are being checked for correctly when generating the slideshow JavaScript.
+ * /classes/class-wooslider-admin.php - Manually enqueue the "ranges" and "image selector" JavaScript files.
+ * /classes/class-wooslider-sliders.php - Add "display_excerpt" option to the "posts" slideshow type. Remove unused get_placeholder_image() method in favour of the method present in the WooSlider_Utils class.
+ * /widgets/widget-wooslider-base.php - Adjusted how default fields are saved per widget. Ensure that widget-specific fields save correctly at each scenario (init, update).
+ * /lang/wooslider-en_GB.po - Rescanned language file.
+
+2012.08.09 - version 1.0.2
+ * /classes/class-wooslider-admin.php - Add support for "text" input field types to the conditional popup fields. Remove second enqueue of field scripts, which is no longer required in the popup.
+ * /classes/class-wooslider-settings-api.php - Adjust the enqueue_field_styles() method call to ensure that field-specific styles are conditionally loaded correctly.
+ * /classes/class-wooslider-sliders.php - Add shortcode support and wptexturize for the content of slides in the "slides" slideshow type.
+ * /widgets/widget-wooslider-base.php - Make sure that "range" fields display correctly as select box fields. Ensure that "advanced settings" save correctly when in use.
+ * /assets/js/shortcode-creator.js - Look for hidden select boxes for "range" fields, as well as the default field check, when creating the shortcode.
+
+2012.08.07 - version 1.0.1
+ * /classes/class-wooslider.php - Check if WooThemes_Plugin_Updater class exists to avoid plugin updater conflicts. Add "post-thumbnails" support if the theme doesn't natively support it.
+ * /classes/class-wooslider-frontend.php - Bump "wooslider-common" stylesheet version to 1.0.1. Make sure "autoslide" can be disabled via the shortcode.
+ * /classes/class-wooslider-sliders.php - Make sure the postdata is reset correctly after retrieving the slides for the "slides" slideshow type.
+ * /assets/css/flexslider.css - Move slideshow-specific styles to "style.css". Adjust styling of the "active" CSS classes to be "wooslider-active" in accordance with FlexSlider version 2.1 update.
+ * /assets/css/style.css - Add slideshow-specific styles from "flexslider.css". Fixed image and excerpt z-index.
+ * /assets/js/jquery.flexslider-min.js - Upgrade FlexSlider to version 2.1.
+ * /lang/en_GB.po - Rescan language translation file.
+
+2012.08.07 - version 1.0.0
+ * First release. Woo!

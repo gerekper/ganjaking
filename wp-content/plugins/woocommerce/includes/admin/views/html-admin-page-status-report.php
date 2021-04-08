@@ -845,10 +845,11 @@ if ( 0 < count( $dropins_mu_plugins['mu_plugins'] ) ) :
 				echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . wp_kses_post( sprintf( __( 'Page visibility should be <a href="%s" target="_blank">public</a>', 'woocommerce' ), 'https://wordpress.org/support/article/content-visibility/' ) ) . '</mark>';
 				$found_error = true;
 			} else {
-				// Shortcode check.
-				if ( $_page['shortcode_required'] ) {
-					if ( ! $_page['shortcode_present'] ) {
-						echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( esc_html__( 'Page does not contain the shortcode.', 'woocommerce' ), esc_html( $_page['shortcode'] ) ) . '</mark>';
+				// Shortcode and block check.
+				if ( $_page['shortcode_required'] || $_page['block_required'] ) {
+					if ( ! $_page['shortcode_present'] && ! $_page['block_present'] ) {
+						/* Translators: %1$s: shortcode text, %2$s: block slug. */
+						echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . ( $_page['block_required'] ? sprintf( esc_html__( 'Page does not contain the %1$s shortcode or the %2$s block.', 'woocommerce' ), esc_html( $_page['shortcode'] ), esc_html( $_page['block'] ) ) : sprintf( esc_html__( 'Page does not contain the %s shortcode.', 'woocommerce' ), esc_html( $_page['shortcode'] ) ) ) . '</mark>'; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */
 						$found_error = true;
 					}
 				}
@@ -1017,3 +1018,19 @@ if ( 0 < count( $dropins_mu_plugins['mu_plugins'] ) ) :
 </table>
 
 <?php do_action( 'woocommerce_system_status_report' ); ?>
+
+<table class="wc_status_table widefat" cellspacing="0">
+	<thead>
+	<tr>
+		<th colspan="3" data-export-label="Status report information"><h2><?php esc_html_e( 'Status report information', 'woocommerce' ); ?><?php echo wc_help_tip( esc_html__( 'This section shows information about this status report.', 'woocommerce' ) ); ?></h2></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td data-export-label="Generated at"><?php esc_html_e( 'Generated at', 'woocommerce' ); ?>:</td>
+		<td class="help">&nbsp;</td>
+		<td><?php echo esc_html( current_time( 'Y-m-d H:i:s P' ) ); ?></td>
+
+	</tr>
+	</tbody>
+</table>

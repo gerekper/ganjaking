@@ -261,6 +261,17 @@ class SegmentEntity extends \MailPoet\Entities\SegmentEntity implements \MailPoe
     /**
      * {@inheritDoc}
      */
+    public function addDynamicFilter(\MailPoet\Entities\DynamicSegmentFilterEntity $dynamicSegmentFilterEntity)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addDynamicFilter', [$dynamicSegmentFilterEntity]);
+
+        return parent::addDynamicFilter($dynamicSegmentFilterEntity);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function isStatic(): bool
     {
 

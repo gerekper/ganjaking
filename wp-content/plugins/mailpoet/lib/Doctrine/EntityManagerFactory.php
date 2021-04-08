@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Doctrine\EventListeners\EmojiEncodingListener;
+use MailPoet\Doctrine\EventListeners\LastSubscribedAtListener;
 use MailPoet\Doctrine\EventListeners\TimestampListener;
 use MailPoet\Doctrine\EventListeners\ValidationListener;
 use MailPoet\Tracy\DoctrinePanel\DoctrinePanel;
@@ -32,24 +33,32 @@ class EntityManagerFactory {
   /** @var EmojiEncodingListener */
   private $emojiEncodingListener;
 
+  /** @var LastSubscribedAtListener */
+  private $lastSubscribedAtListener;
+
   public function __construct(
     Connection $connection,
     Configuration $configuration,
     TimestampListener $timestampListener,
     ValidationListener $validationListener,
-    EmojiEncodingListener $emojiEncodingListener
+    EmojiEncodingListener $emojiEncodingListener,
+    LastSubscribedAtListener $lastSubscribedAtListener
   ) {
     $this->connection = $connection;
     $this->configuration = $configuration;
     $this->timestampListener = $timestampListener;
     $this->validationListener = $validationListener;
     $this->emojiEncodingListener = $emojiEncodingListener;
+    $this->lastSubscribedAtListener = $lastSubscribedAtListener;
   }
 
-  public function createEntityManager() {
+  public function createEntityManager(): EntityManager {
     $entityManager = EntityManager::create($this->connection, $this->configuration);
     $this->setupListeners($entityManager);
-    if (class_exists(Debugger::class)) {
+    if (
+      class_exists(Debugger::class)
+      && class_exists(DoctrinePanel::class)
+    ) {
       DoctrinePanel::init($entityManager);
     }
     return $entityManager;
@@ -69,6 +78,11 @@ class EntityManagerFactory {
     $entityManager->getEventManager()->addEventListener(
       [Events::prePersist, Events::preUpdate],
       $this->emojiEncodingListener
+    );
+
+    $entityManager->getEventManager()->addEventListener(
+      [Events::prePersist, Events::preUpdate],
+      $this->lastSubscribedAtListener
     );
   }
 }

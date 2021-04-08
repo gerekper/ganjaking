@@ -5,11 +5,13 @@ namespace MailPoet\Config;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Form\Widget;
 use MailPoet\Models\Newsletter;
 use MailPoet\Models\Subscriber;
-use MailPoet\Models\SubscriberSegment;
 use MailPoet\Newsletter\Url as NewsletterUrl;
+use MailPoet\Segments\SegmentSubscribersRepository;
+use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Subscription\Pages;
 use MailPoet\WP\Functions as WPFunctions;
 
@@ -20,9 +22,22 @@ class Shortcodes {
   /** @var WPFunctions */
   private $wp;
 
-  public function __construct(Pages $subscriptionPages, WPFunctions $wp) {
+  /** @var SegmentSubscribersRepository */
+  private $segmentSubscribersRepository;
+
+  /** @var SubscribersRepository */
+  private $subscribersRepository;
+
+  public function __construct(
+    Pages $subscriptionPages,
+    WPFunctions $wp,
+    SegmentSubscribersRepository $segmentSubscribersRepository,
+    SubscribersRepository $subscribersRepository
+  ) {
     $this->subscriptionPages = $subscriptionPages;
     $this->wp = $wp;
+    $this->segmentSubscribersRepository = $segmentSubscribersRepository;
+    $this->subscribersRepository = $subscribersRepository;
   }
 
   public function init() {
@@ -78,10 +93,7 @@ class Shortcodes {
       return $this->wp->numberFormatI18n(Subscriber::filter('subscribed')->count());
     } else {
       return $this->wp->numberFormatI18n(
-        SubscriberSegment::whereIn('segment_id', $segmentIds)
-          ->select('subscriber_id')->distinct()
-          ->filter('subscribed')
-          ->findResultSet()->count()
+        $this->segmentSubscribersRepository->getSubscribersCountBySegmentIds($segmentIds, SubscriberEntity::STATUS_SUBSCRIBED)
       );
     }
   }
@@ -98,7 +110,8 @@ class Shortcodes {
 
     $newsletters = Newsletter::getArchives($segmentIds);
 
-    $subscriber = Subscriber::getCurrentWPUser();
+    $subscriber = $this->subscribersRepository->getCurrentWPUser();
+    $subscriber = $subscriber ? Subscriber::findOne($subscriber->getId()) : null;
 
     if (empty($newsletters)) {
       return $this->wp->applyFilters(

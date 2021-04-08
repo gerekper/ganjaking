@@ -84,8 +84,7 @@
                 iframe.contentWindow.document.close();
                 $('.mo-email-automation-editor-wrap').hide();
                 cache.show();
-            }
-            else {
+            } else {
                 cache.hide();
                 $('.mo-email-automation-editor-wrap').show();
             }
@@ -98,10 +97,12 @@
     });
 
     $(window).on('load', function () {
-        if (mailoptin_email_campaign_is_code_your_own === false) return;
-        add_toolbar();
-        add_ace_editor();
-        switch_view();
-        update_email_title();
+        setTimeout(function () {
+            if (mailoptin_email_campaign_is_code_your_own === false) return;
+            add_toolbar();
+            add_ace_editor();
+            switch_view();
+            update_email_title();
+        }, 1000);
     });
 })(jQuery);

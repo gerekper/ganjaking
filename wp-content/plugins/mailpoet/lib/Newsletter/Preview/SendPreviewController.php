@@ -9,7 +9,6 @@ use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Mailer\Mailer;
 use MailPoet\Mailer\MetaInfo;
-use MailPoet\Models\Subscriber;
 use MailPoet\Newsletter\Renderer\Renderer;
 use MailPoet\Newsletter\Shortcodes\Shortcodes;
 use MailPoet\Subscribers\SubscribersRepository;
@@ -60,10 +59,7 @@ class SendPreviewController {
 
     $body = implode($divider, $dataForShortcodes);
 
-    $subscriber = Subscriber::getCurrentWPUser();
-    if ($subscriber instanceof Subscriber) {
-      $subscriber = $this->subscribersRepository->findOneById($subscriber->id);
-    }
+    $subscriber = $this->subscribersRepository->getCurrentWPUser();
     $this->shortcodes->setNewsletter($newsletter);
     if ($subscriber instanceof SubscriberEntity) {
       $this->shortcodes->setSubscriber($subscriber);

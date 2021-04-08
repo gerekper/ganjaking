@@ -30,9 +30,10 @@ class WooCommerceCategory implements Filter {
     $this->wp = $wp;
   }
 
-  public function apply(QueryBuilder $queryBuilder, DynamicSegmentFilterEntity $filterEntity): QueryBuilder {
+  public function apply(QueryBuilder $queryBuilder, DynamicSegmentFilterEntity $filter): QueryBuilder {
     global $wpdb;
-    $categoryId = (int)$filterEntity->getFilterDataParam('category_id');
+    $filterData = $filter->getFilterData();
+    $categoryId = (int)$filterData->getParam('category_id');
     $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
     return $queryBuilder->innerJoin(
       $subscribersTable,

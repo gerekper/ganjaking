@@ -25,6 +25,8 @@ class Shortcodes
     /**
      *
      * @param int|\WP_Post $post
+     *
+     * @return Shortcodes
      */
     public function from($post)
     {

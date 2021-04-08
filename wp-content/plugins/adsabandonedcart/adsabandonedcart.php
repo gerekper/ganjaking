@@ -3,7 +3,7 @@
  * Plugin Name: Ads Abandoned Cart AliDropship Plugin
  * Plugin URI: https://alidropship.com/addons/abandoned-cart/
  * Description: Decrease your abandoned cart rate with by sending customizable emails.
- * Version: 2.0.17
+ * Version: 2.0.19
  * Text Domain: abd
  * Requires at least: WP 5.3.0
  * Author: Yaroslav Nevskiy & Pavel Shishkin
@@ -12,7 +12,7 @@
  */
 
 
-if( !defined( 'ADSABANDONED_VERSION' ) ) define( 'ADSABANDONED_VERSION', '2.0.17' );
+if( !defined( 'ADSABANDONED_VERSION' ) ) define( 'ADSABANDONED_VERSION', '2.0.19' );
 if( !defined( 'ADSABANDONED_PATH' ) ) define( 'ADSABANDONED_PATH', plugin_dir_path( __FILE__ ) );
 if( !defined( 'ADSABANDONED_URL' ) ) define( 'ADSABANDONED_URL', str_replace( [ 'https:', 'http:' ], '', plugins_url( 'adsabandonedcart' ) ) );
 if( !defined( 'ADSABANDONED_CODE' ) ) define( 'ADSABANDONED_CODE', 'ion72' );

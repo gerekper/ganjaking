@@ -129,10 +129,12 @@ class WYT_Widget extends WP_Widget {
 		wp_enqueue_script( WIS_Plugin::app()->getPrefix() . 'wyt-jquery-pllexi-slider', WYT_PLUGIN_URL . '/assets/js/jquery.flexslider-min.js', array( 'jquery' ), WIS_Plugin::app()->getPluginVersion(), false );
 		//wp_enqueue_script( WIS_Plugin::app()->getPrefix() . 'wyoutube', WYT_PLUGIN_URL.'/assets/js/wyoutube.js', array(  ), WIS_Plugin::app()->getPluginVersion(), false );
 		wp_enqueue_style( WIS_Plugin::app()->getPrefix() . 'wyt-header', WYT_PLUGIN_URL . '/assets/css/wyt-header.css', array(), WIS_Plugin::app()->getPluginVersion() );
-		wp_localize_script( WIS_Plugin::app()->getPrefix() . 'wyoutube', 'ajax', array(
+
+		$ajax = json_encode([
 			'url'   => admin_url( 'admin-ajax.php' ),
 			'nonce' => wp_create_nonce( "addAccountByToken" ),
-		) );
+		]);
+		wp_add_inline_script( WIS_Plugin::app()->getPrefix() . 'wyoutube', "var ajax = $ajax;");
 	}
 
 	/**

@@ -52,8 +52,7 @@ class State {
     $limit = Scheduler::TASK_BATCH_SIZE) {
     $tasks = [];
     foreach ($statuses as $status) {
-      $query = ScheduledTask::orderByDesc('created_at')
-        ->orderByAsc('id') // consistent order for tasks with equal timestamps
+      $query = ScheduledTask::orderByDesc('id')
         ->whereNull('deleted_at')
         ->limit($limit);
       if ($type) {
@@ -86,7 +85,7 @@ class State {
       'type' => $task->type,
       'priority' => (int)$task->priority,
       'updated_at' => Carbon::createFromTimeString((string)$task->updatedAt)->timestamp,
-      'scheduled_at' => $task->scheduledAt ? Carbon::createFromTimeString($task->scheduledAt)->timestamp : null,
+      'scheduled_at' => $task->scheduledAt ? $task->scheduledAt : null,
       'status' => $task->status,
       'newsletter' => (($queue instanceof SendingQueue) && ($newsletter instanceof Newsletter)) ? [
         'newsletter_id' => (int)$queue->newsletterId,

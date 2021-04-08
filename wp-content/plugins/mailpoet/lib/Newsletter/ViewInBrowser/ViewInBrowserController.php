@@ -10,6 +10,7 @@ use MailPoet\Models\SendingQueue;
 use MailPoet\Models\Subscriber;
 use MailPoet\Newsletter\Url as NewsletterUrl;
 use MailPoet\Subscribers\LinkTokens;
+use MailPoet\Subscribers\SubscribersRepository;
 
 class ViewInBrowserController {
   /** @var LinkTokens */
@@ -18,12 +19,17 @@ class ViewInBrowserController {
   /** @var ViewInBrowserRenderer */
   private $viewInBrowserRenderer;
 
+  /** @var SubscribersRepository */
+  private $subscribersRepository;
+
   public function __construct(
     LinkTokens $linkTokens,
-    ViewInBrowserRenderer $viewInBrowserRenderer
+    ViewInBrowserRenderer $viewInBrowserRenderer,
+    SubscribersRepository $subscribersRepository
   ) {
     $this->linkTokens = $linkTokens;
     $this->viewInBrowserRenderer = $viewInBrowserRenderer;
+    $this->subscribersRepository = $subscribersRepository;
   }
 
   public function view(array $data) {
@@ -35,12 +41,12 @@ class ViewInBrowserController {
     // if this is a preview and subscriber does not exist,
     // attempt to set subscriber to the current logged-in WP user
     if (!$subscriber && $isPreview) {
-      $subscriber = Subscriber::getCurrentWPUser() ?: null;
+      $subscriber = $this->subscribersRepository->getCurrentWPUser();
     }
 
     // if queue and subscriber exist, subscriber must have received the newsletter
     $queue = $this->getQueue($newsletter, $data);
-    if (!$isPreview && $queue && $subscriber && !$queue->isSubscriberProcessed($subscriber->id)) {
+    if (!$isPreview && $queue && $subscriber && !$queue->isSubscriberProcessed($subscriber->getId())) {
       throw new \InvalidArgumentException("Subscriber did not receive the newsletter yet");
     }
 
@@ -73,7 +79,7 @@ class ViewInBrowserController {
       return null;
     }
 
-    $subscriber = Subscriber::findOne($data['subscriber_id']) ?: null;
+    $subscriber = $this->subscribersRepository->findOneById($data['subscriber_id']);
     if (!$subscriber) {
       return null;
     }
@@ -82,7 +88,11 @@ class ViewInBrowserController {
       throw new \InvalidArgumentException("Missing 'subscriber_token'");
     }
 
-    if (!$this->linkTokens->verifyToken($subscriber, $data['subscriber_token'])) {
+    $subscriberModel = Subscriber::findOne($subscriber->getId());
+    if (!$subscriberModel) {
+      return null;
+    }
+    if (!$this->linkTokens->verifyToken($subscriberModel, $data['subscriber_token'])) {
       throw new \InvalidArgumentException("Invalid 'subscriber_token'");
     }
     return $subscriber;

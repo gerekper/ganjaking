@@ -40,16 +40,21 @@ class Shortcodes {
   /** @var Subscriber */
   private $subscriberCategory;
 
+  /** @var WPFunctions */
+  private $wp;
+
   public function __construct(
     Date $dateCategory,
     Link $linkCategory,
     Newsletter $newsletterCategory,
-    Subscriber $subscriberCategory
+    Subscriber $subscriberCategory,
+    WPFunctions $wp
   ) {
     $this->dateCategory = $dateCategory;
     $this->linkCategory = $linkCategory;
     $this->newsletterCategory = $newsletterCategory;
     $this->subscriberCategory = $subscriberCategory;
+    $this->wp = $wp;
   }
 
   public function setNewsletter(NewsletterEntity $newsletter = null): void {
@@ -83,19 +88,60 @@ class Shortcodes {
       false;
   }
 
+  /**
+   * Parse a MailPoet-style shortcode.
+   * The syntax is [category:action | argument:argument_value], it can have a single argument.
+   */
   public function match($shortcode) {
     preg_match(
       '/\[(?P<category>\w+)?:(?P<action>\w+)(?:.*?\|.*?(?P<argument>\w+):(?P<argument_value>.*?))?\]/',
       $shortcode,
       $match
     );
+    // If argument exists, copy it to the arguments array
+    if (!empty($match['argument'])) {
+      $match['arguments'] = [$match['argument'] => isset($match['argument_value']) ? $match['argument_value'] : ''];
+    }
     return $match;
+  }
+
+  /**
+   * Parse a WordPress-style shortcode.
+   * The syntax is [category:action arg1="value1" arg2="value2"], it can have multiple arguments.
+   */
+  public function matchWPShortcode($shortcode) {
+    $atts = $this->wp->shortcodeParseAtts(trim($shortcode, '[]/'));
+    if (empty($atts[0])) {
+      return [];
+    }
+    $shortcodeName = $atts[0];
+    list($category, $action) = explode(':', $shortcodeName);
+    $shortcodeDetails = [];
+    $shortcodeDetails['category'] = $category;
+    $shortcodeDetails['action'] = $action;
+    $shortcodeDetails['arguments'] = [];
+    foreach ($atts as $attrName => $attrValue) {
+      if (is_numeric($attrName)) {
+        continue; // Skip unnamed attributes
+      }
+      $shortcodeDetails['arguments'][$attrName] = $attrValue;
+      // Make a shortcut to the first argument
+      if (!isset($shortcodeDetails['argument'])) {
+        $shortcodeDetails['argument'] = $attrName;
+        $shortcodeDetails['argument_value'] = $attrValue;
+      }
+    }
+    return $shortcodeDetails;
   }
 
   public function process($shortcodes, $content = '') {
     $processedShortcodes = [];
     foreach ($shortcodes as $shortcode) {
       $shortcodeDetails = $this->match($shortcode);
+      if (empty($shortcodeDetails)) {
+        // Wrong MailPoet shortcode syntax, try to parse as a native WP shortcode
+        $shortcodeDetails = $this->matchWPShortcode($shortcode);
+      }
       $shortcodeDetails['shortcode'] = $shortcode;
       $shortcodeDetails['category'] = !empty($shortcodeDetails['category']) ?
         $shortcodeDetails['category'] :
@@ -109,6 +155,8 @@ class Shortcodes {
       $shortcodeDetails['action_argument_value'] = !empty($shortcodeDetails['argument_value']) ?
         $shortcodeDetails['argument_value'] :
         false;
+      $shortcodeDetails['arguments'] = !empty($shortcodeDetails['arguments']) ?
+        $shortcodeDetails['arguments'] : [];
 
       $category = strtolower($shortcodeDetails['category']);
       $categoryClass = $this->getCategoryObject($category);
@@ -122,13 +170,14 @@ class Shortcodes {
           $this->wpUserPreview
         );
       } else {
-        $customShortcode = WPFunctions::get()->applyFilters(
+        $customShortcode = $this->wp->applyFilters(
           'mailpoet_newsletter_shortcode',
           $shortcode,
           $this->newsletter,
           $this->subscriber,
           $this->queue,
           $content,
+          $shortcodeDetails['arguments'],
           $this->wpUserPreview
         );
         $processedShortcodes[] = ($customShortcode === $shortcode) ?

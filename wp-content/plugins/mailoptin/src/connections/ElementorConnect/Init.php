@@ -52,7 +52,9 @@ class Init
 
     public function fetch_custom_fields()
     {
-        check_ajax_referer('mailoptin-elementor', 'nonce', false);
+        check_ajax_referer('mailoptin-elementor', 'nonce');
+
+        \MailOptin\Core\current_user_has_privilege() || exit;
 
         if (empty($_POST['connection'])) wp_send_json_error([]);
 
@@ -83,7 +85,9 @@ class Init
 
     public function fetch_tags()
     {
-        check_ajax_referer('mailoptin-elementor', 'nonce', false);
+        check_ajax_referer('mailoptin-elementor', 'nonce');
+
+        \MailOptin\Core\current_user_has_privilege() || exit;
 
         if (empty($_POST['connection'])) wp_send_json_error([]);
 

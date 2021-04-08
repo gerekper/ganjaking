@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the MailOptin - Lite package.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailOptin - Lite 1.2.35.0\n"
+"Project-Id-Version: MailOptin - Lite 1.2.35.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailoptin\n"
-"POT-Creation-Date: 2021-02-26 19:41:21+00:00\n"
+"POT-Creation-Date: 2021-04-06 12:50:23+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -39,6 +39,7 @@ msgid ""
 msgstr ""
 
 #: src/connections/ActiveCampaignConnect/Connect.php:95
+#: src/connections/CleverReachConnect/Connect.php:125
 msgid "Assign Subscription Form"
 msgstr ""
 
@@ -74,6 +75,7 @@ msgid "Organization Name"
 msgstr ""
 
 #: src/connections/ActiveCampaignConnect/Connect.php:248
+#: src/connections/CleverReachConnect/Connect.php:195
 #: src/connections/ContactForm7Connect/CF7.php:115
 #: src/connections/ContactForm7Connect/panel-settings-view.php:47
 #: src/connections/EmmaConnect/Connect.php:58
@@ -90,7 +92,7 @@ msgstr ""
 #: src/connections/MailChimpConnect/Connect.php:561
 #: src/connections/SendGridConnect/ConnectSettingsPage.php:32
 #: src/connections/SendGridConnect/ConnectSettingsPage.php:69
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:72
+#: src/connections/SendinblueConnect/ConnectSettingsPage.php:61
 #: src/connections/ZohoCRMConnect/Connect.php:97
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/SettingsFields.php:37
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Integration_Repeater_Control.php:527
@@ -98,7 +100,7 @@ msgstr ""
 #: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:914
 #: src/core/src/Admin/SettingsPage/AddEmailCampaign.php:78
 #: src/core/src/Admin/SettingsPage/Email_Campaign_List.php:396
-#: src/core/src/AjaxHandler.php:1167
+#: src/core/src/AjaxHandler.php:1171
 #: src/core/src/OptinForms/AbstractOptinTheme.php:1110
 #: src/core/src/OptinForms/AbstractOptinTheme.php:1134
 #: src/core/src/OptinForms/AbstractOptinTheme.php:1147
@@ -240,8 +242,8 @@ msgstr ""
 #: src/connections/AweberConnect/Subscription.php:108
 #: src/connections/CampaignMonitorConnect/Subscription.php:77
 #: src/connections/CampaignMonitorConnect/Subscription.php:82
-#: src/connections/CleverReachConnect/Subscription.php:88
-#: src/connections/CleverReachConnect/Subscription.php:93
+#: src/connections/CleverReachConnect/Subscription.php:103
+#: src/connections/CleverReachConnect/Subscription.php:108
 #: src/connections/ConvertFoxConnect/Subscription.php:135
 #: src/connections/ConvertFoxConnect/Subscription.php:140
 #: src/connections/ConvertKitConnect/Subscription.php:81
@@ -429,25 +431,25 @@ msgstr ""
 msgid "CleverReach access token not found."
 msgstr ""
 
-#: src/connections/CleverReachConnect/Connect.php:54
+#: src/connections/CleverReachConnect/Connect.php:53
 #: src/connections/CleverReachConnect/ConnectSettingsPage.php:52
 msgid "CleverReach"
 msgstr ""
 
-#: src/connections/CleverReachConnect/Connect.php:91
+#: src/connections/CleverReachConnect/Connect.php:92
 msgid "First Name Field"
 msgstr ""
 
-#: src/connections/CleverReachConnect/Connect.php:98
+#: src/connections/CleverReachConnect/Connect.php:99
 msgid "Last Name Field"
 msgstr ""
 
-#: src/connections/CleverReachConnect/Connect.php:119
+#: src/connections/CleverReachConnect/Connect.php:117
 #: src/connections/ContactForm7Connect/panel-settings-view.php:58
 #: src/connections/ContactForm7Connect/panel-settings-view.php:74
 #: src/connections/ElementorConnect/Elementor.php:98
 #: src/connections/ElementorConnect/Elementor.php:111
-#: src/connections/FluentCRMConnect/Connect.php:178
+#: src/connections/FluentCRMConnect/Connect.php:177
 #: src/connections/FormidableFormConnect/panel-settings-view.php:48
 #: src/connections/FormidableFormConnect/panel-settings-view.php:64
 #: src/connections/GravityFormsConnect/GFMailOptin.php:333
@@ -498,21 +500,26 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: src/connections/CleverReachConnect/Connect.php:120
+#: src/connections/CleverReachConnect/Connect.php:118
 #: src/connections/ContactForm7Connect/panel-settings-view.php:78
 #: src/connections/FormidableFormConnect/panel-settings-view.php:67
 msgid "Enter a comma-separated list of tags to assign to subscribers."
 msgstr ""
 
-#: src/connections/CleverReachConnect/Connect.php:126
+#: src/connections/CleverReachConnect/Connect.php:127
+msgid ""
+"Select the %sCleverReach Form%s to use for sending double opt-in emails."
+msgstr ""
+
+#: src/connections/CleverReachConnect/Connect.php:136
 msgid ""
 "Click the \"Advanced\" link below to map the first and last name fields."
 msgstr ""
 
-#: src/connections/CleverReachConnect/Connect.php:132
+#: src/connections/CleverReachConnect/Connect.php:142
 msgid ""
-"Upgrade to %sMailOptin Premium%s to map custom fields and assign tags to "
-"leads"
+"Upgrade to %sMailOptin Premium%s to enable double optin, map custom fields "
+"and assign tags to subscribers."
 msgstr ""
 
 #: src/connections/CleverReachConnect/ConnectSettingsPage.php:34
@@ -1017,7 +1024,7 @@ msgstr ""
 
 #: src/connections/DripConnect/Connect.php:117
 #: src/connections/MailjetConnect/Connect.php:135
-#: src/connections/SendinblueConnect/Connect.php:111
+#: src/connections/SendinblueConnect/Connect.php:77
 msgid "Enable Double Optin"
 msgstr ""
 
@@ -1074,7 +1081,7 @@ msgstr ""
 
 #: src/connections/ElementorConnect/Elementor.php:84
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Integration_Repeater_Control.php:553
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:240
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:239
 #: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:304
 msgid "Select Email List"
 msgstr ""
@@ -1313,7 +1320,7 @@ msgstr ""
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:152
 #: src/core/src/Admin/SettingsPage/Email_Campaign_List.php:317
 #: src/core/src/Admin/SettingsPage/Newsletter_List.php:45
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:432
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:425
 msgid "Name"
 msgstr ""
 
@@ -1401,17 +1408,17 @@ msgstr ""
 msgid "Date of Birth"
 msgstr ""
 
-#: src/connections/FluentCRMConnect/Connect.php:179
+#: src/connections/FluentCRMConnect/Connect.php:178
 msgid "Select tags to assign to leads."
 msgstr ""
 
-#: src/connections/FluentCRMConnect/Connect.php:185
+#: src/connections/FluentCRMConnect/Connect.php:184
 #: src/connections/MailChimpConnect/Connect.php:381
 #: src/connections/MailsterConnect/Connect.php:175
 msgid "Disable Double Optin"
 msgstr ""
 
-#: src/connections/FluentCRMConnect/Connect.php:186
+#: src/connections/FluentCRMConnect/Connect.php:185
 #: src/connections/MailsterConnect/Connect.php:176
 msgid ""
 "Double optin requires users to confirm their email address before they are "
@@ -2044,7 +2051,7 @@ msgid "Comma-separated list of tags to assign to a new subscriber in MailChimp"
 msgstr ""
 
 #: src/connections/MailChimpConnect/Connect.php:382
-#: src/connections/SendinblueConnect/Connect.php:112
+#: src/connections/SendinblueConnect/Connect.php:78
 msgid ""
 "Double optin requires users to confirm their email address before they are "
 "added or subscribed (recommended)."
@@ -2284,7 +2291,7 @@ msgid "Last Name Property"
 msgstr ""
 
 #: src/connections/MailjetConnect/Connect.php:205
-#: src/connections/SendinblueConnect/Connect.php:140
+#: src/connections/SendinblueConnect/Connect.php:106
 msgid ""
 "If subscribers last names are missing, change this to the correct attribute "
 "name. %sLearn more%s"
@@ -2577,7 +2584,7 @@ msgid "SendGrid Email Marketing Connection"
 msgstr ""
 
 #: src/connections/SendGridConnect/ConnectSettingsPage.php:113
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:48
+#: src/connections/SendinblueConnect/ConnectSettingsPage.php:42
 #: src/connections/SendyConnect/ConnectSettingsPage.php:66
 #: src/connections/WeMailConnect/ConnectSettingsPage.php:46
 msgid "API Key"
@@ -2601,82 +2608,72 @@ msgstr ""
 msgid "Sendinblue API Key not found."
 msgstr ""
 
-#: src/connections/SendinblueConnect/Connect.php:129
+#: src/connections/SendinblueConnect/Connect.php:95
 msgid "First Name Attribute"
 msgstr ""
 
-#: src/connections/SendinblueConnect/Connect.php:131
+#: src/connections/SendinblueConnect/Connect.php:97
 msgid ""
 "If subscribers first names are missing, change this to the correct attribute "
 "name. %sLearn more%s"
 msgstr ""
 
-#: src/connections/SendinblueConnect/Connect.php:138
+#: src/connections/SendinblueConnect/Connect.php:104
 msgid "Last Name Attribute"
 msgstr ""
 
-#: src/connections/SendinblueConnect/Connect.php:182
+#: src/connections/SendinblueConnect/Connect.php:148
 msgid "Sendinblue"
 msgstr ""
 
 #: src/connections/SendinblueConnect/ConnectSettingsPage.php:29
-msgid ""
-"%sClick here to get it%s. This is only required to unlock our premium "
-"integration with Elementor Forms for free."
-msgstr ""
-
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:35
 msgid "To get it, %sclick here%s."
 msgstr ""
 
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:42
+#: src/connections/SendinblueConnect/ConnectSettingsPage.php:36
 msgid "Sendinblue (Recommended)"
 msgstr ""
 
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:43
+#: src/connections/SendinblueConnect/ConnectSettingsPage.php:37
 msgid "Sendinblue Connection"
 msgstr ""
 
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:50
+#: src/connections/SendinblueConnect/ConnectSettingsPage.php:44
 msgid "Log in to your %sSendinblue account%s to get your API v3 key."
 msgstr ""
 
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:57
-msgid "Support ID"
-msgstr ""
-
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:62
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:76
+#: src/connections/SendinblueConnect/ConnectSettingsPage.php:51
+#: src/connections/SendinblueConnect/ConnectSettingsPage.php:65
 msgid "Double Optin Template"
 msgstr ""
 
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:64
+#: src/connections/SendinblueConnect/ConnectSettingsPage.php:53
 msgid "No double optin template found."
 msgstr ""
 
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:65
+#: src/connections/SendinblueConnect/ConnectSettingsPage.php:54
 msgid "Select a double optin template to use if you have enabled double optin."
 msgstr ""
 
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:78
+#: src/connections/SendinblueConnect/ConnectSettingsPage.php:67
 msgid "No double optin templates found."
 msgstr ""
 
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:80
+#: src/connections/SendinblueConnect/ConnectSettingsPage.php:69
 msgid "Select a double optin template to use. %sLearn more%s"
 msgstr ""
 
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:87
+#: src/connections/SendinblueConnect/ConnectSettingsPage.php:76
 msgid "Redirection URL"
 msgstr ""
 
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:88
+#: src/connections/SendinblueConnect/ConnectSettingsPage.php:77
 msgid ""
 "The URL that user will be redirected to after clicking on the double optin "
 "confirmation link."
 msgstr ""
 
-#: src/connections/SendinblueConnect/ConnectSettingsPage.php:98
+#: src/connections/SendinblueConnect/ConnectSettingsPage.php:87
 msgid "Don't have a Sendinblue account? Create one"
 msgstr ""
 
@@ -3163,14 +3160,14 @@ msgstr ""
 #: src/core/src/Admin/SettingsPage/Newsletter_List.php:84
 #: src/core/src/Admin/SettingsPage/Newsletter_List.php:120
 #: src/core/src/Admin/SettingsPage/Newsletter_List.php:152
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:487
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:586
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:703
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:480
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:579
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:696
 msgid "Delete"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/AbstractElement.php:92
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:622
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:615
 msgid "Duplicate"
 msgstr ""
 
@@ -3970,7 +3967,7 @@ msgid "reCAPTCHA v3"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:614
-#: src/core/src/RegisterScripts.php:264
+#: src/core/src/RegisterScripts.php:281
 msgid "Field %s"
 msgstr ""
 
@@ -4144,10 +4141,6 @@ msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomizerTrait.php:238
 msgid "Select Linked Store"
-msgstr ""
-
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:239
-msgid "Select Group List"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/EmailCampaign/AbstractCustomizer.php:37
@@ -5864,7 +5857,7 @@ msgstr ""
 
 #: src/core/src/Admin/SettingsPage/Email_Campaign_List.php:245
 #: src/core/src/Admin/SettingsPage/Newsletter_List.php:108
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:579
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:572
 msgid "Customize"
 msgstr ""
 
@@ -5879,12 +5872,12 @@ msgstr ""
 
 #: src/core/src/Admin/SettingsPage/Email_Campaign_List.php:319
 #: src/core/src/Admin/SettingsPage/Newsletter_List.php:46
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:434
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:427
 msgid "Actions"
 msgstr ""
 
 #: src/core/src/Admin/SettingsPage/Email_Campaign_List.php:320
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:435
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:428
 msgid "Activated"
 msgstr ""
 
@@ -5941,119 +5934,119 @@ msgstr ""
 msgid "Failed"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:58
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:51
 msgid "optin_form"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:59
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:52
 msgid "optin_forms"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:327
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:320
 msgid "No campaign is currently available. %sConsider creating one%s"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:337
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:330
 msgid ""
 "No campaign is currently available for this optin type. %sConsider creating "
 "one%s"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:352
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:345
 msgid "Upgrade to %s for %s support"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:394
-#: src/core/src/RegisterScripts.php:260
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:387
+#: src/core/src/RegisterScripts.php:277
 msgid "Pause Test"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:397
-#: src/core/src/RegisterScripts.php:259
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:390
+#: src/core/src/RegisterScripts.php:276
 msgid "Start Test"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:405
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:398
 msgid "Add Variant"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:412
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:405
 msgid "End & Pick Winner"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:433
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:426
 msgid "Unique ID"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:436
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:429
 msgid "Impression"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:437
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:430
 msgid "Subscribers"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:438
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:431
 msgid "% Conversion"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:473
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:606
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:466
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:599
 msgid "Disable Test Mode"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:476
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:609
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:469
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:602
 msgid "Enable Test Mode"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:481
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:474
 msgid "Notification Bar"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:482
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:475
 msgid "Sidebar / Widget"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:494
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:487
 msgid "A/B"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:510
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:503
 msgid "Test Mode"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:614
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:607
 msgid "Create new split variation"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:616
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:649
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:609
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:642
 msgid "A/B Split Test"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:620
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:613
 msgid "Duplicate optin"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:629
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:622
 msgid "Reset optin campaign statistics"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:631
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:624
 msgid "Reset Analytics"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:634
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:627
 msgid "Clear local cookies of this optin"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:636
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:704
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:629
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:697
 msgid "Clear Local Cookies"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:647
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:640
 msgid "This is a premium feature. Upgrade now!"
 msgstr ""
 
@@ -6342,25 +6335,25 @@ msgstr ""
 msgid "Delete Error Log"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1151
+#: src/core/src/AjaxHandler.php:1155
 msgid ""
 "Error: No integration field found. Select a list first if you haven't and "
 "try again."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1155
+#: src/core/src/AjaxHandler.php:1159
 msgid "Map integration fields to form custom fields"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1170
+#: src/core/src/AjaxHandler.php:1174
 msgid "Form Fields"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1184
+#: src/core/src/AjaxHandler.php:1188
 msgid "System Fields"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1201
+#: src/core/src/AjaxHandler.php:1205
 msgid "Save"
 msgstr ""
 
@@ -7865,31 +7858,31 @@ msgstr ""
 msgid "Not Activated"
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:67 src/core/src/RegisterScripts.php:71
+#: src/core/src/RegisterScripts.php:84 src/core/src/RegisterScripts.php:88
 msgid ""
 "%s You currently have no inpost or sidebar/widget optin created or "
 "activated. Please create one first. %s "
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:261
+#: src/core/src/RegisterScripts.php:278
 msgid "Type to search"
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:262
+#: src/core/src/RegisterScripts.php:279
 msgid "Are you sure you?"
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:263
+#: src/core/src/RegisterScripts.php:280
 msgid ""
 "Are you sure you want to do this? Clicking OK will delete all your optin "
 "analytics records."
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:266
+#: src/core/src/RegisterScripts.php:283
 msgid "Title is required."
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:289
+#: src/core/src/RegisterScripts.php:306
 msgid "Disable MailOptin new post notification for this post."
 msgstr ""
 
@@ -7913,9 +7906,9 @@ msgstr ""
 msgid "MailOptin - Lite"
 msgstr ""
 
-#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.35.0)  #-#-#-#-#
+#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.35.3)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.35.0)  #-#-#-#-#
+#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.35.3)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "https://mailoptin.io"
 msgstr ""

@@ -156,6 +156,8 @@ class OptinConversionsRepository extends AbstractRepository
      * @param int $limit
      * @param int $offset
      *
+     * @param null $search
+     *
      * @return mixed
      */
     public static function get_conversions($limit = null, $offset = 1, $search = null)
@@ -174,7 +176,7 @@ class OptinConversionsRepository extends AbstractRepository
             $sql .= " WHERE name LIKE %s";
             $sql .= " OR email LIKE %s";
 
-            $search = '%' . parent::wpdb()->esc_like(sanitize_text_field($_POST['s'])) . '%';
+            $search = '%' . parent::wpdb()->esc_like(sanitize_text_field($search)) . '%';
 
             $replacements[] = $search;
             $replacements[] = $search;

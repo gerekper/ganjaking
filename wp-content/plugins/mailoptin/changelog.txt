@@ -1,5 +1,18 @@
 ﻿== Changelog ==
 
+= 1.2.35.3 =
+* Fixed slider not working in email dnd builder.
+* Improved email template for outlook.
+
+= 1.2.35.2 =
+* Fixed security issue in our Elementor integration.
+* Extra security hardening.
+
+= 1.2.35.1 =
+* Added double-optin support to CleverReach integration.
+* Fixed settings page conflict Analytify.
+* Fixed issues with Firefox browser.
+
 = 1.2.35.0 =
 * Added CleverReach integration.
 * Increased moosend email list number to 1k.

@@ -79,7 +79,6 @@
     'restore': __('Restore'),
     'deletePermanently': __('Delete permanently'),
     'save': __('Save'),
-    'trashDisallowed': _x('List cannot be deleted because it’s used for %$1s email', 'Alert shown when trying to delete segment, which is assigned to any automatic emails.'),
     'trashAndDisable': __('Trash and disable'),
     'restoreAndEnable': __('Restore and enable'),
 
@@ -113,7 +112,7 @@
     'dynamicSegmentUpdated': __('Segment successfully updated!'),
     'dynamicSegmentAdded': __('Segment successfully added!'),
     'segmentType': __('Type'),
-    'wpUserRole': __('WordPress user roles'),
+    'wpUserRole': __('Subscriber'),
     'email': __('Email'),
     'nameColumn': __('Name'),
     'subscribersCountColumn': __('Number of subscribers'),
@@ -141,6 +140,7 @@
     'segmentsTip': _x('Tip', 'A note about dynamic segments usage'),
     'segmentsTipText': __('segments allow you to group your subscribers by other criteria, such as events and actions.'),
     'segmentsTipLink': __('Read more.'),
+    'segmentsSubscriber': __('has WordPress user role'),
 
     'oneDynamicSegmentTrashed': __('1 segment was moved to the trash.'),
     'multipleDynamicSegmentsTrashed': __('%$1d segments were moved to the trash.'),
@@ -149,10 +149,14 @@
     'multipleDynamicSegmentsDeleted': __('%$1d segments were permanently deleted.'),
     'oneDynamicSegmentDeleted': __('1 segment was permanently deleted.'),
 
-    'wooPurchasedCategory': __('Customers who have purchased in this category…'),
-    'wooPurchasedProduct': __('Customers who have purchased this product…'),
+    'wooPurchasedCategory': __('purchased in this category'),
+    'wooPurchasedProduct': __('purchased this product'),
     'selectWooPurchasedCategory': __('Search category'),
     'selectWooPurchasedProduct': __('Search products'),
     'woocommerce': _x('WooCommerce', 'Dynamic segment creation: User selects this to use any woocommerce filters'),
+
+    'dynamicSegmentSizeIsCalculated': __('Calculating segment size…'),
+    'dynamicSegmentSizeCalculatingTimeout': __('Segment size calculation has timed out. You can still save the segment.'),
+    'dynamicSegmentSize': __('This segment has %$1d subscribers.'),
   }) %>
 <% endblock %>

@@ -397,19 +397,12 @@
                 mo_range_input_number_timeout;
 
             // Update the text value
-            $('input[type=range]').on('mousedown', function () {
-
+            $('input[type=range]').on('mousedown mousemove', function () {
                 range = $(this);
                 range_input = range.parent().children('.mo-range-input');
-                value = range.attr('value');
+                value = range.val();
 
                 range_input.val(value).change();
-
-                range.mousemove(function () {
-                    value = range.attr('value');
-                    range_input.val(value).change();
-                });
-
             });
 
             // Auto correct the number input

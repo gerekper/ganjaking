@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Config\Renderer;
 use MailPoet\Settings\SettingsController;
-use MailPoet\WooCommerce\TransactionalEmails;
 
 class Settings {
 

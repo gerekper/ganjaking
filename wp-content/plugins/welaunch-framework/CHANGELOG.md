@@ -1,5 +1,11 @@
 # Changelog
 ======
+1.0.4
+======
+- NEW:	Support for agency licenses
+- NEW:	Remove google font loading
+
+======
 1.0.3
 ======
 - NEW:	Remove license option

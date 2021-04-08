@@ -5,7 +5,6 @@ namespace MailPoet\Models;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Models\Model;
 use MailPoet\Util\Helpers;
 use MailPoet\WP\Functions as WPFunctions;
 

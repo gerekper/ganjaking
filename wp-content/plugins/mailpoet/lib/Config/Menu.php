@@ -9,6 +9,7 @@ use MailPoet\AdminPages\Pages\ExperimentalFeatures;
 use MailPoet\AdminPages\Pages\FormEditor;
 use MailPoet\AdminPages\Pages\Forms;
 use MailPoet\AdminPages\Pages\Help;
+use MailPoet\AdminPages\Pages\Logs;
 use MailPoet\AdminPages\Pages\MP2Migration;
 use MailPoet\AdminPages\Pages\NewsletterEditor;
 use MailPoet\AdminPages\Pages\Newsletters;
@@ -42,16 +43,21 @@ class Menu {
   /** @var ContainerWrapper */
   private $container;
 
+  /** @var Router */
+  private $router;
+
   public function __construct(
     AccessControl $accessControl,
     WPFunctions $wp,
     ServicesChecker $servicesChecker,
-    ContainerWrapper $container
+    ContainerWrapper $container,
+    Router $router
   ) {
     $this->accessControl = $accessControl;
     $this->wp = $wp;
     $this->servicesChecker = $servicesChecker;
     $this->container = $container;
+    $this->router = $router;
   }
 
   public function init() {
@@ -68,6 +74,9 @@ class Menu {
 
   public function setup() {
     if (!$this->accessControl->validatePermission(AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN)) return;
+
+    $this->router->checkRedirects();
+
     if (self::isOnMailPoetAdminPage()) {
       $this->wp->doAction('mailpoet_conflict_resolver_styles');
       $this->wp->doAction('mailpoet_conflict_resolver_scripts');
@@ -374,6 +383,16 @@ class Menu {
       'mailpoet-experimental',
       [$this, 'experimentalFeatures']
     );
+
+    // display loggs page
+    $this->wp->addSubmenuPage(
+      true,
+      $this->setPageTitle('Logs'),
+      '',
+      AccessControl::PERMISSION_ACCESS_PLUGIN_ADMIN,
+      'mailpoet-logs',
+      [$this, 'logs']
+    );
   }
 
   public function disableWPEmojis() {
@@ -407,6 +426,10 @@ class Menu {
 
   public function experimentalFeatures() {
     $this->container->get(ExperimentalFeatures::class)->render();
+  }
+
+  public function logs() {
+    $this->container->get(Logs::class)->render();
   }
 
   public function subscribers() {

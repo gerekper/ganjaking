@@ -2,13 +2,14 @@
 
 namespace MailOptin\Core;
 
+use MailOptin\AdvanceAnalytics\AdvanceAnalytics;
 use MailOptin\Core\Repositories\OptinCampaignsRepository;
 
 class DBUpdates
 {
     public static $instance;
 
-    const DB_VER = 10;
+    const DB_VER = 11;
 
     public function init_options()
     {
@@ -211,6 +212,20 @@ class DBUpdates
         $sql = "ALTER TABLE $table CHANGE content_html content_html LONGTEXT NOT NULL";
 
         $wpdb->query($sql);
+    }
+
+    public function update_routine_11()
+    {
+        global $wpdb;
+
+        if (class_exists('MailOptin\AdvanceAnalytics\AdvanceAnalytics')) {
+
+            $table = AdvanceAnalytics::advance_stat_table_name();
+
+            if ($wpdb->query("SHOW COLUMNS FROM $table LIKE 'id'") === 0) {
+                $wpdb->query("ALTER TABLE $table ADD id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT FIRST");
+            }
+        }
     }
 
     public static function get_instance()

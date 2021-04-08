@@ -64,6 +64,28 @@ if ( $id || $name ) {
 	}
 
 	if ( $post_id ) {
+		$post_id = (int) $post_id;
+		// Add edit link for admins.
+		if ( current_user_can( 'edit_pages' ) && defined( 'PORTO_VERSION' ) && ! is_customize_preview() && (
+				( ! function_exists( 'vc_is_inline' ) || ! vc_is_inline() ) &&
+				( ! porto_is_elementor_preview() ) &&
+				( ! porto_is_vc_preview() )
+				) ) {
+			if ( defined( 'VCV_VERSION' ) && 'fe' == get_post_meta( $post_id, 'vcv-be-editor', true ) ) {
+				$edit_link = admin_url( 'post.php?post=' . $post_id . '&action=edit&vcv-action=frontend&vcv-source-id=' . $post_id );
+			} elseif ( defined( 'ELEMENTOR_VERSION' ) && get_post_meta( $post_id, '_elementor_edit_mode', true ) ) {
+				$edit_link = admin_url( 'post.php?post=' . $post_id . '&action=elementor' );
+			} else {
+				$edit_link = admin_url( 'post.php?post=' . $post_id . '&action=edit' );
+			}
+			$builder_type = get_post_meta( $post_id, PortoBuilders::BUILDER_TAXONOMY_SLUG, true );
+			if ( ! $builder_type ) {
+				$builder_type = __( 'Template', 'porto' );
+			}
+			/* translators: template name */
+			echo '<div class="pb-edit-link" data-title="' . sprintf( esc_html__( 'Edit %s: %s', 'porto' ), esc_attr( $builder_type ), esc_attr( get_the_title( $post_id ) ) ) . '" data-link="' . esc_url( $edit_link ) . '"></div>';
+		}
+
 		$the_post = get_post( $post_id, null, 'display' );
 
 		$shortcodes_custom_css = '';

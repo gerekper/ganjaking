@@ -215,6 +215,17 @@ class SubscriberCustomFieldEntity extends \MailPoet\Entities\SubscriberCustomFie
     /**
      * {@inheritDoc}
      */
+    public function setValue($value): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setValue', [$value]);
+
+        parent::setValue($value);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getId()
     {
         if ($this->__isInitialized__ === false) {

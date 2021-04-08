@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4fd349ddd02f41f931f706bc39c501ec
+class ComposerStaticIniteead5a9b95dd9c2d7be2f43b198cadeb
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -602,7 +602,6 @@ class ComposerStaticInit4fd349ddd02f41f931f706bc39c501ec
         'MailOptin\\Core\\Admin\\Customizer\\CustomControls\\EmailContentBuilder\\Elements\\Text' => __DIR__ . '/../..' . '/src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Text.php',
         'MailOptin\\Core\\Admin\\Customizer\\CustomControls\\EmailContentBuilder\\Misc' => __DIR__ . '/../..' . '/src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Misc.php',
         'MailOptin\\Core\\Admin\\Customizer\\CustomControls\\WP_Customize_Ace_Editor_Control' => __DIR__ . '/../..' . '/src/core/src/Admin/Customizer/CustomControls/WP_Customize_Ace_Editor_Control.php',
-        'MailOptin\\Core\\Admin\\Customizer\\CustomControls\\WP_Customize_Autocomplete_Input_Control' => __DIR__ . '/../..' . '/src/core/src/Admin/Customizer/CustomControls/WP_Customize_Autocomplete_Input_Control.php',
         'MailOptin\\Core\\Admin\\Customizer\\CustomControls\\WP_Customize_Button_Set_Control' => __DIR__ . '/../..' . '/src/core/src/Admin/Customizer/CustomControls/WP_Customize_Button_Set_Control.php',
         'MailOptin\\Core\\Admin\\Customizer\\CustomControls\\WP_Customize_Chosen_Select_Control' => __DIR__ . '/../..' . '/src/core/src/Admin/Customizer/CustomControls/WP_Customize_Chosen_Select_Control.php',
         'MailOptin\\Core\\Admin\\Customizer\\CustomControls\\WP_Customize_Chosen_Single_Select_Control' => __DIR__ . '/../..' . '/src/core/src/Admin/Customizer/CustomControls/WP_Customize_Chosen_Single_Select_Control.php',
@@ -1091,11 +1090,11 @@ class ComposerStaticInit4fd349ddd02f41f931f706bc39c501ec
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4fd349ddd02f41f931f706bc39c501ec::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4fd349ddd02f41f931f706bc39c501ec::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInit4fd349ddd02f41f931f706bc39c501ec::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit4fd349ddd02f41f931f706bc39c501ec::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit4fd349ddd02f41f931f706bc39c501ec::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticIniteead5a9b95dd9c2d7be2f43b198cadeb::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticIniteead5a9b95dd9c2d7be2f43b198cadeb::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticIniteead5a9b95dd9c2d7be2f43b198cadeb::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticIniteead5a9b95dd9c2d7be2f43b198cadeb::$prefixesPsr0;
+            $loader->classMap = ComposerStaticIniteead5a9b95dd9c2d7be2f43b198cadeb::$classMap;
 
         }, null, ClassLoader::class);
     }

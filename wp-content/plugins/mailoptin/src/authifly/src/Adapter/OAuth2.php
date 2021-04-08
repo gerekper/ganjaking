@@ -233,8 +233,10 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
     protected $apiRequestHeaders = [];
 
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     * @throws InvalidApplicationCredentialsException
+     * @throws \Authifly\Exception\InvalidArgumentException
+     */
     protected function configure()
     {
         $this->clientId     = $this->config->filter('keys')->get('id') ?: $this->config->filter('keys')->get('key');
@@ -348,11 +350,13 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-    * Finalize the authorization process
-    *
-    * @throws InvalidAuthorizationStateException
-    * @throws InvalidAuthorizationCodeException
-    */
+     * Finalize the authorization process
+     *
+     * @throws InvalidAccessTokenException
+     * @throws InvalidAuthorizationStateException
+     * @throws \Authifly\Exception\HttpClientFailureException
+     * @throws \Authifly\Exception\HttpRequestFailedException
+     */
     protected function authenticateFinish()
     {
         $this->logger->debug(sprintf('%s::authenticateFinish(), callback url:', get_class($this)), [HttpClient\Util::getCurrentUrl(true)]);
@@ -431,25 +435,27 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-    * Access Token Request
-    *
-    * This method will exchange the received $code in loginFinish() with an Access Token.
-    *
-    * RFC6749: The client makes a request to the token endpoint by sending the
-    * following parameters using the "application/x-www-form-urlencoded"
-    * with a character encoding of UTF-8 in the HTTP request entity-body:
-    *
-    *    - grant_type    REQUIRED. Value MUST be set to "authorization_code".
-    *    - code          REQUIRED. The authorization code received from the authorization server.
-    *    - redirect_uri  REQUIRED.
-    *    - client_id     REQUIRED.
-    *
-    * http://tools.ietf.org/html/rfc6749#section-4.1.3
-    *
-    * @param string $code
-    *
-    * @return string Raw Provider API response
-    */
+     * Access Token Request
+     *
+     * This method will exchange the received $code in loginFinish() with an Access Token.
+     *
+     * RFC6749: The client makes a request to the token endpoint by sending the
+     * following parameters using the "application/x-www-form-urlencoded"
+     * with a character encoding of UTF-8 in the HTTP request entity-body:
+     *
+     *    - grant_type    REQUIRED. Value MUST be set to "authorization_code".
+     *    - code          REQUIRED. The authorization code received from the authorization server.
+     *    - redirect_uri  REQUIRED.
+     *    - client_id     REQUIRED.
+     *
+     * http://tools.ietf.org/html/rfc6749#section-4.1.3
+     *
+     * @param string $code
+     *
+     * @return string Raw Provider API response
+     * @throws \Authifly\Exception\HttpClientFailureException
+     * @throws \Authifly\Exception\HttpRequestFailedException
+     */
     protected function exchangeCodeForAccessToken($code)
     {
         $this->tokenExchangeParameters['code'] = $code;
@@ -534,23 +540,28 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-    * Refreshing an Access Token
-    *
-    * RFC6749: If the authorization server issued a refresh token to the client, the
-    * client makes a refresh request to the token endpoint by adding the
-    * following parameters ... in the HTTP request entity-body:
-    *
-    *    - grant_type     REQUIRED. Value MUST be set to "refresh_token".
-    *    - refresh_token  REQUIRED. The refresh token issued to the client.
-    *    - scope          OPTIONAL.
-    *
-    * http://tools.ietf.org/html/rfc6749#section-6
-    *
-    * This method is similar to exchangeCodeForAccessToken(). The only difference is here
-    * we exchange refresh_token for a new access_token.
-    *
-    * @return string Raw Provider API response
-    */
+     * Refreshing an Access Token
+     *
+     * RFC6749: If the authorization server issued a refresh token to the client, the
+     * client makes a refresh request to the token endpoint by adding the
+     * following parameters ... in the HTTP request entity-body:
+     *
+     *    - grant_type     REQUIRED. Value MUST be set to "refresh_token".
+     *    - refresh_token  REQUIRED. The refresh token issued to the client.
+     *    - scope          OPTIONAL.
+     *
+     * http://tools.ietf.org/html/rfc6749#section-6
+     *
+     * This method is similar to exchangeCodeForAccessToken(). The only difference is here
+     * we exchange refresh_token for a new access_token.
+     *
+     * @param array $parameters
+     *
+     * @return string Raw Provider API response
+     * @throws InvalidAccessTokenException
+     * @throws \Authifly\Exception\HttpClientFailureException
+     * @throws \Authifly\Exception\HttpRequestFailedException
+     */
     public function refreshAccessToken($parameters = [])
     {
         $this->tokenRefreshParameters = !empty($parameters)
@@ -590,50 +601,54 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-    * Validate Refresh Access Token Request
-    *
-    * RFC6749: If valid and authorized, the authorization server issues an access
-    * token as described in Section 5.1.  If the request failed verification or is
-    * invalid, the authorization server returns an error response as described in
-    * Section 5.2.
-    *
-    * http://tools.ietf.org/html/rfc6749#section-6
-    * http://tools.ietf.org/html/rfc6749#section-5.1
-    * http://tools.ietf.org/html/rfc6749#section-5.2
-    *
-    * This method simply use validateAccessTokenExchange(), however sub classes may
-    * redefine it when necessary.
-    *
-    * @param $response
-    *
-    * @return \Authifly\Data\Collection
-    */
+     * Validate Refresh Access Token Request
+     *
+     * RFC6749: If valid and authorized, the authorization server issues an access
+     * token as described in Section 5.1.  If the request failed verification or is
+     * invalid, the authorization server returns an error response as described in
+     * Section 5.2.
+     *
+     * http://tools.ietf.org/html/rfc6749#section-6
+     * http://tools.ietf.org/html/rfc6749#section-5.1
+     * http://tools.ietf.org/html/rfc6749#section-5.2
+     *
+     * This method simply use validateAccessTokenExchange(), however sub classes may
+     * redefine it when necessary.
+     *
+     * @param $response
+     *
+     * @return \Authifly\Data\Collection
+     * @throws InvalidAccessTokenException
+     */
     protected function validateRefreshAccessToken($response)
     {
         return $this->validateAccessTokenExchange($response);
     }
 
     /**
-    * Send a signed request to provider API
-    *
-    * RFC6749: Accessing Protected Resources: The client accesses protected resources
-    * by presenting the access token to the resource server. The resource server MUST
-    * validate the access token and ensure that it has not expired and that its scope
-    * covers the requested resource.
-    *
-    * Note: Since the specifics of error responses is beyond the scope of RFC6749 and
-    * OAuth specifications, Authifly will consider any HTTP status code that is different
-    * than '200 OK' as an ERROR.
-    *
-    * http://tools.ietf.org/html/rfc6749#section-7
-    *
-    * @param string $url
-    * @param string $method
-    * @param array  $parameters
-    * @param array  $headers
-    *
-    * @return mixed
-    */
+     * Send a signed request to provider API
+     *
+     * RFC6749: Accessing Protected Resources: The client accesses protected resources
+     * by presenting the access token to the resource server. The resource server MUST
+     * validate the access token and ensure that it has not expired and that its scope
+     * covers the requested resource.
+     *
+     * Note: Since the specifics of error responses is beyond the scope of RFC6749 and
+     * OAuth specifications, Authifly will consider any HTTP status code that is different
+     * than '200 OK' as an ERROR.
+     *
+     * http://tools.ietf.org/html/rfc6749#section-7
+     *
+     * @param string $url
+     * @param string $method
+     * @param array $parameters
+     * @param array $headers
+     *
+     * @return mixed
+     * @throws \Authifly\Exception\HttpClientFailureException
+     * @throws \Authifly\Exception\HttpRequestFailedException
+     * @throws InvalidAccessTokenException
+     */
     public function apiRequest($url, $method = 'GET', $parameters = [], $headers = [])
     {
         // refresh tokens if needed

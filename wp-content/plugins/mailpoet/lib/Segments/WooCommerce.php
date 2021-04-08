@@ -27,7 +27,10 @@ class WooCommerce {
   /** @var WP */
   private $wpSegment;
 
+  /** @var string|null */
   private $mailpoetEmailCollation;
+
+  /** @var string|null */
   private $wpPostmetaValueCollation;
 
   /** @var SubscribersRepository */
@@ -95,6 +98,8 @@ class WooCommerce {
 
         $subscriber = Subscriber::createOrUpdate($data);
         if ($subscriber->getErrors() === false && $subscriber->id > 0) {
+          $this->updateFirstNames($subscriber->id);
+          $this->updateLastNames($subscriber->id);
           // add subscriber to the WooCommerce Customers segment
           SubscriberSegment::subscribeToSegments(
             $subscriber,
@@ -107,7 +112,7 @@ class WooCommerce {
     return true;
   }
 
-  public function synchronizeGuestCustomer($orderId, $currentFilter = null) {
+  public function synchronizeGuestCustomer($orderId) {
     $wcOrder = $this->wp->getPost($orderId);
     $wcSegment = Segment::getWooCommerceSegment();
 
@@ -127,6 +132,8 @@ class WooCommerce {
       ->findOne();
 
     if ($subscriber !== false) {
+      $this->updateFirstNames($subscriber->id);
+      $this->updateLastNames($subscriber->id);
       // add subscriber to the WooCommerce Customers segment
       SubscriberSegment::subscribeToSegments(
         $subscriber,
@@ -136,8 +143,6 @@ class WooCommerce {
   }
 
   public function synchronizeCustomers() {
-    $this->getColumnCollation();
-
     $this->wpSegment->synchronizeUsers(); // synchronize registered users
 
     $this->markRegisteredCustomers();
@@ -154,7 +159,10 @@ class WooCommerce {
     return true;
   }
 
-  private function getColumnCollation() {
+  private function ensureColumnCollation(): void {
+    if ($this->mailpoetEmailCollation && $this->wpPostmetaValueCollation) {
+      return;
+    }
     global $wpdb;
     $mailpoetEmailColumn = $wpdb->get_row(
       'SHOW FULL COLUMNS FROM ' . MP_SUBSCRIBERS_TABLE . ' WHERE Field = "email"'
@@ -166,7 +174,11 @@ class WooCommerce {
     $this->wpPostmetaValueCollation = $wpPostmetaValueColumn->Collation; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
   }
 
-  private function needsCollationChange($collation1, $collation2) {
+  private function needsCollationChange(): bool {
+    $this->ensureColumnCollation();
+    $collation1 = (string)$this->mailpoetEmailCollation;
+    $collation2 = (string)$this->wpPostmetaValueCollation;
+
     if ($collation1 === $collation2) {
       return false;
     }
@@ -233,10 +245,10 @@ class WooCommerce {
       ->delete_many();
   }
 
-  private function updateFirstNames() {
+  private function updateFirstNames($subscriberId = null) {
     global $wpdb;
     $collate = '';
-    if ($this->needsCollationChange($this->mailpoetEmailCollation, $this->wpPostmetaValueCollation)) {
+    if ($this->needsCollationChange()) {
       $collate = ' COLLATE ' . $this->mailpoetEmailCollation;
     }
     $subscribersTable = Subscriber::$_table;
@@ -246,16 +258,16 @@ class WooCommerce {
         JOIN %2$s wppm2 ON wppm2.post_id = wppm.post_id AND wppm2.meta_key = "_billing_first_name"
         JOIN (SELECT MAX(post_id) AS max_id FROM %2$s WHERE meta_key = "_billing_email" GROUP BY meta_value) AS tmaxid ON tmaxid.max_id = wppm.post_id
       SET mps.first_name = wppm2.meta_value
-        WHERE mps.first_name = ""
+        WHERE ' . ($subscriberId ? ' mps.id = "' . (int)$subscriberId . '" ' : ' mps.first_name = "" ' ) . '
         AND mps.is_woocommerce_user = 1
         AND wppm2.meta_value IS NOT NULL
     ', $subscribersTable, $wpdb->postmeta, $collate));
   }
 
-  private function updateLastNames() {
+  private function updateLastNames($subscriberId = null) {
     global $wpdb;
     $collate = '';
-    if ($this->needsCollationChange($this->mailpoetEmailCollation, $this->wpPostmetaValueCollation)) {
+    if ($this->needsCollationChange()) {
       $collate = ' COLLATE ' . $this->mailpoetEmailCollation;
     }
     $subscribersTable = Subscriber::$_table;
@@ -265,7 +277,7 @@ class WooCommerce {
         JOIN %2$s wppm2 ON wppm2.post_id = wppm.post_id AND wppm2.meta_key = "_billing_last_name"
         JOIN (SELECT MAX(post_id) AS max_id FROM %2$s WHERE meta_key = "_billing_email" GROUP BY meta_value) AS tmaxid ON tmaxid.max_id = wppm.post_id
       SET mps.last_name = wppm2.meta_value
-        WHERE mps.last_name = ""
+        WHERE ' . ($subscriberId ? ' mps.id = "' . (int)$subscriberId . '" ' : ' mps.last_name = "" ' ) . '
         AND mps.is_woocommerce_user = 1
         AND wppm2.meta_value IS NOT NULL
     ', $subscribersTable, $wpdb->postmeta, $collate));

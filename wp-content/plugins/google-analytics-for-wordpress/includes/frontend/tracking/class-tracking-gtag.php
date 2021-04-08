@@ -239,7 +239,7 @@ class MonsterInsights_Tracking_Gtag extends MonsterInsights_Tracking_Abstract {
 						<?php
 						if ( ! empty( $persistent ) ) {
 							foreach ( $persistent as $key => $value ) {
-								echo "'" . esc_js( $key ) . "' : '" . stripslashes( $value ) . "',";
+								echo "'" . esc_js( $key ) . "' : '" . esc_js( $value ) . "',";
 							}
 						}
 						?>
@@ -304,6 +304,9 @@ class MonsterInsights_Tracking_Gtag extends MonsterInsights_Tracking_Abstract {
 										}
 										if ( typeof arguments[2] === 'object' ) {
 											hitObject = arguments[2];
+										}
+										if ( typeof arguments[5] === 'object' ) {
+											Object.assign( hitObject, arguments[5] );
 										}
 										if ( 'undefined' !== typeof (
 											arguments[1].hitType

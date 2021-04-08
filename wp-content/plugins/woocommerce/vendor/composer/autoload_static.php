@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1c37d41437aca3a88a6b698473c4d5c4
+class ComposerStaticInit3513212abf72fff576e4a9d12c45dca9
 {
     public static $prefixLengthsPsr4 = array (
         'S' => 
@@ -236,6 +236,7 @@ class ComposerStaticInit1c37d41437aca3a88a6b698473c4d5c4
         'Automattic\\WooCommerce\\Admin\\Notes\\ConfirmTaxSettings' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/ConfirmTaxSettings.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\CouponPageMoved' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/CouponPageMoved.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\CustomizeStoreWithBlocks' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/CustomizeStoreWithBlocks.php',
+        'Automattic\\WooCommerce\\Admin\\Notes\\CustomizingProductCatalog' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/CustomizingProductCatalog.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\DataStore' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/DataStore.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\DeactivatePlugin' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/DeactivatePlugin.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\DrawAttention' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/DrawAttention.php',
@@ -243,12 +244,14 @@ class ComposerStaticInit1c37d41437aca3a88a6b698473c4d5c4
         'Automattic\\WooCommerce\\Admin\\Notes\\EditProductsOnTheMove' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/EditProductsOnTheMove.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\FilterByProductVariationsInReports' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/FilterByProductVariationsInReports.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\FirstProduct' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/FirstProduct.php',
+        'Automattic\\WooCommerce\\Admin\\Notes\\GettingStartedInEcommerceWebinar' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/GettingStartedInEcommerceWebinar.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\GivingFeedbackNotes' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/GivingFeedbackNotes.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\GoogleAdsAndMarketing' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/GoogleAdsAndMarketing.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\InsightFirstProductAndPayment' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/InsightFirstProductAndPayment.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\InsightFirstSale' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/InsightFirstSale.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\InstallJPAndWCSPlugins' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/InstallJPAndWCSPlugins.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\LaunchChecklist' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/LaunchChecklist.php',
+        'Automattic\\WooCommerce\\Admin\\Notes\\LearnMoreAboutVariableProducts' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/LearnMoreAboutVariableProducts.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\ManageOrdersOnTheGo' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/ManageOrdersOnTheGo.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\ManageStoreActivityFromHomeScreen' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/ManageStoreActivityFromHomeScreen.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\Marketing' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/Marketing.php',
@@ -265,6 +268,7 @@ class ComposerStaticInit1c37d41437aca3a88a6b698473c4d5c4
         'Automattic\\WooCommerce\\Admin\\Notes\\Notes' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/Notes.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\OnboardingEmailMarketing' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/OnboardingEmailMarketing.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\OnboardingPayments' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/OnboardingPayments.php',
+        'Automattic\\WooCommerce\\Admin\\Notes\\OnboardingTraits' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/OnboardingTraits.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\OnlineClothingStore' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/OnlineClothingStore.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\OrderMilestones' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/OrderMilestones.php',
         'Automattic\\WooCommerce\\Admin\\Notes\\PerformanceOnMobile' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Notes/PerformanceOnMobile.php',
@@ -361,6 +365,7 @@ class ComposerStaticInit1c37d41437aca3a88a6b698473c4d5c4
         'Automattic\\WooCommerce\\Admin\\Schedulers\\ImportScheduler' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Schedulers/ImportScheduler.php',
         'Automattic\\WooCommerce\\Admin\\Schedulers\\OrdersScheduler' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Schedulers/OrdersScheduler.php',
         'Automattic\\WooCommerce\\Admin\\Schedulers\\SchedulerTraits' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Schedulers/SchedulerTraits.php',
+        'Automattic\\WooCommerce\\Admin\\Survey' => __DIR__ . '/../..' . '/packages/woocommerce-admin/src/Survey.php',
         'Automattic\\WooCommerce\\Autoloader' => __DIR__ . '/../..' . '/src/Autoloader.php',
         'Automattic\\WooCommerce\\Blocks\\Assets' => __DIR__ . '/../..' . '/packages/woocommerce-blocks/src/Assets.php',
         'Automattic\\WooCommerce\\Blocks\\Assets\\Api' => __DIR__ . '/../..' . '/packages/woocommerce-blocks/src/Assets/Api.php',
@@ -454,9 +459,11 @@ class ComposerStaticInit1c37d41437aca3a88a6b698473c4d5c4
         'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\RouteException' => __DIR__ . '/../..' . '/packages/woocommerce-blocks/src/StoreApi/Routes/RouteException.php',
         'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\RouteInterface' => __DIR__ . '/../..' . '/packages/woocommerce-blocks/src/StoreApi/Routes/RouteInterface.php',
         'Automattic\\WooCommerce\\Blocks\\StoreApi\\SchemaController' => __DIR__ . '/../..' . '/packages/woocommerce-blocks/src/StoreApi/SchemaController.php',
+        'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\AbstractAddressSchema' => __DIR__ . '/../..' . '/packages/woocommerce-blocks/src/StoreApi/Schemas/AbstractAddressSchema.php',
         'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\AbstractSchema' => __DIR__ . '/../..' . '/packages/woocommerce-blocks/src/StoreApi/Schemas/AbstractSchema.php',
         'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\BillingAddressSchema' => __DIR__ . '/../..' . '/packages/woocommerce-blocks/src/StoreApi/Schemas/BillingAddressSchema.php',
         'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\CartCouponSchema' => __DIR__ . '/../..' . '/packages/woocommerce-blocks/src/StoreApi/Schemas/CartCouponSchema.php',
+        'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\CartFeeSchema' => __DIR__ . '/../..' . '/packages/woocommerce-blocks/src/StoreApi/Schemas/CartFeeSchema.php',
         'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\CartItemSchema' => __DIR__ . '/../..' . '/packages/woocommerce-blocks/src/StoreApi/Schemas/CartItemSchema.php',
         'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\CartSchema' => __DIR__ . '/../..' . '/packages/woocommerce-blocks/src/StoreApi/Schemas/CartSchema.php',
         'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\CartShippingRateSchema' => __DIR__ . '/../..' . '/packages/woocommerce-blocks/src/StoreApi/Schemas/CartShippingRateSchema.php',
@@ -818,10 +825,10 @@ class ComposerStaticInit1c37d41437aca3a88a6b698473c4d5c4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1c37d41437aca3a88a6b698473c4d5c4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1c37d41437aca3a88a6b698473c4d5c4::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit1c37d41437aca3a88a6b698473c4d5c4::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit1c37d41437aca3a88a6b698473c4d5c4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3513212abf72fff576e4a9d12c45dca9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3513212abf72fff576e4a9d12c45dca9::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit3513212abf72fff576e4a9d12c45dca9::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit3513212abf72fff576e4a9d12c45dca9::$classMap;
 
         }, null, ClassLoader::class);
     }

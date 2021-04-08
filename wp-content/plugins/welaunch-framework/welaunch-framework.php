@@ -9,7 +9,7 @@
  * Description:     Framework for weLaunch Plugins (this is a fork of Redux Plugin)
  * Author:          weLaunch.io
  * Author URI:      https://welaunch.io
- * Version:         1.0.3
+ * Version:         1.0.4
  * Text Domain:     welaunch-framework
  * License:         GPLv3 or later
  * License URI:     http://www.gnu.org/licenses/gpl-3.0.txt
@@ -105,6 +105,10 @@ foreach($weLaunchAllPlugins as $weLaunchAllPluginSlug => $weLaunchAllPluginInfo)
 	    if ( substr($welaunchPlugin, 0, 11) === 'woocommerce' && isset($weLaunchLicenses['woocommerce-plugin-bundle']) && !empty($weLaunchLicenses['woocommerce-plugin-bundle']) ) {
 	        $license = $weLaunchLicenses['woocommerce-plugin-bundle'];
 	    }
+
+	    if ( isset($weLaunchLicenses['agency-bundle']) && !empty($weLaunchLicenses['agency-bundle']) ) {
+	    	$license = $weLaunchLicenses['agency-bundle'];
+    	}
 
 	    if(empty($license) && $welaunchPlugin !== "welaunch-framework") {
 	    	continue;

@@ -153,17 +153,17 @@ class WIS_Plugin extends \Wbcr_Factory445_Plugin {
 	public function admin_enqueue_assets( $hook_suffix ) {
 		wp_enqueue_style( 'jr-insta-admin-styles', WIS_PLUGIN_URL . '/admin/assets/css/jr-insta-admin.css', array(), WIS_PLUGIN_VERSION );
 		wp_enqueue_script( 'jr-insta-admin-script', WIS_PLUGIN_URL . '/admin/assets/js/jr-insta-admin.js', array( 'jquery' ), WIS_PLUGIN_VERSION, true );
-		wp_localize_script( 'jr-insta-admin-script', 'wis', array(
+		wp_enqueue_script( 'jr-tinymce-button', WIS_PLUGIN_URL . '/admin/assets/js/tinymce_button.js', array( 'jquery' ), WIS_PLUGIN_VERSION, false );
+
+		$wis_shortcodes = json_encode($this->get_isw_widgets());
+		wp_add_inline_script( 'jr-tinymce-button', "var wis_shortcodes = $wis_shortcodes;");
+
+		$account_nonce = json_encode([ 'nonce' => wp_create_nonce( "addAccountByToken" ) ]);
+		$wis_nonce = json_encode([
 			'nonce'          => wp_create_nonce( 'wis_nonce' ),
 			'remove_account' => __( 'Are you sure want to delete this account?', 'instagram-slider-widget' ),
-		) );
-		wp_enqueue_script( 'jr-tinymce-button', WIS_PLUGIN_URL . '/admin/assets/js/tinymce_button.js', array( 'jquery' ), WIS_PLUGIN_VERSION, false );
-		$wis_shortcodes = $this->get_isw_widgets();
-		wp_localize_script( 'jr-tinymce-button', 'wis_shortcodes', $wis_shortcodes );
-		wp_localize_script( 'jr-insta-admin-script', 'add_account_nonce', array(
-			'nonce' => wp_create_nonce( "addAccountByToken" ),
-		) );
-
+        ]);
+		wp_add_inline_script( 'jr-insta-admin-script', "var add_account_nonce = $account_nonce; var wis = $wis_nonce;");
 	}
 
 	public function enqueue_assets() {

@@ -129,12 +129,15 @@
     });
 
     $(window).on('load', function () {
-        if (mailoptin_is_email_newsletter === false) return;
-        add_toolbar();
-        add_ace_editor();
-        switch_view();
-        update_email_title();
-        make_send_newsletter_btn_active();
+
+        setTimeout(function () {
+            if (mailoptin_is_email_newsletter === false) return;
+            add_toolbar();
+            add_ace_editor();
+            switch_view();
+            update_email_title();
+            make_send_newsletter_btn_active();
+        }, 1000);
     });
 
 })(jQuery);

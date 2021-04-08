@@ -404,7 +404,6 @@ HTML;
       text-decoration: none;
       background-color: #dc4d2f;
       -webkit-text-size-adjust: none;
-      mso-hide: all;
     }
 
     /*Media Queries ------------------------------ */
@@ -516,6 +515,8 @@ CSS;
 
     /**
      * @param \WP_Post $post
+     *
+     * @return false|string
      */
     public function posts_block_tmpl($id, $post, $settings)
     {
@@ -666,7 +667,16 @@ HTML;
         <table class="mo-email-builder-element" id="$id" border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;width:$button_width%;line-height:100%;">
             <tr>
                 <td align="center" bgcolor="$button_background_color" role="presentation" style="border:none;border-radius:15px;cursor:auto;mso-padding-alt:$button_padding;background:$button_background_color;" valign="middle">
-                    <a href="$button_link" style="display:inline-block;width:100%;background:$button_background_color;color:$button_color;font-family:$button_font_family;font-size:{$button_font_size}px;font-weight:$button_font_weight;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:$button_padding;mso-padding-alt:0px;border-radius:{$button_border_radius}px;" target="_blank">$button_text</a>
+                    <!--[if mso]>
+                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="$button_link" style="height:45px;v-text-anchor:middle;width:200px;" arcsize="10%" stroke="f" fillcolor="$button_background_color">
+                            <w:anchorlock/>
+                            <center>
+                            <![endif]-->
+                              <a style="display:inline-block;width:100%;background:{$button_background_color};color:{$button_color};font-family:{$button_font_family};font-size:{$button_font_size}px;font-weight:{$button_font_weight};line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:{$button_padding};mso-padding-alt:0px;border-radius:{$button_border_radius}px;" href="$button_link">$button_text</a>
+                            <!--[if mso]>
+                            </center>
+                        </v:roundrect>
+                    <![endif]-->                    
                 </td>
             </tr>
         </table>

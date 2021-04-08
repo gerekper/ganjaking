@@ -204,28 +204,6 @@ class DynamicSegmentFilterEntity extends \MailPoet\Entities\DynamicSegmentFilter
     /**
      * {@inheritDoc}
      */
-    public function getFilterDataParam(string $name)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFilterDataParam', [$name]);
-
-        return parent::getFilterDataParam($name);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getSegmentType()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSegmentType', []);
-
-        return parent::getSegmentType();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setSegment(\MailPoet\Entities\SegmentEntity $segment)
     {
 
@@ -237,7 +215,7 @@ class DynamicSegmentFilterEntity extends \MailPoet\Entities\DynamicSegmentFilter
     /**
      * {@inheritDoc}
      */
-    public function setFilterData(array $filterData)
+    public function setFilterData(\MailPoet\Entities\DynamicSegmentFilterData $filterData)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFilterData', [$filterData]);

@@ -50,7 +50,7 @@ class ViewInBrowserRenderer {
   public function render(
     bool $isPreview,
     Newsletter $newsletter,
-    Subscriber $subscriber = null,
+    SubscriberEntity $subscriber = null,
     SendingQueue $queue = null
   ) {
     $wpUserPreview = $isPreview;
@@ -86,7 +86,7 @@ class ViewInBrowserRenderer {
     $renderedNewsletter = $this->shortcodes->replace($newsletterBody);
     if (!$wpUserPreview && $queue && $subscriber && $this->isTrackingEnabled) {
       $renderedNewsletter = Links::replaceSubscriberData(
-        $subscriber->id,
+        $subscriber->getId(),
         $queue->id,
         $renderedNewsletter
       );
@@ -100,8 +100,6 @@ class ViewInBrowserRenderer {
     $sendingQueueRepository = ContainerWrapper::getInstance()->get(SendingQueuesRepository::class);
     /** @var NewslettersRepository $newsletterRepository */
     $newsletterRepository = ContainerWrapper::getInstance()->get(NewslettersRepository::class);
-    /** @var NewslettersRepository $newsletterRepository */
-    $subscribersRepository = ContainerWrapper::getInstance()->get(NewslettersRepository::class);
     /** @var SubscribersRepository $subscribersRepository */
     $subscribersRepository = ContainerWrapper::getInstance()->get(SubscribersRepository::class);
 

@@ -56,6 +56,21 @@ class Subscription extends AbstractCleverReachConnect
                 $subscriber_data['tags'] = array_map('trim', explode(',', $lead_tags));
             }
 
+            $subscription_form = $this->get_integration_data('CleverReachConnect_form');
+
+            $doi_data = [];
+
+            if( ! empty($subscription_form)) {
+                $ip_address = get_ip_address();
+                $doi_data['email'] = $this->email;
+                $doi_data['form_id'] = absint($subscription_form);
+                $doi_data['doidata'] = [
+                    'user_ip'               => !empty($ip_address) ? $ip_address : '127.0.0.1',
+                    'referer'               => $this->extras['referrer'],
+                    'user_agent'            => $this->extras['user_agent']
+                ];
+            }
+
             $custom_field_mappings = $this->form_custom_field_mappings();
 
             if ( ! empty($custom_field_mappings)) {
@@ -79,7 +94,7 @@ class Subscription extends AbstractCleverReachConnect
                 }
             }
 
-            $response = $this->cleverreachInstance()->addSubscriber($group_id, $this->email, array_filter($subscriber_data, [$this, 'data_filter']));
+            $response = $this->cleverreachInstance()->addSubscriber($group_id, $this->email, array_filter($subscriber_data, [$this, 'data_filter']), $doi_data);
 
             if (isset($response->id) && ! empty($response->id)) {
                 return parent::ajax_success();
@@ -91,6 +106,18 @@ class Subscription extends AbstractCleverReachConnect
             self::save_optin_error_log($e->getCode() . ': ' . $e->getMessage(), 'cleverreach', $this->extras['optin_campaign_id']);
 
             return parent::ajax_failure(__('There was an error saving your contact. Please try again.', 'mailoptin'));
+        }
+    }
+
+    public function get_subscriber_details($group_id, $pool_id) {
+
+        try {
+
+            $response = $this->cleverreachInstance()->getSubscribers($group_id, $pool_id);
+
+            return $response;
+        } catch (\Exception $e) {
+            return false;
         }
     }
 }

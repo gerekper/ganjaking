@@ -25,12 +25,6 @@ class ConnectSettingsPage
             $status = sprintf("<span style='color:#FF0000'>(%s$msg) </span>", __('Not Connected', 'mailoptin'));
         }
 
-        $support_id_description = sprintf(
-            __('%sClick here to get it%s. This is only required to unlock our premium integration with Elementor Forms for free.', 'mailoptin'),
-            '<a target="_blank" href="https://bit.ly/2ZTmjgH">',
-            '</a>'
-        );
-
         if (defined('MAILOPTIN_DETACH_LIBSODIUM')) {
             $support_id_description = sprintf(__('To get it, %sclick here%s.', 'mailoptin'),
                 '<a target="_blank" href="https://bit.ly/2ZTmjgH">',
@@ -51,11 +45,6 @@ class ConnectSettingsPage
                     '<a target="_blank" href="https://bit.ly/3kBrmu2">',
                     '</a>'
                 ),
-            ),
-            'sendinblue_support_id'            => array(
-                'type'        => 'text',
-                'label'       => __('Support ID', 'mailoptin'),
-                'description' => $support_id_description,
             ),
             'sendinblue_double_optin_template' => array(
                 'type'        => 'select',

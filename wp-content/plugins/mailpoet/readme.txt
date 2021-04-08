@@ -3,7 +3,7 @@ Contributors: mailpoet, wysija
 Tags: email, email marketing, post notification, woocommerce emails, email automation, newsletter, newsletter builder, newsletter subscribers
 Requires at least: 5.3
 Tested up to: 5.6
-Stable tag: 3.60.2
+Stable tag: 3.60.7
 Requires PHP: 7.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -183,6 +183,41 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 6. WooCommerce emails
 
 == Changelog ==
+
+= 3.60.7 - 2021-04-06 =
+* Improved: show all segment conditions in one place;
+* Fixed: the collation error in WooCommerce checkout. Thanks Mark!
+* Fixed: email statistics to work on WordPress.com sites. Thanks, Gary!
+
+= 3.60.6 - 2021-03-29 =
+* Improved: don't allow deleting segment with scheduled or active automatic email;
+* Fixed: aligning headings to the center or right in forms;
+* Fixed: first and last name sync in WooCommerce Customers list;
+* Fixed: after saving the segment, redirect to Segments instead of Lists;
+* Fixed: shortcode for total subscribers not working for segments;
+* Fixed: hanging background job for deactivated welcome emails.
+
+= 3.60.5 - 2021-03-22 =
+* Added: show number of subscribers when creating or editing a segment;
+* Added: new page with MailPoet logs;
+* Improved: bulk select and delete in segments page;
+* Fixed: loading Media Library in Email Editor on WordPress.com sites;
+* Fixed: pass arguments to shortcodes.
+
+= 3.60.4 - 2021-03-15 =
+* Improved: removed captcha from manage subscription page;
+* Fixed: aligning headings to center or right in emails;
+* Fixed: searching in fields when exporting subscribers;
+* Fixed: saving settings after changing license key restores the old key sometimes;
+* Fixed: schedule emails using UTC instead site's time zone;
+* Fixed: date shortcodes were displaying the current server date in the browser instead of the newsletter sent date.
+
+= 3.60.3 - 2021-03-09 =
+* Added: subscription consent when exporting subscribers;
+* Added: subscription consent when importing subscribers;
+* Improved: better wording on automated email activation;
+* Improved: subscriber import to skip disengaged MailChimp subscribers;
+* Fixed: shortcode which displays total subscribed subscribers.
 
 = 3.60.2 - 2021-03-01 =
 * Fixed: view in browser shortcodes when tracking is disabled;

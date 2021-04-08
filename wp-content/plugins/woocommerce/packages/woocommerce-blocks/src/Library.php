@@ -40,7 +40,8 @@ class Library {
 	 * Register blocks, hooking up assets and render functions as needed.
 	 */
 	public static function register_blocks() {
-		global $wp_version;
+		global $wp_version, $pagenow;
+
 		$blocks = [
 			'AllReviews',
 			'FeaturedCategory',
@@ -57,22 +58,29 @@ class Library {
 			'ReviewsByCategory',
 			'ProductSearch',
 			'ProductTag',
+			'AllProducts',
+			'PriceFilter',
+			'AttributeFilter',
+			'ActiveFilters',
 		];
-		// Note: as a part of refactoring dynamic block registration, this will be moved
-		// to block level config.
-		if ( version_compare( $wp_version, '5.3', '>=' ) ) {
-			$blocks[] = 'AllProducts';
-			$blocks[] = 'PriceFilter';
-			$blocks[] = 'AttributeFilter';
-			$blocks[] = 'ActiveFilters';
-
-			if ( Package::feature()->is_feature_plugin_build() ) {
-				$blocks[] = 'Checkout';
-				$blocks[] = 'Cart';
-			}
+		if ( Package::feature()->is_feature_plugin_build() ) {
+			$blocks[] = 'Checkout';
+			$blocks[] = 'Cart';
 		}
 		if ( Package::feature()->is_experimental_build() ) {
 			$blocks[] = 'SingleProduct';
+		}
+		/**
+		 * This disables specific blocks in Widget Areas by not registering them.
+		 */
+		if ( 'themes.php' === $pagenow ) {
+			$blocks_to_unset = [
+				'AllProducts',
+				'PriceFilter',
+				'AttributeFilter',
+				'ActiveFilters',
+			];
+			$blocks          = array_diff( $blocks, $blocks_to_unset );
 		}
 		foreach ( $blocks as $class ) {
 			$class    = __NAMESPACE__ . '\\BlockTypes\\' . $class;

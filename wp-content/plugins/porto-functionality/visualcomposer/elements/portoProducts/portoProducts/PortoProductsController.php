@@ -144,7 +144,12 @@ class PortoProductsController extends Container implements Module {
 					$selected = array( $selected );
 				}
 				$html  = '<div class="vcv-ui-form-checkboxes">';
-				$terms = get_terms( wc_attribute_taxonomy_name( $element['attribute'] ), array( 'hide_empty' => false ) );
+				$terms = get_terms(
+					array(
+						'taxonomy'   => wc_attribute_taxonomy_name( $element['attribute'] ),
+						'hide_empty' => false,
+					)
+				);
 				if ( ! empty( $terms ) ) {
 					foreach ( $terms as $term ) {
 						$html .= '<label class="vcv-ui-form-checkbox"><input type="checkbox" name="filter" value="' . esc_attr( $term->slug ) . '" ' . checked( in_array( $term->slug, $selected ), true, false ) . '><span class="vcv-ui-form-checkbox-indicator"></span>' . esc_html( $term->name ) . '</label>';
