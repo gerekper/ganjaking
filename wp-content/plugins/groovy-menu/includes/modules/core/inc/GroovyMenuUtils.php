@@ -2618,4 +2618,21 @@ class GroovyMenuUtils {
 		);
 	}
 
+	public static function remove_p_tag( $content, $do_shortcode = true ) {
+		if ( $do_shortcode ) {
+			$content = do_shortcode( shortcode_unautop( $content ) );
+		}
+		$content = preg_replace( '#<p[^>]*>\[vc_row(.*?)\/vc_row]<\/p>#', '[vc_row$1/vc_row]', $content );
+		$content = preg_replace( '#<p[^>]*><div#', '<div', $content );
+		$content = preg_replace( '#\/div><\/p>#', '/div>', $content );
+
+		$content = preg_replace( '#<div class="(.*?)" ><\/p>#', '<div class="$1" >', $content );
+		$content = preg_replace( '#<p><\/div>#', '</div>', $content );
+
+		$content = preg_replace( '#<p><!--(.*?)--></p>#', '<!--$1-->', $content );
+		$content = preg_replace( '#<p><\/p>#', '', $content );
+
+		return $content;
+	}
+
 }

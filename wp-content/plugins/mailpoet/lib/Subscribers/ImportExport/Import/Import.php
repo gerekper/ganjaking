@@ -224,7 +224,21 @@ class Import {
         }
         // validate date type
         if ($customField->getType() === CustomFieldEntity::TYPE_DATE) {
+<<<<<<< HEAD
           $data = $this->validateDateTime($data, $invalidRecords);
+=======
+          $validationRule = 'datetime';
+          $data = array_map(
+            function($index, $date) use($validationRule, &$invalidRecords) {
+              if (empty($date)) return $date;
+              $date = (new DateConverter())->convertDateToDatetime($date, $validationRule);
+              if (!$date) {
+                $invalidRecords[] = $index;
+              }
+              return $date;
+            }, array_keys($data), $data
+          );
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
         }
       }
     }

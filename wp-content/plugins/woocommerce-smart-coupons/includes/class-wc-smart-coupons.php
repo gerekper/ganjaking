@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.1.0
+ * @version     2.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -2604,6 +2604,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		 * @param  WC_Coupon    $coupon    The coupon object.
 		 * @param  WC_Discounts $discounts The discounts object.
 		 * @return boolean
+		 * @throws Exception When coupon is not valid as per the usage limit.
 		 */
 		public function is_user_usage_limit_valid( $is_valid = false, $coupon = null, $discounts = null ) {
 
@@ -2731,7 +2732,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					}
 
 					if ( ! empty( $order_id ) ) {
-						return false;
+						throw new Exception( __( 'This coupon is valid for the first order only.', 'woocommerce-smart-coupons' ) );
 					}
 				} elseif ( ! empty( $email ) ) {
 
@@ -2766,7 +2767,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					}
 
 					if ( ! empty( $order_id ) ) {
-						return false;
+						throw new Exception( __( 'This coupon is valid for the first order only.', 'woocommerce-smart-coupons' ) );
 					}
 				}
 			}
@@ -3607,10 +3608,10 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 			$fields .= $this->get_coupon_csv_data( $columns_header, $data );
 
-			$upload_dir = wp_upload_dir();
+			$upload_dir = wp_get_upload_dir();
 
 			$file_data                  = array();
-			$file_data['wp_upload_dir'] = $upload_dir['path'] . '/';
+			$file_data['wp_upload_dir'] = $upload_dir['basedir'] . '/woocommerce_uploads/';
 			$file_data['file_name']     = $csv_file_name;
 			$file_data['file_content']  = $fields;
 

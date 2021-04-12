@@ -4,7 +4,11 @@
 
 namespace Composer\Autoload;
 
+<<<<<<< HEAD
 class ComposerStaticInitb4bc46189032812307eb44e84609182b
+=======
+class ComposerStaticInit751f5d4fa27ff7f3ac0b2c28baad36eb
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -21,6 +25,7 @@ class ComposerStaticInitb4bc46189032812307eb44e84609182b
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Composer\\Installers\\AglInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AglInstaller.php',
         'Composer\\Installers\\AimeosInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
         'Composer\\Installers\\AnnotateCmsInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AnnotateCmsInstaller.php',
@@ -910,9 +915,15 @@ class ComposerStaticInitb4bc46189032812307eb44e84609182b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+<<<<<<< HEAD
             $loader->prefixLengthsPsr4 = ComposerStaticInitb4bc46189032812307eb44e84609182b::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitb4bc46189032812307eb44e84609182b::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInitb4bc46189032812307eb44e84609182b::$classMap;
+=======
+            $loader->prefixLengthsPsr4 = ComposerStaticInit751f5d4fa27ff7f3ac0b2c28baad36eb::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit751f5d4fa27ff7f3ac0b2c28baad36eb::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit751f5d4fa27ff7f3ac0b2c28baad36eb::$classMap;
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
         }, null, ClassLoader::class);
     }

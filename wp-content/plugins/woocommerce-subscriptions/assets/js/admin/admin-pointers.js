@@ -4,13 +4,13 @@ jQuery( function( $ ) {
 		setTimeout(showSubscriptionPointers, 800); // give TinyMCE a chance to finish loading
 	}
 
-	$('select#product-type').change(function(){
+	$('select#product-type').on( 'change', function(){
 		if(arePointersEnabled()){
 			$('#product-type').pointer('close');
 		}
 	});
 
-	$('#_subscription_price, #_subscription_period, #_subscription_length').change(function(){
+	$('#_subscription_price, #_subscription_period, #_subscription_length').on( 'change', function(){
 		if(arePointersEnabled()){
 			$('.options_group.subscription_pricing').pointer('close');
 			$('#product-type').pointer('close');

@@ -82,7 +82,11 @@ this["wp"] = this["wp"] || {}; this["wp"]["nux"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 463);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 490);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -603,7 +607,11 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 463:
+=======
+/***/ 490:
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

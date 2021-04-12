@@ -1,5 +1,11 @@
 *** Product Vendors Changelog ***
 
+2021-03-30 - version 2.1.50
+* Add - WC Navigation feature.
+* Fix - Deprecated jQuery methods.
+* Tweak - WC 5.2 compatibility.
+* Tweak - WP 5.7 compatibility.
+
 2021-02-24 - version 2.1.49
 * Fix - Send Product Enquiry emails to vendor email.
 * Tweak - WC 5.0 compatibility.

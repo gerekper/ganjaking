@@ -15,7 +15,7 @@ jQuery( function( $ ) {
 		hide_non_applicable_coupons();
 	} );
 
-	$( '.payment_methods [name="payment_method"]' ).click( function() {
+	$( '.payment_methods [name="payment_method"]' ).on( 'click', function() {
 		if ( $( this ).hasClass( 'supports-payment-method-changes' ) ) {
 			$( '.update-all-subscriptions-payment-method-wrap' ).show();
 		} else {

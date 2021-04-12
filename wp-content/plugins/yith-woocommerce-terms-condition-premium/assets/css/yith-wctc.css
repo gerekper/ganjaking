@@ -1,0 +1,98 @@
+.vwrap{
+    top: 0!important;
+}
+
+.terms-privacy-conditions{
+    display: block;
+    overflow: hidden;
+}
+
+.vbox-close{
+    width: 20px!important;
+    height: 20px!important;
+}
+
+.vbox-overlay.close {
+    float: none;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    line-height: inherit;
+}
+
+.vbox-inline{
+    padding: 10px 20px 10px 30px!important;
+    overflow: hidden;
+}
+.vbox-inline .woocommerce{
+    height: 100%;
+}
+.vbox-inline .woocommerce h2{
+    margin: 0!important;
+}
+.vbox-inline .popup-content{
+    position: relative;
+    overflow: hidden;
+}
+
+.vbox-inline .popup-title,
+.vbox-inline .popup-footer{
+    padding: 20px 0;
+    height: 10%;
+}
+
+.vbox-inline .popup-footer:before{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.vbox-inline .popup-footer a.btn{
+    padding: 10px 20px;
+}
+
+.rtl .vbox-inline .woocommerce h2{
+    text-align: right;
+}
+
+.rtl .scrollbar-outer > .scroll-content.scroll-scrolly_visible{
+    right: -12px;
+    margin-right: 12px!important;
+    margin-left: 0;
+}
+
+.rtl .scrollbar-outer > .scroll-element.scroll-y{
+    left: 0;
+    right: auto;
+}
+
+
+@media (max-width: 767px) {
+    .vbox-inline{
+        max-width: 500px!important;
+    }
+}
+@media (max-width: 480px) {
+    .vbox-inline{
+        max-width: 280px!important;
+    }
+}
+
+/* IPAD PORTRAIT */
+@media (min-width: 768px) and (max-width: 979px) {
+    .vbox-inline{
+        max-width: 700px!important;
+    }
+}
+
+/* IPAD LANDSCAPE */
+@media (min-width: 980px) and (max-width: 1199px) {
+    .vbox-inline{
+        max-width: 940px!important;
+    }
+}
+
+
+@media (min-width: 1200px) {
+
+}

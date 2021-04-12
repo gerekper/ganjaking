@@ -1,0 +1,73 @@
+
+@-webkit-keyframes pulse {
+	0% { opacity: 0.6; }
+	50% { opacity: 0.1; }
+	100% { opacity: 0.6; }
+}
+
+@keyframes pulse {
+	0% { opacity: 0.6; }
+	50% { opacity: 0.25; }
+	100% { opacity: 0.6; }
+}
+
+@keyframes spinner {
+	to {transform: rotate(360deg);}
+}
+
+.gppa-loading:not(.gppa-empty) {
+	-webkit-animation: pulse 1s infinite ease-in-out;
+	-o-animation: pulse 1s infinite ease-in-out;
+	-ms-animation: pulse 1s infinite ease-in-out;
+	-moz-animation: pulse 1s infinite ease-in-out;
+	animation: pulse 1s infinite ease-in-out;
+	cursor: wait;
+}
+
+.gppa-loading * {
+	pointer-events: none;
+}
+
+.gppa-spinner,
+.gppa-loading.gppa-empty,
+.gppa-loading.gppa-empty span[data-gppa-live-merge-tag]
+.gppa-loading .gppa-requires-interaction {
+	position: relative;
+	width: 1rem;
+	min-height: 1rem;
+	display: inline-block;
+	text-indent: -999rem;
+}
+
+.gppa-loading.ginput_container {
+	display: block;
+}
+
+.gppa-spinner:before,
+.gppa-loading.gppa-empty:before,
+.gppa-loading.gppa-empty span[data-gppa-live-merge-tag]:before,
+.gppa-loading .gppa-requires-interaction:before {
+	content: '';
+	box-sizing: border-box;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 1rem;
+	height: 1rem;
+	margin-top: -0.5rem;
+	margin-left: -0.5rem;
+	border-radius: 50%;
+	border-top: 0.1rem solid #000;
+	border-right: 0.1rem solid transparent;
+	animation: spinner .6s linear infinite;
+	cursor: wait;
+}
+
+/**
+ * Form navigation is disabled while data is still loading. Show a wait cursor if the user hovers over any disabled button.
+ */
+.gform_footer input[type="submit"][disabled],
+.gform_page_footer input[type="submit"][disabled],
+.gform_page_footer input[type="button"][disabled] {
+	cursor: wait;
+}

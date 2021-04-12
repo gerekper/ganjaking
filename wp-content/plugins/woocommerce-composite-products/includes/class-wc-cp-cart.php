@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) )
  * Composite products cart API and hooks.
  *
  * @class    WC_CP_Cart
- * @version  7.0.7
+ * @version  8.0.3
  */
 
 class WC_CP_Cart {
@@ -1052,7 +1052,7 @@ class WC_CP_Cart {
 	 * @param  array   $cart_item_data
 	 * @return bool
 	 */
-	private function composited_add_to_cart( $composite_id, $product, $quantity = 1, $variation_id = '', $variation = '', $cart_item_data ) {
+	private function composited_add_to_cart( $composite_id, $product, $quantity = 1, $variation_id = '', $variation = '', $cart_item_data = array() ) {
 
 		if ( $quantity <= 0 ) {
 			return false;

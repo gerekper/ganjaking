@@ -504,7 +504,11 @@ class Menu {
 		global $submenu;
 
 		if ( ! isset( $submenu['woocommerce'] ) && ! isset( $submenu['edit.php?post_type=product'] ) ) {
+<<<<<<< HEAD
 			return $menu;
+=======
+			return;
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 		}
 
 		$submenu_items = array_merge(
@@ -514,6 +518,13 @@ class Menu {
 
 		foreach ( $submenu_items as $key => $menu_item ) {
 			if ( in_array( $menu_item[2], CoreMenu::get_excluded_items(), true ) ) {
+				// phpcs:disable
+				if ( ! isset( $menu_item[ self::CSS_CLASSES ] ) ) {
+					$submenu['woocommerce'][ $key ][] .= ' hide-if-js';
+				} else {
+					$submenu['woocommerce'][ $key ][ self::CSS_CLASSES ] .= ' hide-if-js';
+				}
+				// phpcs:enable
 				continue;
 			}
 
@@ -738,7 +749,11 @@ class Menu {
 	 */
 	public function enqueue_data( $menu ) {
 		$data = array(
+<<<<<<< HEAD
 			'menuItems'     => array_values( self::get_items() ),
+=======
+			'menuItems'     => self::get_prepared_menu_item_data(),
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 			'rootBackUrl'   => apply_filters( 'woocommerce_navigation_root_back_url', get_dashboard_url() ),
 			'rootBackLabel' => apply_filters( 'woocommerce_navigation_root_back_label', __( 'WordPress Dashboard', 'woocommerce' ) ),
 		);

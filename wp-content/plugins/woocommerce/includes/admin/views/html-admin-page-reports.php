@@ -9,7 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <div class="wrap woocommerce">
+<<<<<<< HEAD
 	<?php if ( WC()->is_wc_admin_active() ) { ?>
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 	<div id="message" class="error inline" style="margin-top:30px">
 		<p>
 			<strong>
@@ -20,7 +23,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</strong>
 		</p>
 	</div>
+<<<<<<< HEAD
 	<?php } ?>
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 	<nav class="nav-tab-wrapper woo-nav-tab-wrapper">
 		<?php
 		foreach ( $reports as $key => $report_group ) {

@@ -2661,7 +2661,11 @@ class WP_Site_Health {
 			$headers['Authorization'] = 'Basic ' . base64_encode( wp_unslash( $_SERVER['PHP_AUTH_USER'] ) . ':' . wp_unslash( $_SERVER['PHP_AUTH_PW'] ) );
 		}
 
+<<<<<<< HEAD
 		$url = site_url( 'wp-cron.php' );
+=======
+		$url = site_url();
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 		/*
 		 * A post request is used for the wp-cron.php loopback test to cause the file

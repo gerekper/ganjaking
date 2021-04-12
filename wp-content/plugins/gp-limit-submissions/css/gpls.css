@@ -1,0 +1,228 @@
+/**
+ * Feed Detail
+ */
+
+.gpls-add-rule-group {
+	padding: 20px 0 0;
+}
+
+.gpls-add-rule-group a#add_rule_group {
+	font-size: 14px;
+}
+
+#debug {
+	margin: 25px 0;
+}
+
+#rule_time_period_type {
+	width: calc( 50% - 1rem );
+	max-width: none;
+	margin-right: 1rem;
+}
+
+#rule_time_period_value,
+#rule_time_period_unit {
+	display: none;
+}
+
+#rule_time_period_value {
+	width: calc( 25% - 1rem );
+	margin-right: 1rem;
+}
+
+#rule_time_period_unit {
+	width: 25%;
+}
+
+#rule_calendar_period {
+	display: none;
+	width: 50%;
+	max-width: none;
+}
+
+body:not(.gf-legacy-ui) .rule_group {
+	background-color: #f6f9fc;
+	border: 1px solid #d5d8e9;
+	border-radius: 5px;
+	padding: 1rem;
+}
+
+body:not(.gf-legacy-ui) .row:last-child {
+	margin-bottom: 0;
+}
+
+.gpls-add-rule-group a,
+.rule_group_buttons .repeater-buttons a {
+	color: #444;
+	vertical-align: middle;
+	cursor: pointer;
+	display: inline-block;
+	text-transform: uppercase;
+	outline: none;
+	position: relative;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+	line-height: 44px;
+}
+
+.rule_group_buttons .repeater-buttons a:after,
+.rule_group_buttons .repeater-buttons a:after {
+	content: '';
+	position: absolute;
+	z-index: -1;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.rule_group_buttons .repeater-buttons a i {
+	line-height: 28px;
+}
+
+.gpls-add-rule-group a:hover,
+.gpls-add-rule-group a:active,
+.rule_group_buttons .repeater-buttons a:hover,
+.rule_group_buttons .repeater-buttons a:active {
+}
+
+.rule_group.repeater .row:first-child {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.rule_group.repeater .row:last-child {
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.gpls-or-header {
+	padding: 10px 0;
+	margin: 0;
+	font-size: 14px;
+	text-align: center;
+	color: rgba( 0, 0, 0, 0.25 );
+}
+
+label.error {
+	margin: 0 8px;
+	color: red;
+}
+
+.select2-results__option {
+	margin-bottom: 0;
+}
+
+body:not( .gf-legacy-ui ) .select2-container--default .select2-selection--single {
+	border: 0;
+}
+
+body:not(.gf-legacy-ui) .select2-container--default .select2-selection--single .select2-selection__arrow {
+	display: none;
+}
+
+body:not(.gf-legacy-ui) .select2-selection--multiple {
+	overflow: hidden !important;
+	height: auto !important;
+}
+
+body:not(.gf-legacy-ui) .select2-container--open .select2-dropdown--below {
+	margin-top: -5px;
+}
+
+body.gpls-loading .rule_group .gform-settings-input__container,
+body.gpls-loading .rule_group_buttons {
+	display: none;
+}
+
+#gform_setting_rule_rules .row {
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 1rem;
+}
+
+#gform_setting_rule_rules .row:last-child {
+	margin-bottom: 0;
+}
+
+#gform_setting_rule_rules .gform-settings-input__container {
+	width: 30%;
+	margin-right: 0.5rem;
+}
+
+
+/**
+ * Feed Detail: Legacy
+ */
+
+.gf-legacy-ui .rule_value_selector {
+	display: none;
+}
+
+.gf-legacy-ui #rule_time_period_type,
+.gf-legacy-ui #rule_time_period_value {
+	width: calc( 25% - 2px );
+	margin-right: 2px;
+}
+
+.gf-legacy-ui .rule_ip_specific,
+.gf-legacy-ui .rule_embed_url_value_full,
+.gf-legacy-ui .rule_embed_url_value_post {
+	display: none;
+}
+
+.gf-legacy-ui.wp-admin select.gpls-secondary-field,
+.gf-legacy-ui.wp-admin input.gpls-secondary-field {
+	height: 27px;
+	line-height: 28px;
+	vertical-align: middle;
+}
+
+.gf-legacy-ui.wp-admin input.gpls-primary-field {
+	vertical-align: middle;
+}
+
+.gf-legacy-ui .ruleset .select2-container,
+.gf-legacy-ui .ruleset input.gpls-secondary-field {
+	margin-right: 2px;
+	width: 29% !important;
+}
+
+.gf-legacy-ui .gpls-add-rule-group a,
+.gf-legacy-ui .rule_group_buttons .repeater-buttons a {
+	line-height: 1;
+}
+
+.gf-legacy-ui .rule_group_buttons {
+	position: absolute;
+	right: 1rem;
+	top: 1rem;
+}
+
+.gf-legacy-ui #rule_time_period_value,
+.gf-legacy-ui #rule_time_period_unit {
+	width: calc( 25% - 2px );
+	vertical-align: middle;
+}
+
+.gf-legacy-ui .rule_group.repeater .row {
+	padding: 1rem;
+	background: #fff;
+	border-bottom: solid 1px #ecf0f1;
+	position: relative;
+}
+
+
+
+/**
+ * Feed List
+ */
+
+th#rule_submission_limit {
+	width: 120px;
+	text-align: center;
+}
+
+td.rule_submission_limit {
+	text-align: center;
+}

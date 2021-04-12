@@ -6,7 +6,7 @@
  * Description: Add dynamic notices above the cart and checkout to help increase your sales!
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.13.1
+ * Version: 1.13.2
  * Text Domain: woocommerce-cart-notices
  * Domain Path: /i18n/languages/
  *

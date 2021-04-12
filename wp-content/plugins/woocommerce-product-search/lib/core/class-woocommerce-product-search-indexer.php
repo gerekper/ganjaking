@@ -63,6 +63,15 @@ class WooCommerce_Product_Search_Indexer {
 	private $raw = false;
 
 	/**
+	 * Default locale
+	 *
+	 * @since 3.6.2
+	 *
+	 * @var string
+	 */
+	private static $locale = null;
+
+	/**
 	 * Initialize.
 	 */
 	public static function init() {
@@ -1037,6 +1046,7 @@ class WooCommerce_Product_Search_Indexer {
 				$fields = array( 'object_id', 'parent_object_id', 'term_id', 'parent_term_id', 'object_type', 'taxonomy', 'inherit', 'modified' );
 				$term_ids = array_merge( $category_ids, $tag_ids, $attribute_term_ids );
 
+				$term_ids = apply_filters( 'woocommerce_product_search_indexer_object_term_term_ids', $term_ids, $product );
 				foreach ( $term_ids as $term_id ) {
 					$term = get_term( $term_id );
 					if ( $term instanceof WP_Term ) {
@@ -1285,7 +1295,7 @@ class WooCommerce_Product_Search_Indexer {
 	private function add_key( $key ) {
 		global $wpdb;
 
-		$key = trim( remove_accents( $key ) );
+		$key = trim( self::remove_accents( $key ) );
 
 		$key = function_exists( 'mb_strlen' ) ?
 			mb_substr( $key, 0, WooCommerce_Product_Search_Controller::MAX_KEY_LENGTH ) :
@@ -1433,6 +1443,7 @@ class WooCommerce_Product_Search_Indexer {
 	 * Equalize the input string.
 	 *
 	 * @since 2.9.0
+	 *
 	 * @param string $s
 	 *
 	 * @return string
@@ -1445,6 +1456,56 @@ class WooCommerce_Product_Search_Indexer {
 		$s = trim( preg_replace( '/-+\s/', ' ', $s ) );
 		$s = trim( preg_replace( '/\s+/', ' ', $s ) );
 		return $s;
+	}
+
+	/**
+	 * Remove accents.
+	 *
+	 * @since 3.6.2
+	 *
+	 * @param string $s
+	 *
+	 * @return string
+	 */
+	public static function remove_accents( $s ) {
+
+		if ( self::$locale === null ) {
+			self::$locale = 'en_US';
+			if ( defined( 'WPLANG' ) ) {
+				self::$locale = WPLANG;
+			}
+			$the_locale = get_option( 'WPLANG' );
+			if ( is_multisite() ) {
+				if ( $the_locale === false ) {
+					$the_locale = get_site_option( 'WPLANG' );
+				}
+			}
+			if ( $the_locale !== false ) {
+				self::$locale = $the_locale;
+			}
+		}
+
+		add_filter( 'locale', array( __CLASS__, 'locale' ), PHP_INT_MAX );
+		$s = remove_accents( $s );
+		remove_filter( 'locale', array( __CLASS__, 'locale' ), PHP_INT_MAX );
+
+		return $s;
+	}
+
+	/**
+	 * Filter the locale.
+	 *
+	 * @since 3.6.2
+	 *
+	 * @param string $locale
+	 *
+	 * @return string
+	 */
+	public static function locale( $locale ) {
+		if ( self::$locale !== null ) {
+			$locale = self::$locale;
+		}
+		return $locale;
 	}
 }
 WooCommerce_Product_Search_Indexer::init();

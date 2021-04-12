@@ -4,7 +4,7 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.1
+ * @version         3.0.2
  * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
@@ -68,15 +68,20 @@ const UnGrabber = ( function () {
             
             /** Disable Print Page. */
             if ( printPage === 'on' ) { disable_print_page(); }
-            
-            /** Disable Developer Tool. */
-            if ( developerTool === 'on' ) { disable_developer_tool(); }
 
-            /** Disable Window Blur */
-            if ( windowBlur === 'on' ) { disable_window_blur(); }
+            /** Disable some settings for Apple mobile devices */
+            if ( ! isAppleMobile() ) {
 
-            /** Disable Hidden Tab */
-            if ( tabHidden === 'on' ) { disable_tab_hidden(); }
+                /** Disable Developer Tool. */
+                if ( developerTool === 'on' ) { disable_developer_tool(); }
+
+                /** Disable Window Blur */
+                if ( windowBlur === 'on' ) { disable_window_blur(); }
+
+                /** Disable Hidden Tab */
+                if ( tabHidden === 'on' ) { disable_tab_hidden(); }
+
+            }
 
             /** Disable Reader Mode. */
             if ( readerMode === 'on' ) { disable_reader_mode(); }
@@ -93,6 +98,19 @@ const UnGrabber = ( function () {
             /** Disable Image Dragging by Mouse. */
             if ( imageDragging === 'on' ) { disable_image_dragging(); }
         
+        }
+
+        /**
+         * Check is device is apple mobile - iPhone, iPad(no Pro)
+         * @return {boolean}
+         */
+        function isAppleMobile() {
+
+            const userAgent = window.navigator.userAgent.toLowerCase();
+            // const safari = /safari/.test( userAgent );
+
+            return /iphone|ipod|ipad/.test( userAgent );
+
         }
         
         /**

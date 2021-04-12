@@ -843,7 +843,11 @@ class WIS_InstagramSlider extends WP_Widget {
 			}
 			$images_div .= "<div class='{$images_div_class}'>\n";
 
+<<<<<<< HEAD
 			if( isset( $images_data['stories'] ) ) unset( $images_data['stories'] );
+=======
+			unset($images_data['stories']);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 			if ( is_array( $images_data ) && ! empty( $images_data ) ) {
 				if ( isset( $images_data['error'] ) ) {

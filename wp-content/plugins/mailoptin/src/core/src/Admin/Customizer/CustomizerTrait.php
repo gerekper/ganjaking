@@ -236,6 +236,7 @@ trait CustomizerTrait
         $zohocrm_label     = __('ZohoCRM Modules', 'mailoptin');
         $fbca_label        = __('Custom Audience', 'mailoptin');
         $jilt_label        = __('Select Linked Store', 'mailoptin');
+        $cleverreach_label = __('Select Group List', 'mailoptin');
         $default_label     = __('Select Email List', 'mailoptin');
         ?>
         <script type="text/javascript">
@@ -274,6 +275,10 @@ trait CustomizerTrait
                         if (connection_service === 'WordPressUserRegistrationConnect') {
                             title_obj.text('<?php echo $wp_user_reg_label; ?>');
                         }
+
+                        if (connection_service === 'CleverReachConnect') {
+                            title_obj.text('<?php echo $cleverreach_label; ?>');
+                        }
                     }
 
                     function logic_new(connection_service, parent) {
@@ -311,6 +316,10 @@ trait CustomizerTrait
                                 if (connection_service === 'WordPressUserRegistrationConnect') {
                                     title_obj.text('<?php echo $wp_user_reg_label; ?>');
                                 }
+
+                                if (connection_service === 'CleverReachConnect') {
+                                    title_obj.text('<?php echo $cleverreach_label; ?>');
+                                }
                             });
                         } else {
 
@@ -344,6 +353,10 @@ trait CustomizerTrait
 
                             if (connection_service === 'WordPressUserRegistrationConnect') {
                                 title_obj.text('<?php echo $wp_user_reg_label; ?>');
+                            }
+
+                            if (connection_service === 'CleverReachConnect') {
+                                title_obj.text('<?php echo $cleverreach_label; ?>');
                             }
                         }
                     }

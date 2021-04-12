@@ -82,7 +82,11 @@ this["wp"] = this["wp"] || {}; this["wp"]["editor"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 441);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 470);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1269,8 +1273,18 @@ if (false) { var throwOnDirectAccess, ReactIs; } else {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 307:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
+=======
+/***/ 293:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(452);
+
+
+/***/ }),
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 "use strict";
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
@@ -1537,6 +1551,7 @@ function isShallowEqual( a, b, fromIndex ) {
 			}
 		}
 
+<<<<<<< HEAD
 		// We use an arbitrary (but consistent) object as key for the last item
 		// in the WeakMap to serve as our running cache.
 		if ( ! caches.has( LEAF_KEY ) ) {
@@ -1544,6 +1559,10 @@ function isShallowEqual( a, b, fromIndex ) {
 			cache.isUniqueByDependants = isUniqueByDependants;
 			caches.set( LEAF_KEY, cache );
 		}
+=======
+/***/ 452:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 		return caches.get( LEAF_KEY );
 	}
@@ -1700,7 +1719,11 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 441:
+=======
+/***/ 470:
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

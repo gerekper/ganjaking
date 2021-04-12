@@ -1,0 +1,150 @@
+# Copyright (C) 2021 GP Unique ID
+# This file is distributed under the same license as the GP Unique ID package.
+msgid ""
+msgstr ""
+"Project-Id-Version: GP Unique ID\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../class-gp-unique-id.php:171
+msgid "Unique ID Type"
+msgstr ""
+
+#: ../class-gp-unique-id.php:172
+msgid "Unique ID Prefix"
+msgstr ""
+
+#: ../class-gp-unique-id.php:172
+msgid "Prepend a short string to the beginning of the generated ID (i.e. %1$s%3$sabc%4$s123890678%2$s)."
+msgstr ""
+
+#: ../class-gp-unique-id.php:173
+msgid "Unique ID Suffix"
+msgstr ""
+
+#: ../class-gp-unique-id.php:173
+msgid "Append a short string to the end of the generated ID (i.e. %1$s123890678%3$sxyz%4$s%2$s)."
+msgstr ""
+
+#: ../class-gp-unique-id.php:174
+msgid "Unique ID Length"
+msgstr ""
+
+#: ../class-gp-unique-id.php:175
+msgid "Unique ID Starting Number"
+msgstr ""
+
+#: ../class-gp-unique-id.php:175
+msgid "Set the starting number for sequential IDs; only available when \"Sequential\" type is selected."
+msgstr ""
+
+#: ../class-gp-unique-id.php:176
+msgid "Reset Starting Number"
+msgstr ""
+
+#: ../class-gp-unique-id.php:176
+msgid "Reset the sequence to the specified starting number when it is a lower number than the current sequence.<br /><br />By default, the starting number will only apply when the current sequence is lower than the specified starting number (i.e. if the current sequence is '1' and the starting number is '99', the sequence would be updated to '99').<br /><br />This option is useful after you have submitted a number of test entries and would like to reset the current sequence (i.e. if the current sequence is '12' and you would like to reset it to '1')."
+msgstr ""
+
+#: ../class-gp-unique-id.php:183
+msgid "Select the type of unique ID you would like to generate."
+msgstr ""
+
+#: ../class-gp-unique-id.php:195
+msgid "Set a specific length for the generated ID (excluding the prefix and suffix) or leave empty to use default length. There are some differences in length requirements for each ID type."
+msgstr ""
+
+#: ../class-gp-unique-id.php:199
+msgid "Requires a minimum length of <code>4</code>."
+msgstr ""
+
+#: ../class-gp-unique-id.php:210
+msgid "Requires a minimum length of <code>%s</code> and a maximum length of <code>19</code>."
+msgstr ""
+
+#: ../class-gp-unique-id.php:211
+msgid "Length is used to pad the number with zeros (i.e. an ID of <code>1</code> with a length of <code>5</code> would be <code>00001</code>). There is no minimum length."
+msgstr ""
+
+#: ../class-gp-unique-id.php:226
+msgid "Alphanumeric"
+msgstr ""
+
+#: ../class-gp-unique-id.php:227
+msgid "Contains letters and numbers (i.e. %1$sa12z9%2$s)."
+msgstr ""
+
+#: ../class-gp-unique-id.php:230
+msgid "Numeric"
+msgstr ""
+
+#: ../class-gp-unique-id.php:231
+msgid "Contains only numbers (i.e. %1$s152315902%2$s)."
+msgstr ""
+
+#: ../class-gp-unique-id.php:234
+msgid "Sequential"
+msgstr ""
+
+#: ../class-gp-unique-id.php:235
+msgid "Contains only numbers and is sequential with previously generated IDs per field (i.e. %1$s1%2$s, %1$s2%2$s, %1$s3%2$s)."
+msgstr ""
+
+#: ../includes/class-gf-field-unique-id.php:46, ../includes/class-gf-field-unique-id.php:83
+msgid "Unique ID"
+msgstr ""
+
+#: ../includes/class-gf-field-unique-id.php:101
+msgid "Type"
+msgstr ""
+
+#: ../includes/class-gf-field-unique-id.php:124
+msgid "Starting Number"
+msgstr ""
+
+#: ../includes/class-gf-field-unique-id.php:132
+msgid "reset"
+msgstr ""
+
+#: ../includes/class-gf-field-unique-id.php:139
+msgid "Length"
+msgstr ""
+
+#: ../includes/class-gf-field-unique-id.php:151
+msgid "Prefix"
+msgstr ""
+
+#: ../includes/class-gf-field-unique-id.php:163
+msgid "Suffix"
+msgstr ""
+
+#: ../includes/class-gf-field-unique-id.php:265
+msgid "Please enter a starting number to reset the sequential ID"
+msgstr ""
+
+#: ../includes/class-gf-field-unique-id.php:269
+msgid "resetting"
+msgstr ""
+
+#: ../includes/class-gf-field-unique-id.php:487
+msgid "Oops! There was an error resetting the starting number."
+msgstr ""
+
+#: ../includes/class-gf-field-unique-id.php:495
+msgid "Reset successfully!"
+msgstr ""
+
+#: ../includes/class-gf-field-unique-id.php:500
+msgid "Already reset."
+msgstr ""
+
+#: ../includes/class-gf-field-unique-id.php:505
+msgid "Error resetting."
+msgstr ""

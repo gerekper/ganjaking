@@ -428,12 +428,19 @@ jQuery( function( $ ) {
 								var html = '<div class="product-addon-totals"><ul><li><div class="wc-pao-col1"><strong><span>' + quantityString + '</span> ' + productName + '</strong></div><div class="wc-pao-col2"><strong><span class="amount">' + productPrice + '</span></strong></div></li>';
 							}
 
+							var hasCustomPriceWithTaxes = false;
 							if ( addons.length ) {
 								$.each( addons, function( i, addon ) {
 									if ( 'quantity_based' === addon.price_type ) {
 										var cost = wcPaoInitAddonTotals.getCostByTax( addon.cost_raw, addon.cost );
 										var	formattedValue = 0 === cost ? '-' : wcPaoInitAddonTotals.formatMoney( cost );
 										html = html + '<li class="wc-pao-row-quantity-based"><div class="wc-pao-col1">' + addon.name + '</div><div class="wc-pao-col2"><span class="amount">' + formattedValue + '</span></div></li>';
+									}
+									if (
+										woocommerce_addons_params.tax_enabled &&
+										addon.is_custom_price
+									) {
+										hasCustomPriceWithTaxes = true;
 									}
 								} );
 								$.each( addons, function( i, addon ) {
@@ -456,8 +463,12 @@ jQuery( function( $ ) {
 							var price_display_suffix = '',
 								sub_total_string     = typeof( $totals.data( 'i18n_sub_total' ) ) === 'undefined' ? woocommerce_addons_params.i18n_sub_total : $totals.data( 'i18n_sub_total' );
 
-							// no sufix is present, so we can just output the total
-							if ( ! woocommerce_addons_params.price_display_suffix || ! woocommerce_addons_params.tax_enabled ) {
+							// no suffix is present, so we can just output the total
+							if (
+								! hasCustomPriceWithTaxes &&
+								( ! woocommerce_addons_params.price_display_suffix ||
+									! woocommerce_addons_params.tax_enabled )
+							) {
 								html = html + '<li class="wc-pao-subtotal-line"><p class="price">' + sub_total_string + ' <span class="amount">' + formatted_sub_total + '</span></p></li></ul></div>';
 								$totals.html( html );
 								$cart.trigger( 'updated_addons' );
@@ -465,7 +476,19 @@ jQuery( function( $ ) {
 							}
 
 							// A suffix is present, but no special labels are used - meaning we don't need to figure out any other special values - just display the plain text value
-							if ( false === ( woocommerce_addons_params.price_display_suffix.indexOf( '{price_including_tax}' ) > -1 ) && false === ( woocommerce_addons_params.price_display_suffix.indexOf( '{price_excluding_tax}' ) > -1 ) ) {
+							if (
+								! hasCustomPriceWithTaxes &&
+								false ===
+									woocommerce_addons_params.price_display_suffix.indexOf(
+										'{price_including_tax}'
+									) >
+										-1 &&
+								false ===
+									woocommerce_addons_params.price_display_suffix.indexOf(
+										'{price_excluding_tax}'
+									) >
+										-1
+							) {
 								html = html + '<li class="wc-pao-subtotal-line"><strong>' + sub_total_string + ' <span class="amount">' + formatted_sub_total + '</span> ' + woocommerce_addons_params.price_display_suffix + '</strong></li></ul></div>';
 								$totals.html( html );
 								$cart.trigger( 'updated_addons' );
@@ -487,11 +510,24 @@ jQuery( function( $ ) {
 								success: function( result ) {
 									if ( result.result == 'SUCCESS' ) {
 										price_display_suffix = '<small class="woocommerce-price-suffix">' + woocommerce_addons_params.price_display_suffix + '</small>';
-										var formatted_price_including_tax = '<span class="amount">' + wcPaoInitAddonTotals.formatMoney( result.price_including_tax ) + '</span>';
-										var formatted_price_excluding_tax = '<span class="amount">' + wcPaoInitAddonTotals.formatMoney( result.price_excluding_tax ) + '</span>';
-										price_display_suffix = price_display_suffix.replace( '{price_including_tax}', formatted_price_including_tax );
-										price_display_suffix = price_display_suffix.replace( '{price_excluding_tax}', formatted_price_excluding_tax );
-										html                 = html + '<li class="wc-pao-subtotal-line"><p class="price">' + sub_total_string + ' <span class="amount">' + formatted_sub_total + '</span> ' + price_display_suffix + ' </p></li></ul></div>';
+										var formatted_price_including_tax = wcPaoInitAddonTotals.formatMoney(
+											result.price_including_tax
+										);
+										var formatted_price_excluding_tax = wcPaoInitAddonTotals.formatMoney(
+											result.price_excluding_tax
+										);
+										price_display_suffix = price_display_suffix.replace(
+											'{price_including_tax}',
+											'<span class="amount">' + formatted_price_including_tax + '</span>'
+										);
+										price_display_suffix = price_display_suffix.replace(
+											'{price_excluding_tax}',
+											'<span class="amount">' + formatted_price_excluding_tax + '</span>'
+										);
+										var subtotal = woocommerce_addons_params.display_include_tax
+											? formatted_price_including_tax
+											: formatted_price_excluding_tax;
+										html = html + '<li class="wc-pao-subtotal-line"><p class="price">' + sub_total_string + ' <span class="amount">' + subtotal + '</span> ' + price_display_suffix + ' </p></li></ul></div>';
 										$totals.html( html );
 										$cart.trigger( 'updated_addons' );
 									} else {

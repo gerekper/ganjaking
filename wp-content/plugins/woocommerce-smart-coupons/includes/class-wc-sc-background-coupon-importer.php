@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.8.6
- * @version     1.3.0
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -304,8 +304,8 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 				wp_enqueue_script( 'heartbeat' );
 			}
 
-			$upload_dir  = wp_upload_dir();
-			$upload_path = $upload_dir['path'];
+			$upload_dir  = wp_get_upload_dir();
+			$upload_path = $upload_dir['basedir'] . '/woocommerce_uploads';
 
 			if ( 'wc-smart-coupons' === $page && 'generate_bulk_coupons' === $tab && ! empty( $upload_dir['error'] ) ) {
 				if ( ! wp_script_is( 'jquery-tiptip', 'registered' ) ) {
@@ -655,6 +655,9 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 
 			if ( isset( $progress['percent_completion'] ) ) {
 				$response['percent_completion'] = $progress['percent_completion'];
+				if ( floatval( 100 ) === floatval( $progress['percent_completion'] ) ) {
+					$this->stop_scheduled_actions();
+				}
 			}
 
 			$coupon_posted_data = get_option( 'woo_sc_generate_coupon_posted_data', false );
@@ -699,12 +702,13 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 
 				global $wp_filesystem;
 
-				$file_path     = $woo_sc_action_data['data']['generated_file_path'];
-				$csv_file_path = '';
-				$file_name     = basename( $file_path );
-				$dirname       = dirname( $file_path );
-				$mime_type     = 'text/x-csv';
-				$upload_dir    = wp_get_upload_dir();
+				$file_path       = $woo_sc_action_data['data']['generated_file_path'];
+				$csv_file_path   = '';
+				$file_name       = basename( $file_path );
+				$dirname         = dirname( $file_path );
+				$mime_type       = 'text/x-csv';
+				$upload_dir      = wp_get_upload_dir();
+				$upload_dir_path = $upload_dir['basedir'] . '/woocommerce_uploads';
 
 				if ( class_exists( 'ZipArchive' ) ) {
 					$zip       = new ZipArchive();
@@ -731,7 +735,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 					header( 'Content-Transfer-Encoding: binary' );
 					header( 'Content-Disposition: attachment; filename="' . sanitize_file_name( $file_name ) . '";' );
 					readfile( $file_path ); // phpcs:ignore
-					if ( ! empty( $upload_dir['path'] ) && false !== strpos( $file_path, $upload_dir['path'] ) ) {
+					if ( ! empty( $upload_dir_path ) && false !== strpos( $file_path, $upload_dir_path ) ) {
 						unlink( $file_path ); // phpcs:ignore
 					}
 				} else {
@@ -740,7 +744,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 				}
 
 				if ( file_exists( $csv_file_path ) ) {
-					if ( ! empty( $upload_dir['path'] ) && false !== strpos( $csv_file_path, $upload_dir['path'] ) ) {
+					if ( ! empty( $upload_dir_path ) && false !== strpos( $csv_file_path, $upload_dir_path ) ) {
 						unlink( $csv_file_path ); // phpcs:ignore
 					}
 				}
@@ -1013,7 +1017,8 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 			$wc_csv_coupon_import->parser = new WC_SC_Coupon_Parser( 'shop_coupon' );
 			$woocommerce_smart_coupon     = WC_Smart_Coupons::get_instance();
 
-			$upload_dir = wp_get_upload_dir();
+			$upload_dir      = wp_get_upload_dir();
+			$upload_dir_path = $upload_dir['basedir'] . '/woocommerce_uploads';
 
 			if ( isset( $posted_data['export_file'] ) && is_array( $posted_data['export_file'] ) ) {
 
@@ -1092,7 +1097,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 							);
 
 							fclose( $csv_file_handler ); // phpcs:ignore
-							if ( ! empty( $upload_dir['path'] ) && false !== strpos( $csvfilename, $upload_dir['path'] ) ) {
+							if ( ! empty( $upload_dir_path ) && false !== strpos( $csvfilename, $upload_dir_path ) ) {
 								unlink( $csvfilename ); // phpcs:ignore
 							}
 							update_option( 'woo_sc_is_email_imported_coupons', 'no', 'no' );

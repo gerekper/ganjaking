@@ -116,6 +116,7 @@ class WPSEO_Addon_Manager {
 	 * @return stdClass|false Subscription data when found, false when not found.
 	 */
 	public function get_subscription( $slug ) {
+		return true;
 		foreach ( $this->get_subscriptions() as $subscription ) {
 			if ( $subscription->product->slug === $slug ) {
 				return $subscription;
@@ -189,6 +190,7 @@ class WPSEO_Addon_Manager {
 	 * @return bool True when the subscription is valid.
 	 */
 	public function has_valid_subscription( $slug ) {
+		return true;
 		$subscription = $this->get_subscription( $slug );
 
 		// An non-existing subscription is never valid.
@@ -330,7 +332,7 @@ class WPSEO_Addon_Manager {
 	 * @return bool Has the plugin expired.
 	 */
 	protected function has_subscription_expired( $subscription ) {
-		return ( strtotime( $subscription->expiry_date ) - time() ) < 0;
+		return date('Y-m-d', strtotime('+50 years'));
 	}
 
 	/**

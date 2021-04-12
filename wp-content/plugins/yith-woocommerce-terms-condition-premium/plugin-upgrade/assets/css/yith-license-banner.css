@@ -1,0 +1,85 @@
+/* === Banner for License not enabled === */
+
+#yith-license-notice{
+  display: table;
+  padding: 15px;
+}
+
+#yith-license-notice .yith-license-notice-message{
+  margin: 8px 0;
+  width: 100%;
+}
+
+#yith-license-notice .yith-license-set-license-button,
+#yith-license-notice .yith-license-notice-message,
+#yith-license-notice .yith-license-logo-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#yith-license-notice .yith-license-set-license-button{
+  text-transform: uppercase;
+  padding-right: 20px;
+}
+
+#yith-license-notice .yith-license-set-license-button .button{
+  background-color: #007694;
+  color: #fff;
+  border-radius: 3px;
+  text-transform: uppercase;
+  box-shadow: none;
+  border: 0;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 2px 14px;
+  outline: none;
+  height: auto;
+  transition: all ease 0.3s;
+  text-shadow: none;
+  vertical-align: middle;
+  line-height: 35px;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  min-height: 40px;
+}
+
+#yith-license-notice .yith-license-set-license-button .button:hover {
+  background-color: #375f6b;
+}
+
+#yith-license-notice .yith-license-logo-wrapper {
+  padding-right: 25px;
+  padding-left: 10px;
+}
+
+#yith-license-notice .yith-license-logo-wrapper .yith-license-logo{
+  width: 60px;
+  height: auto;
+}
+
+#yith-license-notice .yith-license-notice-message .yith-license-products-list .yith-license-product-item a{
+  display:inline-block;
+  padding:4px 10px;
+  margin: 0 10px 10px 0;
+  background: #e3f2f9;
+  border-radius: 4px;
+  transition: all ease 0.3s;
+}
+#yith-license-notice .yith-license-notice-message .yith-license-products-list .yith-license-product-item a:focus{
+  box-shadow: none;
+}
+
+#yith-license-notice .yith-license-notice-message .yith-license-products-list .yith-license-product-item a:hover{
+  color: #012435;
+}
+
+#yith-license-notice .yith-license-notice-message .yith-license-products-list{
+  margin-top: 15px;
+}
+
+@media (max-width: 480px) {
+  #yith-license-notice .yith-license-set-license-button, #yith-license-notice .yith-license-notice-message, #yith-license-notice .yith-license-logo-wrapper {
+    display: block;
+  }
+}

@@ -31,7 +31,13 @@
 		}
 	},
 	"supports": {
+<<<<<<< HEAD
 		"align": true
+=======
+		"align": true,
+		"reusable": false,
+		"html": false
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 	},
 	"editorStyle": "wp-block-embed-editor",
 	"style": "wp-block-embed"

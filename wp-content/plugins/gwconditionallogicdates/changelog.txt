@@ -1,0 +1,242 @@
+
+# Changelog
+
+## 1.0.12
+
+	- Fixed issue where Read-Only-enabled Datepicker fields were not correctly evaluated when the datepicker was disabled.
+
+## 1.0.11
+
+	- Fixed issue where specifying non-lowercased am/pm times in time-based conditional logic rules failed to evaluate correctly.
+
+## 1.0.10
+
+	- Fixed regression where valid timestamps were not correctly identified causing issues with date-based conditional logic evaluation.
+
+## 1.0.9
+
+	- Fixed issue where conditional logic is evaluated for form object that has not had its date values converted.
+
+## 1.0.8
+
+	- Fixed notice generated when invalid form is passed via GF filters.
+	- Updated plugin author.
+
+## 1.0.7
+
+	- Fixed issue where dates were not replaced with timestamps on payment callbacks.
+
+## 1.0.6
+
+	- Updated frontend JS to handle the date selection requirement for conditional logic evaluation to match how it is handled by PHP.
+	- Added JS and PHP hook "gpcld_require_date_selection" to disable date selection requirement for conditional logic evaluation.
+
+## 1.0.5
+
+	- Fixed issue when validating dates in January.
+
+## 1.0.4
+
+	- Fixed issue with GP Limit Dates where inline datepickers used in conditional logic did not evaluate correctly.
+
+## 1.0.3
+
+	- Fixed issue where fields with date-based conditional logic appearing in the order summary were not correctly evaluated in the admin.
+Added support for style/script minification.
+	- Fixed whitespace
+
+## 1.0.2
+
+    - Added support for Date Field and Date Dropdown as the Date Input Type
+
+## 1.0.1
+
+	- Added support for converting time-based conditional logic to use UTC timezone.
+
+## 1.0
+
+	- Updated version to 1.0; all features are considered very stable.
+	- Updated minimum GF version to 2.0.
+
+## 1.0.beta6.4
+
+    - Fixed issue where time-based conditionals were not evaulated correctly when based on entry (rather than posted values).
+
+## 1.0.beta6.3
+
+    - Fixed issue where wildcard date comparision generated a JS error; they were still using the old method for fetching the date format.
+
+## 1.0.beta6.2
+
+    - Removed input mask from the rule value input for date-based conditional logic rules; allows merge tags to be used (i.e. {today})
+
+## 1.0.beta6.1
+
+    - Added support for processing conditional logic on GF feeds.
+
+## 1.0.beta6.0
+
+    - Added support for Time fields.
+    - Added support for Datepicker when specifying date-based conditional logic rules.
+    - Added support for Time & Datepicker UI helpers when creating date-and-time-based conditional logic rules in other places than the form editor.
+    - Updated conditional logic events to use 'gfield_trigger_change' class rather than manually adding logic events to input markup.
+    - Updated inline form script; it has been moved to the gp-conditional-logic-dates.js file.
+
+## 1.0.beta5.18
+
+    - Fixed issue where admin scripts were output before prematurely
+
+## 1.0.beta5.17
+
+    - Fixed issue caused by WC GF Product Add-ons plugin; prematurely caches values before appropriate functionality can be applied.
+
+## 1.0.beta5.16
+
+    - Fixed issue when selected date was 01/01/1970.
+
+## 1.0.beta5.15
+
+    - Fixed issue when comparing a date to the {sunday} special merge tag.
+
+## 1.0.beta5.14
+
+    - Added support for wildcard rule values: 9/20/* would match Sept 20th of any year.
+
+## 1.0.beta5.13
+
+    - Fixed issue where date-based conditional logic on Page fields was not processed correctly
+
+## 1.0.beta5.12
+
+    - Fixed issue where empty dates compared with {sunday} evalulated as true
+    - Fixed issue where admin scripts were not enqueued on all applicable pages
+
+## 1.0.beta5.11
+
+    - Fixed issue where "Current Time" failed validation if time value was after current time
+
+## 1.0.beta5.10
+
+    - Fixed issue where "Current Time" compared to 12:XXpm would fail
+
+## 1.0.beta5.9
+
+    - Fixed issue where form w/ only "Current Time" conditional logic did not register as GPCLD-enabled
+
+## 1.0.beta5.8
+
+    - Added support for "Current Time" as a special field in the conditional logic field drop down
+    - Updated perk to use GP_Bootstrap
+
+## 1.0.beta5.7
+
+    - Fixed issue where modify_frontend_form_object() was expecting two parameters though it only required one
+
+## 1.0.beta5.6
+
+    - Fixed issue where Post Custom Field with Date input type were not supported
+
+## 1.0.beta5.5
+
+    - Update {today} merge tag to use configured WP time as the base timestamp
+
+## 1.0.beta5.4
+
+    - Fixed issue where $form object was not correclty return for forms that did not contain date-based conditional logic
+    - Fixed issue where inline scripts output in footer were still output too early
+
+## 1.0.beta5.3
+
+    - Updated inline script to output in footer (fixes issues when GF scripts loaded in footer)
+
+## 1.0.beta5.2
+
+    - Added support for {monday} - {sunday} merge tags for determining the day of the week
+
+## 1.0.beta5.1
+
+    - Fixed issue where adding Date field to form when WP_DEBUG was enabled would cause JS error.
+
+## 1.0.beta5.0
+
+    - Added support for {month} and {day} merge tags; can be used to check logic by month month (e.g. '7/{day}/{month}') or by day (e.g. '{month}/15/{year}')
+
+## 1.0.beta4.1
+
+    - Fixed issue where gf_apply_rules() was being called for Date fields when conditional logic was not applied
+    - Fixed conflict with OptimizePress theme which outputs inline scripts earlier than expected
+    - Updated {year} merge tag to support a modifier (i.e. "+1 year", "+2 years")
+
+## 1.0.beta4.0
+
+    - Added support for special {year} merge tag; available only for date-based conditional logic
+
+## 1.0.beta3.11
+
+    - Fixed issue where date fields in different formats (dot/dash) were not interpreted correctly
+
+## 1.0.beta3.10
+
+    - Rolled back changes where timestamp conversion happened when the form was retrieved from database; will be updated soon to convert only when processing date logic.
+
+## 1.0.beta3.9
+
+    - Updated conditional logic so that a date must be selected before logic is processed
+
+## 1.0.beta3.8
+
+    - Updated how form object was filtered for conversion of dates to timestamps in conditional logic rules; happens globally now excluding the form editor
+
+## 1.0.beta3.7
+
+    - Added support for Date fields in routing conditions (requires Gravity Forms v1.9.5.7)
+    - Added documentation link to first draft post
+
+## 1.0.beta3.6
+
+	- Fixed issue where inline form script was output incorrectly on AJAX forms
+	- Fixed issue where conditional logic was not working when resending notifications (for real this time with more to come)
+
+## 1.0.beta3.5
+
+	- Fixed issue where conditional logic was not working when resending notifications
+
+## 1.0.beta3.4
+
+    - Fixed issue where conditional logic was not working when processed in the backend
+
+## 1.0.beta3.3
+
+    - Fixed issue on Entry Detail view where gform object was not avaialble
+
+## 1.0.beta3.2
+
+    - Fixed issue where in some cases date format was not specified
+
+## 1.0.beta3.1
+
+    - Added support for allowing conditional logic date fields to use all GF date formats
+
+## 1.0.beta3.0
+
+    - Updated add-on to work with Gravity Forms 1.9
+
+## 1.0.beta2
+
+- Removed are_dates_converted() method in favor of validating whether the value has been converted to a timestamp yet
+
+## 1.0.beta1.2
+
+- Fixed issue where conditional logic date value conversion was not happening when navigating backwards through a form
+
+## 1.0.beta1.1
+
+- Fixed issue where conditional logic date value conversion was failing on multi-page forms
+
+## 1.0.beta1
+
+- Updated which GF hooks are used to auto-convert date-based conditional logic rules in the $form object
+
+## 0.4
+
+- Added support for converting date-based conditional logic rule values on pre-submission and pre-validation; makes it easier for plugins to integrate

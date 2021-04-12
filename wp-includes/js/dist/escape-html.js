@@ -82,12 +82,20 @@ this["wp"] = this["wp"] || {}; this["wp"]["escapeHtml"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 470);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 497);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /******/ })
 /************************************************************************/
 /******/ ({
 
+<<<<<<< HEAD
 /***/ 470:
+=======
+/***/ 497:
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

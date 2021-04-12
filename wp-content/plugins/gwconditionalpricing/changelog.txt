@@ -1,0 +1,305 @@
+
+# Changelog
+
+## 1.2.46
+
+	- Fixed a UI issue where prices with decimals could not be stored.
+
+## 1.2.45
+
+	- Added `formId` to the options passed to the `gpcp_price` JS filter.
+
+## 1.2.44
+
+	- Added [gpcp_price](https://gravitywiz.com/documentation/gpcp_price-php/) PHP filter to complete it's [JS counterpart](https://gravitywiz.com/documentation/gpcp_price-js/).
+	- Added docblock for `gpcp_price` JS filter.
+
+## 1.2.43
+
+	- Fixed an issue where prices with 3 or more decimal places were not rounded.
+	- Added option to allow replacing existing pricing rules when importing new pricing rules.
+
+## 1.2.42
+
+	- Reverted fix made for reverted change in Gravity Forms 2.5. 😜
+	- Improved support for Gravity Forms 2.5.
+
+## 1.2.41
+
+	- Improved UI of conditional prices in the Form Settings when using Gravity Forms 2.5 or newer.
+
+## 1.2.40
+
+	- Fixed issue where pricing rules based on Single Product Quantity were removed when editing pricing rules.
+
+## 1.2.39
+
+	- Fixed issue where deleted fields were not removed from conditional pricing rules.
+
+## 1.2.38
+
+	- Fixed performance issues with large number of pricing conditions.
+
+## 1.2.37
+
+	- Added support for using dynamically populated price as base price.
+	- Updated French translation.
+
+## 1.2.36
+
+	- Fixed issue where a required flag on Single Product fields was not respected.
+
+## 1.2.35
+
+	- Fixed JS error where product was deleted from form but not removed from conditional pricing rules.
+
+## 1.2.34
+
+	- Fixed issue where slashes were stripped twice when saving pricing rules which created parse errors in the JSON when HTML attributes were present in field labels or rule values.
+    - Fixed issue where errors parsing the pricing logic when saving resulted in a loss of pricing rule data.
+
+## 1.2.33
+
+	- Improved performance of Number fields using HTML5 spinbox.
+
+## 1.2.32
+
+	- Added support for importing multiple values from a single column (i.e value1,value2).
+
+## 1.2.31
+
+	- Fixed issue were field dependencies were not correctly identified and result in dependent fields not triggering a pricing update in some cases.
+
+## 1.2.30
+
+	- Fixed issues releated to new importer.
+
+## 1.2.29
+
+    - Added preliminary support for importing pricing levels; must be activated via filter.
+        add_filter( 'gpcp_enable_importer', '__return_true' );
+
+## 1.2.28
+
+	- Fixed issue where pricing rules were not correctly validated when submitting from a source page of 0.
+
+## 1.2.27
+
+    - Fixed issue where Single Product quantity did not trigger pricing update when HTML5 was enabled and quantity was set via HTML5 spinbox.
+
+## 1.2.26
+
+    - Fixed issue where quantity validation was incorrectly bypassed for Single Product fields.
+
+## 1.2.25
+
+    - Fixed issue where Time fields did not correctly trigger pricing update.
+    - Fixed conflict with GF where GPCP was overwriting format() function.
+
+## 1.2.24
+
+    - Fixed issue with WC GF Product Add-ons by changing default $formElem (where GWCP data is stored) to form wrapper rather than form element.
+
+## 1.2.23
+
+    - Fixed conflict with GP Conditional Logic Dates' "Current Time" option when configured with a pricing rule; caused JS error.
+
+## 1.2.22
+
+    - Fixed currency formatting issue introduced by Gravity Forms 2.1.2
+
+## 1.2.21
+
+    - Fixed issue when HTML5 was enabled; some field types did not trigger onkeyup conditional logic
+
+## 1.2.19
+
+    - Fixed issue where pricing rules based on Single Product quantities were not evaluated correctly due to a change in Gravity Forms
+
+## 1.2.18
+
+    - Fixed issue where Gravitate Encryption plugin caused products with pricing rules applied to fail validation
+    - Minor refactors.
+
+## 1.2.17
+
+    - Fixed issue where quantity-based pricing rules would not evaluate quantities which included a comma
+
+## 1.2.16
+
+    - Fixed conflict with Better WordPress Minify; choking lack of semi-colon after regex pattern.
+
+## 1.2.15
+
+    - Fixed issue where saving form from Form Editor or Form Settings would overwrite changes made to conditional pricing rules when working in multiple tabs
+    - Updated perk to use GP_Bootstrap
+
+## 1.2.14
+
+    - Fixed issue where if 3+ decimal currencies would incorrectly be rounded to 2 decimals when editing a pricing rule
+
+## 1.2.13
+
+    - Added 'gpcp_after_update_pricing' JS action to support doing something after prices have been updated
+        See: https://gist.github.com/spivurno/aaf3d6a684b418edeeed
+
+## 1.2.12
+
+    - Fixed issue where single product quantity based conditional logic did not evaluate correctly when no other conditional logic rules were set
+
+## 1.2.11
+
+    - Fixed issue where multi-input fields with global pricing rules did not correctly fetch the correct base price when no matching pricing level was found
+
+## 1.2.10
+
+    - Fixed issue where deactivating GP triggers a fatal error
+
+## 1.2.9
+
+    - Fixed issue where pricing fields altered by conditional pricing did not trigger calculation fields dependent on them
+    - Added French translation, thanks @jennybeaumont!
+
+## 1.2.8.5
+
+    - Removed safetynet.php dependency
+
+## 1.2.8.4
+
+    - Added better localization support
+
+## 1.2.8.3
+
+    - Fixed issue where Select-type Products with Placeholders enabled would offset the prices by one choice
+
+## 1.2.8.2
+
+    - Added support for debouncing updatePricing so it fires as few times as possible when change event is fired rapidly
+
+## 1.2.8.1
+
+    - Experimental improvements for speed, especially combined with calculations.
+
+## 1.2.8
+
+    - Fixed issue where comma-based currencies were treated as decimals when included in calculations; price was set on input-based Product fields as a number rather than a currency like GF does by default so 0.50 was converted to 50.00)
+
+## 1.2.7
+
+    - Updating pricing script to call updatePricing more efficiently; now only triggered when either the product field itself changes or a field on which the product is dependent changes
+
+## 1.2.6
+
+    - Fixed issue where infinite conditional logic loop was triggered when setting conditional price (caused by differences in previous value vs new value due to price formatting)
+    - Updated pricing rule editor to display price in a currency-specific number format instead of always as a decimal (i.e. euro => '1.250,50' vs '1250.50')
+
+## 1.2.5
+
+    - Fixed a bug where file uploads were not saved due to field values being cached when temp entry object was created
+
+## 1.2.4
+
+    - Fixed issue where the price of product fields modified via conditional pricing was not correctly reflected when included in GF calculation fields
+
+## 1.2.3
+
+   - Fixed issue where in some cases, the total input value was updated but the total text was not. Resolved by preventing total input's change event from triggering the updatePricing method.
+
+## 1.2.2
+
+    - Fixed stack overflow issue caused by new change event on GF's Total field
+    - Miscellaneous improvements
+
+## 1.2.1
+
+    - Fixed issue where pricing adjustments were not correctly applied to some GF payment gateways due to order of events
+
+## 1.2
+
+    - Updated to be Gravity Forms 1.9 ready!
+    - Fixed bug with conditional pricing levels where fields were not correctly populated into field select
+    - Updated styling to better match WordPress 4.0
+    - Update readable pricing rules to include word-based operator labels (i.e. ">" became "greater than")
+    - Updated readable pricing rules to truncate field labels
+    - Updated product select with max-width (prevents huge select for large product labels)
+    - Fixed issue where pricing levels for individual radio button products were not applied correctly
+    - Fixed issue with UI where an error was returned when selected value was undefined when generating custom quantity inputs
+
+## 1.1.1
+
+    - Fixed issue where pricing rules based on fields hidden by conditional logic would match incorrectly
+
+## 1.1
+
+    - Added export functionality; pricing rules are now exported/imported with the form
+    - Updated: "Admin only" product fields are no longer eligble for conditional pricing
+    - Updated minimum Gravity Forms version to 1.8.8; required for new export functionality
+
+## 1.0.1
+
+    - Fixed a notice in validate_submission() method where GFFormsModel::get_field_value() returned array
+
+## 1.0
+
+    - Added documentation
+    - Let's do this!
+
+## 1.0.beta3.2
+
+    - Fixed issue where "WooCommerce - Gravity Forms Product Add-Ons" variable pricing selects were generating a JS error
+
+## 1.0.beta3.1
+
+    - Fixed issue where "WooCommerce - Gravity Forms Product Add-Ons" quantity input was generating a JS error
+
+## 1.0.beta3
+
+- Fixed conflict with "WooCommerce - Gravity Forms Product Add-Ons" plugin
+
+## 1.0.beta2.3
+
+- Fixed issue where conditional_pricing_menu_item() failed to check if a valid $form was being sent to the has_product_field() method
+- Updated validate_submission() method to force a validation failure if price did not match; also made function much easier to read
+
+## 1.0.beta2.2
+
+- Fixed issue where having a "global" rule on a multi-product field was not playing nice when a product-specific rule on a multi-product field was applied
+
+## 1.0.beta2.1
+
+- Fixed issue where single product rules in drop downs were not being validated correctly
+
+## 1.0.beta2
+
+- Added $version property
+- Updated JS object from GWTieredPricing to GWConditionalPricing
+- Added GWConditionalPricing.pricingIteration to support more performant usage of the "gpcp_pricing" filter
+- Added form ID parameter to GWConditionalPricing.setPrice method
+- Fixed issue where price passed by reference in "gpcp_pricing" was causing issues
+- Updated several methods of GWConditionalPricing to be static
+
+# 1.0.beta1.3
+
+- Fixed issue where custom quantity was not working in some cases
+- Added 'gwcp_price' JS filter
+
+# 1.0.beta1.2
+
+- Fixed issue where cond pricing rules applied to multi-product parent failed to reset invidual products to correct base prices
+
+# 1.0.beta1.1
+
+- Updated so calculation and user defined price fields no longer appears as options for conditional pricing
+- Fixed issue where conditional_logic.js was not included and initialized
+- Updated minimum GF version to 1.7.6.3
+
+# 1.0.beta1
+
+- Major update with various UI and functionality improvements in preperation for beta launch
+
+# 0.9.7
+
+- Replaced deprecated .live() calls to .on()
+- jQuery UI is now only loaded on the GP Conditional Pricing Settings page
+- Changed drag cursor to only display when hovering over a single pricing level
+- Fixed an issue where the sorting was not being saved in the correct order

@@ -75,30 +75,12 @@ class WC_CP_Scenario {
 					$modifier = 'not-in';
 				}
 
-				$is_optional    = isset( $scenario_data[ 'optional_components' ] ) && is_array( $scenario_data[ 'optional_components' ] ) && in_array( $component_id, $scenario_data[ 'optional_components' ] );
 				$component_data = 'masked' === $modifier ? array( 0 ) : array_map( 'intval', $component_data );
 
 				$configuration[ strval( $component_id ) ] = array(
 					'component_options' => $component_data,
-					'options_modifier'  => $modifier,
-					'is_optional'       => $is_optional
+					'options_modifier'  => $modifier
 				);
-			}
-		}
-
-		if ( ! empty( $scenario_data[ 'optional_components' ] ) && is_array( $scenario_data[ 'optional_components' ] ) ) {
-
-			$optional_components = array_map( 'strval', $scenario_data[ 'optional_components' ] );
-
-			foreach ( $optional_components as $component_id ) {
-				if ( isset( $configuration[ $component_id ] ) ) {
-					$configuration[ $component_id ][ 'is_optional' ] = true;
-				} else {
-					$configuration[ $component_id ] = array(
-						'component_options' => array(),
-						'is_optional'       => true
-					);
-				}
 			}
 		}
 
@@ -132,13 +114,11 @@ class WC_CP_Scenario {
 								continue;
 							}
 
-							$is_optional    = isset( $scenario_data[ 'optional_components' ] ) && is_array( $scenario_data[ 'optional_components' ] ) && in_array( $component_id, $scenario_data[ 'optional_components' ] );
 							$component_data = array_map( 'intval', $component_data );
 
 							$action_configuration[ strval( $component_id ) ] = array(
 								'component_options' => $component_data,
-								'options_modifier'  => $modifier,
-								'is_optional'       => $is_optional
+								'options_modifier'  => $modifier
 							);
 						}
 					}
@@ -204,11 +184,7 @@ class WC_CP_Scenario {
 
 		// Any product or variation...
 		if ( '0' === $this->id || $this->contains_id( $component_id, 0 ) ) {
-			$contains = true;
-			if ( $product_id === -1 && ( ! isset( $this->configuration_data[ $component_id ][ 'is_optional' ] ) || ! $this->configuration_data[ $component_id ][ 'is_optional' ] ) ) {
-				$contains = false;
-			}
-			return $contains;
+			return true;
 		}
 
 		$exclude  = 'not-in' === $modifier;
@@ -234,7 +210,7 @@ class WC_CP_Scenario {
 					$contains = true;
 				}
 			}
-		} elseif ( $product_id === -1 && $this->configuration_data[ $component_id ][ 'is_optional' ] ) {
+		} elseif ( $product_id === -1 ) {
 			if ( false === $exclude ) {
 				if ( $this->contains_id( $component_id, $product_id ) ) {
 					$contains = true;
@@ -300,7 +276,7 @@ class WC_CP_Scenario {
 					$contains = true;
 				}
 			}
-		} elseif ( $product_id === -1 && $configuration[ $component_id ][ 'is_optional' ] ) {
+		} elseif ( $product_id === -1 ) {
 			if ( false === $exclude ) {
 				if ( $this->contains_id( $component_id, $product_id, $configuration ) ) {
 					$contains = true;
@@ -333,6 +309,26 @@ class WC_CP_Scenario {
 		}
 
 		return array_map( 'strval', $masked );
+	}
+
+	/**
+	 * Get components with all options in scenario.
+	 *
+	 * @return array
+	 */
+	public function get_any_components() {
+
+		$any = array();
+
+		if ( ! empty( $this->configuration_data ) ) {
+			foreach ( $this->configuration_data as $component_id => $data ) {
+				if ( isset( $data[ 'options_modifier' ] ) && 'in' === $data[ 'options_modifier' ] && $this->contains_id( $component_id, 0 ) ) {
+					$any[] = $component_id;
+				}
+			}
+		}
+
+		return array_map( 'strval', $any );
 	}
 
 	/**
@@ -453,6 +449,18 @@ class WC_CP_Scenario {
 	 */
 	public function get_ids( $component_id ) {
 		return ! $this->masks_component( $component_id ) && ! empty( $this->configuration_data[ $component_id ][ 'component_options' ] ) && is_array( $this->configuration_data[ $component_id ][ 'component_options' ] ) ? $this->configuration_data[ $component_id ][ 'component_options' ] : array();
+	}
+
+	/**
+	 * Get modifier.
+	 *
+	 * @since  8.1.0
+	 *
+	 * @param  string  $component_id
+	 * @return array
+	 */
+	public function get_modifier( $component_id ) {
+		return ! empty( $this->configuration_data[ $component_id ][ 'options_modifier' ] ) ? $this->configuration_data[ $component_id ][ 'options_modifier' ] : null;
 	}
 
 	/**

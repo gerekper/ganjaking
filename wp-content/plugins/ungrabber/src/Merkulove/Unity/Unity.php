@@ -5,7 +5,7 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.1
+ * @version         3.0.2
  * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
@@ -87,7 +87,7 @@ final class Unity {
 		self::restore_settings();
 
 		/** Send install Action to our host. */
-		self::send_install_action();
+		 self::send_install_action();
 
         /** Define hooks that runs on both the front-end as well as the dashboard. */
         $this->both_hooks();
@@ -240,11 +240,18 @@ final class Unity {
 		$opt_name = 'mdp_ungrabber_send_action_install';
 		$installed_version = get_option( $opt_name );
 
-		if ( ! $installed_version || Plugin::get_version() !== $installed_version ) {
+		/** Update plugins version in the Data Base if versions is not mach */
+		if ( Plugin::get_version() !== $installed_version ) {
+
+			update_option( $opt_name, Plugin::get_version() );
+
+		}
+
+		/** Send installed plugin version to our host */
+		if ( ! $installed_version ) {
 
             /** Send install Action to our host. */
 			Helper::get_instance()->send_action( 'install', 'ungrabber', Plugin::get_version() );
-			update_option( $opt_name, Plugin::get_version() );
 
 		}
 

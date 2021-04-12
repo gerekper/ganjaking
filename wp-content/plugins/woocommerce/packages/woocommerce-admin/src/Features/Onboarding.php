@@ -950,9 +950,16 @@ class Onboarding {
 			'id'    => 'woocommerce_onboard_tab',
 		);
 
+<<<<<<< HEAD
 		$task_list_hidden = ( 'yes' === get_option( 'woocommerce_task_list_hidden', 'no' ) );
 
 		$extended_task_list_hidden = ( 'yes' === get_option( 'woocommerce_extended_task_list_hidden', 'no' ) );
+=======
+		$task_list_hidden = (
+			'yes' === get_option( 'woocommerce_task_list_hidden', 'no' ) ||
+			'yes' === get_option( 'woocommerce_extended_task_list_hidden', 'no' )
+		);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 		$help_tab['content'] = '<h2>' . __( 'WooCommerce Onboarding', 'woocommerce' ) . '</h2>';
 

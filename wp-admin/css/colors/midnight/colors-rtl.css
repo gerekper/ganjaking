@@ -702,7 +702,14 @@ div#wp-responsive-toggle a:before {
 .wp-core-ui .wp-full-overlay .collapse-sidebar:focus .collapse-sidebar-arrow {
   box-shadow: 0 0 0 1px #e8776f, 0 0 2px 1px #e14d43;
 }
+<<<<<<< HEAD
 .wp-core-ui.wp-customizer .theme-overlay .theme-header .close:focus, .wp-core-ui.wp-customizer .theme-overlay .theme-header .close:hover, .wp-core-ui.wp-customizer .theme-overlay .theme-header .right:focus, .wp-core-ui.wp-customizer .theme-overlay .theme-header .right:hover, .wp-core-ui.wp-customizer .theme-overlay .theme-header .left:focus, .wp-core-ui.wp-customizer .theme-overlay .theme-header .left:hover {
   border-bottom-color: #e14d43;
   color: #0073aa;
+=======
+
+.wp-full-overlay-footer .devices button:hover:before,
+.wp-full-overlay-footer .devices button:focus:before {
+  color: #e14d43;
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 }

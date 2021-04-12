@@ -763,7 +763,8 @@ class WooCommerce_Product_Search_Service {
 					"object_type NOT IN ('variable', 'variable-subscription') AND object_id IN ( " . implode( ',', $post_ids ) . " ) $where_stock " .
 					"UNION " .
 					"SELECT DISTINCT parent_object_id FROM $object_term_table WHERE " .
-					"object_type IN ( 'variation', 'subscription_variation' ) AND object_id IN ( " . implode( ',', $post_ids ) . " ) AND parent_object_id IN ( " . implode( ',', $post_ids ) . " ) $where_stock ";
+
+					"object_type IN ( 'variation', 'subscription_variation' ) AND object_id IN ( " . implode( ',', $post_ids ) . " ) $where_stock ";
 				if ( $limit !== null ) {
 					$query .= ' LIMIT ' . intval( $limit );
 				}
@@ -1506,7 +1507,7 @@ class WooCommerce_Product_Search_Service {
 
 		$search_query = WooCommerce_Product_Search_Indexer::normalize( $search_query );
 
-		$search_query = trim( remove_accents( $search_query ) );
+		$search_query = trim( WooCommerce_Product_Search_Indexer::remove_accents( $search_query ) );
 		$search_terms = explode( ' ', $search_query );
 		$search_terms = array_unique( $search_terms );
 
@@ -1758,7 +1759,6 @@ class WooCommerce_Product_Search_Service {
 				if ( $log_query_times ) {
 					$start = function_exists( 'microtime' ) ? microtime( true ) : time();
 				}
-
 				$results = $wpdb->get_col( $query );
 
 				if ( $log_query_times ) {
@@ -2638,12 +2638,18 @@ class WooCommerce_Product_Search_Service {
 		$search_query = trim( preg_replace( '/\s+/', ' ', $_REQUEST[self::SEARCH_QUERY] ) );
 		$search_terms = explode( ' ', $search_query );
 
-		$include = self::get_post_ids_for_request();
-		$n       = count( $include );
+		$include = self::get_post_ids_for_request( array( 'variations' => true ) );
+		$n = count( $include );
+		if ( count( $include ) === 1 && in_array( self::NAUGHT, $include ) ) {
+			$n = 0;
+		}
+		if ( $n > 0 ) {
+			self::make_consistent_post_ids( $include, array( 'limit' => WooCommerce_Product_Search_Controller::get_object_limit() ) );
+		}
 
 		$results = array();
 		$post_ids = array();
-		if ( count( $include ) > 0 ) {
+		if ( $n > 0 ) {
 
 			$query_args = array(
 				'fields'      => 'ids',
@@ -2694,6 +2700,7 @@ class WooCommerce_Product_Search_Service {
 
 			self::pre_get_posts();
 			$posts = get_posts( $query_args );
+			$n = count( $posts );
 			self::post_get_posts();
 
 			if ( $order_by === 'popularity' ) {
@@ -3207,7 +3214,7 @@ class WooCommerce_Product_Search_Service {
 		$search_query = isset( $_REQUEST[self::SEARCH_QUERY] ) ? $_REQUEST[self::SEARCH_QUERY] : '';
 		$search_query = apply_filters( 'woocommerce_product_search_request_search_query', $search_query );
 		$search_query = WooCommerce_Product_Search_Indexer::normalize( $search_query );
-		$search_query = trim( remove_accents( $search_query ) );
+		$search_query = trim( WooCommerce_Product_Search_Indexer::remove_accents( $search_query ) );
 
 		$parameters = array(
 			'title'        => $title,

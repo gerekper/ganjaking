@@ -3,7 +3,7 @@
  * UnGrabber
  *
  * @encoding        UTF-8
- * @version         3.0.1
+ * @version         3.0.2
  * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
@@ -14,7 +14,7 @@
  * Plugin Name: UnGrabber
  * Plugin URI: https://1.envato.market/ungrabber
  * Description: A most effective way to protect your online content from being copied or grabbed
- * Version: 3.0.1
+ * Version: 3.0.2
  * Requires at least: 3.0
  * Requires PHP: 5.6
  * Author: Merkulove

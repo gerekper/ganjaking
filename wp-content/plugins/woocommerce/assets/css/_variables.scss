@@ -22,6 +22,7 @@ $subtext:           #767676 !default;                                  // small,
 
 // export vars as CSS vars
 :root {
+<<<<<<< HEAD
 	--woocommerce: #{$woocommerce};
 	--wc-green: #{$green};
 	--wc-red: #{$red};
@@ -35,4 +36,19 @@ $subtext:           #767676 !default;                                  // small,
 	--wc-highligh-text: #{$highlightext};
 	--wc-content-bg: #{$contentbg};
 	--wc-subtext: #{$subtext};
+=======
+	--woocommerce: $woocommerce;
+	--wc-green: $green;
+	--wc-red: $red;
+	--wc-orange: $orange;
+	--wc-blue: $blue;
+	--wc-primary: $primary;
+	--wc-primary-text: $primarytext;
+	--wc-secondary: $secondary;
+	--wc-secondary-text: $secondarytext;
+	--wc-highlight: $highlight;
+	--wc-highligh-text: $highlightext;
+	--wc-content-bg: $contentbg;
+	--wc-subtext: $subtext;
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 }

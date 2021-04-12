@@ -139,7 +139,7 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 		foreach( $results as $data ) {
 
 			$total_orders[] = $data->order_id;
-			
+
 			$total_product_amount      += (float) sanitize_text_field( $data->product_amount );
 			$total_product_tax_amount  += (float) sanitize_text_field( $data->product_tax_amount );
 			$total_shipping_amount     += (float) sanitize_text_field( $data->product_shipping_amount );
@@ -315,10 +315,10 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 
 		if ( ! empty( $this->vendor_id ) ) {
 			$sql .= " AND commission.vendor_id = %d";
-		}	
+		}
 
 		$sql .= " AND commission.commission_status != 'void'";
-		
+
 		switch( $this->current_range ) {
 			case 'year' :
 				$sql .= " AND YEAR( commission.order_date ) = YEAR( NOW() )";
@@ -347,16 +347,16 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 				$sql .= " AND DATE( commission.order_date ) BETWEEN DATE_SUB( NOW(), INTERVAL 7 DAY ) AND NOW()";
 				break;
 		}
-			
+
 		$sql .= " GROUP BY DATE( commission.order_date )";
-			
+
 		if ( false === ( $results = get_transient( $transient_name ) ) ) {
 			// Enable big selects for reports
 			$wpdb->query( 'SET SESSION SQL_BIG_SELECTS=1' );
 
 			if ( ! empty( $this->vendor_id ) ) {
 				$results = $wpdb->get_results( $wpdb->prepare( $sql, $this->vendor_id ) );
-			} else {		
+			} else {
 				$results = $wpdb->get_results( $sql );
 			}
 
@@ -365,15 +365,15 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 
 		// Prepare data for report
 		$order_counts         = $this->prepare_chart_data( $results, 'order_date', 'count', $this->chart_interval, $this->start_date, $this->chart_groupby );
-		
+
 		$order_item_counts    = $this->prepare_chart_data( $results, 'order_date', 'order_item_count', $this->chart_interval, $this->start_date, $this->chart_groupby );
-		
+
 		$order_amounts        = $this->prepare_chart_data( $results, 'order_date', 'total_sales', $this->chart_interval, $this->start_date, $this->chart_groupby );
-		
+
 		$shipping_amounts     = $this->prepare_chart_data( $results, 'order_date', 'total_shipping', $this->chart_interval, $this->start_date, $this->chart_groupby );
-		
+
 		$shipping_tax_amounts = $this->prepare_chart_data( $results, 'order_date', 'total_shipping_tax', $this->chart_interval, $this->start_date, $this->chart_groupby );
-		
+
 		$tax_amounts          = $this->prepare_chart_data( $results, 'order_date', 'total_tax', $this->chart_interval, $this->start_date, $this->chart_groupby );
 
 		$total_commission     = $this->prepare_chart_data( $results, 'order_date', 'total_commission', $this->chart_interval, $this->start_date, $this->chart_groupby );
@@ -534,15 +534,15 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 						}
 					);
 
-					jQuery('.chart-placeholder').resize();
+					jQuery('.chart-placeholder').trigger( 'resize' );
 				}
 
 				drawGraph();
 
-				jQuery('.highlight_series').hover(
+				jQuery('.highlight_series').on( 'mouseenter',
 					function() {
 						drawGraph( jQuery(this).data('series') );
-					},
+					} ).on( 'mouseleave',
 					function() {
 						drawGraph();
 					}
@@ -598,7 +598,7 @@ class WC_Product_Vendors_Store_Report_Sales_By_Date extends WC_Admin_Report {
 				<div>
 					<?php if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) { ?>
 						<select style="width: 50%;" class="wcpv-vendor-search-bar" name="vendor_id" data-placeholder="<?php esc_attr_e( 'Search for a vendor&hellip;', 'woocommerce-product-vendors' ); ?>">
-						</select>					
+						</select>
 					<?php } else { ?>
 						<input type="hidden" class="wcpv-vendor-search-bar" style="width:203px;" name="vendor_id" data-placeholder="<?php esc_attr_e( 'Search for a vendor&hellip;', 'woocommerce-product-vendors' ); ?>" />
 					<?php } ?>

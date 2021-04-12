@@ -82,7 +82,11 @@ this["wp"] = this["wp"] || {}; this["wp"]["blockLibrary"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 439);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 467);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2239,7 +2243,11 @@ function _typeof(obj) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 439:
+=======
+/***/ 467:
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3599,7 +3607,13 @@ var util_metadata = {
     }
   },
   supports: {
+<<<<<<< HEAD
     align: true
+=======
+    align: true,
+    reusable: false,
+    html: false
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
   },
   editorStyle: "wp-block-embed-editor",
   style: "wp-block-embed"
@@ -15992,7 +16006,13 @@ var transforms_metadata = {
     }
   },
   supports: {
+<<<<<<< HEAD
     align: true
+=======
+    align: true,
+    reusable: false,
+    html: false
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
   },
   editorStyle: "wp-block-embed-editor",
   style: "wp-block-embed"
@@ -16596,7 +16616,13 @@ var deprecated_metadata = {
     }
   },
   supports: {
+<<<<<<< HEAD
     align: true
+=======
+    align: true,
+    reusable: false,
+    html: false
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
   },
   editorStyle: "wp-block-embed-editor",
   style: "wp-block-embed"
@@ -16674,7 +16700,13 @@ var embed_metadata = {
     }
   },
   supports: {
+<<<<<<< HEAD
     align: true
+=======
+    align: true,
+    reusable: false,
+    html: false
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
   },
   editorStyle: "wp-block-embed-editor",
   style: "wp-block-embed"
@@ -17281,9 +17313,15 @@ function HTMLEdit(_ref) {
     setIsPreview(false);
   }
 
+<<<<<<< HEAD
   return Object(external_wp_element_["createElement"])("div", Object(external_wp_blockEditor_["useBlockProps"])({
     className: 'block-library-html__edit'
   }), Object(external_wp_element_["createElement"])(external_wp_blockEditor_["BlockControls"], null, Object(external_wp_element_["createElement"])(external_wp_components_["ToolbarGroup"], null, Object(external_wp_element_["createElement"])(external_wp_components_["ToolbarButton"], {
+=======
+  return Object(external_this_wp_element_["createElement"])("div", Object(external_this_wp_blockEditor_["useBlockProps"])({
+    className: 'block-library-html__edit'
+  }), Object(external_this_wp_element_["createElement"])(external_this_wp_blockEditor_["BlockControls"], null, Object(external_this_wp_element_["createElement"])(external_this_wp_components_["ToolbarGroup"], null, Object(external_this_wp_element_["createElement"])(external_this_wp_components_["ToolbarButton"], {
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
     className: "components-tab-button",
     isPressed: !isPreview,
     onClick: switchToHTML

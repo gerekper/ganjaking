@@ -25,7 +25,7 @@ class WC_CP_Admin {
 	 *
 	 * @var string
 	 */
-	private static $bundled_selectsw_version = '1.1.3';
+	private static $bundled_selectsw_version = '1.1.6';
 
 	/**
 	 * Setup admin hooks.
@@ -274,7 +274,6 @@ class WC_CP_Admin {
 				// Strings.
 				'i18n_save_error'              => __( 'Your settings could not be saved. Please refresh the page and try again.', 'woocommerce-composite-products' ),
 				'i18n_no_default'              => __( 'No default option&hellip;', 'woocommerce-composite-products' ),
-				'i18n_all'                     => __( 'Any Product or Variation', 'woocommerce-composite-products' ),
 				'i18n_none'                    => _x( 'No selection', 'optional component property controlled in scenarios', 'woocommerce-composite-products' ),
 				'i18n_choose_component_image'  => __( 'Choose a Component Image', 'woocommerce-composite-products' ),
 				'i18n_set_component_image'     => __( 'Set Component Image', 'woocommerce-composite-products' ),

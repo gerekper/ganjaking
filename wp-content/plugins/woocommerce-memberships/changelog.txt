@@ -1,5 +1,12 @@
 *** WooCommerce Memberships Changelog ***
 
+2021.03.30 - version 1.21.7
+ * Fix - Ensure that the member directory shortcode can correctly query memberships of given statuses
+ * Fix - Fix a conflict with Variable products and Profile Fields that prevented adding them to cart
+
+2021.03.18 - version 1.21.6
+ * Fix - Use product prices with the correct tax rates to calculate discounts
+
 2021.03.16 - version 1.21.5
  * Tweak - Improve support for WooCommerce Navigation admin feature
 

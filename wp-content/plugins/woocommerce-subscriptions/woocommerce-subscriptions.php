@@ -5,10 +5,10 @@
  * Description: Sell products and services with recurring payments in your WooCommerce Store.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 3.0.13
+ * Version: 3.0.14
  *
  * WC requires at least: 3.0.9
- * WC tested up to: 5.0
+ * WC tested up to: 5.1
  * Woo: 27147:6115e6d7e297b623a169fdcf5728b224
  *
  * Copyright 2019 WooCommerce
@@ -102,6 +102,7 @@ WCS_Permalink_Manager::init();
 WCS_Custom_Order_Item_Manager::init();
 WCS_Early_Renewal_Modal_Handler::init();
 WCS_Dependent_Hook_Manager::init();
+WCS_Admin_Product_Import_Export_Manager::init();
 
 // Some classes run init on a particular hook.
 add_action( 'init', array( 'WC_Subscriptions_Synchroniser', 'init' ) );
@@ -122,7 +123,7 @@ class WC_Subscriptions {
 
 	public static $plugin_file = __FILE__;
 
-	public static $version = '3.0.13';
+	public static $version = '3.0.14';
 
 	public static $wc_minimum_supported_version = '3.0';
 

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Validates configurations against scenarios.
  *
  * @class    WC_CP_Scenarios_Manager
- * @version  8.0.0
+ * @version  8.0.2
  */
 class WC_CP_Scenarios_Manager {
 
@@ -39,17 +39,24 @@ class WC_CP_Scenarios_Manager {
 	private $complexity = 0;
 
 	/**
+	 * Optional component IDs.
+	 * @var array
+	 */
+	private $optional_components;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param  WC_Product_Composite|array  $data
 	 */
 	public function __construct( $data, $context = 'view' ) {
 
-		$this->scenarios  = array();
-		$this->components = array();
+		$this->scenarios           = array();
+		$this->components          = array();
+		$this->optional_components = is_array( $data ) && ! empty( $data[ 'optional_components' ] ) ? $data[ 'optional_components' ] : array();
 
 		$compat_group_action_exists = false;
-		$optional_components        = is_array( $data ) && ! empty( $data[ 'optional_components' ] ) ? $data[ 'optional_components' ] : array();
+
 
 		if ( $data instanceof WC_Product_Composite ) {
 			$scenarios_data   = $data->get_scenario_data( $context );
@@ -64,7 +71,7 @@ class WC_CP_Scenarios_Manager {
 		if ( ! empty( $this->components ) ) {
 			foreach ( $this->components as $component_id => $component ) {
 				if ( $component->is_optional() ) {
-					$optional_components[] = $component_id;
+					$this->optional_components[] = $component_id;
 				}
 			}
 		}
@@ -73,7 +80,7 @@ class WC_CP_Scenarios_Manager {
 		if ( ! empty( $scenarios_data ) && is_array( $scenarios_data ) ) {
 			foreach ( $scenarios_data as $scenario_id => $scenario_data ) {
 
-				$scenario = new WC_CP_Scenario( array_merge( $scenario_data, array( 'id' => $scenario_id, 'optional_components' => $optional_components ) ) );
+				$scenario = new WC_CP_Scenario( array_merge( $scenario_data, array( 'id' => $scenario_id ) ) );
 
 				if ( $scenario->has_action( 'compat_group' ) ) {
 					$compat_group_action_exists = true;
@@ -87,7 +94,7 @@ class WC_CP_Scenarios_Manager {
 
 		// When no 'compat_group' scenarios are defined, create a placeholder scenario where all options are valid.
 		if ( ! $compat_group_action_exists && 'view' === $context ) {
-			$this->scenarios[ '0' ] = new WC_CP_Scenario( array( 'id' => '0', 'optional_components' => $optional_components ) );
+			$this->scenarios[ '0' ] = new WC_CP_Scenario( array( 'id' => '0' ) );
 			$this->complexity++;
 		}
 	}
@@ -173,7 +180,7 @@ class WC_CP_Scenarios_Manager {
 						}
 					}
 
-					if ( $scenario->has_action( 'conditional_options' ) ) {
+					if ( $scenario_contains_option && $scenario->has_action( 'conditional_options' ) ) {
 						foreach ( $variation_ids as $variation_id ) {
 							if ( $scenario->hides_component_option( $component_id, $product_id, absint( $variation_id ) ) ) {
 								$scenario_hides_option = true;
@@ -186,7 +193,11 @@ class WC_CP_Scenarios_Manager {
 
 					$scenario_contains_option = $scenario->contains_component_option( $component_id, $product_id );
 
-					if ( $scenario->has_action( 'conditional_options' ) ) {
+					if ( -1 === $product_id && ! in_array( $component_id, $this->optional_components ) ) {
+						$scenario_contains_option = false;
+					}
+
+					if ( $scenario_contains_option && $scenario->has_action( 'conditional_options' ) ) {
 						$scenario_hides_option = $scenario->hides_component_option( $component_id, $product_id );
 					}
 				}
@@ -200,15 +211,18 @@ class WC_CP_Scenarios_Manager {
 					}
 				}
 
-				if ( $scenario_hides_component || $scenario_hides_option ) {
+				if ( $scenario_hides_component ) {
 
 					$matching_shaping_components = array_diff( $matching_components, $hidden_components, $scenario->get_masked_components() );
 
 					// Scenario hides component or option only if some of the scenario shaping components are non-masked and non-hidden.
 					if ( ! empty( $matching_shaping_components ) ) {
 						$scenarios_hiding_component[] = $scenario->get_id();
-						$scenarios_hiding_option[]    = $scenario->get_id();
 					}
+				}
+
+				if ( $scenario_hides_option ) {
+					$scenarios_hiding_option[] = $scenario->get_id();
 				}
 			}
 
@@ -398,33 +412,24 @@ class WC_CP_Scenarios_Manager {
 
 			$options_map[ $component_id ] = array();
 
-			// Skipped selection.
-			if ( $component->is_optional() ) {
+			// No selection.
+			$options_map[ $component_id ][ 0 ] = array();
 
-				$options_map[ $component_id ][ 0 ] = array();
-
-				foreach ( $scenarios as $scenario_id => $scenario ) {
-
-					if ( $scenario->$contains_fn( $component_id, -1 ) ) {
-						$options_map[ $component_id ][ 0 ][] = strval( $scenario_id );
-					}
+			foreach ( $scenarios as $scenario_id => $scenario ) {
+				if ( $scenario->$contains_fn( $component_id, -1 ) ) {
+					$options_map[ $component_id ][ 0 ][] = strval( $scenario_id );
 				}
+			}
 
-				if ( 'conditions' === $map_type ) {
-					if ( ! in_array( '0', $options_map[ $component_id ][ 0 ] ) ) {
-						$options_map[ $component_id ][ 0 ][] = '0';
-					}
+			if ( 'conditions' === $map_type ) {
+				if ( $component->is_optional() && ! in_array( '0', $options_map[ $component_id ][ 0 ] ) ) {
+					$options_map[ $component_id ][ 0 ][] = '0';
 				}
 			}
 
 			foreach ( $component_options as $component_option_id ) {
 
-				$product_id       = absint( $component_option_id );
-				$component_option = $component->get_option( $product_id );
-
-				if ( ! $component_option ) {
-					continue;
-				}
+				$product_id = absint( $component_option_id );
 
 				if ( in_array( $product_id, $variation_parents ) ) {
 
@@ -451,30 +456,48 @@ class WC_CP_Scenarios_Manager {
 							$variations_in_scenarios = array_merge( $variations_in_scenarios, $variation_in_scenarios );
 						}
 
-						$options_map[ $component_id ][ $product_id ] = array_values( array_unique( $variations_in_scenarios ) );
+						// When working with 'condition' type maps, if a variation belongs to a scenario, then its parent automatically belongs to it as well.
+						if ( 'conditions' === $map_type ) {
+							$options_map[ $component_id ][ $product_id ] = array_values( array_unique( $variations_in_scenarios ) );
+						}
 
-						$all_variations_in_scenarios = 'conditions' === $map_type ? array( '0' ) : array();
+						$parent_in_scenarios = 'conditions' === $map_type ? array( '0' ) : array();
 
 						foreach ( $scenarios as $scenario_id => $scenario ) {
 
-							$all_variations_in_scenario = true;
+							$scenario_contains_all_variations = true;
+							$scenario_contains_variation      = false;
 
 							foreach ( $child_ids as $child_id ) {
 
 								$variation_id = absint( $child_id );
 
-								if ( ! in_array( $scenario_id, $options_map[ $component_id ][ $variation_id ] ) ) {
-									$all_variations_in_scenario = false;
-									break;
+								if ( in_array( $scenario_id, $options_map[ $component_id ][ $variation_id ] ) ) {
+									$scenario_contains_variation = true;
+								} else {
+									$scenario_contains_all_variations = false;
 								}
 							}
 
-							if ( $all_variations_in_scenario ) {
-								$all_variations_in_scenarios[] = strval( $scenario_id );
+							if ( 'conditions' === $map_type ) {
+								if ( $scenario_contains_variation && 'not-in' === $scenario->get_modifier( $component_id ) ) {
+									$parent_in_scenarios[] = strval( $scenario_id );
+								}
+							}
+
+							if ( $scenario_contains_all_variations ) {
+								$parent_in_scenarios[] = strval( $scenario_id );
 							}
 						}
 
-						$options_map[ $component_id ][ $product_id . '_variations' ] = array_values( array_unique( $all_variations_in_scenarios ) );
+						// When working with 'condition' type maps, we want to know what to do with empty variation selections.
+						if ( 'conditions' === $map_type ) {
+							$options_map[ $component_id ][ $product_id . '_empty' ] = array_values( array_unique( $parent_in_scenarios ) );
+						// When working with 'conditional_options' maps, if all variations are hidden by a scenario, then their parent needs to be hidden as well.
+						} else {
+							$options_map[ $component_id ][ $product_id ] = array_values( array_unique( $parent_in_scenarios ) );
+						}
+
 					}
 
 				} else {
@@ -514,8 +537,10 @@ class WC_CP_Scenarios_Manager {
 
 			// Store active action IDs.
 			$settings[ 'scenario_actions' ][ $scenario_id ] = $scenario->get_actions();
-			// Store masked components.
+			// Store unselected components.
 			$settings[ 'masked_components' ][ $scenario_id ] = $scenario->get_masked_components();
+			// Store 'any' components.
+			$settings[ 'any_components' ][ $scenario_id ] = $scenario->get_any_components();
 			// Store hidden components.
 			$settings[ 'conditional_components' ][ $scenario_id ] = $scenario->get_hidden_components();
 		}
@@ -549,11 +574,11 @@ class WC_CP_Scenarios_Manager {
 		$action_settings = array(
 			'conditional_components' => array(
 				'is_managed'  => 'yes',
-				'calculation' => array( 'preemptive' )
+				'calculation' => array( 'strict' )
 			),
 			'conditional_options'    => array(
 				'is_managed'  => 'no',
-				'calculation' => array( 'preemptive' )
+				'calculation' => array( 'strict' )
 			),
 			'compat_group'           => array(
 				'is_managed'  => 'no',

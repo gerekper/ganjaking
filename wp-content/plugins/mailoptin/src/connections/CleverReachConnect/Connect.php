@@ -2,6 +2,10 @@
 
 namespace MailOptin\CleverReachConnect;
 
+<<<<<<< HEAD
+=======
+use MailOptin\Core\Admin\Customizer\CustomControls\WP_Customize_Chosen_Select_Control;
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 use MailOptin\Core\Connections\ConnectionInterface;
 
 class Connect extends AbstractCleverReachConnect implements ConnectionInterface
@@ -64,8 +68,11 @@ class Connect extends AbstractCleverReachConnect implements ConnectionInterface
     {
         $settings['CleverReachConnect_lead_tags'] = apply_filters('mailoptin_customizer_optin_campaign_CleverReachConnect_lead_tags', '');
 
+<<<<<<< HEAD
         $settings['CleverReachConnect_form'] = apply_filters('mailoptin_customizer_optin_campaign_CleverReachConnect_form', '');
 
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
         return $settings;
     }
 
@@ -104,6 +111,12 @@ class Connect extends AbstractCleverReachConnect implements ConnectionInterface
 
     /**
      * @param $controls
+<<<<<<< HEAD
+=======
+     * @param $optin_campaign_id
+     * @param $index
+     * @param $saved_values
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
      *
      * @return array
      */
@@ -119,6 +132,7 @@ class Connect extends AbstractCleverReachConnect implements ConnectionInterface
             ];
 
             $controls[] = [
+<<<<<<< HEAD
                 'field'       => 'select',
                 'name'        => 'CleverReachConnect_form',
                 'choices'     => $this->get_forms(),
@@ -134,12 +148,21 @@ class Connect extends AbstractCleverReachConnect implements ConnectionInterface
                 'name'    => 'CleverReachConnect_map_name_field_notice',
                 'field'   => 'custom_content',
                 'content' => '<div style="border-left: 4px solid #D54E21;padding-left: 4px;">' . esc_html__('Click the "Advanced" link below to map the first and last name fields.') . '</div>'
+=======
+                'name'    => 'CleverReachConnect_map_name_field_notice',
+                'field'   => 'custom_content',
+                'content' => '<div style="border-left: 4px solid #D54E21;padding-left: 4px;">'. esc_html__('Click the "Advanced" link below to map the first and last name fields.').'</div>'
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
             ];
 
         } else {
 
             $content = sprintf(
+<<<<<<< HEAD
                 __("Upgrade to %sMailOptin Premium%s to enable double optin, map custom fields and assign tags to subscribers.", 'mailoptin'),
+=======
+                __("Upgrade to %sMailOptin Premium%s to map custom fields and assign tags to leads", 'mailoptin'),
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
                 '<a target="_blank" href="https://mailoptin.io/pricing/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=cleverreach_connection">',
                 '</a>',
                 '<strong>',
@@ -175,6 +198,7 @@ class Connect extends AbstractCleverReachConnect implements ConnectionInterface
         }
     }
 
+<<<<<<< HEAD
 
     /**
      * Fetch cleverreeach forms belonging to saved account.
@@ -209,6 +233,8 @@ class Connect extends AbstractCleverReachConnect implements ConnectionInterface
         }
     }
 
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
     public function replace_placeholder_tags($content, $type = 'html')
     {
         $search = [

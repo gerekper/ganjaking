@@ -1,0 +1,205 @@
+
+# Changelog
+
+## 1.0.29
+
+	- Fixed missing <tr> in order summary header which caused PDF generators to render the order summary correctly.
+
+## 1.0.28
+
+	- Fixed issue where product-specific Tax fields failed to account for coupon discounts.
+
+## 1.0.27
+
+	- Fixed issue where Discount fields which excluded specific products were not correctly exempted when calculating an excluded product's individual price.
+
+## 1.0.26
+
+	- Fixed notice generated in PHP 7.3.
+
+## 1.0.25
+
+	- Fixed issue where {discounts} merge tag was not correctly calculated when no Coupon field was present on the form.
+
+## 1.0.24
+
+	- Fixed notice of missing "item_index" with GF 2.4.
+
+## 1.0.23
+
+	- Added PHP and JS filter "gpecf_discount_total" to allow filtering the calculated discount for a Discount field.
+
+## 1.0.22
+
+	- Fixed error with GF 2.4 where field objects now have a "fields" property.
+
+## 1.0.21
+
+	- Added support for using choice values in order summary: {order_summary:value}.
+
+## 1.0.20
+
+	- Fixed issue where product-specific discounts were incorrectly calculated when the product total was 0.
+
+## 1.0.19
+
+	- Fixed issue where {subtotal} merge tag replacement was inaccurate when multiple Calculation Product fields contained a {subtotal} merge tag.
+
+## 1.0.18
+
+	- Fixed order-of-events issue where calculations containing the {coupons} were recalculated prematurely.
+
+## 1.0.17
+
+	- Added support for style/script minimization.
+	- Fixed bug where field values were not fetched correctly when reevaluating calculations (w/ GF 2.3).
+
+## 1.0.16.6
+
+	- Fixed JS error where multiple forms were on the page and only one implemented GF calculations.
+
+## 1.0.16.5
+
+	- Fixed JS error where multiple forms were on a page and current form contained an eCommerce merge tag but no coupon field.
+
+## 1.0.16.4
+
+	- Fixed issue where incorrect parameter type would cause fatal error on negative total fix.
+
+## 1.0.16.3
+
+	- Fixed issue where Gravity Forms allows negative totals.
+
+## 1.0.16.2
+
+	- Fixed issue where flat, product-specific discounts would discount more than the applicable products' total.
+
+## 1.0.16.1
+
+	- Fixed issue where flat discounts were not correctly calculated for product-specific tax fields.
+
+## 1.0.16
+
+	- Fixed infinite loop conflict with GP Conditional Pricing (requires latest version of Gravity Forms as well).
+
+## 1.0.15
+
+	- Added 'gpecf_order_summary' filter to allow filtering the $order_summary before it is rendered.
+
+## 1.0.14
+
+	- Added support for showing subtotal if custom-added tax/discount line items exist in order summary.
+
+## 1.0.13
+
+	- Added support for showing custom-added tax/discount line items in the order summary.
+
+## 1.0.12
+
+	- Fixed issue where calculation-enabled fields were recalculated even when hidden via conditional logic.
+
+## 1.0.11
+
+	- Fixed a JS issue where fields hidden via conditional logic would always trigger a change event creating an infinite loop.
+	- Fixed issue where change event was triggered for fields when values were the same but of different types (e.g. "40" != 40).
+	- Fixed issue where in some browsers, when previously entered values were saved, refreshing the page would result in a mismatch between the displayed value and the input value.
+
+## 1.0.9
+
+	- Updated field-specific merge tags to automatically display as currency (100 => $100.00).
+
+## 1.0.8
+
+	- Updated issue where product-specific taxes were calculated incorrectly when no discount applied. Bug introduced by 1.0.7.
+
+## 1.0.7
+
+	- Fixed issue where product-specific taxes did not correctly deduct product-specific discounts.
+
+## 1.0.6
+
+	- Fixed issue where including multiple GPEC merge tags in a formula would result in 0; this was caused only the first instance of the GPEC merge tag being replaced.
+
+## 1.0.5
+
+	- Fixed issue where conditional logic dependent on a Calculation-enabled field that contained an ecommerce merge tag did not evaluate correctly.
+
+## 1.0.4
+
+	- Added translation support.
+
+## 1.0.3
+
+	- Updated GP_Ecommerce_Fields::get_order() to use choice text by default.
+
+## 1.0.2
+
+	- Fixed issue with WC GF Product Add-ons where reprocessed calculations were always blank.
+
+## 1.0.1
+
+	- Fixed issue with GP Conditional Pricing were Calculation fields that contained an ecommerce merge tag were not always updated when product's price changed.
+
+## 1.0
+
+	- Ready for production use.
+	- Added support for registering eCommerce field types as product field types.
+	- Fixed issue where reprocessing calculations would add a new row for the updated value instead of updating the existing values.
+	- Updated GP_Bootstrap to v1.2.
+
+## 1.0.beta1.7
+
+	- Fixed issue where non-US money formats were not correctly rendered on the frontend fields.
+
+## 1.0.beta1.6
+
+	- Added gpecf_order_labels filter for readily modifying labels used in order summary.
+
+## 1.0.beta1.5
+
+    - Fixed issue where eCommerce field values were not capped at two decimals which caused miscellaneous conflicts.
+
+## 1.0.beta1.4
+
+    - Fixed issue where Calculated Products were not captured by GF payment add-ons.
+
+## 1.0.beta1.3
+
+    - Updated integration with WC GF Product Add-ons to now show eCommerce fields in cart description.
+
+## 1.0.beta1.2
+
+    - Fixed documentation URL (previously resulted in 404).
+
+## 1.0.beta1.1
+
+    - Fixed fatal error when gf_coupons() was not available.
+
+## 1.0.beta1.0
+
+	- Fixed issue where percentage amounts could exceed 100.
+	- Fixed issue where unconfigured Tax & Discount fields would break form rendering.
+	- Updated GF min required version.
+
+## 1.0.alpha1.4
+
+	- Updated Discounts to be deducted before coupons are applied.
+	- Updated GP_Ecommerce_Fields::has_coupon() to check $entry if no coupon found in $order.
+
+## 1.0.alpha1.3
+
+    - Added support for saving value to entry for Subtotal, Discount & Tax; allows entries to be filtered/sorted by these values on Entry List.
+    - Fixed issue where percentage amounts were not correctly formatted after saving form in Form Editor.
+    - Fixed issue where {subtotal} value was not formatted as currency when used outside of a calculation formula.
+
+## 1.0.alpha1.2
+
+    - Fixed issue where {order_summary} merge tag was not replaced.
+
+## 1.0.alpha1.1
+	
+	- Fixed issue where Subtotal field did not correctly filter products.
+
+## 1.0.alpha1.0
+
+    - Ready for testing!

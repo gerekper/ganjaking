@@ -3,8 +3,13 @@ Contributors: woocommerce, automattic
 Tags: ecommerce, e-commerce, store, sales, reports, analytics, dashboard, activity, notices, insights, stats, woo commerce, woocommerce
 Requires at least: 5.4.0
 Tested up to: 5.6.0
+<<<<<<< HEAD
 Requires PHP: 7.0
 Stable tag: 2.0.2
+=======
+Requires PHP: 5.6.20
+Stable tag: 1.9.0
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 License: GPLv3
 License URI: https://github.com/woocommerce/woocommerce-admin/blob/main/license.txt
 
@@ -73,6 +78,7 @@ Release and roadmap notes are available on the [WooCommerce Developers Blog](htt
 
 == Changelog ==
 
+<<<<<<< HEAD
 == 2.0.2 25/05/2021 ==
 
 - Fix: Correct the Klarna slug #6440
@@ -97,6 +103,8 @@ Release and roadmap notes are available on the [WooCommerce Developers Blog](htt
 - Enhancement: Use the new Paypal payments plugin for onboarding. #6261
 - Fix: Show management links when only main task list is hidden. #6291
 
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 == 1.9.0 1/15/2021 ==
 
 - Fix: Add Customer Type column to the Orders report table. #5820
@@ -120,6 +128,7 @@ Release and roadmap notes are available on the [WooCommerce Developers Blog](htt
 - Add: Welcome modal when coming from Calypso #6004
 - Enhancement: Add an a/b experiment for installing free business features #5786
 - Dev: Add `onChangeCallback` feature to the wc-admin <Form> component #5786 
+<<<<<<< HEAD
 - Dev: Add merchant email notifications #5922 
 - Add: Email note to add first product. #6024
 - Add: Note for users coming from Calypso. #6030
@@ -128,6 +137,13 @@ Release and roadmap notes are available on the [WooCommerce Developers Blog](htt
 - Tweak: update the content for the ChooseNiche note. #6048
 - Fix: Generate JSON translation chunks on plugin activation #6028
 - Dev: Update travis CI distribution. #6067
+=======
+- Fix: Generate JSON translation chunks on plugin activation #6028
+- Dev: Add merchant email notifications #5922 
+- Add: Email note to add first product. #6024
+- Add: Note for users coming from Calypso. #6030
+- Enhancement: Add an "unread" indicator to inbox messages. #6047 
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 - Add: Manage activity from home screen inbox message. #6072
 
 == 1.8.3 1/5/2021 ==

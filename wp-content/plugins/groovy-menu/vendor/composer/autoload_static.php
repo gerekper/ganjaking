@@ -7,12 +7,13 @@ namespace Composer\Autoload;
 class ComposerStaticInit56546145e36d577b123e2506cc71fadc
 {
     public static $files = array (
-        '241d2b5b9c1e680c0770b006b0271156' => __DIR__ . '/..' . '/yahnis-elsts/plugin-update-checker/load-v4p9.php',
+        '49a1299791c25c6fd83542c6fedacddd' => __DIR__ . '/..' . '/yahnis-elsts/plugin-update-checker/load-v4p11.php',
         'fb776f7ee227b920e197039be5ec1757' => __DIR__ . '/../..' . '/includes/theme_support/custom_post_types.php',
         '57db63b64a3f06b64e8dea29484e3113' => __DIR__ . '/../..' . '/includes/theme_support/crane.php',
         '417f9c2a048ba3dc81d8410b7f156f4c' => __DIR__ . '/../..' . '/includes/theme_support/elementor.php',
         '5f0758a858333143c3cc0725e0f79b35' => __DIR__ . '/../..' . '/includes/theme_support/divi.php',
         'f6bea0d34da77b3cca74e13cd46a9918' => __DIR__ . '/../..' . '/includes/theme_support/avada.php',
+        '7bdf6a888a138e602026f09bb3ec5cc2' => __DIR__ . '/../..' . '/includes/theme_support/thrivethemes-gm-init.php',
         '655fc50bc71579437c0b8c94b9b5f072' => __DIR__ . '/../..' . '/includes/migration/migrate.php',
         'fab540ef9b69f507bcc21701eeef4143' => __DIR__ . '/../..' . '/template/loader.php',
         '89faccae217ae94c3a1c0e22589b2a86' => __DIR__ . '/../..' . '/includes/modules/core/core.php',

@@ -287,6 +287,7 @@ class SubscribersRepository extends Repository {
     ->setParameter('emails', $emails)
     ->getQuery()->getResult();
   }
+<<<<<<< HEAD
 
   public function getCurrentWPUser(): ?SubscriberEntity {
     $wpUser = WPFunctions::get()->wpGetCurrentUser();
@@ -295,4 +296,6 @@ class SubscribersRepository extends Repository {
     }
     return $this->findOneBy(['wpUserId' => $wpUser->ID]);
   }
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 }

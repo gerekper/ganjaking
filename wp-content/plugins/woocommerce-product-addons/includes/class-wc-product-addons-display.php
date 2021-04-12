@@ -88,8 +88,8 @@ class WC_Product_Addons_Display {
 			'i18n_remaining'               => sprintf( __( '%s characters remaining', 'woocommerce-product-addons' ), '<span></span>' ),
 			'currency_format_num_decimals' => absint( get_option( 'woocommerce_price_num_decimals' ) ),
 			'currency_format_symbol'       => get_woocommerce_currency_symbol(),
-			'currency_format_decimal_sep'  => esc_attr( stripslashes( get_option( 'woocommerce_price_decimal_sep' ) ) ),
-			'currency_format_thousand_sep' => esc_attr( stripslashes( get_option( 'woocommerce_price_thousand_sep' ) ) ),
+			'currency_format_decimal_sep'  => esc_attr( wp_unslash( get_option( 'woocommerce_price_decimal_sep' ) ) ),
+			'currency_format_thousand_sep' => esc_attr( wp_unslash( get_option( 'woocommerce_price_thousand_sep' ) ) ),
 			'trim_trailing_zeros'          => apply_filters( 'woocommerce_price_trim_zeros', false ),
 			'is_bookings'                  => class_exists( 'WC_Bookings' ),
 			'trim_user_input_characters'   => $this->show_num_chars,
@@ -169,6 +169,8 @@ class WC_Product_Addons_Display {
 		$product_addons = WC_Product_Addons_Helper::get_product_addons( $post_id, $prefix );
 
 		if ( is_array( $product_addons ) && count( $product_addons ) > 0 ) {
+			echo '<div class="wc-pao-addons-container">';
+
 			do_action( 'woocommerce_product_addons_start', $post_id );
 
 			foreach ( $product_addons as $addon ) {
@@ -203,6 +205,8 @@ class WC_Product_Addons_Display {
 			}
 
 			do_action( 'woocommerce_product_addons_end', $post_id );
+
+			echo '</div>';
 		}
 	}
 
@@ -538,11 +542,7 @@ class WC_Product_Addons_Display {
 	 * @return bool
 	 */
 	public function prevent_purchase_at_grouped_level( $purchasable, $product ) {
-		if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-			$product_id = $product->parent->id;
-		} else {
-			$product_id = $product->get_parent_id();
-		}
+		$product_id = $product->get_parent_id();
 
 		if ( $product && ! $product->is_type( 'variation' ) && $product_id && is_single( $product_id ) && $this->check_required_addons( $product->get_id() ) ) {
 			$purchasable = false;

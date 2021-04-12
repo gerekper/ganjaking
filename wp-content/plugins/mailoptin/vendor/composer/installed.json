@@ -423,11 +423,19 @@
         },
         {
             "name": "mailoptin/authifly",
+<<<<<<< HEAD
             "version": "0.2.1617692439",
             "version_normalized": "0.2.1617692439.0",
             "dist": {
                 "type": "zip",
                 "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1L2xML/mailoptinauthifly-0-2-1617692439.zip"
+=======
+            "version": "0.2.1614346377",
+            "version_normalized": "0.2.1614346377.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_jp1wC/mailoptinauthifly-0-2-1614346377.zip"
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
             },
             "require": {
                 "composer/installers": "~1.0",
@@ -473,11 +481,19 @@
         },
         {
             "name": "mailoptin/connections",
+<<<<<<< HEAD
             "version": "0.2.1617692482",
             "version_normalized": "0.2.1617692482.0",
             "dist": {
                 "type": "zip",
                 "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_17KAS5/mailoptinconnections-0-2-1617692482.zip"
+=======
+            "version": "0.2.1614367867",
+            "version_normalized": "0.2.1614367867.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1d4sJS/mailoptinconnections-0-2-1614367867.zip"
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
             },
             "require": {
                 "composer/installers": "~1.0",
@@ -549,6 +565,7 @@
         },
         {
             "name": "mailoptin/core",
+<<<<<<< HEAD
             "version": "0.1.0-alpha.1617713129",
             "version_normalized": "0.1.0.0-alpha1617713129",
             "source": {
@@ -560,6 +577,19 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/mailoptin/core/zipball/afa0e11c29b512cdc5f7586bd6fd0b1a78453976",
                 "reference": "afa0e11c29b512cdc5f7586bd6fd0b1a78453976",
+=======
+            "version": "0.1.0-alpha.1614367861",
+            "version_normalized": "0.1.0.0-alpha1614367861",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mailoptin/core.git",
+                "reference": "114e717c6fe57a222064c9f9af0f36a1b4c1c5ce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mailoptin/core/zipball/114e717c6fe57a222064c9f9af0f36a1b4c1c5ce",
+                "reference": "114e717c6fe57a222064c9f9af0f36a1b4c1c5ce",
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
                 "shasum": ""
             },
             "require": {
@@ -570,7 +600,11 @@
                 "pelago/emogrifier": "3.1.0",
                 "soundasleep/html2text": "~0.5"
             },
+<<<<<<< HEAD
             "time": "2021-04-06T12:44:50+00:00",
+=======
+            "time": "2021-02-26T19:28:56+00:00",
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "autoload": {
@@ -587,7 +621,11 @@
             "description": "Core lib for MailOptin",
             "support": {
                 "issues": "https://github.com/mailoptin/core/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/mailoptin/core/tree/0.1.0-alpha.1617713129"
+=======
+                "source": "https://github.com/mailoptin/core/tree/0.1.0-alpha.1614367861"
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
             },
             "install-path": "../../src/core"
         },

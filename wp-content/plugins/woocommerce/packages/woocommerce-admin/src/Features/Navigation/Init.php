@@ -163,6 +163,7 @@ class Init {
 		if ( isset( $_SERVER['REQUEST_URI'] ) ) {
 			wp_safe_redirect( wp_unslash( $_SERVER['REQUEST_URI'] ) );
 			exit();
+<<<<<<< HEAD
 		}
 	}
 
@@ -172,6 +173,8 @@ class Init {
 	public function maybe_enqueue_opt_out_scripts() {
 		if ( 'yes' !== get_option( 'woocommerce_navigation_show_opt_out', 'no' ) ) {
 			return;
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 		}
 
 		$rtl = is_rtl() ? '.rtl' : '';
@@ -196,6 +199,33 @@ class Init {
 			array(
 				'url' => Survey::get_url( '/new-navigation-opt-out' ),
 			)
+		);
+
+		delete_option( 'woocommerce_navigation_show_opt_out' );
+	}
+
+	/**
+	 * Enqueue the opt out scripts.
+	 */
+	public function maybe_enqueue_opt_out_scripts() {
+		if ( 'yes' !== get_option( 'woocommerce_navigation_show_opt_out', 'no' ) ) {
+			return;
+		}
+
+		$rtl = is_rtl() ? '.rtl' : '';
+		wp_enqueue_style(
+			'wc-admin-navigation-opt-out',
+			Loader::get_url( "navigation-opt-out/style{$rtl}", 'css' ),
+			array( 'wp-components' ),
+			Loader::get_file_version( 'css' )
+		);
+
+		wp_enqueue_script(
+			'wc-admin-navigation-opt-out',
+			Loader::get_url( 'wp-admin-scripts/navigation-opt-out', 'js' ),
+			array( 'wp-i18n', 'wp-element', WC_ADMIN_APP ),
+			Loader::get_file_version( 'js' ),
+			true
 		);
 
 		delete_option( 'woocommerce_navigation_show_opt_out' );

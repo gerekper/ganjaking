@@ -202,7 +202,10 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Form\Block\Textarea::class);
     $container->autowire(\MailPoet\Form\FormFactory::class)->setPublic(true);
     $container->autowire(\MailPoet\Form\FormHtmlSanitizer::class)->setPublic(true);
+<<<<<<< HEAD
     $container->autowire(\MailPoet\Form\Listing\FormListingRepository::class)->setPublic(true);
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
     $container->autowire(\MailPoet\Form\PreviewPage::class);
     $container->autowire(\MailPoet\Form\Templates\TemplateRepository::class);
     $container->autowire(\MailPoet\Form\Util\Styles::class);
@@ -251,7 +254,10 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Subscribers\SubscriberListingRepository::class)->setPublic(true);
     $container->autowire(\MailPoet\Subscribers\SubscriberSegmentRepository::class)->setPublic(true);
     $container->autowire(\MailPoet\Subscribers\SubscriberCustomFieldRepository::class)->setPublic(true);
+<<<<<<< HEAD
     $container->autowire(\MailPoet\Subscribers\SubscriberSaveController::class)->setPublic(true);
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
     $container->autowire(\MailPoet\Subscribers\ImportExport\ImportExportRepository::class)->setPublic(true);
     $container->autowire(\MailPoet\Subscribers\Statistics\SubscriberStatisticsRepository::class);
     // Segments

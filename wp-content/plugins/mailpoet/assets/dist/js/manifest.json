@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "public.js": "public.f28465aa.js",
   "public.f28465aa.js.LICENSE.txt": "public.f28465aa.js.LICENSE.txt",
   "mp2migrator.js": "mp2migrator.40eb70f0.js",
@@ -14,6 +15,23 @@
   "admin_vendor.js": "admin_vendor.6da3ddd2.chunk.js",
   "mailpoet.js": "mailpoet.6da3ddd2.chunk.js",
   "newsletter_editor.js": "newsletter_editor.6da3ddd2.chunk.js",
+=======
+  "form_preview.js": "form_preview.665838d5.js",
+  "public.js": "public.d4d8a8c5.js",
+  "public.d4d8a8c5.js.LICENSE.txt": "public.d4d8a8c5.js.LICENSE.txt",
+  "post_editor_block.js": "post_editor_block.0a5d152c.js",
+  "mp2migrator.js": "mp2migrator.8bbd6b8b.js",
+  "settings.js": "settings.9a9787a6.js",
+  "settings.9a9787a6.js.LICENSE.txt": "settings.9a9787a6.js.LICENSE.txt",
+  "form_editor.js": "form_editor.f5dd3011.js",
+  "form_editor.f5dd3011.js.LICENSE.txt": "form_editor.f5dd3011.js.LICENSE.txt",
+  "vendor.js": "vendor.2d61008d.js",
+  "admin_vendor_chunk.js": "admin_vendor_chunk.2d61008d.chunk.js",
+  "admin.js": "admin.2d61008d.chunk.js",
+  "admin_vendor.js": "admin_vendor.2d61008d.chunk.js",
+  "mailpoet.js": "mailpoet.2d61008d.chunk.js",
+  "newsletter_editor.js": "newsletter_editor.2d61008d.chunk.js",
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
   "skins/ui/oxide/content.css": "skins/ui/oxide/content.css",
   "skins/ui/oxide/content.inline.css": "skins/ui/oxide/content.inline.css",
   "skins/ui/oxide/content.inline.min.css": "skins/ui/oxide/content.inline.min.css",

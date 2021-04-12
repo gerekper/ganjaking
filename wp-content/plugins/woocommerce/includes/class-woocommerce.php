@@ -23,7 +23,11 @@ final class WooCommerce {
 	 *
 	 * @var string
 	 */
+<<<<<<< HEAD
 	public $version = '5.1.0';
+=======
+	public $version = '5.0.0';
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 	/**
 	 * WooCommerce Schema version.
@@ -203,7 +207,10 @@ final class WooCommerce {
 		add_action( 'switch_blog', array( $this, 'wpdb_table_fix' ), 0 );
 		add_action( 'activated_plugin', array( $this, 'activated_plugin' ) );
 		add_action( 'deactivated_plugin', array( $this, 'deactivated_plugin' ) );
+<<<<<<< HEAD
 		add_filter( 'woocommerce_rest_prepare_note', array( 'WC_Admin_Notices', 'prepare_note_with_nonce' ) );
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 		// These classes set up hooks on instantiation.
 		wc_get_container()->get( DownloadPermissionsAdjuster::class );

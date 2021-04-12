@@ -83,8 +83,13 @@
     ),
     'mailoptin/authifly' => 
     array (
+<<<<<<< HEAD
       'pretty_version' => '0.2.1617692439',
       'version' => '0.2.1617692439.0',
+=======
+      'pretty_version' => '0.2.1614346377',
+      'version' => '0.2.1614346377.0',
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
       'aliases' => 
       array (
       ),
@@ -92,8 +97,13 @@
     ),
     'mailoptin/connections' => 
     array (
+<<<<<<< HEAD
       'pretty_version' => '0.2.1617692482',
       'version' => '0.2.1617692482.0',
+=======
+      'pretty_version' => '0.2.1614367867',
+      'version' => '0.2.1614367867.0',
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
       'aliases' => 
       array (
       ),
@@ -101,12 +111,21 @@
     ),
     'mailoptin/core' => 
     array (
+<<<<<<< HEAD
       'pretty_version' => '0.1.0-alpha.1617713129',
       'version' => '0.1.0.0-alpha1617713129',
       'aliases' => 
       array (
       ),
       'reference' => 'afa0e11c29b512cdc5f7586bd6fd0b1a78453976',
+=======
+      'pretty_version' => '0.1.0-alpha.1614367861',
+      'version' => '0.1.0.0-alpha1614367861',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '114e717c6fe57a222064c9f9af0f36a1b4c1c5ce',
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
     ),
     'nesbot/carbon' => 
     array (

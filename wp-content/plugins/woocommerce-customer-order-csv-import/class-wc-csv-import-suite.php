@@ -35,7 +35,7 @@ class WC_CSV_Import_Suite extends Framework\SV_WC_Plugin {
 
 
 	/** version number */
-	const VERSION = '3.10.1';
+	const VERSION = '3.10.2';
 
 	/** @var WC_CSV_Import_Suite single instance of this plugin */
 	protected static $instance;

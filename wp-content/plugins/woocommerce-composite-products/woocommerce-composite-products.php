@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Composite Products
 * Plugin URI: https://woocommerce.com/products/composite-products/
 * Description: Create personalized product kits and configurable products.
-* Version: 8.0.0
+* Version: 8.1.0
 * Author: SomewhereWarm
 * Author URI: https://somewherewarm.com/
 *
@@ -34,11 +34,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Composite_Products
- * @version  8.0.0
+ * @version  8.1.0
  */
 class WC_Composite_Products {
 
-	public $version  = '8.0.0';
+	public $version  = '8.1.0';
 	public $required = '3.1.0';
 
 	/**
@@ -229,7 +229,7 @@ class WC_Composite_Products {
 		$this->maybe_define_constant( 'WC_CP_SUPPORT_URL', 'https://woocommerce.com/my-account/marketplace-ticket-form/' );
 		$this->maybe_define_constant( 'WC_CP_ABSPATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
-		if ( 'yes' === get_option( 'woocommerce_composite_products_debug_query_transients', null ) ) {
+		if ( defined( 'WC_CP_DEBUG_QUERY_TRANSIENTS' ) ) {
 			/**
 			 * 'WC_CP_DEBUG_QUERY_TRANSIENTS' constant.
 			 *
@@ -238,7 +238,7 @@ class WC_Composite_Products {
 			$this->maybe_define_constant( 'WC_CP_DEBUG_QUERY_TRANSIENTS', true );
 		}
 
-		if ( 'yes' === get_option( 'woocommerce_composite_products_debug_runtime_cache', null ) ) {
+		if ( defined( 'WC_CP_DEBUG_RUNTIME_CACHE' ) ) {
 			/**
 			 * 'WC_CP_DEBUG_RUNTIME_CACHE' constant.
 			 *

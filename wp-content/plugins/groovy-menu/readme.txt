@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.7
-Stable tag: 2.4.11
+Stable tag: 2.4.12
 Requires PHP: 7.0
 License: Themeforest Split Licence
 License URI: -
@@ -65,6 +65,15 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.4.12 =
+* Add: New setting to set drawer width as fullwidth for mobile menu.
+* Add: Added global setting "Close icon".
+* Add: Added Thrive Theme Builder support.
+* Add: Added setting "Disable dropdown state for minicart".
+* Add: 2 New settings "Alternative JavaScript initialization", "Run JavaScript initialization as soon as possible" at Global settings > Tools. Enabling of which can help in cases where third party caching plugins have hard-coded JavaScript output.
+* Fix: Hamburger icon at "Show Hamburger icon as animated" had an incorrect position when Toolbar was enabled.
+* Fix: Forced cleaning of Menu Block from automatically wpautop() inserted empty paragraph tags.
 
 = 2.4.11 =
 * Improve:  Possibility of correct interpretation of special characters ("\n", "\r", "\t", "\f", "\b") for outputting custom content added in "Groovy Menu > Custom code".

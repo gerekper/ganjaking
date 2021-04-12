@@ -134,6 +134,7 @@ return array(
     'Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Notification_Event_Integration' => $baseDir . '/src/deprecated/integrations/admin/prominent-words/notification-event-integration.php',
     'Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words_Notification' => $baseDir . '/src/deprecated/integrations/admin/prominent-words-notification.php',
     'Yoast\\WP\\SEO\\Integrations\\Blocks\\Estimated_Reading_Time_Block' => $baseDir . '/src/integrations/blocks/estimated-reading-time-block.php',
+    'Yoast\\WP\\SEO\\Integrations\\Blocks\\Job_Posting_Block' => $baseDir . '/src/integrations/blocks/job-posting-block.php',
     'Yoast\\WP\\SEO\\Integrations\\Blocks\\Related_Links_Block' => $baseDir . '/src/integrations/blocks/related-links-block.php',
     'Yoast\\WP\\SEO\\Integrations\\Blocks\\Schema_Blocks' => $baseDir . '/src/integrations/blocks/schema-blocks.php',
     'Yoast\\WP\\SEO\\Integrations\\Blocks\\Siblings_Block' => $baseDir . '/classes/blocks/siblings-block.php',

@@ -40,7 +40,7 @@ jQuery( document ).ready( function( $ ) {
 					$( this ).closest( 'tr' ).addClass( 'current' );
 				})
 				.on( 'click', '.wcpv-per-product-shipping-rules input', function() {
-					$( this ).focus();
+					$( this ).trigger( 'focus' );
 
 				  	return true;
 				})
@@ -82,7 +82,7 @@ jQuery( document ).ready( function( $ ) {
 
 					$( this ).closest( '.wcpv-per-product-shipping-rules' ).find( 'tbody tr' ).each( function() {
 						var row = postid + ',';
-						
+
 						$( this ).find( 'input:not([type=hidden])' ).each( function() {
 							var val = $( this ).val();
 							if ( ! val )

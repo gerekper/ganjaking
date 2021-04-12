@@ -458,8 +458,6 @@ class WC_Product_Composite_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		 */
 		$permutations_calc_scenarios = apply_filters( 'woocommerce_composite_price_data_permutation_calc_scenarios', $product->scenarios()->exist() && function_exists( 'wc_cp_cartesian' ), $product );
 
-		$has_conditional_component_scenarios = sizeof( $product->scenarios()->get_ids_by_action( 'conditional_components' ) );
-
 		/*
 		 * Set up permutation vector data and amend permutation vectors as needed.
 		 */
@@ -712,7 +710,7 @@ class WC_Product_Composite_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 							$price_data[ 'max' ][ $component_id ] = $max_component_price_id;
 						} else {
 							$price_data[ 'max' ] = array();
-							$has_inf_max_price     = true;
+							$has_inf_max_price   = true;
 						}
 					}
 				}
@@ -1042,7 +1040,7 @@ class WC_Product_Composite_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 			// ID of selected option, used when 'load_page' is set to 'selected'.
 			'selected_option'      => '',
 			'disable_cache'        => false,
-			// Out of stock options included in results by default. Use 'woocommerce_composite_component_options_query_args_current' filter to set to true.
+			// See 'WC_CP_Component::exclude_out_of_stock_options'.
 			'exclude_out_of_stock' => false
 		);
 
@@ -1167,7 +1165,7 @@ class WC_Product_Composite_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 		if ( ! $is_raw_component_options_query ) {
 
-			if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) || ( isset( $query_args[ 'exclude_out_of_stock' ] ) && $query_args[ 'exclude_out_of_stock' ] ) ) {
+			if ( isset( $query_args[ 'exclude_out_of_stock' ] ) && $query_args[ 'exclude_out_of_stock' ] ) {
 
 				$product_visibility_terms = wc_get_product_visibility_term_ids();
 

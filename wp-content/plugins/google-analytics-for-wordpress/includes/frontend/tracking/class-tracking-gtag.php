@@ -305,9 +305,12 @@ class MonsterInsights_Tracking_Gtag extends MonsterInsights_Tracking_Abstract {
 										if ( typeof arguments[2] === 'object' ) {
 											hitObject = arguments[2];
 										}
+<<<<<<< HEAD
 										if ( typeof arguments[5] === 'object' ) {
 											Object.assign( hitObject, arguments[5] );
 										}
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 										if ( 'undefined' !== typeof (
 											arguments[1].hitType
 										) ) {

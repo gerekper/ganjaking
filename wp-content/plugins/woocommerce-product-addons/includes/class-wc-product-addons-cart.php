@@ -63,13 +63,7 @@ class WC_Product_Addons_Cart {
 					continue;
 				}
 
-				$value = isset( $post_data[ 'addon-' . $addon['field_name'] ] ) ? $post_data[ 'addon-' . $addon['field_name'] ] : '';
-
-				if ( is_array( $value ) ) {
-					$value = array_map( 'stripslashes', $value );
-				} else {
-					$value = stripslashes( $value );
-				}
+				$value = wp_unslash( isset( $post_data[ 'addon-' . $addon['field_name'] ] ) ? $post_data[ 'addon-' . $addon['field_name'] ] : '' );
 
 				switch ( $addon['type'] ) {
 					case 'checkbox':
@@ -154,13 +148,7 @@ class WC_Product_Addons_Cart {
 					continue;
 				}
 
-				$value = isset( $post_data[ 'addon-' . $addon['field_name'] ] ) ? $post_data[ 'addon-' . $addon['field_name'] ] : '';
-
-				if ( is_array( $value ) ) {
-					$value = array_map( 'stripslashes', $value );
-				} else {
-					$value = stripslashes( $value );
-				}
+				$value = wp_unslash( isset( $post_data[ 'addon-' . $addon['field_name'] ] ) ? $post_data[ 'addon-' . $addon['field_name'] ] : '' );
 
 				switch ( $addon['type'] ) {
 					case 'checkbox':
@@ -404,8 +392,7 @@ class WC_Product_Addons_Cart {
 
 						foreach ( $item->get_meta_data() as $meta ) {
 							if ( stripos( $meta->key, $addon['name'] ) === 0 ) {
-								$value = sanitize_title( $meta->value );
-
+								$value = wc_clean( $meta->value );
 								break;
 							}
 						}

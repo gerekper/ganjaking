@@ -29,10 +29,6 @@ class WC_Product_Addons_Install {
 	 * @return bool
 	 */
 	private static function run() {
-		if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-			return;
-		}
-
 		$installed_version = get_option( 'wc_pao_version' );
 
 		self::migration_3_0_product();

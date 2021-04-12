@@ -82,7 +82,11 @@ this["wp"] = this["wp"] || {}; this["wp"]["i18n"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 456);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 484);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -326,6 +330,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/* global window, exports, define */
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 33:
 /***/ (function(module, exports) {
 
@@ -334,6 +339,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/* global window, exports, define */
 /***/ }),
 
 /***/ 456:
+=======
+/***/ 484:
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

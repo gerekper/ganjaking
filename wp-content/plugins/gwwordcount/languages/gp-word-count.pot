@@ -1,0 +1,90 @@
+# Copyright (C) 2021 GP Word Count
+# This file is distributed under the same license as the GP Word Count package.
+msgid ""
+msgstr ""
+"Project-Id-Version: GP Word Count\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../class-gp-word-count.php:15
+msgid "Minimum Word Count"
+msgstr ""
+
+#: ../class-gp-word-count.php:15
+msgid "The minimum number of words that must be entered in this field. Leave empty if there is no minimum."
+msgstr ""
+
+#: ../class-gp-word-count.php:16
+msgid "Maximum Word Count"
+msgstr ""
+
+#: ../class-gp-word-count.php:16
+msgid "The maximum number of words that must be entered in this field. Leave empty if there is no maximum."
+msgstr ""
+
+#: ../class-gp-word-count.php:31
+msgid "Min Word Count"
+msgstr ""
+
+#: ../class-gp-word-count.php:40
+msgid "Max Word Count"
+msgstr ""
+
+#: ../class-gp-word-count.php:104
+msgid "Max: %s words"
+msgstr ""
+
+#: ../class-gp-word-count.php:105
+msgid "Max: %s word"
+msgstr ""
+
+#: ../class-gp-word-count.php:106, ../class-gp-word-count.php:108
+msgid "%s words left"
+msgstr ""
+
+#: ../class-gp-word-count.php:107
+msgid "%s word left"
+msgstr ""
+
+#: ../class-gp-word-count.php:109
+msgid "Limit exceeded!"
+msgstr ""
+
+#: ../class-gp-word-count.php:110
+msgid "%s more words required"
+msgstr ""
+
+#: ../class-gp-word-count.php:111
+msgid "%s more word required"
+msgstr ""
+
+#: ../class-gp-word-count.php:112
+msgid "Minimum word count met."
+msgstr ""
+
+#: ../class-gp-word-count.php:113
+msgid "Min: %s words"
+msgstr ""
+
+#: ../class-gp-word-count.php:114
+msgid "Min: %s word"
+msgstr ""
+
+#: ../class-gp-word-count.php:171
+msgid "You must enter at least %s word."
+msgid_plural "You must enter at least %s words."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../class-gp-word-count.php:177
+msgid "You may only enter %s word."
+msgid_plural "You may only enter %s words."
+msgstr[0] ""
+msgstr[1] ""

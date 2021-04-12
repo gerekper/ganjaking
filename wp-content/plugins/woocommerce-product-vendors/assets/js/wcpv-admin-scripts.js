@@ -74,7 +74,7 @@ jQuery( document ).ready( function( $ ) {
 				var value = window.prompt( woocommerce_admin_meta_boxes_variations.i18n_enter_a_value );
 
 				if ( value != null ) {
-					$( ':input[name^="_wcpv_product_variation_commission"]' ).val( value ).change();
+					$( ':input[name^="_wcpv_product_variation_commission"]' ).val( value ).trigger( 'change' );
 				}
 			});
 
@@ -216,7 +216,7 @@ jQuery( document ).ready( function( $ ) {
 				$( aLink ).hide();
 				$( aLink ).addClass( 'pv-temp-download' );
 				$( 'body' ).append( aLink );
-				aLink.click();
+				aLink.trigger( 'click' );
 			}
 
 			// Export commissions for current view
@@ -263,7 +263,7 @@ jQuery( document ).ready( function( $ ) {
 			});
 
 			// PayPal Mass Payments sandbox/live credential toggle
-			$( '#wcpv_vendor_settings_paypal_masspay_environment' ).change( function() {
+			$( '#wcpv_vendor_settings_paypal_masspay_environment' ).on( 'change', function() {
 				var clientIDLive = $( '#wcpv_vendor_settings_paypal_masspay_client_id_live' ).parents( 'tr' ).eq(0),
 					clientSecretLive = $( '#wcpv_vendor_settings_paypal_masspay_client_secret_live' ).parents( 'tr' ).eq(0),
 					clientIDSandbox = $( '#wcpv_vendor_settings_paypal_masspay_client_id_sandbox' ).parents( 'tr' ).eq(0),
@@ -280,7 +280,7 @@ jQuery( document ).ready( function( $ ) {
 					clientIDSandbox.hide();
 					clientSecretSandbox.hide();
 				}
-			}).change();
+			}).trigger( 'change' );
 
 			// show/hide additional settings for taxonomy create page
 			$( document.body ).on( 'click', '.wcpv-term-additional-settings-link', function( e ) {

@@ -1,0 +1,137 @@
+/* Content reset button */
+
+.gpbua-tab-footer {
+	margin-top: 12px;
+	text-align: right;
+}
+
+.gpbua-merge-tag-select {
+	margin-right: 12px;
+}
+
+#poststuff #gpbua_activation_metabox .inside {
+	margin-top: 0;
+	padding: 0;
+}
+
+#gpbua-tabs #tabs {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	overflow: hidden;
+}
+
+.gpbua-tabs-container {
+	flex-grow: 1;
+	padding: 12px;
+}
+
+.gpbua-tab:not(:first-child) {
+	display: none;
+}
+
+#gpbua-tabs #tabs {
+	width: 100%;
+}
+
+#gpbua-tabs #tabs > ul {
+	padding: 0;
+	border: none;
+	margin: 0;
+	min-width: 170px;
+	border-right: 1px solid #eee;
+	background-color: #fafafa;
+}
+
+#gpbua-tabs #tabs > ul li {
+	border: 0 !important;
+	margin: 0;
+	padding: 0;
+	outline: 0 !important;
+	float: none;
+}
+
+#gpbua-tabs #tabs > ul li a {
+	display: block;
+	padding: 11px 12px;
+	border: 0 !important;
+	border-bottom: 1px solid #eee !important;
+	text-decoration: none;
+}
+
+#gpbua-tabs #tabs > ul li.ui-tabs-active {
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+}
+
+#gpbua-tabs #tabs > ul li.ui-state-hover,
+#gpbua-tabs #tabs > ul li.ui-state-focus,
+#gpbua-tabs #tabs > ul li.ui-state-focus:focus,
+#gpbua-tabs #tabs > ul li.ui-state-active {
+	border: none;
+	outline: none;
+}
+
+#gpbua-tabs #tabs > ul .ui-state-focus:focus {
+	outline: 1px dotted red !important
+}
+
+#gpbua-tabs #tabs > ul a,
+#gpbua-tabs #tabs > ul .ui-state-focus a {
+	outline: none;
+	border: none;
+	outline-color: transparent;
+}
+
+#gpbua-tabs .ui-state-active a,
+#gpbua-tabs .ui-state-hover a {
+	outline: none;
+}
+
+#gpbua-tabs .ui-state-active a,
+#gpbua-tabs .ui-state-hover a,
+#gpbua-tabs .ui-state-visited a,
+#gpbua-tabs .ui-state-focus a,
+#gpbua-tabs .ui-state-active a:focus,
+#gpbua-tabs .ui-state-hover a:focus,
+#gpbua-tabs .ui-state-visited a:focus,
+#gpbua-tabs .ui-state-focus a:focus {
+	outline: none;
+	border: none;
+	box-shadow: none;
+}
+
+#gpbua-tabs #tabs > ul a:before {
+	font-family: Dashicons;
+	speak: none;
+	font-variant: normal;
+	text-transform: none;
+	-webkit-font-smoothing: antialiased;
+	margin: 0 .618em 0 0;
+	position: relative;
+	top: 1px;
+}
+
+.gpbua-reset-content-button {
+	cursor: pointer;
+}
+
+#gpbua-tabs li.tab-menu-success a:before,
+#gpbua-tabs li.tab-menu-success_site a:before {
+	content: "\f459";
+}
+
+#gpbua-tabs li.tab-menu-error_already_active a:before,
+#gpbua-tabs li.tab-menu-error_already_active_site a:before {
+	content: "\f110";
+}
+
+#gpbua-tabs li.tab-menu-error_no_key a:before {
+	content: "\f112";
+}
+
+#gpbua-tabs li.tab-menu-error a:before {
+	content: "\f117";
+}

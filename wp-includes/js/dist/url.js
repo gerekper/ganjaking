@@ -82,13 +82,48 @@ this["wp"] = this["wp"] || {}; this["wp"]["url"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 449);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 475);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /******/ })
 /************************************************************************/
 /******/ ({
 
+<<<<<<< HEAD
 /***/ 11:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
+=======
+/***/ 119:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var stringify = __webpack_require__(464);
+var parse = __webpack_require__(465);
+var formats = __webpack_require__(272);
+
+module.exports = {
+    formats: formats,
+    parse: parse,
+    stringify: stringify
+};
+
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["lodash"]; }());
+
+/***/ }),
+
+/***/ 271:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 "use strict";
 
@@ -166,8 +201,13 @@ function _arrayLikeToArray(arr, len) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 31:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
+=======
+/***/ 464:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _unsupportedIterableToArray; });
@@ -184,8 +224,13 @@ function _unsupportedIterableToArray(o, minLen) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 38:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
+=======
+/***/ 465:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _arrayWithHoles; });
@@ -206,7 +251,11 @@ function _nonIterableRest() {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 449:
+=======
+/***/ 475:
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

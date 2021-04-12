@@ -1,0 +1,220 @@
+
+# Changelog
+
+## 1.0-beta-4.6
+
+	- Fixed an issue where conditional logic was evaluated before GPDTC could modify the formula.
+
+## 1.0-beta-4.5
+
+	- Updated the priority of formula modifications so Date/Time merge tags are replaced first.
+	- Fixed issue where init script was not output when applied to a child … (#6)
+
+## 1.0-beta-4.4
+
+	- Fixed an issue where age calculation may be off by a few hours depending on the timezone.
+	- Updated docs URL to point to GP Date Time Calculator docs rather than the Gravity Wiz homepage.
+
+## 1.0-beta-4.3
+
+	- Updated max delta for calculation warnings from 0.001 to 0.009.
+	- Fixed issue where Date Time Calculator would deregister other tooltips in the form editor.
+
+## 1.0-beta-4.2
+
+	- Fixed issue where calculations were not evaluated correctly on the frontend when form ID was stored as a string (instead of an integer).
+
+## 1.0-beta-4.1
+
+	- Fixed issue where Date Time Calculator wouldn't work consistently with multiple Nested Forms that are using Date Time Calculator formulas.
+
+## 1.0-beta-4.0
+
+	- Improved how GP Date Time Calculator handles mismatching calculations between what is submitted and what's submitted after calculation. The new behavior is to is allow submissions instead of throwing a validation error. After the entry is submitted, a warning note will be added to the entry and an e-mail containing the warning message will also be sent to the site's admin e-mail.
+	- Deprecated the following filters: 'gpdtc_validation_max_delta', 'gpdtc_email_admin_on_rejected_calc', 'gpdtc_rejected_calc_email_to'
+	- Added the following filters: 'gpdtc_warning_max_delta', 'gpdtc_send_delta_warning_admin_email', 'gpdtc_delta_warning_email_recipient', and 'gpdtc_add_delta_warning_entry_note'.
+
+## 1.0-beta-3.14
+
+	- Improved compatibility with GP Nested Forms.
+
+## 1.0-beta-3.13
+
+	- Fixed issue where dependent Time fields wouldn't always trigger a calculation. This also fixes a compatibility issue with GP Nested Forms and Time fields in calculations.
+
+## 1.0-beta-3.12
+
+	- Added new 'gpdtc_rejected_calc_email_to' filter.
+
+## 1.0-beta-3.11
+
+	- Fixed issue conflict with date fields being used in formulas that are after the first page on an AJAX-enabled multi-page form.
+
+## 1.0-beta-3.10
+
+	- Fixed issue where the delta check upon submission would reject field values that have been changed by users in editable fields such as Gravity Flow’s Vacation Days field.
+	- Fixed issue where multiple {weekendDays} and/or {weekdays} merge tags couldn't be used in the same calculation formula.
+
+## 1.0-beta-3.9
+
+	- Fixed potential calculation issues with certain timezone offsets.
+	- Fixed timezone offset issues with {today} merge tag.
+
+## 1.0-beta-3.8
+
+	- Fixed issue where {weekend} and {weekendDays} merge tags would fail validation during form submission.
+
+## 1.0-beta-3.7
+
+	- Added support for using the timezone setting from WordPress for time calculations—specifically those including the {now} merge tag.
+	- Fixed regression with {now} and {today} merge tags.
+	- Fixed fatal error that occurred when Gravity Perks was active but Gravity Forms was not.
+
+## 1.0-beta-3.6
+
+	- Fixed issue where daylight savings time was handled inconsistently and would cause entries to not be submitted.
+
+## 1.0-beta-3.5
+
+	- Fixed issue where delta verification check on submission would fail if using commas as decimal separator or if using the currency format.
+
+## 1.0-beta-3.4
+
+	- Fixed issue where the calculation result would be 0 in some cases when a date before January 1, 1970 (Linux Epoch) is entered into a date field that's part of a calculation.
+
+## 1.0-beta-3.3
+
+	- Fixed validation errors on certain multi-page forms.
+	- Fixed issue where delta verification for calculations would happen on all calculated fields rather than those only using Date Time Calculator merge tags.
+
+## 1.0-beta-3.2
+
+	- Fixed fatal error when using calculation fields with dates on multi-page forms.
+
+## 1.0-beta-3.1
+
+	- Fixed issue where calculated Product fields would always fail validation.
+
+## 1.0-beta-3.0
+
+    - Improved accuracy of calculations after submission
+    - Added 'gpdtc_validation_max_delta', 'gpdtc_rejected_calc_message', and 'gpdtc_email_admin_on_rejected_calc' filters
+    - Fixed various PHP notices
+	- Updated Perk to use GP_Plugin
+	- Fixed issue where {today} and {now} merge tags would work on the frontend, but not submit the correct value
+
+## 1.0-beta-2.10
+
+	- Updated plugin author.
+
+## 1.0-beta-2.9
+
+	- Fixed issue where GFFormDisplay was not included and generated fatal error in some instances (Partial Entries, Nested Forms).
+
+## 1.0-beta-2.8
+
+	- Updated minimum required version of Gravity Forms to 2.4.2.3; required for change in GFMergeTag.parseMergeTags() function that allows passing a custom pattern.
+	- Fixed omission in change log.
+
+## 1.0-beta-2.7
+
+	- Fixed issue with accuracy of {weekdays} and {weekendDays} merge tags.
+	- Added version parameter to script enqueue so updates will bypass browser and file caches.
+
+## 1.0-beta-2.6
+
+	- Fixed issue with GF 2.4 where calculation object "patt" property no longer exists.
+
+## 1.0-beta-2.5
+
+	- Fixed issue when parsing dates before 01/01/1970 (PHP).
+
+## 1.0
+
+	- Fixed error when formula contains field that no longer exists
+	- Updated perk to use GP_Bootstrap
+	- Updated perk to use GP_Bootstrap
+	- Updated perk to use GP_Bootstrap
+	- Removed extra settings markup (not sure how that happened)
+	- Added support for '24' as a valid hour amount in Time fields
+	- Updated {today} merge tag to resolve to 00:00:00 time rather than current time
+	- Fixed issue where {weekdays} and {weekendDays} merge tags did not work when Calc Unit setting not set to seconds
+	- Fixed issue caused when non-date-based calculation fields were processed for date-based merge tags
+	- Added support for negative date values (when timestamp is before Jan 01 1970)
+	- Fixed version
+	- Fixed lingering issues with {weekdays} and {weekendDays} merge tags with a major overhaul to JS and PHP powering these merge tags
+	- Fixed issue where {weekendDays} merge tag did not provide an accurate number of weekend days between two dates if dates spanned less than one week
+	- Fixed issue where scripts were not output when noconflict mode was enabled
+	- Fixed issue with {:age} modifier where some dates results in incorrect calculation
+	- Fixed issue with {:age} modifier where age was calculated on Epoch beginning of time (Jan 1, 1970) when no date was entered
+	- Added support {today} and {:age} modifier
+	- Added support for processing dates on backend
+
+## 1.0-beta-2.4
+
+	- Fixed issue where fields with conditional logic dependent on a date-based calculation would have their value cleared on validation error or progressing to another page since our formula filters were not applied on the first pass when conditional logic was evaluated.
+
+## 1.0.beta2.3
+
+	- Added support for {now} helper merge tag; generates a timestamp for the current time.
+
+## 1.0.beta2.2
+
+    - Fixed error when formula contains field that no longer exists
+
+## 1.0.beta2.1
+
+    - Updated perk to use GP_Bootstrap
+
+## 1.0.beta2.0
+
+    - Removed extra settings markup (not sure how that happened)
+    - Added support for '24' as a valid hour amount in Time fields
+
+## 1.0.beta1.11
+
+    - Updated {today} merge tag to resolve to 00:00:00 time rather than current time
+
+## 1.0.beta1.10
+
+    - Fixed issue where {weekdays} and {weekendDays} merge tags did not work when Calc Unit setting not set to seconds
+
+## 1.0.beta1.9
+
+    - Fixed issue caused when non-date-based calculation fields were processed for date-based merge tags
+
+## 1.0.beta1.8
+
+	- Added support for negative date values (when timestamp is before Jan 01 1970)
+
+## 1.0.beta1.7
+
+    - Fixed lingering issues with {weekdays} and {weekendDays} merge tags with a major overhaul to JS and PHP powering these merge tags
+
+## 1.0.beta1.6
+
+	- Fixed issue where {weekendDays} merge tag did not provide an accurate number of weekend days between two dates if dates spanned less than one week
+
+## 1.0.beta1.5
+
+	- Fixed issue where scripts were not output when noconflict mode was enabled
+
+## 1.0.beta1.4
+
+    - Fixed issue with {:age} modifier where some dates results in incorrect calculation
+
+## 1.0.beta1.3
+
+    - Fixed issue with {:age} modifier where age was calculated on Epoch beginning of time (Jan 1, 1970) when no date was entered
+
+## 1.0.beta1.2
+
+    - Added support {today} and {:age} modifier
+
+## 1.0.beta1.1
+
+    - Added support for processing dates on backend
+
+## 1.0.beta1.0
+
+    - I can feel it coming in the air tonight, oh Lord!

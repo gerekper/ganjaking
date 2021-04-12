@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Product Class.
  *
  * @class    WC_Product_Composite
- * @version  8.0.0
+ * @version  8.1.0
  */
 class WC_Product_Composite extends WC_Product {
 
@@ -133,13 +133,13 @@ class WC_Product_Composite extends WC_Product {
 		);
 
 		$this->contains = array(
-			'priced_individually'  => null,
-			'shipped_individually' => null,
-			'priced_indefinitely'  => false,
-			'optional'             => false,
-			'mandatory'            => false,
-			'discounted'           => false,
-			'discounted_mandatory' => false
+			'priced_individually'     => null,
+			'shipped_individually'    => null,
+			'configurable_quantities' => false,
+			'optional'                => false,
+			'mandatory'               => false,
+			'discounted'              => false,
+			'discounted_mandatory'    => false
 		);
 
 		$this->is_synced                 = false;
@@ -186,8 +186,8 @@ class WC_Product_Composite extends WC_Product {
 				$quantity_max = $component->get_quantity( 'max' );
 
 				if ( $component->is_optional() ) {
-					$this->contains[ 'priced_indefinitely' ] = true;
-					$this->contains[ 'optional' ]            = true;
+					$this->contains[ 'configurable_quantities' ] = true;
+					$this->contains[ 'optional' ]                = true;
 				} else {
 					$this->contains[ 'mandatory' ] = true;
 				}
@@ -200,7 +200,7 @@ class WC_Product_Composite extends WC_Product {
 				}
 
 				if ( $quantity_min !== $quantity_max ) {
-					$this->contains[ 'priced_indefinitely' ] = true;
+					$this->contains[ 'configurable_quantities' ] = true;
 				}
 			}
 		}
@@ -594,8 +594,6 @@ class WC_Product_Composite extends WC_Product {
 
 			} else {
 
-				$has_indefinite_max_price = 'defaults' === $this->get_shop_price_calc() || $this->contains( 'priced_indefinitely' ) || INF === $this->get_max_raw_price();
-
 				/**
 				 * 'woocommerce_composite_force_old_style_price_html' filter.
 				 *
@@ -604,7 +602,7 @@ class WC_Product_Composite extends WC_Product {
 				 * @param  boolean            $suppress_range_price_html
 				 * @param  WC_Product_Bundle  $this
 				 */
-				$suppress_range_price_html = $has_indefinite_max_price || apply_filters( 'woocommerce_composite_force_old_style_price_html', false, $this );
+				$suppress_range_price_html = 'defaults' === $this->get_shop_price_calc() || $this->contains( 'configurable_quantities' ) || INF === $this->get_max_raw_price() || apply_filters( 'woocommerce_composite_force_old_style_price_html', false, $this );
 
 				$price_min = $this->get_composite_price( 'min', true );
 				$price_max = $this->get_composite_price( 'max', true );
@@ -879,6 +877,7 @@ class WC_Product_Composite extends WC_Product {
 		$product_price_visibility = array();
 		$subtotal_visibility      = array();
 		$price_display            = array();
+		$optional                 = array();
 
 		$components = $this->get_components();
 
@@ -890,6 +889,7 @@ class WC_Product_Composite extends WC_Product {
 				$product_price_visibility[ $component_id ] = $component->hide_selected_option_price() ? 'no' : 'yes';
 				$subtotal_visibility[ $component_id ]      = $component->is_subtotal_visible() ? 'yes' : 'no';
 				$price_display[ $component_id ]            = $component->get_price_display_settings();
+				$optional[ $component_id ]                 = $component->is_optional() ? 'yes' : 'no';
 			}
 		}
 
@@ -909,6 +909,7 @@ class WC_Product_Composite extends WC_Product {
 			'selected_product_price_visibility_data' => $product_price_visibility,
 			'subtotal_visibility_data'               => $subtotal_visibility,
 			'price_display_data'                     => $price_display,
+			'optional_data'                          => $optional,
 			'hide_total_on_validation_fail'          => 'no',
 			'summary_carousel_autoscroll'            => 'yes',
 			'summary_carousel_scroll_coeff'          => 0.5,
@@ -1092,6 +1093,7 @@ class WC_Product_Composite extends WC_Product {
 	/**
 	 * Maximum raw composite price getter.
 	 * INF is 9999999999.0 in 'edit' (DB) context.
+	 * INF is internally stored as 'INF'.
 	 *
 	 * @since  3.9.0
 	 *
@@ -1103,6 +1105,7 @@ class WC_Product_Composite extends WC_Product {
 			$this->sync();
 		}
 		$value = $this->get_prop( 'max_raw_price', $context );
+		$value = 'INF' === $value ? INF : $value;
 		$value = 'edit' !== $context && $this->contains( 'priced_individually' ) && '' !== $value && INF !== $value ? (double) $value : $value;
 		$value = 'edit' === $context && INF === $value ? 9999999999.0 : $value;
 		return $value;
@@ -1435,15 +1438,17 @@ class WC_Product_Composite extends WC_Product {
 
 	/**
 	 * Maximum raw composite price setter.
-	 * Convert 9999999999.0 to INF.
+	 *
+	 * Converts 9999999999.0 to INF.
+	 * Internally stores infinite values as 'INF' to prevent issues with 'json_encode'.
 	 *
 	 * @since  3.9.0
 	 *
 	 * @param  mixed  $value
 	 */
 	public function set_max_raw_price( $value ) {
-		$value = INF !== $value ? wc_format_decimal( $value ) : INF;
-		$value = 9999999999.0 === (double) $value ? INF : $value;
+		$value = INF === $value ? 'INF' : wc_format_decimal( $value );
+		$value = 9999999999.0 === (double) $value ? 'INF' : $value;
 		$this->set_prop( 'max_raw_price', $value );
 	}
 
@@ -1794,6 +1799,11 @@ class WC_Product_Composite extends WC_Product {
 			$this->sync();
 		}
 
+		// Back-compat.
+		if ( 'priced_indefinitely' === $key ) {
+			return $this->contains[ 'configurable_quantities' ];
+		}
+
 		return isset( $this->contains[ $key ] ) ? $this->contains[ $key ] : null;
 	}
 
@@ -2015,7 +2025,6 @@ class WC_Product_Composite extends WC_Product {
 		}
 
 		$scenario_data = $this->scenarios()->get_data( $component_options_subset );
-
 		/**
 		 * Filter generated scenario data.
 		 *

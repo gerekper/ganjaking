@@ -1,0 +1,118 @@
+
+# Changelog
+
+## 1.0.10
+
+	- Fixed compatibility issue with GF 2.5 and conditional logic.
+
+## 1.0.9
+
+	- Added support for tracking if the last page is reached for manual page links.
+	- Fixed issue where GP Multi Page Navigation settings would show for every field in the Form Editor.
+
+## 1.0.8
+
+	- Fixed issue where GF Multi-Page Navigation settings would not show in the Page settings when using Gravity Forms 2.5 or newer.
+
+## 1.0.7
+
+	- Added support for custom page links outside of Gravity Forms implemented via the WC GF Product Add-ons plugin.
+
+## 1.0.6
+
+	- Fixed issue where setting "page" attribute on shortcode was not working.
+
+## 1.0.5
+
+	- Fixed potential security issue.
+
+## 1.0.3
+
+	- Fixed issue where next and previous buttons hidden via conditional logic prevented navigation from submitting form.
+
+## 1.0.2
+
+	- Added support for targeting custom page links from a parent element.
+
+## 1.0.1
+
+	- Added support for specifying default form page to be rendered (via shortcode attribute, query string, or filter).
+
+## 1.0
+
+	- Fixed notice generated in PHP 7.1+ when non-numeric value was encountered.
+
+## 1.0.beta2.11
+
+    - Fixed issue where jumping to a target page from a source page with a conditional page between them caused the target page to be incorrectly adjusted by Gravity Forms.
+    - Fixed issue where in some cases, navigating after using a custom page link would cause the form to revalidate.
+
+## 1.0.beta2.9
+
+    - Fixed conflict with WC GF Product Add-ons 3.0 where form object is not available on page load.
+
+## 1.0.beta2.8
+
+    - Fixed conflict with WC GF Product Add-ons where custom inputs were overridden in gform_form_tag filter.
+
+## 1.0.beta2.7
+
+    - Added translation support
+
+## 1.0.beta2.6
+
+    - Fixed issue where bypassing validation still showed validation errors for fields that had failed validation
+
+## 1.0.beta2.5
+
+    - Fixed issue where when next/prev/submit buttons were hidden via conditional logic; page navigation would fail to submit.
+    - Updated perk to use GP_Bootstrap
+
+## 1.0.beta2.4
+
+    - Fixed issue where validation message was overridden even when MP navigation was not enabled for that form
+
+## 1.0.beta2.3
+
+    - Fixed issue where spinner was incorrectly displayed in the footer for all forms on a page
+
+## 1.0.beta2.2
+
+    - Fixed issue where validation was still happening for custom page links
+
+## 1.0.beta2.1
+
+    - Fixed issue where navigating backwards and then saving form progression would result in an error when resuming form
+
+## 1.0.beta2
+
+    - Fixed issue where navigating back to a page and then forward via page links in 'Last Page' and 'Progession' modes
+    would incorrectly apply validation to all pages which sometimes resulted in skipping forward to pages the user had
+    not yet reached; this also resolved anissue where progressing to the furthest page reached after navigating
+    backwords would result in that page displaying validation errors which should not occur until the page has been
+    intentionally submitted
+
+## 1.0.beta1.5
+
+	- Fixed issue where using Save & Continue on last page of form resulted in an error when resuming from Save & Continue
+
+## 1.0.beta1.4
+
+    - Fixed issue where if non-GF form was on page, custom page links outside the form element would not work
+
+## 1.0.beta1.3
+
+    - Added support for custom page links outside of the form element
+
+## 1.0.beta1.2
+
+    - Fixed issue where fields shown/hidden via conditional logic could be bypassed if the user "skipped" the page via page navigation
+
+## 1.0.beta1.1
+
+    - Fixed issue where plugins using the gform_validation filter would sometimes override the bypass validation functionality
+    - Updated plugin description
+
+## 1.0.beta1.0
+
+    - Intial release.

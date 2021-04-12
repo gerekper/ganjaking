@@ -1,0 +1,620 @@
+# Copyright (C) 2021 YITH
+# This file is distributed under the same license as the YITH WooCommerce Terms & Conditions Popup package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Terms & Conditions Popup\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/yith-woocommerce-terms-conditions-"
+"premium\n"
+"POT-Creation-Date: 2021-02-21 17:13:09+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: YITH <plugins@yithemes.com>\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_n:1,2;__ngettext:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_"
+"x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;esc_attr__;esc_attr_e;esc_html__"
+";esc_html_e\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPathExcluded-0: plugin-fw\n"
+"X-Poedit-SearchPathExcluded-1: plugin-upgrade\n"
+"X-Poedit-SearchPathExcluded-2: node_modules\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: includes/class.yith-wctc-admin.php:63
+msgid "Settings"
+msgstr ""
+
+#: includes/class.yith-wctc-admin.php:64
+msgid "Layout"
+msgstr ""
+
+#: includes/class.yith-wctc-admin.php:120
+#: includes/class.yith-wctc-admin.php:121
+msgid "Terms and Conditions Popup"
+msgstr ""
+
+#: includes/class.yith-wctc-admin.php:158
+msgid ""
+"In YIT Plugins tab you can find YITH WooCommerce Terms & Conditions Popup "
+"options. From this menu you can access all settings of YITH plugins "
+"activated."
+msgstr ""
+
+#: includes/class.yith-wctc-admin.php:175
+#: includes/class.yith-wctc-privacy.php:53
+msgid "Terms & Conditions agreement"
+msgstr ""
+
+#: includes/class.yith-wctc-privacy.php:77
+#: templates/admin/metaboxes/user-preferences-metabox.php:19
+msgid "No data registered for this order"
+msgstr ""
+
+#: includes/class.yith-wctc-privacy.php:83
+#: templates/admin/metaboxes/user-preferences-metabox.php:36
+msgid "Terms & Conditions accepted:"
+msgstr ""
+
+#: includes/class.yith-wctc-privacy.php:84
+#: includes/class.yith-wctc-privacy.php:96
+#: templates/admin/metaboxes/user-preferences-metabox.php:37
+#: templates/admin/metaboxes/user-preferences-metabox.php:44
+msgid "yes"
+msgstr ""
+
+#: includes/class.yith-wctc-privacy.php:84
+#: includes/class.yith-wctc-privacy.php:96
+#: templates/admin/metaboxes/user-preferences-metabox.php:37
+#: templates/admin/metaboxes/user-preferences-metabox.php:44
+msgid "no"
+msgstr ""
+
+#: includes/class.yith-wctc-privacy.php:88
+#: templates/admin/metaboxes/user-preferences-metabox.php:57
+msgid "T&C last update:"
+msgstr ""
+
+#: includes/class.yith-wctc-privacy.php:95
+#: templates/admin/metaboxes/user-preferences-metabox.php:43
+msgid "Privacy Policy accepted:"
+msgstr ""
+
+#: includes/class.yith-wctc-privacy.php:100
+#: templates/admin/metaboxes/user-preferences-metabox.php:64
+msgid "Privacy last update:"
+msgstr ""
+
+#: includes/class.yith-wctc.php:490 includes/class.yith-wctc.php:515
+msgid "Please read and accept our %s to proceed with your order."
+msgstr ""
+
+#: includes/class.yith-wctc.php:494
+msgid "Please read and accept our Privacy Policy to proceed with your order."
+msgstr ""
+
+#: includes/class.yith-wctc.php:519
+msgid ""
+"Please read and accept our Terms &amp; Conditions to proceed with your "
+"order."
+msgstr ""
+
+#: init.php:122
+msgid "%s is enabled but not effective. It requires WooCommerce in order to work."
+msgstr ""
+
+#: plugin-options/layout-options.php:20
+msgid "Popup Layout"
+msgstr ""
+
+#: plugin-options/layout-options.php:28
+msgid "Round Popup Corners"
+msgstr ""
+
+#: plugin-options/layout-options.php:35
+msgid "Modal Window Background Color"
+msgstr ""
+
+#: plugin-options/layout-options.php:43
+msgid "Modal Overlay Background Color"
+msgstr ""
+
+#: plugin-options/layout-options.php:51
+msgid "Popup overlay opacity"
+msgstr ""
+
+#: plugin-options/layout-options.php:53
+msgid "Popup overlay opacity (between 0 and 1)"
+msgstr ""
+
+#: plugin-options/layout-options.php:60
+msgid "Modal Close Button Background Color"
+msgstr ""
+
+#: plugin-options/layout-options.php:68
+msgid "Popup Close Button opacity"
+msgstr ""
+
+#: plugin-options/layout-options.php:70
+msgid "Popup Close Button opacity (between 0 and 1)"
+msgstr ""
+
+#: plugin-options/layout-options.php:77
+msgid "Popup close button style"
+msgstr ""
+
+#: plugin-options/layout-options.php:80
+msgid "Big"
+msgstr ""
+
+#: plugin-options/layout-options.php:81
+msgid "Small"
+msgstr ""
+
+#: plugin-options/layout-options.php:82
+msgid "Square"
+msgstr ""
+
+#: plugin-options/layout-options.php:83
+msgid "Round big"
+msgstr ""
+
+#: plugin-options/layout-options.php:84
+msgid "Round small"
+msgstr ""
+
+#: plugin-options/layout-options.php:92
+msgid "Loading image"
+msgstr ""
+
+#: plugin-options/layout-options.php:95
+msgid "Circle"
+msgstr ""
+
+#: plugin-options/layout-options.php:96
+msgid "Dots"
+msgstr ""
+
+#: plugin-options/layout-options.php:97
+msgid "Ios"
+msgstr ""
+
+#: plugin-options/layout-options.php:98
+msgid "Quads"
+msgstr ""
+
+#: plugin-options/layout-options.php:106
+msgid "Popup show effect"
+msgstr ""
+
+#: plugin-options/layout-options.php:109
+msgid "None"
+msgstr ""
+
+#: plugin-options/layout-options.php:110
+msgid "Huge Inc"
+msgstr ""
+
+#: plugin-options/layout-options.php:111
+msgid "Corner"
+msgstr ""
+
+#: plugin-options/layout-options.php:112
+msgid "Slide down"
+msgstr ""
+
+#: plugin-options/layout-options.php:113
+msgid "Scale"
+msgstr ""
+
+#: plugin-options/layout-options.php:114
+msgid "Little genie"
+msgstr ""
+
+#: plugin-options/layout-options.php:126
+msgid "\"I Agree\" Button Layout"
+msgstr ""
+
+#: plugin-options/layout-options.php:134
+msgid "Button alignment"
+msgstr ""
+
+#: plugin-options/layout-options.php:137
+msgid "Left"
+msgstr ""
+
+#: plugin-options/layout-options.php:138
+msgid "Center"
+msgstr ""
+
+#: plugin-options/layout-options.php:139
+msgid "Right"
+msgstr ""
+
+#: plugin-options/layout-options.php:147
+msgid "\"I Agree\" button type"
+msgstr ""
+
+#: plugin-options/layout-options.php:150
+msgid "Button"
+msgstr ""
+
+#: plugin-options/layout-options.php:151
+msgid "Anchor"
+msgstr ""
+
+#: plugin-options/layout-options.php:159
+msgid "\"I Agree\" button style"
+msgstr ""
+
+#: plugin-options/layout-options.php:162
+msgid "WooCommerce"
+msgstr ""
+
+#: plugin-options/layout-options.php:163
+msgid "Custom"
+msgstr ""
+
+#: plugin-options/layout-options.php:171
+msgid "Round Corners for \"I Agree\" Button"
+msgstr ""
+
+#: plugin-options/layout-options.php:178
+msgid "\"I Agree\" Button Background Color"
+msgstr ""
+
+#: plugin-options/layout-options.php:186
+msgid "\"I Agree\" Button Text Color"
+msgstr ""
+
+#: plugin-options/layout-options.php:194
+msgid "\"I Agree\" Button Border Color"
+msgstr ""
+
+#: plugin-options/layout-options.php:202
+msgid "\"I Agree\" Button Hover Background Color"
+msgstr ""
+
+#: plugin-options/layout-options.php:210
+msgid "\"I Agree\" Button Hover Text Color"
+msgstr ""
+
+#: plugin-options/layout-options.php:218
+msgid "\"I Agree\" Button Hover Border Color"
+msgstr ""
+
+#: plugin-options/settings-options.php:20
+msgid "Popup Options"
+msgstr ""
+
+#: plugin-options/settings-options.php:28
+msgid "Enable Terms & Conditions Popup"
+msgstr ""
+
+#: plugin-options/settings-options.php:30
+msgid "Enable popup for Terms and Conditions section on Checkout page"
+msgstr ""
+
+#: plugin-options/settings-options.php:36
+msgid "Popup width"
+msgstr ""
+
+#: plugin-options/settings-options.php:40
+msgid "Popup width (in pixel)"
+msgstr ""
+
+#: plugin-options/settings-options.php:47
+msgid "Popup height"
+msgstr ""
+
+#: plugin-options/settings-options.php:51
+msgid "Popup height (in pixel)"
+msgstr ""
+
+#: plugin-options/settings-options.php:58
+msgid "Popup title"
+msgstr ""
+
+#: plugin-options/settings-options.php:60
+msgid "Show page title in popup header"
+msgstr ""
+
+#: plugin-options/settings-options.php:67
+msgid "Popup button"
+msgstr ""
+
+#: plugin-options/settings-options.php:69
+msgid "Show \"I Agree\" button in popup footer"
+msgstr ""
+
+#: plugin-options/settings-options.php:76
+msgid "\"I Agree\" button text"
+msgstr ""
+
+#: plugin-options/settings-options.php:78
+msgid "\"I Agree\" button text in popup footer"
+msgstr ""
+
+#: plugin-options/settings-options.php:79
+msgid "I agree"
+msgstr ""
+
+#: plugin-options/settings-options.php:85
+msgid "Scroll till end of the document to accept"
+msgstr ""
+
+#: plugin-options/settings-options.php:87
+msgid "Force the user to scroll popup till the end to accept terms and conditions"
+msgstr ""
+
+#: plugin-options/settings-options.php:94
+msgid "\"Please, read terms\" message"
+msgstr ""
+
+#: plugin-options/settings-options.php:96
+msgid ""
+"Error message shown when a user tries to accept terms without scrolling "
+"popup window till the end"
+msgstr ""
+
+#: plugin-options/settings-options.php:97
+msgid "Please, read carefully ALL terms and conditions"
+msgstr ""
+
+#: plugin-options/settings-options.php:107
+msgid "Terms/Privacy Options"
+msgstr ""
+
+#: plugin-options/settings-options.php:115
+msgid "Hide checkboxes"
+msgstr ""
+
+#: plugin-options/settings-options.php:117
+msgid "Hide checkboxes in checkout page"
+msgstr ""
+
+#: plugin-options/settings-options.php:124
+msgid "Terms and Conditions / Privacy"
+msgstr ""
+
+#: plugin-options/settings-options.php:126
+msgid "Select pages of conditions that you want to show on checkout"
+msgstr ""
+
+#: plugin-options/settings-options.php:128
+msgid "Only Terms and Conditions"
+msgstr ""
+
+#: plugin-options/settings-options.php:129
+msgid "Only Privacy"
+msgstr ""
+
+#: plugin-options/settings-options.php:130
+msgid "Both Terms and Privacy"
+msgstr ""
+
+#: plugin-options/settings-options.php:138
+msgid "Show terms together or apart"
+msgstr ""
+
+#: plugin-options/settings-options.php:140
+msgid ""
+"Decide whether to show privacy and conditions as a single checkbox or as "
+"two different checkbox."
+msgstr ""
+
+#: plugin-options/settings-options.php:142
+msgid "Together"
+msgstr ""
+
+#: plugin-options/settings-options.php:143
+msgid "Apart"
+msgstr ""
+
+#: plugin-options/settings-options.php:150
+msgid "Terms and Conditions"
+msgstr ""
+
+#: plugin-options/settings-options.php:151
+msgid ""
+"If you define a \"Terms\" page, customers will be asked to accept them when "
+"checking out."
+msgstr ""
+
+#: plugin-options/settings-options.php:163
+msgid "\"Terms and Conditions\" text"
+msgstr ""
+
+#: plugin-options/settings-options.php:165
+msgid ""
+"Select text that contains \"Terms and Conditions\" link; use \"%TERMS AND "
+"CONDITIONS%\" where you want the link to be printed"
+msgstr ""
+
+#: plugin-options/settings-options.php:166
+msgid "I&rsquo;ve read and accept the %TERMS AND CONDITIONS%"
+msgstr ""
+
+#: plugin-options/settings-options.php:172
+msgid "\"Terms and Conditions\" label"
+msgstr ""
+
+#: plugin-options/settings-options.php:174
+msgid "Select label for \"Terms and Conditions\" link"
+msgstr ""
+
+#: plugin-options/settings-options.php:175
+msgid "terms &amp; conditions"
+msgstr ""
+
+#: plugin-options/settings-options.php:181
+msgid "Terms and Conditions checked"
+msgstr ""
+
+#: plugin-options/settings-options.php:183
+msgid "Terms and Conditions checkbox will be printed as checked"
+msgstr ""
+
+#: plugin-options/settings-options.php:188
+msgid "Privacy"
+msgstr ""
+
+#: plugin-options/settings-options.php:189
+msgid ""
+"If you define a \"Privacy\" page, customers will be asked to accept them "
+"when checking out."
+msgstr ""
+
+#: plugin-options/settings-options.php:201
+msgid "\"Privacy\" text"
+msgstr ""
+
+#: plugin-options/settings-options.php:203
+msgid ""
+"Select text that contains \"Privacy\" link; use \"%PRIVACY%\" where you "
+"want the link to be printed"
+msgstr ""
+
+#: plugin-options/settings-options.php:204
+msgid "I&rsquo;ve read and accept the %PRIVACY%"
+msgstr ""
+
+#: plugin-options/settings-options.php:210
+msgid "\"Privacy\" label"
+msgstr ""
+
+#: plugin-options/settings-options.php:212
+msgid "Select label for \"Privacy\" link"
+msgstr ""
+
+#: plugin-options/settings-options.php:213
+msgid "privacy conditions"
+msgstr ""
+
+#: plugin-options/settings-options.php:219
+msgid "Privacy checked"
+msgstr ""
+
+#: plugin-options/settings-options.php:221
+msgid "Privacy checkbox will be printed as checked"
+msgstr ""
+
+#: plugin-options/settings-options.php:227
+msgid "Unique option text"
+msgstr ""
+
+#: plugin-options/settings-options.php:229
+msgid ""
+"Select text that contains \"Privacy\" and \"Terms and Conditions\" links; "
+"use \"%PRIVACY%\" and \"%TERMS AND CONDITIONS%\" where you want links to be "
+"printed"
+msgstr ""
+
+#: plugin-options/settings-options.php:230
+msgid "I&rsquo;ve read and accept the %TERMS AND CONDITIONS% and %PRIVACY%"
+msgstr ""
+
+#: plugin-options/settings-options.php:236
+msgid "Unique option checked"
+msgstr ""
+
+#: plugin-options/settings-options.php:238
+msgid "The checkbox will be printed as checked"
+msgstr ""
+
+#: plugin-options/settings-options.php:243
+msgid "Position for Terms and Conditions / Privacy"
+msgstr ""
+
+#: plugin-options/settings-options.php:245
+msgid "Select position for \"Terms and Conditions / Privacy\" checkbox in the page"
+msgstr ""
+
+#: plugin-options/settings-options.php:248
+msgid "Above customer details"
+msgstr ""
+
+#: plugin-options/settings-options.php:249
+msgid "Below customer details"
+msgstr ""
+
+#: plugin-options/settings-options.php:250
+msgid "Above \"Place order\" button"
+msgstr ""
+
+#: plugin-options/settings-options.php:251
+msgid "Below \"Place order\" button"
+msgstr ""
+
+#: plugin-options/settings-options.php:252
+msgid "Above \"Review order\" total"
+msgstr ""
+
+#: plugin-options/settings-options.php:253
+msgid "Above billing details"
+msgstr ""
+
+#: plugin-options/settings-options.php:254
+msgid "Below billing details"
+msgstr ""
+
+#: plugin-options/settings-options.php:255
+msgid "Above shipping details"
+msgstr ""
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:25
+msgid "User agreement"
+msgstr ""
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:27
+msgid ""
+"In this section you'll find data about customer consent to Mailchimp "
+"subscription"
+msgstr ""
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:30
+msgid "Type of agreement:"
+msgstr ""
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:31
+msgid "explicit"
+msgstr ""
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:31
+msgid "implicit"
+msgstr ""
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:50
+msgid "Terms / Privacy versions"
+msgstr ""
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:52
+msgid ""
+"In this section you'll find last update for Terms & Conditions and Privacy "
+"Policy, at the time the customer accepted them"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Terms & Conditions Popup</strong></code> "
+"helps to show legal notes to your e-commerce users on the Checkout page, "
+"making sure they read the document before proceeding with the purchase. "
+"Improve the sense of the reliability of your e-commerce and grant full "
+"compliance with European laws at once. <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Get more plugins for your e-commerce on "
+"<strong>YITH</strong></a>"
+msgstr ""
+
+#: includes/class.yith-wctc-privacy.php:31
+msgctxt "Privacy Policy Content"
+msgid "YITH WooCommerce Terms and Conditions Popup"
+msgstr ""

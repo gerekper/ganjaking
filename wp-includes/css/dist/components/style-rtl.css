@@ -3423,7 +3423,6 @@ body.is-dragging-components-draggable {
   height: 60px;
   z-index: 10;
   position: relative;
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   margin: 0 -24px 24px;
@@ -3713,6 +3712,7 @@ body.rtl .components-panel__body-toggle.components-button .dashicons-arrow-right
   border-radius: 2px;
   background-color: #fff;
   box-shadow: inset 0 0 0 1px #1e1e1e;
+<<<<<<< HEAD
   outline: 1px solid transparent;
 }
 @supports ((position: -webkit-sticky) or (position: sticky)) {
@@ -3726,6 +3726,17 @@ body.rtl .components-panel__body-toggle.components-button .dashicons-arrow-right
 .components-placeholder.components-placeholder .components-base-control__label {
   font-size: 13px;
 }
+=======
+  outline: 1px solid transparent; }
+  @supports (position: sticky) {
+    .components-placeholder.components-placeholder {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start; } }
+  .components-placeholder.components-placeholder .components-base-control__label {
+    font-size: 13px; }
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 .components-placeholder__error,
 .components-placeholder__instructions,
@@ -4873,6 +4884,7 @@ body.lockscroll {
 
 div.components-toolbar > div {
   display: block;
+<<<<<<< HEAD
   margin: 0;
 }
 @supports ((position: -webkit-sticky) or (position: sticky)) {
@@ -4880,6 +4892,13 @@ div.components-toolbar > div {
     display: flex;
   }
 }
+=======
+  margin: 0; }
+  @supports (position: sticky) {
+    div.components-toolbar > div {
+      display: flex; } }
+
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 div.components-toolbar > div + div.has-left-divider {
   margin-right: 6px;
   position: relative;

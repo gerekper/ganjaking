@@ -36,7 +36,7 @@ jQuery( function( $ ) {
 		e.preventDefault();
 
 		// Remove focus from the toggle element.
-		$toggle.blur();
+		$toggle.trigger( 'blur' );
 
 		// Ignore the request if the toggle is disabled.
 		if ( $toggle.hasClass( 'subscription-auto-renew-toggle--disabled' ) ) {

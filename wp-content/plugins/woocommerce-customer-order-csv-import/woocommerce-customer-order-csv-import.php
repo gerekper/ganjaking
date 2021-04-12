@@ -6,7 +6,7 @@
  * Description: Import customers, coupons and orders straight from the WordPress admin
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 3.10.1
+ * Version: 3.10.2
  * Text Domain: woocommerce-csv-import-suite
  * Domain Path: /i18n/languages/
  *

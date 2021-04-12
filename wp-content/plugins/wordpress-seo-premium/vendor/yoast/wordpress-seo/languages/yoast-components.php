@@ -195,16 +195,16 @@ $generated_i18n_strings = array(
 	// Reference: node_modules/@yoast/search-metadata-previews/snippet-preview/FixedWidthContainer.js:133
 	__( 'Scroll to see the preview content.', 'wordpress-seo' ),
 
-	// Reference: node_modules/@yoast/search-metadata-previews/snippet-preview/SnippetPreview.js:473
+	// Reference: node_modules/@yoast/search-metadata-previews/snippet-preview/SnippetPreview.js:472
 	__( 'Please provide a meta description by editing the snippet below. If you don’t, Google will try to find a relevant part of your post to show in the search results.', 'wordpress-seo' ),
 
-	// Reference: node_modules/@yoast/search-metadata-previews/snippet-preview/SnippetPreview.js:589
+	// Reference: node_modules/@yoast/search-metadata-previews/snippet-preview/SnippetPreview.js:581
 	__( 'Url preview', 'wordpress-seo' ),
 
-	// Reference: node_modules/@yoast/search-metadata-previews/snippet-preview/SnippetPreview.js:778
+	// Reference: node_modules/@yoast/search-metadata-previews/snippet-preview/SnippetPreview.js:771
 	__( 'SEO title preview', 'wordpress-seo' ),
 
-	// Reference: node_modules/@yoast/search-metadata-previews/snippet-preview/SnippetPreview.js:797
+	// Reference: node_modules/@yoast/search-metadata-previews/snippet-preview/SnippetPreview.js:788
 	__( 'Meta description preview', 'wordpress-seo' ),
 
 	// Reference: js/src/components/MailchimpSignup.js:235

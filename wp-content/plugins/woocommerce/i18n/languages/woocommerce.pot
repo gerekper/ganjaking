@@ -2,14 +2,22 @@
 # This file is distributed under the same license as the WooCommerce plugin.
 msgid ""
 msgstr ""
+<<<<<<< HEAD
 "Project-Id-Version: WooCommerce 5.1.0\n"
+=======
+"Project-Id-Version: WooCommerce 5.0.0\n"
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2021-03-09T20:59:43+00:00\n"
+=======
+"POT-Creation-Date: 2021-02-09T22:53:14+00:00\n"
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: woocommerce\n"
@@ -30,7 +38,11 @@ msgstr ""
 #: includes/customizer/class-wc-shop-customizer.php:38
 #: includes/wc-order-functions.php:970
 #: packages/woocommerce-admin/includes/connect-existing-pages.php:62
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/Loader.php:1113
+=======
+#: packages/woocommerce-admin/src/Loader.php:1110
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-admin/src/PageController.php:183
 #: templates/auth/header.php:32
 #: packages/woocommerce-blocks/assets/js/atomic/blocks/product-elements/shared/config.js:17
@@ -758,7 +770,11 @@ msgid "Nicaragua"
 msgstr ""
 
 #: i18n/countries.php:175
+<<<<<<< HEAD
 #: i18n/states.php:1123
+=======
+#: i18n/states.php:1099
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Niger"
 msgstr ""
 
@@ -1249,7 +1265,11 @@ msgid "Mendoza"
 msgstr ""
 
 #: i18n/states.php:52
+<<<<<<< HEAD
 #: i18n/states.php:1309
+=======
+#: i18n/states.php:1285
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Misiones"
 msgstr ""
 
@@ -1616,7 +1636,11 @@ msgid "Lovech"
 msgstr ""
 
 #: i18n/states.php:152
+<<<<<<< HEAD
 #: i18n/states.php:1766
+=======
+#: i18n/states.php:1742
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Montana"
 msgstr ""
 
@@ -1737,7 +1761,11 @@ msgid "Ouémé"
 msgstr ""
 
 #: i18n/states.php:186
+<<<<<<< HEAD
 #: i18n/states.php:1128
+=======
+#: i18n/states.php:1104
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Plateau"
 msgstr ""
 
@@ -1790,7 +1818,11 @@ msgid "Amapá"
 msgstr ""
 
 #: i18n/states.php:204
+<<<<<<< HEAD
 #: i18n/states.php:1174
+=======
+#: i18n/states.php:1150
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Amazonas"
 msgstr ""
 
@@ -2252,6 +2284,7 @@ msgstr ""
 
 #: i18n/states.php:330
 msgid "San Cristóbal"
+<<<<<<< HEAD
 msgstr ""
 
 #: i18n/states.php:332
@@ -6732,165 +6765,4688 @@ msgid "Simiyu"
 msgstr ""
 
 #: i18n/states.php:1564
+=======
+msgstr ""
+
+#: i18n/states.php:332
+msgid "San Pedro de Macorís"
+msgstr ""
+
+#: i18n/states.php:333
+msgid "Sánchez Ramírez"
+msgstr ""
+
+#: i18n/states.php:334
+msgid "Santiago"
+msgstr ""
+
+#: i18n/states.php:335
+msgid "Santiago Rodríguez"
+msgstr ""
+
+#: i18n/states.php:336
+msgid "Valverde"
+msgstr ""
+
+#: i18n/states.php:337
+msgid "Monseñor Nouel"
+msgstr ""
+
+#: i18n/states.php:338
+msgid "Monte Plata"
+msgstr ""
+
+#: i18n/states.php:339
+msgid "Hato Mayor"
+msgstr ""
+
+#: i18n/states.php:340
+msgid "San José de Ocoa"
+msgstr ""
+
+#: i18n/states.php:341
+msgid "Santo Domingo"
+msgstr ""
+
+#: i18n/states.php:344
+msgid "Adrar"
+msgstr ""
+
+#: i18n/states.php:345
+msgid "Chlef"
+msgstr ""
+
+#: i18n/states.php:346
+msgid "Laghouat"
+msgstr ""
+
+#: i18n/states.php:347
+msgid "Oum El Bouaghi"
+msgstr ""
+
+#: i18n/states.php:348
+msgid "Batna"
+msgstr ""
+
+#: i18n/states.php:349
+msgid "Béjaïa"
+msgstr ""
+
+#: i18n/states.php:350
+msgid "Biskra"
+msgstr ""
+
+#: i18n/states.php:351
+msgid "Béchar"
+msgstr ""
+
+#: i18n/states.php:352
+msgid "Blida"
+msgstr ""
+
+#: i18n/states.php:353
+msgid "Bouira"
+msgstr ""
+
+#: i18n/states.php:354
+msgid "Tamanghasset"
+msgstr ""
+
+#: i18n/states.php:355
+msgid "Tébessa"
+msgstr ""
+
+#: i18n/states.php:356
+msgid "Tlemcen"
+msgstr ""
+
+#: i18n/states.php:357
+msgid "Tiaret"
+msgstr ""
+
+#: i18n/states.php:358
+msgid "Tizi Ouzou"
+msgstr ""
+
+#: i18n/states.php:359
+msgid "Algiers"
+msgstr ""
+
+#: i18n/states.php:360
+msgid "Djelfa"
+msgstr ""
+
+#: i18n/states.php:361
+msgid "Jijel"
+msgstr ""
+
+#: i18n/states.php:362
+msgid "Sétif"
+msgstr ""
+
+#: i18n/states.php:363
+msgid "Saïda"
+msgstr ""
+
+#: i18n/states.php:364
+msgid "Skikda"
+msgstr ""
+
+#: i18n/states.php:365
+msgid "Sidi Bel Abbès"
+msgstr ""
+
+#: i18n/states.php:366
+msgid "Annaba"
+msgstr ""
+
+#: i18n/states.php:367
+msgid "Guelma"
+msgstr ""
+
+#: i18n/states.php:368
+msgid "Constantine"
+msgstr ""
+
+#: i18n/states.php:369
+msgid "Médéa"
+msgstr ""
+
+#: i18n/states.php:370
+msgid "Mostaganem"
+msgstr ""
+
+#: i18n/states.php:371
+msgid "M’Sila"
+msgstr ""
+
+#: i18n/states.php:372
+msgid "Mascara"
+msgstr ""
+
+#: i18n/states.php:373
+msgid "Ouargla"
+msgstr ""
+
+#: i18n/states.php:374
+msgid "Oran"
+msgstr ""
+
+#: i18n/states.php:375
+msgid "El Bayadh"
+msgstr ""
+
+#: i18n/states.php:376
+msgid "Illizi"
+msgstr ""
+
+#: i18n/states.php:377
+msgid "Bordj Bou Arréridj"
+msgstr ""
+
+#: i18n/states.php:378
+msgid "Boumerdès"
+msgstr ""
+
+#: i18n/states.php:379
+msgid "El Tarf"
+msgstr ""
+
+#: i18n/states.php:380
+msgid "Tindouf"
+msgstr ""
+
+#: i18n/states.php:381
+msgid "Tissemsilt"
+msgstr ""
+
+#: i18n/states.php:382
+msgid "El Oued"
+msgstr ""
+
+#: i18n/states.php:383
+msgid "Khenchela"
+msgstr ""
+
+#: i18n/states.php:384
+msgid "Souk Ahras"
+msgstr ""
+
+#: i18n/states.php:385
+msgid "Tipasa"
+msgstr ""
+
+#: i18n/states.php:386
+msgid "Mila"
+msgstr ""
+
+#: i18n/states.php:387
+msgid "Aïn Defla"
+msgstr ""
+
+#: i18n/states.php:388
+msgid "Naama"
+msgstr ""
+
+#: i18n/states.php:389
+msgid "Aïn Témouchent"
+msgstr ""
+
+#: i18n/states.php:390
+msgid "Ghardaïa"
+msgstr ""
+
+#: i18n/states.php:391
+msgid "Relizane"
+msgstr ""
+
+#: i18n/states.php:395
+msgid "Alexandria"
+msgstr ""
+
+#: i18n/states.php:396
+msgid "Aswan"
+msgstr ""
+
+#: i18n/states.php:397
+msgid "Asyut"
+msgstr ""
+
+#: i18n/states.php:398
+msgid "Red Sea"
+msgstr ""
+
+#: i18n/states.php:399
+msgid "Beheira"
+msgstr ""
+
+#: i18n/states.php:400
+msgid "Beni Suef"
+msgstr ""
+
+#: i18n/states.php:401
+msgid "Cairo"
+msgstr ""
+
+#: i18n/states.php:402
+msgid "Dakahlia"
+msgstr ""
+
+#: i18n/states.php:403
+msgid "Damietta"
+msgstr ""
+
+#: i18n/states.php:404
+msgid "Faiyum"
+msgstr ""
+
+#: i18n/states.php:405
+msgid "Gharbia"
+msgstr ""
+
+#: i18n/states.php:406
+msgid "Giza"
+msgstr ""
+
+#: i18n/states.php:407
+msgid "Ismailia"
+msgstr ""
+
+#: i18n/states.php:408
+msgid "South Sinai"
+msgstr ""
+
+#: i18n/states.php:409
+msgid "Qalyubia"
+msgstr ""
+
+#: i18n/states.php:410
+msgid "Kafr el-Sheikh"
+msgstr ""
+
+#: i18n/states.php:411
+msgid "Qena"
+msgstr ""
+
+#: i18n/states.php:412
+msgid "Luxor"
+msgstr ""
+
+#: i18n/states.php:413
+msgid "Minya"
+msgstr ""
+
+#: i18n/states.php:414
+msgid "Monufia"
+msgstr ""
+
+#: i18n/states.php:415
+msgid "Matrouh"
+msgstr ""
+
+#: i18n/states.php:416
+msgid "Port Said"
+msgstr ""
+
+#: i18n/states.php:417
+msgid "Sohag"
+msgstr ""
+
+#: i18n/states.php:418
+msgid "Al Sharqia"
+msgstr ""
+
+#: i18n/states.php:419
+msgid "North Sinai"
+msgstr ""
+
+#: i18n/states.php:420
+msgid "Suez"
+msgstr ""
+
+#: i18n/states.php:421
+msgid "New Valley"
+msgstr ""
+
+#: i18n/states.php:424
+msgid "A Coruña"
+msgstr ""
+
+#: i18n/states.php:425
+msgid "Araba/Álava"
+msgstr ""
+
+#: i18n/states.php:426
+msgid "Albacete"
+msgstr ""
+
+#: i18n/states.php:427
+msgid "Alicante"
+msgstr ""
+
+#: i18n/states.php:428
+msgid "Almería"
+msgstr ""
+
+#: i18n/states.php:429
+msgid "Asturias"
+msgstr ""
+
+#: i18n/states.php:430
+msgid "Ávila"
+msgstr ""
+
+#: i18n/states.php:431
+msgid "Badajoz"
+msgstr ""
+
+#: i18n/states.php:432
+msgid "Baleares"
+msgstr ""
+
+#: i18n/states.php:433
+msgid "Barcelona"
+msgstr ""
+
+#: i18n/states.php:434
+msgid "Burgos"
+msgstr ""
+
+#: i18n/states.php:435
+msgid "Cáceres"
+msgstr ""
+
+#: i18n/states.php:436
+msgid "Cádiz"
+msgstr ""
+
+#: i18n/states.php:437
+msgid "Cantabria"
+msgstr ""
+
+#: i18n/states.php:438
+msgid "Castellón"
+msgstr ""
+
+#: i18n/states.php:439
+msgid "Ceuta"
+msgstr ""
+
+#: i18n/states.php:440
+msgid "Ciudad Real"
+msgstr ""
+
+#: i18n/states.php:442
+msgid "Cuenca"
+msgstr ""
+
+#: i18n/states.php:443
+msgid "Girona"
+msgstr ""
+
+#: i18n/states.php:444
+msgid "Granada"
+msgstr ""
+
+#: i18n/states.php:445
+msgid "Guadalajara"
+msgstr ""
+
+#: i18n/states.php:446
+msgid "Gipuzkoa"
+msgstr ""
+
+#: i18n/states.php:447
+msgid "Huelva"
+msgstr ""
+
+#: i18n/states.php:448
+msgid "Huesca"
+msgstr ""
+
+#: i18n/states.php:449
+msgid "Jaén"
+msgstr ""
+
+#: i18n/states.php:451
+msgid "Las Palmas"
+msgstr ""
+
+#: i18n/states.php:452
+msgid "León"
+msgstr ""
+
+#: i18n/states.php:453
+msgid "Lleida"
+msgstr ""
+
+#: i18n/states.php:454
+msgid "Lugo"
+msgstr ""
+
+#: i18n/states.php:455
+msgid "Madrid"
+msgstr ""
+
+#: i18n/states.php:456
+msgid "Málaga"
+msgstr ""
+
+#: i18n/states.php:457
+msgid "Melilla"
+msgstr ""
+
+#: i18n/states.php:458
+msgid "Murcia"
+msgstr ""
+
+#: i18n/states.php:459
+msgid "Navarra"
+msgstr ""
+
+#: i18n/states.php:460
+msgid "Ourense"
+msgstr ""
+
+#: i18n/states.php:461
+msgid "Palencia"
+msgstr ""
+
+#: i18n/states.php:462
+msgid "Pontevedra"
+msgstr ""
+
+#: i18n/states.php:463
+msgid "Salamanca"
+msgstr ""
+
+#: i18n/states.php:464
+msgid "Santa Cruz de Tenerife"
+msgstr ""
+
+#: i18n/states.php:465
+msgid "Segovia"
+msgstr ""
+
+#: i18n/states.php:466
+msgid "Sevilla"
+msgstr ""
+
+#: i18n/states.php:467
+msgid "Soria"
+msgstr ""
+
+#: i18n/states.php:468
+msgid "Tarragona"
+msgstr ""
+
+#: i18n/states.php:469
+msgid "Teruel"
+msgstr ""
+
+#: i18n/states.php:470
+msgid "Toledo"
+msgstr ""
+
+#: i18n/states.php:471
+msgid "Valencia"
+msgstr ""
+
+#: i18n/states.php:472
+msgid "Valladolid"
+msgstr ""
+
+#: i18n/states.php:473
+msgid "Biscay"
+msgstr ""
+
+#: i18n/states.php:474
+msgid "Zamora"
+msgstr ""
+
+#: i18n/states.php:475
+msgid "Zaragoza"
+msgstr ""
+
+#: i18n/states.php:480
+msgid "Ahafo"
+msgstr ""
+
+#: i18n/states.php:481
+msgid "Ashanti"
+msgstr ""
+
+#: i18n/states.php:482
+msgid "Brong-Ahafo"
+msgstr ""
+
+#: i18n/states.php:483
+msgid "Bono"
+msgstr ""
+
+#: i18n/states.php:484
+msgid "Bono East"
+msgstr ""
+
+#: i18n/states.php:485
+#: i18n/states.php:1288
+#: i18n/states.php:1786
+msgid "Central"
+msgstr ""
+
+#: i18n/states.php:486
+#: i18n/states.php:1787
+msgid "Eastern"
+msgstr ""
+
+#: i18n/states.php:487
+msgid "Greater Accra"
+msgstr ""
+
+#: i18n/states.php:488
+msgid "North East"
+msgstr ""
+
+#: i18n/states.php:489
+#: i18n/states.php:1789
+msgid "Northern"
+msgstr ""
+
+#: i18n/states.php:490
+msgid "Oti"
+msgstr ""
+
+#: i18n/states.php:491
+msgid "Savannah"
+msgstr ""
+
+#: i18n/states.php:492
+msgid "Upper East"
+msgstr ""
+
+#: i18n/states.php:493
+msgid "Upper West"
+msgstr ""
+
+#: i18n/states.php:494
+msgid "Volta"
+msgstr ""
+
+#: i18n/states.php:495
+#: i18n/states.php:1785
+msgid "Western"
+msgstr ""
+
+#: i18n/states.php:496
+msgid "Western North"
+msgstr ""
+
+#: i18n/states.php:500
+msgid "Attica"
+msgstr ""
+
+#: i18n/states.php:501
+msgid "East Macedonia and Thrace"
+msgstr ""
+
+#: i18n/states.php:502
+msgid "Central Macedonia"
+msgstr ""
+
+#: i18n/states.php:503
+msgid "West Macedonia"
+msgstr ""
+
+#: i18n/states.php:504
+msgid "Epirus"
+msgstr ""
+
+#: i18n/states.php:505
+msgid "Thessaly"
+msgstr ""
+
+#: i18n/states.php:506
+msgid "Ionian Islands"
+msgstr ""
+
+#: i18n/states.php:507
+msgid "West Greece"
+msgstr ""
+
+#: i18n/states.php:508
+msgid "Central Greece"
+msgstr ""
+
+#: i18n/states.php:509
+msgid "Peloponnese"
+msgstr ""
+
+#: i18n/states.php:510
+msgid "North Aegean"
+msgstr ""
+
+#: i18n/states.php:511
+msgid "South Aegean"
+msgstr ""
+
+#: i18n/states.php:512
+msgid "Crete"
+msgstr ""
+
+#: i18n/states.php:516
+msgid "Hong Kong Island"
+msgstr ""
+
+#: i18n/states.php:517
+msgid "Kowloon"
+msgstr ""
+
+#: i18n/states.php:518
+msgid "New Territories"
+msgstr ""
+
+#: i18n/states.php:521
+msgid "Bács-Kiskun"
+msgstr ""
+
+#: i18n/states.php:522
+msgid "Békés"
+msgstr ""
+
+#: i18n/states.php:523
+msgid "Baranya"
+msgstr ""
+
+#: i18n/states.php:524
+msgid "Borsod-Abaúj-Zemplén"
+msgstr ""
+
+#: i18n/states.php:525
+msgid "Budapest"
+msgstr ""
+
+#: i18n/states.php:526
+msgid "Csongrád-Csanád"
+msgstr ""
+
+#: i18n/states.php:527
+msgid "Fejér"
+msgstr ""
+
+#: i18n/states.php:528
+msgid "Győr-Moson-Sopron"
+msgstr ""
+
+#: i18n/states.php:529
+msgid "Hajdú-Bihar"
+msgstr ""
+
+#: i18n/states.php:530
+msgid "Heves"
+msgstr ""
+
+#: i18n/states.php:531
+msgid "Jász-Nagykun-Szolnok"
+msgstr ""
+
+#: i18n/states.php:532
+msgid "Komárom-Esztergom"
+msgstr ""
+
+#: i18n/states.php:533
+msgid "Nógrád"
+msgstr ""
+
+#: i18n/states.php:534
+msgid "Pest"
+msgstr ""
+
+#: i18n/states.php:535
+msgid "Somogy"
+msgstr ""
+
+#: i18n/states.php:536
+msgid "Szabolcs-Szatmár-Bereg"
+msgstr ""
+
+#: i18n/states.php:537
+msgid "Tolna"
+msgstr ""
+
+#: i18n/states.php:538
+msgid "Vas"
+msgstr ""
+
+#: i18n/states.php:539
+msgid "Veszprém"
+msgstr ""
+
+#: i18n/states.php:540
+msgid "Zala"
+msgstr ""
+
+#: i18n/states.php:543
+msgid "Daerah Istimewa Aceh"
+msgstr ""
+
+#: i18n/states.php:544
+msgid "Sumatera Utara"
+msgstr ""
+
+#: i18n/states.php:545
+msgid "Sumatera Barat"
+msgstr ""
+
+#: i18n/states.php:546
+msgid "Riau"
+msgstr ""
+
+#: i18n/states.php:547
+msgid "Kepulauan Riau"
+msgstr ""
+
+#: i18n/states.php:548
+msgid "Jambi"
+msgstr ""
+
+#: i18n/states.php:549
+msgid "Sumatera Selatan"
+msgstr ""
+
+#: i18n/states.php:550
+msgid "Bangka Belitung"
+msgstr ""
+
+#: i18n/states.php:551
+msgid "Bengkulu"
+msgstr ""
+
+#: i18n/states.php:552
+msgid "Lampung"
+msgstr ""
+
+#: i18n/states.php:553
+msgid "DKI Jakarta"
+msgstr ""
+
+#: i18n/states.php:554
+msgid "Jawa Barat"
+msgstr ""
+
+#: i18n/states.php:555
+msgid "Banten"
+msgstr ""
+
+#: i18n/states.php:556
+msgid "Jawa Tengah"
+msgstr ""
+
+#: i18n/states.php:557
+msgid "Jawa Timur"
+msgstr ""
+
+#: i18n/states.php:558
+msgid "Daerah Istimewa Yogyakarta"
+msgstr ""
+
+#: i18n/states.php:559
+msgid "Bali"
+msgstr ""
+
+#: i18n/states.php:560
+msgid "Nusa Tenggara Barat"
+msgstr ""
+
+#: i18n/states.php:561
+msgid "Nusa Tenggara Timur"
+msgstr ""
+
+#: i18n/states.php:562
+msgid "Kalimantan Barat"
+msgstr ""
+
+#: i18n/states.php:563
+msgid "Kalimantan Tengah"
+msgstr ""
+
+#: i18n/states.php:564
+msgid "Kalimantan Timur"
+msgstr ""
+
+#: i18n/states.php:565
+msgid "Kalimantan Selatan"
+msgstr ""
+
+#: i18n/states.php:566
+msgid "Kalimantan Utara"
+msgstr ""
+
+#: i18n/states.php:567
+msgid "Sulawesi Utara"
+msgstr ""
+
+#: i18n/states.php:568
+msgid "Sulawesi Tengah"
+msgstr ""
+
+#: i18n/states.php:569
+msgid "Sulawesi Tenggara"
+msgstr ""
+
+#: i18n/states.php:570
+msgid "Sulawesi Barat"
+msgstr ""
+
+#: i18n/states.php:571
+msgid "Sulawesi Selatan"
+msgstr ""
+
+#: i18n/states.php:572
+msgid "Gorontalo"
+msgstr ""
+
+#: i18n/states.php:573
+msgid "Maluku"
+msgstr ""
+
+#: i18n/states.php:574
+msgid "Maluku Utara"
+msgstr ""
+
+#: i18n/states.php:575
+msgid "Papua"
+msgstr ""
+
+#: i18n/states.php:576
+msgid "Papua Barat"
+msgstr ""
+
+#: i18n/states.php:579
+msgid "Carlow"
+msgstr ""
+
+#: i18n/states.php:580
+msgid "Cavan"
+msgstr ""
+
+#: i18n/states.php:581
+msgid "Clare"
+msgstr ""
+
+#: i18n/states.php:582
+msgid "Cork"
+msgstr ""
+
+#: i18n/states.php:583
+msgid "Donegal"
+msgstr ""
+
+#: i18n/states.php:584
+msgid "Dublin"
+msgstr ""
+
+#: i18n/states.php:585
+msgid "Galway"
+msgstr ""
+
+#: i18n/states.php:586
+msgid "Kerry"
+msgstr ""
+
+#: i18n/states.php:587
+msgid "Kildare"
+msgstr ""
+
+#: i18n/states.php:588
+msgid "Kilkenny"
+msgstr ""
+
+#: i18n/states.php:589
+msgid "Laois"
+msgstr ""
+
+#: i18n/states.php:590
+msgid "Leitrim"
+msgstr ""
+
+#: i18n/states.php:591
+msgid "Limerick"
+msgstr ""
+
+#: i18n/states.php:592
+msgid "Longford"
+msgstr ""
+
+#: i18n/states.php:593
+msgid "Louth"
+msgstr ""
+
+#: i18n/states.php:594
+msgid "Mayo"
+msgstr ""
+
+#: i18n/states.php:595
+msgid "Meath"
+msgstr ""
+
+#: i18n/states.php:596
+msgid "Monaghan"
+msgstr ""
+
+#: i18n/states.php:597
+msgid "Offaly"
+msgstr ""
+
+#: i18n/states.php:598
+msgid "Roscommon"
+msgstr ""
+
+#: i18n/states.php:599
+msgid "Sligo"
+msgstr ""
+
+#: i18n/states.php:600
+msgid "Tipperary"
+msgstr ""
+
+#: i18n/states.php:601
+msgid "Waterford"
+msgstr ""
+
+#: i18n/states.php:602
+msgid "Westmeath"
+msgstr ""
+
+#: i18n/states.php:603
+msgid "Wexford"
+msgstr ""
+
+#: i18n/states.php:604
+msgid "Wicklow"
+msgstr ""
+
+#: i18n/states.php:607
+msgid "Andhra Pradesh"
+msgstr ""
+
+#: i18n/states.php:608
+msgid "Arunachal Pradesh"
+msgstr ""
+
+#: i18n/states.php:609
+msgid "Assam"
+msgstr ""
+
+#: i18n/states.php:610
+msgid "Bihar"
+msgstr ""
+
+#: i18n/states.php:611
+msgid "Chhattisgarh"
+msgstr ""
+
+#: i18n/states.php:612
+msgid "Goa"
+msgstr ""
+
+#: i18n/states.php:613
+msgid "Gujarat"
+msgstr ""
+
+#: i18n/states.php:614
+msgid "Haryana"
+msgstr ""
+
+#: i18n/states.php:615
+msgid "Himachal Pradesh"
+msgstr ""
+
+#: i18n/states.php:616
+msgid "Jammu and Kashmir"
+msgstr ""
+
+#: i18n/states.php:617
+msgid "Jharkhand"
+msgstr ""
+
+#: i18n/states.php:618
+msgid "Karnataka"
+msgstr ""
+
+#: i18n/states.php:619
+msgid "Kerala"
+msgstr ""
+
+#: i18n/states.php:620
+msgid "Ladakh"
+msgstr ""
+
+#: i18n/states.php:621
+msgid "Madhya Pradesh"
+msgstr ""
+
+#: i18n/states.php:622
+msgid "Maharashtra"
+msgstr ""
+
+#: i18n/states.php:623
+msgid "Manipur"
+msgstr ""
+
+#: i18n/states.php:624
+msgid "Meghalaya"
+msgstr ""
+
+#: i18n/states.php:625
+msgid "Mizoram"
+msgstr ""
+
+#: i18n/states.php:626
+msgid "Nagaland"
+msgstr ""
+
+#: i18n/states.php:627
+msgid "Odisha"
+msgstr ""
+
+#: i18n/states.php:628
+#: i18n/states.php:1270
+msgid "Punjab"
+msgstr ""
+
+#: i18n/states.php:629
+msgid "Rajasthan"
+msgstr ""
+
+#: i18n/states.php:630
+msgid "Sikkim"
+msgstr ""
+
+#: i18n/states.php:631
+msgid "Tamil Nadu"
+msgstr ""
+
+#: i18n/states.php:632
+msgid "Telangana"
+msgstr ""
+
+#: i18n/states.php:633
+msgid "Tripura"
+msgstr ""
+
+#: i18n/states.php:634
+msgid "Uttarakhand"
+msgstr ""
+
+#: i18n/states.php:635
+msgid "Uttar Pradesh"
+msgstr ""
+
+#: i18n/states.php:636
+msgid "West Bengal"
+msgstr ""
+
+#: i18n/states.php:637
+msgid "Andaman and Nicobar Islands"
+msgstr ""
+
+#: i18n/states.php:638
+msgid "Chandigarh"
+msgstr ""
+
+#: i18n/states.php:639
+msgid "Dadra and Nagar Haveli"
+msgstr ""
+
+#: i18n/states.php:640
+msgid "Daman and Diu"
+msgstr ""
+
+#: i18n/states.php:641
+msgid "Delhi"
+msgstr ""
+
+#: i18n/states.php:642
+msgid "Lakshadeep"
+msgstr ""
+
+#: i18n/states.php:643
+msgid "Pondicherry (Puducherry)"
+msgstr ""
+
+#: i18n/states.php:646
+msgid "Khuzestan  (خوزستان)"
+msgstr ""
+
+#: i18n/states.php:647
+msgid "Tehran  (تهران)"
+msgstr ""
+
+#: i18n/states.php:648
+msgid "Ilaam (ایلام)"
+msgstr ""
+
+#: i18n/states.php:649
+msgid "Bushehr (بوشهر)"
+msgstr ""
+
+#: i18n/states.php:650
+msgid "Ardabil (اردبیل)"
+msgstr ""
+
+#: i18n/states.php:651
+msgid "Isfahan (اصفهان)"
+msgstr ""
+
+#: i18n/states.php:652
+msgid "Yazd (یزد)"
+msgstr ""
+
+#: i18n/states.php:653
+msgid "Kermanshah (کرمانشاه)"
+msgstr ""
+
+#: i18n/states.php:654
+msgid "Kerman (کرمان)"
+msgstr ""
+
+#: i18n/states.php:655
+msgid "Hamadan (همدان)"
+msgstr ""
+
+#: i18n/states.php:656
+msgid "Ghazvin (قزوین)"
+msgstr ""
+
+#: i18n/states.php:657
+msgid "Zanjan (زنجان)"
+msgstr ""
+
+#: i18n/states.php:658
+msgid "Luristan (لرستان)"
+msgstr ""
+
+#: i18n/states.php:659
+msgid "Alborz (البرز)"
+msgstr ""
+
+#: i18n/states.php:660
+msgid "East Azarbaijan (آذربایجان شرقی)"
+msgstr ""
+
+#: i18n/states.php:661
+msgid "West Azarbaijan (آذربایجان غربی)"
+msgstr ""
+
+#: i18n/states.php:662
+msgid "Chaharmahal and Bakhtiari (چهارمحال و بختیاری)"
+msgstr ""
+
+#: i18n/states.php:663
+msgid "South Khorasan (خراسان جنوبی)"
+msgstr ""
+
+#: i18n/states.php:664
+msgid "Razavi Khorasan (خراسان رضوی)"
+msgstr ""
+
+#: i18n/states.php:665
+msgid "North Khorasan (خراسان شمالی)"
+msgstr ""
+
+#: i18n/states.php:666
+msgid "Semnan (سمنان)"
+msgstr ""
+
+#: i18n/states.php:667
+msgid "Fars (فارس)"
+msgstr ""
+
+#: i18n/states.php:668
+msgid "Qom (قم)"
+msgstr ""
+
+#: i18n/states.php:669
+msgid "Kurdistan / کردستان)"
+msgstr ""
+
+#: i18n/states.php:670
+msgid "Kohgiluyeh and BoyerAhmad (کهگیلوییه و بویراحمد)"
+msgstr ""
+
+#: i18n/states.php:671
+msgid "Golestan (گلستان)"
+msgstr ""
+
+#: i18n/states.php:672
+msgid "Gilan (گیلان)"
+msgstr ""
+
+#: i18n/states.php:673
+msgid "Mazandaran (مازندران)"
+msgstr ""
+
+#: i18n/states.php:674
+msgid "Markazi (مرکزی)"
+msgstr ""
+
+#: i18n/states.php:675
+msgid "Hormozgan (هرمزگان)"
+msgstr ""
+
+#: i18n/states.php:676
+msgid "Sistan and Baluchestan (سیستان و بلوچستان)"
+msgstr ""
+
+#: i18n/states.php:680
+msgid "Agrigento"
+msgstr ""
+
+#: i18n/states.php:681
+msgid "Alessandria"
+msgstr ""
+
+#: i18n/states.php:682
+msgid "Ancona"
+msgstr ""
+
+#: i18n/states.php:683
+msgid "Aosta"
+msgstr ""
+
+#: i18n/states.php:684
+msgid "Arezzo"
+msgstr ""
+
+#: i18n/states.php:685
+msgid "Ascoli Piceno"
+msgstr ""
+
+#: i18n/states.php:686
+msgid "Asti"
+msgstr ""
+
+#: i18n/states.php:687
+msgid "Avellino"
+msgstr ""
+
+#: i18n/states.php:688
+msgid "Bari"
+msgstr ""
+
+#: i18n/states.php:689
+msgid "Barletta-Andria-Trani"
+msgstr ""
+
+#: i18n/states.php:690
+msgid "Belluno"
+msgstr ""
+
+#: i18n/states.php:691
+msgid "Benevento"
+msgstr ""
+
+#: i18n/states.php:692
+msgid "Bergamo"
+msgstr ""
+
+#: i18n/states.php:693
+msgid "Biella"
+msgstr ""
+
+#: i18n/states.php:694
+msgid "Bologna"
+msgstr ""
+
+#: i18n/states.php:695
+msgid "Bolzano"
+msgstr ""
+
+#: i18n/states.php:696
+msgid "Brescia"
+msgstr ""
+
+#: i18n/states.php:697
+msgid "Brindisi"
+msgstr ""
+
+#: i18n/states.php:698
+msgid "Cagliari"
+msgstr ""
+
+#: i18n/states.php:699
+msgid "Caltanissetta"
+msgstr ""
+
+#: i18n/states.php:700
+msgid "Campobasso"
+msgstr ""
+
+#: i18n/states.php:701
+msgid "Caserta"
+msgstr ""
+
+#: i18n/states.php:702
+msgid "Catania"
+msgstr ""
+
+#: i18n/states.php:703
+msgid "Catanzaro"
+msgstr ""
+
+#: i18n/states.php:704
+msgid "Chieti"
+msgstr ""
+
+#: i18n/states.php:705
+msgid "Como"
+msgstr ""
+
+#: i18n/states.php:706
+msgid "Cosenza"
+msgstr ""
+
+#: i18n/states.php:707
+msgid "Cremona"
+msgstr ""
+
+#: i18n/states.php:708
+msgid "Crotone"
+msgstr ""
+
+#: i18n/states.php:709
+msgid "Cuneo"
+msgstr ""
+
+#: i18n/states.php:710
+msgid "Enna"
+msgstr ""
+
+#: i18n/states.php:711
+msgid "Fermo"
+msgstr ""
+
+#: i18n/states.php:712
+msgid "Ferrara"
+msgstr ""
+
+#: i18n/states.php:713
+msgid "Firenze"
+msgstr ""
+
+#: i18n/states.php:714
+msgid "Foggia"
+msgstr ""
+
+#: i18n/states.php:715
+msgid "Forlì-Cesena"
+msgstr ""
+
+#: i18n/states.php:716
+msgid "Frosinone"
+msgstr ""
+
+#: i18n/states.php:717
+msgid "Genova"
+msgstr ""
+
+#: i18n/states.php:718
+msgid "Gorizia"
+msgstr ""
+
+#: i18n/states.php:719
+msgid "Grosseto"
+msgstr ""
+
+#: i18n/states.php:720
+msgid "Imperia"
+msgstr ""
+
+#: i18n/states.php:721
+msgid "Isernia"
+msgstr ""
+
+#: i18n/states.php:722
+msgid "La Spezia"
+msgstr ""
+
+#: i18n/states.php:723
+msgid "L'Aquila"
+msgstr ""
+
+#: i18n/states.php:724
+msgid "Latina"
+msgstr ""
+
+#: i18n/states.php:725
+msgid "Lecce"
+msgstr ""
+
+#: i18n/states.php:726
+msgid "Lecco"
+msgstr ""
+
+#: i18n/states.php:727
+msgid "Livorno"
+msgstr ""
+
+#: i18n/states.php:728
+msgid "Lodi"
+msgstr ""
+
+#: i18n/states.php:729
+msgid "Lucca"
+msgstr ""
+
+#: i18n/states.php:730
+msgid "Macerata"
+msgstr ""
+
+#: i18n/states.php:731
+msgid "Mantova"
+msgstr ""
+
+#: i18n/states.php:732
+msgid "Massa-Carrara"
+msgstr ""
+
+#: i18n/states.php:733
+msgid "Matera"
+msgstr ""
+
+#: i18n/states.php:734
+msgid "Messina"
+msgstr ""
+
+#: i18n/states.php:735
+msgid "Milano"
+msgstr ""
+
+#: i18n/states.php:736
+msgid "Modena"
+msgstr ""
+
+#: i18n/states.php:737
+msgid "Monza e della Brianza"
+msgstr ""
+
+#: i18n/states.php:738
+msgid "Napoli"
+msgstr ""
+
+#: i18n/states.php:739
+msgid "Novara"
+msgstr ""
+
+#: i18n/states.php:740
+msgid "Nuoro"
+msgstr ""
+
+#: i18n/states.php:741
+msgid "Oristano"
+msgstr ""
+
+#: i18n/states.php:742
+msgid "Padova"
+msgstr ""
+
+#: i18n/states.php:743
+msgid "Palermo"
+msgstr ""
+
+#: i18n/states.php:744
+msgid "Parma"
+msgstr ""
+
+#: i18n/states.php:745
+msgid "Pavia"
+msgstr ""
+
+#: i18n/states.php:746
+msgid "Perugia"
+msgstr ""
+
+#: i18n/states.php:747
+msgid "Pesaro e Urbino"
+msgstr ""
+
+#: i18n/states.php:748
+msgid "Pescara"
+msgstr ""
+
+#: i18n/states.php:749
+msgid "Piacenza"
+msgstr ""
+
+#: i18n/states.php:750
+msgid "Pisa"
+msgstr ""
+
+#: i18n/states.php:751
+msgid "Pistoia"
+msgstr ""
+
+#: i18n/states.php:752
+msgid "Pordenone"
+msgstr ""
+
+#: i18n/states.php:753
+msgid "Potenza"
+msgstr ""
+
+#: i18n/states.php:754
+msgid "Prato"
+msgstr ""
+
+#: i18n/states.php:755
+msgid "Ragusa"
+msgstr ""
+
+#: i18n/states.php:756
+msgid "Ravenna"
+msgstr ""
+
+#: i18n/states.php:757
+msgid "Reggio Calabria"
+msgstr ""
+
+#: i18n/states.php:758
+msgid "Reggio Emilia"
+msgstr ""
+
+#: i18n/states.php:759
+msgid "Rieti"
+msgstr ""
+
+#: i18n/states.php:760
+msgid "Rimini"
+msgstr ""
+
+#: i18n/states.php:761
+msgid "Roma"
+msgstr ""
+
+#: i18n/states.php:762
+msgid "Rovigo"
+msgstr ""
+
+#: i18n/states.php:763
+msgid "Salerno"
+msgstr ""
+
+#: i18n/states.php:764
+msgid "Sassari"
+msgstr ""
+
+#: i18n/states.php:765
+msgid "Savona"
+msgstr ""
+
+#: i18n/states.php:766
+msgid "Siena"
+msgstr ""
+
+#: i18n/states.php:767
+msgid "Siracusa"
+msgstr ""
+
+#: i18n/states.php:768
+msgid "Sondrio"
+msgstr ""
+
+#: i18n/states.php:769
+msgid "Sud Sardegna"
+msgstr ""
+
+#: i18n/states.php:770
+msgid "Taranto"
+msgstr ""
+
+#: i18n/states.php:771
+msgid "Teramo"
+msgstr ""
+
+#: i18n/states.php:772
+msgid "Terni"
+msgstr ""
+
+#: i18n/states.php:773
+msgid "Torino"
+msgstr ""
+
+#: i18n/states.php:774
+msgid "Trapani"
+msgstr ""
+
+#: i18n/states.php:775
+msgid "Trento"
+msgstr ""
+
+#: i18n/states.php:776
+msgid "Treviso"
+msgstr ""
+
+#: i18n/states.php:777
+msgid "Trieste"
+msgstr ""
+
+#: i18n/states.php:778
+msgid "Udine"
+msgstr ""
+
+#: i18n/states.php:779
+msgid "Varese"
+msgstr ""
+
+#: i18n/states.php:780
+msgid "Venezia"
+msgstr ""
+
+#: i18n/states.php:781
+msgid "Verbano-Cusio-Ossola"
+msgstr ""
+
+#: i18n/states.php:782
+msgid "Vercelli"
+msgstr ""
+
+#: i18n/states.php:783
+msgid "Verona"
+msgstr ""
+
+#: i18n/states.php:784
+msgid "Vibo Valentia"
+msgstr ""
+
+#: i18n/states.php:785
+msgid "Vicenza"
+msgstr ""
+
+#: i18n/states.php:786
+msgid "Viterbo"
+msgstr ""
+
+#: i18n/states.php:791
+msgid "Kingston"
+msgstr ""
+
+#: i18n/states.php:792
+msgid "Saint Andrew"
+msgstr ""
+
+#: i18n/states.php:793
+msgid "Saint Thomas"
+msgstr ""
+
+#: i18n/states.php:794
+msgid "Portland"
+msgstr ""
+
+#: i18n/states.php:795
+msgid "Saint Mary"
+msgstr ""
+
+#: i18n/states.php:796
+msgid "Saint Ann"
+msgstr ""
+
+#: i18n/states.php:797
+msgid "Trelawny"
+msgstr ""
+
+#: i18n/states.php:798
+msgid "Saint James"
+msgstr ""
+
+#: i18n/states.php:799
+msgid "Hanover"
+msgstr ""
+
+#: i18n/states.php:800
+msgid "Westmoreland"
+msgstr ""
+
+#: i18n/states.php:801
+msgid "Saint Elizabeth"
+msgstr ""
+
+#: i18n/states.php:802
+msgid "Manchester"
+msgstr ""
+
+#: i18n/states.php:803
+msgid "Clarendon"
+msgstr ""
+
+#: i18n/states.php:804
+msgid "Saint Catherine"
+msgstr ""
+
+#: i18n/states.php:814
+msgid "Hokkaido"
+msgstr ""
+
+#: i18n/states.php:815
+msgid "Aomori"
+msgstr ""
+
+#: i18n/states.php:816
+msgid "Iwate"
+msgstr ""
+
+#: i18n/states.php:817
+msgid "Miyagi"
+msgstr ""
+
+#: i18n/states.php:818
+msgid "Akita"
+msgstr ""
+
+#: i18n/states.php:819
+msgid "Yamagata"
+msgstr ""
+
+#: i18n/states.php:820
+msgid "Fukushima"
+msgstr ""
+
+#: i18n/states.php:821
+msgid "Ibaraki"
+msgstr ""
+
+#: i18n/states.php:822
+msgid "Tochigi"
+msgstr ""
+
+#: i18n/states.php:823
+msgid "Gunma"
+msgstr ""
+
+#: i18n/states.php:824
+msgid "Saitama"
+msgstr ""
+
+#: i18n/states.php:825
+msgid "Chiba"
+msgstr ""
+
+#: i18n/states.php:826
+msgid "Tokyo"
+msgstr ""
+
+#: i18n/states.php:827
+msgid "Kanagawa"
+msgstr ""
+
+#: i18n/states.php:828
+msgid "Niigata"
+msgstr ""
+
+#: i18n/states.php:829
+msgid "Toyama"
+msgstr ""
+
+#: i18n/states.php:830
+msgid "Ishikawa"
+msgstr ""
+
+#: i18n/states.php:831
+msgid "Fukui"
+msgstr ""
+
+#: i18n/states.php:832
+msgid "Yamanashi"
+msgstr ""
+
+#: i18n/states.php:833
+msgid "Nagano"
+msgstr ""
+
+#: i18n/states.php:834
+msgid "Gifu"
+msgstr ""
+
+#: i18n/states.php:835
+msgid "Shizuoka"
+msgstr ""
+
+#: i18n/states.php:836
+msgid "Aichi"
+msgstr ""
+
+#: i18n/states.php:837
+msgid "Mie"
+msgstr ""
+
+#: i18n/states.php:838
+msgid "Shiga"
+msgstr ""
+
+#: i18n/states.php:839
+msgid "Kyoto"
+msgstr ""
+
+#: i18n/states.php:840
+msgid "Osaka"
+msgstr ""
+
+#: i18n/states.php:841
+msgid "Hyogo"
+msgstr ""
+
+#: i18n/states.php:842
+msgid "Nara"
+msgstr ""
+
+#: i18n/states.php:843
+msgid "Wakayama"
+msgstr ""
+
+#: i18n/states.php:844
+msgid "Tottori"
+msgstr ""
+
+#: i18n/states.php:845
+msgid "Shimane"
+msgstr ""
+
+#: i18n/states.php:846
+msgid "Okayama"
+msgstr ""
+
+#: i18n/states.php:847
+msgid "Hiroshima"
+msgstr ""
+
+#: i18n/states.php:848
+msgid "Yamaguchi"
+msgstr ""
+
+#: i18n/states.php:849
+msgid "Tokushima"
+msgstr ""
+
+#: i18n/states.php:850
+msgid "Kagawa"
+msgstr ""
+
+#: i18n/states.php:851
+msgid "Ehime"
+msgstr ""
+
+#: i18n/states.php:852
+msgid "Kochi"
+msgstr ""
+
+#: i18n/states.php:853
+msgid "Fukuoka"
+msgstr ""
+
+#: i18n/states.php:854
+msgid "Saga"
+msgstr ""
+
+#: i18n/states.php:855
+msgid "Nagasaki"
+msgstr ""
+
+#: i18n/states.php:856
+msgid "Kumamoto"
+msgstr ""
+
+#: i18n/states.php:857
+msgid "Oita"
+msgstr ""
+
+#: i18n/states.php:858
+msgid "Miyazaki"
+msgstr ""
+
+#: i18n/states.php:859
+msgid "Kagoshima"
+msgstr ""
+
+#: i18n/states.php:860
+msgid "Okinawa"
+msgstr ""
+
+#: i18n/states.php:863
+msgid "Baringo"
+msgstr ""
+
+#: i18n/states.php:864
+msgid "Bomet"
+msgstr ""
+
+#: i18n/states.php:865
+msgid "Bungoma"
+msgstr ""
+
+#: i18n/states.php:866
+#: i18n/states.php:1599
+msgid "Busia"
+msgstr ""
+
+#: i18n/states.php:867
+msgid "Elgeyo-Marakwet"
+msgstr ""
+
+#: i18n/states.php:868
+msgid "Embu"
+msgstr ""
+
+#: i18n/states.php:869
+msgid "Garissa"
+msgstr ""
+
+#: i18n/states.php:870
+msgid "Homa Bay"
+msgstr ""
+
+#: i18n/states.php:871
+msgid "Isiolo"
+msgstr ""
+
+#: i18n/states.php:872
+msgid "Kajiado"
+msgstr ""
+
+#: i18n/states.php:873
+msgid "Kakamega"
+msgstr ""
+
+#: i18n/states.php:874
+msgid "Kericho"
+msgstr ""
+
+#: i18n/states.php:875
+msgid "Kiambu"
+msgstr ""
+
+#: i18n/states.php:876
+msgid "Kilifi"
+msgstr ""
+
+#: i18n/states.php:877
+msgid "Kirinyaga"
+msgstr ""
+
+#: i18n/states.php:878
+msgid "Kisii"
+msgstr ""
+
+#: i18n/states.php:879
+msgid "Kisumu"
+msgstr ""
+
+#: i18n/states.php:880
+msgid "Kitui"
+msgstr ""
+
+#: i18n/states.php:881
+msgid "Kwale"
+msgstr ""
+
+#: i18n/states.php:882
+msgid "Laikipia"
+msgstr ""
+
+#: i18n/states.php:883
+msgid "Lamu"
+msgstr ""
+
+#: i18n/states.php:884
+msgid "Machakos"
+msgstr ""
+
+#: i18n/states.php:885
+msgid "Makueni"
+msgstr ""
+
+#: i18n/states.php:886
+msgid "Mandera"
+msgstr ""
+
+#: i18n/states.php:887
+msgid "Marsabit"
+msgstr ""
+
+#: i18n/states.php:888
+msgid "Meru"
+msgstr ""
+
+#: i18n/states.php:889
+msgid "Migori"
+msgstr ""
+
+#: i18n/states.php:890
+msgid "Mombasa"
+msgstr ""
+
+#: i18n/states.php:891
+msgid "Murang’a"
+msgstr ""
+
+#: i18n/states.php:892
+msgid "Nairobi County"
+msgstr ""
+
+#: i18n/states.php:893
+msgid "Nakuru"
+msgstr ""
+
+#: i18n/states.php:894
+msgid "Nandi"
+msgstr ""
+
+#: i18n/states.php:895
+msgid "Narok"
+msgstr ""
+
+#: i18n/states.php:896
+msgid "Nyamira"
+msgstr ""
+
+#: i18n/states.php:897
+msgid "Nyandarua"
+msgstr ""
+
+#: i18n/states.php:898
+msgid "Nyeri"
+msgstr ""
+
+#: i18n/states.php:899
+msgid "Samburu"
+msgstr ""
+
+#: i18n/states.php:900
+msgid "Siaya"
+msgstr ""
+
+#: i18n/states.php:901
+msgid "Taita-Taveta"
+msgstr ""
+
+#: i18n/states.php:902
+msgid "Tana River"
+msgstr ""
+
+#: i18n/states.php:903
+msgid "Tharaka-Nithi"
+msgstr ""
+
+#: i18n/states.php:904
+msgid "Trans Nzoia"
+msgstr ""
+
+#: i18n/states.php:905
+msgid "Turkana"
+msgstr ""
+
+#: i18n/states.php:906
+msgid "Uasin Gishu"
+msgstr ""
+
+#: i18n/states.php:907
+msgid "Vihiga"
+msgstr ""
+
+#: i18n/states.php:908
+msgid "Wajir"
+msgstr ""
+
+#: i18n/states.php:909
+msgid "West Pokot"
+msgstr ""
+
+#: i18n/states.php:914
+msgid "Attapeu"
+msgstr ""
+
+#: i18n/states.php:915
+msgid "Bokeo"
+msgstr ""
+
+#: i18n/states.php:916
+msgid "Bolikhamsai"
+msgstr ""
+
+#: i18n/states.php:917
+msgid "Champasak"
+msgstr ""
+
+#: i18n/states.php:918
+msgid "Houaphanh"
+msgstr ""
+
+#: i18n/states.php:919
+msgid "Khammouane"
+msgstr ""
+
+#: i18n/states.php:920
+msgid "Luang Namtha"
+msgstr ""
+
+#: i18n/states.php:921
+msgid "Luang Prabang"
+msgstr ""
+
+#: i18n/states.php:922
+msgid "Oudomxay"
+msgstr ""
+
+#: i18n/states.php:923
+msgid "Phongsaly"
+msgstr ""
+
+#: i18n/states.php:924
+msgid "Salavan"
+msgstr ""
+
+#: i18n/states.php:925
+msgid "Savannakhet"
+msgstr ""
+
+#: i18n/states.php:926
+msgid "Vientiane Province"
+msgstr ""
+
+#: i18n/states.php:927
+msgid "Vientiane"
+msgstr ""
+
+#: i18n/states.php:928
+msgid "Sainyabuli"
+msgstr ""
+
+#: i18n/states.php:929
+msgid "Sekong"
+msgstr ""
+
+#: i18n/states.php:930
+msgid "Xiangkhouang"
+msgstr ""
+
+#: i18n/states.php:931
+msgid "Xaisomboun"
+msgstr ""
+
+#: i18n/states.php:935
+msgid "Bomi"
+msgstr ""
+
+#: i18n/states.php:936
+msgid "Bong"
+msgstr ""
+
+#: i18n/states.php:937
+msgid "Gbarpolu"
+msgstr ""
+
+#: i18n/states.php:938
+msgid "Grand Bassa"
+msgstr ""
+
+#: i18n/states.php:939
+msgid "Grand Cape Mount"
+msgstr ""
+
+#: i18n/states.php:940
+msgid "Grand Gedeh"
+msgstr ""
+
+#: i18n/states.php:941
+msgid "Grand Kru"
+msgstr ""
+
+#: i18n/states.php:942
+msgid "Lofa"
+msgstr ""
+
+#: i18n/states.php:943
+msgid "Margibi"
+msgstr ""
+
+#: i18n/states.php:944
+#: i18n/states.php:1736
+msgid "Maryland"
+msgstr ""
+
+#: i18n/states.php:945
+msgid "Montserrado"
+msgstr ""
+
+#: i18n/states.php:946
+msgid "Nimba"
+msgstr ""
+
+#: i18n/states.php:947
+msgid "Rivercess"
+msgstr ""
+
+#: i18n/states.php:948
+msgid "River Gee"
+msgstr ""
+
+#: i18n/states.php:949
+msgid "Sinoe"
+msgstr ""
+
+#: i18n/states.php:953
+msgid "Chișinău"
+msgstr ""
+
+#: i18n/states.php:954
+msgid "Bălți"
+msgstr ""
+
+#: i18n/states.php:955
+msgid "Anenii Noi"
+msgstr ""
+
+#: i18n/states.php:956
+msgid "Basarabeasca"
+msgstr ""
+
+#: i18n/states.php:957
+msgid "Briceni"
+msgstr ""
+
+#: i18n/states.php:958
+msgid "Cahul"
+msgstr ""
+
+#: i18n/states.php:959
+msgid "Cantemir"
+msgstr ""
+
+#: i18n/states.php:960
+#: i18n/states.php:1309
+msgid "Călărași"
+msgstr ""
+
+#: i18n/states.php:961
+msgid "Căușeni"
+msgstr ""
+
+#: i18n/states.php:962
+msgid "Cimișlia"
+msgstr ""
+
+#: i18n/states.php:963
+msgid "Criuleni"
+msgstr ""
+
+#: i18n/states.php:964
+msgid "Dondușeni"
+msgstr ""
+
+#: i18n/states.php:965
+msgid "Drochia"
+msgstr ""
+
+#: i18n/states.php:966
+msgid "Dubăsari"
+msgstr ""
+
+#: i18n/states.php:967
+msgid "Edineț"
+msgstr ""
+
+#: i18n/states.php:968
+msgid "Fălești"
+msgstr ""
+
+#: i18n/states.php:969
+msgid "Florești"
+msgstr ""
+
+#: i18n/states.php:970
+msgid "UTA Găgăuzia"
+msgstr ""
+
+#: i18n/states.php:971
+msgid "Glodeni"
+msgstr ""
+
+#: i18n/states.php:972
+msgid "Hîncești"
+msgstr ""
+
+#: i18n/states.php:973
+msgid "Ialoveni"
+msgstr ""
+
+#: i18n/states.php:974
+msgid "Leova"
+msgstr ""
+
+#: i18n/states.php:975
+msgid "Nisporeni"
+msgstr ""
+
+#: i18n/states.php:976
+msgid "Ocnița"
+msgstr ""
+
+#: i18n/states.php:977
+msgid "Orhei"
+msgstr ""
+
+#: i18n/states.php:978
+msgid "Rezina"
+msgstr ""
+
+#: i18n/states.php:979
+msgid "Rîșcani"
+msgstr ""
+
+#: i18n/states.php:980
+msgid "Sîngerei"
+msgstr ""
+
+#: i18n/states.php:981
+msgid "Soroca"
+msgstr ""
+
+#: i18n/states.php:982
+msgid "Strășeni"
+msgstr ""
+
+#: i18n/states.php:983
+msgid "Șoldănești"
+msgstr ""
+
+#: i18n/states.php:984
+msgid "Ștefan Vodă"
+msgstr ""
+
+#: i18n/states.php:985
+msgid "Taraclia"
+msgstr ""
+
+#: i18n/states.php:986
+msgid "Telenești"
+msgstr ""
+
+#: i18n/states.php:987
+msgid "Ungheni"
+msgstr ""
+
+#: i18n/states.php:992
+msgid "Ciudad de México"
+msgstr ""
+
+#: i18n/states.php:993
+msgid "Jalisco"
+msgstr ""
+
+#: i18n/states.php:994
+msgid "Nuevo León"
+msgstr ""
+
+#: i18n/states.php:995
+msgid "Aguascalientes"
+msgstr ""
+
+#: i18n/states.php:996
+msgid "Baja California"
+msgstr ""
+
+#: i18n/states.php:997
+msgid "Baja California Sur"
+msgstr ""
+
+#: i18n/states.php:998
+msgid "Campeche"
+msgstr ""
+
+#: i18n/states.php:999
+msgid "Chiapas"
+msgstr ""
+
+#: i18n/states.php:1000
+msgid "Chihuahua"
+msgstr ""
+
+#: i18n/states.php:1001
+msgid "Coahuila"
+msgstr ""
+
+#: i18n/states.php:1002
+msgid "Colima"
+msgstr ""
+
+#: i18n/states.php:1003
+msgid "Durango"
+msgstr ""
+
+#: i18n/states.php:1004
+msgid "Guanajuato"
+msgstr ""
+
+#: i18n/states.php:1005
+msgid "Guerrero"
+msgstr ""
+
+#: i18n/states.php:1006
+msgid "Hidalgo"
+msgstr ""
+
+#: i18n/states.php:1007
+msgid "Estado de México"
+msgstr ""
+
+#: i18n/states.php:1008
+msgid "Michoacán"
+msgstr ""
+
+#: i18n/states.php:1009
+msgid "Morelos"
+msgstr ""
+
+#: i18n/states.php:1010
+msgid "Nayarit"
+msgstr ""
+
+#: i18n/states.php:1011
+msgid "Oaxaca"
+msgstr ""
+
+#: i18n/states.php:1012
+msgid "Puebla"
+msgstr ""
+
+#: i18n/states.php:1013
+msgid "Querétaro"
+msgstr ""
+
+#: i18n/states.php:1014
+msgid "Quintana Roo"
+msgstr ""
+
+#: i18n/states.php:1015
+msgid "San Luis Potosí"
+msgstr ""
+
+#: i18n/states.php:1016
+msgid "Sinaloa"
+msgstr ""
+
+#: i18n/states.php:1017
+msgid "Sonora"
+msgstr ""
+
+#: i18n/states.php:1018
+msgid "Tabasco"
+msgstr ""
+
+#: i18n/states.php:1019
+msgid "Tamaulipas"
+msgstr ""
+
+#: i18n/states.php:1020
+msgid "Tlaxcala"
+msgstr ""
+
+#: i18n/states.php:1021
+msgid "Veracruz"
+msgstr ""
+
+#: i18n/states.php:1022
+msgid "Yucatán"
+msgstr ""
+
+#: i18n/states.php:1023
+msgid "Zacatecas"
+msgstr ""
+
+#: i18n/states.php:1026
+msgid "Johor"
+msgstr ""
+
+#: i18n/states.php:1027
+msgid "Kedah"
+msgstr ""
+
+#: i18n/states.php:1028
+msgid "Kelantan"
+msgstr ""
+
+#: i18n/states.php:1029
+msgid "Labuan"
+msgstr ""
+
+#: i18n/states.php:1030
+msgid "Malacca (Melaka)"
+msgstr ""
+
+#: i18n/states.php:1031
+msgid "Negeri Sembilan"
+msgstr ""
+
+#: i18n/states.php:1032
+msgid "Pahang"
+msgstr ""
+
+#: i18n/states.php:1033
+msgid "Penang (Pulau Pinang)"
+msgstr ""
+
+#: i18n/states.php:1034
+msgid "Perak"
+msgstr ""
+
+#: i18n/states.php:1035
+msgid "Perlis"
+msgstr ""
+
+#: i18n/states.php:1036
+msgid "Sabah"
+msgstr ""
+
+#: i18n/states.php:1037
+msgid "Sarawak"
+msgstr ""
+
+#: i18n/states.php:1038
+msgid "Selangor"
+msgstr ""
+
+#: i18n/states.php:1039
+msgid "Terengganu"
+msgstr ""
+
+#: i18n/states.php:1040
+msgid "Putrajaya"
+msgstr ""
+
+#: i18n/states.php:1041
+msgid "Kuala Lumpur"
+msgstr ""
+
+#: i18n/states.php:1044
+msgid "Cabo Delgado"
+msgstr ""
+
+#: i18n/states.php:1045
+msgid "Gaza"
+msgstr ""
+
+#: i18n/states.php:1046
+msgid "Inhambane"
+msgstr ""
+
+#: i18n/states.php:1047
+msgid "Manica"
+msgstr ""
+
+#: i18n/states.php:1048
+msgid "Maputo Province"
+msgstr ""
+
+#: i18n/states.php:1049
+msgid "Maputo"
+msgstr ""
+
+#: i18n/states.php:1050
+msgid "Nampula"
+msgstr ""
+
+#: i18n/states.php:1051
+msgid "Niassa"
+msgstr ""
+
+#: i18n/states.php:1052
+msgid "Sofala"
+msgstr ""
+
+#: i18n/states.php:1053
+msgid "Tete"
+msgstr ""
+
+#: i18n/states.php:1054
+msgid "Zambézia"
+msgstr ""
+
+#: i18n/states.php:1057
+msgid "Erongo"
+msgstr ""
+
+#: i18n/states.php:1058
+msgid "Hardap"
+msgstr ""
+
+#: i18n/states.php:1059
+msgid "Karas"
+msgstr ""
+
+#: i18n/states.php:1060
+msgid "Kavango East"
+msgstr ""
+
+#: i18n/states.php:1061
+msgid "Kavango West"
+msgstr ""
+
+#: i18n/states.php:1062
+msgid "Khomas"
+msgstr ""
+
+#: i18n/states.php:1063
+msgid "Kunene"
+msgstr ""
+
+#: i18n/states.php:1064
+msgid "Ohangwena"
+msgstr ""
+
+#: i18n/states.php:1065
+msgid "Omaheke"
+msgstr ""
+
+#: i18n/states.php:1066
+msgid "Omusati"
+msgstr ""
+
+#: i18n/states.php:1067
+msgid "Oshana"
+msgstr ""
+
+#: i18n/states.php:1068
+msgid "Oshikoto"
+msgstr ""
+
+#: i18n/states.php:1069
+msgid "Otjozondjupa"
+msgstr ""
+
+#: i18n/states.php:1070
+msgid "Zambezi"
+msgstr ""
+
+#: i18n/states.php:1073
+msgid "Abia"
+msgstr ""
+
+#: i18n/states.php:1074
+msgid "Abuja"
+msgstr ""
+
+#: i18n/states.php:1075
+msgid "Adamawa"
+msgstr ""
+
+#: i18n/states.php:1076
+msgid "Akwa Ibom"
+msgstr ""
+
+#: i18n/states.php:1077
+msgid "Anambra"
+msgstr ""
+
+#: i18n/states.php:1078
+msgid "Bauchi"
+msgstr ""
+
+#: i18n/states.php:1079
+msgid "Bayelsa"
+msgstr ""
+
+#: i18n/states.php:1080
+msgid "Benue"
+msgstr ""
+
+#: i18n/states.php:1081
+msgid "Borno"
+msgstr ""
+
+#: i18n/states.php:1082
+msgid "Cross River"
+msgstr ""
+
+#: i18n/states.php:1083
+msgid "Delta"
+msgstr ""
+
+#: i18n/states.php:1084
+msgid "Ebonyi"
+msgstr ""
+
+#: i18n/states.php:1085
+msgid "Edo"
+msgstr ""
+
+#: i18n/states.php:1086
+msgid "Ekiti"
+msgstr ""
+
+#: i18n/states.php:1087
+msgid "Enugu"
+msgstr ""
+
+#: i18n/states.php:1088
+msgid "Gombe"
+msgstr ""
+
+#: i18n/states.php:1089
+msgid "Imo"
+msgstr ""
+
+#: i18n/states.php:1090
+msgid "Jigawa"
+msgstr ""
+
+#: i18n/states.php:1091
+msgid "Kaduna"
+msgstr ""
+
+#: i18n/states.php:1092
+msgid "Kano"
+msgstr ""
+
+#: i18n/states.php:1093
+msgid "Katsina"
+msgstr ""
+
+#: i18n/states.php:1094
+msgid "Kebbi"
+msgstr ""
+
+#: i18n/states.php:1095
+msgid "Kogi"
+msgstr ""
+
+#: i18n/states.php:1096
+msgid "Kwara"
+msgstr ""
+
+#: i18n/states.php:1097
+msgid "Lagos"
+msgstr ""
+
+#: i18n/states.php:1098
+msgid "Nasarawa"
+msgstr ""
+
+#: i18n/states.php:1100
+msgid "Ogun"
+msgstr ""
+
+#: i18n/states.php:1101
+msgid "Ondo"
+msgstr ""
+
+#: i18n/states.php:1102
+msgid "Osun"
+msgstr ""
+
+#: i18n/states.php:1103
+msgid "Oyo"
+msgstr ""
+
+#: i18n/states.php:1105
+msgid "Rivers"
+msgstr ""
+
+#: i18n/states.php:1106
+msgid "Sokoto"
+msgstr ""
+
+#: i18n/states.php:1107
+msgid "Taraba"
+msgstr ""
+
+#: i18n/states.php:1108
+msgid "Yobe"
+msgstr ""
+
+#: i18n/states.php:1109
+msgid "Zamfara"
+msgstr ""
+
+#: i18n/states.php:1114
+msgid "Bagmati"
+msgstr ""
+
+#: i18n/states.php:1115
+msgid "Bheri"
+msgstr ""
+
+#: i18n/states.php:1116
+msgid "Dhaulagiri"
+msgstr ""
+
+#: i18n/states.php:1117
+msgid "Gandaki"
+msgstr ""
+
+#: i18n/states.php:1118
+msgid "Janakpur"
+msgstr ""
+
+#: i18n/states.php:1119
+msgid "Karnali"
+msgstr ""
+
+#: i18n/states.php:1120
+msgid "Koshi"
+msgstr ""
+
+#: i18n/states.php:1121
+msgid "Lumbini"
+msgstr ""
+
+#: i18n/states.php:1122
+msgid "Mahakali"
+msgstr ""
+
+#: i18n/states.php:1123
+msgid "Mechi"
+msgstr ""
+
+#: i18n/states.php:1124
+msgid "Narayani"
+msgstr ""
+
+#: i18n/states.php:1125
+msgid "Rapti"
+msgstr ""
+
+#: i18n/states.php:1126
+msgid "Sagarmatha"
+msgstr ""
+
+#: i18n/states.php:1127
+msgid "Seti"
+msgstr ""
+
+#: i18n/states.php:1130
+msgid "Northland"
+msgstr ""
+
+#: i18n/states.php:1131
+msgid "Auckland"
+msgstr ""
+
+#: i18n/states.php:1132
+msgid "Waikato"
+msgstr ""
+
+#: i18n/states.php:1133
+msgid "Bay of Plenty"
+msgstr ""
+
+#: i18n/states.php:1134
+msgid "Taranaki"
+msgstr ""
+
+#: i18n/states.php:1135
+msgid "Gisborne"
+msgstr ""
+
+#: i18n/states.php:1136
+msgid "Hawke’s Bay"
+msgstr ""
+
+#: i18n/states.php:1137
+msgid "Manawatu-Wanganui"
+msgstr ""
+
+#: i18n/states.php:1138
+msgid "Wellington"
+msgstr ""
+
+#: i18n/states.php:1139
+msgid "Nelson"
+msgstr ""
+
+#: i18n/states.php:1140
+msgid "Marlborough"
+msgstr ""
+
+#: i18n/states.php:1141
+msgid "Tasman"
+msgstr ""
+
+#: i18n/states.php:1142
+msgid "West Coast"
+msgstr ""
+
+#: i18n/states.php:1143
+msgid "Canterbury"
+msgstr ""
+
+#: i18n/states.php:1144
+msgid "Otago"
+msgstr ""
+
+#: i18n/states.php:1145
+msgid "Southland"
+msgstr ""
+
+#: i18n/states.php:1148
+msgid "El Callao"
+msgstr ""
+
+#: i18n/states.php:1149
+msgid "Municipalidad Metropolitana de Lima"
+msgstr ""
+
+#: i18n/states.php:1151
+msgid "Ancash"
+msgstr ""
+
+#: i18n/states.php:1152
+msgid "Apurímac"
+msgstr ""
+
+#: i18n/states.php:1153
+msgid "Arequipa"
+msgstr ""
+
+#: i18n/states.php:1154
+msgid "Ayacucho"
+msgstr ""
+
+#: i18n/states.php:1155
+msgid "Cajamarca"
+msgstr ""
+
+#: i18n/states.php:1156
+msgid "Cusco"
+msgstr ""
+
+#: i18n/states.php:1157
+msgid "Huancavelica"
+msgstr ""
+
+#: i18n/states.php:1158
+msgid "Huánuco"
+msgstr ""
+
+#: i18n/states.php:1159
+msgid "Ica"
+msgstr ""
+
+#: i18n/states.php:1160
+msgid "Junín"
+msgstr ""
+
+#: i18n/states.php:1161
+msgid "La Libertad"
+msgstr ""
+
+#: i18n/states.php:1162
+msgid "Lambayeque"
+msgstr ""
+
+#: i18n/states.php:1163
+msgid "Lima"
+msgstr ""
+
+#: i18n/states.php:1164
+msgid "Loreto"
+msgstr ""
+
+#: i18n/states.php:1165
+msgid "Madre de Dios"
+msgstr ""
+
+#: i18n/states.php:1166
+msgid "Moquegua"
+msgstr ""
+
+#: i18n/states.php:1167
+msgid "Pasco"
+msgstr ""
+
+#: i18n/states.php:1168
+msgid "Piura"
+msgstr ""
+
+#: i18n/states.php:1169
+msgid "Puno"
+msgstr ""
+
+#: i18n/states.php:1170
+msgid "San Martín"
+msgstr ""
+
+#: i18n/states.php:1171
+msgid "Tacna"
+msgstr ""
+
+#: i18n/states.php:1172
+msgid "Tumbes"
+msgstr ""
+
+#: i18n/states.php:1173
+msgid "Ucayali"
+msgstr ""
+
+#: i18n/states.php:1180
+msgid "Abra"
+msgstr ""
+
+#: i18n/states.php:1181
+msgid "Agusan del Norte"
+msgstr ""
+
+#: i18n/states.php:1182
+msgid "Agusan del Sur"
+msgstr ""
+
+#: i18n/states.php:1183
+msgid "Aklan"
+msgstr ""
+
+#: i18n/states.php:1184
+msgid "Albay"
+msgstr ""
+
+#: i18n/states.php:1185
+msgid "Antique"
+msgstr ""
+
+#: i18n/states.php:1186
+msgid "Apayao"
+msgstr ""
+
+#: i18n/states.php:1187
+msgid "Aurora"
+msgstr ""
+
+#: i18n/states.php:1188
+msgid "Basilan"
+msgstr ""
+
+#: i18n/states.php:1189
+msgid "Bataan"
+msgstr ""
+
+#: i18n/states.php:1190
+msgid "Batanes"
+msgstr ""
+
+#: i18n/states.php:1191
+msgid "Batangas"
+msgstr ""
+
+#: i18n/states.php:1192
+msgid "Benguet"
+msgstr ""
+
+#: i18n/states.php:1193
+msgid "Biliran"
+msgstr ""
+
+#: i18n/states.php:1194
+msgid "Bohol"
+msgstr ""
+
+#: i18n/states.php:1195
+msgid "Bukidnon"
+msgstr ""
+
+#: i18n/states.php:1196
+msgid "Bulacan"
+msgstr ""
+
+#: i18n/states.php:1197
+msgid "Cagayan"
+msgstr ""
+
+#: i18n/states.php:1198
+msgid "Camarines Norte"
+msgstr ""
+
+#: i18n/states.php:1199
+msgid "Camarines Sur"
+msgstr ""
+
+#: i18n/states.php:1200
+msgid "Camiguin"
+msgstr ""
+
+#: i18n/states.php:1201
+msgid "Capiz"
+msgstr ""
+
+#: i18n/states.php:1202
+msgid "Catanduanes"
+msgstr ""
+
+#: i18n/states.php:1203
+msgid "Cavite"
+msgstr ""
+
+#: i18n/states.php:1204
+msgid "Cebu"
+msgstr ""
+
+#: i18n/states.php:1205
+msgid "Compostela Valley"
+msgstr ""
+
+#: i18n/states.php:1206
+msgid "Cotabato"
+msgstr ""
+
+#: i18n/states.php:1207
+msgid "Davao del Norte"
+msgstr ""
+
+#: i18n/states.php:1208
+msgid "Davao del Sur"
+msgstr ""
+
+#: i18n/states.php:1209
+msgid "Davao Occidental"
+msgstr ""
+
+#: i18n/states.php:1210
+msgid "Davao Oriental"
+msgstr ""
+
+#: i18n/states.php:1211
+msgid "Dinagat Islands"
+msgstr ""
+
+#: i18n/states.php:1212
+msgid "Eastern Samar"
+msgstr ""
+
+#: i18n/states.php:1213
+msgid "Guimaras"
+msgstr ""
+
+#: i18n/states.php:1214
+msgid "Ifugao"
+msgstr ""
+
+#: i18n/states.php:1215
+msgid "Ilocos Norte"
+msgstr ""
+
+#: i18n/states.php:1216
+msgid "Ilocos Sur"
+msgstr ""
+
+#: i18n/states.php:1217
+msgid "Iloilo"
+msgstr ""
+
+#: i18n/states.php:1218
+msgid "Isabela"
+msgstr ""
+
+#: i18n/states.php:1219
+msgid "Kalinga"
+msgstr ""
+
+#: i18n/states.php:1220
+msgid "La Union"
+msgstr ""
+
+#: i18n/states.php:1221
+msgid "Laguna"
+msgstr ""
+
+#: i18n/states.php:1222
+msgid "Lanao del Norte"
+msgstr ""
+
+#: i18n/states.php:1223
+msgid "Lanao del Sur"
+msgstr ""
+
+#: i18n/states.php:1224
+msgid "Leyte"
+msgstr ""
+
+#: i18n/states.php:1225
+msgid "Maguindanao"
+msgstr ""
+
+#: i18n/states.php:1226
+msgid "Marinduque"
+msgstr ""
+
+#: i18n/states.php:1227
+msgid "Masbate"
+msgstr ""
+
+#: i18n/states.php:1228
+msgid "Misamis Occidental"
+msgstr ""
+
+#: i18n/states.php:1229
+msgid "Misamis Oriental"
+msgstr ""
+
+#: i18n/states.php:1230
+msgid "Mountain Province"
+msgstr ""
+
+#: i18n/states.php:1231
+msgid "Negros Occidental"
+msgstr ""
+
+#: i18n/states.php:1232
+msgid "Negros Oriental"
+msgstr ""
+
+#: i18n/states.php:1233
+msgid "Northern Samar"
+msgstr ""
+
+#: i18n/states.php:1234
+msgid "Nueva Ecija"
+msgstr ""
+
+#: i18n/states.php:1235
+msgid "Nueva Vizcaya"
+msgstr ""
+
+#: i18n/states.php:1236
+msgid "Occidental Mindoro"
+msgstr ""
+
+#: i18n/states.php:1237
+msgid "Oriental Mindoro"
+msgstr ""
+
+#: i18n/states.php:1238
+msgid "Palawan"
+msgstr ""
+
+#: i18n/states.php:1239
+msgid "Pampanga"
+msgstr ""
+
+#: i18n/states.php:1240
+msgid "Pangasinan"
+msgstr ""
+
+#: i18n/states.php:1241
+msgid "Quezon"
+msgstr ""
+
+#: i18n/states.php:1242
+msgid "Quirino"
+msgstr ""
+
+#: i18n/states.php:1243
+msgid "Rizal"
+msgstr ""
+
+#: i18n/states.php:1244
+msgid "Romblon"
+msgstr ""
+
+#: i18n/states.php:1245
+msgid "Samar"
+msgstr ""
+
+#: i18n/states.php:1246
+msgid "Sarangani"
+msgstr ""
+
+#: i18n/states.php:1247
+msgid "Siquijor"
+msgstr ""
+
+#: i18n/states.php:1248
+msgid "Sorsogon"
+msgstr ""
+
+#: i18n/states.php:1249
+msgid "South Cotabato"
+msgstr ""
+
+#: i18n/states.php:1250
+msgid "Southern Leyte"
+msgstr ""
+
+#: i18n/states.php:1251
+msgid "Sultan Kudarat"
+msgstr ""
+
+#: i18n/states.php:1252
+msgid "Sulu"
+msgstr ""
+
+#: i18n/states.php:1253
+msgid "Surigao del Norte"
+msgstr ""
+
+#: i18n/states.php:1254
+msgid "Surigao del Sur"
+msgstr ""
+
+#: i18n/states.php:1255
+msgid "Tarlac"
+msgstr ""
+
+#: i18n/states.php:1256
+msgid "Tawi-Tawi"
+msgstr ""
+
+#: i18n/states.php:1257
+msgid "Zambales"
+msgstr ""
+
+#: i18n/states.php:1258
+msgid "Zamboanga del Norte"
+msgstr ""
+
+#: i18n/states.php:1259
+msgid "Zamboanga del Sur"
+msgstr ""
+
+#: i18n/states.php:1260
+msgid "Zamboanga Sibugay"
+msgstr ""
+
+#: i18n/states.php:1261
+msgid "Metro Manila"
+msgstr ""
+
+#: i18n/states.php:1264
+msgid "Azad Kashmir"
+msgstr ""
+
+#: i18n/states.php:1265
+msgid "Balochistan"
+msgstr ""
+
+#: i18n/states.php:1266
+msgid "FATA"
+msgstr ""
+
+#: i18n/states.php:1267
+msgid "Gilgit Baltistan"
+msgstr ""
+
+#: i18n/states.php:1268
+msgid "Islamabad Capital Territory"
+msgstr ""
+
+#: i18n/states.php:1269
+msgid "Khyber Pakhtunkhwa"
+msgstr ""
+
+#: i18n/states.php:1271
+msgid "Sindh"
+msgstr ""
+
+#: i18n/states.php:1277
+msgid "Asunción"
+msgstr ""
+
+#: i18n/states.php:1278
+msgid "Concepción"
+msgstr ""
+
+#: i18n/states.php:1279
+msgid "San Pedro"
+msgstr ""
+
+#: i18n/states.php:1280
+msgid "Cordillera"
+msgstr ""
+
+#: i18n/states.php:1281
+msgid "Guairá"
+msgstr ""
+
+#: i18n/states.php:1282
+msgid "Caaguazú"
+msgstr ""
+
+#: i18n/states.php:1283
+msgid "Caazapá"
+msgstr ""
+
+#: i18n/states.php:1284
+msgid "Itapúa"
+msgstr ""
+
+#: i18n/states.php:1286
+msgid "Paraguarí"
+msgstr ""
+
+#: i18n/states.php:1287
+msgid "Alto Paraná"
+msgstr ""
+
+#: i18n/states.php:1289
+msgid "Ñeembucú"
+msgstr ""
+
+#: i18n/states.php:1290
+msgid "Amambay"
+msgstr ""
+
+#: i18n/states.php:1291
+msgid "Canindeyú"
+msgstr ""
+
+#: i18n/states.php:1292
+msgid "Presidente Hayes"
+msgstr ""
+
+#: i18n/states.php:1293
+msgid "Alto Paraguay"
+msgstr ""
+
+#: i18n/states.php:1294
+msgid "Boquerón"
+msgstr ""
+
+#: i18n/states.php:1298
+msgid "Alba"
+msgstr ""
+
+#: i18n/states.php:1299
+msgid "Arad"
+msgstr ""
+
+#: i18n/states.php:1300
+msgid "Argeș"
+msgstr ""
+
+#: i18n/states.php:1301
+msgid "Bacău"
+msgstr ""
+
+#: i18n/states.php:1302
+msgid "Bihor"
+msgstr ""
+
+#: i18n/states.php:1303
+msgid "Bistrița-Năsăud"
+msgstr ""
+
+#: i18n/states.php:1304
+msgid "Botoșani"
+msgstr ""
+
+#: i18n/states.php:1305
+msgid "Brăila"
+msgstr ""
+
+#: i18n/states.php:1306
+msgid "Brașov"
+msgstr ""
+
+#: i18n/states.php:1307
+msgid "București"
+msgstr ""
+
+#: i18n/states.php:1308
+msgid "Buzău"
+msgstr ""
+
+#: i18n/states.php:1310
+msgid "Caraș-Severin"
+msgstr ""
+
+#: i18n/states.php:1311
+msgid "Cluj"
+msgstr ""
+
+#: i18n/states.php:1312
+msgid "Constanța"
+msgstr ""
+
+#: i18n/states.php:1313
+msgid "Covasna"
+msgstr ""
+
+#: i18n/states.php:1314
+msgid "Dâmbovița"
+msgstr ""
+
+#: i18n/states.php:1315
+msgid "Dolj"
+msgstr ""
+
+#: i18n/states.php:1316
+msgid "Galați"
+msgstr ""
+
+#: i18n/states.php:1317
+msgid "Giurgiu"
+msgstr ""
+
+#: i18n/states.php:1318
+msgid "Gorj"
+msgstr ""
+
+#: i18n/states.php:1319
+msgid "Harghita"
+msgstr ""
+
+#: i18n/states.php:1320
+msgid "Hunedoara"
+msgstr ""
+
+#: i18n/states.php:1321
+msgid "Ialomița"
+msgstr ""
+
+#: i18n/states.php:1322
+msgid "Iași"
+msgstr ""
+
+#: i18n/states.php:1323
+msgid "Ilfov"
+msgstr ""
+
+#: i18n/states.php:1324
+msgid "Maramureș"
+msgstr ""
+
+#: i18n/states.php:1325
+msgid "Mehedinți"
+msgstr ""
+
+#: i18n/states.php:1326
+msgid "Mureș"
+msgstr ""
+
+#: i18n/states.php:1327
+msgid "Neamț"
+msgstr ""
+
+#: i18n/states.php:1328
+msgid "Olt"
+msgstr ""
+
+#: i18n/states.php:1329
+msgid "Prahova"
+msgstr ""
+
+#: i18n/states.php:1330
+msgid "Sălaj"
+msgstr ""
+
+#: i18n/states.php:1331
+msgid "Satu Mare"
+msgstr ""
+
+#: i18n/states.php:1332
+msgid "Sibiu"
+msgstr ""
+
+#: i18n/states.php:1333
+msgid "Suceava"
+msgstr ""
+
+#: i18n/states.php:1334
+msgid "Teleorman"
+msgstr ""
+
+#: i18n/states.php:1335
+msgid "Timiș"
+msgstr ""
+
+#: i18n/states.php:1336
+msgid "Tulcea"
+msgstr ""
+
+#: i18n/states.php:1337
+msgid "Vâlcea"
+msgstr ""
+
+#: i18n/states.php:1338
+msgid "Vaslui"
+msgstr ""
+
+#: i18n/states.php:1339
+msgid "Vrancea"
+msgstr ""
+
+#: i18n/states.php:1345
+msgid "Amnat Charoen"
+msgstr ""
+
+#: i18n/states.php:1346
+msgid "Ang Thong"
+msgstr ""
+
+#: i18n/states.php:1347
+msgid "Ayutthaya"
+msgstr ""
+
+#: i18n/states.php:1348
+msgid "Bangkok"
+msgstr ""
+
+#: i18n/states.php:1349
+msgid "Bueng Kan"
+msgstr ""
+
+#: i18n/states.php:1350
+msgid "Buri Ram"
+msgstr ""
+
+#: i18n/states.php:1351
+msgid "Chachoengsao"
+msgstr ""
+
+#: i18n/states.php:1352
+msgid "Chai Nat"
+msgstr ""
+
+#: i18n/states.php:1353
+msgid "Chaiyaphum"
+msgstr ""
+
+#: i18n/states.php:1354
+msgid "Chanthaburi"
+msgstr ""
+
+#: i18n/states.php:1355
+msgid "Chiang Mai"
+msgstr ""
+
+#: i18n/states.php:1356
+msgid "Chiang Rai"
+msgstr ""
+
+#: i18n/states.php:1357
+msgid "Chonburi"
+msgstr ""
+
+#: i18n/states.php:1358
+msgid "Chumphon"
+msgstr ""
+
+#: i18n/states.php:1359
+msgid "Kalasin"
+msgstr ""
+
+#: i18n/states.php:1360
+msgid "Kamphaeng Phet"
+msgstr ""
+
+#: i18n/states.php:1361
+msgid "Kanchanaburi"
+msgstr ""
+
+#: i18n/states.php:1362
+msgid "Khon Kaen"
+msgstr ""
+
+#: i18n/states.php:1363
+msgid "Krabi"
+msgstr ""
+
+#: i18n/states.php:1364
+msgid "Lampang"
+msgstr ""
+
+#: i18n/states.php:1365
+msgid "Lamphun"
+msgstr ""
+
+#: i18n/states.php:1366
+msgid "Loei"
+msgstr ""
+
+#: i18n/states.php:1367
+msgid "Lopburi"
+msgstr ""
+
+#: i18n/states.php:1368
+msgid "Mae Hong Son"
+msgstr ""
+
+#: i18n/states.php:1369
+msgid "Maha Sarakham"
+msgstr ""
+
+#: i18n/states.php:1370
+msgid "Mukdahan"
+msgstr ""
+
+#: i18n/states.php:1371
+msgid "Nakhon Nayok"
+msgstr ""
+
+#: i18n/states.php:1372
+msgid "Nakhon Pathom"
+msgstr ""
+
+#: i18n/states.php:1373
+msgid "Nakhon Phanom"
+msgstr ""
+
+#: i18n/states.php:1374
+msgid "Nakhon Ratchasima"
+msgstr ""
+
+#: i18n/states.php:1375
+msgid "Nakhon Sawan"
+msgstr ""
+
+#: i18n/states.php:1376
+msgid "Nakhon Si Thammarat"
+msgstr ""
+
+#: i18n/states.php:1377
+msgid "Nan"
+msgstr ""
+
+#: i18n/states.php:1378
+msgid "Narathiwat"
+msgstr ""
+
+#: i18n/states.php:1379
+msgid "Nong Bua Lam Phu"
+msgstr ""
+
+#: i18n/states.php:1380
+msgid "Nong Khai"
+msgstr ""
+
+#: i18n/states.php:1381
+msgid "Nonthaburi"
+msgstr ""
+
+#: i18n/states.php:1382
+msgid "Pathum Thani"
+msgstr ""
+
+#: i18n/states.php:1383
+msgid "Pattani"
+msgstr ""
+
+#: i18n/states.php:1384
+msgid "Phang Nga"
+msgstr ""
+
+#: i18n/states.php:1385
+msgid "Phatthalung"
+msgstr ""
+
+#: i18n/states.php:1386
+msgid "Phayao"
+msgstr ""
+
+#: i18n/states.php:1387
+msgid "Phetchabun"
+msgstr ""
+
+#: i18n/states.php:1388
+msgid "Phetchaburi"
+msgstr ""
+
+#: i18n/states.php:1389
+msgid "Phichit"
+msgstr ""
+
+#: i18n/states.php:1390
+msgid "Phitsanulok"
+msgstr ""
+
+#: i18n/states.php:1391
+msgid "Phrae"
+msgstr ""
+
+#: i18n/states.php:1392
+msgid "Phuket"
+msgstr ""
+
+#: i18n/states.php:1393
+msgid "Prachin Buri"
+msgstr ""
+
+#: i18n/states.php:1394
+msgid "Prachuap Khiri Khan"
+msgstr ""
+
+#: i18n/states.php:1395
+msgid "Ranong"
+msgstr ""
+
+#: i18n/states.php:1396
+msgid "Ratchaburi"
+msgstr ""
+
+#: i18n/states.php:1397
+msgid "Rayong"
+msgstr ""
+
+#: i18n/states.php:1398
+msgid "Roi Et"
+msgstr ""
+
+#: i18n/states.php:1399
+msgid "Sa Kaeo"
+msgstr ""
+
+#: i18n/states.php:1400
+msgid "Sakon Nakhon"
+msgstr ""
+
+#: i18n/states.php:1401
+msgid "Samut Prakan"
+msgstr ""
+
+#: i18n/states.php:1402
+msgid "Samut Sakhon"
+msgstr ""
+
+#: i18n/states.php:1403
+msgid "Samut Songkhram"
+msgstr ""
+
+#: i18n/states.php:1404
+msgid "Saraburi"
+msgstr ""
+
+#: i18n/states.php:1405
+msgid "Satun"
+msgstr ""
+
+#: i18n/states.php:1406
+msgid "Sing Buri"
+msgstr ""
+
+#: i18n/states.php:1407
+msgid "Sisaket"
+msgstr ""
+
+#: i18n/states.php:1408
+msgid "Songkhla"
+msgstr ""
+
+#: i18n/states.php:1409
+msgid "Sukhothai"
+msgstr ""
+
+#: i18n/states.php:1410
+msgid "Suphan Buri"
+msgstr ""
+
+#: i18n/states.php:1411
+msgid "Surat Thani"
+msgstr ""
+
+#: i18n/states.php:1412
+msgid "Surin"
+msgstr ""
+
+#: i18n/states.php:1413
+msgid "Tak"
+msgstr ""
+
+#: i18n/states.php:1414
+msgid "Trang"
+msgstr ""
+
+#: i18n/states.php:1415
+msgid "Trat"
+msgstr ""
+
+#: i18n/states.php:1416
+msgid "Ubon Ratchathani"
+msgstr ""
+
+#: i18n/states.php:1417
+msgid "Udon Thani"
+msgstr ""
+
+#: i18n/states.php:1418
+msgid "Uthai Thani"
+msgstr ""
+
+#: i18n/states.php:1419
+msgid "Uttaradit"
+msgstr ""
+
+#: i18n/states.php:1420
+msgid "Yala"
+msgstr ""
+
+#: i18n/states.php:1421
+msgid "Yasothon"
+msgstr ""
+
+#: i18n/states.php:1424
+msgid "Adana"
+msgstr ""
+
+#: i18n/states.php:1425
+msgid "Adıyaman"
+msgstr ""
+
+#: i18n/states.php:1426
+msgid "Afyon"
+msgstr ""
+
+#: i18n/states.php:1427
+msgid "Ağrı"
+msgstr ""
+
+#: i18n/states.php:1428
+msgid "Amasya"
+msgstr ""
+
+#: i18n/states.php:1429
+msgid "Ankara"
+msgstr ""
+
+#: i18n/states.php:1430
+msgid "Antalya"
+msgstr ""
+
+#: i18n/states.php:1431
+msgid "Artvin"
+msgstr ""
+
+#: i18n/states.php:1432
+msgid "Aydın"
+msgstr ""
+
+#: i18n/states.php:1433
+msgid "Balıkesir"
+msgstr ""
+
+#: i18n/states.php:1434
+msgid "Bilecik"
+msgstr ""
+
+#: i18n/states.php:1435
+msgid "Bingöl"
+msgstr ""
+
+#: i18n/states.php:1436
+msgid "Bitlis"
+msgstr ""
+
+#: i18n/states.php:1437
+msgid "Bolu"
+msgstr ""
+
+#: i18n/states.php:1438
+msgid "Burdur"
+msgstr ""
+
+#: i18n/states.php:1439
+msgid "Bursa"
+msgstr ""
+
+#: i18n/states.php:1440
+msgid "Çanakkale"
+msgstr ""
+
+#: i18n/states.php:1441
+msgid "Çankırı"
+msgstr ""
+
+#: i18n/states.php:1442
+msgid "Çorum"
+msgstr ""
+
+#: i18n/states.php:1443
+msgid "Denizli"
+msgstr ""
+
+#: i18n/states.php:1444
+msgid "Diyarbakır"
+msgstr ""
+
+#: i18n/states.php:1445
+msgid "Edirne"
+msgstr ""
+
+#: i18n/states.php:1446
+msgid "Elazığ"
+msgstr ""
+
+#: i18n/states.php:1447
+msgid "Erzincan"
+msgstr ""
+
+#: i18n/states.php:1448
+msgid "Erzurum"
+msgstr ""
+
+#: i18n/states.php:1449
+msgid "Eskişehir"
+msgstr ""
+
+#: i18n/states.php:1450
+msgid "Gaziantep"
+msgstr ""
+
+#: i18n/states.php:1451
+msgid "Giresun"
+msgstr ""
+
+#: i18n/states.php:1452
+msgid "Gümüşhane"
+msgstr ""
+
+#: i18n/states.php:1453
+msgid "Hakkari"
+msgstr ""
+
+#: i18n/states.php:1454
+msgid "Hatay"
+msgstr ""
+
+#: i18n/states.php:1455
+msgid "Isparta"
+msgstr ""
+
+#: i18n/states.php:1456
+msgid "İçel"
+msgstr ""
+
+#: i18n/states.php:1457
+msgid "İstanbul"
+msgstr ""
+
+#: i18n/states.php:1458
+msgid "İzmir"
+msgstr ""
+
+#: i18n/states.php:1459
+msgid "Kars"
+msgstr ""
+
+#: i18n/states.php:1460
+msgid "Kastamonu"
+msgstr ""
+
+#: i18n/states.php:1461
+msgid "Kayseri"
+msgstr ""
+
+#: i18n/states.php:1462
+msgid "Kırklareli"
+msgstr ""
+
+#: i18n/states.php:1463
+msgid "Kırşehir"
+msgstr ""
+
+#: i18n/states.php:1464
+msgid "Kocaeli"
+msgstr ""
+
+#: i18n/states.php:1465
+msgid "Konya"
+msgstr ""
+
+#: i18n/states.php:1466
+msgid "Kütahya"
+msgstr ""
+
+#: i18n/states.php:1467
+msgid "Malatya"
+msgstr ""
+
+#: i18n/states.php:1468
+msgid "Manisa"
+msgstr ""
+
+#: i18n/states.php:1469
+msgid "Kahramanmaraş"
+msgstr ""
+
+#: i18n/states.php:1470
+msgid "Mardin"
+msgstr ""
+
+#: i18n/states.php:1471
+msgid "Muğla"
+msgstr ""
+
+#: i18n/states.php:1472
+msgid "Muş"
+msgstr ""
+
+#: i18n/states.php:1473
+msgid "Nevşehir"
+msgstr ""
+
+#: i18n/states.php:1474
+msgid "Niğde"
+msgstr ""
+
+#: i18n/states.php:1475
+msgid "Ordu"
+msgstr ""
+
+#: i18n/states.php:1476
+msgid "Rize"
+msgstr ""
+
+#: i18n/states.php:1477
+msgid "Sakarya"
+msgstr ""
+
+#: i18n/states.php:1478
+msgid "Samsun"
+msgstr ""
+
+#: i18n/states.php:1479
+msgid "Siirt"
+msgstr ""
+
+#: i18n/states.php:1480
+msgid "Sinop"
+msgstr ""
+
+#: i18n/states.php:1481
+msgid "Sivas"
+msgstr ""
+
+#: i18n/states.php:1482
+msgid "Tekirdağ"
+msgstr ""
+
+#: i18n/states.php:1483
+msgid "Tokat"
+msgstr ""
+
+#: i18n/states.php:1484
+msgid "Trabzon"
+msgstr ""
+
+#: i18n/states.php:1485
+msgid "Tunceli"
+msgstr ""
+
+#: i18n/states.php:1486
+msgid "Şanlıurfa"
+msgstr ""
+
+#: i18n/states.php:1487
+msgid "Uşak"
+msgstr ""
+
+#: i18n/states.php:1488
+msgid "Van"
+msgstr ""
+
+#: i18n/states.php:1489
+msgid "Yozgat"
+msgstr ""
+
+#: i18n/states.php:1490
+msgid "Zonguldak"
+msgstr ""
+
+#: i18n/states.php:1491
+msgid "Aksaray"
+msgstr ""
+
+#: i18n/states.php:1492
+msgid "Bayburt"
+msgstr ""
+
+#: i18n/states.php:1493
+msgid "Karaman"
+msgstr ""
+
+#: i18n/states.php:1494
+msgid "Kırıkkale"
+msgstr ""
+
+#: i18n/states.php:1495
+msgid "Batman"
+msgstr ""
+
+#: i18n/states.php:1496
+msgid "Şırnak"
+msgstr ""
+
+#: i18n/states.php:1497
+msgid "Bartın"
+msgstr ""
+
+#: i18n/states.php:1498
+msgid "Ardahan"
+msgstr ""
+
+#: i18n/states.php:1499
+msgid "Iğdır"
+msgstr ""
+
+#: i18n/states.php:1500
+msgid "Yalova"
+msgstr ""
+
+#: i18n/states.php:1501
+msgid "Karabük"
+msgstr ""
+
+#: i18n/states.php:1502
+msgid "Kilis"
+msgstr ""
+
+#: i18n/states.php:1503
+msgid "Osmaniye"
+msgstr ""
+
+#: i18n/states.php:1504
+msgid "Düzce"
+msgstr ""
+
+#: i18n/states.php:1507
+msgid "Arusha"
+msgstr ""
+
+#: i18n/states.php:1508
+msgid "Dar es Salaam"
+msgstr ""
+
+#: i18n/states.php:1509
+msgid "Dodoma"
+msgstr ""
+
+#: i18n/states.php:1510
+msgid "Iringa"
+msgstr ""
+
+#: i18n/states.php:1511
+msgid "Kagera"
+msgstr ""
+
+#: i18n/states.php:1512
+msgid "Pemba North"
+msgstr ""
+
+#: i18n/states.php:1513
+msgid "Zanzibar North"
+msgstr ""
+
+#: i18n/states.php:1514
+msgid "Kigoma"
+msgstr ""
+
+#: i18n/states.php:1515
+msgid "Kilimanjaro"
+msgstr ""
+
+#: i18n/states.php:1516
+msgid "Pemba South"
+msgstr ""
+
+#: i18n/states.php:1517
+msgid "Zanzibar South"
+msgstr ""
+
+#: i18n/states.php:1518
+msgid "Lindi"
+msgstr ""
+
+#: i18n/states.php:1519
+msgid "Mara"
+msgstr ""
+
+#: i18n/states.php:1520
+msgid "Mbeya"
+msgstr ""
+
+#: i18n/states.php:1521
+msgid "Zanzibar West"
+msgstr ""
+
+#: i18n/states.php:1522
+msgid "Morogoro"
+msgstr ""
+
+#: i18n/states.php:1523
+msgid "Mtwara"
+msgstr ""
+
+#: i18n/states.php:1524
+msgid "Mwanza"
+msgstr ""
+
+#: i18n/states.php:1525
+msgid "Coast"
+msgstr ""
+
+#: i18n/states.php:1526
+msgid "Rukwa"
+msgstr ""
+
+#: i18n/states.php:1527
+msgid "Ruvuma"
+msgstr ""
+
+#: i18n/states.php:1528
+msgid "Shinyanga"
+msgstr ""
+
+#: i18n/states.php:1529
+msgid "Singida"
+msgstr ""
+
+#: i18n/states.php:1530
+msgid "Tabora"
+msgstr ""
+
+#: i18n/states.php:1531
+msgid "Tanga"
+msgstr ""
+
+#: i18n/states.php:1532
+msgid "Manyara"
+msgstr ""
+
+#: i18n/states.php:1533
+msgid "Geita"
+msgstr ""
+
+#: i18n/states.php:1534
+msgid "Katavi"
+msgstr ""
+
+#: i18n/states.php:1535
+msgid "Njombe"
+msgstr ""
+
+#: i18n/states.php:1536
+msgid "Simiyu"
+msgstr ""
+
+#: i18n/states.php:1540
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Belgrade"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1565
+=======
+#: i18n/states.php:1541
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Bor"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1566
+=======
+#: i18n/states.php:1542
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Braničevo"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1567
+=======
+#: i18n/states.php:1543
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Central Banat"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1568
+=======
+#: i18n/states.php:1544
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Danube"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1569
+=======
+#: i18n/states.php:1545
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Jablanica"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1570
+=======
+#: i18n/states.php:1546
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Kolubara"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1571
+=======
+#: i18n/states.php:1547
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Mačva"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1572
+=======
+#: i18n/states.php:1548
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Morava"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1573
+=======
+#: i18n/states.php:1549
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Nišava"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1574
+=======
+#: i18n/states.php:1550
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "North Bačka"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1575
+=======
+#: i18n/states.php:1551
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "North Banat"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1576
+=======
+#: i18n/states.php:1552
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Pčinja"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1577
+=======
+#: i18n/states.php:1553
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Pirot"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1578
+=======
+#: i18n/states.php:1554
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Pomoravlje"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1579
+=======
+#: i18n/states.php:1555
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Rasina"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1580
+=======
+#: i18n/states.php:1556
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Raška"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1581
+=======
+#: i18n/states.php:1557
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "South Bačka"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1582
+=======
+#: i18n/states.php:1558
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "South Banat"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1583
+=======
+#: i18n/states.php:1559
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Srem"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1584
+=======
+#: i18n/states.php:1560
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Šumadija"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1585
+=======
+#: i18n/states.php:1561
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Toplica"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1586
+=======
+#: i18n/states.php:1562
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "West Bačka"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1587
+=======
+#: i18n/states.php:1563
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Zaječar"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1588
+=======
+#: i18n/states.php:1564
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Zlatibor"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1589
+=======
+#: i18n/states.php:1565
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Kosovo"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1590
+=======
+#: i18n/states.php:1566
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Peć"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1591
+=======
+#: i18n/states.php:1567
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Prizren"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1592
+=======
+#: i18n/states.php:1568
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Kosovska Mitrovica"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1593
+=======
+#: i18n/states.php:1569
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Kosovo-Pomoravlje"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1594
+=======
+#: i18n/states.php:1570
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Kosovo-Metohija"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1595
+=======
+#: i18n/states.php:1571
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "district"
 msgid "Vojvodina"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1599
 msgid "Abim"
 msgstr ""
@@ -7476,10 +12032,598 @@ msgid "Florida"
 msgstr ""
 
 #: i18n/states.php:1750
+=======
+#: i18n/states.php:1575
+msgid "Abim"
+msgstr ""
+
+#: i18n/states.php:1576
+msgid "Adjumani"
+msgstr ""
+
+#: i18n/states.php:1577
+msgid "Agago"
+msgstr ""
+
+#: i18n/states.php:1578
+msgid "Alebtong"
+msgstr ""
+
+#: i18n/states.php:1579
+msgid "Amolatar"
+msgstr ""
+
+#: i18n/states.php:1580
+msgid "Amudat"
+msgstr ""
+
+#: i18n/states.php:1581
+msgid "Amuria"
+msgstr ""
+
+#: i18n/states.php:1582
+msgid "Amuru"
+msgstr ""
+
+#: i18n/states.php:1583
+msgid "Apac"
+msgstr ""
+
+#: i18n/states.php:1584
+msgid "Arua"
+msgstr ""
+
+#: i18n/states.php:1585
+msgid "Budaka"
+msgstr ""
+
+#: i18n/states.php:1586
+msgid "Bududa"
+msgstr ""
+
+#: i18n/states.php:1587
+msgid "Bugiri"
+msgstr ""
+
+#: i18n/states.php:1588
+msgid "Bugweri"
+msgstr ""
+
+#: i18n/states.php:1589
+msgid "Buhweju"
+msgstr ""
+
+#: i18n/states.php:1590
+msgid "Buikwe"
+msgstr ""
+
+#: i18n/states.php:1591
+msgid "Bukedea"
+msgstr ""
+
+#: i18n/states.php:1592
+msgid "Bukomansimbi"
+msgstr ""
+
+#: i18n/states.php:1593
+msgid "Bukwa"
+msgstr ""
+
+#: i18n/states.php:1594
+msgid "Bulambuli"
+msgstr ""
+
+#: i18n/states.php:1595
+msgid "Buliisa"
+msgstr ""
+
+#: i18n/states.php:1596
+msgid "Bundibugyo"
+msgstr ""
+
+#: i18n/states.php:1597
+msgid "Bunyangabu"
+msgstr ""
+
+#: i18n/states.php:1598
+msgid "Bushenyi"
+msgstr ""
+
+#: i18n/states.php:1600
+msgid "Butaleja"
+msgstr ""
+
+#: i18n/states.php:1601
+msgid "Butambala"
+msgstr ""
+
+#: i18n/states.php:1602
+msgid "Butebo"
+msgstr ""
+
+#: i18n/states.php:1603
+msgid "Buvuma"
+msgstr ""
+
+#: i18n/states.php:1604
+msgid "Buyende"
+msgstr ""
+
+#: i18n/states.php:1605
+msgid "Dokolo"
+msgstr ""
+
+#: i18n/states.php:1606
+msgid "Gomba"
+msgstr ""
+
+#: i18n/states.php:1607
+msgid "Gulu"
+msgstr ""
+
+#: i18n/states.php:1608
+msgid "Hoima"
+msgstr ""
+
+#: i18n/states.php:1609
+msgid "Ibanda"
+msgstr ""
+
+#: i18n/states.php:1610
+msgid "Iganga"
+msgstr ""
+
+#: i18n/states.php:1611
+msgid "Isingiro"
+msgstr ""
+
+#: i18n/states.php:1612
+msgid "Jinja"
+msgstr ""
+
+#: i18n/states.php:1613
+msgid "Kaabong"
+msgstr ""
+
+#: i18n/states.php:1614
+msgid "Kabale"
+msgstr ""
+
+#: i18n/states.php:1615
+msgid "Kabarole"
+msgstr ""
+
+#: i18n/states.php:1616
+msgid "Kaberamaido"
+msgstr ""
+
+#: i18n/states.php:1617
+msgid "Kagadi"
+msgstr ""
+
+#: i18n/states.php:1618
+msgid "Kakumiro"
+msgstr ""
+
+#: i18n/states.php:1619
+msgid "Kalangala"
+msgstr ""
+
+#: i18n/states.php:1620
+msgid "Kaliro"
+msgstr ""
+
+#: i18n/states.php:1621
+msgid "Kalungu"
+msgstr ""
+
+#: i18n/states.php:1622
+msgid "Kampala"
+msgstr ""
+
+#: i18n/states.php:1623
+msgid "Kamuli"
+msgstr ""
+
+#: i18n/states.php:1624
+msgid "Kamwenge"
+msgstr ""
+
+#: i18n/states.php:1625
+msgid "Kanungu"
+msgstr ""
+
+#: i18n/states.php:1626
+msgid "Kapchorwa"
+msgstr ""
+
+#: i18n/states.php:1627
+msgid "Kapelebyong"
+msgstr ""
+
+#: i18n/states.php:1628
+msgid "Kasanda"
+msgstr ""
+
+#: i18n/states.php:1629
+msgid "Kasese"
+msgstr ""
+
+#: i18n/states.php:1630
+msgid "Katakwi"
+msgstr ""
+
+#: i18n/states.php:1631
+msgid "Kayunga"
+msgstr ""
+
+#: i18n/states.php:1632
+msgid "Kibaale"
+msgstr ""
+
+#: i18n/states.php:1633
+msgid "Kiboga"
+msgstr ""
+
+#: i18n/states.php:1634
+msgid "Kibuku"
+msgstr ""
+
+#: i18n/states.php:1635
+msgid "Kikuube"
+msgstr ""
+
+#: i18n/states.php:1636
+msgid "Kiruhura"
+msgstr ""
+
+#: i18n/states.php:1637
+msgid "Kiryandongo"
+msgstr ""
+
+#: i18n/states.php:1638
+msgid "Kisoro"
+msgstr ""
+
+#: i18n/states.php:1639
+msgid "Kitgum"
+msgstr ""
+
+#: i18n/states.php:1640
+msgid "Koboko"
+msgstr ""
+
+#: i18n/states.php:1641
+msgid "Kole"
+msgstr ""
+
+#: i18n/states.php:1642
+msgid "Kotido"
+msgstr ""
+
+#: i18n/states.php:1643
+msgid "Kumi"
+msgstr ""
+
+#: i18n/states.php:1644
+msgid "Kwania"
+msgstr ""
+
+#: i18n/states.php:1645
+msgid "Kween"
+msgstr ""
+
+#: i18n/states.php:1646
+msgid "Kyankwanzi"
+msgstr ""
+
+#: i18n/states.php:1647
+msgid "Kyegegwa"
+msgstr ""
+
+#: i18n/states.php:1648
+msgid "Kyenjojo"
+msgstr ""
+
+#: i18n/states.php:1649
+msgid "Kyotera"
+msgstr ""
+
+#: i18n/states.php:1650
+msgid "Lamwo"
+msgstr ""
+
+#: i18n/states.php:1651
+msgid "Lira"
+msgstr ""
+
+#: i18n/states.php:1652
+msgid "Luuka"
+msgstr ""
+
+#: i18n/states.php:1653
+msgid "Luwero"
+msgstr ""
+
+#: i18n/states.php:1654
+msgid "Lwengo"
+msgstr ""
+
+#: i18n/states.php:1655
+msgid "Lyantonde"
+msgstr ""
+
+#: i18n/states.php:1656
+msgid "Manafwa"
+msgstr ""
+
+#: i18n/states.php:1657
+msgid "Maracha"
+msgstr ""
+
+#: i18n/states.php:1658
+msgid "Masaka"
+msgstr ""
+
+#: i18n/states.php:1659
+msgid "Masindi"
+msgstr ""
+
+#: i18n/states.php:1660
+msgid "Mayuge"
+msgstr ""
+
+#: i18n/states.php:1661
+msgid "Mbale"
+msgstr ""
+
+#: i18n/states.php:1662
+msgid "Mbarara"
+msgstr ""
+
+#: i18n/states.php:1663
+msgid "Mitooma"
+msgstr ""
+
+#: i18n/states.php:1664
+msgid "Mityana"
+msgstr ""
+
+#: i18n/states.php:1665
+msgid "Moroto"
+msgstr ""
+
+#: i18n/states.php:1666
+msgid "Moyo"
+msgstr ""
+
+#: i18n/states.php:1667
+msgid "Mpigi"
+msgstr ""
+
+#: i18n/states.php:1668
+msgid "Mubende"
+msgstr ""
+
+#: i18n/states.php:1669
+msgid "Mukono"
+msgstr ""
+
+#: i18n/states.php:1670
+msgid "Nabilatuk"
+msgstr ""
+
+#: i18n/states.php:1671
+msgid "Nakapiripirit"
+msgstr ""
+
+#: i18n/states.php:1672
+msgid "Nakaseke"
+msgstr ""
+
+#: i18n/states.php:1673
+msgid "Nakasongola"
+msgstr ""
+
+#: i18n/states.php:1674
+msgid "Namayingo"
+msgstr ""
+
+#: i18n/states.php:1675
+msgid "Namisindwa"
+msgstr ""
+
+#: i18n/states.php:1676
+msgid "Namutumba"
+msgstr ""
+
+#: i18n/states.php:1677
+msgid "Napak"
+msgstr ""
+
+#: i18n/states.php:1678
+msgid "Nebbi"
+msgstr ""
+
+#: i18n/states.php:1679
+msgid "Ngora"
+msgstr ""
+
+#: i18n/states.php:1680
+msgid "Ntoroko"
+msgstr ""
+
+#: i18n/states.php:1681
+msgid "Ntungamo"
+msgstr ""
+
+#: i18n/states.php:1682
+msgid "Nwoya"
+msgstr ""
+
+#: i18n/states.php:1683
+msgid "Omoro"
+msgstr ""
+
+#: i18n/states.php:1684
+msgid "Otuke"
+msgstr ""
+
+#: i18n/states.php:1685
+msgid "Oyam"
+msgstr ""
+
+#: i18n/states.php:1686
+msgid "Pader"
+msgstr ""
+
+#: i18n/states.php:1687
+msgid "Pakwach"
+msgstr ""
+
+#: i18n/states.php:1688
+msgid "Pallisa"
+msgstr ""
+
+#: i18n/states.php:1689
+msgid "Rakai"
+msgstr ""
+
+#: i18n/states.php:1690
+msgid "Rubanda"
+msgstr ""
+
+#: i18n/states.php:1691
+msgid "Rubirizi"
+msgstr ""
+
+#: i18n/states.php:1692
+msgid "Rukiga"
+msgstr ""
+
+#: i18n/states.php:1693
+msgid "Rukungiri"
+msgstr ""
+
+#: i18n/states.php:1694
+msgid "Sembabule"
+msgstr ""
+
+#: i18n/states.php:1695
+msgid "Serere"
+msgstr ""
+
+#: i18n/states.php:1696
+msgid "Sheema"
+msgstr ""
+
+#: i18n/states.php:1697
+msgid "Sironko"
+msgstr ""
+
+#: i18n/states.php:1698
+msgid "Soroti"
+msgstr ""
+
+#: i18n/states.php:1699
+msgid "Tororo"
+msgstr ""
+
+#: i18n/states.php:1700
+msgid "Wakiso"
+msgstr ""
+
+#: i18n/states.php:1701
+msgid "Yumbe"
+msgstr ""
+
+#: i18n/states.php:1702
+msgid "Zombo"
+msgstr ""
+
+#: i18n/states.php:1705
+msgid "Baker Island"
+msgstr ""
+
+#: i18n/states.php:1706
+msgid "Howland Island"
+msgstr ""
+
+#: i18n/states.php:1707
+msgid "Jarvis Island"
+msgstr ""
+
+#: i18n/states.php:1708
+msgid "Johnston Atoll"
+msgstr ""
+
+#: i18n/states.php:1709
+msgid "Kingman Reef"
+msgstr ""
+
+#: i18n/states.php:1710
+msgid "Midway Atoll"
+msgstr ""
+
+#: i18n/states.php:1711
+msgid "Navassa Island"
+msgstr ""
+
+#: i18n/states.php:1712
+msgid "Palmyra Atoll"
+msgstr ""
+
+#: i18n/states.php:1713
+msgid "Wake Island"
+msgstr ""
+
+#: i18n/states.php:1716
+msgid "Alabama"
+msgstr ""
+
+#: i18n/states.php:1717
+msgid "Alaska"
+msgstr ""
+
+#: i18n/states.php:1718
+msgid "Arizona"
+msgstr ""
+
+#: i18n/states.php:1719
+msgid "Arkansas"
+msgstr ""
+
+#: i18n/states.php:1720
+msgid "California"
+msgstr ""
+
+#: i18n/states.php:1721
+msgid "Colorado"
+msgstr ""
+
+#: i18n/states.php:1722
+msgid "Connecticut"
+msgstr ""
+
+#: i18n/states.php:1723
+msgid "Delaware"
+msgstr ""
+
+#: i18n/states.php:1724
+msgid "District Of Columbia"
+msgstr ""
+
+#: i18n/states.php:1725
+msgid "Florida"
+msgstr ""
+
+#: i18n/states.php:1726
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "US state of Georgia"
 msgid "Georgia"
 msgstr ""
 
+<<<<<<< HEAD
 #: i18n/states.php:1751
 msgid "Hawaii"
 msgstr ""
@@ -7701,6 +12845,229 @@ msgid "Lusaka"
 msgstr ""
 
 #: i18n/states.php:1818
+=======
+#: i18n/states.php:1727
+msgid "Hawaii"
+msgstr ""
+
+#: i18n/states.php:1728
+msgid "Idaho"
+msgstr ""
+
+#: i18n/states.php:1729
+msgid "Illinois"
+msgstr ""
+
+#: i18n/states.php:1730
+msgid "Indiana"
+msgstr ""
+
+#: i18n/states.php:1731
+msgid "Iowa"
+msgstr ""
+
+#: i18n/states.php:1732
+msgid "Kansas"
+msgstr ""
+
+#: i18n/states.php:1733
+msgid "Kentucky"
+msgstr ""
+
+#: i18n/states.php:1734
+msgid "Louisiana"
+msgstr ""
+
+#: i18n/states.php:1735
+msgid "Maine"
+msgstr ""
+
+#: i18n/states.php:1737
+msgid "Massachusetts"
+msgstr ""
+
+#: i18n/states.php:1738
+msgid "Michigan"
+msgstr ""
+
+#: i18n/states.php:1739
+msgid "Minnesota"
+msgstr ""
+
+#: i18n/states.php:1740
+msgid "Mississippi"
+msgstr ""
+
+#: i18n/states.php:1741
+msgid "Missouri"
+msgstr ""
+
+#: i18n/states.php:1743
+msgid "Nebraska"
+msgstr ""
+
+#: i18n/states.php:1744
+msgid "Nevada"
+msgstr ""
+
+#: i18n/states.php:1745
+msgid "New Hampshire"
+msgstr ""
+
+#: i18n/states.php:1746
+msgid "New Jersey"
+msgstr ""
+
+#: i18n/states.php:1747
+msgid "New Mexico"
+msgstr ""
+
+#: i18n/states.php:1748
+msgid "New York"
+msgstr ""
+
+#: i18n/states.php:1749
+msgid "North Carolina"
+msgstr ""
+
+#: i18n/states.php:1750
+msgid "North Dakota"
+msgstr ""
+
+#: i18n/states.php:1751
+msgid "Ohio"
+msgstr ""
+
+#: i18n/states.php:1752
+msgid "Oklahoma"
+msgstr ""
+
+#: i18n/states.php:1753
+msgid "Oregon"
+msgstr ""
+
+#: i18n/states.php:1754
+msgid "Pennsylvania"
+msgstr ""
+
+#: i18n/states.php:1755
+msgid "Rhode Island"
+msgstr ""
+
+#: i18n/states.php:1756
+msgid "South Carolina"
+msgstr ""
+
+#: i18n/states.php:1757
+msgid "South Dakota"
+msgstr ""
+
+#: i18n/states.php:1758
+msgid "Tennessee"
+msgstr ""
+
+#: i18n/states.php:1759
+msgid "Texas"
+msgstr ""
+
+#: i18n/states.php:1760
+msgid "Utah"
+msgstr ""
+
+#: i18n/states.php:1761
+msgid "Vermont"
+msgstr ""
+
+#: i18n/states.php:1762
+msgid "Virginia"
+msgstr ""
+
+#: i18n/states.php:1763
+msgid "Washington"
+msgstr ""
+
+#: i18n/states.php:1764
+msgid "West Virginia"
+msgstr ""
+
+#: i18n/states.php:1765
+msgid "Wisconsin"
+msgstr ""
+
+#: i18n/states.php:1766
+msgid "Wyoming"
+msgstr ""
+
+#: i18n/states.php:1767
+msgid "Armed Forces (AA)"
+msgstr ""
+
+#: i18n/states.php:1768
+msgid "Armed Forces (AE)"
+msgstr ""
+
+#: i18n/states.php:1769
+msgid "Armed Forces (AP)"
+msgstr ""
+
+#: i18n/states.php:1774
+msgid "Eastern Cape"
+msgstr ""
+
+#: i18n/states.php:1775
+msgid "Free State"
+msgstr ""
+
+#: i18n/states.php:1776
+msgid "Gauteng"
+msgstr ""
+
+#: i18n/states.php:1777
+msgid "KwaZulu-Natal"
+msgstr ""
+
+#: i18n/states.php:1778
+msgid "Limpopo"
+msgstr ""
+
+#: i18n/states.php:1779
+msgid "Mpumalanga"
+msgstr ""
+
+#: i18n/states.php:1780
+msgid "Northern Cape"
+msgstr ""
+
+#: i18n/states.php:1781
+msgid "North West"
+msgstr ""
+
+#: i18n/states.php:1782
+msgid "Western Cape"
+msgstr ""
+
+#: i18n/states.php:1788
+msgid "Luapula"
+msgstr ""
+
+#: i18n/states.php:1790
+msgid "North-Western"
+msgstr ""
+
+#: i18n/states.php:1791
+msgid "Southern"
+msgstr ""
+
+#: i18n/states.php:1792
+msgid "Copperbelt"
+msgstr ""
+
+#: i18n/states.php:1793
+msgid "Lusaka"
+msgstr ""
+
+#: i18n/states.php:1794
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Muchinga"
 msgstr ""
 
@@ -7759,20 +13126,32 @@ msgstr ""
 #. translators: %s: method
 #. translators: %s: payment method
 #. translators: %s: shipping method
+<<<<<<< HEAD
 #: includes/abstracts/abstract-wc-order.php:1993
+=======
+#: includes/abstracts/abstract-wc-order.php:1968
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: includes/admin/list-tables/class-wc-admin-list-table-orders.php:275
 #: includes/admin/list-tables/class-wc-admin-list-table-orders.php:327
 #: includes/admin/list-tables/class-wc-admin-list-table-orders.php:344
 msgid "via %s"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/abstracts/abstract-wc-order.php:1998
+=======
+#: includes/abstracts/abstract-wc-order.php:1973
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: includes/class-wc-cart.php:1556
 #: includes/class-wc-product-grouped.php:120
 msgid "Free!"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/abstracts/abstract-wc-order.php:2027
+=======
+#: includes/abstracts/abstract-wc-order.php:2002
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: includes/wc-template-functions.php:2143
 #: packages/woocommerce-blocks/assets/js/base/hooks/payment-methods/use-payment-method-interface.js:52
 #: packages/woocommerce-blocks/build/cart-frontend.js:14
@@ -7782,8 +13161,13 @@ msgstr ""
 msgid "Subtotal:"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/abstracts/abstract-wc-order.php:2042
 #: packages/woocommerce-blocks/assets/js/base/hooks/payment-methods/use-payment-method-interface.js:61
+=======
+#: includes/abstracts/abstract-wc-order.php:2017
+#: packages/woocommerce-blocks/assets/js/base/hooks/payment-methods/use-payment-method-interface.js:62
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-blocks/build/cart-frontend.js:14
 #: packages/woocommerce-blocks/build/cart.js:1
 #: packages/woocommerce-blocks/build/checkout-frontend.js:14
@@ -7791,7 +13175,11 @@ msgstr ""
 msgid "Discount:"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/abstracts/abstract-wc-order.php:2057
+=======
+#: includes/abstracts/abstract-wc-order.php:2032
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: includes/admin/meta-boxes/views/html-order-items.php:176
 #: packages/woocommerce-blocks/assets/js/base/hooks/payment-methods/use-payment-method-interface.js:73
 #: packages/woocommerce-blocks/build/cart-frontend.js:14
@@ -7801,7 +13189,11 @@ msgstr ""
 msgid "Shipping:"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/abstracts/abstract-wc-order.php:2118
+=======
+#: includes/abstracts/abstract-wc-order.php:2093
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: templates/checkout/order-receipt.php:33
 #: templates/checkout/thankyou.php:64
 msgid "Total:"
@@ -9124,7 +14516,11 @@ msgstr ""
 
 #: includes/admin/class-wc-admin-menus.php:84
 #: includes/admin/views/html-admin-page-status-report.php:741
+<<<<<<< HEAD
 #: includes/class-wc-install.php:1356
+=======
+#: includes/class-wc-install.php:1355
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-admin/includes/connect-existing-pages.php:34
 #: packages/woocommerce-admin/src/Features/Analytics.php:245
 #: packages/woocommerce-admin/src/Features/Navigation/CoreMenu.php:102
@@ -9927,7 +15323,11 @@ msgstr ""
 #: includes/admin/class-wc-admin-profile.php:86
 #: includes/admin/list-tables/class-wc-admin-list-table-orders.php:384
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:88
+<<<<<<< HEAD
 #: includes/class-wc-countries.php:1470
+=======
+#: includes/class-wc-countries.php:1459
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: includes/customizer/class-wc-shop-customizer.php:689
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/BillingAddressSchema.php:46
 #: packages/woocommerce-blocks/assets/js/blocks/cart-checkout/checkout/edit.js:142
@@ -9940,7 +15340,11 @@ msgstr ""
 #: includes/admin/class-wc-admin-profile.php:90
 #: includes/admin/class-wc-admin-setup-wizard.php:2238
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:85
+<<<<<<< HEAD
 #: includes/class-wc-countries.php:1480
+=======
+#: includes/class-wc-countries.php:1469
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: includes/class-wc-form-handler.php:271
 #: templates/myaccount/form-edit-account.php:43
 #: templates/myaccount/form-login.php:86
@@ -10131,27 +15535,47 @@ msgid "Choose countries / regions&hellip;"
 msgstr ""
 
 #: includes/admin/class-wc-admin-settings.php:641
+<<<<<<< HEAD
 #: includes/wc-formatting-functions.php:1471
+=======
+#: includes/wc-formatting-functions.php:1470
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Day(s)"
 msgstr ""
 
 #: includes/admin/class-wc-admin-settings.php:642
+<<<<<<< HEAD
 #: includes/wc-formatting-functions.php:1472
+=======
+#: includes/wc-formatting-functions.php:1471
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Week(s)"
 msgstr ""
 
 #: includes/admin/class-wc-admin-settings.php:643
+<<<<<<< HEAD
 #: includes/wc-formatting-functions.php:1473
+=======
+#: includes/wc-formatting-functions.php:1472
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Month(s)"
 msgstr ""
 
 #: includes/admin/class-wc-admin-settings.php:644
+<<<<<<< HEAD
 #: includes/wc-formatting-functions.php:1474
+=======
+#: includes/wc-formatting-functions.php:1473
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Year(s)"
 msgstr ""
 
 #: includes/admin/class-wc-admin-setup-wizard.php:231
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/Notes/AddFirstProduct.php:71
+=======
+#: packages/woocommerce-admin/src/Notes/AddFirstProduct.php:61
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Store setup"
 msgstr ""
 
@@ -10251,10 +15675,17 @@ msgstr ""
 
 #: includes/admin/class-wc-admin-setup-wizard.php:524
 #: includes/admin/class-wc-admin-setup-wizard.php:526
+<<<<<<< HEAD
 #: includes/class-wc-countries.php:821
 #: includes/class-wc-countries.php:1078
 #: includes/class-wc-countries.php:1187
 #: includes/class-wc-countries.php:1358
+=======
+#: includes/class-wc-countries.php:810
+#: includes/class-wc-countries.php:1067
+#: includes/class-wc-countries.php:1176
+#: includes/class-wc-countries.php:1347
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:100
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:381
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:397
@@ -10667,7 +16098,11 @@ msgstr ""
 
 #: includes/admin/class-wc-admin-setup-wizard.php:1916
 #: includes/admin/class-wc-admin-setup-wizard.php:1920
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/Loader.php:1183
+=======
+#: packages/woocommerce-admin/src/Loader.php:1180
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "WooCommerce Admin"
 msgstr ""
 
@@ -11028,8 +16463,13 @@ msgid "Product categories for your store can be managed here. To change the orde
 msgstr ""
 
 #: includes/admin/class-wc-admin-taxonomies.php:334
+<<<<<<< HEAD
 #: includes/class-wc-install.php:663
 #: includes/class-wc-install.php:669
+=======
+#: includes/class-wc-install.php:662
+#: includes/class-wc-install.php:668
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "Default category slug"
 msgid "Uncategorized"
 msgstr ""
@@ -11465,6 +16905,11 @@ msgid "Once connected, your WooCommerce.com purchases will be listed here."
 msgstr ""
 
 #: includes/admin/helper/views/html-oauth-start.php:27
+<<<<<<< HEAD
+=======
+#: packages/woocommerce-admin/src/Features/Onboarding.php:972
+#: packages/woocommerce-admin/src/Features/Onboarding.php:976
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-admin/src/Notes/WooSubscriptionsNotes.php:190
 #: packages/woocommerce-admin/dist/chunks/6.js:1
 #: packages/woocommerce-admin/dist/chunks/task-list.js:1
@@ -12510,8 +17955,13 @@ msgstr ""
 #: includes/shipping/legacy-flat-rate/includes/settings-flat-rate.php:99
 #: includes/shipping/legacy-free-shipping/class-wc-shipping-legacy-free-shipping.php:138
 #: includes/wc-account-functions.php:355
+<<<<<<< HEAD
 #: includes/wc-formatting-functions.php:1298
 #: includes/wc-formatting-functions.php:1317
+=======
+#: includes/wc-formatting-functions.php:1297
+#: includes/wc-formatting-functions.php:1316
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-admin/src/API/Reports/Coupons/Controller.php:327
 #: packages/woocommerce-admin/src/API/Reports/Coupons/DataStore.php:173
 #: packages/woocommerce-admin/src/API/Reports/Products/Controller.php:436
@@ -12608,7 +18058,11 @@ msgstr ""
 
 #: includes/admin/list-tables/class-wc-admin-list-table-products.php:274
 #: includes/admin/reports/class-wc-report-stock.php:116
+<<<<<<< HEAD
 #: includes/wc-formatting-functions.php:1224
+=======
+#: includes/wc-formatting-functions.php:1223
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: includes/wc-product-functions.php:847
 msgid "In stock"
 msgstr ""
@@ -13733,7 +19187,10 @@ msgstr ""
 #: packages/woocommerce-admin/src/Notes/AddingAndManangingProducts.php:71
 #: packages/woocommerce-admin/src/Notes/ChooseNiche.php:75
 #: packages/woocommerce-admin/src/Notes/CustomizeStoreWithBlocks.php:77
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/Notes/CustomizingProductCatalog.php:74
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-admin/src/Notes/DrawAttention.php:68
 #: packages/woocommerce-admin/src/Notes/EditProductsOnTheMove.php:62
 #: packages/woocommerce-admin/src/Notes/EUVATNumber.php:53
@@ -13741,7 +19198,11 @@ msgstr ""
 #: packages/woocommerce-admin/src/Notes/LaunchChecklist.php:54
 #: packages/woocommerce-admin/src/Notes/LearnMoreAboutVariableProducts.php:77
 #: packages/woocommerce-admin/src/Notes/ManageOrdersOnTheGo.php:56
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/Notes/ManageStoreActivityFromHomeScreen.php:58
+=======
+#: packages/woocommerce-admin/src/Notes/ManageStoreActivityFromHomeScreen.php:54
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-admin/src/Notes/MigrateFromShopify.php:70
 #: packages/woocommerce-admin/src/Notes/MobileApp.php:47
 #: packages/woocommerce-admin/src/Notes/OnboardingPayments.php:58
@@ -16595,7 +22056,11 @@ msgid "Generate CSV"
 msgstr ""
 
 #. translators: 1: Link URL
+<<<<<<< HEAD
 #: includes/admin/views/html-admin-page-reports.php:18
+=======
+#: includes/admin/views/html-admin-page-reports.php:17
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "With the release of WooCommerce 4.0, these reports are being replaced. There is a new and better Analytics section available for users running WordPress 5.3+. Head on over to the <a href=\"%1$s\">WooCommerce Analytics</a> or learn more about the new experience in the <a href=\"https://docs.woocommerce.com/document/woocommerce-analytics/\" target=\"_blank\">WooCommerce Analytics documentation</a>."
 msgstr ""
 
@@ -18221,6 +23686,7 @@ msgstr ""
 msgid "Town / City"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-countries.php:802
 #: includes/class-wc-countries.php:856
 #: includes/class-wc-countries.php:889
@@ -18232,6 +23698,19 @@ msgstr ""
 #: includes/class-wc-countries.php:1295
 #: includes/class-wc-countries.php:1336
 #: includes/class-wc-countries.php:1407
+=======
+#: includes/class-wc-countries.php:791
+#: includes/class-wc-countries.php:845
+#: includes/class-wc-countries.php:878
+#: includes/class-wc-countries.php:903
+#: includes/class-wc-countries.php:1029
+#: includes/class-wc-countries.php:1076
+#: includes/class-wc-countries.php:1157
+#: includes/class-wc-countries.php:1166
+#: includes/class-wc-countries.php:1284
+#: includes/class-wc-countries.php:1325
+#: includes/class-wc-countries.php:1396
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:73
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:138
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:173
@@ -18257,10 +23736,17 @@ msgstr ""
 msgid "Suburb"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-countries.php:818
 #: includes/class-wc-countries.php:1182
 #: includes/class-wc-countries.php:1192
 #: includes/class-wc-countries.php:1363
+=======
+#: includes/class-wc-countries.php:807
+#: includes/class-wc-countries.php:1171
+#: includes/class-wc-countries.php:1181
+#: includes/class-wc-countries.php:1352
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:93
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:218
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:406
@@ -18281,10 +23767,17 @@ msgstr ""
 msgid "Canton"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-countries.php:847
 #: includes/class-wc-countries.php:1256
 #: includes/class-wc-countries.php:1349
 #: includes/class-wc-countries.php:1376
+=======
+#: includes/class-wc-countries.php:836
+#: includes/class-wc-countries.php:1245
+#: includes/class-wc-countries.php:1338
+#: includes/class-wc-countries.php:1365
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:116
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:460
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:499
@@ -18306,10 +23799,17 @@ msgstr ""
 msgid "Postal code"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-countries.php:909
 #: includes/class-wc-countries.php:974
 #: includes/class-wc-countries.php:1009
 #: includes/class-wc-countries.php:1196
+=======
+#: includes/class-wc-countries.php:898
+#: includes/class-wc-countries.php:963
+#: includes/class-wc-countries.php:998
+#: includes/class-wc-countries.php:1185
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-admin/src/API/Reports/Customers/Controller.php:596
 #: packages/woocommerce-admin/dist/chunks/analytics-report-customers.js:1
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:164
@@ -18322,6 +23822,7 @@ msgstr ""
 msgid "Region"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-countries.php:998
 msgid "Department"
 msgstr ""
@@ -18334,6 +23835,20 @@ msgstr ""
 #: includes/class-wc-countries.php:1049
 #: includes/class-wc-countries.php:1244
 #: includes/class-wc-countries.php:1366
+=======
+#: includes/class-wc-countries.php:987
+msgid "Department"
+msgstr ""
+
+#: includes/class-wc-countries.php:995
+msgid "Town / District"
+msgstr ""
+
+#: includes/class-wc-countries.php:1024
+#: includes/class-wc-countries.php:1038
+#: includes/class-wc-countries.php:1233
+#: includes/class-wc-countries.php:1355
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:225
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:256
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:282
@@ -18345,7 +23860,11 @@ msgstr ""
 msgid "County"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-countries.php:1046
+=======
+#: includes/class-wc-countries.php:1035
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:274
 #: packages/woocommerce-blocks/build/cart-frontend.js:14
 #: packages/woocommerce-blocks/build/cart.js:1
@@ -18354,6 +23873,7 @@ msgstr ""
 msgid "Eircode"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-countries.php:1075
 msgid "Pin code"
 msgstr ""
@@ -18363,16 +23883,35 @@ msgid "Town / City / Post Office"
 msgstr ""
 
 #: includes/class-wc-countries.php:1096
+=======
+#: includes/class-wc-countries.php:1064
+msgid "Pin code"
+msgstr ""
+
+#: includes/class-wc-countries.php:1081
+msgid "Town / City / Post Office"
+msgstr ""
+
+#: includes/class-wc-countries.php:1085
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-admin/src/API/Reports/Customers/Controller.php:597
 #: packages/woocommerce-admin/dist/chunks/analytics-report-customers.js:1
 msgid "Postal Code"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-countries.php:1100
 msgid "Parish"
 msgstr ""
 
 #: includes/class-wc-countries.php:1117
+=======
+#: includes/class-wc-countries.php:1089
+msgid "Parish"
+msgstr ""
+
+#: includes/class-wc-countries.php:1106
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:328
 #: packages/woocommerce-blocks/build/cart-frontend.js:14
 #: packages/woocommerce-blocks/build/cart.js:1
@@ -18381,9 +23920,15 @@ msgstr ""
 msgid "Prefecture"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-countries.php:1143
 #: includes/class-wc-countries.php:1225
 #: includes/class-wc-countries.php:1303
+=======
+#: includes/class-wc-countries.php:1132
+#: includes/class-wc-countries.php:1214
+#: includes/class-wc-countries.php:1292
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:342
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:354
 #: packages/woocommerce-blocks/build/cart-frontend.js:14
@@ -18393,6 +23938,7 @@ msgstr ""
 msgid "Municipality"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-countries.php:1209
 msgid "State / Zone"
 msgstr ""
@@ -18406,6 +23952,21 @@ msgid "Town / Village"
 msgstr ""
 
 #: includes/class-wc-countries.php:1355
+=======
+#: includes/class-wc-countries.php:1198
+msgid "State / Zone"
+msgstr ""
+
+#: includes/class-wc-countries.php:1308
+msgid "Municipality / District"
+msgstr ""
+
+#: includes/class-wc-countries.php:1334
+msgid "Town / Village"
+msgstr ""
+
+#: includes/class-wc-countries.php:1344
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-blocks/assets/js/base/components/cart-checkout/address-form/country-address-fields.js:508
 #: packages/woocommerce-blocks/build/cart-frontend.js:14
 #: packages/woocommerce-blocks/build/cart.js:1
@@ -18876,66 +24437,115 @@ msgstr ""
 msgid "Every 15 Days"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-install.php:562
+=======
+#: includes/class-wc-install.php:561
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "Page slug"
 msgid "shop"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-install.php:563
+=======
+#: includes/class-wc-install.php:562
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "Page title"
 msgid "Shop"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-install.php:567
+=======
+#: includes/class-wc-install.php:566
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "Page slug"
 msgid "cart"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-install.php:568
+=======
+#: includes/class-wc-install.php:567
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "Page title"
 msgid "Cart"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-install.php:572
+=======
+#: includes/class-wc-install.php:571
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "Page slug"
 msgid "checkout"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-install.php:573
+=======
+#: includes/class-wc-install.php:572
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "Page title"
 msgid "Checkout"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-install.php:577
+=======
+#: includes/class-wc-install.php:576
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "Page slug"
 msgid "my-account"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-install.php:578
+=======
+#: includes/class-wc-install.php:577
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "Page title"
 msgid "My account"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-install.php:623
 msgid "Reduced rate"
 msgstr ""
 
 #: includes/class-wc-install.php:624
+=======
+#: includes/class-wc-install.php:622
+msgid "Reduced rate"
+msgstr ""
+
+#: includes/class-wc-install.php:623
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Zero rate"
 msgstr ""
 
 #. translators: user role
+<<<<<<< HEAD
 #: includes/class-wc-install.php:1106
+=======
+#: includes/class-wc-install.php:1105
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "User role"
 msgid "Customer"
 msgstr ""
 
 #. translators: user role
+<<<<<<< HEAD
 #: includes/class-wc-install.php:1108
+=======
+#: includes/class-wc-install.php:1107
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "User role"
 msgid "Shop manager"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-install.php:1356
 msgid "View WooCommerce settings"
 msgstr ""
@@ -18945,10 +24555,22 @@ msgid "View WooCommerce documentation"
 msgstr ""
 
 #: includes/class-wc-install.php:1376
+=======
+#: includes/class-wc-install.php:1355
+msgid "View WooCommerce settings"
+msgstr ""
+
+#: includes/class-wc-install.php:1375
+msgid "View WooCommerce documentation"
+msgstr ""
+
+#: includes/class-wc-install.php:1375
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-admin/dist/chunks/marketing-overview.js:1
 msgid "Docs"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-install.php:1377
 msgid "View WooCommerce API docs"
 msgstr ""
@@ -18970,18 +24592,50 @@ msgid "Visit premium customer support"
 msgstr ""
 
 #: includes/class-wc-install.php:1382
+=======
+#: includes/class-wc-install.php:1376
+msgid "View WooCommerce API docs"
+msgstr ""
+
+#: includes/class-wc-install.php:1376
+msgid "API docs"
+msgstr ""
+
+#: includes/class-wc-install.php:1377
+msgid "Visit community forums"
+msgstr ""
+
+#: includes/class-wc-install.php:1377
+msgid "Community support"
+msgstr ""
+
+#: includes/class-wc-install.php:1381
+msgid "Visit premium customer support"
+msgstr ""
+
+#: includes/class-wc-install.php:1381
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Premium support"
 msgstr ""
 
 #. translators: 1: plugin name, 2: error message, 3: URL to install plugin manually.
 #. translators: 1: theme slug, 2: error message, 3: URL to install theme manually.
+<<<<<<< HEAD
 #: includes/class-wc-install.php:1510
 #: includes/class-wc-install.php:1614
+=======
+#: includes/class-wc-install.php:1509
+#: includes/class-wc-install.php:1613
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "%1$s could not be installed (%2$s). <a href=\"%3$s\">Please install it manually by clicking here.</a>"
 msgstr ""
 
 #. translators: 1: plugin name, 2: URL to WP plugin page.
+<<<<<<< HEAD
 #: includes/class-wc-install.php:1538
+=======
+#: includes/class-wc-install.php:1537
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "%1$s was installed but could not be activated. <a href=\"%2$s\">Please activate it manually by clicking here.</a>"
 msgstr ""
 
@@ -19426,7 +25080,11 @@ msgstr ""
 msgid "This is where store orders are stored."
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-post-types.php:423
+=======
+#: includes/class-wc-post-types.php:422
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-admin/dist/chunks/5.js:1
 msgid "Refunds"
 msgstr ""
@@ -19480,7 +25138,11 @@ msgstr ""
 msgid "View coupon"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/class-wc-post-types.php:456
+=======
+#: includes/class-wc-post-types.php:455
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-admin/dist/chunks/5.js:1
 msgid "Search coupons"
 msgstr ""
@@ -20264,16 +25926,28 @@ msgid "Error: Delivery URL returned response code: %s"
 msgstr ""
 
 #. translators: 1: error message 2: file name and path 3: line number
+<<<<<<< HEAD
 #: includes/class-woocommerce.php:223
 msgid "%1$s in %2$s on line %3$s"
 msgstr ""
 
 #: includes/class-woocommerce.php:903
+=======
+#: includes/class-woocommerce.php:222
+msgid "%1$s in %2$s on line %3$s"
+msgstr ""
+
+#: includes/class-woocommerce.php:901
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "You have installed a development version of WooCommerce which requires files to be built and minified. From the plugin directory, run <code>grunt assets</code> to build and minify assets."
 msgstr ""
 
 #. translators: 1: URL of WordPress.org Repository 2: URL of the GitHub Repository release page
+<<<<<<< HEAD
 #: includes/class-woocommerce.php:906
+=======
+#: includes/class-woocommerce.php:904
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Or you can download a pre-built version of the plugin from the <a href=\"%1$s\">WordPress.org repository</a> or by visiting <a href=\"%2$s\">the releases page in the GitHub repository</a>."
 msgstr ""
 
@@ -24560,8 +30234,13 @@ msgstr ""
 #: includes/rest-api/Controllers/Version1/class-wc-rest-products-v1-controller.php:1816
 #: includes/rest-api/Controllers/Version2/class-wc-rest-products-v2-controller.php:1754
 #: includes/rest-api/Controllers/Version3/class-wc-rest-products-controller.php:820
+<<<<<<< HEAD
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartItemSchema.php:185
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartItemSchema.php:235
+=======
+#: packages/woocommerce-blocks/src/StoreApi/Schemas/CartItemSchema.php:156
+#: packages/woocommerce-blocks/src/StoreApi/Schemas/CartItemSchema.php:206
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/ProductSchema.php:118
 msgid "Current product price."
 msgstr ""
@@ -26925,7 +32604,11 @@ msgstr ""
 
 #: includes/rest-api/Controllers/Version3/class-wc-rest-product-variations-controller.php:856
 #: includes/rest-api/Controllers/Version3/class-wc-rest-products-controller.php:1345
+<<<<<<< HEAD
 #: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:313
+=======
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:311
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Limit result set to products with specified stock status."
 msgstr ""
 
@@ -27279,8 +32962,12 @@ msgstr ""
 
 #: includes/shipping/legacy-local-delivery/class-wc-shipping-legacy-local-delivery.php:117
 #: includes/shipping/legacy-local-pickup/class-wc-shipping-legacy-local-pickup.php:96
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/Features/Onboarding.php:966
 #: packages/woocommerce-admin/src/Features/Onboarding.php:973
+=======
+#: packages/woocommerce-admin/src/Features/Onboarding.php:964
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Enable"
 msgstr ""
 
@@ -28249,21 +33936,37 @@ msgid "Fixed product discount"
 msgstr ""
 
 #. translators: %s: stock amount
+<<<<<<< HEAD
 #: includes/wc-formatting-functions.php:1231
+=======
+#: includes/wc-formatting-functions.php:1230
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Only %s left in stock"
 msgstr ""
 
 #. translators: %s: stock amount
+<<<<<<< HEAD
 #: includes/wc-formatting-functions.php:1236
 msgid "%s in stock"
 msgstr ""
 
 #: includes/wc-formatting-functions.php:1241
+=======
+#: includes/wc-formatting-functions.php:1235
+msgid "%s in stock"
+msgstr ""
+
+#: includes/wc-formatting-functions.php:1240
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "(can be backordered)"
 msgstr ""
 
 #. translators: 1: price from 2: price to
+<<<<<<< HEAD
 #: includes/wc-formatting-functions.php:1281
+=======
+#: includes/wc-formatting-functions.php:1280
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgctxt "Price range: from-to"
 msgid "%1$s &ndash; %2$s"
 msgstr ""
@@ -31392,12 +37095,20 @@ msgid "A zip file of the theme to be uploaded."
 msgstr ""
 
 #. translators: 1: URL of WooCommerce plugin, 2: The minimum WooCommerce version number
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/FeaturePlugin.php:231
+=======
+#: packages/woocommerce-admin/src/FeaturePlugin.php:232
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "The WooCommerce Admin feature plugin requires <a href=\"%1$s\">WooCommerce</a> %2$s or greater to be installed and active."
 msgstr ""
 
 #. translators: 1: URL of WordPress.org, 2: The minimum WordPress version number
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/FeaturePlugin.php:240
+=======
+#: packages/woocommerce-admin/src/FeaturePlugin.php:241
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "The WooCommerce Admin feature plugin requires <a href=\"%1$s\">WordPress</a> %2$s or greater to be installed and active."
 msgstr ""
 
@@ -31464,7 +37175,11 @@ msgstr ""
 msgid "Start using new features that are being progressively rolled out to improve the store management experience."
 msgstr ""
 
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/Features/Homescreen.php:81
+=======
+#: packages/woocommerce-admin/src/Features/Homescreen.php:75
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-admin/src/Features/Navigation/CoreMenu.php:175
 #: packages/woocommerce-admin/dist/app/index.js:2
 msgid "Home"
@@ -31503,7 +37218,11 @@ msgstr ""
 msgid "Navigation"
 msgstr ""
 
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/Features/Navigation/Menu.php:179
+=======
+#: packages/woocommerce-admin/src/Features/Navigation/Menu.php:169
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "WooCommerce Home"
 msgstr ""
 
@@ -31517,7 +37236,11 @@ msgstr ""
 msgid "The item ID %1$s attempted to register using an invalid option. The arguments `menuId` and `parent` are not allowed for add_setting_item()"
 msgstr ""
 
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/Features/Navigation/Menu.php:743
+=======
+#: packages/woocommerce-admin/src/Features/Navigation/Menu.php:690
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "WordPress Dashboard"
 msgstr ""
 
@@ -31574,6 +37297,7 @@ msgstr ""
 msgid " — %s"
 msgstr ""
 
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/Features/Onboarding.php:949
 #: packages/woocommerce-admin/src/Features/Onboarding.php:961
 msgid "Setup wizard"
@@ -31610,6 +37334,52 @@ msgstr ""
 
 #: packages/woocommerce-admin/src/Features/Onboarding.php:971
 msgid "If you need to enable or disable the extended task lists, please click on the button below."
+=======
+#: packages/woocommerce-admin/src/Features/Onboarding.php:946
+#: packages/woocommerce-admin/src/Features/Onboarding.php:959
+msgid "Setup wizard"
+msgstr ""
+
+#: packages/woocommerce-admin/src/Features/Onboarding.php:955
+msgid "WooCommerce Onboarding"
+msgstr ""
+
+#: packages/woocommerce-admin/src/Features/Onboarding.php:957
+msgid "Profile Setup Wizard"
+msgstr ""
+
+#: packages/woocommerce-admin/src/Features/Onboarding.php:958
+msgid "If you need to access the setup wizard again, please click on the button below."
+msgstr ""
+
+#: packages/woocommerce-admin/src/Features/Onboarding.php:961
+msgid "Task List"
+msgstr ""
+
+#: packages/woocommerce-admin/src/Features/Onboarding.php:962
+msgid "If you need to enable or disable the task lists, please click on the button below."
+msgstr ""
+
+#: packages/woocommerce-admin/src/Features/Onboarding.php:965
+msgid "Disable"
+msgstr ""
+
+#: packages/woocommerce-admin/src/Features/Onboarding.php:969
+msgid "Calypso / WordPress.com"
+msgstr ""
+
+#: packages/woocommerce-admin/src/Features/Onboarding.php:971
+msgid "Quickly access the Jetpack connection flow in Calypso."
+msgstr ""
+
+#: packages/woocommerce-admin/src/Features/Onboarding.php:975
+msgid "Quickly access the WooCommerce.com connection flow in Calypso."
+msgstr ""
+
+#: packages/woocommerce-admin/src/Features/Onboarding.php:1022
+#: packages/woocommerce-admin/src/Features/Onboarding.php:1028
+msgid "WooCommerce Helper was not able to connect to WooCommerce.com."
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgstr ""
 
 #: packages/woocommerce-admin/src/Features/ShippingLabelBanner.php:107
@@ -31627,6 +37397,7 @@ msgstr ""
 msgid "%1$s &lsaquo; %2$s"
 msgstr ""
 
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/Loader.php:1184
 msgid "Settings for WooCommerce admin reporting."
 msgstr ""
@@ -31665,6 +37436,46 @@ msgid "<a href=\"https://docs.woocommerce.com/document/managing-products/?utm_so
 msgstr ""
 
 #: packages/woocommerce-admin/src/Notes/AddFirstProduct.php:83
+=======
+#: packages/woocommerce-admin/src/Loader.php:1181
+msgid "Settings for WooCommerce admin reporting."
+msgstr ""
+
+#: packages/woocommerce-admin/src/Loader.php:1200
+msgid "Excluded report order statuses"
+msgstr ""
+
+#: packages/woocommerce-admin/src/Loader.php:1201
+msgid "Statuses that should not be included when calculating report totals."
+msgstr ""
+
+#: packages/woocommerce-admin/src/Loader.php:1209
+msgid "Actionable order statuses"
+msgstr ""
+
+#: packages/woocommerce-admin/src/Loader.php:1210
+msgid "Statuses that require extra action on behalf of the store admin."
+msgstr ""
+
+#: packages/woocommerce-admin/src/Loader.php:1218
+#: packages/woocommerce-admin/src/Loader.php:1219
+msgid "Default Date Range"
+msgstr ""
+
+#: packages/woocommerce-admin/src/Notes/AddFirstProduct.php:51
+msgid "Nice one, you’ve created a WooCommerce store! Now it’s time to add your first product.<br/><br/>"
+msgstr ""
+
+#: packages/woocommerce-admin/src/Notes/AddFirstProduct.php:52
+msgid "There are three ways to add your products: you can <strong>create products manually, import them at once via CSV file</strong>, or <strong>migrate them from another service</strong>.<br/><br/>"
+msgstr ""
+
+#: packages/woocommerce-admin/src/Notes/AddFirstProduct.php:53
+msgid "<a href=\"https://docs.woocommerce.com/document/managing-products/?utm_source=help_panel\">Explore our docs</a> for more information, or just get started!"
+msgstr ""
+
+#: packages/woocommerce-admin/src/Notes/AddFirstProduct.php:73
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Add a product"
 msgstr ""
 
@@ -31683,6 +37494,18 @@ msgstr ""
 
 #: packages/woocommerce-admin/src/Notes/ChooseNiche.php:68
 msgid "There’s nothing quite like entrepreneurship! We put together a blog post series — titled From Idea to First Customer — with all the tips, resources, and tools to inspire a great idea, empower you to execute it, and lead to your very first sale."
+msgstr ""
+
+#: packages/woocommerce-admin/src/Notes/ChoosingTheme.php:39
+msgid "Choosing a theme?"
+msgstr ""
+
+#: packages/woocommerce-admin/src/Notes/ChoosingTheme.php:40
+msgid "Check out the themes that are compatible with WooCommerce and choose one aligned with your brand and business needs."
+msgstr ""
+
+#: packages/woocommerce-admin/src/Notes/ChoosingTheme.php:47
+msgid "Visit the theme marketplace"
 msgstr ""
 
 #: packages/woocommerce-admin/src/Notes/ChoosingTheme.php:39
@@ -31797,6 +37620,7 @@ msgstr ""
 msgid "Watch tutorial"
 msgstr ""
 
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/Notes/GettingStartedInEcommerceWebinar.php:68
 msgid "Getting Started in eCommerce - webinar"
 msgstr ""
@@ -31810,6 +37634,9 @@ msgid "Watch the webinar"
 msgstr ""
 
 #: packages/woocommerce-admin/src/Notes/GivingFeedbackNotes.php:42
+=======
+#: packages/woocommerce-admin/src/Notes/GivingFeedbackNotes.php:40
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "You're invited to share your experience"
 msgstr ""
 
@@ -31817,9 +37644,15 @@ msgstr ""
 msgid "Now that you’ve chosen us as a partner, our goal is to make sure we're providing the right tools to meet your needs. We're looking forward to having your feedback on the store setup experience so we can improve it in the future."
 msgstr ""
 
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/Notes/GivingFeedbackNotes.php:50
 #: packages/woocommerce-admin/src/Notes/NavigationFeedback.php:46
 #: packages/woocommerce-admin/src/Notes/NavigationFeedbackFollowUp.php:60
+=======
+#: packages/woocommerce-admin/src/Notes/GivingFeedbackNotes.php:48
+#: packages/woocommerce-admin/src/Notes/NavigationFeedback.php:45
+#: packages/woocommerce-admin/src/Notes/NavigationFeedbackFollowUp.php:59
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-admin/dist/wp-admin-scripts/navigation-opt-out.js:1
 msgid "Share feedback"
 msgstr ""
@@ -31895,11 +37728,19 @@ msgstr ""
 msgid "Look for orders, customer info, and process refunds in one click with the Woo app."
 msgstr ""
 
+<<<<<<< HEAD
 #: packages/woocommerce-admin/src/Notes/ManageStoreActivityFromHomeScreen.php:51
 msgid "New! Manage your store activity from the Home screen"
 msgstr ""
 
 #: packages/woocommerce-admin/src/Notes/ManageStoreActivityFromHomeScreen.php:52
+=======
+#: packages/woocommerce-admin/src/Notes/ManageStoreActivityFromHomeScreen.php:47
+msgid "New! Manage your store activity from the Home screen"
+msgstr ""
+
+#: packages/woocommerce-admin/src/Notes/ManageStoreActivityFromHomeScreen.php:48
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Start your day knowing the next steps you need to take with your orders, products, and customer feedback.<br/><br/>Read more about how to use the activity panels on the Home screen."
 msgstr ""
 
@@ -33560,13 +39401,21 @@ msgid "Your installation of the WooCommerce Blocks feature plugin is incomplete.
 msgstr ""
 
 #: src/Autoloader.php:51
+<<<<<<< HEAD
 #: src/Packages.php:103
+=======
+#: src/Packages.php:102
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Your installation of WooCommerce is incomplete. If you installed WooCommerce from GitHub, please refer to this document to set up your development environment: https://github.com/woocommerce/woocommerce/wiki/How-to-set-up-WooCommerce-development-environment"
 msgstr ""
 
 #. translators: 1: is a link to a support document. 2: closing link
 #: src/Autoloader.php:63
+<<<<<<< HEAD
 #: src/Packages.php:125
+=======
+#: src/Packages.php:124
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Your installation of WooCommerce is incomplete. If you installed WooCommerce from GitHub, %1$splease refer to this document%2$s to set up your development environment."
 msgstr ""
 
@@ -33576,8 +39425,13 @@ msgid "Not enough units of %s are available in stock to fulfil this order."
 msgstr ""
 
 #. Translators: %s package name.
+<<<<<<< HEAD
 #: src/Packages.php:101
 #: src/Packages.php:116
+=======
+#: src/Packages.php:100
+#: src/Packages.php:115
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Missing the WooCommerce %s package"
 msgstr ""
 
@@ -34985,7 +40839,10 @@ msgstr ""
 #: packages/woocommerce-admin/dist/chunks/wcpay-usage-modal.js:1
 #: packages/woocommerce-admin/dist/components/index.js:2
 #: packages/woocommerce-admin/dist/wp-admin-scripts/navigation-opt-out.js:1
+<<<<<<< HEAD
 #: packages/woocommerce-blocks/build/vendors.js:6
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "No thanks"
 msgstr ""
 
@@ -35081,6 +40938,7 @@ msgid "WooCommerce Payments connected successfully."
 msgstr ""
 
 #: packages/woocommerce-admin/dist/chunks/6.js:1
+<<<<<<< HEAD
 msgid "There was a problem saving your payment settings through the onboarding, please fill the fields in manually."
 msgstr ""
 
@@ -35089,6 +40947,8 @@ msgid "There was a problem with the Paypal onboarding setup, please fill the fie
 msgstr ""
 
 #: packages/woocommerce-admin/dist/chunks/6.js:1
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "PayPal connected successfully."
 msgstr ""
 
@@ -35097,6 +40957,7 @@ msgid "There was a problem saving your payment settings."
 msgstr ""
 
 #: packages/woocommerce-admin/dist/chunks/6.js:1
+<<<<<<< HEAD
 msgid "There was a problem updating the credentials."
 msgstr ""
 
@@ -35126,6 +40987,33 @@ msgstr ""
 
 #: packages/woocommerce-admin/dist/chunks/6.js:1
 msgid "Client Id"
+=======
+msgid "Please enter your API username"
+msgstr ""
+
+#: packages/woocommerce-admin/dist/chunks/6.js:1
+msgid "Please enter your API password"
+msgstr ""
+
+#: packages/woocommerce-admin/dist/chunks/6.js:1
+msgid "Create a PayPal account for me"
+msgstr ""
+
+#: packages/woocommerce-admin/dist/chunks/6.js:1
+msgid "API Username"
+msgstr ""
+
+#: packages/woocommerce-admin/dist/chunks/6.js:1
+msgid "API Password"
+msgstr ""
+
+#: packages/woocommerce-admin/dist/chunks/6.js:1
+msgid "Your API details can be obtained from your {{link}}PayPal account{{/link}}"
+msgstr ""
+
+#: packages/woocommerce-admin/dist/chunks/6.js:1
+msgid "Create account"
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgstr ""
 
 #: packages/woocommerce-admin/dist/chunks/6.js:1
@@ -35241,6 +41129,7 @@ msgid "Connect your Razorpay account"
 msgstr ""
 
 #: packages/woocommerce-admin/dist/chunks/6.js:1
+<<<<<<< HEAD
 msgid "Connect your Mollie account"
 msgstr ""
 
@@ -35250,6 +41139,21 @@ msgstr ""
 
 #: packages/woocommerce-admin/dist/chunks/6.js:1
 msgid "There was an error connecting to WooCommerce Payments. Please try again or connect later in store settings."
+=======
+msgid "There was an error connecting to WooCommerce Payments. Please try again or connect later in store settings."
+msgstr ""
+
+#: packages/woocommerce-admin/dist/chunks/6.js:1
+msgid "By clicking \"Set up,\" you agree to the {{link}}Terms of Service{{/link}}"
+msgstr ""
+
+#: packages/woocommerce-admin/dist/chunks/6.js:1
+msgid "Setting up a store for a client? {{link}}Start here{{/link}}"
+msgstr ""
+
+#: packages/woocommerce-admin/dist/chunks/6.js:1
+msgid "Accept credit card payments the easy way! No setup fees. No monthly fees. Just 2.9% + $0.30 per transaction on U.S. issued cards. "
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgstr ""
 
 #: packages/woocommerce-admin/dist/chunks/6.js:1
@@ -35261,7 +41165,11 @@ msgid "Accept debit and credit cards in 135+ currencies, methods such as Alipay,
 msgstr ""
 
 #: packages/woocommerce-admin/dist/chunks/6.js:1
+<<<<<<< HEAD
 msgid "PayPal Payments"
+=======
+msgid "PayPal Checkout"
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgstr ""
 
 #: packages/woocommerce-admin/dist/chunks/6.js:1
@@ -35281,6 +41189,7 @@ msgid "Klarna Payments"
 msgstr ""
 
 #: packages/woocommerce-admin/dist/chunks/6.js:1
+<<<<<<< HEAD
 msgid "Mollie Payments for WooCommerce"
 msgstr ""
 
@@ -35289,6 +41198,8 @@ msgid "Effortless payments by Mollie: Offer global and local payment methods, ge
 msgstr ""
 
 #: packages/woocommerce-admin/dist/chunks/6.js:1
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Square"
 msgstr ""
 
@@ -35331,6 +41242,7 @@ msgid "Take payments via bank transfer."
 msgstr ""
 
 #: packages/woocommerce-admin/dist/chunks/6.js:1
+<<<<<<< HEAD
 msgid "By clicking \"Set up,\" you agree to the {{link}}Terms of Service{{/link}}"
 msgstr ""
 
@@ -35343,6 +41255,8 @@ msgid "Accept credit card payments the easy way! No setup fees. No monthly fees.
 msgstr ""
 
 #: packages/woocommerce-admin/dist/chunks/6.js:1
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: packages/woocommerce-admin/dist/chunks/wcpay-usage-modal.js:1
 msgid "Help us build a better WooCommerce Payments experience"
 msgstr ""

@@ -1,0 +1,12 @@
+Product,Condition,,,
+,,>0,>10,>20
+,,Alt Choice 1,Alt Choice 1,Alt Choice 1
+Product A,Choice 1,100,20,4
+Product A,Choice 2,150,30,6
+Product A,Choice 3,200,40,8
+Product B,Choice 1,150,30,6
+Product B,Choice 2,200,40,8
+Product B,Choice 3,250,50,10
+,,,,
+,,,,
+,,,,

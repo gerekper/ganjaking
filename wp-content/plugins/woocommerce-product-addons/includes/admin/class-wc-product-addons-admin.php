@@ -447,10 +447,10 @@ class WC_Product_Addons_Admin {
 					$option_image      = $addon_option_image[ $i ];
 
 					for ( $ii = 0; $ii < count( $option_label ); $ii++ ) {
-						$label      = sanitize_text_field( stripslashes( $option_label[ $ii ] ) );
-						$price      = wc_format_decimal( sanitize_text_field( stripslashes( $option_price[ $ii ] ) ) );
-						$image      = sanitize_text_field( stripslashes( $option_image[ $ii ] ) );
-						$price_type = sanitize_text_field( stripslashes( $option_price_type[ $ii ] ) );
+						$label      = sanitize_text_field( wp_unslash( $option_label[ $ii ] ) );
+						$price      = wc_format_decimal( sanitize_text_field( wp_unslash( $option_price[ $ii ] ) ) );
+						$image      = sanitize_text_field( wp_unslash( $option_image[ $ii ] ) );
+						$price_type = sanitize_text_field( wp_unslash( $option_price_type[ $ii ] ) );
 
 						$addon_options[] = array(
 							'label'      => $label,
@@ -462,21 +462,21 @@ class WC_Product_Addons_Admin {
 				}
 
 				$data                       = array();
-				$data['name']               = sanitize_text_field( stripslashes( $addon_name[ $i ] ) );
-				$data['title_format']       = sanitize_text_field( stripslashes( $addon_title_format[ $i ] ) );
+				$data['name']               = sanitize_text_field( wp_unslash( $addon_name[ $i ] ) );
+				$data['title_format']       = sanitize_text_field( wp_unslash( $addon_title_format[ $i ] ) );
 				$data['description_enable'] = isset( $addon_description_enable[ $i ] ) ? 1 : 0;
-				$data['description']        = wp_kses_post( stripslashes( $addon_description[ $i ] ) );
-				$data['type']               = sanitize_text_field( stripslashes( $addon_type[ $i ] ) );
-				$data['display']            = sanitize_text_field( stripslashes( $addon_display[ $i ] ) );
+				$data['description']        = wp_kses_post( wp_unslash( $addon_description[ $i ] ) );
+				$data['type']               = sanitize_text_field( wp_unslash( $addon_type[ $i ] ) );
+				$data['display']            = sanitize_text_field( wp_unslash( $addon_display[ $i ] ) );
 				$data['position']           = absint( $addon_position[ $i ] );
 				$data['required']           = isset( $addon_required[ $i ] ) ? 1 : 0;
 				$data['restrictions']       = isset( $addon_restrictions[ $i ] ) ? 1 : 0;
-				$data['restrictions_type']  = sanitize_text_field( stripslashes( $addon_restrictions_type[ $i ] ) );
+				$data['restrictions_type']  = sanitize_text_field( wp_unslash( $addon_restrictions_type[ $i ] ) );
 				$data['adjust_price']       = isset( $addon_adjust_price[ $i ] ) ? 1 : 0;
-				$data['price_type']         = sanitize_text_field( stripslashes( $addon_price_type[ $i ] ) );
-				$data['price']              = wc_format_decimal( sanitize_text_field( stripslashes( $addon_price[ $i ] ) ) );
-				$data['min']                = (float) sanitize_text_field( stripslashes( $addon_min[ $i ] ) );
-				$data['max']                = (float) sanitize_text_field( stripslashes( $addon_max[ $i ] ) );
+				$data['price_type']         = sanitize_text_field( wp_unslash( $addon_price_type[ $i ] ) );
+				$data['price']              = wc_format_decimal( sanitize_text_field( wp_unslash( $addon_price[ $i ] ) ) );
+				$data['min']                = (float) sanitize_text_field( wp_unslash( $addon_min[ $i ] ) );
+				$data['max']                = (float) sanitize_text_field( wp_unslash( $addon_max[ $i ] ) );
 
 				if ( ! empty( $addon_options ) ) {
 					$data['options'] = $addon_options;
@@ -493,7 +493,7 @@ class WC_Product_Addons_Admin {
 		}
 
 		if ( ! empty( $_POST['import_product_addon'] ) ) {
-			$import_addons = maybe_unserialize( maybe_unserialize( stripslashes( trim( $_POST['import_product_addon'] ) ) ) );
+			$import_addons = maybe_unserialize( maybe_unserialize( wp_unslash( trim( $_POST['import_product_addon'] ) ) ) );
 
 			if ( is_array( $import_addons ) && sizeof( $import_addons ) > 0 ) {
 				$valid = true;

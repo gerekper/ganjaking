@@ -1,5 +1,17 @@
 *** Product Addons Changelog ***
 
+2021-04-06 - version 3.7.0
+* Fix - Honor taxes in Customer Defined Price add-ons when store shows prices including tax.
+
+2021-03-30 - version 3.6.0
+* Fix - Prevent negative input on price addons when min restrictions are enabled.
+* Fix - Removed support for versions of WC 3.0 and below.
+* Fix - Reordering Product Add-Ons with email address should not remove @ characters.
+* Fix - Use h2 instead of h3 element for addon headings.
+* Fix - Wrap addons in a `wc-pao-addons-container` div.
+* Tweak - WC 5.1 compatibility.
+* Tweak - WP 5.7 compatibility.
+
 2021-03-09 - version 3.5.0
 * Fix - Add Better guards for WC Navigation not being enabled.
 

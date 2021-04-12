@@ -1,0 +1,106 @@
+# Changelog
+
+## 1.0-beta-1.8
+
+	- Fixed a compatibility issue with WordPress 5.7.
+
+## 1.0-beta-1.7
+
+	- Fixed issue where File Upload Pro could inadvertently bind multiple times on the frontend.
+
+## 1.0-beta-1.6
+
+	- Fixed compatibility issue with Nested Forms where the file list would not be reset when editing entries or adding new entries.
+
+## 1.0-beta-1.5
+
+	- Added helper classes to assist in styling when max is reached or an u… (#5)
+
+## 1.0-beta-1.4
+
+	- Fixed issue where File Upload Pro would try to initialize the frontend prior to Plupload being ready.
+
+## 1.0-beta-1.3
+
+	- Improved compatibility with GP Nested Forms.
+	- Fixed issue with scrolling potentially not being possible after adding files. Additionally, fixed an issue with the core Gravity Forms file list not being removed under the GPFUP area.
+	- Fixed potential JavaScript warnings/errors on initial load.
+
+## 1.0-beta-1.2
+
+	- Fixed issue where File Upload Pro would be initialized multiple times particularly when using Popup Maker.
+
+## 1.0-beta-1.1
+
+	- Fixed issue where multiple forms using File Upload Pro on the same page would result in only the first form having enhanced upload fields.
+
+## 1.0-beta-1
+
+	- Updated style of error icon in images-only mode.
+	- Fixed issue where erred files would double up in some cases.
+	- Improved how the image preview placeholder sizing is handled on rehydration.
+	- Improved reliability of file sorting and consistency with the file sort order after submission.
+	- Fixed issue where cropper editor would not open in some cases after page load.
+	- Fixed issue where file orders would not remain the same between page loads.
+	- Fixed issue where the original image would be lost when cropping on subsequent page loads.
+	- Fixed issue where cropper would not work if validation is failed and cropper was not used right after initial upload.
+	- Added support for rehydrating the uploader in various situations such as when validation fails and the page refreshes, non-AJAX multi-page navigation, and more.
+	- Updated ErroredFileOrderCept.php to include nth locators.
+	- Added two new tests for rendering.
+	- Fixed issue where cropping coordinates would not be restored in the cropper when working with images using the same filename.
+	- Fixed issue where deleting a file before submission would not prevent the file from being submitted.
+	- Fixed issue where deleting files wouldn't work reliably with IE11.
+	- Fixed regression with droparea flickering depending on how quickly you drag in the file(s).
+
+## 1.0-alpha-3.1
+
+	- Fixed styling issue in some themes where droparea would be resized when dragging a file over it hid the Select Files button.
+	- Added slight debounce to files watcher to eliminate flash of files that goes beyond the max.
+
+## 1.0-alpha-2.1
+
+	- Fixed issue where more files than the max could be dropped onto the droparea.
+	- Updated setting label and added text domain to translatable strings.
+	- Added test scaffold.
+	- Added transition for when files are added/removed.
+	- Fixed issue where cropping more than once would cause re-ordering.
+	- Added class to uploader container if only image extensions are allowed.
+	- Added transition to cropper show/hide.
+	- Added spinner when images are loading on slow connections.
+	- Updated progress bar styling.
+	- Removed font-size from Select Files button to better inherit from theme.
+	- Updated error color to match GF default.
+	- Removed max-width; will provide feedback for users wanting to implement this in their themes.
+	- Improved file preview UX.
+	- Improved loading UX by more smoothly transitioning the appearance and removal of the progress bar.
+	- Fixed issue where cropping would change the file order.
+	- Fixed issue where canceling a crop would remove the file.
+	- Fixed issue where loading bar would start fading out during the width transition.
+	- Fixed box width of file info to ensure consistent sizing of loading bar
+	- Added maximum width to GPFUP container of 650px. It can be overridden by targeting the .gpfup class.
+	- Fixed issue where erred files would show up at the bottom of the uploader rather than mixed in with uploaded files.
+	- Added minimum display time to loading indicator.
+	- Fixed issue where root Vuex store was being shared across GPFUP fields on the same page.
+	- Fixed issue where backend upload errors weren't being passed back to the frontend.
+	- Fixed issue where dragleave would fire when hovering over children elements in the drop area.
+	- Fixed issue where image previews were trying to be created for non-image files which would result in a broken preview instead of a file type icon.
+	- Fixed issue where non-image placeholder was shown even when the non-image file was not uploaded successfully.
+	- Added ellipsis for text overflowing from container.
+	- Updated "select files" button to default to theme (or browser) styles.
+	- Added ability to cancel new uploads in cropper
+	- Added max file, max size, and extension validation to the UI.
+	- Added toggle for explicitly setting whether or not cropping is enabled.
+	- Fixed issue where editing an image would result in multiple uploads
+	- Added workflow for profiling prod build
+	- Added blob-util
+	- Added basic style and moved droparea into its own component
+	- Added field setting
+	- Added README.md
+
+## 1.0-alpha-2.0
+
+	- Basic functionality implemented
+
+## 1.0-alpha-1.0
+
+	- Hello World!

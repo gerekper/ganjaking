@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles installation and updating tasks. Not much to see here, folks!
  *
  * @class    WC_CP_Install
- * @version  7.0.3
+ * @version  8.1.0
  */
 class WC_CP_Install {
 
@@ -128,7 +128,7 @@ class WC_CP_Install {
 	 * @since  3.12.0
 	 */
 	public static function maybe_install() {
-		if ( self::can_install() && self::must_install() ) {
+		if ( self::must_install() && self::can_install() ) {
 			self::install();
 		}
 	}

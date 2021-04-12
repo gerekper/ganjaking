@@ -50,13 +50,13 @@ if ( 'checkbox' !== $addon_type && 'multiple_choice' !== $addon_type && 'custom_
 	if ( $name ) {
 		if ( 'heading' === $addon_type ) {
 		?>
-			<h3 class="wc-pao-addon-heading"><?php echo wptexturize( $name ); ?></h3>
+			<h2 class="wc-pao-addon-heading"><?php echo wptexturize( $name ); ?></h2>
 		<?php
 		} else {
 			switch ( $title_format ) {
 				case 'heading':
 					?>
-					<h3 class="wc-pao-addon-name" data-addon-name="<?php echo esc_attr( wptexturize( $name ) ); ?>" data-has-per-person-pricing="<?php echo esc_attr( $has_per_person_pricing ); ?>" data-has-per-block-pricing="<?php echo esc_attr( $has_per_block_pricing ); ?>"><?php echo wptexturize( $name ); ?> <?php echo $required ? '<em class="required" title="' . __( 'Required field', 'woocommerce-product-addons' ) . '">*</em>&nbsp;' : ''; ?><?php echo wp_kses_post( $price_display ); ?></h3>
+					<h2 class="wc-pao-addon-name" data-addon-name="<?php echo esc_attr( wptexturize( $name ) ); ?>" data-has-per-person-pricing="<?php echo esc_attr( $has_per_person_pricing ); ?>" data-has-per-block-pricing="<?php echo esc_attr( $has_per_block_pricing ); ?>"><?php echo wptexturize( $name ); ?> <?php echo $required ? '<em class="required" title="' . __( 'Required field', 'woocommerce-product-addons' ) . '">*</em>&nbsp;' : ''; ?><?php echo wp_kses_post( $price_display ); ?></h2>
 					<?php
 					break;
 				case 'hide':

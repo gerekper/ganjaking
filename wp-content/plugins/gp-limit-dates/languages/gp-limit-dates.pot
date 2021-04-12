@@ -1,0 +1,170 @@
+# Copyright (C) 2021 GP Limit Dates
+# This file is distributed under the same license as the GP Limit Dates package.
+msgid ""
+msgstr ""
+"Project-Id-Version: GP Limit Dates\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../class-gp-limit-dates.php:47
+msgid "Invalid Date"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:57, ../class-gp-limit-dates.php:117
+msgid "Minimum Date"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:57
+msgid "Specify the minimum date that can be selected in this field."
+msgstr ""
+
+#: ../class-gp-limit-dates.php:58, ../class-gp-limit-dates.php:153
+msgid "Maximum Date"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:58
+msgid "Specify the maximum date that can be selected in this field."
+msgstr ""
+
+#: ../class-gp-limit-dates.php:59
+msgid "Date Modifier"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:59
+msgid "Modify the selected date by adding or subracting days, weeks, months or years.<br /><code>+1 day</code> <code>-2 weeks</code> <code>+3 years</code>"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:60, ../class-gp-limit-dates.php:176
+msgid "Days of the Week"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:60
+msgid "Specify the days of the week for which dates should be selectable."
+msgstr ""
+
+#: ../class-gp-limit-dates.php:61, ../class-gp-limit-dates.php:206
+msgid "Exceptions"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:61
+msgid "Specify any dates that should be excepted from the above rules."
+msgstr ""
+
+#: ../class-gp-limit-dates.php:62, ../class-gp-limit-dates.php:139
+msgid "Exclude Dates Before Current Date"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:62
+msgid "Prevent days that occur before the current date from being selected. Use this option to set a minimum date in the future and have the minimum date automatically adjust as time progresses."
+msgstr ""
+
+#: ../class-gp-limit-dates.php:63
+msgid "Exclude Dates Before Current Date Modifier"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:63
+msgid "Modify the current date by adding or subracting days, weeks, months or years.<br /><code>+1 day</code> <code>-2 weeks</code> <code>+3 years</code>"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:64, ../class-gp-limit-dates.php:227
+msgid "Inline Date Picker"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:64
+msgid "Display a full calendar in place of an input."
+msgstr ""
+
+#: ../class-gp-limit-dates.php:182
+msgid "All Days"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:219
+msgid "Add Exception"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:657
+msgid "Monday"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:658
+msgid "Mon"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:662
+msgid "Tuesday"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:663
+msgid "Tues"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:667
+msgid "Wednesday"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:668
+msgid "Wed"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:672
+msgid "Thursday"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:673
+msgid "Thur"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:677
+msgid "Friday"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:678
+msgid "Fri"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:682
+msgid "Saturday"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:683
+msgid "Sat"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:687
+msgid "Sunday"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:688
+msgid "Sun"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:908
+msgid "Please enter a valid date."
+msgstr ""
+
+#: ../class-gp-limit-dates.php:1040
+msgid "Select Date"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:1044
+msgid "Date Fields"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:1049
+msgid "Other"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:1053
+msgid "Set Specific Date"
+msgstr ""
+
+#: ../class-gp-limit-dates.php:1057
+msgid "Current Date"
+msgstr ""

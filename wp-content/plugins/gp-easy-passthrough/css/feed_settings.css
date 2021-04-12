@@ -1,0 +1,42 @@
+#gform-settings table.gform-settings-descriptiongforms_form_settings th {
+
+	font-weight: 500;
+	line-height: 25px;
+
+}
+
+#gform-settings table.gforms_form_settings th select {
+
+	font-weight: normal;
+
+}
+
+#gform-settings table.settings-field-map-table td {
+
+	vertical-align: top;
+
+}
+
+.wp-admin select {
+
+	vertical-align: inherit;
+
+}
+
+/**
+ * The below styles only apply in GF 2.5+.
+ */
+
+#tab_gp-easy-passthrough .gform-settings-description {
+	border: 1px solid #d5d8e9;
+	padding: 0.75rem;
+	background-color: #f6f9fc;
+	margin: 0 0 1.25rem;
+	border-radius: 5px;
+}
+
+#gform_setting_sourceForm > label,
+#gform_setting_fieldMap > label,
+#gform_setting_metaMap > label {
+	display: none;
+}

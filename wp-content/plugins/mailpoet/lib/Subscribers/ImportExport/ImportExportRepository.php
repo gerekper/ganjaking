@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use DateTime;
+<<<<<<< HEAD
 use MailPoet\Entities\CustomFieldEntity;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberCustomFieldEntity;
@@ -16,6 +17,12 @@ use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Doctrine\DBAL\Connection;
 use MailPoetVendor\Doctrine\DBAL\Driver\Statement;
 use MailPoetVendor\Doctrine\DBAL\Query\QueryBuilder;
+=======
+use MailPoet\Entities\SubscriberCustomFieldEntity;
+use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Entities\SubscriberSegmentEntity;
+use MailPoetVendor\Doctrine\DBAL\Connection;
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 use MailPoetVendor\Doctrine\ORM\Mapping\ClassMetadata;
 
@@ -49,12 +56,22 @@ class ImportExportRepository {
   /** @var EntityManager */
   protected $entityManager;
 
+<<<<<<< HEAD
   /** @var FilterHandler */
   private $filterHandler;
 
   public function __construct(EntityManager $entityManager, FilterHandler $filterHandler) {
     $this->entityManager = $entityManager;
     $this->filterHandler = $filterHandler;
+=======
+  /** @var string[] */
+  protected $ignoreColumnsForBulkUpdate = [
+    'created_at',
+  ];
+
+  public function __construct(EntityManager $entityManager) {
+    $this->entityManager = $entityManager;
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
   }
 
   protected function getClassMetadata(string $className): ClassMetadata {
@@ -94,7 +111,11 @@ class ImportExportRepository {
     }
 
     return $this->entityManager->getConnection()->executeUpdate("
+<<<<<<< HEAD
       INSERT IGNORE INTO {$tableName} (`" . implode("`, `", $columns) . "`) VALUES
+=======
+      INSERT IGNORE INTO {$tableName} (`" . implode("`, `", $columns) . "`) VALUES 
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
       " . implode(", \n", $rows) . "
     ", $parameters);
   }
@@ -130,7 +151,11 @@ class ImportExportRepository {
     }
 
     $ignoredColumns = self::IGNORED_COLUMNS_FOR_BULK_UPDATE[$className] ?? ['created_at'];
+<<<<<<< HEAD
     $updateColumns = array_map(function($columnName) use ($keyColumns, $columns, $data, &$parameters): string {
+=======
+    $updateColumns = array_map(function($columnName) use ($keyColumns, $columns, $data, &$parameters): string {   
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
       $values = [];
       foreach ($data as $index => $row) {
         $keyCondition = array_map(function($keyColumn) use ($index, $row, $columns, &$parameters): string {
@@ -156,6 +181,7 @@ class ImportExportRepository {
     return $this->entityManager->getConnection()->executeUpdate("
       UPDATE {$tableName} SET
       " . implode(", \n", $updateColumns) . "
+<<<<<<< HEAD
       WHERE
       " . implode(' AND ', $keyColumnsConditions) . "
     ", $parameters, $parameterTypes);
@@ -244,5 +270,10 @@ class ImportExportRepository {
       ->leftJoin($subscriberCustomFieldTable, $customFieldsTable, $customFieldsTable, "{$customFieldsTable}.id = {$subscriberCustomFieldTable}.custom_field_id");
 
     return $qb;
+=======
+      WHERE 
+      " . implode(' AND ', $keyColumnsConditions) . "
+    ", $parameters, $parameterTypes); 
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
   }
 }

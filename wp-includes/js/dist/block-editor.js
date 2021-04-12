@@ -82,7 +82,11 @@ this["wp"] = this["wp"] || {}; this["wp"]["blockEditor"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 440);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 468);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -8607,9 +8611,162 @@ function ColorEdit(props) {
     };
   };
 
+<<<<<<< HEAD
   var onChangeGradient = function onChangeGradient(value) {
     var slug = getGradientSlugByValue(gradients, value);
     var newAttributes;
+=======
+/***/ }),
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */,
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */,
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */,
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */,
+/* 415 */,
+/* 416 */,
+/* 417 */,
+/* 418 */,
+/* 419 */,
+/* 420 */,
+/* 421 */,
+/* 422 */,
+/* 423 */,
+/* 424 */,
+/* 425 */,
+/* 426 */,
+/* 427 */,
+/* 428 */,
+/* 429 */,
+/* 430 */,
+/* 431 */,
+/* 432 */,
+/* 433 */,
+/* 434 */,
+/* 435 */,
+/* 436 */,
+/* 437 */,
+/* 438 */,
+/* 439 */,
+/* 440 */,
+/* 441 */,
+/* 442 */,
+/* 443 */,
+/* 444 */,
+/* 445 */,
+/* 446 */,
+/* 447 */,
+/* 448 */,
+/* 449 */,
+/* 450 */,
+/* 451 */,
+/* 452 */,
+/* 453 */,
+/* 454 */,
+/* 455 */,
+/* 456 */,
+/* 457 */,
+/* 458 */,
+/* 459 */,
+/* 460 */,
+/* 461 */,
+/* 462 */,
+/* 463 */,
+/* 464 */,
+/* 465 */,
+/* 466 */,
+/* 467 */,
+/* 468 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
     if (slug) {
       var _localAttributes$curr3, _localAttributes$curr4, _localAttributes$curr5;
@@ -22803,6 +22960,7 @@ function BlockSelectionButton(_ref) {
         if (navigateDown) {
           nextTabbable = external_wp_dom_["focus"].tabbable.findNext(blockElement);
 
+<<<<<<< HEAD
           if (!nextTabbable) {
             nextTabbable = blockElement.ownerDocument.defaultView.frameElement;
             nextTabbable = external_wp_dom_["focus"].tabbable.findNext(nextTabbable);
@@ -22810,6 +22968,34 @@ function BlockSelectionButton(_ref) {
         } else {
           nextTabbable = external_wp_dom_["focus"].tabbable.findPrevious(blockElement);
         }
+=======
+  var populatedCategories = Object(external_this_wp_element_["useMemo"])(function () {
+    return allCategories.filter(function (category) {
+      return allPatterns.some(function (pattern) {
+        var _pattern$categories;
+
+        return (_pattern$categories = pattern.categories) === null || _pattern$categories === void 0 ? void 0 : _pattern$categories.includes(category.name);
+      });
+    });
+  }, [allPatterns, allCategories]);
+  var patternCategory = selectedCategory ? selectedCategory : populatedCategories[0];
+  Object(external_this_wp_element_["useEffect"])(function () {
+    if (allPatterns.some(function (pattern) {
+      return getPatternIndex(pattern) === Infinity;
+    }) && !populatedCategories.find(function (category) {
+      return category.name === 'uncategorized';
+    })) {
+      populatedCategories.push({
+        name: 'uncategorized',
+        label: Object(external_this_wp_i18n_["_x"])('Uncategorized')
+      });
+    }
+  }, [populatedCategories, allPatterns]);
+  var getPatternIndex = Object(external_this_wp_element_["useCallback"])(function (pattern) {
+    if (!pattern.categories || !pattern.categories.length) {
+      return Infinity;
+    }
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
         if (nextTabbable) {
           event.preventDefault();

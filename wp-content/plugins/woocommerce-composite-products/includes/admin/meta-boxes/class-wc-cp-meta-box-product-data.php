@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Data tabs/panels for the Composite type.
  *
  * @class    WC_CP_Meta_Box_Product_Data
- * @version  8.0.0
+ * @version  8.1.0
  */
 class WC_CP_Meta_Box_Product_Data {
 
@@ -728,10 +728,22 @@ class WC_CP_Meta_Box_Product_Data {
 
 					foreach ( $composite_data as $component_id => $component_data ) {
 
-						$component_title = $component_data[ 'title' ];
+						$component_title = strip_tags( trim( $component_data[ 'title' ] ) );
+						$append_id       = false;
+
+						foreach ( $composite_data as $component_id_inner => $component_data_inner ) {
+
+							if ( $component_id === $component_id_inner ) {
+								continue;
+							}
+
+							if ( $component_data[ 'title' ] === $component_data_inner[ 'title' ] ) {
+								$append_id = true;
+							}
+						}
 
 						$option_selected = in_array( $component_id, $hidden_components ) ? 'selected="selected"' : '';
-						echo '<option ' . $option_selected . 'value="' . $component_id . '">' . esc_html( $component_title ) . '</option>';
+						echo '<option ' . $option_selected . 'value="' . $component_id . '">' . ( ! $append_id ? $component_title : sprintf( '%1$s (#%2$s)', $component_title, $component_id ) ) . '</option>';
 					}
 
 				?></select>
@@ -800,11 +812,10 @@ class WC_CP_Meta_Box_Product_Data {
 
 								// Flatten data.
 								$conditional_options_by_component[] = array(
-									'component_id'    => $component_id,
-									'modifier'        => $modifier,
-									'optional'        => 'yes' === $composite_data[ $component_id ][ 'optional' ] ? true : false,
-									'post_name'       => $post_name,
-									'component_data'  => $composite_data[ $component_id ]
+									'component_id'   => $component_id,
+									'modifier'       => $modifier,
+									'post_name'      => $post_name,
+									'component_data' => $composite_data[ $component_id ]
 								);
 							}
 						}
@@ -971,7 +982,6 @@ class WC_CP_Meta_Box_Product_Data {
 					$conditions[] = array(
 						'component_id'    => $component_id,
 						'modifier'        => $modifier,
-						'optional'        => 'yes' === $composite_data[ $component_id ][ 'optional' ] ? true : false,
 						'post_name'       => $post_name,
 						'component_data'  => $composite_data[ $component_id ]
 					);
@@ -1475,13 +1485,24 @@ class WC_CP_Meta_Box_Product_Data {
 
 		// Calculate attributes for the conditions stack.
 		$options_attr = '';
-		if ( ! $rendered_with_ajax && ! $use_ajax ) {
-			$component_options = self::get_condition_component_options( $data );
-			$options_attr      = esc_attr( json_encode( $component_options ) );
-			$options_attr      = ' data-component_options="' . $options_attr . '"';
-			$options_attr     .= ' data-is_optional="' . $data[ 'optional' ] . '"';
-			$options_attr     .= ' data-use_ajax="' . $use_ajax ? 'yes' : 'no' . '"';
-			$options_attr     .= ' id="component_query_type_' . $data[ 'component_id' ] . '"';
+		if ( ! $rendered_with_ajax ) {
+
+			if ( ! $use_ajax ) {
+				$component_options       = self::get_condition_component_options( $data );
+				$component_options_array = array();
+
+				foreach ( $component_options as $component_option_id => $component_option ) {
+					$component_options_array[] = array(
+						'option_value' => $component_option_id,
+						'option_label' => $component_option
+					);
+				}
+
+				$options_attr .= sprintf( ' data-component_options="%s"', htmlspecialchars( json_encode( $component_options_array ) ) );
+			}
+
+			$options_attr .= sprintf( ' data-use_ajax="%s"', $use_ajax ? 'yes' : 'no' );
+			$options_attr .= sprintf( ' id="component_query_type_%s"', absint( $data[ 'component_id' ] ) );
 		}
 		?>
 		<div class="component_query_type"<?php echo $options_attr; ?>>
@@ -2025,10 +2046,9 @@ class WC_CP_Meta_Box_Product_Data {
 			foreach ( $composite_data as $component_id => $component_data ) {
 
 				$ajax_threshold          = apply_filters( 'woocommerce_composite_scenario_admin_products_ajax_threshold', 100, $component_id, $composite_product_object->get_id() );
-
 				$component_options_count = count( $composite_product_object_data[ 'component_options' ][ $component_id ] );
-				if ( ! $global_ajax_threshold_exceeded && $component_options_count < $ajax_threshold ) {
 
+				if ( ! $global_ajax_threshold_exceeded && $component_options_count < $ajax_threshold ) {
 					// If no global AJAX, try to expand each component.
 					$composite_data_store    = WC_Data_Store::load( 'product-composite' );
 					$component_options_count = count( $composite_data_store->get_expanded_component_options( $composite_product_object_data[ 'component_options' ][ $component_id ], 'merged' ) );
@@ -3510,6 +3530,10 @@ class WC_CP_Meta_Box_Product_Data {
 
 			foreach ( $scenario_data[ 'modifier' ] as $component_id => $component_modifier ) {
 
+				if ( ! isset( $component_indexes[ $component_id ] ) ) {
+					continue;
+				}
+
 				if ( 'masked' === $component_modifier ) {
 					continue;
 				}
@@ -3535,6 +3559,11 @@ class WC_CP_Meta_Box_Product_Data {
 				if ( $action === 'conditional_components' && ! empty( $action_data[ 'hidden_components' ] ) && is_array( $action_data[ 'hidden_components' ] ) ) {
 
 					foreach ( $action_data[ 'hidden_components' ] as $component_id ) {
+
+						if ( ! isset( $component_indexes[ $component_id ] ) ) {
+							continue;
+						}
+
 						if ( $component_indexes[ $component_id ] < $first_action_component_index ) {
 							$first_action_component_index = $component_indexes[ $component_id ];
 						}
@@ -3544,6 +3573,10 @@ class WC_CP_Meta_Box_Product_Data {
 				if ( $action === 'conditional_options' && ! empty( $action_data[ 'modifier' ] ) && is_array( $action_data[ 'modifier' ] ) ) {
 
 					foreach ( $action_data[ 'modifier' ] as $component_id => $component_modifier ) {
+
+						if ( ! isset( $component_indexes[ $component_id ] ) ) {
+							continue;
+						}
 
 						if ( 'masked' === $component_modifier ) {
 							continue;
@@ -3716,9 +3749,8 @@ class WC_CP_Meta_Box_Product_Data {
 			'in-any' => __( 'is any', 'woocommerce-composite-products' )
 		);
 
-		$modifier     = isset( $condition_data[ 'modifier' ] ) ? $condition_data[ 'modifier' ] : 'in';
-		$is_optional  = isset( $condition_data[ 'optional' ] ) ? $condition_data[ 'optional' ] : 'no';
-		$use_ajax     = isset( $condition_data[ 'use_ajax' ] ) ? (bool) $condition_data[ 'use_ajax' ] : ( isset( $composite_product_object_data[ 'component_use_ajax' ][ $component_id ] ) ? $composite_product_object_data[ 'component_use_ajax' ][ $component_id ] : false );
+		$modifier = isset( $condition_data[ 'modifier' ] ) ? $condition_data[ 'modifier' ] : 'in';
+		$use_ajax = isset( $condition_data[ 'use_ajax' ] ) ? (bool) $condition_data[ 'use_ajax' ] : ( isset( $composite_product_object_data[ 'component_use_ajax' ][ $component_id ] ) ? $composite_product_object_data[ 'component_use_ajax' ][ $component_id ] : false );
 
 		?>
 		<div class="os_row_inner">
@@ -3753,10 +3785,9 @@ class WC_CP_Meta_Box_Product_Data {
 
 					} else {
 
-						?><select name="<?php echo $post_name; ?>[component_data][<?php echo $component_id; ?>][]" class="sw-select2-search--products" multiple="multiple" style="width: 100%;" data-include="<?php echo esc_attr( json_encode( array( 'composite_id' => $composite_id, 'component_id' => $component_id ) ) ); ?>" data-limit="100" data-component_optional="<?php echo $is_optional; ?>" data-action="woocommerce_json_search_products_and_variations_in_component" data-placeholder="<?php echo  __( 'Search for products and variations&hellip;', 'woocommerce-composite-products' ); ?>"><?php
+						?><select name="<?php echo $post_name; ?>[component_data][<?php echo $component_id; ?>][]" class="sw-select2-search--products" multiple="multiple" style="width: 100%;" data-include="<?php echo esc_attr( json_encode( array( 'composite_id' => $composite_id, 'component_id' => $component_id ) ) ); ?>" data-limit="100" data-action="woocommerce_json_search_products_and_variations_in_component" data-action_version="8.0" data-placeholder="<?php echo  __( 'Search for products and variations&hellip;', 'woocommerce-composite-products' ); ?>"><?php
 
 							if ( ! empty( $selected ) ) {
-
 								foreach ( $selected as $selection_id_in_condition => $selection_in_condition ) {
 									echo '<option value="' . $selection_id_in_condition . '" selected="selected">' . $selection_in_condition . '</option>';
 								}
@@ -3792,11 +3823,7 @@ class WC_CP_Meta_Box_Product_Data {
 			foreach ( $scenario_data[ 'component_data' ][ $component_id ] as $product_id_in_scenario ) {
 
 				if ( $product_id_in_scenario == -1 ) {
-					if ( $component_data[ 'optional' ] === 'yes' ) {
-						$selections_in_scenario[ $product_id_in_scenario ] = _x( 'No selection', 'optional component property controlled in scenarios', 'woocommerce-composite-products' );
-					}
-				} elseif ( $product_id_in_scenario == 0 ) {
-					$selections_in_scenario[ $product_id_in_scenario ] = __( 'Any Product or Variation', 'woocommerce-composite-products' );
+					$selections_in_scenario[ $product_id_in_scenario ] = _x( 'No selection', 'optional component property controlled in scenarios', 'woocommerce-composite-products' );
 				} else {
 
 					$product_in_scenario = self::get_component_option( $product_id_in_scenario, true );
@@ -3855,12 +3882,8 @@ class WC_CP_Meta_Box_Product_Data {
 		}
 
 		// Build scenario_options.
-		$scenario_options = array();
-
-		if ( $component_data[ 'optional' ] === 'yes' ) {
-
-			$scenario_options[ -1 ] = _x( 'No selection', 'optional component property controlled in scenarios', 'woocommerce-composite-products' );
-		}
+		$scenario_options       = array();
+		$scenario_options[ -1 ] = _x( 'No selection', 'optional component property controlled in scenarios', 'woocommerce-composite-products' );
 
 		foreach ( $component_options_data as $option_id => $option_data ) {
 
@@ -3915,7 +3938,6 @@ class WC_CP_Meta_Box_Product_Data {
 			$template_condition_data	= array(
 				'component_id'           => '{{{ data.os_component_id }}}',
 				'post_name'              => '{{{ data.os_post_name }}}',
-				'optional'               => '{{{ data.os_optional_component }}}',
 				'component_options_html' => '{{{ data.os_component_options_html }}}',
 				'use_ajax'               => false,
 			);
@@ -3936,7 +3958,6 @@ class WC_CP_Meta_Box_Product_Data {
 			$template_condition_data	= array(
 				'component_id' => '{{{ data.os_component_id }}}',
 				'post_name'    => '{{{ data.os_post_name }}}',
-				'optional'     => '{{{ data.os_optional_component }}}',
 				'use_ajax'     => true,
 			);
 
@@ -3976,31 +3997,6 @@ class WC_CP_Meta_Box_Product_Data {
 	 */
 	public static function print_condition_components_dropdown( $composite_data, $selected_id = false, $additional_options = array() ) {
 
-		// Init.
-		$components          = array();
-		$append_component_id = false;
-
-		// Loop components.
-		foreach ( $composite_data as $component_id => $component_data ) {
-
-			// Calculate title.
-			$component_title_occ = 0;
-			$component_title     = esc_html( $component_data[ 'title' ] );
-
-			foreach ( $composite_data as $component_id_inner => $component_data_inner ) {
-				if ( $component_title === esc_html( $component_data_inner[ 'title' ] ) ) {
-					$component_title_occ++;
-				}
-			}
-
-			if ( $component_title_occ > 1 ) {
-				$append_component_id = true;
-				break;
-			}
-
-			$components[ $component_id ] = $component_title;
-		}
-
 		?><select class="os_type"><?php
 
 			if ( ! empty( $additional_options ) ) {
@@ -4011,9 +4007,23 @@ class WC_CP_Meta_Box_Product_Data {
 			}
 
 			foreach ( $composite_data as $component_id => $component_data ) {
-				$component_title = esc_html( trim( $component_data[ 'title' ] ) );
+
+				$component_title = strip_tags( trim( $component_data[ 'title' ] ) );
+				$append_id       = false;
+
+				foreach ( $composite_data as $component_id_inner => $component_data_inner ) {
+
+					if ( $component_id === $component_id_inner ) {
+						continue;
+					}
+
+					if ( $component_data[ 'title' ] === $component_data_inner[ 'title' ] ) {
+						$append_id = true;
+					}
+				}
+
 				?><option value="<?php echo $component_id ?>" <?php echo $component_id === $selected_id ? 'selected="selected"' : ''; ?>><?php
-					echo ! $append_component_id ? $component_title : sprintf( '%1$s (ID: %2$s)', $component_title, $component_id );
+					echo ! $append_id ? $component_title : sprintf( '%1$s (#%2$s)', $component_title, $component_id );
 				?></option><?php
 			}
 		?></select><?php

@@ -4,7 +4,11 @@ Donate link: http://www.wpbeginner.com/wpbeginner-needs-your-help/
 Tags: WordPress analytics, google analytics, google analytics dashboard, google analytics widget, WooCommerce stats, analytics dashboard, universal google analytics, statistics, tracking, stats, google, google analytics by yoast, ga, monster insights, monsterinsights, universal analytics, web stats, ecommerce, ecommerce tracking
 Requires at least: 3.8.0
 Tested up to: 5.7
+<<<<<<< HEAD
 Stable tag: 7.17.0
+=======
+Stable tag: 7.16.2
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 Requires PHP: 5.2
 License: GPL v3
 
@@ -285,6 +289,7 @@ You can also learn about other <a href="http://www.wpbeginner.com/category/plugi
 4. Want more features? <a href="https://www.monsterinsights.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">Purchase MonsterInsights Pro</a>!
 
 == Changelog ==
+<<<<<<< HEAD
 = 7.17.0: March 23, 2021 =
 - New: Our contextual education messages will now highlight the report or setting mentioned so it’s easier to make informed decisions.
 - Tweak: We added extra checks to the methods used for sending server-side events with the measurement protocol to prevent preloading plugins from triggering them.
@@ -294,6 +299,8 @@ You can also learn about other <a href="http://www.wpbeginner.com/category/plugi
 - Fix: We improved the analytics.js to gtag.js compatibility layer for more stability and fixed an issue that could interfere with the bounce rate.
 - Fix: We adjusted the loading screens to make it more consistent when loading reports.
 
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 = 7.16.2: February 22, 2021 =
 - Tweak: We improved our gtag.js compatibility layer with support for custom trackers used in the analytics.js format for some integrations.
 

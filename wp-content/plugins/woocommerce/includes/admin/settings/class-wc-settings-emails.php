@@ -203,7 +203,11 @@ class WC_Settings_Emails extends WC_Settings_Page {
 					'id'            => 'woocommerce_merchant_email_notifications',
 					'type'          => 'checkbox',
 					'checkboxgroup' => 'start',
+<<<<<<< HEAD
 					'default'       => 'no',
+=======
+					'default'       => 'yes',
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 					'autoload'      => false,
 				),
 

@@ -247,11 +247,13 @@ class WooCommerce_Product_Search_Filter_Reset {
 		if ( $current_url === null ) {
 			$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		}
+
+		$keys = array(
+			'ixwpss', 'title', 'excerpt', 'content', 'categories', 'attributes', 'tags', 'sku', 'paged',
+			'ixwpst', 'ixwpsp', 'min_price', 'max_price', 'ixwpse', 'on_sale', 'rating'
+		);
 		$current_url = remove_query_arg(
-			array(
-				'ixwpss', 'title', 'excerpt', 'content', 'categories', 'attributes', 'tags', 'sku', 'lang', 'paged',
-				'ixwpst', 'ixwpsp', 'min_price', 'max_price', 'ixwpse', 'on_sale', 'rating'
-			),
+			$keys,
 			$current_url
 		);
 		return $current_url;

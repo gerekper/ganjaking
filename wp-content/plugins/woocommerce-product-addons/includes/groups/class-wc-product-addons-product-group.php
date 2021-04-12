@@ -84,17 +84,10 @@ class WC_Product_Addons_Product_Group {
 	 * @param array $category_ids
 	 */
 	protected static function set_exclude_global_add_ons( $post, $value ) {
-		$new_wc = defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.0.0', '>=' );
-
-		// Coerce in a controlled fashion
 		$new_value = empty( $value ) ? '0' : '1';
-		if ( $new_wc ) {
-			$product = wc_get_product( $post->ID );
-			$product->update_meta_data( '_product_addons_exclude_global', $new_value );
-			$product->save_meta_data();
-		} else {
-			update_post_meta( $post->ID, '_product_addons_exclude_global', $new_value );
-		}
+		$product = wc_get_product( $post->ID );
+		$product->update_meta_data( '_product_addons_exclude_global', $new_value );
+		$product->save_meta_data();
 	}
 
 	/**
@@ -104,13 +97,8 @@ class WC_Product_Addons_Product_Group {
 	 * @returns bool
 	 */
 	protected static function get_exclude_global_add_ons( $post ) {
-		$new_wc = defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.0.0', '>=' );
-		if ( $new_wc ) {
-			$product = wc_get_product( $post->ID );
-			$result = $product->get_meta( '_product_addons_exclude_global' );
-		} else {
-			$result = get_post_meta( $post->ID, '_product_addons_exclude_global', true );
-		}
+		$product = wc_get_product( $post->ID );
+		$result  = $product->get_meta( '_product_addons_exclude_global' );
 
 		// $result will contain a string with "0" or "1", so coerce it to boolean
 		$coerced_result = ( ! empty( $result ) );
@@ -128,14 +116,8 @@ class WC_Product_Addons_Product_Group {
 	 */
 	protected static function set_fields( $post, $fields ) {
 		$fields = WC_Product_Addons_Groups::coerce_options_to_contain_all_keys_before_saving_to_meta( $fields );
-
-		$new_wc = defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.0.0', '>=' );
-		if ( $new_wc ) {
-			$product = wc_get_product( $post->ID );
-			$product->update_meta_data( '_product_addons', $fields );
-			$product->save_meta_data();
-		} else {
-			update_post_meta( $post->ID, '_product_addons', $fields );
-		}
+		$product = wc_get_product( $post->ID );
+		$product->update_meta_data( '_product_addons', $fields );
+		$product->save_meta_data();
 	}
 }

@@ -262,6 +262,12 @@ jQuery( function ( $ ) {
 	 */
 	function removeProfileFields( $form ) {
 
+		let $fieldsWrapper = $form.find( '.wc-memberships-profile-fields-wrapper' );
+
+		if ( ! $fieldsWrapper.length ) {
+			return;
+		}
+
 		// clean up file inputs
 		if ( profileFieldsFileInputs.length ) {
 
@@ -273,10 +279,13 @@ jQuery( function ( $ ) {
 		}
 
 		// clean up select2 inputs
-		$form.find( '.wc-memberships-member-profile-field select.select2-initialized' ).select2( 'destroy' );
+		let $selectFields = $fieldsWrapper.find( '.wc-memberships-member-profile-field select.select2-initialized' );
+		if ( $selectFields.length ) {
+			$selectFields.select2( 'destroy' );
+		}
 
 		// remove any remaining HTML
-		$form.find( '.wc-memberships-profile-fields-wrapper' ).remove();
+		$fieldsWrapper.remove();
 	}
 
 

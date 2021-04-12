@@ -56,6 +56,7 @@ class Subscription extends AbstractCleverReachConnect
                 $subscriber_data['tags'] = array_map('trim', explode(',', $lead_tags));
             }
 
+<<<<<<< HEAD
             $subscription_form = $this->get_integration_data('CleverReachConnect_form');
 
             $doi_data = [];
@@ -71,6 +72,8 @@ class Subscription extends AbstractCleverReachConnect
                 ];
             }
 
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
             $custom_field_mappings = $this->form_custom_field_mappings();
 
             if ( ! empty($custom_field_mappings)) {
@@ -94,7 +97,11 @@ class Subscription extends AbstractCleverReachConnect
                 }
             }
 
+<<<<<<< HEAD
             $response = $this->cleverreachInstance()->addSubscriber($group_id, $this->email, array_filter($subscriber_data, [$this, 'data_filter']), $doi_data);
+=======
+            $response = $this->cleverreachInstance()->addSubscriber($group_id, $this->email, array_filter($subscriber_data, [$this, 'data_filter']));
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
             if (isset($response->id) && ! empty($response->id)) {
                 return parent::ajax_success();
@@ -108,6 +115,7 @@ class Subscription extends AbstractCleverReachConnect
             return parent::ajax_failure(__('There was an error saving your contact. Please try again.', 'mailoptin'));
         }
     }
+<<<<<<< HEAD
 
     public function get_subscriber_details($group_id, $pool_id) {
 
@@ -120,4 +128,6 @@ class Subscription extends AbstractCleverReachConnect
             return false;
         }
     }
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 }

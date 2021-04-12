@@ -45,9 +45,137 @@ require_once ABSPATH . 'wp-admin/admin-header.php';
 			</nav>
 		</div>
 
+<<<<<<< HEAD
 		<div class="about__section is-feature has-subtle-background-color">
 			<div class="column">
 				<h1 class="is-smaller-heading">
+=======
+		<div class="about__section is-feature">
+			<h1 class="aligncenter">
+				<?php
+				printf(
+					/* translators: %s: The current WordPress version number. */
+					__( 'Welcome to WordPress %s.' ),
+					$display_version
+				);
+				?>
+			</h1>
+			<p>
+				<?php
+				printf(
+					/* translators: %s: The current WordPress version number. */
+					__( 'WordPress %s brings you countless ways to set your ideas free and bring them to life. With a brand-new default theme as your canvas, it supports an ever-growing collection of blocks as your brushes. Paint with words. Pictures. Sound. Or rich embedded media.' ),
+					$display_version
+				);
+				?>
+			</p>
+		</div>
+
+		<div class="about__section changelog">
+			<div class="column has-border has-subtle-background-color">
+				<h2 class="is-smaller-heading"><?php _e( 'Maintenance and Security Releases' ); ?></h2>
+				<p>
+					<?php
+					printf(
+						/* translators: 1: WordPress version number, 2: Plural number of bugs. */
+						_n(
+							'<strong>Version %1$s</strong> addressed %2$s bug.',
+							'<strong>Version %1$s</strong> addressed %2$s bugs.',
+							5
+						),
+						'5.6.2',
+						number_format_i18n( 5 )
+					);
+					?>
+					<?php
+					printf(
+						/* translators: %s: HelpHub URL. */
+						__( 'For more information, see <a href="%s">the release notes</a>.' ),
+						sprintf(
+							/* translators: %s: WordPress version. */
+							esc_url( __( 'https://wordpress.org/support/wordpress-version/version-%s/' ) ),
+							sanitize_title( '5.6.2' )
+						)
+					);
+					?>
+				</p>
+				<p>
+					<?php
+					printf(
+						/* translators: 1: WordPress version number, 2: Plural number of bugs. */
+						_n(
+							'<strong>Version %1$s</strong> addressed %2$s bug.',
+							'<strong>Version %1$s</strong> addressed %2$s bugs.',
+							27
+						),
+						'5.6.1',
+						number_format_i18n( 27 )
+					);
+					?>
+					<?php
+					printf(
+						/* translators: %s: HelpHub URL. */
+						__( 'For more information, see <a href="%s">the release notes</a>.' ),
+						sprintf(
+							/* translators: %s: WordPress version. */
+							esc_url( __( 'https://wordpress.org/support/wordpress-version/version-%s/' ) ),
+							sanitize_title( '5.6.1' )
+						)
+					);
+					?>
+				</p>
+			</div>
+		</div>
+
+		<hr />
+
+		<div class="has-background-image" style="background-image: url('data:image/svg+xml,<?php echo rawurlencode( '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1035 884"><circle cx="503" cy="434" r="310" fill="#E3DAD1"/><circle cx="831" cy="204" r="204" fill="#D1CFE4"/><circle cx="113.5" cy="770.5" r="113.5" fill="#D1DEE4"/></svg>' ); ?>');">
+			<div class="about__section has-2-columns is-wider-left has-transparent-background-color">
+				<div class="column">
+					<h2><?php _e( 'Greater layout flexibility' ); ?></h2>
+					<p><?php _e( 'Bring your stories to life with more tools that let you edit your layout with or without code. Single column blocks, designs using mixed widths and columns, full-width headers, and videos in your cover block—make small changes or big statements with equal ease!' ); ?></p>
+				</div>
+			</div>
+			<div class="about__section has-2-columns is-wider-right has-transparent-background-color">
+				<div class="column"><!-- space for alignment. --></div>
+				<div class="column">
+					<h2><?php _e( 'More block patterns' ); ?></h2>
+					<p><?php _e( 'In select themes, preconfigured block patterns make setting up standard pages on your site a breeze. Find the power of patterns to streamline your workflow, or share some of that power with your clients and save yourself a few clicks.' ); ?></p>
+				</div>
+			</div>
+			<div class="about__section has-2-columns is-wider-left has-transparent-background-color">
+				<div class="column">
+					<h2><?php _e( 'Upload video captions directly in the block editor' ); ?></h2>
+					<p><?php _e( 'To help you add subtitles or captions to your videos, you can now upload them within your post or page. This makes it easier than ever to make your videos accessible for anyone who needs or prefers to use subtitles.' ); ?></p>
+				</div>
+			</div>
+		</div>
+
+		<hr class="is-large" />
+
+		<div class="about__section has-1-column">
+			<h2><?php _e( 'Twenty Twenty-One is here!' ); ?></h2>
+			<p>
+				<?php
+				_e( 'Twenty Twenty-One is a blank canvas for your ideas, and the block editor is the best brush. It is built for the block editor and packed with brand-new block patterns you can only get in the default themes. Try different layouts in a matter of seconds, and let the theme’s eye-catching, yet timeless design make your work shine.' );
+				?>
+			</p>
+		</div>
+
+		<hr />
+
+		<div class="about__section">
+			<div class="column about__image is-edge-to-edge">
+				<img src="https://s.w.org/images/core/5.6/twentytwentyone-layouts.jpg" alt="" />
+			</div>
+		</div>
+
+		<hr />
+
+		<div class="about__section has-overlap-style">
+			<div class="column is-vertically-aligned-center is-top-layer">
+				<p>
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 					<?php
 					printf(
 						/* translators: %s: The current WordPress version number. */

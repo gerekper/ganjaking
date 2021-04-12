@@ -52,7 +52,7 @@ $current_value = isset( $_POST[ $addon_key ] ) && isset( $_POST[ $addon_key ][0]
 			$price_display = $price_raw;
 		}
 		?>
-		<p class="form-row form-row-wide wc-pao-addon-wrap-<?php echo sanitize_title( $field_name ); ?>">
+		<p class="form-row form-row-wide wc-pao-addon-wrap wc-pao-addon-<?php echo sanitize_title( $field_name ); ?>">
 			<label>
 				<input type="radio" class="wc-pao-addon-field wc-pao-addon-radio" name="addon-<?php echo sanitize_title( $field_name ); ?>[]" data-raw-price="<?php echo esc_attr( $price_raw ); ?>" data-price="<?php echo esc_attr( $price_display ); ?>" data-price-type="<?php echo esc_attr( $price_type ); ?>" value="<?php echo sanitize_title( $label ); ?>" <?php checked( $current_value, 1 ); ?> <?php if ( WC_Product_Addons_Helper::is_addon_required( $addon ) ) { echo 'required'; } ?> data-label="<?php echo esc_attr( wptexturize( $label ) ); ?>" />&nbsp;&nbsp;<?php echo wptexturize( $label . ' ' . $price_for_display ); ?>
 			</label>

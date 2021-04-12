@@ -2,9 +2,15 @@
 # This file is distributed under the same license as the MailOptin - Lite package.
 msgid ""
 msgstr ""
+<<<<<<< HEAD
 "Project-Id-Version: MailOptin - Lite 1.2.35.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailoptin\n"
 "POT-Creation-Date: 2021-04-06 12:50:23+00:00\n"
+=======
+"Project-Id-Version: MailOptin - Lite 1.2.35.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailoptin\n"
+"POT-Creation-Date: 2021-02-26 19:41:21+00:00\n"
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -242,8 +248,13 @@ msgstr ""
 #: src/connections/AweberConnect/Subscription.php:108
 #: src/connections/CampaignMonitorConnect/Subscription.php:77
 #: src/connections/CampaignMonitorConnect/Subscription.php:82
+<<<<<<< HEAD
 #: src/connections/CleverReachConnect/Subscription.php:103
 #: src/connections/CleverReachConnect/Subscription.php:108
+=======
+#: src/connections/CleverReachConnect/Subscription.php:88
+#: src/connections/CleverReachConnect/Subscription.php:93
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: src/connections/ConvertFoxConnect/Subscription.php:135
 #: src/connections/ConvertFoxConnect/Subscription.php:140
 #: src/connections/ConvertKitConnect/Subscription.php:81
@@ -431,11 +442,16 @@ msgstr ""
 msgid "CleverReach access token not found."
 msgstr ""
 
+<<<<<<< HEAD
 #: src/connections/CleverReachConnect/Connect.php:53
+=======
+#: src/connections/CleverReachConnect/Connect.php:54
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: src/connections/CleverReachConnect/ConnectSettingsPage.php:52
 msgid "CleverReach"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/connections/CleverReachConnect/Connect.php:92
 msgid "First Name Field"
 msgstr ""
@@ -445,11 +461,26 @@ msgid "Last Name Field"
 msgstr ""
 
 #: src/connections/CleverReachConnect/Connect.php:117
+=======
+#: src/connections/CleverReachConnect/Connect.php:91
+msgid "First Name Field"
+msgstr ""
+
+#: src/connections/CleverReachConnect/Connect.php:98
+msgid "Last Name Field"
+msgstr ""
+
+#: src/connections/CleverReachConnect/Connect.php:119
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: src/connections/ContactForm7Connect/panel-settings-view.php:58
 #: src/connections/ContactForm7Connect/panel-settings-view.php:74
 #: src/connections/ElementorConnect/Elementor.php:98
 #: src/connections/ElementorConnect/Elementor.php:111
+<<<<<<< HEAD
 #: src/connections/FluentCRMConnect/Connect.php:177
+=======
+#: src/connections/FluentCRMConnect/Connect.php:178
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: src/connections/FormidableFormConnect/panel-settings-view.php:48
 #: src/connections/FormidableFormConnect/panel-settings-view.php:64
 #: src/connections/GravityFormsConnect/GFMailOptin.php:333
@@ -500,26 +531,41 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/connections/CleverReachConnect/Connect.php:118
+=======
+#: src/connections/CleverReachConnect/Connect.php:120
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: src/connections/ContactForm7Connect/panel-settings-view.php:78
 #: src/connections/FormidableFormConnect/panel-settings-view.php:67
 msgid "Enter a comma-separated list of tags to assign to subscribers."
 msgstr ""
 
+<<<<<<< HEAD
 #: src/connections/CleverReachConnect/Connect.php:127
 msgid ""
 "Select the %sCleverReach Form%s to use for sending double opt-in emails."
 msgstr ""
 
 #: src/connections/CleverReachConnect/Connect.php:136
+=======
+#: src/connections/CleverReachConnect/Connect.php:126
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid ""
 "Click the \"Advanced\" link below to map the first and last name fields."
 msgstr ""
 
+<<<<<<< HEAD
 #: src/connections/CleverReachConnect/Connect.php:142
 msgid ""
 "Upgrade to %sMailOptin Premium%s to enable double optin, map custom fields "
 "and assign tags to subscribers."
+=======
+#: src/connections/CleverReachConnect/Connect.php:132
+msgid ""
+"Upgrade to %sMailOptin Premium%s to map custom fields and assign tags to "
+"leads"
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgstr ""
 
 #: src/connections/CleverReachConnect/ConnectSettingsPage.php:34
@@ -1081,7 +1127,7 @@ msgstr ""
 
 #: src/connections/ElementorConnect/Elementor.php:84
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Integration_Repeater_Control.php:553
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:239
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:240
 #: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:304
 msgid "Select Email List"
 msgstr ""
@@ -3967,7 +4013,11 @@ msgid "reCAPTCHA v3"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:614
+<<<<<<< HEAD
 #: src/core/src/RegisterScripts.php:281
+=======
+#: src/core/src/RegisterScripts.php:264
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Field %s"
 msgstr ""
 
@@ -4141,6 +4191,10 @@ msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomizerTrait.php:238
 msgid "Select Linked Store"
+msgstr ""
+
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:239
+msgid "Select Group List"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/EmailCampaign/AbstractCustomizer.php:37
@@ -5956,6 +6010,7 @@ msgstr ""
 msgid "Upgrade to %s for %s support"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:387
 #: src/core/src/RegisterScripts.php:277
 msgid "Pause Test"
@@ -5963,6 +6018,15 @@ msgstr ""
 
 #: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:390
 #: src/core/src/RegisterScripts.php:276
+=======
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:394
+#: src/core/src/RegisterScripts.php:260
+msgid "Pause Test"
+msgstr ""
+
+#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:397
+#: src/core/src/RegisterScripts.php:259
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Start Test"
 msgstr ""
 
@@ -7864,6 +7928,7 @@ msgid ""
 "activated. Please create one first. %s "
 msgstr ""
 
+<<<<<<< HEAD
 #: src/core/src/RegisterScripts.php:278
 msgid "Type to search"
 msgstr ""
@@ -7873,16 +7938,35 @@ msgid "Are you sure you?"
 msgstr ""
 
 #: src/core/src/RegisterScripts.php:280
+=======
+#: src/core/src/RegisterScripts.php:261
+msgid "Type to search"
+msgstr ""
+
+#: src/core/src/RegisterScripts.php:262
+msgid "Are you sure you?"
+msgstr ""
+
+#: src/core/src/RegisterScripts.php:263
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid ""
 "Are you sure you want to do this? Clicking OK will delete all your optin "
 "analytics records."
 msgstr ""
 
+<<<<<<< HEAD
 #: src/core/src/RegisterScripts.php:283
 msgid "Title is required."
 msgstr ""
 
 #: src/core/src/RegisterScripts.php:306
+=======
+#: src/core/src/RegisterScripts.php:266
+msgid "Title is required."
+msgstr ""
+
+#: src/core/src/RegisterScripts.php:289
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid "Disable MailOptin new post notification for this post."
 msgstr ""
 
@@ -7906,9 +7990,15 @@ msgstr ""
 msgid "MailOptin - Lite"
 msgstr ""
 
+<<<<<<< HEAD
 #. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.35.3)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
 #. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.35.3)  #-#-#-#-#
+=======
+#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.35.0)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.35.0)  #-#-#-#-#
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #. Author URI of the plugin/theme
 msgid "https://mailoptin.io"
 msgstr ""

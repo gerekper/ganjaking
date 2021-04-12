@@ -1,0 +1,699 @@
+# Translation of YITH Framework in Italian
+# This file is distributed under the same license as the YITH Framework package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH Framework\n"
+"Report-Msgid-Bugs-To: YITH <plugins@yithemes.com>\n"
+"POT-Creation-Date: 2021-02-15 07:49:38+00:00\n"
+"PO-Revision-Date: 2021-02-05 21:18:46+0000\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+
+#: includes/class-yit-assets.php:117
+msgid "Clear"
+msgstr "Rimuovi"
+
+#: includes/class-yit-assets.php:118
+msgid "Clear color"
+msgstr "Rimuovi colore"
+
+#: includes/class-yit-assets.php:119
+msgid "Default"
+msgstr "Predefinito"
+
+#: includes/class-yit-assets.php:120
+msgid "Select default color"
+msgstr "Seleziona il colore predefinito"
+
+#: includes/class-yit-assets.php:121
+msgid "Select Color"
+msgstr "Seleziona il colore"
+
+#: includes/class-yit-assets.php:122
+msgid "Color value"
+msgstr "Valore del colore"
+
+#: includes/class-yit-plugin-panel-woocommerce.php:419
+msgid "The changes you have made will be lost if you leave this page."
+msgstr "Perderai tutti i cambiamenti effettuati se lasci questa pagina."
+
+#: includes/class-yit-plugin-panel.php:83
+msgid "Plugin Settings"
+msgstr "Impostazioni plugin"
+
+#: includes/class-yit-plugin-panel.php:84
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: includes/class-yit-plugin-panel.php:450
+#: includes/class-yit-plugin-panel.php:453
+msgid "How to install premium version"
+msgstr "Come installare la versione premium"
+
+#: includes/class-yit-plugin-panel.php:619
+#: includes/class-yit-plugin-subpanel.php:132
+#: templates/panel/woocommerce/woocommerce-form.php:28
+msgid "Save Changes"
+msgstr "Salva modifiche"
+
+#: includes/class-yit-plugin-panel.php:624
+#: includes/class-yit-plugin-subpanel.php:136
+#: templates/panel/woocommerce/woocommerce-form.php:14
+msgid ""
+"If you continue with this action, you will reset all options in this page."
+msgstr ""
+"Se prosegui con questa azione, tutte le opzioni di questa pagina saranno "
+"reimpostate."
+
+#: includes/class-yit-plugin-panel.php:624
+#: includes/class-yit-plugin-subpanel.php:136
+#: templates/panel/woocommerce/woocommerce-form.php:14
+msgid "Are you sure?"
+msgstr "Sei sicuro?"
+
+#: includes/class-yit-plugin-panel.php:628
+#: includes/class-yit-plugin-subpanel.php:139
+msgid "Reset to default"
+msgstr "Ripristina configurazione predefinita"
+
+#: includes/class-yit-plugin-panel.php:865
+msgid ""
+"The element you have entered already exists. Please, enter another name."
+msgstr "L'elemento inserito esiste già. Per favore, inserisci un altro nome."
+
+#: includes/class-yit-plugin-panel.php:866
+msgid "Settings saved"
+msgstr "Impostazioni salvate"
+
+#: includes/class-yit-plugin-panel.php:867
+msgid "Settings reset"
+msgstr "Impostazioni azzerate"
+
+#: includes/class-yit-plugin-panel.php:868
+msgid "Element deleted correctly."
+msgstr "Elemento rimosso correttamente."
+
+#: includes/class-yit-plugin-panel.php:869
+#: includes/class-yit-plugin-panel.php:870
+msgid "Element updated correctly."
+msgstr "Elemento aggiornato correttamente."
+
+#: includes/class-yit-plugin-panel.php:871
+msgid "Database imported correctly."
+msgstr "Database importato correttamente."
+
+#: includes/class-yit-plugin-panel.php:872
+msgid "An error has occurred during import. Please try again."
+msgstr "Si è verificato un errore durante l'importazione. Prova di nuovo."
+
+#: includes/class-yit-plugin-panel.php:873
+msgid "The added file is not valid."
+msgstr "Il file aggiunto non è valido."
+
+#: includes/class-yit-plugin-panel.php:874
+msgid "Sorry, import is disabled."
+msgstr "Ci dispiace, l'importazione è disabilitata."
+
+#: includes/class-yit-plugin-panel.php:875
+msgid "Sorting successful."
+msgstr "Ordinamento effettuato con successo."
+
+#: includes/class-yit-plugin-panel.php:1343
+msgid "We need your support"
+msgstr "Abbiamo bisogno del tuo sostegno"
+
+#: includes/class-yit-plugin-panel.php:1344
+msgid "to keep updating and improving the plugin. Please,"
+msgstr "per poter continuare ad aggiornare e migliorare il plugin."
+
+#: includes/class-yit-plugin-panel.php:1346
+msgid "help us by leaving a five-star rating"
+msgstr "Puoi darci una mano lasciando una recensione a 5 stelle"
+
+#: includes/class-yit-plugin-panel.php:1347
+msgid ":) Thanks!"
+msgstr ":) Grazie!"
+
+#: includes/class-yit-pointers.php:80
+msgid "Plugins Activated"
+msgstr "Plugin attivati"
+
+#: includes/class-yit-pointers.php:81
+msgid ""
+"From now on, you can find all plugin options in YITH menu. Plugin "
+"customization settings will be available as a new entry in YITH menu."
+msgstr ""
+
+#. translators: 1. YITH site link; 2. WordPress site link.
+#: includes/class-yit-pointers.php:84 includes/class-yit-pointers.php:100
+msgid "Discover all our plugins available on: %1$s and %2$s"
+msgstr "Scopri tutti i nostri plugin disponibili su: %1$s and %2$s"
+
+#: includes/class-yit-pointers.php:96
+msgid "Plugins Upgraded"
+msgstr "Plugin aggiornati"
+
+#: includes/class-yit-pointers.php:97
+msgid ""
+"From now on, you can find the option panel of YITH plugins in YITH menu. "
+"Every time one of our plugins is added, a new entry will be added to this "
+"menu. For example, after the update, plugin options (such as for YITH "
+"WooCommerce Wishlist, YITH WooCommerce Ajax Search, etc.) will be moved from "
+"previous location to YITH menu."
+msgstr ""
+
+#: includes/class-yith-dashboard.php:35
+msgid "YITH Latest Updates"
+msgstr "Ultimi aggiornamenti da YITH"
+
+#: includes/class-yith-dashboard.php:36
+msgid "Latest news from YITH Blog"
+msgstr "Ultime novità dal blog YITH"
+
+#: includes/class-yith-dashboard.php:56
+msgid "RSS Error:"
+msgstr "Errore RSS:"
+
+#: includes/class-yith-dashboard.php:63
+msgid ""
+"An error has occurred, which probably means the feed is down. Try again "
+"later."
+msgstr ""
+"Si è verificato un errore probabilmente causato dal feed non disponibile. "
+"Riprova più tardi."
+
+#: includes/class-yith-system-status.php:110
+msgid "WordPress Version"
+msgstr "Versione di WordPress"
+
+#: includes/class-yith-system-status.php:111
+msgid "WooCommerce Version"
+msgstr "Versione di WooCommerce"
+
+#: includes/class-yith-system-status.php:112
+msgid "Available Memory"
+msgstr "Memoria disponibile"
+
+#: includes/class-yith-system-status.php:113
+msgid "PHP Version"
+msgstr "Versione PHP"
+
+#: includes/class-yith-system-status.php:114
+msgid "TLS Version"
+msgstr "Versione TLS"
+
+#: includes/class-yith-system-status.php:115
+msgid "WordPress Cron"
+msgstr "Cron WordPress"
+
+#: includes/class-yith-system-status.php:116
+msgid "SimpleXML"
+msgstr "SimpleXML"
+
+#: includes/class-yith-system-status.php:117
+msgid "MultiByte String"
+msgstr "MultiByte String"
+
+#: includes/class-yith-system-status.php:118
+msgid "ImageMagick Version"
+msgstr "Versione di ImageMagick"
+
+#: includes/class-yith-system-status.php:119
+msgid "GD Library"
+msgstr "GD Library"
+
+#: includes/class-yith-system-status.php:120
+msgid "Iconv Module"
+msgstr "Iconv Module"
+
+#: includes/class-yith-system-status.php:121
+msgid "OPCache Save Comments"
+msgstr "OPCache Save Comments"
+
+#: includes/class-yith-system-status.php:122
+msgid "URL FOpen"
+msgstr "URL FOpen"
+
+#: includes/class-yith-system-status.php:140
+#: includes/class-yith-system-status.php:141
+#: templates/sysinfo/system-information-panel.php:11
+msgid "System Status"
+msgstr "Stato del sistema"
+
+#: includes/class-yith-system-status.php:183
+msgid "YITH Plugins"
+msgstr "Plugin YITH"
+
+#: includes/class-yith-system-status.php:191
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: includes/class-yith-system-status.php:342
+msgid "Warning!"
+msgstr "Attenzione!"
+
+#. translators: %1$s open link tag, %2$s open link tag
+#: includes/class-yith-system-status.php:346
+msgid ""
+"The system check has detected some compatibility issues on your installation."
+"%1$sClick here%2$s to know more"
+msgstr ""
+"Il controllo di sistema ha individuato delle incompatibilità con la tua "
+"installazione. %1$sVedi qui%2$s per maggiori dettagli"
+
+#: includes/class-yith-system-status.php:488
+msgid "Enabled"
+msgstr "Abilitato"
+
+#: includes/class-yith-system-status.php:488
+msgid "Disabled"
+msgstr "Disabilitato"
+
+#: includes/class-yith-system-status.php:493
+msgid "N/A"
+msgstr "N.D."
+
+#. translators: %1$s plugin name, %2$s requirement name
+#: includes/class-yith-system-status.php:520
+msgid "%1$s needs %2$s enabled"
+msgstr "%1$s necessita dell'attivazione di %2$s"
+
+#. translators: %1$s plugin name, %2$s required memory amount
+#: includes/class-yith-system-status.php:523
+msgid "%1$s needs at least %2$s of available memory"
+msgstr "%1$s necessita di almeno %2$s di memoria disponibile"
+
+#. translators: %1$s plugin name, %2$s version number
+#: includes/class-yith-system-status.php:526
+msgid "%1$s needs at least %2$s version"
+msgstr "%1$s necessita almeno della versione %2$s"
+
+#: includes/class-yith-system-status.php:550
+msgid ""
+"Update it to the latest version in order to benefit of all new features and "
+"security updates."
+msgstr ""
+"Aggiorna all'ultima versione per beneficiare di tutte le nuove funzionalità "
+"e degli aggiornamenti di sicurezza."
+
+#: includes/class-yith-system-status.php:554
+#: includes/class-yith-system-status.php:560
+msgid "Contact your hosting company in order to update it."
+msgstr "Contatta il tuo servizio hosting per aggiornarlo."
+
+#: includes/class-yith-system-status.php:558
+msgid "Contact your hosting company in order to install it."
+msgstr "Per installarlo contatta il tuo servizio di hosting."
+
+#. translators: %1$s code, %2$s file name
+#: includes/class-yith-system-status.php:565
+msgid "Remove %1$s from %2$s file"
+msgstr "Rimuovi %1$s dal file %2$s"
+
+#: includes/class-yith-system-status.php:573
+msgid "Contact your hosting company in order to enable it."
+msgstr "Per attivarlo contatta il tuo servizio di hosting."
+
+#. translators: %1$s opening link tag, %2$s closing link tag
+#: includes/class-yith-system-status.php:577
+#: includes/class-yith-system-status.php:600
+msgid ""
+"Read more %1$shere%2$s or contact your hosting company in order to increase "
+"it."
+msgstr ""
+"Per maggiori informazioni %1$sleggi questo%2$s oppure contatta il tuo host "
+"per un upgrade."
+
+#. translators: %s recommended memory amount
+#: includes/class-yith-system-status.php:597
+msgid ""
+"For optimal functioning of our plugins, we suggest setting at least %s of "
+"available memory"
+msgstr ""
+"Per il funzionamento ottimale dei nostri plugin consigliamo di impostare "
+"almeno %s della memoria disponibile"
+
+#. translators: %1$s TLS label, %2$s cURL label
+#: includes/class-yith-system-status.php:605
+msgid ""
+"The system check cannot determine which %1$s version is installed because "
+"%2$s module is disabled. Ask your hosting company to enable it."
+msgstr ""
+"Non ci è stato possibile determinare quale versione di %1$s è installata in "
+"quanto il modulo %2$s è disattivato. Chiedi al tuo servizio hosting di "
+"attivarlo."
+
+#. translators: %1$s TLS label
+#: includes/class-yith-system-status.php:608
+msgid ""
+"The system check cannot determine which %1$s version is installed due to a "
+"connection issue between your site and our server."
+msgstr ""
+"Non ci è stato possibile determinare quale versione di %1$s è installata a "
+"causa di un problema di connessione fra il tuo sito e il nostro server."
+
+#: templates/fields/ajax-customers.php:41
+msgid "Search Customers"
+msgstr "Cerca fra i clienti"
+
+#. translators: 1. user display name; 2. user ID; 3. user email.
+#: templates/fields/ajax-customers.php:68
+#: templates/fields/ajax-customers.php:79
+msgid "%1$s (#%2$s &ndash; %3$s)"
+msgstr "%1$s (#%2$s &ndash; %3$s)"
+
+#: templates/fields/ajax-posts.php:41
+msgid "Search Posts"
+msgstr "Cerca articoli"
+
+#: templates/fields/ajax-products.php:14
+msgid "Search Product"
+msgstr "Cerca un prodotto"
+
+#: templates/fields/ajax-terms.php:41
+msgid "Search Categories"
+msgstr "Cerca categorie"
+
+#: templates/fields/customtabs.php:17
+msgid "Close all"
+msgstr "Chiudi tutti"
+
+#: templates/fields/customtabs.php:17
+msgid "Expand all"
+msgstr "Espandi tutti"
+
+#: templates/fields/customtabs.php:25 templates/fields/customtabs.php:68
+msgid "Remove"
+msgstr "Rimuovi"
+
+#: templates/fields/customtabs.php:34 templates/fields/customtabs.php:76
+msgid "Name"
+msgstr "Nome"
+
+#: templates/fields/customtabs.php:40 templates/fields/customtabs.php:81
+msgid "Value"
+msgstr "Valore"
+
+#: templates/fields/customtabs.php:41 templates/fields/customtabs.php:82
+msgid "Content of the tab. (HTML is supported)"
+msgstr "Contenuto della scheda (codice HTML supportato)."
+
+#: templates/fields/customtabs.php:52
+msgid "Add custom product tab"
+msgstr "Aggiungi scheda prodotto personalizzata"
+
+#: templates/fields/customtabs.php:93
+msgid "Do you want to remove the custom tab?"
+msgstr "Vuoi rimuovere la scheda personalizzata?"
+
+#: templates/fields/date-format.php:65
+msgid "Custom:"
+msgstr "Personalizzato:"
+
+#: templates/fields/date-format.php:70
+msgid "Preview:"
+msgstr "Anteprima"
+
+#: templates/fields/icons.php:63
+msgid "Set Default"
+msgstr "Ripristina impostazioni iniziali"
+
+#: templates/fields/image-gallery.php:29 templates/fields/image-gallery.php:40
+msgid "Delete image"
+msgstr "Rimuovi immagine"
+
+#: templates/fields/image-gallery.php:37
+msgid "Add Images to Gallery"
+msgstr "Aggiungi immagini alla galleria"
+
+#: templates/fields/image-gallery.php:38
+msgid "Add to gallery"
+msgstr "Aggiungi alla galleria"
+
+#: templates/fields/image-gallery.php:39
+msgid "Add images"
+msgstr "Aggiungi immagini"
+
+#: templates/fields/image-gallery.php:41
+msgid "Delete"
+msgstr "Rimuovi"
+
+#: templates/fields/select-buttons.php:19
+msgid "Add All"
+msgstr "Aggiungi tutti"
+
+#: templates/fields/select-buttons.php:32
+msgid "Remove All"
+msgstr "Rimuovi tutti"
+
+#: templates/fields/sidebars.php:20
+msgid "Left sidebar"
+msgstr "Barra laterale sinistra"
+
+#: templates/fields/sidebars.php:23
+msgid "Right sidebar"
+msgstr "Barra laterale destra"
+
+#: templates/fields/sidebars.php:26 templates/fields/sidebars.php:29
+msgid "No sidebar"
+msgstr "Nessuna barra laterale"
+
+#: templates/fields/sidebars.php:39
+msgid "Left Sidebar"
+msgstr "Barra laterale sinistra"
+
+#: templates/fields/sidebars.php:41 templates/fields/sidebars.php:56
+msgid "Choose a sidebar"
+msgstr "Scegli una barra laterale"
+
+#: templates/fields/sidebars.php:54
+msgid "Right Sidebar"
+msgstr "Barra laterale destra"
+
+#: templates/fields/upload.php:34
+#: templates/panel/woocommerce/woocommerce-upload.php:37
+msgid "Upload"
+msgstr "Carica"
+
+#: templates/fields/upload.php:39
+msgid "Reset"
+msgstr "Ripristina"
+
+#: templates/panel/woocommerce/woocommerce-form.php:34
+msgid "Reset Defaults"
+msgstr "Ripristina impostazioni iniziali"
+
+#: templates/sysinfo/system-information-panel.php:12
+msgid "PHPInfo"
+msgstr "PHPInfo"
+
+#: templates/sysinfo/system-information-panel.php:13
+#: templates/sysinfo/tabs/error-log.php:25
+msgid "Log Files"
+msgstr "File log"
+
+#: templates/sysinfo/system-information-panel.php:22
+msgid "YITH System Information"
+msgstr "YITH System Information"
+
+#: templates/sysinfo/tabs/error-log.php:13
+msgid "WP debug.log file"
+msgstr "WP debug.log file"
+
+#: templates/sysinfo/tabs/error-log.php:18
+msgid "PHP error_log file"
+msgstr "PHP error_log file"
+
+#: templates/sysinfo/tabs/error-log.php:60
+msgid "Download"
+msgstr "Scarica"
+
+#: templates/sysinfo/tabs/error-log.php:72
+msgid "The file size exceeds 8 megabytes so it must be downloaded"
+msgstr ""
+"La dimensione del file supera gli 8 megabyte ed è quindi necessario "
+"scaricarlo"
+
+#. translators: %s file name.
+#: templates/sysinfo/tabs/error-log.php:96
+msgid ""
+"No Log file available. Enable the WordPress debug by adding this in the %s "
+"file of your installation"
+msgstr ""
+"Nessun file log disponibile. Abilita il debug WordPress aggiungendo questo "
+"nel file %s della tua installazione"
+
+#: templates/sysinfo/tabs/error-log.php:105
+msgid "Copied!"
+msgstr "Copiato!"
+
+#: templates/sysinfo/tabs/error-log.php:105
+msgid "Copy Code"
+msgstr "Copia codice"
+
+#: templates/sysinfo/tabs/main.php:15
+msgid "Site Info"
+msgstr "Info sito"
+
+#: templates/sysinfo/tabs/main.php:20
+msgid "Site URL"
+msgstr "URL del sito"
+
+#: templates/sysinfo/tabs/main.php:29
+msgid "Output IP Address"
+msgstr "Indirizzo IP di output"
+
+#: templates/sysinfo/tabs/main.php:37
+msgid "Defined WP_CACHE"
+msgstr "Defined WP_CACHE"
+
+#: templates/sysinfo/tabs/main.php:40 templates/sysinfo/tabs/main.php:48
+msgid "Yes"
+msgstr "Sì"
+
+#: templates/sysinfo/tabs/main.php:40 templates/sysinfo/tabs/main.php:48
+msgid "No"
+msgstr "No"
+
+#: templates/sysinfo/tabs/main.php:45
+msgid "External object cache"
+msgstr "External object cache"
+
+#: templates/sysinfo/tabs/main.php:54
+msgid "Plugins Requirements"
+msgstr "Requisiti plugin"
+
+#: yit-plugin.php:187
+msgid "License"
+msgstr "Chiave di licenza"
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr "YITH"
+
+#: includes/class-yith-dashboard.php:96
+msgctxt "Plugin FW"
+msgid "View Changelog"
+msgstr "Visualizza il changelog"
+
+#: includes/class-yith-dashboard.php:97
+msgctxt "Plugin FW"
+msgid "Latest update released on"
+msgstr "Ultimo aggiornamento rilasciato il"
+
+#: includes/class-yith-dashboard.php:137
+msgctxt "Button label"
+msgid "Close"
+msgstr "Chiudi"
+
+#: includes/class-yith-gutenberg.php:131
+msgctxt "[gutenberg]: Category Name"
+msgid "YITH"
+msgstr "YITH"
+
+#: includes/privacy/class-yith-privacy.php:61
+msgctxt "Privacy Policy Guide Title"
+msgid "YITH Plugins"
+msgstr "YITH Plugins"
+
+#: includes/privacy/class-yith-privacy.php:93
+msgctxt "Privacy Policy Content"
+msgid ""
+"This sample language includes the basics around what personal data your "
+"store may be collecting, storing and sharing, as well as who may have access "
+"to that data. Depending on what settings are enabled and which additional "
+"plugins are used, the specific information shared by your store will vary. "
+"We recommend consulting with a lawyer when deciding what information to "
+"disclose on your privacy policy."
+msgstr ""
+"Questo esempio include gli elementi di base sulla raccolta dei dati "
+"personali, la memorizzazione e la condivisione, nonché su chi è autorizzato "
+"ad accedere a tali dati. In base alle impostazioni abilitate e ai moduli di "
+"estensione aggiuntivi utilizzati, le informazioni specifiche condivise dal "
+"nostro negozio possono variare. Ti consigliamo di consultare un legale al "
+"momento di decidere quali informazioni divulgare nell'informativa sulla "
+"privacy."
+
+#: includes/privacy/class-yith-privacy.php:97
+msgctxt "Privacy Policy Content"
+msgid "What we collect and store"
+msgstr "Cosa raccogliamo e salviamo"
+
+#: includes/privacy/class-yith-privacy.php:100
+msgctxt "Privacy Policy Content"
+msgid "Who on our team has access"
+msgstr "Persone del nostro gruppo di lavoro che hanno accesso"
+
+#: includes/privacy/class-yith-privacy.php:103
+msgctxt "Privacy Policy Content"
+msgid "What we share with others"
+msgstr "Cosa condividiamo con gli altri"
+
+#: includes/privacy/class-yith-privacy.php:106
+msgctxt "Privacy Policy Content"
+msgid "Payments"
+msgstr "Pagamenti"
+
+#: templates/fields/dimensions.php:13
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Top"
+msgstr "In alto"
+
+#: templates/fields/dimensions.php:14
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Right"
+msgstr "A destra"
+
+#: templates/fields/dimensions.php:15
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Bottom"
+msgstr "In basso"
+
+#: templates/fields/dimensions.php:16
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Left"
+msgstr "A sinistra"
+
+#: templates/fields/dimensions.php:94
+msgctxt "Tooltip in the \"Dimensions\" field"
+msgid "Link values together"
+msgstr "Collega i valori"
+
+#: templates/fields/onoff.php:28
+msgctxt "YES/NO button: use MAX 4 characters!"
+msgid "YES"
+msgstr "SÌ"
+
+#: templates/fields/onoff.php:29
+msgctxt "YES/NO button: use MAX 4 characters!"
+msgid "NO"
+msgstr "NO"
+
+#: yit-plugin.php:75
+msgctxt "Plugin Row Meta"
+msgid "Live Demo"
+msgstr "Live Demo"
+
+#: yit-plugin.php:79
+msgctxt "Plugin Row Meta"
+msgid "Documentation"
+msgstr "Documentazione"
+
+#: yit-plugin.php:83
+msgctxt "Plugin Row Meta"
+msgid "Support"
+msgstr "Assistenza"
+
+#: yit-plugin.php:87
+msgctxt "Plugin Row Meta"
+msgid "Premium version"
+msgstr "Versione premium"
+
+#: yit-plugin.php:183
+msgctxt "Action links"
+msgid "Settings"
+msgstr "Impostazioni"

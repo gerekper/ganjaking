@@ -3,7 +3,11 @@ Contributors: mailpoet, wysija
 Tags: email, email marketing, post notification, woocommerce emails, email automation, newsletter, newsletter builder, newsletter subscribers
 Requires at least: 5.3
 Tested up to: 5.6
+<<<<<<< HEAD
 Stable tag: 3.60.7
+=======
+Stable tag: 3.60.2
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 Requires PHP: 7.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -184,6 +188,7 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 
 == Changelog ==
 
+<<<<<<< HEAD
 = 3.60.7 - 2021-04-06 =
 * Improved: show all segment conditions in one place;
 * Fixed: the collation error in WooCommerce checkout. Thanks Mark!
@@ -219,6 +224,8 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 * Improved: subscriber import to skip disengaged MailChimp subscribers;
 * Fixed: shortcode which displays total subscribed subscribers.
 
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 = 3.60.2 - 2021-03-01 =
 * Fixed: view in browser shortcodes when tracking is disabled;
 * Fixed: searching lists when importing subscribers;

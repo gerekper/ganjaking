@@ -82,7 +82,11 @@ this["wp"] = this["wp"] || {}; this["wp"]["reduxRoutine"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 468);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 496);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -360,6 +364,7 @@ Object.keys(_helpers).forEach(function (key) {
   });
 });
 
+<<<<<<< HEAD
 var _create = __webpack_require__(431);
 
 var _create2 = _interopRequireDefault(_create);
@@ -369,6 +374,17 @@ var _async = __webpack_require__(433);
 var _async2 = _interopRequireDefault(_async);
 
 var _wrap = __webpack_require__(435);
+=======
+var _create = __webpack_require__(457);
+
+var _create2 = _interopRequireDefault(_create);
+
+var _async = __webpack_require__(459);
+
+var _async2 = _interopRequireDefault(_async);
+
+var _wrap = __webpack_require__(461);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _wrap2 = _interopRequireDefault(_wrap);
 
@@ -380,7 +396,11 @@ exports.wrapControls = _wrap2.default;
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 431:
+=======
+/***/ 457:
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -390,7 +410,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+<<<<<<< HEAD
 var _builtin = __webpack_require__(432);
+=======
+var _builtin = __webpack_require__(458);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _builtin2 = _interopRequireDefault(_builtin);
 
@@ -466,7 +490,11 @@ exports.default = create;
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 432:
+=======
+/***/ 458:
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -567,7 +595,11 @@ exports.default = [error, iterator, array, object, any];
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 433:
+=======
+/***/ 459:
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -584,7 +616,11 @@ var _is2 = _interopRequireDefault(_is);
 
 var _helpers = __webpack_require__(267);
 
+<<<<<<< HEAD
 var _dispatcher = __webpack_require__(434);
+=======
+var _dispatcher = __webpack_require__(460);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _dispatcher2 = _interopRequireDefault(_dispatcher);
 
@@ -689,7 +725,11 @@ exports.default = [promise, fork, join, race, subscribe];
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 434:
+=======
+/***/ 460:
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -722,7 +762,11 @@ exports.default = createDispatcher;
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 435:
+=======
+/***/ 461:
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -765,7 +809,11 @@ exports.default = [call, cps];
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 468:
+=======
+/***/ 496:
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

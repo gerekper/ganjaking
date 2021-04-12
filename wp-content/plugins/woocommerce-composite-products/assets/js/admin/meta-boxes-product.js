@@ -1274,11 +1274,10 @@ jQuery( function( $ ) {
 				}
 
 				// Template Variables.
-				var os_index                  = parseInt( os.$data_container.attr( 'data-os_count' ), 10 ) + 1,
-					os_post_name              = os.$data_container.attr( 'data-os_post_name' ),
-					os_optional_component     = 'yes' === $component_query_data.data( 'is_optional' ) ? 'yes' : 'no',
-					type                      = 'yes' === $component_query_data.data( 'use_ajax' ) ? 'ajax' : 'flat',
-					component_options         = $component_query_data.data( 'component_options' ) ? $component_query_data.data( 'component_options' ) : [];
+				var os_index          = parseInt( os.$data_container.attr( 'data-os_count' ), 10 ) + 1,
+					os_post_name      = os.$data_container.attr( 'data-os_post_name' ),
+					type              = 'yes' === $component_query_data.data( 'use_ajax' ) ? 'ajax' : 'flat',
+					component_options = $component_query_data.data( 'component_options' ) ? $component_query_data.data( 'component_options' ) : [];
 
 				// Templates.
 				var	os_row_template              = os.get_os_row_template(),
@@ -1292,10 +1291,10 @@ jQuery( function( $ ) {
 
 				var	$os_component_options_html;
 				if ( component_options ) {
-					for ( var option_id in component_options ) {
+					for ( var co_index = 0; co_index < component_options.length; co_index++ ) {
 						$os_component_options_html += os_component_option_template( {
-							option_value : option_id,
-							option_label : component_options[ option_id ],
+							option_value : component_options[ co_index ].option_value,
+							option_label : component_options[ co_index ].option_label,
 						} );
 					}
 				}
@@ -1303,7 +1302,6 @@ jQuery( function( $ ) {
 				var $new_os_row_content = os_condition_template( {
 					os_post_name              : os_post_name,
 					os_component_id           : component_id,
-					os_optional_component     : os_optional_component,
 					os_component_options_html : $os_component_options_html
 				} );
 
@@ -1340,19 +1338,18 @@ jQuery( function( $ ) {
 			// Option Change.
 			.on( 'change', 'select.os_type', function () {
 
-				var $selector                 = $( this ),
-					$option                   = $selector.closest( '.os_row' ),
-					component_id              = $selector.val();
+				var $selector    = $( this ),
+					$option      = $selector.closest( '.os_row' ),
+					component_id = $selector.val();
 
-				var $component_query_data     = os.$components_container.find( '#component_query_type_' + component_id );
+				var $component_query_data = os.$components_container.find( '#component_query_type_' + component_id );
 				if ( ! $component_query_data || $component_query_data.length < 1 ) {
 					return false;
 				}
 
-				var os_post_name              = os.$data_container.attr( 'data-os_post_name' ),
-					os_optional_component     = 'yes' === $component_query_data.data( 'is_optional' ) ? 'yes' : 'no',
-					type                      = 'yes' === $component_query_data.data( 'use_ajax' ) ? 'ajax' : 'flat',
-					component_options         = $component_query_data.data( 'component_options' ) ? $component_query_data.data( 'component_options' ) : [];
+				var os_post_name      = os.$data_container.attr( 'data-os_post_name' ),
+					type              = 'yes' === $component_query_data.data( 'use_ajax' ) ? 'ajax' : 'flat',
+					component_options = $component_query_data.data( 'component_options' ) ? $component_query_data.data( 'component_options' ) : [];
 
 				// Templates.
 				var	os_condition_template        = os.get_os_condition_template( type ),
@@ -1364,10 +1361,10 @@ jQuery( function( $ ) {
 
 				var	$os_component_options_html;
 				if ( component_options ) {
-					for ( var option_id in component_options ) {
+					for ( var co_index = 0; co_index < component_options.length; co_index++ ) {
 						$os_component_options_html += os_component_option_template( {
-							option_value : option_id,
-							option_label : component_options[ option_id ],
+							option_value : component_options[ co_index ].option_value,
+							option_label : component_options[ co_index ].option_label,
 						} );
 					}
 				}
@@ -1375,7 +1372,6 @@ jQuery( function( $ ) {
 				var $new_os_row_content = os_condition_template( {
 					os_post_name              : os_post_name,
 					os_component_id           : component_id,
-					os_optional_component     : os_optional_component,
 					os_component_options_html : $os_component_options_html
 				} );
 

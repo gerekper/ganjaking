@@ -6,12 +6,13 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    '241d2b5b9c1e680c0770b006b0271156' => $vendorDir . '/yahnis-elsts/plugin-update-checker/load-v4p9.php',
+    '49a1299791c25c6fd83542c6fedacddd' => $vendorDir . '/yahnis-elsts/plugin-update-checker/load-v4p11.php',
     'fb776f7ee227b920e197039be5ec1757' => $baseDir . '/includes/theme_support/custom_post_types.php',
     '57db63b64a3f06b64e8dea29484e3113' => $baseDir . '/includes/theme_support/crane.php',
     '417f9c2a048ba3dc81d8410b7f156f4c' => $baseDir . '/includes/theme_support/elementor.php',
     '5f0758a858333143c3cc0725e0f79b35' => $baseDir . '/includes/theme_support/divi.php',
     'f6bea0d34da77b3cca74e13cd46a9918' => $baseDir . '/includes/theme_support/avada.php',
+    '7bdf6a888a138e602026f09bb3ec5cc2' => $baseDir . '/includes/theme_support/thrivethemes-gm-init.php',
     '655fc50bc71579437c0b8c94b9b5f072' => $baseDir . '/includes/migration/migrate.php',
     'fab540ef9b69f507bcc21701eeef4143' => $baseDir . '/template/loader.php',
     '89faccae217ae94c3a1c0e22589b2a86' => $baseDir . '/includes/modules/core/core.php',

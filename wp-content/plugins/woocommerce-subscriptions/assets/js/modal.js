@@ -7,7 +7,7 @@ jQuery( function( $ ) {
 	// Initialize modals
 	$( modals ).each( function() {
 		trigger = $( this ).data( 'modal-trigger' );
-		$( trigger ).click( { modal: this }, show_modal );
+		$( trigger ).on( 'click', { modal: this }, show_modal );
 	});
 
 	/**
@@ -30,7 +30,7 @@ jQuery( function( $ ) {
 		const contentWrapper = modal.find( '.content-wrapper' );
 		const close          = modal.find( '.close' );
 
-		modal.focus();
+		modal.trigger( 'focus' );
 		modal.addClass( 'open' );
 
 		resizeModal( modal );

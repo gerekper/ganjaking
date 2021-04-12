@@ -1,5 +1,14 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2021-04-07 - version 3.0.14
+* New: Add support for importing and exporting subscription variations via the WooCommerce > Products > Export/Import tools. PR#3970
+* Fix: Only show one Subscriptions settings menu item on the WC Admin navigation. PR#4054
+* Fix: Prevent PHP notices on the Edit Subscription page caused accessing an undefined index. PR#4056
+* Fix: Existing variations will no longer be deleted when updating a regular variable product to a subscription variable product. PR#3795
+* Fix: Update the `_subtracted_base_location_tax` meta data when a subscription's line item quantity is modified. PR#4039
+* Fix: Next payment date calculations when the start date and last payment date are the same. PR#4017
+* Dev: Update jQuery 3.0 deprecations. PR#4015
+
 2021-02-16 - version 3.0.13
 * Fix: Pass an order status array to get_order_report_data() to prevent possible fatals by 3rd parties. PR#3930
 * Fix: Change logic to allow customers to pay for failed order with limited product. PR#3947

@@ -135,7 +135,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 		return apply_filters(
 			'groovy_menu_walker_options',
 			array(
-				'icon-class'                     => [
+				'icon-class'                       => [
 					'id'          => 'icon-class',
 					'label'       => esc_attr__( 'Icon', 'groovy-menu' ),
 					'description' => esc_attr__( 'Select an icon for your menu item.', 'groovy-menu' ),
@@ -143,7 +143,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'default'     => '',
 					'save_id'     => self::ICON_CLASS,
 				],
-				'use-html-as-icon'               => [
+				'use-html-as-icon'                 => [
 					'id'          => 'use-html-as-icon',
 					'label'       => esc_attr__( 'Use HTML or shortcode as icon', 'groovy-menu' ),
 					'description' => esc_attr__( 'if checked, the following content will be added instead of the icon', 'groovy-menu' ),
@@ -151,7 +151,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'default'     => false,
 					'save_id'     => self::USE_HTML_AS_ICON,
 				],
-				'html-icon-content'              => [
+				'html-icon-content'                => [
 					'id'          => 'html-icon-content',
 					'label'       => esc_attr__( 'HTML icon content', 'groovy-menu' ),
 					'description' => esc_attr__( '&lt;script&gt; tag not allowed', 'groovy-menu' ),
@@ -160,7 +160,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'save_id'     => self::HTML_ICON_CONTENT,
 					'field_class' => 'gm-html-icon-depend',
 				],
-				'do-not-show-title'              => [
+				'do-not-show-title'                => [
 					'id'          => 'do-not-show-title',
 					'label'       => esc_attr__( 'Do not show menu item title and link', 'groovy-menu' ),
 					'description' => '',
@@ -168,34 +168,19 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'default'     => false,
 					'save_id'     => self::DO_NOT_SHOW_TITLE,
 				],
-				'frozen-link'                    => [
-					'id'          => 'frozen-link',
-					'label'       => esc_attr__( 'Frozen link', 'groovy-menu' ),
-					'description' => esc_attr__( 'Disabled opening link at click, other features remains working.', 'groovy-menu' ),
-					'type'        => 'checkbox',
-					'default'     => false,
-					'save_id'     => self::FROZEN_LINK,
-				],
-				'is-show-featured'               => [
-					'id'          => 'is-show-featured',
-					'label'       => esc_attr__( 'Show featured image on hover', 'groovy-menu' ),
-					'description' => '',
-					'type'        => 'checkbox',
-					'post_type'   => 'post_type',
-					'default'     => false,
-					'save_id'     => self::IS_SHOW_FEATURED_IMAGE,
-				],
-				'megamenu-post-not-mobile'       => [
-					'id'          => 'megamenu-post-not-mobile',
-					'label'       => esc_attr__( 'Do not show Menu block content on mobile', 'groovy-menu' ),
-					'description' => '',
-					'type'        => 'checkbox',
-					'default'     => false,
-					'lver'        => false,
-					'save_id'     => self::MEGAMENU_META_POST_NOT_MOBILE,
+				'megamenu-dropdown-custom-width'   => [
+					'id'          => 'megamenu-dropdown-custom-width',
+					'label'       => esc_attr__( 'Dropdown custom width', 'groovy-menu' ),
+					'description' => esc_attr__( 'Is apply for container of menu. Leave blank or write zero for default state', 'groovy-menu' ) . '. ' . esc_attr__( 'Ignoring canvas for megamenu', 'groovy-menu' ),
+					'type'        => 'number',
+					'default'     => '',
+					'min-value'   => '0',
+					'max-value'   => '5000',
+					'value-type'  => 'px',
+					'save_id'     => self::MEGAMENU_DROPDOWN_CUSTOM_WIDTH,
 				],
 				// -------------------------------------------------------------------------------- MEGAMENU settings
-				'megamenu'                       => [
+				'megamenu'                         => [
 					'id'          => 'megamenu',
 					'label'       => esc_attr__( 'Mega menu', 'groovy-menu' ),
 					'description' => esc_attr__( 'Applies to first level menu only.', 'groovy-menu' ),
@@ -204,7 +189,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'save_id'     => self::IS_MEGAMENU_META,
 					'depth'       => 0,
 				],
-				'megamenu-cols'                  => [
+				'megamenu-cols'                    => [
 					'id'          => 'megamenu-cols',
 					'label'       => esc_attr__( 'Mega menu columns', 'groovy-menu' ),
 					'choices'     => self::megaMenuColsVariants(),
@@ -215,18 +200,6 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'depth'       => 0,
 					'field_class' => 'megamenu-cols megamenu-options-depend',
 				],
-				'megamenu-dropdown-custom-width' => [
-					'id'          => 'megamenu-dropdown-custom-width',
-					'label'       => esc_attr__( 'Mega menu dropdown custom width', 'groovy-menu' ),
-					'description' => esc_attr__( 'Is apply for container of menu. Leave blank or write zero for default state', 'groovy-menu' ) . '. ' . esc_attr__( 'Ignoring canvas for megamenu', 'groovy-menu' ),
-					'type'        => 'number',
-					'default'     => '',
-					'min-value'   => '0',
-					'max-value'   => '5000',
-					'value-type'  => 'px',
-					'save_id'     => self::MEGAMENU_DROPDOWN_CUSTOM_WIDTH,
-					'field_class' => 'megamenu-options-depend',
-				],
 				'megamenu-dropdown-position-start' => [
 					'id'          => 'megamenu-dropdown-position-start',
 					'label'       => esc_attr__( 'Set position of Menu block dropdown as aligned from the start of top level menu item', 'groovy-menu' ),
@@ -236,7 +209,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'save_id'     => self::MEGAMENU_DROPDOWN_POSITION_START,
 					'field_class' => 'megamenu-options-depend',
 				],
-				'megamenu-bg'                    => [
+				'megamenu-bg'                      => [
 					'id'          => 'megamenu-bg',
 					'label'       => esc_attr__( 'Mega menu background image', 'groovy-menu' ),
 					'description' => '',
@@ -246,7 +219,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'depth'       => 0,
 					'field_class' => 'megamenu-options-depend',
 				],
-				'megamenu-bg-position'           => [
+				'megamenu-bg-position'             => [
 					'id'          => 'megamenu-bg-position',
 					'label'       => esc_attr__( 'Mega menu columns', 'groovy-menu' ),
 					'choices'     => self::$backgroundPositions,
@@ -257,7 +230,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'depth'       => 0,
 					'field_class' => 'megamenu-options-depend',
 				],
-				'megamenu-bg-repeat'             => [
+				'megamenu-bg-repeat'               => [
 					'id'          => 'megamenu-bg-repeat',
 					'label'       => esc_attr__( 'Background repeat', 'groovy-menu' ),
 					'choices'     => self::$backgroundRepeats,
@@ -268,7 +241,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'depth'       => 0,
 					'field_class' => 'megamenu-options-depend',
 				],
-				'megamenu-bg-size'               => [
+				'megamenu-bg-size'                 => [
 					'id'          => 'megamenu-bg-size',
 					'label'       => esc_attr__( 'Background image size', 'groovy-menu' ),
 					'choices'     => GroovyMenuUtils::get_all_image_sizes_for_select(),
@@ -280,7 +253,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'field_class' => 'megamenu-options-depend',
 				],
 				// ------------------------------------------------------------------------------- Thumbnail settings
-				'thumb-enable'                   => [
+				'thumb-enable'                     => [
 					'id'          => 'thumb-enable',
 					'label'       => esc_attr__( 'Enable thumbnail', 'groovy-menu' ),
 					'description' => esc_attr__( 'Show thumbnail for post.', 'groovy-menu' ),
@@ -289,7 +262,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'save_id'     => self::GM_THUMB_ENABLE,
 					'lver'        => false,
 				],
-				'thumb-position'                 => [
+				'thumb-position'                   => [
 					'id'          => 'thumb-position',
 					'label'       => esc_attr__( 'Thumbnail position.', 'groovy-menu' ),
 					'choices'     => self::gmThumbPositionVariants(),
@@ -300,7 +273,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-thumb-field',
 				],
-				'thumb-max-height'               => [
+				'thumb-max-height'                 => [
 					'id'          => 'thumb-max-height',
 					'label'       => esc_attr__( 'Thumbnail image maximum height.', 'groovy-menu' ),
 					'description' => '',
@@ -313,7 +286,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-thumb-field',
 				],
-				'thumb-with-url'                 => [
+				'thumb-with-url'                   => [
 					'id'          => 'thumb-with-url',
 					'label'       => esc_attr__( 'Wrap thumbnail with menu item URL', 'groovy-menu' ),
 					'description' => '',
@@ -323,7 +296,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-thumb-field',
 				],
-				'thumb-image'                    => [
+				'thumb-image'                      => [
 					'id'          => 'thumb-image',
 					'label'       => esc_attr__( 'Thumbnail Image', 'groovy-menu' ),
 					'description' => '',
@@ -334,7 +307,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'field_class' => 'gm-thumb-field gm-thumb--image',
 				],
 				// ------------------------------------------------------------------------------------------- BADGE
-				'badge-enable'                   => [
+				'badge-enable'                     => [
 					'id'          => 'badge-enable',
 					'label'       => esc_attr__( 'Enable badge', 'groovy-menu' ),
 					'description' => esc_attr__( 'Show badge with menu item', 'groovy-menu' ),
@@ -343,7 +316,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'save_id'     => self::GM_BADGE_ENABLE,
 					'lver'        => false,
 				],
-				'badge-placement'                => [
+				'badge-placement'                  => [
 					'id'          => 'badge-placement',
 					'label'       => esc_attr__( 'Badge placement', 'groovy-menu' ),
 					'choices'     => self::gmBadgePlacementVariants(),
@@ -354,7 +327,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-field--shared',
 				],
-				'badge-general-position'         => [
+				'badge-general-position'           => [
 					'id'          => 'badge-general-position',
 					'label'       => esc_attr__( 'Badge position.', 'groovy-menu' ),
 					'choices'     => self::gmBadgeGeneralPositionVariants(),
@@ -365,7 +338,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-field--shared',
 				],
-				'badge-x-position'               => [
+				'badge-x-position'                 => [
 					'id'          => 'badge-x-position',
 					'label'       => esc_attr__( 'Badge X offset.', 'groovy-menu' ),
 					'description' => esc_attr__( 'Negative value will push badge left, positive right.', 'groovy-menu' ) . ' ' . esc_attr__( 'Any valid CSS units accepted e.q. % or px.', 'groovy-menu' ),
@@ -375,7 +348,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-field--shared',
 				],
-				'badge-y-position'               => [
+				'badge-y-position'                 => [
 					'id'          => 'badge-y-position',
 					'label'       => esc_attr__( 'Badge Y offset.', 'groovy-menu' ),
 					'description' => esc_attr__( 'Negative value will push badge up, positive down.', 'groovy-menu' ) . ' ' . esc_attr__( 'Any valid CSS units accepted e.q. % or px.', 'groovy-menu' ),
@@ -385,7 +358,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-field--shared',
 				],
-				'badge-container-padding'        => [
+				'badge-container-padding'          => [
 					'id'          => 'badge-container-padding',
 					'label'       => esc_attr__( 'Badge container padding.', 'groovy-menu' ),
 					'description' => esc_attr__( 'One, two, three or four values accepted.', 'groovy-menu' ) . ' ' . esc_attr__( 'Any valid CSS units accepted e.q. % or px.', 'groovy-menu' ),
@@ -395,7 +368,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-field--shared',
 				],
-				'badge-container-radius'         => [
+				'badge-container-radius'           => [
 					'id'          => 'badge-container-radius',
 					'label'       => esc_attr__( 'Badge container border radius.', 'groovy-menu' ),
 					'description' => esc_attr__( 'One, two, three or four values accepted.', 'groovy-menu' ) . ' ' . esc_attr__( 'Any valid CSS units accepted e.q. % or px.', 'groovy-menu' ),
@@ -405,7 +378,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-field--shared',
 				],
-				'badge-container-bg'             => [
+				'badge-container-bg'               => [
 					'id'          => 'badge-container-bg',
 					'label'       => esc_attr__( 'Badge container background color', 'groovy-menu' ),
 					'description' => '',
@@ -415,7 +388,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-field--shared',
 				],
-				'badge-type'                     => [
+				'badge-type'                       => [
 					'id'          => 'badge-type',
 					'label'       => esc_attr__( 'Badge content type', 'groovy-menu' ),
 					'choices'     => self::gmBadgeTypeVariants(),
@@ -426,7 +399,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-field--shared',
 				],
-				'badge-image'                    => [
+				'badge-image'                      => [
 					'id'          => 'badge-image',
 					'label'       => esc_attr__( 'Badge Image', 'groovy-menu' ),
 					'description' => '',
@@ -436,7 +409,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-type--image',
 				],
-				'badge-icon'                     => [
+				'badge-icon'                       => [
 					'id'          => 'badge-icon',
 					'label'       => esc_attr__( 'Badge Icon', 'groovy-menu' ),
 					'description' => '',
@@ -446,7 +419,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-type--icon',
 				],
-				'badge-icon-size'                => [
+				'badge-icon-size'                  => [
 					'id'          => 'badge-icon-size',
 					'label'       => esc_attr__( 'Badge icon size', 'groovy-menu' ),
 					'description' => esc_attr__( 'If left blank, it will use the font size from the menu item', 'groovy-menu' ),
@@ -459,7 +432,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-type--icon',
 				],
-				'badge-icon-color'               => [
+				'badge-icon-color'                 => [
 					'id'          => 'badge-icon-color',
 					'label'       => esc_attr__( 'Badge icon color', 'groovy-menu' ),
 					'description' => '',
@@ -469,7 +442,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-type--icon',
 				],
-				'badge-text'                     => [
+				'badge-text'                       => [
 					'id'          => 'badge-text',
 					'label'       => esc_attr__( 'Badge text', 'groovy-menu' ),
 					'description' => '',
@@ -479,7 +452,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-type--text',
 				],
-				'badge-text-font-family'         => [
+				'badge-text-font-family'           => [
 					'id'          => 'badge-text-font-family',
 					'label'       => esc_attr__( 'Badge text font family', 'groovy-menu' ),
 					'choices'     => $this->gmGetFontArrayForSelect(),
@@ -490,7 +463,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-type--text',
 				],
-				'badge-text-font-variant'        => [
+				'badge-text-font-variant'          => [
 					'id'          => 'badge-text-font-variant',
 					'label'       => esc_attr__( 'Badge text font variant', 'groovy-menu' ),
 					'choices'     => array( '' => esc_attr__( 'Inherit from parent', 'groovy-menu' ) ),
@@ -501,7 +474,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-type--text',
 				],
-				'badge-text-font-size'           => [
+				'badge-text-font-size'             => [
 					'id'          => 'badge-text-font-size',
 					'label'       => esc_attr__( 'Badge text font size', 'groovy-menu' ),
 					'description' => '',
@@ -514,7 +487,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-type--text',
 				],
-				'badge-text-font-color'          => [
+				'badge-text-font-color'            => [
 					'id'          => 'badge-text-font-color',
 					'label'       => esc_attr__( 'Badge text font color', 'groovy-menu' ),
 					'description' => '',
@@ -524,7 +497,33 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 					'lver'        => false,
 					'field_class' => 'gm-badge-field gm-badge-type--text',
 				],
-
+				// ------------------------------------------------------------------------------------------- OTHER
+				'megamenu-post-not-mobile'         => [
+					'id'          => 'megamenu-post-not-mobile',
+					'label'       => esc_attr__( 'Do not show Menu block content on mobile', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'checkbox',
+					'default'     => false,
+					'lver'        => false,
+					'save_id'     => self::MEGAMENU_META_POST_NOT_MOBILE,
+				],
+				'frozen-link'                      => [
+					'id'          => 'frozen-link',
+					'label'       => esc_attr__( 'Frozen link', 'groovy-menu' ),
+					'description' => esc_attr__( 'Disabled opening link at click, other features remains working.', 'groovy-menu' ),
+					'type'        => 'checkbox',
+					'default'     => false,
+					'save_id'     => self::FROZEN_LINK,
+				],
+				'is-show-featured'                 => [
+					'id'          => 'is-show-featured',
+					'label'       => esc_attr__( 'Show featured image on hover', 'groovy-menu' ),
+					'description' => '',
+					'type'        => 'checkbox',
+					'post_type'   => 'post_type',
+					'default'     => false,
+					'save_id'     => self::IS_SHOW_FEATURED_IMAGE,
+				],
 			)
 		);
 	}
@@ -1042,7 +1041,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 				// fix for bbPress function bbp_remove_all_filters('the_content').
 				if ( empty( $wp_filter['the_content'] ) ) {
 
-					$mm_content = do_shortcode( $raw_content );
+					$mm_content = GroovyMenuUtils::remove_p_tag( $raw_content );
 
 				} else {
 
@@ -1050,10 +1049,11 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 						// Apply all filters for enqueue styles
 						$filtered_content = apply_filters( 'the_content', $raw_content );
 
-						$mm_content = do_shortcode( $raw_content );
+						$mm_content = GroovyMenuUtils::remove_p_tag( $raw_content );
 
 					} else {
 						$mm_content = apply_filters( 'the_content', $raw_content );
+						$mm_content = GroovyMenuUtils::remove_p_tag( $mm_content, false );
 					}
 
 				}

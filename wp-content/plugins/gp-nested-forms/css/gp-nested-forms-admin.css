@@ -1,0 +1,170 @@
+
+/* Input Styles - Form Editor */
+
+.gfield .gpnf-nested-entries {
+	border-top: 1px solid rgba( 0, 0, 0, 0.1 );
+	min-width: 50%;
+	border-spacing: 0;
+	border-collapse: separate;
+}
+
+.gfield .gpnf-nested-entries th,
+.gfield .gpnf-nested-entries td {
+	border-bottom: 1px solid rgba( 0, 0, 0, 0.1 );
+	padding: 4px 8px;
+}
+
+.gfield .gpnf-nested-entries th {
+	background-color: rgba( 0, 0, 0, 0.1 );
+	border-color: rgba( 0, 0, 0, 0.1 );
+}
+
+.gfield .gpnf-no-entries td {
+	text-align: center;
+	padding: 10px 0;
+}
+
+.gfield .gpnf-row-actions ul {}
+
+.gfield .gpnf-row-actions li {
+	display: inline;
+}
+
+.gfield .gpnf-row-actions .delete a {
+	color: #c00;
+}
+
+.gfield .gpnf-add-entry {
+	margin-top: 10px;
+	pointer-events: none;
+}
+
+.gpnf-no-entries td span {
+	text-transform: lowercase;
+}
+
+/* Entry Vie - Field Value Styles */
+
+.gpnf-entry-view table {
+	border-spacing: 0;
+	width: 100%;
+}
+
+.gpnf-entry-view th {
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.gpnf-entry-view td {
+	border-bottom: 1px solid #eee;
+}
+
+.gpnf-no-edit {
+	font-size: 13px;
+	color: #999;
+	margin-top: 10px;
+}
+
+.gpnf-related-entries, .gpnf-actions {
+	padding: 8px 10px; /* matching WP .widefat td { } style */
+}
+
+/* Field Setting Styles */
+
+.gpnf-sub-setting {
+	margin: 0 0 15px;
+}
+
+#gpnf-entry-labels { }
+
+#gpnf-entry-labels div,
+#gpnf-entry-limits div {
+	overflow: hidden;
+	margin: 0 0 5px;
+}
+
+#gpnf-entry-labels div label,
+#gpnf-entry-limits div label {
+	width: 30%;
+	float: left;
+	margin: 0 !important;
+	line-height: 24px !important;
+}
+
+#gpnf-entry-labels div input,
+#gpnf-entry-limits div input {
+	width: 56%;
+	float: left;
+	margin: 0 !important;
+}
+
+#gpnf-entry-limits div input {
+	width: 16%;
+}
+
+#gpnf-feed-processing-setting span {
+	vertical-align: middle;
+}
+
+#gpnf-feed-processing {
+	margin-top: 0 !important;
+}
+
+.gpnf-select2.select2-container--default .select2-selection--multiple {
+	border: 1px solid #ddd;
+	box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+	background-color: #fff;
+	color: #32373c;
+	outline: none;
+	transition: 0.05s border-color ease-in-out;
+	border-radius: 0;
+}
+
+.gpnf-select2.select2-container--default.select2-container--focus .select2-selection--multiple {
+	border-color: #5b9dd9;
+	box-shadow: 0 0 2px rgba( 30, 140, 190, 0.8 );
+}
+
+.gpnf-select2.select2-selection ul.select2-selection__rendered li {
+	margin-bottom: 0 !important;
+}
+.gpnf-select2.select2-selection li.select2-selection__choice {
+	padding: 3px 6px 3px 4px !important;
+	border-radius: 3px !important;
+	border-bottom: 1px solid rgba( 0, 0, 0, 0.075 ) !important;
+}
+.gpnf-select2 .select2-dropdown .select2-results__option {
+	margin-bottom: 0 !important;
+}
+
+.gpnf-select2 .select2-default {
+	width: auto !important;
+}
+
+.gpnf-select2.select2-container .select2-search--inline .select2-search__field {
+	position: relative;
+	top: 1px;
+}
+
+#gpnf-modal-header-color {
+	width: 100px;
+}
+
+#chip_gpnf-modal-header-color {
+	cursor: pointer;
+	border: 1px solid #dfdfdf;
+	vertical-align: bottom;
+}
+
+#chooser_gpnf-modal-header-color {
+	cursor: pointer;
+	vertical-align: sub;
+}
+
+.toplevel_page_gf_edit_forms .gpnf-nested-entries {
+	width: 100%;
+}
+
+.toplevel_page_gf_edit_forms .gpnf-nested-entries thead + tbody {
+	display: none;
+}

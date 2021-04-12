@@ -1,0 +1,69 @@
+# Copyright (C) 2021 GP File Upload Pro
+# This file is distributed under the same license as the GP File Upload Pro package.
+msgid ""
+msgstr ""
+"Project-Id-Version: GP File Upload Pro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../class-gp-file-upload-pro.php:154
+msgid "select files"
+msgstr ""
+
+#: ../class-gp-file-upload-pro.php:155
+msgid "Drop files here"
+msgstr ""
+
+#: ../class-gp-file-upload-pro.php:156
+msgid "or"
+msgstr ""
+
+#: ../class-gp-file-upload-pro.php:157
+msgid "Cancel"
+msgstr ""
+
+#: ../class-gp-file-upload-pro.php:158
+msgid "Crop"
+msgstr ""
+
+#: ../class-gp-file-upload-pro.php:192
+msgid "Enable File Upload Pro"
+msgstr ""
+
+#: ../class-gp-file-upload-pro.php:197
+msgstr ""
+
+#: ../class-gp-file-upload-pro.php:204, ../class-gp-file-upload-pro.php:274
+msgid "Enable Cropping"
+msgstr ""
+
+#: ../class-gp-file-upload-pro.php:212
+msgid "Require Crop"
+msgstr ""
+
+#: ../class-gp-file-upload-pro.php:268
+msgid "File Upload Pro"
+msgstr ""
+
+#: ../class-gp-file-upload-pro.php:269
+msgid "Greatly improve the uploading experience for your Gravity Forms File Upload fields."
+msgstr ""
+
+#: ../class-gp-file-upload-pro.php:275
+msgid "Allow users to crop their uploaded images by clicking on the image thumbnail."
+msgstr ""
+
+#: ../class-gp-file-upload-pro.php:280
+msgid "Require Crop on Upload"
+msgstr ""
+
+#: ../class-gp-file-upload-pro.php:281
+msgid "Require that images be cropped on upload by automatically opening the cropper. If the crop is canceled, the files are not uploaded."
+msgstr ""

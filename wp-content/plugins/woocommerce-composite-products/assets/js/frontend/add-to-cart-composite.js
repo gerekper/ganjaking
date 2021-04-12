@@ -314,6 +314,85 @@ jQuery.fn.wc_get_composite_script = function() {
 	return false;
 };
 
+/**
+ * Composite app object getter.
+ */
+jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
+
+	var $el      = jQuery( this ),
+	    before   = callbacks && typeof callbacks.before === 'function' ? callbacks.before : false,
+	    start    = callbacks && typeof callbacks.start === 'function' ? callbacks.start : false,
+	    complete = callbacks && typeof callbacks.complete === 'function' ? callbacks.complete : false;
+
+	if ( before ) {
+		before();
+	}
+
+	if ( 'css' === wc_composite_params.animate_height_method ) {
+
+		var from = $el.get( 0 ).getBoundingClientRect().height;
+
+		if ( typeof from === 'undefined' ) {
+			from = $el.outerHeight();
+		}
+
+		$el.addClass( 'animating' ).css( {
+			height: from + 'px',
+			overflow: 'hidden',
+			transition: 'height ' + ( duration - 10 ) / 1000 + 's',
+			'-webkit-transition': 'height ' + ( duration - 10 ) / 1000 + 's'
+		} );
+
+		setTimeout( function() {
+
+			if ( callbacks && typeof callbacks.start === 'function' ) {
+				callbacks.start();
+			}
+
+			$el.css( {
+				height: to + 'px'
+			} );
+
+		}, 1 );
+
+		setTimeout( function() {
+
+			$el.removeClass( 'animating' ).css( {
+				height: '',
+				overflow: '',
+				transition: '',
+				'-webkit-transition': ''
+			} );
+
+			if ( callbacks && typeof callbacks.complete === 'function' ) {
+				callbacks.complete();
+			}
+
+		}, duration );
+
+	} else {
+
+		var params = { duration: duration, queue: false, always: function() {
+
+			if ( complete ) {
+				complete();
+			}
+
+			$el.removeClass( 'animating' );
+		} };
+
+		setTimeout( function() {
+
+			if ( start ) {
+				start();
+			}
+
+			$el.addClass( 'animating' ).animate( { 'height': to }, params );
+
+		}, 1 );
+	}
+};
+
 /*-----------------------------------------------------------------*/
 /*  Encapsulation.                                                 */
 /*-----------------------------------------------------------------*/
@@ -2618,14 +2697,15 @@ jQuery.fn.wc_get_composite_script = function() {
 						 */
 						options_state: {
 							active: _.pluck( _.where( this.available_options_data, { is_in_view: true } ), 'option_id' ),
-							inactive: []
+							inactive: [],
+							invalid: []
 						},
 
 						/**
 						 * 'compat_group' and 'conditional_options' scenarios when the options state was calculated.
 						 */
 						options_in_scenarios: {
-							compat_group: composite.scenarios.clean_masked_scenarios( composite.scenarios.get_scenarios_by_type( 'compat_group' ), self.component_id ),
+							compat_group: composite.scenarios.clean_masked_component_scenarios( composite.scenarios.get_scenarios_by_type( 'compat_group' ), self.component_id ),
 							conditional_options: composite.scenarios.get_scenarios_by_type( 'conditional_options', self.component_id )
 						}
 					};
@@ -2848,7 +2928,7 @@ jQuery.fn.wc_get_composite_script = function() {
 
 					var active_cg_scenarios                = [],
 						active_co_scenarios                = [],
-						options_state                      = { active: [], inactive: [] },
+						options_state                      = { active: [], inactive: [], invalid: [] },
 						component_id                       = self.component_id,
 						scenario_data                      = composite.scenarios.get_scenario_data().scenario_data,
 						scenario_data_component            = scenario_data[ component_id ],
@@ -2864,7 +2944,7 @@ jQuery.fn.wc_get_composite_script = function() {
 					composite.console_log( 'debug:models', '\nReference scenarios: [' + active_cg_scenarios + ']' );
 					composite.console_log( 'debug:models', 'Removing scenarios where the current component is masked...' );
 
-					active_cg_scenarios = composite.scenarios.clean_masked_scenarios( active_cg_scenarios, component_id );
+					active_cg_scenarios = composite.scenarios.clean_masked_component_scenarios( active_cg_scenarios, component_id );
 
 					// Enable all options if all active scenarios ignore this component.
 					if ( active_cg_scenarios.length === 0 ) {
@@ -2895,15 +2975,18 @@ jQuery.fn.wc_get_composite_script = function() {
 					 * Set component 'optional' status by adding the '' product ID to the 'options_state' array.
 					 */
 
-					if ( 0 in scenario_data_component ) {
-						if ( this.intersection_exists( scenario_data_component[ 0 ], active_cg_scenarios ) ) {
-							is_optional = true;
-						}
-					}
+					if ( self.maybe_is_optional() ) {
 
-					if ( 0 in conditional_options_data_component ) {
-						if ( this.intersection_exists( conditional_options_data_component[ 0 ], active_co_scenarios ) ) {
-							is_optional = false;
+						if ( 0 in scenario_data_component ) {
+							if ( this.intersection_exists( scenario_data_component[ 0 ], active_cg_scenarios ) ) {
+								is_optional = true;
+							}
+						}
+
+						if ( 0 in conditional_options_data_component ) {
+							if ( this.intersection_exists( conditional_options_data_component[ 0 ], active_co_scenarios ) ) {
+								is_optional = false;
+							}
 						}
 					}
 
@@ -3026,7 +3109,10 @@ jQuery.fn.wc_get_composite_script = function() {
 									invalid_variation_found = true;
 
 									if ( invalid_variation_found ) {
+
 										composite.console_log( 'debug:models', '		--- Selection invalid.' );
+
+										options_state.invalid.push( variation_id.toString() );
 									}
 								}
 							}
@@ -3043,11 +3129,32 @@ jQuery.fn.wc_get_composite_script = function() {
 					 * 2. Check selections.
 					 */
 
-					if ( composite.settings.layout === 'single' || self.is_current() ) {
+					if ( composite.filters.apply_filters( 'reset_invalid_selections', [ false, self ] ) ) {
 
 						composite.console_log( 'debug:models', '\nChecking current "' + self.get_title() + '" selections:' );
 
-						if ( invalid_variation_found ) {
+						if ( invalid_product_found ) {
+
+							if ( self.is_static() ) {
+
+								composite.console_log( 'debug:models', '\nProduct selection invalid - moving on (static component)...\n\n' );
+
+							} else {
+
+								composite.console_log( 'debug:models', '\nProduct selection invalid - resetting...\n\n' );
+
+								maybe_update_model = false;
+
+								composite.debug_indent_incr();
+
+								self.component_selection_view.resetting_product = true;
+								self.component_selection_view.set_option( '' );
+								self.component_selection_view.resetting_product = false;
+
+								composite.debug_indent_decr();
+							}
+
+						} else if ( invalid_variation_found ) {
 
 							maybe_update_model = false;
 
@@ -3061,8 +3168,6 @@ jQuery.fn.wc_get_composite_script = function() {
 
 							composite.debug_indent_decr();
 
-						} else if ( invalid_product_found ) {
-							composite.console_log( 'debug:models', '\nProduct selection invalid.\n\n' );
 						} else  {
 							composite.console_log( 'debug:models', '...looking good!' );
 						}
@@ -3463,7 +3568,12 @@ jQuery.fn.wc_get_composite_script = function() {
 
 								if ( ! is_compatible ) {
 
-									variation.variation_is_active = false;
+									if ( parseInt( selected_variation, 10 ) === parseInt( variation_id, 10 ) ) {
+										// This prop has no effect other than to make sure that 'Component_Options_View::render' will update the attribute dropdowns when we choose a different variation.
+										variation.variation_is_valid = false;
+									} else {
+										variation.variation_is_active = false;
+									}
 
 									// Do not include incompatible variations with empty attributes - they can break stuff when prioritized.
 									for ( var attribute_name in variation.attributes ) {
@@ -3490,8 +3600,9 @@ jQuery.fn.wc_get_composite_script = function() {
 									active_variations_data.push( variation_data[ i ] );
 								} else {
 									if ( parseInt( selected_variation, 10 ) === parseInt( variation_id, 10 ) ) {
-										variation                     = $.extend( true, {}, variation_data[ i ] );
-										variation.variation_is_active = false;
+										variation                    = $.extend( true, {}, variation_data[ i ] );
+										// This prop has no effect other than to make sure that 'Component_Options_View::render' will update the attribute dropdowns when we choose a different variation.
+										variation.variation_is_valid = false;
 										active_variations_data.push( variation );
 									}
 								}
@@ -3544,7 +3655,11 @@ jQuery.fn.wc_get_composite_script = function() {
 
 				initialize: function() {
 
-					this.is_scroll_anchoring_supported();
+					var view = this;
+
+					setTimeout( function() {
+						view.is_scroll_anchoring_supported();
+					}, 100 );
 
 					if ( 'single' === composite.settings.layout ) {
 
@@ -5709,25 +5824,24 @@ jQuery.fn.wc_get_composite_script = function() {
 							if ( view.$el.is( ':visible' ) && Math.abs( new_height - view.view_elements[ component_id ].load_height ) > 1 ) {
 								animate_height = true;
 							} else {
-								$item_summary_outer.css( 'height', 'auto' );
+								$item_summary_outer.css( { height: 'auto' } );
 							}
 
 							if ( animate_height ) {
 
-								$item_summary_outer.animate( { 'height': new_height }, {
+								$item_summary_outer.wc_cp_animate_height( new_height, 200, {
 
-									duration: 200,
-									queue:    true,
-									start:    function() {
+									start: function() {
 
 										composite.console_log( 'debug:animations', 'Starting updated summary element content animation...' );
 
 									},
-									always:   function() {
+
+									complete: function() {
 
 										composite.console_log( 'debug:animations', 'Ended updated summary element content animation.' );
 
-										$item_summary_outer.css( { 'height': 'auto' } );
+										$item_summary_outer.css( { height: 'auto' } );
 
 									}
 
@@ -6945,6 +7059,8 @@ jQuery.fn.wc_get_composite_script = function() {
 				must_reload_options: false,
 				is_lazy_load_pending: false,
 
+				has_invalid_empty_option: false,
+
 				changes: {
 					dropdown:   { changed: false, to: '' },
 					thumbnails: { changed: false, to: '' },
@@ -7018,10 +7134,8 @@ jQuery.fn.wc_get_composite_script = function() {
 					/**
 					 * Update component options in view when selections change.
 					 */
-					if ( self.is_priced_individually() && 'relative' === self.get_price_display_format() ) {
-						composite.actions.add_action( 'component_selection_changed', this.component_selection_changed_handler, 100, this );
-						composite.actions.add_action( 'component_selection_content_changed', this.component_selection_changed_handler, 100, this );
-					}
+					composite.actions.add_action( 'component_selection_changed', this.component_selection_changed_handler, 100, this );
+					composite.actions.add_action( 'component_selection_content_changed', this.component_selection_changed_handler, 100, this );
 
 					/**
 					 * Reload options if the scenarios used to render them have changed.
@@ -7041,7 +7155,15 @@ jQuery.fn.wc_get_composite_script = function() {
 				 */
 				component_selection_changed_handler: function( step ) {
 
-					if ( self.step_id === step.step_id && ! self.component_selection_model.has_pending_updates() ) {
+					if ( self.step_id !== step.step_id ) {
+						return;
+					}
+
+					if ( self.component_selection_model.has_pending_updates() ) {
+						return;
+					}
+
+					if ( ( self.is_priced_individually() && 'relative' === self.get_price_display_format() ) || this.has_invalid_empty_option ) {
 						self.component_options_view.render();
 					}
 				},
@@ -7088,7 +7210,7 @@ jQuery.fn.wc_get_composite_script = function() {
 				options_in_scenarios_changed: function() {
 
 					if ( this.model.reload_options_on_scenarios_change() ) {
-					
+
 						this.must_reload_options = true;
 
 						if ( 'single' === composite.settings.layout ) {
@@ -7449,6 +7571,8 @@ jQuery.fn.wc_get_composite_script = function() {
 						empty_option_disabled = false,
 						empty_option_template;
 
+					view.has_invalid_empty_option = false;
+
 					// Always add an empty option when there are no valid options to select - necessary to allow resetting an existing invalid selection.
 					if ( active_options.length === 0 ) {
 
@@ -7481,8 +7605,10 @@ jQuery.fn.wc_get_composite_script = function() {
 							show_empty_option = true;
 						} else if ( '' === selected_product && false === self.show_placeholder_option() ) {
 							show_empty_option = true;
+							view.has_invalid_empty_option = true;
 						} else if ( false === self.is_selected_product_valid() && false === self.show_placeholder_option() ) {
 							show_switching_option = true;
+							view.has_invalid_empty_option = true;
 						}
 					}
 
@@ -7813,6 +7939,14 @@ jQuery.fn.wc_get_composite_script = function() {
 				},
 
 				/**
+				 * Allows filtering animation durations.
+				 */
+				get_animation_duration: function( context ) {
+					// Pass through 'component_component_options_animation_duration' filter - @see WC_CP_Filters_Manager class.
+					return composite.filters.apply_filters( 'component_component_options_animation_duration', [ 250, context, self ] );
+				},
+
+				/**
 				 * Animate view when reloading/appending options.
 				 */
 				animate_options: function() {
@@ -7839,8 +7973,9 @@ jQuery.fn.wc_get_composite_script = function() {
 
 						composite.console_log( 'debug:animations', 'Starting component options height animation...' );
 
-						self.$component_options.animate( { 'height' : new_height }, { duration: 250, queue: false, always: function() {
-							self.$component_options.css( { 'height' : 'auto' } );
+						self.$component_options.wc_cp_animate_height( new_height, view.get_animation_duration( this.update_action ), { complete: function() {
+
+							self.$component_options.css( { height: 'auto' } );
 
 							composite.console_log( 'debug:animations', 'Ended component options height animation.' );
 
@@ -8178,7 +8313,7 @@ jQuery.fn.wc_get_composite_script = function() {
 					/**
 					 * Update the addons totals when addons change.
 					 */
-					composite.actions.add_action( 'component_addons_changed', this.addons_changed_handler, 100, this );	
+					composite.actions.add_action( 'component_addons_changed', this.addons_changed_handler, 100, this );
 
 					/**
 					 * Update the addons totals when a new variation selection is made.
@@ -8394,7 +8529,7 @@ jQuery.fn.wc_get_composite_script = function() {
 				quantity_changed_handler: function( step ) {
 
 					if ( step.step_id === self.step_id ) {
-						
+
 						this.update_selection_title( this.model );
 
 						var addons_data = this.get_updated_addons_data();
@@ -8839,7 +8974,7 @@ jQuery.fn.wc_get_composite_script = function() {
 
 								// Animate component content height to 0.
 								// Then, reset relocation and update content.
-								self.$component_content.animate( { 'height': 0 }, { duration: view.get_animation_duration( 'close' ), queue: false, always: function() {
+								self.$component_content.wc_cp_animate_height( 0, view.get_animation_duration( 'close' ), { complete: function() {
 
 									composite.console_log( 'debug:animations', 'Ended component content height animation.' );
 
@@ -8876,7 +9011,7 @@ jQuery.fn.wc_get_composite_script = function() {
 											}
 
 											// while setting height to 0.
-											self.$component_content.css( { 'height': 0 } );
+											self.$component_content.css( { height: 0 } );
 
 											setTimeout( function() {
 
@@ -8893,7 +9028,7 @@ jQuery.fn.wc_get_composite_script = function() {
 
 									composite.console_log( 'debug:animations', 'Starting component content height animation...' );
 
-									self.$component_content.animate( { 'height': 0 }, { duration: view.get_animation_duration( 'close' ), queue: false, always: function() {
+									self.$component_content.wc_cp_animate_height( 0, view.get_animation_duration( 'close' ), { complete: function() {
 
 										composite.console_log( 'debug:animations', 'Ended component content height animation.' );
 
@@ -8909,7 +9044,7 @@ jQuery.fn.wc_get_composite_script = function() {
 						} else {
 
 							// Lock height.
-							self.$component_content.css( 'height', view.load_height );
+							self.$component_content.css( { height: view.load_height } );
 
 							// Render content.
 							view.render_content();
@@ -8920,14 +9055,14 @@ jQuery.fn.wc_get_composite_script = function() {
 						composite.console_log( 'debug:animations', 'Starting component content height animation...' );
 
 						// Animate component content height.
-						self.$component_content.animate( { 'height': 0 }, { duration: view.get_animation_duration( 'close' ), queue: false, always: function() {
+						self.$component_content.wc_cp_animate_height( 0, view.get_animation_duration( 'close' ), { complete: function() {
 
 							composite.console_log( 'debug:animations', 'Ended component content height animation.' );
 
 							// Reset content.
 							view.reset_content();
 
-							self.$component_content.css( { 'height': 'auto' } );
+							self.$component_content.css( { height: 'auto' } );
 
 						} } );
 					}
@@ -9148,13 +9283,12 @@ jQuery.fn.wc_get_composite_script = function() {
 
 						composite.console_log( 'debug:animations', 'Starting updated content height animation...' );
 
-						// Animate component content height.
-						self.$component_content.animate( { 'height': new_height }, { duration: view.get_animation_duration( 'open' ), queue: false, always: function() {
+						self.$component_content.wc_cp_animate_height( new_height, view.get_animation_duration( 'open' ), { complete: function() {
 
 							composite.console_log( 'debug:animations', 'Ended updated content height animation.' );
 
 							// Reset height.
-							self.$component_content.css( { 'height' : 'auto' } );
+							self.$component_content.css( { height: 'auto' } );
 
 							// Unblock.
 							view.unblock();
@@ -10759,13 +10893,13 @@ jQuery.fn.wc_get_composite_script = function() {
 						continue;
 					}
 
-					for ( var product_id in scenario_data[ c_id ] ) {
+					for ( var c_product_id in scenario_data[ c_id ] ) {
 
-						if ( ! scenario_data[ c_id ].hasOwnProperty( product_id ) ) {
+						if ( ! scenario_data[ c_id ].hasOwnProperty( c_product_id ) ) {
 							continue;
 						}
 
-						manager_data.scenario_data.scenario_data[ c_id ][ product_id ] = scenario_data[ c_id ][ product_id ];
+						manager_data.scenario_data.scenario_data[ c_id ][ c_product_id ] = scenario_data[ c_id ][ c_product_id ];
 					}
 				}
 
@@ -10950,16 +11084,16 @@ jQuery.fn.wc_get_composite_script = function() {
 
 						if ( is_masked && scenario_shaping_components.length ) {
 							composite.console_log( 'debug:scenarios', 'Removing "conditional_component" scenarios where all scenario shaping components (' + scenario_shaping_components + ') are masked...' );
-							active_cc_scenarios = manager.get_binding_scenarios( active_cc_scenarios, scenario_shaping_components );
+							active_cc_scenarios = manager.filter_unmatched_scenarios( active_cc_scenarios, scenario_shaping_components );
 						}
 
 						if ( is_strict ) {
-							composite.console_log( 'debug:scenarios', 'Removing "conditional_component" scenarios that contain any non-shaping + non-masked components...' );
-							active_cc_scenarios = manager.get_strictly_matching_scenarios( active_cc_scenarios, scenario_shaping_components );
+							composite.console_log( 'debug:scenarios', 'Removing "conditional_component" scenarios with conditions that are partially matched...' );
+							active_cc_scenarios = manager.clean_partially_matched_scenarios( active_cc_scenarios, scenario_shaping_components );
 						}
 
-						composite.console_log( 'debug:scenarios', 'Removing "conditional_component" scenarios that contain any hidden + non-masked components...' );
-						active_cc_scenarios = manager.get_visible_component_scenarios( active_cc_scenarios, hidden_components );
+						composite.console_log( 'debug:scenarios', 'Removing "conditional_component" scenarios that contain hidden components which require a selection in order to be matched...' );
+						active_cc_scenarios = manager.clean_hidden_component_scenarios( active_cc_scenarios, hidden_components );
 
 						composite.console_log( 'debug:scenarios', 'Calculating "' + component.get_title() + '" visibility...' );
 
@@ -11022,21 +11156,20 @@ jQuery.fn.wc_get_composite_script = function() {
 					product_type = component.get_selected_product_type(),
 					variation_id = 'variable' === product_type ? component.get_selected_variation( false ) : '';
 
+				// Evaluate empty selections if the component is optional, or if the calculation type permits it.
+				if ( product_id === '' ) {
+					if ( component.maybe_is_optional() || ! skip_invalid ) {
+						product_id = '0';
+					} else {
+						continue;
+					}
+				}
+
 				if ( product_id !== null && product_id >= 0 ) {
 
-					var scenario_data      = manager.get_scenario_data().scenario_data,
-						item_scenario_data = scenario_data[ component.component_id ];
-
-					// Treat '' optional component selections as 'None' if the component is optional.
-					if ( product_id === '' ) {
-						if ( 0 in item_scenario_data ) {
-							product_id = '0';
-						} else {
-							continue;
-						}
-					}
-
-					var product_in_scenarios = [];
+					var scenario_data        = manager.get_scenario_data().scenario_data,
+						item_scenario_data   = scenario_data[ component.component_id ],
+						product_in_scenarios = [];
 
 					if ( 'variable' === product_type ) {
 
@@ -11046,7 +11179,7 @@ jQuery.fn.wc_get_composite_script = function() {
 
 						} else if ( ! variation_id ) {
 
-							product_in_scenarios = ( product_id + '_variations' in item_scenario_data ) ? manager.filter_scenarios_by_type( item_scenario_data[ product_id + '_variations' ], type ) : [];
+							product_in_scenarios = ( product_id + '_empty' in item_scenario_data ) ? manager.filter_scenarios_by_type( item_scenario_data[ product_id + '_empty' ], type ) : [];
 
 							if ( ! product_in_scenarios.length ) {
 								composite.console_log( 'debug:scenarios', 'Selection #' + product_id + ' of "' + component.get_title() + '" not contributing to the active "' + type + '" Scenarios.' );
@@ -11092,13 +11225,13 @@ jQuery.fn.wc_get_composite_script = function() {
 			// Filter out any scenarios where all scenario shaping components are masked.
 			if ( is_masked && scenario_shaping_components.length ) {
 				composite.console_log( 'debug:scenarios', 'Removing scenarios where all scenario shaping components (' + scenario_shaping_components + ') are masked...' );
-				active_scenarios = manager.get_binding_scenarios( active_scenarios, scenario_shaping_components );
+				active_scenarios = manager.filter_unmatched_scenarios( active_scenarios, scenario_shaping_components );
 			}
 
 			// Filter out any scenarios that contain any non-shaping AND non-masked components.
 			if ( is_strict ) {
 				composite.console_log( 'debug:scenarios', 'Removing scenarios that contain any non-shaping + non-masked components...' );
-				active_scenarios = manager.get_strictly_matching_scenarios( active_scenarios, scenario_shaping_components );
+				active_scenarios = manager.clean_partially_matched_scenarios( active_scenarios, scenario_shaping_components );
 			}
 
 			composite.console_log( 'debug:scenarios', 'Calculated scenarios: [' + active_scenarios + ']\n' );
@@ -11107,9 +11240,9 @@ jQuery.fn.wc_get_composite_script = function() {
 		};
 
 		/**
-		 * Filters out unbinding scenarios.
+		 * Filters out scenarios where all shaping components are masked.
 		 */
-		this.get_binding_scenarios = function( scenarios, scenario_shaping_components ) {
+		this.filter_unmatched_scenarios = function( scenarios, scenario_shaping_components ) {
 
 			var masked           = this.get_scenario_data().scenario_settings.masked_components,
 				scenarios_length = scenarios.length,
@@ -11180,7 +11313,7 @@ jQuery.fn.wc_get_composite_script = function() {
 		/**
 		 * Filters out scenarios where a component is masked.
 		 */
-		this.clean_masked_scenarios = function( scenarios, component_id ) {
+		this.clean_masked_component_scenarios = function( scenarios, component_id ) {
 
 			var masked           = this.get_scenario_data().scenario_settings.masked_components,
 				scenarios_length = scenarios.length,
@@ -11205,7 +11338,7 @@ jQuery.fn.wc_get_composite_script = function() {
 		/**
 		 * Returns scenarios where a component is masked.
 		 */
-		this.get_masked_scenarios = function( scenarios, component_id ) {
+		this.get_masked_component_scenarios = function( scenarios, component_id ) {
 
 			var masked           = this.get_scenario_data().scenario_settings.masked_components,
 				scenarios_length = scenarios.length,
@@ -11228,13 +11361,13 @@ jQuery.fn.wc_get_composite_script = function() {
 		};
 
 		/**
-		 * Returns scenarios where a component is not masked.
+		 * Filters out scenarios that specify a component in the conditions.
 		 */
-		this.get_unmasked_scenarios = function( scenarios, component_id ) {
+		this.get_unmasked_component_scenarios = function( scenarios, component_id ) {
 
 			var masked           = this.get_scenario_data().scenario_settings.masked_components,
 				scenarios_length = scenarios.length,
-				dirty            = [],
+				unmasked         = [],
 				scenario_id      = '';
 
 			if ( scenarios_length > 0 ) {
@@ -11243,40 +11376,62 @@ jQuery.fn.wc_get_composite_script = function() {
 					scenario_id = scenarios[ i ];
 
 					if ( $.inArray( component_id.toString(), masked[ scenario_id ] ) === -1 ) {
-						dirty.push( scenario_id );
+						unmasked.push( scenario_id );
 					}
 
 				}
 			}
 
-			return dirty;
+			return unmasked;
+		};
+
+		/**
+		 * Filters out scenarios that require a component to be have a specific value in order to be fully matched (not masked or 'any').
+		 */
+		this.get_unmatched_component_scenarios = function( scenarios, component_id ) {
+
+			var masked           = this.get_scenario_data().scenario_settings.masked_components,
+				any              = this.get_scenario_data().scenario_settings.any_components,
+				scenarios_length = scenarios.length,
+				unmatched        = [],
+				scenario_id      = '';
+
+			if ( scenarios_length > 0 ) {
+				for ( var i = 0; i < scenarios_length; i++ ) {
+
+					scenario_id = scenarios[ i ];
+
+					if ( $.inArray( component_id.toString(), masked[ scenario_id ] ) === -1 && $.inArray( component_id.toString(), any[ scenario_id ] ) === -1 ) {
+						unmatched.push( scenario_id );
+					}
+
+				}
+			}
+
+			return unmatched;
 		};
 
 		/*
-		 * Filter out any scenarios containing components that:
-		 * - are not masked; AND
-		 * - are not scenario-shaping.
+		 * Filters out partially-matched scenarios if their conditions contain non-shaping components that must have a specific value (not masked or 'any').
 		 */
-		this.get_strictly_matching_scenarios = function( scenarios, scenario_shaping_components ) {
+		this.clean_partially_matched_scenarios = function( scenarios, scenario_shaping_components ) {
 
 			var non_shaping_components = _.difference( _.pluck( composite.get_components(), 'component_id' ), scenario_shaping_components );
 
 			for ( var index = 0, length = non_shaping_components.length; index < length; index++ ) {
-				scenarios = _.difference( scenarios, this.get_unmasked_scenarios( scenarios, non_shaping_components[ index ] ) );
+				scenarios = _.difference( scenarios, this.get_unmatched_component_scenarios( scenarios, non_shaping_components[ index ] ) );
 			}
 
 			return scenarios;
 		};
 
 		/*
-		 * Filter out any scenarios containing components that:
-		 * - are not masked; AND
-		 * - are hidden.
+		 * Filters out any matched scenarios if their conditions contain hidden components that must have a specific value (not masked or 'any'):
 		 */
-		this.get_visible_component_scenarios = function( scenarios, hidden_components ) {
+		this.clean_hidden_component_scenarios = function( scenarios, hidden_components ) {
 
 			for ( var index = 0, length = hidden_components.length; index < length; index++ ) {
-				scenarios = _.difference( scenarios, this.get_unmasked_scenarios( scenarios, hidden_components[ index ] ) );
+				scenarios = _.difference( scenarios, this.get_unmasked_component_scenarios( scenarios, hidden_components[ index ] ) );
 			}
 
 			return scenarios;
@@ -11543,6 +11698,25 @@ jQuery.fn.wc_get_composite_script = function() {
 		};
 
 		/**
+		 * Gets the duration of a step transition.
+		 */
+		WC_CP_Step.prototype.get_step_transition_duration = function( prop ) {
+
+			var duration = 0;
+
+			if ( 'opacity' === prop ) {
+				duration = 200;
+			} else if ( 'height' === prop ) {
+				duration = 150;
+			} else if ( 'toggle' === prop ) {
+				duration = 300;
+			}
+
+			// Pass through 'component_step_transition_animation_duration' filter - @see WC_CP_Filters_Manager class.
+			return this.composite.filters.apply_filters( 'component_step_transition_animation_duration', [ duration, prop, this ] );
+		};
+
+		/**
 		 * Sets a step as active by hiding the previous one and updating the steps' markup.
 		 */
 		WC_CP_Step.prototype.set_active = function() {
@@ -11553,7 +11727,7 @@ jQuery.fn.wc_get_composite_script = function() {
 				curr_step     = composite.get_current_step(),
 				$el_out       = curr_step.$el,
 				$el_in        = step.$el,
-				el_order      = step.step_index - curr_step.step_index,
+				el_in_height  = 0,
 				el_out_height = 0;
 
 			composite.set_current_step( step );
@@ -11572,77 +11746,112 @@ jQuery.fn.wc_get_composite_script = function() {
 
 					setTimeout( function() {
 
-						var el_out_classes = 'faded',
-							el_in_classes  = 'invisible faded';
+						var duration_opacity = step.get_step_transition_duration( 'opacity' ) - 10,
+						    duration_height  = step.get_step_transition_duration( 'height' ) - 10,
+						    el_out_classes   = 'faded',
+						    el_in_classes    = 'faded invisible';
 
-						if ( el_order > 0 ) {
-							el_out_classes += ' faded-out';
-							el_in_classes  += ' faded-in';
-						} else {
-							el_out_classes += ' faded-in';
-							el_in_classes  += ' faded-out';
-						}
+						$el_out.css( {
+							transition: 'opacity ' + duration_opacity / 1000 + 's',
+							'-webkit-transition': 'opacity ' + duration_opacity / 1000 + 's'
+						} );
 
-						$el_out.addClass( el_out_classes );
-						$el_in.addClass( el_in_classes );
+						setTimeout( function() {
+
+							$el_out.addClass( el_out_classes );
+							$el_in.addClass( el_in_classes );
+
+						}, 1 );
 
 						setTimeout( function() {
 
 							// Measure height.
-
 							el_out_height = $el_out.get( 0 ).getBoundingClientRect().height;
-
 							if ( typeof el_out_height === 'undefined' ) {
 								el_out_height = $el_out.outerHeight();
 							}
 
-							// Make invisible.
-							$el_out.addClass( 'invisible' );
-
 							// Lock height.
-							$el_out.css( 'height', el_out_height );
+							$el_out.addClass( 'invisible' );
+							$el_out.css( {
+								height: el_out_height + 'px',
+								overflow: 'hidden',
+								transition: 'height ' + duration_height / 1000 + 's'
+							} );
+
+							$el_in.css( {
+								height: '0px',
+								overflow: 'hidden',
+								transition: 'height ' + duration_height / 1000 + 's',
+								'-webkit-transition': 'height ' + duration_height / 1000 + 's'
+							} ).show();
 
 							// Run 'active_step_transition_start' action - @see WC_CP_Actions_Dispatcher class description.
 							composite.actions.do_action( 'active_step_transition_start', [ step ] );
 
 							composite.console_log( 'debug:animations', 'Starting transition...' );
 
-							// Hide old view with a sliding effect.
-							$el_out.slideUp( { duration: 150, always: function() {
-								// Release height lock.
-								$el_out.css( 'height', 'auto' );
-							} } );
+							setTimeout( function() {
+								// Measure incoming component height.
+								el_in_height = $el_in.get( 0 ).scrollHeight;
+								// Hide old view with a sliding effect.
+								$el_out.css( {
+									height: '0px'
+								} );
+								// Show new view with a sliding effect.
+								$el_in.css( {
+									height: el_in_height + 'px'
+								} );
+							}, 1 );
 
-							// Show new view with a sliding effect.
-							$el_in.slideDown( { duration: 150, always: function() {
+							setTimeout( function() {
+
+								$el_out.hide();
+								$el_out.removeClass( 'faded invisible' );
+								$el_out.css( {
+									height: '',
+									overflow: '',
+									transition: '',
+									'-webkit-transition': ''
+								} );
+
+								$el_in.css( {
+									height: '',
+									overflow: '',
+									transition: 'opacity ' + duration_opacity / 1000 + 's',
+									'-webkit-transition': 'opacity ' + duration_opacity / 1000 + 's'
+								} );
 
 								setTimeout( function() {
+
+									composite.console_log( 'debug:animations', 'Transition ended.' );
+
 									// Run 'active_step_transition_end' action - @see WC_CP_Actions_Dispatcher class description.
 									composite.actions.do_action( 'active_step_transition_end', [ step ] );
-								}, 250 );
 
-								composite.console_log( 'debug:animations', 'Transition ended.' );
-
-								setTimeout( function() {
-
-									composite.$steps.removeClass( 'faded-in faded-out faded invisible' );
+									$el_in.css( {
+										transition: '',
+										'-webkit-transition': ''
+									} );
 
 									if ( 'yes' === wc_composite_params.accessible_focus_enabled && step.$step_title_aria ) {
-										setTimeout( function() {
-											step.$step_title_aria.trigger( 'focus' );
-										}, 250 );
+										step.$step_title_aria.trigger( 'focus' );
 									}
 
-								}, 10 );
+								}, duration_opacity + 10 );
+
+								setTimeout( function() {
+									$el_in.removeClass( 'faded invisible' );
+								}, 1 );
 
 								composite.has_transition_lock = false;
 								composite.$composite_form_blocker.removeClass( 'blocked' );
 
-							} } );
+							}, duration_height + 10 );
 
-						}, 250 );
+						}, duration_opacity + 10 );
 
-					}, 10 );
+					}, 5 );
 
 				} else {
 
@@ -11665,7 +11874,7 @@ jQuery.fn.wc_get_composite_script = function() {
 
 						composite.has_transition_lock = false;
 
-					}, 350 );
+					}, step.get_step_transition_duration( 'toggle' ) + 50 );
 
 				}
 
@@ -11753,12 +11962,12 @@ jQuery.fn.wc_get_composite_script = function() {
 
 				if ( state === 'open' ) {
 					if ( this.$el.hasClass( 'closed' ) ) {
-						wc_cp_toggle_element( this.$el, this.$inner_el, complete );
+						wc_cp_toggle_element( this.$el, this.$inner_el, complete, this.get_step_transition_duration( 'toggle' ) );
 					}
 
 				} else if ( state === 'closed' ) {
 					if ( this.$el.hasClass( 'open' ) ) {
-						wc_cp_toggle_element( this.$el, this.$inner_el, complete );
+						wc_cp_toggle_element( this.$el, this.$inner_el, complete, this.get_step_transition_duration( 'toggle' ) );
 					}
 				}
 
@@ -11871,6 +12080,7 @@ jQuery.fn.wc_get_composite_script = function() {
 							if ( product_type === 'variable' ) {
 
 								if ( ! this.is_selected_variation_valid() ) {
+									this.add_validation_message( wc_composite_params.i18n_selected_product_options_invalid );
 									this.add_validation_message( wc_composite_params.i18n_selected_product_options_invalid, 'composite' );
 								} else {
 									this.add_validation_message( wc_composite_params.i18n_select_product_options );
@@ -12718,16 +12928,15 @@ jQuery.fn.wc_get_composite_script = function() {
 		};
 
 		/**
-		 * True if a Component is set as optional.
+		 * Whether a Component is set as optional.
 		 */
 		WC_CP_Component.prototype.maybe_is_optional = function() {
-
-			var scenario_data      = this.composite.scenarios.get_scenario_data().scenario_data,
-				item_scenario_data = scenario_data[ this.component_id ];
-
-			return ( 0 in item_scenario_data );
+			return 'yes' === this.composite.settings.optional_data[ this.step_id ];
 		};
 
+		/**
+		 * Whether to show a placeholder option or not.
+		 */
 		WC_CP_Component.prototype.show_placeholder_option = function() {
 			return 'yes' === this.composite.settings.show_placeholder_option[ this.step_id ];
 		};

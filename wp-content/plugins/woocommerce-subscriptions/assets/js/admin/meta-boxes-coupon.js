@@ -15,7 +15,7 @@ jQuery( function( $ ) {
 		 */
 		init: function() {
 			if ( renewals_field ) {
-				$( document.getElementById( 'discount_type' ) ).on( 'change', this.type_options ).change();
+				$( document.getElementById( 'discount_type' ) ).on( 'change', this.type_options ).trigger( 'change' );
 				this.move_field();
 			}
 		},

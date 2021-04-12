@@ -1,0 +1,57 @@
+
+# Changelog
+
+## 1.3.5
+
+	- Added ability to override the auto login logic with a new 'gpal_auto_login' filter.
+	- Updated plugin author.
+
+## 1.3.4
+
+	- Added support for redirecting to Better User Activation redirect URL.
+
+## 1.3.3
+
+	- Fixed notice generated when empty password was decrypted via GFCommon::openssl_decrypt().
+
+## 1.3.2
+
+	- Fixed issue with GF 2.3; now using GFCommon::openssl_decrypt() instead of GFCommon::decrypt().
+
+## 1.3.1
+
+    - Updated to use GP_Bootstrap
+    - Updated to use singleton pattern
+    - Add gp_auto_login() to get plugin instance
+
+## 1.3
+
+	- Updated for compatability with GF User Registration 3.0
+	- Deprecated several functions specific to earlier versions of GFUR
+
+## 1.2.4
+
+	- Added "gpal_pre_auto_login" and "gpal_post_auto_login" hooks
+
+## 1.2.3
+
+	- Fixed issue where auto login was failing in IE11 due to auth cookies being set multiple times
+	- Fixed issue with encryption of password when auto login was applied with user activation
+
+## 1.2.2
+
+    - Fixed issue where auto login was not happening for activating users (due to headers_sent() unexpectedly returning false)
+
+## 1.2.1
+
+	- Updated minimum version of Gravity Forms to 1.8.9 to resolve fatal error with missing encrypt and decrypt functions
+
+## 1.2
+
+    - Added support for auto-login when user is activated (on GF activation page)
+    - Added new filter: gpal_auto_login_on_redirect_redirect_url; provides ability to redirect to a specific URL after auto-login from activation page
+    - Updated documentation and moved to GravityWiz.com
+
+## 1.1
+
+    - Fixed issue where is_user_logged_in() checks were not working on initial page load after auto-login

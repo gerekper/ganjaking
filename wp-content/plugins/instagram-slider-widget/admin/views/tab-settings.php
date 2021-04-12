@@ -11,11 +11,19 @@ $TABS        = array(
 		'icon'    => 'instagram',
 		'url'     => $current_url . "&tab=instagram",
 	),
+<<<<<<< HEAD
 	'youtube' => array(
 		'current' => false,
 		'caption' => 'Youtube',
 		'icon'    => 'youtube',
 		'url'     => $current_url . "&tab=youtube",
+=======
+	'Youtube' => array(
+		'current' => false,
+		'caption' => 'Youtube',
+		'icon'    => 'youtube',
+		'url'     => $current_url . "&tab=Youtube",
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 	),
 );
 if ( isset( $_GET['tab'] ) && ! empty( $_GET['tab'] ) ) {

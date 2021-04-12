@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.0
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -953,10 +953,6 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 				require_once WC()->plugin_path() . '/includes/admin/class-wc-admin-post-types.php';
 			}
 			$admin_post_types = new WC_Admin_Post_Types();
-
-			$upload_url  = wp_upload_dir();
-			$upload_path = $upload_url['path'];
-			$assets_path = str_replace( array( 'http:', 'https:' ), '', WC()->plugin_url() ) . '/assets/';
 
 			$is_post_generate_and_import        = ( isset( $_POST['generate_and_import'] ) ) ? true : false; // phpcs:ignore
 			$post_smart_coupons_generate_action = ( ! empty( $_POST['smart_coupons_generate_action'] ) ) ? wc_clean( wp_unslash( $_POST['smart_coupons_generate_action'] ) ) : ''; // phpcs:ignore

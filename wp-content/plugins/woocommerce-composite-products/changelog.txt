@@ -1,5 +1,19 @@
 *** WooCommerce Composite Products ***
 
+2021.03.29 - version 8.1.0
+* Important - Updated Scenarios to allow creating Conditions based on whether an option has been selected in a Component.
+* Important - Scenario Conditions are no longer matched partially when configuring a Composite without having made a selection in every Component. Previously, a Scenario that hides Component n based on a selection in Component i (i<n) would always match while Component i was empty. Now, you can use the 'No Selection' option in the Scenario matching Conditions of Component i to determine exactly how the Scenario should behave when Component i is empty.
+* Dev - Updated height animations to utilize CSS transitions instead of jQuery.
+* Fix - Fixed PHP 8 'Required parameter $cart_item_data follows optional parameter $quantity' warning.
+* Fix - Prevent default option from being pre-selected if out-of-stock products are hidden from the catalog and the default option is out of stock.
+* Fix - Prevent 'PHP Recoverable fatal error' during checkout in some edge cases.
+
+2021.03.06 - version 8.0.2
+* Fix - Fixed an issue that prevented Composite Products with conditionally hidden Components from being added to the cart in some edge cases.
+
+2021.03.04 - version 8.0.1
+* Fix - Fixed an issue that prevented variations from being hidden correctly when using the new 'Hide Component Options' Scenario action.
+
 2021.03.02 - version 8.0.0
 * Important - The REST API schema of Scenarios has been updated to support (1) the new 'Hide Component Options' action and (2) the 'any' Conditions modifier in a clean way. Please update your code, this is a breaking change!
 * Important - When using Scenarios to conditionally disable Component Options, the disabled products/variations are now hidden - not greyed-out!

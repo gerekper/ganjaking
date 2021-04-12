@@ -58,6 +58,7 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\integrations\\admin\\prominent_words\\indexing_integration' => 'Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration',
             'yoast\\wp\\seo\\integrations\\admin\\prominent_words\\metabox_integration' => 'Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration',
             'yoast\\wp\\seo\\integrations\\blocks\\estimated_reading_time_block' => 'Yoast\\WP\\SEO\\Integrations\\Blocks\\Estimated_Reading_Time_Block',
+            'yoast\\wp\\seo\\integrations\\blocks\\job_posting_block' => 'Yoast\\WP\\SEO\\Integrations\\Blocks\\Job_Posting_Block',
             'yoast\\wp\\seo\\integrations\\blocks\\related_links_block' => 'Yoast\\WP\\SEO\\Integrations\\Blocks\\Related_Links_Block',
             'yoast\\wp\\seo\\integrations\\blocks\\schema_blocks' => 'Yoast\\WP\\SEO\\Integrations\\Blocks\\Schema_Blocks',
             'yoast\\wp\\seo\\integrations\\third_party\\elementor_premium' => 'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Elementor_Premium',
@@ -119,6 +120,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration' => 'getIndexingIntegrationService',
             'Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration' => 'getMetaboxIntegrationService',
             'Yoast\\WP\\SEO\\Integrations\\Blocks\\Estimated_Reading_Time_Block' => 'getEstimatedReadingTimeBlockService',
+            'Yoast\\WP\\SEO\\Integrations\\Blocks\\Job_Posting_Block' => 'getJobPostingBlockService',
             'Yoast\\WP\\SEO\\Integrations\\Blocks\\Related_Links_Block' => 'getRelatedLinksBlockService',
             'Yoast\\WP\\SEO\\Integrations\\Blocks\\Schema_Blocks' => 'getSchemaBlocksService',
             'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Elementor_Premium' => 'getElementorPremiumService',
@@ -510,6 +512,16 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Integrations\Blocks\Job_Posting_Block' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Integrations\Blocks\Job_Posting_Block
+     */
+    protected function getJobPostingBlockService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Integrations\\Blocks\\Job_Posting_Block'] = new \Yoast\WP\SEO\Integrations\Blocks\Job_Posting_Block();
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Integrations\Blocks\Related_Links_Block' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Integrations\Blocks\Related_Links_Block
@@ -606,6 +618,7 @@ class Cached_Container extends Container
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Blocks\\Estimated_Reading_Time_Block');
+        $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Blocks\\Job_Posting_Block');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Blocks\\Related_Links_Block');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Blocks\\Schema_Blocks');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Elementor_Premium');

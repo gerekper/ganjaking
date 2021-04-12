@@ -28,6 +28,13 @@ class WC_CP_Helpers {
 	private static $cache = array();
 
 	/**
+	 * Flag indicating whether 'get_extended_price_precision' is being used to filter WC decimals.
+	 *
+	 * @var boolean
+	 */
+	private static $filtering_price_decimals = false;
+
+	/**
 	 * Simple runtime cache getter.
 	 *
 	 * @param  string  $key
@@ -130,14 +137,36 @@ class WC_CP_Helpers {
 	 * Filters the 'woocommerce_price_num_decimals' option to use the internal WC rounding precision.
 	 */
 	public static function extend_price_display_precision() {
-		add_filter( 'option_woocommerce_price_num_decimals', array( 'WC_CP_Core_Compatibility', 'wc_get_rounding_precision' ) );
+		add_filter( 'wc_get_price_decimals', array( __CLASS__, 'get_extended_price_precision' ) );
 	}
 
 	/**
 	 * Reset applied filters to the 'woocommerce_price_num_decimals' option.
 	 */
 	public static function reset_price_display_precision() {
-		remove_filter( 'option_woocommerce_price_num_decimals', array( 'WC_CP_Core_Compatibility', 'wc_get_rounding_precision' ) );
+		remove_filter( 'wc_get_price_decimals', array( __CLASS__, 'get_extended_price_precision' ) );
+	}
+
+	/**
+	 * Get extended rounding precision.
+	 *
+	 * @since  8.0.2
+	 *
+	 * @param  int  $decimals
+	 * @return int
+	 */
+	public static function get_extended_price_precision( $decimals = null ) {
+
+		// Prevent infinite loops through 'wc_cp_price_num_decimals'.
+		if ( ! is_null( $decimals ) && self::$filtering_price_decimals ) {
+			return $decimals;
+		}
+
+		self::$filtering_price_decimals = true;
+		$decimals = wc_cp_price_num_decimals( 'extended' );
+		self::$filtering_price_decimals = false;
+
+		return $decimals;
 	}
 
 	/**

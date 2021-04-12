@@ -12,9 +12,13 @@ use MailPoet\CustomFields\CustomFieldsRepository;
 use MailPoet\Models\ScheduledTask;
 use MailPoet\Models\Segment;
 use MailPoet\Newsletter\Options\NewsletterOptionsRepository;
+<<<<<<< HEAD
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Segments\WP;
 use MailPoet\Subscribers\ImportExport\Export\Export;
+=======
+use MailPoet\Segments\WP;
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 use MailPoet\Subscribers\ImportExport\Import\Import;
 use MailPoet\Subscribers\ImportExport\Import\MailChimp;
 use MailPoet\Subscribers\ImportExport\ImportExportRepository;
@@ -35,9 +39,12 @@ class ImportExport extends APIEndpoint {
   /** @var NewsletterOptionsRepository */
   private $newsletterOptionsRepository;
 
+<<<<<<< HEAD
   /** @var SegmentsRepository */
   private $segmentsRepository;
 
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
   /** @var SubscribersRepository */
   private $subscriberRepository;
 
@@ -50,14 +57,20 @@ class ImportExport extends APIEndpoint {
     CustomFieldsRepository $customFieldsRepository,
     ImportExportRepository $importExportRepository,
     NewsletterOptionsRepository $newsletterOptionsRepository,
+<<<<<<< HEAD
     SegmentsRepository $segmentsRepository,
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
     SubscribersRepository $subscribersRepository
   ) {
     $this->wpSegment = $wpSegment;
     $this->customFieldsRepository = $customFieldsRepository;
     $this->importExportRepository = $importExportRepository;
     $this->newsletterOptionsRepository = $newsletterOptionsRepository;
+<<<<<<< HEAD
     $this->segmentsRepository = $segmentsRepository;
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
     $this->subscriberRepository = $subscribersRepository;
   }
 

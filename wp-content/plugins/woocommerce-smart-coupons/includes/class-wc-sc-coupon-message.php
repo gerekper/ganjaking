@@ -5,7 +5,7 @@
  * @author      Ratnakar
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.6.0
+ * @version     1.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -246,7 +246,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Message' ) ) {
 						if (typeof sc_coupon_message_ajax === 'undefined') {
 							var sc_coupon_message_ajax = null;
 						}
-						jQuery('body').on('applied_coupon removed_coupon update_checkout', function(){
+						jQuery('body').on('applied_coupon removed_coupon updated_checkout', function(){
 							clearTimeout( sc_coupon_message_ajax );
 							sc_coupon_message_ajax = setTimeout(function(){
 								jQuery.ajax({

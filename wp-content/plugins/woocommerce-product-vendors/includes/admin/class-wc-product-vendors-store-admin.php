@@ -3,6 +3,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
+
 /**
  * Store Admin Class.
  *
@@ -69,6 +72,9 @@ class WC_Product_Vendors_Store_Admin {
 
 		// add commission top level menu item.
 		add_action( 'admin_menu', array( self::$self, 'register_commissions_menu_item' ) );
+
+		// Register menu items in the new WooCommerce navigation.
+		add_action( 'admin_menu', array( self::$self, 'register_navigation_items' ) );
 
 		// set the screen option.
 		add_filter( 'set-screen-option', array( self::$self, 'set_screen_option' ), 99, 3 );
@@ -697,6 +703,49 @@ class WC_Product_Vendors_Store_Admin {
 		add_action( "load-$hook", array( $this, 'add_screen_options' ) );
 
 		return true;
+	}
+
+	/**
+	 * Register the navigation items in the WooCommerce navigation.
+	 */
+	public function register_navigation_items() {
+		if (
+			! method_exists( Screen::class, 'register_taxonomy' ) ||
+			! method_exists( Menu::class, 'add_plugin_item' ) ||
+			! method_exists( Menu::class, 'add_plugin_category' ) ||
+			! method_exists( Menu::class, 'get_taxonomy_items' )
+		) {
+			return;
+		}
+
+		Menu::add_plugin_category(
+			array(
+				'id'    => 'wcpv',
+				'title' => __( 'Product Vendors', 'woocommerce-product-vendors' ),
+			)
+		);
+
+		Menu::add_plugin_item(
+			array(
+				'id'         => 'wcpv-commissions',
+				'title'      => __( 'Commission', 'woocommerce-product-vendors' ),
+				'capability' => 'manage_vendors',
+				'url'        => 'admin.php?page=wcpv-commissions',
+				'parent'     => 'wcpv',
+				'order'      => 1,
+			)
+		);
+
+		$vendor_taxonomy_items = Menu::get_taxonomy_items(
+			WC_PRODUCT_VENDORS_TAXONOMY,
+			array(
+				'parent' => 'wcpv',
+				'order'  => 2,
+			)
+		);
+
+		Screen::register_taxonomy( WC_PRODUCT_VENDORS_TAXONOMY );
+		Menu::add_plugin_item( $vendor_taxonomy_items['default'] );
 	}
 
 	/**

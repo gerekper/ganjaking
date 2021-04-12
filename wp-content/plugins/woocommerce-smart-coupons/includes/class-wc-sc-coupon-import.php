@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.0
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -127,6 +127,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 		 */
 		public function __construct() {
 			$this->import_page = 'wc-sc-coupons';
+			add_filter( 'upload_dir', array( $this, 'upload_dir' ) );
 			ob_start();
 		}
 
@@ -224,9 +225,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 					$file = ( ! empty( $this->file_url ) ) ? ABSPATH . $this->file_url : '';
 				}
 
-				$upload_dir                     = wp_upload_dir();
+				$upload_dir                     = wp_get_upload_dir();
 				$csv_file_data['file_name']     = basename( $file );
-				$csv_file_data['wp_upload_dir'] = $upload_dir['path'] . '/';
+				$csv_file_data['wp_upload_dir'] = $upload_dir['basedir'] . '/woocommerce_uploads/';
 
 				$_POST['export_file'] = $csv_file_data;
 
@@ -909,7 +910,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 
 							$bytes      = apply_filters( 'import_upload_size_limit', wp_max_upload_size() );
 							$size       = size_format( $bytes );
-							$upload_dir = wp_upload_dir();
+							$upload_dir = wp_get_upload_dir();
 
 							if ( ! empty( $upload_dir['error'] ) ) {
 								?>
@@ -945,6 +946,43 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 			</div>
 			<?php
 
+		}
+
+		/**
+		 * Change upload dir for coupon import.
+		 *
+		 * @param array $pathdata Array of paths.
+		 * @return array
+		 */
+		public function upload_dir( $pathdata = array() ) {
+
+			$nonce = ( ! empty( $_GET['_wpnonce'] ) ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+
+			if ( ! wp_verify_nonce( $nonce, 'import-upload' ) ) {
+				return $pathdata;
+			}
+
+			if ( empty( $_GET['page'] ) || 'wc-smart-coupons' !== $_GET['page'] ) {
+				return $pathdata;
+			}
+
+			if ( empty( $_GET['tab'] ) || 'import-smart-coupons' !== $_GET['tab'] ) {
+				return $pathdata;
+			}
+
+			if ( empty( $pathdata['subdir'] ) ) {
+				$pathdata['path']   = $pathdata['path'] . '/woocommerce_uploads';
+				$pathdata['url']    = $pathdata['url'] . '/woocommerce_uploads';
+				$pathdata['subdir'] = '/woocommerce_uploads';
+			} else {
+				$new_subdir = '/woocommerce_uploads';
+
+				$pathdata['path']   = str_replace( $pathdata['subdir'], $new_subdir, $pathdata['path'] );
+				$pathdata['url']    = str_replace( $pathdata['subdir'], $new_subdir, $pathdata['url'] );
+				$pathdata['subdir'] = str_replace( $pathdata['subdir'], $new_subdir, $pathdata['subdir'] );
+			}
+
+			return $pathdata;
 		}
 
 	}

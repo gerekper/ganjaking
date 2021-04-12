@@ -5,7 +5,7 @@ $rocket_cookie_hash = '7e6819ddde90a2b65fa18698fb0fd22f';
 $rocket_logged_in_cookie = 'wordpress_logged_in_7e6819ddde90a2b65fa18698fb0fd22f';
 $rocket_cache_mobile_files_tablet = 'desktop';
 $rocket_cache_mobile = 1;
-$rocket_cache_reject_uri = '/(.+/)?feed/?.+/?|/(?:.+/)?embed/|/(index\.php/)?wp\-json(/.*|$)|/checkout/(.*)|/cart/|/my-account/(.*)|/wc-api/v(.*)';
+$rocket_cache_reject_uri = '/(.+/)?feed/?.+/?|/(?:.+/)?embed/|/checkout/(.*)|/cart/|/my-account/(.*)|/wc-api/v(.*)|/(index\.php/)?wp\-json(/.*|$)';
 $rocket_cache_reject_cookies = 'wp-postpass_|wptouch_switch_toggle|comment_author_|comment_author_email_';
 $rocket_cache_reject_ua = 'facebookexternalhit';
 $rocket_cache_query_strings = array();
@@ -69,7 +69,12 @@ $rocket_cache_ignored_parameters = array(
   'msclkid' => 1,
   'dm_i' => 1,
   'epik' => 1,
+<<<<<<< HEAD
   'pp' => 1,
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 );
 $rocket_cache_mandatory_cookies = '';
-$rocket_cache_dynamic_cookies = array();
+$rocket_cache_dynamic_cookies = array(
+  0 => 'woocommerce_current_currency',
+);

@@ -1,5 +1,8 @@
 *** Customer/Order/Coupon CSV Import Suite Changelog ***
 
+2021.03.24 - version 3.10.2
+ * Fix - Address a namespace issue in the order parser causing PHP errors
+
 2021.03.15 - version 3.10.1
  * Feature - Add support for the WooCommerce Navigation admin feature
 

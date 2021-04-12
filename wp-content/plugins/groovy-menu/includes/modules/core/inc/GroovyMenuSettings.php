@@ -11,8 +11,9 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 		 */
 		protected $settings;
 
-		protected $lver                    = false;
+		protected $lver = false;
 		protected $remote_child_themes_url = 'https://updates.grooni.com/theme-demos/gm-child-themes/config/';
+		protected $remote_get_msg_url = 'https://license.grooni.com/grooni-msg-spot/';
 
 		public function __construct() {
 
@@ -55,6 +56,7 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 			} else {
 				add_action( 'admin_head', array( $this, 'dismiss_notice_msg' ), 7 );
 				add_action( 'admin_head', array( $this, 'late_start' ), 8 );
+				add_action( 'admin_head', array( $this, 'grooni_msg' ), 9 );
 			}
 
 			if ( function_exists( 'wp_doing_ajax' ) && wp_doing_ajax() ) {
@@ -86,12 +88,22 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 		 */
 		public function dismiss_notice_msg() {
 			if (
-					isset( $_GET['gm_nonce'] ) &&
-					wp_verify_nonce( $_GET['gm_nonce'], 'gm_nonce_dismiss_notice' ) &&
-					isset( $_GET['gm-upgrade-theme'] ) &&
-					'yes' === $_GET['gm-upgrade-theme']
+				isset( $_GET['gm_nonce'] ) &&
+				wp_verify_nonce( $_GET['gm_nonce'], 'gm_nonce_dismiss_notice' ) &&
+				isset( $_GET['gm-upgrade-theme'] ) &&
+				'yes' === $_GET['gm-upgrade-theme']
 			) {
 				update_user_meta( get_current_user_id(), 'gm-upgrade-theme', true );
+			}
+
+			if (
+				isset( $_GET['gm_nonce'] ) &&
+				wp_verify_nonce( $_GET['gm_nonce'], 'gm_nonce_dismiss_msg' ) &&
+				isset( $_GET['gm-dismiss-msg'] ) &&
+				'yes' === $_GET['gm-dismiss-msg'] &&
+				! empty( $_GET['gm-msg-id'] )
+			) {
+				update_user_meta( get_current_user_id(), 'gm-dismiss-msg-id--' . esc_attr( $_GET['gm-msg-id'] ), true );
 			}
 		}
 
@@ -157,6 +169,154 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 				}
 			}
 
+		}
+
+
+		public function grooni_msg() {
+			if ( ! is_admin() ) {
+				return;
+			}
+
+			global $gm_supported_module;
+
+			if ( ! get_transient( GROOVY_MENU_DB_VER_OPTION . '__msg_delay' ) ) {
+
+				$current_theme = wp_get_theme()->get_template();
+				$msg_proposal  = null;
+				$who           = $this->lver ? '-free' : '';
+				$who           = 'groovy-menu' . $who;
+
+				global $wp_version;
+
+				// Remote get data.
+				$msg_search_data = wp_remote_get(
+					add_query_arg(
+						array(
+							'theme'      => $current_theme,
+							'theme-type' => is_child_theme() ? 'child' : 'parent',
+							'who'        => $who,
+						),
+						$this->remote_get_msg_url
+					),
+					array(
+						'timeout'     => 7,
+						'httpversion' => '1.1',
+						'user-agent'  =>
+							'WordPress/' . $wp_version . ';' . $current_theme . ';' . ( is_child_theme() ? 'child' : 'parent' ) . ';',
+					)
+				);
+
+				// Check if returned answer is OK.
+				if ( ! is_wp_error( $msg_search_data ) && wp_remote_retrieve_response_code( $msg_search_data ) === 200 ) {
+					$msg_proposal = json_decode( wp_remote_retrieve_body( $msg_search_data ), true );
+					if ( ! empty( $msg_proposal['error'] ) || ! is_array( $msg_proposal ) ) {
+						$msg_proposal = null;
+					}
+
+					update_option( GROOVY_MENU_DB_VER_OPTION . '__msg_data', $msg_proposal );
+				}
+
+				$transition_timer = 6 * HOUR_IN_SECONDS;
+
+				// Set delay for next queue.
+				set_transient( GROOVY_MENU_DB_VER_OPTION . '__msg_delay', true, $transition_timer );
+			}
+
+			// Get current messages data.
+			$msgs = get_option( GROOVY_MENU_DB_VER_OPTION . '__msg_data' );
+
+			if ( empty( $msgs ) || ! is_array( $msgs ) ) {
+				return;
+			}
+
+			$msg_to_show = array();
+
+			foreach ( $msgs as $index => $msg ) {
+				// array format check.
+				if ( in_array( $index, array( 'error', 'ext', 'prop', 'page' ), true ) ) {
+					continue;
+				}
+				// data integrity check.
+				if ( empty( $msg['priority'] ) || empty( $msg['min-show-date'] ) || empty( $msg['max-show-date'] ) || empty( $msg['msg-body'] ) ) {
+					continue;
+				}
+
+				// Check time condition.
+				$min_date  = date( 'U', $msg['min-show-date'] );
+				$max_date  = date( 'U', $msg['max-show-date'] );
+				$curr_date = date( 'U', time() );
+				if ( $curr_date > $max_date || $curr_date < $min_date ) {
+					continue;
+				}
+
+				if ( ! get_user_meta( get_current_user_id(), 'gm-dismiss-msg-id--' . esc_attr( $index ), true ) ) {
+					$msg_to_show[ $index ] = array(
+						'priority' => $msg['priority'],
+						'msg-body' => $msg['msg-body'],
+					);
+				}
+			}
+
+			$screen          = get_current_screen();
+			$allowed_screens = array(
+				'dashboard',
+				'nav-menus',
+				'nav-menus.php',
+				'edit-gm_menu_block',
+				'toplevel_page_groovy_menu_settings',
+				'groovy-menu_page_groovy_menu_welcome',
+				'toplevel_page_groovy_menu_welcome',
+				'groovy-menu_page_groovy_menu_integration',
+				'toplevel_page_groovy_menu_integration',
+				'groovy-menu_page_groovy_menu_settings',
+				'groovy_menu_integration',
+				'groovy_menu_welcome',
+				'groovy_menu_license',
+				'groovy-menu_page_groovy_menu_license',
+				'tools_page_groovy_menu_debug_page',
+			);
+
+			if ( ! empty( $msg_to_show ) && ! empty( $screen->id ) && in_array( $screen->id, $allowed_screens, true ) ) {
+				$gm_supported_module['msg_to_show'] = $msg_to_show;
+
+				add_action( 'admin_notices', array( $this, 'show_gm_msg' ), 12 );
+			}
+
+		}
+
+		public function show_gm_msg() {
+
+			global $gm_supported_module;
+
+			if ( empty( $gm_supported_module['msg_to_show'] ) || ! is_array( $gm_supported_module['msg_to_show'] ) ) {
+				return;
+			}
+
+			foreach ( $gm_supported_module['msg_to_show'] as $index => $msg_data ) {
+				$priority = empty( $msg_data['priority'] ) ? 'notice' : $msg_data['priority'];
+				$msg_body = empty( $msg_data['msg-body'] ) ? '' : $msg_data['msg-body'];
+				if ( empty( $msg_body ) ) {
+					continue;
+				}
+
+				?>
+
+				<div id="gm-msg-id--<?php echo esc_attr( $index ); ?>" class="gm-msg-box <?php echo esc_attr( $priority ); ?> is-dismissible">
+					<div class="gm-msg-body-block"><?php echo trim( $msg_body ); ?></div>
+
+					<div class="gm-msg-buttons-block">
+						<a class="gm-msg-dismiss-url" href="<?php echo esc_url( add_query_arg(
+							array(
+								'gm-dismiss-msg' => 'yes',
+								'gm-msg-id'      => esc_attr( $index ),
+								'gm_nonce'       => wp_create_nonce( 'gm_nonce_dismiss_msg' ),
+							)
+						) ); ?>"><?php esc_html_e( 'Dismiss this notice', 'groovy-menu' ); ?></a>
+					</div>
+				</div>
+
+				<?php
+			}
 		}
 
 

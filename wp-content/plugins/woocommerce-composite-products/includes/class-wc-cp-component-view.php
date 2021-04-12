@@ -115,11 +115,12 @@ class WC_CP_Component_View {
 			}
 
 			$defaults = array(
-				'load_page'       => $this->component->paginate_options() ? 'selected' : 1,
-				'per_page'        => $per_page,
-				'selected_option' => $this->get_selected_option(),
-				'orderby'         => $this->component->get_default_sorting_order(),
-				'query_type'      => 'product_ids'
+				'query_type'           => 'product_ids',
+				'per_page'             => $per_page,
+				'load_page'            => $this->component->paginate_options() ? 'selected' : 1,
+				'orderby'              => $this->component->get_default_sorting_order(),
+				'exclude_out_of_stock' => $this->component->exclude_out_of_stock_options(),
+				'selected_option'      => $this->get_selected_option()
 			);
 
 			// Component option ids have already been queried without any pages / filters / sorting when the component was initialized.
@@ -257,6 +258,11 @@ class WC_CP_Component_View {
 				$component_option = $this->component->get_option( $product_id );
 
 				if ( ! $component_option ) {
+					continue;
+				}
+
+				// Make sure we don't include the default option if it's out of stock.
+				if ( ! isset( $args[ 'selected_option' ] ) && $is_selected && $this->component->exclude_out_of_stock_options() && $component_option->is_purchasable() && ! $component_option->get_product()->is_in_stock() ) {
 					continue;
 				}
 

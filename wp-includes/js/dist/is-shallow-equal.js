@@ -82,13 +82,22 @@ this["wp"] = this["wp"] || {}; this["wp"]["isShallowEqual"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 469);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 454);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /******/ })
 /************************************************************************/
 /******/ ({
 
+<<<<<<< HEAD
 /***/ 469:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
+=======
+/***/ 454:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 "use strict";
 // ESM COMPAT FLAG
@@ -101,7 +110,24 @@ __webpack_require__.d(__webpack_exports__, "default", function() { return /* bin
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/is-shallow-equal/build-module/objects.js
 /**
+<<<<<<< HEAD
  * Returns true if the two objects are shallow equal, or false otherwise.
+=======
+ * Internal dependencies;
+ */
+var isShallowEqualObjects = __webpack_require__( 455 );
+var isShallowEqualArrays = __webpack_require__( 456 );
+
+var isArray = Array.isArray;
+
+/**
+ * @typedef {Record<string, any>} ComparableObject
+ */
+
+/**
+ * Returns true if the two arrays or objects are shallow equal, or false
+ * otherwise.
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
  *
  * @param {import('.').ComparableObject} a First object to compare.
  * @param {import('.').ComparableObject} b Second object to compare.
@@ -122,9 +148,14 @@ function isShallowEqualObjects(a, b) {
 
   var i = 0;
 
+<<<<<<< HEAD
   while (i < aKeys.length) {
     var key = aKeys[i];
     var aValue = a[key];
+=======
+/***/ 455:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
     if ( // In iterating only the keys of the first object after verifying
     // equal lengths, account for the case that an explicit `undefined`
@@ -174,6 +205,11 @@ function isShallowEqualArrays(a, b) {
  */
 
 
+<<<<<<< HEAD
+=======
+/***/ 456:
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 
 /**

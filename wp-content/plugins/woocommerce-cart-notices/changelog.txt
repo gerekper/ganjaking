@@ -1,5 +1,8 @@
 *** WooCommerce Cart Notices Changelog ***
 
+2021.04.07 - version 1.13.2
+ * Tweak - Update the Target Amount field description
+
 2021.03.16 - version 1.13.1
  * Tweak - Add support for the WooCommerce Navigation admin feature
 

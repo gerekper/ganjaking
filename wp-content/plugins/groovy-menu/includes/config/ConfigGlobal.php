@@ -432,6 +432,11 @@ return array(
 				'title'   => esc_html__( 'Side icon', 'groovy-menu' ),
 				'default' => 'fa fa-bars',
 			),
+			'close_icon'  => array(
+				'type'    => 'icon',
+				'title'   => esc_html__( 'Close icon', 'groovy-menu' ),
+				'default' => 'fa fa-times',
+			),
 		),
 	),
 	'icons'       => array(
@@ -473,6 +478,18 @@ return array(
 				'title'       => esc_html__( 'Toggle visibility of Groovy menu settings at Appearance &gt; Menus', 'groovy-menu' ),
 				'default'     => false,
 				'description' => esc_html__( 'The theme or another plugin can override the visibility of the Groovy menu settings at Appearance &gt; Menus. To show up Groovy menus settings instead, use this option.', 'groovy-menu' ),
+			),
+			'frontend_init_alt'               => array(
+				'type'        => 'checkbox',
+				'title'       => esc_html__( 'Alternative JavaScript initialization', 'groovy-menu' ),
+				'default'     => false,
+				'description' => esc_html__( 'If enabled can help in cases where third party caching plugins have hard-coded JavaScript output.', 'groovy-menu' ),
+			),
+			'frontend_init_immediately'       => array(
+				'type'        => 'checkbox',
+				'title'       => esc_html__( 'Run JavaScript initialization as soon as possible', 'groovy-menu' ),
+				'default'     => false,
+				'description' => esc_html__( 'If disabled, then initialization occurs on the JavaScript event "DOMContentLoaded". If enabled, then initialization is performed immediately. It can help in cases where third-party caching plugins have combined all JavaScript into one file and load it after the "DOMContentLoaded" event.', 'groovy-menu' ),
 			),
 			'display_gm_when_menu_block_edit' => array(
 				'type'        => 'checkbox',

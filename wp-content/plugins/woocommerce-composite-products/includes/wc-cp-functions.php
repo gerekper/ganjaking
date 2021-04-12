@@ -450,7 +450,7 @@ function wc_cp_price_thousand_sep() {
 }
 
 /**
- * get_option( 'woocommerce_price_num_decimals' ) cache.
+ * Wrapper around 'wc_get_rounding_precision' and 'wc_get_price_decimals' that caches results to avoid callback hell.
  *
  * @return string
  */
@@ -460,13 +460,13 @@ function wc_cp_price_num_decimals( $context = '' ) {
 	$wc_price_num_decimals           = WC_CP_Helpers::cache_get( $wc_price_num_decimals_cache_key );
 
 	if ( null === $wc_price_num_decimals ) {
-		
+
 		if ( 'extended' === $context ) {
 			$wc_price_num_decimals = wc_get_rounding_precision();
 		} else {
 			$wc_price_num_decimals = wc_get_price_decimals();
 		}
-		
+
 		WC_CP_Helpers::cache_set( $wc_price_num_decimals_cache_key, $wc_price_num_decimals );
 	}
 

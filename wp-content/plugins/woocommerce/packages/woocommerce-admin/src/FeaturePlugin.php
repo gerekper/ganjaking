@@ -7,7 +7,12 @@ namespace Automattic\WooCommerce\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
+<<<<<<< HEAD
 use \Automattic\WooCommerce\Admin\Notes\LearnMoreAboutVariableProducts;
+=======
+use \Automattic\WooCommerce\Admin\Notes\ChoosingTheme;
+use \Automattic\WooCommerce\Admin\Notes\InsightFirstProductAndPayment;
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 use \Automattic\WooCommerce\Admin\Notes\Notes;
 use \Automattic\WooCommerce\Admin\Notes\OrderMilestones;
 use \Automattic\WooCommerce\Admin\Notes\WooSubscriptionsNotes;
@@ -154,7 +159,11 @@ class FeaturePlugin {
 		$this->define( 'WC_ADMIN_PLUGIN_FILE', WC_ADMIN_ABSPATH . 'woocommerce-admin.php' );
 		// WARNING: Do not directly edit this version number constant.
 		// It is updated as part of the prebuild process from the package.json value.
+<<<<<<< HEAD
 		$this->define( 'WC_ADMIN_VERSION_NUMBER', '2.0.2' );
+=======
+		$this->define( 'WC_ADMIN_VERSION_NUMBER', '1.9.0' );
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 	}
 
 	/**
@@ -192,7 +201,10 @@ class FeaturePlugin {
 		new SetUpAdditionalPaymentTypes();
 		new TestCheckout();
 		new SellingOnlineCourses();
+<<<<<<< HEAD
 		new LearnMoreAboutVariableProducts();
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 		new WelcomeToWooCommerceForStoreUsers();
 		new ManageStoreActivityFromHomeScreen();
 

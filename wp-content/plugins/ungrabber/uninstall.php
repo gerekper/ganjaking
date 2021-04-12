@@ -5,7 +5,7 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.1
+ * @version         3.0.2
  * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
@@ -58,7 +58,7 @@ final class Uninstall {
         $uninstall_mode = $this->get_uninstall_mode();
 
         /** Send uninstall Action to our host. */
-        Helper::get_instance()->send_action( 'uninstall', Plugin::get_slug(), Plugin::get_version() );
+        // Helper::get_instance()->send_action( 'uninstall', Plugin::get_slug(), Plugin::get_version() );
 
         /** Remove Plugin and Settings. */
         if ( 'plugin+settings' === $uninstall_mode ) {

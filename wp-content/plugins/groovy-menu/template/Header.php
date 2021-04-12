@@ -360,6 +360,7 @@ function groovyMenu( $args = array() ) {
 		$show_mobile_menu = false;
 	}
 
+	$searchForm = $groovyMenuSettings['searchForm'];
 
 	// Clean output, first level.
 	ob_start();
@@ -776,6 +777,9 @@ function groovyMenu( $args = array() ) {
 	$output_html .= '</div>';
 
 
+	$mobile_woo_icon_html    = '';
+	$mobile_search_icon_html = '';
+
 	// Woocomerce minicart for mobile top bar.
 	if (
 		$groovyMenuSettings['mobileShowWoominicart'] &&
@@ -795,15 +799,59 @@ function groovyMenu( $args = array() ) {
 			$cartIcon = $styles->getGlobal( 'misc_icons', 'cart_icon' );
 		}
 
-		$output_html .= '
-				<div class="gm-menu-actions-wrapper">
+		$mobile_woo_icon_html .= '
 					<div class="gm-menu-action-btn gm-minicart">
 						<a href="' . get_permalink( wc_get_page_id( 'cart' ) ) . '" class="gm-minicart-link">
 							<div class="gm-badge">' . groovy_menu_woocommerce_mini_cart_counter( $qty ) . '</div>
 							<i class="gm-icon ' . esc_attr( $cartIcon ) . '"></i>
 						</a>
-					</div>
-				</div>';
+					</div>';
+	}
+
+	// Search icon for mobile top bar.
+	if (
+		'disable' !== $searchForm &&
+		! empty( $groovyMenuSettings['searchFormIconPositionMobile'] ) &&
+		in_array( $groovyMenuSettings['searchFormIconPositionMobile'], array( 'topbar', 'topbar_slideBottom' ), true )
+	) {
+		$searchIcon = 'gmi gmi-zoom-search';
+		if ( $styles->getGlobal( 'misc_icons', 'search_icon' ) ) {
+			$searchIcon = $styles->getGlobal( 'misc_icons', 'search_icon' );
+		}
+
+		$isFullScreen   = false;
+		$isSearchCustom = false;
+
+		if ( 'custom' === $searchForm ) {
+			$isSearchCustom = true;
+		}
+
+		$searchFormCustomWrapper = isset( $groovyMenuSettings['searchFormCustomWrapper'] ) ? $groovyMenuSettings['searchFormCustomWrapper'] : 'fullscreen';
+		if ( 'fullscreen' === $searchForm || ( $isSearchCustom && 'dropdown' !== $searchFormCustomWrapper ) ) {
+			$isFullScreen = 'fullscreen';
+		}
+
+
+		ob_start();
+		/**
+		 * Fires before groovy menu mobile search icon.
+		 *
+		 * @since 2.2.0
+		 */
+		do_action( 'gm_mobile_before_search_icon' );
+		$mobile_search_icon_html .= ob_get_clean();
+
+
+		$mobile_search_icon_html .= '<div class="gm-search ' . ( $isFullScreen ? 'fullscreen' : 'gm-dropdown' ) . '">
+						<i class="gm-icon ' . esc_attr( $searchIcon ) . '"></i>
+						<span class="gm-search__txt">'
+		                . esc_html__( 'Search', 'groovy-menu' ) .
+		                '</span>
+					</div>';
+	}
+
+	if ( ! empty( $mobile_woo_icon_html ) || ! empty( $mobile_search_icon_html ) ) {
+		$output_html .= '<div class="gm-menu-actions-wrapper">' . $mobile_search_icon_html . $mobile_woo_icon_html . '</div>';
 	}
 
 
@@ -922,7 +970,6 @@ function groovyMenu( $args = array() ) {
 
 	$show_gm_action = false;
 
-	$searchForm = $groovyMenuSettings['searchForm'];
 	if ( 'disable' !== $searchForm ) {
 		$show_gm_action = true;
 	}
@@ -975,7 +1022,9 @@ function groovyMenu( $args = array() ) {
 				$cartIcon = $styles->getGlobal( 'misc_icons', 'cart_icon' );
 			}
 
-			$output_html .= '<div class="gm-minicart gm-dropdown">';
+			$woo_cart_dropdown = $groovyMenuSettings['wooCartDisableDropdown'] ? '' : ' gm-dropdown';
+
+			$output_html .= '<div class="gm-minicart' . $woo_cart_dropdown . '">';
 
 			$output_html .= '<a href="' . get_permalink( wc_get_page_id( 'cart' ) ) . '"
 										   class="gm-minicart-link">
@@ -1064,6 +1113,18 @@ function groovyMenu( $args = array() ) {
 
 		$output_html .= '<div class="gm-grid-container d-flex flex-column h-100">';
 
+		if ( $groovyMenuSettings['mobileOffcanvasFullwidth'] && ! $groovyMenuSettings['mobileIndependentCssHamburger'] ) {
+			$output_html .= '
+			<div class="gm-menu-btn gm-hamburger-close">
+				<div class="gm-menu-btn__inner">';
+			$menu_icon   = 'fa fa-times';
+			if ( ! empty( $styles->getGlobal( 'misc_icons', 'close_icon' ) ) ) {
+				$menu_icon = $styles->getGlobal( 'misc_icons', 'close_icon' );
+			}
+			$output_html .= '	<i class="' . esc_attr( $menu_icon ) . '"></i>
+				</div>
+			</div>';
+		}
 
 		ob_start();
 		/**
@@ -1125,13 +1186,16 @@ function groovyMenu( $args = array() ) {
 
 		$output_html .= '<div class="gm-mobile-action-area-wrapper d-flex justify-content-center align-items-center text-center mb-4 mt-5">';
 
-		$searchForm = $groovyMenuSettings['searchForm'];
 		$searchIcon = 'gmi gmi-zoom-search';
 		if ( $styles->getGlobal( 'misc_icons', 'search_icon' ) ) {
 			$searchIcon = $styles->getGlobal( 'misc_icons', 'search_icon' );
 		}
 
-		if ( 'disable' !== $searchForm ) {
+		if (
+			'disable' !== $searchForm &&
+			! empty( $groovyMenuSettings['searchFormIconPositionMobile'] ) &&
+			in_array( $groovyMenuSettings['searchFormIconPositionMobile'], array( 'slideBottom', 'topbar_slideBottom' ), true )
+		) {
 
 			$isFullScreen   = false;
 			$isSearchCustom = false;
@@ -1164,7 +1228,23 @@ function groovyMenu( $args = array() ) {
 					</div>';
 
 		}
-		$output_html .= '<div class="gm-divider--vertical mx-4"></div>';
+
+		// Check if need output icon divider.
+		if (
+			(
+				'disable' !== $searchForm && ! empty( $groovyMenuSettings['searchFormIconPositionMobile'] ) && in_array( $groovyMenuSettings['searchFormIconPositionMobile'], array(
+					'slideBottom',
+					'topbar_slideBottom'
+				), true ) )
+			&&
+			(
+				! gm_get_shop_is_catalog() && $groovyMenuSettings['woocommerceCart'] && class_exists( 'WooCommerce' ) && function_exists( 'wc_get_page_id' )
+			)
+		) {
+			$output_html .= '<div class="gm-divider--vertical mx-4"></div>';
+		}
+
+
 		if ( ! gm_get_shop_is_catalog() && $groovyMenuSettings['woocommerceCart'] && class_exists( 'WooCommerce' ) && function_exists( 'wc_get_page_id' ) ) {
 			global $woocommerce;
 

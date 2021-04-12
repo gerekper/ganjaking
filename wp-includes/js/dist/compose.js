@@ -82,7 +82,11 @@ this["wp"] = this["wp"] || {}; this["wp"]["compose"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 445);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 476);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2534,7 +2538,11 @@ function _typeof(obj) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 421:
+=======
+/***/ 442:
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports) {
 
 /**
@@ -2587,7 +2595,11 @@ function _typeof(obj) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 445:
+=======
+/***/ 476:
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3927,7 +3939,11 @@ var mousetrap_mousetrap = __webpack_require__(284);
 var mousetrap_default = /*#__PURE__*/__webpack_require__.n(mousetrap_mousetrap);
 
 // EXTERNAL MODULE: ./node_modules/mousetrap/plugins/global-bind/mousetrap-global-bind.js
+<<<<<<< HEAD
 var mousetrap_global_bind = __webpack_require__(421);
+=======
+var mousetrap_global_bind = __webpack_require__(442);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/compose/build-module/hooks/use-keyboard-shortcut/index.js
 /**

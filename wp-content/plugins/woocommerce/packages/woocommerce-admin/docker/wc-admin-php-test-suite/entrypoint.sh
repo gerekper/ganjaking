@@ -1,5 +1,6 @@
 #!/bin/bash
 
+<<<<<<< HEAD
 # Wait for MySQL to be up and running
 until mysqladmin ping -h"$DB_HOST" --silent; do
   >&2 echo "MySQL is unavailable - sleeping"
@@ -34,6 +35,11 @@ fi
 # Run the install script if the WordPress directory is not found.
 if [ ! -d /tmp/wordpress-tests-lib ]; then
 	install
+=======
+# Run the install script if the WordPress directory is not found.
+if [ ! -d /tmp/wordpress-tests-lib ]; then
+	bin/install-wp-tests.sh $DB_NAME $DB_USER $DB_PASS $DB_HOST latest true
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 fi
 
 exec phpunit "$@"

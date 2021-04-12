@@ -27,19 +27,13 @@ class WC_Product_Addons_Helper {
 		$raw_addons = array();
 		$parent_id  = wp_get_post_parent_id( $post_id );
 
-		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-			$product_terms  = apply_filters( 'get_product_addons_product_terms', wp_get_post_terms( $post_id, 'product_cat', array( 'fields' => 'ids' ) ), $post_id );
-			$exclude        = get_post_meta( $post_id, '_product_addons_exclude_global', true );
-			$product_addons = array_filter( (array) get_post_meta( $post_id, '_product_addons', true ) );
-		} else {
-			$product        = wc_get_product( $post_id );
-			if ( ! $product ) {
-				return array();
-			}
-			$product_terms  = apply_filters( 'get_product_addons_product_terms', wc_get_object_terms( $product->get_id(), 'product_cat', 'term_id' ), $product->get_id() );
-			$exclude        = $product->get_meta( '_product_addons_exclude_global' );
-			$product_addons = array_filter( (array) $product->get_meta( '_product_addons' ) );
+		$product        = wc_get_product( $post_id );
+		if ( ! $product ) {
+			return array();
 		}
+		$product_terms  = apply_filters( 'get_product_addons_product_terms', wc_get_object_terms( $product->get_id(), 'product_cat', 'term_id' ), $product->get_id() );
+		$exclude        = $product->get_meta( '_product_addons_exclude_global' );
+		$product_addons = array_filter( (array) $product->get_meta( '_product_addons' ) );
 
 		// Product Parent Level Addons.
 		if ( $inc_parent && $parent_id ) {

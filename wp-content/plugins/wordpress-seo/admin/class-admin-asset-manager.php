@@ -260,7 +260,10 @@ class WPSEO_Admin_Asset_Manager {
 					'jquery-ui-progressbar',
 					'wp-api',
 					'wp-data',
+<<<<<<< HEAD
 					'wp-element',
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 					'yoast-seo-api',
 					self::PREFIX . 'yoast-components',
 					self::PREFIX . 'helpers',

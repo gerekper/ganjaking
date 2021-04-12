@@ -430,7 +430,7 @@ wc_cart_notices()->get_admin_instance()->message_handler->show_messages(); ?>
 							<input type="text" name="minimum_order_amount" id="minimum_order_amount" value="<?php echo isset( $notice->data['minimum_order_amount'] ) ? esc_attr( $notice->data['minimum_order_amount'] ) : ''; ?>" class="regular-text" />
 							<span class="description">
 								<?php /* translators: Placeholders: %1$s - <strong>, %2$s - </strong>, %3$s - <a>, %4$s - </a> */
-								echo sprintf( esc_html__( 'Optional target amount for the notice; the cart total must be %1$sless than%2$s this amount for the notice to be displayed. If not set, and the %3$sFree Shipping shipment method%4$s is enabled, the "Minimum order amount" from the shipping method will be used.', 'woocommerce-cart-notices' ),
+								echo sprintf( esc_html__( 'Target cart total for the notice - the customer\'s cart total must be %1$sless than%2$s the target to display the notice. Leave blank to use the "Minimum order amount" from %3$san enabled Free shipping method%4$s instead.', 'woocommerce-cart-notices' ),
 									'<strong>', '</strong>',
 									'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=shipping' ) . '">',
 									'</a>'

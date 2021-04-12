@@ -82,7 +82,11 @@ this["wp"] = this["wp"] || {}; this["wp"]["blocks"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 444);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 472);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -5568,6 +5572,16 @@ if (true) {
 
 
 
+<<<<<<< HEAD
+=======
+
+/***/ }),
+
+/***/ 29:
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["wp"]["dom"]; }());
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 /***/ }),
 
@@ -5925,6 +5939,7 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 43:
 /***/ (function(module, exports) {
 
@@ -5933,6 +5948,9 @@ function isShallowEqual( a, b, fromIndex ) {
 /***/ }),
 
 /***/ 444:
+=======
+/***/ 472:
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

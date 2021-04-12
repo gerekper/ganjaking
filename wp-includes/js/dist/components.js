@@ -6213,6 +6213,7 @@ var _propTypes = __webpack_require__(30);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+<<<<<<< HEAD
 var _hoistNonReactStatics = __webpack_require__(381);
 
 var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
@@ -6220,6 +6221,15 @@ var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 var _constants = __webpack_require__(384);
 
 var _brcast = __webpack_require__(385);
+=======
+var _hoistNonReactStatics = __webpack_require__(401);
+
+var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
+
+var _constants = __webpack_require__(404);
+
+var _brcast = __webpack_require__(405);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _brcast2 = _interopRequireDefault(_brcast);
 
@@ -11111,8 +11121,13 @@ var unstable_Id = Object(reakit_system_createComponent__WEBPACK_IMPORTED_MODULE_
 /* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+<<<<<<< HEAD
 /* harmony import */ var reakit_Toolbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(474);
 /* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(103);
+=======
+/* harmony import */ var reakit_Toolbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(501);
+/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(92);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_warning__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _toolbar_context__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(84);
 
@@ -16795,7 +16810,11 @@ exports['default'] = _propTypes2['default'].oneOf([_constants.INFO_POSITION_TOP,
 /* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 var freeGlobal = __webpack_require__(389);
+=======
+var freeGlobal = __webpack_require__(409);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 /** Detect free variable `self`. */
 var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -17582,7 +17601,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports['default'] = getCalendarDaySettings;
 
+<<<<<<< HEAD
 var _getPhrase = __webpack_require__(403);
+=======
+var _getPhrase = __webpack_require__(423);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _getPhrase2 = _interopRequireDefault(_getPhrase);
 
@@ -26420,7 +26443,11 @@ function getParsedValue(value, unit, units) {
  */
 
 function utils_hasUnits(units) {
+<<<<<<< HEAD
   return !Object(external_lodash_["isEmpty"])(units) && units.length > 1 && units !== false;
+=======
+  return !Object(external_this_lodash_["isEmpty"])(units) && units.length > 1 && units !== false;
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 }
 /**
  * Parses a number and unit from a value.
@@ -26533,7 +26560,11 @@ function UnitSelectControl(_ref) {
       props = Object(objectWithoutProperties["a" /* default */])(_ref, ["className", "isTabbable", "options", "onChange", "size", "value"]);
 
   if (!utils_hasUnits(options)) {
+<<<<<<< HEAD
     return Object(external_wp_element_["createElement"])(UnitLabel, {
+=======
+    return Object(external_this_wp_element_["createElement"])(UnitLabel, {
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
       className: "components-unit-control__unit-label",
       size: size
     }, value);
@@ -26831,8 +26862,13 @@ function UnitControl(_ref, ref) {
     return state;
   };
 
+<<<<<<< HEAD
   var inputSuffix = !disableUnits ? Object(external_wp_element_["createElement"])(UnitSelectControl, {
     "aria-label": Object(external_wp_i18n_["__"])('Select unit'),
+=======
+  var inputSuffix = !disableUnits ? Object(external_this_wp_element_["createElement"])(UnitSelectControl, {
+    "aria-label": Object(external_this_wp_i18n_["__"])('Select unit'),
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
     disabled: disabled,
     isTabbable: isUnitSelectTabbable,
     options: units,
@@ -27010,9 +27046,15 @@ function BoxUnitControl(_ref) {
       onHoverOff(event, state);
     }
   });
+<<<<<<< HEAD
   return Object(external_wp_element_["createElement"])(UnitControlWrapper, bindHoverGesture(), Object(external_wp_element_["createElement"])(Tooltip, {
     text: label
   }, Object(external_wp_element_["createElement"])(box_control_styles_UnitControl, Object(esm_extends["a" /* default */])({
+=======
+  return Object(external_this_wp_element_["createElement"])(UnitControlWrapper, bindHoverGesture(), Object(external_this_wp_element_["createElement"])(Tooltip, {
+    text: label
+  }, Object(external_this_wp_element_["createElement"])(box_control_styles_UnitControl, Object(esm_extends["a" /* default */])({
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
     "aria-label": label,
     className: "component-box-control__unit-control",
     hideHTMLArrows: true,
@@ -27528,10 +27570,17 @@ function LinkedButton(_ref) {
   var isLinked = _ref.isLinked,
       props = Object(objectWithoutProperties["a" /* default */])(_ref, ["isLinked"]);
 
+<<<<<<< HEAD
   var label = isLinked ? Object(external_wp_i18n_["__"])('Unlink Sides') : Object(external_wp_i18n_["__"])('Link Sides');
   return Object(external_wp_element_["createElement"])(build_module_tooltip["a" /* default */], {
     text: label
   }, Object(external_wp_element_["createElement"])("span", null, Object(external_wp_element_["createElement"])(build_module_button["a" /* default */], Object(esm_extends["a" /* default */])({}, props, {
+=======
+  var label = isLinked ? Object(external_this_wp_i18n_["__"])('Unlink Sides') : Object(external_this_wp_i18n_["__"])('Link Sides');
+  return Object(external_this_wp_element_["createElement"])(build_module_tooltip["a" /* default */], {
+    text: label
+  }, Object(external_this_wp_element_["createElement"])("span", null, Object(external_this_wp_element_["createElement"])(build_module_button["a" /* default */], Object(esm_extends["a" /* default */])({}, props, {
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
     className: "component-box-control__linked-button",
     isPrimary: isLinked,
     isSecondary: !isLinked,
@@ -27911,9 +27960,15 @@ function BoxControl(_ref) {
     className: "component-box-control__header-control-wrapper"
   }, Object(external_wp_element_["createElement"])(flex_item, null, Object(external_wp_element_["createElement"])(BoxControlIcon, {
     side: side
+<<<<<<< HEAD
   })), isLinked && Object(external_wp_element_["createElement"])(block, null, Object(external_wp_element_["createElement"])(AllInputControl, Object(esm_extends["a" /* default */])({
     "aria-label": label
   }, inputControlProps))), Object(external_wp_element_["createElement"])(flex_item, null, Object(external_wp_element_["createElement"])(LinkedButton, {
+=======
+  })), isLinked && Object(external_this_wp_element_["createElement"])(block, null, Object(external_this_wp_element_["createElement"])(AllInputControl, Object(esm_extends["a" /* default */])({
+    "aria-label": label
+  }, inputControlProps))), Object(external_this_wp_element_["createElement"])(flex_item, null, Object(external_this_wp_element_["createElement"])(LinkedButton, {
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
     onClick: toggleLinked,
     isLinked: isLinked
   }))), !isLinked && Object(external_wp_element_["createElement"])(BoxInputControls, inputControlProps));
@@ -37641,7 +37696,11 @@ function DropdownMenu(_ref) {
 /* harmony default export */ var dropdown_menu = (DropdownMenu);
 
 // EXTERNAL MODULE: ./node_modules/@wordpress/icons/build-module/library/external.js
+<<<<<<< HEAD
 var external = __webpack_require__(420);
+=======
+var external = __webpack_require__(440);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/components/build-module/external-link/styles/external-link-styles.js
 
@@ -38603,7 +38662,11 @@ function FocusableIframe(_ref) {
 }
 
 // EXTERNAL MODULE: ./node_modules/@wordpress/icons/build-module/library/text-color.js
+<<<<<<< HEAD
 var text_color = __webpack_require__(220);
+=======
+var text_color = __webpack_require__(441);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/components/build-module/range-control/utils.js
 
@@ -39621,6 +39684,10 @@ function next_withNextComponent(current) {
  */
 
 /**
+ * External dependencies
+ */
+
+/**
  * WordPress dependencies
  */
 
@@ -39686,7 +39753,11 @@ function font_size_picker_FontSizePicker(_ref, ref) {
       value = _ref.value,
       _ref$withSlider = _ref.withSlider,
       withSlider = _ref$withSlider === void 0 ? false : _ref$withSlider;
+<<<<<<< HEAD
   var hasUnits = Object(external_lodash_["isString"])(value) || fontSizes[0] && Object(external_lodash_["isString"])(fontSizes[0].size);
+=======
+  var hasUnits = Object(external_this_lodash_["isString"])(value) || fontSizes[0] && Object(external_this_lodash_["isString"])(fontSizes[0].size);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
   var noUnitsValue;
 
   if (!hasUnits) {
@@ -39695,9 +39766,15 @@ function font_size_picker_FontSizePicker(_ref, ref) {
     noUnitsValue = parseInt(value);
   }
 
+<<<<<<< HEAD
   var isPixelValue = Object(external_lodash_["isNumber"])(value) || Object(external_lodash_["isString"])(value) && value.endsWith('px');
   var instanceId = Object(external_wp_compose_["useInstanceId"])(font_size_picker_FontSizePicker);
   var options = Object(external_wp_element_["useMemo"])(function () {
+=======
+  var isPixelValue = Object(external_this_lodash_["isNumber"])(value) || Object(external_this_lodash_["isString"])(value) && value.endsWith('px');
+  var instanceId = Object(external_this_wp_compose_["useInstanceId"])(FontSizePicker);
+  var options = Object(external_this_wp_element_["useMemo"])(function () {
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
     return getSelectOptions(fontSizes, disableCustomFontSizes);
   }, [fontSizes, disableCustomFontSizes]);
 
@@ -39741,21 +39818,30 @@ function font_size_picker_FontSizePicker(_ref, ref) {
     type: "number",
     min: 1,
     onChange: function onChange(event) {
+<<<<<<< HEAD
       if (!event.target.value && event.target.value !== 0) {
         _onChange(undefined);
 
         return;
       }
 
+=======
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
       if (hasUnits) {
         _onChange(event.target.value + 'px');
       } else {
         _onChange(Number(event.target.value));
       }
     },
+<<<<<<< HEAD
     "aria-label": Object(external_wp_i18n_["__"])('Custom'),
     value: isPixelValue && noUnitsValue || ''
   })), Object(external_wp_element_["createElement"])(build_module_button["a" /* default */], {
+=======
+    "aria-label": Object(external_this_wp_i18n_["__"])('Custom'),
+    value: isPixelValue && noUnitsValue || ''
+  })), Object(external_this_wp_element_["createElement"])(build_module_button["a" /* default */], {
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
     className: "components-color-palette__clear",
     disabled: value === undefined,
     onClick: function onClick() {
@@ -39765,7 +39851,11 @@ function font_size_picker_FontSizePicker(_ref, ref) {
     isSecondary: true
   }, Object(external_wp_i18n_["__"])('Reset'))), withSlider && Object(external_wp_element_["createElement"])(range_control, {
     className: "components-font-size-picker__custom-input",
+<<<<<<< HEAD
     label: Object(external_wp_i18n_["__"])('Custom Size'),
+=======
+    label: Object(external_this_wp_i18n_["__"])('Custom Size'),
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
     value: isPixelValue && noUnitsValue || '',
     initialPosition: fallbackFontSize,
     onChange: function onChange(newValue) {
@@ -52698,7 +52788,11 @@ var _moment = __webpack_require__(45);
 
 var _moment2 = _interopRequireDefault(_moment);
 
+<<<<<<< HEAD
 var _throttle = __webpack_require__(386);
+=======
+var _throttle = __webpack_require__(406);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _throttle2 = _interopRequireDefault(_throttle);
 
@@ -52706,7 +52800,11 @@ var _isTouchDevice = __webpack_require__(249);
 
 var _isTouchDevice2 = _interopRequireDefault(_isTouchDevice);
 
+<<<<<<< HEAD
 var _reactOutsideClickHandler = __webpack_require__(396);
+=======
+var _reactOutsideClickHandler = __webpack_require__(416);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _reactOutsideClickHandler2 = _interopRequireDefault(_reactOutsideClickHandler);
 
@@ -52716,6 +52814,7 @@ var _getPhrasePropTypes = __webpack_require__(107);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
+<<<<<<< HEAD
 var _CalendarMonthGrid = __webpack_require__(400);
 
 var _CalendarMonthGrid2 = _interopRequireDefault(_CalendarMonthGrid);
@@ -52729,6 +52828,21 @@ var _DayPickerKeyboardShortcuts = __webpack_require__(415);
 var _DayPickerKeyboardShortcuts2 = _interopRequireDefault(_DayPickerKeyboardShortcuts);
 
 var _getNumberOfCalendarMonthWeeks = __webpack_require__(418);
+=======
+var _CalendarMonthGrid = __webpack_require__(420);
+
+var _CalendarMonthGrid2 = _interopRequireDefault(_CalendarMonthGrid);
+
+var _DayPickerNavigation = __webpack_require__(430);
+
+var _DayPickerNavigation2 = _interopRequireDefault(_DayPickerNavigation);
+
+var _DayPickerKeyboardShortcuts = __webpack_require__(435);
+
+var _DayPickerKeyboardShortcuts2 = _interopRequireDefault(_DayPickerKeyboardShortcuts);
+
+var _getNumberOfCalendarMonthWeeks = __webpack_require__(438);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _getNumberOfCalendarMonthWeeks2 = _interopRequireDefault(_getNumberOfCalendarMonthWeeks);
 
@@ -52740,7 +52854,11 @@ var _calculateDimension = __webpack_require__(263);
 
 var _calculateDimension2 = _interopRequireDefault(_calculateDimension);
 
+<<<<<<< HEAD
 var _getActiveElement = __webpack_require__(419);
+=======
+var _getActiveElement = __webpack_require__(439);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _getActiveElement2 = _interopRequireDefault(_getActiveElement);
 
@@ -54241,13 +54359,21 @@ exports['default'] = (0, _reactWithStyles.withStyles)(function (_ref2) {
 })(DayPicker);
 
 /***/ }),
+<<<<<<< HEAD
 /* 381 */
+=======
+/* 401 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+<<<<<<< HEAD
 var reactIs = __webpack_require__(382);
+=======
+var reactIs = __webpack_require__(402);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 /**
  * Copyright 2015, Yahoo! Inc.
@@ -54351,19 +54477,31 @@ module.exports = hoistNonReactStatics;
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 382 */
+=======
+/* 402 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (true) {
+<<<<<<< HEAD
   module.exports = __webpack_require__(383);
+=======
+  module.exports = __webpack_require__(403);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 } else {}
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 383 */
+=======
+/* 403 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54385,7 +54523,11 @@ exports.isValidElementType=function(a){return"string"===typeof a||"function"===t
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 384 */
+=======
+/* 404 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54402,7 +54544,11 @@ var DIRECTIONS = exports.DIRECTIONS = {
 };
 
 /***/ }),
+<<<<<<< HEAD
 /* 385 */
+=======
+/* 405 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54425,11 +54571,19 @@ exports['default'] = _propTypes2['default'].shape({
 });
 
 /***/ }),
+<<<<<<< HEAD
 /* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var debounce = __webpack_require__(387),
     isObject = __webpack_require__(201);
+=======
+/* 406 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var debounce = __webpack_require__(407),
+    isObject = __webpack_require__(197);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -54500,12 +54654,21 @@ module.exports = throttle;
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(201),
     now = __webpack_require__(388),
     toNumber = __webpack_require__(390);
+=======
+/* 407 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(197),
+    now = __webpack_require__(408),
+    toNumber = __webpack_require__(410);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -54697,7 +54860,11 @@ module.exports = debounce;
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 388 */
+=======
+/* 408 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 var root = __webpack_require__(256);
@@ -54726,7 +54893,11 @@ module.exports = now;
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 389 */
+=======
+/* 409 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
@@ -54737,11 +54908,19 @@ module.exports = freeGlobal;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(139)))
 
 /***/ }),
+<<<<<<< HEAD
 /* 390 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(201),
     isSymbol = __webpack_require__(391);
+=======
+/* 410 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(197),
+    isSymbol = __webpack_require__(411);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -54809,11 +54988,19 @@ module.exports = toNumber;
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 391 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(392),
     isObjectLike = __webpack_require__(395);
+=======
+/* 411 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(412),
+    isObjectLike = __webpack_require__(415);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 /** `Object#toString` result references. */
 var symbolTag = '[object Symbol]';
@@ -54844,12 +55031,21 @@ module.exports = isSymbol;
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 392 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(257),
     getRawTag = __webpack_require__(393),
     objectToString = __webpack_require__(394);
+=======
+/* 412 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(259),
+    getRawTag = __webpack_require__(413),
+    objectToString = __webpack_require__(414);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
@@ -54878,7 +55074,11 @@ module.exports = baseGetTag;
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 393 */
+=======
+/* 413 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(257);
@@ -54930,7 +55130,11 @@ module.exports = getRawTag;
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 394 */
+=======
+/* 414 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports) {
 
 /** Used for built-in method references. */
@@ -54958,7 +55162,11 @@ module.exports = objectToString;
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 395 */
+=======
+/* 415 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports) {
 
 /**
@@ -54993,6 +55201,7 @@ module.exports = isObjectLike;
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 396 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -55002,6 +55211,17 @@ module.exports = __webpack_require__(397);
 
 /***/ }),
 /* 397 */
+=======
+/* 416 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// eslint-disable-next-line import/no-unresolved
+module.exports = __webpack_require__(417);
+
+
+/***/ }),
+/* 417 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55029,7 +55249,11 @@ var _object = __webpack_require__(246);
 
 var _object2 = _interopRequireDefault(_object);
 
+<<<<<<< HEAD
 var _document = __webpack_require__(398);
+=======
+var _document = __webpack_require__(418);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -55239,7 +55463,11 @@ OutsideClickHandler.propTypes = propTypes;
 OutsideClickHandler.defaultProps = defaultProps;
 
 /***/ }),
+<<<<<<< HEAD
 /* 398 */
+=======
+/* 418 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55250,7 +55478,11 @@ var define = __webpack_require__(99);
 var implementation = __webpack_require__(259);
 var getPolyfill = __webpack_require__(260);
 var polyfill = getPolyfill();
+<<<<<<< HEAD
 var shim = __webpack_require__(399);
+=======
+var shim = __webpack_require__(419);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var boundContains = function contains(node, other) {
 	return polyfill.apply(node, [other]);
@@ -55266,7 +55498,11 @@ module.exports = boundContains;
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 399 */
+=======
+/* 419 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55296,7 +55532,11 @@ module.exports = function shimContains() {
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 400 */
+=======
+/* 420 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55346,6 +55586,7 @@ var _getPhrasePropTypes = __webpack_require__(107);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
+<<<<<<< HEAD
 var _CalendarMonth = __webpack_require__(401);
 
 var _CalendarMonth2 = _interopRequireDefault(_CalendarMonth);
@@ -55355,6 +55596,17 @@ var _isTransitionEndSupported = __webpack_require__(406);
 var _isTransitionEndSupported2 = _interopRequireDefault(_isTransitionEndSupported);
 
 var _getTransformStyles = __webpack_require__(407);
+=======
+var _CalendarMonth = __webpack_require__(421);
+
+var _CalendarMonth2 = _interopRequireDefault(_CalendarMonth);
+
+var _isTransitionEndSupported = __webpack_require__(426);
+
+var _isTransitionEndSupported2 = _interopRequireDefault(_isTransitionEndSupported);
+
+var _getTransformStyles = __webpack_require__(427);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _getTransformStyles2 = _interopRequireDefault(_getTransformStyles);
 
@@ -55366,11 +55618,19 @@ var _toISOMonthString = __webpack_require__(200);
 
 var _toISOMonthString2 = _interopRequireDefault(_toISOMonthString);
 
+<<<<<<< HEAD
 var _isPrevMonth = __webpack_require__(408);
 
 var _isPrevMonth2 = _interopRequireDefault(_isPrevMonth);
 
 var _isNextMonth = __webpack_require__(409);
+=======
+var _isPrevMonth = __webpack_require__(428);
+
+var _isPrevMonth2 = _interopRequireDefault(_isPrevMonth);
+
+var _isNextMonth = __webpack_require__(429);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _isNextMonth2 = _interopRequireDefault(_isNextMonth);
 
@@ -55862,7 +56122,11 @@ exports['default'] = (0, _reactWithStyles.withStyles)(function (_ref) {
 })(CalendarMonthGrid);
 
 /***/ }),
+<<<<<<< HEAD
 /* 401 */
+=======
+/* 421 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55910,7 +56174,11 @@ var _getPhrasePropTypes = __webpack_require__(107);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
+<<<<<<< HEAD
 var _CalendarWeek = __webpack_require__(402);
+=======
+var _CalendarWeek = __webpack_require__(422);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _CalendarWeek2 = _interopRequireDefault(_CalendarWeek);
 
@@ -55922,7 +56190,11 @@ var _calculateDimension = __webpack_require__(263);
 
 var _calculateDimension2 = _interopRequireDefault(_calculateDimension);
 
+<<<<<<< HEAD
 var _getCalendarMonthWeeks = __webpack_require__(405);
+=======
+var _getCalendarMonthWeeks = __webpack_require__(425);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _getCalendarMonthWeeks2 = _interopRequireDefault(_getCalendarMonthWeeks);
 
@@ -56267,7 +56539,11 @@ exports['default'] = (0, _reactWithStyles.withStyles)(function (_ref) {
 })(CalendarMonth);
 
 /***/ }),
+<<<<<<< HEAD
 /* 402 */
+=======
+/* 422 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56288,7 +56564,11 @@ var _CalendarDay = __webpack_require__(261);
 
 var _CalendarDay2 = _interopRequireDefault(_CalendarDay);
 
+<<<<<<< HEAD
 var _CustomizableCalendarDay = __webpack_require__(404);
+=======
+var _CustomizableCalendarDay = __webpack_require__(424);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _CustomizableCalendarDay2 = _interopRequireDefault(_CustomizableCalendarDay);
 
@@ -56311,7 +56591,11 @@ function CalendarWeek(_ref) {
 CalendarWeek.propTypes = propTypes;
 
 /***/ }),
+<<<<<<< HEAD
 /* 403 */
+=======
+/* 423 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56332,7 +56616,11 @@ function getPhrase(phrase, args) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 404 */
+=======
+/* 424 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56842,7 +57130,11 @@ exports['default'] = (0, _reactWithStyles.withStyles)(function (_ref2) {
 })(CustomizableCalendarDay);
 
 /***/ }),
+<<<<<<< HEAD
 /* 405 */
+=======
+/* 425 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56906,7 +57198,11 @@ function getCalendarMonthWeeks(month, enableOutsideDays) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 406 */
+=======
+/* 426 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56921,7 +57217,11 @@ function isTransitionEndSupported() {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 407 */
+=======
+/* 427 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56941,7 +57241,11 @@ function getTransformStyles(transformValue) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 408 */
+=======
+/* 428 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56968,7 +57272,11 @@ function isPrevMonth(a, b) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 409 */
+=======
+/* 429 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56995,7 +57303,11 @@ function isNextMonth(a, b) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 410 */
+=======
+/* 430 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57029,6 +57341,7 @@ var _getPhrasePropTypes = __webpack_require__(107);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
+<<<<<<< HEAD
 var _LeftArrow = __webpack_require__(411);
 
 var _LeftArrow2 = _interopRequireDefault(_LeftArrow);
@@ -57042,6 +57355,21 @@ var _ChevronUp = __webpack_require__(413);
 var _ChevronUp2 = _interopRequireDefault(_ChevronUp);
 
 var _ChevronDown = __webpack_require__(414);
+=======
+var _LeftArrow = __webpack_require__(431);
+
+var _LeftArrow2 = _interopRequireDefault(_LeftArrow);
+
+var _RightArrow = __webpack_require__(432);
+
+var _RightArrow2 = _interopRequireDefault(_RightArrow);
+
+var _ChevronUp = __webpack_require__(433);
+
+var _ChevronUp2 = _interopRequireDefault(_ChevronUp);
+
+var _ChevronDown = __webpack_require__(434);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _ChevronDown2 = _interopRequireDefault(_ChevronDown);
 
@@ -57304,7 +57632,11 @@ exports['default'] = (0, _reactWithStyles.withStyles)(function (_ref2) {
 })(DayPickerNavigation);
 
 /***/ }),
+<<<<<<< HEAD
 /* 411 */
+=======
+/* 431 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57340,7 +57672,11 @@ LeftArrow.defaultProps = {
 exports['default'] = LeftArrow;
 
 /***/ }),
+<<<<<<< HEAD
 /* 412 */
+=======
+/* 432 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57376,7 +57712,11 @@ RightArrow.defaultProps = {
 exports['default'] = RightArrow;
 
 /***/ }),
+<<<<<<< HEAD
 /* 413 */
+=======
+/* 433 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57412,7 +57752,11 @@ ChevronUp.defaultProps = {
 exports['default'] = ChevronUp;
 
 /***/ }),
+<<<<<<< HEAD
 /* 414 */
+=======
+/* 434 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57448,7 +57792,11 @@ ChevronDown.defaultProps = {
 exports['default'] = ChevronDown;
 
 /***/ }),
+<<<<<<< HEAD
 /* 415 */
+=======
+/* 435 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57485,11 +57833,19 @@ var _getPhrasePropTypes = __webpack_require__(107);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
+<<<<<<< HEAD
 var _KeyboardShortcutRow = __webpack_require__(416);
 
 var _KeyboardShortcutRow2 = _interopRequireDefault(_KeyboardShortcutRow);
 
 var _CloseButton = __webpack_require__(417);
+=======
+var _KeyboardShortcutRow = __webpack_require__(436);
+
+var _KeyboardShortcutRow2 = _interopRequireDefault(_KeyboardShortcutRow);
+
+var _CloseButton = __webpack_require__(437);
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 var _CloseButton2 = _interopRequireDefault(_CloseButton);
 
@@ -57957,7 +58313,11 @@ exports['default'] = (0, _reactWithStyles.withStyles)(function (_ref3) {
 })(DayPickerKeyboardShortcuts);
 
 /***/ }),
+<<<<<<< HEAD
 /* 416 */
+=======
+/* 436 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58072,7 +58432,11 @@ exports['default'] = (0, _reactWithStyles.withStyles)(function (_ref2) {
 })(KeyboardShortcutRow);
 
 /***/ }),
+<<<<<<< HEAD
 /* 417 */
+=======
+/* 437 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58109,7 +58473,11 @@ CloseButton.defaultProps = {
 exports['default'] = CloseButton;
 
 /***/ }),
+<<<<<<< HEAD
 /* 418 */
+=======
+/* 438 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58140,7 +58508,11 @@ function getNumberOfCalendarMonthWeeks(month) {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 419 */
+=======
+/* 439 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58155,7 +58527,11 @@ function getActiveElement() {
 }
 
 /***/ }),
+<<<<<<< HEAD
 /* 420 */
+=======
+/* 440 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -58179,6 +58555,7 @@ var external = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEle
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 421 */,
 /* 422 */,
 /* 423 */,
@@ -58200,6 +58577,32 @@ var external = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEle
 /* 439 */,
 /* 440 */,
 /* 441 */,
+=======
+/* 441 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/**
+ * WordPress dependencies
+ */
+
+var textColor = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "-2 -2 24 24"
+}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
+  d: "M13.23 15h1.9L11 4H9L5 15h1.88l1.07-3h4.18zm-1.53-4.54H8.51L10 5.6z"
+}));
+/* harmony default export */ __webpack_exports__["a"] = (textColor);
+
+
+/***/ }),
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /* 442 */,
 /* 443 */,
 /* 444 */,
@@ -58232,7 +58635,38 @@ var external = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEle
 /* 471 */,
 /* 472 */,
 /* 473 */,
+<<<<<<< HEAD
 /* 474 */
+=======
+/* 474 */,
+/* 475 */,
+/* 476 */,
+/* 477 */,
+/* 478 */,
+/* 479 */,
+/* 480 */,
+/* 481 */,
+/* 482 */,
+/* 483 */,
+/* 484 */,
+/* 485 */,
+/* 486 */,
+/* 487 */,
+/* 488 */,
+/* 489 */,
+/* 490 */,
+/* 491 */,
+/* 492 */,
+/* 493 */,
+/* 494 */,
+/* 495 */,
+/* 496 */,
+/* 497 */,
+/* 498 */,
+/* 499 */,
+/* 500 */,
+/* 501 */
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

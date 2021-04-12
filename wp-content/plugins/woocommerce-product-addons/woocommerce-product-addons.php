@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Product Add-ons
  * Plugin URI: https://woocommerce.com/products/product-add-ons/
  * Description: Add extra options to products which your customers can select from, when adding to the cart, with an optional fee for each extra option. Add-ons can be checkboxes, a select box, or custom text input.
- * Version: 3.5.0
+ * Version: 3.7.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 3.8
- * Tested up to: 5.6
- * WC tested up to: 5.0
- * WC requires at least: 2.6
+ * Tested up to: 5.7
+ * WC tested up to: 5.1
+ * WC requires at least: 3.0
  * Text Domain: woocommerce-product-addons
  * Domain Path: /languages/
  * Copyright: © 2021 WooCommerce
@@ -61,7 +61,7 @@ function woocommerce_product_addons_init() {
 	}
 
 	if ( ! class_exists( 'WC_Product_Addons' ) ) :
-		define( 'WC_PRODUCT_ADDONS_VERSION', '3.5.0' ); // WRCS: DEFINED_VERSION.
+		define( 'WC_PRODUCT_ADDONS_VERSION', '3.7.0' ); // WRCS: DEFINED_VERSION.
 		define( 'WC_PRODUCT_ADDONS_MAIN_FILE', __FILE__ );
 		define( 'WC_PRODUCT_ADDONS_PLUGIN_URL', untrailingslashit( plugins_url( '/', __FILE__ ) ) );
 		define( 'WC_PRODUCT_ADDONS_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -91,70 +91,33 @@ function woocommerce_product_addons_init() {
 			 * @version 2.9.0
 			 */
 			public function init() {
-				if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-					require_once( dirname( __FILE__ ) . '/legacy/class-wc-product-addons-helper.php' );
-				} else {
-					require_once( dirname( __FILE__ ) . '/includes/class-wc-product-addons-helper.php' );
-				}
+				require_once( dirname( __FILE__ ) . '/includes/class-wc-product-addons-helper.php' );
 
 				// Pre 3.0 conversion helper to be remove in future.
 				require_once( dirname( __FILE__ ) . '/includes/updates/class-wc-product-addons-3-0-conversion-helper.php' );
 
 				require_once( dirname( __FILE__ ) . '/includes/class-wc-product-addons-install.php' );
 
-				if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-					// Core (models)
-					require_once( dirname( __FILE__ ) . '/legacy/groups/class-product-addon-group-validator.php' );
-					require_once( dirname( __FILE__ ) . '/legacy/groups/class-product-addon-global-group.php' );
-					require_once( dirname( __FILE__ ) . '/legacy/groups/class-product-addon-product-group.php' );
-					require_once( dirname( __FILE__ ) . '/legacy/groups/class-product-addon-groups.php' );
-				} else {
-					// Core (models)
-					require_once( dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-group-validator.php' );
-					require_once( dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-global-group.php' );
-					require_once( dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-product-group.php' );
-					require_once( dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-groups.php' );
-				}
+				// Core (models)
+				require_once( dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-group-validator.php' );
+				require_once( dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-global-group.php' );
+				require_once( dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-product-group.php' );
+				require_once( dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-groups.php' );
 
 				// Admin
 				if ( is_admin() ) {
 					require_once( dirname( __FILE__ ) . '/includes/admin/class-wc-product-addons-privacy.php' );
-
-					// Handle WooCommerce 3.0 compatibility.
-					if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-						require_once( dirname( __FILE__ ) . '/legacy/admin/class-product-addon-admin.php' );
-						require_once( dirname( __FILE__ ) . '/legacy/admin/class-product-addon-admin-legacy.php' );
-
-						$GLOBALS['Product_Addon_Admin'] = new Product_Addon_Admin_Legacy();
-					} else {
-						require_once( dirname( __FILE__ ) . '/includes/admin/class-wc-product-addons-admin.php' );
-
-						$GLOBALS['Product_Addon_Admin'] = new WC_Product_Addons_Admin();
-					}
+					require_once( dirname( __FILE__ ) . '/includes/admin/class-wc-product-addons-admin.php' );
+					$GLOBALS['Product_Addon_Admin'] = new WC_Product_Addons_Admin();
 				}
 
-				// Handle WooCommerce 3.0 compatibility.
-				if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-					require_once( dirname( __FILE__ ) . '/legacy/includes/class-product-addon-display.php' );
-					require_once( dirname( __FILE__ ) . '/legacy/includes/class-product-addon-cart.php' );
-					require_once( dirname( __FILE__ ) . '/legacy/includes/class-product-addon-ajax.php' );
+				require_once( dirname( __FILE__ ) . '/includes/class-wc-product-addons-display.php' );
+				require_once( dirname( __FILE__ ) . '/includes/class-wc-product-addons-cart.php' );
+				require_once( dirname( __FILE__ ) . '/includes/class-wc-product-addons-ajax.php' );
 
-					require_once( dirname( __FILE__ ) . '/legacy/includes/class-product-addon-display-legacy.php' );
-					require_once( dirname( __FILE__ ) . '/legacy/includes/class-product-addon-cart-legacy.php' );
-					require_once( dirname( __FILE__ ) . '/legacy/includes/class-wc-addons-ajax.php' );
-
-					$GLOBALS['Product_Addon_Display'] = new Product_Addon_Display_Legacy();
-					$GLOBALS['Product_Addon_Cart']    = new Product_Addon_Cart_Legacy();
-					new WC_Addons_Ajax();
-				} else {
-					require_once( dirname( __FILE__ ) . '/includes/class-wc-product-addons-display.php' );
-					require_once( dirname( __FILE__ ) . '/includes/class-wc-product-addons-cart.php' );
-					require_once( dirname( __FILE__ ) . '/includes/class-wc-product-addons-ajax.php' );
-
-					$GLOBALS['Product_Addon_Display'] = new WC_Product_Addons_Display();
-					$GLOBALS['Product_Addon_Cart']    = new WC_Product_Addons_Cart();
-					new WC_Product_Addons_Cart_Ajax();
-				}
+				$GLOBALS['Product_Addon_Display'] = new WC_Product_Addons_Display();
+				$GLOBALS['Product_Addon_Cart']    = new WC_Product_Addons_Cart();
+				new WC_Product_Addons_Cart_Ajax();
 			}
 
 			/**
@@ -215,14 +178,6 @@ function woocommerce_product_addons_init() {
 					echo '<div class="notice is-dismissible updated"><p><strong>' . __( 'WooCommerce Product Add-ons is ready to go!', 'woocommerce-product-addons' ) . '</strong></p><p>' . __( 'Create an add-on that applies to every product, or apply it to specific categories. Create an add-on for an individual product by editing the product.', 'woocommerce-product-addons' ) . '</p><p><a href="' . esc_url( admin_url() ) . 'edit.php?post_type=product&page=addons" class="button button-primary">' . __( 'Create add-ons', 'woocommerce-product-addons' ) . '</a>&nbsp;&nbsp;<a href="' . esc_url( admin_url() ) . 'edit.php?post_type=product" class="button">' . __( 'Find products', 'woocommerce-product-addons' ) . '</a></p></div>';
 
 					delete_transient( 'wc_pao_activation_notice' );
-				}
-
-				$show_pre_wc_30_notice = get_transient( 'wc_pao_pre_wc_30_notice' );
-
-				if ( $show_pre_wc_30_notice && version_compare( WC_VERSION, '3.0', '<' ) ) {
-					echo '<div class="notice error is-dismissible updated"><p><strong>' . __( 'New features of the Product Add-ons 3.0 versions are not available for WooCommerce less than 3.0. To use this new features, please update your WooCommerce version to the latest version.', 'woocommerce-product-addons' ) . '</strong></p></div>';
-
-					delete_transient( 'wc_pao_pre_wc_30_notice' );
 				}
 			}
 		}

@@ -23,7 +23,7 @@ jQuery( function( $ ) {
 				$('.options_group.pricing ._regular_price_field').hide();
 				$('#sale-price-period').show();
 				$('.hide_if_subscription').hide();
-				$( 'input#_manage_stock' ).change();
+				$( 'input#_manage_stock' ).trigger( 'change' );
 
 				if('day' == $('#_subscription_period').val()) {
 					$('.subscription_sync').hide();
@@ -40,7 +40,7 @@ jQuery( function( $ ) {
 			if ($('select#product-type').val()=='variable-subscription') {
 
 				$( 'input#_downloadable' ).prop( 'checked', false );
-				$( 'input#_virtual' ).removeAttr( 'checked' );
+				$( 'input#_virtual' ).prop( 'checked', false );
 
 				$('.show_if_variable').show();
 				$('.hide_if_variable').hide();
@@ -380,7 +380,7 @@ jQuery( function( $ ) {
 				return 'none' != $( this ).css( 'display' );
 			});
 			if ( 0 != visible.length ) {
-				tab.click().parent().show();
+				tab.trigger( 'click' ).parent().show();
 			}
 		},
 		maybeDisableRemoveLinks: function() {
@@ -455,14 +455,14 @@ jQuery( function( $ ) {
 		}
 	});
 
-	$('body').bind('woocommerce-product-type-change',function(){
+	$('body').on('woocommerce-product-type-change',function(){
 		$.showHideSubscriptionMeta();
 		$.showHideVariableSubscriptionMeta();
 		$.showHideSyncOptions();
 		$.showHideSubscriptionsPanels();
 	});
 
-	$('input#_downloadable, input#_virtual').change(function(){
+	$('input#_downloadable, input#_virtual').on( 'change', function(){
 		$.showHideSubscriptionMeta();
 		$.showHideVariableSubscriptionMeta();
 	});
@@ -474,11 +474,11 @@ jQuery( function( $ ) {
 
 	if($.getParameterByName('select_subscription')=='true'){
 		$('select#product-type option[value="'+WCSubscriptions.productType+'"]').attr('selected', 'selected');
-		$('select#product-type').select().change();
+		$('select#product-type').trigger( 'select' ).trigger( 'change' );
 	}
 
 	// Before saving a subscription product, validate the trial period
-	$('#post').submit(function(e){
+	$('#post').on( 'submit', function(e){
 		if ( WCSubscriptions.subscriptionLengths !== undefined ){
 			var trialLength = $('#_subscription_trial_length').val(),
 				selectedTrialPeriod = $('#_subscription_trial_period').val();
@@ -493,7 +493,7 @@ jQuery( function( $ ) {
 	});
 
 	// Notify store manager that deleting an order via the Orders screen also deletes subscriptions associated with the orders
-	$('#posts-filter').submit(function(){
+	$('#posts-filter').on( 'submit', function(){
 		if($('[name="post_type"]').val()=='shop_order'&&($('[name="action"]').val()=='trash'||$('[name="action2"]').val()=='trash')){
 			var containsSubscription = false;
 			$('[name="post[]"]:checked').each(function(){
@@ -508,7 +508,7 @@ jQuery( function( $ ) {
 		}
 	});
 
-	$('.order_actions .submitdelete').click(function(){
+	$('.order_actions .submitdelete').on( 'click', function(){
 		if($('[name="contains_subscription"]').val()=='true'){
 			return confirm(WCSubscriptions.trashWarning);
 		}
@@ -520,7 +520,7 @@ jQuery( function( $ ) {
 	} );
 
 	// Notify the store manager that trashing an order via the admin orders table row action also deletes the associated subscription if it exists
-	$( '.row-actions .submitdelete' ).click( function() {
+	$( '.row-actions .submitdelete' ).on( 'click', function() {
 		var order = $( this ).closest( '.type-shop_order' ).attr( 'id' );
 
 		if ( true === $( '.contains_subscription', $( '#' + order ) ).data( 'contains_subscription' ) ) {
@@ -610,7 +610,7 @@ jQuery( function( $ ) {
 			} else {
 				$suspensionExtensionRow.hide();
 			}
-		} ).change();
+		} ).trigger( 'change' );
 
 		// No animation when initially hiding prorated rows.
 		if ( ! $syncRenewals.is( ':checked' ) ) {
@@ -623,7 +623,7 @@ jQuery( function( $ ) {
 		$syncRenewals.on( 'change', function(){
 			if ( $( this ).is( ':checked' ) ) {
 				$syncRows.not( $daysNoFeeRow ).fadeIn();
-				$prorateFirstRenewal.change();
+				$prorateFirstRenewal.trigger( 'change' );
 			} else {
 				$syncRows.fadeOut();
 			}
@@ -739,7 +739,7 @@ jQuery( function( $ ) {
 					// do_variation_action() in woocommerce/assets/js/admin/meta-boxes-product-variation.js doesn't
 					// allow us to do anything after the AJAX request, so we need to listen to all AJAX requests for a
 					// little while to update the quantity and refresh the variation list.
-					$( document ).bind( 'ajaxComplete', wcs_prevent_variation_removal.update_qty_after_removal );
+					$( document ).on( 'ajaxComplete', wcs_prevent_variation_removal.update_qty_after_removal );
 				}
 			}
 
@@ -756,7 +756,7 @@ jQuery( function( $ ) {
 			}
 
 			// Unbind so this doesn't get called every time an AJAX request is performed.
-			$( document ).unbind( 'ajaxComplete', wcs_prevent_variation_removal.update_qty_after_removal );
+			$( document ).off( 'ajaxComplete', wcs_prevent_variation_removal.update_qty_after_removal );
 
 			// Update variation quantity.
 			removed = ( 'OK' === jqXHR.statusText ) ? parseInt( jqXHR.responseText, 10 ) : 0;
@@ -822,7 +822,7 @@ jQuery( function( $ ) {
 		 */
 		paypal_for_subscriptions_enabled: function() {
 			if ( $( this ).is( ':checked' ) && ! confirm( WCSubscriptions.enablePayPalWarning ) ) {
-				$( this ).removeAttr( 'checked' );
+				$( this ).prop( 'checked', false );
 			}
 		}
 	};

@@ -136,12 +136,22 @@ class WIS_SettingsPage extends WIS_Page {
 
 		wp_enqueue_style( 'wyoutube-admin-styles', WYT_PLUGIN_URL . '/admin/assets/css/wyoutube-admin.css', array(), WYT_PLUGIN_VERSION );
 		wp_enqueue_script( 'wyoutube-admin-script', WYT_PLUGIN_URL . '/admin/assets/js/wyoutube-admin.js', array( 'jquery' ), WYT_PLUGIN_VERSION, true );
+<<<<<<< HEAD
 
 		$wyt = json_encode([
 			'nonce'          => wp_create_nonce( 'wyt_nonce' ),
 			'remove_account' => __( 'Are you sure want to delete this account?', 'yft' ),
 		]);
 		wp_add_inline_script( 'wyoutube-admin-script', "var wyt = $wyt;");
+=======
+		wp_localize_script( 'wyoutube-admin-script', 'wyt', array(
+			'nonce'          => wp_create_nonce( 'wyt_nonce' ),
+			'remove_account' => __( 'Are you sure want to delete this account?', 'yft' ),
+		) );
+		wp_localize_script( 'wyoutube-admin-script', 'add_account_nonce', array(
+			'nonce' => wp_create_nonce( "addAccountByToken" ),
+		) );
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 	}
 
 	public function indexAction() {
@@ -154,7 +164,7 @@ class WIS_SettingsPage extends WIS_Page {
 				case "facebook":
 					WIS_FacebookSlider::app()->FACEBOOK->tabAction();
 					break;
-				case "youtube":
+				case "Youtube":
 					$this->youtube();
 					break;
 			}

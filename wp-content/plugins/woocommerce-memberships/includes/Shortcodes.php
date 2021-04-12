@@ -516,7 +516,7 @@ class Shortcodes {
 				}
 
 				// store this condition
-				if ( in_array( $status_list[ $key ], wc_memberships_get_user_membership_statuses( false, false ), false ) ) {
+				if ( in_array( $status_list[ $key ], wc_memberships_get_user_membership_statuses( false, true ), false ) ) {
 					$status_where[] = $wpdb->prepare( "{$wpdb->posts}.post_status = '%s'", $status_list[ $key ] );
 				}
 			}

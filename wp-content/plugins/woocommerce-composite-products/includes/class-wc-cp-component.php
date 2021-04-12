@@ -776,6 +776,17 @@ class WC_CP_Component implements ArrayAccess {
 	}
 
 	/**
+	 * Controls whether out of stock component options should be hidden.
+	 *
+	 * @since  8.0.3
+	 *
+	 * @return boolean
+	 */
+	public function exclude_out_of_stock_options() {
+		return apply_filters( 'woocommerce_component_options_exclude_out_of_stock', 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ), $this );
+	}
+
+	/**
 	 * Component pagination data.
 	 *
 	 * @return array

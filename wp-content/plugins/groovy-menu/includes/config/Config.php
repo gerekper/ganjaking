@@ -86,59 +86,74 @@ return array(
 				'description' => esc_html__( 'This option will make menu overlap the first block in the page, switch it if you create a transparent menu (works with classic and minimalistic menu types or for mobile resolution).', 'groovy-menu' ),
 				'type'        => 'checkbox',
 				'default'     => false,
+				'condition'   => array( 'header.style', 'in', array( '1', '2' ) ),
 			),
 			'header_height'                                => array(
 				'title'       => esc_html__( 'Menu height', 'groovy-menu' ),
 				'description' => esc_html__( 'You can change menu height using this option. (by default:100px).', 'groovy-menu' ),
 				'type'        => 'number',
 				'default'     => 100,
-				'range'       => array( 40, 250 ),
+				'range'       => array( 40, 300 ),
 				'unit'        => 'px',
+				'condition'   => array( 'header.style', 'in', array( '1', '2' ) ),
 			),
 			'header_height_sticky'                         => array(
 				'title'       => esc_html__( 'Sticky menu height', 'groovy-menu' ),
 				'description' => esc_html__( 'Using this option you can decide how long header should be on sticky state. (by default:50px).', 'groovy-menu' ),
 				'type'        => 'number',
 				'default'     => 50,
-				'range'       => array( 40, 250 ),
+				'range'       => array( 40, 300 ),
 				'unit'        => 'px',
-				'condition'   => array( 'sticky_header', 'in', array( 'slide-down', 'fixed-sticky' ) ),
+				'condition'   => array(
+					array( 'header.style', 'in', array( '1', '2' ) ),
+					array( 'sticky_header', 'in', array( 'slide-down', 'fixed-sticky' ) ),
+				),
 			),
 			'canvas_container_width_type'                  => array(
-				'title'   => esc_html__( 'Menu canvas and container width', 'groovy-menu' ),
-				'type'    => 'select',
-				'options' => array(
+				'title'     => esc_html__( 'Menu canvas and container width', 'groovy-menu' ),
+				'type'      => 'select',
+				'options'   => array(
 					'canvas-boxed-container-boxed' => esc_html__( 'Canvas and container boxed', 'groovy-menu' ),
 					'canvas-wide-container-boxed'  => esc_html__( 'Canvas wide - container boxed', 'groovy-menu' ),
 					'canvas-wide-container-wide'   => esc_html__( 'Canvas and container wide', 'groovy-menu' ),
 				),
-				'default' => 'canvas-wide-container-boxed',
+				'default'   => 'canvas-wide-container-boxed',
+				'condition' => array( 'header.style', 'in', array( '1', '2' ) ),
 			),
 			'canvas_wide_container_wide_padding'           => array(
 				'title'     => esc_html__( 'Canvas and container wide right/left padding', 'groovy-menu' ),
-				'condition' => array( 'canvas_container_width_type', '==', 'canvas-wide-container-wide' ),
 				'type'      => 'number',
 				'default'   => 15,
 				'range'     => array( 0, 2000 ),
 				'unit'      => 'px',
+				'condition' => array(
+					array( 'header.style', 'in', array( '1', '2' ) ),
+					array( 'canvas_container_width_type', '==', 'canvas-wide-container-wide' ),
+				),
 			),
 			'canvas_boxed_container_boxed_width'           => array(
 				'title'       => esc_html__( 'Canvas and container boxed width', 'groovy-menu' ),
-				'condition'   => array( 'canvas_container_width_type', '==', 'canvas-boxed-container-boxed' ),
 				'description' => esc_html__( 'Note that container will be 30px narrower (because of left/right 15px padding) than canvas. (default canvas width is 1200px).', 'groovy-menu' ),
 				'type'        => 'number',
 				'default'     => 1200,
 				'range'       => array( 900, 2000 ),
 				'unit'        => 'px',
+				'condition'   => array(
+					array( 'header.style', 'in', array( '1', '2' ) ),
+					array( 'canvas_container_width_type', '==', 'canvas-boxed-container-boxed' ),
+				),
 			),
 			'canvas_wide_container_boxed_width'            => array(
 				'title'       => esc_html__( 'Canvas wide - container boxed width', 'groovy-menu' ),
-				'condition'   => array( 'canvas_container_width_type', '==', 'canvas-wide-container-boxed' ),
 				'description' => esc_html__( 'Container width by default is 1200px.', 'groovy-menu' ),
 				'type'        => 'number',
 				'default'     => 1200,
 				'range'       => array( 900, 2000 ),
 				'unit'        => 'px',
+				'condition'   => array(
+					array( 'header.style', 'in', array( '1', '2' ) ),
+					array( 'canvas_container_width_type', '==', 'canvas-wide-container-boxed' ),
+				),
 			),
 			'sticky_header_start'                          => array(
 				'title'       => esc_html__( 'Sticky menu behavior', 'groovy-menu' ),
@@ -260,7 +275,7 @@ return array(
 				'unit'        => 'px',
 			),
 			'woocommerce_cart_icon_size_mobile'            => array(
-				'title'       => esc_html__( 'Mobile icon size', 'groovy-menu' ),
+				'title'       => esc_html__( 'Mobile icon size', 'groovy-menu' ) . ' (' . esc_html__( 'Slide container', 'groovy-menu' ) . ')',
 				'description' => '',
 				'type'        => 'number',
 				'default'     => 17,
@@ -1028,7 +1043,7 @@ return array(
 				'unit'        => 'px',
 			),
 			'search_form_icon_size_mobile'                 => array(
-				'title'       => esc_html__( 'Mobile icon size', 'groovy-menu' ),
+				'title'       => esc_html__( 'Mobile icon size', 'groovy-menu' ) . ' (' . esc_html__( 'Slide container', 'groovy-menu' ) . ')',
 				'description' => '',
 				'type'        => 'number',
 				'default'     => 17,
@@ -1037,6 +1052,20 @@ return array(
 			),
 			'search_form_icon_end'                         => array(
 				'type' => 'inlineEnd'
+			),
+			'search_form_icon_position_mobile'             => array(
+				'title'       => esc_html__( 'Mobile search icon position', 'groovy-menu' ),
+				'description' => esc_html__( 'You can change the icon color in the [Styles] - [Side Icon] section.', 'groovy-menu' ) . ' ' . esc_html__( 'See [Side icon mobile] and [Side icon mobile sticky]', 'groovy-menu' ),
+				'type'        => 'select',
+				'options'     => array(
+					'slideBottom'        => esc_html__( 'Drawer (bottom position)', 'groovy-menu' ),
+					'topbar'             => esc_html__( 'Top bar side icon', 'groovy-menu' ),
+					'topbar_slideBottom' => esc_html__( 'Top bar side icon & Drawer (bottom position)', 'groovy-menu' ),
+				),
+				'default'     => 'slideBottom',
+				'condition'   => array(
+					array( 'search_form', 'in', array( 'dropdown-without-ajax', 'fullscreen', 'custom' ) )
+				),
 			),
 			'search_form_icon_color_start'                 => array(
 				'title'     => esc_html__( 'Opened search form', 'groovy-menu' ) . ': ' . esc_html__( 'Search icon color', 'groovy-menu' ),
@@ -1919,41 +1948,12 @@ return array(
 				'type'      => 'group',
 				'serialize' => false,
 			),
-			'icon_menu_side_border_start'                  => array(
-				'title'       => esc_html__( 'Side border', 'groovy-menu' ),
-				'description' => esc_html__( 'Set left/right side border of menu. Side depends on menu align', 'groovy-menu' ),
-				'type'        => 'inlineStart',
-				'condition'   => array( 'header.style', 'in', array( '4' ) ),
-			),
-			'icon_menu_side_border_thickness'              => array(
-				'title'     => esc_html__( 'thickness', 'groovy-menu' ),
-				'type'      => 'number',
-				'range'     => array( 0, 20 ),
-				'default'   => 1,
-				'unit'      => 'px',
-				'condition' => array( 'header.style', 'in', array( '4' ) ),
-			),
-			'icon_menu_side_border__style'                 => array(
-				'title'     => esc_html__( 'style', 'groovy-menu' ),
-				'type'      => 'select',
-				'options'   => array(
-					'dotted' => esc_html__( 'Dotted', 'groovy-menu' ),
-					'dashed' => esc_html__( 'Dashed', 'groovy-menu' ),
-					'solid'  => esc_html__( 'Solid', 'groovy-menu' ),
-				),
-				'default'   => 'solid',
-				'condition' => array( 'header.style', 'in', array( '4' ) ),
-			),
-			'icon_menu_side_border_color'                  => array(
-				'title'     => esc_html__( 'color', 'groovy-menu' ),
-				'type'      => 'colorpicker',
-				'default'   => 'rgba(218,218,218,1)',
-				'alpha'     => true,
-				'condition' => array( 'header.style', 'in', array( '4' ) ),
-			),
-			'icon_menu_side_border_end'                    => array(
-				'type'      => 'inlineEnd',
-				'condition' => array( 'header.style', 'in', array( '4' ) ),
+			'icon_menu_top_width'                          => array(
+				'title'   => esc_html__( 'Top level width', 'groovy-menu' ),
+				'type'    => 'number',
+				'range'   => array( 20, 300 ),
+				'default' => 70,
+				'unit'    => 'px',
 			),
 			'icon_menu_icon_size'                          => array(
 				'title'     => esc_html__( 'Top level icon size', 'groovy-menu' ),
@@ -2019,6 +2019,42 @@ return array(
 				'alpha'     => true,
 				'condition' => array( 'header.style', 'in', array( '4' ) ),
 			),
+			'icon_menu_side_border_start'                  => array(
+				'title'       => esc_html__( 'Side border', 'groovy-menu' ),
+				'description' => esc_html__( 'Set left/right side border of menu. Side depends on menu align', 'groovy-menu' ),
+				'type'        => 'inlineStart',
+				'condition'   => array( 'header.style', 'in', array( '4' ) ),
+			),
+			'icon_menu_side_border_thickness'              => array(
+				'title'     => esc_html__( 'thickness', 'groovy-menu' ),
+				'type'      => 'number',
+				'range'     => array( 0, 20 ),
+				'default'   => 1,
+				'unit'      => 'px',
+				'condition' => array( 'header.style', 'in', array( '4' ) ),
+			),
+			'icon_menu_side_border__style'                 => array(
+				'title'     => esc_html__( 'style', 'groovy-menu' ),
+				'type'      => 'select',
+				'options'   => array(
+					'dotted' => esc_html__( 'Dotted', 'groovy-menu' ),
+					'dashed' => esc_html__( 'Dashed', 'groovy-menu' ),
+					'solid'  => esc_html__( 'Solid', 'groovy-menu' ),
+				),
+				'default'   => 'solid',
+				'condition' => array( 'header.style', 'in', array( '4' ) ),
+			),
+			'icon_menu_side_border_color'                  => array(
+				'title'     => esc_html__( 'color', 'groovy-menu' ),
+				'type'      => 'colorpicker',
+				'default'   => 'rgba(218,218,218,1)',
+				'alpha'     => true,
+				'condition' => array( 'header.style', 'in', array( '4' ) ),
+			),
+			'icon_menu_side_border_end'                    => array(
+				'type'      => 'inlineEnd',
+				'condition' => array( 'header.style', 'in', array( '4' ) ),
+			),
 			'sidebar_menu_group'                           => array(
 				'title'     => esc_html__( 'Sidebar menu', 'groovy-menu' ),
 				'condition' => array( 'header.style', 'in', array( '3' ) ),
@@ -2059,6 +2095,13 @@ return array(
 			'sidebar_menu_side_border_end'                 => array(
 				'type'      => 'inlineEnd',
 				'condition' => array( 'header.style', 'in', array( '3' ) ),
+			),
+			'sidebar_menu_top_width'                       => array(
+				'title'   => esc_html__( 'Top level width', 'groovy-menu' ),
+				'type'    => 'number',
+				'range'   => array( 50, 2500 ),
+				'default' => 300,
+				'unit'    => 'px',
 			),
 			'sidebar_expanding_menu_group'                 => array(
 				'title'     => esc_html__( 'Expanding sidebar', 'groovy-menu' ),
@@ -2314,6 +2357,13 @@ return array(
 			),
 			'minimalistic_menu_top_lvl_menu_bg_end'           => array(
 				'type' => 'inlineEnd',
+			),
+			'minimalistic_menu_top_width'                     => array(
+				'title'   => esc_html__( 'Top level width', 'groovy-menu' ),
+				'type'    => 'number',
+				'range'   => array( 50, 2500 ),
+				'default' => 300,
+				'unit'    => 'px',
 			),
 			'minimalistic_menu_fullscreen'                    => array(
 				'title'       => esc_html__( 'Fullscreen menu', 'groovy-menu' ),
@@ -3347,7 +3397,10 @@ return array(
 				'description' => '',
 				'type'        => 'checkbox',
 				'default'     => false,
-				'condition'   => array( 'toolbar_type', 'in', array( 'default' ) ),
+				'condition'   => array(
+					array( 'toolbar_type', 'in', array( 'default' ) ),
+					array( 'header.style', 'in', array( '1', '2' ) )
+				),
 			),
 			'hamburger_group'                                  => array(
 				'type'      => 'group',
@@ -3619,11 +3672,80 @@ return array(
 			'hamburger_icon_mobile_float_border_end'           => array(
 				'type' => 'inlineEnd'
 			),
+			'hamburger_icon_mobile_fullwidth_start'            => array(
+				'title'     => esc_html__( 'Side icon mobile fullwidth', 'groovy-menu' ),
+				'type'      => 'inlineStart',
+				'condition' => array( 'mobile_offcanvas_fullwidth', '==', true ),
+			),
+			'hamburger_icon_mobile_fullwidth_size'             => array(
+				'title'     => esc_html__( 'size', 'groovy-menu' ),
+				'type'      => 'number',
+				'range'     => array( 10, 50 ),
+				'default'   => 24,
+				'unit'      => 'px',
+				'condition' => array( 'mobile_offcanvas_fullwidth', '==', true ),
+			),
+			'hamburger_icon_mobile_fullwidth_padding'          => array(
+				'title'     => esc_html__( 'padding area', 'groovy-menu' ),
+				'type'      => 'number',
+				'range'     => array( 0, 20 ),
+				'default'   => 0,
+				'unit'      => 'px',
+				'condition' => array( 'mobile_offcanvas_fullwidth', '==', true ),
+			),
+			'hamburger_icon_mobile_fullwidth_bg_color'         => array(
+				'title'     => esc_html__( 'background color', 'groovy-menu' ),
+				'type'      => 'colorpicker',
+				'default'   => 'rgba(0,0,0,0)',
+				'alpha'     => true,
+				'condition' => array( 'mobile_offcanvas_fullwidth', '==', true ),
+			),
+			'hamburger_icon_mobile_fullwidth_color'            => array(
+				'title'     => esc_html__( 'color', 'groovy-menu' ),
+				'type'      => 'colorpicker',
+				'default'   => 'rgba(104,104,104,1)',
+				'alpha'     => true,
+				'condition' => array( 'mobile_offcanvas_fullwidth', '==', true ),
+			),
+			'hamburger_icon_mobile_fullwidth_end'              => array(
+				'type'      => 'inlineEnd',
+				'condition' => array( 'mobile_offcanvas_fullwidth', '==', true ),
+			),
+			'hamburger_icon_mobile_fullwidth_border_start'     => array(
+				'title'     => esc_html__( 'Side icon mobile fullwidth border', 'groovy-menu' ),
+				'type'      => 'inlineStart',
+				'condition' => array( 'mobile_offcanvas_fullwidth', '==', true ),
+			),
+			'hamburger_icon_mobile_fullwidth_border_width'     => array(
+				'title'     => esc_html__( 'width', 'groovy-menu' ),
+				'type'      => 'number',
+				'range'     => array( 0, 5 ),
+				'default'   => 0,
+				'unit'      => 'px',
+				'condition' => array( 'mobile_offcanvas_fullwidth', '==', true ),
+			),
+			'hamburger_icon_mobile_fullwidth_border_color'     => array(
+				'title'     => esc_html__( 'color', 'groovy-menu' ),
+				'type'      => 'colorpicker',
+				'default'   => 'rgba(0,0,0,0)',
+				'alpha'     => true,
+				'condition' => array( 'mobile_offcanvas_fullwidth', '==', true ),
+			),
+			'hamburger_icon_mobile_fullwidth_border_end'       => array(
+				'type'      => 'inlineEnd',
+				'condition' => array( 'mobile_offcanvas_fullwidth', '==', true ),
+			),
 			'woo_cart_group'                                   => array(
 				'type'      => 'group',
 				'condition' => array( 'woocommerce_cart', '==', 'true' ),
 				'title'     => esc_html__( 'Woo minicart', 'groovy-menu' ),
 				'serialize' => false,
+			),
+			'woo_cart_disable_dropdown'                        => array(
+				'title'       => esc_html__( 'Disable dropdown state for minicart', 'groovy-menu' ),
+				'description' => '',
+				'type'        => 'checkbox',
+				'default'     => false,
 			),
 			'woo_cart_count_start'                             => array(
 				'title' => esc_html__( 'WooCommerce minicart count', 'groovy-menu' ),
@@ -3912,11 +4034,12 @@ return array(
 				'condition'   => array( 'mobile_independent_css_hamburger', '==', true ),
 			),
 			'mobile_independent_css_hamburger_height' => array(
-				'title'   => esc_html__( 'line thickness', 'groovy-menu' ),
-				'type'    => 'number',
-				'range'   => array( 1, 9 ),
-				'default' => 3,
-				'unit'    => 'px',
+				'title'     => esc_html__( 'line thickness', 'groovy-menu' ),
+				'type'      => 'number',
+				'range'     => array( 1, 9 ),
+				'default'   => 3,
+				'unit'      => 'px',
+				'condition' => array( 'mobile_independent_css_hamburger', '==', true ),
 			),
 			'mobile_independent_css_hamburger_end'    => array(
 				'type'      => 'inlineEnd',
@@ -4012,7 +4135,7 @@ return array(
 				'default' => 'default',
 			),
 			'mobile_show_woominicart'                 => array(
-				'title'       => esc_html__( 'Show', 'groovy-menu' ) . ' ' . esc_html__( 'Woo minicart', 'groovy-menu' ),
+				'title'       => esc_html__( 'Show', 'groovy-menu' ) . ' ' . esc_html__( 'Woo minicart', 'groovy-menu' ) . ' ' . esc_html__( 'at the Top Bar', 'groovy-menu' ),
 				'description' => esc_html__( 'You can change the icon color in the [Styles] - [Side Icon] section.', 'groovy-menu' ) . ' ' . esc_html__( 'See [Side icon mobile] and [Side icon mobile sticky]', 'groovy-menu' ),
 				'type'        => 'checkbox',
 				'default'     => false,
@@ -4127,25 +4250,35 @@ return array(
 				'range'       => array( 0, 2000 ),
 				'unit'        => 'px',
 			),
+			'mobile_offcanvas_fullwidth'              => array(
+				'title'       => esc_html__( 'Fullwidth mobile navigation drawer', 'groovy-menu' ),
+				'description' => esc_html__( 'You can change the icon color in the [Styles] - [Side Icon] section.', 'groovy-menu' ) . ' ' . esc_html__( 'See [Side icon mobile fullwidth]', 'groovy-menu' ),
+				'type'        => 'checkbox',
+				'default'     => false,
+			),
 			'mobile_offcanvas_width_start'            => array(
-				'title' => esc_html__( 'Mobile navigation drawer width', 'groovy-menu' ),
-				'type'  => 'inlineStart'
+				'title'     => esc_html__( 'Mobile navigation drawer width', 'groovy-menu' ),
+				'type'      => 'inlineStart',
+				'condition' => array( 'mobile_offcanvas_fullwidth', '==', 'false' ),
 			),
 			'mobile_offcanvas_width'                  => array(
-				'title'   => esc_html__( 'Maximum size', 'groovy-menu' ),
-				'type'    => 'number',
-				'default' => 250,
-				'range'   => array( 150, 1300 ),
-				'unit'    => 'px',
+				'title'     => esc_html__( 'Maximum size', 'groovy-menu' ),
+				'type'      => 'number',
+				'default'   => 250,
+				'range'     => array( 150, 1300 ),
+				'unit'      => 'px',
+				'condition' => array( 'mobile_offcanvas_fullwidth', '==', 'false' ),
 			),
 			'mobile_offcanvas_width_dynamic'          => array(
 				'title'       => esc_html__( 'Dynamic minimum size', 'groovy-menu' ),
 				'description' => '',
 				'type'        => 'checkbox',
 				'default'     => false,
+				'condition'   => array( 'mobile_offcanvas_fullwidth', '==', 'false' ),
 			),
 			'mobile_offcanvas_width_end'              => array(
-				'type' => 'inlineEnd'
+				'type'      => 'inlineEnd',
+				'condition' => array( 'mobile_offcanvas_fullwidth', '==', 'false' ),
 			),
 			'mobile_header_height'                    => array(
 				'title'   => esc_html__( 'Mobile header height', 'groovy-menu' ),

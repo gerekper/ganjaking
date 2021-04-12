@@ -29,7 +29,7 @@ jQuery( function( $ ) {
 
 	// Validate date when hour/minute inputs change
 	$( '[name$="_hour"], [name$="_minute"]' ).on( 'change', function() {
-		$( '#' + $( this ).attr( 'name' ).replace( '_hour', '' ).replace( '_minute', '' ) ).change();
+		$( '#' + $( this ).attr( 'name' ).replace( '_hour', '' ).replace( '_minute', '' ) ).trigger( 'change' );
 	});
 
 	// Validate entire date
@@ -222,13 +222,13 @@ jQuery( function( $ ) {
 		return false;
 	};
 
-	$( 'body.post-type-shop_subscription #post' ).submit( function() {
+	$( 'body.post-type-shop_subscription #post' ).on( 'submit', function() {
 		if( 'wcs_process_renewal' == $( "body.post-type-shop_subscription select[name='wc_order_action']" ).val() ) {
 			return confirm( wcs_admin_meta_boxes.process_renewal_action_warning );
 		}
 	} );
 
-	$( 'body.post-type-shop_subscription #post' ).submit( function() {
+	$( 'body.post-type-shop_subscription #post' ).on( 'submit', function() {
 		if ( typeof wcs_admin_meta_boxes.change_payment_method_warning != 'undefined' && wcs_admin_meta_boxes.payment_method != $( '#_payment_method' ).val() ) {
 			return confirm( wcs_admin_meta_boxes.change_payment_method_warning );
 		}

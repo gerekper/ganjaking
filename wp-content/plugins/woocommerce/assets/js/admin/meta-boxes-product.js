@@ -356,7 +356,11 @@ jQuery( function( $ ) {
 
 	$( '.product_attributes' ).on( 'click', 'button.select_all_attributes', function() {
 		$( this ).closest( 'td' ).find( 'select option' ).prop( 'selected', 'selected' );
+<<<<<<< HEAD
 		$( this ).closest( 'td' ).find( 'select' ).trigger( 'change' );
+=======
+		$( this ).closest( 'td' ).find( 'select' ).change();
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 		return false;
 	});
 

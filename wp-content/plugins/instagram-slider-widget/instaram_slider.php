@@ -2,7 +2,11 @@
 /*
 Plugin Name: Social Slider Widget
 Plugin URI: https://cm-wp.com/instagram-slider-widget
+<<<<<<< HEAD
 Version: 1.9.4
+=======
+Version: 1.9.2
+>>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 Description: Social Slider Widget is a responsive slider widget that shows 12 latest images from a public Instagram user and up to 18 images from a hashtag and Youtube videos
 Author: creativemotion
 Author URI: https://cm-wp.com/

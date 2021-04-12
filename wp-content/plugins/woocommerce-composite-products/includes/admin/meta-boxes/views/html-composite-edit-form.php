@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			?>
 			<div class="component_option_select_wrapper">
-				<select id="component_option_select_<?php echo $component->get_id(); ?>" class="component_option_select sw-select2-search--products" style="width: 75%;" name="wccp_component_selection[<?php echo $component->get_id(); ?>]" data-allow_clear="true" data-action="woocommerce_json_search_products_in_component" data-include="<?php echo esc_attr( json_encode( $component_data ) ); ?>" data-limit="100" data-component_optional="<?php echo $component->is_optional() ? 'yes' : 'no'; ?>" data-placeholder="<?php echo __( 'Search for a product&hellip;', 'woocommerce-composite-products' ); ?>">
+				<select id="component_option_select_<?php echo $component->get_id(); ?>" class="component_option_select sw-select2-search--products" style="width: 75%;" name="wccp_component_selection[<?php echo $component->get_id(); ?>]" data-allow_clear="true" data-action="woocommerce_json_search_products_in_component" data-include="<?php echo esc_attr( json_encode( $component_data ) ); ?>" data-limit="100" data-placeholder="<?php echo __( 'Search for a product&hellip;', 'woocommerce-composite-products' ); ?>">
 					<?php
 						if ( $chosen_option ) {
 							echo '<option value="' . $chosen_option_id . '" selected="selected">' . WC_CP_Helpers::get_product_title( $chosen_option->get_product() ) . '</option>';

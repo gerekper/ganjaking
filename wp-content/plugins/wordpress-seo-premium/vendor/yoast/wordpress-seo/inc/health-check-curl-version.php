@@ -25,7 +25,7 @@ class WPSEO_Health_Check_Curl_Version extends WPSEO_Health_Check {
 	public function run() {
 		
 			return;
-	
+		
 
 		if ( ! $this->is_my_yoast_api_reachable() && $this->is_recent_curl_version() ) {
 			$this->label = sprintf(

@@ -674,7 +674,7 @@ class WC_CP_Admin_Ajax {
 				do_action( 'woocommerce_editing_composite_in_order', $new_container_item, $item, $order );
 
 				$components_to_remove = wc_cp_get_composited_order_items( $item, $order );
-				$items_to_remove = array( $item ) + wc_cp_get_composited_order_items( $item, $order, false, true );
+				$items_to_remove      = array( $item ) + wc_cp_get_composited_order_items( $item, $order, false, true );
 
 				/*
 				 * Adjust stock.
@@ -785,9 +785,9 @@ class WC_CP_Admin_Ajax {
 
 						if ( $composited_product && $composited_product->managing_stock() ) {
 
-							$composited_product_sku         = $composited_product->get_sku();
-							$stock_managed_by_id = $composited_product->get_stock_managed_by_id();
-							$qty                 = $order_item->get_quantity();
+							$composited_product_sku = $composited_product->get_sku();
+							$stock_managed_by_id    = $composited_product->get_stock_managed_by_id();
+							$qty                    = $order_item->get_quantity();
 
 							if ( ! $composited_product_sku ) {
 								$composited_product_sku = '#' . $composited_product->get_id();

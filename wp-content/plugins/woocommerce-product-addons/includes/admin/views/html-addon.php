@@ -142,7 +142,7 @@ if ( 'heading' === $addon_type ) {
 				</label>
 				<textarea cols="20" id="wc-pao-addon-description-<?php echo esc_attr( $loop ); ?>" class="wc-pao-addon-description <?php echo esc_attr( $display_description_box ); ?>" rows="3" name="product_addon_description[<?php echo esc_attr( $loop ); ?>]"><?php echo esc_textarea( $description ); ?></textarea>
 			</div>
-			
+
 			<div class="wc-pao-row wc-pao-addon-required-setting <?php echo esc_attr( $display_required_setting_class ); ?>">
 				<label for="wc-pao-addon-required-<?php echo esc_attr( $loop ); ?>">
 					<input type="checkbox" id="wc-pao-addon-required-<?php echo esc_attr( $loop ); ?>" name="product_addon_required[<?php echo esc_attr( $loop ); ?>]" <?php checked( $required, 1 ); ?> />
@@ -227,7 +227,7 @@ if ( 'heading' === $addon_type ) {
 				<div class="wc-pao-addon-restrictions-settings <?php echo esc_attr( $display_restrictions_settings ); ?>">
 					<div class="wc-pao-addon-min-max <?php echo esc_attr( $display_min_max ); ?>">
 						<input type="number" name="product_addon_min[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $min ); ?>" placeholder="0" min="0" />&nbsp;<span>&mdash;</span>&nbsp;
-						<input type="number" name="product_addon_max[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $max ); ?>" placeholder="999" min="0" />
+						<input type="number" name="product_addon_max[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $max ); ?>" placeholder="<?php esc_attr_e( 'unlimited', 'woocommerce-product-addons' ) ?>" min="0" />
 						&nbsp;<em><?php esc_html_e( 'Enter a minimum and maximum value for the limit range.', 'woocommerce-product-addons' ); ?></em>
 					</div>
 				</div>

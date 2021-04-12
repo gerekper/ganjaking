@@ -74,6 +74,10 @@ class WooCommerce_Product_Search_Compat_WPML {
 			if ( $priority !== false ) {
 				remove_filter( 'terms_clauses', array( $sitepress, 'terms_clauses' ), $priority );
 			}
+
+			add_filter( 'woocommerce_product_search_indexer_object_term_term_ids', array( __CLASS__, 'woocommerce_product_search_indexer_object_term_term_ids' ), 10, 2 );
+
+			add_filter( 'woocommerce_product_search_indexer_filter_content', array( __CLASS__, 'woocommerce_product_search_indexer_filter_content' ), 10, 3 );
 		}
 	}
 
@@ -129,6 +133,171 @@ class WooCommerce_Product_Search_Compat_WPML {
 			}
 			WooCommerce_Product_Search_Product_Processor::woocommerce_update_product( $tr_product_id, $product );
 		}
+	}
+
+	/**
+	 * Relate terms for untranslated products.
+	 *
+	 * @param int[] $term_ids
+	 * @param WC_Product $product
+	 *
+	 * @return int[]
+	 */
+	public static function woocommerce_product_search_indexer_object_term_term_ids( $term_ids, $product ) {
+		global $sitepress, $woocommerce_wpml;
+
+		$product_id = $product->get_id();
+		if (
+			!empty( $product_id ) &&
+			!empty( $sitepress ) &&
+			is_object( $sitepress ) &&
+			method_exists( $sitepress, 'is_display_as_translated_post_type' ) &&
+			method_exists( $sitepress, 'post_translations' ) &&
+			!empty( $woocommerce_wpml ) &&
+			is_object( $woocommerce_wpml ) &&
+			!empty( $woocommerce_wpml->products ) &&
+			is_object( $woocommerce_wpml->products ) &&
+			method_exists( $woocommerce_wpml->products, 'is_original_product' ) &&
+			!empty( $woocommerce_wpml->terms ) &&
+			is_object( $woocommerce_wpml->terms ) &&
+			method_exists( $woocommerce_wpml->terms, 'wcml_get_translated_term' )
+		) {
+
+			$post_type = get_post_type( $product_id );
+			if (
+				$sitepress->is_translated_post_type( $post_type ) &&
+				$sitepress->is_display_as_translated_post_type( $post_type )
+			) {
+
+				if ( $woocommerce_wpml->products->is_original_product( $product_id ) ) {
+
+					$active_languages = $sitepress->get_active_languages();
+					foreach ( $active_languages as $language ) {
+
+						if ( $sitepress->post_translations()->get_element_lang_code( $product_id ) !== $language['code'] ) {
+
+							$translated_product_ids = $sitepress->post_translations()->get_element_translations( $product_id );
+							if ( is_array( $translated_product_ids ) ) {
+								$translated_language_codes = array();
+								foreach ( $translated_product_ids as $translated_product_id ) {
+									$translated_language_codes[] = $sitepress->post_translations()->get_element_lang_code( $translated_product_id );
+								}
+								if ( !in_array( $language['code'], $translated_language_codes ) ) {
+
+									$translated_term_ids = array();
+									foreach ( $term_ids as $term_id ) {
+
+										$term = get_term( $term_id );
+										$translated_term = $woocommerce_wpml->terms->wcml_get_translated_term( $term_id, $term->taxonomy, $language['code'] );
+										if (
+											!empty( $translated_term ) &&
+											!empty( $translated_term->term_id )
+										) {
+											$translated_term_ids[] = intval( $translated_term->term_id );
+										}
+									}
+									$term_ids = array_unique( array_merge( $term_ids, $translated_term_ids ) );
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return $term_ids;
+	}
+
+	/**
+	 * Add translated terms for untranslated products.
+	 *
+	 * @param string $content
+	 * @param string $context
+	 * @param int $product_id
+	 *
+	 * @return string
+	 */
+	public static function woocommerce_product_search_indexer_filter_content( $content, $context, $product_id ) {
+
+		global $sitepress, $woocommerce_wpml;
+
+		$language_codes = array();
+		if (
+			!empty( $product_id ) &&
+			!empty( $sitepress ) &&
+			is_object( $sitepress ) &&
+			method_exists( $sitepress, 'is_display_as_translated_post_type' ) &&
+			method_exists( $sitepress, 'post_translations' ) &&
+			!empty( $woocommerce_wpml ) &&
+			is_object( $woocommerce_wpml ) &&
+			!empty( $woocommerce_wpml->products ) &&
+			is_object( $woocommerce_wpml->products ) &&
+			method_exists( $woocommerce_wpml->products, 'is_original_product' ) &&
+			!empty( $woocommerce_wpml->terms ) &&
+			is_object( $woocommerce_wpml->terms ) &&
+			method_exists( $woocommerce_wpml->terms, 'wcml_get_translated_term' )
+		) {
+
+			$post_type = get_post_type( $product_id );
+			if (
+				$sitepress->is_translated_post_type( $post_type ) &&
+				$sitepress->is_display_as_translated_post_type( $post_type )
+			) {
+
+				if ( $woocommerce_wpml->products->is_original_product( $product_id ) ) {
+
+					$active_languages = $sitepress->get_active_languages();
+					foreach ( $active_languages as $language ) {
+
+						if ( $sitepress->post_translations()->get_element_lang_code( $product_id ) !== $language['code'] ) {
+
+							$translated_product_ids = $sitepress->post_translations()->get_element_translations( $product_id );
+							if ( is_array( $translated_product_ids ) ) {
+								$translated_language_codes = array();
+								foreach ( $translated_product_ids as $translated_product_id ) {
+									$translated_language_codes[] = $sitepress->post_translations()->get_element_lang_code( $translated_product_id );
+								}
+								if ( !in_array( $language['code'], $translated_language_codes ) ) {
+									$language_codes[] = $language['code'];
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		if ( count( $language_codes ) > 0 ) {
+			$taxonomy = null;
+			switch ( $context ) {
+				case 'tag':
+
+					$taxonomy = 'product_tag';
+					break;
+				case 'category':
+
+					$taxonomy = 'product_cat';
+					break;
+				default:
+
+					if ( taxonomy_exists( 'pa_' . $context ) ) {
+						$taxonomy = 'pa_' . $context;
+					}
+			}
+			if ( $taxonomy !== null ) {
+				$terms = get_the_terms( $product_id, $taxonomy );
+				if ( !empty( $terms ) && !is_wp_error( $terms ) ) {
+					foreach ( $terms as $term ) {
+						foreach ( $language_codes as $language_code ) {
+							$translated_term = $woocommerce_wpml->terms->wcml_get_translated_term( $term->term_id, $term->taxonomy, $language_code );
+							if ( !empty( $translated_term ) ) {
+								$content .= ' ' . $translated_term->name;
+							}
+						}
+					}
+				}
+			}
+		}
+		return $content;
 	}
 }
 

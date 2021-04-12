@@ -1,0 +1,13 @@
+/* Effects */
+.vbox-overlay .vbox-content {
+	opacity: 1!important;
+	-webkit-transform: translateY(60%) scale(0);
+	transform: translateY(60%) scale(0);
+}
+
+.vbox-overlay.open .vbox-content {
+	-webkit-transform: translateY(0%) scale(1);
+	transform: translateY(0%) scale(1);
+	-webkit-transition: -webkit-transform 0.4s;
+	transition: transform 0.4s;
+}

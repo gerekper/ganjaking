@@ -1,0 +1,86 @@
+# Copyright (C) 2019 GP Email Users
+# This file is distributed under the same license as the GP Email Users package.
+msgid ""
+msgstr ""
+"Project-Id-Version: GP Email Users\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../class-gp-email-users.php:39, ../class-gp-email-users.php:112
+msgid "Email Users"
+msgstr ""
+
+#: ../class-gp-email-users.php:72
+msgid "This field is required."
+msgstr ""
+
+#: ../class-gp-email-users.php:79
+msgid "Please enter valid emails."
+msgstr ""
+
+#: ../class-gp-email-users.php:116
+msgid "You're in debug mode. This allows you to test sending emails without actually sending them."
+msgstr ""
+
+#: ../class-gp-email-users.php:201, ../class-gp-email-users.php:383
+msgid "Email To"
+msgstr ""
+
+#: ../class-gp-email-users.php:208
+msgid "From Email"
+msgstr ""
+
+#: ../class-gp-email-users.php:214
+msgid "Please enter a valid email."
+msgstr ""
+
+#: ../class-gp-email-users.php:222
+msgid "From Name"
+msgstr ""
+
+#: ../class-gp-email-users.php:232
+msgid "Reply To"
+msgstr ""
+
+#: ../class-gp-email-users.php:238
+msgid "This email is invalid."
+msgstr ""
+
+#: ../class-gp-email-users.php:246
+msgid "Subject"
+msgstr ""
+
+#: ../class-gp-email-users.php:252
+msgid "Please enter a subject for the email."
+msgstr ""
+
+#: ../class-gp-email-users.php:260, ../class-gp-email-users.php:385
+msgid "BCC"
+msgstr ""
+
+#: ../class-gp-email-users.php:379
+msgid "Oops! This form does not have any %sEmail%s fields."
+msgstr ""
+
+#: ../class-gp-email-users.php:401
+msgid "Select an Email Field"
+msgstr ""
+
+#: ../class-gp-email-users.php:410
+msgid "This is a required field."
+msgstr ""
+
+#: ../class-gp-email-users.php:422
+msgid "Message"
+msgstr ""
+
+#: ../class-gp-email-users.php:430
+msgid "Please enter a message for the email."
+msgstr ""
