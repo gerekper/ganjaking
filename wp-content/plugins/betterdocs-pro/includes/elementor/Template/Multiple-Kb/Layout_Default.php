@@ -9,10 +9,10 @@ echo '<a href="' . get_term_link($term->slug, 'knowledge_base') . '" class="el-b
     <div class="el-betterdocs-cb-inner">';
 
     if ($settings['show_icon']) {
-        $cat_icon_id = get_term_meta($term->term_id, 'doc_category_image-id', true);
-
+        $cat_icon_id = get_term_meta($term->term_id, 'knowledge_base_image-id', true);
         if ($cat_icon_id) {
-            $cat_icon = wp_get_attachment_image($cat_icon_id, 'thumbnail', ['alt' => esc_attr(get_post_meta($cat_icon_id, '_wp_attachment_image_alt', true))]);
+            $cat_icon = wp_get_attachment_image($cat_icon_id, 'thumbnail');
+            // $cat_icon = wp_get_attachment_image($cat_icon_id, 'thumbnail', ['alt' => esc_attr(get_post_meta($cat_icon_id, '_wp_attachment_image_alt', true))]);
         } else {
             $cat_icon = '<img src="' . BETTERDOCS_ADMIN_URL . 'assets/img/betterdocs-cat-icon.svg" alt="betterdocs-category-box-icon">';
         }
@@ -25,12 +25,11 @@ echo '<a href="' . get_term_link($term->slug, 'knowledge_base') . '" class="el-b
     }
 
     if ($settings['show_count']) {
-        if(BetterDocs_Elementor::get_doc_post_count($term->count, $term->term_id) == 1) {
-            printf('<div class="el-betterdocs-cb-cat-count"><span class="count-prefix">%s</span>%s<span class="count-suffix">%s</span></div>', $settings['count_prefix'], BetterDocs_Elementor::get_doc_post_count($term->count, $term->term_id), $settings['count_suffix_singular']);
+        if($term->count == 1) {
+            printf('<div class="el-betterdocs-cb-cat-count"><span class="count-prefix">%s</span>%s<span class="count-suffix">%s</span></div>', $settings['count_prefix'], $term->count, $settings['count_suffix_singular']);
         } else {
-            printf('<div class="el-betterdocs-cb-cat-count"><span class="count-prefix">%s</span>%s<span class="count-suffix">%s</span></div>', $settings['count_prefix'], BetterDocs_Elementor::get_doc_post_count($term->count, $term->term_id), $settings['count_suffix']);
+            printf('<div class="el-betterdocs-cb-cat-count"><span class="count-prefix">%s</span>%s<span class="count-suffix">%s</span></div>', $settings['count_prefix'], $term->count, $settings['count_suffix']);
         }
-        
     }
 
     echo '</div>

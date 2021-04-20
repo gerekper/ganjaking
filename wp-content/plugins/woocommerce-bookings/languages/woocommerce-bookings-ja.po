@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-02-24T18:01:36+00:00\n"
+"POT-Creation-Date: 2021-04-06T15:45:55+00:00\n"
 "PO-Revision-Date: 2020-11-24 08:54:10+0000\n"
 "Language: ja_JP\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -62,40 +62,40 @@ msgid "Metadata:"
 msgstr "メタデータ :"
 
 #. translators: 1: href link to list of bookings, 2: booking post type link
-#: woocommerce-bookings.php:286
+#: woocommerce-bookings.php:371
 msgid "<a href=\"%1$s\">Add or edit a product</a> to manage bookings in the Product Data section for individual products and then go to the <a href=\"%2$s\" target=\"_blank\">Bookings page</a> to manage them individually."
 msgstr "「商品データ」セクションで予約を管理するには、個々の商品について<a href=\"%1$s\">商品を追加または編集</a>し、次に<a href=\"%2$s\" target=\"_blank\">「予約ページ」</a>に移動してそれらを個別に管理します。"
 
-#: woocommerce-bookings.php:284
+#: woocommerce-bookings.php:369
 msgid "Bookings has been activated!"
 msgstr "Bookings が有効化されました。"
 
-#: woocommerce-bookings.php:181
+#: woocommerce-bookings.php:266
 msgid "Unserializing instances of this class is forbidden."
 msgstr "このクラスのインスタンスの非シリアライズは禁止されています。"
 
-#: woocommerce-bookings.php:172
+#: woocommerce-bookings.php:257
 msgid "Cloning is forbidden."
 msgstr "複製は禁止されています。"
 
-#: woocommerce-bookings.php:141
+#: woocommerce-bookings.php:226
 msgid "Premium Support"
 msgstr "プレミアムサポート"
 
-#: woocommerce-bookings.php:141
+#: woocommerce-bookings.php:226
 msgid "Visit Premium Customer Support"
 msgstr "プレミアムカスタマーサポートフォーラムへ移動"
 
-#: woocommerce-bookings.php:140
+#: woocommerce-bookings.php:225
 msgid "Docs"
 msgstr "ドキュメント"
 
-#: woocommerce-bookings.php:140
+#: woocommerce-bookings.php:225
 msgid "View Documentation"
 msgstr "ドキュメンテーションを表示"
 
 #. translators: %s WC download URL link.
-#: woocommerce-bookings.php:35
+#: woocommerce-bookings.php:38
 msgid "Bookings requires WooCommerce to be installed and active. You can download %s here."
 msgstr "Bookings には、WooCommerce がインストールされ有効化されている必要があります。 こちらでダウンロードできます : %s"
 
@@ -1362,6 +1362,7 @@ msgstr "すべての予約の開始および終了時間 (指定が異なる場�
 #: includes/class-wc-booking-privacy.php:9
 #: includes/class-wc-booking-privacy.php:62
 #: includes/class-wc-bookings-init.php:88
+#: woocommerce-bookings.php:194
 msgid "Bookings"
 msgstr "予約"
 
@@ -2851,6 +2852,7 @@ msgstr "設定"
 #: includes/admin/class-wc-bookings-menus.php:72
 #: includes/admin/views/html-notifications-page.php:2
 #: includes/admin/views/html-notifications-page.php:58
+#: woocommerce-bookings.php:184
 msgid "Send Notification"
 msgstr "通知を送信"
 
@@ -2858,6 +2860,7 @@ msgstr "通知を送信"
 #: includes/admin/views/html-calendar-day.php:2
 #: includes/admin/views/html-calendar-month.php:2
 #: includes/class-wc-bookings-google-calendar-connection.php:781
+#: woocommerce-bookings.php:174
 msgid "Calendar"
 msgstr "カレンダー"
 
@@ -2866,6 +2869,7 @@ msgstr "カレンダー"
 #: includes/admin/views/html-create-booking-page-2.php:28
 #: includes/admin/views/html-create-booking-page.php:7
 #: includes/class-wc-bookings-init.php:90
+#: woocommerce-bookings.php:163
 msgid "Add Booking"
 msgstr "予約を追加"
 

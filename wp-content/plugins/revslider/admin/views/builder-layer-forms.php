@@ -588,6 +588,7 @@ if(!defined('ABSPATH')) exit();
 								<onelong><label_icon class="ui_strokedashoffset"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-allowed="px"  data-numeric="true" data-r="idle.svg.strokeDashOffset" data-min="0" data-max="500" type="text"></onelong>
 								<oneshort></oneshort>
 							</row>
+							<longoption><label_a><?php _e('Style All Elements', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput" data-evt="SvgSelectAllChanged" data-r="idle.svg.styleAll"></longoption>
 						</div>
 					</div>
 				</div>

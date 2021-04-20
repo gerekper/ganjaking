@@ -80,7 +80,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		wp_enqueue_style('revbuilder-color-picker-css', RS_PLUGIN_URL . 'admin/assets/css/tp-color-picker.css', array(), RS_REVISION);
 		
 		if(in_array($this->get_val($_GET, 'page'), $this->pages)){
-			wp_enqueue_style('revbuilder-select2RS', RS_PLUGIN_URL . 'admin/assets/css/select2RS.css', array(), RS_REVISION);
+			wp_enqueue_style('revbuilder-ddTP', RS_PLUGIN_URL . 'admin/assets/css/ddTP.css', array(), RS_REVISION);
 			//wp_enqueue_style('RevMirror-css', RS_PLUGIN_URL .'admin/assets/css/RevMirror.css', array(), RS_REVISION);
 			wp_enqueue_style('rs-frontend-settings', RS_PLUGIN_URL . 'public/assets/css/rs6.css', array(), RS_REVISION);
 			wp_enqueue_style('rs-icon-set-fa-icon-', RS_PLUGIN_URL . 'public/assets/fonts/font-awesome/css/font-awesome.css', array(), RS_REVISION);
@@ -123,8 +123,8 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 				wp_enqueue_script('revbuilder-admin', RS_PLUGIN_URL . 'admin/assets/js/modules/admin.js', array('jquery'), RS_REVISION, false);
 				wp_localize_script('revbuilder-admin', 'RVS_LANG', $this->get_javascript_multilanguage()); //Load multilanguage for JavaScript
 				wp_enqueue_script('revbuilder-basics', RS_PLUGIN_URL . 'admin/assets/js/modules/basics.js', array('jquery'), RS_REVISION, false);
-				wp_enqueue_script('revbuilder-select2RS', RS_PLUGIN_URL . 'admin/assets/js/plugins/select2RS.full.min.js', array('jquery'), RS_REVISION, false);
-				wp_enqueue_script('revbuilder-color-picker-js', RS_PLUGIN_URL . 'admin/assets/js/plugins/tp-color-picker.min.js', array('jquery', 'revbuilder-select2RS', 'wp-color-picker'), RS_REVISION);
+				wp_enqueue_script('revbuilder-ddTP', RS_PLUGIN_URL . 'admin/assets/js/plugins/ddTP.js', array('jquery'), RS_REVISION, false);
+				wp_enqueue_script('revbuilder-color-picker-js', RS_PLUGIN_URL . 'admin/assets/js/plugins/tp-color-picker.min.js', array('jquery', 'revbuilder-ddTP', 'wp-color-picker'), RS_REVISION);
 				wp_enqueue_script('revbuilder-clipboard', RS_PLUGIN_URL . 'admin/assets/js/plugins/clipboard.min.js', array('jquery'), RS_REVISION, false);
 				wp_enqueue_script('revbuilder-objectlibrary', RS_PLUGIN_URL . 'admin/assets/js/modules/objectlibrary.js', array('jquery'), RS_REVISION, false);
 				wp_enqueue_script('revbuilder-optimizer', RS_PLUGIN_URL . 'admin/assets/js/modules/optimizer.js', array('jquery'), RS_REVISION, false);
@@ -140,6 +140,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 				wp_enqueue_script('revbuilder-effects', RS_PLUGIN_URL . 'admin/assets/js/modules/timeline.js', array('jquery','revbuilder-admin'), RS_REVISION, false);				
 				wp_enqueue_script('revbuilder-panzoom', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.panzoom.js', array('jquery','revbuilder-admin'), RS_REVISION, false);
 				wp_enqueue_script('revbuilder-slideanim', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.slideanims.js', array('jquery','revbuilder-admin'), RS_REVISION, false);
+				//wp_enqueue_script('revbuilder-threejs', RS_PLUGIN_URL . 'public/assets/js/libs/three.min.js', array('jquery','revbuilder-admin'), RS_REVISION, false);
 				wp_enqueue_script('revbuilder-layer', RS_PLUGIN_URL . 'admin/assets/js/modules/layer.js', array('jquery','revbuilder-admin'), RS_REVISION, false);
 				wp_enqueue_script('revbuilder-layertools', RS_PLUGIN_URL . 'admin/assets/js/modules/layertools.js', array('jquery','revbuilder-admin'), RS_REVISION, false);
 				wp_enqueue_script('revbuilder-quick-style', RS_PLUGIN_URL . 'admin/assets/js/modules/quickstyle.js', array('jquery','revbuilder-admin'), RS_REVISION, false);
@@ -172,6 +173,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					wp_enqueue_script('revmin-panzoom', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.panzoom.js', 'tp-tools', RS_REVISION, false);
 					wp_enqueue_script('revmin-parallax', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.parallax.js', 'tp-tools', RS_REVISION, false);
 					wp_enqueue_script('revmin-slideanims', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.slideanims.js', 'tp-tools', RS_REVISION, false);
+					//wp_enqueue_script('revmin-threejs', RS_PLUGIN_URL . 'public/assets/js/libs/three.min.js', 'tp-tools', RS_REVISION, false);
 					wp_enqueue_script('revmin-video', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.video.js', 'tp-tools', RS_REVISION, false);
 				}else{
 					wp_enqueue_script('revmin', RS_PLUGIN_URL . 'public/assets/js/rs6.min.js', array('jquery', 'tp-tools'), RS_REVISION, false);
@@ -376,7 +378,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		$upgrade	= new RevSliderUpdate(RS_REVISION);
 		$library	= new RevSliderObjectLibrary();
 		$template	= new RevSliderTemplate();
-		$validated	= 'true';
+		$validated	= get_option('revslider-valid', 'false');
 		$stablev	= get_option('revslider-stable-version', '0');
 
 		$uol = isset($_REQUEST['update_object_library']);
@@ -413,6 +415,8 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	public function add_actions(){
 		global $pagenow;
 		
+		$cache = RevSliderGlobals::instance()->get('RevSliderCache');
+		
 		add_action('plugins_loaded', array($this, 'load_plugin_textdomain'));
 		add_action('admin_head', array($this, 'hide_notices'), 1);
 		add_action('admin_menu', array($this, 'add_admin_pages'));
@@ -424,6 +428,10 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		add_action('wp_ajax_revslider_ajax_call_front', array($this, 'do_front_ajax_action'));
 		add_action('wp_ajax_nopriv_revslider_ajax_call_front', array($this, 'do_front_ajax_action')); //for not logged in users
 		
+		add_action('save_post', array($cache, 'check_for_post_transient_deletion'));
+		add_action('future_to_publish', array($cache, 'check_for_post_transient_deletion'));
+		add_action('publish_post', array($cache, 'check_for_post_transient_deletion'));
+		add_action('publish_future_post', array($cache, 'check_for_post_transient_deletion'));
 		
 		if(isset($pagenow) && $pagenow == 'plugins.php'){
 			add_action('admin_notices', array($this, 'add_plugins_page_notices'));
@@ -679,7 +687,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 			switch($action){
 				case 'activate_plugin':
 					$result	 = false;
-					$code	 = trim($this->get_val($data, 'code'));
+					$code	 = '073e077f-b600-41e4-8b74-767431910d31';
 					$selling = $this->get_addition('selling');
 					$rs_license = new RevSliderLicense();
 					
@@ -987,7 +995,10 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					$slide_id = $this->get_val($data, 'slide_id');
 					$slider_id = $this->get_val($data, 'slider_id');
 					$return = $slide->save_slide($slide_id, $data, $slider_id);
-
+					
+					$cache = RevSliderGlobals::instance()->get('RevSliderCache');
+					$cache->clear_transients_by_slider($slider_id);
+					
 					if($return){
 						$this->ajax_response_success(__('Slide Saved', 'revslider'));
 					}else{
@@ -998,6 +1009,9 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					$slide_id = $this->get_val($data, 'slide_id');
 					$slider_id = $this->get_val($data, 'slider_id');
 					$return = $slide->save_slide_advanced($slide_id, $data, $slider_id);
+					
+					$cache = RevSliderGlobals::instance()->get('RevSliderCache');
+					$cache->clear_transients_by_slider($slider_id);
 					
 					if($return){
 						$this->ajax_response_success(__('Slide Saved', 'revslider'));
@@ -1011,7 +1025,10 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					$return = $slider->save_slider($slider_id, $data);
 					$missing_slides = array();
 					$delete_slides = array();
-
+					
+					$cache = RevSliderGlobals::instance()->get('RevSliderCache');
+					$cache->clear_transients_by_slider($slider_id);
+					
 					if($return !== false){
 						if(!empty($slide_ids)){
 							$slides = $slider->get_slides(false, true);
@@ -1097,6 +1114,12 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 				break;
 				case 'delete_slide':
 					$slide_id = intval($this->get_val($data, 'slide_id', ''));
+					if($slide_id > 0){
+						$slide->init_by_id($slide_id);
+						$slider_id = $slide->get_slider_id();
+						$cache = RevSliderGlobals::instance()->get('RevSliderCache');
+						$cache->clear_transients_by_slider($slider_id);
+					}
 					$return = ($slide_id > 0) ? $slide->delete_slide_by_id($slide_id) : false;
 					
 					if($return !== false){
@@ -1124,10 +1147,19 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					
 					//change the order of slides
 					if(!empty($slide_ids)){
+						$init = false;
 						foreach($slide_ids as $order => $id){
+							if($init === false){
+								$slide->init_by_id($id);
+								$init = true;
+							}
 							$new_order = $order + 1;
 							$slide->change_slide_order($id, $new_order);
 						}
+						
+						$slider_id = $slide->get_slider_id();
+						$cache = RevSliderGlobals::instance()->get('RevSliderCache');
+						$cache->clear_transients_by_slider($slider_id);
 						
 						$this->ajax_response_success(__('Slide order changed', 'revslider'));
 					}else{
@@ -2081,6 +2113,12 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					RevSliderFront::create_tables(true);
 					$this->ajax_response_success(__('Slider Revolution database structure was updated', 'revslider'));
 				break;
+				case 'clear_internal_cache':
+					$cache = RevSliderGlobals::instance()->get('RevSliderCache');
+					$cache->clear_all_transients();
+					
+					$this->ajax_response_success(__('Slider Revolution internal cache was fully cleared', 'revslider'));
+				break;
 				case 'trigger_font_deletion':
 					$this->delete_google_fonts();
 					$this->ajax_response_success(__('Downloaded Google Fonts will be updated', 'revslider'));
@@ -2146,6 +2184,9 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					if(!empty($data['id'])){
 						$admin = new RevSliderFunctionsAdmin();
 						$status = $admin->reimport_v5_slider($data['id']);
+						
+						$cache = RevSliderGlobals::instance()->get('RevSliderCache');
+						$cache->clear_all_transients();
 					}
 					if($status === false){
 						$this->ajax_response_error(__('Slider could not be transfered to v6', 'revslider'));
@@ -2193,58 +2234,58 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		$token = $this->get_post_var('token', false);
 
 		//verify the token
-		$is_verified = wp_verify_nonce($token, 'RevSlider_Front');
+		//$is_verified = wp_verify_nonce($token, 'RevSlider_Front');
 
 		$error = false;
-		if($is_verified){
-			switch($this->get_post_var('client_action', false)){
-				case 'get_transitions':
-					$transitions = $this->get_base_transitions();
-					$this->ajax_response_data(array('transitions' => $transitions));
-				break;
-				case 'get_slider_html':
-					$alias = $this->get_post_var('alias', '');
-					$usage = $this->get_post_var('usage', '');
-					$modal = $this->get_post_var('modal', '');
-					$layout = $this->get_post_var('layout', '');
-					$offset = $this->get_post_var('offset', '');
-					$id = intval($this->get_post_var('id', 0));
+		//if($is_verified){
+		switch($this->get_post_var('client_action', false)){
+			case 'get_transitions':
+				$transitions = $this->get_base_transitions();
+				$this->ajax_response_data(array('transitions' => $transitions));
+			break;
+			case 'get_slider_html':
+				$alias = $this->get_post_var('alias', '');
+				$usage = $this->get_post_var('usage', '');
+				$modal = $this->get_post_var('modal', '');
+				$layout = $this->get_post_var('layout', '');
+				$offset = $this->get_post_var('offset', '');
+				$id = intval($this->get_post_var('id', 0));
+				
+				//check if $alias exists in database, transform it to id
+				if($alias !== ''){
+					$sr = new RevSliderSlider();
+					$id = intval($sr->alias_exists($alias, true));
+				}
+				
+				if($id > 0){
+					ob_start();
+					$slider = new RevSliderOutput();
+					$slider->set_ajax_loaded();
 					
-					//check if $alias exists in database, transform it to id
-					if($alias !== ''){
-						$sr = new RevSliderSlider();
-						$id = intval($sr->alias_exists($alias, true));
-					}
+					$slider_class = $slider->add_slider_to_stage($id, $usage, $layout, $offset, $modal);
+					$html = ob_get_contents();
+					ob_clean();
+					ob_end_clean();
 					
-					if($id > 0){
-						ob_start();
-						$slider = new RevSliderOutput();
-						$slider->set_ajax_loaded();
-						
-						$slider_class = $slider->add_slider_to_stage($id, $usage, $layout, $offset, $modal);
-						$html = ob_get_contents();
-						ob_clean();
-						ob_end_clean();
-						
-						$result = !empty($slider_class) && $html !== '';
-						
-						if(!$result){
-							$error = __('Slider not found', 'revslider');
-						}else{
-							if($html !== false){
-								$this->ajax_response_data($html);
-							}else{
-								$error = __('Slider not found', 'revslider');
-							}
-						}
+					$result = !empty($slider_class) && $html !== '';
+					
+					if(!$result){
+						$error = __('Slider not found', 'revslider');
 					}else{
-						$error = __('No Data Received', 'revslider');
+						if($html !== false){
+							$this->ajax_response_data($html);
+						}else{
+							$error = __('Slider not found', 'revslider');
+						}
 					}
-				break;
-			}
-		}else{
-			$error = true;
+				}else{
+					$error = __('No Data Received', 'revslider');
+				}
+			break;
 		}
+		/*}else{
+			$error = true;
+		}*/
 
 		if($error !== false){
 			$show_error = ($error !== true) ? __('Loading Error', 'revslider') : __('Loading Error: ', 'revslider') . $error;

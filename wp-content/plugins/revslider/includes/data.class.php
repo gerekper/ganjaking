@@ -20,19 +20,86 @@ define('RS_T10', '										');
 define('RS_T11', '											');
 
 class RevSliderData {
+
+	const CACHE_GROUP = 'revslider';
+
 	public $css;
+
+	/**
+	 * @param string $fname  cache key name ( usually function name )
+	 * @param mixed $data  additional cache key data ( usually functions parameters )
+	 * @return string
+	 */
+	public function get_wp_cache_key($fname, $data){
+		return sprintf('%s_%s_%s', get_class($this), $fname, md5(serialize($data)));
+	}
+
+	/**
+	 * try to load cached result
+	 *
+	 * @param string $method
+	 * @param array $args
+	 * @return mixed
+	 */
+	public function get_wp_cache($method, $args = array())
+	{
+		if (!is_array($args)) $args = array($args);
+		//disable cache for admin
+		if (is_admin()) return call_user_func_array(array($this, $method), $args);
+		
+		$found = null;
+		$cache_key = $this->get_wp_cache_key($method, $args);
+		$data = wp_cache_get($cache_key, self::CACHE_GROUP, false, $found);
+
+		if (!$found) {
+			$data = call_user_func_array(array($this, $method), $args);
+			wp_cache_set($cache_key, $data, self::CACHE_GROUP);
+		}
+
+		return $data;
+	}
+
+	/**
+	 * clear cached value
+	 *
+	 * @param string $method
+	 * @param array $args
+	 */
+	public function delete_wp_cache($method, $args = array())
+	{
+		if (!is_array($args)) $args = array($args);
+
+		$cache_key = $this->get_wp_cache_key($method, $args);
+		wp_cache_delete($cache_key, self::CACHE_GROUP);
+	}
+
+	/**
+	 * flush all cache
+	 */
+	public function flush_wp_cache()
+	{
+		wp_cache_flush();
+	}
+
+	/**
+	 * get cache attempt of _get_font_familys
+	 * @return mixed
+	 */
+	public function get_font_familys(){
+		return $this->get_wp_cache('_get_font_familys');
+	}
 
 	/**
 	 * get all font family types
 	 * before: RevSliderOperations::getArrFontFamilys()
 	 */
-	public function get_font_familys(){
+	protected function _get_font_familys(){
 		$fonts = array();
-		
+
 		//add custom added fonts
 		$gs = $this->get_global_settings();
 		$cfl = $this->get_val($gs, 'customFontList', array());
-		
+
 		if(!empty($cfl) && is_array($cfl)){
 			foreach($cfl as $_cfl){
 				$fonts[] = array(
@@ -46,7 +113,7 @@ class RevSliderData {
 				);
 			}
 		}
-		
+
 		//Web Safe Fonts
 		// GOOGLE Loaded Fonts
 		$fonts[] = array('type' => 'websafe', 'version' => __('Loaded Google Fonts', 'revslider'), 'label' => 'Dont Show Me');
@@ -69,12 +136,12 @@ class RevSliderData {
 		//Monospace Fonts
 		$fonts[] = array('type' => 'websafe', 'version' => __('Monospace Fonts', 'revslider'), 'label' => '"Courier New", Courier, monospace');
 		$fonts[] = array('type' => 'websafe', 'version' => __('Monospace Fonts', 'revslider'), 'label' => '"Lucida Console", Monaco, monospace');
-		
-		
+
+
 		//push all variants to the websafe fonts
 		foreach($fonts as $f => $font){
 			if(!empty($cfl) && is_array($cfl) && $font['type'] === 'custom') continue; //already manually added before on these
-			
+
 			$font[$f]['variants'] = array('100', '100italic', '200', '200italic', '300', '300italic', '400', '400italic', '500', '500italic', '600', '600italic', '700', '700italic', '800', '800italic', '900', '900italic');
 		}
 
@@ -83,7 +150,7 @@ class RevSliderData {
 		foreach($googlefonts as $f => $val){
 			$fonts[] = array('type' => 'googlefont', 'version' => __('Google Fonts', 'revslider'), 'label' => $f, 'variants' => $val['variants'], 'subsets' => $val['subsets'], 'category' => $val['category']);
 		}
-		
+
 		return apply_filters('revslider_data_get_font_familys', apply_filters('revslider_operations_getArrFontFamilys', $fonts));
 	}
 
@@ -106,7 +173,7 @@ class RevSliderData {
 	public function get_loop_animations(){
 		return $this->get_custom_animations_full_pre('loop');
 	}
-	
+
 	/**
 	 * get the version 5 animations only, if available
 	 **/
@@ -121,7 +188,7 @@ class RevSliderData {
 		foreach($revslider_animations as $value){
 			$type = $this->get_val($value, array('params', 'type'), '');
 			if(!in_array($type, array('customout', 'customin'))) continue;
-			
+
 			$settings = $this->get_val($value, 'settings', '');
 			$type = $this->get_val($value, 'type', '');
 			if($type == '' && $settings == ''){
@@ -136,10 +203,10 @@ class RevSliderData {
 				$custom[$k] = $temp[$k];
 			}
 		}
-		
+
 		return $custom;
 	}
-	
+
 	/**
 	 * get custom animations
 	 * @before: RevSliderOperations::getCustomAnimationsFullPre()
@@ -174,7 +241,7 @@ class RevSliderData {
 				$custom[$k] = $temp[$k];
 			}
 		}
-		
+
 		return $custom;
 	}
 
@@ -190,19 +257,19 @@ class RevSliderData {
 
 			$result = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . RevSliderFront::TABLE_LAYER_ANIMATIONS, ARRAY_A);
 			$revslider_animations = (!empty($result)) ? $result : array();
-			
+
 			if(!empty($revslider_animations)){
 				foreach($revslider_animations as $ak => $av){
 					$revslider_animations[$ak]['params'] = json_decode(str_replace("'", '"', $av['params']), true);
 				}
 			}
-			
+
 			if(!empty($revslider_animations)){
 				array_walk_recursive($revslider_animations, array('RevSliderData', 'force_to_boolean'));
 			}
 		}
 	}
-	
+
 	/**
 	 * make sure that all false and true are really boolean
 	 **/
@@ -375,7 +442,7 @@ class RevSliderData {
 			},
 			"rotate":{
 				"group":"Rotations",
-				"transitions":{					
+				"transitions":{
 					"RotateInFromBottom":{"name":"Rotate In From Bottom","frame_0":{"transform":{"opacity":0,"rotationZ":"70deg","y":"bottom","scaleY":2,"scaleX":2}},"frame_1":{"timeline":{"speed":1000,"ease":"power3.inOut"},"transform":{"opacity":1,"y":0,"rotationZ":0,"scaleX":1,"scaleY":1}}},
 					"RotateInFormZero":{"name":"Rotate In From Bottom v2.","frame_0":{"transform":{"opacity":1,"rotationY":"-20deg","rotationX":"-20deg","y":"200%","scaleY":2,"scaleX":2}},"frame_1":{"timeline":{"speed":1000,"ease":"power3.out"},"transform":{"opacity":1,"y":0,"rotationZ":0,"rotationY":0,"scaleX":1,"scaleY":1}}},
 					"FlipFromTop":{"name":"Flip From Top","frame_0":{"transform":{"opacity":0,"rotationX":"70deg","y":"0","originZ":"-50"}},"frame_1":{"timeline":{"speed":1750,"ease":"power4.inOut"},"transform":{"opacity":1,"originZ":"-50","rotationX":0}}},
@@ -602,15 +669,23 @@ class RevSliderData {
 
 		return $icon_sets;
 	}
-	
+
+	/**
+	 * attempt to load cache for _get_base_transitions
+	 * @return mixed
+	 */
+	public function get_base_transitions($raw = false){
+		return $this->get_wp_cache('_get_base_transitions', array($raw));
+	}
+
 	/**
 	 * get base transitions
 	 **/
-	public function get_base_transitions($raw = false){
-		$transitions = '{	
+	protected function _get_base_transitions($raw = false){
+		$transitions = '{
 			"basic":{ "icon":"aspect_ratio",
 				"fade":{
-					"notransition":{"title":"*clear* No Transition"},			
+					"notransition":{"title":"*clear* No Transition"},
 					"fade":{"title":"*opacity* Fade In","in":{"o":0},"out":{"a":false}},
 					"crossfade":{"title":"*opacity* Cross Fade","in":{"o":0}},
 					"fadethroughdark":{"title":"*dark_mode* Via Dark","in":{"o":0},"out":{"a":false,"o":0},"p":"dark"},
@@ -618,8 +693,8 @@ class RevSliderData {
 					"fadethroughtransparent":{"title":"*grain* Via Transparent", "in":{"o":0},"out":{"a":false,"o":0},"p":"transparent"},
 					"slotfade-vertical":{"title":"*south* Gradient","in":{"o":0,"row":400}},
 					"slotfade-horizontal":{"title":"*east* Gradient","in":{"o":0,"col":400}}
-				},				
-				
+				},
+
 				"slideover":{
 					"slideoververtical":{"title":"*swap_vert* Auto Direction","in":{"y":"(100%)"},"out":{"a":false}},
 					"slideoverhorizontal":{"title":"*swap_horiz* Auto Direction","in":{"x":"(100%)"},"out":{"a":false}},
@@ -634,7 +709,7 @@ class RevSliderData {
 					"slideremoveup":{"title":"*north*","out":{"a":false,"y":"100%"}},
 					"slideremovedown":{"title":"*south*","out":{"a":false,"y":"-100%"}},
 					"slideremoveleft":{"title":"*west*","out":{"a":false,"x":"100%"}},
-					"slideremoveright":{"title":"*east*","out":{"a":false,"x":"-100%"}}							
+					"slideremoveright":{"title":"*east*","out":{"a":false,"x":"-100%"}}
 				},
 				"slideinout":{
 					"slidevertical":{"title":"*swap_vert* Auto Direction", "in":{"y":"(100%)"}},
@@ -642,17 +717,17 @@ class RevSliderData {
 					"slideup":{"title":"*north*", "in":{"y":"100%"}},
 					"slidedown":{"title":"*south*", "in":{"y":"-100%"}},
 					"slideleft":{"title":"*west*", "in":{"x":"100%"}},
-					"slideright":{"title":"*east*", "in":{"x":"-100%"}}					
+					"slideright":{"title":"*east*", "in":{"x":"-100%"}}
 				},
-				"slideinoutfadein":{					
-					"slidefadeinvertical":{"title":"*swap_vert* Auto Direction","in":{"o":0,"y":"(100%)"},"out":{"a":false}},						
+				"slideinoutfadein":{
+					"slidefadeinvertical":{"title":"*swap_vert* Auto Direction","in":{"o":0,"y":"(100%)"},"out":{"a":false}},
 					"slidefadeinhorizontal":{"title":"*swap_horiz* Auto Direction","in":{"o":0,"x":"(100%)"},"out":{"a":false}},
 					"fadefrombottom":{"title":"*north*","in":{"o":0,"y":"100%"},"out":{"a":false}},
-					"fadefromtop":{"title":"*south*","in":{"o":0,"y":"-100%"},"out":{"a":false}},			
+					"fadefromtop":{"title":"*south*","in":{"o":0,"y":"-100%"},"out":{"a":false}},
 					"fadefromright":{"title":"*west*","in":{"o":0,"x":"100%"},"out":{"a":false}},
-					"fadefromleft":{"title":"*east*","in":{"o":0,"x":"100%"},"out":{"a":false}}					
+					"fadefromleft":{"title":"*east*","in":{"o":0,"x":"100%"},"out":{"a":false}}
 				},
-				"slideinoutfadeinout":{										
+				"slideinoutfadeinout":{
 					"slidefadeinoutvertical":{"title":"*swap_vert* Auto Direction","in":{"o":0,"y":"(100%)"}},
 					"slidefadeinouthorizontal":{"title":"*swap_horiz* Auto Direction","in":{"o":0,"x":"(100%)"}},
 					"fadetotopfadefrombottom":{"title":"*north*","in":{"o":0,"y":"100%"}},
@@ -672,7 +747,7 @@ class RevSliderData {
 					"slidingoverlayvertical":{"title":"*swap_vert* Auto Direction","speed":"2000", "in":{"y":"(100%)"},"e":"slidingoverlay"},
 					"slidingoverlayhorizontal":{"title":"*swap_horiz* Auto Direction","speed":"2000","in":{"x":"(100%)"},"e":"slidingoverlay"},
 					"slidingoverlayup":{"title":"*north*","in":{"y":"100%"},"speed":"2000","e":"slidingoverlay"},
-					"slidingoverlaydown":{"title":"*south*","in":{"y":"-100%"},"speed":"2000","e":"slidingoverlay"},			
+					"slidingoverlaydown":{"title":"*south*","in":{"y":"-100%"},"speed":"2000","e":"slidingoverlay"},
 					"slidingoverlayleft":{"title":"*west*","in":{"x":"100%"},"speed":"2000","e":"slidingoverlay"},
 					"slidingoverlayright":{"title":"*east*","in":{"x":"-100%"},"speed":"2000","e":"slidingoverlay"}
 				},
@@ -698,8 +773,8 @@ class RevSliderData {
 					"scaleupfromtop":{"title":"*north*", "o":"outin","in":{"sx":"0.85", "sy":"0.85" ,"o":"0"}, "out":{"a":false, "y":"-100%", "o":"1"}},
 					"scaleupfrombottom":{"title":"*south*","o":"outin", "in":{"sx":"0.85", "sy":"0.85","o":"0"}, "out":{"a":false,"y":"100%" , "o":"1"}},
 					"scaleupfromleft":{"title":"*west*","o":"outin", "in":{"sx":"0.85", "sy":"0.85","o":"0"}, "out":{"a":false, "x":"-100%", "o":"1"}},
-					"scaleupfromright":{"title":"*east*", "o":"outin","in":{"sx":"0.85", "sy":"0.85","o":"0"}, "out":{"a":false,"x":"100%" , "o":"1"}}				
-				},				
+					"scaleupfromright":{"title":"*east*", "o":"outin","in":{"sx":"0.85", "sy":"0.85","o":"0"}, "out":{"a":false,"x":"100%" , "o":"1"}}
+				},
 				"filter":{
 					"blurlight":{"title":"*blur_on* Blur 1x","filter":{"u":true, "b":"2", "e":"default"},"in":{"o":"0","e":"power1.in", "sx":"1.01","sy":"1.01"}},
 					"blurlightcross":{"title":"*blur_on* Blur 2x","filter":{"u":true, "b":"4", "e":"late2"},"in":{"o":"0","e":"power1.in", "sx":"1.02","sy":"1.02"}},
@@ -712,13 +787,13 @@ class RevSliderData {
 					"sephia":{"title":"*camera_roll* Sephia 1x","filter":{"u":true, "s":"50", "e":"late"},"in":{"o":"0","e":"power1.in"}},
 					"sephiacross":{"title":"*camera_roll* Sephia 2x","filter":{"u":true, "s":"100", "e":"late2"},"in":{"o":"0","e":"power1.in"}}
 				},
-				"effects":{					
+				"effects":{
 					"cube":{"title":"*view_in_ar* Cube Vert.","speed":"2000", "in":{"o":0},"out":{"a":false},"d3":{"f":"cube", "d":"vertical", "z":"400", "c":"#ccc", "e":"power2.inOut","su":"true", "smi":"0", "sma":"1"}},
 					"cube-r":{"title":"*view_in_ar* Cube Far Vert.","speed":"2000","in":{"o":0},"out":{"a":false},"d3":{"f":"cube", "d":"vertical", "z":"600", "t":"40", "c":"#ccc", "e":"power2.inOut","su":"true"}},
-					"cube-horizontal":{"title":"*view_in_ar* Cube Horiz.","speed":"2000","in":{"o":0},"out":{"a":false},"d3":{"f":"cube", "d":"horizontal", "z":"400", "c":"#ccc", "e":"power2.inOut","su":"true"}},					
+					"cube-horizontal":{"title":"*view_in_ar* Cube Horiz.","speed":"2000","in":{"o":0},"out":{"a":false},"d3":{"f":"cube", "d":"horizontal", "z":"400", "c":"#ccc", "e":"power2.inOut","su":"true"}},
 					"cube-r-horizontal":{"title":"*view_in_ar* Cube Far Horiz.","speed":"2000","in":{"o":0},"out":{"a":false},"d3":{"f":"cube", "d":"horizontal", "t":"-45", "z":"450", "c":"#ccc", "e":"power2.inOut","su":"true"}},
 					"incube":{"title":"*3d_rotation* Cube Inside Vert.","speed":"2000","in":{"o":0},"out":{"a":false},"d3":{"f":"incube", "d":"vertical", "z":"400", "c":"#ccc", "e":"power2.inOut"}},
-					"incube-horizontal":{"title":"*3d_rotation* Cube Inside Horiz.","speed":"2000","in":{"o":0},"out":{"a":false},"d3":{"f":"incube", "d":"horizontal", "z":"400", "c":"#ccc", "e":"power2.inOut"}},			
+					"incube-horizontal":{"title":"*3d_rotation* Cube Inside Horiz.","speed":"2000","in":{"o":0},"out":{"a":false},"d3":{"f":"incube", "d":"horizontal", "z":"400", "c":"#ccc", "e":"power2.inOut"}},
 					"flyin":{"title":"*send* Fly Horiz.","speed":"2000","in":{"o":0},"out":{"a":false},"d3":{"f":"fly", "d":"horizontal", "z":"400", "c":"#ccc", "e":"power2.out", "fdi":"1.5", "fdo":"1.5", "fz":"10","su":"true"}},
 					"flyin-r":{"title":"*send* Fly Far Horiz.","speed":"2000","in":{"o":0},"out":{"a":false},"d3":{"f":"fly", "d":"horizontal", "z":"650", "c":"#ccc", "e":"power2.out", "t":"20", "fdi":"1.5", "fdo":"1.5", "fz":"10","su":"true"}},
 					"flyin-vertical":{"title":"*send* Fly Vert.","speed":"2000","in":{"o":0},"out":{"a":false},"d3":{"f":"fly", "d":"vertical", "z":"400", "c":"#ccc", "e":"power2.out", "fdi":"1.5","fdo":"1.5", "fz":"10","su":"true"}},
@@ -728,12 +803,12 @@ class RevSliderData {
 					"turnoff-vertical":{"title":"*movie_creation* Clapper Vert.","speed":"2000","in":{"o":0},"out":{"a":false},"d3":{"f":"turn", "d":"vertical","su":"true"}},
 					"turnoff-vertical-e":{"title":"*movie_creation* Clapper Bounce Vert.","speed":"2000","in":{"o":0},"out":{"a":false},"d3":{"f":"turn", "d":"vertical", "e":"BounceStrong","su":"true"}}
 				}
-			},			
+			},
 			"columns":{ "icon":"view_week",
 				"slide":{
-					"slotslide-horizontal":{"title":"*west* Uniform", "in":{"x":"(100%)","m":true,"col":5},"f":"nodelay"},					
+					"slotslide-horizontal":{"title":"*west* Uniform", "in":{"x":"(100%)","m":true,"col":5},"f":"nodelay"},
 					"slotslide-vhf":{"title":"*west* Flow", "in":{"x":"(100%)","m":true,"col":5},"f":"slidebased"},
-					"slotslide-vv":{"title":"*north* Flow", "in":{"y":"(100%)","m":true,"col":5},"f":"slidebased"},					
+					"slotslide-vv":{"title":"*north* Flow", "in":{"y":"(100%)","m":true,"col":5},"f":"slidebased"},
 					"slotslide-h-dark":{"title":"*west* Via Dark", "p":"dark","in":{"x":"(100%)","m":true,"col":5},"f":"nodelay"},
 					"slotslide-vhfd":{"title":"*west* Flow Via Dark","p":"dark", "in":{"x":"(100%)","m":true,"col":5},"f":"slidebased"},
 					"slotslide-vvd":{"title":"*north* Flow Via Dark", "p":"dark","in":{"y":"(100%)","m":true,"col":5},"f":"slidebased"},
@@ -755,7 +830,7 @@ class RevSliderData {
 					"curtain-6":{"title":"*swap_horiz* Auto Direction","in":{"y":"(-100%)","col":5},"f":"slidebased"}
 				},
 				"rotation":{
-					"slotzoom-minrotatecol":{"title":"*rotate_left* Edge", "speed":"1500", "f":"center", "d":"100", "in":{"col":"7", "e":"power2.inOut", "r":"[10,6,3,0,-3,-6,-10]", "m":"true", "sx":"1.5", "sy":"1.2", "o":"0"}},					
+					"slotzoom-minrotatecol":{"title":"*rotate_left* Edge", "speed":"1500", "f":"center", "d":"100", "in":{"col":"7", "e":"power2.inOut", "r":"[10,6,3,0,-3,-6,-10]", "m":"true", "sx":"1.5", "sy":"1.2", "o":"0"}},
 					"slotzoom-bigrotatecol":{"title":"*rotate_left* Strong Center", "speed":"600", "f":"center", "d":"10", "p":"light", "in":{"col":"50", "e":"power2.inOut", "r":"10", "sx":"1.5", "sy":"1.5", "o":"0"}},
 					"motioncolrotatesv":{"title":"*north* Motion Blur", "speed":"600", "f":"random", "d":"10", "in":{"mou":true, "mo":"45", "col":"20", "e":"power2.inOut", "r":"{-45,45}", "sx":"0.8", "sy":"0.8", "o":"0", "y":"(100%)"}},
 					"motioncolrotatesh":{"title":"*west* Motion Blur", "speed":"600", "f":"slidebased", "d":"10", "in":{"mou":true, "mo":"45", "col":"20", "e":"power2.inOut", "r":"{-45,45}", "sx":"0.8", "sy":"0.8", "o":"0", "x":"(100%)"}},
@@ -768,19 +843,19 @@ class RevSliderData {
 					"slotslide-vvv-3d":{"title":"*view_in_ar* Vary Vert.","speed":"2000", "in":{"y":"[100%,-100%]","m":true,"col":8},"f":"edges","d":"35", "d3":{"f":"cube", "d":"horizontal", "z":"450", "t":"20", "c":"#ccc", "e":"power2.inOut","su":"true", "smi":"0", "sma":"0.5","sc":"#9e9e9e"}},
 					"slotslide-vvv-3d2":{"title":"*view_in_ar* Vary Horiz.","speed":"2000", "in":{"x":"[100%,-100%]","m":true,"col":8},"f":"edges","d":"35", "d3":{"f":"cube", "d":"vertical", "z":"450", "t":"20", "c":"#ccc", "e":"power2.inOut","su":"true", "smi":"0", "sma":"0.5","sc":"#9e9e9e"}},
 					"switchcol3d": {"title":"*send*  Switch Horiz.", "speed":"2000", "f":"center", "d":"80","filter":{"u":true, "b":"3", "e":"late2"}, "in":{"col":"3","e":"power2.inOut",  "x":"[-100%|0|100%]",  "sx":"[1|0|1]", "sy":"[1|0|1]", "o":"0"},"d3":{"f":"fly", "d":"horizontal", "z":"450", "t":"20", "c":"#ccc", "e":"power2.inOut","su":"true", "smi":"0", "sma":"0.5","sc":"#9e9e9e"}}
-					
+
 				}
 			},
 
 			"rows":{ "icon":"line_weight",
 				"slide":{
-					"slotslide-vertical":{"title":"*north* Uniform","in":{"y":"(100%)","m":true,"row":5},"f":"nodelay"},	
+					"slotslide-vertical":{"title":"*north* Uniform","in":{"y":"(100%)","m":true,"row":5},"f":"nodelay"},
 					"slotslide-hvf":{"title":"*north* Flow","in":{"y":"(100%)","m":true,"row":5},"f":"slidebased"},
 					"slotslide-hhf":{"title":"*west* Flow","in":{"x":"(100%)","m":true,"row":5},"f":"slidebased"},
 					"slotslide-hhh":{"title":"*swap_horiz* Vary","in":{"x":"[100%,-100%]","m":true,"row":8},"f":"slidebased"}
 				},
 				"zoom":{
-					"slotzoom-vertical":{"title":"*blur_on* Blur", "f":"nodelay", "filter":{"u":true, "b":"2", "e":"default"}, "in":{"row":"6", "e":"power2.inOut", "m":"true", "sx":"1.2", "sy":"1.5", "o":"0"}},					
+					"slotzoom-vertical":{"title":"*blur_on* Blur", "f":"nodelay", "filter":{"u":true, "b":"2", "e":"default"}, "in":{"row":"6", "e":"power2.inOut", "m":"true", "sx":"1.2", "sy":"1.5", "o":"0"}},
 					"slotzoom-mixedv":{"title":"*blur_on* Blur & Slide", "f":"start", "d":"50", "filter":{"u":true, "b":"2", "e":"default"}, "in":{"row":"6", "e":"power2.inOut", "m":"true", "x":"(-20%)", "y":"(-20%)","sx":"1.5", "sy":"1.5", "o":"0"}},
 					"3dcurtain-vertical":{"title":"*north* Mini PopUp", "speed":"500", "in":{"y":"(-50%)", "sx":"0.7","sy":"0.7","o":"0","m":true,"row":5,"e":"power4.inOut"},"out":{"a":false},"f":"slidebased","d":"10"}
 				},
@@ -807,8 +882,8 @@ class RevSliderData {
 					"boxfadedir0":{"title":"*north_west*", "d":"10","in":{"o":0,"sx":1.1,"sy":1.1,"m":true,"row":6,"col":6},"out":{"a":false},"f":"oppslidebased"},
 					"boxfadedir0d":{"title":"*north_west* Via Dark", "p":"dark", "d":"20","in":{"o":0,"sx":1.1,"sy":1.1,"m":true,"row":6,"col":6},"out":{"a":false},"f":"oppslidebased"},
 					"boxfadedir1":{ "title":"*zoom_out_map* Center", "d":"15","in":{"o":0,"sx":"1.1","sy":"1.1","m":true,"row":30,"col":30},"out":{"a":false},"f":"center"},
-					"boxfadedir1d":{"title":"*zoom_out_map* Center Via Dark", "d":"15","p":"dark","in":{"o":0,"sx":"1.1","sy":"1.1","m":true,"row":30,"col":30},"out":{"a":false},"f":"center"},			
-					"boxfadedir2":{ "title":"*crop_free* Edges", "d":"15","in":{"o":0,"sx":"1.1","sy":"1.1","m":true,"row":30,"col":30},"out":{"a":false},"f":"edges"},		
+					"boxfadedir1d":{"title":"*zoom_out_map* Center Via Dark", "d":"15","p":"dark","in":{"o":0,"sx":"1.1","sy":"1.1","m":true,"row":30,"col":30},"out":{"a":false},"f":"center"},
+					"boxfadedir2":{ "title":"*crop_free* Edges", "d":"15","in":{"o":0,"sx":"1.1","sy":"1.1","m":true,"row":30,"col":30},"out":{"a":false},"f":"edges"},
 					"boxfadedir2d":{"title":"*crop_free* Edges Via Dark", "d":"15","p":"dark","in":{"o":0,"sx":"1.1","sy":"1.1","m":true,"row":30,"col":30},"out":{"a":false},"f":"edges"}
 				},
 				"slide":{
@@ -817,8 +892,8 @@ class RevSliderData {
 					"boxslidehnmd":{"title":"*west* Via Dark","d":"20","p":"dark", "f":"slidebased", "in":{"o":"0", "x":"(15%)","sy":"0.8","sx":"0.8", "row":5,"col":5, "e":"power2.out"},"out":{"a":false,"o":"0",  "x":"(-15%)","sy":"0.8","sx":"0.8", "row":5,"col":5,"e":"power2.in"}},
 					"boxslidevnml":{"title":"*north* Via Light","d":"20","p":"light","f":"slidebased", "in":{"o":"0", "y":"(15%)", "sy":"0.8","sx":"0.8", "row":5,"col":5,"e":"power2.out"},"out":{"a":false,"o":"0", "y":"(-15%)", "sy":"0.8","sx":"0.8", "row":5,"col":5,"e":"power2.in"}},
 					"boxslideh":{"title":"*west* Mask","d":"20", "in":{"o":0,"m":"true", "x":"(100%)","sy":"2","sx":"2", "row":5,"col":5},"f":"center"},
-					"boxslidev":{"title":"*north* Mask","d":"20", "in":{"o":0,"m":"true", "y":"(100%)","sy":"2","sx":"2", "row":5,"col":5},"f":"center"},					
-					"boxslidec":{"title":"*north_west* Cross","d":"20","f":"slidebased", "in":{"o":"-0.5", "y":"(15%)", "x":"(15%)","sy":"0.8","sx":"0.8", "row":5,"col":5},"out":{"a":false,"o":"0.5", "y":"(-15%)", "x":"(-15%)","sy":"0.8","sx":"0.8", "row":5,"col":5}},					
+					"boxslidev":{"title":"*north* Mask","d":"20", "in":{"o":0,"m":"true", "y":"(100%)","sy":"2","sx":"2", "row":5,"col":5},"f":"center"},
+					"boxslidec":{"title":"*north_west* Cross","d":"20","f":"slidebased", "in":{"o":"-0.5", "y":"(15%)", "x":"(15%)","sy":"0.8","sx":"0.8", "row":5,"col":5},"out":{"a":false,"o":"0.5", "y":"(-15%)", "x":"(-15%)","sy":"0.8","sx":"0.8", "row":5,"col":5}},
 					"boxslidemask":{"title":"*north_west* Cross Mask","d":"20", "in":{"o":0,"m":"true", "y":"(50%)", "x":"(50%)","sy":"2","sx":"2", "row":5,"col":5},"f":"center"},
 					"boxslidemotionh":{"title":"*west* Motion Blur","speed":"1000","in":{"o":"0","mou":true,"mo":"45","r":"{-100,100}","x":"(100%)","y":"{-100,100}","sx":"{0,2}","sy":"{0,2}","row":7,"col":7,"e":"power3.out"},"out":{"a":false},"f":"slidebased","d":"10"},
 					"boxslidemotionv":{"title":"*north* Motion Blur","speed":"1000","in":{"o":"0","mou":true,"mo":"45","r":"{-100,100}","y":"(100%)","x":"{-100,100}","sx":"{0,2}","sy":"{0,2}","row":7,"col":7,"e":"power3.out"},"out":{"a":false},"f":"slidebased","d":"10"}
@@ -828,7 +903,7 @@ class RevSliderData {
 					"boxfade":{"title":"*shuffle* Random", "in":{"o":0,"sx":1.1,"sy":1.1,"m":true,"row":5,"col":5},"out":{"a":false},"f":"random"},
 					"boxzoomoutin":{"title":"*remove**add* Out In", "d":"30", "f":"center", "in":{"o":0,"sx":1.2,"sy":1.2,"row":5,"col":5},"out":{"a":false,"o":0,"sx":0.5,"sy":0.5,"m":true,"row":5,"col":5}},
 					"boxzoominout":{"title":"*add**remove* In Out", "d":"30", "f":"center", "in":{"o":"-0.3","sx":0.5,"sy":0.5,"row":5,"col":5},"out":{"a":false,"o":0,"sx":1.3,"sy":1.3,"m":true,"row":5,"col":5}}
-					
+
 				},
 				"rotation":{
 					"boxrandomrotate":{"title":"*rotate_left* Scale & Fade","in":{"o":0,"r":"{-45,45}","sx":0,"sy":0,"row":5,"col":5},"out":{"a":false},"f":"random"},
@@ -838,12 +913,12 @@ class RevSliderData {
 					"edgetocenterbox":{"title":"*crop_free* Edge Big","f":"edges","d":"15","speed":"1000","in":{"o":0,"r":"[-10|10]","sx":"0.1","sy":"0.1","row":8,"col":8,"x":"[-10|10]","y":"[-10|10]"}},
 					"centertoedgebox":{"title":"*zoom_out_map* Center Big","f":"center","d":"15","speed":"1000","in":{"o":0,"r":"[-10|10]","sx":"0.1","sy":"0.1","row":8,"col":8,"x":"[-10|10]","y":"[-10|10]"}},
 					"edgetocenterboxst":{"title":"*crop_free* Edge Small","f":"edges","d":"15","speed":"1000","in":{"o":0,"r":"[-10|10]","sx":"0.1","sy":"0.1","row":20,"col":20,"x":"[-10|10]","y":"[-10|10]"}},
-					"centertoedgeboxst":{"title":"*zoom_out_map* Center Small","f":"center","d":"15","speed":"1000","in":{"o":0,"r":"[-10|10]","sx":"0.1","sy":"0.1","row":20,"col":20,"x":"[-10|10]","y":"[-10|10]"}}				
+					"centertoedgeboxst":{"title":"*zoom_out_map* Center Small","f":"center","d":"15","speed":"1000","in":{"o":0,"r":"[-10|10]","sx":"0.1","sy":"0.1","row":20,"col":20,"x":"[-10|10]","y":"[-10|10]"}}
 				},
-				"effects":{					
+				"effects":{
 					"rainv":{"title":"*east* Rain", "speed":"910", "f":"start", "d":"20",  "in":{"col":"100", "row":"10", "e":"power3.Out", "sx":"2", "sy":"2", "o":"0", "y":"{-200,200}"}},
-					"push":{"title":"*south* Rain", "speed":"910", "f":"start", "d":"20",   "in":{"col":"10", "row":"100", "e":"power3.Out", "sx":"2", "sy":"2", "o":"0", "x":"{-200,200}"}},					
-					"crystal":{"title":"*widgets* Crystal","f":"random","d":"40","p":"light", "speed":"1000","in":{"o":0,"sx":"5","r":"[(180)|(-180)|(90)|(-90)|(270)|(-270)]","sy":"5","row":30,"col":30,"x":"{-10|100}","y":"{-50|50}","e":"power2.out"}, "out":{"a":false, "e":"power2.in", "o":0,"sx":"6","r":"[(-180)|(180)|(-90)|(90)|(-270)|(270)]","sy":"6","row":30,"col":30,"x":"{-50|50}","y":"{-50|50}"}},					
+					"push":{"title":"*south* Rain", "speed":"910", "f":"start", "d":"20",   "in":{"col":"10", "row":"100", "e":"power3.Out", "sx":"2", "sy":"2", "o":"0", "x":"{-200,200}"}},
+					"crystal":{"title":"*widgets* Crystal","f":"random","d":"40","p":"light", "speed":"1000","in":{"o":0,"sx":"5","r":"[(180)|(-180)|(90)|(-90)|(270)|(-270)]","sy":"5","row":30,"col":30,"x":"{-10|100}","y":"{-50|50}","e":"power2.out"}, "out":{"a":false, "e":"power2.in", "o":0,"sx":"6","r":"[(-180)|(180)|(-90)|(90)|(-270)|(270)]","sy":"6","row":30,"col":30,"x":"{-50|50}","y":"{-50|50}"}},
 					"dreamin":{"title":"*cloud_queue* Dream In","f":"edges","d":"10","speed":"910","in":{"o":0,"sx":"4","sy":"4","row":20,"col":20,"x":"[-10|10]","y":"[-10|10]"}},
 					"dreamout":{"title":"*cloud_queue* Dream Out","f":"center","d":"10","speed":"910","in":{"o":0,"sx":"4","sy":"4","row":20,"col":20,"x":"[-10|10]","y":"[-10|10]"}},
 					"bfrot":{"title":"*window* 4 Edge Cut","f":"start", "d":"40", "filter":{"u":true, "b":"3", "e":"default"}, "in":{"o":0,"e":"power2.inOut", "x":"[-100%|-100%|100%|100%]","y":"[-20%|20%|-20%|20%]", "r":"[-20|20|-20|20]","sx":0.5,"sy":0.5,"row":2,"col":2},"out":{"a":false,"e":"power2.inOut",  "o":0,"x":"[5%|5%|-5%|-5%]","y":"[4%|-4%|4%|-4%]","sx":0.8,"sy":0.8,"row":2,"col":2}},
@@ -852,9 +927,9 @@ class RevSliderData {
 					"switchrot": {"title":"*repeat* Switch & Rotate", "speed":"800", "f":"start", "d":"40", "in":{"col":"3","row":"3", "r":"[(-180)|0|(180)]","e":"back.out",  "x":"[-100%|0|100%]",  "sx":"[1|0|1]", "sy":"[1|0|1]", "o":"0"},"out":{"a":false, "col":"3","row":"3", "r":"[(-180)|0|(180)]","e":"power3.inOut",  "x":"[100%|0|-100%]",  "sx":"[1|0.5|1]", "sy":"[1|0.5|1]", "o":"1"}},
 					"boxslidehnm3d":{"title":"*view_in_ar* Slide Horiz.","d":"50","f":"edges", "in":{"o":"-0.5", "x":"(15%)","sy":"0.8","sx":"0.8", "row":5,"col":5},"out":{"o":"0.5",  "x":"(-15%)","sy":"0.8","sx":"0.8", "row":5,"col":5},"d3":{"f":"cube", "d":"horizontal", "z":"450", "t":"20", "c":"#ccc", "e":"power2.inOut","su":"true", "smi":"0", "sma":"0.5","sc":"#9e9e9e"}},
 					"rainv3d":{"title":"*view_in_ar* Rain Vert.", "speed":"1210", "f":"start", "d":"20",  "in":{"col":"100", "row":"10", "e":"power3.Out", "sx":"2", "sy":"2", "o":"0", "y":"{-200,200}"},"d3":{"f":"cube", "d":"vertical", "z":"450", "t":"20", "c":"#ccc", "e":"power2.inOut","su":"true", "smi":"0", "sma":"0.5","sc":"#9e9e9e"}},
-					"push3d":{"title":"*view_in_ar* Rain Horiz.", "speed":"1210", "f":"start", "d":"20",   "in":{"col":"10", "row":"100", "e":"power3.Out", "sx":"2", "sy":"2", "o":"0", "x":"{-200,200}"},"d3":{"f":"cube", "d":"horizontal", "z":"450", "t":"20", "c":"#ccc", "e":"power2.inOut","su":"true", "smi":"0", "sma":"0.5","sc":"#9e9e9e"}},			
-					"crystal3d":{"title":"*view_in_ar* Crystal","f":"random","d":"40", "speed":"1200","in":{"o":0,"sx":"5","r":"[(180)|(-180)|(90)|(-90)|(270)|(-270)]","sy":"5","row":30,"col":30,"x":"{-10|100}","y":"{-50|50}","e":"power2.out"}, "out":{"a":false, "e":"power2.in", "o":0,"sx":"6","r":"[(-180)|(180)|(-90)|(90)|(-270)|(270)]","sy":"6","row":30,"col":30,"x":"{-50|50}","y":"{-50|50}"},"d3":{"f":"cube", "d":"vertical", "z":"450", "t":"-20", "c":"#ccc", "e":"back.out","su":"true", "smi":"0", "sma":"1"}},					
-					"dreamin3d":{"title":"*3d_rotation* Dream In","f":"edges","d":"30","speed":"1210","in":{"o":0,"sx":"4","sy":"4","row":20,"col":20,"x":"[-10|10]","y":"[-10|10]"},"d3":{"f":"incube", "d":"vertical", "z":"450", "t":"30", "c":"#ccc", "e":"power2.inOut"}},					
+					"push3d":{"title":"*view_in_ar* Rain Horiz.", "speed":"1210", "f":"start", "d":"20",   "in":{"col":"10", "row":"100", "e":"power3.Out", "sx":"2", "sy":"2", "o":"0", "x":"{-200,200}"},"d3":{"f":"cube", "d":"horizontal", "z":"450", "t":"20", "c":"#ccc", "e":"power2.inOut","su":"true", "smi":"0", "sma":"0.5","sc":"#9e9e9e"}},
+					"crystal3d":{"title":"*view_in_ar* Crystal","f":"random","d":"40", "speed":"1200","in":{"o":0,"sx":"5","r":"[(180)|(-180)|(90)|(-90)|(270)|(-270)]","sy":"5","row":30,"col":30,"x":"{-10|100}","y":"{-50|50}","e":"power2.out"}, "out":{"a":false, "e":"power2.in", "o":0,"sx":"6","r":"[(-180)|(180)|(-90)|(90)|(-270)|(270)]","sy":"6","row":30,"col":30,"x":"{-50|50}","y":"{-50|50}"},"d3":{"f":"cube", "d":"vertical", "z":"450", "t":"-20", "c":"#ccc", "e":"back.out","su":"true", "smi":"0", "sma":"1"}},
+					"dreamin3d":{"title":"*3d_rotation* Dream In","f":"edges","d":"30","speed":"1210","in":{"o":0,"sx":"4","sy":"4","row":20,"col":20,"x":"[-10|10]","y":"[-10|10]"},"d3":{"f":"incube", "d":"vertical", "z":"450", "t":"30", "c":"#ccc", "e":"power2.inOut"}},
 					"bfrot3d":{"title":"*view_in_ar* 4 Edge Cut","f":"start", "d":"40", "speed":"1200", "filter":{"u":true, "b":"3", "e":"default"}, "in":{"o":0,"e":"power2.inOut", "x":"[-100%|-100%|100%|100%]","y":"[-20%|20%|-20%|20%]", "r":"[-20|20|-20|20]","sx":0.5,"sy":0.5,"row":2,"col":2},"out":{"a":false,"e":"power2.inOut",  "o":0,"x":"[5%|5%|-5%|-5%]","y":"[4%|-4%|4%|-4%]","sx":0.8,"sy":0.8,"row":2,"col":2},"d3":{"f":"cube", "d":"horizontal", "z":"450", "t":"20", "c":"#ccc", "e":"power2.inOut","su":"true", "smi":"0", "sma":"0.5","sc":"#9e9e9e"}},
 					"mosaic3d": {"title":"*view_in_ar* Mosaic", "speed":"1200", "f":"edges", "d":"20", "in":{"col":"17","row":"17", "e":"power2.inOut", "r":"[20,10,8,5,2,1,2,-1,-2,-5,-8,-10,-20]", "x":"[20,10,8,5,2,1,2,-1,-2,-5,-8,-10,-20]", "y":"[20,10,8,5,2,1,2,-1,-2,-5,-8,-10,-20]", "m":"true", "sx":"[8,7,6,4,3,2,1.3,2,3,4,6,7,8]", "sy":"[8,7,6,4,3,2,1.3,2,3,4,6,7,8]", "o":"0"},"out":{"a":false,"o":"0"},"d3":{"f":"cube", "d":"horizontal", "z":"450", "t":"20", "c":"#ccc", "e":"power2.inOut","su":"true", "smi":"0", "sma":"0.5","sc":"#9e9e9e"}},
 					"switch3d": {"title":"*view_in_ar* Switch", "speed":"1200", "f":"center", "d":"80","in":{"col":"3","row":"3", "e":"power2.inOut",  "x":"[-100%|0|100%]",  "sx":"[1|0|1]", "sy":"[1|0|1]", "o":"0"},"d3":{"f":"cube", "d":"horizontal", "z":"450", "t":"20", "c":"#ccc", "e":"power2.inOut","su":"true", "smi":"0", "sma":"0.5","sc":"#9e9e9e"}},
@@ -867,7 +942,7 @@ class RevSliderData {
 					"wavesmiddle":{"title":"*waves* Bounced Ripples","speed":"1000","mou":true,"mo":"40","in":{"o":"0","r":"[-10|10|-20|20|-30|30]","sx":"[2|4]","sy":"[2|4]","x":"[-10|10|-20|20|-30|30]","y":"[-10|10|-20|20|-30|30]","row":20,"col":20,"e":"BounceExtrem"},"out":{"a":false},"f":"center","d":"15"}
 				}
 			},
-			"random":{ "icon":"shuffle","noSubLevel":"true",				
+			"random":{ "icon":"shuffle","noSubLevel":"true",
 				"rndany":	{"title":"*done_all* Random All","random":"true","rndmain":"all"},
 				"rndbasic":	{"title":"*aspect_ratio* Random Base","random":"true","rndmain":"basic"},
 				"rndrow":	{"title":"*line_weight* Random Row","random":"true","rndmain":"rows"},
@@ -878,12 +953,12 @@ class RevSliderData {
 				"rndzoom":	{"title":"*add* Random Zoom","random":"true","rndmain":"all","rndgrp":"zoom,zoomslidein,zoomslideout"},
 				"rndrotation":	{"title":"*rotate_left* Random Rotation","random":"true","rndmain":"all","rndgrp":"rotation"},
 				"rndeffects":	{"title":"*3d_rotation* Random Effects","random":"true","rndmain":"all","rndgrp":"effects,circle,filter"}
-			}		
-								
+			}
+
 		}';
 
-		
-		
+		$transitions = apply_filters('revslider_data_get_base_transitions', $transitions);
+
 		return ($raw) ? $transitions : json_decode($transitions, true);
 	}
 }

@@ -1507,3 +1507,13 @@ rs-loader.spinner6{width:40px;height:40px;-webkit-transform:translate(-50%,-50%)
 
 /* NEW CANVAS ANIMATIONS ON SLIDE BG'S */
 .bgcanvas { display: none; position: absolute; overflow: hidden; }
+
+
+/* way the hell off screen */
+.RSscrollbar-measure {
+	width: 100px;
+	height: 100px;
+	overflow: scroll;
+	position: absolute;
+	top: -9999px;
+}

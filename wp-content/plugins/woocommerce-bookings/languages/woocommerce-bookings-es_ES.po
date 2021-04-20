@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-02-24T18:01:35+00:00\n"
+"POT-Creation-Date: 2021-04-06T15:45:55+00:00\n"
 "PO-Revision-Date: 2020-09-25 12:46:21+0000\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
@@ -62,40 +62,40 @@ msgid "Metadata:"
 msgstr "Metadatos:"
 
 #. translators: 1: href link to list of bookings, 2: booking post type link
-#: woocommerce-bookings.php:286
+#: woocommerce-bookings.php:371
 msgid "<a href=\"%1$s\">Add or edit a product</a> to manage bookings in the Product Data section for individual products and then go to the <a href=\"%2$s\" target=\"_blank\">Bookings page</a> to manage them individually."
 msgstr "<a href=\"%1$s\">Añade o edita un producto</a> para gestionar reservas en la sección de datos de producto para productos individuales y luego ve a la <a href=\"%2$s\" target=\"_blank\">página de reservas</a> para gestionarlas de forma individual."
 
-#: woocommerce-bookings.php:284
+#: woocommerce-bookings.php:369
 msgid "Bookings has been activated!"
 msgstr "Bookings se ha activado."
 
-#: woocommerce-bookings.php:181
+#: woocommerce-bookings.php:266
 msgid "Unserializing instances of this class is forbidden."
 msgstr "Las instancias sin serializar de esta clase están prohibidas."
 
-#: woocommerce-bookings.php:172
+#: woocommerce-bookings.php:257
 msgid "Cloning is forbidden."
 msgstr "El clonado está prohibido."
 
-#: woocommerce-bookings.php:141
+#: woocommerce-bookings.php:226
 msgid "Premium Support"
 msgstr "Soporte premium"
 
-#: woocommerce-bookings.php:141
+#: woocommerce-bookings.php:226
 msgid "Visit Premium Customer Support"
 msgstr "Visita el foro de soporte premium"
 
-#: woocommerce-bookings.php:140
+#: woocommerce-bookings.php:225
 msgid "Docs"
 msgstr "Documentos"
 
-#: woocommerce-bookings.php:140
+#: woocommerce-bookings.php:225
 msgid "View Documentation"
 msgstr "Ver la documentación"
 
 #. translators: %s WC download URL link.
-#: woocommerce-bookings.php:35
+#: woocommerce-bookings.php:38
 msgid "Bookings requires WooCommerce to be installed and active. You can download %s here."
 msgstr "Bookings requiere que WooCommerce esté instalado y activo. Puedes descargar %s aquí."
 
@@ -1377,6 +1377,7 @@ msgstr "Todas las horas de inicio y finalización de las reservas, excepto cuand
 #: includes/class-wc-booking-privacy.php:9
 #: includes/class-wc-booking-privacy.php:62
 #: includes/class-wc-bookings-init.php:88
+#: woocommerce-bookings.php:194
 msgid "Bookings"
 msgstr "Reservas"
 
@@ -2873,6 +2874,7 @@ msgstr "Ajustes"
 #: includes/admin/class-wc-bookings-menus.php:72
 #: includes/admin/views/html-notifications-page.php:2
 #: includes/admin/views/html-notifications-page.php:58
+#: woocommerce-bookings.php:184
 msgid "Send Notification"
 msgstr "Enviar aviso"
 
@@ -2880,6 +2882,7 @@ msgstr "Enviar aviso"
 #: includes/admin/views/html-calendar-day.php:2
 #: includes/admin/views/html-calendar-month.php:2
 #: includes/class-wc-bookings-google-calendar-connection.php:781
+#: woocommerce-bookings.php:174
 msgid "Calendar"
 msgstr "Calendario"
 
@@ -2888,6 +2891,7 @@ msgstr "Calendario"
 #: includes/admin/views/html-create-booking-page-2.php:28
 #: includes/admin/views/html-create-booking-page.php:7
 #: includes/class-wc-bookings-init.php:90
+#: woocommerce-bookings.php:163
 msgid "Add Booking"
 msgstr "Añadir reserva"
 

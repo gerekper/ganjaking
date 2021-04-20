@@ -818,7 +818,7 @@ if(!defined('ABSPATH')) exit();
 			<div id="form_nav_thumbs_style" class="form_inner open">
 				<div class="form_inner_header"><i class="material-icons">palette</i><?php _e('Global Style Presets', 'revslider');?></div>
 				<div class="collapsable">
-					<label_a><?php _e('Preset', 'revslider');?></label_a><select id="sr_thumbs_style_preset" data-r="nav.thumbs.preset" class="sliderinput tos2 easyinit" ></select>
+					<label_a><?php _e('Preset', 'revslider');?></label_a><select id="sr_thumbs_style_preset" data-r="nav.thumbs.preset" class="searchbox sliderinput tos2 easyinit" ></select>
 					<label_a></label_a><div data-evt="sliderNavPreset" data-evtparam="thumbs" class="callEventButton basic_action_button autosize"><i class="material-icons">save</i><?php _e('Load', 'revslider');?></div>
 					<div data-evt="saveNavPreset" data-evtparam="thumbs" class="callEventButton basic_action_button autosize"><i class="material-icons">save</i><?php _e('Save', 'revslider');?></div><span class="linebreak"></span>
 					<label_a></label_a><div data-evt="deleteNavPreset" data-evtparam="thumbs" class="callEventButton basic_action_button autosize"><i class="material-icons">delete</i><?php _e('Delete', 'revslider');?></div>

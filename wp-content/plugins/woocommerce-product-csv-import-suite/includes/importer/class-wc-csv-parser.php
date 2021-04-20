@@ -287,14 +287,14 @@ class WC_CSV_Parser {
 		if ( $merging ) {
 			if (
 				! isset( $postmeta['regular_price'] ) ||
-				( isset( $postmeta['regular_price'] ) && '' === trim( $postmeta['regular_price'] ) && ! $merge_empty_cells ) 
+				( isset( $postmeta['regular_price'] ) && '' === trim( $postmeta['regular_price'] ) && ! $merge_empty_cells )
 			) {
 				$postmeta['regular_price'] = WC_Product_CSV_Import_Suite::get_meta_data( $post_id, '_regular_price' );
 			}
 
 			if (
 				! isset( $postmeta['sale_price'] ) ||
-				( isset( $postmeta['sale_price'] ) && '' === trim( $postmeta['sale_price'] ) && ! $merge_empty_cells ) 
+				( isset( $postmeta['sale_price'] ) && '' === trim( $postmeta['sale_price'] ) && ! $merge_empty_cells )
 			) {
 				$postmeta['sale_price'] = WC_Product_CSV_Import_Suite::get_meta_data( $post_id, '_sale_price' );
 			}
@@ -319,17 +319,17 @@ class WC_CSV_Parser {
 		}
 
 		// Set price to sale price
-		if ( ! empty( $postmeta['regular_price'] ) ) { 
+		if ( ! empty( $postmeta['regular_price'] ) ) {
 			if ( ! empty( $postmeta['sale_price'] ) ) {
 				// set sale price
-				if ( 
-					( ! empty( $sale_price_dates_from ) && current_time( 'timestamp' ) >= strtotime( $sale_price_dates_from ) ) && 
+				if (
+					( ! empty( $sale_price_dates_from ) && current_time( 'timestamp' ) >= strtotime( $sale_price_dates_from ) ) &&
 					( ! empty( $sale_price_dates_to ) && current_time( 'timestamp' ) < strtotime( $sale_price_dates_to ) ) ) {
 						$price = min( $postmeta['sale_price'], $postmeta['regular_price']);
 						$postmeta['price'] = $price;
-				} elseif ( 
+				} elseif (
 					// sale schedule hasn't started yet set regular price
-					! empty( $sale_price_dates_from ) && current_time( 'timestamp' ) < strtotime( $sale_price_dates_from ) || 
+					! empty( $sale_price_dates_from ) && current_time( 'timestamp' ) < strtotime( $sale_price_dates_from ) ||
 					// scheduled sale time past set
 					! empty( $sale_price_dates_from ) && current_time( 'timestamp' ) > strtotime( $sale_price_dates_to ) ) {
 							$postmeta['price'] = $postmeta['regular_price'];
@@ -582,7 +582,7 @@ class WC_CSV_Parser {
 									// Use last term from hierarchy to create slug.
 									$slug = end( $raw_term );
 
-									$slug = sanitize_title( implode( '-', $slug ) );
+									$slug = is_array( $slug ) ? sanitize_title( implode( '-', $slug ) ) : sanitize_title( $slug );
 
 									$t = wp_insert_term( $term, $taxonomy, array( 'parent' => $parent, 'slug' => $slug ) );
 

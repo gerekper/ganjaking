@@ -1,5 +1,13 @@
 *** Product CSV Import Suite Changelog ***
 
+2021-04-06 - version 1.10.41
+* Fix - Error when importing products.
+
+2021-03-25 - version 1.10.40
+* Fix - Use method_exists to accommodate for backwards compatibility with older WC versions.
+* Tweak - WC 5.1 compatibility.
+* Tweak - WP 5.7 compatibility.
+
 2021-02-24 - version 1.10.39
 * Add - Menu item to the new WC Navigation.
 * Tweak - WC 5.0 compatibility.

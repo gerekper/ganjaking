@@ -216,7 +216,7 @@ jQuery( document ).ready( function( $ ) {
 				$( aLink ).hide();
 				$( aLink ).addClass( 'pv-temp-download' );
 				$( 'body' ).append( aLink );
-				aLink.trigger( 'click' );
+				aLink.click();
 			}
 
 			// Export commissions for current view

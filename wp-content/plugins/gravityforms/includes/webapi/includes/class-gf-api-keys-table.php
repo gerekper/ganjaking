@@ -103,7 +103,7 @@ class GF_API_Keys_Table extends WP_List_Table {
 	 */
 	public function is_api_enabled() {
 		$web_api_settings = get_option( 'gravityformsaddon_gravityformswebapi_settings' );
-		return true;
+		return ( !empty( $web_api_settings ) && $web_api_settings['enabled'] );
 	}
 
 	/**
@@ -137,7 +137,7 @@ class GF_API_Keys_Table extends WP_List_Table {
 	public function display() {
 		$singular = $this->_args['singular'];
 
-		
+		$disabled = $this->is_api_enabled() ? '' : 'disabled';
 
 		$this->screen->render_screen_reader_content( 'heading_list' );
 		?>
@@ -158,7 +158,7 @@ class GF_API_Keys_Table extends WP_List_Table {
 			</tbody>
 
 		</table>
-		
+		<?php echo $this->update_notice(); ?>
 		<div>
 			<a class="button-secondary gfbutton gaddon-setting" id="add_setting_button" <?php echo $this->add_key_link(); echo $disabled ?>>Add Key</a>
 		</div>

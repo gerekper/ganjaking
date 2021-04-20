@@ -43,7 +43,12 @@ if(!defined('ABSPATH')) exit();
 						</div>
 						<div class="div75"></div>
 					</div>
+					<?php
+					if(get_option('revslider-valid', 'false') == 'true') { ?>
 						<div id="open_welcome_register_form" class="big_purple_linkbutton"><?php _e('Lets get Started with ' );?> <b> <?php printf(__('Slider Revolution %s', 'revslider'), RS_REVISION); ?></b></div>
+					<?php } else { ?>
+						<div id="open_welcome_register_form" class="big_purple_linkbutton"><?php _e('Activate Slider Revolution to');?> <b> <i class="material-icons">lock</i> <?php _e('Unlock all Features');?></b></div>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
@@ -109,12 +114,14 @@ if(!defined('ABSPATH')) exit();
 						<div class="div25"></div>					
 						<label_a><?php _e('Insert scripts in footer', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.script.footer"><span class="linebreak"></span>
 						<label_a><?php _e('Defer JavaScript loading', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.script.defer"><span class="linebreak"></span>						
-						<label_a><?php _e('3rd Party Lazy Loading Data', 'revslider');?></label_a><input type="text" class="easyinit globalinput"  data-r="globals.lazyloaddata" placeholder="<?php _e('(i.e. lazy-src for WP Rocket)', 'revslider'); ?>"><span class="linebreak"></span>																		
+						<label_a><?php _e('3rd Party lazy loading data', 'revslider');?></label_a><input type="text" class="easyinit globalinput"  data-r="globals.lazyloaddata" placeholder="<?php _e('(i.e. lazy-src for WP Rocket)', 'revslider'); ?>"><span class="linebreak"></span>
+						<label_a><?php _e('Use internal caching', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.internalcaching"><span class="linebreak"></span>
+						<label_a></label_a><div id="rs_force_clear_cache" class="basic_action_button autosize"><i class="material-icons">build</i><?php _e('Clear Cache', 'revslider'); ?></div>
 						<div class="div25"></div>
 						<div class="ale_i_title"><?php _e('Miscellaneous', 'revslider');?></div>
 						<hr class="general_hr">						
 						<label_a><?php _e('Fix RevSlider table issues', 'revslider');?></label_a><div id="rs_db_force_create" class="basic_action_button autosize"><i class="material-icons">build</i><?php _e('Force RS DB Creation', 'revslider');?></div>						
-						<label_a><?php _e('Editor High Contrast mode', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput callEvent" data-evt="highContrast" data-r="globals.highContrast"><span class="linebreak"></span>
+						<label_a><?php _e('Editor high contrast mode', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput callEvent" data-evt="highContrast" data-r="globals.highContrast"><span class="linebreak"></span>
 					</div><!--
 					--><div class="rbm_general_half" style="padding-left:20px;">
 						<div class="ale_i_title"><?php _e('Default Layout Grid Breakpoints', 'revslider');?></div>

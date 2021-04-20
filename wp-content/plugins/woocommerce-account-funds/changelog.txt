@@ -1,5 +1,23 @@
 *** WooCommerce Account Funds ***
 
+2021-04-13 - version 2.4.1
+* Fix - The 'Account funds' checkbox didn't work on the cart page when modifying the cart at the same time.
+
+2021-04-08 - version 2.4.0
+* Feature - Added support for "Refunds" to the "Account Funds" payment gateway.
+* Tweak - Funds are restored after canceling or refunding an order.
+* Tweak - Don't set the Order total to zero when the payment gateway is "Account Funds".
+* Tweak - Display the "Funds used" row in the Order details before the "Payment gateway" row.
+* Tweak - Hide the "Funds used" row in the Order details when the payment gateway is "Account Funds".
+* Tweak - Tested compatibility up to WC 5.2.
+* Fix - Unlock the used funds when canceling the PayPal payment process.
+* Fix - Fixed warnings thrown for using the deprecated method `WC_Order->get_product_from_item()`.
+* Dev - Updated the minimum requirements to WC 3.2 and WP 4.4.
+
+2021-03-23 - version 2.3.11
+* Tweak - Always display the 'Account funds' payment gateway when there are enough funds to pay the Order.
+* Tweak - Hide the 'Account funds' checkbox field when the payment gateway is available.
+
 2021-03-16 - version 2.3.10
 * Tweak - Top-up the customer funds when an order with deposit products is marked as processing.
 * Tweak - Tested compatibility up to WC 5.1.

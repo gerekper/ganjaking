@@ -557,7 +557,7 @@ $api = 'revapi'; // . $slider_id;
 									<option value="next_prev"><?php _e('Next / Previous', 'revslider');?></option>
 								</select><span class="linebreak"></span>
 								<div class="fetch_dependencies fetch_cat_tag_settings">
-									<label_a><?php _e('Post Types:', 'revslider');?></label_a><select id="post_types" name="post_types" multiple  data-evt="updateSourcePostCategories" class="sliderinput tos2 nosearchbox easyinit" data-r="source.post.types">
+									<label_a><?php _e('Post Types:', 'revslider');?></label_a><select id="post_types" name="post_types" multiple  data-evt="updateSourcePostCategories" class="sliderinput tos2 searchbox easyinit" data-r="source.post.types">
 										<?php
 if (!empty($post_type)) {
 	foreach ($post_type as $post_handle => $post_name) {
@@ -1280,6 +1280,19 @@ if ($wpml->wpml_exists()) {
 					<label_a><?php _e('Lazy Loading', 'revslider')?></label_a><select id="sr_adv_performance_load" class="sliderinput tos2 nosearchbox easyinit" data-r="general.lazyLoad" data-show=".tp-monitor-*val*-speed" data-hide=".tp-monitor-speeds"><option value="all"><?php _e("All", 'revslider');?></option><option value="smart"><?php _e("Smart", 'revslider');?></option><option value="single"><?php _e("Single", 'revslider');?></option><option value="none"><?php _e("No Lazy Loading", 'revslider');?></option></select>
 				</div>
 			</div>
+
+			<!-- MODULE ADVANCED INNER-->
+			<div id="form_slidergeneral_advanced_internalcache" class="form_inner">
+				<div class="form_inner_header"><i class="material-icons">cached</i><?php _e('Internal Cache', 'revslider');?></div>
+				<div class="collapsable" style="display:block !important">					
+					<label_a><?php _e('Use Cache', 'revslider');?></label_a><select id="sliderintcache" class="sliderinput tos2 nosearchbox easyinit" data-r="general.icache"> <option value="default"><?php _e('Global Default', 'revslider');?></option><option value="on"><?php _e('Enable', 'revslider');?></option><option value="off"><?php _e('Disabled', 'revslider');?></option></select>					
+					<row class="direktrow">
+						<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
+						<contenthalf><div class="function_info"><?php _e('Keep disabled if slider has dynamic content, e.g. shortcodes', 'revslider');?></div></contenthalf>
+					</row>
+				</div>
+			</div>
+
 			<!-- MODULE ADVANCED INNER-->
 			<div id="form_slidergeneral_advanced_DPR" class="form_inner">
 				<div class="form_inner_header"><i class="material-icons">4k</i><?php _e('Device Pixel Ratio', 'revslider');?></div>

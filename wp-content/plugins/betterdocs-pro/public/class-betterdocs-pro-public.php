@@ -55,6 +55,8 @@ class Betterdocs_Pro_Public
 		add_filter('betterdocs_archive_template', array($this, 'get_docs_archive_template'));
 		add_filter('betterdocs_single_layout_select_choices', array($this, 'customizer_single_layout_choices'));
 		add_filter('single_template', array($this, 'get_docs_single_template'), 100);
+        add_filter('betterdocs_post_order_options', array($this, 'post_order_options'), 1);
+        add_filter('betterdocs_post_order_default', array($this, 'post_order_default'), 1);
 		// add_filter('betterdocs_category_taxonomy_template', array($this, 'load_docs_taxonomy_template'));
 		add_action('betterdocs_docs_before_social', array($this, 'betterdocs_article_reactions'));
 	}
@@ -232,4 +234,15 @@ class Betterdocs_Pro_Public
 
 		return $reactions;
 	}
+
+    public function post_order_options($options)
+    {
+        $options['betterdocs_order'] = __('BetterDocs Order', 'betterdocs');
+        return $options;
+    }
+
+    public function post_order_default()
+    {
+        return 'betterdocs_order';
+    }
 }

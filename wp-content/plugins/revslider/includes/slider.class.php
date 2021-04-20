@@ -21,6 +21,11 @@ class RevSliderSlider extends RevSliderFunctions {
 	public $type;
 	public $inited = false;
 	public $map;
+
+	/**
+	 * @var RevSliderSlide
+	 */
+	public $_static_slide;
 	
 	/**
 	 * used to determinate if we need to init the layers of the Slides
@@ -583,6 +588,28 @@ class RevSliderSlider extends RevSliderFunctions {
 		global $wpdb;
 		$record = $wpdb->get_row($wpdb->prepare("SELECT `alias` FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE id = %s LIMIT 0,1", array($slider_id)), ARRAY_A);
 		return (!empty($record)) ? $this->get_val($record, 'alias') : false;
+	}
+	
+	
+	/**
+	 * get all sliders that have a certain string in the params
+	 * @since: 6.4.6
+	 **/
+	public function get_slider_by_param_string($string, $templates = false){
+		global $wpdb;
+		
+		$sql = "SELECT * FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE ";
+		$string = (array)$string;
+		$add = '';
+		if($templates === true) $sql .= "(";
+		
+		foreach($string as $v){
+			$sql .= $add. "params LIKE '%".$wpdb->esc_like($v)."%'";
+			if($add === '') $add = " OR ";
+		}
+		if($templates === true) $sql .= ") AND `type` != 'template'";
+		
+		return $wpdb->get_results($sql, ARRAY_A);
 	}
 	
 	
@@ -1350,8 +1377,16 @@ class RevSliderSlider extends RevSliderFunctions {
 	 * before: RevSliderSlider::getSlides() and also RevSliderSlider::getSlidesFromGallery()
 	 */
 	public function get_slides($published = false, $allwpml = false, $first = false){
-		$slide			= new RevSliderSlide();
-		$this->slides	= $slide->get_slides_by_slider_id($this->id, $published, $allwpml, $first, $this->init_layer);
+		
+		$cache_key = $this->get_wp_cache_key('get_slides_by_slider_id', array($this->id, $published, $allwpml, $first, $this->init_layer));
+		$this->slides = wp_cache_get($cache_key, self::CACHE_GROUP);
+
+		if (!$this->slides) {
+			$slide			= new RevSliderSlide();
+			$this->slides	= $slide->get_slides_by_slider_id($this->id, $published, $allwpml, $first, $this->init_layer);
+			wp_cache_set($cache_key, $this->slides, self::CACHE_GROUP);
+		}
+		
 		
 		return $this->slides;
 	}
@@ -1636,6 +1671,28 @@ class RevSliderSlider extends RevSliderFunctions {
 		
 		return ($response === false) ? __('Slide could not be duplicated', 'revslider') : true;
 	}
+
+	/**
+	 * get slider' static slide
+	 * 
+	 * @since: 6.4.6
+	 * @return false | RevSliderSlide
+	 */
+	public function get_static_slide()
+	{
+		$slider_id = $this->get_id();
+		if (empty($slider_id)) return false;
+		
+		if ($this->_static_slide instanceof RevSliderSlide && $this->_static_slide->get_slider_id() == $slider_id) 
+			return $this->_static_slide;
+
+		$slide = new RevSliderSlide();
+		$is_init = $slide->init_static_slide_by_slider_id($slider_id);
+		if (!$is_init) return false;
+		
+		$this->_static_slide = $slide;
+		return $this->_static_slide;
+	}
 	
 	
 	/**
@@ -1647,16 +1704,10 @@ class RevSliderSlider extends RevSliderFunctions {
 		$gf			= array();
 		$sl			= new RevSliderSlide();
 		$mslides	= $this->get_slides(true);
-		$static_id	= $sl->get_static_slide_id($this->get_id());
 		
-		if($static_id !== false){
-			$msl		= new RevSliderSlide();
-			$static_id	= (strpos($static_id, 'static_') === false) ? 'static_'.$static_id : $static_id;
-			
-			$msl->init_by_id($static_id);
-			if($msl->get_id() !== ''){
-				$mslides = array_merge($mslides, array($msl));
-			}
+		$static_slide = $this->get_static_slide();
+		if($static_slide !== false){
+			$mslides = array_merge($mslides, array($static_slide));
 		}
 		
 		if(!empty($mslides)){

@@ -6,8 +6,31 @@ if ( ! class_exists( 'GFForms' ) ) {
 
 
 class GF_Field_CAPTCHA extends GF_Field {
-
+	/**
+	 * @var string
+	 */
 	public $type = 'captcha';
+
+	/**
+	 * The reCAPTCHA API response.
+	 *
+	 * @var \stdClass
+	 */
+	private $response;
+
+	/**
+	 * The reCAPTCHA site key.
+	 *
+	 * @var string
+	 */
+	private $site_key;
+
+	/**
+	 * The reCAPTCHA secret key.
+	 *
+	 * @var string
+	 */
+	private $secret_key;
 
 	public function get_form_editor_field_title() {
 		return esc_attr__( 'CAPTCHA', 'gravityforms' );
@@ -31,6 +54,16 @@ class GF_Field_CAPTCHA extends GF_Field {
 		);
 	}
 
+	/**
+	 * Validate the reCAPTCHA field.
+	 *
+	 * This method always gets called on the last page of a form, as well as on the page where the field is assigned.
+	 *
+	 * @since Unknown
+	 *
+	 * @param array|string $value The field value.
+	 * @param array        $form  The form data.
+	 */
 	public function validate( $value, $form ) {
 		switch ( $this->captchaType ) {
 			case 'simple_captcha' :
@@ -39,8 +72,7 @@ class GF_Field_CAPTCHA extends GF_Field {
 					$captcha_obj = $this->get_simple_captcha();
 
 					if ( ! $captcha_obj->check( $prefix, str_replace( ' ', '', $value ) ) ) {
-						$this->failed_validation  = true;
-						$this->validation_message = empty( $this->errorMessage ) ? esc_html__( "The CAPTCHA wasn't entered correctly. Go back and try it again.", 'gravityforms' ) : $this->errorMessage;
+						$this->set_failed_validation( esc_html__( "The CAPTCHA wasn't entered correctly. Go back and try it again.", 'gravityforms' ) );
 					}
 
 					//removes old files in captcha folder (older than 1 hour);
@@ -76,8 +108,7 @@ class GF_Field_CAPTCHA extends GF_Field {
 
 
 				if ( intval( $result ) != intval( $value ) ) {
-					$this->failed_validation  = true;
-					$this->validation_message = empty( $this->errorMessage ) ? esc_html__( "The CAPTCHA wasn't entered correctly. Go back and try it again.", 'gravityforms' ) : $this->errorMessage;
+					$this->set_failed_validation( esc_html__( "The CAPTCHA wasn't entered correctly. Go back and try it again.", 'gravityforms' ) );
 				}
 
 				//removes old files in captcha folder (older than 1 hour);
@@ -91,34 +122,141 @@ class GF_Field_CAPTCHA extends GF_Field {
 
 	}
 
+	/**
+	 * Validates the reCAPTCHA response.
+	 *
+	 * In our application flow, we create a decoded string out of the reCAPTCHA service response if the reCAPTCHA field
+	 * is added to the form on a page other than the last page. We therefore first attempt to validate the decoded response,
+	 * falling back to validating the reCAPTCHA with a request to Google.
+	 *
+	 * @see GF_Field_CAPTCHA::verify_decoded_response()
+	 *
+	 * @since unknown
+	 *
+	 * @param array $form The form data.
+	 *
+	 * @return bool
+	 */
 	public function validate_recaptcha( $form ) {
+		$response = $this->get_posted_recaptcha_response();
 
-		// when user clicks on the "I'm not a robot" box, the response token is populated into a hidden field by Google, get token from POST
-		$response_token = sanitize_text_field( rgpost( 'g-recaptcha-response' ) );
-		$hash           = sanitize_text_field( rgpost( 'gf-recaptcha-response-hash' ) );
-
-		if( GFFormDisplay::is_last_page( $form ) && $hash && wp_hash( $response_token ) === $hash ) {
-			$is_valid = true;
-		} else {
-			$is_valid = $this->verify_recaptcha_response( $response_token );
+		if ( ! ( $this->verify_decoded_response( $form, $response ) || $this->verify_recaptcha_response( $response ) ) ) {
+			$this->set_failed_validation( __( 'The reCAPTCHA was invalid. Go back and try it again.', 'gravityforms' ) );
+			return false;
 		}
 
-
-		if ( ! $is_valid ) {
-
-			$this->failed_validation  = true;
-			$this->validation_message = empty( $this->errorMessage ) ? __( 'The reCAPTCHA was invalid. Go back and try it again.', 'gravityforms' ) : $this->errorMessage;
-
-		}
-
+		return true;
 	}
 
+	/**
+	 * Verifies that the decoded response meets the requirements for submitting the form.
+	 *
+	 * Returns false if the decoded response doesn't exist or the reCAPTCHA field is on the last page, as we'll want
+	 * regular validation at that point instead.
+	 *
+	 * @since 2.4.24
+	 *
+	 * @param array  $form     The form data.
+	 * @param string $response The encoded response to verify.
+	 *
+	 * @return bool
+	 */
+	private function verify_decoded_response( $form, $response ) {
+		$decoded_response = $this->get_decoded_recaptcha_response( $response );
+
+		// No decoded object.
+		if ( ! is_object( $decoded_response ) ) {
+			return false;
+		}
+
+		// Not a time that we need to verify the decoded object.
+		if ( ! GFFormDisplay::is_last_page( $form ) || $this->is_on_last_page( $form ) ) {
+			return false;
+		}
+
+		return (
+			$decoded_response->success === true
+			&& ! empty( $decoded_response->token )
+			&& gmdate( time() ) <= strtotime( '+1 day', strtotime( $decoded_response->challenge_ts ) )
+		);
+	}
+
+	/**
+	 * Set validation failed on reCAPTCHA field.
+	 *
+	 * @since 2.4.24
+	 *
+	 * @param string $message The message to set if one does not already exist.
+	 */
+	private function set_failed_validation( $message ) {
+		$this->failed_validation  = true;
+		$this->validation_message = empty( $this->errorMessage ) ? $message : $this->errorMessage;
+	}
+
+	/**
+	 * Get the saved site key.
+	 *
+	 * @since 2.4.24
+	 *
+	 * @return string
+	 */
+	public function get_site_key() {
+		if ( ! $this->site_key ) {
+			$this->site_key   = get_option( 'rg_gforms_captcha_public_key', '' );
+		}
+
+		return $this->site_key;
+	}
+
+	/**
+	 * Get the saved secret key.
+	 *
+	 * @since 2.4.25
+	 *
+	 * @return string
+	 */
+	public function get_secret_key() {
+		if ( ! $this->secret_key ) {
+			$this->secret_key = get_option( 'rg_gforms_captcha_private_key', '' );
+		}
+
+		return $this->secret_key;
+	}
+
+	/**
+	 * Get the value of the reCAPTCHA response input.
+	 *
+	 * When user clicks on the "I'm not a robot" box, the response token is populated into a hidden field by Google.
+	 * If the current form is a multi-page form and the reCAPTCHA field is on a page other than the last page, this
+	 * value will return an openssl encoded string with the Google reCAPTCHA validation data and some supplemental
+	 * validation data instead.
+	 *
+	 * @see GF_Field_CAPTCHA::get_encoded_recaptcha_response()
+	 *
+	 * @since 2.4.24
+	 *
+	 * @return string
+	 */
+	private function get_posted_recaptcha_response() {
+		return sanitize_text_field( rgpost( 'g-recaptcha-response' ) );
+	}
+
+	/**
+	 * Validate the reCAPTCHA token provided by Google.
+	 *
+	 * @since unknown
+	 *
+	 * @param string $response   The token to verify.
+	 * @param null   $secret_key The secret key for reCAPTCHA verification.
+	 *
+	 * @return bool
+	 */
 	public function verify_recaptcha_response( $response, $secret_key = null ) {
 
 		$verify_url = 'https://www.google.com/recaptcha/api/siteverify';
 
 		if ( $secret_key == null ) {
-			$secret_key = get_option( 'rg_gforms_captcha_private_key' );
+			$secret_key = $this->get_secret_key();
 		}
 
 		// pass secret key and token for verification of whether the response was valid
@@ -131,9 +269,9 @@ class GF_Field_CAPTCHA extends GF_Field {
 		) );
 
 		if ( ! is_wp_error( $response ) ) {
-			$result = json_decode( wp_remote_retrieve_body( $response ) );
+			$this->response = json_decode( wp_remote_retrieve_body( $response ) );
 
-			return $result->success == true;
+			return $this->response->success == true;
 		} else {
 			GFCommon::log_debug( __METHOD__ . '(): Validating the reCAPTCHA response has failed due to the following: ' . $response->get_error_message() );
 		}
@@ -158,7 +296,7 @@ class GF_Field_CAPTCHA extends GF_Field {
 
 				$dimensions = $is_entry_detail || $is_form_editor ? '' : "width='" . esc_attr( rgar( $captcha, 'width' ) ) . "' height='" . esc_attr( rgar( $captcha, 'height' ) ) . "'";
 
-				return "<div class='gfield_captcha_container'><img class='gfield_captcha' src='" . esc_url( rgar( $captcha, 'url' ) ) . "' alt='' {$dimensions} /><div class='gfield_captcha_input_container simple_captcha_{$size}'><input type='text' name='input_{$id}' id='{$field_id}' {$tabindex}/><input type='hidden' name='input_captcha_prefix_{$id}' value='" . esc_attr( rgar( $captcha, 'prefix' ) ) . "' /></div></div>";
+				return "<div class='gfield_captcha_container'><img class='gfield_captcha' src='" . esc_url( rgar( $captcha, 'url' ) ) . "' alt='' {$dimensions} /><div class='gfield_captcha_input_container simple_captcha_{$size}'><input type='text' autocomplete='off' name='input_{$id}' id='{$field_id}' {$tabindex}/><input type='hidden' name='input_captcha_prefix_{$id}' value='" . esc_attr( rgar( $captcha, 'prefix' ) ) . "' /></div></div>";
 				break;
 
 			case 'math' :
@@ -172,83 +310,148 @@ class GF_Field_CAPTCHA extends GF_Field {
 				$dimensions   = $is_entry_detail || $is_form_editor ? '' : "width='" . esc_attr( rgar( $captcha_1, 'width' ) ) . "' height='" . esc_attr( rgar( $captcha_1, 'height' ) ) . "'";
 				$prefix_value = rgar( $captcha_1, 'prefix' ) . ',' . rgar( $captcha_2, 'prefix' ) . ',' . rgar( $captcha_3, 'prefix' );
 
-				return "<div class='gfield_captcha_container'><img class='gfield_captcha' src='" . esc_url( rgar( $captcha_1, 'url' ) ) . "' alt='' {$dimensions} /><img class='gfield_captcha' src='" . esc_url( rgar( $captcha_2, 'url' ) ) . "' alt='' {$dimensions} /><img class='gfield_captcha' src='" . esc_url( rgar( $captcha_3, 'url' ) ) . "' alt='' {$dimensions} /><div class='gfield_captcha_input_container math_{$size}'><input type='text' name='input_{$id}' id='{$field_id}' {$tabindex}/><input type='hidden' name='input_captcha_prefix_{$id}' value='" . esc_attr( $prefix_value ) . "' /></div></div>";
+				return "<div class='gfield_captcha_container'><img class='gfield_captcha' src='" . esc_url( rgar( $captcha_1, 'url' ) ) . "' alt='' {$dimensions} /><img class='gfield_captcha' src='" . esc_url( rgar( $captcha_2, 'url' ) ) . "' alt='' {$dimensions} /><img class='gfield_captcha' src='" . esc_url( rgar( $captcha_3, 'url' ) ) . "' alt='' {$dimensions} /><div class='gfield_captcha_input_container math_{$size}'><input type='text' autocomplete='off' name='input_{$id}' id='{$field_id}' {$tabindex}/><input type='hidden' name='input_captcha_prefix_{$id}' value='" . esc_attr( $prefix_value ) . "' /></div></div>";
 				break;
 
 			default:
 
-				$site_key   = get_option( 'rg_gforms_captcha_public_key' );
-				$secret_key = get_option( 'rg_gforms_captcha_private_key' );
+				$this->site_key   = $this->get_site_key();
+				$this->secret_key = $this->get_secret_key();
 				$theme      = in_array( $this->captchaTheme, array( 'blackglass', 'dark' ) ) ? 'dark' : 'light';
 				$type 		= get_option( 'rg_gforms_captcha_type' );
 				if ( $is_entry_detail || $is_form_editor ){
 
 					//for admin, show a thumbnail depending on chosen theme
-					if ( empty( $site_key ) || empty( $secret_key ) ) {
+					if ( empty( $this->site_key ) || empty( $this->secret_key ) ) {
 
 						return "<div class='captcha_message'>" . __( 'To use the reCAPTCHA field you must do the following:', 'gravityforms' ) . "</div><div class='captcha_message'>1 - <a href='https://www.google.com/recaptcha/admin' target='_blank'>" . sprintf( __( 'Sign up%s for an API key pair for your site.', 'gravityforms' ), '</a>' ) . "</div><div class='captcha_message'>2 - " . sprintf( __( 'Enter your reCAPTCHA site and secret keys in the reCAPTCHA Settings section of the %sSettings page%s', 'gravityforms' ), "<a href='?page=gf_settings' target='_blank'>", '</a>' ) . '</div>';
-
-					} else {
-						$type_suffix = $type == 'invisible' ? 'invisible_' : '';
-						$alt         = esc_attr__( 'An example of reCAPTCHA', 'gravityforms' );
-
-						return "<div class='ginput_container'><img class='gfield_captcha' src='" . GFCommon::get_base_url() . "/images/captcha_{$type_suffix}{$theme}.jpg' alt='{$alt}' /></div>";
 					}
+
+					$type_suffix = $type == 'invisible' ? 'invisible_' : '';
+					$alt         = esc_attr__( 'An example of reCAPTCHA', 'gravityforms' );
+
+					return "<div class='ginput_container'><img class='gfield_captcha' src='" . GFCommon::get_base_url() . "/images/captcha_{$type_suffix}{$theme}.jpg' alt='{$alt}' /></div>";
 				}
-				else {
 
-					$language     = empty( $this->captchaLanguage ) ? 'en' : $this->captchaLanguage;
+				$language     = empty( $this->captchaLanguage ) ? 'en' : $this->captchaLanguage;
 
-					// script is queued for the footer with the language property specified
-					wp_enqueue_script( 'gform_recaptcha', 'https://www.google.com/recaptcha/api.js?hl=' . $language . '&render=explicit', array(), false, true );
+				// script is queued for the footer with the language property specified
+				wp_enqueue_script( 'gform_recaptcha', 'https://www.google.com/recaptcha/api.js?hl=' . $language . '&render=explicit', array(), false, true );
 
-					add_action( 'wp_footer', array( $this, 'ensure_recaptcha_js' ), 21 );
-					add_action( 'gform_preview_footer', array( $this, 'ensure_recaptcha_js' ) );
+				add_action( 'wp_footer', array( $this, 'ensure_recaptcha_js' ), 21 );
+				add_action( 'gform_preview_footer', array( $this, 'ensure_recaptcha_js' ) );
 
-					$stoken = '';
+				$stoken = '';
 
-					if ( $this->use_stoken() ) {
-						// The secure token is a deprecated feature of the reCAPTCHA API.
-						// https://developers.google.com/recaptcha/docs/secure_token
-						$secure_token = self::create_recaptcha_secure_token( $secret_key );
-						$stoken = sprintf( 'data-stoken=\'%s\'', esc_attr( $secure_token ) );
-					}
+				if ( $this->use_stoken() ) {
+					// The secure token is a deprecated feature of the reCAPTCHA API.
+					// https://developers.google.com/recaptcha/docs/secure_token
+					$secure_token = self::create_recaptcha_secure_token( $this->secret_key );
+					$stoken = sprintf( 'data-stoken=\'%s\'', esc_attr( $secure_token ) );
+				}
 
-					$size  = '';
-					$badge = '';
+				$size  = '';
+				$badge = '';
 
-					if ( $type == 'invisible' ) {
-						$size     = "data-size='invisible'";
-						$badge    = $this->captchaBadge ? $this->captchaBadge : 'bottomright';
-						$tabindex = -1;
-					} else {
-						$tabindex = GFCommon::$tab_index > 0 ? GFCommon::$tab_index++ : 0;
-					}
+				if ( $type == 'invisible' ) {
+					$size     = "data-size='invisible'";
+					$badge    = $this->captchaBadge ? $this->captchaBadge : 'bottomright';
+					$tabindex = -1;
+				} else {
+					$tabindex = GFCommon::$tab_index > 0 ? GFCommon::$tab_index++ : 0;
+				}
 
-					$output = "<div id='" . esc_attr( $field_id ) ."' class='ginput_container ginput_recaptcha' data-sitekey='" . esc_attr( $site_key ) . "' {$stoken} data-theme='" . esc_attr( $theme ) . "' data-tabindex='{$tabindex}' {$size} data-badge='{$badge}'></div>";
+				$output = "<div id='" . esc_attr( $field_id ) ."' class='ginput_container ginput_recaptcha' data-sitekey='" . esc_attr( $this->site_key ) . "' {$stoken} data-theme='" . esc_attr( $theme ) . "' data-tabindex='{$tabindex}' {$size} data-badge='{$badge}'></div>";
 
-					$recaptcha_response = sanitize_text_field( rgpost( 'g-recaptcha-response' ) );
-					$current_page = GFFormDisplay::get_current_page( $form['id'] );
+				$recaptcha_response = $this->get_posted_recaptcha_response();
 
-					if( $recaptcha_response && ! $this->failed_validation && $current_page != $this->pageNumber ) {
-
-						$hash = sanitize_text_field( rgpost( 'gf-recaptcha-response-hash' ) );
-						if( ! $hash ) {
-							$hash = wp_hash( $recaptcha_response );
-						}
-
-						$hash               = esc_attr( $hash );
-						$recaptcha_response = esc_attr( $recaptcha_response );
-
-						$output .= "<input type='hidden' name='g-recaptcha-response' value='{$recaptcha_response}'>";
-						$output .= "<input type='hidden' name='gf-recaptcha-response-hash' value='{$hash}'>";
-
-					}
-
+				if ( ! $this->requires_encoding( $form, $recaptcha_response ) ) {
 					return $output;
 				}
+
+				ob_start();
+				?>
+				<input
+					type="hidden"
+					name="g-recaptcha-response"
+					value="<?php esc_attr_e( $this->get_encoded_recaptcha_response( $form, $recaptcha_response) ); ?>"
+				/>
+				<?php
+				return $output .= ob_get_clean();
 		}
 	}
+
+	/**
+	 * Encode the reCAPTCHA response with details from Google.
+	 *
+	 * @since 2.4.24
+	 *
+	 * @param array  $form     The form data.
+	 * @param string $response The posted response data.
+	 *
+	 * @return string
+	 */
+	private function get_encoded_recaptcha_response( $form, $response ) {
+		if ( ! $this->response ) {
+			return $response;
+		}
+
+		$this->response->token = $response;
+
+		return GFCommon::openssl_encrypt( base64_encode( json_encode( $this->response ) ), $this->secret_key );
+	}
+
+	/**
+	 * Decode and return the value of g-recaptcha-response field.
+	 *
+	 * The first time this method is called, the $response parameter will be the result of the reCAPTCHA callback,
+	 * and decryption will fail. On subsequent requests, it should contain an encoded string of the reCAPTCHA response
+	 * and the original token used to make the request.
+	 *
+	 * @since 2.4.24
+	 *
+	 * @param string $response An openssl encoded string, or the reCAPTCHA token on the very first call.
+	 *
+	 * @return string
+	 */
+	private function get_decoded_recaptcha_response( $response ) {
+		$decoded_response = GFCommon::openssl_decrypt( $response, $this->get_secret_key() );
+
+		if ( ! $decoded_response ) {
+			return;
+		}
+
+		return json_decode( base64_decode( $decoded_response ) );
+	}
+
+	/**
+	 * Check whether the reCAPTCHA response should be saved and encoded for validation on the final form page.
+	 *
+	 * @since 2.4.24
+	 *
+	 * @param array  $form               The form data.
+	 * @param string $recaptcha_response The reCAPTCHA response.
+	 *
+	 * @return bool
+	 */
+	private function requires_encoding( $form, $recaptcha_response ) {
+		return $recaptcha_response && ! $this->failed_validation && GFFormDisplay::get_current_page( rgar( $form, 'id' ) ) != $this->pageNumber && ! $this->is_on_last_page( $form );
+	}
+
+	/**
+	 * Returns true if this CAPTCHA field is on the last page of the given form.
+	 *
+	 * @since 2.4.24
+	 *
+	 * @param array $form The form data.
+	 *
+	 * @return bool
+	 */
+	private function is_on_last_page( $form ) {
+	    $pages = GFAPI::get_fields_by_type( $form, array( 'page' ) );
+
+	    return count( $pages ) + 1 === (int) $this->pageNumber;
+    }
 
 	public function ensure_recaptcha_js(){
 		?>

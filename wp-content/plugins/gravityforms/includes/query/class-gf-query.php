@@ -1453,7 +1453,7 @@ AND ( meta_key REGEXP '^[0-9|.]+$'
 				}
 			}
 
-			GFFormsModel::hydrate_repeaters( $entries[ $entry['id'] ], $form );
+			GFFormsModel::hydrate_repeaters( $entries[ $entry['id'] ], $form, true );
 		}
 
 		$results = array();

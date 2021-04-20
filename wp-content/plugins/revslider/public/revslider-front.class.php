@@ -112,6 +112,7 @@ class RevSliderFront extends RevSliderFunctions {
 			wp_enqueue_script('revmin-panzoom', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.panzoom.js', 'tp-tools', $rs_ver, $inc_footer);
 			wp_enqueue_script('revmin-parallax', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.parallax.js', 'tp-tools', $rs_ver, $inc_footer);
 			wp_enqueue_script('revmin-slideanims', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.slideanims.js', 'tp-tools', $rs_ver, $inc_footer);
+		//	wp_enqueue_script('revmin-threejs', RS_PLUGIN_URL . 'public/assets/js/libs/three.min.js', 'tp-tools', $rs_ver, $inc_footer);
 			wp_enqueue_script('revmin-video', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.video.js', 'tp-tools', $rs_ver, $inc_footer);
 		}else{
 			wp_enqueue_script('revmin', RS_PLUGIN_URL . 'public/assets/js/rs6.min.js', 'tp-tools', $rs_ver, $inc_footer);

@@ -458,7 +458,7 @@
 
 .help-input-focus:not([type="radio"]),
 .help-input-focus + label_sub:before,
-.help-input-focus + .select2RS .select2RS-selection,
+.help-input-focus + .ddTP .ddTP_S,
 .rev-colorpicker.help-input-focus {
 	
 	box-shadow: 0 0 20px 5px #006dd2 !important;

@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-02-24T18:01:35+00:00\n"
+"POT-Creation-Date: 2021-04-06T15:45:55+00:00\n"
 "PO-Revision-Date: 2020-11-26 12:54:22+0000\n"
 "Language: ko_KR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -62,40 +62,40 @@ msgid "Metadata:"
 msgstr "메타데이터:"
 
 #. translators: 1: href link to list of bookings, 2: booking post type link
-#: woocommerce-bookings.php:286
+#: woocommerce-bookings.php:371
 msgid "<a href=\"%1$s\">Add or edit a product</a> to manage bookings in the Product Data section for individual products and then go to the <a href=\"%2$s\" target=\"_blank\">Bookings page</a> to manage them individually."
 msgstr "개별 상품의 상품 데이터 섹션에서 예약을 관리할 <a href=\"%1$s\">상품을 추가 또는 편집</a>한 다음, 해당 상품을 개별적으로 관리할 <a href=\"%2$s\" target=\"_blank\">예약 페이지</a>로 이동합니다."
 
-#: woocommerce-bookings.php:284
+#: woocommerce-bookings.php:369
 msgid "Bookings has been activated!"
 msgstr "예약이 활성화되었습니다!"
 
-#: woocommerce-bookings.php:181
+#: woocommerce-bookings.php:266
 msgid "Unserializing instances of this class is forbidden."
 msgstr "이 단계의 인스턴스를 역행하는 것은 금지됩니다."
 
-#: woocommerce-bookings.php:172
+#: woocommerce-bookings.php:257
 msgid "Cloning is forbidden."
 msgstr "복제는 금지됩니다."
 
-#: woocommerce-bookings.php:141
+#: woocommerce-bookings.php:226
 msgid "Premium Support"
 msgstr "프리미엄 지원"
 
-#: woocommerce-bookings.php:141
+#: woocommerce-bookings.php:226
 msgid "Visit Premium Customer Support"
 msgstr "프리미엄 고객 지원 방문"
 
-#: woocommerce-bookings.php:140
+#: woocommerce-bookings.php:225
 msgid "Docs"
 msgstr "문서"
 
-#: woocommerce-bookings.php:140
+#: woocommerce-bookings.php:225
 msgid "View Documentation"
 msgstr "설명서 보기"
 
 #. translators: %s WC download URL link.
-#: woocommerce-bookings.php:35
+#: woocommerce-bookings.php:38
 msgid "Bookings requires WooCommerce to be installed and active. You can download %s here."
 msgstr "예약하려면 WooCommerce를 설치하고 활성화해야 합니다. 여기에서 %s을(를) 다운로드할 수 있습니다."
 
@@ -1362,6 +1362,7 @@ msgstr "별도로 명시되지 않은 한, 모든 예약 시간 및 종료 시�
 #: includes/class-wc-booking-privacy.php:9
 #: includes/class-wc-booking-privacy.php:62
 #: includes/class-wc-bookings-init.php:88
+#: woocommerce-bookings.php:194
 msgid "Bookings"
 msgstr "예약"
 
@@ -2851,6 +2852,7 @@ msgstr "설정"
 #: includes/admin/class-wc-bookings-menus.php:72
 #: includes/admin/views/html-notifications-page.php:2
 #: includes/admin/views/html-notifications-page.php:58
+#: woocommerce-bookings.php:184
 msgid "Send Notification"
 msgstr "알림 전송"
 
@@ -2858,6 +2860,7 @@ msgstr "알림 전송"
 #: includes/admin/views/html-calendar-day.php:2
 #: includes/admin/views/html-calendar-month.php:2
 #: includes/class-wc-bookings-google-calendar-connection.php:781
+#: woocommerce-bookings.php:174
 msgid "Calendar"
 msgstr "달력"
 
@@ -2866,6 +2869,7 @@ msgstr "달력"
 #: includes/admin/views/html-create-booking-page-2.php:28
 #: includes/admin/views/html-create-booking-page.php:7
 #: includes/class-wc-bookings-init.php:90
+#: woocommerce-bookings.php:163
 msgid "Add Booking"
 msgstr "예약 추가"
 

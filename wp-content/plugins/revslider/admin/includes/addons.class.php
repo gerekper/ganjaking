@@ -136,8 +136,6 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 	public function download_addon($addon){
 		global $rslb;
 		
-		
-		
 		$plugin_slug	= basename($addon);
 		if(0 !== strpos($plugin_slug, 'revslider-')) die( '-1' );
 

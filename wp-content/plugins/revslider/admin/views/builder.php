@@ -374,6 +374,7 @@ if(isset($animationsRaw['out'])){ ?>
 		RVS.LIB.SLTR_CUSTOM = JSON.parse(<?php echo (empty($rs_custom_transitions)) ? "'{}'" : str_replace('[]', '{}', $rs_f->json_encode_client_side($rs_custom_transitions)); ?>);
 		RVS.LIB.SLTR_FAVORIT = JSON.parse(<?php echo (empty($rs_favorite_transitions)) ? "'{}'" : str_replace('[]', '{}', $rs_f->json_encode_client_side($rs_favorite_transitions)); ?>);
 		
+
 		//Init Navigation Presets
 		RVS.F.migrateNavigation(JSON.parse(<?php echo $rs_f->json_encode_client_side($arr_navigations); ?>));
 

@@ -70,7 +70,7 @@
 
 			if ( WCPhotographyBatchUploadParams.isLessThanWC30 ) {
 				select2_args.initSelection = function( element, callback ) {
-					var data = $.parseJSON( element.attr( 'data-selected' ) );
+					var data = JSON.parse( element.attr( 'data-selected' ) );
 
 					return callback( data );
 				};
@@ -104,15 +104,15 @@
 			if ( upload.features.dragdrop && ! $( document.body ).hasClass( 'mobile' ) ) {
 				ui.addClass( 'drag-drop' );
 
-				$( '#wc-photography-drag-drop-area' ).bind( 'dragover.wp-uploader', function() {
+				$( '#wc-photography-drag-drop-area' ).on( 'dragover.wp-uploader', function() {
 					ui.addClass( 'drag-over' );
-				}).bind( 'dragleave.wp-uploader, drop.wp-uploader', function() {
+				}).on( 'dragleave.wp-uploader, drop.wp-uploader', function() {
 					ui.removeClass( 'drag-over' );
 				});
 			} else {
 				ui.removeClass( 'drag-drop' );
 
-				$( '#wc-photography-drag-drop-area' ).unbind( '.wp-uploader' );
+				$( '#wc-photography-drag-drop-area' ).off( '.wp-uploader' );
 			}
 
 			if ( 'html4' === upload.runtime ) {
@@ -127,7 +127,7 @@
 				max       = parseInt( upload.settings.max_file_size, 10 );
 
 			$( '#wc-photography-uploader-error' ).html( '' );
-			$( '#wc-photography-uploader .form-table :input' ).attr( 'disabled', 'disabled' );
+			$( '#wc-photography-uploader .form-table :input' ).prop( 'disabled', true );
 
 			$( WCPhotographyBar ).show().css( 'display', 'block' );
 
@@ -191,7 +191,7 @@
 
 			// Show the edit area.
 			$( '#wc-photography-image-edit' ).css( 'display', 'block' );
-			$( '#wc-photography-uploader .form-table :input' ).removeAttr( 'disabled' );
+			$( '#wc-photography-uploader .form-table :input' ).prop( 'disabled', false );
 		});
 
 		WCPhotographyBatchUpload.bind( 'error', function( upload, error ) {
@@ -355,12 +355,12 @@
 				value  = input.val();
 
 			if ( '' === value ) {
-				input.focus();
+				input.trigger( 'focus' );
 				return false;
 			}
 
-			input.attr( 'disabled', 'disabled' );
-			button.attr( 'disabled', 'disabled' ).next( '.message' ).remove();
+			input.prop( 'disabled', true );
+			button.prop( 'disabled', true ).next( '.message' ).remove();
 			button.after( ' <i class="loading">' + WCPhotographyBatchUploadParams.loading + '</i>' );
 
 			$.ajax({
@@ -374,8 +374,8 @@
 				dataType: 'json',
 				success:  function( response ) {
 					input.val( '' );
-					input.removeAttr( 'disabled' );
-					button.removeAttr( 'disabled' ).next( '.loading' ).remove();
+					input.prop( 'disabled', false );
+					button.prop( 'disabled', false ).next( '.loading' ).remove();
 
 					// Show the response.
 					if ( response.success ) {

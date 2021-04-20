@@ -227,6 +227,21 @@ class RevSliderOutput extends RevSliderFunctions {
 	private $easings = array();
 	
 	/**
+	 * holds easings that the slider is using
+	 **/
+	private $caching = false;
+
+	/**
+	 * variables for get_frames
+	 */
+	private $_base;
+	private $_split;
+	private $_mask;
+	private $_sfx;
+	private $_reverse;
+	private $hv;
+	
+	/**
 	 * START: DEPRECATED FUNCTIONS THAT ARE IN HERE FOR OLD ADDONS TO WORK PROPERLY
 	 **/
 	
@@ -248,6 +263,7 @@ class RevSliderOutput extends RevSliderFunctions {
 	public function __construct(){
 		parent::__construct();
 		$this->static_slide = new RevSliderSlide();
+		$this->init_get_frames_vars();
 	}
 	
 	/**
@@ -664,7 +680,9 @@ class RevSliderOutput extends RevSliderFunctions {
 	public function add_slider_base(){
 		try{
 			global $rs_slider_serial, $rs_wmpl;
-
+			
+			$cache = RevSliderGlobals::instance()->get('RevSliderCache');
+			
 			do_action('revslider_add_slider_base_pre', $this);
 			
 			$rs_slider_serial++; //set the serial +1, so that if we have the slider two times, it has different ID's for sure
@@ -699,6 +717,28 @@ class RevSliderOutput extends RevSliderFunctions {
 			$sid = $this->slider->get_id();
 			$this->set_slider_id($sid);
 			
+			//check if caching should be active or not
+			$can_do_cache	= ($this->get_preview_mode() === false && $cache->is_supported_type($this->slider->get_param('sourcetype', 'gallery'))) ? true : false;
+			$this->caching	= ($cache->is_enabled() && $can_do_cache) ? true : false;
+			$do_cache		= $this->slider->get_param(array('general', 'icache'), 'default');
+			$this->caching	= ($do_cache === 'on' && $can_do_cache) ? true : $this->caching;
+			$this->caching	= ($do_cache === 'off') ? false : $this->caching;
+			
+			//add caching if its enabled
+			if($this->caching){
+				$transient	= $this->get_transient_alias();
+				$content	= get_transient($transient);
+				if($content !== false){
+					$content = json_decode($content, true);
+					if(isset($content['html'])){
+						echo $cache->do_html_changes($content['html']);
+						
+						$cache->do_additions($this->get_val($content, 'addition', array()));
+						return true;
+					}
+				}
+			}
+			
 			$this->modify_settings();
 			if($this->get_preview_mode()) $this->modify_preview_mode_settings();
 			
@@ -726,6 +766,7 @@ class RevSliderOutput extends RevSliderFunctions {
 			$html_id = (trim($slider_id) !== '') ? $slider_id : 'rev_slider_'.$sid.'_'.$rs_slider_serial;
 			$this->set_html_id($html_id);
 			
+			ob_start();
 			echo $html_before_slider."\n";
 			echo $this->get_slider_wrapper_div();
 			
@@ -747,6 +788,16 @@ class RevSliderOutput extends RevSliderFunctions {
 			$this->add_modal_font_icons();
 			
 			do_action('revslider_add_slider_base_post', $this);
+			
+			$content = ob_get_contents();
+			ob_clean();
+			ob_end_clean();
+			
+			if($this->caching){
+				$this->add_slider_transient($transient, $content);
+			}
+			
+			echo $content;
 		}catch(Exception $e){
 			$message = $e->getMessage();
 			
@@ -1074,17 +1125,11 @@ class RevSliderOutput extends RevSliderFunctions {
 	 * push the static slide, can also be disabled through filters
 	 **/
 	public function enable_static_layers($slides){
-		if($this->get_do_static()){
-			$sid = $this->slider->get_id();
-			foreach($slides as $slide){
-				$static_id = $slide->get_static_slide_id($sid);
-				if($static_id !== false){
-					$static_slide = new RevSliderSlide();
-					$static_slide->init_by_static_id($static_id);
-					$this->set_static_slide($static_slide);
-				}
-				break;
-			}
+		if(!$this->get_do_static()) return;
+
+		$static_slide = $this->slider->get_static_slide();
+		if($static_slide !== false){
+			$this->set_static_slide($static_slide);
 		}
 	}
 	
@@ -2091,7 +2136,7 @@ class RevSliderOutput extends RevSliderFunctions {
 			}
 		}
 		
-		if($this->slider->get_param(array('parallax', 'set', false)) == true){
+		if($this->slider->get_param(array('parallax', 'set'), false) == true){
 			$level = $this->get_val($layer, array('effects', 'parallax'), '-');				
 			$level = ($this->slider->get_param(array('parallax', 'setDDD'), false) == true && $level == '-' && $this->get_val($layer, array('effects', 'attachToBg'), '') === true) ? 'tobggroup' : $level;
 			if($level !== '-') $class[] = 'rs-pxl-'.$level;			
@@ -3453,6 +3498,7 @@ rs-module .material-icons {
 				$sw = $this->get_val($layer, array($path, 'svg', 'strokeWidth'), 0);
 				$sa = $this->get_val($layer, array($path, 'svg', 'strokeDashArray'), '');
 				$so = $this->get_val($layer, array($path, 'svg', 'strokeDashOffset'), '');
+				$sall = $this->get_val($layer, array($path, 'svg', 'styleAll'), false);
 					
 				/*
 					SVG Idle Color can have responsive values, but SVG Hover Color is not responsive
@@ -3475,6 +3521,7 @@ rs-module .material-icons {
 					if(!in_array($sw, array(0, '0', '0px'), true)) $svg[$tag]['sw'] = $sw;
 					if($sa !== '') $svg[$tag]['sa'] = $sa;
 					if($so !== '') $svg[$tag]['so'] = $so;
+					if($sall !== '' && $sall !== false) $svg[$tag]['sall'] = $sall;
 				}
 				
 				
@@ -3645,26 +3692,11 @@ rs-module .material-icons {
 	}
 	
 	/**
-	 * get the finished layer frame object
+	 * init variables for get_frames
 	 **/
-	public function get_frames(){
-		$layer	 = $this->get_layer();
-		$type	 = $this->get_val($layer, 'type', 'text');
-		$frames	 = $this->get_val($layer, array('timeline', 'frames'), false);
-		$_frames = array();
+	public function init_get_frames_vars(){
 		
-		/**
-		 * frame_0
-		 * inherit || default -> ignore/dont write
-		 * 
-		 * frame_1
-		 * default -> ignore/dont write
-		 * 
-		 * frame_2 - frame_999
-		 * default -> ignore/dont write
-		 **/
-		
-		$_base = array(
+		$this->_base = array(
 			'grayscale'	 => array('n' => 'gra', 'd' => array('frame_0' => 0, 'frame_1' => 0, 'default' => 'inherit'), 'depth' => array('filter', 'grayscale')), //0
 			'brightness' => array('n' => 'bri', 'd' => array('frame_0' => 100, 'frame_1' => 100, 'default' => 'inherit'), 'depth' => array('filter', 'brightness')), //100
 			'blur'		 => array('n' => 'blu', 'd' => array('frame_0' => 0, 'frame_1' => 0, 'default' => 'inherit'), 'depth' => array('filter', 'blur')), //100
@@ -3702,7 +3734,7 @@ rs-module .material-icons {
 			'startRelative' => array('n' => 'sR', 'd' => 0, 'depth' => array('timeline', 'startRelative')) //0
 		);
 		
-		$_split = array(
+		$this->_split = array(
 			'ease'		=> array('n' => 'e', 'd' => array('frame_0' => false, 'default' => 'inherit')),
 			'direction'	=> array('n' => 'dir', 'd' => array('frame_0' => false, 'default' => 'forward')), //'forward'
 			'delay'		=> array('n' => 'd', 'd' => array('default' => 5)), //5 //, 'default' => 5 // array('frame_0' => false, 'frame_1' => 5, 'frame_999' => 5)
@@ -3726,17 +3758,17 @@ rs-module .material-icons {
 			'blur'		=> array('n' => 'blu', 'd' => array('frame_0' => 0, 'frame_1' => 0, 'default' => 'inherit')) //100
 		);
 		
-		$_mask = array(
+		$this->_mask = array(
 			'x'	=> array('n' => 'x', 'd' => array('frame_0' => array(0, '0', '0px', ''), 'frame_1' => array(0, '0', '0px', ''), 'default' => 'inherit'), 'depth' => array('mask', 'x')),
 			'y' => array('n' => 'y', 'd' => array('frame_0' => array(0, '0', '0px', ''), 'frame_1' => array(0, '0', '0px', ''), 'default' => 'inherit'), 'depth' => array('mask', 'y'))
 		);
 		
-		$_sfx = array(
+		$this->_sfx = array(
 			'effect' => array('n' => 'se', 'd' => '', 'depth' => array('sfx', 'effect')),
 			'color'	 => array('n' => 'fxc', 'd' => '#ffffff', 'depth' => array('sfx', 'color'))
 		);
 		
-		$_reverse = array(
+		$this->_reverse = array(
 			'x'				 => array('n' => 'x', 'd' => false, 'depth' => array('reverseDirection', 'x')),
 			'y'				 => array('n' => 'y', 'd' => false, 'depth' => array('reverseDirection', 'y')),
 			'rotationX'		 => array('n' => 'rX', 'd' => false, 'depth' => array('reverseDirection', 'rotationX')),
@@ -3757,70 +3789,125 @@ rs-module .material-icons {
 			'linesDirection' => array('n' => 'lD', 'd' => false, 'depth' => array('reverseDirection', 'linesDirection'))
 		);
 		
+		$this->hv = array(
+			'opacity'		=> array('n' => 'o', 'd' => 1),
+			'scaleX'		=> array('n' => 'sX', 'd' => 1),
+			'scaleY'		=> array('n' => 'sY', 'd' => 1),
+			'skewX'			=> array('n' => 'skX', 'd' => 0),
+			'skewY' 		=> array('n' => 'skY', 'd' => 0),
+			'rotationX'		=> array('n' => 'rX', 'd' => 0),
+			'rotationY'		=> array('n' => 'rY', 'd' => 0),
+			'rotationZ'		=> array('n' => 'rZ', 'd' => 0),
+			'x'				=> array('n' => 'x', 'd' => 0),
+			'y'				=> array('n' => 'y', 'd' => 0),
+			'z' 			=> array('n' => 'z', 'd' => 0),
+			'color'			=> array('n' => 'c', 'd' => '#fff'),
+			'backgroundColor' => array('n' => 'bgc', 'd' => 'transparent'),
+			'gradientStyle' => array('n' => 'gs', 'd' => 'fading'),
+			'borderColor'	=> array('n' => 'boc', 'd' => 'transparent'),
+			'borderRadius'	=> array('n' => 'bor', 'd' => '0,0,0,0', 'depth' => array('borderRadius', 'v')), //check further as it is stored in v
+			'borderStyle'	=> array('n' => 'bos', 'd' => 'none'),
+			'borderWidth'	=> array('n' => 'bow', 'd' => '0,0,0,0'),
+			'transformPerspective' => array('n' => 'tp', 'd' => '600'),
+			'originX'		=> array('n' => 'oX', 'd' => '50%'),
+			'originY'		=> array('n' => 'oY', 'd' => '50%'),
+			'originZ'		=> array('n' => 'oZ', 'd' => '0'),
+			'textDecoration'=> array('n' => 'td', 'd' => 'none'),
+			'speed'			=> array('n' => 'sp', 'd' => 300),
+			'ease'			=> array('n' => 'e', 'd' => 'power3.inOut'),
+			'zIndex'		=> array('n' => 'zI', 'd' => 'auto'),
+			'pointerEvents'	=> array('n' => 'pE', 'd' => 'auto'),
+			'grayscale'		=> array('n' => 'gra', 'd' => 0, 'depth' => array('filter', 'grayscale')),
+			'brightness'	=> array('n' => 'bri', 'd' => 100, 'depth' => array('filter', 'brightness')),
+			'blur'			=> array('n' => 'blu', 'd' => 0, 'depth' => array('filter', 'blur')),
+			'usehovermask'	=> array('n' => 'm', 'd' => false)
+		);
+	}
+	
+	/**
+	 * get the finished layer frame object
+	 **/
+	public function get_frames(){
+		$layer	 = $this->get_layer();
+		$type	 = $this->get_val($layer, 'type', 'text');
+		$frames	 = $this->get_val($layer, array('timeline', 'frames'), false);
+		$_frames = array();
+
+		/**
+		 * frame_0
+		 * inherit || default -> ignore/dont write
+		 *
+		 * frame_1
+		 * default -> ignore/dont write
+		 *
+		 * frame_2 - frame_999
+		 * default -> ignore/dont write
+		 **/
+
 		if(!empty($frames)){
 			foreach($frames as $fk => $frame){
 				$_frames[$fk] = array('base' => array());
 				$split	= array();
 				$mask	= false;
 				$push	= array();
-				
+
 				/**
 				 * push the normal values of a frame
 				 **/
 				$use = array(
 					//transform
-					'x' => $_base['x'],
-					'y' => $_base['y'],
-					'z' => $_base['z'],
-					'scaleX' => $_base['scaleX'],
-					'scaleY' => $_base['scaleY'],
-					'opacity' => $_base['opacity'],
-					'rotationX' => $_base['rotationX'],
-					'rotationY' => $_base['rotationY'],
-					'rotationZ' => $_base['rotationZ'],
-					'skewX' => $_base['skewX'],
-					'skewY' => $_base['skewY'],
-					'originX' => $_base['originX'],
-					'originY' => $_base['originY'],
-					'originZ' => $_base['originZ'],
-					'transformPerspective' => $_base['transformPerspective'],
-					
+					'x' => $this->_base['x'],
+					'y' => $this->_base['y'],
+					'z' => $this->_base['z'],
+					'scaleX' => $this->_base['scaleX'],
+					'scaleY' => $this->_base['scaleY'],
+					'opacity' => $this->_base['opacity'],
+					'rotationX' => $this->_base['rotationX'],
+					'rotationY' => $this->_base['rotationY'],
+					'rotationZ' => $this->_base['rotationZ'],
+					'skewX' => $this->_base['skewX'],
+					'skewY' => $this->_base['skewY'],
+					'originX' => $this->_base['originX'],
+					'originY' => $this->_base['originY'],
+					'originZ' => $this->_base['originZ'],
+					'transformPerspective' => $this->_base['transformPerspective'],
+
 					//timeline
-					'ease' => $_base['ease'],
-					'start' => $_base['start'],
-					'speed' => $_base['speed'],
-					'startRelative' => $_base['startRelative']
+					'ease' => $this->_base['ease'],
+					'start' => $this->_base['start'],
+					'speed' => $this->_base['speed'],
+					'startRelative' => $this->_base['startRelative']
 				);
 
 
 				if($this->get_val($frame, array('filter', 'use')) === true){
-					$use['grayscale']	= $_base['grayscale'];
-					$use['brightness']	= $_base['brightness'];
-					$use['blur']		= $_base['blur'];
+					$use['grayscale']	= $this->_base['grayscale'];
+					$use['brightness']	= $this->_base['brightness'];
+					$use['blur']		= $this->_base['blur'];
 				}
 
 				if($this->get_val($frame, array('bfilter', 'use')) === true){
-					$use['bGrayscale']	= $_base['bGrayscale'];
-					$use['bBrightness']	= $_base['bBrightness'];
-					$use['bBlur']		= $_base['bBlur'];
-					$use['bInvert']	= $_base['bInvert'];
-					$use['bSepia']		= $_base['bSepia'];
+					$use['bGrayscale']	= $this->_base['bGrayscale'];
+					$use['bBrightness']	= $this->_base['bBrightness'];
+					$use['bBlur']		= $this->_base['bBlur'];
+					$use['bInvert']	= $this->_base['bInvert'];
+					$use['bSepia']		= $this->_base['bSepia'];
 				}
 
 				if($this->get_val($frame, array('color', 'use')) === true){
-					$use['color'] = $_base['color'];
+					$use['color'] = $this->_base['color'];
 				}
 				if($this->get_val($frame, array('bgcolor', 'use')) === true){
-					$use['backgroundColor'] = $_base['backgroundColor'];
+					$use['backgroundColor'] = $this->_base['backgroundColor'];
 				}
 				if($this->get_val($layer, array('timeline', 'clipPath', 'use')) === true){
-					$use['clip'] = $_base['clip'];
-					$use['clipB'] = $_base['clipB'];
+					$use['clip'] = $this->_base['clip'];
+					$use['clipB'] = $this->_base['clipB'];
 				}
-				
+
 				foreach($use as $key => $v){
 					$_key = (isset($v['depth'])) ? $v['depth'] : $key;
-					
+
 					if(is_array($v['d'])){
 						$a = (isset($v['d'][$fk])) ? $v['d'][$fk] : $v['d']['default'];
 						if($a === false) continue; //if false, ignore the value
@@ -3828,11 +3915,11 @@ rs-module .material-icons {
 						$a = $v['d'];
 					}
 					$nv = $this->get_val($frame, $_key, $a);
-					
+
 					if($_key === 'ease' || (is_array($_key) && in_array('ease', $_key, true))){
 						$this->easings[$nv] = $nv;
 					}
-					
+
 					if(is_object($nv) || is_array($nv)){
 						if($this->adv_resp_sizes == true){
 							$b = (!is_array($a)) ? array($a) : $a;
@@ -3847,9 +3934,9 @@ rs-module .material-icons {
 							$nv = RSColorpicker::get($nv);
 						}
 					}
-					
+
 					if($fk === 'frame_0' && $nv === 'inherit') continue; //inherit is ignored in frame_0
-					
+
 					if(is_array($nv)) $nv = implode(',', $nv);
 
 					if(is_array($a)){
@@ -3862,96 +3949,96 @@ rs-module .material-icons {
 						}
 					}
 				}
-				
+
 				/**
 				 * check if we have to add split
 				 **/
 				if($this->get_val($frame, array('chars', 'use')) === true) $split[] = 'chars';
 				if($this->get_val($frame, array('words', 'use')) === true) $split[] = 'words';
 				if($this->get_val($frame, array('lines', 'use')) === true) $split[] = 'lines';
-				
+
 				if(!empty($split)){
 					foreach($split as $splt){
 						$push[$splt] = array(
-							'ease'		=> $_split['ease'],
-							'direction'	=> $_split['direction'],
-							'delay'		=> $_split['delay'],
-							'x'			=> $_split['x'],
-							'y'			=> $_split['y'],
-							'z'			=> $_split['z'],
-							'scaleX'	=> $_split['scaleX'],
-							'scaleY'	=> $_split['scaleY'],
-							'opacity'	=> $_split['opacity'],
-							'rotationX'	=> $_split['rotationX'],
-							'rotationY'	=> $_split['rotationY'],
-							'rotationZ'	=> $_split['rotationZ'],
-							'skewX'		=> $_split['skewX'],
-							'skewY'		=> $_split['skewY'],
-							'originX'	=> $_split['originX'],
-							'originY'	=> $_split['originY'],
-							'originZ'	=> $_split['originZ'],
+							'ease'		=> $this->_split['ease'],
+							'direction'	=> $this->_split['direction'],
+							'delay'		=> $this->_split['delay'],
+							'x'			=> $this->_split['x'],
+							'y'			=> $this->_split['y'],
+							'z'			=> $this->_split['z'],
+							'scaleX'	=> $this->_split['scaleX'],
+							'scaleY'	=> $this->_split['scaleY'],
+							'opacity'	=> $this->_split['opacity'],
+							'rotationX'	=> $this->_split['rotationX'],
+							'rotationY'	=> $this->_split['rotationY'],
+							'rotationZ'	=> $this->_split['rotationZ'],
+							'skewX'		=> $this->_split['skewX'],
+							'skewY'		=> $this->_split['skewY'],
+							'originX'	=> $this->_split['originX'],
+							'originY'	=> $this->_split['originY'],
+							'originZ'	=> $this->_split['originZ'],
 						);
-						
+
 						if($this->get_val($frame, array($splt, 'fuse'), false) === true){
-							$push[$splt]['fuse']		= $_split['fuse'];
-							$push[$splt]['grayscale']	= $_split['grayscale'];
-							$push[$splt]['brightness']	= $_split['brightness'];
-							$push[$splt]['blur']		= $_split['blur'];
+							$push[$splt]['fuse']		= $this->_split['fuse'];
+							$push[$splt]['grayscale']	= $this->_split['grayscale'];
+							$push[$splt]['brightness']	= $this->_split['brightness'];
+							$push[$splt]['blur']		= $this->_split['blur'];
 						}
-						
+
 						foreach($push[$splt] as $k => $v){
 							$push[$splt][$k]['depth'] = array($splt, $k);
 						}
 					}
 				}
-				
+
 				/**
 				 * check if we have to add mask
 				 **/
 				if($this->get_val($frame, array('mask', 'use')) === true){
 					$push['mask'] = array(
 						'u' => 't', //will set always u:t; as we need it
-						'x'	=> $_mask['x'],
-						'y' => $_mask['y']
+						'x'	=> $this->_mask['x'],
+						'y' => $this->_mask['y']
 					);
 				}
-				
+
 				/**
 				 * check if we have to add effect
 				 **/
 				if(!in_array($this->get_val($frame, array('sfx', 'effect')), array('', 'none'), true)){
 					$push['sfx'] = array(
-						'effect' => $_sfx['effect'],
-						'color'	 => $_sfx['color']
+						'effect' => $this->_sfx['effect'],
+						'color'	 => $this->_sfx['color']
 					);
 				}
-				
+
 				/**
 				 * check if we have to add reverse
 				 **/
 				if($fk === 'frame_0' || $fk === 'frame_999'){
 					$push['reverse'] = array(
-						'x' => $_reverse['x'],
-						'y' => $_reverse['y'],
-						'rotationX' => $_reverse['rotationX'],
-						'rotationY' => $_reverse['rotationY'],
-						'rotationZ' => $_reverse['rotationZ'],
-						'skewX'	 => $_reverse['skewX'],
-						'skewY'  => $_reverse['skewY'],
-						'maskX'  => $_reverse['maskX'],
-						'maskY'  => $_reverse['maskY'],
-						'charsX' => $_reverse['charsX'],
-						'charsY' => $_reverse['charsY'],
-						'charsDirection' => $_reverse['charsDirection'],
-						'wordsX' => $_reverse['wordsX'],
-						'wordsY' => $_reverse['wordsY'],
-						'wordsDirection' => $_reverse['wordsDirection'],
-						'linesX' => $_reverse['linesX'],
-						'linesY' => $_reverse['linesY'],
-						'linesDirection' => $_reverse['linesDirection']
+						'x' => $this->_reverse['x'],
+						'y' => $this->_reverse['y'],
+						'rotationX' => $this->_reverse['rotationX'],
+						'rotationY' => $this->_reverse['rotationY'],
+						'rotationZ' => $this->_reverse['rotationZ'],
+						'skewX'	 => $this->_reverse['skewX'],
+						'skewY'  => $this->_reverse['skewY'],
+						'maskX'  => $this->_reverse['maskX'],
+						'maskY'  => $this->_reverse['maskY'],
+						'charsX' => $this->_reverse['charsX'],
+						'charsY' => $this->_reverse['charsY'],
+						'charsDirection' => $this->_reverse['charsDirection'],
+						'wordsX' => $this->_reverse['wordsX'],
+						'wordsY' => $this->_reverse['wordsY'],
+						'wordsDirection' => $this->_reverse['wordsDirection'],
+						'linesX' => $this->_reverse['linesX'],
+						'linesY' => $this->_reverse['linesY'],
+						'linesDirection' => $this->_reverse['linesDirection']
 					);
 				}
-				
+
 				if(!empty($push)){
 					foreach($push as $zone => $values){
 						foreach($values as $key => $v){
@@ -3966,13 +4053,13 @@ rs-module .material-icons {
 								}else{
 									$a = $v['d'];
 								}
-								
+
 								$nv = $this->get_val($frame, $_key, $a);
-								
+
 								if($_key === 'ease' || (is_array($_key) && in_array('ease', $_key, true))){
 									$this->easings[$nv] = $nv;
 								}
-								
+
 								if(is_object($nv) || is_array($nv)){
 									if($this->adv_resp_sizes == true){
 										$b = (!is_array($a)) ? array($a) : $a;
@@ -3981,7 +4068,7 @@ rs-module .material-icons {
 										$nv = $this->get_biggest_device_setting($nv, $this->enabled_sizes);
 									}
 								}
-								
+
 								if(is_array($nv)) $nv = implode(',', $nv);
 
 								if(isset($_key[1]) && $_key[1] === 'delay'){
@@ -4003,62 +4090,29 @@ rs-module .material-icons {
 				}
 			}
 		}
-		
+
 		/**
 		 * check if we have to add hover frame
 		 **/
 		if($this->get_val($layer, array('hover', 'usehover'), false) === true || $this->get_val($layer, array('hover', 'usehover'), false) === 'true' || $this->get_val($layer, array('hover', 'usehover'), false) === 'desktop'){
 			$_frames['frame_hover'] = array('base' => array());
-			
+
 			$idle_v = $this->get_val($layer, 'idle', array());
 			$hover_v = $this->get_val($layer, 'hover', array());
-			
-			$hv = array(
-				'opacity'		=> array('n' => 'o', 'd' => 1),
-				'scaleX'		=> array('n' => 'sX', 'd' => 1),
-				'scaleY'		=> array('n' => 'sY', 'd' => 1),
-				'skewX'			=> array('n' => 'skX', 'd' => 0),
-				'skewY' 		=> array('n' => 'skY', 'd' => 0),
-				'rotationX'		=> array('n' => 'rX', 'd' => 0),
-				'rotationY'		=> array('n' => 'rY', 'd' => 0),
-				'rotationZ'		=> array('n' => 'rZ', 'd' => 0),
-				'x'				=> array('n' => 'x', 'd' => 0),
-				'y'				=> array('n' => 'y', 'd' => 0),
-				'z' 			=> array('n' => 'z', 'd' => 0),
-				'color'			=> array('n' => 'c', 'd' => '#fff'),
-				'backgroundColor' => array('n' => 'bgc', 'd' => 'transparent'),
-				'gradientStyle' => array('n' => 'gs', 'd' => 'fading'),
-				'borderColor'	=> array('n' => 'boc', 'd' => 'transparent'),
-				'borderRadius'	=> array('n' => 'bor', 'd' => '0,0,0,0', 'depth' => array('borderRadius', 'v')), //check further as it is stored in v
-				'borderStyle'	=> array('n' => 'bos', 'd' => 'none'),
-				'borderWidth'	=> array('n' => 'bow', 'd' => '0,0,0,0'),
-				'transformPerspective' => array('n' => 'tp', 'd' => '600'),
-				'originX'		=> array('n' => 'oX', 'd' => '50%'),
-				'originY'		=> array('n' => 'oY', 'd' => '50%'),
-				'originZ'		=> array('n' => 'oZ', 'd' => '0'),
-				'textDecoration'=> array('n' => 'td', 'd' => 'none'),
-				'speed'			=> array('n' => 'sp', 'd' => 300),
-				'ease'			=> array('n' => 'e', 'd' => 'power3.inOut'),
-				'zIndex'		=> array('n' => 'zI', 'd' => 'auto'),
-				'pointerEvents'	=> array('n' => 'pE', 'd' => 'auto'),
-				'grayscale'		=> array('n' => 'gra', 'd' => 0, 'depth' => array('filter', 'grayscale')),
-				'brightness'	=> array('n' => 'bri', 'd' => 100, 'depth' => array('filter', 'brightness')),
-				'blur'			=> array('n' => 'blu', 'd' => 0, 'depth' => array('filter', 'blur')),
-				'usehovermask'	=> array('n' => 'm', 'd' => false)		
-			);
 
+			$hv = $this->hv;
 			if ($this->get_val($layer, array('hover', 'usehover'), false) === 'desktop') $hv['instantClick'] = array('n' => 'iC', 'd' => 'true');
-			
+
 			$devices = array('d', 'n', 't', 'm');
-			
+
 			foreach($hv as $key => $v){
 				$_key = (isset($v['depth'])) ? $v['depth'] : $key;
 				$nv = $this->get_val($hover_v, $_key, $v['d']);
-				
+
 				if($_key === 'ease') $this->easings[$nv] = $nv;
-				
+
 				if(is_object($nv) || is_array($nv)){
-					
+
 					// (all?) hover styles in the admin are currently global for all devices
 					// this solves an issue with borderWidth and borderRadius hovers (which have a "top/right/bottom/left" array)
 					foreach($devices as $device){
@@ -4073,7 +4127,7 @@ rs-module .material-icons {
 						}
 					}
 				}
-				
+
 				/*
 					Hover values need to be compared to Idle values in order to print correctly
 					Example case:
@@ -4099,13 +4153,13 @@ rs-module .material-icons {
 						}
 					}
 				}
-				
+
 				// sanitize values for comparison
 				$lowkey = strtolower($key);
 				if(strpos($lowkey, 'color') !== false){
 					$hover = RSColorpicker::normalizeColors($hover);
 					$idle = RSColorpicker::normalizeColors($idle);
-					
+
 					// this is important in case the color is a gradient
 					// .. "normalizeColors" also converts JSON string value to printable CSS gradient
 					$nv = $hover;
@@ -4115,7 +4169,7 @@ rs-module .material-icons {
 					$hover = $this->strip_suffix($hover);
 					$idle = $this->strip_suffix($idle);
 				}
-				
+
 				// convert hover value to arrays if needed so they can be compared
 				if(is_array($idle)){
 					if(!is_array($hover)){
@@ -4128,12 +4182,12 @@ rs-module .material-icons {
 							$hover[] = $hover[count($hover) - 1];
 						}
 					}
-					
+
 				}
 
 				// If iC (instanc Click) is available, we must write it ! 
 				if ($v['n'] === 'iC') $idle = 'false';
-				
+
 				if(is_array($hover)) $hover = implode(',', $hover);
 				if(is_array($idle)) $idle = implode(',', $idle);
 				if(is_array($nv)) $nv = implode(',', $nv);
@@ -4144,7 +4198,7 @@ rs-module .material-icons {
 				}
 			}
 		}
-		
+
 		/**
 		 * add tloop frame
 		 * since 6.0
@@ -4161,12 +4215,12 @@ rs-module .material-icons {
 			if($t_keep === false) $_frames['tloop']['base']['k'] = 'false';
 			if(!in_array($t_repeat, array(-1, '-1'))) $_frames['tloop']['base']['r'] = $t_repeat;
 			if($t_child === false && in_array($this->get_val($layer, 'type', 'text'), array('group', 'row', 'column'), true)) $_frames['tloop']['base']['c'] = $t_child;
-			
+
 			if(empty($_frames['tloop']['base'])) $_frames['tloop']['base']['u'] = true; //if empty, set u to true so that frontend knows that it is set
 		}
-		
+
 		/**
-		 * Add modifications here 
+		 * Add modifications here
 		 **/
 		if(!empty($_frames)){
 			//if endWidthSlide is true, set st to w
@@ -4174,13 +4228,13 @@ rs-module .material-icons {
 			if($this->get_val($frames, array('frame_999', 'timeline', 'endWithSlide'), false)){
 				$_frames['frame_999']['base']['st'] = 'w';
 			}
-			
+
 			$start_cache = array();
-			
+
 			$uid = $this->get_val($layer, 'uid');
 			foreach($frames as $frame => $zone){
 				$start_cache[$frame] = $this->get_val($_frames, array($frame, 'base', 'st'));
-				
+
 				$at = $this->get_val($zone, array('timeline', 'actionTriggered'), false);
 				$trg = $this->layer_frame_triggered($uid, $frame);
 				$ign = !in_array($frame, array('frame_hover', 'frame_0'), true);
@@ -4188,17 +4242,17 @@ rs-module .material-icons {
 					$_frames[$frame]['base']['st'] = 'a';
 				}
 			}
-			
+
 			foreach($_frames as $frame => $zone){
 				if($frame !== 'frame_0' && in_array($this->get_val($layer, 'type', 'text'), array('group', 'row', 'column'), true)){
 					if(!isset($start_cache[$frame])) $start_cache[$frame] = $this->get_val($_frames, array($frame, 'base', 'st'));
-					
+
 					if(isset($_frames[$frame]['base']['st']) && !is_numeric($_frames[$frame]['base']['st'])){
 						$_frames[$frame]['base']['sA'] = ($frame !== 'frame_999') ? $start_cache[$frame] : $start_cache_999;
 					}
 				}
 			}
-			
+
 			//if Out Animation set to "auto reverse" 
 			if($this->get_val($frames, array('frame_999', 'timeline', 'auto'), false)){
 				$_frames['frame_999']['base'] = array(
@@ -4208,7 +4262,7 @@ rs-module .material-icons {
 					'auto'	=> 'true'
 				);
 			}
-			
+
 			//st is only available in frame_1 ... 999, so remove it from frame_0 if it exists
 			if(isset($_frames['frame_0']) && isset($_frames['frame_0']['base'])){
 				if(isset($_frames['frame_0']['base']['st'])){
@@ -4221,9 +4275,9 @@ rs-module .material-icons {
 					unset($_frames['frame_0']['base']['sp']);
 				}
 			}
-			
+
 		}
-		
+
 		/**
 		 * as we only show the layer on slide hover
 		 * set the frame_1 and frame_999 st to 'a'
@@ -4233,7 +4287,7 @@ rs-module .material-icons {
 			if(!isset($_frames['frame_999'])) $_frames['frame_999'] = array();
 			if(!isset($_frames['frame_1']['base'])) $_frames['frame_1']['base'] = array();
 			if(!isset($_frames['frame_999']['base'])) $_frames['frame_999']['base'] = array();
-			
+
 			$_frames['frame_1']['base']['st'] = 'a';
 			$_frames['frame_999']['base']['st'] = 'a';
 		}
@@ -5816,6 +5870,7 @@ rs-module .material-icons {
 
 		}else{ /*CANVAS*/
 			/* Animate Defaults */
+			$anim .= $this->get_html_slide_anim_attribute($data, false, 'eng', 'animateCore', 'eng', false);
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'd', 15, 'd', false);
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'e', 'basic', 'e', false);
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'speed', 1000, 'ms', false);
@@ -6620,6 +6675,46 @@ rs-module .material-icons {
 	
 	
 	/**
+	 * add all options that change the slider here, for the cache to properly work
+	 * @since: 6.4.6
+	 **/
+	public function get_transient_alias(){
+		global $rs_slider_serial, $rs_wmpl;
+		
+		$gs = $this->get_global_settings();
+		
+		$transient = 'revslider_slider';
+		$transient .= '_'.$this->get_slider_id();
+		
+		$args = array(
+			'fontdownload' => $this->get_val($gs, 'fontdownload', 'off'),
+			'serial'	=> $rs_slider_serial,
+			'admin'		=> is_admin(),
+			'settings'	=> $this->custom_settings,
+			'order'		=> $this->custom_order,
+			'usage'		=> $this->usage,
+			'modal'		=> $this->modal,
+			'layout'	=> $this->sc_layout,
+			'skin'		=> $this->custom_skin,
+			'offset'	=> $this->offset,
+			'mid_content' => $this->gallery_ids,
+			'export'	=> $this->markup_export,
+			'preview'	=> $this->preview_mode,
+			'published'	=> $this->only_published
+		);
+		
+		if($this->get_preview_mode() == false){
+			$args['lang'] = $rs_wmpl->get_slider_language($this->slider);
+		}
+		
+		
+		$transient .= '_'.md5(json_encode($args));
+		
+		return $transient;
+	}
+	
+	
+	/**
 	 * push the needed JavaScript into the footer
 	 * @since: 6.0
 	 */
@@ -6858,6 +6953,7 @@ rs-module .material-icons {
 	 * add JavaScript
 	 **/
 	private function add_js(){
+		$cache			 = RevSliderGlobals::instance()->get('RevSliderCache');
 		$html_base_pre	 = $this->js_get_base_pre();
 		$html_root		 = $this->js_get_root();
 		$html_overlay    = $this->js_get_overlay();
@@ -6921,7 +7017,9 @@ rs-module .material-icons {
 			ob_end_clean();
 
 			$this->rev_inline_js = $js_content;
-
+			
+			if($this->caching) $cache->add_addition('action', 'wp_print_footer_scripts', $this->rev_inline_js);
+			
 			add_action('wp_print_footer_scripts', array($this, 'add_inline_js'), 100);
 		}
 		
@@ -6929,6 +7027,14 @@ rs-module .material-icons {
 			$this->add_inline_double_jquery_error();
 		}else{
 			if(has_action('wp_footer', array($this, 'add_inline_double_jquery_error')) === false){
+				if($this->caching){
+					ob_start();
+					$this->add_inline_double_jquery_error(true);
+					$double_jquery = ob_get_contents();
+					ob_clean();
+					ob_end_clean();
+					$cache->add_addition('action', 'wp_footer', $double_jquery);
+				}
 				add_action('wp_footer', array($this, 'add_inline_double_jquery_error'));
 			}
 		}
@@ -7867,7 +7973,7 @@ rs-module .material-icons {
 		
 		if($this->frontend_action){
 			$keys['ajaxUrl'] = array('v' => admin_url('admin-ajax.php'), 'd' => '');
-			$keys['ajaxNonce'] = array('v' => wp_create_nonce('RevSlider_Front'), 'd' => '');
+			//$keys['ajaxNonce'] = ($this->caching) ? array('v' => '##NONCE##', 'd' => '') : array('v' => wp_create_nonce('RevSlider_Front'), 'd' => '');
 		}
 		
 		if(!empty($keys)){
@@ -8204,6 +8310,29 @@ rs-module .material-icons {
 		
 		return $html;
 	}
+	
+	
+	/**
+	 * Adds the Slider content and the additional settings to the transients
+	 * @since: 6.4.6
+	 **/
+	public function add_slider_transient($transient, $content){
+		$sid = $this->slider->get_id();
+		
+		$cache = RevSliderGlobals::instance()->get('RevSliderCache');
+		if($this->ajax_loaded !== true && !$this->get_markup_export()){
+			if($this->caching){
+				global $revslider_fonts;
+				//if doing transient, remove the changes here $revslider_fonts again!
+				$temp = $revslider_fonts;
+				$cache->add_addition('action', 'wp_footer', $this->print_clean_font_import());
+				$revslider_fonts = $temp;
+			}
+		}
+		
+		$cache->set_full_transient($transient, $sid, $content);
+	}
+	
 	
 	/**
 	 * Check if a layer frame is triggered by any other layer

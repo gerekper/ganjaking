@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-02-24T18:01:36+00:00\n"
+"POT-Creation-Date: 2021-04-06T15:45:55+00:00\n"
 "PO-Revision-Date: 2020-11-24 15:54:11+0000\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -62,40 +62,40 @@ msgid "Metadata:"
 msgstr "元数据："
 
 #. translators: 1: href link to list of bookings, 2: booking post type link
-#: woocommerce-bookings.php:286
+#: woocommerce-bookings.php:371
 msgid "<a href=\"%1$s\">Add or edit a product</a> to manage bookings in the Product Data section for individual products and then go to the <a href=\"%2$s\" target=\"_blank\">Bookings page</a> to manage them individually."
 msgstr "<a href=\"%1$s\">添加或编辑产品</a>以管理产品数据区域中的单个产品预订，然后前往<a href=\"%2$s\" target=\"_blank\">“预订”页面</a> 对它们进行单独管理。"
 
-#: woocommerce-bookings.php:284
+#: woocommerce-bookings.php:369
 msgid "Bookings has been activated!"
 msgstr "已激活预订！"
 
-#: woocommerce-bookings.php:181
+#: woocommerce-bookings.php:266
 msgid "Unserializing instances of this class is forbidden."
 msgstr "禁止使用此类别的非序列化实例。"
 
-#: woocommerce-bookings.php:172
+#: woocommerce-bookings.php:257
 msgid "Cloning is forbidden."
 msgstr "禁止克隆。"
 
-#: woocommerce-bookings.php:141
+#: woocommerce-bookings.php:226
 msgid "Premium Support"
 msgstr "付费支持"
 
-#: woocommerce-bookings.php:141
+#: woocommerce-bookings.php:226
 msgid "Visit Premium Customer Support"
 msgstr "查看高级版顾客支持"
 
-#: woocommerce-bookings.php:140
+#: woocommerce-bookings.php:225
 msgid "Docs"
 msgstr "文档"
 
-#: woocommerce-bookings.php:140
+#: woocommerce-bookings.php:225
 msgid "View Documentation"
 msgstr "查看文档"
 
 #. translators: %s WC download URL link.
-#: woocommerce-bookings.php:35
+#: woocommerce-bookings.php:38
 msgid "Bookings requires WooCommerce to be installed and active. You can download %s here."
 msgstr "需要安装并激活 WooCommerce 才可进行预订。 您可以在此处下载 %s。"
 
@@ -1362,6 +1362,7 @@ msgstr "除非特殊说明，否则所有预订开始和结束时间均按以下
 #: includes/class-wc-booking-privacy.php:9
 #: includes/class-wc-booking-privacy.php:62
 #: includes/class-wc-bookings-init.php:88
+#: woocommerce-bookings.php:194
 msgid "Bookings"
 msgstr "预订"
 
@@ -2851,6 +2852,7 @@ msgstr "设置"
 #: includes/admin/class-wc-bookings-menus.php:72
 #: includes/admin/views/html-notifications-page.php:2
 #: includes/admin/views/html-notifications-page.php:58
+#: woocommerce-bookings.php:184
 msgid "Send Notification"
 msgstr "发送通知"
 
@@ -2858,6 +2860,7 @@ msgstr "发送通知"
 #: includes/admin/views/html-calendar-day.php:2
 #: includes/admin/views/html-calendar-month.php:2
 #: includes/class-wc-bookings-google-calendar-connection.php:781
+#: woocommerce-bookings.php:174
 msgid "Calendar"
 msgstr "日历"
 
@@ -2866,6 +2869,7 @@ msgstr "日历"
 #: includes/admin/views/html-create-booking-page-2.php:28
 #: includes/admin/views/html-create-booking-page.php:7
 #: includes/class-wc-bookings-init.php:90
+#: woocommerce-bookings.php:163
 msgid "Add Booking"
 msgstr "添加预订"
 

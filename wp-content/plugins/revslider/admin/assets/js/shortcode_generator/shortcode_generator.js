@@ -95,6 +95,8 @@ RVS.SC = RVS.SC === undefined ? {} : RVS.SC;
 							case "s":block.popup.scroll.use = true;  block.popup.scroll.type="container"; block.popup.scroll.container = v[1]; break;
 							case "so":block.popup.scroll.use = true;  block.popup.scroll.type="offset"; block.popup.scroll.v = v[1]; break;
 							case "e":block.popup.event.use = true; block.popup.event.v = v[1]; break;
+							case "ha":block.popup.hash.use = true; break;
+							case "co":block.popup.cookie.use = true; block.popup.cookie.v = v[1]; break;
 						}
 					} 
 				}
@@ -127,6 +129,8 @@ RVS.SC = RVS.SC === undefined ? {} : RVS.SC;
 					if (RVS.SC.BLOCK.popup.time!==undefined && RVS.SC.BLOCK.popup.time.use) popup += 't:'+RVS.SC.BLOCK.popup.time.v+";";
 					if (RVS.SC.BLOCK.popup.scroll!==undefined && RVS.SC.BLOCK.popup.scroll.use) if(RVS.SC.BLOCK.popup.scroll.type==="offset")  popup += 'so:'+RVS.SC.BLOCK.popup.scroll.v+";"; else popup += 's:'+RVS.SC.BLOCK.popup.scroll.container+";";					
 					if (RVS.SC.BLOCK.popup.event!==undefined && RVS.SC.BLOCK.popup.event.use) popup += 'e:'+RVS.SC.BLOCK.popup.event.v+";";
+					if (RVS.SC.BLOCK.popup.hash!==undefined && RVS.SC.BLOCK.popup.hash.use) popup += 'ha:t;';
+					if (RVS.SC.BLOCK.popup.cookie!==undefined && RVS.SC.BLOCK.popup.cookie.use) popup += 'co:'+RVS.SC.BLOCK.popup.cookie.v+';';
 					if (popup!=='') RVS.SC.BLOCK.content +=' modal="'+popup+'"';
 				}
 			} else {
@@ -319,7 +323,10 @@ RVS.SC = RVS.SC === undefined ? {} : RVS.SC;
 			zindex:0,
 			popup: { time : {use:false, v:2000}, 
 					 scroll : {use:false, type:"offset", v:2000,container:""},
-					 event : {use:false, v:"popup_"+alias}},
+					 event : {use:false, v:"popup_"+alias},
+					 hash : {use:false},
+					 cookie:{use:false,v:24}
+					},
 			offset: { d : {top:"0px", bottom:"0px", left:"0px", right:"0px" ,use:false}, 
 					  n : {top:"0px", bottom:"0px", left:"0px", right:"0px",use:false}, 
 					  t : {top:"0px", bottom:"0px", left:"0px", right:"0px",use:false}, 
@@ -335,6 +342,7 @@ RVS.SC = RVS.SC === undefined ? {} : RVS.SC;
 		jQuery('.scblockinput').trigger('init');
 		if (RVS.SC.BLOCK.popup!==undefined) {
 			document.getElementById('srbs_scr_evt').innerHTML = RVS.SC.BLOCK.popup.event.v;
+			document.getElementById('srbs_scr_hash').innerHTML = RVS.SC.BLOCK.alias;
 			if (RVS.ENV.activated!==false) jQuery('.rb_not_on_notactive').removeClass("disabled"); else jQuery('.rb_not_on_notactive').addClass("disabled");
 		}
 	}

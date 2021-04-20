@@ -24,7 +24,7 @@ class WC_Account_Funds_Requirements {
 	/**
 	 * Minimum WooCommerce version required.
 	 */
-	const MINIMUM_WC_VERSION = '2.6';
+	const MINIMUM_WC_VERSION = '3.2';
 
 	/**
 	 * Requirements errors.

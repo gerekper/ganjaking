@@ -314,6 +314,102 @@
 					},
 				],
 			},
+			{
+				id: "#iac_docs_title_font_size",
+				event: "keyup",
+				suffix: "px",
+				settings: [
+					{
+						selector:
+							".betterdocs-modal-content-container .betterdocs-entry-title",
+						property: "font-size",
+					},
+				],
+			},
+			{
+				id: "#iac_article_content_h1",
+				event: "keyup",
+				suffix: "px",
+				settings: [
+					{
+						selector:
+							".betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h1",
+						property: "font-size",
+					},
+				],
+			},
+			{
+				id: "#iac_article_content_h2",
+				event: "keyup",
+				suffix: "px",
+				settings: [
+					{
+						selector:
+							".betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h2",
+						property: "font-size",
+					},
+				],
+			},
+			{
+				id: "#iac_article_content_h3",
+				event: "keyup",
+				suffix: "px",
+				settings: [
+					{
+						selector:
+							".betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h3",
+						property: "font-size",
+					},
+				],
+			},
+			{
+				id: "#iac_article_content_h4",
+				event: "keyup",
+				suffix: "px",
+				settings: [
+					{
+						selector:
+							".betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h4",
+						property: "font-size",
+					},
+				],
+			},
+			{
+				id: "#iac_article_content_h5",
+				event: "keyup",
+				suffix: "px",
+				settings: [
+					{
+						selector:
+							".betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h5",
+						property: "font-size",
+					},
+				],
+			},
+			{
+				id: "#iac_article_content_h6",
+				event: "keyup",
+				suffix: "px",
+				settings: [
+					{
+						selector:
+							".betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content h6",
+						property: "font-size",
+					},
+				],
+			},
+			{
+				id: "#iac_article_content_p",
+				event: "keyup",
+				suffix: "px",
+				settings: [
+					{
+						selector:
+							".betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content p",
+						property: "font-size",
+					},
+				],
+			},
 		];
 
 		ia_color_settings.map(function (item, i) {

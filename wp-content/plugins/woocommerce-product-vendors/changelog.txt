@@ -1,5 +1,8 @@
 *** Product Vendors Changelog ***
 
+2021-04-06 - version 2.1.51
+* Fix - Export commissions function showing errors and preventing download.
+
 2021-03-30 - version 2.1.50
 * Add - WC Navigation feature.
 * Fix - Deprecated jQuery methods.

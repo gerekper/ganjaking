@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Bookings
  * Plugin URI: https://woocommerce.com/products/woocommerce-bookings/
  * Description: Setup bookable products such as for reservations, services and hires.
- * Version: 1.15.36
+ * Version: 1.15.38
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-bookings
  * Domain Path: /languages
- * Tested up to: 5.6
+ * Tested up to: 5.7
  * WC tested up to: 5.0
  * WC requires at least: 2.6
  *
@@ -81,7 +81,7 @@ function woocommerce_bookings_activate() {
 
 if ( ! class_exists( 'WC_Bookings' ) ) :
 
-	define( 'WC_BOOKINGS_VERSION', '1.15.36' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BOOKINGS_VERSION', '1.15.38' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_BOOKINGS_TEMPLATE_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/templates/' );
 	define( 'WC_BOOKINGS_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 	define( 'WC_BOOKINGS_MAIN_FILE', __FILE__ );
@@ -137,8 +137,8 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 		 */
 		public static function register_navigation_items() {
 			if (
-				! class_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Menu' ) ||
-				! class_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Screen' )
+				! method_exists( Screen::class, 'register_post_type' ) ||
+				! method_exists( Menu::class, 'add_setting_item' )
 			) {
 				return;
 			}
@@ -196,7 +196,7 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 					'url'           => 'edit.php?post_type=wc_booking&page=wc_bookings_settings',
 				)
 			);
-			
+
 			$resource_item = Menu::get_post_type_items(
 				'bookable_resource',
 				array(

@@ -4,7 +4,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
-use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
 
 class WC_PCSVIS_Admin_Screen {
 
@@ -52,7 +51,7 @@ class WC_PCSVIS_Admin_Screen {
 	 * Register the navigation items in the WooCommerce navigation.
 	 */
 	public function register_navigation_items() {
-		if ( ! class_exists( Menu::class ) || ! class_exists( Screen::class ) ) {
+		if ( ! method_exists( Menu::class, 'add_plugin_item' ) ) {
 			return;
 		}
 

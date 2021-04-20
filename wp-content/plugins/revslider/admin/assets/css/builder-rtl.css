@@ -79,8 +79,8 @@ body.rtl #do_title_layer_not_selected { margin-left: 20px; margin-right: 0px; }
 body.rtl .fake_onff_on, 
 body.rtl .tponoff_on { left: 122px; }
 
-body.rtl #rb_tlw .select2RS-container .select2RS-selection,
-body.rtl .select2RS-container .select2RS-results__option { text-align: right }
+body.rtl #rb_tlw .ddTP_C .ddTP_S,
+body.rtl .ddTP_C .ddTP_RO { text-align: right }
 
 body.rtl #slide_thumb_repeater { left: auto; right: 105px; }
 body.rtl .slidetab_toolbox { left: 0px; right: auto; }
@@ -91,12 +91,12 @@ body.rtl .tponoff_off { left: 58px; }
 body.rtl .fake_onff_off:after, 
 body.rtl .tponoff_off:after { left: 45px; }*/
 
-body.rtl .select2RS-container[dir="rtl"] .select2RS-selection--single .select2RS-selection__rendered { padding-left: 0px; padding-right: 0px; }
-body.rtl .select2RS-container[dir="rtl"] .select2RS-selection--single .select2RS-selection__arrow {  }
+body.rtl .ddTP_C[dir="rtl"] .ddTP_S--single .ddTP_S__rendered { padding-left: 0px; padding-right: 0px; }
+body.rtl .ddTP_C[dir="rtl"] .ddTP_S--single .ddTP_S__arrow {  }
 
-body.rtl .rs_overview .select2RS-container { padding-left: 25px; padding-right: 0px; }
+body.rtl .rs_overview .ddTP_C { padding-left: 25px; padding-right: 0px; }
 
-body.rtl #rb_tlw .select2RS-container .select2RS-selection--single .select2RS-selection__arrow { left: 0px; right: auto; border-right: 1px solid #323438; border-left: none }
+body.rtl #rb_tlw .ddTP_C .ddTP_S--single .ddTP_S__arrow { left: 0px; right: auto; border-right: 1px solid #323438; border-left: none }
 body.rtl label_icon, label_bigicon { margin-left: 5px; margin-right: 0px; }
 
 body.rtl label_icon.ui_centeralign,
@@ -135,7 +135,7 @@ body.rtl #rbm_addon_details.ps>.rs__scrollbar-y-rail,
 body.rtl #rbm_addonlist.ps>.rs__scrollbar-y-rail  { right: 0px !important; }
 body.rtl .mr10 { margin-right: 0px; margin-left: 10px; }
 body.rtl .buttonextenstion { left: 0px; right: auto; }
-body.rtl #rb_tlw .input_with_buttonextenstion .select2RS-container .select2RS-selection--single .select2RS-selection__arrow { left: 35px; }
+body.rtl #rb_tlw .input_with_buttonextenstion .ddTP_C .ddTP_S--single .ddTP_S__arrow { left: 35px; }
 body.rtl #slide_bg_image_path { float: right; }
 body.rtl .basic_action_button.onlyicon i { margin-right: 6px; margin-left: 0px; }
 body.rtl .bg_align_xy { right: 68px; left: auto; }
@@ -165,7 +165,7 @@ body.rtl .system_requirement { padding: 0px; }
 body.rtl #rs_overview .system_requirement>i.material-icons { margin-left: 10px; margin-right: 0px; }
 body.rtl .system_requirement darkiconbox { left: 30px; right: auto; }
 body.rtl .box_with_icon:focus, .box_with_icon { text-align: right; }
-body.rtl .rs_overview .select2RS-container { margin-left: 40px; margin-right: 0px; }
+body.rtl .rs_overview .ddTP_C { margin-left: 40px; margin-right: 0px; }
 
 body.rtl .rsle_folder { left: 0px; right: auto; text-align:left; padding-left:10px; padding-right:0px;}
 body.rtl .rs_library_element .title_container { right: 0px; left: auto; }
@@ -197,7 +197,7 @@ body.rtl #obj_updatefromserver { margin-left: 0px; margin-right: 20px; }
 body.rtl #ol_close { margin-left: 0px; margin-right: 20px; }
 body.rtl #ol_footer { left: auto; right: 0px; }
 body.rtl .olibrary_item { margin-right: 0px; margin-left: 20px; }
-body.rtl #objectlibrary.rs_overview .select2RS-container { margin-right: 40px; margin-left: 0px; }
+body.rtl #objectlibrary.rs_overview .ddTP_C { margin-right: 40px; margin-left: 0px; }
 
 body.rtl #keyframe_list_el_frame_0 .keyframe_CP_wrap { right: 280px; }
 

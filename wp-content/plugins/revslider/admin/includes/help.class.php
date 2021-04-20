@@ -7334,6 +7334,19 @@ class RevSliderHelp {
 							)
 						),
 						'svg' => array(
+							'originalColor' => array(
+								$t => __("SVG Original Color", 'revsliderhelp'),
+								$h => "idle.svg.originalColor",
+								$k => array("svg", "svg color", "layer svg", "svg original color", "original color"),
+								$d => __("Disable this option to change color of svg elements in layer", 'revsliderhelp'),
+								$a => $u . "font-colors-styling/",
+								$hl => array(
+									$dp => array('layerselected::object'), 
+									$m => "#module_layers_trigger, #gst_layer_3, #", 
+									$st => '#form_layerstyle_svg', 
+									$f => "*[data-r='idle.svg.originalColor']"
+								)
+							),
 							'color' => array(
 								$t => __("SVG Color", 'revsliderhelp'),
 								$h => "idle.svg.color.#size#.v",
@@ -7397,6 +7410,19 @@ class RevSliderHelp {
 									$m => "#module_layers_trigger, #gst_layer_3", 
 									$st => '#form_layerstyle_svg', 
 									$f => "*[data-r='idle.svg.strokeDashOffset']"
+								)
+							),
+							'styleAll' => array(
+								$t => __("SVG Style All Elements", 'revsliderhelp'),
+								$h => "idle.svg.styleAll",
+								$k => array("svg", "svg color", "layer svg", "svg style all", "style all elements"),
+								$d => __("By default only SVG path gets custom style, Enabling this option will style all svg elements like ellipse, polygon etc", 'revsliderhelp'),
+								$a => $u . "font-colors-styling/",
+								$hl => array(
+									$dp => array('layerselected::object'), 
+									$m => "#module_layers_trigger, #gst_layer_3, #", 
+									$st => '#form_layerstyle_svg', 
+									$f => "*[data-r='idle.svg.styleAll']"
 								)
 							)
 						),

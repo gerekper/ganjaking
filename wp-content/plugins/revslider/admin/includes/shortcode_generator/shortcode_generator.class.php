@@ -29,7 +29,7 @@ class RevSliderShortcodeWizard extends RevSliderFunctions {
 		//wp_enqueue_style('revslider-material-icons', RS_PLUGIN_URL . 'admin/assets/icons/material-icons.css', array(), RS_REVISION);
 		wp_enqueue_style('revslider-basics-css', RS_PLUGIN_URL . 'admin/assets/css/basics.css', array(), RS_REVISION);
 		wp_enqueue_style('rs-color-picker-css', RS_PLUGIN_URL . 'admin/assets/css/tp-color-picker.css', array(), RS_REVISION);
-		wp_enqueue_style('revbuilder-select2RS', RS_PLUGIN_URL . 'admin/assets/css/select2RS.css', array(), RS_REVISION);
+		wp_enqueue_style('revbuilder-ddTP', RS_PLUGIN_URL . 'admin/assets/css/ddTP.css', array(), RS_REVISION);
 		wp_enqueue_style('rs-roboto', '//fonts.googleapis.com/css?family=Roboto');
 		wp_enqueue_style('tp-material-icons', '//fonts.googleapis.com/icon?family=Material+Icons');
 	}
@@ -81,8 +81,8 @@ class RevSliderShortcodeWizard extends RevSliderFunctions {
 
 		if($dev_mode === true){
 			wp_enqueue_script('revbuilder-basics', RS_PLUGIN_URL . 'admin/assets/js/modules/basics.js', array('jquery'), RS_REVISION, false);
-			wp_enqueue_script('revbuilder-select2RS', RS_PLUGIN_URL . 'admin/assets/js/plugins/select2RS.full.min.js', array('jquery'), RS_REVISION, false);
-			wp_enqueue_script('revbuilder-color-picker-js', RS_PLUGIN_URL . 'admin/assets/js/plugins/tp-color-picker.min.js', array('jquery', 'revbuilder-select2RS', 'wp-i18n', 'wp-color-picker'), RS_REVISION);
+			wp_enqueue_script('revbuilder-ddTP', RS_PLUGIN_URL . 'admin/assets/js/plugins/ddTP.js', array('jquery'), RS_REVISION, false);
+			wp_enqueue_script('revbuilder-color-picker-js', RS_PLUGIN_URL . 'admin/assets/js/plugins/tp-color-picker.min.js', array('jquery', 'revbuilder-ddTP', 'wp-i18n', 'wp-color-picker'), RS_REVISION);
 			wp_enqueue_script('revbuilder-clipboard', RS_PLUGIN_URL . 'admin/assets/js/plugins/clipboard.min.js', array('jquery'), RS_REVISION, false);
 			wp_enqueue_script('revbuilder-utils', RS_PLUGIN_URL . 'admin/assets/js/modules/objectlibrary.js', array('jquery'), RS_REVISION, false);
 			wp_enqueue_script('revbuilder-optimizer', RS_PLUGIN_URL . 'admin/assets/js/modules/optimizer.js', array('jquery'), RS_REVISION, false);					

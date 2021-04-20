@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<?php do_action( 'woocommerce_email_header', $email_heading ); ?>
+<?php do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <p><?php _e( 'The following photo collection(s) has been added to your account:', 'woocommerce-photography' ); ?></p>
 
@@ -24,4 +24,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <p><?php echo sprintf( __( 'You can view your collections on the %s page.', 'woocommerce-photography' ), '<a href="' . get_permalink( wc_get_page_id( 'myaccount' ) ) . '">' . __( 'My Account', 'woocommerce-photography' ) . '</a>' ); ?></p>
 
-<?php do_action( 'woocommerce_email_footer' ); ?>
+<?php do_action( 'woocommerce_email_footer', $email ); ?>

@@ -1,7 +1,12 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+/**
+ * Account funds: Order manager.
+ *
+ * @package WC_Account_Funds
+ * @since   2.0.0
+ */
+
+defined( 'ABSPATH' ) || exit;
 
 /**
  * WC_Account_Funds_Order_Manager
@@ -13,71 +18,92 @@ class WC_Account_Funds_Order_Manager {
 	 */
 	public function __construct() {
 		add_action( 'woocommerce_before_checkout_process', array( $this, 'force_registration_during_checkout' ), 10 );
-		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'woocommerce_checkout_update_order_meta' ) );
+		add_action( 'woocommerce_checkout_create_order', array( $this, 'create_order' ) );
 		add_filter( 'woocommerce_order_item_needs_processing', array( $this, 'order_item_needs_processing' ), 10, 2 );
 		add_action( 'woocommerce_payment_complete', array( $this, 'maybe_remove_funds' ) );
 		add_action( 'woocommerce_order_status_changed', array( $this, 'order_status_changed' ), 20, 3 );
+		add_filter( 'woocommerce_order_get_total', array( $this, 'adjust_total_to_include_funds' ), 10, 2 );
 		add_filter( 'woocommerce_get_order_item_totals', array( $this, 'get_order_item_totals' ), 10, 2 );
 		add_action( 'woocommerce_checkout_create_order_line_item', array( $this, 'add_order_item_meta' ), 10, 3 );
 		add_filter( 'woocommerce_order_item_product', array( $this, 'order_item_product' ), 10, 2 );
 		add_action( 'woocommerce_order_refunded', array( $this, 'maybe_remove_topup_funds' ), 10, 2 );
 
 		add_action( 'woocommerce_admin_order_totals_after_tax', array( $this, 'admin_order_account_funds' ) );
-		add_action( 'woocommerce_order_after_calculate_totals', array( $this, 'remove_funds_from_recalculation' ), 10, 2 );
+		add_action( 'woocommerce_order_after_calculate_totals', array( $this, 'after_calculate_totals' ), 10, 2 );
 
 		add_filter( 'wcs_subscription_meta_query', array( $this, 'copy_order_meta_query' ), 10, 3 );
 	}
 
 	/**
-	 * Adjust total to exclude amount paid with funds when doing order save
-	 * for recalculation. Note that because the recalculation doesn't use
-	 * WC_Order::get_total we have to use another hook for this.
+	 * Processes the order before saving it.
 	 *
-	 * @version 2.1.10
+	 * @since 2.4.0
 	 *
-	 * @param bool     $and_taxes Whether taxes are included.
 	 * @param WC_Order $order Order object.
 	 */
-	public function remove_funds_from_recalculation( $and_taxes, $order ) {
-		$_funds_used = get_post_meta( version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id(), '_funds_used', true );
+	public function create_order( $order ) {
+		if ( ! WC_Account_Funds_Cart_Manager::using_funds() ) {
+			return;
+		}
 
-		// Calling `$order->get_total()` means firing again woocommerce_order_get_total
-		// or woocommerce_order_amount_total hook. We need to remove the filter
-		// temporarily.
-		//
-		// @see https://github.com/woocommerce/woocommerce-account-funds/issues/75.
-		self::remove_order_total_filter_adjustment();
+		$used_funds = WC_Account_Funds_Cart_Manager::used_funds_amount();
 
-		$total = floatval( $order->get_total() ) - floatval( $_funds_used );
-		$order->set_total( round( $total, wc_get_price_decimals() ) );
+		$order->update_meta_data( '_funds_used', $used_funds );
+		$order->update_meta_data( '_funds_removed', 0 );
+		$order->update_meta_data( '_funds_version', WC_ACCOUNT_FUNDS_VERSION );
+	}
 
-		self::add_order_total_filter_adjustment();
+	/**
+	 * Processes the order after calculate totals.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param bool     $and_taxes Whether taxes are included.
+	 * @param WC_Order $order     Order object.
+	 */
+	public function after_calculate_totals( $and_taxes, $order ) {
+		$funds_used = (float) $order->get_meta( '_funds_used' );
+
+		if ( 0 >= $funds_used ) {
+			return;
+		}
+
+		// Deduct funds from the Order total on partial payments.
+		if ( 'accountfunds' !== $order->get_payment_method() ) {
+			$total = $order->get_total( 'edit' ) - $funds_used;
+
+			$order->set_total( $total );
+		}
+
+		// Update the funds version.
+		$order->update_meta_data( '_funds_version', WC_ACCOUNT_FUNDS_VERSION );
 	}
 
 	/**
 	 * Try to remove user funds for a refund order (if the order contains any top up products)
 	 *
-	 * @param  int $order_id
-	 * @param  int $refund_id
+	 * @param int $order_id  Order ID.
+	 * @param int $refund_id Refund ID.
 	 */
 	public function maybe_remove_topup_funds( $order_id, $refund_id ) {
 		$order       = wc_get_order( $order_id );
-		$customer_id = $order->get_user_id();
+		$customer_id = $order->get_customer_id();
 
 		if ( ! $customer_id ) {
 			return;
 		}
 
 		$refund     = new WC_Order_Refund( $refund_id );
+		$items      = $order->get_items();
 		$top_up_sum = 0;
 
-		foreach ( $order->get_items() as $id => $item ) {
+		foreach ( $items as $id => $item ) {
 			if ( 'yes' === $item->get_meta( '_top_up_product' ) ) {
-				$top_up_sum += floatval( $item->get_meta( '_top_up_amount' ) );
+				$top_up_sum += (float) $item->get_meta( '_top_up_amount' );
 			}
 		}
 
-		if ( 0 == $top_up_sum ) {
+		if ( 0 >= $top_up_sum ) {
 			return;
 		}
 
@@ -86,13 +112,20 @@ class WC_Account_Funds_Order_Manager {
 
 		WC_Account_Funds::remove_funds( $customer_id, $funds );
 
-		$order->add_order_note( sprintf( __( 'Removed %s funds from user #%d', 'woocommerce-account-funds' ), wc_price( $funds ), $customer_id ) );
+		$order->add_order_note(
+			sprintf(
+				/* translators: 1: Funds amount, 2: Customer ID */
+				__( 'Removed %1$s funds from user %2$s', 'woocommerce-account-funds' ),
+				wc_price( $funds ),
+				$customer_id
+			)
+		);
 	}
 
 	/**
-	 * Try to remove user funds (if not already removed)
+	 * Removes the funds applied to the Order from the customer account.
 	 *
-	 * @param  int $order_id
+	 * @param int $order_id Order Id.
 	 */
 	public function maybe_remove_funds( $order_id ) {
 		if ( null !== WC()->session ) {
@@ -101,33 +134,26 @@ class WC_Account_Funds_Order_Manager {
 		}
 
 		$order       = wc_get_order( $order_id );
-		$customer_id = $order->get_user_id();
+		$customer_id = $order->get_customer_id();
 
-		if ( $customer_id && ! get_post_meta( $order_id, '_funds_removed', true ) ) {
-			$funds = get_post_meta( $order_id, '_funds_used', true );
+		if ( $customer_id && ! wc_string_to_bool( $order->get_meta( '_funds_removed' ) ) ) {
+			$funds_used = (float) $order->get_meta( '_funds_used' );
 
-			if ( $funds ) {
-				WC_Account_Funds::remove_funds( $customer_id, $funds );
-				update_post_meta( $order_id, '_funds_removed', 1 );
+			if ( $funds_used ) {
+				WC_Account_Funds::remove_funds( $customer_id, $funds_used );
+				$order->update_meta_data( '_funds_removed', 1 );
+				$order->save_meta_data();
 
-				$order->add_order_note( sprintf( __( 'Removed %s funds from user #%d', 'woocommerce-account-funds' ), wc_price( $funds ), $customer_id ) );
+				$order->add_order_note(
+					sprintf(
+						/* translators: 1: Funds amount, 2: Customer ID */
+						__( 'Removed %1$s funds from user #%2$s', 'woocommerce-account-funds' ),
+						wc_price( $funds_used ),
+						$customer_id
+					)
+				);
 			}
 		}
-	}
-
-	/**
-	 * Remove user funds when an order is created
-	 *
-	 * @param int $order_id
-	 */
-	public function woocommerce_checkout_update_order_meta( $order_id ) {
-		if ( ! WC_Account_Funds_Cart_Manager::using_funds() ) {
-			return;
-		}
-
-		$used_funds = WC_Account_Funds_Cart_Manager::used_funds_amount();
-		update_post_meta( $order_id, '_funds_used', $used_funds );
-		update_post_meta( $order_id, '_funds_removed', 0 ); // The meta may exist if it's a failed subscription renewal.
 	}
 
 	/**
@@ -162,28 +188,60 @@ class WC_Account_Funds_Order_Manager {
 			$this->maybe_remove_funds( $order_id );
 		} elseif ( 'on-hold' === $to ) {
 			$this->maybe_remove_funds( $order_id );
-		} elseif ( 'cancelled' === $to ) {
+		} elseif ( in_array( $to, array( 'cancelled', 'refunded' ), true ) ) {
 			$this->maybe_restore_funds( $order_id );
 		}
 	}
 
 	/**
-	 * Restore user funds when an order is cancelled
+	 * Returns the funds applied to the order to the customer's account.
 	 *
-	 * @param  int $order_id
+	 * @param int $order_id Order ID.
 	 */
 	public function maybe_restore_funds( $order_id ) {
 		$order = wc_get_order( $order_id );
-		if ( $funds = get_post_meta( $order_id, '_funds_used', true ) ) {
-			WC_Account_Funds::add_funds( $order->get_user_id(), $funds );
-			$order->add_order_note( sprintf( __( 'Restored %s funds to user #%d', 'woocommerce-account-funds' ), wc_price( $funds ), $order->get_user_id() ) );
+
+		if ( ! $order ) {
+			return;
+		}
+
+		$funds_used = (float) $order->get_meta( '_funds_used' );
+
+		if ( ! $funds_used ) {
+			return;
+		}
+
+		// Unlock the funds.
+		if ( ! wc_string_to_bool( $order->get_meta( '_funds_removed' ) ) ) {
+			$order->update_meta_data( '_funds_removed', 1 );
+			$order->update_meta_data( '_funds_refunded', $funds_used );
+			$order->save_meta_data();
+		} else {
+			$customer_id = $order->get_customer_id();
+			$funds       = $funds_used - (float) $order->get_meta( '_funds_refunded' );
+
+			if ( $customer_id && $funds > 0 ) {
+				WC_Account_Funds::add_funds( $customer_id, $funds );
+
+				$order->update_meta_data( '_funds_refunded', $funds_used );
+				$order->save_meta_data();
+
+				$order->add_order_note(
+					sprintf(
+						/* translators: 1: Funds amount, 2: Customer ID */
+						__( 'Restored %1$s funds to user #%2$s', 'woocommerce-account-funds' ),
+						wc_price( $funds ),
+						$customer_id
+					)
+				);
+			}
 		}
 	}
 
 	/**
 	 * See if an order contains a deposit
 	 *
-	 * @param  int $order_id
+	 * @param int $order_id Order ID.
 	 * @return bool
 	 */
 	public static function order_contains_deposit( $order_id ) {
@@ -191,9 +249,9 @@ class WC_Account_Funds_Order_Manager {
 		$deposit_product = false;
 
 		foreach ( $order->get_items() as $item ) {
-			$product = $order->get_product_from_item( $item );
+			$product = $item->get_product();
 
-			if ( $product->is_type( 'deposit' ) || $product->is_type( 'topup' ) ) {
+			if ( $product && ( $product->is_type( 'deposit' ) || $product->is_type( 'topup' ) ) ) {
 				$deposit_product = true;
 				break;
 			}
@@ -203,37 +261,43 @@ class WC_Account_Funds_Order_Manager {
 	}
 
 	/**
-	 * Handle order complete events
+	 * Handle order complete events.
 	 *
 	 * @since 1.0.0
-	 * @version 2.1.6
-	 * @param  int $order_id
+	 *
+	 * @param int $order_id Order ID.
 	 */
 	public function maybe_increase_funds( $order_id ) {
-		$order          = wc_get_order( $order_id );
-		$items          = $order->get_items();
-		$customer_id    = $order->get_user_id();
+		$order = wc_get_order( $order_id );
 
-		if ( $customer_id && ! get_post_meta( $order_id, '_funds_deposited', true ) ) {
-			foreach ( $items as $item ) {
-				$product = $order->get_product_from_item( $item );
-				if ( ! is_a( $product, 'WC_Product' ) ) {
-					continue;
-				}
+		if ( ! $order || ! $order->get_customer_id() || wc_string_to_bool( $order->get_meta( '_funds_deposited' ) ) ) {
+			return;
+		}
 
-				$funds = 0;
-				if ( $product->is_type( 'deposit' ) || $product->is_type( 'topup' ) ) {
-					$funds = $item['line_subtotal'];
-				} else {
-					continue;
-				}
+		$customer_id = $order->get_customer_id();
+		$items       = $order->get_items();
 
-				WC_Account_Funds::add_funds( $customer_id, $funds );
+		foreach ( $items as $item ) {
+			$product = $item->get_product();
 
-				$order->add_order_note( sprintf( __( 'Added %s funds to user #%d', 'woocommerce-account-funds' ), wc_price( $funds ), $customer_id ) );
-
-				update_post_meta( $order_id, '_funds_deposited', 1 );
+			if ( ! $product || ! $product->is_type( array( 'deposit', 'topup' ) ) ) {
+				continue;
 			}
+
+			$funds = $item['line_subtotal'];
+
+			WC_Account_Funds::add_funds( $customer_id, $funds );
+			$order->update_meta_data( '_funds_deposited', 1 );
+			$order->save_meta_data();
+
+			$order->add_order_note(
+				sprintf(
+					/* translators: 1: Funds amount, 2: Customer ID */
+					__( 'Added %1$s funds to user #%2$s', 'woocommerce-account-funds' ),
+					wc_price( $funds ),
+					$customer_id
+				)
+			);
 		}
 	}
 
@@ -247,11 +311,14 @@ class WC_Account_Funds_Order_Manager {
 	 * @return array
 	 */
 	public function get_order_item_totals( $rows, $order ) {
-		$order_id   = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
-		$funds_used = get_post_meta( $order_id, '_funds_used', true );
+		if ( 'accountfunds' === $order->get_payment_method() ) {
+			return $rows;
+		}
+
+		$funds_used = (float) $order->get_meta( '_funds_used' );
 
 		if ( $funds_used ) {
-			$index = array_search( 'order_total', array_keys( $rows ) );
+			$index = array_search( 'payment_method', array_keys( $rows ) );
 			$rows  = array_merge(
 				array_slice( $rows, 0, $index ),
 				array(
@@ -268,14 +335,13 @@ class WC_Account_Funds_Order_Manager {
 	}
 
 	/**
-	 * Adjust total to include amount paid with funds
+	 * Adjust total to include amount paid with funds.
 	 *
-	 * @version 2.1.3
+	 * @since 2.0.0
 	 *
 	 * @param float    $total Order total.
 	 * @param WC_Order $order Order object.
-	 *
-	 * @return float Order total.
+	 * @return float
 	 */
 	public static function adjust_total_to_include_funds( $total, $order ) {
 		global $wp;
@@ -285,48 +351,13 @@ class WC_Account_Funds_Order_Manager {
 			return $total;
 		}
 
-		$_funds_used = get_post_meta( version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id(), '_funds_used', true );
+		$funds_used = (float) $order->get_meta( '_funds_used' );
 
-		// Calling `$order->get_total()` means firing again woocommerce_order_get_total
-		// or woocommerce_order_amount_total hook. We need to remove the filter
-		// temporarily.
-		//
-		// @see https://github.com/woocommerce/woocommerce-account-funds/issues/75.
-		self::remove_order_total_filter_adjustment();
-
-		$total = floatval( $order->get_total() ) + floatval( $_funds_used );
-
-		self::add_order_total_filter_adjustment();
+		if ( $funds_used > 0 && 'accountfunds' === $order->get_payment_method() && ! $order->get_meta( '_funds_version' ) ) {
+			$total = floatval( $order->get_total( 'edit' ) ) + $funds_used;
+		}
 
 		return $total;
-	}
-
-	/**
-	 * Add the filter to order total that will add amount of funds being used.
-	 *
-	 * @since 2.1.7
-	 * @version 2.1.7
-	 */
-	protected static function add_order_total_filter_adjustment() {
-		if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-			add_filter( 'woocommerce_order_get_total', array( __CLASS__, 'adjust_total_to_include_funds' ), 10, 2 );
-		} else {
-			add_filter( 'woocommerce_order_amount_total', array( __CLASS__, 'adjust_total_to_include_funds' ), 10, 2 );
-		}
-	}
-
-	/**
-	 * Remove the filter to order total that will add amount of funds being used.
-	 *
-	 * @since 2.1.7
-	 * @version 2.1.7
-	 */
-	protected static function remove_order_total_filter_adjustment() {
-		if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-			remove_filter( 'woocommerce_order_get_total', array( __CLASS__, 'adjust_total_to_include_funds' ), 10, 2 );
-		} else {
-			remove_filter( 'woocommerce_order_amount_total', array( __CLASS__, 'adjust_total_to_include_funds' ), 10, 2 );
-		}
 	}
 
 	/**
@@ -366,19 +397,15 @@ class WC_Account_Funds_Order_Manager {
 	 *
 	 * @since 2.1.3
 	 *
-	 * @version 2.1.3
-	 *
 	 * @param bool|WC_Product       $product Product object. False otherwise.
 	 * @param WC_Order_Item_Product $item    Order item product.
 	 *
 	 * @return WC_Product Product object.
 	 */
 	public function order_item_product( $product, $item ) {
-		if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-			if ( 'yes' === $item->get_meta( '_top_up_product', true ) ) {
-				$product = new WC_Product_Topup( 0 );
-				WC_Data_Store::load( 'product-topup' )->read( $product );
-			}
+		if ( 'yes' === $item->get_meta( '_top_up_product', true ) ) {
+			$product = new WC_Product_Topup( 0 );
+			WC_Data_Store::load( 'product-topup' )->read( $product );
 		}
 
 		return $product;
@@ -392,9 +419,10 @@ class WC_Account_Funds_Order_Manager {
 	 * @param int $order_id The order ID.
 	 */
 	public function admin_order_account_funds( $order_id ) {
-		$funds_used = floatval( get_post_meta( $order_id, '_funds_used', true ) );
+		$order      = wc_get_order( $order_id );
+		$funds_used = (float) $order->get_meta( '_funds_used' );
 
-		if ( 0 >= $funds_used ) {
+		if ( 0 >= $funds_used || 'accountfunds' === $order->get_payment_method() ) {
 			return;
 		}
 		?>
@@ -402,46 +430,6 @@ class WC_Account_Funds_Order_Manager {
 			<td class="label"><?php _e( 'Funds Used', 'woocommerce-account-funds' ); ?>:</td>
 			<td width="1%"></td>
 			<td class="total"><?php echo '-' . wc_price( $funds_used ); ?></td>
-		</tr>
-		<?php
-	}
-
-	/**
-	 * Add rows in edit order screen to display 'Funds Used' and 'Order Total
-	 * after Funds Used'.
-	 *
-	 * @since 2.1.7
-	 * @deprecated 2.3.0
-	 *
-	 * @param int $order_id Order ID.
-	 */
-	public function add_funds_used_after_order_total( $order_id ) {
-		_deprecated_function( __FUNCTION__, '2.3.0' );
-
-		$funds_used = floatval( get_post_meta( $order_id, '_funds_used', true ) );
-		if ( $funds_used <= 0 ) {
-			return;
-		}
-
-		$order = wc_get_order( $order_id );
-		?>
-		<tr>
-			<td class="label"><?php _e( 'Funds Used', 'woocommerce-account-funds' ); ?>:</td>
-			<td width="1%"></td>
-			<td class="total">
-				<?php echo wc_price( $funds_used ); ?>
-			</td>
-		</tr>
-		<tr>
-			<td class="label"><?php _e( 'Order Total after Funds Used', 'woocommerce-account-funds' ); ?>:</td>
-			<td width="1%"></td>
-			<td class="total">
-				<?php
-				self::remove_order_total_filter_adjustment();
-				echo wc_price( $order->get_total() );
-				self::add_order_total_filter_adjustment();
-				?>
-			</td>
 		</tr>
 		<?php
 	}

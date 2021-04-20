@@ -47,6 +47,30 @@ if ( class_exists( 'GFForms' ) ) {
 		protected $_capabilities_settings_page = 'gravityforms_api_settings';
 		protected $_capabilities_uninstall = 'gravityforms_webapi_uninstall';
 
+		/**
+		 * Contains an instance of this class, if available.
+		 *
+		 * @since 2.4.24
+		 *
+		 * @var null|GFWebAPI $_instance If available, contains an instance of this class.
+		 */
+		private static $_instance = null;
+
+		/**
+		 * Returns the current instance of this class.
+		 *
+		 * @since 2.4.24
+		 *
+		 * @return null|GFWebAPI
+		 */
+		public static function get_instance() {
+			if ( null === self::$_instance ) {
+				self::$_instance = new self;
+			}
+
+			return self::$_instance;
+		}
+
 		public function __construct() {
 			global $_gaddon_posted_settings;
 
@@ -2458,5 +2482,5 @@ if ( class_exists( 'GFForms' ) ) {
 
 	}
 
-	new GFWebAPI();
+	GFWebAPI::get_instance();
 }

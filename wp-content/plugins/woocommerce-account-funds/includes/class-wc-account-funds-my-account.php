@@ -296,18 +296,7 @@ class WC_Account_Funds_My_Account {
 			$funded = 0;
 
 			foreach ( $order->get_items() as $item ) {
-				$product = null;
-
-				if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-					$product = $order->get_product_from_item( $item );
-					if ( ! $product && ! empty( $item['top_up_amount'] ) ) {
-						$product = new WC_Product_Topup( 0 );
-					}
-				} else {
-					if ( $item->is_type( 'line_item' ) ) {
-						$product = $item->get_product();
-					}
-				}
+				$product = $item->get_product();
 
 				if ( ! $product ) {
 					continue;
@@ -321,7 +310,7 @@ class WC_Account_Funds_My_Account {
 			$vars = array(
 				'deposit' => array(
 					'funded'            => $funded,
-					'order_date'        => version_compare( WC_VERSION, '3.0', '<' ) ? $order->order_date : ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' ),
+					'order_date'        => ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' ),
 					'order_url'         => $order->get_view_order_url(),
 					'order_number'      => $order->get_order_number(),
 					'order_status_name' => wc_get_order_status_name( $order->get_status() ),

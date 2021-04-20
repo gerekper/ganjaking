@@ -292,6 +292,24 @@ class RevSliderSlide extends RevSliderFunctions {
 		
 		return (empty($slide)) ? false : $this->get_val($slide, 'id', false);
 	}
+
+	/**
+	 * combine get_static_slide_id & init_by_id into one function to avoid duplicated queries
+	 * @since: 6.4.6
+	 * @param int $slider_id
+	 * @return bool
+	 */
+	public function init_static_slide_by_slider_id($slider_id){
+		global $wpdb;
+
+		if(empty($slider_id)) return false;
+
+		$slide = $wpdb->get_row($wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_STATIC_SLIDES." WHERE slider_id = %d", $slider_id), ARRAY_A);
+		if(empty($slide)) return false;
+
+		$this->init_by_data($slide);
+		return true;
+	}
 	
 	/**
 	 * Check if Slide Exists with given ID
@@ -814,8 +832,8 @@ class RevSliderSlide extends RevSliderFunctions {
 				//fix for using the lowercase name instead of the handle
 				$img_name = strtolower($img_name);
 				$img_name = str_replace(' ', '_', $img_name);
-				$text = str_replace(array('%featured_image_url_'.$img_name.'%', '{{featured_image_url_'.$img_name.'}}'),  $this->get_val($attr, array('img_urls', $img_name, 'url'), ''), $text);
-				$text = str_replace(array('%featured_image_'.$img_name.'%', '{{featured_image_'.$img_name.'}}'), $this->get_val($attr, array('img_urls', $img_name, 'tag'), ''), $text);
+				$text = str_replace(array('%featured_image_url_'.$img_name.'%', '{{featured_image_url_'.$img_name.'}}'),  $this->get_val($attr, array('img_urls', $img_handle, 'url'), ''), $text);
+				$text = str_replace(array('%featured_image_'.$img_name.'%', '{{featured_image_'.$img_name.'}}'), $this->get_val($attr, array('img_urls', $img_handle, 'tag'), ''), $text);
 			}
 		}
 
@@ -2169,23 +2187,22 @@ class RevSliderSlide extends RevSliderFunctions {
 		
 		if(is_array($slider_id) && !empty($slider_id)){
 			$in  = str_repeat('%d,', count($slider_id) - 1) . '%d';
-			$slides_data = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDES." WHERE slider_id IN(".$in.")".$first_sql." ORDER BY slider_id,slide_order ASC", $slider_id), ARRAY_A);
+			$slides_data_sql = $wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDES." WHERE slider_id IN(".$in.")".$first_sql." ORDER BY slider_id,slide_order ASC", $slider_id);
 		}else{
-			$slides_data = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDES." WHERE slider_id = %d".$first_sql." ORDER BY slide_order ASC", $slider_id), ARRAY_A);
+			$slides_data_sql = $wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDES." WHERE slider_id = %d".$first_sql." ORDER BY slide_order ASC", $slider_id);
 		}
+
+		$cache_key = $this->get_wp_cache_key('get_slides_by_slider_id', $slides_data_sql);
+		$slides_data = wp_cache_get($cache_key, self::CACHE_GROUP);
+		if (!$slides_data) {
+			$slides_data = $wpdb->get_results($slides_data_sql, ARRAY_A);
+			wp_cache_set($cache_key, $slides_data, self::CACHE_GROUP);
+		}
+		
 		foreach($slides_data as $slide_data){
 			$slide	= new RevSliderSlide();
 			$slide->init_layer = $init_layer;
 			$slide->init_by_data($slide_data);
-			
-			//check if the slide needs to be deleted as it was a temporary creation for the undo/redo process
-			/*
-			$settings	= $slide->get_settings();
-			if($this->get_val($settings, 'temp', false) === true){
-				$this->delete_slide_by_id($slide->get_id());
-				continue;
-			}
-			*/
 			
 			if($published == true && $slide->get_param(array('publish', 'state'), 'published') == 'unpublished'){
 				continue;

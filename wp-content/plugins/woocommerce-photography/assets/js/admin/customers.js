@@ -41,7 +41,7 @@
 
 			if ( WCPhotographyCustomerParams.isLessThanWC30 ) {
 				select2_args.initSelection = function( element, callback ) {
-					var data = $.parseJSON( element.attr( 'data-selected' ) );
+					var data = JSON.parse( element.attr( 'data-selected' ) );
 
 					return callback( data );
 				};
@@ -70,12 +70,12 @@
 				value  = input.val();
 
 			if ( '' === value ) {
-				input.focus();
+				input.trigger( 'focus' );
 				return false;
 			}
 
-			input.attr( 'disabled', 'disabled' );
-			button.attr( 'disabled', 'disabled' ).next( '.message' ).remove();
+			input.prop( 'disabled', true );
+			button.prop( 'disabled', true ).next( '.message' ).remove();
 			button.after( ' <i class="loading">' + WCPhotographyCustomerParams.loading + '</i>' );
 
 			$.ajax({
@@ -89,8 +89,8 @@
 				dataType: 'json',
 				success:  function( response ) {
 					input.val( '' );
-					input.removeAttr( 'disabled' );
-					button.removeAttr( 'disabled' ).next( '.loading' ).remove();
+					input.prop( 'disabled', false );
+					button.prop( 'disabled', false ).next( '.loading' ).remove();
 
 					if ( response.success ) {
 						if ( WCPhotographyCustomerParams.isLessThanWC30 ) {

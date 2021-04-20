@@ -1767,7 +1767,7 @@ class GFAPI {
 	 * @param mixed       $feed_ids   The ID of the Feed or an array of Feed IDs.
 	 * @param null|int    $form_id    The ID of the Form to which the Feeds belong.
 	 * @param null|string $addon_slug The slug of the add-on to which the Feeds belong.
-	 * @param bool        $is_active  If the feed is active.
+	 * @param bool|null   $is_active  Indicates if only active or inactive feeds should be returned. Use null to return both.
 	 *
 	 * @return array|WP_Error Either an array of Feed objects or a WP_Error instance.
 	 */
@@ -1780,8 +1780,10 @@ class GFAPI {
 			return self::get_missing_table_wp_error( $table );
 		}
 
-		$where_arr   = array();
-		$where_arr[] = $wpdb->prepare( 'is_active=%d', $is_active );
+		$where_arr = array();
+		if ( null !== $is_active ) {
+			$where_arr[] = $wpdb->prepare( 'is_active=%d', $is_active );
+		}
 		if ( false === empty( $form_id ) ) {
 			$where_arr[] = $wpdb->prepare( 'form_id=%d', $form_id );
 		}
@@ -1790,17 +1792,19 @@ class GFAPI {
 		}
 		if ( false === empty( $feed_ids ) ) {
 			if ( ! is_array( $feed_ids ) ) {
-				$feed_ids = array( $feed_ids );
+				$where_arr[] = $wpdb->prepare( 'id=%d', $feed_ids );
+			} else {
+				$in_str_arr  = array_fill( 0, count( $feed_ids ), '%d' );
+				$in_str      = join( ',', $in_str_arr );
+				$where_arr[] = $wpdb->prepare( "id IN ($in_str)", $feed_ids );
 			}
-			$in_str_arr  = array_fill( 0, count( $feed_ids ), '%d' );
-			$in_str      = join( ',', $in_str_arr );
-			$where_arr[] = $wpdb->prepare( "id IN ($in_str)", $feed_ids );
 		}
 
+		$sql = "SELECT * FROM {$table}";
 
-		$where = join( ' AND ', $where_arr );
-
-		$sql = "SELECT id, form_id, addon_slug, meta FROM {$table} WHERE $where";
+		if ( ! empty( $where_arr ) ) {
+			$sql .= ' WHERE ' . join( ' AND ', $where_arr );
+		}
 
 		$results = $wpdb->get_results( $sql, ARRAY_A );
 		if ( empty( $results ) ) {
@@ -1812,6 +1816,24 @@ class GFAPI {
 		}
 
 		return $results;
+	}
+
+	/**
+	 * Returns a specific feed.
+	 *
+	 * @since 2.4.24
+	 *
+	 * @param int $feed_id The ID of the feed to retrieve.
+	 *
+	 * @return array|WP_Error
+	 */
+	public static function get_feed( $feed_id ) {
+		$feeds = self::get_feeds( $feed_id, null, null, null );
+		if ( is_wp_error( $feeds ) ) {
+			return $feeds;
+		}
+
+		return $feeds[0];
 	}
 
 	/**

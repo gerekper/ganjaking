@@ -1,5 +1,8 @@
 *** WooCommerce Memberships Changelog ***
 
+2021.04.12 - version 1.21.8
+ * Dev - Improve compatibility with WooCommerce Product Bundles
+
 2021.03.30 - version 1.21.7
  * Fix - Ensure that the member directory shortcode can correctly query memberships of given statuses
  * Fix - Fix a conflict with Variable products and Profile Fields that prevented adding them to cart

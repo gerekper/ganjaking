@@ -21,7 +21,7 @@ class WC_Account_Funds_Cart_Manager {
 		$this->give_discount = get_option( 'account_funds_give_discount', 'no' );
 
 		add_action( 'woocommerce_checkout_update_order_review', array( $this, 'update_order_review' ) );
-		add_action( 'wp', array( $this, 'maybe_use_funds' ) );
+		add_action( 'wp_loaded', array( $this, 'maybe_use_funds' ), 15 );
 
 		add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'calculate_totals' ), 99 );
 		add_action( 'woocommerce_after_calculate_totals', array( $this, 'after_calculate_totals' ), 99 );
@@ -34,7 +34,6 @@ class WC_Account_Funds_Cart_Manager {
 
 		add_filter( 'woocommerce_paypal_args', array( $this, 'filter_paypal_line_item_names' ), 10, 2 );
 		add_filter( 'woocommerce_cart_needs_payment', array( $this, 'cart_needs_payment' ) );
-		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'available_payment_gateways' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
@@ -58,7 +57,7 @@ class WC_Account_Funds_Cart_Manager {
 
 					$use_funds = ( $subscription && $subscription->get_total( 'edit' ) <= $funds );
 				} else {
-					$use_funds = ( WC()->cart->total <= $funds || 'yes' === get_option( 'account_funds_partial_payment' ) );
+					$use_funds = ( WC()->cart->get_total( 'edit' ) <= $funds || 'yes' === get_option( 'account_funds_partial_payment' ) );
 				}
 			}
 		}
@@ -74,25 +73,27 @@ class WC_Account_Funds_Cart_Manager {
 	}
 
 	/**
-	 * How can this cart be paid for using funds?
-	 * @return string
-	 */
-	public static function account_funds_gateway_chosen() {
-		$available_gateways = WC()->payment_gateways->get_available_payment_gateways();
-		return ( isset( $available_gateways['accountfunds'] ) && $available_gateways['accountfunds']->chosen ) || ( ! empty( $_POST['payment_method'] ) && 'accountfunds' === $_POST['payment_method'] );
-	}
-
-	/**
-	 * Can the user actually apply funds to this cart?
+	 * Gets if the 'Account Funds' payment gateway is available.
 	 *
-	 * @deprecated 2.3.0
+	 * @since 2.3.11
 	 *
 	 * @return bool
 	 */
-	public static function can_apply_funds() {
-		wc_deprecated_function( __FUNCTION__, '2.3.0', 'wc_account_funds_can_use_funds filter (see ' . __CLASS__ . '::can_use_funds()' );
+	public static function account_funds_gateway_is_available() {
+		$gateways = WC()->payment_gateways()->get_available_payment_gateways();
 
-		return self::can_use_funds();
+		return ( isset( $gateways['accountfunds'] ) );
+	}
+
+	/**
+	 * Gets if the 'Account Funds' payment gateway is selected.
+	 *
+	 * @return bool
+	 */
+	public static function account_funds_gateway_chosen() {
+		$available_gateways = WC()->payment_gateways()->get_available_payment_gateways();
+
+		return ( isset( $available_gateways['accountfunds'] ) && $available_gateways['accountfunds']->chosen ) || ( ! empty( $_POST['payment_method'] ) && 'accountfunds' === $_POST['payment_method'] );
 	}
 
 	/**
@@ -169,31 +170,6 @@ class WC_Account_Funds_Cart_Manager {
 	}
 
 	/**
-	 * Show a notice to apply points towards your purchase
-	 *
-	 * @deprecated 2.3.0
-	 */
-	public function output_use_funds_notice() {
-		_deprecated_function( __FUNCTION__, '2.3.0' );
-
-		if ( ! self::can_use_funds() || self::using_funds() ) {
-			return;
-		}
-
-		$message  = '<div class="woocommerce-info wc-account-funds-apply-notice">';
-		$message .= '<form class="wc-account-funds-apply" method="post">';
-		$message .= '<input type="submit" class="button wc-account-funds-apply-button" name="wc_account_funds_apply" value="' . __( 'Use Account Funds', 'woocommerce-account-funds' ) . '" />';
-		$message .= sprintf( __( 'You have <strong>%s</strong> worth of funds on your account.', 'woocommerce-account-funds' ), WC_Account_Funds::get_account_funds() );
-		if ( 'yes' === get_option( 'account_funds_give_discount' ) ) {
-			$message .= '<br/><em>' . sprintf( __( 'Use your account funds and get a %s discount on your order.', 'woocommerce-account-funds' ), $this->display_discount_amount() ) . '</em>';
-		}
-		$message .= '</form>';
-		$message .= '</div>';
-
-		echo $message;
-	}
-
-	/**
 	 * get discount amount
 	 */
 	public function display_discount_amount() {
@@ -231,6 +207,10 @@ class WC_Account_Funds_Cart_Manager {
 	 * Show amount of funds used
 	 */
 	public function display_used_funds() {
+		if ( self::account_funds_gateway_is_available() ) {
+			return;
+		}
+
 		if ( self::using_funds() ) {
 			$funds_amount = self::used_funds_amount();
 			if ( $funds_amount > 0 ) {
@@ -242,12 +222,12 @@ class WC_Account_Funds_Cart_Manager {
 				<?php
 			}
 		} elseif ( self::can_use_funds() ) {
-			$funds = min( WC()->cart->total, WC_Account_Funds::get_account_funds( null, false ) );
+			$funds = min( WC()->cart->get_total( 'edit' ), WC_Account_Funds::get_account_funds( null, false ) );
 
 			if ( 'yes' === $this->give_discount ) {
 				$discount_amount = get_option( 'account_funds_discount_amount' );
 
-				$label  = sprintf(
+				$label = sprintf(
 					/* translators: 1: funds available 2: discount */
 					__( 'Use <strong>%1$s</strong> from your funds and get a %2$s discount.', 'woocommerce-account-funds' ),
 					wc_price( $funds ),
@@ -270,20 +250,6 @@ class WC_Account_Funds_Cart_Manager {
 			</tr>
 			<?php
 		}
-	}
-
-	/**
-	 * Calculated total.
-	 *
-	 * @deprecated 2.3.5
-	 *
-	 * @param string $total
-	 * @return string
-	 */
-	public function display_total( $total ) {
-		_deprecated_function( __FUNCTION__, '{ version}' );
-
-		return $total;
 	}
 
 	/**
@@ -314,28 +280,23 @@ class WC_Account_Funds_Cart_Manager {
 		//   functions like a pre-tax discount in that sense.
 		$data = array(
 			'id'                         => true,
-			'type'                       => 'fixed' === get_option( 'account_funds_discount_type' ) ? 'fixed_cart' : 'percent',
-			'amount'                     => floatval( get_option( 'account_funds_discount_amount' ) ),
-			'coupon_amount'              => floatval( get_option( 'account_funds_discount_amount' ) ),
-			'individual_use'             => version_compare( WC_VERSION, '3.0', '>=' ) ? false : 'no',
-			'product_ids'                => version_compare( WC_VERSION, '3.0', '>=' ) ? array() : '',
-			'exclude_product_ids'        => version_compare( WC_VERSION, '3.0', '>=' ) ? array() : '',
+			'discount_type'              => 'fixed' === get_option( 'account_funds_discount_type' ) ? 'fixed_cart' : 'percent',
+			'amount'                     => (float) get_option( 'account_funds_discount_amount' ),
+			'individual_use'             => false,
+			'product_ids'                => array(),
+			'exclude_product_ids'        => array(),
 			'usage_limit'                => '',
 			'usage_count'                => '',
 			'expiry_date'                => '',
 			'apply_before_tax'           => 'yes',
-			'free_shipping'              => version_compare( WC_VERSION, '3.0', '>=' ) ? false : 'no',
+			'free_shipping'              => false,
 			'product_categories'         => array(),
 			'exclude_product_categories' => array(),
-			'exclude_sale_items'         => version_compare( WC_VERSION, '3.0', '>=' ) ? false : 'no',
+			'exclude_sale_items'         => false,
 			'minimum_amount'             => '',
 			'maximum_amount'             => '',
-			'customer_email'             => ''
+			'customer_email'             => '',
 		);
-
-		if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-			$data['discount_type'] = $data['type'];
-		}
 
 		return $data;
 	}
@@ -351,15 +312,13 @@ class WC_Account_Funds_Cart_Manager {
 	 * @return float
 	 */
 	public function get_discount_amount( $discount, $discounting_amount, $cart_item, $single, $coupon ) {
-		$code   = version_compare( WC_VERSION, '3.0', '>=' ) ? $coupon->get_code() : $coupon->code;
-		$amount = version_compare( WC_VERSION, '3.0', '>=' ) ? $coupon->get_amount() : $coupon->coupon_amount;
-		if ( 'no' === $this->give_discount || strtolower( $code ) != $this->get_discount_code() ) {
+		if ( 'no' === $this->give_discount || strtolower( $coupon->get_code() ) !== $this->get_discount_code() ) {
 			return $discount;
 		}
 
 		if ( 'percentage' === get_option( 'account_funds_discount_type' ) ) {
-			if ( WC_Account_Funds::get_account_funds( get_current_user_id(), false ) < WC()->cart->subtotal_ex_tax ) {
-				$discount_percent = WC_Account_Funds::get_account_funds( get_current_user_id(), false ) / WC()->cart->subtotal_ex_tax;
+			if ( WC_Account_Funds::get_account_funds( get_current_user_id(), false ) < WC()->cart->get_subtotal() ) {
+				$discount_percent = WC_Account_Funds::get_account_funds( get_current_user_id(), false ) / WC()->cart->get_subtotal();
 			} else {
 				$discount_percent = 1;
 			}
@@ -384,8 +343,7 @@ class WC_Account_Funds_Cart_Manager {
 			return $message;
 		}
 
-		$code = version_compare( WC_VERSION, '3.0', '>=' ) ? $coupon->get_code() : $coupon->code;
-		if (  WC_Coupon::WC_COUPON_SUCCESS === $message_code && $this->get_discount_code() === $code ) {
+		if ( WC_Coupon::WC_COUPON_SUCCESS === $message_code && $this->get_discount_code() === $coupon->get_code() ) {
 			return __( 'Discount applied for using account funds!', 'woocommerce-account-funds' );
 		} else {
 			return $message;
@@ -418,8 +376,7 @@ class WC_Account_Funds_Cart_Manager {
 			return $html;
 		}
 
-		$code = version_compare( WC_VERSION, '3.0', '>=' ) ? $coupon->get_code() : $coupon->code;
-		if (  $this->get_discount_code() === $code ) {
+		if ( $this->get_discount_code() === $coupon->get_code() ) {
 			$html = current( explode( '<a ', $html ) );
 		}
 		return $html;
@@ -465,20 +422,6 @@ class WC_Account_Funds_Cart_Manager {
 	}
 
 	/**
-	 * Calculated total.
-	 *
-	 * @deprecated 2.3.5
-	 *
-	 * @param float $total
-	 * @return float
-	 */
-	public function calculated_total( $total ) {
-		_deprecated_function( __FUNCTION__, '2.3.5' );
-
-		return $total;
-	}
-
-	/**
 	 * Calculate totals
 	 */
 	public function calculate_totals() {
@@ -507,16 +450,17 @@ class WC_Account_Funds_Cart_Manager {
 	 *
 	 * @param array    $paypal_args PayPal args.
 	 * @param WC_Order $order       Order object.
-	 *
 	 * @return array PayPal args.
 	 */
 	public function filter_paypal_line_item_names( $paypal_args, $order ) {
-		$funds_amount = get_post_meta( version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id(), '_funds_used', true );
-		if ( empty( $funds_amount ) ) {
+		$funds_used = (float) $order->get_meta( '_funds_used' );
+
+		if ( 0 >= $funds_used ) {
 			return $paypal_args;
 		}
 
 		$item_indexes = $this->get_paypal_line_item_indexes( $paypal_args );
+
 		foreach ( $item_indexes as $index ) {
 			$key = 'item_name_' . $index;
 			$val = $paypal_args[ $key ];
@@ -592,30 +536,6 @@ class WC_Account_Funds_Cart_Manager {
 	}
 
 	/**
-	 * Filters the available payment gateways.
-	 *
-	 * @since 2.3.0
-	 *
-	 * @param array $gateways The available gateways.
-	 * @return array
-	 */
-	public function available_payment_gateways( $gateways ) {
-		if ( ! WC()->cart || ! isset( $gateways['accountfunds'] ) ) {
-			return $gateways;
-		}
-
-		if ( self::using_funds() ) {
-			$account_funds_gateway = $gateways['accountfunds'];
-
-			$gateways = array( 'accountfunds' => $account_funds_gateway );
-		} elseif ( is_checkout() && ! is_checkout_pay_page() ) { // Hide the "Account Funds" gateway in the checkout form until funds are applied.
-			unset( $gateways['accountfunds'] );
-		}
-
-		return $gateways;
-	}
-
-	/**
 	 * Enqueues the scripts.
 	 *
 	 * @since 2.3.0
@@ -628,6 +548,87 @@ class WC_Account_Funds_Cart_Manager {
 		$suffix = wc_account_funds_get_scripts_suffix();
 
 		wp_enqueue_script( 'wc-account-funds-cart', WC_ACCOUNT_FUNDS_URL . "assets/js/frontend/cart{$suffix}.js", array( 'jquery' ), WC_ACCOUNT_FUNDS_VERSION, true );
+	}
+
+	/**
+	 * Calculated total.
+	 *
+	 * @deprecated 2.3.5
+	 *
+	 * @param float $total
+	 * @return float
+	 */
+	public function calculated_total( $total ) {
+		_deprecated_function( __FUNCTION__, '2.3.5' );
+
+		return $total;
+	}
+
+	/**
+	 * Calculated total.
+	 *
+	 * @deprecated 2.3.5
+	 *
+	 * @param string $total
+	 * @return string
+	 */
+	public function display_total( $total ) {
+		_deprecated_function( __FUNCTION__, '2.3.5' );
+
+		return $total;
+	}
+
+	/**
+	 * Show a notice to apply points towards your purchase
+	 *
+	 * @deprecated 2.3.0
+	 */
+	public function output_use_funds_notice() {
+		_deprecated_function( __FUNCTION__, '2.3.0' );
+
+		if ( ! self::can_use_funds() || self::using_funds() ) {
+			return;
+		}
+
+		$message  = '<div class="woocommerce-info wc-account-funds-apply-notice">';
+		$message .= '<form class="wc-account-funds-apply" method="post">';
+		$message .= '<input type="submit" class="button wc-account-funds-apply-button" name="wc_account_funds_apply" value="' . __( 'Use Account Funds', 'woocommerce-account-funds' ) . '" />';
+		$message .= sprintf( __( 'You have <strong>%s</strong> worth of funds on your account.', 'woocommerce-account-funds' ), WC_Account_Funds::get_account_funds() );
+		if ( 'yes' === get_option( 'account_funds_give_discount' ) ) {
+			$message .= '<br/><em>' . sprintf( __( 'Use your account funds and get a %s discount on your order.', 'woocommerce-account-funds' ), $this->display_discount_amount() ) . '</em>';
+		}
+		$message .= '</form>';
+		$message .= '</div>';
+
+		echo $message;
+	}
+
+	/**
+	 * Can the user actually apply funds to this cart?
+	 *
+	 * @deprecated 2.3.0
+	 *
+	 * @return bool
+	 */
+	public static function can_apply_funds() {
+		_deprecated_function( __FUNCTION__, '2.3.0', 'wc_account_funds_can_use_funds filter (see ' . __CLASS__ . '::can_use_funds()' );
+
+		return self::can_use_funds();
+	}
+
+	/**
+	 * Filters the available payment gateways.
+	 *
+	 * @since 2.3.0
+	 * @deprecated 2.3.11
+	 *
+	 * @param array $gateways The available gateways.
+	 * @return array
+	 */
+	public function available_payment_gateways( $gateways ) {
+		_deprecated_function( __FUNCTION__, '2.3.11' );
+
+		return $gateways;
 	}
 }
 

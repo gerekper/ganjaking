@@ -3105,12 +3105,12 @@ class GFFormsModel {
 		}
 	}
 
-	public static function hydrate_repeaters( &$entry, $form ) {
+	public static function hydrate_repeaters( &$entry, $form, $apply_filters = false ) {
 		$fields = $form['fields'];
 		foreach( $fields as $field ) {
 			if ( $field instanceof GF_Field_Repeater && isset( $field->fields ) && is_array( $field->fields ) ) {
 				/* @var GF_Field_Repeater $field */
-				$entry = $field->hydrate( $entry, $form );
+				$entry = $field->hydrate( $entry, $form, $apply_filters );
 			}
 		}
 	}

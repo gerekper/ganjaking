@@ -73,52 +73,11 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 				$this->update['620']['ease_adv_to'][]	= $a_t.'.'.$a_m_t;
 			}
 		}
-	
+	}
+
+	public function init_animations(){
 		if(empty($this->upd_animations)){
 			$this->upd_animations = $this->get_layer_animations();
-			/**
-			 * this will push defaults into the missing values
-			 * was tested for the layer frame update, and seems not to be needed
-			$da = array(
-				'x'			=> 0,
-				'y'			=> 0,
-				'z'			=> 0,
-				'scaleX'	=> 1,
-				'scaleY'	=> 1,
-				'rotationX' => 0,
-				'rotationY' => 0,
-				'rotationZ' => 0,
-				'skewX' 	=> 0,
-				'skewY' 	=> 0
-			);
-			$fr = array('frame_0', 'frame_1', 'frame_999');
-			$ft = array('transform', 'chars', 'words', 'lines');
-			
-			if(!empty($this->upd_animations)){
-				foreach($this->upd_animations['in'] as $k => $v){
-					if(!empty($v)){
-						foreach($v as $vk => $vv){
-							if(isset($vv['transitions'])){
-								foreach($vv['transitions'] as $tk => $tv){
-									foreach($fr as $fv){
-										if(!isset($tv[$fv])) continue;
-										foreach($ft as $ftv){
-											if(!isset($tv[$fv][$ftv])) continue;
-											
-											foreach($da as $dak => $dav){
-												if(isset($tv[$fv][$ftv][$dak])) continue;
-												
-												$this->upd_animations['in'][$k][$vk]['transitions'][$tk][$tv][$fv][$ftv][$dak] = $dav;
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			*/
 		}
 	}
 
@@ -1007,7 +966,6 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 							$static_id = $sl->get_static_slide_id($template_id);
 							if($static_id !== false){
 								$record = $wpdb->get_row($wpdb->prepare("SELECT * FROM " . $wpdb->prefix . RevSliderFront::TABLE_STATIC_SLIDES . " WHERE id = %d", $static_id), ARRAY_A);
-
 								unset($record['id']);
 								$record['slider_id'] = $slider_id;
 
@@ -3569,88 +3527,6 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 		$endsplit = ($this->get_val($layer, 'frames', false) === false) ? $this->get_val($layer, 'endsplit', 'none') : $this->get_val($frame_999, 'split', 'none');
 
 		//Define an Empty Timeline Object First.
-		
-		/**
-		 * check if we are a default animation
-		 * if yes, we need to take the values and push these instead of the one set
-		 **/
-		/*
-		$_f = array(
-			'0' => array(),
-			'1' => array(),
-			'999' => array()
-		);
-		
-		if(!empty($this->upd_animations) && !empty($this->upd_animations['in'])){
-			$startanimation = $this->get_val($frame_0, 'animation', $this->get_val($layer, 'animation', $this->get_val($layer, 'animation', false)));
-			foreach($this->upd_animations['in'] as $a_k => $animations){
-				if($a_k === 'custom') continue;
-				$anim = $this->get_val($animations, array('transitions', $startanimation), array());
-				if(empty($anim)) continue;
-				
-				$_f['0'] = $this->get_val($anim, 'frame_0', array());
-				$_f['1'] = $this->get_val($anim, 'frame_1', array());
-				break;
-			}
-		}
-		if(!empty($this->upd_animations) && !empty($this->upd_animations['out'])){
-			$endanimation = $this->get_val($frame_999, 'animation', $this->get_val($layer, 'endanimation', $this->get_val($layer, 'endAnimation', false)));
-			foreach($this->upd_animations['out'] as $a_k => $animations){
-				if($a_k === 'custom') continue;
-				$anim = $this->get_val($animations, array('transitions', $endanimation), array());
-				if(empty($anim)) continue;
-				
-				$_f['999'] = $this->get_val($anim, 'frame_999', array());
-				break;
-			}
-		}
-		
-		
-		$_t = array('chars', 'lines', 'words');
-		$_s = array();
-		if($split !== 'none'){
-			$_s['0'] = $split;
-			$_s['1'] = $split;
-		}
-		if($endsplit !== 'none'){
-			$_s['999'] = $endsplit;
-		}
-		if(!empty($_s)){
-			foreach($_s as $_n => $_v){
-				//if found, we dont need to change anything
-				if(empty($this->get_val($_f, array($_n, $_v), array()))){
-					$found = false;
-					//check the other two $_t
-					foreach($_t as $_c_type){
-						$vvvv = $this->get_val($_f, array($_n, $_c_type), array());
-						if(!empty($vvvv)){
-							$found = $_c_type;
-							$nv = $this->get_val($_f, array($_n, $_c_type), array());
-							$this->set_val($_s, array($_f, $_n, $_v), $nv);
-							break;
-						}
-					}
-					
-					if($found === false){
-						//completely not found
-						//so take the transform values
-						//push them into the chars/lines/words
-						//set the transform opacity to 0
-						 
-						$transform = $this->get_val($_f, array($_n, 'transform'), array());
-						$this->set_val($_f, array($_n, $_v), $transform);
-						if(!empty($transform) || (!is_array($transform) && !is_object($transform))){
-							$this->set_val($_f, array($_n, 'transform'), array());
-						}
-						if(!isset($_f[$_n]['transform'])) $_f[$_n]['transform'] = array();
-
-						$this->set_val($_f, array($_n, 'transform', 'opacity'), '1');
-					}
-				}
-			}
-		}
-		*/
-		
 		
 		/**
 		 * old fix for slider under version 530

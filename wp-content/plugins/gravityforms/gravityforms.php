@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.4.23.3
+Version: 2.4.24
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -212,7 +212,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.4.23.3';
+	public static $version = '2.4.24';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -2020,7 +2020,9 @@ class GFForms {
 			}
 		}
 
-		
+		if ( ! $valid_key ) {
+			$message .= sprintf( esc_html__( '%sRegister%s your copy of Gravity Forms to receive access to automatic upgrades and support. Need a license key? %sPurchase one now%s.', 'gravityforms' ), '<a href="' . admin_url() . 'admin.php?page=gf_settings">', '</a>', '<a href="https://www.gravityforms.com">', '</a>' );
+		}
 
 		if ( ! empty( $message ) ) {
 			if ( is_network_admin() ) {
@@ -2124,7 +2126,30 @@ class GFForms {
 	 * @return string $page_text The changelog. Error message if there's an issue.
 	 */
 	public static function get_changelog() {
-	
+		$key                = GFCommon::get_key();
+		$body               = "key=$key";
+		$options            = array( 'method' => 'POST', 'timeout' => 3, 'body' => $body );
+		$options['headers'] = array(
+			'Content-Type'   => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
+			'Content-Length' => strlen( $body ),
+			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
+			'Referer'        => get_bloginfo( 'url' )
+		);
+
+		$raw_response = GFCommon::post_to_manager( 'changelog.php', GFCommon::get_remote_request_params(), $options );
+
+		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
+			$page_text = sprintf( esc_html__( 'Oops!! Something went wrong. %sPlease try again or %scontact us%s.', 'gravityforms' ), '<br/>', "<a href='https://www.gravityforms.com/support/'>", '</a>' );
+		} else {
+			$page_text = $raw_response['body'];
+			if ( substr( $page_text, 0, 10 ) != '<!--GFM-->' ) {
+				$page_text = '';
+			} else {
+				$page_text = '<div style="background-color:white">' . $page_text . '<div>';
+			}
+		}
+
+		return stripslashes( $page_text );
 	}
 
 	//------------------------------------------------------

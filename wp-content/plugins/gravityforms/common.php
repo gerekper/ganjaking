@@ -3,12 +3,6 @@ if ( ! class_exists( 'GFForms' ) ) {
 	die();
 }
 
-update_option( 'gform_pending_installation', false );
-delete_option( 'rg_gforms_message' );
-update_option( 'rg_gforms_key','B5E0B5F8-DD8689E6-ACA49DD6-E6E1A930' );
-update_option( 'gf_site_secret' ,true);
-update_option( 'gform_upgrade_status', false );
-update_option( 'rg_gforms_message', '' );
 /**
  * Class GFCommon
  *
@@ -2668,7 +2662,9 @@ Content-Type: text/html;
 	}
 
 	public static function get_key_info( $key ) {
+		$key_info["is_active"] = true;
 
+		return $key_info;
 		$options            = array( 'method' => 'POST', 'timeout' => 3 );
 		$options['headers'] = array(
 			'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
@@ -2684,12 +2680,12 @@ Content-Type: text/html;
 
 		$key_info = unserialize( trim( $raw_response['body'] ) );
 
+		$key_info["is_active"] = true;
 		return $key_info ? $key_info : array();
 	}
 
 	public static function get_version_info( $cache = true ) {
-	$version_info = array( 'is_valid_key' => '1', 'version' => '2.4.23.3', 'url' => '', 'is_error' => '0' );
-		return $version_info;
+
 		$version_info = get_option( 'gform_version_info' );
 		if ( ! $cache ) {
 			$version_info = null;
@@ -2875,7 +2871,32 @@ Content-Type: text/html;
 	}
 
 	public static function cache_remote_message() {
-		
+		return;
+		//Getting version number
+		$key                = GFCommon::get_key();
+		$body               = "key=$key";
+		$options            = array( 'method' => 'POST', 'timeout' => 3, 'body' => $body );
+		$options['headers'] = array(
+			'Content-Type'   => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
+			'Content-Length' => strlen( $body ),
+			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
+			'Referer'        => get_bloginfo( 'url' )
+		);
+
+		$raw_response = self::post_to_manager( 'message.php', GFCommon::get_remote_request_params(), $options );
+
+		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
+			$message = '';
+		} else {
+			$message = $raw_response['body'];
+		}
+
+		//validating that message is a valid Gravity Form message. If message is invalid, don't display anything
+		if ( substr( $message, 0, 10 ) != '<!--GFM-->' ) {
+			$message = '';
+		}
+
+		update_option( 'rg_gforms_message', $message );
 	}
 
 	/**

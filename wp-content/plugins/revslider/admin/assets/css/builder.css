@@ -353,13 +353,18 @@ onelong.dyn_inp_wrap { position: relative; overflow: visible; max-width: 175px !
 #rb_tlw .direktrow oneshort.dyn_inp_wrap input[type=text] { transition: width 300ms; }
 
 #rb_tlw .direktrow onelong.dyn_inp_wrap label_icon,
-#rb_tlw .direktrow oneshort.dyn_inp_wrap label_icon { transition: margin 300ms; }
+#rb_tlw .direktrow oneshort.dyn_inp_wrap label_icon,
+#rb_tlw .direktrow onelong.dyn_inp_wrap .label_icon,
+#rb_tlw .direktrow oneshort.dyn_inp_wrap .label_icon { transition: margin 300ms; }
 
 
-#rb_tlw .direktrow.active_oneshort oneshort.dyn_inp_wrap label_icon { margin-left:-65px }
+#rb_tlw .direktrow.active_oneshort oneshort.dyn_inp_wrap label_icon,
+#rb_tlw .direktrow.active_oneshort oneshort.dyn_inp_wrap .label_icon { margin-left:-65px }
 
 #rb_tlw .direktrow.active_onelong onelong.dyn_inp_wrap label_icon,
-#rb_tlw .direktrow.active_oneshort onelong.dyn_inp_wrap label_icon { margin-left: 0px; }
+#rb_tlw .direktrow.active_oneshort onelong.dyn_inp_wrap label_icon,
+#rb_tlw .direktrow.active_onelong onelong.dyn_inp_wrap .label_icon,
+#rb_tlw .direktrow.active_oneshort onelong.dyn_inp_wrap .label_icon { margin-left: 0px; }
 
 #rb_tlw .direktrow.active_onelong onelong.dyn_inp_wrap,
 #rb_tlw .direktrow.active_oneshort oneshort.dyn_inp_wrap { z-index: 10 }
@@ -677,16 +682,14 @@ i.emptyspace20 { display: inline-block; width: 20px; }
 
 #rb_tlw input[type=text],
 #rb_tlw input[type=number],
-#rb_tlw textarea,
-#rb_tlw .select2RS-container .select2RS-selection { box-shadow:none;outline:none;border: none;border-radius: 3px; width:185px;padding:0px; margin:0px 0px 10px; }
+#rb_tlw textarea { box-shadow:none;outline:none;border: none;border-radius: 3px; width:185px;padding:0px; margin:0px 0px 10px; }
 
 #rb_tlw longoption input[type=text],
 #rb_tlw longoption input[type=number] { margin: 5px 0px; }
 
 #rb_tlw longoption input[type=text],
 #rb_tlw longoption input[type=number],
-#rb_tlw longoption textarea,
-#rb_tlw longoption  .select2RS-container .select2RS-selection  { width: 60px; }
+#rb_tlw longoption textarea  { width: 60px; }
 
 #rb_tlw .input_with_buttonextenstion input[type=text],
 #rb_tlw .input_with_buttonextenstion input[type=number] { width: 154px; margin-right: 1px }
@@ -705,24 +708,16 @@ i.emptyspace20 { display: inline-block; width: 20px; }
 #rb_tlw oneshort input[type=text],
 #rb_tlw oneshort input[type=number],
 #rb_tlw oneshort textarea,
-#rb_tlw oneshort  .select2RS-container .select2RS-selection,
-#rb_tlw oneshort  .select2RS-container,
 #rb_tlw input[type=text].shortfield,
 #rb_tlw input[type=number].shortfield,
-#rb_tlw .select2RS-container.shortfield .select2RS-selection,
-#rb_tlw .select2RS-container .select2RS-selection.shortfield,
-#rb_tlw .shortfield .select2RS-container .select2RS-selection,
 #rb_tlw onelong input[type=text],
 #rb_tlw onelong input[type=number],
-#rb_tlw onelong textarea,
-#rb_tlw onelong  .select2RS-container .select2RS-selection,
-#rb_tlw onelong  .select2RS-container  {width:68px !important; min-width: 68px !important}
+#rb_tlw onelong textarea {width:68px !important; min-width: 68px !important}
 
 
 #rb_tlw onethird input[type=text],
 #rb_tlw onethird input[type=number],
-#rb_tlw onethird textarea,
-#rb_tlw onethird  .select2RS-container .select2RS-selection { width: 50px !important; }
+#rb_tlw onethird textarea { width: 50px !important; }
 
 #rb_tlw input::-webkit-outer-spin-button,
 #rb_tlw input::-webkit-inner-spin-button {-webkit-appearance: none;margin: 0; }
@@ -1140,47 +1135,6 @@ i.emptyspace20 { display: inline-block; width: 20px; }
 
 #rb_tlw .triggerselect.layer_rowposition_icons { margin-right: 5px; }
 
-
-
-
- 
-
-/****************************** ***
-   SPECIAL SELECT2 SETTINGS  - 
-**********************************/  
-#rb_tlw .select2RS-container .select2RS-selection {background-color: #2a2c2f;border: none;border-radius: 0px; font-size: 12px;color: #000;font-weight: 400;vertical-align: top;min-height: 30px; width:185px;}
-#rb_tlw .input_with_buttonextenstion .select2RS-container .select2RS-selection { width: 154px; }
-#rb_tlw .select2RS-container .select2RS-selection--single .select2RS-selection__rendered { line-height: 30px }
-#rb_tlw .__inmodal .select2RS-container .select2RS-selection { width: 100%; }
-#rb_tlw .select2RS-container .select2RS-selection .select2RS-selection__rendered {border-radius:0px;color: #b7bbc0; font-size:13px; font-weight: 500; }
-#rb_tlw .select2RS-container .select2RS-selection .select2RS-selection__rendered:hover { color: #fff; }
-
-#rb_tlw .select2RS-container .select2RS-selection.select2RS-selection--multiple .select2RS-selection__rendered { line-height:20px; background:#2a2c2f;padding: 5px; box-sizing: border-box;margin-top: 0px; min-height: 20px; vertical-align: top }
-#rb_tlw .select2RS-container .select2RS-selection .select2RS-selection__clear {cursor: pointer;float: right;font-weight: bold; }
-#rb_tlw .select2RS-container .select2RS-selection .select2RS-selection__placeholder {color: #b7bbc0; }
-#rb_tlw .select2RS-container .select2RS-selection--single .select2RS-selection__arrow { top: 0px !important; right: 0px;  border-left:1px solid #323438; width:30px !important; height:30px !important; background: #2a2c2f}
-
-#rb_tlw .input_with_buttonextenstion .select2RS-container .select2RS-selection--single .select2RS-selection__arrow { right: 35px; }
-#rb_tlw .select2RS-container .select2RS-selection .select2RS-selection__arrow b { border-top-color:#777c80; color: #777c80; cursor:pointer}
-#rb_tlw .select2RS:hover .selection .select2RS-selection__arrow b { border-top-color:#b7bbc0 !important; color: #b7bbc0; }
-#rb_tlw .select2RS-container.select2RS-container--open .select2RS-selection--single .select2RS-selection__arrow b {  border-bottom-color:#777c80;}
-#rb_tlw .select2RS-container.select2RS-container--open:hover .select2RS-selection--single .select2RS-selection__arrow b {  border-bottom-color:#b7bbc0 !important;}
-
-
-
-#rb_tlw .select2RS-container .select2RS-selection {padding: 0px 10px;border-radius: 4px; box-sizing: border-box; display: inline-block}
-#rb_tlw .select2RS-selection.select2RS-selection--multiple { padding: 0px; }
-#rb_tlw .select2RS-container {min-width: 100px;margin-right: 5px; margin-bottom: 10px;}
-#rb_tlw .select2RS-container .select2RS-search.select2RS-search--inline {  height: 20px; line-height: 20px; margin: 0px; }
-
-#rb_tlw .select2RS-container .select2RS-selection--multiple .select2RS-selection__choice { margin:0px 5px 0px 0px; text-align:center; padding:0px 10px; line-height: 20px; border: none; border-radius: 3px; background: #006dd2; color: #fff;font-size: 11px; font-weight: 500;vertical-align: top;  }
-#rb_tlw .select2RS-container .select2RS-selection--multiple .select2RS-selection__choice__remove { color: #fff; margin-right: 3px; font-size: 11px; font-weight: 400;line-height: 20px; vertical-align: top; }
-
-#rb_tlw .select2RS-container .select2RS-search--inline .select2RS-search__field { line-height: 20px; border: none !important; border-radius: 0px; box-shadow: none !important; outline: none !important; margin:0px; padding:0px 0px 0px 5px;  color: #b7bbc0; font-size: 13px; font-weight: 500;  }
-#rb_tlw .select2RS-container.select2RS-container--focus .select2RS-search--inline .select2RS-search__field {  max-width: 185px}
-
-#rb_tlw .select2RS-container .select2RS-selection.select2RS-selection--multiple ul li { margin-bottom: 0px; }
-
 #rb_tlw .revbuilder-colorpicker {vertical-align: top;margin-bottom: 5px; line-height: 30px; background: #2a2c2f; box-sizing: border-box; padding:7px; width:30px;height:30px; border-radius: 3px; border:none;}
 #rb_tlw .revbuilder-colorpicker .revbuilder-colorbox {  width:16px; height:16px; border:1px solid rgba(255,255,255,0.15); border-radius: 0px; vertical-align: top} 
 #rb_tlw .revbuilder-colorpicker .revbuilder-colorbtn { display: none; }
@@ -1192,19 +1146,6 @@ i.emptyspace20 { display: inline-block; width: 20px; }
 #rb_tlw onelong .revbuilder-colorpicker.revbuilder-cpicker-master-wrap.visible-cp-input { width: 67px; display: inline-block; position: relative}
 #rb_tlw onelong .revbuilder-colorpicker.revbuilder-cpicker-master-wrap.visible-cp-input  input {     position: absolute;top: 7px;left: 23px;white-space: nowrap;overflow: hidden;width: 40px !important;min-width: 45px !important;  }
 
-#rb_tlw .select2RS-container { margin-top:0px; margin-bottom: 0px; width:185px !important; margin-right:0px; display: inline-block}
-#rb_tlw .select2RS-container.select2RS-container--inlongoption {  width:105px !important; }
-
-#rb_tlw .__inmodal .select2RS-container { width: 100% !important; }
- 
-#rb_tlw .select2RS-container--smalltos2,
-#rb_tlw .select2RS-container--smalltos2 .select2RS-dropdown--below {min-width: 50px;  }
-#rb_tlw .select2RS-container--smalltos2 .select2RS-selection {width: 60px;}
-
-#rb_tlw .select2RS-container--smalltos2-suffix,
-#rb_tlw .select2RS-container--smalltos2-suffix .select2RS-dropdown--below {min-width: 56px;  }
-
-#rb_tlw .select2RS-container--smalltos2-suffix .select2RS-selection {width: 56px; border-radius: 0px 4px 4px 0px; }
 
 
 #form_nav_arrows_style .revbuilder-colorpicker .layerinput,
@@ -1483,9 +1424,10 @@ oneabsolute { position: absolute; left: 0px;top: 10px; width: 80px; }
 
 #layout_slide       { width:100%;height:100%;position: absolute;top:0px;left:0px;z-index:2;}
 
+#rev_slider_ul { opacity: 0 }
 #rev_slider_ul,
 #rev_slider_inbuild   { z-index:3;width: 100%; height: auto; /* KRIKI HEIGHT AUTO !? */ display: block; /*background:#2a3441;*/; position:relative;margin:auto;}
-#rev_slider_ul_inner {  width:100%;height:100%;overflow:hidden;position: absolute; display:block; top:0px;left:0px;perspective: 1200px; transform-style: flat;}
+#rev_slider_ul_inner {  width:100%;height:100%;overflow:hidden;position: absolute; display:block; top:0px;left:0px;perspective: 1200px; transform-style: flat; }
 
 #rev_builder>.ui-resizable-e { width: 4px;right: -4px;background: #999; display: block; }
 #rev_builder>.ui-resizable-e:after  { content: " "; height: 50px;width: 10px;top: 50%;margin-top: -25px; position: absolute;left: 0px;background: #888; border-radius: 0px 4px 4px 0px; }
@@ -2427,7 +2369,7 @@ framewrap:hover  endloop,
 #slide_maintranssettings_wrap .ts_wrapbrtn,
 .settingsmenu_wrapbtn { width: 92px; }
 
-#slide_maintranssettings_wrap .ts_wrapbrtn.disabled { opacity: 0.5; pointer-events: none; }
+#slide_maintranssettings_wrap .ts_wrapbrtn.disabled { opacity: 0.5; pointer-events: none; display: none; }
 
 #layer_looping_wrap .settingsmenu_wrapbtn { width: 139px; }
 
@@ -5269,8 +5211,7 @@ i.fullpage_main_icon.material-icons { color: #777c80; font-size: 50px !important
 #rb_tlw input[type="text"]#rs_ne_nav_width,
 #rb_tlw input[type="text"]#rs_ne_nav_height     { width:60px !important;}
 #rs_ne_cssmeta_config label_a { width: 60px !important; }
-#rb_tlw #rs_ne_cssmeta_config .select2RS-container { width: 125px !important; }
-#rb_tlw #rs_ne_cssmeta_config .select2RS-container .select2RS-selection { width: 125px; }
+
 #rb_tlw #rs_ne_cssmeta_config .revbuilder-colorpicker.visible-cp-input,
 #rb_tlw #rs_ne_cssmeta_config  input[type="text"] { width: 125px; }
 #rb_tlw #rs_ne_cssmeta_config .revbuilder-colorpicker.visible-cp-input {margin-bottom:10px;}
@@ -5494,9 +5435,6 @@ i.fullpage_main_icon.material-icons { color: #777c80; font-size: 50px !important
 }
 
 
-#ol_footer .rs_fh_right .select2RS-container .select2RS-selection--single { line-height: 50px; height: 50px; }
-
-
 
 /* HIGH CONTRAST MODE */
 
@@ -5545,7 +5483,7 @@ i.fullpage_main_icon.material-icons { color: #777c80; font-size: 50px !important
 .rs-high-contrast #obj_fil_favorite, 
 .rs-high-contrast #obj_updatefromserver, 
 .rs-high-contrast #obj_addsliderasmodal,
-.rs-high-contrast .rs_overview .select2RS-container .select2RS-selection--single .select2RS-selection__rendered,
+.rs-high-contrast .rs_overview .ddTP_C .ddTP_S--single .ddTP_S__rendered,
 .rs-high-contrast #rb_tlw .miniprevimage_wrap i.material-icons,
 .rs-high-contrast #rs_copyright,    
 .rs-high-contrast .page_button {
@@ -5601,7 +5539,7 @@ i.fullpage_main_icon.material-icons { color: #777c80; font-size: 50px !important
 }
 
 
-.rs-high-contrast .rs_overview .select2RS-container .select2RS-selection--single .select2RS-selection__arrow b {
+.rs-high-contrast .rs_overview .ddTP_C .ddTP_S--single .ddTP_S__arrow b {
     border-color: #b7bbc0 transparent transparent transparent;
 }
 

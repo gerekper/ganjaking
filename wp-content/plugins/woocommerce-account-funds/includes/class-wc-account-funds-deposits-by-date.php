@@ -59,13 +59,12 @@ class WC_Report_Deposits_By_Date extends WC_Admin_Report {
 
 		foreach ( $orders as $order_id ) {
 			$order = new WC_Order( $order_id );
-			$order_created = ( method_exists( $order, 'get_date_created' ) ? $order->get_date_created() : $order->post_date );
-			$time  = strtotime( date( 'Ymd', strtotime( $order_created ) ) ) .'000';
+			$time  = strtotime( date( 'Ymd', strtotime( $order->get_date_created() ) ) ) . '000';
 
 			foreach ( $order->get_items() as $item ) {
-				$product = $order->get_product_from_item( $item );
+				$product = $item->get_product();
 
-				if ( $product->is_type( 'deposit' ) || $product->is_type( 'topup' ) ) {
+				if ( $product && ( $product->is_type( 'deposit' ) || $product->is_type( 'topup' ) ) ) {
 					$this->report_data->deposit_count            ++;
 					$this->report_data->deposit_amount           += $order->get_line_total( $item );
 

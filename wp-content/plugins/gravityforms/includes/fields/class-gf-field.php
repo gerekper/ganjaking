@@ -696,6 +696,42 @@ class GF_Field extends stdClass implements ArrayAccess {
 		return rgar( $entry, $input_id );
 	}
 
+	/**
+	 * Apply the gform_get_input_value filter to an entry's value.
+	 *
+	 * @since 2.4.24
+	 *
+	 * @param mixed  $value    The field or input value to be filtered.
+	 * @param array  $entry    The entry currently being processed.
+	 * @param string $input_id The ID of the input being processed from a multi-input field type or an empty string.
+	 *
+	 * @return mixed
+	 */
+	public function filter_input_value( $value, $entry, $input_id = '' ) {
+		/**
+		 * Allows the field or input value to be overridden when populating the entry (usually on retrieval from the database).
+		 *
+		 * @since 1.5.3
+		 * @since 1.9.14 Added the form and field specific versions.
+		 *
+		 * @param mixed    $value    The field or input value to be filtered.
+		 * @param array    $entry    The entry currently being processed.
+		 * @param GF_Field $this     The field currently being processed.
+		 * @param string   $input_id The ID of the input being processed from a multi-input field type or an empty string.
+		 */
+		return gf_apply_filters(
+			array(
+				'gform_get_input_value',
+				$this->formId,
+				$this->id,
+			),
+			$value,
+			$entry,
+			$this,
+			$input_id
+		);
+	}
+
 
 	// # INPUT ATTRIBUTE HELPERS ----------------------------------------------------------------------------------------
 

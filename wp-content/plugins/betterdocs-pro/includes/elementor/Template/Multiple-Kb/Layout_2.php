@@ -9,7 +9,7 @@ echo '<a href="' . get_term_link($term->slug, 'knowledge_base') . '" class="el-b
 echo '<div class="el-betterdocs-cb-inner">';
 
 if ($settings['show_icon']) {
-    $cat_icon_id = get_term_meta($term->term_id, 'doc_category_image-id', true);
+    $cat_icon_id = get_term_meta($term->term_id, 'knowledge_base_image-id', true);
 
     if ($cat_icon_id) {
         $cat_icon = wp_get_attachment_image($cat_icon_id, 'thumbnail', ['alt' => esc_attr(get_post_meta($cat_icon_id, '_wp_attachment_image_alt', true))]);
@@ -25,7 +25,7 @@ if ($settings['show_title']) {
 }
 
 if ($settings['show_count']) {
-    printf('<div class="el-betterdocs-cb-cat-count__layout-2"><span class="count-inner__layout-2">%s</span></div>', BetterDocs_Elementor::get_doc_post_count($term->count, $term->term_id));
+    printf('<div class="el-betterdocs-cb-cat-count__layout-2"><span class="count-inner__layout-2">%s</span></div>', $term->count);
 }
 
 echo '</div>';

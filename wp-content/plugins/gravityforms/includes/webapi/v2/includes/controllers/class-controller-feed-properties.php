@@ -47,15 +47,9 @@ class GF_REST_Feed_Properties_Controller extends GF_REST_Feeds_Controller {
 			return $properties;
 		}
 
-		foreach ( $properties as $key => $value ) {
-			$result = GFAPI::update_feed_property( $request['feed_id'], $key, $value );
-			if ( is_wp_error( $result ) ) {
-				return new WP_Error(
-					$result->get_error_code(),
-					$result->get_error_message(),
-					array( 'status' => $this->get_error_status( $result ) )
-				);
-			}
+		$result = $this->update_feed_properties( $request['feed_id'], $properties );
+		if ( is_wp_error( $result ) ) {
+			return $result;
 		}
 
 		return new WP_REST_Response( __( 'Feed updated successfully', 'gravityforms' ), 200 );

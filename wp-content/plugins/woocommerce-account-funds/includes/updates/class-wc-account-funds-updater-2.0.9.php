@@ -13,17 +13,19 @@ class WC_Account_Funds_Updater_2_0_9 implements WC_Account_Funds_Updater {
 		$orders = $this->_get_renewal_orders_paid_with_af();
 
 		foreach ( $orders as $order ) {
-			$funds_used      = get_post_meta( $order->ID, '_funds_used', true );
-			$recurring_total = $this->_get_recurring_total( $order->post_parent );
-			$order_total     = get_post_meta( $order->ID, '_order_total', true );
+			$funds_used      = $order->get_meta( '_funds_used' );
+			$recurring_total = $this->_get_recurring_total( $order->get_parent_id() );
+			$order_total     = $order->get_total( 'edit' );
 
 			if ( $order_total > 0 ) {
-				update_post_meta( $order->ID, '_order_total', 0 );
+				$order->set_total( 0 );
 			}
 
 			if ( $funds_used !== $recurring_total ) {
-				update_post_meta( $order->ID, '_funds_used', $recurring_total );
+				$order->update_meta_data( '_funds_used', $recurring_total );
 			}
+
+			$order->save();
 		}
 	}
 

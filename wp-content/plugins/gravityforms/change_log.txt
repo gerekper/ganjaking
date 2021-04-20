@@ -1,25 +1,31 @@
-### 2.4.23.3
+### 2.4.24 | 2021-04-14
+- Added security enhancements.
+- Updated the captcha field so that it does not show autocomplete options.
+- Updated the system report to include the REST API base URL and to indicate if REST API v2 is enabled.
+- Updated the wording on the import forms page to clarify the expected file format for importing forms.
 - Updated the plugin header to include the "Requires at least" and "Requires PHP" properties.
 - Updated the minimum WordPress version (for support) on the System Status page to 5.6.
-- Fixed PHP 8 issues where optional parameters were listed before required ones.
-- API: Fixed an issue where the JWT Authentication for WP REST API plugin blocked requests to REST API v2 with a 403 error.
-
-
-### 2.4.23.2
+- Fixed an issue where filters are not applied consistently to repeater field entries.  Credit: Paul V. Biron/Sparrow Hawk Computing.
+- Fixed PHP 8 issues where optional parameters are listed before required ones.
 - Fixed the text on the edit entry screen for post title so that it is translatable.
-- Fixed an issue where making a checkbox field the primary key on the entries list page threw a PHP notice.
+- Fixed an issue where making a checkbox field the primary key on the entries list page throws a PHP notice.
 - Fixed an issue where sometimes users are granted `gform_full_access` permission when they shouldn't be.
+- Fixed an issue where re-running the database upgrade from the System Status page doesn't create the missing gf_rest_api_keys table.
+- Fixed the deprecation notice in the Gravity Forms Gutenberg block.
+- Fixed an issue with API V2 key generation where it's possible for the keys to generate with just a prefix and no hash.
+- AF: Updated the meets_minimum_requirements method to include an error if the installed version of Gravity Forms is older than an add-on requires.
+- API: Added GFField::filter_input_value() to apply the [gform_get_input_value](https://docs.gravityforms.com/gform_get_input_value/) filter.
+- API: Added GFAPI::get_feed() for getting a specific feed.
+- API: Updated the REST API v2 /feeds/[feed id] endpoint to support the PATCH method for updating the specified feed.
+- API: Fixed an issue with GFAPI::get_feeds() where the requested feed is not returned when inactive.
+- API: Fixed an issue with GFAPI::get_feeds() where the returned feeds do not include the feed_order property.
+- API: Fixed an issue where the REST API v2 PUT /feeds/[feed id] endpoint only updates the feed meta.
+- API: Fixed an issue where the JWT Authentication for WP REST API plugin blocks requests to REST API v2 with a 403 error.
 - API: Added GFAPI::update_feed_property() to update the specified feed with the given property value.
 - API: Added GFAPI::feed_exists() to check if a feed exists with the supplied ID.
 - API: Added the PUT /feeds/[feed id]/properties endpoint to REST API v2 to update one or more properties of the specified feed.
 - API: Added the [gform_webapi_key_user_capabilities](https://docs.gravityforms.com/gform_webapi_key_user_capabilities/) filter to override which capabilities are used to determine if a user is included in the User drop down menu on the REST API settings page.
-- API: Fixed an issue where users without the appropriate permissions appeared in the User drop down menu when creating a new REST API Key.
-
-
-### 2.4.23.1
-- Fixed an issue where re-running the database upgrade from the System Status page doesn't create the missing gf_rest_api_keys table.
-- Fixed deprecation notice in Gravity Forms Gutenberg block.
-- Fixed an issue with API V2 key generation where it was possible for the keys to generate with just a prefix and no hash.
+- API: Fixed an issue where users without the appropriate permissions appear in the User drop down menu when creating a new REST API Key.
 - API: Updated the `rand_hash()` method with a fallback to generate a hash even if `openssl_random_pseudo_bytes()` returns empty.
 
 

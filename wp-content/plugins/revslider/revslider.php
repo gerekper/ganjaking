@@ -6,7 +6,7 @@ Description: Slider Revolution - Premium responsive slider
 Author: ThemePunch
 Text Domain: revslider
 Domain Path: /languages
-Version: 6.4.6
+Version: 6.4.8
 Author URI: https://themepunch.com/
 */
 
@@ -14,13 +14,14 @@ Author URI: https://themepunch.com/
 update_option( 'revslider-valid', 'true' );
 update_option( 'revslider-temp-active-notice', 'false' );
 update_option('revslider-code', '073e077f-b600-41e4-8b74-767431910d31');
+
 if(!defined('WPINC')){ die; }
 
 if(class_exists('RevSliderFront')){
 	die('ERROR: It looks like you have more than one instance of Slider Revolution installed. Please remove additional instances for this plugin to work again.');
 }
 
-define('RS_REVISION',			'6.4.6');
+define('RS_REVISION',			'6.4.8');
 define('RS_PLUGIN_PATH',		plugin_dir_path(__FILE__));
 define('RS_PLUGIN_SLUG_PATH',	plugin_basename(__FILE__));
 define('RS_PLUGIN_FILE_PATH',	__FILE__);
@@ -28,7 +29,7 @@ define('RS_PLUGIN_SLUG',		apply_filters('set_revslider_slug', 'revslider'));
 define('RS_PLUGIN_URL',			get_rs_plugin_url());
 define('RS_PLUGIN_URL_CLEAN',	str_replace(array('http://', 'https://'), '//', RS_PLUGIN_URL));
 define('RS_DEMO',				false);
-define('RS_TP_TOOLS',			'6.4.4'); //holds the version of the tp-tools script, load only the latest!
+define('RS_TP_TOOLS',			'6.4.5'); //holds the version of the tp-tools script, load only the latest!
 
 global $revslider_fonts;
 global $revslider_is_preview_mode;
@@ -45,6 +46,7 @@ $revslider_animations = array();
 //include framework files
 require_once(RS_PLUGIN_PATH . 'includes/data.class.php');
 require_once(RS_PLUGIN_PATH . 'includes/functions.class.php');
+require_once(RS_PLUGIN_PATH . 'includes/cache.class.php');
 require_once(RS_PLUGIN_PATH . 'includes/em-integration.class.php');
 require_once(RS_PLUGIN_PATH . 'includes/cssparser.class.php');
 require_once(RS_PLUGIN_PATH . 'includes/woocommerce.class.php');

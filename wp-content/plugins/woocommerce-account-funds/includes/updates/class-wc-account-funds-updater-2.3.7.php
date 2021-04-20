@@ -87,7 +87,8 @@ EOT;
 			$order_balances[ $order_id ] = $order_total;
 
 			// Add the missing meta data.
-			update_post_meta( $order_id, '_funds_used', $order_total );
+			$order->update_meta_data( '_funds_used', $order_total );
+			$order->save_meta_data();
 
 			$this->log(
 				sprintf(
@@ -171,7 +172,7 @@ EOT;
 	 */
 	public function log( $message ) {
 		if ( ! $this->logger ) {
-			$this->logger = ( function_exists( 'wc_get_logger' ) ? wc_get_logger() : new WC_Logger() );
+			$this->logger = wc_get_logger();
 		}
 
 		add_filter( 'woocommerce_format_log_entry', array( $this, 'format_log_entry' ), 10, 2 );

@@ -183,7 +183,28 @@ class GFAutoUpgrade {
 	}
 
 	private function get_changelog() {
-		
+		$key                = $this->get_key();
+		$body               = "key={$key}";
+		$options            = array( 'method' => 'POST', 'timeout' => 3, 'body' => $body );
+		$options['headers'] = array(
+			'Content-Type'   => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
+			'Content-Length' => strlen( $body ),
+			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
+			'Referer'        => get_bloginfo( 'url' ),
+		);
+
+		$raw_response = GFCommon::post_to_manager( 'changelog.php', $this->get_remote_request_params( $this->_slug, $key, $this->_version ), $options );
+
+		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
+			$text = sprintf( esc_html__( 'Oops!! Something went wrong.%sPlease try again or %scontact us%s.', 'gravityforms' ), '<br/>', "<a href='https://www.gravityforms.com/support/'>", '</a>' );
+		} else {
+			$text = $raw_response['body'];
+			if ( substr( $text, 0, 10 ) != '<!--GFM-->' ) {
+				$text = '';
+			}
+		}
+
+		return stripslashes( $text );
 	}
 
 	private function get_version_info( $offering, $use_cache = true ) {

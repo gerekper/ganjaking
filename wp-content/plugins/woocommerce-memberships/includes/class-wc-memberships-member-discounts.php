@@ -494,7 +494,7 @@ class WC_Memberships_Member_Discounts {
 	 * @param int $product_id the ID of the related product to check discounts for
 	 * @return \WC_Memberships_Membership_Plan_Rule[] array of membership plan purchasing discount rules
 	 */
-	private function get_user_product_purchasing_discount_rules( $user_id, $product_id ) {
+	public function get_user_product_purchasing_discount_rules( $user_id, $product_id ) {
 
 		if ( ! is_numeric( $user_id ) || ! is_numeric( $product_id ) ) {
 			return [];

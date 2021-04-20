@@ -5,14 +5,14 @@
 	$( function() {
 		$( 'body' )
 			.on( 'change', '.my-account-collections .collection-visibility select', function() {
-				$( this ).closest( 'td' ).find( '.button' ).removeAttr( 'disabled' ).removeClass( 'disabled' );
+				$( this ).closest( 'td' ).find( '.button' ).prop( 'disabled', false ).removeClass( 'disabled' );
 			})
 			.on( 'click', '.my-account-collections .collection-visibility .button', function() {
 				var button = $( this ),
 					wrap   = button.closest( 'td' ),
 					select = $( 'select', wrap );
 
-				select.attr( 'disabled', 'disabled' );
+				select.prop( 'disabled', true );
 				button.addClass( 'loading' );
 
 				$.ajax({
@@ -28,9 +28,9 @@
 					dataType: 'json',
 					success:  function( response ) {
 						if ( response.success ) {
-							select.removeAttr( 'disabled' );
+							select.prop( 'disabled', false );
 							button.removeClass( 'loading' ).addClass( 'disabled' );
-							button.attr( 'disabled', 'disabled' );
+							button.prop( 'disabled', true );
 						}
 					}
 				});

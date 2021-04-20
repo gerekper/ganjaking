@@ -141,7 +141,6 @@ class BetterDocs_Multiple_Kb
 
 		foreach ($taxes as $tax) {
 			$terms = get_terms($tax);
-
 			foreach ($terms as $term)
 				$tax_map[$tax][$term->slug] = $term->term_taxonomy_id;
 		}
@@ -151,7 +150,6 @@ class BetterDocs_Multiple_Kb
 		);
 
 		if (array_key_exists('knowledge_base', $tax_map) && !empty($tax_map['knowledge_base'][$kb_slug])) {
-
 			$args['tax_query'][] = array(
 				'taxonomy' => 'knowledge_base',
 				'field' => 'term_taxonomy_id',
@@ -162,7 +160,6 @@ class BetterDocs_Multiple_Kb
 		}
 
 		if (array_key_exists('doc_category', $tax_map) && !empty($tax_map['doc_category'][$cat_slug])) {
-
 			$args['tax_query'][] = array(
 				'taxonomy' => 'doc_category',
 				'field' => 'term_taxonomy_id',
@@ -173,7 +170,6 @@ class BetterDocs_Multiple_Kb
 		}
 
 		$query = new WP_Query($args);
-
 		$count = $query->found_posts;
 
 		return $count;

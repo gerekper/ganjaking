@@ -1,5 +1,15 @@
 <?php
 
+
+
+
+
+
+
+
+
+
+
 namespace Composer;
 
 use Composer\Semver\VersionParser;
@@ -19,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '6100e2131b56ccf8c791b15d6dcf8e936a7d9d0d',
+    'reference' => 'de123ce559f91c32b5b730e58ee9a91a8612c30f',
     'name' => 'woocommerce/woocommerce-bookings',
   ),
   'versions' => 
@@ -257,7 +267,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '6100e2131b56ccf8c791b15d6dcf8e936a7d9d0d',
+      'reference' => 'de123ce559f91c32b5b730e58ee9a91a8612c30f',
     ),
   ),
 );
