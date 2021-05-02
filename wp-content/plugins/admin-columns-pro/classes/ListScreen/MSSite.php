@@ -3,6 +3,7 @@
 namespace ACP\ListScreen;
 
 use AC;
+use AC\WpListTableFactory;
 use ACP\Column;
 use ACP\Editing;
 use ReflectionException;
@@ -37,10 +38,8 @@ class MSSite extends AC\ListScreenWP
 	/**
 	 * @return WP_MS_Sites_List_Table
 	 */
-	public function get_list_table() {
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-ms-sites-list-table.php' );
-
-		return new WP_MS_Sites_List_Table( [ 'screen' => $this->get_screen_id() ] );
+	protected function get_list_table() {
+		return ( new WpListTableFactory() )->create_network_site_table( $this->get_screen_id() );
 	}
 
 	public function set_manage_value_callback() {
@@ -68,7 +67,7 @@ class MSSite extends AC\ListScreenWP
 	 * @since 2.4.7
 	 */
 	public function manage_value( $column_name, $blog_id ) {
-		echo $this->get_display_value_by_column_name( $column_name, $blog_id, null );
+		echo $this->get_display_value_by_column_name( $column_name, $blog_id );
 	}
 
 	public function get_single_row( $site_id ) {

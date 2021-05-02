@@ -11,13 +11,18 @@ use AC\ListScreenPost;
 use AC\ListScreenRepository\Sort;
 use AC\ListScreenRepository\Storage;
 use AC\Registrable;
+use AC\Type\ListScreenId;
 use AC\Type\Url;
 use AC\View;
+use ACP\Bookmark\SegmentRepository;
 use ACP\ListScreen\Comment;
 use ACP\ListScreen\Media;
 use ACP\ListScreen\User;
+use ACP\Search\Settings\HideOnScreen\SmartFilters;
+use ACP\Search\TableScreenFactory;
 use ACP\Settings\ListScreen\HideOnScreen;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
+use ACP\Sorting;
 use WP_User;
 
 class Settings implements Registrable {
@@ -32,9 +37,15 @@ class Settings implements Registrable {
 	 */
 	private $location;
 
-	public function __construct( Storage $storage, Location\Absolute $location ) {
+	/**
+	 * @var SegmentRepository
+	 */
+	private $segment_repository;
+
+	public function __construct( Storage $storage, Location\Absolute $location, SegmentRepository $segment_repository ) {
 		$this->storage = $storage;
 		$this->location = $location;
+		$this->segment_repository = $segment_repository;
 	}
 
 	public function register() {
@@ -61,7 +72,7 @@ class Settings implements Registrable {
 		ob_start();
 		foreach ( $list_screens as $list_screen ) : ?>
 			<li data-screen="<?= esc_attr( $list_screen->get_layout_id() ); ?>">
-				<a class="<?= $list_screen->get_layout_id() === $current_list_screen->get_layout_id() ? 'current' : ''; ?>" href="<?= add_query_arg( [ 'layout_id' => $list_screen->get_layout_id() ], $current_list_screen->get_edit_link() ); ?>"><?php echo esc_html( $list_screen->get_title() ? $list_screen->get_title() : __( '(no name)', 'codepress-admin-columns' ) ); ?></a>
+				<a class="<?= $list_screen->get_layout_id() === $current_list_screen->get_layout_id() ? 'current' : ''; ?>" href="<?= add_query_arg( [ 'layout_id' => $list_screen->get_layout_id() ], $current_list_screen->get_edit_link() ); ?>"><?php echo esc_html( $list_screen->get_title() ?: __( '(no name)', 'codepress-admin-columns' ) ); ?></a>
 			</li>
 		<?php endforeach;
 
@@ -84,8 +95,8 @@ class Settings implements Registrable {
 
 		if ( null === $list_screen_types ) {
 			$list_screen_types = $this->storage->find_all( [
-				'key'  => $key,
-				'sort' => new Sort\ManualOrder(),
+				Storage::KEY      => $key,
+				Storage::ARG_SORT => new Sort\ManualOrder(),
 			] );
 		}
 
@@ -134,7 +145,7 @@ class Settings implements Registrable {
 		wp_enqueue_style( 'ac-select2' );
 		wp_enqueue_script( 'ac-select2' );
 
-		$script = new Asset\Script( 'acp-layouts', $this->location->with_suffix( 'assets/core/js/layouts.js' ), ['ac-admin-page-columns'] );
+		$script = new Asset\Script( 'acp-layouts', $this->location->with_suffix( 'assets/core/js/layouts.js' ), [ 'ac-admin-page-columns' ] );
 		$script->enqueue();
 
 		wp_localize_script( 'acp-layouts', 'acp_layouts', [
@@ -144,23 +155,47 @@ class Settings implements Registrable {
 		] );
 	}
 
-	private function get_tooltip_hs_content() {
-		ob_start();
-		?>
-		<p>
-			<?php _e( 'Make horizontal scrolling the default when users visit the table.', 'codepress-admin-columns' ); ?>
-			<?php _e( 'Users can change this preference by opening “screen options” on the table screen.', 'codepress-admin-columns' ); ?>
-		</p>
-		<p>
-			<?php _e( 'This feature will automatically adjust the width of the columns based on the screen size.', 'codepress-admin-columns' ); ?>
-			<?php _e( 'When the columns do not fit on the screen you can horizontally scroll your columns by dragging the horizontal scrollbar or by swiping left or right with the mouse.', 'codepress-admin-columns' ); ?>
-		</p>
-		<p>
-			<img src="<?= esc_url( $this->location->get_url() ); ?>assets/core/images/horizontal-scrolling.png" alt=""/>
-		</p>
-		<?php
+	private function tooltip_horizontal_scrolling() {
+		$content = new View( [
+			'location' => $this->location,
+		] );
 
-		return ob_get_clean();
+		$content->set_template( 'admin/tooltip/horizontal-scrolling' );
+
+		$tooltip = new AC\Admin\Tooltip( 'horizontal_scrolling', [
+			'content'    => $content,
+			'link_label' => '<img src="' . AC()->get_url() . 'assets/images/question.svg" alt="?" class="ac-setbox__row__th__info">',
+			'title'      => __( 'Horizontal Scrolling', 'codepress-admin-columns' ),
+			'position'   => 'right_bottom',
+		] );
+
+		return $tooltip;
+	}
+
+	private function tooltip_filters() {
+		$content = new View( [
+			'location' => $this->location,
+		] );
+
+		$content->set_template( 'admin/tooltip/preferred-segment' );
+
+		$tooltip = new AC\Admin\Tooltip( 'preferred_segment', [
+			'content'    => $content,
+			'link_label' => '<img src="' . AC()->get_url() . 'assets/images/question.svg" alt="?" class="ac-setbox__row__th__info">',
+			'title'      => __( 'Filters', 'codepress-admin-columns' ),
+			'position'   => 'right_bottom',
+		] );
+
+		return $tooltip;
+	}
+
+	/**
+	 * @param ListScreen $list_screen
+	 *
+	 * @return bool
+	 */
+	private function can_bookmark( ListScreen $list_screen ) {
+		return null !== TableScreenFactory::get_table_screen_reference( $list_screen );
 	}
 
 	public function render_settings( ListScreen $list_screen ) {
@@ -176,25 +211,45 @@ class Settings implements Registrable {
 			$users = [];
 		}
 
-		$tooltip_horizontal_scrolling = new AC\Admin\Tooltip( 'horizontal_scrolling', [
-			'content'    => $this->get_tooltip_hs_content(),
-			'link_label' => '<img src="' . AC()->get_url() . 'assets/images/question.svg" alt="?" class="ac-setbox__row__th__info">',
-			'title'      => __( 'Horizontal Scrolling', 'codepress-admin-columns' ),
-			'position'   => 'right_bottom',
-		] );
-
 		$view = new AC\View( [
-			'list_screen'    => $list_screen,
-			'preferences'    => $list_screen->get_preferences(),
-			'hide_on_screen' => $this->get_checkboxes( $list_screen ),
-			'select_roles'   => $this->select_roles( $roles, $list_screen->is_read_only() ),
-			'select_users'   => $this->select_users( $users, $list_screen->is_read_only() ),
-			'tooltip_hs'     => $tooltip_horizontal_scrolling,
+			'list_screen'           => $list_screen,
+			'preferences'           => $list_screen->get_preferences(),
+			'hide_on_screen'        => $this->get_checkboxes( $list_screen ),
+			'select_roles'          => $this->select_roles( $roles, $list_screen->is_read_only() ),
+			'select_users'          => $this->select_users( $users, $list_screen->is_read_only() ),
+			'tooltip_hs'            => $this->tooltip_horizontal_scrolling(),
+			'tooltip_filters'       => $this->tooltip_filters(),
+			'segments'              => $list_screen->has_id() ? $this->get_segments_for_list_screen_id( $list_screen->get_id() ) : [],
+			'can_horizontal_scroll' => true,
+			'can_sort'              => $list_screen instanceof Sorting\ListScreen,
+			'can_bookmark'          => $this->can_bookmark( $list_screen ),
 		] );
 
 		$view->set_template( 'admin/list-screen-settings' );
 
 		echo $view->render();
+	}
+
+	/**
+	 * @param ListScreenId $list_screen_id
+	 *
+	 * @return array
+	 */
+	private function get_segments_for_list_screen_id( ListScreenId $list_screen_id ) {
+		$result = [];
+
+		$segments = $this->segment_repository->find_all( [
+			SegmentRepository::FILTER_LIST_SCREEN => $list_screen_id,
+			SegmentRepository::FILTER_GLOBAL      => true,
+			SegmentRepository::ORDER_BY           => 'name',
+			SegmentRepository::ORDER              => 'ASC',
+		] );
+
+		foreach ( $segments as $segment ) {
+			$result[ $segment->get_id()->get_id() ] = $segment->get_name();
+		}
+
+		return $result;
 	}
 
 	/**
@@ -214,7 +269,7 @@ class Settings implements Registrable {
 			$collection->add( new HideOnScreen\FilterPostDate(), 32 );
 
 			// Exclude Media, but make sure to include all other post types
-			if ( ! in_array( $list_screen->get_post_type(), [ 'attachment' ] ) ) {
+			if ( 'attachment' !== $list_screen->get_post_type() ) {
 				$collection->add( new HideOnScreen\SubMenu\PostStatus(), 80 );
 			}
 
@@ -253,7 +308,7 @@ class Settings implements Registrable {
 			}
 
 			// do not indent smart filters
-			if ( 'hide_smart_filters' === $hide_on_screen->get_name() ) {
+			if ( SmartFilters::NAME === $hide_on_screen->get_name() ) {
 				$class = '';
 			}
 

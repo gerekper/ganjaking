@@ -1,8 +1,8 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
-use Rocketgenius\Gravity_Forms\Settings\Fields;
+use Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 defined( 'ABSPATH' ) || die();
 
@@ -36,7 +36,7 @@ class Date_Time extends Base {
 	 * @since 2.5
 	 *
 	 * @param array                                $props    Field properties.
-	 * @param \Rocketgenius\Gravity_Forms\Settings $settings Settings instance.
+	 * @param \Gravity_Forms\Gravity_Forms\Settings\Settings $settings Settings instance.
 	 */
 	public function __construct( $props, $settings ) {
 
@@ -115,7 +115,7 @@ class Date_Time extends Base {
 
 		// Display Date input, Time drop downs.
 		$html .= sprintf(
-			'%s %s:%s %s',
+			'%s %s<span class="gform-settings-input__separator">:</span>%s %s',
 			$this->inputs['date']->markup(),
 			$this->inputs['hour']->markup(),
 			$this->inputs['minute']->markup(),
@@ -125,7 +125,7 @@ class Date_Time extends Base {
 		// Insert jQuery Datepicker script.
 		$html .= sprintf(
 			"<script type='text/javascript'>
-				jQuery( document ).on( 'ready', function() {
+				jQuery( function() {
 					jQuery( 'input[name=\"%s_%s\"]' ).datepicker(
 						{
 							showOn: 'both',
@@ -164,7 +164,7 @@ class Date_Time extends Base {
 	 *
 	 * @param array $value Posted field value.
 	 */
-	public function is_valid( $value ) {
+	public function do_validation( $value ) {
 
 		// If field is required and date is missing, set field error.
 		if ( $this->required && rgempty( 'date', $value ) ) {
@@ -200,4 +200,4 @@ class Date_Time extends Base {
 
 }
 
-Fields::register( 'date_time', '\Rocketgenius\Gravity_Forms\Settings\Fields\Date_Time' );
+Fields::register( 'date_time', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Date_Time' );

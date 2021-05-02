@@ -1,8 +1,8 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
-use Rocketgenius\Gravity_Forms\Settings\Fields;
+use Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 defined( 'ABSPATH' ) || die();
 
@@ -189,7 +189,7 @@ class Checkbox extends Base {
 	 *
 	 * @param array $value Posted field value.
 	 */
-	public function is_valid( $value ) {
+	public function do_validation( $value ) {
 
 		// Get choices.
 		$choices = $this->get_choices();
@@ -228,4 +228,4 @@ class Checkbox extends Base {
 
 }
 
-Fields::register( 'checkbox', '\Rocketgenius\Gravity_Forms\Settings\Fields\Checkbox' );
+Fields::register( 'checkbox', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Checkbox' );

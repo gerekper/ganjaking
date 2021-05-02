@@ -2,6 +2,7 @@
 
 namespace ACP\ListScreen;
 
+use AC\WpListTableFactory;
 use ACP\ListScreen;
 use WP_MS_Users_List_Table;
 
@@ -22,10 +23,8 @@ class MSUser extends ListScreen\User {
 	/**
 	 * @return WP_MS_Users_List_Table
 	 */
-	public function get_list_table() {
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-ms-users-list-table.php' );
-
-		return new WP_MS_Users_List_Table( [ 'screen' => $this->get_screen_id() ] );
+	protected function get_list_table() {
+		return ( new WpListTableFactory() )->create_network_user_table( $this->get_screen_id() );
 	}
 
 	protected function get_admin_url() {

@@ -27,7 +27,7 @@
       <label><?php _e('Credit Card:*', 'memberpress'); ?></label>
       <span role="alert" class="mepr-stripe-card-errors"></span>
     </div>
-    <div class="mepr-stripe-card-element" data-stripe-public-key="<?php echo esc_attr($payment_method->settings->public_key); ?>" data-payment-method-id="<?php echo esc_attr($payment_method->settings->id); ?>">
+    <div class="mepr-stripe-card-element" data-stripe-public-key="<?php echo esc_attr($payment_method->settings->public_key); ?>" data-payment-method-id="<?php echo esc_attr($payment_method->settings->id); ?>" data-locale-code="<?php echo $mepr_options->language_code; ?>">
       <!-- a Stripe Element will be inserted here. -->
     </div>
   </div>

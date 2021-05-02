@@ -35,10 +35,10 @@ class FeaturedImage extends AC\Settings\Column
 	}
 
 	/**
-	 * @param int   $value
-	 * @param mixed $original_value
+	 * @param string|int|false $value
+	 * @param mixed            $original_value
 	 *
-	 * @return string|int
+	 * @return string|int|false
 	 */
 	public function format( $value, $original_value ) {
 

@@ -3,6 +3,7 @@
 namespace ACP\ListScreen;
 
 use AC;
+use AC\WpListTableFactory;
 use ACP\Column;
 use ACP\Editing;
 use ACP\Export;
@@ -64,10 +65,8 @@ class Taxonomy extends AC\ListScreenWP
 	/**
 	 * @return WP_Terms_List_Table
 	 */
-	public function get_list_table() {
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-terms-list-table.php' );
-
-		return new WP_Terms_List_Table( [ 'screen' => $this->get_screen_id() ] );
+	protected function get_list_table() {
+		return ( new WpListTableFactory() )->create_taxonomy_table( $this->get_screen_id() );
 	}
 
 	/**

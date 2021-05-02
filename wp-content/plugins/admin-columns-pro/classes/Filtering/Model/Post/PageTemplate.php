@@ -38,7 +38,7 @@ class PageTemplate extends Model\Meta {
 					continue;
 				}
 
-				$data['options'][ $page_template ] = $label ? $label : $page_template;
+				$data['options'][ $page_template ] = $label ?: $page_template;
 			}
 		}
 

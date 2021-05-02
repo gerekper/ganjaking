@@ -1,5 +1,9 @@
 ( function ( $ ) {
 
+	$(document).ready(function() {
+		gform.adminUtils.handleUnsavedChanges( '#gform-settings' );
+	});
+
 	var $container  = $( 'div[id="gform_setting_reset"]' ),
 		$publicKey  = $( 'input[name="_gform_setting_public_key"]' ),
 		$privateKey = $( 'input[name="_gform_setting_private_key"]' ),

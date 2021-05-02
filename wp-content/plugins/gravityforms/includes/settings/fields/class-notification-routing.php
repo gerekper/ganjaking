@@ -1,12 +1,12 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 use GFAPI;
 use GFCommon;
 use GFFormsModel;
 use GFNotification;
-use Rocketgenius\Gravity_Forms\Settings\Fields;
+use Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 defined( 'ABSPATH' ) || die();
 
@@ -126,11 +126,8 @@ class Notification_Routing extends Base {
 
 			// Prepare add button.
 			$add_button = sprintf(
-				'<button class="gform-settings-field__notification-routing-button gform-settings-field__notification-routing-button--add" onclick="SetRouting(%2$d); InsertRouting(%3$d);">
+				'<button class="gform-settings-field__notification-routing-button gform-settings-field__notification-routing-button--add gform-st-icon gform-st-icon--circle-plus" onclick="SetRouting(%2$d); InsertRouting(%3$d);">
 					<span class="screen-reader-text">%1$s</span>
-					<svg width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path fill-rule="evenodd" clip-rule="evenodd" d="M6 0c-.5523 0-1 .4477-1 1v4H1c-.5523 0-1 .4477-1 1s.4477 1 1 1h4v4c0 .5523.4477 1 1 1s1-.4477 1-1V7h4c.5523 0 1-.4477 1-1s-.4477-1-1-1H7V1c0-.5523-.4477-1-1-1z" fill="#3E7DA6"/>
-					</svg>
 				</button>',
 				esc_attr__( 'Add Another Rule', 'gravityforms' ),
 				$i,
@@ -146,11 +143,8 @@ class Notification_Routing extends Base {
 					GFCommon::get_base_url()
 				);
 				$delete_button = sprintf(
-					'<button class="gform-settings-field__notification-routing-button gform-settings-field__notification-routing-button--delete" onclick="DeleteRouting(%2$d);">
+					'<button class="gform-settings-field__notification-routing-button gform-settings-field__notification-routing-button--delete gform-st-icon gform-st-icon--circle-minus" onclick="DeleteRouting(%2$d);">
 						<span class="screen-reader-text">%1$s</span>
-						<svg width="12" height="2" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M0 1c0-.5523.4477-1 1-1h10c.5523 0 1 .4477 1 1s-.4477 1-1 1H1c-.5523 0-1-.4477-1-1z" fill="#3E7DA6"/>
-						</svg>
 					</button>',
 					esc_attr__( 'Remove This Rule', 'gravityforms' ),
 					$i
@@ -227,7 +221,7 @@ class Notification_Routing extends Base {
 					var endsWithSelected = routings[ i ].operator == 'ends_with' ? "selected='selected'" : '';
 					var email = routings[ i ][ "email" ] ? routings[ i ][ "email" ] : '';
 
-					str += "<div style='width:99%'>" + <?php echo json_encode( esc_html__( 'Send to', 'gravityforms' ) ); ?> + " <input type='text' id='routing_email_" + i + "' value='" + email + "' class='gfield_routing_email' />";
+					str += "<div>" + <?php echo json_encode( esc_html__( 'Send to', 'gravityforms' ) ); ?> + " <input type='text' id='routing_email_" + i + "' value='" + email + "' class='gfield_routing_email' />";
 					str += " " + <?php echo json_encode( esc_html__( 'if', 'gravityforms' ) ); ?> + " " + GetRoutingFields( i, routings[ i ].fieldId ) + "&nbsp;";
 					str += "<select id='routing_operator_" + i + "' onchange='SetRouting(" + i + ");' class='gform_routing_operator'>";
 					str += "<option value='is' " + isSelected + ">" + <?php echo json_encode( esc_html__( 'is', 'gravityforms' ) ); ?> + "</option>";
@@ -240,15 +234,13 @@ class Notification_Routing extends Base {
 					str += "</select>&nbsp;";
 					str += GetRoutingValues( i, routings[ i ].fieldId, routings[ i ].value ) + "&nbsp;";
 
-					str += "<button class='gform-settings-field__notification-routing-button gform-settings-field__notification-routing-button--add' onclick='InsertRouting(" + ( i + 1 ) + ");'>";
+					str += "<button class='gform-settings-field__notification-routing-button gform-settings-field__notification-routing-button--add gform-st-icon gform-st-icon--circle-plus' onclick='InsertRouting(" + ( i + 1 ) + ");'>";
 					str += "<span class='screen-reader-text'><?php esc_attr_e( 'Add Another Rule', 'gravityforms' ); ?></span>";
-					str += '<svg width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M6 0c-.5523 0-1 .4477-1 1v4H1c-.5523 0-1 .4477-1 1s.4477 1 1 1h4v4c0 .5523.4477 1 1 1s1-.4477 1-1V7h4c.5523 0 1-.4477 1-1s-.4477-1-1-1H7V1c0-.5523-.4477-1-1-1z" fill="#3E7DA6"/></svg>';
 					str += "</button>";
 
 					if ( routings.length > 1 ) {
-						str += "<button class='gform-settings-field__notification-routing-button gform-settings-field__notification-routing-button--delete' onclick='DeleteRouting(" + ( i ) + ");'>";
+						str += "<button class='gform-settings-field__notification-routing-button gform-settings-field__notification-routing-button--delete gform-st-icon gform-st-icon--circle-minus' onclick='DeleteRouting(" + ( i ) + ");'>";
 						str += "<span class='screen-reader-text'><?php esc_attr_e( 'Remove This Rule', 'gravityforms' ); ?></span>";
-						str += '<svg width="12" height="2" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 1c0-.5523.4477-1 1-1h10c.5523 0 1 .4477 1 1s-.4477 1-1 1H1c-.5523 0-1-.4477-1-1z" fill="#3E7DA6"/></svg>';
 						str += "</button>";
 					}
 
@@ -399,14 +391,35 @@ class Notification_Routing extends Base {
 				jQuery( '#routing' ).val( JSON.stringify( current_notification.routing ) );
 			}
 
-			function SetRouting(ruleIndex) {
-				if (!current_notification.routing && ruleIndex == 0)
-					current_notification.routing = [new ConditionalRule()];
+			/**
+			 * Set the route array and the hidden field that holds the route JSON.
+			 *
+			 * @since unknown
+			 * @since 2.5 Updated to keep the hidden field and the routing array in sync.
+			 *
+			 * @param {int} ruleIndex The index of the rule being edited.
+			 */
+			function SetRouting( ruleIndex ) {
 
-				current_notification.routing[ruleIndex]["email"] = jQuery("#routing_email_" + ruleIndex).val();
-				current_notification.routing[ruleIndex]["fieldId"] = jQuery("#routing_field_id_" + ruleIndex).val();
-				current_notification.routing[ruleIndex]["operator"] = jQuery("#routing_operator_" + ruleIndex).val();
-				current_notification.routing[ruleIndex]["value"] = jQuery("#routing_value_" + ruleIndex).val();
+				// Get the current value of the hidden field and set it to a new conditional rule if it is an empty array.
+				$currentHiddenValue = JSON.parse( jQuery( '#routing' ).val() );
+				if ( $currentHiddenValue[0].length === 0 ) {
+					$currentHiddenValue[0] = new ConditionalRule();
+					jQuery( '#routing' ).val( JSON.stringify( $currentHiddenValue ) );
+				};
+
+				// Set the routing array for the current notification based on the hidden field value, so it populates even if validation fails.
+				current_notification.routing = $currentHiddenValue;
+
+				// If the current routing index doesn't exist after failed validation, create a blank conditional rule so we can update the values.
+				if ( !current_notification.routing[ruleIndex] ) {
+					current_notification.routing.splice( current_notification.routing.length, 0, new ConditionalRule() );
+				}
+
+				current_notification.routing[ruleIndex]["email"] = jQuery( "#routing_email_" + ruleIndex ).val();
+				current_notification.routing[ruleIndex]["fieldId"] = jQuery( "#routing_field_id_" + ruleIndex ).val();
+				current_notification.routing[ruleIndex]["operator"] = jQuery( "#routing_operator_" + ruleIndex ).val();
+				current_notification.routing[ruleIndex]["value"] = jQuery( "#routing_value_" + ruleIndex ).val();
 
 				jQuery( '#routing' ).val( JSON.stringify( current_notification.routing ) );
 			}
@@ -440,7 +453,7 @@ class Notification_Routing extends Base {
 	 *
 	 * @param array $value Posted field value.
 	 */
-	public function is_valid( $value ) {
+	public function do_validation( $value ) {
 
 		// If no routes are defined, set field error.
 		if ( empty( $value ) || ! is_array( $value ) ) {
@@ -599,4 +612,4 @@ class Notification_Routing extends Base {
 
 }
 
-Fields::register( 'notification_routing', '\Rocketgenius\Gravity_Forms\Settings\Fields\Notification_Routing' );
+Fields::register( 'notification_routing', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Notification_Routing' );

@@ -18,9 +18,6 @@ final class Version510 implements Decoder {
 		$this->list_screen_types = $list_screen_types;
 	}
 
-	/**
-	 * @inheritdoc
-	 */
 	public function decode( array $encoded_list_screen ) {
 		if ( ! $this->can_decode( $encoded_list_screen ) ) {
 			throw new UndecodableListScreenException( $encoded_list_screen );

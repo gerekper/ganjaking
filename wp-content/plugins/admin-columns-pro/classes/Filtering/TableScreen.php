@@ -25,7 +25,6 @@ abstract class TableScreen {
 		$this->assets = $assets;
 
 		add_action( 'ac/table_scripts', [ $this, 'scripts' ] );
-		add_action( 'ac/admin_head', [ $this, 'add_indicator' ], 10, 0 );
 		add_action( 'ac/admin_head', [ $this, 'hide_default_dropdowns' ], 10, 0 );
 	}
 
@@ -35,36 +34,6 @@ abstract class TableScreen {
 		foreach ( $this->assets as $asset ) {
 			$asset->enqueue();
 		}
-	}
-
-	/**
-	 * Colors the column label orange on the listing screen when it is being filtered
-	 */
-	public function add_indicator() {
-		$classes = [];
-
-		foreach ( $this->models as $model ) {
-			if ( ! $model->is_active() || ! $model->get_filter_value() ) {
-				continue;
-			}
-
-			$column_class = 'thead tr th.column-' . $model->get_column()->get_name();
-
-			$classes[] = $column_class;
-			$classes[] = $column_class . ' > a span:first-child';
-		}
-
-		if ( ! $classes ) {
-			return;
-		}
-
-		?>
-
-		<style>
-			<?php echo implode( ', ', $classes ) .  '{ font-weight: bold; position: relative; }'; ?>
-		</style>
-
-		<?php
 	}
 
 	/**

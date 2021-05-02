@@ -61,6 +61,7 @@ jQuery(document).ready(function($) {
     $.post(ajaxurl, data, function(response) {
       if( response.error === undefined ) {
         $(response.form).hide().appendTo('#integrations-list').slideDown('fast');
+        $("select.mepr-gateways-dropdown").val("MeprStripeGateway").change();
         mepr_setup_clipboard();
       }
       else {
@@ -96,7 +97,7 @@ jQuery(document).ready(function($) {
         $('#mepr-integration-'+data_id).replaceWith(response.form);
         mepr_setup_clipboard();
         if( gateway === 'MeprStripeGateway' ) {
-          $('#mepr-stripe-live-keys-'+response.id).show();
+          $('#mepr-stripe-live-keys-'+response.id).slideDown('fast');
         }
 
         mepr_toggle_boxes();

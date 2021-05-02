@@ -6,6 +6,7 @@ use AC;
 use AC\Column;
 use AC\ListTable;
 use AC\ListTableFactory;
+use ACP\Export\Asset\Script\Table;
 
 /**
  * Base class for governing exporting for a list screen that is exportable. This class should be
@@ -42,9 +43,11 @@ abstract class Strategy {
 	abstract protected function ajax_export();
 
 	/**
-	 * @return ListTable
+	 * @return ListTable|null
 	 */
-	abstract protected function get_list_table();
+	protected function get_list_table() {
+		return $this->list_table_factory->create_from_globals();
+	}
 
 	/**
 	 * Constructor
@@ -79,7 +82,7 @@ abstract class Strategy {
 			return;
 		}
 
-		if ( ! wp_verify_nonce( filter_input( INPUT_GET, '_wpnonce' ), 'acp_export_listscreen_export' ) ) {
+		if ( ! wp_verify_nonce( filter_input( INPUT_GET, '_wpnonce' ), Table::NONCE_ACTION ) ) {
 			return;
 		}
 
@@ -121,13 +124,17 @@ abstract class Strategy {
 	 * Retrieve the rows to export based on a set of item IDs. The rows contain the column data to
 	 * export for each item
 	 *
-	 * @param int[] $items IDs of the items to export
+	 * @param int[] $ids IDs of the items to export
 	 *
 	 * @return array[mixed] Rows to export. One row is returned for each item ID
 	 * @since 1.0
 	 */
 	public function get_rows( $ids ) {
 		$table = $this->get_list_table();
+
+		if ( ! $table ) {
+			return [];
+		}
 
 		$exportable_columns = $this->get_exportable_columns();
 
@@ -222,9 +229,7 @@ abstract class Strategy {
 		 * @param array      $headers     Associative array of data for corresponding headers
 		 * @param ListScreen $list_screen Exportable list screen instance
 		 */
-		$headers = apply_filters( 'ac/export/headers', $headers, $this );
-
-		return $headers;
+		return apply_filters( 'ac/export/headers', $headers, $this );
 	}
 
 	/**
@@ -284,6 +289,17 @@ abstract class Strategy {
 		 * @since 1.0
 		 */
 		return (int) apply_filters( 'ac/export/exportable_list_screen/num_items_per_iteration', 250, $this );
+	}
+
+	/**
+	 * @return int|null
+	 */
+	public function get_total_items() {
+		$table = $this->get_list_table();
+
+		return $table
+			? $table->get_total_items()
+			: null;
 	}
 
 }

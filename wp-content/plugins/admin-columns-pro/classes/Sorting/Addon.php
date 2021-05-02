@@ -4,15 +4,15 @@ namespace ACP\Sorting;
 
 use AC;
 use AC\Asset\Location;
+use AC\Column;
+use AC\ColumnRepository;
 use AC\ListScreenRepository\Storage;
+use AC\Registrable;
+use ACP\Bookmark;
 use ACP\Sorting\Admin;
 use ACP\Sorting\Controller;
 
-/**
- * Sorting Addon class
- * @since 1.0
- */
-class Addon implements AC\Registrable {
+class Addon implements Registrable {
 
 	/**
 	 * @var Storage
@@ -29,10 +29,28 @@ class Addon implements AC\Registrable {
 	 */
 	private $admin;
 
-	public function __construct( Storage $storage, Location\Absolute $location, AC\Admin $admin ) {
+	/**
+	 * @var NativeSortableFactory
+	 */
+	private $native_sortable_factory;
+
+	/**
+	 * @var ModelFactory
+	 */
+	private $model_factory;
+
+	/**
+	 * @var Bookmark\SegmentRepository
+	 */
+	private $segment_repository;
+
+	public function __construct( Storage $storage, Location\Absolute $location, AC\Admin $admin, NativeSortableFactory $native_sortable_factory, ModelFactory $model_factory, Bookmark\SegmentRepository $segment_repository ) {
 		$this->storage = $storage;
 		$this->location = $location;
 		$this->admin = $admin;
+		$this->native_sortable_factory = $native_sortable_factory;
+		$this->model_factory = $model_factory;
+		$this->segment_repository = $segment_repository;
 	}
 
 	public function register() {
@@ -45,7 +63,7 @@ class Addon implements AC\Registrable {
 		];
 
 		foreach ( $services as $service ) {
-			if ( $service instanceof AC\Registrable ) {
+			if ( $service instanceof Registrable ) {
 				$service->register();
 			}
 		}
@@ -69,25 +87,34 @@ class Addon implements AC\Registrable {
 			return;
 		}
 
-		$table = new Table\Screen( $list_screen, $this->location, new NativeSortableRepository() );
+		$table = new Table\Screen(
+			$list_screen,
+			$this->location,
+			$this->native_sortable_factory->create( $list_screen ),
+			$this->model_factory,
+			new ColumnRepository( $list_screen ),
+			new Settings\ListScreen\PreferredSort( $list_screen ),
+			new Settings\ListScreen\PreferredSegmentSort( new Bookmark\Setting\PreferredSegment( $list_screen, $this->segment_repository ) )
+		);
+
 		$table->register();
 	}
 
 	/**
 	 * Register field settings for sorting
 	 *
-	 * @param AC\Column $column
+	 * @param Column $column
 	 */
 	public function register_column_settings( $column ) {
-		$model = ( new ModelFactory() )->create( $column );
+		$model = $this->model_factory->create( $column );
 
 		if ( $model ) {
 			$column->add_setting( new Settings( $column ) );
 		}
 
-		$native = new NativeSortableRepository();
+		$native_repository = $this->native_sortable_factory->create( $column->get_list_screen() );
 
-		if ( $native->is_column_sortable( $column->get_list_screen()->get_key(), $column->get_type() ) ) {
+		if ( $native_repository->find( $column->get_type() ) ) {
 
 			$setting = new Settings( $column );
 			$setting->set_default( 'on' );

@@ -15,7 +15,7 @@ class GPPA_Compatibility_GravityPDF {
 	}
 
 	public function __construct() {
-		add_action( 'gfpdf_pre_view_or_download_pdf', array( $this, 'add_hydrate_form_hook_for_pdf_view_or_download' ) );
+		add_action( 'gfpdf_legacy_pre_view_or_download_pdf', array( $this, 'add_hydrate_form_hook_for_pdf_view_or_download' ) );
 		add_action( 'gfpdf_pre_generate_and_save_pdf_notification', array( $this, 'add_hydrate_form_hook_for_pdf_notification' ), 10, 2 );
 	}
 

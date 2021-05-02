@@ -51,9 +51,6 @@ abstract class Meta extends Comparison {
 		return $this->meta_type;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function create_query_bindings( $operator, Value $value ) {
 		$bindings = new Bindings();
 		$bindings->meta_query(

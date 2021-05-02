@@ -2,7 +2,6 @@
 
 namespace ACP\Export\Strategy;
 
-use AC\ListTable;
 use ACP;
 use ACP\Export\Strategy;
 use WP_Term_Query;
@@ -18,10 +17,6 @@ class Taxonomy extends Strategy {
 	 */
 	public function __construct( ACP\ListScreen\Taxonomy $list_screen ) {
 		parent::__construct( $list_screen );
-	}
-
-	protected function get_list_table() {
-		return new ListTable\Taxonomy( $this->list_screen->get_taxonomy() );
 	}
 
 	/**

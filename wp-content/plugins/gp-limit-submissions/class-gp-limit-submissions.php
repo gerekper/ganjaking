@@ -151,7 +151,7 @@ class GP_Limit_Submissions extends GP_Feed_Plugin {
 			'plugins'      => array(
 				'gravityperks/gravityperks.php' => array(
 					'name'    => 'Gravity Perks',
-					'version' => '2.2',
+					'version' => '2.2.3',
 				),
 			),
 		);
@@ -219,9 +219,9 @@ class GP_Limit_Submissions extends GP_Feed_Plugin {
 			'Form Schedule'   => __( 'Only entires that fall within the specified form schedule will count towards the submission limit. You can configure your form schedule on the Form Settings page via the "Schedule form" setting.', 'gp-limit-submissions' ),
 		);
 		foreach ( $specifics as $label => &$description ) {
-			$description = "<strong>{$label}</strong><br>{$description}";
+			$description = "<br><strong>{$label}</strong>{$description}";
 		}
-		return sprintf( '%s<br><br><ul><li>%s</li></ul>', $generic, implode( '</li><li>', $specifics ) );
+		return sprintf( '%s<br><ul><li>%s</li></ul>', $generic, implode( '</li><li>', $specifics ) );
 	}
 
 	public function settings_rule_time_period_field() {

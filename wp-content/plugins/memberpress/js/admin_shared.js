@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
     $('div#mepr-shortcode-login-page-area').hide();
   }
 
-  $('#_mepr_manual_login_form').click(function() {
+  $('#_mepr_manual_login_form').on('click' , function() {
     $('div#mepr-shortcode-login-page-area').slideToggle();
   });
 
@@ -30,30 +30,32 @@ jQuery(document).ready(function($) {
   };
 
   unauth_tgl(unauth_tgl_ids.excerpt.src,unauth_tgl_ids.excerpt.target);
-  $('#'+unauth_tgl_ids.excerpt.src).change( function() {
+  $('#'+unauth_tgl_ids.excerpt.src).on('change', function() {
     unauth_tgl(unauth_tgl_ids.excerpt.src,unauth_tgl_ids.excerpt.target);
   });
 
   unauth_tgl(unauth_tgl_ids.message.src,unauth_tgl_ids.message.target);
-  $('#'+unauth_tgl_ids.message.src).change( function() {
+  $('#'+unauth_tgl_ids.message.src).on('change', function() {
     unauth_tgl(unauth_tgl_ids.message.src,unauth_tgl_ids.message.target);
   });
 
-  $('table.wp-list-table tr').hover(
+  $('table.wp-list-table tr').on('mouseenter',
     function(e) {
       $(this).find('.mepr-row-actions').css('visibility','visible');
-    },
+    }
+  );
+  $('table.wp-list-table tr').on('mouseleave',
     function(e) {
       $(this).find('.mepr-row-actions').css('visibility','hidden');
     }
   );
 
-  $( '.mepr-auto-trim' ).blur( function(e) {
+  $( '.mepr-auto-trim' ).on('blur', function(e) {
     var value = $(this).val();
     $(this).val( value.trim() );
   });
 
-  $('.mepr-slide-toggle').click( function(e) {
+  $('.mepr-slide-toggle').on('click', function(e) {
     e.preventDefault();
     $($(this).attr('data-target')).slideToggle();
   });

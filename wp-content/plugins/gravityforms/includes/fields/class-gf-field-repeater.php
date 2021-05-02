@@ -631,8 +631,10 @@ class GF_Field_Repeater extends GF_Field {
 	 * Builds the repeater's array of items.
 	 *
 	 * @since 2.4
+	 * @since 2.5 Added the $apply_filters parameter.
 	 *
-	 * @param $entry
+	 * @param      $entry
+	 * @param bool $apply_filters Whether to apply the filter_input_value filter to the entry.
 	 *
 	 * @return mixed
 	 */
@@ -646,10 +648,12 @@ class GF_Field_Repeater extends GF_Field {
 	 * of items.
 	 *
 	 * @since 2.4
+	 * @since 2.5 Added the $apply_filters parameter.
 	 *
 	 * @param array             $entry
 	 * @param GF_Field_Repeater $repeater_field
 	 * @param string            $index
+	 * @param bool              $apply_filters Whether to apply the filter_input_value filter to the entry.
 	 *
 	 * @return array
 	 */

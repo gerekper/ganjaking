@@ -1,4 +1,4 @@
-# Copyright (C) 2020 GP Nested Forms
+# Copyright (C) 2021 GP Nested Forms
 # This file is distributed under the same license as the GP Nested Forms package.
 msgid ""
 msgstr ""
@@ -13,167 +13,167 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../class-gp-nested-forms.php:213, ../class-gp-nested-forms.php:609, ../includes/class-gp-field-nested-form.php:8
+#: ../class-gp-nested-forms.php:224, ../class-gp-nested-forms.php:637, ../includes/class-gp-field-nested-form.php:8
 msgid "Nested Form"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:213
+#: ../class-gp-nested-forms.php:224
 msgid "Select the form that should be used to create nested entries for this form."
 msgstr ""
 
-#: ../class-gp-nested-forms.php:214, ../class-gp-nested-forms.php:628
+#: ../class-gp-nested-forms.php:225, ../class-gp-nested-forms.php:658
 msgid "Summary Fields"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:214
+#: ../class-gp-nested-forms.php:225
 msgid "Select which fields from the nested entry will display in table on the current form. This does not affect which fields will appear in the modal."
 msgstr ""
 
-#: ../class-gp-nested-forms.php:215, ../class-gp-nested-forms.php:640
+#: ../class-gp-nested-forms.php:226, ../class-gp-nested-forms.php:673
 msgid "Entry Labels"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:215
+#: ../class-gp-nested-forms.php:226
 msgid "Specify a singular and plural label with which entries submitted via this field will be labeled (i.e. \"employee\", \"employees\")."
 msgstr ""
 
-#: ../class-gp-nested-forms.php:216, ../class-gp-nested-forms.php:686
+#: ../class-gp-nested-forms.php:227, ../class-gp-nested-forms.php:722
 msgid "Entry Limits"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:216
+#: ../class-gp-nested-forms.php:227
 msgid "Specify the minimum and maximum number of entries that can be submitted for this field."
 msgstr ""
 
-#: ../class-gp-nested-forms.php:217, ../class-gp-nested-forms.php:710
+#: ../class-gp-nested-forms.php:228, ../class-gp-nested-forms.php:746
 msgid "Feed Processing"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:217
+#: ../class-gp-nested-forms.php:228
 msgid "By default, any Gravity Forms add-on feeds will be processed immediately when the nested form is submitted. Use this option to delay feed processing for entries submitted via the nested form until after the parent form is submitted. <br><br>For example, if you have a User Registration feed configured for the nested form, you may not want the users to actually be registered until the parent form is submitted."
 msgstr ""
 
-#: ../class-gp-nested-forms.php:218, ../class-gp-nested-forms.php:667
+#: ../class-gp-nested-forms.php:229, ../class-gp-nested-forms.php:701
 msgid "Modal Color"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:218
+#: ../class-gp-nested-forms.php:229
 msgid "Select a color which will be used to set the background color of the nested form modal header and navigational buttons."
 msgstr ""
 
-#: ../class-gp-nested-forms.php:364
+#: ../class-gp-nested-forms.php:387
 msgid "There was an error retrieving the fields for this form. Please try again or contact support."
 msgstr ""
 
-#: ../class-gp-nested-forms.php:365
+#: ../class-gp-nested-forms.php:388
 msgid "Select your fields"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:519, ../class-gp-nested-forms.php:808
+#: ../class-gp-nested-forms.php:547, ../class-gp-nested-forms.php:895
 msgid "Parent Entry ID"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:614
+#: ../class-gp-nested-forms.php:642
 msgid "Select a Form"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:644
+#: ../class-gp-nested-forms.php:678
 msgid "Singular"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:646
+#: ../class-gp-nested-forms.php:680
 msgid "e.g. Entry"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:650
+#: ../class-gp-nested-forms.php:684
 msgid "Plural"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:652
+#: ../class-gp-nested-forms.php:686
 msgid "e.g. Entries"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:692
+#: ../class-gp-nested-forms.php:728
 msgid "Minimum"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:694
+#: ../class-gp-nested-forms.php:730
 msgid "e.g. 2"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:699
+#: ../class-gp-nested-forms.php:735
 msgid "Maximum"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:701
+#: ../class-gp-nested-forms.php:737
 msgid "e.g. 5"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:714
+#: ../class-gp-nested-forms.php:750
 msgid "Process nested feeds when the"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:716
+#: ../class-gp-nested-forms.php:752
 msgid "parent form"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:717
+#: ../class-gp-nested-forms.php:753
 msgid "nested form"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:719
+#: ../class-gp-nested-forms.php:755
 msgid "is submitted."
 msgstr ""
 
-#: ../class-gp-nested-forms.php:813
+#: ../class-gp-nested-forms.php:900
 msgid "Parent Entry Form ID"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:818
+#: ../class-gp-nested-forms.php:905
 msgid "Child Form Field ID"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:881
+#: ../class-gp-nested-forms.php:975
 msgid "Oops! You don't have permission to get fields for this form."
 msgstr ""
 
-#: ../class-gp-nested-forms.php:896, ../class-gp-nested-forms.php:903
+#: ../class-gp-nested-forms.php:990, ../class-gp-nested-forms.php:997
 msgid "Oops! You don't have permission to delete this entry."
 msgstr ""
 
-#: ../class-gp-nested-forms.php:922, ../class-gp-nested-forms.php:934
+#: ../class-gp-nested-forms.php:1016, ../class-gp-nested-forms.php:1028
 msgid "Oops! You don't have permission to edit this entry."
 msgstr ""
 
-#: ../class-gp-nested-forms.php:930
+#: ../class-gp-nested-forms.php:1024
 msgid "Oops! We can't locate that entry."
 msgstr ""
 
-#: ../class-gp-nested-forms.php:958
+#: ../class-gp-nested-forms.php:1067
 msgid "Oops! You don't have permission to do this."
 msgstr ""
 
-#: ../class-gp-nested-forms.php:990, ../class-gp-nested-forms.php:997
+#: ../class-gp-nested-forms.php:1110, ../class-gp-nested-forms.php:1117
 msgid "Oops! You don't have permission to duplicate this entry."
 msgstr ""
 
-#: ../class-gp-nested-forms.php:1761, ../class-gp-nested-forms.php:1780, ../class-gp-nested-forms.php:1788, ../includes/class-gp-field-nested-form.php:76
+#: ../class-gp-nested-forms.php:1941, ../class-gp-nested-forms.php:1960, ../class-gp-nested-forms.php:1969, ../includes/class-gp-field-nested-form.php:81
 msgid "Add %s"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:1762, ../class-gp-nested-forms.php:1781, ../class-gp-nested-forms.php:1793
+#: ../class-gp-nested-forms.php:1942, ../class-gp-nested-forms.php:1961, ../class-gp-nested-forms.php:1974
 msgid "Edit %s"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:1763
+#: ../class-gp-nested-forms.php:1943
 msgid "Cancel"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:1764, ../includes/class-gp-field-nested-form.php:96
+#: ../class-gp-nested-forms.php:1944, ../includes/class-gp-field-nested-form.php:101
 msgid "Delete"
 msgstr ""
 
-#: ../class-gp-nested-forms.php:1765
+#: ../class-gp-nested-forms.php:1945
 msgid "Are you sure?"
 msgstr ""
 
@@ -181,52 +181,54 @@ msgstr ""
 msgid "Nested Form fields cannot be edited. Edit the child entry to make changes."
 msgstr ""
 
-#: ../includes/class-gp-field-nested-form.php:65
+#: ../includes/class-gp-field-nested-form.php:66
 msgid "Configuration Required"
 msgstr ""
 
-#: ../includes/class-gp-field-nested-form.php:66
+#: ../includes/class-gp-field-nested-form.php:67
 msgid "Use the Nested Form and Summary Fields settings to choose the form and fields to display in this Nested Form field."
 msgstr ""
 
-#: ../includes/class-gp-field-nested-form.php:92
-msgid "There are no %s%s.%s"
+#: ../includes/class-gp-field-nested-form.php:97
+msgid "There are no %1$s%2$s.%3$s"
 msgstr ""
 
-#: ../includes/class-gp-field-nested-form.php:94
+#: ../includes/class-gp-field-nested-form.php:99
 msgid "Edit"
 msgstr ""
 
-#: ../includes/class-gp-field-nested-form.php:95
+#: ../includes/class-gp-field-nested-form.php:100
 msgid "Duplicate"
 msgstr ""
 
-#: ../includes/class-gp-field-nested-form.php:165
+#: ../includes/class-gp-field-nested-form.php:186
 msgid "Maximum number of %s reached."
 msgstr ""
 
-#: ../includes/class-gp-field-nested-form.php:240
+#: ../includes/class-gp-field-nested-form.php:273
 msgid "View Expanded %s List"
 msgstr ""
 
-#: ../includes/class-gp-field-nested-form.php:262
+#: ../includes/class-gp-field-nested-form.php:296
 msgid "View Entry"
 msgstr ""
 
-#: ../includes/class-gp-field-nested-form.php:341
+#: ../includes/class-gp-field-nested-form.php:387
 msgid "Entry"
 msgstr ""
 
-#: ../includes/class-gp-field-nested-form.php:342
+#: ../includes/class-gp-field-nested-form.php:388
 msgid "Entries"
 msgstr ""
 
-#: ../includes/class-gp-field-nested-form.php:383
-msgid "Please enter a minimum of %d %s"
+#. translators: %1$d is replaced with the minimum. %2$s is replaced with the label for an individual entry.
+#: ../includes/class-gp-field-nested-form.php:442
+msgid "Please enter a minimum of %1$d %2$s"
 msgstr ""
 
-#: ../includes/class-gp-field-nested-form.php:389
-msgid "Please enter a maximum of %d %s"
+#. translators: %1$d is replaced with the maximum. %2$s is replaced with the label for an individual entry.
+#: ../includes/class-gp-field-nested-form.php:460
+msgid "Please enter a maximum of %1$d %2$s"
 msgstr ""
 
 #: ../includes/class-gpnf-merge-tags.php:28

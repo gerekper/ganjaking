@@ -1,8 +1,8 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
-use Rocketgenius\Gravity_Forms\Settings\Fields;
+use Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 defined( 'ABSPATH' ) || die();
 
@@ -65,18 +65,18 @@ class Toggle extends Base {
 		);
 
 		// Insert toggle UI.
-		$html .= sprintf( '<label class="gform-settings-field__toggle-container" for="%s">', $input_id );
+		$html .= sprintf( '<label class="gform-field__toggle-container" for="%s">', $input_id );
 		$html .= $this->toggle_label ? sprintf( '<span class="screen-reader-text">%s</span>', rgar( $this, 'label' ) ? esc_html( $this->toggle_label ) : '' ) : '';
-		$html .= '<span class="gform-settings-field__toggle-switch"></span>';
+		$html .= '<span class="gform-field__toggle-switch"></span>';
 		$html .= '</label>';
 
 		// Insert after input markup.
 		$html .= rgobj( $this, 'after_input' );
 
-		$html .= '</span>';
-
 		// If field failed validation, add error icon.
 		$html .= $this->get_error_icon();
+
+		$html .= '</span>';
 
 		return $html;
 
@@ -84,4 +84,4 @@ class Toggle extends Base {
 
 }
 
-Fields::register( 'toggle', '\Rocketgenius\Gravity_Forms\Settings\Fields\Toggle' );
+Fields::register( 'toggle', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Toggle' );

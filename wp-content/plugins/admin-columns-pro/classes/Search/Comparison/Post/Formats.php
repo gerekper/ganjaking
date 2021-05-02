@@ -38,9 +38,6 @@ class Formats extends Comparison
 		return AC\Helper\Select\Options::create_from_array( $options );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	protected function create_query_bindings( $operator, Value $value ) {
 		if ( 'post-format-standard' === $value->get_value() ) {
 			return $this->create_non_existent_post_format_bindings();

@@ -31,9 +31,6 @@ class PluginsInclude extends Settings\Column
 		return $view;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function get_include_network() {
 		return $this->include_network;
 	}

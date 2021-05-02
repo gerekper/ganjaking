@@ -457,5 +457,6 @@ $warranty_table->prepare_items();
             <?php submit_button( __('Search', 'wc_warranty'), 'button', false, false, array('id' => 'search-submit') ); ?>
         </p>
     </form>
+
+    <?php $warranty_table->display(); ?>
 </div>
-<?php $warranty_table->display(); ?>

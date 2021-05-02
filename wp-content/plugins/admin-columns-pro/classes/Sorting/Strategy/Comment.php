@@ -18,8 +18,6 @@ final class Comment extends Strategy {
 
 	private function set_comment_query( WP_Comment_Query $query ) {
 		$this->query = $query;
-
-		return $this;
 	}
 
 	/**

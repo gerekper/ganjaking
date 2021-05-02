@@ -309,7 +309,7 @@
 				id: "#ia_luncher_bg_hover",
 				settings: [
 					{
-						selector: ".betterdocs-launcher[type=button]:hover",
+						selector: ".betterdocs-widget-container .betterdocs-launcher[type=button]:hover",
 						property: "background-color",
 					},
 				],

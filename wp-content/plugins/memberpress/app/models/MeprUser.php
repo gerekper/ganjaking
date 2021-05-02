@@ -752,13 +752,17 @@ class MeprUser extends MeprBaseModel {
       $this->rec->user_pass = $password;
       $this->store();
 
+      $username = $this->user_login;
+      $first_name = $this->first_name;
+
       /* translators: In this string, %s is the Blog Name/Title */
-      $subject = sprintf(__("[%s] Password Lost/Changed", 'memberpress'), $mepr_blogname);
+      $subject = MeprHooks::apply_filters('mper_admin_pw_reset_title', sprintf(__("[%s] Password Lost/Changed", 'memberpress'), $mepr_blogname));
 
-      /* translators: In this string, %1$s is the user's username */
-      $message = sprintf(__("Password Lost and Changed for user: %1\$s", 'memberpress'), $this->user_login);
+      ob_start();
+        MeprView::render('/emails/admin_password_reset', get_defined_vars());
+      $message = ob_get_clean();
 
-      MeprUtils::wp_mail_to_admin($subject, $message);
+      MeprUtils::wp_mail_to_admin($subject, $message, array("Content-Type: text/html"));
 
       $login_link = $mepr_options->login_page_url();
 
@@ -766,23 +770,12 @@ class MeprUser extends MeprBaseModel {
       $recipient = $this->formatted_email();
 
       /* translators: In this string, %s is the Blog Name/Title */
-      $subject = sprintf(_x("[%s] Your new Password", 'ui', 'memberpress'), $mepr_blogname);
+      $subject = MeprHooks::apply_filters('mper_user_pw_reset_title', sprintf(_x("[%s] Your new Password", 'ui', 'memberpress'), $mepr_blogname));
       $password_message = _x('', 'ui', 'memberpress');
 
+
       ob_start();
-      ?>
-        <p>
-          <?php echo (empty($this->first_name)?$this->user_login:$this->first_name); ?>,
-          <br/>
-          <?php echo sprintf(_x("Your password was successfully reset on %1\$s!", 'ui', 'memberpress'), $mepr_blogname); ?>
-        </p>
-        <p>
-          <?php echo sprintf(_x("Username: %1\$s", 'ui', 'memberpress'), $this->user_login); ?>
-          <br/>
-          <?php echo _x("Password: *** Successfully Reset ***", 'ui', 'memberpress'); ?>
-        </p>
-        <p><?php echo sprintf(_x("You can now login here: %1\$s", 'ui', 'memberpress'), $login_link); ?></p>
-      <?php
+        MeprView::render('/emails/user_password_was_reset', get_defined_vars());
       $message = ob_get_clean();
 
       MeprUtils::wp_mail($recipient, $subject, $message, array("Content-Type: text/html"));

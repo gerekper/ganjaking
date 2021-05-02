@@ -1126,6 +1126,7 @@ class MeprRule extends MeprCptModel {
 
   public static function get_unauth_settings_for($post) {
     $mepr_options = MeprOptions::fetch();
+
     $unauth = (object)array();
     $global_settings = self::get_global_unauth_settings();
     $post_settings = self::get_post_unauth_settings($post);
@@ -1182,10 +1183,10 @@ class MeprRule extends MeprCptModel {
       if($pos !== false) {
         //mbstring library loaded?
         if(extension_loaded('mbstring')) {
-          $unauth->excerpt = force_balance_tags(wpautop(do_shortcode(mb_substr($post->post_content, 0, $pos))));
+          $unauth->excerpt = force_balance_tags((do_shortcode(mb_substr($post->post_content, 0, $pos))));
         }
         else {
-          $unauth->excerpt = force_balance_tags(wpautop(do_shortcode(substr($post->post_content, 0, $pos))));
+          $unauth->excerpt = force_balance_tags((do_shortcode(substr($post->post_content, 0, $pos))));
         }
       }
       else { //No more tag?

@@ -711,6 +711,7 @@ class WC_Dropshipping_Orders {
 
 	// send the pdf to the supplier
 	public function send_order($order_info,$supplier_info) {
+		$options = get_option( 'wc_dropship_manager' );
 		$order = wc_get_order($order_info['id']);
 		$billing_address = $order->get_formatted_billing_address();
 		$shipping_address = $order->get_formatted_shipping_address();
@@ -811,6 +812,14 @@ class WC_Dropshipping_Orders {
 				$headers .= "CC: ".$from_email."\r\n";
 			}
 
+			if ( isset( $options['supp_notification'] ) ) {
+				if ( $options['supp_notification'] == 1 ) {
+					error_log( print_r( $order->get_order_number(), true ) );
+					error_log( 'Order notification disabled — will not send notification to supplier' );
+					return;
+				}
+			}
+
 
 			if($order->get_status() == 'completed') {
 
@@ -818,9 +827,7 @@ class WC_Dropshipping_Orders {
 			} else {
 				wp_mail($hdrs['To'], $hdrs['Subject'], $message, $headers, $attachments);
 			}
-		}
-		else
-		{
+		} else {
 			$fullinfo = $order_info['options']['full_information'];
 			//$bill = $order_info['options']['billing_phone'];
 			//$attachments = array();
@@ -956,6 +963,14 @@ class WC_Dropshipping_Orders {
 			$message .= "--{$mime_boundary_mixed}--";			// Must have 2 hyphens at the end
 
 			//wp_mail($hdrs['To'], $hdrs['Subject'] , $email_message_html, $headers);
+
+			if ( isset( $options['supp_notification'] ) ) {
+				if ( $options['supp_notification'] == 0 ) {
+					error_log( print_r( $order->get_order_number(), true ) );
+					error_log( 'Order notification disabled — will not send notification to supplier' );
+					return;
+				}
+			}
 
 			mail($hdrs['To'], $hdrs['Subject'], $message, $headers);
 		}

@@ -39,9 +39,6 @@ class Cached implements RequestDispatcher {
 		return unserialize( $cache->get() );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function dispatch( Request $request, array $args = [] ) {
 		$args = array_merge( [
 			self::EXPIRATION   => HOUR_IN_SECONDS,

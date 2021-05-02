@@ -645,10 +645,12 @@
 				}
 			},
 			toggleEnabledClass: function () {
+				const $field = $('.gfield').filter('#field_' + this.field.id);
+
 				if (this.enabled === true) {
-					$(this.$el).parents('.gfield').addClass('gppa-' + this.populate + '-enabled');
+					$field.addClass('gppa-' + this.populate + '-enabled');
 				} else if (this.enabled === false) {
-					$(this.$el).parents('.gfield').removeClass('gppa-' + this.populate + '-enabled');
+					$field.removeClass('gppa-' + this.populate + '-enabled');
 				}
 			},
 			changeObjectType: function () {

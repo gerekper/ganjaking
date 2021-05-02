@@ -33,12 +33,9 @@ use Yoast\WP\SEO\Repositories\Indexable_Repository;
  * @property string       $site_url
  * @property string       $company_name
  * @property int          $company_logo_id
-<<<<<<< HEAD
  * @property array        $company_logo_meta
  * @property int          $person_logo_id
  * @property array        $person_logo_meta
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
  * @property int          $site_user_id
  * @property string       $site_represents
  * @property array|false  $site_represents_reference

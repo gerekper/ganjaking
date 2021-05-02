@@ -2,9 +2,9 @@
 /**
  * Plugin Name: GP Email Users
  * Description: Send a quick email to all users who have submitted a specific form.
- * Plugin URI: http://gravitywiz.com/
- * Version: 1.3.9
- * Author: David Smith
+ * Plugin URI: https://gravitywiz.com/documentation/gravity-forms-email-users/
+ * Version: 1.3.11
+ * Author: Gravity Wiz
  * Author URI: http://gravitywiz.com/
  * License: GPL2
  * Text Domain: gp-email-users
@@ -12,7 +12,7 @@
  * Perk: True
  */
 
-define( 'GP_EMAIL_USERS_VERSION', '1.3.9' );
+define( 'GP_EMAIL_USERS_VERSION', '1.3.11' );
 
 require 'includes/class-gp-bootstrap.php';
 

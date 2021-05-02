@@ -94,7 +94,13 @@ class WordPress_GDPR_Cookie_Popup extends WordPress_GDPR
                 <div class="wordpress-gdpr-popup-overlay-backdrop"></div>
                 <div class="wordpress-gdpr-popup-container" style="background-color: <?php echo $popupBackgroundColor ?>; color: <?php echo $popupTextColor ?>;">
             <?php } else { ?>
-                <div class="wordpress-gdpr-popup-container">
+
+
+                <?php if($this->get_option('popupShowBackdrop')) { ?>
+                    <div class="wordpress-gdpr-popup-overlay-backdrop"></div>
+                <?php } ?>
+
+                <div class="wordpress-gdpr-popup-container" style="background-color: <?php echo $popupBackgroundColor ?>; color: <?php echo $popupTextColor ?>;">
             <?php } ?>
 
                 <?php if(!empty($popupCloseIcon)) { ?>

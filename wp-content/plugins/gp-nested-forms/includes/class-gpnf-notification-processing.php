@@ -38,9 +38,9 @@ class GPNF_Notification_Processing {
 	public function complicate_parent_merge_tag( $object ) {
 
 		foreach ( $object as $prop => $value ) {
-			if( is_array( $value ) ) {
+			if ( is_array( $value ) ) {
 				$object[ $prop ] = $this->complicate_parent_merge_tag( $value );
-			} else if( is_string( $value ) ) {
+			} elseif ( is_string( $value ) ) {
 				$object[ $prop ] = preg_replace( '/\{Parent:(.*?)\}/', '{%GPNF:Parent:$1%}', $value );
 			}
 		}
@@ -50,7 +50,7 @@ class GPNF_Notification_Processing {
 
 	public function should_disable_notification( $value, $notification, $form, $entry ) {
 
-		if( $notification['event'] != 'form_submission' ) {
+		if ( $notification['event'] != 'form_submission' ) {
 			return $value;
 		}
 
@@ -59,7 +59,7 @@ class GPNF_Notification_Processing {
 			$nested_form_field = gp_nested_forms()->get_posted_nested_form_field( $parent_form );
 
 			return ! $this->should_send_notification( 'child', $notification, $parent_form, $nested_form_field, $entry, $form );
-		} else if ( $parent_form_id = rgar( $entry, GPNF_Entry::ENTRY_PARENT_FORM_KEY ) ) {
+		} elseif ( $parent_form_id = rgar( $entry, GPNF_Entry::ENTRY_PARENT_FORM_KEY ) ) {
 			$parent_form       = GFAPI::get_form( $parent_form_id );
 			$nested_form_field = GFFormsModel::get_field( $parent_form, rgar( $entry, GPNF_Entry::ENTRY_NESTED_FORM_FIELD_KEY ) );
 
@@ -116,7 +116,7 @@ class GPNF_Notification_Processing {
 		$should_send_notification = gf_apply_filters( array(
 			'gpnf_should_send_notification',
 			$parent_form['id'],
-			$nested_form_field->id
+			$nested_form_field->id,
 		), $should_send_notification, $notification, $context, $parent_form, $nested_form_field, $entry, $child_form );
 
 		return $should_send_notification;

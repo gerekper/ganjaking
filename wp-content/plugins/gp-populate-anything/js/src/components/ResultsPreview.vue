@@ -25,7 +25,7 @@
 		</div>
 
 		<template v-if="hasFilterFieldValue">
-			<strong>Heads-up!</strong> Cannot preview results when filtering by<br/>Form Field Value.
+			<strong>Heads-up!</strong> Cannot preview results when filtering by Form&nbsp;Field&nbsp;Value.
 		</template>
 		<template v-else-if="missingTemplates.length">
 			Select

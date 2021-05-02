@@ -1,9 +1,10 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 use ArrayAccess;
-use Rocketgenius\Gravity_Forms\Settings;
+use Gravity_Forms\Gravity_Forms\Settings\Settings;
+use GFCommon;
 
 defined( 'ABSPATH' ) || die();
 
@@ -108,6 +109,15 @@ class Base implements ArrayAccess {
 	 * @var callable
 	 */
 	public $validation_callback;
+
+	/**
+	 * Legacy add-on method to call when a field is being validated.
+	 *
+	 * @since 2.5
+	 *
+	 * @var callable
+	 */
+	public $legacy_validation_callback;
 
 	/**
 	 * @var Settings
@@ -274,11 +284,10 @@ class Base implements ArrayAccess {
 		 * @param array $field The current field meta to be parsed.
 		 */
 		$excluded_atts = apply_filters(
-		// @todo rename filter
 			'gaddon_no_output_field_properties',
 			array(
 				'default_value', 'label', 'toggle_label', 'choices', 'feedback_callback', 'checked', 'checkbox_label', 'value', 'type',
-				'validation_callback', 'required', 'hidden', 'tooltip', 'dependency', 'messages', 'name', 'args',
+				'validation_callback', 'hidden', 'tooltip', 'dependency', 'messages', 'name', 'args',
 				'exclude_field_types', 'field_type', 'after_input', 'input_type', 'icon', 'save_callback',
 				'enable_custom_value', 'enable_custom_key', 'merge_tags', 'key_field', 'value_field', 'callback', 'labels',
 				'input_types', 'settings', 'inputs', 'fields', 'no_choices', 'enhanced_ui', 'description'
@@ -286,8 +295,10 @@ class Base implements ArrayAccess {
 		);
 
 		// Merge field properties with default attributes.
-		$atts       = wp_parse_args( $this, $default_atts );
+		$atts             = wp_parse_args( $this, $default_atts );
 		$atts['id'] = rgempty( 'id', $atts ) ? rgar( $atts, 'name' ) : rgar( $atts, 'id' );
+		$atts['id'] = str_replace( '[]', null, $atts['id'] );
+		$atts['required'] = ( $atts['required'] === true ) ? 'required' : null;
 
 		// Remove disabled property.
 		if ( isset( $atts['disabled'] ) && $atts['disabled'] === false ) {
@@ -310,10 +321,11 @@ class Base implements ArrayAccess {
 			}
 		}
 
+
 		// Prepare attributes as strings.
 		$return = array();
 		foreach ( $atts as $att => $value ) {
-			if ( is_callable( $value ) || empty( $value ) ) {
+			if ( ! in_array( $value, array( 'disabled', 'readonly' ) ) && ( is_callable( $value ) || empty( $value ) ) ) {
 				continue;
 			}
 			$return[ $att ] = "{$att}='" . esc_attr( $value ) . "'";
@@ -411,12 +423,12 @@ class Base implements ArrayAccess {
 	public function get_container_classes() {
 
 		// Prepare feedback.
-		$error      = $this->get_error();
-		$is_invalid = ! empty( $error );
-		$value      = $this->get_value();
+		$error             = $this->get_error();
+		$is_invalid        = ! empty( $error );
+		$value             = $this->get_value();
+		$is_feedback_valid = null;
 
 		// Prepare container classes.
-
 		$feedback_callback = ( $this->type == 'text' ) ? rgar( $this, 'feedback_callback' ) : null;
 		if ( is_callable( $feedback_callback ) ) {
 			$is_feedback_valid = call_user_func_array( $feedback_callback, array( $value, $this ) );
@@ -424,12 +436,12 @@ class Base implements ArrayAccess {
 
 		$container_classes = array( 'gform-settings-input__container' );
 
-		if ( isset( $is_feedback_valid ) ) {
-			if ( $is_feedback_valid === true ) {
-				$container_classes[] = 'gform-settings-input__container-feedback-success';
-			} else {
-				$container_classes[] = 'gform-settings-input__container-feedback-error';
-			}
+		if ( is_bool( $is_feedback_valid ) ) {
+			$container_classes[] = $is_feedback_valid ? 'gform-settings-input__container--feedback-success' : 'gform-settings-input__container--feedback-error';
+		}
+
+		if ( is_string( $is_feedback_valid ) ) {
+			$container_classes[] = sprintf( 'gform-settings-input__container--feedback-%s', $is_feedback_valid );
 		}
 
 		if ( $is_invalid ) { $container_classes[] = 'gform-settings-input__container--invalid'; }
@@ -473,9 +485,25 @@ class Base implements ArrayAccess {
 	 *
 	 * @since 2.5
 	 *
+	 * @deprecated Deprecated since 2.5-beta-3. Use handle_validation() instead.
+	 *
 	 * @param array|bool|string $value Posted field value.
 	 */
 	public function validate( $value ) {
+		_deprecated_function( __METHOD__, '2.5-beta-3', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Base::handle_validation()' );
+
+		$this->handle_validation( $value );
+	}
+
+	/**
+	 * Validate posted field value.
+	 * Run defined callback.
+	 *
+	 * @since 2.5-beta-3
+	 *
+	 * @param array|bool|string $value Posted field value.
+	 */
+	public function handle_validation( $value ) {
 
 		// If field has a custom validation callback, call it.
 		if ( is_callable( $this->validation_callback ) ) {
@@ -483,8 +511,13 @@ class Base implements ArrayAccess {
 			return;
 		}
 
+		if ( is_callable( $this->legacy_validation_callback ) ) {
+			call_user_func( $this->legacy_validation_callback, $this, $this->settings->get_posted_values() );
+			return;
+		}
+
 		// Validate field.
-		$this->is_valid( $value );
+		$this->do_validation( $value );
 
 	}
 
@@ -493,9 +526,25 @@ class Base implements ArrayAccess {
 	 *
 	 * @since 2.5
 	 *
+	 * @deprecated Deprecated since 2.5-beta-3 - use do_validation() instead.
+	 *
 	 * @param array|bool|string $value Posted field value.
 	 */
 	public function is_valid( $value ) {
+
+		_deprecated_function( __METHOD__, '2.5-beta-3', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Base::do_validation()' );
+
+		$this->do_validation( $value );
+	}
+
+	/**
+	 * Validate posted field value.
+	 *
+	 * @since 2.5-beta-3
+	 *
+	 * @param array|bool|string $value Posted field value.
+	 */
+	public function do_validation( $value ) {
 
 		// If field is required and value is empty, set error.
 		if ( $this->required && rgblank( $value ) ) {
@@ -582,7 +631,7 @@ class Base implements ArrayAccess {
 	 *
 	 * @param array|callable|bool $choices Existing choices. Defaults to field property.
 	 *
-	 * @return array|bool
+	 * @return array
 	 */
 	public function get_choices( $choices = false ) {
 
@@ -593,7 +642,7 @@ class Base implements ArrayAccess {
 
 		// If no choices exist, return.
 		if ( ! $choices ) {
-			return false;
+			return array();
 		}
 
 		// If this is a callable, get the return value.
@@ -603,7 +652,7 @@ class Base implements ArrayAccess {
 			return $choices;
 		}
 
-		return false;
+		return array();
 
 	}
 
@@ -639,8 +688,13 @@ class Base implements ArrayAccess {
 			$field_value = $this->save( $field_value );
 		}
 
-		// Update field value.
-		$field_values[ $this->name ] = $field_value;
+		$name = $this->get_parsed_name();
+
+		if ( is_array( $name ) ) {
+			return GFCommon::set_array_value( $field_values, $name, $field_value );
+		}
+
+		$field_values[ $name ] = $field_value;
 
 		return $field_values;
 
@@ -729,6 +783,49 @@ class Base implements ArrayAccess {
 
 		unset( $this->$offset );
 
+	}
+
+	/**
+	 * Parses the field's name to determine whether it's a simple string or a multi-dimensional array.
+	 *
+	 * Examples:
+	 * - A string of gravityformsapi will return gravityformsapi.
+	 * - A string of gravityformsapi[log_level] will return an array of [ 'gravityformsapi', 'log_level' ].
+	 *
+	 * @since 2.5
+	 *
+	 * @return string|array
+	 */
+	public function get_parsed_name() {
+		if ( ! is_string( $this->name ) ) {
+			return '';
+		}
+
+		// String doesn't have any psuedo array elements, which means it's just a normal string. Return it.
+		if ( false === strpos( $this->name, '[' ) ) {
+			return $this->name;
+		}
+
+		// Run a regex match to find all the values from the string.
+		preg_match_all( '/([^\[]+)?\[([^\[]*?)\]/s', $this->name, $matches );
+
+		// No matches found for some reason, return a blank string.
+		if ( empty( $matches ) ) {
+			return '';
+		}
+
+		// Sometimes, the array of bracket matches is just a single empty value. If so, return the first match.
+		if ( ! empty( $matches[1] ) && count( $matches[2] ) <= 1 && empty( $matches[2][0] ) ) {
+			return array_shift( $matches[1] );
+		}
+
+		/**
+		 * The setting name (non-brackets) is stored in a different match array than the bracket values. Merge
+		 * them together in order to return all of them (and filter any empty values).
+		 */
+		$results = array_merge( array_filter( $matches[1] ), array_filter( $matches[2] ) );
+
+		return array_values( $results );
 	}
 
 }

@@ -2,6 +2,7 @@
 
 use AC\Asset;
 use AC\Request;
+use ACP\Bookmark\SegmentRepository;
 use ACP\Editing;
 use ACP\Export;
 use ACP\Filtering;
@@ -119,7 +120,14 @@ function acp_filtering() {
 function acp_sorting() {
 	_deprecated_function( __FUNCTION__, '5.1' );
 
-	return new Sorting\Addon( AC()->get_storage(), new Asset\Location\Absolute( ACP()->get_url(), ACP()->get_dir() ), AC()->admin() );
+	return new Sorting\Addon(
+		AC()->get_storage(),
+		new Asset\Location\Absolute( ACP()->get_url(), ACP()->get_dir() ),
+		AC()->admin(),
+		new Sorting\NativeSortableFactory(),
+		new Sorting\ModelFactory(),
+		new SegmentRepository()
+	);
 }
 
 /**
@@ -137,5 +145,9 @@ function ac_addon_export() {
 function ac_addon_search() {
 	_deprecated_function( __FUNCTION__, '5.1' );
 
-	return new Search\Addon( AC()->get_storage(), new Asset\Location\Absolute( ACP()->get_url(), ACP()->get_dir() ) );
+	return new Search\Addon(
+		AC()->get_storage(),
+		new Asset\Location\Absolute( ACP()->get_url(), ACP()->get_dir() ),
+		new SegmentRepository()
+	);
 }

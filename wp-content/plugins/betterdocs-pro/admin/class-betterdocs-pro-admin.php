@@ -106,7 +106,7 @@ class Betterdocs_Pro_Admin
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles()
+	public function enqueue_styles($hook)
 	{
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -119,6 +119,15 @@ class Betterdocs_Pro_Admin
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+
+        $tax = function_exists('get_current_screen') ? get_current_screen() : '';
+        if (!in_array($hook, array('toplevel_page_betterdocs-admin', 'betterdocs_page_betterdocs-settings', 'betterdocs_page_betterdocs-analytics', 'edit-tags.php', 'edit.php'))) {
+            if ($tax->taxonomy !== 'doc_category') {
+                return;
+            } else {
+                return;
+            }
+        }
 
 		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/betterdocs-pro-admin.css', array(), $this->version, 'all');
 	}

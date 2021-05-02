@@ -1,8 +1,8 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
-use Rocketgenius\Gravity_Forms\Settings\Fields;
+use Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 defined( 'ABSPATH' ) || die();
 
@@ -41,7 +41,7 @@ class Textarea extends Base {
 	 * @since 2.5
 	 *
 	 * @param array                                $props    Field properties.
-	 * @param \Rocketgenius\Gravity_Forms\Settings $settings Settings instance.
+	 * @param \Gravity_Forms\Gravity_Forms\Settings\Settings $settings Settings instance.
 	 */
 	public function __construct( $props, $settings ) {
 
@@ -106,6 +106,9 @@ class Textarea extends Base {
 			$html .= ob_get_contents();
 			ob_end_clean();
 
+			// If field failed validation, add error icon.
+			$html .= $this->get_error_icon();
+
 			$html .= '</span>';
 
 		} else {
@@ -115,19 +118,18 @@ class Textarea extends Base {
 			$html = $this->get_description();
 
 			$html .= sprintf(
-				'<span class="%s"><textarea name="%s_%s" %s %s>%s</textarea></span>',
+				'<span class="%s"><textarea name="%s_%s" %s %s>%s</textarea>%s</span>',
 				esc_attr( $this->get_container_classes() ),
 				esc_attr( $this->settings->get_input_name_prefix() ),
 				esc_attr( $this->name ),
 				$this->get_describer() ? sprintf( 'aria-describedby="%s"', $this->get_describer() ) : '',
 				implode( ' ', $this->get_attributes() ),
-				esc_textarea( $value )
+				esc_textarea( $value ),
+				// If field failed validation, add error icon.
+				$this->get_error_icon()
 			);
 
 		}
-
-		// If field failed validation, add error icon.
-		$html .= $this->get_error_icon();
 
 		return $html;
 
@@ -146,7 +148,7 @@ class Textarea extends Base {
 	 *
 	 * @param string $value Posted field value.
 	 */
-	public function is_valid( $value ) {
+	public function do_validation( $value ) {
 
 		// If field is required and value is missing, set field error.
 		if ( $this->required && rgblank( $value ) ) {
@@ -189,4 +191,4 @@ class Textarea extends Base {
 
 }
 
-Fields::register( 'textarea', '\Rocketgenius\Gravity_Forms\Settings\Fields\Textarea' );
+Fields::register( 'textarea', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Textarea' );

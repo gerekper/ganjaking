@@ -1,5 +1,15 @@
 *** Warranty Requests Changelog ***
 
+2021-04-20 - version 1.9.23
+* Fix - Unable to save warranty info for product variations past the first.
+* Fix - Unable to change product variation data when tab is closed.
+* Fix - Unable to remove warranty addon options on variations.
+
+2021-03-02 - version 1.9.22
+* Fix - RMA requests list spacing.
+* Tweak - WooCommerce 4.4 compatibility on $WC_Order->get_product().
+* Tweak - WooCommerce navigation compatibility.
+
 2021-01-12 - version 1.9.21
 * Fix - Warranty status wrong value after update.
 

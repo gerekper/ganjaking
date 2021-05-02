@@ -1,12 +1,12 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 use GFCommon;
 use GF_Fields;
 use GFForms;
 use GFFormsModel;
-use Rocketgenius\Gravity_Forms\Settings\Fields;
+use Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 defined( 'ABSPATH' ) || die();
 
@@ -74,7 +74,7 @@ class Generic_Map extends Base {
 	 * @since 2.5
 	 *
 	 * @param array                                $props    Field properties.
-	 * @param \Rocketgenius\Gravity_Forms\Settings $settings Settings instance.
+	 * @param \Gravity_Forms\Gravity_Forms\Settings\Settings $settings Settings instance.
 	 */
 	public function __construct( $props, $settings ) {
 
@@ -95,7 +95,6 @@ class Generic_Map extends Base {
 			}
 
 			$this->key_field = array_merge( $this->key_field, $props['key_field'] );
-
 		}
 
 		// Merge value field properties.
@@ -121,27 +120,6 @@ class Generic_Map extends Base {
 			$this->key_field['choices'] = $props['key_field']['choices'];
 		} else {
 			$this->key_field['choices'] = rgar( $this->key_field, 'choices', array() );
-		}
-
-		if ( is_array( $this->key_field['choices'] ) ) {
-			foreach ( $this->key_field['choices'] as $i => $choice ) {
-
-				// If field already has choices, skip.
-				if ( rgar( $choice, 'choices' ) ) {
-					continue;
-				}
-
-				// If field does not have required or excluded field types, skip.
-				if ( ! rgar( $choice, 'required_types', false ) && ! rgar( $choice, 'excluded_types', false ) ) {
-					continue;
-				}
-
-				$this->key_field['choices'][ $i ]['choices'] = $this->get_value_choices(
-					rgar( $choice, 'required_types', array() ),
-					rgar( $choice, 'excluded_types', array() )
-				);
-
-			}
 		}
 
 		// Define value field choices.
@@ -225,6 +203,7 @@ class Generic_Map extends Base {
 		// Prepare JS params.
 		$js_params = array(
 			'input'          => $input_name,
+			'inputType'      => $this->type,
 			'keyField'       => $key_field,
 			'valueField'     => $value_field,
 			'limit'          => $this->limit,
@@ -236,19 +215,41 @@ class Generic_Map extends Base {
 		$html = $this->get_description();
 
 		$html .= sprintf(
-			'<span class="%1$s"><input type="hidden" name="%2$s" value=\'%3$s\' />
-				<div id="%4$s" class="gform-settings-field-map__container"></div></span>
-				<script type="text/javascript">initializeFieldMap( \'%4$s\', %5$s );</script></span>',
+			'<span class="%1$s"><input type="hidden" name="%2$s" id="%2$s" value=\'%3$s\' />
+				<div id="%4$s" class="gform-settings-field-map__container"></div>%5$s</span>
+				<script type="text/javascript">initializeFieldMap( \'%4$s\', %6$s );</script></span>',
 			esc_attr( $this->get_container_classes() ),
 			$input_name, // Input name
 			wp_json_encode( $this->get_value() ? $this->get_value() : array() ), // Input value
 			$container_name, // Container name
+			$this->get_error_icon(),
 			wp_json_encode( $js_params )// JS params
 		);
 
-		$html .= $this->get_error_icon();
-
 		return $html;
+
+	}
+
+	/**
+	 * Gets the classes to apply to the field container.
+	 * Removes invalid class.
+	 *
+	 * @since 2.5
+	 *
+	 * @return string
+	 */
+	public function get_container_classes() {
+
+		$classes = parent::get_container_classes();
+		$classes = explode( ' ', $classes );
+
+		// Search for and remove invalid class.
+		$invalid_key = array_search( 'gform-settings-input__container--invalid', $classes );
+		if ( $invalid_key ) {
+			unset( $classes[ $invalid_key ] );
+		}
+
+		return implode( ' ', $classes );
 
 	}
 
@@ -339,40 +340,23 @@ class Generic_Map extends Base {
 		// Get form.
 		$form = $this->settings->get_current_form();
 
-		// Initialize choices array.
-		$choices = array();
+		// No form found, set up a default array with empty values.
+		if ( ! is_array( $form ) ) {
+			$form = array(
+				'fields' => array(),
+			);
+		}
+
+		// Initialize choices array and input type.
+		$choices    = array();
+		$input_type = '';
+		$form_id    = isset( $form['id'] ) ? $form['id'] : 0;
 
 		// Force required, excluded types to arrays.
 		$required_types = is_array( $required_types ) ? $required_types : array();
 		$excluded_types = is_array( $excluded_types ) ? $excluded_types : array();
 
-		// Add first choice.
-		if ( count( $required_types ) === 0 || count( $required_types ) > 1 ) {
-
-			$choices[] = array(
-				'label' => esc_html__( 'Select a Field', 'gravityforms' ),
-				'value' => '',
-			);
-
-		} else {
-
-			$choices[] = array(
-				'label' => sprintf(
-					esc_html__( 'Select a %s Field', 'gravityforms' ),
-					GF_Fields::get( $required_types[0] ) ? ucfirst( GF_Fields::get( $required_types[0] )->get_form_editor_field_title() ) : ''
-				),
-				'value' => '',
-			);
-
-		}
-
-		// Add Form Fields choice.
-		if ( ! empty( $form['fields'] ) ) {
-			$choices['fields'] = array(
-				'label'   => esc_html__( 'Form Fields', 'gravityforms' ),
-				'choices' => array(),
-			);
-		}
+		$form_field_choices = array();
 
 		/**
 		 * Populate form fields.
@@ -404,7 +388,7 @@ class Generic_Map extends Base {
 					case 'address':
 					case 'name':
 
-						$choices['fields']['choices'][] = array(
+						$form_field_choices[] = array(
 							'label' => strip_tags( GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full', 'gravityforms' ) . ')' ),
 							'value' => $field->id,
 						);
@@ -413,7 +397,7 @@ class Generic_Map extends Base {
 
 					case 'checkbox':
 
-						$choices['fields']['choices'][] = array(
+						$form_field_choices[] = array(
 							'label' => strip_tags( GFCommon::get_label( $field ) . ' (' . esc_html__( 'Selected', 'gravityforms' ) . ')' ),
 							'value' => $field->id,
 						);
@@ -424,7 +408,7 @@ class Generic_Map extends Base {
 
 				// Add inputs as choices.
 				foreach ( $inputs as $input ) {
-					$choices['fields']['choices'][] = array(
+					$form_field_choices[] = array(
 						'label' => strip_tags( GFCommon::get_label( $field, $input['id'] ) ),
 						'value' => $input['id'],
 					);
@@ -434,7 +418,7 @@ class Generic_Map extends Base {
 			} else if ( $input_type === 'list' && $field->enableColumns ) {
 
 				// Add choice for full List value.
-				$choices['fields']['choices'][] = array(
+				$form_field_choices[] = array(
 					'label' => strip_tags( GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full', 'gravityforms' ) . ')' ),
 					'value' => $field->id,
 				);
@@ -442,7 +426,7 @@ class Generic_Map extends Base {
 				// Add choice for each column.
 				$col_index = 0;
 				foreach ( $field->choices as $column ) {
-					$choices['fields']['choices'][] = array(
+					$form_field_choices[] = array(
 						'label' => strip_tags( GFCommon::get_label( $field ) . ' (' . esc_html( rgar( $column, 'text' ) ) . ')' ),
 						'value' => $field->id . '.' . $col_index,
 					);
@@ -451,13 +435,41 @@ class Generic_Map extends Base {
 
 			} else if ( ! $field->displayOnly ) {
 
-				$choices['fields']['choices'][] = array(
+				$form_field_choices[] = array(
 					'label' => strip_tags( GFCommon::get_label( $field ) ),
 					'value' => $field->id,
 				);
 
 			}
 
+		}
+
+		if ( count( $form_field_choices ) ) {
+			// Add first choice.
+			if ( count( $required_types ) === 0 || count( $required_types ) > 1 ) {
+
+				$choices[] = array(
+					'label' => esc_html__( 'Select a Field', 'gravityforms' ),
+					'value' => '',
+				);
+
+			} else {
+
+				$choices[] = array(
+					'label' => sprintf(
+						esc_html__( 'Select a %s Field', 'gravityforms' ),
+						GF_Fields::get( $required_types[0] ) ? ucfirst( GF_Fields::get( $required_types[0] )->get_form_editor_field_title() ) : ''
+					),
+					'value' => '',
+				);
+
+			}
+
+			// Add Form Fields choice.
+			$choices['fields'] = array(
+				'label'   => esc_html__( 'Form Fields', 'gravityforms' ),
+				'choices' => $form_field_choices,
+			);
 		}
 
 		// If field type is not restricted, add default fields and entry meta.
@@ -514,7 +526,31 @@ class Generic_Map extends Base {
 
 		}
 
-		// @todo Add legacy Add-On filter.
+		/**
+		 * Filter the choices available in the field map drop down.
+		 *
+		 * @since 2.0.7.11
+		 *
+		 * @deprecated Deprecated since 2.5. Use gform_field_map_choices instead.
+		 *
+		 * @param array             $fields              The value and label properties for each choice.
+		 * @param int               $form_id             The ID of the form currently being configured.
+		 * @param null|array        $field_type          Null or the field types to be included in the drop down.
+		 * @param null|array|string $exclude_field_types Null or the field type(s) to be excluded from the drop down.
+		 */
+		$choices = apply_filters( 'gform_addon_field_map_choices', $choices, $form_id, $input_type, $excluded_types );
+
+		/**
+		 * Filter the choices available in the field map drop down.
+		 *
+		 * @since 2.5
+		 *
+		 * @param array             $fields              The value and label properties for each choice.
+		 * @param int               $form_id             The ID of the form currently being configured.
+		 * @param null|array        $field_type          Null or the field types to be included in the drop down.
+		 * @param null|array|string $exclude_field_types Null or the field type(s) to be excluded from the drop down.
+		 */
+		$choices = apply_filters( 'gform_field_map_choices', $choices, $form_id, $input_type, $excluded_types );
 
 		return array_values( $choices );
 
@@ -533,7 +569,7 @@ class Generic_Map extends Base {
 	 *
 	 * @param array|bool|string $value Posted field value.
 	 */
-	public function is_valid( $value ) {
+	public function do_validation( $value ) {
 
 		// Get required choices.
 		$required_choices = $this->get_required_choices();
@@ -583,6 +619,18 @@ class Generic_Map extends Base {
 		// Get key field choices.
 		$key_choices = $this->get_choices( $this->key_field['choices'] );
 
+		if ( ! $key_choices ) {
+			return array();
+		}
+
+		// Merge sub-choices.
+		foreach ( $key_choices as &$key_choice ) {
+			if ( rgar( $key_choice, 'choices' ) ) {
+				$key_choices = array_merge( $key_choices, $key_choice['choices'] );
+				unset( $key_choice['choices'] );
+			}
+		}
+
 		// Get required choices.
 		$required_choices = array_filter(
 			$key_choices,
@@ -591,7 +639,9 @@ class Generic_Map extends Base {
 
 		// Return only the name.
 		return array_map(
-			function( $choice ) { return rgar( $choice, 'name' ); },
+			function( $choice ) {
+				return rgar( $choice, 'value' ) ? rgar( $choice, 'value' ) : rgar( $choice, 'name' );
+			},
 			$required_choices
 		);
 
@@ -614,4 +664,4 @@ class Generic_Map extends Base {
 
 }
 
-Fields::register( 'generic_map', '\Rocketgenius\Gravity_Forms\Settings\Fields\Generic_Map' );
+Fields::register( 'generic_map', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Generic_Map' );

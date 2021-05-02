@@ -98,6 +98,19 @@ class MeprStripeGateway extends MeprBaseRealGateway {
   }
 
   /**
+   * @param $subscription MeprSubscription
+   *
+   * @return bool
+   */
+  protected function hide_update_link($subscription) {
+    if ($subscription->status === MeprSubscription::$suspended_str) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
    * @param $name
    * @param integer $rate
    * @param MeprProduct $product
@@ -108,18 +121,31 @@ class MeprStripeGateway extends MeprBaseRealGateway {
    * @throws MeprRemoteException
    */
   public function get_stripe_tax_rate_id($name, $rate, $product, $inclusive = false)
+
   {
+    $is_test_mode = $this->is_test_mode();
+
     $tax_request = [
-      'display_name' => $name,
       'inclusive' => 'false',
       'percentage' => $rate,
     ];
+
+    if (!empty($name)) {
+      $tax_request['display_name'] = $name;
+    }
 
     if ($inclusive) {
       $tax_request['inclusive'] = 'true';
     }
 
     $meta_key = '_mepr_stripe_tax_id_' . md5(serialize($tax_request));
+
+    if ($is_test_mode) {
+      $meta_key = '_test' . $meta_key;
+    } else {
+      $meta_key = '_live' . $meta_key;
+    }
+
     $tax_id = get_post_meta($product->ID, $meta_key, true);
 
     if (!empty($tax_id)) {
@@ -132,7 +158,6 @@ class MeprStripeGateway extends MeprBaseRealGateway {
 
     return $stripe_tax->id;
   }
-
   /**
    * Create a checkout.session object that will be used to redirect user to
    * checkout.stripe.com
@@ -153,9 +178,12 @@ class MeprStripeGateway extends MeprBaseRealGateway {
   ) {
     $mepr_options = MeprOptions::fetch();
     $current_user = MeprUtils::get_currentuserinfo();
+    $calculate_taxes = get_option('mepr_calculate_taxes') == true ? true : false;
 
-    if($mepr_options->attr('tax_calc_type') == 'inclusive') {
+    if($mepr_options->attr('tax_calc_type') == 'inclusive' && $calculate_taxes) {
       $tax_inclusive = true;
+    } else {
+      $tax_inclusive = false;
     }
 
     $success_url = $mepr_options->thankyou_page_url([
@@ -175,6 +203,12 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       $new_txn = clone $txn;
       $new_txn->set_subtotal($product->adjusted_price());
       $price_id = $this->get_stripe_price_id($sub, $new_txn, $product, $usr);
+
+      if ($tax_inclusive) {
+        $tmp_txn = new MeprTransaction();
+        $tmp_txn->amount = $product->price;
+        $price_id = $this->get_stripe_price_id($sub, $tmp_txn, $product, $usr);
+      }
     } else {
       $price_id = $this->get_stripe_price_id($sub, $txn, $product, $usr);
     }
@@ -184,24 +218,16 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     if($coupon instanceof MeprCoupon) {
       $discount_amount = $this->get_coupon_discount_amount($coupon, $product, $txn->tax_rate);
 
-      if ($discount_amount > 0) {
+      if ($discount_amount > 0 && $coupon->discount_mode != 'first-payment') {
         $stripe_coupon_id = $this->get_coupon_id($coupon, $discount_amount);
       }
 
       if ($coupon->discount_mode == 'first-payment'
           && $coupon->first_payment_discount_amount > 0) {
-        $tmp_txn = clone $txn;
         $price = $coupon->apply_discount($product->price, true, $product);
+        $stripe_coupon_id = $this->get_coupon_id($coupon, $this->to_stripe_decimal_amount($coupon->first_payment_discount_amount), true);
 
-        if (!$tax_inclusive) {
-          $tmp_txn->set_subtotal( $price );
-          $price = $tmp_txn->amount;
-        }
-
-        $price_id = $this->get_stripe_price_id($sub, $txn, $product, $usr, $price);
-        $stripe_coupon_id = $this->get_coupon_id($coupon, $coupon->first_payment_discount_amount, true);
-
-        if ($product->trial == false) {
+        if ($product->trial == false && !$product->is_one_time_payment()) {
           $tmp_sub = new MeprSubscription();
           $tmp_sub->id = 0;
           $tmp_sub->user_id = (isset($current_user->ID))?$current_user->ID:0;
@@ -219,8 +245,8 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       }
     }
 
-    if ($txn->tax_rate > 0) {
-      $tax_rate_id = $this->get_stripe_tax_rate_id($txn->tax_desc, $txn->tax_rate, $product);
+    if ($txn->tax_rate > 0 && $calculate_taxes) {
+      $tax_rate_id = $this->get_stripe_tax_rate_id($txn->tax_desc, $txn->tax_rate, $product, $tax_inclusive);
     }
     if (!$product->is_one_time_payment()) {
       $checkout_session = [
@@ -255,9 +281,9 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     }
 
     if ($sub instanceof  MeprSubscription && $sub->trial > 0) {
-      $checkout_session['subscription_data'] =
-          ['trial_period_days' => $sub->trial_days]
-      ;
+      $checkout_session['subscription_data'] = [
+        'trial_period_days' => $sub->trial_days,
+      ];
 
       if ($tax_inclusive) {
         $tax_rate_id = $this->get_stripe_tax_rate_id( $txn->tax_desc, $txn->tax_rate, $product, true );
@@ -299,21 +325,33 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       $checkout_session['line_items'][0]['tax_rates'] = [$tax_rate_id];
     }
 
-    if (isset($stripe_coupon_id)) {
+    if (isset($stripe_coupon_id) && !isset($trial_amount)) {
       $checkout_session['discounts'] = [
           ['coupon' => $stripe_coupon_id],
       ];
 
 
       if ($coupon->discount_mode == 'first-payment'
-          && $coupon->first_payment_discount_amount > 0) {
+          && $coupon->first_payment_discount_amount > 0
+          && !$product->is_one_time_payment()
+      ) {
         unset($checkout_session['discounts']);
       }
     }
 
+    // active product to use in stripe checkout
+    $this->send_stripe_request('products/' . $stripe_product_id, ['active' => 'true']);
+
     $result = $this->send_stripe_request('checkout/sessions', $checkout_session, 'post');
     $result['public_key'] = $this->settings->public_key;
     wp_send_json( $result );
+  }
+
+  public function to_stripe_decimal_amount($amount) {
+    // Handle zero decimal currencies in Stripe
+    $amount = (self::is_zero_decimal_currency())?MeprUtils::format_float($amount, 0):MeprUtils::format_float(($amount * 100), 0);
+
+    return $amount;
   }
 
   /**
@@ -1002,9 +1040,15 @@ class MeprStripeGateway extends MeprBaseRealGateway {
 
       if (isset($metadata['memberpress_transaction_id'])) {
         $_REQUEST['data'] = $data;
+        $payment_intent_id = $data['payment_intent'];
+        $payment_intent = $this->retrieve_payment_intent($payment_intent_id);
+        $charges = $payment_intent->charges['data'];
+        $charge = end($charges);
+
         /** @var MeprTransaction $txn */
         $txn = new MeprTransaction($metadata['memberpress_transaction_id']);
-        $txn->trans_num = $data['id'];
+        $txn->trans_num = $charge['id'];
+        $txn->status = MeprTransaction::$complete_str;
         $txn->save();
         $this->record_payment();
         return;
@@ -1026,6 +1070,16 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     if ($stripe_subscription->status == 'active' or $stripe_subscription->status == 'trialing') {
       $memberpress_subscription = new MeprSubscription($memberpress_subscription_id);
       $memberpress_subscription->subscr_id = $stripe_subscription->id;
+
+      if ($memberpress_subscription->trial == 1 && $memberpress_subscription->trial_amount == 0) {
+        $memberpress_subscription->status = MeprSubscription::$active_str;
+        $trial_txn = $memberpress_subscription->first_txn();
+
+        if ($trial_txn instanceof MeprTransaction) {
+          $this->activate_subscription($trial_txn, $memberpress_subscription);
+        }
+      }
+
       $memberpress_subscription->store();
     }
   }
@@ -1791,7 +1845,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
             <label><?php _ex('Credit Card', 'ui', 'memberpress'); ?></label>
             <span role="alert" class="mepr-stripe-card-errors"></span>
           </div>
-          <div class="mepr-stripe-card-element" data-stripe-public-key="<?php echo esc_attr($this->settings->public_key); ?>" data-payment-method-id="<?php echo esc_attr($this->settings->id); ?>">
+          <div class="mepr-stripe-card-element" data-stripe-public-key="<?php echo esc_attr($this->settings->public_key); ?>" data-payment-method-id="<?php echo esc_attr($this->settings->id); ?>" data-locale-code="<?php echo $mepr_options->language_code; ?>">
             <!-- a Stripe Element will be inserted here. -->
           </div>
         </div>
@@ -3029,21 +3083,33 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       'duration' => 'forever'
     ], $cpn);
 
+    $mepr_options = MeprOptions::fetch();
+
+
     if ($onetime) {
       $args['duration'] = 'once';
-    }
 
-    if($cpn->discount_type == 'percent') {
-      $args = array_merge([
-        'percent_off' => $discount_amount
-      ], $args);
+      if ($cpn->first_payment_discount_type == 'percent') {
+        $args = array_merge( [
+          'percent_off' => $discount_amount
+        ], $args );
+      } else {
+        $args = array_merge([
+          'amount_off' => $discount_amount,
+          'currency' => $mepr_options->currency_code,
+        ], $args);
+      }
     } else {
-      $mepr_options = MeprOptions::fetch();
-
-      $args = array_merge([
-        'amount_off' => $discount_amount,
-        'currency' => $mepr_options->currency_code,
-      ], $args);
+      if ( $cpn->discount_type == 'percent' ) {
+        $args = array_merge( [
+          'percent_off' => $discount_amount
+        ], $args );
+      } else {
+        $args = array_merge( [
+          'amount_off' => $discount_amount,
+          'currency'   => $mepr_options->currency_code,
+        ], $args );
+      }
     }
 
     $coupon = (object) $this->send_stripe_request('coupons', $args, 'post');

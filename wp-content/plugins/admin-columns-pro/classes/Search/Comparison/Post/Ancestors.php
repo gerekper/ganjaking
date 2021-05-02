@@ -19,9 +19,6 @@ class Ancestors extends Comparison {
 		parent::__construct( $operators, Value::INT );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	protected function create_query_bindings( $operator, Value $value ) {
 		global $wpdb;
 

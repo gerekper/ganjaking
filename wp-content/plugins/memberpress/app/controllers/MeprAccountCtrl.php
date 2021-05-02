@@ -11,6 +11,18 @@ class MeprAccountCtrl extends MeprBaseCtrl {
     add_action('init',                      array($this,  'maybe_update_username')); //Need to use init for cookie stuff and to get old and new emails
     add_action('mepr-above-checkout-form',  array($this,  'maybe_show_broken_sub_message')); //Show message on checkout form with link to update broken sub
 
+    //These are dependent on the the theme/template supporting them.
+    //To Turn On:
+    /*
+    add_filter('mepr-account-nav-page-titles', 'mepr_cust_on_switch');
+    add_filter('mepr-account-nav-broswer-titles', 'mepr_cust_on_switch');
+    function mepr_cust_on_switch($on) {
+      return true;
+    }
+    */
+    add_filter('the_title', array($this, 'account_page_the_title'), 10, 2);
+    add_filter('wp_title', array($this, 'account_page_browser_title'));
+
     //Shortcodes
     MeprHooks::add_shortcode('mepr-account-form',          array($this, 'account_form_shortcode'));
     MeprHooks::add_shortcode('mepr-account-link',          array($this, 'get_account_links'));
@@ -600,5 +612,58 @@ class MeprAccountCtrl extends MeprBaseCtrl {
     if(!isset($txn->gateway) || $txn->gateway != $atts['gateway_id']) { return ''; }
 
     return $content;
+  }
+
+  public function account_page_the_title($title) {
+    if (!in_the_loop() || !MeprHooks::apply_filters('mepr-account-nav-page-titles', false)) {
+      return $title;
+    }
+
+    return $this->account_page_title($title);
+  }
+  public function account_page_browser_title($title) {
+    if (!MeprHooks::apply_filters('mepr-account-nav-broswer-titles', false)) {
+      return $title;
+    }
+
+    return $this->account_page_title($title);
+  }
+  public function account_page_title($title) {
+    global $post;
+
+    //Only apply the title changes on the account nave pages if it is turned on
+    //and buddy press intregration is not installed.
+    if (class_exists('MpBuddyPress')) {
+      return $title;
+    }
+
+    //If we don't have a post, just return the title
+    if (!isset($post) || !isset($post->ID) || $post->ID <= 0) {
+      return $title;
+    }
+
+    $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
+    $title_after = '';
+    $sep = ' ' . apply_filters( 'document_title_separator', '-' ) . ' ';
+
+    if (MeprUser::is_account_page($post)) {
+      switch($action) {
+        case 'subscriptions':
+          $title_after = MeprHooks::apply_filters('mepr-account-subscriptions-title',_x('Subscriptions', 'ui', 'memberpress'));
+          break;
+        case 'payments':
+          $title_after = MeprHooks::apply_filters('mepr-account-payments-title',_x('Payments', 'ui', 'memberpress'));
+          break;
+        case 'courses':
+          $title_after = MeprHooks::apply_filters('mepr-account-courses-title',_x('Courses', 'ui', 'memberpress'));
+          break;
+        default:
+          //For custom tabs on account page.
+          $title_after = MeprHooks::apply_filters('mepr-custom-account-nav-title', '', $action);
+          break;
+      }
+    }
+
+    return !empty($title_after) ? $title . $sep . $title_after : $title;
   }
 }

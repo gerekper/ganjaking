@@ -1,5 +1,10 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2021-04-16 - version 3.0.15
+* Tweak: Improve compatibility with WPML. PR#4034
+* Dev: Introduce filter to allow third-parties gateways to filter whether a token meta was updated. PR#4030
+* Fix: Fixes for endpoint in "My Account".
+
 2021-04-07 - version 3.0.14
 * New: Add support for importing and exporting subscription variations via the WooCommerce > Products > Export/Import tools. PR#3970
 * Fix: Only show one Subscriptions settings menu item on the WC Admin navigation. PR#4054

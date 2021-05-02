@@ -39,6 +39,27 @@ class WC_Help_Scout_Ajax {
 	 * 
 	 */
 	function wc_help_scout_upload_attachments(){
+		// security checks
+		$allowedMimes =  array(
+		 	'jpg|jpeg|jpe' => 'image/jpeg',
+			'gif'			=> 'image/gif',
+			'png'			=> 'image/png',
+			'pdf'			=> 'application/pdf',			
+		);
+
+	
+		$fileInfo = wp_check_filetype( basename( $_FILES['file']['name']), $allowedMimes);
+		if ( empty( $fileInfo['ext'] ) ) {
+			wp_die(__('Error in file upload'));
+		}
+
+
+		if ( empty( $fileInfo['type'] ) ) {
+			wp_die(__('Error in upload'));
+		}
+
+
+		
 		$upload_dir = wp_upload_dir();
 		$dir = $upload_dir['basedir'];
         $target_path_sia = $_FILES["file"]["name"];
@@ -54,21 +75,33 @@ class WC_Help_Scout_Ajax {
 	 * @return string JSON data.
 	 */
 	public function create_conversation() { //print_r($_REQUEST); exit;
-		check_ajax_referer( 'woocommerce_help_scout_ajax', 'security' );
+		if ( !check_ajax_referer( 'woocommerce_help_scout_ajax', 'security', false ) ) {
+			wp_send_json(
+				array(
+					'id'     => 0,
+					'number' => 0,
+					'status' => __( 'There was security vulnerability issues in your request.', 'woocommerce-help-scout' )
+				)
+			); 
+			exit;
+		}
 		$upload_dir = wp_upload_dir();
 		$dir = $upload_dir['basedir'];
 		$tmpUploads = $dir. "/hstmp/";
-		$uploadedFiles = $_REQUEST['uploaded_files'];
 		$fileData = [];
-		if(!empty($uploadedFiles)){		
-			$uploadedFiles = explode(',',$uploadedFiles);
-			foreach($uploadedFiles as $singleFile){
-				$data = file_get_contents($tmpUploads.''.$singleFile);
-				$filename = basename($tmpUploads.''.$singleFile); 
-				$filetype = mime_content_type($tmpUploads.''.$singleFile);
-				$base64 = stripslashes(base64_encode($data));	
-				$fileData[] = array('name'=>$filename,'type'=>$filename,'data'=>$base64);
-				unlink($tmpUploads.''.$singleFile);
+		$fileTypes = array('jpg','jpeg','pdf');
+		if(isset($_REQUEST['uploaded_files'])){
+			$uploadedFiles = $_REQUEST['uploaded_files'];			
+			if(!empty($uploadedFiles)){		
+				$uploadedFiles = explode(',',$uploadedFiles);
+				foreach($uploadedFiles as $singleFile){
+					$data = file_get_contents($tmpUploads.''.$singleFile);
+					$filename = basename($tmpUploads.''.$singleFile); 
+					$filetype = mime_content_type($tmpUploads.''.$singleFile);
+					$base64 = stripslashes(base64_encode($data));	
+					$fileData[] = array('name'=>$filename,'type'=>$filename,'data'=>$base64);
+					unlink($tmpUploads.''.$singleFile);
+				}
 			}
 		}
 		$integration = new WC_Help_Scout_Integration();
@@ -196,7 +229,16 @@ class WC_Help_Scout_Ajax {
 	 * @return string JSON data.
 	 */
 	public function get_conversation() {
-		check_ajax_referer( 'woocommerce_help_scout_ajax', 'security' );
+		if ( !check_ajax_referer( 'woocommerce_help_scout_ajax', 'security', false ) ) {
+			wp_send_json(
+				array(
+					'threads' => array(),
+					'subject' => '',
+					'error' => __( 'There was security vulnerability issues in your request.', 'woocommerce-help-scout' )
+				)
+			); 
+			exit;
+		}
 
 		// Get the conversation data.
 		$integration = new WC_Help_Scout_Integration();
@@ -259,21 +301,30 @@ class WC_Help_Scout_Ajax {
 	 * @return string JSON data.
 	 */
 	public function create_thread() { //print_r($_REQUEST); exit;
-		check_ajax_referer( 'woocommerce_help_scout_ajax', 'security' );
+		if ( !check_ajax_referer( 'woocommerce_help_scout_ajax', 'security', false ) ) {
+			wp_send_json(
+				array(
+					'error'     => 0,
+					'message' => __( 'There was security vulnerability issues in your request.', 'woocommerce-help-scout' )
+				)
+			); exit;
+		}
 		$upload_dir = wp_upload_dir();
 		$dir = $upload_dir['basedir'];
 		$tmpUploads = $dir. "/hstmp/";
-		$uploadedFiles = $_REQUEST['uploaded_files'];
 		$fileData = [];
-		if(!empty($uploadedFiles)){		
-			$uploadedFiles = explode(',',$uploadedFiles);
-			foreach($uploadedFiles as $singleFile){
-				$data = file_get_contents($tmpUploads.''.$singleFile);
-				$filename = basename($tmpUploads.''.$singleFile); 
-				$filetype = mime_content_type($tmpUploads.''.$singleFile);
-				$base64 = stripslashes(base64_encode($data));	
-				$fileData[] = array('name'=>$filename,'type'=>$filename,'data'=>$base64);
-				unlink($tmpUploads.''.$singleFile);
+		if(isset($_REQUEST['uploaded_files'])){
+			$uploadedFiles = $_REQUEST['uploaded_files'];		
+			if(!empty($uploadedFiles)){		
+				$uploadedFiles = explode(',',$uploadedFiles);
+				foreach($uploadedFiles as $singleFile){
+					$data = file_get_contents($tmpUploads.''.$singleFile);
+					$filename = basename($tmpUploads.''.$singleFile); 
+					$filetype = mime_content_type($tmpUploads.''.$singleFile);
+					$base64 = stripslashes(base64_encode($data));	
+					$fileData[] = array('name'=>$filename,'type'=>$filename,'data'=>$base64);
+					unlink($tmpUploads.''.$singleFile);
+				}
 			}
 		}
 		// Get the conversation data.

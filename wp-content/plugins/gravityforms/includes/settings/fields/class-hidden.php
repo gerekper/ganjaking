@@ -1,8 +1,8 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
-use Rocketgenius\Gravity_Forms\Settings\Fields;
+use Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 defined( 'ABSPATH' ) || die();
 
@@ -55,4 +55,4 @@ class Hidden extends Base {
 
 }
 
-Fields::register( 'hidden', '\Rocketgenius\Gravity_Forms\Settings\Fields\Hidden' );
+Fields::register( 'hidden', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Hidden' );

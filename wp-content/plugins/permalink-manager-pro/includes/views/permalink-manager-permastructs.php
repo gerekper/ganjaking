@@ -73,7 +73,11 @@ class Permalink_Manager_Permastructs extends Permalink_Manager_Class {
 		global $permalink_manager_permastructs;
 
 		$sidebar = sprintf('<h3>%s</h3>', __('Instructions', 'permalink-manager'));
-		$sidebar .= sprintf(wpautop(__('The current permastructures settings will be applied <strong>only to the new posts & terms</strong>. To apply the <strong>new permastructures to existing posts and terms</strong>, please regenerate the custom permalinks <a href="%s">here</a>.', 'permalink-manager')), admin_url('tools.php?page=permalink-manager&section=tools&subsection=regenerate_slugs'));
+		$sidebar .= "<div class=\"notice notice-warning\"><p>";
+		$sidebar .= __('The current permastructures settings will be automatically applied <strong>only to the new posts & terms</strong>.');
+		$sidebar .= '<br />';
+		$sidebar .= sprintf(__('To apply the <strong>new format to existing posts and terms</strong>, please use "<a href="%s">Regenerate/reset</a>" tool after you update the permastructure settings below.', 'permalink-manager'), admin_url('tools.php?page=permalink-manager&section=tools&subsection=regenerate_slugs'));
+		$sidebar .= "</p></div>";
 
 		$sidebar .= sprintf('<h4>%s</h4>', __('Permastructure tags', 'permalink-manager'));
 		$sidebar .= wpautop(sprintf(__('All allowed <a href="%s" target="_blank">permastructure tags</a> are listed below. Please note that some of them can be used only for particular post types or taxonomies.', 'permalink-manager'), "https://codex.wordpress.org/Using_Permalinks#Structure_Tags"));

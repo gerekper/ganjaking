@@ -1,4 +1,3 @@
-
 /**
  * Nested Form Field
  */
@@ -62,6 +61,11 @@
 	display: inline-block;
 }
 
+.gpnf-add-entry + .gfspinner {
+	margin-left: 5px;
+	vertical-align: middle;
+}
+
 .gpnf-view-related-entries {
 	font-size: 14px;
 	font-weight: bold;
@@ -121,6 +125,26 @@
 
 	.gpnf-no-entries span {
 		display: inline !important;
+	}
+
+	/*
+	 * Below styles assist with responsiveness for this snippet:
+	 * https://gist.github.com/spivurno/3a3b92bf32824a414c87c23bbf5ca335#file-z-gp-nested-forms-display-child-entries-table-format-all-child-fields-php
+	 */
+	.gpnf-row-actions:before {
+		content: '' !important;
+	}
+
+	.gpnf-row-actions:empty {
+		display: none;
+	}
+
+	body .gform_wrapper div.gform_body ul.gform_fields li.gfield.gfield_html .gpnf-field ul,
+	body .gform_wrapper div.gform_body ul.gform_fields li.gfield.gfield_html .gpnf-field ul li,
+	body .gform_wrapper form div.gform_body ul.gform_fields li.gfield.gfield_html .gpnf-field ul li li {
+		margin: 0 !important;
+		list-style: none !important;
+		overflow: visible;
 	}
 
 }
@@ -306,6 +330,10 @@ body .gpnf-dialog .gform_wrapper ul li.gfield:first-child {
 	border-radius: 3px;
 }
 
+.gpnf-modal .tingle-btn:disabled {
+	filter: grayscale( 100% );
+}
+
 .tingle-modal-box__footer {
 	text-align: right;
 }
@@ -357,6 +385,11 @@ body .gpnf-dialog .gform_wrapper ul li.gfield:first-child {
 
 .gpnf-btn-submit:disabled {
 	cursor: not-allowed;
+}
+
+/** Override WCGFPA styles that hides ALL submit buttons. */
+.tingle-modal-box .button[type=submit] {
+	display: inline-block !important;
 }
 
 @media (max-width : 712px), (any-hover:none) {

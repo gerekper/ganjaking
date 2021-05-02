@@ -28,6 +28,22 @@ class GPPA_Compatibility_GravityView {
 	}
 
 	/**
+	 * @param array $widget_args Args passed to this method.
+	 * @param \GV\Template_Context $context
+	 *
+	 * @return array|null Form array
+	 */
+	public function get_widget_form( $widget_args, $context ) {
+		$form_id = rgar( $widget_args, 'form_id' );
+
+		if ( ! $form_id && ! empty( $context->view ) && ! empty( $context->view->form ) && isset( $context->view->form->ID ) ) {
+			$form_id = $context->view->form->ID;
+		}
+
+		return GFAPI::get_form( $form_id );
+	}
+
+	/**
 	 * If editing a form with Gravity View's edit screen, then the form should be hydrated with fields from the current
 	 * entry.
 	 */
@@ -37,25 +53,36 @@ class GPPA_Compatibility_GravityView {
 			return $entry;
 		}
 
-		if ( $entry = GravityView_frontend::getInstance()->getEntry() ) {
-			return $entry;
+		$gv_entry = GravityView_frontend::getInstance()->getEntry();
+		if ( $gv_entry ) {
+			return $gv_entry;
 		}
 
 		return $entry;
 
 	}
 
+	/**
+	 * @param array $search_fields Array of search filters with `key`, `label`, `value`, `type`, `choices` keys
+	 * @param GravityView_Widget_Search $this Current widget object
+	 * @param array $widget_args Args passed to this method.
+	 * @param \GV\Template_Context $context
+	 */
 	public function hydrate_gravityview_search_filters( $search_fields, $self, $widget_args, $context ) {
-		$form_id = rgar( $widget_args, 'form_id' );
-		$form    = GFAPI::get_form( $form_id );
+		$form = $this->get_widget_form( $widget_args, $context );
 
 		foreach ( $search_fields as $search_field_index => $search_field ) {
 			$field = GFFormsModel::get_field( $form, $search_field['key'] );
 
-			$hydrated_field = gp_populate_anything()->hydrate_field( $field, $form, $this->get_gravityview_filter_values() );
+			$hydrated_field   = gp_populate_anything()->hydrate_field( $field, $form, $this->get_gravityview_filter_values() );
+			$hydrated_choices = rgars( $hydrated_field, 'field/choices' );
 
-			if ( $choices = rgars( $hydrated_field, 'field/choices' ) ) {
-				$search_fields[ $search_field_index ]['choices'] = $choices;
+			if ( $hydrated_choices === rgar( $field, 'choices' ) ) {
+				continue;
+			}
+
+			if ( $hydrated_choices ) {
+				$search_fields[ $search_field_index ]['choices'] = $hydrated_choices;
 			}
 		}
 
@@ -94,9 +121,14 @@ class GPPA_Compatibility_GravityView {
 		return $wrapper_attributes;
 	}
 
+	/**
+	 * @param array $search_fields Array of search filters with `key`, `label`, `value`, `type`, `choices` keys
+	 * @param GravityView_Widget_Search $this Current widget object
+	 * @param array $widget_args Args passed to this method.
+	 * @param \GV\Template_Context $context
+	 */
 	public function localize_for_search( $search_fields, $self, $widget_args, $context ) {
-		$form_id = rgar( $widget_args, 'form_id' );
-		$form    = GFAPI::get_form( $form_id );
+		$form = $this->get_widget_form( $widget_args, $context );
 
 		gp_populate_anything()->field_value_js( $form );
 		gp_populate_anything()->field_value_object_js( $form );
@@ -104,9 +136,16 @@ class GPPA_Compatibility_GravityView {
 		return $search_fields;
 	}
 
+	/**
+	 * @param array $search_fields Array of search filters with `key`, `label`, `value`, `type`, `choices` keys
+	 * @param GravityView_Widget_Search $this Current widget object
+	 * @param array $widget_args Args passed to this method.
+	 * @param \GV\Template_Context $context
+	 */
 	public function add_gravityview_id_filter( $search_fields, $self, $widget_args, $context ) {
-		$form_id               = rgar( $widget_args, 'form_id' );
-		$form                  = GFAPI::get_form( $form_id );
+		$form    = $this->get_widget_form( $widget_args, $context );
+		$form_id = rgar( $form, 'id' );
+
 		$dynamic_search_fields = array();
 
 		foreach ( $search_fields as $search_field ) {

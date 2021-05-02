@@ -65,7 +65,7 @@ class GP_Unique_ID extends GP_Plugin {
 
 	private static $_instance = null;
 
-	public $min_gravity_perks_version = '1.2.8.3';
+	public $min_gravity_perks_version = '2.2.1';
 	public $min_gravity_forms_version = '2.0';
 	public $field_obj;
 
@@ -151,14 +151,25 @@ class GP_Unique_ID extends GP_Plugin {
 	public function field_settings_js() {
 		?>
 		<script type="text/javascript">
-			gform.addFilter('gform_conditional_logic_description', function (str, descPieces, objectType, obj) {
-				if (objectType !== 'field' || !(obj && obj.type === 'uid')) {
+			gform.addFilter('gform_conditional_logic_description', function ( str, descPieces, objectType, obj ) {
+
+				if ( objectType !== 'field' || ! obj ) {
+					return str;
+				}
+
+				// In GF 2.5's CL flyout, the object will not be a field.
+				if ( window.GFConditionalLogic && obj instanceof window.GFConditionalLogic ) {
+					var field = GetFieldById( obj.fieldId );
+					if ( field && field.type !== 'uid' ) {
+						return str;
+					}
+				} else if ( obj.type !== 'uid' ) {
 					return str;
 				}
 
 				return str
-					.replace('Show', 'Enable')
-					.replace('Hide', 'Disable');
+					.replace( 'Show', 'Enable' )
+					.replace( 'Hide', 'Disable' );
 			} );
 		</script>
 		<?php

@@ -22,7 +22,12 @@ var mpValidateNotBlank = function(val) {
 var mpToggleFieldValidation = function(field, valid) {
   field.toggleClass('invalid', !valid);
   field.toggleClass('valid', valid);
-  field.prev('.mp-form-label').find('.cc-error').toggle(!valid);
+
+  if(field.hasClass('mepr-password-confirm') || field.hasClass('mepr-password')) {
+    field.parent().prev('.mp-form-label').find('.cc-error').toggle(!valid);
+  } else {
+    field.prev('.mp-form-label').find('.cc-error').toggle(!valid);
+  }
 
   field.triggerHandler('mepr-validate-field', valid);
   var form = field.closest('.mepr-form');

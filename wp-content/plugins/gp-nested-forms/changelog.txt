@@ -1,6 +1,199 @@
 
 # Changelog
 
+## 1.0-beta-9.20
+
+	- Updated Gravity Perks minimum required version to 2.2.3.
+	- Updated field settings markup, styles and functionality to work with Gravity Forms 2.5.
+	- Fixed issue where Nested Forms would not load if using Conditional Logic and the gform_init_scripts_footer filter.
+
+## 1.0-beta-9.19
+
+	- Fixed an issue displaying list fields in GPNF entries. (#82)
+	- Improved compatibility with Gravity Forms Multilingual by WPML.
+	- Improved compatibility with Paragraph fields using the Rich Text Editor (TinyMCE).
+
+## 1.0-beta-9.18
+
+	- Fixed an issue where parent merge tags replace submitted values on error.
+
+## 1.0-beta-9.17
+
+	- Improved compatibility with GravityView by filtering out child entries of unsubmitted parent forms.
+	- Added security enhancements. (#77)
+	- Added latest version of Knockout.js library
+	- Fixed issue with Save & Continue not working in some cases on multi-page forms.
+	- Fixed issue where child entries could show as duplicated on the client-side when submitting an AJAX parent form.
+	- Fixed a potential issue where Expanded Entries link may be displayed in GV.
+
+## 1.0-beta-9.16
+
+	- Fixed a potential issue when using index[0] as a modifier with the All Fields Template snippet.
+
+## 1.0-beta-9.15
+
+	- Removed the force display code that overrides GF's default conditional logic behavior. (#63)
+
+## 1.0-beta-9.14
+
+	- Fixed issue where scripts were initialized for each instance of a child form if the same child form was included by multiple Nested Form fields. (#68)
+
+## 1.0-beta-9.13
+
+	- Added support for processing values formatted as currency via the :sum modifier. (#67)
+
+## 1.0-beta-9.12
+
+	- Fixed a potential issue with iniFormScripts and currentPage number.
+
+## 1.0-beta-9.11
+
+	- Fixed a potential issue where fields with a parent merge tag may reset.
+
+## 1.0-beta-9.10
+
+	- Removed jQuery ready wrapper from GPNestedForms init. (#61)
+	- Fixed issue where parent form calculations briefly flashed the raw Nested Forms field value on submission.
+
+## 1.0-beta-9.9
+
+	- Added `[gpnf_set_parent_entry_id](https://gravitywiz.com/documentation/gpnf_set_parent_entry_id/)` filter.
+
+## 1.0-beta-9.8
+
+	- Fixed a variety of issues related to init scripts - and - added support for editing Signature fields. (#55)
+
+## 1.0-beta-9.7
+
+	- Improved reliability of Nested Form fields when placed on non-first pages in AJAX-enabled, multi-page forms.
+
+## 1.0-beta-9.6
+
+	- Fixed an integration issue with Gravity Forms Date Dropper Field plugin.
+
+## 1.0-beta-9.5
+
+	- Fixed an issue where Chained Selects fields may not export properly.
+
+## 1.0-beta-9.4
+
+	- Fixed regression where interactive elements of child forms such as Enhanced UI for Select fields or Live Merge Tags from Populate Anything would not work correctly.
+	- Fixed issue where Nested Forms calculations would not work properly in some cases on multi-page forms.
+
+## 1.0-beta-9.3
+
+	- Removed session child entries upon utilizing GF Save and Continue feature.
+	- Fixed PHP notice on frontend if no fields are selected in the Summary Fields setting.
+
+## 1.0-beta-9.2
+
+	- Fixed issue where filtering Nested Form field merge tag to single value failed unexpectedly.
+
+## 1.0-beta-9.1
+
+	- Fixed issue where Conditional Logic would cause the Add Entry button to become re-enabled if it was disabled.
+	- Added additional formId, fieldId, and gpnf params to [gpnf_fetch_form_html_on_load](https://gravitywiz.com/documentation/gpnf_fetch_form_html_on_load) JS filter.
+
+## 1.0-beta-9
+
+	- Improved performance by not loading Nested Form markup on form load and also not initiating Nested Forms unless visible on the current page.
+
+## 1.0-beta-8.81
+
+	- Fixed an issue where enhanced UI fields may fail to populate using parent merge tags.
+
+## 1.0-beta-8.80
+
+	- Fixed potential PHP warning.
+	- Added [`gpnf_should_use_static_value`](https://gravitywiz.com/documentation/gpnf_should_use_static_value/) filter to allow toggling the use of static values in Nested Form fields.
+
+## 1.0-beta-8.79
+
+	- Fixed issue where trashed parent entries did not correctly show their child entries and when restored from trash failed to restore their child entries.
+
+## 1.0-beta-8.78
+
+	- Fixed a WooCommerce integration issue where child form feeds were not processed on checkout.
+	- Fixed an issue where GPNF displayed old deprecated arguments for modal titles.
+
+## 1.0-beta-8.77
+
+	- Fixed issue where datepickers were not destroyed when initializing the child form modal.
+
+## 1.1
+
+	- Fixed issue where new method for retrieving Nested Form field value dynamically incorrectly returned all child entries for a parent entry rather than only the child entries for the current Nested Form field.
+
+## 1.0
+
+	- Added support for auto-resizing modal when window is resized.
+	- Added responsive styling for Nested Form field.
+	- Updated acceptance tests to work with tingle.  Added export entries test.
+	- Updated font size of modal header.
+	- Fixed notice generated by undeclared $entry_ids variable in entry limit validation.
+	- Fixed issue where modal content was hidden incorrectly when two of the same child form existed on the page.
+	- Fixed UX issue where modal buttons were re-initialized on the modal confirmation page, creating a flicker on the submit button as the spinner was replaced with the submit button text.
+
+## 1.0-beta-8.76
+
+	- Added support for providing a negative index to the :index modifier to allow selecting backwards from the last submitted child entry.
+
+## 1.0-beta-8.75
+
+	- Fixed issue where child form failed to submit when WCGFPA applied styles to force hide all submit buttons.
+
+## 1.0-beta-8.74
+
+	- Added support for an :index modifier to allow targeting a specific ch… (#38)
+	- Fixed an issue where the "html" format was forced on the simple list template.
+	- Fixed an issue where a misconfigured nested form may generate PHP warnings in other perks.
+	- Fixed an issue in IE11 where GPNF would scroll to the top after editing an entry.
+	- Fixed issue where requested spinner graphic did not exist in Gravity Forms 2.5.
+
+## 1.0-beta-8.73
+
+	- Fixed an issue in IE11 where GPNF would scroll to the top after editing an entry.
+
+## 1.0-beta-8.72
+
+	- Fixed issue where duplicating a child entry created two duplicates instead of the expected one.
+
+## 1.0-beta-8.71
+
+	- Added [gpnf_post_duplicate_entry](https://gravitywiz.com/documentation/gpnf_post_duplicate_entry/) filter to allow doing something after a child entry has been duplicated on the frontend.
+
+## 1.0-beta-8.70
+
+	- Fixed a compatibility issue with Gravity Flow and Date fields.
+
+## 1.0-beta-8.69
+
+	- Fixed an integration issue where WooCommerce Gravity Forms Plugin would hide the submit button.
+
+## 1.0-beta-8.68
+
+	- Added [`gpnf_cookie_name`](https://gravitywiz.com/documentation/gpnf_cookie_name/) filter.
+	- Added support for Gravity Forms 2.5. (#30)
+
+## 1.0-beta-8.67
+
+	- Added support for populating values passed from the parent form's `field_values` shortcode parameter.
+	- Fixed issue where child form inline styles that shared a parent form handle were enqueued too late and never output.
+
+## 1.0-beta-8.66
+
+	- Added responsive support when displaying the Nested Entries Detail template on the frontend.
+	- Added inline docs for "gpnf_entry_limit_min" and "gpnf_entry_limit_max" filters.
+	- Added translator comments for several strings.
+
+## 1.0-beta-8.65
+
+	- Fixed an issue where parent merge tags in child notifications may not be parsed correctly.
+
+## 1.0-beta-8.64
+
+	- Fixed an issue where submit button would flash briefly on nested form modal before saving the entry.
+
 ## 1.0-beta-8.63
 
 	- Added a more verbose notice when nested form and fields are not set.
@@ -255,18 +448,12 @@
 
 ## 1.0-beta-8.3
 
-	- Updated Nested Forms field value method to ignore entries with alphanumeric IDs.
-
-## 1.1
-
-	- Fixed issue where new method for retrieving Nested Form field value dynamically incorrectly returned all child entries for a parent entry rather than only the child entries for the current Nested Form field.
-
-## 1.0
-
 	- Added support for auto-resizing modal when window is resized.
 	- Added responsive styling for Nested Form field.
+	- Updated Nested Forms field value method to ignore entries with alphanumeric IDs.
 	- Updated acceptance tests to work with tingle.  Added export entries test.
 	- Updated font size of modal header.
+    - Fixed issue where new method for retrieving Nested Form field value dynamically incorrectly returned all child entries for a parent entry rather than only the child entries for the current Nested Form field.
 	- Fixed notice generated by undeclared $entry_ids variable in entry limit validation.
 	- Fixed issue where modal content was hidden incorrectly when two of the same child form existed on the page.
 	- Fixed UX issue where modal buttons were re-initialized on the modal confirmation page, creating a flicker on the submit button as the spinner was replaced with the submit button text.

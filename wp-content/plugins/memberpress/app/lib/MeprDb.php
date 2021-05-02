@@ -487,6 +487,12 @@ class MeprDb {
     $i = 0;
 
     foreach($args as $key => $value) {
+      if ($key == 'id' && empty($value)) {
+        // To prevent issue with SQL MODE NO_AUTO_VALUE_ON_ZERO
+        // https://github.com/caseproof/memberpress/commit/55d2f9d69a6adc73ced127d226fd6cba6cca0b9c
+        continue;
+      }
+
       $cols[$i] = "`$key`";
       if(is_numeric($value) and preg_match('!\.!',$value)) {
         $vars[$i] = '%f';

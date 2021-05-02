@@ -105,14 +105,23 @@ class Activation
 	}
 
 	/**
-	 * return string
+	 * @return string
 	 */
 	private function get_message() {
 		$message = sprintf(
-			__( "To enable automatic updates <a href='%s'>enter your license key</a>. If you don't have a license key, please see <a href='%s' target='_blank'>details & pricing</a>.", 'codepress_admin_columns' ),
-			acp_get_license_page_url(),
-			( new UtmTags( new Site( Site::PAGE_PRICING ), 'plugins' ) )->get_url()
+			__( "To enable automatic updates for %s, <a href='%s'>enter your license key</a>.", 'codepress_admin_columns' ),
+			'Admin Columns Pro',
+			acp_get_license_page_url()
 		);
+
+		$message .= ' ' . sprintf(
+				__( "If you don't have a license key, please see %s.", 'codepress_admin_columns' ),
+				sprintf(
+					"<a href='%s' target='_blank'>%s</a>",
+					( new UtmTags( new Site( Site::PAGE_PRICING ), 'plugins' ) )->get_url(),
+					__( 'details & pricing', 'codepress-admin-columns' )
+				)
+			);
 
 		return $message;
 	}

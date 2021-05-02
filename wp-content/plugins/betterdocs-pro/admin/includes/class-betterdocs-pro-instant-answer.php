@@ -114,7 +114,7 @@ class BetterDocs_Pro_IA {
         }
         
         if( $this->setNempty( 'ia_luncher_bg_hover', $settings ) ) {
-            $css .= '.betterdocs-launcher[type=button]:hover {background-color:' . $settings['ia_luncher_bg_hover'] . '}';
+            $css .= '.betterdocs-widget-container .betterdocs-launcher[type=button]:hover {background-color:' . $settings['ia_luncher_bg_hover'] . ' !important}';
         }
 
         if( $this->setNempty( 'ia_heading_color', $settings ) ) {
@@ -270,7 +270,6 @@ class BetterDocs_Pro_IA {
     public function jsObject( $settings ) {
         $url = $this->make_url( $settings );
 
-
         $search_settings = $answer_settings = $chat_settings = $launcher_settings = $thanks_settings = $branding_settings = $response_settings = array();
 
         $answer_tab_title    = $this->setNempty( 'answer_tab_title', $settings ) ? $settings['answer_tab_title'] : __( 'Answer', 'betterdocs-pro' );
@@ -309,9 +308,8 @@ class BetterDocs_Pro_IA {
         $search_placeholder = $this->setNempty( 'search_placeholder_text', $settings ) ? $settings['search_placeholder_text'] : __( 'Search...', 'betterdocs-pro' );
         $search_settings['SEARCH_PLACEHOLDER'] = $search_placeholder;
 
-        $search_settings['OOPS'] = __( 'Opps...', 'betterdocs-pro' );
-        $search_settings['NOT_FOUND'] = __( 'We couldn’t find any articles that match your search. Try searching for a
-        new term.', 'betterdocs-pro' );
+        $search_settings['OOPS'] = $this->setNempty( 'search_not_found_1', $settings ) ? $settings['search_not_found_1'] : __( 'Oops...', 'betterdocs-pro' );
+        $search_settings['NOT_FOUND'] = $this->setNempty( 'search_not_found_2', $settings ) ? $settings['search_not_found_2'] : __( 'We couldn’t find any articles that match your search. Try searching for a new term.', 'betterdocs-pro' );
 
         $answer_tab_switch = $this->setNempty( 'answer_tab_visibility_switch', $settings ) ? $settings['answer_tab_visibility_switch'] : [];
         if( ! empty( $answer_tab_switch ) && $answer_tab_switch === '1' ) {
@@ -875,6 +873,18 @@ class BetterDocs_Pro_IA {
                                     'priority' => 14,
                                     'default'  => 9999
                                 ),
+                                'search_not_found_1' => array(
+                                    'type'     => 'text',
+                                    'label'    => __('Docs not Found' , 'betterdocs-pro'),
+                                    'priority' => 11,
+                                    'default'  => __( 'Oops...', 'betterdocs-pro' )
+                                ),
+                                'search_not_found_2' => array(
+                                    'type'     => 'text',
+                                    'label'    => __('Docs not Found' , 'betterdocs-pro'),
+                                    'priority' => 11,
+                                    'default'  => __( 'We couldn’t find any articles that match your search. Try searching for a new term.', 'betterdocs-pro' )
+                                ),
                             )
                         ),
                         'betterdocs_color_settings' => array(
@@ -1116,6 +1126,7 @@ class BetterDocs_Pro_IA {
 
         return $settings;
     }
+
     /**
      * Get all docs
      */

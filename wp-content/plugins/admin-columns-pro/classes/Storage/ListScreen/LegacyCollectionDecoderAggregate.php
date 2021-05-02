@@ -19,9 +19,6 @@ class LegacyCollectionDecoderAggregate implements LegacyCollectionDecoder {
 		$this->collection_decoders[] = $collection_decoder;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function decode( array $data ) {
 		foreach ( $this->collection_decoders as $collection_decoder ) {
 			if ( $collection_decoder->can_decode( $data ) ) {
@@ -32,9 +29,6 @@ class LegacyCollectionDecoderAggregate implements LegacyCollectionDecoder {
 		throw new LogicException( 'Unable to decode ListScreen collection.' );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function can_decode( array $data ) {
 		foreach ( $this->collection_decoders as $collection_decoder ) {
 			if ( $collection_decoder->can_decode( $data ) ) {

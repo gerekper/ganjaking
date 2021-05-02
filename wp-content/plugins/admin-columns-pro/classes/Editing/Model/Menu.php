@@ -54,7 +54,7 @@ abstract class Menu extends Model {
 	 * @param int $menu_id
 	 * @param int $object_id
 	 *
-	 * @return array|false
+	 * @return bool
 	 */
 	private function item_exists( $menu_id, $object_id ) {
 		$items = wp_get_nav_menu_items( $menu_id, [ 'post_status' => 'publish' ] );

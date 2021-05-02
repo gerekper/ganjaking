@@ -360,12 +360,12 @@ class GP_Populate_Anything_Live_Merge_Tags {
 			$full_match = $match[0];
 
 			$output    = $this->get_live_merge_tag_value( $match[2], $form );
-			$data_attr = 'data-gppa-live-merge-tag="' . esc_attr( $this->escape_live_merge_tags( $match[2] ) ) . '"';
+			$data_attr = 'data-gppa-live-merge-tag-innerHtml="' . esc_attr( $this->escape_live_merge_tags( $match[2] ) ) . '"';
 
 			$full_match_replacement = str_replace( $match[2], $output, $full_match );
 			$full_match_replacement = str_replace( '<textarea ', '<textarea ' . $data_attr . ' ', $full_match_replacement );
 
-			$this->register_lmt_on_page( $form['id'], 'data-gppa-live-merge-tag' );
+			$this->register_lmt_on_page( $form['id'], 'data-gppa-live-merge-tag-innerHtml' );
 			$this->add_current_lmt_value( $form['id'], $match[2], $output );
 
 			$content = str_replace( $full_match, $full_match_replacement, $content );
@@ -461,13 +461,13 @@ class GP_Populate_Anything_Live_Merge_Tags {
 
 		$merge_tag_value = $this->get_live_merge_tag_value( $field->defaultValue, GFAPI::get_form( $field->formId ) );
 
-		$this->register_lmt_on_page( $field->formId, 'data-gppa-live-merge-tag' );
+		$this->register_lmt_on_page( $field->formId, 'data-gppa-live-merge-tag-innerHtml' );
 
 		if ( $merge_tag_value ) {
 			$this->add_current_lmt_value( $field->formId, $field->defaultValue, $merge_tag_value );
 		}
 
-		$data_attr = 'data-gppa-live-merge-tag="' . esc_attr( $this->escape_live_merge_tags( $field->defaultValue ) ) . '"';
+		$data_attr = 'data-gppa-live-merge-tag-innerHtml="' . esc_attr( $this->escape_live_merge_tags( $field->defaultValue ) ) . '"';
 
 		return str_replace( '<textarea ', '<textarea ' . $data_attr, $content );
 
@@ -718,6 +718,40 @@ class GP_Populate_Anything_Live_Merge_Tags {
 
 	}
 
+	/**
+	 * Check if a field has empty inputs if all are needed. Example: Date field using inputs and not all three inputs
+	 * have been filled out. Without all inputs filled out, Merge Tags typically return odd values.
+	 *
+	 * @param $field
+	 * @param $form
+	 *
+	 * @return bool
+	 */
+	public function is_value_submission_empty( $entry_value, $field, $form ) {
+		$is_empty = $field->is_value_submission_empty( $form['id'] );
+
+		if ( $is_empty ) {
+			return true;
+		}
+
+		/**
+		 * GF 2.5 changed the behavior of is_value_submission_empty() and it won't return false if there are missing
+		 * inputs like <GF 2.5 would.
+		 *
+		 * Fortunately, GF_Field->validate() has been changed and it's more suitable for this use-case.
+		 */
+		if ( version_compare( GFForms::$version, '2.5-beta-1', '>=' ) ) {
+			$field->isRequired = true;
+			$field->validate( $entry_value, $form );
+
+			if ( ! empty( $field->validation_message ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function get_live_merge_tag_value( $merge_tag, $form, $entry_values = null ) {
 
 		$lmt_nonces = null;
@@ -731,6 +765,30 @@ class GP_Populate_Anything_Live_Merge_Tags {
 
 		if ( ! $entry_values ) {
 			$entry_values = gp_populate_anything()->get_posted_field_values( $form );
+		}
+
+		/**
+		 * Use get_value_save_entry() to get a more accurate entry value for field types such as Date and Time.
+		 */
+		foreach ( $entry_values as $field_id => $entry_value ) {
+			$field = GFAPI::get_field( $form, $field_id );
+
+			if ( ! $field || ! in_array( $field['type'], GP_Populate_Anything::get_interpreted_multi_input_field_types(), true ) ) {
+				continue;
+			}
+
+			if ( $this->is_value_submission_empty( $entry_value, $field, $form ) ) {
+				$entry_values[ $field_id ] = null;
+				continue;
+			}
+
+			$save_value = $field->get_value_save_entry( $entry_value, $form, $field_id, null, null );
+
+			if ( ! $save_value ) {
+				continue;
+			}
+
+			$entry_values[ $field_id ] = $save_value;
 		}
 
 		/**

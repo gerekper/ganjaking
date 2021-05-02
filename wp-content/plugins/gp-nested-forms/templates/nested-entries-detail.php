@@ -3,7 +3,9 @@
  * @var array  $nested_fields    An array of GF_Field objects.
  * @var array  $nested_form      The form object of the nested form.
  * @var array  $nested_field_ids An array of nested field IDs.
- * @var string $actions          Generated HTML for displaying related entries link.
+ * @var array  $entries          An array of child entries submitted from the current Nested Form field.
+ * @var array  $labels           An array of labels used in this template.
+ * @var array  $actions          An array of HTML strings used to display field actions.
  */
 ?>
 <div class="gpnf-nested-entries-container gpnf-entry-view ginput_container">
@@ -12,7 +14,7 @@
 
 		<thead>
 		<tr>
-			<?php foreach( $nested_fields as $nested_field  ): ?>
+			<?php foreach ( $nested_fields as $nested_field ) : ?>
 				<th class="gpnf-field-<?php echo $nested_field['id']; ?>">
 					<?php echo GFCommon::get_label( $nested_field ); ?>
 				</th>
@@ -22,17 +24,25 @@
 		</thead>
 
 		<tbody>
-		<?php foreach( $entries as $entry ): ?>
+		<?php foreach ( $entries as $entry ) : ?>
 			<?php $field_values = gp_nested_forms()->get_entry_display_values( $entry, $nested_form, $nested_field_ids ); ?>
 			<tr>
-				<?php foreach( $nested_fields as $nested_field ): ?>
-					<td class="gpnf-field"><?php echo rgars( $field_values, "{$nested_field['id']}/label" ); ?></td>
+				<?php
+				foreach ( $nested_fields as $nested_field ) :
+					$field_value = rgars( $field_values, "{$nested_field['id']}/label" );
+					?>
+					<td class="gpnf-field"
+						data-heading="<?php echo GFCommon::get_label( $nested_field ); ?>"
+						data-value="<?php echo esc_attr( $field_value ); ?>">
+						<?php echo $field_value; ?>
+					</td>
 				<?php endforeach; ?>
-				<td class="gpnf-row-actions">
+				<!-- The whitespace below matters. Using CSS :empty to hide when link is not output. -->
+				<td class="gpnf-row-actions"><?php if ( ! empty( $labels['view_entry'] ) ) : ?>
 					<a href="<?php echo gp_nested_forms()->get_entry_url( $entry['id'], $nested_form['id'] ); ?>">
 						<?php echo $labels['view_entry']; ?>
 					</a>
-				</td>
+				<?php endif; ?></td>
 			</tr>
 		<?php endforeach; ?>
 		</tbody>

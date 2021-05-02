@@ -24,9 +24,6 @@ class Languages extends Comparison\Meta
 		parent::__construct( $operators, 'locale', MetaType::USER );
 	}
 
-	/**
-	 * @inheritdoc
-	 */
 	public function get_values() {
 		return AC\Helper\Select\Options::create_from_array( $this->languages );
 	}

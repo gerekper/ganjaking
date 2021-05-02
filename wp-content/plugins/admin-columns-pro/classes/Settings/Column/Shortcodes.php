@@ -8,7 +8,7 @@ use AC\View;
 class Shortcodes extends AC\Settings\Column {
 
 	/**
-	 * @var bool
+	 * @var string
 	 */
 	private $shortcode;
 

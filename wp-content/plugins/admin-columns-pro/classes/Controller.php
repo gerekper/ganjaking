@@ -12,15 +12,12 @@ abstract class Controller {
 	 */
 	protected $request;
 
-	/**
-	 * @param Request $request
-	 */
 	public function __construct( Request $request ) {
 		$this->request = $request;
 	}
 
 	/**
-	 * @param $action
+	 * @param string $action
 	 */
 	public function dispatch( $action ) {
 		$method = $action . '_action';

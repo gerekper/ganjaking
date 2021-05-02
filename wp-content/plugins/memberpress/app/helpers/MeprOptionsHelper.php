@@ -109,11 +109,19 @@ class MeprOptionsHelper {
   public static function gateways_dropdown($field_name, $curr_gateway, $obj_id) {
     $gateways = MeprGatewayFactory::all();
     $field_value = isset($_POST[$field_name])?$_POST[$field_name]:'';
+
+    //Move Stripe Gateway to the top of the list
+    if(isset($gateways['MeprStripeGateway'])) {
+      $gateways = array_merge(array('MeprStripeGateway' => $gateways['MeprStripeGateway']), $gateways);
+    }
+
     ?>
       <select name="<?php echo $field_name; ?>" id="<?php echo $field_name; ?>" data-id="<?php echo $obj_id; ?>" class="mepr-dropdown mepr-gateways-dropdown">
       <?php
         foreach($gateways as $gateway => $gateway_name) {
           if($gateway == 'MeprPayPalProGateway') { continue; } //Don't show PayPal Pro any more to new users
+
+          if($gateway == 'MeprStripeGateway') { $gateway_name = __('Stripe (Preferred)', 'memberpress'); }
 
           $obj = MeprGatewayFactory::fetch($gateway);
 

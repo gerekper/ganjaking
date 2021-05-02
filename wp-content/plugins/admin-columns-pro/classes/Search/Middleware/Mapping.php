@@ -21,7 +21,7 @@ abstract class Mapping {
 	 * @param string|null $direction
 	 */
 	public function __construct( $direction = null ) {
-		if ( null === $direction || $direction != self::REQUEST ) {
+		if ( null === $direction || $direction !== self::REQUEST ) {
 			$direction = self::RESPONSE;
 		}
 
@@ -37,7 +37,7 @@ abstract class Mapping {
 	 * @return array
 	 */
 	protected function apply_direction( array $array ) {
-		if ( $this->direction == self::REQUEST ) {
+		if ( $this->direction === self::REQUEST ) {
 			$array = array_flip( $array );
 		}
 
@@ -48,7 +48,7 @@ abstract class Mapping {
 	 * Return array of properties with the response side first
 	 * @return array
 	 */
-	protected abstract function get_properties();
+	abstract protected function get_properties();
 
 	/**
 	 * Get a property

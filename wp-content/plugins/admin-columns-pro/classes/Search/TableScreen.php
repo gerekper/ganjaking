@@ -5,18 +5,10 @@ namespace ACP\Search;
 use AC;
 use AC\Asset\Enqueueable;
 use AC\Registrable;
-use AC\Request;
 use ACP;
 use ACP\Search\Settings\HideOnScreen;
-use LogicException;
 
-abstract class TableScreen
-	implements Registrable {
-
-	/**
-	 * @var Request
-	 */
-	protected $request;
+abstract class TableScreen implements Registrable {
 
 	/**
 	 * @var AC\ListScreen
@@ -24,25 +16,12 @@ abstract class TableScreen
 	protected $list_screen;
 
 	/**
-	 * @var Addon
-	 */
-	protected $addon;
-
-	/**
 	 * @var Enqueueable[]
 	 */
 	protected $assets;
 
-	/**
-	 * @param Addon         $addon
-	 * @param AC\ListScreen $list_screen
-	 * @param Request       $request
-	 * @param array         $assets
-	 */
-	public function __construct( Addon $addon, AC\ListScreen $list_screen, Request $request, array $assets ) {
-		$this->addon = $addon;
+	public function __construct( AC\ListScreen $list_screen, array $assets ) {
 		$this->list_screen = $list_screen;
-		$this->request = $request;
 		$this->assets = $assets;
 	}
 
@@ -50,58 +29,6 @@ abstract class TableScreen
 		add_action( 'ac/table_scripts', [ $this, 'scripts' ] );
 		add_action( 'admin_head', [ $this, 'hide_segments' ] );
 		add_action( 'admin_footer', [ $this, 'add_segment_modal' ] );
-
-		$this->register_query();
-	}
-
-	public function register_query() {
-		$rules = $this->request->filter( 'ac-rules', [], FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
-
-		if ( ! $rules ) {
-			return;
-		}
-
-		$bindings = [];
-
-		foreach ( $rules as $rule ) {
-			$column = $this->list_screen->get_column_by_name( $rule['name'] );
-
-			if ( ! $column ) {
-				continue;
-			}
-
-			if ( ! $column instanceof Searchable || ! $column->search() ) {
-				continue;
-			}
-
-			// Skip unsupported operators
-			if ( false === $column->search()->get_operators()->search( $rule['operator'] ) ) {
-				continue;
-			}
-
-			try {
-				$bindings[] = $column->search()->get_query_bindings(
-					$rule['operator'],
-					new Value( $rule['value'], $rule['value_type'] )
-				);
-			} catch ( LogicException $e ) {
-
-				// Error message
-				$message = sprintf( __( 'Smart filter for %s could not be applied.', 'codepress-admin-columns' ), sprintf( '<strong>%s</strong>', $column->get_custom_label() ) );
-				$message = sprintf( '%s %s', $message, __( 'Try to re-apply the filter.', 'codepress-admin-columns' ) );
-
-				( new AC\Message\Notice( $message ) )
-					->set_type( AC\Message\Notice::WARNING )
-					->register();
-
-				continue;
-			}
-		}
-
-		QueryFactory::create(
-			$this->list_screen->get_meta_type(),
-			$bindings
-		)->register();
 	}
 
 	public function scripts() {
@@ -157,7 +84,6 @@ abstract class TableScreen
 		}
 
 		$view = new AC\View( [
-			'current_segment_id'       => $this->request->get( 'ac-segment' ),
 			'user_can_manage_segments' => current_user_can( AC\Capabilities::MANAGE ),
 		] );
 

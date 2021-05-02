@@ -630,7 +630,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		if(!empty($permalink_manager_options["general"]["ignore_drafts"]) && !empty($post->post_status) && $post->post_status == 'draft') { return $html; }
 
 		// Stop the hook (if needed)
-		$show_uri_editor = apply_filters("permalink_manager_hide_uri_editor_post_{$post->post_type}", true);
+		$show_uri_editor = apply_filters("permalink_manager_show_uri_editor_post_{$post->post_type}", true);
 		if(!$show_uri_editor) { return $html; }
 
 		$new_html = preg_replace("/^(<strong>(.*)<\/strong>)(.*)/is", "$1 ", $html);
@@ -812,6 +812,18 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 
 		// Update the slug (if changed)
 		if(isset($_POST['permalink-manager-edit-uri-element-slug']) && isset($_POST['native_slug']) && ($_POST['native_slug'] !== $_POST['permalink-manager-edit-uri-element-slug'])) {
+
+			// Make sure that '_wp_old_slug' is saved
+			if(!empty($_POST['post_name'])) {
+				$post_before = $post;
+
+				 // Clone the instance of WP_Post object
+				$post_after = unserialize(serialize($post));
+				$post_after->post_name = sanitize_title($_POST['native_slug']);
+
+				wp_check_for_changed_slugs($post_id, $post_after, $post_before);
+			}
+
 			self::update_slug_by_id($_POST['native_slug'], $post_id);
 			clean_post_cache($post_id);
 		}

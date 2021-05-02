@@ -107,6 +107,10 @@
 .gppa-select-with-custom {
 	position: relative;
 	width: 100%;
+	height: 36px;
+}
+
+.gf-legacy-ui .gppa-select-with-custom {
 	height: 28px;
 }
 
@@ -124,6 +128,7 @@
 	bottom: 0;
 	position: absolute;
 	display: flex;
+	margin-top: 0 !important;
 }
 
 .gppa-select-with-custom-input-container input {
@@ -173,6 +178,10 @@
 	opacity: 0;
 }
 
+.gppa-template-row td {
+	padding: 3px 0;
+}
+
 .gppa-template-row td:nth-of-type(2) {
 	width: 80%;
 }
@@ -218,6 +227,7 @@
 }
 
 .gppa-choices-enabled .ginput_container li:nth-child(1) label,
+.gppa-choices-enabled .ginput_container .gchoice:nth-child(1) label,
 .gppa-choices-enabled select[multiple="multiple"] option:nth-child(1) {
 	width: 50% !important;
 }
@@ -227,46 +237,50 @@
 }
 
 .gppa-choices-enabled .ginput_container li:nth-child(2) label,
+.gppa-choices-enabled .ginput_container .gchoice:nth-child(2) label,
 .gppa-choices-enabled select[multiple="multiple"] option:nth-child(2) {
 	width: 60% !important;
 }
 
 .gppa-choices-enabled .ginput_container li:nth-child(3) label,
+.gppa-choices-enabled .ginput_container .gchoice:nth-child(3) label,
 .gppa-choices-enabled select[multiple="multiple"] option:nth-child(3) {
 	width: 40% !important;
 }
 
 .gppa-choices-enabled .ginput_container li:nth-child(4) label,
+.gppa-choices-enabled .ginput_container .gchoice:nth-child(4) label,
 .gppa-choices-enabled select[multiple="multiple"] option:nth-child(4) {
 	width: 55% !important;
 }
 
 .gppa-choices-enabled .ginput_container li:nth-child(5) label,
+.gppa-choices-enabled .ginput_container .gchoice:nth-child(5) label,
 .gppa-choices-enabled select[multiple="multiple"] option:nth-child(5) {
 	width: 45% !important;
 }
 
 .gppa-choices-enabled label.gfield_label,
 .gppa-values-enabled label.gfield_label {
-	display: flex;
+	display: flex !important;
 }
 
-.gppa-choices-enabled label.gfield_label::after,
-.gppa-values-enabled label.gfield_label::before,
+.gppa-choices-enabled .gfield_label::after,
+.gppa-values-enabled .gfield_label::before,
 #gppa label[for^="gppa-"][for$="-enabled"]::after {
 	content: "\f0e7";
 	display: inline-block;
-	font-family: 'FontAwesome';
+	font-family: 'GFFontAwesome', 'FontAwesome';
 	color: #D4662C;
 	padding-left: 5px;
 	font-style: italic;
 }
 
-.gppa-values-enabled label.gfield_label::before {
+.gppa-values-enabled .gfield_label::before {
 	order: 1;
 }
 
-.gppa-values-enabled label.gfield_label::before,
+.gppa-values-enabled .gfield_label::before,
 #gppa label[for="gppa-values-enabled"]::after {
 	color: #3498db !important;
 }
@@ -306,29 +320,29 @@ body:not(.gf-legacy-ui) .gppa-filter:last-of-type {
 }
 
 body:not(.gf-legacy-ui) .gppa-filter-property {
-	flex-basis: 100%;
 	margin-bottom: 0.5rem !important;
-	margin-right: 0 !important;
+	margin-right: 0.5rem !important;
 }
 
 body:not(.gf-legacy-ui) .gppa-filter-operator {
 	flex: 1;
-	margin-right: 0.5rem !important;
+	margin-right: 0 !important;
 }
 
 body:not(.gf-legacy-ui) .gppa-filter-value {
-	flex: 3;
+	flex-basis: 100%;
+	margin-top: 0 !important;
 }
 
-body:not(.gf-legacy-ui) .repeater-buttons {
+body:not(.gf-legacy-ui) .gppa-filter .repeater-buttons {
 	flex-basis: 100%;
 	margin-top: 6px;
 }
 
 body:not(.gf-legacy-ui) .gppa-select-with-custom.gppa-has-merge-tag-selector a.custom-reset {
-	right: 51px;
+	right: 50px;
 	top: 1px;
-	height: 28px;
+	height: 34px;
 	border-radius: 0 2px 2px 0;
 }
 

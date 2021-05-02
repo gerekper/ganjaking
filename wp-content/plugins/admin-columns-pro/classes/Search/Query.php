@@ -6,8 +6,7 @@ use AC\Registrable;
 use ACP\Search\Query\Bindings;
 use LogicException;
 
-abstract class Query
-	implements Registrable {
+abstract class Query implements Registrable {
 
 	/**
 	 * @var Bindings[]

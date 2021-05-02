@@ -3,7 +3,7 @@
 namespace ACP\Plugin;
 
 use AC;
-use ACP\Search\SegmentRepository;
+use ACP\Bookmark\SegmentRepository;
 
 final class Installer implements AC\Installer {
 

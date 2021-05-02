@@ -1,10 +1,10 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 use GFCommon;
-use Rocketgenius\Gravity_Forms\Settings;
-use Rocketgenius\Gravity_Forms\Settings\Fields;
+use Gravity_Forms\Gravity_Forms\Settings\Settings;
+use Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 defined( 'ABSPATH' ) || die();
 
@@ -137,10 +137,10 @@ class Radio extends Base {
 			);
 		}
 
-		$html .= '</span>';
-
 		// If field failed validation, add error icon.
 		$html .= $this->get_error_icon();
+
+		$html .= '</span>';
 
 		return $html;
 
@@ -159,7 +159,7 @@ class Radio extends Base {
 	 *
 	 * @param string $value Posted field value.
 	 */
-	public function is_valid( $value ) {
+	public function do_validation( $value ) {
 
 		// If field is required and value is missing, set field error.
 		if ( $this->required && rgblank( $value ) ) {
@@ -187,4 +187,4 @@ class Radio extends Base {
 
 }
 
-Fields::register( 'radio', '\Rocketgenius\Gravity_Forms\Settings\Fields\Radio' );
+Fields::register( 'radio', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Radio' );

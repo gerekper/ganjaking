@@ -6,8 +6,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: permalinks, custom permalinks, url editor, permalinks, woocommerce permalinks
 Requires at least: 4.4.0
 Requires PHP: 5.4
-Tested up to: 5.7.0
-Stable tag: 2.2.9.7
+Tested up to: 5.7.1
+Stable tag: 2.2.9.9
 
 Permalink Manager allows to easily change full URL addresses of posts, pages, custom post types, terms and WooCommerce links. You can also set different permalink formats per language or bulk change the URLs.
 
@@ -102,6 +102,16 @@ It is because Permalink Manager overwrites one of the core Wordpress functionali
 8.	Permalink Manager settings.
 
 == Changelog ==
+
+= 2.2.9.9 (26/04/2021) =
+* Fix - Hotfix for AMP WP integration
+
+= 2.2.9.8 (26/04/2021) =
+* Fix - The old native slug is now correctly saved after it is changed in URI Editor.
+* Enhancement - The post type archives are now also added to the filtered breadcrumbs trail
+* Enhancement - Basic support added for WP All Export plugin
+* Enhancement - Basic support added for AMP for WP
+* Dev - (Permalink Manager Pro only) "Plugin Update Checker" by YahnisElsts library updated to 4.11 version
 
 = 2.2.9.7 (11/03/2021) =
 * Enhancement - Support for WooCommerce CSV Product Importer/Exporter added

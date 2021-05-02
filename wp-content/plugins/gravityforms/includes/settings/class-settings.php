@@ -1,13 +1,12 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms;
+namespace Gravity_Forms\Gravity_Forms\Settings;
 
 use GFAPI;
 use GFCommon;
 use GF_Fields;
 use GFForms;
 use GFFormsModel;
-use Rocketgenius\Gravity_Forms\Settings\Fields;
 
 use WP_Error;
 
@@ -176,7 +175,8 @@ class Settings {
 		}
 
 		if ( rgar( $args, 'capability' ) ) {
-			$this->capability = (string) $args['capability'];
+			$this->validate_capability( $args['capability'] );
+			$this->capability = $args['capability'];
 		}
 
 		if ( rgar( $args, 'before_fields' ) && is_callable( $args['before_fields'] ) ) {
@@ -224,8 +224,20 @@ class Settings {
 
 	}
 
+	/**
+	 * Capabilities must be either strings or arrays - any other object will should throw an exception.
+	 *
+	 * @since 2.5
+	 *
+	 * @param mixed $capability The capability value to validate.
+	 */
+	private function validate_capability( $capability ) {
+		if ( is_array( $capability ) || is_string( $capability ) ) {
+			return;
+		}
 
-
+		throw new \InvalidArgumentException( 'Settings page capabilities must be an array or string.' );
+	}
 
 
 	// # SCRIPT ENQUEUEING ---------------------------------------------------------------------------------------------
@@ -258,6 +270,15 @@ class Settings {
 				rgar( $script, 'version', false ),
 				rgar( $script, 'in_footer', false )
 			);
+
+			// Localize script strings.
+			if ( rgar( $script, 'strings' ) ) {
+				wp_localize_script( $script['handle'], $script['handle'] . '_strings', $script['strings'] );
+			}
+
+			if ( isset( $script['callback'] ) && is_callable( $script['callback'] ) ) {
+				call_user_func( $script['callback'], $this );
+			}
 
 		}
 
@@ -379,7 +400,7 @@ class Settings {
 	private function get_scripts_for_group( $scripts, $group, $styles = false ) {
 
 		// Get nested key.
-		$nested_key = rgar( $group, 'sections' ) ? 'sections' : 'fields';
+		$nested_key = GFCommon::get_nested_key( $group );
 
 		foreach ( rgar( $group, $nested_key, array() ) as $item ) {
 			if ( is_object( $item ) ) {
@@ -558,6 +579,8 @@ class Settings {
 	 * Handles enqueueing styles, processing postback.
 	 *
 	 * @since 2.5
+	 *
+	 * @param \GFAddOn $addon The Add-On responsible for rendering the settings page.
 	 */
 	public function render() {
 
@@ -578,7 +601,7 @@ class Settings {
 
 			printf(
 				'<div class="alert %s" role="alert">%s</div>',
-				empty( $field_errors ) ? 'success' : 'error',
+				empty( $field_errors ) ? 'gforms_note_success' : 'gforms_note_error',
 				$this->postback_message
 			);
 
@@ -589,7 +612,7 @@ class Settings {
 
 		?>
 
-		<form id="gform-settings" class="gform_settings_form" action="" method="post">
+		<form id="gform-settings" class="gform_settings_form" action="" method="post" enctype="multipart/form-data" novalidate>
 			<?php
 
 				if ( ! empty( $this->before_fields ) && is_callable( $this->before_fields ) ) {
@@ -743,6 +766,10 @@ class Settings {
 			$class            = array_merge( $class, $section['class'] );
 		}
 
+		if ( rgar( $section, 'title' ) || ( rgar( $section, 'collapsible' ) && rgar( $section, 'id' ) ) ) {
+			$class[] = 'gform-settings-panel--with-title';
+		}
+
 		// Add collapsible classes.
 		if ( rgar( $section, 'collapsible' ) && rgar( $section, 'id' ) ) {
 
@@ -774,13 +801,10 @@ class Settings {
 		// Add section header.
 		if ( rgar( $section, 'title' ) || ( rgar( $section, 'collapsible' ) && rgar( $section, 'id' ) ) ) {
 
-			// Open section.
-			echo '<header class="gform-settings-panel__header">';
-
 			// Display title.
 			if ( rgar( $section, 'title' ) ) {
 				printf(
-					'<legend class="gform-settings-panel__title">%s</legend>%s',
+					'<legend class="gform-settings-panel__title gform-settings-panel__title--header">%s</legend>%s',
 					esc_html( $section['title'] ),
 					self::maybe_get_tooltip( $section )
 				);
@@ -802,10 +826,6 @@ class Settings {
 				</span>
 				<?php
 			}
-
-			// Close header.
-			echo '</header>';
-
 		}
 
 		// Open settings table.
@@ -813,7 +833,7 @@ class Settings {
 
 		// Display section description.
 		if ( rgar( $section, 'description' ) ) {
-			printf( '<div class="gform-settings-description">%s</div>', $section['description'] );
+			printf( '<div class="gform-settings-description gform-kitchen-sink">%s</div>', $section['description'] );
 		}
 
 		/**
@@ -866,10 +886,10 @@ class Settings {
 		// Display field label.
 		if ( rgobj( $field, 'label' ) ) {
 			printf(
-				'<label class="gform-settings-label" for="%s">%s%s %s</label>',
+				'<div class="gform-settings-field__header"><label class="gform-settings-label" for="%s">%s%s</label>%s</div>',
 				esc_attr( $field->name ),
 				rgobj( $field, 'label' ),
-				$field->required ? '<span class="required">*</span>' : '',
+				$field->required ? '<span class="required">(' . __( 'Required', 'gravityforms' ) . ')</span>' : '',
 				self::maybe_get_tooltip( $field )
 			);
 		}
@@ -910,18 +930,23 @@ class Settings {
 	 */
 	public function render_save_button( $html = '' ) {
 
+		/**
+		 * If save button has not been created, initialize it.
+		 * Save button has to be initialized separately due to translatable strings.
+		 */
+		if ( empty( $this->save_button ) ) {
+			$this->add_save_button();
+		}
+
 		// Get Save button properties.
 		$save_props = $this->save_button;
 
-		// Prepare class.
-		$save_props['class'] = rgar( $save_props, 'class' ) ? explode( ' ', $save_props['class'] ) : array();
-		$save_props['class'] = array_merge( array( 'button', 'large' ), $save_props['class'] );
-
 		// Prepare Save button markup.
 		$html .= sprintf(
-			'<button type="submit" id="gform-settings-save" name="gform-settings-save" value="save" form="gform-settings" class="%2$s">%1$s</button>',
-			rgar( $save_props, 'value' ) ? esc_html( $save_props['value'] ) : esc_html__( 'Save Settings', 'gravityforms' ) . ' &rarr;',
-			implode( ' ', $save_props['class'] )
+			'<button type="submit" id="gform-settings-save" name="gform-settings-save" value="save" form="gform-settings" class="%2$s"%3$s>%1$s</button>',
+			esc_html( rgar( $save_props, 'value' ) ),
+			esc_attr( $save_props['class'] ),
+			! $this->is_dependency_met( rgar( $save_props, 'dependency' ) ) ? 'style="display:none;"' : ''
 		);
 
 		/**
@@ -930,7 +955,7 @@ class Settings {
 		 * @since 2.5
 		 *
 		 * @param string                               $html HTML of the save button.
-		 * @param \Rocketgenius\Gravity_Forms\Settings $this Current instance of the Settings Framework.
+		 * @param \Gravity_Forms\Gravity_Forms\Settings\Settings $this Current instance of the Settings Framework.
 		 */
 		$html = apply_filters( 'gform_settings_save_button', $html, $this );
 
@@ -950,8 +975,9 @@ class Settings {
 		$this->save_button = wp_parse_args(
 			$props,
 			array(
+				'name'     => 'save',
 				'value'    => esc_html__( 'Save Settings', 'gravityforms' ) . ' &nbsp;&rarr;',
-				'class'    => 'primary',
+				'class'    => 'primary button large',
 				'messages' => array(
 					'save'  => esc_html__( 'Settings updated.', 'gravityforms' ),
 					'error' => esc_html__( 'There was an error while saving your settings.', 'gravityforms' ),
@@ -981,6 +1007,13 @@ class Settings {
 
 		// Get fields.
 		$groups = $this->get_fields();
+
+		// Add save button to groups so its dependencies can be registered.
+		$groups[] = array(
+			'fields' => array(
+				$this->save_button,
+			),
+		);
 
 		// Loop through sections and fields, get field dependencies.
 		foreach ( $groups as $group ) {
@@ -1061,7 +1094,7 @@ class Settings {
 		$dependencies = array();
 
 		// Get nested key.
-		$nested_key = rgar( $group, 'sections' ) ? 'sections' : 'fields';
+		$nested_key = GFCommon::get_nested_key( $group );
 
 		// Loop through fields, add dependencies.
 		foreach ( rgar( $group, $nested_key, array() ) as $item ) {
@@ -1087,8 +1120,13 @@ class Settings {
 				'fields'   => rgars( $item, 'dependency/fields' ),
 			);
 
+			// Override target type for save button.
+			if ( $dependency['target']['type'] === 'field' && rgar( $item, 'type' ) === 'save' ) {
+				$dependency['target']['type'] = 'save';
+			}
+
 			// If no target field is defined, skip.
-			if ( ! rgars( $dependency, 'target/field' ) ) {
+			if ( ! rgars( $dependency, 'target/field' ) && rgars( $dependency, 'target/type' ) !== 'save' ) {
 				continue;
 			}
 
@@ -1139,7 +1177,9 @@ class Settings {
 	 */
 	public function get_save_success_message() {
 
-		return rgars( $this->save_button, 'messages/success' );
+		$success_message = rgars( $this->save_button, 'messages/save' ) ? rgars( $this->save_button, 'messages/save' ) : rgars( $this->save_button, 'messages/success' );
+
+		return $success_message;
 
 	}
 
@@ -1246,7 +1286,7 @@ class Settings {
 		// Determine if dependency was met based on rules evaluated and operator.
 		if ( 'ALL' === $operator && $evaluated_rules === count( $dependency['fields'] ) ) {
 			$dependency_met = true;
-		} else if ( 'ANY' === $operator && $evaluated_rules > 1 ) {
+		} elseif ( 'ANY' === $operator && $evaluated_rules > 0 ) {
 			$dependency_met = true;
 		}
 
@@ -1365,11 +1405,16 @@ class Settings {
 			return;
 		}
 
+		// If save dependency is not met, exit.
+		if ( ! $this->is_dependency_met( rgar( $this->save_button, 'dependency' ) ) ) {
+			return;
+		}
+
 		// Verify nonce.
 		check_admin_referer( 'gform_settings_save', 'gform_settings_save_nonce' );
 
 		// If user does not have access, exit.
-		if ( $this->capability && ! GFCommon::current_user_can_any( $this->capability ) ) {
+		if ( ! $this->current_user_has_access() ) {
 			esc_html_e( 'Access denied.', 'gravityforms' );
 			return;
 		}
@@ -1409,6 +1454,26 @@ class Settings {
 
 		}
 
+	}
+
+	/**
+	 * Set the save success message after a save redirect.
+	 *
+	 * @since 2.5
+	 */
+	public function set_save_message_after_redirect() {
+		$this->postback_message = $this->get_save_success_message();
+	}
+
+	/**
+	 * Check if the current user has the capabilities to access these settings.
+	 *
+	 * @since 2.5
+	 *
+	 * @return bool
+	 */
+	public function current_user_has_access() {
+		return ! $this->capability || GFCommon::current_user_can_any( $this->capability );
 	}
 
 	/**
@@ -1453,7 +1518,7 @@ class Settings {
 			return $values;
 		}
 
-		$nested_key = rgar( $group, 'sections' ) ? 'sections' : 'fields';
+		$nested_key = GFCommon::get_nested_key( $group );
 
 		/**
 		 * Loop through items, apply filters.
@@ -1471,7 +1536,7 @@ class Settings {
 			if ( is_object( $item ) ) {
 
 				// Get field value.
-				$field_value = rgar( $values, $item->name );
+				$field_value = $this->get_field_value( $item, $values );
 
 				// Filter value.
 				$values = $item->save_field( $values, $field_value );
@@ -1487,6 +1552,30 @@ class Settings {
 
 		return $values;
 
+	}
+
+	/**
+	 * Gets the submitted field value.
+	 *
+	 * Fields with complex names are parsed into an indexed array to facilitate with value lookup.
+	 *
+	 * @since 2.5
+	 *
+	 * @see   Fields\Base::get_parsed_name()
+	 *
+	 * @param Fields\Base $item   A Settings Field instance.
+	 * @param array       $values Array of settings values.
+	 *
+	 * @return array|\ArrayAccess|mixed|string|null
+	 */
+	private function get_field_value( $item, $values ) {
+		$name = $item->get_parsed_name();
+
+		if ( is_array( $name ) ) {
+			return rgars( $values, implode( '/', $name ) );
+		}
+
+		return rgar( $values, $name );
 	}
 
 	/**
@@ -1542,7 +1631,7 @@ class Settings {
 		foreach ( $groups as $group ) {
 
 			// Determine nested key.
-			$nested_key = rgar( $group, 'sections' ) ? 'sections' : 'fields';
+			$nested_key = GFCommon::get_nested_key( $group );
 
 			foreach ( $group[ $nested_key ] as $field ) {
 
@@ -1613,7 +1702,7 @@ class Settings {
 			return;
 		}
 
-		$nested_key = rgar( $group, 'sections' ) ? 'sections' : 'fields';
+		$nested_key = GFCommon::get_nested_key( $group );
 
 		/**
 		 * Loop through fields and validate.
@@ -1627,19 +1716,26 @@ class Settings {
 				continue;
 			}
 
-			if ( is_object( $field ) ) {
-				// Get field value.
-				$field_value = $this->get_value( $field->name, null, $values );
-
-				// Validate field.
-				$field->validate( $field_value );
-			}
-
 			// Validate nested fields.
 			if ( rgar( $field, 'fields' ) ) {
 				$this->validate_group( $values, $field );
 			}
 
+			// $field needs to be an object to run the subsequent steps, if not, bail.
+			if ( ! is_object( $field ) ) {
+				continue;
+			}
+
+			if ( method_exists( $field, 'get_values_from_post' ) ) {
+				// Get field value from field object.
+				$field_value = $field->get_values_from_post( $values );
+			} else {
+				// Get field value.
+				$field_value = $this->get_value( $field->name, null, $values );
+			}
+
+			// Validate field.
+			$field->handle_validation( $field_value );
 		}
 
 	}
@@ -1679,7 +1775,7 @@ class Settings {
 	private function get_group_errors( $group ) {
 
 		$errors     = array();
-		$nested_key = rgar( $group, 'sections' ) ? 'sections' : 'fields';
+		$nested_key = GFCommon::get_nested_key( $group );
 
 		/**
 		 * Loop through fields in section, find errors.
@@ -1865,7 +1961,7 @@ class Settings {
 	private function add_field_to_group( &$group, $name, $fields, $position ) {
 
 		// Get nested key.
-		$nested_key = rgar( $group, 'sections' ) ? 'sections' : 'fields';
+		$nested_key = GFCommon::get_nested_key( $group );
 
 		// If nested key does not exist or is empty, return.
 		if ( ! isset( $group[ $nested_key ] ) || empty( $group[ $nested_key ] ) ) {
@@ -1933,7 +2029,7 @@ class Settings {
 	private function remove_field_from_group( &$group, $name ) {
 
 		// Get nested key.
-		$nested_key = rgar( $group, 'sections' ) ? 'sections' : 'fields';
+		$nested_key = GFCommon::get_nested_key( $group );
 
 		// If nested key does not exist or is empty, return.
 		if ( ! isset( $group[ $nested_key ] ) || empty( $group[ $nested_key ] ) ) {
@@ -2011,7 +2107,7 @@ class Settings {
 	private function replace_field_in_group( &$group, $name, $fields ) {
 
 		// Get nested key.
-		$nested_key = rgar( $group, 'sections' ) ? 'sections' : 'fields';
+		$nested_key = GFCommon::get_nested_key( $group );
 
 		// If nested key does not exist or is empty, return.
 		if ( ! isset( $group[ $nested_key ] ) || empty( $group[ $nested_key ] ) ) {
@@ -2058,7 +2154,7 @@ class Settings {
 		foreach ( $groups as $group ) {
 
 			// Determine nested key.
-			$nested_key = rgar( $group, 'sections' ) ? 'sections' : 'fields';
+			$nested_key = GFCommon::get_nested_key( $group );
 
 			foreach ( rgar( $group, $nested_key ) as $field ) {
 
@@ -2075,8 +2171,15 @@ class Settings {
 					}
 				}
 
-			}
+				// If field has nested inputs, search within.
+				if ( rgar( $field, 'inputs' ) ) {
+					$found = $this->get_field( $name, array( $field ) );
 
+					if ( $found ) {
+						return $found;
+					}
+				}
+			}
 		}
 
 		return false;
@@ -2112,7 +2215,7 @@ class Settings {
 		foreach ( $groups as $group ) {
 
 			// Determine nested key.
-			$nested_key = rgar( $group, 'sections' ) ? 'sections' : 'fields';
+			$nested_key = GFCommon::get_nested_key( $group );
 
 			foreach ( rgar( $group, $nested_key, array() ) as $field ) {
 
@@ -2375,8 +2478,7 @@ class Settings {
 			if ( $field && rgobj( $field, 'default_value' ) ) {
 				$default_value = $field['default_value'];
 			}
-
-		} 
+		}
 
 		// If no values are defined, return default value.
 		if ( false === $values ) {

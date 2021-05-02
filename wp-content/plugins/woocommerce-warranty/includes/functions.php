@@ -1,7 +1,12 @@
 <?php
 
 function warranty_get_variation_string( $order, $item ) {
-	$product = $order->get_product_from_item( $item );
+	if ( is_callable( array( $item, 'get_product' ) ) ) {
+		$product = $item->get_product();
+	} else {
+		$product = $order->get_product_from_item( $item );
+	}
+
 	$formatted_meta = array();
 	if ( ! empty( $item['item_meta_array'] ) ) {
 		foreach ( $item['item_meta_array'] as $meta_id => $meta ) {
@@ -238,12 +243,13 @@ function warranty_get_warranty_duration_string( $warranty, $order ) {
  * Get a product's warranty details
  *
  * @param int $product_id Product or variation ID
+ * @param bool $maybe_use_parent false to force loading variation's warranty
  * @return array
  */
-function warranty_get_product_warranty( $product_id ) {
+function warranty_get_product_warranty( $product_id, $maybe_use_parent = true ) {
 	$product = wc_get_product( $product_id );
 
-	if ( $product && $product->is_type( 'variation' ) ) {
+	if ( $maybe_use_parent && $product && $product->is_type( 'variation' ) ) {
 		if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
 			$parent_product_id = $product->parent->id;
 		} else {
@@ -1094,7 +1100,7 @@ function warranty_refund_item( $request_id, $amount = null ) {
 			$refunded = true;
 		} else {
 			if ( $refund && is_a( $refund, 'WC_Order_Refund' ) ) {
-				wp_delete_post( $refund->id, true );
+				wp_delete_post( $refund->get_id(), true );
 			}
 
 			return $error;

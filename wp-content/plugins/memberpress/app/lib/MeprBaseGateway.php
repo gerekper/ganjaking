@@ -333,6 +333,10 @@ abstract class MeprBaseGateway {
   public function enqueue_user_account_scripts() {
   }
 
+  protected function hide_update_link($subscription) {
+    return false;
+  }
+
   /** This displays the subscription row buttons on the user account page. Can be overridden if necessary.
     */
   public function print_user_account_subscription_row_actions($subscription) {
@@ -347,11 +351,12 @@ abstract class MeprBaseGateway {
     $account_url   = MeprUtils::get_current_url_without_params(); //MeprUtils::get_permalink($post->ID);
     $account_delim = ( preg_match( '~\?~', $account_url ) ? '&' : '?' );
     $user = $subscription->user();
+    $hide_update_link = $this->hide_update_link($subscription);
 
     ?>
     <?php /* <div class="mepr-account-row-actions"> */ ?>
       <?php if( $subscription->status != MeprSubscription::$pending_str ): ?>
-        <?php if($subscription->status != MeprSubscription::$cancelled_str): ?>
+        <?php if($subscription->status != MeprSubscription::$cancelled_str && !$hide_update_link): ?>
           <a href="<?php echo $this->https_url("{$account_url}{$account_delim}action=update&sub={$subscription->id}"); ?>" class="mepr-account-row-action mepr-account-update"><?php _e('Update', 'memberpress'); ?></a>
         <?php endif; ?>
 

@@ -39,23 +39,14 @@ class Comment extends AC\Helper\Select\Entities
 		parent::__construct( $this->query->get_comments(), $value );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function get_total_pages() {
 		return $this->query->max_num_pages;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function get_page() {
 		return $this->query->query_vars['paged'];
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function is_last_page() {
 		return $this->get_total_pages() <= $this->get_page();
 	}

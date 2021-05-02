@@ -1,6 +1,16 @@
 
 # Changelog
 
+## 1.0-beta-2.6
+
+	- Updated minimum Gravity Perks version to 2.2.3.
+	- Improved styling of Time Period settings when using Gravity Forms 2.5.
+	- Updated rule add/remove buttons in feed settings to use Gravity Forms 2.5 styling.
+
+## 1.0-beta-2.5
+
+	- Fixed issue where limit by form schedule did not correctly interpret the timezone.
+
 ## 1.0-beta-2.4
 
 	- Fixed issue where embed URL rule would prevent submissions on all URLs after submission.

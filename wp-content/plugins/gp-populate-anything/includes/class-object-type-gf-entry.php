@@ -143,6 +143,13 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 			$delimiter = '.';
 		}
 
+		/**
+		 * Check for the delimiter prior to converting below as PHP notices will result if the delimiter is not present.
+		 */
+		if ( strpos( $date, $delimiter ) === false ) {
+			return null;
+		}
+
 		if ( strpos( $format, 'ymd' ) === 0 ) {
 			list( $year, $month, $day ) = explode( $delimiter, $date );
 		} elseif ( strpos( $format, 'dmy' ) === 0 ) {
@@ -361,11 +368,11 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 
 		$gf_query->where( $where );
 
-		// Check source field type we're populating from and adjust SQL if needed
-		if ( strlen( $field['gppa-choices-ordering-property'] ) > 0 ) {
+		// If we're ordering form a form field, check the field type and adjust the SQL accordingly.
+		if ( strlen( $field['gppa-choices-ordering-property'] ) > 0 && is_numeric( $order_key ) ) {
 			$source_field = GFAPI::get_field( $field['gppa-choices-primary-property'], $order_key );
 			// 12-hour Time fields need to be parsed since "01:00 pm" < "11:00 am" to MySQL's ORDER BY
-			if ( $source_field['type'] === 'time' && $source_field['timeFormat'] === '12' ) {
+			if ( $source_field && $source_field['type'] === 'time' && $source_field['timeFormat'] === '12' ) {
 				$mask = '%h:%i %p'; // MySQL's STR_TO_DATE mask
 				// @param array $sql An array with all the SQL fragments: select, from, join, where, order, paginate.
 				$gform_gf_query_sql_func = function ( $sql ) use ( $mask ) {
@@ -437,6 +444,10 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 				continue;
 			}
 
+			/**
+			 * Use admin label when listing out fields
+			 */
+			$use_admin_label_prev = $field->get_context_property( 'use_admin_label' );
 			$field->set_context_property( 'use_admin_label', true );
 
 			if ( empty( $field['inputs'] ) || in_array( $field['type'], GP_Populate_Anything::get_interpreted_multi_input_field_types() ) ) {
@@ -457,6 +468,8 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 					);
 				}
 			}
+
+			$field->set_context_property( 'use_admin_label', $use_admin_label_prev );
 		}
 
 		return $output;

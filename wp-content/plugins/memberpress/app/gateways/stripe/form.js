@@ -37,9 +37,10 @@
     var self = this;
 
     self.$form.find('.mepr-stripe-card-element').each(function () {
-      var $cardElement = $(this),
-        $cardErrors = $cardElement.closest('.mp-form-row').find('.mepr-stripe-card-errors'),
-        stripe = Stripe($cardElement.data('stripe-public-key')),
+      var $cardElement = $(this);
+      console.log($cardElement.data('locale-code').toLowerCase());
+      var $cardErrors = $cardElement.closest('.mp-form-row').find('.mepr-stripe-card-errors'),
+        stripe = Stripe($cardElement.data('stripe-public-key'), { locale: $cardElement.data('locale-code').toLowerCase() }),
         elements = stripe.elements(),
         card = elements.create('card', {
           style: MeprStripeGateway.style,
@@ -116,8 +117,8 @@
       const paymentMethodId = self.$form.find('input[name="mepr_payment_method"]:checked').data('payment-method-type');
       if (
         isStripeCheckoutPageMode == '1' && (
-          paymentMethodId == 'Stripe' ||
-          $('[name=mepr_stripe_is_checkout]').val() == '1'
+          paymentMethodId == 'Stripe' &&
+          self.$form.find('[name=mepr_stripe_is_checkout]').val() == '1'
         )
       ) {
         self.redirectToStripeCheckout(e);

@@ -24,35 +24,21 @@ class Addon_Update_Watcher implements Integration_Interface {
 	 *
 	 * @var string[]
 	 */
-	const ADD_ONS = [
+	const ADD_ON_PLUGIN_FILES = [
 		'wordpress-seo-premium/wp-seo-premium.php',
 		'wpseo-video/video-seo.php',
-		'wpseo-local/local-seo.php',
+		'wpseo-local/local-seo.php', // When installing Local through a released zip, the path is different from the path on a dev environment.
 		'wpseo-woocommerce/wpseo-woocommerce.php',
 		'wpseo-news/wpseo-news.php',
+		'acf-content-analysis-for-yoast-seo/yoast-acf-analysis.php', // When installing ACF for Yoast through a released zip, the path is different from the path on a dev environment.
 	];
 
 	/**
 	 * Registers the hooks.
 	 */
 	public function register_hooks() {
-		\add_action(
-<<<<<<< HEAD
-			'update_site_option_auto_update_plugins',
-=======
-			'update_option_auto_update_plugins',
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
-			[
-				$this,
-				'toggle_auto_updates_for_add_ons',
-			],
-			10,
-<<<<<<< HEAD
-			3
-=======
-			2
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
-		);
+		\add_action( 'add_site_option_auto_update_plugins', [ $this, 'call_toggle_auto_updates_with_empty_array' ], 10, 2 );
+		\add_action( 'update_site_option_auto_update_plugins', [ $this, 'toggle_auto_updates_for_add_ons' ], 10, 3 );
 		\add_filter( 'plugin_auto_update_setting_html', [ $this, 'replace_auto_update_toggles_of_addons' ], 10, 2 );
 	}
 
@@ -80,17 +66,13 @@ class Addon_Update_Watcher implements Integration_Interface {
 			return $old_html;
 		}
 
-		$not_a_yoast_addon = ! \in_array( $plugin, self::ADD_ONS, true );
+		$not_a_yoast_addon = ! \in_array( $plugin, self::ADD_ON_PLUGIN_FILES, true );
 
 		if ( $not_a_yoast_addon ) {
 			return $old_html;
 		}
 
-<<<<<<< HEAD
 		$auto_updated_plugins = \get_site_option( 'auto_update_plugins' );
-=======
-		$auto_updated_plugins = \get_option( 'auto_update_plugins' );
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 		if ( $this->are_auto_updates_enabled( self::WPSEO_FREE_PLUGIN_ID, $auto_updated_plugins ) ) {
 			return \sprintf(
@@ -114,9 +96,22 @@ class Addon_Update_Watcher implements Integration_Interface {
 	}
 
 	/**
+	 * Handles the situation where the auto_update_plugins option did not previously exist.
+	 *
+	 * @param string      $option The name of the option that is being created.
+	 * @param array|mixed $value  The new (and first) value of the option that is being created.
+	 */
+	public function call_toggle_auto_updates_with_empty_array( $option, $value ) {
+		if ( $option !== 'auto_update_plugins' ) {
+			return;
+		}
+
+		$this->toggle_auto_updates_for_add_ons( $option, $value, [] );
+	}
+
+	/**
 	 * Enables premium auto updates when free are enabled and the other way around.
 	 *
-<<<<<<< HEAD
 	 * @param string $option    The name of the option that has been updated.
 	 * @param array  $new_value The new value of the `auto_update_plugins` option.
 	 * @param array  $old_value The old value of the `auto_update_plugins` option.
@@ -129,14 +124,6 @@ class Addon_Update_Watcher implements Integration_Interface {
 			return;
 		}
 
-=======
-	 * @param array $old_value The old value of the `auto_update_plugins` option.
-	 * @param array $new_value The new value of the `auto_update_plugins` option.
-	 *
-	 * @return void
-	 */
-	public function toggle_auto_updates_for_add_ons( $old_value, $new_value ) {
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 		if ( ! \is_array( $old_value ) || ! \is_array( $new_value ) ) {
 			return;
 		}
@@ -153,18 +140,10 @@ class Addon_Update_Watcher implements Integration_Interface {
 
 		if ( $auto_updates_have_been_enabled ) {
 			$this->enable_auto_updates_for_addons( $new_value );
-<<<<<<< HEAD
 		}
 		else {
 			$this->disable_auto_updates_for_addons( $new_value );
 		}
-=======
-
-			return;
-		}
-
-		$this->disable_auto_updates_for_addons( $new_value );
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 	}
 
 	/**
@@ -173,12 +152,8 @@ class Addon_Update_Watcher implements Integration_Interface {
 	 * @param string[] $auto_updated_plugins The current list of auto-updated plugins.
 	 */
 	protected function enable_auto_updates_for_addons( $auto_updated_plugins ) {
-		$plugins = \array_merge( $auto_updated_plugins, self::ADD_ONS );
-<<<<<<< HEAD
+		$plugins = \array_merge( $auto_updated_plugins, self::ADD_ON_PLUGIN_FILES );
 		\update_site_option( 'auto_update_plugins', $plugins );
-=======
-		\update_option( 'auto_update_plugins', $plugins );
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 	}
 
 	/**
@@ -187,12 +162,8 @@ class Addon_Update_Watcher implements Integration_Interface {
 	 * @param string[] $auto_updated_plugins The current list of auto-updated plugins.
 	 */
 	protected function disable_auto_updates_for_addons( $auto_updated_plugins ) {
-<<<<<<< HEAD
-		$plugins = \array_values( \array_diff( $auto_updated_plugins, self::ADD_ONS ) );
+		$plugins = \array_values( \array_diff( $auto_updated_plugins, self::ADD_ON_PLUGIN_FILES ) );
 		\update_site_option( 'auto_update_plugins', $plugins );
-=======
-		\update_option( 'auto_update_plugins', \array_values( \array_diff( $auto_updated_plugins, self::ADD_ONS ) ) );
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 	}
 
 	/**

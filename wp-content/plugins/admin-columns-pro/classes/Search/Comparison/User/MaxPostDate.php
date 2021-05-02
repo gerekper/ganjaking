@@ -43,9 +43,6 @@ class MaxPostDate extends Comparison {
 		parent::__construct( $operators, Value::DATE, new Labels\Date() );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function create_query_bindings( $operator, Value $value ) {
 		global $wpdb;
 		$alias = uniqid( 'acs', false );

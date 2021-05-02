@@ -90,6 +90,20 @@ class WPSEO_Upgrade_Manager {
 		if ( version_compare( $version_number, '15.3-RC0', '<' ) ) {
 			add_action( 'init', [ $this, 'upgrade_15_3' ], 12 );
 		}
+
+		if ( version_compare( $version_number, '16.2-RC0', '<' ) ) {
+			add_action( 'init', [ $this, 'upgrade_16_2' ], 12 );
+		}
+	}
+
+	/**
+	 * Makes sure the Premium capabilities exist.
+	 *
+	 * @return void
+	 */
+	public function upgrade_16_2() {
+		\do_action( 'wpseo_register_capabilities_premium' );
+		\WPSEO_Capability_Manager_Factory::get( 'premium' )->add();
 	}
 
 	/**

@@ -1,8 +1,8 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
-use Rocketgenius\Gravity_Forms\Settings\Fields;
+use Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 defined( 'ABSPATH' ) || die();
 
@@ -39,7 +39,7 @@ class Button extends Base {
 	 * @since 2.5
 	 *
 	 * @param array                                $props    Field properties.
-	 * @param \Rocketgenius\Gravity_Forms\Settings $settings Settings instance.
+	 * @param \Gravity_Forms\Gravity_Forms\Settings\Settings $settings Settings instance.
 	 */
 	public function __construct( $props, $settings ) {
 
@@ -82,4 +82,4 @@ class Button extends Base {
 
 }
 
-Fields::register( 'button', '\Rocketgenius\Gravity_Forms\Settings\Fields\Button' );
+Fields::register( 'button', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Button' );

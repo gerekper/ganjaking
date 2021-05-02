@@ -614,7 +614,8 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		$data	= ($data == '') ? array() : $data;
 		$nonce	= $this->get_request_var('nonce');
 		$nonce	= (empty($nonce)) ? $this->get_request_var('rs-nonce') : $nonce;
-
+		$no_cache = array('get_template_information_short', 'export_slider', 'export_slider_html', 'getSliderImage', 'getSliderSizeLayout', 'get_list_of', 'load_wordpress_object', 'get_global_settings', 'get_slides_by_slider_id', 'get_full_slider_object', 'load_builder', 'subscribe_to_newsletter', 'check_system', 'get_layers_by_slide', 'export_layer_group', 'load_wordpress_image', 'load_library_image', 'get_help_directory', 'get_tooltips', 'get_addons_sizes', 'get_v5_slider_list');
+		
 		try{
 			if(RS_DEMO){
 				switch ($action){
@@ -683,7 +684,9 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 				$this->ajax_response_error(__('Bad Request', 'revslider'));
 				exit;
 			}
-
+			
+			if(!in_array($action, $no_cache)) $this->flush_wp_cache();
+			
 			switch($action){
 				case 'activate_plugin':
 					$result	 = false;

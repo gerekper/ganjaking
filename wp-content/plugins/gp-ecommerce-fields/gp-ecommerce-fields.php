@@ -3,7 +3,7 @@
  * Plugin Name: GP eCommerce Fields
  * Description: Make Gravity Forms more eCommerce-friendly with support for Tax, Discounts, and Subtotal fields.
  * Plugin URI: https://gravitywiz.com/documentation/gravity-forms-ecommerce-fields/
- * Version: 1.0.29
+ * Version: 1.0.47
  * Author: Gravity Wiz
  * Author URI: http://gravitywiz.com/
  * License: GPL2
@@ -12,7 +12,7 @@
  * Domain Path: /languages
  */
 
-define( 'GP_ECOMMERCE_FIELDS_VERSION', '1.0.29' );
+define( 'GP_ECOMMERCE_FIELDS_VERSION', '1.0.47' );
 
 require 'includes/class-gp-bootstrap.php';
 

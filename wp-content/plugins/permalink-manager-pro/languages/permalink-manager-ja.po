@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Permalink Manager Lite\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-23 20:44+0000\n"
-"PO-Revision-Date: 2021-02-25 15:36+0000\n"
+"PO-Revision-Date: 2021-04-19 09:24+0000\n"
 "Last-Translator: admin\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -22,7 +22,7 @@ msgstr ""
 "<a href=\"mailto:contact@permalinkmanager.pro\">contact@permalinkmanager."
 "pro</a>まで、ご意見をお送り下さい。"
 
-#: includes/core/permalink-manager-third-parties.php:313
+#: includes/core/permalink-manager-third-parties.php:344
 msgid "\"Custom Permalinks\" URIs were imported!"
 msgstr "「カスタム パーマリンク」URIは、インポートされました！"
 
@@ -87,8 +87,8 @@ msgstr ""
 "<strong>"
 "正規リダイレクトにより、WordPressは要求されたURLを「修正」し、訪問者を正規パーマリンクにリダイレクトできます。</strong>"
 
-#: includes/core/permalink-manager-admin-functions.php:721
 #: includes/core/permalink-manager-actions.php:115
+#: includes/core/permalink-manager-admin-functions.php:721
 msgid "<strong>No slugs</strong> were updated!"
 msgstr "スラッグは、更新されませんでした。"
 
@@ -187,7 +187,7 @@ msgstr "有償版では、スラッグやパーマ構造（WooCommerceとの互�
 msgid "Advanced settings"
 msgstr "詳細設定"
 
-#: includes/views/permalink-manager-permastructs.php:79
+#: includes/views/permalink-manager-permastructs.php:83
 #, php-format
 msgid ""
 "All allowed <a href=\"%s\" target=\"_blank\">permastructure tags</a> are "
@@ -315,27 +315,27 @@ msgstr "アクセント付き文字の変換"
 msgid "Count"
 msgstr "カウント"
 
-#: includes/core/permalink-manager-pro-functions.php:524
+#: includes/core/permalink-manager-pro-functions.php:530
 msgid "Coupon Full URL"
 msgstr "クーポン フル URL"
 
-#: includes/core/permalink-manager-pro-functions.php:491
+#: includes/core/permalink-manager-pro-functions.php:497
 msgid "Coupon Link"
 msgstr "クーポンリンク"
 
-#: includes/core/permalink-manager-pro-functions.php:512
+#: includes/core/permalink-manager-pro-functions.php:518
 msgid "Coupon URI"
 msgstr "クーポンURI"
 
+#: includes/core/permalink-manager-uri-functions-post.php:690
 #: includes/core/permalink-manager-uri-functions-tax.php:521
 #: includes/core/permalink-manager-admin-functions.php:747
 #: includes/core/permalink-manager-admin-functions.php:848
-#: includes/core/permalink-manager-uri-functions-post.php:690
 msgid "Current URI"
 msgstr "現在のURI"
 
-#: includes/views/permalink-manager-pro-addons.php:214
 #: includes/views/permalink-manager-tools.php:34
+#: includes/views/permalink-manager-pro-addons.php:214
 msgid "Custom Permalinks"
 msgstr "カスタム パーマリンク"
 
@@ -347,10 +347,10 @@ msgstr "カスタム パーマリンク"
 msgid "Custom redirects"
 msgstr "カスタム リダイレクト"
 
-#: includes/core/permalink-manager-third-parties.php:445
-#: includes/core/permalink-manager-third-parties.php:765
-#: includes/core/permalink-manager-uri-functions-tax.php:488
 #: includes/views/permalink-manager-tools.php:70
+#: includes/core/permalink-manager-third-parties.php:476
+#: includes/core/permalink-manager-third-parties.php:810
+#: includes/core/permalink-manager-uri-functions-tax.php:488
 msgid "Custom URI"
 msgstr "カスタム URI"
 
@@ -412,9 +412,9 @@ msgid ""
 "You can also use a predefined list (available in 21 languages)."
 msgstr "各単語は、リストへ追加/削除できます。また、定義済みのリスト（21の言語）も使用可能です。"
 
+#: includes/views/permalink-manager-uri-editor-tax.php:100
 #: includes/views/permalink-manager-uri-editor-post.php:120
-#: includes/views/permalink-manager-uri-editor-tax.php:100
-#: includes/views/permalink-manager-uri-editor-tax.php:100
+#: includes/views/permalink-manager-uri-editor-post.php:120
 msgid "Edit"
 msgstr "編集"
 
@@ -516,8 +516,8 @@ msgstr "HTTPS/WWW 強制"
 msgid "French"
 msgstr "フランス語"
 
-#: includes/views/permalink-manager-uri-editor-post.php:56
 #: includes/views/permalink-manager-uri-editor-tax.php:52
+#: includes/views/permalink-manager-uri-editor-post.php:56
 msgid "Full URI & Permalink"
 msgstr "全ての URIとパーマリンク"
 
@@ -575,7 +575,7 @@ msgid ""
 "the posts imported with WP All Import plugin."
 msgstr ""
 
-#: includes/core/permalink-manager-third-parties.php:766
+#: includes/core/permalink-manager-third-parties.php:811
 #, php-format
 msgid ""
 "If empty, a default permalink based on your current <a href=\"%s\" "
@@ -817,7 +817,7 @@ msgstr "新しいURI"
 msgid "No"
 msgstr "いいえ"
 
-#: includes/core/permalink-manager-third-parties.php:316
+#: includes/core/permalink-manager-third-parties.php:347
 msgid "No \"Custom Permalinks\" URIs were imported!"
 msgstr "「カスタム パーマリンク」 URIはインポートされませんでした！"
 
@@ -877,7 +877,8 @@ msgstr "ページ毎"
 msgid "Permalink Duplicates"
 msgstr "重複したパーマリンク"
 
-#: includes/core/permalink-manager-third-parties.php:761
+#: includes/core/permalink-manager-third-parties.php:806
+#: includes/core/permalink-manager-third-parties.php:951
 #: includes/core/permalink-manager-gutenberg.php:29
 #: includes/core/permalink-manager-admin-functions.php:111
 #: includes/core/permalink-manager-admin-functions.php:111
@@ -898,13 +899,13 @@ msgid ""
 "selected above post types & taxonomies."
 msgstr "Permalink Managerは、上記で選択した全ての投稿タイプとタクソノミーのカスタム パーマリンクを無視し、フィルタリングしません。"
 
-#: includes/core/permalink-manager-admin-functions.php:426
 #: includes/core/permalink-manager-actions.php:409
 #: includes/core/permalink-manager-actions.php:413
+#: includes/core/permalink-manager-admin-functions.php:426
 msgid "Permastructure settings"
 msgstr "パーマ構造 設定"
 
-#: includes/views/permalink-manager-permastructs.php:78
+#: includes/views/permalink-manager-permastructs.php:82
 msgid "Permastructure tags"
 msgstr "パーマ構造 タグ"
 
@@ -967,10 +968,10 @@ msgstr "投稿状態"
 msgid "Post title"
 msgstr "投稿タイトル"
 
-#: includes/core/permalink-manager-admin-functions.php:262
 #: includes/views/permalink-manager-permastructs.php:31
 #: includes/views/permalink-manager-tools.php:162
 #: includes/views/permalink-manager-tools.php:239
+#: includes/core/permalink-manager-admin-functions.php:262
 msgid "Post types"
 msgstr "投稿タイプ"
 
@@ -1055,13 +1056,13 @@ msgstr "sample/custom-uri"
 msgid "Save"
 msgstr "保存する"
 
-#: includes/views/permalink-manager-uri-editor-post.php:150
 #: includes/views/permalink-manager-uri-editor-tax.php:147
+#: includes/views/permalink-manager-uri-editor-post.php:150
 msgid "Save all the URIs above"
 msgstr "上記の全てのURIを保存する"
 
-#: includes/views/permalink-manager-uri-editor-post.php:149
 #: includes/views/permalink-manager-uri-editor-tax.php:146
+#: includes/views/permalink-manager-uri-editor-post.php:149
 msgid "Save all the URIs below"
 msgstr "以下の全てのURIを保存する"
 
@@ -1073,7 +1074,7 @@ msgstr ""
 msgid "Save permalink"
 msgstr "パーマリンクを保存する"
 
-#: includes/views/permalink-manager-permastructs.php:82
+#: includes/views/permalink-manager-permastructs.php:86
 msgid "Save permastructures"
 msgstr "パーマ構造を保存する"
 
@@ -1081,8 +1082,8 @@ msgstr "パーマ構造を保存する"
 msgid "Save settings"
 msgstr "設定を保存する"
 
-#: includes/views/permalink-manager-uri-editor-post.php:158
 #: includes/views/permalink-manager-uri-editor-tax.php:155
+#: includes/views/permalink-manager-uri-editor-post.php:158
 msgid "Search"
 msgstr "検索"
 
@@ -1115,8 +1116,8 @@ msgstr "投稿タイプを選択する"
 msgid "Select taxonomies"
 msgstr "タクソノミーを選択する"
 
-#: includes/core/permalink-manager-admin-functions.php:157
 #: includes/views/permalink-manager-settings.php:14
+#: includes/core/permalink-manager-admin-functions.php:157
 msgid "Settings"
 msgstr "設定"
 
@@ -1136,8 +1137,8 @@ msgstr "さらなる詳細を表示する"
 msgid "Sitemaps were updated!"
 msgstr "サイトマップは、更新されました！"
 
-#: includes/views/permalink-manager-uri-editor-post.php:114
 #: includes/views/permalink-manager-uri-editor-tax.php:95
+#: includes/views/permalink-manager-uri-editor-post.php:114
 msgid "Slug"
 msgstr "スラッグ"
 
@@ -1169,10 +1170,10 @@ msgstr "サポート"
 msgid "Swedish"
 msgstr "スウェーデン語"
 
-#: includes/core/permalink-manager-admin-functions.php:262
 #: includes/views/permalink-manager-permastructs.php:36
 #: includes/views/permalink-manager-tools.php:163
 #: includes/views/permalink-manager-tools.php:240
+#: includes/core/permalink-manager-admin-functions.php:262
 msgid "Taxonomies"
 msgstr "タクソノミー"
 
@@ -1184,8 +1185,8 @@ msgstr "技術的サポート"
 msgid "Term title"
 msgstr "ターム タイトル"
 
-#: includes/views/permalink-manager-uri-editor-post.php:101
 #: includes/views/permalink-manager-uri-editor-tax.php:112
+#: includes/views/permalink-manager-uri-editor-post.php:101
 msgid ""
 "The above permalink will be automatically updated and is locked for editing."
 msgstr ""
@@ -1195,18 +1196,6 @@ msgid ""
 "The above permalink will be automatically updated to \"Default URI\" and is "
 "locked for editing."
 msgstr ""
-
-#: includes/views/permalink-manager-permastructs.php:76
-#, php-format
-msgid ""
-"The current permastructures settings will be applied <strong>only to the new "
-"posts & terms</strong>. To apply the <strong>new permastructures to existing "
-"posts and terms</strong>, please regenerate the custom permalinks <a "
-"href=\"%s\">here</a>."
-msgstr ""
-"現在のパーマ構造の設定は、<strong>新規投稿とタームにのみ</strong>適用されます。<strong>"
-"既存の投稿とタームに新規のパーマ構造</strong>を適用するには、<a href=\"%s\">コチラ</a>"
-"にてカスタムパーマリンクを再生成して下さい。"
 
 #: includes/core/permalink-manager-admin-functions.php:841
 msgid "The custom URI cannot be edited on frontpage."
@@ -1233,7 +1222,7 @@ msgstr "リダイレクトは、無事削除されました！"
 msgid "The settings are saved!"
 msgstr "設定は、保存されました！"
 
-#: includes/core/permalink-manager-pro-functions.php:513
+#: includes/core/permalink-manager-pro-functions.php:519
 msgid ""
 "The URIs are case-insensitive, eg. <strong>BLACKFRIDAY</strong> and <strong>"
 "blackfriday</strong> are equivalent."
@@ -1278,6 +1267,14 @@ msgstr ""
 #: includes/core/permalink-manager-admin-functions.php:690
 msgid "Title"
 msgstr "タイトル"
+
+#: includes/views/permalink-manager-permastructs.php:79
+#, php-format
+msgid ""
+"To apply the <strong>new format to existing posts and terms</strong>, please "
+"use \"<a href=\"%s\">Regenerate/reset</a>\" tool after you update the "
+"permastructure settings below."
+msgstr ""
 
 #: includes/views/permalink-manager-pro-addons.php:249
 #, php-format
@@ -1388,9 +1385,9 @@ msgid ""
 "instead of native slugs."
 msgstr "Permalink Managerで、ネイティブ スラッグの代わりに実際のタイトルを使用する場合は、このフィールドを使用します。"
 
+#: includes/views/permalink-manager-uri-editor-tax.php:101
 #: includes/views/permalink-manager-uri-editor-post.php:121
-#: includes/views/permalink-manager-uri-editor-tax.php:101
-#: includes/views/permalink-manager-uri-editor-tax.php:101
+#: includes/views/permalink-manager-uri-editor-post.php:121
 msgid "View"
 msgstr "見る"
 

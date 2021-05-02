@@ -213,25 +213,25 @@ export default class GPPopulateAnything {
 	};
 
 	/**
-	 * Generate a debounced onChange handler for each input that way the debounce isn't shared between inputs.
-	 *
-	 * @param inputId
+	 * We maintain both a instance properties and scoped variables for the following due to bulkBatchedAjax() being
+	 * debounced.
 	 */
 	dependentFieldsToLoad: { field: fieldID, filters?: fieldMapFilter[] }[] = [];
 	triggerInputIds: fieldID[] = [];
 
 	onChange = (inputId: string) : void => {
-		const $form = this.getFormElement();
+		const $form: JQuery = this.getFormElement();
 		const lastFieldValuesDataId = 'gppa-batch-ajax-last-field-values';
+
+		let dependentFieldsToLoad: { field: fieldID, filters?: fieldMapFilter[] }[] = [];
+		let triggerInputIds: fieldID[] = [];
 
 		const lmt = window.gppaLiveMergeTags[this.formId];
 
-		$form.data(lastFieldValuesDataId, getFormFieldValues(this.formId, !!this.gravityViewMeta));
-
 		const fieldId = parseInt(inputId);
 
-		if (this.dependentFieldsToLoad.length === 0) {
-			this.dependentFieldsToLoad = this.getDependentFields( inputId );
+		if (dependentFieldsToLoad.length === 0) {
+			dependentFieldsToLoad = this.getDependentFields( inputId );
 		}
 
 		lmt.getDependentInputs(fieldId).each((_: number, dependentInputEl: Element) => {
@@ -244,25 +244,35 @@ export default class GPPopulateAnything {
 
 			const fieldId:number = +inputName.replace('input_', '');
 
-			this.dependentFieldsToLoad.push({field: fieldId});
-			this.dependentFieldsToLoad.push(...this.getDependentFields(fieldId));
+			dependentFieldsToLoad.push({field: fieldId});
+			dependentFieldsToLoad.push(...this.getDependentFields(fieldId));
 		});
 
-		this.dependentFieldsToLoad = uniqWith(this.dependentFieldsToLoad, isEqual);
+		dependentFieldsToLoad = uniqWith([...dependentFieldsToLoad, ...this.dependentFieldsToLoad], isEqual);
+		this.dependentFieldsToLoad = [...dependentFieldsToLoad];
 
-		if (this.dependentFieldsToLoad.length || lmt.hasLiveAttrOnPage(fieldId) || lmt.hasLiveMergeTagOnPage(fieldId)) {
-			this.triggerInputIds.push(fieldId);
-			this.bulkBatchedAjax();
+		if (dependentFieldsToLoad.length || lmt.hasLiveAttrOnPage(fieldId) || lmt.hasLiveMergeTagOnPage(fieldId)) {
+			triggerInputIds.push(fieldId);
+
+			triggerInputIds = uniqWith([...triggerInputIds, ...this.triggerInputIds], isEqual);
+			this.triggerInputIds = [...triggerInputIds];
+
+			$form.data(lastFieldValuesDataId, getFormFieldValues(this.formId, !!this.gravityViewMeta));
+
+			this.bulkBatchedAjax(dependentFieldsToLoad, triggerInputIds);
 		}
 	};
 
-	bulkBatchedAjax = debounce(() : JQueryPromise<JQueryXHR> => {
+	bulkBatchedAjax = debounce((
+		dependentFieldsToLoad: { field: fieldID, filters?: fieldMapFilter[] }[],
+		triggerInputIds: fieldID[]
+	) : JQueryPromise<JQueryXHR> => {
 		const $form: JQuery = this.getFormElement();
 
-		return this.batchedAjax($form, this.dependentFieldsToLoad, this.triggerInputIds).always((xhr) => {
-			this.dependentFieldsToLoad = [];
-			this.triggerInputIds = [];
-		})
+		this.dependentFieldsToLoad = [];
+		this.triggerInputIds = [];
+
+		return this.batchedAjax($form, dependentFieldsToLoad, triggerInputIds);
 	}, 250);
 
 	bindNestedForms() {
@@ -331,7 +341,6 @@ export default class GPPopulateAnything {
 	 * Regular filters work without this since all of the filters are present in the single field.
 	 **/
 	recursiveGetDependentFilters(filters:fieldMapFilter[]) {
-
 		let dependentFilters:fieldMapFilter[] = [];
 
 		for ( const filter of filters ) {
@@ -575,6 +584,52 @@ export default class GPPopulateAnything {
 	}
 
 	/**
+	 * Gravity Forms does not have a built-in function to remove calculation events.
+	 *
+	 * This method was created to unbind any calculation events on inputs as GPPA re-binds calculation events after
+	 * fields are reloaded using batch AJAX.
+	 *
+	 * @param formulaField
+	 */
+	removeCalculationEvents(formulaField: any) {
+		const { formId } = this;
+		const matches = window.GFMergeTag.parseMergeTags( formulaField.formula );
+
+		for(var i in matches) {
+			if (!matches.hasOwnProperty(i))
+				continue;
+
+			const inputId = matches[i][1];
+			const fieldId = parseInt(inputId, 10);
+			const input = jQuery('#field_' + formId + '_' + fieldId)
+				.find('input[name="input_' + inputId + '"], select[name="input_' + inputId + '"]');
+
+			input.each(function() {
+				// @ts-ignore
+				const $this: JQuery = $(this);
+				// @ts-ignore - _data is not in JQueryStatic typings but it's been around for as long as I can remember.
+				const events: { [event: string]: any } = jQuery._data(this, 'events');
+
+				if (!events) {
+					return;
+				}
+
+				for ( const [event, eventHandlers] of Object.entries(events) ) {
+					for ( const eventHandler of eventHandlers ) {
+						const handlerStr = eventHandler.handler.toString();
+
+						if ( handlerStr.indexOf('.bindCalcEvent(') === -1 ) {
+							continue;
+						}
+
+						$this.unbind(event, eventHandler.handler);
+					}
+				}
+			});
+		}
+	}
+
+	/**
 	 * Run the calculation events for any field that is dependent on a GPPA-populated field that has been updated.
 	 */
 	runAndBindCalculationEvents() {
@@ -587,7 +642,10 @@ export default class GPPopulateAnything {
 
 		for (var i = 0; i < GFCalc.formulaFields.length; i++) {
 			var formulaField = $.extend({}, GFCalc.formulaFields[i]);
-			// @todo: Will previously bound events stack and create a performance issue?
+
+			/* Prevent duplicate bindings of calculation events. */
+			this.removeCalculationEvents(formulaField);
+
 			GFCalc.bindCalcEvents( formulaField, this.formId );
 			GFCalc.runCalc(formulaField, this.formId);
 		}

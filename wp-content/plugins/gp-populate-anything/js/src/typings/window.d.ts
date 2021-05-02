@@ -12,6 +12,7 @@ declare global {
 	}
 
 	interface Window {
+		GFMergeTag: any;
 		gppaLiveMergeTags: { [formId: string]: GPPALiveMergeTags };
 		gppaForms: { [formId: string]: GPPopulateAnything };
 		jQuery: JQueryStatic

@@ -131,6 +131,10 @@ if(!defined('ABSPATH')) exit();
 						<label_a><?php _e('Default tablet content width', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-numeric="true" data-allowed="px" data-min="0" data-max="2400" data-r="globals.size.tablet"><span class="linebreak"></span>
 						<label_a><?php _e('Default mobile content width', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-numeric="true" data-allowed="px" data-min="0" data-max="2400" data-r="globals.size.mobile"><span class="linebreak"></span>		
 						<div class="div25"></div>
+						<div class="ale_i_title"><?php _e('Mobile Device Pixel Ratio', 'revslider');?></div>
+						<hr class="general_hr">
+						<label_a><?php _e('Force 1x DPR on Mobile', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.onedpronmobile"><span class="linebreak"></span>					
+						<div class="div25"></div>
 						<div class="ale_i_title"><?php _e('Fonts', 'revslider');?></div>
 						<hr class="general_hr">
 						<label_a><?php _e('Enable custom font selection in editor', 'revslider');?></label_a><div id="rs_gl_custom_fonts" class="basic_action_button autosize"><i class="material-icons">font_download</i><?php _e('Edit Custom Fonts', 'revslider');?></div>

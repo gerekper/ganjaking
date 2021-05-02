@@ -1,5 +1,11 @@
 *** WooCommerce Account Funds ***
 
+2021-04-19 - version 2.4.3
+* Fix - Percentage discount for using funds is calculated based on the amount of funds used (Reverts the fix 2.4.1).
+
+2021-04-16 - version 2.4.2
+* Fix - Fixed wrong discount when giving a percentage discount for using funds.
+
 2021-04-13 - version 2.4.1
 * Fix - The 'Account funds' checkbox didn't work on the cart page when modifying the cart at the same time.
 

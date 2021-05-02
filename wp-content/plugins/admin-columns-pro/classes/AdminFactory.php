@@ -79,8 +79,7 @@ class AdminFactory {
 			$this->location,
 			$this->license_repository,
 			$this->license_key_repository,
-			$this->site_url,
-			$this->is_network_active
+			$this->site_url
 		);
 	}
 

@@ -147,21 +147,17 @@ class Post extends Strategy {
 		foreach ( $this->model->get_sorting_vars() as $key => $value ) {
 			if ( $this->is_universal_id( $key ) ) {
 				$key = 'post__in';
+
+				$query->set( 'orderby', $key );
 			}
 
 			if ( 'meta_query' === $key ) {
-				$value = $this->add_meta_query( $value, $query->get( 'meta_query' ) );
+				$value = $this->add_meta_query( $value, $query->get( $key ) );
 			}
 
 			$query->set( $key, $value );
 		}
 
-		// pre-sorting done with an array
-		$post__in = $query->get( 'post__in' );
-
-		if ( ! empty( $post__in ) ) {
-			$query->set( 'orderby', 'post__in' );
-		}
 	}
 
 }

@@ -70,30 +70,18 @@ final class EncodedCollection implements Iterator, Decoder {
 		return current( $this->data );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function next() {
 		return next( $this->data );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function key() {
 		return key( $this->data );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function valid() {
 		return $this->key() !== null;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function rewind() {
 		reset( $this->data );
 	}

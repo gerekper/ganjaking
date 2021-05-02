@@ -28,7 +28,7 @@ class GPNF_Parent_Merge_Tag {
 	}
 
 	public function parse_parent_merge_tag( $text, $form, $entry, $url_encode, $esc_html, $nl2br, $format ) {
-		preg_match_all( "/\{\%GPNF:Parent:(.*?)\%\}/", $text, $parent_matches, PREG_SET_ORDER );
+		preg_match_all( '/\{\%GPNF:Parent:(.*?)\%\}/', $text, $parent_matches, PREG_SET_ORDER );
 
 		if ( ! empty( $parent_matches ) ) {
 
@@ -38,7 +38,7 @@ class GPNF_Parent_Merge_Tag {
 
 			// In some cases (child notifications, Gravity Flow), the {Parent} merge tag can be called before the parent
 			// entry has been submitted. In these cases, provide a fake parent entry to hush the fuss.
-			if( is_wp_error( $parent_entry ) ) {
+			if ( is_wp_error( $parent_entry ) ) {
 				$parent_entry = array( 'id' => null );
 			}
 
@@ -46,7 +46,7 @@ class GPNF_Parent_Merge_Tag {
 				$full_tag = $match[0];
 				$modifier = $match[1];
 
-				$stubbed_text_format = preg_match( '/\d+\.\d+/', $modifier ) ? "{BogusLabel:%s}" : '{%s}';
+				$stubbed_text_format = preg_match( '/\d+\.\d+/', $modifier ) ? '{BogusLabel:%s}' : '{:%s}';
 				$stubbed_text        = sprintf( $stubbed_text_format, $modifier );
 
 				$value = GFCommon::replace_variables( $stubbed_text, $parent_form, $parent_entry, $url_encode, $esc_html, $nl2br, $format );
@@ -72,7 +72,7 @@ class GPNF_Parent_Merge_Tag {
 					break;
 				}
 			}
-		} else if ( stripos( rgar( $field, 'defaultValue' ), '{Parent' ) !== false ) {
+		} elseif ( stripos( rgar( $field, 'defaultValue' ), '{Parent' ) !== false ) {
 			$has_parent_merge_tag = true;
 		}
 
@@ -83,7 +83,7 @@ class GPNF_Parent_Merge_Tag {
 		// If we are loading this form outside of the nested context, remove the {Parent} merge tag completely.
 		// We could technically return immediately after fetching the updated input HTML below but it doesn't hurt and
 		// keeps the code simpler.
-		if( ! $this->is_loading_nested_form ) {
+		if ( ! $this->is_loading_nested_form ) {
 			if ( is_array( $field->inputs ) ) {
 				$inputs = $field->inputs;
 				foreach ( $inputs as $input ) {

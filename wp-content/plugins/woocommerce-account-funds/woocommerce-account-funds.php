@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Account Funds
  * Plugin URI: https://woocommerce.com/products/account-funds/
  * Description: Allow customers to deposit funds into their accounts and pay with account funds during checkout.
- * Version: 2.4.1
+ * Version: 2.4.3
  * Author: Themesquad
  * Author URI: https://themesquad.com/
  * Requires at least: 4.4
@@ -63,7 +63,7 @@ class WC_Account_Funds {
 	 *
 	 * @var string
 	 */
-	public $version = '2.4.1';
+	public $version = '2.4.3';
 
 	/**
 	 * Constructor.
@@ -325,7 +325,7 @@ class WC_Account_Funds {
 	 * @deprecated 2.2.0
 	 */
 	public function init_early() {
-		_deprecated_function( __FUNCTION__, '2.2', 'WC_Account_Funds->includes()' );
+		wc_deprecated_function( __FUNCTION__, '2.2', 'WC_Account_Funds->includes()' );
 	}
 
 	/**
@@ -338,7 +338,7 @@ class WC_Account_Funds {
 	 * @return array
 	 */
 	public function plugin_action_links( $actions ) {
-		_deprecated_function( __FUNCTION__, '2.2', 'WC_Account_Funds_Admin->action_links()' );
+		wc_deprecated_function( __FUNCTION__, '2.2', 'WC_Account_Funds_Admin->action_links()' );
 
 		return $actions;
 	}
@@ -350,7 +350,7 @@ class WC_Account_Funds {
 	 * @deprecated 2.2.0
 	 */
 	public function checkout_scripts() {
-		_deprecated_function( __FUNCTION__, '2.2', 'WC_Account_Funds_Checkout->enqueue_scripts()' );
+		wc_deprecated_function( __FUNCTION__, '2.2', 'WC_Account_Funds_Checkout->enqueue_scripts()' );
 	}
 
 	/**
@@ -360,7 +360,7 @@ class WC_Account_Funds {
 	 * @deprecated 2.3.7
 	 */
 	public function version_check() {
-		_deprecated_function( __FUNCTION__, '2.3.7', 'WC_Account_Funds_Installer::check_version()' );
+		wc_deprecated_function( __FUNCTION__, '2.3.7', 'WC_Account_Funds_Installer::check_version()' );
 	}
 }
 

@@ -3,7 +3,7 @@
  * Plugin Name: GP Limit Submissions
  * Description: Limit the number of entries that can be submitted by almost anything (e.g. user, role, IP, field value).
  * Plugin URI: https://gravitywiz.com/documentation/gravity-forms-limit-submissions/
- * Version: 1.0-beta-2.4
+ * Version: 1.0-beta-2.6
  * Author: Gravity Wiz
  * Author URI: http://gravitywiz.com
  * License: GPL-3.0+
@@ -12,7 +12,7 @@
  * Perk: True
  */
 
-define( 'GP_LIMIT_SUBMISSIONS_VERSION', '1.0-beta-2.4' );
+define( 'GP_LIMIT_SUBMISSIONS_VERSION', '1.0-beta-2.6' );
 
 require 'includes/class-gp-bootstrap.php';
 

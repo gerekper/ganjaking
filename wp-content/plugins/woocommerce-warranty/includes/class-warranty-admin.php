@@ -4,6 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+
 if ( ! class_exists( 'Warranty_Admin' ) ) :
 	class Warranty_Admin {
 
@@ -21,8 +23,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 
 			// metaboxes
 			add_action( 'woocommerce_process_product_meta', array( $this, 'save_product_warranty' ) );
-			add_action( 'woocommerce_process_product_meta', array( $this, 'save_variation_warranty' ) );
-			add_action( 'woocommerce_ajax_save_product_variations', array( $this, 'save_variation_warranty' ) );
+			add_action( 'woocommerce_save_product_variation', array( $this, 'save_variation_warranty' ), 10, 2 );
 
 			// order actions
 			add_filter( 'woocommerce_order_actions', array( $this, 'add_order_action' ) );
@@ -89,6 +90,68 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 			add_submenu_page( 'warranties', __( 'Manage Warranties', 'wc_warranty' ), __( 'Manage Warranties', 'wc_warranty' ), 'manage_woocommerce', 'warranties-bulk-update', 'Warranty_Admin::admin_controller' );
 			add_submenu_page( 'warranties', __( 'Reports', 'wc_warranty' ), __( 'Reports', 'wc_warranty' ), 'manage_woocommerce', 'warranties-reports', 'Warranty_Admin::admin_controller' );
 			add_submenu_page( 'warranties', __( 'Settings', 'wc_warranty' ), __( 'Settings', 'wc_warranty' ), 'manage_woocommerce', 'warranties-settings', 'Warranty_Admin::admin_controller' );
+
+			if ( ! class_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Menu' ) ) {
+				return;
+			}
+
+			Menu::add_plugin_category(
+				array(
+					'id'         => 'warranties-category',
+					'title'      => __( 'Warranties', 'wc_warranty' ),
+					'capability' => 'manage_warranties',
+				)
+			);
+			Menu::add_plugin_item(
+				array(
+					'id'         => 'warranties',
+					'parent'     => 'warranties-category',
+					'title'      => __( 'RMA Requests', 'wc_warranty' ),
+					'url'        => 'admin.php?page=warranties',
+					'capability' => 'manage_warranties',
+					'order'      => 0,
+				)
+			);
+			Menu::add_plugin_item(
+				array(
+					'id'         => 'warranties-new',
+					'parent'     => 'warranties-category',
+					'title'      => __( 'New Request', 'wc_warranty' ),
+					'url'        => 'admin.php?page=warranties-new',
+					'capability' => 'manage_warranties',
+					'order'      => 1,
+				)
+			);
+			Menu::add_plugin_item(
+				array(
+					'id'         => 'warranties-bulk-update',
+					'parent'     => 'warranties-category',
+					'title'      => __( 'Manage Warranties', 'wc_warranty' ),
+					'url'        => 'admin.php?page=warranties-bulk-update',
+					'capability' => 'manage_woocommerce',
+					'order'      => 2,
+				)
+			);
+			Menu::add_plugin_item(
+				array(
+					'id'         => 'warranties-reports',
+					'parent'     => 'warranties-category',
+					'title'      => __( 'Reports', 'wc_warranty' ),
+					'url'        => 'admin.php?page=warranties-reports',
+					'capability' => 'manage_woocommerce',
+					'order'      => 3,
+				)
+			);
+			Menu::add_plugin_item(
+				array(
+					'id'         => 'warranties-settings',
+					'parent'     => 'warranties-category',
+					'title'      => __( 'Settings', 'wc_warranty' ),
+					'url'        => 'admin.php?page=warranties-settings',
+					'capability' => 'manage_woocommerce',
+					'order'      => 4,
+				)
+			);
 		}
 
 		/**
@@ -225,13 +288,11 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
 						$( '.wc-metaboxes-wrapper' ).on( 'click' , '.wc-metabox h3' , function( event ) {
-							$( 'select.variable-warranty-type' ).change();
-							if( event.target === event.currentTarget){ 
-      							$( '.variable-warranty-type' ).closest( '.woocommerce_variation' ).removeClass( 'variation-needs-update' );
-							}
+							$( 'select.variable-warranty-type' ).trigger( 'change.warranty' );
 						});
+						var $variable_product_options = $("#variable_product_options");
 
-						$("#variable_product_options").on("change", ".warranty_default_checkbox", function() {
+                        $variable_product_options.on("change.warranty", ".warranty_default_checkbox", function() {
 							var id = $(this).data("id");
 
 							if ($(this).is(":checked")) {
@@ -241,7 +302,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 							}
 						})
 
-						$("#variable_product_options").on("change", ".variable-warranty-type", function() {
+                        $variable_product_options.on("change.warranty", ".variable-warranty-type", function() {
 							var loop = $(this).parents(".warranty-variation").data("loop");
 
 							$(".variable_show_if_included_warranty_"+ loop).hide()
@@ -254,7 +315,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 							}
 						})
 
-						$("#variable_product_options").on("change", ".variable-included-warranty-length", function() {
+                        $variable_product_options.on("change.warranty", ".variable-included-warranty-length", function() {
 							var loop = $(this).parents(".warranty-variation").data("loop");
 
 							if ($(this).val() == "limited") {
@@ -267,41 +328,46 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 						var variable_tmpl = "<tr>\
 								<td valign=\"middle\">\
 									<span class=\"input\"><b>+</b> <?php echo $currency; ?></span>\
-									<input type=\"text\" name=\"variable_addon_warranty_amount[_loop_][]\" value=\"\" style=\"min-width:50px; width:50px;\" />\
+									<input type=\"text\" name=\"variable_addon_warranty_amount[_loop_][]\" value=\"\" class=\"input-text sized warranty__loop_\" style=\"min-width:50px; width:50px;\" />\
 								</td>\
 								<td valign=\"middle\">\
-									<input type=\"text\" style=\"width:50px;\" name=\"variable_addon_warranty_length_value[_loop_][]\" value=\"\" />\
-									<select name=\"variable_addon_warranty_length_duration[_loop_][]\" style=\"width: auto !important;\">\
+									<input type=\"text\" class=\"input-text sized warranty__loop_\" style=\"width:50px;\" name=\"variable_addon_warranty_length_value[_loop_][]\" value=\"\" />\
+									<select name=\"variable_addon_warranty_length_duration[_loop_][]\" class=\"warranty__loop_\" style=\"width: auto !important;\">\
 										<option value=\"days\"><?php _e('Days', 'wc_warranty'); ?></option>\
 										<option value=\"weeks\"><?php _e('Weeks', 'wc_warranty'); ?></option>\
 										<option value=\"months\"><?php _e('Months', 'wc_warranty'); ?></option>\
 										<option value=\"years\"><?php _e('Years', 'wc_warranty'); ?></option>\
 									</select>\
 								</td>\
-								<td><a class=\"button warranty_addon_remove_variable\" href=\"#\">&times;</a></td>\
+								<td><a class=\"button warranty_addon_remove warranty_addon_remove_variable warranty__loop_\" href=\"#\">&times;</a></td>\
 							</tr>";
 
-						$("#variable_product_options").on("click", ".btn-add-warranty-variable", function(e) {
+                        $variable_product_options.on("click", ".btn-add-warranty-variable", function(e) {
 							e.preventDefault();
+							if ( $(this).attr('disabled') ) {
+							    return;
+                            }
 							var loop = $(this).data("loop");
 
 							$("#variable_warranty_addons_"+ loop).append( variable_tmpl.replace(/_loop_/g, loop) );
 						});
 
-						$(".warranty_addon_remove_variable").on("click", function(e) {
+						$("#variable_product_options").on("click", ".warranty_addon_remove", function(e) {
 							e.preventDefault();
+                            if ( $(this).attr('disabled') ) {
+                                return;
+                            }
+                            $(this).closest( '.warranty-variation' ).find('.warranty_default_checkbox').trigger('change');
 
 							$(this).parents("tr").eq(0).remove();
 						});
 
-						$( '#woocommerce-product-data' ).on( 'woocommerce_variations_loaded' , function() {
-							$( '.warranty_default_checkbox, .variable-warranty-type, .variable-warranty-length' ).change();
-							$( '.warranty_default_checkbox, .variable-warranty-type, .variable-warranty-length' )
-								.closest( '.woocommerce_variation' )
-								.removeClass( 'variation-needs-update' );
+						var $woocommerce_product_data = $( '#woocommerce-product-data' );
+                        $woocommerce_product_data.on( 'woocommerce_variations_loaded' , function() {
+							$( '.warranty_default_checkbox, .variable-warranty-type, .variable-warranty-length' ).trigger( 'change.warranty' );
 						});
-						$( '#woocommerce-product-data' ).on( 'woocommerce_variations_added', function() {
-							$( '.warranty_default_checkbox, .variable-warranty-type, .variable-warranty-length' ).change();
+                        $woocommerce_product_data.on( 'woocommerce_variations_added', function() {
+							$( '.warranty_default_checkbox, .variable-warranty-type, .variable-warranty-length' ).trigger( 'change.warranty' );
 						});
 					});
 				</script>
@@ -398,7 +464,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 					$("#warranty_addons").append(tmpl);
 				});
 
-				$(".warranty_addon_remove").on("click", function(e) {
+				$("#warranty_addons").on("click", ".warranty_addon_remove", function(e) {
 					e.preventDefault();
 
 					$(this).parents("tr").remove();
@@ -454,87 +520,16 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		}
 
 		function variables_panel( $loop, $data, $variation ) {
-			global $woocommerce;
-
-			$warranty       = warranty_get_product_warranty( $variation->ID );
+			$warranty       = warranty_get_product_warranty( $variation->ID, false );
 			$warranty_label = $warranty['label'];
 			$warranty_default = isset( $warranty['default'] ) ? $warranty['default'] : false;
 
 			if ( empty( $warranty_label ) ) {
 				$warranty_label = __( 'Warranty', 'wc_warranty' );
 			}
-
 			$currency = get_woocommerce_currency_symbol();
-			$inline = '
-				$("#variable_product_options").on("change", ".warranty_default_checkbox", function() {
-					var id = $(this).data("id");
 
-					if ($(this).is(":checked")) {
-						$(".warranty_"+id).attr("disabled", true);
-					} else {
-						$(".warranty_"+id).attr("disabled", false);
-					}
-				}).change();
-
-				$("#variable_product_warranty_type_'. $loop .'").change(function() {
-					$(".variable_show_if_included_warranty_'. $loop .', .variable_show_if_addon_warranty_'. $loop .'").hide();
-
-					if ($(this).val() == "included_warranty") {
-						$(".variable_show_if_included_warranty_'. $loop .'").show();
-					} else if ($(this).val() == "addon_warranty") {
-						$(".variable_show_if_addon_warranty_'. $loop .'").show();
-					}
-				}).change();
-
-				$("#variable_included_warranty_length_'. $loop .'").change(function() {
-					if ($(this).val() == "limited") {
-						$(".variable_limited_warranty_length_field_'. $loop .'").show();
-					} else {
-						$(".variable_limited_warranty_length_field_'. $loop .'").hide();
-					}
-				}).change();
-
-				var tmpl_'. $loop .' = "<tr>\
-								<td valign=\"middle\">\
-									<span class=\"input\"><b>+</b> '. $currency .'</span>\
-									<input type=\"text\" name=\"variable_addon_warranty_amount['. $loop .'][]\" value=\"\" style=\"min-width:50px; width:50px;\" />\
-								</td>\
-								<td valign=\"middle\">\
-									<input type=\"text\" style=\"width:50px;\" name=\"variable_addon_warranty_length_value['. $loop .'][]\" value=\"\" />\
-									<select name=\"variable_addon_warranty_length_duration['. $loop .'][]\" style=\"width: auto !important;\">\
-										<option value=\"days\">'. __('Days', 'wc_warranty') .'</option>\
-										<option value=\"weeks\">'. __('Weeks', 'wc_warranty') .'</option>\
-										<option value=\"months\">'. __('Months', 'wc_warranty') .'</option>\
-										<option value=\"years\">'. __('Years', 'wc_warranty') .'</option>\
-									</select>\
-								</td>\
-								<td><a class=\"button warranty_addon_remove_variable_'. $loop .'\" data-loop=\"'. $loop .'\" href=\"#\">&times;</a></td>\
-							</tr>";
-
-				$(".btn-add-warranty-variable").click(function(e) {
-					e.preventDefault();
-					$("#variable_warranty_addons_'. $loop .'").append(tmpl_'. $loop.');
-				});
-
-				$(".warranty_addon_remove_variable_'. $loop .'").on("click", function(e) {
-					e.preventDefault();
-
-					$(this).parents("tr").eq(0).remove();
-				});
-				';
-
-			if ( function_exists( 'wc_enqueue_js' ) ) {
-				wc_enqueue_js( $inline );
-			} else {
-				$woocommerce->add_inline_js( $inline );
-			}
-
-			if ( version_compare( WC_VERSION, '2.3', '<' ) ) {
-				include WooCommerce_Warranty::$base_path . '/templates/variables-panel-table.php';
-			} else {
-				include WooCommerce_Warranty::$base_path . '/templates/variables-panel-list.php';
-			}
-
+			include WooCommerce_Warranty::$base_path . '/templates/variables-panel-list.php';
 		}
 
 		/**
@@ -542,15 +537,13 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		 * @param int $post_ID
 		 */
 		public function save_product_warranty( $post_ID ) {
-			if ( isset( $_POST['product-type'] ) && $_POST['product-type'] == 'variable' ) {
-				return;
-			}
+
+			$control = ( isset( $_POST['variable_warranty_control'] ) ) ? $_POST['variable_warranty_control'] : 'parent';
+            update_post_meta( $post_ID, '_warranty_control', $control );
 
 			if ( ! empty( $_POST['product_warranty_default'] ) && $_POST['product_warranty_default'] == 'yes' ) {
 				delete_post_meta( $post_ID, '_warranty' );
 			} elseif ( isset( $_POST['product_warranty_type'] ) ) {
-				$product_warranty = array();
-
 				if ( $_POST['product_warranty_type'] == 'no_warranty' ) {
 					$product_warranty = array( 'type' => 'no_warranty' );
 					update_post_meta( $post_ID, '_warranty', $product_warranty );
@@ -596,19 +589,11 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		/**
 		 * Save product variation warranty data
 		 *
-		 * @param int $post_ID
+		 * @param int $variation_id
+         * @param int $x
 		 */
-		public function save_variation_warranty( $post_ID ) {
-			if ( isset( $_POST['product-type'] ) && $_POST['product-type'] != 'variable' ) {
-				return;
-			}
+		public function save_variation_warranty( $variation_id, $x ) {
 
-			$product = wc_get_product( $post_ID );
-			if ( ! $product ) {
-				return;
-			}
-
-			$control        = ( isset( $_POST['variable_warranty_control'] ) ) ? $_POST['variable_warranty_control'] : 'variations';
 			$defaults       = ( isset( $_POST['variable_product_warranty_default'] ) ) ? $_POST['variable_product_warranty_default'] : array();
 			$types          = ( isset( $_POST['variable_product_warranty_type'] ) ) ? $_POST['variable_product_warranty_type'] : array();
 			$labels         = ( isset( $_POST['variable_warranty_label'] ) ) ? $_POST['variable_warranty_label'] : array();
@@ -620,115 +605,50 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 			$addon_durations= ( isset( $_POST['variable_addon_warranty_length_duration'] ) ) ? $_POST['variable_addon_warranty_length_duration'] : array();
 			$no_warranties  = ( isset( $_POST['variable_addon_no_warranty'] ) ) ? $_POST['variable_addon_no_warranty'] : array();
 
-			$ids    = ( ! empty( $_POST['variable_post_id'] ) ) ? $_POST['variable_post_id'] : $product->get_children();
-			$count  = count( $ids );
+            if ( isset( $defaults[ $x ] ) && 'on' == $defaults[ $x ] ) {
+                delete_post_meta( $variation_id, '_warranty' );
+                return;
+            }
 
-			for ( $x = 0; $x < $count; $x++ ) {
-				$product_warranty = array();
+            if ( $types[$x] == 'no_warranty' ) {
+                $product_warranty = array('type' => 'no_warranty');
+                update_post_meta( $variation_id, '_warranty', $product_warranty );
+            } elseif ( $types[$x] == 'included_warranty' ) {
+                $product_warranty = array(
+                    'type'      => 'included_warranty',
+                    'length'    => $inc_lengths[ $x ],
+                    'value'     => $ltd_lengths[ $x ],
+                    'duration'  => $ltd_durations[ $x ]
+                );
+                update_post_meta( $variation_id, '_warranty', $product_warranty );
+            } elseif ( $types[ $x ] == 'addon_warranty' ) {
+                $no_warranty= ( isset( $no_warranties[ $x ] ) ) ? $no_warranties[ $x ] : 'no';
+                $amounts    = $addon_amounts[ $x ];
+                $values     = $addon_lengths[ $x ];
+                $durations  = $addon_durations[ $x ];
+                $addons     = array();
 
-				if ( $control == 'parent' ) {
-					delete_post_meta( $ids[ $x ], '_warranty' );
-					update_post_meta( $ids[ $x ], '_warranty_control', 'parent' );
-					continue;
-				}
+                for ( $i = 0; $i < count( $amounts ); $i++ ) {
+                    if ( ! isset( $amounts[ $i ] ) || ! isset( $values[ $i ] ) || ! isset( $durations[ $i ] ) ) continue;
 
-				delete_post_meta( $ids[ $x ], '_warranty_control' );
+                    $addons[] = array(
+                        'amount'    => $amounts[ $i ],
+                        'value'     => $values[ $i ],
+                        'duration'  => $durations[ $i ]
+                    );
+                }
 
-				if ( isset( $defaults[ $x ] ) && 'on' == $defaults[ $x ] ) {
-					delete_post_meta( $ids[ $x ], '_warranty' );
-					continue;
-				}
+                $product_warranty = array(
+                    'type'                  => 'addon_warranty',
+                    'addons'                => $addons,
+                    'no_warranty_option'    => $no_warranty
+                );
+                update_post_meta( $variation_id, '_warranty', $product_warranty );
+            }
 
-				if ( $types[$x] == 'no_warranty' ) {
-					$product_warranty = array('type' => 'no_warranty');
-					update_post_meta( $ids[$x], '_warranty', $product_warranty );
-				} elseif ( $types[$x] == 'included_warranty' ) {
-					$product_warranty = array(
-						'type'      => 'included_warranty',
-						'length'    => $inc_lengths[ $x ],
-						'value'     => $ltd_lengths[ $x ],
-						'duration'  => $ltd_durations[ $x ]
-					);
-					update_post_meta( $ids[ $x ], '_warranty', $product_warranty );
-				} elseif ( $types[ $x ] == 'addon_warranty' ) {
-					$no_warranty= ( isset( $no_warranties[ $x ] ) ) ? $no_warranties[ $x ] : 'no';
-					$amounts    = $addon_amounts[ $x ];
-					$values     = $addon_lengths[ $x ];
-					$durations  = $addon_durations[ $x ];
-					$addons     = array();
-
-					for ( $i = 0; $i < count( $amounts ); $i++ ) {
-						if ( ! isset( $amounts[ $i ] ) || ! isset( $values[ $i ] ) || ! isset( $durations[ $i ] ) ) continue;
-
-						$addons[] = array(
-							'amount'    => $amounts[ $i ],
-							'value'     => $values[ $i ],
-							'duration'  => $durations[ $i ]
-						);
-					}
-
-					$product_warranty = array(
-						'type'                  => 'addon_warranty',
-						'addons'                => $addons,
-						'no_warranty_option'    => $no_warranty
-					);
-					update_post_meta( $ids[ $x ], '_warranty', $product_warranty );
-				}
-
-				if ( $labels[ $x ] ) {
-					update_post_meta( $ids[ $x ], '_warranty_label', stripslashes( $labels[ $x ] ) );
-				}
-			}
-
-			update_post_meta( $post_ID, '_warranty_control', $control );
-
-			if ( $control == 'parent' ) {
-				if ( !empty( $_POST['product_warranty_default'] ) && $_POST['product_warranty_default'] == 'yes' ) {
-					delete_post_meta( $post_ID, '_warranty' );
-				} elseif ( isset( $_POST['product_warranty_type'] ) ) {
-					$product_warranty = array();
-
-					if ( $_POST['product_warranty_type'] == 'no_warranty' ) {
-						$product_warranty = array( 'type' => 'no_warranty' );
-						update_post_meta( $post_ID, '_warranty', $product_warranty );
-					} elseif ( $_POST['product_warranty_type'] == 'included_warranty' ) {
-						$product_warranty = array(
-							'type'      => 'included_warranty',
-							'length'    => $_POST['included_warranty_length'],
-							'value'     => $_POST['limited_warranty_length_value'],
-							'duration'  => $_POST['limited_warranty_length_duration']
-						);
-						update_post_meta( $post_ID, '_warranty', $product_warranty );
-					} elseif ( $_POST['product_warranty_type'] == 'addon_warranty' ) {
-						$no_warranty= ( isset( $_POST['addon_no_warranty'] ) ) ? $_POST['addon_no_warranty'] : 'no';
-						$amounts    = $_POST['addon_warranty_amount'];
-						$values     = $_POST['addon_warranty_length_value'];
-						$durations  = $_POST['addon_warranty_length_duration'];
-						$addons     = array();
-
-						for ( $x = 0; $x < count( $amounts ); $x++ ) {
-							if ( ! isset( $amounts[ $x ] ) || ! isset( $values[ $x ] ) || ! isset( $durations[ $x ] ) ) continue;
-
-							$addons[] = array(
-								'amount'    => $amounts[ $x ],
-								'value'     => $values[ $x ],
-								'duration'  => $durations[ $x ]
-							);
-						}
-
-						$product_warranty = array(
-							'type'                  => 'addon_warranty',
-							'addons'                => $addons,
-							'no_warranty_option'    => $no_warranty
-						);
-						update_post_meta( $post_ID, '_warranty', $product_warranty );
-					}
-
-					if ( isset( $_POST['warranty_label'] ) ) {
-						update_post_meta( $post_ID, '_warranty_label', stripslashes( $_POST['warranty_label'] ) );
-					}
-				}
-			}
+            if ( $labels[ $x ] ) {
+                update_post_meta( $variation_id, '_warranty_label', stripslashes( $labels[ $x ] ) );
+            }
 		}
 
 		public function add_order_action( $actions ) {

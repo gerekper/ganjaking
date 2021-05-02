@@ -10,17 +10,17 @@ class GPNF_Session {
 	public function __construct( $form_id ) {
 
 		$this->_form_id = $form_id;
-		$this->_cookie = $this->get_cookie();
+		$this->_cookie  = $this->get_cookie();
 
 	}
 
 	public function get( $prop ) {
-		if( ! isset( $this->$prop ) ) {
-			if( empty( $this->_cookie ) ) {
+		if ( ! isset( $this->$prop ) ) {
+			if ( empty( $this->_cookie ) ) {
 				return null;
 			}
 			// Clean up nested entries; only return non-trashed entries that exist.
-			if( $prop == 'nested_entries' ) {
+			if ( $prop == 'nested_entries' ) {
 				$this->_cookie[ $prop ] = $this->get_valid_entry_ids( $this->_cookie[ $prop ] );
 			}
 			return $this->_cookie[ $prop ];
@@ -34,7 +34,7 @@ class GPNF_Session {
 		// @todo review
 		$nested_form_field_key = gform_get_meta( $child_entry_id, GPNF_Entry::ENTRY_NESTED_FORM_FIELD_KEY );
 
-		if( ! array_key_exists( $nested_form_field_key, (array) $this->_cookie['nested_entries'] ) ) {
+		if ( ! array_key_exists( $nested_form_field_key, (array) $this->_cookie['nested_entries'] ) ) {
 			$this->_cookie['nested_entries'][ $nested_form_field_key ] = array();
 		}
 
@@ -49,7 +49,7 @@ class GPNF_Session {
 		$cookie = $this->get_cookie();
 
 		// Existing cookie.
-		if( $cookie ) {
+		if ( $cookie ) {
 
 			$data = array(
 				'form_id'        => $cookie['form_id'],
@@ -58,10 +58,9 @@ class GPNF_Session {
 				'nested_entries' => $cookie['nested_entries'],
 			);
 
-			foreach( $cookie as $key => $value ) {
+			foreach ( $cookie as $key => $value ) {
 				$data[ $key ] = $value;
 			}
-
 		}
 		// New cookie.
 		else {
@@ -75,7 +74,7 @@ class GPNF_Session {
 
 		}
 
-		foreach( $_POST as $key => $value ) {
+		foreach ( $_POST as $key => $value ) {
 			$data[ $key ] = $value ? $value : rgar( $data, $key );
 		}
 
@@ -104,7 +103,16 @@ class GPNF_Session {
 	}
 
 	public function get_cookie_name() {
-		return implode( '_', array( self::COOKIE_NAME, $this->_form_id ) );
+		$name = implode( '_', array( self::COOKIE_NAME, $this->_form_id ) );
+		/**
+		 * Filter the name of the session cookie GPNF uses for a given form
+		 *
+		 * @since 1.0-beta-8.68
+		 *
+		 * @param string $name    Default session cookie name GPNF has generated.
+		 * @param string $form_id Parent form ID that the nested form belongs to.
+		 */
+		return apply_filters( 'gpnf_cookie_name', $name, $this->_form_id );
 	}
 
 	public function delete_cookie() {
@@ -134,20 +142,20 @@ class GPNF_Session {
 	public function get_valid_entry_ids( $entries ) {
 		global $wpdb;
 
-		if( empty( $entries ) ) {
+		if ( empty( $entries ) ) {
 			return array();
 		}
 
 		$all = array();
-		foreach( $entries as $field_id => $entry_ids ) {
+		foreach ( $entries as $field_id => $entry_ids ) {
 			$all = array_merge( $all, $entry_ids );
 		}
 
-		$sql = "SELECT id FROM {$wpdb->prefix}gf_entry WHERE id IN( " . implode( ', ', $all ) . " ) and status != 'trash'";
+		$sql             = "SELECT id FROM {$wpdb->prefix}gf_entry WHERE id IN( " . implode( ', ', $all ) . " ) and status != 'trash'";
 		$valid_entry_ids = wp_list_pluck( $wpdb->get_results( $sql ), 'id' );
-		$return = array();
+		$return          = array();
 
-		foreach( $entries as $field_id => $entry_ids ) {
+		foreach ( $entries as $field_id => $entry_ids ) {
 			$return[ $field_id ] = array_intersect( $valid_entry_ids, $entry_ids );
 		}
 
@@ -156,18 +164,28 @@ class GPNF_Session {
 		return $return;
 	}
 
-	public static function get_default_session_data( $form_id ) {
+	/**
+	 * Get Save & Continue from URL if it exists.
+	 *
+	 * @return string|null
+	 */
+	public static function get_save_and_continue_token() {
+		return isset( $_POST['gform_resume_token'] ) ? $_POST['gform_resume_token'] : rgget( 'gf_token' );
+	}
+
+	public static function get_default_session_data( $form_id, $field_values = array() ) {
 
 		$data = array(
-			'action'  => 'gpnf_session',
-			'form_id' => $form_id,
-			'request' => $_REQUEST ? $_REQUEST : array(),
-			'post_id' => get_queried_object_id(),
+			'action'       => 'gpnf_session',
+			'form_id'      => $form_id,
+			'request'      => $_REQUEST ? $_REQUEST : array(),
+			'post_id'      => get_queried_object_id(),
+			'field_values' => $field_values,
 		);
 
-		if( rgget( 'gf_token' ) ) {
+		if( self::get_save_and_continue_token() ) {
 			$parent_hash = gp_nested_forms()->get_save_and_continue_parent_hash( $form_id );
-			if( $parent_hash ) {
+			if ( $parent_hash ) {
 				$data['hash'] = $parent_hash;
 			}
 		}

@@ -12,7 +12,7 @@
 
 		<thead>
 		<tr>
-			<?php foreach( $nested_fields as $nested_field  ): ?>
+			<?php foreach ( $nested_fields as $nested_field ) : ?>
 				<th class="gpnf-field-<?php echo $nested_field['id']; ?>">
 					<?php echo GFCommon::get_label( $nested_field ); ?>
 				</th>
@@ -21,10 +21,10 @@
 		</thead>
 
 		<tbody>
-		<?php foreach( $entries as $entry ): ?>
+		<?php foreach ( $entries as $entry ) : ?>
 			<?php $field_values = gp_nested_forms()->get_entry_display_values( $entry, $nested_form, $nested_field_ids ); ?>
 			<tr>
-				<?php foreach( $nested_fields as $nested_field ): ?>
+				<?php foreach ( $nested_fields as $nested_field ) : ?>
 					<td class="gpnf-field"><?php echo rgars( $field_values, "{$nested_field['id']}/label" ); ?></td>
 				<?php endforeach; ?>
 			</tr>

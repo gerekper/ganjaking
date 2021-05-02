@@ -10,9 +10,7 @@
                 max_file_size: "1000mb",
                 mime_types: [
                     { title: "Image files", extensions: "jpg,gif,png,jpeg" },
-                    { title: "Zip files", extensions: "zip" },
-                    { title: "Pdf files", extensions: "pdf" },
-                    { title: "Doc files", extensions: "docx,doc,xlsx,csv,txt" },
+                    { title: "Pdf files", extensions: "pdf" }
                 ],
             },
             rename: true,
@@ -39,9 +37,7 @@
                 max_file_size: "1000mb",
                 mime_types: [
                     { title: "Image files", extensions: "jpg,gif,png,jpeg" },
-                    { title: "Zip files", extensions: "zip" },
-                    { title: "Pdf files", extensions: "pdf" },
-                    { title: "Doc files", extensions: "docx,doc,xlsx,csv,txt" },
+                    { title: "Pdf files", extensions: "pdf" }
                 ],
             },
             rename: true,
@@ -69,9 +65,7 @@
                 max_file_size: "1000mb",
                 mime_types: [
                     { title: "Image files", extensions: "jpg,gif,png,jpeg" },
-                    { title: "Zip files", extensions: "zip" },
-                    { title: "Pdf files", extensions: "pdf" },
-                    { title: "Doc files", extensions: "docx,doc,xlsx,csv,txt" },
+                    { title: "Pdf files", extensions: "pdf" } 
                 ],
             },
             rename: true,
@@ -98,9 +92,7 @@
                 max_file_size: "1000mb",
                 mime_types: [
                     { title: "Image files", extensions: "jpg,gif,png,jpeg" },
-                    { title: "Zip files", extensions: "zip" },
-                    { title: "Pdf files", extensions: "pdf" },
-                    { title: "Doc files", extensions: "docx,doc,xlsx,csv,txt" },
+                    { title: "Pdf files", extensions: "pdf" }
                 ],
             },
             rename: true,
@@ -127,9 +119,7 @@
                 max_file_size: "1000mb",
                 mime_types: [
                     { title: "Image files", extensions: "jpg,gif,png,jpeg" },
-                    { title: "Zip files", extensions: "zip" },
-                    { title: "Pdf files", extensions: "pdf" },
-                    { title: "Doc files", extensions: "docx,doc,xlsx,csv,txt" },
+                    { title: "Pdf files", extensions: "pdf" }
                 ],
             },
             rename: true,
@@ -156,9 +146,7 @@
                 max_file_size: "1000mb",
                 mime_types: [
                     { title: "Image files", extensions: "jpg,gif,png,jpeg" },
-                    { title: "Zip files", extensions: "zip" },
-                    { title: "Pdf files", extensions: "pdf" },
-                    { title: "Doc files", extensions: "docx,doc,xlsx,csv,txt" },
+                    { title: "Pdf files", extensions: "pdf" }
                 ],
             },
             rename: true,
@@ -185,9 +173,7 @@
                 max_file_size: "1000mb",
                 mime_types: [
                     { title: "Image files", extensions: "jpg,gif,png,jpeg" },
-                    { title: "Zip files", extensions: "zip" },
-                    { title: "Pdf files", extensions: "pdf" },
-                    { title: "Doc files", extensions: "docx,doc,xlsx,csv,txt" },
+                    { title: "Pdf files", extensions: "pdf" }
                 ],
             },
             rename: true,
@@ -238,6 +224,7 @@
                         processData: false,
                         contentType: false,
                         success: function (data) {
+							$(".wc-help-scout-conversation-form")[0].reset();
                             $.unblockUI();
                             if (null !== data && 1 === data.status) {
                                 conversation_form.empty().prepend('<div class="woocommerce-message">' + woocommerce_help_scout_form_params.success + "</div>");
@@ -287,6 +274,7 @@
                     processData: false,
                     contentType: false,
                     success: function (data) {
+						$(".wc-help-scout-conversation-form")[0].reset();
                         $.unblockUI();
                         if (null !== data && 1 === data.status) {
                             conversation_form.empty().prepend('<div class="woocommerce-message">' + woocommerce_help_scout_form_params.success + "</div>");
@@ -341,6 +329,7 @@
                         processData: false,
                         contentType: false,
                         success: function (data) {
+							$(".wc-helpscout-order-conversation-form")[0].reset();
                             $.unblockUI();
                             if (null !== data && 1 === data.status) {
                                 conversation_form.empty().prepend('<div class="woocommerce-message">' + woocommerce_help_scout_form_params.success + "</div>");
@@ -390,6 +379,7 @@
                     processData: false,
                     contentType: false,
                     success: function (data) {
+						$(".wc-helpscout-order-conversation-form")[0].reset();
                         $.unblockUI();
                         if (null !== data && 1 === data.status) {
                             conversation_form.empty().prepend('<div class="woocommerce-message">' + woocommerce_help_scout_form_params.success + "</div>");

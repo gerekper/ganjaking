@@ -16,13 +16,10 @@ class User extends TableScreen {
 		parent::register();
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function filters_markup() {
 		remove_action( 'restrict_manage_users', [ $this, __FUNCTION__ ], 1 );
 
-		return parent::filters_markup();
+		parent::filters_markup();
 	}
 
 }

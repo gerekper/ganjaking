@@ -5,6 +5,8 @@ class GPLS_Enforce {
 	private $rule_groups = array(); // array of GPLS_RuleGroup objects
 	private $test_result;
 
+	public static $field_values = array();
+
 	public function __construct() {
 
 		// check for required minimum version of Gravity Forms
@@ -17,7 +19,7 @@ class GPLS_Enforce {
 	public function init() {
 
 		// enforce limits
-		add_filter( 'gform_pre_render', array( $this, 'pre_render' ) );
+		add_filter( 'gform_pre_render', array( $this, 'pre_render' ), 10, 3 );
 		add_filter( 'gform_validation', array( $this, 'validate' ) );
 		// notification handling
 		add_action( 'gform_entry_created', array( $this, 'maybe_send_notification' ), 10, 2 );
@@ -132,9 +134,9 @@ class GPLS_Enforce {
 		return $this->rule_groups;
 	}
 
-	public function is_limit_reached() {
+	public function is_limit_reached( $field_values = array() ) {
 
-		$this->set_rule_groups( GPLS_RuleGroup::load_by_form( $this->form_id ) );
+		$this->set_rule_groups( GPLS_RuleGroup::load_by_form( $this->form_id, $field_values ) );
 		if ( empty( $this->rule_groups ) ) {
 			return false;
 		}
@@ -177,11 +179,13 @@ class GPLS_Enforce {
 		return ob_get_clean();
 	}
 
-	public function pre_render( $form ) {
+	public function pre_render( $form, $ajax, $field_values ) {
+
+		self::$field_values = $field_values;
 
 		// set form id
 		$this->form_id = $form['id'];
-		if ( $this->is_limit_reached() && ! $this->is_limited_by_field_value() ) {
+		if ( $this->is_limit_reached( $field_values ) && ( ! $this->is_limited_by_field_value() || $this->has_render_enforceable_field_value_limit() ) ) {
 			$this->enforce_limit();
 		}
 
@@ -230,6 +234,28 @@ class GPLS_Enforce {
 			foreach ( $ruleset as $rule ) {
 				if ( $rule->get_type() == 'field' ) {
 					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public function has_render_enforceable_field_value_limit() {
+
+
+		$failed_rule_group = $this->test_result->failed_rule_group;
+		$rulesets          = $failed_rule_group->get_rulesets();
+		if ( empty( $rulesets ) ) {
+			return false;
+		}
+		foreach ( $rulesets as $ruleset ) {
+			foreach ( $ruleset as $rule ) {
+				if ( $rule->get_type() == 'field' ) {
+					$field = GFAPI::get_field( $failed_rule_group->form_id, $rule->get_field() );
+					if ( $field->visibility === 'hidden' || $field->get_input_type() === 'hidden' ) {
+						return true;
+					}
 				}
 			}
 		}

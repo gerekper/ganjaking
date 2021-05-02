@@ -36,6 +36,30 @@ class GF_Field_CAPTCHA extends GF_Field {
 		return esc_attr__( 'CAPTCHA', 'gravityforms' );
 	}
 
+	/**
+	 * Returns the field's form editor description.
+	 *
+	 * @since 2.5
+	 *
+	 * @return string
+	 */
+	public function get_form_editor_field_description() {
+		return esc_attr__( 'Adds a captcha field to your form to help protect your website from spam and bot abuse.', 'gravityforms' );
+	}
+
+	/**
+	 * Returns the field's form editor icon.
+	 *
+	 * This could be an icon url or a gform-icon class.
+	 *
+	 * @since 2.5
+	 *
+	 * @return string
+	 */
+	public function get_form_editor_field_icon() {
+		return 'gform-icon--recaptcha';
+	}
+
 	function get_form_editor_field_settings() {
 		return array(
 			'captcha_type_setting',
@@ -333,17 +357,21 @@ class GF_Field_CAPTCHA extends GF_Field {
 					return "<div class='ginput_container'><img class='gfield_captcha' src='" . GFCommon::get_base_url() . "/images/captcha_{$type_suffix}{$theme}.jpg' alt='{$alt}' /></div>";
 				}
 
+				if ( empty( $site_key ) || empty( $secret_key ) ) {
+					GFCommon::log_error( __METHOD__ . sprintf( '(): reCAPTCHA secret keys not saved in the reCAPTCHA Settings (%s). The reCAPTCHA field will always fail validation during form submission.', admin_url( 'admin.php' ) . '?page=gf_settings&subview=recaptcha' ) );
+				}
+
 				$language     = empty( $this->captchaLanguage ) ? 'en' : $this->captchaLanguage;
 
 				// script is queued for the footer with the language property specified
 				wp_enqueue_script( 'gform_recaptcha', 'https://www.google.com/recaptcha/api.js?hl=' . $language . '&render=explicit', array(), false, true );
 
-				add_action( 'wp_footer', array( $this, 'ensure_recaptcha_js' ), 21 );
-				add_action( 'gform_preview_footer', array( $this, 'ensure_recaptcha_js' ) );
+				add_action( 'wp_footer', array( $this, 'ensure_recaptcha_js' ), 99 );
+				add_action( 'gform_preview_footer', array( $this, 'ensure_recaptcha_js' ), 99 );
 
 				$stoken = '';
 
-				if ( $this->use_stoken() ) {
+				if ( ! empty( $this->secret_key ) && ! empty( $secure_token ) && $this->use_stoken() ) {
 					// The secure token is a deprecated feature of the reCAPTCHA API.
 					// https://developers.google.com/recaptcha/docs/secure_token
 					$secure_token = self::create_recaptcha_secure_token( $this->secret_key );
@@ -625,6 +653,13 @@ class GF_Field_CAPTCHA extends GF_Field {
 
 	public function create_recaptcha_secure_token( $secret_key ) {
 
+		// If required cypher is not available, skip
+		if ( ! defined( 'MCRYPT_RIJNDAEL_128' ) ) {
+			GFCommon::log_error( __METHOD__ . sprintf( '(): Legacy MCRYPT_RIJNDAEL_128 cypher not available on system. Generate new reCAPTCHA v2 keys (https://www.google.com/recaptcha/admin/create) and update your Gravity Forms reCAPTCHA Settings (%s) to resolve.', admin_url( 'admin.php' ) . '?page=gf_settings&subview=recaptcha' ) );
+
+			return '';
+		}
+
 		$secret_key = substr( hash( 'sha1', $secret_key, true ), 0, 16 );
 		$session_id = uniqid( 'recaptcha' );
 		$ts_ms      = round( ( microtime( true ) - 1 ) * 1000 );
@@ -639,8 +674,7 @@ class GF_Field_CAPTCHA extends GF_Field {
 		$padded = $plaintext . str_repeat( chr( $pad ), $pad );
 
 		//encrypt as 128
-		$cypher = defined( 'MCRYPT_RIJNDAEL_128' ) ? MCRYPT_RIJNDAEL_128 : false;
-		$encrypted = GFCommon::encrypt( $padded, $secret_key, $cypher );
+		$encrypted = GFCommon::openssl_encrypt( $padded, $secret_key, MCRYPT_RIJNDAEL_128 );
 
 		$token = str_replace( array( '+', '/', '=' ), array( '-', '_', '' ), $encrypted );
 		GFCommon::log_debug( ' token being used is: ' . $token );

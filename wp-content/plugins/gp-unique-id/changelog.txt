@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 1.4
+
+	- Improved support for Gravity Forms 2.5.
+
 ## 1.3.23
 
 	- Added support for Gravity Forms Mollie plugin.

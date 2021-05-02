@@ -235,6 +235,9 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
             return false;
         }
 
+        $cookieLifetime = $this->get_option('cookieLifetime'); 
+        $cookieLifetime = time() + (60*60*24*$cookieLifetime);
+
         $services = $this->get_services();
 
         $return = array();
@@ -263,12 +266,14 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
             'wordpress_gdpr_first_time_url'
         );
 
+        $hadDefault = false;
         foreach ($settings as $setting) {
             
             $service = $services[$setting];
             $allowed = isset($allowed_service_cookies[$setting]) ? true : false;
 
             if(!isset($_COOKIE['wordpress_gdpr_cookies_allowed']) && ($service['defaultEnabled'] == "1")) {
+                $hadDefault = true;
                 $allowed = true;
             }
 
@@ -302,6 +307,11 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
                 'body' => $body,
                 'adsense' => $adsense,
             );
+        }
+
+        if($hadDefault) {
+            // setcookie('wordpress_gdpr_cookies_allowed', 'true', $cookieLifetime, '/');
+            // setcookie('wordpress_gdpr_cookies_declined', 'false', $cookieLifetime, '/');
         }
 
         $allowed_cookies = apply_filters('wordpress_gdpr_necessary_cookies', $allowed_cookies);
@@ -340,7 +350,7 @@ class WordPress_GDPR_Cookie_Services_Management extends WordPress_GDPR
         } else {
             $allowed_service_cookies[$setting] = $checked;
         }
-        
+
         setcookie('wordpress_gdpr_allowed_services', implode(',', array_keys($allowed_service_cookies)), $cookieLifetime, '/');
         $_COOKIE["wordpress_gdpr_allowed_services"] = implode(',', array_keys($allowed_service_cookies));
 

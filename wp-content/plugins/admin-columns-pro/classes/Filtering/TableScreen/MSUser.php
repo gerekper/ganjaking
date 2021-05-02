@@ -17,7 +17,7 @@ class MSUser extends User {
 	public function render_button() {
 		$button = new FilterButton\Users( FilterButtonFactory::SCREEN_USERS );
 
-		echo $button->display_button();
+		$button->display_button();
 	}
 
 }

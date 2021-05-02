@@ -102,7 +102,7 @@ table#gaddon-results-summary td.gaddon-results-summary-data {
 }
 
 .gresults-results-field-table-header{
-    background-color: #EEEEEE;
+    background-color: #eeeeee;
 }
 
 .gresults-results-field table td:first-child {
@@ -130,20 +130,11 @@ td.gresults-rank-field-rank{
 
 /* filter box */
 
-#gresults-results-filter {
-    /*position:absolute;
-    width:270px;*/
+#gresults-results-filter-content {
+	padding:12px;
+	border-top: 1px solid #EBEBF2
 }
 
-#gresults-results-filter-content {
-    padding:10px;
-}
-/*
-#gresults-results-filter.sticky {
-    position:fixed;
-    top:30px;
-}
-*/
 
 .gresults-results-filter-section-label {
     font-size:1.2em;
@@ -220,7 +211,7 @@ td.gresults-rank-field-rank{
 */
 
 #gresults-results-field-filters-container.resizable {
-    border-bottom:5px double #DDD;
+    border-bottom:5px double #ddd;
     min-height:120px;
 }
 

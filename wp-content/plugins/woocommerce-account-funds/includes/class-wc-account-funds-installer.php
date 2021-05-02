@@ -175,7 +175,7 @@ class WC_Account_Funds_Installer {
 	 * @deprecated 2.3.7
 	 */
 	public static function update_check( $current_version ) {
-		_deprecated_function( __FUNCTION__, '2.3.7', 'WC_Account_Funds_Installer::check_version()' );
+		wc_deprecated_function( __FUNCTION__, '2.3.7', 'WC_Account_Funds_Installer::check_version()' );
 
 		self::check_version();
 	}

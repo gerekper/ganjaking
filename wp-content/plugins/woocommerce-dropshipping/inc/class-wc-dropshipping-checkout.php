@@ -20,6 +20,8 @@ class WC_Dropshipping_Checkout {
 		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'show_order_number_content' ) );
 		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'show_order_tracking_content' ) );
 		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'show_pod_content' ) );
+		add_action( 'woocommerce_email_after_order_table', array( $this, 'wc_email_after_order_table' ), 10, 4  );
+		add_action( 'woocommerce_order_details_after_order_table', array( $this, 'wc_view_order_number' ) );
 	}
 
   public function add_custom_checkout_fields( $fields ) {
@@ -94,16 +96,18 @@ class WC_Dropshipping_Checkout {
 			$order = wc_get_order( $post->ID );
 			$items = $order->get_items();
 			$order_status = $order->get_status();
+			$suppliers_list =  array();
 			if( isset( $order_status ) ){
 				if( $order_status == 'processing' || $order_status == 'completed' ){
 					foreach ( $items as $item_id => $item ) {
-						$supplier_nickname = wc_get_order_item_meta($item_id,'supplier',true);
+						$supplier_nickname = wc_get_order_item_meta( $item_id,'supplier',true );
 						$user = get_user_by( 'login', $supplier_nickname );
 						if( is_object( $user ) ){
 							$user_id = $user->ID;
 							$tracking_number = get_post_meta($post->ID, 'dropshipper_shipping_info_'.$user_id, true);
-							if ( isset( $tracking_number ) ){
-								if( is_array( $tracking_number ) ){
+							if ( isset( $tracking_number ) ) {
+								if( is_array( $tracking_number ) && ( '' == in_array( $supplier_nickname, $suppliers_list ) ) ) {
+									array_push( $suppliers_list, $supplier_nickname);
 									echo $supplier_nickname . ': ' . $tracking_number['tracking_number'] . '</br></br>';
 									}
 								}
@@ -115,41 +119,60 @@ class WC_Dropshipping_Checkout {
 
 		}
 
-		public function show_pod_header( $columns ) {
-			$new_columns = array();
-			foreach ( $columns as $column_name => $column_info ) {
-					$new_columns[ $column_name ] = $column_info;
-					if ( 'tracking_number' === $column_name ) {
-							$new_columns['wc_dropshipping_pod'] = __( 'POD', 'woocommerce-dropshipping' );
-					}
-			}
-			return $new_columns;
+	public function show_pod_header( $columns ) {
+		$new_columns = array();
+		foreach ( $columns as $column_name => $column_info ) {
+				$new_columns[ $column_name ] = $column_info;
+				if ( 'tracking_number' === $column_name ) {
+						$new_columns['wc_dropshipping_pod'] = __( 'POD', 'woocommerce-dropshipping' );
+				}
 		}
+		return $new_columns;
+	}
 
-		public function show_pod_content( $column ) {
-			global $post;
+  public function show_pod_content( $column ) {
+    global $post;
 
-			if ( 'wc_dropshipping_pod' === $column ) {
-				$order = wc_get_order( $post->ID );
-				$items = $order->get_items();
-				$order_status = $order->get_status();
-				if( isset( $order_status ) ){
-					if( $order_status == 'processing' || $order_status == 'completed' ){
-						foreach ( $items as $item_id => $item ) {
-							$supplier_nickname = wc_get_order_item_meta($item_id,'supplier',true);
-							$user = get_user_by( 'login', $supplier_nickname );
-							if( is_object( $user ) ){
-								$user_id = $user->ID;
-								$supplier_pod_id = '_supplier_pod_' . $user_id;
-								$pod_status = get_post_meta( $post->ID, $post->ID . '_' . $supplier_pod_id . '_status', true );
-								if ( !empty( $pod_status ) ){
-										echo $supplier_nickname . ': ' . $pod_status . '</br></br>';
-									}
-								}
-							}
-						}
-					}
+    if ( 'wc_dropshipping_pod' === $column ) {
+      $order = wc_get_order( $post->ID );
+      $items = $order->get_items();
+      $order_status = $order->get_status();
+      $suppliers_list = array();
+      if( isset( $order_status ) ){
+        if( $order_status == 'processing' || $order_status == 'completed' ){
+          foreach ( $items as $item_id => $item ) {
+            $supplier_nickname = wc_get_order_item_meta($item_id,'supplier',true);
+            $user = get_user_by( 'login', $supplier_nickname );
+            if( is_object( $user ) ){
+              $user_id = $user->ID;
+              $supplier_pod_id = '_supplier_pod_' . $user_id;
+              $pod_status = get_post_meta( $post->ID, $post->ID . '_' . $supplier_pod_id . '_status', true );
+              if ( !empty( $pod_status ) && ( '' == in_array( $supplier_nickname, $suppliers_list ) ) ){
+                  array_push( $suppliers_list, $supplier_nickname);
+                  echo $supplier_nickname . ': ' . $pod_status . '</br></br>';
+                }
+              }
+            }
+          }
+        }
+      }
+	  }
+
+	public function wc_email_after_order_table( $order, $sent_to_admin, $plain_text, $email  ) {
+		if ( $this->order_options['checkout_order_number'] == 1 ){
+			$order_number = get_post_meta( $order->get_id(), '_wc_dropshipping_order_number', true );
+			if ( $order_number !== '' ) {
+				echo 'Order number: '.$order_number;
 			}
 		}
+	}
 
+	public function wc_view_order_number( $order_id  ) {
+		if ( $this->order_options['checkout_order_number'] == 1 ){
+			$order_number = get_post_meta( $order_id->get_id(), '_wc_dropshipping_order_number', true );
+			if ( $order_number !== '' ) {
+				echo '<span class="wcd-order-number">Order number: '.$order_number.'</span>';
+			}
+		}
+	}
 }

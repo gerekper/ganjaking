@@ -14,7 +14,7 @@ class GPNF_WC_Product_Addons {
 
 	private function __construct() {
 
-		add_action( 'woocommerce_gravityforms_entry_created', array( $this, 'update_child_entries_parent' ), 10, 5 );
+		add_action( 'woocommerce_gravityforms_entry_created', array( $this, 'update_child_entries_parent' ), 5, 5 );
 
 	}
 
@@ -44,7 +44,7 @@ class GPNF_WC_Product_Addons {
 		}
 
 		foreach ( $nested_form_fields as $nested_form_field ) {
-			$nested_entry_ids = explode( ',', rgar( $lead_data, $nested_form_field ) );
+			$nested_entry_ids = gp_nested_forms()->get_child_entry_ids_from_value( rgar( $lead_data, $nested_form_field ) );
 
 			foreach ( $nested_entry_ids as $nested_entry_id ) {
 				gform_update_meta( $nested_entry_id, GPNF_Entry::ENTRY_PARENT_KEY, $entry_id );

@@ -112,6 +112,9 @@ class WordPress_GDPR_Privacy_Settings extends WordPress_GDPR
         $privacySettingsPopupTitle = $this->get_option('privacySettingsPopupTitle');
         $privacySettingsPopupDescription = $this->get_option('privacySettingsPopupDescription');
 
+        $privacySettingsPopupDeclineText = $this->get_option('privacySettingsPopupDeclineText');
+        $privacySettingsPopupAcceptText = $this->get_option('privacySettingsPopupAcceptText');
+
         $useFontAwesome5 = $this->get_option('useFontAwesome5');
         $fontAwesomePrefix = 'fa';
         if($useFontAwesome5) {
@@ -245,12 +248,18 @@ class WordPress_GDPR_Privacy_Settings extends WordPress_GDPR
             </div>
 
             <div class="wordpress-gdpr-privacy-settings-popup-services-buttons">
+                
+                <?php if(!empty($privacySettingsPopupDeclineText)) { ?>
                 <div class="wordpress-gdpr-popup-decline wordpress-gdpr-privacy-settings-popup-services-decline-all button btn button-secondary theme-btn" style="background-color: <?php echo $privacySettingsPopupDeclineBackgroundColor ?>; color: <?php echo $privacySettingsPopupDeclineColor ?>;">
-                    <?php echo __('Decline all Services', 'wordpress-gdpr') ?>
+                    <?php echo $privacySettingsPopupDeclineText ?>
                 </div>
+                <?php } ?>
+
+                <?php if(!empty($privacySettingsPopupAcceptText)) { ?>
                 <div class="wordpress-gdpr-popup-agree wordpress-gdpr-privacy-settings-popup-services-accept-all button btn button-secondary theme-btn" style="background-color: <?php echo $privacySettingsPopupAcceptBackgroundColor ?>;color: <?php echo $privacySettingsPopupAcceptColor ?>;">
-                    <?php echo __('Accept all Services', 'wordpress-gdpr') ?>
+                    <?php echo $privacySettingsPopupAcceptText ?>
                 </div>
+                <?php } ?>
 
                 <div class="gdpr-clear"></div>
             </div>

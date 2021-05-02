@@ -17,8 +17,8 @@ class GPNF_Entry {
 
 	public function __construct( $entry ) {
 
-		if( is_array( $entry ) ) {
-			$this->_entry = $entry;
+		if ( is_array( $entry ) ) {
+			$this->_entry    = $entry;
 			$this->_entry_id = $entry['id'];
 		} else {
 			$this->_entry_id = $entry;
@@ -28,7 +28,7 @@ class GPNF_Entry {
 
 	public function __get( $name ) {
 
-		if( ! empty( $this->_entry ) && isset( $this->_entry[ $name ] ) ) {
+		if ( ! empty( $this->_entry ) && isset( $this->_entry[ $name ] ) ) {
 			return $this->_entry[ $name ];
 		}
 
@@ -40,27 +40,27 @@ class GPNF_Entry {
 
 	public function trash_children() {
 		$child_entries = $this->get_child_entries();
-		foreach( $child_entries as $child_entry ) {
+		foreach ( $child_entries as $child_entry ) {
 			$this->update_status( 'trash', $child_entry['id'] );
 		}
 	}
 
 	public function untrash_children() {
 		$child_entries = $this->get_child_entries();
-		foreach( $child_entries as $child_entry ) {
+		foreach ( $child_entries as $child_entry ) {
 			$this->update_status( 'active', $child_entry['id'] );
 		}
 	}
 
 	public function delete_children() {
 		$child_entries = $this->get_child_entries();
-		foreach( $child_entries as $child_entry ) {
+		foreach ( $child_entries as $child_entry ) {
 			GFFormsModel::delete_lead( $child_entry['id'] );
 		}
 	}
 
 	public function update_status( $status, $entry_id = null ) {
-		if( ! $entry_id ) {
+		if ( ! $entry_id ) {
 			$entry_id = $this->_entry_id;
 		}
 		GFFormsModel::update_lead_property( $entry_id, 'status', $status );
@@ -72,12 +72,12 @@ class GPNF_Entry {
 		$form              = GFAPI::get_form( $entry['form_id'] );
 		$has_nested_fields = gp_nested_forms()->has_nested_form_field( $form );
 
-		if( $has_nested_fields === false ) {
+		if ( $has_nested_fields === false ) {
 			return false;
 		}
 
 		$child_entries = $this->get_child_entries();
-		if( empty( $child_entries ) ) {
+		if ( empty( $child_entries ) ) {
 			return false;
 		}
 
@@ -91,30 +91,24 @@ class GPNF_Entry {
 		$fields = GFCommon::get_fields_by_type( $form, 'form' );
 
 		$child_entries = array();
-		foreach( $fields as $field ) {
+		foreach ( $fields as $field ) {
 
-			if( $field_id && $field->id != $field_id ) {
+			if ( $field_id && $field->id != $field_id ) {
 				continue;
 			}
 
-			$child_entry_ids = rgar( $entry, $field->id );
-			if( $child_entry_ids == '' ) {
+			$child_entry_ids = gp_nested_forms()->get_child_entry_ids_from_value( rgar( $entry, $field->id ) );
+			if ( empty( $child_entry_ids ) ) {
 				continue;
 			}
 
-			$child_entries_array = explode(',', $child_entry_ids);
-			if( empty( $child_entries_array ) ) {
-				continue;
-			}
-
-			foreach( $child_entries_array as $child_entry_id ) {
+			foreach ( $child_entry_ids as $child_entry_id ) {
 				$child_entry = GFAPI::get_entry( $child_entry_id );
-				if( ! is_wp_error( $child_entry ) ) {
+				if ( ! is_wp_error( $child_entry ) ) {
 					$child_entry[ GPNF_Entry::ENTRY_NESTED_FORM_FIELD_KEY ] = $field->id;
-					$child_entries[] = $child_entry;
+					$child_entries[]                                        = $child_entry;
 				}
 			}
-
 		}
 
 		return $child_entries;
@@ -123,7 +117,7 @@ class GPNF_Entry {
 
 	public function get_entry() {
 
-		if( empty( $this->_entry ) ) {
+		if ( empty( $this->_entry ) ) {
 			$this->_entry = GFAPI::get_entry( $this->_entry_id );
 		}
 
@@ -131,26 +125,34 @@ class GPNF_Entry {
 	}
 
 	public function set_parent_form( $parent_form_id, $parent_entry_id = false ) {
+		/**
+		 * Filter parent entry ID
+		 *
+		 * @since 1.0-beta-9.10
+		 *
+		 * @param string $parent_entry_id  Parent entry ID to link child entries to
+		 */
+		$parent_entry_id = gf_apply_filters( array( 'gpnf_set_parent_entry_id', $parent_form_id ), $parent_entry_id );
 
 		// If parent entry ID not passed, get the temporary hash from the session.
-		if( ! $parent_entry_id ) {
+		if ( ! $parent_entry_id ) {
 
 			$session = new GPNF_Session( $parent_form_id );
-			if( ! $session->has_data() ) {
+			if ( ! $session->has_data() ) {
 				return;
 			}
 
 			$parent_entry_id = $session->get( 'hash' );
 
-			// Set the parent form ID during child submission.
-			gform_update_meta( $this->_entry_id, self::ENTRY_PARENT_FORM_KEY, $parent_form_id );
-			$this->_entry[ self::ENTRY_PARENT_FORM_KEY ] = $parent_form_id;
-
 		}
 
-		// set either temporary parent hashcode or actual parent entry id
+		// Set either temporary parent hashcode or actual parent entry ID
 		gform_update_meta( $this->_entry_id, self::ENTRY_PARENT_KEY, $parent_entry_id );
 		$this->_entry[ self::ENTRY_PARENT_KEY ] = $parent_entry_id;
+
+		// Set the parent form ID during child submission.
+		gform_update_meta( $this->_entry_id, self::ENTRY_PARENT_FORM_KEY, $parent_form_id );
+		$this->_entry[ self::ENTRY_PARENT_FORM_KEY ] = $parent_form_id;
 
 	}
 
@@ -181,10 +183,10 @@ class GPNF_Entry {
 
 		$form = GFAPI::get_form( $this->_entry['form_id'] );
 
-		$entry = $this->_entry;
+		$entry       = $this->_entry;
 		$entry['id'] = null; // Force GFCommon::get_order_total() to get an un-cached total.
 
-		$total = GFCommon::get_order_total( $form, $entry );
+		$total        = GFCommon::get_order_total( $form, $entry );
 		$this->_total = $total;
 
 	}
@@ -193,11 +195,11 @@ class GPNF_Entry {
 
 		// Always fetch fresh entry as data may have changed since start of submission.
 		$parent_entry = GFAPI::get_entry( $parent_entry_id );
-		if( is_wp_error( $parent_entry ) ) {
+		if ( is_wp_error( $parent_entry ) ) {
 			return false;
 		}
 
-		if( rgar( $parent_entry, 'created_by' ) ) {
+		if ( rgar( $parent_entry, 'created_by' ) ) {
 			GFAPI::update_entry_property( $this->id, 'created_by', $parent_entry['created_by'] );
 		}
 
@@ -239,21 +241,32 @@ class GPNF_Entry {
 			$can_user_edit_entry = true;
 		}
 
-		$parent_entry_id = gform_get_meta( $entry['id'], self::ENTRY_PARENT_KEY );
-		$session         = new GPNF_Session( $parent_form_id );
+		$parent_entry_id      = gform_get_meta( $entry['id'], self::ENTRY_PARENT_KEY );
+		$parent_form_field_id = gform_get_meta( $entry['id'], self::ENTRY_NESTED_FORM_FIELD_KEY );
+
+		$session = new GPNF_Session( $parent_form_id );
+
+		$save_and_continue_entry_ids = gp_nested_forms()->get_save_and_continue_child_entry_ids( $parent_form_id, $parent_form_field_id );
 
 		if ( $session->has_data() && $parent_entry_id == $session->get( 'hash' ) ) {
+			$can_user_edit_entry = true;
+		/**
+		 * In some cases, the session cookie may not be available in which case we need to pull the child entry list
+		 * again and bypass the permissions.
+		 */
+		} else if ( count( $save_and_continue_entry_ids ) && in_array( $entry['id'], $save_and_continue_entry_ids ) ) {
 			$can_user_edit_entry = true;
 		}
 
 		/**
 		 * Filter whether the current user has permission to edit the given entry.
 		 *
+		 * @param bool $can_user_edit_entry Can the current user edit the given entry?
+		 * @param array $entry Current entry.
+		 * @param \WP_User $user Current user.
+		 *
 		 * @since 1.0
 		 *
-		 * @param bool     $can_user_edit_entry Can the current user edit the given entry?
-		 * @param array    $entry               Current entry.
-		 * @param \WP_User $user                Current user.
 		 */
 		$can_user_edit_entry = apply_filters( 'gpnf_can_user_edit_entry', $can_user_edit_entry, $entry, $current_user );
 

@@ -18,9 +18,6 @@ final class Version400 implements LegacyCollectionDecoder {
 		$this->types = $types;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function decode( array $data ) {
 		$list_screens = new ListScreenCollection();
 
@@ -50,9 +47,6 @@ final class Version400 implements LegacyCollectionDecoder {
 		return $list_screens;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function can_decode( array $data ) {
 		if ( ! isset( $data['version'], $data['list_screens'] ) ) {
 			return false;

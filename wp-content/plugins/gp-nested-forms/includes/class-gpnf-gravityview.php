@@ -7,7 +7,7 @@ class GPNF_GravityView {
 	private static $form_has_gv_buttons = array();
 
 	public static function get_instance() {
-		if( null == self::$instance ) {
+		if ( null == self::$instance ) {
 			self::$instance = new self;
 		}
 		return self::$instance;
@@ -17,7 +17,27 @@ class GPNF_GravityView {
 
 		add_action( 'gpnf_pre_nested_forms_markup', array( $this, 'remove_gravityview_edit_hooks' ) );
 		add_action( 'gpnf_nested_forms_markup', array( $this, 'add_gravityview_edit_hooks' ) );
+		add_action( 'gravityview/view/query', array( $this, 'filter_unsubmitted_child_entries'), 10, 3 );
 
+	}
+
+	/**
+	 * Prevent child entries of unsubmitted parent forms from displaying in GravityView views.
+	 *
+	 * @param $query GF_Query
+	 * @param $view
+	 * @param $request
+	 */
+	public function filter_unsubmitted_child_entries( &$query, $view, $request ) {
+		$query_parts = $query->_introspect();
+
+		$condition = new GF_Query_Condition(
+			new GF_Query_Column( '_gpnf_expiration' ),
+			GF_Query_Condition::EQ,
+			new GF_Query_Literal( '' )
+		);
+
+		$query->where( \GF_Query_Condition::_and( $query_parts['where'], $condition ) );
 	}
 
 	public function gravityview_edit_render_instance() {
@@ -27,7 +47,7 @@ class GPNF_GravityView {
 		}
 
 		$edit_entry_instance = GravityView_Edit_Entry::getInstance();
-		$render_instance = $edit_entry_instance->instances['render'];
+		$render_instance     = $edit_entry_instance->instances['render'];
 
 		return $render_instance;
 
@@ -44,8 +64,8 @@ class GPNF_GravityView {
 				has_filter( 'gform_submit_button', array( $render_instance, 'render_form_buttons' ) )
 				|| has_filter( 'gform_submit_button', array( $render_instance, 'modify_edit_field_input' ) );
 
-			remove_filter( 'gform_submit_button', array( $render_instance, 'render_form_buttons') );
-			remove_filter( 'gform_field_input', array( $render_instance, 'modify_edit_field_input') );
+			remove_filter( 'gform_submit_button', array( $render_instance, 'render_form_buttons' ) );
+			remove_filter( 'gform_field_input', array( $render_instance, 'modify_edit_field_input' ) );
 		}
 
 	}
@@ -57,8 +77,8 @@ class GPNF_GravityView {
 		}
 
 		if ( $render_instance = $this->gravityview_edit_render_instance() ) {
-			add_filter( 'gform_submit_button', array( $render_instance, 'render_form_buttons') );
-			add_filter( 'gform_field_input', array( $render_instance, 'modify_edit_field_input'), 10, 5 );
+			add_filter( 'gform_submit_button', array( $render_instance, 'render_form_buttons' ) );
+			add_filter( 'gform_field_input', array( $render_instance, 'modify_edit_field_input' ), 10, 5 );
 		}
 
 	}

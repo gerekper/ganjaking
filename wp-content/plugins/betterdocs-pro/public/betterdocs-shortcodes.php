@@ -81,18 +81,18 @@ function betterdocs_category_box_2($atts, $content = null)
 	$count_text = BetterDocs_DB::get_settings('count_text');
 	$get_args = shortcode_atts(
 		array(
-			'post_type' => 'docs',
-			'category' => 'doc_category',
 			'column' => '',
 			'nested_subcategory' => '',
 			'terms' => '',
+			'kb_slug' => '',
 			'multiple_knowledge_base' => false,
-			'disable_customizer_style' => false
+			'disable_customizer_style' => false,
+            'title_tag' => 'h2'
 		),
 		$atts
 	);
 
-	$taxonomy_objects = BetterDocs_Helper::taxonomy_object($get_args['multiple_knowledge_base'], $get_args['terms']);
+	$taxonomy_objects = BetterDocs_Helper::taxonomy_object($get_args['multiple_knowledge_base'], $get_args['terms'], $get_args['kb_slug']);
 
 	if ($taxonomy_objects && !is_wp_error($taxonomy_objects)) :
 		$class = ['betterdocs-categories-wrap betterdocs-category-box betterdocs-category-box-pro pro-layout-3 ash-bg layout-flex'];
@@ -101,6 +101,7 @@ function betterdocs_category_box_2($atts, $content = null)
 		} else {
 			$class[] = 'docs-col-' . $column_number;
 		}
+
 		if ($get_args['disable_customizer_style'] == false) {
 			$class[] = 'single-kb';
 		}
@@ -114,7 +115,7 @@ function betterdocs_category_box_2($atts, $content = null)
 				// set active category class in single page	
 				$wrap_class = 'docs-single-cat-wrap';
 
-				$term_permalink = BetterDocs_Helper::term_permalink($get_args['category'], $term->slug);
+				$term_permalink = BetterDocs_Helper::term_permalink('doc_category', $term->slug);
 
 				echo '<a href="' . esc_url($term_permalink) . '" class="' . esc_attr($wrap_class) . '">';
 				$cat_icon_id = get_term_meta($term_id, 'doc_category_image-id', true);
@@ -124,7 +125,7 @@ function betterdocs_category_box_2($atts, $content = null)
 					echo '<img class="docs-cat-icon" src="' . BETTERDOCS_ADMIN_URL . 'assets/img/betterdocs-cat-icon.svg" alt="">';
 				}
 				echo '<div class="title-count">';
-				echo '<h3 class="docs-cat-title">' . $term->name . '</h3>';
+				echo '<'.$get_args['title_tag'].' class="docs-cat-title">' . $term->name . '</'.$get_args['title_tag'].'>';
 				if ($post_count == 1) {
 					if ($term->count == 1) {
 						echo wp_sprintf('<span>%s %s</span>', $term->count, ($count_text_singular) ? $count_text_singular : __('article', 'betterdocs'));
@@ -153,24 +154,22 @@ add_shortcode('betterdocs_multiple_kb', 'betterdocs_multiple_kb');
 function betterdocs_multiple_kb($atts, $content = null)
 {
 	ob_start();
-
 	$column_number = BetterDocs_DB::get_settings('column_number');
 	$post_count = BetterDocs_DB::get_settings('post_count');
 	$count_text = BetterDocs_DB::get_settings('count_text');
 	$count_text_singular = BetterDocs_DB::get_settings('count_text_singular');
 	$get_args = shortcode_atts(
 		array(
-			'post_type' => 'docs',
-			'taxonomy' => 'knowledge_base',
 			'column' => '',
 			'terms' => '',
-			'disable_customizer_style' => false
+			'disable_customizer_style' => false,
+            'title_tag' => 'h2'
 		),
 		$atts
 	);
 
 	$terms_object = array(
-		'taxonomy' => $get_args['taxonomy'],
+		'taxonomy' => 'knowledge_base',
 		'hide_empty' => true,
 		'parent' => 0
 	);
@@ -201,9 +200,7 @@ function betterdocs_multiple_kb($atts, $content = null)
 
 			if ($term->count != 0) {
 				$wrap_class = 'docs-single-cat-wrap';
-
-				echo '<a href="' . get_term_link($term->slug, $get_args['taxonomy']) . '" class="' . esc_attr($wrap_class) . '">';
-
+				echo '<a href="' . get_term_link($term->slug, 'knowledge_base') . '" class="' . esc_attr($wrap_class) . '">';
 				$cat_icon_id = get_term_meta($term_id, 'knowledge_base_image-id', true);
 
 				if ($cat_icon_id) {
@@ -212,8 +209,7 @@ function betterdocs_multiple_kb($atts, $content = null)
 					echo '<img class="docs-cat-icon" src="' . BETTERDOCS_ADMIN_URL . 'assets/img/betterdocs-cat-icon.svg" alt="">';
 				}
 
-				echo '<h3 class="docs-cat-title">' . $term->name . '</h3>';
-
+				echo '<'.$get_args['title_tag'].' class="docs-cat-title">' . $term->name . '</'.$get_args['title_tag'].'>';
 				$mkb_desc = get_theme_mod('betterdocs_mkb_desc');
 
 				if ($mkb_desc == true) {
@@ -246,24 +242,22 @@ add_shortcode('betterdocs_multiple_kb_2', 'betterdocs_multiple_kb_2');
 function betterdocs_multiple_kb_2($atts, $content = null)
 {
 	ob_start();
-
 	$column_number = BetterDocs_DB::get_settings('column_number');
 	$post_count = BetterDocs_DB::get_settings('post_count');
 	$count_text = BetterDocs_DB::get_settings('count_text');
 	$count_text_singular = BetterDocs_DB::get_settings('count_text_singular');
 	$get_args = shortcode_atts(
 		array(
-			'post_type' => 'docs',
-			'taxonomy' => 'knowledge_base',
 			'column' => '',
 			'terms' => '',
-			'disable_customizer_style' => false
+			'disable_customizer_style' => false,
+            'title_tag' => 'h2'
 		),
 		$atts
 	);
 
 	$terms_object = array(
-		'taxonomy' => $get_args['taxonomy'],
+		'taxonomy' => 'knowledge_base',
 		'hide_empty' => true,
 		'parent' => 0
 	);
@@ -295,7 +289,7 @@ function betterdocs_multiple_kb_2($atts, $content = null)
 
 			if ($term->count != 0) {
 				$wrap_class = 'docs-single-cat-wrap';
-				echo '<a href="' . get_term_link($term->slug, $get_args['taxonomy']) . '" class="' . esc_attr($wrap_class) . '">';
+				echo '<a href="' . get_term_link($term->slug, 'knowledge_base') . '" class="' . esc_attr($wrap_class) . '">';
 				$cat_icon_id = get_term_meta($term_id, 'knowledge_base_image-id', true);
 
 				if ($cat_icon_id) {
@@ -305,7 +299,7 @@ function betterdocs_multiple_kb_2($atts, $content = null)
 				}
 
 				echo '<div class="title-count">';
-				echo '<h3 class="docs-cat-title">' . $term->name . '</h3>';
+				echo '<'.$get_args['title_tag'].' class="docs-cat-title">' . $term->name . '</'.$get_args['title_tag'].'>';
 
 				if ($post_count == 1) {
 					if ($term->count == 1) {
@@ -339,7 +333,6 @@ function betterdocs_category_grid_2($atts, $content = null)
 	ob_start();
 	$column_number = BetterDocs_DB::get_settings('column_number');
 	$posts_number = BetterDocs_DB::get_settings('posts_number');
-	$alphabetic_order = BetterDocs_DB::get_settings('alphabetically_order_post');
 	$nested_subcategory = BetterDocs_DB::get_settings('nested_subcategory');
 	$exploremore_btn = BetterDocs_DB::get_settings('exploremore_btn');
 	$exploremore_btn_txt = BetterDocs_DB::get_settings('exploremore_btn_txt');
@@ -349,8 +342,8 @@ function betterdocs_category_grid_2($atts, $content = null)
 	$get_args = shortcode_atts(
 		array(
 			'sidebar_list' => false,
-			'post_type' => 'docs',
-			'category' => 'doc_category',
+            'orderby' => BetterDocs_DB::get_settings('alphabetically_order_post'),
+            'order' => BetterDocs_DB::get_settings('docs_order'),
 			'count' => true,
 			'icon' => true,
 			'masonry' => '',
@@ -358,13 +351,15 @@ function betterdocs_category_grid_2($atts, $content = null)
 			'posts' => '',
 			'nested_subcategory' => '',
 			'terms' => '',
+            'kb_slug' => '',
 			'multiple_knowledge_base' => false,
-			'disable_customizer_style' => false
+			'disable_customizer_style' => false,
+            'title_tag' => 'h2'
 		),
 		$atts
 	);
 
-	$taxonomy_objects = BetterDocs_Helper::taxonomy_object($get_args['multiple_knowledge_base'], $get_args['terms']);
+	$taxonomy_objects = BetterDocs_Helper::taxonomy_object($get_args['multiple_knowledge_base'], $get_args['terms'], $get_args['kb_slug']);
 
 	if ($taxonomy_objects && !is_wp_error($taxonomy_objects)) :
 		$class = ['betterdocs-categories-wrap category-grid pro-layout-4 white-bg'];
@@ -401,7 +396,7 @@ function betterdocs_category_grid_2($atts, $content = null)
 
 		foreach ($taxonomy_first_row as $term) {
 			if ('0' == ($term->count && $term->parent)) {
-				$term_permalink = BetterDocs_Helper::term_permalink($get_args['category'], $term->slug);
+				$term_permalink = BetterDocs_Helper::term_permalink('doc_category', $term->slug);
 				echo '<a href="' . esc_url($term_permalink) . '" class="docs-single-cat-wrap docs-cat-list-2 docs-cat-list-2-box">';
 				echo '<div class="docs-cat-list-2-box-content">';
 				$term_id = $term->term_id;
@@ -414,7 +409,7 @@ function betterdocs_category_grid_2($atts, $content = null)
 				}
 
 				echo '<div class="title-count">';
-				echo '<h3 class="docs-cat-title">' . $term->name . '</h3>';
+				echo '<'.$get_args['title_tag'].' class="docs-cat-title">' . $term->name . '</'.$get_args['title_tag'].'>';
 
 				if ($post_count == 1) {
 					if ($term->count == 1) {
@@ -434,10 +429,10 @@ function betterdocs_category_grid_2($atts, $content = null)
 		foreach ($taxonomy_all as $term) {
 			$term_id = $term->term_id;
 			$term_slug = $term->slug;
-			$term_permalink = BetterDocs_Helper::term_permalink($get_args['category'], $term_slug);
+			$term_permalink = BetterDocs_Helper::term_permalink('doc_category', $term_slug);
 			echo '<div class="docs-single-cat-wrap docs-cat-list-2 docs-cat-list-2-items">
 				<div class="docs-cat-title-wrap">
-					<a href="' . esc_url($term_permalink) . '"><h3 class="docs-cat-title">' . $term->name . '</h3></a>
+					<a href="' . esc_url($term_permalink) . '"><'.$get_args['title_tag'].' class="docs-cat-title">' . $term->name . '</'.$get_args['title_tag'].'></a>
 				</div>
 				<div class="docs-item-container">';
 
@@ -447,7 +442,7 @@ function betterdocs_category_grid_2($atts, $content = null)
 				$posts_per_grid = $posts_number;
 			}
 
-			$list_args = BetterDocs_Helper::list_query_arg($get_args['post_type'], $get_args['multiple_knowledge_base'], $term_slug, $posts_per_grid, $alphabetic_order);
+			$list_args = BetterDocs_Helper::list_query_arg('docs', $get_args['multiple_knowledge_base'], $term_slug, $posts_per_grid, $get_args['orderby'], $get_args['order'], $get_args['kb_slug']);
 
 			$args = apply_filters('betterdocs_articles_args', $list_args, $term->term_id);
 
@@ -477,9 +472,12 @@ function betterdocs_category_grid_2($atts, $content = null)
 				nested_category_list(
 					$term_id, 
 					$get_args['multiple_knowledge_base'], 
-					$category_id, $get_args['post_type'], 
-					$alphabetic_order, 
-					$page_cat
+					$category_id,
+                    'docs',
+                    $get_args['orderby'],
+                    $get_args['order'],
+					$page_cat,
+                    $get_args['kb_slug']
 				);
 			}
 

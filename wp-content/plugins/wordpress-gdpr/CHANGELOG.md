@@ -1,5 +1,36 @@
 # Changelog
 ======
+1.9.20
+======
+- FIX:	Cookie popup not showed when next page opened
+- FIX:	Updated translation files
+
+======
+1.9.19
+======
+- NEW:	own text fields for popup accept / decline all services
+		https://imgur.com/a/ul8fuhc
+- FIX:	Moved all styles into footer
+
+======
+1.9.18
+======
+- FIX:	Overlay cookie height
+- FIX:	Local storage loading
+
+======
+1.9.17
+======
+- NEW:	Backdrop for full width cookie popup
+		https://imgur.com/a/rVwgPw5
+
+======
+1.9.16
+======
+- NEW:	Performance improvements by using users local storage (this will get rid of all AJAX calls except the first one)
+- FIX:	Privacy settings not saved when enabled by default and only one service applied
+
+======
 1.9.15
 ======
 - NEW:	Added WooCommerce Kadence Email customizer support

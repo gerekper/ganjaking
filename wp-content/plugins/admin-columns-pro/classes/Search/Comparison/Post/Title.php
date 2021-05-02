@@ -18,9 +18,6 @@ class Title extends PostField {
 		parent::__construct( $operators );
 	}
 
-	/**
-	 * @inheritdoc
-	 */
 	protected function get_field() {
 		return 'post_title';
 	}

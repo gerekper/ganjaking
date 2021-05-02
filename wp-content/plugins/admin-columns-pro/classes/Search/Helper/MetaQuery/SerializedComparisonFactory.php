@@ -22,8 +22,10 @@ final class SerializedComparisonFactory {
 		);
 
 		$operators = [
-			Operators::EQ  => 'LIKE',
-			Operators::NEQ => 'NOT LIKE',
+			Operators::EQ           => 'LIKE',
+			Operators::NEQ          => 'NOT LIKE',
+			Operators::CONTAINS     => 'LIKE',
+			Operators::NOT_CONTAINS => 'NOT LIKE',
 		];
 
 		if ( array_key_exists( $operator, $operators ) ) {

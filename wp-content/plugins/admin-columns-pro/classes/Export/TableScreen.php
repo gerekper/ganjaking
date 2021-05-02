@@ -14,11 +14,6 @@ class TableScreen implements Registrable {
 	 */
 	protected $location;
 
-	/**
-	 * @var int
-	 */
-	protected $num_items_per_iteration;
-
 	public function __construct( Location $location ) {
 		$this->location = $location;
 	}
@@ -41,12 +36,10 @@ class TableScreen implements Registrable {
 
 		$list_screen->export()->attach();
 
-		$this->num_items_per_iteration = $list_screen->export()->get_num_items_per_iteration();
-
 		add_action( 'ac/table_scripts', [ $this, 'scripts' ] );
 	}
 
-	public function scripts() {
+	public function scripts( ListScreen $list_screen ) {
 		$style = new AC\Asset\Style(
 			'acp-export-listscreen',
 			$this->location->with_suffix( 'assets/export/css/listscreen.css' )
@@ -56,7 +49,7 @@ class TableScreen implements Registrable {
 		$script = new Script\Table(
 			'acp-export-listscreen',
 			$this->location->with_suffix( 'assets/export/js/listscreen.js' ),
-			$this->num_items_per_iteration
+			$list_screen->export()
 		);
 		$script->enqueue();
 	}

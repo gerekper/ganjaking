@@ -5,11 +5,10 @@ namespace ACP;
 use AC;
 use AC\Admin\Page;
 use AC\Admin\PageCollection;
+use AC\Admin\Preference;
 use AC\Admin\SectionCollection;
 use AC\Asset\Location;
-use AC\Controller\ListScreenRequest;
 use AC\ListScreenRepository\Storage;
-use AC\Request;
 use ACP\Type\SiteUrl;
 
 class AdminNetworkFactory {
@@ -72,8 +71,7 @@ class AdminNetworkFactory {
 			$this->location,
 			$this->license_repository,
 			$this->license_key_repository,
-			$this->site_url,
-			$this->plugin
+			$this->site_url
 		);
 	}
 
@@ -81,13 +79,13 @@ class AdminNetworkFactory {
 	 * @return Page\Columns
 	 */
 	protected function create_columns_page() {
-		$list_screen_controller = new ListScreenRequest( new Request(), $this->storage, new AC\Preferences\Site( 'settings' ), true );
-
 		return new Page\Columns(
-			$list_screen_controller,
 			$this->location_core,
 			new AC\DefaultColumnsRepository(),
-			new AC\Admin\Section\Partial\Menu( $list_screen_controller, true )
+			new AC\Admin\Section\Partial\Menu( true ),
+			$this->storage,
+			new Preference\ListScreen( true ),
+			true
 		);
 	}
 

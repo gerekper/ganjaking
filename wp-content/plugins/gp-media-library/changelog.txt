@@ -1,6 +1,19 @@
 
 # Changelog
 
+## 1.2.17
+
+	- Added properly registered entry meta for Media Library attachment IDs. (#5)
+
+## 1.2.16
+
+	- Fixed an issue where GPML may generate PHP notices if no file is uploaded.
+	- Fixed an issue where the uploaded file's form ID may not be captured correctly.
+
+## 1.2.15
+
+	- Fixed an issue where image size names containing a dash were not recognized in merge tags.
+
 ## 1.2.14
 
 	- Fixed potential PHP notice when GF Media Library is used on a form that's also using Live Merge Tags from GF Populate Anything.

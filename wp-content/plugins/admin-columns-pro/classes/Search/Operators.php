@@ -70,9 +70,6 @@ final class Operators extends Config {
 		];
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	protected function validate_config() {
 		$operators = $this->get_operators();
 

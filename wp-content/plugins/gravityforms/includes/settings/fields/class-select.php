@@ -1,8 +1,8 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
-use Rocketgenius\Gravity_Forms\Settings\Fields;
+use Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 defined( 'ABSPATH' ) || die();
 
@@ -95,12 +95,14 @@ class Select extends Base {
 
 		} else {
 
+			$attributes = $this->get_attributes();
+
 			$select_input = sprintf(
 				'<select name="%s_%s" %s %s>%s</select>%s',
 				esc_attr( $this->settings->get_input_name_prefix() ),
 				esc_attr( $this->name ),
 				$this->get_describer() ? sprintf( 'aria-describedby="%s"', $this->get_describer() ) : '',
-				implode( ' ', $this->get_attributes() ),
+				implode( ' ', $attributes ),
 				self::get_options( $choices, $this->get_value() ),
 				rgobj( $this, 'after_select' )
 			);
@@ -108,15 +110,17 @@ class Select extends Base {
 			// Display enhanced select UI.
 			if ( $this->enhanced_ui ) {
 
+				$input_id = preg_replace( "/id='(.*)'/m", '${1}', $attributes['id'] );
+
 				// Wrap select input.
 				$html .= sprintf( '<span class="gform-settings-field__select--enhanced">%s</span>', $select_input );
 
 				$html .= '<script type="text/javascript">
 					jQuery( document ).ready( function () {
-						jQuery( "#' . esc_attr( $this->name ) . '" ).select2( {
+						jQuery( "#' . esc_attr( $input_id ) . '" ).select2( {
 							minimumResultsForSearch: Infinity,
 							dropdownCssClass: "gform-settings-field__select-enhanced-container",
-							dropdownParent: jQuery( "#' . esc_attr( $this->name ) . '" ).parent(),
+							dropdownParent: jQuery( "#' . esc_attr( $input_id ) . '" ).parent(),
 						} );
 					} );
 				</script>';
@@ -127,10 +131,10 @@ class Select extends Base {
 
 		}
 
-		$html .= '</span>';
-
 		// If field failed validation, add error icon.
 		$html .= $this->get_error_icon();
+
+		$html .= '</span>';
 
 		return $html;
 
@@ -202,13 +206,10 @@ class Select extends Base {
 	 *
 	 * @param string|array $value Posted field value.
 	 */
-	public function is_valid( $value ) {
-
-		// Determine if field is a multiselect field, required.
-		$multiple = rgobj( $this, 'multiple' ) == 'multiple';
+	public function do_validation( $value ) {
 
 		// If field is not multiselect, but is required with no selection, set field error.
-		if ( ! $multiple && $this->required && rgblank( $value ) ) {
+		if ( ! $this->support_multiple() && $this->required && rgblank( $value ) ) {
 			$this->set_error( rgobj( $this, 'error_message' ) );
 			return;
 		}
@@ -217,11 +218,11 @@ class Select extends Base {
 		$choices = $this->get_choices();
 
 		// If no selection was made or no choices exist, exit.
-		if ( rgblank( $value ) || $choices === false || empty( $choices ) ) {
+		if ( ( rgblank( $value ) && ! $this->required ) || $choices === false || empty( $choices ) ) {
 			return;
 		}
 
-		if ( $multiple ) {
+		if ( $this->support_multiple() ) {
 
 			$selected = 0;
 
@@ -289,6 +290,21 @@ class Select extends Base {
 
 	}
 
+	/**
+	 * Determine if a select field supports multiple choices.
+	 *
+	 * @since 2.5
+	 *
+	 * @return bool true if the field supports multiple choices, false if not.
+	 */
+	public function support_multiple() {
+		$multiple = rgobj( $this, 'multiple' );
+		if ( $multiple === 'multiple' || $multiple === true  ) {
+			return true;
+		}
+		return false;
+	}
+
 }
 
-Fields::register( 'select', '\Rocketgenius\Gravity_Forms\Settings\Fields\Select' );
+Fields::register( 'select', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Select' );

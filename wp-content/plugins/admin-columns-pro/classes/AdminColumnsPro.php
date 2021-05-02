@@ -9,6 +9,7 @@ use AC\ListScreenTypes;
 use AC\Request;
 use AC\Type\Url;
 use ACP\Admin;
+use ACP\Bookmark;
 use ACP\Migrate;
 use ACP\Plugin;
 use ACP\Plugin\NetworkUpdate;
@@ -16,6 +17,8 @@ use ACP\Plugin\Updater;
 use ACP\Search;
 use ACP\Settings;
 use ACP\Settings\ListScreen\HideOnScreen;
+use ACP\Sorting\ModelFactory;
+use ACP\Sorting\NativeSortableFactory;
 use ACP\Storage\ListScreen\DecoderFactory;
 use ACP\Storage\ListScreen\Encoder;
 use ACP\Storage\ListScreen\LegacyCollectionDecoder;
@@ -85,23 +88,26 @@ final class AdminColumnsPro extends AC\Plugin {
 
 		$admin = ( new AdminFactory( AC()->admin(), $location, $storage, $license_repository, $license_key_repository, $site_url, $this->is_network_active() ) )->create();
 
-		$list_screen_order = new AC\Storage\ListScreenOrder();
-
 		$plugins = $this->get_installed_plugins();
 
+		$list_screen_order = new AC\Storage\ListScreenOrder();
+		$segment_repository = new Bookmark\SegmentRepository();
+		$request = new Request();
+
 		$services = [
-			new Admin\Settings( $storage, $location ),
-			new QuickAdd\Addon( $storage, $location, new Request() ),
-			new Sorting\Addon( $storage, $location, $admin ),
-			new Editing\Addon( $storage, $location, new Request() ),
+			new Admin\Settings( $storage, $location, $segment_repository ),
+			new QuickAdd\Addon( $storage, $location, $request ),
+			new Sorting\Addon( $storage, $location, $admin, new NativeSortableFactory(), new ModelFactory(), $segment_repository ),
+			new Editing\Addon( $storage, $location, $request ),
 			new Export\Addon( $location ),
-			new Search\Addon( $storage, $location ),
-			new Filtering\Addon( $storage, $location, new Request() ),
+			new Bookmark\Addon( $storage, $request, $segment_repository ),
+			new Search\Addon( $storage, $location, $segment_repository ),
+			new Filtering\Addon( $storage, $location, $request ),
 			new ThirdParty\ACF\Addon(),
 			new ThirdParty\bbPress\Addon(),
 			new ThirdParty\WooCommerce\Addon(),
 			new ThirdParty\YoastSeo\Addon(),
-			new Table\Switcher( $storage, $location ),
+			new Table\Switcher( $storage ),
 			new Table\HorizontalScrolling( $storage, $location ),
 			new Table\HideSearch(),
 			new Table\HideSubMenu( new HideOnScreen\SubMenu\CommentStatus() ),
@@ -119,7 +125,7 @@ final class AdminColumnsPro extends AC\Plugin {
 			new Controller\AjaxRequestListScreenUsers(),
 			new Controller\AjaxRequestListScreenOrder( $list_screen_order ),
 			new Controller\AjaxRequestFeedback( $this->get_version() ),
-			new Controller\ListScreenCreate( $storage, new Request(), $list_screen_order ),
+			new Controller\ListScreenCreate( $storage, $request, $list_screen_order ),
 			new Controller\License( $this->api, $license_repository, $license_key_repository, $site_url, $plugins ),
 			new Updates( $this->api, $license_key_repository, $site_url, $plugins ),
 			new AddonInstaller( $this->api, $license_repository, $license_key_repository, $site_url ),

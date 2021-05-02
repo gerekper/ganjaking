@@ -1394,9 +1394,9 @@ rs-poster,
 
 rs-poster 						 { cursor:pointer; z-index:3; }
 
-.tp-tab:hover,
+.tp-tab.rs-touchhover,
 .tp-tab.selected,
-.tp-thumb:hover,
+.tp-thumb.rs-touchhover,
 .tp-thumb.selected				{	opacity:1;}
 
 .tp-tab-mask,
@@ -1407,13 +1407,13 @@ rs-poster 						 { cursor:pointer; z-index:3; }
 
 .tp-bullet 						{	width:15px;height:15px; position:absolute; background:#fff; background:rgba(255,255,255,0.3); cursor: pointer;}
 .tp-bullet.selected,
-.tp-bullet:hover				{	background:#fff;}
+.tp-bullet.rs-touchhover				{	background:#fff;}
 
 
 
 
 .tparrows						{	cursor:pointer; background:#000; background:rgba(0,0,0,0.5); width:40px;height:40px;position:absolute; display:block; z-index:1000; }
-.tparrows:hover 				{	background:#000;}
+.tparrows.rs-touchhover 				{	background:#000;}
 .tparrows:before				{	font-family: "revicons"; font-size:15px; color:#fff; display:block; line-height: 40px; text-align: center;}
 .tparrows.tp-leftarrow:before	{	content: '\e824'; }
 .tparrows.tp-rightarrow:before	{	content: '\e825'; }

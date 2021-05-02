@@ -67,25 +67,16 @@ class User extends AC\Helper\Select\Entities
 		$query->query_where .= " GROUP BY {$wpdb->users}.ID";
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function get_total_pages() {
 		$per_page = $this->query->query_vars['number'];
 
 		return ceil( $this->query->get_total() / $per_page );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function get_page() {
 		return $this->query->query_vars['paged'];
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function is_last_page() {
 		return $this->get_total_pages() <= $this->get_page();
 	}

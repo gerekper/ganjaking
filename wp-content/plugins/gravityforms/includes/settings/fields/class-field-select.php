@@ -1,11 +1,11 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 use GF_Fields;
 use GFCommon;
 use GFFormsModel;
-use Rocketgenius\Gravity_Forms\Settings\Fields;
+use Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 defined( 'ABSPATH' ) || die();
 
@@ -38,7 +38,7 @@ class Field_Select extends Select {
 	 * @since 2.5
 	 *
 	 * @param array                                $props    Field properties.
-	 * @param \Rocketgenius\Gravity_Forms\Settings $settings Settings instance.
+	 * @param \Gravity_Forms\Gravity_Forms\Settings\Settings $settings Settings instance.
 	 */
 	public function __construct( $props, $settings ) {
 
@@ -303,4 +303,4 @@ class Field_Select extends Select {
 
 }
 
-Fields::register( 'field_select', '\Rocketgenius\Gravity_Forms\Settings\Fields\Field_Select' );
+Fields::register( 'field_select', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Field_Select' );

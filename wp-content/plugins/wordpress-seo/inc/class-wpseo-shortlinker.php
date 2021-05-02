@@ -136,7 +136,7 @@ class WPSEO_Shortlinker {
 			default:
 				$cohort = '365plus';
 		}
-		return $cohort;
+		return '365plus';
 	}
 
 	/**

@@ -798,6 +798,7 @@ class MeprProduct extends MeprCptModel implements MeprProductInterface {
       if(MeprUtils::is_ssl() && $modify_if_https) {
         $url = preg_replace('!^http:!','https:',$url);
       }
+      $url = MeprHooks::apply_filters('mepr-product-url', $url, $this, $args, $modify_if_https);
 
       return $url;
     }

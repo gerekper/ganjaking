@@ -590,6 +590,12 @@ class WC_Dropshipping_Admin
 				if ($key != 'submit') $options[$key] = $_POST[$key];
 			}
 
+			if (isset($_POST['supp_notification'])) {
+				$options['supp_notification'] = '1';
+			} else {
+				$options['supp_notification'] = '0';
+			}
+
 			if (isset($_POST['csv_inmail'])) {
 				$options['csv_inmail'] = '1';
 			} else {
@@ -821,6 +827,12 @@ class WC_Dropshipping_Admin
 		// Tab to update options
 
 		$options = get_option('wc_dropship_manager');
+
+		if (isset($options['supp_notification'])) {
+			$supp_notification = $options['supp_notification'];
+		} else {
+			$supp_notification = '';
+		}
 
 		if (isset($options['csv_inmail'])) {
 			$csvcheck = $options['csv_inmail'];
@@ -1057,6 +1069,12 @@ class WC_Dropshipping_Admin
 			$csvInMail = ' checked="checked" ';
 		} else {
 			$csvInMail = ' ';
+		}
+
+		if ($supp_notification == '1') {
+			$supp_notification_attr = ' checked="checked" ';
+		} else {
+			$supp_notification_attr = ' ';
 		}
 
 		if ($full_information == '1') {
@@ -1476,8 +1494,16 @@ class WC_Dropshipping_Admin
 	        </table>';
 
 
-		echo '<h3>Send Order Details CSV to Suppliers</h3>
-			<p>This option controls whether or not you want to send a .CSV spreadsheet file as an attachment with the regular order notification emails that are sent to your suppliers</p>
+		echo '<h3>Send Order Details to Suppliers</h3>';
+		echo '<p></p>
+			<table>
+				<tr>
+					<td><label for="supp_notification">Do not send email notifications to supplier:</label></td>
+					<td><input name="supp_notification" type="checkbox" ' . $supp_notification_attr . ' /></td>
+				</tr>
+			</table>';
+
+		echo '<p>This option controls whether or not you want to send a .CSV spreadsheet file as an attachment with the regular order notification emails that are sent to your suppliers</p>
 			<table>
 				<tr>
 					<td><label for="csv_inmail">Send CSV with Supplier Notifications:</label></td>

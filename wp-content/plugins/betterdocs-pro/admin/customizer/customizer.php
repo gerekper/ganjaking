@@ -393,6 +393,32 @@ function betterdocs_customize_register_pro( $wp_customize ) {
 			),
 		) ) );
 
+        $wp_customize->add_setting( 'betterdocs_mkb_title_tag' , array(
+            'default'     => $defaults['betterdocs_mkb_title_tag'],
+            'capability'    => 'edit_theme_options',
+            'sanitize_callback' => 'betterdocs_sanitize_choices',
+        ) );
+
+        $wp_customize->add_control(
+            new WP_Customize_Control(
+                $wp_customize,
+                'betterdocs_mkb_title_tag',
+                array(
+                    'label'      => __( 'Category Title Tag', 'betterdocs' ),
+                    'section'    => 'betterdocs_mkb_settings',
+                    'settings'   => 'betterdocs_mkb_title_tag',
+                    'type'    => 'select',
+                    'choices' => array(
+                        'h1' => 'h1',
+                        'h2' => 'h2',
+                        'h3' => 'h3',
+                        'h4' => 'h4',
+                        'h5' => 'h5',
+                        'h6' => 'h6'
+                    ),
+                    'priority' => 17,
+                ) )
+        );
 
 		// Spacing Between Columns
 

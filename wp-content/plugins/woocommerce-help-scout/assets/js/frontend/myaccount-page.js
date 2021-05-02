@@ -77,10 +77,12 @@
                     $("#reply_user_id").val(woocommerce_help_scout_myaccount_params.user_id),
                     $("#reply_submit_btn").val(woocommerce_help_scout_myaccount_params.send),
                     $(this).show();
+					$('.woocommerce-message').remove();
+					$('#support-conversation-reply').show();
             }),
                 scrollToConversationReply();
         });
-        $("body").on("submit", "#support-conversation-reply", function (e) {
+        $("body").on("submit", "#support-conversation-reply", function (e) { 
             e.preventDefault();
             if ($("#my-account-conversation-file-1").plupload("getFiles").length > 0) {
                 $("#my-account-conversation-file-1").on("complete", function () {
@@ -102,9 +104,43 @@
                             security: woocommerce_help_scout_myaccount_params.security,
                         },
                         success: function (data) {
+                            $("#support-conversation-reply")[0].reset();
+                            $("#my_account_conversation_uploaded_files_1").val('');
+							$('#support-conversation-reply').hide();
+							$('#plUploadArea').empty();
+							var newArea = '<div id="my-account-conversation-file-1" class="pluploder-ui-input"><p>Your browser doesn\'t have Flash, Silverlight or HTML5 support.</p></div>';
+							$('#plUploadArea').html(newArea);
+							$("#my-account-conversation-file-1").plupload({
+								runtimes: "html5,flash,silverlight,html4",
+								url: woocommerce_help_scout_form_params.ajax_url + "?action=wc_help_scout_upload_attachments",
+								max_file_count: 20,
+								chunk_size: "1mb",
+								filters: {
+									max_file_size: "1000mb",
+									mime_types: [
+										{ title: "Image files", extensions: "jpg,gif,png,jpeg" },
+										{ title: "Pdf files", extensions: "pdf" }
+									],
+								},
+								rename: true,
+								sortable: true,
+								dragdrop: true,
+								views: { list: true, thumbs: true, active: "thumbs" },
+								init: {
+									FileUploaded: function (up, file, info) {
+										console.log(file.name);
+										var beforeFiles = $("#my_account_conversation_uploaded_files_1").val();
+										if (beforeFiles != "") {
+											$("#my_account_conversation_uploaded_files_1").val(beforeFiles + "," + file.name);
+										} else {
+											$("#my_account_conversation_uploaded_files_1").val(file.name);
+										}
+									},
+								},
+							});
                             $.unblockUI();
                             if (null !== data && 1 === data.error) {
-                                $(".woocommerce-error, form", wrap).remove();
+                                $(".woocommerce-error", wrap).remove();
                                 title.after('<div class="woocommerce-message">' + data.message + "</div>");
                             } else {
                                 var error_message = woocommerce_help_scout_myaccount_params.error;
@@ -142,9 +178,11 @@
                         security: woocommerce_help_scout_myaccount_params.security,
                     },
                     success: function (data) {
+                        $("#support-conversation-reply")[0].reset();
+						$('#support-conversation-reply').hide();
                         $.unblockUI();
                         if (null !== data && 1 === data.error) {
-                            $(".woocommerce-error, form", wrap).remove();
+                            $(".woocommerce-error", wrap).remove();
                             title.after('<div class="woocommerce-message">' + data.message + "</div>");
                         } else {
                             var error_message = woocommerce_help_scout_myaccount_params.error;

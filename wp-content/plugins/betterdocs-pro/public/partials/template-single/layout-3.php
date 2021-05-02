@@ -17,7 +17,7 @@ $htags = implode(',', $supported_tag);
 ?>
 
 <div class="betterdocs-single-wraper betterdocs-single-bg full-wrapper betterdocs-single-layout3">
-	<?php 
+	<?php
 	$enable_sidebar_cat_list = BetterDocs_DB::get_settings('enable_sidebar_cat_list');
 	$enable_toc = BetterDocs_DB::get_settings('enable_toc');
 	$wraper_class = ['betterdocs-content-full'];
@@ -44,11 +44,12 @@ $htags = implode(',', $supported_tag);
 		?>
         <aside  id="betterdocs-sidebar-left" class="betterdocs-full-sidebar-left">
             <div data-simplebar class="betterdocs-sidebar-content betterdocs-category-sidebar">
-				<?php 
+				<?php
+                    $output = betterdocs_generate_output();
 					if ( BetterDocs_Multiple_Kb::$enable == 1 ) {
-						echo do_shortcode( '[betterdocs_category_grid icon=0 post_counter=0 sidebar_list="true" posts_per_grid="-1" multiple_knowledge_base=true]' );
+						echo do_shortcode( '[betterdocs_category_grid title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_sidebar_title_tag']).'" icon=0 post_counter=0 sidebar_list="true" posts_per_grid="-1" multiple_knowledge_base=true]' );
 					} else {
-						echo do_shortcode( '[betterdocs_category_grid icon=0 post_counter=0 sidebar_list="true" posts_per_grid="-1"]' );
+						echo do_shortcode( '[betterdocs_category_grid title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_sidebar_title_tag']).'" icon=0 post_counter=0 sidebar_list="true" posts_per_grid="-1"]' );
 					}
                 ?>
 			</div>
@@ -71,7 +72,8 @@ $htags = implode(',', $supported_tag);
 								if($enable_breadcrumb == 1){
 									betterdocs_breadcrumbs();
 								}
-								the_title( '<h1 id="betterdocs-entry-title" class="betterdocs-entry-title">', '</h1>' );
+                                $output = betterdocs_generate_output();
+								the_title( '<'.BetterDocs_Helper::html_tag($output['betterdocs_post_title_tag']).' id="betterdocs-entry-title" class="betterdocs-entry-title">', '</'.BetterDocs_Helper::html_tag($output['betterdocs_post_title_tag']).'>' );
 							}
 							?>
 						</div>
@@ -162,12 +164,7 @@ $htags = implode(',', $supported_tag);
 									<div class="modal-inner">
 										<div class="modal-content">
 											<a href="#" class="close"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" viewBox="0 0 50 50" version="1.1"><g id="surface1"><path style=" " d="M 9.15625 6.3125 L 6.3125 9.15625 L 22.15625 25 L 6.21875 40.96875 L 9.03125 43.78125 L 25 27.84375 L 40.9375 43.78125 L 43.78125 40.9375 L 27.84375 25 L 43.6875 9.15625 L 40.84375 6.3125 L 25 22.15625 Z "></path></g></svg></a>
-											<h2>
-												<?php echo ( $fform_title ) ? $fform_title : esc_html__( 'How can we help?', 'betterdocs' ); ?>
-											</h2>
-											<div class="modal-content-inner">
-												<?php echo do_shortcode('[betterdocs_feedback_form]'); ?>
-											</div>
+											<?php BetterDocs_Helper::feedback_form() ?>
 										</div>
 									</div>		
 								</div>

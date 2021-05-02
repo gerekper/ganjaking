@@ -1,4 +1,4 @@
-# Copyright (C) 2019 GP eCommerce Fields
+# Copyright (C) 2021 GP eCommerce Fields
 # This file is distributed under the same license as the GP eCommerce Fields package.
 msgid ""
 msgstr ""
@@ -13,94 +13,95 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../class-gp-ecommerce-fields.php:32, ../class-gp-ecommerce-fields.php:827
+#: ../class-gp-ecommerce-fields.php:104, ../class-gp-ecommerce-fields.php:968
 msgid "Subtotal"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:37
+#: ../class-gp-ecommerce-fields.php:109
 msgid "Coupon Total"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:42
+#: ../class-gp-ecommerce-fields.php:114
 msgid "Discounts Total"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:47
+#: ../class-gp-ecommerce-fields.php:119
 msgid "Order Summary"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:82, ../class-gp-ecommerce-fields.php:122
+#: ../class-gp-ecommerce-fields.php:185, ../class-gp-ecommerce-fields.php:209
 msgid "Tax Amount"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:82
+#: ../class-gp-ecommerce-fields.php:185
 msgid "Specify the percentage amount that should be added to the form total as tax."
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:83, ../class-gp-ecommerce-fields.php:126
+#: ../class-gp-ecommerce-fields.php:186, ../class-gp-ecommerce-fields.php:213
 msgid "Discount Amount"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:83
+#: ../class-gp-ecommerce-fields.php:186
 msgid "Specify the amount that should be discounted from the form total."
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:84, ../class-gp-ecommerce-fields.php:140
+#: ../class-gp-ecommerce-fields.php:187, ../class-gp-ecommerce-fields.php:230
 msgid "Applicable Products"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:84
+#: ../class-gp-ecommerce-fields.php:187
 msgid "Specify which Product fields should be included when calculating the value of this field."
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:132
+#. translators: The %s is replaced with "$10" customized to the user's configured currency.
+#: ../class-gp-ecommerce-fields.php:221
 msgid "Supports 10&#37; or %s"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:145
+#: ../class-gp-ecommerce-fields.php:235
 msgid "Include"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:148
+#: ../class-gp-ecommerce-fields.php:238
 msgid "Apply tax to"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:151
+#: ../class-gp-ecommerce-fields.php:241
 msgid "Apply discount to"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:154
+#: ../class-gp-ecommerce-fields.php:244
 msgid "all products"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:155
+#: ../class-gp-ecommerce-fields.php:245
 msgid "specific products"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:160, ../class-gp-ecommerce-fields.php:161
+#: ../class-gp-ecommerce-fields.php:250, ../class-gp-ecommerce-fields.php:251
 msgid "Select Products"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:822
+#: ../class-gp-ecommerce-fields.php:963
 msgid "Order"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:823
+#: ../class-gp-ecommerce-fields.php:964
 msgid "Product"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:824
+#: ../class-gp-ecommerce-fields.php:965
 msgid "Qty"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:825
+#: ../class-gp-ecommerce-fields.php:966
 msgid "Unit Price"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:826
+#: ../class-gp-ecommerce-fields.php:967
 msgid "Price"
 msgstr ""
 
-#: ../class-gp-ecommerce-fields.php:828
+#: ../class-gp-ecommerce-fields.php:969
 msgid "Total"
 msgstr ""

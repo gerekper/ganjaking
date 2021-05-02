@@ -7,8 +7,8 @@ use AC\Asset\Location;
 use AC\ListScreenRepository\Storage;
 use AC\Registrable;
 use ACP;
-use ACP\Search\Controller\Comparison;
-use ACP\Search\Controller\Segment;
+use ACP\Bookmark\SegmentRepository;
+use ACP\Bookmark\Setting\PreferredSegment;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
 
 final class Addon implements Registrable {
@@ -24,14 +24,18 @@ final class Addon implements Registrable {
 	private $location;
 
 	/**
-	 * @var AC\Request
+	 * @var SegmentRepository
 	 */
-	private $request;
+	private $segment_repository;
 
-	/** @var Preferences\SmartFiltering */
+	/**
+	 * @var Preferences\SmartFiltering
+	 */
 	private $table_preference;
 
-	/** @var ACP\Settings\ListScreen\HideOnScreen\Filters */
+	/**
+	 * @var ACP\Settings\ListScreen\HideOnScreen\Filters
+	 */
 	private $hide_filters;
 
 	/**
@@ -39,20 +43,13 @@ final class Addon implements Registrable {
 	 */
 	private $hide_smart_filters;
 
-	/**
-	 * @var SegmentRepository
-	 */
-	private $segment_repository;
-
-	public function __construct( Storage $storage, Location $location ) {
+	public function __construct( Storage $storage, Location $location, SegmentRepository $segment_repository ) {
 		$this->storage = $storage;
 		$this->location = $location;
-		$this->request = new AC\Request();
-		$this->request->add_middleware( new Middleware\Request() );
+		$this->segment_repository = $segment_repository;
 		$this->table_preference = new Preferences\SmartFiltering();
 		$this->hide_filters = new ACP\Settings\ListScreen\HideOnScreen\Filters();
 		$this->hide_smart_filters = new Settings\HideOnScreen\SmartFilters();
-		$this->segment_repository = new SegmentRepository();
 	}
 
 	/**
@@ -65,95 +62,70 @@ final class Addon implements Registrable {
 	}
 
 	public function register() {
-		$settings = new Settings( [
+		$this->get_column_settings()->register();
+		$this->get_table_screen_options()->register();
+
+		add_action( 'ac/table/list_screen', [ $this, 'table_screen_request' ] );
+		add_action( 'wp_ajax_acp_search_comparison_request', [ $this, 'comparison_request' ] );
+		add_action( 'acp/admin/settings/hide_on_screen', [ $this, 'add_hide_on_screen' ], 10, 2 );
+	}
+
+	private function get_column_settings() {
+		return new Settings( [
 			new AC\Asset\Style( 'acp-search-admin', $this->location->with_suffix( 'assets/search/css/admin.css' ) ),
 		] );
-		$settings->register();
+	}
 
-		$table_screen_options = new TableScreenOptions(
+	private function get_table_screen_options() {
+		return new TableScreenOptions(
 			[
-				new AC\Asset\Script( 'acp-search-table-screen-options', $this->location->with_suffix( 'assets/search/js/screen-options.bundle.js' ),['ac-table'] ),
+				new AC\Asset\Script( 'acp-search-table-screen-options', $this->location->with_suffix( 'assets/search/js/screen-options.bundle.js' ), [ 'ac-table' ] ),
 			],
 			$this->table_preference,
 			$this->hide_filters,
 			$this->hide_smart_filters
 		);
-		$table_screen_options->register();
-
-		add_action( 'ac/table/list_screen', [ $this, 'table_screen_request' ] );
-		add_action( 'wp_ajax_acp_search_segment_request', [ $this, 'segment_request' ] );
-		add_action( 'wp_ajax_acp_search_comparison_request', [ $this, 'comparison_request' ] );
-		add_action( 'acp/admin/settings/hide_on_screen', [ $this, 'add_hide_on_screen' ] );
-		add_action( 'acp/list_screen/deleted', [ $this, 'delete_segments_after_list_screen_deleted' ] );
-		add_action( 'deleted_user', [ $this, 'delete_segments_after_user_deleted' ] );
 	}
 
-	/**
-	 * @param AC\ListScreen $list_screen
-	 */
-	public function delete_segments_after_list_screen_deleted( AC\ListScreen $list_screen ) {
-		$segments = $this->segment_repository->find_all( [
-			SegmentRepository::FILTER_LIST_SCREEN => $list_screen->get_id(),
-		] );
-
-		foreach ( $segments as $segment ) {
-			$this->segment_repository->delete( $segment->get_id() );
+	public function add_hide_on_screen( HideOnScreenCollection $collection, AC\ListScreen $list_screen ) {
+		if ( ! TableScreenFactory::get_table_screen_reference( $list_screen ) ) {
+			return;
 		}
-	}
 
-	/**
-	 * @param int $user_id
-	 */
-	public function delete_segments_after_user_deleted( $user_id ) {
-		$segments = $this->segment_repository->find_all( [
-			SegmentRepository::FILTER_USER   => (int) $user_id,
-			SegmentRepository::FILTER_GLOBAL => false,
-		] );
-
-		foreach ( $segments as $segment ) {
-			$this->segment_repository->delete( $segment->get_id() );
-		}
-	}
-
-	public function add_hide_on_screen( HideOnScreenCollection $collection ) {
 		$collection->add( $this->hide_smart_filters, 40 )
 		           ->add( new Settings\HideOnScreen\SavedFilters(), 41 );
-	}
-
-	public function segment_request() {
-		check_ajax_referer( 'ac-ajax' );
-
-		$segment = new Segment(
-			$this->storage,
-			$this->request,
-			$this->segment_repository
-		);
-
-		$segment->dispatch( $this->request->get( 'method' ) );
 	}
 
 	public function comparison_request() {
 		check_ajax_referer( 'ac-ajax' );
 
-		$comparison = new Comparison(
+		$request = new AC\Request();
+
+		$comparison = new RequestHandler\Comparison(
 			$this->storage,
-			$this->request
+			$request
 		);
 
-		$comparison->dispatch( $this->request->get( 'method' ) );
+		$comparison->dispatch( $request->get( 'method' ) );
 	}
 
-	/**
-	 * @param AC\ListScreen $list_screen
-	 */
 	public function table_screen_request( AC\ListScreen $list_screen ) {
-		if ( $this->hide_filters->is_hidden( $list_screen ) ||
-		     $this->hide_smart_filters->is_hidden( $list_screen ) ||
-		     ! $this->is_active( $list_screen ) ) {
+		if ( ! $this->is_active( $list_screen ) ) {
 			return;
 		}
 
-		$filters = $this->get_filters( $list_screen );
+		$preferred_segment = new PreferredSegment( $list_screen, $this->segment_repository );
+
+		$request = new AC\Request();
+		$request->add_middleware( new Middleware\Segment( $preferred_segment ) )
+		        ->add_middleware( new Middleware\Request() );
+
+		$request_handler = new RequestHandler\Rules( $list_screen );
+		$request_handler->handle( $request );
+
+		if ( $this->hide_filters->is_hidden( $list_screen ) || $this->hide_smart_filters->is_hidden( $list_screen ) ) {
+			return;
+		}
 
 		$assets = [
 			new AC\Asset\Style( 'aca-search-table', $this->location->with_suffix( 'assets/search/css/table.css' ) ),
@@ -162,18 +134,21 @@ final class Addon implements Registrable {
 			new Asset\Script\Table(
 				'aca-search-table',
 				$this->location->with_suffix( 'assets/search/js/table.bundle.js' ),
-				$filters,
-				$this->request
+				$this->get_filters( $list_screen ),
+				$request,
+				$preferred_segment->get_segment()
 			),
 		];
 
-		$table_screen = TableScreenFactory::create( $this, $list_screen, $this->request, $assets );
+		$table_screen = TableScreenFactory::create(
+			$list_screen,
+			$assets
+		);
 
-		if ( ! $table_screen ) {
-			return;
+		if ( $table_screen ) {
+			$table_screen->register();
 		}
 
-		$table_screen->register();
 	}
 
 	/**

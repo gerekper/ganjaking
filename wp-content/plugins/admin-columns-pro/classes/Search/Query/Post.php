@@ -14,6 +14,7 @@ class Post extends Query {
 		add_filter( 'posts_where', [ $this, 'cast_decimal_precision' ], 20, 2 );
 		add_filter( 'posts_where', [ $this, 'callback_where' ], 20, 2 );
 		add_filter( 'posts_join', [ $this, 'callback_join' ], 20, 2 );
+		add_filter( 'posts_groupby', [ $this, 'callback_group_by' ], 20, 2 );
 		add_action( 'pre_get_posts', [ $this, 'callback_meta_query' ], 20 );
 		add_action( 'pre_get_posts', [ $this, 'callback_tax_query' ], 20 );
 		add_action( 'pre_get_posts', [ $this, 'callback_mime_type_query' ], 20 );
@@ -75,6 +76,21 @@ class Post extends Query {
 		}
 
 		return $join;
+	}
+
+	public function callback_group_by( $group_by, WP_Query $query ) {
+		if ( ! $query->is_main_query() ) {
+			return $group_by;
+		}
+
+		foreach ( $this->bindings as $binding ) {
+			if ( $binding->get_group_by() ) {
+				$group_by = "\n" . $binding->get_group_by();
+				break;
+			}
+		}
+
+		return $group_by;
 	}
 
 	/**

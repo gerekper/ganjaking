@@ -27,9 +27,6 @@ class Like extends Comparison
 		parent::__construct( $column, $operator, $value );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function is_negated() {
 		return false;
 	}

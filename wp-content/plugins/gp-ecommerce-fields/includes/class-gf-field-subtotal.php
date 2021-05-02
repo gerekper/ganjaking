@@ -8,27 +8,9 @@ class GF_Field_Subtotal extends GF_Field_SingleProduct {
 
 	public $type = 'subtotal';
 
-	public static $hooks_hooked = false;
-
 	public function __construct( $data = array() ) {
 
 		parent::__construct( $data );
-
-		$this->hooks();
-
-	}
-
-	public function hooks() {
-
-		// field can be constructed multiple times during any given page cycle, make sure our hooks are only loaded once per page cycle
-		if( self::$hooks_hooked ) {
-			return;
-		}
-
-		add_action( 'gform_field_standard_settings_20', array( gp_ecommerce_fields(), 'field_settings_ui' ) );
-		add_action( 'gform_editor_js',                  array( gp_ecommerce_fields(), 'field_settings_js' ) );
-
-		self::$hooks_hooked = true;
 
 	}
 
@@ -80,6 +62,10 @@ class GF_Field_Subtotal extends GF_Field_SingleProduct {
 	public static function get_subtotal( $order, $exclude_products = array() ) {
 
 		$subtotal = 0;
+
+		if( ! $order ) {
+			return $subtotal;
+		}
 
 		foreach ( $order['products'] as $product_id => $product ) {
 
@@ -149,6 +135,11 @@ class GF_Field_Subtotal extends GF_Field_SingleProduct {
             </div>";
     }
 
+	public function get_field_label( $force_frontend_label, $value ) {
+		// Override GF_Field_SingleProduct::get_field_label() which includes markup that will not get escaped for our field.
+		return GF_Field::get_field_label( $force_frontend_label, $value );
+	}
+
     public function get_inline_price_styles() {
 		return '';
     }
@@ -159,6 +150,10 @@ class GF_Field_Subtotal extends GF_Field_SingleProduct {
 
 	public function get_value_save_entry( $value, $form, $input_name, $entry_id, $entry ) {
 		return $value;
+	}
+
+	public function get_value_entry_detail( $value, $currency = '', $use_text = false, $format = 'html', $media = 'screen' ) {
+		return GFCommon::format_number( $value, 'currency', $currency );
 	}
 
 }

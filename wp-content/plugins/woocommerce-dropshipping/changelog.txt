@@ -1,5 +1,15 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2021-04-21 - version 2.14
+* PLUGINS-965 - Add custom order number to merchant order notification email
+* PLUGINS-971 - Make footer comment area background color independent
+* PLUGINS-898 -  Dropshipping - Add new settings to disable supplier notification
+* PLUGINS-536 - Dropshipping - price format in packing slip not rounding off
+* PLUGINS-695 - Dropshipping - Add quick links to Installed Plugins Screen	Task
+* PLUGINS-460 - Dropshipping - PHP Notice: Trying to get property 'name' of non-object in class-wc-dropshipping-product.php on line 171
+* PLUGINS-929 - Dropshipping - Few detatils are gone in email and PDF packing slip
+* PLUGINS-1014 - Dropshipping - Merchant Orders overview duplicate Tracking Number
+
 2021-03-12 - version 2.13
 * PLUGINS-872 Dropshipping - Make field sizes more reasonable
 * PLUGINS-920 Dropshipping - customisations

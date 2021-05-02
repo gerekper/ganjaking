@@ -128,7 +128,7 @@ function betterdocs_customize_css_pro() {
 			.betterdocs-category-box.multiple-kb .docs-single-cat-wrap p { 
 				color: <?php echo $output['betterdocs_mkb_desc_color'] ?>px;
 			}
-			.multiple-kb .docs-cat-title-inner h3,
+			.multiple-kb .docs-cat-title-inner .docs-cat-heading,
 			.betterdocs-category-box.multiple-kb .docs-single-cat-wrap .docs-cat-title,
 			.multiple-kb .docs-cat-list-2-box .docs-cat-title {
 				font-size: <?php echo $output['betterdocs_mkb_cat_title_font_size'] ?>px;
@@ -143,7 +143,7 @@ function betterdocs_customize_css_pro() {
 				font-size: <?php echo $output['betterdocs_mkb_item_count_font_size'] ?>px;
 			}
 			<?php if ( $output['betterdocs_mkb_cat_title_hover_color'] ) { ?>
-			.multiple-kb .docs-cat-title-inner h3:hover,
+			.multiple-kb .docs-cat-title-inner .docs-cat-heading:hover,
 			.betterdocs-category-box.multiple-kb .docs-single-cat-wrap .docs-cat-title:hover,
 			.multiple-kb .docs-cat-list-2 .docs-cat-title:hover {
 				color: <?php echo $output['betterdocs_mkb_cat_title_hover_color'] ?>;

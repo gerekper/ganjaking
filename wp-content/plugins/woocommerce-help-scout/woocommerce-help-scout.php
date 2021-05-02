@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Help Scout
  * Plugin URI: https://woocommerce.com/products/woocommerce-help-scout/
  * Description: A Help Scout integration plugin for WooCommerce.
- * Version: 2.6
+ * Version: 2.9.1
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-help-scout
  * Domain Path: /languages
  * Woo: 395318:1f5df97b2bc60cdb3951b72387ec2e28
- * WC tested up to: 4.6.1
+ * WC tested up to: 5.1
  * WC requires at least: 2.6
  *
  * Copyright (c) 2018 WooCommerce.
@@ -91,10 +91,51 @@ class WC_Help_Scout {
 				$this->_components['my_account'] = new WC_Help_Scout_My_Account();
 				$this->_components['shortcodes'] = new WC_Help_Scout_Shortcodes();
 			}
+			
+			if ( is_admin() ) {
+				add_action( 'admin_notices', array( $this, 'admin_notices_helpscout' ) );
+			}
 
 		} else {
 			add_action( 'admin_notices', array( $this, 'woocommerce_missing_notice' ) );
 		}
+	}
+	
+	/**
+	 * Displays notices in admin.
+	 *
+	 * @return string Error notices.
+	 */
+	public function admin_notices_helpscout() {
+		
+		// Define user set variables.
+		$woocommerce_help_scout_settings = get_option( 'woocommerce_help-scout_settings' );
+		$app_key          = isset( $woocommerce_help_scout_settings['app_key'] ) ? $woocommerce_help_scout_settings['app_key'] : '';
+		$app_secret       = isset( $woocommerce_help_scout_settings['app_secret'] ) ? $woocommerce_help_scout_settings['app_secret'] : '';
+		$mailbox_id       = isset( $woocommerce_help_scout_settings['mailbox_id'] ) ? $woocommerce_help_scout_settings['mailbox_id'] : '';
+		$settings_id = 'woocommerce_help-scout_';
+
+		if ( ( ( empty( $app_key )  || ( empty( $app_secret ) ) || empty( $mailbox_id ) ) && ! $_POST ) || ( isset( $_POST[ $settings_id . 'api_key' ] ) || isset( $_POST[ $settings_id . 'mailbox_id' ] ) && empty( $_POST[ $settings_id . 'mailbox_id' ] ) ) ) {
+			$url = $this->get_settings_url_helpscout();
+			echo '<div class="updated fade"><p>' . sprintf( __( '%1$sWooCommerce Help Scout is almost ready.%2$s To get started, %3$sconnect your Help Scout account%4$s and specify a Mailbox ID.', 'woocommerce-help-scout' ), '<strong>', '</strong>', '<a href="' . esc_url( $url ) . '">', '</a>' ) . '</p></div>' . "\n";
+		}
+	}
+	
+	/**
+	 * Generate a URL to our specific settings screen.
+	 * @access public
+	 * @since  1.3.4
+	 * @return string Generated URL.
+	 */
+	public function get_settings_url_helpscout () {
+		return add_query_arg(
+			array(
+				'page'    => 'wc-settings',
+				'tab'     => 'integration',
+				'section' => 'help-scout',
+			),
+			admin_url( 'admin.php' )
+		);
 	}
 
 	/**

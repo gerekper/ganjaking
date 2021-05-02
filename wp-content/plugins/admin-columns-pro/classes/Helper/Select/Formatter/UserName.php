@@ -41,7 +41,7 @@ class UserName extends AC\Helper\Select\Formatter {
 			$label = $user->user_login;
 		}
 
-		$suffix = $user->user_email ? $user->user_email : $user->user_login;
+		$suffix = $user->user_email ?: $user->user_login;
 
 		$label .= sprintf( ' (%s)', $suffix );
 

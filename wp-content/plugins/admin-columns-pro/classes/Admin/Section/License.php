@@ -35,17 +35,11 @@ class License extends AC\Admin\Section implements Enqueueables {
 	 */
 	private $site_url;
 
-	/**
-	 * @var bool
-	 */
-	private $is_network_active;
-
 	public function __construct(
 		Location $location,
 		LicenseRepository $license_repository,
 		LicenseKeyRepository $license_key_repository,
-		SiteUrl $site_url,
-		$is_network_active
+		SiteUrl $site_url
 	) {
 		parent::__construct( self::NAME );
 
@@ -53,7 +47,6 @@ class License extends AC\Admin\Section implements Enqueueables {
 		$this->license_repository = $license_repository;
 		$this->license_key_repository = $license_key_repository;
 		$this->site_url = $site_url;
-		$this->is_network_active = $is_network_active;
 	}
 
 	public function get_assets() {

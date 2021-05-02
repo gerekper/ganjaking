@@ -3,8 +3,8 @@ Contributors: wpdevteam, re_enter_rupok
 Donate link: https://wpdeveloper.net
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
-Tested up to: 5.7
-Stable tag: 1.5.2
+Tested up to: 5.7.1
+Stable tag: 1.5.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,16 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 1.5.3 - 28/04/2021 =
+- Added: Option to change ’Not found’ text in Instant Answer
+- Added: kb_slug argument to [betterdocs_category_grid] shortcode
+- Added: Search Result based on Knowledge Base option
+- Fixed: Hover color issue in Instant Answer
+- Fixed: [betterdocs_category_grid] showing the docs in every Category and subcategories when Multiple KB is enabled 
+- Fixed: Subcategories not showing up inside Multiple KB
+- Few minor bug fix and improvements
+
 = 1.5.2 - 13/04/2021 =
 - Fixed: BetterDocs Multiple KB widget not showing the correct icons
 - Added: Single content heading tags control in Instant Answer

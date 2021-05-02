@@ -12,16 +12,10 @@ class Between extends Comparison {
 		parent::__construct( $column, null, $value );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	protected function get_statement() {
 		return $this->column . ' BETWEEN ? AND ?';
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function bind_value( Value $value ) {
 		$type = $value->get_type();
 		$values = $value->get_value();

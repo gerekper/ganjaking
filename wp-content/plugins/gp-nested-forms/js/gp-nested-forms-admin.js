@@ -37,19 +37,16 @@
 				// set the 'form' field even if there is no value (resets 'form' for fields with no form selected)
 				self.$formSelect.val( nestedFormId );
 
-				// hide form settings regardless of whether we have a 'form' or not, the getFormFields will reload it once fields have been retrieved
-				self.$formSettings.hide();
-
-				if( nestedFormId ) {
-					// if we have 'form', do an ajax call to get the fields and load them
-					self.getFormFields( nestedFormId, field['gpnfFields'] );
-				}
+				var selectedFields = field['gpnfFields'] ? field['gpnfFields'] : [];
+				// Setup Select2 now for UX consistency during field initialization.
+				self.setFieldsSelect( [ ], selectedFields );
+				self.toggleNestedFormFields( selectedFields );
 
 			} );
 
 			// Initialize color picker.
 			$( "#chooser_gpnf-modal-header-color, #chip_gpnf-modal-header-color" ).click( function( event ) {
-				iColorShow( event.pageX, event.pageY, 'gpnf-modal-header-color', 'gpnfSetModalHeaderColor' );
+				iColorShow( event.pageX - 245, event.pageY - 57, 'gpnf-modal-header-color', 'gpnfSetModalHeaderColor' );
 			} );
 
 			$().add( self.$entryLabelSingular ).add( self.$entryLabelPlural ).on( 'change', function() {
@@ -58,11 +55,14 @@
 
 		};
 
-		self.toggleNestedFormFields = function() {
-			if( self.$formSelect.val() ) {
-				self.getFormFields( this.$formSelect.val() );
+		self.toggleNestedFormFields = function( selectedFields ) {
+			self.$fieldSelect
+				.attr( 'disabled', true );
+			if ( self.$formSelect.val() ) {
+				self.$formSettings.show();
+				self.getFormFields( self.$formSelect.val(), selectedFields );
 			} else {
-				self.$formSettings.slideUp();
+				self.$formSettings.hide();
 			}
 		};
 
@@ -70,49 +70,68 @@
 
 			var options = [];
 
-			for( var i = 0; i < fields.length; i++ ) {
-				if( $.inArray( fields[ i ].type, [ 'page', 'html', 'section', 'captcha' ] ) === -1 ) {
-					options.push( '<option value="' + fields[ i ].id + '">' + GetLabel( fields[ i ] ) + '</option>' );
+			if ( ! fields.length && selectedFields.length ) {
+				for( var i = 0; i < selectedFields.length; i++ ) {
+					options.push( '<option value="' + selectedFields[ i ] + '">' + selectedFields[i] + '</option>' );
+				}
+			} else {
+				for( var i = 0; i < fields.length; i++ ) {
+					if( $.inArray( fields[ i ].type, [ 'page', 'html', 'section', 'captcha' ] ) === -1 ) {
+						options.push( '<option value="' + fields[ i ].id + '">' + GetLabel( fields[ i ] ) + '</option>' );
+					}
 				}
 			}
 
-			self.$fieldSelect.html( options.join( '' ) );
-			self.$fieldSelect.val( selectedFields ).select2( {
-				placeholder: GPNFAdminData.strings.displayFieldsPlaceholder
-			} ).on( 'select2:select select2:unselect', function() {
-				RefreshSelectedFieldPreview();
-			} ).on('select2:unselecting', function() {
-				// Prevent Select2 from opening menu when an option is unselected.
-				var opts = $(this).data('select2').options;
-				opts.set('disabled', true);
-				setTimeout(function() {
-					opts.set('disabled', false);
-				}, 1);
-			} );
+			self.$fieldSelect
+				.html( options.join( '' ) )
+				.val( selectedFields )
+				.change();
+
+			var isInitailized = self.$fieldSelect.hasClass( 'select2-hidden-accessible' );
+			if ( isInitailized ) {
+				return;
+			}
+
+			if ( typeof $.fn.selectWoo !== 'undefined' ) {
+				self.$fieldSelect.selectWoo( {
+					placeholder: GPNFAdminData.strings.displayFieldsPlaceholder
+				} );
+			} else {
+				self.$fieldSelect.select2( {
+					placeholder: GPNFAdminData.strings.displayFieldsPlaceholder
+				} );
+			}
+
+			self.$fieldSelect
+				.on( 'select2:select select2:unselect', function() {
+					console.log( 'select unselet two' );
+					RefreshSelectedFieldPreview();
+				} ).on( 'select2:unselecting', function() {
+					// Prevent Select2 from opening menu when an option is unselected.
+					var opts = $( this ).data( 'select2' ).options;
+					opts.set( 'disabled', true );
+					setTimeout( function() {
+						opts.set( 'disabled', false );
+					}, 1 );
+				} );
 
 			// Add our custom class to identify (and style) our Select2's. You'd think there would be an easier way...
 			$.each( self.$fieldSelect.data( 'select2' ), function ( index, $elem ) {
 				if( $elem instanceof jQuery ) {
-					$elem.addClass( 'gpnf-select2' );
+					$elem.addClass( typeof $.fn.selectWoo !== 'undefined' ? 'gpnf-selectwoo' : 'gpnf-select2' );
 				}
 			} );
-
-			self.$formSettings.slideDown();
 
 		};
 
 		self.getFormFields = function( formId, selectedFields ) {
-
-			var $spinner = gfAjaxSpinner( self.$formSelect, null, 'position:relative;top:6px;left:6px;' );
-
 			$.post( ajaxurl, {
 				action: 'gpnf_get_form_fields',
 				nonce: GPNFAdminData.nonces.getFormFields,
 				form_id: formId
-			}, function( response ) {
-				$spinner.destroy();
-				if( typeof response === 'object' ) {
-					var fields = response;
+			}, function( fields ) {
+				self.$formSettings.find( 'select' ).attr( 'disabled', false );
+				if( typeof fields === 'object' ) {
 					self.setFieldsSelect( fields, selectedFields );
 				} else {
 					alert( GPNFAdminData.strings.getFormFieldsError );

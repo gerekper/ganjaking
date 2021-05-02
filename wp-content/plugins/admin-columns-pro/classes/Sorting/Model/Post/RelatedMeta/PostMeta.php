@@ -40,7 +40,7 @@ class PostMeta extends AbstractModel {
 			? 'LEFT'
 			: 'INNER';
 
-		$clauses['fields'] .= sprintf( ", acsort_pm2.meta_value AS acsort_field" );
+		$clauses['fields'] .= ", acsort_pm2.meta_value AS acsort_field";
 
 		$clauses['join'] .= $wpdb->prepare( "
 			{$join_type} JOIN $wpdb->postmeta AS acsort_pm ON $wpdb->posts.ID = acsort_pm.post_id
@@ -54,7 +54,7 @@ class PostMeta extends AbstractModel {
 		}
 
 		$clauses['orderby'] = "acsort_field $order, $wpdb->posts.ID $order";
-		$clauses['groupby'] = "{$wpdb->posts}.ID";
+		$clauses['groupby'] = "$wpdb->posts.ID";
 
 		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
 

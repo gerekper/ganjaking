@@ -22,6 +22,7 @@ if ( ! function_exists( 'betterdocs_get_option_defaults_pro' ) ) :
 			'betterdocs_mkb_content_width' => '100',
 			'betterdocs_mkb_content_max_width' => '1600',
 			'betterdocs_mkb_column_settings' => '',
+            'betterdocs_mkb_title_tag' => 'h2',
 			'betterdocs_mkb_column_space' => '15',
 			'betterdocs_mkb_column_padding' => '',
 			'betterdocs_mkb_column_padding_top' => '20',

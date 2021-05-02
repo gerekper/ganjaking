@@ -214,12 +214,16 @@ class GPLS_RuleTest {
 
 	public function add_form_schedule( $form ) {
 
-		$time_start      = sprintf( '%s %02d:%02d %s', $form['scheduleStart'], $form['scheduleStartHour'], $form['scheduleStartMinute'], $form['scheduleStartAmpm'] );
-		$time_end        = sprintf( '%s %02d:%02d %s', $form['scheduleEnd'], $form['scheduleEndHour'], $form['scheduleEndMinute'], $form['scheduleEndAmpm'] );
-		$timestamp_start = strtotime( $time_start . ' +0000' );
-		$timestamp_end   = strtotime( $time_end . ' +0000' );
-		$time_period_sql = $this->wpdb->prepare( 'date_created BETWEEN FROM_UNIXTIME(%s) AND FROM_UNIXTIME(%s)', $timestamp_start, $timestamp_end );
+		$time_start = sprintf( '%s %02d:%02d %s', $form['scheduleStart'], $form['scheduleStartHour'], $form['scheduleStartMinute'], $form['scheduleStartAmpm'] );
+		$time_end   = sprintf( '%s %02d:%02d %s', $form['scheduleEnd'], $form['scheduleEndHour'], $form['scheduleEndMinute'], $form['scheduleEndAmpm'] );
+
+		// Times are stored in local timezone. Convert to UNIX to match the UNIX timestamps used by entries' `date_created` property.
+		$unix_time_start = get_gmt_from_date( $time_start );
+		$unix_time_end   = get_gmt_from_date( $time_end );
+
+		$time_period_sql = $this->wpdb->prepare( 'date_created BETWEEN %s AND %s', $unix_time_start, $unix_time_end );
 		$this->where[]   = $time_period_sql;
+
 	}
 
 	public function add_calendar_period() {

@@ -14,27 +14,27 @@
 	margin: 25px 0;
 }
 
-#rule_time_period_type {
+.gf-legacy-ui #rule_time_period_type {
 	width: calc( 50% - 1rem );
 	max-width: none;
 	margin-right: 1rem;
 }
 
-#rule_time_period_value,
-#rule_time_period_unit {
+.gf-legacy-ui #rule_time_period_value,
+.gf-legacy-ui #rule_time_period_unit {
 	display: none;
 }
 
-#rule_time_period_value {
+.gf-legacy-ui #rule_time_period_value {
 	width: calc( 25% - 1rem );
 	margin-right: 1rem;
 }
 
-#rule_time_period_unit {
+.gf-legacy-ui #rule_time_period_unit {
 	width: 25%;
 }
 
-#rule_calendar_period {
+.gf-legacy-ui #rule_calendar_period {
 	display: none;
 	width: 50%;
 	max-width: none;
@@ -49,6 +49,16 @@ body:not(.gf-legacy-ui) .rule_group {
 
 body:not(.gf-legacy-ui) .row:last-child {
 	margin-bottom: 0;
+}
+
+body:not(.gf-legacy-ui) .rule_group_buttons {
+	display: flex;
+	align-items: center;
+}
+
+body:not(.gf-legacy-ui) .rule_group_buttons .repeater-buttons,
+body:not(.gf-legacy-ui) .rule_group_buttons .repeater-buttons a {
+	display: flex;
 }
 
 .gpls-add-rule-group a,
@@ -149,7 +159,6 @@ body.gpls-loading .rule_group_buttons {
 	width: 30%;
 	margin-right: 0.5rem;
 }
-
 
 /**
  * Feed Detail: Legacy

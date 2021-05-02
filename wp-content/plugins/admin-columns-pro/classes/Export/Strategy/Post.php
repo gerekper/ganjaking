@@ -3,7 +3,6 @@
 namespace ACP\Export\Strategy;
 
 use AC;
-use AC\ListTable;
 use ACP\Export\Strategy;
 use WP_Query;
 
@@ -18,10 +17,6 @@ class Post extends Strategy {
 	 */
 	public function __construct( AC\ListScreenPost $list_screen ) {
 		parent::__construct( $list_screen );
-	}
-
-	protected function get_list_table() {
-		return new ListTable\Post( $this->list_table_factory->create_post_table( $this->list_screen->get_screen_id() ) );
 	}
 
 	/**
@@ -64,7 +59,7 @@ class Post extends Strategy {
 	 * @see   action:the_posts
 	 * @since 1.0
 	 */
-	public function catch_posts( $posts, $query ) {
+	public function catch_posts( $posts, WP_Query $query ) {
 		if ( $query->is_main_query() ) {
 			$this->export( wp_list_pluck( $posts, 'ID' ) );
 		}

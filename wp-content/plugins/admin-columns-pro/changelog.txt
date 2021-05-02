@@ -1,5 +1,23 @@
 == Changelog ==
 
+= 5.5.1 =
+Release Date: April 29th, 2021
+
+* [Fixed] Fixed a possible error with export
+
+= 5.5 =
+Release Date: April 29th, 2021
+
+* [Added] New Feature: You can now set a "Saved Filter" as the default when visiting the list table. Scroll down on the column settings page and select your default filter set.
+* [Added] The export table (under the Tools tab) now lists the source of where the column settings are stored (e.g. database or file)
+* [Fixed] Graceful handle corrupt column settings in order to prevent a fatal error
+* [Fixed] Sorting on a column in combination with a search action could lead to unexpected sorting
+* [Improved] The last visited settings page is now stored as a preference
+* [Updated] Admin Columns Core changes ( 4.3 )
+* [Fixed] The custom date format within the column settings was not always stored correctly
+* [Fixed] Graceful handle corrupt column settings in order to prevent a fatal error
+* [Fixed] The column label will be sanitized when stored
+
 = 5.4.4 =
 Release Date: April 2nd, 2021
 

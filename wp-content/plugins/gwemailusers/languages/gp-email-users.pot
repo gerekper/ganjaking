@@ -1,4 +1,4 @@
-# Copyright (C) 2019 GP Email Users
+# Copyright (C) 2021 GP Email Users
 # This file is distributed under the same license as the GP Email Users package.
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../class-gp-email-users.php:39, ../class-gp-email-users.php:112
+#: ../class-gp-email-users.php:40, ../class-gp-email-users.php:121
 msgid "Email Users"
 msgstr ""
 
@@ -21,66 +21,66 @@ msgstr ""
 msgid "This field is required."
 msgstr ""
 
-#: ../class-gp-email-users.php:79
+#: ../class-gp-email-users.php:80
 msgid "Please enter valid emails."
 msgstr ""
 
-#: ../class-gp-email-users.php:116
+#: ../class-gp-email-users.php:125
 msgid "You're in debug mode. This allows you to test sending emails without actually sending them."
 msgstr ""
 
-#: ../class-gp-email-users.php:201, ../class-gp-email-users.php:383
+#: ../class-gp-email-users.php:287, ../class-gp-email-users.php:472
 msgid "Email To"
 msgstr ""
 
-#: ../class-gp-email-users.php:208
+#: ../class-gp-email-users.php:295
 msgid "From Email"
 msgstr ""
 
-#: ../class-gp-email-users.php:214
+#: ../class-gp-email-users.php:301
 msgid "Please enter a valid email."
 msgstr ""
 
-#: ../class-gp-email-users.php:222
+#: ../class-gp-email-users.php:309
 msgid "From Name"
 msgstr ""
 
-#: ../class-gp-email-users.php:232
+#: ../class-gp-email-users.php:319
 msgid "Reply To"
 msgstr ""
 
-#: ../class-gp-email-users.php:238
+#: ../class-gp-email-users.php:325
 msgid "This email is invalid."
 msgstr ""
 
-#: ../class-gp-email-users.php:246
+#: ../class-gp-email-users.php:333
 msgid "Subject"
 msgstr ""
 
-#: ../class-gp-email-users.php:252
+#: ../class-gp-email-users.php:339
 msgid "Please enter a subject for the email."
 msgstr ""
 
-#: ../class-gp-email-users.php:260, ../class-gp-email-users.php:385
+#: ../class-gp-email-users.php:347, ../class-gp-email-users.php:474
 msgid "BCC"
 msgstr ""
 
-#: ../class-gp-email-users.php:379
-msgid "Oops! This form does not have any %sEmail%s fields."
+#: ../class-gp-email-users.php:468
+msgid "Oops! This form does not have any %1$sEmail%2$s fields."
 msgstr ""
 
-#: ../class-gp-email-users.php:401
+#: ../class-gp-email-users.php:498
 msgid "Select an Email Field"
 msgstr ""
 
-#: ../class-gp-email-users.php:410
+#: ../class-gp-email-users.php:508
 msgid "This is a required field."
 msgstr ""
 
-#: ../class-gp-email-users.php:422
+#: ../class-gp-email-users.php:520
 msgid "Message"
 msgstr ""
 
-#: ../class-gp-email-users.php:430
+#: ../class-gp-email-users.php:528
 msgid "Please enter a message for the email."
 msgstr ""

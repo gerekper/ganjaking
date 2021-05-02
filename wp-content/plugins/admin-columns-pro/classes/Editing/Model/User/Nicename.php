@@ -27,7 +27,7 @@ class Nicename extends Model\User {
 	public function register_settings() {
 		parent::register_settings();
 
-		$this->column->remove_setting( BulkEditing::NAME);
+		$this->column->remove_setting( BulkEditing::NAME );
 	}
 
 }

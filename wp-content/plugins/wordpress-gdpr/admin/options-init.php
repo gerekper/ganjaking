@@ -10,30 +10,22 @@
         return;
     }
 
-    if( class_exists( 'Redux' ) ) {
-        $framework = new Redux();
-    } else {
+    if( class_exists( 'weLaunch' ) ) {
         $framework = new weLaunch();
+    } else {
+        $framework = new Redux();
     }
 
 
     // This is your option name where all the Redux data is gdprd.
     $opt_name = "wordpress_gdpr_options";
 
-    /**
-     * ---> SET ARGUMENTS
-     * All the possible arguments for Redux.
-     * For full documentation on arguments, please refer to: https://github.com/ReduxFramework/ReduxFramework/wiki/Arguments
-     * */
-
-    $theme = wp_get_theme(); // For use with some settings. Not necessary.
-
     $args = array(
         'opt_name' => 'wordpress_gdpr_options',
         'use_cdn' => true,
         'dev_mode' => false,
         'display_name' => __('WordPress GDPR', 'wordpress-gdpr'),
-        'display_version' => '1.9.15',
+        'display_version' => '1.9.20',
         'page_title' => __('WordPress GDPR', 'wordpress-gdpr'),
         'update_notice' => true,
         'intro_text' => '',
@@ -90,24 +82,6 @@
     }
 
     $framework::setArgs($opt_name, $args);
-
-    /*
-     * ---> END ARGUMENTS
-     */
-
-    /*
-     * ---> START HELP TABS
-     */
-
-    $tabs = array(
-        array(
-            'id'      => 'help-tab',
-            'title'   => __('Information', 'wordpress-gdpr'),
-            'content' => __('<p>Need support? Please use the comment function on codecanyon.</p>', 'wordpress-gdpr')
-        ),
-    );
-    $framework::setHelpTab($opt_name, $tabs);
-
 
     $default_email = get_option('admin_email');
     $site_name = get_option('blogname');
@@ -315,6 +289,14 @@
                 'default' => 'wordpress-gdpr-popup-overlay',
                 'required' => array('popupEnable','equals','1'),
             ),
+                array(
+                    'id'       => 'popupShowBackdrop',
+                    'type'     => 'checkbox',
+                    'title'    => __('Show Backdrop', 'wordpress-gdpr'),
+                    'default' => '0',
+                    'required' => array('popupStyle','!=','wordpress-gdpr-popup-overlay'),
+                ),
+
             array(
                 'id'       => 'popupPosition',
                 'type'     => 'select',
@@ -525,6 +507,20 @@
                 'title'    => __('Popup Cookie Policy Text', 'wordpress-gdpr'),
                 'subtitle' => __('Leave Empty if not needed', 'wordpress-gdpr'),
                 'default'  => __('Cookie Policy', 'wordpress-gdpr'),
+            ),
+            array(
+                'id'       => 'privacySettingsPopupDeclineText',
+                'type'     => 'text',
+                'title'    => __('Popup Decline all services', 'wordpress-gdpr'),
+                'subtitle' => __('Leave Empty if not needed', 'wordpress-gdpr'),
+                'default'  => __('Decline all Services', 'wordpress-gdpr')
+            ),
+            array(
+                'id'       => 'privacySettingsPopupAcceptText',
+                'type'     => 'text',
+                'title'    => __('Popup Accept all services', 'wordpress-gdpr'),
+                'subtitle' => __('Leave Empty if not needed', 'wordpress-gdpr'),
+                'default'  => __('Accept all Services', 'wordpress-gdpr')
             ),
             array(
                'id' => 'privacy-settings-shortcode',

@@ -1,6 +1,88 @@
 
 # Changelog
 
+## 1.0.47
+
+	- Fixed potential scenario where GP eCommerce Fields could get stuck in an infinite loop when calculations and GP Conditional Pricing are used together.
+
+## 1.0.46
+
+	- Fixed issue where WC GF Product Add-ons total was updated *before* eCommerce fields were included.
+
+## 1.0.45
+
+	- Fixed issue where coupons from the Coupons Add-on would be re-added and cause incorrect calculations.
+
+## 1.0.44
+
+	- Fixed a potential issue where GPECF may throw a runtime JS error.
+
+## 1.0.43
+
+	- Fixed markup and styling of Order header in {all_fields} merge tag.
+
+## 1.0.42
+
+	- Fixed an issue where GPECF may generate a PHP warning if product price is not numeric.
+	- Updated docblock for "gpecf_order_labels" filter to provide additional details.
+
+## 1.0.41
+
+	- Fixed dependency on jQuery.migrate that has been removed as of WordPress 5.5.
+	- Fixed issue with Gravity Forms 2.5 where markup was being rendered in the field label.
+	- Added $modifiers as an 8th parameter to the [gpecf_order_sumary_markup](https://gravitywiz.com/documentation/gpecf_order_sumary_markup/) filter.
+	- Added acceptance tests. (#5)
+	- Added 14 new acceptance tests.
+	- Added new tests and edited exsisting tests.
+
+## 1.0.40
+
+	- Fixed notices generated when updating an entry (via the GF entry update screen) with a calculation-enabled field containing a GPECF merge tag.
+
+## 1.0.39
+
+	- Added support for showing formatted value when fetched via the GFAddon::get_value_entry_detail() method.
+
+## 1.0.38
+
+	- Added [gpecf_order_sumary_markup](https://gravitywiz.com/documentation/gpecf_order_sumary_markup/) to allow modifying the order summary markup.
+
+## 1.0.37
+
+	- Fixed invalid value when using the {discounts} merge tag in a Calculated Product field.
+
+## 1.0.36
+
+	- Fixed issue where Tax fields that excluded products could result in unexpected values when product fields contained negative values.
+
+## 1.0.35
+
+	- Fixed notices generated when no quantity was specified for a Calculated Product field.
+
+## 1.0.34
+
+	- Added acceptance tests.
+	- Fixed recursion with Calculated Product field containing {subtotal} merge tag.
+	- Fixed issue where Calculated Product field containing {subtotal} merge tag could result in infinite recursion.
+
+## 1.0.33
+
+	- Fixed performance issue on AJAX-enabled forms when many Calculated Products were present.
+
+## 1.0.32
+
+	- Added compatibility fix for upcoming GF Coupons 2.9.3.
+
+## 1.0.31
+
+	- Fixed fatal error that could occur when Gravity Perks was active but Gravity Forms was not.
+	- Updated to use GP_Plugin class.
+
+## 1.0.30
+
+	- Fixed issue with versions of GF prior to 2.4.15 (which is unreleased at the time of this commit).
+	- Fixed issue where Calculated Number fields containing only GPECF merge tags (e.g. {subtotal}) were not recalculated when Calculated Product fields' prices changed.
+
 ## 1.0.29
 
 	- Fixed missing <tr> in order summary header which caused PDF generators to render the order summary correctly.

@@ -2,6 +2,8 @@
 
 class_exists( 'GFForms' ) or die();
 
+use Gravity_Forms\Gravity_Forms\Settings\Settings;
+
 /**
  * Handles listing and editing Form Confirmations.
  *
@@ -10,6 +12,8 @@ class_exists( 'GFForms' ) or die();
  * Class GF_Confirmations
  */
 class GF_Confirmation {
+
+	use Redirects_On_Save;
 
 	/**
 	 * Regular expression for determining if string contains unsafe merge tags.
@@ -25,7 +29,7 @@ class GF_Confirmation {
 	 *
 	 * @since 2.5
 	 *
-	 * @var false|Rocketgenius\Gravity_Forms\Settings
+	 * @var false|Gravity_Forms\Gravity_Forms\Settings\Settings
 	 */
 	private static $_settings_renderer = false;
 
@@ -110,47 +114,50 @@ class GF_Confirmation {
 			<script type="text/javascript">
 				var form = <?php echo json_encode( $form ); ?>;
 
-				function ToggleActive( img, confirmation_id ) {
-					var is_active = img.src.indexOf( 'active1.png' ) >= 0;
-					img.src = img.src.replace( is_active ? 'active1.png' : 'active0.png', 'spinner.gif' );
+				function ToggleActive( btn, confirmation_id ) {
+					var is_active = jQuery( btn ).hasClass( 'gform-status--active' );
+
 					jQuery.ajax(
 						{
 							url:      '<?php echo admin_url( 'admin-ajax.php' ); ?>',
 							method:   'POST',
 							dataType: 'json',
-							data:     {
+							data: {
 								action:                        'rg_update_confirmation_active',
 								rg_update_confirmation_active: '<?php echo wp_create_nonce( 'rg_update_confirmation_active' ); ?>',
-								form_id: <?php echo intval( $form_id ); ?>,
+								form_id:                       '<?php echo intval( $form_id ); ?>',
 								confirmation_id:               confirmation_id,
 								is_active:                     is_active ? 0 : 1,
 							},
-							success:  function () {
+							success:  function() {
 								if ( is_active ) {
 									setToggleInactive();
 								} else {
 									setToggleActive();
 								}
 							},
-							error:    function () {
+							error:    function() {
 								if ( ! is_active ) {
 									setToggleInactive();
 								} else {
 									setToggleActive();
 								}
-								alert( '<?php echo esc_js( __( 'Ajax error while updating confirmation', 'gravityforms' ) ); ?>' )
+
+								alert( '<?php echo esc_js( __( 'Ajax error while updating form', 'gravityforms' ) ); ?>' );
 							}
 						}
 					);
+
 					function setToggleInactive() {
-						img.src = img.src.replace( 'spinner.gif', 'active0.png' );
-						jQuery( img ).attr( 'title', <?php echo json_encode( esc_attr__( 'Inactive', 'gravityforms' ) ); ?> ).attr( 'alt', <?php echo json_encode( esc_attr__( 'Inactive', 'gravityforms' ) ); ?> );
+						jQuery( btn ).removeClass( 'gform-status--active' ).addClass( 'gform-status--inactive' ).find( '.gform-status-indicator-status' ).html( <?php echo wp_json_encode( esc_attr__( 'Inactive', 'gravityforms' ) ); ?> );
 					}
+
 					function setToggleActive() {
-						img.src = img.src.replace( 'spinner.gif', 'active1.png' );
-						jQuery( img ).attr( 'title', <?php echo json_encode( esc_attr__( 'Active', 'gravityforms' ) ); ?> ).attr( 'alt', <?php echo json_encode( esc_attr__( 'Active', 'gravityforms' ) ); ?> );
+						jQuery( btn ).removeClass( 'gform-status--inactive' ).addClass( 'gform-status--active' ).find( '.gform-status-indicator-status' ).html( <?php echo wp_json_encode( esc_attr__( 'Active', 'gravityforms' ) ); ?> );
 					}
+
 				}
+
 			</script>
 
 		</div>
@@ -545,7 +552,7 @@ class GF_Confirmation {
 		$sections = self::settings_fields( $confirmation, $form );
 
 		// Initialize new settings renderer.
-		$renderer = new Rocketgenius\Gravity_Forms\Settings(
+		$renderer = new Settings(
 			array(
 				'fields'         => $sections,
 				'header'         => array(
@@ -600,8 +607,7 @@ class GF_Confirmation {
 					$form['confirmations'][ $confirmation['id'] ] = $confirmation;
 					$result                                       = GFFormsModel::save_form_confirmations( $form['id'], $form['confirmations'] );
 
-					// @todo Add success/error message based on result.
-
+					self::$_saved_item_id = $confirmation_id;
 				},
 				'before_fields'  => function() use ( &$confirmation, $confirmation_id, $form ) {
 
@@ -647,14 +653,14 @@ class GF_Confirmation {
 							return mergeTags;
 						}
 
-						jQuery( document ).on( 'ready', function() {
+						jQuery( function() {
 							if ( confirmation.event === 'form_saved' || confirmation.event === 'form_save_email_sent'  ) {
 								jQuery( '#type1, #type2' ).attr( 'disabled', true );
 							}
 						} );
 
 						<?php if ( ! rgar( $confirmation, 'isDefault' ) ) : ?>
-						jQuery( document ).on( 'ready', function() {
+						jQuery( function() {
 							ToggleConditionalLogic( true, 'confirmation' );
 						} );
 						<?php endif; ?>
@@ -673,9 +679,14 @@ class GF_Confirmation {
 
 		self::set_settings_renderer( $renderer );
 
+		if ( self::is_save_redirect( 'cid' ) ) {
+			self::get_settings_renderer()->set_save_message_after_redirect();
+		}
+
 		// Process save callback.
 		if ( self::get_settings_renderer()->is_save_postback() ) {
 			self::get_settings_renderer()->process_postback();
+			self::redirect_after_valid_save( 'cid' );
 		}
 
 	}
@@ -685,7 +696,7 @@ class GF_Confirmation {
 	 *
 	 * @since 2.5
 	 *
-	 * @return false|Rocketgenius\Gravity_Forms\Settings
+	 * @return false|Gravity_Forms\Gravity_Forms\Settings\Settings
 	 */
 	private static function get_settings_renderer() {
 
@@ -698,15 +709,15 @@ class GF_Confirmation {
 	 *
 	 * @since 2.5
 	 *
-	 * @param \Rocketgenius\Gravity_Forms\Settings $renderer Settings renderer.
+	 * @param \Gravity_Forms\Gravity_Forms\Settings\Settings $renderer Settings renderer.
 	 *
 	 * @return bool|WP_Error
 	 */
 	private static function set_settings_renderer( $renderer ) {
 
 		// Ensure renderer is an instance of Settings
-		if ( ! is_a( $renderer, 'Rocketgenius\Gravity_Forms\Settings' ) ) {
-			return new WP_Error( 'Renderer must be an instance of Rocketgenius\Gravity_Forms\Settings.' );
+		if ( ! is_a( $renderer, 'Gravity_Forms\Gravity_Forms\Settings\Settings' ) ) {
+			return new WP_Error( 'Renderer must be an instance of Gravity_Forms\Gravity_Forms\Settings\Settings.' );
 		}
 
 		self::$_settings_renderer = $renderer;
@@ -863,7 +874,7 @@ class GFConfirmationTable extends WP_List_Table {
 				'cb'      => '',
 				'name'    => __( 'Name', 'gravityforms' ),
 				'type'    => __( 'Type', 'gravityforms' ),
-				'content' => __( 'Content', 'gravityforms' )
+				'content' => __( 'Content', 'gravityforms' ),
 			),
 			array(),
 			array( 'name' => array( 'name', false ) ),
@@ -1048,14 +1059,20 @@ class GFConfirmationTable extends WP_List_Table {
 			return;
 		}
 
-		$is_active = isset( $item['isActive'] ) ? $item['isActive'] : true;
+		$active = rgar( $item, 'isActive' ) !== false;
+
+		if ( $active ) {
+			$class = 'gform-status--active';
+			$text  = esc_html__( 'Active', 'gravityforms' );
+		} else {
+			$class = 'gform-status--inactive';
+			$text  = esc_html__( 'Inactive', 'gravityforms' );
+		}
 		?>
-		<img src="<?php echo GFCommon::get_base_url() ?>/images/active<?php echo intval( $is_active ) ?>.png"
-			 style="cursor: pointer;margin:-5px 0 0 8px;"
-			 alt="<?php $is_active ? __( 'Active', 'gravityforms' ) : __( 'Inactive', 'gravityforms' ); ?>"
-			 title="<?php echo $is_active ? __( 'Active', 'gravityforms' ) : __( 'Inactive', 'gravityforms' ); ?>"
-			 onclick="ToggleActive(this, '<?php echo $item['id'] ?>'); "
-			 onkeypress="ToggleActive(this, '<?php echo $item['id'] ?>'); "/>
+		<button type="button" class="gform-status-indicator <?php echo esc_attr( $class ); ?>" onclick="ToggleActive( this, '<?php echo esc_js( $item['id'] ); ?>' );" onkeypress="ToggleActive( this, '<?php echo esc_js( $item['id'] ); ?>' );">
+			<svg viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"><circle cx="3" cy="2" r="1" stroke-width="2"/></svg>
+			<span class="gform-status-indicator-status"><?php echo esc_html( $text ); ?></span>
+		</button>
 		<?php
 
 	}
@@ -1126,7 +1143,7 @@ class GFConfirmationTable extends WP_List_Table {
 		switch ( rgar( $item, 'type' ) ) {
 
 			case 'message':
-				return '<a class="limit-text">' . wp_kses_post( $item['message'] ) . '</a>';
+				return '<a class="limit-text">' . wp_strip_all_tags( $item['message'] ) . '</a>';
 
 			case 'page':
 

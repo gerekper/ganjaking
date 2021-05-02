@@ -46,7 +46,7 @@ class TableScreenOptions {
 	/**
 	 * @param AC\ListScreen $list_screen
 	 *
-	 * @return int
+	 * @return bool
 	 */
 	private function is_active( AC\ListScreen $list_screen ) {
 		return $this->preferences->is_active( $list_screen );

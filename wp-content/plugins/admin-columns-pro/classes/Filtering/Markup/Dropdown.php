@@ -8,6 +8,7 @@ class Dropdown extends Select {
 
 	const OPTION_EMPTY = 'cpac_empty';
 	const OPTION_NON_EMPTY = 'cpac_nonempty';
+	const OPTION_FILTER = 'acp_filter';
 
 	/**
 	 * @var string
@@ -28,7 +29,7 @@ class Dropdown extends Select {
 		parent::__construct( $name, $options );
 
 		$this->set_id( 'acp-filter-' . $name )
-		     ->set_name( 'acp_filter[' . $name . ']' )
+		     ->set_name( sprintf( '%s[%s]', self::OPTION_FILTER, $name ) )
 		     ->set_class( 'postform acp-filter' );
 	}
 
@@ -185,10 +186,6 @@ class Dropdown extends Select {
 
 		if ( empty( $this->options ) ) {
 			return;
-		}
-
-		if ( $this->get_value() ) {
-			$this->add_class( 'active' );
 		}
 
 		$this->set_attribute( 'data-current', md5( $this->get_value() ) );

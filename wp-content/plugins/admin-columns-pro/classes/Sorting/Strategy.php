@@ -62,7 +62,7 @@ abstract class Strategy {
 	 *
 	 * @param string $key
 	 *
-	 * @return string
+	 * @return bool
 	 */
 	protected function is_universal_id( $key ) {
 		return 'ids' === $key;

@@ -105,9 +105,6 @@ class API implements RequestDispatcher {
 		return $this->url;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function dispatch( Request $request, array $args = [] ) {
 		$body = array_merge( $request->get_body(), [
 			'meta' => $this->meta,

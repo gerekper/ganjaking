@@ -20,19 +20,22 @@ var GF_Settings_Dependencies = function ( args ) {
 
 				for ( var ii = 0; ii < rule.values.length; ii++ ) {
 
-					var checkboxName = self.args.prefix + '_' + rule.values[ ii ];
+					var checkboxName = self.args.prefix + '_' + rule.values[ ii ],
+						$checkboxes = document.querySelectorAll( '[name="' + checkboxName + '"]' );
 
-					document.querySelectorAll( '[name="' + checkboxName + '"]' ).forEach( function ( input ) {
-						input.addEventListener( 'change', self.evaluateLogic );
-					} );
+					for ( var jj = 0; jj < $checkboxes.length; jj++ ) {
+						$checkboxes[ jj ].addEventListener( 'change', self.evaluateLogic );
+					}
 
 				}
 
 			} else {
 
-				document.querySelectorAll( '[name="' + inputName + '"]' ).forEach( function ( input ) {
-					input.addEventListener( 'change', self.evaluateLogic );
-				} );
+				var $elements = document.querySelectorAll( '[name="' + inputName + '"]' );
+
+				for ( var ii = 0; ii < $elements.length; ii++ ) {
+					$elements[ ii ].addEventListener( 'change', self.evaluateLogic );
+				}
 
 			}
 
@@ -58,7 +61,7 @@ var GF_Settings_Dependencies = function ( args ) {
 
 		if ( self.args.operator.toUpperCase() === 'ALL' && evaluatedRules === self.args.fields.length ) {
 			passedLogic = true;
-		} else if ( self.args.operator.toUpperCase() === 'ANY' && evaluatedRules > 1 ) {
+		} else if ( self.args.operator.toUpperCase() === 'ANY' && evaluatedRules > 0 ) {
 			passedLogic = true;
 		}
 
@@ -152,15 +155,23 @@ var GF_Settings_Dependencies = function ( args ) {
 	 */
 	self.getTargetObject = function() {
 
-		if ( self.args.target.type === 'tab' ) {
-			return document.querySelector( '.gform-settings-tabs__navigation a[data-tab="' + self.args.target.field + '"]' );
-		} else if ( self.args.target.type === 'section' ) {
-			return document.getElementById( self.args.target.field );
-		} else {
-			return document.getElementById( 'gform_setting_' + self.args.target.field );
+		switch ( self.args.target.type ) {
+
+			case 'save':
+				return document.getElementById( 'gform-settings-save' );
+
+			case 'section':
+				return document.getElementById( self.args.target.field );
+
+			case 'tab':
+				return document.querySelector( '.gform-settings-tabs__navigation a[data-tab="' + self.args.target.field + '"]' );
+
+			default:
+				return document.getElementById( 'gform_setting_' + self.args.target.field );
+
 		}
 
-	}
+	};
 
 	self.bindEvents();
 

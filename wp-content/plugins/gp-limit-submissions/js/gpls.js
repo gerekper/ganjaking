@@ -31,7 +31,7 @@
 
 	function setupSelect2( ruleGroup ) {
 		var select2Options = {};
-		if ( ! $( 'body' ).hasClass( 'gf-legacy-ui' ) ) {
+		if ( ! isLegacyUI() ) {
 			select2Options.width = '100%';
 		}
 		$( ruleGroup ).find( 'select:not( .select2-hidden-accessible )' ).select2( select2Options );
@@ -124,23 +124,41 @@
 
 		// time period
 		if ( type == 'time_period' ) {
-			$( '#rule_calendar_period' ).hide();
-			$( '#rule_time_period_value' ).show();
-			$( '#rule_time_period_unit' ).show();
+			if ( isLegacyUI() ) {
+				$( '#rule_calendar_period' ).hide();
+				$( '#rule_time_period_value' ).show();
+				$( '#rule_time_period_unit' ).show();
+			} else {
+				$( '#rule_calendar_period' ).parent().hide();
+				$( '#rule_time_period_value' ).parent().show();
+				$( '#rule_time_period_unit' ).parent().show();
+			}
 		}
 
 		// calendar period
 		if ( type == 'calendar_period' ) {
-			$( '#rule_time_period_value' ).hide();
-			$( '#rule_time_period_unit' ).hide();
-			$( '#rule_calendar_period' ).show();
+			if ( isLegacyUI() ) {
+				$( '#rule_time_period_value' ).hide();
+				$( '#rule_time_period_unit' ).hide();
+				$( '#rule_calendar_period' ).show();
+			} else {
+				$( '#rule_time_period_value' ).parent().hide();
+				$( '#rule_time_period_unit' ).parent().hide();
+				$( '#rule_calendar_period' ).parent().show();
+			}
 		}
 
 		// default
 		if ( type != 'calendar_period' && type != 'time_period' ) {
-			$( '#rule_time_period_value' ).hide();
-			$( '#rule_time_period_unit' ).hide();
-			$( '#rule_calendar_period' ).hide();
+			if ( isLegacyUI() ) {
+				$( '#rule_time_period_value' ).hide();
+				$( '#rule_time_period_unit' ).hide();
+				$( '#rule_calendar_period' ).hide();
+			} else {
+				$( '#rule_time_period_value' ).parent().hide();
+				$( '#rule_time_period_unit' ).parent().hide();
+				$( '#rule_calendar_period' ).parent().hide();
+			}
 		}
 
 	}
@@ -174,7 +192,7 @@
 			$row = $elem.parents( '.row' );
 		}
 
-		if ( $( 'body' ).hasClass( 'gf-legacy-ui' ) ) {
+		if ( isLegacyUI() ) {
 			return $elem.siblings( selector );
 		}
 
@@ -434,13 +452,43 @@
 						removeRuleGroup( obj );
 					}
 				},
-				repeaterButtons: function( self, index ) {
-					var cssClass = self.items.length >= self.options.limit && self.options.limit !== 0 ? 'inactive' : '',
-						buttons  = '<a class="add-item ' + cssClass + '" data-index="' + index + '">' + "<i class=\"gficon-add\"></i>" + '</a>';
+				repeaterButtonsLegacyGF24: function( self, index ) {
+					var atLimit = self.items.length >= self.options.limit && self.options.limit !== 0;
+					var buttons = '';
 
-					// if( self.items.length > self.options.minItemCount )
-					// we allow removal of last
+					if (!atLimit) {
+						buttons += '<a class="add-item" data-index="' + index + '">' + "<i class=\"gficon-add\"></i>" + '</a>';
+					}
+
+					// we allow removal of last rule so the remove item option is always shown
 					buttons += '<a class="remove-item" data-index="' + index + '">' + "<i class=\"gficon-subtract\"></i>" + '</a>';
+
+					return '<div class="repeater-buttons">' + buttons + '</div>';
+				},
+				repeaterButtons: function( self, index ) {
+					if ( isLegacyUI() ) {
+						return self.callbacks.repeaterButtonsLegacyGF24( self, index );
+					}
+
+					var atLimit = self.items.length >= self.options.limit && self.options.limit !== 0;
+					var buttons = '';
+
+					if (!atLimit) {
+						buttons += '<a class="add-item" data-index="' + index + '">\
+								<button \
+								type="button" \
+								class="gform-st-icon gform-st-icon--circle-plus" \
+								title="add another rule"></button>\
+							</a>';
+					}
+
+					// we allow removal of last rule so the remove item option is always shown
+					buttons += '<a class="remove-item" data-index="' + index + '">\
+								<button \
+								type="button" \
+								class="gform-st-icon gform-st-icon--circle-minus" \
+								title="remove this rule"></button>\
+							</a>';
 
 					return '<div class="repeater-buttons">' + buttons + '</div>';
 				}
@@ -464,6 +512,10 @@
 			}
 		}
 		return true;
+	}
+
+	function isLegacyUI() {
+		return $( 'body' ).hasClass( 'gf-legacy-ui' );
 	}
 
 } )( jQuery );

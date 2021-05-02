@@ -6,9 +6,6 @@ use ACP\Search\Middleware\Mapping;
 
 class Rule extends Mapping {
 
-	/**
-	 * @inheritDoc
-	 */
 	protected function get_properties() {
 		return [
 			'name'        => 'id',

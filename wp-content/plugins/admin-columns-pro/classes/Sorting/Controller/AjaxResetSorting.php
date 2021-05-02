@@ -6,7 +6,7 @@ use AC\Ajax;
 use AC\ListScreenRepository\Storage;
 use AC\Registrable;
 use AC\Type\ListScreenId;
-use ACP\Sorting\Table\Preference\SortedBy;
+use ACP\Sorting\UserPreference;
 
 class AjaxResetSorting implements Registrable {
 
@@ -41,7 +41,7 @@ class AjaxResetSorting implements Registrable {
 			wp_die();
 		}
 
-		$preference = new SortedBy( $list_screen->get_storage_key() );
+		$preference = new UserPreference\SortType( $list_screen->get_storage_key() );
 
 		wp_send_json_success( $preference->delete() );
 	}

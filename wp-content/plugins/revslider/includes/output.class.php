@@ -7901,6 +7901,11 @@ rs-module .material-icons {
 			$keys['imgCrossOrigin'] = array('v' => $imgcrossOrigin, 'd' => 'unset');
 		}
 		
+		$onedpronmobile = $this->get_val($global, 'onedpronmobile', false);
+		if(in_array($onedpronmobile, array(true, 'true'), true)){
+			$keys['onedpronmobile'] = array('v' => true, 'd' => false);
+		}
+		
 		$lazyloaddata = $this->get_val($global, 'lazyloaddata', '');
 		if($lazyloaddata !== ''){
 			$keys['lazyloaddata'] = array('v' => $lazyloaddata, 'd' => '');

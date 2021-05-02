@@ -49,9 +49,6 @@ class Taxonomy extends Comparison
 		);
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	protected function create_query_bindings( $operator, Value $value ) {
 		$tax_query = ComparisonFactory::create(
 			$this->taxonomy,

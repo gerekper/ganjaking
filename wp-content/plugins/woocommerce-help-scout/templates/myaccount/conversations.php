@@ -83,8 +83,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 <label for="conversation-message">Message <span class="required">*</span></label>
 <textarea id="conversation-message" class="conversation-field" name="conversation_message" cols="25" rows="5"></textarea>
 </p>
+<div id="plUploadArea">
 <div id="my-account-conversation-file-1" class="pluploder-ui-input">
 	<p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
+</div>
 </div>
 <br>
 <p class="form-row">

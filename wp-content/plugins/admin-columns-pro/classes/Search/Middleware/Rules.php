@@ -4,30 +4,34 @@ namespace ACP\Search\Middleware;
 
 class Rules {
 
-	public function __invoke( array $rules ) {
-		$mapping = (object) [
-			'operator'   => new Mapping\Operator(),
-			'value_type' => new Mapping\ValueType(),
-			'rule'       => new Mapping\Rule(),
-		];
+	/**
+	 * @param string $rules_raw
+	 *
+	 * @return array
+	 */
+	public function __invoke( $rules_raw ) {
+		$input = json_decode( $rules_raw );
 
-		$response_rules = [];
+		if ( ! $input || ! $input->rules ) {
+			return [];
+		}
 
-		foreach ( $rules as $rule ) {
-			$response_rules[] = (object) [
-				$mapping->rule->name        => $rule['name'],
-				$mapping->rule->operator    => $mapping->operator->{$rule['operator']},
-				$mapping->rule->value       => $rule['value'],
-				$mapping->rule->value_type  => $mapping->value_type->{$rule['value_type']},
-				$mapping->rule->value_label => $rule['value_label'],
+		$operator = new Mapping\Operator( Mapping::REQUEST );
+		$value_type = new Mapping\ValueType( Mapping::REQUEST );
+
+		$rules = [];
+
+		foreach ( $input->rules as $rule ) {
+			$rules[] = [
+				'name'        => $rule->id,
+				'operator'    => $operator->{$rule->operator},
+				'value'       => $rule->value,
+				'value_type'  => $value_type->{$rule->type},
+				'value_label' => isset( $rule->formatted_value ) ? $rule->formatted_value : null,
 			];
 		}
 
-		return (object) [
-			'condition' => 'AND',
-			'rules'     => $response_rules,
-			'valid'     => true,
-		];
+		return $rules;
 	}
 
 }

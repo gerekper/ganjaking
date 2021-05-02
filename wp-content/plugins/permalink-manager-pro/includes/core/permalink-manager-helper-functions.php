@@ -251,7 +251,26 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 		$disabled_post_types = self::get_disabled_post_types(!$include_user_excluded);
 
 		foreach($wp_post_types as $post_type) {
-			$post_types_array[$post_type->name] = ($format == 'full') ? array('label' => $post_type->labels->name, 'name' => $post_type->name) : $post_type->labels->name;
+			if($format == 'full') {
+				$post_types_array[$post_type->name] = array('label' => $post_type->labels->name, 'name' => $post_type->name);
+			} else if($format == 'archive_slug') {
+				// Ignore non-public post types
+				if(!is_post_type_viewable($post_type) || empty($post_type->has_archive)) {
+					continue;
+				}
+
+				if($post_type->has_archive != true) {
+					$archive_slug = $post_type->has_archive;
+				} else if(is_array($post_type->rewrite) && !empty($post_type->rewrite['slug'])) {
+					$archive_slug = $post_type->rewrite['slug'];
+				} else {
+					$archive_slug = $post_type->name;
+				}
+
+				$post_types_array[$post_type->name] = $archive_slug;
+			} else {
+				$post_types_array[$post_type->name] = $post_type->labels->name;
+			}
 		}
 
 		if(is_array($disabled_post_types)) {

@@ -58,6 +58,7 @@
             } else {
                 this.popUp();
             }
+
             this.popUpAgree();
             this.popUpClose();
             this.popUpDecline();
@@ -71,7 +72,7 @@
         },
         popUp : function() {
 
-            var botPattern = "(googlebot\/|bot|Googlebot-Mobile|Googlebot-Image|Google favicon|Mediapartners-Google|bingbot|Slurp|Java|wget|curl|Commons-HttpClient|Python-urllib|libwww|httpunit|nutch|phpcrawl|msnbot|jyxobot|FAST-WebCrawler|FAST Enterprise Crawler|biglotron|teoma|convera|seekbot|gigablast|exabot|ngbot|ia_archiver|GingerCrawler|webmon |httrack|webcrawler|grub.org|UsineNouvelleCrawler|antibot|netresearchserver|speedy|fluffy|bibnum.bnf|findlink|msrbot|panscient|yacybot|AISearchBot|IOI|ips-agent|tagoobot|MJ12bot|dotbot|woriobot|yanga|buzzbot|mlbot|yandexbot|purebot|Linguee Bot|Voyager|CyberPatrol|voilabot|baiduspider|citeseerxbot|spbot|twengabot|postrank|turnitinbot|scribdbot|page2rss|sitebot|linkdex|Adidxbot|blekkobot|ezooms|dotbot|Mail.RU_Bot|discobot|heritrix|findthatfile|europarchive.org|NerdByNature.Bot|sistrix crawler|ahrefsbot|Aboundex|domaincrawler|wbsearchbot|summify|ccbot|edisterbot|seznambot|ec2linkfinder|gslfbot|aihitbot|intelium_bot|facebookexternalhit|yeti|RetrevoPageAnalyzer|lb-spider|sogou|lssbot|careerbot|wotbox|wocbot|ichiro|DuckDuckBot|lssrocketcrawler|drupact|webcompanycrawler|acoonbot|openindexspider|gnam gnam spider|web-archive-net.com.bot|backlinkcrawler|coccoc|integromedb|content crawler spider|toplistbot|seokicks-robot|it2media-domain-crawler|ip-web-crawler.com|lighthouse|siteexplorer.info|elisabot|proximic|changedetection|blexbot|arabot|WeSEE:Search|niki-bot|CrystalSemanticsBot|rogerbot|360Spider|psbot|InterfaxScanBot|Lipperhey SEO Service|CC Metadata Scaper|g00g1e.net|GrapeshotCrawler|urlappendbot|brainobot|fr-crawler|binlar|SimpleCrawler|Livelapbot|Twitterbot|cXensebot|smtbot|bnf.fr_bot|A6-Indexer|ADmantX|Facebot|Twitterbot|OrangeBot|memorybot|AdvBot|MegaIndex|SemanticScholarBot|ltx71|nerdybot|xovibot|BUbiNG|Qwantify|archive.org_bot|Applebot|TweetmemeBot|crawler4j|findxbot|SemrushBot|yoozBot|lipperhey|y!j-asr|Domain Re-Animator Bot|AddThis|bot|googlebot|crawler|spider|robot|crawling)";
+            var botPattern = "(craw|googlebot\/|bot|Googlebot-Mobile|Googlebot-Image|Google favicon|Mediapartners-Google|bingbot|Slurp|Java|wget|curl|Commons-HttpClient|Python-urllib|libwww|httpunit|nutch|phpcrawl|msnbot|jyxobot|FAST-WebCrawler|FAST Enterprise Crawler|biglotron|teoma|convera|seekbot|gigablast|exabot|ngbot|ia_archiver|GingerCrawler|webmon |httrack|webcrawler|grub.org|UsineNouvelleCrawler|antibot|netresearchserver|speedy|fluffy|bibnum.bnf|findlink|msrbot|panscient|yacybot|AISearchBot|IOI|ips-agent|tagoobot|MJ12bot|dotbot|woriobot|yanga|buzzbot|mlbot|yandexbot|purebot|Linguee Bot|Voyager|CyberPatrol|voilabot|baiduspider|citeseerxbot|spbot|twengabot|postrank|turnitinbot|scribdbot|page2rss|sitebot|linkdex|Adidxbot|blekkobot|ezooms|dotbot|Mail.RU_Bot|discobot|heritrix|findthatfile|europarchive.org|NerdByNature.Bot|sistrix crawler|ahrefsbot|Aboundex|domaincrawler|wbsearchbot|summify|ccbot|edisterbot|seznambot|ec2linkfinder|gslfbot|aihitbot|intelium_bot|facebookexternalhit|yeti|RetrevoPageAnalyzer|lb-spider|sogou|lssbot|careerbot|wotbox|wocbot|ichiro|DuckDuckBot|lssrocketcrawler|drupact|webcompanycrawler|acoonbot|openindexspider|gnam gnam spider|web-archive-net.com.bot|backlinkcrawler|coccoc|integromedb|content crawler spider|toplistbot|seokicks-robot|it2media-domain-crawler|ip-web-crawler.com|lighthouse|siteexplorer.info|elisabot|proximic|changedetection|blexbot|arabot|WeSEE:Search|niki-bot|CrystalSemanticsBot|rogerbot|360Spider|psbot|InterfaxScanBot|Lipperhey SEO Service|CC Metadata Scaper|g00g1e.net|GrapeshotCrawler|urlappendbot|brainobot|fr-crawler|binlar|SimpleCrawler|Livelapbot|Twitterbot|cXensebot|smtbot|bnf.fr_bot|A6-Indexer|ADmantX|Facebot|Twitterbot|OrangeBot|memorybot|AdvBot|MegaIndex|SemanticScholarBot|ltx71|nerdybot|xovibot|BUbiNG|Qwantify|archive.org_bot|Applebot|TweetmemeBot|crawler4j|findxbot|SemrushBot|yoozBot|lipperhey|y!j-asr|Domain Re-Animator Bot|AddThis|bot|googlebot|crawler|spider|robot|crawling)";
             var re = new RegExp(botPattern, 'i');
             if (re.test(navigator.userAgent)) {
                 return false;
@@ -79,6 +80,17 @@
 
             var that = this;
             var cookiesAllowed = false;
+
+
+            if(localStorage && that.getParameterByName('gdpr') !== "debug") {
+
+                var retrievedObject = localStorage.getItem('wordpress_gdpr_services_allowed_temp');
+                if(retrievedObject) {
+                    var services = JSON.parse(retrievedObject);
+                    that.executeServices(services);
+                    return;
+                }
+            }
 
             $.ajax({
                 type : 'post',
@@ -175,6 +187,11 @@
                         action : 'wordpress_gdpr_decline_cookies'
                     },
                     success : function( response ) {  
+
+                        if(localStorage) {
+                            localStorage.removeItem('wordpress_gdpr_services_allowed_temp');
+                        }
+
                         if(that.elements.popUpBackdrop.length > 0) {
                             that.elements.popUpBackdrop.fadeOut();
                         }
@@ -213,6 +230,11 @@
                         action : 'wordpress_gdpr_allow_cookies'
                     },
                     success : function( response ) {
+
+                        if(localStorage) {
+                            localStorage.removeItem('wordpress_gdpr_services_allowed_temp');
+                        }
+
                         if(that.elements.popUpBackdrop.length > 0) {
                             that.elements.popUpBackdrop.fadeOut();
                         }
@@ -322,92 +344,11 @@
                 },
                 success : function( response ) {
 
-                    $.each(response, function(i, index) {
+                    if(localStorage) {
+                        localStorage.setItem('wordpress_gdpr_services_allowed_temp', JSON.stringify(response));
+                    }
 
-                        if(index.allowed && !that.privacySettingsLoaded[i]) {
-                            if(index.head !== "") {
-                                $("head").append(index.head);
-                            }
-
-                            if(index.body !== "") {
-                                $(index.body).prependTo($('body'));
-                            }
-                        }
- 
-                        if(index.adsense == "1" && !index.allowed && that.privacySettingsLoaded[i]) {
-                            var adsExists = $(".adsbygoogle");
-
-                            if(adsExists.length > 0 && that.getCookie('wordpress_gdpr_adsense_allowed') !== "true") {
-                                adsExists.remove();
-                            }
-                        }
-
-                        var checkbox_exists = $('input[name="' + i + '"]') ;
-                        if(checkbox_exists.length > 0) {
-                            if(index.allowed) {
-                                checkbox_exists.prop('checked', true);
-                                that.privacySettingsLoaded[i] = true;
-                            } else {
-                                checkbox_exists.prop('checked', false);
-                                that.privacySettingsLoaded[i] = false;
-                            }
-                        }
-                        
-                        if(checkbox_exists.length > 0 && !that.privacySettingsCheckPerformed) {
-
-                            checkbox_exists.on('change', function(e) {
-
-                                var checked = $(this).prop('checked');
-                                var name = $(this).prop('name');
-
-                                $('.wordpress-gdpr-privacy-settings-popup-message').fadeIn();
-
-                                $.ajax({
-                                    type : 'post',
-                                    url : that.settings.ajaxURL,
-                                    dataType : 'json',
-                                    data : {
-                                        action : 'update_privacy_setting',
-                                        setting : name,
-                                        checked : checked,
-                                    },
-                                    success : function( response ) {
-
-                                        setTimeout(function(){ $('.wordpress-gdpr-privacy-settings-popup-message').fadeOut(); }, 1500);                                        
-
-                                        var index = response[name];
-
-                                        if(index.head !== "" && index.allowed && that.privacySettingsLoaded[name]) {
-                                            $("head").append(index.head);
-                                        }
-                                        if(index.body !== "" && index.allowed && that.privacySettingsLoaded[name]) {
-                                            $(index.body).prependTo($('body'));
-                                        }
-
-                                        if(index.adsense == "1" && !index.allowed && that.privacySettingsLoaded[name]) {
-                                            var adsExists = $(".adsbygoogle");
-
-                                            if(adsExists.length > 0 && that.getCookie('wordpress_gdpr_adsense_allowed') !== "true") {
-                                                adsExists.remove();
-                                            }
-                                        }
-
-                                        
-                                        var checkbox_exists = $('input[name="' + name + '"]') ;
-                                        if(checkbox_exists.length > 0) {
-                                            if(index.allowed) {
-                                                checkbox_exists.prop('checked', true);
-                                                that.privacySettingsLoaded[name] = true;
-                                            } else {
-                                                checkbox_exists.prop('checked', false);
-                                            }
-                                        }
-                                    }
-                                });
-                            });
-                        }
-                    });
-                    that.privacySettingsCheckPerformed = true;
+                    that.executeServices(response);
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr);
@@ -415,6 +356,103 @@
                     console.log(thrownError);
                 }
              });
+        },
+        executeServices : function(services) {
+
+            if(!services) {
+                return;
+            }
+
+            var that = this;
+            $.each(services, function(i, index) {
+
+                if(index.allowed && !that.privacySettingsLoaded[i]) {
+                    if(index.head !== "") {
+                        $("head").append(index.head);
+                    }
+
+                    if(index.body !== "") {
+                        $(index.body).prependTo($('body'));
+                    }
+                }
+
+                if(index.adsense == "1" && !index.allowed && that.privacySettingsLoaded[i]) {
+                    var adsExists = $(".adsbygoogle");
+
+                    if(adsExists.length > 0 && that.getCookie('wordpress_gdpr_adsense_allowed') !== "true") {
+                        adsExists.remove();
+                    }
+                }
+
+                var checkbox_exists = $('input[name="' + i + '"]') ;
+                if(checkbox_exists.length > 0) {
+                    if(index.allowed) {
+                        checkbox_exists.prop('checked', true);
+                        that.privacySettingsLoaded[i] = true;
+                    } else {
+                        checkbox_exists.prop('checked', false);
+                        that.privacySettingsLoaded[i] = false;
+                    }
+                }
+                
+                if(checkbox_exists.length > 0 && !that.privacySettingsCheckPerformed) {
+
+                    checkbox_exists.on('change', function(e) {
+
+                        var checked = $(this).prop('checked');
+                        var name = $(this).prop('name');
+
+                        $('.wordpress-gdpr-privacy-settings-popup-message').fadeIn();
+
+                        $.ajax({
+                            type : 'post',
+                            url : that.settings.ajaxURL,
+                            dataType : 'json',
+                            data : {
+                                action : 'update_privacy_setting',
+                                setting : name,
+                                checked : checked,
+                            },
+                            success : function( response ) {
+
+                                if(localStorage) {
+                                    localStorage.removeItem('wordpress_gdpr_services_allowed_temp');
+                                }
+
+                                setTimeout(function(){ $('.wordpress-gdpr-privacy-settings-popup-message').fadeOut(); }, 1500);                                        
+
+                                var index = response[name];
+                                if(index.head !== "" && index.allowed && !that.privacySettingsLoaded[name]) {
+                                    $("head").append(index.head);
+                                }
+                                if(index.body !== "" && index.allowed && !that.privacySettingsLoaded[name]) {
+                                    $(index.body).prependTo($('body'));
+                                }
+
+                                if(index.adsense == "1" && !index.allowed && !that.privacySettingsLoaded[name]) {
+                                    var adsExists = $(".adsbygoogle");
+
+                                    if(adsExists.length > 0 && that.getCookie('wordpress_gdpr_adsense_allowed') !== "true") {
+                                        adsExists.remove();
+                                    }
+                                }
+
+                                
+                                var checkbox_exists = $('input[name="' + name + '"]') ;
+                                if(checkbox_exists.length > 0) {
+                                    if(index.allowed) {
+                                        checkbox_exists.prop('checked', true);
+                                        that.privacySettingsLoaded[name] = true;
+                                    } else {
+                                        checkbox_exists.prop('checked', false);
+                                    }
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+            that.privacySettingsCheckPerformed = true;
         },
         get_current_page_id : function() {
             var page_body = $('body.page');

@@ -19,6 +19,7 @@ class GF_Field_Unique_ID extends GF_Field {
 
 	public function init() {
 
+		add_action( 'gform_field_css_class', array( $this, 'add_editor_field_class' ), 10, 2 );
 		add_action( 'gform_field_standard_settings_25', array( $this, 'field_settings_ui' ) );
 		add_action( 'gform_field_advanced_settings_50', array( $this, 'advanced_field_settings_ui' ) );
 		add_action( 'gform_editor_js', array( $this, 'editor_js' ) );
@@ -91,10 +92,25 @@ class GF_Field_Unique_ID extends GF_Field {
 		<?php
 	}
 
+	/**
+	 * Add `gform_hidden` class to field container to tap into GF's default styling for hidden-type inputs in the form editor.
+	 *
+	 * @param $css_class
+	 * @param $field
+	 *
+	 * @return string
+	 */
+	public function add_editor_field_class( $css_class, $field ) {
+		if ( $this->is_form_editor() && $field->get_input_type() === $this->type ) {
+			$css_class .= ' gform_hidden';
+		}
+		return $css_class;
+	}
+
 	public function field_settings_ui() {
 		?>
 
-		<li class="uid_setting gwp_field_setting field_setting" xmlns="http://www.w3.org/1999/html">
+		<li class="uid_setting gwp_field_setting field_setting">
 
 			<div>
 				<label for="<?php echo gp_unique_id()->perk->key( 'type' ); ?>" class="section_label">
@@ -117,9 +133,9 @@ class GF_Field_Unique_ID extends GF_Field {
 	public function advanced_field_settings_ui() {
 		?>
 
-		<li class="uid_setting gwp_field_setting field_setting">
+		<li class="uid_setting gwp_field_setting field_setting gp-field-setting">
 
-			<div style="padding-bottom:12px;">
+			<div class="gp-row">
 				<label for="<?php echo gp_unique_id()->perk->key( 'starting_number' ); ?>" class="section_label">
 					<?php _e( 'Starting Number', 'gp-unique-id' ); ?>
 					<?php gform_tooltip( gp_unique_id()->perk->key( 'starting_number' ) ); ?>
@@ -127,14 +143,14 @@ class GF_Field_Unique_ID extends GF_Field {
 				<input type="number" name="<?php echo gp_unique_id()->perk->key( 'starting_number' ); ?>" id="<?php echo gp_unique_id()->perk->key( 'starting_number' ); ?>"
 					   onkeyup="SetFieldProperty( '<?php echo gp_unique_id()->perk->key( 'starting_number' ); ?>', this.value );"
 					   onchange="SetFieldProperty( '<?php echo gp_unique_id()->perk->key( 'starting_number' ); ?>', this.value );"
-					   style="width:75px;" />
+					   style="width:25%;" />
 
 				<a href="#" style="margin-left:10px;" onclick="gpui.resetStartingNumber( this )"><?php _e( 'reset', 'gp-unique-id' ); ?></a>
 				<?php gform_tooltip( gp_unique_id()->perk->key( 'reset' ) ); ?>
 
 			</div>
 
-			<div style="padding-bottom:12px;">
+			<div class="gp-row">
 				<label for="<?php echo gp_unique_id()->perk->key( 'length' ); ?>" class="section_label">
 					<?php _e( 'Length', 'gp-unique-id' ); ?>
 					<?php gform_tooltip( gp_unique_id()->perk->key( 'length' ) ); ?>
@@ -143,10 +159,10 @@ class GF_Field_Unique_ID extends GF_Field {
 					   onkeyup="gpui.setLengthFieldProperty( this.value );"
 					   onchange="gpui.setLengthFieldProperty( this.value );"
 					   onblur="gpui.setLengthFieldProperty( this.value, true );"
-					   style="width:50px;" />
+					   style="width:25%;" />
 			</div>
 
-			<div style="padding-bottom:12px;">
+			<div class="gp-row">
 				<label for="<?php echo gp_unique_id()->perk->key( 'prefix' ); ?>" class="section_label">
 					<?php _e( 'Prefix', 'gp-unique-id' ); ?>
 					<?php gform_tooltip( gp_unique_id()->perk->key( 'prefix' ) ); ?>
@@ -154,8 +170,7 @@ class GF_Field_Unique_ID extends GF_Field {
 				<input type="text" class="merge-tag-support mt-position-right" name="<?php echo gp_unique_id()->perk->key( 'prefix' ); ?>" id="<?php echo gp_unique_id()->perk->key( 'prefix' ); ?>"
 						onkeyup="SetFieldProperty( '<?php echo gp_unique_id()->perk->key( 'prefix' ); ?>', this.value );"
 						onchange="SetFieldProperty( '<?php echo gp_unique_id()->perk->key( 'prefix' ); ?>', this.value );"
-						oninput="SetFieldProperty( '<?php echo gp_unique_id()->perk->key( 'prefix' ); ?>', this.value );"
-						style="width:300px;" />
+						oninput="SetFieldProperty( '<?php echo gp_unique_id()->perk->key( 'prefix' ); ?>', this.value );" />
 			</div>
 
 			<div>
@@ -166,8 +181,7 @@ class GF_Field_Unique_ID extends GF_Field {
 				<input type="text" class="merge-tag-support mt-position-right" name="<?php echo gp_unique_id()->perk->key( 'suffix' ); ?>" id="<?php echo gp_unique_id()->perk->key( 'suffix' ); ?>"
 						onkeyup="SetFieldProperty( '<?php echo gp_unique_id()->perk->key( 'suffix' ); ?>', this.value );"
 						onchange="SetFieldProperty( '<?php echo gp_unique_id()->perk->key( 'suffix' ); ?>', this.value );"
-						oninput="SetFieldProperty( '<?php echo gp_unique_id()->perk->key( 'suffix' ); ?>', this.value );"
-						style="width:300px;" />
+						oninput="SetFieldProperty( '<?php echo gp_unique_id()->perk->key( 'suffix' ); ?>', this.value );" />
 			</div>
 
 		</li>
@@ -341,10 +355,26 @@ class GF_Field_Unique_ID extends GF_Field {
 	}
 
 	public function get_field_input_form_editor() {
-		return '<input
-            style="border:1px dashed #ccc;background-color:transparent;padding:5px;color:#bbb;letter-spacing:.05em;text-transform:lowercase;width:330px;text-align:center;font-family:\'Open Sans\', sans-serif;"
+		$style = 'border:1px dashed #ccc;background-color:transparent;text-transform:lowercase;width: 100%;text-align:center;font-size: 0.9375rem;padding: 0.5rem;line-height: 2;border-radius: 4px;';
+		if ( GravityPerks::is_gf_version_lte( '2.5-beta-1' ) ) {
+			$style = 'border:1px dashed #ccc;background-color:transparent;padding:5px;color:#bbb;letter-spacing:.05em;text-transform:lowercase;width:330px;text-align:center;font-family:\'Open Sans\', sans-serif;';
+		}
+		$input_html = sprintf( '<input
+            style="%s"
             value="hidden field, populated on submission"
-            disabled="disabled" />';
+            disabled="disabled" />',
+			$style
+		);
+		$input_html = sprintf( "<div class='ginput_container ginput_container_hidden'>%s</div>", $input_html );
+		return $input_html;
+	}
+
+	/**
+	 * GF 2.5 adds an ugly "Hidden" label and icon about field's with a hidden visibility. Let's disable this.
+	 * @return string
+	 */
+	public function get_hidden_admin_markup() {
+		return '';
 	}
 
 	public function populate_field_value( $entry, $form, $fulfilled = false ) {

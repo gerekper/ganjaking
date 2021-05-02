@@ -87,6 +87,7 @@
 		$editor = $( '.gform_editor' ),
 		$container = $( '#gform_fields' ),
 		$noFields = $( '#no-fields' ),
+		$noFieldsDropzone = $( '#no-fields-drop' ),
 		$sidebar = $( '.editor-sidebar' ),
 		$button = $( '.gfield-field-action' ),
 		$elem = null,
@@ -132,13 +133,16 @@
 		},
 		over: function () {
 			$( this ).addClass( 'hovering' );
+			$noFieldsDropzone.addClass( 'hovering' );
 		},
 		out: function () {
 			$( this ).removeClass( 'hovering' );
+			$noFieldsDropzone.removeClass( 'hovering' );
 		},
 		drop: function () {
 			isNoFieldsDrop = true;
 			$( this ).removeClass( 'hovering' );
+			$noFieldsDropzone.removeClass( 'hovering' );
 		},
 		deactivate: function () {
 			$( this ).removeClass( 'ready' );
@@ -190,7 +194,7 @@
 	// Handle duplicating a field.
 	gform.addAction( 'gform_field_duplicated', function ( form, field, $field, sourceFieldId ) {
 
-		var $source = $( '#field_' + sourceFieldId );
+		var $source      = $( '#field_' + sourceFieldId );
 		var $sourceGroup = getGroup( getGroupId( $source ) );
 
 		// Add duplicated fields *after* the last field in its group so that it will always appear on a new row.
@@ -205,9 +209,74 @@
 	} );
 
 	// Re-initialize the field after it's markup is refreshed (e.g. after the description is updated).
-	gform.addAction( 'gform_after_refresh_field_preview', function ( fieldId ) {
+	gform.addAction( 'gform_after_refresh_field_preview', function( fieldId ) {
 		initElement( $( '#field_' + fieldId ) );
 	} );
+
+	gform.addAction( 'gform_before_get_field_markup', function( form, field, index ) {
+		addFieldPlaceholder( field, index );
+	} );
+
+	gform.addAction( 'gform_after_get_field_markup', function( form, field, index ) {
+		removeFieldPlaceholder();
+	} );
+
+	gform.addAction( 'gform_before_field_duplicated', function( sourcefieldId ) {
+		var $source = $( '#field_' + sourcefieldId );
+		var $index  = $container.children().index( $source );
+
+		addFieldPlaceholder( null, $index + 1 );
+	} );
+
+	gform.addAction( 'gform_field_duplicated', function() {
+		removeFieldPlaceholder();
+	} );
+
+	gform.addAction( 'gform_before_refresh_field_preview', function( field_id ) {
+		addFieldUpdateIndicator( field_id );
+	} );
+
+	gform.addAction( 'gform_after_refresh_field_preview', function( field_id ) {
+		removeFieldUpdateIndicator( field_id );
+	} );
+
+	function addFieldPlaceholder( field, index ) {
+
+		var fieldString = '<li data-js-field-loading-placeholder><div class="dropzone__loader">' +
+			'<div class="dropzone__loader-item dropzone__loader-label"></div>' +
+			'<div class="dropzone__loader-item dropzone__loader-content"></div>' +
+			'</div></li>';
+
+		//sets up DOM for new field
+		if ( typeof index != 'undefined' ) {
+			if ( index === 0 ) {
+				$( '#gform_fields' ).prepend( fieldString );
+			} else {
+				$( '#gform_fields' ).children().eq( index - 1 ).after( fieldString );
+			}
+		} else {
+			$( '#gform_fields' ).append( fieldString );
+		}
+
+		$( '[data-js-field-loading-placeholder]' ).setGridColumnSpan( columnCount );
+
+		$( '#form_editor_fields_container' ).addClass( 'dropzone-loader-visible' );
+
+		moveByTarget( $( '[data-js-field-loading-placeholder]' ), $indicator( false ).data( 'target' ), $indicator( false ).data( 'where' ) );
+	}
+
+	function removeFieldPlaceholder() {
+		$( '#form_editor_fields_container' ).removeClass( 'dropzone-loader-visible' );
+		$( '[data-js-field-loading-placeholder]' ).remove();
+	}
+
+	function addFieldUpdateIndicator( field_id ) {
+		jQuery( "#field_" + field_id ).addClass( 'loading' );
+	}
+
+	function removeFieldUpdateIndicator( field_id ) {
+		jQuery( "#field_" + field_id ).removeClass( 'loading' );
+	}
 
 	/**
 	 * Initialize a form field so that it can be dragged and resized.
@@ -227,8 +296,7 @@
 				helper: 'clone',
 				zIndex: 999,
 				handle: '.gfield-drag',
-				create: function ( event, ui ) {
-
+				create: function( event, ui ) {
 					if ( isSpacer( $( this ) ) ) {
 						return;
 					}
@@ -246,17 +314,14 @@
 					}
 
 					$( this ).setGroupId( groupId );
-
 				},
-				start: function ( event, ui ) {
-
+				start: function( event, ui ) {
 					$container.addClass( 'dragging' );
-					$elem = $( ui.helper.context );
+					$editorContainer.addClass( 'droppable' );
+					$elem = $( this );
 					$elem.addClass( 'placeholder' );
-
 				},
-				drag: function ( event, ui ) {
-
+				drag: function( event, ui ) {
 					// Match the helper to the current elements size.
 					ui.helper
 						.width( $elem.width() )
@@ -264,12 +329,17 @@
 						// Firefox has trouble positioning the dragged element when it still has it's grid-column property set.
 						.setGridColumnSpan( null );
 
-					handleDrag( event, ui, ui.position.top, ui.position.left );
+					if ( ! gform.tools.isRtl() ) {
+						helperLeft = ui.position.left;
+					} else {
+						helperLeft = ui.position.left + ( ui.helper.outerWidth() );
+					}
 
+					handleDrag( event, ui, ui.position.top, helperLeft );
 				},
-				stop: function ( event, ui ) {
-
+				stop: function( event, ui ) {
 					$container.removeClass( 'dragging' );
+					$editorContainer.removeClass( 'droppable' );
 					$elem.removeClass( 'placeholder' );
 					$elements().removeClass( 'hovering' );
 
@@ -280,17 +350,15 @@
 					$indicator().remove();
 
 					ui.helper.remove();
-
-				}
+				},
 			} )
 			.resizable( {
-				handles: 'e',
-				start: function () {
+				handles: 'e, w',
+				start: function() {
 					max = null;
 					$container.addClass( 'resizing' );
 				},
-				resize: function ( event, ui ) {
-
+				resize: function( event, ui ) {
 					var columnWidth = $container.outerWidth() / columnCount,
 						$item = ui.element,
 						width = $item.outerWidth(),
@@ -326,7 +394,7 @@
 
 					$().add( ui.helper ).add( ui.element )
 						// Resizable will set a width with each increment, we have to deliberately override this.
-						.css( 'width', 'auto' )
+						.css( 'width', 'auto' ).css( 'left', 'auto' )
 						.setGridColumnSpan( span );
 
 					if ( $sibling ) {
@@ -344,13 +412,11 @@
 					else if ( lastInGroup && ! $spacer.length && getGroupGridColumnSpan( $group ) < columnCount ) {
 						addSpacer( $item, getGroupId( $item ), 1 );
 					}
-
 				},
-				stop: function () {
+				stop: function() {
 					$container.removeClass( 'resizing' );
-				}
+				},
 			} );
-
 	}
 
 	/**
@@ -360,6 +426,11 @@
 	 */
 	function initFieldButtons( $buttons ) {
 		$buttons
+			.on( 'mousedown touchstart', function() {
+				// hides the tooltip during drag, stop method sets it back using the data-description
+				// start was too late to execute this with, the tooltip would persist in some browsers
+				$( this ).attr( 'title', '' );
+			} )
 			.draggable( {
 				helper: 'clone',
 				revert: function () {
@@ -369,11 +440,10 @@
 				cancel: false,
 				appendTo: $container,
 				containment: 'document',
-				start: function ( event, ui ) {
-
+				start: function( event, ui ) {
 					clearFieldSelection();
 
-					$editorContainer.css( 'z-index', 2 );
+					$editorContainer.addClass( 'droppable' );
 
 					if ( gf_vars[ 'currentlyAddingField' ] == true ) {
 						return false;
@@ -381,19 +451,16 @@
 
 					// Match the helper to the current elements size.
 					ui.helper
-						.width( $( ui.helper.context ).width() )
-						.height( $( ui.helper.context ).height() );
+						.width( $( this ).width() )
+						.height( $( this ).height() );
 
 					$container.addClass( 'dragging' );
-
-					$elem = $( ui.helper.context ).clone();
+					$elem = $( this ).clone();
 					$elem.addClass( 'placeholder' );
 
-					$( this ).css( 'opacity', 0.5 );
-
+					$( this ).addClass( 'fieldPlaceholder' );
 				},
-				drag: function ( event, ui ) {
-
+				drag: function( event, ui ) {
 					// When form has no fields, there is only one place the field can be dragged...
 					if ( ! form.fields.length ) {
 						return;
@@ -409,10 +476,9 @@
 					handleDrag( event, ui, helperTop, helperLeft );
 
 				},
-				stop: function ( event, ui ) {
-
-					$( this ).css( 'opacity', 1 );
-					$editorContainer.css( 'z-index', 1 );
+				stop: function( event, ui ) {
+					$( this ).removeClass( 'fieldPlaceholder' );
+					$editorContainer.removeClass( 'droppable' );
 					$container.removeClass( 'dragging' );
 
 					var isAddingField = false;
@@ -432,6 +498,7 @@
 						$elem = null;
 					}
 
+					$( this ).attr( 'title', $( this ).attr( 'data-description' ) );
 				}
 			} )
 			.on( 'click keypress', function () {
@@ -457,10 +524,10 @@
 		}
 
 		// Check if field is dragged *above* all other fields.
-		if( helperTop < 0 ) {
+		if ( helperTop < 0 ) {
 			$indicator()
 				.css( {
-					top: -10,
+					top: -30,
 					left: 0,
 					height: '4px',
 					width: $container.outerWidth()
@@ -475,7 +542,7 @@
 		else if ( helperTop > $container.outerHeight() ) {
 			$indicator()
 				.css( {
-					top: $container.outerHeight() + 6,
+					top: $container.outerHeight() - 14,
 					left: 0,
 					height: '4px',
 					width: $container.outerWidth()
@@ -489,8 +556,8 @@
 
 		$elements()
 			.not( ui.helper )
-			.not( ui.helper.context )
-			.each( function () {
+			.not( this )
+			.each( function() {
 
 				var $target = $( this ),
 					sibPos = $target.position(),
@@ -507,24 +574,31 @@
 
 				$target.addClass( 'hovering' );
 
+				if ( isSpacer( $target ) ) {
+					$target = $target.prev();
+					sibPos = $target.position();
+					where = 'right';
+				}
+
 				var where = whichArea( helperLeft, helperTop, sibArea, $target.outerWidth(), $target.outerHeight() ),
 					targetGroupId = getGroupId( $target ),
-					$targetGroup = getGroup( targetGroupId ),
-					isGroupMaxed = $targetGroup.length >= ( columnCount / min );
+					$targetGroup = getGroup( targetGroupId, false );
+
+				var isGroupMaxed = $targetGroup.length >= ( columnCount / min );
+
+				if ( getGroupId( $target ) === getGroupId( ui.helper ) ) {
+					isGroupMaxed = false;
+				}
+
+				var available = isSpaceAvailable( ui, $target );
 
 				if ( where === 'left' || where === 'right' ) {
 					// Columns are not supported in Legacy markup or with Page or Section fields.
 					if ( ! areColumnsEnabled( $target, $elem ) ) {
 						return;
-					} else if ( isGroupMaxed ) {
+					} else if ( isGroupMaxed || ( available === false ) ) {
 						return;
 					}
-				}
-
-				if ( isSpacer( $target ) ) {
-					$target = $target.prev();
-					sibPos = $target.position();
-					where = 'right';
 				}
 
 				$indicator().data( {
@@ -559,17 +633,17 @@
 					case 'bottom':
 
 						$indicator().css( {
-							top: sibPos.top + $target.outerHeight() + 6,
+							top: sibPos.top + $target.outerHeight() + 26,
 							left: 0,
 							height: '4px',
-							width: '100%'
+							width: '100%',
 						} );
 
 						return false;
 					case 'top':
 
 						$indicator().css( {
-							top: sibPos.top - 10,
+							top: sibPos.top - 30,
 							left: 0,
 							height: '4px',
 							width: '100%'
@@ -600,7 +674,7 @@
 			return false;
 		}
 
-		if ( $elem.hasClass( 'gpage' ) || $elem.hasClass( 'gsection' ) || $elem.hasClass( 'gform_hidden' ) ) {
+		if ( $elem.hasClass( 'gpage' ) || $elem.hasClass( 'gsection' ) || $elem.hasClass( 'gform_hidden' ) || $elem.data( 'type' ) === 'hidden' ) {
 			return false;
 		}
 
@@ -664,19 +738,68 @@
 	 * @returns {boolean}
 	 */
 	function isInEditorArea( x, y ) {
-		var editorOffset = $editorContainer.offset(),
-			containerOffset = $container.offset(),
-			offsetTop = containerOffset.top - editorOffset.top,
-			offsetLeft = containerOffset.left - editorOffset.left,
-			buttonWidth = $button.outerWidth(),
+
+		if ( ! gform.tools.isRtl() ) {
+			var editorOffsetLeft = $editorContainer.offset().left;
+		} else {
+			var editorOffsetLeft = $container.offset().left;
+		}
+		var containerOffset = $container.offset(),
+			offsetTop = containerOffset.top - $editorContainer.offset().top,
+			offsetLeft = containerOffset.left - editorOffsetLeft,
+			buttonWidth = $button.outerWidth() || null,
 			editorArea = {
 				top: -offsetTop + buttonWidth,
 				right: -offsetLeft + $editorContainer.outerWidth() - $sidebar.outerWidth() - buttonWidth,
 				bottom: -offsetTop + $editorContainer.outerHeight(),
-				left: -offsetLeft
+				left: -offsetLeft,
 			};
 
 		return y > editorArea.top && y < editorArea.bottom && x > editorArea.left && x < editorArea.right;
+	}
+
+	/**
+	 * Check if a group has room to accommodate an additional field.
+	 *
+	 * @param {object} ui      jQuery UI helper object which manages the current state.
+	 * @param {jQuery} $target The element over which the dragged element was last positioned.
+	 */
+	function isSpaceAvailable( ui, $target ) {
+		var targetSpan, splitSpan, $targetGroup, groupId, $spacer, helperGroupId;
+
+		groupId = getGroupId( $target );
+		helperGroupId = getGroupId( ui.helper );
+		$targetGroup = getGroup( groupId );
+
+		if ( groupId === helperGroupId ) {
+			return true;
+		}
+
+		// Figure out if we're dropping a field onto a spacer or next to a spacer.
+		if ( isSpacer( $target ) ) {
+			$spacer = $target;
+			$target = $target.prev();
+		} else if ( isSpacer( $target.next() ) && $targetGroup.index( $target.next() ) !== false ) {
+			$spacer = $target.next();
+		}
+
+		// If we're dropping onto or next to a spacer, set the target span to the spacer span.
+		targetSpan = $spacer ? $spacer.getGridColumnSpan() : null;
+
+		// Determine the span of the field we're dropping in.
+		if ( targetSpan ) {
+			splitSpan = targetSpan;
+		} else if ( isEvenSplit( $targetGroup ) ) {
+			splitSpan = columnCount / ( $targetGroup.length + 1 ); // +1 for the element about to be added to this group.
+		} else {
+			targetSpan = $target.getGridColumnSpan();
+			splitSpan = targetSpan / 2;
+		}
+
+		// If the span of the field we're dropping in calculates to less than 3, no space available.
+		if ( parseInt( splitSpan ) < 3 ) {
+			return false;
+		}
 	}
 
 	/**
@@ -692,8 +815,14 @@
 			return;
 		}
 
-		var targetSpan, splitSpan, $targetGroup, $resizeGroup, groupId, sourceGroupId,
-			movingIntoTargetGroup, $spacer;
+		var targetSpan,
+			splitSpan,
+			$targetGroup,
+			$resizeGroup,
+			groupId,
+			sourceGroupId,
+			movingIntoTargetGroup,
+			$spacer;
 
 		sourceGroupId = getGroupId( $elem );
 		groupId = getGroupId( $target );
@@ -702,17 +831,17 @@
 		if ( isSpacer( $target ) ) {
 			$spacer = $target;
 			$target = $target.prev();
-		} else if ( isSpacer( $target.next() ) && $targetGroup.index( $target.next() ) !== false ) {
+		} else if ( ( isSpacer( $target.next() ) || isPlaceholder( $target.next() ) ) && $targetGroup.index( $target.next() ) !== false ) {
 			$spacer = $target.next();
 		}
 
-		if ( $spacer ) {
+		movingIntoTargetGroup = where === 'left' || where === 'right';
+
+		if ( $spacer && movingIntoTargetGroup ) {
 			targetSpan = $spacer.getGridColumnSpan();
 			removeSpacer( $spacer );
 			$targetGroup = getGroup( groupId );
 		}
-
-		movingIntoTargetGroup = where === 'left' || where === 'right';
 
 		if ( where == 'top' ) {
 			$target = $targetGroup.first();
@@ -720,7 +849,9 @@
 			$target = $targetGroup.last();
 		}
 
-		if ( where == 'top' || where == 'left' ) {
+		var direction = gform.tools.isRtl() ? 'right' : 'left';
+
+		if ( where == 'top' || where == direction ) {
 			$elem.insertBefore( $target );
 		} else {
 			$elem.insertAfter( $target );
@@ -794,10 +925,17 @@
 	 *
 	 * @returns {jQuery}
 	 */
-	function getGroup( groupId ) {
-		return $elements()
-			.filter( '[data-groupId="{0}"]'.format( groupId ) )
-			.not( '.ui-draggable-dragging' );
+	function getGroup( groupId, spacers ) {
+		if ( spacers || 'undefined' === typeof( spacers ) ) {
+			return $elements()
+				.filter( '[data-groupId="{0}"]'.format( groupId ) )
+				.not( '.ui-draggable-dragging' );
+		} else {
+			return $elements()
+				.filter( '[data-groupId="{0}"]'.format( groupId ) )
+				.not( '.ui-draggable-dragging' )
+				.not( '.spacer' );
+		}
 	}
 
 	/**
@@ -859,7 +997,13 @@
 	function resizeGroup( groupId ) {
 
 		var $group = getGroup( groupId ),
-			splitSpan = columnCount / ( $group.length );
+			splitSpan = columnCount / ( $group.length ),
+			$spacer = $group.filter( '.spacer' );
+
+		// If the only field in a group is a spacer, remove the spacer.
+		if ( $group[0] === $spacer[0] && $group.length > 0 ) {
+			removeSpacer( $spacer );
+		}
 
 		$group.setGridColumnSpan( splitSpan );
 
@@ -918,6 +1062,19 @@
 	 */
 	function isSpacer( $elem ) {
 		return $elem.filter( '.spacer' ).length > 0;
+	}
+
+	/**
+	 * Determine whether the given element is a Placeholder.
+	 *
+	 * @since 2.5
+	 *
+	 * @param {jQuery} $elem The element for which to determine if it is a placeholder.
+	 *
+	 * @returns {boolean}
+	 */
+	function isPlaceholder( $elem ) {
+		return $elem.filter( '[data-js-field-loading-placeholder]' ).length > 0;
 	}
 
 	/**

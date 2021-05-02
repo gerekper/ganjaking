@@ -1,5 +1,9 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2021.04.15 - version 1.8.7
+* Tweak - Require to enter a set of shipping methods when defining a delivery range.
+* Tweak - Tested compatibility up to WC 5.2.
+
 2021.02.23 - version 1.8.6
 * Tweak - Replaced deprecated jQuery functionality.
 * Tweak - Delete the plugin configuration on uninstall only when WC_REMOVE_ALL_DATA is set to true.

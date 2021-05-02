@@ -4,7 +4,7 @@ namespace ACP\Plugin\Update;
 
 use AC\Plugin\Update;
 use AC\Type\ListScreenId;
-use ACP\Search\SegmentRepository;
+use ACP\Bookmark\SegmentRepository;
 use Exception;
 
 class V5300 extends Update {

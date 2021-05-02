@@ -8,6 +8,7 @@ use ACP\Helper\Select\Formatter;
 use ACP\Search\Comparison\Meta;
 use ACP\Search\Comparison\SearchableValues;
 use ACP\Search\Operators;
+use ACP\Search\Value;
 use WP_Term;
 
 class Post extends Meta
@@ -19,18 +20,20 @@ class Post extends Meta
 	/** @var WP_Term[] */
 	private $terms = [];
 
-	public function __construct( $meta_key, $meta_type, $post_type = false, array $terms = [] ) {
-		$operators = new Operators( [
+	public function __construct( $meta_key, $meta_type, $post_type = false, array $terms = [], $labels = null ) {
+		$this->set_post_type( $post_type );
+		$this->set_terms( $terms );
+
+		parent::__construct( $this->get_meta_operators(), $meta_key, $meta_type, Value::STRING, $labels );
+	}
+
+	protected function get_meta_operators() {
+		return new Operators( [
 			Operators::EQ,
 			Operators::NEQ,
 			Operators::IS_EMPTY,
 			Operators::NOT_IS_EMPTY,
 		] );
-
-		$this->set_post_type( $post_type );
-		$this->set_terms( $terms );
-
-		parent::__construct( $operators, $meta_key, $meta_type );
 	}
 
 	public function get_values( $search, $page ) {

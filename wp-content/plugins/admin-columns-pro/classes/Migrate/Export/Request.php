@@ -56,7 +56,7 @@ final class Request implements AC\Registrable {
 			return;
 		}
 
-		if( empty( $data->list_screen_ids ) ){
+		if ( empty( $data->list_screen_ids ) ) {
 			return;
 		}
 

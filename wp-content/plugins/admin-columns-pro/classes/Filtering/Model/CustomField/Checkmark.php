@@ -7,14 +7,12 @@ use ACP\Filtering\Model;
 class Checkmark extends Model\CustomField {
 
 	public function get_filtering_data() {
-		$data = [
+		return [
 			'options' => [
 				'1' => __( 'True', 'codepress-admin-columns' ),
 				'0' => __( 'False', 'codepress-admin-columns' ),
 			],
 		];
-
-		return $data;
 	}
 
 	public function get_filtering_vars( $vars ) {

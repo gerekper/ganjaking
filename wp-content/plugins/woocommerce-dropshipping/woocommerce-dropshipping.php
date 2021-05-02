@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Dropshipping
  * Plugin URI: http://woocommerce.com/products/woocommerce-dropshipping/
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
- * Version: 2.13
+ * Version: 2.14
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.com.au/
  * Developer: OPMC
  * Developer URI: https://opmc.com.au/
  * Requires at least: 4.5
- * Tested up to: 5.6
+ * Tested up to: 5.7
  * Copyright: © 2009-2018 WooThemes.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -165,16 +165,15 @@ final class WC_Dropshipping {
 	/**
 	 * Plugin page links
 	 */
-	function wc_dropshipping_plugin_links( $actions, $plugin_file, $plugin_data, $context ) {
+	 function wc_dropshipping_plugin_links( $actions, $plugin_file, $plugin_data, $context ) {
+		 $new_actions = array();
 
-		$new_actions = array();
-
-		$new_actions[ 'wc_dropship_settings' ] = '<a href="/wp-admin/admin.php?page=wc-settings&tab=email&section=dropship_manager">' . __( 'Settings', 'woocommerce-dropshipping' ) . '</a>';
-    $new_actions[ 'wc_dropship_docs' ] = '<a target="_blank" href="https://docs.woocommerce.com/document/woocommerce-dropshipping/">' . __( 'Docs', 'woocommerce-dropshipping' ) . '</a>';
-
-    return array_merge( $new_actions, $actions );
-
-	}
+		 if ( basename( plugin_dir_path( __FILE__ ) ) . '/woocommerce-dropshipping.php' === $plugin_file ) {
+			 	$new_actions[ 'wc_dropship_settings' ] = '<a href="/wp-admin/admin.php?page=wc-settings&tab=email&section=dropship_manager">' . __( 'Settings', 'woocommerce-dropshipping' ) . '</a>'; $new_actions[ 'wc_dropship_docs' ] = '<a target="_blank" href="https://docs.woocommerce.com/document/woocommerce-dropshipping/">' . __( 'Docs', 'woocommerce-dropshipping' ) . '</a>';
+			}
+			
+		 	return array_merge( $new_actions, $actions );
+		 }
 
 
 	function show_admin_notice_options(){

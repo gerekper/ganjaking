@@ -13,6 +13,10 @@ use AC\Type\ListScreenId;
 
 class ListScreenCreate implements Registrable {
 
+	const PARAM_ACTION = 'acp_action';
+	const PARAM_CREATE_LIST = 'create_layout';
+	const PARAM_DELETE_LIST = 'delete_layout';
+
 	/**
 	 * @var Storage
 	 */
@@ -47,9 +51,9 @@ class ListScreenCreate implements Registrable {
 			return;
 		}
 
-		switch ( filter_input( INPUT_POST, 'acp_action' ) ) {
+		switch ( filter_input( INPUT_POST, self::PARAM_ACTION ) ) {
 
-			case 'create_layout':
+			case self::PARAM_CREATE_LIST :
 				if ( ! $this->verify_nonce( 'create-layout' ) ) {
 					return;
 				}
@@ -95,7 +99,7 @@ class ListScreenCreate implements Registrable {
 				wp_redirect( $list_screen->get_edit_link() );
 				exit;
 
-			case 'delete_layout' :
+			case self::PARAM_DELETE_LIST :
 				if ( ! $this->verify_nonce( 'delete-layout' ) ) {
 					return;
 				}

@@ -69,7 +69,7 @@
 
 <?php //$meta = get_term_meta( $term->term_id, 'meta',true ); ?>
 
-<div style="<?php echo $woo_base_color; ?>;">
+<div style="<?php echo $woo_base_color; ?>">
 
 <!-- Table for mail top header -->
 
@@ -1286,15 +1286,15 @@
 
 				</tr>
 
-				<tr border="0">
-					<td width="100%;" colspan="<?php echo $misc_colspan; ?>" align="left" style="color: <?php echo $woo_body_text_color_only; ?>;">
+				<tr border="0" style="<?php echo $woo_body_bg_color; ?>" >
+					<td width="100%;" colspan="<?php echo $misc_colspan; ?>" align="left" style=" padding: 20px; <?php echo $woo_body_text_color; ?>">
+						<p>
+							<?php if($order_info['options']['dropship_additional_comment']) {
 
-						<?php if($order_info['options']['dropship_additional_comment']) {
+								echo @$order_info['options']['dropship_additional_comment'];
 
-							echo @$order_info['options']['dropship_additional_comment'];
-
-						} ?>
-
+							} ?>
+						</p>
 					</td>
 				</tr>
 
@@ -1304,17 +1304,11 @@
 
 	<?php } ?>
 
-	 <table><tr><td></td></tr></table>
-
-	 <!-- Order complete link -->
-
-	 <h4 align="center" style="color: <?php echo $woo_body_text_color; ?>;">
-		 <?php echo 'Thank you!'; ?>
-	 </h4>
-
-</td></tr></table>
-
-
-
-
+	</table>
 	</div>
+	<!-- Order complete link -->
+	<h4 align="center" style="padding:20px 0px; margin-top:0; color:<?php $woo_base_text_color_only; ?>; <?php echo $woo_body_bg_color; ?>">
+
+			<?php echo 'Thank you!'; ?>
+
+	</h4>

@@ -35,9 +35,6 @@ abstract class Date extends Comparison {
 		] );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	protected function create_query_bindings( $operator, Value $value ) {
 		if ( Operators::EQ === $operator ) {
 			$value_factory = new DateValueFactory( $value->get_type() );

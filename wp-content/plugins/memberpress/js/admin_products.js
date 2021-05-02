@@ -6,7 +6,7 @@
     $('div.product_options_page').hide();
     $('div.registration').show();
 
-    $('a.main-nav-tab').click(function() {
+    $('a.main-nav-tab').on('click', function() {
       if($(this).hasClass('nav-tab-active'))
         return false;
 
@@ -53,7 +53,7 @@
     };
 
     mepr_display_billing_type();
-    $('#mepr-product-billing-type').change( mepr_display_billing_type );
+    $('#mepr-product-billing-type').on('change', mepr_display_billing_type );
     $('#_mepr_product_price').blur( mepr_display_billing_type );
 
     $('#_mepr_expire_after').spinner({ min: 1 });
@@ -141,10 +141,10 @@
     };
 
     mepr_period_types_init();
-    $(ptid).change( function() { mepr_period_update(true); } );
+    $(ptid).on('change', function() { mepr_period_update(true); } );
     $(cpid).on( "spinchange", function() { mepr_period_update(false); } );
     $(cpid).on( "spinstop", function() { mepr_period_update(false); } );
-    $(cptid).change( function() { mepr_period_update(false); } );
+    $(cptid).on('change', function() { mepr_period_update(false); } );
 
   //Trial Period Checkbox && limit cycles checkbox stuff
     //trial period
@@ -153,7 +153,7 @@
     } else {
       $('.mepr-product-trial-hidden').slideUp();
     }
-    $('#_mepr_product_trial').click(function() {
+    $('#_mepr_product_trial').on('click', function() {
       $('.mepr-product-trial-hidden').slideToggle();
     });
 
@@ -165,7 +165,7 @@
     } else {
       $('.mepr-product-limit-cycles-hidden').slideUp();
     }
-    $('#_mepr_product_limit_cycles').click(function() {
+    $('#_mepr_product_limit_cycles').on('click', function() {
       $('.mepr-product-limit-cycles-hidden').slideToggle();
     });
 
@@ -179,7 +179,7 @@
       }
     }
     mepr_product_limit_cycles_expire();
-    $('#_mepr_product_limit_cycles_action').change(mepr_product_limit_cycles_expire);
+    $('#_mepr_product_limit_cycles_action').on('change', mepr_product_limit_cycles_expire);
     $('#_mepr_product_limit_cycles_expires_after').spinner({
       min: 1
     });
@@ -224,7 +224,7 @@
     };
 
     mepr_display_expire_access();
-    $('#_mepr_expire_type').change(mepr_display_expire_access);
+    $('#_mepr_expire_type').on('change', mepr_display_expire_access);
 
   //Custom thank you message checkbox
     if($('#_mepr_thank_you_page_enabled').is(":checked")) {
@@ -233,7 +233,7 @@
     } else {
       $('div#mepr-product-thank-you-area').hide();
     }
-    $('#_mepr_thank_you_page_enabled').click(function() {
+    $('#_mepr_thank_you_page_enabled').on('click', function() {
       $('#_mepr_thank_you_page_type_message:checked, #_mepr_thank_you_page_type_page:checked').nextAll('div:first').show();
       $('div#mepr-product-thank-you-area').slideToggle();
     });
@@ -254,12 +254,12 @@
     } else {
       $('div#mepr-custom-login-urls-area').hide();
     }
-    $('#_mepr_custom_login_urls_enabled').click(function() {
+    $('#_mepr_custom_login_urls_enabled').on('click', function() {
       $('div#mepr-custom-login-urls-area').slideToggle();
     });
 
     //Add new URL row
-    $('a.custom-login-urls-new-url').click(function() {
+    $('a.custom-login-urls-new-url').on('click', function() {
       var new_url_row = get_new_url_row();
 
       $(new_url_row).hide().appendTo('ul#custom-login-urls-list').fadeIn(500);
@@ -307,7 +307,7 @@
       });
     });
     //Add new benefit li
-    $('a.add-new-benefit').click(function() {
+    $('a.add-new-benefit').on('click', function() {
       line = '<li class="benefit-item">\
                 <input type="text" name="_mepr_product_pricing_benefits[]" class="benefit-input" value="" />\
                 <span class="remove-span">\
@@ -373,11 +373,11 @@
       input#title', function() {
       load_pricing_preview();
     });
-    $('#_mepr_product_pricing_show_price').click(function() {
+    $('#_mepr_product_pricing_show_price').on('click', function() {
       load_pricing_preview();
     });
     //Add highlight class to preview box
-    $('#_mepr_product_is_highlighted').click(function() {
+    $('#_mepr_product_is_highlighted').on('click', function() {
       if($(this).is(':checked')) {
         $('div.mepr-price-box').addClass('highlighted');
         $('div.mepr-most-popular').fadeIn();
@@ -425,7 +425,7 @@
     });
 
     //Add a new who can purchase row
-    $('a.add-new-who').click(function() {
+    $('a.add-new-who').on('click', function() {
       var id = Math.floor(Math.random() * 995000) + 5000;
       $('div#who_can_purchase_hidden_row span.who_have_purchased').attr('id', 'who_have_purchased-' + id);
       $('div#who_can_purchase_hidden_row span.who_have_purchased').hide();
@@ -449,7 +449,7 @@
       $('#mepr-custom-page-template-select').show();
     }
 
-    $('#_mepr_use_custom_template').click( function() {
+    $('#_mepr_use_custom_template').on('click', function() {
       if($(this).is(':checked')) {
         $('#mepr-custom-page-template-select').slideDown();
       }
@@ -472,17 +472,17 @@
       $('#mepr-product-payment-methods').hide();
     }
 
-    $('#_mepr_customize_payment_methods').click( function(e) {
+    $('#_mepr_customize_payment_methods').on('click', function(e) {
       $('#mepr-product-payment-methods').slideToggle('fast');
     });
 
-    if( $('#mepr-product-inactive-payment-methods li').size() >= 1 ) {
+    if( $('#mepr-product-inactive-payment-methods li').length >= 1 ) {
       $('#mepr-product-inactive-payment-methods').show();
       $('#mepr-product-inactive-payment-methods-title').show();
     }
 
     $('#mepr-product-active-payment-methods').on('change', 'input', function(e) {
-      if( $('#mepr-product-active-payment-methods li').size() > 1 ) {
+      if( $('#mepr-product-active-payment-methods li').length > 1 ) {
         $('#mepr-product-inactive-payment-methods').append( $(this).parent() );
         $('#mepr-product-inactive-payment-methods').show();
         $('#mepr-product-inactive-payment-methods-title').show();
@@ -497,7 +497,7 @@
       $('#mepr-product-active-payment-methods').append( $(this).parent() );
       rebuild_product_payment_json();
 
-      if( $('#mepr-product-inactive-payment-methods li').size() < 1 ) {
+      if( $('#mepr-product-inactive-payment-methods li').length < 1 ) {
         $('#mepr-product-inactive-payment-methods').hide();
         $('#mepr-product-inactive-payment-methods-title').hide();
       }
@@ -519,7 +519,7 @@
       $('#mepr-product-tax-class-fields').show();
     }
 
-    $('#_mepr_tax_exempt').click(function () {
+    $('#_mepr_tax_exempt').on('click', function () {
       $('#mepr-product-tax-class-fields').slideToggle('fast');
     });
 
@@ -535,7 +535,7 @@
       $('#mepr-product-inactive-profile-fields').show();
     }
 
-    $('#_mepr_customize_profile_fields').click(function() {
+    $('#_mepr_customize_profile_fields').on('click', function() {
       $('#mepr-product-profile-fields').slideToggle('fast');
     });
 
@@ -559,7 +559,7 @@
     // Show the custom register price text box when custom is selected
     action = (($(MeprProducts.register_price_action_id).val()=='custom')?'show':'hide');
     $(MeprProducts.register_price_id).parent()[action]();
-    $(MeprProducts.register_price_action_id).change(function() {
+    $(MeprProducts.register_price_action_id).on('change', function() {
       var act = (($(MeprProducts.register_price_action_id).val()=='custom')?'slideDown':'slideUp');
       $(MeprProducts.register_price_id).parent()[act]('fast');
     });

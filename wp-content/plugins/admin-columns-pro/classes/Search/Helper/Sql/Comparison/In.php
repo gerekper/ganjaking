@@ -27,16 +27,10 @@ class In extends Comparison
 		return $this->column . ' ' . $this->operator . ' (?)';
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function is_negated() {
 		return false;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function bind_value( Value $value ) {
 		if ( ! is_array( $value->get_value() ) ) {
 			throw new LogicException( 'Value can only be an array.' );
@@ -52,9 +46,6 @@ class In extends Comparison
 		return $this;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function prepare() {
 		$this->statement = str_replace( '?', implode( ', ', array_fill( 0, count( $this->values ), '?' ) ), $this->statement );
 

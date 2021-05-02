@@ -2,7 +2,7 @@
 /**
  * @version 1.0
  */
-if( ! class_exists( 'GP_Template' ) ) {
+if ( ! class_exists( 'GP_Template' ) ) {
 
 	class GP_Template {
 
@@ -63,8 +63,9 @@ if( ! class_exists( 'GP_Template' ) ) {
 
 			// Setup possible parts
 			$templates = array();
-			if ( isset( $name ) )
+			if ( isset( $name ) ) {
 				$templates[] = $slug . '-' . $name . '.php';
+			}
 			$templates[] = $slug . '.php';
 
 			// Allow template parts to be filtered
@@ -99,22 +100,23 @@ if( ! class_exists( 'GP_Template' ) ) {
 			foreach ( (array) $template_names as $template_name ) {
 
 				// Continue if template is empty
-				if ( empty( $template_name ) )
+				if ( empty( $template_name ) ) {
 					continue;
+				}
 
 				// Trim off any slashes from the template name
 				$template_name = ltrim( $template_name, '/' );
 
 				// try locating this template file by looping through the template paths
-				foreach( $this->get_theme_template_paths() as $template_path ) {
+				foreach ( $this->get_theme_template_paths() as $template_path ) {
 
-					if( file_exists( $template_path . $template_name ) ) {
+					if ( file_exists( $template_path . $template_name ) ) {
 						$located = $template_path . $template_name;
 						break;
 					}
 				}
 
-				if( $located ) {
+				if ( $located ) {
 					break;
 				}
 			}
@@ -139,7 +141,7 @@ if( ! class_exists( 'GP_Template' ) ) {
 			$file_paths = array(
 				1   => trailingslashit( get_stylesheet_directory() ) . $template_dir,
 				10  => trailingslashit( get_template_directory() ) . $template_dir,
-				100 => $this->get_templates_dir()
+				100 => $this->get_templates_dir(),
 			);
 
 			$file_paths = apply_filters( 'gp_template_paths', $file_paths, $this );

@@ -7,6 +7,7 @@ use AC\Asset\Location;
 use AC\Asset\Style;
 use ACP\Editing;
 use ACP\Editing\Ajax\EditableRowsFactory;
+use ACP\Editing\Ajax\EditableRowsFactoryAggregate;
 use ACP\Editing\Ajax\TableRowsFactory;
 use ACP\Editing\Preference\EditState;
 use LogicException;
@@ -67,7 +68,9 @@ class TableScreen implements AC\Registrable {
 			$table_rows->register();
 		}
 
-		$editable_rows = EditableRowsFactory::create( $this->request, $this->list_screen );
+		EditableRowsFactoryAggregate::add_factory( new EditableRowsFactory() );
+
+		$editable_rows = EditableRowsFactoryAggregate::create( $this->request, $this->list_screen );
 
 		if ( $editable_rows && $editable_rows->is_request() ) {
 			$editable_rows->register();
@@ -83,8 +86,7 @@ class TableScreen implements AC\Registrable {
 			$this->location->with_suffix( 'assets/editing/js/table.js' ),
 			$this->list_screen,
 			$this->editable_data,
-			$this->edit_state,
-			$this->request
+			$this->edit_state
 		);
 		$script->enqueue();
 

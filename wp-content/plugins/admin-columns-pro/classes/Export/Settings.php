@@ -28,6 +28,12 @@ class Settings implements Registrable {
 	 * @return bool
 	 */
 	private function is_exportable( AC\Column $column ) {
+		$list_screen = $column->get_list_screen();
+
+		if ( ! $list_screen instanceof ListScreen ) {
+			return false;
+		}
+
 		if ( $column instanceof Exportable && ! $column->export()->is_active() ) {
 			return false;
 		}

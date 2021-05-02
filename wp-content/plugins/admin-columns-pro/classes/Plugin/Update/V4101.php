@@ -54,7 +54,7 @@ class V4101 extends Update {
 			SELECT *
 			FROM {$wpdb->usermeta}
 			WHERE meta_key LIKE %s
-			ORDER BY user_id ASC
+			ORDER BY user_id
 		", $key );
 
 		$results = $wpdb->get_results( $sql );

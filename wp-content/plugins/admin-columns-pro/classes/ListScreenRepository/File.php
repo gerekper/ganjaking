@@ -110,9 +110,6 @@ final class File implements AC\ListScreenRepositoryWritable, SourceAware {
 		return false;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function find_all( array $args = [] ) {
 		$args = array_merge( [
 			self::KEY => null,
@@ -163,7 +160,7 @@ final class File implements AC\ListScreenRepositoryWritable, SourceAware {
 			throw MissingListScreenIdException::from_saving_list_screen();
 		}
 
-		$file = $this->get_file_path_by_list_id(
+		$file = $this->create_file_name(
 			$this->directory->get_path(),
 			$list_screen->get_id()
 		);
@@ -184,7 +181,7 @@ final class File implements AC\ListScreenRepositoryWritable, SourceAware {
 	 * @param ListScreen $list_screen
 	 */
 	public function delete( ListScreen $list_screen ) {
-		$file = $this->get_file_path_by_list_id(
+		$file = $this->create_file_name(
 			$this->directory->get_path(),
 			$list_screen->get_id()
 		);
@@ -228,8 +225,8 @@ final class File implements AC\ListScreenRepositoryWritable, SourceAware {
 	 *
 	 * @return string
 	 */
-	private function get_file_path_by_list_id( $path, ListScreenId $id ) {
-		return $path . '/' . $id->get_id() . '.' . $this->extension;
+	private function create_file_name( $path, ListScreenId $id ) {
+		return sprintf( '%s/%s.%s', $path, $id->get_id(), $this->extension );
 	}
 
 	/**
@@ -239,20 +236,17 @@ final class File implements AC\ListScreenRepositoryWritable, SourceAware {
 		return $this->directory;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function get_source( ListScreenId $id ) {
 		if ( ! $this->has_source( $id ) ) {
 			throw new SourceNotAvailableException();
 		}
 
-		return $this->directory->get_path();
+		return $this->create_file_name(
+			$this->directory->get_path(),
+			$id
+		);
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function has_source( ListScreenId $id ) {
 		return $this->exists( $id );
 	}

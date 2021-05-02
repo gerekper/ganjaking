@@ -19,7 +19,7 @@ class CommentCount extends AbstractModel {
 	public function __construct( array $stati = [] ) {
 		parent::__construct();
 
-		$this->stati = (array) $stati;
+		$this->stati = $stati;
 	}
 
 	public function get_sorting_vars() {

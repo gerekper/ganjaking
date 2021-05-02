@@ -6,7 +6,6 @@ use AC;
 use ACP\Editing\Model;
 use ACP\Editing\PaginatedOptions;
 use ACP\Helper;
-use WP_Error;
 
 class DisplayName extends Model
 	implements PaginatedOptions {
@@ -48,10 +47,6 @@ class DisplayName extends Model
 			$options[ sprintf( '%s %s', $last_name, $first_name ) ] = sprintf( '%s %s', $last_name, $first_name );
 		}
 
-		if ( ! isset( $options[ $this->get_edit_value( $id ) ] ) ) {
-			$options[ $this->get_edit_value( $id ) ] = $this->get_edit_value( $id );
-		}
-
 		return new AC\Helper\Select\Options\Paginated(
 			new Helper\Select\Options\SinglePage(),
 			AC\Helper\Select\Options::create_from_array( $options )
@@ -62,7 +57,7 @@ class DisplayName extends Model
 	 * @param int    $id
 	 * @param string $value
 	 *
-	 * @return bool|WP_Error
+	 * @return bool
 	 */
 	public function save( $id, $value ) {
 		global $wpdb;

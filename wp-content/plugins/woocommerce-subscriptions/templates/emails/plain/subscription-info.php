@@ -48,8 +48,8 @@ if ( $has_automatic_renewal && ! $is_admin_email && $subscription->get_time( 'ne
 		$my_account_url = wc_get_endpoint_url( 'subscriptions', '', wc_get_page_permalink( 'myaccount' ) );
 	}
 
+	// Translators: Placeholder is the My Account URL.
 	echo wp_kses_post( sprintf( _n(
-		// Translators: Placeholder is the My Account URL.
 		'This subscription is set to renew automatically using your payment method on file. You can manage or cancel this subscription from your my account page. %s',
 		'These subscriptions are set to renew automatically using your payment method on file. You can manage or cancel your subscriptions from your my account page. %s',
 		count( $subscriptions ),

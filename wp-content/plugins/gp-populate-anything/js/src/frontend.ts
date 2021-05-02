@@ -56,3 +56,16 @@ jQuery('form[id^="gform_"], div[id^="gform_wrapper_"]').each((index, el) => {
 window.gform.addAction('gpnf_init_nested_form', (formId: any) => {
 	maybeRegisterForm(formId);
 });
+
+/**
+* Initialize GPPA JS for a specific form
+* This is not currently used internally by GPPA but allows external scripts to register GPPA on demand.
+* Currently used in GW Cache Buster. See HS#23661
+*
+* @since 1.0-beta-4.167
+*
+* @param number formId  Form ID to initialize
+*/
+window.gform.addAction('gppa_register_form', (formId: number) => {
+	maybeRegisterForm(formId);
+});

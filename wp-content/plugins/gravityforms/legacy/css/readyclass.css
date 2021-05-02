@@ -716,7 +716,7 @@ to no.
         box-shadow: 0px 0px 5px rgba(221, 215, 131, 0.75);
     }
 
-    div.gform_confirmation_wrapper.gf_confirmation_yellow_gradient div.gforms_confirmation_message {
+    div.gform_confirmation_wrapper.gf_confirmation_yellow_gradient div.gform_confirmation_message {
         margin: 0;
         padding: 40px;
         max-width: 99%;

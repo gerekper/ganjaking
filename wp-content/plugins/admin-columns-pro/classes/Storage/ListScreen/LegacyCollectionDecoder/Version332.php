@@ -18,9 +18,6 @@ final class Version332 implements LegacyCollectionDecoder {
 		$this->types = $types;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function decode( array $data ) {
 		$list_screens = new ListScreenCollection();
 

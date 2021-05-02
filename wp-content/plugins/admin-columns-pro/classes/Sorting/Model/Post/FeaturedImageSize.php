@@ -51,11 +51,11 @@ class FeaturedImageSize extends AbstractModel {
 			SELECT pp.ID AS id, pm2.meta_value AS file_path 
 			FROM {$wpdb->posts} AS pp
 			{$join_type} JOIN {$wpdb->postmeta} AS pm1 ON pm1.post_id = pp.ID 
-			    AND pm1.meta_key = '_thumbnail_id' {$where}
+			    AND pm1.meta_key = %s {$where}
 			{$join_type} JOIN {$wpdb->postmeta} AS pm2 ON pm1.meta_value = pm2.post_id
 				AND pm2.meta_key = '_wp_attached_file'
 			WHERE pp.post_type = %s
-		", $this->strategy->get_post_type() );
+		", $this->meta_key, $this->strategy->get_post_type() );
 
 		$status = $this->strategy->get_post_status();
 

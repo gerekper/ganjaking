@@ -5,7 +5,7 @@ $generated_i18n_strings = array(
 	__( 'Feedback', 'wordpress-seo' ),
 
 	// Reference: js/src/analysis/getIndicatorForScore.js:24
-	// Reference: js/src/helpers/addCheckToChecklist.js:108
+	// Reference: js/src/helpers/addCheckToChecklist.js:107
 	__( 'Needs improvement', 'wordpress-seo' ),
 
 	// Reference: js/src/analysis/getIndicatorForScore.js:29
@@ -18,7 +18,7 @@ $generated_i18n_strings = array(
 	__( 'Good SEO score', 'wordpress-seo' ),
 
 	// Reference: js/src/analysis/getIndicatorForScore.js:36
-	// Reference: js/src/helpers/addCheckToChecklist.js:108
+	// Reference: js/src/helpers/addCheckToChecklist.js:107
 	__( 'Good', 'wordpress-seo' ),
 
 	// Reference: js/src/components/AdvancedSettings.js:127
@@ -136,6 +136,15 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/PostPublish.js:17
 	__( 'Share your post!', 'wordpress-seo' ),
 
+	// Reference: js/src/components/PostPublish.js:23
+	__( 'Facebook', 'wordpress-seo' ),
+
+	// Reference: js/src/components/PostPublish.js:30
+	__( 'Twitter', 'wordpress-seo' ),
+
+	// Reference: js/src/components/PostPublish.js:31
+	__( '(Opens in a new browser tab)', 'wordpress-seo' ),
+
 	// Reference: js/src/components/PrePublish.js:21
 	__( 'We\'ve analyzed your post. Everything looks good. Well done!', 'wordpress-seo' ),
 
@@ -210,7 +219,7 @@ $generated_i18n_strings = array(
 	// Reference: js/src/containers/SchemaTab.js:54
 	__( 'Page type', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SettingsReplacementVariableEditor.js:39
+	// Reference: js/src/components/SettingsReplacementVariableEditor.js:36
 	__( 'Modify your meta description by editing it right here', 'wordpress-seo' ),
 
 	// Reference: js/src/components/WordPressUserSelector.js:113
@@ -522,7 +531,7 @@ $generated_i18n_strings = array(
 	// Reference: js/src/help-scout-beacon.js:231
 	__( 'When you click OK we will open our HelpScout beacon where you can find answers to your questions. This beacon will load our support data and also potentially set cookies.', 'wordpress-seo' ),
 
-	// Reference: js/src/helpers/addCheckToChecklist.js:106
+	// Reference: js/src/helpers/addCheckToChecklist.js:105
 	__( 'Schema analysis:', 'wordpress-seo' ),
 
 	// Reference: js/src/helpers/addCheckToChecklist.js:18

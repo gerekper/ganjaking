@@ -3,13 +3,14 @@
 namespace ACP\Service;
 
 use AC;
-use AC\ListScreenRepository\Storage\ListScreenRepositoryFactory;
+use AC\ListScreenRepository\Storage\ListScreenRepository;
 use AC\Registrable;
 use ACP\ListScreenRepository\Collection;
 use ACP\ListScreenRepository\FileFactory;
 use ACP\Storage\Directory;
 use ACP\Storage\ListScreen\LegacyCollectionDecoder;
 use ACP\Storage\ListScreen\SerializerTypes;
+use ACP\Storage\ListScreenRepositoryFactory;
 
 final class Storage implements Registrable {
 
@@ -81,7 +82,7 @@ final class Storage implements Registrable {
 			return;
 		}
 
-		$repositories['acp-collection'] = new AC\ListScreenRepository\Storage\ListScreenRepository(
+		$repositories['acp-collection'] = new ListScreenRepository(
 			new Collection( $collection ),
 			false
 		);
@@ -104,7 +105,7 @@ final class Storage implements Registrable {
 			$directory->create();
 		}
 
-		$file = new AC\ListScreenRepository\Storage\ListScreenRepository(
+		$file = new ListScreenRepository(
 			$this->file_factory->create(
 				SerializerTypes::PHP,
 				$directory
@@ -121,13 +122,27 @@ final class Storage implements Registrable {
 		$database = $this->storage->get_repository( 'acp-database' );
 
 		if ( apply_filters( 'acp/storage/file/directory/migrate', false ) ) {
-			foreach ( $database->with_writable( true )->find_all() as $list_screen ) {
-				$file->save( $list_screen );
-				$database->delete( $list_screen );
-			}
+			$this->run_migration( $database, $file );
+		}
+
+		if ( apply_filters( 'acp/storage/file/directory/copy', false ) ) {
+			$this->run_copy( $database, $file );
 		}
 
 		$repositories['acp-database'] = $database->with_writable( false );
+	}
+
+	private function run_migration( ListScreenRepository $from, ListScreenRepository $to ) {
+		foreach ( $from->with_writable( true )->find_all() as $list_screen ) {
+			$to->save( $list_screen );
+			$from->delete( $list_screen );
+		}
+	}
+
+	private function run_copy( ListScreenRepository $from, ListScreenRepository $to ) {
+		foreach ( $from->find_all() as $list_screen ) {
+			$to->save( $list_screen );
+		}
 	}
 
 }

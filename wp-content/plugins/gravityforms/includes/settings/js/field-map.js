@@ -86,264 +86,452 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./js/src/components/Tooltips.js":
+/*!***************************************!*\
+  !*** ./js/src/components/Tooltips.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+/**
+ * WordPress dependencies
+ */
+var _wp$element = wp.element,
+    Component = _wp$element.Component,
+    Fragment = _wp$element.Fragment;
+var __ = wp.i18n.__;
+
+var Tooltip = /*#__PURE__*/function (_Component) {
+  _inherits(Tooltip, _Component);
+
+  var _super = _createSuper(Tooltip);
+
+  function Tooltip() {
+    _classCallCheck(this, Tooltip);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(Tooltip, [{
+    key: "render",
+    value: function render() {
+      if (this.props.tooltip) {
+        return /*#__PURE__*/React.createElement("button", {
+          type: "button",
+          className: "gf_tooltip tooltip",
+          "aria-label": this.props.tooltip
+        }, /*#__PURE__*/React.createElement("i", {
+          className: "gform-icon gform-icon--question-mark",
+          "aria-hidden": "true"
+        }));
+      } else {
+        return null;
+      }
+    }
+  }]);
+
+  return Tooltip;
+}(Component);
+
+exports["default"] = Tooltip;
+
+/***/ }),
+
 /***/ "./js/src/field-map/index.js":
 /*!***********************************!*\
   !*** ./js/src/field-map/index.js ***!
   \***********************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _mapping__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mapping */ "./js/src/field-map/mapping.js");
+
+
+var _mapping = _interopRequireDefault(__webpack_require__(/*! ./mapping */ "./js/src/field-map/mapping.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 /**
  * WordPress dependencies
  */
-const { Component, render } = wp.element;
-
+var _wp$element = wp.element,
+    Component = _wp$element.Component,
+    render = _wp$element.render;
 /**
  * Internal dependencies
  */
 
+var FieldMap = /*#__PURE__*/function (_Component) {
+  _inherits(FieldMap, _Component);
 
-class FieldMap extends Component {
+  var _super = _createSuper(FieldMap);
 
-	constructor() {
+  function FieldMap() {
+    var _this;
 
-		super(...arguments);
+    _classCallCheck(this, FieldMap);
 
-		this.state = {
-			mapping: JSON.parse(document.querySelector(`[name="${this.props.input}"]`).value)
-		};
+    _this = _super.apply(this, arguments);
+    _this.state = {
+      mapping: JSON.parse(document.querySelector("[name=\"".concat(_this.props.input, "\"]")).value)
+    };
+    _this.addMapping = _this.addMapping.bind(_assertThisInitialized(_this));
+    _this.deleteMapping = _this.deleteMapping.bind(_assertThisInitialized(_this));
+    _this.getMapping = _this.getMapping.bind(_assertThisInitialized(_this));
+    _this.updateMapping = _this.updateMapping.bind(_assertThisInitialized(_this));
+    return _this;
+  }
 
-		this.addMapping = this.addMapping.bind(this);
-		this.deleteMapping = this.deleteMapping.bind(this);
-		this.getMapping = this.getMapping.bind(this);
-		this.updateMapping = this.updateMapping.bind(this);
-	}
+  _createClass(FieldMap, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.populateRequiredMappings(); // Ensure there is at least one item.
 
-	componentDidMount() {
+      if (this.getRequiredChoices().length === 0 && this.getMapping().length < 1) {
+        this.addMapping(0);
+      }
+    } // # MAPPING DATA METHODS ------------------------------------------------------------------------------------------
 
-		this.populateRequiredMappings();
+    /**
+     * Add a new mapping item.
+     *
+     * @param {integer} index Index to add item at.
+     */
 
-		// Ensure there is at least one item.
-		if (this.getRequiredChoices().length === 0 && this.getMapping().length < 1) {
-			this.addMapping(0);
-		}
-	}
+  }, {
+    key: "addMapping",
+    value: function addMapping(index) {
+      var _this$props$keyField = this.props.keyField,
+          allow_custom = _this$props$keyField.allow_custom,
+          choices = _this$props$keyField.choices;
+      var mapping = this.getMapping(),
+          key = choices.length === 0 && allow_custom ? 'gf_custom' : '';
+      mapping.splice(index + 1, 0, {
+        key: key,
+        custom_key: '',
+        value: '',
+        custom_value: ''
+      });
+      this.setMapping(mapping);
+    }
+    /**
+     * Remove a mapping item.
+     *
+     * @param {integer} index Index of item to remove.
+     */
 
-	// # MAPPING DATA METHODS ------------------------------------------------------------------------------------------
+  }, {
+    key: "deleteMapping",
+    value: function deleteMapping(index) {
+      var mapping = this.getMapping();
+      mapping.splice(index, 1);
+      this.setMapping(mapping);
+    }
+    /**
+     * Get current mappings.
+     *
+     * @returns {array}
+     */
 
-	/**
-  * Add a new mapping item.
-  *
-  * @param {integer} index Index to add item at.
-  */
-	addMapping(index) {
+  }, {
+    key: "getMapping",
+    value: function getMapping() {
+      return this.state.mapping;
+    }
+    /**
+     * Set current mappings.
+     *
+     * @param {object} mapping Collection of field mappings.
+     */
 
-		const { allow_custom, choices } = this.props.keyField;
+  }, {
+    key: "setMapping",
+    value: function setMapping(mapping) {
+      var input = this.props.input;
+      this.setState({
+        mapping: mapping
+      });
+      document.querySelector("[name=\"".concat(input, "\"]")).value = JSON.stringify(mapping);
+    }
+    /**
+     * Update a mapping item.
+     *
+     * @param {object} item Mapping item.
+     * @param {integer} index Index of item to update.
+     */
 
-		let mapping = this.getMapping(),
-		    key = choices.length === 0 && allow_custom ? 'gf_custom' : '';
+  }, {
+    key: "updateMapping",
+    value: function updateMapping(item, index) {
+      var mapping = this.getMapping();
 
-		mapping.splice(index + 1, 0, {
-			key: key,
-			custom_key: '',
-			value: '',
-			custom_value: ''
-		});
+      if (!item.key) {
+        item.value = '';
+      }
 
-		this.setMapping(mapping);
-	}
+      mapping[index] = item;
+      this.setMapping(mapping);
+    } // # CHOICE METHODS ------------------------------------------------------------------------------------------------
 
-	/**
-  * Remove a mapping item.
-  *
-  * @param {integer} index Index of item to remove.
-  */
-	deleteMapping(index) {
+    /**
+     * Get choice properties by name.
+     *
+     * @since 2.5
+     *
+     * @param {string} name Choice name.
+     * @param {array} choices Choices to search in.
+     *
+     * @returns {boolean|object}
+     */
 
-		let mapping = this.getMapping();
+  }, {
+    key: "getChoice",
+    value: function getChoice(name) {
+      var choices = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
-		mapping.splice(index, 1);
+      if (!choices) {
+        choices = this.props.keyField.choices;
+      }
 
-		this.setMapping(mapping);
-	}
+      for (var i = 0; i < choices.length; i++) {
+        var choice = choices[i],
+            choiceName = choice.name || choice.value;
 
-	/**
-  * Get current mappings.
-  *
-  * @returns {array}
-  */
-	getMapping() {
+        if (choiceName === name) {
+          return choices[i];
+        }
 
-		return this.state.mapping;
-	}
+        if (choice.choices) {
+          var foundChoice = this.getChoice(name, choice.choices);
 
-	/**
-  * Set current mappings.
-  *
-  * @param {object} mapping Collection of field mappings.
-  */
-	setMapping(mapping) {
+          if (foundChoice) {
+            return foundChoice;
+          }
+        }
+      }
 
-		const { input } = this.props;
+      return false;
+    }
+    /**
+     * Get names of mapped choices.
+     */
 
-		this.setState({ mapping });
+  }, {
+    key: "getMappedChoices",
+    value: function getMappedChoices() {
+      var mapping = this.getMapping();
+      return mapping.filter(function (m) {
+        return m.key && m.key !== 'gf_custom';
+      }).map(function (m) {
+        return m.key;
+      });
+    }
+    /**
+     * Get names of required choices.
+     *
+     * @returns {array}
+     */
 
-		document.querySelector(`[name="${input}"]`).value = JSON.stringify(mapping);
-	}
+  }, {
+    key: "getRequiredChoices",
+    value: function getRequiredChoices() {
+      var _this$props$keyField2 = this.props.keyField,
+          choices = _this$props$keyField2.choices,
+          display_all = _this$props$keyField2.display_all;
+      var requiredChoices = [];
 
-	/**
-  * Update a mapping item.
-  *
-  * @param {object} item Mapping item.
-  * @param {integer} index Index of item to update.
-  */
-	updateMapping(item, index) {
+      for (var i = 0; i < choices.length; i++) {
+        var choice = choices[i];
 
-		let mapping = this.getMapping();
+        if (choice.required || display_all) {
+          requiredChoices.push(choice.name || choice.value);
+        }
 
-		if (!item.key) {
-			item.value = '';
-		}
+        if (choice.choices) {
+          for (var ii = 0; ii < choice.choices.length; ii++) {
+            var subChoice = choice.choices[ii];
 
-		mapping[index] = item;
+            if (subChoice.required || display_all) {
+              requiredChoices.push(subChoice.name || subChoice.value);
+            }
+          }
+        }
+      }
 
-		this.setMapping(mapping);
-	}
+      return requiredChoices;
+    }
+    /**
+     * Populate mapping with required choices.
+     */
 
-	// # CHOICE METHODS ------------------------------------------------------------------------------------------------
+  }, {
+    key: "populateRequiredMappings",
+    value: function populateRequiredMappings() {
+      var mapping = this.getMapping();
+      var requiredChoices = this.getRequiredChoices(); // Get mapped fields.
 
-	/**
-  * Get choice properties by name.
-  *
-  * @param {string} name Choice name.
-  *
-  * @returns {boolean|object}
-  */
-	getChoice(name) {
+      var mappedFields = mapping.map(function (mapping) {
+        return mapping.key;
+      }); // Loop through required choices. If not mapped, add to mapping.
 
-		const { choices } = this.props.keyField;
+      for (var i = 0; i < requiredChoices.length; i++) {
+        // If field is mapped, skip.
+        if (mappedFields.includes(requiredChoices[i])) {
+          continue;
+        } // Add to mapping.
 
-		for (let i = 0; i < choices.length; i++) {
-			if (choices[i].name === name) {
-				return choices[i];
-			}
-		}
 
-		return false;
-	}
+        mapping.push({
+          key: requiredChoices[i],
+          custom_key: '',
+          value: '',
+          custom_value: ''
+        });
+      } // Auto populate default values.
 
-	/**
-  * Get names of mapped choices.
-  */
-	getMappedChoices() {
 
-		const mapping = this.getMapping();
+      for (var _i = 0; _i < mapping.length; _i++) {
+        // If field have a stored value already, skip.
+        if (mapping[_i].value !== '') {
+          continue;
+        }
 
-		return mapping.filter(m => m.key && m.key !== 'gf_custom').map(m => m.key);
-	}
+        var choice = this.getChoice(mapping[_i].key); // If choice have a default value, get it and set it as value.
 
-	/**
-  * Get names of required choices.
-  *
-  * @returns {array}
-  */
-	getRequiredChoices() {
+        if (choice && 'default_value' in choice) {
+          mapping[_i].value = choice.default_value;
+        }
+      }
 
-		const { choices, display_all } = this.props.keyField;
+      this.setMapping(mapping);
+    } // Count how many possible choices there are.
 
-		return choices.filter(choice => choice.required || display_all).map(choice => choice.name);
-	}
+  }, {
+    key: "countKeyFieldChoices",
+    value: function countKeyFieldChoices() {
+      var choices = this.props.keyField.choices;
+      var count = 0;
 
-	/**
-  * Populate mapping with required choices.
-  */
-	populateRequiredMappings() {
+      for (var i = 0; i < choices.length; i++) {
+        if (choices[i].choices) {
+          count += choices[i].choices.length;
+        } else {
+          count++;
+        }
+      }
 
-		const mapping = this.getMapping();
-		const requiredChoices = this.getRequiredChoices();
+      return count;
+    } // # RENDER METHODS ------------------------------------------------------------------------------------------------
 
-		// Get mapped fields.
-		const mappedFields = mapping.map(mapping => mapping.key);
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
 
-		// Loop through required choices. If not mapped, add to mapping.
-		for (let i = 0; i < requiredChoices.length; i++) {
+      var _this$props = this.props,
+          keyField = _this$props.keyField,
+          invalidChoices = _this$props.invalidChoices,
+          limit = _this$props.limit,
+          valueField = _this$props.valueField,
+          input = _this$props.input,
+          inputType = _this$props.inputType;
+      var mapping = this.getMapping();
+      var keyCount = this.countKeyFieldChoices();
+      return /*#__PURE__*/React.createElement("table", {
+        className: "gform-settings-generic-map__table",
+        cellSpacing: "0",
+        cellPadding: "0"
+      }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", {
+        className: "gform-settings-generic-map__row"
+      }, /*#__PURE__*/React.createElement("th", {
+        className: "gform-settings-generic-map__column gform-settings-generic-map__column--heading gform-settings-generic-map__column--key"
+      }, keyField.title), /*#__PURE__*/React.createElement("th", {
+        className: "gform-settings-generic-map__column gform-settings-generic-map__column--heading gform-settings-generic-map__column--value"
+      }, valueField.title), /*#__PURE__*/React.createElement("th", {
+        className: "gform-settings-generic-map__column gform-settings-generic-map__column--heading gform-settings-generic-map__column--error"
+      }), /*#__PURE__*/React.createElement("th", {
+        className: "gform-settings-generic-map__column gform-settings-generic-map__column--heading gform-settings-generic-map__column--buttons"
+      })), mapping.map(function (m, index) {
+        var selectedChoice = _this2.getChoice(m.key);
 
-			// If field is mapped, skip.
-			if (mappedFields.includes(requiredChoices[i])) {
-				continue;
-			}
+        return /*#__PURE__*/React.createElement(_mapping["default"], {
+          key: index,
+          mapping: m,
+          choice: selectedChoice,
+          mappedChoices: _this2.getMappedChoices(),
+          isInvalid: m.key && invalidChoices.includes(m.key),
+          keyField: keyField,
+          valueField: valueField,
+          canAdd: keyField.allow_custom && (limit === 0 || mapping.length <= limit) || !keyField.allow_custom && mapping.length < keyCount,
+          canDelete: mapping.length > 1 && !selectedChoice.required && !keyField.display_all,
+          addMapping: _this2.addMapping,
+          deleteMapping: _this2.deleteMapping,
+          updateMapping: _this2.updateMapping,
+          index: index,
+          inputId: input,
+          inputType: inputType
+        });
+      })));
+    }
+  }]);
 
-			// Add to mapping.
-			mapping.push({
-				key: requiredChoices[i],
-				custom_key: '',
-				value: '',
-				custom_value: ''
-			});
-		}
+  return FieldMap;
+}(Component);
 
-		// Auto populate default values.
-		for (let i = 0; i < mapping.length; i++) {
-			// If field have a stored value already, skip.
-			if (mapping[i].value !== '') {
-				continue;
-			}
-
-			let choice = this.getChoice(mapping[i].key);
-			// If choice have a default value, get it and set it as value.
-			if (choice && 'default_value' in choice) {
-				mapping[i].value = choice.default_value;
-			}
-		}
-
-		this.setMapping(mapping);
-	}
-
-	// # RENDER METHODS ------------------------------------------------------------------------------------------------
-
-	render() {
-
-		const { keyField, invalidChoices, limit, valueField } = this.props;
-		const mapping = this.getMapping();
-
-		return React.createElement(
-			'table',
-			{ className: 'gform-settings-generic-map__table', cellSpacing: '0', cellPadding: '0' },
-			React.createElement(
-				'tbody',
-				null,
-				mapping.map((m, index) => {
-
-					let selectedChoice = this.getChoice(m.key);
-
-					return React.createElement(_mapping__WEBPACK_IMPORTED_MODULE_0__["default"], {
-						key: index,
-						mapping: m,
-						choice: selectedChoice,
-						mappedChoices: this.getMappedChoices(),
-						isInvalid: m.key && invalidChoices.includes(m.key),
-						keyField: keyField,
-						valueField: valueField,
-						canAdd: keyField.allow_custom && (limit === 0 || mapping.length <= limit) || !keyField.allow_custom && mapping.length < keyField.choices.length,
-						canDelete: mapping.length > 1 && !selectedChoice.required && !keyField.display_all,
-						addMapping: this.addMapping,
-						deleteMapping: this.deleteMapping,
-						updateMapping: this.updateMapping,
-						index: index
-					});
-				})
-			)
-		);
-	}
-
-}
-
-window.initializeFieldMap = (container, props) => {
-
-	render(React.createElement(FieldMap, props), document.getElementById(container));
+window.initializeFieldMap = function (container, props) {
+  render( /*#__PURE__*/React.createElement(FieldMap, props), document.getElementById(container));
 };
 
 /***/ }),
@@ -352,334 +540,466 @@ window.initializeFieldMap = (container, props) => {
 /*!*************************************!*\
   !*** ./js/src/field-map/mapping.js ***!
   \*************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Mapping; });
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _Tooltips = _interopRequireDefault(__webpack_require__(/*! ../components/Tooltips */ "./js/src/components/Tooltips.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 /**
  * WordPress dependencies
  */
-const { Component, Fragment } = wp.element;
-const { __ } = wp.i18n;
+var _wp$element = wp.element,
+    Component = _wp$element.Component,
+    Fragment = _wp$element.Fragment;
+var __ = wp.i18n.__;
 
-class Mapping extends Component {
+var Mapping = /*#__PURE__*/function (_Component) {
+  _inherits(Mapping, _Component);
 
-	render() {
+  var _super = _createSuper(Mapping);
 
-		const { isInvalid } = this.props;
+  function Mapping() {
+    _classCallCheck(this, Mapping);
 
-		return React.createElement(
-			"tr",
-			null,
-			React.createElement(
-				"td",
-				{ className: "gform-settings-generic-map__column gform-settings-generic-map__column--key" },
-				this.getKeyInput()
-			),
-			React.createElement(
-				"td",
-				{ className: "gform-settings-generic-map__column gform-settings-generic-map__column--value" },
-				this.getValueInput()
-			),
-			React.createElement(
-				"td",
-				{ className: "gform-settings-generic-map__column gform-settings-generic-map__column--error" },
-				isInvalid && React.createElement(
-					"svg",
-					{ width: "22", height: "22", fill: "none", xmlns: "http://www.w3.org/2000/svg" },
-					React.createElement("path", { d: "M11 22C4.9249 22 0 17.0751 0 11S4.9249 0 11 0s11 4.9249 11 11-4.9249 11-11 11z", fill: "#E54C3B" }),
-					React.createElement("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M9.9317 5.0769a.1911.1911 0 00-.1909.2006l.3708 7.4158a.8895.8895 0 001.7768 0l.3708-7.4158a.1911.1911 0 00-.1909-.2006H9.9317zm2.3375 10.5769c0 .701-.5682 1.2693-1.2692 1.2693-.701 0-1.2692-.5683-1.2692-1.2693 0-.7009.5682-1.2692 1.2692-1.2692.701 0 1.2692.5683 1.2692 1.2692z", fill: "#fff" })
-				)
-			),
-			React.createElement(
-				"td",
-				{ className: "gform-settings-generic-map__column gform-settings-generic-map__column--buttons" },
-				this.getAddButton(),
-				this.getDeleteButton()
-			)
-		);
-	}
+    return _super.apply(this, arguments);
+  }
 
-	// # KEY COLUMN ----------------------------------------------------------------------------------------------------
+  _createClass(Mapping, [{
+    key: "renderRequiredSpan",
+    value: function renderRequiredSpan() {
+      var choice = this.props.choice;
+      var fieldId = this.getKeyInputId();
 
-	/**
-  * Prepare input for key column.
-  * If choice is required, returns only text.
-  *
-  * @returns {*}
-  */
-	getKeyInput() {
+      if (choice.required) {
+        return /*#__PURE__*/React.createElement("span", {
+          className: "required",
+          id: fieldId
+        }, "*");
+      } else {
+        return null;
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          isInvalid = _this$props.isInvalid,
+          index = _this$props.index;
+      return /*#__PURE__*/React.createElement("tr", {
+        className: "gform-settings-generic-map__row"
+      }, /*#__PURE__*/React.createElement("td", {
+        className: "gform-settings-generic-map__column gform-settings-generic-map__column--key"
+      }, this.getKeyInput(index)), /*#__PURE__*/React.createElement("td", {
+        className: "gform-settings-generic-map__column gform-settings-generic-map__column--value"
+      }, this.getValueInput()), /*#__PURE__*/React.createElement("td", {
+        className: "gform-settings-generic-map__column gform-settings-generic-map__column--error"
+      }, isInvalid && /*#__PURE__*/React.createElement("svg", {
+        width: "22",
+        height: "22",
+        fill: "none",
+        xmlns: "http://www.w3.org/2000/svg"
+      }, /*#__PURE__*/React.createElement("path", {
+        d: "M11 22C4.9249 22 0 17.0751 0 11S4.9249 0 11 0s11 4.9249 11 11-4.9249 11-11 11z",
+        fill: "#E54C3B"
+      }), /*#__PURE__*/React.createElement("path", {
+        fillRule: "evenodd",
+        clipRule: "evenodd",
+        d: "M9.9317 5.0769a.1911.1911 0 00-.1909.2006l.3708 7.4158a.8895.8895 0 001.7768 0l.3708-7.4158a.1911.1911 0 00-.1909-.2006H9.9317zm2.3375 10.5769c0 .701-.5682 1.2693-1.2692 1.2693-.701 0-1.2692-.5683-1.2692-1.2693 0-.7009.5682-1.2692 1.2692-1.2692.701 0 1.2692.5683 1.2692 1.2692z",
+        fill: "#fff"
+      }))), /*#__PURE__*/React.createElement("td", {
+        className: "gform-settings-generic-map__column gform-settings-generic-map__column--buttons"
+      }, this.getAddButton(), this.getDeleteButton()));
+    }
+  }, {
+    key: "getValueInputId",
+    value: function getValueInputId() {
+      var _this$props2 = this.props,
+          inputId = _this$props2.inputId,
+          inputType = _this$props2.inputType,
+          index = _this$props2.index,
+          mapping = _this$props2.mapping;
 
-		const { choice, index, mapping, updateMapping } = this.props;
-		const { choices, display_all, placeholder } = this.props.keyField;
+      switch (inputType) {
+        case 'generic_map':
+        case 'dynamic_field_map':
+          return "".concat(inputId, "_custom_value_").concat(index);
 
-		// If currently selected choice is required or we are displaying all keys, display label.
-		if (choice.required || display_all) {
-			return React.createElement(
-				"label",
-				null,
-				choice.label,
-				" ",
-				choice.required ? React.createElement(
-					"span",
-					{ className: "required" },
-					"*"
-				) : null
-			);
-		}
+        default:
+          return "".concat(inputId, "_").concat(mapping.key);
+      }
+    }
+  }, {
+    key: "getKeyInputId",
+    value: function getKeyInputId() {
+      var _this$props3 = this.props,
+          inputId = _this$props3.inputId,
+          inputType = _this$props3.inputType,
+          index = _this$props3.index,
+          mapping = _this$props3.mapping;
 
-		// If selected choice is custom key, display input.
-		if (mapping.key === 'gf_custom') {
+      switch (inputType) {
+        case 'generic_map':
+        case 'dynamic_field_map':
+          return "".concat(inputId, "_custom_key_").concat(index);
 
-			return React.createElement(
-				"span",
-				{ className: "gform-settings-generic-map__custom" },
-				React.createElement("input", { type: "text", value: mapping.custom_key, placeholder: placeholder, onChange: e => updateMapping(_extends({}, mapping, { custom_key: e.target.value }), index) }),
-				choices.length > 0 && React.createElement(
-					"button",
-					{ className: "gform-settings-generic-map__reset", onClick: e => {
-							e.preventDefault();updateMapping(_extends({}, mapping, { key: '', custom_key: '' }), index);
-						} },
-					React.createElement(
-						"span",
-						{ className: "screen-reader-text" },
-						__('Remove Custom Key', 'gravityforms')
-					)
-				)
-			);
-		}
+        default:
+          return "".concat(inputId, "_").concat(mapping.key, "_key");
+      }
+    } // # KEY COLUMN ----------------------------------------------------------------------------------------------------
 
-		return React.createElement(
-			"select",
-			{
-				value: mapping.key,
-				onChange: e => updateMapping(_extends({}, mapping, { key: e.target.value }), index)
-			},
-			this.getKeyOptions().map(opt => {
-				if (opt.choices && opt.choices.length > 0) {
-					return React.createElement(
-						"optgroup",
-						{ key: opt.label, label: opt.label },
-						opt.choices.map(o => React.createElement(
-							"option",
-							{ key: o.value, disabled: opt.disabled, value: o.value },
-							o.label
-						))
-					);
-				} else {
-					return React.createElement(
-						"option",
-						{ key: opt.value, disabled: opt.disabled, value: opt.value },
-						opt.label
-					);
-				}
-			})
-		);
-	}
+    /**
+     * Prepare input for key column.
+     * If choice is required, returns only text.
+     *
+     * @returns {*}
+     */
 
-	/**
-  * Get options for key drop down.
-  *
-  * @returns {{label: string, value: string, disabled: boolean}[]}
-  */
-	getKeyOptions() {
+  }, {
+    key: "getKeyInput",
+    value: function getKeyInput(mapIndex) {
+      var _this$props4 = this.props,
+          choice = _this$props4.choice,
+          keyField = _this$props4.keyField,
+          index = _this$props4.index,
+          mapping = _this$props4.mapping,
+          updateMapping = _this$props4.updateMapping;
+      var choices = keyField.choices,
+          display_all = keyField.display_all,
+          placeholder = keyField.placeholder;
+      var fieldId = this.getKeyInputId(); // If currently selected choice is required or we are displaying all keys, display label.
 
-		const { keyField, mappedChoices, mapping } = this.props;
-		const { allow_custom, allow_duplicates, choices } = keyField;
-		const choiceNames = choices.map(c => c.name || c.value);
+      if (choice.required || display_all) {
+        return /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement("label", null, choice.label, " ", this.renderRequiredSpan(), " "), /*#__PURE__*/React.createElement(_Tooltips["default"], {
+          tooltip: choice.tooltip
+        }));
+      } // If selected choice is custom key, display input.
 
-		// Initialize options array.
-		let options = [];
-		if (!choiceNames.includes('')) {
-			options.push({
-				label: __('Select a Field', 'gravityforms'),
-				value: '',
-				disabled: false
-			});
-		}
 
-		// Loop through choices, add as options.
-		for (let i = 0; i < choices.length; i++) {
+      if (mapping.key === 'gf_custom') {
+        return /*#__PURE__*/React.createElement("span", {
+          className: "gform-settings-generic-map__custom"
+        }, /*#__PURE__*/React.createElement("input", {
+          id: fieldId,
+          type: "text",
+          value: mapping.custom_key,
+          placeholder: placeholder,
+          onChange: function onChange(e) {
+            return updateMapping(_objectSpread(_objectSpread({}, mapping), {}, {
+              custom_key: e.target.value
+            }), index);
+          }
+        }), choices.length > 0 && /*#__PURE__*/React.createElement("button", {
+          className: "gform-settings-generic-map__reset",
+          onClick: function onClick(e) {
+            e.preventDefault();
+            updateMapping(_objectSpread(_objectSpread({}, mapping), {}, {
+              key: '',
+              custom_key: ''
+            }), index);
+          }
+        }, /*#__PURE__*/React.createElement("span", {
+          className: "screen-reader-text"
+        }, __('Remove Custom Key', 'gravityforms'))));
+      }
 
-			let choice = choices[i],
-			    choice_value = choice.name || choice.value;
+      return /*#__PURE__*/React.createElement("select", {
+        id: fieldId,
+        value: mapping.key,
+        onChange: function onChange(e) {
+          return updateMapping(_objectSpread(_objectSpread({}, mapping), {}, {
+            key: e.target.value
+          }), index);
+        }
+      }, this.getKeyOptions(mapIndex));
+    }
+    /**
+     * Get options for key drop down.
+     *
+     * @since 2.5
+     *
+     * @param {integer} mapIndex       Index of current mapping object.
+     * @param {array}   choices        Choices to build options from.
+     * @param {boolean} addPlaceholder Include the "Select a Field" choice.
+     * @param {boolean} addCustomKey   Include the "Add Custom Key" choice.
+     *
+     * @returns {{label: string, value: string, disabled: boolean}[]}
+     */
 
-			// If this is a required choice, do not add as an option.
-			if (choice.required) {
-				continue;
-			}
+  }, {
+    key: "getKeyOptions",
+    value: function getKeyOptions(mapIndex) {
+      var choices = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      var addPlaceholder = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+      var addCustomKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+      var _this$props5 = this.props,
+          keyField = _this$props5.keyField,
+          mappedChoices = _this$props5.mappedChoices,
+          mapping = _this$props5.mapping;
+      var allow_custom = keyField.allow_custom,
+          allow_duplicates = keyField.allow_duplicates;
 
-			// If choice is already selected, disable it.
-			let disabled = mappedChoices.includes(choice_value) && choice_value !== mapping.key && !allow_duplicates;
+      if (!choices) {
+        choices = keyField.choices;
+      }
 
-			options.push({
-				label: choice.label,
-				value: choice_value,
-				choices: choice.choices || [],
-				disabled: disabled
-			});
-		}
+      var choiceNames = choices.map(function (c) {
+        return c.name || c.value;
+      });
+      var optionKeyBase = "select-".concat(mapIndex, "-optiongroup-"); // Initialize options array.
 
-		// Add custom key if enabled and is not already present.
-		if (allow_custom && !choiceNames.includes('gf_custom')) {
-			options.push({
-				label: __('Add Custom Key', 'gravityforms'),
-				value: 'gf_custom',
-				disabled: false
-			});
-		}
+      var options = [];
 
-		return options;
-	}
+      if (!choiceNames.includes('') && addPlaceholder) {
+        options.push( /*#__PURE__*/React.createElement("option", {
+          key: "".concat(optionKeyBase, "-default"),
+          value: "",
+          disabled: false
+        }, __('Select a Field', 'gravityforms')));
+      } // Loop through choices, add as options.
 
-	// # VALUE COLUMN --------------------------------------------------------------------------------------------------
 
-	/**
-  * Prepare input for value column.
-  *
-  * @returns {*}
-  */
-	getValueInput() {
+      for (var i = 0; i < choices.length; i++) {
+        var choice = choices[i],
+            choice_value = choice.name || choice.value; // If this is a required choice, do not add as an option.
 
-		const { index, isInvalid, mapping, updateMapping, valueField } = this.props;
+        if (choice.required) {
+          continue;
+        } // If choice is already selected, disable it.
 
-		// If selected value is custom value, display input.
-		if (mapping.value === 'gf_custom') {
 
-			return React.createElement(
-				"span",
-				{ className: "gform-settings-generic-map__custom" },
-				React.createElement("input", { type: "text", value: mapping.custom_value, placeholder: valueField.placeholder, onChange: e => updateMapping(_extends({}, mapping, { custom_value: e.target.value }), index) }),
-				React.createElement(
-					"button",
-					{ className: "gform-settings-generic-map__reset", onClick: e => {
-							e.preventDefault();updateMapping(_extends({}, mapping, { value: '', custom_value: '' }), index);
-						} },
-					React.createElement(
-						"span",
-						{ className: "screen-reader-text" },
-						__('Remove Custom Value', 'gravityforms')
-					)
-				)
-			);
-		}
+        var disabled = mappedChoices.includes(choice_value) && choice_value !== mapping.key && !allow_duplicates; // Add optgroups for choices with sub-choices.
 
-		return React.createElement(
-			"select",
-			{
-				disabled: mapping.key === '' || !mapping.key,
-				value: mapping.value,
-				onChange: e => updateMapping(_extends({}, mapping, { value: e.target.value }), index),
-				className: isInvalid ? 'gform-settings-generic-map__value--invalid' : ''
-			},
-			this.getValueOptions().map(opt => {
-				if (opt.choices && opt.choices.length > 0) {
-					return React.createElement(
-						"optgroup",
-						{ key: opt.label, label: opt.label },
-						opt.choices.map(o => React.createElement(
-							"option",
-							{ key: o.value, value: o.value },
-							o.label
-						))
-					);
-				} else {
-					return React.createElement(
-						"option",
-						{ key: opt.value, value: opt.value },
-						opt.label
-					);
-				}
-			})
-		);
-	}
+        if (choice.choices && choice.choices.length > 0) {
+          options.push( /*#__PURE__*/React.createElement("optgroup", {
+            label: choice.label,
+            key: "".concat(optionKeyBase, "-").concat(i)
+          }, this.getKeyOptions("".concat(mapIndex, ".").concat(i), choice.choices, false, false)));
+        } else {
+          options.push( /*#__PURE__*/React.createElement("option", {
+            key: "".concat(optionKeyBase, "-").concat(i),
+            value: choice.value,
+            disabled: disabled
+          }, choice.label));
+        }
+      } // Add custom key if enabled and is not already present.
 
-	/**
-  * Get options for value drop down.
-  *
-  * @returns {{label: *, value: boolean}[]}
-  */
-	getValueOptions() {
 
-		const { choice, valueField } = this.props;
-		const { allow_custom } = valueField;
-		let choices = choice.choices || valueField.choices;
+      if (allow_custom && !choiceNames.includes('gf_custom') && addCustomKey) {
+        options.push( /*#__PURE__*/React.createElement("option", {
+          key: "".concat(optionKeyBase, "-custom"),
+          value: "gf_custom",
+          disabled: false
+        }, __('Add Custom Key', 'gravityforms')));
+      }
 
-		let values = choices.map(c => c.value);
+      return options;
+    } // # VALUE COLUMN --------------------------------------------------------------------------------------------------
 
-		// Add custom key if enabled and is not already present.
-		if (allow_custom && !values.includes('gf_custom')) {
-			choices.push({
-				label: __('Add Custom Value', 'gravityforms'),
-				value: 'gf_custom',
-				disabled: false
-			});
-		}
+    /**
+     * Prepare input for value column.
+     *
+     * @returns {*}
+     */
 
-		return choices;
-	}
+  }, {
+    key: "getValueInput",
+    value: function getValueInput() {
+      var _this$props6 = this.props,
+          choice = _this$props6.choice,
+          index = _this$props6.index,
+          isInvalid = _this$props6.isInvalid,
+          mapping = _this$props6.mapping,
+          updateMapping = _this$props6.updateMapping,
+          valueField = _this$props6.valueField;
+      var required = choice.required;
+      var fieldId = this.getValueInputId(); // If selected value is custom value, display input.
 
-	// # BUTTONS -------------------------------------------------------------------------------------------------------
+      if (mapping.value === 'gf_custom') {
+        return /*#__PURE__*/React.createElement("span", {
+          className: "gform-settings-generic-map__custom"
+        }, /*#__PURE__*/React.createElement("input", {
+          id: fieldId,
+          type: "text",
+          value: mapping.custom_value,
+          placeholder: valueField.placeholder,
+          onChange: function onChange(e) {
+            return updateMapping(_objectSpread(_objectSpread({}, mapping), {}, {
+              custom_value: e.target.value
+            }), index);
+          }
+        }), /*#__PURE__*/React.createElement("button", {
+          className: "gform-settings-generic-map__reset",
+          onClick: function onClick(e) {
+            e.preventDefault();
+            updateMapping(_objectSpread(_objectSpread({}, mapping), {}, {
+              value: '',
+              custom_value: ''
+            }), index);
+          }
+        }, /*#__PURE__*/React.createElement("span", {
+          className: "screen-reader-text"
+        }, __('Remove Custom Value', 'gravityforms'))));
+      }
 
-	/**
-  * Get add mapping button.
-  *
-  * @returns {null|*}
-  */
-	getAddButton() {
+      return /*#__PURE__*/React.createElement("select", {
+        id: fieldId,
+        disabled: mapping.key === '' || !mapping.key,
+        value: mapping.value,
+        onChange: function onChange(e) {
+          return updateMapping(_objectSpread(_objectSpread({}, mapping), {}, {
+            value: e.target.value
+          }), index);
+        },
+        className: isInvalid ? 'gform-settings-generic-map__value--invalid' : '',
+        required: required
+      }, this.getValueOptions().map(function (opt) {
+        if (opt.choices && opt.choices.length > 0) {
+          return /*#__PURE__*/React.createElement("optgroup", {
+            key: opt.label,
+            label: opt.label
+          }, opt.choices.map(function (o) {
+            return /*#__PURE__*/React.createElement("option", {
+              key: o.value,
+              value: o.value
+            }, o.label);
+          }));
+        } else {
+          return /*#__PURE__*/React.createElement("option", {
+            key: opt.value,
+            value: opt.value
+          }, opt.label);
+        }
+      }));
+    }
+    /**
+     * Get options for value drop down.
+     *
+     * @returns {{label: *, value: boolean}[]}
+     */
 
-		const { canAdd, addMapping, index } = this.props;
+  }, {
+    key: "getValueOptions",
+    value: function getValueOptions() {
+      var _this$props7 = this.props,
+          choice = _this$props7.choice,
+          valueField = _this$props7.valueField;
+      var allow_custom = valueField.allow_custom;
+      var choices = choice.choices || valueField.choices;
+      var values = choices.map(function (c) {
+        return c.value;
+      }); // Add custom key if enabled and is not already present.
 
-		// If mapping cannot be added, do not show button.
-		if (!canAdd) {
-			return null;
-		}
+      if (allow_custom && !values.includes('gf_custom')) {
+        choices.push({
+          label: __('Add Custom Value', 'gravityforms'),
+          value: 'gf_custom',
+          disabled: false
+        });
+      }
 
-		return React.createElement(
-			"button",
-			{ className: "gform-settings-generic-map__button gform-settings-generic-map__button--add", onClick: e => {
-					e.preventDefault();addMapping(index);
-				} },
-			React.createElement(
-				"span",
-				{ className: "screen-reader-text" },
-				__('Add', 'gravityforms')
-			)
-		);
-	}
+      return choices;
+    } // # BUTTONS -------------------------------------------------------------------------------------------------------
 
-	/**
-  * Get delete mapping button.
-  *
-  * @returns {null|*}
-  */
-	getDeleteButton() {
+    /**
+     * Get add mapping button.
+     *
+     * @returns {null|*}
+     */
 
-		const { canDelete, deleteMapping, index } = this.props;
+  }, {
+    key: "getAddButton",
+    value: function getAddButton() {
+      var _this$props8 = this.props,
+          canAdd = _this$props8.canAdd,
+          addMapping = _this$props8.addMapping,
+          index = _this$props8.index; // If mapping cannot be added, do not show button.
 
-		// If mapping cannot be deleted, do not show button.
-		if (!canDelete) {
-			return null;
-		}
+      if (!canAdd) {
+        return null;
+      }
 
-		return React.createElement(
-			"button",
-			{ className: "gform-settings-generic-map__button gform-settings-generic-map__button--delete", onClick: e => {
-					e.preventDefault();deleteMapping(index);
-				} },
-			React.createElement(
-				"span",
-				{ className: "screen-reader-text" },
-				__('Delete', 'gravityforms')
-			)
-		);
-	}
+      return /*#__PURE__*/React.createElement("button", {
+        className: "gform-settings-generic-map__button gform-settings-generic-map__button--add",
+        onClick: function onClick(e) {
+          e.preventDefault();
+          addMapping(index);
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "screen-reader-text"
+      }, __('Add', 'gravityforms')));
+    }
+    /**
+     * Get delete mapping button.
+     *
+     * @returns {null|*}
+     */
 
-}
+  }, {
+    key: "getDeleteButton",
+    value: function getDeleteButton() {
+      var _this$props9 = this.props,
+          canDelete = _this$props9.canDelete,
+          deleteMapping = _this$props9.deleteMapping,
+          index = _this$props9.index; // If mapping cannot be deleted, do not show button.
+
+      if (!canDelete) {
+        return null;
+      }
+
+      return /*#__PURE__*/React.createElement("button", {
+        className: "delete_field_choice gform-st-icon gform-st-icon--circle-minus gform-settings-generic-map__button gform-settings-generic-map__button--delete",
+        onClick: function onClick(e) {
+          e.preventDefault();
+          deleteMapping(index);
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "screen-reader-text"
+      }, __('Delete', 'gravityforms')));
+    }
+  }]);
+
+  return Mapping;
+}(Component);
+
+exports["default"] = Mapping;
 
 /***/ })
 

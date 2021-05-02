@@ -1,5 +1,20 @@
 *** WooCommerce Help Scout Changelog ***
 
+2021-03-25 - version 2.9.1
+* PLUGINS-990 - Further Ajax adjustments.
+
+2021-03-23 - version 2.9
+* PLUGINS-990 - Ajax adjustment.
+
+2021-03-18 - version 2.8
+* PLUGINS-974 - jQuery update.
+
+2021-02-01 - version 2.7.1
+* PLUGINS-842 - Replace library (PCI Compliance check)
+
+2021-01-21 - version 2.7
+* PLUGINS-826 - Fix debug notices.
+
 2020-10-30 - version 2.6
 * PLUGINS-754 - Fix "Allow Access" button position
 * PLUGINS-769 - Customers not getting created in Helpscout

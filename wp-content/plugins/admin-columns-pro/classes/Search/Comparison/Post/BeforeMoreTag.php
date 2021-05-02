@@ -19,9 +19,6 @@ class BeforeMoreTag extends Comparison {
 		parent::__construct( $operators );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	protected function create_query_bindings( $operator, Value $value ) {
 		global $wpdb;
 

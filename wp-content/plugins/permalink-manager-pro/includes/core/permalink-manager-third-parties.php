@@ -16,11 +16,14 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		// 0. Stop redirect
 		add_action('wp', array($this, 'stop_redirect'), 0);
 
-		// 2. AMP
+		// 2. AMP & AMP for WP
 		if(defined('AMP_QUERY_VAR')) {
-			// Detect AMP endpoint
 			add_filter('permalink_manager_detect_uri', array($this, 'detect_amp'), 10, 2);
 			add_filter('request', array($this, 'enable_amp'), 10, 1);
+		}
+
+		if(defined('AMPFORWP_AMP_QUERY_VAR')) {
+			add_filter('permalink_manager_filter_query', array($this, 'detect_amp_for_wp'), 5);
 		}
 
 		// 4. WooCommerce
@@ -103,47 +106,54 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 			add_action('wpai_regenerate_uris_after_import_event', array($this, 'wpai_regenerate_uris_after_import'), 10, 1);
 		}
 
-		// 11. Duplicate Post
-		if(defined('DUPLICATE_POST_CURRENT_VERSION')) {
-			add_action('dp_duplicate_post', array($this, 'duplicate_custom_uri'), 10, 2);
-			add_action('dp_duplicate_page', array($this, 'duplicate_custom_uri'), 10, 2);
+		// 11. WP All Export
+		if(class_exists('PMXE_Plugin') && (!empty($permalink_manager_options['general']['pmxi_support']))) {
+			add_filter('pmxe_available_sections', array($this, 'wpae_custom_uri_section'), 9);
+			add_filter('wp_all_export_available_data', array($this, 'wpae_custom_uri_section_fields'), 9);
+			add_filter('wp_all_export_csv_rows', array($this,'wpae_export_custom_uri'), 10, 2);
 		}
 
-		// 12. My Listing by 27collective
+		// 12. Duplicate Post
+		if(defined('DUPLICATE_POST_CURRENT_VERSION')) {
+			add_action('dp_duplicate_post', array($this, 'duplicate_custom_uri'), 100, 2);
+			add_action('dp_duplicate_page', array($this, 'duplicate_custom_uri'), 100, 2);
+		}
+
+		// 13. My Listing by 27collective
 		if(class_exists('\MyListing\Post_Types')) {
 			add_filter('permalink_manager_filter_default_post_uri', array($this, 'ml_listing_custom_fields'), 5, 5 );
 			add_action('mylisting/submission/save-listing-data', array($this, 'ml_set_listing_uri'), 100);
 			add_filter('permalink_manager_filter_query', array($this, 'ml_detect_archives'), 1);
 		}
 
-		// 13. bbPress
+		// 14. bbPress
 		if(class_exists('bbPress') && function_exists('bbp_get_edit_slug')) {
 			add_filter('permalink_manager_endpoints', array($this, 'bbpress_endpoints'), 9);
 			add_action('wp', array($this, 'bbpress_detect_endpoints'), 0);
 		}
 
-		// 14. Dokan
+		// 15. Dokan
 		if(class_exists('WeDevs_Dokan')) {
 			add_action('wp', array($this, 'dokan_detect_endpoints'), 999);
 			add_filter('permalink_manager_endpoints', array($this,'dokan_endpoints'));
 		}
 
-		// 15. GeoDirectory
+		// 16. GeoDirectory
 		if(class_exists('GeoDirectory')) {
 			add_filter('permalink_manager_filter_default_post_uri', array($this, 'geodir_custom_fields'), 5, 5 );
 		}
 
-		// 16. BasePress
+		// 17. BasePress
 		if(class_exists('Basepress')) {
 			add_filter('permalink_manager_filter_query', array($this, 'kb_adjust_query'), 5, 5);
 		}
 
-		// 17. Ultimate Member
+		// 18. Ultimate Member
 		if(class_exists('UM') && !(empty($permalink_manager_options['general']['um_support']))) {
 			add_filter('permalink_manager_detect_uri', array($this, 'um_detect_extra_pages'), 20);
 		}
 
-		// 18. WooCommerce Subscriptions
+		// 19. WooCommerce Subscriptions
 		if(class_exists('WC_Subscriptions')) {
 			add_filter('permalink_manager_filter_final_post_permalink', array($this, 'fix_wcs_subscription_links'), 10, 3);
 		}
@@ -221,6 +231,10 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 			else if(isset($query_vars['schema-preview'])) {
 				$wp_query->query_vars['do_not_redirect'] = 1;
 			}
+			// Theme.co - Pro Theme
+			else if(!empty($_POST['_cs_nonce'])) {
+				$wp_query->query_vars['do_not_redirect'] = 1;
+			}
 		}
 
 		// WPForo
@@ -255,6 +269,24 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 
 		if(!empty($amp_enabled)) {
 			$query[AMP_QUERY_VAR] = 1;
+		}
+
+		return $query;
+	}
+
+	function detect_amp_for_wp($query) {
+		global $wp_rewrite, $pm_query;
+
+		$amp_endpoint = AMPFORWP_AMP_QUERY_VAR;
+		$paged_endpoint = $wp_rewrite->pagination_base;
+
+		if(!empty($pm_query['endpoint']) && strpos($pm_query['endpoint_value'], "{$paged_endpoint}/") !== false) {
+			$paged_val = preg_replace("/({$paged_endpoint}\/)([\d]+)/", '$2', $pm_query['endpoint_value']);
+
+			if(!empty($paged_val)) {
+				$query[$amp_endpoint] = 1;
+				$query['paged'] = $paged_val;
+			}
 		}
 
 		return $query;
@@ -573,9 +605,9 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	/**
 	 * 7. Breadcrumbs
 	 */
-	 function filter_breadcrumbs($links) {
+	function filter_breadcrumbs($links) {
  		// Get post type permastructure settings
- 		global $permalink_manager_uris, $permalink_manager_options, $post, $wpdb, $wp, $wp_current_filter;
+ 		global $permalink_manager_uris, $permalink_manager_options, $post, $wpdb, $wp, $wp_current_filter, $wp_post_types;
 
  		// Check if the filter should be activated
  		if(empty($permalink_manager_options['general']['yoast_breadcrumbs']) || empty($permalink_manager_uris)) { return $links; }
@@ -599,8 +631,9 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
  		$custom_uri_parts = explode('/', trim($custom_uri));
  		$breadcrumbs = array();
  		$snowball = '';
- 		$available_taxonomies = Permalink_Manager_Helper_Functions::get_taxonomies_array();
- 		$available_post_types = Permalink_Manager_Helper_Functions::get_post_types_array();
+ 		$available_taxonomies = Permalink_Manager_Helper_Functions::get_taxonomies_array(null, null, false, true);
+		$available_post_types = Permalink_Manager_Helper_Functions::get_post_types_array(null, null, true);
+		$available_post_types_archive = Permalink_Manager_Helper_Functions::get_post_types_array('archive_slug', null, true);
  		$current_filter = end($wp_current_filter);
 
  		// Get Yoast Meta (the breadcrumbs titles can be changed in Yoast metabox)
@@ -639,6 +672,12 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
  				$element = $wpdb->get_row($sql);
  			}
 
+			 // 1D. Try to get post type archive
+ 			if(empty($element) && !empty($available_post_types_archive) && in_array($snowball, $available_post_types_archive)) {
+ 				$post_type_slug = array_search($snowball, $available_post_types_archive);
+				$element = get_post_type_object($post_type_slug);
+ 			}
+
  			// 2A. When the term is found, we can add it to the breadcrumbs
  			if(!empty($element->term_id)) {
 				$term_id = apply_filters('wpml_object_id', $element->term_id, $element->taxonomy, true);
@@ -662,6 +701,13 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
  				$breadcrumbs[] = array(
  					'text' => $title,
  					'url' => get_permalink($page->ID),
+ 				);
+ 			}
+			// 2C. When the post archive is found, we can add it to the breadcrumbs
+ 			else if(!empty($element->rewrite) && (!empty($element->labels->name))) {
+ 				$breadcrumbs[] = array(
+ 					'text' => apply_filters('post_type_archive_title', $element->labels->name, $element->name),
+ 					'url' => get_post_type_archive_link($element->name),
  				);
  			}
  		}
@@ -897,7 +943,45 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	/**
-	 * 11. Duplicate Page
+	 * 11. WP All Export
+	 */
+	function wpae_custom_uri_section($sections) {
+		if(is_array($sections)) {
+			$sections['permalink_manager'] = array(
+				'title'   => __('Permalink Manager', 'permalink-manager'),
+				'content' => 'permalink_manager_fields'
+			);
+		}
+
+		return $sections;
+	}
+
+	function wpae_custom_uri_section_fields($fields) {
+		if(is_array($fields)) {
+			$fields['permalink_manager_fields'] = array(
+				array(
+					'label' => 'custom_uri',
+					'name'  => 'Custom URI',
+					'type'  => 'custom_uri'
+				)
+			);
+		}
+
+		return $fields;
+	}
+
+	function wpae_export_custom_uri($articles, $options) {
+		foreach($articles as &$article) {
+			if(!empty($article['id'])) {
+				$article['Custom URI'] = Permalink_Manager_URI_Functions_Post::get_post_uri($article['id']);
+			}
+		}
+
+		return $articles;
+	}
+
+	/**
+	 * 12. Duplicate Page
 	 */
 	function duplicate_custom_uri($new_post_id, $old_post) {
 		global $permalink_manager_uris;
@@ -920,7 +1004,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	/**
-	 * 12. My Listing by 27collective
+	 * 13. My Listing by 27collective
 	 */
 	public function ml_listing_custom_fields($default_uri, $native_slug, $element, $slug, $native_uri) {
 		global $permalink_manager_uris;
@@ -1036,7 +1120,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	/**
-	 * 13. bbPress
+	 * 14. bbPress
 	 */
 	function bbpress_endpoints($endpoints, $all = true) {
 		$bbpress_endpoints = array();
@@ -1065,7 +1149,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	/**
-	 * 14. Dokan
+	 * 15. Dokan
 	 **/
 	function dokan_endpoints($endpoints) {
 		return "{$endpoints}|edit|edit-account";
@@ -1100,7 +1184,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	/**
-	 * 15. GeoDirectory
+	 * 16. GeoDirectory
 	 */
 	public function geodir_custom_fields($default_uri, $native_slug, $element, $slug, $native_uri) {
 		global $permalink_manager_uris;
@@ -1146,7 +1230,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	/**
-	 * 16. BasePress
+	 * 17. BasePress
 	 */
 	function kb_adjust_query($query, $old_query, $uri_parts, $pm_query, $content_type) {
 		$knowledgebase_options = get_option('basepress_settings');
@@ -1176,7 +1260,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	/**
-	 * 17. Ultimate Member
+	 * 18. Ultimate Member
 	 */
 	public function um_detect_extra_pages($uri_parts) {
 		global $permalink_manager_uris;
@@ -1209,7 +1293,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	/**
-	 * 18. WooCommerce Subscriptions
+	 * 19. WooCommerce Subscriptions
 	 */
 	function fix_wcs_subscription_links($permalink, $post, $old_permalink) {
 		if(!empty($post->post_type) && $post->post_type == 'product' && strpos($old_permalink, 'switch-subscription=') !== false) {
@@ -1221,7 +1305,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	/**
-	 * 19. Store Locator - CSV Manager
+	 * 20. Store Locator - CSV Manager
 	 */
 	public function wpsl_regenerate_after_import($meta_id, $post_id, $meta_key, $meta_value) {
 		global $permalink_manager_uris;

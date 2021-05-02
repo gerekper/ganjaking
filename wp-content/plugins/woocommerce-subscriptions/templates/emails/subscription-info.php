@@ -54,8 +54,8 @@ $is_parent_order       = wcs_order_contains_subscription( $order, 'parent' );
 		$my_account_url = wc_get_endpoint_url( 'subscriptions', '', wc_get_page_permalink( 'myaccount' ) );
 	}
 
+	// Translators: Placeholders are opening and closing My Account link tags.
 	printf( '<small>%s</small>', wp_kses_post( sprintf( _n(
-		// Translators: Placeholders are opening and closing My Account link tags.
 		'This subscription is set to renew automatically using your payment method on file. You can manage or cancel this subscription from your %smy account page%s.',
 		'These subscriptions are set to renew automatically using your payment method on file. You can manage or cancel your subscriptions from your %smy account page%s.',
 		count( $subscriptions ),

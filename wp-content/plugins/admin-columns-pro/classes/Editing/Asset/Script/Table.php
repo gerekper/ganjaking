@@ -5,7 +5,6 @@ namespace ACP\Editing\Asset\Script;
 use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\ListScreen;
-use AC\Request;
 use ACP\Editing\Preference;
 use WP_List_Table;
 
@@ -26,25 +25,18 @@ final class Table extends Script {
 	 */
 	private $edit_state;
 
-	/**
-	 * @var Request
-	 */
-	private $request;
-
 	public function __construct(
 		$handle,
 		Location $location,
 		ListScreen $list_screen,
 		array $editable_data,
-		Preference\EditState $edit_state,
-		Request $request
+		Preference\EditState $edit_state
 	) {
 		parent::__construct( $handle, $location, [ 'jquery', 'ac-table' ] );
 
 		$this->list_screen = $list_screen;
 		$this->editable_data = $editable_data;
 		$this->edit_state = $edit_state;
-		$this->request = $request;
 	}
 
 	public function register() {

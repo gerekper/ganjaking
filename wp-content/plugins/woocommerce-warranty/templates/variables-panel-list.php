@@ -1,5 +1,5 @@
-<div class="warranty-variation" data-loop="<?php echo $loop; ?>">
-    <div class="show_if_control_variations">
+<div class="warranty-variation show_if_control_variations" data-loop="<?php echo $loop; ?>">
+    <div>
         <p class="form-row form-row-full options">
             <label for="variable_product_warranty_default_<?php echo $loop; ?>">
                 <input type="checkbox" class="checkbox warranty_default_checkbox" data-id="<?php echo $loop; ?>" name="variable_product_warranty_default[<?php echo $loop; ?>]" id="variable_product_warranty_default_<?php echo $loop; ?>" <?php checked(true, $warranty_default); ?> />
@@ -23,7 +23,7 @@
         </p>
     </div>
 
-    <div class="variable_show_if_included_warranty_<?php echo $loop; ?> show_if_control_variations hidden">
+    <div class="variable_show_if_included_warranty_<?php echo $loop; ?> hidden">
         <p class="form-row form-row-first">
             <label for="variable_included_warranty_length_<?php echo $loop; ?>"><?php _e('Warranty Length', 'wc_warranty'); ?></label>
 
@@ -45,7 +45,7 @@
         </p>
     </div>
 
-    <div class="variable_show_if_addon_warranty_<?php echo $loop; ?> show_if_control_variations hidden">
+    <div class="variable_show_if_addon_warranty_<?php echo $loop; ?> hidden">
         <p class="form-row form-row-full">
             <label for="variable_addon_no_warranty_<?php echo $loop; ?>">
                 <input type="checkbox" name="variable_addon_no_warranty[<?php echo $loop; ?>]" id="variable_addon_no_warranty_<?php echo $loop; ?>" value="yes" <?php if (isset($warranty['no_warranty_option']) && $warranty['no_warranty_option'] == 'yes') echo 'checked'; ?> class="checkbox warranty_<?php echo $loop; ?>" />
@@ -64,7 +64,7 @@
             <tfoot>
             <tr>
                 <th colspan="3">
-                    <a href="#" class="button btn-add-warranty-variable" data-loop="<?php echo $loop; ?>"><?php _e('Add Row', 'wc_warranty'); ?></a>
+                    <a href="#" class="button btn-add-warranty-variable warranty_<?php echo $loop; ?>" data-loop="<?php echo $loop; ?>"><?php _e('Add Row', 'wc_warranty'); ?></a>
                 </th>
             </tr>
             </tfoot>
@@ -86,7 +86,7 @@
                             <option value="years" <?php if ($addon['duration'] == 'years') echo 'selected'; ?>><?php _e('Years', 'wc_warranty'); ?></option>
                         </select>
                     </td>
-                    <td><a class="button warranty_addon_remove warranty_addon_remove_variable_<?php echo $loop; ?>" data-loop="<?php echo $loop; ?>" href="#">&times;</a></td>
+                    <td><a class="button warranty_addon_remove warranty_addon_remove_variable_<?php echo $loop; ?> warranty_<?php echo $loop; ?>" data-loop="<?php echo $loop; ?>" href="#">&times;</a></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

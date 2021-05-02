@@ -20,6 +20,8 @@ use Composer\Semver\VersionParser;
 
 
 
+
+
 class InstalledVersions
 {
 private static $installed = array (
@@ -30,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'd86642b439579d54a1653c790d5c9586c736cfdc',
+    'reference' => 'd581ffe2c78227651a1196a6bff6cb5823f026f7',
     'name' => 'yoast/wordpress-seo-premium',
   ),
   'versions' => 
@@ -570,12 +572,12 @@ private static $installed = array (
     ),
     'yoast/wordpress-seo' => 
     array (
-      'pretty_version' => '16.1',
-      'version' => '16.1.0.0',
+      'pretty_version' => '16.2',
+      'version' => '16.2.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'fbcacafe5509b5d99faaf60cf1e6b7db03b7fcba',
+      'reference' => 'a478a65fed7aadeebd091d5af7603475e307348c',
     ),
     'yoast/wordpress-seo-premium' => 
     array (
@@ -584,7 +586,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'd86642b439579d54a1653c790d5c9586c736cfdc',
+      'reference' => 'd581ffe2c78227651a1196a6bff6cb5823f026f7',
     ),
     'yoast/wp-test-utils' => 
     array (
@@ -621,7 +623,6 @@ $packages = array();
 foreach (self::getInstalled() as $installed) {
 $packages[] = array_keys($installed['versions']);
 }
-
 
 if (1 === \count($packages)) {
 return $packages[0];
@@ -814,6 +815,7 @@ public static function reload($data)
 self::$installed = $data;
 self::$installedByVendor = array();
 }
+
 
 
 

@@ -1,4 +1,10 @@
-<div class="ac-segments -admin" data-initial="<?= esc_attr( $this->current_segment_id ); ?>">
+<?php
+
+use AC\Admin\Tooltip;
+use AC\View;
+
+?>
+<div class="ac-segments -admin">
 	<div class="ac-segments__create">
 		<span class="cpac_icons-segment"></span>
 		<button class="button button-primary">
@@ -9,22 +15,27 @@
 		<div class="ac-segments__list__items"></div>
 	</div>
 	<div class="ac-segments__list -global">
-		<div class="ac-segments__list__label">Public
-			<span class="ac-segments__list__label__icon dashicons dashicons-info" data-ac-tip="<?= __( 'Available to all users', 'codepress-admin-columns' ); ?>"></span>
+		<div class="ac-segments__list__label"><?= __( 'Public', 'codepress-admin-columns' ); ?>
 		</div>
 		<div class="ac-segments__list__items"></div>
 	</div>
-	<div class="ac-segments__instructions" rel="pointer-segments">
-		<?php _e( 'Instructions', 'codepress-admin-columns' ); ?>
-		<div id="ac-segments-instructions" style="display:none;">
-			<h3><?php _e( 'Instructions', 'codepress-admin-columns' ); ?></h3>
-			<p>
-				<?php _e( 'Save a set of custom smart filters for later use.', 'codepress-admin-columns' ); ?>
-			</p>
-			<p>
-				<?php _e( 'This can be useful to group your WordPress content based on different criteria.', 'codepress-admin-columns' ); ?>&nbsp;<?php _e( 'Click on a segment to load the filtered list.', 'codepress-admin-columns' ); ?>
-			</p>
-		</div>
+
+	<?php
+	$content = ( new View() )->set_template( 'table/tooltip-saved-filters' )->render();
+
+	$tooltip = new Tooltip( 'filtered_segments', [
+		'content'    => $content,
+		'link_label' => __( 'Instructions', 'codepress-admin-columns' ),
+		'title'      => __( 'Instructions', 'codepress-admin-columns' ),
+		'position'   => 'right_bottom',
+	] );
+
+	?>
+	<div class="ac-segments__instructions">
+		<?php
+		echo $tooltip->get_label();
+		echo $tooltip->get_instructions();
+		?>
 	</div>
 
 </div>
@@ -42,7 +53,7 @@
 				<input type="text" name="name" id="inp_segment_name" required autocomplete="off" placeholder="<?= __( 'Name', 'codepress-admin-columns' ); ?>">
 
 				<?php if ( $this->user_can_manage_segments ) : ?>
-					<br><label><input type="checkbox" name="global"/> <?= __( 'Make available to all users', 'codepress-admin-columns' ); ?></label>
+					<br><label><input type="checkbox" name="global"/><?= __( 'Make available to all users', 'codepress-admin-columns' ); ?></label>
 				<?php endif; ?>
 
 				<div class="ac-modal__error">

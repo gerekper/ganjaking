@@ -1,8 +1,8 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
-use Rocketgenius\Gravity_Forms\Settings\Fields;
+use Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 defined( 'ABSPATH' ) || die();
 
@@ -30,13 +30,17 @@ class HTML extends Base {
 	 *
 	 * @return string
 	 */
-	public function markup()  {
+	public function markup() {
+		$html = rgobj( $this, 'html' );
+
+		if ( is_callable( $html ) ) {
+			return call_user_func( $html );
+		}
 
 		// Prepare markup.
-		return rgobj( $this, 'html' );
-
+		return $html;
 	}
 
 }
 
-Fields::register( 'html', '\Rocketgenius\Gravity_Forms\Settings\Fields\HTML' );
+Fields::register( 'html', '\Gravity_Forms\Gravity_Forms\Settings\Fields\HTML' );

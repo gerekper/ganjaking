@@ -61,7 +61,12 @@ class Permalink_Manager_URI_Functions extends Permalink_Manager_Class {
 	/**
 	 * Save the array with custom permalinks
 	 */
-	public static function save_all_uris($updated_uris) {
+	public static function save_all_uris($updated_uris = null) {
+		if(is_null($updated_uris)) {
+			global $permalink_manager_uris;
+			$updated_uris = $permalink_manager_uris;
+		}
+
 		if(is_array($updated_uris) && !empty($updated_uris)) {
 			update_option('permalink-manager-uris', $updated_uris);
 		}

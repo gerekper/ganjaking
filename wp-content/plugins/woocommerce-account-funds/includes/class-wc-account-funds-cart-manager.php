@@ -162,11 +162,11 @@ class WC_Account_Funds_Cart_Manager {
 	 * Apply funds discount to cart
 	 */
 	public function apply_discount() {
-		// bail if the discount has already been applied
 		if ( ! WC()->cart || 'no' === get_option( 'account_funds_give_discount' ) || WC()->cart->has_discount( self::get_discount_code() ) || ( ! self::can_use_funds() && ! self::account_funds_gateway_chosen() ) ) {
 			return;
 		}
-		WC()->cart->add_discount( self::generate_discount_code() );
+
+		WC()->cart->apply_coupon( self::generate_discount_code() );
 	}
 
 	/**
@@ -253,21 +253,16 @@ class WC_Account_Funds_Cart_Manager {
 	}
 
 	/**
-	 * Generate the coupon data required for the discount
+	 * Generates the coupon data required for the discount.
 	 *
-	 * @since 1.0
-	 * @param array $data the coupon data
-	 * @param string $code the coupon code
-	 * @return array the custom coupon data
+	 * @since 1.0.0
+	 *
+	 * @param array  $data Coupon data.
+	 * @param string $code Coupon code.
+	 * @return array
 	 */
 	public function get_discount_data( $data, $code ) {
-		// Ignore data filtering if in admin. If there's a call to get_discount_code,
-		// then it'd be for front-end page.
-		if ( is_admin() ) {
-			return $data;
-		}
-
-		if ( 'no' === $this->give_discount || strtolower( $code ) != $this->get_discount_code() ) {
+		if ( is_admin() || 'no' === $this->give_discount || strtolower( $code ) !== $this->get_discount_code() ) {
 			return $data;
 		}
 
@@ -278,27 +273,11 @@ class WC_Account_Funds_Cart_Manager {
 		//   and post-tax discounts can be considered.  At the same time we use the cart
 		//   subtotal excluding tax to calculate the maximum points discount, so it
 		//   functions like a pre-tax discount in that sense.
-		$data = array(
-			'id'                         => true,
-			'discount_type'              => 'fixed' === get_option( 'account_funds_discount_type' ) ? 'fixed_cart' : 'percent',
-			'amount'                     => (float) get_option( 'account_funds_discount_amount' ),
-			'individual_use'             => false,
-			'product_ids'                => array(),
-			'exclude_product_ids'        => array(),
-			'usage_limit'                => '',
-			'usage_count'                => '',
-			'expiry_date'                => '',
-			'apply_before_tax'           => 'yes',
-			'free_shipping'              => false,
-			'product_categories'         => array(),
-			'exclude_product_categories' => array(),
-			'exclude_sale_items'         => false,
-			'minimum_amount'             => '',
-			'maximum_amount'             => '',
-			'customer_email'             => '',
+		return array(
+			'id'            => true,
+			'discount_type' => 'fixed' === get_option( 'account_funds_discount_type' ) ? 'fixed_cart' : 'percent',
+			'amount'        => (float) get_option( 'account_funds_discount_amount' ),
 		);
-
-		return $data;
 	}
 
 	/**
@@ -388,7 +367,9 @@ class WC_Account_Funds_Cart_Manager {
 	 */
 	public static function generate_discount_code() {
 		$discount_code = sprintf( 'wc_account_funds_discount_%s_%s', get_current_user_id(), date( 'Y_m_d_h_i', current_time( 'timestamp' ) ) );
+
 		WC()->session->set( 'wc_account_funds_discount_code', $discount_code );
+
 		return $discount_code;
 	}
 
@@ -559,7 +540,7 @@ class WC_Account_Funds_Cart_Manager {
 	 * @return float
 	 */
 	public function calculated_total( $total ) {
-		_deprecated_function( __FUNCTION__, '2.3.5' );
+		wc_deprecated_function( __FUNCTION__, '2.3.5' );
 
 		return $total;
 	}
@@ -573,7 +554,7 @@ class WC_Account_Funds_Cart_Manager {
 	 * @return string
 	 */
 	public function display_total( $total ) {
-		_deprecated_function( __FUNCTION__, '2.3.5' );
+		wc_deprecated_function( __FUNCTION__, '2.3.5' );
 
 		return $total;
 	}
@@ -584,7 +565,7 @@ class WC_Account_Funds_Cart_Manager {
 	 * @deprecated 2.3.0
 	 */
 	public function output_use_funds_notice() {
-		_deprecated_function( __FUNCTION__, '2.3.0' );
+		wc_deprecated_function( __FUNCTION__, '2.3.0' );
 
 		if ( ! self::can_use_funds() || self::using_funds() ) {
 			return;
@@ -611,7 +592,7 @@ class WC_Account_Funds_Cart_Manager {
 	 * @return bool
 	 */
 	public static function can_apply_funds() {
-		_deprecated_function( __FUNCTION__, '2.3.0', 'wc_account_funds_can_use_funds filter (see ' . __CLASS__ . '::can_use_funds()' );
+		wc_deprecated_function( __FUNCTION__, '2.3.0', 'wc_account_funds_can_use_funds filter (see ' . __CLASS__ . '::can_use_funds()' );
 
 		return self::can_use_funds();
 	}
@@ -626,7 +607,7 @@ class WC_Account_Funds_Cart_Manager {
 	 * @return array
 	 */
 	public function available_payment_gateways( $gateways ) {
-		_deprecated_function( __FUNCTION__, '2.3.11' );
+		wc_deprecated_function( __FUNCTION__, '2.3.11' );
 
 		return $gateways;
 	}

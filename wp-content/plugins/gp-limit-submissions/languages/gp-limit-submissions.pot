@@ -41,7 +41,7 @@ msgstr ""
 msgid "Specify a message that will be displayed to users if their submission is limited or if the form's submission limit is reached."
 msgstr ""
 
-#: ../class-gp-limit-submissions.php:194, ../includes/GPLS_Enforce.php:162
+#: ../class-gp-limit-submissions.php:194, ../includes/GPLS_Enforce.php:164
 msgid "The submission limit has been reached for this form."
 msgstr ""
 
@@ -169,11 +169,11 @@ msgstr ""
 msgid "Limit Feed"
 msgstr ""
 
-#: ../includes/GPLS_Enforce.php:43
+#: ../includes/GPLS_Enforce.php:45
 msgid "Submission limit reached"
 msgstr ""
 
-#: ../includes/GPLS_Enforce.php:53
+#: ../includes/GPLS_Enforce.php:55
 msgid "Submission limit reached (%s)"
 msgstr ""
 
@@ -201,7 +201,7 @@ msgstr ""
 msgid "Field Value"
 msgstr ""
 
-#: ../includes/GPLS_Rule_Embed_Url.php:114, ../includes/GPLS_Rule_Field.php:120
+#: ../includes/GPLS_Rule_Embed_Url.php:114, ../includes/GPLS_Rule_Field.php:128
 msgid "User ID"
 msgstr ""
 

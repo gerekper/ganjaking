@@ -1,8 +1,8 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
-use Rocketgenius\Gravity_Forms\Settings\Fields;
+use Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 defined( 'ABSPATH' ) || die();
 
@@ -26,7 +26,7 @@ class Dynamic_Field_Map extends Generic_Map {
 	 * @since 2.5
 	 *
 	 * @param array                                $props    Field properties.
-	 * @param \Rocketgenius\Gravity_Forms\Settings $settings Settings instance.
+	 * @param \Gravity_Forms\Gravity_Forms\Settings\Settings $settings Settings instance.
 	 */
 	public function __construct( $props, $settings ) {
 
@@ -45,4 +45,4 @@ class Dynamic_Field_Map extends Generic_Map {
 
 }
 
-Fields::register( 'dynamic_field_map', '\Rocketgenius\Gravity_Forms\Settings\Fields\Dynamic_Field_Map' );
+Fields::register( 'dynamic_field_map', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Dynamic_Field_Map' );

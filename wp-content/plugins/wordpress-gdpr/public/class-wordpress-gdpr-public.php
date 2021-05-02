@@ -43,7 +43,7 @@ class WordPress_GDPR_Public extends WordPress_GDPR
         } else {
 
             if($this->get_option('useFontAwesome5Load')) {
-                wp_enqueue_style('font-awesome-5', 'https://use.fontawesome.com/releases/v5.8.1/css/all.css', array(), '5.8.1', 'all');
+                wp_enqueue_style('font-awesome', plugin_dir_url(__FILE__) . 'css/fontawesome-free-5.15.3-web/css/all.css', array(), '5.15.3', 'all');
             }
         }
 

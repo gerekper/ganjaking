@@ -19,9 +19,6 @@ abstract class UserField extends Comparison {
 	 */
 	abstract protected function get_field();
 
-	/**
-	 * @inheritDoc
-	 */
 	protected function create_query_bindings( $operator, Value $value ) {
 		global $wpdb;
 

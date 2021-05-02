@@ -1475,7 +1475,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 	 * process the static slide plus layers, and update actions for Static Slides pre 6.0
 	 **/
 	public function process_static_slide_data_post_6(){
-		global $wpdb;
+		global $wpdb, $wp_filesystem;
 		//check if static slide exists and import
 		$static_slide = $this->get_val($this->slider_data, 'static_slides');
 		
@@ -1531,9 +1531,15 @@ class RevSliderSliderImport extends RevSliderSlider {
 							$layer['media']['posterUrl'] = ($this->get_val($layer, array('media', 'posterUrl'), '') != '') ? $this->get_image_url_from_path($this->check_file_in_zip($this->download_path, $this->get_val($layer, array('media', 'posterUrl'), ''), $this->alias, $this->imported)) : '';
 						}
 						
-						if(isset($layer['type']) && $layer['type'] == 'svg'){
+						if($type == 'svg'){
 							$svg = $this->get_val($layer, array('svg', 'source'), '');
-							if(!empty($svg)) $layer['svg']['source'] = content_url().$svg;
+							
+							//check if we need to import it, if its available in the zip file
+							$zimage	= $wp_filesystem->exists($this->download_path.'images/'.$svg);
+							
+							if(!$zimage) $zimage = $wp_filesystem->exists(str_replace('//', '/', $this->download_path.'images/'.$svg));
+							$svgurl = ($zimage === true) ? $this->get_image_url_from_path($this->check_file_in_zip($this->download_path, $svg, $this->alias, $this->imported, true)) : content_url().$svg;
+							if(!empty($svg)) $layer['svg']['source'] = $svgurl;
 						}
 						
 						$actions = $this->get_val($layer, array('actions', 'action'), array());

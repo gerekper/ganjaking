@@ -25,9 +25,6 @@ class Network extends Updater {
 		return empty( $this->get_stored_version() ) && empty( get_site_option( 'cpupdate_cac-pro' ) );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	protected function update_stored_version( $version = null ) {
 		if ( null === $version ) {
 			$version = $this->version;

@@ -40,7 +40,7 @@ class Addon implements AC\Registrable {
 
 	public function add_hide_on_screen( ACP\Settings\ListScreen\HideOnScreenCollection $collection, AC\ListScreen $list_screen ) {
 		if ( $list_screen instanceof ListScreen ) {
-			$collection->add( new Admin\HideOnScreen\InlineEdit(), 10 )
+			$collection->add( new Admin\HideOnScreen\InlineEdit() )
 			           ->add( new Admin\HideOnScreen\BulkEdit(), 20 );
 		}
 	}

@@ -1,8 +1,8 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings;
+namespace Gravity_Forms\Gravity_Forms\Settings;
 
-use Rocketgenius\Gravity_Forms\Settings\Fields\Base;
+use Gravity_Forms\Gravity_Forms\Settings\Fields\Base;
 use WP_Error;
 
 defined( 'ABSPATH' ) || die();
@@ -24,19 +24,19 @@ class Fields {
 	 * @since 2.5
 	 *
 	 * @param array|Base                           $props
-	 * @param \Rocketgenius\Gravity_Forms\Settings $settings Settings instance.
+	 * @param \Gravity_Forms\Gravity_Forms\Settings\Settings $settings Settings instance.
 	 *
 	 * @return Fields\Base|WP_Error
 	 */
 	public static function create( $props, $settings ) {
 
 		// If field is already created, return.
-		if ( is_a( $props, 'Rocketgenius\Gravity_Forms\Settings\Fields\Base' ) && ! self::exists( $props['type'] ) ) {
+		if ( is_a( $props, 'Gravity_Forms\Gravity_Forms\Settings\Fields\Base' ) && ! self::exists( $props['type'] ) ) {
 			return $props;
 		}
 
 		// Ensure Settings instance was provided.
-		if ( ! is_a( $settings, 'Rocketgenius\Gravity_Forms\Settings' ) && ! is_subclass_of( $settings, 'Rocketgenius\Gravity_Forms\Settings' ) ) {
+		if ( ! is_a( $settings, 'Gravity_Forms\Gravity_Forms\Settings\Settings' ) && ! is_subclass_of( $settings, 'Gravity_Forms\Gravity_Forms\Settings\Settings' ) ) {
 			return new WP_Error( 'settings_not_found', 'Instance of Settings Framework must be provided.' );
 		}
 
@@ -96,7 +96,6 @@ class Fields {
 
 }
 
-// @todo Replace with autoloader.
 // Load all field files.
 foreach ( glob( plugin_dir_path( __FILE__ ) . '/fields/class-*.php' ) as $filename ) {
 	require_once( $filename );

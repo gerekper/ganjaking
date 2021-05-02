@@ -28,7 +28,7 @@ final class User extends EditableRows {
 			}
 		}
 
-		return $this->success( $editable_rows );
+		$this->success( $editable_rows );
 	}
 
 }

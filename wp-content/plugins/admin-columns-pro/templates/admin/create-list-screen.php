@@ -1,5 +1,7 @@
 <?php
 
+use ACP\Controller\ListScreenCreate;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -9,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<form method="post">
 
 		<input type="hidden" name="_ac_nonce" value="<?= esc_attr( $this->nonce ); ?>"/>
-		<input type="hidden" name="acp_action" value="create_layout">
+		<input type="hidden" name="<?= ListScreenCreate::PARAM_ACTION; ?>" value="<?= ListScreenCreate::PARAM_CREATE_LIST; ?>">
 		<input type="hidden" name="list_key" value="<?= esc_attr( $this->list_screen->get_key() ); ?>">
 		<input type="hidden" name="list_id" value="<?= esc_attr( $this->list_screen->get_layout_id() ); ?>">
 

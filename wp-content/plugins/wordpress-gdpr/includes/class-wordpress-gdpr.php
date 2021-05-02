@@ -223,7 +223,7 @@ class WordPress_GDPR
         // Public
         $this->plugin_public = new WordPress_GDPR_Public($this->get_plugin_name(), $this->get_version());
 
-        $this->loader->add_action('wp_enqueue_scripts', $this->plugin_public, 'enqueue_styles');
+        $this->loader->add_action('get_footer', $this->plugin_public, 'enqueue_styles');
         $this->loader->add_action('wp_enqueue_scripts', $this->plugin_public, 'enqueue_scripts');
         $this->loader->add_action('init', $this->plugin_public, 'init', 10);
         add_shortcode( 'wordpress_gdpr_privacy_center', array($this->plugin_public, 'get_privacy_center'));

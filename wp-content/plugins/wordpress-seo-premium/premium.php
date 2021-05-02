@@ -33,7 +33,7 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	const PLUGIN_VERSION_NAME = '16.1';
+	const PLUGIN_VERSION_NAME = '16.2';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.
@@ -79,6 +79,9 @@ class WPSEO_Premium {
 		if ( class_exists( WPSEO_Options::class ) ) {
 			WPSEO_Options::set( 'tracking', true );
 		}
+
+		\do_action( 'wpseo_register_capabilities_premium' );
+		\WPSEO_Capability_Manager_Factory::get( 'premium' )->add();
 	}
 
 	/**

@@ -17,17 +17,17 @@ abstract class Ranged {
 	private $max;
 
 	/**
-	 * @param string $name
-	 * @param string $label
-	 * @param mixed  $min The requested minimal value
-	 * @param mixed  $max The requested maximal value
+	 * @param string     $name
+	 * @param string     $label
+	 * @param int|string $min The requested minimal value
+	 * @param int|string $max The requested maximal value
 	 */
 	public function __construct( $name, $label, $min, $max ) {
-		$this->init_input( 'min', $name, $label, $min );
-		$this->init_input( 'max', $name, ' - ', $max );
+		$this->min = $this->create_input( 'min', $name, $label, $min );
+		$this->max = $this->create_input( 'max', $name, ' - ', $max );
 	}
 
-	private function init_input( $element, $name, $label, $value ) {
+	private function create_input( $element, $name, $label, $value ) {
 		$input = new Input( sprintf( 'acp_filter-%s[%s]', $element, $name ) );
 		$input->set_value( $value )
 		      ->set_id( sprintf( 'acp-filter-%s-%s', $element, $name ) )
@@ -38,7 +38,7 @@ abstract class Ranged {
 			$input->add_class( 'active' );
 		}
 
-		$this->$element = $input;
+		return $input;
 	}
 
 	/**

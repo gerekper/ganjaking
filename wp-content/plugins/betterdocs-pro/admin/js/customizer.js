@@ -175,7 +175,7 @@
 
     wp.customize( 'betterdocs_mkb_cat_title_font_size', function( value ) {
         value.bind( function( to ) {
-            $( '.multiple-kb .docs-cat-title-inner h3, .betterdocs-category-box.multiple-kb .docs-single-cat-wrap .docs-cat-title' ).css( 'font-size', to + 'px' );
+            $( '.multiple-kb .docs-cat-title-inner .docs-cat-heading, .betterdocs-category-box.multiple-kb .docs-single-cat-wrap .docs-cat-title' ).css( 'font-size', to + 'px' );
         } );
     });
 

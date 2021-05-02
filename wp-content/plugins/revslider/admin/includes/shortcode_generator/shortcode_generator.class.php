@@ -159,6 +159,7 @@ class RevSliderShortcodeWizard extends RevSliderFunctions {
 			'doinstallpackage' => __('Install Template Package', 'revslider'),
 			'installtemplate' => __('Install Template', 'revslider'),
 			'installingaddon' => __('Installing Add-on', 'revslider'),
+			'checkversion' => __('Update To Latest Version', 'revslider'),
 			'installpackageandaddons' => __('Install Template Package & Addon(s)', 'revslider'),
 			'installtemplateandaddons' => __('Install Template & Addon(s)', 'revslider'),
 			'licencerequired' => __('Activate License', 'revslider'),

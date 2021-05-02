@@ -22,24 +22,52 @@ if ( class_exists( 'WC_OD_Settings_Delivery_Range', false ) ) {
 class WC_OD_Settings_Delivery_Range extends WC_OD_Settings_API {
 
 	/**
-	 * The delivery range ID.
+	 * The delivery range object.
 	 *
-	 * @var string
+	 * @var WC_OD_Delivery_Range
 	 */
-	public $range_id;
+	protected $delivery_range;
 
 	/**
 	 * Constructor.
 	 *
 	 * @since 1.7.0
+	 * @since 1.8.7 The parameter must be a delivery range object.
 	 *
-	 * @param string $range_id Optional. The delivery range ID.
+	 * @param WC_OD_Delivery_Range $delivery_range Delivery range object.
 	 */
-	public function __construct( $range_id = 'new' ) {
-		$this->id       = 'delivery_ranges';
-		$this->range_id = $range_id;
+	public function __construct( $delivery_range ) {
+		$this->id = 'delivery_ranges';
+
+		if ( ! $delivery_range instanceof WC_OD_Delivery_Range ) {
+			wc_doing_it_wrong( __FUNCTION__, 'You must provide a WC_OD_Delivery_Range object.', '1.8.7' );
+
+			$range_id = ( 'new' === $delivery_range ? null : (int) $delivery_range );
+
+			$this->delivery_range = WC_OD_Delivery_Ranges::get_range( $range_id );
+		} else {
+			$this->delivery_range = $delivery_range;
+		}
 
 		parent::__construct();
+	}
+
+	/**
+	 * Auto-load in-accessible properties on demand.
+	 *
+	 * NOTE: Keep backward compatibility with some deprecated properties on this class.
+	 *
+	 * @since 1.8.7
+	 *
+	 * @param mixed $key The property name.
+	 * @return mixed The property value.
+	 */
+	public function __get( $key ) {
+		if ( 'range_id' === $key ) {
+			wc_deprecated_argument( 'WC_OD_Settings_Delivery_Range->range_id', '1.8.7', 'This property is deprecated and will be removed in future releases.' );
+
+			return $this->delivery_range->get_id();
+		}
 	}
 
 	/**
@@ -50,7 +78,7 @@ class WC_OD_Settings_Delivery_Range extends WC_OD_Settings_API {
 	 * @return bool
 	 */
 	public function is_new() {
-		return ( 'new' === $this->range_id );
+		return ( null === $this->delivery_range->get_id() );
 	}
 
 	/**
@@ -61,7 +89,7 @@ class WC_OD_Settings_Delivery_Range extends WC_OD_Settings_API {
 	 * @return bool
 	 */
 	public function is_default() {
-		return ( '0' === $this->range_id || 0 === $this->range_id );
+		return ( 0 === $this->delivery_range->get_id() );
 	}
 
 	/**
@@ -70,6 +98,11 @@ class WC_OD_Settings_Delivery_Range extends WC_OD_Settings_API {
 	 * @since 1.7.0
 	 */
 	public function init_form_fields() {
+		// Form fields have already been initialized in the method process_admin_options().
+		if ( ! empty( $this->form_fields ) ) {
+			return;
+		}
+
 		$this->form_fields = array(
 			'title' => array(
 				'title'             => __( 'Title', 'woocommerce-order-delivery' ),
@@ -106,6 +139,12 @@ class WC_OD_Settings_Delivery_Range extends WC_OD_Settings_API {
 		if ( ! $this->is_default() ) {
 			$this->form_fields = array_merge( $this->form_fields, $this->get_shipping_methods_fields() );
 
+			$this->form_fields['shipping_methods_option']['default'] = 'specific';
+
+			if ( $this->is_new() || '' !== $this->delivery_range->get_shipping_methods_option() ) {
+				unset( $this->form_fields['shipping_methods_option']['options'][''] );
+			}
+
 			$this->form_fields['shipping_methods_option']['description'] = __( 'Choose the available shipping methods for this delivery range.', 'woocommerce-order-delivery' );
 		}
 	}
@@ -116,21 +155,22 @@ class WC_OD_Settings_Delivery_Range extends WC_OD_Settings_API {
 	 * @since 1.7.0
 	 */
 	public function init_settings() {
+		// Settings have already been initialized in the method process_admin_options().
+		if ( ! empty( $this->settings ) ) {
+			return;
+		}
+
 		$settings = $this->get_form_fields_defaults();
 
 		if ( ! $this->is_new() ) {
-			$delivery_range = WC_OD_Delivery_Ranges::get_range( $this->range_id );
+			$data = $this->delivery_range->get_data();
 
-			if ( $delivery_range ) {
-				$data = $delivery_range->get_data();
+			unset( $data['id'], $data['meta_data'] );
 
-				unset( $data['id'], $data['meta_data'] );
-
-				$settings = array_merge( $settings, $data );
-			}
+			$settings = array_merge( $settings, $data );
 		}
 
-		if ( $settings['shipping_methods_option'] ) {
+		if ( $settings['shipping_methods_option'] && isset( $settings['shipping_methods'] ) ) {
 			$setting_key = "{$settings['shipping_methods_option']}_shipping_methods";
 
 			$settings[ $setting_key ] = $settings['shipping_methods'];
@@ -139,6 +179,19 @@ class WC_OD_Settings_Delivery_Range extends WC_OD_Settings_API {
 		unset( $settings['shipping_methods'] );
 
 		$this->settings = $settings;
+	}
+
+	/**
+	 * Outputs the settings notices.
+	 *
+	 * @since 1.8.7
+	 */
+	public function output_notices() {
+		if ( ! $this->is_new() && ! $this->is_default() && '' === $this->delivery_range->get_shipping_methods_option() ) {
+			$message = __( 'The “All shipping methods” option is reserved for the default delivery range. Consider moving these values to the default delivery range and delete this one.', 'woocommerce-order-delivery' );
+
+			echo '<div id="message" class="notice notice-warning inline"><p>' . esc_html( $message ) . '</p></div>';
+		}
 	}
 
 	/**
@@ -182,12 +235,12 @@ class WC_OD_Settings_Delivery_Range extends WC_OD_Settings_API {
 	 * @since 1.5.0
 	 */
 	public function maybe_redirect() {
-		if ( ! $this->is_new() || $this->has_errors() ) {
-			return;
-		}
+		$range_id = ( isset( $_GET['range_id'] ) ? wc_clean( wp_unslash( $_GET['range_id'] ) ) : 'new' ); // phpcs:ignore WordPress.Security.NonceVerification
 
-		wp_safe_redirect( wc_od_get_settings_url() );
-		exit;
+		if ( 'new' === $range_id && ! $this->has_errors() ) {
+			wp_safe_redirect( wc_od_get_settings_url( 'delivery_range', array( 'range_id' => $this->delivery_range->get_id() ) ) );
+			exit;
+		}
 	}
 
 	/**
@@ -198,22 +251,16 @@ class WC_OD_Settings_Delivery_Range extends WC_OD_Settings_API {
 	 * @return bool was anything saved?
 	 */
 	public function save() {
-		$settings = $this->sanitized_fields( $this->settings );
-
-		if ( $this->is_new() ) {
-			$delivery_range = new WC_OD_Delivery_Range();
-		} else {
-			$delivery_range = WC_OD_Delivery_Ranges::get_range( $this->range_id );
-		}
-
-		if ( ! $delivery_range ) {
+		if ( $this->has_errors() ) {
 			return false;
 		}
 
-		$delivery_range->set_props( $settings );
-		$delivery_range->save();
+		$settings = $this->sanitized_fields( $this->settings );
 
-		return ( null !== $delivery_range->get_id() );
+		$this->delivery_range->set_props( $settings );
+		$this->delivery_range->save();
+
+		return ( null !== $this->delivery_range->get_id() );
 	}
 
 	/**
@@ -236,9 +283,12 @@ class WC_OD_Settings_Delivery_Range extends WC_OD_Settings_API {
 					__( 'From (days)', 'woocommerce-order-delivery' )
 				)
 			);
+		} elseif ( isset( $settings['shipping_methods_option'] ) && '' !== $settings['shipping_methods_option'] ) {
+			$field_key = $settings['shipping_methods_option'] . '_shipping_methods';
 
-			// Don't update these settings.
-			unset( $settings['from'], $settings['to'] );
+			if ( empty( $settings[ $field_key ] ) ) {
+				$this->add_error( __( 'No shipping methods provided.', 'woocommerce-order-delivery' ) );
+			}
 		}
 
 		return $settings;

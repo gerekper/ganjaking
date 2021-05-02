@@ -331,7 +331,7 @@ class WC_Account_Funds_My_Account {
 	 * @return array $crumbs if we're on a account funds page, then augmented breadcrumb data
 	 */
 	public function add_breadcrumb( $crumbs ) {
-		_deprecated_function( __FUNCTION__, '2.2' );
+		wc_deprecated_function( __FUNCTION__, '2.2' );
 
 		return $crumbs;
 	}

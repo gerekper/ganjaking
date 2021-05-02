@@ -27,7 +27,7 @@ class AjaxRequestListScreenUsers implements Registrable {
 
 		$entities = new Select\Entities\User( [
 			'search' => filter_input( INPUT_POST, 'search' ),
-			'paged'  => $paged ? $paged : 1,
+			'paged'  => $paged ?: 1,
 			'number' => 10,
 		] );
 

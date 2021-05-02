@@ -30,9 +30,6 @@ class Name extends Comparison {
 		parent::__construct( $operators );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function create_query_bindings( $operator, Value $value ) {
 		$bindings = new Bindings();
 		$bindings->meta_query(

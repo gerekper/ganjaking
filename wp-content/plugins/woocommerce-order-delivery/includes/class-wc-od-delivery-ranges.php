@@ -20,7 +20,7 @@ class WC_OD_Delivery_Ranges {
 	 *
 	 * @since 1.7.0
 	 *
-	 * @return array
+	 * @return WC_OD_Delivery_Range[]
 	 */
 	public static function get_ranges() {
 		try {

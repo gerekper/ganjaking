@@ -35,13 +35,12 @@ class GPNF_Merge_Tags {
 
 			$child_form = GFAPI::get_form( $field->gpnfForm );
 
-			if( gp_nested_forms()->has_pricing_field( $child_form ) ) {
+			if ( gp_nested_forms()->has_pricing_field( $child_form ) ) {
 				$merge_tags[] = array(
 					'tag'   => "{{$field->label}:{$field->id}:total}",
 					'label' => sprintf( esc_html__( '%s: Total', 'gp-nested-forms' ), $field->label ),
 				);
 			}
-
 		}
 
 		return $merge_tags;

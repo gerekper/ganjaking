@@ -1,9 +1,9 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 use GFCommon;
-use Rocketgenius\Gravity_Forms\Settings\Fields;
+use Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 defined( 'ABSPATH' ) || die();
 
@@ -37,7 +37,7 @@ class Select_Custom extends Base {
 	 * @since 2.5
 	 *
 	 * @param array                                $props    Field properties.
-	 * @param \Rocketgenius\Gravity_Forms\Settings $settings Settings instance.
+	 * @param \Gravity_Forms\Gravity_Forms\Settings\Settings $settings Settings instance.
 	 */
 	public function __construct( $props, $settings ) {
 
@@ -143,15 +143,14 @@ class Select_Custom extends Base {
 		$html = $this->get_description();
 
 		$html .= sprintf(
-			'<span class="%s">%s<div class="gform-settings-select-custom__custom" %s>%s%s</div></span>', // @todo Change class prefix.
+			'<span class="%s">%s<div class="gform-settings-select-custom__custom" %s>%s%s</div>%s</span>',
 			esc_attr( $this->get_container_classes() ),
 			$this->inputs['select']->markup(),
 			$custom_input_display,
 			count( $this->inputs['select']->choices ) > 1 ? '<button type="button" class="gform-settings-select-custom__reset"><span class="screen-reader-text">' . esc_html__( 'Reset', 'gravityforms' ) . '</span></button>' : '',
-			$this->inputs['custom']->markup()
+			$this->inputs['custom']->markup(),
+			$this->get_error_icon()
 		);
-
-		$html .= $this->get_error_icon();
 
 		return $html;
 
@@ -170,7 +169,7 @@ class Select_Custom extends Base {
 	 *
 	 * @param array $value Posted field values.
 	 */
-	public function is_valid( $value ) {
+	public function do_validation( $value ) {
 
 		// If field has no choices, exit.
 		if ( empty( $this->inputs['select']->choices ) ) {
@@ -190,12 +189,6 @@ class Select_Custom extends Base {
 		// If field is required and no custom value was submitted, set field error.
 		if ( $this->required && $select_value === 'gf_custom' && rgblank( $custom_value ) ) {
 			$this->inputs['select']->set_error();
-			return;
-		}
-
-		// If field is required custom value is not a URL, set field error.
-		if ( $this->required && $select_value === 'gf_custom' && ! GFCommon::is_valid_url( $custom_value ) ) {
-			$this->inputs['custom']->set_error( __( 'This must be a valid URL.', 'gravityforms' ) );
 			return;
 		}
 
@@ -232,4 +225,4 @@ class Select_Custom extends Base {
 
 }
 
-Fields::register( 'select_custom', '\Rocketgenius\Gravity_Forms\Settings\Fields\Select_Custom' );
+Fields::register( 'select_custom', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Select_Custom' );

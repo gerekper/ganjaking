@@ -11,27 +11,20 @@
 
 get_header(); 
 
-?>
-<div class="betterdocs-wraper betterdocs-main-wraper">
-	<?php 
+echo '<div class="betterdocs-wraper betterdocs-main-wraper">';
 	$live_search = BetterDocs_DB::get_settings('live_search');
-	if($live_search == 1){
-	?>
-	<div class="betterdocs-search-form-wrap">
-		<?php echo do_shortcode( '[betterdocs_search_form]' ); ?>
-	</div><!-- .betterdocs-search-form-wrap -->
-	<?php } ?>
-	<div class="betterdocs-archive-wrap betterdocs-archive-category-box betterdocs-archive-category-box-2 betterdocs-archive-main">
-		<?php
+	if ($live_search == 1) {
+	    echo '<div class="betterdocs-search-form-wrap">'.do_shortcode( '[betterdocs_search_form]' ).'</div>';
+	}
+
+	echo '<div class="betterdocs-archive-wrap betterdocs-archive-category-box betterdocs-archive-category-box-2 betterdocs-archive-main">';
+        $output = betterdocs_generate_output();
 		if ( is_tax( 'knowledge_base' ) && BetterDocs_Multiple_Kb::$enable == 1 ) {
-			echo do_shortcode( '[betterdocs_category_box_2 multiple_knowledge_base=true]' );
+			echo do_shortcode( '[betterdocs_category_box_2 multiple_knowledge_base="true" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'"]' );
 		} else {
-			echo do_shortcode( '[betterdocs_category_box_2]' );
+			echo do_shortcode( '[betterdocs_category_box_2 title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'"]' );
 		}
-		?>
-	</div><!-- .betterdocs-archive-wrap -->
+	echo '</div>
+</div>';
 
-</div><!-- .betterdocs-wraper -->
-
-<?php
 get_footer();

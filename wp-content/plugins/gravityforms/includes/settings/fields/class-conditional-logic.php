@@ -1,9 +1,9 @@
 <?php
 
-namespace Rocketgenius\Gravity_Forms\Settings\Fields;
+namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 use GFFormsModel;
-use Rocketgenius\Gravity_Forms\Settings\Fields;
+use Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 defined( 'ABSPATH' ) || die();
 
@@ -31,7 +31,7 @@ class Conditional_Logic extends Base {
 	 * @since 2.5
 	 *
 	 * @param array                                $props    Field properties.
-	 * @param \Rocketgenius\Gravity_Forms\Settings $settings Settings instance.
+	 * @param \Gravity_Forms\Gravity_Forms\Settings\Settings $settings Settings instance.
 	 */
 	public function __construct( $props, $settings ) {
 
@@ -69,7 +69,7 @@ class Conditional_Logic extends Base {
 			array(
 				'name'          => sprintf( '%s_conditional_logic_object', esc_attr( $this->object_type ) ),
 				'type'          => 'hidden',
-				'default_value' => $this->get_logic_object(),
+				'default_value' => wp_json_encode( $this->get_logic_object() ),
 			),
 			$settings
 		);
@@ -114,7 +114,7 @@ class Conditional_Logic extends Base {
 			// Prepare JS parameters.
 			$js_params = array(
 				'strings'     => array( 'objectDescription' => esc_attr( $this->instructions ) ),
-				'logicObject' => json_decode( $this->get_logic_object(), true ),
+				'logicObject' => $this->get_logic_object(),
 			);
 
 			// Initialize.
@@ -138,36 +138,33 @@ class Conditional_Logic extends Base {
 	// # HELPER METHODS ------------------------------------------------------------------------------------------------
 
 	/**
-	 * Returns the current conditional logic object as a JSON string.
+	 * Returns the current conditional logic object.
 	 *
 	 * @since 2.5
 	 *
-	 * @return string
+	 * @return object
 	 */
 	private function get_logic_object() {
-
 		// Get logic object.
 		$object = $this->settings->get_value( sprintf( '%s_conditional_logic_object', $this->object_type ) );
 
-		// Trim values from existing object.
-		if ( $object ) {
-
-			// Handle feed condition.
-			if ( $this->object_type === 'feed_condition' && rgar( $object, 'actionType' ) ) {
-				$object = array( 'conditionalLogic' => $object );
-			}
-
-			$object = GFFormsModel::trim_conditional_logic_values_from_element( $object, $this->settings->get_current_form() );
-			return json_encode( $object );
-
-		} else {
-
-			return '{}';
-
+		/*
+		 * Because we call this method during object instantiation, we might get back an encoded object when
+		 * Conditional_Logic::markup is called later. To prevent encoding our empty objects as a string, we'll return a
+		 * new generic PHP object here instead.
+		 */
+		if ( ! $object || $object === '{}' ) {
+			return new \stdClass();
 		}
 
-	}
+		// Handle feed condition.
+		if ( $this->object_type === 'feed_condition' && rgar( $object, 'actionType' ) ) {
+			$object = array( 'conditionalLogic' => $object );
+		}
 
+		// Trim values from existing object.
+		return GFFormsModel::trim_conditional_logic_values_from_element( $object, $this->settings->get_current_form() );
+	}
 }
 
-Fields::register( 'conditional_logic', '\Rocketgenius\Gravity_Forms\Settings\Fields\Conditional_Logic' );
+Fields::register( 'conditional_logic', '\Gravity_Forms\Gravity_Forms\Settings\Fields\Conditional_Logic' );

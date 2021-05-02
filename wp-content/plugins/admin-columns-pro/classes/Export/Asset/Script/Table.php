@@ -4,33 +4,30 @@ namespace ACP\Export\Asset\Script;
 
 use AC\Asset\Location;
 use AC\Asset\Script;
+use ACP\Export;
 
 final class Table extends Script {
 
-	/**
-	 * @var int
-	 */
-	private $num_iterations;
+	const NONCE_ACTION = 'acp_export_listscreen_export';
 
-	public function __construct( $handle, Location $location, $num_iterations ) {
+	/**
+	 * @var Export\Strategy
+	 */
+	private $strategy;
+
+	public function __construct( $handle, Location $location, Export\Strategy $strategy ) {
 		parent::__construct( $handle, $location, [ 'jquery' ] );
 
-		$this->num_iterations = $num_iterations;
+		$this->strategy = $strategy;
 	}
 
 	public function register() {
-		global $wp_list_table;
-
-		if ( ! $wp_list_table ) {
-			return;
-		}
-
 		parent::register();
 
 		wp_localize_script( $this->get_handle(), 'ACP_Export', [
-			'total_num_items' => $wp_list_table->get_pagination_arg( 'total_items' ),
-			'num_iterations'  => $this->num_iterations,
-			'nonce'           => wp_create_nonce( 'acp_export_listscreen_export' ),
+			'total_num_items' => $this->strategy->get_total_items(),
+			'num_iterations'  => $this->strategy->get_num_items_per_iteration(),
+			'nonce'           => wp_create_nonce( self::NONCE_ACTION ),
 			'i18n'            => [
 				'dismiss'          => __( 'Dismiss this notice.' ),
 				'export'           => __( 'Export', 'codepress-admin-columns' ),

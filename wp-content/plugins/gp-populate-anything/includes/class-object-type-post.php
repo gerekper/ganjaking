@@ -192,6 +192,21 @@ class GPPA_Object_Type_Post extends GPPA_Object_Type {
 		 */
 		extract( $args );
 
+		/**
+		 * Filter whether terms should be looked up by ID when filtering posts by taxonomy.
+		 *
+		 * This is useful when filtering taxonomies with numeric slugs by a numeric value (i.e. zip codes). By default,
+		 * Populate Anything will assume numeric values are term IDs and search by ID with the given value. Use this
+		 * to indicate that your numeric values are slugs and not IDs.
+		 *
+		 * @since x.x.x
+		 *
+		 * @param bool  $should_get_term_by_id Indicate if terms should be fetched by ID.
+		 * @param array $args                  An array of arguments applicable to the current filtering request.
+		 * @param array $query_builder_args    An array of arguments that will be used to build the query for this filter.
+		 */
+		$get_term_by_id = apply_filters( 'gppa_should_get_term_by_id', true, $args, $query_builder_args );
+
 		switch ( $filter['operator'] ) {
 			case 'is':
 				$operator = '=';
@@ -233,7 +248,7 @@ class GPPA_Object_Type_Post extends GPPA_Object_Type {
 
 		foreach ( $filter_value as $value ) {
 			/* First, look for term by ID if the filter value is a number */
-			if ( is_numeric( $value ) ) {
+			if ( is_numeric( $value ) && $get_term_by_id ) {
 				$term = get_term_by( 'id', $value, $taxonomy );
 			}
 

@@ -49,9 +49,9 @@ class GF_System_Report {
 		wp_print_styles( array( 'thickbox' ) );
 
 		?>
-		<div class="updated gform_system_report_alert inline">
+		<div class="alert info">
 			<p><?php _e( 'The following is a system report containing useful technical information for troubleshooting issues. If you need further help after viewing the report, click on the "Copy System Report" button below to copy the report and paste it in your message to support.', 'gravityforms' ); ?></p>
-			<p class="inline"><a href="#" class="button-primary" id="gf_copy_report" data-clipboard-target="#gf_system_report"><?php _e( 'Copy System Report', 'gravityforms' ); ?></a></p>
+			<button class="button" onclick="function (e) { e.preventDefault() }" id="gf_copy_report" data-clipboard-target="#gf_system_report"><?php _e( 'Copy System Report', 'gravityforms' ); ?> <i aria-hidden="true" class="dashicons dashicons-arrow-right-alt" ></i></button>
 
 			<div class="gf_copy_message inline" id="gf_copy_error_message">
 				<p><span class="dashicons dashicons-yes"></span><?php esc_html_e( 'Report generated!', 'gravityforms' ); echo ' <b>Press Ctrl+C to copy it.</b>'; ?></p>
@@ -61,6 +61,7 @@ class GF_System_Report {
 				<p><span class="dashicons dashicons-yes"></span><?php esc_html_e( 'Report Copied!', 'gravityforms' ) ?></p>
 			</div>
 
+
 			<textarea id="gf_system_report" readonly="readonly" ><?php echo esc_html( $system_report_text ) ?></textarea>
 		</div>
 		<script type="text/javascript">
@@ -68,7 +69,6 @@ class GF_System_Report {
 
 				clipboard = new Clipboard('#gf_copy_report');
 				clipboard.on('success', function(e) {
-					console.log('here');
 					setTimeout( function(){ jQuery('#gf_copy_success').attr( 'style', 'display:inline-block !important;' )}, 300 );
 					setTimeout( function(){ jQuery('#gf_copy_success').attr( 'style', 'display:none !important;' ) }, 5000 );
 					e.clearSelection();
@@ -137,7 +137,7 @@ class GF_System_Report {
 				}
 
 				// Open section table.
-				echo '<table class="gform_system_report wp-list-table widefat fixed striped feeds">';
+				echo '<table cellpadding="0" cellspacing="0" class="gform_system_report wp-list-table fixed striped feeds">';
 
 				// Add table header.
 				echo '<thead><tr><th colspan="2">' . rgar( $table, 'title' ) . '</th></tr></thead>';
@@ -170,10 +170,6 @@ class GF_System_Report {
 				echo '</tbody></table><br />';
 
 			}
-
-			// Add horizontal divider.
-			echo $i !== count( $sections ) - 1 ? '<div class="hr-divider"></div>' : '';
-
 		}
 
 		// Close form.
@@ -284,7 +280,7 @@ class GF_System_Report {
 
 					$message = sprintf( esc_html__( 'Current status: %s', 'gravityforms' ), $status );
 
-					$message .= ' ' . sprintf( '<img id="gf-spinner" src="%s" />', GFCommon::get_base_url() . '/images/spinner.gif' );
+					$message .= ' ' . sprintf( '<img id="gf-spinner" src="%s" />', GFCommon::get_base_url() . '/images/spinner.svg' );
 
 					$ajax_url = admin_url( 'admin-ajax.php' );
 
@@ -654,13 +650,18 @@ class GF_System_Report {
 						),
 					),
 					array(
-						'title'        => esc_html__( 'MySQL', 'gravityforms' ),
-						'title_export' => 'MySQL',
+						'title'        => esc_html__( 'Database Server', 'gravityforms' ),
+						'title_export' => 'Database Server',
 						'items'        => array(
+							array(
+								'label'        => esc_html__( 'Database Management System', 'gravityforms' ),
+								'label_export' => 'Database Management System',
+								'value'        => esc_html( GFCommon::get_dbms_type() ),
+							),
 							array(
 								'label'              => esc_html__( 'Version', 'gravityforms' ),
 								'label_export'       => 'Version',
-								'value'              => esc_html( $wpdb->db_version() ),
+								'value'              => esc_html( GFCommon::get_db_version() ),
 								'type'               => 'version_check',
 								'version_compare'    => '>',
 								'minimum_version'    => '5.0.0',
@@ -855,7 +856,7 @@ class GF_System_Report {
 		$is_writable = wp_is_writable( $upload_path );
 
 		$disable_css      = get_option( 'rg_gforms_disable_css' );
-		$enable_html5     = get_option( 'rg_gforms_enable_html5' );
+		$enable_html5     = get_option( 'rg_gforms_enable_html5', true );
 		$no_conflict_mode = get_option( 'gform_enable_noconflict' );
 		$updates          = get_option( 'gform_enable_background_updates' );
 

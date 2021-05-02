@@ -56,11 +56,11 @@ class Post extends Strategy {
 	}
 
 	/**
-	 * @param $vars
-	 * @param $value
-	 * @param $taxonomy
+	 * @param array        $vars
+	 * @param mixed        $value
+	 * @param array|string $taxonomy
 	 *
-	 * @return mixed
+	 * @return array
 	 */
 	public function get_filterable_request_vars_taxonomy( $vars, $value, $taxonomy ) {
 

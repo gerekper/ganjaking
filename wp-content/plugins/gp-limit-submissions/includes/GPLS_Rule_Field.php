@@ -5,9 +5,10 @@ class GPLS_Rule_Field extends GPLS_Rule {
 	private $field;
 
 	public static function load( $ruleData, $form_id = false ) {
-		$rule          = new self;
-		$rule->field   = $ruleData['rule_field'];
-		$rule->form_id = $form_id;
+		$rule               = new self;
+		$rule->field        = $ruleData['rule_field'];
+		$rule->form_id      = $form_id;
+		$rule->field_values = GPLS_Enforce::$field_values;
 
 		return $rule;
 	}
@@ -106,12 +107,19 @@ class GPLS_Rule_Field extends GPLS_Rule {
 
 		$form  = GFAPI::get_form( $this->form_id );
 		$field = GFFormsModel::get_field( $form, $field_id );
+
 		if ( ! $field ) {
 			return false;
 		}
 		$input_name = 'input_' . str_replace( '.', '_', $field_id );
 
-		return GFFormsModel::prepare_value( $form, $field, rgpost( $input_name ), $input_name, null );
+		if ( GFFormDisplay::is_submit_form_id_valid() ) {
+			$value = GFFormsModel::prepare_value( $form, $field, rgpost( $input_name ), $input_name, null );
+		} else {
+			$value = GFFormsModel::get_field_value( $field, $this->field_values );
+		}
+
+		return $value;
 	}
 
 	public function render_option_fields( $gfaddon ) {

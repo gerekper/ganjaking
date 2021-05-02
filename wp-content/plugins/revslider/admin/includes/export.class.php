@@ -537,41 +537,39 @@ class RevSliderSliderExport extends RevSliderSlider {
 	 * add svg to the zip file, by modifying data in $export_data
 	 **/
 	public function add_svg_to_zip(){
-		if(!empty($this->used_svg)){
-			$c_url	= content_url();
-			$c_path	= ABSPATH . 'wp-content';
-			$ud		= wp_upload_dir();
-			$up_dir	= $this->get_val($ud, 'baseurl');
-			//$upload_dir	= $this->get_val($ud, 'basedir').'/';
-			$cont_url			= $this->get_val($ud, 'baseurl');
-			$cont_url2			= (strpos($cont_url, 'http://') !== false) ? str_replace('http://', 'https://', $cont_url) : str_replace('https://', 'http://', $cont_url);
-			$cont_url_no_www	= str_replace('www.', '', $cont_url);
-			$cont_url2_no_www	= str_replace('www.', '', $cont_url2);
-			
-			foreach($this->used_svg as $file => $val){
-				if(strpos($file, 'http') !== false){ //remove all up to wp-content folder
-					$_checkpath = str_replace(array($cont_url.'/', $cont_url_no_www.'/', $cont_url2.'/', $cont_url2_no_www.'/'), '', $file);
-					$checkpath = str_replace($c_url, '', $file);
-					$checkpath2 = str_replace($up_dir, '', $file);
-					if($checkpath2 === $file){ //we have an SVG like whiteboard, fallback to older export
-						$checkpath2 = $checkpath;
+		if(empty($this->used_svg)) return;
+		
+		$c_url	= str_replace(array('http:', 'https:'), '', content_url());
+		$c_path	= ABSPATH . 'wp-content';
+		$ud		= wp_upload_dir();
+		$up_dir	= $this->get_val($ud, 'baseurl');
+		$up_dir	= str_replace(array('http:', 'https:'), '', $up_dir);
+		$cont_url			= str_replace(array('http:', 'https:'), '', $this->get_val($ud, 'baseurl'));
+		$cont_url_no_www	= str_replace('www.', '', $cont_url);
+		
+		foreach($this->used_svg as $file => $val){
+			if(strpos($file, 'http') !== false){ //remove all up to wp-content folder
+				$file		= str_replace(array('http:', 'https:'), '', $file);
+				$_checkpath = str_replace(array($cont_url.'/', $cont_url_no_www.'/'), '', $file);
+				$checkpath = str_replace($c_url, '', $file);
+				$checkpath2 = str_replace($up_dir, '', $file);
+				if($checkpath2 === $file){ //we have an SVG like whiteboard, fallback to older export
+					$checkpath2 = $checkpath;
+				}
+				
+				//check if file is in the upload folder, if yes, add it to the zip file
+				if(strpos($file, $up_dir) !== false){
+					if(!$this->usepcl){
+						$this->zip->addFile($c_path.$checkpath, 'images/'.$_checkpath);
+					}else{
+						$this->pclzip->add($c_path.$checkpath, PCLZIP_OPT_REMOVE_PATH, $c_path, PCLZIP_OPT_ADD_PATH, $_checkpath);
 					}
-					
-					//check if file is in the upload folder, if yes, add it to the zip file
-					if(strpos($file, $up_dir) !== false){
-						if(!$this->usepcl){
-							$add_checkpath = 'images/'.$_checkpath;
-							$this->zip->addFile($c_path.$checkpath, $add_checkpath);
-						}else{
-							$this->pclzip->add($c_path.$checkpath, PCLZIP_OPT_REMOVE_PATH, $c_path, PCLZIP_OPT_ADD_PATH, $_checkpath);
-						}
-					}
-					$file = str_replace('/', '\/', $file);
-					$checkpath2 = str_replace('/', '\/', str_replace('/revslider/assets/svg', '', $checkpath2));
-					
-					if(is_file($c_path.$checkpath)){
-						$this->export_data = str_replace($file, $checkpath2, $this->export_data);
-					}
+				}
+				$file = str_replace('/', '\/', $file);
+				$checkpath2 = str_replace('/', '\/', str_replace('/revslider/assets/svg', '', $checkpath2));
+
+				if(is_file($c_path.$checkpath)){
+					$this->export_data = str_replace(array('http:'.$file, 'https:'.$file), $checkpath2, $this->export_data);
 				}
 			}
 		}

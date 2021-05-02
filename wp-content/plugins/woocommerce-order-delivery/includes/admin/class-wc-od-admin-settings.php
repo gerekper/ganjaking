@@ -148,8 +148,10 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 			// phpcs:disable WordPress.Security.NonceVerification
 			if ( 'delivery_range' === $current_section ) {
 				$range_id = ( isset( $_GET['range_id'] ) ? wc_clean( wp_unslash( $_GET['range_id'] ) ) : 'new' );
+				$range_id = ( 'new' === $range_id ? null : (int) $range_id );
 
-				$this->settings_api = new WC_OD_Settings_Delivery_Range( $range_id );
+				$delivery_range     = WC_OD_Delivery_Ranges::get_range( $range_id );
+				$this->settings_api = new WC_OD_Settings_Delivery_Range( $delivery_range );
 				return;
 			}
 

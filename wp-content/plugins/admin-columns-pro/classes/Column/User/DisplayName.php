@@ -6,9 +6,6 @@ use AC;
 use ACP\Editing;
 use ACP\Sorting;
 
-/**
- * @since 2.0
- */
 class DisplayName extends AC\Column\User\DisplayName
 	implements Sorting\Sortable, Editing\Editable {
 

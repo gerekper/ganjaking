@@ -85,25 +85,16 @@ class Post extends AC\Helper\Select\Entities
 
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function get_total_pages() {
 		$per_page = $this->query->get( 'posts_per_page' );
 
 		return ceil( $this->query->found_posts / $per_page );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function get_page() {
 		return $this->query->get( 'paged' );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function is_last_page() {
 		return $this->get_total_pages() <= $this->get_page();
 	}

@@ -27,9 +27,6 @@ class Score extends AC\Column\Meta
 		$width->set_default( 'px', 'width_unit' );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function get_meta_key() {
 		return '_yoast_wpseo_linkdex';
 	}
@@ -38,9 +35,6 @@ class Score extends AC\Column\Meta
 		return new Export\Model\StrippedRawValue( $this );
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function sorting() {
 		return ( new Sorting\Model\MetaFactory() )->create( $this->get_meta_type(), $this->get_meta_key(), new DataType( DataType::NUMERIC ) );
 	}

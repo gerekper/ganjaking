@@ -27,7 +27,7 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 		add_action( 'permalink_manager_updated_term_uri', array($this, 'save_redirects'), 9, 5 );
 
 		// Check for updates
-		add_action( 'admin_init', array($this, 'check_for_updates'), 10 );
+		add_action( 'plugins_loaded', array($this, 'check_for_updates'), 10 );
 		add_action( 'wp_ajax_pm_get_exp_date', array($this, 'get_expiration_date'), 9 );
 
 		// Display License info on "Plugins" page

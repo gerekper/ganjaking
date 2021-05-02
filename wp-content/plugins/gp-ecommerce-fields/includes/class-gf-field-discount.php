@@ -29,26 +29,31 @@ class GF_Field_Discount extends GF_Field_Subtotal {
 
 		$discount_fields = array();
 
-		foreach( $form['fields'] as $field ) {
-			if( $field->type == 'discount' && ! GFFormsModel::is_field_hidden( $form, $field, array(), $entry ) ) {
+		foreach ( $form['fields'] as $field ) {
+			if ( $field->type === 'discount' && ! GFFormsModel::is_field_hidden( $form, $field, array(), $entry ) ) {
 				$discount_fields[] = $field;
 			}
 		}
 
-		if( empty( $discount_fields ) ) {
+		if ( empty( $discount_fields ) ) {
 			return $order;
 		}
 
 		$total = gp_ecommerce_fields()->get_total( $order );
 
-		foreach( $discount_fields as $discount_field ) {
+		foreach ( $discount_fields as $discount_field ) {
 
-			$discount = gp_ecommerce_fields()->get_field_total( $order, $entry, $total, array(
-				'amount'       => $discount_field->discountAmount,
-				'amountType'   => $discount_field->discountAmountType,
-				'products'     => $discount_field->discountProducts,
-				'productsType' => $discount_field->discountProductsType,
-			) );
+			$discount = gp_ecommerce_fields()->get_field_total(
+				$order,
+				$entry,
+				$total,
+				array(
+					'amount'       => $discount_field->discountAmount,
+					'amountType'   => $discount_field->discountAmountType,
+					'products'     => $discount_field->discountProducts,
+					'productsType' => $discount_field->discountProductsType,
+				)
+			);
 
 			$discount *= -1;
 
@@ -68,7 +73,7 @@ class GF_Field_Discount extends GF_Field_Subtotal {
 				'name'       => $discount_field->get_field_label( true, false ),
 				'price'      => $discount,
 				'quantity'   => 1,
-				'isDiscount' => true
+				'isDiscount' => true,
 			);
 
 		}
@@ -89,13 +94,13 @@ class GF_Field_Discount extends GF_Field_Subtotal {
 	 */
 	public static function get_product_discount( $order, $form, $entry, $product_id, $product_total ) {
 
-		$coupon_fields = GFFormsModel::get_fields_by_type( $form, 'coupon' );
+		$coupon_fields   = GFFormsModel::get_fields_by_type( $form, 'coupon' );
 		$discount_fields = array();
 
-		foreach( $form['fields'] as $field ) {
-			if( $field->type == 'discount'
-			    && ! GFFormsModel::is_field_hidden( $form, $field, array(), $entry )
-				&& ( ! $field->discountProducts || ( $field->discountProductsType == 'include' && in_array( $product_id, $field->discountProducts ) ) )
+		foreach ( $form['fields'] as $field ) {
+			if ( $field->type === 'discount'
+				&& ! GFFormsModel::is_field_hidden( $form, $field, array(), $entry )
+				&& ( ! $field->discountProducts || ( $field->discountProductsType === 'include' && in_array( $product_id, $field->discountProducts ) ) )
 				) {
 				$discount_fields[] = $field;
 			}
@@ -103,26 +108,30 @@ class GF_Field_Discount extends GF_Field_Subtotal {
 
 		$total = 0;
 
-		if( ! empty( $discount_fields ) ) {
+		if ( ! empty( $discount_fields ) ) {
 
-			foreach( $discount_fields as $discount_field ) {
+			foreach ( $discount_fields as $discount_field ) {
 
-				$discount = gp_ecommerce_fields()->get_field_total( $order, $entry, $product_total, array(
-					'amount'           => $discount_field->discountAmount,
-					'amountType'       => $discount_field->discountAmountType,
-					'products'         => $discount_field->discountProducts,
-					'productsType'     => $discount_field->discountProductsType,
-					'includeDiscounts' => false,
-					'calculateByProduct' => true
-				) );
+				$discount = gp_ecommerce_fields()->get_field_total(
+					$order,
+					$entry,
+					$product_total,
+					array(
+						'amount'             => $discount_field->discountAmount,
+						'amountType'         => $discount_field->discountAmountType,
+						'products'           => $discount_field->discountProducts,
+						'productsType'       => $discount_field->discountProductsType,
+						'includeDiscounts'   => false,
+						'calculateByProduct' => true,
+					)
+				);
 
 				$total += $discount;
 
 			}
-
 		}
 
-		if( ! empty( $coupon_fields ) && is_callable( 'gf_coupons' ) ) {
+		if ( ! empty( $coupon_fields ) && is_callable( 'gf_coupons' ) ) {
 			$coupon_codes = gf_coupons()->get_submitted_coupon_codes( $form, $entry );
 			$coupons      = gf_coupons()->get_coupons_by_codes( $coupon_codes, $form );
 			$coupons      = gf_coupons()->get_discounts( $coupons, $product_total, $total );
@@ -133,9 +142,9 @@ class GF_Field_Discount extends GF_Field_Subtotal {
 
 	public static function add_order_summary_discount_items( $order_summary, $form, $entry, $order ) {
 
-		foreach( $order['products'] as $product ) {
+		foreach ( $order['products'] as $product ) {
 
-			if( ! rgar( $product, 'isDiscount' ) ) {
+			if ( ! rgar( $product, 'isDiscount' ) ) {
 				continue;
 			}
 
@@ -143,7 +152,7 @@ class GF_Field_Discount extends GF_Field_Subtotal {
 				'name'      => $product['name'],
 				'price'     => $product['price'],
 				'cellStyle' => 'color:#008800',
-				'class'     => 'discount'
+				'class'     => 'discount',
 			);
 
 		}
