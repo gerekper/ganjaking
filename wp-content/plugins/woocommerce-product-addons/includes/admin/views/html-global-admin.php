@@ -21,6 +21,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php
 			$global_addons = WC_Product_Addons_Groups::get_all_global_groups();
 
+			// Sort global_addons by priority
+			$keys = array_column( $global_addons, 'priority' );
+			array_multisort( $keys, SORT_ASC, $global_addons );
+
 			if ( $global_addons ) {
 				foreach ( $global_addons as $global_addon ) {
 					?>

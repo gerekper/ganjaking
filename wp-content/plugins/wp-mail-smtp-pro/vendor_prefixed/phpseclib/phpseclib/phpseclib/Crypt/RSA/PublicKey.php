@@ -19,6 +19,7 @@ use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Hash;
 use WPMailSMTP\Vendor\phpseclib3\Exception\NoKeyLoadedException;
 use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedFormatException;
+use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedAlgorithmException;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Random;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps\DigestInfo;
@@ -87,15 +88,28 @@ class PublicKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\RSA implements \WPMa
             return \false;
         }
         // EMSA-PKCS1-v1_5 encoding
+        $exception = \false;
         // If the encoding operation outputs "intended encoded message length too short," output "RSA modulus
         // too short" and stop.
         try {
             $em2 = $this->emsa_pkcs1_v1_5_encode($m, $this->k);
+            $r1 = \hash_equals($em, $em2);
         } catch (\LengthException $e) {
+            $exception = \true;
+        }
+        try {
+            $em3 = $this->emsa_pkcs1_v1_5_encode_without_null($m, $this->k);
+            $r2 = \hash_equals($em, $em3);
+        } catch (\LengthException $e) {
+            $exception = \true;
+        } catch (\WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedAlgorithmException $e) {
+            $r2 = \false;
+        }
+        if ($exception) {
             throw new \LengthException('RSA modulus too short');
         }
         // Compare
-        return \hash_equals($em, $em2);
+        return $r1 || $r2;
     }
     /**
      * RSASSA-PKCS1-V1_5-VERIFY (relaxed matching)
@@ -165,6 +179,9 @@ class PublicKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\RSA implements \WPMa
             return \false;
         }
         if (!isset($oids[$decoded['digestAlgorithm']['algorithm']])) {
+            return \false;
+        }
+        if (isset($decoded['digestAlgorithm']['parameters']) && $decoded['digestAlgorithm']['parameters'] !== ['null' => '']) {
             return \false;
         }
         $hash = $decoded['digestAlgorithm']['algorithm'];

@@ -1,11 +1,22 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2020.04.28 - version 1.11.1
+Fix: 1.10.0 database upgrade routine failures when updating 20+ Mix and Match products.
+
+2020.03.23 - version 1.11.0
+New: Use _prime_post_caches() to boost speed of fetching child products.
+Fix: Only add indent wrapping div to product name if it doesn't already exist. Prevent multiple sub-arrows from displaying when coupons fail.
+Fix: Php 8 compat: Required parameter follows optional parameter.
+Fix: Add margin reset to <figure> in single product page.
+Dev: Add get_props_to_meta_keys() getter to data store class.
+
 2020-12.07 - version 1.10.6
 * Fix - Grand total calculations for containers + Product Addons.
 * Fix - Prevent double discounts when discounting from sale price.
 * Fix - Harden calls to init gallery on child product images to prevent Uncaught TypeError: .wc_product_gallery is not a function.
 * Fix - Use wc_product_class() for opening child item divs/rows. Restores compat with filters mini-extension.
 * Fix - Min/Max Quantities compatibility - ignore rules on variations too.
+* Fix - Add RTL Language style data.
 
 2020.11.18 - version 1.10.5
 * Update: Tested up to WooCommerce 4.7.0.

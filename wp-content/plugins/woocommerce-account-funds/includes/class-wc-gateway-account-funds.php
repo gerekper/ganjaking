@@ -100,22 +100,14 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 			return false;
 		}
 
-		if ( WC()->cart ) {
-			if ( WC_Account_Funds_Cart_Manager::cart_contains_deposit() ) {
-				return false;
-			}
-
-			$order_total = $this->get_order_total();
-			$funds       = WC_Account_Funds::get_account_funds( get_current_user_id(), false );
-			$using_funds = WC_Account_Funds_Cart_Manager::using_funds();
-
-			// Not enough funds.
-			if (
-				( $using_funds && $order_total > 0 ) ||
-				( ! $using_funds && $funds < $order_total )
-			) {
-				return false;
-			}
+		if (
+			WC()->cart && (
+				WC_Account_Funds_Cart_Manager::using_funds() ||
+				WC_Account_Funds_Cart_Manager::cart_contains_deposit() ||
+				WC_Account_Funds::get_account_funds( null, false ) < $this->get_order_total()
+			)
+		) {
+			return false;
 		}
 
 		return true;

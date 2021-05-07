@@ -3,8 +3,8 @@ Contributors:nik00726
 Tags:Recpatcha
 Requires at least:3.0
 Tested up to:5.7
-Version:2.11
-Stable tag:2.11
+Version:2.15
+Stable tag:2.15
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,10 +88,28 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 == Changelog ==
 
+= 2.15 =
+
+* Fixed registration captcha not work for some theme as it is using _nonce.
+
+= 2.14 =
+
+* Added captcha for Post Comment forms.
+
+
+= 2.13 =
+
+* Fixed complain that plugin automatically deactivated.
+
+
+= 2.12 =
+
+* Fixed Elavon payment processor shown catcha twice on add payment method page
+
+
 = 2.11 =
 
 * Added option to enable/disable recaptcha for stripe payment request buttons (Google Pay and Apple Pay)
-
 
 
 = 2.10 =

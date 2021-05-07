@@ -107,7 +107,7 @@ class SignatureProvider
                 case 'v4':
                     return !empty(self::$s3v4SignedServices[$service]) ? new \WPMailSMTP\Vendor\Aws\Signature\S3SignatureV4($service, $region) : new \WPMailSMTP\Vendor\Aws\Signature\SignatureV4($service, $region);
                 case 'v4-unsigned-body':
-                    return new \WPMailSMTP\Vendor\Aws\Signature\SignatureV4($service, $region, ['unsigned-body' => 'true']);
+                    return !empty(self::$s3v4SignedServices[$service]) ? new \WPMailSMTP\Vendor\Aws\Signature\S3SignatureV4($service, $region, ['unsigned-body' => 'true']) : new \WPMailSMTP\Vendor\Aws\Signature\SignatureV4($service, $region, ['unsigned-body' => 'true']);
                 case 'anonymous':
                     return new \WPMailSMTP\Vendor\Aws\Signature\AnonymousSignature();
                 default:

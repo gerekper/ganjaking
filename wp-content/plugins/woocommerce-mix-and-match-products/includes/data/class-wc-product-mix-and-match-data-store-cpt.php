@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Data
  * @since    1.2.0
- * @version  1.4.3
+ * @version  1.10.7
  */
 
 // Exit if accessed directly.
@@ -82,7 +82,7 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 */
 	protected function read_extra_data( &$product ) {
 
-		foreach ( $this->props_to_meta_keys as $property => $meta_key ) {
+		foreach ( $this->get_props_to_meta_keys() as $property => $meta_key ) {
 
 			// Get meta value.
 			$function = 'set_' . $property;
@@ -114,7 +114,7 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		parent::update_post_meta( $product, $force );
 
 		$id                 = $product->get_id();
-		$meta_keys_to_props = array_flip( array_diff_key( $this->props_to_meta_keys, array( 'price' => 1, 'min_raw_price' => 1, 'min_raw_regular_price' => 1 ) ) );
+		$meta_keys_to_props = array_flip( array_diff_key( $this->get_props_to_meta_keys(), array( 'price' => 1, 'min_raw_price' => 1, 'min_raw_regular_price' => 1 ) ) );
 		$props_to_update    = $force ? $meta_keys_to_props : $this->get_props_to_update( $product, $meta_keys_to_props );
 
 		foreach ( $props_to_update as $meta_key => $property ) {
@@ -248,7 +248,7 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		$id = $product->get_id();
 
 		$updated_props   = array();
-		$props_to_update = array_intersect( array_flip( $this->props_to_meta_keys ), array( 'min_raw_price', 'min_raw_regular_price', 'max_raw_price', 'max_raw_regular_price' ) );
+		$props_to_update = array_intersect( array_flip( $this->get_props_to_meta_keys() ), array( 'min_raw_price', 'min_raw_regular_price', 'max_raw_price', 'max_raw_regular_price' ) );
 
 		foreach ( $props_to_update as $meta_key => $property ) {
 
@@ -284,5 +284,16 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 			do_action( 'woocommerce_product_object_updated_props', $product, $updated_props );
 		}
 
+	}
+
+
+	/**
+	 * Gets props to meta keys pairs
+	 *
+	 * @since  1.10.7
+	 * @return  array
+	 */
+	public function get_props_to_meta_keys() {
+		return $this->props_to_meta_keys;
 	}
 }

@@ -716,15 +716,24 @@ class WoocommerceGpfCommon {
 	 *
 	 * @return array The array with blank elements removed
 	 */
-	public function remove_blanks( $array ) {
+	public function remove_blanks( $array, $remove_disabled = true ) {
 		if ( empty( $array ) || ! is_array( $array ) ) {
 			return $array;
 		}
 		foreach ( array_keys( $array ) as $key ) {
+			if ( is_array( $array[ $key ] ) ) {
+				$array[ $key ] = $this->remove_blanks( $array[ $key ], false );
+				if ( empty( $array[ $key ] ) ) {
+					unset( $array[ $key ] );
+					continue;
+				}
+			}
 			if ( '' === $array[ $key ] ||
 				 is_null( $array[ $key ] ) ||
-				 empty( $this->settings['product_fields'][ $key ] ) ) {
+				 ( empty( $this->settings['product_fields'][ $key ] ) && $remove_disabled )
+			) {
 				unset( $array[ $key ] );
+				continue;
 			}
 		}
 

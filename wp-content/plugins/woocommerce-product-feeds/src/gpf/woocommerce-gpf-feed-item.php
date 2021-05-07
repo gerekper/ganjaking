@@ -349,6 +349,10 @@ class WoocommerceGpfFeedItem {
 		if ( ! empty( $gpf_data['exclude_product'] ) ) {
 			$excluded = true;
 		}
+		// If it's a variation, check if the variation is disabled.
+		if ( $wc_product instanceof WC_Product_Variation && $wc_product->get_status() !== 'publish' ) {
+			$excluded = true;
+		}
 		if ( $wc_product instanceof WC_Product_Variation ) {
 			$parent_id = $wc_product->get_parent_id();
 
@@ -434,7 +438,7 @@ class WoocommerceGpfFeedItem {
 			$suffix         = wc_get_formatted_variation( $this->specific_product, true, $include_labels );
 			if ( ! empty( $suffix ) ) {
 				$this->title .= sprintf(
-					// Translators: %s is the list of variation attributes to be added to the product title to identify this particular variation.
+				// Translators: %s is the list of variation attributes to be added to the product title to identify this particular variation.
 					_x(
 						' (%s)',
 						'Variation product suffix wrapper',
@@ -577,7 +581,7 @@ class WoocommerceGpfFeedItem {
 		$prices = $this->generate_prices_for_product();
 
 		// Adjust the price on variable products if there are cheaper child products.
-		if ( $this->specific_product->get_type() === 'variable' ) {
+		if ( $this->specific_product instanceof WC_Product_Variable ) {
 			$prices = $this->adjust_prices_for_children( $prices );
 		}
 
@@ -643,7 +647,7 @@ class WoocommerceGpfFeedItem {
 		}
 
 		// Standard price calculator functions.
-		if ( 'variable' === $product_type ) {
+		if ( $product instanceof WC_Product_Variable ) {
 			// Variable products shouldn't have prices. Works around issue in WC
 			// core : https://github.com/woocommerce/woocommerce/issues/16145
 			return $prices;
@@ -741,8 +745,7 @@ class WoocommerceGpfFeedItem {
 			if ( ! $child_product ) {
 				continue;
 			}
-			$product_type = $child_product->get_type();
-			if ( 'variation' === $product_type ) {
+			if ( $child_product instanceof WC_Product_Variation ) {
 				$child_is_visible = $child_product->variation_is_visible();
 			} else {
 				$child_is_visible = $child_product->is_visible();
@@ -788,6 +791,14 @@ class WoocommerceGpfFeedItem {
 		$product_values = $this->calculate_values_for_product();
 		if ( ! empty( $product_values ) ) {
 			foreach ( $product_values as $key => $value ) {
+				// Skip description as it is handled separately.
+				if ( 'description' === $key ) {
+					continue;
+				}
+				// Fix for legacy product_highlight data stored incorrectly
+				if ( 'product_highlight' === $key ) {
+					$value = $this->fix_product_highlight_data( $value );
+				}
 				// Deal with fields that can have multiple, comma separated values
 				if ( isset( $this->common->product_fields[ $key ]['multiple'] ) && $this->common->product_fields[ $key ]['multiple'] && ! is_array( $value ) ) {
 					$value = explode( ',', $value );
@@ -873,6 +884,7 @@ class WoocommerceGpfFeedItem {
 		// If the product is out of stock, set to out of stock.
 		if ( ! $this->is_in_stock ) {
 			$this->additional_elements['availability'] = array( 'out of stock' );
+
 			return;
 		}
 		// If the product is in stock, set 'in stock' in the absence of any other value.
@@ -1105,7 +1117,6 @@ class WoocommerceGpfFeedItem {
 
 		list( $type, $value ) = explode( ':', $prepopulate );
 
-		$result = array();
 		switch ( $type ) {
 			case 'tax':
 				$result = $this->get_tax_prepopulate_value_for_product( $value, $which_product );
@@ -1122,6 +1133,15 @@ class WoocommerceGpfFeedItem {
 					$which_product
 				);
 				break;
+			default:
+				$result = apply_filters(
+					'woocommerce_gpf_prepopulate_value_for_product',
+					[],
+					$prepopulate,
+					$which_product,
+					$this->specific_product,
+					$this->general_product
+				);
 		}
 
 		return $result;
@@ -1172,8 +1192,7 @@ class WoocommerceGpfFeedItem {
 			$product    = $this->specific_product;
 			$product_id = $this->specific_id;
 		}
-		$product_type = $product->get_type();
-		if ( 'variation' === $product_type ) {
+		if ( $product instanceof WC_Product_Variation ) {
 			// Get the attributes.
 			$attributes = $product->get_variation_attributes();
 			// If the requested taxonomy is used as an attribute, grab it's value for this variation.
@@ -1405,5 +1424,25 @@ class WoocommerceGpfFeedItem {
 	 */
 	public function get_ordered_images() {
 		return $this->ordered_images;
+	}
+
+	/**
+	 * Fix legacy data that may have been saved with an extra erroneous hierarchy depth.
+	 *
+	 * @param $values
+	 *
+	 * @return mixed
+	 */
+	private function fix_product_highlight_data( $values ) {
+		foreach ( $values as $idx => $value ) {
+			if ( is_array( $value ) && isset( $value['highlight'] ) ) {
+				$values[ $idx ] = $value['highlight'];
+				if ( '' === $values[ $idx ] ) {
+					unset( $values[ $idx ] );
+				}
+			}
+		}
+
+		return $values;
 	}
 }

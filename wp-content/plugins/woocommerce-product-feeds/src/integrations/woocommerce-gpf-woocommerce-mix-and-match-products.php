@@ -31,6 +31,7 @@ class WoocommerceGpfWoocommerceMixAndMatchProducts {
 	 * @param $general_product
 	 *
 	 * @return mixed
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function manipulate_prices( $prices, $specific_product, $general_product ) {
 

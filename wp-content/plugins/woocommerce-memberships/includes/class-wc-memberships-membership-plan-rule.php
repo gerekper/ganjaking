@@ -31,6 +31,8 @@ defined( 'ABSPATH' ) or exit;
  * This class represents an individual Membership Plan rule.
  * Rules can be of content or product restriction type or purchasing discount type.
  *
+ * @TODO consider having this object extend {@see \WC_Data} and use a custom option data store {unfulvio 2021-05-03}
+ *
  * @since 1.0.0
  */
 class WC_Memberships_Membership_Plan_Rule {
@@ -42,7 +44,7 @@ class WC_Memberships_Membership_Plan_Rule {
 	/** @var int the ID of the plan the rule belongs to */
 	private $membership_plan_id = 0;
 
-	/** @var null (yes/no) whether the rule is active (for example discounts) */
+	/** @var string (yes/no) whether the rule is active (for example discounts) */
 	private $active = '';
 
 	/** @var string the rule type: e.g. `content_restriction`, `product_restriction`, `purchasing_discount` */
@@ -75,6 +77,9 @@ class WC_Memberships_Membership_Plan_Rule {
 	/** @var string (yes/no) whether the rule excludes subscriptions trial periods */
 	private $access_schedule_exclude_trial = '';
 
+	/** @var array associative array of key-values for handling additional rule meta data */
+	private $meta_data = [];
+
 
 	/**
 	 * Sets up the rule object when instantiated with arguments to be turned into properties.
@@ -85,7 +90,7 @@ class WC_Memberships_Membership_Plan_Rule {
 	 */
 	public function __construct( $data = array() ) {
 
-		$data = wp_parse_args( (array) $data, $this->get_default_data() );
+		$data = (array) wp_parse_args( (array) $data, $this->get_default_data() );
 
 		foreach ( $data as $property => $value ) {
 			if ( property_exists( $this, $property ) ) {
@@ -96,7 +101,7 @@ class WC_Memberships_Membership_Plan_Rule {
 
 
 	/**
-	 * Returns the rule default data.
+	 * Gets the rule default data.
 	 *
 	 * @since 1.9.0
 	 *
@@ -105,33 +110,35 @@ class WC_Memberships_Membership_Plan_Rule {
 	private function get_default_data() {
 		global $post;
 
-		return array(
+		return [
 			'id'                            => '',
 			'membership_plan_id'            => $post && 'wc_membership_plan' === get_post_type( $post ) ? (int) $post->ID : 0,
 			'active'                        => '',
 			'rule_type'                     => '',
 			'content_type'                  => '',
 			'content_type_name'             => '',
-			'object_ids'                    => array(),
+			'object_ids'                    => [],
 			'discount_type'                 => '',
 			'discount_amount'               => '',
 			'access_type'                   => '',
 			'access_schedule'               => 'immediate',
 			'access_schedule_exclude_trial' => '',
-		);
+			'meta_data'                     => [],
+		];
 	}
 
 
 	/**
-	 * Returns the the whole rule data as associative array.
+	 * Gets the the whole rule data as associative array.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @return array associative array
 	 */
 	public function get_raw_data() {
 
 		$defaults = $this->get_default_data();
-		$raw_data = array();
+		$raw_data = [];
 
 		foreach ( array_keys( $defaults ) as $key ) {
 			if ( property_exists( $this, $key ) ) {
@@ -669,6 +676,8 @@ class WC_Memberships_Membership_Plan_Rule {
 	/**
 	 * Checks if the access schedule does not apply for subscription trials.
 	 *
+	 * @TODO this method should be removed in favor of {@see get_meta()} within the Subscriptions integration {unfulvio 2021-04-29}
+	 *
 	 * @since 1.9.0
 	 *
 	 * @return null|bool
@@ -681,6 +690,8 @@ class WC_Memberships_Membership_Plan_Rule {
 	/**
 	 * Set the rule access schedule TO NOT APPLY during subscriptions trials.
 	 *
+	 * @TODO this method should be removed in favor of {@see set_meta()} within the Subscriptions integration {unfulvio 2021-04-29}
+	 *
 	 * @since 1.9.0
 	 */
 	public function set_access_schedule_exclude_trial() {
@@ -691,6 +702,8 @@ class WC_Memberships_Membership_Plan_Rule {
 
 	/**
 	 * Checks if the access schedule does apply for subscription trials.
+	 *
+	 * @TODO this method should be removed in favor of {@see get_meta()} within the Subscriptions integration {unfulvio 2021-04-29}
 	 *
 	 * @since 1.9.0
 	 *
@@ -703,6 +716,8 @@ class WC_Memberships_Membership_Plan_Rule {
 
 	/**
 	 * Sets the rule access schedule TO APPLY during subscriptions trials.
+	 *
+	 * @TODO this method should be removed in favor of {@see set_meta()} within the Subscriptions integration {unfulvio 2021-04-29}
 	 *
 	 * @since 1.9.0
 	 */
@@ -929,12 +944,65 @@ class WC_Memberships_Membership_Plan_Rule {
 	 * Sets the rule as inactive.
 	 *
 	 * @since 1.9.0
-	 *
-	 * @return bool
 	 */
 	public function set_inactive() {
 
-		return $this->active = 'no';
+		$this->active = 'no';
+	}
+
+
+	/**
+	 * Gets all meta data for the rule.
+	 *
+	 * @since 1.22.0
+	 *
+	 * @return array
+	 */
+	public function get_meta_data() : array {
+
+		return $this->meta_data;
+	}
+
+
+	/**
+	 * Gets a meta data value for the rule.
+	 *
+	 * @since 1.22.0
+	 *
+	 * @param string $key meta data key
+	 * @param mixed|null $default optional default value to return if meta data key is not present, default null
+	 * @return mixed|null
+	 */
+	public function get_meta( string $key, $default = null ) {
+
+		return $this->meta_data[ $key ] ?? $default;
+	}
+
+
+	/**
+	 * Sets a meta data key-value for the rule.
+	 *
+	 * @since 1.22.0
+	 *
+	 * @param string $key meta data key
+	 * @param mixed $value meta data value
+	 */
+	public function set_meta( string $key, $value ) {
+
+		$this->meta_data[ $key ] = $value;
+	}
+
+
+	/**
+	 * Deletes a meta data key from the rule.
+	 *
+	 * @since 1.22.0
+	 *
+	 * @param string $key
+	 */
+	public function delete_meta( string $key ) {
+
+		unset( $this->meta_data[ $key ] );
 	}
 
 
@@ -1104,6 +1172,7 @@ class WC_Memberships_Membership_Plan_Rule {
 	 * Checks if this rule applies to a key-value combination
 	 *
 	 * @since 1.0.0
+	 *
 	 * @param string $key Content type key
 	 * @param string $value Optional. Value. Defaults to null.
 	 * @return bool True if applies to the specified key-value combination, false otherwise

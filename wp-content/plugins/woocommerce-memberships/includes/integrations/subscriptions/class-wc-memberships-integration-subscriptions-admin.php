@@ -459,14 +459,14 @@ class WC_Memberships_Integration_Subscriptions_Admin {
 		?>
 		<span class="rule-control-group rule-control-group-access-schedule-trial <?php if ( ! $has_subscription ) : ?>hide<?php endif; ?> js-show-if-has-subscription">
 
-			<input type="checkbox"
-				   name="_<?php echo esc_attr( $type ); ?>_rules[<?php echo $index; ?>][access_schedule_exclude_trial]"
-				   id="_<?php echo esc_attr( $type ); ?>_rules_<?php echo $index; ?>_access_schedule_exclude_trial"
-				   value="yes" <?php checked( $rule->is_access_schedule_excluding_trial(), true ); ?>
-				   class="access_schedule-exclude-trial"
-				   <?php if ( ! $rule->current_user_can_edit() ) : ?>disabled<?php endif; ?> />
+			<label class="label-checkbox">
+				<input type="checkbox"
+					   name="_<?php echo esc_attr( $type ); ?>_rules[<?php echo $index; ?>][access_schedule_exclude_trial]"
+					   id="_<?php echo esc_attr( $type ); ?>_rules_<?php echo $index; ?>_access_schedule_exclude_trial"
+					   value="yes" <?php checked( $rule->is_access_schedule_excluding_trial(), true ); ?>
+					   class="access_schedule-exclude-trial"
+					   <?php if ( ! $rule->current_user_can_edit() ) : ?>disabled<?php endif; ?> />
 
-			<label for="_<?php echo esc_attr( $type ); ?>_rules_<?php echo $index; ?>_access_schedule_exclude_trial" class="label-checkbox">
 				<?php esc_html_e( 'Start after trial', 'woocommerce-memberships' ); ?>
 			</label>
 

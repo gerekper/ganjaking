@@ -42,7 +42,7 @@ class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\DH
      * Returns the public key
      *
      * @access public
-     * @return DH
+     * @return DH\PublicKey
      */
     public function getPublicKey()
     {

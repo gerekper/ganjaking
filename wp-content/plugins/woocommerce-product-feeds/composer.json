@@ -26,7 +26,7 @@
             "./src/common/woocommerce-product-feeds-field-options.php",
             "./src/common/woocommerce-product-feeds-integration-manager.php",
             "./src/common/woocommerce-product-feeds-term-depth-repository.php",
-            "./src/common/woocommerce-product-feeds-wc-setup-tasks.php",
+            "./src/common/woocommerce-product-feeds-woocommerce-admin-integration.php",
 
             "./src/cache/woocommerce-gpf-cache.php",
             "./src/cache/woocommerce-gpf-abstract-cache-rebuild-job.php",
@@ -71,23 +71,14 @@
             "./src/integrations/woocommerce-gpf-woocommerce-multilingual.php",
             "./src/integrations/woocommerce-gpf-woocommerce-product-bundles.php",
             "./src/integrations/woocommerce-min-max-quantities.php",
-
+            "./src/integrations/woocommerce-product-feeds-advanced-custom-fields.php",
+            "./src/integrations/woocommerce-product-feeds-advanced-custom-fields-formatter.php",
             "./src/integrations/woocommerce-product-vendors.php",
-            "./src/integrations/yoast-woocommerce-seo.php",
-
-            "tests/unit/WoocommerceGpfTestAbstract.php",
-            "tests/unit/mocks/WoocommerceGpfWcMocks.php",
-            "tests/unit/mocks/WoocommerceGpfWpMocks.php",
-            "tests/unit/mocks/WoocommerceGpfMocks.php",
-            "tests/unit/mocks/MockWpPost.php",
-            "tests/unit/mocks/MockWpTaxonomy.php",
-            "tests/unit/mocks/MockWpTerm.php",
-            "tests/unit/mocks/MockWcProduct.php",
-            "tests/unit/mocks/MockWoocommerceGpfCommon.php"
+            "./src/integrations/yoast-woocommerce-seo.php"
         ]
     },
     "require-dev": {
-	"phpunit/phpunit": "~8.0",
+        "phpunit/phpunit": "~8.0",
         "10up/wp_mock": "0.3.0",
         "squizlabs/php_codesniffer": "^3.5",
         "wp-coding-standards/wpcs": "^2.2",

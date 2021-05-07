@@ -74,6 +74,9 @@
   content: ' ';
   clear: both; }
 
+.mnm_image figure {
+  margin: 0; }
+
 .woocommerce-js .mnm_message {
   display: none; }
 
@@ -87,8 +90,8 @@
   text-decoration: none;
   box-shadow: none; }
   .mnm_form .mnm_reset:after {
-    font-family: 'WooCommerce';
-    speak: none;
+    font-family: "WooCommerce";
+    speak: never;
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
@@ -172,8 +175,8 @@
   .cart .mnm_table_item:not(.mnm_table_item_last) td, .shop_table .mnm_table_item:not(.mnm_table_item_last) td {
     border-bottom: none !important; }
   .cart .mnm_table_item .mnm_part_of_priced_per_product_container .bundled_table_item_price:before, .shop_table .mnm_table_item .mnm_part_of_priced_per_product_container .bundled_table_item_price:before {
-    font-family: 'WooCommerce';
-    speak: none;
+    font-family: "WooCommerce";
+    speak: never;
     font-weight: normal;
     font-variant: normal;
     text-transform: none;

@@ -1,5 +1,28 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2021.05.04 - version 9.6.7
+* Fix: Empty values could appear in the feed in some circumstances
+* Fix: product_highlights were output in an incorrect format
+
+2021.04.28 - version 9.6.6
+* New: WooCommerce 5.3 compatibility
+* Fix: Values couldn't be set as "0" in some fields
+
+2021.04.07 - version 9.6.5
+* New: WooCommerce 5.2 compatibility
+* Fix: Resolve issue where duplicate description tags could be rendered
+
+2021.03.23 - version 9.6.4
+* Fix: Syntax error with older PHP versions
+
+2021.03.23 - version 9.6.3
+* New: Add store management links to WooCommerce homepage
+* Fix: Solve conflict when bulk-editing variations if some are hidden from the feed
+* Fix: Do not include disabled variations in the feed
+
+2021.03.16 - version 9.6.2
+* Fix: Workaround error in WooCommerce admin when WooCommerce admin is disabled via filters.
+
 2021.03.08 - version 9.6.1
 * New: Add setup tasks to WooCommerce homepage
 * Change: Make variation suffix wrapper translatable

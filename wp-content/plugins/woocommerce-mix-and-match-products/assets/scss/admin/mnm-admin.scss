@@ -22,3 +22,9 @@
 #woocommerce-product-data ul.wc-tabs li.mnm_product_options a:before { 
 	content: "\f538"; font-family: "Dashicons";
 }
+
+#mnm_product_data .wc-product-search { width: 100%; }
+
+@media screen and (min-width: 851px) {
+	#mnm_product_data .wc-product-search { width: 50%; }
+}

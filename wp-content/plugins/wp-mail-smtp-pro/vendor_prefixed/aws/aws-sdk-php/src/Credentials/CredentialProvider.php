@@ -251,11 +251,11 @@ class CredentialProvider
             if (!\is_readable($filename)) {
                 return self::reject("Cannot read credentials from {$filename}");
             }
-            $data = self::loadProfiles($filename);
-            if (empty($data[$ssoProfileName])) {
+            $profiles = self::loadProfiles($filename);
+            if (!isset($profiles[$ssoProfileName])) {
                 return self::reject("Profile {$ssoProfileName} does not exist in {$filename}.");
             }
-            $ssoProfile = $data[$ssoProfileName];
+            $ssoProfile = $profiles[$ssoProfileName];
             if (empty($ssoProfile['sso_start_url']) || empty($ssoProfile['sso_region']) || empty($ssoProfile['sso_account_id']) || empty($ssoProfile['sso_role_name'])) {
                 return self::reject("Profile {$ssoProfileName} in {$filename} must contain the following keys: " . "sso_start_url, sso_region, sso_account_id, and sso_role_name.");
             }

@@ -177,6 +177,7 @@ class WoocommerceGpfPwBulkEdit {
 	 * @param $field
 	 *
 	 * @return mixed
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function save_array_value( $array_value, $meta_key, $field ) {
 		// Only applies to a specific fields.
@@ -296,6 +297,7 @@ class WoocommerceGpfPwBulkEdit {
 	 * @param $option_array
 	 *
 	 * @return array
+	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 */
 	private function enrich_options( $option_array ) {
 		return [
@@ -311,6 +313,7 @@ class WoocommerceGpfPwBulkEdit {
 	 * @param $item_b
 	 *
 	 * @return int|lt
+	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 */
 	private function usort_callback( $item_a, $item_b ) {
 		return strcmp( $item_a['name'], $item_b['name'] );

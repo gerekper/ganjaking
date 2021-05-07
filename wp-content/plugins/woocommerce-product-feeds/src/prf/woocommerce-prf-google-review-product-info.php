@@ -49,7 +49,7 @@ class WoocommercePrfGoogleReviewProductInfo {
 		if ( is_null( $wc_product ) ) {
 			return [];
 		}
-		if ( $wc_product->get_type() === 'variable' ) {
+		if ( $wc_product instanceof WC_Product_Variable ) {
 			$product_info = $this->get_product_info_variable( $wc_product );
 			$this->cache->store( $wc_product->get_id(), 'googlereview', serialize( $product_info ) );
 

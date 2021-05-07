@@ -64,7 +64,7 @@ class VerifySentStatusTask extends VerifySentStatusTaskAbstract {
 					'ascending'  => 'yes',
 					'limit'      => 10,
 					'pretty'     => 'yes',
-					'message-id' => $message_id,
+					'message-id' => trim( $message_id, '<>' ),
 				],
 				$endpoint
 			),

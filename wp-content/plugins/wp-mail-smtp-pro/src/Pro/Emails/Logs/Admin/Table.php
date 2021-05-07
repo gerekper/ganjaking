@@ -139,28 +139,24 @@ class Table extends \WP_List_Table {
 	public function get_views() {
 
 		$base_url       = $this->get_filters_base_url();
-		$filters_params = $this->get_filters_query_params();
-
-		$current_status = isset( $filters_params['status'] ) ? $filters_params['status'] : false;
+		$current_status = $this->get_filtered_status();
 
 		$views = [];
 
-		if ( $this->counts['total'] > 0 ) {
-			$views['all'] = sprintf(
-				'<a href="%1$s" %2$s>%3$s&nbsp;<span class="count">(%4$d)</span></a>',
-				esc_url( remove_query_arg( 'status', $base_url ) ),
-				$current_status === false ? 'class="current"' : '',
-				esc_html__( 'All', 'wp-mail-smtp-pro' ),
-				intval( $this->counts['total'] )
-			);
-		}
+		$views['all'] = sprintf(
+			'<a href="%1$s" %2$s>%3$s&nbsp;<span class="count">(%4$d)</span></a>',
+			esc_url( remove_query_arg( 'status', $base_url ) ),
+			$current_status === false ? 'class="current"' : '',
+			esc_html__( 'All', 'wp-mail-smtp-pro' ),
+			intval( $this->counts['total'] )
+		);
 
 		foreach ( $this->get_statuses() as $status => $status_label ) {
 
 			$count = intval( $this->counts[ 'status_' . $status ] );
 
 			// Skipping status with no emails.
-			if ( $count === 0 ) {
+			if ( $count === 0 && $current_status !== $status ) {
 				continue;
 			}
 
@@ -277,7 +273,7 @@ class Table extends \WP_List_Table {
 		$actions[] = '<span class="view">
 						<a href="' . esc_url( $this->get_item_link( $item, 'edit' ) ) . '">' .
 							esc_html__( 'View Log', 'wp-mail-smtp-pro' ) .
-						'</a> | 
+						'</a>
 					</span>';
 
 		// View email action.
@@ -287,18 +283,20 @@ class Table extends \WP_List_Table {
 								class="thickbox email-preview"
 								title="' . esc_attr( $item->get_subject() ) . '">' .
 								esc_html__( 'View Email', 'wp-mail-smtp-pro' ) .
-							'</a> |
+							'</a>
 						</span>';
 		}
 
 		// Delete action.
-		$actions[] = '<span class="delete">
-						<a href="' . esc_url( $this->get_item_link( $item, 'delete' ) ) . '">' .
-							esc_html__( 'Delete', 'wp-mail-smtp-pro' ) .
-						'</a>
-					</span>';
+		if ( current_user_can( wp_mail_smtp()->get_pro()->get_logs()->get_manage_capability() ) ) {
+			$actions[] = '<span class="delete">
+							<a href="' . esc_url( $this->get_item_link( $item, 'delete' ) ) . '">' .
+								esc_html__( 'Delete', 'wp-mail-smtp-pro' ) .
+							'</a>
+						</span>';
+		}
 
-		return $subject . '<div class="row-actions">' . implode( ' ', $actions ) . '</div>';
+		return $subject . '<div class="row-actions">' . implode( ' | ', $actions ) . '</div>';
 	}
 
 	/**
@@ -455,9 +453,11 @@ class Table extends \WP_List_Table {
 	 */
 	protected function get_bulk_actions() {
 
-		$actions = array(
-			'delete' => esc_html__( 'Delete', 'wp-mail-smtp-pro' ),
-		);
+		$actions = [];
+
+		if ( current_user_can( wp_mail_smtp()->get_pro()->get_logs()->get_manage_capability() ) ) {
+			$actions['delete'] = esc_html__( 'Delete', 'wp-mail-smtp-pro' );
+		}
 
 		return $actions;
 	}
@@ -479,6 +479,78 @@ class Table extends \WP_List_Table {
 	}
 
 	/**
+	 * Return status filter value or FALSE.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @return bool|integer
+	 */
+	public function get_filtered_status() {
+
+		if ( ! isset( $_REQUEST['status'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return false;
+		}
+
+		return intval( $_REQUEST['status'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	}
+
+	/**
+	 * Return date filter value or FALSE.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @return bool|array
+	 */
+	public function get_filtered_dates() {
+
+		if ( empty( $_REQUEST['date'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return false;
+		}
+
+		$dates = (array) explode( ' - ', sanitize_text_field( wp_unslash( $_REQUEST['date'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		return array_map( 'sanitize_text_field', $dates );
+	}
+
+	/**
+	 * Return search filter values or FALSE.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @return bool|array
+	 */
+	public function get_filtered_search_parts() {
+
+		if ( empty( $_REQUEST['search']['place'] ) || empty( $_REQUEST['search']['term'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return false;
+		}
+
+		return array_map( 'sanitize_text_field', $_REQUEST['search'] ); // phpcs:ignore
+	}
+
+	/**
+	 * Whether the emails log is filtered or not.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @return bool
+	 */
+	public function is_filtered() {
+
+		$is_filtered = false;
+
+		if (
+			$this->get_filtered_search_parts() !== false ||
+			$this->get_filtered_dates() !== false ||
+			$this->get_filtered_status() !== false
+		) {
+			$is_filtered = true;
+		}
+
+		return $is_filtered;
+	}
+
+	/**
 	 * Get current filters query parameters.
 	 *
 	 * @since 2.7.0
@@ -487,19 +559,19 @@ class Table extends \WP_List_Table {
 	 */
 	public function get_filters_query_params() {
 
-		$params = [];
+		$params = [
+			'search' => $this->get_filtered_search_parts(),
+			'status' => $this->get_filtered_status(),
+			'date'   => $this->get_filtered_dates(),
+		];
 
-		if ( ! empty( $_REQUEST['search']['place'] ) && ! empty( $_REQUEST['search']['term'] ) ) { // phpcs:ignore
-			$params['search']['place'] = sanitize_key( $_REQUEST['search']['place'] ); // phpcs:ignore
-			$params['search']['term']  = sanitize_text_field( $_REQUEST['search']['term'] ); // phpcs:ignore
-		}
+		return array_filter(
+			$params,
+			function ( $v ) {
 
-		// Handle status filter.
-		if ( isset( $_REQUEST['status'] ) ) { // phpcs:ignore
-			$params['status'] = intval( $_REQUEST['status'] ); // phpcs:ignore
-		}
-
-		return $params;
+				return $v !== false;
+			}
+		);
 	}
 
 	/**
@@ -530,6 +602,10 @@ class Table extends \WP_List_Table {
 			$base_url = add_query_arg( 'status', $filters_params['status'], $base_url );
 		}
 
+		if ( isset( $filters_params['date'] ) ) {
+			$base_url = add_query_arg( 'date', implode( ' - ', $filters_params['date'] ), $base_url );
+		}
+
 		return $base_url;
 	}
 
@@ -546,7 +622,7 @@ class Table extends \WP_List_Table {
 		$this->get_counts();
 
 		// Define our column headers.
-		$this->_column_headers = array( $this->get_columns(), array(), $this->get_sortable_columns() );
+		$this->_column_headers = [ $this->get_columns(), [], $this->get_sortable_columns() ];
 
 		/**
 		 * TODO: implement.
@@ -564,11 +640,11 @@ class Table extends \WP_List_Table {
 
 		if ( ! empty( $_REQUEST['orderby'] ) ) { // phpcs:ignore
 			$params['orderby'] = $_REQUEST['orderby']; // phpcs:ignore
-		};
+		}
 
 		if ( ! empty( $_REQUEST['order'] ) ) { // phpcs:ignore
 			$params['order'] = $_REQUEST['order']; // phpcs:ignore
-		};
+		}
 
 		$params['offset'] = ( $this->get_pagenum() - 1 ) * EmailsCollection::$per_page;
 
@@ -580,10 +656,10 @@ class Table extends \WP_List_Table {
 		 * Register our pagination options & calculations.
 		 */
 		$this->set_pagination_args(
-			array(
+			[
 				'total_items' => $total_items,
 				'per_page'    => EmailsCollection::$per_page,
-			)
+			]
 		);
 	}
 
@@ -597,8 +673,7 @@ class Table extends \WP_List_Table {
 	 */
 	public function search_box( $text, $input_id ) {
 
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( empty( $_REQUEST['search']['term'] ) && ! $this->has_items() ) {
+		if ( ! $this->is_filtered() && ! $this->has_items() ) {
 			return;
 		}
 
@@ -648,7 +723,7 @@ class Table extends \WP_List_Table {
 	 */
 	public function no_items() {
 
-		if ( ! empty( $_REQUEST['search']['term'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( $this->is_filtered() ) {
 			esc_html_e( 'No emails found.', 'wp-mail-smtp-pro' );
 		} else {
 			esc_html_e( 'No emails have been logged for now.', 'wp-mail-smtp-pro' );
@@ -681,17 +756,30 @@ class Table extends \WP_List_Table {
 			return;
 		}
 
-		if ( ! $this->has_items() ) {
-			return;
-		}
-
-		wp_nonce_field( 'wp_mail_smtp_pro_delete_log_entries', 'wp-mail-smtp-delete-log-entries-nonce' );
-
+		$date = $this->get_filtered_dates() !== false ? implode( ' - ', $this->get_filtered_dates() ) : '';
 		?>
-			<button id="wp-mail-smtp-delete-all-logs-button" type="button" class="button">
-				<?php esc_html_e( 'Empty log', 'wp-mail-smtp-pro' ); ?>
+		<div class="alignleft actions wp-mail-smtp-filter-date">
+
+			<input type="text" name="date" class="regular-text wp-mail-smtp-filter-date-selector"
+						 placeholder="<?php esc_attr_e( 'Select a date range', 'wp-mail-smtp-pro' ); ?>"
+						 value="<?php echo esc_attr( $date ); ?>">
+
+			<button type="submit" name="action" value="filter_date" class="button">
+				<?php esc_html_e( 'Filter', 'wp-mail-smtp-pro' ); ?>
 			</button>
+
+		</div>
 		<?php
+		if (
+			$this->has_items() &&
+			current_user_can( wp_mail_smtp()->get_pro()->get_logs()->get_manage_capability() )
+		) {
+			wp_nonce_field( 'wp_mail_smtp_pro_delete_log_entries', 'wp-mail-smtp-delete-log-entries-nonce', false );
+			printf(
+				'<button id="wp-mail-smtp-delete-all-logs-button" type="button" class="button">%s</button>',
+				esc_html__( 'Delete All Logs', 'wp-mail-smtp-pro' )
+			);
+		}
 	}
 
 	/**

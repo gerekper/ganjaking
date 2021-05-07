@@ -69,14 +69,50 @@ class Auth extends AuthAbstract {
 
 		$this->include_vendor_lib();
 
+		/**
+		 * Filters auth authorize url.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @param string  $url Auth authorize url.
+		 */
+		$authorize_url = apply_filters(
+			'wp_mail_smtp_pro_providers_outlook_auth_authorize_url',
+			'https://login.microsoftonline.com/common/oauth2/v2.0/authorize'
+		);
+
+		/**
+		 * Filters auth access token url.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @param string  $url Auth access token url.
+		 */
+		$access_token_url = apply_filters(
+			'wp_mail_smtp_pro_providers_outlook_auth_access_token_url',
+			'https://login.microsoftonline.com/common/oauth2/v2.0/token'
+		);
+
+		/**
+		 * Filters auth resource owner details url.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @param string  $url Auth resource owner details url.
+		 */
+		$resource_owner_details_url = apply_filters(
+			'wp_mail_smtp_pro_providers_outlook_auth_resource_owner_details_url',
+			'https://graph.microsoft.com/v1.0/me'
+		);
+
 		$this->client = new GenericProvider(
 			array(
 				'clientId'                => $this->options['client_id'],
 				'clientSecret'            => $this->options['client_secret'],
 				'redirectUri'             => self::get_plugin_auth_url(),
-				'urlAuthorize'            => 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
-				'urlAccessToken'          => 'https://login.microsoftonline.com/common/oauth2/v2.0/token',
-				'urlResourceOwnerDetails' => 'https://graph.microsoft.com/v1.0/me',
+				'urlAuthorize'            => $authorize_url,
+				'urlAccessToken'          => $access_token_url,
+				'urlResourceOwnerDetails' => $resource_owner_details_url,
 				'scopeSeparator'          => ' ',
 			)
 		);
@@ -219,9 +255,10 @@ class Auth extends AuthAbstract {
 			class_exists( '\WPMailSMTP\Vendor\League\OAuth2\Client\Provider\GenericProvider', false ) &&
 			$client instanceof GenericProvider
 		) {
+
 			$url_options = array(
 				'state' => wp_create_nonce( $this->state_key ),
-				'scope' => self::SCOPES,
+				'scope' => $this->get_scopes(),
 			);
 
 			$auth_url = $client->getAuthorizationUrl( $url_options );
@@ -230,6 +267,25 @@ class Auth extends AuthAbstract {
 		}
 
 		return '#';
+	}
+
+	/**
+	 * Get auth scopes.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @return array
+	 */
+	protected function get_scopes() {
+
+		/**
+		 * Filters auth scopes.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @param array $scopes Auth scopes.
+		 */
+		return apply_filters( 'wp_mail_smtp_pro_providers_outlook_auth_get_scopes', self::SCOPES );
 	}
 
 	/**

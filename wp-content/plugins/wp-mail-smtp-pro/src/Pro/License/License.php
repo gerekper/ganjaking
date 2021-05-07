@@ -46,6 +46,13 @@ class License {
 	 * @since 1.5.0
 	 */
 	public function __construct() {
+		$options = new Options();
+		$all_opt = $options->get_all();
+		$all_opt['license']['type'] = 'pro';
+		$all_opt['license']['is_expired'] = false;
+		$all_opt['license']['is_disabled'] = false;
+		$all_opt['license']['is_invalid'] = false;
+		$options->set( $all_opt );
 
 		$this->register_updater();
 
@@ -174,8 +181,8 @@ class License {
 	 */
 	public function display_settings_license_key_field_content( $options ) {
 
-		$key  = '2d01b5bafc25fb6b79acf2d19782f253';
-		$type = 'Pro';
+		$key      = wp_mail_smtp()->get_license_key();
+		$type     = wp_mail_smtp()->get_license_type();
 		$license  = $options->get_group( 'license' );
 		$is_valid = ! empty( $key ) &&
 		            ( isset( $license['is_expired'] ) && $license['is_expired'] === false ) &&
@@ -189,7 +196,9 @@ class License {
 			<input type="password" id="wp-mail-smtp-setting-license-key"
 				<?php echo ( $options->is_const_defined( 'license', 'key' ) || $is_valid ) ? 'disabled' : ''; ?>
 				value="<?php echo esc_attr( $key ); ?>" name="wp-mail-smtp[license][key]"/>
-			
+			<button type="button" id="wp-mail-smtp-setting-license-key-verify" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-orange">
+				<?php esc_html_e( 'Verify Key', 'wp-mail-smtp-pro' ); ?>
+			</button>
 
 			<?php
 			// Offer option to deactivate the key.
@@ -218,7 +227,7 @@ class License {
 
 		<?php
 		// Display the refresh link for non-lite keys only.
-		$class = empty( $type ) || $type === 'Pro' ? 'wp-mail-smtp-hide' : '';
+		$class = empty( $type ) || $type === 'lite' ? 'wp-mail-smtp-hide' : '';
 		?>
 
 		<p class="desc <?php echo esc_attr( $class ); ?>">
@@ -406,15 +415,6 @@ class License {
 	 * @param bool   $ajax
 	 */
 	public function validate_key( $key = '', $forced = false, $ajax = false ) {
-
-		$options = new Options();
-		$all_opt = $options->get_all();
-		$all_opt['license']['key'] = '2d01b5bafc25fb6b79acf2d19782f253';
-		$all_opt['license']['type'] = 'pro';
-		$all_opt['license']['is_expired'] = false;
-		$all_opt['license']['is_disabled'] = false;
-		$all_opt['license']['is_invalid'] = false;
-		$options->set( $all_opt );
 		return;
 
 		$validate = $this->perform_remote_request( 'validate-key', array( 'tgm-updater-key' => $key ) );
@@ -422,7 +422,20 @@ class License {
 		$all_opt  = $options->get_all();
 
 		// If there was a basic API error in validation - do nothing.
-		
+		if ( ! $validate ) {
+			// If forced, set contextual success message.
+			if ( $forced ) {
+				$msg = esc_html__( 'There was an error connecting to the remote server. Please try again later.', 'wp-mail-smtp-pro' );
+				if ( $ajax ) {
+					wp_send_json_error( $msg );
+				} else {
+					$this->errors[] = $msg;
+				}
+			}
+
+			return;
+		}
+
 		// If a key or author error is returned, the license no longer exists or the user has been deleted, so reset license.
 		if ( isset( $validate->key ) || isset( $validate->author ) ) {
 			$data = [
@@ -576,8 +589,6 @@ class License {
 	 * @param bool $below_h2
 	 */
 	public function notices( $below_h2 = false ) {
-		return;
-
 
 		// Grab the option and output any nag dealing with license keys.
 		$options  = new Options();

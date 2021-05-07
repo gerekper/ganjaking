@@ -10,7 +10,4 @@
 			jQuery( '#woocommerce_gpf_options{loop_num}' ).slideDown( 'fast' );
 		}
 	});
-	jQuery(document).ready(function() {
-        jQuery('#woocommerce_gpf_excluded{loop_num}').change();
-    });
 </script>

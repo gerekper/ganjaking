@@ -446,14 +446,16 @@ class WC_Product_Addons_Cart {
 	 *
 	 * @param array $cart_item_data Cart item meta data.
 	 * @param array $quantity       Quantity of products in that cart item.
+	 * @param array $prices         Array of prices for that product to use in
+	 *                              calculations.
 	 *
 	 * @return array
 	 */
-	public function update_product_price( $cart_item_data, $quantity ) {
+	public function update_product_price( $cart_item_data, $quantity, $prices ) {
 		if ( ! empty( $cart_item_data['addons'] ) && apply_filters( 'woocommerce_product_addons_adjust_price', true, $cart_item_data ) ) {
-			$price         = isset( $cart_item_data['addons_price_before_calc'] ) ? $cart_item_data['addons_price_before_calc'] : (float) $cart_item_data['data']->get_price( 'edit' );
-			$regular_price = isset( $cart_item_data['addons_regular_price_before_calc'] ) ? $cart_item_data['addons_regular_price_before_calc'] : (float) $cart_item_data['data']->get_regular_price( 'edit' );
-			$sale_price    = isset( $cart_item_data['addons_sale_price_before_calc'] ) ? $cart_item_data['addons_sale_price_before_calc'] : (float) $cart_item_data['data']->get_sale_price( 'edit' );
+			$price         = $prices[ 'price' ];
+			$regular_price = $prices[ 'regular_price' ];
+			$sale_price    = $prices[ 'sale_price' ];
 
 			// Compatibility with Smart Coupons self declared gift amount purchase.
 			if ( empty( $price ) && ! empty( $_POST['credit_called'] ) ) {
@@ -526,7 +528,13 @@ class WC_Product_Addons_Cart {
 	 * @return array
 	 */
 	public function add_cart_item( $cart_item_data ) {
-		return $this->update_product_price( $cart_item_data, $cart_item_data['quantity'] );
+		$prices = [
+			'price'         => (float) $cart_item_data['data']->get_price( 'edit' ),
+			'regular_price' => (float) $cart_item_data['data']->get_regular_price( 'edit' ),
+			'sale_price'    => (float) $cart_item_data['data']->get_sale_price( 'edit' ),
+		];
+
+		return $this->update_product_price( $cart_item_data, $cart_item_data['quantity'], $prices );
 	}
 
 	/**
@@ -542,7 +550,13 @@ class WC_Product_Addons_Cart {
 	public function update_price_on_quantity_update( $cart_item_key, $quantity, $old_quantity, $cart ) {
 		$cart_item_data = $cart->get_cart_item( $cart_item_key );
 
-		return $this->update_product_price( $cart_item_data, $quantity );
+		$prices = [
+			'price'         => $cart_item_data['addons_price_before_calc'],
+			'regular_price' => $cart_item_data['addons_regular_price_before_calc'],
+			'sale_price'    => $cart_item_data['addons_sale_price_before_calc'],
+		];
+
+		return $this->update_product_price( $cart_item_data, $quantity, $prices );
 	}
 
 	/**
@@ -554,8 +568,13 @@ class WC_Product_Addons_Cart {
 	 */
 	public function get_cart_item_from_session( $cart_item, $values ) {
 		if ( ! empty( $values['addons'] ) ) {
+			$prices = [
+				'price'         => (float) $cart_item['data']->get_price( 'edit' ),
+				'regular_price' => (float) $cart_item['data']->get_regular_price( 'edit' ),
+				'sale_price'    => (float) $cart_item['data']->get_sale_price( 'edit' ),
+			];
 			$cart_item['addons'] = $values['addons'];
-			$cart_item           = $this->update_product_price( $cart_item, $cart_item['quantity'] );
+			$cart_item           = $this->update_product_price( $cart_item, $cart_item['quantity'], $prices );
 		}
 
 		return $cart_item;

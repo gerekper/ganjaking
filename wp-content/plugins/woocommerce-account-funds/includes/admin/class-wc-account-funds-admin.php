@@ -237,7 +237,7 @@ class WC_Account_Funds_Admin {
 				'type'            => 'text',
 				'desc'            => '',
 				'default'         => '',
-				'placeholder'     => 0,
+				'placeholder'     => 1,
 				'id'              => 'account_funds_min_topup',
 				'desc_tip'        => true
 			),

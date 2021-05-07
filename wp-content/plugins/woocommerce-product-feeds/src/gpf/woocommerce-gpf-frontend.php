@@ -135,6 +135,8 @@ class WoocommerceGpfFrontend {
 	 *
 	 * We stop plugins trying to cache, or compress the output since that causes everything to be
 	 * held in memory and causes memory issues.
+	 *
+	 * @SuppressWarnings(PHPMD.ErrorControlOperator)
 	 */
 	private function set_optimisations() {
 
@@ -320,28 +322,17 @@ class WoocommerceGpfFrontend {
 		}
 		$product_type = $woocommerce_product->get_type();
 		$this->debug->log( 'Processing %s product (%d)', [ $product_type, $woocommerce_product->get_id() ] );
-		switch ( $product_type ) {
-			case 'simple':
-				return $this->process_simple_product( $woocommerce_product );
-				break;
-			case 'variable':
-				if (
-				apply_filters(
-					'woocommerce_gpf_include_variations',
-					! empty( $this->settings['include_variations'] ),
-					$woocommerce_product
-				)
-				) {
-					return $this->process_variable_product( $woocommerce_product );
-				} else {
-					return $this->process_simple_product( $woocommerce_product );
-				}
-				break;
-			default:
-				// Unknown product type. Try and process as a simple product.
-				return $this->process_simple_product( $woocommerce_product );
-				break;
+
+		$include_variations = apply_filters(
+			'woocommerce_gpf_include_variations',
+			! empty( $this->settings['include_variations'] ),
+			$woocommerce_product
+		);
+		if ( $woocommerce_product instanceof WC_Product_Variable &&
+			 $include_variations ) {
+				return $this->process_variable_product( $woocommerce_product );
 		}
+		return $this->process_simple_product( $woocommerce_product );
 	}
 
 	/**

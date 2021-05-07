@@ -14,11 +14,14 @@ class S3SignatureV4 extends \WPMailSMTP\Vendor\Aws\Signature\SignatureV4
      *
      * {@inheritdoc}
      */
-    public function signRequest(\WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request, \WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface $credentials)
+    public function signRequest(\WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request, \WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface $credentials, $signingService = null)
     {
         // Always add a x-amz-content-sha-256 for data integrity
         if (!$request->hasHeader('x-amz-content-sha256')) {
             $request = $request->withHeader('x-amz-content-sha256', $this->getPayload($request));
+        }
+        if (\strpos($request->getUri()->getHost(), "s3-object-lambda")) {
+            return parent::signRequest($request, $credentials, "s3-object-lambda");
         }
         return parent::signRequest($request, $credentials);
     }

@@ -623,7 +623,13 @@ class WC_Product_Mix_and_Match extends WC_Product {
 
 			$this->children = array();
 
-			if ( $contents = $this->get_contents() ) {
+			$contents = $this->get_contents();
+
+			if ( ! empty ( $contents ) ) {
+
+				if ( function_exists( '_prime_post_caches' ) ) {
+					_prime_post_caches( array_keys( $contents ) );
+				}
 
 				/*
 				 * Currently data is stored as array( ID => 1 )
@@ -825,7 +831,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 
 			// Set max number of slots according to stock status and max container size.
 			if ( $child_sold_individually ) {
-				$this->sold_individually = true;
+				$this->set_sold_individually( true );
 				$this->pricing_data[ $child_id ]['slots'] = 1;
 			} else if ( $max_container_size > 0 ) {
 				if ( $unlimited_child_stock_available || $child_backorders_allowed ) {

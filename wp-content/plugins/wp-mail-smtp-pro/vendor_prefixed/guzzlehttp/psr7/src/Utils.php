@@ -265,7 +265,8 @@ final class Utils
                  * The 'php://input' is a special stream with quirks and inconsistencies.
                  * We avoid using that stream by reading it into php://temp
                  */
-                if (\stream_get_meta_data($resource)['uri'] === 'php://input') {
+                $metaData = \stream_get_meta_data($resource);
+                if (isset($metaData['uri']) && $metaData['uri'] === 'php://input') {
                     $stream = self::tryFopen('php://temp', 'w+');
                     \fwrite($stream, \stream_get_contents($resource));
                     \fseek($stream, 0);

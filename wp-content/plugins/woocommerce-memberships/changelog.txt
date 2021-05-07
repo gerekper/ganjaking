@@ -1,5 +1,9 @@
 *** WooCommerce Memberships Changelog ***
 
+2021.05.04 - version 1.22.0
+ * Feature - Auto-enroll users to Sensei and LearnDash courses upon membership purchase
+ * Dev - Add meta data handling support to membership plan rule objects
+
 2021.04.12 - version 1.21.8
  * Dev - Improve compatibility with WooCommerce Product Bundles
 

@@ -28,9 +28,9 @@ class WoocommerceGpfAdmin {
 	protected $feed_image_manager;
 
 	/**
-	 * @var WoocommerceProductFeedsWcSetupTasks
+	 * @var WoocommerceProductFeedsWoocommerceAdminIntegration
 	 */
-	protected $wc_setup_tasks;
+	protected $wc_admin_integration;
 
 	/**
 	 * @var array
@@ -61,7 +61,7 @@ class WoocommerceGpfAdmin {
 	 * @param WoocommerceGpfCache $woocommerce_gpf_cache
 	 * @param WoocommerceGpfCacheStatus $woocommerce_gpf_cache_status
 	 * @param WoocommerceProductFeedsFeedImageManager $woocommerce_product_feeds_feed_image_manager
-	 * @param WoocommerceProductFeedsWcSetupTasks $wc_setup_tasks
+	 * @param WoocommerceProductFeedsWoocommerceAdminIntegration $woocommerce_product_feeds_woocommerce_admin_integration
 	 */
 	public function __construct(
 		WoocommerceGpfCommon $woocommerce_gpf_common,
@@ -69,14 +69,14 @@ class WoocommerceGpfAdmin {
 		WoocommerceGpfCache $woocommerce_gpf_cache,
 		WoocommerceGpfCacheStatus $woocommerce_gpf_cache_status,
 		WoocommerceProductFeedsFeedImageManager $woocommerce_product_feeds_feed_image_manager,
-		WoocommerceProductFeedsWcSetupTasks $wc_setup_tasks
+		WoocommerceProductFeedsWoocommerceAdminIntegration $woocommerce_product_feeds_woocommerce_admin_integration
 	) {
-		$this->common             = $woocommerce_gpf_common;
-		$this->template_loader    = $woocommerce_gpf_template_loader;
-		$this->cache              = $woocommerce_gpf_cache;
-		$this->cache_status       = $woocommerce_gpf_cache_status;
-		$this->feed_image_manager = $woocommerce_product_feeds_feed_image_manager;
-		$this->wc_setup_tasks     = $wc_setup_tasks;
+		$this->common               = $woocommerce_gpf_common;
+		$this->template_loader      = $woocommerce_gpf_template_loader;
+		$this->cache                = $woocommerce_gpf_cache;
+		$this->cache_status         = $woocommerce_gpf_cache_status;
+		$this->feed_image_manager   = $woocommerce_product_feeds_feed_image_manager;
+		$this->wc_admin_integration = $woocommerce_product_feeds_woocommerce_admin_integration;
 	}
 
 	/**
@@ -93,7 +93,7 @@ class WoocommerceGpfAdmin {
 		add_action( 'admin_init', array( $this, 'admin_init' ), 11 );
 		add_action( 'admin_print_styles', array( $this, 'enqueue_styles' ) );
 		add_action( 'admin_print_scripts', array( $this, 'enqueue_scripts' ) );
-		add_action( 'woocommerce_init', array( $this->wc_setup_tasks, 'initialise' ) );
+		add_action( 'woocommerce_init', array( $this->wc_admin_integration, 'initialise' ) );
 
 		// Extend category admin page.
 		add_action( 'product_cat_add_form_fields', array( $this, 'category_meta_box' ), 99, 2 ); // After left-col
@@ -416,7 +416,11 @@ class WoocommerceGpfAdmin {
 		} else {
 			$current_data = array();
 		}
-		$this->template_loader->output_template_with_variables( 'woo-gpf', 'meta-edit-intro', array( 'loop_idx' => '' ) );
+		$this->template_loader->output_template_with_variables(
+			'woo-gpf',
+			'meta-edit-intro',
+			[ 'loop_idx' => '' ]
+		);
 
 		foreach ( $this->product_fields as $key => $fieldinfo ) {
 			// Skip if not enabled & not mandatory.
@@ -455,7 +459,7 @@ class WoocommerceGpfAdmin {
 				$header_vars
 			);
 
-			$current_value            = ! empty( $current_data[ $key ] ) ? $current_data[ $key ] : '';
+			$current_value            = isset( $current_data[ $key ] ) ? $current_data[ $key ] : '';
 			$def_vars['defaultinput'] = $this->render_field_default_input( $key, $current_value, $placeholder, null );
 			$def_vars['key']          = $key;
 			$variables['defaults']    = $this->template_loader->get_template_with_variables(
@@ -517,11 +521,17 @@ class WoocommerceGpfAdmin {
 			null,
 			$loop_idx
 		);
+		$style = ! empty( $current_data['exclude_product'] ) ?
+			'style="display: none;"' :
+			'';
 
 		$this->template_loader->output_template_with_variables(
 			'woo-gpf',
 			'product-meta-edit-intro',
-			array( 'loop_idx' => $loop_idx )
+			[
+				'loop_idx' => $loop_idx,
+				'style'    => $style,
+			]
 		);
 		foreach ( $this->product_fields as $key => $fieldinfo ) {
 			if ( ! isset( $this->settings['product_fields'][ $key ] ) || 'description' === $key ) {
@@ -603,7 +613,14 @@ class WoocommerceGpfAdmin {
 
 		$this->feed_image_manager->render_summary( $post );
 
-		$this->template_loader->output_template_with_variables( 'woo-gpf', 'product-meta-edit-intro', array( 'loop_idx' => '' ) );
+		$this->template_loader->output_template_with_variables(
+			'woo-gpf',
+			'product-meta-edit-intro',
+			[
+				'loop_idx' => '',
+				'style'    => '',
+			]
+		);
 		foreach ( $this->product_fields as $key => $fieldinfo ) {
 			// Skip if not enabled & not mandatory.
 			if ( ! isset( $this->settings['product_fields'][ $key ] ) &&
@@ -644,7 +661,9 @@ class WoocommerceGpfAdmin {
 				$placeholder                  = __( 'Use default', 'woo_gpf' );
 			}
 			if ( ! isset( $fieldinfo['callback'] ) || ! is_callable( array( &$this, $fieldinfo['callback'] ) ) ) {
-				$current_value            = ! empty( $current_data[ $key ] ) ? $current_data[ $key ] : '';
+				$current_value            = isset( $current_data[ $key ] ) ?
+					$current_data[ $key ] :
+					'';
 				$variables['field_input'] = $this->render_field_default_input(
 					$key,
 					$current_value,
@@ -652,23 +671,16 @@ class WoocommerceGpfAdmin {
 					null
 				);
 			} else {
-				if ( isset( $current_data[ $key ] ) ) {
-					$variables['field_input'] = call_user_func(
-						array( $this, $fieldinfo['callback'] ),
-						$key,
-						$current_data[ $key ],
-						$placeholder,
-						null
-					);
-				} else {
-					$variables['field_input'] = call_user_func(
-						array( $this, $fieldinfo['callback'] ),
-						$key,
-						null,
-						$placeholder,
-						null
-					);
-				}
+				$current_value            = isset( $current_data[ $key ] ) ?
+					$current_data[ $key ] :
+					null;
+				$variables['field_input'] = call_user_func(
+					array( $this, $fieldinfo['callback'] ),
+					$key,
+					$current_value,
+					$placeholder,
+					null
+				);
 			}
 			$this->template_loader->output_template_with_variables( 'woo-gpf', 'product-meta-field-row', $variables );
 		}
@@ -701,7 +713,7 @@ class WoocommerceGpfAdmin {
 				unset( $post_data[ $key ] );
 				continue;
 			}
-			if ( empty( $value ) ) {
+			if ( empty( $value ) && '0' !== $value ) {
 				unset( $post_data[ $key ] );
 				if ( isset( $current_data[ $key ] ) ) {
 					unset( $current_data[ $key ] );
@@ -1076,7 +1088,9 @@ class WoocommerceGpfAdmin {
 			$variables['subidx']    = $subidx;
 			$variables['highlight'] = '';
 			if ( isset( $current_data[ $subidx ] ) ) {
-				$variables['highlight'] = $current_data[ $subidx ]['highlight'];
+				$variables['highlight'] = is_array( $current_data[ $subidx ] ) ?
+					$current_data[ $subidx ]['highlight'] :
+					$current_data[ $subidx ];
 			}
 			$output .= $this->template_loader->get_template_with_variables(
 				'woo-gpf',
@@ -1479,6 +1493,7 @@ class WoocommerceGpfAdmin {
 	 */
 	private function get_prepopulate_label( $key ) {
 		list( $type, $value ) = explode( ':', $key );
+		$descriptor           = '';
 		switch ( $type ) {
 			case 'tax':
 				$taxonomy = get_taxonomy( $value );
@@ -1496,6 +1511,9 @@ class WoocommerceGpfAdmin {
 				$label = $this->get_label_descriptor_for_meta( $value );
 				// Translators: %1$s is the name of the meta field, %2$s is the raw meta key
 				$descriptor = sprintf( __( '<em>%1$s</em> meta (%2$s)', 'woo_gpf' ), $label, $value );
+				break;
+			default:
+				$descriptor = apply_filters( 'woocommerce_gpf_prepopulate_label', $descriptor, $key );
 				break;
 		}
 		if ( empty( $descriptor ) ) {

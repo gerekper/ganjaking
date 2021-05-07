@@ -1220,9 +1220,10 @@ abstract class GFFeedAddOn extends GFAddOn {
 	 * @return bool
 	 */
 	public function is_feed_edit_page() {
+		$view = rgget( 'view' );
+		$fid  = rgget( 'fid' );
 
-		return ( $this->is_detail_page() || $this->_multiple_feeds === false ) && rgget( 'subview' ) === $this->get_slug();
-
+		return $view === 'settings' && is_numeric( $fid ) && rgget( 'subview' ) === $this->get_slug();
 	}
 
 	public function is_feed_list_page() {

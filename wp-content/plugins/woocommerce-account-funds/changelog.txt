@@ -1,7 +1,14 @@
 *** WooCommerce Account Funds ***
 
+2021-04-28 - version 2.4.4
+* Tweak - Remove the discount applied by the "Account funds" payment gateway when this one stops being available.
+* Tweak - Remove the applied funds if after updating the cart the "Account funds" payment gateway is available.
+* Tweak - Set the minimum Top-up amount to 1.
+* Tweak - Tested compatibility up to WC 5.3.
+* Fix - Don't add to cart a Top-up product with zero funds.
+
 2021-04-19 - version 2.4.3
-* Fix - Percentage discount for using funds is calculated based on the amount of funds used (Reverts the fix 2.4.1).
+* Fix - Percentage discount for using funds is calculated based on the amount of funds used (Reverts the fix 2.4.2).
 
 2021-04-16 - version 2.4.2
 * Fix - Fixed wrong discount when giving a percentage discount for using funds.
@@ -12,7 +19,7 @@
 2021-04-08 - version 2.4.0
 * Feature - Added support for "Refunds" to the "Account Funds" payment gateway.
 * Tweak - Funds are restored after canceling or refunding an order.
-* Tweak - Don't set the Order total to zero when the payment gateway is "Account Funds".
+* Tweak - Don't set the order total to zero when the payment gateway is "Account Funds".
 * Tweak - Display the "Funds used" row in the Order details before the "Payment gateway" row.
 * Tweak - Hide the "Funds used" row in the Order details when the payment gateway is "Account Funds".
 * Tweak - Tested compatibility up to WC 5.2.

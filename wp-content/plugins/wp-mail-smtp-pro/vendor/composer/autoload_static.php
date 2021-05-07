@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7d572b7eef1c27a68d1b387512466a09
+class ComposerStaticInit474468571aa36422f72a4db9da72ae3b
 {
     public static $files = array (
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
@@ -236,6 +236,7 @@ class ComposerStaticInit7d572b7eef1c27a68d1b387512466a09
         'WPMailSMTP\\Vendor\\Aws\\TraceMiddleware' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/TraceMiddleware.php',
         'WPMailSMTP\\Vendor\\Aws\\Waiter' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/Waiter.php',
         'WPMailSMTP\\Vendor\\Aws\\WrappedHttpHandler' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/WrappedHttpHandler.php',
+        'WPMailSMTP\\Vendor\\Goodby\\CSV\\Export\\Standard\\CsvFileObject' => __DIR__ . '/../..' . '/vendor_prefixed/goodby/csv/src/Goodby/CSV/Export/Standard/CsvFileObject.php',
         'WPMailSMTP\\Vendor\\Google\\AccessToken\\Revoke' => __DIR__ . '/../..' . '/vendor_prefixed/google/apiclient/src/AccessToken/Revoke.php',
         'WPMailSMTP\\Vendor\\Google\\AccessToken\\Verify' => __DIR__ . '/../..' . '/vendor_prefixed/google/apiclient/src/AccessToken/Verify.php',
         'WPMailSMTP\\Vendor\\Google\\AuthHandler\\AuthHandlerFactory' => __DIR__ . '/../..' . '/vendor_prefixed/google/apiclient/src/AuthHandler/AuthHandlerFactory.php',
@@ -820,6 +821,8 @@ class ComposerStaticInit7d572b7eef1c27a68d1b387512466a09
         'WPMailSMTP\\Vendor\\Symfony\\Polyfill\\Intl\\Idn\\Idn' => __DIR__ . '/../..' . '/vendor_prefixed/symfony/polyfill-intl-idn/Idn.php',
         'WPMailSMTP\\Vendor\\Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/../..' . '/vendor_prefixed/symfony/polyfill-mbstring/Mbstring.php',
         'WPMailSMTP\\Vendor\\Symfony\\Polyfill\\Php72\\Php72' => __DIR__ . '/../..' . '/vendor_prefixed/symfony/polyfill-php72/Php72.php',
+        'WPMailSMTP\\Vendor\\XLSXWriter' => __DIR__ . '/../..' . '/vendor_prefixed/mk-j/php_xlsxwriter/xlsxwriter.class.php',
+        'WPMailSMTP\\Vendor\\XLSXWriter_BuffererWriter' => __DIR__ . '/../..' . '/vendor_prefixed/mk-j/php_xlsxwriter/xlsxwriter.class.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Common\\Functions\\Strings' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Common/Functions/Strings.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\AES' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/AES.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\Blowfish' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/Blowfish.php',
@@ -1154,9 +1157,9 @@ class ComposerStaticInit7d572b7eef1c27a68d1b387512466a09
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7d572b7eef1c27a68d1b387512466a09::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7d572b7eef1c27a68d1b387512466a09::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7d572b7eef1c27a68d1b387512466a09::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit474468571aa36422f72a4db9da72ae3b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit474468571aa36422f72a4db9da72ae3b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit474468571aa36422f72a4db9da72ae3b::$classMap;
 
         }, null, ClassLoader::class);
     }

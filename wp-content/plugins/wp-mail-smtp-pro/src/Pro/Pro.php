@@ -7,6 +7,7 @@ use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Admin\DashboardWidget;
 use WPMailSMTP\Pro\Emails\Logs\EmailsCollection;
 use WPMailSMTP\Pro\Emails\Logs\Logs;
+use WPMailSMTP\Pro\Emails\Logs\Export\Export as LogsExport;
 use WPMailSMTP\WP;
 
 /**
@@ -91,6 +92,10 @@ class Pro {
 		$this->get_site_health()->init();
 		$this->disable_wp_auto_update_plugins();
 		$this->get_dashboard_widget();
+
+		if ( current_user_can( $this->get_logs()->get_manage_capability() ) ) {
+			( new LogsExport() )->init();
+		}
 
 		// Usage tracking hooks.
 		add_filter( 'wp_mail_smtp_usage_tracking_get_data', [ $this, 'usage_tracking_get_data' ] );
@@ -382,6 +387,7 @@ class Pro {
 				\WPMailSMTP\Pro\Tasks\Logs\Mailgun\VerifySentStatusTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\Sendinblue\VerifySentStatusTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\SMTPcom\VerifySentStatusTask::class,
+				\WPMailSMTP\Pro\Tasks\Logs\ExportCleanupTask::class,
 			]
 		);
 	}

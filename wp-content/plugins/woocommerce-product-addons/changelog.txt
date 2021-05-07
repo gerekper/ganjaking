@@ -1,5 +1,16 @@
 *** Product Addons Changelog ***
 
+2021-04-29 - version 3.9.1
+* Fix - Fix uncompressed release archive by reintroducing postarchive step.
+
+2021-04-28 - version 3.9.0
+* Fix - Move to dart-sass to support M1.
+* Fix - Refactor Cart price calculation to prevent conflicts with other plugins.
+* Fix - Update build scripts and tooling.
+
+2021-04-13 - version 3.8.0
+* Fix - Sort Global Add-ons in the backend by priority.
+
 2021-04-06 - version 3.7.0
 * Fix - Honor taxes in Customer Defined Price add-ons when store shows prices including tax.
 

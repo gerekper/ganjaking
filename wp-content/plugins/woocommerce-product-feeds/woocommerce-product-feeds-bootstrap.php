@@ -22,7 +22,7 @@ $woocommerce_gpf_di['WoocommerceGpfAdmin'] = function ( $c ) {
 		$c['WoocommerceGpfCache'],
 		$c['WoocommerceGpfCacheStatus'],
 		$c['WoocommerceProductFeedsFeedImageManager'],
-		$c['WoocommerceProductFeedsWcSetupTasks']
+		$c['WoocommerceProductFeedsWoocommerceAdminIntegration']
 	);
 
 	return $woocommerce_gpf_admin;
@@ -259,8 +259,8 @@ $woocommerce_gpf_di['WoocommerceProductFeedsTermDepthRepository'] = function ( $
 	return new WoocommerceProductFeedsTermDepthRepository();
 };
 
-$woocommerce_gpf_di['WoocommerceProductFeedsWcSetupTasks'] = function ( $c ) {
-	return new WoocommerceProductFeedsWcSetupTasks();
+$woocommerce_gpf_di['WoocommerceProductFeedsWoocommerceAdminIntegration'] = function ( $c ) {
+	return new WoocommerceProductFeedsWoocommerceAdminIntegration();
 };
 
 /**
@@ -323,4 +323,12 @@ $woocommerce_gpf_di['WoocommerceGpfWoocommerceMultilingual']                    
 };
 $woocommerce_gpf_di['WoocommerceGpfPwBulkEdit']                                 = function ( $c ) {
 	return new WoocommerceGpfPwBulkEdit( $c['WoocommerceGpfCommon'] );
+};
+$woocommerce_gpf_di['WoocommerceProductFeedsAdvancedCustomFieldsFormatter']     = function ( $c ) {
+	return new WoocommerceProductFeedsAdvancedCustomFieldsFormatter();
+};
+$woocommerce_gpf_di['WoocommerceProductFeedsAdvancedCustomFields']              = function ( $c ) {
+	return new WoocommerceProductFeedsAdvancedCustomFields(
+		$c['WoocommerceProductFeedsAdvancedCustomFieldsFormatter']
+	);
 };

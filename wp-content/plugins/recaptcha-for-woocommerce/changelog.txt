@@ -1,5 +1,24 @@
 *** Changelog ***
 
+2021-04-12- version 2.15
+
+* Fixed registration captcha not work for some theme as it is using _nonce.
+
+
+2021-04-04- version 2.14
+
+* Added captcha for Post Comment forms.
+
+
+2021-04-01 - version 2.13
+
+* Fixed complain that plugin automatically deactivated.
+
+2021-03-18 - version 2.12
+
+* Fixed Elavon payment processor shown catcha twice on add payment method page
+
+
 2021-03-14 - version 2.11
 
 * Added option to enable/disable recaptcha for stripe payment request buttons (Google Pay and Apple Pay)

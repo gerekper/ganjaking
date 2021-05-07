@@ -78,6 +78,8 @@ class WoocommercePrfGoogleReviewFeed {
 	/**
 	 * Set up WordPress for best performance rendering the feed on a variety of hosts / configs. Then
 	 * invoke render_items() to fetch the data and render the feed.
+	 *
+	 * @SuppressWarnings(PHPMD.ErrorControlOperator)
 	 */
 	public function render_feed() {
 		global $wpdb;

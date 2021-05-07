@@ -49,7 +49,7 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
     /**
      * {@inheritdoc}
      */
-    public function signRequest(\WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request, \WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface $credentials)
+    public function signRequest(\WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request, \WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface $credentials, $signingService = null)
     {
         $ldt = \gmdate(self::ISO8601_BASIC);
         $sdt = \substr($ldt, 0, 8);
@@ -58,14 +58,15 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
         if ($token = $credentials->getSecurityToken()) {
             $parsed['headers']['X-Amz-Security-Token'] = [$token];
         }
-        $cs = $this->createScope($sdt, $this->region, $this->service);
+        $service = isset($signingService) ? $signingService : $this->service;
+        $cs = $this->createScope($sdt, $this->region, $service);
         $payload = $this->getPayload($request);
         if ($payload == self::UNSIGNED_PAYLOAD) {
             $parsed['headers'][self::AMZ_CONTENT_SHA256_HEADER] = [$payload];
         }
         $context = $this->createContext($parsed, $payload);
         $toSign = $this->createStringToSign($ldt, $cs, $context['creq']);
-        $signingKey = $this->getSigningKey($sdt, $this->region, $this->service, $credentials->getSecretKey());
+        $signingKey = $this->getSigningKey($sdt, $this->region, $service, $credentials->getSecretKey());
         $signature = \hash_hmac('sha256', $toSign, $signingKey);
         $parsed['headers']['Authorization'] = ["AWS4-HMAC-SHA256 " . "Credential={$credentials->getAccessKeyId()}/{$cs}, " . "SignedHeaders={$context['headers']}, Signature={$signature}"];
         return $this->buildRequest($parsed);

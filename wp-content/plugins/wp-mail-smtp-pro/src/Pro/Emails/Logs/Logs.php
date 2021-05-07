@@ -13,6 +13,7 @@ use WPMailSMTP\Pro\Tasks\Logs\Sendinblue\VerifySentStatusTask as SendinblueVerif
 use WPMailSMTP\Pro\Tasks\Logs\SMTPcom\VerifySentStatusTask as SMTPcomVerifySentStatusTask;
 use WPMailSMTP\Providers\MailerAbstract;
 use WPMailSMTP\WP;
+use WPMailSMTP\Pro\Emails\Logs\Admin\PrintPreview;
 
 /**
  * Class Logs.
@@ -55,13 +56,13 @@ class Logs {
 		// Redefine default Lite CSS file.
 		add_filter( 'wp_mail_smtp_admin_enqueue_assets_logs_css', function () {
 
-			return \wp_mail_smtp()->pro->assets_url . '/css/smtp-pro-logs.min.css';
+			return wp_mail_smtp()->pro->assets_url . '/css/smtp-pro-logs.min.css';
 		} );
 
 		// Redefine default Lite JS file.
 		add_filter( 'wp_mail_smtp_admin_enqueue_assets_logs_js', function () {
 
-			return \wp_mail_smtp()->pro->assets_url . '/js/smtp-pro-logs' . WP::asset_min() . '.js';
+			return wp_mail_smtp()->pro->assets_url . '/js/smtp-pro-logs' . WP::asset_min() . '.js';
 		} );
 
 		add_action( 'wp_mail_smtp_admin_area_enqueue_assets', array( $this, 'enqueue_assets' ) );
@@ -89,39 +90,46 @@ class Logs {
 		}, 0 );
 
 		// Filter admin area options save process.
-		add_filter( 'wp_mail_smtp_options_set', array( $this, 'filter_options_set' ) );
+		add_filter( 'wp_mail_smtp_options_set', [ $this, 'filter_options_set' ] );
+		add_filter( 'wp_mail_smtp_options_get_const_value', [ $this, 'filter_options_get_const_value' ], 10, 4 );
+		add_filter( 'wp_mail_smtp_options_is_const_defined', [ $this, 'filter_options_is_const_defined' ], 10, 3 );
 
 		// Track single email Preview and Deletion.
-		add_action( 'admin_init', array( $this, 'process_email_preview' ) );
-		add_action( 'admin_init', array( $this, 'process_email_delete' ) );
+		add_action( 'admin_init', [ $this, 'process_email_preview' ] );
+		add_action( 'admin_init', [ $this, 'process_email_delete' ] );
 
 		// Display notices.
-		add_action( 'admin_init', array( $this, 'display_notices' ) );
+		add_action( 'admin_init', [ $this, 'display_notices' ] );
 
-		/**
-		 * Actually log emails.
-		 */
 		if ( $this->is_enabled() ) {
-			// SMTP.
-			add_action( 'wp_mail_smtp_mailcatcher_smtp_pre_send_before', array( $this, 'process_smtp_pre_send_before' ) );
-			add_action( 'wp_mail_smtp_mailcatcher_smtp_send_before', array( $this, 'process_smtp_send_before' ) );
-			add_action( 'wp_mail_smtp_mailcatcher_smtp_send_after', array( $this, 'process_smtp_send_after' ), 10, 7 );
-			add_action( 'wp_mail_failed', array( $this, 'process_smtp_fails' ) );
+			// Actually log emails - SMTP.
+			add_action( 'wp_mail_smtp_mailcatcher_smtp_pre_send_before', [ $this, 'process_smtp_pre_send_before' ] );
+			add_action( 'wp_mail_smtp_mailcatcher_smtp_send_before', [ $this, 'process_smtp_send_before' ] );
+			add_action( 'wp_mail_smtp_mailcatcher_smtp_send_after', [ $this, 'process_smtp_send_after' ], 10, 7 );
+			add_action( 'wp_mail_failed', [ $this, 'process_smtp_fails' ] );
 
-			// Catch All.
-			add_action( 'wp_mail_smtp_mailcatcher_send_after', array( $this, 'process_log_save' ), 10, 2 );
+			// Actually log emails - Catch All.
+			add_action( 'wp_mail_smtp_mailcatcher_send_after', [ $this, 'process_log_save' ], 10, 2 );
 
 			// Process AJAX request for deleting all logs.
 			add_action( 'wp_ajax_wp_mail_smtp_delete_all_log_entries', [ $this, 'process_ajax_delete_all_log_entries' ] );
+
+			// Initialize email print preview.
+			( new PrintPreview() )->hooks();
 		}
 
 		// Initialize screen options for the logs admin archive page.
-		add_action( 'load-wp-mail-smtp_page_wp-mail-smtp-logs', array( $this, 'archive_screen_options' ) );
-		add_filter( 'set-screen-option', array( $this, 'set_archive_screen_options' ), 10, 3 );
+		add_action( 'load-wp-mail-smtp_page_wp-mail-smtp-logs', [ $this, 'archive_screen_options' ] );
+		add_filter( 'set-screen-option', [ $this, 'set_archive_screen_options' ], 10, 3 );
 		add_filter( 'set_screen_option_wp_mail_smtp_log_entries_per_page', [ $this, 'set_archive_screen_options' ], 10, 3 );
 
 		// Register the sent status verification tasks.
 		add_action( 'wp_mail_smtp_providers_mailer_verify_sent_status', [ $this, 'run_sent_status_verification' ], 10, 2 );
+
+		// Detect log retention period constant change.
+		if ( Options::init()->is_const_defined( 'logs', 'log_retention_period' ) ) {
+			add_action( 'admin_init', [ $this, 'detect_log_retention_period_constant_change' ] );
+		}
 	}
 
 	/**
@@ -197,7 +205,7 @@ class Logs {
 			if ( $key === 'log_retention_period' ) {
 				$options['logs'][ $key ] = intval( $value );
 
-				$old_value = Options::init()->get( 'logs', 'log_retention_period' );
+				$old_value = Options::init()->get( 'logs', $key );
 
 				// If this option has changed, cancel the recurring cleanup task.
 				if ( $options['logs'][ $key ] !== $old_value ) {
@@ -209,6 +217,104 @@ class Logs {
 		}
 
 		return $options;
+	}
+
+	/**
+	 * Process the options values through the constants check.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @param mixed  $return Constant value.
+	 * @param string $group  The option group.
+	 * @param string $key    The option key.
+	 * @param mixed  $value  DB option value.
+	 *
+	 * @return mixed
+	 */
+	public function filter_options_get_const_value( $return, $group, $key, $value ) {
+
+		$options = Options::init();
+
+		if ( $group === 'logs' ) {
+			switch ( $key ) {
+				case 'enabled':
+					$return = $options->is_const_defined( $group, $key ) ?
+						$options->parse_boolean( WPMS_LOGS_ENABLED ) :
+						$value;
+					break;
+				case 'log_email_content':
+					$return = $options->is_const_defined( $group, $key ) ?
+						$options->parse_boolean( WPMS_LOGS_LOG_EMAIL_CONTENT ) :
+						$value;
+					break;
+				case 'log_retention_period':
+					$return = $options->is_const_defined( $group, $key ) ?
+						intval( WPMS_LOGS_LOG_RETENTION_PERIOD ) :
+						$value;
+					break;
+			}
+		}
+
+		return $return;
+	}
+
+	/**
+	 * Check is constant defined.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @param mixed  $return Constant value.
+	 * @param string $group  The option group.
+	 * @param string $key    The option key.
+	 *
+	 * @return bool
+	 */
+	public function filter_options_is_const_defined( $return, $group, $key ) {
+
+		if ( $group === 'logs' ) {
+			switch ( $key ) {
+				case 'enabled':
+					$return = defined( 'WPMS_LOGS_ENABLED' );
+					break;
+				case 'log_email_content':
+					$return = defined( 'WPMS_LOGS_LOG_EMAIL_CONTENT' );
+					break;
+				case 'log_retention_period':
+					$return = defined( 'WPMS_LOGS_LOG_RETENTION_PERIOD' );
+					break;
+			}
+		}
+
+		return $return;
+	}
+
+	/**
+	 * Detect log retention period constant change.
+	 *
+	 * @since 2.8.0
+	 */
+	public function detect_log_retention_period_constant_change() {
+
+		if ( ! WP::in_wp_admin() ) {
+			return false;
+		}
+
+		$options = Options::init();
+
+		$value = $options->get( 'logs', 'log_retention_period' );
+
+		add_filter( 'wp_mail_smtp_options_is_const_enabled', '__return_false', PHP_INT_MAX );
+		$old_value = $options->get( 'logs', 'log_retention_period' );
+		remove_filter( 'wp_mail_smtp_options_is_const_enabled', '__return_false', PHP_INT_MAX );
+
+		if ( $value !== $old_value ) {
+			( new EmailLogCleanupTask() )->cancel();
+
+			$old_opt = $options->get_all_raw();
+
+			$old_opt['logs']['log_retention_period'] = $value;
+			$options->set( $old_opt );
+		}
 	}
 
 	/**
@@ -236,6 +342,25 @@ class Logs {
 	}
 
 	/**
+	 * Get email logs page manage capability.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @return string
+	 */
+	public function get_manage_capability() {
+
+		/**
+		 * Filter email logs page manage capability.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @param string  $capability Email logs page manage capability.
+		 */
+		return apply_filters( 'wp_mail_smtp_pro_emails_logs_logs_get_manage_capability', 'manage_options' );
+	}
+
+	/**
 	 * Enqueue required JS and CSS.
 	 *
 	 * @since 1.5.0
@@ -258,7 +383,25 @@ class Logs {
 			'error_occurred'                          => esc_html__( 'An error occurred!', 'wp-mail-smtp-pro' ),
 		];
 
-		\wp_localize_script(
+		if ( $this->is_archive() ) {
+			wp_enqueue_style(
+				'wp-mail-smtp-admin-flatpickr',
+				wp_mail_smtp()->assets_url . '/pro/css/vendor/flatpickr.min.css',
+				[],
+				'4.6.9'
+			);
+			wp_enqueue_script(
+				'wp-mail-smtp-admin-flatpickr',
+				wp_mail_smtp()->assets_url . '/pro/js/vendor/flatpickr.min.js',
+				[],
+				'4.6.9',
+				false
+			);
+
+			$settings['lang_code'] = sanitize_key( WP::get_language_code() );
+		}
+
+		wp_localize_script(
 			'wp-mail-smtp-admin-logs',
 			'wp_mail_smtp_logs',
 			$settings
@@ -393,9 +536,41 @@ class Logs {
 		$email = new Email( (int) $_GET['email_id'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 
 		// It's a raw HTML (with html/body tags), so print as is.
-		echo $email->is_html() ? $email->get_content() : nl2br( esc_html( $email->get_content() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $email->is_html() ?
+			$this->prepare_email_preview_html( $email->get_content() ) : // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			nl2br( esc_html( $email->get_content() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		exit;
+	}
+
+	/**
+	 * Prepare email preview html.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @param string $html Email content html.
+	 *
+	 * @return string
+	 */
+	public function prepare_email_preview_html( $html ) {
+
+		ob_start();
+		?>
+		<style type="text/css">
+		@media print {
+			/* Fix background colors issue when print. */
+			body {
+				-webkit-print-color-adjust: exact;
+			}
+		}
+		</style>
+		<?php
+		$print_css = ob_get_clean();
+
+		// Append css in head before closing tag.
+		$html = preg_replace( '/<\s*\/\s*head\s*>/', $print_css . '</head>', $html, 1 );
+
+		return $html;
 	}
 
 	/**
@@ -409,12 +584,16 @@ class Logs {
 			return;
 		}
 
+		if ( ! current_user_can( $this->get_manage_capability() ) ) {
+			wp_die( esc_html__( 'You don\'t have the capability to perform this action.', 'wp-mail-smtp-pro' ) );
+		}
+
 		$emails = null;
 
 		if ( is_array( $_REQUEST['email_id'] ) ) { // phpcs:ignore
-			$emails = new EmailsCollection( array( 'ids' => $_REQUEST['email_id'] ) ); // phpcs:ignore
+			$emails = new EmailsCollection( [ 'ids' => $_REQUEST['email_id'] ] ); // phpcs:ignore
 		} elseif ( is_numeric( $_REQUEST['email_id'] ) ) { // phpcs:ignore
-			$emails = new EmailsCollection( array( 'id' => $_REQUEST['email_id'] ) ); // phpcs:ignore
+			$emails = new EmailsCollection( [ 'id' => $_REQUEST['email_id'] ] ); // phpcs:ignore
 		}
 
 		$deleted = 0;
@@ -446,7 +625,7 @@ class Logs {
 
 		if (
 			empty( $message ) ||
-			! current_user_can( 'manage_options' ) ||
+			! current_user_can( $this->get_manage_capability() ) ||
 			! wp_mail_smtp()->get_admin()->is_admin_page( 'logs' )
 		) {
 			return;
@@ -627,7 +806,7 @@ class Logs {
 			wp_send_json_error( esc_html__( 'Access rejected.', 'wp-mail-smtp-pro' ) );
 		}
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( $this->get_manage_capability() ) ) {
 			wp_send_json_error( esc_html__( 'You don\'t have the capability to perform this action.', 'wp-mail-smtp-pro' ) );
 		}
 

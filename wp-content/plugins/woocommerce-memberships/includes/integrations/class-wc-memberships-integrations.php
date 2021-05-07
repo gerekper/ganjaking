@@ -21,6 +21,8 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Integrations\Courseware\LearnDash;
+use SkyVerge\WooCommerce\Memberships\Integrations\Courseware\Sensei;
 use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -57,7 +59,7 @@ class WC_Memberships_Integrations {
 	/** @var null|\WC_Memberships_Integration_Groups instance */
 	private $groups;
 
-	/** @var null|\SkyVerge\WooCommerce\Memberships\Integrations\LearnDash instance */
+	/** @var null|\SkyVerge\WooCommerce\Memberships\Integrations\Courseware\LearnDash instance */
 	private $learndash;
 
 	/** @var null|\WC_Memberships_Integration_Measurement_Price_Calculator instance */
@@ -66,7 +68,7 @@ class WC_Memberships_Integrations {
 	/** @var null|\WC_Memberships_Integration_One_Page_Checkout instance */
 	private $one_page_checkout;
 
-	/** @var null|\SkyVerge\WooCommerce\Memberships\Integrations\Sensei instance */
+	/** @var null|\SkyVerge\WooCommerce\Memberships\Integrations\Courseware\Sensei instance */
 	private $sensei;
 
 	/** @var null|\WC_Memberships_Integration_Subscriptions instance */
@@ -108,7 +110,14 @@ class WC_Memberships_Integrations {
 
 		// LearnDash
 		if ( wc_memberships()->is_plugin_active( 'sfwd_lms.php' ) ) {
-			$this->learndash = wc_memberships()->load_class( '/includes/integrations/Learndash/Learndash.php', '\\SkyVerge\\WooCommerce\\Memberships\\Integrations\\Learndash' );
+
+			require_once( wc_memberships()->get_plugin_path() . '/includes/integrations/Courseware.php' );
+			require_once( wc_memberships()->get_plugin_path() . '/includes/integrations/Courseware/LearnDash.php' );
+
+			$this->learndash = new LearnDash();
+
+			// @TODO remove this class alias by version 3.0.0 or by April 2022 {unfulvio 2021-04-29}
+			class_alias( LearnDash::class, '\\SkyVerge\\WooCommerce\\Memberships\\Integrations\\LearnDash', false );
 		}
 
 		// qTranslate-x
@@ -128,9 +137,13 @@ class WC_Memberships_Integrations {
 		// Sensei
 		if ( $this->is_sensei_active() ) {
 
-			require_once( wc_memberships()->get_plugin_path() . '/includes/integrations/Sensei.php' );
+			require_once( wc_memberships()->get_plugin_path() . '/includes/integrations/Courseware.php' );
+			require_once( wc_memberships()->get_plugin_path() . '/includes/integrations/Courseware/Sensei.php' );
 
-			$this->sensei = new \SkyVerge\WooCommerce\Memberships\Integrations\Sensei();
+			$this->sensei = new Sensei();
+
+			// @TODO remove this class alias by version 3.0.0 or by April 2022 {unfulvio 2021-04-29}
+			class_alias( Sensei::class, '\\SkyVerge\\WooCommerce\\Memberships\\Integrations\\Sensei', false );
 		}
 
 		// Subscriptions
@@ -229,7 +242,7 @@ class WC_Memberships_Integrations {
 	 *
 	 * @since 1.21.0
 	 *
-	 * @return \SkyVerge\WooCommerce\Memberships\Integrations\Sensei|null
+	 * @return \SkyVerge\WooCommerce\Memberships\Integrations\Courseware\Sensei|null
 	 */
 	public function get_sensei_instance() {
 

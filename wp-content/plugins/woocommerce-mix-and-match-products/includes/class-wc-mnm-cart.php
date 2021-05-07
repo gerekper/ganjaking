@@ -215,7 +215,7 @@ class WC_Mix_and_Match_Cart {
 	 * @param array        $cart_item_data
 	 * @return string|false
 	 */
-	public function mnm_add_to_cart( $container_id, $product_id, $quantity = 1, $variation_id = '', $variation = '', $cart_item_data ) {
+	public function mnm_add_to_cart( $container_id, $product_id, $quantity = 1, $variation_id = '', $variation = '', $cart_item_data = array() ) {
 
 		/**
 		 * Load cart item data for child items.

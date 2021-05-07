@@ -1,24 +1,24 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '9.6.1',
-    'version' => '9.6.1.0',
+    'pretty_version' => '9.6.7',
+    'version' => '9.6.7.0',
     'aliases' => 
     array (
     ),
-    'reference' => '628404317214b2587456fffffcbec2dbd6406daf',
+    'reference' => '59ba09d0366163bd96028ae78ef9a275c6801b9f',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => '9.6.1',
-      'version' => '9.6.1.0',
+      'pretty_version' => '9.6.7',
+      'version' => '9.6.7.0',
       'aliases' => 
       array (
       ),
-      'reference' => '628404317214b2587456fffffcbec2dbd6406daf',
+      'reference' => '59ba09d0366163bd96028ae78ef9a275c6801b9f',
     ),
     'pimple/pimple' => 
     array (

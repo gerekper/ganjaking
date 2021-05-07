@@ -138,9 +138,9 @@ class WC_Account_Funds_My_Account {
 	 */
 	public function topup_handler() {
 		if ( isset( $_POST['wc_account_funds_topup'] ) && isset( $_POST['_wpnonce'] ) && wp_verify_nonce( wc_clean( wp_unslash( $_POST['_wpnonce'] ) ), 'account-funds-topup' ) ) {
-			$min          = max( 0, get_option( 'account_funds_min_topup' ) );
+			$min          = max( 1, get_option( 'account_funds_min_topup' ) );
 			$max          = get_option( 'account_funds_max_topup' );
-			$topup_amount = ( isset( $_POST['topup_amount'] ) ? wc_clean( wp_unslash( $_POST['topup_amount'] ) ) : 0 );
+			$topup_amount = ( isset( $_POST['topup_amount'] ) ? wc_clean( wp_unslash( $_POST['topup_amount'] ) ) : 1 );
 
 			if ( $topup_amount < $min ) {
 				/* translators: %s: minimum Top-Up amount */
@@ -172,7 +172,7 @@ class WC_Account_Funds_My_Account {
 			wc_account_funds_get_template( 'myaccount/account-funds/topup-in-cart-notice.php', $vars );
 		} else {
 			$vars = array(
-				'min_topup' => get_option( 'account_funds_min_topup' ),
+				'min_topup' => max( 1, (int) get_option( 'account_funds_min_topup' ) ),
 				'max_topup' => $max_topup,
 			);
 

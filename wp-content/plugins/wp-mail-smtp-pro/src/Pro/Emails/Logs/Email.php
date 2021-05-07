@@ -226,6 +226,29 @@ class Email {
 	}
 
 	/**
+	 * Email from name.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @return string
+	 */
+	public function get_from_name() {
+
+		$from_header = $this->get_header( 'From' );
+
+		if ( ! empty( $from_header ) ) {
+
+			preg_match( '/\s*(.*[^\s])\s*<\s*(.*[^\s])\s*>/', $from_header, $output );
+
+			if ( ! empty( $output[1] ) ) {
+				return trim( $output[1] );
+			}
+		}
+
+		return '';
+	}
+
+	/**
 	 * All the headers, JSON string.
 	 *
 	 * @since 1.5.0
@@ -330,6 +353,25 @@ class Email {
 	public function get_status() {
 
 		return (int) $this->status;
+	}
+
+	/**
+	 * Get human readable status name.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @return string
+	 */
+	public function get_status_name() {
+
+		$statuses = [
+			self::STATUS_UNSENT    => __( 'Not Sent', 'wp-mail-smtp-pro' ),
+			self::STATUS_SENT      => __( 'Sent', 'wp-mail-smtp-pro' ),
+			self::STATUS_WAITING   => __( 'Waiting for confirmation', 'wp-mail-smtp-pro' ),
+			self::STATUS_DELIVERED => __( 'Delivered', 'wp-mail-smtp-pro' ),
+		];
+
+		return isset( $statuses[ $this->status ] ) ? $statuses[ $this->status ] : '';
 	}
 
 	/**

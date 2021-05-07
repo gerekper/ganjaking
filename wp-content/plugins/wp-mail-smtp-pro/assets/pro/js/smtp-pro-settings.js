@@ -154,7 +154,7 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 						icon,
 						type;
 
-					
+					if ( response.success ) {
 						message = response.data.message;
 						icon    = 'check-circle-solid-green';
 						type    = 'green';
@@ -162,7 +162,14 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 						$row.find( '.type, .desc, #wp-mail-smtp-setting-license-key-deactivate' ).show();
 						$row.find( '.type strong' ).text( response.data.type );
 						$licenseKey.prop( 'disabled', true );
-					
+					} else {
+						message = response.data;
+						icon    = 'exclamation-circle-regular-red';
+						type    = 'red';
+
+						$row.find( '.type, .desc, #wp-mail-smtp-setting-license-key-deactivate' ).hide();
+						$licenseKey.prop( 'disabled', false );
+					}
 
 					app.license.displayModal( message, icon, type );
 

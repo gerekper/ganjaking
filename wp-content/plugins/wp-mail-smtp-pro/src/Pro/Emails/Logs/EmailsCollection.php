@@ -196,6 +196,27 @@ class EmailsCollection implements \Countable, \Iterator {
 			$processed['orderby'] = sanitize_key( $params['orderby'] );
 		}
 
+		/*
+		 * Sent date.
+		 */
+		if ( ! empty( $params['date'] ) ) {
+			if ( is_string( $params['date'] ) ) {
+				$params['date'] = array_fill( 0, 2, $params['date'] );
+			} elseif ( is_array( $params['date'] ) && count( $params['date'] ) === 1 ) {
+				$params['date'] = array_fill( 0, 2, $params['date'][0] );
+			}
+
+			// We pass array and treat it as a range from:to.
+			if ( is_array( $params['date'] ) && count( $params['date'] ) === 2 ) {
+				$date_start = WP::get_day_period_date( 'start_of_day', strtotime( $params['date'][0] ), 'Y-m-d H:i:s', true );
+				$date_end   = WP::get_day_period_date( 'end_of_day', strtotime( $params['date'][1] ), 'Y-m-d H:i:s', true );
+
+				if ( ! empty( $date_start ) && ! empty( $date_end ) ) {
+					$processed['date'] = [ $date_start, $date_end ];
+				}
+			}
+		}
+
 		// Merge missing values with defaults.
 		return wp_parse_args(
 			$processed,
@@ -299,6 +320,21 @@ class EmailsCollection implements \Countable, \Iterator {
 					           . ')';
 					break;
 			}
+		}
+
+		/*
+		 * Sent date.
+		 */
+		if (
+			! empty( $this->params['date'] ) &&
+			is_array( $this->params['date'] ) &&
+			count( $this->params['date'] ) === 2
+		) {
+			$where[] = $wpdb->prepare(
+				'( date_sent >= %s AND date_sent <= %s )',
+				$this->params['date'][0],
+				$this->params['date'][1]
+			);
 		}
 
 		return implode( ' AND ', $where );

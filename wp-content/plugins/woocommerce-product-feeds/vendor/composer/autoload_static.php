@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b
+class ComposerStaticInitdefa2f895b9c8958a8913d0072ce990a
 {
     public static $prefixLengthsPsr4 = array (
         'P' => 
@@ -33,14 +33,7 @@ class ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Gamajo_Template_Loader' => __DIR__ . '/../..' . '/src/common/gamajo-template-loader.class.php',
-        'MockWcProduct' => __DIR__ . '/../..' . '/tests/unit/mocks/MockWcProduct.php',
-        'MockWoocommerceGpfCommon' => __DIR__ . '/../..' . '/tests/unit/mocks/MockWoocommerceGpfCommon.php',
-        'MockWpPost' => __DIR__ . '/../..' . '/tests/unit/mocks/MockWpPost.php',
-        'MockWpTaxonomy' => __DIR__ . '/../..' . '/tests/unit/mocks/MockWpTaxonomy.php',
-        'MockWpTerm' => __DIR__ . '/../..' . '/tests/unit/mocks/MockWpTerm.php',
         'PWBE_WooCommerce_GPF' => __DIR__ . '/../..' . '/src/integrations/pwbe-woocommerce-gpf.php',
-        'WC_Product' => __DIR__ . '/../..' . '/tests/unit/mocks/MockWcProduct.php',
-        'WP_Post' => __DIR__ . '/../..' . '/tests/unit/mocks/MockWpPost.php',
         'WoocommerceCostOfGoods' => __DIR__ . '/../..' . '/src/integrations/woocommerce-cost-of-goods.php',
         'WoocommerceGpfAbstractCacheRebuildBatchJob' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-abstract-cache-rebuild-batch-job.php',
         'WoocommerceGpfAbstractCacheRebuildJob' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-abstract-cache-rebuild-job.php',
@@ -62,7 +55,6 @@ class ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b
         'WoocommerceGpfFeedItem' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-feed-item.php',
         'WoocommerceGpfFrontend' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-frontend.php',
         'WoocommerceGpfImportExportIntegration' => __DIR__ . '/../..' . '/src/common/woocommerce-gpf-import-export-integration.php',
-        'WoocommerceGpfMocks' => __DIR__ . '/../..' . '/tests/unit/mocks/WoocommerceGpfMocks.php',
         'WoocommerceGpfMulticurrency' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-multicurrency.php',
         'WoocommerceGpfPriceByCountry' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-price-by-country.php',
         'WoocommerceGpfProductBrandsForWooCommerce' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-product-brands-for-woocommerce.php',
@@ -75,21 +67,20 @@ class ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b
         'WoocommerceGpfStructuredData' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-structured-data.php',
         'WoocommerceGpfTemplateLoader' => __DIR__ . '/../..' . '/src/common/woocommerce-gpf-template-loader.class.php',
         'WoocommerceGpfTemplateTags' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-template-tags.php',
-        'WoocommerceGpfTestAbstract' => __DIR__ . '/../..' . '/tests/unit/WoocommerceGpfTestAbstract.php',
         'WoocommerceGpfTheContentProtection' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-the-content-protection.php',
-        'WoocommerceGpfWcMocks' => __DIR__ . '/../..' . '/tests/unit/mocks/WoocommerceGpfWcMocks.php',
         'WoocommerceGpfWoocommerceCompositeProducts' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-woocommerce-composite-products.php',
         'WoocommerceGpfWoocommerceMinMaxQuantityStepControlSingle' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-woocommerce-min-max-quantity-step-control-single.php',
         'WoocommerceGpfWoocommerceMixAndMatchProducts' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-woocommerce-mix-and-match-products.php',
         'WoocommerceGpfWoocommerceMultilingual' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-woocommerce-multilingual.php',
         'WoocommerceGpfWoocommerceProductBundles' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-woocommerce-product-bundles.php',
-        'WoocommerceGpfWpMocks' => __DIR__ . '/../..' . '/tests/unit/mocks/WoocommerceGpfWpMocks.php',
         'WoocommerceGpfYoastWoocommerceSeo' => __DIR__ . '/../..' . '/src/integrations/yoast-woocommerce-seo.php',
         'WoocommerceMinMaxQuantities' => __DIR__ . '/../..' . '/src/integrations/woocommerce-min-max-quantities.php',
         'WoocommercePrfAdmin' => __DIR__ . '/../..' . '/src/prf/woocommerce-prf-admin.php',
         'WoocommercePrfGoogle' => __DIR__ . '/../..' . '/src/prf/woocommerce-prf-google.php',
         'WoocommercePrfGoogleReviewFeed' => __DIR__ . '/../..' . '/src/prf/woocommerce-prf-google-review-feed.php',
         'WoocommercePrfGoogleReviewProductInfo' => __DIR__ . '/../..' . '/src/prf/woocommerce-prf-google-review-product-info.php',
+        'WoocommerceProductFeedsAdvancedCustomFields' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-feeds-advanced-custom-fields.php',
+        'WoocommerceProductFeedsAdvancedCustomFieldsFormatter' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-feeds-advanced-custom-fields-formatter.php',
         'WoocommerceProductFeedsDbManager' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-db-manager.php',
         'WoocommerceProductFeedsExpandedStructuredData' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-expanded-structured-data.php',
         'WoocommerceProductFeedsExpandedStructuredDataCacheInvalidator' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-expanded-structured-data-cache-invalidator.php',
@@ -98,17 +89,17 @@ class ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b
         'WoocommerceProductFeedsIntegrationManager' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-integration-manager.php',
         'WoocommerceProductFeedsMain' => __DIR__ . '/../..' . '/src/woocommerce-product-feeds-main.php',
         'WoocommerceProductFeedsTermDepthRepository' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-term-depth-repository.php',
-        'WoocommerceProductFeedsWcSetupTasks' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-wc-setup-tasks.php',
+        'WoocommerceProductFeedsWoocommerceAdminIntegration' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-woocommerce-admin-integration.php',
         'WoocommerceProductVendors' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-vendors.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitdefa2f895b9c8958a8913d0072ce990a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitdefa2f895b9c8958a8913d0072ce990a::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitdefa2f895b9c8958a8913d0072ce990a::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitdefa2f895b9c8958a8913d0072ce990a::$classMap;
 
         }, null, ClassLoader::class);
     }

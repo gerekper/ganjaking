@@ -1,4 +1,10 @@
-/* global wc_mnm_params */
+/**
+ * Product data metabox.
+ *
+ * @package WooCommerce Mix and Match Products/Scripts
+ *
+ * global wc_mnm_params
+ */
 
 /*-----------------------------------------------------------------*/
 /*  Global script variable.                                        */
@@ -23,16 +29,17 @@ function wc_mnm_price_format( price, plain ) {
  */
 function wc_mnm_woocommerce_number_format( price, plain ) {
 
-	var remove 		= wc_mnm_params.currency_format_decimal_sep;
-	var position 	= wc_mnm_params.currency_position;
-	var symbol 		= wc_mnm_params.currency_symbol;
-	var trim_zeros 	= wc_mnm_params.currency_format_trim_zeros;
-	var decimals 	= wc_mnm_params.currency_format_num_decimals;
+	var remove     = wc_mnm_params.currency_format_decimal_sep;
+	var position   = wc_mnm_params.currency_position;
+	var symbol     = wc_mnm_params.currency_symbol;
+	var trim_zeros = wc_mnm_params.currency_format_trim_zeros;
+	var decimals   = wc_mnm_params.currency_format_num_decimals;
 
 	plain = typeof( plain ) === 'undefined' ? false : plain;
 
 	if ( trim_zeros === 'yes' && decimals > 0 ) {
-		for (var i = 0; i < decimals; i++) { remove = remove + '0'; }
+		for (var i = 0; i < decimals; i++) {
+			remove = remove + '0'; }
 		price = price.replace( remove, '' );
 	}
 
@@ -59,9 +66,9 @@ function wc_mnm_woocommerce_number_format( price, plain ) {
  */
 function wc_mnm_number_format( number ) {
 
-	var decimals 		= wc_mnm_params.currency_format_num_decimals;
-	var decimal_sep 	= wc_mnm_params.currency_format_decimal_sep;
-	var thousands_sep 	= wc_mnm_params.currency_format_thousand_sep;
+	var decimals      = wc_mnm_params.currency_format_num_decimals;
+	var decimal_sep   = wc_mnm_params.currency_format_decimal_sep;
+	var thousands_sep = wc_mnm_params.currency_format_thousand_sep;
 
 	var n = number, c = isNaN( decimals = Math.abs( decimals ) ) ? 2 : decimals;
 	var d = decimal_sep === undefined ? ',' : decimal_sep;
@@ -115,49 +122,49 @@ jQuery.fn.wc_get_mnm_script = function() {
 	 */
 	function WC_MNM_Container( data ) {
 
-		var container             = this;
+		var container = this;
 
-		this.container_id         = data.container_id;
+		this.container_id = data.container_id;
 
-		this.$mnm_form            = data.$mnm_form;
-		this.$mnm_data            = data.$mnm_data;
-		this.$mnm_cart            = data.$mnm_data; // For backcompat.
+		this.$mnm_form = data.$mnm_form;
+		this.$mnm_data = data.$mnm_data;
+		this.$mnm_cart = data.$mnm_data; // For backcompat.
 
-		this.$mnm_items           =  data.$mnm_form.find( '.mnm_item' );
-		this.$mnm_price           =  data.$mnm_form.find( '.mnm_price' );
-		this.$mnm_reset           =  data.$mnm_form.find( '.mnm_reset' );
+		this.$mnm_items = data.$mnm_form.find( '.mnm_item' );
+		this.$mnm_price = data.$mnm_form.find( '.mnm_price' );
+		this.$mnm_reset = data.$mnm_form.find( '.mnm_reset' );
 
 		this.$mnm_button          = data.$mnm_data.find( '.mnm_add_to_cart_button' );
 		this.$mnm_message         = data.$mnm_data.find( '.mnm_message' );
 		this.$mnm_message_content = this.$mnm_message.find( '.mnm_message_content' );
 		this.$mnm_quantity        = this.$mnm_data.find( '.mnm_button_wrap input.qty' );
 
-		this.$addons_totals       = this.$mnm_data.find( '#product-addons-total' );
-		this.show_addons_totals   = false;
+		this.$addons_totals     = this.$mnm_data.find( '#product-addons-total' );
+		this.show_addons_totals = false;
 
-		this.child_items          = {};
+		this.child_items = {};
 
-		this.price_data           = data.$mnm_data.data( 'price_data' );
+		this.price_data = data.$mnm_data.data( 'price_data' );
 
-		this.container_size       = 0;
-		this.min_container_size   = data.$mnm_data.data( 'min_container_size' );
-		this.max_container_size   = data.$mnm_data.data( 'max_container_size' );
-		this.container_config     = {};
+		this.container_size     = 0;
+		this.min_container_size = data.$mnm_data.data( 'min_container_size' );
+		this.max_container_size = data.$mnm_data.data( 'max_container_size' );
+		this.container_config   = {};
 
-		this.update_mnm_timer     = false;
-		this.update_price_timer   = false;
+		this.update_mnm_timer   = false;
+		this.update_price_timer = false;
 
-		this.validation_messages  = [];
-		this.status_messages      = [];
+		this.validation_messages = [];
+		this.status_messages     = [];
 
-		this.is_initialized       = false;
+		this.is_initialized = false;
 
-		this.api                  = {
+		this.api = {
 
 			/**
 			 * Get container quantities config.
 			 *
-			 * return array
+			 * @return array
 			 */
 			get_container_config: function() {
 				return ( typeof( container.container_config ) === 'object' ) ? container.container_config : {};
@@ -166,12 +173,12 @@ jQuery.fn.wc_get_mnm_script = function() {
 			/**
 			 * Get container total price(s).
 			 *
-			 * return obj|int
+			 * @return obj|int
 			 */
 			get_container_price: function( type ) {
 				var totals = container.price_data.totals;
 
-				if( type !== 'undefined' && totals.hasOwnProperty( type ) ) {
+				if ( type !== 'undefined' && totals.hasOwnProperty( type ) ) {
 					return Number( totals[ type ] );
 				} else {
 					return totals;
@@ -181,7 +188,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 			/**
 			 * Get container size.
 			 *
-			 * return int
+			 * @return int
 			 */
 			get_container_size: function() {
 				return parseInt( container.container_size, 10 );
@@ -190,7 +197,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 			/**
 			 * Get min container size.
 			 *
-			 * return mixed int|false
+			 * @return mixed int|false
 			 */
 			get_min_container_size: function() {
 				if ( typeof( container.min_container_size ) !== 'undefined' && container.min_container_size !== '' ) {
@@ -202,7 +209,8 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 			/**
 			 * Get max container size.
-			 * return mixed int|false
+			 *
+			 * @return mixed int|false
 			 */
 			get_max_container_size: function() {
 				if ( typeof( container.max_container_size ) !== 'undefined' && container.max_container_size !== '') {
@@ -256,7 +264,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 			/**
 			 * Set container size.
 			 *
-			 * return int
+			 * @return int
 			 */
 			set_container_size: function( size ) {
 				container.container_size = parseInt( size, 10 );
@@ -288,38 +296,37 @@ jQuery.fn.wc_get_mnm_script = function() {
 				 * Update totals upon changing quantities.
 				 */
 				.on(
-                    'input change',
-                    ':input',
-                    function( e ) {
+					'input change',
+					':input',
+					function( e ) {
 
-					// Restrict to min/max limits.
-					var $input = $( this ),
-						min    = parseFloat( $input.attr( 'min' ) ),
-						max    = parseFloat( $input.attr( 'max' ) );
+						// Restrict to min/max limits.
+						var $input = $( this ),
+						min        = parseFloat( $input.attr( 'min' ) ),
+						max        = parseFloat( $input.attr( 'max' ) );
 
-					// Max can't be higher than the container size.
-					if ( container.api.get_max_container_size() > 0 ) {
-						max = Math.min( max, parseFloat( container.api.get_max_container_size() ) );
+						// Max can't be higher than the container size.
+						if ( container.api.get_max_container_size() > 0 ) {
+							max = Math.min( max, parseFloat( container.api.get_max_container_size() ) );
+						}
+
+						if ( e.type === 'change' && min >= 0 && ( parseFloat( $input.val() ) < min || isNaN( parseFloat( $input.val() ) ) ) ) {
+							$input.val( min );
+						}
+
+						if ( e.type === 'change' && max > 0 && parseFloat( $input.val() ) > max ) {
+							$input.val( max );
+						}
+
+						container.update_container( child_item );
 					}
-
-					if ( e.type === 'change' && min >= 0 && ( parseFloat( $input.val() ) < min || isNaN( parseFloat( $input.val() ) ) ) ) {
-						$input.val( min );
-					}
-
-					if ( e.type === 'change' && max > 0 && parseFloat( $input.val() ) > max ) {
-						$input.val( max );
-					}
-
-					container.update_container( child_item );
-                    }
-                );
+				);
 
 		};
 
 		/**
 		 * Container-Level Event Handlers.
 		 */
-
 		this.bind_event_handlers = function() {
 
 			if ( container.has_addons() ) {
@@ -330,14 +337,13 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 				// Upon clicking reset link.
 				.on(
-                    'click',
-                    function( e ) {
-					container.reset( e );
-                    }
-                );
+					'click',
+					function( e ) {
+						container.reset( e );
+					}
+				);
 
 		};
-
 
 		/**
 		 * Calculates child item subtotals (container totals) and updates the corresponding 'price_data' fields.
@@ -361,53 +367,53 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 			// Items.
 			$.each(
-                container.child_items,
-                function( index, child_item ) {
+				container.child_items,
+				function( index, child_item ) {
 
-				if ( false !== triggered_by && triggered_by.mnm_item_id !== child_item.mnm_item_id ) {
-					return true;
-				}
+					if ( false !== triggered_by && triggered_by.mnm_item_id !== child_item.mnm_item_id ) {
+						return true;
+					}
 
-				var mnm_item_id 		    = child_item.get_item_id(),
-					product_qty             = child_item.is_sold_individually() && container.container_config[ mnm_item_id ] > 0 ? 1 : container.container_config[ mnm_item_id ] * qty,
-					tax_ratios              = price_data.prices_tax[ mnm_item_id ],
-					regular_price           = price_data.regular_prices[ mnm_item_id ],
-					price                   = price_data.prices[ mnm_item_id ],
+					var mnm_item_id = child_item.get_item_id(),
+					product_qty     = child_item.is_sold_individually() && container.container_config[ mnm_item_id ] > 0 ? 1 : container.container_config[ mnm_item_id ] * qty,
+					tax_ratios      = price_data.prices_tax[ mnm_item_id ],
+					regular_price   = price_data.regular_prices[ mnm_item_id ],
+					price           = price_data.prices[ mnm_item_id ],
 
-					totals                  = {
+					totals = {
 						price:          0.0,
 						regular_price:  0.0,
 						price_incl_tax: 0.0,
 						price_excl_tax: 0.0
-				};
+					};
 
-				if ( wc_mnm_params.calc_taxes === 'yes' ) {
+					if ( wc_mnm_params.calc_taxes === 'yes' ) {
 
-					if ( mnm_item_id > 0 && product_qty > 0 ) {
+						if ( mnm_item_id > 0 && product_qty > 0 ) {
 
-						if ( price > 0 || regular_price > 0 ) {
-							totals = container.get_taxed_totals( price, regular_price, tax_ratios, product_qty );
+							if ( price > 0 || regular_price > 0 ) {
+								totals = container.get_taxed_totals( price, regular_price, tax_ratios, product_qty );
+							}
+
 						}
+
+					} else {
+
+						totals.price          = product_qty * price;
+						totals.regular_price  = product_qty * regular_price;
+						totals.price_incl_tax = product_qty * price;
+						totals.price_excl_tax = product_qty * price;
 
 					}
 
-				} else {
-
-					totals.price                    = product_qty * price;
-					totals.regular_price            = product_qty * regular_price;
-					totals.price_incl_tax           = product_qty * price;
-					totals.price_excl_tax           = product_qty * price;
+					if ( container.totals_changed( price_data.child_item_subtotals[ mnm_item_id ], totals ) ) {
+						container.dirty_subtotals                      = true;
+						price_data.child_item_subtotals[ mnm_item_id ] = totals;
+						price_data.child_item_totals[ mnm_item_id ]    = totals;
+					}
 
 				}
-
-				if ( container.totals_changed( price_data.child_item_subtotals[ mnm_item_id ], totals ) ) {
-					container.dirty_subtotals = true;
-					price_data.child_item_subtotals[ mnm_item_id ] = totals;
-					price_data.child_item_totals[ mnm_item_id ]    = totals;
-				}
-
-                }
-            );
+			);
 
 			return price_data;
 
@@ -428,45 +434,47 @@ jQuery.fn.wc_get_mnm_script = function() {
 				price_incl_tax: price_data.base_price_subtotals.price_incl_tax,
 				price_excl_tax: price_data.base_price_subtotals.price_excl_tax
 			},
-			subtotals = {
-					price:          price_data.base_price_totals.price,
-					regular_price:  price_data.base_price_totals.regular_price,
-					price_incl_tax: price_data.base_price_totals.price_incl_tax,
-					price_excl_tax: price_data.base_price_totals.price_excl_tax
+			subtotals  = {
+				price:          price_data.base_price_totals.price,
+				regular_price:  price_data.base_price_totals.regular_price,
+				price_incl_tax: price_data.base_price_totals.price_incl_tax,
+				price_excl_tax: price_data.base_price_totals.price_excl_tax
 			};
 
-			$.each( container.child_items, function( index, child_item ) {
+			$.each(
+				container.child_items,
+				function( index, child_item ) {
 
-				var mnm_item_id = child_item.get_item_id(),
-					item_totals    = price_data.child_item_totals[ mnm_item_id ],
-					item_subtotals = price_data.child_item_subtotals[ mnm_item_id ];
+					var mnm_item_id = child_item.get_item_id(),
+					item_totals     = price_data.child_item_totals[ mnm_item_id ],
+					item_subtotals  = price_data.child_item_subtotals[ mnm_item_id ];
 
-				if ( typeof item_totals !== 'undefined' ) {
+					if ( typeof item_totals !== 'undefined' ) {
 
-					totals.price          += item_totals.price;
-					totals.regular_price  += item_totals.regular_price;
-					totals.price_incl_tax += item_totals.price_incl_tax;
-					totals.price_excl_tax += item_totals.price_excl_tax;
+						totals.price          += item_totals.price;
+						totals.regular_price  += item_totals.regular_price;
+						totals.price_incl_tax += item_totals.price_incl_tax;
+						totals.price_excl_tax += item_totals.price_excl_tax;
+					}
+
+					if ( typeof item_subtotals !== 'undefined' ) {
+
+						subtotals.price          += item_subtotals.price;
+						subtotals.regular_price  += item_subtotals.regular_price;
+						subtotals.price_incl_tax += item_subtotals.price_incl_tax;
+						subtotals.price_excl_tax += item_subtotals.price_excl_tax;
+					}
+
 				}
-
-				if ( typeof item_subtotals !== 'undefined' ) {
-
-					subtotals.price          += item_subtotals.price;
-					subtotals.regular_price  += item_subtotals.regular_price;
-					subtotals.price_incl_tax += item_subtotals.price_incl_tax;
-					subtotals.price_excl_tax += item_subtotals.price_excl_tax;
-				}
-
-                }
-            );
+			);
 
 			totals_changed = container.totals_changed( price_data.totals, totals ) || container.totals_changed( price_data.subtotals, subtotals );
 
 			// Render.
 			if ( totals_changed || false === container.is_initialized ) {
 
-				price_data.subtotals           = subtotals;
-				price_data.totals              = totals;
+				price_data.subtotals = subtotals;
+				price_data.totals    = totals;
 
 				if ( typeof( price_data_array ) === 'undefined' ) {
 					this.updated_totals();
@@ -482,7 +490,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 		this.get_formatted_price_suffix = function( price_data_array, totals ) {
 
 			var price_data = typeof( price_data_array ) === 'undefined' ? container.price_data : price_data_array,
-				suffix = '';
+				suffix     = '';
 
 			totals = typeof( totals ) === 'undefined' ? price_data.totals : totals;
 
@@ -527,18 +535,18 @@ jQuery.fn.wc_get_mnm_script = function() {
 		 */
 		this.get_price_html = function( price_data_array, config ) {
 
-			var price_data           = 'undefined' === typeof( price_data_array ) ? container.price_data : price_data_array,
-				
+			var price_data = 'undefined' === typeof( price_data_array ) ? container.price_data : price_data_array,
+
 				container_price_html = '',
-				default_config =        {
+				default_config       = {
 					'show_total_string': wc_mnm_number_round( price_data.totals.price ) !== wc_mnm_number_round( price_data.raw_container_price_min ) || price_data.raw_container_price_min !== price_data.raw_container_price_max,
 					'tag'              : 'p'
-				};
+			};
 
 			config = 'undefined' === typeof( config ) ? {} : config;
 			config = $.extend( default_config, config );
 
-			var total_string      = config.show_total_string ? '<span class="total">' + wc_mnm_params.i18n_total + '</span>' : '';	
+			var total_string = config.show_total_string ? '<span class="total">' + wc_mnm_params.i18n_total + '</span>' : '';
 
 			// Non-recurring price html data.
 			var formatted_price         = price_data.totals.price === 0.0 && price_data.show_free_string === 'yes' ? wc_mnm_params.i18n_free : wc_mnm_price_format( price_data.totals.price ),
@@ -667,7 +675,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 			// Update config and prices.
 			this.update_container_task();
 
-			this.is_initialized           = true;
+			this.is_initialized = true;
 
 			// Let 3rd party know that we are ready to rock.
 			this.$mnm_form.trigger( 'wc-mnm-initialized', [ this ] );
@@ -680,14 +688,14 @@ jQuery.fn.wc_get_mnm_script = function() {
 		this.init_child_items = function() {
 
 			container.$mnm_items.each(
-                function( index ) {
+				function( index ) {
 
-                container.child_items[ index ] = new WC_MNM_Child_Item( container, $( this ), index );
+					container.child_items[ index ] = new WC_MNM_Child_Item( container, $( this ), index );
 
-                container.bind_child_item_event_handlers( container.child_items[ index ] );
+					container.bind_child_item_event_handlers( container.child_items[ index ] );
 
-                }
-            );
+				}
+			);
 		};
 
 		/**
@@ -711,7 +719,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 		this.update_addons_totals = function( triggered_by ) {
 
 			// When container is updated, tell addons the price.
-			if( typeof( triggered_by ) === 'undefined' ) {
+			if ( typeof( triggered_by ) === 'undefined' ) {
 				container.$addons_totals.data( 'price', container.api.get_container_price( 'price' ) );
 				container.$mnm_data.trigger( 'woocommerce-product-addons-update' );
 				return false;
@@ -720,31 +728,38 @@ jQuery.fn.wc_get_mnm_script = function() {
 			// Triggered by addons.
 			if ( container.show_addons_totals ) {
 
-				var price_html         = '',
-					html = '',
-					price_data            = $.extend( true, {}, container.price_data ),
-					qty                   = container.get_quantity(),
-					tax_ratios            = price_data.base_price_tax,
-					addons 	  			  = container.$addons_totals.data( 'price_data' ),
-					addons_total  = 0.0,
-					addons_prices = {
+				var price_html      = '',
+					html            = '',
+					price_data      = $.extend( true, {}, container.price_data ),
+					qty             = container.get_quantity(),
+					tax_ratios      = price_data.base_price_tax,
+					addons          = container.$addons_totals.data( 'price_data' ),
+					addons_total    = 0.0,
+					addons_length   = 0,
+					addons_prices   = {
 						price:          0.0,
 						regular_price:  0.0,
 						price_incl_tax: 0.0,
 						price_excl_tax: 0.0
-					},
-					combined_totals = addons_prices;
-				
+				},
+					combined_totals = {
+						price:          0.0,
+						regular_price:  0.0,
+						price_incl_tax: 0.0,
+						price_excl_tax: 0.0
+				};
+
 				// Calculate Addons Totals.
-				if( typeof( addons ) !== 'undefined' && addons.length > 0 ) {
-					for( var i=0; i < addons.length; i++ ) {
-						addons_total          += Number( addons[i].cost );
+				if ( typeof( addons ) !== 'undefined' && addons.length > 0 ) {
+					addons_length = addons.length;
+					for ( var i = 0; i < addons_length; i++ ) {
+						addons_total += Number( addons[i].cost );
 					}
 				}
 
 				// Quantity is 1 as addons already calculates totals based on quantity.
 				addons_prices = container.get_taxed_totals( addons_total, addons_total, tax_ratios, 1 );
-					
+
 				// Update addons prices in container.
 				price_data.addons_prices = addons_prices;
 
@@ -767,7 +782,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 					price_html = container.get_price_html( price_data, config );
 
 					// Alternative Addons Markup.
-					html = '<dl class="product-addon-totals"><dt>' + wc_mnm_params.i18n_addon_total + '</dt><dd><strong><span class="amount">' + wc_mnm_price_format( addons_prices.price ) + '</span></strong></dd>';
+					html  = '<dl class="product-addon-totals"><dt>' + wc_mnm_params.i18n_addon_total + '</dt><dd><strong><span class="amount">' + wc_mnm_price_format( addons_prices.price ) + '</span></strong></dd>';
 					html += '<dt>' + wc_mnm_params.i18n_addons_total + '</dt><dd><strong>' + price_html + '</strong></dd></dl>';
 
 					container.$addons_totals.html( html );
@@ -788,11 +803,11 @@ jQuery.fn.wc_get_mnm_script = function() {
 			clearTimeout( container.update_mnm_timer );
 
 			container.update_mnm_timer = setTimeout(
-                function() {
-                container.update_container_task( triggered_by, config );
-                },
-                10
-            );
+				function() {
+					container.update_container_task( triggered_by, config );
+				},
+				10
+			);
 
 		},
 
@@ -827,34 +842,34 @@ jQuery.fn.wc_get_mnm_script = function() {
 		 */
 		this.update_quantities = function( triggered_by, config ) {
 
-			var total_qty           = 0;
+			var total_qty = 0;
 
 			if ( typeof( config ) === 'undefined' ) {
 
 				// Add up quantities.
 				$.each(
-                    container.child_items,
-                    function( index, child_item ) {
+					container.child_items,
+					function( index, child_item ) {
 
-					var item_quantity = child_item.get_quantity();
-					var item_id = child_item.get_item_id();
+						var item_quantity = child_item.get_quantity();
+						var item_id       = child_item.get_item_id();
 
-					container.container_config[ item_id ] = item_quantity;
-					total_qty += item_quantity;
+						container.container_config[ item_id ] = item_quantity;
+						total_qty                            += item_quantity;
 
-                    }
-                );
+					}
+				);
 
 			} else {
 
 				// Add up quantities.
 				$.each(
-                    config,
-                    function( item_id, item_quantity ) {
-					container.container_config[ item_id ] = parseInt( item_quantity, 10 );
-					total_qty += item_quantity;
-                    }
-                );
+					config,
+					function( item_id, item_quantity ) {
+						container.container_config[ item_id ] = parseInt( item_quantity, 10 );
+						total_qty                            += item_quantity;
+					}
+				);
 
 			}
 
@@ -884,11 +899,11 @@ jQuery.fn.wc_get_mnm_script = function() {
 			clearTimeout( container.update_price_timer );
 
 			container.update_price_timer = setTimeout(
-                function() {
-                container.updated_totals_task();
-                },
-                10
-            );
+				function() {
+					container.updated_totals_task();
+				},
+				10
+			);
 		};
 
 		/**
@@ -947,11 +962,11 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 				if ( messages.length > 0 ) {
 					$.each(
-                        messages,
-                        function( i, message ) {
-						$messages.append( $( '<li/>' ).html( message ) );
-                        }
-                    );
+						messages,
+						function( i, message ) {
+							$messages.append( $( '<li/>' ).html( message ) );
+						}
+					);
 				}
 
 				this.$mnm_message_content.html( $messages.html() );
@@ -962,7 +977,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 			}
 
 			// Hide/Show Reset Link.
-			if( container.api.get_container_size() > 0 ) {
+			if ( container.api.get_container_size() > 0 ) {
 				this.$mnm_reset.show();
 			} else {
 				this.$mnm_reset.hide();
@@ -980,11 +995,11 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 			// Loop through child items.
 			$.each(
-                this.child_items,
-                function( index, child_item ) {
-				child_item.reset();
-                }
-            );
+				this.child_items,
+				function( index, child_item ) {
+					child_item.reset();
+				}
+			);
 
 			container.$mnm_reset.trigger( 'wc-mnm-reset-configuration', [ container ] );
 
@@ -1055,18 +1070,19 @@ jQuery.fn.wc_get_mnm_script = function() {
 			var validation_status  = container.is_initialized ? '' : container.api.get_validation_status();
 
 			// Validation.
-			if( min_container_size === max_container_size && total_qty !== min_container_size ) {
+			if ( min_container_size === max_container_size && total_qty !== min_container_size ) {
 				error_message = min_container_size === 1 ? wc_mnm_params.i18n_qty_error_single : wc_mnm_params.i18n_qty_error;
 				error_message = error_message.replace( '%s', min_container_size );
-			}
-			// Validate a range.
-			else if( max_container_size > 0 && min_container_size > 0 && ( total_qty < min_container_size || total_qty > max_container_size ) ){
+
+				// Validate a range.
+			} else if ( max_container_size > 0 && min_container_size > 0 && ( total_qty < min_container_size || total_qty > max_container_size ) ) {
 				error_message = wc_mnm_params.i18n_min_max_qty_error.replace( '%max', max_container_size ).replace( '%min', min_container_size );
-			}
-			// Validate that a container has minimum number of items.
-			else if( min_container_size > 0 && total_qty < min_container_size ) {
+
+				// Validate that a container has minimum number of items.
+			} else if ( min_container_size > 0 && total_qty < min_container_size ) {
 				error_message = min_container_size > 1 ? wc_mnm_params.i18n_min_qty_error : wc_mnm_params.i18n_min_qty_error_singular;
 				error_message = error_message.replace( '%min', min_container_size );
+
 				// Validate that a container has fewer than the maximum number of items.
 			} else if ( max_container_size > 0 && total_qty > max_container_size ) {
 				error_message = max_container_size > 1 ? wc_mnm_params.i18n_max_qty_error : wc_mnm_params.i18n_max_qty_error_singular;
@@ -1081,7 +1097,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 				// Add error message, replacing placeholders with current values.
 				this.add_message( error_message.replace( '%v', selected_qty_message ), 'error' );
 
-			// Add selected qty status message if there are no error messages and infinite container is used.
+				// Add selected qty status message if there are no error messages and infinite container is used.
 			} else if ( this.api.get_max_container_size() === false ) {
 				this.add_message( this.selected_quantity_message( total_qty ) );
 			}
@@ -1103,7 +1119,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 		/**
 		 * Get min container size.
 		 *
-		 * return mixed int|false
+		 * @return mixed int|false
 		 */
 		this.get_min_container_size = function() {
 			return this.api.get_min_container_size();
@@ -1111,7 +1127,8 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 		/**
 		 * Get max container size.
-		 * return mixed int|false
+		 *
+		 * @return mixed int|false
 		 */
 		this.get_max_container_size = function() {
 			return this.api.get_max_container_size();
@@ -1140,13 +1157,13 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 		this.initialize = function() {
 
-			this.$mnm_item_qty     = $mnm_item.find( ':input.qty' );
-			this.$self             = $mnm_item;
-			this.$mnm_item_data    = $mnm_item.find( '.mnm-item-data' );
-			this.$mnm_item_images  = $mnm_item.find( '.mnm_child_product_images' );
+			this.$mnm_item_qty    = $mnm_item.find( ':input.qty' );
+			this.$self            = $mnm_item;
+			this.$mnm_item_data   = $mnm_item.find( '.mnm-item-data' );
+			this.$mnm_item_images = $mnm_item.find( '.mnm_child_product_images' );
 
-			this.mnm_item_index    = index;
-			this.mnm_item_id       = this.$mnm_item_data.data( 'mnm_item_id' );
+			this.mnm_item_index = index;
+			this.mnm_item_id    = this.$mnm_item_data.data( 'mnm_item_id' );
 
 			this.sold_individually = typeof( container.price_data.is_sold_individually[ this.mnm_item_id ] ) === 'undefined' ? false : container.price_data.is_sold_individually[ this.mnm_item_id ] === 'yes';
 
@@ -1158,11 +1175,11 @@ jQuery.fn.wc_get_mnm_script = function() {
 			return this.mnm_item_id;
 		};
 
-		this.get_quantity = function() {
+		this.get_quantity          = function() {
 			var qty,
 				type = this.get_type();
 
-			switch( type ) {
+			switch ( type ) {
 				case 'checkbox':
 					qty = this.$mnm_item_qty.is( ':checked' ) ? this.$mnm_item_qty.val() : 0;
 				break;
@@ -1180,10 +1197,10 @@ jQuery.fn.wc_get_mnm_script = function() {
 			original_quantity = this.$mnm_item_data.data( 'original_quantity' );
 			return original_quantity ? parseInt( original_quantity, 10 ) : 0;
 		};
-		this.get_type = function() {
+		this.get_type              = function() {
 			var type = 'input';
 
-			if( this.$mnm_item_qty.is( ':checkbox' ) ) {
+			if ( this.$mnm_item_qty.is( ':checkbox' ) ) {
 				type = 'checkbox';
 			} else if ( this.$mnm_item_qty.is( 'select' ) ) {
 				type = 'select';
@@ -1198,7 +1215,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 				type           = this.get_type(),
 				is_checked;
 
-			switch( type ) {
+			switch ( type ) {
 				case 'checkbox':
 					is_checked = original_value === parseInt( this.$mnm_item_qty.val(), 10 );
 					this.$mnm_item_qty.prop( 'checked', is_checked );
@@ -1233,10 +1250,10 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 			if ( 'undefined' !== typeof $.fn.wc_product_gallery ) {
 				this.$mnm_item_images.wc_product_gallery( { zoom_enabled: false, flexslider_enabled: false } );
-	        } else {
+			} else {
 				window.console.log( 'Failed to initialize PhotoSwipe for mix and match child item images. Your theme declares PhotoSwipe support, but function \'$.fn.wc_product_gallery\' is undefined.' );
 			}
-	          
+
 		};
 
 		this.initialize();
@@ -1247,117 +1264,117 @@ jQuery.fn.wc_get_mnm_script = function() {
 	/*  Initialization.                                                */
 	/*-----------------------------------------------------------------*/
 
-	jQuery( document ).ready(
-        function($) {
+	jQuery(
+		function( $ ) {
 
-        /**
-        * Script initialization on '.mnm_form' jQuery objects.
-        */
-        $.fn.wc_mnm_form = function() {
+			/**
+			* Script initialization on '.mnm_form' jQuery objects.
+			*/
+			$.fn.wc_mnm_form = function() {
 
-           var $mnm_form = $( this ),
-               $mnm_data = $mnm_form.find( '.mnm_data' ),
-               container_id = $mnm_data.data( 'container_id' );
+				  var $mnm_form = $( this ),
+				$mnm_data       = $mnm_form.find( '.mnm_data' ),
+				container_id    = $mnm_data.data( 'container_id' );
 
-           if( typeof( $mnm_data ) === 'undefined' ) {
-               return false;
-           }
+				if ( typeof( $mnm_data ) === 'undefined' ) {
+					return false;
+				}
 
-           if ( typeof( container_id ) === 'undefined' ) {
-               container_id = $mnm_data.attr( 'data-container_id' );
+				if ( typeof( container_id ) === 'undefined' ) {
+					container_id = $mnm_data.attr( 'data-container_id' );
 
-               if ( container_id ) {
-                   $mnm_data.data( 'container_id', container_id );
-               } else {
-                   return false;
-               }
-           }
+					if ( container_id ) {
+						$mnm_data.data( 'container_id', container_id );
+					} else {
+						return false;
+					}
+				}
 
-           if ( typeof( wc_mnm_scripts[ container_id ] ) !== 'undefined' ) {
-               wc_mnm_scripts[ container_id ].shutdown();
-           }
+				if ( typeof( wc_mnm_scripts[ container_id ] ) !== 'undefined' ) {
+					wc_mnm_scripts[ container_id ].shutdown();
+				}
 
-           wc_mnm_scripts[ container_id ] = new WC_MNM_Container( { $mnm_form: $mnm_form, $mnm_data: $mnm_data, container_id: container_id } );
+				wc_mnm_scripts[ container_id ] = new WC_MNM_Container( { $mnm_form: $mnm_form, $mnm_data: $mnm_data, container_id: container_id } );
 
-           $mnm_form.data( 'script_id', container_id );
+				$mnm_form.data( 'script_id', container_id );
 
-           wc_mnm_scripts[ container_id ].initialize();
+				wc_mnm_scripts[ container_id ].initialize();
 
-        };
+			};
 
-        /*
-		 * Initialize form script.
-         */
-        $( '.mnm_form' ).each(
-            function() {
-            $( this ).wc_mnm_form();
-            }
-        );
+			/*
+				* Initialize form script.
+				*/
+			$( '.mnm_form' ).each(
+				function() {
+					$( this ).wc_mnm_form();
+				}
+			);
 
-        /*-----------------------------------------------------------------*/
-        /*  Compatibility .                                                */
-        /*-----------------------------------------------------------------*/
+			/*-----------------------------------------------------------------*/
+			/*  Compatibility .                                                */
+			/*-----------------------------------------------------------------*/
 
-        /**
-        * QuickView compatibility.
-        */
-        $( 'body' ).on(
-            'quick-view-displayed',
-            function() {
+			/**
+			* QuickView compatibility.
+			*/
+			$( 'body' ).on(
+				'quick-view-displayed',
+				function() {
 
-            $( '.mnm_form' ).each(
-                function() {
-                $( this ).wc_mnm_form();
-                }
-            );
+					$( '.mnm_form' ).each(
+						function() {
+							$( this ).wc_mnm_form();
+						}
+					);
 
-             }
-        );
+				}
+			);
 
-        /**
-        * PayPal Express Smart buttons compatibility.
-        */
-        $( '.mnm_form' ).on(
-            'wc-mnm-initialized',
-            function( e, wc_mnm ) {
+			/**
+			* PayPal Express Smart buttons compatibility.
+			*/
+			$( '.mnm_form' ).on(
+				'wc-mnm-initialized',
+				function( e, wc_mnm ) {
 
-            if( ! wc_mnm.passes_validation() ) {
-                $( '#woo_pp_ec_button_product' ).trigger( 'disable' );
-            }
+					if ( ! wc_mnm.passes_validation() ) {
+						$( '#woo_pp_ec_button_product' ).trigger( 'disable' );
+					}
 
-            wc_mnm.$mnm_form.on(
-                'wc-mnm-display-add-to-cart-button',
-                function() {
-                $( '#woo_pp_ec_button_product' ).trigger( 'enable' );
-                }
-            );
+					wc_mnm.$mnm_form.on(
+						'wc-mnm-display-add-to-cart-button',
+						function() {
+							$( '#woo_pp_ec_button_product' ).trigger( 'enable' );
+						}
+					);
 
-            wc_mnm.$mnm_form.on(
-                'wc-mnm-hide-add-to-cart-button',
-                function() {
-                $( '#woo_pp_ec_button_product' ).trigger( 'disable' );
-                }
-            );
+					wc_mnm.$mnm_form.on(
+						'wc-mnm-hide-add-to-cart-button',
+						function() {
+							$( '#woo_pp_ec_button_product' ).trigger( 'disable' );
+						}
+					);
 
-            $( document ).on(
-                'wc_ppec_validate_product_form',
-                function( e, is_valid, $form ) {
+					$( document ).on(
+						'wc_ppec_validate_product_form',
+						function( e, is_valid, $form ) {
 
-                var wc_mnm = $form.wc_get_mnm_script();
+							var wc_mnm = $form.wc_get_mnm_script();
 
-                if ( 'object' === typeof wc_mnm ) {
-                    is_valid = wc_mnm.passes_validation();
-                }
+							if ( 'object' === typeof wc_mnm ) {
+								is_valid = wc_mnm.passes_validation();
+							}
 
-                return is_valid;
+							return is_valid;
 
-                }
-            );
+						}
+					);
 
-            }
-        );
+				}
+			);
 
-        }
-    );
+		}
+	);
 
 } )( jQuery );

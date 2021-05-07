@@ -70,14 +70,10 @@ class WoocommerceProductFeedsExpandedStructuredData {
 			return;
 		}
 
-		// If not, generate it.
-		switch ( $wc_product->get_type() ) {
-			case 'variable':
-				$this->generate_variation_schema_products( $wc_product );
-				break;
-			case 'simple':
-				$this->generate_simple_schema_product( $wc_product );
-				break;
+		if ( $wc_product instanceof WC_Product_Variable ) {
+			$this->generate_variation_schema_products( $wc_product );
+		} else {
+			$this->generate_simple_schema_product( $wc_product );
 		}
 
 		$this->save_schema_cache( $wc_product );
@@ -142,7 +138,7 @@ class WoocommerceProductFeedsExpandedStructuredData {
 		];
 
 		// For variable products, group the various products together.
-		if ( $wc_product_specific->get_type() === 'variation' ) {
+		if ( $wc_product_specific instanceof WC_Product_Variation ) {
 			$markup['inProductGroupWithID'] = $feed_item->item_group_id;
 		}
 

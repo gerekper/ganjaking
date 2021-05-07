@@ -62,11 +62,11 @@ class WoocommerceGpfStructuredData {
 	 * @return array                The modified array.
 	 */
 	public function structured_data_product( $markup, $product ) {
-		$product_type = $product->get_type();
-		if ( 'simple' === $product_type ) {
+
+		if ( $product instanceof WC_Product_Simple ) {
 			return $this->structured_data_simple_product( $markup, $product );
 		}
-		if ( 'variable' === $product_type ) {
+		if ( $product instanceof WC_Product_Variable ) {
 			return $this->structured_data_variable_product( $markup, $product );
 		}
 
@@ -87,12 +87,12 @@ class WoocommerceGpfStructuredData {
 	 */
 	public function structured_data_product_offer( $markup, $offer_product ) {
 
-		$product_type = $offer_product->get_type();
-		if ( 'variable' !== $product_type && 'variation' !== $product_type ) {
+		if ( ! $offer_product instanceof WC_Product_Variable &&
+			 ! $offer_product instanceof WC_Product_Variation ) {
 			return $markup;
 		}
 		$parent_product = $offer_product;
-		if ( 'variation' === $product_type ) {
+		if ( $offer_product instanceof WC_Product_Variation ) {
 			$parent_product = wc_get_product( $offer_product->get_parent_id() );
 		}
 		// Get the feed information for this product.

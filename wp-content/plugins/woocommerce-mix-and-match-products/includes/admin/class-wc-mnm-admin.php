@@ -107,8 +107,8 @@ class WC_Mix_and_Match_Admin {
 
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_register_script( 'wc-mnm-admin-product-panel', WC_Mix_and_Match()->plugin_url() . '/assets/js/admin/meta-boxes-product' . $suffix . '.js', array( 'wc-admin-product-meta-boxes' ), WC_Mix_and_Match()->version );
-		wp_register_script( 'wc-mnm-admin-order-panel', WC_Mix_and_Match()->plugin_url() . '/assets/js/admin/meta-boxes-order' . $suffix . '.js', array( 'wc-admin-order-meta-boxes' ), WC_Mix_and_Match()->version );
+		wp_register_script( 'wc-mnm-admin-product-panel', WC_Mix_and_Match()->plugin_url() . '/assets/js/admin/meta-boxes-product' . $suffix . '.js', array( 'wc-admin-product-meta-boxes' ), WC_Mix_and_Match()->version, true );
+		wp_register_script( 'wc-mnm-admin-order-panel', WC_Mix_and_Match()->plugin_url() . '/assets/js/admin/meta-boxes-order' . $suffix . '.js', array( 'wc-admin-order-meta-boxes' ), WC_Mix_and_Match()->version, true );
 
 		wp_register_style( 'wc-mnm-admin', WC_Mix_and_Match()->plugin_url() . '/assets/css/admin/mnm-admin.css', array(), WC_Mix_and_Match()->version );
 		wp_style_add_data( 'wc-mnm-admin', 'rtl', 'replace' );

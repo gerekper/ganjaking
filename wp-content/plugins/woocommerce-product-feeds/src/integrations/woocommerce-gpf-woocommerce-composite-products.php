@@ -33,6 +33,7 @@ class WoocommerceGpfWoocommerceCompositeProducts {
 	 * @param $product
 	 *
 	 * @return array
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function assign_price_calculator( $calculator, $product_type, $product ) {
 		if ( 'composite' === $product_type ) {

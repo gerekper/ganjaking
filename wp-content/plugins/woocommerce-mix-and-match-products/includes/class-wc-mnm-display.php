@@ -195,10 +195,12 @@ class WC_Mix_and_Match_Display {
 			wc_enqueue_js(
                 "
 				var wc_mnm_wrap_mnm_table_item = function() {
-					jQuery( '.mnm_table_item td.product-name' ).wrapInner( '<div class=\"mnm_table_item_indent\"></div>' );
+					jQuery( '.mnm_table_item td.product-name' ).wrapInner( function() {
+						return 0 === $(this).find( '.mnm_table_item_indent' ).length ? '<div class=\"mnm_table_item_indent\"></div>' : '';
+					} );
 				}
 
-				jQuery( 'body' ).on( 'updated_checkout updated_wc_div', function() {
+				jQuery( 'body' ).on( 'updated_checkout updated_cart_totals', function() {
 					wc_mnm_wrap_mnm_table_item();
 				} );
 

@@ -11,7 +11,7 @@
 	font-style: normal;
 }
 
-// single product
+// Single product.
 .summary-add-to-cart-form-mnm {
 	clear: both;
     margin-bottom: 3em;
@@ -21,6 +21,10 @@
 	display: table;
 	content: ' ';
 	clear: both;
+}
+
+.mnm_image {
+	figure { margin: 0; }
 }
 
 .woocommerce-js .mnm_message {

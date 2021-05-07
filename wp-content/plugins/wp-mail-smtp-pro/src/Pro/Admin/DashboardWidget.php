@@ -813,7 +813,7 @@ class DashboardWidget {
 	 */
 	public function get_email_stats_count_by_date_sql( $date_start = null, $date_end = null ) {
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'manage_options' ) || ! wp_mail_smtp()->pro->get_logs()->is_enabled() ) {
 			return [];
 		}
 
@@ -877,7 +877,7 @@ class DashboardWidget {
 			'delivered' => 0,
 		];
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'manage_options' ) || ! wp_mail_smtp()->pro->get_logs()->is_enabled() ) {
 			return $data;
 		}
 

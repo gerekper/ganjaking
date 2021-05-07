@@ -203,6 +203,8 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionFMS(array $args = [])
  * @method \Aws\FSx\FSxClient createFSx(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionFSx(array $args = [])
+ * @method \Aws\FinSpaceData\FinSpaceDataClient createFinSpaceData(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionFinSpaceData(array $args = [])
  * @method \Aws\Firehose\FirehoseClient createFirehose(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionFirehose(array $args = [])
  * @method \Aws\ForecastQueryService\ForecastQueryServiceClient createForecastQueryService(array $args = [])
@@ -309,6 +311,10 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionLightsail(array $args = [])
  * @method \Aws\LocationService\LocationServiceClient createLocationService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionLocationService(array $args = [])
+ * @method \Aws\LookoutEquipment\LookoutEquipmentClient createLookoutEquipment(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionLookoutEquipment(array $args = [])
+ * @method \Aws\LookoutMetrics\LookoutMetricsClient createLookoutMetrics(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionLookoutMetrics(array $args = [])
  * @method \Aws\LookoutforVision\LookoutforVisionClient createLookoutforVision(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionLookoutforVision(array $args = [])
  * @method \Aws\MQ\MQClient createMQ(array $args = [])
@@ -361,6 +367,8 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionNetworkFirewall(array $args = [])
  * @method \Aws\NetworkManager\NetworkManagerClient createNetworkManager(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionNetworkManager(array $args = [])
+ * @method \Aws\NimbleStudio\NimbleStudioClient createNimbleStudio(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionNimbleStudio(array $args = [])
  * @method \Aws\OpsWorks\OpsWorksClient createOpsWorks(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionOpsWorks(array $args = [])
  * @method \Aws\OpsWorksCM\OpsWorksCMClient createOpsWorksCM(array $args = [])
@@ -515,16 +523,20 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionWorkSpaces(array $args = [])
  * @method \Aws\XRay\XRayClient createXRay(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionXRay(array $args = [])
+ * @method \Aws\finspace\finspaceClient createfinspace(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionfinspace(array $args = [])
  * @method \Aws\imagebuilder\imagebuilderClient createimagebuilder(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionimagebuilder(array $args = [])
  * @method \Aws\kendra\kendraClient createkendra(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionkendra(array $args = [])
+ * @method \Aws\mgn\mgnClient createmgn(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionmgn(array $args = [])
  * @method \Aws\signer\signerClient createsigner(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionsigner(array $args = [])
  */
 class Sdk
 {
-    const VERSION = '3.175.0';
+    const VERSION = '3.180.0';
     /** @var array Arguments for creating clients */
     private $args;
     /**

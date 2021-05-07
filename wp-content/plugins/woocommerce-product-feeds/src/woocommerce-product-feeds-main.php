@@ -158,6 +158,8 @@ class WoocommerceProductFeedsMain {
 	 * @param $url
 	 *
 	 * @return mixed
+	 *
+	 * @SuppressWarnings(PHPMD.ErrorControlOperator)
 	 */
 	public function prevent_wporg_update_check( $request, $url ) {
 		if ( 0 === strpos( $url, 'https://api.wordpress.org/plugins/update-check/' ) ) {

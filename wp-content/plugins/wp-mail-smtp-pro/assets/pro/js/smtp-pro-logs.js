@@ -1,4 +1,4 @@
-/* global wp_mail_smtp_logs, ajaxurl */
+/* global wp_mail_smtp_logs, ajaxurl, flatpickr */
 'use strict';
 
 var WPMailSMTP = window.WPMailSMTP || {};
@@ -42,6 +42,10 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 
 			app.bindActions();
 
+			if ( app.pageHolder.hasClass( 'wp-mail-smtp-page-logs-archive' ) ) {
+				app.archive.ready();
+			}
+
 			app.pageHolder.trigger( 'WPMailSMTP.Admin.Logs.ready' );
 		},
 
@@ -51,7 +55,10 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 		 * @since 1.5.0
 		 */
 		bindActions: function() {
-			jQuery( '.wp-mail-smtp-page-logs-single' )
+			$( '.wp-mail-smtp-page-logs-archive' )
+				.on( 'click', '#wp-mail-smtp-reset-filter .reset', app.archive.resetFilter );
+
+			$( '.wp-mail-smtp-page-logs-single' )
 				.on( 'click', '.js-wp-mail-smtp-pro-logs-email-delete', app.single.processDelete )
 				.on( 'click', '.js-wp-mail-smtp-pro-logs-toggle-extra-details', app.single.processExtraDetailsToggle )
 				.on( 'click', '.js-wp-mail-smtp-pro-logs-close-extra-details', app.single.processExtraDetailsClose );
@@ -83,17 +90,17 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 			 * @since 1.5.0
 			 */
 			processExtraDetailsToggle: function() {
-				var $details = $( this );
+				var $details = $( this ).closest( '.postbox' );
 
-				if ( $details.hasClass( 'open' ) ) {
-					$details.siblings( '.email-header-details' ).slideUp( 'fast', function() {
-						$details.removeClass( 'open' );
-						$details.find( '.dashicons' ).removeClass( 'dashicons-arrow-up' ).addClass( 'dashicons-arrow-down' );
+				if ( ! $details.hasClass( 'closed' ) ) {
+					$details.find( '.inside' ).slideUp( 'fast', function() {
+						$details.addClass( 'closed' );
+						$details.find( '.handle-actions .dashicons' ).removeClass( 'dashicons-arrow-up' ).addClass( 'dashicons-arrow-down' );
 					} );
 				} else {
-					$details.siblings( '.email-header-details' ).slideDown( 'fast', function() {
-						$details.addClass( 'open' );
-						$details.find( '.dashicons' ).removeClass( 'dashicons-arrow-down' ).addClass( 'dashicons-arrow-up' );
+					$details.find( '.inside' ).slideDown( 'fast', function() {
+						$details.removeClass( 'closed' );
+						$details.find( '.handle-actions .dashicons' ).removeClass( 'dashicons-arrow-down' ).addClass( 'dashicons-arrow-up' );
 					} );
 				}
 			},
@@ -106,7 +113,7 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 			 * @param {object} event jQuery event.
 			 */
 			processExtraDetailsClose: function( event ) {
-				jQuery( event.target ).parents( '.email-extra-details' ).find( 'h2.open' ).click();
+				$( event.target ).closest( '.postbox' ).find( 'h2.hndle:not(.closed)' ).click();
 			}
 		},
 
@@ -116,6 +123,16 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 		 * @since 1.5.0
 		 */
 		archive: {
+
+			/**
+			 * DOM is fully loaded.
+			 *
+			 * @since 2.8.0
+			 */
+			ready: function() {
+
+				app.archive.initFlatpickr();
+			},
 
 			/**
 			 * Process the click on the delete all email logs button.
@@ -201,6 +218,60 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 					app.displayModal( wp_mail_smtp_logs.error_occurred, 'exclamation-circle-regular-red', 'red', function() {} );
 					$btn.prop( 'disabled', false );
 				} );
+			},
+
+			/**
+			 * Init date picker.
+			 *
+			 * @since 2.8.0
+			 */
+			initFlatpickr: function() {
+
+				var flatpickrLocale = {
+						rangeSeparator: ' - ',
+					},
+					args = {
+						altInput: true,
+						altFormat: 'M j, Y',
+						dateFormat: 'Y-m-d',
+						mode: 'range'
+					};
+
+				if (
+					flatpickr !== 'undefined' &&
+					Object.prototype.hasOwnProperty.call( flatpickr, 'l10ns' ) &&
+					Object.prototype.hasOwnProperty.call( flatpickr.l10ns, wp_mail_smtp_logs.lang_code )
+				) {
+					flatpickrLocale = flatpickr.l10ns[ wp_mail_smtp_logs.lang_code ];
+
+					// Rewrite separator for all locales to make filtering work.
+					flatpickrLocale.rangeSeparator = ' - ';
+				}
+
+				args.locale = flatpickrLocale;
+
+				$( '.wp-mail-smtp-filter-date-selector' ).flatpickr( args );
+			},
+
+			/**
+			 * Reset filter handler.
+			 *
+			 * @since 2.8.0
+			 */
+			resetFilter: function() {
+
+				var $form = $( this ).parents( 'form' );
+				$form.find( $( this ).data( 'scope' ) ).find( 'input,select' ).each( function() {
+
+					var $this = $( this );
+					if ( app.isIgnoredForResetInput( $this ) ) {
+						return;
+					}
+					app.resetInput( $this );
+				} );
+
+				// Submit the form.
+				$form.submit();
 			}
 		},
 
@@ -239,7 +310,41 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 					}
 				}
 			} );
-		}
+		},
+
+		/**
+		 * Reset input.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @param {object} $input Input element.
+		 */
+		resetInput: function( $input ) {
+
+			switch ( $input.prop( 'tagName' ).toLowerCase() ) {
+				case 'input':
+					$input.val( '' );
+					break;
+				case 'select':
+					$input.val( $input.find( 'option' ).first().val() );
+					break;
+			}
+		},
+
+		/**
+		 * Input is ignored for reset.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @param {object} $input Input element.
+		 *
+		 * @returns {boolean} Is ignored.
+		 */
+		isIgnoredForResetInput: function( $input ) {
+
+			return [ 'submit', 'hidden' ].indexOf( ( $input.attr( 'type' ) || '' ).toLowerCase() ) !== -1 &&
+				! $input.hasClass( 'flatpickr-input' );
+		},
 	};
 
 	// Provide access to public functions/properties.

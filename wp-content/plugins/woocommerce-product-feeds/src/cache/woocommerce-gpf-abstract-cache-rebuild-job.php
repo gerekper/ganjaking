@@ -69,6 +69,8 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 
 	/**
 	 * Initialise the classes we need to perform rebuilds, and set up some optimisations.
+	 *
+	 * @SuppressWarnings(PHPMD.ErrorControlOperator)
 	 */
 	public function initialise_rebuild() {
 		global $wpdb;
@@ -138,31 +140,17 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 			$this->feed_handlers[ $feed_id ]->rebuild_item( $woocommerce_product );
 		}
 
-		/**
-		 * Handles rebuilds for "product" feed types.
-		 */
-		switch ( $woocommerce_product->get_type() ) {
-			case 'simple':
-				return $this->process_simple_product( $woocommerce_product );
-				break;
-			case 'variable':
-				if (
-				apply_filters(
-					'woocommerce_gpf_include_variations',
-					! empty( $settings['include_variations'] ),
-					$woocommerce_product
-				)
-				) {
-					return $this->process_variable_product( $woocommerce_product );
-				} else {
-					return $this->process_simple_product( $woocommerce_product );
-				}
-				break;
-			default:
-				// Unknown product type. Try and process as a simple product.
-				return $this->process_simple_product( $woocommerce_product );
-				break;
+		$include_variations = apply_filters(
+			'woocommerce_gpf_include_variations',
+			! empty( $settings['include_variations'] ),
+			$woocommerce_product
+		);
+		if ( $woocommerce_product instanceof WC_Product_Variable &&
+			 $include_variations ) {
+			return $this->process_variable_product( $woocommerce_product );
 		}
+
+		return $this->process_simple_product( $woocommerce_product );
 	}
 
 	/**

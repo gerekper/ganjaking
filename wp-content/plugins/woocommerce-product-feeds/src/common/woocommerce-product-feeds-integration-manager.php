@@ -37,6 +37,7 @@ class WoocommerceProductFeedsIntegrationManager {
 		$this->woocommerce_min_max_quantity_step_control_single_integration();
 		$this->woocommerce_multilingual_integration();
 		$this->pw_bulk_edit_integration();
+		$this->advanced_custom_fields_integration();
 	}
 
 	private function product_brands_for_woocommerce_integration() {
@@ -163,5 +164,12 @@ class WoocommerceProductFeedsIntegrationManager {
 			return;
 		}
 		$this->container['WoocommerceGpfPwBulkEdit']->run();
+	}
+
+	private function advanced_custom_fields_integration() {
+		if ( ! class_exists( 'ACF' ) ) {
+			return;
+		}
+		$this->container['WoocommerceProductFeedsAdvancedCustomFields']->run();
 	}
 }

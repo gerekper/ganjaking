@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.8.0] - 2021-05-04
+### Added:
+- Email Log: export email logs in CSV and XLSX (Excel) formats.
+- Email Log: print email log.
+- Email Log: date range filter control.
+- Email Log: filter hook for changing required WP capabilities to view and manage Email Logs.
+- Email Log: settings constants.
+- Filter hooks for the Outlook mailer URLs, enabling GCC High compatibility.
+- WP Site Health status check for the sending domain.
+- WP Mail SMTP WordPress admin menu position filter hook.
+
+### Changed:
+- Updated the single Email Log page style.
+- Updated the list of conflicting plugins.
+- Moved the Email Test tab to the new WP Mail SMTP > Tools page.
+
+### Fixed:
+- Removed the empty admin dashboard menu item for the Setup Wizard.
+- The Setup Wizard conflicting issue with Admin 2020 plugin.
+- The plugin settings pages not opening when WishList Member plugin was active.
+- Empty error message for Outlook mailer.
+- Dashboard Widget missing database table error when Email Logging was never enabled.
+- Mailgun mailer sent status verification task accuracy.
+
 ## [2.7.0] - 2021-03-23
 ### IMPORTANT
 - Support for PHP 5.5 has been discontinued. If you are running one of those versions, you MUST upgrade PHP before installing or upgrading to WP Mail SMTP v2.7. Failure to do that will disable WP Mail SMTP functionality.

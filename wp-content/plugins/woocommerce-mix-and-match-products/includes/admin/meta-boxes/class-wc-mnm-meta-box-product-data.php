@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin/Meta-Boxes/Product
  * @since    1.2.0
- * @version  1.7.0
+ * @version  1.10.7
  */
 
 // Exit if accessed directly.
@@ -273,7 +273,14 @@ class WC_MNM_Meta_Box_Product_Data {
 	 * @since  1.0.7
 	 */
 	public static function allowed_contents_options( $post_id, $mnm_product_object ) {
-	?>
+
+		// Exclude all but simple and variation products.
+		$product_types = wc_get_product_types();
+		unset( $product_types['simple'] );
+		unset( $product_types['variation'] );
+		$product_types = array_keys( $product_types );
+
+		?>
 
 		<p id="mnm_allowed_contents_options" class="form-field">
 			<label for="mnm_allowed_contents"><?php _e( 'Allowed Contents', 'woocommerce-mix-and-match-products' ); ?></label>
@@ -284,7 +291,15 @@ class WC_MNM_Meta_Box_Product_Data {
 			$mnm_children = $mnm_product_object->get_children( 'edit' );
 			?>
 
-			<select id="mnm_allowed_contents" class="wc-product-search" name="mnm_allowed_contents[]" multiple="multiple" style="width: 400px;" data-sortable="sortable" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-mix-and-match-products' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo esc_attr( $mnm_product_object->get_id() ); ?>">
+			<select id="mnm_allowed_contents"
+				class="wc-product-search"
+				name="mnm_allowed_contents[]"
+				multiple="multiple"
+				data-sortable="sortable"
+				data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-mix-and-match-products' ); ?>"
+				data-action="woocommerce_json_search_products_and_variations"
+				data-exclude_type="<?php echo esc_attr( join( ",", $product_types ) );?>"
+			>
 			<?php
 			foreach ( $mnm_children as $child ) {
 				if ( is_object( $child ) ) {
@@ -372,7 +387,7 @@ class WC_MNM_Meta_Box_Product_Data {
 				if ( in_array( $layout, array_keys( WC_Product_Mix_and_Match::get_layout_options() ) ) ) {
 					$props['layout'] = $layout;
 				}
-}
+			}
 
 			// Add to cart form location.
 			if ( ! empty( $_POST['_mnm_add_to_cart_form_location'] ) ) {
@@ -440,7 +455,7 @@ class WC_MNM_Meta_Box_Product_Data {
 					}
 
 					if ( $unsupported_error ) {
-						WC_Admin_Meta_Boxes::add_error( __( 'Mix and Match supports simple products and individual product variations (but not variable products) with all attributes defined, ex: Shirt, Color: Blue but not Shirt, Color: Any. Other product types and partially-defined variations cannot be added to the Mix and Match container.', 'woocommerce-mix-and-match-products' ) );
+						WC_Admin_Meta_Boxes::add_error( __( 'You have added an unsupported product type to your Mix and Match allowed contents. Please see the <a target="_blank" href="https://docs.woocommerce.com/document/woocommerce-mix-and-match-products/config/#section-6">documentation</a> for more details."', 'woocommerce-mix-and-match-products' ) );
 					}
 				}
 

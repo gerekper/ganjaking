@@ -63,6 +63,15 @@ class Mailer extends MailerAbstract {
 			$this->set_header( 'Authorization', 'Bearer ' . $token['access_token'] );
 		}
 		$this->set_header( 'content-type', 'application/json' );
+
+		/**
+		 * Filters API send email url.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @param string $url API sent email url.
+		 */
+		$this->url = apply_filters( 'wp_mail_smtp_pro_providers_outlook_mailer_api_url', $this->url );
 	}
 
 	/**
@@ -546,6 +555,11 @@ class Mailer extends MailerAbstract {
 			}
 		} elseif ( ! empty( $this->error_message ) ) {
 			$error_text = $this->error_message;
+		} elseif ( $body === [ '' ] ) {
+			$error_text = esc_html__(
+				'Outlook did not provide any specific reason why the email failed to send. Usually this means an attachment bigger than the allowed 4MB was attached to the email.',
+				'wp-mail-smtp-pro'
+			);
 		}
 
 		return ! empty( $error_text ) ? $error_text : wp_json_encode( $body );

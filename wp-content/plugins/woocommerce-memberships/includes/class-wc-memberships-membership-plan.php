@@ -1351,6 +1351,7 @@ class WC_Memberships_Membership_Plan {
 				'discount_amount'               => $rule->get_discount_amount(),
 				'discount_type'                 => $rule->get_discount_type(),
 				'rule_type'                     => $rule->get_rule_type(),
+				'meta_data'                     => $rule->get_meta_data(),
 			) );
 
 			// Further subdivide rules between those that target higher level content (e.g. a whole taxonomy or post type) and those that target individual objects (posts, terms):
