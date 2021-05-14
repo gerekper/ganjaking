@@ -145,13 +145,15 @@ class GFFormSettings {
 
 							}
 
+							$field->do_validation( $value );
 						},
 					),
 					array(
-						'name'    => 'description',
-						'type'    => 'textarea',
-						'label'   => esc_html__( 'Form Description', 'gravityforms' ),
-						'tooltip' => gform_tooltip( 'form_description', '', true ),
+						'name'       => 'description',
+						'type'       => 'textarea',
+						'label'      => esc_html__( 'Form Description', 'gravityforms' ),
+						'tooltip'    => gform_tooltip( 'form_description', '', true ),
+						'allow_html' => true,
 					),
 				),
 			),
@@ -576,18 +578,6 @@ class GFFormSettings {
 		// If legacy settings exist, add to fields.
 		if ( ! empty( $legacy_settings ) ) {
 
-			// Prepare HTML.
-			$html = '<table class="gforms_form_settings" cellspacing="0" cellpadding="0" width="100%">';
-			foreach ( $legacy_settings as $title => $legacy_fields ) {
-				$html .= sprintf( '<tr><td colspan="2"><h4 class="gf_settings_subgroup_title">%s</h4></td>', esc_html( $title ) );
-				if ( is_array( $legacy_fields ) ) {
-					foreach ( $legacy_fields as $field ) {
-						$html .= $field;
-					}
-				}
-			}
-			$html .= '</table>';
-
 			// Add section.
 			$fields['legacy_settings'] = array(
 				'title'  => esc_html__( 'Legacy Settings', 'gravityforms' ),
@@ -595,7 +585,23 @@ class GFFormSettings {
 					array(
 						'name' => 'legacy',
 						'type' => 'html',
-						'html' => $html,
+						'html' => function() {
+							$form_id         = rgget( 'id' );
+							$form            = GFFormsModel::get_form_meta( $form_id );
+							$legacy_settings = apply_filters( 'gform_form_settings', array(), $form );
+							$html            = '<table class="gforms_form_settings" cellspacing="0" cellpadding="0" width="100%">';
+							foreach ( $legacy_settings as $title => $legacy_fields ) {
+								$html .= sprintf( '<tr><td colspan="2"><h4 class="gf_settings_subgroup_title">%s</h4></td>', esc_html( $title ) );
+								if ( is_array( $legacy_fields ) ) {
+									foreach ( $legacy_fields as $field ) {
+										$html .= $field;
+									}
+								}
+							}
+							$html .= '</table>';
+
+							return $html;
+						},
 					),
 				),
 			);

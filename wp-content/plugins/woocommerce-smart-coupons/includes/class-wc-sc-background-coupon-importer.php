@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.8.6
- * @version     1.4.0
+ * @version     1.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -907,13 +907,13 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 			$batch_start_time = time();
 			$start_time       = get_option( 'start_time_woo_sc', false );
 			if ( false === $start_time ) {
-				update_option( 'start_time_woo_sc', $batch_start_time );
+				update_option( 'start_time_woo_sc', $batch_start_time, 'no' );
 			}
 
 			$all_tasks_count = get_option( 'all_tasks_count_woo_sc', false );
 
 			if ( false === $all_tasks_count ) {
-				update_option( 'all_tasks_count_woo_sc', $posted_data['total_coupons_to_generate'] );
+				update_option( 'all_tasks_count_woo_sc', $posted_data['total_coupons_to_generate'], 'no' );
 			}
 
 			if ( isset( $posted_data['export_file'] ) && is_array( $posted_data['export_file'] ) ) {
@@ -933,8 +933,8 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 								fwrite( $csv_file_handler, $file_data ); // phpcs:ignore
 								$no_of_remaining_coupons = $no_of_coupons_to_generate - $no_of_coupons_created;
 
-								update_option( 'current_time_woo_sc', time() );
-								update_option( 'remaining_tasks_count_woo_sc', $no_of_remaining_coupons );
+								update_option( 'current_time_woo_sc', time(), 'no' );
+								update_option( 'remaining_tasks_count_woo_sc', $no_of_remaining_coupons, 'no' );
 
 							if ( ! empty( $posted_data['customer_email'] ) ) {
 								$emails = explode( ',', $posted_data['customer_email'] );
@@ -952,7 +952,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 
 									$posted_data['no_of_coupons_to_generate'] = $posted_data['total_coupons_to_generate'];
 									$posted_data['action_stage']              = 1;
-									update_option( 'woo_sc_generate_coupon_posted_data', $posted_data );
+									update_option( 'woo_sc_generate_coupon_posted_data', $posted_data, 'no' );
 
 									do_action( 'woo_sc_import_coupons_from_csv' );
 								} else {
@@ -976,11 +976,11 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 											'generated_file_path' => $csvfilename,
 										),
 									);
-									update_option( 'woo_sc_action_data', $action_data );
+									update_option( 'woo_sc_action_data', $action_data, 'no' );
 								}
 							} elseif ( $this->time_exceeded( $batch_start_time ) || $this->memory_exceeded() ) {
 								$posted_data['no_of_coupons_to_generate'] = $no_of_remaining_coupons;
-								update_option( 'woo_sc_generate_coupon_posted_data', $posted_data );
+								update_option( 'woo_sc_generate_coupon_posted_data', $posted_data, 'no' );
 								if ( function_exists( 'as_schedule_single_action' ) ) {
 									as_schedule_single_action( time(), 'woo_sc_generate_coupon_csv' );
 								}
@@ -1042,7 +1042,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 					$batch_start_time = time();
 					$start_time       = get_option( 'start_time_woo_sc', false );
 					if ( false === $start_time ) {
-						update_option( 'start_time_woo_sc', $batch_start_time );
+						update_option( 'start_time_woo_sc', $batch_start_time, 'no' );
 					}
 
 					$reading_completed         = false;
@@ -1081,8 +1081,8 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 						}
 
 						$no_of_remaining_coupons = $no_of_coupons_to_generate - $no_of_coupons_created;
-						update_option( 'current_time_woo_sc', time() );
-						update_option( 'remaining_tasks_count_woo_sc', $no_of_remaining_coupons );
+						update_option( 'current_time_woo_sc', time(), 'no' );
+						update_option( 'remaining_tasks_count_woo_sc', $no_of_remaining_coupons, 'no' );
 
 						if ( 0 === $no_of_remaining_coupons ) {
 
@@ -1110,7 +1110,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 						if ( $this->time_exceeded( $batch_start_time ) || $this->memory_exceeded() ) {
 							fclose( $csv_file_handler ); // phpcs:ignore
 							$posted_data['file_position'] = $file_position;
-							update_option( 'woo_sc_generate_coupon_posted_data', $posted_data );
+							update_option( 'woo_sc_generate_coupon_posted_data', $posted_data, 'no' );
 							if ( function_exists( 'as_schedule_single_action' ) ) {
 								as_schedule_single_action( time(), 'woo_sc_import_coupons_from_csv' );
 							}

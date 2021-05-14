@@ -168,6 +168,8 @@ Class GFNotification {
 		 */
 		$disable_from_warning = gf_apply_filters( array( 'gform_notification_disable_from_warning', $form['id'], rgar( $notification, 'id' ) ), false );
 
+		$from_email_warning = '';
+
 		// Prepare From Email warning.
 		if ( ! $disable_from_warning && self::get_settings_renderer()->get_value( 'service' ) === 'wordpress' ) {
 
@@ -188,10 +190,6 @@ Class GFNotification {
 					)
 				);
 			}
-
-		} else {
-
-			$from_email_warning = '';
 
 		}
 

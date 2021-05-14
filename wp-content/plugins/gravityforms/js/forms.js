@@ -26,11 +26,12 @@ function Button(){
 
 function Field(id, type){
     this.id = id;
+    this.formId = window.form.id;
     this.label = "";
     this.adminLabel = "";
     this.type = type;
     this.isRequired = false;
-    this.size = "medium";
+    this.size = "large";
     this.errorMessage = "";
     this.visibility = "visible";
     //NOTE: other properties will be added dynamically using associative array syntax

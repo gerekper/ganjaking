@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.2.0
+ * @version     2.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -297,7 +297,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				if ( false === $coupon_email_settings ) {
 					$coupon_email_settings            = array();
 					$coupon_email_settings['enabled'] = $is_send_email;
-					update_option( 'woocommerce_wc_sc_email_coupon_settings', $coupon_email_settings );
+					update_option( 'woocommerce_wc_sc_email_coupon_settings', $coupon_email_settings, 'no' );
 				}
 			}
 
@@ -307,7 +307,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				if ( false === $combine_email_settings ) {
 					$combine_email_settings            = array();
 					$combine_email_settings['enabled'] = $is_combine_email;
-					update_option( 'woocommerce_wc_sc_combined_email_coupon_settings', $combine_email_settings );
+					update_option( 'woocommerce_wc_sc_combined_email_coupon_settings', $combine_email_settings, 'no' );
 				}
 			}
 

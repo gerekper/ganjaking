@@ -251,13 +251,15 @@ class WCS_Cart_Resubscribe extends WCS_Cart_Renewal {
 	 * @since 2.1
 	 */
 	public function recurring_cart_next_payment_date( $first_renewal_date, $cart ) {
-		foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
+		foreach ( $cart->get_cart() as $cart_item ) {
 			$subscription = $this->get_order( $cart_item );
-			if ( false !== $subscription && $subscription->has_status( 'pending-cancel' ) ) {
+
+			if ( $this->is_pre_cancelled_resubscribe( $subscription ) ) {
 				$first_renewal_date = ( '1' != WC_Subscriptions_Product::get_length( $cart_item['data'] ) ) ? $subscription->get_date( 'end' ) : 0;
 				break;
 			}
 		}
+
 		return $first_renewal_date;
 	}
 
@@ -271,7 +273,7 @@ class WCS_Cart_Resubscribe extends WCS_Cart_Renewal {
 	public function maybe_set_free_trial( $total = '' ) {
 		$subscription = $this->get_order();
 
-		if ( false !== $subscription && $subscription->has_status( 'pending-cancel' ) ) {
+		if ( $this->is_pre_cancelled_resubscribe( $subscription ) ) {
 			foreach ( WC()->cart->cart_contents as &$cart_item ) {
 				if ( isset( $cart_item[ $this->cart_item_key ] ) ) {
 					wcs_set_objects_property( $cart_item['data'], 'subscription_trial_length', 1, 'set_prop_only' );
@@ -292,7 +294,7 @@ class WCS_Cart_Resubscribe extends WCS_Cart_Renewal {
 	public function maybe_unset_free_trial( $total = '' ) {
 		$subscription = $this->get_order();
 
-		if ( false !== $subscription && $subscription->has_status( 'pending-cancel' ) ) {
+		if ( $this->is_pre_cancelled_resubscribe( $subscription ) ) {
 			foreach ( WC()->cart->cart_contents as &$cart_item ) {
 				if ( isset( $cart_item[ $this->cart_item_key ] ) ) {
 					wcs_set_objects_property( $cart_item['data'], 'subscription_trial_length', 0, 'set_prop_only' );
@@ -310,9 +312,7 @@ class WCS_Cart_Resubscribe extends WCS_Cart_Renewal {
 	 */
 	public function maybe_cancel_existing_subscription( $order_id, $old_order_status, $new_order_status ) {
 		if ( wcs_order_contains_subscription( $order_id ) && wcs_order_contains_resubscribe( $order_id ) ) {
-			$order                = wc_get_order( $order_id );
-			$order_completed      = in_array( $new_order_status, array( apply_filters( 'woocommerce_payment_complete_order_status', 'processing', $order_id, $order ), 'processing', 'completed' ) );
-			$order_needed_payment = in_array( $old_order_status, apply_filters( 'woocommerce_valid_order_statuses_for_payment', array( 'pending', 'on-hold', 'failed' ), $order ) );
+			$order = wc_get_order( $order_id );
 
 			foreach ( wcs_get_subscriptions_for_resubscribe_order( $order_id ) as $subscription ) {
 				if ( $subscription->has_status( 'pending-cancel' ) ) {
@@ -322,5 +322,34 @@ class WCS_Cart_Resubscribe extends WCS_Cart_Renewal {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Overrides the place order button text on the checkout when the cart contains only resubscribe requests.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param string $place_order_text The place order button text.
+	 * @return string The place order button text. 'Resubscribe' if the cart contains only resubscribe requests, otherwise the default.
+	 */
+	public function order_button_text( $place_order_text ) {
+
+		if ( isset( WC()->cart ) && count( wcs_get_order_type_cart_items( 'resubscribe' ) ) === count( WC()->cart->get_cart() ) ) {
+			$place_order_text = _x( 'Resubscribe', 'The place order button text while resubscribing to a subscription', 'woocommerce-subscriptions' );
+		}
+
+		return $place_order_text;
+	}
+
+	/**
+	 * Determines if the customer is resubscribe prior to the subscription being cancelled.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param WC_Subscription $subscription
+	 * @return bool
+	 */
+	private function is_pre_cancelled_resubscribe( $subscription ) {
+		return is_a( $subscription, 'WC_Subscription' ) && $subscription->has_status( 'pending-cancel' ) && $subscription->get_time( 'end' ) > gmdate( 'U' );
 	}
 }

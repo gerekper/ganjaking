@@ -329,7 +329,7 @@ class WC_Subscription extends WC_Order {
 					$can_be_updated = true;
 				} elseif ( $this->has_status( 'pending' ) ) {
 					$can_be_updated = true;
-				} elseif ( $this->has_status( 'pending-cancel' ) && ( $this->is_manual() || ( false === $this->payment_method_supports( 'gateway_scheduled_payments' ) && $this->payment_method_supports( 'subscription_date_changes' ) && $this->payment_method_supports( 'subscription_reactivation' ) ) ) ) {
+				} elseif ( $this->has_status( 'pending-cancel' ) && $this->get_time( 'end' ) > gmdate( 'U' ) && ( $this->is_manual() || ( false === $this->payment_method_supports( 'gateway_scheduled_payments' ) && $this->payment_method_supports( 'subscription_date_changes' ) && $this->payment_method_supports( 'subscription_reactivation' ) ) ) ) {
 					$can_be_updated = true;
 				} else {
 					$can_be_updated = false;
@@ -2036,7 +2036,9 @@ class WC_Subscription extends WC_Order {
 	/**
 	 * Save new payment method for a subscription
 	 *
-	 * @since 2.0
+	 * @since 2.0.0
+	 *
+	 * @throws InvalidArgumentException An exception is thrown via @see WC_Subscription::set_payment_method_meta() if the payment meta passed is invalid.
 	 * @param WC_Payment_Gateway|string $payment_method
 	 * @param array $payment_meta Associated array of the form: $database_table => array( value, )
 	 */
@@ -2089,8 +2091,12 @@ class WC_Subscription extends WC_Order {
 	/**
 	 * Save payment method meta data for the Subscription
 	 *
-	 * @since 2.0
-	 * @param array $payment_meta Associated array of the form: $database_table => array( value, )
+	 * @since 2.0.0
+	 *
+	 * @throws InvalidArgumentException An exception if the payment meta variable isn't an array.
+	 *
+	 * @param string $payment_method_id The payment method's ID.
+	 * @param array  $payment_meta      Associated array of the form: $database_table => array( value, )
 	 */
 	protected function set_payment_method_meta( $payment_method_id, $payment_meta ) {
 

@@ -5,10 +5,10 @@
  * Description: Sell products and services with recurring payments in your WooCommerce Store.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 3.0.15
+ * Version: 3.1.1
  *
- * WC requires at least: 3.0.9
- * WC tested up to: 5.1
+ * WC requires at least: 3.7
+ * WC tested up to: 5.3
  * Woo: 27147:6115e6d7e297b623a169fdcf5728b224
  *
  * Copyright 2019 WooCommerce
@@ -35,7 +35,7 @@
  * Required functions
  */
 if ( ! function_exists( 'woothemes_queue_update' ) || ! function_exists( 'is_woocommerce_active' ) ) {
-	require_once( dirname( __FILE__ ) . '/woo-includes/woo-functions.php' );
+	require_once dirname( __FILE__ ) . '/woo-includes/woo-functions.php';
 }
 
 /**
@@ -59,16 +59,16 @@ add_action( 'woocommerce_translations_updates_for_woocommerce-subscriptions', '_
 define( 'WCS_INIT_TIMESTAMP', gmdate( 'U' ) );
 
 // Manually load functions files.
-require_once( dirname( __FILE__ ) . '/wcs-functions.php' );
-require_once( dirname( __FILE__ ) . '/includes/gateways/paypal/includes/wcs-paypal-functions.php' );
+require_once dirname( __FILE__ ) . '/wcs-functions.php';
+require_once dirname( __FILE__ ) . '/includes/gateways/paypal/includes/wcs-paypal-functions.php';
 
 // Load and set up the Autoloader
-require_once( dirname( __FILE__ ) . '/includes/class-wcs-autoloader.php' );
+require_once dirname( __FILE__ ) . '/includes/class-wcs-autoloader.php';
 $wcs_autoloader = new WCS_Autoloader( dirname( __FILE__ ) );
 $wcs_autoloader->register();
 
 // Load libraries manually.
-require_once( dirname( __FILE__ ) . '/includes/libraries/action-scheduler/action-scheduler.php' );
+require_once dirname( __FILE__ ) . '/includes/libraries/action-scheduler/action-scheduler.php';
 
 // Initialize our classes.
 WC_Subscriptions_Coupon::init();
@@ -110,6 +110,11 @@ add_action( 'after_setup_theme', array( 'WC_Subscriptions_Upgrader', 'init' ), 1
 add_action( 'init', array( 'WC_PayPal_Standard_Subscriptions', 'init' ), 11 );
 add_action( 'init', array( 'WCS_WC_Admin_Manager', 'init' ), 11 );
 
+if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '4.4.0', '>' ) ) {
+	// This class needs to run after WooCommerce Blocks is ready.
+	add_action( 'woocommerce_blocks_loaded', array( 'WC_Subscriptions_Extend_Store_Endpoint', 'init' ) );
+}
+
 /**
  * The main subscriptions class.
  *
@@ -123,9 +128,9 @@ class WC_Subscriptions {
 
 	public static $plugin_file = __FILE__;
 
-	public static $version = '3.0.15';
+	public static $version = '3.1.1';
 
-	public static $wc_minimum_supported_version = '3.0';
+	public static $wc_minimum_supported_version = '3.7';
 
 	private static $total_subscription_count = null;
 
@@ -204,6 +209,29 @@ class WC_Subscriptions {
 		$scheduler_class = apply_filters( 'woocommerce_subscriptions_scheduler', 'WCS_Action_Scheduler' );
 
 		self::$scheduler = new $scheduler_class();
+
+		if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '4.4.0', '>' ) ) {
+			// When WooCommerceBlocks is loaded, set up the Integration class.
+			add_action( 'woocommerce_blocks_loaded', array( __CLASS__, 'setup_blocks_integration' ) );
+		}
+	}
+
+	/**
+	 * Set up the Blocks integration class
+	 */
+	public static function setup_blocks_integration() {
+		add_action(
+			'woocommerce_blocks_cart_block_registration',
+			function( $integration_registry ) {
+				$integration_registry->register( new WCS_Blocks_Integration() );
+			}
+		);
+		add_action(
+			'woocommerce_blocks_checkout_block_registration',
+			function( $integration_registry ) {
+				$integration_registry->register( new WCS_Blocks_Integration() );
+			}
+		);
 	}
 
 	/**
@@ -241,8 +269,8 @@ class WC_Subscriptions {
 	 */
 	public static function add_data_stores( $data_stores ) {
 		// Our custom data stores.
-		$data_stores['subscription']                   = 'WCS_Subscription_Data_Store_CPT';
-		$data_stores['product-variable-subscription']  = 'WCS_Product_Variable_Data_Store_CPT';
+		$data_stores['subscription']                  = 'WCS_Subscription_Data_Store_CPT';
+		$data_stores['product-variable-subscription'] = 'WCS_Product_Variable_Data_Store_CPT';
 
 		// Use WC core data stores for our products.
 		$data_stores['product-subscription_variation']      = 'WC_Product_Variation_Data_Store_CPT';
@@ -260,7 +288,8 @@ class WC_Subscriptions {
 
 		wc_register_order_type(
 			'shop_subscription',
-			apply_filters( 'woocommerce_register_post_type_subscription',
+			apply_filters(
+				'woocommerce_register_post_type_subscription',
 				array(
 					// register_post_type() params
 					'labels'                           => array(
@@ -343,29 +372,35 @@ class WC_Subscriptions {
 
 		$subscription_statuses = wcs_get_subscription_statuses();
 
-		$registered_statuses = apply_filters( 'woocommerce_subscriptions_registered_statuses', array(
-			// translators: placeholder is a post count.
-			'wc-active'         => _nx_noop( 'Active <span class="count">(%s)</span>', 'Active <span class="count">(%s)</span>', 'post status label including post count', 'woocommerce-subscriptions' ),
-			// translators: placeholder is a post count.
-			'wc-switched'       => _nx_noop( 'Switched <span class="count">(%s)</span>', 'Switched <span class="count">(%s)</span>', 'post status label including post count', 'woocommerce-subscriptions' ),
-			// translators: placeholder is a post count.
-			'wc-expired'        => _nx_noop( 'Expired <span class="count">(%s)</span>', 'Expired <span class="count">(%s)</span>', 'post status label including post count', 'woocommerce-subscriptions' ),
-			// translators: placeholder is a post count.
-			'wc-pending-cancel' => _nx_noop( 'Pending Cancellation <span class="count">(%s)</span>', 'Pending Cancellation <span class="count">(%s)</span>', 'post status label including post count', 'woocommerce-subscriptions' ),
-		) );
+		$registered_statuses = apply_filters(
+			'woocommerce_subscriptions_registered_statuses',
+			array(
+				// translators: placeholder is a post count.
+				'wc-active'         => _nx_noop( 'Active <span class="count">(%s)</span>', 'Active <span class="count">(%s)</span>', 'post status label including post count', 'woocommerce-subscriptions' ),
+				// translators: placeholder is a post count.
+				'wc-switched'       => _nx_noop( 'Switched <span class="count">(%s)</span>', 'Switched <span class="count">(%s)</span>', 'post status label including post count', 'woocommerce-subscriptions' ),
+				// translators: placeholder is a post count.
+				'wc-expired'        => _nx_noop( 'Expired <span class="count">(%s)</span>', 'Expired <span class="count">(%s)</span>', 'post status label including post count', 'woocommerce-subscriptions' ),
+				// translators: placeholder is a post count.
+				'wc-pending-cancel' => _nx_noop( 'Pending Cancellation <span class="count">(%s)</span>', 'Pending Cancellation <span class="count">(%s)</span>', 'post status label including post count', 'woocommerce-subscriptions' ),
+			)
+		);
 
 		if ( is_array( $subscription_statuses ) && is_array( $registered_statuses ) ) {
 
 			foreach ( $registered_statuses as $status => $label_count ) {
 
-				register_post_status( $status, array(
-					'label'                     => $subscription_statuses[ $status ], // use same label/translations as wcs_get_subscription_statuses()
-					'public'                    => false,
-					'exclude_from_search'       => false,
-					'show_in_admin_all_list'    => true,
-					'show_in_admin_status_list' => true,
-					'label_count'               => $label_count,
-				) );
+				register_post_status(
+					$status,
+					array(
+						'label'                     => $subscription_statuses[ $status ], // use same label/translations as wcs_get_subscription_statuses()
+						'public'                    => false,
+						'exclude_from_search'       => false,
+						'show_in_admin_all_list'    => true,
+						'show_in_admin_status_list' => true,
+						'label_count'               => $label_count,
+					)
+				);
 			}
 		}
 	}
@@ -379,12 +414,12 @@ class WC_Subscriptions {
 		$dependencies = array( 'jquery' );
 
 		if ( is_cart() || is_checkout() ) {
-			wp_enqueue_script( 'wcs-cart', plugin_dir_url( WC_Subscriptions::$plugin_file ) . 'assets/js/frontend/wcs-cart.js', $dependencies, WC_Subscriptions::$version, true );
+			wp_enqueue_script( 'wcs-cart', plugin_dir_url( self::$plugin_file ) . 'assets/js/frontend/wcs-cart.js', $dependencies, self::$version, true );
 		} elseif ( is_product() ) {
-			wp_enqueue_script( 'wcs-single-product', plugin_dir_url( WC_Subscriptions::$plugin_file ) . 'assets/js/frontend/single-product.js', $dependencies, WC_Subscriptions::$version, true );
+			wp_enqueue_script( 'wcs-single-product', plugin_dir_url( self::$plugin_file ) . 'assets/js/frontend/single-product.js', $dependencies, self::$version, true );
 		} elseif ( wcs_is_view_subscription_page() ) {
 			global $wp;
-			$subscription   = wcs_get_subscription( $wp->query_vars['view-subscription'] );
+			$subscription = wcs_get_subscription( $wp->query_vars['view-subscription'] );
 
 			if ( $subscription && current_user_can( 'view_order', $subscription->get_id() ) ) {
 				$dependencies[] = 'jquery-blockui';
@@ -396,14 +431,15 @@ class WC_Subscriptions {
 					'add_payment_method_url' => esc_url( $subscription->get_change_payment_method_url() ),
 					'has_payment_gateway'    => $subscription->has_payment_gateway() && wc_get_payment_gateway_by_order( $subscription )->supports( 'subscriptions' ),
 				);
-				wp_enqueue_script( 'wcs-view-subscription', plugin_dir_url( WC_Subscriptions::$plugin_file ) . 'assets/js/frontend/view-subscription.js', $dependencies, WC_Subscriptions::$version, true );
+				wp_enqueue_script( 'wcs-view-subscription', plugin_dir_url( self::$plugin_file ) . 'assets/js/frontend/view-subscription.js', $dependencies, self::$version, true );
 				wp_localize_script( 'wcs-view-subscription', 'WCSViewSubscription', apply_filters( 'woocommerce_subscriptions_frontend_view_subscription_script_parameters', $script_params ) );
 			}
 		}
 	}
 
 	/**
-	 * Enqueues stylesheet for the My Subscriptions table on the My Account page.
+	 * Enqueues stylesheet for the My Subscriptions table on the My Account page and the stylesheet for the WooCommerce
+	 * checkout and cart blocks if they are present on the page.
 	 *
 	 * @since 1.5
 	 */
@@ -436,9 +472,9 @@ class WC_Subscriptions {
 	 */
 	public static function get_my_subscriptions_template( $current_page = 1 ) {
 
-		$all_subscriptions  = wcs_get_users_subscriptions();
+		$all_subscriptions = wcs_get_users_subscriptions();
 
-		$current_page    = empty( $current_page ) ? 1 : absint( $current_page );
+		$current_page   = empty( $current_page ) ? 1 : absint( $current_page );
 		$posts_per_page = get_option( 'posts_per_page' );
 
 		$max_num_pages = ceil( count( $all_subscriptions ) / $posts_per_page );
@@ -465,7 +501,7 @@ class WC_Subscriptions {
 	 */
 	public static function redirect_ajax_add_to_cart( $fragments ) {
 
-		$fragments['error'] = true;
+		$fragments['error']       = true;
 		$fragments['product_url'] = wc_get_cart_url();
 
 		# Force error on add_to_cart() to redirect
@@ -596,18 +632,22 @@ class WC_Subscriptions {
 	}
 
 	/**
-	 * Override the WooCommerce "Place order" text with "Sign up now"
+	 * Overrides the WooCommerce "Place order" text with "Sign up now" when the cart contains initial subscription purchases.
 	 *
 	 * @since 1.0
 	 */
 	public static function order_button_text( $button_text ) {
-		global $product;
 
-		if ( WC_Subscriptions_Cart::cart_contains_subscription() ) {
-			$button_text = get_option( WC_Subscriptions_Admin::$option_prefix . '_order_button_text', __( 'Sign up now', 'woocommerce-subscriptions' ) );
+		if ( ! WC_Subscriptions_Cart::cart_contains_subscription() ) {
+			return $button_text;
 		}
 
-		return $button_text;
+		// Return the default button text if the cart contains a Subscription order type. The button text for these carts is filtered separately.
+		if ( wcs_cart_contains_renewal() || wcs_cart_contains_resubscribe() || WC_Subscriptions_Switcher::cart_contains_switches() ) {
+			return $button_text;
+		}
+
+		return get_option( WC_Subscriptions_Admin::$option_prefix . '_order_button_text', __( 'Sign up now', 'woocommerce-subscriptions' ) );
 	}
 
 	/**
@@ -641,11 +681,16 @@ class WC_Subscriptions {
 		$get_variations = sizeof( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
 
 		// Load the template
-		wc_get_template( 'single-product/add-to-cart/variable-subscription.php', array(
-			'available_variations' => $get_variations ? $product->get_available_variations() : false,
-			'attributes'           => $product->get_variation_attributes(),
-			'selected_attributes'  => $product->get_default_attributes(),
-		), '', plugin_dir_path( __FILE__ ) . 'templates/' );
+		wc_get_template(
+			'single-product/add-to-cart/variable-subscription.php',
+			array(
+				'available_variations' => $get_variations ? $product->get_available_variations() : false,
+				'attributes'           => $product->get_variation_attributes(),
+				'selected_attributes'  => $product->get_default_attributes(),
+			),
+			'',
+			plugin_dir_path( __FILE__ ) . 'templates/'
+		);
 	}
 
 	/**
@@ -732,7 +777,7 @@ class WC_Subscriptions {
 			}
 
 			if ( $admin_notice_content ) {
-				require_once( dirname( __FILE__ ) . '/includes/admin/class-wcs-admin-notice.php' );
+				require_once dirname( __FILE__ ) . '/includes/admin/class-wcs-admin-notice.php';
 				$notice = new WCS_Admin_Notice( 'error' );
 				$notice->set_simple_content( $admin_notice_content );
 				$notice->display();
@@ -838,7 +883,7 @@ class WC_Subscriptions {
 
 			// Load WC_DateTime when it doesn't exist yet so we can use it for datetime handling consistently with WC 3.0+
 			if ( ! class_exists( 'WC_DateTime' ) ) {
-				require_once( dirname( __FILE__ ) . '/includes/libraries/class-wc-datetime.php' );
+				require_once dirname( __FILE__ ) . '/includes/libraries/class-wc-datetime.php';
 			}
 		} else {
 			new WCS_Deprecated_Filter_Hooks();
@@ -857,17 +902,19 @@ class WC_Subscriptions {
 
 			// translators: 1-2: opening/closing <b> tags, 3: Subscriptions version.
 			$notice->set_simple_content( sprintf( __( '%1$sWarning!%2$s We can see the %1$sWooCommerce Subscriptions Early Renewal%2$s plugin is active. Version %3$s of %1$sWooCommerce Subscriptions%2$s comes with that plugin\'s functionality packaged into the core plugin. Please deactivate WooCommerce Subscriptions Early Renewal to avoid any conflicts.', 'woocommerce-subscriptions' ), '<b>', '</b>', self::$version ) );
-			$notice->set_actions( array(
+			$notice->set_actions(
 				array(
-					'name' => __( 'Installed Plugins', 'woocommerce-subscriptions' ),
-					'url'  => admin_url( 'plugins.php' ),
-				),
-			) );
+					array(
+						'name' => __( 'Installed Plugins', 'woocommerce-subscriptions' ),
+						'url'  => admin_url( 'plugins.php' ),
+					),
+				)
+			);
 
 			$notice->display();
 		} else {
 			WCS_Early_Renewal_Manager::init();
-			require_once( dirname( __FILE__ ) . '/includes/early-renewal/wcs-early-renewal-functions.php' );
+			require_once dirname( __FILE__ ) . '/includes/early-renewal/wcs-early-renewal-functions.php';
 			if ( WCS_Early_Renewal_Manager::is_early_renewal_enabled() ) {
 				new WCS_Cart_Early_Renewal();
 			}
@@ -897,7 +944,7 @@ class WC_Subscriptions {
 		}
 
 		// Ensure the autoloader knows which API to use.
-		self::$autoloader->use_legacy_api( WC_Subscriptions::is_woocommerce_pre( '3.0' ) );
+		self::$autoloader->use_legacy_api( self::is_woocommerce_pre( '3.0' ) );
 	}
 
 	/**
@@ -913,7 +960,7 @@ class WC_Subscriptions {
 
 				if ( 'update' === $_GET['wc_subscription_duplicate_site'] ) {
 
-					WC_Subscriptions::set_duplicate_site_url_lock();
+					self::set_duplicate_site_url_lock();
 
 				} elseif ( 'ignore' === $_GET['wc_subscription_duplicate_site'] ) {
 
@@ -929,24 +976,29 @@ class WC_Subscriptions {
 					sprintf(
 						// translators: 1$-2$: opening and closing <strong> tags. 3$-4$: opening and closing link tags for learn more. Leads to duplicate site article on docs. 5$-6$: Opening and closing link to production URL. 7$: Production URL .
 						esc_html__( 'It looks like this site has moved or is a duplicate site. %1$sWooCommerce Subscriptions%2$s has disabled automatic payments and subscription related emails on this site to prevent duplicate payments from a staging or test environment. %1$sWooCommerce Subscriptions%2$s considers %5$s%7$s%6$s to be the site\'s URL. %3$sLearn more &raquo;%4$s.', 'woocommerce-subscriptions' ),
-						'<strong>', '</strong>',
-						'<a href="https://docs.woocommerce.com/document/subscriptions-handles-staging-sites/" target="_blank">', '</a>',
-						'<a href="' . esc_url( self::get_site_url_from_source( 'subscriptions_install' ) ) . '" target="_blank">', '</a>',
+						'<strong>',
+						'</strong>',
+						'<a href="https://docs.woocommerce.com/document/subscriptions-handles-staging-sites/" target="_blank">',
+						'</a>',
+						'<a href="' . esc_url( self::get_site_url_from_source( 'subscriptions_install' ) ) . '" target="_blank">',
+						'</a>',
 						esc_url( self::get_site_url_from_source( 'subscriptions_install' ) )
 					)
 				);
-				$notice->set_actions( array(
+				$notice->set_actions(
 					array(
-						'name'  => __( 'Quit nagging me (but don\'t enable automatic payments)', 'woocommerce-subscriptions' ),
-						'url'   => wp_nonce_url( add_query_arg( 'wc_subscription_duplicate_site', 'ignore' ), 'wcs_duplicate_site', '_wcsnonce' ),
-						'class' => 'button button-primary',
-					),
-					array(
-						'name'  => __( 'Enable automatic payments', 'woocommerce-subscriptions' ),
-						'url'   => wp_nonce_url( add_query_arg( 'wc_subscription_duplicate_site', 'update' ), 'wcs_duplicate_site', '_wcsnonce' ),
-						'class' => 'button',
-					),
-				) );
+						array(
+							'name'  => __( 'Quit nagging me (but don\'t enable automatic payments)', 'woocommerce-subscriptions' ),
+							'url'   => wp_nonce_url( add_query_arg( 'wc_subscription_duplicate_site', 'ignore' ), 'wcs_duplicate_site', '_wcsnonce' ),
+							'class' => 'button button-primary',
+						),
+						array(
+							'name'  => __( 'Enable automatic payments', 'woocommerce-subscriptions' ),
+							'url'   => wp_nonce_url( add_query_arg( 'wc_subscription_duplicate_site', 'update' ), 'wcs_duplicate_site', '_wcsnonce' ),
+							'class' => 'button',
+						),
+					)
+				);
 
 				$notice->display();
 			}
@@ -1371,12 +1423,12 @@ class WC_Subscriptions {
 		_deprecated_function( __METHOD__, '2.0' );
 
 		$args['subscriptions_per_page'] = -1;
-		$subscription_count = 0;
+		$subscription_count             = 0;
 
 		if ( ( ! isset( $args['subscription_status'] ) || in_array( $args['subscription_status'], array( 'all', 'any' ) ) ) && ( isset( $args['include_trashed'] ) && true === $args['include_trashed'] ) ) {
 
 			$args['subscription_status'] = 'trash';
-			$subscription_count += count( wcs_get_subscriptions( $args ) );
+			$subscription_count         += count( wcs_get_subscriptions( $args ) );
 			$args['subscription_status'] = 'any';
 		}
 
@@ -1407,5 +1459,21 @@ class WC_Subscriptions {
 		_deprecated_function( __METHOD__, '2.1', __CLASS__ . '::woocommerce_inactive_notice()' );
 	}
 }
+
+/**
+ * Add woocommerce_inbox_variant for the Remote Inbox Notification.
+ *
+ * P2 post can be found at https://wp.me/paJDYF-1uJ.
+ */
+if ( ! function_exists( 'add_woocommerce_inbox_variant' ) ) {
+	function add_woocommerce_inbox_variant() {
+		$config_name = 'woocommerce_inbox_variant';
+		if ( false === get_option( $config_name, false ) ) {
+			update_option( $config_name, wp_rand( 1, 5 ) );
+		}
+	}
+}
+add_action( 'woocommerce_subscriptions_upgraded', 'add_woocommerce_inbox_variant', 10 );
+register_activation_hook( __FILE__, 'add_woocommerce_inbox_variant' );
 
 WC_Subscriptions::init( $wcs_autoloader );

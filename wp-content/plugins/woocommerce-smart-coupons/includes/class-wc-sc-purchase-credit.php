@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.5.1
+ * @version     1.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -128,8 +128,10 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/plugin.php';
 			}
 
+			$product_price = $product->get_price();
+
 			// MADE CHANGES IN THE CONDITION TO SHOW INPUT FIELD FOR PRICE ONLY FOR COUPON AS A PRODUCT.
-			if ( ! empty( $coupons ) && $this->is_coupon_amount_pick_from_product_price( $coupons ) && ( ! ( '' !== $product->get_price() || ( is_plugin_active( 'woocommerce-name-your-price/woocommerce-name-your-price.php' ) && ( get_post_meta( $product_id, '_nyp', true ) === 'yes' ) ) ) ) ) {
+			if ( ! empty( $coupons ) && $this->is_coupon_amount_pick_from_product_price( $coupons ) && ( ! ( ! empty( $product_price ) || ( is_plugin_active( 'woocommerce-name-your-price/woocommerce-name-your-price.php' ) && ( get_post_meta( $product_id, '_nyp', true ) === 'yes' ) ) ) ) ) {
 
 				$js = "
 							const minCreditAmount      = parseFloat( jQuery('input#credit_called').attr('min') );

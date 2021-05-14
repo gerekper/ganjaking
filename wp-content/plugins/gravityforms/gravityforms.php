@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.5.0.2
+Version: 2.5.1
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -29,9 +29,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses.
 */
 
-update_option( 'rg_gforms_key', 'activated' );
 update_option( 'gform_pending_installation', false );
 delete_option( 'rg_gforms_message' );
+update_option( 'rg_gforms_key','B5E0B5F8-DD8689E6-ACA49DD6-E6E1A930' );
+update_option( 'gf_site_secret' ,true);
+update_option( 'gform_upgrade_status', false );
+
 
 //------------------------------------------------------------------------------------------------------------------
 //---------- Gravity Forms License Key -----------------------------------------------------------------------------
@@ -209,7 +212,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.5.0.2';
+	public static $version = '2.5.1';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -538,7 +541,6 @@ class GFForms {
 
 		wp_register_style( 'gf-preview', "$base_url/css/preview$min.css" );
 		wp_register_style( 'gf-preview-rtl', "$base_url/css/rtl$min.css" );
-		wp_register_style( 'gf-preview-reset', "$base_url/css/reset$min.css" );
 
 		add_filter( 'gform_preview_styles', function( $styles ) {
 			$styles[] = 'gf-preview-reset';
@@ -2351,29 +2353,8 @@ class GFForms {
 	 * @return string $page_text The changelog. Error message if there's an issue.
 	 */
 	public static function get_changelog() {
-		$key                = GFCommon::get_key();
-		$body               = "key=$key";
-		$options            = array( 'method' => 'POST', 'timeout' => 3, 'body' => $body );
-		$options['headers'] = array(
-			'Content-Type'   => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
-			'Content-Length' => strlen( $body ),
-			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
-			'Referer'        => get_bloginfo( 'url' )
-		);
-
-		$raw_response = GFCommon::post_to_manager( 'changelog.php', GFCommon::get_remote_request_params(), $options );
-
-		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
-			$page_text = sprintf( esc_html__( 'Oops!! Something went wrong. %sPlease try again or %scontact us%s.', 'gravityforms' ), '<br/>', "<a href='https://www.gravityforms.com/support/'>", '</a>' );
-		} else {
-			$page_text = $raw_response['body'];
-			if ( substr( $page_text, 0, 10 ) != '<!--GFM-->' ) {
-				$page_text = '';
-			} else {
-				$page_text = '<div style="background-color:white">' . $page_text . '<div>';
-			}
-		}
-
+		
+		$page_text = '';
 		return stripslashes( $page_text );
 	}
 
@@ -2862,7 +2843,7 @@ class GFForms {
 		}
 
 		GFCommon::localize_gform_gravityforms_multifile();
-		GFCommon::localize_legacy_check( 'gform_form_editor' );
+		GFCommon::localize_legacy_check( 'gform_layout_editor' );
 
 	}
 
@@ -4667,6 +4648,10 @@ class GFForms {
 	public static function add_admin_body_class( $body_classes ) {
 		$classes = explode( ' ', $body_classes );
 		$classes = array_merge( $classes, array( 'gform-admin' ) );
+
+		if ( GFCommon::is_form_editor() && wp_style_is( 'jetpack-admin-menu' ) && ! is_rtl() ) {
+			$classes[] = 'gform-jetpack-admin-menu';
+		}
 
 		return implode( ' ', $classes );
 	}

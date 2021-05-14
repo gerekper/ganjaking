@@ -1,0 +1,519 @@
+.dropshipping_page_dashboard #wpcontent {
+  background:#000;
+}
+
+#woocommerce-dropshipping-dashboard {
+  padding:10px 25px 10px 10px;
+}
+
+p.wcd-blurb-text {
+  margin: 0;
+  font-size: 25px;
+}
+
+.chart-wrapper {
+display: block!important;
+height: 50vh;
+}
+
+.metric-box {
+background: #1f1e27;
+line-height:normal;
+}
+
+div#wpfooter {
+display: none;
+}
+
+.dash-section-100 {
+background: #1f1e27;
+border-radius: 30px;
+margin: 10px;
+}
+
+.dash-section-50 {
+padding: 20px;
+border-radius: 20px;
+background: #1f1e27;
+display: inline-grid;
+vertical-align: top;
+}
+
+.dash-section-50 h2 {
+font-size: 30px;
+display: block;
+margin-bottom: 20px;
+}
+
+.dash-section-50.recent-orders th {
+font-size: 24px;
+padding-bottom: 15px;
+}
+
+.dash-section-50,
+.dash-section-50 h3,
+dash-section-50 h2 {
+color: white!important;
+}
+
+.metric-box {
+display: inline-grid;
+color: black;
+text-align: center;
+padding: 20px;
+width: 25%;
+border-radius: 20px;
+margin: 40px 6px;
+font-size: 23px;
+}
+
+.dash-section-50 td,
+.dash-section-50 thead {
+font-size: 18px;
+line-height: 1.5em;
+text-align: left;
+}
+
+.metric-box,
+.metric-box h2 {
+color: white!important;
+}
+
+.metric-box.metric-style1 {
+background: rgb(54, 189, 253);
+background: linear-gradient( 294deg, rgba(54, 189, 253, 1) 0%, rgba(108, 129, 254, 1) 100%);
+}
+
+.metric-box.metric-style2 {
+background: rgb(255, 151, 139);
+background: linear-gradient( 294deg, rgba(255, 151, 139, 1) 0%, rgba(255, 119, 137, 1) 100%);
+}
+
+.metric-style3 {
+background: rgb(33, 226, 174);
+background: linear-gradient( 294deg, rgba(33, 226, 174, 1) 0%, rgba(10, 177, 230, 1) 100%);
+}
+
+.metric-style4 {
+background: rgb(114, 124, 254);
+background: linear-gradient( 294deg, rgba(114, 124, 254, 1) 0%, rgba(233, 130, 239, 1) 100%);
+}
+
+.metric-box h2 {
+font-size: 34px;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+
+.dash-section-50 {
+margin: 10px;
+}
+
+canvas#bar-chart-grouped {
+max-width: 100%!important;
+}
+
+.thirds .metric-box a {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  margin-top:20px;
+  border-radius: 30px;
+  background: rgb(114, 124, 254);
+  background: linear-gradient( 294deg, rgba(114, 124, 254, 1) 0%, rgba(233, 130, 239, 1) 100%);
+  line-height:normal;
+}
+
+.product-slide img {
+width: 100%!important;
+}
+
+.product-slide h3,
+.product-slide {
+color: white!important;
+}
+
+.dash-slider {
+padding: 10px;
+width: 98%;
+margin: 0 auto;
+}
+
+.product-slide {
+width: 19.7%;
+display: inline-grid;
+border-radius: 30px;
+background: #1f1e27;
+text-align: center;
+font-size: 16px;
+padding-bottom: 20px;
+padding-top: 20px;
+text-align: center;
+}
+
+.product-slide img {
+margin: 0 auto;
+max-width: 150px;
+}
+
+.blurb h3,
+.blurb-content,
+blurb img {
+display: inline-table!important;
+font-size: 17px;
+}
+
+.blurb {
+border-bottom: 1px solid #353535;
+}
+
+.blurb-inner {
+max-width: 500px;
+}
+
+.blurb img {
+width: 38px;
+margin-top: 12px;
+padding-right: 20px;
+padding-left: 10px;
+transform: translate(0px, -5px);
+}
+
+.blurb-content {
+padding-top: 15px;
+padding-right: 20px;
+float: right;
+}
+
+.thirds .metric-box {
+width: 33%;
+font-size: 18px;
+}
+
+.dash-row.thirds .metric-box h2 {
+  line-height: 1.3em;
+  height: 30px;
+  font-size: 30px;
+}
+
+.blurb-inner h3 {
+max-width: 300px;
+vertical-align: bottom;
+}
+
+.med-risk-icon {
+background: #e0b826;
+}
+
+.low-risk-icon {
+background: #5ce593;
+}
+
+.high-risk-icon {
+background: #e25d71;
+}
+
+.table-icon {
+width: 14px;
+height: 14px;
+border-radius: 100%;
+margin-right: 20px;
+}
+
+.dash-row {
+display: flex;
+max-width: 1450px;
+margin: 0 auto;
+}
+
+.second .dash-section-50 {
+display: flex;
+flex: 1;
+}
+
+.dash-section-50.pie-chart {
+display: block;
+}
+
+.bar-chart,
+.dash-stats {
+  width: 50%;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+.second td:nth-of-type(2),
+.second td:nth-of-type(3),
+.second td:nth-of-type(4) {
+  padding-right: 70px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.second tr,
+.second td {
+  border-bottom: 1px solid #353535!important;
+}
+
+.chart-wrapper {
+  max-width: 700px;
+}
+
+.metric-box img {
+  height: 80px;
+  margin: 0 auto;
+}
+
+.pie-chart .chart-wrapper {
+  max-width: 600px!important;
+}
+
+@media only screen and (max-width: 1230px) {
+  #woocommerce-dropshipping-dashboard {
+    padding: 10px 10px 10px 10px;
+  }
+  p.wcd-blurb-text {
+    margin: 0;
+    font-size: 23px;
+  }
+  .wcd-blurb-container {
+    padding-left:20px;
+  }
+  .dash-row {
+    display: block;
+  }
+  .chart-wrapper {
+    max-width: 100%;
+  }
+  .bar-chart,
+  .dash-stats {
+    width: 100%;
+  }
+  .dash-section-50 {
+    max-width: -webkit-fill-available;
+  }
+  .blurb:first-of-type {
+    width: 93%;
+  }
+  .thirds .metric-box {
+    width: 100%;
+    margin: 20px auto;
+  }
+  .product-slide {
+    width: 250px;
+    margin-right: 12px;
+  }
+  .dash-slider {
+    overflow-x: scroll;
+    white-space: nowrap;
+    margin-bottom: 50px;
+  }
+  .blurb img {
+    transform: none;
+    padding-left: 0!important;
+  }
+  .dash-section-50.dash-stats {
+    display: block;
+  }
+  .blurb {
+    display: inline-grid;
+    width: 27%;
+    border-bottom: 0;
+    background: #0e0e13;
+    margin: 1%;
+    border-radius: 12px;
+    padding: 2%;
+    min-height: 120px;
+  }
+  .blurb h3,
+  .blurb-content {
+    width: initial;
+    min-height: 65px;
+  }
+  .second td:nth-of-type(2),
+  .second td:nth-of-type(3),
+  .second td:nth-of-type(4) {
+    width: 30vw;
+  }
+  .metric-box {
+    display: inline-grid;
+    text-align: center;
+    padding: 0;
+    width: 24%;
+    border-radius: 30px;
+    margin: 0;
+    font-size: 20px;
+    min-height: 180px;
+    padding-bottom: 20px;
+  }
+  .blurb-content {
+    padding-top: 15px;
+    padding-right: 20px;
+    float: none;
+    display: block!important;
+    width: 100%!important;
+    font-size: 24px;
+  }
+  .blurb img {
+    width: 43px;
+    margin-top: 12px;
+    padding-right: 20px;
+    padding-left: 10px;
+    display: block;
+  }
+  .blurb {
+    min-height: 180px;
+    transition: .3s;
+  }
+  .blurb:hover {
+    background: black;
+    transition: .3s;
+  }
+  div#wpcontent {
+    padding-left: 0!important;
+  }
+  #plugin-setup {
+    margin-right: 25px;
+  }
+}
+/* 1230px max */
+
+.product-slide a{
+  text-decoration:none;
+}
+
+h1#dashboard-header {
+  text-align:center;
+  font-size:50px;
+  color:white;
+  line-height: 1.2em;
+}
+
+h2.white {
+  color:white;
+  line-height: normal;
+}
+
+h2.font-28 {
+  font-size:28px;
+}
+
+h2.font-40 {
+  font-size:40px;
+}
+
+div.gap {
+  background: rgb(33,226,174);
+  background: linear-gradient(294deg, rgba(33,226,174,1) 0%, rgba(10,177,230,1) 100%);
+  height: 4px;
+  margin-bottom: 20px;
+}
+
+div.gap-2 {
+  background: rgb(255,151,139);
+  background: linear-gradient(294deg, rgba(255,151,139,1) 0%, rgba(255,119,137,1) 100%);
+  height: 4px;
+  margin-bottom: 20px;
+}
+
+div.gap-3 {
+  background: rgb(114,124,254);
+  background: linear-gradient(294deg, rgba(114,124,254,1) 0%, rgba(233,130,239,1) 100%);
+  height: 4px;
+  margin-bottom: -20px;
+  display: block;
+  width: 100%;
+}
+
+p.plugin-setup-desc {
+  font-size: 20px;
+  height:50px;
+}
+
+#plugin-setup .metric-box {
+  padding:10px;
+}
+
+.dropshipping-flex-container {
+  display:flex;
+}
+
+@media only screen and (max-width: 830px) {
+  h1#dashboard-header {
+    font-size: 35px;
+  }
+  p.wcd-blurb-text {
+    font-size: 23px;
+  }
+
+  .wcd-blurb-container {
+    padding-left:10px;
+    padding-right:0px;
+  }
+
+  .blurb {
+    width: 43%;
+    min-height: 170px;
+  }
+  .blurb-content {
+    padding-top: 15px;
+    padding-right: 20px;
+    float: none;
+    display: block!important;
+    width: 100%!important;
+    font-size: 24px;
+  }
+  .blurb img {
+    width: 43px;
+    margin-top: 12px;
+    padding-right: 20px;
+    padding-left: 10px;
+    display: block;
+  }
+  .metric-box {
+    display: inline-grid;
+    text-align: center;
+    padding: 0;
+    width: 47%;
+    margin: 1%;
+    font-size: 23px;
+    min-height: 100px;
+    padding-bottom: 20px;
+    border-radius: 12px;
+    margin-top: 8px;
+    padding-top: 10px;
+  }
+  .second tr,
+  .second td {
+    border-bottom: 1px solid #353535!important;
+    max-width: 29px;
+  }
+  .dash-section-50.recent-orders {
+    overflow-x: scroll;
+  }
+  .dash-row.thirds .metric-box h2 {
+    height: auto;
+  }
+  #plugin-setup {
+    margin-right: 19px;
+  }
+}
+
+@media screen and ( max-width: 560px ) {
+  p.wcd-blurb-text {
+    font-size: 17px;
+    min-height: 50px;
+  }
+  .blurb h3 {
+    min-height:105px;
+  }
+}
+
+
+p#account-info-note {
+    margin-left: 2px;
+    margin-top: -10px;
+}

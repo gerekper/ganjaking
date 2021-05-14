@@ -11,7 +11,7 @@ class WC_Dynamic_Pricing_Cart_Query {
 			if ( empty( $cart_item_a ) || empty( $cart_item_b ) ) {
 				return 0;
 			} else {
-				return ( $product_a->get_price( 'edit' ) > $product_b->get_price( 'edit' ) ) ? -1 : 1;
+				return ( $product_a->get_price( 'edit' ) > $product_b->get_price( 'edit' ) ) ? 1 : -1;
 			}
 		}
 	}
@@ -26,7 +26,7 @@ class WC_Dynamic_Pricing_Cart_Query {
 			if ( empty( $cart_item_a ) || empty( $cart_item_b ) ) {
 				return 0;
 			} else {
-				return ( $product_a->get_price( 'edit' ) < $product_b->get_price( 'edit' ) ) ? 1 : -1;
+				return ( $product_a->get_price( 'edit' ) < $product_b->get_price( 'edit' ) ) ? -1 : 1;
 			}
 		}
 	}

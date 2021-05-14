@@ -109,6 +109,9 @@ class Checkbox_And_Select extends Base {
 		// Display description.
 		$html = $this->get_description();
 
+		// Settings are more up-to-date at this point; set the disabled attr on the select based on checkbox state.
+		$this->inputs['select']->disabled = ! $this->inputs['checkbox']->get_value();
+
 		$html .= sprintf(
 			'<span class="%s">%s <span id="%s" class="gform-settings-input__target">%s %s</span></span>',
 			esc_attr( $this->get_container_classes() ),
@@ -149,7 +152,28 @@ class Checkbox_And_Select extends Base {
 		return $return_values;
 	}
 
+	/**
+	 * Filter out unneeded select values when the checkbox isn't checked.
+	 *
+	 * @since 2.5
+	 *
+	 * @param array             $field_values Posted field values.
+	 * @param array|bool|string $field_value  Posted value for field.
+	 *
+	 * @return array
+	 */
+	public function save_field( $field_values, $field_value ) {
+		$field_values = parent::save_field( $field_values, $field_value );
 
+		$cb_value = isset( $field_values[ $this->inputs['checkbox']->name ] ) ? $field_values[ $this->inputs['checkbox']->name ] : 0;
+
+		// Checkbox is unchecked, remove the select value.
+		if ( $cb_value == 0 ) {
+			unset( $field_values[ $this->inputs['select']->name ] );
+		}
+
+		return $field_values;
+	}
 
 	// # VALIDATION METHODS --------------------------------------------------------------------------------------------
 
@@ -163,6 +187,14 @@ class Checkbox_And_Select extends Base {
 	public function do_validation( $values ) {
 		$cb_value     = isset( $values['checkbox'] ) ? $values['checkbox'] : null;
 		$select_value = isset( $values['select'] ) ? $values['select'] : null;
+
+		if ( ! isset( $cb_value[0] ) || $cb_value[0] != 1 ) {
+			return;
+		}
+
+		if ( isset( $cb_value[0] ) && $cb_value[0] == 1 ) {
+			$this->inputs['select']->required = true;
+		}
 
 		$this->inputs['checkbox']->handle_validation( $cb_value );
 		$this->inputs['select']->handle_validation( $select_value );

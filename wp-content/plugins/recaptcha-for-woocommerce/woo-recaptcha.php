@@ -3,11 +3,11 @@
  * Plugin Name: reCaptcha for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/woo-recpatcha
  * Description: Protect your eCommerce site with google recptcha.
- * Version: 2.15
+ * Version: 2.16
  * Author: I Thirteen Web Solution 
  * Author URI: https://www.i13websolution.com
  * WC requires at least: 3.2
- * WC tested up to: 5.1.0
+ * WC tested up to: 5.2.2
  * Text Domain:recaptcha-for-woocommerce
  * Domain Path: languages/
  * Woo: 5347485:aeae74683dd892d43ed390cc28533524
@@ -6469,7 +6469,49 @@ function i13_woo_recaptcha_is_rest() {
 		return false;
 
 }
-		
+
+function i13_woo_get_user_ip_address() {
+	
+	   $client_main  = isset($_SERVER['HTTP_X_REAL_IP'])?sanitize_text_field( wp_unslash($_SERVER['HTTP_X_REAL_IP'])):'';
+	   $client  = isset($_SERVER['HTTP_CF_CONNECTING_IP'])?sanitize_text_field( wp_unslash($_SERVER['HTTP_CF_CONNECTING_IP'])):'';
+	   $forward = isset($_SERVER['HTTP_X_FORWARDED_FOR'])?sanitize_text_field( wp_unslash($_SERVER['HTTP_X_FORWARDED_FOR'])):'';
+	   $a = isset($_SERVER['HTTP_X_FORWARDED'])?sanitize_text_field( wp_unslash($_SERVER['HTTP_X_FORWARDED'])):'';
+	   $b = isset($_SERVER['HTTP_FORWARDED_FOR'])?sanitize_text_field( wp_unslash($_SERVER['HTTP_FORWARDED_FOR'])):'';
+	   $c = isset($_SERVER['HTTP_FORWARDED'])?sanitize_text_field( wp_unslash($_SERVER['HTTP_FORWARDED'])):''; 
+	   $d = isset($_SERVER['HTTP_CLIENT_IP'])?sanitize_text_field( wp_unslash($_SERVER['HTTP_CLIENT_IP'])):''; 
+	   $remote  =  isset($_SERVER['REMOTE_ADDR'])?sanitize_text_field( wp_unslash($_SERVER['REMOTE_ADDR'])):'';  
+
+	if (filter_var($client_main, FILTER_VALIDATE_IP)) {		
+		$ip = $client_main;
+	} else if (filter_var($client, FILTER_VALIDATE_IP)) {		
+		$ip = $client;
+	} elseif (filter_var($forward, FILTER_VALIDATE_IP)) {
+		$ip = $forward;
+	} elseif (filter_var($a, FILTER_VALIDATE_IP)) {
+		$ip = $a;
+	} elseif (filter_var($b, FILTER_VALIDATE_IP)) {
+		$ip = $b;
+	} elseif (filter_var($c, FILTER_VALIDATE_IP)) {
+		$ip = $c;
+	} elseif (filter_var($remote, FILTER_VALIDATE_IP)) {
+		$ip = $remote;
+	} else {
+		$ip = '';
+	}
+
+		return $ip;
+}
+
+function i13_woo_ip_in_range( $ip, $startIP, $endIP) {
+	
+	if (inet_pton($ip)>=inet_pton($startIP) && inet_pton($ip)<=inet_pton($endIP)) {
+	   
+		return true;
+	}
+   
+	return false;     
+}
+
 $active_plugins = (array) apply_filters('active_plugins', get_option('active_plugins', array()));
 
 if (function_exists('is_multisite') && is_multisite() ) {
@@ -6478,10 +6520,47 @@ if (function_exists('is_multisite') && is_multisite() ) {
 
 if (in_array('woocommerce/woocommerce.php', $active_plugins) || array_key_exists('woocommerce/woocommerce.php', $active_plugins)) {
 	
-	if (!i13_woo_recaptcha_is_rest()) {	
+		$userip=i13_woo_get_user_ip_address();
+		$ips=sanitize_text_field( wp_unslash(get_option('i13_recapcha_ip_to_skip_captcha')));
+		$in_ip=false;
+	if (trim($ips)!='') {
 			
-			global $i13_woo_recpatcha;
-			$i13_woo_recpatcha = new I13_Woo_Recpatcha();
+		$ipsArr= explode(',', $ips);
+			
+		foreach ($ipsArr as $ip) {
+				
+			if (strpos($ip, '-')!==false) {
+
+				  $ipArr= explode('-', $ip);
+				  $ip0=isset($ipArr[0])?$ipArr[0]:'';
+				  $ip1=isset($ipArr[1])?$ipArr[1]:'';
+				if (i13_woo_ip_in_range($userip, $ip0, $ip1)) {
+						  
+					  $in_ip=true;
+					  break;
+				}
+					  
+			} else {
+					
+				if (i13_woo_ip_in_range($userip, $ip, $ip)) {
+						  
+					  $in_ip=true;
+					  break;
+				}
+					
+			}
+				
+				
+		}
+	}
+	if (!i13_woo_recaptcha_is_rest() && !$in_ip) {	
+			
+		global $i13_woo_recpatcha;
+		$i13_woo_recpatcha = new I13_Woo_Recpatcha();
+	} else if (is_admin()) {
+			
+		global $i13_woo_recpatcha;
+		$i13_woo_recpatcha = new I13_Woo_Recpatcha();
 	}
 	   
 }

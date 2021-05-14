@@ -1483,9 +1483,10 @@ var gfMergeTagsObj = function( form, element ) {
 				if(!tags.hasOwnProperty(i))
 					continue;
 
-				var tag = tags[i];
+                var tag   = tags[ i ];
+                var label = gform.tools.stripSlashes( tag.label );
 
-				var tagHTML = jQuery( '<a class="" data-value="' + escapeAttr( tag.tag ) + '">' + escapeHtml( tag.label ) + '</a>' );
+				var tagHTML = jQuery( '<a class="" data-value="' + escapeAttr( tag.tag ) + '">' + escapeHtml( label ) + '</a>' );
 				tagHTML.on( 'click.gravityforms', self.bindMergeTagListClick );
 
 				optionsHTML.push( jQuery( '<li></li>' ).html( tagHTML ) );

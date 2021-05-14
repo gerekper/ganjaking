@@ -1528,6 +1528,10 @@ to no.
 				height: 288px;
 			}
 
+.gform_wrapper.gravity-theme .gfield input, .gform_wrapper.gravity-theme .gfield select {
+			max-width: 100%;
+		}
+
 .gform_wrapper.gravity-theme .gfield input.small, .gform_wrapper.gravity-theme .gfield select.small {
 				width: calc(25% - 16px * 3 / 4);
 			}

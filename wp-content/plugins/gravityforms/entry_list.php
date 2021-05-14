@@ -327,11 +327,11 @@ class GFEntryList {
 		$table->prepare_items();
 		$table->output_scripts();
 		?>
-			<form id="entry_list_form" method="post" class="gform-settings-panel__content">
+			<form id="entry_list_form" method="post" class="gform-settings-panel__content gform-settings-panel__content--entry-list">
 				<?php
 				$table->views();
                 ?>
-                <div id="entry_search_container" >
+                <div id="entry_search_container">
                     <div id="entry_filters" ></div>
                     <a style="" class="button" id="entry_search_button"
                        href="javascript:Search('<?php echo esc_js( $table->get_orderby() ); ?>', '<?php echo esc_js( $table->get_order() ) ?>', <?php echo absint( $form_id ); ?>, jQuery('.gform-filter-value').val(), '<?php echo esc_js( $table->get_filter() ) ?>', jQuery('.gform-filter-field').val(), jQuery('.gform-filter-operator').val());"><?php esc_html_e( 'Search', 'gravityforms' ) ?></a>

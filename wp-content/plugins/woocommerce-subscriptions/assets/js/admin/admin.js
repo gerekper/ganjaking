@@ -828,4 +828,35 @@ jQuery( function( $ ) {
 	};
 	wcs_paypal_standard_settings.init();
 
+	/*
+	 * Handles showing and hiding subscription related settings on the Accounts and Privacy settings page
+	 */
+	var wcs_accounts_and_privacy_settings = {
+		init: function() {
+			if ( 0 === $( '#woocommerce_enable_signup_and_login_from_checkout' ).length ) {
+				return;
+			}
+
+			$( '#woocommerce_enable_signup_and_login_from_checkout' ).on( 'change', this.checkout_account_creation_changed );
+			this.checkout_account_creation_changed( 'no_animation' );
+		},
+
+		/**
+		 * Hides or shows the setting to allow customers to create an account on checkout while purchasing subscriptions.
+		 */
+		checkout_account_creation_changed: function( animation_behaviour = '' ) {
+			var subscription_registration_setting = $( '#woocommerce_enable_signup_from_checkout_for_subscriptions' ).closest( 'fieldset' );
+			var hide_function = animation_behaviour === 'no_animation' ? 'hide' : 'slideUp';
+			var show_function = animation_behaviour === 'no_animation' ? 'show' : 'slideDown';
+
+			// This setting isn't necessary if the store already allows registration on checkout.
+			if ( $( '#woocommerce_enable_signup_and_login_from_checkout' ).is( ':checked' ) ) {
+				subscription_registration_setting[hide_function]();
+			} else {
+				subscription_registration_setting[show_function]();
+			}
+		}
+	};
+	wcs_accounts_and_privacy_settings.init();
+
 });

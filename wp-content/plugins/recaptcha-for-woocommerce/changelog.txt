@@ -1,5 +1,9 @@
 *** Changelog ***
 
+2021-05-08- version 2.16
+
+* Added functionality to Bypass reCAPTCHA (do not show captcha) using IP or IP-Range for your clients/users
+
 2021-04-12- version 2.15
 
 * Fixed registration captcha not work for some theme as it is using _nonce.

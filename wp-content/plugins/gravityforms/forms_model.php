@@ -1033,6 +1033,11 @@ class GFFormsModel {
 					$field->pageNumber = $page_number;
 				}
 
+				// Populate required cssClass property with empty string if not set to avoid JS errors when rendering.
+				if ( ! isset( $field->cssClass ) ) {
+					$field->cssClass = '';
+				}
+
 				$field->post_convert_field();
 			}
 		}
@@ -5885,7 +5890,7 @@ class GFFormsModel {
 	 */
 	public static function get_lead_field_value( $lead, $field ) {
 
-		if ( empty( $lead ) ) {
+		if ( empty( $lead ) || ! is_array( $lead ) ) {
 			return null;
 		}
 

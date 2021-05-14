@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.6.0
+ * @version     1.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1296,18 +1296,26 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 			$global_coupons = wp_cache_get( 'wc_sc_global_coupons', 'woocommerce_smart_coupons' );
 
 			if ( false === $global_coupons ) {
-				$global_coupons = $wpdb->get_results( // phpcs:ignore
-					$wpdb->prepare(
-						"SELECT *
-							FROM {$wpdb->prefix}posts
-							WHERE FIND_IN_SET (ID, (SELECT GROUP_CONCAT(option_value SEPARATOR ',') FROM {$wpdb->prefix}options WHERE option_name = %s)) > 0
-							GROUP BY ID
-							ORDER BY post_date DESC",
-						'sc_display_global_coupons'
-					)
-				);
-				wp_cache_set( 'wc_sc_global_coupons', $global_coupons, 'woocommerce_smart_coupons' );
-				$this->maybe_add_cache_key( 'wc_sc_global_coupons' );
+				$global_coupons_ids = get_option( 'sc_display_global_coupons' );
+
+				if ( ! empty( $global_coupons_ids ) ) {
+					$global_coupons = $wpdb->get_results( // phpcs:ignore
+						$wpdb->prepare(
+							"SELECT *
+								FROM {$wpdb->prefix}posts
+								WHERE FIND_IN_SET (ID, (SELECT GROUP_CONCAT(option_value SEPARATOR ',') FROM {$wpdb->prefix}options WHERE option_name = %s)) > 0
+								GROUP BY ID
+								ORDER BY post_date DESC",
+							'sc_display_global_coupons'
+						)
+					);
+					wp_cache_set( 'wc_sc_global_coupons', $global_coupons, 'woocommerce_smart_coupons' );
+					$this->maybe_add_cache_key( 'wc_sc_global_coupons' );
+				}
+			}
+
+			if ( is_scalar( $global_coupons ) ) {
+				$global_coupons = array();
 			}
 
 			$global_coupons = apply_filters( 'wc_smart_coupons_global_coupons', $global_coupons );
@@ -1348,49 +1356,43 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 						$wpdb->prepare(
 							"REPLACE INTO {$wpdb->prefix}options (option_name, option_value, autoload)
 								SELECT %s,
-									GROUP_CONCAT(id SEPARATOR ','),
+									IFNULL(GROUP_CONCAT(DISTINCT p.id SEPARATOR ','), ''),
 									%s
-								FROM {$wpdb->prefix}posts
-								WHERE post_type = %s
-									AND post_status = %s",
+								FROM {$wpdb->prefix}posts AS p
+									JOIN {$wpdb->prefix}postmeta AS pm
+										ON(pm.post_id = p.ID
+											AND p.post_type = %s
+											AND p.post_status = %s
+											AND pm.meta_key = %s
+											AND pm.meta_value LIKE %s)",
 							$option_nm,
 							'no',
 							'shop_coupon',
-							'publish'
-						)
-					);
-
-					$wpdb->query( // phpcs:ignore
-						$wpdb->prepare(
-							"UPDATE {$wpdb->prefix}options
-								SET option_value = (SELECT GROUP_CONCAT(post_id SEPARATOR ',')
-													FROM {$wpdb->prefix}postmeta
-													WHERE meta_key = %s
-														AND CAST(meta_value AS CHAR) LIKE %s
-														AND FIND_IN_SET(post_id, (SELECT option_value FROM (SELECT option_value FROM {$wpdb->prefix}options WHERE option_name = %s) as temp )) > 0 )
-								WHERE option_name = %s",
+							'publish',
 							'customer_email',
-							'%' . $wpdb->esc_like( $current_user->user_email ) . '%',
-							$option_nm,
-							$option_nm
+							'%' . $wpdb->esc_like( $current_user->user_email ) . '%'
 						)
 					);
 
-					$wpdb->query( // phpcs:ignore
-						$wpdb->prepare(
-							"UPDATE {$wpdb->prefix}options
-								SET option_value = (SELECT GROUP_CONCAT(post_id SEPARATOR ',')
-													FROM {$wpdb->prefix}postmeta
-													WHERE meta_key = %s
-														AND CAST(meta_value AS SIGNED) >= '0'
-														AND FIND_IN_SET(post_id, (SELECT option_value FROM (SELECT option_value FROM {$wpdb->prefix}options WHERE option_name = %s) as temp )) > 0 )
-								WHERE option_name = %s",
-							'coupon_amount',
-							$option_nm,
-							$option_nm
-						)
-					);
+					$customer_coupon_ids = get_option( $option_nm );
 
+					// Only execute rest of the queries if coupons found.
+					if ( ! empty( $customer_coupon_ids ) ) {
+						$wpdb->query( // phpcs:ignore
+							$wpdb->prepare(
+								"UPDATE {$wpdb->prefix}options
+									SET option_value = (SELECT IFNULL(GROUP_CONCAT(post_id SEPARATOR ','), '')
+														FROM {$wpdb->prefix}postmeta
+														WHERE meta_key = %s
+															AND CAST(meta_value AS SIGNED) >= '0'
+															AND FIND_IN_SET(post_id, (SELECT option_value FROM (SELECT option_value FROM {$wpdb->prefix}options WHERE option_name = %s) as temp )) > 0 )
+									WHERE option_name = %s",
+								'coupon_amount',
+								$option_nm,
+								$option_nm
+							)
+						);
+					}
 					$coupons = wp_cache_get( 'wc_sc_all_coupon_id_for_user_' . $current_user->ID, 'woocommerce_smart_coupons' );
 
 					if ( false === $coupons ) {

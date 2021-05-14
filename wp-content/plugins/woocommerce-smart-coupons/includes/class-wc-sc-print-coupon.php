@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.7.0
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -198,7 +198,7 @@ if ( ! class_exists( 'WC_SC_Print_Coupon' ) ) {
 
 			if ( ! empty( $terms_page_id ) && is_numeric( $terms_page_id ) ) {
 				$terms_page_option = $this->get_terms_page_option();
-				update_option( $terms_page_option, $terms_page_id );
+				update_option( $terms_page_option, $terms_page_id, 'no' );
 			}
 		}
 
@@ -298,7 +298,7 @@ if ( ! class_exists( 'WC_SC_Print_Coupon' ) ) {
 				'success' => 'no',
 			);
 
-			$option_updated = update_option( 'wc_sc_is_show_terms_notice', 'no' );
+			$option_updated = update_option( 'wc_sc_is_show_terms_notice', 'no', 'no' );
 			if ( true === $option_updated ) {
 				$response['success'] = 'yes';
 				if ( 'redirect' === $post_do ) {

@@ -11,7 +11,7 @@ class WC_Dropshipping_Checkout {
 	public function init() {
     add_filter( 'woocommerce_checkout_fields' , array( $this, 'add_custom_checkout_fields' ) );
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_custom_checkout_fields' ) );
-		add_action( 'woocommerce_admin_order_data_after_shipping_address', array($this, 'show_custom_checkout_order_page' ) );
+		add_action( 'woocommerce_admin_order_data_after_shipping_address', array( $this, 'show_custom_checkout_order_page' ) );
     add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_checkout_style' ) );
 		add_filter( 'manage_edit-shop_order_columns', array( $this, 'show_order_number_header' ) );
 		add_filter( 'manage_edit-shop_order_columns', array( $this, 'show_order_tracking_header' ) );
@@ -20,8 +20,9 @@ class WC_Dropshipping_Checkout {
 		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'show_order_number_content' ) );
 		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'show_order_tracking_content' ) );
 		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'show_pod_content' ) );
-		add_action( 'woocommerce_email_after_order_table', array( $this, 'wc_email_after_order_table' ), 10, 4  );
-		add_action( 'woocommerce_order_details_after_order_table', array( $this, 'wc_view_order_number' ) );
+		add_filter( 'woocommerce_checkout_update_order_meta', array( $this, 'add_cost_of_goods_on_orders' ), 10, 2 );
+		add_filter( 'woocommerce_new_order', array( $this, 'manual_add_cost_of_goods_on_orders' ), 10, 2 );
+		add_action( 'woocommerce_order_item_meta_start', array( $this, 'wc_email_after_order_table' ), 10, 4  );
 	}
 
   public function add_custom_checkout_fields( $fields ) {
@@ -42,7 +43,7 @@ class WC_Dropshipping_Checkout {
 		}
 	}
 
-	public function show_custom_checkout_order_page($order){
+	public function show_custom_checkout_order_page( $order ) {
 		if ( array_key_exists( 'checkout_order_number', $this->order_options ) ) {
 			if ( $this->order_options['checkout_order_number'] == 1 ){
 				?> <h3>Order Number</h3> <?php
@@ -158,15 +159,6 @@ class WC_Dropshipping_Checkout {
       }
 	  }
 
-	public function wc_email_after_order_table( $order, $sent_to_admin, $plain_text, $email  ) {
-		if ( $this->order_options['checkout_order_number'] == 1 ){
-			$order_number = get_post_meta( $order->get_id(), '_wc_dropshipping_order_number', true );
-			if ( $order_number !== '' ) {
-				echo 'Order number: '.$order_number;
-			}
-		}
-	}
-
 	public function wc_view_order_number( $order_id  ) {
 		if ( $this->order_options['checkout_order_number'] == 1 ){
 			$order_number = get_post_meta( $order_id->get_id(), '_wc_dropshipping_order_number', true );
@@ -175,4 +167,52 @@ class WC_Dropshipping_Checkout {
 			}
 		}
 	}
+
+	public function wc_email_after_order_table( $item_id, $item, $order, $plain_text  ) {
+		if ( $this->order_options['checkout_order_number'] == 1 ){
+			$order_number = get_post_meta( $order->get_id(), '_wc_dropshipping_order_number', true );
+			if ( $order_number !== '' ) {
+				echo '<p style="margin-top:20px;"><b>Order number: </b>' . $order_number . '</p>';
+			}
+		}
+	}
+
+	public function add_cost_of_goods_on_orders( $order_id, $data ) {
+		$order = new WC_Order( $order_id );
+    $items = $order->get_items();
+		$cod_total = 0;
+
+    foreach ( $items as $item ) {
+			$product_id = $item->get_product_id();
+			$product_quantity = $item->get_quantity();
+			$cost_of_goods = get_post_meta( $product_id, '_cost_of_goods', true );
+			if ( isset( $cost_of_goods ) && is_numeric( $cost_of_goods ) ) {
+				$cod_total = $cod_total + ( $cost_of_goods * $product_quantity );
+			}
+    }
+
+		if ( !empty( $cod_total ) ) {
+			update_post_meta( $order_id, 'cost_of_goods_total', $cod_total );
+		}
+	}
+
+	public function manual_add_cost_of_goods_on_orders( $order_id ) {
+		$order = new WC_Order( $order_id );
+    $items = $order->get_items();
+		$cod_total = 0;
+
+    foreach ( $items as $item ) {
+			$product_id = $item->get_product_id();
+			$product_quantity = $item->get_quantity();
+			$cost_of_goods = get_post_meta( $product_id, '_cost_of_goods', true );
+			if ( isset( $cost_of_goods ) && is_numeric( $cost_of_goods ) ) {
+				$cod_total = $cod_total + ( $cost_of_goods * $product_quantity );
+			}
+    }
+
+		if ( !empty( $cod_total ) ) {
+			update_post_meta( $order_id, 'cost_of_goods_total', $cod_total );
+		}
+	}
+
 }

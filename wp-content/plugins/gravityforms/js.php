@@ -605,7 +605,6 @@ if ( ! class_exists( 'GFForms' ) ) {
 
 		var inputType = GetInputType(field);
 		switch (inputType) {
-
 			case "post_category" :
 				field.label = <?php echo json_encode( esc_html__( 'Post Category', 'gravityforms' ) ); ?>;
 				field.inputs = null;

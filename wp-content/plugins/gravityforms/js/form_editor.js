@@ -148,6 +148,41 @@ jQuery( document ).ready( function() {
 
 		document.cookie='gformHideReadyClassMessage=' + cookieValue + '; expires=' + date.toGMTString();
 	} );
+
+	// Loop keypresses in the field settings area through them, or focus back on the active fields
+	// settings trigger if esc is used.
+
+	jQuery( '.panel-block.field_settings' ).on( 'keydown', function( e ) {
+		// esc key, refocus the settings trigger in the editor preview for the active field
+		if ( e.keyCode === 27 ) {
+			jQuery( '.gfield.field_selected .gfield-edit').focus();
+			console.log( 'hi' );
+			return;
+		}
+		// not tab key, exit
+		if ( e.keyCode !== 9 ) {
+			return;
+		}
+		// get visible focusable items
+		var focusable = gform.tools.getFocusable( this );
+		// store first and last visible item
+		var firstFocusableEl = focusable[0];
+		var lastFocusableEl = focusable[ focusable.length - 1 ];
+
+		// shiftkey was involved, we're going backwards, focus last el if we are leaving first
+		if ( e.shiftKey ) /* shift + tab */ {
+			if (document.activeElement === firstFocusableEl) {
+				lastFocusableEl.focus();
+				e.preventDefault();
+			}
+		// regular tabbing direction, bring us back to first el at reaching end
+		} else /* tab */ {
+			if (document.activeElement === lastFocusableEl) {
+				firstFocusableEl.focus();
+				e.preventDefault();
+			}
+		}
+	} );
 } );
 
 function check_cookie( name ) {
@@ -1986,6 +2021,28 @@ function SortFields(){
 }
 
 /**
+ * Toggle settings and focus first element
+ *
+ * @param element
+ */
+function EditField( element ) {
+	event.stopPropagation();
+	// patch for safari when focus is returned here on esc key from settings
+	if ( event.keyCode === 27 ) {
+		return;
+	}
+
+	FieldClick( gform.tools.getClosest( element, '.gfield' ) );
+
+	var settingsPane = gform.tools.getNodes( '.sidebar__panel--settings', false, document, true )[0];
+	var focusableSettings = gform.tools.getFocusable( settingsPane );
+
+	if ( focusableSettings[0]) {
+		setTimeout( function() { focusableSettings[0].focus(); }, 50 );
+	}
+}
+
+/**
 * Mark a field for deletion upon save.
 *
 * @param element The field element being deleted.
@@ -3607,8 +3664,8 @@ function SetFieldLabel(label){
 function SetAriaLabel(label){
 	var fieldId   = jQuery( ".field_selected" )[0].id.split( '_' )[1];
 	var field     = GetFieldById( fieldId );
-	var ariaLabel = label + ' - ' + field.type + ', press return to edit this field\'s settings.';
-	jQuery( ".field_selected" ).attr( 'aria-label', ariaLabel );
+	var ariaLabel = window.gf_vars.fieldLabelAriaLabel.replace('{field_label}', label).replace('{field_type}', field.type);
+	jQuery( ".field_selected .gfield-edit" ).attr( 'aria-label', ariaLabel );
 }
 
 function SetCaptchaTheme(theme, thumbnailUrl){

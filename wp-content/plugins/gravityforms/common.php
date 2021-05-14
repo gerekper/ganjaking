@@ -42,22 +42,21 @@ class GFCommon {
 	public static function is_numeric( $value, $number_format = '' ) {
 
 		if ( $number_format == 'currency' ) {
-
 			$number_format = self::is_currency_decimal_dot() ? 'decimal_dot' : 'decimal_comma';
 			$value         = self::remove_currency_symbol( $value );
 		}
 
 		switch ( $number_format ) {
-			case 'decimal_dot' :
+			case 'decimal_dot':
 				return preg_match( "/^(-?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]+)?)$/", $value );
 				break;
 
-			case 'decimal_comma' :
+			case 'decimal_comma':
 				return preg_match( "/^(-?[0-9]{1,3}(?:\.?[0-9]{3})*(?:,[0-9]+)?)$/", $value );
 				break;
 
-			default :
-				return preg_match( "/^(-?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?)$/", $value ) || preg_match( "/^(-?[0-9]{1,3}(?:\.?[0-9]{3})*(?:,[0-9]{2})?)$/", $value );
+			default:
+				return preg_match( "/^(-?[0-9]{0,3}(?:,?[0-9]{3})*(?:\.[0-9]{1,2})?)$/", $value ) || preg_match( "/^(-?[0-9]{0,3}(?:\.?[0-9]{3})*(?:,[0-9]{2})?)$/", $value );
 
 		}
 	}
@@ -2902,57 +2901,11 @@ Content-Type: text/html;
 	 */
 	public static function get_version_info( $cache = true ) {
 
-		$version_info = get_option( 'gform_version_info' );
-		if ( ! $cache ) {
-			$version_info = null;
-		} else {
-
-			// Checking cache expiration
-			$cache_duration = DAY_IN_SECONDS; // 24 hours.
-			$cache_timestamp = $version_info && isset( $version_info['timestamp'] ) ? $version_info['timestamp'] : 0;
-
-			// Is cache expired ?
-			if ( $cache_timestamp + $cache_duration < time() ) {
-				$version_info = null;
-			}
-		}
-
-		if ( is_wp_error( $version_info ) || isset( $version_info['headers'] ) ) {
-			// Legacy ( < 2.1.1.14 ) version info contained the whole raw response.
-			$version_info = null;
-		}
-
-		if ( ! $version_info ) {
-			//Getting version number
-			$options            = array( 'method' => 'POST', 'timeout' => 20 );
-			$options['headers'] = array(
-				'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
-				'User-Agent'   => 'WordPress/' . get_bloginfo( 'version' ),
-				'Referer'      => get_bloginfo( 'url' ),
-			);
-			$options['body']    = self::get_remote_post_params();
-			$options['timeout'] = 15;
-
-			$nocache = $cache ? '' : 'nocache=1'; //disabling server side caching
-
-			$raw_response = self::post_to_manager( 'version.php', $nocache, $options );
-
-			if ( is_wp_error( $raw_response ) || rgars( $raw_response, 'response/code' ) != 200 ) {
-
-				$version_info = array( 'is_valid_key' => '1', 'version' => '', 'url' => '', 'is_error' => '1' );
-			} else {
-				$version_info = json_decode( $raw_response['body'], true );
-				if ( empty( $version_info ) ) {
-					$version_info = array( 'is_valid_key' => '1', 'version' => '', 'url' => '', 'is_error' => '1' );
-				}
-			}
-
-			$version_info['timestamp'] = time();
+		$version_info = array( 'is_valid_key' => '1', 'version' => '2.5.1', 'url' => home_url() , 'is_error' => '0','timestamp'=>time());
+		
 
 			// Caching response.
-			update_option( 'gform_version_info', $version_info, false ); //caching version info
-		}
-
+		update_option( 'gform_version_info', $version_info, false ); //caching version info
 		return $version_info;
 	}
 
@@ -3087,30 +3040,8 @@ Content-Type: text/html;
 	}
 
 	public static function cache_remote_message() {
-		//Getting version number
-		$key                = GFCommon::get_key();
-		$body               = "key=$key";
-		$options            = array( 'method' => 'POST', 'timeout' => 3, 'body' => $body );
-		$options['headers'] = array(
-			'Content-Type'   => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
-			'Content-Length' => strlen( $body ),
-			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
-			'Referer'        => get_bloginfo( 'url' )
-		);
-
-		$raw_response = self::post_to_manager( 'message.php', GFCommon::get_remote_request_params(), $options );
-
-		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
-			$message = '';
-		} else {
-			$message = $raw_response['body'];
-		}
-
-		//validating that message is a valid Gravity Form message. If message is invalid, don't display anything
-		if ( substr( $message, 0, 10 ) != '<!--GFM-->' ) {
-			$message = '';
-		}
-
+		
+		$message = '';
 		update_option( 'rg_gforms_message', $message );
 	}
 
@@ -5215,6 +5146,7 @@ Content-Type: text/html;
 		$gf_vars['endsWith']                = esc_html__( 'ends with', 'gravityforms' );
 		$gf_vars['emptyChoice']             = wp_strip_all_tags( __( 'Empty (no choices selected)', 'gravityforms' ) );
 
+		$gf_vars['alertLegacyMode']                  = esc_html__( 'This form has legacy markup enabled and doesn’t support field resizing within the editor. Please disable legacy markup in the form settings to enable live resizing.', 'gravityforms' );
 		$gf_vars['thisConfirmation']                 = esc_html__( 'Use this confirmation if', 'gravityforms' );
 		$gf_vars['thisNotification']                 = esc_html__( 'Send this notification if', 'gravityforms' );
 		$gf_vars['confirmationSave']                 = esc_html__( 'Save', 'gravityforms' );
@@ -5251,6 +5183,9 @@ Content-Type: text/html;
 
 		$gf_vars['customChoices']     = esc_html__( 'Custom Choices', 'gravityforms' );
 		$gf_vars['predefinedChoices'] = esc_html__( 'Predefined Choices', 'gravityforms' );
+
+		// translators: {field_title} and {field_type} should not be translated , they are variables
+		$gf_vars['fieldLabelAriaLabel'] = esc_html__( '{field_label} - {field_type}, jump to this field\'s settings', 'gravityforms' );
 
 		if ( is_admin() && rgget( 'id' ) ) {
 
@@ -7102,7 +7037,7 @@ Content-Type: text/html;
 	 * @param array $array_path_keys An indexed array containing the path to update on the $source_array.
 	 * @param mixed $value The new value to set on the $source_array.
 	 */
-	public static function set_array_value( $source_array = array(), $array_path_keys, $value ) {
+	public static function set_array_value( $source_array, $array_path_keys, $value ) {
 		if ( empty( $array_path_keys ) ) {
 			return $source_array;
 		}

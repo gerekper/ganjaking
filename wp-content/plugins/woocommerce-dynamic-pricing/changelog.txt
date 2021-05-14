@@ -1,4 +1,7 @@
 *** Dynamic Pricing Changelog ***
+2021.05.05 - version 3.1.26
+    * Fix:  Fix the sorting function to sort in the right direction.  Resolves issues with variations being discounted incorrectly.
+
 2021.04.30 - version 3.1.25
     * Fix:  Update sorting functions for PHP 8.
     * Fix:  Update the way the jquery-sortable-ui is included.

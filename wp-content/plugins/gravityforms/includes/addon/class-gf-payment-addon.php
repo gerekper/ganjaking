@@ -2590,9 +2590,9 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 					'label'    => esc_html__( 'Enabled', 'gravityforms' ),
 					'name'     => $field['name'] . '_enabled',
 					'value'    => '1',
-					'onchange' => "if(jQuery(this).prop('checked')){jQuery('#{$field['name']}_product').show(); jQuery('#gaddon-setting-row-trial').hide();} else {jQuery('#{$field['name']}_product').hide(); jQuery('#gaddon-setting-row-trial').show();}",
+					'onchange' => "if(jQuery(this).prop('checked')){jQuery('#{$field['name']}_product').prop('disabled', false); jQuery('#gaddon-setting-row-trial').hide();} else {jQuery('#{$field['name']}_product').prop('disabled', true); jQuery('#gaddon-setting-row-trial').show();}",
 				),
-			)
+			),
 		);
 
 		$html = $this->settings_checkbox( $enabled_field, false );
@@ -2602,10 +2602,10 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 		$is_enabled = $this->get_setting( "{$field['name']}_enabled" );
 
 		$product_field = array(
-			'name'    => $field['name'] . '_product',
-			'type'    => 'select',
-			'class'   => $is_enabled ? '' : 'hidden',
-			'choices' => $this->get_payment_choices( $form )
+			'name'     => $field['name'] . '_product',
+			'type'     => 'select',
+			'disabled' => $is_enabled ? '' : 'disabled',
+			'choices'  => $this->get_payment_choices( $form ),
 		);
 
 		$html .= '&nbsp' . $this->settings_select( $product_field, false );

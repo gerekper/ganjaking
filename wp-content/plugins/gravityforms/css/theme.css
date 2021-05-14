@@ -1069,6 +1069,18 @@ html[dir=rtl] .gform_wrapper.gravity-theme .gf_progressbar_percentage:not(.perce
 		display: inline-block;
 	}
 
+.gform_wrapper.gravity-theme .ginput_product_price_wrapper input:-moz-read-only {
+			background: none;
+			border: none;
+			padding: 0;
+		}
+
+.gform_wrapper.gravity-theme .ginput_product_price_wrapper input:read-only {
+			background: none;
+			border: none;
+			padding: 0;
+		}
+
 .gform_wrapper.gravity-theme .ginput_product_price, .gform_wrapper.gravity-theme .ginput_shipping_price {
 		color: #900;
 	}

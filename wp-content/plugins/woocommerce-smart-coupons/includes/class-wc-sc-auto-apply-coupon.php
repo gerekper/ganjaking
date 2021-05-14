@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.6.0
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -174,7 +174,7 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 					$auto_apply_coupon_ids = array_diff( $auto_apply_coupon_ids, array( $post_id ) );
 				}
 			}
-			update_option( 'wc_sc_auto_apply_coupon_ids', $auto_apply_coupon_ids );
+			update_option( 'wc_sc_auto_apply_coupon_ids', $auto_apply_coupon_ids, 'no' );
 		}
 
 		/**
@@ -234,7 +234,7 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 					$coupon_id             = ( isset( $args['post']['post_id'] ) ) ? absint( $args['post']['post_id'] ) : 0;
 					if ( ! empty( $coupon_id ) && ! in_array( $coupon_id, $auto_apply_coupon_ids, true ) ) {
 						$auto_apply_coupon_ids[] = $coupon_id;
-						update_option( 'wc_sc_auto_apply_coupon_ids', $auto_apply_coupon_ids );
+						update_option( 'wc_sc_auto_apply_coupon_ids', $auto_apply_coupon_ids, 'no' );
 					}
 				}
 			}

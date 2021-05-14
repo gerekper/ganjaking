@@ -1,5 +1,10 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2021-05-11 - version 3.0
+* PLUGINS-964 - Integrate dashboard to Dropshipping code
+* PLUGINS-1008 - Supplier can't be change/unlink to a product
+* PLUGINS-1058 - Fix display of supplier inconsistencies in order page
+
 2021-04-21 - version 2.14
 * PLUGINS-965 - Add custom order number to merchant order notification email
 * PLUGINS-971 - Make footer comment area background color independent

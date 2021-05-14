@@ -1,7 +1,25 @@
-### 2.5.0.1
+### 2.5.1 | 2021-05-11
+- Added accessibility enhancements to the form editor to improve keyboard navigation.
+- Updated the form editor to notify users that resizing is not available when the legacy markup form setting is enabled.
+- Updated form editor to not allow resizing of fields when the legacy markup form setting is enabled.
+- Fixed an accessibility issue with the multi-file upload field.
+- Fixed an issue where the form description field doesn't allow HTML tags.
+- Fixed an issue where save and continue button is triggered when pressing return/enter.
+- Fixed a PHP notice that appears for the From Email for form notifications under certain circumstances.
+- Fixed a padding issue for suppressed WP notices in the admin area at smaller viewport sizes and refined notification vertical spacing.
+- Fixed an issue that causes single line text inputs added to a legacy mode editor instance to have size medium applied.
+- Fixed an issue that can cause dragging or resizing in the form editor to break the layout and/or delete the field.
+- Fixed issue when using a custom tab index and the post image field with all meta fields enabled where the alt text and post image shared the same tabindex. Credit: Jake Jackson (@jakejackson1).
+- Fixed an issue that causes radio and select fields to show invalid Conditional Logic options.
+- Fixed form editor layout issues present with Jetpack plugin on wordpress.com sites.
+- Fixed an issue which prevents certain add-ons from displaying Plugin Settings fields.
+- Fixed an issue which prevents non-admin users from accessing Form Settings when no add-ons are enabled.
 - Fixed an issue that causes certain fields to not trigger the settings tab to open in the form editor.
 - Fixed an issue that causes the page break end settings to not be visible in the form editor.
-
+- API: Fixed an issue with GFCommon::is_numeric() to allow non-currency based numbers without a leading zero. Credit: The GravityView Team.
+- API: Fixed an issue which causes programmatically-created forms to break in the form editor.
+- AF: Updated the setup fee settings in the payment add-on framework so that the product field is disabled instead of hidden if setup fee isn't checked.
+- AF: Fixed PHP notices that appear when editing a feed that has no associated form.
 
 ### 2.5 | 2021-04-27
 - Added security enhancements.

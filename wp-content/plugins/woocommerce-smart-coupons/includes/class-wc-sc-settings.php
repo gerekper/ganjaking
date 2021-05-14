@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.7.0
+ * @version     1.8.0
  * @package     woocommerce-smart-coupons/includes/
  */
 
@@ -782,13 +782,13 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 			$email_settings = get_option( 'woocommerce_wc_sc_email_coupon_settings', array() );
 			if ( is_array( $email_settings ) ) {
 				$email_settings['enabled'] = $is_send_email;
-				update_option( 'woocommerce_wc_sc_email_coupon_settings', $email_settings );
+				update_option( 'woocommerce_wc_sc_email_coupon_settings', $email_settings, 'no' );
 			}
 
 			$combine_email_settings = get_option( 'woocommerce_wc_sc_combined_email_coupon_settings', array() );
 			if ( is_array( $combine_email_settings ) ) {
 				$combine_email_settings['enabled'] = $combine_emails;
-				update_option( 'woocommerce_wc_sc_combined_email_coupon_settings', $combine_email_settings );
+				update_option( 'woocommerce_wc_sc_combined_email_coupon_settings', $combine_email_settings, 'no' );
 			}
 
 			$predefined_colors = array(

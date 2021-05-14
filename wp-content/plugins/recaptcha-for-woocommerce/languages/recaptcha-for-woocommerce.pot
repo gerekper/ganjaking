@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: reCaptcha for WooCommerce 2.15\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/recaptcha-for-"
 "woocommerce\n"
-"POT-Creation-Date: 2021-04-12 16:12:27+00:00\n"
+"POT-Creation-Date: 2021-05-08 05:21:49+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,173 +17,11 @@ msgstr ""
 msgid "reCaptcha"
 msgstr ""
 
-#: includes/Settings.php:65
-msgid "Note :- "
-msgstr ""
-
-#: includes/Settings.php:98 includes/Settings.php:1321
-msgid ""
-"Recaptcha V3 does not show any challenge like I am not robot etc. ReCaptcha "
-"V3 uses a behind-the-scenes scoring system to detect abusive traffic, and "
-"lets you decide the minimum passing score. Please note that there is no user "
-"interaction shown in reRecapcha V3 meaning that no recaptcha challenge is "
-"shown to solve."
-msgstr ""
-
-#: includes/Settings.php:163
-msgid "General Settings"
-msgstr ""
-
-#: includes/Settings.php:164
-msgid "Woo Registration Captcha"
-msgstr ""
-
-#: includes/Settings.php:165
-msgid "Woo Login Captcha"
-msgstr ""
-
-#: includes/Settings.php:166
-msgid "Woo Lost Password Captcha"
-msgstr ""
-
-#: includes/Settings.php:167
-msgid "Woo Checkout Captcha"
-msgstr ""
-
-#: includes/Settings.php:168
-msgid "Woo Add Payment Method Captcha"
-msgstr ""
-
-#: includes/Settings.php:169
-msgid "Woo Product Review Form Captcha"
-msgstr ""
-
-#: includes/Settings.php:170
-msgid "Woo Post Comment Form Captcha"
-msgstr ""
-
-#: includes/Settings.php:171
-msgid "WP Login Captcha"
-msgstr ""
-
-#: includes/Settings.php:172
-msgid "WP Registration Captcha"
-msgstr ""
-
-#: includes/Settings.php:173
-msgid "WP Lost Password Captcha"
-msgstr ""
-
-#: includes/Settings.php:195 includes/Settings.php:249
-msgid "Recaptcha On Registration Page"
-msgstr ""
-
-#: includes/Settings.php:201 includes/Settings.php:255
-msgid "Enable Recaptcha on Signup"
-msgstr ""
-
-#: includes/Settings.php:206 includes/Settings.php:308
-#: includes/Settings.php:419 includes/Settings.php:529
-#: includes/Settings.php:698 includes/Settings.php:799
-#: includes/Settings.php:901 includes/Settings.php:1003
-#: includes/Settings.php:1105 includes/Settings.php:1208
-msgid "Recaptcha Field Title"
-msgstr ""
-
-#: includes/Settings.php:212 includes/Settings.php:314
-#: includes/Settings.php:425 includes/Settings.php:535
-#: includes/Settings.php:704 includes/Settings.php:805
-#: includes/Settings.php:907 includes/Settings.php:1009
-#: includes/Settings.php:1111 includes/Settings.php:1214
-msgid "Hide Label"
-msgstr ""
-
-#: includes/Settings.php:216 includes/Settings.php:318
-#: includes/Settings.php:429 includes/Settings.php:539
-#: includes/Settings.php:708 includes/Settings.php:809
-#: includes/Settings.php:911 includes/Settings.php:1013
-#: includes/Settings.php:1115 includes/Settings.php:1218
-msgid "Hide label on form?"
-msgstr ""
-
-#: includes/Settings.php:219 includes/Settings.php:321
-#: includes/Settings.php:432 includes/Settings.php:548
-#: includes/Settings.php:711 includes/Settings.php:812
-#: includes/Settings.php:914 includes/Settings.php:1016
-#: includes/Settings.php:1118 includes/Settings.php:1221
-msgid "Recaptcha Theme"
-msgstr ""
-
-#: includes/Settings.php:222 includes/Settings.php:324
-#: includes/Settings.php:435 includes/Settings.php:551
-#: includes/Settings.php:714 includes/Settings.php:815
-#: includes/Settings.php:917 includes/Settings.php:1019
-#: includes/Settings.php:1121 includes/Settings.php:1224
-msgid "Light"
-msgstr ""
-
-#: includes/Settings.php:222 includes/Settings.php:324
-#: includes/Settings.php:435 includes/Settings.php:551
-#: includes/Settings.php:714 includes/Settings.php:815
-#: includes/Settings.php:917 includes/Settings.php:1019
-#: includes/Settings.php:1121 includes/Settings.php:1224
-msgid "Dark"
-msgstr ""
-
-#: includes/Settings.php:226 includes/Settings.php:328
-#: includes/Settings.php:439 includes/Settings.php:555
-#: includes/Settings.php:718 includes/Settings.php:819
-#: includes/Settings.php:921 includes/Settings.php:1023
-#: includes/Settings.php:1125 includes/Settings.php:1228
-msgid "Recaptcha Size"
-msgstr ""
-
-#: includes/Settings.php:229 includes/Settings.php:331
-#: includes/Settings.php:442 includes/Settings.php:558
-#: includes/Settings.php:721 includes/Settings.php:822
-#: includes/Settings.php:924 includes/Settings.php:1026
-#: includes/Settings.php:1128 includes/Settings.php:1231
-msgid "Normal"
-msgstr ""
-
-#: includes/Settings.php:229 includes/Settings.php:331
-#: includes/Settings.php:442 includes/Settings.php:558
-#: includes/Settings.php:721 includes/Settings.php:822
-#: includes/Settings.php:924 includes/Settings.php:1026
-#: includes/Settings.php:1128 includes/Settings.php:1231
-msgid "Compact"
-msgstr ""
-
-#: includes/Settings.php:233 includes/Settings.php:335
-#: includes/Settings.php:446 includes/Settings.php:568
-#: includes/Settings.php:574 includes/Settings.php:580
-#: includes/Settings.php:725 includes/Settings.php:826
-#: includes/Settings.php:928 includes/Settings.php:1030
-#: includes/Settings.php:1132 includes/Settings.php:1235
-msgid "Disable submit button"
-msgstr ""
-
-#: includes/Settings.php:234 includes/Settings.php:336
-#: includes/Settings.php:447 includes/Settings.php:726
-#: includes/Settings.php:827 includes/Settings.php:929
-#: includes/Settings.php:1031 includes/Settings.php:1133
-#: includes/Settings.php:1236
-msgid "Disable submit button until recaptcha validate."
-msgstr ""
-
-#: includes/Settings.php:260 includes/Settings.php:367
-#: includes/Settings.php:472 includes/Settings.php:645
-#: includes/Settings.php:753 includes/Settings.php:853
-#: includes/Settings.php:955 includes/Settings.php:1057
-#: includes/Settings.php:1159 includes/Settings.php:1263
-msgid "Recaptcha score threshold"
-msgstr ""
-
-#: includes/Settings.php:264 includes/Settings.php:371
-#: includes/Settings.php:476 includes/Settings.php:649
-#: includes/Settings.php:757 includes/Settings.php:857
-#: includes/Settings.php:960 includes/Settings.php:1061
-#: includes/Settings.php:1163 includes/Settings.php:1267
+#: includes/Settings.php:53 includes/Settings.php:266 includes/Settings.php:373
+#: includes/Settings.php:478 includes/Settings.php:651
+#: includes/Settings.php:759 includes/Settings.php:859
+#: includes/Settings.php:962 includes/Settings.php:1063
+#: includes/Settings.php:1165 includes/Settings.php:1269
 msgid ""
 "Instead of showing a CAPTCHA challenge, reCAPTCHA v3 returns a score so you "
 "can choose the most appropriate action for your website. The score is based "
@@ -193,94 +31,256 @@ msgid ""
 "indicating a good likelihood that the traffic was generated by bots"
 msgstr ""
 
-#: includes/Settings.php:267 includes/Settings.php:374
-#: includes/Settings.php:479 includes/Settings.php:652
-#: includes/Settings.php:760 includes/Settings.php:860
-#: includes/Settings.php:963 includes/Settings.php:1064
-#: includes/Settings.php:1166 includes/Settings.php:1270
+#: includes/Settings.php:67
+msgid "Note :- "
+msgstr ""
+
+#: includes/Settings.php:100 includes/Settings.php:1323
+msgid ""
+"Recaptcha V3 does not show any challenge like I am not robot etc. ReCaptcha "
+"V3 uses a behind-the-scenes scoring system to detect abusive traffic, and "
+"lets you decide the minimum passing score. Please note that there is no user "
+"interaction shown in reRecapcha V3 meaning that no recaptcha challenge is "
+"shown to solve."
+msgstr ""
+
+#: includes/Settings.php:165
+msgid "General Settings"
+msgstr ""
+
+#: includes/Settings.php:166
+msgid "Woo Registration Captcha"
+msgstr ""
+
+#: includes/Settings.php:167
+msgid "Woo Login Captcha"
+msgstr ""
+
+#: includes/Settings.php:168
+msgid "Woo Lost Password Captcha"
+msgstr ""
+
+#: includes/Settings.php:169
+msgid "Woo Checkout Captcha"
+msgstr ""
+
+#: includes/Settings.php:170
+msgid "Woo Add Payment Method Captcha"
+msgstr ""
+
+#: includes/Settings.php:171
+msgid "Woo Product Review Form Captcha"
+msgstr ""
+
+#: includes/Settings.php:172
+msgid "Woo Post Comment Form Captcha"
+msgstr ""
+
+#: includes/Settings.php:173
+msgid "WP Login Captcha"
+msgstr ""
+
+#: includes/Settings.php:174
+msgid "WP Registration Captcha"
+msgstr ""
+
+#: includes/Settings.php:175
+msgid "WP Lost Password Captcha"
+msgstr ""
+
+#: includes/Settings.php:197 includes/Settings.php:251
+msgid "Recaptcha On Registration Page"
+msgstr ""
+
+#: includes/Settings.php:203 includes/Settings.php:257
+msgid "Enable Recaptcha on Signup"
+msgstr ""
+
+#: includes/Settings.php:208 includes/Settings.php:310
+#: includes/Settings.php:421 includes/Settings.php:531
+#: includes/Settings.php:700 includes/Settings.php:801
+#: includes/Settings.php:903 includes/Settings.php:1005
+#: includes/Settings.php:1107 includes/Settings.php:1210
+msgid "Recaptcha Field Title"
+msgstr ""
+
+#: includes/Settings.php:214 includes/Settings.php:316
+#: includes/Settings.php:427 includes/Settings.php:537
+#: includes/Settings.php:706 includes/Settings.php:807
+#: includes/Settings.php:909 includes/Settings.php:1011
+#: includes/Settings.php:1113 includes/Settings.php:1216
+msgid "Hide Label"
+msgstr ""
+
+#: includes/Settings.php:218 includes/Settings.php:320
+#: includes/Settings.php:431 includes/Settings.php:541
+#: includes/Settings.php:710 includes/Settings.php:811
+#: includes/Settings.php:913 includes/Settings.php:1015
+#: includes/Settings.php:1117 includes/Settings.php:1220
+msgid "Hide label on form?"
+msgstr ""
+
+#: includes/Settings.php:221 includes/Settings.php:323
+#: includes/Settings.php:434 includes/Settings.php:550
+#: includes/Settings.php:713 includes/Settings.php:814
+#: includes/Settings.php:916 includes/Settings.php:1018
+#: includes/Settings.php:1120 includes/Settings.php:1223
+msgid "Recaptcha Theme"
+msgstr ""
+
+#: includes/Settings.php:224 includes/Settings.php:326
+#: includes/Settings.php:437 includes/Settings.php:553
+#: includes/Settings.php:716 includes/Settings.php:817
+#: includes/Settings.php:919 includes/Settings.php:1021
+#: includes/Settings.php:1123 includes/Settings.php:1226
+msgid "Light"
+msgstr ""
+
+#: includes/Settings.php:224 includes/Settings.php:326
+#: includes/Settings.php:437 includes/Settings.php:553
+#: includes/Settings.php:716 includes/Settings.php:817
+#: includes/Settings.php:919 includes/Settings.php:1021
+#: includes/Settings.php:1123 includes/Settings.php:1226
+msgid "Dark"
+msgstr ""
+
+#: includes/Settings.php:228 includes/Settings.php:330
+#: includes/Settings.php:441 includes/Settings.php:557
+#: includes/Settings.php:720 includes/Settings.php:821
+#: includes/Settings.php:923 includes/Settings.php:1025
+#: includes/Settings.php:1127 includes/Settings.php:1230
+msgid "Recaptcha Size"
+msgstr ""
+
+#: includes/Settings.php:231 includes/Settings.php:333
+#: includes/Settings.php:444 includes/Settings.php:560
+#: includes/Settings.php:723 includes/Settings.php:824
+#: includes/Settings.php:926 includes/Settings.php:1028
+#: includes/Settings.php:1130 includes/Settings.php:1233
+msgid "Normal"
+msgstr ""
+
+#: includes/Settings.php:231 includes/Settings.php:333
+#: includes/Settings.php:444 includes/Settings.php:560
+#: includes/Settings.php:723 includes/Settings.php:824
+#: includes/Settings.php:926 includes/Settings.php:1028
+#: includes/Settings.php:1130 includes/Settings.php:1233
+msgid "Compact"
+msgstr ""
+
+#: includes/Settings.php:235 includes/Settings.php:337
+#: includes/Settings.php:448 includes/Settings.php:570
+#: includes/Settings.php:576 includes/Settings.php:582
+#: includes/Settings.php:727 includes/Settings.php:828
+#: includes/Settings.php:930 includes/Settings.php:1032
+#: includes/Settings.php:1134 includes/Settings.php:1237
+msgid "Disable submit button"
+msgstr ""
+
+#: includes/Settings.php:236 includes/Settings.php:338
+#: includes/Settings.php:449 includes/Settings.php:728
+#: includes/Settings.php:829 includes/Settings.php:931
+#: includes/Settings.php:1033 includes/Settings.php:1135
+#: includes/Settings.php:1238
+msgid "Disable submit button until recaptcha validate."
+msgstr ""
+
+#: includes/Settings.php:262 includes/Settings.php:369
+#: includes/Settings.php:474 includes/Settings.php:647
+#: includes/Settings.php:755 includes/Settings.php:855
+#: includes/Settings.php:957 includes/Settings.php:1059
+#: includes/Settings.php:1161 includes/Settings.php:1265
+msgid "Recaptcha score threshold"
+msgstr ""
+
+#: includes/Settings.php:269 includes/Settings.php:376
+#: includes/Settings.php:481 includes/Settings.php:654
+#: includes/Settings.php:762 includes/Settings.php:862
+#: includes/Settings.php:965 includes/Settings.php:1066
+#: includes/Settings.php:1168 includes/Settings.php:1272
 msgid "Recaptcha Action Name"
 msgstr ""
 
-#: includes/Settings.php:271 includes/Settings.php:378
-#: includes/Settings.php:483 includes/Settings.php:656
-#: includes/Settings.php:764 includes/Settings.php:864
-#: includes/Settings.php:967 includes/Settings.php:1068
-#: includes/Settings.php:1170 includes/Settings.php:1274
+#: includes/Settings.php:273 includes/Settings.php:380
+#: includes/Settings.php:485 includes/Settings.php:658
+#: includes/Settings.php:766 includes/Settings.php:866
+#: includes/Settings.php:969 includes/Settings.php:1070
+#: includes/Settings.php:1172 includes/Settings.php:1276
 msgid ""
 "In reCAPTCHA v3, Google introducing a new concept called “Action” —a tag "
 "that you can use to define the key steps of your user journey and enable "
 "reCAPTCHA to run its risk analysis in context."
 msgstr ""
 
-#: includes/Settings.php:274 includes/Settings.php:387
-#: includes/Settings.php:486 includes/Settings.php:659
-#: includes/Settings.php:767 includes/Settings.php:867
-#: includes/Settings.php:970 includes/Settings.php:1071
-#: includes/Settings.php:1173 includes/Settings.php:1277
+#: includes/Settings.php:276 includes/Settings.php:389
+#: includes/Settings.php:488 includes/Settings.php:661
+#: includes/Settings.php:769 includes/Settings.php:869
+#: includes/Settings.php:972 includes/Settings.php:1073
+#: includes/Settings.php:1175 includes/Settings.php:1279
 msgid "Disable on the fly reCAPTCHA v3 token generation"
 msgstr ""
 
-#: includes/Settings.php:277 includes/Settings.php:390
-#: includes/Settings.php:489 includes/Settings.php:662
-#: includes/Settings.php:770 includes/Settings.php:870
-#: includes/Settings.php:973 includes/Settings.php:1074
-#: includes/Settings.php:1176 includes/Settings.php:1280
+#: includes/Settings.php:279 includes/Settings.php:392
+#: includes/Settings.php:491 includes/Settings.php:664
+#: includes/Settings.php:772 includes/Settings.php:872
+#: includes/Settings.php:975 includes/Settings.php:1076
+#: includes/Settings.php:1178 includes/Settings.php:1282
 msgid ""
 "Use only when there is problem with other plugin that use submit button. For "
 "example error like \"Google reCAPTCHA token is missing\" "
 msgstr ""
 
-#: includes/Settings.php:297 includes/Settings.php:356
+#: includes/Settings.php:299 includes/Settings.php:358
 msgid "Recaptcha On Login Page"
 msgstr ""
 
-#: includes/Settings.php:303 includes/Settings.php:362
+#: includes/Settings.php:305 includes/Settings.php:364
 msgid "Enable Recaptcha on Login"
 msgstr ""
 
-#: includes/Settings.php:341 includes/Settings.php:381
+#: includes/Settings.php:343 includes/Settings.php:383
 msgid "Have custom wp login form"
 msgstr ""
 
-#: includes/Settings.php:342 includes/Settings.php:382
+#: includes/Settings.php:344 includes/Settings.php:384
 msgid "Using custom login form with using wp_login_form"
 msgstr ""
 
-#: includes/Settings.php:408 includes/Settings.php:461
+#: includes/Settings.php:410 includes/Settings.php:463
 msgid "Recaptcha On Lost Password Page"
 msgstr ""
 
-#: includes/Settings.php:414 includes/Settings.php:467
+#: includes/Settings.php:416 includes/Settings.php:469
 msgid "Enable Recaptcha on Lost Password"
 msgstr ""
 
-#: includes/Settings.php:507 includes/Settings.php:616
+#: includes/Settings.php:509 includes/Settings.php:618
 msgid "Recaptcha on Checkout"
 msgstr ""
 
-#: includes/Settings.php:513 includes/Settings.php:622
+#: includes/Settings.php:515 includes/Settings.php:624
 msgid "Enable Recaptcha on Guest Checkout"
 msgstr ""
 
-#: includes/Settings.php:518 includes/Settings.php:627
+#: includes/Settings.php:520 includes/Settings.php:629
 msgid "Enable Recaptcha on Login Checkout"
 msgstr ""
 
-#: includes/Settings.php:523 includes/Settings.php:632
+#: includes/Settings.php:525 includes/Settings.php:634
 msgid "Enable Recaptcha on Pay For Order"
 msgstr ""
 
-#: includes/Settings.php:526 includes/Settings.php:635
+#: includes/Settings.php:528 includes/Settings.php:637
 msgid ""
 "WooCommerce allow failed order to pay again. In this case captcha must be "
 "needed to prevent fraud"
 msgstr ""
 
-#: includes/Settings.php:541 includes/Settings.php:638
+#: includes/Settings.php:543 includes/Settings.php:640
 msgid "Recaptcha Validity"
 msgstr ""
 
-#: includes/Settings.php:545 includes/Settings.php:642
+#: includes/Settings.php:547 includes/Settings.php:644
 msgid ""
 "Some payment processor needs more time to process an order. So captcha will "
 "valid for a given number of minutes once reCaptcha is validate. 0 means "
@@ -288,98 +288,98 @@ msgid ""
 "you leave blank."
 msgstr ""
 
-#: includes/Settings.php:562
+#: includes/Settings.php:564
 msgid "Recaptcha Refresh Title"
 msgstr ""
 
-#: includes/Settings.php:569
+#: includes/Settings.php:571
 msgid "Disable submit button until recaptcha validate for guest checkout."
 msgstr ""
 
-#: includes/Settings.php:575
+#: includes/Settings.php:577
 msgid "Disable submit button until recaptcha validate for login checkout."
 msgstr ""
 
-#: includes/Settings.php:581
+#: includes/Settings.php:583
 msgid "Disable submit button until recaptcha validate for pay for order."
 msgstr ""
 
-#: includes/Settings.php:586 includes/Settings.php:587
+#: includes/Settings.php:588 includes/Settings.php:589
 msgid "Refresh captcha on guest checkout error"
 msgstr ""
 
-#: includes/Settings.php:592 includes/Settings.php:593
+#: includes/Settings.php:594 includes/Settings.php:595
 msgid "Refresh captcha on login checkout error"
 msgstr ""
 
-#: includes/Settings.php:599 includes/Settings.php:666
+#: includes/Settings.php:601 includes/Settings.php:668
 msgid "Enable captcha for payment request buttons"
 msgstr ""
 
-#: includes/Settings.php:600 includes/Settings.php:667
+#: includes/Settings.php:602 includes/Settings.php:669
 msgid ""
 "If you have enabled payment request buttons for checkout directly from "
 "product or cart page you can enable captcha. For example Google Pay, Apple "
 "Pay available in stripe."
 msgstr ""
 
-#: includes/Settings.php:687 includes/Settings.php:742
+#: includes/Settings.php:689 includes/Settings.php:744
 msgid "Recaptcha On WP Login"
 msgstr ""
 
-#: includes/Settings.php:693 includes/Settings.php:748
+#: includes/Settings.php:695 includes/Settings.php:750
 msgid "Enable Recaptcha on WP Login"
 msgstr ""
 
-#: includes/Settings.php:788
+#: includes/Settings.php:790
 msgid "Recaptcha On Add Payment Method"
 msgstr ""
 
-#: includes/Settings.php:794 includes/Settings.php:848
+#: includes/Settings.php:796 includes/Settings.php:850
 msgid "Enable Recaptcha on Add Payment Method"
 msgstr ""
 
-#: includes/Settings.php:842
+#: includes/Settings.php:844
 msgid "Recaptcha On Add Payment Method Login"
 msgstr ""
 
-#: includes/Settings.php:890 includes/Settings.php:944
+#: includes/Settings.php:892 includes/Settings.php:946
 msgid "Recaptcha On WP Registration"
 msgstr ""
 
-#: includes/Settings.php:896 includes/Settings.php:950
+#: includes/Settings.php:898 includes/Settings.php:952
 msgid "Enable Recaptcha on WP Registration"
 msgstr ""
 
-#: includes/Settings.php:992 includes/Settings.php:1046
+#: includes/Settings.php:994 includes/Settings.php:1048
 msgid "Recaptcha On WP Lost Password"
 msgstr ""
 
-#: includes/Settings.php:998 includes/Settings.php:1052
+#: includes/Settings.php:1000 includes/Settings.php:1054
 msgid "Enable Recaptcha on WP Lost Password"
 msgstr ""
 
-#: includes/Settings.php:1094 includes/Settings.php:1148
+#: includes/Settings.php:1096 includes/Settings.php:1150
 msgid "Recaptcha on product review form"
 msgstr ""
 
-#: includes/Settings.php:1100 includes/Settings.php:1154
+#: includes/Settings.php:1102 includes/Settings.php:1156
 msgid "Enable Recaptcha on product review form"
 msgstr ""
 
-#: includes/Settings.php:1196 includes/Settings.php:1251
+#: includes/Settings.php:1198 includes/Settings.php:1253
 msgid "Recaptcha on comment form"
 msgstr ""
 
-#: includes/Settings.php:1203 includes/Settings.php:1258
+#: includes/Settings.php:1205 includes/Settings.php:1260
 msgid "Enable Recaptcha on comment form"
 msgstr ""
 
-#: includes/Settings.php:1304
+#: includes/Settings.php:1306
 msgid "Recaptcha Settings"
 msgstr ""
 
-#: includes/Settings.php:1306
+#: includes/Settings.php:1308
 msgid ""
 "Please use this guideline to get <a target=\"_blank\" href=\"http://blog."
 "i13websolution.com/how-to-get-google-recaptcha-v2-checkbox-keys/\"> "
@@ -388,77 +388,77 @@ msgid ""
 "\"> reCaptcha keys V3 </a></b>"
 msgstr ""
 
-#: includes/Settings.php:1311
+#: includes/Settings.php:1313
 msgid "Recaptcha Version"
 msgstr ""
 
-#: includes/Settings.php:1314
+#: includes/Settings.php:1316
 msgid "ReCaptcha V2 (checkbox)"
 msgstr ""
 
-#: includes/Settings.php:1314
+#: includes/Settings.php:1316
 msgid "ReCaptcha V3"
 msgstr ""
 
-#: includes/Settings.php:1324 includes/Settings.php:1330
+#: includes/Settings.php:1326 includes/Settings.php:1332
 msgid "Site Key"
 msgstr ""
 
-#: includes/Settings.php:1326
+#: includes/Settings.php:1328
 msgid "Get site key from www.google.com/recaptcha"
 msgstr ""
 
-#: includes/Settings.php:1332
+#: includes/Settings.php:1334
 msgid "Get reCAPTCHA V3 site key from www.google.com/recaptcha"
 msgstr ""
 
-#: includes/Settings.php:1336 includes/Settings.php:1342
+#: includes/Settings.php:1338 includes/Settings.php:1344
 msgid "Secret Key"
 msgstr ""
 
-#: includes/Settings.php:1338
+#: includes/Settings.php:1340
 msgid "Get Secret key from www.google.com/recaptcha"
 msgstr ""
 
-#: includes/Settings.php:1344
+#: includes/Settings.php:1346
 msgid "Get reCAPTCHA V3 Secret key from www.google.com/recaptcha"
 msgstr ""
 
-#: includes/Settings.php:1348
+#: includes/Settings.php:1350
 msgid "Error message recaptcha verification failed"
 msgstr ""
 
-#: includes/Settings.php:1352
+#: includes/Settings.php:1354
 msgid ""
 "This message shown when google detect abusive, invalid, spam, bot etc traffic"
 msgstr ""
 
-#: includes/Settings.php:1355 includes/Settings.php:1369
+#: includes/Settings.php:1357 includes/Settings.php:1371
 msgid "Error message recaptcha blank"
 msgstr ""
 
-#: includes/Settings.php:1362
+#: includes/Settings.php:1364
 msgid "Error message for can not connect to server"
 msgstr ""
 
-#: includes/Settings.php:1373 includes/Settings.php:1381
-#: includes/Settings.php:1388
+#: includes/Settings.php:1375 includes/Settings.php:1383
+#: includes/Settings.php:1390
 msgid "[recaptcha] will replaced with captcha field title"
 msgstr ""
 
-#: includes/Settings.php:1377
+#: includes/Settings.php:1379
 msgid "Error message for can not connect to server "
 msgstr ""
 
-#: includes/Settings.php:1384
+#: includes/Settings.php:1386
 msgid "Error message for invalid captcha"
 msgstr ""
 
-#: includes/Settings.php:1391 includes/Settings.php:1397
+#: includes/Settings.php:1393 includes/Settings.php:1399
 msgid "No-Conflict Mode"
 msgstr ""
 
-#: includes/Settings.php:1394 includes/Settings.php:1400
+#: includes/Settings.php:1396 includes/Settings.php:1402
 msgid ""
 "When checked, other reCAPTCHA occurrences on this plugin sections like "
 "checkout, registration, login etc are forcefully removed, to prevent "
@@ -466,293 +466,305 @@ msgid ""
 "instructed to by support."
 msgstr ""
 
-#: includes/Settings.php:1403
+#: includes/Settings.php:1405
+msgid "Ip or Range of IP"
+msgstr ""
+
+#: includes/Settings.php:1409
+msgid ""
+"Useful when you want to not show reCaptcha for certain users/clients. When "
+"requests comes through the above IP or IP range the reCaptcha is not shown "
+"and validation will skipped. for example "
+"192.168.0.10,192.168.0.11-192.168.0.45"
+msgstr ""
+
+#: includes/Settings.php:1412
 msgid "Language Code"
 msgstr ""
 
-#: includes/Settings.php:1404
+#: includes/Settings.php:1413
 msgid ""
 "Choose language for recaptcha V2 when shown. For example translation of I am "
 "not robot."
 msgstr ""
 
-#: includes/Settings.php:1411
+#: includes/Settings.php:1420
 msgid "Arabic"
 msgstr ""
 
-#: includes/Settings.php:1412
+#: includes/Settings.php:1421
 msgid "Afrikaans"
 msgstr ""
 
-#: includes/Settings.php:1413
+#: includes/Settings.php:1422
 msgid "Amharic"
 msgstr ""
 
-#: includes/Settings.php:1414
+#: includes/Settings.php:1423
 msgid "Armenian"
 msgstr ""
 
-#: includes/Settings.php:1415
+#: includes/Settings.php:1424
 msgid "Azerbaijani"
 msgstr ""
 
-#: includes/Settings.php:1416
+#: includes/Settings.php:1425
 msgid "Basque"
 msgstr ""
 
-#: includes/Settings.php:1417
+#: includes/Settings.php:1426
 msgid "Bengali"
 msgstr ""
 
-#: includes/Settings.php:1418
+#: includes/Settings.php:1427
 msgid "Bulgarian"
 msgstr ""
 
-#: includes/Settings.php:1419
+#: includes/Settings.php:1428
 msgid "Catalan"
 msgstr ""
 
-#: includes/Settings.php:1420
+#: includes/Settings.php:1429
 msgid "Chinese (Hong Kong)"
 msgstr ""
 
-#: includes/Settings.php:1421
+#: includes/Settings.php:1430
 msgid "Chinese (Simplified)"
 msgstr ""
 
-#: includes/Settings.php:1422
+#: includes/Settings.php:1431
 msgid "Chinese (Traditional)"
 msgstr ""
 
-#: includes/Settings.php:1423
+#: includes/Settings.php:1432
 msgid "Croatian"
 msgstr ""
 
-#: includes/Settings.php:1424
+#: includes/Settings.php:1433
 msgid "Czech"
 msgstr ""
 
-#: includes/Settings.php:1425
+#: includes/Settings.php:1434
 msgid "Danish"
 msgstr ""
 
-#: includes/Settings.php:1426
+#: includes/Settings.php:1435
 msgid "Dutch"
 msgstr ""
 
-#: includes/Settings.php:1427
+#: includes/Settings.php:1436
 msgid "English (UK)"
 msgstr ""
 
-#: includes/Settings.php:1428
+#: includes/Settings.php:1437
 msgid "English (US)"
 msgstr ""
 
-#: includes/Settings.php:1429
+#: includes/Settings.php:1438
 msgid "Estonian"
 msgstr ""
 
-#: includes/Settings.php:1430
+#: includes/Settings.php:1439
 msgid "Filipino"
 msgstr ""
 
-#: includes/Settings.php:1431
+#: includes/Settings.php:1440
 msgid "Finnish"
 msgstr ""
 
-#: includes/Settings.php:1432
+#: includes/Settings.php:1441
 msgid "French"
 msgstr ""
 
-#: includes/Settings.php:1433
+#: includes/Settings.php:1442
 msgid "French (Canadian)"
 msgstr ""
 
-#: includes/Settings.php:1434
+#: includes/Settings.php:1443
 msgid "Galician"
 msgstr ""
 
-#: includes/Settings.php:1435
+#: includes/Settings.php:1444
 msgid "Georgian"
 msgstr ""
 
-#: includes/Settings.php:1436
+#: includes/Settings.php:1445
 msgid "German"
 msgstr ""
 
-#: includes/Settings.php:1437
+#: includes/Settings.php:1446
 msgid "German (Austria)"
 msgstr ""
 
-#: includes/Settings.php:1438
+#: includes/Settings.php:1447
 msgid "German (Switzerland)"
 msgstr ""
 
-#: includes/Settings.php:1439
+#: includes/Settings.php:1448
 msgid "Greek"
 msgstr ""
 
-#: includes/Settings.php:1440
+#: includes/Settings.php:1449
 msgid "Gujarati"
 msgstr ""
 
-#: includes/Settings.php:1441
+#: includes/Settings.php:1450
 msgid "Hebrew"
 msgstr ""
 
-#: includes/Settings.php:1442
+#: includes/Settings.php:1451
 msgid "Hindi"
 msgstr ""
 
-#: includes/Settings.php:1443
+#: includes/Settings.php:1452
 msgid "Hungarain"
 msgstr ""
 
-#: includes/Settings.php:1444
+#: includes/Settings.php:1453
 msgid "Icelandic"
 msgstr ""
 
-#: includes/Settings.php:1445
+#: includes/Settings.php:1454
 msgid "Indonesian"
 msgstr ""
 
-#: includes/Settings.php:1446
+#: includes/Settings.php:1455
 msgid "Italian"
 msgstr ""
 
-#: includes/Settings.php:1447
+#: includes/Settings.php:1456
 msgid "Japanese"
 msgstr ""
 
-#: includes/Settings.php:1448
+#: includes/Settings.php:1457
 msgid "Kannada"
 msgstr ""
 
-#: includes/Settings.php:1449
+#: includes/Settings.php:1458
 msgid "Korean"
 msgstr ""
 
-#: includes/Settings.php:1450
+#: includes/Settings.php:1459
 msgid "Laothian"
 msgstr ""
 
-#: includes/Settings.php:1451
+#: includes/Settings.php:1460
 msgid "Latvian"
 msgstr ""
 
-#: includes/Settings.php:1452
+#: includes/Settings.php:1461
 msgid "Lithuanian"
 msgstr ""
 
-#: includes/Settings.php:1453
+#: includes/Settings.php:1462
 msgid "Malay"
 msgstr ""
 
-#: includes/Settings.php:1454
+#: includes/Settings.php:1463
 msgid "Malayalam"
 msgstr ""
 
-#: includes/Settings.php:1455
+#: includes/Settings.php:1464
 msgid "Marathi"
 msgstr ""
 
-#: includes/Settings.php:1456
+#: includes/Settings.php:1465
 msgid "Mongolian"
 msgstr ""
 
-#: includes/Settings.php:1457
+#: includes/Settings.php:1466
 msgid "Norwegian"
 msgstr ""
 
-#: includes/Settings.php:1458
+#: includes/Settings.php:1467
 msgid "Persian"
 msgstr ""
 
-#: includes/Settings.php:1459
+#: includes/Settings.php:1468
 msgid "Polish"
 msgstr ""
 
-#: includes/Settings.php:1460
+#: includes/Settings.php:1469
 msgid "Portuguese"
 msgstr ""
 
-#: includes/Settings.php:1461
+#: includes/Settings.php:1470
 msgid "Portuguese (Brazil)"
 msgstr ""
 
-#: includes/Settings.php:1462
+#: includes/Settings.php:1471
 msgid "Portuguese (Portugal)"
 msgstr ""
 
-#: includes/Settings.php:1463
+#: includes/Settings.php:1472
 msgid "Romanian"
 msgstr ""
 
-#: includes/Settings.php:1464
+#: includes/Settings.php:1473
 msgid "Russian"
 msgstr ""
 
-#: includes/Settings.php:1465
+#: includes/Settings.php:1474
 msgid "Serbian"
 msgstr ""
 
-#: includes/Settings.php:1466
+#: includes/Settings.php:1475
 msgid "Sinhalese"
 msgstr ""
 
-#: includes/Settings.php:1467
+#: includes/Settings.php:1476
 msgid "Slovak"
 msgstr ""
 
-#: includes/Settings.php:1468
+#: includes/Settings.php:1477
 msgid "Slovenian"
 msgstr ""
 
-#: includes/Settings.php:1469
+#: includes/Settings.php:1478
 msgid "Spanish"
 msgstr ""
 
-#: includes/Settings.php:1470
+#: includes/Settings.php:1479
 msgid "Spanish (Latin America)"
 msgstr ""
 
-#: includes/Settings.php:1471
+#: includes/Settings.php:1480
 msgid "Swahili"
 msgstr ""
 
-#: includes/Settings.php:1472
+#: includes/Settings.php:1481
 msgid "Swedish"
 msgstr ""
 
-#: includes/Settings.php:1473
+#: includes/Settings.php:1482
 msgid "Tamil"
 msgstr ""
 
-#: includes/Settings.php:1474
+#: includes/Settings.php:1483
 msgid "Telugu"
 msgstr ""
 
-#: includes/Settings.php:1475
+#: includes/Settings.php:1484
 msgid "Thai"
 msgstr ""
 
-#: includes/Settings.php:1476
+#: includes/Settings.php:1485
 msgid "Turkish"
 msgstr ""
 
-#: includes/Settings.php:1477
+#: includes/Settings.php:1486
 msgid "Ukrainian"
 msgstr ""
 
-#: includes/Settings.php:1478
+#: includes/Settings.php:1487
 msgid "Urdu"
 msgstr ""
 
-#: includes/Settings.php:1479
+#: includes/Settings.php:1488
 msgid "Vietnamese"
 msgstr ""
 
-#: includes/Settings.php:1480
+#: includes/Settings.php:1489
 msgid "Zulu"
 msgstr ""
 

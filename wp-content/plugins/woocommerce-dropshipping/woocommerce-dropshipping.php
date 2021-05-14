@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Dropshipping
  * Plugin URI: http://woocommerce.com/products/woocommerce-dropshipping/
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
- * Version: 2.14
+ * Version: 3.0
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.com.au/
  * Developer: OPMC
@@ -109,6 +109,7 @@ final class WC_Dropshipping {
 		add_action( 'admin_init', array($this, 'change_cost_of_goods_key'));
 		add_action( 'admin_init', array($this, 'show_admin_notice_options'));
 		add_filter( 'plugin_action_links', array( $this, 'wc_dropshipping_plugin_links' ), 10, 4 );
+		add_filter( 'admin_menu', array( $this, 'admin_menu' ) );
 	}
 
 	public function init () {
@@ -122,6 +123,9 @@ final class WC_Dropshipping {
 
 		require_once('inc/class-wc-dropshipping-checkout.php');
 		$this->checkout = new WC_Dropshipping_Checkout();
+
+		require_once( 'inc/class-wc-dropshipping-dashboard.php' );
+		$this->dashboard = new WC_Dropshipping_Dashboard();
 
 		// Limit Capabilities of Dropshipper
 		add_action( 'wp_before_admin_bar_render', array($this, 'limit_dropshipper_capabilities'), 99 );
@@ -293,6 +297,30 @@ final class WC_Dropshipping {
 			$res = $wpdb->get_results($query);
 			update_option('cog_meta_key', 'completed');
 		}
+	}
+
+	public function admin_menu() {
+		add_menu_page(
+			__( 'Dropshipping', 'woocommerce-dropshipping' ),
+			__( 'Dropshipping', 'woocommerce-dropshipping' ),
+			'administrator',
+			'woocommerce_dropshipping', '', 'dashicons-exerpt-view', 100
+		);
+
+		add_submenu_page(
+			'woocommerce_dropshipping',
+			__( 'Dashboard', 'woocommerce-dropshipping' ),
+			__( 'Dashboard', 'woocommerce-dropshipping' ),
+			'administrator',
+			'dashboard',
+			array( $this, 'add_dashboard_sub_menu' )
+		);
+
+		remove_submenu_page('woocommerce_dropshipping','woocommerce_dropshipping');
+	}
+
+	public function add_dashboard_sub_menu(){
+		require_once 'templates/wc-dropshipping-dashboard.php';
 	}
 
 	/**

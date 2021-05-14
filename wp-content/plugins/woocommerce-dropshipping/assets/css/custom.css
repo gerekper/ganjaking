@@ -1,3 +1,6 @@
 #_wc_dropshipping_order_number_field span.optional{
   display:none;
 }
+#wcds-remove-supplier {
+  color: red!important;
+}

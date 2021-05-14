@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.3.0
+ * @version     1.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -322,7 +322,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 				// Discard duplicate values, arrange alphabetically & save.
 				$this->global_additional_locations = array_unique( $this->global_additional_locations );
 				sort( $this->global_additional_locations );
-				update_option( 'sa_cbl_additional_locations', $this->global_additional_locations );
+				update_option( 'sa_cbl_additional_locations', $this->global_additional_locations, 'no' );
 			}
 
 		}
@@ -624,7 +624,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 				// Discard duplicate values, arrange alphabetically & save.
 				$global_additional_locations = array_unique( $global_additional_locations );
 				sort( $global_additional_locations );
-				update_option( 'sa_cbl_additional_locations', $global_additional_locations );
+				update_option( 'sa_cbl_additional_locations', $global_additional_locations, 'no' );
 			}
 
 		}

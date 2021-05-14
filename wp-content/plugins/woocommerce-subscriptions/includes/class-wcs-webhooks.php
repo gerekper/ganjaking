@@ -125,7 +125,6 @@ class WCS_Webhooks {
 
 		if ( 'subscription' == $resource && empty( $payload ) && wcs_is_subscription( $resource_id ) ) {
 			$webhook      = new WC_Webhook( $id );
-			$event        = $webhook->get_event();
 			$current_user = get_current_user_id();
 
 			wp_set_current_user( $webhook->get_user_id() );
@@ -137,13 +136,17 @@ class WCS_Webhooks {
 					break;
 				case 'wp_api_v1':
 				case 'wp_api_v2':
-				case 'wp_api_v3':
+					// There is no v2 subscritpion endpoint support so they fall back to v1.
 					$request    = new WP_REST_Request( 'GET' );
-					$controller = new WC_REST_Subscriptions_Controller;
+					$controller = new WC_REST_Subscriptions_v1_Controller();
 
 					$request->set_param( 'id', $resource_id );
 					$result  = $controller->get_item( $request );
 					$payload = isset( $result->data ) ? $result->data : array();
+
+					break;
+				case 'wp_api_v3':
+					$payload = wc()->api->get_endpoint_data( "/wc/v3/subscriptions/{$resource_id}" );
 					break;
 			}
 

@@ -2,9 +2,9 @@
 Contributors:nik00726
 Tags:Recpatcha
 Requires at least:3.0
-Tested up to:5.7
-Version:2.15
-Stable tag:2.15
+Tested up to:5.7.1
+Version:2.16
+Stable tag:2.16
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -55,6 +55,7 @@ Protect your eCommerce site with google recptcha.
 
 18.Reset captcha on order postback error
 
+19.Bypass reCAPTCHA (do not show captcha) using IP or IP-Range for specific clients/users
 
 
 
@@ -87,6 +88,10 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.16 =
+
+* Added functionality to Bypass reCAPTCHA (do not show captcha) using IP or IP-Range for your clients/users
 
 = 2.15 =
 

@@ -1,5 +1,21 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2021.05.10 - version 4.20.1
+* Fix: 'Show on cart, checkout and my account?' functionality not working since last update
+* Update: POT file
+
+2021.05.05 - version 4.20.0
+* Fix: Performance issues when trying to display coupons on cart/checkout pages in some cases
+* Fix: Amount field doesn't appear sometimes while purchasing credit of any amount [Thanks to: Matt]
+* Update: POT file
+
+2021.04.26 - version 4.19.0
+* New: Tested up to WooCommerce 5.2.2 & WordPress 5.7.1
+* Developer: New hook 'wc_sc_json_search_storewide_coupons' to allow 3rd party plugin to modify search result of storewide coupon
+* Update: Set autoload of all Smart Coupons related options as 'no'
+* Update: French translation
+* Update: POT file
+
 2021.03.26 - version 4.18.0
 * Developer: New hook 'wc_sc_credit_remaining' to allow 3rd party plugin to modify remaining credit before saving it [Thanks to: Diego Zanella | Aelia.co]
 * Fix: Remove 'sticky' admin notice about import completion [Thanks to: Les Xue | WordPress VIP]

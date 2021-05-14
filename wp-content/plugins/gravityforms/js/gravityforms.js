@@ -187,6 +187,28 @@ gform.tools = {
     },
 
 	/**
+	 * @function gform.tools.getFocusable
+	 * @description Get focusable elements inside a container and return as an array.
+	 *
+	 * @since 2.5
+	 *
+	 * @param container the parent to search for focusable elements inside of
+	 * @returns {*[]}
+	 */
+
+	getFocusable: function( container ) {
+		container = this.defaultFor( container, document );
+		var focusable = this.convertElements(
+			container.querySelectorAll(
+				'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+			)
+		);
+		return focusable.filter( function( item ) {
+			return this.visible( item );
+		}.bind( this ) );
+	},
+
+	/**
 	 * @function gform.tools.htmlToElement
 	 *
 	 * Allows you to convert an HTML string to a DOM Object.
@@ -402,6 +424,35 @@ gform.tools = {
 	 */
 	isIE: function() {
 		return window.document.documentMode;
+	},
+
+	/**
+	 * @function gform.tools.visible
+	 * @description Determine if an element is visible in the dom.
+	 *
+	 * @since 2.5
+	 *
+	 * @param elem The element to check
+	 * @returns {boolean}
+	 */
+
+	visible: function( elem ) {
+		return !!( elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length );
+	},
+
+	stripSlashes: function( str ) {
+		return (str + '').replace(/\\(.?)/g, function (s, n1) {
+			switch (n1) {
+				case '\\':
+					return '\\';
+				case '0':
+					return '\u0000';
+				case '':
+					return '';
+				default:
+					return n1;
+			}
+		});
 	}
 };
 
@@ -2585,18 +2636,43 @@ function gformValidateFileSize( field, max_file_size ) {
         var formID;
         var uniqueID;
 
-        uploader.bind('Init', function(up, params) {
-            if(!up.features.dragdrop)
-                $(".gform_drop_instructions").hide();
+	    uploader.bind( 'Init', function( up, params ) {
+		    if ( ! up.features.dragdrop ) {
+			    $( ".gform_drop_instructions" ).hide();
+		    }
 
-            toggleLimitReached(up.settings);
-        });
+		    setFieldAccessibility( up.settings.container );
+		    toggleLimitReached( up.settings );
+	    } );
 
-        gfMultiFileUploader.toggleDisabled = function (settings, disabled){
+	    gfMultiFileUploader.toggleDisabled = function (settings, disabled){
 
             var button = typeof settings.browse_button == "string" ? $("#" + settings.browse_button) : $(settings.browse_button);
             button.prop("disabled", disabled);
         };
+
+	    /**
+	     * @function setFieldAccessibility
+	     * @description Patches accessibility issues with the plupload multi file container.
+	     *
+	     * @since 2.5.1
+	     *
+	     * @param {Node} container The generated plupload container.
+	     */
+
+	    function setFieldAccessibility( container ) {
+		    var input = container.querySelectorAll( 'input[type="file"]' )[ 0 ];
+		    var button = container.querySelectorAll( '.gform_button_select_files' )[ 0 ];
+		    var label = $( uploadElement ).closest( '.gfield' ).find( '.gfield_label' )[ 0 ];
+		    if ( ! input || ! label || ! button ) {
+			    return;
+		    }
+
+		    label.setAttribute( 'for', input.id );
+		    button.setAttribute( 'aria-label', button.innerText.toLowerCase() + ', ' + label.innerText.toLowerCase() );
+		    input.setAttribute( 'tabindex', '-1' );
+		    input.setAttribute( 'aria-hidden', 'true' );
+	    }
 
 		function addMessage( messagesID, message) {
 			$( "#" + messagesID ).prepend( "<li>" + htmlEncode( message ) + "</li>" );

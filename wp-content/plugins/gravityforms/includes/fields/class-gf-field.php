@@ -388,20 +388,12 @@ class GF_Field extends stdClass implements ArrayAccess {
 			'aria-atomic'      => '',
 			'aria-live'        => '',
 			'data-field-class' => '',
-			'aria-label'       => '',
 		) );
 
 		$tabindex_string = (rgar( $atts, 'tabindex' ) ) === '' ?  '' : ' tabindex="' . esc_attr( $atts['tabindex'] ) . '"';
 
-		$aria_label = null;
-
-		if ( $this->is_form_editor() ) {
-			$aria_label = $this->get_field_aria_label( rgar( $atts, 'aria-label' ) );
-		}
-
-
 		return sprintf(
-			'<%1$s id="%2$s" class="%3$s" %4$s%5$s%6$s%7$s%8$s%9$s>{FIELD_CONTENT}</%1$s>',
+			'<%1$s id="%2$s" class="%3$s" %4$s%5$s%6$s%7$s%8$s>{FIELD_CONTENT}</%1$s>',
 			$tag,
 			esc_attr( rgar( $atts, 'id' ) ),
 			esc_attr( rgar( $atts, 'class' ) ),
@@ -409,8 +401,7 @@ class GF_Field extends stdClass implements ArrayAccess {
 			( rgar( $atts, 'tabindex' ) ) === false ? '' : $tabindex_string,
 			rgar( $atts, 'aria-atomic' ) ? ' aria-atomic="' . esc_attr( $atts['aria-atomic'] ) . '"' : '',
 			rgar( $atts, 'aria-live' ) ? ' aria-live="' . esc_attr( $atts['aria-live'] ) . '"' : '',
-			rgar( $atts, 'data-field-class' ) ? ' data-field-class="' . esc_attr( $atts['data-field-class'] ) . '"' : '',
-			$aria_label
+			rgar( $atts, 'data-field-class' ) ? ' data-field-class="' . esc_attr( $atts['data-field-class'] ) . '"' : ''
 		);
 
 	}
@@ -451,22 +442,22 @@ class GF_Field extends stdClass implements ArrayAccess {
 	}
 
 	/**
-	 * Return an aria-label for a field.
+	 * Return an aria-label for a field action (delete, edit, duplicate).
 	 *
 	 * @since 2.5
 	 *
-	 * @param str $label The aria-label if one already exists.
+	 * @param str $action The button action as descriptive text.
+	 * @param str $label The field label.
 	 *
 	 * @return str The passed aria-label or an automatically generated label if it is blank.
 	 */
-	public function get_field_aria_label( $label = '' ) {
+	public function get_field_action_aria_label( $action = '', $label = '' ) {
 		if ( $label !== '' ) {
 			$label = wp_strip_all_tags( $label );
 		} else {
 			$label = wp_strip_all_tags( $this->get_field_label( true, '' ) );
 		}
-
-		return 'aria-label="' . esc_attr( $label ) . ' - ' . $this->type . ', press return to edit this field\'s settings."';
+		return sprintf( '%1$s - %2$s, %3$s.', esc_attr( $label ), esc_attr( $this->type ), esc_attr( $action ) );
 	}
 
 	// # SUBMISSION -----------------------------------------------------------------------------------------------------
@@ -1257,8 +1248,15 @@ class GF_Field extends stdClass implements ArrayAccess {
 		);
 		$duplicate_field_link = '';
 		if(  ! in_array( $this->type, $duplicate_disabled ) ) {
+			$duplicate_aria_action = __( 'duplicate this field', 'gravityforms' );
 			$duplicate_field_link = "
-				<button id='gfield_duplicate_{$this->id}' class='gfield-field-action gfield-duplicate' onclick='StartDuplicateField(this); return false;' onkeypress='StartDuplicateField(this); return false;'>
+				<button 
+					id='gfield_duplicate_{$this->id}' 
+					class='gfield-field-action gfield-duplicate' 
+					onclick='StartDuplicateField(this); return false;' 
+					onkeypress='StartDuplicateField(this); return false;'
+					aria-label='" . esc_html( $this->get_field_action_aria_label( $duplicate_aria_action ) ) . "'
+				>
 					<svg width='25' height='25' fill='none' xmlns='http://www.w3.org/2000/svg'>
 						<path class='stroke' d='M6 4.75h14c.69 0 1.25.56 1.25 1.25v14c0 .69-.56 1.25-1.25 1.25H6c-.69 0-1.25-.56-1.25-1.25V6c0-.69.56-1.25 1.25-1.25z' stroke='#242748' stroke-width='1.5'/>
 						<path class='stroke fill' d='M10 5L6 9.5V5h4z' fill='#242748' stroke='#242748'/>
@@ -1266,7 +1264,7 @@ class GF_Field extends stdClass implements ArrayAccess {
 						<rect class='fill' x='.254' y='15.027' width='7' height='1.492' rx='.746' transform='rotate(-90 .254 15.027)' fill='#242748'/>
 						<path class='stroke' d='M1 14V4c0-1.657 1.34-3 2.997-3H16' stroke='#242748' stroke-width='1.5'/>
 					</svg>
-					<span class='gfield-field-action__description'>" . esc_html__( 'Duplicate', 'gravityforms' ) . "</span>
+					<span class='gfield-field-action__description' aria-hidden='true'>" . esc_html__( 'Duplicate', 'gravityforms' ) . "</span>
 				</button>";
 		}
 
@@ -1277,10 +1275,17 @@ class GF_Field extends stdClass implements ArrayAccess {
 		 */
 		$duplicate_field_link = apply_filters( 'gform_duplicate_field_link', $duplicate_field_link );
 
+		$delete_aria_action = __( 'delete this field', 'gravityforms' );
 		$delete_field_link = "
-			<button id='gfield_delete_{$this->id}' class='gfield-field-action gfield-delete' onclick='DeleteField(this);' onkeypress='DeleteField(this); return false;'>
-				<svg width='10' height='10' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M9.244 1.244a1 1 0 00-1.415 0L5 4.074l-2.83-2.83A1 1 0 10.757 2.658l2.83 2.83L.758 8.314a1 1 0 001.415 1.414L5 6.902l2.827 2.827a1 1 0 101.415-1.414L6.414 5.487l2.83-2.83a1 1 0 000-1.413z' fill='#242748'/></svg>
-				<span class='gfield-field-action__description'>" . esc_html__( 'Delete', 'gravityforms' ) . "</span>
+			<button 
+				id='gfield_delete_{$this->id}' 
+				class='gfield-field-action gfield-delete' 
+				onclick='DeleteField(this);' 
+				onkeypress='DeleteField(this); return false;'
+				aria-label='" . esc_html( $this->get_field_action_aria_label( $delete_aria_action ) ) . "'
+			>
+				<i class='gform-icon gform-icon--trash'></i>
+				<span class='gfield-field-action__description' aria-hidden='true'>" . esc_html__( 'Delete', 'gravityforms' ) . "</span>
 			</button>";
 
 		/**
@@ -1289,7 +1294,26 @@ class GF_Field extends stdClass implements ArrayAccess {
 		 * @param string $delete_field_link The Delete Field Link (in HTML)
 		 */
 		$delete_field_link = apply_filters( 'gform_delete_field_link', $delete_field_link );
-		$field_type_title  = esc_html( GFCommon::get_field_type_title( $this->type ) );
+
+		$edit_aria_action = __( 'jump to this field\'s settings', 'gravityforms' );
+		$edit_field_link = "
+			<button 
+				id='gfield_edit_{$this->id}' 
+				class='gfield-field-action gfield-edit'
+				onclick='EditField(this);' 
+				onkeypress='EditField(this); return false;'
+				aria-label='" . esc_html( $this->get_field_action_aria_label( $edit_aria_action ) ) . "'
+			>
+				<i class='gform-icon gform-icon--settings'></i>
+				<span class='gfield-field-action__description' aria-hidden='true'>" . esc_html__( 'Settings', 'gravityforms' ) . "</span>
+			</button>";
+
+		/**
+		 * This filter allows for modification of a form field edit link. This will change the link for all fields
+		 *
+		 * @param string $edit_field_link The Edit Field Link (in HTML)
+		 */
+		$edit_field_link = apply_filters( 'gform_edit_field_link', $edit_field_link );
 
 		$drag_handle = '
 			<span class="gfield-field-action gfield-drag">
@@ -1303,6 +1327,7 @@ class GF_Field extends stdClass implements ArrayAccess {
 			<div class='gfield-admin-icons'>
 				{$drag_handle}
 				{$duplicate_field_link}
+				{$edit_field_link}
 				{$delete_field_link}
 				{$field_icon}
 			</div>";

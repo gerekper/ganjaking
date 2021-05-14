@@ -1,5 +1,33 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2021-05-12 - version 3.1.1
+* Fix: "Invalid recurring shipping method" error on checkout when attempting to purchase a subscription with one-time shipping. PR#4088
+* Fix: Rework subscription webhook migration script added in 3.1 to clear cached webhook data. PR#4082
+
+2021-05-10 - version 3.1.0
+* New: Add support for WooCommerce Cart and Checkout blocks. PR#3993
+* New: Support v3 subscription endpoints. PR#4001
+* New: Add woocommerce_inbox_variant option. PR#4084
+* New: Update the WC minimum required version to WC 3.7. PR#3914
+* New: Add a new Accounts setting to allow admin to enable registration on checkout of subscription customers. PR#3883
+* New: Display switch, renewal and resubscribe context in the 'Add to cart' and 'Place order' buttons. PR#3624
+* Fix: Fix customer subscription caching errors on multisite installations. PR#4074
+* Fix: Update the `_subtracted_base_location_taxes` when an admin edits the subscription line item subtotal. PR#4068
+* Fix: Migrate existing v3 subscription webhooks to v1 when upgrading to 3.1 to maintain the same payload delivered. PR#4079
+* Fix: Fatal error when processing an initial PayPal Standard payment on a manually created subscription that has no parent order. PR#4033
+* Fix: Only allow reactivation of pending-canceled subscription when end date is in the future. PR#4037
+* Fix: Don't add a free trial period when resubscribing to a synced subscription. PR#4045
+* Fix: Catch exceptions thrown when updating a subscription's payment method. PR#4051
+* Fix: Incorrect sign-up fee discount amount calculated when the customer is outside of all tax zones and prices are entered with tax included. PR#4052
+* Fix: Allow paying for pending parent orders that contain a limited subscription product where the subscription is already active. PR#4061
+* Fix: Show recurring shipping totals/options when a virtual product is the last product added to the cart. PR#4053
+* Fix: Refactor how `_subtracted_base_location_tax` order item meta is stored on subscription items to avoid calculation issues when the quantity is changed. PR#4062
+* Fix: Fixes PHP notices when using the v1/subscriptions/ID/orders REST endpoint on a subscription where one of its related orders was directly deleted from the database. PR#4058
+* Tweak: Always show the delete save card button but now display a notice when trying to delete a card tied to an active subscription. PR#4076
+* Tweak: Update the subscription order note to when the PayPal Standard subscription is suspended and migrated over to PayPal Reference Transactions during a switch request. PR#4057
+* Tweak: Display orders in the related orders admin table sorted by date. PR#3575
+* Dev: Refactor the recurring totals template. PR#3550
+
 2021-04-16 - version 3.0.15
 * Tweak: Improve compatibility with WPML. PR#4034
 * Dev: Introduce filter to allow third-parties gateways to filter whether a token meta was updated. PR#4030

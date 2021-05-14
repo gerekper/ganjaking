@@ -36,29 +36,9 @@ class WC_Dropshipping_Admin
 		add_action('wp_ajax_CSV_upload_form', array($this, 'ajax_save_category_fields'));
 		add_filter('manage_edit-dropship_supplier_columns', array($this, 'manage_columns'), 10, 1);
 		add_action('manage_dropship_supplier_custom_column', array($this, 'column_content'), 10, 3);
-
-
-
-		// woocommerce settings tab
-
-
-
-		//add_filter( 'woocommerce_settings_tabs_array',array($this,'add_settings_tab'),50);
-
-
-
-		//add_action( 'woocommerce_settings_tabs_dropship_manager', array($this,'dropship_manager_settings_tab') );
-
-
-
-		//add_action( 'woocommerce_update_options_dropship_manager', array($this,'update_settings') );
-
 		add_filter('woocommerce_get_sections_email', array($this, 'add_settings_tab'), 50);
 		add_action('woocommerce_settings_email', array($this, 'dropship_manager_settings_tab'), 10, 1);
 		add_action('woocommerce_settings_save_email', array($this, 'update_settings'));
-
-		/*add_action('init', array($this,'cloneUserRole'));*/
-
 		add_action('admin_menu', array($this, 'my_remove_menu_pages'));
 		add_action('admin_menu', array($this, 'dropshipper_order_list_page'));
 		add_action('wp_ajax_dropshipper_shipping_info_edited', array($this, 'dropshipper_shipping_info_edited_callback'));

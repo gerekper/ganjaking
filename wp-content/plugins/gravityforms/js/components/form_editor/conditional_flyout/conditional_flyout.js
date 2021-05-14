@@ -144,11 +144,9 @@ function getFieldById( fieldId ) {
 function getOptionsFromSelect( field, value ) {
 	var options = [];
 
-	var emptyLabel = 'Empty (no choices selected)';
+	var emptyLabel = gf_vars.emptyChoice;
 
-	if ( GetInputType( field ) === 'multiselect' ) {
-		emptyLabel = gf_vars.emptyChoice;
-	} else if ( field.placeholder ) {
+	if ( field.placeholder ) {
 		emptyLabel = field.placeholder;
 	}
 
@@ -158,7 +156,10 @@ function getOptionsFromSelect( field, value ) {
 		selected: '' === value ? 'selected="selected"' : '',
 	};
 
-	options.push( emptyChoiceConfig );
+	if ( GetInputType( field ) === 'multiselect' ) {
+		options.push( emptyChoiceConfig );
+	}
+
 
 	for ( var i = 0; i < field.choices.length; i++ ) {
 		var choice = field.choices[ i ];

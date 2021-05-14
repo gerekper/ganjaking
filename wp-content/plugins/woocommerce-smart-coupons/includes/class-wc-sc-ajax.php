@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.0
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -258,6 +258,17 @@ if ( ! class_exists( 'WC_SC_Ajax' ) ) {
 						$found_coupons[ $coupon_post['post_title'] ] = sprintf( __( '%1$s (Type: %2$s)', 'woocommerce-smart-coupons' ), $coupon_post['post_title'], $all_discount_types[ $discount_type ] );
 					}
 				}
+
+				$found_coupons = apply_filters(
+					'wc_sc_json_search_storewide_coupons',
+					$found_coupons,
+					array(
+						'source'       => $this,
+						'search_text'  => $term,
+						'posts'        => $posts,
+						'coupon_posts' => $coupon_posts,
+					)
+				);
 			}
 
 			wp_send_json( $found_coupons );

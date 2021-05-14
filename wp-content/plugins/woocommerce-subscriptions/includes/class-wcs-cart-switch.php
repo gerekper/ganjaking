@@ -25,6 +25,9 @@ class WCS_Cart_Switch extends WCS_Cart_Renewal {
 
 		// Check if a user is requesting to pay for a switch order, needs to happen after $wp->query_vars are set
 		add_action( 'template_redirect', array( &$this, 'maybe_setup_cart' ), 99 );
+
+		// Filters the Place order button text
+		add_filter( 'woocommerce_order_button_text', array( $this, 'order_button_text' ), 15 );
 	}
 
 	/**
@@ -101,7 +104,7 @@ class WCS_Cart_Switch extends WCS_Cart_Renewal {
 
 							// Backwards compatibility (2.1 -> 2.1.2)
 							$subscription_item_id_key = ( isset( $switch_data['switches'][ $item_id ]['subscription_item_id'] ) ) ? 'subscription_item_id' : 'remove_line_item';
-							$_GET['item'] = $switch_data['switches'][ $item_id ][ $subscription_item_id_key ];
+							$_GET['item']             = $switch_data['switches'][ $item_id ][ $subscription_item_id_key ];
 							break;
 						}
 					}
@@ -121,7 +124,7 @@ class WCS_Cart_Switch extends WCS_Cart_Renewal {
 						$meta_value = is_array( $meta_value ) ? $meta_value[0] : $meta_value; // In WC 3.0 the meta values are no longer arrays
 
 						if ( taxonomy_is_product_attribute( $meta_key ) || meta_is_product_attribute( $meta_key, $meta_value, $product_id ) ) {
-							$variations[ $meta_key ] = $meta_value;
+							$variations[ $meta_key ]           = $meta_value;
 							$_POST[ 'attribute_' . $meta_key ] = $meta_value;
 						}
 					}
@@ -134,9 +137,7 @@ class WCS_Cart_Switch extends WCS_Cart_Renewal {
 				}
 			}
 
-			WC()->session->set( 'order_awaiting_payment', $order_id );
-			$this->set_cart_hash( $order_id );
-
+			$this->set_order_awaiting_payment( $order_id );
 			wp_safe_redirect( wc_get_checkout_url() );
 			exit;
 		}
@@ -161,5 +162,23 @@ class WCS_Cart_Switch extends WCS_Cart_Renewal {
 				wc_add_order_item_meta( WC()->cart->recurring_carts[ $recurring_cart_key ]->cart_contents[ $cart_item_key ][ $this->cart_item_key ]['item_id'], '_switched_subscription_new_item_id', $order_item_id, true );
 			}
 		}
+	}
+
+	/**
+	 * Overrides the place order button text on the checkout when the cart contains only switch requests.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param string $place_order_text The place order button text.
+	 * @return string The place order button text. 'Switch subscription' if the cart contains only switches, otherwise the default.
+	 */
+	public function order_button_text( $place_order_text ) {
+		$cart_switches = WC_Subscriptions_Switcher::cart_contains_switches();
+
+		if ( isset( WC()->cart ) && $cart_switches && count( $cart_switches ) === count( WC()->cart->get_cart() ) ) {
+			$place_order_text = _x( 'Switch subscription', 'The place order button text while switching a subscription', 'woocommerce-subscriptions' );
+		}
+
+		return $place_order_text;
 	}
 }

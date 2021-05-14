@@ -1322,7 +1322,7 @@ class GFFormDisplay {
 
 		$tabindex = GFCommon::get_tabindex();
 
-		$input_type = 'submit';
+		$input_type = ( rgar( $button, 'type' ) === 'link' ) ? 'button' : 'submit';
 
 		$do_submit = "jQuery(\"#gform_{$form_id}\").trigger(\"submit\",[true]);";
 
@@ -1355,7 +1355,7 @@ class GFFormDisplay {
 					$target = '';
 					$icon   = '<svg aria-hidden="true" focusable="false" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 8a4 4 0 004 4h3v3a1 1 0 102 0v-3h3a4 4 0 100-8 4 4 0 10-8 0 4 4 0 00-4 4zm9 4H7V7.414L5.707 8.707a1 1 0 01-1.414-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L9 7.414V12z" fill="#6B7280"/></svg>';
 				}
-				$button_input = "<{$tag} {$target} id='{$button_input_id}_link' class='{$class}' {$tabindex} {$onclick}>{$icon} {$button_text}</{$tag}>";
+				$button_input = "<{$tag} type='{$input_type}' {$target} id='{$button_input_id}_link' class='{$class}' {$tabindex} {$onclick}>{$icon} {$button_text}</{$tag}>";
 			} else {
 				$class .= ' button';
 				$button_input = "<input type='{$input_type}' id='{$button_input_id}' class='{$class}' value='" . esc_attr( $button_text ) . "' {$tabindex} {$onclick} />";
@@ -3604,15 +3604,11 @@ class GFFormDisplay {
 
 		$css_class = esc_attr( $css_class );
 
-		// Allows fields to receive focus in the form editor so screen readers can open the settings.
-		$tabindex = $is_form_editor ? '0' : null;
-
 		$field_container = $field->get_field_container(
 			array(
 				'id' => $field_id,
 				'class' => $css_class,
 				'style' => $style,
-				'tabindex' => $tabindex,
 				'data-field-class' => trim( $field_classes ),
 			),
 			$form

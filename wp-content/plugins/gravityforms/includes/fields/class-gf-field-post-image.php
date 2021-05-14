@@ -147,6 +147,8 @@ class GF_Field_Post_Image extends GF_Field_Fileupload {
 			$alt_field = $this->displayAlt || $is_admin ? sprintf( "<span class='ginput_full$class_suffix ginput_post_image_alt' $alt_style><input type='text' name='input_%d.2' id='%s_2' value='%s' $tabindex %s/><label for='%s_2'>" . gf_apply_filters( array( 'gform_postimage_alt', $form_id ), __( 'Alternative Text', 'gravityforms' ), $form_id ) . '</label></span>', $id, $field_id, $alt, $disabled_text, $field_id ) : '';
 		}
 
+		$tabindex = $this->get_tabindex();
+
 		if( $is_sub_label_above ){
 			$title_field = $this->displayTitle || $is_admin ? sprintf( "<span class='ginput_full$class_suffix ginput_post_image_title' $title_style><label for='%s_1'>" . gf_apply_filters( array( 'gform_postimage_title', $form_id ), __( 'Title', 'gravityforms' ), $form_id ) . "</label><input type='text' name='input_%d.1' id='%s_1' value='%s' $tabindex %s/></span>", $field_id, $id, $field_id, $title, $disabled_text ) : '';
 		} else {
