@@ -143,12 +143,13 @@ $_10_set = $is_10_set == 'ct-ultimate-gdpr-cookie-popup-10-set' ? true : false;
 ">
 
     <?php
-    if( isset( $options['cookie_gear_close_box'] ) && $options['cookie_gear_close_box'] == 'on' ){
+    if( isset( $options['cookie_gear_close_box'] ) && $options['cookie_gear_close_box'] == 'on'  && empty($options['cookie_close_text_modal'])){
         ?>
         <a href = "javascript:void(0);" id = "ct-ultimate-cookie-close-modal"><i class="fa fa-times"></i></a>
         <?php
-    }
-    ?>
+    }else if (isset( $options['cookie_gear_close_box'] ) && $options['cookie_gear_close_box'] == 'on'  && !empty($options['cookie_close_text_modal'])){ ?>
+        <a href = "javascript:void(0);" id = "ct-ultimate-cookie-close-modal"><?php echo $options['cookie_close_text_modal']; ?></a>
+    <?php } ?>
 
     <?php echo $popup_panel_open_tag; ?>
         <div id="ct-ultimate-gdpr-cookie-content" <?php echo $content_style; ?>>

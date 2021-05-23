@@ -3,11 +3,11 @@ Contributors: woocommerce, themesquad
 Tags: woocommerce, delivery, date
 Requires at least: 4.4
 Tested up to: 5.6
-Stable tag: 1.8.7
+Stable tag: 1.9.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.0
-WC tested up to: 5.2
+WC tested up to: 5.3
 Woo: 976514:beaa91b8098712860ec7335d3dca61c0
 
 Choose a delivery date during checkout for the order.
@@ -54,5 +54,5 @@ Visit our [Changelog](http://woocommerce.com/changelogs/woocommerce-order-delive
 
 == Upgrade Notice ==
 
-= 1.8 =
-1.8 is a major update. It is important that you make backups and ensure you have installed WC 3.0+, and optionally, WooCommerce Subscriptions 2.2+ before upgrading.
+= 1.9 =
+1.9 is a major update. It is important that you make backups and ensure you have installed WC 3.0+, and optionally, WooCommerce Subscriptions 2.2+ before upgrading.

@@ -106,7 +106,7 @@ class Yoast_WooCommerce_SEO {
 		// Adds recommended replacevars.
 		add_filter( 'wpseo_recommended_replace_vars', [ $this, 'add_recommended_replacevars' ] );
 
-		add_action( 'admin_init', [ $this, 'init_beacon' ] );
+		add_filter( 'wpseo_helpscout_beacon_settings', [ $this, 'filter_helpscout_beacon' ] );
 
 		add_filter( 'wpseo_sitemap_entry', [ $this, 'filter_hidden_product' ], 10, 3 );
 		add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', [ $this, 'filter_woocommerce_pages' ] );
@@ -842,16 +842,17 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
-	 * Initializes the Yoast SEO WooCommerce HelpScout beacon.
+	 * Makes sure the News settings page has a HelpScout beacon.
+	 *
+	 * @param array $helpscout_settings The HelpScout settings.
+	 *
+	 * @return array $helpscout_settings The HelpScout settings with the News SEO beacon added.
 	 */
-	public function init_beacon() {
-		$helpscout = new WPSEO_HelpScout(
-			'8535d745-4e80-48b9-b211-087880aa857d',
-			[ 'wpseo_woo' ],
-			[ WPSEO_Addon_Manager::WOOCOMMERCE_SLUG ]
-		);
+	public function filter_helpscout_beacon( $helpscout_settings ) {
+		$helpscout_settings['pages_ids']['wpseo_woo'] = '8535d745-4e80-48b9-b211-087880aa857d';
+		$helpscout_settings['products'][]             = WPSEO_Addon_Manager::WOOCOMMERCE_SLUG;
 
-		$helpscout->register_hooks();
+		return $helpscout_settings;
 	}
 
 	/**
@@ -1218,12 +1219,31 @@ class Yoast_WooCommerce_SEO {
 		$asset_manager = new WPSEO_Admin_Asset_Manager();
 		$version       = $asset_manager->flatten_version( self::VERSION );
 
+		$google_preview                 = [];
+		$product                        = $this->get_product();
+		$google_preview['availability'] = str_replace( '-', ' ', $product->get_availability()['class'] );
+
+		// Because the backorder availability value is not supported in the Google Product snippet, we output preorder in the schema, and thus the preview.
+		if ( $google_preview['availability'] === 'available on backorder' ) {
+			$google_preview['availability'] = 'preorder';
+		}
+
+		if ( $this->should_show_price() ) {
+			$google_preview['price'] = $this->get_product_var_price();
+		}
+
+		if ( wc_reviews_enabled() && wc_review_ratings_enabled() ) {
+			$google_preview['rating']      = floatval( $product->get_average_rating() );
+			$google_preview['reviewCount'] = $product->get_review_count();
+		}
+
 		return [
-			'script_url'     => plugins_url( 'js/dist/yoastseo-woo-worker-' . $version . '.js', self::get_plugin_file() ),
-			'woo_desc_none'  => __( 'You should write a short description for this product.', 'yoast-woo-seo' ),
-			'woo_desc_short' => __( 'The short description for this product is too short.', 'yoast-woo-seo' ),
-			'woo_desc_good'  => __( 'Your short description has a good length.', 'yoast-woo-seo' ),
-			'woo_desc_long'  => __( 'The short description for this product is too long.', 'yoast-woo-seo' ),
+			'script_url'              => plugins_url( 'js/dist/yoastseo-woo-worker-' . $version . '.js', self::get_plugin_file() ),
+			'woo_desc_none'           => __( 'You should write a short description for this product.', 'yoast-woo-seo' ),
+			'woo_desc_short'          => __( 'The short description for this product is too short.', 'yoast-woo-seo' ),
+			'woo_desc_good'           => __( 'Your short description has a good length.', 'yoast-woo-seo' ),
+			'woo_desc_long'           => __( 'The short description for this product is too long.', 'yoast-woo-seo' ),
+			'wooGooglePreviewData'    => $google_preview,
 		];
 	}
 

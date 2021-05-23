@@ -20,17 +20,19 @@ use Composer\Semver\VersionParser;
 
 
 
+
+
 class InstalledVersions
 {
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '16.1',
-    'version' => '16.1.0.0',
+    'pretty_version' => '16.3',
+    'version' => '16.3.0.0',
     'aliases' => 
     array (
     ),
-    'reference' => 'fbcacafe5509b5d99faaf60cf1e6b7db03b7fcba',
+    'reference' => '27aa955e7cdbb78500509683d4dfb53556f2a0d3',
     'name' => 'yoast/wordpress-seo',
   ),
   'versions' => 
@@ -69,12 +71,12 @@ private static $installed = array (
     ),
     'yoast/wordpress-seo' => 
     array (
-      'pretty_version' => '16.1',
-      'version' => '16.1.0.0',
+      'pretty_version' => '16.3',
+      'version' => '16.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'fbcacafe5509b5d99faaf60cf1e6b7db03b7fcba',
+      'reference' => '27aa955e7cdbb78500509683d4dfb53556f2a0d3',
     ),
   ),
 );
@@ -93,7 +95,6 @@ $packages = array();
 foreach (self::getInstalled() as $installed) {
 $packages[] = array_keys($installed['versions']);
 }
-
 
 if (1 === \count($packages)) {
 return $packages[0];
@@ -286,6 +287,7 @@ public static function reload($data)
 self::$installed = $data;
 self::$installedByVendor = array();
 }
+
 
 
 

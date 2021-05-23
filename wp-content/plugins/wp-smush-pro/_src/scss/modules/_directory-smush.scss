@@ -75,7 +75,23 @@
 
         // --- End nodes (use connectors instead of expanders)
 
-        .fancytree-exp-n span.fancytree-expander:before,
+        .fancytree-expanded.fancytree-exp-n span.fancytree-expander,
+        .fancytree-expanded.fancytree-exp-nl span.fancytree-expander {
+            width: 13px;
+            display: inline-block;
+
+            &:before {
+                background-image: none;
+                cursor: default;
+            }
+        }
+
+        .fancytree-exp-n span.fancytree-expander,
+        .fancytree-exp-nl span.fancytree-expander {
+            width: 12px;
+            display: inline-block;
+        }
+
         .fancytree-exp-nl span.fancytree-expander:before {
             content: "\131";
             cursor: default;
@@ -244,6 +260,8 @@
         }
 
         /* Folders */
+        .fancytree-exp-n.fancytree-ico-ef span.fancytree-icon:before,
+        .fancytree-exp-nl.fancytree-ico-ef span.fancytree-icon:before,
         .fancytree-ico-cf span.fancytree-icon:before  { // Collapsed folder (empty)
             content: '\2D8';
         }

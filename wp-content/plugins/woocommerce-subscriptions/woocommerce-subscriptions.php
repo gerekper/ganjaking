@@ -5,7 +5,7 @@
  * Description: Sell products and services with recurring payments in your WooCommerce Store.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 3.1.1
+ * Version: 3.1.2
  *
  * WC requires at least: 3.7
  * WC tested up to: 5.3
@@ -128,7 +128,7 @@ class WC_Subscriptions {
 
 	public static $plugin_file = __FILE__;
 
-	public static $version = '3.1.1';
+	public static $version = '3.1.2';
 
 	public static $wc_minimum_supported_version = '3.7';
 
@@ -1467,9 +1467,9 @@ class WC_Subscriptions {
  */
 if ( ! function_exists( 'add_woocommerce_inbox_variant' ) ) {
 	function add_woocommerce_inbox_variant() {
-		$config_name = 'woocommerce_inbox_variant';
+		$config_name = 'woocommerce_inbox_variant_assignment';
 		if ( false === get_option( $config_name, false ) ) {
-			update_option( $config_name, wp_rand( 1, 5 ) );
+			update_option( $config_name, wp_rand( 1, 12 ) );
 		}
 	}
 }

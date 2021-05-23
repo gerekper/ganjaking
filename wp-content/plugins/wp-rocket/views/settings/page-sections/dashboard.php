@@ -79,7 +79,7 @@ defined( 'ABSPATH' ) || exit;
 					<div class="wpr-infoAccount-License">
 						<span class="wpr-title3"><?php esc_html_e( 'License', 'rocket' ); ?></span>
 						<span class="wpr-infoAccount wpr-isValid" id="wpr-account-data">
-							<?php echo esc_html( 'Infinite' ); ?>
+							<?php echo esc_html( $data['customer_data']['license_type'] ); ?>
 						</span><br>
 						<?php
 						/**
@@ -91,7 +91,7 @@ defined( 'ABSPATH' ) || exit;
 						?>
 						<p>
 							<span class="wpr-title3"><?php esc_html_e( 'Expiration Date', 'rocket' ); ?></span>
-							<span class="wpr-infoAccount wpr-isValid" id="wpr-expiration-data"><?php echo esc_html( 'July 24, 2091' ); ?></span>
+							<span class="wpr-infoAccount <?php echo esc_attr( $data['customer_data']['license_class'] ); ?>" id="wpr-expiration-data"><?php echo esc_html( $data['customer_data']['license_expiration'] ); ?></span>
 						</p>
 					</div>
 					<div>
@@ -211,6 +211,24 @@ defined( 'ABSPATH' ) || exit;
 						);
 						?>
 					</div>
+					<?php endif; ?>
+
+					<?php if ( get_rocket_option( 'remove_unused_css' ) && current_user_can( 'rocket_remove_unused_css' ) ) : ?>
+						<div class="wpr-field">
+							<h4 class="wpr-title3"><?php esc_html_e( 'Remove Used CSS Cache', 'rocket' ); ?></h4>
+							<?php
+							$this->render_action_button(
+									'link',
+									'rocket_clear_usedcss',
+									[
+										'label'      => __( 'Clear Used CSS', 'rocket' ),
+										'attributes' => [
+											'class' => 'wpr-button wpr-button--icon wpr-button--small wpr-icon-trash',
+										],
+									]
+							);
+							?>
+						</div>
 					<?php endif; ?>
 				</fieldset>
 			</div>

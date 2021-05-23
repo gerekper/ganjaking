@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.5.0
+ * @version     1.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -597,7 +597,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 		 * @param string $gift_certificate_sender_email Email address of the sender.
 		 * @param int    $order_id The order id.
 		 */
-		public function update_coupons( $coupon_titles = array(), $email, $product_ids = '', $operation, $order_item = null, $gift_certificate_receiver = false, $gift_certificate_receiver_name = '', $message_from_sender = '', $gift_certificate_sender_name = '', $gift_certificate_sender_email = '', $order_id = '' ) {
+		public function update_coupons( $coupon_titles = array(), $email = array(), $product_ids = '', $operation = '', $order_item = null, $gift_certificate_receiver = false, $gift_certificate_receiver_name = '', $message_from_sender = '', $gift_certificate_sender_name = '', $gift_certificate_sender_email = '', $order_id = '' ) {
 
 			global $smart_coupon_codes;
 

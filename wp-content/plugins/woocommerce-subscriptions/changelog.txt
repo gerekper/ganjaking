@@ -1,5 +1,10 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2021-05-19 - version 3.1.2
+* Fix: Don't show recurring shipping method selection when the rates and options match the initial cart options. PR#4091
+* Fix: Update the recurring shipping totals on selection and fix invalid recurring shipping method notices. PR#4099
+* Fix: Update the subscription shipping address after on switch. PR#4095
+
 2021-05-12 - version 3.1.1
 * Fix: "Invalid recurring shipping method" error on checkout when attempting to purchase a subscription with one-time shipping. PR#4088
 * Fix: Rework subscription webhook migration script added in 3.1 to clear cached webhook data. PR#4082

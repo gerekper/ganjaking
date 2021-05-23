@@ -1,12 +1,14 @@
 <?php
 /**
- * Job posting block schema template.
+ * Job Posting block schema template.
  *
  * @package Yoast\WP\SEO\Schema_Templates
  */
 
+use Yoast\WP\SEO\Schema_Templates\Assets\Icons;
+
 /* translators: %1$s expands to Yoast */
-$yoast_seo_block_title = sprintf( __( '%1$s Job posting', 'wordpress-seo-premium' ), 'Yoast' );
+$yoast_seo_block_title = sprintf( __( '%1$s Job Posting', 'wordpress-seo-premium' ), 'Yoast' );
 
 $yoast_seo_block_template = [
 	[ 'yoast/job-title' ],
@@ -19,7 +21,7 @@ $yoast_seo_block_template = [
 	[ 'yoast/job-benefits' ],
 	[ 'yoast/job-location' ],
 	[ 'core/separator' ],
-	[ 'core/buttons', [ 'template' => [ 'core/button' ] ] ],
+	[ 'yoast/job-apply-button' ],
 ];
 
 $yoast_seo_required_blocks = [
@@ -34,6 +36,7 @@ $yoast_seo_recommended_blocks = [
 	[ 'name' => 'yoast/job-salary' ],
 	[ 'name' => 'yoast/job-requirements' ],
 	[ 'name' => 'yoast/job-benefits' ],
+	[ 'name' => 'yoast/job-apply-button' ],
 ];
 
 $yoast_seo_block_example = [
@@ -41,7 +44,7 @@ $yoast_seo_block_example = [
 		[
 			'name'       => 'yoast/job-title',
 			'attributes' => [
-				'title'  => esc_html__( 'Job title', 'wordpress-seo-premium' ),
+				'title' => esc_html__( 'The title of the job.', 'wordpress-seo-premium' ),
 			],
 		],
 		[
@@ -53,7 +56,7 @@ $yoast_seo_block_example = [
 		[
 			'name'       => 'yoast/job-description',
 			'attributes' => [
-				'description' => esc_html__( 'This is the job description.', 'wordpress-seo-premium' ),
+				'description' => esc_html__( 'The description of the job.', 'wordpress-seo-premium' ),
 			],
 		],
 		[
@@ -71,11 +74,9 @@ $yoast_seo_block_example = [
 	],
 ];
 
-// phpcs:disable WordPress.Security.EscapeOutput -- Reason: WPSEO_Utils::format_json_encode is safe.
+// phpcs:disable WordPress.Security.EscapeOutput -- Reason: WPSEO_Utils::format_json_encode is safe; The Icons contains safe svg.
 ?>
-{{block name="yoast/job-posting" example=<?php echo WPSEO_Utils::format_json_encode( $yoast_seo_block_example ); ?> title="<?php echo esc_attr( $yoast_seo_block_title ); ?>" keywords=[ "SEO", "Schema"] description="<?php esc_attr_e( 'Create a Job Posting in an SEO-friendly way. You can only use one Job Posting block per post.', 'wordpress-seo-premium' ); ?>" icon="portfolio" category="yoast-structured-data-blocks" supports={"multiple": false} }}
-{{sidebar-input name="minimum-hours" output=false type="number" label="<?php esc_attr_e( 'Minimum hours', 'wordpress-seo-premium' ); ?>" }}
-{{sidebar-input name="maximum-hours" output=false type="number" label="<?php esc_attr_e( 'Maximum hours', 'wordpress-seo-premium' ); ?>" }}
+{{block name="yoast/job-posting" example=<?php echo WPSEO_Utils::format_json_encode( $yoast_seo_block_example ); ?> title="<?php echo esc_attr( $yoast_seo_block_title ); ?>" keywords=["SEO", "Schema"] description="<?php esc_attr_e( 'Create a Job Posting in an SEO-friendly way. You can only use one Job Posting block per post.', 'wordpress-seo-premium' ); ?>" icon="<?php echo Icons::heroicons_briefcase(); ?>" category="yoast-structured-data-blocks" supports={"multiple": false} }}
 <div class={{class-name}}>
 	{{inner-blocks appender="button" template=<?php echo WPSEO_Utils::format_json_encode( $yoast_seo_block_template ); ?> required-blocks=<?php echo WPSEO_Utils::format_json_encode( $yoast_seo_required_blocks ); ?> recommended-blocks=<?php echo WPSEO_Utils::format_json_encode( $yoast_seo_recommended_blocks ); ?> appenderLabel="<?php esc_attr_e( 'Add a block to your job posting...', 'wordpress-seo-premium' ); ?>" }}
 </div>

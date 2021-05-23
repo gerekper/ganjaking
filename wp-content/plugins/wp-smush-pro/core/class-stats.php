@@ -881,7 +881,11 @@ class Stats {
 		// Round off precentage.
 		$smush_data['percent'] = round( $smush_data['percent'], 1 );
 
-		$smush_data['human'] = size_format( $smush_data['bytes'], 1 );
+		// Human readable format.
+		$smush_data['human'] = size_format(
+			$smush_data['bytes'],
+			( $smush_data['bytes'] >= 1024 ) ? 1 : 0
+		);
 
 		// Setup Smushed attachment IDs.
 		$this->smushed_attachments = ! empty( $smush_data['id'] ) ? $smush_data['id'] : '';

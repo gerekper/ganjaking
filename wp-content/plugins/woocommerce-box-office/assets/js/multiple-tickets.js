@@ -22,7 +22,12 @@
 				? $( '[name="quantity"]' )
 				: this.$el.parent().find( '[name="quantity"]:first' );
 
-			this.qty.on( 'change', $.proxy( this.updateQty, this ) );
+      var context = this;
+
+			this.qty.on( 'change', function() {
+        context.updateQty();
+      } );
+
 			this.addToCart = $( '.wc-box-office-ticket-form' ).parent().find( '.single_add_to_cart_button' );
 			this.tickets = [];
 			this.prevTicketEls = [];

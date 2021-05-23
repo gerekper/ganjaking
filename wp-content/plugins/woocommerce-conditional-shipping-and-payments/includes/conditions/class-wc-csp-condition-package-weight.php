@@ -50,7 +50,7 @@ class WC_CSP_Condition_Package_Weight extends WC_CSP_Package_Condition {
 		$package_count = $this->get_package_count( $args );
 		$message       = false;
 
-		if ( $this->modifier_is( $data[ 'modifier' ], array( 'min' ) ) ) {
+		if ( $this->modifier_is( $data[ 'modifier' ], array( 'gte', 'min' ) ) ) {
 
 			if ( 1 === $package_count ) {
 				$message = sprintf( __( 'decrease the total weight of your shipment below %1$s%2$s', 'woocommerce-conditional-shipping-and-payments' ), $data[ 'value' ], get_option( 'woocommerce_weight_unit' ) );
@@ -58,12 +58,26 @@ class WC_CSP_Condition_Package_Weight extends WC_CSP_Package_Condition {
 				$message = sprintf( __( 'decrease its total weight below %1$s%2$s', 'woocommerce-conditional-shipping-and-payments' ), $data[ 'value' ], get_option( 'woocommerce_weight_unit' ) );
 			}
 
-		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'max' ) ) ) {
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lt', 'max' ) ) ) {
 
 			if ( 1 === $package_count ) {
-				$message = sprintf( __( 'increase the total weight of your shipment above %1$s%2$s', 'woocommerce-conditional-shipping-and-payments' ), $data[ 'value' ], get_option( 'woocommerce_weight_unit' ) );
+				$message = sprintf( __( 'increase the total weight of your shipment to %1$s%2$s or higher', 'woocommerce-conditional-shipping-and-payments' ), $data[ 'value' ], get_option( 'woocommerce_weight_unit' ) );
 			} else {
-				$message = sprintf( __( 'increase its total weight above %1$s%2$s', 'woocommerce-conditional-shipping-and-payments' ), $data[ 'value' ], get_option( 'woocommerce_weight_unit' ) );
+				$message = sprintf( __( 'increase its total weight to %1$s%2$s or higher', 'woocommerce-conditional-shipping-and-payments' ), $data[ 'value' ], get_option( 'woocommerce_weight_unit' ) );
+			}
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'gt' ) ) ) {
+
+			if ( 1 === $package_count ) {
+				$message = sprintf( __( 'decrease the total weight of your shipment to %s or lower', 'woocommerce-conditional-shipping-and-payments' ), wc_price( $data[ 'value' ] ) );
+			} else {
+				$message = sprintf( __( 'decrease its total weight to %s or lower', 'woocommerce-conditional-shipping-and-payments' ), wc_price( $data[ 'value' ] ) );
+			}
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lte' ) ) ) {
+
+			if ( 1 === $package_count ) {
+				$message = sprintf( __( 'increase the total weight of your shipment above %s', 'woocommerce-conditional-shipping-and-payments' ), wc_price( $data[ 'value' ] ) );
+			} else {
+				$message = sprintf( __( 'increase its total weight above %s', 'woocommerce-conditional-shipping-and-payments' ), wc_price( $data[ 'value' ] ) );
 			}
 		}
 
@@ -105,9 +119,13 @@ class WC_CSP_Condition_Package_Weight extends WC_CSP_Package_Condition {
 			}
 		}
 
-		if ( $this->modifier_is( $data[ 'modifier' ], array( 'min' ) ) && $data[ 'value' ] <= $pkg_weight ) {
+		if ( $this->modifier_is( $data[ 'modifier' ], array( 'gte', 'min' ) ) && $data[ 'value' ] <= $pkg_weight ) {
 			return true;
-		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'max' ) ) && $data[ 'value' ] > $pkg_weight ) {
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lt', 'max' ) ) && $data[ 'value' ] > $pkg_weight ) {
+			return true;
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lte' ) ) && wc_format_decimal( $data[ 'value' ] ) >= $pkg_weight ) {
+			return true;
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'gt' ) ) && wc_format_decimal( $data[ 'value' ] ) < $pkg_weight ) {
 			return true;
 		}
 
@@ -148,11 +166,19 @@ class WC_CSP_Condition_Package_Weight extends WC_CSP_Package_Condition {
 	 */
 	public function get_admin_fields_html( $index, $condition_index, $condition_data ) {
 
-		$modifier       = '';
+		$modifier       = 'lt';
 		$package_weight = '';
 
 		if ( ! empty( $condition_data[ 'modifier' ] ) ) {
 			$modifier = $condition_data[ 'modifier' ];
+
+			// Max/Min  Backwards compatibility
+			if ( 'max' === $modifier ) {
+				$modifier = 'lt';
+			} elseif ( 'min' === $modifier ) {
+				$modifier = 'gte';
+			}
+
 		}
 
 		if ( isset( $condition_data[ 'value' ] ) ) {
@@ -165,8 +191,11 @@ class WC_CSP_Condition_Package_Weight extends WC_CSP_Package_Condition {
 			<div class="condition_modifier">
 				<div class="sw-enhanced-select">
 					<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]">
-						<option value="max" <?php selected( $modifier, 'max', true ) ?>><?php echo __( '<', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-						<option value="min" <?php selected( $modifier, 'min', true ) ?>><?php echo __( '>=', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="lt" <?php selected( $modifier, 'lt', true ) ?>><?php echo __( '<', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="lte" <?php selected( $modifier, 'lte', true ) ?>><?php echo __( '<=', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="gt" <?php selected( $modifier, 'gt', true ) ?>><?php echo __( '>', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="gte" <?php selected( $modifier, 'gte', true ) ?>><?php echo __( '>=', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+
 					</select>
 				</div>
 			</div>

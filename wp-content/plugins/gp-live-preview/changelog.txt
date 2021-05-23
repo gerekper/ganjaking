@@ -1,6 +1,31 @@
 
 # Changelog
 
+## 1.6
+
+	- Improved support for Gravity Forms 2.5. (#9)
+
+## 1.5.1
+
+	- Fixed issue in GF 2.5. where Live Preview menu displayed underneath form settings.
+
+## 1.4.4
+
+	- Fixed issue where admin script was not output when No Conflict Mode was enabled.
+	- Improved Live Preview with full compatibility for Gravity Forms 2.5.
+	- Fixed issue where tooltips displayed underneath the form editor toolbar. Fixes #5.
+	- Updated CSS for hidden fields in Gravity Forms 2.5
+	- Removed tags in selectors.
+	- Updated and improved to work well in Gravity Forms 2.5; Live Preview is now an option on the default Preview menu.
+
+## 1.5
+
+	- Added full support for Gravity Forms with improved UI.
+	- Updated CSS for hidden fields in Gravity Forms 2.5
+	- Fixed issue where admin script was not output when No Conflict Mode was enabled.
+	- Fixed issue where tooltips displayed underneath the form editor toolbar. Fixes #5.
+	- Removed tags in selectors.
+
 ## 1.4.3
 
 	- Added [gplp_grant_preview_permission](https://gravitywiz.com/documentation/gplp_grant_preview_permission/) filter to allow filtering whether the current user has permission to preview forms via Live Preview.

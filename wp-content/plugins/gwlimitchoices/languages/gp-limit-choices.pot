@@ -1,4 +1,4 @@
-# Copyright (C) 2019 GP Limit Choices
+# Copyright (C) 2021 GP Limit Choices
 # This file is distributed under the same license as the GP Limit Choices package.
 msgid ""
 msgstr ""
@@ -13,30 +13,30 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../class-gp-limit-choices.php:213
+#: ../class-gp-limit-choices.php:79
 msgid "enable limits"
 msgstr ""
 
-#: ../class-gp-limit-choices.php:599
+#: ../class-gp-limit-choices.php:459
 msgid "The choice, \"%s\", which you have selected is no longer available."
 msgstr ""
 
-#: ../class-gp-limit-choices.php:618
+#: ../class-gp-limit-choices.php:478
 msgid "You selected this option for %1$d items but only %2$d of this option is available."
 msgid_plural "You selected this option for %1$d items but only %2$d of this option are available."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../class-gp-limit-choices.php:620
+#: ../class-gp-limit-choices.php:480
 msgid "You selected %1$d of this item but only %2$d is available."
 msgid_plural "You selected %1$d of this item but only %2$d are available."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../class-gp-limit-choices.php:728
+#: ../class-gp-limit-choices.php:589
 msgid "There are no options available for this field."
 msgstr ""
 
-#: ../class-gp-limit-choices.php:1096
+#: ../class-gp-limit-choices.php:990
 msgid "unlimited"
 msgstr ""

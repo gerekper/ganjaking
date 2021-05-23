@@ -1,5 +1,11 @@
 *** WooCommerce Product Search ***
 
+2021.04.11 - version 3.7.0
+* WordPress 5.8 compatible.
+* WooCommerce 5.2 compatible.
+* Requires at least WordPress 5.5.
+* Requires at least WooCommerce 4.9.
+
 2021.03.25 - version 3.6.2
 * Updated WPML / WooCommerce Multilingual compatibility to support untranslated products related to translated terms. Requires rebuilding the index to take effect.
 * Solved links to translated taxonomy terms leading to 404s with WPML as they are not correctly recognized without the lang URL parameter.

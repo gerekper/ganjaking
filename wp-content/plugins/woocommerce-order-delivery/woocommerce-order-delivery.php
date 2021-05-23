@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Order Delivery
  * Plugin URI: https://woocommerce.com/products/woocommerce-order-delivery/
  * Description: Choose a delivery date during checkout for the order.
- * Version: 1.8.7
+ * Version: 1.9.0
  * Author: Themesquad
  * Author URI: https://themesquad.com/
  * Requires at least: 4.4
  * Tested up to: 5.6
  * WC requires at least: 3.0
- * WC tested up to: 5.2
+ * WC tested up to: 5.3
  * Woo: 976514:beaa91b8098712860ec7335d3dca61c0
  *
  * Text Domain: woocommerce-order-delivery
@@ -84,7 +84,7 @@ if ( ! class_exists( 'WC_Order_Delivery' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '1.8.7';
+		public $version = '1.9.0';
 
 
 		/**
@@ -172,6 +172,11 @@ if ( ! class_exists( 'WC_Order_Delivery' ) ) {
 			include_once 'includes/class-wc-od-autoloader.php';
 
 			/**
+			 * Interfaces.
+			 */
+			include_once 'includes/interfaces/interface-wc-od-integration.php';
+
+			/**
 			 * Abstract classes.
 			 */
 			include_once 'includes/abstracts/abstract-class-wc-od-data.php';
@@ -183,6 +188,7 @@ if ( ! class_exists( 'WC_Order_Delivery' ) ) {
 			include_once 'includes/wc-od-functions.php';
 			include_once 'includes/class-wc-od-install.php';
 			include_once 'includes/class-wc-od-emails.php';
+			include_once 'includes/class-wc-od-integrations.php';
 
 			if ( is_admin() ) {
 				include_once 'includes/admin/class-wc-od-admin.php';

@@ -202,7 +202,7 @@ class GF_Field extends stdClass implements ArrayAccess {
 	 * @return string
 	 */
 	public function get_form_editor_field_icon() {
-		return 'dashicons-admin-generic';
+		return 'gform-icon--cog';
 	}
 
 	/**

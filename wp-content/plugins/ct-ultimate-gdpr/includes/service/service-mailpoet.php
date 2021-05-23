@@ -88,12 +88,12 @@ class CT_Ultimate_GDPR_Service_Mailpoet extends CT_Ultimate_GDPR_Service_Abstrac
 	 */
 	public function add_option_fields() {
 
-		add_settings_section(
-			'ct-ultimate-gdpr-services-mailpoet_accordion-mailpoet', // ID
-			esc_html( $this->get_name() ), // Title
-			null, // callback
-			$this->front_controller->find_controller('services')->get_id() // Page
-		);
+//		add_settings_section(
+//			'ct-ultimate-gdpr-services-mailpoet_accordion-mailpoet', // ID
+//			esc_html( $this->get_name() ), // Title
+//			null, // callback
+//			$this->front_controller->find_controller('services')->get_id() // Page
+//		);
 
 		/*add_settings_field(
 			"services_{$this->get_id()}_header", // ID

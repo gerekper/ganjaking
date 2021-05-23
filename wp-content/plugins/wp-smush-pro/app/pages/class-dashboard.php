@@ -363,17 +363,6 @@ class Dashboard extends Abstract_Page {
 
 			$this->modals['reset-settings'] = array();
 		}
-
-		if ( 'tutorials' === $this->get_current_tab() && $this->should_render() ) {
-			$this->add_meta_box(
-				'tutorials',
-				__( 'Tutorials', 'wp-smushit' ),
-				array( $this, 'tutorials_metabox' ),
-				null,
-				null,
-				'tutorials'
-			);
-		}
 	}
 
 	/**
@@ -650,7 +639,7 @@ class Dashboard extends Abstract_Page {
 					<?php if ( ! $this->settings->get( 'lossy' ) ) { ?>
 						<p class="wp-smush-stats-label-message sui-hidden-sm sui-hidden-md sui-hidden-lg">
 							<?php
-							$link_class = 'wp-smush-lossy-enable-link';
+							$link_class = 'wp-smush-lossy-enable';
 							if ( ( is_multisite() && Settings::can_access( 'bulk' ) ) || 'bulk' !== $this->get_current_tab() ) {
 								$settings_link = $this->get_page_url() . '#enable-lossy';
 							} else {
@@ -1147,57 +1136,6 @@ class Dashboard extends Abstract_Page {
 	}
 
 	/**
-	 * Returns the tutorials data to display.
-	 *
-	 * @since 3.7.1
-	 * @return array
-	 */
-	protected function get_tutorials_data() {
-		return array(
-			array(
-				'title'             => __( 'Smush Pro Now Supports Local WebP Conversion (No CDN Required)', 'wp-smushit' ),
-				'content'           => __( 'Until now, next-gen WebP images could only be served by activating Smush Pro’s CDN. But by popular demand, Smush Pro now also supports local WebP image conversion.', 'wp-smushit' ),
-				'thumbnail_full'    => 'tutorial-5-thumbnail.png',
-				'thumbnail_full_2x' => 'tutorial-5-thumbnail@2x.png',
-				'url'               => 'https://wpmudev.com/blog/local-webp-support-smush/',
-				'read_time'         => 6,
-			),
-			array(
-				'title'             => __( 'Optimizing Your WordPress Site Performance with Smush, Hummingbird, and The Hub', 'wp-smushit' ),
-				'content'           => __( 'The Hub’s Performance tab lets you quickly optimize and manage site performance with Hummingbird and Smush from a single tab.', 'wp-smushit' ),
-				'thumbnail_full'    => 'tutorial-4-thumbnail.png',
-				'thumbnail_full_2x' => 'tutorial-4-thumbnail@2x.png',
-				'url'               => 'https://wpmudev.com/blog/optimizing-your-wordpress-site-performance-with-smush-hummingbird-and-the-hub/',
-				'read_time'         => 10,
-			),
-			array(
-				'title'             => __( 'How to Get the Most Out of Smush Image Optimization', 'wp-smushit' ),
-				'content'           => __( 'Set your site up for maximum success. Learn how to get the most out of Smush and streamline your images for peak site performance.', 'wp-smushit' ),
-				'thumbnail_full'    => 'tutorial-1-thumbnail.png',
-				'thumbnail_full_2x' => 'tutorial-1-thumbnail@2x.png',
-				'url'               => 'https://wpmudev.com/blog/how-to-get-the-most-out-of-smush/',
-				'read_time'         => 5,
-			),
-			array(
-				'title'             => __( "How To Ace Google's Image Page Speed Recommendations", 'wp-smushit' ),
-				'content'           => __( "See how toggling specific Smush settings can easily help you resolve all 4 of Google's 'image-related' page speed recommendations.", 'wp-smushit' ),
-				'thumbnail_full'    => 'tutorial-2-thumbnail.png',
-				'thumbnail_full_2x' => 'tutorial-2-thumbnail@2x.png',
-				'url'               => 'https://wpmudev.com/blog/smush-pagespeed-image-compression/',
-				'read_time'         => 6,
-			),
-			array(
-				'title'             => __( 'How To Bulk Optimize Images With Smush', 'wp-smushit' ),
-				'content'           => __( 'Skip the hassle of compressing all your images manually. Learn how Smush can easily help you do it in bulk.', 'wp-smushit' ),
-				'thumbnail_full'    => 'tutorial-3-thumbnail.png',
-				'thumbnail_full_2x' => 'tutorial-3-thumbnail@2x.png',
-				'url'               => 'https://wpmudev.com/blog/smush-bulk-optimize-images/',
-				'read_time'         => 6,
-			),
-		);
-	}
-
-	/**
 	 * Bulk smush meta box.
 	 *
 	 * Container box to handle bulk smush actions. Show progress bars,
@@ -1612,15 +1550,6 @@ class Dashboard extends Abstract_Page {
 				),
 			)
 		);
-	}
-
-	/**
-	 * Tutorials meta box.
-	 *
-	 * @since 3.7.1
-	 */
-	public function tutorials_metabox() {
-		$this->view( 'tutorials/meta-box' );
 	}
 
 	/**

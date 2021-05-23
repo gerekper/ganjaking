@@ -17,7 +17,7 @@ if ( ! class_exists( 'WC_Settings_Restrictions' ) ) :
 /**
  * WooCommerce Global Restriction Settings.
  *
- * @version  1.8.5
+ * @version  1.9.0
  */
 class WC_Settings_Restrictions extends WC_Settings_Page {
 
@@ -75,7 +75,7 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 			array(
 				'title' => __( 'Restrictions', 'woocommerce-conditional-shipping-and-payments' ),
 				'type'  => 'title',
-				'desc'  => __( 'Use Restrictions to conditionally exclude Payment Gateways, Shipping Methods and Shipping Countries or States.', 'woocommerce-conditional-shipping-and-payments' ),
+				'desc'  => __( 'Use Restrictions to conditionally exclude Payment Gateways, Shipping Methods, and Shipping Destinations.', 'woocommerce-conditional-shipping-and-payments' ),
 				'id'    => 'restriction_options'
 			),
 
@@ -99,7 +99,7 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 				'default'       => 'no',
 				'type'          => 'checkbox',
 				'checkboxgroup' => 'start',
-				'desc_tip'      => __( 'Disable all restrictions created in the <strong>Payment Gateways</strong>, <strong>Shipping Methods</strong> and <strong>Shipping Countries &amp; States</strong> tab sections above.', 'woocommerce-conditional-shipping-and-payments' ),
+				'desc_tip'      => __( 'Disable all restrictions created in the <strong>Payment Gateways</strong>, <strong>Shipping Methods</strong> and <strong>Shipping Destinations</strong> tab sections above.', 'woocommerce-conditional-shipping-and-payments' ),
 			),
 
 			array(
@@ -168,7 +168,7 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 			WC_CSP_Admin_Notices::add_notice( __( 'Your settings have been saved.', 'woocommerce' ), 'success', true );
 		}
 
-		wp_redirect( remove_query_arg( 'add_rule' ) );
+		wp_redirect( remove_query_arg( array( 'add_rule', 'view_rule' ) ) );
 		exit;
 	}
 

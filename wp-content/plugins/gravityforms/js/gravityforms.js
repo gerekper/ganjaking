@@ -7,17 +7,25 @@ if( typeof jQuery.fn.prop === 'undefined' ) {
     jQuery.fn.prop = jQuery.fn.attr;
 }
 
-jQuery(document).ready(function(){
+// Announcing validation errors after form render.
+jQuery( document ).on( 'gform_post_render', announceAJAXValidationErrors );
 
+/**
+ * Announce validation errors after form has been rendered.
+ *
+ * @since 2.5.1
+ */
+function announceAJAXValidationErrors() {
 	// Announce validation errors.
-	if ( jQuery('.gform_validation_errors').length ) {
-		jQuery('#gf_form_focus').focus();
-		setTimeout( function() {
-		  wp.a11y.speak( jQuery('.gform_validation_errors > h2').text() );
-		}, 1000);
+	if ( ! jQuery('.gform_validation_errors').length ) {
+		return;
 	}
+	jQuery( '#gf_form_focus' ).focus();
+	setTimeout( function() {
+	  wp.a11y.speak( jQuery( '.gform_validation_errors > h2' ).text() );
+	}, 1000 );
 
-});
+}
 
 //Formatting free form currency fields to currency
 jQuery( document ).bind( 'gform_post_render', gformBindFormatPricingFields );

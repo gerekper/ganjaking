@@ -1,5 +1,12 @@
 *** WooCommerce Min/Max Quantities Changelog ***
 
+2021-05-04 - version 2.4.21
+* Add - Output any error messages we might have on the checkout cart error template.
+* Fix - Category-level rules now correctly apply to Grouped Products.
+* Fix - Ensure 'Do not count' order rules work if the product with those rules is the only one in the cart.
+* Tweak - WC 5.2.2 compatibility.
+* Tweak - WP 5.7.1 compatibility.
+
 2020-10-06 - version 2.4.20
 * Tweak - Set initial quantity to group of quantity when we don't have a minimum quantity.
 * Tweak - WC 4.5 compatibility.

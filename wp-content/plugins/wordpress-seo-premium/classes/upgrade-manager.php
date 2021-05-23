@@ -94,6 +94,23 @@ class WPSEO_Upgrade_Manager {
 		if ( version_compare( $version_number, '16.2-RC0', '<' ) ) {
 			add_action( 'init', [ $this, 'upgrade_16_2' ], 12 );
 		}
+
+		if ( version_compare( $version_number, '16.3-beta2', '<' ) ) {
+			add_action( 'init', [ $this, 'upgrade_16_3' ], 12 );
+		}
+	}
+
+	/**
+	 * Runs the language pack upgrader to migrate to TranslationsPress.
+	 *
+	 * @return void
+	 */
+	public function upgrade_16_3() {
+		require_once ABSPATH . 'wp-admin/includes/admin.php';
+		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+		$upgrader       = new WP_Upgrader();
+		$upgrader->skin = new Automatic_Upgrader_Skin();
+		Language_Pack_Upgrader::async_upgrade( $upgrader );
 	}
 
 	/**

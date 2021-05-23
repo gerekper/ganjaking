@@ -13,7 +13,6 @@
 	"mainEntityOfPage": {
 		"@id": "%%main_schema_id%%"
 	},
-	"workHours": "{{attribute name="minimum-hours" }}-{{attribute name="maximum-hours" }}",
 	"jobLocation": {{inner-blocks allowed-blocks=[ "yoast/office-location" ] only-first=true }},
 	"jobLocationType": {{inner-blocks allowed-blocks=[ "yoast/remote-location" ] only-first=true }},
 	"experienceRequirements": {{inner-blocks allowed-blocks=[ "yoast/job-requirements" ] only-first=true }},

@@ -19,6 +19,7 @@ class ComposerStaticInit82cfda2c464d994031735086dc3e84f0
         'WAPL_Ajax' => __DIR__ . '/../..' . '/includes/class-wapl-ajax.php',
         'WAPL_Condition' => __DIR__ . '/../..' . '/includes/admin/class-wapl-condition.php',
         'WAPL_Global_Labels' => __DIR__ . '/../..' . '/class-wapl-global-labels.php',
+        'WAPL_Hook_Check' => __DIR__ . '/../..' . '/includes/admin/class-wapl-hook-check.php',
         'WAPL_Label' => __DIR__ . '/../..' . '/includes/class-wapl-label.php',
         'WAPL_Match_Conditions' => __DIR__ . '/../..' . '/includes/class-wapl-match-conditions.php',
         'WAPL_Post_Type' => __DIR__ . '/../..' . '/includes/class-wapl-post-type.php',

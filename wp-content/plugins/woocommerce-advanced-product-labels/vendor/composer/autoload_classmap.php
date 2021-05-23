@@ -13,6 +13,7 @@ return array(
     'WAPL_Ajax' => $baseDir . '/includes/class-wapl-ajax.php',
     'WAPL_Condition' => $baseDir . '/includes/admin/class-wapl-condition.php',
     'WAPL_Global_Labels' => $baseDir . '/class-wapl-global-labels.php',
+    'WAPL_Hook_Check' => $baseDir . '/includes/admin/class-wapl-hook-check.php',
     'WAPL_Label' => $baseDir . '/includes/class-wapl-label.php',
     'WAPL_Match_Conditions' => $baseDir . '/includes/class-wapl-match-conditions.php',
     'WAPL_Post_Type' => $baseDir . '/includes/class-wapl-post-type.php',

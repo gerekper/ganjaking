@@ -159,7 +159,7 @@ abstract class WC_OD_Data implements ArrayAccess {
 	| Array Access Methods
 	|--------------------------------------------------------------------------
 	|
-	| For backwards compatibility with legacy arrays.
+	| For backward compatibility with legacy arrays.
 	|
 	*/
 

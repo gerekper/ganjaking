@@ -51,12 +51,12 @@ class CT_Ultimate_GDPR_Service_Hotjar extends CT_Ultimate_GDPR_Service_Abstract 
 
         /* Cookie section */
 
-        add_settings_section(
-            'ct-ultimate-gdpr-services-hotjar_accordion-hotjar', // ID
-            esc_html( $this->get_name() ), // Title
-            null, // callback
-            $this->front_controller->find_controller('services')->get_id() // Page
-        );
+//        add_settings_section(
+//            'ct-ultimate-gdpr-services-hotjar_accordion-hotjar', // ID
+//            esc_html( $this->get_name() ), // Title
+//            null, // callback
+//            $this->front_controller->find_controller('services')->get_id() // Page
+//        );
 
         add_settings_field(
             "services_{$this->get_id()}_service_name", // ID

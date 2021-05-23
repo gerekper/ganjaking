@@ -277,7 +277,7 @@ class Media_Library extends Abstract_Module {
 		$current_screen = get_current_screen();
 
 		// Only run on required pages.
-		if ( ! empty( $current_screen ) && ! in_array( $current_screen->id, Core::$pages, true ) ) {
+		if ( ! empty( $current_screen ) && ! in_array( $current_screen->id, Core::$pages, true ) && empty( $current_screen->is_block_editor ) ) {
 			return;
 		}
 

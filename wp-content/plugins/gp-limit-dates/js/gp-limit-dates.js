@@ -770,8 +770,30 @@
 		return optionsObj;
 	} );
 
+	/**
+	 * jQuery Datepicker doesn't fire the beforeShow method for inline datepickers. Let's override datepicker class with
+	 * our own version that triggers the beforeShow method.
+	 *
+	 * Solution provided by StackOverflow: https://stackoverflow.com/a/12286320/227711
+	 */
+	$.extend( $.datepicker, {
+
+		// Reference the original function so we can override it and call it later.
+		_origInlineDatepicker: $.datepicker._inlineDatepicker,
+
+		// Override the _inlineDatepicker method.
+		_inlineDatepicker: function (target, inst) {
+			this._origInlineDatepicker( target, inst );
+			var beforeShow = $.datepicker._get( inst, 'beforeShow' );
+			if ( beforeShow ) {
+				beforeShow.apply( target, [ target, inst ] );
+			}
+		}
+
+	} );
+
 	$( '.gpro-disabled-datepicker' ).each( function() {
-		GPLimitDates.initDisabledDatepicker( $( this ) );
+		GPLimitDates.initDisabledDatepicker($(this));
 	} );
 
 } )( jQuery );

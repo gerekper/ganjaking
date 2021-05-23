@@ -191,14 +191,6 @@ class WPSEO_Addon_Manager {
 	 */
 	public function has_valid_subscription( $slug ) {
 		return true;
-		$subscription = $this->get_subscription( $slug );
-
-		// An non-existing subscription is never valid.
-		if ( $subscription === false ) {
-			return false;
-		}
-
-		return ! $this->has_subscription_expired( $subscription );
 	}
 
 	/**

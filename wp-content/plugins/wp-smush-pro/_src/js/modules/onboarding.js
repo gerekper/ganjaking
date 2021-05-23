@@ -13,7 +13,7 @@
 	 * @since 3.1
 	 */
 	WP_Smush.onboarding = {
-		membership: 'free', // Assume free by default.
+		membership: 'pro', // Assume free by default.
 		onboardingModal: document.getElementById( 'smush-onboarding-dialog' ),
 		scanFilesModal: document.getElementById( 'checking-files-dialog' ),
 		settings: {
@@ -53,7 +53,7 @@
 
 			const dialog = document.getElementById( 'smush-onboarding' );
 
-			this.membership = dialog.dataset.type;
+			this.membership = 'pro';
 
 			if ( 'pro' !== this.membership ) {
 				this.onboardingSlides = [

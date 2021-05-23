@@ -5,7 +5,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: SEO, XML sitemap, Content analysis, Readability, Schema
 Tested up to: 5.7
-Stable tag: 16.1
+Stable tag: 16.3
 Requires PHP: 5.6.20
 
 Improve your WordPress SEO: Write better content and have a fully optimized WordPress site using the Yoast SEO plugin.
@@ -234,59 +234,60 @@ Your question has most likely been answered on our help center: [yoast.com/help/
 
 == Changelog ==
 
-= 16.1 =
-Release Date: April 6th, 2021
+= 16.3 =
+Release Date: May 18th, 2021
 
-Yoast SEO 16.1 is out today! It features several enhancements and fixes that make the plugin chug along nicely. Happy updating! Read more about what’s new in Yoast SEO 16.1 in [our release post](https://yoa.st/release-16-1)!
-
-Enhancements:
-
-* Improves the performance of the SEO data indexing process by optimizing the queries used for fetching unindexed objects.
-* Adds your OpenGraph or Twitter image as the main image in Schema when they're set.
-* Adds `contentUrl` to the schema image output.
-* Improves the performance of the post indexing. Props to [Ovidiu Liuta](https://github.com/ovidiul).
-* Improves the URL in the Google preview when in the desktop mode.
-* Improves the performance of loading the person & organization logo in Schema.
-* Improves the performance by optimizing several calls to WP path and basename functions by using already defined and calculated constants.
-* Removes the keyphrase highlighting in the mobile meta description to reflect new Google behavior.
-
-Bugfixes:
-
-* Fixes a bug where the analysis highlight button would be visible in our Elementor integration even though we don't support it.
-* Fixes a bug where a warning was shown on the Features settings page when running the plugin on PHP 8.0.
-* Fixes a bug where a warning was shown on the Integrations settings page when running the plugin on PHP 8.0.
-* Fixes a bug where, on a multisite installation, enabling/disabling auto-updates for Yoast SEO would not automatically enable/disable auto-updates for Yoast SEO Premium and the other Yoast add-ons.
-* Fixes a bug where the breadcrumbs aren't updated properly when editing a post via the quick edit.
-* Fixes a bug where the rewrite rules would not always be flushed on plugin activation.
-
-= 16.0.2 =
-Release Date: March 18th, 2021
+Out now: Yoast SEO 16.3! This release helps you with one of the key aspects of modern SEO: Structured data. Yoast SEO 16.3 comes with a lot of enhancements for the Schema.org implementation. Enjoy! Read more about what’s new in Yoast SEO 16.3 in [our release post](https://yoa.st/release-16-3)!
 
 Enhancements:
 
-* Changes the deactivation prevention text on the Plugins page from ‘Deactivate Yoast SEO Premium first’ to ‘Required by Yoast SEO Premium’ to avoid confusion.
-
-= 16.0.1 =
-Release Date: March 16th, 2021
-
-Bugfixes:
-
-* Fixes a bug where in rare cases incorrect usage of `WP_Query` could lead to incorrect SEO data.
-
-= 16.0 =
-Release Date: March 16th, 2021
-
-Yoast SEO 16.0: The Sweet Sixteen release is out! It comes with several fixes and improvements. Happy updating and thank you for using Yoast SEO! Read more about what’s new in Yoast SEO 16.0 in [our release post](https://yoa.st/release-16-0)!
+* Adds the Table of Contents accessibility feature to the `Article` Schema with a fallback to the `WebPage` Schema, when using the Yoast Table of Contents block.
+* Adds the `url` property to the `Author` Schema on a post when author archives are enabled.
+* Adds the `wordCount` and `thumbnailUrl` attributes to `Article` schema pieces.
+* Allows adding multiple FAQ blocks to a post or page.
 
 Bugfixes:
 
-* Fixes a bug where invalid breadcrumbs would show PHP warnings.
-* Fixes a bug where a fatal error would be thrown when a post ancestor was not an indexable.
-* Fixes a bug where a fatal error would be thrown when both Yoast SEO and Polylang for WooCommerce were installed, and the site contained WooCommerce variable products. Props to [manooweb](https://github.com/manooweb).
+* Fixes a bug where a malformed `Organization` piece would be added to the Schema output if the company logo was an unsupported image.
+* Fixes a bug where we would accidentally include unminified CSS files in the zip. This led to an unnecessary zip size increase.
+* Fixes a bug where the complete options array could be re-saved in the database at each frontend request.
+* Fixes a bug where both `noindex` and `index` values could be added to the `robots` meta tag on the WordPress login screen.
+* Fixes a rare bug where the name property could be missing in the breadcrumb Schema due to plugin conflicts.
 
 Other:
 
-* Sets the WordPress tested up to version to 5.7 and minimum supported WordPress version to 5.6.
+* Adds the `yoast_display_gutenberg_compat_notification` filter to allow disabling the Gutenberg compatibility notification.
+* Adds the `wpseo_schema_person_data` filter to enable the filtering of `Person` Schema by the user's ID.
+* Adds the `Yoast\WP\SEO\admin_post_types_archive` action at the end of the archive section of the custom post types in Search Appearance.
+* Deprecates the `wpseo_admin_page_meta_post_types` action in favor of the new `Yoast\WP\SEO\admin_post_types_beforearchive` action.
+* Deprecates the `wpseo_admin_page_meta_taxonomies` action in favor of the new `Yoast\WP\SEO\admin_taxonomies_meta` action.
+* Improves the layout of the Search Appearance collapsibles.
+* Improves spacing between settings sections in the Search Appearance page.
+* Replaces all occurrences of 'SEMrush' by 'Semrush' to reflect Semrush's rebranding.
+
+= 16.2 =
+Release Date: April 28th, 2021
+
+Say hi to Yoast SEO 16.2! This release focuses on improving stability and fixing several bugs. It also includes several enhancements. Read more about what’s new in Yoast SEO 16.2 in [our release post](https://yoa.st/release-16-2)!
+
+Enhancements:
+
+* Enables/disables auto-updates for the ACF Content Analysis for Yoast SEO plugin when auto-updates for Yoast SEO are enabled/disabled.
+* Improves the accessibility of the social sharing links in the post publish panel.
+* Changes the output of the `articleSection` and `keywords` attributes of the Article schema to an array instead of comma-separated values.
+* Improves the performance by optimizing the way `Article` schema is built, saving a query on pageload.
+
+Bugfixes:
+
+* Fixes a bug where saving posts containing URLs without protocol would fail or trigger warnings.
+* Fixes a bug where the current webpage would not always be referenced correctly in the breadcrumb schema output.
+* Fixes a bug where robots metadata were not returned when requesting metadata via our `get_head` REST route.
+* Fixes a bug where the primary term isn't saved at the right moment resulting in having an unexpected term for the breadcrumbs.
+* Fixes a bug where our add-ons would not automatically be updated if Yoast SEO was the first plugin for which the user ever enabled auto-updates.
+
+Other:
+
+* Adds the `'wpseo_enable_editor_features_' . $post_type` filter to allow users to show the Yoast SEO metabox on non-public post types if these are accessible. Props to [jondcampbell](https://github.com/jondcampbell).
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/yoast-seo-changelog).

@@ -2982,7 +2982,14 @@ li .section_label, li.field_setting > label {
 			margin-top: 0.5rem;
 		}
 
-.gf_browser_chrome .ui-tabs-panel ul.panel-block-tabs__body--settings li div#field_input_name_container label.inline, .gf_browser_chrome .ui-tabs-panel ul.panel-block-tabs__body--settings li div#autocomplete_attribute_container label.inline, .gf_browser_chrome .ui-tabs-panel ul.panel-block-tabs__body--settings li.post_image_setting label.inline {
+.gforms_edit_form .ui-tabs-panel ul li label.inline {
+	margin-bottom: 0 !important;
+	margin-top: 1px !important;
+}
+
+/* Add bottom margin for spacing in particular and focused inline label cases */
+
+.gforms_edit_form .ui-tabs-panel ul.panel-block-tabs__body--settings li div#field_input_name_container label.inline, .gforms_edit_form .ui-tabs-panel ul.panel-block-tabs__body--settings li div#autocomplete_attribute_container label.inline, .gforms_edit_form .ui-tabs-panel ul.panel-block-tabs__body--settings li.post_image_setting label.inline, .gforms_edit_form .ui-tabs-panel ul.panel-block-tabs__body--settings li div#page_names_container label.inline, .gforms_edit_form .ui-tabs-panel ul.panel-block-tabs__body--settings li div#next_button_text_container label.inline, .gforms_edit_form .ui-tabs-panel ul.panel-block-tabs__body--settings li div#previous_button_text_container label.inline {
 		margin-bottom: 0.5rem !important;
 	}
 
@@ -5443,9 +5450,13 @@ div.settings_control_container div.gfield_admin_header_title {
 	margin-top: -4px;
 }
 
-.entries_edit_icon:hover, .entries_edit_icon:active {
-	color: #707070 !important;
+.gform-icon--entries-edit {
+	font-size: 1.5rem;
 }
+
+.gform-icon--entries-edit:hover, .gform-icon--entries-edit:active {
+		color: #707070;
+	}
 
 .option_header {
 	font-weight: bold;
@@ -7992,19 +8003,10 @@ ul:not(.top_label) .ginput_container.ginput_single_email {
 * These styles should all be moved to the partials for specific components, or to the IE stylesheet..
 */
 
-div.wrap.gf_browser_safari .ui-tabs-panel ul li label.inline {
-	margin-bottom: 0 !important;
-}
-
 /* Firefox specific styles */
 
 div.wrap.gf_browser_gecko div.new-form-option a {
 	padding: 16px 16px 14px 16px;
-}
-
-div.wrap.gf_browser_gecko .ui-tabs-panel ul li label.inline {
-	margin-bottom: 0 !important;
-	margin-top: 1px !important;
 }
 
 /* Internet Explorer specific styles */
@@ -8036,11 +8038,6 @@ body .gf_browser_chrome input.button-primary.gfbutton, body .gf_browser_chrome b
 
 body .gf_browser_chrome h2.gf_admin_page_title span.gf_admin_page_subtitle {
 	margin-top: 2px;
-}
-
-body .gf_browser_chrome .ui-tabs-panel ul li label.inline {
-	margin-bottom: 0 !important;
-	margin-top: 1px !important;
 }
 
 div.wrap.gf_browser_chrome .gfield_checkbox li input[type="checkbox"], div.wrap.gf_browser_chrome .gfield_radio li input[type="radio"], div.wrap.gf_browser_chrome .gfield_checkbox li input {
@@ -8242,9 +8239,11 @@ div.range_min, div.range_max {
 	width: 98px;
 }
 
-div.range_min input, div.range_max input {
-	width: 90px;
-}
+div.range_min label, div.range_max label {
+		display: block;
+		margin-bottom: 0;
+		margin-top: 0.25rem;
+	}
 
 @media screen and ( max-width: 782px ) {
 

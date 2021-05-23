@@ -141,10 +141,10 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 @font-face {
 	font-family: 'gform-icons-admin';
 	src:
-		url('../fonts/gform-icons-admin.woff2?e90wwn') format('woff2'),
-		url('../fonts/gform-icons-admin.ttf?e90wwn') format('truetype'),
-		url('../fonts/gform-icons-admin.woff?e90wwn') format('woff'),
-		url('../fonts/gform-icons-admin.svg?e90wwn#gform-icons-admin') format('svg');
+		url('../fonts/gform-icons-admin.woff2?9c4z3x') format('woff2'),
+		url('../fonts/gform-icons-admin.ttf?9c4z3x') format('truetype'),
+		url('../fonts/gform-icons-admin.woff?9c4z3x') format('woff'),
+		url('../fonts/gform-icons-admin.svg?9c4z3x#gform-icons-admin') format('svg');
 	font-weight: normal;
 	font-style: normal;
 	font-display: block;
@@ -270,6 +270,10 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	content: "\e910";
 }
 
+.gform-icon--confirmations:before {
+	content: "\e987";
+}
+
 .gform-icon--check:before {
 	content: "\e983";
 }
@@ -316,6 +320,10 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 
 .gform-icon--create:before {
 	content: "\e919";
+}
+
+.gform-icon--search1:before {
+	content: "\e988";
 }
 
 .gform-icon--question-mark:before {

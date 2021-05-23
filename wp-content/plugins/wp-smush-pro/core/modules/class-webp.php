@@ -599,7 +599,7 @@ class WebP extends Abstract_Module {
 		$cannot_write_message = sprintf(
 			/* translators: 1. opening 'a' tag to premium support, 2. closing 'a' tag. */
 			esc_html__( 'We tried to apply the .htaccess rules automatically but we were unable to complete this action. Make sure the file permissions on your .htaccess file are set to 644, or switch to manual mode and apply the rules yourself. If you need further assistance, you can %1$scontact support%2$s for help.', 'wp-smushit' ),
-			'<a href="https://wpmudev.com/hub/support/#get-support" target="_blank">',
+			'<a href="https://wpmudev.com/hub2/support/#get-support" target="_blank">',
 			'</a>'
 		);
 
@@ -607,7 +607,7 @@ class WebP extends Abstract_Module {
 			/* translators: 1. opening 'a' tag to docs, 2. opening 'a' tag to premium support, 3. closing 'a' tag. */
 			esc_html__( 'We tried different rules but your server still isn\'t serving WebP images. Please contact your hosting provider for further assistance. You can also see our %1$stroubleshooting guide%3$s or %2$scontact support%3$s for help.', 'wp-smushit' ),
 			'<a href="https://wpmudev.com/docs/wpmu-dev-plugins/smush/#wordpress-in-its-own-directory" target="_blank">',
-			'<a href="https://wpmudev.com/hub/support/#get-support" target="_blank">',
+			'<a href="https://wpmudev.com/hub2/support/#get-support" target="_blank">',
 			'</a>'
 		);
 

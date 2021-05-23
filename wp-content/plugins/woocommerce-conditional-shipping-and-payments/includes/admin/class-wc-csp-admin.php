@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Loads admin tabs and adds related hooks / filters.
  *
- * @version  1.8.6
+ * @version  1.9.0
  */
 class WC_CSP_Admin {
 
@@ -384,14 +384,18 @@ class WC_CSP_Admin {
 		$data_hash = md5( json_encode( $applied_restrictions ) );
 
 		?>
-		<div id="restrictions_data" class="panel csp_product_panel woocommerce_options_panel wc-metaboxes-wrapper <?php echo WC_CSP_Core_Compatibility::get_versions_class(); ?>">
+		<div id="restrictions_data" class="panel csp_product_panel woocommerce_options_panel wc-metaboxes-wrapper <?php echo empty( $restrictions ) ? 'restrictions_data--empty' : ''; ?> <?php echo WC_CSP_Core_Compatibility::get_versions_class(); ?>" style="display:none">
+
+			<div class="hr-section hr-section--conditions-and temp-placeholder">
+				<?php echo __( 'And', 'woocommerce-conditional-shipping-and-payments' ); ?>
+			</div>
 
 			<div class="options_group">
 
 				<div class="toolbar toolbar--product">
 
 					<select name="_restriction_type" class="restriction_type">
-						<option value=""><?php _e( 'Add restriction&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value=""><?php _e( 'Choose restriction&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 						<?php
 
 						foreach ( $restrictions as $restriction_id => $restriction ) {
@@ -421,18 +425,15 @@ class WC_CSP_Admin {
 								$restriction->get_admin_product_metaboxes_content( $index, $restriction_data );
 							}
 						}
-					} else {
-						// Boarding message.
-						?>
-						<div class="woocommerce_restrictions__boarding">
-							<div class="woocommerce_restrictions__boarding__message product_level_boarding">
-								<h3><?php echo __( 'Restrictions', 'woocommerce-conditional-shipping-and-payments' ); ?></h3>
-								<p><?php echo __( 'No payment / shipping restrictions linked with this product.', 'woocommerce-conditional-shipping-and-payments' ); ?></p>
-							</div>
-						</div>
-						<?php
 					}
+					// Empty state.
 					?>
+					<div class="woocommerce_restrictions__boarding">
+						<div class="woocommerce_restrictions__boarding__message product_level_boarding">
+							<h3><?php echo __( 'Restrictions', 'woocommerce-conditional-shipping-and-payments' ); ?></h3>
+							<p><?php echo __( 'This product does not exclude any shipping or payment options.', 'woocommerce-conditional-shipping-and-payments' ); ?></p>
+						</div>
+					</div>
 				</div>
 
 			</div>

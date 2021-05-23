@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Coupon Code Condition.
  *
  * @class    WC_CSP_Condition_Coupon_Code
- * @version  1.8.11
+ * @version  1.9.0
  */
 class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 
@@ -26,7 +26,7 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 	public function __construct() {
 		$this->id                            = 'coupon_code_used';
 		$this->title                         = __( 'Coupon Code', 'woocommerce-conditional-shipping-and-payments' );
-		$this->supported_global_restrictions = array( 'shipping_methods', 'payment_gateways' );
+		$this->supported_global_restrictions = array( 'shipping_methods', 'payment_gateways', 'shipping_countries' );
 	}
 
 	/**
@@ -179,7 +179,21 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 		if ( ! empty( $data[ 'value' ] ) ) {
 			if ( self::modifier_is( $data[ 'modifier' ], array( 'used', 'not-used' ) ) ) {
 				foreach ( $data[ 'value' ] as $check_code ) {
-					if ( in_array( $check_code, $active_coupon_codes ) ) {
+
+					// Wildcards.
+					if ( false !== strpos( $check_code, '*' ) ) {
+
+						$excluded_code_regex = preg_quote( $check_code, '/' );
+						$excluded_code_regex = str_replace( preg_quote( '*', '/' ), '.*?', $excluded_code_regex );
+						$excluded_code_regex = "/$excluded_code_regex$/i";
+						$matched_coupons     = preg_grep( $excluded_code_regex, $active_coupon_codes );
+
+						if ( count( $matched_coupons ) ) {
+							$found_coupon = true;
+							break;
+						}
+
+					} elseif ( in_array( $check_code, $active_coupon_codes ) ) {
 						$found_coupon = true;
 						break;
 					}
@@ -258,7 +272,8 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 				</div>
 			</div>
 			<div class="condition_value" style="<?php echo in_array( $modifier, $zero_config_modifiers ) ? 'display:none;' : '' ; ?>">
-				<input type="text"  name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value]" value="<?php echo $coupon_codes; ?>" placeholder="<?php _e( 'Enter specific coupon codes to check, separated by comma (optional).', 'woocommerce-conditional-shipping-and-payments' ) ?>" step="any" min="0"/>
+				<input type="text"  name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value]" value="<?php echo $coupon_codes; ?>" placeholder="<?php esc_attr_e( "Enter coupon codes, separated by comma (,).", 'woocommerce-conditional-shipping-and-payments' ) ?>" step="any" min="0"/>
+				<span class="description"><?php esc_attr_e( "Enter coupon codes, separated by comma (,). You may also use wildcards, such as 'discount*'.", 'woocommerce-conditional-shipping-and-payments' ) ?></span>
 			</div>
 			<div class="condition_value condition--disabled" style="<?php echo ! in_array( $modifier, $zero_config_modifiers ) ? 'display:none;' : '' ; ?>"></div>
 		</div>

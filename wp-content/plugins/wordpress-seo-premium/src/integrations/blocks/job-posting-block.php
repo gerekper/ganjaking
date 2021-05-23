@@ -18,12 +18,14 @@ class Job_Posting_Block implements Integration_Interface {
 	}
 
 	/**
-	 * Retrieves the array with conditionals.
+	 * Returns the list of conditionals.
 	 *
 	 * @return array The conditionals.
 	 */
 	public static function get_conditionals() {
-		return [ Schema_Blocks_Conditional::class ];
+		return [
+			Schema_Blocks_Conditional::class,
+		];
 	}
 
 	/**

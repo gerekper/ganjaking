@@ -334,7 +334,7 @@ class GFLogging extends GFAddOn {
 	 */
 	public function get_menu_icon() {
 
-		return 'dashicons-code-standards';
+		return 'gform-icon--search';
 
 	}
 
@@ -881,7 +881,7 @@ class GFLogging extends GFAddOn {
 	 *
 	 * @param string $a The path to the first file.
 	 * @param string $b The path to the second file.
-	 * 
+	 *
 	 * @return int The difference between the two files.
 	 */
 	private function filemtime_diff( $a, $b ) {

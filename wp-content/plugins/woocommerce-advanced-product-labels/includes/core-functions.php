@@ -150,7 +150,7 @@ function wapl_smart_product_label_filter( $label ) {
 		return $label;
 	}
 
-	if ( $product->is_type( 'composite' ) ) {
+	if ( $product->is_type( 'composite' ) && method_exists( $product, 'get_composite_regular_price' ) ) {
 
 		$regular_price      = $product->get_composite_regular_price();
 		$sale_price         = $product->get_composite_price();

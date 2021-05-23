@@ -615,6 +615,7 @@ class Dir extends Abstract_Module {
 			$content_path = explode( '/', WP_CONTENT_DIR );
 			// Get root path and explod.
 			$root_path = explode( '/', get_home_path() );
+
 			// Find the length of the shortest one.
 			$end         = min( count( $content_path ), count( $root_path ) );
 			$i           = 0;
@@ -997,7 +998,7 @@ class Dir extends Abstract_Module {
 		if ( false !== strpos( $path, $base_dir . '/sites' ) ) {
 			// If matches the current upload path contains one of the year sub folders of the media library.
 			$path_arr = explode( '/', str_replace( $base_dir.'/sites' . '/', '', $path ) );
-			if ( count( $path_arr ) >= 1
+			if ( is_array( $path_arr ) && count( $path_arr ) > 1
 			     && is_numeric( $path_arr[1] ) && $path_arr[1] > 1900 && $path_arr[1] < 2100 // Contains the year sub folder.
 			) {
 				$skip = true;

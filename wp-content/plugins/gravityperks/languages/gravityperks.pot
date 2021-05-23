@@ -265,7 +265,7 @@ msgstr ""
 msgid "Let's get this fixed."
 msgstr ""
 
-#: ../gravityperks.php:1211, ../gravityperks.php:1233, ../gravityperks.php:1674, ../gravityperks.php:1678
+#: ../gravityperks.php:1211, ../gravityperks.php:1233, ../gravityperks.php:1676, ../gravityperks.php:1680
 msgid "Perks"
 msgstr ""
 
@@ -273,19 +273,19 @@ msgstr ""
 msgid "Return to Perks Page"
 msgstr ""
 
-#: ../gravityperks.php:1452
+#: ../gravityperks.php:1454
 msgid "Welcome to Gravity Perks"
 msgstr ""
 
-#: ../gravityperks.php:1453
+#: ../gravityperks.php:1455
 msgid "Ready to get started? Click the <strong>Perks</strong> link (to the left) to take a quick tour."
 msgstr ""
 
-#: ../gravityperks.php:1538
+#: ../gravityperks.php:1540
 msgid "Does this page look strange? Your PHP version is out-of-date. <strong>Please upgrade.</strong>"
 msgstr ""
 
-#: ../gravityperks.php:1605
+#: ../gravityperks.php:1607
 msgid "Gravity Perks"
 msgstr ""
 

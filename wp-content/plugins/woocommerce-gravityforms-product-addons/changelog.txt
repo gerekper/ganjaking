@@ -1,4 +1,7 @@
 *** Gravity Forms Product Add-Ons Changelog ***
+2012.05.12 - version 3.3.19
+    * Fix: Remove confirmation message from form after adding product to the cart.
+
 2021.02.12 - version 3.3.18
     * Update:  WC and WP Updates.
     * Update:  General code cleanup.

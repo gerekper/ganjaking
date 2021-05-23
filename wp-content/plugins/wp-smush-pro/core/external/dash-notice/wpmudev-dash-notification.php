@@ -3,9 +3,10 @@
 /* -------- WPMU DEV Dashboard Notice - Aaron Edwards (Incsub) ------- */
 /* This provides notices of available updates for our premium products */
 if ( ! class_exists( 'WPMUDEV_Dashboard_Notice4' ) ) {
+	return;
 	class WPMUDEV_Dashboard_Notice4 {
 
-		var $version = '4.2';
+		var $version = '4.2.1';
 		var $screen_id = false;
 		var $product_name = false;
 		var $product_update = false;
@@ -732,7 +733,7 @@ if ( ! class_exists( 'WPMUDEV_Dashboard_Notice4' ) ) {
 			}
 
 			$updates = get_site_option( 'wdp_un_updates_available' );
-			if ( is_array( $updates ) && count( $updates ) ) {
+			if ( is_array( $updates ) && count( $updates ) && isset( $value->response ) ) {
 				foreach ( $updates as $id => $plugin ) {
 					if ( $plugin['type'] != 'theme' && $plugin['autoupdate'] != '2' ) {
 
@@ -756,7 +757,7 @@ if ( ! class_exists( 'WPMUDEV_Dashboard_Notice4' ) ) {
 		function filter_theme_count( $value ) {
 
 			$updates = get_site_option( 'wdp_un_updates_available' );
-			if ( is_array( $updates ) && count( $updates ) ) {
+			if ( is_array( $updates ) && count( $updates ) && isset( $value->response ) ) {
 				foreach ( $updates as $id => $theme ) {
 					if ( $theme['type'] == 'theme' && $theme['autoupdate'] != '2' ) {
 
@@ -773,7 +774,7 @@ if ( ! class_exists( 'WPMUDEV_Dashboard_Notice4' ) ) {
 
 			//filter 133 theme pack themes from the list unless update is available
 			$local_themes = get_site_option( 'wdp_un_local_themes' );
-			if ( is_array( $local_themes ) && count( $local_themes ) ) {
+			if ( is_array( $local_themes ) && count( $local_themes ) && isset( $value->response ) ) {
 				foreach ( $local_themes as $id => $theme ) {
 					$theme_slug = $theme['filename'];
 

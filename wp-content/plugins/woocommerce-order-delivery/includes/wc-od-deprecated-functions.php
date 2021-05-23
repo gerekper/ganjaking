@@ -122,3 +122,36 @@ function wc_od_get_order_prop( $the_order, $key ) {
 
 	return $prop;
 }
+
+/**
+ * Gets the timezone string for the site.
+ *
+ * @since 1.0.4
+ * @deprecated 1.9.0
+ *
+ * @return string PHP timezone string for the site.
+ */
+function wc_od_get_timezone_string() {
+	wc_deprecated_function( __FUNCTION__, '1.9.0', 'wc_timezone_string' );
+
+	return wc_timezone_string();
+}
+
+/**
+ * Gets the unix timestamp for a date already adjusted in the site's timezone.
+ *
+ * @since 1.0.4
+ * @deprecated 1.9.0
+ *
+ * @throws Exception In case of error.
+ *
+ * @param string $date A local datetime string.
+ * @return string The unix timestamp.
+ */
+function wc_od_local_datetime_to_timestamp( $date ) {
+	wc_deprecated_function( __FUNCTION__, '1.9.0' );
+
+	$datetime = new DateTime( $date, new DateTimeZone( wc_timezone_string() ) );
+
+	return $datetime->format( 'U' );
+}

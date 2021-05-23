@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Selected Billing Country Condition.
  *
  * @class    WC_CSP_Condition_Billing_Country_State
- * @version  1.8.9
+ * @version  1.9.0
  */
 class WC_CSP_Condition_Billing_Country_State extends WC_CSP_Condition {
 

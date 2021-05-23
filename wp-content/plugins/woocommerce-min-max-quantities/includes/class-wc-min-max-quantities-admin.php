@@ -56,7 +56,6 @@ class WC_Min_Max_Quantities_Admin {
 
 		add_action( 'woocommerce_process_product_meta', array( &$this, 'write_panel_save' ) );
 
-
 		// Category level
 		add_action( 'created_term', array( $this, 'category_fields_save' ), 10, 3 );
 		add_action( 'edit_term', array( $this, 'category_fields_save' ), 10, 3 );
@@ -228,6 +227,9 @@ class WC_Min_Max_Quantities_Admin {
 			update_post_meta( $variation_id, 'variation_minmax_category_group_of_exclude', 'no' );
 
 		}
+
+		// Increments the transient version to invalidate cache.
+		WC_Cache_Helper::get_transient_version( 'wc_min_max_group_quantity', true );
     }
 
     /**
@@ -262,6 +264,9 @@ class WC_Min_Max_Quantities_Admin {
 		update_post_meta( $post_id, 'minmax_cart_exclude', empty( $_POST['minmax_cart_exclude'] ) ? 'no' : 'yes' );
 
 		update_post_meta( $post_id, 'minmax_category_group_of_exclude', empty( $_POST['minmax_category_group_of_exclude'] ) ? 'no' : 'yes' );
+
+		// Increments the transient version to invalidate cache.
+		WC_Cache_Helper::get_transient_version( 'wc_min_max_group_quantity', true );
     }
 
     /**
@@ -386,6 +391,9 @@ class WC_Min_Max_Quantities_Admin {
 			} else {
 				update_woocommerce_term_meta( $term_id, 'group_of_quantity', esc_attr( $_POST['group_of_quantity'] ) );
 			}
+
+			// Increments the transient version to invalidate cache.
+			WC_Cache_Helper::get_transient_version( 'wc_min_max_group_quantity', true );
 		}
 	}
 

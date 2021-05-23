@@ -191,7 +191,6 @@ class WPSEO_Addon_Manager {
 	 */
 	public function has_valid_subscription( $slug ) {
 		return true;
-	
 	}
 
 	/**

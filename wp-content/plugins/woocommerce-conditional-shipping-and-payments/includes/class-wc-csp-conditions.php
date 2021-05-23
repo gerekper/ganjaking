@@ -16,13 +16,26 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Conditions class.
  *
  * @class    WC_CSP_Conditions
- * @version  1.8.6
+ * @version  1.9.0
  */
 class WC_CSP_Conditions {
 
-	/** @var array Array of registered condition classes. */
+	/**
+	 * Array of registered condition classes.
+	 *
+	 * @var array
+	 */
 	public $conditions;
 
+	/**
+	 * Conditions evaluated so far in the current request.
+	 * @var array
+	 */
+	private $active_conditions = array();
+
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
 
 		$load_conditions = apply_filters( 'woocommerce_csp_conditions', array(
@@ -30,6 +43,7 @@ class WC_CSP_Conditions {
 			'WC_CSP_Condition_Order_Total',
 			'WC_CSP_Condition_Cart_Item_Quantity',
 			'WC_CSP_Condition_Billing_Country_State',
+			'WC_CSP_Condition_Billing_Postcode',
 			'WC_CSP_Condition_Shipping_Country_State',
 			'WC_CSP_Condition_Shipping_Postcode',
 			'WC_CSP_Condition_Shipping_Method',
@@ -45,7 +59,11 @@ class WC_CSP_Conditions {
 			'WC_CSP_Condition_Coupon_Code',
 			'WC_CSP_Condition_Cart_Backorder',
 			'WC_CSP_Condition_Package_Backorder',
-			'WC_CSP_Condition_Cart_Item_On_Sale'
+			'WC_CSP_Condition_Cart_Item_On_Sale',
+			'WC_CSP_Condition_Cart_Subtotal',
+			'WC_CSP_Condition_Order_Status',
+			'WC_CSP_Condition_Date_Time',
+			'WC_CSP_Condition_Stock_Quantity',
 		) );
 
 		// Load conditions.
@@ -56,25 +74,51 @@ class WC_CSP_Conditions {
 			$this->conditions[ $condition->id ] = $condition;
 		}
 
-		/*---------------------------------------------------*/
-		/*  Show Condition fields.                           */
-		/*---------------------------------------------------*/
+		if ( is_admin() ) {
 
-		add_action( 'woocommerce_csp_admin_product_fields', array( $this, 'get_admin_condition_product_fields' ), 10, 3 );
-		add_action( 'woocommerce_csp_admin_global_fields', array( $this, 'get_admin_condition_global_fields' ), 10, 3 );
+			/*---------------------------------------------------*/
+			/*  Show Condition fields.                           */
+			/*---------------------------------------------------*/
 
-		/*---------------------------------------------------*/
-		/*  Process Condition fields.                        */
-		/*---------------------------------------------------*/
+			add_action( 'woocommerce_csp_admin_product_fields', array( $this, 'get_admin_condition_product_fields' ), 10, 3 );
+			add_action( 'woocommerce_csp_admin_global_fields', array( $this, 'get_admin_condition_global_fields' ), 10, 3 );
 
-		add_filter( 'woocommerce_csp_process_admin_product_fields', array( $this, 'process_admin_condition_product_fields' ), 10, 3 );
-		add_filter( 'woocommerce_csp_process_admin_global_fields', array( $this, 'process_admin_condition_global_fields' ), 10, 3 );
+			/*---------------------------------------------------*/
+			/*  Process Condition fields.                        */
+			/*---------------------------------------------------*/
 
-		/*---------------------------------------------------*/
-		/*  Print condition JS templates in footer.          */
-		/*---------------------------------------------------*/
+			add_filter( 'woocommerce_csp_process_admin_product_fields', array( $this, 'process_admin_condition_product_fields' ), 10, 3 );
+			add_filter( 'woocommerce_csp_process_admin_global_fields', array( $this, 'process_admin_condition_global_fields' ), 10, 3 );
 
-		add_action( 'admin_footer', array( $this, 'print_condition_field_scripts' ) );
+			/*---------------------------------------------------*/
+			/*  Print condition JS templates in footer.          */
+			/*---------------------------------------------------*/
+
+			add_action( 'admin_footer', array( $this, 'print_condition_field_scripts' ) );
+		}
+	}
+
+	/**
+	 * Called when a condition is evaluated during the course of a request.
+	 *
+	 * @since  1.9.0
+	 *
+	 * @param  string  $id
+	 */
+	public function set_active( $id ) {
+		$this->active_conditions[] = $id;
+		$this->active_conditions = array_unique( $this->active_conditions );
+	}
+
+	/**
+	 * Indicates whether a condition has been evaluated in the course of this request.
+	 *
+	 * @since  1.9.0
+	 *
+	 * @param  string  $id
+	 */
+	public function is_active( $id ) {
+		return in_array( $id, $this->active_conditions );
 	}
 
 	/**
@@ -271,6 +315,9 @@ class WC_CSP_Conditions {
 									<div class="condition_remove column-wc_actions">
 										<a href="#" data-tip="<?php echo __( 'Remove', 'woocommerce-conditional-shipping-and-payments' ) ?>" class="button wc-action-button trash help_tip"></a>
 									</div>
+								</div>
+								<div class="hr-section hr-section--conditions-and">
+									<?php echo __( 'And', 'woocommerce-conditional-shipping-and-payments' ); ?>
 								</div><?php
 							}
 						}
@@ -281,7 +328,7 @@ class WC_CSP_Conditions {
 			<div class="condition_add condition_row">
 				<div class="condition_select">
 					<div class="sw-enhanced-select">
-						<?php $this->get_conditions_dropdown( $conditions, null, [ 'add_condition' => 'Add Condition' ] ); ?>
+						<?php $this->get_conditions_dropdown( $conditions, null, [ 'add_condition' => __( 'Add Condition', 'woocommerce-conditional-shipping-and-payments' ) ] ); ?>
 					</div>
 				</div>
 				<div class="condition_content">
@@ -372,7 +419,8 @@ class WC_CSP_Conditions {
 
 				if ( isset( $condition_data[ 'condition_id' ] ) ) {
 
-					$condition_id = $condition_data[ 'condition_id' ];
+					$condition_id                             = $condition_data[ 'condition_id' ];
+					$condition_data[ 'restriction_position' ] = $posted_data[ 'position' ];
 
 					if ( array_key_exists( $condition_id, $conditions ) ) {
 

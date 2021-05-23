@@ -3,13 +3,13 @@
  * Plugin Name: 	WooCommerce Advanced Product Labels
  * Plugin URI: 		https://woocommerce.com/products/woocommerce-advanced-product-labels/
  * Description: 	Create product labels to increase visibility of your products, add information and increase conversion rate with just a few clicks!
- * Version: 		1.1.7
+ * Version: 		1.1.8
  * Author: 			Jeroen Sormani
  * Author URI: 		https://jeroensormani.com/
  * Text Domain: 	woocommerce-advanced-product-labels
  *
  * WC requires at least: 3.0.0
- * WC tested up to:      3.9.0
+ * WC tested up to:      5.1.0
  * Woo: 609121:d3f3fab18b6f605e093a15361e5dd486
  */
 
@@ -44,7 +44,7 @@ class Woocommerce_Advanced_Product_Labels {
 	 * @since 1.0.0
 	 * @var string $version Plugin version number.
 	 */
-	public $version = '1.1.7';
+	public $version = '1.1.8';
 
 
 	/**
@@ -111,6 +111,10 @@ class Woocommerce_Advanced_Product_Labels {
 	 * @since 1.0.0
 	 */
 	public function init() {
+		// Check if WooCommerce is active
+		if ( ! is_woocommerce_active() ) {
+			return;
+		}
 
 		if ( version_compare( PHP_VERSION, '5.3', 'lt' ) ) {
 			return add_action( 'admin_notices', array( $this, 'php_version_notice' ) );

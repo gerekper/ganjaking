@@ -67,7 +67,7 @@ jQuery(function( $ ) {
 		 *
 		 * This code has been moved to table-fields.js.
 		 *
-		 * @deprecated {version}
+		 * @deprecated 1.7.0
 		 */
 		madeSortable: function() {
 			$( 'table.wc-od-field-table.sortable tbody' ).sortable({

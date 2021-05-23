@@ -154,7 +154,17 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 		$new_url = $this->get_target_url( $post_id );
 
 		// Maybe we can undo the created redirect.
-		$this->notify_undo_slug_redirect( $old_url, $new_url );
+		$created_redirect = $this->notify_undo_slug_redirect( $old_url, $new_url, $post_id, 'post' );
+
+		if ( $created_redirect ) {
+			$redirect_info = [
+				'origin' => $created_redirect->get_origin(),
+				'target' => $created_redirect->get_target(),
+				'type'   => $created_redirect->get_type(),
+				'format' => $created_redirect->get_format(),
+			];
+			update_post_meta( $post_id, '_yoast_post_redirect_info', $redirect_info );
+		}
 	}
 
 	/**
@@ -598,16 +608,18 @@ class WPSEO_Post_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 	/**
 	 * Display the undo redirect notification
 	 *
-	 * @param WPSEO_Redirect $redirect The old URL to the post.
+	 * @param WPSEO_Redirect $redirect    The old URL to the post.
+	 * @param int            $object_id   The post or term ID.
+	 * @param string         $object_type The object type: post or term.
 	 */
-	protected function set_undo_slug_notification( WPSEO_Redirect $redirect ) {
+	protected function set_undo_slug_notification( WPSEO_Redirect $redirect, $object_id, $object_type ) {
 
 		if ( ! $this->is_rest_request() && ! \wp_doing_ajax() ) {
-			parent::set_undo_slug_notification( $redirect );
+			parent::set_undo_slug_notification( $redirect, $object_id, $object_type );
 
 			return;
 		}
 
-		header( 'X-Yoast-Redirect-Created: 1; origin=' . $redirect->get_origin() . '; target=' . $redirect->get_target() . '; type=' . $redirect->get_type() );
+		header( 'X-Yoast-Redirect-Created: 1; origin=' . $redirect->get_origin() . '; target=' . $redirect->get_target() . '; type=' . $redirect->get_type() . '; objectId=' . $object_id . '; objectType=' . $object_type );
 	}
 }

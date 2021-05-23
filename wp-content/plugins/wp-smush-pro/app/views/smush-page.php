@@ -24,7 +24,13 @@ $this->do_meta_boxes( 'summary' );
 <div class="sui-row-with-sidenav">
 	<?php $this->show_tabs(); ?>
 	<div>
-		<?php $this->do_meta_boxes( $this->get_current_tab() ); ?>
+		<?php if ( 'tutorials' === $this->get_current_tab() && $this->should_render() ) : ?>
+			<div id="smush-box-tutorials"></div>
+			<?php
+		else :
+			$this->do_meta_boxes( $this->get_current_tab() );
+		endif;
+		?>
 	</div>
 </div><!-- end row -->
 
@@ -136,7 +142,7 @@ $this->do_meta_boxes( 'summary' );
 		<li><a href="https://wpmudev.com/roadmap/" target="_blank">
 				<?php esc_html_e( 'Roadmap', 'wp-smushit' ); ?>
 			</a></li>
-		<li><a href="https://wpmudev.com/hub/support/" target="_blank">
+		<li><a href="https://wpmudev.com/hub2/support/" target="_blank">
 				<?php esc_html_e( 'Support', 'wp-smushit' ); ?>
 			</a></li>
 		<li><a href="https://wpmudev.com/docs/" target="_blank">

@@ -3,7 +3,7 @@
  * Plugin Name: Gravity Perks
  * Plugin URI: https://gravitywiz.com/
  * Description: Effortlessly install and manage small functionality enhancements (aka "perks") for Gravity Forms.
- * Version: 2.2.4
+ * Version: 2.2.5
  * Author: Gravity Wiz
  * Author URI: https://gravitywiz.com/
  * License: GPL2
@@ -11,7 +11,7 @@
  * Domain Path: /languages
  */
 
-define( 'GRAVITY_PERKS_VERSION', '2.2.4' );
+define( 'GRAVITY_PERKS_VERSION', '2.2.5' );
 
 /**
  * Include the perk model as early as possible to when Perk plugins are loaded, they can safely extend
@@ -1271,11 +1271,13 @@ class GravityPerks {
 	    }
 
         wp_register_style('gwp-admin', self::get_base_url() . '/styles/admin.css');
+        wp_register_style('gwp-asmselect', self::get_base_url() . '/styles/jquery.asmselect.css');
 
         wp_register_script( 'gwp-common',   self::get_base_url() . '/scripts/common.js',   array( 'jquery' ), GravityPerks::$version, false );
         wp_register_script( 'gwp-admin',    self::get_base_url() . '/scripts/admin.js',    array( 'jquery', 'gwp-common' ), GravityPerks::$version, true );
         wp_register_script( 'gwp-frontend', self::get_base_url() . '/scripts/frontend.js', array( 'jquery', 'gwp-common' ), GravityPerks::$version, true );
         wp_register_script( 'gwp-repeater', self::get_base_url() . '/scripts/repeater.js', array( 'jquery' ), GravityPerks::$version, true );
+        wp_register_script( 'gwp-asmselect', self::get_base_url() . '/scripts/jquery.asmselect.js', array( 'jquery' ), GravityPerks::$version, true );
 
         // register our scripts with Gravity Forms so they are not blocked when noconflict mode is enabled
 	    add_filter( 'gform_noconflict_scripts', array( __CLASS__, 'register_noconflict_scripts' ) );
@@ -1319,11 +1321,11 @@ class GravityPerks {
     }
 
     public static function register_noconflict_scripts( $scripts ) {
-	    return array_merge( $scripts, array( 'gwp-admin', 'gwp-frontend', 'gwp-common' ) );
+	    return array_merge( $scripts, array( 'gwp-admin', 'gwp-frontend', 'gwp-common', 'gwp-asmselect' ) );
     }
 
     public static function register_noconflict_styles( $styles ) {
-	    return array_merge( $styles, array( 'gwp-admin' ) );
+	    return array_merge( $styles, array( 'gwp-admin', 'gwp-asmselect' ) );
     }
 
 

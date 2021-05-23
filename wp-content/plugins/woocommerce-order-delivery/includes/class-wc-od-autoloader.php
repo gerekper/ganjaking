@@ -73,6 +73,7 @@ if ( ! class_exists( 'WC_OD_Autoloader' ) ) {
 					'wc_od_collection'   => $this->include_path . 'collections/',
 					'wc_od_event'        => $this->include_path . 'events/',
 					'wc_od_data_store'   => $this->include_path . 'data-stores/',
+					'wc_od_integration_' => $this->include_path . 'integrations/',
 					'wc_od_'             => $this->include_path,
 				)
 			);

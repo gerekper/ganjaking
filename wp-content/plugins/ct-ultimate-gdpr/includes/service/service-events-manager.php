@@ -105,13 +105,6 @@ class CT_Ultimate_GDPR_Service_Events_Manager extends CT_Ultimate_GDPR_Service_A
 			'ct-ultimate-gdpr-services-eventmanager_accordion-5' // Section
 		);*/
 
-        add_settings_field(
-            "services_{$this->get_id()}_service_name", // ID
-            sprintf( esc_html__( "[%s] Name", 'ct-ultimate-gdpr' ), $this->get_name() ), // Title
-            array( $this, "render_name_field" ), // Callback
-            $this->front_controller->find_controller('services')->get_id(), // Page
-            'ct-ultimate-gdpr-services-eventmanager_accordion-5' // Section
-        );
 
 		add_settings_field(
 			'services_events_manager_consent_field', // ID

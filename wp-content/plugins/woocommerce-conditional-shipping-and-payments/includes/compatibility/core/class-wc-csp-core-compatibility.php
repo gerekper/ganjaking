@@ -475,6 +475,38 @@ class WC_CSP_Core_Compatibility {
 			WC_Cache_Helper::get_transient_version( 'shipping', true );
 		}
 	}
+
+	/**
+	 * Back-compat wrapper for 'wp_timezone'.
+	 *
+	 * @since  1.9.0
+	 *
+	 * @return DateTimeZone
+	 */
+	public static function wp_timezone( ) {
+		if ( self::is_wp_version_gte( '5.3' ) ) {
+			return wp_timezone();
+		}
+
+		// Fallback follows the same code as in wp_timezone_string
+		$timezone_string = get_option( 'timezone_string' );
+
+		if ( $timezone_string ) {
+			return new DateTimeZone($timezone_string);
+		}
+
+		$offset  = (float) get_option( 'gmt_offset' );
+		$hours   = (int) $offset;
+		$minutes = ( $offset - $hours );
+
+		$sign      = ( $offset < 0 ) ? '-' : '+';
+		$abs_hour  = abs( $hours );
+		$abs_mins  = abs( $minutes * 60 );
+		$tz_offset = sprintf( '%s%02d:%02d', $sign, $abs_hour, $abs_mins );
+
+		return new DateTimeZone($tz_offset);
+	}
+
 }
 
 WC_CSP_Core_Compatibility::init();

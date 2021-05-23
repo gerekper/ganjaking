@@ -2901,7 +2901,7 @@ Content-Type: text/html;
 	 */
 	public static function get_version_info( $cache = true ) {
 
-		$version_info = array( 'is_valid_key' => '1', 'version' => '2.5.1', 'url' => home_url() , 'is_error' => '0','timestamp'=>time());
+		$version_info = array( 'is_valid_key' => '1', 'version' => '2.5.1.3', 'url' => home_url() , 'is_error' => '0','timestamp'=>time());
 		
 
 			// Caching response.

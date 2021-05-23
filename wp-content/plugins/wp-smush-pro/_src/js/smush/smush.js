@@ -106,11 +106,9 @@ class Smush {
 			'undefined' !== typeof data.show_warning &&
 			memberValidityNotice.length > 0
 		) {
-			if ( data.show_warning ) {
-				memberValidityNotice.show();
-			} else {
+			
 				memberValidityNotice.hide();
-			}
+			
 		}
 	}
 

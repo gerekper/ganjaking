@@ -78,7 +78,7 @@ const DirectoryScanner = ( totalSteps, currentStep ) => {
 				.find( '#cancel-directory-smush' )
 				.attr( 'data-tooltip', window.wp_smush_msgs.bulk_resume );
 			dialog
-				.find( '.sui-icon-close' )
+				.find( '.sui-box-body .sui-icon-close' )
 				.removeClass( 'sui-icon-close' )
 				.addClass( 'sui-icon-play' );
 			dialog
@@ -92,7 +92,7 @@ const DirectoryScanner = ( totalSteps, currentStep ) => {
 
 			dialog.removeClass( 'wp-smush-exceed-limit' );
 			dialog
-				.find( '.sui-icon-play' )
+				.find( '.sui-box-body .sui-icon-play' )
 				.removeClass( 'sui-icon-play' )
 				.addClass( 'sui-icon-close' );
 			resume.attr( 'data-tooltip', 'Cancel' );

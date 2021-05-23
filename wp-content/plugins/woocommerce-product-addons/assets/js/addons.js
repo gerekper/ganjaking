@@ -595,11 +595,14 @@ jQuery( function( $ ) {
 				// Center into view and focus first invalid field when trying to submit.
 				submitButton.addEventListener( 'click', function() {
 					var invalidField = $cart.get( 0 ).querySelector( '*:invalid' );
-					invalidField.focus();
-					invalidField.scrollIntoView( {
-						block: 'center',
-						inline: 'center'
-					} );
+					
+					if ( invalidField ) {
+						invalidField.focus();
+						invalidField.scrollIntoView( {
+							block: 'center',
+							inline: 'center'
+						} );
+					}
 				});
 			}
 

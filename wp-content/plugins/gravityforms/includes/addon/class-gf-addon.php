@@ -4730,7 +4730,7 @@ abstract class GFAddOn {
 						'<a href="%s"%s><span class="icon">%s</span> <span class="label">%s</span></a>',
 						esc_url( $url ),
 						$current_tab === $tab['name'] ? ' class="active"' : '',
-						is_null( $icon_markup ) ? '<i class="dashicons dashicons-admin-generic"></i>' : $icon_markup,
+						is_null( $icon_markup ) ? '<i class="gform-icon gform-icon--cog"></i>' : $icon_markup,
 						esc_html( $label )
 					);
 				}
@@ -5031,7 +5031,7 @@ abstract class GFAddOn {
 				</div>
 				<div class="addon-uninstall-button">
 					<a href="<?php echo esc_url( $url ); ?>" aria-label="<?php echo 'Visit ' . $this->get_short_title() . ' Settings page'; ?>" class="button addon-settings">
-						<i class="dashicons dashicons-admin-generic"></i>
+						<i class="gform-icon gform-icon--cog"></i>
 						<?php esc_attr_e( 'Settings', 'gravityforms' ); ?>
 					</a>
 				</div>
@@ -5727,7 +5727,7 @@ abstract class GFAddOn {
 	 */
 	public function get_menu_icon() {
 
-		return 'dashicons-admin-generic';
+		return 'gform-icon--cog';
 
 	}
 

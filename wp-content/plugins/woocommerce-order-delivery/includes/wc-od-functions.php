@@ -383,20 +383,30 @@ function wc_od_sanitize_time( $string, $time_format = 'H:i' ) {
  * Gets the localized date with the date format.
  *
  * @since 1.0.0
+ *
  * @param string|int $date   The date to localize.
  * @param string     $format Optional. The date format. If null use the general WordPress date format.
  * @return string|null The localized date string. Null if the date is not valid.
  */
 function wc_od_localize_date( $date, $format = null ) {
-	$timestamp = wc_od_get_timestamp( $date );
-	$date_i18n = null;
+	if ( ! $date ) {
+		return null;
+	}
 
-	if ( false !== $timestamp ) {
-		if ( ! $format ) {
-			$format = wc_od_get_date_format( 'php' );
+	if ( ! $format ) {
+		$format = wc_od_get_date_format( 'php' );
+	}
+
+	if ( wc_od_is_timestamp( $date ) ) {
+		// Assume a WP timestamp (UNIX timestamp + offset).
+		$date_i18n = date_i18n( $format, $date );
+	} else {
+		try {
+			$datetime  = new WC_DateTime( $date, new DateTimeZone( wc_timezone_string() ) );
+			$date_i18n = $datetime->date_i18n( $format );
+		} catch ( Exception $e ) {
+			$date_i18n = null;
 		}
-
-		$date_i18n = date_i18n( $format, $timestamp );
 	}
 
 	return $date_i18n;
@@ -413,19 +423,27 @@ function wc_od_localize_date( $date, $format = null ) {
  * @return string The localized time string. Empty string on failure.
  */
 function wc_od_localize_time( $time, $format = null ) {
+	if ( ! $time ) {
+		return '';
+	}
+
 	if ( ! $format ) {
 		$format = wc_time_format();
 	}
 
-	if ( $time ) {
-		$timestamp = wc_od_get_timestamp( $time );
-
-		if ( false !== $timestamp ) {
-			return (string) date( $format, $timestamp );
+	if ( wc_od_is_timestamp( $time ) ) {
+		// Assume a WP timestamp (UNIX timestamp + offset).
+		$time_i18n = date_i18n( $format, $time );
+	} else {
+		try {
+			$datetime  = new WC_DateTime( $time, new DateTimeZone( wc_timezone_string() ) );
+			$time_i18n = $datetime->date_i18n( $format );
+		} catch ( Exception $e ) {
+			$time_i18n = '';
 		}
 	}
 
-	return '';
+	return $time_i18n;
 }
 
 /**
@@ -462,63 +480,6 @@ function wc_od_get_timestamp( $date ) {
 	}
 
 	return strtotime( $date );
-}
-
-/**
- * Gets the timezone string for a site.
- *
- * Source: https://www.skyverge.com/blog/down-the-rabbit-hole-wordpress-and-timezones/
- *
- * @since 1.0.4
- *
- * @return string A valid PHP timezone string.
- */
-function wc_od_get_timezone_string() {
-	// If site timezone string exists, return it.
-	if ( $timezone = get_option( 'timezone_string' ) ) {
-		return $timezone;
-	}
-
-	// Get UTC offset, if it isn't set then return UTC.
-	if ( 0 === ( $utc_offset = get_option( 'gmt_offset', 0 ) ) ) {
-		return 'UTC';
-	}
-
-	// Adjust UTC offset from hours to seconds.
-	$utc_offset *= 3600;
-
-	// Attempt to guess the timezone string from the UTC offset.
-	if ( $timezone = timezone_name_from_abbr( '', $utc_offset, 0 ) ) {
-		return $timezone;
-	}
-
-	// Last try, guess timezone string manually.
-	$is_dst = date( 'I' );
-
-	foreach ( timezone_abbreviations_list() as $abbr ) {
-		foreach ( $abbr as $city ) {
-			if ( $city['dst'] == $is_dst && $city['offset'] == $utc_offset ) {
-				return $city['timezone_id'];
-			}
-		}
-	}
-
-	// Fallback to UTC.
-	return 'UTC';
-}
-
-/**
- * Gets the unix timestamp for a date already adjusted in the site's timezone.
- *
- * @since 1.0.4
- *
- * @param string $date A local datetime string.
- * @return int The unix timestamp.
- */
-function wc_od_local_datetime_to_timestamp( $date ) {
-	$datetime = new DateTime( $date, new DateTimeZone( wc_od_get_timezone_string() ) );
-
-	return $datetime->format( 'U' );
 }
 
 /**
@@ -703,11 +664,11 @@ function wc_od_delivery_date_field( $field, $key, $args, $value ) {
 	$args['return'] = true;
 
 	// Create a hidden field with the 'name' attribute.
-	$name_attr = 'name="' . esc_attr( $key ) . '"';
-	$hidden_field = sprintf('<input type="hidden" %1$s value="%2$s" />', $name_attr, $value );
+	$name_attr    = 'name="' . esc_attr( $key ) . '"';
+	$hidden_field = sprintf( '<input type="hidden" %1$s value="%2$s" />', $name_attr, $value );
 
 	// Create a text field with the date localized for the datepicker.
-	$field = woocommerce_form_field( $key, $args, wc_od_localize_date( $value ) );
+	$field = woocommerce_form_field( $key, $args, ( $value ? wc_od_localize_date( $value ) : null ) );
 
 	// Remove the 'name' attribute from the input text.
 	$field = str_replace( $name_attr, '', $field );

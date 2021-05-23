@@ -17,8 +17,7 @@ jQuery( function($) {
 	var $restrictions_data                  = $( '#restrictions_data' ),
 		$restrictions_toggle_wrapper        = $restrictions_data.find( '.bulk_toggle_wrapper' ),
 		$restrictions_wrapper               = $restrictions_data.find( '.wc-metaboxes' ),
-		$boarding_info                      = $restrictions_wrapper.find( '.woocommerce_restrictions__boarding' ),
-		$toolbar                            = $restrictions_data.find( '.toolbar' ),
+		$and_placeholder                    = $restrictions_data.find( '.hr-section--conditions-and.temp-placeholder' ),
 		checkout_restrictions_metabox_count = $restrictions_wrapper.find( '.woocommerce_restriction' ).length;
 
 	/*---------------------*/
@@ -158,7 +157,7 @@ jQuery( function($) {
 
 			$parent.find('*').off();
 			$parent.remove();
-			update_row_indexes();
+			update_metaboxes();
 
 			e.preventDefault();
 
@@ -275,12 +274,17 @@ jQuery( function($) {
 
 			// Check if restriction already exists and don't allow creating multiple rules if the restriction does not permit so.
 
-			var restriction_id        = $( 'select.restriction_type', $restrictions_data ).val(),
-				$applied_restrictions = $restrictions_wrapper.find( '.woocommerce_restriction_' + restriction_id ),
-				$restrictions         = $restrictions_wrapper.find( '.woocommerce_restriction' );
+			var $restriction_select   = $( 'select.restriction_type', $restrictions_data ),
+			    restriction_id        = $restriction_select.val(),
+			    $applied_restrictions = $restrictions_wrapper.find( '.woocommerce_restriction_' + restriction_id ),
+			    $restrictions         = $restrictions_wrapper.find( '.woocommerce_restriction' );
 
 			// If no option is selected, do nothing.
 			if ( restriction_id === '' ) {
+				// If attempting to add a product-level restriction, give focus to the select box.
+				if ( wc_restrictions_admin_params.post_id ) {
+					$restriction_select.trigger( 'focus' );
+				}
 				return false;
 			}
 
@@ -328,6 +332,11 @@ jQuery( function($) {
 						$restrictions_toggle_wrapper.removeClass( 'disabled' );
 					}
 
+					// Once a product-level restriction has been added, reset the state of the select box.
+					if ( wc_restrictions_admin_params.post_id ) {
+						$restriction_select.val( '' );
+					}
+
 					$restrictions_data.unblock();
 					$restrictions_data.trigger( 'woocommerce_restriction_added', response );
 
@@ -340,10 +349,7 @@ jQuery( function($) {
 
 		.on( 'woocommerce_before_restriction_add', function() {
 			// Hide boarding if exists.
-			if ( $boarding_info.length ) {
-				$boarding_info.hide();
-				$toolbar.removeClass( 'restriction_data--empty' );
-			}
+			$restrictions_data.removeClass( 'restrictions_data--empty' );
 		} )
 
 		.on( 'change', 'input.show_excluded_in_checkout', function() {
@@ -388,22 +394,27 @@ jQuery( function($) {
 		// Condition Remove.
 		.on( 'click', '.condition_remove .trash', function ( e ) {
 			e.preventDefault();
-			$( this ).closest( '.condition_row' ).remove();
+			var $condition_row = $( this ).closest( '.condition_row' );
+
+			$condition_row.next( '.hr-section--conditions-and' ).remove();
+			$condition_row.remove();
+
 			return true;
 		} )
 
 		// Condition Modifier Change.
 		.on( 'change', '.condition_modifier select', function () {
 
-			var $modifier_select = $( this ),
-			    zero_config_mods = $( $modifier_select ).data( 'zero_config_mods' );
+			var $modifier_select       = $( this ),
+			    $condition_row_values  = $modifier_select.closest( '.condition_row_inner' ).find( '.condition_value' ),
+			    zero_config_mods       = $modifier_select.data( 'zero_config_mods' ),
+			    has_conditional_values = $modifier_select.hasClass( 'has_conditional_values' );
 
 			if ( zero_config_mods ) {
 
 				var value                 = $modifier_select.val(),
-					$condition_row_values = $modifier_select.closest( '.condition_row_inner' ).find( '.condition_value' ),
-					$no_input             = $condition_row_values.filter( '.condition--disabled' ),
-					$config_input         = $condition_row_values.not( '.condition--disabled' );
+				    $no_input             = $condition_row_values.filter( '.condition--disabled' ),
+				    $config_input         = $condition_row_values.not( '.condition--disabled' );
 
 				if ( zero_config_mods.indexOf( value ) > -1 ) {
 					$no_input.show();
@@ -412,6 +423,28 @@ jQuery( function($) {
 					$no_input.hide();
 					$config_input.show();
 				}
+			}
+
+			if ( has_conditional_values ) {
+				var modifier_value        = $modifier_select.val(),
+					value_input_name      = $modifier_select.attr( 'data-value_input_name' );
+
+				// Let's see if the selected value exists in any value modifiers
+				$.each( $condition_row_values, function ( index, row ) {
+					var $row          = $( row ),
+					    row_modifiers = $row.attr( 'data-modifiers' ).split( ',' ),
+					    matched       = $.inArray( modifier_value, row_modifiers ),
+					    field         = $row.find( '.csp_date_time_input' );
+
+					$row.hide();
+					field.attr( 'name', '' );
+
+					// Is we have a match
+					if ( -1 !== matched ) {
+						field.attr( 'name', value_input_name );
+						$row.show();
+					}
+				} );
 			}
 		} )
 
@@ -432,6 +465,7 @@ jQuery( function($) {
 				restriction_index                      = parseInt( $restriction.data( 'index' ) ),
 				condition_index                        = parseInt( $restriction.data( 'conditions_count' ) ),
 				condition_row_template                 = get_condition_row_template( restriction_id ),
+				$restriction_conditions_list           = $restriction.find( '.restriction_conditions_list' ),
 				condition_row_default_content_template = get_condition_row_content_template( restriction_id, condition_id );
 
 			if ( ! condition_row_template || ! condition_row_default_content_template ) {
@@ -450,9 +484,12 @@ jQuery( function($) {
 
 			$restriction.data( 'conditions_count', condition_index + 1 );
 
-			$restriction.find( '.restriction_conditions_list' ).append( $new_condition_row );
+			$restriction_conditions_list.append( $new_condition_row );
 
 			var $added = $restriction.find( '.restriction_conditions_list .condition_row' ).last();
+
+			$and_placeholder.clone().removeClass( 'temp-placeholder' )
+				.appendTo( $restriction_conditions_list );
 
 			// We have to make the appropriate condition_id selected in the condition_type select.
 			$added.find( '.condition_type option[value="' + condition_id + '"]' ).prop( 'selected', 'selected' );
@@ -554,7 +591,7 @@ jQuery( function($) {
 	/**
 	 * Update row indexes.
 	 */
-	function update_row_indexes() {
+	function update_metaboxes() {
 		var has_restrictions = false;
 		$restrictions_wrapper.find( '.woocommerce_restriction' ).each( function( index, el ) {
 			$( '.position', el ).val( index );
@@ -563,8 +600,10 @@ jQuery( function($) {
 		} );
 		if ( ! has_restrictions ) {
 			$restrictions_toggle_wrapper.addClass( 'disabled' );
+			$restrictions_data.addClass( 'restrictions_data--empty' );
 		} else {
 			$restrictions_toggle_wrapper.removeClass( 'disabled' );
+			$restrictions_data.removeClass( 'restrictions_data--empty' );
 		}
 	}
 
@@ -588,7 +627,7 @@ jQuery( function($) {
 			$restrictions_wrapper.append(itm);
 		} );
 
-		update_row_indexes();
+		update_metaboxes();
 
 		// Component ordering.
 		$restrictions_wrapper.sortable( {
@@ -606,7 +645,7 @@ jQuery( function($) {
 			},
 			stop:function(event,ui){
 				ui.item.removeAttr( 'style' );
-				update_row_indexes();
+				update_metaboxes();
 			}
 		} );
 	}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Yoast\WP\SEO\Actions\Prominent_Words;
+namespace Yoast\WP\SEO\Premium\Actions\Prominent_Words;
 
 use Exception;
 use WPSEO_Premium_Prominent_Words_Versioning;
@@ -13,8 +13,6 @@ use Yoast\WP\SEO\Repositories\Prominent_Words_Repository;
  * Action for linking a list of prominent words to an indexable.
  *
  * @see \Yoast\WP\SEO\Routes\Prominent_Words_Route;
- *
- * @package Yoast\WP\SEO\Actions
  */
 class Save_Action {
 

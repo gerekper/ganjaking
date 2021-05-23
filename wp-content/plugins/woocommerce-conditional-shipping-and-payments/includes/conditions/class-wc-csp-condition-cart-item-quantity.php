@@ -50,9 +50,13 @@ class WC_CSP_Condition_Cart_Item_Quantity extends WC_CSP_Condition {
 		$message        = false;
 		$cart_item_data = $args[ 'cart_item_data' ];
 
-		if ( $this->modifier_is( $data[ 'modifier' ], array( 'min' ) ) ) {
+		if ( $this->modifier_is( $data[ 'modifier' ], array( 'gte', 'min' ) ) ) {
 			$message = sprintf( __( 'decrease the quantity of &quot;%1$s&quot; below %2$s', 'woocommerce-conditional-shipping-and-payments' ), $cart_item_data[ 'data' ]->get_title(), $data[ 'value' ] );
-		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'max' ) ) ) {
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lt', 'max' ) ) ) {
+			$message = sprintf( __( 'increase the quantity of &quot;%1$s&quot; to %2$s or higher', 'woocommerce-conditional-shipping-and-payments' ), $cart_item_data[ 'data' ]->get_title(), $data[ 'value' ] );
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'gt' ) ) ) {
+			$message = sprintf( __( 'decrease the quantity of &quot;%1$s&quot; to %2$s or lower', 'woocommerce-conditional-shipping-and-payments' ), $cart_item_data[ 'data' ]->get_title(), $data[ 'value' ] );
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lte' ) ) ) {
 			$message = sprintf( __( 'increase the quantity of &quot;%1$s&quot; above %2$s', 'woocommerce-conditional-shipping-and-payments' ), $cart_item_data[ 'data' ]->get_title(), $data[ 'value' ] );
 		}
 
@@ -83,9 +87,13 @@ class WC_CSP_Condition_Cart_Item_Quantity extends WC_CSP_Condition {
 			return true;
 		}
 
-		if ( $this->modifier_is( $data[ 'modifier' ], array( 'min' ) ) && $data[ 'value' ] <= $product_quantity ) {
+		if ( $this->modifier_is( $data[ 'modifier' ], array( 'gte', 'min' ) ) && $data[ 'value' ] <= $product_quantity ) {
 			return true;
-		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'max' ) ) && $data[ 'value' ] > $product_quantity ) {
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lt', 'max' ) ) && $data[ 'value' ] > $product_quantity ) {
+			return true;
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lte' ) ) && $data[ 'value' ] >= $product_quantity ) {
+			return true;
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'gt' ) ) && $data[ 'value' ] < $product_quantity ) {
 			return true;
 		}
 
@@ -125,11 +133,19 @@ class WC_CSP_Condition_Cart_Item_Quantity extends WC_CSP_Condition {
 	 */
 	public function get_admin_fields_html( $index, $condition_index, $condition_data ) {
 
-		$modifier = '';
+		$modifier = 'lt';
 		$quantity = '';
 
 		if ( ! empty( $condition_data[ 'modifier' ] ) ) {
 			$modifier = $condition_data[ 'modifier' ];
+
+			// Max/Min  Backwards compatibility
+			if ( 'max' === $modifier ) {
+				$modifier = 'lt';
+			} elseif ( 'min' === $modifier ) {
+				$modifier = 'gte';
+			}
+
 		}
 
 		if ( ! empty( $condition_data[ 'value' ] ) ) {
@@ -142,8 +158,10 @@ class WC_CSP_Condition_Cart_Item_Quantity extends WC_CSP_Condition {
 			<div class="condition_modifier">
 				<div class="sw-enhanced-select">
 					<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]">
-						<option value="max" <?php selected( $modifier, 'max', true ) ?>><?php echo __( '<', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-						<option value="min" <?php selected( $modifier, 'min', true ) ?>><?php echo __( '>=', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="lt" <?php selected( $modifier, 'lt', true ) ?>><?php echo __( '<', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="lte" <?php selected( $modifier, 'lte', true ) ?>><?php echo __( '<=', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="gt" <?php selected( $modifier, 'gt', true ) ?>><?php echo __( '>', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="gte" <?php selected( $modifier, 'gte', true ) ?>><?php echo __( '>=', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 					</select>
 				</div>
 			</div>

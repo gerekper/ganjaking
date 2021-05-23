@@ -113,7 +113,7 @@ class Envira {
 			}
 
 			if ( $replace ) {
-				$img = preg_replace( '#(data-envira-srcset=["|\'])' . $original_src . '(["|\'])#i', '\1' . $image_srcset . '\2', $img, 1 );
+				$img = preg_replace( '#(data-envira-srcset=["|\'])' . $original_src . '(["|\'])#i', '\1' . $image_srcset . '\2', $img, 1 );		  						 		  		 			
 			}
 		}
 

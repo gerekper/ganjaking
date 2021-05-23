@@ -1,3 +1,14 @@
+### 2.5.1.3
+- Updated and added various form editor sidebar settings style refinements.
+- Updated the section field so it no longer uses the description as a fallback when the label is empty
+- Updated front end styles for better column alignment and better appearance in small containers.
+
+### 2.5.1.2
+- Fixed an issue which causes Javascript errors in the Form Editor when no Conditional Logic fields are present.
+
+### 2.5.1.1
+- Fixed an issue which causes Conditional Logic to fail if the first choice for a given field is selected.
+
 ### 2.5.1 | 2021-05-11
 - Added accessibility enhancements to the form editor to improve keyboard navigation.
 - Updated the form editor to notify users that resizing is not available when the legacy markup form setting is enabled.
@@ -6,12 +17,22 @@
 - Fixed an issue where the form description field doesn't allow HTML tags.
 - Fixed an issue where save and continue button is triggered when pressing return/enter.
 - Fixed a PHP notice that appears for the From Email for form notifications under certain circumstances.
+- Updated the save and continue button so that it isn't triggered when pressing return/enter.
+- Updated the form description field to allow HTML tags.
+- Updated icons in the WordPress admin to Gravity Forms 2.5 variants.
+- AF: Updated the setup fee settings in the payment add-on framework so that the product field is disabled instead of hidden if setup fee isn't checked.
+- AF: Fixed PHP notices that appear when editing a feed that has no associated form.
+- Fixed accessibility issue with the multi file upload field.
+- Fixed a PHP notice that appeared for the From Email for form notifications under certain circumstances.
 - Fixed a padding issue for suppressed WP notices in the admin area at smaller viewport sizes and refined notification vertical spacing.
 - Fixed an issue that causes single line text inputs added to a legacy mode editor instance to have size medium applied.
 - Fixed an issue that can cause dragging or resizing in the form editor to break the layout and/or delete the field.
 - Fixed issue when using a custom tab index and the post image field with all meta fields enabled where the alt text and post image shared the same tabindex. Credit: Jake Jackson (@jakejackson1).
 - Fixed an issue that causes radio and select fields to show invalid Conditional Logic options.
 - Fixed form editor layout issues present with Jetpack plugin on wordpress.com sites.
+- API: Fixed an issue which causes programmatically-created forms to break in the form editor.
+
+### 2.5.0.2
 - Fixed an issue which prevents certain add-ons from displaying Plugin Settings fields.
 - Fixed an issue which prevents non-admin users from accessing Form Settings when no add-ons are enabled.
 - Fixed an issue that causes certain fields to not trigger the settings tab to open in the form editor.

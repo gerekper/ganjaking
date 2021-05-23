@@ -28,7 +28,7 @@ $this->do_meta_boxes( 'bulk' );
 	<li><a href="https://wpmudev.com/roadmap/" target="_blank">
 			<?php esc_html_e( 'Roadmap', 'wp-smushit' ); ?>
 		</a></li>
-	<li><a href="https://wpmudev.com/hub/support/" target="_blank">
+	<li><a href="https://wpmudev.com/hub2/support/" target="_blank">
 			<?php esc_html_e( 'Support', 'wp-smushit' ); ?>
 		</a></li>
 	<li><a href="https://wpmudev.com/docs/" target="_blank">

@@ -16,15 +16,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Restrict Shipping Countries.
  *
  * @class    WC_CSP_Restrict_Shipping_Countries
- * @version  1.7.7
+ * @version  1.9.0
  */
 class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements WC_CSP_Checkout_Restriction, WC_CSP_Cart_Restriction {
 
 	public function __construct() {
 
 		$this->id                       = 'shipping_countries';
-		$this->title                    = __( 'Shipping Countries &amp; States', 'woocommerce-conditional-shipping-and-payments' );
-		$this->description              = __( 'Restrict the allowed shipping countries based on product-related constraints.', 'woocommerce-conditional-shipping-and-payments' );
+		$this->title                    = __( 'Shipping Destinations', 'woocommerce-conditional-shipping-and-payments' );
+		$this->description              = __( 'Restrict shipping destinations conditionally.', 'woocommerce-conditional-shipping-and-payments' );
 		$this->validation_types         = array( 'checkout', 'cart' );
 		$this->has_admin_product_fields = true;
 		$this->supports_multiple        = true;
@@ -64,7 +64,7 @@ class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements W
 	 */
 	function generate_admin_global_fields_html() {
 		?><p>
-			<?php echo __( 'Restrict the shipping countries allowed at checkout. Complex rules can be created by adding multiple restrictions. Each individual restriction becomes active when all defined conditions match.', 'woocommerce-conditional-shipping-and-payments' ); ?>
+			<?php echo __( 'Restrict the shipping countries and states/regions available on the <strong>Checkout</strong> page. To create logical "OR" expressions with Conditions, add multiple Restrictions.', 'woocommerce-conditional-shipping-and-payments' ); ?>
 		</p><?php
 
 		$this->get_admin_global_metaboxes_html();
@@ -170,9 +170,9 @@ class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements W
 					<?php
 
 						if ( $field_type === 'global' ) {
-							$tiptip = __( 'Defaults to:<br/>&quot;Unfortunately your order cannot be shipped {to_excluded_destination}. To complete your order, please select an alternative shipping country / state.&quot;<br/>When conditions are defined, resolution instructions are added to the default message.', 'woocommerce-conditional-shipping-and-payments' );
+							$tiptip = __( 'Defaults to:<br/>&quot;Your order cannot be shipped {to_excluded_destination}. To complete your order, please choose a different shipping destination.&quot;<br/>When conditions are defined, resolution instructions are added to the default message.', 'woocommerce-conditional-shipping-and-payments' );
 						} else {
-							$tiptip = __( 'Defaults to:<br/>&quot;Unfortunately your order cannot be shipped {to_excluded_destination}. To complete your order, please select an alternative shipping country / state, or remove {product} from your cart.&quot;<br/>When conditions are defined, resolution instructions are added to the default message.', 'woocommerce-conditional-shipping-and-payments' );
+							$tiptip = __( 'Defaults to:<br/>&quot;Your order cannot be shipped {to_excluded_destination}. To complete your order, please choose a different shipping destination, or remove {product} from your cart.&quot;<br/>When conditions are defined, resolution instructions are added to the default message.', 'woocommerce-conditional-shipping-and-payments' );
 						}
 					?>
 				</label>
@@ -247,7 +247,7 @@ class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements W
 	 */
 	public function get_admin_product_fields_html( $index, $options = array() ) {
 		?><div class="restriction-description">
-			<?php echo __( 'Restrict the allowed shipping countries when an order contains this product.', 'woocommerce-conditional-shipping-and-payments' ); ?>
+			<?php echo __( 'Restrict the allowed shipping countries and/or states when an order contains this product.', 'woocommerce-conditional-shipping-and-payments' ); ?>
 		</div><?php
 
 		$this->get_admin_fields_html( $index, $options, 'product' );
@@ -261,9 +261,9 @@ class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements W
 	 */
 	public function process_admin_fields( $posted_data ) {
 
-		$processed_data = array();
-
-		$processed_data[ 'countries' ] = array();
+		$processed_data = array(
+			'countries' => array()
+		);
 
 		if ( ! empty( $posted_data[ 'countries' ] ) ) {
 			$processed_data[ 'countries' ] = array_map( 'stripslashes', $posted_data[ 'countries' ] );
@@ -282,8 +282,6 @@ class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements W
 					}
 				}
 			}
-		} else {
-			return false;
 		}
 
 		if ( ! empty( $posted_data[ 'message' ] ) ) {
@@ -307,10 +305,10 @@ class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements W
 
 		$processed_data = $this->process_admin_fields( $posted_data );
 
-		if ( ! $processed_data ) {
+		if ( empty( $processed_data[ 'countries' ] ) ) {
 
-			WC_Admin_Meta_Boxes::add_error( sprintf( __( 'Restriction #%s was not saved. Before saving a &quot;Shipping Countries&quot; restriction, remember to add at least one shipping country to the exclusions list.', 'woocommerce-conditional-shipping-and-payments' ), $posted_data[ 'index' ] ) );
-			return false;
+			WC_Admin_Meta_Boxes::add_error( sprintf( __( 'Shipping Country/State restriction <strong>#%s</strong> has no effect: Please choose at least one country in the <strong>Exclude Countries</strong> field.', 'woocommerce-conditional-shipping-and-payments' ), $posted_data[ 'index' ] ) );
+
 		}
 
 		return $processed_data;
@@ -326,10 +324,10 @@ class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements W
 
 		$processed_data = $this->process_admin_fields( $posted_data );
 
-		if ( ! $processed_data ) {
+		if ( empty( $processed_data[ 'countries' ] ) ) {
 
-			WC_CSP_Admin_Notices::add_notice( sprintf( __( 'Restriction #%s was not saved. Before saving a &quot;Shipping Countries&quot; restriction, remember to add at least one shipping country to the exclusions list.', 'woocommerce-conditional-shipping-and-payments' ), $posted_data[ 'index' ] ), 'error', true );
-			return false;
+			WC_CSP_Admin_Notices::add_notice( sprintf( __( 'Rule <strong>#%s</strong> has no effect: Please choose at least one country in the <strong>Exclude Countries</strong> field.', 'woocommerce-conditional-shipping-and-payments' ), $posted_data[ 'index' ] ), 'error', true );
+
 		}
 
 		return $processed_data;
@@ -536,21 +534,21 @@ class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements W
 				if ( $conditions_resolution ) {
 
 					if ( $package_count === 1 ) {
-						$resolution = sprintf( __( 'To have &quot;%1$s&quot; shipped %2$s, please %3$s. Otherwise, select an alternative shipping %4$s, or remove &quot;%1$s&quot; from your cart.', 'woocommerce-conditional-shipping-and-payments' ), $product->get_title(), $to_destination, $conditions_resolution, $destination_type );
+						$resolution = sprintf( __( 'To have &quot;%1$s&quot; shipped %2$s, please %3$s. Otherwise, choose a different Shipping %4$s, or remove &quot;%1$s&quot; from your cart.', 'woocommerce-conditional-shipping-and-payments' ), $product->get_title(), $to_destination, $conditions_resolution, $destination_type );
 					} else {
-						$resolution = sprintf( __( 'To have &quot;%1$s&quot; shipped %2$s, please %3$s. Otherwise, select an alternative shipping %4$s, or remove &quot;%1$s&quot; from package #%5$s.', 'woocommerce-conditional-shipping-and-payments' ), $product->get_title(), $to_destination, $conditions_resolution, $destination_type, $package_index );
+						$resolution = sprintf( __( 'To have &quot;%1$s&quot; shipped %2$s, please %3$s. Otherwise, choose a different Shipping %4$s, or remove &quot;%1$s&quot; from package #%5$s.', 'woocommerce-conditional-shipping-and-payments' ), $product->get_title(), $to_destination, $conditions_resolution, $destination_type, $package_index );
 					}
 
 				} else {
 
 					if ( $package_count === 1 ) {
-						$resolution = sprintf( __( 'To complete your order, please select an alternative shipping %1$s, or remove &quot;%2$s&quot; from your cart.', 'woocommerce-conditional-shipping-and-payments' ), $destination_type, $product->get_title() );
+						$resolution = sprintf( __( 'To complete your order, please choose a different Shipping %1$s, or remove &quot;%2$s&quot; from your cart.', 'woocommerce-conditional-shipping-and-payments' ), $destination_type, $product->get_title() );
 					} else {
-						$resolution = sprintf( __( 'To complete your order, please select an alternative shipping %1$s, or remove &quot;%2$s&quot; from package #%3$s.', 'woocommerce-conditional-shipping-and-payments' ), $destination_type, $product->get_title(), $package_index );
+						$resolution = sprintf( __( 'To complete your order, please choose a different Shipping %1$s, or remove &quot;%2$s&quot; from package #%3$s.', 'woocommerce-conditional-shipping-and-payments' ), $destination_type, $product->get_title(), $package_index );
 					}
 				}
 
-				$message = __( 'Unfortunately, &quot;%1$s&quot; is not eligible for shipping %2$s. %3$s', 'woocommerce-conditional-shipping-and-payments' );
+				$message = __( '&quot;%1$s&quot; is not eligible for shipping %2$s. %3$s', 'woocommerce-conditional-shipping-and-payments' );
 			}
 
 			$message = sprintf( $message, $product->get_title(), $to_destination, $resolution, $package_index );
@@ -569,20 +567,20 @@ class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements W
 				if ( $conditions_resolution ) {
 
 					if ( $package_count === 1 ) {
-						$resolution = sprintf( __( 'To have your order shipped %1$s, please %2$s. Otherwise, select an alternative shipping %3$s.', 'woocommerce-conditional-shipping-and-payments' ), $to_destination, $conditions_resolution, $destination_type );
+						$resolution = sprintf( __( 'To have your order shipped %1$s, please %2$s. Otherwise, choose a different Shipping %3$s.', 'woocommerce-conditional-shipping-and-payments' ), $to_destination, $conditions_resolution, $destination_type );
 					} else {
-						$resolution = sprintf( __( 'To have package #%4$s shipped %1$s, please %2$s. Otherwise, select an alternative shipping %3$s.', 'woocommerce-conditional-shipping-and-payments' ), $to_destination, $conditions_resolution, $destination_type, $package_index );
+						$resolution = sprintf( __( 'To have package #%4$s shipped %1$s, please %2$s. Otherwise, choose a different Shipping %3$s.', 'woocommerce-conditional-shipping-and-payments' ), $to_destination, $conditions_resolution, $destination_type, $package_index );
 					}
 
 				} else {
 
-					$resolution = sprintf( __( 'To complete your order, please select an alternative shipping %1$s.', 'woocommerce-conditional-shipping-and-payments' ), $destination_type );
+					$resolution = sprintf( __( 'To complete your order, please choose a different Shipping %1$s.', 'woocommerce-conditional-shipping-and-payments' ), $destination_type );
 				}
 
 				if ( $package_count === 1 ) {
-					$message = __( 'Unfortunately your order cannot be shipped %1$s. %2$s', 'woocommerce-conditional-shipping-and-payments' );
+					$message = __( 'Your order cannot be shipped %1$s. %2$s', 'woocommerce-conditional-shipping-and-payments' );
 				} else {
-					$message = __( 'Unfortunately package #%3$s cannot be shipped %1$s. %2$s', 'woocommerce-conditional-shipping-and-payments' );
+					$message = __( 'Package #%3$s cannot be shipped %1$s. %2$s', 'woocommerce-conditional-shipping-and-payments' );
 				}
 			}
 

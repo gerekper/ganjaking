@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5546da02d4b742db8dfd6a5ad56f858e
+class ComposerStaticInite1d12b8e7f0afa62767c89da3d36a346
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -59,6 +59,12 @@ class ComposerStaticInit5546da02d4b742db8dfd6a5ad56f858e
         'Minify_CSS_UriRewriter' => __DIR__ . '/../..' . '/inc/vendors/classes/class-minify-css-urirewriter.php',
         'Minify_HTML' => __DIR__ . '/../..' . '/inc/deprecated/vendors/classes/class-minify-html.php',
         'WP_Rocket\\Abstract_Render' => __DIR__ . '/../..' . '/inc/classes/class-abstract-render.php',
+        'WP_Rocket\\Addon\\Busting\\BustingFactory' => __DIR__ . '/../..' . '/inc/deprecated/Engine/Addon/Busting/BustingFactory.php',
+        'WP_Rocket\\Addon\\Busting\\FileBustingTrait' => __DIR__ . '/../..' . '/inc/deprecated/Engine/Addon/Busting/FileBustingTrait.php',
+        'WP_Rocket\\Addon\\FacebookTracking\\Subscriber' => __DIR__ . '/../..' . '/inc/deprecated/Engine/Addon/FacebookTracking/Subscriber.php',
+        'WP_Rocket\\Addon\\GoogleTracking\\GoogleAnalytics' => __DIR__ . '/../..' . '/inc/deprecated/Engine/Addon/GoogleTracking/GoogleAnalytics.php',
+        'WP_Rocket\\Addon\\GoogleTracking\\GoogleTagManager' => __DIR__ . '/../..' . '/inc/deprecated/Engine/Addon/GoogleTracking/GoogleTagManager.php',
+        'WP_Rocket\\Addon\\GoogleTracking\\Subscriber' => __DIR__ . '/../..' . '/inc/deprecated/Engine/Addon/GoogleTracking/Subscriber.php',
         'WP_Rocket\\Admin\\Abstract_Options' => __DIR__ . '/../..' . '/inc/classes/admin/class-abstract-options.php',
         'WP_Rocket\\Admin\\Database\\Optimization' => __DIR__ . '/../..' . '/inc/classes/admin/Database/class-optimization.php',
         'WP_Rocket\\Admin\\Database\\Optimization_Process' => __DIR__ . '/../..' . '/inc/classes/admin/Database/class-optimization-process.php',
@@ -71,9 +77,9 @@ class ComposerStaticInit5546da02d4b742db8dfd6a5ad56f858e
         'WP_Rocket\\Buffer\\Config' => __DIR__ . '/../..' . '/inc/classes/Buffer/class-config.php',
         'WP_Rocket\\Buffer\\Optimization' => __DIR__ . '/../..' . '/inc/classes/Buffer/class-optimization.php',
         'WP_Rocket\\Buffer\\Tests' => __DIR__ . '/../..' . '/inc/classes/Buffer/class-tests.php',
-        'WP_Rocket\\Busting\\Abstract_Busting' => __DIR__ . '/../..' . '/inc/classes/busting/class-abstract-busting.php',
-        'WP_Rocket\\Busting\\Facebook_Pickles' => __DIR__ . '/../..' . '/inc/classes/busting/class-facebook-pickles.php',
-        'WP_Rocket\\Busting\\Facebook_SDK' => __DIR__ . '/../..' . '/inc/classes/busting/class-facebook-sdk.php',
+        'WP_Rocket\\Busting\\Abstract_Busting' => __DIR__ . '/../..' . '/inc/deprecated/classes/busting/class-abstract-busting.php',
+        'WP_Rocket\\Busting\\Facebook_Pickles' => __DIR__ . '/../..' . '/inc/deprecated/classes/busting/class-facebook-pickles.php',
+        'WP_Rocket\\Busting\\Facebook_SDK' => __DIR__ . '/../..' . '/inc/deprecated/classes/busting/class-facebook-sdk.php',
         'WP_Rocket\\Engine\\Optimization\\QueryString\\Remove' => __DIR__ . '/../..' . '/inc/deprecated/Engine/Optimization/QueryString/Remove.php',
         'WP_Rocket\\Engine\\Optimization\\QueryString\\RemoveSubscriber' => __DIR__ . '/../..' . '/inc/deprecated/Engine/Optimization/QueryString/RemoveSubscriber.php',
         'WP_Rocket\\Event_Management\\Event_Manager' => __DIR__ . '/../..' . '/inc/classes/event-management/class-event-manager.php',
@@ -121,9 +127,9 @@ class ComposerStaticInit5546da02d4b742db8dfd6a5ad56f858e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5546da02d4b742db8dfd6a5ad56f858e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5546da02d4b742db8dfd6a5ad56f858e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5546da02d4b742db8dfd6a5ad56f858e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite1d12b8e7f0afa62767c89da3d36a346::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite1d12b8e7f0afa62767c89da3d36a346::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite1d12b8e7f0afa62767c89da3d36a346::$classMap;
 
         }, null, ClassLoader::class);
     }

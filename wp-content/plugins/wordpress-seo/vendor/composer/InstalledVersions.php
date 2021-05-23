@@ -27,12 +27,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '16.2',
-    'version' => '16.2.0.0',
+    'pretty_version' => '16.3',
+    'version' => '16.3.0.0',
     'aliases' => 
     array (
     ),
-    'reference' => 'a478a65fed7aadeebd091d5af7603475e307348c',
+    'reference' => '27aa955e7cdbb78500509683d4dfb53556f2a0d3',
     'name' => 'yoast/wordpress-seo',
   ),
   'versions' => 
@@ -71,12 +71,12 @@ private static $installed = array (
     ),
     'yoast/wordpress-seo' => 
     array (
-      'pretty_version' => '16.2',
-      'version' => '16.2.0.0',
+      'pretty_version' => '16.3',
+      'version' => '16.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a478a65fed7aadeebd091d5af7603475e307348c',
+      'reference' => '27aa955e7cdbb78500509683d4dfb53556f2a0d3',
     ),
   ),
 );

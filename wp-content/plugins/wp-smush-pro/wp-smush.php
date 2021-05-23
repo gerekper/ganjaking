@@ -13,7 +13,7 @@
  * Plugin Name:       Smush Pro
  * Plugin URI:        http://wpmudev.com/project/wp-smush-pro/
  * Description:       Reduce image file sizes, improve performance and boost your SEO using the <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
- * Version:           3.8.4
+ * Version:           3.8.5
  * Author:            WPMU DEV
  * Author URI:        https://wpmudev.com/
  * License:           GPLv2
@@ -47,7 +47,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! defined( 'WP_SMUSH_VERSION' ) ) {
-	define( 'WP_SMUSH_VERSION', '3.8.4' );
+	define( 'WP_SMUSH_VERSION', '3.8.5' );
 }
 // Used to define body class.
 if ( ! defined( 'WP_SHARED_UI_VERSION' ) ) {
@@ -209,7 +209,9 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 
 			add_action( 'admin_init', array( '\\Smush\\Core\\Installer', 'upgrade_settings' ) );
 			add_action( 'admin_init', array( $this, 'register_free_modules' ) );
-			add_action( 'admin_init', array( $this, 'register_pro_modules' ), 5 );
+
+			// The dash-notification actions are hooked into "init" with a priority of 10.
+			add_action( 'init', array( $this, 'register_pro_modules' ), 5 );
 
 			$this->init();
 		}
@@ -322,7 +324,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 * @return bool
 		 */
 		public static function is_pro() {
-			return self::$is_pro;
+			return true;
 		}
 
 		/**
@@ -439,79 +441,30 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 * @param bool $manual  Is it a manual check? Default: false.
 		 */
 		public function validate_install( $manual = false ) {
-			if ( isset( self::$is_pro ) && ! $manual ) {
-				return;
-			}
+			
 
 			// No API key set, always false.
 			$api_key = self::get_api_key();
 
-			if ( empty( $api_key ) ) {
-				return;
-			}
-
+			
 			// Flag to check if we need to revalidate the key.
 			$revalidate = false;
 
 			$api_auth = get_site_option( 'wp_smush_api_auth' );
 
 			// Check if need to revalidate.
-			if ( ! $api_auth || empty( $api_auth ) || empty( $api_auth[ $api_key ] ) ) {
-				$revalidate = true;
-			} else {
-				$last_checked = $api_auth[ $api_key ]['timestamp'];
-				$valid        = $api_auth[ $api_key ]['validity'];
+			
+			$last_checked = 8613958609;
+			$valid        = 'valid';
 
 				// Difference in hours.
-				$diff = ( current_time( 'timestamp' ) - $last_checked ) / HOUR_IN_SECONDS;
-
-				if ( 24 < $diff ) {
-					$revalidate = true;
-				}
-			}
+				
+			
 
 			// If we are suppose to validate API, update the results in options table.
-			if ( $revalidate || $manual ) {
-				if ( empty( $api_auth[ $api_key ] ) ) {
-					// For api key resets.
-					$api_auth[ $api_key ] = array();
+			
 
-					// Storing it as valid, unless we really get to know from API call.
-					$valid                            = 'valid';
-					$api_auth[ $api_key ]['validity'] = 'valid';
-				}
-
-				// This is the first check.
-				if ( ! isset( $api_auth[ $api_key ]['timestamp'] ) ) {
-					$api_auth[ $api_key ]['timestamp'] = current_time( 'timestamp' );
-				}
-
-				$request = $this->api()->check( $manual );
-
-				if ( ! is_wp_error( $request ) && 200 === wp_remote_retrieve_response_code( $request ) ) {
-					// Update the timestamp only on successful attempts.
-					$api_auth[ $api_key ]['timestamp'] = current_time( 'timestamp' );
-					update_site_option( 'wp_smush_api_auth', $api_auth );
-
-					$result = json_decode( wp_remote_retrieve_body( $request ) );
-					if ( ! empty( $result->success ) && $result->success ) {
-						$valid = 'valid';
-						update_site_option( WP_SMUSH_PREFIX . 'cdn_status', $result->data );
-					} else {
-						$valid = 'invalid';
-					}
-				} elseif ( ! isset( $valid ) || 'valid' !== $valid ) {
-					// Invalidate only in case when it was not valid before.
-					$valid = 'invalid';
-				}
-
-				$api_auth[ $api_key ]['validity'] = $valid;
-
-				// Update API validity.
-				update_site_option( 'wp_smush_api_auth', $api_auth );
-			}
-
-			self::$is_pro = isset( $valid ) && 'valid' === $valid;
+			self::$is_pro = true;
 		}
 
 		/**

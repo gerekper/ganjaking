@@ -1,14 +1,14 @@
-# Copyright (C) 2020 SomewhereWarm
+# Copyright (C) 2021 SomewhereWarm
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Conditional Shipping and Payments 1.8.11\n"
+"Project-Id-Version: WooCommerce Conditional Shipping and Payments 1.9.4\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
-"POT-Creation-Date: 2020-12-17 13:17:54+00:00\n"
+"POT-Creation-Date: 2021-05-07 12:59:11+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
@@ -18,7 +18,7 @@ msgid "&quot;%s&quot;"
 msgstr ""
 
 #: includes/abstracts/class-wc-csp-abstract-condition.php:184
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:625
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:627
 #. translators: Used to stitch together product names
 #. translators: Used to stitch together a resolution meesage based on a
 #. restriction's active conditions
@@ -33,54 +33,60 @@ msgstr ""
 msgid "%1$s and %2$s"
 msgstr ""
 
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:174
-#: includes/admin/class-wc-csp-admin.php:406
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:168
+#: includes/admin/class-wc-csp-admin.php:390
+#: includes/class-wc-csp-conditions.php:320
+msgid "And"
+msgstr ""
+
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:179
+#: includes/admin/class-wc-csp-admin.php:410
 msgid "Expand all"
 msgstr ""
 
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:175
-#: includes/admin/class-wc-csp-admin.php:407
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:180
+#: includes/admin/class-wc-csp-admin.php:411
 msgid "Close all"
 msgstr ""
 
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:198
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:203
 msgid "No restrictions found. Add some now?"
 msgstr ""
 
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:206
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:208
 #: includes/admin/settings/class-wc-csp-settings-restrictions.php:303
 msgid "Add Restriction"
 msgstr ""
 
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:207
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:209
 msgid "Save changes"
-msgstr ""
-
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:257
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:324
-msgid "Click to toggle"
-msgstr ""
-
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:258
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:325
-msgid "Drag and drop to set order"
 msgstr ""
 
 #: includes/abstracts/class-wc-csp-abstract-restriction.php:259
 #: includes/abstracts/class-wc-csp-abstract-restriction.php:326
-#: includes/class-wc-csp-conditions.php:127
-#: includes/class-wc-csp-conditions.php:272
+msgid "Click to toggle"
+msgstr ""
+
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:260
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:327
+msgid "Drag and drop to set order"
+msgstr ""
+
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:261
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:328
+#: includes/class-wc-csp-conditions.php:171
+#: includes/class-wc-csp-conditions.php:316
 msgid "Remove"
 msgstr ""
 
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:320
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:322
 msgid ""
 "<span class=\"restriction_title_index_container\">#<span "
 "class=\"restriction_title_index\">%1$s</span></span> <span "
 "class=\"restriction_title_inner\">%2$s</span>"
 msgstr ""
 
-#: includes/abstracts/class-wc-csp-abstract-restriction.php:629
+#: includes/abstracts/class-wc-csp-abstract-restriction.php:631
 #. translators: Used to stitch together a resolution meesage based on a
 #. restriction's active conditions - last condition
 msgid "%1$s, or %2$s"
@@ -187,42 +193,42 @@ msgid "This rule will be permanently deleted from your system. Are you sure?"
 msgstr ""
 
 #: includes/admin/class-wc-csp-admin.php:356
-#: includes/admin/class-wc-csp-admin.php:429
+#: includes/admin/class-wc-csp-admin.php:433
 #: includes/admin/settings/class-wc-csp-settings-restrictions.php:30
 #: includes/admin/settings/class-wc-csp-settings-restrictions.php:76
 msgid "Restrictions"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:394
-msgid "Add restriction&hellip;"
+#: includes/admin/class-wc-csp-admin.php:398
+msgid "Choose restriction&hellip;"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:403
+#: includes/admin/class-wc-csp-admin.php:407
 msgid "Add"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:430
-msgid "No payment / shipping restrictions linked with this product."
+#: includes/admin/class-wc-csp-admin.php:434
+msgid "This product does not exclude any shipping or payment options."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:565
+#: includes/admin/class-wc-csp-admin.php:566
 msgid "re-enable product-level restrictions"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:567
+#: includes/admin/class-wc-csp-admin.php:568
 msgid ""
 "Product restrictions are currently disabled globally. You can still edit, "
 "create and delete rules under <strong>Product Data > Restrictions</strong> "
 "&ndash; however, they will have no effect until you %s."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:600
+#: includes/admin/class-wc-csp-admin.php:601
 msgid ""
 "Conditional Shipping and Payments does not collect, store or share any "
 "personal data."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:604
+#: includes/admin/class-wc-csp-admin.php:605
 msgid ""
 "However, WooCommerce collects personal data from customers which can be "
 "used by Conditional Shipping and Payments to conditionally disable specific "
@@ -231,11 +237,11 @@ msgid ""
 "violate laws in your jurisdiction."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:652
+#: includes/admin/class-wc-csp-admin.php:653
 msgid "Filter by restriction"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin.php:769
+#: includes/admin/class-wc-csp-admin.php:770
 msgid "Any restriction"
 msgstr ""
 
@@ -246,7 +252,7 @@ msgstr ""
 #: includes/admin/settings/class-wc-csp-settings-restrictions.php:78
 msgid ""
 "Use Restrictions to conditionally exclude Payment Gateways, Shipping "
-"Methods and Shipping Countries or States."
+"Methods, and Shipping Destinations."
 msgstr ""
 
 #: includes/admin/settings/class-wc-csp-settings-restrictions.php:89
@@ -268,8 +274,8 @@ msgstr ""
 #: includes/admin/settings/class-wc-csp-settings-restrictions.php:102
 msgid ""
 "Disable all restrictions created in the <strong>Payment Gateways</strong>, "
-"<strong>Shipping Methods</strong> and <strong>Shipping Countries &amp; "
-"States</strong> tab sections above."
+"<strong>Shipping Methods</strong> and <strong>Shipping "
+"Destinations</strong> tab sections above."
 msgstr ""
 
 #: includes/admin/settings/class-wc-csp-settings-restrictions.php:106
@@ -336,8 +342,12 @@ msgstr ""
 msgid "Restrict the shipping countries allowed at checkout."
 msgstr ""
 
-#: includes/class-wc-csp-conditions.php:241
+#: includes/class-wc-csp-conditions.php:285
 msgid "Conditions"
+msgstr ""
+
+#: includes/class-wc-csp-conditions.php:331
+msgid "Add Condition"
 msgstr ""
 
 #: includes/compatibility/class-wc-csp-compatibility.php:158
@@ -400,13 +410,13 @@ msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-billing-country-state.php:50
 #: includes/conditions/class-wc-csp-condition-shipping-country-state.php:91
-#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:514
+#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:512
 msgid "Country"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-billing-country-state.php:53
 #: includes/conditions/class-wc-csp-condition-shipping-country-state.php:94
-#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:520
+#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:518
 msgid "State / County"
 msgstr ""
 
@@ -415,6 +425,7 @@ msgid "choose a different billing %s"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-billing-country-state.php:203
+#: includes/conditions/class-wc-csp-condition-billing-postcode.php:173
 #: includes/conditions/class-wc-csp-condition-currency.php:170
 #: includes/conditions/class-wc-csp-condition-customer-role.php:154
 #: includes/conditions/class-wc-csp-condition-package-recurring-package.php:242
@@ -425,6 +436,7 @@ msgid "is"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-billing-country-state.php:204
+#: includes/conditions/class-wc-csp-condition-billing-postcode.php:174
 #: includes/conditions/class-wc-csp-condition-currency.php:171
 #: includes/conditions/class-wc-csp-condition-customer-role.php:155
 #: includes/conditions/class-wc-csp-condition-package-recurring-package.php:243
@@ -441,6 +453,7 @@ msgstr ""
 #: includes/conditions/class-wc-csp-condition-billing-country-state.php:217
 #: includes/conditions/class-wc-csp-condition-billing-country-state.php:259
 #: includes/conditions/class-wc-csp-condition-currency.php:184
+#: includes/conditions/class-wc-csp-condition-date-time.php:407
 #: includes/conditions/class-wc-csp-condition-shipping-country-state.php:280
 #: includes/conditions/class-wc-csp-condition-shipping-country-state.php:322
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:126
@@ -451,6 +464,7 @@ msgstr ""
 #: includes/conditions/class-wc-csp-condition-billing-country-state.php:218
 #: includes/conditions/class-wc-csp-condition-billing-country-state.php:260
 #: includes/conditions/class-wc-csp-condition-currency.php:185
+#: includes/conditions/class-wc-csp-condition-date-time.php:408
 #: includes/conditions/class-wc-csp-condition-shipping-country-state.php:281
 #: includes/conditions/class-wc-csp-condition-shipping-country-state.php:323
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:127
@@ -461,6 +475,26 @@ msgstr ""
 #: includes/conditions/class-wc-csp-condition-billing-country-state.php:227
 #: includes/conditions/class-wc-csp-condition-shipping-country-state.php:290
 msgid "Limit restriction to specific states or regions&hellip;"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-billing-postcode.php:27
+msgid "Billing Postcode"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-billing-postcode.php:46
+msgid "choose a valid billing postcode"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-billing-postcode.php:179
+#: includes/conditions/class-wc-csp-condition-shipping-postcode.php:211
+msgid "List one postcode per line&hellip;"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-billing-postcode.php:180
+#: includes/conditions/class-wc-csp-condition-shipping-postcode.php:212
+msgid ""
+"List one postcode per line. Postcodes containing wildcards (e.g. CB23*) and "
+"fully numeric ranges (e.g. <code>90210...99000</code>) are also supported."
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-cart-backorder.php:28
@@ -605,23 +639,58 @@ msgid "decrease the quantity of &quot;%1$s&quot; below %2$s"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:56
+msgid "increase the quantity of &quot;%1$s&quot; to %2$s or higher"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:58
+msgid "decrease the quantity of &quot;%1$s&quot; to %2$s or lower"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:60
 msgid "increase the quantity of &quot;%1$s&quot; above %2$s"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:145
-#: includes/conditions/class-wc-csp-condition-cart-total.php:140
-#: includes/conditions/class-wc-csp-condition-order-total.php:179
-#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:216
-#: includes/conditions/class-wc-csp-condition-package-total.php:162
-#: includes/conditions/class-wc-csp-condition-package-weight.php:168
+#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:161
+#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:154
+#: includes/conditions/class-wc-csp-condition-cart-total.php:154
+#: includes/conditions/class-wc-csp-condition-order-total.php:193
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:254
+#: includes/conditions/class-wc-csp-condition-package-total.php:186
+#: includes/conditions/class-wc-csp-condition-package-weight.php:194
+#: includes/conditions/class-wc-csp-condition-stock-quantity.php:166
 msgid "<"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:146
-#: includes/conditions/class-wc-csp-condition-cart-total.php:141
-#: includes/conditions/class-wc-csp-condition-order-total.php:180
-#: includes/conditions/class-wc-csp-condition-package-total.php:163
-#: includes/conditions/class-wc-csp-condition-package-weight.php:169
+#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:162
+#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:155
+#: includes/conditions/class-wc-csp-condition-cart-total.php:155
+#: includes/conditions/class-wc-csp-condition-order-total.php:194
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:255
+#: includes/conditions/class-wc-csp-condition-package-total.php:187
+#: includes/conditions/class-wc-csp-condition-package-weight.php:195
+#: includes/conditions/class-wc-csp-condition-stock-quantity.php:167
+msgid "<="
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:163
+#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:156
+#: includes/conditions/class-wc-csp-condition-cart-total.php:156
+#: includes/conditions/class-wc-csp-condition-order-total.php:195
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:257
+#: includes/conditions/class-wc-csp-condition-package-total.php:188
+#: includes/conditions/class-wc-csp-condition-package-weight.php:196
+#: includes/conditions/class-wc-csp-condition-stock-quantity.php:168
+msgid ">"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:164
+#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:157
+#: includes/conditions/class-wc-csp-condition-cart-total.php:157
+#: includes/conditions/class-wc-csp-condition-order-total.php:196
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:256
+#: includes/conditions/class-wc-csp-condition-package-total.php:189
+#: includes/conditions/class-wc-csp-condition-package-weight.php:197
+#: includes/conditions/class-wc-csp-condition-stock-quantity.php:169
 msgid ">="
 msgstr ""
 
@@ -718,6 +787,23 @@ msgstr ""
 msgid "Select shipping classes&hellip;"
 msgstr ""
 
+#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:28
+msgid "Cart Subtotal"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:50
+msgid "decrease your cart subtotal below %s"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:52
+#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:56
+msgid "increase your cart subtotal above %s"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:54
+msgid "decrease your cart subtotal to %s or lower"
+msgstr ""
+
 #: includes/conditions/class-wc-csp-condition-cart-total.php:28
 msgid "Cart Total"
 msgstr ""
@@ -727,6 +813,14 @@ msgid "decrease your cart total below %s"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-cart-total.php:52
+msgid "increase your cart total to %s or higher"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-total.php:54
+msgid "decrease your cart total to %s or lower"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-total.php:56
 msgid "increase your cart total above %s"
 msgstr ""
 
@@ -758,26 +852,32 @@ msgstr ""
 msgid "apply a free shipping coupon"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-coupon-code.php:253
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:267
 #: includes/conditions/class-wc-csp-condition-gift-cards.php:122
 msgid "used"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-coupon-code.php:254
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:268
 #: includes/conditions/class-wc-csp-condition-gift-cards.php:123
 msgid "not used"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-coupon-code.php:255
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:269
 msgid "enables free shipping"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-coupon-code.php:256
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:270
 msgid "does not enable free shipping"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-coupon-code.php:261
-msgid "Enter specific coupon codes to check, separated by comma (optional)."
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:275
+msgid "Enter coupon codes, separated by comma (,)."
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-coupon-code.php:276
+msgid ""
+"Enter coupon codes, separated by comma (,). You may also use wildcards, "
+"such as 'discount*'."
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-currency.php:28
@@ -827,16 +927,89 @@ msgstr ""
 msgid "use an authorized account"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-customer.php:175
+#: includes/conditions/class-wc-csp-condition-customer.php:177
 msgid "e-mail is"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-customer.php:176
+#: includes/conditions/class-wc-csp-condition-customer.php:178
 msgid "e-mail is not"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-customer.php:181
+#: includes/conditions/class-wc-csp-condition-customer.php:183
 msgid "List of e-mails separated by comma."
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:30
+msgid "Date/Time"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:55
+msgid "year is"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:61
+msgid "year is not"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:67
+msgid "month is"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:72
+msgid "month is not"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:77
+msgid "day in month is"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:83
+msgid "day in month is not"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:89
+msgid "day in week is"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:94
+msgid "day in week is not"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:99
+msgid "hour is"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:105
+msgid "hour is not"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:178
+msgid "complete your order at a different time/date"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:264
+msgid ""
+"Rule <strong>#%s</strong>: <strong>%s</strong> modifier with condition "
+"<strong>%s: %s</strong> was invalid and removed. Please choose a value "
+"between %s."
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:353
+msgid "Enter values from %1$s to %2$s, separated by comma&hellip;"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:356
+msgid ""
+"Enter values from <code>%1$s</code> to <code>%2$s</code>, separated by "
+"comma. Supports dashes for ranges. Example: <code>%3$s</code>."
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:387
+msgid "Select months&hellip;"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-date-time.php:387
+msgid "Select days&hellip;"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-gift-card-product.php:28
@@ -899,6 +1072,30 @@ msgstr ""
 msgid "Select plans&hellip;"
 msgstr ""
 
+#: includes/conditions/class-wc-csp-condition-order-status.php:29
+msgid "Order Status"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-order-status.php:63
+msgid "please contact the site administrator"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-order-status.php:182
+msgid "in"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-order-status.php:183
+msgid "not in"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-order-status.php:188
+msgid "Select statuses&hellip;"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-order-status.php:195
+msgid "Condition applies only in <code>order-pay</code> endpoint and checkout."
+msgstr ""
+
 #: includes/conditions/class-wc-csp-condition-order-total.php:28
 msgid "Order Total"
 msgstr ""
@@ -908,6 +1105,14 @@ msgid "decrease your order total below %s"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-order-total.php:52
+msgid "increase your order total to %s or higher"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-order-total.php:54
+msgid "decrease your order total to %s or lower"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-order-total.php:56
 msgid "increase your order total above %s"
 msgstr ""
 
@@ -1010,6 +1215,7 @@ msgid "make sure that there are no more than %s items in your cart"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-item-quantity.php:69
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:82
 msgid "make sure there are at least %s items in every shipping package"
 msgstr ""
 
@@ -1021,8 +1227,24 @@ msgstr ""
 msgid "make sure that your cart contains at least %s items"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:217
-msgid ">"
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:84
+msgid "make sure it contains more than %s items"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:88
+msgid "make sure that your cart contains more than %s items"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:95
+msgid "make sure that there are less than %s items in every shipping package"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:97
+msgid "make sure it contains less than %s items"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:101
+msgid "make sure that your cart contains less than %s items"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-recurring-item.php:47
@@ -1100,10 +1322,26 @@ msgid "make sure that its total value does not exceed %s"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-total.php:63
-msgid "make sure that the total value of your shipment is above %s"
+msgid "make sure that the total value of your shipment is %s or higher"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-total.php:65
+msgid "make sure that its total value is %s or higher"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-total.php:70
+msgid "make sure that the total value of your shipment is %s or lower"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-total.php:72
+msgid "make sure that its total value is %s or lower"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-total.php:77
+msgid "make sure that the total value of your shipment is above %s"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-total.php:79
 msgid "make sure that its total value is above %s"
 msgstr ""
 
@@ -1120,11 +1358,27 @@ msgid "decrease its total weight below %1$s%2$s"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-weight.php:64
-msgid "increase the total weight of your shipment above %1$s%2$s"
+msgid "increase the total weight of your shipment to %1$s%2$s or higher"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-weight.php:66
-msgid "increase its total weight above %1$s%2$s"
+msgid "increase its total weight to %1$s%2$s or higher"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-weight.php:71
+msgid "decrease the total weight of your shipment to %s or lower"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-weight.php:73
+msgid "decrease its total weight to %s or lower"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-weight.php:78
+msgid "increase the total weight of your shipment above %s"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-weight.php:80
+msgid "increase its total weight above %s"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-shipping-country-state.php:28
@@ -1177,14 +1431,8 @@ msgstr ""
 msgid "choose a valid shipping postcode"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-shipping-postcode.php:211
-msgid "List 1 postcode per line&hellip;"
-msgstr ""
-
-#: includes/conditions/class-wc-csp-condition-shipping-postcode.php:212
-msgid ""
-"Postcodes containing wildcards (e.g. CB23*) and fully numeric ranges (e.g. "
-"<code>90210...99000</code>) are also supported."
+#: includes/conditions/class-wc-csp-condition-stock-quantity.php:28
+msgid "Stock Quantity"
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:26
@@ -1192,9 +1440,7 @@ msgid "Payment Gateways"
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:27
-msgid ""
-"Restrict the available payment gateways based on product-related "
-"constraints."
+msgid "Restrict payment gateways conditionally."
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:32
@@ -1203,20 +1449,20 @@ msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:96
 msgid ""
-"Restrict the payment gateways available at checkout. Complex rules can be "
-"created by adding multiple restrictions. Each individual restriction "
-"becomes active when all defined conditions match."
+"Restrict the payment gateways available on the <strong>Checkout</strong> "
+"and <strong>Order > Pay</strong> pages. To create logical \"OR\" "
+"expressions with Conditions, add multiple Restrictions."
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:144
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:109
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:386
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:391
 msgid "Short Description"
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:147
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:112
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:389
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:394
 msgid "Optional short description for this rule&hellip;"
 msgstr ""
 
@@ -1229,7 +1475,7 @@ msgid "Select Payment Gateways&hellip;"
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:165
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:413
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:418
 msgid "Show Excluded"
 msgstr ""
 
@@ -1243,22 +1489,22 @@ msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:174
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:169
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:422
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:427
 msgid "Custom Notice"
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:178
 msgid ""
-"Defaults to:<br/>&quot;Unfortunately, your order cannot be checked out via "
-"{excluded_gateway}. To complete your order, please select an alternative "
+"Defaults to:<br/>&quot;Your order cannot be checked out via "
+"{excluded_gateway}. To complete your order, please choose a different "
 "payment method.&quot;<br/>When conditions are defined, resolution "
 "instructions are added to the default message."
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:180
 msgid ""
-"Defaults to:<br/>&quot;Unfortunately, {product} cannot be checked out via "
-"{excluded_gateway}. To complete your order, please select an alternative "
+"Defaults to:<br/>&quot;{product} cannot be checked out via "
+"{excluded_gateway}. To complete your order, please choose a different "
 "payment method, or remove {product} from your cart.&quot;<br/>When "
 "conditions are defined, resolution instructions are added to the default "
 "message."
@@ -1280,7 +1526,7 @@ msgid ""
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:200
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:449
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:454
 msgid "Show Static Notices"
 msgstr ""
 
@@ -1293,78 +1539,69 @@ msgid ""
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:281
-msgid ""
-"Restrict the payment gateways available during checkout when an order "
-"contains this product."
+msgid "Restrict the available payment options when an order contains this product."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:336
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:355
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:334
 msgid ""
-"Restriction #%s was not saved. Before saving a &quot;Payment Gateways&quot; "
-"restriction, remember to add at least one payment gateway to the exclusions "
-"list."
+"Payment Gateway restriction <strong>#%s</strong> has no effect: Please "
+"choose at least one payment gateway in the <strong>Exclude "
+"Gateways</strong> field."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:700
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:353
+msgid ""
+"Rule <strong>#%s</strong> has no effect: Please choose at least one payment "
+"gateway in the <strong>Exclude Gateways</strong> field."
+msgstr ""
+
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:703
 msgid ""
 "To choose &quot;%1$s&quot;, please %2$s. Otherwise, please remove "
 "&quot;%3$s&quot; from your cart."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:702
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:705
 msgid ""
 "To purchase &quot;%3$s&quot; via &quot;%1$s&quot;, please %2$s. Otherwise, "
-"select an alternative payment method, or remove &quot;%3$s&quot; from your "
+"choose a different payment method, or remove &quot;%3$s&quot; from your "
 "cart."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:710
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:713
 msgid ""
-"To complete your order, please select an alternative payment method, or "
-"remove &quot;%1$s&quot; from your cart."
+"To complete your order, please choose a different payment method, or remove "
+"&quot;%1$s&quot; from your cart."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:715
-msgid "&quot;%1$s&quot; cannot be checked out via &quot;%2$s&quot;. %3$s"
-msgstr ""
-
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:717
-msgid ""
-"Unfortunately, &quot;%1$s&quot; cannot be checked out via &quot;%2$s&quot;. "
-"%3$s"
-msgstr ""
-
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:737
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:740
 msgid "To choose &quot;%1$s&quot;, please %2$s."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:739
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:742
 msgid ""
 "To complete your order via &quot;%1$s&quot;, please %2$s. Otherwise, choose "
-"an alternative payment method."
+"a different payment method."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:747
-msgid "To complete your order, please select an alternative payment method."
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:750
+msgid "To complete your order, please choose a different payment method."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:752
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:755
 msgid "This order cannot be checked out via &quot;%1$s&quot;. %2$s"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:754
-msgid "Unfortunately, your order cannot be checked out via &quot;%1$s&quot;. %2$s"
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:757
+msgid "Your order cannot be checked out via &quot;%1$s&quot;. %2$s"
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:26
-msgid "Shipping Countries &amp; States"
+msgid "Shipping Destinations"
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:27
-msgid ""
-"Restrict the allowed shipping countries based on product-related "
-"constraints."
+msgid "Restrict shipping destinations conditionally."
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:33
@@ -1373,9 +1610,9 @@ msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:67
 msgid ""
-"Restrict the shipping countries allowed at checkout. Complex rules can be "
-"created by adding multiple restrictions. Each individual restriction "
-"becomes active when all defined conditions match."
+"Restrict the shipping countries and states/regions available on the "
+"<strong>Checkout</strong> page. To create logical \"OR\" expressions with "
+"Conditions, add multiple Restrictions."
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:116
@@ -1396,17 +1633,17 @@ msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:173
 msgid ""
-"Defaults to:<br/>&quot;Unfortunately your order cannot be shipped "
-"{to_excluded_destination}. To complete your order, please select an "
-"alternative shipping country / state.&quot;<br/>When conditions are "
-"defined, resolution instructions are added to the default message."
+"Defaults to:<br/>&quot;Your order cannot be shipped "
+"{to_excluded_destination}. To complete your order, please choose a "
+"different shipping destination.&quot;<br/>When conditions are defined, "
+"resolution instructions are added to the default message."
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:175
 msgid ""
-"Defaults to:<br/>&quot;Unfortunately your order cannot be shipped "
-"{to_excluded_destination}. To complete your order, please select an "
-"alternative shipping country / state, or remove {product} from your "
+"Defaults to:<br/>&quot;Your order cannot be shipped "
+"{to_excluded_destination}. To complete your order, please choose a "
+"different shipping destination, or remove {product} from your "
 "cart.&quot;<br/>When conditions are defined, resolution instructions are "
 "added to the default message."
 msgstr ""
@@ -1428,67 +1665,74 @@ msgid ""
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:250
-msgid "Restrict the allowed shipping countries when an order contains this product."
+msgid ""
+"Restrict the allowed shipping countries and/or states when an order "
+"contains this product."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:312
-#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:331
+#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:310
 msgid ""
-"Restriction #%s was not saved. Before saving a &quot;Shipping "
-"Countries&quot; restriction, remember to add at least one shipping country "
-"to the exclusions list."
+"Shipping Country/State restriction <strong>#%s</strong> has no effect: "
+"Please choose at least one country in the <strong>Exclude "
+"Countries</strong> field."
+msgstr ""
+
+#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:329
+msgid ""
+"Rule <strong>#%s</strong> has no effect: Please choose at least one country "
+"in the <strong>Exclude Countries</strong> field."
+msgstr ""
+
+#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:537
+msgid ""
+"To have &quot;%1$s&quot; shipped %2$s, please %3$s. Otherwise, choose a "
+"different Shipping %4$s, or remove &quot;%1$s&quot; from your cart."
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:539
 msgid ""
-"To have &quot;%1$s&quot; shipped %2$s, please %3$s. Otherwise, select an "
-"alternative shipping %4$s, or remove &quot;%1$s&quot; from your cart."
+"To have &quot;%1$s&quot; shipped %2$s, please %3$s. Otherwise, choose a "
+"different Shipping %4$s, or remove &quot;%1$s&quot; from package #%5$s."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:541
+#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:545
 msgid ""
-"To have &quot;%1$s&quot; shipped %2$s, please %3$s. Otherwise, select an "
-"alternative shipping %4$s, or remove &quot;%1$s&quot; from package #%5$s."
+"To complete your order, please choose a different Shipping %1$s, or remove "
+"&quot;%2$s&quot; from your cart."
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:547
 msgid ""
-"To complete your order, please select an alternative shipping %1$s, or "
-"remove &quot;%2$s&quot; from your cart."
+"To complete your order, please choose a different Shipping %1$s, or remove "
+"&quot;%2$s&quot; from package #%3$s."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:549
+#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:551
+msgid "&quot;%1$s&quot; is not eligible for shipping %2$s. %3$s"
+msgstr ""
+
+#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:570
 msgid ""
-"To complete your order, please select an alternative shipping %1$s, or "
-"remove &quot;%2$s&quot; from package #%3$s."
-msgstr ""
-
-#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:553
-msgid "Unfortunately, &quot;%1$s&quot; is not eligible for shipping %2$s. %3$s"
+"To have your order shipped %1$s, please %2$s. Otherwise, choose a different "
+"Shipping %3$s."
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:572
 msgid ""
-"To have your order shipped %1$s, please %2$s. Otherwise, select an "
-"alternative shipping %3$s."
+"To have package #%4$s shipped %1$s, please %2$s. Otherwise, choose a "
+"different Shipping %3$s."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:574
-msgid ""
-"To have package #%4$s shipped %1$s, please %2$s. Otherwise, select an "
-"alternative shipping %3$s."
+#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:577
+msgid "To complete your order, please choose a different Shipping %1$s."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:579
-msgid "To complete your order, please select an alternative shipping %1$s."
+#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:581
+msgid "Your order cannot be shipped %1$s. %2$s"
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:583
-msgid "Unfortunately your order cannot be shipped %1$s. %2$s"
-msgstr ""
-
-#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:585
-msgid "Unfortunately package #%3$s cannot be shipped %1$s. %2$s"
+msgid "Package #%3$s cannot be shipped %1$s. %2$s"
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:26
@@ -1496,71 +1740,68 @@ msgid "Shipping Methods"
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:27
-msgid ""
-"Restrict the available shipping methods based on product-related "
-"constraints."
+msgid "Restrict shipping methods conditionally."
 msgstr ""
 
 #: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:33
 msgid "Shipping Method Restrictions"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:185
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:190
 msgid "All &quot;%s&quot; Method Instances"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:215
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:220
 msgid "&quot;%1$s&quot; (Instance ID: %2$s)"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:216
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:221
 msgid "%1$s &ndash; %2$s"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:229
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:234
 msgid "Flat Rates (Legacy)"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:230
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:237
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:264
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:235
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:242
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:269
 msgid " (Legacy)"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:314
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:319
 msgid ""
-"Restrict the shipping methods available at checkout. Complex rules can be "
-"created by adding multiple restrictions. Each individual restriction "
-"becomes active when all defined conditions match."
+"Restrict the shipping methods available on the <strong>Cart</strong> and "
+"<strong>Checkout</strong> pages. To create logical \"OR\" expressions with "
+"Conditions, add multiple Restrictions."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:393
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:398
 msgid "Exclude Methods"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:395
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:400
 msgid "Select Shipping Methods&hellip;"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:405
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:410
 msgid "Exclude Rate IDs"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:407
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:412
 msgid "Shipping rate IDs to exclude, separated by &quot;|&quot;&hellip;"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:408
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:413
 msgid ""
 "Manually enter shipping rate IDs to exclude, separated by \"|\". If a rate "
-"includes the \"|\" character, replace it with \"%|%\". Useful if you are "
-"working with shipping methods that retrieve real-time rates, or if you "
-"simply require more granular control of the shipping options available "
-"during checkout. <strong>Important</strong>: Real-time rate IDs may change "
-"over time &ndash; use at your own risk!"
+"includes the \"|\" character, replace it with \"%|%\". You may also use "
+"wildcards, such as \"FedEx*\". Useful if you are working with shipping "
+"methods that retrieve real-time rates. <strong>Important</strong>: "
+"Real-time rate IDs may change over time &ndash; use at your own risk!"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:417
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:422
 msgid ""
 "By default, excluded shipping methods are removed from the list of methods "
 "available during checkout. Select this option if you prefer to show "
@@ -1569,31 +1810,31 @@ msgid ""
 "shipping method."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:426
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:431
 msgid ""
-"Defaults to:<br/>&quot;Unfortunately, your order cannot be shipped via "
-"{excluded_method}. To complete your order, please select an alternative "
-"shipping method.&quot;<br/>When conditions are defined, resolution "
-"instructions are added to the default message."
-msgstr ""
-
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:428
-msgid ""
-"Defaults to:<br/>&quot;Unfortunately, {product} is not eligible for "
-"shipping via {excluded_method}. To complete your order, please select an "
-"alternative shipping method, or remove {product} from your "
-"cart.&quot;<br/>When conditions are defined, resolution instructions are "
+"Defaults to:<br/>&quot;Your order cannot be shipped via {excluded_method}. "
+"To complete your order, please choose a different shipping "
+"method.&quot;<br/>When conditions are defined, resolution instructions are "
 "added to the default message."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:438
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:433
+msgid ""
+"Defaults to:<br/>&quot;{product} is not eligible for shipping via "
+"{excluded_method}. To complete your order, please choose a different "
+"shipping method, or remove {product} from your cart.&quot;<br/>When "
+"conditions are defined, resolution instructions are added to the default "
+"message."
+msgstr ""
+
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:443
 msgid ""
 "Custom notice to display when attempting to place an order while this "
 "restriction is active. You may include <code>{excluded_method}</code> and "
 "have it substituted by the selected shipping method title."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:440
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:445
 msgid ""
 "Custom notice to display when attempting to place an order while this "
 "restriction is active. You may include <code>{product}</code> and "
@@ -1601,7 +1842,7 @@ msgid ""
 "product title and the selected shipping method title."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:453
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:458
 msgid ""
 "By default, when <strong>Show Excluded</strong> is enabled, a notice is "
 "displayed when customers attempt to place an order using a restricted "
@@ -1609,102 +1850,96 @@ msgid ""
 "notice under each restricted shipping method."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:538
-msgid ""
-"Restrict the available shipping methods when a shipping package contains "
-"this product."
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:543
+msgid "Restrict the available shipping options when an order contains this product."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:618
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:637
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:619
 msgid ""
-"Restriction #%s was not saved. Before saving a &quot;Shipping Method&quot; "
-"restriction, remember to add at least one shipping method to the exclusions "
-"list."
+"Shipping Method restriction <strong>#%s</strong> has no effect: Please add "
+"at least one shipping option in the <strong>Exclude Methods</strong> or "
+"<strong>Exclude Rate IDs</strong> fields."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:940
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:638
+msgid ""
+"Rule <strong>#%s</strong> has no effect: Please add at least one shipping "
+"option in the <strong>Exclude Methods</strong> or <strong>Exclude Rate "
+"IDs</strong> fields."
+msgstr ""
+
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:954
 msgid ""
 "To choose &quot;%2$s&quot;, please %3$s. Otherwise, please remove "
 "&quot;%1$s&quot; from your cart."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:942
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:956
 msgid ""
 "To choose &quot;%2$s&quot;, please %3$s. Otherwise, please remove "
 "&quot;%1$s&quot; from this package."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:948
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:962
 msgid ""
 "To have &quot;%1$s&quot; shipped via &quot;%2$s&quot;, please %3$s. "
-"Otherwise, select an alternative shipping method, or remove "
-"&quot;%1$s&quot; from your cart."
+"Otherwise, choose a different shipping method, or remove &quot;%1$s&quot; "
+"from your cart."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:950
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:964
 msgid ""
 "To have &quot;%1$s&quot; shipped via &quot;%2$s&quot;, please %3$s. "
-"Otherwise, select an alternative shipping method, or remove "
-"&quot;%1$s&quot; from package #%4$s."
+"Otherwise, choose a different shipping method, or remove &quot;%1$s&quot; "
+"from package #%4$s."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:963
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:977
 msgid ""
-"To complete your order, please select an alternative shipping method, or "
+"To complete your order, please choose a different shipping method, or "
 "remove &quot;%1$s&quot; from your cart."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:965
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:979
 msgid ""
-"To complete your order, please select an alternative shipping method, or "
+"To complete your order, please choose a different shipping method, or "
 "remove &quot;%1$s&quot; from package #%2$s."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:971
-msgid "&quot;%1$s&quot; is not eligible for shipping via &quot;%2$s&quot;. %3$s"
-msgstr ""
-
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:973
-msgid ""
-"Unfortunately, &quot;%1$s&quot; is not eligible for shipping via "
-"&quot;%2$s&quot;. %3$s"
-msgstr ""
-
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:995
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1009
 msgid "To have this order shipped via &quot;%1$s&quot;, please %2$s."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:997
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1011
 msgid "To have this package shipped via &quot;%1$s&quot;, please %2$s."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1003
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1017
 msgid ""
 "To have your order shipped via &quot;%1$s&quot;, please %2$s. Otherwise, "
-"choose an alternative shipping method."
+"choose a different shipping method."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1005
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1019
 msgid ""
 "To have package #%3$s shipped via &quot;%1$s&quot;, please %2$s. Otherwise, "
-"choose an alternative shipping method."
+"choose a different shipping method."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1014
-msgid "To complete your order, please select an alternative shipping method."
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1028
+msgid "To complete your order, please choose a different shipping method."
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1020
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1034
 msgid "This order cannot be shipped via &quot;%1$s&quot;. %2$s"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1025
-msgid "Unfortunately, your order cannot be shipped via &quot;%1$s&quot;. %2$s"
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1039
+msgid "Your order cannot be shipped via &quot;%1$s&quot;. %2$s"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1027
-msgid "Unfortunately, package #%3$s cannot be shipped via &quot;%1$s&quot;. %2$s"
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:1041
+msgid "Package #%3$s cannot be shipped via &quot;%1$s&quot;. %2$s"
 msgstr ""
 
 #: tests/framework/class-wc-csp-dummy-payment-gateway.php:21
@@ -1729,8 +1964,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Exclude shipping methods, payment gateways and shipping countries/states "
-"using conditional logic."
+"Exclude shipping methods, payment gateways and shipping destinations using "
+"conditional logic."
 msgstr ""
 
 #. Author of the plugin/theme
@@ -1848,12 +2083,32 @@ msgctxt "products in category"
 msgid "remove %1$s from it"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:513
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:718
+msgctxt "static notice context"
+msgid "&quot;%1$s&quot; cannot be checked out via &quot;%2$s&quot;. %3$s"
+msgstr ""
+
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:985
+msgctxt "static notice context"
+msgid "&quot;%1$s&quot; is not eligible for shipping via &quot;%2$s&quot;. %3$s"
+msgstr ""
+
+#: includes/restrictions/class-wc-csp-restrict-payment-gateways.php:720
+msgctxt "validation notice context"
+msgid "&quot;%1$s&quot; cannot be checked out via &quot;%2$s&quot;. %3$s"
+msgstr ""
+
+#: includes/restrictions/class-wc-csp-restrict-shipping-methods.php:987
+msgctxt "validation notice context"
+msgid "&quot;%1$s&quot; is not eligible for shipping via &quot;%2$s&quot;. %3$s"
+msgstr ""
+
+#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:511
 msgctxt "to country destination"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:519
+#: includes/restrictions/class-wc-csp-restrict-shipping-countries.php:517
 msgctxt "to state destination"
 msgid "to %s"
 msgstr ""

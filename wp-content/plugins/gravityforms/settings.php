@@ -59,7 +59,7 @@ class GFSettings {
 		}
 
 		$title = '';
-		$icon  = 'dashicons-admin-generic';
+		$icon  = 'gform-icon--cog';
 
 		// if name is an array, assume that an array of args is passed
 		if ( is_array( $name ) ) {
@@ -78,7 +78,7 @@ class GFSettings {
 						'title'     => '',
 						'tab_label' => '',
 						'handler'   => false,
-						'icon'      => 'dashicons-admin-generic',
+						'icon'      => 'gform-icon--cog',
 					)
 				)
 			);
@@ -1024,8 +1024,8 @@ class GFSettings {
 
 		// Build left side options, always have GF Settings first and Uninstall last, put add-ons in the middle.
 		$setting_tabs = array(
-			'10' => array( 'name' => 'settings', 'label' => __( 'Settings', 'gravityforms' ), 'icon' => 'dashicons-admin-settings' ),
-			'11' => array( 'name' => 'recaptcha', 'label' => __( 'reCAPTCHA', 'gravityforms' ), 'icon' => 'dashicons-shield-alt' ),
+			'10' => array( 'name' => 'settings', 'label' => __( 'Settings', 'gravityforms' ), 'icon' => 'gform-icon--cog' ),
+			'11' => array( 'name' => 'recaptcha', 'label' => __( 'reCAPTCHA', 'gravityforms' ), 'icon' => 'gform-icon--recaptcha' ),
 		);
 
 		// Remove an addon from the sidebar if it is uninstalled from the main uninstall page.
@@ -1053,14 +1053,14 @@ class GFSettings {
 					'name'  => urlencode( $sorted_addon['name'] ),
 					'label' => esc_html( $sorted_addon['tab_label'] ),
 					'title' => esc_html( rgar( $sorted_addon, 'title' ) ),
-					'icon'  => rgar( $sorted_addon, 'icon', 'dashicons-admin-generic' ),
+					'icon'  => rgar( $sorted_addon, 'icon', 'gform-icon--cog' ),
 				);
 			}
 		}
 
 		// Prevent Uninstall tab from being added for users that don't have gravityforms_uninstall capability.
 		if ( GFCommon::current_user_can_uninstall() ) {
-			$setting_tabs[] = array( 'name' => 'uninstall', 'label' => __( 'Uninstall', 'gravityforms' ), 'icon' => 'dashicons-trash' );
+			$setting_tabs[] = array( 'name' => 'uninstall', 'label' => __( 'Uninstall', 'gravityforms' ), 'icon' => 'gform-icon--trash' );
 		}
 
 		/**
@@ -1108,7 +1108,7 @@ class GFSettings {
 						$url  = add_query_arg( array( 'subview' => $tab['name'] ), admin_url( 'admin.php?page=gf_settings' ) );
 
 						// Get tab icon.
-						$icon_markup = GFCommon::get_icon_markup( $tab, 'dashicons-admin-generic' );
+						$icon_markup = GFCommon::get_icon_markup( $tab, 'gform-icon--cog' );
 
 						printf(
 							'<a href="%s"%s><span class="icon">%s</span> <span class="label">%s</span></a>',

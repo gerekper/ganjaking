@@ -1,5 +1,30 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2021.05.07 - version 1.9.4
+* Feature - Support wildcards in the Coupon Code condition.
+
+2021.03.06 - version 1.9.3
+* Tweak - Updated 'Overview' table column widths.
+
+2021.03.06 - version 1.9.2
+* Tweak - Make 'Coupon Code' condition available in 'Shipping Destination' restrictions.
+* Tweak - Make 'Date/Time' condition available in 'Shipping Destination' restrictions.
+
+2021.03.05 - version 1.9.1
+* Tweak - Updated UI to restore empty states when deleting all restriction rules.
+* Tweak - Give focus to the 'Choose restriction...' box when clicking 'Add' without choosing a product-level restriction type.
+
+2021.03.04 - version 1.9.0
+* Important - Updated static/validation notice strings. Please update your localizations.
+* Feature - Introduced 'Date/Time' condition.
+* Feature - Introduced 'Billing Postcode' condition.
+* Feature - Introduced 'Cart Subtotal' condition.
+* Feature - Added 'gt', 'gte', 'lt' and 'lte' condition modifiers to all comparison-operator conditions.
+* Feature - Support Rate ID wildcards in Shipping Method restrictions, e.g. 'FedEx*'.
+* Tweak - Allow rules with empty subjects to be saved, and display a notice instead of deleting them silently.
+* Tweak - Added 'AND' divider between conditions.
+* Tweak - Renamed 'Shipping Country/State' restrictions to 'Shipping Destinations'.
+
 2020.12.14 - version 1.8.11
 * Feature - Introduced 'does not enable free shipping' modifier in 'Coupon Code' condition.
 

@@ -142,18 +142,16 @@ abstract class WPSEO_Watcher {
 	/**
 	 * Returns the string to the javascript method from where the added redirect can be undone
 	 *
-	 * @param WPSEO_Redirect $redirect The redirect that will be deleted.
-	 * @param string         $id       ID of the notice that is displayed.
+	 * @param int    $object_id   The post or term ID.
+	 * @param string $object_type The object type: post or term.
 	 *
 	 * @return string
 	 */
-	protected function javascript_undo_redirect( WPSEO_Redirect $redirect, $id ) {
+	protected function javascript_undo_redirect( $object_id, $object_type ) {
 		return sprintf(
-			'wpseoUndoRedirect( "%1$s", "%2$s", "%3$s", "%4$s", this );',
-			esc_js( $redirect->get_origin() ),
-			esc_js( $redirect->get_target() ),
-			esc_js( $redirect->get_type() ),
-			wp_create_nonce( 'wpseo-redirects-ajax-security' )
+			'wpseoUndoRedirectByObjectId( "%1$s", "%2$s", this );return false;',
+			esc_js( $object_id ),
+			esc_js( $object_type )
 		);
 	}
 
@@ -208,25 +206,32 @@ abstract class WPSEO_Watcher {
 	/**
 	 * There might be the possibility to undo the redirect, if it is so, we have to notify the user.
 	 *
-	 * @param string $old_url The origin URL.
-	 * @param string $new_url The target URL.
+	 * @param string $old_url     The origin URL.
+	 * @param string $new_url     The target URL.
+	 * @param int    $object_id   The post or term ID.
+	 * @param string $object_type The object type: post or term.
+	 *
+	 * @return WPSEO_Redirect|null The created redirect.
 	 */
-	protected function notify_undo_slug_redirect( $old_url, $new_url ) {
+	protected function notify_undo_slug_redirect( $old_url, $new_url, $object_id, $object_type ) {
 		// Check if we should create a redirect.
 		if ( $this->should_create_redirect( $old_url, $new_url ) ) {
 			$redirect = $this->create_redirect( $old_url, $new_url );
 
-			$this->set_undo_slug_notification( $redirect );
+			$this->set_undo_slug_notification( $redirect, $object_id, $object_type );
+
+			return $redirect;
 		}
 	}
 
 	/**
 	 * Display the undo notification
 	 *
-	 * @param WPSEO_Redirect $redirect The old URL to the post.
+	 * @param WPSEO_Redirect $redirect    The old URL to the post.
+	 * @param int            $object_id   The post or term ID.
+	 * @param string         $object_type The object type: post or term.
 	 */
-	protected function set_undo_slug_notification( WPSEO_Redirect $redirect ) {
-		$id      = 'wpseo_undo_redirect_' . md5( $redirect->get_origin() );
+	protected function set_undo_slug_notification( WPSEO_Redirect $redirect, $object_id, $object_type ) {
 		$old_url = $this->format_redirect_url( $redirect->get_origin() );
 		$new_url = $this->format_redirect_url( $redirect->get_target() );
 
@@ -251,7 +256,7 @@ abstract class WPSEO_Watcher {
 
 		$message .= sprintf(
 			'<span id="delete-link"><a class="delete" href="" onclick=\'%1$s\'>%2$s</a></span>',
-			$this->javascript_undo_redirect( $redirect, $id ),
+			$this->javascript_undo_redirect( $object_id, $object_type ),
 			esc_html__( 'Undo', 'wordpress-seo-premium' )
 		);
 

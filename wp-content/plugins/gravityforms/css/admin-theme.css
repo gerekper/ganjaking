@@ -303,10 +303,10 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 		width: 100%;
 		display: -ms-grid;
 		display: grid;
-		-ms-grid-columns: (1fr 2rem)[12];
+		-ms-grid-columns: (1fr 2%)[12];
 		grid-template-columns: repeat( 12, 1fr );
 		grid-template-rows: repeat( auto-fill, auto );
-		grid-column-gap: 2rem;
+		grid-column-gap: 2%;
 		grid-row-gap: 1rem;
 	}
 
@@ -364,7 +364,7 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 		grid-column: span 3;
 	}
 
-@media (max-width: 840px) {
+@media (max-width: 640px) {
 
 		.gform_wrapper.gravity-theme .gform_fields {
 			grid-column-gap: 0;
@@ -841,12 +841,21 @@ to no.
 	}
 
 @media (min-width:641px) {
+		.gform_wrapper.gravity-theme .ginput_complex:not(.ginput_container_address) span:not([style*="display:none"]):not(.ginput_full), .gform_wrapper.gravity-theme .ginput_complex:not(.ginput_container_address) fieldset:not([style*="display:none"]):not(.ginput_full) {
+			padding-right: 1%;
+		}
+
 		.gform_wrapper.gravity-theme .ginput_complex:not(.ginput_container_address) span:not([style*="display:none"]):not(.ginput_full) ~ span:not(.ginput_full), .gform_wrapper.gravity-theme .ginput_complex:not(.ginput_container_address) fieldset:not([style*="display:none"]):not(.ginput_full) ~ span:not(.ginput_full) {
-			padding-left: 1rem;
+			padding-left: 1%;
+			padding-right: 0;
 		}
 
 		.gform_wrapper.gravity-theme .ginput_container_address .ginput_left {
-			padding-right: 1rem;
+			padding-right: 1%;
+		}
+
+		.gform_wrapper.gravity-theme .ginput_container_address .ginput_right {
+			padding-left: 1%;
 		}
 
 		/* Make sure all fields but the last one have a bottom margin so there's space between them */
@@ -854,11 +863,15 @@ to no.
 			margin-bottom: 0.5rem;
 		}
 			html[dir=rtl] .gform_wrapper.gravity-theme .ginput_complex:not(.ginput_container_address) span:not([style*="display:none"]):not(.ginput_full) ~ span:not(.ginput_full), html[dir=rtl] .gform_wrapper.gravity-theme .ginput_complex:not(.ginput_container_address) fieldset:not([style*="display:none"]):not(.ginput_full) ~ span:not(.ginput_full) {
-				padding-right: 1rem;
+				padding-right: 1%;
 			}
 
 			html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_address .ginput_left {
-				padding-left: 1rem;
+				padding-left: 1%;
+			}
+
+			html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_address .ginput_right {
+				padding-right: 1%;
 			}
 
 }
@@ -929,7 +942,7 @@ to no.
 	}
 
 .gform_wrapper.gravity-theme .gfield_header_item + .gfield_header_item:not(:last-child), .gform_wrapper.gravity-theme .gfield_list_group_item + .gfield_list_group_item {
-		margin-left: 1rem;
+		margin-left: 2%;
 	}
 
 .gform_wrapper.gravity-theme .gfield_list_group_item input, .gform_wrapper.gravity-theme .gfield_list_group_item select {
@@ -1173,7 +1186,7 @@ html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_creditcard .ginput_
 */
 
 .gform_wrapper.gravity-theme .ginput_container_date + .ginput_container_date {
-		margin-left: 1rem;
+		margin-left: 2%;
 	}
 
 .gform_wrapper.gravity-theme .ginput_container_date[style*='display:none'] + .ginput_container_date {
@@ -1466,6 +1479,7 @@ html[dir=rtl] #ui-datepicker-div.gform-theme-datepicker[style] {
 .gform_wrapper.gravity-theme .ginput_complex .ginput_container_date {
 		flex-flow: row wrap;
 		flex-basis: min-content;
+		max-width: 30%;
 
 	}
 

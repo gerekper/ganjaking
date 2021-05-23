@@ -28,11 +28,11 @@
 			emailBody = emailBodyIframe.contents().find( '#tinymce' ).html();
 
 		// Disable button.
-		$( self.emailPreviewButtonSelector ).attr( 'disabled', 'disabled' ).css( 'cursor', 'wait' );
+		$( self.emailPreviewButtonSelector ).prop( 'disabled', true ).css( 'cursor', 'wait' );
 
 		if ( ! productId || ! emailBody ) {
 			alert( self.i18n_previewEmptyProductOrBody );
-			$( self.emailPreviewButtonSelector ).removeAttr( 'disabled' ).css( 'cursor', 'pointer' );
+			$( self.emailPreviewButtonSelector ).prop( 'disabled', false ).css( 'cursor', 'pointer' );
 			return;
 		}
 
@@ -50,7 +50,7 @@
 
 	self.previewEmailDone = function( response ) {
 		$( self.emailPreviewSelector ).html( response ).slideDown( 'fast' );
-		$( self.emailPreviewButtonSelector ).removeAttr( 'disabled' ).css( 'cursor', 'pointer' );
+		$( self.emailPreviewButtonSelector ).prop( 'disabled', false ).css( 'cursor', 'pointer' );
 	};
 
 	$( self.init );

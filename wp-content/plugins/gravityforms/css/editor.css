@@ -1620,6 +1620,10 @@ li.pagination_setting, li.field_setting {
 	margin-bottom: 0.9375rem;
 }
 
+li.pagination_setting .percentage_style_setting ~ .percentage_custom_container {
+	margin-top: 0.9375rem;
+}
+
 .input_active_icon {
 	margin: 0.3rem 0 0 0;
 }
@@ -1937,7 +1941,11 @@ html[dir="rtl"] #gfield_settings_choices_container .gfield_choice_header_label +
 }
 
 #gform_input_mask {
-	padding-top: 0.25rem;
+	padding-top: 0.9375rem;
+}
+
+.maxlen_setting.field_setting {
+	min-height: 4.1875rem;
 }
 
 .gform_inline_options {

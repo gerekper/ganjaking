@@ -3,7 +3,7 @@
 class GP_Limit_Dates extends GWPerk {
 
 	public $version                   = GP_LIMIT_DATES_VERSION;
-	public $min_gravity_perks_version = '1.2.8.9';
+	public $min_gravity_perks_version = '2.2.3';
 	public $min_gravity_forms_version = '1.9.11.10';
 	public $prefix                    = 'gpLimitDates';
 
@@ -51,63 +51,50 @@ class GP_Limit_Dates extends GWPerk {
 
 		$this->register_noconflict_script( 'gp-limit-dates' );
 
+		wp_register_style( 'gp-limit-dates', $this->get_base_url() . "/css/gp-limit-dates{$min}.css", array(), $this->version );
+		$this->register_noconflict_styles( 'gp-limit-dates' );
+
+		wp_register_script( 'gp-limit-dates-admin', $this->get_base_url() . "/js/gp-limit-dates-admin{$min}.js", array( 'gaddon_repeater', 'jquery-ui-datepicker' ), $this->version, true );
+		wp_localize_script(
+			'gp-limit-dates-admin',
+			'GPLD_ADMIN',
+			array(
+				'key'               => $this->key( '' ),
+				'dateSelectOptions' => $this->get_date_select_options(),
+			)
+		);
+
+		$this->register_noconflict_script( 'gp-limit-dates-admin' );
+		$this->register_noconflict_script( 'gaddon_repeater' );
+		$this->register_noconflict_script( 'jquery-ui-datepicker' );
+
+		wp_register_style( 'gp-limit-dates-admin', $this->get_base_url() . "/css/gp-limit-dates-admin{$min}.css", array(), $this->version );
+		$this->register_noconflict_styles( 'gp-limit-dates-admin' );
+
 	}
 
 	public function register_tooltips() {
 		$this->add_tooltip( $this->key( 'min_date' ), sprintf( GravityPerks::$tooltip_template, __( 'Minimum Date', 'gp-limit-dates' ), __( 'Specify the minimum date that can be selected in this field.', 'gp-limit-dates' ) ) );
 		$this->add_tooltip( $this->key( 'max_date' ), sprintf( GravityPerks::$tooltip_template, __( 'Maximum Date', 'gp-limit-dates' ), __( 'Specify the maximum date that can be selected in this field.', 'gp-limit-dates' ) ) );
-		$this->add_tooltip( $this->key( 'date_modifier' ), sprintf( GravityPerks::$tooltip_template, __( 'Date Modifier', 'gp-limit-dates' ), __( 'Modify the selected date by adding or subracting days, weeks, months or years.<br /><code>+1 day</code> <code>-2 weeks</code> <code>+3 years</code>', 'gp-limit-dates' ) ) );
+		$this->add_tooltip( $this->key( 'date_modifier' ), sprintf( GravityPerks::$tooltip_template, __( 'Date Modifier', 'gp-limit-dates' ), __( 'Modify the selected date by adding or subracting days, weeks, months or years.<br><strong>Examples:</strong><code>+1 day</code><br><code>-2 weeks</code><br><code>+3 years</code>', 'gp-limit-dates' ) ) );
 		$this->add_tooltip( $this->key( 'days_week' ), sprintf( GravityPerks::$tooltip_template, __( 'Days of the Week', 'gp-limit-dates' ), __( 'Specify the days of the week for which dates should be selectable.', 'gp-limit-dates' ) ) );
 		$this->add_tooltip( $this->key( 'exceptions' ), sprintf( GravityPerks::$tooltip_template, __( 'Exceptions', 'gp-limit-dates' ), __( 'Specify any dates that should be excepted from the above rules.', 'gp-limit-dates' ) ) );
 		$this->add_tooltip( $this->key( 'exclude_before_today' ), sprintf( GravityPerks::$tooltip_template, __( 'Exclude Dates Before Current Date', 'gp-limit-dates' ), __( 'Prevent days that occur before the current date from being selected. Use this option to set a minimum date in the future and have the minimum date automatically adjust as time progresses.', 'gp-limit-dates' ) ) );
-		$this->add_tooltip( $this->key( 'exclude_before_today_modifier' ), sprintf( GravityPerks::$tooltip_template, __( 'Exclude Dates Before Current Date Modifier', 'gp-limit-dates' ), __( 'Modify the current date by adding or subracting days, weeks, months or years.<br /><code>+1 day</code> <code>-2 weeks</code> <code>+3 years</code>', 'gp-limit-dates' ) ) );
+		$this->add_tooltip( $this->key( 'exclude_before_today_modifier' ), sprintf( GravityPerks::$tooltip_template, __( 'Exclude Dates Before Current Date Modifier', 'gp-limit-dates' ), __( 'Modify the current date by adding or subracting days, weeks, months or years.<br><strong>Examples:</strong><code>+1 day</code><br><code>-2 weeks</code><br><code>+3 years</code>', 'gp-limit-dates' ) ) );
 		$this->add_tooltip( $this->key( 'inline_datepicker' ), sprintf( GravityPerks::$tooltip_template, __( 'Inline Date Picker', 'gp-limit-dates' ), __( 'Display a full calendar in place of an input.', 'gp-limit-dates' ) ) );
 	}
 
 	public function enqueue_admin_scripts() {
 
-		wp_enqueue_script( 'gaddon_repeater' );
-		$this->register_noconflict_script( 'gaddon_repeater' );
-
-		wp_enqueue_script( 'jquery-ui-datepicker' );
-		$this->register_noconflict_script( 'jquery-ui-datepicker' );
+		if ( GFForms::get_page() === 'form_editor' ) {
+			wp_enqueue_script( 'gp-limit-dates-admin' );
+			wp_enqueue_style( 'gp-limit-dates-admin' );
+		}
 
 	}
 
 	public function field_settings_ui() {
 		?>
-
-		<style type="text/css">
-			.gp-row { position: relative; }
-			.gpld-date-input-container { position: relative; display: none; }
-			.gpld-date-input-container .gpld-date-input-reset { color: #ddd; position: relative; top: -1px; }
-			.gpld-date-input-container .gpld-date-input-reset:hover { color: #333; cursor: pointer; }
-			.gpld-date-select { width: 170px; }
-			.gpld-date-modifier-container { display: none; vertical-align: middle; }
-			.gpld-days-of-week-container { display: none; }
-			.gpld-days-of-week-container input { display: none; }
-			.gpld-days-of-week-container label,
-			.gpld-all-days-container label { display: inline-block !important; }
-			.gpld-all-days-container span#gpld-all-days { cursor: pointer; }
-			.gpld-all-days-container span#gpld-all-days:before { content: '\f00c'; font-family: FontAwesome; margin-right: 3px; }
-			.gpld-all-days-container span#gpld-all-days:hover:before { content: '\f00d'; }
-			.gpld-days-of-week-container label:after { content: "|"; margin: 0 5px; color: #ccc; }
-			.gpld-days-of-week-container label[for="gpld-day-0"]:after { display: none; }
-			.gpld-days-of-week-container input:checked + label { font-weight: bold; }
-			.gpld-days-of-week-container.has-selection input:not(:checked) + label { color: #999; }
-			.gpld-days-of-week-container input:checked + label:before { content: '\f00c'; font-family: FontAwesome; margin-right: 3px; }
-			.gpld-exceptions-repeater { display: none; margin-bottom: 5px; }
-			.gpld-exceptions-repeater .row { position: relative; display: inline-block; width: 24%; }
-			.gpld-exceptions-repeater .row input { border-radius: 5px; border: 1px solid #eee; width: 100%; background-color: #f7f7f7; }
-			.gpld-exceptions-repeater .repeater-buttons { position: absolute; right: 6px; top: 4px; }
-			.gpld-exceptions-repeater .repeater-buttons a { color: #ccc; cursor: pointer; }
-			.gpld-exceptions-repeater .repeater-buttons a:hover { color: #444; cursor: pointer; }
-			#gpld-add-exception-input { width: 0; height: 0; visibility: hidden; position: absolute; left: 0; }
-			.gpld-date-modifier-today-container { margin:10px 0; padding-left: 1px; }
-			.gpld-date-modifier-today-modifier-container { display: inline-block; vertical-align: middle; }
-			input#gpld-min-date-exclude-before-today-modifier { width: 100px; }
-			.gp-row hr.invisible { border: 0; margin: 0; }
-		</style>
 
 		<li class="gp-limit-dates-field-settings field_setting gp-field-setting" style="display:none;">
 
@@ -118,21 +105,32 @@ class GP_Limit_Dates extends GWPerk {
 					<?php gform_tooltip( $this->key( 'min_date' ) ); ?>
 				</label>
 
-				<select id="gpld-minimum-date" class="gpld-date-select" onchange="SetFieldProperty( '<?php echo $this->key( 'minDate' ); ?>', this.value );">
-					<!-- options added dynamically -->
-				</select>
+				<div class="gp-group">
 
-				<div id="gpld-min-date-input-container" class="gpld-date-input-container">
-					<input id="gpld-min-date-input" class="gpld-date-input" type="text" value="" onchange="SetFieldProperty( '<?php echo $this->key( 'minDateValue' ); ?>', this.value );"/>
-					<span class="gpld-date-input-reset"><i class="fa fa-undo"></i></span>
+					<div id="gpld-minimum-date-container" class="gpld-date-select-container">
+
+						<select id="gpld-minimum-date" class="gpld-date-select" onchange="SetFieldProperty( '<?php echo $this->key( 'minDate' ); ?>', this.value );">
+							<!-- options added dynamically -->
+						</select>
+
+					</div>
+
+					<div id="gpld-min-date-input-container" class="gpld-date-input-container">
+						<input id="gpld-min-date-input" class="gpld-date-input" type="text" value="" onchange="SetFieldProperty( '<?php echo $this->key( 'minDateValue' ); ?>', this.value );"/>
+						<span class="gpld-date-input-reset"><i class="fa fa-undo"></i></span>
+					</div>
+
+					<div id="gpld-min-date-modifier-container" class="gpld-date-modifier-container">
+						<input id="gpld-min-date-modifier" type="text" value="" placeholder="i.e. +2 days (optional)" onkeyup="SetFieldProperty( '<?php echo $this->key( 'minDateMod' ); ?>', this.value );"/>
+						<?php gform_tooltip( $this->key( 'date_modifier' ), 'gp-tooltip gp-tooltip-right tooltip' ); ?>
+					</div>
+
 				</div>
 
-				<div id="gpld-min-date-modifier-container" class="gpld-date-modifier-container">
-					<input id="gpld-min-date-modifier" type="text" value="" placeholder="i.e. +2 days (optional)" onkeyup="SetFieldProperty( '<?php echo $this->key( 'minDateMod' ); ?>', this.value );"/>
-					<?php gform_tooltip( $this->key( 'date_modifier' ) ); ?>
-				</div>
+			</div>
 
-				<hr class="clear invisible" />
+			<div class="gp-row">
+
 				<div id="gpld-min-date-exclude-before-today-container" class="gpld-date-modifier-today-container">
 					<input type="checkbox" id="gpld-min-date-exclude-before-today" onclick="SetFieldProperty( '<?php echo $this->key( 'minDateExcludeBeforeToday' ); ?>', this.checked );">
 					<label for="gpld-min-date-exclude-before-today" class="inline">
@@ -140,9 +138,13 @@ class GP_Limit_Dates extends GWPerk {
 						<?php gform_tooltip( $this->key( 'exclude_before_today' ) ); ?>
 					</label>
 				</div>
-				<div id="gpld-min-date-exclude-before-today-modifier-container" class="gpld-date-modifier-today-modifier-container">
+
+				<div id="gpld-min-date-exclude-before-today-modifier-container" class="gpld-date-modifier-today-modifier-container gp-child-settings">
+					<label for="gpld-min-date-exclude-before-today-modifier" class="section_label">
+						<?php _e( 'Current Date Modifier', 'gp-limit-dates' ); ?>
+						<?php gform_tooltip( $this->key( 'exclude_before_today_modifier' ) ); ?>
+					</label>
 					<input id="gpld-min-date-exclude-before-today-modifier" type="text" value="" placeholder="i.e. +2 days" onkeyup="SetFieldProperty( '<?php echo $this->key( 'minDateExcludeBeforeTodayMod' ); ?>', this.value );"/>
-					<?php gform_tooltip( $this->key( 'exclude_before_today_modifier' ) ); ?>
 				</div>
 
 			</div>
@@ -154,18 +156,26 @@ class GP_Limit_Dates extends GWPerk {
 					<?php gform_tooltip( $this->key( 'max_date' ) ); ?>
 				</label>
 
-				<select id="gpld-maximum-date" class="gpld-date-select" onchange="SetFieldProperty( '<?php echo $this->key( 'maxDate' ); ?>', this.value );">
-					<!-- options added dynamically -->
-				</select>
+				<div class="gp-group">
 
-				<div id="gpld-max-date-input-container" class="gpld-date-input-container">
-					<input id="gpld-max-date-input" class="gpld-date-input" type="text" value="" onchange="SetFieldProperty( '<?php echo $this->key( 'maxDateValue' ); ?>', this.value );" />
-					<span class="gpld-date-input-reset"><i class="fa fa-undo"></i></span>
-				</div>
+					<div id="gpld-maximum-date-container" class="gpld-date-select-container">
 
-				<div id="gpld-max-date-modifier-container" class="gpld-date-modifier-container">
-					<input id="gpld-max-date-modifier" type="text" value="" placeholder="i.e. +2 days" onkeyup="SetFieldProperty( '<?php echo $this->key( 'maxDateMod' ); ?>', this.value );"/>
-					<?php gform_tooltip( $this->key( 'date_modifier' ) ); ?>
+						<select id="gpld-maximum-date" class="gpld-date-select" onchange="SetFieldProperty( '<?php echo $this->key( 'maxDate' ); ?>', this.value );">
+							<!-- options added dynamically -->
+						</select>
+
+					</div>
+
+					<div id="gpld-max-date-input-container" class="gpld-date-input-container">
+						<input id="gpld-max-date-input" class="gpld-date-input" type="text" value="" onchange="SetFieldProperty( '<?php echo $this->key( 'maxDateValue' ); ?>', this.value );" />
+						<span class="gpld-date-input-reset"><i class="fa fa-undo"></i></span>
+					</div>
+
+					<div id="gpld-max-date-modifier-container" class="gpld-date-modifier-container">
+						<input id="gpld-max-date-modifier" type="text" value="" placeholder="i.e. +2 days" onkeyup="SetFieldProperty( '<?php echo $this->key( 'maxDateMod' ); ?>', this.value );"/>
+						<span><?php gform_tooltip( $this->key( 'date_modifier' ), 'gp-tooltip gp-tooltip-right tooltip' ); ?></span>
+					</div>
+
 				</div>
 
 			</div>
@@ -188,8 +198,10 @@ class GP_Limit_Dates extends GWPerk {
 					<?php
 					foreach ( $this->get_days_of_the_week() as $day ) {
 						printf(
-							'<input type="checkbox" value="%1$d" name="gpld-days" id="gpld-day-%1$d" />' .
-								'<label for="gpld-day-%1$d">%2$s</label>',
+							'<div class="gpld-day-container">
+								<input type="checkbox" value="%1$d" name="gpld-days" id="gpld-day-%1$d" />
+								<label for="gpld-day-%1$d" class="inline">%2$s</label>
+							</div>',
 							$day['value'],
 							$day['label_abbr']
 						);
@@ -209,14 +221,17 @@ class GP_Limit_Dates extends GWPerk {
 
 				<div class="gpld-exceptions-repeater">
 					<!-- Template Start -->
-					<div class="row">
+					<div class="row" data-gpld-date-value="{date}">
 						<input class="date date_{i}" value="{date}" readonly="readonly" />
 						{buttons}
 					</div>
 					<!-- / Template Ends -->
 				</div>
 
-				<span id="gpld-add-exception" class="button secondary"><?php _e( 'Add Exception', 'gp-limit-dates' ); ?></span>
+				<div id="gpld-add-exception-container">
+					<span id="gpld-add-exception" class="button secondary"><?php _e( 'Add Exception', 'gp-limit-dates' ); ?></span>
+				</div>
+
 				<input type="text" id="gpld-add-exception-input" />
 
 			</div>
@@ -234,419 +249,6 @@ class GP_Limit_Dates extends GWPerk {
 			</div>
 
 		</li>
-
-		<?php
-	}
-
-	public function field_settings_js() {
-		?>
-
-		<script type="text/javascript">
-
-			( function( $ ) {
-
-				var dateSelectOptions      = <?php echo json_encode( $this->get_date_select_options() ); ?>,
-					$dateInputType         = $( '#field_date_input_type' ),
-					$minDateSelect         = $( '#gpld-minimum-date' ),
-					$maxDateSelect         = $( '#gpld-maximum-date' ),
-					$minDateMod            = $( '#gpld-min-date-modifier' ),
-					$minDateExcludeBeforeToday    = $( '#gpld-min-date-exclude-before-today' ),
-					$minDateExcludeBeforeTodayMod = $( '#gpld-min-date-exclude-before-today-modifier' ),
-					$maxDateMod            = $( '#gpld-max-date-modifier' ),
-					$minDateInput          = $( '#gpld-min-date-input' ),
-					$maxDateInput          = $( '#gpld-max-date-input' ),
-					$dateInputResetButtons = $( '.gpld-date-input-reset' ),
-					$allDays               = $( '#gpld-all-days' ),
-					$daysOfWeek            = $( '.gpld-days-of-week-container input' ),
-					$exceptionsRepeater    = $( '.gpld-exceptions-repeater' ),
-					$addExceoption         = $( '#gpld-add-exception' ),
-					$addExceptionInput     = $( '#gpld-add-exception-input' ),
-					$inlineDatepicker      = $( '#gpld-inline-datepicker' ),
-					key                    = function( key ) { return '<?php echo $this->key( '' ); ?>' + key; };
-
-				$dateInputType.change( function() {
-					fieldSettingsInit( GetSelectedField() );
-					gperk.togglePerksTab();
-				} );
-
-				$minDateSelect.change( function() {
-					handleDateSelect( $( this ) );
-				} );
-
-				$minDateExcludeBeforeToday.change( function() {
-					handleExcludeBeforeTodayCheck( $( this ), $minDateSelect );
-				} );
-
-				$maxDateSelect.change( function() {
-					handleDateSelect( $( this ) );
-				} );
-
-				$dateInputResetButtons.click( function() {
-					hideDateInput( $( this ) );
-				} );
-
-				$allDays.click( function() {
-					handleAllDaysClick( $daysOfWeek );
-				} );
-
-				$daysOfWeek.change( function() {
-					handleDayOfWeekSelection( $daysOfWeek );
-				} );
-
-				$addExceoption.click( function() {
-					addException();
-				} );
-
-
-
-
-
-				$( document ).bind( 'gform_load_field_settings', function( event, field, form ) {
-					fieldSettingsInit( field );
-				} );
-
-
-
-
-
-				function fieldSettingsInit( field ) {
-
-					if( GetInputType( field ) == 'date' && field.dateType == 'datepicker' ) {
-						$( '.gp-limit-dates-field-settings' ).show();
-					} else {
-						$( '.gp-limit-dates-field-settings' ).hide();
-						return;
-					}
-
-					resetUI();
-
-					populateDateSelect( $minDateSelect, field );
-					$minDateSelect.val( field[ key( 'minDate' ) ] );
-					$minDateSelect.change(); /* trigger change() as separate command to avoid conflict with Gravity Slider's jquery.nouislider.all.js */
-					$minDateInput.val( field[ key( 'minDateValue' ) ] );
-					$minDateMod.val( field[ key( 'minDateMod' ) ] );
-					$minDateExcludeBeforeToday.attr( 'checked', field[ key( 'minDateExcludeBeforeToday' ) ] === true ).change();
-					$minDateExcludeBeforeTodayMod.val( field[ key( 'minDateExcludeBeforeTodayMod' ) ] );
-
-					populateDateSelect( $maxDateSelect, field );
-					$maxDateSelect.val( field[ key( 'maxDate' ) ] );
-					$maxDateSelect.change(); /* trigger change() as separate command to avoid conflict with Gravity Slider's jquery.nouislider.all.js */
-					$maxDateInput.val( field[ key( 'maxDateValue' ) ] );
-					$maxDateMod.val( field[ key( 'maxDateMod' ) ] );
-
-					$minDateInput.datepicker( { dateFormat: 'mm/dd/yy' } );
-					$maxDateInput.datepicker( { dateFormat: 'mm/dd/yy' } );
-
-					populateDaysOfWeek();
-
-					initExceptionsRepeater();
-
-					$inlineDatepicker.prop( 'checked', ( field[ key( 'inlineDatepicker' ) ] == true ) );
-
-				}
-
-				function populateDateSelect( $select, field ) {
-
-					$.each( dateSelectOptions, function( i, option ) {
-						if( option.value == '_datefields_' ) {
-							option.options = []; // reset
-							for( var j = 0; j < form.fields.length; j++ ) {
-								if( field.id != form.fields[j].id && GetInputType( form.fields[j] ) == 'date' && form.fields[j].dateType == 'datepicker' ) {
-									option.options.push( {
-										label: GetLabel( form.fields[j] ),
-										value: form.fields[j].id
-									} );
-								}
-							}
-						}
-					} );
-
-					$select.html( getDateSelectMarkup( dateSelectOptions ) );
-
-				}
-
-				function getDateSelectMarkup( options ) {
-
-					var markup = '';
-
-					$.each( options, function( i, option ) {
-
-						if( typeof option.options != 'undefined' ) {
-							markup += '<optgroup label="' + option.label + '">' + getDateSelectMarkup( option.options ) + '</optgroup>';
-						} else {
-							markup += '<option value="' + option.value + '">' + option.label + '</option>';
-						}
-
-					} );
-
-					return markup;
-				}
-
-				function handleDateSelect( $select ) {
-
-					var value    = $select.val(),
-						isCustom = value == '_custom_';
-
-					if( ! value )  {
-
-						hideModifierInput( $select );
-						hideExcludeBeforeTodayInput( $select );
-						hideExcludeBeforeTodayModifierInput( $select );
-
-					} else {
-
-						if( isCustom ) {
-							showDateInput( $select );
-							hideModifierInput( $select );
-							showExcludeBeforeTodayInput( $select );
-						} else {
-							showModifierInput( $select );
-							hideExcludeBeforeTodayInput( $select );
-						}
-
-					}
-
-				}
-
-				function showDateInput( $select ) {
-
-					var $input = $select.siblings( '.gpld-date-input-container' );
-
-					$select.fadeOut( function() {
-						$input.fadeIn();
-					} );
-
-				}
-
-				function hideDateInput( $button ) {
-
-					var $input = $button.parents( '.gpld-date-input-container' ),
-						$select = $input.siblings( '.gpld-date-select' );
-
-					$input.fadeOut( function() {
-						$select.val( '' ).change().fadeIn();
-						$input.find( 'input' ).val( '' ).change();
-					} );
-
-				}
-
-				function resetUI() {
-
-					// min/max dates
-					$( '.gpld-date-select' ).show();
-					$( '.gpld-date-modifier-container' ).hide();
-					$( '.gpld-date-input-container' ).hide();
-
-					// days of week
-					$( '.gpld-all-days-container' ).show();
-					$( '.gpld-days-of-week-container' ).hide();
-
-				}
-
-				function showModifierInput( $select ) {
-
-					var $modifier = $select.siblings( '.gpld-date-modifier-container' );
-
-					if( ! $modifier.is( ':visible' ) ) {
-						$modifier.css( {
-							opacity: 0,
-							display: 'inline-block'
-						} ).animate( { opacity: 1 }, 600 );
-					}
-
-				}
-
-				function hideModifierInput( $select ) {
-
-					var $modifierInput = $select.siblings( '.gpld-date-modifier-container' );
-
-					$modifierInput.fadeOut( function() {
-						$( this ).find( 'input' ).val( '' ).change().keyup();
-					} );
-
-				}
-
-				function handleExcludeBeforeTodayCheck( $checkbox, $select ) {
-					if( $checkbox.is( ':checked' ) )  {
-						showExcludeBeforeTodayModifierInput( $select );
-					} else {
-						hideExcludeBeforeTodayModifierInput( $select );
-					}
-				}
-
-				function showExcludeBeforeTodayInput( $select ) {
-
-					var $modifier = $select.siblings( '.gpld-date-modifier-today-container' );
-
-					if( ! $modifier.is( ':visible' ) ) {
-						$modifier.css( {
-							opacity: 0,
-							display: 'inline-block'
-						} ).animate( { opacity: 1 } );
-					}
-
-				}
-
-				function hideExcludeBeforeTodayInput( $select ) {
-
-					var $modifierInput = $select.siblings( '.gpld-date-modifier-today-container' );
-
-					$modifierInput.fadeOut( function() {
-						$( this ).find( 'input' ).attr('checked', false);
-					} );
-
-				}
-
-				function showExcludeBeforeTodayModifierInput( $select ) {
-
-					var $modifier = $select.siblings( '.gpld-date-modifier-today-modifier-container' );
-
-					if( ! $modifier.is( ':visible' ) ) {
-						$modifier.css( {
-							opacity: 0,
-							display: 'inline-block'
-						} ).animate( { opacity: 1 } );
-					}
-
-				}
-
-				function hideExcludeBeforeTodayModifierInput( $select ) {
-
-					var $modifierInput = $select.siblings( '.gpld-date-modifier-today-modifier-container' );
-
-					$modifierInput.fadeOut( function() {
-						$( this ).find( 'input' ).val( '' ).change().keyup();
-					} );
-
-				}
-
-				function populateDaysOfWeek() {
-
-					var daysOfWeek = typeof field[ key( 'daysOfWeek' ) ] == 'object' ? field[ key( 'daysOfWeek' ) ] : [ 0, 1, 2, 3, 4, 5, 6 ];
-
-					$daysOfWeek.each( function() {
-						$( this ).prop( 'checked', $.inArray( parseInt( $( this ).val() ), daysOfWeek ) != - 1 );
-					} );
-
-					if( daysOfWeek.length > 0 && daysOfWeek.length < 7 ) {
-						toggleDaysOfWeek( true );
-						handleDayOfWeekSelection();
-					}
-
-				}
-
-				function handleAllDaysClick( $daysOfWeek ) {
-					$daysOfWeek.prop( 'checked', false );
-					SetFieldProperty( key( 'daysOfWeek' ), getSelectedDaysOfWeek() );
-					handleDayOfWeekSelection( $daysOfWeek );
-					toggleDaysOfWeek();
-				}
-
-				function handleDayOfWeekSelection() {
-
-					var $container   = $( '.gpld-days-of-week-container' ),
-						checkedCount = getSelectedDaysOfWeek().length;
-
-					if( checkedCount > 0 ) {
-						$container.addClass( 'has-selection' ).removeClass( 'no-selection' );
-					} else {
-						$container.addClass( 'no-selection' ).removeClass( 'has-selection' );
-					}
-
-					if( checkedCount >= 7 ) {
-						toggleDaysOfWeek();
-					}
-
-					SetFieldProperty( key( 'daysOfWeek' ), getSelectedDaysOfWeek() );
-
-				}
-
-				function getSelectedDaysOfWeek() {
-					var days = [];
-					$.each( $daysOfWeek.filter( ':checked' ), function( i, day ) {
-						days.push( parseInt( day.value ) );
-					} );
-					return days;
-				}
-
-				function toggleDaysOfWeek( isInit ) {
-
-					var isInit            = typeof isInit == 'undefined' ? false : isInit,
-						$allDaysContainer = $( '.gpld-all-days-container' ),
-						$daysContainer    = $( '.gpld-days-of-week-container' ),
-						$hide             = $allDaysContainer.is( ':visible' ) || isInit ? $allDaysContainer : $daysContainer,
-						$show             = ! $allDaysContainer.is( ':visible' ) && ! isInit ? $allDaysContainer : $daysContainer;
-
-					$hide.fadeOut( 250, function() {
-						$show.fadeIn( 250 );
-					} );
-
-				}
-
-				function initExceptionsRepeater() {
-
-					var items = getExceptionItems();
-
-					// reset HTML when re-initing repeater
-					if( $exceptionsRepeater.data( 'htmlTemplate' ) ) {
-						$exceptionsRepeater.html( $exceptionsRepeater.data( 'htmlTemplate' ) );
-					} else {
-						$exceptionsRepeater.data( 'htmlTemplate', $exceptionsRepeater.html() );
-					}
-
-					$exceptionsRepeater.repeater( {
-						limit: 0,
-						items: items,
-						minItemCount: 0,
-						addButtonMarkup: '',
-						removeButtonMarkup: '<span class="remove"><i class="fa fa-times"></i></span>',
-						callbacks: {
-							save: function( obj, data ) {
-								var dates = [];
-								for( var i = 0; i < data.length; i++ ) {
-									dates.push( data[i].date );
-								}
-								SetFieldProperty( key( 'exceptions' ), dates );
-							}
-						}
-					} ).show();
-
-					if( items.length == 1 && ! items[0].date ) {
-						$exceptionsRepeater.removeItem( 0 );
-					}
-
-				}
-
-				function getExceptionItems() {
-
-					var exceptions = typeof field[ key( 'exceptions' ) ] == 'object' ? field[ key( 'exceptions' ) ] : [],
-						items      = [];
-
-					if( exceptions.length <= 0 ) {
-						items.push( { date: '' } );
-					} else {
-						for( var i = 0; i < exceptions.length; i++ ) {
-							items.push( { date: exceptions[i] } );
-						}
-					}
-
-					return items;
-				}
-
-				function addException() {
-
-					$addExceptionInput.datepicker( {
-						dateFormat: 'mm/dd/yy',
-						onSelect: function( date ) {
-							$exceptionsRepeater.addNewItem( { date: date } );
-						}
-					} ).datepicker( 'show' );
-
-				}
-
-			} )( jQuery );
-
-		</script>
 
 		<?php
 	}
@@ -696,6 +298,10 @@ class GP_Limit_Dates extends GWPerk {
 		if ( $this->has_limit_dates_enabled( $form ) ) {
 			wp_enqueue_script( 'gp-limit-dates' );
 			wp_localize_script( 'gp-limit-dates', 'GPLimitDatesData' . $form['id'], $this->get_limit_dates_options( $form ) );
+			// Stylesheet is only currently needed for overriding GF 2.5 styles for inline datepicker.
+			if ( GravityPerks::is_gf_version_gte( '2.5-beta-1' ) ) {
+				wp_enqueue_style( 'gp-limit-dates' );
+			}
 		}
 
 	}

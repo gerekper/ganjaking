@@ -1,6 +1,14 @@
 
 # Changelog
 
+## 2.2.6
+
+	- Added ASM Select so perks no longer need to include this individually.
+
+## 2.2.5
+
+	- Added ASM Select so perks no longer need to include this individually.
+
 ## 2.2.4
 
 	- Added additional helper styles for Gravity Forms 2.5 field settings.

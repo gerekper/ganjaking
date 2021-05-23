@@ -70,7 +70,7 @@
 
 		var type = $( e.target ).val();
 		if ( $.inArray( type, hideTickets ) >= 0 ) {
-			$ticketToggler.removeAttr( 'checked' ).trigger( 'change' );
+			$ticketToggler.prop( 'checked', false ).trigger( 'change' );
 		}
 	}
 

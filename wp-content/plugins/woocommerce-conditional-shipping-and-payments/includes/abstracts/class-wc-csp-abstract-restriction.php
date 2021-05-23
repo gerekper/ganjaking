@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Abstract Restriction class.
  *
  * @class    WC_CSP_Restriction
- * @version  1.8.11
+ * @version  1.9.0
  */
 class WC_CSP_Restriction extends WC_Settings_API {
 
@@ -161,8 +161,13 @@ class WC_CSP_Restriction extends WC_Settings_API {
 		$data_hash = md5( json_encode( $global_restrictions ) );
 
 		?><tr><td>
-		<div id="restrictions_data" class="panel csp_global_panel woocommerce_options_panel wc-metaboxes-wrapper postbox <?php echo WC_CSP_Core_Compatibility::get_versions_class(); ?>">
+		<div id="restrictions_data" class="panel csp_global_panel woocommerce_options_panel wc-metaboxes-wrapper postbox <?php echo empty( $global_restrictions ) && empty( $_GET[ 'add_rule' ] ) ? 'restrictions_data--empty' : ''; ?> <?php echo WC_CSP_Core_Compatibility::get_versions_class(); ?>">
 			<div class="inside">
+
+				<div class="hr-section hr-section--conditions-and temp-placeholder">
+					<?php echo __( 'And', 'woocommerce-conditional-shipping-and-payments' ); ?>
+				</div>
+
 				<p class="toolbar">
 					<select style="display:none;" name="_restriction_type" class="restriction_type">
 						<?php
@@ -189,18 +194,15 @@ class WC_CSP_Restriction extends WC_Settings_API {
 							$this->get_admin_global_metaboxes_content( $index, $restriction_data );
 						}
 
-					} elseif ( empty( $_GET[ 'add_rule' ] ) ) {
-						// Boarding message.
-						?>
-						<div class="woocommerce_restrictions__boarding">
-							<div class="woocommerce_restrictions__boarding__message">
-								<h3><?php echo $this->title; ?></h3>
-								<p><?php echo __( 'No restrictions found. Add some now?', 'woocommerce-conditional-shipping-and-payments' ); ?></p>
-							</div>
+					} 
+
+					// Empty state.
+					?><div class="woocommerce_restrictions__boarding">
+						<div class="woocommerce_restrictions__boarding__message">
+							<h3><?php echo $this->title; ?></h3>
+							<p><?php echo __( 'No restrictions found. Add some now?', 'woocommerce-conditional-shipping-and-payments' ); ?></p>
 						</div>
-						<?php
-					}
-					?>
+					</div>
 				</div>
 				<p class="submit toolbar toolbar--footer borderless <?php echo empty( $global_restrictions ) && empty( $_GET[ 'add_rule' ] ) ? 'restriction_data--empty' : '' ; ?>">
 					<button id="woocommerce-add-global-restriction" type="button" class="button button-secondary add_restriction"><?php _e( 'Add Restriction', 'woocommerce-conditional-shipping-and-payments' ); ?></button>

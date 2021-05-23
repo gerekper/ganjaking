@@ -85,8 +85,8 @@ class Zapier_Trigger implements Integration_Interface {
 
 		// All dates are GMT to prevent failing checks due to timezone differences.
 		$post                          = \get_post( $indexable->object_id );
-		$published_datetime_gmt        = strtotime( $post->post_date_gmt . ' +0000' );
-		$half_an_hour_ago_datetime_gmt = ( time() - ( MINUTE_IN_SECONDS * 30 ) );
+		$published_datetime_gmt        = \strtotime( $post->post_date_gmt . ' +0000' );
+		$half_an_hour_ago_datetime_gmt = ( \time() - ( \MINUTE_IN_SECONDS * 30 ) );
 		if ( ! $this->zapier_helper->is_post_type_supported( $post->post_type )
 			|| $published_datetime_gmt < $half_an_hour_ago_datetime_gmt ) {
 			return;

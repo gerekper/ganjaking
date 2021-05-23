@@ -47,7 +47,7 @@ class WC_CSP_Condition_Package_Item_Quantity extends WC_CSP_Package_Condition {
 		$package_count   = $this->get_package_count( $args );
 		$condition_value = absint( $data[ 'value' ] );
 
-		if ( $this->modifier_is( $data[ 'modifier' ], array( 'min' ) ) ) {
+		if ( $this->modifier_is( $data[ 'modifier' ], array( 'gt', 'min' ) ) ) {
 
 			if ( $package_count > 1 ) {
 
@@ -61,7 +61,7 @@ class WC_CSP_Condition_Package_Item_Quantity extends WC_CSP_Package_Condition {
 				$message = sprintf( __( 'make sure that there are no more than %s items in your cart', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
 			}
 
-		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'max' ) ) ) {
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lt', 'max' ) ) ) {
 
 			if ( $package_count > 1 ) {
 
@@ -73,6 +73,32 @@ class WC_CSP_Condition_Package_Item_Quantity extends WC_CSP_Package_Condition {
 
 			} else {
 				$message = sprintf( __( 'make sure that your cart contains at least %s items', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+			}
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lte' ) ) ) {
+
+			if ( $package_count > 1 ) {
+
+				if ( isset( $args[ 'restriction_data' ][ 'restriction_id' ] ) && 'payment_gateways' === $args[ 'restriction_data' ][ 'restriction_id' ] ) {
+					$message = sprintf( __( 'make sure there are at least %s items in every shipping package', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+				} else {
+					$message = sprintf( __( 'make sure it contains more than %s items', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+				}
+
+			} else {
+				$message = sprintf( __( 'make sure that your cart contains more than %s items', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+			}
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'gte' ) ) ) {
+
+			if ( $package_count > 1 ) {
+
+				if ( isset( $args[ 'restriction_data' ][ 'restriction_id' ] ) && 'payment_gateways' === $args[ 'restriction_data' ][ 'restriction_id' ] ) {
+					$message = sprintf( __( 'make sure that there are less than %s items in every shipping package', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+				} else {
+					$message = sprintf( __( 'make sure it contains less than %s items', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+				}
+
+			} else {
+				$message = sprintf( __( 'make sure that your cart contains less than %s items', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
 			}
 		}
 
@@ -132,11 +158,15 @@ class WC_CSP_Condition_Package_Item_Quantity extends WC_CSP_Package_Condition {
 		$total_quantity = $this->get_items_in_package( $package, $data, $args );
 		$is_matching    = false;
 
-		if ( $this->modifier_is( $data[ 'modifier' ], array( 'min' ) ) && $limit < $total_quantity ) {
+		if ( $this->modifier_is( $data[ 'modifier' ], array( 'gt', 'min' ) ) && $limit < $total_quantity ) {
 			$is_matching = true;
-		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'max' ) ) && $limit > $total_quantity ) {
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lt', 'max' ) ) && $limit > $total_quantity ) {
 			$is_matching = true;
-		}
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'gte' ) ) && $limit <= $total_quantity ) {
+			$is_matching = true;
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lte' ) ) && $limit >= $total_quantity ) {
+			$is_matching = true;
+		} 
 
 		return $is_matching;
 	}
@@ -196,11 +226,19 @@ class WC_CSP_Condition_Package_Item_Quantity extends WC_CSP_Package_Condition {
 	 */
 	public function get_admin_fields_html( $index, $condition_index, $condition_data ) {
 
-		$modifier = '';
+		$modifier = 'lt';
 		$quantity = '';
 
 		if ( ! empty( $condition_data[ 'modifier' ] ) ) {
 			$modifier = $condition_data[ 'modifier' ];
+
+			// Max/Min  Backwards compatibility
+			if ( 'max' === $modifier ) {
+				$modifier = 'lt';
+			} elseif ( 'min' === $modifier ) {
+				$modifier = 'gt';
+			}
+
 		}
 
 		if ( ! empty( $condition_data[ 'value' ] ) ) {
@@ -213,8 +251,10 @@ class WC_CSP_Condition_Package_Item_Quantity extends WC_CSP_Package_Condition {
 			<div class="condition_modifier">
 				<div class="sw-enhanced-select">
 					<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]">
-						<option value="max" <?php selected( $modifier, 'max', true ) ?>><?php echo __( '<', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-						<option value="min" <?php selected( $modifier, 'min', true ) ?>><?php echo __( '>', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="lt" <?php selected( $modifier, 'lt', true ) ?>><?php echo __( '<', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="lte" <?php selected( $modifier, 'lte', true ) ?>><?php echo __( '<=', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="gte" <?php selected( $modifier, 'gte', true ) ?>><?php echo __( '>=', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="gt" <?php selected( $modifier, 'gt', true ) ?>><?php echo __( '>', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 					</select>
 				</div>
 			</div>

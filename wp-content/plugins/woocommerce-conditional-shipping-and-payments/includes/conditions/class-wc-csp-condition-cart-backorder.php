@@ -80,7 +80,7 @@ class WC_CSP_Condition_Cart_Backorder extends WC_CSP_Condition {
 
 				foreach ( $order_items as $order_item ) {
 
-					$product = $order->get_product_from_item( $order_item );
+					$product = WC_CSP_Core_Compatibility::is_wc_version_gte( '4.4' ) ? $order_item->get_product() : $order->get_product_from_item( $order_item );
 
 					if ( $product ) {
 

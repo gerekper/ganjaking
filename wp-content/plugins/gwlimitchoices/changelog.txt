@@ -1,6 +1,25 @@
 
 # Changelog
 
+## 1.6.34
+
+	- Improved support for Gravity Forms 2.5.
+	- Updated Gravity Perks minimum required version to 2.2.3.
+
+## 1.7
+
+	- Improved support for Gravity Forms 2.5.
+	- Updated Gravity Perks minimum required version to 2.2.3.
+
+## 1.6.33
+
+	- Fixed an issue where a vertical pipe in a Product field's value may cause GPLC to fail.
+	- Fixed issue where choiceless message did not display for choiceless fields.
+
+## 1.6.32
+
+	- Fixed issue where evaluating if a field was exhausted always return true when no value was selected in that field.
+
 ## 1.6.31
 
 	- Added error catching when invalid form is passed via GF filters.

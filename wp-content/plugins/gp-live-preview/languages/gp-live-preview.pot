@@ -1,4 +1,4 @@
-# Copyright (C) 2019 GP Live Preview
+# Copyright (C) 2021 GP Live Preview
 # This file is distributed under the same license as the GP Live Preview package.
 msgid ""
 msgstr ""
@@ -13,50 +13,62 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../class-gp-live-preview.php:74, ../class-gp-live-preview.php:285
+#: ../class-gp-live-preview.php:185, ../class-gp-live-preview.php:345, ../class-gp-live-preview.php:449
 msgid "Live Preview"
 msgstr ""
 
-#: ../class-gp-live-preview.php:194, ../class-gp-live-preview.php:195
+#: ../class-gp-live-preview.php:349
 msgid "Enable AJAX"
 msgstr ""
 
-#: ../class-gp-live-preview.php:195
+#: ../class-gp-live-preview.php:350
 msgid "The form be loaded with AJAX enabled."
 msgstr ""
 
-#: ../class-gp-live-preview.php:198, ../class-gp-live-preview.php:199
+#: ../class-gp-live-preview.php:353
 msgid "Show Hidden"
 msgstr ""
 
-#: ../class-gp-live-preview.php:199
+#: ../class-gp-live-preview.php:354
 msgid "Hidden fields, Hidden Product fields, and any field hidden via the \"gf_invisible\" and \"gf_hidden\" CSS classes will be visible in the Live Preview."
 msgstr ""
 
-#: ../class-gp-live-preview.php:202, ../class-gp-live-preview.php:203
+#: ../class-gp-live-preview.php:357
 msgid "Unrequire"
 msgstr ""
 
-#: ../class-gp-live-preview.php:203
+#: ../class-gp-live-preview.php:358
 msgid "The form will not require required fields be filled out to pass form validation."
 msgstr ""
 
-#: ../class-gp-live-preview.php:206, ../class-gp-live-preview.php:207
+#: ../class-gp-live-preview.php:361
+msgid "Single Page"
+msgstr ""
+
+#: ../class-gp-live-preview.php:362
+msgid "Conslidate multi-page forms into a single page to save time when troubleshooting."
+msgstr ""
+
+#: ../class-gp-live-preview.php:365
 msgid "Disable Notifications"
 msgstr ""
 
-#: ../class-gp-live-preview.php:207
+#: ../class-gp-live-preview.php:366
 msgid "Prevent notifications from being sent when the form is submitted."
 msgstr ""
 
-#: ../class-gp-live-preview.php:303
+#: ../class-gp-live-preview.php:465
 msgid "Form Preview"
 msgstr ""
 
-#: ../class-gp-live-preview.php:304
+#: ../class-gp-live-preview.php:466
 msgid "A post type created for previewing Gravity Forms forms on the frontend."
 msgstr ""
 
-#: ../class-gp-live-preview.php:589
+#: ../class-gp-live-preview.php:772
 msgid "Oops! It doesn't look like you have the necessary permission to preview this form."
+msgstr ""
+
+#: ../class-gp-live-preview.php:873
+msgid "Live %s"
 msgstr ""

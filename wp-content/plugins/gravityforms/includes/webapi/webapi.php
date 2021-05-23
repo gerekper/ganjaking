@@ -363,7 +363,7 @@ if ( class_exists( 'GFForms' ) ) {
 		 */
 		public function get_menu_icon() {
 
-			return 'dashicons-rest-api';
+			return 'gform-icon--api';
 
 		}
 

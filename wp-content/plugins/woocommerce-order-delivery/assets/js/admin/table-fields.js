@@ -2,7 +2,7 @@
  * Table fields
  *
  * @package WC_OD
- * @since   {version}
+ * @since   1.7.0
  */
 
 (function( $ ) {

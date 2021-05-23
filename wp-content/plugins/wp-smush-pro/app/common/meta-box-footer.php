@@ -29,9 +29,9 @@ if ( 'cdn' === $current_tab && ! WP_Smush::get_instance()->core()->mod->cdn->get
 
 <div class="sui-actions-right">
 	<?php if ( 'integrations' === $current_tab || 'bulk' === $current_tab ) : ?>
-		<label for="wp-smush-save-settings" class="sui-field-prefix">
+		<span class="sui-field-prefix">
 			<?php esc_html_e( 'Smush will automatically check for any images that need re-smushing.', 'wp-smushit' ); ?>
-		</label>
+		</span>
 	<?php endif; ?>
 
 	<button type="submit" class="sui-button sui-button-blue" id="wp-smush-save-settings" data-msg="<?php echo esc_attr( $button_msg ); ?>" <?php disabled( $disabled, false, false ); ?>>

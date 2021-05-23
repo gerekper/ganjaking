@@ -176,7 +176,7 @@ class WC_CSP_Condition_Shipping_Postcode extends WC_CSP_Package_Condition {
 		return false;
 	}
 	/**
-	 * Get cart total conditions content for admin restriction metaboxes.
+	 * Get shipping postcode condition content for restriction metaboxes.
 	 *
 	 * @param  int    $index
 	 * @param  int    $condition_index
@@ -208,8 +208,8 @@ class WC_CSP_Condition_Shipping_Postcode extends WC_CSP_Package_Condition {
 				</div>
 			</div>
 			<div class="condition_value">
-				<textarea class="input-text" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value]" placeholder="<?php _e( 'List 1 postcode per line&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>" cols="25" rows="5"><?php echo $zip_codes; ?></textarea>
-				<span class="description"><?php _e( 'Postcodes containing wildcards (e.g. CB23*) and fully numeric ranges (e.g. <code>90210...99000</code>) are also supported.', 'woocommerce' ) ?></span>
+				<textarea class="input-text" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value]" placeholder="<?php _e( 'List one postcode per line&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>" cols="25" rows="5"><?php echo $zip_codes; ?></textarea>
+				<span class="description"><?php _e( 'List one postcode per line. Postcodes containing wildcards (e.g. CB23*) and fully numeric ranges (e.g. <code>90210...99000</code>) are also supported.', 'woocommerce' ) ?></span>
 			</div>
 		</div>
 		<?php

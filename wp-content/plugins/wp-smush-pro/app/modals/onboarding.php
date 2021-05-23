@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 ?>
 
-<script type="text/template" id="smush-onboarding" data-type="<?php echo WP_Smush::is_pro() ? 'pro' : 'free'; ?>" data-tracking="<?php echo ! is_multisite() ? 'true' : 'false'; ?>">
+<script type="text/template" id="smush-onboarding" data-type="<?php echo WP_Smush::is_pro() ? 'pro' : 'pro'; ?>" data-tracking="<?php echo ! is_multisite() ? 'true' : 'false'; ?>">
 	<div class="sui-box-header sui-flatten sui-content-center sui-spacing-sides--90">
 		<?php if ( ! apply_filters( 'wpmudev_branding_hide_branding', false ) ) : ?>
 		<figure class="sui-box-banner" aria-hidden="true">

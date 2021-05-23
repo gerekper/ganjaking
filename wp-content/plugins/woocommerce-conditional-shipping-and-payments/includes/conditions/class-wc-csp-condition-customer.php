@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Customer Condition (e-mail).
  *
  * @class    WC_CSP_Condition_Customer
- * @version  1.4.0
+ * @version  1.9.0
  */
 class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 
@@ -68,6 +68,8 @@ class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 		if ( empty( $data[ 'value' ] ) ) {
 			return true;
 		}
+
+		$this->set_active();
 
 		$check_emails      = array();
 		$restricted_emails = array_map( 'sanitize_email', $data[ 'value' ] );

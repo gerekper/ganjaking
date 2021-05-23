@@ -3,18 +3,18 @@
  * Plugin Name: WooCommerce Min/Max Quantities
  * Plugin URI: https://woocommerce.com/products/minmax-quantities/
  * Description: Define minimum/maximum allowed quantities for products, variations and orders.
- * Version: 2.4.20
+ * Version: 2.4.21
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 4.0
- * Tested up to: 5.5
- * WC tested up to: 4.5
+ * Tested up to: 5.7.1
+ * WC tested up to: 5.2.2
  * WC requires at least: 2.6
  *
  * Text Domain: woocommerce-min-max-quantities
  * Domain Path: /languages
  *
- * Copyright: © 2020 WooCommerce
+ * Copyright: © 2021 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Woo: 18616:2b5188d90baecfb781a5aa2d6abb900a
@@ -24,7 +24,7 @@
 
 if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
-	define( 'WC_MIN_MAX_QUANTITIES', '2.4.20' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_MIN_MAX_QUANTITIES', '2.4.21' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Min Max Quantities class.
@@ -119,6 +119,9 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 			// Check items.
 			add_action( 'woocommerce_check_cart_items', array( $this, 'check_cart_items' ) );
 
+			// If we have errors, make sure those are shown on the checkout page
+			add_action( 'woocommerce_cart_has_errors', array( $this, 'output_errors' ) );
+
 			// Quantity selelectors (2.0+).
 			add_filter( 'woocommerce_quantity_input_args', array( $this, 'update_quantity_args' ), 10, 2 );
 			add_filter( 'woocommerce_available_variation', array( $this, 'available_variation' ), 10, 3 );
@@ -178,7 +181,40 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 		 */
 		public function add_error( $error = '' ) {
 			if ( $error && ! wc_has_notice( $error, 'error' ) ) {
-				wc_add_notice( $error, 'error' );
+				wc_add_notice( $error, 'error', array( 'source' => 'woocommerce-min-max-quantities' ) );
+			}
+		}
+
+		/**
+		 * Output any plugin specific error messages
+		 *
+		 * We use this instead of wc_print_notices so we
+		 * can remove any error notices that aren't from us.
+		 */
+		public function output_errors() {
+			$notices  = wc_get_notices( 'error' );
+			$messages = array();
+
+			foreach ( $notices as $i => $notice ) {
+				if ( isset( $notice['notice'] ) && isset( $notice['data']['source'] ) && 'woocommerce-min-max-quantities' === $notice['data']['source'] ) {
+					$messages[] = $notice['notice'];
+				} else {
+					unset( $notice[ $i ] );
+				}
+			}
+
+			if ( ! empty( $messages ) ) {
+				ob_start();
+
+				wc_get_template(
+					'notices/error.php',
+					array(
+						'messages' => array_filter( $messages ), // @deprecated 3.9.0
+						'notices'  => array_filter( $notices ),
+					)
+				);
+
+				echo wc_kses_notice( ob_get_clean() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 		}
 
@@ -194,7 +230,7 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 			if ( 'variable' !== $product->get_type() ) {
 				$quantity_attribute = 1;
 				$minimum_quantity   = absint( get_post_meta( $product->get_id(), 'minimum_allowed_quantity', true ) );
-				$group_of_quantity  = absint( get_post_meta( $product->get_id(), 'group_of_quantity', true ) );
+				$group_of_quantity  = $this->get_group_of_quantity_for_product( $product );
 
 				if ( $minimum_quantity || $group_of_quantity ) {
 
@@ -388,14 +424,14 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 				}
 
 				// Check cart value.
-				if ( $this->minimum_order_value && $total_cost && $total_cost < $this->minimum_order_value ) {
+				if ( $this->minimum_order_value && $total_cost < $this->minimum_order_value ) {
 					/* translators: %s: Minimum order value */
 					$this->add_error( sprintf( __( 'The minimum required order value is %s. Please add more items to your cart', 'woocommerce-min-max-quantities' ), wc_price( $this->minimum_order_value ) ) . $excludes );
 
 					return;
 				}
 
-				if ( $this->maximum_order_value && $total_cost && $total_cost > $this->maximum_order_value ) {
+				if ( $this->maximum_order_value && $total_cost > $this->maximum_order_value ) {
 					/* translators: %s: Maximum order value */
 					$this->add_error( sprintf( __( 'The maximum allowed order value is %s. Please remove some items from your cart.', 'woocommerce-min-max-quantities' ), wc_price( $this->maximum_order_value ) ) );
 
@@ -662,7 +698,7 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 				return $data;
 			}
 
-			$group_of_quantity = get_post_meta( $product->get_id(), 'group_of_quantity', true );
+			$group_of_quantity = $this->get_group_of_quantity_for_product( $product );
 			$minimum_quantity  = get_post_meta( $product->get_id(), 'minimum_allowed_quantity', true );
 			$maximum_quantity  = get_post_meta( $product->get_id(), 'maximum_allowed_quantity', true );
 			$allow_combination = 'yes' === get_post_meta( version_compare( WC_VERSION, '3.0', '<' ) ? $product->get_id() : $product->get_parent_id(), 'allow_combination', true );
@@ -889,6 +925,51 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 			}
 
 			return $data;
+		}
+
+		/**
+		 * Get group_of_quantity setting for a product.
+		 *
+		 * @param WC_Product $product Product object.
+		 *
+		 * return int
+		 */
+		public function get_group_of_quantity_for_product( $product ) {
+			$transient_name    = 'wc_min_max_group_quantity_' . $product->get_id();
+			$transient_version = WC_Cache_Helper::get_transient_version( 'wc_min_max_group_quantity' );
+			$transient_value   = get_transient( $transient_name );
+
+			if ( isset( $transient_value['value'], $transient_value['version'] ) && $transient_value['version'] === $transient_version ) {
+				return absint( $transient_value['value'] );
+			}
+
+			$group_of_quantity = get_post_meta( $product->get_id(), 'group_of_quantity', true );
+
+			// If the product level group_of_quantity is not set, check for category settings.
+			// If the product has multiple categories, use the smallest value.
+			if ( ! $group_of_quantity && 'yes' !== get_post_meta( $product->get_id(), 'minmax_category_group_of_exclude', true ) ) {
+				$terms          = get_the_terms( $product->get_id(), 'product_cat' );
+				$found_settings = [];
+
+				foreach ( $terms as $term ) {
+					$found_settings[] = intval( get_term_meta( $term->term_id, 'group_of_quantity', true ) );
+				}
+
+				$found_settings = array_filter( $found_settings );
+
+				if ( ! empty( $found_settings ) ) {
+					$group_of_quantity = min( $found_settings );
+				}
+			}
+
+			$transient_value = array(
+				'version' => $transient_version,
+				'value'   => absint( $group_of_quantity ),
+			);
+
+			set_transient( $transient_name, $transient_value, DAY_IN_SECONDS * 30 );
+
+			return absint( $group_of_quantity );
 		}
 	}
 

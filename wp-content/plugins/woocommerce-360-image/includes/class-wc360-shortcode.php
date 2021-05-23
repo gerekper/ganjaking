@@ -102,11 +102,11 @@ if ( ! class_exists( 'WC_360_Image_Shortcode' ) ) {
 			ob_start();
 
 			// We can only currently have one instance of the rotator per page, so only show it if the 'Replace Image with 360 Image' is unchecked
-			if ( ( ! get_post_meta( get_the_ID(), 'wc360_enable', true ) ) ) {
+			if ( get_post_meta( get_the_ID(), 'wc360_enable', true ) !== 'yes' ) {
 
 				// Only continue if the ID received is a product
 				if ( get_post_type( $id ) == 'product' ) {
-					
+
 					$product = wc_get_product( $id );
 					$attachment_ids = WC_360_Image_Utils::get_gallery_ids( $product );
 

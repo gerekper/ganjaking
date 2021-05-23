@@ -55,7 +55,7 @@ class WC_Product_Addons_Cart {
 		$product_addons = WC_Product_Addons_Helper::get_product_addons( $product_id );
 
 		if ( is_array( $product_addons ) && ! empty( $product_addons ) ) {
-			include_once( dirname( __FILE__ ) . '/fields/abstract-wc-product-addons-field.php' );
+			include_once dirname( __FILE__ ) . '/fields/abstract-wc-product-addons-field.php';
 
 			foreach ( $product_addons as $addon ) {
 				// If type is heading, skip.
@@ -67,18 +67,18 @@ class WC_Product_Addons_Cart {
 
 				switch ( $addon['type'] ) {
 					case 'checkbox':
-						include_once( dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-list.php' );
+						include_once dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-list.php';
 						$field = new WC_Product_Addons_Field_List( $addon, $value );
 						break;
 					case 'multiple_choice':
 						switch ( $addon['display'] ) {
 							case 'radiobutton':
-								include_once( dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-list.php' );
+								include_once dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-list.php';
 								$field = new WC_Product_Addons_Field_List( $addon, $value );
 								break;
 							case 'images':
 							case 'select':
-								include_once( dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-select.php' );
+								include_once dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-select.php';
 								$field = new WC_Product_Addons_Field_Select( $addon, $value );
 								break;
 						}
@@ -87,11 +87,11 @@ class WC_Product_Addons_Cart {
 					case 'custom_textarea':
 					case 'custom_price':
 					case 'input_multiplier':
-						include_once( dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-custom.php' );
+						include_once dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-custom.php';
 						$field = new WC_Product_Addons_Field_Custom( $addon, $value );
 						break;
 					case 'file_upload':
-						include_once( dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-file-upload.php' );
+						include_once dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-file-upload.php';
 						$field = new WC_Product_Addons_Field_File_Upload( $addon, $value );
 						break;
 					default:
@@ -140,7 +140,7 @@ class WC_Product_Addons_Cart {
 		}
 
 		if ( is_array( $product_addons ) && ! empty( $product_addons ) ) {
-			include_once( dirname( __FILE__ ) . '/fields/abstract-wc-product-addons-field.php' );
+			include_once dirname( __FILE__ ) . '/fields/abstract-wc-product-addons-field.php';
 
 			foreach ( $product_addons as $addon ) {
 				// If type is heading, skip.
@@ -152,18 +152,18 @@ class WC_Product_Addons_Cart {
 
 				switch ( $addon['type'] ) {
 					case 'checkbox':
-						include_once( dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-list.php' );
+						include_once dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-list.php';
 						$field = new WC_Product_Addons_Field_List( $addon, $value );
 						break;
 					case 'multiple_choice':
 						switch ( $addon['display'] ) {
 							case 'radiobutton':
-								include_once( dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-list.php' );
+								include_once dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-list.php';
 								$field = new WC_Product_Addons_Field_List( $addon, $value );
 								break;
 							case 'images':
 							case 'select':
-								include_once( dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-select.php' );
+								include_once dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-select.php';
 								$field = new WC_Product_Addons_Field_Select( $addon, $value );
 								break;
 						}
@@ -172,11 +172,11 @@ class WC_Product_Addons_Cart {
 					case 'custom_textarea':
 					case 'custom_price':
 					case 'input_multiplier':
-						include_once( dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-custom.php' );
+						include_once dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-custom.php';
 						$field = new WC_Product_Addons_Field_Custom( $addon, $value );
 						break;
 					case 'file_upload':
-						include_once( dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-file-upload.php' );
+						include_once dirname( __FILE__ ) . '/fields/class-wc-product-addons-field-file-upload.php';
 						$field = new WC_Product_Addons_Field_File_Upload( $addon, $value );
 						break;
 				}
@@ -269,7 +269,7 @@ class WC_Product_Addons_Cart {
 		}
 
 		if ( is_array( $product_addons ) && ! empty( $product_addons ) ) {
-			include_once( WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/abstract-wc-product-addons-field.php' );
+			include_once WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/abstract-wc-product-addons-field.php';
 
 			foreach ( $product_addons as $addon ) {
 				$value = '';
@@ -281,8 +281,8 @@ class WC_Product_Addons_Cart {
 				}
 
 				switch ( $addon['type'] ) {
-					case 'checkbox' :
-						include_once( WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-list.php' );
+					case 'checkbox':
+						include_once WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-list.php';
 
 						$value = array();
 
@@ -302,11 +302,11 @@ class WC_Product_Addons_Cart {
 
 						$field = new WC_Product_Addons_Field_List( $addon, $value );
 						break;
-					case 'multiple_choice' :
+					case 'multiple_choice':
 						$value = array();
 						switch ( $addon['display'] ) {
 							case 'radiobutton':
-								include_once( WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-list.php' );
+								include_once WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-list.php';
 
 								$value = array();
 
@@ -328,7 +328,7 @@ class WC_Product_Addons_Cart {
 								break;
 							case 'images':
 							case 'select':
-								include_once( WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-select.php' );
+								include_once WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-select.php';
 
 								foreach ( $item->get_meta_data() as $meta ) {
 									if ( stripos( $meta->key, $addon['name'] ) === 0 ) {
@@ -356,8 +356,8 @@ class WC_Product_Addons_Cart {
 								break;
 						}
 						break;
-					case 'select' :
-						include_once( WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-select.php' );
+					case 'select':
+						include_once WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-select.php';
 
 						foreach ( $item->get_meta_data() as $meta ) {
 							if ( stripos( $meta->key, $addon['name'] ) === 0 ) {
@@ -384,11 +384,11 @@ class WC_Product_Addons_Cart {
 
 						$field = new WC_Product_Addons_Field_Select( $addon, $value );
 						break;
-					case 'custom_text' :
-					case 'custom_textarea' :
-					case 'custom_price' :
+					case 'custom_text':
+					case 'custom_textarea':
+					case 'custom_price':
 					case 'input_multiplier':
-						include_once( WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-custom.php' );
+						include_once WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-custom.php';
 
 						foreach ( $item->get_meta_data() as $meta ) {
 							if ( stripos( $meta->key, $addon['name'] ) === 0 ) {
@@ -404,7 +404,7 @@ class WC_Product_Addons_Cart {
 						$field = new WC_Product_Addons_Field_Custom( $addon, $value );
 						break;
 					case 'file_upload':
-						include_once( WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-file-upload.php' );
+						include_once WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-file-upload.php';
 
 						foreach ( $item->get_meta_data() as $meta ) {
 							if ( stripos( $meta->key, $addon['name'] ) === 0 ) {
@@ -453,9 +453,9 @@ class WC_Product_Addons_Cart {
 	 */
 	public function update_product_price( $cart_item_data, $quantity, $prices ) {
 		if ( ! empty( $cart_item_data['addons'] ) && apply_filters( 'woocommerce_product_addons_adjust_price', true, $cart_item_data ) ) {
-			$price         = $prices[ 'price' ];
-			$regular_price = $prices[ 'regular_price' ];
-			$sale_price    = $prices[ 'sale_price' ];
+			$price         = $prices['price'];
+			$regular_price = $prices['regular_price'];
+			$sale_price    = $prices['sale_price'];
 
 			// Compatibility with Smart Coupons self declared gift amount purchase.
 			if ( empty( $price ) && ! empty( $_POST['credit_called'] ) ) {
@@ -528,11 +528,11 @@ class WC_Product_Addons_Cart {
 	 * @return array
 	 */
 	public function add_cart_item( $cart_item_data ) {
-		$prices = [
+		$prices = array(
 			'price'         => (float) $cart_item_data['data']->get_price( 'edit' ),
 			'regular_price' => (float) $cart_item_data['data']->get_regular_price( 'edit' ),
 			'sale_price'    => (float) $cart_item_data['data']->get_sale_price( 'edit' ),
-		];
+		);
 
 		return $this->update_product_price( $cart_item_data, $cart_item_data['quantity'], $prices );
 	}
@@ -550,13 +550,15 @@ class WC_Product_Addons_Cart {
 	public function update_price_on_quantity_update( $cart_item_key, $quantity, $old_quantity, $cart ) {
 		$cart_item_data = $cart->get_cart_item( $cart_item_key );
 
-		$prices = [
-			'price'         => $cart_item_data['addons_price_before_calc'],
-			'regular_price' => $cart_item_data['addons_regular_price_before_calc'],
-			'sale_price'    => $cart_item_data['addons_sale_price_before_calc'],
-		];
+		if ( ! empty( $cart_item_data['addons'] ) ) {
+			$prices = array(
+				'price'         => $cart_item_data['addons_price_before_calc'],
+				'regular_price' => $cart_item_data['addons_regular_price_before_calc'],
+				'sale_price'    => $cart_item_data['addons_sale_price_before_calc'],
+			);
 
-		return $this->update_product_price( $cart_item_data, $quantity, $prices );
+			return $this->update_product_price( $cart_item_data, $quantity, $prices );
+		}
 	}
 
 	/**
@@ -568,11 +570,11 @@ class WC_Product_Addons_Cart {
 	 */
 	public function get_cart_item_from_session( $cart_item, $values ) {
 		if ( ! empty( $values['addons'] ) ) {
-			$prices = [
+			$prices              = array(
 				'price'         => (float) $cart_item['data']->get_price( 'edit' ),
 				'regular_price' => (float) $cart_item['data']->get_regular_price( 'edit' ),
 				'sale_price'    => (float) $cart_item['data']->get_sale_price( 'edit' ),
-			];
+			);
 			$cart_item['addons'] = $values['addons'];
 			$cart_item           = $this->update_product_price( $cart_item, $cart_item['quantity'], $prices );
 		}

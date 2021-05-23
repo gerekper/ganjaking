@@ -399,6 +399,16 @@ class Core extends Stats {
 			// Notices.
 			'noticeDismiss'           => esc_html__( 'Dismiss', 'wp-smushit' ),
 			'noticeDismissTooltip'    => esc_html__( 'Dismiss notice', 'wp-smushit' ),
+			// Tutorials.
+			'tutorials'               => esc_html__( 'Tutorials', 'wp-smushit' ),
+			'tutorials_link'          => 'https://wpmudev.com/blog/tutorials/tutorial-category/smush-pro/',
+			'tutorials_strings'       => array(
+				array(
+					'loading'      => esc_html__( 'Loading tutorials...', 'wp-smushit' ),
+					'min_read'     => esc_html__( 'min read', 'wp-smushit' ),
+					'read_article' => esc_html__( 'Read article', 'wp-smushit' ),
+				),
+			),
 		);
 
 		wp_localize_script( $handle, 'wp_smush_msgs', $wp_smush_msgs );

@@ -1,5 +1,8 @@
 *** WooCommerce Bookings Changelog ***
 
+2021-05-11 - version 1.15.39
+* Fix - Use proper hook function closes #3071.
+
 2021-04-06 - version 1.15.38
 * Fix - Update javascript to directly support jQuery 3 without jQuery Migrate.
 * Fix - Updated path to the single-product/add-to-cart/booking.php template file.

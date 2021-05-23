@@ -1,5 +1,12 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2021.05.07 - version 1.9.0
+* Feature - Change the location of the delivery fields in the checkout form.
+* Feature - Added compatibility with "WooCommerce Print Invoices & Packing Lists".
+* Feature - Added compatibility with "WooCommerce PDF Invoices & Packing Slips".
+* Tweak - Tested compatibility with WC 5.3.
+* Fix - Include the site timezone offset when localizing a date in string format.
+
 2021.04.15 - version 1.8.7
 * Tweak - Require to enter a set of shipping methods when defining a delivery range.
 * Tweak - Tested compatibility up to WC 5.2.

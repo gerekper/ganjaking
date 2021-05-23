@@ -10,8 +10,8 @@ class woocommerce_gravityforms_product_form {
 		$this->form_id    = $form_id;
 		$this->product_id = $product_id;
 
-		add_filter( 'gform_form_tag', array( &$this, 'on_form_tag' ), 10, 2 );
-		add_filter( 'gform_submit_button', array( &$this, 'on_submit_button' ), 10, 2 );
+		add_filter( 'gform_form_tag', array( $this, 'on_form_tag' ), 10, 2 );
+		add_filter( 'gform_submit_button', array( $this, 'on_submit_button' ), 10, 2 );
 	}
 
 	public function get_form( $options ) {
@@ -41,9 +41,9 @@ class woocommerce_gravityforms_product_form {
 
 		//Get the form meta so we can make sure the form exists.
 		$form_meta = RGFormsModel::get_form_meta( $this->form_id );
-		if ( ! empty( $form_meta ) ) {
+		if ( !empty( $form_meta ) ) {
 
-			if ( ! empty( $_POST ) ) {
+			if ( !empty( $_POST ) ) {
 				$_POST['gform_submit']     = isset( $_POST['gform_old_submit'] ) ? $_POST['gform_old_submit'] : '';
 				$_POST['gform_old_submit'] = $_POST['gform_submit'];
 			}
@@ -62,8 +62,8 @@ class woocommerce_gravityforms_product_form {
 			$this->next_page     = $this->current_page + 1;
 			$this->previous_page = $this->current_page - 1;
 			$this->next_page     = $this->next_page > $this->get_max_page_number( $form_meta ) ? 0 : $this->next_page;
-			$max_page = $this->get_max_page_number($form_meta);
-            $is_last_page = $this->current_page == $max_page;
+			$max_page            = $this->get_max_page_number( $form_meta );
+			$is_last_page        = $this->current_page == $max_page;
 
 			if ( $product->get_type() == 'variable' || $product->get_type() == 'variable-subscription' ) {
 				echo '<div class="gform_variation_wrapper gform_wrapper single_variation_wrap">';
@@ -80,8 +80,8 @@ class woocommerce_gravityforms_product_form {
 			wp_nonce_field( 'add_to_cart' );
 
 			if ( $disable_anchor != 'yes' ) {
-			    $css = apply_filters('woocommerce_gravityforms_anchor_css', '');
-				echo '<a id="_form_' . $this->form_id . '" href="#_form_' . $this->form_id . '" class="gform_anchor ' . esc_attr($css) . '"></a>';
+				$css = apply_filters( 'woocommerce_gravityforms_anchor_css', '' );
+				echo '<a id="_form_' . $this->form_id . '" href="#_form_' . $this->form_id . '" class="gform_anchor ' . esc_attr( $css ) . '"></a>';
 			}
 			?>
 
@@ -96,7 +96,7 @@ class woocommerce_gravityforms_product_form {
 				<?php endif; ?>
 			<?php endif; ?>
 
-			<?php if ($max_page && !$is_last_page): ?>
+			<?php if ( $max_page && !$is_last_page ): ?>
                 <style>
                     .button[type=submit], div.quantity, #wl-wrapper {
                         display: none !important;
@@ -208,7 +208,7 @@ class woocommerce_gravityforms_product_form {
         <script>
 
 
-            gform.addFilter('gform_product_total', function(total, formId) {
+            gform.addFilter('gform_product_total', function (total, formId) {
                 const product_id = jQuery("input[name=product_id]").val();
 
                 if (wc_gravityforms_params.use_ajax[product_id]) {

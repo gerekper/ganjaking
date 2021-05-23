@@ -196,13 +196,24 @@ if ( ! class_exists( 'CT_Optimus_Prime_Plugin_Update' ) ) {
 		 */
 		private function get_latest_version( $name, $force_check = false, $title = '', $license = '' ) {
 
-			if ( $force_check ) {
+		    if ( $force_check ) {
 
 				delete_site_transient( $this->transient_id );
 
 			} else {
 
 				$cache = get_site_transient( $this->transient_id );
+
+                /**
+                 * Show the error to the user because it is not visible elsewhere
+                 */
+                if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                    if(isset($cache["ct-ultimate-gdpr"]) && $cache["ct-ultimate-gdpr"] == $this->fake_latest_version) {
+                        $this->add_admin_notice(
+                            esc_html__( 'Ultimate GDPR & CCPA: Update server is not responding', 'ct-ultimate-gdpr' )
+                        );
+                    }
+                }
 
 				if ( isset( $cache[ $name ] ) ) {
 					return $cache[ $name ];
@@ -225,15 +236,14 @@ if ( ! class_exists( 'CT_Optimus_Prime_Plugin_Update' ) ) {
 				 */
 				$cache = array_merge( $cache, array( $name => $this->fake_latest_version ) );
 
-				/**
-				 * Show the error to the user because it is not visible elsewhere
-				 */
-				if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-					$this->add_admin_notice(
-						$latest_version->get_error_message()
-					);
-				}
-
+                /**
+                 * Wait 1h for next check
+                 */
+                set_site_transient(
+                    $this->transient_id,
+                    $cache,
+                    HOUR_IN_SECONDS
+                );
 			} else {
 
 				$cache = array_merge( $cache, array( $name => $latest_version ) );
@@ -281,6 +291,10 @@ if ( ! class_exists( 'CT_Optimus_Prime_Plugin_Update' ) ) {
 			$response = wp_remote_get( $url, array(
 				'timeout' => 3,
 			) );
+
+            if( is_wp_error($response ) ) {
+                return new WP_Error( 'ctdown', esc_html__( 'Ultimate GDPR & CCPA: Update server is not responding', 'ct-ultimate-gdpr' ) );
+            }
 
 			if ( is_array( $response ) ) {
 				$response = $response['body']; // use the content

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Restrict Payment Gateways.
  *
  * @class    WC_CSP_Restrict_Payment_Gateways
- * @version  1.8.6
+ * @version  1.9.4
  */
 class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_CSP_Checkout_Restriction {
 
@@ -24,7 +24,7 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 
 		$this->id                               = 'payment_gateways';
 		$this->title                            = __( 'Payment Gateways', 'woocommerce-conditional-shipping-and-payments' );
-		$this->description                      = __( 'Restrict the available payment gateways based on product-related constraints.', 'woocommerce-conditional-shipping-and-payments' );
+		$this->description                      = __( 'Restrict payment gateways conditionally.', 'woocommerce-conditional-shipping-and-payments' );
 		$this->validation_types                 = array( 'checkout' );
 		$this->has_admin_product_fields         = true;
 		$this->supports_multiple                = true;
@@ -93,7 +93,7 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 	 */
 	public function generate_admin_global_fields_html() {
 		?><p>
-			<?php echo __( 'Restrict the payment gateways available at checkout. Complex rules can be created by adding multiple restrictions. Each individual restriction becomes active when all defined conditions match.', 'woocommerce-conditional-shipping-and-payments' ); ?>
+			<?php echo __( 'Restrict the payment gateways available on the <strong>Checkout</strong> and <strong>Order > Pay</strong> pages. To create logical "OR" expressions with Conditions, add multiple Restrictions.', 'woocommerce-conditional-shipping-and-payments' ); ?>
 		</p><?php
 
 		$this->get_admin_global_metaboxes_html();
@@ -175,9 +175,9 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 					<?php
 
 						if ( $field_type === 'global' ) {
-							$tiptip = __( 'Defaults to:<br/>&quot;Unfortunately, your order cannot be checked out via {excluded_gateway}. To complete your order, please select an alternative payment method.&quot;<br/>When conditions are defined, resolution instructions are added to the default message.', 'woocommerce-conditional-shipping-and-payments' );
+							$tiptip = __( 'Defaults to:<br/>&quot;Your order cannot be checked out via {excluded_gateway}. To complete your order, please choose a different payment method.&quot;<br/>When conditions are defined, resolution instructions are added to the default message.', 'woocommerce-conditional-shipping-and-payments' );
 						} else {
-							$tiptip = __( 'Defaults to:<br/>&quot;Unfortunately, {product} cannot be checked out via {excluded_gateway}. To complete your order, please select an alternative payment method, or remove {product} from your cart.&quot;<br/>When conditions are defined, resolution instructions are added to the default message.', 'woocommerce-conditional-shipping-and-payments' );
+							$tiptip = __( 'Defaults to:<br/>&quot;{product} cannot be checked out via {excluded_gateway}. To complete your order, please choose a different payment method, or remove {product} from your cart.&quot;<br/>When conditions are defined, resolution instructions are added to the default message.', 'woocommerce-conditional-shipping-and-payments' );
 						}
 					?>
 				</label>
@@ -278,7 +278,7 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 	 */
 	function get_admin_product_fields_html( $index, $options = array() ) {
 		?><div class="restriction-description">
-			<?php echo __( 'Restrict the payment gateways available during checkout when an order contains this product.', 'woocommerce-conditional-shipping-and-payments' ); ?>
+			<?php echo __( 'Restrict the available payment options when an order contains this product.', 'woocommerce-conditional-shipping-and-payments' ); ?>
 		</div><?php
 
 		$this->get_admin_fields_html( $index, $options, 'product' );
@@ -292,14 +292,12 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 	 */
 	public function process_admin_fields( $posted_data ) {
 
-		$processed_data = array();
-
-		$processed_data[ 'gateways' ] = array();
+		$processed_data = array(
+			'gateways' => array()
+		);
 
 		if ( ! empty( $posted_data[ 'gateways' ] ) ) {
 			$processed_data[ 'gateways' ] = array_map( 'stripslashes', $posted_data[ 'gateways' ] );
-		} else {
-			return false;
 		}
 
 		if ( isset( $posted_data[ 'show_excluded' ] ) ) {
@@ -331,10 +329,10 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 
 		$processed_data = $this->process_admin_fields( $posted_data );
 
-		if ( ! $processed_data ) {
+		if ( empty( $processed_data[ 'gateways' ] ) ) {
 
-			WC_Admin_Meta_Boxes::add_error( sprintf( __( 'Restriction #%s was not saved. Before saving a &quot;Payment Gateways&quot; restriction, remember to add at least one payment gateway to the exclusions list.', 'woocommerce-conditional-shipping-and-payments' ), $posted_data[ 'index' ] ) );
-			return false;
+			WC_Admin_Meta_Boxes::add_error( sprintf( __( 'Payment Gateway restriction <strong>#%s</strong> has no effect: Please choose at least one payment gateway in the <strong>Exclude Gateways</strong> field.', 'woocommerce-conditional-shipping-and-payments' ), $posted_data[ 'index' ] ) );
+
 		}
 
 		return $processed_data;
@@ -350,10 +348,10 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 
 		$processed_data = $this->process_admin_fields( $posted_data );
 
-		if ( ! $processed_data ) {
+		if ( empty( $processed_data[ 'gateways' ] ) ) {
 
-			WC_CSP_Admin_Notices::add_notice( sprintf( __( 'Restriction #%s was not saved. Before saving a &quot;Payment Gateways&quot; restriction, remember to add at least one payment gateway to the exclusions list.', 'woocommerce-conditional-shipping-and-payments' ), $posted_data[ 'index' ] ), 'error', true );
-			return false;
+			WC_CSP_Admin_Notices::add_notice( sprintf( __( 'Rule <strong>#%s</strong> has no effect: Please choose at least one payment gateway in the <strong>Exclude Gateways</strong> field.', 'woocommerce-conditional-shipping-and-payments' ), $posted_data[ 'index' ] ), 'error', true );
+
 		}
 
 		return $processed_data;
@@ -433,11 +431,11 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 	 */
 	public function add_notice_after_excluded_payment_gateway( $description, $id ) {
 
-		if ( ! defined( 'WOOCOMMERCE_CHECKOUT' ) ) {
+		if ( ! defined( 'WOOCOMMERCE_CHECKOUT' ) && did_action( 'woocommerce_review_order_before_payment' ) < did_action( 'woocommerce_review_order_after_payment' ) ) {
 			return $description;
 		}
 
-		// Only add notice after payment gateway template has rendered.
+		// Only add notice inside payment gateway template.
 		if ( ! $this->is_payment_gateways_template() ) {
 			return $description;
 		}
@@ -600,6 +598,11 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 		$chosen_gateway     = WC()->session->get( 'chosen_payment_method' );
 		$available_gateways = WC()->payment_gateways->get_available_payment_gateways();
 
+		// If the session is empty, let's get the gateway from the $posted array
+		if ( ! $chosen_gateway ) {
+			$chosen_gateway = isset( $posted[ 'check_gateway' ] ) ? $posted[ 'check_gateway' ] : false;
+		}
+
 		if ( empty( $available_gateways ) || ! $chosen_gateway || ! isset( $available_gateways[ $chosen_gateway ] ) ) {
 			return $result;
 		}
@@ -699,7 +702,7 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 					if ( 'check' === $message_context ) {
 						$resolution = sprintf( __( 'To choose &quot;%1$s&quot;, please %2$s. Otherwise, please remove &quot;%3$s&quot; from your cart.', 'woocommerce-conditional-shipping-and-payments' ), $available_gateways[ $chosen_gateway ]->title, $conditions_resolution, $product->get_title() );
 					} else {
-						$resolution = sprintf( __( 'To purchase &quot;%3$s&quot; via &quot;%1$s&quot;, please %2$s. Otherwise, select an alternative payment method, or remove &quot;%3$s&quot; from your cart.', 'woocommerce-conditional-shipping-and-payments' ), $available_gateways[ $chosen_gateway ]->title, $conditions_resolution, $product->get_title() );
+						$resolution = sprintf( __( 'To purchase &quot;%3$s&quot; via &quot;%1$s&quot;, please %2$s. Otherwise, choose a different payment method, or remove &quot;%3$s&quot; from your cart.', 'woocommerce-conditional-shipping-and-payments' ), $available_gateways[ $chosen_gateway ]->title, $conditions_resolution, $product->get_title() );
 					}
 
 				} else {
@@ -707,14 +710,14 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 					if ( 'check' === $message_context ) {
 						$resolution = '';
 					} else {
-						$resolution = sprintf( __( 'To complete your order, please select an alternative payment method, or remove &quot;%1$s&quot; from your cart.', 'woocommerce-conditional-shipping-and-payments' ), $product->get_title() );
+						$resolution = sprintf( __( 'To complete your order, please choose a different payment method, or remove &quot;%1$s&quot; from your cart.', 'woocommerce-conditional-shipping-and-payments' ), $product->get_title() );
 					}
 				}
 
 				if ( 'check' === $message_context ) {
-					$message = __( '&quot;%1$s&quot; cannot be checked out via &quot;%2$s&quot;. %3$s', 'woocommerce-conditional-shipping-and-payments' );
+					$message = _x( '&quot;%1$s&quot; cannot be checked out via &quot;%2$s&quot;. %3$s', 'static notice context', 'woocommerce-conditional-shipping-and-payments' );
 				} else {
-					$message = __( 'Unfortunately, &quot;%1$s&quot; cannot be checked out via &quot;%2$s&quot;. %3$s', 'woocommerce-conditional-shipping-and-payments' );
+					$message = _x( '&quot;%1$s&quot; cannot be checked out via &quot;%2$s&quot;. %3$s', 'validation notice context', 'woocommerce-conditional-shipping-and-payments' );
 				}
 			}
 
@@ -736,7 +739,7 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 					if ( 'check' === $message_context ) {
 						$resolution = sprintf( __( 'To choose &quot;%1$s&quot;, please %2$s.', 'woocommerce-conditional-shipping-and-payments' ), $available_gateways[ $chosen_gateway ]->title, $conditions_resolution );
 					} else {
-						$resolution = sprintf( __( 'To complete your order via &quot;%1$s&quot;, please %2$s. Otherwise, choose an alternative payment method.', 'woocommerce-conditional-shipping-and-payments' ), $available_gateways[ $chosen_gateway ]->title, $conditions_resolution );
+						$resolution = sprintf( __( 'To complete your order via &quot;%1$s&quot;, please %2$s. Otherwise, choose a different payment method.', 'woocommerce-conditional-shipping-and-payments' ), $available_gateways[ $chosen_gateway ]->title, $conditions_resolution );
 					}
 
 				} else {
@@ -744,14 +747,14 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 					if ( 'check' === $message_context ) {
 						$resolution = '';
 					} else {
-						$resolution = __( 'To complete your order, please select an alternative payment method.', 'woocommerce-conditional-shipping-and-payments' );
+						$resolution = __( 'To complete your order, please choose a different payment method.', 'woocommerce-conditional-shipping-and-payments' );
 					}
 				}
 
 				if ( 'check' === $message_context ) {
 					$message = __( 'This order cannot be checked out via &quot;%1$s&quot;. %2$s', 'woocommerce-conditional-shipping-and-payments' );
 				} else {
-					$message = __( 'Unfortunately, your order cannot be checked out via &quot;%1$s&quot;. %2$s', 'woocommerce-conditional-shipping-and-payments' );
+					$message = __( 'Your order cannot be checked out via &quot;%1$s&quot;. %2$s', 'woocommerce-conditional-shipping-and-payments' );
 				}
 			}
 

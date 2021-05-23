@@ -48,6 +48,7 @@ class Admin {
 		'smush_page_smush-upgrade-network',
 		'smush_page_smush-upgrade',
 		'smush-pro_page_smush-upgrade',
+		'smush-pro_page_smush-upgrade-network',
 	);
 
 	/**
@@ -172,16 +173,20 @@ class Admin {
 			// Smush admin (smush-admin) includes the Shared UI.
 			wp_enqueue_style( 'smush-admin' );
 			wp_enqueue_script( 'smush-wpmudev-sui' );
+
+			if ( ! WP_Smush::is_pro() ) {
+				// Used on dashboard video widget.
+				wp_enqueue_script( 'smush-wistia' );
+			}
+		}
+
+		// Skip these pages where the script isn't used.
+		if ( ! in_array( $current_page, array( 'post', 'post-new', 'page', 'edit-page' ), true ) ) {
+			wp_enqueue_script( 'smush-admin' );
 		}
 
 		// We need it on media pages and Smush pages.
-		wp_enqueue_script( 'smush-admin' );
 		wp_enqueue_style( 'smush-admin-common' );
-
-		if ( ! WP_Smush::is_pro() ) {
-			// Used on dashboard video widget.
-			wp_enqueue_script( 'smush-wistia' );
-		}
 
 		// Localize translatable strings for js.
 		WP_Smush::get_instance()->core()->localize();

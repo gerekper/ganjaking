@@ -1558,10 +1558,10 @@ to no.
 		width: 100%;
 		display: -ms-grid;
 		display: grid;
-		-ms-grid-columns: (1fr 32px)[12];
+		-ms-grid-columns: (1fr 2%)[12];
 		grid-template-columns: repeat( 12, 1fr );
 		grid-template-rows: repeat( auto-fill, auto );
-		grid-column-gap: 32px;
+		grid-column-gap: 2%;
 		grid-row-gap: 16px;
 	}
 
@@ -1619,7 +1619,7 @@ to no.
 		grid-column: span 3;
 	}
 
-@media (max-width: 840px) {
+@media (max-width: 640px) {
 
 		.gform_wrapper.gravity-theme .gform_fields {
 			grid-column-gap: 0;
@@ -1980,7 +1980,7 @@ html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_creditcard .ginput_
 	}
 
 .gform_wrapper.gravity-theme .gfield_header_item + .gfield_header_item:not(:last-child), .gform_wrapper.gravity-theme .gfield_list_group_item + .gfield_list_group_item {
-		margin-left: 16px;
+		margin-left: 2%;
 	}
 
 .gform_wrapper.gravity-theme .gfield_list_group_item input, .gform_wrapper.gravity-theme .gfield_list_group_item select {

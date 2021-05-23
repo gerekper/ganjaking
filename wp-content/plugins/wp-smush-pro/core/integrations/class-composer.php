@@ -167,18 +167,19 @@ class Composer extends Abstract_Integration {
 		$attachment_id = attachment_url_to_postid( $image_url );
 
 		if ( ! wp_attachment_is_image( $attachment_id ) ) {
-			return $image_src;
+			return $vc_image;
 		}
 
 		$image = image_get_intermediate_size( $attachment_id, array( $size[1], $size[2] ) );
 
 		if ( $image ) {
-			return $image_src;
+			return $vc_image;
 		}
 
 		// Smush image. TODO: should we update the stats?
 		WP_Smush::get_instance()->core()->mod->smush->do_smushit( $vc_image );
-		return $image_src;
+
+		return $vc_image;
 	}
 
 	/**************************************

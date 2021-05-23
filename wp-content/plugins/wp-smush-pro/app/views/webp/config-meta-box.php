@@ -157,7 +157,7 @@ if ( ! defined( 'WPINC' ) ) {
 							<?php
 							printf( /* translators: %1$s - opening 'a' tag to check Webp conversion status, %2$s - closing 'a' tag */
 								esc_html__( 'Still having trouble? %1$sGet support%2$s.', 'wp-smushit' ),
-								'<a href="https://wpmudev.com/hub/support/#get-support" target="_blank">',
+								'<a href="https://wpmudev.com/hub2/support/#get-support" target="_blank">',
 								'</a>'
 							);
 							?>
@@ -200,7 +200,7 @@ if ( ! defined( 'WPINC' ) ) {
 				printf(
 					/* translators: 1. opening 'a' tag to premium support, 2. closing 'a' tag. */
 					esc_html__( 'Still having trouble? %1$sGet support%2$s.', 'wp-smushit' ),
-					'<a href="https://wpmudev.com/hub/support/#get-support" target="_blank">',
+					'<a href="https://wpmudev.com/hub2/support/#get-support" target="_blank">',
 					'</a>'
 				);
 				?>

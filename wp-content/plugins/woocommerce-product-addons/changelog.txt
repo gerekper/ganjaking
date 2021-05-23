@@ -1,5 +1,9 @@
 *** Product Addons Changelog ***
 
+2021-05-11 - version 4.0.0
+* Fix - Fix a notice when adding a product with an addon to the cart.
+* Tweak - WC 5.3 compatibility.
+
 2021-04-29 - version 3.9.1
 * Fix - Fix uncompressed release archive by reintroducing postarchive step.
 

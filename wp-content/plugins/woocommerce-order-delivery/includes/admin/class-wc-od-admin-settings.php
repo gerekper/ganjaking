@@ -403,9 +403,28 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 					),
 
 					array(
+						'id'       => wc_od_maybe_prefix( 'checkout_location' ),
+						'title'    => __( 'Checkout location', 'woocommerce-order-delivery' ),
+						'desc'     => __( 'Choose the location in the checkout form where to display the delivery details.', 'woocommerce-order-delivery' ),
+						'type'     => 'select',
+						'desc_tip' => true,
+						'default'  => WC_OD()->settings()->get_default( 'checkout_location' ),
+						'options'  => array(
+							'before_customer_details' => __( 'Before customer details', 'woocommerce-order-delivery' ),
+							'before_billing'          => __( 'Before billing details', 'woocommerce-order-delivery' ),
+							'after_billing'           => __( 'After billing details', 'woocommerce-order-delivery' ),
+							'before_order_notes'      => __( 'Before order notes', 'woocommerce-order-delivery' ),
+							'after_order_notes'       => __( 'After order notes', 'woocommerce-order-delivery' ),
+							'after_additional_fields' => __( 'After additional fields', 'woocommerce-order-delivery' ),
+							'after_order_review'      => __( 'Between order review and payments', 'woocommerce-order-delivery' ),
+							'after_customer_details'  => __( 'After customer details', 'woocommerce-order-delivery' ),
+						),
+					),
+
+					array(
 						'id'       => wc_od_maybe_prefix( 'checkout_delivery_option' ),
 						'title'    => __( 'Checkout options', 'woocommerce-order-delivery' ),
-						'desc'     => __( 'Choose the delivery date option to be displayed on the checkout page.', 'woocommerce-order-delivery' ),
+						'desc'     => __( 'Choose what kind of content to display in the checkout form.', 'woocommerce-order-delivery' ),
 						'type'     => 'radio',
 						'desc_tip' => true,
 						'default'  => WC_OD()->settings()->get_default( 'checkout_delivery_option' ),

@@ -1,6 +1,22 @@
 
 # Changelog
 
+## 1.0.26
+
+	- Added gp-limit-dates.css for GF 2.5.. Updated inline datepicker style in GF 2.5 to remove drop shadow.
+	- Added support for 2.5.
+	- Updated admin scripts/styles to be enqueued as separate files rather than output inline.
+	- Updated field setting markup, styles, and JS to work better in GF 2.5.
+	- Updated field setting styles in GF 2.4 to work with the new markup.
+	- Fixed issue where Inline Datepicker did not have the new GF datepicker theme applied automatically.
+
+## 1.1
+
+	- Added support for Gravity Forms 2.5.
+	- Updated admin scripts/styles to be enqueued as separate files rather than output inline.
+	- Updated field setting styles in GF 2.4 to work with the new markup.
+	- Fixed issue where Inline Datepicker did not have the new GF datepicker theme applied automatically.
+
 ## 1.0.25
 
 	- Fixed a potential integration issue with GPPA and GPRO.

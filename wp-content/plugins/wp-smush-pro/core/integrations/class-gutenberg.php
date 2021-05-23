@@ -41,7 +41,7 @@ class Gutenberg extends Abstract_Integration {
 			add_filter( 'wp_smush_integration_status_' . $this->module, '__return_true' );
 
 			// Hook at the end of setting row to output an error div.
-			add_action( 'smush_setting_column_right_inside', array( $this, 'integration_error' ) );		  						 		  		 			
+			add_action( 'smush_setting_column_right_inside', array( $this, 'integration_error' ) );
 
 			return;
 		}

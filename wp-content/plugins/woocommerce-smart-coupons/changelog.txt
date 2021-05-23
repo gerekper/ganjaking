@@ -1,5 +1,12 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2021.05.19 - version 4.21.0
+* New: Tested up to WooCommerce 5.3.0 & WordPress 5.7.2
+* Fix: PHP Warning: The magic method WC_Smart_Coupons::__wakeup() must have public visibility [PHP8]
+* Fix: Named parameters in call_user_func_array [PHP8] [Thanks to: Noah]
+* Update: Documentation link for coupon search limitations for the setting 'Enable store notice for the coupon'
+* Update: POT file
+
 2021.05.10 - version 4.20.1
 * Fix: 'Show on cart, checkout and my account?' functionality not working since last update
 * Update: POT file

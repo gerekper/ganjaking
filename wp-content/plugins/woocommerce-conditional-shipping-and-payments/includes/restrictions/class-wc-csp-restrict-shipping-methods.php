@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Restrict Shipping Methods.
  *
  * @class    WC_CSP_Restrict_Shipping_Methods
- * @version  1.8.7
+ * @version  1.9.0
  */
 class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_CSP_Checkout_Restriction {
 
@@ -24,7 +24,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 		$this->id                       = 'shipping_methods';
 		$this->title                    = __( 'Shipping Methods', 'woocommerce-conditional-shipping-and-payments' );
-		$this->description              = __( 'Restrict the available shipping methods based on product-related constraints.', 'woocommerce-conditional-shipping-and-payments' );
+		$this->description              = __( 'Restrict shipping methods conditionally.', 'woocommerce-conditional-shipping-and-payments' );
 		$this->validation_types         = array( 'checkout' );
 		$this->has_admin_product_fields = true;
 		$this->supports_multiple        = true;
@@ -34,7 +34,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 		$this->restricted_key           = 'methods';
 
 		// Add required variables to shipping packages.
-		add_action( 'woocommerce_checkout_update_order_review', array( $this, 'add_variables_to_packages_on_order_review' ), 10 );
+		add_filter( 'woocommerce_cart_shipping_packages', array( $this, 'add_variables_to_packages' ), 100 );
 
 		// Remove shipping methods from packages.
 		add_action( 'woocommerce_package_rates', array( $this, 'exclude_package_shipping_methods' ), 10, 2 );
@@ -59,16 +59,6 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 	}
 
 	/**
-	 * Filters shipping packages when refreshing order details to include checkout variables that are conditionally used to exclude rates.
-	 * For example, the billing-email condition only kicks in at checkout and must be added to shipping package data to modify their hash.
-	 *
-	 * @since  1.4.0
-	 */
-	public function add_variables_to_packages_on_order_review() {
-		add_filter( 'woocommerce_cart_shipping_packages', array( $this, 'add_variables_to_packages' ), 100 );
-	}
-
-	/**
 	 * Adds extra variables to shipping packages.
 	 *
 	 * @since  1.4.0
@@ -76,15 +66,30 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 	 */
 	public function add_variables_to_packages( $packages ) {
 
-		$variables = [];
+		$variables = array();
 
 		// Add billing email.
 		if ( isset( $_POST[ 'post_data' ] ) ) {
+
 			parse_str( wp_unslash( $_POST[ 'post_data' ] ), $billing_data ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			if ( is_array( $billing_data ) && isset( $billing_data[ 'billing_email' ] ) ) {
 				$variables[ 'billing_email' ] = wc_clean( $billing_data[ 'billing_email' ] );
 			}
+
+		} elseif ( is_callable( array( WC()->customer, 'get_billing_email' ) ) ) {
+			$variables[ 'billing_email' ] = WC()->customer->get_billing_email();
 		}
+
+		// Add billing country.
+		$billing_country  = WC_CSP_Core_Compatibility::is_wc_version_gte( '2.7' ) ? WC()->customer->get_billing_country() : WC()->customer->get_country();
+		$billing_state    = WC_CSP_Core_Compatibility::is_wc_version_gte( '2.7' ) ? WC()->customer->get_billing_state() : WC()->customer->get_state();
+		$billing_postcode = WC_CSP_Core_Compatibility::is_wc_version_gte( '2.7' ) ? WC()->customer->get_billing_postcode() : WC()->customer->get_postcode();
+
+		// Purge the cache every hour - Needed for WC_CSP_Condition_Date_Time
+		$date_time       = new DateTime( 'now', WC_CSP_Core_Compatibility::wp_timezone() );
+		$date_time_value = $date_time->format( 'YnjG' );
+
+		$variables[ 'billing_country' ] = $billing_country . '_' . $billing_state . '_' . $billing_postcode . '_' . $date_time_value;
 
 		foreach ( $packages as $package_key => $package ) {
 			foreach ( $variables as $key => $value ) {
@@ -311,7 +316,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 	 */
 	function generate_admin_global_fields_html() {
 		?><p>
-			<?php echo __( 'Restrict the shipping methods available at checkout. Complex rules can be created by adding multiple restrictions. Each individual restriction becomes active when all defined conditions match.', 'woocommerce-conditional-shipping-and-payments' ); ?>
+			<?php echo __( 'Restrict the shipping methods available on the <strong>Cart</strong> and <strong>Checkout</strong> pages. To create logical "OR" expressions with Conditions, add multiple Restrictions.', 'woocommerce-conditional-shipping-and-payments' ); ?>
 		</p><?php
 
 		$this->get_admin_global_metaboxes_html();
@@ -405,7 +410,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 				<label><?php _e( 'Exclude Rate IDs', 'woocommerce-conditional-shipping-and-payments' ); ?></label>
 				<div class="sw-form-content">
 					<input type="text" name="restriction[<?php echo $index; ?>][custom_rates]" placeholder="<?php _e( 'Shipping rate IDs to exclude, separated by &quot;|&quot;&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>" value="<?php echo $custom_rates_input; ?>"/>
-					<?php echo WC_CSP_Core_Compatibility::wc_help_tip( __( 'Manually enter shipping rate IDs to exclude, separated by "|". If a rate includes the "|" character, replace it with "%|%". Useful if you are working with shipping methods that retrieve real-time rates, or if you simply require more granular control of the shipping options available during checkout. <strong>Important</strong>: Real-time rate IDs may change over time &ndash; use at your own risk!', 'woocommerce-conditional-shipping-and-payments' ) ); ?>
+					<?php echo WC_CSP_Core_Compatibility::wc_help_tip( __( 'Manually enter shipping rate IDs to exclude, separated by "|". If a rate includes the "|" character, replace it with "%|%". You may also use wildcards, such as "FedEx*". Useful if you are working with shipping methods that retrieve real-time rates. <strong>Important</strong>: Real-time rate IDs may change over time &ndash; use at your own risk!', 'woocommerce-conditional-shipping-and-payments' ) ); ?>
 				</div>
 			</div>
 			<div class="sw-form-field sw-form-field--checkbox">
@@ -423,9 +428,9 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 					<?php
 
 						if ( $field_type === 'global' ) {
-							$tiptip = __( 'Defaults to:<br/>&quot;Unfortunately, your order cannot be shipped via {excluded_method}. To complete your order, please select an alternative shipping method.&quot;<br/>When conditions are defined, resolution instructions are added to the default message.', 'woocommerce-conditional-shipping-and-payments' );
+							$tiptip = __( 'Defaults to:<br/>&quot;Your order cannot be shipped via {excluded_method}. To complete your order, please choose a different shipping method.&quot;<br/>When conditions are defined, resolution instructions are added to the default message.', 'woocommerce-conditional-shipping-and-payments' );
 						} else {
-							$tiptip = __( 'Defaults to:<br/>&quot;Unfortunately, {product} is not eligible for shipping via {excluded_method}. To complete your order, please select an alternative shipping method, or remove {product} from your cart.&quot;<br/>When conditions are defined, resolution instructions are added to the default message.', 'woocommerce-conditional-shipping-and-payments' );
+							$tiptip = __( 'Defaults to:<br/>&quot;{product} is not eligible for shipping via {excluded_method}. To complete your order, please choose a different shipping method, or remove {product} from your cart.&quot;<br/>When conditions are defined, resolution instructions are added to the default message.', 'woocommerce-conditional-shipping-and-payments' );
 						}
 					?>
 				</label>
@@ -535,7 +540,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 	 */
 	function get_admin_product_fields_html( $index, $options = array() ) {
 		?><div class="restriction-description">
-			<?php echo __( 'Restrict the available shipping methods when a shipping package contains this product.', 'woocommerce-conditional-shipping-and-payments' ); ?>
+			<?php echo __( 'Restrict the available shipping options when an order contains this product.', 'woocommerce-conditional-shipping-and-payments' ); ?>
 		</div><?php
 
 		$this->get_admin_fields_html( $index, $options, 'product' );
@@ -551,10 +556,10 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 	 */
 	public function process_admin_fields( $posted_data ) {
 
-		$processed_data = array();
-
-		$processed_data[ 'methods' ]      = array();
-		$processed_data[ 'custom_rates' ] = array();
+		$processed_data = array(
+			'methods'      => array(),
+			'custom_rates' => array()
+		);
 
 		if ( ! empty( $posted_data[ 'custom_rates' ] ) ) {
 
@@ -578,10 +583,6 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 		if ( ! empty( $posted_data[ 'methods' ] ) ) {
 			$processed_data[ 'methods' ] = array_unique( array_merge( $processed_data[ 'methods' ], array_map( 'stripslashes', $posted_data[ 'methods' ] ) ) );
-		} else {
-			if ( empty( $processed_data[ 'methods' ] ) ) {
-				return false;
-			}
 		}
 
 		if ( isset( $posted_data[ 'show_excluded' ] ) ) {
@@ -613,10 +614,10 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 		$processed_data = $this->process_admin_fields( $posted_data );
 
-		if ( ! $processed_data ) {
+		if ( empty( $processed_data[ 'methods' ] ) && empty( $processed_data[ 'custom_rates' ] ) ) {
 
-			WC_Admin_Meta_Boxes::add_error( sprintf( __( 'Restriction #%s was not saved. Before saving a &quot;Shipping Method&quot; restriction, remember to add at least one shipping method to the exclusions list.', 'woocommerce-conditional-shipping-and-payments' ), $posted_data[ 'index' ] ) );
-			return false;
+			WC_Admin_Meta_Boxes::add_error( sprintf( __( 'Shipping Method restriction <strong>#%s</strong> has no effect: Please add at least one shipping option in the <strong>Exclude Methods</strong> or <strong>Exclude Rate IDs</strong> fields.', 'woocommerce-conditional-shipping-and-payments' ), $posted_data[ 'index' ] ) );
+
 		}
 
 		return $processed_data;
@@ -632,10 +633,10 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 		$processed_data = $this->process_admin_fields( $posted_data );
 
-		if ( ! $processed_data ) {
+		if ( empty( $processed_data[ 'methods' ] ) && empty( $processed_data[ 'custom_rates' ] ) ) {
 
-			WC_CSP_Admin_Notices::add_notice( sprintf( __( 'Restriction #%s was not saved. Before saving a &quot;Shipping Method&quot; restriction, remember to add at least one shipping method to the exclusions list.', 'woocommerce-conditional-shipping-and-payments' ), $posted_data[ 'index' ] ), 'error', true );
-			return false;
+			WC_Admin_Meta_Boxes::add_error( sprintf( __( 'Rule <strong>#%s</strong> has no effect: Please add at least one shipping option in the <strong>Exclude Methods</strong> or <strong>Exclude Rate IDs</strong> fields.', 'woocommerce-conditional-shipping-and-payments' ), $posted_data[ 'index' ] ) );
+
 		}
 
 		return $processed_data;
@@ -728,6 +729,19 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 						break;
 					}
 				}
+
+			} elseif ( false !== strpos( $excluded_rate_id, '*' ) ) {
+
+				$excluded_rate_id_regex = preg_quote( $excluded_rate_id, '/' );
+				$excluded_rate_id_regex = str_replace( preg_quote( '*', '/' ), '.*?', $excluded_rate_id_regex );
+				$excluded_rate_id_regex = "/$excluded_rate_id_regex/i";
+				$has_match              = preg_match( $excluded_rate_id_regex, (string) $rate_id );
+
+				if ( $has_match ) {
+					$is_restricted = true;
+					break;
+				}
+
 			}
 		}
 
@@ -945,9 +959,9 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 					} else {
 
 						if ( $package_count === 1 ) {
-							$resolution = sprintf( __( 'To have &quot;%1$s&quot; shipped via &quot;%2$s&quot;, please %3$s. Otherwise, select an alternative shipping method, or remove &quot;%1$s&quot; from your cart.', 'woocommerce-conditional-shipping-and-payments' ), $product->get_title(), $package[ 'rates' ][ $chosen_methods[ $package_key ] ]->label, $conditions_resolution );
+							$resolution = sprintf( __( 'To have &quot;%1$s&quot; shipped via &quot;%2$s&quot;, please %3$s. Otherwise, choose a different shipping method, or remove &quot;%1$s&quot; from your cart.', 'woocommerce-conditional-shipping-and-payments' ), $product->get_title(), $package[ 'rates' ][ $chosen_methods[ $package_key ] ]->label, $conditions_resolution );
 						} else {
-							$resolution = sprintf( __( 'To have &quot;%1$s&quot; shipped via &quot;%2$s&quot;, please %3$s. Otherwise, select an alternative shipping method, or remove &quot;%1$s&quot; from package #%4$s.', 'woocommerce-conditional-shipping-and-payments' ), $product->get_title(), $package[ 'rates' ][ $chosen_methods[ $package_key ] ]->label, $conditions_resolution, $package_index );
+							$resolution = sprintf( __( 'To have &quot;%1$s&quot; shipped via &quot;%2$s&quot;, please %3$s. Otherwise, choose a different shipping method, or remove &quot;%1$s&quot; from package #%4$s.', 'woocommerce-conditional-shipping-and-payments' ), $product->get_title(), $package[ 'rates' ][ $chosen_methods[ $package_key ] ]->label, $conditions_resolution, $package_index );
 						}
 					}
 
@@ -960,17 +974,17 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 					} else {
 
 						if ( $package_count === 1 ) {
-							$resolution = sprintf( __( 'To complete your order, please select an alternative shipping method, or remove &quot;%1$s&quot; from your cart.', 'woocommerce-conditional-shipping-and-payments' ), $product->get_title() );
+							$resolution = sprintf( __( 'To complete your order, please choose a different shipping method, or remove &quot;%1$s&quot; from your cart.', 'woocommerce-conditional-shipping-and-payments' ), $product->get_title() );
 						} else {
-							$resolution = sprintf( __( 'To complete your order, please select an alternative shipping method, or remove &quot;%1$s&quot; from package #%2$s.', 'woocommerce-conditional-shipping-and-payments' ), $product->get_title(), $package_index );
+							$resolution = sprintf( __( 'To complete your order, please choose a different shipping method, or remove &quot;%1$s&quot; from package #%2$s.', 'woocommerce-conditional-shipping-and-payments' ), $product->get_title(), $package_index );
 						}
 					}
 				}
 
 				if ( 'check' === $message_context ) {
-					$message = __( '&quot;%1$s&quot; is not eligible for shipping via &quot;%2$s&quot;. %3$s', 'woocommerce-conditional-shipping-and-payments' );
+					$message = _x( '&quot;%1$s&quot; is not eligible for shipping via &quot;%2$s&quot;. %3$s', 'static notice context', 'woocommerce-conditional-shipping-and-payments' );
 				} else {
-					$message = __( 'Unfortunately, &quot;%1$s&quot; is not eligible for shipping via &quot;%2$s&quot;. %3$s', 'woocommerce-conditional-shipping-and-payments' );
+					$message = _x( '&quot;%1$s&quot; is not eligible for shipping via &quot;%2$s&quot;. %3$s', 'validation notice context', 'woocommerce-conditional-shipping-and-payments' );
 				}
 			}
 
@@ -1000,9 +1014,9 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 					} else {
 
 						if ( $package_count === 1 ) {
-							$resolution = sprintf( __( 'To have your order shipped via &quot;%1$s&quot;, please %2$s. Otherwise, choose an alternative shipping method.', 'woocommerce-conditional-shipping-and-payments' ), $package[ 'rates' ][ $chosen_methods[ $package_key ] ]->label, $conditions_resolution );
+							$resolution = sprintf( __( 'To have your order shipped via &quot;%1$s&quot;, please %2$s. Otherwise, choose a different shipping method.', 'woocommerce-conditional-shipping-and-payments' ), $package[ 'rates' ][ $chosen_methods[ $package_key ] ]->label, $conditions_resolution );
 						} else {
-							$resolution = sprintf( __( 'To have package #%3$s shipped via &quot;%1$s&quot;, please %2$s. Otherwise, choose an alternative shipping method.', 'woocommerce-conditional-shipping-and-payments' ), $package[ 'rates' ][ $chosen_methods[ $package_key ] ]->label, $conditions_resolution, $package_index );
+							$resolution = sprintf( __( 'To have package #%3$s shipped via &quot;%1$s&quot;, please %2$s. Otherwise, choose a different shipping method.', 'woocommerce-conditional-shipping-and-payments' ), $package[ 'rates' ][ $chosen_methods[ $package_key ] ]->label, $conditions_resolution, $package_index );
 						}
 					}
 
@@ -1011,7 +1025,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 					if ( 'check' === $message_context ) {
 						$resolution = '';
 					} else {
-						$resolution = __( 'To complete your order, please select an alternative shipping method.', 'woocommerce-conditional-shipping-and-payments' );
+						$resolution = __( 'To complete your order, please choose a different shipping method.', 'woocommerce-conditional-shipping-and-payments' );
 					}
 				}
 
@@ -1022,9 +1036,9 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 				} else {
 
 					if ( $package_count === 1 ) {
-						$message = __( 'Unfortunately, your order cannot be shipped via &quot;%1$s&quot;. %2$s', 'woocommerce-conditional-shipping-and-payments' );
+						$message = __( 'Your order cannot be shipped via &quot;%1$s&quot;. %2$s', 'woocommerce-conditional-shipping-and-payments' );
 					} else {
-						$message = __( 'Unfortunately, package #%3$s cannot be shipped via &quot;%1$s&quot;. %2$s', 'woocommerce-conditional-shipping-and-payments' );
+						$message = __( 'Package #%3$s cannot be shipped via &quot;%1$s&quot;. %2$s', 'woocommerce-conditional-shipping-and-payments' );
 					}
 				}
 			}

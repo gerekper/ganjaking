@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Loads restriction classes via hooks and prepares them for use.
  *
  * @class    WC_CSP_Restrictions
- * @version  1.8.10
+ * @version  1.9.0
   */
 class WC_CSP_Restrictions {
 
@@ -59,8 +59,6 @@ class WC_CSP_Restrictions {
 
 	/**
 	 * Modify checkout field data to update order details when changing the 'billing email' field and a global 'customer' condition exists.
-	 * Note that we do nothing if a product-level restriction with a 'customer' condition exists.
-	 * Ideally, we'd need to get all cart items, grab all product-level restriction data and see if a 'customer' condition exists there, as well.
 	 *
 	 * @since  1.4.0
 	 * @param  array  $billing_field_data
@@ -69,22 +67,7 @@ class WC_CSP_Restrictions {
 	public function maybe_update_totals_on_billing_email_change( $billing_field_data ) {
 
 		if ( isset( $billing_field_data[ 'billing_email' ] ) ) {
-
-			$restrictions         = $this->get_restrictions();
-			$active_condition_ids = array();
-
-			foreach ( $restrictions as $restriction ) {
-
-				$global_restriction_data = $restriction->get_global_restriction_data();
-
-				foreach ( $global_restriction_data as $restriction_data ) {
-					if ( ! empty( $restriction_data[ 'conditions' ] ) ) {
-						$active_condition_ids = array_merge( $active_condition_ids, wp_list_pluck( $restriction_data[ 'conditions' ], 'condition_id' ) );
-					}
-				}
-			}
-
-			if ( in_array( 'customer', $active_condition_ids ) ) {
+			if ( WC_CSP()->conditions->is_active( 'customer' ) ) {
 				$billing_field_data[ 'billing_email' ][ 'class' ][] = 'update_totals_on_change';
 			}
 		}

@@ -46,6 +46,22 @@ class GF_Field_Section extends GF_Field {
 		);
 	}
 
+	/**
+	 * Retrieve the field label.
+	 *
+	 * @since 2.5.2   Don't force this field to have a label.
+	 *
+	 * @param bool   $force_frontend_label Should the frontend label be displayed in the admin even if an admin label is configured.
+	 * @param string $value                The field value. From default/dynamic population, $_POST, or a resumed incomplete submission.
+	 *
+	 * @return string
+	 */
+	public function get_field_label( $force_frontend_label, $value ) {
+		$label = $force_frontend_label ? $this->label : GFCommon::get_label( $this );
+
+		return $label;
+	}
+
 	public function get_field_content( $value, $force_frontend_label, $form ) {
 
 		$field_label = $this->get_field_label( $force_frontend_label, $value );

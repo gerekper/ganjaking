@@ -174,7 +174,7 @@ class WC_GFPA_Cart {
 
 			add_filter( 'gform_disable_notification_' . $form_id, array( $this, 'disable_notifications' ), 999, 3 );
 
-			add_filter( "gform_confirmation_" . $form_id, array( $this, "disable_confirmation" ), 999, 4 );
+			add_filter( "gform_confirmation_" . $form_id, array( $this, "disable_confirmation" ), 998, 4 );
 
 			if ( empty( $form_meta ) ) {
 				return $cart_item_meta;
@@ -204,6 +204,9 @@ class WC_GFPA_Cart {
 
 			$_POST['gform_old_submit'] = $_POST['gform_submit'];
 			unset( $_POST['gform_submit'] );
+
+			// unset the confirmation message so it does not display after adding the product to the cart.
+			unset( GFFormDisplay::$submission[ $form_id ]['confirmation_message'] );
 
 			$lead                                 = GFFormDisplay::$submission[ $form_id ]['lead'];
 			$cart_item_meta['_gravity_form_lead'] = array(

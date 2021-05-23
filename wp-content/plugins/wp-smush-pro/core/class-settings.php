@@ -598,10 +598,15 @@ class Settings {
 		check_ajax_referer( 'save_wp_smush_options', 'wp_smush_options_nonce' );
 
 		// Save the selected image sizes.
-		if ( empty( $_POST['wp-smush-image_sizes'] ) || ( isset( $_POST['wp-smush-auto-image-sizes'] ) && 'all' === $_POST['wp-smush-auto-image-sizes'] ) ) {
+		if ( isset( $_POST['wp-smush-auto-image-sizes'] ) && 'all' === $_POST['wp-smush-auto-image-sizes'] ) {
 			$this->delete_setting( WP_SMUSH_PREFIX . 'image_sizes' );
 		} else {
-			$image_sizes = array_filter( array_map( 'sanitize_text_field', wp_unslash( $_POST['wp-smush-image_sizes'] ) ) );
+			if ( ! isset( $_POST['wp-smush-image_sizes'] ) ) {
+				$image_sizes = array();
+			} else {
+				$image_sizes = array_filter( array_map( 'sanitize_text_field', wp_unslash( $_POST['wp-smush-image_sizes'] ) ) );
+			}
+
 			$this->set_setting( WP_SMUSH_PREFIX . 'image_sizes', $image_sizes );
 		}
 

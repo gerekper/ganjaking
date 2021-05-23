@@ -665,7 +665,16 @@ GFConditionalLogic.prototype.renderRuleValue = function( rule, idx ) {
 GFConditionalLogic.prototype.renderRule = function( rule, idx ) {
 	var field = getFieldById( rule.fieldId );
 
-	if ( !field ) {
+	// Field is select - if value doesn't exist, set it to the first choice.
+	if ( field && field.choices.length ) {
+		var found = field.choices.filter( function( choice ) { return rule.value == choice.value; } )[0];
+
+		if ( ! found && field.type !== 'multiselect' ) {
+			rule.value = field.choices[ 0 ].value;
+		}
+	}
+
+	if ( ! field ) {
 		field = {
 			choices: '',
 		};
@@ -727,10 +736,15 @@ GFConditionalLogic.prototype.gatherElements = function() {
  * @returns {{value: string, operator: string, fieldId: number}}
  */
 GFConditionalLogic.prototype.getDefaultRule = function() {
+	var fieldId = GetFirstRuleField();
+	var field = GetFieldById( fieldId );
+
+	var value = field && field.choices.length ? field.choices[0].value : '';
+
 	return {
 		fieldId: GetFirstRuleField(),
 		operator: 'is',
-		value: '',
+		value: value,
 	};
 };
 

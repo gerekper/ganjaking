@@ -48,6 +48,8 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		protected function __construct() {
 			parent::__construct();
 
+			$this->register_location();
+
 			// WP Hooks.
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 			add_action( 'wp_footer', array( $this, 'print_calendar_settings' ) );
@@ -56,9 +58,65 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			add_filter( 'woocommerce_checkout_fields', array( $this, 'checkout_fields' ) );
 			add_filter( 'woocommerce_checkout_get_value', array( $this, 'checkout_get_value' ), 10, 2 );
 			add_filter( 'woocommerce_update_order_review_fragments', array( $this, 'checkout_fragments' ) );
-			add_action( 'woocommerce_checkout_shipping', array( $this, 'checkout_content' ), 99 );
 			add_action( 'woocommerce_after_checkout_validation', array( $this, 'checkout_validation' ) );
 			add_action( 'woocommerce_checkout_create_order', array( $this, 'update_order_meta' ) );
+		}
+
+		/**
+		 * Registers the location of the delivery details in the checkout form.
+		 *
+		 * @since 1.9.0
+		 */
+		public function register_location() {
+			$locations = array(
+				'before_customer_details' => array(
+					'hook'     => 'woocommerce_checkout_before_customer_details',
+					'priority' => 10,
+				),
+				'before_billing'          => array(
+					'hook'     => 'woocommerce_checkout_billing',
+					'priority' => 5,
+				),
+				'after_billing'           => array(
+					'hook'     => 'woocommerce_checkout_billing',
+					'priority' => 99,
+				),
+				'before_order_notes'      => array(
+					'hook'     => 'woocommerce_before_order_notes',
+					'priority' => 10,
+				),
+				'after_order_notes'       => array(
+					'hook'     => 'woocommerce_after_order_notes',
+					'priority' => 10,
+				),
+				'after_additional_fields' => array(
+					'hook'     => 'woocommerce_checkout_shipping',
+					'priority' => 99,
+				),
+				'after_order_review'      => array(
+					'hook'     => 'woocommerce_checkout_order_review',
+					'priority' => 15,
+				),
+				'after_customer_details'  => array(
+					'hook'     => 'woocommerce_checkout_after_customer_details',
+					'priority' => 10,
+				),
+			);
+
+			$key      = WC_OD()->settings()->get_setting( 'checkout_location' );
+			$location = ( isset( $locations[ $key ] ) ? $locations[ $key ] : $locations['after_additional_fields'] );
+
+			/**
+			 * Filters the location of the delivery details in the checkout form.
+			 *
+			 * @since 1.9.0
+			 *
+			 * @param array  $location An array with the action hook and its priority.
+			 * @param string $key      The location key.
+			 */
+			$location = apply_filters( 'wc_od_checkout_location', $location, $key );
+
+			add_action( $location['hook'], array( $this, 'checkout_content' ), $location['priority'] );
 		}
 
 		/**
@@ -91,16 +149,12 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 *
 		 * @since 1.4.0
 		 *
-		 * @global WC_Ship_Multiple $wcms The 'Ship to Multiple Addresses' plugin instance.
-		 *
 		 * @return bool
 		 */
 		public function needs_details() {
-			global $wcms;
-
-			$needs_details = ( is_checkout() && WC()->cart->needs_shipping() &&
-				( ! $this->is_local_pickup() || wc_string_to_bool( WC_OD()->settings()->get_setting( 'enable_local_pickup' ) ) ) &&
-				( ! $wcms || ! $wcms->cart->cart_has_multi_shipping() )
+			$needs_details = (
+				is_checkout() && WC()->cart->needs_shipping() &&
+				( ! $this->is_local_pickup() || wc_string_to_bool( WC_OD()->settings()->get_setting( 'enable_local_pickup' ) ) )
 			);
 
 			/**

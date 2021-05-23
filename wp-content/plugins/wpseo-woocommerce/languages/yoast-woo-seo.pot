@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Yoast SEO: WooCommerce package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: WooCommerce 13.9\n"
+"Project-Id-Version: Yoast SEO: WooCommerce 14.0\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-woocommerce/issues\n"
-"POT-Creation-Date: 2021-01-26 09:12:26+00:00\n"
+"POT-Creation-Date: 2021-05-18 11:12:17+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -114,19 +114,19 @@ msgstr ""
 msgid "Move %1$s up"
 msgstr ""
 
-#: classes/woocommerce-seo.php:1223
+#: classes/woocommerce-seo.php:1242
 msgid "You should write a short description for this product."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1224
+#: classes/woocommerce-seo.php:1243
 msgid "The short description for this product is too short."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1225
+#: classes/woocommerce-seo.php:1244
 msgid "Your short description has a good length."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1226
+#: classes/woocommerce-seo.php:1245
 msgid "The short description for this product is too long."
 msgstr ""
 

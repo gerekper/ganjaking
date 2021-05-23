@@ -168,7 +168,17 @@ class WPSEO_Term_Watcher extends WPSEO_Watcher implements WPSEO_WordPress_Integr
 		$new_url = $this->get_target_url( $term_id, $taxonomy );
 
 		// Maybe we can undo the created redirect.
-		$this->notify_undo_slug_redirect( $old_url, $new_url );
+		$created_redirect = $this->notify_undo_slug_redirect( $old_url, $new_url, $term_id, 'term' );
+
+		if ( $created_redirect ) {
+			$redirect_info = [
+				'origin' => $created_redirect->get_origin(),
+				'target' => $created_redirect->get_target(),
+				'type'   => $created_redirect->get_type(),
+				'format' => $created_redirect->get_format(),
+			];
+			update_term_meta( $term_id, '_yoast_term_redirect_info', $redirect_info );
+		}
 	}
 
 	/**

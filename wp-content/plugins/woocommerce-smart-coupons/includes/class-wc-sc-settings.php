@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.8.0
+ * @version     1.9.0
  * @package     woocommerce-smart-coupons/includes/
  */
 
@@ -207,6 +207,8 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 					});
 
 					jQuery('select#smart_coupons_storewide_offer_coupon_code').parent().append( '&nbsp;<a class="thickbox smart_coupons_storewide_offer_coupon_code" href="https://docs.woocommerce.com/wp-content/uploads/2012/08/smart-coupons-enable-store-notice-for-coupon.png?TB_iframe=true"><small>[<?php echo esc_html__( 'Preview', 'woocommerce-smart-coupons' ); ?>]</small></a>' );
+
+					jQuery('select#smart_coupons_storewide_offer_coupon_code').parent().append( '&nbsp;<a target="_blank" class="smart_coupons_storewide_offer_coupon_code" href="https://docs.woocommerce.com/document/smart-coupons/how-to-display-a-coupon-code-notice-sitewide/#section-4"><small>[<?php echo esc_html__( 'See coupon search limitations', 'woocommerce-smart-coupons' ); ?>]</small></a>' );
 
 					jQuery('body .forminp-wc_sc_radio_with_html').on('click', '.wc_sc_setting_coupon_design_colors li', function(){
 						let color_string = jQuery(this).find('input[type="radio"]').val();
@@ -973,7 +975,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 								/>
 								<?php
 								if ( ! empty( $value['args']['html_callback'] ) ) {
-									call_user_func_array( $value['args']['html_callback'], array( 'key' => $key ) );
+									call_user_func_array( $value['args']['html_callback'], array( $key ) );
 								}
 								?>
 							</li>

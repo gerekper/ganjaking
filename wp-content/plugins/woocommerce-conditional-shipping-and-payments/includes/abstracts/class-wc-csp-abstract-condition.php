@@ -207,4 +207,15 @@ class WC_CSP_Condition {
 	protected function modifier_is( $modifier, $haystack = array() ) {
 		return is_array( $haystack ) ? in_array( $modifier, $haystack ) : strval( $haystack ) === $modifier;
 	}
+
+	/**
+	 * Set condition as active in the current request.
+	 *
+	 * @since  1.9.0
+	 *
+	 * @return void
+	 */
+	protected function set_active() {
+		WC_CSP()->conditions->set_active( $this->id );
+	}
 }
