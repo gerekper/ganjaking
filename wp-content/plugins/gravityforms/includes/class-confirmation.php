@@ -512,6 +512,10 @@ class GF_Confirmation {
 	 */
 	public static function initialize_settings_renderer() {
 
+		if ( ! class_exists( 'GFFormSettings' ) ) {
+			require_once( GFCommon::get_base_path() . '/form_settings.php' );
+		}
+
 		// Get form, confirmation IDs.
 		$form_id         = absint( rgget( 'id' ) );
 		$confirmation_id = rgpost( 'confirmation_id' ) ? rgpost( 'confirmation_id' ) : rgget( 'cid' );
@@ -569,6 +573,9 @@ class GF_Confirmation {
 					if ( $is_new_confirmation ) {
 						$confirmation_id = $confirmation['id'] = uniqid();
 					}
+
+					// Save values to the confirmation object in advance so non-custom values will be rewritten when we apply values below.
+					$confirmation = GFFormSettings::save_changed_form_settings_fields( $confirmation, $values );
 
 					// Apply values.
 					$confirmation['name']              = rgar( $values, 'name' );

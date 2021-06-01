@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.5.1.3
+Version: 2.5.2.4
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -29,11 +29,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses.
 */
 
+update_option( 'rg_gforms_key', 'activated' );
 update_option( 'gform_pending_installation', false );
 delete_option( 'rg_gforms_message' );
-update_option( 'rg_gforms_key','B5E0B5F8-DD8689E6-ACA49DD6-E6E1A930' );
-update_option( 'gf_site_secret' ,true);
-update_option( 'gform_upgrade_status', false );
+
 //------------------------------------------------------------------------------------------------------------------
 //---------- Gravity Forms License Key -----------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
@@ -171,6 +170,7 @@ add_action( 'admin_head', array( 'GFCommon', 'admin_notices_style' ) );
 add_action( 'upgrader_process_complete', array( 'GFForms', 'install_addon_translations' ), 10, 2 );
 add_action( 'update_option_WPLANG', array( 'GFForms', 'update_translations' ), 10, 2 );
 add_action( 'wp_ajax_update_auto_update_setting', array( 'GFForms', 'update_auto_update_setting' ) );
+add_action( 'init', array( 'GFForms', 'init_buffer' ) );
 add_filter( 'upgrader_pre_install', array( 'GFForms', 'validate_upgrade' ), 10, 2 );
 add_filter( 'tiny_mce_before_init', array( 'GFForms', 'modify_tiny_mce_4' ), 20 );
 add_filter( 'user_has_cap', array( 'RGForms', 'user_has_cap' ), 10, 4 );
@@ -210,7 +210,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.5.1.3';
+	public static $version = '2.5.2.4';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -306,6 +306,8 @@ class GFForms {
 		}
 
 		self::register_scripts();
+
+		self::init_hook_vars();
 
 		GFCommon::localize_gform_i18n();
 
@@ -2351,8 +2353,29 @@ class GFForms {
 	 * @return string $page_text The changelog. Error message if there's an issue.
 	 */
 	public static function get_changelog() {
-		
-		$page_text = '';
+		$key                = GFCommon::get_key();
+		$body               = "key=$key";
+		$options            = array( 'method' => 'POST', 'timeout' => 3, 'body' => $body );
+		$options['headers'] = array(
+			'Content-Type'   => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
+			'Content-Length' => strlen( $body ),
+			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
+			'Referer'        => get_bloginfo( 'url' )
+		);
+
+		$raw_response = GFCommon::post_to_manager( 'changelog.php', GFCommon::get_remote_request_params(), $options );
+
+		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
+			$page_text = sprintf( esc_html__( 'Oops!! Something went wrong. %sPlease try again or %scontact us%s.', 'gravityforms' ), '<br/>', "<a href='https://www.gravityforms.com/support/'>", '</a>' );
+		} else {
+			$page_text = $raw_response['body'];
+			if ( substr( $page_text, 0, 10 ) != '<!--GFM-->' ) {
+				$page_text = '';
+			} else {
+				$page_text = '<div style="background-color:white">' . $page_text . '<div>';
+			}
+		}
+
 		return stripslashes( $page_text );
 	}
 
@@ -2610,15 +2633,120 @@ class GFForms {
 		wp_register_style( 'gform_theme_ie11', $base_url . "/css/theme-ie11{$min}.css", null, $version );
 		wp_register_style( 'gform_basic', $base_url . "/css/basic{$min}.css", null, $version );
 		wp_register_style( 'gform_theme', $base_url . "/css/theme{$min}.css", array( 'gform_theme_ie11' ), $version );
+	}
 
-		if ( function_exists( 'wp_add_inline_script' ) ) {
-			$hooks_code = GFCommon::get_hooks_javascript_code();
-			wp_add_inline_script( 'gform_gravityforms', $hooks_code, 'before' );
+	/**
+	 * Initialize all the actions and filters needed to output the JS hooks code.
+	 *
+	 * @since  2.5.2
+	 * @access public
+	 */
+	public static function init_hook_vars() {
+		$prio = 9999;
+		$actions = array(
+			'wp_enqueue_scripts',
+			'gform_preview_init',
+			'admin_enqueue_scripts'
+		);
+
+		// Localize our hook vars JS as late as possible to allow changes to enqueue processes.
+		foreach( $actions as $action ) {
+			add_action( $action, function() {
+				self::localize_hook_vars();
+			}, $prio );
+		}
+
+		// Append hooks to a form being output in a widget or elsewhere that isn't page content.
+		add_filter( 'gform_get_form_filter', function( $form_string ) {
+			$is_gf_ajax = ! empty( rgpost( 'gform_ajax' ) );
+			$doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
+
+			if ( $doing_ajax || $is_gf_ajax ) {
+				return $form_string;
+			}
+
+			$needed = GFCommon::requires_gf_hooks_javascript();
+
+			if ( ! $needed ) {
+				return $form_string;
+			}
+
+			ob_start();
+			GFCommon::output_hooks_javascript();
+			$scripts = ob_get_clean();
+
+			if ( ! empty( $scripts ) ) {
+				return $scripts . $form_string;
+			}
+
+			return $form_string;
+		}, $prio );
+	}
+
+	/**
+	 * Add various actions to manually output the JS hooks code.
+	 *
+	 * @since  2.5.2
+	 * @access public
+	 */
+	public static function load_hooks_with_actions() {
+		add_action( 'gform_preview_header', array( 'GFCommon', 'output_hooks_javascript' ) );
+		add_action( 'wp_head', array( 'GFCommon', 'output_hooks_javascript' ) );
+		add_action( 'admin_head', array( 'GFCommon', 'output_hooks_javascript' ) );
+		add_action( 'gform_pre_print_scripts', array( 'GFCommon', 'output_hooks_javascript' ) );
+	}
+
+	/**
+	 * Use wp_add_inline_script to output the hooks JS programmatically.
+	 *
+	 * @since  2.5.2
+	 * @access public
+	 */
+	public static function load_hooks_with_inline_script() {
+		$needed = GFCommon::requires_gf_hooks_javascript();
+		if ( ! $needed ) {
+			return;
+		}
+
+		$hooks_code = GFCommon::get_hooks_javascript_code();
+		wp_add_inline_script( 'gform_gravityforms', $hooks_code, 'before' );
+	}
+
+	/**
+	 * Localize the JS hook vars we need for addAction, etc, taking into account context.
+	 *
+	 * @since  2.5.3
+	 * @access public
+	 */
+	public static function localize_hook_vars() {
+		/**
+		 * Allow plugins to force the hook vars to output no matter what. Useful for certain edge-cases.
+		 *
+		 * @since  2.5.2
+		 *
+		 * @param bool $force_output Whether to force the script output.
+		 *
+		 * @return bool
+		 */
+		$force_output = apply_filters( 'gform_force_hooks_js_output', false );
+		$is_enqueued  = wp_script_is( 'gform_gravityforms', 'enqueued' );
+		$script       = wp_scripts()->query( 'gform_gravityforms' );
+
+		if ( ( $is_enqueued || $force_output ) && ! function_exists( 'wp_add_inline_script' ) ) {
+			self::load_hooks_with_actions();
+			return;
+		}
+
+		if ( ! $is_enqueued && ! $force_output ) {
+			return;
+		}
+
+		// if the script is enqueued in the footer, simply output the scripts in the header to ensure they exist,
+		// otherwise, localize via wp_add_inline_script().
+		if ( ! empty( $script->extra['group'] ) || empty ( $script ) ) {
+			self::load_hooks_with_actions();
 		} else {
-			add_action( 'gform_preview_header', array( 'GFCommon', 'output_hooks_javascript' ) );
-			add_action( 'wp_head', array( 'GFCommon', 'output_hooks_javascript' ) );
-			add_action( 'admin_head', array( 'GFCommon', 'output_hooks_javascript' ) );
-			add_action( 'gform_pre_print_scripts', array( 'GFCommon', 'output_hooks_javascript' ) );
+			self::load_hooks_with_inline_script();
 		}
 	}
 
@@ -6257,6 +6385,57 @@ class GFForms {
 		require_once( 'includes/class-personal-data.php' );
 
 		return GF_Personal_Data::data_eraser( $email_address, $page );
+	}
+
+	/**
+	 * Initialize an ob_start() buffer with a callback to ensure our hooks JS has output on the page.
+	 *
+	 * @since 2.5.3
+	 *
+	 * @return void
+	 */
+	public static function init_buffer() {
+		ob_start( array( 'GFForms', 'ensure_hook_js_output' ) );
+	}
+
+	/**
+	 * Callback to fire when ob_flush() is called. Allows us to ensure that our Hooks JS has been output on the page,
+     * even in heavily-cached or concatenated environments.
+	 *
+	 * @since 2.5.3
+	 *
+	 * @param string $content The buffer content.
+	 *
+	 * @return string
+	 */
+	public static function ensure_hook_js_output( $content ) {
+		require_once GFCommon::get_base_path() . '/form_display.php';
+
+		$has_printed = GFFormDisplay::$hooks_js_printed;
+
+		/**
+		 * Allow plugins to force the hook vars to output no matter what. Useful for certain edge-cases.
+		 *
+		 * @since  2.5.3
+		 *
+		 * @param bool $force_output Whether to force the script output.
+		 *
+		 * @return bool
+		 */
+		$force_output = apply_filters( 'gform_force_hooks_js_output', false );
+
+		if ( ! $force_output && ! $has_printed ) {
+			return $content;
+		}
+
+		$hooks_javascript = GFCommon::get_hooks_javascript_code();
+
+		$content = str_replace( $hooks_javascript, '', $content );
+
+		$string = '<script type="text/javascript">' . $hooks_javascript . '</script>';
+		$content = str_replace( '<head>', $string, $content );
+
+		return $content;
 	}
 }
 

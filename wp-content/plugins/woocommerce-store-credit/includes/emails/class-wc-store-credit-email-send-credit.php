@@ -85,6 +85,28 @@ if ( ! class_exists( 'WC_Store_Credit_Email_Send_Credit', false ) ) {
 		}
 
 		/**
+		 * Gets the default button text.
+		 *
+		 * @since 3.7.0
+		 *
+		 * @return string
+		 */
+		public function get_default_button_text() {
+			return _x( 'Redeem now', 'email button text', 'woocommerce-store-credit' );
+		}
+
+		/**
+		 * Gets the button text.
+		 *
+		 * @since 3.7.0
+		 *
+		 * @return string
+		 */
+		public function get_button_text() {
+			return $this->get_option( 'button_text', $this->get_default_button_text() );
+		}
+
+		/**
 		 * Default content to show below main email content.
 		 *
 		 * Fallback for the method `get_default_additional_content` method introduced in WC 3.7.
@@ -203,31 +225,42 @@ if ( ! class_exists( 'WC_Store_Credit_Email_Send_Credit', false ) ) {
 		public function init_form_fields() {
 			parent::init_form_fields();
 
+			$additional_fields = array();
+
 			// Fallback for the 'additional_content' field introduced in WC 3.7.
 			if ( ! isset( $this->form_fields['additional_content'] ) ) {
-				$offset           = count( $this->form_fields ) - 1;
 				$placeholder_text = sprintf(
 					/* translators: %s: list of placeholders */
 					__( 'Available placeholders: %s', 'woocommerce-store-credit' ),
 					'<code>' . esc_html( implode( '</code>, <code>', array_keys( $this->placeholders ) ) ) . '</code>'
 				);
 
-				$this->form_fields = array_merge(
-					array_slice( $this->form_fields, 0, $offset ),
-					array(
-						'additional_content' => array(
-							'title'       => _x( 'Additional content', 'email field label', 'woocommerce-store-credit' ),
-							'description' => _x( 'Text to appear below the main email content.', 'email field desc', 'woocommerce-store-credit' ) . ' ' . $placeholder_text,
-							'css'         => 'width:400px; height: 75px;',
-							'placeholder' => __( 'N/A', 'woocommerce-store-credit' ),
-							'type'        => 'textarea',
-							'default'     => $this->get_default_additional_content(),
-							'desc_tip'    => true,
-						),
-					),
-					array_slice( $this->form_fields, $offset )
+				$additional_fields['additional_content'] = array(
+					'title'       => _x( 'Additional content', 'email field label', 'woocommerce-store-credit' ),
+					'description' => _x( 'Text to appear below the main email content.', 'email field desc', 'woocommerce-store-credit' ) . ' ' . $placeholder_text,
+					'css'         => 'width:400px; height: 75px;',
+					'placeholder' => __( 'N/A', 'woocommerce-store-credit' ),
+					'type'        => 'textarea',
+					'default'     => $this->get_default_additional_content(),
+					'desc_tip'    => true,
 				);
 			}
+
+			$additional_fields['button_text'] = array(
+				'title'       => __( 'Button text', 'woocommerce-store-credit' ),
+				'type'        => 'text',
+				'desc_tip'    => true,
+				'description' => _x( 'Text for the email CTA button.', 'email field desc', 'woocommerce-store-credit' ),
+				'placeholder' => $this->get_default_button_text(),
+				'default'     => '',
+			);
+
+			$offset            = count( $this->form_fields ) - 1;
+			$this->form_fields = array_merge(
+				array_slice( $this->form_fields, 0, $offset ),
+				$additional_fields,
+				array_slice( $this->form_fields, $offset )
+			);
 		}
 	}
 }

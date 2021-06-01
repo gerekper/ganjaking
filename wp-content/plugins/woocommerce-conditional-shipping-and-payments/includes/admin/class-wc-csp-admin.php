@@ -547,9 +547,7 @@ class WC_CSP_Admin {
 			return;
 		}
 
-		$disable_restrictions = 'yes' === get_option( 'wccsp_restrictions_disable_product', false );
-
-		if ( ! $disable_restrictions ) {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			return;
 		}
 
@@ -559,13 +557,28 @@ class WC_CSP_Admin {
 			return;
 		}
 
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			return;
+		$disable_restrictions = 'yes' === get_option( 'wccsp_restrictions_disable_product', false );
+
+		if ( $disable_restrictions ) {
+
+			$enable_link = sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'admin.php?page=wc-settings&tab=restrictions#wccsp_restrictions_debug-description' ), __( 're-enable product-level restrictions', 'woocommerce-conditional-shipping-and-payments' ) );
+			WC_CSP_Admin_Notices::add_notice( sprintf( __( 'Product restrictions are currently disabled globally. You can still edit, create and delete rules under <strong>Product Data > Restrictions</strong> &ndash; however, they will have no effect until you %s.', 'woocommerce-conditional-shipping-and-payments' ), $enable_link ), 'warning', false );
+
+		} elseif ( 'yes' === get_post_meta( $post_id, '_virtual', true ) ) {
+
+			$has_package_restrictions = false;
+
+			foreach ( $restrictions as $restriction ) {
+				if ( isset( $restriction[ 'restriction_id' ] ) && in_array( $restriction[ 'restriction_id' ], array( 'shipping_methods', 'shipping_countries' ) ) ) {
+					$has_package_restrictions = true;
+					break;
+				}
+			}
+
+			if ( $has_package_restrictions ) {
+				WC_CSP_Admin_Notices::add_notice( __( 'Product restrictions for <strong>Shipping Methods</strong> and <strong>Shipping Destinations</strong> do not work with <strong>Virtual</strong> products. You can still create and edit such restrictions under <strong>Product Data > Restrictions</strong> &ndash; however, they will have no effect when purchasing this product.', 'woocommerce-conditional-shipping-and-payments' ), 'warning', false );
+			}
 		}
-
-		$enable_link = sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'admin.php?page=wc-settings&tab=restrictions#wccsp_restrictions_debug-description' ), __( 're-enable product-level restrictions', 'woocommerce-conditional-shipping-and-payments' ) );
-
-		WC_CSP_Admin_Notices::add_notice( sprintf( __( 'Product restrictions are currently disabled globally. You can still edit, create and delete rules under <strong>Product Data > Restrictions</strong> &ndash; however, they will have no effect until you %s.', 'woocommerce-conditional-shipping-and-payments' ), $enable_link ), 'warning', false );
 	}
 
 	/**

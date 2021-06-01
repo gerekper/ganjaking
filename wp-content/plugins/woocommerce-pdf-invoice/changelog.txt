@@ -1,6 +1,46 @@
 *** WooCommerce PDF Invoice Changelog ***
-2021.01.26 - version 4.10.3
+2021.05.15 - version 4.13.3
+ * Fix System Status enabled emails showing X
+ * Check if Theme Editor is available / available for logged in user
+ * Make sure downloads and emails use the same template file.
+
+2021.05.06 - version 4.13.2
+ * Restrict missing logo admin notice to WC manager
+
+2021.04.18 - version 4.13.1
+ * Fix Uncaught Exception: PDFlib::get_value()
+
+2021.04.17 - version 4.13.0
+ * Version bump
+
+2021.04.01 - version 4.12.1
+ * Optionally store the logo in the invoice meta, allows old invoices to keep the logo used when created
+ * new filter to allow no PDF to be attached based on custom variable pdf_invoice_custom_no_pdf_required
+ * Move PDF Invoice debugging info to WC System Status for ease. 
+ * Rename PDF Debugging tab to Admin functions.
+ * Remove unnecessary logging from zip exporting
+ * If not using sequential invoice numbers then use $order->get_order_number() not $order_id for compatibility with Sequential Order Numbers plugins
+ * Rework PDF download link in order meta box
+ * Add option to set Chroot see https://github.com/dompdf/dompdf/wiki/Usage#security-restrictions-for-local-files
+ * Missing Logo admin notice
+ * WC 5.2
+
+2021.03.18 - version 4.12.0
+ * Fix wc_pdf_invoice_number not saving
+ * Fix invoice date formating
+ * Fix invoice download link in order MetaBox
+ * WC 5.1
+
+2021.03.18 - version 4.11.1
+ * Compatibility with WOOCS - WooCommerce Currency Switcher
+ * PHP 8
+ * New option to override woocommerce_tax_display_cart for showing taxes in order totals section
+ * New filter pdf_invoice_order_item_totals to modify $order->get_order_item_totals() before output
+
+2021.01.29 - version 4.11.0
  * Version bump to correct changelog date
+ * Create PDF template file in theme folder
+ * Link to make customising template easier
 
 2020.01.26 - version 4.10.2
  * Option to fix invoice dates in PDF Invoice -> Debugging tab

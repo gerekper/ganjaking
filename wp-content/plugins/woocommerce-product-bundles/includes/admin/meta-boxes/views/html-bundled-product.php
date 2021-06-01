@@ -20,6 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 		<div class="handle">
 			<?php
+				/* translators: Bundled product SKU */
 				echo $sku ? ( '<small class="item-sku">' . sprintf( _x( 'SKU: %s', 'bundled product sku', 'woocommerce-product-bundles' ), $sku ) . '</small>' ) : '';
 			?>
 			<div class="handle-item toggle-item" aria-label="<?php _e( 'Click to toggle', 'woocommerce' ); ?>"></div>

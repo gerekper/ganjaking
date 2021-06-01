@@ -14,32 +14,48 @@ class WC_Min_Max_Quantities_Admin {
 		$this->settings = array(
 			array( 'name' => __( 'Min/Max Quantities', 'woocommerce-min-max-quantities' ), 'type' => 'title', 'desc' => '', 'id' => 'minmax_quantity_options' ),
 			array(
-				'name' 		=> __( 'Minimum Order Qty', 'woocommerce-min-max-quantities' ),
-				'desc' 		=> __( 'The minimum allowed quantity of items in an order.', 'woocommerce-min-max-quantities' ),
-				'id' 		=> 'woocommerce_minimum_order_quantity',
-				'type' 		=> 'number',
-				'desc_tip'  => true
+				'name'              => __( 'Minimum Order Qty', 'woocommerce-min-max-quantities' ),
+				'desc'              => __( 'The minimum allowed quantity of items in an order.', 'woocommerce-min-max-quantities' ),
+				'id'                => 'woocommerce_minimum_order_quantity',
+				'type'              => 'number',
+				'desc_tip'          => true,
+				'custom_attributes' => array(
+					'min'  => 0,
+					'step' => 1,
+				),
 			),
 			array(
-				'name' 		=> __( 'Maximum Order Qty', 'woocommerce-min-max-quantities' ),
-				'desc' 		=> __( 'The maximum allowed quantity of items in an order.', 'woocommerce-min-max-quantities' ),
-				'id' 		=> 'woocommerce_maximum_order_quantity',
-				'type' 		=> 'number',
-				'desc_tip'  => true
+				'name'              => __( 'Maximum Order Qty', 'woocommerce-min-max-quantities' ),
+				'desc'              => __( 'The maximum allowed quantity of items in an order.', 'woocommerce-min-max-quantities' ),
+				'id'                => 'woocommerce_maximum_order_quantity',
+				'type'              => 'number',
+				'desc_tip'          => true,
+				'custom_attributes' => array(
+					'min'  => 0,
+					'step' => 1,
+				),
 			),
 			array(
-				'name' 		=> __( 'Minimum Order Value', 'woocommerce-min-max-quantities' ),
-				'desc' 		=> __( 'The minimum allowed value of items in an order.', 'woocommerce-min-max-quantities' ),
-				'id' 		=> 'woocommerce_minimum_order_value',
-				'type' 		=> 'number',
-				'desc_tip'  => true
+				'name'              => __( 'Minimum Order Value', 'woocommerce-min-max-quantities' ),
+				'desc'              => __( 'The minimum allowed value of items in an order.', 'woocommerce-min-max-quantities' ),
+				'id'                => 'woocommerce_minimum_order_value',
+				'type'              => 'number',
+				'desc_tip'          => true,
+				'custom_attributes' => array(
+					'min'  => 0,
+					'step' => 1,
+				),
 			),
 			array(
-				'name' 		=> __( 'Maximum Order Value', 'woocommerce-min-max-quantities' ),
-				'desc' 		=> __( 'The maximum allowed value of items in an order.', 'woocommerce-min-max-quantities' ),
-				'id' 		=> 'woocommerce_maximum_order_value',
-				'type' 		=> 'number',
-				'desc_tip'  => true
+				'name'              => __( 'Maximum Order Value', 'woocommerce-min-max-quantities' ),
+				'desc'              => __( 'The maximum allowed value of items in an order.', 'woocommerce-min-max-quantities' ),
+				'id'                => 'woocommerce_maximum_order_value',
+				'type'              => 'number',
+				'desc_tip'          => true,
+				'custom_attributes' => array(
+					'min'  => 0,
+					'step' => 1,
+				),
 			),
 			array( 'type' => 'sectionend', 'id' => 'minmax_quantity_options' ),
 		);
@@ -311,17 +327,17 @@ class WC_Min_Max_Quantities_Admin {
 	<div class="min_max_rules_options" <?php echo $visible; ?>>
 		<p class="form-row form-row-first">
 			<label><?php _e( 'Minimum quantity', 'woocommerce-min-max-quantities' ); ?>
-			<input type="number" size="5" name="variation_minimum_allowed_quantity[<?php echo $loop; ?>]" value="<?php if ( $min_qty ) echo esc_attr( $min_qty ); ?>" /></label>
+			<input type="number" min="0" step="1" size="5" name="variation_minimum_allowed_quantity[<?php echo $loop; ?>]" value="<?php if ( $min_qty ) echo esc_attr( $min_qty ); ?>" /></label>
 		</p>
 
 		<p class="form-row form-row-last">
 			<label><?php _e( 'Maximum quantity', 'woocommerce-min-max-quantities' ); ?>
-			<input type="number" size="5" name="variation_maximum_allowed_quantity[<?php echo $loop; ?>]" value="<?php if ( $max_qty ) echo esc_attr( $max_qty ); ?>" /></label>
+			<input type="number" min="0" step="1" size="5" name="variation_maximum_allowed_quantity[<?php echo $loop; ?>]" value="<?php if ( $max_qty ) echo esc_attr( $max_qty ); ?>" /></label>
 		</p>
 
 		<p class="form-row form-row-first">
 			<label><?php _e( 'Group of...', 'woocommerce-min-max-quantities' ); ?>
-			<input type="number" size="5" name="variation_group_of_quantity[<?php echo $loop; ?>]" value="<?php if ( $group_of ) echo esc_attr( $group_of ); ?>" /></label>
+			<input type="number" min="0" step="1" size="5" name="variation_group_of_quantity[<?php echo $loop; ?>]" value="<?php if ( $group_of ) echo esc_attr( $group_of ); ?>" /></label>
 		</p>
 
 		<p class="form-row form-row-last">
@@ -346,7 +362,7 @@ class WC_Min_Max_Quantities_Admin {
 		?>
 		<div class="form-field">
 			<label><?php _e( 'Group of...', 'woocommerce-min-max-quantities' ); ?></label>
-			<input type="number" size="5" name="group_of_quantity" />
+			<input type="number" min="0" step="1" size="5" name="group_of_quantity" />
 			<p class="description"><?php _e( 'Enter a quantity to only allow products in this category to be purchased in groups of X', 'woocommerce-min-max-quantities' ); ?></p>
 		</div>
 		<?php
@@ -368,7 +384,7 @@ class WC_Min_Max_Quantities_Admin {
 		<tr class="form-field">
 			<th scope="row" valign="top"><label><?php _e( 'Group of...', 'woocommerce-min-max-quantities' ); ?></label></th>
 			<td>
-				<input type="number" size="5" name="group_of_quantity" value="<?php echo $display_type; ?>" />
+				<input type="number" min="0" step="1" size="5" name="group_of_quantity" value="<?php echo $display_type; ?>" />
 				<p class="description"><?php _e( 'Enter a quantity to only allow products in this category to be purchased in groups of X', 'woocommerce-min-max-quantities' ); ?></p>
 			</td>
 		</tr>

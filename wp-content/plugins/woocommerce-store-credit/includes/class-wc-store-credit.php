@@ -27,7 +27,7 @@ final class WC_Store_Credit extends WC_Store_Credit_Singleton {
 	 *
 	 * @var string
 	 */
-	public $version = '3.6.0';
+	public $version = '3.8.0';
 
 	/**
 	 * Constructor.
@@ -106,9 +106,11 @@ final class WC_Store_Credit extends WC_Store_Credit_Singleton {
 	 * @since 3.0.0
 	 */
 	public function frontend_includes() {
+		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-session.php';
 		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-cart.php';
 		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-my-account.php';
 		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-product-addons.php';
+		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-frontend-scripts.php';
 	}
 
 	/**

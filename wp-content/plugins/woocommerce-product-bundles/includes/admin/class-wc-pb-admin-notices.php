@@ -49,9 +49,11 @@ class WC_PB_Admin_Notices {
 	 * @var array
 	 */
 	private static $maintenance_notice_types = array(
-		'update'   => 'update_notice',
-		'welcome'  => 'welcome_notice',
-		'loopback' => 'loopback_notice'
+		'update'                  => 'update_notice',
+		'welcome'                 => 'welcome_notice',
+		'loopback'                => 'loopback_notice',
+		'update_order_item_stats' => 'update_order_item_stats_notice'
+
 	);
 
 	/**
@@ -347,17 +349,20 @@ class WC_PB_Admin_Notices {
 					$prompt = self::get_force_update_prompt();
 				}
 
+				/* translators: Force update prompt */
 				$status = sprintf( __( '<strong>WooCommerce Product Bundles</strong> is updating your database.%s', 'woocommerce-product-bundles' ), $prompt );
 
 			// Show a prompt to update.
 			} elseif ( false === WC_PB_Install::auto_update_enabled() && false === WC_PB_Install::is_update_incomplete() ) {
 
 				$status  = __( '<strong>WooCommerce Product Bundles</strong> has been updated! To keep things running smoothly, your database needs to be updated, as well.', 'woocommerce-product-bundles' );
+				/* translators: Learn more link */
 				$status .= '<br/>' . sprintf( __( 'Before you proceed, please take a few minutes to <a href="%s" target="_blank">learn more</a> about best practices when updating.', 'woocommerce-product-bundles' ), WC_PB()->get_resource_url( 'updating' ) );
 				$status .= self::get_trigger_update_prompt();
 
 			} elseif ( WC_PB_Install::is_update_incomplete() ) {
 
+				/* translators: Failed update prompt */
 				$status = sprintf( __( '<strong>WooCommerce Product Bundles</strong> has not finished updating your database.%s', 'woocommerce-product-bundles' ), self::get_failed_update_prompt() );
 			}
 
@@ -464,6 +469,41 @@ class WC_PB_Admin_Notices {
 	}
 
 	/**
+	 * Adds a notice to migrate order revenue analytics to account for GCs correctly.
+	 *
+	 * @since  6.9.0
+	 */
+	public static function update_order_item_stats_notice() {
+
+		if ( ! method_exists( WC(), 'queue' ) || ! class_exists( 'WC_PB_Admin_Analytics_Sync' ) || ! WC_PB_Core_Compatibility::is_wc_admin_active() ) {
+			return;
+		}
+
+		$screen          = get_current_screen();
+		$screen_id       = $screen ? $screen->id : '';
+		$show_on_screens = array(
+			'dashboard',
+			'plugins'
+		);
+
+		// Notices should only show and get scheduled on the main dashboard, and on the plugins screen.
+		if ( ! in_array( $screen_id, $show_on_screens, true ) ) {
+			return;
+		}
+
+		if ( WC_PB_Admin_Analytics_Sync::is_order_item_stats_update_queued() ) {
+
+			$notice = __( '<strong>WooCommerce Product Bundles</strong> is updating your historical revenue Analytics data. This may take a while, so please be patient!', 'woocommerce-product-bundles' );
+			self::add_notice( $notice, 'info' );
+
+		} else {
+
+			$notice = __( '<strong>WooCommerce Product Bundles</strong> has finished updating your revenue Analytics data!', 'woocommerce-product-bundles' );
+			self::add_notice( $notice, array( 'type' => 'info', 'dismiss_class' => 'update_order_item_stats' ) );
+		}
+	}
+
+	/**
 	 * Returns a "trigger update" notice component.
 	 *
 	 * @since  5.5.0
@@ -493,6 +533,7 @@ class WC_PB_Admin_Notices {
 			// Perhaps the upgrade process failed to start?
 			$fallback_url    = esc_url( wp_nonce_url( add_query_arg( 'force_wc_pb_db_update', true, admin_url() ), 'wc_pb_force_db_update_nonce', '_wc_pb_admin_nonce' ) );
 			$fallback_link   = '<a href="' . $fallback_url . '">' . __( 'run it manually', 'woocommerce-product-bundles' ) . '</a>';
+			/* translators: Run manually link */
 			$fallback_prompt = sprintf( __( ' The process seems to be taking a little longer than usual, so let\'s try to %s.', 'woocommerce-product-bundles' ), $fallback_link );
 		}
 
@@ -510,6 +551,7 @@ class WC_PB_Admin_Notices {
 
 		$support_url    = WC_PB()->get_resource_url( 'ticket-form' );
 		$support_link   = '<a href="' . $support_url . '">' . __( 'get in touch with us', 'woocommerce-product-bundles' ) . '</a>';
+		/* translators: Get in touch link */
 		$support_prompt = sprintf( __( ' If this message persists, please restore your database from a backup, or %s.', 'woocommerce-product-bundles' ), $support_link );
 
 		return $support_prompt;

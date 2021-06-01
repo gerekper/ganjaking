@@ -32,6 +32,12 @@
 			addShowHideClasses: function() {
 				$( '#general_product_data .pricing.show_if_simple' ).addClass( 'show_if_store_credit' );
 				$( '#general_product_data #_tax_status' ).closest( '.show_if_simple' ).addClass( 'show_if_store_credit' );
+
+				$( '#inventory_product_data ._manage_stock_field' ).addClass( 'show_if_store_credit' );
+				$( '#inventory_product_data ._sold_individually_field' )
+					.addClass( 'show_if_store_credit' )
+					.closest( '.options_group' )
+					.addClass( 'show_if_store_credit' );
 			},
 
 			/**

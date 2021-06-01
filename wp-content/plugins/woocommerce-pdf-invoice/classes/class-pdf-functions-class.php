@@ -309,12 +309,15 @@
 				
 			}
 
+			// Get Order
+			$order   = new WC_Order( $order_id );
+
 			// Get the invoice options
 			$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
 			if ( !isset( $settings['sequential'] ) || $settings['sequential'] != 'true' ) {
 				// Sequential order numbering is not needed, just use the order_id.
-				$next_invoice = $order_id;
+				$next_invoice = apply_filters( 'woocommerce_pdf_invoices_get_order_number', $order->get_order_number(), $order );
 			} else {
 				$next_invoice = WC_pdf_functions::get_next_invoice_number();
 			}
@@ -343,33 +346,25 @@
 		 */
 		public static function set_invoice_date( $order_id ) {
 			global $woocommerce;
-			
-			require_once( 'class-pdf-admin-functions.php' );
 
 			$order = new WC_Order( $order_id );
 
 			if ( get_post_meta($order_id, '_invoice_date', TRUE) && get_post_meta($order_id, '_invoice_date', TRUE) != '' ) {
-
-				return WC_pdf_admin_functions::format_pdf_date( get_post_meta( $order_id, '_invoice_date', TRUE ) );
-
+				return get_post_meta( $order_id, '_invoice_date', TRUE );
 			} else {
 
 				// Get the invoice options
-				$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
+				$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
-				if ( $woocommerce_pdf_invoice_options['pdf_date'] == 'completed' ) {
+				if ( $settings['pdf_date'] == 'completed' ) {
 					$invoice_date = $order->get_date_completed();
 				} else {
 					$invoice_date = $order->get_date_created();
 				}
 
-				$invoice_date = wc_format_datetime( $invoice_date );
+				$invoice_date = wc_format_datetime( $invoice_date, $settings['pdf_date_format'] );
 
-				$return = WC_pdf_admin_functions::format_pdf_date( $invoice_date );
-
-				return apply_filters( 'woocommerce_pdf_nvoices_set_invoice_date', $return, $order_id );
-
-				// update_post_meta( $order_id, '_invoice_date', $invoice_date );
+				return apply_filters( 'woocommerce_pdf_nvoices_set_invoice_date', $invoice_date, $order_id );
 
 			}
 
@@ -385,7 +380,7 @@
 			global $woocommerce;
 
 			// Get the invoice options
-			$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
+			$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
 			// Backup Invoice Meta
 			$invoice_meta = array( 
@@ -398,7 +393,9 @@
 					'pdf_registered_name' 		=> WC_pdf_functions::get_pdf_company_field( $order_id, 'pdf_registered_name' ),
 					'pdf_registered_address' 	=> WC_pdf_functions::get_pdf_company_field( $order_id, 'pdf_registered_address' ),
 					'pdf_company_number' 		=> WC_pdf_functions::get_pdf_company_field( $order_id, 'pdf_company_number' ),
-					'pdf_tax_number' 			=> WC_pdf_functions::get_pdf_company_field( $order_id, 'pdf_tax_number' )
+					'pdf_tax_number' 			=> WC_pdf_functions::get_pdf_company_field( $order_id, 'pdf_tax_number' ),
+					'wc_pdf_invoice_number'		=> WC_pdf_functions::set_invoice_number( $order_id ),
+					'pdf_logo_file' 			=> isset( $settings['logo_file'] ) ? $settings['logo_file'] : ''
 			);
 
 			update_post_meta( $order_id, '_invoice_meta', $invoice_meta );
@@ -459,6 +456,8 @@
 				'{invoicedate}' 	=> $invoice_date,
 				'{INVOICEDATE}' 	=> $invoice_date,
 			);
+
+			$replacements = apply_filters( 'woocommerce_pdf_invoice_create_display_invoice_number_replacements', $replacements, $order_id, $invoice_number, $invoice_date );
 			
 			$invoice_prefix = esc_html( $settings['pdf_prefix'] );
 			$invoice_prefix = str_replace( array_keys( $replacements ), $replacements, $invoice_prefix );
@@ -490,9 +489,9 @@
 			global $woocommerce;
 
 			// Get the invoice options
-			$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
+			$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
-			$return = isset( $woocommerce_pdf_invoice_options[$field] ) ? $woocommerce_pdf_invoice_options[$field] : '';
+			$return = isset( $settings[$field] ) ? $settings[$field] : '';
 
 			// set the field for the order
 			// update_post_meta( $order_id, '_'.$field, $return );
@@ -634,7 +633,7 @@
 				
 				// Check the current user ID matches the ID of the user who placed the order
 				if ( $user_id == $current_user->ID ) {
-					echo WC_send_pdf::get_woocommerce_invoice( $order , 'false' );
+					echo WC_send_pdf::get_woocommerce_invoice( $order, NULL, 'false' );
 				}
 			 
 			}
@@ -663,7 +662,7 @@
 				
 				// Check ordernonce and pdfnonce match
 				if ( $ordernonce == $pdfnonce ) {
-					echo WC_send_pdf::get_woocommerce_invoice( $order , 'false' );
+					echo WC_send_pdf::get_woocommerce_invoice( $order, NULL, 'false' );
 				}
 			 
 			}
@@ -681,7 +680,7 @@
 				$orderid = stripslashes( $_GET['pdfid'] );
 				$order   = new WC_Order($orderid);
 
-				echo WC_send_pdf::get_woocommerce_invoice( $order , 'false' );
+				echo WC_send_pdf::get_woocommerce_invoice( $order, NULL, 'false' );
 			 
 			}
 
@@ -783,6 +782,7 @@
 					'_pdf_registered_address',
 					'_pdf_company_number',
 					'_pdf_tax_number',
+					'_pdf_logo_file',
 					'_invoice_meta'
 			);
 
@@ -802,7 +802,8 @@
 					'pdf_registered_name',
 					'pdf_registered_address',
 					'pdf_company_number',
-					'pdf_tax_number'
+					'pdf_tax_number',
+					'pdf_logo_file',
 			);
 
 			return $invoice_meta_fields;
@@ -877,9 +878,7 @@
 						$invoice_date = $order->get_date_created();
 					}
 
-					$invoice_date = wc_format_datetime( $invoice_date );
-
-					$new_date = WC_pdf_admin_functions::format_pdf_date( $invoice_date );
+					$new_date = wc_format_datetime( $invoice_date, $settings['pdf_date_format'] );
 
 					// Update Invoice meta
 					update_post_meta( $order_id, '_invoice_date', $new_date );
@@ -916,7 +915,7 @@
 						die( 'Security check' );
 					}
 
-					$invoice_meta = $this->get_invoice_meta();
+					$invoice_meta = self::get_invoice_meta();
 					foreach( $invoice_meta as $meta ) {
 						delete_post_meta_by_key( $meta );
 					}
@@ -1247,6 +1246,13 @@
 			return $order_meta;
 		}
 
+		/**
+		 * [subscriptions_remove_renewal_order_meta_3 description]
+		 * @param  [type] $order_meta_query [description]
+		 * @param  [type] $to_order         [description]
+		 * @param  [type] $from_order       [description]
+		 * @return [type]                   [description]
+		 */
 		function subscriptions_remove_renewal_order_meta_3( $order_meta_query, $to_order, $from_order ) {
 
 			$order_meta_query .= " AND meta_key NOT IN ( '" . implode( "','", $this->get_invoice_meta() ) . "' )";
@@ -1276,6 +1282,13 @@
 			return $invoice_meta;
 		}
 
+		/**
+		 * [change_invoice_meta description]
+		 * @param  [type] $array   [description]
+		 * @param  [type] $old_key [description]
+		 * @param  [type] $new_key [description]
+		 * @return [type]          [description]
+		 */
 		static function change_invoice_meta( $array, $old_key, $new_key ) {
 
 		    if( ! array_key_exists( $old_key, $array ) )
@@ -1357,7 +1370,7 @@
          * @param  String  $message additional message for log
          * @param  boolean $start   is this the first log entry for this transaction
          */
-        public static function debuger( $tolog = NULL, $id, $message = NULL, $start = FALSE ) {
+        public static function debuger( $tolog = NULL, $id = NULL, $message = NULL, $start = FALSE ) {
 
         	if( !class_exists('WC_Logger') ) {
         		return;

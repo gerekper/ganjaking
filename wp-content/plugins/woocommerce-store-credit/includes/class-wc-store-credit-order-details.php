@@ -348,7 +348,7 @@ class WC_Store_Credit_Order_Details {
 	 * @return bool
 	 */
 	protected function is_total_shipping_row() {
-		$backtrace  = wp_debug_backtrace_summary( 'WP_Hook', 0, false );
+		$backtrace  = wp_debug_backtrace_summary( 'WP_Hook', 0, false ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_wp_debug_backtrace_summary
 		$save_index = array_search( 'WC_Abstract_Order->get_shipping_to_display', $backtrace, true );
 
 		return ( false !== $save_index && 'WC_Abstract_Order->add_order_item_totals_shipping_row' === $backtrace[ $save_index + 1 ] );

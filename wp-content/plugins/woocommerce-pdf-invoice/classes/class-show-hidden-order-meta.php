@@ -23,7 +23,7 @@ if( !class_exists( 'PDF_Hidden_Order_Meta' ) ) {
 	     * @return [type]            [description]
 	     */
 		function hidden_meta( $post_type,$post ) {
-			if( $post_type === 'shop_order' ) {
+			if( isset( $post_type ) && $post_type === 'shop_order' ) {
 				add_meta_box( 'woocommerce-hidden-order-meta', __('Order Meta', 'woocommerce-pdf-invoice'), array( $this,'woocommerce_hidden_order_meta_box' ), 'shop_order', 'advanced', 'low');
 			}
 		}
@@ -65,6 +65,6 @@ if( !class_exists( 'PDF_Hidden_Order_Meta' ) ) {
 
 	}
 
-	$GLOBALS['PDF_Hidden_Order_Meta'] = new PDF_Hidden_Order_Meta();
+	// $GLOBALS['PDF_Hidden_Order_Meta'] = new PDF_Hidden_Order_Meta();
 
 }

@@ -68,9 +68,10 @@ class WC_PB_BS_Admin {
 							}
 						}
 					?>
-				</select> <?php 
+				</select> <?php
 
 					$supported_product_types_disclaimer = class_exists( 'WC_Subscriptions' ) ? __( 'Supported product types: Simple, Simple subscription.', 'woocommerce-product-bundles' ) : __( 'Supports Simple products only.', 'woocommerce-product-bundles' );
+					/* translators: Additional notice details */
 					echo wc_help_tip( sprintf( __( 'Bundle-sells are optional products that can be selected and added to the cart along with this product. %s', 'woocommerce-product-bundles' ), $supported_product_types_disclaimer ) );
 				?>
 				<span class="bundle-sells-search-description"><?php echo class_exists( 'WC_Subscriptions' ) ? __( 'Supported product types: Simple, Simple subscription.', 'woocommerce-product-bundles' ) : __( 'Supports Simple products only.', 'woocommerce-product-bundles' ); ?></span>

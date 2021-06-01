@@ -1,5 +1,10 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2021.05.27 - version 1.9.5
+* Fix - Prevent debug option notices from rendering in other settings pages/sections.
+* Fix - Keep 'Save' button visible when after removing all global restrictions.
+* Tweak - Prevent product-level 'Shipping Methods' and 'Shipping Destination' restrictions from being saved with Virtual products.
+
 2021.05.07 - version 1.9.4
 * Feature - Support wildcards in the Coupon Code condition.
 

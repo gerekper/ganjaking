@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle order-related functions and filters.
  *
  * @class    WC_PB_Order
- * @version  6.4.0
+ * @version  6.9.0
  */
 class WC_PB_Order {
 
@@ -1050,7 +1050,7 @@ class WC_PB_Order {
 
 					$order_item->add_meta_data( '_bundled_item_priced_individually', $bundled_item->is_priced_individually() ? 'yes' : 'no', true );
 
-					if ( WC_Product_Bundle::group_mode_has( $bundle->get_group_mode(), 'child_item_meta' ) ) {
+					if ( WC_Product_Bundle::group_mode_has( $bundle->get_group_mode(), 'child_item_meta' ) || WC_Product_Bundle::group_mode_has( $bundle->get_group_mode(), 'child_order_item_meta' ) ) {
 						$order_item->add_meta_data( __( 'Part of', 'woocommerce-product-bundles' ), $bundle->get_title(), true );
 					}
 				}

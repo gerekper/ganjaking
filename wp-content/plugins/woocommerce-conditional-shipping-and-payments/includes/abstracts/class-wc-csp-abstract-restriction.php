@@ -168,7 +168,7 @@ class WC_CSP_Restriction extends WC_Settings_API {
 					<?php echo __( 'And', 'woocommerce-conditional-shipping-and-payments' ); ?>
 				</div>
 
-				<p class="toolbar">
+				<p class="toolbar toolbar--top">
 					<select style="display:none;" name="_restriction_type" class="restriction_type">
 						<?php
 						echo '<option value="' . $this->id . '"></option>';

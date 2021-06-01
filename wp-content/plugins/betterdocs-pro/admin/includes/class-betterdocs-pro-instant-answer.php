@@ -38,8 +38,14 @@ class BetterDocs_Pro_IA {
         add_action('wp_enqueue_scripts', array($this, 'scripts'));
         add_action('admin_enqueue_scripts', array($this, 'scripts'));
         add_filter('betterdocs_settings_tab', array($this, 'settings'));
-        add_action('wp_footer', array($this, 'add_ia_icon'));
-        add_action('admin_footer', array($this, 'add_admin_ia_icon'));
+        $ia = BetterDocs_DB::get_settings('enable_disable');
+        $ia_preview = BetterDocs_DB::get_settings('ia_enable_preview');
+        if($ia == 1) {
+            add_action('wp_footer', array($this, 'add_ia_icon'));
+        }
+        if($ia_preview == 1) {
+            add_action('admin_footer', array($this, 'add_admin_ia_icon'));
+        }
     }
 
     public function scripts( $hook ) {

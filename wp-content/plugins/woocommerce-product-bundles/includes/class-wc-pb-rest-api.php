@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add custom REST API fields.
  *
  * @class    WC_PB_REST_API
- * @version  6.6.0
+ * @version  6.9.0
  */
 class WC_PB_REST_API {
 
@@ -492,6 +492,7 @@ class WC_PB_REST_API {
 							$action = 'update';
 
 							if ( ! $product->has_bundled_item( $bundled_item_id ) ) {
+								/* translators: Bundled item ID */
 								throw new WC_REST_Exception( 'woocommerce_rest_invalid_bundled_item_id', sprintf( __( 'Bundled item ID #%s does not exist in bundle.', 'woocommerce-product-bundles' ), $bundled_item_id ), 400 );
 							}
 
@@ -516,6 +517,7 @@ class WC_PB_REST_API {
 
 						// Ensure product exists when updating/creating.
 						if ( false === $bundled_product ) {
+							/* translators: Product ID */
 							throw new WC_REST_Exception( 'woocommerce_rest_invalid_bundled_product_id', sprintf( __( 'Product ID #%s is invalid.', 'woocommerce-product-bundles' ), $bundled_product_id ), 400 );
 						}
 
@@ -678,7 +680,7 @@ class WC_PB_REST_API {
 				$value = array();
 
 				if ( 'bundle' !== $product_type ) {
-					$bundle_ids = array_values( wc_pb_get_bundled_product_map( $product_id ) );
+					$bundle_ids = array_values( wc_pb_get_bundled_product_map( $product_id, false ) );
 					$value      = ! empty( $bundle_ids ) ? $bundle_ids : array();
 				}
 

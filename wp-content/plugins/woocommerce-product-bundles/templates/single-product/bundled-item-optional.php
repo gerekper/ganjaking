@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?><label class="bundled_product_optional_checkbox">
 	<input class="bundled_product_checkbox" type="checkbox" name="<?php echo $bundle_fields_prefix; ?>bundle_selected_optional_<?php echo $bundled_item->get_id(); ?>" value="" <?php checked( $bundled_item->is_optional_checked() && $bundled_item->is_in_stock(), true ); echo $bundled_item->is_in_stock() ? '' : 'disabled="disabled"' ; ?> /> <?php
+	/* translators: %1$s: Product title %, %2$s: Product price, %3$s: Deprecated */
 	echo sprintf( __( 'Add%1$s%2$s%3$s', 'woocommerce-product-bundles' ), $label_title, $label_price, '' );
 ?></label><?php
 

@@ -543,6 +543,7 @@ class WC_PB_Cart {
 
 							if ( $missing_contents ) {
 
+								/* translators: %1$s: Product title */
 								$notice = sprintf( __( '&quot;%1$s&quot; cannot be purchased &ndash; some of its contents are missing from your cart.', 'woocommerce-product-bundles' ), $product_title );
 
 								throw new Exception( $notice );
@@ -561,11 +562,14 @@ class WC_PB_Cart {
 
 						if ( $item_quantity < $item_quantity_min ) {
 
+							/* translators: %1$s: Bundled product title, %2$s: Bundled item min quantity */
 							$reason = sprintf( __( 'The quantity of &quot;%1$s&quot; cannot be lower than %2$d.', 'woocommerce-product-bundles' ), $bundled_item->get_raw_title(), $item_quantity_min );
 
 							if ( 'add-to-cart' === $context ) {
+							/* translators: %1$s: Product name, %2$s: Reason */
 								$notice = sprintf( __( '&quot;%1$s&quot; cannot be added to your cart. %2$s', 'woocommerce-product-bundles' ), $product_title, $reason );
 							} elseif ( 'cart' === $context ) {
+								/* translators: %1$s: Product name, %2$s: Reason */
 								$notice = sprintf( __( '&quot;%1$s&quot; cannot be purchased. %2$s', 'woocommerce-product-bundles' ), $product_title, $reason );
 							} else {
 								$notice = $reason;
@@ -575,11 +579,14 @@ class WC_PB_Cart {
 
 						} elseif ( $item_quantity_max && $item_quantity > $item_quantity_max ) {
 
+							/* translators: %1$s: Bundled product title, %2$s: Bundled item max quantity */
 							$reason = sprintf( __( 'The quantity of &quot;%1$s&quot; cannot be higher than %2$d.', 'woocommerce-product-bundles' ), $bundled_item->get_raw_title(), $item_quantity_max );
 
 							if ( 'add-to-cart' === $context ) {
+								/* translators: %1$s: Product name, %2$s: Reason */
 								$notice = sprintf( __( '&quot;%1$s&quot; cannot be added to your cart. %2$s', 'woocommerce-product-bundles' ), $product_title, $reason );
 							} elseif ( 'cart' === $context ) {
+								/* translators: %1$s: Product name, %2$s: Reason */
 								$notice = sprintf( __( '&quot;%1$s&quot; cannot be purchased. %2$s', 'woocommerce-product-bundles' ), $product_title, $reason );
 							} else {
 								$notice = $reason;
@@ -598,9 +605,11 @@ class WC_PB_Cart {
 						// Purchasable?
 						if ( false === $bundled_item->is_purchasable() ) {
 
+							/* translators: Product title */
 							$reason = sprintf( __( '&quot;%s&quot; cannot be purchased.', 'woocommerce-product-bundles' ), $bundled_item->get_raw_title() );
 
 							if ( 'add-to-cart' === $context ) {
+								/* translators: %1$s: Product name, %2$s: Reason */
 								$notice = sprintf( __( '&quot;%1$s&quot; cannot be added to your cart. %2$s', 'woocommerce-product-bundles' ), $product_title, $reason );
 							} else {
 								$notice = $reason;
@@ -622,14 +631,18 @@ class WC_PB_Cart {
 								if ( $is_variation_excluded || $bundled_variation->get_parent_id() !== absint( $bundled_product_id ) || false === $bundled_variation->is_purchasable() ) {
 
 									if ( 'add-to-cart' === $context ) {
+										/* translators: Product title */
 										$reason = sprintf( __( 'The chosen &quot;%s&quot; variation cannot be purchased.', 'woocommerce-product-bundles' ), $bundled_item->get_raw_title() );
 									} else {
+										/* translators: Product title */
 										$reason = sprintf( __( 'The chosen &quot;%s&quot; variation is unavailable.', 'woocommerce-product-bundles' ), $bundled_item->get_raw_title() );
 									}
 
 									if ( 'add-to-cart' === $context ) {
+										/* translators: %1$s: Product name, %2$s: Reason */
 										$notice = sprintf( __( '&quot;%1$s&quot; cannot be added to your cart. %2$s', 'woocommerce-product-bundles' ), $product_title, $reason );
 									} elseif ( 'cart' === $context ) {
+										/* translators: %1$s: Product name, %2$s: Reason */
 										$notice = sprintf( __( '&quot;%1$s&quot; cannot be purchased. %2$s', 'woocommerce-product-bundles' ), $product_title, $reason );
 									} else {
 										$notice = $reason;
@@ -686,11 +699,14 @@ class WC_PB_Cart {
 							if ( ! $all_set ) {
 
 								if ( $missing_attributes ) {
+									/* translators: %1$s: Field name, Product title */
 									$reason = sprintf( _n( '%1$s is a required &quot;%2$s&quot; field.', '%1$s are required &quot;%2$s&quot; fields.', sizeof( $missing_attributes ), 'woocommerce-product-bundles' ), wc_format_list_of_items( $missing_attributes ), $bundled_item->get_raw_title() );
 								} else {
 									if ( 'add-to-cart' === $context ) {
+										/* translators: %1$s: Bundled product name */
 										$reason = sprintf( __( 'Please choose &quot;%s&quot; options&hellip;', 'woocommerce-product-bundles' ), $bundled_item->get_raw_title() );
 									} else {
+										/* translators: %1$s: Bundled product name */
 										$reason = sprintf( __( '&quot;%s&quot; is missing some required options.', 'woocommerce-product-bundles' ), $bundled_item->get_raw_title() );
 									}
 								}
@@ -1216,19 +1232,22 @@ class WC_PB_Cart {
 
 			if ( $quantity % $parent_quantity != 0 ) {
 
-				wc_add_notice( sprintf( __( 'Cart update failed. The quantity of &quot;%s&quot; must be a multiple of %d.', 'woocommerce-product-bundles' ), $cart_item[ 'data' ]->get_title(), $parent_quantity ), 'error' );
+				/* translators: %1$s: Bundled product name, %2$s: Integer */
+				wc_add_notice( sprintf( __( 'Cart update failed. The quantity of &quot;%1$s&quot; must be a multiple of %2$d.', 'woocommerce-product-bundles' ), $cart_item[ 'data' ]->get_title(), $parent_quantity ), 'error' );
 				return false;
 
 			} elseif ( $quantity < $min_quantity ) {
 
 				if ( $quantity > 0 || ( intval( $quantity ) === 0 && false === $bundled_item->is_optional() ) ) {
-					wc_add_notice( sprintf( __( 'Cart update failed. The quantity of &quot;%s&quot; must be at least %d.', 'woocommerce-product-bundles' ), $cart_item[ 'data' ]->get_title(), $min_quantity ), 'error' );
+					/* translators: %1$s: Bundled product name, %2$s: Integer */
+					wc_add_notice( sprintf( __( 'Cart update failed. The quantity of &quot;%1$s&quot; must be at least %2$d.', 'woocommerce-product-bundles' ), $cart_item[ 'data' ]->get_title(), $min_quantity ), 'error' );
 					return false;
 				}
 
 			} elseif ( $max_quantity && $quantity > $max_quantity ) {
 
-				wc_add_notice( sprintf( __( 'Cart update failed. The quantity of &quot;%s&quot; cannot be higher than %d.', 'woocommerce-product-bundles' ), $cart_item[ 'data' ]->get_title(), $max_quantity ), 'error' );
+				/* translators: %1$s: Bundled product name, %2$s: Integer */
+				wc_add_notice( sprintf( __( 'Cart update failed. The quantity of &quot;%1$s&quot; cannot be higher than %2$d.', 'woocommerce-product-bundles' ), $cart_item[ 'data' ]->get_title(), $max_quantity ), 'error' );
 				return false;
 
 			} else {
@@ -1326,9 +1345,17 @@ class WC_PB_Cart {
 				if ( false === WC_PB_Core_Compatibility::is_wc_version_gte( '3.5' ) && false === $updating_bundle_in_cart && ( $product = wc_get_product( $product_id ) ) && $product->is_type( 'bundle' ) && $product->is_sold_individually() ) {
 					foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 						if ( $product_id === $cart_item[ 'product_id' ] && 'product' === $product->get_sold_individually_context() ) {
-							throw new Exception( sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', wc_get_cart_url(), __( 'View Cart', 'woocommerce' ), sprintf( __( 'You cannot add another &quot;%s&quot; to your cart.', 'woocommerce-product-bundles' ), $product->get_title() ) ) );
+							/* translators: Product title */
+							$ex_msg           = sprintf( __( 'You cannot add another &quot;%s&quot; to your cart.', 'woocommerce-product-bundles' ), $product->get_title() );
+							$view_cart_string = __( 'View Cart', 'woocommerce' );
+							/* translators: %1$s: URL, %2$s: View cart text, %3$s: Message */
+							throw new Exception( sprintf( '<a href="%1$s" class="button wc-forward">%2$s</a> %3$s', wc_get_cart_url(), $view_cart_string, $ex_msg ) );
 						} elseif ( wc_pb_is_bundle_container_cart_item( $cart_item ) && $configuration === $cart_item[ 'stamp' ] ) {
-							throw new Exception( sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', wc_get_cart_url(), __( 'View Cart', 'woocommerce' ), sprintf( __( 'You have already added an identical &quot;%s&quot; to your cart. You cannot add another one.', 'woocommerce-product-bundles' ), $product->get_title() ) ) );
+							/* translators: Product title */
+							$ex_msg           = sprintf( __( 'You have already added an identical &quot;%s&quot; to your cart. You cannot add another one.', 'woocommerce-product-bundles' ), $product->get_title() );
+							$view_cart_string = __( 'View Cart', 'woocommerce' );
+							/* translators: %1$s: URL, %2$s: View cart text, %3$s: Message */
+							throw new Exception( sprintf( '<a href="%1$s" class="button wc-forward">%2$s</a> %3$s', wc_get_cart_url(), $view_cart_string, $ex_msg ) );
 						}
 					}
 				}
@@ -1371,6 +1398,7 @@ class WC_PB_Cart {
 			$bundle = WC()->cart->cart_contents[ $bundle_cart_key ][ 'data' ];
 
 			if ( empty( $cart_item_data[ 'stamp' ] ) ) {
+				/* translators: Bundled product name */
 				throw new Exception( sprintf( __( 'The requested configuration of &quot;%s&quot; cannot be purchased at the moment.', 'woocommerce-product-bundles' ), $bundle->get_title() ) );
 				return false;
 			}

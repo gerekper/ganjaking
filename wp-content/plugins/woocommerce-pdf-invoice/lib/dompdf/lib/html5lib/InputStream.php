@@ -91,7 +91,7 @@ class WooCommercePDFInvoice_HTML5_InputStream {
         characters is a parse error. */
         for ($i = 0, $count = substr_count($data, "\0"); $i < $count; $i++) {
             $this->errors[] = [
-                'type' => WooCommercePDFInvoice_HTML5_Tokenizer::PARSEERROR,
+                'type' => HTML5_Tokenizer::PARSEERROR,
                 'data' => 'null-character'
             ];
         }
@@ -147,7 +147,7 @@ class WooCommercePDFInvoice_HTML5_InputStream {
             );
             for ($i = 0; $i < $count; $i++) {
                 $this->errors[] = [
-                    'type' => WooCommercePDFInvoice_HTML5_Tokenizer::PARSEERROR,
+                    'type' => HTML5_Tokenizer::PARSEERROR,
                     'data' => 'invalid-codepoint'
                 ];
             }

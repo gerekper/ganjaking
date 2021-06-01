@@ -33,8 +33,9 @@ class WC_PB_NYP_Compatibility {
 
 		// Support for NYP.
 		add_action( 'woocommerce_bundled_product_add_to_cart', array( __CLASS__, 'nyp_price_input_support' ), 9, 2 );
+		add_action( 'woocommerce_bundled_single_variation', array( __CLASS__, 'nyp_price_input_support_variable' ), 12, 2 );
 
-		if( version_compare( WC_Name_Your_Price()->version, '3.0', '>=' ) ) {
+		if ( version_compare( WC_Name_Your_Price()->version, '3.0', '>=' ) ) {
 			add_filter( 'wc_nyp_field_suffix', array( __CLASS__, 'nyp_cart_suffix' ), 10, 2 );
 		} else {
 			add_filter( 'nyp_field_prefix', array( __CLASS__, 'nyp_cart_suffix' ), 10, 2 );
@@ -76,7 +77,7 @@ class WC_PB_NYP_Compatibility {
 
 			self::$nyp_suffix = $item->get_id();
 
-			if( $item->is_optional() || ! $item->get_quantity( 'min' ) ) {
+			if ( $item->is_optional() || ! $item->get_quantity( 'min' ) ) {
 				add_filter( 'wc_nyp_data_attributes', array( __CLASS__, 'nyp_data_attributes' ) );
 			}
 
@@ -86,6 +87,32 @@ class WC_PB_NYP_Compatibility {
 
 			self::$nyp_suffix = '';
 		}
+	}
+
+	/**
+	 * Support for bundled variable item NYP.
+	 *
+	 * @param  int              $product_id
+	 * @param  WC_Bundled_Item  $item
+	 * @return void
+	 */
+	public static function nyp_price_input_support_variable( $product_id, $item ) {
+
+		self::$nyp_suffix = $item->get_id();
+
+		if ( $item->is_optional() || ! $item->get_quantity( 'min' ) ) {
+			add_filter( 'wc_nyp_data_attributes', array( __CLASS__, 'nyp_data_attributes' ) );
+		}
+
+		add_filter( 'wc_nyp_force_display_price_input', '__return_true' );
+
+		WC_Name_Your_Price()->display->display_price_input( $product_id, self::nyp_cart_suffix( false, $product_id ) );
+
+		remove_filter( 'wc_nyp_force_display_price_input', '__return_true' );
+
+		remove_filter( 'wc_nyp_data_attributes', array( __CLASS__, 'nyp_data_attributes' ) );
+
+		self::$nyp_suffix = '';
 	}
 
 	/**

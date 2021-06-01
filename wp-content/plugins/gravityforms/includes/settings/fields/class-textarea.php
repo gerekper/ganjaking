@@ -3,6 +3,7 @@
 namespace Gravity_Forms\Gravity_Forms\Settings\Fields;
 
 use Gravity_Forms\Gravity_Forms\Settings\Fields;
+use GFCommon;
 
 defined( 'ABSPATH' ) || die();
 
@@ -149,44 +150,66 @@ class Textarea extends Base {
 	 * @param string $value Posted field value.
 	 */
 	public function do_validation( $value ) {
-
 		// If field is required and value is missing, set field error.
 		if ( $this->required && rgblank( $value ) ) {
 			$this->set_error( rgobj( $this, 'error_message' ) );
 		}
 
-		if ( $this->use_editor || $this->allow_html ) {
+		$sanitized_value = $this->get_sanitized_value( $value );
+
+		// If posted and sanitized values match, we're done here.
+		if ( $value === $sanitized_value ) {
 			return;
 		}
 
-		// Sanitize posted value.
-		$sanitized_value = sanitize_textarea_field( $value );
+		// Failed validation. Prepare field error.
+		$message = sprintf(
+			"%s <a href='javascript:void(0);' onclick='%s' data-safe='%s'>%s</a>",
+			esc_html__( 'The text you have entered is not valid. For security reasons, some characters are not allowed. ', 'gravityforms' ),
+			$this->get_validation_correction_script(),
+			htmlspecialchars( $sanitized_value, ENT_QUOTES ),
+			esc_html__( 'Fix it', 'gravityforms' )
+		);
 
-		// If posted and sanitized values do not match, add field error.
-		if ( $value !== $sanitized_value ) {
+		// Set field error.
+		$this->set_error( $message );
+	}
 
-			// Prepare correction script.
-			$double_encoded_safe_value = htmlspecialchars( htmlspecialchars( $sanitized_value, ENT_QUOTES ), ENT_QUOTES );
-			$script                    = sprintf(
-				'jQuery("textarea[name=\"%s_%s\"]").val(jQuery(this).data("safe"));',
-				$this->settings->get_input_name_prefix(),
-				$this->name
-			);
+	/**
+	 * Gets the sanitized value of the user input.
+	 *
+	 * Textarea fields must explicitly opt in to allowing HTML, either by indicating the editor type or by passing the
+	 * allow_html setting. In those cases, we run the content through wp_kses based on user permissions (users with
+	 * the unfiltered_html capability can enter in raw html).
+	 *
+	 * By default, HTML is not allowed, so we simply sanitize the field, even if the user has permission to include
+	 * unfiltered html.
+	 *
+	 * @since 2.5.2
+	 *
+	 * @param string $value The input value to sanitized.
+	 *
+	 * @return string
+	 */
+	private function get_sanitized_value( $value ) {
+		return ( $this->use_editor || $this->allow_html ) ? GFCommon::maybe_wp_kses( $value ) : sanitize_textarea_field( $value );
+	}
 
-			// Prepare message.
-			$message = sprintf(
-				"%s <a href='javascript:void(0);' onclick='%s' data-safe='%s'>%s</a>",
-				esc_html__( 'The text you have entered is not valid. For security reasons, some characters are not allowed. ', 'gravityforms' ),
-				htmlspecialchars( $script, ENT_QUOTES ),
-				$double_encoded_safe_value,
-				esc_html__( 'Fix it', 'gravityforms' )
-			);
+	/**
+	 * Get the correction script for the field.
+	 *
+	 * @since 2.5.2
+	 *
+	 * @return string
+	 */
+	protected function get_validation_correction_script() {
+		$script = sprintf(
+			'jQuery("textarea[name=\"%s_%s\"]").val(jQuery(this).data("safe"));',
+			$this->settings->get_input_name_prefix(),
+			$this->name
+		);
 
-			// Set field error.
-			$this->set_error( $message );
-
-		}
-
+		return htmlspecialchars( $script, ENT_QUOTES );
 	}
 
 }

@@ -14,12 +14,13 @@
 		return false;
 	}
 
-	var select_width = window.innerWidth >= 1280 ? '50%' : '80%';
+	var select_width = ( window.innerWidth >= 1280 ? '50%' : '80%' );
 
 	function load_category_select( category_id ) {
 		$.post( wc_instagram_admin_meta_boxes_product_params.ajax_url, {
-			action: 'refresh_google_product_category_metabox_field',
+			action: 'wc_instagram_refresh_google_product_category_metabox_field',
 			_wpnonce: wc_instagram_admin_meta_boxes_product_params.nonce,
+			post_id: wc_instagram_admin_meta_boxes_product_params.post_id,
 			category_id: category_id
 		})
 		.done( function( result ) {
@@ -35,7 +36,7 @@
 	}
 
 	function initGoogleProductCategorySelect() {
-		$( '#wc-instagram-google-product-categories-block select:not(.select2-hidden-accessible)' ).select2({ width: select_width });
+		$( '#wc-instagram-google-product-categories-block select:not(.select2-hidden-accessible)' ).selectWoo({ width: select_width });
 	}
 
 	$( function() {

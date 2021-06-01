@@ -98,8 +98,10 @@ function wc_pb_template_add_to_cart_wrap( $product ) {
 
 		// Give store owners a reason.
 		if ( defined( 'WC_PB_UPDATING' ) ) {
+			/* translators: Ticket form URL  */
 			$purchasable_notice_reason .= sprintf( __( 'The Product Bundles database is updating in the background. During this time, all bundles on your site will be unavailable. If this message persists, please <a href="%s" target="_blank">get in touch</a> with our support team. Note: This message is visible to store managers only.', 'woocommerce-product-bundles' ), WC_PB()->get_resource_url( 'ticket-form' ) );
 		} elseif ( false === $product->contains( 'priced_individually' ) && '' === $product->get_price() ) {
+			/* translators: %1$s: Product title %, %2$s: Pricing options doc URL */
 			$purchasable_notice_reason .= sprintf( __( '&quot;%1$s&quot; is not purchasable just yet. But, fear not &ndash; setting up <a href="%2$s" target="_blank">pricing options</a> only takes a minute! <ul class="pb_notice_list"><li>To give &quot;%1$s&quot; a static base price, navigate to <strong>Product Data > General</strong> and fill in the <strong>Regular Price</strong> field.</li><li>To preserve the prices and taxes of individual bundled products, go to <strong>Product Data > Bundled Products</strong> and enable <strong>Priced Individually</strong> for each bundled product whose price must be preserved.</li></ul>Note: This message is visible to store managers only.', 'woocommerce-product-bundles' ), $product->get_title(), WC_PB()->get_resource_url( 'pricing-options' ) );
 		} elseif ( $product->contains( 'non_purchasable' ) ) {
 			$purchasable_notice_reason .= __( 'Please make sure that all products contained in this bundle have a price. WooCommerce does not allow products with a blank price to be purchased. Note: This message is visible to store managers only.', 'woocommerce-product-bundles' );
@@ -429,10 +431,12 @@ function wc_pb_template_bundled_item_product_details( $bundled_item, $bundle ) {
 
 			if ( ( $price_html = $bundled_item->product->get_price_html() ) && $bundled_item->is_priced_individually() ) {
 
+				/* translators: Product price */
 				$label_price_format = __( ' for %s', 'woocommerce-product-bundles' );
 				$html_from_text_native = wc_get_price_html_from_text();
 
 				if ( false !== strpos( $price_html, $html_from_text_native ) ) {
+					/* translators: Product price */
 					$label_price_format = __( ' from %s', 'woocommerce-product-bundles' );
 					$price_html  = str_replace( $html_from_text_native, '', $price_html );
 				}
@@ -447,6 +451,7 @@ function wc_pb_template_bundled_item_product_details( $bundled_item, $bundle ) {
 				$min_quantity = $bundled_item->get_quantity( 'min' );
 				$max_quantity = $bundled_item->get_quantity( 'max' );
 				$label_suffix = $min_quantity > 1 && $max_quantity === $min_quantity ? $min_quantity : '';
+				/* translators: Product title */
 				$label_title  = sprintf( __( ' &quot;%s&quot;', 'woocommerce-product-bundles' ), WC_PB_Helpers::format_product_shop_title( $bundled_item->get_raw_title(), $label_suffix ) );
 			}
 

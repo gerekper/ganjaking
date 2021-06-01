@@ -29,7 +29,6 @@
  */
 class Betterdocs_Pro
 {
-
 	public $multiple_kb = '';
 
 	/**
@@ -104,7 +103,6 @@ class Betterdocs_Pro
 	 */
 	private function load_dependencies()
 	{
-
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
@@ -190,9 +188,7 @@ class Betterdocs_Pro
 	 */
 	private function define_admin_hooks()
 	{
-
 		$plugin_admin = new Betterdocs_Pro_Admin($this->get_plugin_name(), $this->get_version());
-
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 		$this->loader->add_action('betterdocs_listing_header', $plugin_admin, 'header_template');
@@ -212,11 +208,8 @@ class Betterdocs_Pro
 	 */
 	private function define_public_hooks()
 	{
-
 		$plugin_public = new Betterdocs_Pro_Public($this->get_plugin_name(), $this->get_version());
-
-		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
-		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'load_assets');
 	}
 
 	/**
@@ -265,7 +258,6 @@ class Betterdocs_Pro
 
 	public static function get_multiple_kb()
 	{
-
 		$get_multiple_kb = BetterDocs_DB::get_settings('multiple_kb');
 		$multiple_kb = apply_filters('betterdocs_get_multiple_kb', $get_multiple_kb);
 		return $multiple_kb;

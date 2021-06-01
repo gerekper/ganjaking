@@ -172,7 +172,7 @@
 		},
 
 		initGoogleProductCategorySelects: function( ) {
-			$( '.wc-instagram-gpc-select:not(.select2-hidden-accessible)' ).select2( { width: 'auto' } );
+			$( '.wc-instagram-gpc-select:not(.select2-hidden-accessible)' ).selectWoo( { width: 'auto' } );
 		},
 
 		updateHiddenInput: function ( category_id ) {
@@ -199,7 +199,7 @@
 			this.updateHiddenInput( category_id );
 
 			$.post( window.wc_instagram_product_catalog_params.ajax_url, {
-				action: 'refresh_google_product_category_field',
+				action: 'wc_instagram_refresh_google_product_category_field',
 				_wpnonce: window.wc_instagram_product_catalog_params.nonce,
 				catalog_id: window.wc_instagram_product_catalog_params.catalog_id,
 				category_id: category_id

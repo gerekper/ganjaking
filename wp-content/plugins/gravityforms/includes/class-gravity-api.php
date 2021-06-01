@@ -252,7 +252,7 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 		}
 
 		public function is_site_registered() {
-		return true;
+			return $this->get_site_key() && $this->get_site_secret();
 		}
 
 	}

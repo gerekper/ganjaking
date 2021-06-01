@@ -74,19 +74,51 @@ table#gaddon-results-summary td.gaddon-results-summary-data {
 
 
 /*-------------*/
-
 #gresults-results {
-    margin-right:300px;
-    min-height:460px;;
+    margin-right: 300px;
+}
+
+.gform-admin .gresults-filter-loading .gform-spinner {
+    display: inline-block;
+}
+
+.gf-results .gf-result-box {
+    background: #fff;
+    border-radius: 3px;
+    border: 1px solid #e3e6ef;
+    box-shadow: 0 1px 4px rgb(18 25 97 / 8%);
+    padding: 1.562rem 1rem;
+}
+
+.gf-results .gf-result-box {
+    margin-right: 0;
+    margin-bottom: 1.25rem;
+}
+
+.gf-results .gf-result-box__primary {
+    display: flex;
+}
+
+@media screen and ( min-width: 782px ) {
+    .gf-results {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.25rem;
+    }
+
+    .gf-results .gf-result-box {
+        flex: 1 1 0px;
+        margin-right: 1.25rem;
+        margin-bottom: 0;
+    }
+
+    .gf-results .gf-result-box:last-child {
+        margin-right: 0;
+    }
 }
 
 .gresults-results-field {
     margin-bottom:20px;
-}
-
-.gresults-results-field-label {
-    font-size: 1.2em;
-    padding: 0 0 14px;
 }
 
 .gresults-results-field table{
@@ -146,6 +178,10 @@ td.gresults-rank-field-rank{
 #gresults-results-filter label {
     margin-top:10px;
     display:block;
+}
+
+#gresults-results-filter-content #gform-no-filters {
+    color: #242748;
 }
 
 .gresults-remove,

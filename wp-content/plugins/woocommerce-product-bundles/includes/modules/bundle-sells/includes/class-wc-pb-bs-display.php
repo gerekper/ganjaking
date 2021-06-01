@@ -226,7 +226,8 @@ class WC_PB_BS_Display {
 				 * @param  array   $parent_item
 				 * @param  string  $parent_item_name
 				 */
-				$bundle_sell_discount = apply_filters( 'wc_pb_bundle_sell_discount_cart_item_meta_value', sprintf( _x( '%s&#37; (applied by %2$s)', 'bundle-sell discount', 'woocommerce-product-bundles' ), round( ( float ) $cart_item[ 'bundle_sell_discount' ], 1 ), $parent_item_name ), $cart_item, $parent_item, $parent_item_name );
+				/* translators: %1$s: Discount %, %2$s: Product title */
+				$bundle_sell_discount = apply_filters( 'wc_pb_bundle_sell_discount_cart_item_meta_value', sprintf( _x( '%1$s&#37; (applied by %2$s)', 'bundle-sell discount', 'woocommerce-product-bundles' ), round( ( float ) $cart_item[ 'bundle_sell_discount' ], 1 ), $parent_item_name ), $cart_item, $parent_item, $parent_item_name );
 
 				if ( $bundle_sell_discount ) {
 

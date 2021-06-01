@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Memberships Integration: Discounts inheritance.
  *
- * @version  6.2.5
+ * @version  6.9.0
  */
 class WC_PB_Members_Compatibility {
 
@@ -90,8 +90,12 @@ class WC_PB_Members_Compatibility {
 			return $discount;
 		}
 
-		if ( ! self::member_is_logged_in() ) {
-			return $discount;
+		$is_memberships_version_gte_1_21_8 = version_compare( WC_Memberships::VERSION, '1.21.7', '>' );
+
+		if ( ! $is_memberships_version_gte_1_21_8 ) {
+			if ( ! self::member_is_logged_in() ) {
+				return $discount;
+			}
 		}
 
 		if ( ! self::$inherit_member_discount ) {
@@ -120,11 +124,21 @@ class WC_PB_Members_Compatibility {
 		$discount_rules        = array();
 
 		if ( wc_memberships()->get_member_discounts_instance()->user_has_member_discount( $bundle ) ) {
-			$parent_discount_rules = wc_memberships()->get_rules_instance()->get_user_product_purchasing_discount_rules( $member_id, $bundle->get_id() );
+			if ( $is_memberships_version_gte_1_21_8 ) {
+				// This function was private up to WooCommerce Memberships v1.21.8. Fallback to legacy code for previous versions to avoid fatal errors.
+ 				$parent_discount_rules = wc_memberships()->get_member_discounts_instance()->get_user_product_purchasing_discount_rules( $member_id, $bundle->get_id() );
+ 			} else {
+ 				$parent_discount_rules = wc_memberships()->get_rules_instance()->get_user_product_purchasing_discount_rules( $member_id, $bundle->get_id() );
+ 			}
 		}
 
 		if ( wc_memberships()->get_member_discounts_instance()->user_has_member_discount( $bundled_product ) ) {
-			$child_discount_rules = wc_memberships()->get_rules_instance()->get_user_product_purchasing_discount_rules( $member_id, $bundled_product->get_id() );
+			if ( $is_memberships_version_gte_1_21_8 ) {
+				// This function was private up to WooCommerce Memberships v1.21.8. Fallback to legacy code for previous versions to avoid fatal errors.
+				$child_discount_rules = wc_memberships()->get_member_discounts_instance()->get_user_product_purchasing_discount_rules( $member_id, $bundled_product->get_id() );
+			} else {
+				$child_discount_rules = wc_memberships()->get_rules_instance()->get_user_product_purchasing_discount_rules( $member_id, $bundled_product->get_id() );
+			}
 		}
 
 		$discount_rules_merged = array_merge( $parent_discount_rules, $child_discount_rules );

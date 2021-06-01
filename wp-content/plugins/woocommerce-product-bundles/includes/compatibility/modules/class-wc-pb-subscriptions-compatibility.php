@@ -80,6 +80,7 @@ class WC_PB_Subscriptions_Compatibility {
 				$manual_renewals_enabled = 'yes' === get_option( WC_Subscriptions_Admin::$option_prefix . '_accept_manual_renewals', 'no' );
 
 				if ( false === WC_Subscriptions_Payment_Gateways::one_gateway_supports( 'multiple_subscriptions' ) && false === $manual_renewals_enabled ) {
+					/* translators: %1$s: Product name */
 					wc_add_notice( sprintf( __( '&quot;%1$s&quot; cannot be purchased due to payment gateway restrictions.', 'woocommerce-product-bundles' ), $bundle->get_title() ), 'error' );
 					return false;
 				}

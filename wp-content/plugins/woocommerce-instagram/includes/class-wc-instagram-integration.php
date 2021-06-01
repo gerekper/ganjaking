@@ -114,10 +114,8 @@ class WC_Instagram_Integration extends WC_Integration {
 	 */
 	public function init_settings_api( $catalog_id = '' ) {
 		if ( '' !== $catalog_id ) {
-			include_once 'admin/settings/class-wc-instagram-settings-product-catalog.php';
 			$this->settings_api = new WC_Instagram_Settings_Product_Catalog( $catalog_id );
 		} else {
-			include_once 'admin/settings/class-wc-instagram-settings-general.php';
 			$this->settings_api = new WC_Instagram_Settings_General();
 		}
 	}

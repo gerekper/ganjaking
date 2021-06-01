@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WooCommerce core Product Importer support.
  *
  * @class    WC_PB_Product_Import
- * @version  6.6.0
+ * @version  6.9.0
  */
 class WC_PB_Product_Import {
 
@@ -30,6 +30,7 @@ class WC_PB_Product_Import {
 		add_filter( 'woocommerce_csv_product_import_mapping_default_columns', array( __CLASS__, 'add_columns_to_mapping_screen' ) );
 
 		// Parse bundled items.
+		add_filter( 'woocommerce_product_importer_formatting_callbacks', array( __CLASS__, 'append_formatting_callbacks' ), 10, 2 );
 		add_filter( 'woocommerce_product_importer_parsed_data', array( __CLASS__, 'parse_bundled_items' ), 10, 2 );
 
 		// Parse Bundle Sells IDs.
@@ -99,6 +100,36 @@ class WC_PB_Product_Import {
 	}
 
 	/**
+	 * Set formatting (decoding) callback for bundled item data.
+	 *
+	 * @since  6.9.0
+	 *
+	 * @param  array                    $callbacks
+	 * @param  WC_Product_CSV_Importer  $importer
+	 * @return array
+	 */
+	public static function append_formatting_callbacks( $callbacks, $importer ) {
+
+		$mapped_keys_reverse             = array_flip( $importer->get_mapped_keys() );
+		$bundled_items_key               = $mapped_keys_reverse[ 'wc_pb_bundled_items' ];
+		$callbacks[ $bundled_items_key ] = array( __CLASS__, 'decode_bundled_items' );
+
+		return $callbacks;
+	}
+
+	/**
+	 * Decodes bundled item data.
+	 *
+	 * @since  6.9.0
+	 *
+	 * @param  string  $data
+	 * @return array
+	 */
+	public static function decode_bundled_items( $data ) {
+		return json_decode( $data, true );
+	}
+
+	/**
 	 * Decode bundled data items and parse relative IDs.
 	 *
 	 * @param  array                    $parsed_data
@@ -109,7 +140,7 @@ class WC_PB_Product_Import {
 
 		if ( ! empty( $parsed_data[ 'wc_pb_bundled_items' ] ) ) {
 
-			$bundled_data_items = json_decode( $parsed_data[ 'wc_pb_bundled_items' ], true );
+			$bundled_data_items = $parsed_data[ 'wc_pb_bundled_items' ];
 
 			unset( $parsed_data[ 'wc_pb_bundled_items' ] );
 

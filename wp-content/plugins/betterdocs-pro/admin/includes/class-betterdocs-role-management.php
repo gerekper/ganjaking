@@ -19,7 +19,7 @@ class BetterDocs_Role_Management {
      * Initial Invoked
      */
     public function __construct(){
-        add_filter( 'betterdocs_settings_tab', array( $this, 'settings' ) );
+        add_filter( 'betterdocs_advanced_settings_sections', array( $this, 'settings' ) );
         add_filter( 'betterdocs_articles_caps', array( $this, 'caps_check' ), 10, 2 );
         add_filter( 'betterdocs_terms_caps', array( $this, 'caps_check' ), 10, 2 );
         add_filter( 'betterdocs_settings_caps', array( $this, 'settings_caps_check' ), 10, 2 );
@@ -31,23 +31,103 @@ class BetterDocs_Role_Management {
      * @param array $settings
      * @return array
      */
-    public function settings( $settings ){
-        if( ! current_user_can( 'delete_users' ) ) {
-            unset( $settings['design'] );
-            return $settings;
-        }
+    public function settings($settings) {
+        $settings['role_management_section'] = array(
+            'title' => __('Role Management', 'betterdocs'),
+            'priority'    => 0,
+            'fields' => array(
+                'rms_title' => array(
+                    'type'        => 'title',
+                    'label'       => __('Role Management', 'betterdocs'),
+                    'priority'    => 0,
+                ),
+                'article_roles' => array(
+                    'type'        => 'select',
+                    'label'       => __('Who Can Write Docs?', 'betterdocs'),
+                    'priority'    => 1,
+                    'multiple' => true,
+                    'default' => 'administrator',
+                    'options' => BetterDocs_Settings::get_roles()
+                ),
+                'settings_roles' => array(
+                    'type'        => 'select',
+                    'label'       => __('Who Can Edit Settings?', 'betterdocs'),
+                    'priority'    => 1,
+                    'multiple' => true,
+                    'default' => 'administrator',
+                    'options' => BetterDocs_Settings::get_roles()
+                ),
+                'analytics_roles' => array(
+                    'type'        => 'select',
+                    'label'       => __('Who Can Check Analytics?', 'betterdocs'),
+                    'priority'    => 1,
+                    'multiple'    => true,
+                    'default'     => 'administrator',
+                    'options'     => BetterDocs_Settings::get_roles()
+                ),
+            )
+        );
 
-        $betterdocs_advanced_settings = $settings['betterdocs_advanced_settings'];
-
-        if( is_array( $betterdocs_advanced_settings ) && isset( $betterdocs_advanced_settings['sections']['role_management_section']['fields'] )) {
-            foreach( $betterdocs_advanced_settings['sections']['role_management_section']['fields'] as $fkey => $f ) {
-                unset( $betterdocs_advanced_settings['sections']['role_management_section']['fields'][ $fkey ]['disable'] );
-            }
-        }
-        $settings['betterdocs_advanced_settings'] = $betterdocs_advanced_settings;
-
+        $settings['internal_kb_section'] = array(
+            'title' => __('Internal Knowledge Base', 'betterdocs'),
+            'priority'    => 1,
+            'fields' => apply_filters( 'betterdocs_internal_kb_fields', array(
+                'content_restriction_title' => array(
+                    'type'        => 'title',
+                    'label'       => __('Internal Knowledge Base', 'betterdocs'),
+                    'priority'    => 0,
+                ),
+                'enable_content_restriction' => array(
+                    'type'      => 'checkbox',
+                    'priority'  => 1,
+                    'label'     => __( 'Enable/Disable', 'betterdocs' ),
+                    'default'   => '',
+                    'dependency' => array(
+                        1 => array(
+                            'fields' => array( 'content_visibility', 'restrict_template', 'restrict_kb', 'restrict_category', 'restricted_redirect_url' ),
+                        )
+                    )
+                ),
+                'content_visibility' => array(
+                    'type'        => 'select',
+                    'label'       => __('Restrict Access to', 'betterdocs'),
+                    'help'        => __('<strong>Note:</strong> Only selected User Roles will be able to view your Knowledge Base' , 'betterdocs'),
+                    'priority'    => 2,
+                    'multiple'    => true,
+                    'default'     => 'all',
+                    'options'     => BetterDocs_Settings::get_all_user_roles()
+                ),
+                'restrict_template' => array(
+                    'type'        => 'select',
+                    'label'       => __('Restriction on Docs Pages', 'betterdocs'),
+                    'help'        => __('<strong>Note:</strong> Selected Docs pages will be restricted' , 'betterdocs'),
+                    'priority'    => 3,
+                    'multiple'    => true,
+                    'default'     => 'all',
+                    'options'     => BetterDocs_Settings::get_texanomy()
+                ),
+                'restrict_category' => array(
+                    'type'        => 'select',
+                    'label'       => __('Restriction on Docs Categories', 'betterdocs'),
+                    'help'        => __('<strong>Note:</strong> Selected Docs categories will be restricted ' , 'betterdocs'),
+                    'priority'    => 5,
+                    'multiple'    => true,
+                    'default'     => 'all',
+                    'options'     => BetterDocs_Settings::get_terms_list('doc_category')
+                ),
+                'restricted_redirect_url' => array(
+                    'type'      => 'text',
+                    'label'     => __('Redirect URL' , 'betterdocs'),
+                    'help'        => __('<strong>Note:</strong> Set a custom URL to redirect users without permissions when they try to access internal knowledge base. By default, restricted content will redirect to the "404 not found" page' , 'betterdocs'),
+                    'default'   => '',
+                    'placeholder'   => 'https://',
+                    'priority'	=> 6,
+                ),
+            ))
+        );
         return $settings;
     }
+
     /**
      * Check Settings for Roles
      *

@@ -10,6 +10,7 @@
 add_shortcode('betterdocs_article_reactions', 'betterdocs_article_reactions');
 function betterdocs_article_reactions($atts, $content = null)
 {
+    do_action( 'betterdocs_before_shortcode_load' );
 	$reactions_text = get_theme_mod('betterdocs_post_reactions_text', esc_html__('What are your Feelings', 'betterdocs-pro'));
 	?>
 	<div class="betterdocs-article-reactions">
@@ -74,6 +75,7 @@ function betterdocs_article_reactions($atts, $content = null)
 add_shortcode('betterdocs_category_box_2', 'betterdocs_category_box_2');
 function betterdocs_category_box_2($atts, $content = null)
 {
+    do_action( 'betterdocs_before_shortcode_load' );
 	ob_start();
 	$column_number = BetterDocs_DB::get_settings('column_number');
 	$post_count = BetterDocs_DB::get_settings('post_count');
@@ -153,6 +155,7 @@ function betterdocs_category_box_2($atts, $content = null)
 add_shortcode('betterdocs_multiple_kb', 'betterdocs_multiple_kb');
 function betterdocs_multiple_kb($atts, $content = null)
 {
+    do_action( 'betterdocs_before_shortcode_load' );
 	ob_start();
 	$column_number = BetterDocs_DB::get_settings('column_number');
 	$post_count = BetterDocs_DB::get_settings('post_count');
@@ -241,6 +244,7 @@ function betterdocs_multiple_kb($atts, $content = null)
 add_shortcode('betterdocs_multiple_kb_2', 'betterdocs_multiple_kb_2');
 function betterdocs_multiple_kb_2($atts, $content = null)
 {
+    do_action( 'betterdocs_before_shortcode_load' );
 	ob_start();
 	$column_number = BetterDocs_DB::get_settings('column_number');
 	$post_count = BetterDocs_DB::get_settings('post_count');
@@ -330,6 +334,7 @@ function betterdocs_multiple_kb_2($atts, $content = null)
 add_shortcode('betterdocs_category_grid_2', 'betterdocs_category_grid_2');
 function betterdocs_category_grid_2($atts, $content = null)
 {
+    do_action( 'betterdocs_before_shortcode_load' );
 	ob_start();
 	$column_number = BetterDocs_DB::get_settings('column_number');
 	$posts_number = BetterDocs_DB::get_settings('posts_number');

@@ -36,7 +36,8 @@ class WC_Store_Credit_Meta_Box_Product_Data {
 	 */
 	public function product_data_tabs( $tabs ) {
 		$tab_classes = array(
-			'shipping' => 'hide_if_store_credit',
+			'inventory' => 'show_if_store_credit',
+			'shipping'  => 'hide_if_store_credit',
 		);
 
 		foreach ( $tab_classes as $tab => $class ) {
@@ -52,7 +53,7 @@ class WC_Store_Credit_Meta_Box_Product_Data {
 			'label'    => __( 'Store Credit', 'woocommerce-store-credit' ),
 			'target'   => 'store_credit_product_data',
 			'class'    => array( 'show_if_store_credit' ),
-			'priority' => 15,
+			'priority' => 25,
 		);
 
 		return $tabs;

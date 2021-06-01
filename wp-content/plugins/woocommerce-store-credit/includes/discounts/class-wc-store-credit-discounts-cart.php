@@ -96,25 +96,19 @@ class WC_Store_Credit_Discounts_Cart extends WC_Store_Credit_Discounts {
 			return;
 		}
 
+		$shipping_total = $this->cart()->get_shipping_total();
+		$shipping_tax   = $this->cart()->get_shipping_tax();
+
 		$this->calculate_shipping_totals();
 
-		$cart_total_tax = round(
-			$this->cart()->get_cart_contents_tax() +
-			$this->cart()->get_fee_tax() +
-			$this->cart()->get_shipping_tax(),
-			wc_get_price_decimals()
-		);
+		$shipping_total_diff = $shipping_total - $this->cart()->get_shipping_total();
+		$shipping_tax_diff   = $shipping_tax - $this->cart()->get_shipping_tax();
 
-		$cart_total = round(
-			$this->cart()->get_cart_contents_total() +
-			$this->cart()->get_fee_total() +
-			$this->cart()->get_shipping_total() +
-			$cart_total_tax,
-			wc_get_price_decimals()
-		);
+		$cart_total_tax = $this->cart()->get_total_tax();
+		$cart_total     = $this->cart()->get_total( 'edit' );
 
-		$this->cart()->set_total_tax( $cart_total_tax );
-		$this->cart()->set_total( $cart_total );
+		$this->cart()->set_total_tax( $cart_total_tax - $shipping_tax_diff );
+		$this->cart()->set_total( $cart_total - $shipping_total_diff - $shipping_tax_diff );
 	}
 
 	/**
@@ -129,9 +123,12 @@ class WC_Store_Credit_Discounts_Cart extends WC_Store_Credit_Discounts {
 	protected function parse_item( $key, $item ) {
 		$object = parent::parse_item( $key, $item );
 
+		// It's a deposit product.
+		$price = ( isset( $item['deposit_amount'] ) ? $item['deposit_amount'] : $item['data']->get_price() );
+
 		$object->product   = $item['data'];
 		$object->quantity  = $item['quantity'];
-		$object->price     = ( $object->product->get_price() * $object->quantity );
+		$object->price     = ( $price * $object->quantity );
 		$object->tax_class = $item['data']->get_tax_class();
 		$object->tax_rates = WC_Tax::get_rates( $object->tax_class );
 

@@ -582,7 +582,7 @@ class BetterDocsPro_Analytics {
         if ( is_int( $post ) ) {
             $post = get_post( $post );
         }
-        $post_id = $post->ID; // Get Post ID;
+        $post_id = isset($post->ID) ? $post->ID : ''; // Get Post ID;
         $todays_date = date( 'd-m-Y', time() );
 
         if ( ! wp_is_post_revision( $post ) && ! is_preview() ) {

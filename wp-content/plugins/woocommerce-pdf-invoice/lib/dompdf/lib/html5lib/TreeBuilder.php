@@ -1498,7 +1498,7 @@ class WooCommercePDFInvoice_HTML5_TreeBuilder {
                     }
                     break;
 
-                    case HTML5_Tokenizer::ENDTAG:
+                    case WooCommercePDFInvoice_HTML5_Tokenizer::ENDTAG:
                     switch ($token['name']) {
                         /* An end tag with the tag name "body" */
                         case 'body':
@@ -2059,7 +2059,7 @@ class WooCommercePDFInvoice_HTML5_TreeBuilder {
                     $this->emitToken($token);
 
                 /* A comment token */
-                } elseif ($token['type'] === HTML5_Tokenizer::COMMENT) {
+                } elseif ($token['type'] === WooCommercePDFInvoice_HTML5_Tokenizer::COMMENT) {
                     /* Append a Comment node to the current node with the data
                     attribute set to the data given in the comment token. */
                     $this->insertComment($token['data']);
@@ -2098,7 +2098,7 @@ class WooCommercePDFInvoice_HTML5_TreeBuilder {
                 $token['name'] === 'col') {
                     $this->emitToken([
                         'name' => 'colgroup',
-                        'type' => HTML5_Tokenizer::STARTTAG,
+                        'type' => WooCommercePDFInvoice_HTML5_Tokenizer::STARTTAG,
                         'attr' => []
                     ]);
 
@@ -2298,7 +2298,7 @@ class WooCommercePDFInvoice_HTML5_TreeBuilder {
                     current token. */
                     $this->emitToken([
                         'name' => 'caption',
-                        'type' => HTML5_Tokenizer::ENDTAG
+                        'type' => WooCommercePDFInvoice_HTML5_Tokenizer::ENDTAG
                     ]);
 
                     if (!$this->ignored) {
@@ -2462,7 +2462,7 @@ class WooCommercePDFInvoice_HTML5_TreeBuilder {
 
                 /* An end tag whose tag name is one of: "body", "caption", "col",
                 "colgroup", "html", "td", "th", "tr" */
-                } elseif ($token['type'] === HTML5_Tokenizer::ENDTAG && in_array($token['name'],
+                } elseif ($token['type'] === WooCommercePDFInvoice_HTML5_Tokenizer::ENDTAG && in_array($token['name'],
                 ['body', 'caption', 'col', 'colgroup', 'html', 'td', 'th', 'tr'])) {
                     /* Parse error. Ignore the token. */
                     $this->ignored = true;
@@ -2520,7 +2520,7 @@ class WooCommercePDFInvoice_HTML5_TreeBuilder {
                     if that token wasn't ignored, reprocess the current token. */
                     $this->emitToken([
                         'name' => 'tr',
-                        'type' => HTML5_Tokenizer::ENDTAG
+                        'type' => WooCommercePDFInvoice_HTML5_Tokenizer::ENDTAG
                     ]);
                     if (!$this->ignored) {
                         $this->emitToken($token);
@@ -2598,7 +2598,7 @@ class WooCommercePDFInvoice_HTML5_TreeBuilder {
 
                 /* A start tag whose tag name is one of: "caption", "col", "colgroup",
                 "tbody", "td", "tfoot", "th", "thead", "tr" */
-                } elseif ($token['type'] === HTML5_Tokenizer::STARTTAG && in_array($token['name'],
+                } elseif ($token['type'] === WooCommercePDFInvoice_HTML5_Tokenizer::STARTTAG && in_array($token['name'],
                 ['caption', 'col', 'colgroup', 'tbody', 'td', 'tfoot', 'th',
                 'thead', 'tr'])) {
                     /* If the stack of open elements does not have a td or th element
@@ -2686,7 +2686,7 @@ class WooCommercePDFInvoice_HTML5_TreeBuilder {
                     $this->insertElement($token);
 
                 /* A start tag token whose tag name is "optgroup" */
-                } elseif ($token['type'] === HTML5_Tokenizer::STARTTAG &&
+                } elseif ($token['type'] === WooCommercePDFInvoice_HTML5_Tokenizer::STARTTAG &&
                 $token['name'] === 'optgroup') {
                     /* If the current node is an option element, act as if an end tag
                     with the tag name "option" had been seen. */
@@ -2792,7 +2792,7 @@ class WooCommercePDFInvoice_HTML5_TreeBuilder {
                 } elseif ($token['type'] === WooCommercePDFInvoice_HTML5_Tokenizer::STARTTAG && $token['name'] === 'script') {
                     $this->processWithRulesFor($token, self::IN_HEAD);
 
-                } elseif ($token['type'] === HTML5_Tokenizer::EOF) {
+                } elseif ($token['type'] === WooCommercePDFInvoice_HTML5_Tokenizer::EOF) {
                     // XERROR: If the current node is not the root html element, then this is a parse error.
                     /* Stop parsing */
 
@@ -2906,7 +2906,7 @@ class WooCommercePDFInvoice_HTML5_TreeBuilder {
                             $this->mode = $this->secondary_mode;
                         }
                     }
-                } elseif ($token['type'] === HTML5_Tokenizer::EOF || (
+                } elseif ($token['type'] === WooCommercePDFInvoice_HTML5_Tokenizer::EOF || (
                 $token['type'] === WooCommercePDFInvoice_HTML5_Tokenizer::STARTTAG &&
                 (in_array($token['name'], ['b', "big", "blockquote", "body", "br",
                 "center", "code", "dc", "dd", "div", "dl", "ds", "dt", "em", "embed", "h1", "h2",
@@ -3147,7 +3147,7 @@ class WooCommercePDFInvoice_HTML5_TreeBuilder {
 
             case self::AFTER_AFTER_BODY:
                 /* A comment token */
-                if ($token['type'] === HWooCommercePDFInvoice_TML5_Tokenizer::COMMENT) {
+                if ($token['type'] === WooCommercePDFInvoice_HTML5_Tokenizer::COMMENT) {
                     /* Append a Comment node to the Document object with the data
                     attribute set to the data given in the comment token. */
                     // XDOM

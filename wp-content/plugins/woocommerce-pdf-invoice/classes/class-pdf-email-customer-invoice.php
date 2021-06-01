@@ -27,7 +27,7 @@ if ( ! class_exists( 'PDF_Invoice_Customer_PDF_Invoice', false ) ) :
 		 */
 		public function __construct() {
 			$this->id             = 'pdf_customer_invoice';
-			$this->enabled 	  	  = true;
+			// $this->enabled 	  	  = true;
 			$this->customer_email = true;
 			$this->title          = __( 'Customer PDF invoice', 'woocommerce-pdf-invoice' );
 			$this->description    = __( 'Email for customer with order details and PDF invoice attached.', 'woocommerce-pdf-invoice' );
@@ -47,7 +47,7 @@ if ( ! class_exists( 'PDF_Invoice_Customer_PDF_Invoice', false ) ) :
 			// We want all the parent's methods, with none of its properties, so call its parent's constructor, rather than my parent constructor
 			WC_Email::__construct();
 
-			$this->manual = false;
+			$this->manual = true;
 
 		}
 

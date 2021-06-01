@@ -322,6 +322,7 @@ class WC_PB_Compatibility {
 				$extension      = __( 'Composite Products', 'woocommerce-product-bundles' );
 				$extension_full = __( 'WooCommerce Composite Products', 'woocommerce-product-bundles' );
 				$extension_url  = 'https://woocommerce.com/products/composite-products/';
+				/* translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full, %4$s: Plugin version */
 				$notice         = sprintf( __( 'The installed version of <strong>%1$s</strong> is not supported by <strong>Product Bundles</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-product-bundles' ), $extension, $extension_url, $extension_full, $required_version );
 
 				WC_PB_Admin_Notices::add_dismissible_notice( $notice, array( 'dismiss_class' => 'cp_lt_' . $required_version, 'type' => 'warning' ) );
@@ -338,6 +339,7 @@ class WC_PB_Compatibility {
 				$extension      = __( 'Product Add-Ons', 'woocommerce-product-bundles' );
 				$extension_full = __( 'WooCommerce Product Add-Ons', 'woocommerce-product-bundles' );
 				$extension_url  = 'https://woocommerce.com/products/product-add-ons/';
+				/* translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full, %4$s: Plugin version */
 				$notice         = sprintf( __( 'The installed version of <strong>%1$s</strong> is not supported by <strong>Product Bundles</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-product-bundles' ), $extension, $extension_url, $extension_full, $required_version );
 
 				WC_PB_Admin_Notices::add_dismissible_notice( $notice, array( 'dismiss_class' => 'addons_lt_' . $required_version, 'type' => 'warning' ) );
@@ -368,6 +370,7 @@ class WC_PB_Compatibility {
 			if ( version_compare( WC_PB()->plugin_version( true, WC_PB_Top_Add_To_Cart::$version ), $required_version ) < 0 ) {
 
 				$extension = __( 'Product Bundles - Top Add to Cart Button', 'woocommerce-product-bundles' );
+				/* translators: %1$s: Plugin name, %2$s: Plugin name full, %3$s: Plugin version */
 				$notice    = sprintf( __( 'The installed version of <strong>%1$s</strong> is not supported by <strong>Product Bundles</strong>. Please update <strong>%1$s</strong> to version <strong>%2$s</strong> or higher.', 'woocommerce-product-bundles' ), $extension, $required_version );
 
 				WC_PB_Admin_Notices::add_notice( $notice, 'warning' );
@@ -381,6 +384,7 @@ class WC_PB_Compatibility {
 
 				$extension      = $extension_full = __( 'Product Bundles - Bulk Discounts', 'woocommerce-product-bundles' );
 				$extension_url  = 'https://wordpress.org/plugins/product-bundles-bulk-discounts-for-woocommerce/';
+				/* translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full, %4$s: Plugin version */
 				$notice         = sprintf( __( 'The installed version of <strong>%1$s</strong> is not supported by <strong>Product Bundles</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-product-bundles' ), $extension, $extension_url, $extension_full, $required_version );
 
 				WC_PB_Admin_Notices::add_notice( $notice, 'warning' );
@@ -408,15 +412,11 @@ class WC_PB_Compatibility {
 	 */
 	public function is_nyp( $product_id ) {
 
-		if ( ! class_exists( 'WC_Name_Your_Price_Helpers' ) ) {
+		if ( ! class_exists( 'WC_Name_Your_Price_Helpers' ) || ! function_exists( 'wc_nyp_init' ) ) {
 			return false;
 		}
 
-		if ( WC_Name_Your_Price_Helpers::is_nyp( $product_id ) ) {
-			return true;
-		}
-
-		return false;
+		return WC_Name_Your_Price_Helpers::is_nyp( $product_id ) || WC_Name_Your_Price_Helpers::has_nyp( $product_id );
 	}
 
 	/**

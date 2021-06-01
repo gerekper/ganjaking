@@ -989,9 +989,28 @@ class GFSettings {
 	 * @return void
 	 */
 	public static function upgrade_license() {
-		
-		$message = '';
-		
+		$key                = GFCommon::get_key();
+		$body               = "key=$key";
+		$options            = array( 'method' => 'POST', 'timeout' => 3, 'body' => $body );
+		$options['headers'] = array(
+			'Content-Type'   => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
+			'Content-Length' => strlen( $body ),
+			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
+			'Referer'        => get_bloginfo( 'url' ),
+		);
+
+		$raw_response = GFCommon::post_to_manager( 'api.php', 'op=upgrade_message&key=' . GFCommon::get_key(), $options );
+
+		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
+			$message = '';
+		} else {
+			$message = $raw_response['body'];
+		}
+
+		// Validating that message is a valid Gravity Form message. If message is invalid, don't display anything.
+		if ( substr( $message, 0, 10 ) != '<!--GFM-->' ) {
+			$message = '';
+		}
 
 		echo $message;
 

@@ -425,6 +425,7 @@ class WC_PB_Admin_Ajax {
 
 				if ( $notice ) {
 					$notice_text = WC_PB_Core_Compatibility::is_wc_version_gte( '3.9' ) ? $notice[ 'notice' ] : $notice;
+					/* translators: %1$s: error, %2$s: reason */
 					$message     = sprintf( _x( '%1$s %2$s', 'edit bundle in order: formatted validation message', 'woocommerce-product-bundles' ), $message, html_entity_decode( $notice_text ) );
 				}
 
@@ -617,14 +618,17 @@ class WC_PB_Admin_Ajax {
 								$stock_from_to_string = $stock_changes && $stock_changes[ 'from' ] && $stock_changes[ 'from' ] !== $stock_changes[ 'to' ] ? ( $stock_changes[ 'from' ] . '&rarr;' . $stock_changes[ 'to' ] ) : '';
 
 								if ( in_array( $item_id, $duplicate_product_bundled_item_ids ) ) {
+									/* translators: %1$s: SKU, %2$s: Bundled item ID */
 									$stock_id = sprintf( _x( '%1$s:%2$s', 'bundled items stock change note sku with id format', 'woocommerce-product-bundles' ), $item_changes[ 'actions' ][ $action ][ 'sku' ], $item_id );
 								} else {
 									$stock_id = $item_changes[ 'actions' ][ $action ][ 'sku' ];
 								}
 
 								if ( $stock_from_to_string ) {
+									/* translators: %1$s: Product title, %2$s: SKU, %3$s: Stock modification */
 									$stock_strings[ $action ][] = sprintf( _x( '%1$s (%2$s) &ndash; %3$s', 'bundled items stock change note format', 'woocommerce-product-bundles' ), $item_changes[ 'actions' ][ $action ][ 'title' ], $stock_id, $stock_from_to_string );
 								} else {
+									/* translators: %1$s: Product title, %2$s: SKU */
 									$stock_strings[ $action ][] = sprintf( _x( '%1$s (%2$s)', 'bundled items change note format', 'woocommerce-product-bundles' ), $item_changes[ 'actions' ][ $action ][ 'title' ], $stock_id );
 								}
 							}
@@ -632,14 +636,17 @@ class WC_PB_Admin_Ajax {
 					}
 
 					if ( ! empty( $stock_strings[ 'remove' ] ) ) {
+							/* translators: List of items */
 						$order->add_order_note( sprintf( __( 'Deleted bundled line items: %s', 'woocommerce-product-bundles' ), implode( ', ', $stock_strings[ 'remove' ] ) ), false, true );
 					}
 
 					if ( ! empty( $stock_strings[ 'add' ] ) ) {
+						/* translators: List of items */
 						$order->add_order_note( sprintf( __( 'Added bundled line items: %s', 'woocommerce-product-bundles' ), implode( ', ', $stock_strings[ 'add' ] ) ), false, true );
 					}
 
 					if ( ! empty( $stock_strings[ 'adjust' ] ) ) {
+						/* translators: List of items */
 						$order->add_order_note( sprintf( __( 'Adjusted bundled line items: %s', 'woocommerce-product-bundles' ), implode( ', ', $stock_strings[ 'adjust' ] ) ), false, true );
 					}
 				}

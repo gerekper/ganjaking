@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Bundle data stored as Custom Post Type. For use with the WC 2.7+ CRUD API.
  *
  * @class    WC_Product_Bundle_Data_Store_CPT
- * @version  6.6.0
+ * @version  6.7.8
  */
 class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
@@ -211,24 +211,19 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 					$this->update_lookup_table( $product->get_id(), 'wc_product_meta_lookup' );
 				}
 
-				$resync_visibility = ! defined( 'WC_PB_DEBUG_STOCK_SYNC' ) && ! defined( 'WC_PB_DEBUG_STOCK_PARENT_SYNC' );
+				if ( 'instock' === $product->get_stock_status() ) {
 
-				if ( $resync_visibility ) {
+					$modified_visibility = false;
 
-					if ( 'instock' === $product->get_stock_status() ) {
+					if ( 'instock' === $bundled_items_stock_status ) {
+						$modified_visibility = ! is_wp_error( wp_remove_object_terms( $id, 'outofstock', 'product_visibility' ) );
+					} else {
+						$modified_visibility = ! is_wp_error( wp_set_post_terms( $id, 'outofstock', 'product_visibility', true ) );
+					}
 
-						$modified_visibility = false;
-
-						if ( 'instock' === $bundled_items_stock_status ) {
-							$modified_visibility = ! is_wp_error( wp_remove_object_terms( $id, 'outofstock', 'product_visibility' ) );
-						} else {
-							$modified_visibility = ! is_wp_error( wp_set_post_terms( $id, 'outofstock', 'product_visibility', true ) );
-						}
-
-						if ( $modified_visibility ) {
-							delete_transient( 'wc_featured_products' );
-							do_action( 'woocommerce_product_set_visibility', $product->get_id(), $product->get_catalog_visibility() );
-						}
+					if ( $modified_visibility ) {
+						delete_transient( 'wc_featured_products' );
+						do_action( 'woocommerce_product_set_visibility', $product->get_id(), $product->get_catalog_visibility() );
 					}
 				}
 

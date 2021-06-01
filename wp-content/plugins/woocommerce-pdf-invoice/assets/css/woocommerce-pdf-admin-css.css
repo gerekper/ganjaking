@@ -173,3 +173,9 @@ h3.dompdf-config {
 .invoice_details_group li .pdf_invoice_metabox_send_invoice {
 	float: right;
 }
+
+/* Help page */
+.pdf-invoice-template-table .template_even {
+	background-color: #cacaca;
+}
+

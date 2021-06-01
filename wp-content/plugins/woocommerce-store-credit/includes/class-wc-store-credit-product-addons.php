@@ -19,7 +19,6 @@ class WC_Store_Credit_Product_Addons {
 	 * @since 3.2.0
 	 */
 	public static function init() {
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 		add_action( 'woocommerce_before_add_to_cart_button', array( __CLASS__, 'product_content' ) );
 		add_filter( 'woocommerce_add_to_cart_validation', array( __CLASS__, 'validate_add_cart_item' ), 20, 2 );
 		add_filter( 'woocommerce_add_cart_item_data', array( __CLASS__, 'add_cart_item_data' ), 10, 2 );
@@ -45,24 +44,6 @@ class WC_Store_Credit_Product_Addons {
 		$data = $product->get_meta( '_store_credit_data' );
 
 		return ( is_array( $data ) && ( empty( $data['allow_different_receiver'] ) || wc_string_to_bool( $data['allow_different_receiver'] ) ) );
-	}
-
-	/**
-	 * Enqueue scripts.
-	 *
-	 * @since 3.2.0
-	 *
-	 * @global WP_Post $post Current post.
-	 */
-	public static function enqueue_scripts() {
-		global $post;
-
-		if ( is_product() && self::allow_different_receiver( $post->ID ) ) {
-			$suffix = wc_store_credit_get_scripts_suffix();
-
-			wp_enqueue_style( 'wc-store-credit-single-product', WC_STORE_CREDIT_URL . 'assets/css/single-product.css', array(), WC_STORE_CREDIT_VERSION );
-			wp_enqueue_script( 'wc-store-credit-single-product', WC_STORE_CREDIT_URL . "assets/js/frontend/single-product{$suffix}.js", array( 'jquery' ), WC_STORE_CREDIT_VERSION, true );
-		}
 	}
 
 	/**
@@ -228,6 +209,16 @@ class WC_Store_Credit_Product_Addons {
 		if ( ! empty( $values['store_credit_receiver'] ) ) {
 			$item->add_meta_data( '_store_credit_receiver', $values['store_credit_receiver'] );
 		}
+	}
+
+	/**
+	 * Enqueue scripts.
+	 *
+	 * @since 3.2.0
+	 * @deprecated 3.7.0
+	 */
+	public static function enqueue_scripts() {
+		wc_deprecated_function( __FUNCTION__, '3.7.0' );
 	}
 }
 

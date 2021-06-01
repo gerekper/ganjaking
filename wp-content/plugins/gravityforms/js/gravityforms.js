@@ -177,6 +177,51 @@ window.HandleUnsavedChanges = gform.adminUtils.handleUnsavedChanges;
  */
 
 gform.tools = {
+	/**
+	 * Wrapper to add debouncing to any given callback.
+	 *
+	 * @since 2.5.2
+	 *
+	 * @param {Function} fn             The callback to execute.
+	 * @param {integer}  debounceLength The amount of time for which to debounce (in milliseconds)
+	 * @param {bool}     isImmediate    Whether to fire this immediately, or at the tail end of the timeout.
+	 *
+	 * @returns {function}
+	 */
+	debounce: function( fn, debounceLength, isImmediate ) {
+		// Initialize var to hold our window timeout
+		var timeout;
+
+		return function() {
+			// Initialize local versions of our context and arguments to pass to apply()
+			var callbackContext = this;
+			var args            = arguments;
+
+			// Create a deferred callback to fire if this shouldn't be immediate.
+			var deferredCallback = function() {
+				timeout = null;
+
+				if ( ! isImmediate ) {
+					fn.apply( callbackContext, args );
+				}
+			};
+
+			// Begin processing the actual callback.
+			var callNow = isImmediate && ! timeout;
+
+			// Reset timeout
+			clearTimeout( timeout );
+			timeout = setTimeout( deferredCallback, debounceLength );
+
+			// Method should be executed on the trailing edge of the timeout. Bail for now.
+			if ( ! callNow ) {
+				return;
+			}
+
+			// Callback should be called immediately, and isn't currently debounced; execute it.
+			fn.apply( callbackContext, args );
+		};
+	},
 
     /**
      * @function gform.tools.defaultFor
@@ -432,6 +477,40 @@ gform.tools = {
 	 */
 	isIE: function() {
 		return window.document.documentMode;
+	},
+
+	/**
+	 * @function gform.tools.trigger
+	 * @description Trigger custom or native events on any element in a cross browser way, and pass along optional data.
+	 *
+	 * @since 2.5.1.1
+	 *
+	 * @param {String} eventName The event name.
+	 * @param {Element|EventTarget|Document} el Default document. The element to trigger the event on.
+	 * @param {Boolean} native Default fasle. Is this a custom event or native?
+	 * @param {Object} data Custom data to send along, available in event.detail on listener.
+	 */
+
+	trigger: function( eventName, el, native, data ) {
+		var event;
+		eventName =  this.defaultFor( eventName, '' );
+		el =  this.defaultFor( el, document );
+		native =  this.defaultFor( native, false );
+		data =  this.defaultFor( data, {} );
+
+		if ( native ) {
+			event = document.createEvent( 'HTMLEvents' );
+			event.initEvent( eventName, true, false );
+		} else {
+			try {
+				event = new CustomEvent( eventName, { detail: data } );
+			} catch ( e ) {
+				event = document.createEvent( 'CustomEvent' );
+				event.initCustomEvent( eventName, true, true, data );
+			}
+		}
+
+		el.dispatchEvent( event );
 	},
 
 	/**
@@ -984,49 +1063,69 @@ function gformIsHidden(element){
     return element.parents('.gfield').not(".gfield_hidden_product").css("display") == "none";
 }
 
-function gformCalculateTotalPrice(formId){
+/**
+ * Calculate total price when input is updated.
+ *
+ * @since 2.5.2 - This method is run through debounce() to avoid recursions.
+ *
+ */
+var gformCalculateTotalPrice =  gform.tools.debounce(function(formId){
 
-    if(!_gformPriceFields[formId])
-        return;
+	if(!_gformPriceFields[formId]) {
+		return;
+	}
 
-    var price = 0;
+	var price = 0;
 
-    _anyProductSelected = false; //Will be used by gformCalculateProductPrice().
-    for(var i=0; i<_gformPriceFields[formId].length; i++){
-        price += gformCalculateProductPrice(formId, _gformPriceFields[formId][i]);
-    }
+	_anyProductSelected = false; //Will be used by gformCalculateProductPrice().
+	for(var i=0; i<_gformPriceFields[formId].length; i++){
+		price += gformCalculateProductPrice(formId, _gformPriceFields[formId][i]);
+	}
 
-    //add shipping price if a product has been selected
-    if(_anyProductSelected){
-        //shipping price
-        var shipping = gformGetShippingPrice(formId)
-        price += shipping;
-    }
+	//add shipping price if a product has been selected
+	if(_anyProductSelected){
+		//shipping price
+		var shipping = gformGetShippingPrice(formId)
+		price += shipping;
+	}
 
-		//gform_product_total filter. Allows uers to perform custom price calculation
-    if(window["gform_product_total"])
-        price = window["gform_product_total"](formId, price);
+	//gform_product_total filter. Allows users to perform custom price calculation
+	if(window["gform_product_total"])
+		price = window["gform_product_total"](formId, price);
 
+	price = gform.applyFilters('gform_product_total', price, formId);
 
-    price = gform.applyFilters('gform_product_total', price, formId);
+	//updating total
+	var totalElement = jQuery(".ginput_total_" + formId);
+	if( totalElement.length > 0 ) {
 
-    //updating total
-    var totalElement = jQuery(".ginput_total_" + formId);
-    if( totalElement.length > 0 ) {
+		var isLegacy = document.querySelector('#gform_wrapper_' + formId + '.gform_legacy_markup_wrapper'),
+			currentTotalTarget = isLegacy ? totalElement.next() : totalElement,
+		    formattedTotal = gformFormatMoney(price, true);
 
-        var currentTotal = totalElement.val(),
-            formattedTotal = gformFormatMoney(price, true);
+		// Formatted total is the same as the current value, bail before updating.
+		if (formattedTotal === currentTotalTarget.val()) {
+			return;
+		}
 
-        if (currentTotal != price) {
-            totalElement.val(price).change();
-        }
+		if (isLegacy) {
+			if (currentTotalTarget.val() !== price) {
+				currentTotalTarget.val(price).change();
+			}
 
-        if (formattedTotal != totalElement.first().text()) {
-            totalElement.val(formattedTotal);
-        }
+			if (formattedTotal !== totalElement.text()) {
+				totalElement.html(formattedTotal);
+			}
 
-    }
-}
+			return;
+		}
+
+		if (formattedTotal !== totalElement.val()) {
+			totalElement.val(formattedTotal);
+		}
+
+	}
+}, 50, false );
 
 function gformGetShippingPrice(formId){
     var shippingField = jQuery(".gfield_shipping_" + formId + " input[readonly], .gfield_shipping_" + formId + " select, .gfield_shipping_" + formId + " input:checked");

@@ -431,7 +431,7 @@ html[dir="rtl"] .add-buttons {
 
 	}
 
-.add-buttons li button {
+.add-buttons li button, .add-buttons li button.button {
 			align-items: stretch;
 			background: transparent;
 			border: 1px solid #d5d7e9;
@@ -452,12 +452,12 @@ html[dir="rtl"] .add-buttons {
 
 		}
 
-.add-buttons li button:hover {
+.add-buttons li button:hover, .add-buttons li button.button:hover {
 				border-color: #3e7da6;
 				color: #3e7da6;
 			}
 
-.add-buttons li button:focus {
+.add-buttons li button:focus, .add-buttons li button.button:focus {
 				border: 1px solid #3985b7;
 				border-radius: 3px;
 				box-shadow: 0 0 0 2px #bed8ed;

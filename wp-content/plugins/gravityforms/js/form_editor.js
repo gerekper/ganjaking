@@ -1231,6 +1231,7 @@ function LoadFieldSettings(){
 
 	}
 
+	// Accessibility and other warnings
 	if ( ( field.type === 'multiselect' || field.type === 'select' ) && field.enableEnhancedUI ) {
 		SetFieldAccessibilityWarning( 'enable_enhanced_ui_setting', 'below' );
 	}
@@ -1239,8 +1240,16 @@ function LoadFieldSettings(){
         SetFieldAccessibilityWarning( 'multiselect', 'above' );
     }
 
+    if ( field.labelPlacement === 'hidden_label' ) {
+		SetFieldAccessibilityWarning( 'label_placement_setting', 'above' );
+	}
+
 	if ( field.label === '' ) {
 		setFieldError( 'label_setting', 'below' );
+	}
+
+	if ( field.dateType === 'datepicker' ) {
+		SetFieldAccessibilityWarning( 'date_input_type_setting', 'above' );
 	}
 
     jQuery(document).trigger('gform_load_field_settings', [field, form]);
@@ -3402,6 +3411,12 @@ function SetDateInputType(type){
     if(GetInputType(field) != "date")
         return;
 
+	if ( type === 'datepicker' ) {
+		SetFieldAccessibilityWarning( 'date_input_type_setting', 'above' );
+	} else {
+		ResetFieldAccessibilityWarning();
+	}
+
     field.dateType = type;
     field.inputs = GetDateFieldInputs(field);
 
@@ -3735,6 +3750,12 @@ function SetFieldLabelPlacement(labelPlacement){
     } else {
         jQuery('#field_description_placement_container').show('slow');
     }
+
+	if ( field.labelPlacement == 'hidden_label' ) {
+		SetFieldAccessibilityWarning( 'label_placement_setting', 'above' );
+	} else {
+		ResetFieldAccessibilityWarning(  );
+	}
 
     SetFieldProperty("labelPlacement", labelPlacement);
     RefreshSelectedFieldPreview();
@@ -4352,10 +4373,10 @@ function IsValidFormula(formula) {
 function ResetFieldAccessibilityWarning( fieldSetting ) {
 	if ( typeof fieldSetting !== 'undefined' ) {
 		jQuery( '.' + fieldSetting )
-			.nextAll( '.accessibility_warning' ).remove()
-			.prevAll( '.accessibility_warning' ).remove();
+			.nextAll( '.gform-accessibility-warning' ).remove()
+			.prevAll( '.gform-accessibility-warning' ).remove();
 	} else {
-		jQuery('.accessibility_warning').remove();
+		jQuery('.gform-accessibility-warning').remove();
 	}
 }
 
@@ -4363,7 +4384,7 @@ function ResetFieldAccessibilityWarning( fieldSetting ) {
  * Set the field error for a field settings.
  *
  * We add the field setting to the "errors" field property and display the error
- * message next to the seeting.
+ * message next to the setting.
  *
  * @since 2.5
  *

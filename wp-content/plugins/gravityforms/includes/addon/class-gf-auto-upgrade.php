@@ -183,9 +183,28 @@ class GFAutoUpgrade {
 	}
 
 	private function get_changelog() {
-		
-	$text = '';
-	return stripslashes( $text );
+		$key                = $this->get_key();
+		$body               = "key={$key}";
+		$options            = array( 'method' => 'POST', 'timeout' => 3, 'body' => $body );
+		$options['headers'] = array(
+			'Content-Type'   => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
+			'Content-Length' => strlen( $body ),
+			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
+			'Referer'        => get_bloginfo( 'url' ),
+		);
+
+		$raw_response = GFCommon::post_to_manager( 'changelog.php', $this->get_remote_request_params( $this->_slug, $key, $this->_version ), $options );
+
+		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
+			$text = sprintf( esc_html__( 'Oops!! Something went wrong.%sPlease try again or %scontact us%s.', 'gravityforms' ), '<br/>', "<a href='https://www.gravityforms.com/support/'>", '</a>' );
+		} else {
+			$text = $raw_response['body'];
+			if ( substr( $text, 0, 10 ) != '<!--GFM-->' ) {
+				$text = '';
+			}
+		}
+
+		return stripslashes( $text );
 	}
 
 	private function get_version_info( $offering, $use_cache = true ) {
@@ -216,11 +235,39 @@ class GFAutoUpgrade {
 
 		$force_check = rgget( 'force-check' ) == 1;
 		$version_info = $this->get_version_info( $this->_slug, ! $force_check );
+
 		$plugin_file = $this->_path;
 		$upgrade_url = wp_nonce_url( 'update.php?action=upgrade-plugin&amp;plugin=' . urlencode( $plugin_file ), 'upgrade-plugin_' . $plugin_file );
-		$version_icon    = 'dashicons-yes';
-		$version_message = sprintf( esc_html__( 'Your version of %s is up to date.', 'gravityforms' ), $this->_title );
-		
+
+		if ( ! rgar( $version_info, 'is_valid_key' ) ) {
+
+			$version_icon    = 'dashicons-no';
+			$version_message = sprintf(
+				'<p>%s</p>',
+				sprintf(
+					esc_html( '%sRegister%s your copy of Gravity Forms to receive access to automatic updates and support. Need a license key? %sPurchase one now%s.', 'gravityforms' ),
+					'<a href="admin.php?page=gf_settings">',
+					'</a>',
+					'<a href="https://www.gravityforms.com">',
+					'</a>'
+				)
+			);
+
+		} elseif ( version_compare( $this->_version, $version_info['version'], '<' ) ) {
+
+			$details_url = self_admin_url( 'plugin-install.php?tab=plugin-information&plugin=' . urlencode( $this->_slug ) . '&section=changelog&TB_iframe=true&width=600&height=800' );
+			$message_link_text = sprintf( esc_html__( 'View version %s details', 'gravityforms' ), $version_info['version'] );
+			$message_link      = sprintf( '<a href="%s" class="thickbox" title="%s">%s</a>', esc_url( $details_url ), esc_attr( $this->_title ), $message_link_text );
+			$message           = sprintf( esc_html__( 'There is a new version of %1$s available. %s.', 'gravityforms' ), $this->_title, $message_link );
+
+			$version_icon    = 'dashicons-no';
+			$version_message = $message;
+
+		} else {
+
+			$version_icon    = 'dashicons-yes';
+			$version_message = sprintf( esc_html__( 'Your version of %s is up to date.', 'gravityforms' ), $this->_title );
+		}
 
 		$updates[] = array(
 			'name'              => esc_html( $this->_title ),

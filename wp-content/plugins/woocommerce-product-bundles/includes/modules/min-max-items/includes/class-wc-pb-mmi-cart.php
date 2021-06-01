@@ -76,23 +76,29 @@ class WC_PB_MMI_Cart {
 			if ( $items_invalid ) {
 
 				$bundle_title = $bundle->get_title();
+				/* translators: Product name */
 				$action       = sprintf( __( '&quot;%s&quot; cannot be added to the cart', 'woocommerce-product-bundles' ), $bundle_title );
 				$status       = '';
 
 				if ( $items_min === $items_max ) {
-					$resolution = sprintf( _n( 'please choose 1 item', 'please choose %s items', $items_min, 'woocommerce-product-bundles' ), $items_min );
+					/* translators: Item count */
+					$resolution = sprintf( _n( 'please choose %s item', 'please choose %s items', $items_min, 'woocommerce-product-bundles' ), $items_min );
 				} elseif ( $items_selected < $items_min ) {
-					$resolution = sprintf( _n( 'please choose at least 1 item', 'please choose at least %s items', $items_min, 'woocommerce-product-bundles' ), $items_min );
+					/* translators: Item count */
+					$resolution = sprintf( _n( 'please choose at least %s item', 'please choose at least %s items', $items_min, 'woocommerce-product-bundles' ), $items_min );
 				} else {
-					$resolution = sprintf( _n( 'please limit your selection to 1 item', 'please choose up to %s items', $items_max, 'woocommerce-product-bundles' ), $items_max );
+					/* translators: Item count */
+					$resolution = sprintf( _n( 'please limit your selection to %s item', 'please choose up to %s items', $items_max, 'woocommerce-product-bundles' ), $items_max );
 				}
 
 				if ( $items_selected === 1 ) {
 					$status = __( ' (you have chosen 1)', 'woocommerce-product-bundles' );
 				} elseif ( $items_selected > 1 ) {
+					/* translators: Item count */
 					$status = sprintf( __( ' (you have chosen %s)', 'woocommerce-product-bundles' ), $items_selected );
 				}
 
+				/* translators: %1$s: Action, %2$s: Resolution, %3$s: Status */
 				$message = sprintf( _x( '%1$s &ndash; %2$s%3$s.', 'add-to-cart validation error: action, resolution, status', 'woocommerce-product-bundles' ), $action, $resolution, $status );
 
 				wc_add_notice( $message, 'error' );
@@ -139,16 +145,21 @@ class WC_PB_MMI_Cart {
 				if ( $items_invalid ) {
 
 					$bundle_title = $bundle->get_title();
+					/* translators: Product title */
 					$action       = sprintf( __( '&quot;%s&quot; cannot be purchased', 'woocommerce-product-bundles' ), $bundle_title );
 
 					if ( $items_min === $items_max ) {
-						$resolution = sprintf( _n( 'please choose 1 item', 'please choose %s items', $items_min, 'woocommerce-product-bundles' ), $items_min );
+						/* translators: Item count */
+						$resolution = sprintf( _n( 'please choose %s item', 'please choose %s items', $items_min, 'woocommerce-product-bundles' ), $items_min );
 					} elseif ( $items_selected < $items_min ) {
-						$resolution = sprintf( _n( 'please choose at least 1 item', 'please choose at least %s items', $items_min, 'woocommerce-product-bundles' ), $items_min );
+						/* translators: Item count */
+						$resolution = sprintf( _n( 'please choose at least %s item', 'please choose at least %s items', $items_min, 'woocommerce-product-bundles' ), $items_min );
 					} else {
-						$resolution = sprintf( _n( 'please limit your selection to 1 item', 'please choose up to %s items', $items_max, 'woocommerce-product-bundles' ), $items_max );
+						/* translators: Item count */
+						$resolution = sprintf( _n( 'please limit your selection to %s item', 'please choose up to %s items', $items_max, 'woocommerce-product-bundles' ), $items_max );
 					}
 
+					/* translators: %1$s: Action, %2$s: Resolution */
 					$message = sprintf( _x( '%1$s &ndash; %2$s.', 'cart validation error: action, resolution', 'woocommerce-product-bundles' ), $action, $resolution );
 
 					wc_add_notice( $message, 'error' );

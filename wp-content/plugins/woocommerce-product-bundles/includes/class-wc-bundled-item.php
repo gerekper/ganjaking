@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The bunded item class is a product container that initializes and holds pricing, availability and variation/attribute-related data for a bundled product.
  *
  * @class    WC_Bundled_Item
- * @version  6.7.7
+ * @version  6.9.0
  */
 class WC_Bundled_Item {
 
@@ -610,25 +610,15 @@ class WC_Bundled_Item {
 
 		} elseif ( 'simple' === $bundled_product->get_type() ) {
 
-			// Name your price support.
-			if ( WC_PB()->compatibility->is_nyp( $bundled_product ) ) {
-
-				$this->min_regular_price = $this->min_price = WC_Name_Your_Price_Helpers::get_minimum_price( $bundled_product_id ) ? WC_Name_Your_Price_Helpers::get_minimum_price( $bundled_product_id ) : 0;
-				$this->max_regular_price = $this->max_price = INF;
-
-				$this->product->set_price( $this->min_price );
-				$this->product->set_regular_price( $this->min_price );
-
-				$this->is_nyp = true;
-
-			} else {
-
-				$this->min_price         = $this->max_price         = $this->get_raw_price( false, 'sync' );
-				$this->min_regular_price = $this->max_regular_price = $this->get_raw_regular_price();
-			}
-
-			$this->min_regular_price = $this->max_regular_price = $this->get_raw_regular_price();
 			$this->min_price         = $this->max_price         = $this->get_raw_price( false, 'sync' );
+			$this->min_regular_price = $this->max_regular_price = $this->get_raw_regular_price();
+
+			// Name your price support.
+			if ( $this->is_priced_individually() && WC_PB()->compatibility->is_nyp( $bundled_product ) ) {
+				$max_nyp_price = WC_Name_Your_Price_Helpers::get_maximum_price( $bundled_product );
+				$this->max_regular_price = $this->max_price = $max_nyp_price ? $max_nyp_price : INF;
+				$this->is_nyp            = true;
+			}
 
 		/*----------------------------------*/
 		/*	Variable Products               */
@@ -701,6 +691,13 @@ class WC_Bundled_Item {
 					$this->min_regular_price = min( $min_variation_regular_price, $max_variation_regular_price );
 					$this->max_regular_price = max( $min_variation_regular_price, $max_variation_regular_price );
 				}
+			}
+
+			// Name your price support.
+			if ( 'variable' === $bundled_product->get_type() && $this->is_priced_individually() && WC_PB()->compatibility->is_nyp( $bundled_product ) ) {
+				$this->is_nyp = true;
+				// There is no performant way to search for the max NYP price of a variation. NYP does not filter lookup table data.
+				$this->max_regular_price = $this->max_price = INF;
 			}
 		}
 
@@ -2186,6 +2183,7 @@ class WC_Bundled_Item {
 					$stock_left = $product->get_stock_quantity();
 
 					if ( $stock_left > 0 ) {
+						/* translators: Item count */
 						$availability_text .= ' ' . sprintf( __( '(only %s left in stock)', 'woocommerce-product-bundles' ), $stock_left );
 					}
 				}

@@ -295,6 +295,17 @@ function isValidFlyoutClick( e ) {
 }
 
 /**
+ * Determine whether a given rule needs to present a text input for the value.
+ *
+ * @param {object} e The rule object.
+ *
+ * @return {boolean}
+ */
+function ruleNeedsTextValue( rule ) {
+	return ['contains', 'starts_with', 'ends_with'].indexOf ( rule.operator ) !== -1;
+}
+
+/**
  * Class GFConditionalLogic
  *
  * A JS class encapsulating all of the logic and state for a conditional flyout.
@@ -630,10 +641,11 @@ GFConditionalLogic.prototype.renderSelect = function( rule, idx ) {
  */
 GFConditionalLogic.prototype.renderRuleValue = function( rule, idx ) {
 	var fieldValueOptions = this.renderValueOptions( rule, idx );
-	var isSelect = fieldValueOptions.length;
-	var html = '';
+	var isSelect          = fieldValueOptions.length;
+	var html              = '';
+	var needsTextInput    = ruleNeedsTextValue( rule );
 
-	if ( ! isSelect ) {
+	if ( ! isSelect || needsTextInput ) {
 		html = this.renderInput( rule, idx );
 	} else {
 		html = this.renderSelect( rule, idx );
@@ -666,7 +678,7 @@ GFConditionalLogic.prototype.renderRule = function( rule, idx ) {
 	var field = getFieldById( rule.fieldId );
 
 	// Field is select - if value doesn't exist, set it to the first choice.
-	if ( field && field.choices.length ) {
+	if ( field && field.choices.length && ! ruleNeedsTextValue( rule ) ) {
 		var found = field.choices.filter( function( choice ) { return rule.value == choice.value; } )[0];
 
 		if ( ! found && field.type !== 'multiselect' ) {

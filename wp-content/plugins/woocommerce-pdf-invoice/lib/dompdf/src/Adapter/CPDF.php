@@ -180,7 +180,7 @@ class CPDF implements Canvas
      * @param string $orientation The orientation of the document (either 'landscape' or 'portrait')
      * @param Dompdf $dompdf The Dompdf instance
      */
-    public function __construct($paper = "letter", $orientation = "portrait", Dompdf $dompdf)
+    public function __construct($paper = "letter", $orientation = "portrait", Dompdf $dompdf = null)
     {
         if (is_array($paper)) {
             $size = $paper;
@@ -194,9 +194,13 @@ class CPDF implements Canvas
             [$size[2], $size[3]] = [$size[3], $size[2]];
         }
 
-        $this->_dompdf = $dompdf;
+        if ($dompdf === null) {
+            $this->_dompdf = new Dompdf();
+        } else {
+            $this->_dompdf = $dompdf;
+        }
 
-        $this->_pdf = new \Cpdf(
+        $this->_pdf = new \WooCommercePDFInvoice\Cpdf(
             $size,
             true,
             $dompdf->getOptions()->getFontCache(),
@@ -255,7 +259,7 @@ class CPDF implements Canvas
     /**
      * Returns the Cpdf instance
      *
-     * @return \Dompdf\Cpdf
+     * @return \WooCommercePDFInvoice\Cpdf
      */
     public function get_cpdf()
     {

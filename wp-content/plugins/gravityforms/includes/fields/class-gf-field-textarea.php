@@ -230,7 +230,7 @@ class GF_Field_Textarea extends GF_Field {
 
 			$custom  = "\tif ( typeof current_page === 'undefined' ) { return; }\n\twindow.gformInitTinymce = function(){\n\tfor( var id in tinymce.editors ) { tinymce.EditorManager.remove( tinymce.editors[id] ); }";
 			$replace = sprintf(
-				"%s\njQuery( document ).on( 'gform_post_render%s', function( event, form_id, current_page ) { \n%s\n%s\n\t}\n\tgformInitTinymce();\n} );\n%s",
+				"%s\nfunction gformInitMCEInstances() { jQuery( document ).on( 'gform_post_render%s', function( event, form_id, current_page ) { \n%s\n%s\n\t}\n\tgformInitTinymce();\n} );}; gform.initializeOnLoaded( gformInitMCEInstances );\n%s",
 				$open_tag,
 				$height_issue_fix,
 				$custom,

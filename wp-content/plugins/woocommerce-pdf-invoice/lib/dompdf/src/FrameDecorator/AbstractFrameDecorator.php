@@ -15,6 +15,7 @@ use WooCommercePDFInvoice\Css\Style;
 use WooCommercePDFInvoice\Positioner\AbstractPositioner;
 use WooCommercePDFInvoice\Exception;
 
+
 /**
  * @package dompdf
  * @link    http://dompdf.github.com/

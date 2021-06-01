@@ -39,8 +39,6 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 
 			$this->catalog_id = $catalog_id;
 
-			add_action( 'wp_ajax_refresh_google_product_category_field', array( $this, 'refresh_google_product_category_field' ) );
-
 			parent::__construct();
 		}
 
@@ -89,7 +87,7 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 		public function enqueue_scripts() {
 			$suffix = wc_instagram_get_scripts_suffix();
 
-			wp_enqueue_script( 'wc-instagram-product-catalog', WC_INSTAGRAM_URL . "assets/js/admin/product-catalog{$suffix}.js", array( 'wc-instagram-subset-fields', 'wc-instagram-editable-url' ), WC_INSTAGRAM_VERSION, true );
+			wp_enqueue_script( 'wc-instagram-product-catalog', WC_INSTAGRAM_URL . "assets/js/admin/product-catalog{$suffix}.js", array( 'wc-instagram-subset-fields', 'wc-instagram-editable-url', 'selectWoo' ), WC_INSTAGRAM_VERSION, true );
 			wp_localize_script(
 				'wc-instagram-product-catalog',
 				'wc_instagram_product_catalog_params',
@@ -693,18 +691,12 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 		 * Refreshes the content for the 'google_product_category' field.
 		 *
 		 * @since 3.3.0
+		 * @deprecated 3.4.6
 		 */
 		public function refresh_google_product_category_field() {
-			check_ajax_referer( 'refresh_google_product_category_field' );
+			wc_deprecated_function( __FUNCTION__, '3.4.6', 'WC_Instagram_AJAX::refresh_google_product_category_field()' );
 
-			$category_id = ( ! empty( $_POST['category_id'] ) ? wc_clean( wp_unslash( $_POST['category_id'] ) ) : '' );
-
-			$data          = $this->get_form_field( 'product_google_category' );
-			$data['value'] = $category_id;
-
-			$html = $this->generate_google_product_category_html( 'product_google_category', $data );
-
-			wp_send_json_success( array( 'output' => $html ) );
+			WC_Instagram_AJAX::refresh_google_product_category_field();
 		}
 	}
 }

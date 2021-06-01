@@ -9080,8 +9080,10 @@ div .gfield_repeater_cell {
 .gform-settings__content #poststuff .postbox h2 {
 
 	border: none;
+	color: #242748;
 	flex-grow: 0;
 	font-size: 0.875rem;
+	font-weight: 500;
 	justify-content: space-around;
 	line-height: 2.875rem;
 	padding-bottom: 0;

@@ -414,6 +414,10 @@ class WC_PB_Admin {
 	 */
 	public static function add_insufficient_stock_report_tab( $reports ) {
 
+		if ( WC_PB_Admin_Analytics::is_enabled() ) {
+			return $reports;
+		}
+
 		$reports[ 'stock' ][ 'reports' ][ 'insufficient_stock' ] = array(
 			'title'       => __( 'Insufficient stock', 'woocommerce-product-bundles' ),
 			'description' => '',
@@ -459,6 +463,7 @@ class WC_PB_Admin {
 		}
 
 		$bundle = wc_get_product( absint( $_GET[ 'bundle_id' ] ) );
+		/* translators: %1$s: Product title, %2$s: Product "clear filter" link */
 		$notice = sprintf( __( 'You are currently viewing a filtered version of this report for <strong>%1$s</strong>. <a href="%2$s" class="wc_pb_forward">Clear Filter</a>', 'woocommerce-product-bundles' ), $bundle->get_title(), admin_url( 'admin.php?page=wc-reports&tab=stock&report=insufficient_stock' ) );
 		WC_PB_Admin_Notices::add_notice( $notice, 'info' );
 	}

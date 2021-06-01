@@ -26,6 +26,9 @@ class WC_Store_Credit_Cart {
 	 * @since 3.0.0
 	 */
 	public function __construct() {
+		add_action( 'template_redirect', array( $this, 'apply_coupon_from_url' ) );
+		add_action( 'woocommerce_add_to_cart', array( $this, 'apply_coupons_from_session' ), 20 );
+
 		add_filter( 'woocommerce_cart_totals_coupon_label', array( $this, 'cart_totals_coupon_label' ), 10, 2 );
 		add_filter( 'woocommerce_coupon_discount_amount_html', array( $this, 'coupon_discount_amount_html' ), 10, 2 );
 		add_filter( 'woocommerce_coupon_sort', array( $this, 'set_coupon_priority' ), 10, 2 );
@@ -39,6 +42,56 @@ class WC_Store_Credit_Cart {
 		add_action( 'woocommerce_after_calculate_totals', array( $this, 'after_calculate_totals' ), 1000 );
 		add_action( 'woocommerce_checkout_create_order', array( $this, 'create_order' ) );
 		add_action( 'woocommerce_cart_emptied', array( $this, 'cart_emptied' ) );
+	}
+
+	/**
+	 * Applies a store credit coupon by URL.
+	 *
+	 * @since 3.7.0
+	 */
+	public function apply_coupon_from_url() {
+		if ( ! isset( $_GET['redeem_store_credit'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			return;
+		}
+
+		$coupon_code = rawurldecode( wc_clean( wp_unslash( $_GET['redeem_store_credit'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification
+
+		if ( ! $coupon_code || ! wc_is_store_credit_coupon( $coupon_code ) ) {
+			wc_add_notice( __( 'Store credit coupon not found.', 'woocommerce-store-credit' ), 'error' );
+			wp_safe_redirect( remove_query_arg( 'redeem_store_credit' ) );
+			exit;
+		}
+
+		if ( ! WC()->cart || WC()->cart->is_empty() ) {
+			WC_Store_Credit_Session::add_coupon( $coupon_code );
+			wc_add_notice( __( 'The store credit will be applied after adding some products to the cart.', 'woocommerce-store-credit' ) );
+			wp_safe_redirect( wc_get_page_permalink( 'shop' ) );
+			exit;
+		}
+
+		WC()->cart->apply_coupon( $coupon_code );
+		wp_safe_redirect( wc_get_cart_url() );
+		exit;
+	}
+
+	/**
+	 * Applies the store credit coupons stored in session.
+	 *
+	 * @since 3.7.0
+	 */
+	public function apply_coupons_from_session() {
+		$cart    = WC()->cart;
+		$coupons = WC_Store_Credit_Session::get_coupons();
+
+		if ( ! $cart || empty( $coupons ) ) {
+			return;
+		}
+
+		foreach ( $coupons as $coupon_code ) {
+			$cart->apply_coupon( $coupon_code );
+		}
+
+		WC_Store_Credit_Session::clear_coupons();
 	}
 
 	/**
@@ -133,6 +186,11 @@ class WC_Store_Credit_Cart {
 			return $discount;
 		}
 
+		// It's a deposit product.
+		if ( isset( $cart_item['deposit_amount'] ) ) {
+			return $cart_item['deposit_amount'];
+		}
+
 		/*
 		 * Return the maximum amount to obtain the total discount for this coupon and fix the discounts per item
 		 * in the 'woocommerce_coupon_custom_discounts_array' filter hook.
@@ -162,6 +220,8 @@ class WC_Store_Credit_Cart {
 
 		$cart_discounts = $this->get_cart_discounts();
 		$discounts      = $cart_discounts->calculate_item_discounts( $coupon, wc_remove_number_precision_deep( $discounts ) );
+
+		$this->fix_discounts_for_deposits( $coupon );
 
 		return wc_add_number_precision_deep( $discounts );
 	}
@@ -197,7 +257,6 @@ class WC_Store_Credit_Cart {
 		$cart_discounts->update_credit_used( $order );
 	}
 
-
 	/**
 	 * Cart emptied.
 	 *
@@ -206,6 +265,45 @@ class WC_Store_Credit_Cart {
 	public function cart_emptied() {
 		// Clear the cart discounts.
 		$this->cart_discounts = null;
+	}
+
+	/**
+	 * Fixes the store credit discounts applied to the deposit products.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @param WC_Coupon $coupon Coupon object.
+	 */
+	protected function fix_discounts_for_deposits( $coupon ) {
+		$deposit_discounts     = WC()->session->get( 'deposits_present_discounts', array() );
+		$deposit_tax_discounts = WC()->session->get( 'deposits_discount_tax', array() );
+
+		// There are deposit products.
+		if ( empty( $deposit_discounts ) ) {
+			return;
+		}
+
+		$coupon_discounts = $this->get_cart_discounts()->coupon_discounts()->get( $coupon->get_code() );
+
+		if ( ! $coupon_discounts ) {
+			return;
+		}
+
+		$coupon_id      = $coupon->get_id();
+		$item_discounts = $coupon_discounts->item_discounts()->get_by_group( 'cart' );
+
+		foreach ( $item_discounts as $item_discount ) {
+			$cart_item_id = WC_Deposits_Cart_Manager::generate_cart_id( $item_discount->get_item()->object );
+
+			$deposit_discounts[ $cart_item_id ][ $coupon_id ] = $item_discount->get_discount();
+
+			if ( $item_discount->get_item()->product->is_taxable() ) {
+				$deposit_tax_discounts[ $cart_item_id ][ $coupon_id ] = $item_discount->get_discount_tax();
+			}
+		}
+
+		WC()->session->set( 'deposits_present_discounts', $deposit_discounts );
+		WC()->session->set( 'deposits_discount_tax', $deposit_tax_discounts );
 	}
 }
 

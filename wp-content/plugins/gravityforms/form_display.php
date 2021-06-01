@@ -1181,7 +1181,7 @@ class GFFormDisplay {
 				$form_string .= "
                 <iframe style='{$iframe_style}' src='about:blank' name='gform_ajax_frame_{$form_id}' id='gform_ajax_frame_{$form_id}'" . $iframe_title . ">" . $iframe_content . "</iframe>
                 <script type='text/javascript'>" . apply_filters( 'gform_cdata_open', '' ) . '' .
-					'document.addEventListener( \'DOMContentLoaded\', function($){' .
+					'gform.initializeOnLoaded( function() {' .
 						"gformInitSpinner( {$form_id}, '{$spinner_url}' );" .
 						"jQuery('#gform_ajax_frame_{$form_id}').on('load',function(){" .
 							"var contents = jQuery(this).contents().find('*').html();" .
@@ -1231,22 +1231,25 @@ class GFFormDisplay {
 
 				self::register_form_init_scripts( $form, $field_values, $ajax );
 
+				// We can't init in footer on AJAX calls, as those actions never get called.
+				$init_in_footer = ! ( defined('DOING_AJAX') && DOING_AJAX );
+
 				/**
 				 * Allows init scripts to be outputted in either the header or footer.
 				 *
 				 * @since unknown
-				 * @since 2.5 Defaults to true
+				 * @since 2.5.3 Defaults to ( ! DOING_AJAX )
 				 *
-				 * @param bool true Whether to output init scripts in the footer. Defaults to true.
+				 * @param bool Whether to output init scripts in the footer. Defaults to ( ! DOING_AJAX ).
 				 */
-				if ( apply_filters( 'gform_init_scripts_footer', true ) ) {
+				if ( apply_filters( 'gform_init_scripts_footer', $init_in_footer ) ) {
 					$callback = array( new GF_Late_Static_Binding( array( 'form_id' => $form['id'] ) ), 'GFFormDisplay_footer_init_scripts' );
 					add_action( 'wp_footer', $callback, 20 );
 					add_action( 'admin_footer', $callback, 20 );
 					add_action( 'gform_preview_footer', $callback );
 				} else {
 					$form_string .= self::get_form_init_scripts( $form );
-					$form_string .= "<script type='text/javascript'>" . apply_filters( 'gform_cdata_open', '' ) . " document.addEventListener( 'DOMContentLoaded', function(){jQuery(document).trigger('gform_post_render', [{$form_id}, {$current_page}]) } ); " . apply_filters( 'gform_cdata_close', '' ) . '</script>';
+					$form_string .= "<script type='text/javascript'>" . apply_filters( 'gform_cdata_open', '' ) . " gform.initializeOnLoaded( function() {  jQuery(document).trigger('gform_post_render', [{$form_id}, {$current_page}]) } ); " . apply_filters( 'gform_cdata_close', '' ) . '</script>';
 				}
 			}
 
@@ -1283,7 +1286,7 @@ class GFFormDisplay {
 		$form         = RGFormsModel::get_form_meta( $form_id );
 		$form_string  = self::get_form_init_scripts( $form );
 		$current_page = self::get_current_page( $form_id );
-		$form_string .= "<script type='text/javascript'>" . apply_filters( 'gform_cdata_open', '' ) . " document.addEventListener( 'DOMContentLoaded', function(){jQuery(document).trigger('gform_post_render', [{$form_id}, {$current_page}]) } ); " . apply_filters( 'gform_cdata_close', '' ) . '</script>';
+		$form_string .= "<script type='text/javascript'>" . apply_filters( 'gform_cdata_open', '' ) . " gform.initializeOnLoaded( function() { jQuery(document).trigger('gform_post_render', [{$form_id}, {$current_page}]) } ); " . apply_filters( 'gform_cdata_close', '' ) . '</script>';
 
 		/**
 		 * A filter to allow modification of scripts that fire in the footer
@@ -2853,7 +2856,8 @@ class GFFormDisplay {
 			"window['gf_number_format'] = '" . $number_format . "';" .
 
 			'jQuery(document).ready(function(){' .
-			"gf_apply_rules({$form['id']}, " . json_encode( $fields_with_logic ) . ', true);' .
+            "window['gformInitPriceFields']();" .
+	        "gf_apply_rules({$form['id']}, " . json_encode( $fields_with_logic ) . ', true);' .
 			"jQuery('#gform_wrapper_{$form['id']}').show();" .
 			"jQuery(document).trigger('gform_post_conditional_logic', [{$form['id']}, null, true]);" .
 
@@ -3005,7 +3009,7 @@ class GFFormDisplay {
 			$script_string .= isset( $gf_global_script ) ? $gf_global_script : '';
 
 			$script_string .=
-				"jQuery(document).bind('gform_post_render', function(event, formId, currentPage){" .
+				"gform.initializeOnLoaded( function() { jQuery(document).on('gform_post_render', function(event, formId, currentPage){" .
 				"if(formId == {$form['id']}) {";
 
 			foreach ( $init_scripts as $init_script ) {
@@ -3027,7 +3031,7 @@ class GFFormDisplay {
 
 			$script_string .=
 
-				"} );" . apply_filters( 'gform_cdata_close', '' ) . '</script>';
+				"} ) } );" . apply_filters( 'gform_cdata_close', '' ) . '</script>';
 		}
 
 		return $script_string;
@@ -4337,8 +4341,11 @@ class GFFormDisplay {
 			$error_messages_list = '';
 		}
 
+		$wrapper_class = GFCommon::is_legacy_markup_enabled( $form ) ? 'gform_validation_errors validation_error' : 'gform_validation_errors';
+
 		$validation_errors_markup = sprintf(
-			'<div id="gf_form_focus" tabindex="-1" ></div><div class="gform_validation_errors" id="%s">%s%s</div>',
+			'<div id="gf_form_focus" tabindex="-1" ></div><div class="%s" id="%s">%s%s</div>',
+			$wrapper_class,
 			$validation_container_id,
 			$validation_message_markup,
 			$error_messages_list

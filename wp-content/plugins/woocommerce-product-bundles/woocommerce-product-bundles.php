@@ -2,8 +2,8 @@
 /**
 * Plugin Name: WooCommerce Product Bundles
 * Plugin URI: https://woocommerce.com/products/product-bundles/
-* Description: Offer product bundles, bulk discount packages and assembled products.
-* Version: 6.7.7
+* Description: Offer product bundles, bulk discount packages, and assembled products.
+* Version: 6.9.0
 * Author: SomewhereWarm
 * Author URI: https://somewherewarm.com/
 *
@@ -15,10 +15,10 @@
 * Requires PHP: 5.6
 *
 * Requires at least: 4.4
-* Tested up to: 5.6
+* Tested up to: 5.7
 *
 * WC requires at least: 3.1
-* WC tested up to: 5.1
+* WC tested up to: 5.3
 *
 * Copyright: © 2017-2021 SomewhereWarm SMPC.
 * License: GNU General Public License v3.0
@@ -34,11 +34,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Bundles
- * @version  6.7.7
+ * @version  6.9.0
  */
 class WC_Bundles {
 
-	public $version  = '6.7.7';
+	public $version  = '6.9.0';
 	public $required = '3.1.0';
 
 	/**
@@ -184,6 +184,7 @@ class WC_Bundles {
 
 		// WC version sanity check.
 		if ( ! function_exists( 'WC' ) || version_compare( WC()->version, $this->required ) < 0 ) {
+			/* translators: Version */
 			$notice = sprintf( __( 'WooCommerce Product Bundles requires at least WooCommerce <strong>%s</strong>.', 'woocommerce-product-bundles' ), $this->required );
 			require_once( WC_PB_ABSPATH . 'includes/admin/class-wc-pb-admin-notices.php' );
 			WC_PB_Admin_Notices::add_notice( $notice, 'error' );
@@ -192,6 +193,7 @@ class WC_Bundles {
 
 		// PHP version check.
 		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '5.6.20', '<' ) ) {
+			/* translators: %1$s: Version %, %2$s: Update PHP doc URL */
 			$notice = sprintf( __( 'WooCommerce Product Bundles requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-product-bundles' ), '5.6.20', $this->get_resource_url( 'update-php' ) );
 			require_once( WC_PB_ABSPATH . 'includes/admin/class-wc-pb-admin-notices.php' );
 			WC_PB_Admin_Notices::add_notice( $notice, 'error' );
@@ -342,6 +344,9 @@ class WC_Bundles {
 			$this->admin_includes();
 		}
 
+		// Analytics.
+		require_once( WC_PB_ABSPATH . 'includes/admin/analytics/class-wc-pb-admin-analytics.php' );
+
 		// WP-CLI includes.
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			require_once( WC_PB_ABSPATH . 'includes/class-wc-pb-cli.php' );
@@ -395,6 +400,8 @@ class WC_Bundles {
 			$resource = 'https://wordpress.org/plugins/product-bundles-minmax-items-for-woocommerce/';
 		} elseif ( 'bulk-discounts' === $handle ) {
 			$resource = 'https://wordpress.org/plugins/product-bundles-bulk-discounts-for-woocommerce/';
+		} elseif ( 'analytics-revenue' === $handle ) {
+			$resource = 'https://docs.woocommerce.com/document/bundles/bundles-faq/#faq_analytics_bundles_revenue';
 		} elseif ( 'ticket-form' === $handle ) {
 			$resource = WC_PB_SUPPORT_URL;
 		}

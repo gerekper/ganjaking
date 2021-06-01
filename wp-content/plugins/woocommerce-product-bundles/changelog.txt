@@ -1,5 +1,18 @@
 *** WooCommerce Product Bundles ***
 
+2021.05.26 - version 6.9.0
+* Feature - Introduced new 'Revenue' and 'Stock' reports under 'Analytics > Bundles'. The new 'Stock' report replaces the one previously found under 'WooCommerce > Reports > Stock > Insufficient Stock'.
+* Feature - Added support for variations with 'Name Your Price' inputs.
+* Fix - Fixed an issue that prevented bundled item data from importing correctly when overriding bundled item titles/descriptions and using double quotes.
+* Fix - Prevent 'PHP Recoverable fatal error' during checkout in some edge cases.
+* Fix - Fixed the bundled items checkboxes layout in the Twenty-Twenty-One theme.
+* Fix - Ensure that Membership discounts apply on bundled items if the user adds an eligible product to the cart.
+* Tweak - Improve stock sync logging to record 'full queue' events.
+
+2021.03.22 - version 6.8.0
+* Tweak - Throttle dispatches of stock sync tasks to lower resource utilization on high traffic sites.
+* Fix - Make sure visibility taxonomy is properly updated when using the 'WC_PB_DEBUG_STOCK_SYNC' and 'WC_PB_DEBUG_STOCK_PARENT_SYNC' constants.
+
 2021.03.06 - version 6.7.7
 * Fix - Fixed a fatal error caused by bundling subscription-type products while 'Priced Individually' is disabled.
 * Fix - Fixed a tax-related infinite loop caused by a regression in version 6.7.6.

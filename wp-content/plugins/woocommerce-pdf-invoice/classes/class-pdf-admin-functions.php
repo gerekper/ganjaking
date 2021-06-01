@@ -54,6 +54,10 @@ class WC_pdf_admin_functions {
 		// Add invoice number to order search
 		add_filter( 'woocommerce_shop_order_search_fields', array( $this, 'add_pdf_invoice_number_to_order_search' ) );
 
+		// Add "Attach PDF to this email" settings to WooCommerce emails settings
+		add_action( 'woocommerce_email_settings_before', array( $this, 'pdf_invoice_save_woocommerce_email_settings_before' ), 9 );
+		add_action( 'woocommerce_email_settings_before', array( $this, 'pdf_invoice_woocommerce_email_settings_before' ), 10 );
+
     }
 
     /**
@@ -165,7 +169,7 @@ class WC_pdf_admin_functions {
 			require_once( 'class-pdf-functions-class.php' );
 
 			// Get PDF Invoice Options
-			$woocommerce_pdf_invoice_settings = get_option( 'woocommerce_pdf_invoice_settings' );
+			$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
 			$ids 	 = array_map( 'absint', $ids );
 
@@ -178,15 +182,17 @@ class WC_pdf_admin_functions {
 
 				$new_invoice_meta = array( 
 					'invoice_created' 			=> isset( $old_pdf_invoice_meta_items['invoice_created'] ) ? $old_pdf_invoice_meta_items['invoice_created'] : '',
-					'invoice_date' 				=> WC_pdf_admin_functions::handle_pdf_date( $id, $woocommerce_pdf_invoice_settings['pdf_date'], isset( $old_pdf_invoice_meta_items['invoice_date'] ) ? $old_pdf_invoice_meta_items['invoice_date'] : '' ),
+					'invoice_date' 				=> WC_pdf_admin_functions::handle_pdf_date( $id, $settings['pdf_date'], isset( $old_pdf_invoice_meta_items['invoice_date'] ) ? $old_pdf_invoice_meta_items['invoice_date'] : '' ),
 					'invoice_number' 			=> isset( $old_pdf_invoice_meta_items['invoice_number'] ) ? $old_pdf_invoice_meta_items['invoice_number'] : '',
+					'wc_pdf_invoice_number' 	=> isset( $old_pdf_invoice_meta_items['wc_pdf_invoice_number'] ) ? $old_pdf_invoice_meta_items['wc_pdf_invoice_number'] : '',
 					'invoice_number_display' 	=> WC_pdf_functions::create_display_invoice_number( $id ),
-					'pdf_company_name' 			=> $woocommerce_pdf_invoice_settings['pdf_company_name'],
-					'pdf_company_information' 	=> nl2br( $woocommerce_pdf_invoice_settings['pdf_company_details'] ),
-					'pdf_registered_name' 		=> $woocommerce_pdf_invoice_settings['pdf_registered_name'],
-					'pdf_registered_address' 	=> $woocommerce_pdf_invoice_settings['pdf_registered_address'],
-					'pdf_company_number' 		=> $woocommerce_pdf_invoice_settings['pdf_company_number'],
-					'pdf_tax_number' 			=> $woocommerce_pdf_invoice_settings['pdf_tax_number'],
+					'pdf_company_name' 			=> $settings['pdf_company_name'],
+					'pdf_company_information' 	=> nl2br( $settings['pdf_company_details'] ),
+					'pdf_registered_name' 		=> $settings['pdf_registered_name'],
+					'pdf_registered_address' 	=> $settings['pdf_registered_address'],
+					'pdf_company_number' 		=> $settings['pdf_company_number'],
+					'pdf_tax_number' 			=> $settings['pdf_tax_number'],
+					'pdf_logo_file' 			=> $settings['pdf_logo'] 
 				);
 
 				// Only update if the invoice meta has changed.
@@ -278,6 +284,12 @@ class WC_pdf_admin_functions {
 
 	}
 
+	/**
+	 * [action_scheduler_create_email_invoice description]
+	 * @param  [type] $args  [description]
+	 * @param  string $group [description]
+	 * @return [type]        [description]
+	 */
 	public static function action_scheduler_create_email_invoice( $args = NULL, $group = '' ) {
 
 		require_once( 'class-pdf-send-pdf-class.php' );
@@ -445,17 +457,8 @@ class WC_pdf_admin_functions {
 		global $woocommerce;
 
 		if( $date ) {
-
-			$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
-			$date_format = $woocommerce_pdf_invoice_options['pdf_date_format'];
-
-			// Make sure the date is formated correctly
-			$date_check = DateTime::createFromFormat( get_option( 'date_format' ), $date );
-
-			if( $date_check ) {
-				$date = $date_check->format( $date_format );
-			}
-
+			$settings 	= get_option( 'woocommerce_pdf_invoice_settings' );
+			$date 		= wc_format_datetime( $date, $settings['pdf_date_format'] );
 		}
 
 		// Return a date in the format that matches the PDF Invoice settings.
@@ -529,8 +532,6 @@ class WC_pdf_admin_functions {
 
         return $next_invoice;	
 	}
-
-
 
 	/**
 	 * [bulk_post_updated_messages description]
@@ -659,44 +660,173 @@ class WC_pdf_admin_functions {
 		return $search_items;
 	}
 
+	/**
+	 * [pdf_invoice_save_woocommerce_email_settings_before description]
+	 * @param  [type] $object [description]
+	 * @return [type]         [description]
+	 */
+	function pdf_invoice_save_woocommerce_email_settings_before( $object ) {
+
+		$emails = WC_Emails::instance();
+
+        // Build the array of available email IDs
+        foreach ( $emails->get_emails() as $email ) {
+            $email_ids[] = $email->id;
+        }
+		
+		// Get the data when the form is saved
+		$post_data = $object->get_post_data();
+		
+		if( in_array( $object->id, $email_ids ) && isset( $post_data ) && !empty( $post_data ) ) {
+			
+			// Get the settings for this email
+			$options = get_option( 'woocommerce_' . $object->id . '_settings' );
+			
+			// set pdf_invoice_attach_pdf_invoice
+			$attach = isset( $post_data['woocommerce_' . $object->id . '_pdf_invoice_attach_pdf_invoice'] ) ? 'yes' : 'no';
+
+			// set pdf_invoice_template_pdf_invoice
+			$template = isset( $post_data['woocommerce_' . $object->id . '_pdf_invoice_template_pdf_invoice'] ) ? $post_data['woocommerce_' . $object->id . '_pdf_invoice_template_pdf_invoice'] : 'template';
+
+			// Update the 
+			$options['pdf_invoice_attach_pdf_invoice'] 		= $attach;
+			$options['pdf_invoice_template_pdf_invoice'] 	= $template;
+
+			// Update the email settings
+			update_option( 'woocommerce_' . $object->id . '_settings', $options );
+
+			// Update the Email Object settings
+			$object->settings['pdf_invoice_attach_pdf_invoice'] 	= $options['pdf_invoice_attach_pdf_invoice'];
+			$object->settings['pdf_invoice_template_pdf_invoice'] 	= $options['pdf_invoice_template_pdf_invoice'];
+				
+		}
+		
+	}
+
+	/**
+	 * [pdf_invoice_woocommerce_email_settings_before description]
+	 * @param  [type] $object [description]
+	 * @return [type]         [description]
+	 */
+	function pdf_invoice_woocommerce_email_settings_before( $object ) {
+		
+		$emails = WC_Emails::instance();
+        // Build the array of available email IDs
+        foreach ( $emails->get_emails() as $email ) {
+            $email_ids[] = $email->id;
+        }
+
+        $template_files = $this->get_template_files();
+
+		$woocommerce_email_settings_attach = array(
+			'title'         => __( 'Attach PDF Invoice to this email', 'woocommerce-pdf-invoice' ),
+			'lable'   		=> __( 'Attach PDF Invoice to this email if an invoice is available?', 'woocommerce-pdf-invoice' ),
+			'type'          => 'checkbox',
+			'default'       => 'no',
+		);
+
+		$woocommerce_email_settings_template = array(
+			'title'         => __( 'Choose PDF Invoice tempate for this email.', 'woocommerce-pdf-invoice' ),
+			'lable'   		=> __( 'Set the invoice template to use for the PDF attached to this email. Defaults to template', 'woocommerce-pdf-invoice' ),
+			'type'          => 'select',
+			'default'       => 'template',
+			'options'  		=> $template_files,
+		);
+		
+		if( in_array( $object->id, $email_ids ) ) {
+			// Add the field to the settings 
+			$object->form_fields['pdf_invoice_attach_pdf_invoice'] = $woocommerce_email_settings_attach;
+			$object->form_fields['pdf_invoice_template_pdf_invoice'] = $woocommerce_email_settings_template;
+		}
+		
+	}
+ 
+	/**
+	 * Get list of template files for settings
+	 * @return [type] [description]
+	 */
+	function get_template_files() {
+
+		$default_template_folder = PDFPLUGINPATH . 'templates/';
+		$theme_template_folder 	 = get_stylesheet_directory() . '/pdf_templates/';
+
+		// Output array of template file names
+		$templates = array();
+
+		$default_templates 	= glob( $default_template_folder . '*.php' );
+		$theme_templates   	= glob( $theme_template_folder . '*.php' );
+
+		// Remove the paths
+		foreach( $default_templates as $template ) {
+
+            if( !is_file($template) ) {
+                unset( $template ); 
+            }
+
+            $filename = str_replace( array( $default_template_folder, '.php' ), '', $template );
+
+            $templates[$filename] = $filename;
+        }
+
+        foreach( $theme_templates as $template ) {
+
+        	if( !is_file($template) ) {
+                unset( $template ); 
+            }
+
+            $filename = str_replace( array( $theme_template_folder, '.php' ), '', $template );
+
+            $templates[$filename] = $filename;
+        }
+
+
+
+/*
+
+        $templates_array 	= array_unique( $templates_array );
+*/
+        return $templates;
+
+	}
+
+    /**
+     * [sagepay_debug description]
+     * @param  Array   $tolog   contents for log
+     * @param  String  $id      payment gateway ID
+     * @param  String  $message additional message for log
+     * @param  boolean $start   is this the first log entry for this transaction
+     */
+    public static function debuger( $tolog = NULL, $id = NULL, $message = NULL, $start = FALSE ) {
+
+    	if( !class_exists('WC_Logger') ) {
+    		return;
+    	}
+
+        if( !isset( $logger ) ) {
+            $logger      = new stdClass();
+            $logger->log = new WC_Logger();
+        }
+
         /**
-         * [sagepay_debug description]
-         * @param  Array   $tolog   contents for log
-         * @param  String  $id      payment gateway ID
-         * @param  String  $message additional message for log
-         * @param  boolean $start   is this the first log entry for this transaction
+         * If this is the start of the logging for this transaction add the header
          */
-        public static function debuger( $tolog = NULL, $id, $message = NULL, $start = FALSE ) {
+        if( $start ) {
 
-        	if( !class_exists('WC_Logger') ) {
-        		return;
-        	}
-
-            if( !isset( $logger ) ) {
-                $logger      = new stdClass();
-                $logger->log = new WC_Logger();
-            }
-
-            /**
-             * If this is the start of the logging for this transaction add the header
-             */
-            if( $start ) {
-
-                $logger->log->add( $id, __('', 'woocommerce-pdf-invoice') );
-                $logger->log->add( $id, __('=============================================', 'woocommerce-pdf-invoice') );
-                $logger->log->add( $id, __('', 'woocommerce-pdf-invoice') );
-                $logger->log->add( $id, __('PDF Invoice Log', 'woocommerce-pdf-invoice') );
-                $logger->log->add( $id, __('' .date('d M Y, H:i:s'), 'woocommerce-pdf-invoice') );
-                $logger->log->add( $id, __('', 'woocommerce-pdf-invoice') );
-
-            }
-
+            $logger->log->add( $id, __('', 'woocommerce-pdf-invoice') );
             $logger->log->add( $id, __('=============================================', 'woocommerce-pdf-invoice') );
-            $logger->log->add( $id, $message );
-            $logger->log->add( $id, print_r( $tolog, TRUE ) );
-            $logger->log->add( $id, __('=============================================', 'woocommerce-pdf-invoice') );
+            $logger->log->add( $id, __('', 'woocommerce-pdf-invoice') );
+            $logger->log->add( $id, __('PDF Invoice Log', 'woocommerce-pdf-invoice') );
+            $logger->log->add( $id, __('' .date('d M Y, H:i:s'), 'woocommerce-pdf-invoice') );
+            $logger->log->add( $id, __('', 'woocommerce-pdf-invoice') );
 
         }
+
+        $logger->log->add( $id, __('=============================================', 'woocommerce-pdf-invoice') );
+        $logger->log->add( $id, $message );
+        $logger->log->add( $id, print_r( $tolog, TRUE ) );
+        $logger->log->add( $id, __('=============================================', 'woocommerce-pdf-invoice') );
+
+    }
 
 }
 

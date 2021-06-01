@@ -181,11 +181,13 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 	 */
 	public function settings_page_init() {
 
-		global $current_section;
+		global $current_tab, $current_section;
 
-		if ( $current_section && 'yes' === get_option( 'wccsp_restrictions_disable_global', false ) ) {
-			$enable_link = sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'admin.php?page=wc-settings&tab=restrictions#wccsp_restrictions_debug-description' ), __( 're-enable global restrictions', 'woocommerce-conditional-shipping-and-payments' ) );
-			WC_CSP_Admin_Notices::add_notice( sprintf( __( 'Global restrictions are currently disabled. You can still edit, create and delete rules &ndash; however, they will have no effect until you %s.', 'woocommerce-conditional-shipping-and-payments' ), $enable_link ), 'warning' );
+		if ( $current_section && 'restrictions' === $current_tab ) {
+			if ( 'yes' === get_option( 'wccsp_restrictions_disable_global', false ) ) {
+				$enable_link = sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'admin.php?page=wc-settings&tab=restrictions#wccsp_restrictions_debug-description' ), __( 're-enable global restrictions', 'woocommerce-conditional-shipping-and-payments' ) );
+				WC_CSP_Admin_Notices::add_notice( sprintf( __( 'Global restrictions are currently disabled. You can still edit, create and delete rules &ndash; however, they will have no effect until you %s.', 'woocommerce-conditional-shipping-and-payments' ), $enable_link ), 'warning' );
+			}
 		}
 
 		if ( isset( $_GET[ 'delete_rule' ], $_GET[ 'restriction_id' ] ) ) {

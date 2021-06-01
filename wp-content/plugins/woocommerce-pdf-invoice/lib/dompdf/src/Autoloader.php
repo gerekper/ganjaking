@@ -25,7 +25,7 @@ class Autoloader
      */
     public static function autoload($class)
     {
-        if ($class === 'Cpdf') {
+        if ($class === 'WooCommercePDFInvoice\Cpdf') {
             require_once __DIR__ . "/../lib/Cpdf.php";
             return;
         }
@@ -34,11 +34,9 @@ class Autoloader
         if (0 === strncmp(self::PREFIX, $class, $prefixLength)) {
             $file = str_replace('\\', '/', substr($class, $prefixLength));
             $file = realpath(__DIR__ . (empty($file) ? '' : '/') . $file . '.php');
-
             if (file_exists($file)) {
                 require_once $file;
             }
         }
-        
     }
 }

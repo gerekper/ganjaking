@@ -22,7 +22,7 @@ if ( ! class_exists( 'WC_Background_Process', false ) ) {
  * Uses https://github.com/A5hleyRich/wp-background-processing to handle tasks in the background.
  *
  * @class    WC_PB_DB_Sync_Task_Runner
- * @version  6.7.4
+ * @version  6.8.1
  */
 class WC_PB_DB_Sync_Task_Runner extends WC_Background_Process {
 
@@ -67,6 +67,8 @@ class WC_PB_DB_Sync_Task_Runner extends WC_Background_Process {
 	 * Dispatch updater.
 	 */
 	public function dispatch() {
+
+		WC_PB_Core_Compatibility::log( 'Dispatching...', 'info', 'wc_pb_db_sync_tasks' );
 
 		$dispatched = parent::dispatch();
 
@@ -223,10 +225,16 @@ class WC_PB_DB_Sync_Task_Runner extends WC_Background_Process {
 	 *
 	 * @return bool
 	 */
-	public function save() {
+	public function maybe_save() {
+
+		$saved = false;
+
 		if ( ! $this->is_queue_full() ) {
 			parent::save();
+			$saved = true;
 		}
+
+		return $saved;
 	}
 
 	/**

@@ -154,6 +154,7 @@ function wc_store_credit_update_240_set_payment_method_to_orders() {
 	);
 
 	if ( ! empty( $order_ids ) ) {
+		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
 		$wpdb->query(
 			$wpdb->prepare(
 				"UPDATE $wpdb->postmeta as metas
@@ -163,6 +164,7 @@ function wc_store_credit_update_240_set_payment_method_to_orders() {
 				_x( 'Store Credit', 'payment method', 'woocommerce-store-credit' )
 			)
 		);
+		// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared
 	}
 }
 
@@ -197,12 +199,14 @@ function wc_store_credit_update_240_clear_exhausted_coupons() {
 	);
 
 	if ( ! empty( $coupon_ids ) ) {
+		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
 		$wpdb->query(
 			"UPDATE $wpdb->postmeta as metas
 			SET meta_value = 0
 			WHERE meta_key = 'coupon_amount' AND
 				  metas.post_id IN ('" . implode( "','", $coupon_ids ) . "')"
 		);
+		// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared
 	}
 }
 

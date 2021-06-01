@@ -68,6 +68,7 @@ if ( ! class_exists( 'WC_Instagram_Autoloader' ) ) {
 				array(
 					'wc_instagram_admin_field_'            => $this->include_path . 'admin/fields/',
 					'wc_instagram_admin_'                  => $this->include_path . 'admin/',
+					'wc_instagram_settings_'               => $this->include_path . 'admin/settings/',
 					'wc_instagram_api_node'                => $this->include_path . 'api/nodes/',
 					'wc_instagram_api'                     => $this->include_path . 'api/',
 					'wc_instagram_product_catalog_format'  => $this->include_path . 'product-catalog/formats/',

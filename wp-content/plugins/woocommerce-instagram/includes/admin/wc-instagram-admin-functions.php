@@ -113,27 +113,3 @@ function wc_instagram_get_notice_dismiss_link( $notice, $base_url = false ) {
 		esc_html__( 'Dismiss', 'woocommerce-instagram' )
 	);
 }
-
-/**
- * Processes the AJAX request for generating the product catalog slug.
- *
- * @since 3.0.0
- */
-function wc_instagram_ajax_generate_product_catalog_slug() {
-	// phpcs:disable WordPress.Security.NonceVerification
-	$catalog_title = ( ! empty( $_POST['catalog_title'] ) ? wc_clean( wp_unslash( $_POST['catalog_title'] ) ) : '' );
-
-	if ( ! $catalog_title ) {
-		wp_send_json_error( array( 'error_code' => 'invalid_arguments' ) );
-	}
-
-	$catalog_id = ( isset( $_POST['catalog_id'] ) ? wc_clean( wp_unslash( $_POST['catalog_id'] ) ) : 'new' );
-	// phpcs:enable WordPress.Security.NonceVerification
-
-	$exclude = ( 'new' !== $catalog_id ? array( intval( $catalog_id ) ) : array() );
-
-	$slug = wc_instagram_generate_product_catalog_slug( $catalog_title, $exclude );
-
-	wp_send_json_success( array( 'slug' => $slug ) );
-}
-add_action( 'wp_ajax_wc_instagram_generate_product_catalog_slug', 'wc_instagram_ajax_generate_product_catalog_slug' );

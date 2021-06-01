@@ -739,6 +739,8 @@ class WC_PB_Product_Prices {
 			 * @param  string           $price_html
 			 * @param  WC_Bundled_Item  $bundled_item
 			 */
+
+			/* translators: %1$s: Product price, %2$s: Product quantity */
 			$price_html = apply_filters( 'woocommerce_bundled_item_price_html', '' === $quantity || $quantity > 1 ? sprintf( __( '%1$s <span class="bundled_item_price_quantity">each</span>', 'woocommerce-product-bundles' ), $price_html, $quantity ) : $price_html, $price_html, $bundled_item );
 		}
 

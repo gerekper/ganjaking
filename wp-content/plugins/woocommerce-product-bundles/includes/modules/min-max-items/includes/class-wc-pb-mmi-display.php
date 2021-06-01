@@ -51,14 +51,22 @@ class WC_PB_MMI_Display {
 
 		$params = array(
 			'i18n_min_zero_max_qty_error_singular' => __( 'Please choose an item.', 'woocommerce-product-bundles' ),
+			/* translators: Details */
 			'i18n_min_max_qty_error_singular'      => sprintf( __( 'Please choose 1 item.%s', 'woocommerce-product-bundles' ), '' ),
+			/* translators: Details */
 			'i18n_min_qty_error_singular'          => sprintf( __( 'Please choose at least 1 item.%s', 'woocommerce-product-bundles' ), '' ),
+			/* translators: Details */
 			'i18n_max_qty_error_singular'          => sprintf( __( 'Please choose up to 1 item.%s', 'woocommerce-product-bundles' ), '' ),
+			/* translators: %1$s: Item count, %2$s: Details */
 			'i18n_min_qty_error_plural'            => sprintf( __( 'Please choose at least %1$s items.%2$s', 'woocommerce-product-bundles' ), '%q', '' ),
+			/* translators: %1$s: Item count, %2$s: Details */
 			'i18n_max_qty_error_plural'            => sprintf( __( 'Please choose up to %1$s items.%2$s', 'woocommerce-product-bundles' ), '%q', '' ),
+			/* translators: %1$s: Item count, %2$s: Details */
 			'i18n_min_max_qty_error_plural'        => sprintf( __( 'Please choose %1$s items.%2$s', 'woocommerce-product-bundles' ), '%q', '' ),
+			/* translators: Item count */
 			'i18n_qty_error_plural'                => __( '%s items selected', 'woocommerce-product-bundles' ),
 			'i18n_qty_error_singular'              => __( '1 item selected', 'woocommerce-product-bundles' ),
+			/* translators: Status */
 			'i18n_qty_error_status_format'         => _x( '<span class="bundled_items_selection_status">%s</span>', 'validation error status format', 'woocommerce-product-bundles' )
 		);
 

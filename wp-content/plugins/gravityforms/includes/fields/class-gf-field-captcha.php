@@ -484,8 +484,8 @@ class GF_Field_CAPTCHA extends GF_Field {
 	public function ensure_recaptcha_js(){
 		?>
 		<script type="text/javascript">
-			( function( $ ) {
-				$( document ).bind( 'gform_post_render', function() {
+			( function() {
+				function setCaptchaPoller() {
 					var gfRecaptchaPoller = setInterval( function() {
 						if( ! window.grecaptcha || ! window.grecaptcha.render ) {
 							return;
@@ -493,8 +493,9 @@ class GF_Field_CAPTCHA extends GF_Field {
 						renderRecaptcha();
 						clearInterval( gfRecaptchaPoller );
 					}, 100 );
-				} );
-			} )( jQuery );
+				}
+				gform.initializeOnLoaded( setCaptchaPoller );
+			} )();
 		</script>
 
 		<?php

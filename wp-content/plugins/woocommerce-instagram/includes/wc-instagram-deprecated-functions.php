@@ -60,3 +60,15 @@ function wc_instragram_get_transient_expiration_time( $context = '' ) {
 
 	return wc_instagram_get_transient_expiration_time( $context );
 }
+
+/**
+ * Processes the AJAX request for generating the product catalog slug.
+ *
+ * @since 3.0.0
+ * @deprecated 3.4.6
+ */
+function wc_instagram_ajax_generate_product_catalog_slug() {
+	wc_deprecated_function( __FUNCTION__, '3.4.6', 'WC_Instagram_AJAX::generate_product_catalog_slug()' );
+
+	WC_Instagram_AJAX::generate_product_catalog_slug();
+}

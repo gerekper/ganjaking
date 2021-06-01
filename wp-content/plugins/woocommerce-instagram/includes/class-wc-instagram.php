@@ -27,7 +27,7 @@ final class WC_Instagram extends WC_Instagram_Singleton {
 	 *
 	 * @var string
 	 */
-	public $version = '3.4.5';
+	public $version = '3.4.6';
 
 	/**
 	 * Constructor.
@@ -88,6 +88,7 @@ final class WC_Instagram extends WC_Instagram_Singleton {
 		 * Core classes.
 		 */
 		include_once WC_INSTAGRAM_PATH . 'includes/wc-instagram-functions.php';
+		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-ajax.php';
 		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-router.php';
 		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-install.php';
 

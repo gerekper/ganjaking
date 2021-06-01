@@ -135,15 +135,14 @@ class WC_Instagram_Google_Product_Categories {
 	 * @return array
 	 */
 	public static function get_parents( $category_id ) {
-		$current_cat = $category_id;
-		$parents     = array();
+		$parents = array();
+		$parent  = $category_id;
 
 		do {
-			$parent = self::get_parent( $current_cat );
+			$parent = self::get_parent( $parent );
 
 			if ( $parent ) {
-				$parents[]   = $parent;
-				$current_cat = $parent;
+				$parents[] = $parent;
 			}
 		} while ( $parent );
 

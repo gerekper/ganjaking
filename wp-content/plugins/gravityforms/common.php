@@ -2901,11 +2901,57 @@ Content-Type: text/html;
 	 */
 	public static function get_version_info( $cache = true ) {
 
-		$version_info = array( 'is_valid_key' => '1', 'version' => '2.5.1.3', 'url' => home_url() , 'is_error' => '0','timestamp'=>time());
-		
+		$version_info = get_option( 'gform_version_info' );
+		if ( ! $cache ) {
+			$version_info = null;
+		} else {
+
+			// Checking cache expiration
+			$cache_duration = DAY_IN_SECONDS; // 24 hours.
+			$cache_timestamp = $version_info && isset( $version_info['timestamp'] ) ? $version_info['timestamp'] : 0;
+
+			// Is cache expired ?
+			if ( $cache_timestamp + $cache_duration < time() ) {
+				$version_info = null;
+			}
+		}
+
+		if ( is_wp_error( $version_info ) || isset( $version_info['headers'] ) ) {
+			// Legacy ( < 2.1.1.14 ) version info contained the whole raw response.
+			$version_info = null;
+		}
+
+		if ( ! $version_info ) {
+			//Getting version number
+			$options            = array( 'method' => 'POST', 'timeout' => 20 );
+			$options['headers'] = array(
+				'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
+				'User-Agent'   => 'WordPress/' . get_bloginfo( 'version' ),
+				'Referer'      => get_bloginfo( 'url' ),
+			);
+			$options['body']    = self::get_remote_post_params();
+			$options['timeout'] = 15;
+
+			$nocache = $cache ? '' : 'nocache=1'; //disabling server side caching
+
+			$raw_response = self::post_to_manager( 'version.php', $nocache, $options );
+
+			if ( is_wp_error( $raw_response ) || rgars( $raw_response, 'response/code' ) != 200 ) {
+
+				$version_info = array( 'is_valid_key' => '1', 'version' => '', 'url' => '', 'is_error' => '1' );
+			} else {
+				$version_info = json_decode( $raw_response['body'], true );
+				if ( empty( $version_info ) ) {
+					$version_info = array( 'is_valid_key' => '1', 'version' => '', 'url' => '', 'is_error' => '1' );
+				}
+			}
+
+			$version_info['timestamp'] = time();
 
 			// Caching response.
-		update_option( 'gform_version_info', $version_info, false ); //caching version info
+			update_option( 'gform_version_info', $version_info, false ); //caching version info
+		}
+
 		return $version_info;
 	}
 
@@ -3040,8 +3086,30 @@ Content-Type: text/html;
 	}
 
 	public static function cache_remote_message() {
-		
-		$message = '';
+		//Getting version number
+		$key                = GFCommon::get_key();
+		$body               = "key=$key";
+		$options            = array( 'method' => 'POST', 'timeout' => 3, 'body' => $body );
+		$options['headers'] = array(
+			'Content-Type'   => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
+			'Content-Length' => strlen( $body ),
+			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
+			'Referer'        => get_bloginfo( 'url' )
+		);
+
+		$raw_response = self::post_to_manager( 'message.php', GFCommon::get_remote_request_params(), $options );
+
+		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
+			$message = '';
+		} else {
+			$message = $raw_response['body'];
+		}
+
+		//validating that message is a valid Gravity Form message. If message is invalid, don't display anything
+		if ( substr( $message, 0, 10 ) != '<!--GFM-->' ) {
+			$message = '';
+		}
+
 		update_option( 'rg_gforms_message', $message );
 	}
 
@@ -5495,7 +5563,7 @@ Content-Type: text/html;
 	 *
 	 * @return bool
 	 */
-	private static function requires_gf_hooks_javascript() {
+	public static function requires_gf_hooks_javascript() {
 		require_once self::get_base_path() . '/form_display.php';
 
 		// Script has already been output; bail to avoid duplicating it.
@@ -5676,8 +5744,7 @@ Content-Type: text/html;
 			return;
 		}
 
-		$hooks_javascript                = self::get_hooks_javascript_code();
-		GFFormDisplay::$hooks_js_printed = true;
+		$hooks_javascript = self::get_hooks_javascript_code();
 
 		echo '<script type="text/javascript">' . $hooks_javascript . '</script>';
 	}
@@ -5690,7 +5757,11 @@ Content-Type: text/html;
 	 * @return false|string
 	 */
 	public static function get_hooks_javascript_code() {
+		require_once self::get_base_path() . '/form_display.php';
+
 		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min';
+
+		GFFormDisplay::$hooks_js_printed = true;
 
 		return file_get_contents( GFCommon::get_base_path() . '/js/gforms_hooks' . $min . '.js' );
 	}

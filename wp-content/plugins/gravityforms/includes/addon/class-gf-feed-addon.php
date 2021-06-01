@@ -85,27 +85,24 @@ abstract class GFFeedAddOn extends GFAddOn {
 	private $_table_error_rendered = array();
 
 	/**
+	 * Attaches any filters or actions needed to bootstrap the addon.
+	 *
+	 * @since 2.5.2
+	 */
+	public function bootstrap() {
+		parent::bootstrap();
+
+		if ( $this->is_feed_edit_page() ) {
+			add_action( 'init', array( $this, 'feed_settings_init' ), 20 );
+		}
+	}
+
+	/**
 	 * Plugin starting point. Handles hooks and loading of language files.
 	 */
 	public function init() {
 
 		parent::init();
-
-		if ( ! class_exists( 'Gravity_Forms\Gravity_Forms\Settings\Settings' ) ) {
-			require_once( GFCommon::get_base_path() . '/includes/settings/class-settings.php' );
-		}
-
-		// Initialize Settings framework.
-		if ( $this->is_feed_edit_page() ) {
-
-			$this->feed_settings_init();
-
-			// Process save callback.
-			if ( $this->get_settings_renderer()->is_save_postback() ) {
-				$this->get_settings_renderer()->process_postback();
-			}
-
-		}
 
 		add_filter( 'gform_entry_post_save', array( $this, 'maybe_process_feed' ), 10, 2 );
 		add_action( 'gform_after_delete_form', array( $this, 'delete_feeds' ) );
@@ -1253,7 +1250,6 @@ abstract class GFFeedAddOn extends GFAddOn {
 	 * @since 2.5
 	 */
 	public function feed_settings_init() {
-
 		// Get current form.
 		$form = ( $this->get_current_form() ) ? $this->get_current_form() : array();
 		$form = gf_apply_filters( array( 'gform_admin_pre_render', rgar( $form, 'id', 0 ) ), $form );
@@ -1326,6 +1322,11 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		} );
 
+		if ( ! $this->get_settings_renderer()->is_save_postback() ) {
+			return;
+		}
+
+		$this->get_settings_renderer()->process_postback();
 	}
 
 	/**

@@ -56,7 +56,7 @@ class WC_Store_Credit_Order {
 			$credit = wc_get_store_credit_used_for_order( $order );
 
 			if ( 0 < $credit ) {
-				$backtrace  = wp_debug_backtrace_summary( 'WP_Hook', 0, false );
+				$backtrace  = wp_debug_backtrace_summary( 'WP_Hook', 0, false ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_wp_debug_backtrace_summary
 				$save_index = array_search( 'WC_Abstract_Order->get_total', $backtrace, true );
 
 				$callbacks = array(
@@ -92,7 +92,7 @@ class WC_Store_Credit_Order {
 			$credit = wc_get_store_credit_used_for_order( $order );
 
 			if ( 0 < $credit ) {
-				$backtrace  = wp_debug_backtrace_summary( 'WP_Hook', 0, false );
+				$backtrace  = wp_debug_backtrace_summary( 'WP_Hook', 0, false ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_wp_debug_backtrace_summary
 				$save_index = array_search( 'WC_Abstract_Order->get_total_discount', $backtrace, true );
 
 				$callback     = $backtrace[ $save_index + 1 ];
@@ -503,26 +503,28 @@ class WC_Store_Credit_Order {
 	 * @param WC_Order_Item_Shipping $order_item The order item instance.
 	 */
 	public function update_shipping_item_taxes( $order_item ) {
-		if ( 'store_credit_discount' === $order_item->get_method_id() ) {
-			$order_discounts         = $this->get_order_discounts( $order_item->get_order_id() );
-			$shipping_discount_items = $order_discounts->get_shipping_discount_items();
+		if ( 'store_credit_discount' !== $order_item->get_method_id() || ! $order_item->get_order_id() ) {
+			return;
+		}
 
-			$order_item_id = $order_item->get_id();
+		$order_discounts         = $this->get_order_discounts( $order_item->get_order_id() );
+		$shipping_discount_items = $order_discounts->get_shipping_discount_items();
 
-			if ( ! $order_item_id ) {
-				$instance_ids  = wp_list_pluck( $shipping_discount_items, 'instance_id' );
-				$order_item_id = array_search( $order_item->get_instance_id(), $instance_ids, true );
-			}
+		$order_item_id = $order_item->get_id();
 
-			// Restore the taxes calculated by our extension.
-			if ( isset( $shipping_discount_items[ $order_item_id ] ) ) {
-				$shipping_discount_item = $shipping_discount_items[ $order_item_id ];
+		if ( ! $order_item_id ) {
+			$instance_ids  = wp_list_pluck( $shipping_discount_items, 'instance_id' );
+			$order_item_id = array_search( $order_item->get_instance_id(), $instance_ids, true );
+		}
 
-				try {
-					$order_item->set_taxes( array( 'total' => $shipping_discount_item->taxes ) );
-				} catch ( Exception $e ) {
-					return;
-				}
+		// Restore the taxes calculated by our extension.
+		if ( isset( $shipping_discount_items[ $order_item_id ] ) ) {
+			$shipping_discount_item = $shipping_discount_items[ $order_item_id ];
+
+			try {
+				$order_item->set_taxes( array( 'total' => $shipping_discount_item->taxes ) );
+			} catch ( Exception $e ) {
+				return;
 			}
 		}
 	}

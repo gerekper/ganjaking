@@ -2229,12 +2229,11 @@ html:not([dir="rtl"]) .gform-settings-input__container--with-merge-tag .wp-edito
 #gresults-results-filter-form .gform-settings-field__conditional-logic .gform-field-filter .gform-filter-value, #gresults-results-filter-form .gform-settings-field__conditional-logic .gform-field-filter input, #gresults-results-filter-form .gform-settings-field__conditional-logic .gform-field-filter select {
 
 				height: auto;
-				line-height: 1.1875rem;
+				line-height: 1.25rem;
 				margin-bottom: 0.25rem;
 				min-height: unset;
 				min-width: unset;
-				padding-bottom: 0.4375rem;
-				padding-top: 0.4375rem;
+				padding: 0.6875rem 2rem 0.6875rem 1rem;
 				width: 100%;
 
 			}

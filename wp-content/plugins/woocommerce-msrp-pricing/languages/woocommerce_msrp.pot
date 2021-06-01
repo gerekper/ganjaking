@@ -1,9 +1,9 @@
 # Copyright (C) 2017 Ademti Software Ltd.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce MSRP Pricing 3.2.2\n"
+"Project-Id-Version: WooCommerce MSRP Pricing 3.3.0\n"
 "Report-Msgid-Bugs-To: https://www.ademti-software.co.uk/contact\n"
-"POT-Creation-Date: 2021-04-28 09:43:11+00:00\n"
+"POT-Creation-Date: 2021-05-17 10:02:23+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -104,38 +104,42 @@ msgstr ""
 msgid "As a percentage"
 msgstr ""
 
-#: woocommerce-msrp-frontend.php:133 woocommerce-msrp-frontend.php:149
-#: woocommerce-msrp-frontend.php:192
+#: woocommerce-msrp-frontend.php:141 woocommerce-msrp-frontend.php:157
+#: woocommerce-msrp-frontend.php:200
 #. translators: %s is the saving amount which may be a financial amount, or a
 #. percentage.
 msgid "You save %s"
 msgstr ""
 
-#: woocommerce-msrp-frontend.php:177
+#: woocommerce-msrp-frontend.php:185
 #. translators: %1$d%% is the saving amount which may be a financial amount, or
 #. a percentage.
 msgid "You save %1$d%%"
 msgstr ""
 
-#: woocommerce-msrp-frontend.php:183
+#: woocommerce-msrp-frontend.php:191
 #. translators: %1$d%% is the saving amount which may be a financial amount, or
 #. a percentage.
 msgid "You save up to %1$d%%"
 msgstr ""
 
-#: woocommerce-msrp-frontend.php:198
+#: woocommerce-msrp-frontend.php:206
 #. translators: %1$s is the saving amount which may be a financial amount, or a
 #. percentage.
 msgid "You save up to %1$s"
 msgstr ""
 
-#: woocommerce-msrp-frontend.php:732
+#: woocommerce-msrp-frontend.php:740
 #. translators: %1$s is the MSRP label, and %2$s is the MSRP value.
 msgid "%1$s: %2$s"
 msgstr ""
 
 #: woocommerce-msrp-import-export.php:69
 msgid "MSRP price"
+msgstr ""
+
+#: woocommerce-msrp-woocommerce-product-feeds-integration.php:20
+msgid "MSRP from WooCommerce MSRP extension"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
@@ -160,13 +164,13 @@ msgstr ""
 msgid "https://www.ademti-software.co.uk/"
 msgstr ""
 
-#: woocommerce-msrp-frontend.php:427
+#: woocommerce-msrp-frontend.php:435
 #. translators: %1$s is the MSRP price string.
 msgctxt "The MSRP price string"
 msgid "%1$s"
 msgstr ""
 
-#: woocommerce-msrp-frontend.php:431
+#: woocommerce-msrp-frontend.php:439
 #. translators: %1$s and %2$s are the lower and higher MSRP prices
 #. respectively.
 msgctxt "First arg is lowest MSRP price for variables, second is the highest"

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle display functions and filters.
  *
  * @class    WC_PB_Display
- * @version  6.7.0
+ * @version  6.9.0
  */
 class WC_PB_Display {
 
@@ -197,6 +197,9 @@ class WC_PB_Display {
 
 		wp_enqueue_style( 'wc-bundle-style' );
 
+		$on_backorder_string       = __( 'Available on backorder', 'woocommerce' );
+		$insufficient_stock_string = __( 'Insufficient stock', 'woocommerce-product-bundles' );
+
 		/**
 		 * 'woocommerce_bundle_front_end_params' filter.
 		 *
@@ -206,36 +209,53 @@ class WC_PB_Display {
 			'i18n_free'                      => __( 'Free!', 'woocommerce' ),
 			'i18n_total'                     => __( 'Total: ', 'woocommerce-product-bundles' ),
 			'i18n_subtotal'                  => __( 'Subtotal: ', 'woocommerce-product-bundles' ),
+			/* translators: %1$s: "Total/Subtotal" string, %2$s: Price, %2$s: Price suffix */
 			'i18n_price_format'              => sprintf( _x( '%1$s%2$s%3$s', '"Total/Subtotal" string followed by price followed by price suffix', 'woocommerce-product-bundles' ), '%t', '%p', '%s' ),
+			/* translators: %1$s: Regular price, %2$s: Discounted price */
 			'i18n_strikeout_price_string'    => sprintf( _x( '<del>%1$s</del> <ins>%2$s</ins>', 'Sale/strikeout price', 'woocommerce-product-bundles' ), '%f', '%t' ),
-			'i18n_insufficient_stock_list'   => sprintf( _x( '<p class="stock out-of-stock insufficient-stock">%1$s &rarr; %2$s</p>', 'insufficiently stocked items template', 'woocommerce-product-bundles' ), __( 'Insufficient stock', 'woocommerce-product-bundles' ), '%s' ),
-			'i18n_on_backorder_list'         => sprintf( _x( '<p class="stock available-on-backorder">%1$s &rarr; %2$s</p>', 'backordered items template', 'woocommerce-product-bundles' ), __( 'Available on backorder', 'woocommerce' ), '%s' ),
-			'i18n_insufficient_stock_status' => sprintf( _x( '<p class="stock out-of-stock insufficient-stock">%s</p>', 'insufficiently stocked item exists template', 'woocommerce-product-bundles' ), __( 'Insufficient stock', 'woocommerce-product-bundles' ) ),
-			'i18n_on_backorder_status'       => sprintf( _x( '<p class="stock available-on-backorder">%s</p>', 'backordered item exists template', 'woocommerce-product-bundles' ), __( 'Available on backorder', 'woocommerce' ) ),
+			/* translators: %1$s: Stock status, %2$s: List of bundled products */
+			'i18n_insufficient_stock_list'   => sprintf( _x( '<p class="stock out-of-stock insufficient-stock">%1$s &rarr; %2$s</p>', 'insufficiently stocked items template', 'woocommerce-product-bundles' ), $insufficient_stock_string, '%s' ),
+			/* translators: %1$s: Backorder status, %2$s: List of bundled products */
+			'i18n_on_backorder_list'         => sprintf( _x( '<p class="stock available-on-backorder">%1$s &rarr; %2$s</p>', 'backordered items template', 'woocommerce-product-bundles' ), $on_backorder_string, '%s' ),
+			/* translators: stock status */
+			'i18n_insufficient_stock_status' => sprintf( _x( '<p class="stock out-of-stock insufficient-stock">%s</p>', 'insufficiently stocked item exists template', 'woocommerce-product-bundles' ), $insufficient_stock_string ),
+			/* translators: backorder stock status */
+			'i18n_on_backorder_status'       => sprintf( _x( '<p class="stock available-on-backorder">%s</p>', 'backordered item exists template', 'woocommerce-product-bundles' ), $on_backorder_string ),
 			'i18n_select_options'            => __( 'Please choose product options.', 'woocommerce-product-bundles' ),
+			/* translators: Bundled product */
 			'i18n_select_options_for'        => __( 'Please choose %s options.', 'woocommerce-product-bundles' ),
 			'i18n_enter_valid_price'         => __( 'Please enter valid amounts.', 'woocommerce-product-bundles' ),
+			/* translators: Bundled product */
 			'i18n_enter_valid_price_for'     => __( 'Please enter a valid %s amount.', 'woocommerce-product-bundles' ),
+			/* translators: Item name */
 			'i18n_string_list_item'          => _x( '&quot;%s&quot;', 'string list item', 'woocommerce-product-bundles' ),
+			/* translators: %1$s: Item before comma, %2$s: Item after comma */
 			'i18n_string_list_sep'           => sprintf( _x( '%1$s, %2$s', 'string list item separator', 'woocommerce-product-bundles' ), '%s', '%v' ),
+			/* translators: %1$s: Item before "and", %2$s: Item after "and" */
 			'i18n_string_list_last_sep'      => sprintf( _x( '%1$s and %2$s', 'string list item last separator', 'woocommerce-product-bundles' ), '%s', '%v' ),
+			/* translators: Quantity */
 			'i18n_qty_string'                => _x( ' &times; %s', 'qty string', 'woocommerce-product-bundles' ),
+			/* translators: Optional item suffix */
 			'i18n_optional_string'           => _x( ' &mdash; %s', 'suffix', 'woocommerce-product-bundles' ),
 			'i18n_optional'                  => __( 'optional', 'woocommerce-product-bundles' ),
 			'i18n_contents'                  => __( 'Includes', 'woocommerce-product-bundles' ),
+			/* translators: %1$s: Product title, %2$s: Product meta */
 			'i18n_title_meta_string'         => sprintf( _x( '%1$s &ndash; %2$s', 'title followed by meta', 'woocommerce-product-bundles' ), '%t', '%m' ),
+			/* translators: %1$s: Product title, %2$s: Product quantity, %3$s: Product price, %4$s: Product suffix */
 			'i18n_title_string'              => sprintf( _x( '%1$s%2$s%3$s%4$s', 'title, quantity, price, suffix', 'woocommerce-product-bundles' ), '<span class="item_title">%t</span>', '<span class="item_qty">%q</span>', '', '<span class="item_suffix">%o</span>' ),
 			'i18n_unavailable_text'          => __( 'This product is currently unavailable.', 'woocommerce-product-bundles' ),
 			'i18n_validation_alert'          => __( 'Please resolve all pending issues before adding this product to your cart.', 'woocommerce-product-bundles' ),
 			'i18n_zero_qty_error'            => __( 'Please choose at least 1 item.', 'woocommerce-product-bundles' ),
+			/* translators: %1$s: Recurring price part before comma, %2$s: Recurring price part after comma */
 			'i18n_recurring_price_join'      => sprintf( _x( '%1$s,</br>%2$s', 'subscription price html', 'woocommerce-product-bundles' ), '%r', '%c' ),
+			/* translators: %1$s: Recurring price part before end, %2$s: Recurring price part at end */
 			'i18n_recurring_price_join_last' => sprintf( _x( '%1$s, and</br>%2$s', 'subscription price html', 'woocommerce-product-bundles' ), '%r', '%c' ),
 			'discounted_price_decimals'      => WC_PB_Product_Prices::get_discounted_price_precision(),
 			'currency_symbol'                => get_woocommerce_currency_symbol(),
 			'currency_position'              => esc_attr( stripslashes( get_option( 'woocommerce_currency_pos' ) ) ),
 			'currency_format_num_decimals'   => wc_pb_price_num_decimals(),
-			'currency_format_decimal_sep'    => esc_attr( stripslashes( get_option( 'woocommerce_price_decimal_sep' ) ) ),
-			'currency_format_thousand_sep'   => esc_attr( stripslashes( get_option( 'woocommerce_price_thousand_sep' ) ) ),
+			'currency_format_decimal_sep'    => esc_attr( wc_get_price_decimal_separator() ),
+			'currency_format_thousand_sep'   => esc_attr( wc_get_price_thousand_separator() ),
 			'currency_format_trim_zeros'     => false === apply_filters( 'woocommerce_price_trim_zeros', false ) ? 'no' : 'yes',
 			'price_display_suffix'           => esc_attr( get_option( 'woocommerce_price_display_suffix' ) ),
 			'prices_include_tax'             => esc_attr( get_option( 'woocommerce_prices_include_tax' ) ),
@@ -379,6 +399,7 @@ class WC_PB_Display {
 		if ( $product->is_type( 'bundle' ) && isset( $_GET[ 'update-bundle' ] ) ) {
 			$updating_cart_key = wc_clean( $_GET[ 'update-bundle' ] );
 			if ( isset( WC()->cart->cart_contents[ $updating_cart_key ] ) ) {
+				/* translators: %1$s: Bundle title */
 				$notice = sprintf ( __( 'You are currently editing &quot;%1$s&quot;. When finished, click the <strong>Update Cart</strong> button.', 'woocommerce-product-bundles' ), $product->get_title() );
 				wc_add_notice( $notice, 'notice' );
 			}
@@ -671,7 +692,9 @@ class WC_PB_Display {
 					if ( WC_PB()->compatibility->is_composited_cart_item( $bundle_container_item ) ) {
 						$subtotal = '';
 					} elseif ( $subtotal ) {
-						$subtotal = '<span class="bundled_' . ( $this->is_cart_widget() ? 'mini_cart' : 'table' ) . '_item_subtotal">' . sprintf( _x( '%1$s: %2$s', 'bundled product subtotal', 'woocommerce-product-bundles' ), __( 'Subtotal', 'woocommerce-product-bundles' ), $subtotal ) . '</span>';
+						$subtotal_string = __( 'Subtotal', 'woocommerce-product-bundles' );
+						/* translators: %1$s: Subtotal string, %2$s: Subtotal amount */
+						$subtotal = '<span class="bundled_' . ( $this->is_cart_widget() ? 'mini_cart' : 'table' ) . '_item_subtotal">' . sprintf( _x( '%1$s: %2$s', 'bundled product subtotal', 'woocommerce-product-bundles' ), $subtotal_string, $subtotal ) . '</span>';
 					}
 
 				} elseif ( $subtotal && function_exists( 'wc_cp_get_composited_cart_item_container' ) && ( $composite_container_item_key = wc_cp_get_composited_cart_item_container( $bundle_container_item, WC()->cart->cart_contents, true ) ) ) {
@@ -859,10 +882,11 @@ class WC_PB_Display {
 				if ( empty( $bundled_cart_item_keys ) || current( $bundled_cart_item_keys ) !== $cart_item_key ) {
 					return '';
 				} else {
-					$link = sprintf(
+					$remove_text = __( 'Remove this item', 'woocommerce' );
+					$link        = sprintf(
 						'<a href="%s" class="remove remove_bundle" aria-label="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
 						esc_url( WC_PB_Core_Compatibility::wc_get_cart_remove_url( $bundle_container_item_key ) ),
-						__( 'Remove this item', 'woocommerce' ),
+						$remove_text,
 						esc_attr( $bundle->get_id() ),
 						esc_attr( $bundle->get_sku() )
 					);
@@ -940,6 +964,7 @@ class WC_PB_Display {
 
 							$edit_in_cart_link = esc_url( add_query_arg( array( 'update-bundle' => $bundle_container_item_key ), $bundle->get_permalink( $bundle_container_item ) ) );
 							$edit_in_cart_text = _x( 'Edit', 'edit in cart link text', 'woocommerce-product-bundles' );
+							/* translators: %1$s: Product title, %2$s: Edit in cart URL, %3$s: Edit in cart text */
 							$content           = sprintf( _x( '%1$s<br/><a class="edit_bundle_in_cart_text edit_in_cart_text" rel="no-follow" href="%2$s"><small>%3$s</small></a>', 'edit in cart text', 'woocommerce-product-bundles' ), $content, $edit_in_cart_link, $edit_in_cart_text );
 						}
 					}
@@ -956,6 +981,7 @@ class WC_PB_Display {
 
 					$edit_in_cart_link = esc_url( add_query_arg( array( 'update-bundle' => $cart_item_key ), $bundle->get_permalink( $cart_item ) ) );
 					$edit_in_cart_text = _x( 'Edit', 'edit in cart link text', 'woocommerce-product-bundles' );
+					/* translators: %1$s: Product title, %2$s: Edit in cart URL, %3$s: Edit in cart text */
 					$content           = sprintf( _x( '%1$s<br/><a class="edit_bundle_in_cart_text edit_in_cart_text" href="%2$s"><small>%3$s</small></a>', 'edit in cart text', 'woocommerce-product-bundles' ), $content, $edit_in_cart_link, $edit_in_cart_text );
 				}
 

@@ -42,9 +42,9 @@
 		/**
 		 * Create Invoice MetaBox
 		 */	
-		function invoice_details_admin_init($post_type,$post) {
-			if ( get_post_meta( $post->ID, '_invoice_number_display', TRUE ) ) {
-					add_meta_box( 'woocommerce-invoice-details', __('Invoice Details', 'woocommerce-pdf-invoice'), array($this,'woocommerce_invoice_details_meta_box'), 'shop_order', 'side', 'high');
+		function invoice_details_admin_init( $post_type, $post ) {
+			if ( isset( $post_type ) && $post_type === 'shop_order' && get_post_meta( $post->ID, '_invoice_number_display', TRUE ) ) {
+				add_meta_box( 'woocommerce-invoice-details', __('Invoice Details', 'woocommerce-pdf-invoice'), array($this,'woocommerce_invoice_details_meta_box'), 'shop_order', 'side', 'high');
 			}
 		}
 		
@@ -88,6 +88,8 @@
 						<?php _e( 'Invoice Number:', 'woocommerce-pdf-invoice' ); ?>
 						<?php if ( isset( $invoice_meta['invoice_number_display'] ) ) {
 								echo $invoice_meta['invoice_number_display']; 
+							  } elseif( get_post_meta( $order_id, '_invoice_number_display', TRUE ) ) {
+							  	echo get_post_meta( $order_id, '_invoice_number_display', TRUE ); 
 							  }
 						?>
 					</p></li>
@@ -96,7 +98,9 @@
 						<?php _e( 'Invoice Date:', 'woocommerce-pdf-invoice' ); ?>
 						<?php
 						if ( isset( $invoice_meta['invoice_date'] ) ) {
-							echo WC_send_pdf::get_invoice_display_date( $order_id,'completed', false, 'invoice', $settings['pdf_date_format'] );
+							echo $invoice_meta['invoice_date'];
+						} elseif( get_post_meta( $order_id, '_invoice_date', TRUE ) ) {
+							echo get_post_meta( $order_id, '_invoice_date', TRUE ); 
 						}
 
 						?>
@@ -130,7 +134,7 @@
 				$sendback = add_query_arg( array(
 							    'post' 			=> $order_id,
 							    'action' 		=> 'edit'
-							), admin_url( 'post.php' ) ); 
+							), admin_url( 'post.php' ) );
 
 				if( isset( $_GET['pdf_method']) && $_GET['pdf_method'] == 'download' ) {
 
@@ -141,10 +145,12 @@
 					add_filter( 'redirect_post_location', array( __CLASS__, 'set_pdf_downloaded_message' ) );
 
 					$sendback = add_query_arg( array(
-							    'message' 		=> '54'
+							    'message' 		=> '54',
+							    'pdf_method' 	=> 'send',
+							    'pdfid' 		=> $order_id
 							), $sendback );
 
-					echo WC_send_pdf::get_woocommerce_invoice( $order , TRUE );
+					$order->save();
 
 					wp_redirect( $sendback );
 					exit;
@@ -170,6 +176,13 @@
 					exit;
 
 				}
+
+				if( isset( $_GET['pdf_method']) && $_GET['pdf_method'] == 'send' ) {
+
+					header( 'Location: ' . WC_send_pdf::get_woocommerce_invoice( $order, NULL, TRUE ) );
+					exit;
+
+				} 
 
 			}
 

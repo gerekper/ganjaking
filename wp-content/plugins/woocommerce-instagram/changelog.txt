@@ -1,5 +1,10 @@
 *** WooCommerce Instagram Changelog ***
 
+2021-05-27 - version 3.4.6
+* Tweak - Tested compatibility up to WC 5.4.
+* Fix - Fixed the selection of subcategories for the "Google Product Category" field in the catalog settings form.
+* Dev - Replaced the usage of the library `select2.js` by `selectWoo.js`.
+
 2021-03-18 - version 3.4.5
 * Fix - Fixed fatal error when the Instagram settings page is loaded as the default integration.
 

@@ -21,6 +21,7 @@ class WC_Store_Credit_Emails {
 	public function __construct() {
 		add_filter( 'woocommerce_email_actions', array( $this, 'email_actions' ) );
 		add_filter( 'woocommerce_email_classes', array( $this, 'email_classes' ) );
+		add_filter( 'woocommerce_email_styles', array( $this, 'email_styles' ), 10, 2 );
 	}
 
 	/**
@@ -49,6 +50,39 @@ class WC_Store_Credit_Emails {
 		$emails['WC_Store_Credit_Email_Send_Credit'] = include 'emails/class-wc-store-credit-email-send-credit.php';
 
 		return $emails;
+	}
+
+	/**
+	 * Adds styles to the emails.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @param string        $css   The email styles.
+	 * @param WC_Email|null $email Optional. Email object. Default: null.
+	 * @return string
+	 */
+	public function email_styles( $css, $email = null ) {
+		// The parameter $email was added in WC 3.6.
+		if (
+			( $email && 'wc_store_credit_send_credit' === $email->id ) ||
+			version_compare( WC_VERSION, '3.6', '<' )
+		) {
+			ob_start();
+			wc_store_credit_get_template( 'emails/store-credit-styles.php' );
+			$styles = ob_get_clean();
+
+			/**
+			 * Filters the styles for the Store Credit emails.
+			 *
+			 * @since 3.7.0
+			 *
+			 * @param string        $styles The email styles.
+			 * @param WC_Email|null $email  Email object. null on WC < 3.6.
+			 */
+			$css .= apply_filters( 'wc_store_credit_email_styles', $styles, $email );
+		}
+
+		return $css;
 	}
 }
 

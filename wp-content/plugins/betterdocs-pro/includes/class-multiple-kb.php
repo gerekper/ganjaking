@@ -55,6 +55,7 @@ class BetterDocs_Multiple_Kb
 			add_action('init', array(__CLASS__, 'front_end_order_terms'));
 			add_action('admin_head', array(__CLASS__, 'admin_order_terms'));
 			add_action('wp_ajax_update_knowledge_base_order', array(__CLASS__, 'update_knowledge_base_order'));
+			add_action('betterdocs_internal_kb_fields', array(__CLASS__, 'internal_kb_settings_field'));
 			if (BetterDocs_DB::get_settings('kb_based_search') == 1) {
                 add_action('betterdocs_live_search_field_footer', array(__CLASS__, 'srarch_footer'));
                 add_action('betterdocs_live_search_tax_query', array(__CLASS__, 'live_search_tax_query'), 10, 2);
@@ -73,15 +74,28 @@ class BetterDocs_Multiple_Kb
 		return $settings;
 	}
 
+    public static function internal_kb_settings_field($settings)
+    {
+        $settings['restrict_kb'] = array(
+            'type'        => 'select',
+            'label'       => __('Restriction on Knowledge Bases', 'betterdocs'),
+            'help'        => __('<strong>Note:</strong> Selected Knowledge Bases will be restricted  ' , 'betterdocs'),
+            'priority'    => 4,
+            'multiple'    => true,
+            'default'     => 'all',
+            'options'     => BetterDocs_Settings::get_terms_list('knowledge_base')
+        );
+        return $settings;
+    }
+
     public static function kb_based_search_settings()
     {
-        $settings = array(
+        return array(
             'type'        => 'checkbox',
             'label'       => __('Search Result based on Knowledge Base', 'betterdocs-pro'),
             'default'     => '',
             'priority'    => 10,
         );
-        return $settings;
     }
 	
 	public static function pro_shortcodes($settings)
@@ -815,8 +829,8 @@ class BetterDocs_Multiple_Kb
 	public static function admin_order_terms()
 	{
 		$screen = function_exists('get_current_screen') ? get_current_screen() : '';
-
-		if (in_array($screen->id, array('toplevel_page_betterdocs-admin', 'betterdocs_page_betterdocs-settings'))) {
+        $screen_id = isset($screen->id) ? $screen->id : '';
+		if (in_array($screen_id, array('toplevel_page_betterdocs-admin', 'betterdocs_page_betterdocs-settings'))) {
 			self::default_term_order('knowledge_base');
 		}
 

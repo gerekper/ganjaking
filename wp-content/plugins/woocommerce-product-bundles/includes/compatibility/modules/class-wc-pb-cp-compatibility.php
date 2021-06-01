@@ -614,7 +614,18 @@ class WC_PB_CP_Compatibility {
 			return;
 		}
 
+		$bundle_quantity      = $component_validation_data[ 'quantity' ];
 		$bundle_configuration = array();
+
+		$posted_data = $_POST;
+
+		if ( empty( $_POST[ 'add-to-cart' ] ) && ! empty( $_GET[ 'add-to-cart' ] ) ) {
+			$posted_data = $_GET;
+		}
+
+		if ( isset( $posted_data[ 'quantity' ] ) ) {
+			$bundle_quantity = $bundle_quantity * $posted_data[ 'quantity' ];
+		}
 
 		WC_PB_Compatibility::$bundle_prefix = $component_id;
 
@@ -627,7 +638,7 @@ class WC_PB_CP_Compatibility {
 		add_filter( 'woocommerce_add_error', array( __CLASS__, 'component_bundle_error_message_context' ) );
 		self::$current_component = $component;
 
-		$is_valid = WC_PB()->cart->validate_bundle_configuration( $composited_product, $component_validation_data[ 'quantity' ], $bundle_configuration, $context );
+		$is_valid = WC_PB()->cart->validate_bundle_configuration( $composited_product, $bundle_quantity, $bundle_configuration, $context );
 
 		remove_filter( 'woocommerce_add_error', array( __CLASS__, 'component_bundle_error_message_context' ) );
 		self::$current_component = false;

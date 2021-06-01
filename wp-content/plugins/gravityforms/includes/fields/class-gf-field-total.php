@@ -70,11 +70,17 @@ class GF_Field_Total extends GF_Field {
 						<input type='text' name='input_{$id}' value='{$value}' />
 					</div>";
 		} else {
-			return "<div class='ginput_container ginput_container_total'>
-						<input readonly name='input_{$id}' id='{$field_id}' value='" . GFCommon::to_money( '0' ) . "' class='gform-text-input-reset ginput_total ginput_total_{$form_id}' />
-					</div>";
+			if ( GFCommon::is_legacy_markup_enabled( $form ) ) {
+				return "<div class='ginput_container ginput_container_total'>
+							<span class='ginput_total ginput_total_{$form_id}'>" . GFCommon::to_money( '0' ) . "</span>
+							<input type='hidden' name='input_{$id}' id='{$field_id}' class='gform_hidden'/>
+						</div>";
+			} else {
+				return "<div class='ginput_container ginput_container_total'>
+							<input readonly name='input_{$id}' id='{$field_id}' value='" . GFCommon::to_money( '0' ) . "' class='gform-text-input-reset ginput_total ginput_total_{$form_id}' />
+						</div>";
+			}
 		}
-
 	}
 
 	public function get_value_entry_detail( $value, $currency = '', $use_text = false, $format = 'html', $media = 'screen' ) {

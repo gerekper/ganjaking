@@ -62,6 +62,7 @@ class WC_Instagram_Admin_Field_Google_Product_Categories {
 			}
 
 			$category_children = WC_Instagram_Google_Product_Categories::get_children( $category_id );
+
 			if ( ! empty( $category_children ) ) {
 				$options = WC_Instagram_Google_Product_Categories::get_titles( $category_children );
 				woocommerce_wp_select( self::get_wc_wp_select( null, array( 'options' => $options ), true ) );
@@ -112,6 +113,7 @@ class WC_Instagram_Admin_Field_Google_Product_Categories {
 	 */
 	private static function add_default_option( $options, $is_subcategory = false ) {
 		$text = $is_subcategory ? _x( 'Select a subcategory &hellip;', 'product data setting', 'woocommerce-instagram' ) : _x( 'Select a category &hellip;', 'product data setting', 'woocommerce-instagram' );
+
 		return array( '' => $text ) + $options;
 	}
 }

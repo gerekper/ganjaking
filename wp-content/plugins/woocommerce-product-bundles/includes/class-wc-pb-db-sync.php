@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Hooks for DB lifecycle management of products, bundles, bundled items and their meta.
  *
  * @class    WC_PB_DB_Sync
- * @version  6.7.4
+ * @version  6.8.1
  */
 class WC_PB_DB_Sync {
 
@@ -80,7 +80,7 @@ class WC_PB_DB_Sync {
 				add_action( 'init', array( __CLASS__, 'initialize_sync_task_runner' ), 5 );
 
 				// Sync parent stock status and visibility with children on shutdown (not critical + async anyway).
-				add_action( 'shutdown', array( __CLASS__, 'sync' ), 100 );
+				add_action( 'shutdown', array( __CLASS__, 'maybe_sync' ), 100 );
 			}
 		}
 	}
@@ -456,6 +456,36 @@ class WC_PB_DB_Sync {
 	}
 
 	/**
+	 * Maybe sync bundle stock data.
+	 *
+	 * @since  6.7.8
+	 *
+	 * @return void
+	 */
+	public static function maybe_sync() {
+
+		if ( self::has_scheduled_sync() ) {
+
+			if ( self::throttle_sync() ) {
+				WC_PB_Core_Compatibility::log( 'Sync throttled...', 'info', 'wc_pb_db_sync_tasks' );
+				update_option( 'wc_pb_db_sync_task_throttled', 'yes' );
+				return;
+			}
+
+			self::sync();
+
+		} elseif ( self::has_throttled_sync() ) {
+
+			if ( self::throttle_sync() ) {
+				return;
+			}
+
+			WC_PB_Core_Compatibility::log( 'Restarting sync...', 'info', 'wc_pb_db_sync_tasks' );
+			self::sync();
+		}
+	}
+
+	/**
 	 * Sync:
 	 *
 	 * - bundled items stock status;
@@ -472,36 +502,77 @@ class WC_PB_DB_Sync {
 			self::initialize_sync_task_runner();
 		}
 
-		// Need to queue extra items?
-		if ( self::$sync_needed ) {
+		WC_PB_Core_Compatibility::log( 'Syncing...', 'info', 'wc_pb_db_sync_tasks' );
 
-			WC_PB_Core_Compatibility::log( 'Scheduling sync...', 'info', 'wc_pb_db_sync_tasks' );
-
-			$data_store = WC_Data_Store::load( 'product-bundle' );
-			$ids        = $data_store->get_bundled_items_stock_sync_status_ids( 'unsynced' );
-
-			if ( ! empty( $ids ) ) {
-
-				self::$sync_task_runner->push_to_queue( array(
-					'sync_ids'   => $ids,
-					'delete_ids' => array()
-				) );
-
-				self::$sync_task_runner->save();
-
-				WC_PB_Core_Compatibility::log( sprintf( 'Queued %s IDs.', sizeof( $ids ) ), 'info', 'wc_pb_db_sync_tasks' );
-
-				if ( ! self::$sync_task_runner->is_running() ) {
-
-					// Remote post to self.
-					self::$sync_task_runner->dispatch();
-				}
-
-			} else {
-
-				WC_PB_Core_Compatibility::log( 'No IDs found.', 'info', 'wc_pb_db_sync_tasks' );
-			}
+		if ( self::$sync_task_runner->is_running() ) {
+			WC_PB_Core_Compatibility::log( 'Aborting.', 'info', 'wc_pb_db_sync_tasks' );
+			// If the task runner is working, throttle the operation.
+			// This may happen if the task runner runs longer than our throttling threshold.
+			update_option( 'wc_pb_db_sync_task_throttled', 'yes' );
+			return;
 		}
+
+		$data_store = WC_Data_Store::load( 'product-bundle' );
+		$ids        = $data_store->get_bundled_items_stock_sync_status_ids( 'unsynced' );
+
+		if ( empty( $ids ) ) {
+			WC_PB_Core_Compatibility::log( 'No IDs found.', 'info', 'wc_pb_db_sync_tasks' );
+			update_option( 'wc_pb_db_sync_task_throttled', 'no' );
+			return;
+		}
+
+		self::$sync_task_runner->push_to_queue( array(
+			'sync_ids'   => $ids,
+			'delete_ids' => array()
+		) );
+
+		if ( self::$sync_task_runner->maybe_save() ) {
+			WC_PB_Core_Compatibility::log( sprintf( 'Queued %s IDs.', sizeof( $ids ) ), 'info', 'wc_pb_db_sync_tasks' );
+		} else {
+			WC_PB_Core_Compatibility::log( 'Aborting! Queue full.', 'info', 'wc_pb_db_sync_tasks' );
+		}
+
+		// Log dispatch time.
+		update_option( 'wc_pb_db_sync_task_runner_last_run', gmdate( 'U' ) );
+
+		// Remote post to self.
+		$dispatched = self::$sync_task_runner->dispatch();
+
+		if ( ! is_wp_error( $dispatched ) ) {
+			// Clear pending tasks.
+			update_option( 'wc_pb_db_sync_task_throttled', 'no' );
+		}
+	}
+
+	/**
+	 * Determines if a sync operation can be started.
+	 * If a sync operation hasn't been throttled, allow new sync tasks to run with a max frequency of 10 seconds.
+	 * If a sync operation has been throttled, wait for at least 60 seconds before syncing again.
+	 *
+	 * @since  6.7.8
+	 */
+	protected static function throttle_sync() {
+		$throttled = get_option( 'wc_pb_db_sync_task_runner_last_run', 0 );
+		$delay     = self::has_throttled_sync() ? apply_filters( 'woocommerce_bundles_sync_task_runner_throttled_sync_delay', 60 ) : apply_filters( 'woocommerce_bundles_sync_task_runner_throttle_threshold', 10 );
+		return gmdate( 'U' ) - $throttled < $delay;
+	}
+
+	/**
+	 * Determines if a pending sync operation exists.
+	 *
+	 * @since  6.7.8
+	 */
+	protected static function has_throttled_sync() {
+		return 'yes' === get_option( 'wc_pb_db_sync_task_throttled', 'no' );
+	}
+
+	/**
+	 * Determines if a sync operation has been scheduled on this request.
+	 *
+	 * @since  6.7.8
+	 */
+	protected static function has_scheduled_sync() {
+		return self::$sync_needed;
 	}
 
 	/**

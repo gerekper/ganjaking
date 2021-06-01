@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Class.
  *
  * @class    WC_Product_Bundle
- * @version  6.7.7
+ * @version  6.8.1
  */
 class WC_Product_Bundle extends WC_Product {
 
@@ -1149,12 +1149,14 @@ class WC_Product_Bundle extends WC_Product {
 				if ( $subs_price_html ) {
 
 					if ( $has_payment_up_front ) {
+						/* translators: %1$s: Product one-time price, %2$s: Product recurring price */
 						$price = sprintf( _x( '%1$s<span class="bundled_subscriptions_price_html"> one time%2$s</span>', 'subscription price html', 'woocommerce-product-bundles' ), $price, $subs_price_html );
 					} else {
 						$price = '<span class="bundled_subscriptions_price_html">' . $subs_price_html . '</span>';
 					}
 
 					if ( $is_range && false === strpos( $price, $from_string ) ) {
+						/* translators: %1$s: "From" string, %2$s: Product price */
 						$price = sprintf( _x( '%1$s%2$s', 'Price range: from', 'woocommerce-product-bundles' ), $from_string, $price );
 					}
 				}
@@ -1189,7 +1191,10 @@ class WC_Product_Bundle extends WC_Product {
 				$price = apply_filters( 'woocommerce_bundle_empty_price_html', '', $this );
 			} else {
 
-				$has_indefinite_max_price = $this->contains( 'configurable_quantities' ) || $this->contains( 'subscriptions_priced_variably' ) || INF === $this->get_max_raw_price();
+				$suppress_range_price_html = INF === $this->get_max_raw_price() || $this->contains( 'configurable_quantities' ) || $this->contains( 'subscriptions_priced_variably' ) || $this->contains( 'nyp' );
+
+				$price_min = $this->get_bundle_price( 'min', true );
+				$price_max = $this->get_bundle_price( 'max', true );
 
 				/**
 				 * 'woocommerce_bundle_force_old_style_price_html' filter.
@@ -1199,12 +1204,7 @@ class WC_Product_Bundle extends WC_Product {
 				 * @param  boolean            $force_suppress_range_format
 				 * @param  WC_Product_Bundle  $this
 				 */
-				$suppress_range_price_html = $has_indefinite_max_price || apply_filters( 'woocommerce_bundle_force_old_style_price_html', false, $this );
-
-				$price_min = $this->get_bundle_price( 'min', true );
-				$price_max = $this->get_bundle_price( 'max', true );
-
-				if ( $suppress_range_price_html ) {
+				if ( $suppress_range_price_html || apply_filters( 'woocommerce_bundle_force_old_style_price_html', false, $this ) ) {
 
 					$price = wc_price( $price_min );
 
@@ -1235,7 +1235,7 @@ class WC_Product_Bundle extends WC_Product {
 
 					} else {
 
-						if ( $price_min !== $price_max || $has_indefinite_max_price ) {
+						if ( $price_min !== $price_max || $suppress_range_price_html ) {
 							$price = sprintf( _x( '%1$s%2$s', 'Price range: from', 'woocommerce-product-bundles' ), wc_get_price_html_from_text(), $price . $this->get_price_suffix() );
 						} else {
 							$price = $price . $this->get_price_suffix();
@@ -1679,7 +1679,9 @@ class WC_Product_Bundle extends WC_Product {
 
 	/**
 	 * Maximum raw bundle price getter.
+	 *
 	 * INF is 9999999999.0 in 'edit' (DB) context.
+	 * INF is internally stored as 'INF'.
 	 *
 	 * @since  5.2.0
 	 *
@@ -1691,6 +1693,7 @@ class WC_Product_Bundle extends WC_Product {
 			$this->sync();
 		}
 		$value = $this->get_prop( 'max_raw_price', $context );
+		$value = 'INF' === $value ? INF : $value;
 		$value = 'edit' !== $context && $this->contains( 'priced_individually' ) && '' !== $value && INF !== $value ? (double) $value : $value;
 		$value = 'edit' === $context && INF === $value ? 9999999999.0 : $value;
 		return $value;
@@ -1698,7 +1701,9 @@ class WC_Product_Bundle extends WC_Product {
 
 	/**
 	 * Maximum raw regular bundle price getter.
+	 *
 	 * INF is 9999999999.0 in 'edit' (DB) context.
+	 * INF is internally stored as 'INF'.
 	 *
 	 * @since  5.2.0
 	 *
@@ -1710,6 +1715,7 @@ class WC_Product_Bundle extends WC_Product {
 			$this->sync();
 		}
 		$value = $this->get_prop( 'max_raw_regular_price', $context );
+		$value = 'INF' === $value ? INF : $value;
 		$value = 'edit' !== $context && $this->contains( 'priced_individually' ) && '' !== $value && INF !== $value ? (double) $value : $value;
 		$value = 'edit' === $context && INF === $value ? 9999999999.0 : $value;
 		return $value;
@@ -2061,29 +2067,33 @@ class WC_Product_Bundle extends WC_Product {
 
 	/**
 	 * Maximum raw bundle price setter.
-	 * Convert 9999999999.0 to INF.
+	 *
+	 * Converts 9999999999.0 to INF.
+	 * Internally stores infinite values as 'INF' to prevent issues with 'json_encode'.
 	 *
 	 * @since  5.2.0
 	 *
 	 * @param  mixed  $value
 	 */
 	public function set_max_raw_price( $value ) {
-		$value = INF !== $value ? wc_format_decimal( $value ) : INF;
-		$value = 9999999999.0 === (double) $value ? INF : $value;
+		$value = INF === $value ? 'INF' : wc_format_decimal( $value );
+		$value = 9999999999.0 === (double) $value ? 'INF' : $value;
 		$this->set_prop( 'max_raw_price', $value );
 	}
 
 	/**
 	 * Maximum raw regular bundle price setter.
-	 * Convert 9999999999.0 to INF.
+	 *
+	 * Converts 9999999999.0 to INF.
+	 * Internally stores infinite values as 'INF' to prevent issues with 'json_encode'.
 	 *
 	 * @since  5.2.0
 	 *
 	 * @param  mixed  $value
 	 */
 	public function set_max_raw_regular_price( $value ) {
-		$value = INF !== $value ? wc_format_decimal( $value ) : INF;
-		$value = 9999999999.0 === (double) $value ? INF : $value;
+		$value = INF === $value ? 'INF' : wc_format_decimal( $value );
+		$value = 9999999999.0 === (double) $value ? 'INF' : $value;
 		$this->set_prop( 'max_raw_regular_price', $value );
 	}
 

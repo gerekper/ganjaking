@@ -14,12 +14,12 @@ jQuery( function($) {
 		} );
 	};
 
-	var $restrictions_data                  = $( '#restrictions_data' ),
-		$restrictions_toggle_wrapper        = $restrictions_data.find( '.bulk_toggle_wrapper' ),
-		$restrictions_wrapper               = $restrictions_data.find( '.wc-metaboxes' ),
-		$and_placeholder                    = $restrictions_data.find( '.hr-section--conditions-and.temp-placeholder' ),
-		checkout_restrictions_metabox_count = $restrictions_wrapper.find( '.woocommerce_restriction' ).length;
-
+	var $restrictions_data           = $( '#restrictions_data' ),
+		$restrictions_toggle_wrapper = $restrictions_data.find( '.bulk_toggle_wrapper' ),
+		$restrictions_wrapper        = $restrictions_data.find( '.wc-metaboxes' ),
+		$and_placeholder             = $restrictions_data.find( '.hr-section--conditions-and.temp-placeholder' ),
+		restrictions_metabox_count   = $restrictions_wrapper.find( '.woocommerce_restriction' ).length,
+		restrictions_removed         = false;
 	/*---------------------*/
 	/*  Restrictions       */
 	/*---------------------*/
@@ -157,6 +157,9 @@ jQuery( function($) {
 
 			$parent.find('*').off();
 			$parent.remove();
+
+			restrictions_removed = true;
+
 			update_metaboxes();
 
 			e.preventDefault();
@@ -301,14 +304,14 @@ jQuery( function($) {
 			var data = {
 				action: 		'woocommerce_add_checkout_restriction',
 				post_id: 		wc_restrictions_admin_params.post_id,
-				index: 			checkout_restrictions_metabox_count,
+				index: 			restrictions_metabox_count,
 				restriction_id: restriction_id,
 				applied_count: 	$applied_restrictions.length,
 				count: 			$restrictions.length,
 				security: 		wc_restrictions_admin_params.add_restriction_nonce
 			};
 
-			checkout_restrictions_metabox_count++;
+			restrictions_metabox_count++;
 
 			setTimeout( function() {
 
@@ -592,18 +595,25 @@ jQuery( function($) {
 	 * Update row indexes.
 	 */
 	function update_metaboxes() {
+
 		var has_restrictions = false;
+
 		$restrictions_wrapper.find( '.woocommerce_restriction' ).each( function( index, el ) {
 			$( '.position', el ).val( index );
 			$( '.restriction_title_index', el ).html( index + 1 );
 			has_restrictions = true;
 		} );
+
 		if ( ! has_restrictions ) {
 			$restrictions_toggle_wrapper.addClass( 'disabled' );
 			$restrictions_data.addClass( 'restrictions_data--empty' );
 		} else {
 			$restrictions_toggle_wrapper.removeClass( 'disabled' );
 			$restrictions_data.removeClass( 'restrictions_data--empty' );
+		}
+
+		if ( restrictions_removed ) {
+			$restrictions_data.addClass( 'restrictions_data--removed' );
 		}
 	}
 

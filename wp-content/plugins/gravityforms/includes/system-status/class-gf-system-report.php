@@ -333,7 +333,7 @@ class GF_System_Report {
 					$previous_key_md5 = get_option( 'rg_gforms_key' );
 
 					if ( $new_key_md5 != $previous_key_md5 ) {
-						update_option( 'rg_gforms_key', 'B5E0B5F8-DD8689E6-ACA49DD6-E6E1A930' );
+						update_option( 'rg_gforms_key', $new_key_md5 );
 					} else {
 						GFSettings::update_site_registration( $previous_key_md5, $new_key_md5 );
 					}

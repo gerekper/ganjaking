@@ -176,6 +176,7 @@ class WC_PB_Admin_Order {
 									$stock_id = $bundled_product_sku;
 								}
 
+								/* translators: %1$s: Product title, %2$s: Product identifier */
 								$order_note = sprintf( _x( '%1$s (%2$s)', 'bundled items stock change note format', 'woocommerce-product-bundles' ), $order_item->get_name(), $stock_id );
 
 								if ( $bundled_product->managing_stock() ) {

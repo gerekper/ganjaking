@@ -50,8 +50,10 @@ class WC_PB_Admin_Post_Types {
 
 				if ( $product->contains( 'out_of_stock_strict' ) ) {
 
+					$report_url = ! WC_PB_Admin_Analytics::is_enabled() ? 'admin.php?page=wc-reports&tab=stock&report=insufficient_stock&bundle_id=' . $product->get_id() : 'admin.php?page=wc-admin&path=%2Fanalytics%2Fbundles&section=stock&filter=single_product&products=' . $product->get_id();
+
 					?><div class="row-actions">
-						<span class="view"><a href="<?php echo admin_url( 'admin.php?page=wc-reports&tab=stock&report=insufficient_stock&bundle_id=' . $product->get_id() ) ?>" rel="bookmark" aria-label="<?php _e( 'View Report', 'woocommerce-product-bundles' ); ?>"><?php _e( 'View Report', 'woocommerce-product-bundles' ); ?></a></span>
+						<span class="view"><a href="<?php echo admin_url( $report_url ); ?>" rel="bookmark" aria-label="<?php _e( 'View Report', 'woocommerce-product-bundles' ); ?>"><?php _e( 'View Report', 'woocommerce-product-bundles' ); ?></a></span>
 					</div><?php
 				}
 

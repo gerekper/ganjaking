@@ -10,6 +10,11 @@ class woocommerce_msrp_frontend {
 	private $script_args = array();
 
 	/**
+	 * @var woocommerce_msrp_woocommerce_product_feeds_integration
+	 */
+	private $woocommerce_product_feeds_integration;
+
+	/**
 	 * Add hooks for the default services.
 	 */
 	public function __construct() {
@@ -68,6 +73,9 @@ class woocommerce_msrp_frontend {
 		add_filter( 'woocommerce_product_addons_option_price', [ $this, 'product_addons_show_options_msrp' ], 10, 4 );
 		// Add support for product add-ons extension (add-ons without options)
 		add_filter( 'woocommerce_product_addons_price', [ $this, 'product_addons_show_msrp' ], 10, 4 );
+
+		$this->woocommerce_product_feeds_integration = new woocommerce_msrp_woocommerce_product_feeds_integration();
+		$this->woocommerce_product_feeds_integration->run();
 	}
 
 	/**

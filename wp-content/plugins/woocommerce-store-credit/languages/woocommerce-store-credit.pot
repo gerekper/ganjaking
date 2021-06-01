@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WooCommerce Store Credit plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Store Credit 3.6.0\n"
+"Project-Id-Version: WooCommerce Store Credit 3.8.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-store-credit\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-03-15T16:02:36+00:00\n"
+"POT-Creation-Date: 2021-05-18T08:16:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: woocommerce-store-credit\n"
@@ -62,7 +62,7 @@ msgid "Send Store Credit"
 msgstr ""
 
 #: includes/admin/class-wc-store-credit-admin-menu.php:70
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:52
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:53
 #: includes/class-wc-store-credit-privacy.php:22
 #: includes/class-wc-store-credit-products.php:46
 msgid "Store Credit"
@@ -268,7 +268,7 @@ msgstr ""
 
 #. translators: %s: list of placeholders
 #: includes/admin/class-wc-store-credit-admin-settings.php:107
-#: includes/emails/class-wc-store-credit-email-send-credit.php:211
+#: includes/emails/class-wc-store-credit-email-send-credit.php:234
 msgid "Available placeholders: %s"
 msgstr ""
 
@@ -319,164 +319,164 @@ msgstr ""
 msgid "Credit used"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:79
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:80
 msgid "Coupon amount"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:83
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:84
 msgid "Value of the coupon. Default: regular price."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:88
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:89
 msgid "Coupon expiration"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:89
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:90
 msgid "Coupon expiration period"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:92
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:93
 msgid "The coupon will expire passed this period. Leave empty to not expire."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:93
-#: includes/emails/class-wc-store-credit-email-send-credit.php:222
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:94
+#: includes/emails/class-wc-store-credit-email-send-credit.php:242
 msgid "N/A"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:101
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:102
 #: includes/admin/meta-boxes/views/html-coupon-data-store-credit.php:20
 msgctxt "coupon: field label"
 msgid "Include tax"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:102
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:103
 #: includes/admin/meta-boxes/views/html-coupon-data-store-credit.php:21
 msgctxt "coupon: field desc"
 msgid "Check this box if the coupon amount includes taxes."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:107
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:123
-msgctxt "setting option"
-msgid "Default"
-msgstr ""
-
 #: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:108
 #: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:124
 msgctxt "setting option"
-msgid "Yes"
+msgid "Default"
 msgstr ""
 
 #: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:109
 #: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:125
 msgctxt "setting option"
+msgid "Yes"
+msgstr ""
+
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:110
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:126
+msgctxt "setting option"
 msgid "No"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:117
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:118
 #: includes/admin/meta-boxes/views/html-coupon-data-store-credit.php:31
 msgctxt "coupon: field label"
 msgid "Apply to shipping"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:118
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:119
 #: includes/admin/meta-boxes/views/html-coupon-data-store-credit.php:32
 msgctxt "coupon: field desc"
 msgid "Check this box to apply the remaining coupon amount to the shipping costs."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:132
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:133
 msgctxt "coupon: field label"
 msgid "Send to someone"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:133
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:134
 msgctxt "coupon: field desc"
 msgid "Allow purchasing credit for a different person."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:140
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:141
 msgctxt "coupon: field label"
 msgid "Display receiver fields"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:141
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:142
 msgctxt "coupon: field desc"
 msgid "How to display the receiver fields on page load."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:146
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:147
 msgctxt "setting option"
 msgid "Collapsed"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:147
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:148
 msgctxt "setting option"
 msgid "Expanded"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:152
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:153
 msgctxt "coupon: section title"
 msgid "Usage restriction"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:158
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:159
 msgctxt "coupon: field label"
 msgid "Individual use only"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:159
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:160
 msgctxt "coupon: field desc"
 msgid "Check this box if the coupon cannot be used in conjunction with other coupons."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:166
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:167
 msgctxt "coupon: field label"
 msgid "Exclude sale items"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:167
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:168
 msgctxt "coupon: field desc"
 msgid "Check this box if the coupon should not apply to items on sale."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:178
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:179
 msgctxt "coupon: field label"
 msgid "Products"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:179
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:180
 msgctxt "coupon: field desc"
 msgid "Product that the coupon will be applied to, or that need to be in the cart in order to be applied."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:188
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:189
 msgctxt "coupon: field label"
 msgid "Exclude products"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:189
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:190
 msgctxt "coupon: field desc"
 msgid "Product that the coupon will not be applied to, or that cannot be in the cart in order to be applied."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:202
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:203
 msgctxt "coupon: field label"
 msgid "Product categories"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:203
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:204
 msgctxt "coupon: field desc"
 msgid "Product categories that the coupon will be applied to, or that need to be in the cart in order to be applied."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:211
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:212
 msgctxt "coupon: field label"
 msgid "Exclude categories"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:212
+#: includes/admin/meta-boxes/class-wc-store-credit-meta-box-product-data.php:213
 msgctxt "coupon: field desc"
 msgid "Product categories that the coupon will not be applied to, or that cannot be in the cart in order to be applied."
 msgstr ""
@@ -553,8 +553,16 @@ msgctxt "setting placeholder"
 msgid "Select product categories"
 msgstr ""
 
+#: includes/class-wc-store-credit-cart.php:60
+msgid "Store credit coupon not found."
+msgstr ""
+
+#: includes/class-wc-store-credit-cart.php:67
+msgid "The store credit will be applied after adding some products to the cart."
+msgstr ""
+
 #. translators: %s: coupon code
-#: includes/class-wc-store-credit-cart.php:71
+#: includes/class-wc-store-credit-cart.php:124
 msgid "Store credit: %s"
 msgstr ""
 
@@ -602,7 +610,7 @@ msgid "Store Credit used:"
 msgstr ""
 
 #: includes/class-wc-store-credit-order.php:157
-#: includes/wc-store-credit-update-functions.php:163
+#: includes/wc-store-credit-update-functions.php:164
 msgctxt "payment method"
 msgid "Store Credit"
 msgstr ""
@@ -653,28 +661,28 @@ msgctxt "data exporter: data label"
 msgid "Allowed emails"
 msgstr ""
 
-#: includes/class-wc-store-credit-product-addons.php:79
+#: includes/class-wc-store-credit-product-addons.php:60
 msgctxt "product field label"
 msgid "Send to"
 msgstr ""
 
-#: includes/class-wc-store-credit-product-addons.php:80
+#: includes/class-wc-store-credit-product-addons.php:61
 msgctxt "product field placeholder"
 msgid "The receiver email"
 msgstr ""
 
-#: includes/class-wc-store-credit-product-addons.php:85
+#: includes/class-wc-store-credit-product-addons.php:66
 msgctxt "product field label"
 msgid "Message"
 msgstr ""
 
-#: includes/class-wc-store-credit-product-addons.php:86
+#: includes/class-wc-store-credit-product-addons.php:67
 msgctxt "product field placeholder"
 msgid "Add a message"
 msgstr ""
 
 #. translators: %s: field label
-#: includes/class-wc-store-credit-product-addons.php:137
+#: includes/class-wc-store-credit-product-addons.php:118
 msgid "\"%s\" is a required field."
 msgstr ""
 
@@ -748,14 +756,28 @@ msgctxt "email heading"
 msgid "You have been given {coupon_amount} credit"
 msgstr ""
 
-#: includes/emails/class-wc-store-credit-email-send-credit.php:219
+#: includes/emails/class-wc-store-credit-email-send-credit.php:95
+msgctxt "email button text"
+msgid "Redeem now"
+msgstr ""
+
+#: includes/emails/class-wc-store-credit-email-send-credit.php:239
 msgctxt "email field label"
 msgid "Additional content"
 msgstr ""
 
-#: includes/emails/class-wc-store-credit-email-send-credit.php:220
+#: includes/emails/class-wc-store-credit-email-send-credit.php:240
 msgctxt "email field desc"
 msgid "Text to appear below the main email content."
+msgstr ""
+
+#: includes/emails/class-wc-store-credit-email-send-credit.php:250
+msgid "Button text"
+msgstr ""
+
+#: includes/emails/class-wc-store-credit-email-send-credit.php:253
+msgctxt "email field desc"
+msgid "Text for the email CTA button."
 msgstr ""
 
 #. translators: $1: customer name, $2 customer id, $3: customer email
@@ -792,15 +814,15 @@ msgid_plural "years"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/emails/customer-store-credit.php:19
+#: templates/emails/customer-store-credit.php:22
 #: templates/emails/plain/customer-store-credit.php:19
 msgctxt "email text"
 msgid "To redeem your store credit use the following code during checkout:"
 msgstr ""
 
 #. translators: %s expiration date
-#: templates/emails/customer-store-credit.php:31
-#: templates/emails/plain/customer-store-credit.php:30
+#: templates/emails/customer-store-credit.php:44
+#: templates/emails/plain/customer-store-credit.php:36
 msgctxt "email text"
 msgid "This credit can be redeemed until %s."
 msgstr ""
@@ -831,8 +853,17 @@ msgctxt "my account: column name"
 msgid "Expiry date"
 msgstr ""
 
-#: templates/myaccount/store-credit.php:20
+#: templates/myaccount/store-credit.php:16
+msgctxt "my account: column name"
+msgid "Actions"
+msgstr ""
+
+#: templates/myaccount/store-credit.php:21
 msgid "No store credit coupons found."
+msgstr ""
+
+#: templates/myaccount/store-credit.php:53
+msgid "Use now"
 msgstr ""
 
 #: templates/single-product/store-credit.php:16

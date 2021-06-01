@@ -230,9 +230,11 @@ class WC_PB_Stock_Manager {
 				// Sanity check.
 				if ( $product_data->is_sold_individually() && $quantity > 1 ) {
 
+					/* translators: Product name */
 					$reason = sprintf( __( 'Only 1 &quot;%s&quot; may be purchased.', 'woocommerce-product-bundles' ), $product_title );
 
 					if ( 'add-to-cart' === $context ) {
+						/* translators: %1$s: Product name, %2$s: Reason */
 						$notice = sprintf( __( '&quot;%1$s&quot; cannot be added to your cart. %2$s', 'woocommerce-product-bundles' ), $bundle_title, $reason );
 					} else {
 						$notice = $reason;
@@ -248,11 +250,14 @@ class WC_PB_Stock_Manager {
 				// Stock check - only check if we're managing stock and backorders are not allowed.
 				if ( ! $product_data->is_in_stock() ) {
 
+					/* translators: Product name */
 					$reason = sprintf( __( '&quot;%s&quot; is out of stock.', 'woocommerce-product-bundles' ), $product_title );
 
 					if ( 'add-to-cart' === $context ) {
+						/* translators: %1$s: Product name, %2$s: Reason */
 						$notice = sprintf( __( '&quot;%1$s&quot; cannot be added to your cart. %2$s', 'woocommerce-product-bundles' ), $bundle_title, $reason );
 					} elseif ( 'cart' === $context ) {
+						/* translators: %1$s: Product name, %2$s: Reason */
 						$notice = sprintf( __( '&quot;%1$s&quot; cannot be purchased. %2$s', 'woocommerce-product-bundles' ), $bundle_title, $reason );
 					} else {
 						$notice = $reason;
@@ -262,11 +267,14 @@ class WC_PB_Stock_Manager {
 
 				} elseif ( ! $product_data->has_enough_stock( $quantity ) ) {
 
+					/* translators: %1$s: Product name, %2$s: Remaining stock quantity */
 					$reason = sprintf( __( 'There is not enough stock of &quot;%1$s&quot; (%2$s remaining).', 'woocommerce-product-bundles' ), $product_title, $product_data->get_stock_quantity() );
 
 					if ( 'add-to-cart' === $context ) {
+						/* translators: %1$s: Product name, %2$s: Reason */
 						$notice = sprintf( __( '&quot;%1$s&quot; cannot be added to your cart. %2$s', 'woocommerce-product-bundles' ), $bundle_title, $reason );
 					} elseif ( 'cart' === $context ) {
+						/* translators: %1$s: Product name, %2$s: Reason */
 						$notice = sprintf( __( '&quot;%1$s&quot; cannot be purchased. %2$s', 'woocommerce-product-bundles' ), $bundle_title, $reason );
 					} else {
 						$notice = $reason;
@@ -282,17 +290,22 @@ class WC_PB_Stock_Manager {
 
 					if ( isset( $quantities_in_cart[ $managed_item_id ] ) && ! $product_data->has_enough_stock( $quantities_in_cart[ $managed_item_id ] + $quantity ) ) {
 
+						/* translators: %1$s: Product name, %2$s: Remaining stock quantity, %2$s: Stock quantity in cart */
 						$reason = sprintf( __( 'There is not enough stock of &quot;%1$s&quot; (%2$s in stock, %3$s in your cart).', 'woocommerce-product-bundles' ), $product_title, $product_data->get_stock_quantity(), $quantities_in_cart[ $managed_item_id ] );
 
 						if ( 'add-to-cart' === $context ) {
+							/* translators: %1$s: Product name, %2$s: Reason */
 							$notice = sprintf( __( '&quot;%1$s&quot; cannot be added to your cart. %2$s', 'woocommerce-product-bundles' ), $bundle_title, $reason );
 						} elseif ( 'cart' === $context ) {
+							/* translators: %1$s: Product name, %2$s: Reason */
 							$notice = sprintf( __( '&quot;%1$s&quot; cannot be purchased. %2$s', 'woocommerce-product-bundles' ), $bundle_title, $reason );
 						} else {
 							$notice = $reason;
 						}
 
-						$error = sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', wc_get_cart_url(), __( 'View Cart', 'woocommerce' ), $notice );
+						$view_cart_string = __( 'View Cart', 'woocommerce' );
+						/* translators: %1$s: View cart URL, %2$s: View cart text */
+						$error = sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', wc_get_cart_url(), $view_cart_string, $notice );
 
 						throw new Exception( $error );
 					}
@@ -307,8 +320,10 @@ class WC_PB_Stock_Manager {
 					$reason = __( 'The product is currently unavailable.', 'woocommerce-product-bundles' );
 
 					if ( 'add-to-cart' === $context ) {
+						/* translators: %1$s: Product name, %2$s: Reason */
 						$error = sprintf( __( '&quot;%1$s&quot; cannot be added to your cart. %2$s', 'woocommerce-product-bundles' ), $bundle_title, $reason );
 					} elseif ( 'cart' === $context ) {
+						/* translators: %1$s: Product name, %2$s: Reason */
 						$error = sprintf( __( '&quot;%1$s&quot; cannot be purchased. %2$s', 'woocommerce-product-bundles' ), $bundle_title, $reason );
 					} else {
 						$error = $reason;

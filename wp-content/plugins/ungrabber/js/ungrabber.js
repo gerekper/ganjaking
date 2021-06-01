@@ -4,7 +4,7 @@
  * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         3.0.2
+ * @version         3.0.3
  * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
  * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
@@ -79,7 +79,7 @@ const UnGrabber = ( function () {
                 if ( windowBlur === 'on' ) { disable_window_blur(); }
 
                 /** Disable Hidden Tab */
-                if ( tabHidden === 'on' ) { disable_tab_hidden(); }
+                if ( tabHidden === 'on' && windowBlur === 'off' ) { disable_tab_hidden(); }
 
             }
 

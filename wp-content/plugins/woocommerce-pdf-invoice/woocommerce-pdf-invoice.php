@@ -3,11 +3,11 @@
 Plugin Name: WooCommerce PDF Invoices
 Plugin URI: https://woocommerce.com/products/pdf-invoices/
 Description: Attach a PDF Invoice to the completed order email and allow invoices to be downloaded from customer's My Account page. 
-Version: 4.10.3
+Version: 4.13.3
 Author: Andrew Benbow
 Author URI: http://www.chromeorange.co.uk
 WC requires at least: 3.0.0
-WC tested up to: 5.0.0
+WC tested up to: 5.3.0
 Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
 */
 
@@ -43,11 +43,12 @@ Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
     /**
      * Defines
      */
-    define( 'PDFVERSION' , '4.10.3' );
+    define( 'PDFVERSION' , '4.13.3' );
     define( 'PDFLANGUAGE', 'woocommerce-pdf-invoice' );
     define( 'PDFSETTINGS' , admin_url( 'admin.php?page=woocommerce_pdf' ) );
     define( 'PDFSUPPORTURL' , 'http://support.woothemes.com/' );
     define( 'PDFDOCSURL' , 'http://docs.woothemes.com/document/woocommerce-pdf-invoice-setup-and-customization/');
+    define( 'PDFPLUGINURL', plugin_dir_url( __FILE__ ) );
     define( 'PDFPLUGINPATH', plugin_dir_path( __FILE__ ) );
     define( 'PDFFONTSPATH', plugin_dir_path( __FILE__ ) . 'lib/fonts/' );
 
@@ -63,12 +64,15 @@ Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
      */
     if ( is_woocommerce_active() ) {
 
+        // Load helper functions
+        include( 'classes/helper-functions-class.php' );
+
         /**
          * Admin Settings
          */
         if ( is_admin() ) {
             include( 'classes/class-pdf-admin-functions.php' );
-            include( 'classes/class-pdf-settings-class.php' );
+            include( 'classes/settings/class-pdf-settings-class.php' );
             include( 'classes/class-pdf-export.php' );
             include( 'classes/class-pdf-debug.php' );
             include( 'classes/class-pdf-order-meta-box.php' );
@@ -76,6 +80,12 @@ Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
             
             // Include order meta class
             include( 'classes/class-show-hidden-order-meta.php' );
+
+            // System Status Additions
+            include( 'classes/systemstatus/system-status-additions-class.php' );
+
+            // Admin Notices
+            include( 'classes/systemstatus/admin-notices.php' );
         }
 
         /**

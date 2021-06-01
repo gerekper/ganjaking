@@ -115,7 +115,7 @@ class WC_Store_Credit_Coupon_Discounts {
 			$discounts[ $coupon_code ] = $coupon_discount->get_discounts_by_type( $type );
 		}
 
-		return $discounts;
+		return array_filter( $discounts );
 	}
 
 	/**

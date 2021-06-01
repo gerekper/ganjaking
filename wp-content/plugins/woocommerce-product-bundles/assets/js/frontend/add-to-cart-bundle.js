@@ -917,9 +917,16 @@ jQuery.fn.wc_get_bundle_script = function() {
 
 					bundled_item.variation_id = variation.variation_id.toString();
 
+					var variation_price         = variation.price,
+					    variation_regular_price = variation.regular_price;
+
+					if ( bundled_item.is_nyp() && variation.is_nyp && bundled_item.$nyp.is( ':visible' ) ) {
+						variation_price = variation_regular_price = bundled_item.$nyp.data( 'price' );
+					}
+
 					// Put variation price data in price table.
-					bundle.price_data.prices[ bundled_item.bundled_item_id ]                   = Number( variation.price );
-					bundle.price_data.regular_prices[ bundled_item.bundled_item_id ]           = Number( variation.regular_price );
+					bundle.price_data.prices[ bundled_item.bundled_item_id ]                   = Number( variation_price );
+					bundle.price_data.regular_prices[ bundled_item.bundled_item_id ]           = Number( variation_regular_price );
 
 					bundle.price_data.prices_tax[ bundled_item.bundled_item_id ]               = variation.price_tax;
 

@@ -214,56 +214,100 @@ var GFPageConditionalLogic = function (args) {
 
     };
 
-    self.updateNextButton = function ( lastPageIndex ) {
+	/**
+	 * Updates the text of the next button on a paginated form.
+	 *
+	 * This method changes the text of the next button to the text of the submit button on the form if the user
+	 * is on the page determined to be the last page of the form.
+	 *
+	 * @since Unknown
+	 *
+	 * @param {number|undefined} lastPageIndex The calculated last page of the form.
+	 * @return {void}
+	 */
+	self.updateNextButton = function ( lastPageIndex ) {
+		var targetPageNumber = parseInt($('#gform_target_page_number_' + self.options.formId).val(), 10),
+			lastPageNumber = self.options.pages.length + 1;
 
-        var targetPageNumber = parseInt($('#gform_target_page_number_' + self.options.formId).val(), 10),
-            lastPageNumber = self.options.pages.length + 1;
+		// No need to update the button, we're not on the last page.
+		if ( ! self.currentPageIsLastPage( targetPageNumber, lastPageNumber, lastPageIndex ) ) {
+			return;
+		}
 
-        if (targetPageNumber === lastPageNumber || lastPageIndex !== undefined) {
-            if ( lastPageIndex === undefined ) {
-                lastPageIndex = self.options.pages.length - 1;
-            }
+		var calculatedLastPageIndex = self.getValidatedLastPageIndex( lastPageIndex );
 
-            var lastPageField = self.options.pages[ lastPageIndex ],
-                lastNextButton = $('#gform_next_button_' + self.options.formId + '_' + lastPageField.fieldId),
-                isLastPageVisible = self.isPageVisible(lastPageField),
-                formButton = $('#gform_submit_button_' + self.options.formId);
+		var lastPageField = self.options.pages[ calculatedLastPageIndex ],
+			lastNextButton = $('#gform_next_button_' + self.options.formId + '_' + lastPageField.fieldId),
+			isLastPageVisible = self.isPageVisible(lastPageField),
+			formButton = $('#gform_submit_button_' + self.options.formId);
 
-            if (!isLastPageVisible) {
-                if (formButton.attr('type') === 'image') {
-                    // Cache last next button image alt.
-                    if (lastNextButton.attr('type') === 'image') {
-                        lastNextButton.data('alt', lastNextButton.attr('alt'));
-                    }
-                    lastNextButton.attr('type', 'image').attr('src', formButton.attr('src')).attr('alt', formButton.attr('alt')).addClass('gform_image_button').removeClass('button');
-                } else {
-                    lastNextButton.attr('type', 'button').val(formButton.val()).addClass('button').removeClass('gform_image_button');
-                }
+		if (! isLastPageVisible ) {
+			if (formButton.attr('type') === 'image') {
+				// Cache last next button image alt.
+				if (lastNextButton.attr('type') === 'image') {
+					lastNextButton.data('alt', lastNextButton.attr('alt'));
+				}
+				lastNextButton.attr('type', 'image').attr('src', formButton.attr('src')).attr('alt', formButton.attr('alt')).addClass('gform_image_button').removeClass('button');
+			} else {
+				lastNextButton.attr('type', 'button').val(formButton.val()).addClass('button').removeClass('gform_image_button');
+			}
 
-                // Set a mark on the page, so later on we can reset the button when evaluating pages.
-                self.options.pages[ lastPageIndex ].isUpdated = true;
-            } else {
-                self.resetButton( lastPageField );
-            }
-        }
-
+			// Set a mark on the page, so later on we can reset the button when evaluating pages.
+			self.options.pages[ calculatedLastPageIndex ].isUpdated = true;
+		} else {
+			self.resetButton( lastPageField );
+		}
     };
 
-    self.resetButton = function ( page ) {
-        // No need to reset if the button hasn't been updated.
-        if ( ! page.hasOwnProperty( 'isUpdated' ) ) {
-            return;
-        }
+	/**
+	 * The lastPageIndex might get miscalculated at some point during the flow. If it's outside the bounds of
+	 * the page numbers, this resets it to the last natural page.
+	 *
+	 * @since 2.5.3
+	 *
+	 * @param {number|undefined} lastPageIndex The calculated last page of the form.
+	 * @return {number} The calculated last page number.
+	 */
+	self.getValidatedLastPageIndex = function( lastPageIndex ) {
+		if ( lastPageIndex === undefined ||  lastPageIndex < 0 || lastPageIndex >= self.options.pages.length ) {
+			return self.options.pages.length - 1;
+		}
 
-        delete page.isUpdated;
+		return lastPageIndex;
+	};
 
-        var nextButton = $('#gform_next_button_' + self.options.formId + '_' + page.fieldId);
-        if (page.nextButton.type === 'image') {
-            nextButton.attr('type', 'image').attr('src', page.nextButton.imageUrl).attr('alt', nextButton.data('alt')).addClass('gform_image_button').removeClass('button');
-        } else {
-            nextButton.attr('type', 'button').val(page.nextButton.text).addClass('button').removeClass('gform_image_button');
-        }
-    }
+	/**
+	 * Checks whether the page the user is on is also considered to be the last page.
+	 *
+	 * Without conditional logic, forms have cardinal page numbers: 1, 2, 3, 4, 5, 6.
+	 * With conditional logic, a "last page" of a form might not be the last page. e.g., 4 is the "submit" page.
+	 *
+	 * @since 2.5.3
+	 *
+	 * @param {number|string} targetPageNumber Next page to be shown.
+	 * @param {number|string} lastPageNumber Actual last page of the form without conditional logic.
+	 * @param {number|undefined} lastPageIndex In the scenario above, lastPageIndex is 4.
+	 * @return {boolean} True or false whether the current page is the last calculated page.
+	 */
+    self.currentPageIsLastPage = function( targetPageNumber, lastPageNumber, lastPageIndex ) {
+		return targetPageNumber === lastPageNumber || lastPageIndex !== undefined;
+    };
+
+	self.resetButton = function ( page ) {
+		// No need to reset if the button hasn't been updated.
+		if ( ! page.hasOwnProperty( 'isUpdated' ) ) {
+			return;
+		}
+
+		delete page.isUpdated;
+
+		var nextButton = $('#gform_next_button_' + self.options.formId + '_' + page.fieldId);
+		if (page.nextButton.type === 'image') {
+			nextButton.attr('type', 'image').attr('src', page.nextButton.imageUrl).attr('alt', nextButton.data('alt')).addClass('gform_image_button').removeClass('button');
+		} else {
+			nextButton.attr('type', 'button').val(page.nextButton.text).addClass('button').removeClass('gform_image_button');
+		}
+	}
 
     this.init();
 };

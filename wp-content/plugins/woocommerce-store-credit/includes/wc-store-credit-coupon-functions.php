@@ -657,3 +657,31 @@ function wc_store_credit_is_deleting_coupon( $delete, $post ) {
 }
 add_filter( 'pre_delete_post', 'wc_store_credit_is_deleting_coupon', 10, 2 );
 add_filter( 'pre_trash_post', 'wc_store_credit_is_deleting_coupon', 10, 2 );
+
+/**
+ * Get the URL to redeem the store credit coupon.
+ *
+ * @since 3.7.0
+ *
+ * @param mixed $the_coupon Coupon object, ID or code.
+ * @return string|false The URL to redeem the credit. False on failure.
+ */
+function wc_store_credit_get_redeem_url( $the_coupon ) {
+	$coupon = wc_store_credit_get_coupon( $the_coupon );
+
+	if ( ! $coupon || ! wc_is_store_credit_coupon( $coupon ) ) {
+		return false;
+	}
+
+	/**
+	 * Filters the URL to redeem the store credit coupon.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @param string    $redeem_url The redeem URL.
+	 * @param WC_Coupon $coupon     Coupon object.
+	 */
+	$redeem_url = apply_filters( 'wc_store_credit_redeem_url', site_url(), $coupon );
+
+	return add_query_arg( array( 'redeem_store_credit' => rawurlencode( $coupon->get_code() ) ), $redeem_url );
+}

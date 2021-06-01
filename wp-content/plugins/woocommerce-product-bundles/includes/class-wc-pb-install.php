@@ -140,7 +140,7 @@ class WC_PB_Install {
 	 * @since  5.5.0
 	 */
 	public static function maybe_install() {
-		if ( self::can_install() && self::must_install() ) {
+		if ( self::must_install() && self::can_install() ) {
 			self::install();
 		}
 	}
@@ -337,24 +337,44 @@ class WC_PB_Install {
 		$max_index_length = 191;
 
 		$tables = "
-CREATE TABLE {$wpdb->prefix}woocommerce_bundled_items (
-  bundled_item_id BIGINT UNSIGNED NOT NULL auto_increment,
-  product_id BIGINT UNSIGNED NOT NULL,
-  bundle_id BIGINT UNSIGNED NOT NULL,
-  menu_order BIGINT UNSIGNED NOT NULL,
-  PRIMARY KEY  (bundled_item_id),
-  KEY product_id (product_id),
-  KEY bundle_id (bundle_id)
-) $collate;
-CREATE TABLE {$wpdb->prefix}woocommerce_bundled_itemmeta (
-  meta_id BIGINT UNSIGNED NOT NULL auto_increment,
-  bundled_item_id BIGINT UNSIGNED NOT NULL,
-  meta_key varchar(255) default NULL,
-  meta_value longtext NULL,
-  PRIMARY KEY  (meta_id),
-  KEY bundled_item_id (bundled_item_id),
-  KEY meta_key (meta_key($max_index_length))
-) $collate;
+		CREATE TABLE {$wpdb->prefix}woocommerce_bundled_items (
+			bundled_item_id BIGINT UNSIGNED NOT NULL auto_increment,
+			product_id BIGINT UNSIGNED NOT NULL,
+			bundle_id BIGINT UNSIGNED NOT NULL,
+			menu_order BIGINT UNSIGNED NOT NULL,
+			PRIMARY KEY  (bundled_item_id),
+			KEY product_id (product_id),
+			KEY bundle_id (bundle_id)
+		) $collate;
+		CREATE TABLE {$wpdb->prefix}woocommerce_bundled_itemmeta (
+			meta_id BIGINT UNSIGNED NOT NULL auto_increment,
+			bundled_item_id BIGINT UNSIGNED NOT NULL,
+			meta_key varchar(255) default NULL,
+			meta_value longtext NULL,
+			PRIMARY KEY  (meta_id),
+			KEY bundled_item_id (bundled_item_id),
+			KEY meta_key (meta_key($max_index_length))
+		) $collate;
+		CREATE TABLE {$wpdb->prefix}wc_order_bundle_lookup (
+			order_item_id BIGINT UNSIGNED NOT NULL,
+			order_id BIGINT UNSIGNED NOT NULL,
+			bundle_id BIGINT UNSIGNED NOT NULL,
+			product_id BIGINT UNSIGNED NOT NULL,
+			variation_id BIGINT UNSIGNED NOT NULL,
+			customer_id BIGINT UNSIGNED NULL,
+			date_created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+			product_qty INT NOT NULL,
+			product_net_revenue double DEFAULT 0 NOT NULL,
+			product_gross_revenue double DEFAULT 0 NOT NULL,
+			coupon_amount double DEFAULT 0 NOT NULL,
+			tax_amount double DEFAULT 0 NOT NULL,
+			PRIMARY KEY  (order_item_id),
+			KEY order_id (order_id),
+			KEY bundle_id (product_id),
+			KEY product_id (product_id),
+			KEY customer_id (customer_id),
+			KEY date_created (date_created)
+		) $collate;
 		";
 
 		return $tables;

@@ -1,13 +1,38 @@
-### 2.5.1.3
-- Updated and added various form editor sidebar settings style refinements.
-- Updated the section field so it no longer uses the description as a fallback when the label is empty
-- Updated front end styles for better column alignment and better appearance in small containers.
+### 2.5.2.4
+- Fixed an issue which causes javascript events not to fire when a form is loaded via AJAX.
+- Fixed an issue which causes some performance optimization plugins to break certain form javascript methods.
 
-### 2.5.1.2
+### 2.5.2.3
+- Fixed an issue where a javascript error occurred on the last page of a paginated form with conditional logic.
+- Fixed an issue which prevents setting custom classes for the form editor fields' buttons.
+- Added support for optimization plugins that concatenate scripts into one file, e.g. WP Rocket.
+
+### 2.5.2.2
+- Added accessibility warnings to the datepicker and fields with hidden labels.
+- Fixed an issue that causes some add-ons to be unable to load the feed settings screen.
+- Fixed a JavaScript issue that causes errors with price calculation.
+- API: Updated the settings API to automatically save custom form settings fields added with the gform_form_settings_fields filter.
+
+### 2.5.2.1
+- Fixed JavaScript errors which prevent form display when jQuery is included in the footer or deferred.
+- Fixed an issue which can prevent forms functioning when included by ajax after the page has loaded.
+- Fixed an issue which causes forms to become non-responsive when Total Field calculations are being performed.
+- Fixed an issue where the total field HTML does not keep the legacy markup when legacy markup is enabled for a form.
+- API: Fixed an issue which causes some filters not to fire when on certain Admin screens.
+
+### 2.5.2 | 2021-05-19
+- Added security enhancements.
+- Added form editor sidebar settings style refinements.
+- Updated the section field so it no longer uses the description as a fallback when the label is empty.
+- Updated the frontend styles for better column alignment and better appearance in small containers.
+- Updated the section field so it no longer uses the description as a fallback when the label is empty.
+- Fixed an issue where the HTML field's content setting doesn't have a merge tags selector.
 - Fixed an issue which causes Javascript errors in the Form Editor when no Conditional Logic fields are present.
-
-### 2.5.1.1
 - Fixed an issue which causes Conditional Logic to fail if the first choice for a given field is selected.
+- Fixed an issue that prevents users with unfiltered_html capabilities from saving raw markup in textarea settings.
+- Fixed an issue that prevents choice-based fields from utilizing the contains, starts with, and ends with Conditional Operators.
+- Fixed an issue which causes validation error messages in forms with legacy markup to use the incorrect classname.
+- AF: Fixed an issue which prevents payment add-ons from rendering delayed payment settings in the feed settings page.
 
 ### 2.5.1 | 2021-05-11
 - Added accessibility enhancements to the form editor to improve keyboard navigation.

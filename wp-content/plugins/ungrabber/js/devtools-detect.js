@@ -13,7 +13,7 @@ MIT License
 		orientation: undefined
 	};
 
-	const threshold = 160;
+	const threshold = 168.1;
 
 	const emitEvent = (isOpen, orientation) => {
 		window.dispatchEvent(new CustomEvent('devtoolschange', {

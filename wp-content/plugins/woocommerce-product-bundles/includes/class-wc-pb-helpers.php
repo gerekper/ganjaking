@@ -254,20 +254,26 @@ class WC_PB_Helpers {
 
 		if ( $sku && $meta ) {
 			if ( $paren ) {
+				/* translators: %1$s: Product title, %2$s: Product meta, %3$s: Product SKU */
 				$title = sprintf( _x( '%1$s &ndash; %2$s (%3$s)', 'product title followed by meta and sku in parenthesis', 'woocommerce-product-bundles' ), $title, $meta, $sku );
 			} else {
+				/* translators: %1$s: Product sku, %2$s: Product title, %3$s: Product meta */
 				$title = sprintf( _x( '%1$s &ndash; %2$s &ndash; %3$s', 'sku followed by product title and meta', 'woocommerce-product-bundles' ), $sku, $title, $meta );
 			}
 		} elseif ( $sku ) {
 			if ( $paren ) {
+				/* translators: %1$s: Product title, %2$s: Product SKU */
 				$title = sprintf( _x( '%1$s (%2$s)', 'product title followed by sku in parenthesis', 'woocommerce-product-bundles' ), $title, $sku );
 			} else {
+				/* translators: %1$s: Product sku, %2$s: Product title */
 				$title = sprintf( _x( '%1$s &ndash; %2$s', 'sku followed by product title', 'woocommerce-product-bundles' ), $sku, $title );
 			}
 		} elseif ( $meta ) {
 			if ( $paren ) {
+				/* translators: %1$s: Product title, %2$s: Product meta */
 				$title = sprintf( _x( '%1$s (%2$s)', 'product title followed by meta in parenthesis', 'woocommerce-product-bundles' ), $title, $meta );
 			} else {
+				/* translators: %1$s: Product title, %2$s: Product meta */
 				$title = sprintf( _x( '%1$s &ndash; %2$s', 'product title followed by meta', 'woocommerce-product-bundles' ), $title, $meta );
 			}
 		}
@@ -291,17 +297,21 @@ class WC_PB_Helpers {
 		$suffix_string   = '';
 
 		if ( $qty ) {
+			/* translators: Quantity */
 			$quantity_string = sprintf( _x( ' &times; %s', 'qty string', 'woocommerce-product-bundles' ), $qty );
 		}
 
 		if ( $price ) {
+			/* translators: Price */
 			$price_string = sprintf( _x( ' &ndash; %s', 'price suffix', 'woocommerce-product-bundles' ), $price );
 		}
 
 		if ( $suffix ) {
+			/* translators: Suffix */
 			$suffix_string = sprintf( _x( ' &ndash; %s', 'suffix', 'woocommerce-product-bundles' ), $suffix );
 		}
 
+		/* translators: %1$s: Product title, %2$s: Product quantity, %3$s: Product price, %4$s: Product suffix */
 		$title_string = sprintf( _x( '%1$s%2$s%3$s%4$s', 'title, quantity, price, suffix', 'woocommerce-product-bundles' ), $title, $quantity_string, $price_string, $suffix_string );
 
 		return $title_string;

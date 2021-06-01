@@ -1,5 +1,8 @@
 *** WooCommerce MSRP Pricing ***
 
+2021.05.17 - version 3.3.0
+* New: Compatibility with WooCommerce Product Feeds extension
+
 2021.04.28 - version 3.2.2
 * Change: WooCommerce 5.3 compatibility
 

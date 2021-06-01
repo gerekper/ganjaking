@@ -1884,6 +1884,14 @@ class Settings {
 		// Get form.
 		$form = GFAPI::get_form( $form_id );
 
+		if ( ! $form ) {
+			return false;
+		}
+
+		if ( is_admin() ) {
+			$form = gf_apply_filters( array( 'gform_admin_pre_render', $form_id ), $form );
+		}
+
 		return $form;
 
 	}
