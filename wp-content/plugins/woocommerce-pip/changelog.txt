@@ -1,5 +1,16 @@
 *** WooCommerce Print Invoices/Packing Lists Changelog ***
 
+2021.05.31 - version 3.11.2
+ * Fix - Do not trigger the plugin modal when clicking on the order update button from the order edit screen
+ * Fix - Ensure document tables are not displayed too wide on some email clients like Gmail
+ * Fix - When excluding virtual items from a packing list, ensure the total does not include any, and that emails are not sent if no physical products are present
+
+2021.01.29 - version 3.11.1
+ * Tweak - Consolidate multiple invoice and packing list settings into individual dropdown fields
+ * Fix - Prevent subcategories with the same name from being grouped with the same parent category on pick lists
+ * Fix - Fix customizer compatibility issues with the Twenty Twenty theme
+ * Dev - Add the `wc_pip_pick_list_table_order_heading` filter to allow pick list header customization when the output is set to group items by order for selected orders
+
 2021.01.19 - version 3.11.0
  * Feature - Merge the Extra Columns free add on into the core plugin
 

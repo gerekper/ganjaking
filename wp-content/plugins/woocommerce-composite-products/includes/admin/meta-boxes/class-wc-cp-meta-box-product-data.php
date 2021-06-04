@@ -1906,11 +1906,28 @@ class WC_CP_Meta_Box_Product_Data {
 	 */
 	public static function component_config_pagination_style( $id, $data, $product_id ) {
 
+		global $composite_product_object_data;
+
 		$pagination_style_options = WC_CP_Component::get_pagination_style_options();
 		$pagination_style         = isset( $data[ 'pagination_style' ] ) && in_array( $data[ 'pagination_style' ], wp_list_pluck( $pagination_style_options, 'id' ) ) ? $data[ 'pagination_style' ] : 'classic';
 		$help_tip                 = '';
+		$show_pagination_style    = false;
+		$is_optional              = isset( $data[ 'optional' ] ) && 'yes' === $data[ 'optional' ];
 
-		?><div class="component_pagination_style">
+		if ( ! empty( $composite_product_object_data ) ) {
+
+			if ( 'category_ids' === $data[ 'query_type' ] ) {
+				$show_pagination_style = true;
+			} else {
+				if ( $is_optional ) {
+					$show_pagination_style = true;
+				} elseif ( ! empty( $data[ 'component_id' ] ) && ! empty( $composite_product_object_data[ 'component_options' ][ $data[ 'component_id' ] ] ) && count( $composite_product_object_data[ 'component_options' ][ $data[ 'component_id' ] ] ) > 1 ) {
+					$show_pagination_style = true;
+				}
+			}
+		}
+
+		?><div class="component_pagination_style" <?php echo $show_pagination_style ? '' : 'style="display:none;"'; ?>>
 			<div class="form-field">
 				<label>
 					<?php _e( 'Options Pagination', 'woocommerce-composite-products' ); ?>

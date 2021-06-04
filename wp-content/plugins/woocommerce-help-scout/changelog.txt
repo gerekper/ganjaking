@@ -1,5 +1,8 @@
 *** WooCommerce Help Scout Changelog ***
 
+2021-05-11 - version 2.9.2
+* PLUGINS-1017 - Fix file upload security issues
+
 2021-03-25 - version 2.9.1
 * PLUGINS-990 - Further Ajax adjustments.
 

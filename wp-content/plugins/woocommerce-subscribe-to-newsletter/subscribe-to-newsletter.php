@@ -2,11 +2,11 @@
 /**
  * Backwards compat.
  *
- * @since 2.3.5
+ * @package WC_Newsletter_Subscription
+ * @since   2.3.5
  */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+
+defined( 'ABSPATH' ) || exit;
 
 $active_plugins = get_option( 'active_plugins', array() );
 foreach ( $active_plugins as $key => $active_plugin ) {

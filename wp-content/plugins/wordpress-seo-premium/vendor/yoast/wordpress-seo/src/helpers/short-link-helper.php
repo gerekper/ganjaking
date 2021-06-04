@@ -148,6 +148,6 @@ class Short_Link_Helper {
 			default:
 				$cohort = '30plus';
 		}
-		return $cohort;
+		return '30plus';
 	}
 }

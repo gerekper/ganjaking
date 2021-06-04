@@ -27,54 +27,15 @@ class WC_Help_Scout_Ajax {
 		// Create threads.
 		add_action( 'wp_ajax_wc_help_scout_create_thread', array( $this, 'create_thread' ) );
 		add_action( 'wp_ajax_nopriv_wc_help_scout_create_thread', array( $this, 'create_thread' ) );
-		
-		// Uploads temporary attachments
-		add_action( 'wp_ajax_wc_help_scout_upload_attachments', array( $this, 'wc_help_scout_upload_attachments' ) );
-		add_action( 'wp_ajax_nopriv_wc_help_scout_upload_attachments', array( $this, 'wc_help_scout_upload_attachments' ) );
-		
+				
 	}
 	
-	/**
-	 * Uploads temporary attachments
-	 * 
-	 */
-	function wc_help_scout_upload_attachments(){
-		// security checks
-		$allowedMimes =  array(
-		 	'jpg|jpeg|jpe' => 'image/jpeg',
-			'gif'			=> 'image/gif',
-			'png'			=> 'image/png',
-			'pdf'			=> 'application/pdf',			
-		);
-
-	
-		$fileInfo = wp_check_filetype( basename( $_FILES['file']['name']), $allowedMimes);
-		if ( empty( $fileInfo['ext'] ) ) {
-			wp_die(__('Error in file upload'));
-		}
-
-
-		if ( empty( $fileInfo['type'] ) ) {
-			wp_die(__('Error in upload'));
-		}
-
-
-		
-		$upload_dir = wp_upload_dir();
-		$dir = $upload_dir['basedir'];
-        $target_path_sia = $_FILES["file"]["name"];
-		move_uploaded_file($_FILES["file"]["tmp_name"],$dir. "/hstmp/" . $target_path_sia);
-		die();
-	}
-	
-	
-
 	/**
 	 * Create conversations.
 	 *
 	 * @return string JSON data.
 	 */
-	public function create_conversation() { //print_r($_REQUEST); exit;
+	public function create_conversation() {
 		if ( !check_ajax_referer( 'woocommerce_help_scout_ajax', 'security', false ) ) {
 			wp_send_json(
 				array(
@@ -85,23 +46,28 @@ class WC_Help_Scout_Ajax {
 			); 
 			exit;
 		}
-		$upload_dir = wp_upload_dir();
-		$dir = $upload_dir['basedir'];
-		$tmpUploads = $dir. "/hstmp/";
+
 		$fileData = [];
-		$fileTypes = array('jpg','jpeg','pdf');
-		if(isset($_REQUEST['uploaded_files'])){
-			$uploadedFiles = $_REQUEST['uploaded_files'];			
-			if(!empty($uploadedFiles)){		
-				$uploadedFiles = explode(',',$uploadedFiles);
-				foreach($uploadedFiles as $singleFile){
-					$data = file_get_contents($tmpUploads.''.$singleFile);
-					$filename = basename($tmpUploads.''.$singleFile); 
-					$filetype = mime_content_type($tmpUploads.''.$singleFile);
+		$fileTypes = array('jpg','jpeg','png','pdf');
+		$total = count($_FILES['images']['name']);
+		$fileData= [];
+		$errorUploadMsg = '';
+		$fileExist = $_FILES['images']['name'][0];
+		if(isset($_FILES['images']) && !empty($fileExist)){
+			$uploadedFiles = $_FILES['images'];
+			if(!empty($uploadedFiles)){
+				for( $i=0 ; $i < $total ; $i++ ) { 
+					$ext = pathinfo($_FILES['images']['name'][$i]);
+					$fileExt = strtolower($ext['extension']);
+					if(!in_array($fileExt,$fileTypes)){ 
+						$errorUploadMsg .= $ext['extension'] .' not allowed file type. ';
+					}
+					$data = file_get_contents($_FILES['images']['tmp_name'][$i]);
+					$filename = basename($_FILES['images']['name'][$i]); 
+					$filetype = mime_content_type($_FILES['images']['tmp_name'][$i]);
 					$base64 = stripslashes(base64_encode($data));	
 					$fileData[] = array('name'=>$filename,'type'=>$filename,'data'=>$base64);
-					unlink($tmpUploads.''.$singleFile);
-				}
+				}				
 			}
 		}
 		$integration = new WC_Help_Scout_Integration();
@@ -140,6 +106,17 @@ class WC_Help_Scout_Ajax {
 		
 		$first_name  = null;
 		$last_name   = null;
+		
+		// Valid file types.
+		if ( !empty( $errorUploadMsg ) ) {
+			wp_send_json(
+				array(
+					'id'     => 0,
+					'number' => 0,
+					'status' => __( $errorUploadMsg, 'woocommerce-help-scout' )
+				)
+			);
+		}
 
 		// Valid the order_id field.
 		if ( '' === $order_id ) {
@@ -300,7 +277,7 @@ class WC_Help_Scout_Ajax {
 	 *
 	 * @return string JSON data.
 	 */
-	public function create_thread() { //print_r($_REQUEST); exit;
+	public function create_thread() {
 		if ( !check_ajax_referer( 'woocommerce_help_scout_ajax', 'security', false ) ) {
 			wp_send_json(
 				array(
@@ -309,24 +286,41 @@ class WC_Help_Scout_Ajax {
 				)
 			); exit;
 		}
-		$upload_dir = wp_upload_dir();
-		$dir = $upload_dir['basedir'];
-		$tmpUploads = $dir. "/hstmp/";
+		
 		$fileData = [];
-		if(isset($_REQUEST['uploaded_files'])){
-			$uploadedFiles = $_REQUEST['uploaded_files'];		
-			if(!empty($uploadedFiles)){		
-				$uploadedFiles = explode(',',$uploadedFiles);
-				foreach($uploadedFiles as $singleFile){
-					$data = file_get_contents($tmpUploads.''.$singleFile);
-					$filename = basename($tmpUploads.''.$singleFile); 
-					$filetype = mime_content_type($tmpUploads.''.$singleFile);
+		$fileTypes = array('jpg','jpeg','png','pdf');
+		$total = count($_FILES['images']['name']);
+		$fileData= [];
+		$errorUploadMsg = '';
+		$fileExist = $_FILES['images']['name'][0];
+		if(isset($_FILES['images']) && !empty($fileExist)){
+			$uploadedFiles = $_FILES['images'];
+			if(!empty($uploadedFiles)){
+				for( $i=0 ; $i < $total ; $i++ ) { 
+					$ext = pathinfo($_FILES['images']['name'][$i]);
+					$fileExt = strtolower($ext['extension']);
+					if(!in_array($fileExt,$fileTypes)){ 
+						$errorUploadMsg .= $ext['extension'] .' not allowed file type. ';
+					}
+					$data = file_get_contents($_FILES['images']['tmp_name'][$i]);
+					$filename = basename($_FILES['images']['name'][$i]); 
+					$filetype = mime_content_type($_FILES['images']['tmp_name'][$i]);
 					$base64 = stripslashes(base64_encode($data));	
 					$fileData[] = array('name'=>$filename,'type'=>$filename,'data'=>$base64);
-					unlink($tmpUploads.''.$singleFile);
-				}
+				}				
 			}
 		}
+		
+		// Valid file types.
+		if ( !empty( $errorUploadMsg ) ) {
+			wp_send_json(
+				array(
+					'error' => 0,
+					'message' => __( $errorUploadMsg, 'woocommerce-help-scout' )
+				)
+			);
+		}
+		
 		// Get the conversation data.
 		$integration = new WC_Help_Scout_Integration();
 		//return if Authrorization has failed.

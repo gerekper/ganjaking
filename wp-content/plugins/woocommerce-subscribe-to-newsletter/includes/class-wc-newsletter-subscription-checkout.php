@@ -116,24 +116,19 @@ class WC_Newsletter_Subscription_Checkout {
 	 */
 	public function process_checkout_order( $order_id, $posted_data, $order ) {
 		if ( ! $posted_data['subscribe_to_newsletter'] ) {
-			return; // They don't want to subscribe.
-		}
-
-		if ( ! wc_newsletter_subscription_provider_has_list() ) {
 			return;
 		}
 
-		wc_newsletter_subscription_subscribe(
-			$order->get_billing_email(),
-			array(
-				'first_name' => $order->get_billing_first_name(),
-				'last_name'  => $order->get_billing_last_name(),
-			)
-		);
+		$order = wc_get_order( $order_id );
 
-		if ( is_user_logged_in() ) {
-			update_user_meta( get_current_user_id(), '_wc_subscribed_to_newsletter', 1 );
+		// Order not found.
+		if ( ! $order instanceof WC_Order ) {
+			return;
 		}
+
+		// Adds order meta for future subscribe when order status changed.
+		$order->add_meta_data( '_newsletter_subscription', 1 );
+		$order->save_meta_data();
 	}
 }
 

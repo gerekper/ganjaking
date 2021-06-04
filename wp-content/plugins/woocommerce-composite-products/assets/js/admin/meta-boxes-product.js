@@ -344,7 +344,7 @@ jQuery( function( $ ) {
 
 			if ( this.initialized_content ) {
 
-				self.maybe_hide_static_component_content();
+				self.toggle_static_component_content();
 
 				if ( 'category_ids' === query_type ) {
 					self.reinitialize_default_option_category_select();
@@ -361,7 +361,7 @@ jQuery( function( $ ) {
 
 		this.products_changed = function() {
 
-			self.maybe_hide_static_component_content();
+			self.toggle_static_component_content();
 			self.initialize_default_option_product_select();
 			self.default_option_changed();
 
@@ -385,7 +385,7 @@ jQuery( function( $ ) {
 
 		this.optional_changed = function() {
 
-			self.maybe_hide_static_component_content();
+			self.toggle_static_component_content();
 			self.default_option_changed();
 
 			// Component data must be saved before viewing the Scenarios panel, or adding new scenarios.
@@ -394,9 +394,13 @@ jQuery( function( $ ) {
 
 		this.options_style_changed = function() {
 
+			if ( ! this.initialized_content ) {
+				return;
+			}
+
 			var supports = self.$options_style_selector.find( 'option[value="' + self.$options_style_selector.val() + '"]' ).data( 'supports' );
 
-			if ( 'yes' === supports.pagination ) {
+			if ( 'yes' === supports.pagination && ! self.is_static() ) {
 				self.$pagination_style.show();
 			} else {
 				self.$pagination_style.hide();
@@ -423,27 +427,17 @@ jQuery( function( $ ) {
 			}
 		};
 
-		this.maybe_hide_static_component_content = function() {
+		this.toggle_static_component_content = function() {
 
-			var query_type = self.$query_type_selector.val();
-
-			if ( 'category_ids' === query_type ) {
-
+			if ( self.is_static() ) {
+				self.$options_style_container.hide();
+				self.$sort_filter_container.hide();
+			} else {
 				self.$options_style_container.show();
 				self.$sort_filter_container.show();
-
-			} else {
-
-				var products_count = self.get_product_ids().length;
-
-				if ( products_count > 1 || products_count === 1 && self.is_optional() ) {
-					self.$options_style_container.show();
-					self.$sort_filter_container.show();
-				} else {
-					self.$options_style_container.hide();
-					self.$sort_filter_container.hide();
-				}
 			}
+
+			self.options_style_changed();
 		};
 
 		this.default_option_changed = function() {
@@ -767,6 +761,22 @@ jQuery( function( $ ) {
 
 		this.is_optional = function() {
 			return self.$optional_checkbox.is( ':checked' );
+		};
+
+		this.is_static = function() {
+
+			var query_type = self.$query_type_selector.val();
+
+			if ( 'product_ids' === query_type ) {
+
+				var products_count = self.get_product_ids().length;
+
+				if ( products_count === 1 && ! self.is_optional() ) {
+					return true;
+				}
+			}
+
+			return false;
 		};
 
 		this.initialize();

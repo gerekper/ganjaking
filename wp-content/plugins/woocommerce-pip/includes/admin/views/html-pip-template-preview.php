@@ -234,7 +234,7 @@
 
 				<?php
 
-				$chosen_fields   = get_option( 'wc_pip_invoice_show_optional_fields', [ 'sku' ] );
+				$chosen_fields   = get_option( 'wc_pip_invoice_show_optional_product_fields', [ 'sku' ] );
 				$show_thumbnail  = in_array( 'thumbnail', $chosen_fields, true );
 				$show_sku        = in_array( 'sku', $chosen_fields, true );
 				$show_unit_price = in_array( 'unit_price', $chosen_fields, true );

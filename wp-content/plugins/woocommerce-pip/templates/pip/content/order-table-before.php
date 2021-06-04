@@ -251,19 +251,20 @@ defined( 'ABSPATH' ) or exit;
 			</header>
 
 			<main class="document-body <?php echo $type; ?>-body">
-				<?php
-
-				/**
-				 * Fires before the document's body (order table).
-				 *
-				 * @since 3.0.0
-				 * @param string $type Document type
-				 * @param string $action Current action running on Document
-				 * @param \WC_PIP_Document $document Document object
-				 * @param \WC_Order $order Order object
-				 */
-				do_action( 'wc_pip_before_body', $type, $action, $document, $order );
-
-				?>
-				<table class="order-table <?php echo $type; ?>-order-table">
+				<div class="document-body-content">
 					<?php
+
+					/**
+					 * Fires before the document's body (order table).
+					 *
+					 * @since 3.0.0
+					 * @param string $type Document type
+					 * @param string $action Current action running on Document
+					 * @param \WC_PIP_Document $document Document object
+					 * @param \WC_Order $order Order object
+					 */
+					do_action( 'wc_pip_before_body', $type, $action, $document, $order );
+
+					?>
+					<table class="order-table <?php echo $type; ?>-order-table">
+						<?php

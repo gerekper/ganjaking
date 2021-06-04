@@ -258,6 +258,11 @@ class WC_CP_Compatibility {
 			$module_paths[ 'stripe' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-stripe-compatibility.php';
 		}
 
+		// Zapier compatibility
+		if ( class_exists( 'OM4\WooCommerceZapier\Plugin' ) ) {
+			$module_paths[ 'zapier' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-zapier-compatibility.php';
+		}
+
 		// ThemeAlien Variation Swatches for WooCommerce compatibility.
 		$module_paths[ 'taws_variation_swatches' ] = WC_CP_ABSPATH . 'includes/compatibility/modules/class-wc-cp-taws-variation-swatches-compatibility.php';
 

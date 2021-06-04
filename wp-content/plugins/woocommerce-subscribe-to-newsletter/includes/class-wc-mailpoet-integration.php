@@ -4,6 +4,8 @@
  * WC_Mailpoet_Integration class.
  *
  * https://support.mailpoet.com/knowledgebase/plugin-form-integrate/
+ *
+ * @deprecated 3.0.0
  */
 class WC_Mailpoet_Integration {
 
@@ -20,6 +22,8 @@ class WC_Mailpoet_Integration {
 	 * Constructor
 	 */
 	public function __construct( $list = false ) {
+		wc_deprecated_function( 'WC_Mailpoet_Integration', '3.0.0', 'WC_Newsletter_Subscription_Provider_Mailpoet' );
+
 		$this->list = $list;
 	}
 

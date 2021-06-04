@@ -2,6 +2,7 @@
 
 namespace Yoast\WP\SEO\Premium\Conditionals;
 
+use WPSEO_Options;
 use Yoast\WP\SEO\Conditionals\Feature_Flag_Conditional;
 
 /**
@@ -12,10 +13,10 @@ class Social_Templates_Conditional extends Feature_Flag_Conditional {
 	/**
 	 * Returns whether or not this conditional is met.
 	 *
-	 * @return boolean Whether or not the conditional is met.
+	 * @return bool Whether or not the conditional is met.
 	 */
 	public function is_met() {
-		return parent::is_met() && \WPSEO_Options::get( 'opengraph', true ) === true;
+		return parent::is_met() && WPSEO_Options::get( 'opengraph', true ) === true;
 	}
 
 	/**

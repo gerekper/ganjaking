@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: WooCommerce Print Invoices/Packing Lists 3.1.3\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
 "form/\n"
-"POT-Creation-Date: 2021-01-07 04:01:58+00:00\n"
-"PO-Revision-Date: 2021-01-07 12:05+0800\n"
+"POT-Creation-Date: 2021-01-28 09:12:25+00:00\n"
+"PO-Revision-Date: 2021-01-28 17:16+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -95,7 +95,7 @@ msgid "No shipping"
 msgstr "Nessuna spedizione"
 
 #: includes/abstract-wc-pip-document.php:498
-#: includes/admin/views/html-pip-template-preview.php:359
+#: includes/admin/views/html-pip-template-preview.php:425
 msgid "Email:"
 msgstr "Email:"
 
@@ -353,6 +353,7 @@ msgid "Display the terms and conditions text in fine print."
 msgstr "Mostra i termini e le condizioni di vendita in formato ridotto."
 
 #: includes/admin/class-wc-pip-customizer.php:643
+#: includes/admin/class-wc-pip-settings.php:415
 msgid "Footer"
 msgstr "Piè di pagina"
 
@@ -419,7 +420,7 @@ msgstr "Invia Email Lista Magazziniere"
 
 #. translators: Placeholder: %s - invoice number
 #: includes/admin/class-wc-pip-orders-admin.php:326
-#: includes/admin/views/html-pip-template-preview.php:107
+#: includes/admin/views/html-pip-template-preview.php:114
 msgid "Invoice: %s"
 msgstr "Fattura: %s"
 
@@ -558,89 +559,80 @@ msgid "%s Seconds with leading zeros"
 msgstr "%s Secondi con zero iniziale"
 
 #: includes/admin/class-wc-pip-settings.php:226
-msgid "Invoice Appearance"
-msgstr "Aspetto Fattura"
+msgid "Invoice appearance"
+msgstr "Aspetto fattura"
 
 #: includes/admin/class-wc-pip-settings.php:233
-msgid "Show shipping method"
-msgstr "Mostra metodo di spedizione"
+#: includes/admin/class-wc-pip-settings.php:389
+msgid "Show optional order details"
+msgstr "Mostra campi opzionali dell'ordine"
 
 #: includes/admin/class-wc-pip-settings.php:234
-msgid "Enable if you want to display shipping method for the invoice order."
-msgstr ""
-"Abilita per mostrare il metodo di spedizione per l'ordine della fattura."
+msgid "Add or remove optional order fields from your invoices."
+msgstr "Aggiungi o rimuovi campi opzionali ordine per le tue fatture."
 
-#: includes/admin/class-wc-pip-settings.php:242
-#: includes/admin/class-wc-pip-settings.php:404
-msgid "Show customer details"
-msgstr "Mostra dettagli cliente"
+#: includes/admin/class-wc-pip-settings.php:244
+msgid "Shipping method"
+msgstr "Metodo di spedizione"
 
-#: includes/admin/class-wc-pip-settings.php:243
-#: includes/admin/class-wc-pip-settings.php:405
-msgid "Enable if you want to display customer details."
-msgstr "Abilita per mostrare dettagli del cliente."
+#: includes/admin/class-wc-pip-settings.php:245
+#: includes/admin/class-wc-pip-settings.php:398
+#: includes/admin/views/html-pip-template-preview.php:423
+msgid "Customer details"
+msgstr "Dettagli cliente"
 
-#: includes/admin/class-wc-pip-settings.php:251
-msgid "Show customer provided note"
-msgstr "Mostra nota aggiunta dal cliente"
+#: includes/admin/class-wc-pip-settings.php:246
+#: includes/admin/class-wc-pip-settings.php:399
+msgid "Customer note"
+msgstr "Nota cliente"
 
-#: includes/admin/class-wc-pip-settings.php:252
-msgid "Enable if you want to display the customer provided note."
-msgstr "Abilita se vuoi mostrare la nota aggiunta dal cliente."
+#: includes/admin/class-wc-pip-settings.php:247
+msgid "Applied coupon(s)"
+msgstr "Coupon applicati"
 
-#: includes/admin/class-wc-pip-settings.php:260
-msgid "Show coupons used in order"
-msgstr "Mostra coupon utilizzati nell'ordine"
+#: includes/admin/class-wc-pip-settings.php:254
+#: includes/admin/class-wc-pip-settings.php:423
+msgid "Show optional product details"
+msgstr "Mostra dettagli opzionali del prodotto"
 
-#: includes/admin/class-wc-pip-settings.php:261
-msgid "Enable if you want to display a list of coupons applied to the order."
-msgstr ""
-"Abilita per mostrare una lista di coupon applicati dal cliente nell'invio "
-"dell'ordine."
+#: includes/admin/class-wc-pip-settings.php:255
+msgid "Add or remove optional product fields from your invoices."
+msgstr "Aggiungi o rimuovi campi opzionali prodotto per le tue fatture."
 
-#: includes/admin/class-wc-pip-settings.php:269
-#: includes/admin/class-wc-pip-settings.php:440
-#: includes/admin/class-wc-pip-settings.php:535
-msgid "Show optional fields"
-msgstr "Mostra campi opzionali"
-
-#: includes/admin/class-wc-pip-settings.php:270
-msgid "Add or remove optional fields from your invoices."
-msgstr "Aggiungi o rimuovi campi opzionali per le tue fatture."
-
-#: includes/admin/class-wc-pip-settings.php:277
-msgid "Product thumbail"
+#: includes/admin/class-wc-pip-settings.php:262
+#: includes/admin/class-wc-pip-settings.php:432
+#: includes/admin/class-wc-pip-settings.php:527
+msgid "Product thumbnail"
 msgstr "Immagine prodotto"
 
-#: includes/admin/class-wc-pip-settings.php:278
-#: includes/admin/class-wc-pip-settings.php:451
-#: includes/admin/class-wc-pip-settings.php:547
+#: includes/admin/class-wc-pip-settings.php:263
+#: includes/admin/class-wc-pip-settings.php:433
+#: includes/admin/class-wc-pip-settings.php:528
 #: includes/class-wc-pip-document-invoice.php:62
 #: includes/class-wc-pip-document-packing-list.php:61
 #: includes/class-wc-pip-document-pick-list.php:66
 msgid "SKU"
 msgstr "SKU"
 
-#: includes/admin/class-wc-pip-settings.php:279
-#: includes/admin/class-wc-pip-settings.php:452
-#: includes/admin/class-wc-pip-settings.php:549
-msgid "Total weight"
-msgstr "Peso totale"
+#: includes/admin/class-wc-pip-settings.php:264
+#: includes/class-wc-pip-document-invoice.php:64
+msgid "Unit price"
+msgstr "Prezzo unità"
 
-#: includes/admin/class-wc-pip-settings.php:280
+#: includes/admin/class-wc-pip-settings.php:265
 #: includes/class-wc-pip-document-invoice.php:66
 msgid "Line taxes"
 msgstr "Tasse"
 
-#: includes/admin/class-wc-pip-settings.php:287
+#: includes/admin/class-wc-pip-settings.php:272
 msgid "Show item prices excluding taxes"
 msgstr "Mostra costo oggetti tasse escluse"
 
-#: includes/admin/class-wc-pip-settings.php:288
+#: includes/admin/class-wc-pip-settings.php:273
 msgid "Enable if you want to display item prices exclusive of tax."
 msgstr "Abilita se vuoi mostrare il costo degli oggetti al netto delle tasse."
 
-#: includes/admin/class-wc-pip-settings.php:289
+#: includes/admin/class-wc-pip-settings.php:274
 msgid ""
 "Overrides the store tax display settings when displaying item prices in "
 "invoices."
@@ -648,15 +640,15 @@ msgstr ""
 "Ignora l'impostazione del negozio riguardo all'inclusività delle tasse "
 "nell'elencare il costo degli oggetti nella fattura."
 
-#: includes/admin/class-wc-pip-settings.php:301
-msgid "Invoice Number Generation"
-msgstr "Generazione Numero Fattura"
+#: includes/admin/class-wc-pip-settings.php:286
+msgid "Invoice number generation"
+msgstr "Generazione numero fattura"
 
-#: includes/admin/class-wc-pip-settings.php:308
-msgid "Use Order Number as Invoice Number"
-msgstr "Usa Numero Ordine come Numero Fattura"
+#: includes/admin/class-wc-pip-settings.php:293
+msgid "Use order number as invoice number"
+msgstr "Usa numero ordine come numero fattura"
 
-#: includes/admin/class-wc-pip-settings.php:309
+#: includes/admin/class-wc-pip-settings.php:294
 msgid ""
 "Enable this to use the order number as the invoice number. Disable to auto-"
 "generate the invoice number based on a starting number of your choice."
@@ -665,19 +657,19 @@ msgstr ""
 "della fattura. Disabilita per generare automaticamente un numero progressivo "
 "da utilizzare come numero di fattura."
 
-#: includes/admin/class-wc-pip-settings.php:318
-msgid "Invoice Number Start"
-msgstr "Numero Fattura Corrente"
+#: includes/admin/class-wc-pip-settings.php:303
+msgid "Invoice number start"
+msgstr "Numero fattura corrente"
 
-#: includes/admin/class-wc-pip-settings.php:319
+#: includes/admin/class-wc-pip-settings.php:304
 msgid "Set the starting invoice number."
 msgstr "Imposta il numero della fattura corrente."
 
-#: includes/admin/class-wc-pip-settings.php:336
-msgid "Invoice Number Minimum Digits"
-msgstr "Cifre Minime Numero Fattura"
+#: includes/admin/class-wc-pip-settings.php:321
+msgid "Invoice number minimum digits"
+msgstr "Cifre minime numero fattura"
 
-#: includes/admin/class-wc-pip-settings.php:337
+#: includes/admin/class-wc-pip-settings.php:322
 msgid ""
 "Adds leading zeros to the invoice number count to keep the number of "
 "characters in the invoice number consistent. Leave to 1 to ignore the "
@@ -687,206 +679,196 @@ msgstr ""
 "il numero dei caratteri costituenti il numero della fattura. Lasciare "
 "impostato su 1 per ignorare l'opzione."
 
-#: includes/admin/class-wc-pip-settings.php:350
-msgid "Invoice Number Prefix"
-msgstr "Prefisso Numero Fattura"
+#: includes/admin/class-wc-pip-settings.php:335
+msgid "Invoice number prefix"
+msgstr "Prefisso numero fattura"
 
-#: includes/admin/class-wc-pip-settings.php:351
+#: includes/admin/class-wc-pip-settings.php:336
 msgid "Set your custom invoice number prefix."
 msgstr ""
 "Inserisci un prefisso personalizzato da apporre all'inizio del numero della "
 "fattura."
 
 #. translators: Placeholder: %s - List of merge tags
-#: includes/admin/class-wc-pip-settings.php:353
-#: includes/admin/class-wc-pip-settings.php:363
+#: includes/admin/class-wc-pip-settings.php:338
+#: includes/admin/class-wc-pip-settings.php:348
 msgid "You may also use the following merge tags: %s"
 msgstr "Puoi utilizzare anche le seguenti etichette sostitutive: %s"
 
-#: includes/admin/class-wc-pip-settings.php:360
-msgid "Invoice Number Suffix"
-msgstr "Suffisso Numero Fattura"
+#: includes/admin/class-wc-pip-settings.php:345
+msgid "Invoice number suffix"
+msgstr "Suffisso numero fattura"
 
-#: includes/admin/class-wc-pip-settings.php:361
+#: includes/admin/class-wc-pip-settings.php:346
 msgid "Set your custom invoice number suffix."
 msgstr ""
 "Inserisci un suffisso personalizzato da aggiungere al termine del numero "
 "della fattura."
 
-#: includes/admin/class-wc-pip-settings.php:397
-msgid "Packing List Appearance"
-msgstr "Aspetto Lista Imballaggio"
+#: includes/admin/class-wc-pip-settings.php:382
+msgid "Packing list appearance"
+msgstr "Aspetto lista imballaggio"
 
-#: includes/admin/class-wc-pip-settings.php:413
-msgid "Show customer note"
-msgstr "Mostra nota cliente"
-
-#: includes/admin/class-wc-pip-settings.php:414
-msgid "Enable if you want to display the customer note."
-msgstr "Abilita per mostrare la nota lasciata dal cliente."
-
-#: includes/admin/class-wc-pip-settings.php:422
-msgid "Show terms and conditions"
-msgstr "Mostra termini e condizioni"
-
-#: includes/admin/class-wc-pip-settings.php:423
-msgid ""
-"Enable if you want to display terms and conditions or return policy on "
-"packing lists."
+#: includes/admin/class-wc-pip-settings.php:390
+msgid "Add or remove optional order fields from your packing lists."
 msgstr ""
-"Abilita se vuoi mostrare termini e condizioni di vendita o politiche di reso "
-"sulle liste di imballaggio."
+"Aggiungi o rimuovi campi opzionali ordine per le tue liste di imballaggio."
 
-#: includes/admin/class-wc-pip-settings.php:431
-msgid "Show footer"
-msgstr "Mostra piè di pagina"
+#: includes/admin/class-wc-pip-settings.php:406
+msgid "Show optional document fields"
+msgstr "Mostra campi opzionali del documento"
 
-#: includes/admin/class-wc-pip-settings.php:432
-msgid "Enable if you want to display footer information on packing lists."
+#: includes/admin/class-wc-pip-settings.php:407
+msgid "Add or remove optional document fields from your packing lists."
 msgstr ""
-"Abilita se vuoi mostrare informazioni addizionali in calce alle liste di "
+"Aggiungi o rimuovi campi opzionali del documento per le tue liste di "
 "imballaggio."
 
+#: includes/admin/class-wc-pip-settings.php:416
+msgid "Terms and conditions"
+msgstr "Termini e condizioni"
+
+#: includes/admin/class-wc-pip-settings.php:424
+msgid "Add or remove optional product fields from your packing lists."
+msgstr ""
+"Aggiungi o rimuovi campi opzionali prodotto per le tue liste di imballaggio."
+
+#: includes/admin/class-wc-pip-settings.php:434
+#: includes/admin/class-wc-pip-settings.php:530
+msgid "Total weight"
+msgstr "Peso totale"
+
 #: includes/admin/class-wc-pip-settings.php:441
-msgid "Add or remove optional fields from your packing lists."
-msgstr "Aggiungi o rimuovi campi opzionali per le tue liste di imballaggio."
+#: includes/admin/class-wc-pip-settings.php:537
+msgid "Exclude virtual items"
+msgstr "Escludi prodotti virtuali"
 
-#: includes/admin/class-wc-pip-settings.php:450
-#: includes/admin/class-wc-pip-settings.php:546
-msgid "Product thumbnail"
-msgstr "Immagine prodotto"
-
-#: includes/admin/class-wc-pip-settings.php:459
-#: includes/admin/class-wc-pip-settings.php:556
-msgid "Exclude Virtual Items"
-msgstr "Escludi Prodotti Virtuali"
-
-#: includes/admin/class-wc-pip-settings.php:460
+#: includes/admin/class-wc-pip-settings.php:442
 msgid "Exclude virtual items from showing on packing lists."
 msgstr "Escludi prodotti virtuali dalle liste di imballaggio."
 
-#: includes/admin/class-wc-pip-settings.php:512
-msgid "Pick List Appearance"
-msgstr "Aspetto Lista Magazziniere"
+#: includes/admin/class-wc-pip-settings.php:494
+msgid "Pick list appearance"
+msgstr "Aspetto lista magazziniere"
 
-#: includes/admin/class-wc-pip-settings.php:519
-msgid "Pick List Output"
-msgstr "Formato Lista Magazziniere"
+#: includes/admin/class-wc-pip-settings.php:501
+msgid "Pick list output"
+msgstr "Formato lista magazziniere"
 
-#: includes/admin/class-wc-pip-settings.php:520
+#: includes/admin/class-wc-pip-settings.php:502
 msgid "This controls grouped by for selected orders on pick list."
 msgstr ""
 "Questo controlla il formato di raggruppamento per gli ordini selezionati "
 "nella Lista Magazziniere."
 
-#: includes/admin/class-wc-pip-settings.php:524
+#: includes/admin/class-wc-pip-settings.php:506
 msgid "Groups items by order for selected orders"
 msgstr "Raggruppa oggetti per ordine per gli ordini selezionati"
 
-#: includes/admin/class-wc-pip-settings.php:525
+#: includes/admin/class-wc-pip-settings.php:507
 msgid "Groups items by category for selected orders"
 msgstr "Raggruppa oggetti per categoria per gli ordini selezionati"
 
-#: includes/admin/class-wc-pip-settings.php:536
+#: includes/admin/class-wc-pip-settings.php:517
+msgid "Show optional product fields"
+msgstr "Mostra campi opzionali del prodotto"
+
+#: includes/admin/class-wc-pip-settings.php:518
 msgid "Add or remove optional fields from your pick lists."
 msgstr "Aggiungi o rimuovi campi opzionali per le tue liste magazziniere."
 
-#: includes/admin/class-wc-pip-settings.php:548
+#: includes/admin/class-wc-pip-settings.php:529
 #: includes/class-wc-pip-document-pick-list.php:68
 msgid "Details"
 msgstr "Dettagli"
 
-#: includes/admin/class-wc-pip-settings.php:557
+#: includes/admin/class-wc-pip-settings.php:538
 msgid "Exclude virtual items from showing on pick lists."
 msgstr "Escludi prodotti virtuali dalle liste magazziniere."
 
 #. translators: Placeholder: %s - VAT number
 #. translators: Placeholder: %s - VAT Number
-#: includes/admin/views/html-pip-template-preview.php:82
+#: includes/admin/views/html-pip-template-preview.php:89
 #: templates/pip/content/order-table-before.php:84
 msgid "VAT Number: %s"
 msgstr "Partita IVA: %s"
 
 #. translators: Placeholder: %s - order date
 #. translators: Placeholder:  %s - order date
-#: includes/admin/views/html-pip-template-preview.php:110
-#: includes/class-wc-pip-document-invoice.php:139
+#: includes/admin/views/html-pip-template-preview.php:117
+#: includes/class-wc-pip-document-invoice.php:143
 msgid "Order Date: %s"
 msgstr "Data Ordine: %s"
 
-#: includes/admin/views/html-pip-template-preview.php:127
+#: includes/admin/views/html-pip-template-preview.php:134
 #: templates/pip/content/order-table-before.php:150
 msgid "Billing Address"
 msgstr "Indirizzo di Fatturazione"
 
-#: includes/admin/views/html-pip-template-preview.php:149
+#: includes/admin/views/html-pip-template-preview.php:156
 #: templates/pip/content/order-table-before.php:175
 msgid "Shipping Address"
 msgstr "Indirizzo di Spedizione"
 
-#: includes/admin/views/html-pip-template-preview.php:171
+#: includes/admin/views/html-pip-template-preview.php:178
 #: templates/pip/content/order-table-before.php:200
 msgid "Shipping Method"
 msgstr "Metodo di Spedizione"
 
-#: includes/admin/views/html-pip-template-preview.php:234
-msgid "Subtotal:"
-msgstr "Totale Parziale:"
-
-#: includes/admin/views/html-pip-template-preview.php:242
-msgid "Discount:"
-msgstr "Sconto:"
-
-#: includes/admin/views/html-pip-template-preview.php:250
-msgid "Shipping:"
-msgstr "Spedizione:"
-
-#: includes/admin/views/html-pip-template-preview.php:253
-msgid "Free Shipping"
-msgstr "Spedizione gratuita"
-
-#: includes/admin/views/html-pip-template-preview.php:258
-msgid "State Tax:"
-msgstr "Tasse:"
-
-#: includes/admin/views/html-pip-template-preview.php:266
-msgid "Payment Method:"
-msgstr "Metodo di Pagamento:"
-
-#: includes/admin/views/html-pip-template-preview.php:274
-msgid "Refund:"
-msgstr "Rimborso:"
-
-#: includes/admin/views/html-pip-template-preview.php:282
-msgid "Total:"
-msgstr "Totale:"
-
-#: includes/admin/views/html-pip-template-preview.php:320
+#: includes/admin/views/html-pip-template-preview.php:322
 msgid "Color:"
 msgstr "Colore:"
 
-#: includes/admin/views/html-pip-template-preview.php:321
+#: includes/admin/views/html-pip-template-preview.php:323
 msgid "Blue"
 msgstr "Blu"
 
-#: includes/admin/views/html-pip-template-preview.php:322
+#: includes/admin/views/html-pip-template-preview.php:324
 msgid "Size:"
 msgstr "Taglia:"
 
+#: includes/admin/views/html-pip-template-preview.php:348
+msgid "Subtotal:"
+msgstr "Totale Parziale:"
+
+#: includes/admin/views/html-pip-template-preview.php:356
+msgid "Discount:"
+msgstr "Sconto:"
+
+#: includes/admin/views/html-pip-template-preview.php:364
+msgid "Shipping:"
+msgstr "Spedizione:"
+
+#: includes/admin/views/html-pip-template-preview.php:367
+msgid "Free Shipping"
+msgstr "Spedizione gratuita"
+
+#: includes/admin/views/html-pip-template-preview.php:372
+msgid "State Tax:"
+msgstr "Tasse:"
+
+#: includes/admin/views/html-pip-template-preview.php:380
+msgid "Payment Method:"
+msgstr "Metodo di Pagamento:"
+
+#: includes/admin/views/html-pip-template-preview.php:388
+msgid "Refund:"
+msgstr "Rimborso:"
+
+#: includes/admin/views/html-pip-template-preview.php:396
+msgid "Total:"
+msgstr "Totale:"
+
 #. translators: Placeholder: %1$s - opening <strong> tag, %2$s - coupons count
 #. (used in order), %3$s - closing </strong> tag - %4$s - coupons list
-#: includes/admin/views/html-pip-template-preview.php:351
+#: includes/admin/views/html-pip-template-preview.php:417
 #: templates/pip/content/order-table-after.php:91
 msgid "%1$sCoupon used:%3$s %4$s"
 msgid_plural "%1$sCoupons used (%2$s):%3$s %4$s"
 msgstr[0] "%1$sCoupon utilizzato:%3$s %4$s"
 msgstr[1] "%1$sCoupon utilizzati (%2$s):%3$s %4$s"
 
-#: includes/admin/views/html-pip-template-preview.php:357
-msgid "Customer details"
-msgstr "Dettagli cliente"
-
-#: includes/admin/views/html-pip-template-preview.php:360
+#: includes/admin/views/html-pip-template-preview.php:426
 msgid "Telephone:"
 msgstr "Telefono:"
 
@@ -1004,10 +986,6 @@ msgstr "Immagine"
 msgid "Product"
 msgstr "Prodotto"
 
-#: includes/class-wc-pip-document-invoice.php:64
-msgid "Unit price"
-msgstr "Prezzo unità"
-
 #: includes/class-wc-pip-document-invoice.php:65
 #: includes/class-wc-pip-document-packing-list.php:63
 #: includes/class-wc-pip-document-pick-list.php:69
@@ -1019,21 +997,21 @@ msgid "Price"
 msgstr "Prezzo"
 
 #. translators: Placeholders:  %1$s - invoice number, %2$s - order number
-#: includes/class-wc-pip-document-invoice.php:130
+#: includes/class-wc-pip-document-invoice.php:134
 msgid "Invoice %1$s for order %2$s"
 msgstr "Fattura %1$s per l'ordine %2$s"
 
 #. translators: Placeholder: %s - order number
-#: includes/class-wc-pip-document-invoice.php:133
+#: includes/class-wc-pip-document-invoice.php:137
 msgid "Invoice for order %s"
 msgstr "Fattura per l'ordine %s"
 
 #. translators: Placeholder: %s - invoice plain url
-#: includes/class-wc-pip-document-invoice.php:370
+#: includes/class-wc-pip-document-invoice.php:374
 msgid "View your invoice: %s"
 msgstr "Vedi la tua fattura: %s"
 
-#: includes/class-wc-pip-document-invoice.php:372
+#: includes/class-wc-pip-document-invoice.php:376
 msgid "View your invoice."
 msgstr "Vedi la tua fattura."
 
@@ -1046,33 +1024,33 @@ msgid "Total Weight"
 msgstr "Peso Totale"
 
 #. translators: Placeholders: %1$s - invoice number, %2$s - order number
-#: includes/class-wc-pip-document-packing-list.php:168
+#: includes/class-wc-pip-document-packing-list.php:172
 msgid "Packing List for invoice %1$s (order %2$s)"
 msgstr "Lista Imballaggio per fattura %1$s (ordine %2$s)"
 
 #. translators: Placeholder: %s order number
-#: includes/class-wc-pip-document-packing-list.php:171
+#: includes/class-wc-pip-document-packing-list.php:175
 msgid "Packing List for order %s"
 msgstr "Lista Imballaggio per l'ordine %s"
 
-#: includes/class-wc-pip-document-packing-list.php:252
+#: includes/class-wc-pip-document-packing-list.php:256
 msgid "Uncategorized"
 msgstr "Senza Categoria"
 
-#: includes/class-wc-pip-document-packing-list.php:290
+#: includes/class-wc-pip-document-packing-list.php:294
 msgid "These items have been removed from the shop catalog"
 msgstr "Questi prodotti sono stati rimossi dal catalogo del negozio"
 
-#: includes/class-wc-pip-document-packing-list.php:485
+#: includes/class-wc-pip-document-packing-list.php:489
 msgid "This order does not contain shippable items."
 msgstr "Quest'ordine non contiene oggetti da spedire."
 
-#: includes/class-wc-pip-document-packing-list.php:629
+#: includes/class-wc-pip-document-packing-list.php:633
 msgid "Totals:"
 msgstr "Totali:"
 
 #. translators: Placeholder: %d - total amount of items in packing list
-#: includes/class-wc-pip-document-packing-list.php:631
+#: includes/class-wc-pip-document-packing-list.php:635
 msgid "%d pc."
 msgid_plural "%d pcs."
 msgstr[0] "%d articolo."
@@ -1270,25 +1248,74 @@ msgstr "SkyVerge"
 msgid "http://www.woocommerce.com/"
 msgstr "http://www.woocommerce.com/"
 
-#: includes/admin/views/html-pip-template-preview.php:46
+#: includes/admin/views/html-pip-template-preview.php:53
 msgctxt "Facsimile label. Try to keep this below 16 characters length."
 msgid "Sample Invoice"
 msgstr "Facsimile fattura"
 
-#: includes/admin/views/html-pip-template-preview.php:323
+#: includes/admin/views/html-pip-template-preview.php:325
 msgctxt "Sample Variation Medium Size"
 msgid "M"
 msgstr "M [ Esempio Variazione Taglia Media ]"
 
-#: includes/admin/views/html-pip-template-preview.php:372
+#: includes/admin/views/html-pip-template-preview.php:438
 msgctxt "Customer note sample for the live template preview."
 msgid "Please include a printed copy of your catalog, thank you."
 msgstr "Per favore includete una copia stampata del vostro catalogo, grazie."
 
-#: includes/class-wc-pip-document-packing-list.php:249
+#: includes/class-wc-pip-document-packing-list.php:253
 msgctxt "Products deleted from the shop"
 msgid "Removed"
 msgstr "Rimossi"
+
+#~ msgid "Show shipping method"
+#~ msgstr "Mostra metodo di spedizione"
+
+#~ msgid "Enable if you want to display shipping method for the invoice order."
+#~ msgstr ""
+#~ "Abilita per mostrare il metodo di spedizione per l'ordine della fattura."
+
+#~ msgid "Show customer details"
+#~ msgstr "Mostra dettagli cliente"
+
+#~ msgid "Enable if you want to display customer details."
+#~ msgstr "Abilita per mostrare dettagli del cliente."
+
+#~ msgid "Show customer provided note"
+#~ msgstr "Mostra nota aggiunta dal cliente"
+
+#~ msgid "Enable if you want to display the customer provided note."
+#~ msgstr "Abilita se vuoi mostrare la nota aggiunta dal cliente."
+
+#~ msgid "Show coupons used in order"
+#~ msgstr "Mostra coupon utilizzati nell'ordine"
+
+#~ msgid ""
+#~ "Enable if you want to display a list of coupons applied to the order."
+#~ msgstr ""
+#~ "Abilita per mostrare una lista di coupon applicati dal cliente nell'invio "
+#~ "dell'ordine."
+
+#~ msgid "Product thumbail"
+#~ msgstr "Immagine prodotto"
+
+#~ msgid "Enable if you want to display the customer note."
+#~ msgstr "Abilita per mostrare la nota lasciata dal cliente."
+
+#~ msgid ""
+#~ "Enable if you want to display terms and conditions or return policy on "
+#~ "packing lists."
+#~ msgstr ""
+#~ "Abilita se vuoi mostrare termini e condizioni di vendita o politiche di "
+#~ "reso sulle liste di imballaggio."
+
+#~ msgid "Show footer"
+#~ msgstr "Mostra piè di pagina"
+
+#~ msgid "Enable if you want to display footer information on packing lists."
+#~ msgstr ""
+#~ "Abilita se vuoi mostrare informazioni addizionali in calce alle liste di "
+#~ "imballaggio."
 
 #~ msgid "Show SKU"
 #~ msgstr "Mostra SKU"

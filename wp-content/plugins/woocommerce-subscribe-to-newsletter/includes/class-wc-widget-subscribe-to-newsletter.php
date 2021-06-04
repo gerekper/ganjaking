@@ -48,13 +48,11 @@ class WC_Widget_Subscribe_To_Newsletter extends WC_Widget {
 		if ( isset( $renamed_props[ $key ] ) ) {
 			$replacement = $renamed_props[ $key ];
 
-			// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-			_deprecated_argument(
+			wc_deprecated_argument(
 				"WC_Widget_Subscribe_To_Newsletter->{$key}",
 				'2.5.0',
 				"This property is deprecated and will be removed in future releases. Use WC_Widget_Subscribe_To_Newsletter->{$replacement} instead."
 			);
-			// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			return $this->{$replacement};
 		}
@@ -81,7 +79,7 @@ class WC_Widget_Subscribe_To_Newsletter extends WC_Widget {
 	public function get_setting_fields() {
 		$provider = wc_newsletter_subscription_get_provider();
 
-		if ( ! $provider ) {
+		if ( ! $provider || ! $provider->is_enabled() ) {
 			$settings = array(
 				'no_service' => array(
 					'type' => 'wc_newsletter_subscription_no_service',
@@ -308,7 +306,7 @@ class WC_Widget_Subscribe_To_Newsletter extends WC_Widget {
 	 * @param array $instance Widget instance.
 	 */
 	public function widget( $args, $instance ) {
-		if ( ! wc_newsletter_subscription_get_provider() ) {
+		if ( ! wc_newsletter_subscription_is_connected() ) {
 			return;
 		}
 

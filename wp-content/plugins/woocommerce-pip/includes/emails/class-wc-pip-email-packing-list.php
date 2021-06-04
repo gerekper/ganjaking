@@ -184,12 +184,13 @@ class WC_PIP_Email_Packing_List extends \WC_Email {
 
 
 	/**
-	 * Email trigger
+	 * Triggers the email.
 	 *
 	 * @see \WC_PIP_Document::send_email()
 	 * @see \WC_PIP_Email_Packing_List::__construct()
 	 *
 	 * @since 3.0.0
+	 *
 	 * @param null|int|WC_Order|\WC_PIP_Document Email object passed by hooks
 	 */
 	public function trigger( $object ) {
@@ -208,13 +209,13 @@ class WC_PIP_Email_Packing_List extends \WC_Email {
 			$object = wc_pip()->get_document( 'packing-list', array( 'order' => $wc_order ) );
 		}
 
-		// No need to send mail for empty order, i.e., for virtual products if exclude virtual setting is on.
-		if ( 0 === $object->get_items_count() ) {
+		// no need to send mail for empty orders, i.e., for virtual products if exclude virtual setting is on
+		if ( ! $object || 0 === $object->get_items_count() ) {
 			return;
 		}
 
 		// bail if there's no document, the email is not enabled or there's no valid recipient
-		if ( ! $object || ! isset( $object->order ) || ! $object->order || ! $this->get_recipient() || ! $this->is_enabled() ) {
+		if ( ! isset( $object->order ) || ! $object->order || ! $this->get_recipient() || ! $this->is_enabled() ) {
 			return;
 		}
 

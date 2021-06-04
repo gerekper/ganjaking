@@ -471,7 +471,7 @@ class WC_CP_Scenario {
 	 * @param  array|false  $data
 	 * @return boolean
 	 */
-	private function contains_id( $component_id, $id, $configuration = false ) {
+	public function contains_id( $component_id, $id, $configuration = false ) {
 
 		$configuration = false === $configuration ? $this->configuration_data : $configuration;
 

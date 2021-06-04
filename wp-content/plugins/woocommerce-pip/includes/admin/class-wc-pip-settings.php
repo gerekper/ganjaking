@@ -223,51 +223,36 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 
 			// section start
 			[
-				'name' => __( 'Invoice Appearance', 'woocommerce-pip' ),
+				'name' => __( 'Invoice appearance', 'woocommerce-pip' ),
 				'type' => 'title',
 			],
 
-			// display shipping method
+			// toggle optional order details
 			[
-				'id'      => 'wc_pip_invoice_show_shipping_method',
-				'name'    => __( 'Show shipping method', 'woocommerce-pip' ),
-				'desc'    => __( 'Enable if you want to display shipping method for the invoice order.', 'woocommerce-pip' ),
-				'default' => 'yes',
-				'type'    => 'checkbox',
-			],
-
-			// display customer details
-			[
-				'id'      => 'wc_pip_invoice_show_customer_details',
-				'name'    => __( 'Show customer details', 'woocommerce-pip' ),
-				'desc'    => __( 'Enable if you want to display customer details.', 'woocommerce-pip' ),
-				'default' => 'yes',
-				'type'    => 'checkbox',
-			],
-
-			// display customer note
-			[
-				'id'      => 'wc_pip_invoice_show_customer_note',
-				'name'    => __( 'Show customer provided note', 'woocommerce-pip' ),
-				'desc'    => __( 'Enable if you want to display the customer provided note.', 'woocommerce-pip' ),
-				'default' => 'yes',
-				'type'    => 'checkbox',
-			],
-
-			// display used coupons
-			[
-				'id'      => 'wc_pip_invoice_show_coupons',
-				'name'    => __( 'Show coupons used in order', 'woocommerce-pip' ),
-				'desc'    => __( 'Enable if you want to display a list of coupons applied to the order.', 'woocommerce-pip' ),
-				'default' => 'yes',
-				'type'    => 'checkbox',
+				'id'      => 'wc_pip_invoice_show_optional_order_details',
+				'name'    => __( 'Show optional order details', 'woocommerce-pip' ),
+				'desc'    => __( 'Add or remove optional order fields from your invoices.', 'woocommerce-pip' ),
+				'type'    => 'multiselect',
+				'class'   => 'wc-enhanced-select',
+				'default' => [
+					'show_shipping_method',
+					'show_customer_details',
+					'show_customer_note',
+					'show_coupons',
+				],
+				'options' => [
+					'show_shipping_method'  => __( 'Shipping method', 'woocommerce-pip' ),
+					'show_customer_details' => __( 'Customer details', 'woocommerce-pip' ),
+					'show_customer_note'    => __( 'Customer note', 'woocommerce-pip' ),
+					'show_coupons'          => __( 'Applied coupon(s)', 'woocommerce-pip' ),
+				],
 			],
 
 			// toggle optional fields in item rows
 			[
-				'id'      => 'wc_pip_invoice_show_optional_fields',
-				'name'    => __( 'Show optional fields', 'woocommerce-pip' ),
-				'desc'    => __( 'Add or remove optional fields from your invoices.', 'woocommerce-pip' ),
+				'id'      => 'wc_pip_invoice_show_optional_product_fields',
+				'name'    => __( 'Show optional product details', 'woocommerce-pip' ),
+				'desc'    => __( 'Add or remove optional product fields from your invoices.', 'woocommerce-pip' ),
 				'type'    => 'multiselect',
 				'class'   => 'wc-enhanced-select',
 				'default' => [
@@ -298,14 +283,14 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 
 			// section start
 			[
-				'name' => __( 'Invoice Number Generation', 'woocommerce-pip' ),
+				'name' => __( 'Invoice number generation', 'woocommerce-pip' ),
 				'type' => 'title',
 			],
 
 			// use order number as invoice number
 			[
 				'id'      => 'wc_pip_use_order_number',
-				'name'    => __( 'Use Order Number as Invoice Number', 'woocommerce-pip' ),
+				'name'    => __( 'Use order number as invoice number', 'woocommerce-pip' ),
 				'desc'    => __( 'Enable this to use the order number as the invoice number. Disable to auto-generate the invoice number based on a starting number of your choice.', 'woocommerce-pip' ),
 				'type'    => 'checkbox',
 				'default' => 'yes',
@@ -315,7 +300,7 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 			// invoice number start
 			[
 				'id'                => 'wc_pip_invoice_number_start',
-				'name'              => __( 'Invoice Number Start', 'woocommerce-pip' ),
+				'name'              => __( 'Invoice number start', 'woocommerce-pip' ),
 				'desc_tip'          => __( 'Set the starting invoice number.', 'woocommerce-pip' ),
 				'type'              => 'number',
 				'class'             => 'hide-if-use-order-number',
@@ -333,7 +318,7 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 			// invoice number leading zeros
 			[
 				'id'                => 'wc_pip_invoice_minimum_digits',
-				'name'              => __( 'Invoice Number Minimum Digits', 'woocommerce-pip' ),
+				'name'              => __( 'Invoice number minimum digits', 'woocommerce-pip' ),
 				'desc_tip'          => __( 'Adds leading zeros to the invoice number count to keep the number of characters in the invoice number consistent. Leave to 1 to ignore the setting.', 'woocommerce-pip' ),
 				'type'              => 'number',
 				'class'             => 'small-text hide-if-use-order-number',
@@ -347,7 +332,7 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 			// invoice number prefix
 			[
 				'id'       => 'wc_pip_invoice_number_prefix',
-				'name'     => __( 'Invoice Number Prefix', 'woocommerce-pip' ),
+				'name'     => __( 'Invoice number prefix', 'woocommerce-pip' ),
 				'desc_tip' => __( 'Set your custom invoice number prefix.', 'woocommerce-pip' ),
 				/* translators: Placeholder: %s - List of merge tags */
 				'desc'     => sprintf( __( 'You may also use the following merge tags: %s', 'woocommerce-pip' ), $merge_tags ),
@@ -357,7 +342,7 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 			// invoice number suffix
 			[
 				'id'       => 'wc_pip_invoice_number_suffix',
-				'name'     => __( 'Invoice Number Suffix', 'woocommerce-pip' ),
+				'name'     => __( 'Invoice number suffix', 'woocommerce-pip' ),
 				'desc_tip' => __( 'Set your custom invoice number suffix.', 'woocommerce-pip' ),
 				/* translators: Placeholder: %s - List of merge tags */
 				'desc'     => sprintf( __( 'You may also use the following merge tags: %s', 'woocommerce-pip' ), $merge_tags ),
@@ -394,51 +379,49 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 
 			// section start
 			[
-				'name' => __( 'Packing List Appearance', 'woocommerce-pip' ),
+				'name' => __( 'Packing list appearance', 'woocommerce-pip' ),
 				'type' => 'title'
 			],
 
-			// display customer details
+			// toggle optional order details
 			[
-				'id'      => 'wc_pip_packing_list_show_customer_details',
-				'name'    => __( 'Show customer details', 'woocommerce-pip' ),
-				'desc'    => __( 'Enable if you want to display customer details.', 'woocommerce-pip' ),
-				'default' => 'no',
-				'type'    => 'checkbox',
+				'id'      => 'wc_pip_packing_list_show_optional_order_details',
+				'name'    => __( 'Show optional order details', 'woocommerce-pip' ),
+				'desc'    => __( 'Add or remove optional order fields from your packing lists.', 'woocommerce-pip' ),
+				'type'    => 'multiselect',
+				'class'   => 'wc-enhanced-select',
+				'default' => [
+					'show_customer_details',
+					'show_customer_note',
+				],
+				'options' => [
+					'show_customer_details' => __( 'Customer details', 'woocommerce-pip' ),
+					'show_customer_note'    => __( 'Customer note', 'woocommerce-pip' ),
+				],
 			],
 
-			// display customer note
+			// toggle optional document fields
 			[
-				'id'      => 'wc_pip_packing_list_show_customer_note',
-				'name'    => __( 'Show customer note', 'woocommerce-pip' ),
-				'desc'    => __( 'Enable if you want to display the customer note.', 'woocommerce-pip' ),
-				'default' => 'yes',
-				'type'    => 'checkbox',
-			],
-
-			// display terms and conditions
-			[
-				'id'      => 'wc_pip_packing_list_show_terms_and_conditions',
-				'name'    => __( 'Show terms and conditions', 'woocommerce-pip' ),
-				'desc'    => __( 'Enable if you want to display terms and conditions or return policy on packing lists.', 'woocommerce-pip' ),
-				'default' => 'no',
-				'type'    => 'checkbox',
-			],
-
-			// display footer information
-			[
-				'id'      => 'wc_pip_packing_list_show_footer',
-				'name'    => __( 'Show footer', 'woocommerce-pip' ),
-				'desc'    => __( 'Enable if you want to display footer information on packing lists.', 'woocommerce-pip' ),
-				'default' => 'no',
-				'type'    => 'checkbox',
+				'id'      => 'wc_pip_packing_list_show_optional_document_fields',
+				'name'    => __( 'Show optional document fields', 'woocommerce-pip' ),
+				'desc'    => __( 'Add or remove optional document fields from your packing lists.', 'woocommerce-pip' ),
+				'type'    => 'multiselect',
+				'class'   => 'wc-enhanced-select',
+				'default' => [
+					'show_footer',
+					'show_terms_and_conditions',
+				],
+				'options' => [
+					'show_footer'                => __( 'Footer', 'woocommerce-pip' ),
+					'show_terms_and_conditions'  => __( 'Terms and conditions', 'woocommerce-pip' ),
+				],
 			],
 
 			// toggle optional fields in item rows
 			[
-				'id'      => 'wc_pip_packing_list_show_optional_fields',
-				'name'    => __( 'Show optional fields', 'woocommerce-pip' ),
-				'desc'    => __( 'Add or remove optional fields from your packing lists.', 'woocommerce-pip' ),
+				'id'      => 'wc_pip_packing_list_show_optional_product_fields',
+				'name'    => __( 'Show optional product details', 'woocommerce-pip' ),
+				'desc'    => __( 'Add or remove optional product fields from your packing lists.', 'woocommerce-pip' ),
 				'type'    => 'multiselect',
 				'class'   => 'wc-enhanced-select',
 				'default' => [
@@ -455,7 +438,7 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 			// exclude virtual items from packing lists
 			[
 				'id'      => 'wc_pip_packing_list_exclude_virtual_items',
-				'name'    => __( 'Exclude Virtual Items', 'woocommerce-pip' ),
+				'name'    => __( 'Exclude virtual items', 'woocommerce-pip' ),
 				'desc'    => __( 'Exclude virtual items from showing on packing lists.', 'woocommerce-pip' ),
 				'default' => 'no',
 				'type'    => 'checkbox',
@@ -508,14 +491,14 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 
 			// section start
 			[
-				'name' => __( 'Pick List Appearance', 'woocommerce-pip' ),
+				'name' => __( 'Pick list appearance', 'woocommerce-pip' ),
 				'type' => 'title'
 			],
 
 			// pick list template selection
 			[
 				'id'      => 'wc_pip_pick_list_output_type',
-				'name'    => __( 'Pick List Output', 'woocommerce-pip' ),
+				'name'    => __( 'Pick list output', 'woocommerce-pip' ),
 				'desc'    => __( 'This controls grouped by for selected orders on pick list.', 'woocommerce-pip' ),
 				'type'    => 'radio',
 				'default' => 'order',
@@ -530,8 +513,8 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 
 			// toggle optional fields in item rows
 			[
-				'id'      => 'wc_pip_pick_list_show_optional_fields',
-				'name'    => __( 'Show optional fields', 'woocommerce-pip' ),
+				'id'      => 'wc_pip_pick_list_show_optional_product_fields',
+				'name'    => __( 'Show optional product fields', 'woocommerce-pip' ),
 				'desc'    => __( 'Add or remove optional fields from your pick lists.', 'woocommerce-pip' ),
 				'type'    => 'multiselect',
 				'class'   => 'wc-enhanced-select',
@@ -551,7 +534,7 @@ class WC_PIP_Settings extends \WC_Settings_Page {
 			// exclude virtual items
 			[
 				'id'      => 'wc_pip_pick_list_exclude_virtual_items',
-				'name'    => __( 'Exclude Virtual Items', 'woocommerce-pip' ),
+				'name'    => __( 'Exclude virtual items', 'woocommerce-pip' ),
 				'desc'    => __( 'Exclude virtual items from showing on pick lists.', 'woocommerce-pip' ),
 				'default' => 'no',
 				'type'    => 'checkbox',

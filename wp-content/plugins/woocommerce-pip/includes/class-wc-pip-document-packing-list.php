@@ -76,14 +76,15 @@ class WC_PIP_Document_Packing_List extends WC_PIP_Document {
 		$this->show_shipping_address     = true;
 		$this->show_shipping_method      = true;
 		$this->show_header               = false;
-		$this->show_footer               = 'yes' === get_option( 'wc_pip_packing_list_show_footer', 'no' );
-		$this->show_terms_and_conditions = 'yes' === get_option( 'wc_pip_packing_list_show_terms_and_conditions', 'no' );
-		$this->show_customer_details     = 'yes' === get_option( 'wc_pip_packing_list_show_customer_details', 'no' );
-		$this->show_customer_note        = 'yes' === get_option( 'wc_pip_packing_list_show_customer_note', 'yes' );
-		$this->hide_virtual_items        = 'yes' === get_option( 'wc_pip_packing_list_exclude_virtual_items', 'no' );
 
-		// Maybe subtract hidden items from order items count
-		add_filter( 'wc_pip_order_items_count', [ $this, 'filter_order_items_count' ], 100, 2 );
+		$optional_order_details   = $this->get_chosen_fields( 'order_details' );
+		$optional_document_fields = $this->get_chosen_fields( 'document_fields' );
+
+		$this->show_footer               = in_array( 'show_footer', $optional_document_fields, true );
+		$this->show_terms_and_conditions = in_array( 'show_terms_and_conditions', $optional_document_fields, true );
+		$this->show_customer_details     = in_array( 'show_customer_details', $optional_order_details, true );
+		$this->show_customer_note        = in_array( 'show_customer_note', $optional_order_details, true );
+		$this->hide_virtual_items        = 'yes' === get_option( 'wc_pip_packing_list_exclude_virtual_items', 'no' );
 
 		// Customize document header output
 		add_action( 'wc_pip_header', [ $this, 'document_header' ], 1, 4 );
@@ -93,42 +94,6 @@ class WC_PIP_Document_Packing_List extends WC_PIP_Document {
 
 		// Filter the output of items in table rows
 		add_filter( 'wc_pip_document_table_rows', [ $this, 'add_table_rows_headings' ], 40, 5 );
-	}
-
-
-	/**
-	 * Filter the order items count
-	 * if excluding virtual or downloadable items
-	 *
-	 * @since 3.0.0
-	 * @param int $count
-	 * @param array $items
-	 * @return int
-	 */
-	public function filter_order_items_count( $count, $items ) {
-
-		// filter only if we are hiding virtual products in list
-		if ( $items && true === $this->hide_virtual_items ) {
-
-			$count = 0;
-
-			foreach ( $items as $item_id => $item_data ) {
-
-				$product = isset( $item_data['product_id'] ) ? wc_get_product( $item_data['product_id'] ) : null;
-
-				// add refunded quantities as they're negative integers
-				$refund_qty = absint( $this->order->get_qty_refunded_for_item( $item_id ) );
-				$item_qty   = isset( $item_data['qty'] ) ? max( 0, (int) $item_data['qty'] ) : 1;
-				$qty        = max( 0, $item_qty - $refund_qty );
-
-				// add to count only if not a virtual item or not hiding deleted products
-				if ( ! $this->maybe_hide_virtual_item( $item_data ) || ! $this->maybe_hide_deleted_product( $product ) ) {
-					$count += ( 1 * $qty );
-				}
-			}
-		}
-
-		return $count;
 	}
 
 
@@ -619,18 +584,24 @@ class WC_PIP_Document_Packing_List extends WC_PIP_Document {
 	 */
 	public function get_table_footer() {
 
-		$rows = array();
+		$rows = [];
 
-		if ( ! is_object( $this->order ) || $this->get_items_count() === 0 ) {
+		if ( ! is_object( $this->order ) ) {
 			return $rows;
 		}
 
-		$rows['totals'] = array(
+		$items_count = $this->get_items_count();
+
+		if ( 0 === $items_count ) {
+			return $rows;
+		}
+
+		$rows['totals'] = [
 			'colspan'        => '<strong>' . __( 'Totals:', 'woocommerce-pip' ) . '</strong>',
 			/* translators: Placeholder: %d - total amount of items in packing list */
-			'total-quantity' => '<strong>' . sprintf( _n( '%d pc.', '%d pcs.', $this->get_items_count(), 'woocommerce-pip' ), $this->get_items_count() ) . '</strong>',
+			'total-quantity' => '<strong>' . sprintf( _n( '%d pc.', '%d pcs.', $items_count, 'woocommerce-pip' ), $items_count ) . '</strong>',
 			'total-weight'   => '<strong>' . $this->get_items_total_weight() . '</strong>',
-		);
+		];
 
 		if ( in_array( 'weight', $this->optional_fields, true ) && ! in_array( 'weight', $this->get_chosen_fields(), true ) ) {
 			unset( $rows['totals']['total-weight'] );
@@ -638,6 +609,27 @@ class WC_PIP_Document_Packing_List extends WC_PIP_Document {
 
 		/** This filter is documented in includes/class-wc-pip-document-invoice.php */
 		return apply_filters( 'wc_pip_document_table_footer', $rows, $this->type, $this->order_id );
+	}
+
+
+
+	/**
+	 * Gets the items count accounting excluding virtual or downloadable items.
+	 *
+	 * @TODO remove this deprecated method by version 4.0 or May 2022 {unfulvio 2021-05-28}
+	 *
+	 * @since 3.0.0
+	 * @deprecated since 3.11.2
+	 *
+	 * @param int $count
+	 * @param array $items
+	 * @return int
+	 */
+	public function filter_order_items_count( $count, $items ) {
+
+		wc_deprecated_function( __METHOD__, '3.11.2', __CLASS__ . '::order::get_items()' );
+
+		return $count;
 	}
 
 

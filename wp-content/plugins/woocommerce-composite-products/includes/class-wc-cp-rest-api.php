@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add custom REST API fields.
  *
  * @class    WC_CP_REST_API
- * @version  7.0.6
+ * @version  8.1.3
  */
 class WC_CP_REST_API {
 
@@ -158,7 +158,7 @@ class WC_CP_REST_API {
 	 */
 	private static function get_extended_product_schema() {
 
-		return array(
+		return apply_filters( 'woocommerce_composite_products_rest_api_product_schema', array(
 			'composite_layout'                    => array(
 				'description' => __( 'Single-product template layout. Applicable to composite-type products.', 'woocommerce-composite-products' ),
 				'type'        => 'string',
@@ -370,7 +370,6 @@ class WC_CP_REST_API {
 						'configuration' => array(
 							'description' => __( 'Scenario matching conditions.', 'woocommerce-composite-products' ),
 							'type'        => 'array',
-							'required'    => true,
 							'context'     => array( 'view', 'edit' ),
 							'items'       => array(
 								'oneOf' => array(
@@ -435,7 +434,7 @@ class WC_CP_REST_API {
 										'additionalProperties' => false,
 										'properties'           => array(
 											'action_id'            => array(
-												'description'          => __( 'Scenario action ID (by default \'compat_group\' or \'conditional_components\').', 'woocommerce-composite-products' ),
+												'description'          => __( 'Scenario action ID (\'compat_group\' action).', 'woocommerce-composite-products' ),
 												'type'                 => 'string',
 												'required'             => true,
 												'enum'                 => array( 'compat_group' ),
@@ -454,7 +453,7 @@ class WC_CP_REST_API {
 										'additionalProperties' => false,
 										'properties'           => array(
 											'action_id'            => array(
-												'description'          => __( 'Scenario action ID (by default \'compat_group\' or \'conditional_components\').', 'woocommerce-composite-products' ),
+												'description'          => __( 'Scenario action ID (\'conditional_components\' action).', 'woocommerce-composite-products' ),
 												'type'                 => 'string',
 												'required'             => true,
 												'enum'                 => array( 'conditional_components' ),
@@ -482,7 +481,7 @@ class WC_CP_REST_API {
 										'additionalProperties' => false,
 										'properties'           => array(
 											'action_id'            => array(
-												'description'          => __( 'Scenario action ID (by default \'compat_group\' or \'conditional_components\').', 'woocommerce-composite-products' ),
+												'description'          => __( 'Scenario action ID (\'conditional_options\' action).', 'woocommerce-composite-products' ),
 												'type'                 => 'string',
 												'required'             => true,
 												'enum'                 => array( 'conditional_options' ),
@@ -561,7 +560,7 @@ class WC_CP_REST_API {
 					)
 				)
 			)
-		);
+		) );
 	}
 
 	/**
@@ -781,6 +780,7 @@ class WC_CP_REST_API {
 					$scenarios_rest_api_data = self::get_rest_api_scenario_data( $product );
 
 					if ( ! empty( $field_value ) && is_array( $field_value ) ) {
+
 						foreach ( $field_value as $data ) {
 
 							$action = empty( $data[ 'id' ] ) ? 'create' : '';
@@ -1274,7 +1274,7 @@ class WC_CP_REST_API {
 			'description'   => isset( $data[ 'description' ] ) ? wp_kses_post( $data[ 'description' ] ) : '',
 			'configuration' => $sanitized_configuration,
 			'actions'       => $sanitized_actions,
-			'enabled'       => wc_string_to_bool( $data[ 'enabled' ] )
+			'enabled'       => isset( $data[ 'enabled' ] ) ? wc_string_to_bool( $data[ 'enabled' ] ) : 'no'
 		);
 	}
 

@@ -22,7 +22,7 @@ class WC_Newsletter_Subscription_Register {
 	 */
 	public function __construct() {
 		add_action( 'woocommerce_register_form', array( $this, 'register_content' ) );
-		add_action( 'woocommerce_created_customer', array( $this, 'process_register' ), 10, 2 );
+		add_action( 'woocommerce_created_customer', array( $this, 'process_register' ), 10, 1 );
 	}
 
 	/**
@@ -61,10 +61,9 @@ class WC_Newsletter_Subscription_Register {
 	 *
 	 * @since 2.9.0
 	 *
-	 * @param int   $customer_id       Customer ID.
-	 * @param array $new_customer_data Customer data.
+	 * @param int $customer_id Customer ID.
 	 */
-	public function process_register( $customer_id, $new_customer_data ) {
+	public function process_register( $customer_id ) {
 		if ( defined( 'WOOCOMMERCE_CHECKOUT' ) || ! isset( $_REQUEST['subscribe_to_newsletter'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			return;
 		}
@@ -73,32 +72,17 @@ class WC_Newsletter_Subscription_Register {
 			return;
 		}
 
-		$subscriber = array(
-			'first_name' => '',
-			'last_name'  => '',
-			'email'      => $new_customer_data['user_email'],
-		);
-
-		if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-			try {
-				$customer   = new WC_Customer( $customer_id );
-				$subscriber = wp_parse_args(
-					array(
-						'first_name' => $customer->get_first_name(),
-						'last_name'  => $customer->get_last_name(),
-					),
-					$subscriber
-				);
-			} catch ( Exception $e ) {
-				return;
-			}
+		try {
+			$customer = new WC_Customer( $customer_id );
+		} catch ( Exception $e ) {
+			return;
 		}
 
 		wc_newsletter_subscription_subscribe(
-			$subscriber['email'],
+			$customer->get_email(),
 			array(
-				'first_name' => $subscriber['first_name'],
-				'last_name'  => $subscriber['last_name'],
+				'first_name' => $customer->get_first_name(),
+				'last_name'  => $customer->get_last_name(),
 			)
 		);
 	}

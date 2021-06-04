@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Component abstraction. Contains data and maintains view state.
  *
  * @class    WC_CP_Component
- * @version  8.0.0
+ * @version  8.1.0
  */
 class WC_CP_Component implements ArrayAccess {
 
@@ -693,7 +693,7 @@ class WC_CP_Component implements ArrayAccess {
 			$options_style = 'dropdowns';
 		}
 
-		return $options_style;
+		return apply_filters( 'woocommerce_composite_component_options_style', $options_style, $this );
 	}
 
 	/**

@@ -26,21 +26,7 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 	 *
 	 * @var string
 	 */
-	public $plugin_id = 'wc_newsletter_subscription_';
-
-	/**
-	 * Form title.
-	 *
-	 * @var string
-	 */
-	public $form_title = '';
-
-	/**
-	 * Form description.
-	 *
-	 * @var string
-	 */
-	public $form_description = '';
+	public $plugin_id = 'woocommerce_newsletter_';
 
 	/**
 	 * Save the settings individually or grouped in a single option.
@@ -54,8 +40,28 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 	 *
 	 * @since 2.8.0
 	 */
-	public function __construct() {
-		add_filter( 'woocommerce_settings_api_sanitized_fields_' . $this->id, array( $this, 'sanitized_fields' ) );
+	public function __construct() {}
+
+	/**
+	 * Auto-load in-accessible properties on demand.
+	 *
+	 * Keeps backward compatibility with some deprecated properties of this class.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param mixed $key The property name.
+	 * @return mixed The property value.
+	 */
+	public function __get( $key ) {
+		if ( in_array( $key, array( 'form_title', 'form_description' ), true ) ) {
+			wc_deprecated_argument(
+				"WC_Newsletter_Subscription_Settings_API->{$key}",
+				'3.0.0',
+				"This property is deprecated and will be removed in future releases. Use WC_Newsletter_Subscription_Settings_API->get_{$key}() instead."
+			);
+
+			return call_user_func( array( $this, "get_{$key}" ) );
+		}
 	}
 
 	/**
@@ -90,6 +96,18 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 	}
 
 	/**
+	 * Gets the form fields after they are initialized.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return array
+	 */
+	public function get_form_fields() {
+		/** This filter is documented in woocommerce/includes/abstracts/abstract-wc-settings-api.php */
+		return apply_filters( 'woocommerce_settings_api_form_fields_' . $this->plugin_id . $this->id, array_map( array( $this, 'set_defaults' ), $this->form_fields ) );
+	}
+
+	/**
 	 * Gets a form field by key.
 	 *
 	 * @since 2.8.0
@@ -98,7 +116,7 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 	 * @return array|false An array with the form field data. False otherwise.
 	 */
 	public function get_form_field( $key ) {
-		if ( ! empty( $this->form_fields ) ) {
+		if ( empty( $this->form_fields ) ) {
 			$this->init_form_fields();
 		}
 
@@ -172,14 +190,45 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 	 * @since 2.8.0
 	 */
 	public function output_heading() {
-		echo '<h2>' . esc_html( $this->form_title );
-		if ( 'settings' !== $this->id ) :
-			wc_back_link( _x( 'Return to the Extension settings', 'settings back link label', 'woocommerce-subscribe-to-newsletter' ), wc_newsletter_subscription_get_settings_url() );
-		endif;
+		echo '<h2>' . esc_html( $this->get_form_title() );
+		$this->output_heading_backlink();
 		echo '</h2>';
 
-		echo wp_kses_post( wpautop( $this->form_description ) );
+		$description = $this->get_form_description();
+
+		if ( $description ) :
+			echo wp_kses_post( wpautop( $description ) );
+		endif;
 	}
+
+	/**
+	 * Gets the form title.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return string
+	 */
+	public function get_form_title() {
+		return '';
+	}
+
+	/**
+	 * Gets the form description.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return string
+	 */
+	public function get_form_description() {
+		return '';
+	}
+
+	/**
+	 * Outputs the backlink in the heading.
+	 *
+	 * @since 3.0.0
+	 */
+	public function output_heading_backlink() {}
 
 	/**
 	 * Initialise settings.
@@ -230,19 +279,37 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 		$this->init_form_fields();
 		$this->init_settings();
 
+		$fields    = $this->get_form_fields();
 		$post_data = $this->get_post_data();
+		$settings  = array();
 
-		foreach ( $this->get_form_fields() as $key => $field ) {
+		foreach ( $fields as $key => $field ) {
 			if ( $this->is_setting_field( $field ) ) {
 				try {
-					$this->settings[ $key ] = $this->get_field_value( $key, $field, $post_data );
+					$settings[ $key ] = $this->get_field_value( $key, $field, $post_data );
 				} catch ( Exception $e ) {
 					$this->add_error( $e->getMessage() );
 				}
 			}
 		}
 
+		$this->settings = array_merge( $this->settings, $this->validate_fields( $settings ) );
+
 		return $this->save();
+	}
+
+	/**
+	 * Validates the settings.
+	 *
+	 * The non-returned settings won't be updated.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $settings The settings to validate.
+	 * @return array
+	 */
+	public function validate_fields( $settings ) {
+		return $settings;
 	}
 
 	/**
@@ -267,8 +334,7 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 	 * @return bool was anything saved?
 	 */
 	public function save() {
-		/** This filter is documented in woocommerce/includes/abstracts/abstract-wc-settings-api.php */
-		$settings = apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->id, $this->settings );
+		$settings = $this->sanitized_fields( $this->settings );
 
 		if ( $this->save_individually ) {
 			$saved = false;
@@ -296,7 +362,7 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 	}
 
 	/**
-	 * Sanitize the settings before save the option.
+	 * Sanitize the settings.
 	 *
 	 * @since 2.8.0
 	 *
@@ -304,7 +370,8 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 	 * @return array
 	 */
 	public function sanitized_fields( $settings ) {
-		return $settings;
+		/** This filter is documented in woocommerce/includes/abstracts/abstract-wc-settings-api.php */
+		return apply_filters( 'woocommerce_settings_api_sanitized_fields_' . $this->plugin_id . $this->id, $settings );
 	}
 
 	/**
@@ -343,7 +410,7 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 		}
 
 		// Set up to the default value.
-		if ( ! $value && ! is_int( $value ) ) {
+		if ( ! $value && ! is_numeric( $value ) ) {
 			$default = $this->get_field_default( $field );
 
 			if ( '' !== $default ) {
@@ -363,6 +430,34 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 		}
 
 		return $value;
+	}
+
+	/**
+	 * Generates the HTML for a 'section' field.
+	 *
+	 * This field is like the 'title' field but without any title or description.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $key  Field key.
+	 * @param array  $data Field data.
+	 * @return string
+	 */
+	public function generate_section_html( $key, $data ) {
+		$field_key = $this->get_field_key( $key );
+		$defaults  = array(
+			'class' => '',
+		);
+
+		$data = wp_parse_args( $data, $defaults );
+
+		ob_start();
+		?>
+		</table>
+		<table id="<?php echo esc_attr( $field_key ); ?>" class="form-table <?php echo esc_attr( $data['class'] ); ?>">
+		<?php
+
+		return ob_get_clean();
 	}
 
 	/**
@@ -439,12 +534,24 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 			)
 		);
 
-		$field_key = $this->get_field_key( $key );
+		$field_key    = $this->get_field_key( $key );
+		$tip_in_label = version_compare( WC()->version, '3.4', '>=' );
+		$tip_html     = $this->get_tooltip_html( $data );
 		?>
 		<tr valign="top">
 			<th scope="row" class="titledesc">
-				<label for="<?php echo esc_attr( $field_key ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-				<?php echo wp_kses_post( $this->get_tooltip_html( $data ) ); ?>
+				<?php
+				if ( ! $tip_in_label ) :
+					echo $tip_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				endif;
+
+				printf(
+					'<label for="%1$s">%2$s%3$s</label>',
+					esc_attr( $field_key ),
+					wp_kses_post( $data['title'] ),
+					( $tip_in_label ? " {$tip_html}" : '' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				);
+				?>
 			</th>
 			<td class="forminp forminp-<?php echo esc_attr( $data['type'] ); ?>">
 				<fieldset>
@@ -473,6 +580,36 @@ abstract class WC_Newsletter_Subscription_Settings_API extends WC_Settings_API {
 				</fieldset>
 			</td>
 		</tr>
+		<?php
+	}
+
+	/**
+	 * Outputs the select HTML.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param string $key  The field key.
+	 * @param mixed  $data The field data.
+	 */
+	protected function output_select_html( $key, $data ) {
+		$defaults = array(
+			'class'             => '',
+			'css'               => '',
+			'disabled'          => '',
+			'options'           => array(),
+			'custom_attributes' => array(),
+		);
+
+		$data = wp_parse_args( $data, $defaults );
+
+		$field_key = $this->get_field_key( $key );
+		$value     = $this->get_option( $key );
+		?>
+		<select class="select <?php echo esc_attr( $data['class'] ); ?>" name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" style="<?php echo esc_attr( $data['css'] ); ?>" <?php disabled( $data['disabled'], true ); ?> <?php echo $this->get_custom_attribute_html( $data ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			<?php foreach ( (array) $data['options'] as $option_key => $option_value ) : ?>
+				<option value="<?php echo esc_attr( $option_key ); ?>" <?php selected( (string) $option_key, esc_attr( $value ) ); ?>><?php echo esc_html( $option_value ); ?></option>
+			<?php endforeach; ?>
+		</select>
 		<?php
 	}
 }

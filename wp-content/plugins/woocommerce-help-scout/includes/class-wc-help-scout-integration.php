@@ -184,13 +184,9 @@ class WC_Help_Scout_Integration extends WC_Integration {
 			)
 		);
 
-		wp_enqueue_style( 'hs-jquery-ui', plugins_url( 'assets/css/frontend/jquery-ui' . $suffix . '.css', plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, 'all' );
-		wp_enqueue_style( 'hs-jquery-ui-plupload', plugins_url( 'assets/css/frontend/jquery.ui.plupload' . $suffix . '.css', plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, 'all' );
-
-		//wp_enqueue_script( 'hs-jquery-min', plugins_url( 'assets/js/frontend/jquery' . $suffix . '.js',plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, false );
-		wp_enqueue_script( 'hs-jquery-ui-min', plugins_url( 'assets/js/frontend/jquery-ui' . $suffix . '.js',plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, false );
-		wp_enqueue_script( 'hs-plupload-full-min', plugins_url( 'assets/js/frontend/plupload.full' . $suffix . '.js',plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, false );
-		wp_enqueue_script( 'hs-jquery-ui-plupload', plugins_url( 'assets/js/frontend/jquery.ui.plupload.js',plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, false );
+		
+		wp_enqueue_style( 'hs-img-upload-css', plugins_url( 'assets/css/frontend/image-uploader.min.css', plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, 'all' );
+		wp_enqueue_script( 'hs-jquery-img-plupload', plugins_url( 'assets/js/frontend/image-uploader.min.js',plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, false );
 	}
 
 	/**

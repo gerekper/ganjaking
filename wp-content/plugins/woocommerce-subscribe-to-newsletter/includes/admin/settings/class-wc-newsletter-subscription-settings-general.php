@@ -27,11 +27,31 @@ class WC_Newsletter_Subscription_Settings_General extends WC_Newsletter_Subscrip
 	 * @since 2.8.0
 	 */
 	public function __construct() {
-		$this->id               = 'settings';
-		$this->form_title       = _x( 'Newsletter', 'settings page title', 'woocommerce-subscribe-to-newsletter' );
-		$this->form_description = _x( 'Configure your newsletter provider.', 'settings page description', 'woocommerce-subscribe-to-newsletter' );
+		$this->id = 'settings';
 
 		parent::__construct();
+	}
+
+	/**
+	 * Gets the form title.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return string
+	 */
+	public function get_form_title() {
+		return _x( 'Newsletter', 'settings page title', 'woocommerce-subscribe-to-newsletter' );
+	}
+
+	/**
+	 * Gets the form description.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return string
+	 */
+	public function get_form_description() {
+		return _x( 'Configure your newsletter provider.', 'settings page description', 'woocommerce-subscribe-to-newsletter' );
 	}
 
 	/**
@@ -53,7 +73,6 @@ class WC_Newsletter_Subscription_Settings_General extends WC_Newsletter_Subscrip
 	 */
 	public function init_form_fields() {
 		$connected = wc_newsletter_subscription_is_connected();
-		$providers = array( 'mailchimp', 'cmonitor', 'mailpoet' );
 
 		$form_fields = array(
 			'woocommerce_newsletter_service' => array(
@@ -61,22 +80,19 @@ class WC_Newsletter_Subscription_Settings_General extends WC_Newsletter_Subscrip
 				'title'    => _x( 'Service provider', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
 				'desc_tip' => _x( 'Choose which service is handling your subscribers.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
 				'disabled' => $connected,
-				'options'  => array(
-					'mailchimp' => _x( 'MailChimp', 'setting option', 'woocommerce-subscribe-to-newsletter' ),
-					'cmonitor'  => _x( 'Campaign Monitor', 'setting option', 'woocommerce-subscribe-to-newsletter' ),
-					'mailpoet'  => _x( 'MailPoet', 'setting option', 'woocommerce-subscribe-to-newsletter' ),
-				),
+				'options'  => array(),
 			),
 		);
+
+		$provider_options = array();
 
 		if ( $connected ) {
 			$provider = wc_newsletter_subscription_get_provider();
 
 			if ( $provider ) {
-				$form_fields = array_merge(
-					$form_fields,
-					$this->get_provider_form_fields( $provider, $connected )
-				);
+				$provider_options[ $provider->get_id() ] = $provider->get_name();
+
+				$form_fields = array_merge( $form_fields, $provider->get_form_fields( true ) );
 			}
 
 			$form_fields = array_merge(
@@ -93,6 +109,14 @@ class WC_Newsletter_Subscription_Settings_General extends WC_Newsletter_Subscrip
 					'woocommerce_newsletter_section' => array(
 						'type'  => 'title',
 						'title' => _x( 'Subscription Settings', 'settings section title', 'woocommerce-subscribe-to-newsletter' ),
+					),
+					'woocommerce_newsletter_order_statuses' => array(
+						'type'     => 'multiselect',
+						'class'    => 'wc-enhanced-select-nostd',
+						'title'    => _x( 'Subscribe on order statuses', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
+						'desc_tip' => _x( 'Customers will only be subscribed when the order status change to one of the selected. Subscription will happen on the first status match.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
+						'desc'     => _x( 'Leave this field empty to subscribe the customers always when the order is created.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
+						'options'  => wc_get_order_statuses(),
 					),
 					'woocommerce_newsletter_checkbox_status' => array(
 						'type'    => 'select',
@@ -113,171 +137,49 @@ class WC_Newsletter_Subscription_Settings_General extends WC_Newsletter_Subscrip
 				)
 			);
 		} else {
-			foreach ( $providers as $provider ) {
-				$form_fields = array_merge(
-					$form_fields,
-					$this->get_provider_form_fields( $provider, $connected )
-				);
+			$providers = array_keys( WC_Newsletter_Subscription_Providers::get_providers() );
+
+			$provider_options[''] = __( 'Select a provider&hellip;', 'woocommerce-subscribe-to-newsletter' );
+
+			foreach ( $providers as $provider_id ) {
+				$provider = WC_Newsletter_Subscription_Providers::get_provider( $provider_id );
+
+				if ( $provider ) {
+					$provider_options[ $provider_id ] = $provider->get_name();
+
+					$provider_fields = $provider->get_form_fields( false );
+
+					if ( ! empty( $provider_fields ) ) {
+						$form_fields = array_merge(
+							$form_fields,
+							array_merge(
+								array(
+									"woocommerce_newsletter_provider_{$provider_id}_section" => array(
+										'type'  => 'section',
+										'class' => 'newsletter-provider-fields ' . $provider_id,
+									),
+								),
+								$provider_fields
+							)
+						);
+					}
+				}
 			}
 		}
+
+		// Load the provider selector options.
+		$form_fields['woocommerce_newsletter_service']['options'] = $provider_options;
 
 		$this->form_fields = $form_fields;
 	}
 
 	/**
-	 * Gets the form fields for the specified provider.
+	 * Generates the HTML for the 'disconnect' field.
 	 *
 	 * @since 2.8.0
 	 *
-	 * @param mixed $provider  Provider ID or object.
-	 * @param bool  $connected Optional. Whether the provider is connected. Default false.
-	 * @return array
-	 */
-	protected function get_provider_form_fields( $provider, $connected = false ) {
-		$form_fields = array();
-		$provider_id = ( is_string( $provider ) ? $provider : $provider->get_id() );
-		$method      = 'get_' . $provider_id . '_form_fields';
-
-		if ( method_exists( $this, $method ) ) {
-			$form_fields = call_user_func( array( $this, $method ), $provider, $connected );
-		}
-
-		return $form_fields;
-	}
-
-	/**
-	 * Gets the MailChimp form fields.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @param mixed $provider  Object provider.
-	 * @param bool  $connected Whether the provider is connected.
-	 * @return array
-	 */
-	protected function get_mailchimp_form_fields( $provider = null, $connected = false ) {
-		$fields = array(
-			'woocommerce_mailchimp_api_key' => array(
-				'type'        => 'text',
-				'title'       => _x( 'MailChimp API Key', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
-				'desc_tip'    => _x( 'Enter your MailChimp api key', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
-				'disabled'    => $connected,
-				'description' => sprintf(
-					/* translators: %s: MailChimp URL for getting the API key */
-					_x( 'You can obtain your API key by logging in to your <a href="%s" target="_blank">MailChimp account</a>.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
-					esc_url( 'https://admin.mailchimp.com/account/api/' )
-				),
-			),
-		);
-
-		if ( $connected ) {
-			$fields = array_merge(
-				$fields,
-				array(
-					'woocommerce_mailchimp_list'          => array(
-						'type'     => 'select',
-						'title'    => _x( 'MailChimp List', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
-						'desc_tip' => _x( 'Choose a list customers can subscribe to.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
-						'options'  => $this->get_provider_list_choices( $provider ),
-					),
-					'woocommerce_mailchimp_double_opt_in' => array(
-						'type'    => 'checkbox',
-						'title'   => _x( 'Enable Double Opt-in?', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
-						'label'   => _x( 'Controls whether a double opt-in confirmation message is sent, defaults to true. Abusing this may cause your account to be suspended.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
-						'default' => 'yes',
-					),
-				)
-			);
-		}
-
-		return $fields;
-	}
-
-	/**
-	 * Gets the Campaign Monitor form fields.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @param mixed $provider  Object provider.
-	 * @param bool  $connected Whether the provider is connected.
-	 * @return array
-	 */
-	protected function get_cmonitor_form_fields( $provider = null, $connected = false ) {
-		$fields = array(
-			'woocommerce_cmonitor_api_key' => array(
-				'type'        => 'text',
-				'title'       => _x( 'Campaign Monitor API Key', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
-				'description' => _x( 'You can obtain your API key by logging in to your Campaign Monitor account.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
-				'desc_tip'    => _x( 'Enter your Campaign Monitor api key', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
-				'disabled'    => $connected,
-			),
-		);
-
-		if ( $connected ) {
-			$fields = array_merge(
-				$fields,
-				array(
-					'woocommerce_cmonitor_list' => array(
-						'type'     => 'select',
-						'title'    => _x( 'Campaign Monitor List', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
-						'desc_tip' => _x( 'Choose a list customers can subscribe to.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
-						'options'  => $this->get_provider_list_choices( $provider ),
-					),
-				)
-			);
-		}
-
-		return $fields;
-	}
-
-	/**
-	 * Gets the MailPoet form fields.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @param mixed $provider  Object provider.
-	 * @param bool  $connected Whether the provider is connected.
-	 * @return array
-	 */
-	protected function get_mailpoet_form_fields( $provider = null, $connected = false ) {
-		$fields = array();
-
-		if ( $connected ) {
-			$fields = array(
-				'woocommerce_mailpoet_list' => array(
-					'type'        => 'select',
-					'title'       => _x( 'MailPoet List', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
-					'desc_tip'    => _x( 'Choose a list customers can subscribe to (MailPoet WordPress plugin must be installed and configured first).', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
-					'description' => _x( 'Choose a list customers can subscribe to. The <a href="https://www.mailpoet.com/" target="_blank">MailPoet</a> WordPress plugin must be installed and configured first.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
-					'options'     => $this->get_provider_list_choices( $provider ),
-				),
-			);
-		}
-
-		return $fields;
-	}
-
-	/**
-	 * Gets an array with list options for the specified provider.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @param mixed $provider Object provider.
-	 * @return array
-	 */
-	protected function get_provider_list_choices( $provider ) {
-		$lists = array( '' => __( 'Select a list...', 'woocommerce-subscribe-to-newsletter' ) );
-		$lists = $lists + $provider->get_lists();
-
-		return $lists;
-	}
-
-	/**
-	 * Generates the HTML to the 'disconnect' field.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @param string $key The field key.
-	 * @param mixed  $data The field data.
+	 * @param string $key  Field key.
+	 * @param array  $data Field data.
 	 * @return string
 	 */
 	public function generate_disconnect_html( $key, $data ) {
@@ -306,5 +208,229 @@ class WC_Newsletter_Subscription_Settings_General extends WC_Newsletter_Subscrip
 		$this->output_field_end( $key, $data );
 
 		return ob_get_clean();
+	}
+
+
+	/**
+	 * Generates the HTML for the 'provider_lists' field.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param string $key  Field key.
+	 * @param array  $data Field data.
+	 * @return string
+	 */
+	public function generate_provider_lists_html( $key, $data ) {
+		ob_start();
+		$this->output_field_start( $key, $data );
+
+		$this->output_select_html( $key, $data );
+		echo '<button class="refresh-lists button">' . esc_html__( 'Refresh', 'woocommerce-subscribe-to-newsletter' ) . '</button>';
+
+		$this->output_field_end( $key, $data );
+		return ob_get_clean();
+	}
+
+	/**
+	 * Validates the settings.
+	 *
+	 * The non-returned settings won't be updated.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $settings The settings to validate.
+	 * @return array
+	 */
+	public function validate_fields( $settings ) {
+		$settings = parent::validate_fields( $settings );
+
+		$provider_id = ( isset( $settings['woocommerce_newsletter_service'] ) ? $settings['woocommerce_newsletter_service'] : '' );
+
+		if ( ! $provider_id ) {
+			WC_Admin_Settings::add_error( _x( 'Select a newsletter provider.', 'settings notice', 'woocommerce-subscribe-to-newsletter' ) );
+		} elseif ( ! wc_newsletter_subscription_is_connected() ) {
+			$settings = $this->validate_provider( $provider_id, $settings );
+		}
+
+		return $settings;
+	}
+
+	/**
+	 * Validates the provider.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $provider_id Provider object.
+	 * @param array  $settings    The settings to validate.
+	 * @return array
+	 */
+	protected function validate_provider( $provider_id, $settings ) {
+		$provider = WC_Newsletter_Subscription_Providers::get_provider( $provider_id );
+
+		// This provider requires a plugin to work.
+		if ( method_exists( $provider, 'is_plugin_active' ) ) {
+			$settings = $this->validate_provider_plugin_required( $provider, $settings );
+		} elseif ( method_exists( $provider, 'get_api_key' ) ) {
+			$settings = $this->validate_provider_api_key( $provider, $settings );
+		}
+
+		return $settings;
+	}
+
+	/**
+	 * Validates if the plugin required by the provider is installed.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param WC_Newsletter_Subscription_Provider $provider Provider object.
+	 * @param array                               $settings The settings to validate.
+	 * @return array
+	 */
+	protected function validate_provider_plugin_required( $provider, $settings ) {
+		if ( ! $provider->is_plugin_active() ) {
+			unset( $settings['woocommerce_newsletter_service'] );
+
+			WC_Admin_Settings::add_error(
+				sprintf(
+				/* translators: %s plugin name */
+					_x( 'This provider requires the WordPress plugin "%s" to work.', 'settings notice', 'woocommerce-subscribe-to-newsletter' ),
+					esc_html( $provider->get_plugin_name() )
+				)
+			);
+		}
+
+		return $settings;
+	}
+
+	/**
+	 * Validates if the the provider API key is valid.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param WC_Newsletter_Subscription_Provider $provider Provider object.
+	 * @param array                               $settings The settings to validate.
+	 * @return array
+	 */
+	protected function validate_provider_api_key( $provider, $settings ) {
+		$field_key   = "woocommerce_{$provider->get_id()}_api_key";
+		$credentials = array(
+			'api_key' => ( isset( $settings[ $field_key ] ) ? $settings[ $field_key ] : '' ),
+		);
+
+		if ( ! $this->validate_provider_credentials( $provider, $credentials ) ) {
+			unset( $settings[ $field_key ], $settings['woocommerce_newsletter_service'] );
+		}
+
+		return $settings;
+	}
+
+	/**
+	 * Validates the provider credentials.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param WC_Newsletter_Subscription_Provider $provider    Provider object.
+	 * @param array                               $credentials The provider credentials.
+	 * @return bool
+	 */
+	protected function validate_provider_credentials( $provider, $credentials ) {
+		$valid       = true;
+		$credentials = array_filter( $credentials );
+
+		if ( empty( $credentials ) ) {
+			$valid = false;
+			WC_Admin_Settings::add_error( _x( 'Enter the provider credentials.', 'settings notice', 'woocommerce-subscribe-to-newsletter' ) );
+		} elseif ( ! $provider->validate_credentials( $credentials ) ) {
+			$valid = false;
+			WC_Admin_Settings::add_error( _x( 'The credentials are not valid.', 'settings notice', 'woocommerce-subscribe-to-newsletter' ) );
+		}
+
+		return $valid;
+	}
+
+	/**
+	 * Gets the form fields for the specified provider.
+	 *
+	 * @since 2.8.0
+	 * @deprecated 3.0.0
+	 *
+	 * @param mixed $provider  Provider ID or object.
+	 * @param bool  $connected Optional. Whether the provider is connected. Default false.
+	 * @return array
+	 */
+	protected function get_provider_form_fields( $provider, $connected = false ) {
+		wc_deprecated_function( __FUNCTION__, '3.0.0', 'WC_Newsletter_Subscription_Provider->get_form_fields()' );
+
+		if ( ! $provider instanceof WC_Newsletter_Subscription_Provider ) {
+			$provider = WC_Newsletter_Subscription_Providers::get_provider( $provider );
+		}
+
+		return ( $provider ? $provider->get_form_fields( $connected ) : array() );
+	}
+
+	/**
+	 * Gets the MailChimp form fields.
+	 *
+	 * @since 2.8.0
+	 * @deprecated 3.0.0
+	 *
+	 * @param mixed $provider  Object provider.
+	 * @param bool  $connected Whether the provider is connected.
+	 * @return array
+	 */
+	protected function get_mailchimp_form_fields( $provider = null, $connected = false ) {
+		wc_deprecated_function( __FUNCTION__, '3.0.0', 'WC_Newsletter_Subscription_Provider_Mailchimp->get_form_fields()' );
+
+		return $this->get_provider_form_fields( 'mailchimp', $connected );
+	}
+
+	/**
+	 * Gets the Campaign Monitor form fields.
+	 *
+	 * @since 2.8.0
+	 * @deprecated 3.0.0
+	 *
+	 * @param mixed $provider  Object provider.
+	 * @param bool  $connected Whether the provider is connected.
+	 * @return array
+	 */
+	protected function get_cmonitor_form_fields( $provider = null, $connected = false ) {
+		wc_deprecated_function( __FUNCTION__, '3.0.0', 'WC_Newsletter_Subscription_Provider_Campaign_Monitor->get_form_fields()' );
+
+		return $this->get_provider_form_fields( 'cmonitor', $connected );
+	}
+
+	/**
+	 * Gets the MailPoet form fields.
+	 *
+	 * @since 2.8.0
+	 * @deprecated 3.0.0
+	 *
+	 * @param mixed $provider  Object provider.
+	 * @param bool  $connected Whether the provider is connected.
+	 * @return array
+	 */
+	protected function get_mailpoet_form_fields( $provider = null, $connected = false ) {
+		wc_deprecated_function( __FUNCTION__, '3.0.0', 'WC_Newsletter_Subscription_Provider_Mailpoet->get_form_fields()' );
+
+		return $this->get_provider_form_fields( 'mailpoet', $connected );
+	}
+
+	/**
+	 * Gets an array with list options for the specified provider.
+	 *
+	 * @since 2.8.0
+	 * @deprecated 3.0.0
+	 *
+	 * @param mixed $provider Object provider.
+	 * @return array
+	 */
+	protected function get_provider_list_choices( $provider ) {
+		wc_deprecated_function( __FUNCTION__, '3.0.0' );
+
+		$lists = array( '' => __( 'Select a list...', 'woocommerce-subscribe-to-newsletter' ) );
+		$lists = $lists + $provider->get_lists();
+
+		return $lists;
 	}
 }

@@ -465,8 +465,9 @@ class WC_CP_Scenarios_Manager {
 
 						foreach ( $scenarios as $scenario_id => $scenario ) {
 
-							$scenario_contains_all_variations = true;
-							$scenario_contains_variation      = false;
+							$scenario_contains_all_variations     = true;
+							$scenario_contains_variation          = false;
+							$scenario_contains_all_variations_raw = true;
 
 							foreach ( $child_ids as $child_id ) {
 
@@ -477,16 +478,27 @@ class WC_CP_Scenarios_Manager {
 								} else {
 									$scenario_contains_all_variations = false;
 								}
-							}
 
-							if ( 'conditions' === $map_type ) {
-								if ( $scenario_contains_variation && 'not-in' === $scenario->get_modifier( $component_id ) ) {
-									$parent_in_scenarios[] = strval( $scenario_id );
+								if ( ! $scenario->contains_id( $component_id, $variation_id ) ) {
+									$scenario_contains_all_variations_raw = false;
 								}
 							}
 
-							if ( $scenario_contains_all_variations ) {
-								$parent_in_scenarios[] = strval( $scenario_id );
+							if ( 'conditions' === $map_type ) {
+
+								if ( ( $scenario_contains_variation || $scenario_contains_all_variations_raw ) && 'not-in' === $scenario->get_modifier( $component_id ) ) {
+									$parent_in_scenarios[] = strval( $scenario_id );
+								}
+
+								if ( $scenario_contains_all_variations && ! $scenario_contains_all_variations_raw ) {
+									$parent_in_scenarios[] = strval( $scenario_id );
+								}
+
+							} else {
+
+								if ( $scenario_contains_all_variations ) {
+									$parent_in_scenarios[] = strval( $scenario_id );
+								}
 							}
 						}
 

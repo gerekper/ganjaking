@@ -1,6 +1,5 @@
 <?php
 
-// phpcs:ignore Yoast.NamingConventions.NamespaceName.Invalid -- This should be the new namespace for premium.
 namespace Yoast\WP\SEO\Premium;
 
 use Yoast\WP\Lib\Abstract_Main;

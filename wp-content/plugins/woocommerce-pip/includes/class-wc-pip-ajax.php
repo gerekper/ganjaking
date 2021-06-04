@@ -269,6 +269,11 @@ class WC_PIP_Ajax {
 							 */
 							do_action( 'wc_pip_sending_manual_order_email', $document );
 
+							// skip sending if contains no items or virtual items
+							if ( $document->is_type( 'packing-list' ) && 0 === $document->get_items_count() ) {
+								continue;
+							}
+
 							$document->send_email();
 
 							$processed++;

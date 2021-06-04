@@ -186,7 +186,18 @@ class WC_PIP_Document_Pick_List extends WC_PIP_Document_Packing_List {
 			'items' => [],
 		];
 
-		return $heading;
+		/**
+		 * Filters the table order heading.
+		 *
+		 * This filter will be applied only if Pick List Output is set to group items by order for selected orders.
+		 *
+		 * @since 3.11.1
+		 *
+		 * @param array $heading array with heading information
+		 * @param \WC_Order $order order object
+		 * @param \WC_PIP_Document_Pick_List document object
+		 */
+		return apply_filters( 'wc_pip_pick_list_table_order_heading', $heading, $this->order, $this );
 	}
 
 
@@ -613,7 +624,7 @@ class WC_PIP_Document_Pick_List extends WC_PIP_Document_Packing_List {
 						// get the top most parent as it will appear first in breadcrumbs later (left to right hierarchy)
 						$parent_category = $this->get_parent_category( $child_category );
 						// parent is used for indexing, child for pretty breadcrumbs later
-						$key = $parent_category->name . ' |pip| ' . $child_category->name;
+						$key = $parent_category->slug . ' |pip| ' . $child_category->slug;
 					}
 
 					$formatted_meta = [];

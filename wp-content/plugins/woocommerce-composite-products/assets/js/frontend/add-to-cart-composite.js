@@ -3521,17 +3521,17 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 					}
 				},
 
-				update_nyp: function( nyp_price ) {
+				update_nyp: function( nyp_val, nyp_price ) {
 
-					if ( this.get( 'selected_nyp' ) !== nyp_price ) {
+					if ( this.get( 'selected_nyp' ) !== nyp_val ) {
 
-						composite.console_log( 'debug:models', '\nUpdating \'Component_Selection_Model\': "' + self.get_title() + '", Attribute: "nyp_price": ' + nyp_price );
+						composite.console_log( 'debug:models', '\nUpdating \'Component_Selection_Model\': "' + self.get_title() + '", Attribute: "nyp_price": ' + nyp_val );
 
 						this.set_price( nyp_price );
 						this.set_regular_price( nyp_price );
 
 						composite.debug_indent_incr();
-						this.set( { selected_nyp: nyp_price } );
+						this.set( { selected_nyp: nyp_val } );
 						composite.debug_indent_decr();
 					}
 				},
@@ -8715,7 +8715,7 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 					var $nyp      = self.$component_summary_content.find( '.nyp' ),
 						nyp_price = $nyp.length > 0 ? Number( $nyp.data( 'price' ) ) : 0;
 
-					self.component_selection_model.update_nyp( nyp_price );
+					self.component_selection_model.update_nyp( $nyp.find( 'input.amount' ).val(), nyp_price );
 				},
 
 				/**

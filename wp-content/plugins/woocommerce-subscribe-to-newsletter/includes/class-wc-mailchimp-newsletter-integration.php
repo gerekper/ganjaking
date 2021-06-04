@@ -1,11 +1,15 @@
 <?php
-
 /**
  * WC_Mailchimp_Integration class.
  *
  * http://apidocs.mailchimp.com/api/rtfm/campaignecommorderadd.func.php#campaignecommorderadd-v13
  */
 if ( ! class_exists( 'WC_Mailchimp_Newsletter_Integration' ) ) {
+	/**
+	 * Class WC_Mailchimp_Newsletter_Integration
+	 *
+	 * @deprecated 3.0.0
+	 */
 	class WC_Mailchimp_Newsletter_Integration {
 
 		/**
@@ -23,6 +27,8 @@ if ( ! class_exists( 'WC_Mailchimp_Newsletter_Integration' ) ) {
 		 * Constructor
 		 */
 		public function __construct( $api_key, $list = false ) {
+			wc_deprecated_function( 'WC_Mailchimp_Newsletter_Integration', '3.0.0', 'WC_Newsletter_Subscription_Provider_Mailchimp' );
+
 			$this->api_key = $api_key;
 			$this->list    = $list;
 			$datacentre    = '';
@@ -92,39 +98,6 @@ if ( ! class_exists( 'WC_Mailchimp_Newsletter_Integration' ) ) {
 			);
 
 			return ! is_wp_error( $result ) && isset( $result['body'] ) ? json_decode( $result['body'] ) : false;
-		}
-
-		/**
-		 * Set_cookies function.
-		 *
-		 * @deprecated 2.7.0
-		 */
-		public function ecommerce360_set_cookies() {
-			_deprecated_function( __FUNCTION__, '2.7' );
-			$thirty_days = time() + 60 * 60 * 24 * 30;
-
-			if ( isset( $_REQUEST['mc_cid'] ) ) {
-				setcookie( 'mailchimp_campaign_id', trim( $_REQUEST['mc_cid'] ), $thirty_days, '/' );
-			}
-
-			if ( isset( $_REQUEST['mc_eid'] ) ) {
-				setcookie( 'mailchimp_email_id', trim( $_REQUEST['mc_eid'] ), $thirty_days, '/' );
-			} elseif ( is_user_logged_in() && get_user_meta( get_current_user_id(), 'mailchimp_email_id', true ) ) {
-				// the main piece of information needed to track a user is their email id
-				$list_eid = trim( get_user_meta( get_current_user_id(), 'mailchimp_email_id', true ) );
-				setcookie( 'mailchimp_email_id', $list_eid, $thirty_days, '/' );
-			}
-		}
-
-		/**
-		 * Ecommerce360_tracking function.
-		 *
-		 * @deprecacted 2.7.0
-		 *
-		 * @param mixed $order_id order_id.
-		 */
-		public function ecommerce360_tracking( $order_id ) {
-			_deprecated_function( __FUNCTION__, '2.7' );
 		}
 
 		/**

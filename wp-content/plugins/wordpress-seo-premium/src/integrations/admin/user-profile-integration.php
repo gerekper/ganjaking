@@ -62,69 +62,69 @@ class User_Profile_Integration implements Integration_Interface {
 	private function set_fields() {
 		$this->fields = [
 			'basicInfo'       => [
-				'label' => __( 'Basic information', 'wordpress-seo-premium' ),
+				'label' => \__( 'Basic information', 'wordpress-seo-premium' ),
 				'type'  => 'group',
 			],
 			'honorificPrefix' => [
-				'label'       => __( 'Honorific prefix', 'wordpress-seo-premium' ),
-				// translators: %1$s is replaced by `<code>`, %2$s by `</code>`.
-				'description' => sprintf( esc_html__( 'E.g. %1$sDr%2$s, %1$sMs%2$s, %1$sMr%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
+				'label'       => \__( 'Honorific prefix', 'wordpress-seo-premium' ),
+				/* translators: %1$s is replaced by `<code>`, %2$s by `</code>`. */
+				'description' => \sprintf( \esc_html__( 'E.g. %1$sDr%2$s, %1$sMs%2$s, %1$sMr%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
 				'type'        => 'string',
 			],
 			'honorificSuffix' => [
-				'label'       => __( 'Honorific suffix', 'wordpress-seo-premium' ),
-				// translators: %1$s is replaced by `<code>`, %2$s by `</code>`.
-				'description' => sprintf( esc_html__( 'E.g. %1$sMD%2$s, %1$sPhD%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
+				'label'       => \__( 'Honorific suffix', 'wordpress-seo-premium' ),
+				/* translators: %1$s is replaced by `<code>`, %2$s by `</code>`. */
+				'description' => \sprintf( \esc_html__( 'E.g. %1$sMD%2$s, %1$sPhD%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
 				'type'        => 'string',
 			],
 			'birthDate'       => [
-				'label'       => __( 'Birth date', 'wordpress-seo-premium' ),
-				// translators: %1$s is replaced by `<code>`, %2$s by `</code>`.
-				'description' => sprintf( esc_html__( 'Use format: %1$sYYYY-MM-DD%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
+				'label'       => \__( 'Birth date', 'wordpress-seo-premium' ),
+				/* translators: %1$s is replaced by `<code>`, %2$s by `</code>`. */
+				'description' => \sprintf( \esc_html__( 'Use format: %1$sYYYY-MM-DD%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
 				'type'        => 'date',
 			],
 			'gender'          => [
-				'label'       => __( 'Gender', 'wordpress-seo-premium' ),
-				// translators: %1$s is replaced by `<code>`, %2$s by `</code>`.
-				'description' => sprintf( esc_html__( 'E.g. %1$sfemale%2$s, %1$smale%2$s, %1$snon-binary%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
+				'label'       => \__( 'Gender', 'wordpress-seo-premium' ),
+				/* translators: %1$s is replaced by `<code>`, %2$s by `</code>`. */
+				'description' => \sprintf( \esc_html__( 'E.g. %1$sfemale%2$s, %1$smale%2$s, %1$snon-binary%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
 				'type'        => 'string',
 			],
 			'extraInfo'       => [
-				'label' => __( 'Extra information', 'wordpress-seo-premium' ),
+				'label' => \__( 'Extra information', 'wordpress-seo-premium' ),
 				'type'  => 'group',
 			],
 			'award'           => [
-				'label'       => __( 'Awards', 'wordpress-seo-premium' ),
-				// translators: %1$s is replaced by `<code>`, %2$s by `</code>`.
-				'description' => sprintf( esc_html__( 'Comma separated, e.g. %1$sMost likely to succeed - 1991, Smartest in class - 1990%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
+				'label'       => \__( 'Awards', 'wordpress-seo-premium' ),
+				/* translators: %1$s is replaced by `<code>`, %2$s by `</code>`. */
+				'description' => \sprintf( \esc_html__( 'Comma separated, e.g. %1$sMost likely to succeed - 1991, Smartest in class - 1990%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
 				'type'        => 'array',
 			],
 			'knowsAbout'      => [
-				'label'       => __( 'Expertise in', 'wordpress-seo-premium' ),
-				// translators: %1$s is replaced by `<code>`, %2$s by `</code>`.
-				'description' => sprintf( esc_html__( 'Comma separated, e.g. %1$sPHP, JavaScript, 90\'s rock music%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
+				'label'       => \__( 'Expertise in', 'wordpress-seo-premium' ),
+				/* translators: %1$s is replaced by `<code>`, %2$s by `</code>`. */
+				'description' => \sprintf( \esc_html__( 'Comma separated, e.g. %1$sPHP, JavaScript, 90\'s rock music%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
 				'type'        => 'array',
 			],
 			'knowsLanguage'   => [
-				'label'       => __( 'Language(s) spoken', 'wordpress-seo-premium' ),
-				// translators: %1$s is replaced by `<code>`, %2$s by `</code>`.
-				'description' => sprintf( esc_html__( 'Comma separated, e.g. %1$sEnglish, French, Dutch%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
+				'label'       => \__( 'Language(s) spoken', 'wordpress-seo-premium' ),
+				/* translators: %1$s is replaced by `<code>`, %2$s by `</code>`. */
+				'description' => \sprintf( \esc_html__( 'Comma separated, e.g. %1$sEnglish, French, Dutch%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
 				'type'        => 'array',
 			],
 			'jobInfo'         => [
-				'label' => __( 'Employer information', 'wordpress-seo-premium' ),
+				'label' => \__( 'Employer information', 'wordpress-seo-premium' ),
 				'type'  => 'group',
 			],
 			'jobTitle'        => [
-				'label'       => __( 'Job title', 'wordpress-seo-premium' ),
-				// translators: %1$s is replaced by `<code>`, %2$s by `</code>`.
-				'description' => sprintf( esc_html__( 'E.g. %1$ssoftware engineer%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
+				'label'       => \__( 'Job title', 'wordpress-seo-premium' ),
+				/* translators: %1$s is replaced by `<code>`, %2$s by `</code>`. */
+				'description' => \sprintf( \esc_html__( 'E.g. %1$ssoftware engineer%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
 				'type'        => 'string',
 			],
 			'worksFor'        => [
-				'label'       => __( 'Employer name', 'wordpress-seo-premium' ),
-				// translators: %1$s is replaced by `<code>`, %2$s by `</code>`.
-				'description' => sprintf( esc_html__( 'E.g. %1$sAcme inc%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
+				'label'       => \__( 'Employer name', 'wordpress-seo-premium' ),
+				/* translators: %1$s is replaced by `<code>`, %2$s by `</code>`. */
+				'description' => \sprintf( \esc_html__( 'E.g. %1$sAcme inc%2$s', 'wordpress-seo-premium' ), '<code>', '</code>' ),
 				'type'        => 'string',
 			],
 		];
@@ -140,28 +140,28 @@ class User_Profile_Integration implements Integration_Interface {
 	public function user_profile( $user ) {
 		\wp_nonce_field( self::NONCE_FIELD_ACTION, self::NONCE_FIELD_NAME );
 
-		echo '<h2 id="yoast-seo-schema">', esc_html__( 'Yoast SEO Schema enhancements', 'wordpress-seo-premium' ), '</h2>';
-		echo '<p>', esc_html__( 'The info you add below is added to the data Yoast SEO outputs in its schema.org output, for instance when you\'re the author of a page. Please only add the info you feel good sharing publicly.', 'wordpress-seo-premium' ), '</p>';
+		echo '<h2 id="yoast-seo-schema">', \esc_html__( 'Yoast SEO Schema enhancements', 'wordpress-seo-premium' ), '</h2>';
+		echo '<p>', \esc_html__( 'The info you add below is added to the data Yoast SEO outputs in its schema.org output, for instance when you\'re the author of a page. Please only add the info you feel good sharing publicly.', 'wordpress-seo-premium' ), '</p>';
 
-		$user_schema = get_user_meta( $user->ID, 'wpseo_user_schema', true );
+		$user_schema = \get_user_meta( $user->ID, 'wpseo_user_schema', true );
 
 		echo '<div class="yoast yoast-settings">';
 		foreach ( $this->fields as $key => $field ) {
 			if ( $field['type'] === 'group' ) {
-				echo '<h2>', esc_html( $field['label'] ), '</h2>';
+				echo '<h2>', \esc_html( $field['label'] ), '</h2>';
 				continue;
 			}
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- False positive, $key is set in the code above, not by a user.
-			echo '<label for="wpseo_user_schema_', $key, '">', esc_html( $field['label'] ), '</label>';
+			echo '<label for="wpseo_user_schema_', $key, '">', \esc_html( $field['label'] ), '</label>';
 			$val = '';
 			if ( isset( $user_schema[ $key ] ) ) {
 				$val = $user_schema[ $key ];
 			}
-			if ( $field['type'] === 'array' && is_array( $val ) ) {
-				$val = implode( ', ', $val );
+			if ( $field['type'] === 'array' && \is_array( $val ) ) {
+				$val = \implode( ', ', $val );
 			}
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- False positive, $key is set in the code above, not by a user.
-			echo '<input class="yoast-settings__text regular-text" type="text" id="wpseo_user_schema_', $key, '" name="wpseo_user_schema[', $key, ']" value="', esc_attr( $val ), '"/>';
+			echo '<input class="yoast-settings__text regular-text" type="text" id="wpseo_user_schema_', $key, '" name="wpseo_user_schema[', $key, ']" value="', \esc_attr( $val ), '"/>';
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- False positive, $field['description'] is set in the code above, not by a user.
 			echo '<p>', $field['description'], '</p>';
 		}
@@ -174,14 +174,14 @@ class User_Profile_Integration implements Integration_Interface {
 	 * @param int $user_id User ID of the updated user.
 	 */
 	public function process_user_option_update( $user_id ) {
-		$nonce_value = filter_input( INPUT_POST, self::NONCE_FIELD_NAME, FILTER_SANITIZE_STRING );
+		$nonce_value = \filter_input( \INPUT_POST, self::NONCE_FIELD_NAME, \FILTER_SANITIZE_STRING );
 		if ( empty( $nonce_value ) ) {
 			return;
 		}
 
-		check_admin_referer( self::NONCE_FIELD_ACTION, self::NONCE_FIELD_NAME );
+		\check_admin_referer( self::NONCE_FIELD_ACTION, self::NONCE_FIELD_NAME );
 
-		update_user_meta( $user_id, 'wpseo_user_schema', $this->get_posted_user_fields() );
+		\update_user_meta( $user_id, 'wpseo_user_schema', $this->get_posted_user_fields() );
 	}
 
 	/**
@@ -195,7 +195,7 @@ class User_Profile_Integration implements Integration_Interface {
 			if ( $field['type'] === 'group' ) {
 				continue;
 			}
-			$args[ $key ] = FILTER_SANITIZE_STRING;
+			$args[ $key ] = \FILTER_SANITIZE_STRING;
 		}
 
 		return $args;
@@ -211,31 +211,31 @@ class User_Profile_Integration implements Integration_Interface {
 	private function get_posted_user_fields() {
 		$args        = [
 			'wpseo_user_schema' => [
-				'filter' => FILTER_SANITIZE_STRING,
-				'flags'  => FILTER_FORCE_ARRAY,
+				'filter' => \FILTER_SANITIZE_STRING,
+				'flags'  => \FILTER_FORCE_ARRAY,
 			],
 		];
-		$user_schema = filter_input_array( INPUT_POST, $args )['wpseo_user_schema'];
-		$user_schema = filter_var_array( $user_schema, $this->build_filter_args(), false );
+		$user_schema = \filter_input_array( \INPUT_POST, $args )['wpseo_user_schema'];
+		$user_schema = \filter_var_array( $user_schema, $this->build_filter_args(), false );
 
 		foreach ( $this->fields as $key => $object ) {
 			switch ( $object['type'] ) {
 				case 'array':
-					$user_schema[ $key ] = explode( ',', $user_schema[ $key ] );
+					$user_schema[ $key ] = \explode( ',', $user_schema[ $key ] );
 					// Trim each item in the comma separated array.
 					foreach ( $user_schema[ $key ] as $index => $item ) {
-						$user_schema[ $key ][ $index ] = trim( $item );
+						$user_schema[ $key ][ $index ] = \trim( $item );
 					}
 					// Remove empty items.
-					$user_schema[ $key ] = array_filter( $user_schema[ $key ] );
+					$user_schema[ $key ] = \array_filter( $user_schema[ $key ] );
 
 					if ( $user_schema[ $key ] === [] || $user_schema[ $key ][0] === '' ) {
 						unset( $user_schema[ $key ] );
 					}
 					break;
 				case 'date':
-					$date = explode( '-', $user_schema[ $key ] );
-					if ( count( $date ) !== 3 || ! checkdate( (int) $date[1], (int) $date[2], (int) $date[0] ) ) {
+					$date = \explode( '-', $user_schema[ $key ] );
+					if ( \count( $date ) !== 3 || ! \checkdate( (int) $date[1], (int) $date[2], (int) $date[0] ) ) {
 						unset( $user_schema[ $key ] );
 					}
 					break;

@@ -1,5 +1,33 @@
 *** Subscribe to Newsletter Changelog ***
 
+2021-05-24 - version 3.1.1
+* Tweak - Fetch only the necessary fields when getting the Mailchimp lists.
+* Tweak - Get all Mailchimp lists instead of only the first 10 lists.
+* Tweak - Tested compatibility with WC 5.4.
+
+2021-04-29 - version 3.1.0
+* Feature - Refresh the provider lists on the settings page.
+* Feature - Refresh the subscription stats in the dashboard widget.
+* Tweak - Tested compatibility up to WC 5.3.
+
+2021-03-22 - version 3.0.0
+* Feature - New provider: MailerLite.
+* Feature - New provider: MailPoet 3.
+* Feature - New provider: SendGrid.
+* Feature - Subscribe customers only on specific order statuses.
+* Tweak - Validate the provider credentials before connecting the store.
+* Tweak - Check the plugin required by a provider is installed. E.g. MailPoet.
+* Tweak - Updated recommended privacy policy texts.
+* Tweak - Better error handling for the subscription widget.
+* Tweak - Check the minimum requirements before initializing the plugin.
+* Tweak - Tested compatibility with WC 5.1.
+* Tweak - Tested compatibility with WP 5.7.
+* Fix - Fixed MailPoet 2 stats when the 'Signup' confirmation' option is enabled.
+* Dev - Revamped the integration with the different providers.
+* Dev - Log possible errors thrown by the providers' API requests.
+* Dev - Replaced the Campaign Monitor PHP client by the WordPress HTTP Request API.
+* Dev - Updated the minimum requirements to WC 3.0, WP 4.4, and PHP 5.4.
+
 2021-02-03 - version 2.9.3
 * Tweak - Removed jQuery deprecations.
 * Tweak - Tested compatibility up to WC 5.0.

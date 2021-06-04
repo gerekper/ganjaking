@@ -33,7 +33,7 @@ class OpenGraph_Post_Type extends Abstract_OpenGraph_Integration {
 	 *
 	 * @var string
 	 */
-	const OPTION_TITLES_KEY_IMAGE = 'social-image-';
+	const OPTION_TITLES_KEY_IMAGE = 'social-image-url-';
 
 	/**
 	 * Initializes the integration.

@@ -870,16 +870,23 @@ abstract class WC_PIP_Document {
 
 
 	/**
-	 * Gets optional chosen fields to be displayed for the table order items.
+	 * Gets optional chosen fields to be displayed in the document.
 	 *
 	 * @since 3.8.0
 	 *
+	 * @param string $group optional field type (defaults to product fields for legacy handling)
 	 * @return string[]
 	 */
-	protected function get_chosen_fields() : array {
+	protected function get_chosen_fields( string $group = 'product_fields' ) : array {
+
+		if ( 'product_fields' === $group ) {
+			$default = $this->optional_fields ?: [];
+		} else {
+			$default = [];
+		}
 
 		$document_key  = str_replace( '-', '_', $this->type );
-		$chosen_fields = get_option( "wc_pip_{$document_key}_show_optional_fields", $this->optional_fields ?: [] );
+		$chosen_fields = get_option( "wc_pip_{$document_key}_show_optional_{$group}", $default );
 
 		return is_string( $chosen_fields ) || is_array( $chosen_fields ) ? (array) $chosen_fields : [];
 	}
@@ -1073,7 +1080,7 @@ abstract class WC_PIP_Document {
 			$product  = isset( $item_data['product_id'] ) ? wc_get_product( $item_data['product_id'] ) : null;
 			$item_qty = isset( $item_data['qty'] ) ? max( 0, (float) $item_data['qty'] ) : 1;
 
-			if ( $this->maybe_hide_virtual_item( $item_data ) || $this->maybe_hide_deleted_product( $product ) ) {
+			if ( $this->maybe_hide_virtual_item( $product ) || $this->maybe_hide_deleted_product( $product ) ) {
 				continue;
 			}
 
@@ -2191,17 +2198,17 @@ abstract class WC_PIP_Document {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param \WC_Order_Item_Product $item order item object
+	 * @param \WC_Order_Item_Product|\WC_Product $item product or order item object
 	 * @return bool default false (do not hide)
 	 */
-	protected function maybe_hide_virtual_item( $item ) {
+	protected function maybe_hide_virtual_item( $item ) : bool {
 
 		// bail for invoices as all order items must always be listed at all times
 		if ( ! is_object( $this->order ) || 'invoice' === $this->type ) {
 			return false;
 		}
 
-		if ( is_array( $item ) || $item instanceof \WC_Order_Item ) {
+		if ( $item instanceof \WC_Order_Item ) {
 			$product = $item->get_product();
 		} else {
 			$product = $item;

@@ -835,8 +835,7 @@ class WC_Product_Composite extends WC_Product {
 	 */
 	public function add_to_cart_text() {
 
-		$text = $this->is_purchasable() && $this->is_in_stock() ? __( 'Select options', 'woocommerce' ) : __( 'Read More', 'woocommerce' );
-
+		$text = $this->is_purchasable() && $this->is_in_stock() ? __( 'Select options', 'woocommerce' ) : __( 'Read more', 'woocommerce' );
 		return apply_filters( 'woocommerce_product_add_to_cart_text', $text, $this );
 	}
 

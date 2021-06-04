@@ -19,17 +19,6 @@ use Yoast_Form;
 class Social_Templates_Integration implements Integration_Interface {
 
 	/**
-	 * Returns the conditionals based on which this loadable should be active.
-	 *
-	 * @return array The conditionals that must be met to load this.
-	 */
-	public static function get_conditionals() {
-		return [
-			Social_Templates_Conditional::class,
-		];
-	}
-
-	/**
 	 * Service that can be used to recommend a set of variables for a WPSEO_Replacevar_Editor.
 	 *
 	 * @var WPSEO_Admin_Recommended_Replace_Vars
@@ -49,6 +38,17 @@ class Social_Templates_Integration implements Integration_Interface {
 	 * @var string
 	 */
 	private $group;
+
+	/**
+	 * Returns the conditionals based on which this loadable should be active.
+	 *
+	 * @return array The conditionals that must be met to load this.
+	 */
+	public static function get_conditionals() {
+		return [
+			Social_Templates_Conditional::class,
+		];
+	}
 
 	/**
 	 * Social_Templates_Integration constructor.
@@ -103,6 +103,10 @@ class Social_Templates_Integration implements Integration_Interface {
 	 * @param string     $post_type_name The name of the current post_type that gets the social fields added.
 	 */
 	public function social_post_type( $yform, $post_type_name ) {
+		if ( $post_type_name === 'attachment' ) {
+			return;
+		}
+
 		$page_type_recommended = $this->recommended_replace_vars->determine_for_post_type( $post_type_name );
 		$page_type_specific    = $this->editor_specific_replace_vars->determine_for_post_type( $post_type_name );
 
@@ -154,7 +158,7 @@ class Social_Templates_Integration implements Integration_Interface {
 
 		$yform->hidden( $image_url_field_id, $image_url_field_id );
 		$yform->hidden( $image_id_field_id, $image_id_field_id );
-		printf(
+		\printf(
 			'<div
 				id="%1$s"
 				data-react-image-portal

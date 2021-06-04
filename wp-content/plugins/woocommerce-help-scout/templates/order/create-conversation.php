@@ -20,15 +20,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<label for="conversation-description"><?php _e( 'Description', 'woocommerce-help-scout' ); ?> <span class="required">*</span></label>
 		<textarea name="conversation_description" class="conversation-field" id="conversation-description" rows="10" cols="50" required="required"></textarea>
 	</p>
-	<div id="order-conversation-file-1" class="pluploder-ui-input">
-			<p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
-		</div>
-		<br>
+	<div class="input-field">
+		<label class="active">Files</label>
+		<div class="input-images-order-1" style="padding-top: .5rem;"></div>
+	</div>
+	<br>
 
 	<?php do_action( 'woocommerce_help_scout_conversation_form' ); ?>
 
 	<p class="form-row">
-		<input type="hidden" name="uploaded_files" id="order_conversation_uploaded_files_1" value="" >
 		<input type="hidden" class="conversation-field" name="conversation_order_id" id="conversation-order-id" value="<?php echo intval( $order_id ); ?>" />
 		<input type="submit" class="button" name="conversation_send" value="<?php _e( 'Send', 'woocommerce-help-scout' ); ?>" />
 	</p>

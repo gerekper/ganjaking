@@ -2,7 +2,7 @@
 {{schema name="yoast/job-posting" }}
 {
 	"@type": "JobPosting",
-	"title": {{inner-blocks-html blocks={ "yoast/job-title": "title" } null-when-empty=true allowed-tags=[ "h1","h2","h3","h4","h5","h6","br","a","p","b","strong","i","em", "ul", "ol", "li" ] }},
+	"title": "{{attribute name="job-title" }}",
 	"description": {{inner-blocks-html blocks={ "yoast/job-description": "description" } null-when-empty=true allowed-tags=[ "h1","h2","h3","h4","h5","h6","br","a","p","b","strong","i","em", "ul", "ol", "li" ] }},
 	"datePosted": "%%post_date%%",
 	"validThrough": {{inner-blocks allowed-blocks=[ "yoast/job-expiration" ] only-first=true }},

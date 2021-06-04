@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Help Scout
  * Plugin URI: https://woocommerce.com/products/woocommerce-help-scout/
  * Description: A Help Scout integration plugin for WooCommerce.
- * Version: 2.9.1
+ * Version: 2.9.2
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-help-scout
  * Domain Path: /languages
  * Woo: 395318:1f5df97b2bc60cdb3951b72387ec2e28
- * WC tested up to: 5.1
+ * WC tested up to: 5.2
  * WC requires at least: 2.6
  *
  * Copyright (c) 2018 WooCommerce.
@@ -198,16 +198,7 @@ class WC_Help_Scout {
 		$locale = apply_filters( 'plugin_locale', get_locale(), 'woocommerce-help-scout' );
 
 		load_textdomain( 'woocommerce-help-scout', trailingslashit( WP_LANG_DIR ) . 'woocommerce-help-scout/woocommerce-help-scout-' . $locale . '.mo' );
-		load_plugin_textdomain( 'woocommerce-help-scout', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-		
-		// Make temporary folder for uploading attachments after that files get auto remove after base64 encode 
-		$upload = wp_upload_dir();
-		$upload_dir = $upload['basedir'];
-		$upload_dir = $upload_dir . '/hstmp';
-		if (! is_dir($upload_dir)) {
-			mkdir( $upload_dir, 0777 );
-		}
-		
+		load_plugin_textdomain( 'woocommerce-help-scout', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );		
 	}
 
 	/**

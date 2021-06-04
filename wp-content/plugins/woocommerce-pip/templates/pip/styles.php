@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) or exit;
  *
  * @var \WC_PIP_Document $document document object
  *
- * @version 3.11.0
+ * @version 3.11.2
  * @since 3.0.0
  */
 
@@ -141,7 +141,9 @@ defined( 'ABSPATH' ) or exit;
 
 	.container header,
 	.container main,
+	.container .document-body-content,
 	.container footer {
+		position: relative;
 		margin: 0 auto;
 		max-width: 960px;
 	}
@@ -305,9 +307,10 @@ defined( 'ABSPATH' ) or exit;
 	table {
 		border-collapse: collapse;
 		font: normal <?php echo get_option( 'wc_pip_body_font_size', '12' ); ?>px/130% Verdana, Arial, Helvetica, sans-serif;
-		margin: 3em 0 2em;
+		margin: 3em auto 2em;
 		text-align: left;
 		width: 100%;
+		max-width: 960px;
 	}
 
 	table td,

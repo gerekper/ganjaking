@@ -32,9 +32,9 @@ class User_Profile_Integration implements Integration_Interface {
 	 * @return array The Person schema data.
 	 */
 	public function filter_person_schema( $data, $user_id ) {
-		$user_schema = get_user_meta( $user_id, 'wpseo_user_schema', true );
-		if ( is_array( $user_schema ) ) {
-			$data = array_merge( $data, $user_schema );
+		$user_schema = \get_user_meta( $user_id, 'wpseo_user_schema', true );
+		if ( \is_array( $user_schema ) ) {
+			$data = \array_merge( $data, $user_schema );
 		}
 		return $data;
 	}

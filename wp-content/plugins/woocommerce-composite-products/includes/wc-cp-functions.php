@@ -429,7 +429,7 @@ function wc_cp_tax_display_shop() {
 function wc_cp_price_decimal_sep() {
 	$wc_price_decimal_sep = WC_CP_Helpers::cache_get( 'wc_price_decimal_sep' );
 	if ( null === $wc_price_decimal_sep ) {
-		$wc_price_decimal_sep = wp_specialchars_decode( stripslashes( get_option( 'woocommerce_price_decimal_sep' ) ), ENT_QUOTES );
+		$wc_price_decimal_sep = wc_get_price_decimal_separator();
 		WC_CP_Helpers::cache_set( 'wc_price_decimal_sep', apply_filters( 'wc_get_price_decimal_separator', $wc_price_decimal_sep ) );
 	}
 	return $wc_price_decimal_sep;
@@ -443,7 +443,7 @@ function wc_cp_price_decimal_sep() {
 function wc_cp_price_thousand_sep() {
 	$wc_price_thousand_sep = WC_CP_Helpers::cache_get( 'wc_price_thousand_sep' );
 	if ( null === $wc_price_thousand_sep ) {
-		$wc_price_thousand_sep = wp_specialchars_decode( stripslashes( get_option( 'woocommerce_price_thousand_sep' ) ), ENT_QUOTES );
+		$wc_price_thousand_sep = wc_get_price_thousand_separator();
 		WC_CP_Helpers::cache_set( 'wc_price_thousand_sep', apply_filters( 'wc_get_price_thousand_separator', $wc_price_thousand_sep ) );
 	}
 	return $wc_price_thousand_sep;

@@ -52,6 +52,7 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 		$this->upgrade_versions = [
 			'3.0.0',
 			'3.11.0',
+			'3.11.1',
 		];
 	}
 
@@ -259,7 +260,7 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 	/**
 	 * Upgrades to version 3.11.0
 	 *
-	 * @since 3.110-dev.1
+	 * @since 3.11.0
 	 */
 	protected function upgrade_to_3_11_0() {
 
@@ -290,6 +291,59 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 		}
 
 		delete_option( 'wc_pip_extra_columns_version' );
+	}
+
+
+	/**
+	 * Upgrades to version 3.11.1
+	 *
+	 * Consolidates some individual checkbox settings into multi-select dropdown array values.
+	 *
+	 * @since 3.11.1
+	 */
+	protected function upgrade_to_3_11_1() {
+
+		$migrate_settings = [
+			'wc_pip_invoice_show_optional_order_details'        => [
+				'show_shipping_method'  => 'wc_pip_invoice_show_shipping_method',
+				'show_coupons'          => 'wc_pip_invoice_show_coupons',
+				'show_customer_details' => 'wc_pip_invoice_show_customer_details',
+				'show_customer_note'    => 'wc_pip_invoice_show_customer_note',
+			],
+			'wc_pip_packing_list_show_optional_order_details'   => [
+				'show_customer_details' => 'wc_pip_packing_list_show_customer_details',
+				'show_customer_note'    => 'wc_pip_packing_list_show_customer_note',
+			],
+			'wc_pip_packing_list_show_optional_document_fields' => [
+				'show_footer'               => 'wc_pip_packing_list_show_footer',
+				'show_terms_and_conditions' => 'wc_pip_packing_list_show_terms_and_conditions',
+			],
+		];
+
+		foreach ( $migrate_settings as $new_setting => $setting_data ) {
+
+			$chosen_values = [];
+
+			foreach ( $setting_data as $new_value => $old_setting ) {
+
+				if ( 'yes' === get_option( $old_setting, 'yes' ) ) {
+					$chosen_values[] = $new_value;
+				}
+
+				delete_option( $old_setting );
+			}
+
+			update_option( $new_setting, $chosen_values );
+		}
+
+		foreach ( [ 'invoice', 'packing_list', 'pick_list' ] as $document_type ) {
+
+			$old_option = "wc_pip_{$document_type}_show_optional_fields";
+			$new_option = "wc_pip_{$document_type}_show_optional_product_fields";
+
+			update_option( $new_option, get_option( $old_option, [] ) );
+			delete_option( $old_option );
+		}
 	}
 
 

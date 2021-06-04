@@ -71,7 +71,7 @@ class WC_PIP_Integration_VAT_Number {
 			$new_invoice_settings[] = $setting;
 
 			// insert vat number setting after the show coupon setting
-			if ( isset( $setting['id'] ) && 'wc_pip_invoice_show_coupons' === $setting['id'] ) {
+			if ( isset( $setting['id'] ) && 'wc_pip_invoice_show_optional_order_details' === $setting['id'] ) {
 
 				$new_invoice_settings[] = array(
 					'id'      => 'wc_pip_invoice_show_vat_number',

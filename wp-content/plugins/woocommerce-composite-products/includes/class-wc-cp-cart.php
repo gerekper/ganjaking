@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) )
  * Composite products cart API and hooks.
  *
  * @class    WC_CP_Cart
- * @version  8.0.3
+ * @version  8.1.3
  */
 
 class WC_CP_Cart {
@@ -660,7 +660,9 @@ class WC_CP_Cart {
 					 * @param  string  $composited_product_id
 					 * @param  int     $quantity
 					 */
-					$composited_stock->add_stock( apply_filters( 'woocommerce_composite_component_associated_stock', '', $composite_id, $component_id, $composited_product_id, $quantity ) );
+					if ( $extra_stock_to_validate = apply_filters( 'woocommerce_composite_component_associated_stock', false, $composite_id, $component_id, $composited_product_id, $quantity ) ) {
+						$composited_stock->add_stock( $extra_stock_to_validate );
+					}
 				}
 
 				/*
@@ -824,25 +826,6 @@ class WC_CP_Cart {
 					 * @param  string           $context
 					 */
 					do_action( 'woocommerce_composite_component_validation_' . str_replace( '-', '_', $context ), $components[ $component_id ], $component_validation_data, $composite_quantity, $configuration, $context );
-				}
-
-				// Apply deprecated filter.
-
-				$validation_filter_name = 'woocommerce_' . str_replace( '-', '_', $context ) . '_composite_validation';
-
-				if ( has_filter( $validation_filter_name ) ) {
-
-					_deprecated_function( 'The "' . $validation_filter_name . '" filter', '3.14.0' );
-
-					/**
-					 * Filter composite configuration validation result.
-					 *
-					 * @param  boolean              $result
-					 * @param  string               $composite_id
-					 * @param  WC_CP_Stock_Manager  $composited_stock
-					 * @param  array                $composite_configuration
-					 */
-					$is_configuration_valid = apply_filters( 'woocommerce_' . str_replace( '-', '_', $context ) . '_composite_validation', $is_configuration_valid, $composite_id, $composited_stock, $configuration );
 				}
 
 			} catch ( Exception $e ) {

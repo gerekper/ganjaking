@@ -81,10 +81,13 @@ class WC_PIP_Document_Invoice extends WC_PIP_Document {
 		$this->show_terms_and_conditions = true;
 		$this->show_header               = true;
 		$this->show_footer               = true;
-		$this->show_shipping_method      = 'yes' === get_option( 'wc_pip_invoice_show_shipping_method', 'yes' );
-		$this->show_coupons_used         = 'yes' === get_option( 'wc_pip_invoice_show_coupons', 'yes' );
-		$this->show_customer_details     = 'yes' === get_option( 'wc_pip_invoice_show_customer_details', 'yes' );
-		$this->show_customer_note        = 'yes' === get_option( 'wc_pip_invoice_show_customer_note', 'yes' );
+
+		$optional_order_fields = $this->get_chosen_fields( 'order_details' );
+
+		$this->show_shipping_method      = in_array( 'show_shipping_method', $optional_order_fields, true );
+		$this->show_coupons_used         = in_array( 'show_coupons', $optional_order_fields, true );
+		$this->show_customer_details     = in_array( 'show_customer_details', $optional_order_fields, true );
+		$this->show_customer_note        = in_array( 'show_customer_note', $optional_order_fields, true );
 		$this->show_prices_excluding_tax = 'yes' === get_option( 'wc_pip_invoice_show_tax_exclusive_item_prices', 'no' );
 
 		// customize the header of the document

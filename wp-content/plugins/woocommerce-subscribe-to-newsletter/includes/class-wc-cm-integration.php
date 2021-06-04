@@ -3,6 +3,8 @@
 /**
  * WC_Cm_Integration class.
  * Campaign Monitor
+ *
+ * @deprecated 3.0.0
  */
 class WC_CM_Integration {
 
@@ -20,6 +22,8 @@ class WC_CM_Integration {
 	 * Constructor
 	 */
 	public function __construct( $api_key, $list = false ) {
+		wc_deprecated_function( 'WC_CM_Integration', '3.0.0', 'WC_Newsletter_Subscription_Provider_Campaign_Monitor' );
+
 		$this->api_key = $api_key;
 		$this->list    = $list;
 	}

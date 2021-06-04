@@ -5,22 +5,64 @@
  * @since   2.8.0
  */
 
-(function( $ ) {
+/* global wc_newsletter_subscription_settings_params, ajaxurl */
+( function( $, ajaxurl ) {
 
 	'use strict';
 
-	var wcExtensionSettings = {
+	if ( typeof wc_newsletter_subscription_settings_params === 'undefined' ) {
+		return false;
+	}
+
+	var wcNewsletterSubscriptionSettings = {
 		init: function() {
 			$( '#woocommerce_newsletter_service' ).on( 'change', function() {
-				$( '.form-table' )
-					.find( '[id^=woocommerce_mailchimp_], [id^=woocommerce_cmonitor_], [id^=woocommerce_mailpoet_]' )
-					.closest( 'tr' )
-					.hide();
+				$( '.newsletter-provider-fields' )
+					.hide()
+					.filter( '.' + $( this ).val() )
+					.show();
+			} ).trigger( 'change' );
 
-				$( '#mainform [id^=woocommerce_' + $( this ).val() + '_]' ).closest( 'tr' ).show();
-			}).trigger( 'change' );
+			$( '.forminp-provider_lists' ).on( 'click', '.refresh-lists', function( event ) {
+				var $refreshButton = $( this ),
+				    $lists         = $( '.forminp-provider_lists select' ),
+				    selected       = $lists.val();
+
+				event.preventDefault();
+				$refreshButton.prop( 'disabled', true );
+
+				$.post( {
+					url: ajaxurl,
+					data: {
+						action: 'wc_newsletter_subscription_provider_lists',
+						_ajax_nonce: wc_newsletter_subscription_settings_params.nonce,
+						refresh: true
+					},
+					dataType: 'json',
+					success: function( result ) {
+						// Clear options:
+						$lists.find( 'option' ).not( ':first' ).remove();
+
+						// Update options:
+						$.each( result.data, function( value, label ) {
+							$lists.append( $( '<option />' ).val( value ).text( label ) );
+						} );
+
+						// Select previous value selected (if exists):
+						if ( $lists.find( 'option[value=' + selected  + ']' ).length > 0 ) {
+							$lists.val( selected  );
+						} else {
+							$lists.selectedIndex = 0;
+						}
+
+						$lists.hide().fadeIn();
+						$refreshButton.prop( 'disabled', false );
+					}
+				} );
+
+			} );
 		}
 	};
 
-	wcExtensionSettings.init();
-})( jQuery );
+	wcNewsletterSubscriptionSettings.init();
+} )( jQuery, ajaxurl );

@@ -53,6 +53,9 @@ class WC_PIP_Integrations {
 	/** @var null|\WC_PIP_Integration_VAT_Number instance */
 	private $vat_numbers;
 
+	/** @var null|\WC_PIP_Integration_Twenty_Twenty instance */
+	private $twenty_twenty;
+
 
 	/**
 	 * Loads integrations.
@@ -84,6 +87,12 @@ class WC_PIP_Integrations {
 
 		// VAT Number Plugins
 		$this->vat_numbers = wc_pip()->load_class( '/includes/integrations/vat-number/class-wc-pip-integration-vat-number.php', 'WC_PIP_Integration_VAT_Number' );
+
+		// Twenty Twenty
+		if ( $this->is_theme_active( 'Twenty Twenty' ) ) {
+
+			$this->twenty_twenty = wc_pip()->load_class( '/includes/integrations/twenty-twenty/class-wc-pip-integration-twenty-twenty.php', 'WC_PIP_Integration_Twenty_Twenty' );
+		}
 	}
 
 
@@ -136,6 +145,37 @@ class WC_PIP_Integrations {
 	public function get_vat_numbers_instance() {
 
 		return $this->vat_numbers;
+	}
+
+
+	/**
+	 * Gets the Twenty Twenty integration handler instance.
+	 *
+	 * @since 3.11.1
+	 *
+	 * @return \WC_PIP_Integration_Twenty_Twenty|null
+	 */
+	public function get_twenty_twenty_instance() {
+
+		return $this->twenty_twenty;
+	}
+
+
+	/**
+	 * Determines whether a theme is active or not.
+	 *
+	 * @since 3.11.1
+	 *
+	 * @param string $theme_name the theme name (untranslated)
+	 * @return bool
+	 */
+	private function is_theme_active( $theme_name ) {
+
+		$theme = wp_get_theme();
+
+		return
+			( isset( $theme->name ) && $theme_name === $theme->name ) ||
+			( isset( $theme->parent_theme ) && $theme_name === $theme->parent_theme );
 	}
 
 

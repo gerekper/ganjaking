@@ -198,7 +198,7 @@ class WC_CP_Display {
 		 */
 		$dependencies = apply_filters( 'woocommerce_composite_script_dependencies', $dependencies );
 
-		wp_register_script( 'wc-add-to-cart-composite', WC_CP()->plugin_url() . '/assets/js/frontend/add-to-cart-composite' . $suffix . '.js', $dependencies, WC_CP()->version );
+		wp_register_script( 'wc-add-to-cart-composite', WC_CP()->plugin_url() . '/assets/js/frontend/add-to-cart-composite' . $suffix . '.js', $dependencies, WC_CP()->version, true );
 
 		wp_register_style( 'wc-composite-single-css', WC_CP()->plugin_url() . '/assets/css/frontend/single-product.css', false, WC_CP()->version, 'all' );
 		wp_style_add_data( 'wc-composite-single-css', 'rtl', 'replace' );

@@ -1,5 +1,22 @@
 *** WooCommerce Composite Products ***
 
+2021.06.01 - version 8.1.3
+* Tweak - Removed deprecated 'woocommerce_add_to_[cart/order]_validation' filter.
+* Fix - Stopped requiring 'configuration' property in 'composite_scenarios' field items to permit deletions.
+
+2021.05.05 - version 8.1.2
+* Fix - Use the correct 'Read more' string from the WooCommerce textdomain.
+* Fix - Updated Flatsome integration to correctly handle image lightbox.
+* Fix - Toggle the 'Options Pagination' visibility correctly while making configuration changes to a Component.
+* Fix - Handle changes to Name Your Price input changes from blank to zero.
+* Tweak - Improve appearance of 'Item Grouping > Flat' Bundles in Composites.
+
+2021.04.13 - version 8.1.1
+* Dev - Added 'woocommerce_composite_component_options_style' filter.
+* Fix - Fixed component options radio buttons layout in the Twenty Twenty-One theme.
+* Fix - Added integration with Zapier to hide Scenario fields in the Zapier dashboard.
+* Fix - Improved Scenarios matching for Variable products when all available variations are included/excluded in Conditions.
+
 2021.03.29 - version 8.1.0
 * Important - Updated Scenarios to allow creating Conditions based on whether an option has been selected in a Component.
 * Important - Scenario Conditions are no longer matched partially when configuring a Composite without having made a selection in every Component. Previously, a Scenario that hides Component n based on a selection in Component i (i<n) would always match while Component i was empty. Now, you can use the 'No Selection' option in the Scenario matching Conditions of Component i to determine exactly how the Scenario should behave when Component i is empty.

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Hooks for Product Bundles compatibility.
  *
- * @version  6.2.0
+ * @version  8.1.2
  */
 class WC_CP_PB_Compatibility {
 
@@ -41,13 +41,19 @@ class WC_CP_PB_Compatibility {
 	public static function composited_no_parent_group_mode( $group_mode_data ) {
 
 		$group_mode_data[ 'none_composited' ] = array(
-			'title'      => __( 'No parent (composited)', 'woocommerce-composite-products' ),
+			'title'      => __( 'Composited None', 'woocommerce-composite-products' ),
 			'features'   => array( 'parent_item', 'child_item_indent', 'aggregated_subtotals', 'component_multiselect' ),
 			'is_visible' => false
 		);
 
+		$group_mode_data[ 'flat_composited' ] = array(
+			'title'      => __( 'Composited Flat', 'woocommerce-composite-products' ),
+			'features'   => array( 'parent_item', 'child_item_indent', 'child_item_meta' ),
+			'is_visible' => false
+		);
+
 		$group_mode_data[ 'composited' ] = array(
-			'title'      => __( 'Composited', 'woocommerce-composite-products' ),
+			'title'      => __( 'Composited Grouped', 'woocommerce-composite-products' ),
 			'features'   => array( 'parent_item', 'child_item_indent', 'aggregated_subtotals', 'parent_cart_widget_item_meta' ),
 			'is_visible' => false
 		);
@@ -86,6 +92,8 @@ class WC_CP_PB_Compatibility {
 
 				if ( 'none' === $cart_item[ 'data' ]->get_group_mode() ) {
 					$cart_item[ 'data' ]->set_group_mode( 'none_composited' );
+				} elseif ( 'noindent' === $cart_item[ 'data' ]->get_group_mode() ) {
+					$cart_item[ 'data' ]->set_group_mode( 'flat_composited' );
 				} else {
 					$cart_item[ 'data' ]->set_group_mode( 'composited' );
 				}
