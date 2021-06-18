@@ -6,8 +6,10 @@
 class Redsys_Card_Images extends WP_Widget {
 	
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public function __construct() {
 		$options = array(
 			'classname'   => 'redsys_credit_card_widget',
@@ -20,8 +22,10 @@ class Redsys_Card_Images extends WP_Widget {
 	}
 	
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public function widget( $args, $instance ) {
 		// Define the widget
 		$title = $instance['title'];
@@ -38,8 +42,10 @@ class Redsys_Card_Images extends WP_Widget {
 	}
 	
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public function form( $instance ) {
 		
 		if ( isset( $instance[ 'title' ] ) ) {
@@ -56,8 +62,10 @@ class Redsys_Card_Images extends WP_Widget {
 	}
 	
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public function update( $new_instance, $old_instance ) {
 		
 		$instance            = array();

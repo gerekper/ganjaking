@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) || exit;
  * Create database table to cache the Google product taxonomy.
  */
 function woocommerce_gpf_install() {
-
 	global $wpdb;
 
 	$charset_collate = $wpdb->get_charset_collate();
@@ -43,7 +42,9 @@ function woocommerce_gpf_install() {
 		$settings                       = array(
 			'product_fields'      => array(
 				'title'                   => 'on',
-				'availability'            => 'on',
+				'availability_instock'    => 'on',
+				'availability_backorder'  => 'on',
+				'availability_outofstock' => 'on',
 				'brand'                   => 'on',
 				'mpn'                     => 'on',
 				'product_type'            => 'on',
@@ -51,13 +52,14 @@ function woocommerce_gpf_install() {
 				'size_system'             => 'on',
 			),
 			'product_defaults'    => array(
-				'availability' => 'in stock',
+				'availability_instock'    => 'in stock',
+				'availability_backorder'  => 'in stock',
+				'availability_outofstock' => 'out of stock',
 			),
 			'product_prepopulate' => array(
 				'title'       => 'field:product_title',
 				'description' => 'description:fullvar',
 			),
-			'gpf_enabled_feeds'   => array( 'google' => 'on' ),
 		);
 		$settings['include_variations'] = 'on';
 		$settings['send_item_group_id'] = '';
@@ -66,5 +68,19 @@ function woocommerce_gpf_install() {
 	if ( get_option( 'woocommerce_gpf_debug_key' ) === false ) {
 		update_option( 'woocommerce_gpf_debug_key', wp_generate_uuid4() );
 	}
+	if ( get_option( 'woocommerce_gpf_feed_configs' ) === false ) {
+		update_option(
+			'woocommerce_gpf_feed_configs',
+			[
+				substr( wp_hash( microtime() ), 0, 16 ) =>
+					[
+						'type' => 'google',
+						'name' => __( 'Google merchant centre product feed', 'woocommerce_gpf' ),
+					],
+			]
+		);
+	}
+	// Flag that rewrite rules will need flushing.
+	set_site_transient( 'woocommerce_gpf_rewrite_flush_required', '1' );
 }
 

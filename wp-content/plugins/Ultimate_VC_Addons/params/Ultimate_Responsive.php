@@ -43,16 +43,16 @@
  *
  * Note - Without .ult-responsive class on target resposive param will not work
  *
- * @package Ultimate_Responsive.
+ * @package Ultimate_VC_Addons_Responsive.
  */
 
-if ( ! class_exists( 'Ultimate_Responsive' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Responsive' ) ) {
 	/**
-	 * Class Ultimate_Responsive
+	 * Class Ultimate_VC_Addons_Responsive
 	 *
-	 * @class Ultimate_Responsive.
+	 * @class Ultimate_VC_Addons_Responsive.
 	 */
-	class Ultimate_Responsive {
+	class Ultimate_VC_Addons_Responsive {
 		/**
 		 * Initiator __construct.
 		 */
@@ -187,14 +187,14 @@ if ( ! class_exists( 'Ultimate_Responsive' ) ) {
 					if ( is_rtl() ) {
 						$css_ext = '-rtl.css';
 					}
-					Ultimate_VC_Addons::ultimate_register_style( 'ultimate_responsive_param_css', UAVC_URL . 'admin/vc_extend/css/ultimate_responsive' . $css_ext, true );
-					wp_enqueue_style( 'ultimate_responsive_param_css' );
+					Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons_responsive_param_css', UAVC_URL . 'admin/vc_extend/css/ultimate_responsive' . $css_ext, true );
+					wp_enqueue_style( 'ultimate-vc-addons_responsive_param_css' );
 				}
 			}
 		}
 	}
 }
 
-if ( class_exists( 'Ultimate_Responsive' ) ) {
-	$ultimate_responsive = new Ultimate_Responsive();
+if ( class_exists( 'Ultimate_VC_Addons_Responsive' ) ) {
+	$ultimate_responsive = new Ultimate_VC_Addons_Responsive();
 }

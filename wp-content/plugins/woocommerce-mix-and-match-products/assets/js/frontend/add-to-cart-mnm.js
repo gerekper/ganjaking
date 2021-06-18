@@ -657,19 +657,16 @@ jQuery.fn.wc_get_mnm_script = function() {
 			/**
 			 * Bind event handlers.
 			 */
-
 			this.bind_event_handlers();
 
 			/**
 			 * Init Child Items.
 			 */
-
 			this.init_child_items();
 
 			/**
 			 * Initialize.
 			 */
-
 			this.$mnm_form.trigger( 'wc-mnm-initializing', [ this ] );
 
 			// Update config and prices.
@@ -1267,50 +1264,6 @@ jQuery.fn.wc_get_mnm_script = function() {
 	jQuery(
 		function( $ ) {
 
-			/**
-			* Script initialization on '.mnm_form' jQuery objects.
-			*/
-			$.fn.wc_mnm_form = function() {
-
-				  var $mnm_form = $( this ),
-				$mnm_data       = $mnm_form.find( '.mnm_data' ),
-				container_id    = $mnm_data.data( 'container_id' );
-
-				if ( typeof( $mnm_data ) === 'undefined' ) {
-					return false;
-				}
-
-				if ( typeof( container_id ) === 'undefined' ) {
-					container_id = $mnm_data.attr( 'data-container_id' );
-
-					if ( container_id ) {
-						$mnm_data.data( 'container_id', container_id );
-					} else {
-						return false;
-					}
-				}
-
-				if ( typeof( wc_mnm_scripts[ container_id ] ) !== 'undefined' ) {
-					wc_mnm_scripts[ container_id ].shutdown();
-				}
-
-				wc_mnm_scripts[ container_id ] = new WC_MNM_Container( { $mnm_form: $mnm_form, $mnm_data: $mnm_data, container_id: container_id } );
-
-				$mnm_form.data( 'script_id', container_id );
-
-				wc_mnm_scripts[ container_id ].initialize();
-
-			};
-
-			/*
-				* Initialize form script.
-				*/
-			$( '.mnm_form' ).each(
-				function() {
-					$( this ).wc_mnm_form();
-				}
-			);
-
 			/*-----------------------------------------------------------------*/
 			/*  Compatibility .                                                */
 			/*-----------------------------------------------------------------*/
@@ -1371,6 +1324,50 @@ jQuery.fn.wc_get_mnm_script = function() {
 						}
 					);
 
+				}
+			);
+
+			/**
+			* Script initialization on '.mnm_form' jQuery objects.
+			*/
+			$.fn.wc_mnm_form = function() {
+
+				var $mnm_form = $( this ),
+				$mnm_data       = $mnm_form.find( '.mnm_data' ),
+				container_id    = $mnm_data.data( 'container_id' );
+
+				if ( typeof( $mnm_data ) === 'undefined' ) {
+					return false;
+				}
+
+				if ( typeof( container_id ) === 'undefined' ) {
+					container_id = $mnm_data.attr( 'data-container_id' );
+
+					if ( container_id ) {
+						$mnm_data.data( 'container_id', container_id );
+					} else {
+						return false;
+					}
+				}
+
+				if ( typeof( wc_mnm_scripts[ container_id ] ) !== 'undefined' ) {
+					wc_mnm_scripts[ container_id ].shutdown();
+				}
+
+				wc_mnm_scripts[ container_id ] = new WC_MNM_Container( { $mnm_form: $mnm_form, $mnm_data: $mnm_data, container_id: container_id } );
+
+				$mnm_form.data( 'script_id', container_id );
+
+				wc_mnm_scripts[ container_id ].initialize();
+
+			};
+
+			/**
+			 * Initialize form script.
+			 */
+			$( '.mnm_form' ).each(
+				function() {
+					$( this ).wc_mnm_form();
 				}
 			);
 

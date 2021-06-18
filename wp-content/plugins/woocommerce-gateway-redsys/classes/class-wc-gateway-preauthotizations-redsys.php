@@ -15,6 +15,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public function __construct() {
@@ -85,6 +87,7 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		$this->butonbgcolor         = $this->get_option( 'butonbgcolor' );
 		$this->butontextcolor       = $this->get_option( 'butontextcolor' );
 		$this->descripredsys        = $this->get_option( 'descripredsys' );
+		$this->testshowgateway      = $this->get_option( 'testshowgateway' );
 		$this->log                  = new WC_Logger();
 		$this->supports             = array(
 			'products',
@@ -124,6 +127,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public static function admin_notice_mcrypt_encrypt() {
@@ -145,6 +150,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	 * @return bool
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function is_valid_for_use() {
@@ -162,17 +169,16 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	 * @since 1.0.0
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public function admin_options() {
 		?>
 		<h3><?php esc_html_e( 'Servired/RedSys Spain', 'woocommerce-redsys' ); ?></h3>
 		<p><?php esc_html_e( 'Servired/RedSys works by sending the user to your bank TPV to enter their payment information.', 'woocommerce-redsys' ); ?></p>
-		<div class="redsysnotice">
-			<span class="dashicons dashicons-welcome-learn-more redsysnotice-dash"></span>
-			<span class="redsysnotice__content"><?php printf( __( 'For Redsys Help: Check WooCommerce.com Plugin <a href="%1$s" target="_blank" rel="noopener">Documentation page</a> for setup, <a href="%2$s" target="_blank" rel="noopener">FAQ page</a> for working problems, or open a <a href="%3$s" target="_blank" rel="noopener">Ticket</a> for support', 'woocommerce-redsys' ), 'https://docs.woocommerce.com/document/redsys-servired-sermepa-gateway/', 'https://redsys.joseconti.com/redsys-para-woocommerce/', 'https://woocommerce.com/my-account/tickets/' ); ?><span>
-		</div>
 		<?php
+			echo WCRed()->return_help_notice();
 		if ( isset( $_GET['quijote'] ) ) {
 			?>
 			<div class="quijote">
@@ -220,6 +226,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function init_form_fields() {
@@ -239,6 +247,20 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			}
 		}
 
+		$options_show    = array();
+		$selections_show = (array)$this->get_option( 'testshowgateway' );
+		if ( count( $selections_show ) !== 0 ) {
+			foreach ( $selections_show as $user_id ) {
+				if ( ! empty( $user_id ) ) {
+					$user_data  = get_userdata( $user_id );
+					$user_email = $user_data->user_email;
+					if ( ! empty( esc_html( $user_email ) ) ) {
+						$options_show[ esc_html( $user_id ) ] = esc_html( $user_email );
+					}
+				}
+			}
+		}
+		
 		$this->form_fields = array(
 			'enabled'              => array(
 				'title'   => __( 'Enable/Disable', 'woocommerce-redsys' ),
@@ -484,6 +506,16 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 				'default'     => 'yes',
 				'description' => sprintf( __( 'Select this option for the initial testing required by your bank, deselect this option once you pass the required test phase and your production environment is active.', 'woocommerce-redsys' ) ),
 			),
+			'testshowgateway'   => array(
+				'title'       => __( 'Show to this users', 'woocommerce-redsys' ),
+				'type'        => 'multiselect',
+				'label'       => __( 'Show the gateway in the chcekout when it is in test mode', 'woocommerce-redsys' ),
+				'class'       => 'js-woo-show-gateway-test-settings',
+				'id'          => 'woocommerce_redsys_showtestforuserid',
+				'options'     => $options_show,
+				'default'     => '',
+				'description' => sprintf( __( 'Select users that will see the gateway when it is in test mode. If no users are selected, will be shown to all users', 'woocommerce-redsys' ) ),
+			),
 			'testforuser'          => array(
 				'title'       => __( 'Running in test mode for a user', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
@@ -518,6 +550,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function check_user_test_mode( $userid ) {
@@ -602,6 +636,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_redsys_url_gateway( $user_id, $type = 'rd' ) {
@@ -673,6 +709,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		return $url;
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_redsys_sha256( $user_id ) {
@@ -749,6 +787,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		return $sha256;
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_redsys_args( $order ) {
@@ -826,38 +866,21 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		$product_description = WCRed()->product_description( $order, $this->id );
 		$merchant_name       = $this->commercename;
 
-		$redsys_options = array(
-			'order_total_sign',
-			'transaction_id2',
-			'transaction_type',
-			'DSMerchantTerminal',
-			'final_notify_url',
-			'returnfromredsys',
-			'gatewaylanguage',
-			'currency',
-			'secretsha256',
-			'customer',
-			'url_ok',
-			'product_description',
-			'merchant_name',
+		$redsys_data_send = array(
+			'order_total_sign'    => $order_total_sign,
+			'transaction_id2'     => $transaction_id2,
+			'transaction_type'    => $transaction_type,
+			'DSMerchantTerminal'  => $DSMerchantTerminal,
+			'final_notify_url'    => $final_notify_url,
+			'returnfromredsys'    => $returnfromredsys,
+			'gatewaylanguage'     => $gatewaylanguage,
+			'currency'            => $currency,
+			'secretsha256'        => $secretsha256,
+			'customer'            => $customer,
+			'url_ok'              => $url_ok,
+			'product_description' => $product_description,
+			'merchant_name'       => $merchant_name,
 		);
-		$redsys_valors  = array(
-			$order_total_sign,
-			$transaction_id2,
-			$transaction_type,
-			$DSMerchantTerminal,
-			$final_notify_url,
-			$returnfromredsys,
-			$gatewaylanguage,
-			$currency,
-			$secretsha256,
-			$customer,
-			$url_ok,
-			$product_description,
-			$merchant_name,
-		);
-
-		$redsys_data_send = array_combine( $redsys_options, $redsys_valors );
 
 		if ( has_filter( 'redsys_modify_data_to_send' ) ) {
 
@@ -1092,6 +1115,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		return $redsys_args;
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function redsys_get_tag_content( $tag, $xml ) {
@@ -1111,6 +1136,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		return $retorno;
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function redsys_process_payment_token( $order_id ) {
@@ -1232,38 +1259,21 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		$product_description = WCRed()->product_description( $order, $this->id );
 		$merchant_name       = $this->commercename;
 
-		$redsys_options = array(
-			'order_total_sign',
-			'transaction_id2',
-			'transaction_type',
-			'DSMerchantTerminal',
-			'final_notify_url',
-			'returnfromredsys',
-			'gatewaylanguage',
-			'currency',
-			'secretsha256',
-			'customer',
-			'url_ok',
-			'product_description',
-			'merchant_name',
+		$redsys_data_send = array(
+			'order_total_sign'    => $order_total_sign,
+			'transaction_id2'     => $transaction_id2,
+			'transaction_type'    => $transaction_type,
+			'DSMerchantTerminal'  => $DSMerchantTerminal,
+			'final_notify_url'    => $final_notify_url,
+			'returnfromredsys'    => $returnfromredsys,
+			'gatewaylanguage'     => $gatewaylanguage,
+			'currency'            => $currency,
+			'secretsha256'        => $secretsha256,
+			'customer'            => $customer,
+			'url_ok'              => $url_ok,
+			'product_description' => $product_description,
+			'merchant_name'       => $merchant_name,
 		);
-		$redsys_valors  = array(
-			$order_total_sign,
-			$transaction_id2,
-			$transaction_type,
-			$DSMerchantTerminal,
-			$final_notify_url,
-			$returnfromredsys,
-			$gatewaylanguage,
-			$currency,
-			$secretsha256,
-			$customer,
-			$url_ok,
-			$product_description,
-			$merchant_name,
-		);
-
-		$redsys_data_send = array_combine( $redsys_options, $redsys_valors );
 
 		if ( has_filter( 'redsys_modify_data_to_send' ) ) {
 
@@ -1495,6 +1505,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	 * @return string
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function generate_redsys_form( $order_id ) {
@@ -1584,6 +1596,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	 * @return string
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function generate_redsys_subscription_form_browser( $order_id ) {
@@ -1706,6 +1720,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	 * @return string
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function generate_redsys_subscription_form( $order_id ) {
@@ -1765,6 +1781,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		</form>';
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public function process_subscription_payment( $order, $amount = 0 ) {
@@ -1917,38 +1935,21 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		$product_description = WCRed()->product_description( $order, $this->id );
 		$merchant_name       = $this->commercename;
 
-		$redsys_options = array(
-			'order_total_sign',
-			'transaction_id2',
-			'transaction_type',
-			'DSMerchantTerminal',
-			'final_notify_url',
-			'returnfromredsys',
-			'gatewaylanguage',
-			'currency',
-			'secretsha256',
-			'customer',
-			'url_ok',
-			'product_description',
-			'merchant_name',
+		$redsys_data_send = array(
+			'order_total_sign'    => $order_total_sign,
+			'transaction_id2'     => $transaction_id2,
+			'transaction_type'    => $transaction_type,
+			'DSMerchantTerminal'  => $DSMerchantTerminal,
+			'final_notify_url'    => $final_notify_url,
+			'returnfromredsys'    => $returnfromredsys,
+			'gatewaylanguage'     => $gatewaylanguage,
+			'currency'            => $currency,
+			'secretsha256'        => $secretsha256,
+			'customer'            => $customer,
+			'url_ok'              => $url_ok,
+			'product_description' => $product_description,
+			'merchant_name'       => $merchant_name,
 		);
-		$redsys_valors  = array(
-			$order_total_sign,
-			$transaction_id2,
-			$transaction_type,
-			$DSMerchantTerminal,
-			$final_notify_url,
-			$returnfromredsys,
-			$gatewaylanguage,
-			$currency,
-			$secretsha256,
-			$customer,
-			$url_ok,
-			$product_description,
-			$merchant_name,
-		);
-
-		$redsys_data_send = array_combine( $redsys_options, $redsys_valors );
 
 		if ( has_filter( 'redsys_modify_data_to_send' ) ) {
 
@@ -2070,8 +2071,10 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function get_the_ip() {
 		
 		if ( isset( $_SERVER['HTTP_CF_CONNECTING_IP'] ) ) {
@@ -2085,6 +2088,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public function doing_scheduled_subscription_payment( $amount_to_charge, $renewal_order ) {
@@ -2260,38 +2265,21 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			$product_description = WCRed()->product_description( $order, 'redsys' );
 			$merchant_name       = $this->commercename;
 
-			$redsys_options = array(
-				'order_total_sign',
-				'transaction_id2',
-				'transaction_type',
-				'DSMerchantTerminal',
-				'final_notify_url',
-				'returnfromredsys',
-				'gatewaylanguage',
-				'currency',
-				'secretsha256',
-				'customer',
-				'url_ok',
-				'product_description',
-				'merchant_name',
+			$redsys_data_send = array(
+				'order_total_sign'    => $order_total_sign,
+				'transaction_id2'     => $transaction_id2,
+				'transaction_type'    => $transaction_type,
+				'DSMerchantTerminal'  => $DSMerchantTerminal,
+				'final_notify_url'    => $final_notify_url,
+				'returnfromredsys'    => $returnfromredsys,
+				'gatewaylanguage'     => $gatewaylanguage,
+				'currency'            => $currency,
+				'secretsha256'        => $secretsha256,
+				'customer'            => $customer,
+				'url_ok'              => $url_ok,
+				'product_description' => $product_description,
+				'merchant_name'       => $merchant_name,
 			);
-			$redsys_valors  = array(
-				$order_total_sign,
-				$transaction_id2,
-				$transaction_type,
-				$DSMerchantTerminal,
-				$final_notify_url,
-				$returnfromredsys,
-				$gatewaylanguage,
-				$currency,
-				$secretsha256,
-				$customer,
-				$url_ok,
-				$product_description,
-				$merchant_name,
-			);
-
-			$redsys_data_send = array_combine( $redsys_options, $redsys_valors );
 
 			if ( has_filter( 'redsys_modify_data_to_send' ) ) {
 
@@ -2869,6 +2857,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function process_payment( $order_id ) {
@@ -4332,38 +4322,21 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			$product_description = WCRed()->product_description( $order, 'redsys' );
 			$merchant_name       = $this->commercename;
 
-			$redsys_options = array(
-				'order_total_sign',
-				'transaction_id2',
-				'transaction_type',
-				'DSMerchantTerminal',
-				'final_notify_url',
-				'returnfromredsys',
-				'gatewaylanguage',
-				'currency',
-				'secretsha256',
-				'customer',
-				'url_ok',
-				'product_description',
-				'merchant_name',
+			$redsys_data_send = array(
+				'order_total_sign'    => $order_total_sign,
+				'transaction_id2'     => $transaction_id2,
+				'transaction_type'    => $transaction_type,
+				'DSMerchantTerminal'  => $DSMerchantTerminal,
+				'final_notify_url'    => $final_notify_url,
+				'returnfromredsys'    => $returnfromredsys,
+				'gatewaylanguage'     => $gatewaylanguage,
+				'currency'            => $currency,
+				'secretsha256'        => $secretsha256,
+				'customer'            => $customer,
+				'url_ok'              => $url_ok,
+				'product_description' => $product_description,
+				'merchant_name'       => $merchant_name,
 			);
-			$redsys_valors  = array(
-				$order_total_sign,
-				$transaction_id2,
-				$transaction_type,
-				$DSMerchantTerminal,
-				$final_notify_url,
-				$returnfromredsys,
-				$gatewaylanguage,
-				$currency,
-				$secretsha256,
-				$customer,
-				$url_ok,
-				$product_description,
-				$merchant_name,
-			);
-
-			$redsys_data_send = array_combine( $redsys_options, $redsys_valors );
 
 			if ( has_filter( 'redsys_modify_data_to_send' ) ) {
 
@@ -4935,6 +4908,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	protected function order_contains_subscription( $order_id ) {
@@ -4961,6 +4936,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function receipt_page( $order ) {
@@ -5054,6 +5031,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	 * Check redsys IPN validity
 	 **/
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function check_ipn_request_is_valid() {
@@ -5193,8 +5172,10 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	}
 	function check_confirm_pares( $post ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'preauthorizationsredsys', ' ' );
 			$this->log->add( 'preauthorizationsredsys', '/****************************/' );
@@ -5305,6 +5286,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function check_ipn_response() {
@@ -5332,6 +5315,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function successful_request( $posted ) {
@@ -6175,6 +6160,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function ask_for_refund( $order_id, $transaction_id, $amount ) {
@@ -6320,6 +6307,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		return true;
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function check_redsys_refund( $order_id ) {
@@ -6341,6 +6330,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function ask_for_confirm_preauthorization( $order_id, $transaction_id, $amount ) {
@@ -6449,6 +6440,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		return true;
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function ask_for_collect_remainder( $order_id, $amount ) {
@@ -6566,6 +6559,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		return true;
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function check_confirm_preauth( $order_id ) {
@@ -6583,6 +6578,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function check_collect_remainder( $order_id ) {
@@ -6600,6 +6597,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public static function redsys_preauthorized_js_callback() {
@@ -6667,6 +6666,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		wp_die();
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public static function redsys_charge_depo_js_callback() {
@@ -6767,6 +6768,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		wp_die();
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public function process_refund( $order_id, $amount = null, $reason = '' ) {
@@ -6845,6 +6848,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public static function preauthorizationsredsys_add_bulk_actions( $bulk_actions ) {
@@ -6855,6 +6860,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		return $bulk_actions;
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public static function preauthorizationsredsys_bulk_actions_handler( $redirect_to, $doaction, $post_ids ) {
@@ -7076,6 +7083,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		return $redirect_to;
 	}
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public function warning_checkout_test_mode() {

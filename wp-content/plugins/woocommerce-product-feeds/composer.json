@@ -1,7 +1,9 @@
 {
     "require": {
         "woocommerce/action-scheduler": "^3.1",
-        "pimple/pimple": "^3.2"
+        "pimple/pimple": "^3.2",
+	"psr/container": "1.0.0",
+        "php": ">7.2"
     },
     "config": {
         "platform": {
@@ -22,7 +24,13 @@
             "./src/common/woocommerce-product-feeds-db-manager.php",
             "./src/common/woocommerce-product-feeds-expanded-structured-data.php",
             "./src/common/woocommerce-product-feeds-expanded-structured-data-cache-invalidator.php",
+            "./src/common/woocommerce-product-feeds-feed-config.php",
+            "./src/common/woocommerce-product-feeds-feed-config-repository.php",
             "./src/common/woocommerce-product-feeds-feed-image-manager.php",
+            "./src/common/woocommerce-product-feeds-feed-item-factory.php",
+            "./src/common/woocommerce-product-feeds-feed-manager.php",
+            "./src/common/woocommerce-product-feeds-feed-manager-list-table.php",
+            "./src/common/woocommerce-product-feeds-feed-config-factory.php",
             "./src/common/woocommerce-product-feeds-field-options.php",
             "./src/common/woocommerce-product-feeds-integration-manager.php",
             "./src/common/woocommerce-product-feeds-term-depth-repository.php",

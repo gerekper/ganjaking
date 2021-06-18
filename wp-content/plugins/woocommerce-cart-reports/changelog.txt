@@ -1,5 +1,9 @@
 *** WooCommerce Cart Reports ***
 
+2021.04.14 - version 1.2.10
+* Fix issue with cart product display on index page
+* Bump WooCommerce compatibility to 5.1.0
+
 2019-04-11 - version 1.2.9
 * Fix an issue that was causing orders within reports to appear on the wrong day.
 

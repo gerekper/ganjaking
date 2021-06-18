@@ -54,6 +54,11 @@ class WCS_ATT_Integrations {
 			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-fs.php' );
 		}
 
+		// Square compatibility.
+		if (  class_exists( 'WooCommerce\Square' ) ) {
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-square.php' );
+		}
+
 		// Define dependencies.
 		self::$required = array(
 			'cp'     => '6.2.0',
@@ -355,4 +360,4 @@ class WCS_ATT_Integrations {
 	}
 }
 
-add_action( 'plugins_loaded', array( 'WCS_ATT_Integrations', 'init' ), 99 );
+add_action( 'plugins_loaded', array( 'WCS_ATT_Integrations', 'init' ), 20 );

@@ -5,30 +5,23 @@ class WoocommerceProductFeedsTermDepthRepository {
 	private $cache = [];
 
 	/**
-	 * Find the depth of a term in the hierarchy.
+	 * Get the depth of a given term.
 	 *
-	 * @param int|WP_Term $term WP_Term, or term_id to find depth of.
+	 * @param WP_Term $term WP_Term to find depth of.
 	 *
-	 * @return mixed|null
+	 * @return int|null
 	 */
 	public function get_depth( $term ) {
-		if ( is_int( $term ) ) {
-			$term = get_term( $term );
-		}
-		if ( ! $term instanceof WP_Term ) {
-			return null;
-		}
-		if ( isset( $this->cache[ $term->term_id ] ) ) {
-			return $this->cache[ $term->term_id ];
-		}
+		return $this->get_value_for_term( $term, 'depth' );
+	}
 
-		$depth = 1;
-		if ( 0 !== $term->parent ) {
-			$depth = $this->get_depth( $term->parent ) + 1;
-		}
-		$this->cache[ $term->term_id ] = $depth;
-
-		return $depth;
+	/**
+	 * @param WP_Term $term WP_Term to find depth of.
+	 *
+	 * @return string
+	 */
+	public function get_hierarchy_string( $term ) {
+		return $this->get_value_for_term( $term, 'hierarchy_string' );
 	}
 
 	/**
@@ -43,6 +36,62 @@ class WoocommerceProductFeedsTermDepthRepository {
 		usort( $sorted, [ $this, 'sort_callback' ] );
 
 		return $sorted;
+	}
+
+	/**
+	 * @param WP_Term $term WP_Term to find depth of.
+	 * @param string $value 'depth', or 'hierarchy_string'
+	 *
+	 * @return mixed
+	 */
+	private function get_value_for_term( $term, $value ) {
+		// If it is cached already, use it.
+		if ( isset( $this->cache[ $term->term_id ][ $value ] ) ) {
+			return $this->cache[ $term->term_id ][ $value ];
+		}
+
+		// Prime the cache.
+		$this->prime_cache( $term );
+
+		// Use the primed value.
+		return $this->cache[ $term->term_id ][ $value ];
+	}
+
+	/**
+	 * Prime the cache for a term.
+	 *
+	 * @param WP_Term $term WP_Term to prime the cache for.
+	 */
+	private function prime_cache( $term ) {
+		// Cache already exists. We're done.
+		if ( isset( $this->cache[ $term->term_id ] ) ) {
+			return;
+		}
+		// If the term is NULL (E.g. if we're recursing and a parent has been deleted)
+		if ( is_null( $term ) ) {
+			$this->cache[ $term->term_id ] = [
+				'depth'            => 0,
+				'hierarchy_string' => _x(
+					'Unknown',
+					'Term name to use when passed an invalid term ID',
+					'woocommerce_gpf'
+				),
+			];
+			return;
+		}
+		$depth            = 1;
+		$hierarchy_string = $term->name;
+		if ( 0 !== $term->parent ) {
+			$parent_term      = get_term( $term->parent );
+			$depth            = $this->get_depth( $parent_term ) + 1;
+			$hierarchy_string = $this->get_hierarchy_string( $parent_term ) .
+								apply_filters( 'woocommerce_gpf_hierarchy_separator', ' > ' ) .
+								$hierarchy_string;
+		}
+		$this->cache[ $term->term_id ] = [
+			'depth'            => $depth,
+			'hierarchy_string' => $hierarchy_string,
+		];
 	}
 
 	/**

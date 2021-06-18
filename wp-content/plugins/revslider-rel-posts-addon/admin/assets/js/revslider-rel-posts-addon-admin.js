@@ -74,8 +74,8 @@
 		function updateInputFieldDependencies() {
 
 			RVS.F.initOnOff(addon.configpanel);
-			addon.configpanel.find('.tos2.nosearchbox').select2({
-				minimumResultsForSearch:"Infinity",
+			addon.configpanel.find('.tos2.nosearchbox').ddTP({
+				
 				placeholder:"Select From List"
 			});				
 		}

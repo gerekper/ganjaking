@@ -4,8 +4,7 @@
  *
  * @package WP_Smush
  *
- * @var string $title    Title.
- * @var string $tooltip  Tooltip text.
+ * @var string $title  Title.
  */
 
 if ( ! defined( 'WPINC' ) ) {
@@ -15,9 +14,13 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 
 <h3 class="sui-box-title">
-	<?php echo esc_html( $title ); ?>
+	<?php esc_html_e( 'CDN', 'wp-smushit' ); ?>
 </h3>
 
-<span class="sui-tag sui-tag-beta sui-tooltip sui-tooltip-constrained" data-tooltip="<?php echo esc_attr( $tooltip ); ?>" style="margin-left: 10px">
-	<?php esc_html_e( 'Beta', 'wp-smushit' ); ?>
-</span>
+<?php if ( ! WP_Smush::is_pro() ) : ?>
+	<div class="sui-actions-left">
+		<span class="sui-tag sui-tag-pro sui-tooltip sui-tooltip-constrained" data-tooltip="<?php esc_attr_e( 'Join WPMU DEV to host your images on our blazing fast global CDN', 'wp-smushit' ); ?>">
+			<?php esc_html_e( 'Pro', 'wp-smushit' ); ?>
+		</span>
+	</div>
+<?php endif; ?>

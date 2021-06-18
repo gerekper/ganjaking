@@ -78,32 +78,36 @@ abstract class WPSEO_Watcher {
 		$show_notification = true;
 
 		/**
-		 * Filter: "wpseo_enable_notification_{$watch_type}_{$notification_type}" - Filter whether or not the
+		 * Filter: "Yoast\WP\SEO\enable_notification_{$this->watch_type}_{$notification_type}" - Filter whether or not the
 		 * notification for a given watch type and notification type should be shown.
 		 *
-		 * @deprecated 12.9.0. Use the {@see "Yoast\WP\SEO\enable_notification_{$watch_type}_{$notification_type}"} filter instead.
+		 * @deprecated 16.5. Use the 'Yoast\WP\SEO\enable_notification_{$watch_type}_{$notification_type}' filter instead.
+		 *
+		 * @see https://developer.yoast.com/customization/yoast-seo-premium/disabling-automatic-redirects-notifications
 		 *
 		 * @api bool $show_notification Defaults to true.
 		 */
 		$show_notification = apply_filters_deprecated(
-			'wpseo_enable_notification_' . $this->watch_type . '_' . $notification_type,
+			"Yoast\WP\SEO\enable_notification_{$this->watch_type}_{$notification_type}",
 			[ $show_notification ],
-			'YoastSEO Premium 12.9.0',
+			'YoastSEO Premium 16.5',
 			'Yoast\WP\SEO\enable_notification_{$watch_type}_{$notification_type}'
 		);
 
 		/**
-		 * Filter: "Yoast\WP\SEO\enable_notification_{$watch_type}_{$notification_type}" - Filter whether or
+		 * Filter: 'Yoast\WP\SEO\enable_notification_{$watch_type}_{$notification_type}' - Filter whether or
 		 * not the notification for a given watch type and notification type should be shown.
 		 *
 		 * Note: This is a Premium plugin-only hook.
 		 *
-		 * @since 12.9.0
+		 * @since 16.5
+		 *
+		 * @see https://developer.yoast.com/customization/yoast-seo-premium/disabling-automatic-redirects-notifications
 		 *
 		 * @api bool $show_notification Defaults to true.
 		 */
 		$show_notification = apply_filters(
-			"Yoast\WP\SEO\enable_notification_{$this->watch_type}_{$notification_type}",
+			'Yoast\WP\SEO\enable_notification_' . $this->watch_type . '_' . $notification_type,
 			$show_notification
 		);
 

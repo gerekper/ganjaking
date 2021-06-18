@@ -1128,7 +1128,7 @@ body .gform_wrapper.gravity-theme ul.chosen-results li {
 		display: none !important;
 	}
 
-.gform_wrapper.gravity-theme .gform_hidden {
+.gform_wrapper.gravity-theme .gf_hidden, .gform_wrapper.gravity-theme .gform_hidden {
 		display: none;
 	}
 
@@ -1650,20 +1650,28 @@ to no.
 		padding: 0;
 	}
 
+.gform_wrapper.gravity-theme .gform_fields.left_label fieldset, .gform_wrapper.gravity-theme .gform_fields.right_label fieldset {
+				clear: both;
+			}
+
+.gform_wrapper.gravity-theme .gform_fields.left_label fieldset .ginput_container, .gform_wrapper.gravity-theme .gform_fields.right_label fieldset .ginput_container {
+					float: left;
+					width: 70%;
+				}
+
+.gform_wrapper.gravity-theme .gform_fields.left_label legend.gfield_label, .gform_wrapper.gravity-theme .gform_fields.right_label legend.gfield_label {
+					display: block;
+					float: left;
+					padding-right: 1em;
+					width: 30%;
+				}
+
 .gform_wrapper.gravity-theme .left_label .ginput_complex .ginput_container, .gform_wrapper.gravity-theme .right_label .ginput_complex .ginput_container {
 		width: auto;
 	}
 
 .gform_wrapper.gravity-theme .left_label div.gfield > div:not(.ui-resizable-handle):not(.gfield-admin-icons), .gform_wrapper.gravity-theme .right_label div.gfield > div:not(.ui-resizable-handle):not(.gfield-admin-icons) {
 		width: 70%;
-	}
-
-.gform_wrapper.gravity-theme .left_label fieldset .ginput_container, .gform_wrapper.gravity-theme .right_label fieldset .ginput_container {
-		width: 100%;
-	}
-
-.gform_wrapper.gravity-theme .left_label fieldset.gfield, .gform_wrapper.gravity-theme .right_label fieldset.gfield {
-		position: relative;
 	}
 
 .gform_wrapper.gravity-theme .right_label .gfield_label {
@@ -1673,24 +1681,6 @@ to no.
 
 .gform_wrapper.gravity-theme .left_label.gform_fields, .gform_wrapper.gravity-theme .right_label.gform_fields {
 		position: relative;
-	}
-
-.gform_wrapper.gravity-theme .gform_fields.left_label legend.gfield_label, .gform_wrapper.gravity-theme .gform_fields.right_label legend.gfield_label {
-		position: absolute;
-		left: 0;
-		width: 30%;
-	}
-
-.gform_wrapper.gravity-theme .left_label fieldset.gfield, .gform_wrapper.gravity-theme .right_label fieldset.gfield {
-		padding-left: 30%;
-	}
-
-.gform_wrapper.gravity-theme .right_label fieldset.gfield {
-		position: relative;
-	}
-
-.gform_wrapper.gravity-theme .right_label legend.gfield_label {
-		padding-right: 1em;
 	}
 
 .gform_wrapper.gravity-theme .left_label .gfield_html_formatted, .gform_wrapper.gravity-theme .right_label .gfield_html_formatted {

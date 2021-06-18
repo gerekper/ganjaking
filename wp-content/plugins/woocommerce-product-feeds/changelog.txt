@@ -1,5 +1,34 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2021.06.15 - version 10.1.0
+* New: Support "backorder" as a possible value for "Availability"
+* New: Support different Availability values for in-stock/backorder/out of stock products
+* New: Support "yesterday" and "week" as review feed generation options
+* New: Support currency choices for supported extensions when building feed URLs
+* Change: Availability is now mandatory
+* Change: Improved debug logging for support purposes
+* Change: Bundle latest version of action scheduler. Provides performance improvements for feed item cache
+* Fix: Resolve issue where feed item filters not invoked when generating structured data
+
+2021.06.03 - version 10.0.4
+* Fix: Resolve conflict with some plugins due to psr/container versions
+* Re-roll release to get back in sync with deployment tool
+
+2021.06.03 - version 10.0.3
+* Change: Compatibility with out-of-date PHP installs
+
+2021.06.02 - version 10.0.2
+* Fix: Resolve issue where variations sometimes not included
+* Change: WooCommerce 5.4 compatibility
+
+2021.06.02 - version 10.0.0
+* New: Support for flattened hierarchy strings as prepopulations, e.g. (Parent > Child > Sub-child)
+* New: Support for "allow backorders" as a prepopulation value
+* New: URL builder to create custom URLs for specific feed configurations
+* Change: Hide reviews from review feed if corresponding product is excluded
+* Change: Remove support for action=woocommerce_gpf style URLs
+* Fix: Tax sometimes not calculated correctly in Bing feed
+
 2021.05.04 - version 9.6.7
 * Fix: Empty values could appear in the feed in some circumstances
 * Fix: product_highlights were output in an incorrect format

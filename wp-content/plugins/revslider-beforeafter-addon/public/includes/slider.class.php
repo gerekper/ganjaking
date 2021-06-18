@@ -1,60 +1,58 @@
 <?php
 /* 
  * @author    ThemePunch <info@themepunch.com>
- * @link      https://www.themepunch.com/
- * @copyright 2017 ThemePunch
+ * @link      http://www.themepunch.com/
+ * @copyright 2021 ThemePunch
 */
 
-if( !defined( 'ABSPATH') ) exit();
+if(!defined('ABSPATH')) exit();
 
 class RsBeforeAfterSliderFront extends RevSliderFunctions {
 	
 	private $version,
 			$pluginUrl, 
 			$pluginTitle;
-					 
+			
 	public function __construct($version, $pluginUrl, $pluginTitle, $isAdmin = false) {
-		
 		$this->version     = $version;
 		$this->pluginUrl   = $pluginUrl;
 		$this->pluginTitle = $pluginTitle;
 		
-		if(!$isAdmin) add_action('revslider_slider_init_by_data_post', array($this, 'check_addon_active'), 10, 1);
-		else add_action('wp_enqueue_scripts', array($this, 'add_scripts'));
+		add_action('revslider_slider_init_by_data_post', array($this, 'check_addon_active'), 10, 1);
+		if($isAdmin){
+			//add_action('wp_enqueue_scripts', array($this, 'add_scripts'));
+		}
 		add_action('revslider_fe_javascript_output', array($this, 'write_init_script'), 10, 2);
+		add_action('revslider_get_slider_wrapper_div', array($this, 'check_if_ajax_loaded'), 10, 2);
+		add_filter('revslider_get_slider_html_addition', array($this, 'add_html_script_additions'), 10, 2);
 		
 	}
 	
 	// HANDLE ALL TRUE/FALSE
 	private function isFalse($val) {
-	
 		if(empty($val)) return true;
 		if($val === true || $val === 'on' || $val === 1 || $val === '1' || $val === 'true') return false;
+		
 		return true;
-	
 	}
 	
 	private function isEnabled($slider) {
+		$slides = $slider->get_slides();
+		if(empty($slides)) return false;
 		
-		$settings = $slider->get_params();
-		if(empty($settings)) return false;
+		$enabled = false;
+		foreach($slides as $slide){
+			if($this->get_val($slide, array('params', 'addOns', 'revslider-beforeafter-addon', 'enable'), false) === true){
+				$enabled = true;
+				break;
+			}					
+		}
 		
-		$addOns = $this->get_val($settings, 'addOns', false);
-		if(empty($addOns)) return false;
-		
-		$addOn = $this->get_val($addOns, 'revslider-' . $this->pluginTitle . '-addon', false);
-		if(empty($addOn)) return false;
-		
-		$enabled = $this->get_val($addOn, 'enable', false);
-		if($this->isFalse($enabled)) return false;
-		
-		return $addOn;
-	
+		return $enabled;
 	}
 	
 	public function check_addon_active($record) {
 		if(empty($record)) return $record;
-		
 		// addon enabled
 		$addOn = $this->isEnabled($record);
 		if(empty($addOn)) return $record;
@@ -67,45 +65,64 @@ class RsBeforeAfterSliderFront extends RevSliderFunctions {
 	}
 	
 	public function add_scripts() {
-		
 		$handle = 'rs-' . $this->pluginTitle . '-front';
 		$base   = $this->pluginUrl . 'public/assets/';
-
-		$path = $base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js';
 		$_jsPathMin = file_exists(RS_BEFOREAFTER_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
 		
-		wp_enqueue_style(
+		wp_enqueue_style('rs-icon-set-fa-icon-', RS_PLUGIN_URL . 'public/assets/fonts/font-awesome/css/font-awesome.css', array(), RS_REVISION);
 		
-			'rs-icon-set-fa-icon-', 
-			RS_PLUGIN_URL .  'public/assets/fonts/font-awesome/css/font-awesome.css', 
-			array(), 
-			RevSliderGlobals::SLIDER_REVISION
+		wp_enqueue_style($handle, $base . 'css/revolution.addon.' . $this->pluginTitle . '.css', array(), $this->version);
+		wp_enqueue_script($handle, $base . 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', array('jquery'), $this->version, true);
+
+		add_filter('revslider_modify_waiting_scripts', array($this, 'add_waiting_script_slugs'), 10, 1);
+	}
+	
+	public function add_html_script_additions($return, $output){
+		if($output instanceof RevSliderSlider){
+			$addOn = $this->isEnabled($output);
+			if(empty($addOn)) return $return;
+		}else{
+			if($output->ajax_loaded !== true) return $return;
 			
-		);
+			$addOn = $this->isEnabled($output->slider);
+			if(empty($addOn)) return $return;
+		}
 		
-		wp_enqueue_style(
+		$waiting = array();
+		$waiting = $this->add_waiting_script_slugs($waiting);
+		if(!empty($waiting)){
+			if(!isset($return['waiting'])) $return['waiting'] = array();
+			foreach($waiting as $wait){
+				$return['waiting'][] = $wait;
+			}
+		}
 		
-			$handle, 
-			$base . 'css/revolution.addon.' . $this->pluginTitle . '.css', 
-			array(), 
-			$this->version
-			
-		);
+		$global = $output->get_global_settings();
+		$addition = ($output->_truefalse($output->get_val($global, array('script', 'defer'), false)) === true) ? ' async="" defer=""' : '';
+		$_jsPathMin = file_exists(RS_BEFOREAFTER_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
 		
-		wp_enqueue_script(
+		$return['toload']['beforeafter'] = '<script'. $addition .' src="'. $this->pluginUrl . 'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js"></script>';
 		
-			$handle, 
-			$base . 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', 
-			array('jquery'), 
-			$this->version, 
-			true
-			
-		);
-		
+		return $return;
 	}
 
-	public function write_init_script($slider, $id) {
+	public function add_waiting_script_slugs($wait){
+		$wait[] = 'beforeafter';
+		return $wait;
+	}
+	
+	public function check_if_ajax_loaded($r, $output) {
+		if($output->ajax_loaded !== true) return $r;
 		
+		$addOn = $this->isEnabled($output->slider);
+		if(empty($addOn)) return $r;
+		
+		$html = '<link rel="stylesheet" href="'. RS_PLUGIN_URL . 'public/assets/fonts/font-awesome/css/font-awesome.css">'."\n";
+		$html .= '<link rel="stylesheet" href="'. $this->pluginUrl . 'public/assets/css/revolution.addon.' . $this->pluginTitle . '.css">'."\n";
+		return $html . $r;
+	}
+	
+	public function write_init_script($slider, $id) {
 		// enabled from slider settings
 		$addOn = $this->isEnabled($slider);
 		if(empty($addOn)) return;
@@ -120,13 +137,11 @@ class RsBeforeAfterSliderFront extends RevSliderFunctions {
 			$beforeafter = $this->get_val($addOns, 'revslider-' . $this->pluginTitle . '-addon', array());
 			$enabled = $this->get_val($beforeafter, 'enable', false);
 			$enabled = !$this->isFalse($enabled);
-				
+			
 			if(!empty($enabled)) break;
-				
 		}
 		
 		if(!empty($enabled)) {
-			
 			$icon = $this->get_val($addOn, 'icon', array());
 			$drag = $this->get_val($addOn, 'drag', array());
 			$divider = $this->get_val($addOn, 'divider', array());
@@ -172,7 +187,7 @@ class RsBeforeAfterSliderFront extends RevSliderFunctions {
 			
 			echo "\n";
 			echo '						if(typeof RevSliderBeforeAfter !== "undefined") {' . "\n";
-			echo '    						RevSliderBeforeAfter(tpj, revapi' . $id . ', {' . "\n";
+			echo '    						RevSliderBeforeAfter(revapi' . $id . ', {' . "\n";
 			echo '        						arrowStyles: {' . "\n";
 			echo '            						leftIcon: "'     . $arrow_left    . '",' . "\n";
 			echo '            						rightIcon: "'    . $arrow_right   . '",' . "\n";

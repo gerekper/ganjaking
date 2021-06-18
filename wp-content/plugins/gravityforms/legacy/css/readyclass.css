@@ -234,7 +234,7 @@ to no.
     }
 
     .gform_wrapper .top_label li.gfield.gf_left_third div:not(.ginput_container_date) input:not([type='radio']):not([type='checkbox']):not(.ginput_quantity),
-    .gform_wrapper .top_label li.gfield.gf_middle_third div:not(.ginput_container_date) input:not([type='radio']):not([type='checkbox']):not(.ginput_quantity),
+    .gform_wrapper .top_label li.gfield.gf_middle_third div:not(.ginput_container_date) input:not([type='radio']):not([type='checkbox']):not(.ginput_quantity):not(.ginput_container_time input),
     .gform_wrapper .top_label li.gfield.gf_right_third div:not(.ginput_container_date) input:not([type='radio']):not([type='checkbox']):not(.ginput_quantity),
     .gform_wrapper .top_label li.gfield.gf_left_third div:not(.ginput_container_date) select,
     .gform_wrapper .top_label li.gfield.gf_middle_third div:not(.ginput_container_date) select,
@@ -363,6 +363,17 @@ to no.
         width: calc(70% + 16px);
     }
 
+    .gform_wrapper li.gfield[class*="col"][class*="gf_list_"] ul.gfield_checkbox,
+    .gform_wrapper li.gfield[class*="col"][class*="gf_list_"] ul.gfield_radio {
+        font-size: 0;
+        display: block;
+    }
+
+    .gform_wrapper li.gfield[class*="col"][class*="gf_list_"] ul.gfield_checkbox li,
+    .gform_wrapper li.gfield[class*="col"][class*="gf_list_"] ul.gfield_radio li {
+        font-size: 0.9rem;
+    }
+
     .gform_wrapper li.gfield.gf_list_2col ul.gfield_checkbox li,
     .gform_wrapper li.gfield.gf_list_2col ul.gfield_radio li {
         width: 50%;
@@ -372,7 +383,6 @@ to no.
         padding-right: 16px;
         min-height: 28px;
         vertical-align: top;
-        font-size: 90%;
     }
 
     .gform_wrapper li.gfield.gf_list_3col ul.gfield_checkbox li,
@@ -384,7 +394,6 @@ to no.
         padding-right: 16px;
         min-height: 28px;
         vertical-align: top;
-        font-size: 90%;
     }
 
     .gform_wrapper li.gfield.gf_list_2col ul.gfield_checkbox li label,
@@ -409,7 +418,6 @@ to no.
         padding-right: 16px;
         min-height: 28px;
         vertical-align: top;
-        font-size: 90%;
     }
 
     .gform_wrapper li.gfield.gf_list_5col ul.gfield_checkbox li,
@@ -421,7 +429,6 @@ to no.
         padding-right: 16px;
         min-height: 28px;
         vertical-align: top;
-        font-size: 90%;
     }
 
     .gform_wrapper li.gfield.gf_list_2col ul.gfield_checkbox,

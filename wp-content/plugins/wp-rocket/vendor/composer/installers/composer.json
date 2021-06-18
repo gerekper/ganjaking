@@ -31,7 +31,7 @@
         "iTop",
         "Joomla",
         "Kanboard",
-	"Known",
+        "Known",
         "Kohana",
         "Lan Management System",
         "Laravel",
@@ -40,11 +40,13 @@
         "Magento",
         "majima",
         "Mako",
+        "MantisBT",
         "Mautic",
         "Maya",
         "MODX",
         "MODX Evo",
         "MediaWiki",
+        "Miaoxing",
         "OXID",
         "osclass",
         "MODULEWork",
@@ -56,14 +58,18 @@
         "PPI",
         "Puppet",
         "Porto",
+        "ProcessWire",
         "RadPHP",
         "ReIndex",
         "Roundcube",
         "shopware",
         "SilverStripe",
         "SMF",
+        "Starbug",
         "SyDES",
+        "Sylius",
         "symfony",
+        "TastyIgniter",
         "Thelia",
         "TYPO3",
         "WHMCS",
@@ -84,10 +90,13 @@
     "autoload": {
         "psr-4": { "Composer\\Installers\\": "src/Composer/Installers" }
     },
+    "autoload-dev": {
+        "psr-4": { "Composer\\Installers\\Test\\": "tests/Composer/Installers/Test" }
+    },
     "extra": {
         "class": "Composer\\Installers\\Plugin",
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-main": "1.x-dev"
         }
     },
     "replace": {
@@ -95,13 +104,18 @@
         "roundcube/plugin-installer": "*"
     },
     "require": {
-        "composer-plugin-api": "^1.0"
+        "composer-plugin-api": "^1.0 || ^2.0"
     },
     "require-dev": {
-        "composer/composer": "1.0.*@dev",
-        "phpunit/phpunit": "^4.8.36"
+        "composer/composer": "1.6.* || ^2.0",
+        "composer/semver": "^1 || ^3",
+        "symfony/phpunit-bridge": "^4.2 || ^5",
+        "phpstan/phpstan": "^0.12.55",
+        "symfony/process": "^2.3",
+        "phpstan/phpstan-phpunit": "^0.12.16"
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "SYMFONY_PHPUNIT_REMOVE_RETURN_TYPEHINT=1 vendor/bin/simple-phpunit",
+        "phpstan": "vendor/bin/phpstan analyse"
     }
 }

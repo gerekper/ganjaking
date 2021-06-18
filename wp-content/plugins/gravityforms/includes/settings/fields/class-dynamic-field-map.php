@@ -39,6 +39,8 @@ class Dynamic_Field_Map extends Generic_Map {
 			unset( $props['enable_custom_key'] );
 		}
 
+		$this->value_field['allow_custom'] = false;
+
 		parent::__construct( $props, $settings );
 
 	}

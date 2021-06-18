@@ -161,8 +161,8 @@ jQuery(function() {
 		RVS.L[_.layerid].addOns[slug].location = RVS.L[_.layerid].addOns[slug].location!=undefined ? RVS.L[_.layerid].addOns[slug].location : (RVS.SLIDER[RVS.S.slideId].slide.addOns[slug]!==undefined && RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].location!==undefined) ?  RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].location : RVS.SLIDER.settings.addOns[slug].location;
 		RVS.L[_.layerid].addOns[slug].unit = RVS.L[_.layerid].addOns[slug].unit!=undefined ? RVS.L[_.layerid].addOns[slug].unit : (RVS.SLIDER[RVS.S.slideId].slide.addOns[slug]!==undefined && RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].unit!==undefined) ?  RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].unit : RVS.SLIDER.settings.addOns[slug].unit;
 		
-		addon.forms.selectList.val(RVS.L[_.layerid].addOns[slug].location).trigger('change.select2RS');
-		addon.forms.temperature.val(RVS.L[_.layerid].addOns[slug].unit).trigger('change.select2RS');
+		addon.forms.selectList.val(RVS.L[_.layerid].addOns[slug].location).ddTP('change');
+		addon.forms.temperature.val(RVS.L[_.layerid].addOns[slug].unit).ddTP('change');
 
 	}
 
@@ -231,7 +231,7 @@ jQuery(function() {
 	function createLayerSettingsFields() {
 
 		var list = [],
-			h = '<label_a>'+bricks.wlocation+'</label_a><select id="weather_layer_city" data-r="addOns.'+slug+'.location" class="layerinput tos2 easyinit">';
+			h = '<label_a>'+bricks.wlocation+'</label_a><select id="weather_layer_city" data-r="addOns.'+slug+'.location" class="layerinput tos2 searchbox easyinit">';
 		if (RVS.SLIDER.settings.addOns[slug] && RVS.SLIDER.settings.addOns[slug].location)
 			list.push(RVS.SLIDER.settings.addOns[slug].location);
 		else
@@ -266,20 +266,20 @@ jQuery(function() {
 		
 		jQuery('#ta_layertext_extension').append('<div id="ta_layertext_extension_weather">'+h+'</div>');
 		addon.forms.selectList = jQuery('#weather_layer_city');
-		addon.forms.selectList.select2RS({
+		addon.forms.selectList.ddTP({
 			tags:true,				
 			placeholder:"Location / WOEID",			
 		});
 		
 		addon.forms.temperature = jQuery('#weather_layer_unit');
-		addon.forms.temperature.select2RS({
-			minimumResultsForSearch:"Infinity",
+		addon.forms.temperature.ddTP({
+			
 			placeholder:bricks.weather_temperature
 		});
 
-		addon.forms.selectList.on('select2RS:select',function(e) {
+		addon.forms.selectList.on('ddTP:select',function(e) {
 			addon.forms.selectList.find('option').each(function() {
-				if (this.dataset.select2RSTag)  delete this.dataset.select2RSTag;
+				if (this.dataset.ddTPTag)  delete this.dataset.ddTPTag;
 			});
 		});
 
@@ -307,8 +307,8 @@ jQuery(function() {
 			
 			
 			addon.forms.slidergeneral.append(jQuery(_h));
-			addon.forms.slidergeneral.find('.tos2.nosearchbox').select2RS({
-				minimumResultsForSearch:"Infinity",
+			addon.forms.slidergeneral.find('.tos2.nosearchbox').ddTP({
+				
 				placeholder:"Select From List"
 			});
 			

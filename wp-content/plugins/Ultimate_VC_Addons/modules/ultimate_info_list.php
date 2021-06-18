@@ -6,13 +6,13 @@
  *  @package Ultimate Headings
  */
 
-if ( ! class_exists( 'AIO_Info_List' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Info_List' ) ) {
 	/**
 	 * Function that initializes Ultimate Info List Module
 	 *
-	 * @class AIO_Info_list
+	 * @class Ultimate_VC_Addons_Info_list
 	 */
-	class AIO_Info_List {
+	class Ultimate_VC_Addons_Info_List {
 		/**
 		 * Info List data
 		 *
@@ -1005,7 +1005,7 @@ if ( ! class_exists( 'AIO_Info_List' ) ) {
 		}
 	}
 }
-global $a_i_o_info_list; // WPB: Beter to create singleton in AIO_Info_list I think, but it also work.
+global $uavc_info_list; // WPB: Beter to create singleton in Ultimate_VC_Addons_Info_list I think, but it also work.
 if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
 	if ( ! class_exists( 'WPBakeryShortCode_Info_List' ) ) {
 		/**
@@ -1020,8 +1020,8 @@ if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
 			 * @access public
 			 */
 			public function content( $atts, $content = null ) {
-				global $a_i_o_info_list;
-				return $a_i_o_info_list->front_info_list( $atts, $content );
+				global $uavc_info_list;
+				return $uavc_info_list->front_info_list( $atts, $content );
 			}
 		}
 	}
@@ -1038,12 +1038,12 @@ if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
 			 * @access public
 			 */
 			public function content( $atts, $content = null ) {
-				global $a_i_o_info_list;
-				return $a_i_o_info_list->front_info_list_item( $atts, $content );
+				global $uavc_info_list;
+				return $uavc_info_list->front_info_list_item( $atts, $content );
 			}
 		}
 	}
 }
-if ( class_exists( 'AIO_Info_List' ) ) {
-	$a_i_o_info_list = new AIO_Info_List();
+if ( class_exists( 'Ultimate_VC_Addons_Info_List' ) ) {
+	$uavc_info_list = new Ultimate_VC_Addons_Info_List();
 }

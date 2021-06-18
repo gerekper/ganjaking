@@ -21,10 +21,10 @@ namespace Yoast\WP\SEO\Actions;
 
 use WPSEO_Premium_Prominent_Words_Support;
 use Yoast\WP\SEO\Helpers\Options_Helper;
-use Yoast\WP\SEO\Helpers\Prominent_Words_Helper;
 use Yoast\WP\SEO\Helpers\Zapier_Helper;
 use Yoast\WP\SEO\Premium\Actions\Link_Suggestions_Action as New_Link_Suggestions_Action;
 use Yoast\WP\SEO\Premium\Actions\Zapier_Action as New_Zapier_Action;
+use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
 use Yoast\WP\SEO\Repositories\Prominent_Words_Repository;
 

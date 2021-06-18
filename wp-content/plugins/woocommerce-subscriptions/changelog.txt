@@ -1,5 +1,11 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2021-06-09 - version 3.1.3
+* Fix: Switch calculations not correctly charging the full sign up fee when the "Prorate Sign up Fee" option is set to "Never (charge the full sign up fee)". PR#4096
+* Fix: Fixes PayPal Reference Transactions integration with Checkout blocks. PR#4105
+* Fix: Set the updated payment token on all pending-payment renewals so that manually retrying a failed payment uses the updated token set on the subscription. PR#4108
+* Dev: Moved the `WC_Subscriptions::enqueue_scripts` and` WC_Subscriptions::equeue_styles` static functions to the new `WC_Subscriptions_Frontend_Scripts` class (deprecated existing functions). PR#4104
+
 2021-05-19 - version 3.1.2
 * Fix: Don't show recurring shipping method selection when the rates and options match the initial cart options. PR#4091
 * Fix: Update the recurring shipping totals on selection and fix invalid recurring shipping method notices. PR#4099

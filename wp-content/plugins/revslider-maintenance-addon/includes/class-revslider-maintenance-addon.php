@@ -52,12 +52,14 @@ class Revslider_Maintenance_Addon {
 
 		$this->load_dependencies();
 		$this->set_locale();
-
-		add_filter('revslider_layer_content', array($this, 'check_if_slider_has_options'), 10, 5);
+		
+		$enabled = get_option('revslider_maintenance_enabled');
+		if(!empty($enabled)){
+			add_filter('revslider_layer_content', array($this, 'check_if_slider_has_options'), 10, 5);
+		}
 		if(is_admin()){
 			$this->define_admin_hooks();
 		}else{
-			$enabled = get_option('revslider_maintenance_enabled');
 			if(!empty($enabled)){
 				$this->define_public_hooks();
 			}

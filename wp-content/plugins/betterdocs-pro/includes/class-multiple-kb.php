@@ -31,7 +31,7 @@ class BetterDocs_Multiple_Kb
 			add_filter('betterdocs_doc_permalink_default', array(__CLASS__, 'doc_permalink_default'), 10, 3);
 			add_filter('nav_menu_link_attributes', array(__CLASS__, 'doc_category_nav_menu_permalink'), 10, 3);
 			add_action('betterdocs_cat_template_multikb', array(__CLASS__, 'get_multiple_kb'));
-			add_action('betterdocs_postcount', array(__CLASS__, 'postcount'), 10, 5);
+			add_action('betterdocs_postcount', array(__CLASS__, 'postcount'), 10, 6);
 			add_action('betterdocs_category_list_shortcode', array(__CLASS__, 'category_list_shortcode'), 10, 1);
 			add_action('betterdocs_category_box_shortcode', array(__CLASS__, 'category_box_shortcode'), 10, 1);
 			add_action('betterdocs_sidebar_category_shortcode', array(__CLASS__, 'sidebar_category_shortcode'), 10, 1);
@@ -140,23 +140,27 @@ class BetterDocs_Multiple_Kb
         return BetterDocs_DB::get_settings('multiple_kb');
 	}
 
-	public static function postcount($term_count, $multiple_kb, $term_id, $term_slug, $count)
+	public static function postcount($term_count, $multiple_kb, $term_id, $term_slug, $count, $nested_subcategory=false)
 	{
-		global $wp_query;
+
+        global $wp_query;
+
+        if ($nested_subcategory==false && $term_count == 0) {
+            return $term_count;
+        }
+
 		$kb_terms = get_terms('knowledge_base');
 		$doc_category_terms = get_terms('doc_category');
 		$knowledge_base = isset($wp_query->query['knowledge_base']) ? $wp_query->query['knowledge_base'] : '';
 
 		if ($multiple_kb == true && !empty($kb_terms) && !empty($doc_category_terms) && $knowledge_base != 'non-knowledgebase') {
-			$term_count = self::count_category($knowledge_base, $term_slug);
-		} else {
-			$term_count = betterdocs_get_postcount($count, $term_id);
+			$term_count = self::count_category($knowledge_base, $term_slug, $nested_subcategory);
 		}
-
+        //var_dump($term_count);
 		return $term_count;
 	}
 
-	public static function count_category($kb_slug, $cat_slug)
+	public static function count_category($kb_slug, $cat_slug, $nested_subcategory)
 	{
 		$args = array(
 			'post_type'   => 'docs',
@@ -182,8 +186,12 @@ class BetterDocs_Multiple_Kb
 				'field' => 'term_taxonomy_id',
 				'terms' => array($tax_map['knowledge_base'][$kb_slug]),
 				'operator' => 'IN',
-				'include_children'  => true,
+                'include_children'  => true,
 			);
+
+            if ($nested_subcategory == false && $kb_slug != '') {
+                $args['tax_query'][0]['include_children'] = false;
+            }
 		}
 
 		if (array_key_exists('doc_category', $tax_map) && !empty($tax_map['doc_category'][$cat_slug])) {
@@ -194,6 +202,10 @@ class BetterDocs_Multiple_Kb
 				'terms' => array($tax_map['doc_category'][$cat_slug]),
 				'include_children'  => true,
 			);
+
+            if ($nested_subcategory == false && $kb_slug != '') {
+                $args['tax_query'][1]['include_children'] = false;
+            }
 		}
 
 		$query = new WP_Query($args);
@@ -456,7 +468,6 @@ class BetterDocs_Multiple_Kb
 	{
 		$kb_slug = '';
 		$object = get_queried_object();
-
 		if (is_singular('docs')) {
 			$kbterms = get_the_terms(get_the_ID(), 'knowledge_base');
 

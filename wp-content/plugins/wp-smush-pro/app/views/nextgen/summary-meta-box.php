@@ -7,6 +7,7 @@
  * @var int        $image_count
  * @var bool       $lossy_enabled
  * @var int        $smushed_image_count
+ * @var int        $super_smushed_count
  * @var string     $stats_human
  * @var string|int $stats_percent
  * @var int        $total_count
@@ -58,7 +59,7 @@ $branded_image = apply_filters( 'wpmudev_branding_hero_image', '' );
 				</span>
 				<span class="sui-list-detail wp-smush-stats">
 					<?php if ( $lossy_enabled ) : ?>
-						<span class="smushed-count"><?php echo absint( $smushed_image_count ); ?></span>/<?php echo absint( $total_count ); ?>
+						<span class="smushed-count"><?php echo absint( $super_smushed_count ); ?></span>/<?php echo absint( $total_count ); ?>
 					<?php else : ?>
 						<span class="sui-tag sui-tag-disabled wp-smush-lossy-disabled">
 							<?php esc_html_e( 'Disabled', 'wp-smushit' ); ?>

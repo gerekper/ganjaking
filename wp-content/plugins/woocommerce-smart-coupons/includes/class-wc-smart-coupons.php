@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.4.0
+ * @version     2.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -2628,6 +2628,8 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 			if ( 'yes' === $for_new_user ) {
 
+				$failed_notice = __( 'This coupon is valid for the first order only.', 'woocommerce-smart-coupons' );
+
 				$user_id_1 = 0;
 				$user_id_2 = 0;
 				$user_id_3 = 0;
@@ -2732,7 +2734,11 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					}
 
 					if ( ! empty( $order_id ) ) {
-						throw new Exception( __( 'This coupon is valid for the first order only.', 'woocommerce-smart-coupons' ) );
+						if ( defined( 'WC_DOING_AJAX' ) && WC_DOING_AJAX === true ) {
+							$is_valid = false;
+						} else {
+							throw new Exception( $failed_notice );
+						}
 					}
 				} elseif ( ! empty( $email ) ) {
 
@@ -2767,7 +2773,11 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					}
 
 					if ( ! empty( $order_id ) ) {
-						throw new Exception( __( 'This coupon is valid for the first order only.', 'woocommerce-smart-coupons' ) );
+						if ( defined( 'WC_DOING_AJAX' ) && WC_DOING_AJAX === true ) {
+							$is_valid = false;
+						} else {
+							throw new Exception( $failed_notice );
+						}
 					}
 				}
 			}

@@ -1,0 +1,242 @@
+/* 01. GENERAL SETTINGS ============================================ */
+
+* {margin: 0; padding: 0;}
+
+p {line-height: 160%;}
+
+img {border: 0;}
+
+body {
+	background: #fff;
+	color: #4593e3;
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size: 13px;
+	font-weight: 300;
+}
+
+.clear {clear: both;}
+
+/* Buttons */
+.btn {
+	display: inline-block;
+	margin-top: 20px;
+	padding: 10px 40px;
+	color: rgba(255,255,255, 0.95);
+	font-size: 18px;
+	font-weight: 700;
+	text-transform: uppercase;
+	border: none;
+	border-radius: 20px;
+	outline: 0;
+	transition: all 0.1s ease-in;
+}
+
+.btn-transparent {background: rgba(0,0,0, 0.2);}
+.btn-transparent:hover {background: rgba(0,0,0, 0.4);}
+
+/* Separators */
+.separator {
+	margin: 0 auto;
+	background: rgba(0, 0, 0, 0.2);
+	width: 30px;
+	height: 5px;
+}
+
+/* 02. FONT FACE ============================================ */
+
+@font-face {
+    font-family: 'norwester';
+	src: url('../fonts/norwester/norwester.eot');
+    src: url('../fonts/norwester/norwester.eot?iefix') format('embedded-opentype'),
+		 url('../fonts/norwester/norwester.ttf');
+    font-weight: normal;
+}
+
+/* 03. Members SETTINGS ============================================ */
+
+#umplt-members {
+	padding: 60px 0;
+	text-align: center;	
+}
+
+
+#umplt-members h3 {
+	padding: 0 0 15px;
+	font-family: 'norwester';
+	font-size: 36px;
+	text-transform: uppercase;
+	color: #4593e3;
+}
+
+#umplt-members a {
+	text-decoration: none;
+	color: #fff; 
+	transition: all 0.1s ease-in;
+}
+
+.member-div p{
+	font-size:16px;
+}
+
+.member-div figure {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+.member-div figure img {
+  min-width: 100%;
+}
+
+.member-div figcaption p {
+  font-size: 16px;
+  color:#fff !important;
+}
+
+.member-div figcaption ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.member-div figcaption ul {
+  visibility: visible;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+.member-div figcaption ul li {
+  display: flex;
+  padding: 10px;
+}
+
+.member-div h4 {
+  margin: 10px 0 0;
+  padding: 0;
+}
+.member-title{
+	font-size:16px;
+	width:100%;
+	background-color: #4593e3;
+}
+
+.member-title h2, .member-title p{
+    color: #fff;
+}
+
+.member-div figcaption {
+  padding: 0px;
+  color: transparent;
+  background-color: transparent;
+  position: absolute;
+  z-index: 996;
+  bottom: 0;
+  left: 100%;
+  right: 0;
+  width: 80%;
+  height: 60%;
+  overflow: hidden;
+  visibility: hidden;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.member-div figure:hover figcaption {
+  visibility: visible;
+  color: #fff;
+  height: 60%;
+  width: 80%;
+  left: 80%;
+  right:20%;
+  -webkit-transition: all 0.3s ease-in-out ;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.member-div figure:hover figcaption ul li a:hover {
+  color: rgba(49, 49, 49, .97);
+}
+
+.member-div figure:hover{
+-webkit-animation-name: flipInX; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: .5s; /* Safari 4.0 - 8.0 */
+    animation-name: flipInX;
+    animation-duration: .5s;
+}
+@-webkit-keyframes flipInX {
+ from {
+   -webkit-animation-timing-function: ease-in;
+   animation-timing-function: ease-in;
+   opacity: 100;
+ }
+
+ 60% {
+   -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -30deg);
+   transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+   opacity: 1;
+ }
+
+ to {
+   -webkit-transform: perspective(400px);
+   transform: perspective(400px);
+ }
+}
+
+
+/* Social Networks Meta */
+#umplt-members li {display: flex; padding: 4% 8%; font-size: 18px; margin:4%; background-color:#4593e3;}
+#umplt-members li a {color:#fff; transition: all 0.1s ease-in;}
+#umplt-members li a:hover {color: rgba(0,0,0, 0.7);}
+
+/* Rows Optimization */
+.row2 {
+	display: none;
+}
+
+.row1 .col-md-3, .row2 .col-md-3 {
+	padding-bottom: 40px;
+}
+
+/* Mobile Devices Optimization */
+@media (min-width: 568px) and (max-width: 992px) {
+
+	.row1 .col-md-3, .row2 .col-md-3 {
+		display: inline-block;
+		max-width: 48%;
+	}
+
+	#umplt-members img {max-width: 300px;}
+
+}
+
+@media (max-width: 568px) {
+	.member_img img{bottom:70%;}
+}
+/********************************************************/
+.userpro-paginate.top {
+    display: inline-block;
+    width: 100% !important;
+}
+.userpro-search-results , div.userpro-search-results span , .upmlsv-view.userpro-flat-btn.userpro-transition,div.userpro-paginate span, div.userpro-paginate a.page-numbers{
+    color:#4593e3 !important;
+}
+.member-div figure {
+    height: 160px;
+    width: 160px;
+}
+.modified.avatar , .default.avatar {
+    height: 100%;
+    width: 100%;
+}
+.userpro-transition {
+    font-size: 13px !important;
+}
+.avatar {
+    border-radius: 0% !important; 
+}

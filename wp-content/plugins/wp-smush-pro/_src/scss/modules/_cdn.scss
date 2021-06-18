@@ -14,10 +14,9 @@
             vertical-align: top;
         }
 
-        .sui-cdn-upsell p,
-        .sui-cdn-disabled p {
+        &.wrap-smush-cdn .sui-block-content-center p {
             max-width: 600px;
-            margin: 20px auto 0;
+            margin: 20px auto 30px;
         }
 
         .sui-cdn {
@@ -51,10 +50,16 @@
             margin: 0 5px 0 0;
             width: 30px;
 
+            &.smush-extension-jpeg,
             &.smush-extension-jpg { background-color: #F7E100; }
             &.smush-extension-png { background-color: #FFB694; }
             &.smush-extension-gif { background-color: #72D5D4; }
             &.smush-extension-webp { background-color: #72ADD5; }
+            &.smush-extension-svg { background-color: #88D572; }
+            &.smush-extension-iframe {
+                background-color: #8772D5;
+                font-size: 7px;
+            }
         }
 
     }

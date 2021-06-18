@@ -164,7 +164,6 @@ class Page {
 	 */
 	public function render_page() {
 		$rocket_valid_key = true;
-		if ( $rocket_valid_key ) {
 			$this->dashboard_section();
 			$this->cache_section();
 			$this->assets_section();
@@ -177,9 +176,6 @@ class Page {
 			$this->addons_section();
 			$this->cloudflare_section();
 			$this->sucuri_section();
-		} else {
-			$this->license_section();
-		}
 
 		$this->render->set_settings( $this->settings->get_settings() );
 
@@ -187,7 +183,7 @@ class Page {
 
 		$this->render->set_hidden_settings( $this->settings->get_hidden_settings() );
 
-		$btn_submit_text = __( 'Save Changes', 'rocket' );
+		$btn_submit_text = $rocket_valid_key ? __( 'Save Changes', 'rocket' ) : __( 'Validate License', 'rocket' );
 		echo $this->render->generate( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Dynamic content is properly escaped in the view.
 			'page',
 			[
@@ -272,8 +268,6 @@ class Page {
 		$data['license_expiration'] = date_i18n( get_option( 'date_format' ), (int) $user->licence_expiration );
 
 		return $data;
-	
-
 	}
 
 	/**

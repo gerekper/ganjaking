@@ -33,8 +33,9 @@ class rs_whiteboard_slider extends RevSliderFunctions {
 		
 		if(!isset($_GET['page']) || !isset($_GET['view'])) return;
 		if($_GET['page'] !== 'revslider') return;
-		
-		wp_register_script('revslider-whiteboard-plugin-js', WHITEBOARD_PLUGIN_URL . 'admin/assets/js/revslider-whiteboard-addon-admin.js', array( 'jquery','revbuilder-admin' ), WHITEBOARD_VERSION);
+		$_jsPathMin = file_exists(WHITEBOARD_PLUGIN_PATH . 'admin/assets/js/revslider-whiteboard-addon-admin.dev.js') ? '.dev' : '';
+		$__path = WHITEBOARD_PLUGIN_PATH . 'admin/assets/js/revslider-whiteboard-addon-admin.dev.js';
+		wp_register_script('revslider-whiteboard-plugin-js', WHITEBOARD_PLUGIN_URL . 'admin/assets/js/revslider-whiteboard-addon-admin' . $_jsPathMin . '.js', array( 'jquery','revbuilder-admin' ), WHITEBOARD_VERSION);
 		wp_enqueue_script('revslider-whiteboard-plugin-js');
 		wp_localize_script( 'revslider-whiteboard-plugin-js', 'revslider_whiteboard_addon', self::whiteboard_get_var() );
 		

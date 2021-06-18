@@ -1,0 +1,312 @@
+body{font-family: 'Open Sans', sans-serif;color:#4d4d4d}
+
+.entry-header{text-align:center;}
+
+.mainDiv{width:100%;position:relative;background:#ececec}
+
+.LeftDiv{float:left;
+width:20%;}
+
+.RightDiv{width:79%;
+display:inline-block;
+border-radius:3px;}
+
+.userpro-dash{
+position:relative;
+width:100%;
+display:inline-block;
+text-align:center;
+margin-left: 14px;
+}
+
+
+.userpro-dashboard-leftsidebar{display:inline-block;
+width:90%;
+vertical-align:top;
+margin:0px 2% 20px auto;
+padding:0px 10px 0px 0px;
+float:left;
+
+}
+
+.myUser{border:1px solid #eeeeee;
+width:100%;
+border-radius:3px;
+font-size:0.9em;
+box-shadow: inset 0px 1px 0px rgba(255,255,255, .8), 0px 1px 3px rgba(0,0,0, .1);
+padding-bottom:7px;
+}
+
+.userpro-dashboard-leftsidebar img{width:100px;
+height:100px;
+border-radius:50%;
+border:5px solid #fff;
+box-shadow: 3px 3px 6px #D4C7C7;}
+
+.picUser{margin-top:10px;}
+
+.uploadPic-box{border:1px solid #ddd;
+border-radius:3px;
+width:95%;
+padding:5px;
+text-decoration:none;
+display:inline-block;
+text-align:left;
+transition:all 0.6s;
+-webkit-transition:all 0.6s;
+-moz-transition:all 0.6s;
+background:#f5f5f5;
+}
+
+.uploadPic{margin:6px 6px;}
+
+.uploadPic-box:hover{background:#0073A9;
+color:#fff}
+
+.uploadPic-box-selected{
+	background:#0073A9;
+	color:#fff !important;
+}
+.uploadPic a{color:#4d4d4d}
+
+.Heading{
+padding:3px;
+border-bottom:1px solid #ececec;}
+
+.Heading h2{margin-left:10px;}
+
+.profileDashboard{width:90%;
+border:1px solid #ececec;
+margin:0px 0px 0px 5px;
+padding:0 16px 15px 15px;
+box-shadow: inset 0px 1px 0px rgba(255,255,255, .8), 0px 1px 3px rgba(0,0,0, .1);
+background:#fff;
+border-radius:3px}
+
+.tagTitle{width:30%;
+}
+
+.inputTag{
+width:70%;float:right;
+vertical-align:text-top;
+
+}
+
+.tagTitle{width:30%;float:left;
+margin-top:6px}
+
+.inputStyle{border:1px solid #ececec;
+width:60%;
+height:30px;
+background:#f5f5f5;
+border: 1px solid #ddd;
+border-radius:3px;}
+
+.inputStyleArea{border:1px solid #ececec;
+background:#f5f5f5;
+border: 1px solid #ddd;
+border-radius:3px;
+vertical-align:text-top;}
+
+.tagName{margin-top:6px}
+
+.labeltag{width:20%;display:inline-block;
+text-align:center;}
+
+.buttonSave{padding:7px 7px 7px 10px;
+border-radius:3px;
+background:#e6e6e6;
+border:1px solid #D0D0D0}
+
+/* ------------------------ Dashboard custom css --------------------------------------------------*/
+div.userpro-dashboard form {margin: 0 !important}
+
+/* widget */
+div.userpro-bashboard {
+	font-size: 12px !important;
+	line-height: 1 !important;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	text-shadow: none;
+}
+
+div.userpro-dashboard{
+	width: 100% !important;
+}
+
+div.userpro-dashboard input,
+div.userpro-dashboard textarea,
+div.userpro-dashboard select
+{font-size: 12px !important;}
+
+div.userpro-dashboard div.userpro-message p {padding: 10px !important;line-height: 1.5em;}
+div.userpro-dashboard p {padding: 0!important;margin: 15px 0 0 0 !important;}
+div.userpro-dashboard div.userpro-input p {padding:0!important;margin: 0 0 8px 0 !important;}
+
+div.userpro-dashboard img.userpro-loading.inline {
+	display: inline !important;
+}
+
+div.userpro-dashboard div.ajax-file-upload {
+	display: inline-block;
+	cursor: pointer  !important;
+	padding: 0 10px  !important;
+	margin-right: 15px  !important;
+	font-weight: normal !important;
+	text-decoration: none !important;
+	transition: none !important;
+}
+
+div.userpro-dashboard input[type=text].userpro-datepicker,
+div.userpro-dashboard input[type=text].userpro-datepicker:focus{
+	background-image: url(../img/datepicker.png) !important;
+	background-position: 8px center !important;
+	background-repeat: no-repeat !important;
+	padding-left: 34px !important;
+}
+
+a.userpro-button,div.userpro-dashboard div.ajax-file-upload {height: 27px !important; line-height: 27px !important}
+
+div.userpro-label{
+	width:34%;
+}
+
+div.userpro-input{
+	width:66%;
+	float:right;
+}
+
+.userpro-dashboard .userpro-loading{
+    height: 28px;
+    margin: -6px 0 0;;
+    width: 28px;
+}
+
+.userpro-dashboard .ajax-file-upload{
+	border: 1px solid #ddd;
+    border-radius: 2px;
+    color: #666;
+}
+/*------------------------- End custom css ------------------------------------------------------ */
+
+/*--------------------------------------------------------------media css---------------------------*/
+
+@media screen and (min-width:320px) and (max-width:520px){
+
+.LeftDiv{float:none;
+width:100%;}
+
+.RightDiv{float:none;
+width:90%}
+
+.userpro-dashboard{margin-left:0px;}
+
+.userpro-dashboard-leftsidebar{float:none;}
+
+.labeltag {
+    width: 100%;
+    display: block;
+    text-align: left;
+	font-size:0.9em}
+
+.inputStyle{width:95%;
+}
+
+.inputStyleArea{width:90%}
+
+.profileDashboard{width:100%}
+
+
+}
+
+.dashboardRight{
+	display:none;
+}
+
+@media screen and (min-width:521px) and (max-width:768px){
+
+.LeftDiv{float:none;
+width:100%;}
+
+.RightDiv{float:none;
+width:100%}
+
+.userpro-dashboard{margin-left:0px;}
+
+.userpro-dashboard-leftsidebar{float:none;}
+
+.profileDashboard{width:100%}
+
+.inputStyleArea{width:100%}
+}
+
+@media screen and (min-width:800px) and (max-width:1280px){
+
+.inputStyleArea{width:60%}
+}
+/***********************************/
+
+.updb-display-post {
+    background: #f5f5f5 none repeat scroll 0 0;
+    border: 1px solid #ddd;
+    display: inline-block;
+    margin-bottom: 1%;
+    padding: 1%;
+    width: 100%;
+}
+/*.updb-featured-image > img {
+    width: 15%;
+}*/
+.updb-featured-image {
+    padding: 1%;
+    width: 15%;
+    float: left;
+    margin-top: 1.5%;
+}
+.updb-post-contents {
+/*    float: right;*/
+    width: 60%;
+    display: inline-block;
+    padding-left: 2%;
+}
+.updb-delete-edit {
+    display: inline-block;
+    float: right;
+    margin: 0 auto !important;
+    text-align: center;
+/*    width: 25%;*/
+}
+.updb-post-content {
+    color: gray;
+    font-size: 14px;
+}
+.updb-new-post-add {
+    margin: 0 auto;
+    text-align: center;
+}
+.updb-add-new-post {
+    font-size: 12px !important;
+}
+.profileDashboard.dashboardRight {
+    padding: 1%;
+}
+/*div.userpro-input {
+    float: left !important;
+    width: 100% !important;
+}*/
+div.userpro-input{
+    float :none;
+    margin: 0 auto;
+}
+.custom-publish-layout .userpro-field.userpro-submit.userpro-column {
+    margin: 0 auto;
+    text-align: center;
+}
+.updb-post-status {
+    font-size: 12px;
+}
+.updb-post-title {
+   color: #007acc; 
+}

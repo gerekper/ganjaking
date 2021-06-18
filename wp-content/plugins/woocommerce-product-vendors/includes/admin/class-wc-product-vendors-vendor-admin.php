@@ -38,7 +38,7 @@ class WC_Product_Vendors_Vendor_Admin {
 		self::$self = new self();
 
 		// Disable WC Admin features as it is not needed for vendors.
-		add_filter( 'woocommerce_admin_features', array( self::$self, 'disable_wc_admin_features' ) );
+		add_filter( 'woocommerce_admin_features', array( self::$self, 'disable_wc_admin_features' ), 20 );
 
 		// add a vendor switcher to the admin bar
 		add_action( 'admin_bar_menu', array( self::$self, 'add_vendor_switcher' ) );

@@ -6,13 +6,13 @@
  *  @package Flip Box
  */
 
-if ( ! class_exists( 'AIO_Flip_Box' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Flip_Box' ) ) {
 	/**
 	 * Function that initializes Flip Box Module.
 	 *
-	 * @class AIO_Flip_Box
+	 * @class Ultimate_VC_Addons_Flip_Box
 	 */
-	class AIO_Flip_Box {
+	class Ultimate_VC_Addons_Flip_Box {
 		/**
 		 * Constructor function that constructs default values for the Flip Box module.
 		 *
@@ -1161,13 +1161,13 @@ if ( ! class_exists( 'AIO_Flip_Box' ) ) {
 		 */
 		public function flip_box_scripts() {
 
-			Ultimate_VC_Addons::ultimate_register_script( 'flip_box_js', 'flip-box', false, array( 'jquery' ), ULTIMATE_VERSION, true );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-flip_box_js', 'flip-box', false, array( 'jquery' ), ULTIMATE_VERSION, true );
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ult-flip-style', 'flip-box' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-flip-style', 'flip-box' );
 		}
 	}
 	// instantiate the class.
-	new AIO_Flip_Box();
+	new Ultimate_VC_Addons_Flip_Box();
 	if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Icon_Counter' ) ) {
 		/**
 		 * Function that checks if the class is exists or not.

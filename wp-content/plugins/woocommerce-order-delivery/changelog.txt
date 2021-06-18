@@ -1,5 +1,11 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2021.06.08 - version 1.9.1
+* Tweak - Tested compatibility with WC 5.4.
+* Tweak - Tested compatibility with WP 5.7.
+* Fix - Settings calendars don't appear due to an error in fullcalendar.js caused by a missing date format in the localization of moment.js.
+* Dev - Updated fullcalendar.js library to version 2.9.3.
+
 2021.05.07 - version 1.9.0
 * Feature - Change the location of the delivery fields in the checkout form.
 * Feature - Added compatibility with "WooCommerce Print Invoices & Packing Lists".

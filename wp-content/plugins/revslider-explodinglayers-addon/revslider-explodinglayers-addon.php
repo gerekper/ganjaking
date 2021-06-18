@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Exploding Layers Add-On
 Plugin URI: http://www.themepunch.com/
 Description: Animate your RevSlider Layers with Particles
 Author: ThemePunch
-Version: 2.1.4
+Version: 3.0.1
 Author URI: http://themepunch.com
 */
 
@@ -31,7 +31,7 @@ require_once(RS_EXPLODINGLAYERS_PLUGIN_PATH . 'includes/base.class.php');
 function rs_explodinglayers_init(){
 
 	new RsExplodinglayersBase();
-	
+
 }
 
 /**

@@ -99,7 +99,7 @@ class BetterDocs_Role_Management {
                 ),
                 'restrict_template' => array(
                     'type'        => 'select',
-                    'label'       => __('Restriction on Docs Pages', 'betterdocs'),
+                    'label'       => __('Restriction on Docs', 'betterdocs'),
                     'help'        => __('<strong>Note:</strong> Selected Docs pages will be restricted' , 'betterdocs'),
                     'priority'    => 3,
                     'multiple'    => true,

@@ -1,0 +1,211 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Private Messages Add-on for UserPro v1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-03-12 17:31:17+0000\n"
+"Last-Translator: infinit0 <contato@infinit0.com.br>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: Portuguese\n"
+"X-Poedit-Country: BRAZIL\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: admin/admin.php:27
+#: admin/admin.php:56
+#@ userpro-msg
+msgid "Private Messaging"
+msgstr "Troca de Mensagem"
+
+#: admin/admin.php:104
+#@ userpro-msg
+msgid "Settings saved."
+msgstr "Ajustes salvos."
+
+#: admin/admin.php:110
+#@ userpro-msg
+msgid "Settings are reset to default."
+msgstr "Ajustes foram resetados ao padrão."
+
+#: admin/admin.php:115
+#@ userpro-msg
+msgid "Your plugin pages have been rebuilt successfully."
+msgstr "Suas páginas do plugin foram recriadas com sucesso."
+
+#: admin/panels/options.php:7
+#@ userpro
+msgid "Global Messaging Privacy"
+msgstr "Privacidade para Troca de Mensagens"
+
+#: admin/panels/options.php:10
+#@ userpro-msg
+msgid "Open to all"
+msgstr "Abrir para Todos"
+
+#: admin/panels/options.php:11
+#@ userpro-msg
+msgid "Mutual Followers"
+msgstr "Seguidores em Comum"
+
+#: admin/panels/options.php:12
+#@ userpro-msg
+msgid "Disable Messaging"
+msgstr "Desabilitar troca de Mensagens"
+
+#: admin/panels/options.php:21 admin/panels/options.php:99
+msgid "Enabled"
+msgstr ""
+
+#: admin/panels/options.php:22 admin/panels/options.php:100
+msgid "Disabled"
+msgstr ""
+
+#: admin/panels/options.php:20
+#@ userpro-msg
+msgid "Save Changes"
+msgstr "Salvar Mudanças"
+
+#: admin/panels/options.php:21
+#@ userpro-msg
+msgid "Reset Options"
+msgstr "Resetar Opções"
+
+#: functions/ajax.php:90
+#@ userpro-msg
+msgid "Your message has been sent successfully."
+msgstr "Sua mensagem foi enviada com sucesso."
+
+#: functions/api.php:24
+#@ userpro-msg
+msgid "Type your message here..."
+msgstr "Digite sua mensagem aqui..."
+
+#: functions/api.php:27
+#: functions/hooks-actions.php:33
+#@ userpro-msg
+#@ userpro
+msgid "Send Message"
+msgstr "Enviar Mensagem"
+
+#: functions/api.php:28 functions/api.php:106
+#@ userpro-msg
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: functions/api.php:218
+#: functions/api.php:253
+#@ userpro-msg
+msgid "read conversation"
+msgstr "ler a conversa"
+
+#: functions/api.php:227
+#: functions/api.php:262
+#@ userpro-msg
+msgid "quick reply"
+msgstr "resposta rápida"
+
+#: functions/api.php:233
+#, php-format
+#@ userpro-msg
+msgid "%s unread"
+msgstr "%s não lida(s)"
+
+#: functions/api.php:388
+#, php-format
+#@ userpro-msg
+msgid "%s Unread Message"
+msgstr "%s Mensagem não lida"
+
+#: functions/api.php:390
+#, php-format
+#@ userpro-msg
+msgid "%s Unread Messages"
+msgstr "%s Mensagens não lidas"
+
+#: functions/hooks-actions.php:39
+#: functions/hooks-actions.php:62
+#@ userpro
+#@ userpro-msg
+msgid "My Messages"
+msgstr "Minhas Mensagens"
+
+#: functions/hooks-actions.php:60
+#@ userpro-msg
+msgid "Send a message"
+msgstr "Enviar uma Mensagem"
+
+#: templates/conversation-last.php:25
+#: templates/conversation.php:25
+#@ userpro-msg
+msgid "you said:"
+msgstr "Você disse:"
+
+#: templates/conversation-last.php:25
+#: templates/conversation.php:25
+#, php-format
+#@ userpro-msg
+msgid "%s said:"
+msgstr "%s disse:"
+
+#: templates/messages.php:3
+#: templates/new-message.php:3
+#@ userpro
+msgid "Close"
+msgstr "Fechar"
+
+#: templates/messages.php:14
+#@ userpro-msg
+msgid "Message History"
+msgstr "Histórico de Mensagem"
+
+#: templates/messages.php:17
+#@ userpro-msg
+msgid "Back"
+msgstr "Voltar"
+
+#: templates/new-message.php:14
+#@ userpro-msg
+msgid "View Profile"
+msgstr "Ver Perfil"
+
+#: admin/panels/options.php:92 functions/hooks-actions.php:78
+msgid "Broadcast Message"
+msgstr ""
+
+#: admin/panels/options.php:96
+msgid "Broadcast Message Settings"
+msgstr ""
+
+#: admin/panels/options.php:102
+msgid "This will enable the feature of broadcasting message to all the users."
+msgstr ""
+
+#: admin/panels/options.php:107
+msgid "Allow these roles to broadcast messages"
+msgstr ""
+
+#: admin/panels/options.php:110
+msgid "The users belonging to above roles will be able to broadcast messages to all other users on the site. By default no one can broadcast message."
+msgstr ""
+
+#: functions/ajax.php:185
+msgid "Your message has been broadcasted successfully."
+msgstr ""
+
+#: functions/ajax.php:193
+msgid "This message will be sent immediately to ALL registered users. Are you sure you want to send this ?"
+msgstr ""
+
+#: functions/api.php:105
+msgid "Broadcast"
+msgstr ""
+

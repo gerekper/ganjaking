@@ -31,6 +31,13 @@ class Upgrade extends Abstract_Page {
 	}
 
 	/**
+	 * Render inner content.
+	 */
+	public function render_inner_content() {
+		$this->view( 'smush-upgrade-page' );
+	}
+
+	/**
 	 * On load actions.
 	 */
 	public function on_load() {

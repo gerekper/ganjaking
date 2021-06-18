@@ -1247,6 +1247,10 @@ html[dir="rtl"] .gform-admin .gform-choice .gform-choice__selected-label::before
 		padding: 1.25rem 1.5625rem;
 	}
 
+.conditional_logic_flyout__body.panel-block-tabs__body--settings .simplebar-wrapper {
+				height: 100%;
+			}
+
 .conditional_logic_flyout__body.panel-block-tabs__body--settings select, .conditional_logic_flyout__body.panel-block-tabs__body--settings input[type="text"] {
 				width: auto;
 			}
@@ -1375,10 +1379,18 @@ html[dir="rtl"] .conditional_logic_flyout .delete_field_choice {
 		transition: opacity 190ms ease-in-out, transform 190ms ease-in-out;
 	}
 
+.conditional_logic_flyout_container.anim-out-ready .conditional_logic_flyout .conditional_logic_flyout__body {
+			overflow: hidden;
+		}
+
 .conditional_logic_flyout_container.anim-out-ready.anim-out-active .conditional_logic_flyout {
 		opacity: 0;
 		transform: translateX(-98%) translateX(-10px);
 	}
+
+.conditional_logic_flyout_container.anim-out-ready.anim-out-active .conditional_logic_flyout .conditional_logic_flyout__body {
+			overflow: hidden;
+		}
 
 html[dir="rtl"] .conditional_logic_flyout {
 	left: auto;
@@ -5765,51 +5777,40 @@ div.settings_control_container div.gfield_admin_header_title, div.gfield_admin_i
 
 /* visible value field with price */
 
-.choice_with_value_and_price li input.field-choice-text {
-	width: 103px !important;
-}
-
 .choice_with_value_and_price li input.field-choice-value {
-	display: inline !important;
-	width: 103px !important;
+	display: flex !important;
 }
 
 .choice_with_value_and_price li input.field-choice-price {
-	display: inline !important;
-	width: 103px !important;
+	display: flex !important;
 }
 
 .choice_with_value_and_price .gfield_choice_header_label {
-	display: inline !important;
+	display: inline-block !important;
 }
 
 .choice_with_value_and_price .gfield_choice_header_value {
-	display: inline !important;
+	display: inline-block !important;
 	padding-left: 70px;
 }
 
 .choice_with_value_and_price .gfield_choice_header_price {
-	display: inline !important;
+	display: inline-block !important;
 	padding-left: 70px;
 }
 
 /* visible price and no value */
 
-.choice_with_price li input.field-choice-text {
-	width: 155px !important;
-}
-
 .choice_with_price li input.field-choice-price {
-	display: inline !important;
-	width: 155px !important;
+	display: flex !important;
 }
 
 .choice_with_price .gfield_choice_header_label {
-	display: inline !important;
+	display: inline-block !important;
 }
 
 .choice_with_price .gfield_choice_header_price {
-	display: inline !important;
+	display: inline-block !important;
 	padding-left: 120px;
 }
 
@@ -8592,7 +8593,7 @@ div .gfield_repeater_cell {
 				text-align: right;
 			}
 
-.gform-settings-panel__content#entry_list_form .tablenav .tablenav-pages.no-pages, .gform-settings-panel__content#entry_list_form .tablenav .tablenav-pages.one-page, .gform-settings-panel__content #form_list_form .tablenav .tablenav-pages.no-pages, .gform-settings-panel__content #form_list_form .tablenav .tablenav-pages.one-page {
+.gform-settings-panel__content#entry_list_form .tablenav .tablenav-pages.no-pages, .gform-settings-panel__content#entry_list_form .tablenav .tablenav-pages.one-page .pagination-links, .gform-settings-panel__content #form_list_form .tablenav .tablenav-pages.no-pages, .gform-settings-panel__content #form_list_form .tablenav .tablenav-pages.one-page .pagination-links {
 					display: none;
 				}
 
@@ -9320,6 +9321,20 @@ div .gfield_repeater_cell {
 
 [data-simplebar].simplebar-dragging .simplebar-track {
 	pointer-events: all;
+}
+
+[data-simplebar]::-webkit-scrollbar {
+	-webkit-appearance: none;
+	display: none;
+	height: 0;
+	width: 0;
+}
+
+.simplebar-content-wrapper::-webkit-scrollbar {
+	-webkit-appearance: none;
+	display: none;
+	height: 0;
+	width: 0;
 }
 
 .simplebar-scrollbar {

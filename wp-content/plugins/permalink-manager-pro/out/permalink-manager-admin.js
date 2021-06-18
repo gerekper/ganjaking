@@ -261,6 +261,39 @@ jQuery(document).ready(function() {
 	});
 
 	/**
+	 * Settings tabs
+	 */
+	jQuery('#permalink-manager').on('click', '.settings-tabs .subsubsub a', function() {
+		var tab_id = jQuery(this).attr('data-tab');
+
+		jQuery('#permalink-manager .settings-tabs .subsubsub a').removeClass('current');
+		jQuery(this).addClass('current');
+
+		jQuery('#permalink-manager .settings-tabs form > div').hide().removeClass('active-tab');
+		jQuery('#permalink-manager .settings-tabs form > div#pm_' + tab_id).show().addClass('active-tab');
+
+		jQuery('#permalink-manager .settings-tabs form input[name="pm_active_tab"]').val(tab_id);
+
+		return false;
+	});
+
+	/**
+	 * Conditional fields in Permalink Manager settings
+	 */
+	jQuery('#permalink-manager .settings-tabs #extra_redirects input[type="checkbox"]').on('change', function() {
+		var is_checked = jQuery(this).is(':checked');
+		var rel_field_container = jQuery('#permalink-manager .settings-tabs #setup_redirects');
+
+		if(is_checked == true) {
+			rel_field_container.removeClass('hidden');
+		} else {
+			rel_field_container.addClass('hidden');
+		}
+
+		console.log(is_checked);
+	}).trigger("change");
+
+	/**
 	 * Hide global admin notices
 	 */
 	jQuery(document).on('click', '.permalink-manager-notice.is-dismissible .notice-dismiss', function() {

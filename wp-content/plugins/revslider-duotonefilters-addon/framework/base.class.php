@@ -9,7 +9,7 @@ if(!defined('ABSPATH')) exit();
 
 class RsAddOnDuotoneBase {
 	
-	const MINIMUM_VERSION = '6.0';
+	const MINIMUM_VERSION = '6.5.0';
 	
 	protected function systemsCheck() {
 		
@@ -84,12 +84,13 @@ class RsAddOnDuotoneBase {
 			
 			$_handle = 'rs-' . static::$_PluginTitle . '-admin';
 			$_base   = static::$_PluginUrl . 'admin/assets/';
+			$_jsPathMin = file_exists(static::$_PluginPath . 'admin/assets/js/revslider-' . static::$_PluginTitle . '-addon-admin.dev.js') ? '.dev' : '';
 			
 			$_cssbase = static::$_PluginUrl . 'public/assets/';
 			$_csshandle = 'rs-' . static::$_PluginTitle . '-front';
 			
 			wp_enqueue_style($_csshandle, $_cssbase . 'css/revolution.addon.' . static::$_PluginTitle . '.css', array(), static::$_Version);
-			wp_enqueue_script($_handle, $_base . 'js/revslider-' . static::$_PluginTitle . 'filters-addon-admin.js', array('jquery', 'revbuilder-admin'), static::$_Version, true);
+			wp_enqueue_script($_handle, $_base . 'js/revslider-' . static::$_PluginTitle . '-addon-admin' . $_jsPathMin . '.js', array('jquery', 'revbuilder-admin'), static::$_Version, true);
 			wp_localize_script($_handle, 'revslider_duotonefilters_addon', self::get_var() );
 
 		}

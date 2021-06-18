@@ -18,17 +18,17 @@ if ( ! defined( 'WPINC' ) ) {
 	<?php esc_html_e( 'Local WebP', 'wp-smushit' ); ?>
 </h3>
 
-<span
-	class="sui-tag sui-tag-beta sui-tooltip sui-tooltip-constrained"
-	data-tooltip="<?php esc_attr_e( 'This feature is likely to work without issue, however our WebP is in beta stage and some issues are still present.', 'wp-smushit' ); ?>"
-	style="margin-left: 10px"
->
-	<?php esc_html_e( 'Beta', 'wp-smushit' ); ?>
-</span>
+<?php if ( ! WP_Smush::is_pro() ) : ?>
+	<div class="sui-actions-left">
+		<span class="sui-tag sui-tag-pro sui-tooltip sui-tooltip-constrained" data-tooltip="<?php esc_attr_e( 'Join WPMU DEV to use this feature', 'wp-smushit' ); ?>">
+			<?php esc_html_e( 'Pro', 'wp-smushit' ); ?>
+		</span>
+	</div>
+<?php endif; ?>
 
 <?php if ( ! $is_disabled ) : ?>
 	<div class="sui-actions-right">
-		<?php esc_html_e( 'Made changes?', 'wp-smushit' ); ?> &nbsp;
+		<span class="sui-field-prefix"><?php esc_html_e( 'Made changes?', 'wp-smushit' ); ?></span>
 		<button type="button" id="smush-webp-recheck" class="sui-button sui-button-ghost" data-is-configured="<?php echo $is_configured ? '1' : '0'; ?>">
 			<span class="sui-loading-text"><i class="sui-icon-update"></i><?php esc_html_e( 'Re-check status', 'wp-smushit' ); ?></span>
 			<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>

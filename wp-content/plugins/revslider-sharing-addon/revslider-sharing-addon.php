@@ -8,7 +8,7 @@
  * Plugin Name:       Slider Revolution Sharing Add-on
  * Plugin URI:        https://www.themepunch.com
  * Description:       Adds Social Sharing to Slider Revolution
- * Version:           2.0.5
+ * Version:           3.0.0
  * Author:            ThemePunch
  * Author URI:        https://www.themepunch.com
  * License:           GPL-2.0+

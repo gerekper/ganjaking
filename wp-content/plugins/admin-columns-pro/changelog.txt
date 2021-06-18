@@ -1,9 +1,21 @@
 == Changelog ==
 
+= 5.5.2 =
+Release Date: June 11th, 2021
+
+* [Added] New Post Type column for the (Custom) Post Type overviews, basically for changing the post type with Editing
+* [Added] Gravity Forms integration added
+* [Added] New feature to make the column headers fixed on the table screen
+* [Updated] Admin Columns Core changes ( 4.3.1 )
+* [Fixed] Changing the screen options on the column settings page is not persisted
+* [Fixed] Fixed data formatted labels with sanitation
+* [Fixed] The column value is now sanitized
+
 = 5.5.1 =
 Release Date: April 29th, 2021
 
 * [Fixed] Fixed a possible error with export
+* [Fixed] Prevent expired messages for auto renewal subscriptions
 
 = 5.5 =
 Release Date: April 29th, 2021

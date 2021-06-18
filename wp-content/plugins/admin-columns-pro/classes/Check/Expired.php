@@ -70,7 +70,14 @@ class Expired implements Registrable {
 
 		$license = $this->license_repository->find( $license_key );
 
-		if ( ! $license || ! $license->is_expired() || ! $license->get_expiry_date()->exists() ) {
+		if ( ! $license
+		     || ! $license->is_expired()
+		     || ! $license->get_expiry_date()->exists() ) {
+			return;
+		}
+
+		// Prevent overlap with auto renewal payments and message
+		if ( $license->is_auto_renewal() && $license->is_expired() && $license->get_expiry_date()->get_expired_seconds() < ( 2 * DAY_IN_SECONDS ) ) {
 			return;
 		}
 

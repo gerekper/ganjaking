@@ -21,9 +21,9 @@
         {cache_status}
         <div">
             <p><?php _e( 'This page allows you to control what data is added to your product feeds.', 'woocommerce_gpf' ); ?></p>
-            <p><?php _e( 'Choose the fields you want to include here, and also set store-wide defaults. You can also set defaults against categories, or provide information on each product page. You can choose to have the produt feed data prepopulated from existing taxonomies, or fields. If you add a new custom field then you may need to <a href="{refresh_fields_url}">refresh the field list</a> before it will be available for selection.', 'woocommerce_gpf' ); ?></p>
+            <p><?php _e( 'Choose the fields you want to include here, and also set store-wide defaults. You can also set defaults against categories, or provide information on each product page. You can choose to have the product feed data prepopulated from existing taxonomies, or fields. If you add a new custom field then you may need to <a href="{refresh_fields_url}">refresh the field list</a> before it will be available for selection.', 'woocommerce_gpf' ); ?></p>
             <h4><?php _e( 'Notes about Google', 'woocommerce_gpf' ); ?></h4>
             <p><?php _e( "Depending on what you sell, and where you are selling it to Google apply different rules as to which information you should supply. You can find Google's list of what information is required on ", 'woocommerce_gpf' ); ?><a href="http://www.google.com/support/merchants/bin/answer.py?answer=188494" rel="nofollow"><?php _e( 'this page', 'woocommerce_gpf' ); ?></a></p>
-            {enablement}
+            {active_feeds}
         </div>
     </div>

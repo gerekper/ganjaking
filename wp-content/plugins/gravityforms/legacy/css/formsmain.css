@@ -280,7 +280,7 @@ html>body .entry ul,
 .gform_legacy_markup_wrapper .gfield_time_hour i {
     font-style: normal !important;
     font-family: sans-serif !important;
-    width: 10px;
+    width: 4px;
     text-align: center;
     float: right;
     margin-top: 9%;
@@ -291,7 +291,8 @@ html>body .entry ul,
 }
 
 .gform_legacy_markup_wrapper .gfield_time_hour {
-    margin-right: .25rem;
+    margin-right: .45rem;
+	display: flex;
 }
 .gform_legacy_markup_wrapper .ginput_complex .gfield_time_hour input,
 .gform_legacy_markup_wrapper .ginput_complex .gfield_time_minute input {
@@ -317,7 +318,8 @@ html>body .entry ul,
 
 .gform_legacy_markup_wrapper .gfield_time_hour input,
 .gform_legacy_markup_wrapper .gfield_time_minute input {
-    width: calc(3rem + 8px);
+    margin-right: 6px;
+	width: calc(3rem + 8px);
 }
 
 .gform_legacy_markup_wrapper .gfield_time_hour input[type="number"],
@@ -1161,8 +1163,12 @@ body .gform_legacy_markup_wrapper ul.gform_fields li.gfield.gform_validation_con
     margin-right: 2px;
 }
 
+.gform_legacy_markup_wrapper input.ginput_product_price,
 .gform_legacy_markup_wrapper span.ginput_product_price {
-    color: #900;
+	background: none;
+	border: none;
+	color: #900;
+	padding: 0;
 }
 
 .gform_legacy_markup_wrapper span.ginput_quantity_label {

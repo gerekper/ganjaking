@@ -58,6 +58,11 @@
 #permalink-manager .structure-tags-list{margin-top:15px}
 #permalink-manager .duplicated_uri_alert,.permalink-manager .duplicated_uri_alert{display:block;font-weight:bold;font-size:90%;margin-top:8px;color:#dc3232}
 
+#permalink-manager .settings-tabs,#permalink-manager .settings-tabs form,#permalink-manager .settings-tabs form > div{clear:both;overflow:hidden}
+#permalink-manager .settings-tabs .subsubsub{margin-bottom:0}
+#permalink-manager .settings-tabs form > div{display:none}
+#permalink-manager .settings-tabs form > div.active-tab{display:block}
+
 #permalink-manager .checkbox_actions{padding-top:10px;border-top:1px solid #ddd}
 #permalink-manager .extra-links,.permalink-manager-screen-options .extra-links{margin-top:5px;font-size:12px}
 #permalink-manager .extra-links a,.permalink-manager-screen-options .extra-links a{color:#666;display:inline-block;text-decoration:none}

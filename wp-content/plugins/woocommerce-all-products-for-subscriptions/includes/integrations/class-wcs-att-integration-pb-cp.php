@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with Product Bundles and Composite Products.
  *
  * @class    WCS_ATT_Integration_PB_CP
- * @version  3.1.21
+ * @version  3.1.27
  */
 class WCS_ATT_Integration_PB_CP {
 
@@ -880,8 +880,9 @@ class WCS_ATT_Integration_PB_CP {
 			}
 
 			$data[ 'option_details_html' ] = WCS_ATT_Product_Prices::get_price_html( $product, $subscription_scheme->get_key(), array(
-				'context' => 1 === sizeof( $subscription_schemes ) && $force_subscription ? 'catalog' : 'options',
-				'price'   => '%p'
+				'context'         => 1 === sizeof( $subscription_schemes ) && $force_subscription ? 'catalog' : 'options',
+				'append_discount' => 1 < sizeof( $subscription_schemes ) || ! $force_subscription,
+				'price'           => '%p'
 			) );
 
 			$data[ 'option_has_price' ]           = false !== strpos( $data[ 'option_details_html' ], '%p' );

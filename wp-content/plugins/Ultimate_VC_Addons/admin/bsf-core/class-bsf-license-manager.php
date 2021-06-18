@@ -344,9 +344,16 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 				}
 			}
 
+			// The product is bundled.
 			if ( ! empty( $is_bundled ) ) {
 
-				// The product is bundled.
+				// If the bundled product does not require to activate the license then treat the license is active.
+				$product = get_brainstorm_product( $product_id );
+
+				if ( isset( $product['licence_require'] ) && 'false' === $product['licence_require'] ) {
+					return true;
+				}
+
 				foreach ( $is_bundled as $key => $value ) {
 
 					$product_id = $value;

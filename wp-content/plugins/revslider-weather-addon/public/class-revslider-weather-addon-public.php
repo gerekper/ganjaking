@@ -127,7 +127,7 @@ class Revslider_Weather_Addon_Public extends RevSliderFunctions {
 			$tabs = "\t\t\t\t\t\t\t";
 			
 			echo "\n";
-			echo $tabs . 'if(typeof RsWeatherAddOn !== "undefined") RsWeatherAddOn(tpj, revapi' . $id . ', "' . $refresh . '");' . "\n";
+			echo $tabs . 'if(typeof RsWeatherAddOn !== "undefined") RsWeatherAddOn(jQuery, revapi' . $id . ', "' . $refresh . '");' . "\n";
 			
 		}
 		
@@ -152,13 +152,21 @@ class Revslider_Weather_Addon_Public extends RevSliderFunctions {
 				if(!empty($refresh)) {
 					
 					wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/revslider-weather-addon-public.js', array( 'jquery' ), $this->version, false );
+					add_filter('revslider_modify_waiting_scripts', array($this, 'add_waiting_script_slugs'), 10, 1);
 					wp_localize_script( $this->plugin_name, 'rev_slider_weather_addon', array('api_key' => $this->api_key));
 					
 				}	
 			}
 		}
 	}
+	
 
+
+
+	public function add_waiting_script_slugs($wait){
+		$wait[] = 'weather';
+		return $wait;
+	}
 
 	/**
 	 * Connects to Weatherbit.io and collects Weather Info

@@ -101,7 +101,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			$uri_parts = apply_filters('permalink_manager_detect_uri', $uri_parts, $request_url, $endpoints);
 
 			// Support comment pages
-			preg_match("/(.*)\/{$wp_rewrite->comments_pagination_base}-([\d]+)/", $request_url, $regex_parts);
+			preg_match("/(.*)\/{$wp_rewrite->comments_pagination_base}-([\d]+)/", $uri_parts['uri'], $regex_parts);
 			if(!empty($regex_parts[2])) {
 				$uri_parts['uri'] = $regex_parts[1];
 				$uri_parts['endpoint'] = 'cpage';
@@ -535,10 +535,12 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		$redirect_mode = (!empty($permalink_manager_options['general']['redirect'])) ? $permalink_manager_options['general']['redirect'] : false;
 		$trailing_slashes_mode = (!empty($permalink_manager_options['general']['trailing_slashes'])) ? $permalink_manager_options['general']['trailing_slashes'] : false;
 		$trailing_slashes_redirect = (!empty($permalink_manager_options['general']['trailing_slashes_redirect'])) ? $permalink_manager_options['general']['trailing_slashes_redirect'] : false;
+		$extra_redirects = (!empty($permalink_manager_options['general']['extra_redirects'])) ? $permalink_manager_options['general']['extra_redirects'] : false;
 		$canonical_redirect = (!empty($permalink_manager_options['general']['canonical_redirect'])) ? $permalink_manager_options['general']['canonical_redirect'] : false;
 		$old_slug_redirect = (!empty($permalink_manager_options['general']['old_slug_redirect'])) ? $permalink_manager_options['general']['old_slug_redirect'] : false;
 		$endpoint_redirect = (!empty($permalink_manager_options['general']['endpoint_redirect'])) ? $permalink_manager_options['general']['endpoint_redirect'] : false;
 		$pagination_redirect = (!empty($permalink_manager_options['general']['pagination_redirect'])) ? $permalink_manager_options['general']['pagination_redirect'] : false;
+		$copy_query_redirect = (!empty($permalink_manager_options['general']['copy_query_redirect'])) ? $permalink_manager_options['general']['copy_query_redirect'] : false;
 		$redirect_type = '-';
 
 		// Get home URL
@@ -549,7 +551,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		$correct_permalink = '';
 
 		// Get query string & URI
-		$query_string = (!empty($_SERVER['QUERY_STRING'])) ? $_SERVER['QUERY_STRING'] : '';
+		$query_string = ($copy_query_redirect && !empty($_SERVER['QUERY_STRING'])) ? $_SERVER['QUERY_STRING'] : '';
 		$old_uri = $_SERVER['REQUEST_URI'];
 
 		// Fix for WP installed in directories (remove the directory name from the URI)
@@ -559,18 +561,18 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		}
 
 		// Do not use custom redirects on author pages, search & front page
-    if(!is_author() && !is_front_page() && !is_home() && !is_feed() && !is_search() && empty($_GET['s'])) {
+		if(!is_author() && !is_front_page() && !is_home() && !is_feed() && !is_search() && empty($_GET['s'])) {
+			// Sometimes $wp_query indicates the wrong object if requested directly
+			$queried_object = get_queried_object();
+
 			// Unset 404 if custom URI is detected
-			if(isset($pm_query['id'])) {
+			if(isset($pm_query['id']) && (empty($queried_object->post_status) || $queried_object->post_status !== 'private')) {
 				$wp_query->is_404 = false;
 			}
 
-	 		// Sometimes $wp_query indicates the wrong object if requested directly
-	 		$queried_object = get_queried_object();
-
 			/**
-			 * 1A. External redirect
-			 */
+			* 1A. External redirect
+			*/
 			if(!empty($pm_query['id']) && !empty($permalink_manager_external_redirects[$pm_query['id']])) {
 				$external_url = $permalink_manager_external_redirects[$pm_query['id']];
 
@@ -586,7 +588,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			/**
 			 * 1B. Custom redirects
 			 */
-			if(empty($wp_query->query_vars['do_not_redirect']) && !empty($permalink_manager_redirects) && is_array($permalink_manager_redirects) && !empty($wp->request) && !empty($pm_query['uri'])) {
+			if(empty($wp_query->query_vars['do_not_redirect']) && $extra_redirects && !empty($permalink_manager_redirects) && is_array($permalink_manager_redirects) && !empty($wp->request) && !empty($pm_query['uri'])) {
 				$uri = $pm_query['uri'];
 				$endpoint_value = $pm_query['endpoint_value'];
 
@@ -640,32 +642,32 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			/**
 			 * 1D. Enhance native redirect
 			 */
-	 		if($canonical_redirect && empty($wp_query->query_vars['do_not_redirect']) && !empty($queried_object) && empty($correct_permalink)) {
+			if($canonical_redirect && empty($wp_query->query_vars['do_not_redirect']) && !empty($queried_object) && empty($correct_permalink)) {
 
-	 			// Affect only posts with custom URI and old URIs
-	 			if(!empty($queried_object->ID) && isset($permalink_manager_uris[$queried_object->ID]) && empty($wp_query->query['preview'])) {
-	 				// Ignore posts with specific statuses
-	 				if(!(empty($queried_object->post_status)) && in_array($queried_object->post_status, array('draft', 'pending', 'auto-draft', 'future'))) {
-	 					return '';
-	 				}
+				// Affect only posts with custom URI and old URIs
+				if(!empty($queried_object->ID) && isset($permalink_manager_uris[$queried_object->ID]) && empty($wp_query->query['preview'])) {
+					// Ignore posts with specific statuses
+					if(!(empty($queried_object->post_status)) && in_array($queried_object->post_status, array('draft', 'pending', 'auto-draft', 'future'))) {
+						return '';
+					}
 
 					// Check if post type is allowed
 					if(Permalink_Manager_Helper_Functions::is_disabled($queried_object->post_type, 'post_type')) { return ''; }
 
-	 				// Get the real URL
-	 				$correct_permalink = get_permalink($queried_object->ID);
-	 			}
-	 			// Affect only terms with custom URI and old URIs
-	 			else if(!empty($queried_object->term_id) && isset($permalink_manager_uris["tax-{$queried_object->term_id}"]) && defined('PERMALINK_MANAGER_PRO')) {
+					// Get the real URL
+					$correct_permalink = get_permalink($queried_object->ID);
+				}
+				// Affect only terms with custom URI and old URIs
+				else if(!empty($queried_object->term_id) && isset($permalink_manager_uris["tax-{$queried_object->term_id}"]) && defined('PERMALINK_MANAGER_PRO')) {
 					// Check if taxonomy is allowed
 					if(Permalink_Manager_Helper_Functions::is_disabled($queried_object->taxonomy, "taxonomy")) { return ''; }
 
-	 				// Get the real URL
-	 				$correct_permalink = get_term_link($queried_object->term_id, $queried_object->taxonomy);
-	 			}
+					// Get the real URL
+					$correct_permalink = get_term_link($queried_object->term_id, $queried_object->taxonomy);
+				}
 
 				$redirect_type = (!empty($correct_permalink)) ? 'native_redirect' : $redirect_type;
-	 		}
+			}
 
 			/**
 			 * 1E. Old slug redirect

@@ -127,24 +127,18 @@ if ( ! class_exists( 'WPSEO_Option_Woo' ) && class_exists( 'WPSEO_Option' ) ) {
 							if ( in_array( $dirty[ $key ], $valid_taxonomies, true ) ) {
 								$clean[ $key ] = $dirty[ $key ];
 							}
-							else {
-								if ( sanitize_title_with_dashes( $dirty[ $key ] ) === $dirty[ $key ] ) {
-									// Allow taxonomies which may not be registered yet.
-									$clean[ $key ] = $dirty[ $key ];
-								}
+							elseif ( sanitize_title_with_dashes( $dirty[ $key ] ) === $dirty[ $key ] ) {
+								// Allow taxonomies which may not be registered yet.
+								$clean[ $key ] = $dirty[ $key ];
 							}
 						}
-						else {
-							if ( $short && isset( $old[ $key ] ) ) {
-								if ( in_array( $old[ $key ], $valid_taxonomies, true ) ) {
-									$clean[ $key ] = $old[ $key ];
-								}
-								else {
-									if ( sanitize_title_with_dashes( $old[ $key ] ) === $old[ $key ] ) {
-										// Allow taxonomies which may not be registered yet.
-										$clean[ $key ] = $old[ $key ];
-									}
-								}
+						elseif ( $short && isset( $old[ $key ] ) ) {
+							if ( in_array( $old[ $key ], $valid_taxonomies, true ) ) {
+								$clean[ $key ] = $old[ $key ];
+							}
+							elseif ( sanitize_title_with_dashes( $old[ $key ] ) === $old[ $key ] ) {
+								// Allow taxonomies which may not be registered yet.
+								$clean[ $key ] = $old[ $key ];
 							}
 						}
 						break;

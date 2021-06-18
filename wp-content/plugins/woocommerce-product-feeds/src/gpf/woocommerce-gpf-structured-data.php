@@ -8,29 +8,19 @@
 class WoocommerceGpfStructuredData {
 
 	/**
-	 * @var WoocommerceGpfCommon
+	 * @var WoocommerceProductFeedsFeedItemFactory
 	 */
-	protected $common;
-
-	/**
-	 * @var WoocommerceGpfDebugService
-	 */
-	protected $debug;
+	protected $feed_item_factory;
 
 	/**
 	 * Constructor.
 	 *
 	 * Store dependencies.
 	 *
-	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
-	 * @param WoocommerceGpfDebugService $debug
+	 * @param WoocommerceProductFeedsFeedItemFactory $feed_item_factory
 	 */
-	public function __construct(
-		WoocommerceGpfCommon $woocommerce_gpf_common,
-		WoocommerceGpfDebugService $debug
-	) {
-		$this->common = $woocommerce_gpf_common;
-		$this->debug  = $debug;
+	public function __construct( WoocommerceProductFeedsFeedItemFactory $feed_item_factory ) {
+		$this->feed_item_factory = $feed_item_factory;
 	}
 
 	/**
@@ -97,14 +87,7 @@ class WoocommerceGpfStructuredData {
 		}
 		// Get the feed information for this product.
 		// Note: We do not calculate pricing to avoid having to query all variations.
-		$feed_item = new WoocommerceGpfFeedItem(
-			$offer_product,
-			$parent_product,
-			'google',
-			$this->common,
-			$this->debug,
-			false
-		);
+		$feed_item = $this->feed_item_factory->create( 'google', $offer_product, $parent_product, false );
 
 		// SKU.
 		if ( ! empty( $feed_item->sku ) ) {
@@ -153,14 +136,7 @@ class WoocommerceGpfStructuredData {
 
 		// Get the feed information for this product.
 		// Note: We do not calculate pricing to avoid having to query all variations.
-		$feed_item = new WoocommerceGpfFeedItem(
-			$product,
-			$product,
-			'google',
-			$this->common,
-			$this->debug,
-			false
-		);
+		$feed_item = $this->feed_item_factory->create( 'google', $product, $product, false );
 
 		// Brand.
 		if ( isset( $feed_item->additional_elements['brand'] ) ) {
@@ -182,14 +158,7 @@ class WoocommerceGpfStructuredData {
 	private function structured_data_simple_product( $markup, $product ) {
 		// Get the feed information for this product.
 		// Note: We do not calculate pricing to avoid having to query all variations.
-		$feed_item = new WoocommerceGpfFeedItem(
-			$product,
-			$product,
-			'google',
-			$this->common,
-			$this->debug,
-			false
-		);
+		$feed_item = $this->feed_item_factory->create( 'google', $product, $product, false );
 
 		// SKU.
 		if ( ! empty( $feed_item->sku ) ) {

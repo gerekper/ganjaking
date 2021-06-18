@@ -15,7 +15,7 @@ class RsPaintbrushBase extends RsAddOnPaintbrushBase {
 					 $_PluginUrl     = RS_PAINTBRUSH_PLUGIN_URL,
 					 $_PluginTitle   = 'paintbrush',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '2.1.9';
+				     $_Version       = '3.0.2';
 	
 	public function __construct() {
 		

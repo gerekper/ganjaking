@@ -527,8 +527,10 @@ class WC_Product_Bundle extends WC_Product {
 
 		$bundle_stock_quantity = '';
 
-		if ( 'outofstock' === parent::get_stock_status( 'edit' ) || 'outofstock' === $bundled_items_stock_status ) {
+		if ( in_array( $this->get_bundle_stock_status( 'edit' ), array( 'outofstock', 'insufficientstock' ) ) ) {
+
 			$bundle_stock_quantity = 0;
+
 		} else {
 
 			// Find parent quantity.
@@ -1319,10 +1321,10 @@ class WC_Product_Bundle extends WC_Product {
 		$availability = parent::get_availability();
 
 		// If a child does not have enough stock, let people know.
-		if ( parent::is_in_stock() && 'outofstock' === $this->get_bundled_items_stock_status() ) {
+		if ( 'insufficientstock' === $this->get_bundle_stock_status() ) {
 
 			$availability[ 'availability' ] = __( 'Insufficient stock', 'woocommerce-product-bundles' );
-			$availability[ 'class' ]        = 'out-of-stock';
+			$availability[ 'class' ]        = 'out-of-stock insufficient-stock';
 
 		// If a child is on backorder, the parent should appear to be on backorder, too.
 		} elseif ( parent::is_in_stock() && $this->contains( 'on_backorder' ) ) {
@@ -1330,16 +1332,47 @@ class WC_Product_Bundle extends WC_Product {
 			$availability[ 'availability' ] = __( 'Available on backorder', 'woocommerce' );
 			$availability[ 'class' ]        = 'available-on-backorder';
 
-		// Add remaining quantity data if the quantities of the children are static, and at least one child exists that manages stock and displays quantity in the availability string.
-		} elseif ( ! $this->contains( 'configurable_quantities' ) && 'no_amount' !== ( $stock_format = get_option( 'woocommerce_stock_format' ) ) && apply_filters( 'woocommerce_bundle_display_bundled_items_stock_quantity', $this->managing_stock(), $this ) ) {
+		// Override remaining quantity data if parent is in stock and at least one child exists that manages stock and displays quantity in the availability string.
+		} elseif ( parent::is_in_stock() ) {
+
+			$display_bundle_stock_quantity = true;
 
 			$bundle_stock_quantity = $this->get_bundle_stock_quantity();
+			$stock_format          = get_option( 'woocommerce_stock_format' );
 
-			// Only override if not managing stock, or if the container level quantity is higher.
-			if ( '' !== $bundle_stock_quantity && ( ! $this->managing_stock() || $this->get_stock_quantity() > $bundle_stock_quantity ) ) {
-				add_filter( 'woocommerce_product_get_stock_quantity', array( $this, 'filter_stock_quantity' ), 1000 );
-				$availability[ 'availability' ] = wc_format_stock_for_display( $this );
-				remove_filter( 'woocommerce_product_get_stock_quantity', array( $this, 'filter_stock_quantity' ), 1000 );
+			if (
+				'' !== $bundle_stock_quantity
+				&& 'no_amount' !== $stock_format
+				&& ( 'low_amount' !== $stock_format || $bundle_stock_quantity <= get_option( 'woocommerce_notify_low_stock_amount' ) )
+				&& ( ! $this->managing_stock() || $this->get_stock_quantity() > $bundle_stock_quantity )
+			) {
+
+				$has_undefined_bundle_stock_quantity = false;
+
+				foreach ( $this->get_bundled_items() as $bundled_item ) {
+					if (
+						( $min_qty = $bundled_item->get_quantity( 'min', array( 'check_optional' => true ) ) ) !== ( $max_qty = $bundled_item->get_quantity( 'max' ) )
+						&& '' !== ( $max_stock = $bundled_item->get_max_stock() )
+						&& ( $max_qty === '' || ( $max_stock - $max_qty < $max_qty * $bundle_stock_quantity ) )
+					) {
+						$has_undefined_bundle_stock_quantity = true;
+					}
+				}
+
+				$display_bundle_stock_quantity = ! $has_undefined_bundle_stock_quantity;
+
+				if ( apply_filters( 'woocommerce_bundle_display_bundled_items_stock_quantity', $display_bundle_stock_quantity, $this ) ) {
+
+					add_filter( 'woocommerce_product_get_stock_quantity', array( $this, 'filter_stock_quantity' ), 1000 );
+					$availability[ 'availability' ] = wc_format_stock_for_display( $this );
+					remove_filter( 'woocommerce_product_get_stock_quantity', array( $this, 'filter_stock_quantity' ), 1000 );
+
+				} elseif ( ! $this->managing_stock() || $this->managing_stock() && $this->get_stock_quantity() > $bundle_stock_quantity ) {
+
+					add_filter( 'pre_option_woocommerce_stock_format', array( $this, 'filter_stock_format' ), 1000 );
+					$availability[ 'availability' ] = wc_format_stock_for_display( $this );
+					remove_filter( 'pre_option_woocommerce_stock_format', array( $this, 'filter_stock_format' ), 1000 );
+				}
 			}
 		}
 
@@ -1506,6 +1539,30 @@ class WC_Product_Bundle extends WC_Product {
 	 */
 	public function get_bundled_items_stock_sync_status( $context = 'edit' ) {
 		return $this->get_prop( 'bundled_items_stock_sync_status', 'edit' );
+	}
+
+	/**
+	 * Bundle stock status, taking bundled item stock limitations into account.
+	 *
+	 * @since  6.9.0
+	 *
+	 * @param  string  $context
+	 * @return int|''
+	 */
+	public function get_bundle_stock_status( $context = 'view' ) {
+
+		$parent_stock_status        = $this->get_stock_status( $context );
+		$bundled_items_stock_status = $this->get_bundled_items_stock_status( $context );
+
+		$value = 'instock';
+
+		if ( 'outofstock' === $parent_stock_status ) {
+			$value = 'outofstock';
+		} elseif ( 'outofstock' === $bundled_items_stock_status ) {
+			$value = 'insufficientstock';
+		}
+
+		return $value;
 	}
 
 	/**
@@ -2757,6 +2814,10 @@ class WC_Product_Bundle extends WC_Product {
 
 	public function filter_stock_quantity( $qty ) {
 		return $this->get_bundle_stock_quantity();
+	}
+
+	public function filter_stock_format( $qty ) {
+		return 'no_amount';
 	}
 
 	/*

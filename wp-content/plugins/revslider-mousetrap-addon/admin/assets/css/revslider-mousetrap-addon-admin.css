@@ -33,6 +33,6 @@
 #rbm_mousetrap .mcg_page {display: none;width: 100%;height: 100%;position: absolute;top: 0px;left: 0px;box-sizing: border-box; padding:75px 120px;background-color:#212226;}
 #rbm_mousetrap .mcg_page.mcg_selected { display: block; }
 
-#rb_tlw #rbm_mousetrap .rbm_content .select2RS-container { width: 140px !important; }
+#rb_tlw #rbm_mousetrap .rbm_content .ddTP_C { width: 140px !important; }
 
-#rb_tlw #rbm_mousetrap .rbm_content .select2RS-container .select2RS-selection { width: 140px; }
+#rb_tlw #rbm_mousetrap .rbm_content .ddTP_C .ddTP_S { width: 140px; }

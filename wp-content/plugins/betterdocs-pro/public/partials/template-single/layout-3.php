@@ -61,6 +61,10 @@ $htags = implode(',', $supported_tag);
 				<?php
 				/* Start the Loop */
 				while ( have_posts() ) : the_post();
+                    $enable_breadcrumb = BetterDocs_DB::get_settings('enable_breadcrumb');
+                    if($enable_breadcrumb == 1){
+                        betterdocs_breadcrumbs();
+                    }
 					$enable_post_title = BetterDocs_DB::get_settings('enable_post_title');
 					if ( $enable_post_title == 1 ) {
 					?>
@@ -68,10 +72,6 @@ $htags = implode(',', $supported_tag);
 						<div class="docs-single-title">
 							<?php
 							if ( is_single() ) {
-								$enable_breadcrumb = BetterDocs_DB::get_settings('enable_breadcrumb');
-								if($enable_breadcrumb == 1){
-									betterdocs_breadcrumbs();
-								}
                                 $output = betterdocs_generate_output();
 								the_title( '<'.BetterDocs_Helper::html_tag($output['betterdocs_post_title_tag']).' id="betterdocs-entry-title" class="betterdocs-entry-title">', '</'.BetterDocs_Helper::html_tag($output['betterdocs_post_title_tag']).'>' );
 							}

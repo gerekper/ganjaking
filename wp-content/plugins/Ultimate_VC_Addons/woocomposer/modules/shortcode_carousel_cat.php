@@ -4,16 +4,16 @@
  *
  * @Module: Carousel Cat
  * @Since: 1.0
- *  @package WooComposer
+ *  @package Ultimate_VC_Addons_WooComposer
  */
 
-if ( ! class_exists( 'WooComposer_Cat_Carousel' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_Cat_Carousel' ) ) {
 	/**
-	 * Class that initializes WooComposer Carousel
+	 * Class that initializes Ultimate_VC_Addons_WooComposer Carousel
 	 *
-	 * @class WooComposer_Cat_Carousel
+	 * @class Ultimate_VC_Addons_WooComposer_Cat_Carousel
 	 */
-	class WooComposer_Cat_Carousel {
+	class Ultimate_VC_Addons_WooComposer_Cat_Carousel {
 		/**
 		 * Constructor function that constructs Carousel
 		 *
@@ -658,6 +658,6 @@ if ( ! class_exists( 'WooComposer_Cat_Carousel' ) ) {
 			return $output;
 		}//end woocomposer_carousel_shortcode()
 
-	} /* end class WooComposer_Cat_Carousel */
-	new WooComposer_Cat_Carousel();
+	} /* end class Ultimate_VC_Addons_WooComposer_Cat_Carousel */
+	new Ultimate_VC_Addons_WooComposer_Cat_Carousel();
 }

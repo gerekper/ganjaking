@@ -9,7 +9,7 @@ if(!defined('ABSPATH')) exit();
 
 class RsAddOnExplodinglayersBase {
 	
-	const MINIMUM_VERSION = '6.3.2';
+	const MINIMUM_VERSION = '6.5.0';
 	
 	protected function systemsCheck() {
 		
@@ -18,8 +18,7 @@ class RsAddOnExplodinglayersBase {
 			return 'add_notice_plugin';
 		
 		}
-		else if(!version_compare(RevSliderGlobals::SLIDER_REVISION, RsAddOnExplodinglayersBase::MINIMUM_VERSION, '>=')) {
-		
+		else if(!version_compare(RevSliderGlobals::SLIDER_REVISION, RsAddOnExplodinglayersBase::MINIMUM_VERSION, '>=') && RevSliderGlobals::SLIDER_REVISION!="6.3.CANVAS") {
 			return 'add_notice_version';
 		
 		}
@@ -36,6 +35,7 @@ class RsAddOnExplodinglayersBase {
 	protected function loadClasses() {
 		
 		$isAdmin = is_admin();		
+
 		
 		if($isAdmin) {
 			
@@ -82,7 +82,7 @@ class RsAddOnExplodinglayersBase {
 			if($page !== 'revslider') return;
 			
 			$_handle = 'rs-' . static::$_PluginTitle . '-admin';
-			$_base   = static::$_PluginUrl . 'admin/assets/';
+			$_base   = static::$_PluginUrl . 'admin/assets/';			
 			$_jsPathMin = file_exists(static::$_PluginPath . 'admin/assets/js/revslider-' . static::$_PluginTitle . '-addon-admin.dev.js') ? '.dev' : '';
 									
 			wp_enqueue_style($_handle, $_base . 'css/revslider-' . static::$_PluginTitle . '-addon-admin.css', array(), static::$_Version);

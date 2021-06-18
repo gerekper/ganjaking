@@ -6,13 +6,13 @@
  * @package Just Icon
  */
 
-if ( ! class_exists( 'AIO_Just_Icon' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Just_Icon' ) ) {
 	/**
 	 * Function that initializes Just Icon Module
 	 *
-	 * @class AIO_Just_Icon
+	 * @class Ultimate_VC_Addons_Just_Icon
 	 */
-	class AIO_Just_Icon {
+	class Ultimate_VC_Addons_Just_Icon {
 		/**
 		 * Constructor function that constructs default values for the Just Icon module.
 		 *
@@ -359,7 +359,7 @@ if ( ! class_exists( 'AIO_Just_Icon' ) ) {
 			$ult_just_settings['css_just_icon'] = esc_attr( $ult_just_settings['css_just_icon'] );
 			$ultimate_js                        = get_option( 'ultimate_js' );
 			if ( '' !== $ult_just_settings['tooltip_text'] && 'enable' !== $ultimate_js ) {
-				wp_enqueue_script( 'ultimate-tooltip' );
+				wp_enqueue_script( 'ultimate-vc-addons-tooltip' );
 			}
 
 			$output           = '';
@@ -483,13 +483,7 @@ if ( ! class_exists( 'AIO_Just_Icon' ) ) {
 				}
 				$output = $output;
 			}
-			if ( '' !== $ult_just_settings['tooltip_disp'] && '' !== $ult_just_settings['tooltip_text'] ) {
-				$output .= '<script>
-					jQuery(function () {
-						jQuery(".' . esc_attr( $uniqid ) . '").bsf_tooltip("hide");
-					})
-				</script>';
-			}
+
 			/* alignment fix */
 			if ( '' !== $icon_align_style ) {
 				$output = '<div class="align-icon" style="' . esc_attr( $icon_align_style ) . '">' . $output . '</div>';
@@ -515,8 +509,8 @@ if ( ! class_exists( 'AIO_Just_Icon' ) ) {
 		}
 	}
 }
-if ( class_exists( 'AIO_Just_Icon' ) ) {
-	$aio_just_icon = new AIO_Just_Icon();
+if ( class_exists( 'Ultimate_VC_Addons_Just_Icon' ) ) {
+	$aio_just_icon = new Ultimate_VC_Addons_Just_Icon();
 }
 if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Just_Icon' ) ) {
 	/**

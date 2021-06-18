@@ -1,5 +1,10 @@
 *** WooCommerce Box Office Changelog ***
 
+2021-06-08 - version 1.1.33
+* Fix - JS error showing in the console when navigating to My Accounts->Tickets page.
+* Tweak - WC 5.3 compatibility.
+* Tweak - WP 5.7 compatibility.
+
 2021-05-04 - version 1.1.32
 * Fix - Replace deprecated jQuery 3 methods.
 * Tweak - WC 5.2.2 compatibility.

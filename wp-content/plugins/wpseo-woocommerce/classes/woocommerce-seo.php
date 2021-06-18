@@ -626,17 +626,17 @@ class Yoast_WooCommerce_SEO {
 	 *
 	 * @since 1.0
 	 *
-	 * @param bool   $bool      Whether or not to include this post type in the XML sitemap.
-	 * @param string $post_type The post type of the post.
+	 * @param bool   $include_in_sitemap Whether or not to include this post type in the XML sitemap.
+	 * @param string $post_type          The post type of the post.
 	 *
 	 * @return bool
 	 */
-	public function xml_sitemap_post_types( $bool, $post_type ) {
+	public function xml_sitemap_post_types( $include_in_sitemap, $post_type ) {
 		if ( $post_type === 'product_variation' || $post_type === 'shop_coupon' ) {
 			return true;
 		}
 
-		return $bool;
+		return $include_in_sitemap;
 	}
 
 	/**
@@ -644,17 +644,17 @@ class Yoast_WooCommerce_SEO {
 	 *
 	 * @since 1.0
 	 *
-	 * @param bool   $bool     Whether or not to include this post type in the XML sitemap.
-	 * @param string $taxonomy The taxonomy to check against.
+	 * @param bool   $include_in_sitemap Whether or not to include this taxonomy in the XML sitemap.
+	 * @param string $taxonomy           The taxonomy to check against.
 	 *
 	 * @return bool
 	 */
-	public function xml_sitemap_taxonomies( $bool, $taxonomy ) {
+	public function xml_sitemap_taxonomies( $include_in_sitemap, $taxonomy ) {
 		if ( $taxonomy === 'product_type' || $taxonomy === 'product_shipping_class' || $taxonomy === 'shop_order_status' ) {
 			return true;
 		}
 
-		return $bool;
+		return $include_in_sitemap;
 	}
 
 	/**
@@ -723,25 +723,25 @@ class Yoast_WooCommerce_SEO {
 	/**
 	 * Make a string clear for display in meta data.
 	 *
-	 * @param string $string The input string.
+	 * @param string $text_string The input string.
 	 *
 	 * @return string The clean string.
 	 */
-	protected function clean_description( $string ) {
+	protected function clean_description( $text_string ) {
 		// Strip tags.
-		$string = wp_strip_all_tags( $string );
+		$text_string = wp_strip_all_tags( $text_string );
 
 		// Replace non breaking space entities with spaces.
-		$string = str_replace( '&nbsp;', ' ', $string );
+		$text_string = str_replace( '&nbsp;', ' ', $text_string );
 
 		// Replace non breaking uni-code spaces with spaces. Don't ask.
-		$string = str_replace( chr( 194 ) . chr( 160 ), ' ', $string );
+		$text_string = str_replace( chr( 194 ) . chr( 160 ), ' ', $text_string );
 
 		// Replace all double or more spaces with one space and trim our string.
-		$string = preg_replace( '/\s+/', ' ', $string );
-		$string = trim( $string );
+		$text_string = preg_replace( '/\s+/', ' ', $text_string );
+		$text_string = trim( $text_string );
 
-		return $string;
+		return $text_string;
 	}
 
 	/**
@@ -846,7 +846,7 @@ class Yoast_WooCommerce_SEO {
 	 *
 	 * @param array $helpscout_settings The HelpScout settings.
 	 *
-	 * @return array $helpscout_settings The HelpScout settings with the News SEO beacon added.
+	 * @return array The HelpScout settings with the News SEO beacon added.
 	 */
 	public function filter_helpscout_beacon( $helpscout_settings ) {
 		$helpscout_settings['pages_ids']['wpseo_woo'] = '8535d745-4e80-48b9-b211-087880aa857d';

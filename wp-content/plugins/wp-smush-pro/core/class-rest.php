@@ -32,6 +32,9 @@ class Rest {
 		// Register smush meta fields and callbacks for the image object in the
 		// wp-json/wp/v2/media REST API endpoint.
 		add_action( 'rest_api_init', array( $this, 'register_smush_meta' ) );
+
+		// Custom route for handling configs.
+		add_action( 'rest_api_init', array( $this, 'register_configs_route' ) );
 	}
 
 	/**
@@ -90,4 +93,28 @@ class Rest {
 		return $combined_stats;
 	}
 
+	/**
+	 * Registers the custom route for handling configs.
+	 *
+	 * @since 3.8.6
+	 */
+	public function register_configs_route() {
+		$configs_handler = new Configs();
+		register_rest_route(
+			'wp-smush/v1',
+			'/' . Configs::OPTION_NAME . '/',
+			array(
+				array(
+					'methods'             => 'GET',
+					'callback'            => array( $configs_handler, 'get_callback' ),
+					'permission_callback' => array( $configs_handler, 'permission_callback' ),
+				),
+				array(
+					'methods'             => 'POST',
+					'callback'            => array( $configs_handler, 'post_callback' ),
+					'permission_callback' => array( $configs_handler, 'permission_callback' ),
+				),
+			)
+		);
+	}
 }

@@ -1,14 +1,44 @@
-*** Redsys Gateway Change Log ***
+﻿*** Redsys Gateway Change Log ***
+
+2021.06.09 - version 15.1.2
+
+* Fixed: Problem with Bizum that I had no idea. What a loser I am! 
+2021.06.01 - version 15.1.1
+
+* Fixed: Replacing a jQuery that I had accidentally deleted because I'm stupid.
+
+2021.06.01 - version 15.1.0
+
+* NEW: Added Pay with 1click to Redsys in Checkout (by Jose Conti) - InSite
+* NEW: Added an API function that can be called by passing the $order_id and in this way charge it WCRed()->collect_invoice_by_id( $order_id )
+* NEW: Added a column in the Payments method for know is the token is for Pay with 1click or Subscriptions.
+* NEW: Now you can you tell to InSite the checkout field billing_first_name if it is customized.
+* NEW: Now InSite is reloaded if the Checkout field billing_first_name is updated.
+* NEW: Now you can set a limit cart amount for use Bizum.
+* NEW: Added dns-prefetch for InSite JS.
+* NEW: Added InSite compatibility with SNI.
+* NEW: Now, you can hide a payment method in the checkout when it is in test mode and select who can view it.
+* IMPROVED: Improved Site Health.
+* IMPROVED: Now Checkout is only reloaded when there is an error when InSite is active.
+* IMPROVED: All JS plugin files minified.
+* IMPROVED: Now a finger pointer is show when cursor is over InSite Pay button.
+* UPDATED: Updated the email send to admin when Ds_Card_Number is not send by Redsys.
+* FIXED: TRA and LWV in standard payment.
+* FIXED: Fixed a Bizum payment problem over some servers configuration.
+* FIXED: Fixed a problem with flush rules (Thanks to @frantorres)
+* FIXED: Fixed some Undefined variables & properties.
+
+2021.03.26 - version 15.0.3
+
+* NEW: Added more customizations to Redsys in Checkout (by Jose Conti) - InSite.
+* NEW: Updated title and description of Redsys in Checkout (by Jose Conti) - InSite
+* FIXED: Fixed 4 PHP Warnings.
+* FIXED: Fixed Fixed a problem with card with amounts over 30€
 
 2021.03.03 - version 15.0.2
 
 * REFACTORING: InSite Refactoring to charge after abandoning the checkout page.
-* NEW: Added WoOCommerce Errors to checkput about credit card payments.
-
-2021.02.25 - version 15.0.1
-
-* WORKAROUND: InSite post different types of data from real terminal & test terminal. This is a Workaround form fix this problem.
-* FIXED: Fixed a InSite Log line.
+* NEW: Added WooCommerce Errors to checkout about credit card payments.
 
 2021.02.23 - version 15.0.0
 
@@ -23,7 +53,7 @@
 
 2021.01.28 - version 14.0.3
 
-* FIXED: Workaround with the Ds_ExpiryDate because redsys stop to send it by default.
+* FIXED: Workaround with the Ds_ExpiryDate because Redsys stop to send it by default.
 * FIXED: Fixed Redsys (by Jose Conti) checkout description.
 
 2021.01.18 - version 14.0.2

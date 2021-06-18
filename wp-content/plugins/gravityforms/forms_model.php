@@ -6623,7 +6623,7 @@ class GFFormsModel {
 	}
 
 	public static function is_html5_enabled() {
-		return get_option( 'rg_gforms_enable_html5', true );
+		return get_option( 'rg_gforms_enable_html5', false );
 	}
 
 	/**

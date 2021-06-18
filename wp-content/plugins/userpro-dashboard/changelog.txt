@@ -1,0 +1,45 @@
+Version 3.7( 22 Sept 2017 )
+============================
+        - New feature : Added Pagination for the posts displayed in 'My Posts' tab in the user dashboard
+        - Enhancement : Added setting for admin to show/hide user's posts in dashboard. Setting can be found at - UserPro -> User Dashboard -> General Settings -> Display user's posts in dashboard
+
+Version 3.6.1( 21 Apr 2017 )
+============================
+        - Bug fixed : When custom widgets are deleted, the widgetized look of the profile is lost
+
+Version 3.6( 27 Mar 2017 )
+============================
+        - Bug fixed : Logged in user's media shown in other user's profile
+
+Version 3.5( 01 Mar 2017 )
+============================
+        - New Feature : Now users can manage their posts from dashboard
+	
+Version 3.4( 23 Dec 2016 )
+============================
+	- Bug fixed : default widgets can be displayed. Previously, if custom widgets turned on and not created custom widgets then the default widgets was not displayed, CSS issues are fixed 
+
+Version 3.3( 12 Oct 2016 )
+============================
+	- New Feature : Admin can now setup a layout for all users using widgets.(Settings can be found at : UserPro -> User Dashboard -> Settings -> General Settings -> Enable custom layout for all users)
+
+Version 3.2( 01 Sept 2016 )
+============================
+	- New Feature : Added auto update
+
+Version 3.1( 09 Jun 2016 )
+============================
+	- New Feature : Added ability for using shortcodes in custom Widgets created by administrator
+ 	- Enhancement : Added postsbyuser widget in profile customizer
+
+Version 3.0( 12 Apr 2016 )
+============================
+	- New Feature : Ability for administrator to create Custom Widgets to be used in the dashboard for users
+	
+Version 2.0( 04 Apr 2016 )
+============================
+	- New Feature : Enable users to create custom profile layout with the help of easy to use drag and drop tool ( Note : This feature requires UserPro version 2.67 to be installed ) 
+	
+	Version 1.0(15 Mar 2016)
+============================
+	- Initial version

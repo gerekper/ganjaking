@@ -263,28 +263,28 @@ if ( ! class_exists( 'Ultimate_Admin_Area' ) ) {
 
 				$bsf_dev_mode = bsf_get_option( 'dev_mode' );
 				wp_enqueue_script( 'jquery-migrate' );
-				wp_register_style( 'ultimate-admin-style', UAVC_URL . 'admin/css/style.css', null, ULTIMATE_VERSION );
+				wp_register_style( 'ultimate-vc-addons-admin-style', UAVC_URL . 'admin/css/style.css', null, ULTIMATE_VERSION );
 
-				wp_register_style( 'ultimate-chosen-style', UAVC_URL . 'admin/vc_extend/css/chosen.css', null, ULTIMATE_VERSION );
-				wp_register_script( 'ultimate-chosen-script', UAVC_URL . 'admin/vc_extend/js/chosen.js', null, ULTIMATE_VERSION, true );
+				wp_register_style( 'ultimate-vc-addons-chosen-style', UAVC_URL . 'admin/vc_extend/css/chosen.css', null, ULTIMATE_VERSION );
+				wp_register_script( 'ultimate-vc-addons-chosen-script', UAVC_URL . 'admin/vc_extend/js/chosen.js', null, ULTIMATE_VERSION, true );
 
-				wp_register_script( 'ultimate-vc-backend-script', UAVC_URL . 'admin/js/ultimate-vc-backend.min.js', array( 'jquery' ), ULTIMATE_VERSION, true );
-				wp_register_style( 'ultimate-vc-backend-style', UAVC_URL . 'admin/css/ultimate-vc-backend' . $css_ext, null, ULTIMATE_VERSION );
+				wp_register_script( 'ultimate-vc-addons-backend-script', UAVC_URL . 'admin/js/ultimate-vc-backend.min.js', array( 'jquery' ), ULTIMATE_VERSION, true );
+				wp_register_style( 'ultimate-vc-addons-backend-style', UAVC_URL . 'admin/css/ultimate-vc-backend' . $css_ext, null, ULTIMATE_VERSION );
 
 				if ( 'enable' === $bsf_dev_mode ) {
-					wp_enqueue_style( 'ultimate-admin-style' );
+					wp_enqueue_style( 'ultimate-vc-addons-admin-style' );
 				} else {
 					wp_enqueue_style( 'wp-color-picker' );
-					wp_enqueue_script( 'ultimate-vc-backend-script' );
-					wp_enqueue_style( 'ultimate-vc-backend-style' );
+					wp_enqueue_script( 'ultimate-vc-addons-backend-script' );
+					wp_enqueue_style( 'ultimate-vc-addons-backend-style' );
 				}
 			}
 
-			wp_register_script( 'aio-admin-media', UAVC_URL . 'admin/js/admin-media.js', array( 'jquery' ), ULTIMATE_VERSION, false );
-			wp_enqueue_script( 'aio-admin-media' );
+			wp_register_script( 'ultimate-vc-addons-admin-media', UAVC_URL . 'admin/js/admin-media.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+			wp_enqueue_script( 'ultimate-vc-addons-admin-media' );
 
 			wp_localize_script(
-				'aio-admin-media',
+				'ultimate-vc-addons-admin-media',
 				'uavc',
 				array(
 					'add_zipped_font'        => wp_create_nonce( 'smile-add-zipped-fonts-nonce' ),
@@ -429,10 +429,10 @@ if ( ! class_exists( 'Ultimate_Admin_Area' ) ) {
 				array( $this, 'ultimate_icon_manager_menu' )
 			);
 
-			$AIO_Icon_Manager = new AIO_Icon_Manager();// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+			$AIO_Icon_Manager = new Ultimate_VC_Addons_Icon_Manager();// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 			add_action( 'admin_print_scripts-' . $icon_manager_page, array( $AIO_Icon_Manager, 'admin_scripts' ) ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 
-			$Ultimate_Google_Font_Manager = new Ultimate_Google_Font_Manager(); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+			$Ultimate_Google_Font_Manager = new Ultimate_VC_Addons_Google_Font_Manager(); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 			$google_font_manager_page     = add_submenu_page(
 				'about-ultimate',
 				__( 'Google Font Manager', 'ultimate_vc' ),
@@ -476,7 +476,7 @@ if ( ! class_exists( 'Ultimate_Admin_Area' ) ) {
 		 * @access public
 		 */
 		public function ultimate_icon_manager_menu() {
-			$AIO_Icon_Manager = new AIO_Icon_Manager();// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+			$AIO_Icon_Manager = new Ultimate_VC_Addons_Icon_Manager();// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 			$AIO_Icon_Manager->icon_manager_dashboard();// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 		}
 		/**

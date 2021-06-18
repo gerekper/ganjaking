@@ -123,7 +123,6 @@ function acp_sorting() {
 	return new Sorting\Addon(
 		AC()->get_storage(),
 		new Asset\Location\Absolute( ACP()->get_url(), ACP()->get_dir() ),
-		AC()->admin(),
 		new Sorting\NativeSortableFactory(),
 		new Sorting\ModelFactory(),
 		new SegmentRepository()

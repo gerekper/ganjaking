@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Particles Effect
 Plugin URI: http://www.themepunch.com/
 Description: Add interactive particle animations to your sliders
 Author: ThemePunch
-Version: 2.3.4
+Version: 3.01
 Author URI: http://themepunch.com
 */
 

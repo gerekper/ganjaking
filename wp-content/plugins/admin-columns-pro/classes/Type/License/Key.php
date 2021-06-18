@@ -36,7 +36,7 @@ final class Key {
 	 * @return bool
 	 */
 	public static function is_valid( $key ) {
-		return ! empty( $key ) && is_string( $key );
+		return $key && is_string( $key ) && strlen( $key ) > 12 && false !== strpos( $key, '-' );
 	}
 
 }

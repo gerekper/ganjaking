@@ -1,0 +1,1 @@
+<li class="updb-profile-widget ui-state-default" id="<?php echo $updb_widget;?>"><?php echo $updb_available_widgets[$updb_widget]['title'];?></li>

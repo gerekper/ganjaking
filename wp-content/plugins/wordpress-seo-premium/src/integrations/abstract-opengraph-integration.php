@@ -2,9 +2,9 @@
 
 namespace Yoast\WP\SEO\Premium\Integrations;
 
+use Yoast\WP\SEO\Conditionals\Open_Graph_Conditional;
 use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
-use Yoast\WP\SEO\Premium\Conditionals\Social_Templates_Conditional;
 
 /**
  * Class Abstract_OpenGraph_Integration.
@@ -61,7 +61,7 @@ abstract class Abstract_OpenGraph_Integration implements Integration_Interface {
 	 * @return array
 	 */
 	public static function get_conditionals() {
-		return [ Social_Templates_Conditional::class ];
+		return [ Open_Graph_Conditional::class ];
 	}
 
 	/**

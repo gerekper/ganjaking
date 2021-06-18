@@ -5,7 +5,7 @@
  * @author      Ratnakar
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.7.0
+ * @version     1.8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -214,7 +214,21 @@ if ( ! class_exists( 'WC_SC_Coupon_Message' ) ) {
 				?>
 					<div id="wc_coupon_message_<?php echo esc_attr( $coupon_id ); ?>" class="wc_coupon_message_container">
 						<div class="wc_coupon_message_body">
-							<?php echo apply_filters( 'the_content', $wc_coupon_message ); // phpcs:ignore ?>
+							<?php
+								$is_filter_content = apply_filters(
+									'wc_sc_is_filter_content_coupon_message',
+									true,
+									array(
+										'source'        => $this,
+										'called_by'     => current_filter(),
+										'coupon_object' => $coupon,
+									)
+								);
+							if ( true === $is_filter_content ) {
+								$wc_coupon_message = apply_filters( 'the_content', $wc_coupon_message );
+							}
+							?>
+							<?php echo wp_kses_post( $wc_coupon_message ); // phpcs:ignore ?>
 						</div>
 					</div>
 				<?php
@@ -296,7 +310,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Message' ) ) {
 		 * @param  boolean  $bool Not used in this function.
 		 * @param  boolean  $plain_text Not used in this function.
 		 */
-		public function wc_add_coupons_message_in_email( $order, $bool, $plain_text ) {
+		public function wc_add_coupons_message_in_email( $order = null, $bool = false, $plain_text = false ) {
 			$used_coupons = $this->get_coupon_codes( $order );
 			if ( count( $used_coupons ) <= 0 ) {
 				return;

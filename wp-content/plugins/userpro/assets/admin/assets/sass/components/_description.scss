@@ -1,0 +1,29 @@
+.up-description  {
+  display: block;
+  float: left;
+  clear: left;
+  margin: 10px 0 0 0;
+  color: #666;
+  font-style: italic;
+  background-color: rgba(153, 153, 153, 0.2);
+  line-height: 20px;
+  padding: 5px 25px;
+  border-radius:6px;
+  font-size: 12px;
+
+  .up-add-new-field &{
+    color: #fff;
+  }
+
+  $this : &;
+  &--inline{
+    display: inline-block;
+    float:none;
+    clear:none;
+    margin:0 5px;
+  }
+  &--full{
+    float:none;
+    width:80%;
+  }
+}

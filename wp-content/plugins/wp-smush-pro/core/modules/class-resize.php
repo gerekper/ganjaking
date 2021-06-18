@@ -71,8 +71,7 @@ class Resize extends Abstract_Module {
 
 		if ( ! empty( $current_screen ) && ! $skip_check ) {
 			// Do not Proceed if not on one of the required screens.
-			$current_page = $current_screen->base;
-			if ( ! in_array( $current_page, Core::$pages, true ) ) {
+			if ( ! in_array( $current_screen->base, Core::$external_pages, true ) && false === strpos( $current_screen->base, 'page_smush' ) ) {
 				return;
 			}
 		}

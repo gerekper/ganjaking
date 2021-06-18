@@ -16,7 +16,7 @@
  * Plugin Name:       Slider Revolution Weather Add-on
  * Plugin URI:        https://revolution.themepunch.com
  * Description:       Every where you go... always take the weather with you!
- * Version:           2.0.2
+ * Version:           3.0.0
  * Author:            ThemePunch
  * Author URI:        https://www.themepunch.com
  * License:           GPL-2.0+
@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define("REV_ADDON_WEATHER_VERSION", "2.0.2");
+define("REV_ADDON_WEATHER_VERSION", "3.0.0");
 define("REV_ADDON_WEATHER_URL", str_replace('index.php','',plugins_url( 'index.php', __FILE__ )));
 define("REV_ADDON_WEATHER_PATH", plugin_dir_path(__FILE__));
 

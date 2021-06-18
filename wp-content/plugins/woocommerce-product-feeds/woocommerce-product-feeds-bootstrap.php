@@ -22,37 +22,63 @@ $woocommerce_gpf_di['WoocommerceGpfAdmin'] = function ( $c ) {
 		$c['WoocommerceGpfCache'],
 		$c['WoocommerceGpfCacheStatus'],
 		$c['WoocommerceProductFeedsFeedImageManager'],
-		$c['WoocommerceProductFeedsWoocommerceAdminIntegration']
+		$c['WoocommerceProductFeedsWoocommerceAdminIntegration'],
+		$c['WoocommerceProductFeedsFeedConfigRepository'],
+		$c['WoocommerceProductFeedsFeedManager']
 	);
 
 	return $woocommerce_gpf_admin;
 };
 
+$woocommerce_gpf_di['WoocommerceProductFeedsFeedManager'] = function ( $c ) {
+	return new WoocommerceProductFeedsFeedManager(
+		$c['WoocommerceProductFeedsFeedConfigRepository'],
+		$c['WoocommerceGpfTemplateLoader'],
+		$c['WoocommerceGpfCommon'],
+		$c['WoocommerceProductFeedsFeedManagerListTable']
+	);
+};
+
+$woocommerce_gpf_di['WoocommerceProductFeedsFeedManagerListTable'] = function ( $c ) {
+	return new WoocommerceProductFeedsFeedManagerListTable(
+		$c['WoocommerceProductFeedsFeedConfigRepository'],
+		$c['WoocommerceGpfCommon']
+	);
+};
+
 $woocommerce_gpf_di['WoocommerceProductFeedsFeedImageManager'] = function ( $c ) {
 	return new WoocommerceProductFeedsFeedImageManager(
-		$c['WoocommerceGpfCommon'],
-		$c['WoocommerceGpfDebugService'],
-		$c['WoocommerceGpfTemplateLoader']
+		$c['WoocommerceGpfTemplateLoader'],
+		$c['WoocommerceProductFeedsFeedItemFactory']
 	);
 };
 
 $woocommerce_gpf_di['WoocommerceProductFeedsDbManager'] = function ( $c ) {
-	return new WoocommerceProductFeedsDbManager( $c['WoocommerceGpfCache'] );
+	return new WoocommerceProductFeedsDbManager(
+		$c['WoocommerceGpfCache'],
+		$c['WoocommerceProductFeedsFeedConfigRepository'],
+		$c['WoocommerceGpfCommon']
+	);
 };
 
 $woocommerce_gpf_di['WoocommerceGpfCache'] = function ( $c ) {
-	return new WoocommerceGpfCache( $c );
+	return new WoocommerceGpfCache( $c['WoocommerceGpfDebugService'], $c );
 };
 
 $woocommerce_gpf_di['WoocommerceGpfDebugService'] = function ( $c ) {
 	return new WoocommerceGpfDebugService();
 };
 
+$woocommerce_gpf_di['WoocommerceProductFeedsFeedConfigRepository'] = function ( $c ) {
+	return new WoocommerceProductFeedsFeedConfigRepository();
+};
+
 $woocommerce_gpf_di['WoocommerceGpfCacheStatus'] = function ( $c ) {
 	return new WoocommerceGpfCacheStatus(
 		$c['WoocommerceGpfCommon'],
 		$c['WoocommerceGpfCache'],
-		$c['WoocommerceGpfTemplateLoader']
+		$c['WoocommerceGpfTemplateLoader'],
+		$c['WoocommerceProductFeedsFeedConfigRepository']
 	);
 };
 
@@ -102,12 +128,20 @@ $woocommerce_gpf_di['WoocommerceGpfFeedGoogleLocalProducts'] = function ( $c ) {
 	);
 };
 
+$woocommerce_gpf_di['WoocommerceProductFeedsFeedConfigFactory'] = function ( $c ) {
+	return new WoocommerceProductFeedsFeedConfigFactory(
+		$c['WoocommerceProductFeedsFeedConfigRepository'],
+		$c['WoocommerceGpfCommon']
+	);
+};
+
 $woocommerce_gpf_di['WoocommerceGpfFrontend'] = function ( $c ) {
 	global $woocommerce_gpf_frontend;
 	$woocommerce_gpf_frontend = new WoocommerceGpfFrontend(
 		$c['WoocommerceGpfCommon'],
 		$c['WoocommerceGpfCache'],
 		$c['WoocommerceGpfDebugService'],
+		$c['WoocommerceProductFeedsFeedItemFactory'],
 		$c
 	);
 
@@ -125,7 +159,7 @@ $woocommerce_gpf_di['WoocommerceGpfClearAllJob'] = function ( $c ) {
 	return new WoocommerceGpfClearAllJob(
 		$c['WoocommerceGpfCommon'],
 		$c['WoocommerceGpfCache'],
-		$c['WoocommerceGpfDebugService'],
+		$c['WoocommerceProductFeedsFeedItemFactory'],
 		$c
 	);
 };
@@ -134,7 +168,7 @@ $woocommerce_gpf_di['WoocommerceGpfClearProductJob'] = function ( $c ) {
 	return new WoocommerceGpfClearProductJob(
 		$c['WoocommerceGpfCommon'],
 		$c['WoocommerceGpfCache'],
-		$c['WoocommerceGpfDebugService'],
+		$c['WoocommerceProductFeedsFeedItemFactory'],
 		$c
 	);
 };
@@ -143,7 +177,7 @@ $woocommerce_gpf_di['WoocommerceGpfRebuildSimpleJob'] = function ( $c ) {
 	return new WoocommerceGpfRebuildSimpleJob(
 		$c['WoocommerceGpfCommon'],
 		$c['WoocommerceGpfCache'],
-		$c['WoocommerceGpfDebugService'],
+		$c['WoocommerceProductFeedsFeedItemFactory'],
 		$c
 	);
 };
@@ -152,7 +186,7 @@ $woocommerce_gpf_di['WoocommerceGpfRebuildComplexJob'] = function ( $c ) {
 	return new WoocommerceGpfRebuildComplexJob(
 		$c['WoocommerceGpfCommon'],
 		$c['WoocommerceGpfCache'],
-		$c['WoocommerceGpfDebugService'],
+		$c['WoocommerceProductFeedsFeedItemFactory'],
 		$c
 	);
 };
@@ -161,7 +195,7 @@ $woocommerce_gpf_di['WoocommerceGpfRebuildProductJob'] = function ( $c ) {
 	return new WoocommerceGpfRebuildProductJob(
 		$c['WoocommerceGpfCommon'],
 		$c['WoocommerceGpfCache'],
-		$c['WoocommerceGpfDebugService'],
+		$c['WoocommerceProductFeedsFeedItemFactory'],
 		$c
 	);
 };
@@ -175,7 +209,11 @@ $woocommerce_gpf_di['WoocommerceGpfRestApi'] = function ( $c ) {
 
 $woocommerce_gpf_di['WoocommerceGpfStatusReport'] = function ( $c ) {
 	global $woocommerce_gpf_status_report;
-	$woocommerce_gpf_status_report = new WoocommerceGpfStatusReport( $c['WoocommerceGpfTemplateLoader'], $c['WoocommerceGpfCommon'] );
+	$woocommerce_gpf_status_report = new WoocommerceGpfStatusReport(
+		$c['WoocommerceGpfTemplateLoader'],
+		$c['WoocommerceGpfCommon'],
+		$c['WoocommerceProductFeedsFeedConfigRepository']
+	);
 
 	return $woocommerce_gpf_status_report;
 };
@@ -183,8 +221,7 @@ $woocommerce_gpf_di['WoocommerceGpfStatusReport'] = function ( $c ) {
 $woocommerce_gpf_di['WoocommerceGpfStructuredData'] = function ( $c ) {
 	global $woocommerce_gpf_structured_data;
 	$woocommerce_gpf_structured_data = new WoocommerceGpfStructuredData(
-		$c['WoocommerceGpfCommon'],
-		$c['WoocommerceGpfDebugService']
+		$c['WoocommerceProductFeedsFeedItemFactory']
 	);
 
 	return $woocommerce_gpf_structured_data;
@@ -192,8 +229,15 @@ $woocommerce_gpf_di['WoocommerceGpfStructuredData'] = function ( $c ) {
 
 $woocommerce_gpf_di['WoocommerceProductFeedsExpandedStructuredData'] = function ( $c ) {
 	return new WoocommerceProductFeedsExpandedStructuredData(
+		$c['WoocommerceProductFeedsFeedItemFactory']
+	);
+};
+
+$woocommerce_gpf_di['WoocommerceProductFeedsFeedItemFactory'] = function ( $c ) {
+	return new WoocommerceProductFeedsFeedItemFactory(
 		$c['WoocommerceGpfCommon'],
-		$c['WoocommerceGpfDebugService']
+		$c['WoocommerceGpfDebugService'],
+		$c['WoocommerceProductFeedsTermDepthRepository']
 	);
 };
 
@@ -237,8 +281,7 @@ $woocommerce_gpf_di['WoocommercePrfGoogleReviewFeed'] = function ( $c ) {
 $woocommerce_gpf_di['WoocommercePrfGoogleReviewProductInfo'] = function ( $c ) {
 	return new WoocommercePrfGoogleReviewProductInfo(
 		$c['WoocommerceGpfCache'],
-		$c['WoocommerceGpfCommon'],
-		$c['WoocommerceGpfDebugService']
+		$c['WoocommerceProductFeedsFeedItemFactory']
 	);
 };
 
@@ -251,6 +294,7 @@ $woocommerce_gpf_di['WoocommerceProductFeedsMain'] = function ( $c ) {
 		$c['WoocommerceGpfCommon'],
 		$c['WoocommerceGpfCache'],
 		$c['WoocommerceProductFeedsIntegrationManager'],
+		$c['WoocommerceProductFeedsFeedConfigFactory'],
 		$c
 	);
 };
@@ -278,7 +322,10 @@ $woocommerce_gpf_di['WoocommerceCostOfGoods']                                   
 };
 $woocommerce_gpf_di['WoocommerceGpfMulticurrency']                              = function ( $c ) {
 	global $woocommerce_gpf_multicurrency;
-	$woocommerce_gpf_multicurrency = new WoocommerceGpfMulticurrency();
+	$woocommerce_gpf_multicurrency = new WoocommerceGpfMulticurrency(
+		$c['WoocommerceProductFeedsFeedConfigFactory'],
+		$c['WoocommerceGpfTemplateLoader']
+	);
 
 	return $woocommerce_gpf_multicurrency;
 };
@@ -307,7 +354,10 @@ $woocommerce_gpf_di['WoocommerceGpfPriceByCountry']                             
 	return new WoocommerceGpfPriceByCountry();
 };
 $woocommerce_gpf_di['WoocommerceGpfCurrencySwitcherForWooCommerce']             = function ( $c ) {
-	return new WoocommerceGpfCurrencySwitcherForWooCommerce();
+	return new WoocommerceGpfCurrencySwitcherForWooCommerce(
+		$c['WoocommerceProductFeedsFeedConfigFactory'],
+		$c['WoocommerceGpfTemplateLoader']
+	);
 };
 $woocommerce_gpf_di['WoocommerceGpfWoocommerceCompositeProducts']               = function ( $c ) {
 	return new WoocommerceGpfWoocommerceCompositeProducts();

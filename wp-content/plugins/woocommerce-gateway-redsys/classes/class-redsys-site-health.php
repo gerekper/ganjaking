@@ -154,7 +154,7 @@ function redsys_test_url_soap_test() {
 	} else {
 		$result = array(
 			'label'       => __( 'WARNING: The plugin cannot connect with Redsys Test Terminal URL via SOAP', 'woocommerce-redsys' ),
-			'status'      => 'critical',
+			'status'      => '',
 			'badge'       => array(
 				'label' => __( 'Redsys', 'woocommerce-redsys' ),
 				'color' => 'red',

@@ -109,9 +109,6 @@ class CDN extends Abstract_Module {
 		// Set auto resize flag.
 		$this->init_flags();
 
-		// Add stats to stats box.
-		add_action( 'stats_ui_after_resize_savings', array( $this, 'cdn_stats_ui' ), 20 );
-
 		/**
 		 * Main functionality.
 		 */
@@ -286,7 +283,7 @@ class CDN extends Abstract_Module {
 					printf(
 						/* translators: %1$s - link, %2$s - closing link tag */
 						esc_html__( 'For any non-media library uploads, you can still use the %1$sDirectory Smush%2$s feature to compress them, they just won’t be served from the CDN.', 'wp-smushit' ),
-						'<a href="' . esc_url( network_admin_url( 'admin.php?page=smush&view=directory' ) ) . '">',
+						'<a href="' . esc_url( network_admin_url( 'admin.php?page=smush-directory' ) ) . '">',
 						'</a>'
 					);
 					break;
@@ -303,46 +300,6 @@ class CDN extends Abstract_Module {
 			}
 			?>
 		</span>
-		<?php
-	}
-
-	/**
-	 * Add CDN stats to stats meta box.
-	 *
-	 * @since 3.0
-	 */
-	public function cdn_stats_ui() {
-		$status = $this->status();
-
-		if ( 'disabled' === $status ) {
-			return;
-		}
-		?>
-		<li class="smush-cdn-stats">
-			<span class="sui-list-label"><?php esc_html_e( 'CDN', 'wp-smushit' ); ?></span>
-			<span class="wp-smush-stats sui-list-detail">
-				<i class="sui-icon-loader sui-loading sui-hidden" aria-hidden="true" title="<?php esc_attr_e( 'Updating Stats', 'wp-smushit' ); ?>"></i>
-				<?php if ( 'overcap' === $status ) : ?>
-					<span class="sui-tooltip sui-tooltip-top-right sui-tooltip-constrained" data-tooltip="<?php esc_attr_e( "You've gone through your CDN bandwidth limit, so we’ve stopped serving your images via the CDN. Contact your administrator to upgrade your Smush CDN plan to reactivate this service", 'wp-smushit' ); ?>">
-						<i class="sui-icon-warning-alert sui-error sui-md" aria-hidden="true"></i>
-					</span>
-					<span><?php esc_html_e( 'Overcap', 'wp-smushit' ); ?></span>
-				<?php elseif ( 'upgrade' === $status ) : ?>
-					<span class="sui-tooltip sui-tooltip-top-right sui-tooltip-constrained" data-tooltip="<?php esc_attr_e( "You're almost through your CDN bandwidth limit. Please contact your administrator to upgrade your Smush CDN plan to ensure you don't lose this service", 'wp-smushit' ); ?>">
-						<i class="sui-icon-warning-alert sui-warning sui-md" aria-hidden="true"></i>
-					</span>
-					<span><?php esc_html_e( 'Needs upgrade', 'wp-smushit' ); ?></span>
-				<?php elseif ( 'activating' === $status ) : ?>
-					<i class="sui-icon-check-tick sui-info sui-md" aria-hidden="true"></i>
-					<span><?php esc_html_e( 'Activating', 'wp-smushit' ); ?></span>
-				<?php else : ?>
-					<span class="sui-tooltip sui-tooltip-top-right sui-tooltip-constrained" data-tooltip="<?php esc_attr_e( 'Your media is currently being served from the WPMU DEV CDN. Bulk and Directory smush features are treated separately and will continue to run independently.', 'wp-smushit' ); ?>">
-						<i class="sui-icon-check-tick sui-success sui-md" aria-hidden="true"></i>
-					</span>
-					<span><?php esc_html_e( 'Active', 'wp-smushit' ); ?></span>
-				<?php endif; ?>
-			</span>
-		</li>
 		<?php
 	}
 
@@ -528,6 +485,14 @@ class CDN extends Abstract_Module {
 			// We can exit early, to avoid additional parsing.
 			return $new_image;
 		}
+
+		/**
+		 * Filter hook to alter image src at the earliest.
+		 *
+		 * @param string $src    Image src.
+		 * @param string $image  Image tag.
+		 */
+		$src = apply_filters( 'wp_smush_cdn_before_process_src', $src, $image );
 
 		// Store the original $src to be used later on.
 		$original_src = $src;

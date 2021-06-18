@@ -8,6 +8,16 @@ class WoocommerceProductFeedsDbManager {
 	protected $woocommerce_gpf_cache;
 
 	/**
+	 * @var WoocommerceProductFeedsFeedConfigRepository
+	 */
+	protected $feed_config_repository;
+
+	/**
+	 * @var WoocommerceGpfCommon
+	 */
+	protected $commmon;
+
+	/**
 	 * @var array
 	 */
 	private $settings = array();
@@ -21,9 +31,17 @@ class WoocommerceProductFeedsDbManager {
 	 * WoocommerceProductFeedsDbManager constructor.
 	 *
 	 * @param WoocommerceGpfCache $woocommerce_gpf_cache
+	 * @param WoocommerceProductFeedsFeedConfigRepository $feed_config_repository
+	 * @param WoocommerceGpfCommon $common
 	 */
-	public function __construct( WoocommerceGpfCache $woocommerce_gpf_cache ) {
-		$this->cache = $woocommerce_gpf_cache;
+	public function __construct(
+		WoocommerceGpfCache $woocommerce_gpf_cache,
+		WoocommerceProductFeedsFeedConfigRepository $feed_config_repository,
+		WoocommerceGpfCommon $common
+	) {
+		$this->cache                  = $woocommerce_gpf_cache;
+		$this->feed_config_repository = $feed_config_repository;
+		$this->common                 = $common;
 	}
 
 	/**
@@ -212,4 +230,48 @@ class WoocommerceProductFeedsDbManager {
 		}
 		update_option( 'woocommerce_gpf_config', $this->settings );
 	}
+
+	/**
+	 * Upgrade the DB schema to v10.
+	 *
+	 * Sets up a feed config entry for each enabled feed.
+	 */
+	public function upgrade_db_to_10() {
+		$feed_types = $this->common->get_feed_types();
+		foreach ( array_keys( $this->settings['gpf_enabled_feeds'] ) as $enabled_feed ) {
+			$config = [
+				'type' => $enabled_feed,
+				'name' => isset( $feed_types[ $enabled_feed ]['name'] ) ?
+					$feed_types[ $enabled_feed ]['name'] :
+					"$enabled_feed feed",
+			];
+			$this->feed_config_repository->save( $config, $enabled_feed );
+		}
+		unset( $this->settings['gpf_enabled_feeds'] );
+		update_option( 'woocommerce_gpf_config', $this->settings );
+	}
+
+	/**
+	 * Upgrade the DB schema to v11.
+	 *
+	 * Migrate "availability" options.
+	 */
+	public function upgrade_db_to_11() {
+		$legacy_availability = isset( $this->settings['product_defaults']['availability'] ) ?
+			$this->settings['product_defaults']['availability'] :
+			'in stock';
+
+		$this->settings['product_fields']['availability_instock']    = 'on';
+		$this->settings['product_fields']['availability_backorder']  = 'on';
+		$this->settings['product_fields']['availability_outofstock'] = 'on';
+		unset( $this->settings['product_fields']['availability'] );
+
+		$this->settings['product_defaults']['availability_instock']    = $legacy_availability;
+		$this->settings['product_defaults']['availability_backorder']  = $legacy_availability;
+		$this->settings['product_defaults']['availability_outofstock'] = 'out of stock';
+		unset( $this->settings['product_defaults']['availability'] );
+
+		update_option( 'woocommerce_gpf_config', $this->settings );
+	}
+
 }

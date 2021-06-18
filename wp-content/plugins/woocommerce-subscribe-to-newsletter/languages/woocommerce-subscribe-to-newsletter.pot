@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WooCommerce Subscribe to Newsletter plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Subscribe to Newsletter 3.1.1\n"
+"Project-Id-Version: WooCommerce Subscribe to Newsletter 3.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-subscribe-to-newsletter\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-05-24T08:56:43+00:00\n"
+"POT-Creation-Date: 2021-06-15T08:56:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: woocommerce-subscribe-to-newsletter\n"
@@ -223,6 +223,7 @@ msgstr ""
 #: includes/class-wc-cm-integration.php:129
 #: includes/class-wc-mailchimp-newsletter-integration.php:183
 #: includes/class-wc-mailpoet-integration.php:116
+#: includes/providers/class-wc-newsletter-subscription-provider-activetrail.php:157
 #: includes/providers/class-wc-newsletter-subscription-provider-campaign-monitor.php:154
 #: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:189
 #: includes/providers/class-wc-newsletter-subscription-provider-mailerlite.php:169
@@ -500,6 +501,40 @@ msgctxt "widget submit"
 msgid "Subscribe"
 msgstr ""
 
+#: includes/providers/class-wc-newsletter-subscription-provider-activetrail.php:76
+msgctxt "setting title"
+msgid "ActiveTrail API Key"
+msgstr ""
+
+#. translators: %s: ActiveTrail URL for getting the API key
+#: includes/providers/class-wc-newsletter-subscription-provider-activetrail.php:79
+msgctxt "setting desc"
+msgid "You can obtain your API key by logging in to your <a href=\"%s\" target=\"_blank\">ActiveTrail account</a>."
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-activetrail.php:82
+msgctxt "setting desc"
+msgid "Enter your ActiveTrail API key"
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-activetrail.php:93
+msgctxt "setting title"
+msgid "ActiveTrail Group"
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-activetrail.php:94
+msgctxt "setting desc"
+msgid "Choose the group that contacts will subscribe to."
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-activetrail.php:95
+msgid "Select a group..."
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-activetrail.php:161
+msgid "Total active subscribers"
+msgstr ""
+
 #: includes/providers/class-wc-newsletter-subscription-provider-campaign-monitor.php:76
 msgctxt "setting title"
 msgid "Campaign Monitor API Key"
@@ -632,36 +667,36 @@ msgctxt "setting title"
 msgid "SendGrid List"
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:256
+#: includes/wc-newsletter-subscription-functions.php:254
 msgid "Email subscription failed"
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:273
+#: includes/wc-newsletter-subscription-functions.php:271
 msgctxt "widget error"
 msgid "An unexpected error happened."
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:279
+#: includes/wc-newsletter-subscription-functions.php:277
 msgctxt "widget error"
 msgid "Please, enter a valid email address."
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:284
+#: includes/wc-newsletter-subscription-functions.php:282
 msgctxt "widget error"
 msgid "Are you a robot?"
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:299
+#: includes/wc-newsletter-subscription-functions.php:297
 msgctxt "widget error"
 msgid "Too many attempts to subscribe. Try it again later."
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:340
+#: includes/wc-newsletter-subscription-functions.php:338
 msgctxt "widget success"
 msgid "Thanks for subscribing."
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:342
+#: includes/wc-newsletter-subscription-functions.php:340
 msgctxt "widget error"
 msgid "Oops! Something went wrong."
 msgstr ""

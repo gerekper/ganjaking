@@ -5,10 +5,10 @@
  * Description: Sell products and services with recurring payments in your WooCommerce Store.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 3.1.2
+ * Version: 3.1.3
  *
  * WC requires at least: 3.7
- * WC tested up to: 5.3
+ * WC tested up to: 5.4
  * Woo: 27147:6115e6d7e297b623a169fdcf5728b224
  *
  * Copyright 2019 WooCommerce
@@ -37,11 +37,6 @@
 if ( ! function_exists( 'woothemes_queue_update' ) || ! function_exists( 'is_woocommerce_active' ) ) {
 	require_once dirname( __FILE__ ) . '/woo-includes/woo-functions.php';
 }
-
-/**
- * Plugin updates
- */
-woothemes_queue_update( plugin_basename( __FILE__ ), '6115e6d7e297b623a169fdcf5728b224', '27147' );
 
 /**
  * Check if WooCommerce is active and at the required minimum version, and if it isn't, disable Subscriptions.
@@ -103,6 +98,7 @@ WCS_Custom_Order_Item_Manager::init();
 WCS_Early_Renewal_Modal_Handler::init();
 WCS_Dependent_Hook_Manager::init();
 WCS_Admin_Product_Import_Export_Manager::init();
+WC_Subscriptions_Frontend_Scripts::init();
 
 // Some classes run init on a particular hook.
 add_action( 'init', array( 'WC_Subscriptions_Synchroniser', 'init' ) );
@@ -128,7 +124,7 @@ class WC_Subscriptions {
 
 	public static $plugin_file = __FILE__;
 
-	public static $version = '3.1.2';
+	public static $version = '3.1.3';
 
 	public static $wc_minimum_supported_version = '3.7';
 
@@ -170,14 +166,8 @@ class WC_Subscriptions {
 		add_action( 'woocommerce_variable-subscription_add_to_cart', __CLASS__ . '::variable_subscription_add_to_cart', 30 );
 		add_action( 'wcopc_subscription_add_to_cart', __CLASS__ . '::wcopc_subscription_add_to_cart' ); // One Page Checkout compatibility
 
-		// Enqueue front-end styles, run after Storefront because it sets the styles to be empty
-		add_filter( 'woocommerce_enqueue_styles', __CLASS__ . '::enqueue_styles', 100, 1 );
-
 		// Load translation files
 		add_action( 'init', __CLASS__ . '::load_plugin_textdomain', 3 );
-
-		// Load frontend scripts
-		add_action( 'wp_enqueue_scripts', __CLASS__ . '::enqueue_frontend_scripts', 3 );
 
 		// Load dependent files
 		add_action( 'plugins_loaded', __CLASS__ . '::load_dependant_classes' );
@@ -403,65 +393,6 @@ class WC_Subscriptions {
 				);
 			}
 		}
-	}
-
-	/**
-	 * Enqueues scripts for frontend
-	 *
-	 * @since 2.3
-	 */
-	public static function enqueue_frontend_scripts() {
-		$dependencies = array( 'jquery' );
-
-		if ( is_cart() || is_checkout() ) {
-			wp_enqueue_script( 'wcs-cart', plugin_dir_url( self::$plugin_file ) . 'assets/js/frontend/wcs-cart.js', $dependencies, self::$version, true );
-		} elseif ( is_product() ) {
-			wp_enqueue_script( 'wcs-single-product', plugin_dir_url( self::$plugin_file ) . 'assets/js/frontend/single-product.js', $dependencies, self::$version, true );
-		} elseif ( wcs_is_view_subscription_page() ) {
-			global $wp;
-			$subscription = wcs_get_subscription( $wp->query_vars['view-subscription'] );
-
-			if ( $subscription && current_user_can( 'view_order', $subscription->get_id() ) ) {
-				$dependencies[] = 'jquery-blockui';
-				$script_params  = array(
-					'ajax_url'               => esc_url( WC()->ajax_url() ),
-					'subscription_id'        => $subscription->get_id(),
-					'add_payment_method_msg' => __( 'To enable automatic renewals for this subscription, you will first need to add a payment method.', 'woocommerce-subscriptions' ) . "\n\n" . __( 'Would you like to add a payment method now?', 'woocommerce-subscriptions' ),
-					'auto_renew_nonce'       => WCS_My_Account_Auto_Renew_Toggle::can_user_toggle_auto_renewal( $subscription ) ? wp_create_nonce( "toggle-auto-renew-{$subscription->get_id()}" ) : false,
-					'add_payment_method_url' => esc_url( $subscription->get_change_payment_method_url() ),
-					'has_payment_gateway'    => $subscription->has_payment_gateway() && wc_get_payment_gateway_by_order( $subscription )->supports( 'subscriptions' ),
-				);
-				wp_enqueue_script( 'wcs-view-subscription', plugin_dir_url( self::$plugin_file ) . 'assets/js/frontend/view-subscription.js', $dependencies, self::$version, true );
-				wp_localize_script( 'wcs-view-subscription', 'WCSViewSubscription', apply_filters( 'woocommerce_subscriptions_frontend_view_subscription_script_parameters', $script_params ) );
-			}
-		}
-	}
-
-	/**
-	 * Enqueues stylesheet for the My Subscriptions table on the My Account page and the stylesheet for the WooCommerce
-	 * checkout and cart blocks if they are present on the page.
-	 *
-	 * @since 1.5
-	 */
-	public static function enqueue_styles( $styles ) {
-
-		if ( is_checkout() || is_cart() ) {
-			$styles['wcs-checkout'] = array(
-				'src'     => str_replace( array( 'http:', 'https:' ), '', plugin_dir_url( __FILE__ ) ) . 'assets/css/checkout.css',
-				'deps'    => 'wc-checkout',
-				'version' => WC_VERSION,
-				'media'   => 'all',
-			);
-		} elseif ( is_account_page() ) {
-			$styles['wcs-view-subscription'] = array(
-				'src'     => str_replace( array( 'http:', 'https:' ), '', plugin_dir_url( __FILE__ ) ) . 'assets/css/view-subscription.css',
-				'deps'    => 'woocommerce-smallscreen',
-				'version' => self::$version,
-				'media'   => 'all',
-			);
-		}
-
-		return $styles;
 	}
 
 	/**
@@ -1457,6 +1388,29 @@ class WC_Subscriptions {
 	 */
 	public static function woocommerce_dependancy_notice() {
 		_deprecated_function( __METHOD__, '2.1', __CLASS__ . '::woocommerce_inactive_notice()' );
+	}
+
+	/**
+	 * Enqueues stylesheet for the My Subscriptions table on the My Account page and the stylesheet for the WooCommerce
+	 * checkout and cart blocks if they are present on the page.
+	 *
+	 * @since 1.5
+	 * @deprecated 3.1.3
+	 */
+	public static function enqueue_styles( $styles ) {
+		_deprecated_function( __METHOD__, '3.1.3', 'WC_Subscriptions_Frontend_Scripts::enqueue_styles( $styles )' );
+		return WC_Subscriptions_Frontend_Scripts::enqueue_styles( $styles );
+	}
+
+	/**
+	 * Enqueues scripts for frontend
+	 *
+	 * @since 2.3
+	 * @deprecated 3.1.3
+	 */
+	public static function enqueue_frontend_scripts() {
+		_deprecated_function( __METHOD__, '3.1.3', 'WC_Subscriptions_Frontend_Scripts::enqueue_scripts()' );
+		WC_Subscriptions_Frontend_Scripts::enqueue_scripts();
 	}
 }
 

@@ -28,7 +28,7 @@ class ListScreens implements Registrable {
 	private function is_settings_screen() {
 		$tab = filter_input( INPUT_GET, 'tab' );
 
-		return Admin::NAME === filter_input( INPUT_GET, 'page' ) && in_array( $tab, [ null, 'columns' ], true );
+		return Admin\Admin::NAME === filter_input( INPUT_GET, 'page' ) && in_array( $tab, [ null, 'columns' ], true );
 	}
 
 	/**

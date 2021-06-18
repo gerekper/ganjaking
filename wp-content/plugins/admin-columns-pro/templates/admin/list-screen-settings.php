@@ -144,7 +144,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 						<div class="ac-setbox__row -sub -predefinedfilters" data-setting="filter-segment-preference">
 							<div class="ac-setbox__row__th">
-								<label><?= __( 'Filters', 'codepress-admin-columns' ); ?></label>
+								<label><?= __( 'Pre-applied Filters', 'codepress-admin-columns' ); ?></label>
 								<?php echo $this->tooltip_filters->get_label(); ?>
 								<?php echo $this->tooltip_filters->get_instructions(); ?>
 							</div>

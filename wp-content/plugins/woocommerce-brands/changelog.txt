@@ -1,5 +1,12 @@
 *** Brands Changelog ***
 
+2021-06-01 - version 1.6.25
+* Fix - Plugin screen `Docs` link now links to correct documentation URL.
+
+2021-02-04 - version 1.6.24
+* Tweak - WC 5.0 compatibility.
+* Tweak - WordPress 5.6.1 compatibility.
+
 2020-12-15 - version 1.6.23
 * New Minimum Requirements - WordPress 4.4, WooCommerce 3.2
 * Fix - Allow pagination and limit for the brand products shortcode.

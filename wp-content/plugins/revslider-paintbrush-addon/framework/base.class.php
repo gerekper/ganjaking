@@ -9,7 +9,7 @@ if(!defined('ABSPATH')) exit();
 
 class RsAddOnPaintbrushBase {
 	
-	const MINIMUM_VERSION = '6.0';
+	const MINIMUM_VERSION = '6.5.0';
 	
 	protected function systemsCheck() {
 		
@@ -89,8 +89,9 @@ class RsAddOnPaintbrushBase {
 			
 			$_handle = 'rs-' . static::$_PluginTitle . '-admin';
 			$_base   = static::$_PluginUrl . 'admin/assets/';
+			$_jsPathMin = file_exists(static::$_PluginPath . 'admin/assets/js/revslider-' . static::$_PluginTitle . '-addon-admin.dev.js') ? '.dev' : '';
 			
-			wp_enqueue_script($_handle, $_base . 'js/revslider-' . static::$_PluginTitle . '-addon-admin.js', array('jquery', 'revbuilder-admin'), static::$_Version, true);
+			wp_enqueue_script($_handle, $_base . 'js/revslider-' . static::$_PluginTitle . '-addon-admin' . $_jsPathMin . '.js', array('jquery', 'revbuilder-admin'), static::$_Version, true);
 			wp_localize_script($_handle, 'revslider_paintbrush_addon', self::get_var() );
 
 		}

@@ -4,53 +4,28 @@
  *
  * @package WP_Smush
  *
- * @var Dashboard $this
- *
  * @var array  $basic_features    Basic features array.
  * @var bool   $is_pro            Is PRO user or not.
  * @var array  $integration_group Integration group.
  * @var array  $settings          Settings array.
- * @var array  $settings_data     Settings descriptions and labels.
  * @var string $upsell_url        Upsell URL.
+ *
+ * @var Abstract_Page $this
  */
 
-use Smush\App\Pages\Dashboard;
+use Smush\App\Abstract_Page;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+foreach ( $integration_group as $name ) {
+	$disable = apply_filters( 'wp_smush_integration_status_' . $name, false ); // Disable setting.
+	$upsell  = ! in_array( $name, $basic_features, true ) && ! $is_pro; // Gray out row, disable setting.
+	$value   = $upsell || empty( $settings[ $name ] ) || $disable ? false : $settings[ $name ];
+	do_action( 'wp_smush_render_setting_row', $name, $value, $disable, $upsell );
+}
 ?>
-
-<form id="wp-smush-settings-form" method="post">
-	<input type="hidden" name="setting_form" id="setting_form" value="integrations">
-	<?php if ( is_multisite() && is_network_admin() ) : ?>
-		<input type="hidden" name="setting-type" value="network">
-	<?php endif; ?>
-
-	<?php
-	wp_nonce_field( 'save_wp_smush_options', 'wp_smush_options_nonce', '', true );
-
-	foreach ( $integration_group as $name ) {
-		// Settings key.
-		$setting_m_key = WP_SMUSH_PREFIX . $name;
-		// Disable setting.
-		$disable = apply_filters( 'wp_smush_integration_status_' . $name, false );
-		// Gray out row, disable setting.
-		$upsell = ( ! in_array( $name, $basic_features, true ) && ! $is_pro );
-		// Current setting value.
-		$setting_val = ( $upsell || empty( $settings[ $name ] ) || $disable ) ? 0 : $settings[ $name ];
-		// Current setting label.
-		$label = ! empty( $settings_data[ $name ]['short_label'] ) ? $settings_data[ $name ]['short_label'] : $settings_data[ $name ]['label'];
-
-		// Show settings option.
-		$this->settings_row( $setting_m_key, $label, $name, $setting_val, $disable, $upsell );
-
-	}
-	// Hook after showing integration settings.
-	do_action( 'wp_smush_after_integration_settings' );
-	?>
-</form>
 
 <?php if ( ! $is_pro ) : ?>
 	<div class="sui-box-settings-row sui-upsell-row">

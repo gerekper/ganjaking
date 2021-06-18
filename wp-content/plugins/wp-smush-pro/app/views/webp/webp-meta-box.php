@@ -4,6 +4,8 @@
  *
  * @since 3.8.0
  * @package WP_Smush
+ *
+ * @var Smush\App\Abstract_Page $this  Page.
  */
 
 if ( ! defined( 'WPINC' ) ) {
@@ -47,7 +49,7 @@ $is_configured = $webp->is_configured();
 						esc_html__( '%1$sNote:%2$s You need to use the %3$sBulk Smush%4$s tool to convert all your images as WebP format. ', 'wp-smushit' ),
 						'<b>',
 						'</b>',
-						! is_multisite() ? '<a href="' . esc_url( network_admin_url( 'admin.php?page=smush' ) ) . '">' : '',
+						! is_multisite() ? '<a href="' . esc_url( $this->get_url( 'smush-bulk' ) ) . '">' : '',
 						( ! is_multisite() ? '</a>' : '' )
 					);
 
@@ -58,7 +60,7 @@ $is_configured = $webp->is_configured();
 								esc_html__( 'You can also enable %3$sAutomatic Compression%2$s to convert newly uploaded image files automatically going forward.', 'wp-smushit' ),
 								'<a href="' . esc_url( network_admin_url( 'admin.php?page=smush' ) ) . '">',
 								'</a>',
-								'<a href="' . esc_url( network_admin_url( 'admin.php?page=smush' ) ) . '#column-wp-smush-bulk">'
+								'<a href="' . esc_url( $this->get_url( 'smush-bulk' ) ) . '#column-auto">'
 							);
 						} else {
 							esc_html_e( 'Newly uploaded images will be automatically converted to WebP format.', 'wp-smushit' );

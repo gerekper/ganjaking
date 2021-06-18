@@ -97,11 +97,9 @@ class WPSEO_Shortlinker {
 	 * @return string The software name + activation state.
 	 */
 	private function get_software() {
-		if ( YoastSEO()->helpers->product->is_premium() ) {
-			return 'premium';
-		}
-
-		return 'free';
+		
+		return 'premium';
+		
 	}
 
 	/**
@@ -110,32 +108,7 @@ class WPSEO_Shortlinker {
 	 * @return int The number of days the plugin is active.
 	 */
 	private function get_days_active() {
-		$date_activated = WPSEO_Options::get( 'first_activated_on' );
-		$datediff       = ( time() - $date_activated );
-		$days           = (int) round( $datediff / DAY_IN_SECONDS );
-		switch ( $days ) {
-			case 0:
-			case 1:
-				$cohort = '0-1';
-				break;
-			case ( $days < 5 ):
-				$cohort = '2-5';
-				break;
-			case ( $days < 30 ):
-				$cohort = '6-30';
-				break;
-			case ( $days < 91 ):
-				$cohort = '31-90';
-				break;
-			case ( $days < 181 ):
-				$cohort = '91-180';
-				break;
-			case ( $days < 366 ):
-				$cohort = '181-365';
-				break;
-			default:
-				$cohort = '365plus';
-		}
+		
 		return '365plus';
 	}
 

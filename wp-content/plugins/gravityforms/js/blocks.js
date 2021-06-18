@@ -116,6 +116,7 @@ const { PanelBody, Placeholder, SelectControl, TextControl, TextareaControl, Tog
 const { InspectorControls, BlockControls } = wp.hasOwnProperty('blockEditor') ? wp.blockEditor : wp.editor;
 const { Component, Fragment } = wp.element;
 const { __ } = wp.i18n;
+const { addQueryArgs } = wp.url;
 
 const { ServerSideRender } = wp.components;
 if (wp.hasOwnProperty('serverSideRender')) {
@@ -210,13 +211,7 @@ class Edit extends Component {
 	openAdminPage(e, params) {
 		e.preventDefault();
 
-		const { page, formId, view } = params;
-
-		let url = `/wp-admin/admin.php?page=${page}&id=${formId}`;
-
-		if (view) {
-			url += `&view=${view}`;
-		}
+		const url = addQueryArgs(gform_block_form.adminURL, params);
 
 		window.open(url, '_blank', 'noopener');
 	}
@@ -230,12 +225,12 @@ class Edit extends Component {
 
 		const editParams = {
 			page: 'gf_edit_forms',
-			formId
+			id: formId
 		};
 
 		const settingsParams = {
 			page: 'gf_edit_forms',
-			formId,
+			id: formId,
 			view: 'settings'
 		};
 

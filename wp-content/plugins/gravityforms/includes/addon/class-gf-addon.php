@@ -9,6 +9,7 @@ if ( ! class_exists( 'GFForms' ) ) {
 }
 
 use Gravity_Forms\Gravity_Forms\Settings\Settings;
+use Gravity_Forms\Gravity_Forms\TranslationsPress_Updater;
 
 /**
  * Class GFAddOn
@@ -171,30 +172,41 @@ abstract class GFAddOn {
 	/**
 	 * Gets all active, registered Add-Ons.
 	 *
-	 * @since  Unknown
-	 * @access public
+	 * @since Unknown
+	 * @since 2.5.6 Added the $return_instances param.
 	 *
-	 * @uses GFAddOn::$_registered_addons
+	 * @param bool $return_instances Indicates if the current instances of the add-ons should be returned. Default is false.
 	 *
-	 * @return array Active, registered Add-Ons.
+	 * @return string[]|GFAddOn[] An array of class names or instances.
 	 */
-	public static function get_registered_addons() {
-		return self::$_registered_addons['active'];
+	public static function get_registered_addons( $return_instances = false ) {
+		$active_addons = array_unique( self::$_registered_addons['active'] );
+
+		if ( ! $return_instances ) {
+			return $active_addons;
+		}
+
+		$instances = array();
+
+		foreach ( $active_addons as $addon ) {
+			$callback = array( $addon, 'get_instance' );
+			if ( ! is_callable( $callback ) ) {
+				continue;
+			}
+			$instances[] = call_user_func( $callback );
+		}
+
+		return $instances;
 	}
 
 	/**
 	 * Initializes all addons.
+	 *
+	 * @since Unknown
+	 * @since 2.5.6 Updated to use get_registered_addons().
 	 */
 	public static function init_addons() {
-
-		//Removing duplicate add-ons
-		$active_addons = array_unique( self::$_registered_addons['active'] );
-
-		foreach ( $active_addons as $addon ) {
-
-			call_user_func( array( $addon, 'get_instance' ) );
-
-		}
+		self::get_registered_addons( true );
 	}
 
 	/**
@@ -217,6 +229,7 @@ abstract class GFAddOn {
 	public function init() {
 
 		$this->load_text_domain();
+		$this->init_translations();
 
 		add_filter( 'gform_logging_supported', array( $this, 'set_logging_supported' ) );
 
@@ -683,7 +696,7 @@ abstract class GFAddOn {
 
 		//Upgrade if version has changed
 		if ( $installed_version != $this->_version ) {
-
+			$this->install_translations();
 			$this->upgrade( $installed_version );
 			update_option( 'gravityformsaddon_' . $this->_slug . '_version', $this->_version );
 		}
@@ -6079,8 +6092,53 @@ abstract class GFAddOn {
 		GFCommon::load_gf_text_domain( $this->_slug, plugin_basename( dirname( $this->_full_path ) ) );
 	}
 
-	/***
-	 * Determines if the current user has the proper cabalities to uninstall this add-on
+	/**
+	 * Inits the TranslationsPress integration for official add-ons.
+	 *
+	 * @since 2.5.6
+	 */
+	public function init_translations() {
+		if ( ! $this->_enable_rg_autoupgrade ) {
+			return;
+		}
+
+		TranslationsPress_Updater::get_instance( $this->get_slug() );
+	}
+
+	/**
+	 * Uses TranslationsPress to install translations for the specified locale.
+	 *
+	 * @since 2.5.6
+	 *
+	 * @param string $locale The locale the translations are to be installed for.
+	 */
+	public function install_translations( $locale = '' ) {
+		if ( ! $this->_enable_rg_autoupgrade ) {
+			return;
+		}
+
+		TranslationsPress_Updater::download_package( $this->get_slug(), $locale );
+	}
+
+	/**
+	 * Returns an array of locales from the mo files found in the WP_LANG_DIR/plugins directory.
+	 *
+	 * Used to display the installed locales on the system report.
+	 *
+	 * @since 2.5.6
+	 *
+	 * @return array
+	 */
+	public function get_installed_locales() {
+		if ( ! $this->_enable_rg_autoupgrade ) {
+			return array();
+		}
+
+		return GFCommon::get_installed_translations( $this->get_slug() );
+	}
+
+	/**
+	 * Determines if the current user has the proper capabilities to uninstall this add-on
 	 * Add-ons that have been network activated can only be uninstalled by a network admin.
 	 *
 	 * @since 2.3.1.12

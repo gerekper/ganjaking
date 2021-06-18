@@ -429,6 +429,7 @@ class GFFormSettings {
 								'name'       => 'limitEntriesMessage',
 								'type'       => 'textarea',
 								'label'      => esc_html__( 'Entry Limit Reached Message', 'gravityforms' ),
+								'allow_html' => true,
 								'dependency' => array(
 									'live'   => true,
 									'fields' => array(
@@ -482,6 +483,7 @@ class GFFormSettings {
 								'name'       => 'schedulePendingMessage',
 								'type'       => 'textarea',
 								'label'      => esc_html__( 'Form Pending Message', 'gravityforms' ),
+								'allow_html' => true,
 								'dependency' => array(
 									'live'   => true,
 									'fields' => array(
@@ -495,6 +497,7 @@ class GFFormSettings {
 								'name'       => 'scheduleMessage',
 								'type'       => 'textarea',
 								'label'      => esc_html__( 'Form Expired Message', 'gravityforms' ),
+								'allow_html' => true,
 								'dependency' => array(
 									'live'   => true,
 									'fields' => array(

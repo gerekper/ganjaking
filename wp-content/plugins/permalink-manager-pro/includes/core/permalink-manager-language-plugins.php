@@ -83,7 +83,8 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 			// Edit custom URI using WPML Classic Translation Editor
 			if(class_exists('WPML_Translation_Editor_UI')) {
 				add_filter('wpml_tm_adjust_translation_fields', array($this, 'wpml_translation_edit_uri'), 999, 2);
-				add_filter('wpml-translation-editor-fetch-job', array($this, 'wpml_translation_save_uri'), 999, 2);
+				add_action('icl_pro_translation_saved', array($this, 'wpml_translation_save_uri'), 999, 3);
+				add_filter('wpml_translation_editor_save_job_data', array($this, 'wpml_translation_save_uri'), 999, 2);
 			}
 
 			// Generate custom permalink after WPML's Advanced Translation editor is used
@@ -327,7 +328,7 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 		$home_url = get_home_url();
 
 		// Hide language code if "Use directory for default language" option is enabled
-		$hide_prefix_for_default_lang = ((isset($sitepress_settings['urls']['directory_for_default_language']) && $sitepress_settings['urls']['directory_for_default_language'] != 1) || !empty($polylang->links_model->options['hide_default']) || (!empty($translate_press_settings) && empty($translate_press_settings['add-subdirectory-to-default-language']))) ? true : false;
+		$hide_prefix_for_default_lang = ((isset($sitepress_settings['urls']['directory_for_default_language']) && $sitepress_settings['urls']['directory_for_default_language'] != 1) || !empty($polylang->links_model->options['hide_default']) || (!empty($translate_press_settings) && $translate_press_settings['add-subdirectory-to-default-language'] !== 'yes')) ? true : false;
 
 		// Last instance - use language paramater from &_GET array
 		if(is_admin()) {
@@ -521,13 +522,21 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 			$translation_id = apply_filters('wpml_object_id', $original_id, $element_type, false, $job->language_code);
 
 			$original_custom_uri = Permalink_Manager_URI_Functions_Post::get_post_uri($original_id, true);
-			$translation_custom_uri = Permalink_Manager_URI_Functions_Post::get_post_uri($translation_id, true);
+
+			if(!empty($translation_id)) {
+				$translation_custom_uri = Permalink_Manager_URI_Functions_Post::get_post_uri($translation_id, true);
+				$uri_translation_complete = (!empty($permalink_manager_uris[$translation_id])) ? '1' : '0';
+			} else {
+				$translation_custom_uri = $original_custom_uri;
+				$uri_translation_complete = '0';
+			}
 
 			$fields[] = array(
 				'field_type' => 'pm-custom_uri',
 				//'tid' => 9999,
 				'field_data' => $original_custom_uri,
 				'field_data_translated' => $translation_custom_uri,
+				'field_finished' => $uri_translation_complete,
 				'field_style' => '0',
 				'title' => 'Custom URI',
 			);
@@ -536,26 +545,33 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 		return $fields;
 	}
 
-	function wpml_translation_save_uri($job, $job_details) {
+	function wpml_translation_save_uri($in = '', $data = '', $job = '') {
 		global $permalink_manager_uris;
 
-		if(!empty($_POST['data'])) {
-			$data = array();
-			$post_data = \WPML_TM_Post_Data::strip_slashes_for_single_quote($_POST['data']);
-			parse_str($post_data, $data);
+		// A. Save the URI also when the translation is uncompleted
+		if(!empty($in['fields'])) {
+			$data = $in['fields'];
 
-			if(isset($data['fields']['pm-custom_uri'])) {
-				$original_id = $data['job_post_id'];
-				$element_type = (strpos($data['job_post_type'], 'post_') !== false) ? preg_replace('/^(post_)/', '', $data['job_post_type']) : '';
+			$original_id = $in['job_post_id'];
+			$element_type = (strpos($in['job_post_type'], 'post_') !== false) ? preg_replace('/^(post_)/', '', $in['job_post_type']) : '';
 
-				$translation_id = apply_filters('wpml_object_id', $original_id, $element_type, false, $data['target_lang']);
-				$permalink_manager_uris[$translation_id] = (!empty($data['fields']['pm-custom_uri']['data'])) ? Permalink_Manager_Helper_Functions::sanitize_title($data['fields']['pm-custom_uri']['data'], true) : Permalink_Manager_URI_Functions_Post::get_default_post_uri($translation_id);
-
-				update_option('permalink-manager-uris', $permalink_manager_uris);
-			}
+			$translation_id = apply_filters('wpml_object_id', $original_id, $element_type, false, $in['target_lang']);
+		}
+		// B. Save the URI also when the translation is completed
+		else if(is_numeric($in)) {
+			$translation_id = $in;
 		}
 
-		return $job;
+		if(isset($data['pm-custom_uri']) && isset($data['pm-custom_uri']['data']) && !empty($translation_id)) {
+			$permalink_manager_uris[$translation_id] = (!empty($data['pm-custom_uri']['data'])) ? Permalink_Manager_Helper_Functions::sanitize_title($data['pm-custom_uri']['data'], true) : Permalink_Manager_URI_Functions_Post::get_default_post_uri($translation_id);
+
+			update_option('permalink-manager-uris', $permalink_manager_uris);
+		}
+
+		// Return the data when the translation is uncompleted
+		if(!empty($in['fields'])) {
+			return $in;
+		}
 	}
 
 	function wpml_duplicate_uri($master_post_id, $lang, $post_array, $id) {

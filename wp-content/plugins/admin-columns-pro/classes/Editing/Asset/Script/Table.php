@@ -82,6 +82,7 @@ final class Table extends Script {
 				'time'          => __( 'Time', 'codepress-admin-columns' ),
 				'update'        => __( 'Update', 'codepress-admin-columns' ),
 				'cancel'        => __( 'Cancel', 'codepress-admin-columns' ),
+				'subtract'      => __( 'Subtract', 'codepress-admin-columns' ),
 				'done'          => __( 'Done', 'codepress-admin-columns' ),
 				'replace_with'  => __( 'Replace with', 'codepress-admin-columns' ),
 				'add'           => __( 'Add', 'codepress-admin-columns' ),

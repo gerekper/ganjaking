@@ -157,7 +157,7 @@ class LearnDash extends Courseware {
 	protected function is_user_enrolled_in_course( int $user_id, int $course_id ): bool {
 
 		// note: this will always return true for "open" courses
-		return sfwd_lms_has_access( $course_id, $user_id );
+		return function_exists( 'sfwd_lms_has_access' ) && sfwd_lms_has_access( $course_id, $user_id );
 	}
 
 
@@ -172,7 +172,7 @@ class LearnDash extends Courseware {
 	 */
 	protected function has_user_completed_course_prerequisites( int $user_id, int $course_id ): bool {
 
-		return learndash_is_course_prerequities_completed( $course_id, $user_id );
+		return function_exists( 'learndash_is_course_prerequities_completed' ) && learndash_is_course_prerequities_completed( $course_id, $user_id );
 	}
 
 
@@ -186,6 +186,10 @@ class LearnDash extends Courseware {
 	 */
 	protected function enroll_user_in_course( int $user_id, int $course_id ) {
 
+		if ( ! function_exists( 'ld_update_course_access' ) ) {
+			return;
+		}
+
 		ld_update_course_access( $user_id, $course_id );
 	}
 
@@ -196,15 +200,22 @@ class LearnDash extends Courseware {
 	 * @since 1.22.0
 	 *
 	 * @param int $course_id
-	 * @return array
+	 * @return array associative array of post IDs and course posts
 	 */
 	protected function get_dependent_courses( int $course_id ) : array {
 
-		return get_posts( [
+		$courses = [];
+		$posts = get_posts( [
 			'post_type'   => $this->get_course_post_type(),
 			'post_status' => 'publish',
 			'post__in'    => $this->get_dependent_course_ids( $course_id ),
 		] );
+
+		foreach ( $posts as $post ) {
+			$courses[ $post->ID ] = $post;
+		}
+
+		return $courses;
 	}
 
 

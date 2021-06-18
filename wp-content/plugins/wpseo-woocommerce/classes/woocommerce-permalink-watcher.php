@@ -5,9 +5,6 @@
  * @package WPSEO/WooCommerce
  */
 
-use Yoast\WP\Lib\Model;
-use Yoast\WP\SEO\WordPress\Wrapper;
-
 /**
  * The permalink watcher.
  *

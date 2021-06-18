@@ -52,6 +52,7 @@ $smushit_keys = array(
 	'cron_update_running',
 	'hide-conflict-notice',
 	'show_upgrade_modal',
+	'preset_configs',
 );
 
 $db_keys = array(

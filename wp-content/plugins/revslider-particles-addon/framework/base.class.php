@@ -9,7 +9,7 @@ if(!defined('ABSPATH')) exit();
 
 class RsAddOnParticlesBase {
 	
-	const MINIMUM_VERSION = '6.0';
+	const MINIMUM_VERSION = '6.5.0';
 	
 	protected function systemsCheck() {
 		
@@ -92,9 +92,10 @@ class RsAddOnParticlesBase {
 			
 			$_handle = 'rs-' . static::$_PluginTitle . '-admin';
 			$_base   = static::$_PluginUrl . 'admin/assets/';
+			$_jsPathMin = file_exists(static::$_PluginPath . 'admin/assets/js/revslider-' . static::$_PluginTitle . '-addon-admin.dev.js') ? '.dev' : '';
 										
 			wp_enqueue_style($_handle, $_base . 'css/revslider-' . static::$_PluginTitle . '-addon-admin.css', array(), static::$_Version);
-			wp_enqueue_script($_handle, $_base . 'js/revslider-' . static::$_PluginTitle . '-addon-admin.js', array('jquery', 'revbuilder-admin'), static::$_Version, true);
+			wp_enqueue_script($_handle, $_base . 'js/revslider-' . static::$_PluginTitle . '-addon-admin' . $_jsPathMin . '.js', array('jquery', 'revbuilder-admin'), static::$_Version, true);
 			wp_localize_script( $_handle, 'revslider_particles_addon', self::get_var() );
 			
 		}
@@ -185,7 +186,7 @@ class RsAddOnParticlesBase {
 				'custompres' => __('Custom Presets',$_textDomain),
 				'hideonmobile' => __('Disable on Mobile',$_textDomain),
 				'objectlibrary' => __('SVG Library', $_textDomain),
-				'originalcolor' => __('Use Custom Original Color', $_textDomain),
+				'originalcolor' => __('Custom SVG Original Color', $_textDomain),
 				'bubblemessage' => __('Bubble clicking is not compatible with Hovers', $_textDomain),
 				'responsive' => __('Responsive', $_textDomain)
 			)

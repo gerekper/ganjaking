@@ -5,13 +5,13 @@
  * @package Interactive Banner - 2
  */
 
-if ( ! class_exists( 'Ultimate_Interactive_Banner' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Interactive_Banner' ) ) {
 	/**
-	 * Class Ultimate_Interactive_Banner.
+	 * Class Ultimate_VC_Addons_Interactive_Banner.
 	 *
-	 * @class Ultimate_Interactive_Banner
+	 * @class Ultimate_VC_Addons_Interactive_Banner
 	 */
-	class Ultimate_Interactive_Banner {
+	class Ultimate_VC_Addons_Interactive_Banner {
 		/**
 		 * Constructor function that constructs default values for the Ultimate_Info_Table.
 		 *
@@ -30,7 +30,7 @@ if ( ! class_exists( 'Ultimate_Interactive_Banner' ) ) {
 		 * @method register_ib_banner_assets
 		 */
 		public function register_ib2_banner_assets() {
-			Ultimate_VC_Addons::ultimate_register_style( 'ult-ib2-style', 'ib2-style' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-ib2-style', 'ib2-style' );
 		}
 		/**
 		 *  Init function.
@@ -607,8 +607,8 @@ if ( ! class_exists( 'Ultimate_Interactive_Banner' ) ) {
 		}
 	}
 }
-if ( class_exists( 'Ultimate_Interactive_Banner' ) ) {
-	$ultimate_interactive_banner = new Ultimate_Interactive_Banner();
+if ( class_exists( 'Ultimate_VC_Addons_Interactive_Banner' ) ) {
+	$ultimate_interactive_banner = new Ultimate_VC_Addons_Interactive_Banner();
 }
 if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Interactive_Banner_2' ) ) {
 	/**

@@ -232,8 +232,26 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		}
 
 		if ( in_array( 'bundle_stock_quantity', $props_to_save ) ) {
-			if ( update_post_meta( $id, '_wc_pb_bundle_stock_quantity', $product->get_bundle_stock_quantity( 'edit' ) ) ) {
+
+			$from_quantity = get_post_meta( $id, '_wc_pb_bundle_stock_quantity', true );
+			$to_quantity   = $product->get_bundle_stock_quantity( 'edit' );
+
+			if ( update_post_meta( $id, '_wc_pb_bundle_stock_quantity', $to_quantity ) ) {
+
 				$updated_props[] = 'bundle_stock_quantity';
+
+				/**
+				 * Trigger 'woocommerce_bundle_stock_quantity_changed' action.
+				 *
+				 * @since 6.10.0
+				 *
+				 * @see WC_PB_DB_Sync::bundle_stock_quantity_changed
+				 *
+				 * @param  int                $to_quantity
+				 * @param  int                $from_quantity
+				 * @param  WC_Product_Bundle  $product
+				 */
+				do_action( 'woocommerce_bundle_stock_quantity_changed', $to_quantity, $from_quantity, $product );
 			}
 		}
 

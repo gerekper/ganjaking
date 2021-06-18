@@ -20,6 +20,11 @@ class WoocommerceGpfCache {
 	protected $container;
 
 	/**
+	 * @var WoocommerceGpfDebugService
+	 */
+	protected $debug_service;
+
+	/**
 	 * Whether to use the render cache.
 	 *
 	 * @var boolean
@@ -37,13 +42,16 @@ class WoocommerceGpfCache {
 	 * Work out if the cache is enabled or not. Trigger initialisation of worker
 	 * processes.
 	 *
+	 * @param WoocommerceGpfDebugService $debug_service
 	 * @param Container $container
 	 */
-	public function __construct( Container $container ) {
-		$this->container = $container;
+	public function __construct( WoocommerceGpfDebugService $debug_service, Container $container ) {
+		$this->debug_service = $debug_service;
+		$this->container     = $container;
+
 		add_action( 'plugins_loaded', [ $this, 'enable_cache' ] );
 		add_action( 'init', [ $this, 'init_workers' ], 9 );
-
+		add_filter( 'woocommerce_gpf_render_cache_enabled', [ $this, 'toggle_cache_in_debug_mode' ], 99 );
 	}
 
 	/**
@@ -56,6 +64,23 @@ class WoocommerceGpfCache {
 			$this->cache_invalidator = $this->container['WoocommerceGpfCacheInvalidator'];
 			$this->cache_invalidator->initialise();
 		}
+	}
+
+	/**
+	 * Allows the cache to be forcibly enabled / disabled via a URL arg when in debug mode.
+	 */
+	public function toggle_cache_in_debug_mode( $cache_active ) {
+		if ( ! $this->debug_service->debug_active() || ! isset( $_GET['force_cache'] ) ) {
+			return $cache_active;
+		}
+		if ( '1' === $_GET['force_cache'] ) {
+			return true;
+		}
+		if ( '0' === $_GET['force_cache'] ) {
+			return false;
+		}
+
+		return $cache_active;
 	}
 
 	/**

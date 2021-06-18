@@ -934,7 +934,7 @@ class RevSliderFunctions extends RevSliderData {
 									if(!$mgfirst) $t_tcf .= urlencode(',');
 									$t_tcf .= urlencode($mgvv);
 									$mgfirst = false;
-								}
+								} 
 								
 								//we did not add any variants, so dont add the font
 								if($mgfirst === true) continue;

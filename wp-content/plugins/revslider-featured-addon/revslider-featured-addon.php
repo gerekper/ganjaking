@@ -16,7 +16,7 @@
  * Plugin Name:       Slider Revolution Featured Slider Add-on
  * Plugin URI:        https://www.themepunch.com
  * Description:       Replace Posts' Featured Images with RevSliders if the theme allows it
- * Version:           2.0.2
+ * Version:           2.0.3
  * Author:            ThemePunch
  * Author URI:        https://www.themepunch.com
  * License:           GPL-2.0+
@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define("REV_ADDON_FEATURED_VERSION", "2.0.2");
+define("REV_ADDON_FEATURED_VERSION", "2.0.3");
 define("REV_ADDON_FEATURED_URL", str_replace('index.php','',plugins_url( 'index.php', __FILE__ )));
 
 

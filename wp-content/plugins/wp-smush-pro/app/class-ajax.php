@@ -12,6 +12,7 @@ namespace Smush\App;
 
 use Smush\Core\Core;
 use Smush\Core\Helper;
+use Smush\Core\Configs;
 use Smush\Core\Modules\CDN;
 use Smush\Core\Modules\Helpers\Parser;
 use Smush\Core\Modules\Smush;
@@ -50,6 +51,9 @@ class Ajax {
 		add_action( 'wp_ajax_skip_smush_setup', array( $this, 'skip_smush_setup' ) );
 		// Ajax request for quick setup.
 		add_action( 'wp_ajax_smush_setup', array( $this, 'smush_setup' ) );
+
+		// Hide tutorials.
+		add_action( 'wp_ajax_smush_hide_tutorials', array( $this, 'hide_tutorials' ) );
 
 		/**
 		 * NOTICES
@@ -127,6 +131,13 @@ class Ajax {
 		add_action( 'wp_ajax_smush_remove_icon', array( $this, 'remove_icon' ) );
 
 		/**
+		 * Configs
+		 */
+		add_action( 'wp_ajax_smush_upload_config', array( $this, 'upload_config' ) );
+		add_action( 'wp_ajax_smush_save_config', array( $this, 'save_config' ) );
+		add_action( 'wp_ajax_smush_apply_config', array( $this, 'apply_config' ) );
+
+		/**
 		 * SETTINGS
 		 */
 		add_action( 'wp_ajax_recheck_api_status', array( $this, 'recheck_api_status' ) );
@@ -199,6 +210,19 @@ class Ajax {
 		$this->settings->set_setting( WP_SMUSH_PREFIX . 'settings', $settings );
 
 		update_option( 'skip-smush-setup', true );
+
+		wp_send_json_success();
+	}
+
+	/**
+	 * Hide tutorials.
+	 *
+	 * @sinde 3.8.6
+	 */
+	public function hide_tutorials() {
+		check_ajax_referer( 'wp-smush-ajax' );
+
+		update_option( WP_SMUSH_PREFIX . 'hide-tutorials', true, false );
 
 		wp_send_json_success();
 	}
@@ -391,8 +415,6 @@ class Ajax {
 
 		// Save settings only if networkwide settings are disabled.
 		if ( Settings::can_access() && ( ! isset( $_REQUEST['process_settings'] ) || 'false' !== $_REQUEST['process_settings'] ) ) {
-			// Save Settings.
-			$this->settings->save( false );
 			// Fetch the new settings.
 			$this->settings->init();
 		}
@@ -1270,6 +1292,90 @@ class Ajax {
 		}
 
 		wp_send_json_success();
+	}
+
+	/***************************************
+	 *
+	 * CONFIGS
+	 *
+	 * @since 3.8.5
+	 */
+
+	/**
+	 * Handles the upload of a config file.
+	 *
+	 * @since 3.8.5
+	 */
+	public function upload_config() {
+		check_ajax_referer( 'smush_handle_config' );
+
+		$capability = is_multisite() ? 'manage_network' : 'manage_options';
+		if ( ! current_user_can( $capability ) ) {
+			wp_send_json_error( null, 403 );
+		}
+
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$file = isset( $_FILES['file'] ) ? wp_unslash( $_FILES['file'] ) : false;
+
+		$configs_handler = new Configs();
+		$new_config      = $configs_handler->save_uploaded_config( $file );
+
+		if ( ! is_wp_error( $new_config ) ) {
+			wp_send_json_success( $new_config );
+		}
+
+		wp_send_json_error(
+			array( 'error_msg' => $new_config->get_error_message() )
+		);
+	}
+	/**
+	 * Handles the upload of a config file.
+	 *
+	 * @since 3.8.5
+	 */
+	public function save_config() {
+		check_ajax_referer( 'smush_handle_config' );
+
+		$capability = is_multisite() ? 'manage_network' : 'manage_options';
+		if ( ! current_user_can( $capability ) ) {
+			wp_send_json_error( null, 403 );
+		}
+
+		$configs_handler = new Configs();
+		wp_send_json_success( $configs_handler->get_config_from_current() );
+	}
+
+	/**
+	 * Applies the given config.
+	 *
+	 * @since 3.8.5
+	 */
+	public function apply_config() {
+		check_ajax_referer( 'smush_handle_config' );
+
+		$capability = is_multisite() ? 'manage_network' : 'manage_options';
+		if ( ! current_user_can( $capability ) ) {
+			wp_send_json_error( null, 403 );
+		}
+
+		$id = filter_input( INPUT_POST, 'id', FILTER_SANITIZE_STRING );
+		if ( ! $id ) {
+			// Abort if no config ID was given.
+			wp_send_json_error(
+				array( 'error_msg' => esc_html__( 'Missing config ID', 'wp-smushit' ) )
+			);
+		}
+
+		$configs_handler = new Configs();
+		$response        = $configs_handler->apply_config_by_id( $id );
+
+		if ( ! is_wp_error( $response ) ) {
+			wp_send_json_success();
+		}
+
+		wp_send_json_error(
+			array( 'error_msg' => esc_html( $response->get_error_message() ) )
+		);
 	}
 
 	/***************************************

@@ -15,8 +15,8 @@ if ( ! defined( 'WPINC' ) ) {
 <div class="sui-modal sui-modal-sm">
 	<div
 			role="dialog"
-			id="wp-smush-reset-settings-dialog"
-			class="sui-modal-content wp-smush-reset-settings-dialog"
+			id="reset-settings-dialog"
+			class="sui-modal-content reset-settings-dialog"
 			aria-modal="true"
 			aria-labelledby="reset-settings-dialog-title"
 			aria-describedby="reset-settings-dialog-description"

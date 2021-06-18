@@ -1788,3 +1788,342 @@ function escapeHtml( string ) {
 		return entityMap[s];
 	} );
 }
+
+/**
+ * Fresh admin only code 2.5 onwards
+ */
+
+var gform = window.gform || {};
+
+//----------------------------------------
+//------ COMPONENTS ----------------------
+//----------------------------------------
+
+/**
+ * Components namespace to house scripts associated with our new 2.5 and up components
+ */
+
+gform.components = {};
+
+/**
+ * @function gform.components.dropdown
+ * @description An accessible listbox that allows for a custom function to be passed in for trigger handling on list items.
+ * Passes value of data-value attribute in to the optional custom function.
+ *
+ * @param {Object} options
+ * @constructor
+ */
+
+gform.components.dropdown = function( options ) {
+    this.el = null;
+    this.control = null;
+    this.controlText = null;
+    this.triggers = [];
+    this.state = {
+        open: false,
+    };
+    this.options = {
+        closeOnSelect: true,
+        container : document,
+        onItemSelect: function() {},
+        reveal: 'click',
+        selector : '',
+        showSpinner: false,
+        swapLabel: true,
+    };
+
+    this.options = gform.tools.mergeObjects( this.options, gform.tools.defaultFor( options, {} ) );
+    this.el = gform.tools.getNodes( this.options.selector, false, this.options.container )[ 0 ];
+    if ( ! this.el ) {
+        gform.console.error( 'Gform dropdown couldn\'t find [data-js="' + this.options.selector + '"] to instantiate on.');
+        return;
+    }
+
+    this.bindEvents();
+    this.setupUI();
+    this.storeTriggers();
+
+    this.hideSpinner = function() {
+        this.el.classList.remove( 'gform-dropdown--show-spinner' );
+    }
+
+    this.showSpinner = function() {
+        this.el.classList.add( 'gform-dropdown--show-spinner' );
+    }
+}
+
+gform.components.dropdown.prototype.handleChange = function( e ) {
+    this.options.onItemSelect( e.target.dataset.value );
+    if ( this.options.showSpinner ) {
+        this.showSpinner();
+    }
+    if ( this.options.swapLabel ) {
+        this.controlText.innerText = e.target.innerText;
+    }
+    if ( this.options.closeOnSelect ) {
+        this.handleControl();
+    }
+};
+
+gform.components.dropdown.prototype.handleControl = function() {
+    if ( this.state.open ) {
+        this.closeDropdown();
+    } else {
+        this.openDropdown();
+    }
+};
+
+gform.components.dropdown.prototype.openDropdown = function() {
+    if ( this.state.open ) {
+        return;
+    }
+    this.el.classList.add( 'gform-dropdown--reveal' );
+    setTimeout( function() {
+        this.el.classList.add( 'gform-dropdown--open' );
+        this.control.setAttribute( 'aria-expanded', 'true' );
+        this.state.open = true;
+    }.bind( this ), 25 );
+    setTimeout( function() {
+        this.el.classList.remove( 'gform-dropdown--reveal' );
+    }.bind( this ), 200 );
+};
+
+gform.components.dropdown.prototype.closeDropdown = function() {
+    this.state.open = false;
+    this.el.classList.remove( 'gform-dropdown--open' );
+    this.el.classList.add( 'gform-dropdown--hide' );
+    this.control.setAttribute( 'aria-expanded', 'false' );
+    setTimeout( function() {
+        this.el.classList.remove( 'gform-dropdown--hide' );
+    }.bind( this ), 150 );
+};
+
+gform.components.dropdown.prototype.handleMouseenter = function() {
+    if ( this.options.reveal !== 'hover' || this.state.open ) {
+        return;
+    }
+    this.openDropdown();
+};
+
+gform.components.dropdown.prototype.handleMouseleave = function( e ) {
+    if ( this.options.reveal !== 'hover' ) {
+        return;
+    }
+    this.closeDropdown();
+};
+
+gform.components.dropdown.prototype.handleA11y = function( e ) {
+    if ( ! this.state.open ) {
+        return;
+    }
+    if ( e.keyCode === 27 ) {
+        this.closeDropdown();
+        this.control.focus();
+        return;
+    }
+    if ( e.keyCode === 9  && ! gform.tools.getClosest( e.target, '[data-js="' + this.options.selector + '"]' ) ) {
+        this.triggers[0].focus();
+    }
+};
+
+gform.components.dropdown.prototype.handleSearch = function( e ) {
+    var search = e.target.value.toLowerCase();
+    this.triggers.forEach( function( trigger ) {
+        if ( trigger.innerText.toLowerCase().includes( search ) ) {
+            trigger.parentNode.style.display = '';
+        } else {
+            trigger.parentNode.style.display = 'none';
+        }
+    } );
+};
+
+gform.components.dropdown.prototype.setupUI = function() {
+    if ( this.options.reveal === 'hover' ) {
+        this.el.classList.add( 'gform-dropdown--hover' );
+    }
+};
+
+gform.components.dropdown.prototype.storeTriggers = function() {
+    this.control = gform.tools.getNodes( 'gform-dropdown-control', false, this.el )[ 0 ];
+    this.controlText = gform.tools.getNodes( 'gform-dropdown-control-text', false, this.control )[ 0 ];
+    this.triggers = gform.tools.getNodes( 'gform-dropdown-trigger', true, this.el );
+};
+
+gform.components.dropdown.prototype.bindEvents = function() {
+    gform.tools.delegate(
+        '[data-js="' + this.options.selector + '"]',
+        'click',
+        '[data-js="gform-dropdown-trigger"]',
+        this.handleChange.bind( this )
+    );
+    gform.tools.delegate(
+        '[data-js="' + this.options.selector + '"]',
+        'click',
+        '[data-js="gform-dropdown-control"], [data-js="gform-dropdown-control"] *',
+        this.handleControl.bind( this )
+    );
+    gform.tools.delegate(
+        '[data-js="' + this.options.selector + '"]',
+        'keyup',
+        '[data-js="gform-dropdown-search"]',
+        this.handleSearch.bind( this )
+    );
+
+    this.el.addEventListener( 'mouseenter', this.handleMouseenter.bind( this ) );
+    this.el.addEventListener( 'mouseleave', this.handleMouseleave.bind( this ) );
+    this.el.addEventListener( 'keyup', this.handleA11y.bind( this ) );
+
+    document.addEventListener( 'keyup', this.handleA11y.bind( this ) );
+    document.addEventListener( 'click', function( event ) {
+        if ( this.el.contains( event.target ) || ! this.state.open ) {
+            return;
+        }
+        this.handleControl();
+    }.bind( this ) );
+};
+
+//------------------------------------------------
+//---------- SIMPLEBAR ---------------------------
+//------------------------------------------------
+
+/**
+ * Inits any gform specific SimpleBar instances that can't be initialized by the data attribute, either on init,
+ * by method call or by custom event. Stores instances with reference dom id for later manipulation if needed.
+ *
+ * Make sure to enqueue 'gform_simplebar' before using the techniques below.
+ *
+ * You have 3 ways to trigger a render on your element:
+ *
+ * 1) Place an attribute of data-simplebar (plus data-simplebar-direction="rtl" if in rtl) on the el.
+ * 2) Calling gform.simplebar.initializeInstance( HTMLElement ), probably in gform.initializeOnLoaded.
+ * 3) Injecting your element into the dom and then calling gform.tools.trigger( 'gform_render_simplebars' ) making
+ * sure to add data-js="gform-simplebar" to the injected HTML'S container.
+ *
+ * You will find your instances on the object gform.simplebar.instances. Each instance has an id which relates to the dom
+ * node it was initialized on and its attribute of data-simplebar-instance. We provide a getInstance method. Say you
+ * want to get an instance only knowing your element you initialized it on:
+ *
+ * var myInstance = gform.simplebar.getInstance( HTMLElement );
+ *
+ * https://github.com/Grsmto/simplebar/tree/master/packages/simplebar
+ *
+ */
+
+gform.simplebar = {
+    /**
+     * Initialized instances are stored here with an array of objects. Each instance looks like:
+     *
+     */
+    instances: [],
+
+    /**
+     * @function gform.simplebar.cleanInstances
+     * @description Cleans out any instances that were removed in between the last call and this one to render.
+     *
+     * @since 2.5.6
+     */
+    cleanInstances: function() {
+        gform.simplebar.instances = gform.simplebar.instances.filter( function( instance, index ) {
+            var exists = gform.tools.getNodes( '[data-simplebar-instance="' + instance.id + '"]', false, document, true )[ 0 ];
+            if ( exists ) {
+                return true;
+            }
+            gform.simplebar.instances[ index ].instance.unMount();
+            return false;
+        } );
+    },
+
+    /**
+     * @function gform.simplebar.getInstance
+     * @description Get a SimpleBar instance by element it was rendered on.
+     *
+     * @since 2.5.6
+     *
+     * @param {HTMLElement} element The element you initialize SimpleBar on.
+     *
+     * @returns {*}
+     */
+    getInstance: function( element ) {
+        var instanceObj = gform.simplebar.instances.filter( function( instance ) {
+            return instance.id === element.getAttribute( 'data-simplebar-instance' ); }
+        )[ 0 ];
+        return instanceObj.instance;
+    },
+
+    /**
+     * @function gform.simplebar.initializeInstance
+     * @description Initialize a SimpleBar instance and store on our instances object.
+     * You can delay initialization of an instance by a data attribute of data-simplebar-delay (helpful if say
+     * your container is part of some jquery ui or other third party display logic).
+     *
+     * @since 2.5.6
+     *
+     * @param {HTMLElement} element
+     */
+    initializeInstance: function( element ) {
+        var uid = gform.tools.uniqueId( 'simplebar' );
+        var delayAttr = element.getAttribute( 'data-simplebar-delay' );
+        var delay = delayAttr ? parseInt( delayAttr, 10 ) : 0;
+
+        setTimeout( function() {
+            var direction = gform.tools.isRtl() ? 'rtl' : 'ltr';
+
+            if ( direction === 'rtl' ) {
+                element.setAttribute( 'data-simplebar-direction', 'rtl' );
+            }
+            element.setAttribute( 'data-simplebar-instance', uid );
+            element.classList.add( 'gform-initialized' );
+
+            var simplebar = new SimpleBar( element, {
+                direction: direction,
+            } );
+
+            gform.simplebar.instances.push( {
+                id: uid,
+                instance: simplebar,
+            } );
+        }, delay );
+    },
+
+    /**
+     * @function gform.simplebar.initializeInstances
+     * @description Start by cleaning any zombie instances, then initialize any uninitialized SimpleBar instances in
+     * the DOM.
+     *
+     * @since 2.5.6
+     *
+     * @param {HTMLElement} element
+     */
+    initializeInstances: function() {
+        gform.simplebar.cleanInstances();
+        gform.tools
+            .getNodes( '[data-js="gform-simplebar"]:not(.gform-initialized)', true, document, true )
+            .forEach( gform.simplebar.initializeInstance );
+    },
+
+    /**
+     * @function gform.simplebar.bindEvents
+     * @description Bind event listeners for this namespace.
+     *
+     * @since 2.5.6
+     */
+    bindEvents: function() {
+        document.addEventListener( 'gform_render_simplebars', gform.simplebar.initializeInstances );
+    },
+
+    /**
+     * @function gform.simplebar.init
+     * @description Initialize this module if SimpleBar is enqueued.
+     *
+     * @since 2.5.6
+     */
+    init: function() {
+        if ( ! window.SimpleBar ) {
+            return;
+        }
+        gform.simplebar.bindEvents();
+        gform.simplebar.initializeInstances();
+    }
+};
+
+gform.initializeOnLoaded( gform.simplebar.init );

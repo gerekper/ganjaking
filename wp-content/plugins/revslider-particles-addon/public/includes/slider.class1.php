@@ -78,6 +78,13 @@ class RsParticlesSliderFront extends RevSliderFunctions {
 			
 		);
 		
+	add_filter('revslider_modify_waiting_scripts', array($this, 'add_waiting_script_slugs'), 10, 1);
+	}
+	
+	
+	public function add_waiting_script_slugs($wait){
+		$wait[] = 'particles';
+		return $wait;
 	}
 	
 	public function check_addon_active($record) {

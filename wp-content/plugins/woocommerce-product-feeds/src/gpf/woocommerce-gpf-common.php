@@ -86,11 +86,30 @@ class WoocommerceGpfCommon {
 					'skip_on_product_pages'  => true,
 					'skip_on_category_pages' => true,
 				],
-				'availability'                        => [
-					'desc'             => __( 'Availability', 'woocommerce_gpf' ),
-					'full_desc'        => __( 'What status to send for in stock items. Out of stock products will always show as "Out of stock" irrespective of this setting.', 'woocommerce_gpf' ),
+				'availability_instock'                => [
+					'desc'             => __( 'Availability (in stock products)', 'woocommerce_gpf' ),
+					'full_desc'        => __( 'What status to send for in stock items.', 'woocommerce_gpf' ),
 					'callback'         => 'render_generic_select',
 					'can_default'      => true,
+					'mandatory'        => true,
+					'feed_types'       => [ 'google', 'googleinventory', 'googlelocalproductinventory', 'bing' ],
+					'options_callback' => 'WoocommerceProductFeedsFieldOptions::availability_options',
+				],
+				'availability_backorder'              => [
+					'desc'             => __( 'Availability (backordered products)', 'woocommerce_gpf' ),
+					'full_desc'        => __( 'What status to send for items on backorder.', 'woocommerce_gpf' ),
+					'callback'         => 'render_generic_select',
+					'can_default'      => true,
+					'mandatory'        => true,
+					'feed_types'       => [ 'google', 'googleinventory', 'googlelocalproductinventory', 'bing' ],
+					'options_callback' => 'WoocommerceProductFeedsFieldOptions::availability_options',
+				],
+				'availability_outofstock'             => [
+					'desc'             => __( 'Availability (out of stock products)', 'woocommerce_gpf' ),
+					'full_desc'        => __( 'What status to send for out of stock items.', 'woocommerce_gpf' ),
+					'callback'         => 'render_generic_select',
+					'can_default'      => true,
+					'mandatory'        => true,
 					'feed_types'       => [ 'google', 'googleinventory', 'googlelocalproductinventory', 'bing' ],
 					'options_callback' => 'WoocommerceProductFeedsFieldOptions::availability_options',
 				],
@@ -103,7 +122,7 @@ class WoocommerceGpfCommon {
 				],
 				'availability_date'                   => [
 					'desc'       => __( 'Availability date', 'woocommerce_gpf' ),
-					'full_desc'  => __( 'If you are accepting orders for products that are available for preorder, use this attribute to indicate when the product becomes available for delivery.', 'woocommerce_gpf' ),
+					'full_desc'  => __( 'If you are accepting orders for products that are available for preorder or are on backorder, use this attribute to indicate when the product becomes available for delivery.', 'woocommerce_gpf' ),
 					'callback'   => 'render_availability_date',
 					'feed_types' => [ 'google' ],
 				],
@@ -596,54 +615,60 @@ class WoocommerceGpfCommon {
 			'woocommerce_gpf_feed_types',
 			[
 				'google'                      => [
-					'name'     => __( 'Google merchant centre product feed', 'woocommerce_gpf' ),
-					'icon'     => plugins_url( basename( $this->base_dir ) . '/images/google.png' ),
-					'class'    => 'WoocommerceGpfFeedGoogle',
-					'type'     => 'product',
-					'url_args' => [],
-					'legacy'   => false,
+					'name'        => __( 'Google merchant centre product feed', 'woocommerce_gpf' ),
+					'plural_name' => __( 'Google merchant centre product feeds', 'woocommerce_gpf' ),
+					'icon'        => plugins_url( basename( $this->base_dir ) . '/images/google.png' ),
+					'class'       => 'WoocommerceGpfFeedGoogle',
+					'type'        => 'product',
+					'url_args'    => [],
+					'legacy'      => false,
 				],
 				'googlereview'                => [
-					'name'     => __( 'Google merchant centre product review feed', 'woocommerce_gpf' ),
-					'icon'     => plugins_url( basename( $this->base_dir ) . '/images/google.png' ),
-					'class'    => 'WoocommercePrfGoogleReviewProductInfo',
-					'type'     => 'review',
-					'url_args' => [],
-					'legacy'   => false,
+					'name'        => __( 'Google merchant centre product review feed', 'woocommerce_gpf' ),
+					'plural_name' => __( 'Google merchant centre product review feeds', 'woocommerce_gpf' ),
+					'icon'        => plugins_url( basename( $this->base_dir ) . '/images/google.png' ),
+					'class'       => 'WoocommercePrfGoogleReviewProductInfo',
+					'type'        => 'review',
+					'url_args'    => [],
+					'legacy'      => false,
 				],
 				'bing'                        => [
-					'name'     => __( 'Bing merchant centre feed', 'woocommerce_gpf' ),
-					'icon'     => plugins_url( basename( $this->base_dir ) . '/images/bing.png' ),
-					'class'    => 'WoocommerceGpfFeedBing',
-					'type'     => 'product',
-					'url_args' => [
+					'name'        => __( 'Bing merchant centre feed', 'woocommerce_gpf' ),
+					'plural_name' => __( 'Bing merchant centre feeds', 'woocommerce_gpf' ),
+					'icon'        => plugins_url( basename( $this->base_dir ) . '/images/bing.png' ),
+					'class'       => 'WoocommerceGpfFeedBing',
+					'type'        => 'product',
+					'url_args'    => [
 						'f' => 'f.txt',
 					],
-					'legacy'   => false,
+					'legacy'      => false,
 				],
 				'googlelocalproductinventory' => [
-					'name'     => __( 'Google merchant centre local product inventory feed', 'woocommerce_gpf' ),
-					'icon'     => plugins_url( basename( $this->base_dir ) . '/images/google.png' ),
-					'class'    => 'WoocommerceGpfFeedGoogleLocalProductInventory',
-					'type'     => 'product',
-					'url_args' => [],
-					'legacy'   => false,
+					'name'        => __( 'Google merchant centre local product inventory feed', 'woocommerce_gpf' ),
+					'plural_name' => __( 'Google merchant centre local product inventory feeds', 'woocommerce_gpf' ),
+					'icon'        => plugins_url( basename( $this->base_dir ) . '/images/google.png' ),
+					'class'       => 'WoocommerceGpfFeedGoogleLocalProductInventory',
+					'type'        => 'product',
+					'url_args'    => [],
+					'legacy'      => false,
 				],
 				'googlelocalproducts'         => [
-					'name'     => __( 'Google merchant centre local products feed (legacy)', 'woocommerce_gpf' ),
-					'icon'     => plugins_url( basename( $this->base_dir ) . '/images/google.png' ),
-					'class'    => 'WoocommerceGpfFeedGoogleLocalProducts',
-					'type'     => 'product',
-					'url_args' => [],
-					'legacy'   => true,
+					'name'        => __( 'Google merchant centre local products feed (legacy)', 'woocommerce_gpf' ),
+					'plural_name' => __( 'Google merchant centre local products feed (legacy)s', 'woocommerce_gpf' ),
+					'icon'        => plugins_url( basename( $this->base_dir ) . '/images/google.png' ),
+					'class'       => 'WoocommerceGpfFeedGoogleLocalProducts',
+					'type'        => 'product',
+					'url_args'    => [],
+					'legacy'      => true,
 				],
 				'googleinventory'             => [
-					'name'     => __( 'Google merchant centre product inventory feed (legacy)', 'woocommerce_gpf' ),
-					'icon'     => plugins_url( basename( $this->base_dir ) . '/images/google.png' ),
-					'class'    => 'WoocommerceGpfFeedGoogleInventory',
-					'type'     => 'product',
-					'url_args' => [],
-					'legacy'   => true,
+					'name'        => __( 'Google merchant centre product inventory feed (legacy)', 'woocommerce_gpf' ),
+					'plural_name' => __( 'Google merchant centre product inventory feed (legacy)s', 'woocommerce_gpf' ),
+					'icon'        => plugins_url( basename( $this->base_dir ) . '/images/google.png' ),
+					'class'       => 'WoocommerceGpfFeedGoogleInventory',
+					'type'        => 'product',
+					'url_args'    => [],
+					'legacy'      => true,
 				],
 			]
 		);
@@ -856,6 +881,7 @@ class WoocommerceGpfCommon {
 			'field:variation_title' => __( 'Variation title', 'woo_gpf' ),
 			'field:stock_qty'       => __( 'Stock Qty', 'woo_gpf' ),
 			'field:stock_status'    => __( 'Stock Status', 'woo_gpf' ),
+			'field:backorders'      => __( '"Allow backorders" setting', 'woo_gpf' ),
 			'field:tax_class'       => __( 'Tax class', 'woo_gpf' ),
 		];
 		asort( $fields );
@@ -879,6 +905,13 @@ class WoocommerceGpfCommon {
 		foreach ( $taxonomies as $taxonomy ) {
 			$tax_details                 = get_taxonomy( $taxonomy );
 			$taxes[ 'tax:' . $taxonomy ] = $tax_details->labels->name;
+			if ( $tax_details->hierarchical ) {
+				$taxes[ 'taxhierarchy:' . $taxonomy ] = sprintf(
+					// Translators: %s is a taxonomy name
+					__( '%s (full hierarchy)', 'woocommerce_gpf' ),
+					$tax_details->labels->name
+				);
+			}
 		}
 		asort( $taxes );
 
@@ -925,10 +958,6 @@ class WoocommerceGpfCommon {
 		set_transient( 'woocommerce_gpf_meta_prepopulate_options', $fields, MONTH_IN_SECONDS );
 
 		return $fields;
-	}
-
-	public function is_feed_enabled( $feed_type ) {
-		return ! empty( $this->settings['gpf_enabled_feeds'][ $feed_type ] );
 	}
 
 	/**

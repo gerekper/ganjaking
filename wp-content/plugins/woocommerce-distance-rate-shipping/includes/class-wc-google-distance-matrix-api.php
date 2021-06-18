@@ -127,6 +127,15 @@ if ( ! class_exists( 'WC_Google_Distance_Matrix_API' ) ) {
 				if ( ! empty( $region ) ) {
 					$params['region'] = $region;
 				}
+				
+				/**
+				 * Filters the Google Distance Matrix API request parameters.
+				 *
+				 * @param array $params Parameters to pass to the API request.
+				 *
+				 * @since 1.0.27
+				 */
+				$params = apply_filters( 'google_distance_matrix_request_params', $params );
 
 				$params   = http_build_query( $params );
 				$response = $this->perform_request( $params );

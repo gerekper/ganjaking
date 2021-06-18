@@ -1,5 +1,8 @@
 *** Ship to Multiple Addresses Changelog ***
 
+2021-06-10 - version 3.6.26
+* Fix   - Display of delete address link on My Account page.
+
 2020-12-10 - version 3.6.25
 * Fix   - Replace deprecated WooCommerce 4.4 functions.
 

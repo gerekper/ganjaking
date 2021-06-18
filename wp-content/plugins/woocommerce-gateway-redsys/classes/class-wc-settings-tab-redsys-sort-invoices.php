@@ -15,8 +15,10 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	 *
 	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public static function init() {
 		add_filter( 'woocommerce_settings_tabs_array', __CLASS__ . '::add_settings_tab', 50 );
 		add_action( 'woocommerce_settings_tabs_settings_tab_redsys_invoices', __CLASS__ . '::settings_tab' );
@@ -31,8 +33,10 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	 * @return array $settings_tabs Array of WooCommerce setting tabs & their labels, including the Subscription tab.
 	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public static function add_settings_tab( $settings_tabs ) {
 		$settings_tabs['settings_tab_redsys_invoices'] = __( 'Sequential Invoice Numbers', 'woocommerce-redsys' );
 		return $settings_tabs;
@@ -46,8 +50,10 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	 * @uses self::get_settings()
 	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public static function settings_tab() {
 		woocommerce_admin_fields( self::get_settings() );
 	}
@@ -60,8 +66,10 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	 * @uses self::get_settings()
 	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public static function update_settings() {
 		woocommerce_update_options( self::get_settings() );
 	}
@@ -72,8 +80,10 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	* @return array Array of settings for @see woocommerce_admin_fields() function.
 	*/
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public static function get_settings() {
 
 		$settings = array(

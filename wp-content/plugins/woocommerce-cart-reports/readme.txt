@@ -2,8 +2,8 @@
 Contributors: WPBackOffice
 Tags: woocommerce
 Requires at least: 4.0
-Tested up to: 4.6.1
-Stable tag: 1.2.9
+Tested up to: 5.1.0
+Stable tag: 1.2.10
 
 WooCommerce Cart Reports allows the site administrator to visualize customer-cart interaction on a WooCommerce Site using at-a-glance dashboard widgets, a new Report in the WooCommerce Reports Section, and a robust cart list view.
 

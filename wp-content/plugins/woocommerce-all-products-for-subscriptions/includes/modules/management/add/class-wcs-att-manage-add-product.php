@@ -55,7 +55,7 @@ class WCS_ATT_Manage_Add_Product extends WCS_ATT_Abstract_Module {
 	private static function register_template_hooks() {
 
 		// Render the add-to-subscription wrapper element in single-product pages.
-		add_filter( 'woocommerce_after_add_to_cart_button', array( __CLASS__, 'options_template' ), 1000 );
+		add_action( 'woocommerce_after_add_to_cart_button', array( __CLASS__, 'options_template' ), 1000 );
 
 		// Render subscriptions list.
 		add_action( 'wcsatt_add_product_to_subscription_html', array( __CLASS__, 'matching_subscriptions_template' ), 10, 3 );

@@ -33,15 +33,11 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 	 * Country list from: https://help.bingads.microsoft.com/#apex/3/en/56731/1
 	 */
 	private function include_tax() {
-		if ( in_array(
-			$this->store_info->base_country,
-			array( 'GB', 'AU', 'DE', 'FR' ),
-			true
-		) ) {
-			return true;
+		if ( 'US' === $this->store_info->base_country ) {
+			return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	/**

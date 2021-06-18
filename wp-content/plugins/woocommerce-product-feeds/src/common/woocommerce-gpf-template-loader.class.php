@@ -43,32 +43,36 @@ class WoocommerceGpfTemplateLoader extends Gamajo_Template_Loader {
 	/**
 	 * Get the contents of a template with variables substituted.
 	 *
-	 * @param  string $slug      The template slug (First part of filename)
-	 * @param  string $name      The template name (Second half of filename)
-	 * @param  array  $variables Variables to be replaced into the template.
+	 * @param string $slug The template slug (First part of filename)
+	 * @param string $name The template name (Second half of filename)
+	 * @param array $variables Variables to be replaced into the template.
 	 *
 	 * @return string             The rendered output.
 	 */
 	public function get_template_with_variables( $slug, $name = null, $variables = [] ) {
 		ob_start();
-		$this->get_template_part( $slug, $name );
+		$path = $this->get_template_part( $slug, $name, false );
+		load_template( $path, false, $variables );
 		$content = ob_get_clean();
 		foreach ( $variables as $key => $value ) {
-			$content = str_replace( '{' . $key . '}', $value, $content );
+			if ( ! is_array( $value ) ) {
+				$content = str_replace( '{' . $key . '}', $value, $content );
+			}
 		}
+
 		return $content;
 	}
 
 	/**
 	 * Output the contents of a template with variables substituted.
 	 *
-	 * @param  string $slug      The template slug (First part of filename)
-	 * @param  string $name      The template name (Second half of filename)
-	 * @param  array  $variables Variables to be replaced into the template.
-	 *
-	 * @uses   get_template_with_variables()
+	 * @param string $slug The template slug (First part of filename)
+	 * @param string $name The template name (Second half of filename)
+	 * @param array $variables Variables to be replaced into the template.
 	 *
 	 * @return string             The rendered output.
+	 * @uses   get_template_with_variables()
+	 *
 	 */
 	public function output_template_with_variables( $slug, $name = null, $variables = [] ) {
 		echo $this->get_template_with_variables( $slug, $name, $variables );

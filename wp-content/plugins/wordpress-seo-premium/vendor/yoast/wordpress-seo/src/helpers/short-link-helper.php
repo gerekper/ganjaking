@@ -118,11 +118,9 @@ class Short_Link_Helper {
 	 * @return string The software name.
 	 */
 	protected function get_software() {
-		if ( $this->product_helper->is_premium() ) {
+		
 			return 'premium';
-		}
-
-		return 'free';
+		
 	}
 
 	/**
@@ -131,23 +129,7 @@ class Short_Link_Helper {
 	 * @return int The number of days the plugin is active.
 	 */
 	protected function get_days_active() {
-		$date_activated = $this->options_helper->get( 'first_activated_on' );
-		$datediff       = ( \time() - $date_activated );
-		$days           = (int) \round( $datediff / \DAY_IN_SECONDS );
-		switch ( $days ) {
-			case 0:
-			case 1:
-				$cohort = '0-1';
-				break;
-			case ( $days < 5 ):
-				$cohort = '2-5';
-				break;
-			case ( $days < 30 ):
-				$cohort = '6-30';
-				break;
-			default:
-				$cohort = '30plus';
-		}
-		return '30plus';
+		
+		return '30plus';;
 	}
 }

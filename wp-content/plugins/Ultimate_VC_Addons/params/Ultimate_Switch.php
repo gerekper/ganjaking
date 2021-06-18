@@ -1,17 +1,17 @@
 <?php
 /**
- * Class Ultimate_Switch_Param
+ * Class Ultimate_VC_Addons_Switch_Param
  *
- * @package Ultimate_Switch_Param.
+ * @package Ultimate_VC_Addons_Switch_Param.
  */
 
-if ( ! class_exists( 'Ultimate_Switch_Param' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Switch_Param' ) ) {
 	/**
-	 * Class Ultimate_Switch_Param
+	 * Class Ultimate_VC_Addons_Switch_Param
 	 *
-	 * @class Ultimate_Switch_Param.
+	 * @class Ultimate_VC_Addons_Switch_Param.
 	 */
-	class Ultimate_Switch_Param {
+	class Ultimate_VC_Addons_Switch_Param {
 		/**
 		 * Initiator __construct.
 		 */
@@ -98,6 +98,6 @@ if ( ! class_exists( 'Ultimate_Switch_Param' ) ) {
 	}
 }
 
-if ( class_exists( 'Ultimate_Switch_Param' ) ) {
-	$ultimate_switch_param = new Ultimate_Switch_Param();
+if ( class_exists( 'Ultimate_VC_Addons_Switch_Param' ) ) {
+	$ultimate_switch_param = new Ultimate_VC_Addons_Switch_Param();
 }

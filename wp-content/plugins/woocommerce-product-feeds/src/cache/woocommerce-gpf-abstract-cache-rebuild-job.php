@@ -35,14 +35,19 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 	protected $common;
 
 	/**
+	 * @var WoocommerceGpfCache
+	 */
+	private $cache;
+
+	/**
+	 * @var WoocommerceProductFeedsFeedItemFactory
+	 */
+	protected $feed_item_factory;
+
+	/**
 	 * @var Container
 	 */
 	protected $container;
-
-	/**
-	 * @var WoocommerceGpfDebugService
-	 */
-	protected $debug;
 
 	/**
 	 * Constructor.
@@ -51,19 +56,19 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 	 *
 	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
 	 * @param WoocommerceGpfCache $woocommerce_gpf_cache
-	 * @param WoocommerceGpfDebugService $debug
+	 * @param WoocommerceProductFeedsFeedItemFactory $feed_item_factory
 	 * @param Container $container
 	 */
 	public function __construct(
 		WoocommerceGpfCommon $woocommerce_gpf_common,
 		WoocommerceGpfCache $woocommerce_gpf_cache,
-		WoocommerceGpfDebugService $debug,
+		WoocommerceProductFeedsFeedItemFactory $feed_item_factory,
 		Container $container
 	) {
-		$this->common    = $woocommerce_gpf_common;
-		$this->cache     = $woocommerce_gpf_cache;
-		$this->debug     = $debug;
-		$this->container = $container;
+		$this->common            = $woocommerce_gpf_common;
+		$this->cache             = $woocommerce_gpf_cache;
+		$this->feed_item_factory = $feed_item_factory;
+		$this->container         = $container;
 		add_action( $this->action_hook, [ $this, 'task' ], 10, $this->action_hook_arg_count );
 	}
 
@@ -76,17 +81,25 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 		global $wpdb;
 
 		$feed_types                     = $this->common->get_feed_types();
-		$this->feed_formats             = array();
-		$this->non_product_feed_formats = array();
+		$this->feed_formats             = [];
+		$this->non_product_feed_formats = [];
+
+		// Build the feed handlers array.
 		foreach ( array_keys( $feed_types ) as $feed_id ) {
 			$class                           = $feed_types[ $feed_id ]['class'];
 			$this->feed_handlers[ $feed_id ] = $this->container[ $class ];
-			if ( 'product' === $feed_types[ $feed_id ]['type'] ) {
-				$this->feed_formats[] = $feed_id;
+		}
+		// TODO config repository should be passed in as a dependency.
+		$config_repository = $this->container['WoocommerceProductFeedsFeedConfigRepository'];
+		$all_feed_formats  = $config_repository->get_active_feed_formats();
+		foreach ( $all_feed_formats as $feed_format ) {
+			if ( 'product' === $feed_types[ $feed_format ]['type'] ) {
+				$this->feed_formats[] = $feed_format;
 			} else {
-				$this->non_product_feed_formats[] = $feed_id;
+				$this->non_product_feed_formats[] = $feed_format;
 			}
 		}
+
 		// Cater for large stores.
 		$wpdb->hide_errors();
 		@set_time_limit( 0 );
@@ -122,6 +135,8 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 	 * Rebuild a specific item.
 	 *
 	 * @param $product_id
+	 *
+	 * @return bool|void
 	 */
 	protected function rebuild_item( $product_id ) {
 		// Load the settings.
@@ -156,67 +171,44 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 	/**
 	 * Process a simple product.
 	 *
+	 * @return bool
 	 * @todo This is mostly a rough copy of the code in the frontend class. The
 	 * logic could do with centralising.
 	 *
-	 * @return bool
 	 */
 	protected function process_simple_product( $woocommerce_product ) {
 
 		foreach ( $this->feed_formats as $feed_format ) {
-			// Do not rebuild for feeds that aren't enabled.
-			if ( ! $this->common->is_feed_enabled( $feed_format ) ) {
-				continue;
-			}
 			// Construct the data for this item.
-			$feed_item = new WoocommerceGpfFeedItem(
-				$woocommerce_product,
-				$woocommerce_product,
-				$feed_format,
-				$this->common,
-				$this->debug
-			);
+			$feed_item = $this->feed_item_factory->create( $feed_format, $woocommerce_product, $woocommerce_product );
 			if ( $feed_item->is_excluded() ) {
 				$this->cache->store( $feed_item->ID, $feed_format, '' );
 				continue;
 			}
-			// Allow other plugins to modify the item before its rendered to the feed
-			$feed_item = apply_filters( 'woocommerce_gpf_feed_item', $feed_item, $woocommerce_product );
-			$feed_item = apply_filters( 'woocommerce_gpf_feed_item_' . $feed_format, $feed_item, $woocommerce_product );
-
 			// Render it.
 			$output = $this->feed_handlers[ $feed_format ]->render_item( $feed_item );
 
 			// Store it to the cache.
 			$this->cache->store( $feed_item->ID, $feed_format, $output );
 		}
+
 		return true;
 	}
 
 	/**
 	 * Process a variable product.
 	 *
+	 * @return bool
 	 * @todo This is mostly a rough copy of the code in the frontend class. The
 	 * logic could do with centralising.
 	 *
-	 * @return bool
 	 */
 	protected function process_variable_product( $woocommerce_product ) {
 
 		// Check if the whole product is excluded.
-		$feed_item = new WoocommerceGpfFeedItem(
-			$woocommerce_product,
-			$woocommerce_product,
-			'google',
-			$this->common,
-			$this->debug
-		);
+		$feed_item = $this->feed_item_factory->create( 'google', $woocommerce_product, $woocommerce_product );
 		if ( $feed_item->is_excluded() ) {
 			foreach ( $this->feed_formats as $feed_format ) {
-				// Do not rebuild for feeds that aren't enabled.
-				if ( ! $this->common->is_feed_enabled( $feed_format ) ) {
-					continue;
-				}
 				$this->cache->store( $woocommerce_product->get_id(), $feed_format, '' );
 			}
 
@@ -225,10 +217,6 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 
 		$variation_ids = $woocommerce_product->get_children();
 		foreach ( $this->feed_formats as $feed_format ) {
-			// Do not rebuild for feeds that aren't enabled.
-			if ( ! $this->common->is_feed_enabled( $feed_format ) ) {
-				continue;
-			}
 			$output = '';
 			foreach ( $variation_ids as $variation_id ) {
 				// Get the variation product.
@@ -236,26 +224,21 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 				if ( ! $variation_product ) {
 					continue;
 				}
-				$feed_item = new WoocommerceGpfFeedItem(
-					$variation_product,
-					$woocommerce_product,
+				$feed_item = $this->feed_item_factory->create(
 					$feed_format,
-					$this->common,
-					$this->debug
+					$variation_product,
+					$woocommerce_product
 				);
 				// Skip to the next if this variation isn't to be included.
 				if ( $feed_item->is_excluded() ) {
 					continue;
 				}
-				// Allow other plugins to modify the item before its rendered to the feed
-				$feed_item = apply_filters( 'woocommerce_gpf_feed_item', $feed_item, $woocommerce_product );
-				$feed_item = apply_filters( 'woocommerce_gpf_feed_item_' . $feed_format, $feed_item, $woocommerce_product );
-
 				// Render it.
 				$output .= $this->feed_handlers[ $feed_format ]->render_item( $feed_item );
 			}
 			$this->cache->store( $woocommerce_product->get_id(), $feed_format, $output );
 		}
+
 		return true;
 	}
 }

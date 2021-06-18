@@ -15,7 +15,7 @@ class RsParticlesBase extends RsAddOnParticlesBase {
 					 $_PluginUrl     = RS_PARTICLES_PLUGIN_URL,
 					 $_PluginTitle   = 'particles',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '2.3.4';
+				     $_Version       = '3.01';
 	
 	public function __construct() {
 		

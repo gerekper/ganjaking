@@ -31,6 +31,8 @@ defined( 'ABSPATH' ) or exit;
 /**
  * Abstract class for Courseware/eLearning integrations.
  *
+ * @TODO consider introducing some helper methods to get the current version of supported plugins, if useful {unfulvio 2021-05-19}
+ *
  * @since 1.22.0
  */
 abstract class Courseware {
@@ -142,7 +144,8 @@ abstract class Courseware {
 	 */
 	protected function maybe_start_courses_associated_with_membership( \WC_Memberships_User_Membership $user_membership ) {
 
-		if ( ! $user_membership->is_active() ) {
+		/** do not use {@see \WC_Memberships_User_Membership::is_active()} here to avoid triggering checks that may expire the membership */
+		if ( ! in_array( $user_membership->get_status(), wc_memberships()->get_user_memberships_instance()->get_active_access_membership_statuses(), true ) ) {
 			return;
 		}
 
@@ -261,7 +264,7 @@ abstract class Courseware {
 	 */
 	protected function maybe_start_dependent_courses( int $user_id, int $completed_course_id ) {
 
-		foreach ( $this->get_dependent_courses( $completed_course_id ) as $course_id ) {
+		foreach ( array_keys( $this->get_dependent_courses( $completed_course_id ) ) as $course_id ) {
 
 			$rule = $this->get_course_content_restriction_rule_for_user( $user_id, $course_id );
 
@@ -412,7 +415,7 @@ abstract class Courseware {
 	 * @since 1.22.0
 	 *
 	 * @param int $course_id
-	 * @return array
+	 * @return array associative array of post IDs and course posts
 	 */
 	abstract protected function get_dependent_courses( int $course_id ) : array;
 

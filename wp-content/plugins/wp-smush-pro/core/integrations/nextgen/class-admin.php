@@ -214,7 +214,6 @@ class Admin extends NextGen {
 			'all_resmushed' => esc_html__( 'All images are fully optimized.', 'wp-smushit' ),
 			'restore'       => esc_html__( 'Restoring image...', 'wp-smushit' ),
 			'smushing'      => esc_html__( 'Smushing image...', 'wp-smushit' ),
-			'checking'      => esc_html__( 'Checking images...', 'wp-smushit' ),
 		);
 
 		wp_localize_script( $handle, 'wp_smush_msgs', $wp_smush_msgs );

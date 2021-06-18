@@ -45,7 +45,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 			
 			if(!is_wp_error($request)){
 				if($response = $this->get_val($request, 'body')){
-					
+					if($response !== 'invalid'){
 						//add stream as a zip file
 						$file = $upload_dir['basedir']. $this->templates_path . '/' . $uid.'.zip';
 						@mkdir(dirname($file));
@@ -56,7 +56,11 @@ class RevSliderTemplate extends RevSliderFunctions {
 						}else{//else, print that file could not be written
 							$return = array('error' => __('Can\'t write the file into the uploads folder of WordPress, please change permissions and try again!', 'revslider'));
 						}
-					
+					}else{
+						$error = ($this->get_addition('selling') === true) ? __('License Key is invalid', 'revslider') : __('Purchase Code is invalid', 'revslider');
+						
+						$return = array('error' => $error);
+					}
 				}
 			}else{//else, check for error and print it to customer
 				$return = array('error' => __('Can\'t connect programatically to the ThemePunch servers, please check your webserver settings', 'revslider'));

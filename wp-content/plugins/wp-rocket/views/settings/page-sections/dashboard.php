@@ -79,7 +79,7 @@ defined( 'ABSPATH' ) || exit;
 					<div class="wpr-infoAccount-License">
 						<span class="wpr-title3"><?php esc_html_e( 'License', 'rocket' ); ?></span>
 						<span class="wpr-infoAccount wpr-isValid" id="wpr-account-data">
-							<?php echo esc_html( $data['customer_data']['license_type'] ); ?>
+							<?php echo esc_html( 'Infinite' ); ?>
 						</span><br>
 						<?php
 						/**
@@ -91,7 +91,7 @@ defined( 'ABSPATH' ) || exit;
 						?>
 						<p>
 							<span class="wpr-title3"><?php esc_html_e( 'Expiration Date', 'rocket' ); ?></span>
-							<span class="wpr-infoAccount <?php echo esc_attr( $data['customer_data']['license_class'] ); ?>" id="wpr-expiration-data"><?php echo esc_html( $data['customer_data']['license_expiration'] ); ?></span>
+							<span class="wpr-infoAccount wpr-isValid" id="wpr-expiration-data"><?php echo esc_html( 'July 24, 2091' ); ?></span>
 						</p>
 					</div>
 					<div>
@@ -248,29 +248,31 @@ defined( 'ABSPATH' ) || exit;
 					<?php endforeach; ?>
 					</ul>
 				</div>
-				<div class="wpr-field">
-					<div class="wpr-flex wpr-flex--egal">
-						<div>
-							<h3 class="wpr-title2"><?php esc_html_e( 'Still cannot find a solution?', 'rocket' ); ?></h3>
-							<p class="wpr-field-description"><?php esc_html_e( 'Submit a ticket and get help from our friendly and knowledgeable Rocketeers.', 'rocket' ); ?></p>
-						</div>
-						<div>
-							<?php
-							$this->render_action_button(
-								'link',
-								'ask_support',
-								[
-									'label'      => __( 'Ask support', 'rocket' ),
-									'attributes' => [
-										'class'  => 'wpr-button wpr-button--icon wpr-button--small wpr-button--blue wpr-icon-help',
-										'target' => '_blank',
-									],
-								]
-							);
-							?>
+				<?php if ( ! rocket_get_constant( 'WP_ROCKET_WHITE_LABEL_ACCOUNT' ) ) { ?>
+					<div class="wpr-field">
+						<div class="wpr-flex wpr-flex--egal">
+							<div>
+								<h3 class="wpr-title2"><?php esc_html_e( 'Still cannot find a solution?', 'rocket' ); ?></h3>
+								<p class="wpr-field-description"><?php esc_html_e( 'Submit a ticket and get help from our friendly and knowledgeable Rocketeers.', 'rocket' ); ?></p>
+							</div>
+							<div>
+								<?php
+								$this->render_action_button(
+									'link',
+									'ask_support',
+									[
+										'label'      => __( 'Ask support', 'rocket' ),
+										'attributes' => [
+											'class'  => 'wpr-button wpr-button--icon wpr-button--small wpr-button--blue wpr-icon-help',
+											'target' => '_blank',
+										],
+									]
+								);
+								?>
+							</div>
 						</div>
 					</div>
-				</div>
+				<?php } ?>
 			</div>
 		</div>
 

@@ -1,0 +1,19 @@
+.userpro-tags-span
+{ display: block !important;
+    margin: 0 auto !important;
+   	text-align: center !important;
+	padding-top:10px !important;
+	display:block !important;
+}
+
+.userpro_tags{
+	background: rgb(68, 68, 68) none repeat scroll 0% 0%;
+	display: inline-block !important;
+	padding: 4px !important;
+	border-radius: 6px;
+	font-size: 14px;
+	color: #fff !important;
+	margin-right:5px !important;
+	text-decoration:none;
+	margin-bottom:5px !important;
+}

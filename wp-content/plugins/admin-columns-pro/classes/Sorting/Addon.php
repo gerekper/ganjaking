@@ -9,7 +9,6 @@ use AC\ColumnRepository;
 use AC\ListScreenRepository\Storage;
 use AC\Registrable;
 use ACP\Bookmark;
-use ACP\Sorting\Admin;
 use ACP\Sorting\Controller;
 
 class Addon implements Registrable {
@@ -23,11 +22,6 @@ class Addon implements Registrable {
 	 * @var Location\Absolute
 	 */
 	private $location;
-
-	/**
-	 * @var AC\Admin
-	 */
-	private $admin;
 
 	/**
 	 * @var NativeSortableFactory
@@ -44,10 +38,9 @@ class Addon implements Registrable {
 	 */
 	private $segment_repository;
 
-	public function __construct( Storage $storage, Location\Absolute $location, AC\Admin $admin, NativeSortableFactory $native_sortable_factory, ModelFactory $model_factory, Bookmark\SegmentRepository $segment_repository ) {
+	public function __construct( Storage $storage, Location\Absolute $location, NativeSortableFactory $native_sortable_factory, ModelFactory $model_factory, Bookmark\SegmentRepository $segment_repository ) {
 		$this->storage = $storage;
 		$this->location = $location;
-		$this->admin = $admin;
 		$this->native_sortable_factory = $native_sortable_factory;
 		$this->model_factory = $model_factory;
 		$this->segment_repository = $segment_repository;
@@ -67,16 +60,6 @@ class Addon implements Registrable {
 				$service->register();
 			}
 		}
-
-		$this->register_admin_elements();
-	}
-
-	private function register_admin_elements() {
-		$this->admin->get_page( 'settings' )->add_section( new Admin\Section\ResetSorting() );
-
-		/** @var AC\Admin\Section\General $general */
-		$general = $this->admin->get_page( 'settings' )->get_section( 'general' );
-		$general->add_option( new Admin\ShowAllResults() );
 	}
 
 	/**

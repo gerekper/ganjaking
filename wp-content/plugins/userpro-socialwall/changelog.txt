@@ -1,0 +1,171 @@
+Version 4.4 (13 Oct 2017)
+===========================
+	- Enhancement   : Added functionality to upload media using WordPress media uploader
+	
+Version 4.3 (10 July 2017)
+===========================
+	- New feature   : Added video upload support for SocialWall and PersonalWall
+
+Version 4.2 (13 May 2017)
+===========================
+	- Fixed Bug   : Display only followers post not working
+
+Version 4.1 (07 Apr 2017)
+===========================
+	- Fixed Bug   : Load More not working on Social Wall
+	- Fixed Bug   : "Allow Roles From Post on wall" setting not working correctly
+	- Fixed Bug   : Content posted on Social Wall disappears after a refresh
+
+Version 4.0 (16 Mar 2017)
+===========================
+	- Fixed Bug   : Delete button not displayed correctly when YouTube iFrame code is posted in comment
+	- Fixed Bug   : Images posted in Personal Wall are not displayed
+	- Fixed Bug   : Background Image not displayed when Personal Wall is activated.
+
+Version 3.9 (13 Feb 2017)
+===========================
+	- Enhancement : Improved UI
+	- Enhancement : Improved personal wall UI
+	- Fixed Bug   : Non login user can not comment
+
+Version 3.8 (21 Sep 2016)
+===========================
+	- New feature : Added auto update.
+	- New feature : Added personalwall widget for Dashboard.
+
+Version 3.7 (26 July 2016)
+===========================
+	- Fixed Bug :Removed Header already sent warning
+
+Version 3.6 (20 May 2016)
+===========================
+	- New feature :  Added option to show personal wall on profile page
+
+Version 3.5 (30 March 2016)
+===========================
+	- New feature :Users can now share images added to wall on social media
+
+Version 3.4 (11 March 2016)
+===========================
+	- New feature :administrator can create multiple wall by adding shortcode parameter as posttype='type_of_post'
+	- Fixed Bug   :Display only followers post not working.
+
+Version 3.3 (25 Jan 2016)
+============================
+	- New feature :  Added configurable option to send email notification to author when someone like/dislike the post/comment
+
+Version 3.2 (08 Jan 2016)
+============================
+	- New feature : Added email notification templates
+
+Version 3.1 (30 Dec 2015)
+============================
+	- New feature : Administrator can now set limit on number of Post to be posted on a wall
+
+Version 3.0 (03 Dec 2015)
+============================
+	- New feature : Administrator can now set limit on number of comments for a post
+	- New feature : Added link to site addresses when someone posts link on wall
+
+Version 2.9 (19 Nov 2015)
+============================
+	- New Feature : Administrator can now create role based social wall by using shortcode - [userpro template=socialwall role="<user role whose post should be shown>"]
+
+Version 2.8 (06 Nov 2015)
+============================
+	- New Feature : Displays notification on users profile to user when someone comments on the post
+
+Version 2.7 (28 Oct 2015)
+============================
+	- New Feature : Added configurable option to send email notification to user when someone comments on the post
+
+Version 2.6 (09 Oct 2015)
+============================
+	- Enhancement : Added support for French language
+
+Version 2.5 (23 Sep 2015)
+============================
+	- New Feature : Added admin configurable option to change the color of post content in the wall.
+
+Version 2.4 (08 Sep 2015)
+============================
+	- New Feature : Added admin configurable option to enable selective view of posts. Once enabled, users will see only those user's posts to whom they follow
+
+Version 2.3 (06 Aug 2015)
+============================
+        - Fixed Bug :Improved security aspects
+        - Fixed Bug :Emoticons now displayed properly on posts.
+
+Version 2.2 (09 Jun 2015)
+============================
+	- New Feature : Level of publication added. Now admin can choose which roles can post on the wall. No value specified will enable it for all the roles.
+	- Fixed Bug   : Allow html in social wall post
+
+Version 2.1 (18 Jun 2015)
+============================
+    	- New Feature : Added automatic updates
+    	- New Feature : Ability to like/dislike post comments
+	- Enhancement : Improved css
+
+Version 2.0 (09 Apr 2015)
+============================
+	- New Feature : Added support for emoticons
+	- New Feature : Now It is possible to add image description
+	- Enhanced security
+
+Version 1.9 (20 Feb 2015)
+============================
+	- Fixed Bug : XSS cross-scripting further strengthened
+
+Version 1.8 (22 Jan 2015)
+============================
+	- New Feature : Administrators can filter based on post dates and then Bulk Delete all posts and comments submitted during that date range
+
+Version 1.7 (14 Jan 2015)
+============================
+    - Added: Users can now report a post as objectionable. Administrators can then choose to ignore or delete it via the dashboard
+
+Version 1.6 (8 Jan 2015)
+============================
+      - Added : Setting in backend to enable/disable wall display to visitors(users who are not logged in)
+
+Version 1.5 (31 Dec 2014)
+============================
+      - Added : Look and Feel changes
+      - Fixed Bug : Like, Dislike buttons layout
+
+Version 1.4 (19 Dec 2014)
+============================
+      - Added : Administrators now have the ability to delete posts and comments by any user
+      - Added : Ability to Like / Dislike posts
+      - Fixed : Messages like - “Enter a comment” , “Posted on”, "Commented On" ,“You are not allowed to access this page. Please login to access It.” Made        		all translatable
+      - Fixed Bug : Short PHP Tag
+      - Fixed Bug :Improved security aspects
+
+Version 1.3 (04 Dec 2014)
+============================
+
+	- Added : Limit the Number of initial posts that get displayed. "Load More" button to show more
+	- Added : Spanish Translation
+	- Added : Responsiveness for mobile devices
+	- Fixed Bug : Error message on 'Add To Wall' (in some scenarios due to date parameter issue)
+
+Version 1.2 (26 Nov 2014)
+============================
+
+	- Added LineBreak Support for posts: "ENTER" or "SHIFT+ENTER" for line break
+	- Fixed Bug : Multiple photo uploader popup instances were displayed
+	- Fixed Bug : Image size - for images uploaded with posts
+
+Version 1.1 (25 Nov 2014)
+============================
+
+	- Updated look-and-feel : Thin border for profile images, delete icons, background for comments,comments alignment
+	- Added Translation Support: All labels and messages are picked up from PO / MO files
+	- Added Delete Confirmation: Ask for confirmation before deleting a comment or post
+	- Added LineBreak Support for comments: "ENTER" to submit a comment and "SHIFT+ENTER" for line break
+
+Version 1.0 (19 Nov 2014)
+============================
+
+	- Initial Version of the Social Wall Addon for UserPro.

@@ -80,6 +80,7 @@ class RsLiquidEffectSlideFront extends RevSliderFunctions {
 		}
 		
 		$use = $this->get_val($addOn, 'use', 'default');
+		$useBGsettings = $this->get_val($addOn, 'useBGsettings', false);
 		
 		$map_ar = $this->get_val($addOn, 'map', array());
 		$animation_ar = $this->get_val($addOn, 'animation', array());
@@ -87,7 +88,7 @@ class RsLiquidEffectSlideFront extends RevSliderFunctions {
 		$interaction_ar = $this->get_val($addOn, 'interaction', array());
 		
 		$imagemap = $this->get_val($map_ar, 'image', 'ripple');
-    $imagescale = $this->get_val($map_ar, 'imagescale', 120);
+    	$imagescale = $this->get_val($map_ar, 'imagescale', 120);
 		$autoplay = $this->get_val($animation_ar, 'enable', false);
 		$transition  = $this->get_val($transition_ar, 'enable', false);
 		$interactive = $this->get_val($interaction_ar, 'enable', false);
@@ -111,6 +112,7 @@ class RsLiquidEffectSlideFront extends RevSliderFunctions {
 		
 		$settings = array(
 			'use' => $use,
+			'useBGsettings' => $useBGsettings,
 			'image' => $imagemap,
 			'imagesize' => $imagesize,
 			'imagescale' => $imagescale

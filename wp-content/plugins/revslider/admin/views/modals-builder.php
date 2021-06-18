@@ -554,6 +554,8 @@ if(!defined('ABSPATH')) exit();
 							<!-- Basics -->
 							<div class="mdl_group">
 								<div class="mdl_group_header"><i class="material-icons">copyright</i><?php _e('Basic Metas', 'revslider');?><i class="material-icons accordiondrop">arrow_drop_down</i></div>
+								<div data-val="{{current_slide_index}}" class="mdl_group_member"><div class="mdl_left_content"><i class="material-icons">bookmark</i><?php _e("Current Slide Index", 'revslider');?></div><div class="mdl_right_content">{{current_slide_index}}</div><div class="mdl_placeholder_content"><?php _e('03', 'revslider');?></div></div>
+								<div data-val="{{total_slide_count}}" class="mdl_group_member"><div class="mdl_left_content"><i class="material-icons">bookmark</i><?php _e("Number of Slides in Module", 'revslider');?></div><div class="mdl_right_content">{{total_slide_count}}</div><div class="mdl_placeholder_content"><?php _e('21', 'revslider');?></div></div>
 								<div data-val="{{current_page_link}}" class="mdl_group_member"><div class="mdl_left_content"><i class="material-icons">bookmark</i><?php _e("Link to current page", 'revslider');?></div><div class="mdl_right_content">{{current_page_link}}</div><div class="mdl_placeholder_content"><?php _e('http://yoursite.com/page', 'revslider');?></div></div>
 								<div data-val="{{home_url}}" class="mdl_group_member"><div class="mdl_left_content"><i class="material-icons">bookmark</i><?php _e("Link to WP Home Page", 'revslider');?></div><div class="mdl_right_content">{{home_url}}</div><div class="mdl_placeholder_content"><?php _e('http://yoursite.com/home', 'revslider');?></div></div>
 							</div>

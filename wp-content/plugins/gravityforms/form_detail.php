@@ -223,7 +223,12 @@ class GFFormDetail {
 			</div>
 		</div>
 
-		<div id="form_editor_fields_container" class="form_editor_fields_container gform-show-if-not-ie">
+		<div
+			id="form_editor_fields_container"
+			class="form_editor_fields_container gform-show-if-not-ie<?php echo empty( $form['fields'] ) ? ' form_editor_fields_no_fields' : ''; ?>"
+			<?php echo ! empty( $form['fields'] ) ? 'data-simplebar' : ''; ?>
+			<?php echo ! empty( $form['fields'] ) && is_rtl() ? 'data-simplebar-direction="rtl"' : ''; ?>
+		>
 		<?php
 		$has_pages  = GFCommon::has_pages( $form );
 		$wrapper_el = GFCommon::is_legacy_markup_enabled( $form_id ) ? 'ul' : 'div';
@@ -250,12 +255,12 @@ class GFFormDetail {
 					}
 					?>
 				</<?php echo $wrapper_el; ?>>
-
 				<div id="no-fields-drop" class="dropzone__target" style="<?php echo empty( $form['fields'] ) ? '' : 'display:none;'; ?>"></div>
 				<div id="no-fields" class="dropzone__placeholder" style="<?php echo empty( $form['fields'] ) ? '' : 'display:none;'; ?>">
 					<img class="gform-editor__no-fields-graphic" src="<?php echo GFCommon::get_base_url() . '/images/no-fields.svg'; ?>" alt="" />
 					<p><?php esc_html_e( 'Simply drag and drop the fields or elements you want in this form.', 'gravityforms' ); ?></p>
 				</div>
+
 				<div id="gform_last_page_settings" data-title="<?php esc_attr_e('Last page options', 'gravityforms');?>" data-description="<?php esc_attr_e('Manage last page options', 'gravityforms');?>" class="selectable" style="display:<?php echo $has_pages ? 'block' : 'none' ?>;">
 					<div class="gf-pagebreak-end gf-pagebreak"><?php esc_html_e( 'END PAGING', 'gravityforms' ) ?></div>
 				</div>
@@ -336,7 +341,7 @@ class GFFormDetail {
 					<div class="sidebar-instructions">
 						<p><?php esc_html_e( 'Drag a field to the left to start building your form and then start configuring it.', 'gravityforms' ); ?></p>
 					</div>
-					<div class="panel-block panel-block-tabs "id="add_fields_menu" >
+					<div class="panel-block panel-block-tabs "id="add_fields_menu" data-simplebar<?php echo is_rtl() ? ' data-simplebar-direction="rtl"' : ''; ?>>
 						<?php
 						$field_groups = self::get_field_groups();
 
@@ -380,7 +385,7 @@ class GFFormDetail {
 							<div id="sidebar_field_text"></div>
 						</div>
 					</div>
-					<div class="panel-block panel-block-tabs panel-block--hidden field_settings">
+					<div class="panel-block panel-block-tabs panel-block--hidden field_settings" data-js="gform-simplebar" data-simplebar-delay="1000">
 						<button tabindex="0" id="general_tab_toggle" class="panel-block-tabs__toggle">
 							<?php esc_html_e( 'General', 'gravityforms' ); ?>
 						</button>

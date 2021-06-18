@@ -1,16 +1,78 @@
 <div class="slider-revolution-update-list">
-	<h3 class="version-number">Version 6.4.11 (30th April 2021)</h3>
-	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>	
+	<h3 class="version-number">Version 6.5.2 (17th June 2021)</h3>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
 	<ul>
-		<li>AddOn installation not available due to version comparing failure (hotfix)</li>	
+		<li>Error causes release version to fail in backend and it prevents some backend features from working</li>
+	</ul>
+	<h3 class="version-number">Version 6.5.1 (17th June 2021)</h3>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+		<li>Updating to latest AddOn versions may load old JavaScript files</li>
+		<li>Slider fails to load because third party scripts polluted default Array and Object objects</li>
+		<li>Slider Revolution and Elementor conflicts if Elementor section is also fullwidth</li>
+		<li>Opening page in new tab on iPhone gives slider wrong dimensions because Safari reports height incorrectly</li>
+		<li>Strange Artifacts on Slider backgrounds and transitions. Comes due to an early load of the Slider Revolution environment, where i.e. WP Rocket (and other tools) may re-add already processed images to the DOM</li>
 	</ul>
 	
+	<h3 class="version-number">Version 6.5.0 (15th June 2021)</h3>
+	<div class="newfeature"><strong style="font-weight:700">New Features</strong></div>
+	<ul>
+		<li>Added vimeo thumbnail loader for background videos</li>
+		<li>Added new global initialisation process optimization</li>
+		<li>All JS files (except rbtools.min.js) will load asynchronous defered in footer to fill the new Google Lighthouse requests for better ranking</li>
+		<li>New global option to enable viewport an viewport distance on all existing modules with one click</li>
+		<li>New global option to overwrite "no lazy loading" with any other setting, to enable lazy loading internally in each slider modules</li>
+		<li>New modal API added to load any slider as modal via API i.e. jQuery.fn.revolution.openModalAPI(modal,modalslide,url) where the URL is the URL of ajax action, modal is the modal slider id and modal slide the modal slide id</li>
+		<li>Solved high memory usage on iOS browsers where 3x sized retina images may brake the maximum 384MB limitations</li>
+		<li>During slide animations, all content will reduce resolution to speed up the processing in complex rendering, however after that it changes back to the best available resolutions</li>
+		<li>Added two new metas to dynamic add current slide index and count of slides into layer content. {{current_slide_index}} and {{total_slide_count}}</li>
+	</ul>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+		<li>Iris colorpicker click listener reloads page due to WordPress bug. Colorpicker will ignore that click event from RS side</li>
+		<li>Lock and visibility icons are not available on the layer list after adding, removing, duplicating layers</li>
+		<li>Disabling hover options on layers still shows animation on mouse enter and leave</li>
+		<li>Custom navigation presets can not be added or do not save</li>
+		<li>Weather AddOn location can not be extended</li>
+		<li>Page content jumps on initial load if JS files are added to the footer</li>
+		<li>Elliptical gradients are not drawing well</li>
+		<li>YouTube posters is not displaying after reloading editor</li>
+		<li>Navigation thumbs speed option is not working</li>
+		<li>Wrong start/end y position if from/to top or from/to bottom layer animation selected on rows</li>
+		<li>Some old slider layers had the subtype set accidentally which prevented them from being imported.</li>
+		<li>In very rare cases a normal slide converted into a global slide, making 2 global slides available in the module</li>
+		<li>Videos not playing in static slides if the slider layout is set to carousel</li>
+		<li>Parsing CSS can create a PHP notice</li>
+		<li>Safari mask animations do not show animation on second loop</li>
+		<li>PolyFold AddOn stops rendering the editor view until the browser gets resized</li>
+		<li>Added protection against Avada's transform z on main container which would break the scroll functionality of the slider</li>
+		<li>Global layers can not be controlled by layer actions</li>
+		<li>Canvas with too big area breaks on iOS</li>
+		<li>Selecting 'auto DPR 4' would select 'DPR 4'</li>
+		<li>Closing modals were failing due to a wrong id if the page had multiple modals</li>
+		<li>Video jumps/shows the cover a short time after the animation ends</li>
+		<li>Having none Isometric Slides before Isometric slider will brake in animation of Layers</li>
+		<li>Disable PanZoom on mobile has no effect</li>
+		<li>In the backend, layers are sometimes not in position until offsetted layers gets selected</li>
+		<li>Parallax content jumps on previous/next slide if page has been scrolled before slide change</li>		
+		<li>Multiple carousel navigation's on same page conflicts with each other</li>
+		<li>Bullet navigation does not get recalculated on resize</li>
+		<li>Modal on default templates doesn't cover full width</li>
+		<li>Fullscreen modal doesn't show fullscreen if slider has "Decrease module height" option set</li>
+	</ul>
+
+	<h3 class="version-number">Version 6.4.11 (30th April 2021)</h3>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+		<li>AddOn installation not available due to version comparing failure (hotfix)</li>
+	</ul>
+
 	<h3 class="version-number">Version 6.4.10 (29th April 2021)</h3>
 	<div class="newfeature"><strong style="font-weight:700">New Features</strong></div>
 	<ul>
-		<li>Three.js and WebGL support management between Slider Revolution AddOns</li>	
+		<li>Three.js and WebGL support management between Slider Revolution AddOns</li>
 	</ul>
-	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>	
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
 	<ul>
 		<li>Installing slider templates with higher version requirements allows to download templates even if current installed version is not able to handle the data</li>
 		<li>Mobile issues with blurred and 3d animated elements (i.e. Black Friday Template)</li>
@@ -29,12 +91,12 @@
 	<h3 class="version-number">Version 6.4.8 (16th April 2021)</h3>
 	<div class="newfeature"><strong style="font-weight:700">New Features</strong></div>
 	<ul>
-		<li>SVG Layer: Added new option 'Style All Elements', enabling it will style all SVG elements in layer, like ellipse, polygon etc.</li>	
+		<li>SVG Layer: Added new option 'Style All Elements', enabling it will style all SVG elements in layer, like ellipse, polygon etc.</li>
 		<li>Added popup on "url hash" to shortcode builder options</li>
 		<li>Added "1 Time per session Pop Up" option with session length (default 24 hours) in the shortcode builder options. (Disable and reload frontend to clear cookie)</li>
 	</ul>
 	<div class="change"><strong style="font-weight:700">Changes</strong></div>
-	<ul>				
+	<ul>
 		<li>Videos will not be prepared at the start on invisible slides, which will avoid unwanted loading side effects</li>
 		<li>Backend optimiziation, further editor loading time and runtime optimizations</li>
 		<ul>
@@ -46,13 +108,13 @@
 			<li>Changed behaviour by dropping/dragging layers when a group is overlaying rows and columns with an overdimensioned shape inside</li>
 		</ul>
 	</ul>
-	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>	
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
 	<ul>
 		<li>Multiselect dropdowns do not show the selected values</li>
 		<li>Scrolling, resizing screen during select dropdown is open, puts the dropdown offseted to original select position</li>
 		<li>Resizing Layers in editor with aspect ratio set to "auto" or "none" calculates the wrong height of element or giving NaNpx as result</li>
 		<li>Particles Addon 2.3.5: Custom 1 Colored SVG files from Original library can not be colored by particle styles</li>
-		<li>Swapping between External source, image source and solid color/transparent  do not update the current slide background image in editor</li>
+		<li>Swapping between External source, image source and solid color/transparent do not update the current slide background image in editor</li>
 		<li>Higher Modal window may add horizontal scrollbar on Window resize</li>
 		<li>Draging Text layer wrap the text if layer hit the right side of parent container, after releaseing all good</li>
 		<li>Slide based aligned layers in backend positioend wrong if layers added to group</li>
@@ -85,7 +147,7 @@
 		<li>Gutenberg styling issues after latest WP version update</li>
 		<li>Layer images and background images do not load sometimes (mostly over CDN, or with lazy loading 3rd party plugins)</li>
 	</ul>
-	
+
 	<h3 class="version-number">Version 6.4.5 (19th March 2021)</h3>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
 	<ul>
@@ -98,7 +160,7 @@
 		<li>Custom SVG elements would not create a new category on upload, and setting favorite on them would first be visible after reload</li>
 		<li>Pan zoom may show half sized images after the latest DPR function</li>
 	</ul>
-	
+
 	<h3 class="version-number">Version 6.4.4 (17th March 2021)</h3>
 	<div class="change"><strong style="font-weight:700">Changes</strong></div>
 	<ul>
@@ -112,7 +174,7 @@
 		<li>HTML5 video layer cover sizing</li>
 		<li>Video fit cover option was causing issues to Vimeo/YouTube backgrounds</li>
 		<li>Bg cover and x% offset calculates the horizontal offset wrong wise on the vertical axis</li>
-    	<li>Fixed Vimeo thumbnail not loading in editor.</li>
+		<li>Fixed Vimeo thumbnail not loading in editor.</li>
 		<li>All cookies were decoded by RS, now only cookies set by RS are decoded.</li>
 		<li>Video play/pause button was not showing on mobile.</li>
 		<li>TypeWriter layer postions are not correct in fullscreen sliders. Revolution Slider version 6.4.4 and TypeWriter AddOn version 2.1.1 required</li>
@@ -139,7 +201,7 @@
 		<li>Justified carousel ignores aspect ratio at the first load if external images are used</li>
 		<li>Max amount of thumbnails is not working if the thumbnail space is set with the px suffix</li>
 	</ul>
-	
+
 	<h3 class="version-number">Version 6.4.2 (26th February 2021)</h3>
 	<div class="change"><strong style="font-weight:700">Changes</strong></div>
 	<ul>
@@ -153,14 +215,14 @@
 		<li>Random slide background animations break the editor and does not show transitions on frontend</li>
 		<li>Background rendering on auto size, % size, background aligns and background repeats like repeat-x and repeat-y do not render well since version 6.4.0</li>
 	</ul>
-	
+
 	<h3 class="version-number">Version 6.4.1 (24th February 2021)</h3>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
 	<ul>
 		<li>Having slots could create an error in 6.4.0</li>
 		<li>Firefox character animation with blur has artifacts</li>
 	</ul>
-	
+
 	<h3 class="version-number">Version 6.4.0 (24th February 2021)</h3>
 	<div class="newfeature"><strong style="font-weight:700">New Features</strong></div>
 	<ul>
@@ -193,13 +255,13 @@
 	<ul>
 		<li>WP-CLI global variables issues are now fixed.</li>
 		<li>Shape layer with stream sources will show icon now and will hide coloring and image.</li>
-		<li>Hover animations from gradient to solid, solid to gradient will work well now in the editor and frontend</li>	
+		<li>Hover animations from gradient to solid, solid to gradient will work well now in the editor and frontend</li>
 		<li>Protection against an issue where rapidly opening modal windows in the row may break the page</li>
 		<li>Dragging layer in animation mode where init values is inherit do not change the x,y transition values</li>
-		<li>SVG layer icons show text layer icon on timeline</li>	
+		<li>SVG layer icons show text layer icon on timeline</li>
 		<li>Fixed issues in the Slider Revolution Gutenberg block causing React warnings</li>
 		<li>Fixed slide thumbnail previews not always refreshing in admin</li>
-		<li>Fixed parallax causing screen artifacts in rare cases</li>	
+		<li>Fixed parallax causing screen artifacts in rare cases</li>
 		<li>Progress bar circle throws error if radius is smaller than strength</li>
 		<li>Blur overflows the image layer on Safari</li>
 		<li>Fast clicking on carousel would trigger "cancel" event on carousel and carousel would fail</li>
@@ -207,16 +269,16 @@
 		<li>Clicking outside of a modal fails to close the modal</li>
 		<li>Fixed Chrome artifact issue when using parallax with blur animation</li>
 	</ul>
-	
+
 	<h3 class="version-number">Version 6.3.10 (8th February 2021)</h3>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
-	<ul>		
+	<ul>
 		<li>Frames with filters rendering glitch due the latest fixes in version 6.3.8 and 6.3.9</li>
 	</ul>
-	
+
 	<h3 class="version-number">Version 6.3.9 (3rd February 2021)</h3>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
-	<ul>		
+	<ul>
 		<li>Before After interaction not available if thumbnail or tab navigation is enabled</li>
 		<li>Slider export with audio files missing the file or url pointing on the original audio file</li>
 		<li>Issues with audio editing in backend. Playback can not be started</li>
@@ -225,7 +287,7 @@
 
 	<h3 class="version-number">Version 6.3.8 (2nd February 2021)</h3>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
-	<ul>		
+	<ul>
 		<li>Layer animated with blur produce artifacts in Chrome version 88 and Chrome version 89</li>
 	</ul>
 
@@ -236,7 +298,7 @@
 		<li>Installing AddOn does not show the installed version until refreshing the page</li>
 		<li>"Observe Wrap" option is not working</li>
 	</ul>
-	
+
 	<h3 class="version-number">Version 6.3.6 (20th January 2021)</h3>
 	<div class="newfeature"><strong style="font-weight:700">New Features</strong></div>
 	<ul>
@@ -260,12 +322,12 @@
 		<li>Updated and extended error messages if the stream is not available. The preview will be auto closed</li>
 		<li>Dragging a carousel when touching a link does not work in some cases</li>
 		<li>Translated slides are not removed if the parent slide has been deleted</li>
-		<li>"From left" and "from right" animations on rows have wrong offset values</li>		
+		<li>"From left" and "from right" animations on rows have wrong offset values</li>
 		<li>Vimeo "Auto Play: Off" and "Mute at Start: Off" is not playing music, neither does it show the mute/unmute button on mobile devices</li>
 		<li>Changing animation attributes on the "Anim From" keyframe, does not visually update changes</li>
 		<li>Dragging layers in animation view doesn't change the values of the selected (Set as Editor View) frame</li>
 	</ul>
-	
+
 	<h3 class="version-number">Version 6.3.5 (31st December 2020)</h3>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
 	<ul>
@@ -281,11 +343,12 @@
 	<div class="newfeature"><strong style="font-weight:700">New Features</strong></div>
 	<ul>
 		<li>Added PHP 8.0 compatibility</li>
-		<li>Added vertical and horizontal mask offsets to the navigation thumbs and tabs to allows shadows and glows on objects</li>		
+		<li>Added vertical and horizontal mask offsets to the navigation thumbs and tabs to allows shadows and glows on objects</li>
 	</ul>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
 	<ul>
-		<li>Videos may have started on the 1st click on the module in case the video was already played and paused. This comes due to a fix for the new browser rules which would not allow to play any media without user interaction. Now further protection has been added</li>
+		<li>Videos may have started on the 1st click on the module in case the video was already played and paused. This comes due to a fix for the new browser rules which would not allow to play any media without user interaction. Now further protection
+			has been added</li>
 		<li>Added protection in the editor against corrupt layers which are not standard and have been added due to an earlier bug in very rare situations.</li>
 		<li>Deprecated function align left, right, center of the module has been removed. Floating of full container must added on a higher container structure and not within the slider itself anymore.</li>
 		<li>Fixed integration of Essential Grid, which was not loading as an embeded layer in Slider Revolution on second or further slides</li>
@@ -297,7 +360,7 @@
 
 	<h3 class="version-number">Version 6.3.3 (10th December 2020)</h3>
 	<div class="change"><strong style="font-weight:700">Changes</strong></div>
-	<ul>		
+	<ul>
 		<li>Post meta data are not saved anymore when they are at the default value</li>
 		<li>First click of a slider module will double check now any existences of videos in the active slide before the call is triggered</li>
 	</ul>
@@ -307,20 +370,20 @@
 		<li>Rows with 10 columns were not allowed due to a bug in the sanitize function. This bug is solved now</li>
 		<li>Fixed the optimizer where websafe fonts broke the font size output in some rare cases</li>
 	</ul>
-	
+
 	<h3 class="version-number">Version 6.3.2 (2nd December 2020)</h3>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
-	<ul>		
+	<ul>
 		<li>Single slides were not visible when importing template slides in the editor</li>
 		<li>​Added protection against layertype "textshadow" and "boxshadow" which could accidentally be added due to the quick style editor in preversions of RS.</li>
-		<li>Navigation bullet position based style did not work due to missing spaces between the class names</li> 
+		<li>Navigation bullet position based style did not work due to missing spaces between the class names</li>
 		<li>Dione bullets had no font size and line height settings, which made dione bullet look different in the backend and in frontend</li>
 		<li>Fixed video position calculation in groups if the video height is set to 100% and the video is not loaded before the group is drawn</li>
 		<li>In some cases the slider height was not auto updated when the height shrinks and a new slide has no rows added to the content</li>
 		<li>Covered shape and image aligned to the module was not showing well in the editor</li>
 		<li>Replaced depricated jQuery functions to raise compatibility with upcoming WordPress versions</li>
 	</ul>
-	
+
 	<h3 class="version-number">Version 6.3.1 (24th November 2020)</h3>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
 	<ul>
@@ -329,7 +392,7 @@
 		<li>Fixed a bug where setting the permissions inside of the global settings did not work properly</li>
 		<li>Exporting modules from backend may compress the file with a wrong format. Also requires the Video Scroll AddOn 2.0.2</li>
 	</ul>
-	
+
 	<h3 class="version-number">Version 6.3.0 (18th November 2020)</h3>
 	<div class="newfeature"><strong style="font-weight:700">New Features</strong></div>
 	<ul>
@@ -353,7 +416,7 @@
 		<li>Delete and Duplicate slides now also available in the Overview Mode</li>
 		<li>Editor can zoom in and zoom out for now between 0,5 and 2 factors for better editing and support of smaller screen editing</li>
 		<li>Full Screen module offsets will be respected also if Time Scroll based animation enabled, to keep/stick the Module at the offset point instead of the top of the page</li>
-		
+
 	</ul>
 	<div class="change"><strong style="font-weight:700">Changes</strong></div>
 	<ul>
@@ -396,7 +459,7 @@
 		<li>z Transforms in depth were not well rendered on Splitted Text animations like Chars, Words and Lines</li>
 		<li>Calculation of Scroll progresses were not calculated well if the time scroll based module added as first element in page</li>
 		<li>Global Layers on two Slides disappeared on "backwards" module rotation</li>
-		<li>Fixed a bug where iOS Transformation on z axis were rendered on the wrong position</li> 
+		<li>Fixed a bug where iOS Transformation on z axis were rendered on the wrong position</li>
 		<li>Particle Addon 2.3.1 Fixed: Particles failed to load on first slide in carousel slider</li>
 		<li>Bubble Morph Addon 2.3.1 Fixed: Bubbles failed to render on Carousel module</li>
 		<li>Fixed and issue where mutliple frame based layer animations get mixed up if layer is moved into a group / column</li>
@@ -534,10 +597,12 @@
 		<li>Fixed issue with ":" special chars in call back actions</li>
 		<li>Fixed an issue where opening a modal with slide "x" multiple times was breaking the opening process</li>
 		<li>Fixed an odd zIndex issue where not focused slides in the editor with more layers than current editing slide may loose their zindex on layers after saving the full module</li>
-		<li>TypeWriter AddOn fixes version 2.0.3:<ul>
-			<li>Added support for inline style on span tags</li>
-			<li>Added option to change the cursor color</li>
-		</ul></li>
+		<li>TypeWriter AddOn fixes version 2.0.3:
+			<ul>
+				<li>Added support for inline style on span tags</li>
+				<li>Added option to change the cursor color</li>
+			</ul>
+		</li>
 		<li>Fixed a bug where action triggered loop animations did not start the animation. Also fixed loop animated elements which jumped to loop animation frame 0 during the slide out animation</li>
 		<li>Fixed issues with row/column heights where images that were added with padding into the first column, and the height of the image may negatively influence the calculation of the module height on slide swap</li>
 		<li>Fixed horizontal and vertical slide transition issues</li>
@@ -552,7 +617,8 @@
 	<h3 class="version-number">Version 6.2.11 (6th June 2020)</h3>
 	<div class="newfeature"><strong style="font-weight:700">New Features</strong></div>
 	<ul>
-		<li>Added an option to ignore mobile browser height changes based on scrolls. The urlbar and toolbar do disappear based on scroll, which would resize the fullscreen sliders. Set per module if you wish to ignore these behaviour of the mobile browser. This option is enabled by default</li>
+		<li>Added an option to ignore mobile browser height changes based on scrolls. The urlbar and toolbar do disappear based on scroll, which would resize the fullscreen sliders. Set per module if you wish to ignore these behaviour of the mobile browser.
+			This option is enabled by default</li>
 	</ul>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
 	<ul>
@@ -713,7 +779,7 @@
 		<li>Global Skin Colors were not working after import oder import/export of layers due wrong id references</li>
 		<li>Fixed Allow FullScreen button in video settings. It will disable fullscreen options in almost all cases except HTML5 videos in Firefox and Safari which are not supported out of box unfortunately</li>
 		<li>Fixed an issue where layers were not available for pointer events if they were included in other layers with scroll based animation and scroll is not yet triggered.</li>
-		<li>Fixed HTML5 Video Loop and Start issues in Safari browser.  The Video will be shorten with 0.075sec and auto rewinded in case the loop option is selected to work around the native videoplayer delay bug in Safari Browser</li>
+		<li>Fixed HTML5 Video Loop and Start issues in Safari browser. The Video will be shorten with 0.075sec and auto rewinded in case the loop option is selected to work around the native videoplayer delay bug in Safari Browser</li>
 		<li>Fixed Windows Browser behaving when the modal opens to avoid small jumps and/or double scrollbars</li>
 
 	</ul>
@@ -810,7 +876,8 @@
 	<h3 class="version-number">Version 6.1.6 (10th January 2020)</h3>
 	<div class="newfeature"><strong style="font-weight:700">New Features</strong></div>
 	<ul>
-		<li>Added color skins to define global colors for different color attributes through any kind of element. I.e. create a color group for highlight colors and then attach them to the font-color, border-color, navigation elements, slide backgrounds, shape colors and so on. This is the best way to edit templates very quick and simple.</li>
+		<li>Added color skins to define global colors for different color attributes through any kind of element. I.e. create a color group for highlight colors and then attach them to the font-color, border-color, navigation elements, slide backgrounds,
+			shape colors and so on. This is the best way to edit templates very quick and simple.</li>
 		<li>Carousel offset values can scale now also linear to slide scales to allow different horizontal carousel animations based on scale, horizontal offset and this new option</li>
 		<li>Added retina canvas support for the Paintbrush AddOn. The Paintbrush AddOn version 2.1.3 is required</li>
 		<li>Added global option to modify the Slider Revolution backend language manually (no need to change the whole WordPress backend language)</li>
@@ -993,7 +1060,8 @@
 	</ul>
 	<div class="change"><strong style="font-weight:700">Changes</strong></div>
 	<ul>
-		<li>Importing template packages that has a modal slider, will now set all the needed actions in the layers so that the modal works directly. Please note that for already downloaded sliders, a new installation is needed with the "Re-Download Online" option set to "on"</li>
+		<li>Importing template packages that has a modal slider, will now set all the needed actions in the layers so that the modal works directly. Please note that for already downloaded sliders, a new installation is needed with the "Re-Download Online"
+			option set to "on"</li>
 		<li>Changes due to Instagram API retiring public information for security reasons:
 			<ul>
 				<li>Removed "likes" meta. The output of former used "likes" meta will be blank</li>
@@ -1107,7 +1175,7 @@
 		<li>Fixed background slide image having no alt tag</li>
 		<li>Border Radius bug on image layers has been fixed</li>
 		<li>Fixed an issue where layers in groups gets removed when the Before/After option is enabled. Version 2.0.1 of the Before/After AddOn is required</li>
-		<li>Fixed  "Do not play Auto 1st time" where Media was not playing in following loops</li>
+		<li>Fixed "Do not play Auto 1st time" where Media was not playing in following loops</li>
 		<li>Fixed an issue where layers not animating out when "end time" is shorter then Slide time and and previous slide has a shorter duration than the current slide</li>
 		<li>Fixed Vimeo and YouTube loop issues on background and layer videos</li>
 		<li>Fixed Safari input issues, where only 1 character could be entered</li>
@@ -1120,7 +1188,7 @@
 		<li>Fixed HTML5 start at/end at and loop issues</li>
 		<li>Fixed Mute/Unmute video issues</li>
 		<li>Fixed HTML5 background videos in Carousel Slider with "Show all Layer" once enabled</li>
-		<li>Fixed  YouTube videos on Mobile where Video was always autoplaying</li>
+		<li>Fixed YouTube videos on Mobile where Video was always autoplaying</li>
 		<li>Fixed an issue with "active-revslide" class. Name changed to active-rs-slide and it will only exist on active Slide.</li>
 		<li>Fixed Filmstrip AddOn Issues with Multiple Filmstrip Modules on one Page. Version 2.0.2 of Filmstrip AddOn is required</li>
 		<li>Fixed Multiple Frame animation on Demand issues, where 2nd and further loops were not animated well</li>

@@ -184,11 +184,11 @@ class Revslider_Maintenance_Addon_Public {
 							if (o.css("opacity")>0) {
 								punchgs.TweenLite.fromTo(o,0.45,
 								{autoAlpha:1,rotationY:0,scale:1},
-								{autoAlpha:0,rotationY:-180,scale:0.5,ease:punchgs.Back.easeIn,onComplete:function() { o.html(nt);} });
+								{autoAlpha:0,rotationY:-180,scale:0.5,ease:punchgs.back.in,onComplete:function() { o.html(nt);} });
 
 								punchgs.TweenLite.fromTo(o,0.45,
 								{autoAlpha:0,rotationY:180,scale:0.5},
-								{autoAlpha:1,rotationY:0,scale:1,ease:punchgs.Back.easeOut,delay:0.5 });
+								{autoAlpha:1,rotationY:0,scale:1,ease:punchgs.back.out,delay:0.5 });
 							} else {
 								o.html(nt);
 							}

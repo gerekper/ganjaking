@@ -4,40 +4,46 @@
  *
  * @since 3.2.0
  * @package WP_Smush
+ *
+ * @var \Smush\App\Abstract_Page $this
  */
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-$current_tab = $this->get_current_tab();
-$button_msg  = 'bulk' === $current_tab ? '' : __( 'Updating settings...', 'wp-smushit' );
-$button_text = __( 'Update settings', 'wp-smushit' );
+$current_tab = $this->get_slug();
+$button_msg  = 'smush-bulk' === $current_tab ? '' : __( 'Saving changes...', 'wp-smushit' );
+$button_text = __( 'Save changes', 'wp-smushit' );
 
 /**
  * Filter to enable/disable submit button in integration settings.
  *
  * @param bool $show_submit Should show submit?
  */
-$disabled = 'integrations' === $current_tab ? apply_filters( 'wp_smush_integration_show_submit', false ) : false;
+$disabled = 'smush-integrations' === $current_tab ? apply_filters( 'wp_smush_integration_show_submit', false ) : false;
 
-if ( 'cdn' === $current_tab && ! WP_Smush::get_instance()->core()->mod->cdn->get_status() ) {
+if ( 'smush-cdn' === $current_tab && ! WP_Smush::get_instance()->core()->mod->cdn->get_status() ) {
 	$button_text = __( 'Save & Activate', 'wp-smushit' );
 	$button_msg  = __( 'Activating CDN...', 'wp-smushit' );
 }
 ?>
 
 <div class="sui-actions-right">
-	<?php if ( 'integrations' === $current_tab || 'bulk' === $current_tab ) : ?>
+	<?php if ( 'smush-integrations' === $current_tab || 'smush-bulk' === $current_tab ) : ?>
 		<span class="sui-field-prefix">
 			<?php esc_html_e( 'Smush will automatically check for any images that need re-smushing.', 'wp-smushit' ); ?>
 		</span>
 	<?php endif; ?>
 
-	<button type="submit" class="sui-button sui-button-blue" id="wp-smush-save-settings" data-msg="<?php echo esc_attr( $button_msg ); ?>" <?php disabled( $disabled, false, false ); ?>>
-		<i class="sui-icon-save" aria-hidden="true"></i>
-		<?php echo esc_html( $button_text ); ?>
-	</button>
+	<button type="submit" class="sui-button sui-button-blue" id="save-settings-button" aria-live="polite" <?php disabled( $disabled, false, false ); ?>>
+		<span class="sui-button-text-default">
+			<span class="sui-icon-save" aria-hidden="true"></span> <?php echo esc_html( $button_text ); ?>
+		</span>
 
-	<span class="sui-icon-loader sui-loading sui-hidden"></span>
+		<span class="sui-button-text-onload">
+			<span class="sui-icon-loader sui-loading" aria-hidden="true"></span>
+			<?php echo esc_html( $button_msg ); ?>
+		</span>
+	</button>
 </div>

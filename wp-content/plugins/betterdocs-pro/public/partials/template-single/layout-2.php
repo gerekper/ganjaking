@@ -51,16 +51,16 @@ echo '<div class="betterdocs-single-wraper betterdocs-single-bg full-wrapper bet
 		echo '<div id="betterdocs-single-main" class="docs-single-main docs-content-full-main">
 		<div class="doc-single-content-wrapper">';
             while ( have_posts() ) : the_post();
+            $enable_breadcrumb = BetterDocs_DB::get_settings('enable_breadcrumb');
+            if ($enable_breadcrumb == 1) {
+                betterdocs_breadcrumbs();
+            }
             $enable_post_title = BetterDocs_DB::get_settings('enable_post_title');
             if ( $enable_post_title == 1 ) {
             echo '<header class="betterdocs-entry-header">
                 <div class="docs-single-title">';
                     if ( is_single() ) {
-                        $enable_breadcrumb = BetterDocs_DB::get_settings('enable_breadcrumb');
-                        if($enable_breadcrumb == 1){
-                            betterdocs_breadcrumbs();
-                        }
-                        $output = betterdocs_generate_output_pro();
+                        $output = betterdocs_generate_output();
                         the_title( '<'.BetterDocs_Helper::html_tag($output['betterdocs_post_title_tag']).' id="betterdocs-entry-title" class="betterdocs-entry-title">', '</'.BetterDocs_Helper::html_tag($output['betterdocs_post_title_tag']).'>' );
                     }
                 echo '</div>

@@ -38,12 +38,18 @@ class Revslider_Sharing_Addon_Public extends RevSliderFunctions{
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/revslider-sharing-addon-public.js', array( 'jquery' ), $this->version, false );
+		add_filter('revslider_modify_waiting_scripts', array($this, 'add_waiting_script_slugs'), 10, 1);
 		wp_localize_script( $this->plugin_name, 'revslider_sharing_addon', array(
 				'revslider_sharing_addon_sizes' => unserialize(get_option('revslider_sharing_addon_sizes')),
 				'ajax_url' => admin_url( 'admin-ajax.php' )
 			)
 		);
 
+	}
+
+	public function add_waiting_script_slugs($wait){
+		$wait[] = 'sharing';
+		return $wait;
 	}
 	
 	private function isSocialLink($action) {
@@ -71,7 +77,7 @@ class Revslider_Sharing_Addon_Public extends RevSliderFunctions{
 	/**
 	 * Add Sharing Actions in Output
 	 */
-	public function rs_action_output_layer_simple_link( $html_simple_link="", $action, $all_actions, $num, $slide="", $slider, $a_events="", $ouput_obj=''){
+	public function rs_action_output_layer_simple_link( $html_simple_link="", $action="", $all_actions="", $num="", $slide="", $slider="", $a_events="", $ouput_obj=''){
 		
 		$caller_url = plugin_dir_url( __FILE__ ).'revslider-sharing-addon-call.php';
 		$slide_id = $slide->get_id();
@@ -259,7 +265,7 @@ class Revslider_Sharing_Addon_Public extends RevSliderFunctions{
 	    while($mediaid > 0){
 	        $remainder = $mediaid % 64;
 	        $mediaid = ($mediaid-$remainder) / 64;
-	        $shortcode = $alphabet{$remainder} . $shortcode;
+	        $shortcode = $alphabet[$remainder] . $shortcode;
 	    };
 	    return $shortcode;
 	}

@@ -14,11 +14,11 @@ $revslider_valid = get_option('revslider-valid', 'false');
 $latest_version	= get_option('revslider-latest-version', RS_REVISION);
 $stable_version	= get_option('revslider-stable-version', '4.2');
 $latest_version	= ($revslider_valid !== 'true' && version_compare($latest_version, $stable_version, '<')) ? $stable_version : $latest_version;
-$code			= '073e077f-b600-41e4-8b74-767431910d31';
+$code			= get_option('revslider-code', '');
 $time			= date('H');
 $timezone		= date('e');/* Set the $timezone variable to become the current timezone */
 $hi				= __('Good Evening ', 'revslider');
-$selling 		= true;
+$selling 		= $rsaf->get_addition('selling');
 if($time < '12'){
 	$hi = __('Good Morning ', 'revslider');
 }elseif($time >= '12' && $time < '17'){

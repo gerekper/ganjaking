@@ -9,17 +9,6 @@
 if(!defined('ABSPATH')) exit();
 ?>
 
-
-newSlider.snap = _d(obj.snap,{
-			toGrid:false,
-			toStage:false,
-			toLayers:false,
-			gridLines:false,
-			snapLines:false,
-			cellSize:20
-		});
-
-
 <!-- TIMELINE -->
 <div id="timeline_settings">
 	<!-- LAYERS LIST -->

@@ -1,5 +1,12 @@
 *** WooCommerce Product Bundles ***
 
+2021.06.01 - version 6.10.0
+* Feature - Send stock notifications for bundles that run low in stock or out of stock due to bundled product stock changes.
+* Feature - View remaining bundles in product bundle pages, even when 'Product Data > Inventory > Manage Stock' is disabled at bundle level. Applicable to bundles that contain at least one bundled item that manages stock.
+* Feature - View remaining bundles in 'Products' list table. Calculated based on minimum bundled item quantities. Applicable to bundles that contain at least one bundled item that manages stock.
+* Fix - Prevent bundle cart/order item prices/subtotals from being hidden when bundled item prices/subtotals are not aggregate and the parent item price/subtotal is zero.
+* Fix - Always display bundled items in orders where the parent bundle doesn't exist - for example, in 'My Account > Subscriptions'.
+
 2021.05.26 - version 6.9.0
 * Feature - Introduced new 'Revenue' and 'Stock' reports under 'Analytics > Bundles'. The new 'Stock' report replaces the one previously found under 'WooCommerce > Reports > Stock > Insufficient Stock'.
 * Feature - Added support for variations with 'Name Your Price' inputs.

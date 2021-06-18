@@ -804,7 +804,7 @@ class Settings {
 			// Display title.
 			if ( rgar( $section, 'title' ) ) {
 				printf(
-					'<legend class="gform-settings-panel__title gform-settings-panel__title--header">%s</legend>%s',
+					'<legend class="gform-settings-panel__title gform-settings-panel__title--header">%s %s</legend>',
 					esc_html( $section['title'] ),
 					self::maybe_get_tooltip( $section )
 				);

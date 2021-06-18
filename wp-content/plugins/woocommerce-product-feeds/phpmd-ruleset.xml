@@ -15,6 +15,7 @@
         <exclude name="StaticAccess"/>
         <exclude name="ElseExpression"/>
         <exclude name="MissingImport"/>
+        <exclude name="BooleanArgumentFlag"/>
     </rule>
     <rule ref="rulesets/naming.xml">
         <exclude name="LongVariable"/>
@@ -22,6 +23,7 @@
     </rule>
     <rule ref="rulesets/design.xml">
         <exclude name="ExitExpression"/>
+        <exclude name="CouplingBetweenObjects"/>
     </rule>
     <rule ref="rulesets/unusedcode.xml" />
 </ruleset>

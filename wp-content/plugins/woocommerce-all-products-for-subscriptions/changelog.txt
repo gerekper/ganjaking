@@ -1,10 +1,22 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2021.05.24 - version 3.1.28
+* Fix - Make sure dummy subscription plan is applied correctly when renewing subscriptions manually.
+
+2021.05.20 - version 3.1.27
+* Fix - Fixed checkboxes and radio buttons layout in the Twenty Twenty/Twenty-One themes.
+* Fix - Construct and apply a dummy subscription plan to supported products when renewing subscriptions manually.
+* Fix - Removed Square Digital Wallet buttons in product, cart and checkout pages when viewing/purchasing products with Subscription plans.
+
+2021.03.18 - version 3.1.26
+* Fix - Fixed 'woocommerce_is_nyp' deprecated filter warning.
+* Fix - Bundle/Composite Subscription plans prices are still not calculated correctly when 'wcsatt_discount_from_regular' is active.
+
 2021.03.10 - version 3.1.25
 * Dev - Introduced 'wcsatt_single_product_one_time_option_has_price' and 'wcsatt_single_product_one_time_cta_has_price' filter to make it easier to display prices in one-time plan options.
 * Fix - Fixed an issue that prevented the WooCommerce Importer from importing Subscription plans.
 * Fix - Adding a product with a synchronized plan to an existing matching subscription results in a $0 line item total.
-* Fix - Bundle/Composite Subscription plans prices are not calculated correctly when 'wcsatt_discount_from_regular' is active. 
+* Fix - Bundle/Composite Subscription plans prices are not calculated correctly when 'wcsatt_discount_from_regular' is active.
 
 2021.01.29 - version 3.1.24
 * Fix - Prevent 'Incorrect subscription scheme applied to cart item' notice when ordering again products without subscription plans.

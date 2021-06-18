@@ -2,34 +2,27 @@
 
 class WoocommerceProductFeedsFeedImageManager {
 	/**
-	 * @var WoocommerceGpfDebugService
-	 */
-	protected $debug;
-	/**
 	 * @var WoocommerceGpfTemplateLoader
 	 */
 	protected $template;
 
 	/**
-	 * @var WoocommerceGpfCommon
+	 * @var WoocommerceProductFeedsFeedItemFactory
 	 */
-	private $common;
+	protected $feed_item_factory;
 
 	/**
 	 * WoocommerceProductFeedsFeedImageManager constructor.
 	 *
-	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
-	 * @param WoocommerceGpfDebugService $woocommerce_gpf_debug_service
 	 * @param WoocommerceGpfTemplateLoader $woocommerce_gpf_template_loader
+	 * @param WoocommerceProductFeedsFeedItemFactory $feed_item_factory
 	 */
 	public function __construct(
-		WoocommerceGpfCommon $woocommerce_gpf_common,
-		WoocommerceGpfDebugService $woocommerce_gpf_debug_service,
-		WoocommerceGpfTemplateLoader $woocommerce_gpf_template_loader
+		WoocommerceGpfTemplateLoader $woocommerce_gpf_template_loader,
+		WoocommerceProductFeedsFeedItemFactory $feed_item_factory
 	) {
-		$this->common   = $woocommerce_gpf_common;
-		$this->debug    = $woocommerce_gpf_debug_service;
-		$this->template = $woocommerce_gpf_template_loader;
+		$this->template          = $woocommerce_gpf_template_loader;
+		$this->feed_item_factory = $feed_item_factory;
 	}
 
 	/**
@@ -59,15 +52,7 @@ class WoocommerceProductFeedsFeedImageManager {
 		}
 		$primary_media_id = $wc_product->get_meta( 'woocommerce_gpf_primary_media_id', true );
 
-		$feed_item          = new WoocommerceGpfFeedItem(
-			$wc_product,
-			$wc_product,
-			'google',
-			$this->common,
-			$this->debug
-		);
-		$feed_item          = apply_filters( 'woocommerce_gpf_feed_item', $feed_item, $wc_product );
-		$feed_item          = apply_filters( 'woocommerce_gpf_feed_item_google', $feed_item, $wc_product );
+		$feed_item          = $this->feed_item_factory->create( 'google', $wc_product, $wc_product, false );
 		$images_and_sources = $feed_item->get_image_sources_by_url();
 
 		$this->template->output_template_with_variables( 'woo-gpf', 'meta-field-image-info-header', [] );

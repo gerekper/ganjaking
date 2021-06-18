@@ -26,7 +26,7 @@ if ( ! defined( 'WPINC' ) ) {
 		</span>
 		<span class="sui-description">
 			<?php
-			esc_html_e( 'Choose your server type. If you don\'t know this, please contact your hosting provider.', 'wp-smushit' );
+			esc_html_e( "Choose your server type. If you don't know this, please contact your hosting provider.", 'wp-smushit' );
 			?>
 		</span>
 	</div>
@@ -48,7 +48,7 @@ if ( ! defined( 'WPINC' ) ) {
 					<i class="sui-notice-icon sui-icon-info sui-md" aria-hidden="true"></i>
 					<p>
 						<?php /* translators: server type name. */ ?>
-						<?php echo sprintf( esc_html( __( 'We\'ve automatically detected your server type is %s. If this is incorrect, manually select your server type to generate the relevant rules and instructions.', 'wp-smushit' ) ), esc_html( $detected_server_name ) ); ?>
+						<?php echo sprintf( esc_html( __( "We've automatically detected your server type is %s. If this is incorrect, manually select your server type to generate the relevant rules and instructions.", 'wp-smushit' ) ), esc_html( $detected_server_name ) ); ?>
 					</p>
 				</div>
 			</div>
@@ -76,10 +76,10 @@ if ( ! defined( 'WPINC' ) ) {
 
 				<div role="tablist" class="sui-tabs-menu">
 					<button type="button" role="tab" id="webp-tab-auto" class="sui-tab-item active" aria-controls="webp-tab-content-auto" aria-selected="true">
-						<?php esc_html_e( 'AUTOMATIC', 'wp-smushit' ); ?>
+						<?php esc_html_e( 'Automatic', 'wp-smushit' ); ?>
 					</button>
 					<button type="button" role="tab" id="webp-tab-manual" class="sui-tab-item" aria-controls="webp-tab-content-manual" aria-selected="false" tabindex="-1">
-						<?php esc_html_e( 'MANUAL', 'wp-smushit' ); ?>
+						<?php esc_html_e( 'Manual', 'wp-smushit' ); ?>
 					</button>
 				</div>
 

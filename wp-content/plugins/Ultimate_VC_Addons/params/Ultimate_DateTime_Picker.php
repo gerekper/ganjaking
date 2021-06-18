@@ -1,17 +1,17 @@
 <?php
 /**
- * Class Ultimate_DateTime_Picker_Param
+ * Class Ultimate_VC_Addons_DateTime_Picker_Param
  *
- * @package Ultimate_DateTime_Picker_Param.
+ * @package Ultimate_VC_Addons_DateTime_Picker_Param.
  */
 
-if ( ! class_exists( 'Ultimate_DateTime_Picker_Param' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_DateTime_Picker_Param' ) ) {
 	/**
-	 * Class Ultimate_DateTime_Picker_Param
+	 * Class Ultimate_VC_Addons_DateTime_Picker_Param
 	 *
-	 * @class Ultimate_DateTime_Picker_Param.
+	 * @class Ultimate_VC_Addons_DateTime_Picker_Param.
 	 */
-	class Ultimate_DateTime_Picker_Param {
+	class Ultimate_VC_Addons_DateTime_Picker_Param {
 		/**
 		 * Initiator.
 		 */
@@ -48,6 +48,6 @@ if ( ! class_exists( 'Ultimate_DateTime_Picker_Param' ) ) {
 	}
 }
 
-if ( class_exists( 'Ultimate_DateTime_Picker_Param' ) ) {
-	$ultimate_datetime_picker_param = new Ultimate_DateTime_Picker_Param();
+if ( class_exists( 'Ultimate_VC_Addons_DateTime_Picker_Param' ) ) {
+	$ultimate_datetime_picker_param = new Ultimate_VC_Addons_DateTime_Picker_Param();
 }

@@ -77,7 +77,7 @@ class Request {
 	 * @throws Exception  Init exception.
 	 */
 	public function __construct( $service ) {
-		if ( ! $service instanceof API ) {
+		if ( ! $service instanceof Abstract_API ) {
 			throw new Exception( __( 'Invalid API service.', 'wp-smushit' ), 404 );
 		}
 

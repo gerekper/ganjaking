@@ -1,6 +1,124 @@
 @import "variables";
 
+@import "~@wpmudev/shared-ui/scss/mixins";
+
 @include body-class {
+
+	/**
+	 * Dashboard meta boxes
+	 *
+	 * @since 3.8.6
+	 */
+	.wrap-smush {
+		.smush-upsell-link {
+			color: $purple;
+			&:hover:not(.sui-button),
+			&:focus:not(.sui-button),
+			&:active:not(.sui-button) { color: #64007e; }
+		}
+
+		// Images.
+		div[class^="sui-dashboard-"] .sui-box-title:before {
+			color: #333333;
+			float: left;
+			font-size: 20px;
+			margin-right: 10px;
+			line-height: 30px;
+		}
+
+		// Meta boxes.
+		.sui-dashboard-bulk .sui-box-title,
+		.sui-dashboard-upsell-upsell .sui-box-title { @include icon(before, 'smush'); }
+		.sui-dashboard-directory .sui-box-title { @include icon(before, 'folder'); }
+		.sui-dashboard-integrations .sui-box-title { @include icon(before, 'plugin-2'); }
+		.sui-dashboard-lazy-load .sui-box-title { @include icon(before, 'update'); }
+		.sui-dashboard-cdn .sui-box-title { @include icon(before, 'web-globe-world'); }
+		.sui-dashboard-webp .sui-box-title { @include icon(before, 'photo-picture'); }
+		.sui-dashboard-tools .sui-box-title { @include icon(before, 'wrench-tool'); }
+
+		// Dashboard summary meta box.
+		#smush-box-dashboard-summary {
+			.sui-list-detail {
+				display: flex;
+				align-items: center;
+				& > span.sui-tooltip:first-of-type,
+				& > span.sui-tooltip:nth-of-type(2) {
+					line-height: 14px;
+					margin-right: 5px;
+				}
+				a > .sui-tag { cursor: pointer; }
+			}
+			.smush-upgrade-text {
+				color: $purple;
+				margin-right: 10px;
+			}
+		}
+
+		// Dashboard tutorials.
+		#smush-dash-tutorials,
+		#smush-dash-tutorials > .sui-notice { margin-bottom: 30px; }
+
+		// Dashboard upsell meta box.
+		#smush-box-dashboard-upsell .smush-pro-feature-row { margin-bottom: 10px; }
+
+		// Dashboard lazy load meta box.
+		#smush-box-dashboard-lazy-load {
+			.sui-box-settings-row.sui-flushed {
+				border-top: 1px solid #E6E6E6;
+				padding: 14px 30px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+
+				& > div { height: 30px; }
+			}
+		}
+
+		// Dashboard CDN meta box.
+		#smush-box-dashboard-cdn {
+			.sui-table-item-title {
+				display: flex;
+				align-items: center;
+
+				.smush-filename-extension { margin-right: 10px; }
+			}
+
+			.sui-table.sui-table-flushed tbody tr td:last-of-type { text-align: right; }
+		}
+
+		// Dashboard integrations meta box.
+		#smush-box-dashboard-integrations {
+			.smush-disabled-table-row {
+				opacity: 0.5;
+				pointer-events: none;
+				background-color: rgba(242,242,242,0.5);
+			}
+		}
+	}
+
+	/**
+	 * Bulk compress meta box.
+	 */
+	#smush-box-bulk {
+		.wp-smush-no-image,
+		.wp-smush-no-images-content,
+		.wp-smush-upload-images {
+			text-align: center;
+		}
+	}
+
+	// Overwrite the dashboard image.
+	.sui-wrap .sui-summary.sui-dashboard-summary:not(.sui-unbranded):not(.sui-summary-sm):not(.sui-rebranded) {
+		@if variable-exists(summary-image) {
+			@include background-2x("#{$img--path}/smush-graphic-summary", 'png', auto, 90%);
+			background-position: 0 bottom;
+			background-color: #ffffff;
+		}
+
+		@include media(max-width, md) {
+			background-image: unset;
+		}
+	}
 
 	/** Override SUI styles (since 3.6.0) */
 	.sui-notice-top p { width: 100%; }
@@ -502,66 +620,6 @@
 
 		} // Bulk Smush error messages: End.
 
-		.tc {
-			text-align: center;
-		}
-
-		.wp-smush-page-header {
-			.sui-actions-right {
-				.sui-button {
-					vertical-align: middle;
-				}
-			}
-		}
-
-		.sui-box {
-
-			.sui-box-body {
-
-				&.smush-summary-box-body {
-					padding: 15px 30px 0;
-				}
-
-				.wp-smush-enable-lossy {
-					color: #888;
-					font-size: 13px;
-					line-height: 22px;
-					margin-top: 20px;
-				}
-			}
-		}
-
-		.sui-actions-right {
-			float: right;
-			display: inline-block;
-			font-size: 13px;
-		}
-
-		.wp-smush-resize-settings-wrap,
-		.wp-smush-png_to_jpg-wrap,
-		.wp-smush-image-size-list {
-			background-color: #FFFFFF;
-			border: 1px solid #E6E6E6;
-			border-radius: 5px;
-			color: #555;
-			margin-left: 48px !important;
-			overflow: hidden;
-			padding: 30px;
-			vertical-align: middle;
-			margin-top: 10px !important;
-			margin-bottom: 10px;
-
-			.sui-checkbox {
-				.sui-description {
-					font-size: 13px;
-				}
-			}
-
-			p:last-of-type:not(:last-child) {
-				margin-bottom: 10px;
-			}
-		}
-
 		// Settings - keep data.
 		.smush-keep-data-form-row {
 			.sui-tabs-menu,
@@ -785,6 +843,7 @@
 			font-size: 12px;
 			color: #AAAAAA;
 			cursor: pointer;
+			float: right;
 
 			.sui-icon-close:before {
 				color: #AAAAAA;
@@ -815,171 +874,9 @@
 
 	// Upgrade dialog.
 	#smush-updated-dialog {
-		#wp-smush-yearly-plan-highlight {
-			margin-bottom: 0;
-			padding: 20px 0 18px 13px;
-			border-radius: 4px 4px 0 0;
-			background: linear-gradient(90deg, #6B217D 40%, #EFA00B 150%);
-
-			.wp-smush-icon-container {
-				float: left;
-				margin-right: 5px;
-				border-radius: 4px;
-				width: 33px;
-				height: 33px;
-				background-color: #FFFFFF;
-
-				.sui-icon-smush::before {
-					vertical-align: middle;
-					color: #8D00B1;
-				}
-			}
-
-			.wp-smush-plan-highlight-text-container {
-				text-align: left;
-			}
-
-			h4 {
-				margin: 0;
-				color: #FFFFFF;
-				line-height: 21px;
-			}
-
-			small {
-				display: block;
-				font-size: 10px;
-				line-height: 13px;
-				color: #FFFFFF;
-			}
-		}
-		.sui-border-frame {
-			margin-top: 0;
-			padding: 0;
-
-			#wp-smush-plan-comparison {
-				margin: 0;
-
-				.sui-col-sm-6 {
-					min-height: 100%;
-					padding-top: 20px;
-					padding-bottom: 30px;
-
-					.wp-smush-plan-wrapper {
-						display: flex;
-						min-height: 100%;
-						flex-flow: column wrap;
-
-						.wp-smush-plan-content {
-							flex: 1;
-						}
-					}
-
-					.wp-smush-plan-cta-container {
-						margin-top: 30px;
-						flex: 0 0 auto;
-					}
-
-					&:first-child {
-						border-right: 1px solid #F2F2F2;
-					}
-				}
-
-				h4 {
-					margin: 0;
-					line-height: 25px;
-				}
-
-				.wp-smush-plan-description, .wp-smush-price-description {
-					margin-top: 0;
-					margin-bottom: 30px;
-					font-size: 11px;
-					line-height: 18px;
-				}
-
-				.wp-smush-plan-price {
-					font-size: 33px;
-					font-weight: 700;
-					color: #333333;
-				}
-
-				.wp-smush-plan-period {
-					font-size: 17px;
-					color: #333333;
-				}
-
-				del {
-					font-size: 18px;
-					line-height: 24px;
-					font-weight: 700;
-					color: #FF6D6D;
-				}
-
-				.wp-smush-price-description {
-					margin-top: 10px;
-					margin-bottom: 0;
-				}
-			}
-
-			#wp-smush-pro-benefits-title {
-				background-color: #F8F8F8;
-				padding: 5px;
-
-				.sui-icon-smush:before {
-					color: #000000;
-					vertical-align: middle;
-					margin-right: 2px;
-				}
-
-				span {
-					font-size: 11px;
-					line-height: 15px;
-					font-weight: 500;
-					color: #000000;
-				}
-			}
-
-			.smush-pro-features {
-
-				.smush-pro-feature-row {
-					text-align: left;
-					margin-bottom: 0;
-					margin-top: 20px;
-
-					&:not(:last-child) {
-						padding-bottom: 20px;
-						border-bottom: 1px solid #F2F2F2;
-					}
-				}
-				.smush-pro-feature-title {
-					padding-left: 20px;
-					font-size: 13px;
-					line-height: 18px;
-					color: #000000;
-
-					&::before {
-						margin-left: 0;
-						font-size: 12px;
-						line-height: 12px;
-					}
-				}
-
-				@media screen and (min-width: 783px) {
-					.sui-col-md-6:first-child {
-						padding-right: 0;
-					}
-
-					.sui-col-md-6:last-child {
-						padding-left: 0;
-					}
-				}
-
-				@media screen and (max-width: 782px) {
-					.sui-col-md-6:first-child {
-						margin-bottom: 0;
-						border-bottom: 1px solid #F2F2F2;
-					}
-				}
-			}
+		.sui-icon-hub::before {
+			color: #333333;
+			vertical-align: middle;
 		}
 	}
 

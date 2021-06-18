@@ -59,9 +59,6 @@ class Smush extends Abstract_Module {
 	 * WP_Smush constructor.
 	 */
 	public function init() {
-		update_option('wp_smush_api_auth',(object) array('48c70b9383641b60c0d105efb629b943584eea7e'=> array('validity'=> 'valid', 'timestamp' => 1613958609)));
-		if(!defined('WPMUDEV_APIKEY')) define('WPMUDEV_APIKEY','48c70b9383641b60c0d105efb629b943584eea7e');
-		
 		// Update the Super Smush count, after the Smush'ing.
 		add_action( 'wp_smush_image_optimised', array( $this, 'update_lists' ), '', 2 );
 
@@ -379,10 +376,10 @@ class Smush extends Abstract_Module {
 		}
 
 		// Check if premium member, add API key.
-		$api_key = $this->get_api_key();
-		
-		$headers['apikey'] = $api_key;
-		
+		$api_key = Helper::get_wpmudev_apikey();
+		if ( ! empty( $api_key ) && WP_Smush::is_pro() ) {
+			$headers['apikey'] = $api_key;
+		}
 
 		$api_url = defined( 'WP_SMUSH_API_HTTP' ) ? WP_SMUSH_API_HTTP : WP_SMUSH_API;
 		$args    = array(
@@ -1057,25 +1054,6 @@ class Smush extends Abstract_Module {
 		}
 
 		wp_send_json_success( $status );
-	}
-
-	/**
-	 * Returns api key.
-	 *
-	 * @return mixed
-	 */
-	private function get_api_key() {
-		$api_key = false;
-
-		// If API key defined manually, get that.
-		if ( defined( 'WPMUDEV_APIKEY' ) && WPMUDEV_APIKEY ) {
-			$api_key = WPMUDEV_APIKEY;
-		} elseif ( class_exists( 'WPMUDEV_Dashboard' ) ) {
-			// If dashboard plugin is active, get API key from db.
-			$api_key = get_site_option( 'wpmudev_apikey' );
-		}
-
-		return $api_key;
 	}
 
 	/**

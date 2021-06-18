@@ -6,11 +6,11 @@
  * @package Ultimate Addons for WPBakery Page Builder
  */
 
-if ( ! class_exists( 'Ultimate_Info_Circle' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Info_Circle' ) ) {
 	/**
-	 * Ultimate_Info_Circle initial setup
+	 * Ultimate_VC_Addons_Info_Circle initial setup
 	 */
-	class Ultimate_Info_Circle {
+	class Ultimate_VC_Addons_Info_Circle {
 		/**
 		 * Constructor function.
 		 */
@@ -26,11 +26,11 @@ if ( ! class_exists( 'Ultimate_Info_Circle' ) ) {
 		 * Register info circle assets.
 		 */
 		public function register_info_circle_assets() {
-			Ultimate_VC_Addons::ultimate_register_script( 'info-circle', 'info-circle', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-info-circle', 'info-circle', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'info-circle-ui-effect', 'jquery-ui-effect', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-info-circle-ui-effect', 'jquery-ui-effect', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 
-			Ultimate_VC_Addons::ultimate_register_style( 'info-circle', 'info-circle' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-info-circle', 'info-circle' );
 		}
 		/**
 		 * Info circle content.
@@ -90,17 +90,17 @@ if ( ! class_exists( 'Ultimate_Info_Circle' ) ) {
 			$uniq         = uniqid();
 			$browser_info = ult_getBrowser();
 
-			global $title_style_inline, $desc_style_inline, $info_circle_id, $info_circle_data_list;
+			global $uavc_title_style_inline, $uavc_desc_style_inline, $uavc_info_circle_id, $uavc_info_circle_data_list;
 
 			/* ---- main title styles ---- */
 			if ( '' != $ult_info_circle['title_font'] ) {
 				$title_font_family = get_ultimate_font_family( $ult_info_circle['title_font'] );
 				if ( '' != $title_font_family ) {
-					$title_style_inline = 'font-family:\'' . $title_font_family . '\';';
+					$uavc_title_style_inline = 'font-family:\'' . $title_font_family . '\';';
 				}
 			}
 			// main heading font style.
-			$title_style_inline .= get_ultimate_font_style( $ult_info_circle['title_font_style'] );
+			$uavc_title_style_inline .= get_ultimate_font_style( $ult_info_circle['title_font_style'] );
 			// attach font size if set.
 
 			// responsive param for title.
@@ -113,26 +113,26 @@ if ( ! class_exists( 'Ultimate_Info_Circle' ) ) {
 				$ult_info_circle['title_line_height'] = 'desktop:' . $ult_info_circle['title_line_height'] . 'px;';
 			}
 
-			$info_circle_id   = 'info-cirlce-wrap-' . wp_rand( 1000, 9999 );
-			$info_circle_args = array(
-				'target'      => '#' . $info_circle_id . ' .responsive-font-class h3.new-cust-responsive-class', // set targeted element e.g. unique class/id etc.
+			$uavc_info_circle_id = 'info-cirlce-wrap-' . wp_rand( 1000, 9999 );
+			$info_circle_args    = array(
+				'target'      => '#' . $uavc_info_circle_id . ' .responsive-font-class h3.new-cust-responsive-class', // set targeted element e.g. unique class/id etc.
 				'media_sizes' => array(
 					'font-size'   => $ult_info_circle['title_font_size'], // set 'css property' & 'ultimate_responsive' sizes. Here $title_responsive_font_size holds responsive font sizes from user input.
 					'line-height' => $ult_info_circle['title_line_height'],
 				),
 			);
 
-			$info_circle_data_list = get_ultimate_vc_responsive_media_css( $info_circle_args );
+			$uavc_info_circle_data_list = get_ultimate_vc_responsive_media_css( $info_circle_args );
 
 			/* ---- description styles ---- */
 			if ( '' != $ult_info_circle['desc_font'] ) {
 				$desc_font_family = get_ultimate_font_family( $ult_info_circle['desc_font'] );
 				if ( '' != $desc_font_family ) {
-					$desc_style_inline = 'font-family:\'' . $desc_font_family . '\';';
+					$uavc_desc_style_inline = 'font-family:\'' . $desc_font_family . '\';';
 				}
 			}
 			// main heading font style.
-			$desc_style_inline .= get_ultimate_font_style( $ult_info_circle['desc_font_style'] );
+			$uavc_desc_style_inline .= get_ultimate_font_style( $ult_info_circle['desc_font_style'] );
 			// attach font size if set.
 
 			// Responsive param for Description.
@@ -146,7 +146,7 @@ if ( ! class_exists( 'Ultimate_Info_Circle' ) ) {
 			}
 
 			$info_circle_desc_args = array(
-				'target'      => '#' . $info_circle_id . ' .responsive-font-class *', // set targeted element e.g. unique class/id etc.
+				'target'      => '#' . $uavc_info_circle_id . ' .responsive-font-class *', // set targeted element e.g. unique class/id etc.
 				'media_sizes' => array(
 					'font-size'   => $ult_info_circle['desc_font_size'], // set 'css property' & 'ultimate_responsive' sizes. Here $title_responsive_font_size holds responsive font sizes from user input.
 					'line-height' => $ult_info_circle['desc_line_height'],
@@ -236,20 +236,20 @@ if ( ! class_exists( 'Ultimate_Info_Circle' ) ) {
 				$output .= '<div class="info-circle-icons suffix-remove"></div>';
 			}
 			$output .= '</div>';
-			$output .= '<div id="' . esc_attr( $info_circle_id ) . '" class="info-c-full" style="' . esc_attr( $style1 ) . '"><div class="info-c-full-wrap"></div>';
+			$output .= '<div id="' . esc_attr( $uavc_info_circle_id ) . '" class="info-c-full" style="' . esc_attr( $style1 ) . '"><div class="info-c-full-wrap"></div>';
 			$output .= '</div>';
 			$output .= '</div>';
 			if ( 'on' == $ult_info_circle['responsive'] ) {
 				$output .= '<div class="smile_icon_list_wrap " data-content_bg="' . esc_attr( $ult_info_circle['content_bg'] ) . '" data-content_color="' . esc_attr( $ult_info_circle['content_color'] ) . '">
-							<ul id="' . esc_attr( $info_circle_id ) . '" class="smile_icon_list left circle with_bg"><li class="icon_list_item" style="font-size:' . ( esc_attr( $ult_info_circle['img_icon_size'] ) * 3 ) . 'px;">';
+							<ul id="' . esc_attr( $uavc_info_circle_id ) . '" class="smile_icon_list left circle with_bg"><li class="icon_list_item" style="font-size:' . ( esc_attr( $ult_info_circle['img_icon_size'] ) * 3 ) . 'px;">';
 				if ( $ult_info_circle['img_icon_size'] <= 120 ) {
 					$output .= '
 									<div class="icon_list_icon" style="font-size:' . esc_attr( $ult_info_circle['img_icon_size'] ) . 'px;width:' . esc_attr( $ult_info_circle['img_icon_size'] ) . 'px;height:' . esc_attr( $ult_info_circle['img_icon_size'] ) . 'px;line-height:1;">
 										<i class="smt-pencil"></i>
 									</div>
 									<div  class="icon_description" style="font-size:' . esc_attr( $ult_info_circle['img_icon_size'] ) . 'px;">
-										<div class="responsive-font-class ult-responsive" ' . $info_circle_desc_data_list . ' style="' . esc_attr( $desc_style_inline ) . '">
-											<h3 ' . $info_circle_data_list . ' class="ult-responsive new-cust-responsive-class" style="' . esc_attr( $title_style_inline ) . '"></h3>
+										<div class="responsive-font-class ult-responsive" ' . $info_circle_desc_data_list . ' style="' . esc_attr( $uavc_desc_style_inline ) . '">
+											<h3 ' . $uavc_info_circle_data_list . ' class="ult-responsive new-cust-responsive-class" style="' . esc_attr( $uavc_title_style_inline ) . '"></h3>
 											<p></p>
 										</div>
 									</div>
@@ -261,8 +261,8 @@ if ( ! class_exists( 'Ultimate_Info_Circle' ) ) {
 										<i class="smt-pencil"></i>
 									</div>
 									<div  class="icon_description" style="font-size:' . esc_attr( $ult_info_circle['img_icon_size'] ) . 'px; text-align:center;">
-										<div class="responsive-font-class ult-responsive" ' . $info_circle_desc_data_list . ' style="' . esc_attr( $desc_style_inline ) . '">
-											<h3 ' . $info_circle_data_list . ' class="ult-responsive new-cust-responsive-class" style="' . esc_attr( $title_style_inline ) . '"></h3>
+										<div class="responsive-font-class ult-responsive" ' . $info_circle_desc_data_list . ' style="' . esc_attr( $uavc_desc_style_inline ) . '">
+											<h3 ' . $uavc_info_circle_data_list . ' class="ult-responsive new-cust-responsive-class" style="' . esc_attr( $uavc_title_style_inline ) . '"></h3>
 											<p></p>
 										</div>
 									</div>';
@@ -281,7 +281,7 @@ if ( ! class_exists( 'Ultimate_Info_Circle' ) ) {
 		 * @return string $output .
 		 */
 		public function info_circle_item( $atts, $content = null ) {
-			global $title_style_inline, $desc_style_inline, $info_circle_id, $info_circle_data_list, $info_circle_desc_data_list;
+			global $uavc_title_style_inline, $uavc_desc_style_inline, $uavc_info_circle_id, $uavc_info_circle_data_list, $info_circle_desc_data_list;
 			// Do nothing.
 
 			$contents                 = '';
@@ -371,11 +371,11 @@ if ( ! class_exists( 'Ultimate_Info_Circle' ) ) {
 				$rel        = ( isset( $href['rel'] ) && '' !== $href['rel'] ) ? esc_attr( $href['rel'] ) : '';
 				$output    .= '<div class="info-circle-def"><div  class="info-circle-sub-def">
 							<a class="info-circle-href" ' . Ultimate_VC_Addons::uavc_link_init( $url, $target, $link_title, $rel ) . ' style="color:inherit;">' . $icon_html . '</a>
-								<div class="responsive-font-class ult-responsive" ' . $info_circle_desc_data_list . '><h3 ' . $info_circle_data_list . ' class="info-circle-heading ult-responsive new-cust-responsive-class" style="' . esc_attr( $title_style_inline ) . '">' . $ult_info_circle_settings['info_title'] . '</h3>
-								<div ' . $info_circle_desc_data_list . ' class="info-circle-text " style="' . esc_attr( $desc_style_inline ) . '">' . do_shortcode( $content ) . '</div>
+								<div class="responsive-font-class ult-responsive" ' . $info_circle_desc_data_list . '><h3 ' . $uavc_info_circle_data_list . ' class="info-circle-heading ult-responsive new-cust-responsive-class" style="' . esc_attr( $uavc_title_style_inline ) . '">' . $ult_info_circle_settings['info_title'] . '</h3>
+								<div ' . $info_circle_desc_data_list . ' class="info-circle-text " style="' . esc_attr( $uavc_desc_style_inline ) . '">' . do_shortcode( $content ) . '</div>
 							</div></div></div></div>';
 			} else {
-				$output .= '<div class="info-circle-def"><div  class="info-circle-sub-def">' . $icon_html . '<div class="responsive-font-class ult-responsive" ' . $info_circle_desc_data_list . '><h3 ' . $info_circle_data_list . ' class="info-circle-heading ult-responsive new-cust-responsive-class" style="' . esc_attr( $title_style_inline ) . '">' . $ult_info_circle_settings['info_title'] . '</h3><div ' . $info_circle_desc_data_list . ' class="info-circle-text " style="' . esc_attr( $desc_style_inline ) . '">' . do_shortcode( $content ) . '</div></div></div></div></div>';
+				$output .= '<div class="info-circle-def"><div  class="info-circle-sub-def">' . $icon_html . '<div class="responsive-font-class ult-responsive" ' . $info_circle_desc_data_list . '><h3 ' . $uavc_info_circle_data_list . ' class="info-circle-heading ult-responsive new-cust-responsive-class" style="' . esc_attr( $uavc_title_style_inline ) . '">' . $ult_info_circle_settings['info_title'] . '</h3><div ' . $info_circle_desc_data_list . ' class="info-circle-text " style="' . esc_attr( $uavc_desc_style_inline ) . '">' . do_shortcode( $content ) . '</div></div></div></div></div>';
 			}
 			return $output;
 		}
@@ -1024,6 +1024,6 @@ if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
 		}
 	}
 }
-if ( class_exists( 'Ultimate_Info_Circle' ) ) {
-	$ultimate_info_circle = new Ultimate_Info_Circle();
+if ( class_exists( 'Ultimate_VC_Addons_Info_Circle' ) ) {
+	$ultimate_info_circle = new Ultimate_VC_Addons_Info_Circle();
 }

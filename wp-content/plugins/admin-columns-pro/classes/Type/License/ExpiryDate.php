@@ -62,6 +62,13 @@ class ExpiryDate {
 	/**
 	 * @return int
 	 */
+	public function get_expired_seconds() {
+		return $this->current_date->getTimestamp() - $this->expiry_date->getTimestamp();
+	}
+
+	/**
+	 * @return int
+	 */
 	public function get_remaining_seconds() {
 		return $this->expiry_date->getTimestamp() - $this->current_date->getTimestamp();
 	}

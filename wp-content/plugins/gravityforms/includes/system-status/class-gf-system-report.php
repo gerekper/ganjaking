@@ -4,6 +4,8 @@ if ( ! class_exists( 'GFForms' ) ) {
 	die();
 }
 
+use Gravity_Forms\Gravity_Forms\TranslationsPress_Updater;
+
 /**
  * Class GF_System_Report
  *
@@ -425,6 +427,11 @@ class GF_System_Report {
 						'title'        => esc_html__( 'Database', 'gravityforms' ),
 						'title_export' => 'Database',
 						'items'        => self::get_database(),
+					),
+					array(
+						'title'        => esc_html__( 'Translations', 'gravityforms' ),
+						'title_export' => 'Translations',
+						'items'        => self::get_translations(),
 					),
 					array(
 						'title'        => esc_html__( 'Log Files', 'gravityforms' ),
@@ -856,7 +863,7 @@ class GF_System_Report {
 		$is_writable = wp_is_writable( $upload_path );
 
 		$disable_css      = get_option( 'rg_gforms_disable_css' );
-		$enable_html5     = get_option( 'rg_gforms_enable_html5', true );
+		$enable_html5     = get_option( 'rg_gforms_enable_html5', false );
 		$no_conflict_mode = get_option( 'gform_enable_noconflict' );
 		$updates          = get_option( 'gform_enable_background_updates' );
 
@@ -872,8 +879,6 @@ class GF_System_Report {
 		} else {
 			$validation_message = sprintf( esc_html__( 'This site has not been registered. %1$sPlease register your site%2$s.', 'gravityforms' ), '<a class="thickbox" href="#TB_inline?width=400&inlineId=gform_register_site">', '</a>' );
 		}
-
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'gravityforms' );
 
 		$web_api       = GFWebAPI::get_instance();
 		$is_v2_enabled = $web_api->is_v2_enabled( $web_api->get_plugin_settings() );
@@ -933,12 +938,6 @@ class GF_System_Report {
 				'label_export' => 'Background updates',
 				'value'        => $updates ? __( 'Yes', 'gravityforms' ) : __( 'No', 'gravityforms' ),
 				'value_export' => $updates ? 'Yes' : 'No',
-			),
-			array(
-				'label'        => esc_html__( 'Locale', 'gravityforms' ),
-				'label_export' => 'Locale',
-				'value'        => $locale,
-				'value_export' => $locale,
 			),
 			array(
 				'label'        => esc_html__( 'REST API v2', 'gravityforms' ),
@@ -1647,6 +1646,58 @@ class GF_System_Report {
 		}
 
 		return $tzstring;
+	}
+
+	/**
+	 * Get translations info.
+	 *
+	 * @since  2.5.6
+	 *
+	 * @return array
+	 */
+	public static function get_translations() {
+		$items = array(
+			array(
+				'label'        => esc_html__( 'Site Locale', 'gravityforms' ),
+				'label_export' => 'Site Locale',
+				'value'        => get_locale(),
+			),
+		);
+
+		if ( function_exists( 'get_user_locale' ) ) {
+			$items[] = array(
+				// translators: %d: The ID of the currently logged in user.
+				'label'        => sprintf( esc_html__( 'User (ID: %d) Locale', 'gravityforms' ), get_current_user_id() ),
+				'label_export' => sprintf( 'User (ID: %d) Locale', get_current_user_id() ),
+				'value'        => get_user_locale(),
+			);
+		}
+
+		$items[] = array(
+			'label' => 'Gravity Forms',
+			'value' => implode( ', ', GFCommon::get_installed_translations() ),
+		);
+
+		if ( ! class_exists( 'GFAddOn' ) ) {
+			return $items;
+		}
+
+		$addons = GFAddOn::get_registered_addons( true );
+
+		foreach ( $addons as $addon ) {
+			$locales = $addon->get_installed_locales();
+
+			if ( empty( $locales ) ) {
+				continue;
+			}
+
+			$items[] = array(
+				'label' => $addon->get_short_title(),
+				'value' => implode( ', ', $locales ),
+			);
+		}
+
+		return $items;
 	}
 
 }

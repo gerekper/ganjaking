@@ -33,15 +33,22 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\actions\\indexing\\indexable_post_indexation_action' => 'Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Indexation_Action',
             'yoast\\wp\\seo\\actions\\indexing\\indexable_post_type_archive_indexation_action' => 'Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Type_Archive_Indexation_Action',
             'yoast\\wp\\seo\\actions\\indexing\\indexable_term_indexation_action' => 'Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Term_Indexation_Action',
+            'yoast\\wp\\seo\\actions\\link_suggestions_action' => 'Yoast\\WP\\SEO\\Actions\\Link_Suggestions_Action',
+            'yoast\\wp\\seo\\actions\\prominent_words\\complete_action' => 'Yoast\\WP\\SEO\\Actions\\Prominent_Words\\Complete_Action',
+            'yoast\\wp\\seo\\actions\\prominent_words\\content_action' => 'Yoast\\WP\\SEO\\Actions\\Prominent_Words\\Content_Action',
+            'yoast\\wp\\seo\\actions\\prominent_words\\save_action' => 'Yoast\\WP\\SEO\\Actions\\Prominent_Words\\Save_Action',
+            'yoast\\wp\\seo\\actions\\zapier_action' => 'Yoast\\WP\\SEO\\Actions\\Zapier_Action',
             'yoast\\wp\\seo\\conditionals\\admin_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Admin_Conditional',
             'yoast\\wp\\seo\\conditionals\\front_end_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Front_End_Conditional',
             'yoast\\wp\\seo\\conditionals\\migrations_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Migrations_Conditional',
+            'yoast\\wp\\seo\\conditionals\\open_graph_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Open_Graph_Conditional',
             'yoast\\wp\\seo\\conditionals\\schema_blocks_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Schema_Blocks_Conditional',
             'yoast\\wp\\seo\\conditionals\\third_party\\elementor_edit_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Third_Party\\Elementor_Edit_Conditional',
             'yoast\\wp\\seo\\conditionals\\yoast_admin_and_dashboard_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Yoast_Admin_And_Dashboard_Conditional',
             'yoast\\wp\\seo\\conditionals\\zapier_enabled_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Zapier_Enabled_Conditional',
             'yoast\\wp\\seo\\config\\migration_status' => 'Yoast\\WP\\SEO\\Config\\Migration_Status',
             'yoast\\wp\\seo\\config\\migrations\\wpyoastpremiumimprovedinternallinking' => 'Yoast\\WP\\SEO\\Config\\Migrations\\WpYoastPremiumImprovedInternalLinking',
+            'yoast\\wp\\seo\\database\\migration_runner_premium' => 'Yoast\\WP\\SEO\\Database\\Migration_Runner_Premium',
             'yoast\\wp\\seo\\helpers\\date_helper' => 'Yoast\\WP\\SEO\\Helpers\\Date_Helper',
             'yoast\\wp\\seo\\helpers\\indexing_helper' => 'Yoast\\WP\\SEO\\Helpers\\Indexing_Helper',
             'yoast\\wp\\seo\\helpers\\language_helper' => 'Yoast\\WP\\SEO\\Helpers\\Language_Helper',
@@ -71,27 +78,38 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\premium\\actions\\prominent_words\\content_action' => 'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action',
             'yoast\\wp\\seo\\premium\\actions\\prominent_words\\save_action' => 'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action',
             'yoast\\wp\\seo\\premium\\actions\\zapier_action' => 'Yoast\\WP\\SEO\\Premium\\Actions\\Zapier_Action',
-            'yoast\\wp\\seo\\premium\\conditionals\\social_templates_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Social_Templates_Conditional',
+            'yoast\\wp\\seo\\premium\\conditionals\\zapier_enabled_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Zapier_Enabled_Conditional',
             'yoast\\wp\\seo\\premium\\config\\badge_group_names' => 'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names',
             'yoast\\wp\\seo\\premium\\database\\migration_runner_premium' => 'Yoast\\WP\\SEO\\Premium\\Database\\Migration_Runner_Premium',
+            'yoast\\wp\\seo\\premium\\helpers\\prominent_words_helper' => 'Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper',
+            'yoast\\wp\\seo\\premium\\helpers\\zapier_helper' => 'Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper',
             'yoast\\wp\\seo\\premium\\initializers\\plugin' => 'Yoast\\WP\\SEO\\Premium\\Initializers\\Plugin',
+            'yoast\\wp\\seo\\premium\\initializers\\redirect_handler' => 'Yoast\\WP\\SEO\\Premium\\Initializers\\Redirect_Handler',
             'yoast\\wp\\seo\\premium\\integrations\\admin\\plugin_links_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Plugin_Links_Integration',
-            'yoast\\wp\\seo\\premium\\integrations\\admin\\social_templates\\social_templates_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Social_Templates\\Social_Templates_Integration',
+            'yoast\\wp\\seo\\premium\\integrations\\admin\\prominent_words\\indexing_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration',
+            'yoast\\wp\\seo\\premium\\integrations\\admin\\prominent_words\\metabox_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration',
             'yoast\\wp\\seo\\premium\\integrations\\admin\\user_profile_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration',
+            'yoast\\wp\\seo\\premium\\integrations\\blocks\\estimated_reading_time_block' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Estimated_Reading_Time_Block',
+            'yoast\\wp\\seo\\premium\\integrations\\blocks\\related_links_block' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Related_Links_Block',
+            'yoast\\wp\\seo\\premium\\integrations\\blocks\\schema_blocks' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Schema_Blocks',
             'yoast\\wp\\seo\\premium\\integrations\\opengraph_author_archive' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Author_Archive',
             'yoast\\wp\\seo\\premium\\integrations\\opengraph_date_archive' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Date_Archive',
             'yoast\\wp\\seo\\premium\\integrations\\opengraph_post_type' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Post_Type',
             'yoast\\wp\\seo\\premium\\integrations\\opengraph_posttype_archive' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_PostType_Archive',
             'yoast\\wp\\seo\\premium\\integrations\\opengraph_term_archive' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive',
+            'yoast\\wp\\seo\\premium\\integrations\\third_party\\elementor_premium' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium',
+            'yoast\\wp\\seo\\premium\\integrations\\third_party\\zapier' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier',
+            'yoast\\wp\\seo\\premium\\integrations\\third_party\\zapier_classic_editor' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Classic_Editor',
+            'yoast\\wp\\seo\\premium\\integrations\\third_party\\zapier_trigger' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Trigger',
             'yoast\\wp\\seo\\premium\\integrations\\upgrade_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Upgrade_Integration',
             'yoast\\wp\\seo\\premium\\integrations\\user_profile_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\User_Profile_Integration',
             'yoast\\wp\\seo\\premium\\main' => 'Yoast\\WP\\SEO\\Premium\\Main',
+            'yoast\\wp\\seo\\premium\\surfaces\\helpers_surface' => 'Yoast\\WP\\SEO\\Premium\\Surfaces\\Helpers_Surface',
             'yoast\\wp\\seo\\repositories\\indexable_repository' => 'Yoast\\WP\\SEO\\Repositories\\Indexable_Repository',
             'yoast\\wp\\seo\\repositories\\prominent_words_repository' => 'Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository',
             'yoast\\wp\\seo\\routes\\link_suggestions_route' => 'Yoast\\WP\\SEO\\Routes\\Link_Suggestions_Route',
             'yoast\\wp\\seo\\routes\\prominent_words_route' => 'Yoast\\WP\\SEO\\Routes\\Prominent_Words_Route',
             'yoast\\wp\\seo\\routes\\zapier_route' => 'Yoast\\WP\\SEO\\Routes\\Zapier_Route',
-            'yoast\\wp\\seo\\schema_templates\\assets\\icons' => 'Yoast\\WP\\SEO\\Schema_Templates\\Assets\\Icons',
             'yoast\\wp\\seo\\schema_templates\\block_patterns\\block_pattern_categories' => 'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Categories',
             'yoast\\wp\\seo\\schema_templates\\block_patterns\\block_pattern_keywords' => 'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Keywords',
             'yoast\\wp\\seo\\schema_templates\\block_patterns\\job_posting_default' => 'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Default',
@@ -103,6 +121,7 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\surfaces\\open_graph_helpers_surface' => 'Yoast\\WP\\SEO\\Surfaces\\Open_Graph_Helpers_Surface',
             'yoast\\wp\\seo\\surfaces\\schema_helpers_surface' => 'Yoast\\WP\\SEO\\Surfaces\\Schema_Helpers_Surface',
             'yoast\\wp\\seo\\surfaces\\twitter_helpers_surface' => 'Yoast\\WP\\SEO\\Surfaces\\Twitter_Helpers_Surface',
+            'yoast\\wp\\seo\\wordpress\\premium_wrapper' => 'Yoast\\WP\\SEO\\WordPress\\Premium_Wrapper',
             'yoastseo_vendor\\symfony\\component\\dependencyinjection\\containerinterface' => 'YoastSEO_Vendor\\YoastSEO_Vendor\\Symfony\\Component\\DependencyInjection\\ContainerInterface',
         ];
         $this->methodMap = [
@@ -114,15 +133,22 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Indexation_Action' => 'getIndexablePostIndexationActionService',
             'Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Type_Archive_Indexation_Action' => 'getIndexablePostTypeArchiveIndexationActionService',
             'Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Term_Indexation_Action' => 'getIndexableTermIndexationActionService',
+            'Yoast\\WP\\SEO\\Actions\\Link_Suggestions_Action' => 'getLinkSuggestionsActionService',
+            'Yoast\\WP\\SEO\\Actions\\Prominent_Words\\Complete_Action' => 'getCompleteActionService',
+            'Yoast\\WP\\SEO\\Actions\\Prominent_Words\\Content_Action' => 'getContentActionService',
+            'Yoast\\WP\\SEO\\Actions\\Prominent_Words\\Save_Action' => 'getSaveActionService',
+            'Yoast\\WP\\SEO\\Actions\\Zapier_Action' => 'getZapierActionService',
             'Yoast\\WP\\SEO\\Conditionals\\Admin_Conditional' => 'getAdminConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Front_End_Conditional' => 'getFrontEndConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Migrations_Conditional' => 'getMigrationsConditionalService',
+            'Yoast\\WP\\SEO\\Conditionals\\Open_Graph_Conditional' => 'getOpenGraphConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Schema_Blocks_Conditional' => 'getSchemaBlocksConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Third_Party\\Elementor_Edit_Conditional' => 'getElementorEditConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Yoast_Admin_And_Dashboard_Conditional' => 'getYoastAdminAndDashboardConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Zapier_Enabled_Conditional' => 'getZapierEnabledConditionalService',
             'Yoast\\WP\\SEO\\Config\\Migration_Status' => 'getMigrationStatusService',
             'Yoast\\WP\\SEO\\Config\\Migrations\\WpYoastPremiumImprovedInternalLinking' => 'getWpYoastPremiumImprovedInternalLinkingService',
+            'Yoast\\WP\\SEO\\Database\\Migration_Runner_Premium' => 'getMigrationRunnerPremiumService',
             'Yoast\\WP\\SEO\\Helpers\\Date_Helper' => 'getDateHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Indexing_Helper' => 'getIndexingHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Language_Helper' => 'getLanguageHelperService',
@@ -147,43 +173,55 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Integrations\\Watchers\\Zapier_APIKey_Reset_Watcher' => 'getZapierAPIKeyResetWatcherService',
             'Yoast\\WP\\SEO\\Loader' => 'getLoaderService',
             'Yoast\\WP\\SEO\\Memoizers\\Meta_Tags_Context_Memoizer' => 'getMetaTagsContextMemoizerService',
-            'Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action' => 'getLinkSuggestionsActionService',
-            'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Complete_Action' => 'getCompleteActionService',
-            'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action' => 'getContentActionService',
-            'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action' => 'getSaveActionService',
-            'Yoast\\WP\\SEO\\Premium\\Actions\\Zapier_Action' => 'getZapierActionService',
-            'Yoast\\WP\\SEO\\Premium\\Conditionals\\Social_Templates_Conditional' => 'getSocialTemplatesConditionalService',
+            'Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action' => 'getLinkSuggestionsAction2Service',
+            'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Complete_Action' => 'getCompleteAction2Service',
+            'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action' => 'getContentAction2Service',
+            'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action' => 'getSaveAction2Service',
+            'Yoast\\WP\\SEO\\Premium\\Actions\\Zapier_Action' => 'getZapierAction2Service',
+            'Yoast\\WP\\SEO\\Premium\\Conditionals\\Zapier_Enabled_Conditional' => 'getZapierEnabledConditional2Service',
             'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names' => 'getBadgeGroupNamesService',
-            'Yoast\\WP\\SEO\\Premium\\Database\\Migration_Runner_Premium' => 'getMigrationRunnerPremiumService',
+            'Yoast\\WP\\SEO\\Premium\\Database\\Migration_Runner_Premium' => 'getMigrationRunnerPremium2Service',
+            'Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper' => 'getProminentWordsHelper2Service',
+            'Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper' => 'getZapierHelper2Service',
             'Yoast\\WP\\SEO\\Premium\\Initializers\\Plugin' => 'getPluginService',
+            'Yoast\\WP\\SEO\\Premium\\Initializers\\Redirect_Handler' => 'getRedirectHandler2Service',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Plugin_Links_Integration' => 'getPluginLinksIntegrationService',
-            'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Social_Templates\\Social_Templates_Integration' => 'getSocialTemplatesIntegrationService',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration' => 'getIndexingIntegration2Service',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration' => 'getMetaboxIntegration2Service',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration' => 'getUserProfileIntegrationService',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Estimated_Reading_Time_Block' => 'getEstimatedReadingTimeBlock2Service',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Related_Links_Block' => 'getRelatedLinksBlock2Service',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Schema_Blocks' => 'getSchemaBlocks2Service',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Author_Archive' => 'getOpenGraphAuthorArchiveService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Date_Archive' => 'getOpenGraphDateArchiveService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_PostType_Archive' => 'getOpenGraphPostTypeArchiveService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Post_Type' => 'getOpenGraphPostTypeService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive' => 'getOpenGraphTermArchiveService',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium' => 'getElementorPremium2Service',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier' => 'getZapier2Service',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Classic_Editor' => 'getZapierClassicEditor2Service',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Trigger' => 'getZapierTrigger2Service',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Upgrade_Integration' => 'getUpgradeIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\User_Profile_Integration' => 'getUserProfileIntegration2Service',
             'Yoast\\WP\\SEO\\Premium\\Main' => 'getMainService',
+            'Yoast\\WP\\SEO\\Premium\\Surfaces\\Helpers_Surface' => 'getHelpersSurfaceService',
             'Yoast\\WP\\SEO\\Repositories\\Indexable_Repository' => 'getIndexableRepositoryService',
             'Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository' => 'getProminentWordsRepositoryService',
             'Yoast\\WP\\SEO\\Routes\\Link_Suggestions_Route' => 'getLinkSuggestionsRouteService',
             'Yoast\\WP\\SEO\\Routes\\Prominent_Words_Route' => 'getProminentWordsRouteService',
             'Yoast\\WP\\SEO\\Routes\\Zapier_Route' => 'getZapierRouteService',
-            'Yoast\\WP\\SEO\\Schema_Templates\\Assets\\Icons' => 'getIconsService',
             'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Categories' => 'getBlockPatternCategoriesService',
             'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Keywords' => 'getBlockPatternKeywordsService',
             'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Default' => 'getJobPostingDefaultService',
             'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Minimal' => 'getJobPostingMinimalService',
             'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Yoast_Com' => 'getJobPostingYoastComService',
             'Yoast\\WP\\SEO\\Surfaces\\Classes_Surface' => 'getClassesSurfaceService',
-            'Yoast\\WP\\SEO\\Surfaces\\Helpers_Surface' => 'getHelpersSurfaceService',
+            'Yoast\\WP\\SEO\\Surfaces\\Helpers_Surface' => 'getHelpersSurface2Service',
             'Yoast\\WP\\SEO\\Surfaces\\Meta_Surface' => 'getMetaSurfaceService',
             'Yoast\\WP\\SEO\\Surfaces\\Open_Graph_Helpers_Surface' => 'getOpenGraphHelpersSurfaceService',
             'Yoast\\WP\\SEO\\Surfaces\\Schema_Helpers_Surface' => 'getSchemaHelpersSurfaceService',
             'Yoast\\WP\\SEO\\Surfaces\\Twitter_Helpers_Surface' => 'getTwitterHelpersSurfaceService',
+            'Yoast\\WP\\SEO\\WordPress\\Premium_Wrapper' => 'getPremiumWrapperService',
         ];
         $this->privates = [
             'YoastSEO_Vendor\\YoastSEO_Vendor\\Symfony\\Component\\DependencyInjection\\ContainerInterface' => true,
@@ -300,6 +338,76 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Actions\Link_Suggestions_Action' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Actions\Link_Suggestions_Action
+     *
+     * @deprecated Yoast\WP\SEO\Actions\Link_Suggestions_Action is deprecated since version 16.1! Use Yoast\WP\SEO\Premium\Actions\Link_Suggestions_Action instead.
+     */
+    protected function getLinkSuggestionsActionService()
+    {
+        @trigger_error('Yoast\\WP\\SEO\\Actions\\Link_Suggestions_Action is deprecated since version 16.1! Use Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action instead.', E_USER_DEPRECATED);
+
+        return $this->services['Yoast\\WP\\SEO\\Actions\\Link_Suggestions_Action'] = new \Yoast\WP\SEO\Actions\Link_Suggestions_Action(${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository'] : ($this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository'] = new \Yoast\WP\SEO\Repositories\Prominent_Words_Repository())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] : $this->getIndexableRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelper2Service()) && false ?: '_'}, ${($_ = isset($this->services['WPSEO_Premium_Prominent_Words_Support']) ? $this->services['WPSEO_Premium_Prominent_Words_Support'] : $this->getWPSEOPremiumProminentWordsSupportService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Actions\Prominent_Words\Complete_Action' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Actions\Prominent_Words\Complete_Action
+     *
+     * @deprecated Yoast\WP\SEO\Actions\Prominent_Words\Complete_Action is deprecated since version 16.1! Use Yoast\WP\SEO\Premium\Actions\Prominent_Words\Complete_Action instead.
+     */
+    protected function getCompleteActionService()
+    {
+        @trigger_error('Yoast\\WP\\SEO\\Actions\\Prominent_Words\\Complete_Action is deprecated since version 16.1! Use Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Complete_Action instead.', E_USER_DEPRECATED);
+
+        return $this->services['Yoast\\WP\\SEO\\Actions\\Prominent_Words\\Complete_Action'] = new \Yoast\WP\SEO\Actions\Prominent_Words\Complete_Action(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelperService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Actions\Prominent_Words\Content_Action' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Actions\Prominent_Words\Content_Action
+     *
+     * @deprecated Yoast\WP\SEO\Actions\Prominent_Words\Content_Action is deprecated since version 16.1! Use Yoast\WP\SEO\Premium\Actions\Prominent_Words\Content_Action instead.
+     */
+    protected function getContentActionService()
+    {
+        @trigger_error('Yoast\\WP\\SEO\\Actions\\Prominent_Words\\Content_Action is deprecated since version 16.1! Use Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action instead.', E_USER_DEPRECATED);
+
+        return $this->services['Yoast\\WP\\SEO\\Actions\\Prominent_Words\\Content_Action'] = new \Yoast\WP\SEO\Actions\Prominent_Words\Content_Action(${($_ = isset($this->services['WPSEO_Premium_Prominent_Words_Support']) ? $this->services['WPSEO_Premium_Prominent_Words_Support'] : $this->getWPSEOPremiumProminentWordsSupportService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] : $this->getIndexableRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Memoizers\\Meta_Tags_Context_Memoizer']) ? $this->services['Yoast\\WP\\SEO\\Memoizers\\Meta_Tags_Context_Memoizer'] : $this->getMetaTagsContextMemoizerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Meta_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Meta_Helper'] : $this->getMetaHelperService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Actions\Prominent_Words\Save_Action' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Actions\Prominent_Words\Save_Action
+     *
+     * @deprecated Yoast\WP\SEO\Actions\Prominent_Words\Save_Action is deprecated since version 16.1! Use Yoast\WP\SEO\Premium\Actions\Prominent_Words\Save_Action instead.
+     */
+    protected function getSaveActionService()
+    {
+        @trigger_error('Yoast\\WP\\SEO\\Actions\\Prominent_Words\\Save_Action is deprecated since version 16.1! Use Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action instead.', E_USER_DEPRECATED);
+
+        return $this->services['Yoast\\WP\\SEO\\Actions\\Prominent_Words\\Save_Action'] = new \Yoast\WP\SEO\Actions\Prominent_Words\Save_Action(${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository'] : ($this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository'] = new \Yoast\WP\SEO\Repositories\Prominent_Words_Repository())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] : $this->getIndexableRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelperService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Actions\Zapier_Action' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Actions\Zapier_Action
+     *
+     * @deprecated Yoast\WP\SEO\Actions\Zapier_Action is deprecated since version 16.1! Use Yoast\WP\SEO\Premium\Actions\Zapier_Action instead.
+     */
+    protected function getZapierActionService()
+    {
+        @trigger_error('Yoast\\WP\\SEO\\Actions\\Zapier_Action is deprecated since version 16.1! Use Yoast\\WP\\SEO\\Premium\\Actions\\Zapier_Action instead.', E_USER_DEPRECATED);
+
+        return $this->services['Yoast\\WP\\SEO\\Actions\\Zapier_Action'] = new \Yoast\WP\SEO\Actions\Zapier_Action(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Zapier_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Zapier_Helper'] : $this->getZapierHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] : $this->getIndexableRepositoryService()) && false ?: '_'});
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Conditionals\Admin_Conditional' shared service.
      *
      * @return \Yoast\WP\SEO\Conditionals\Admin_Conditional
@@ -327,6 +435,16 @@ class Cached_Container extends Container
     protected function getMigrationsConditionalService()
     {
         return $this->services['Yoast\\WP\\SEO\\Conditionals\\Migrations_Conditional'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Conditionals\\Migrations_Conditional');
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Conditionals\Open_Graph_Conditional' shared service.
+     *
+     * @return \Yoast\WP\SEO\Conditionals\Open_Graph_Conditional
+     */
+    protected function getOpenGraphConditionalService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Conditionals\\Open_Graph_Conditional'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Conditionals\\Open_Graph_Conditional');
     }
 
     /**
@@ -363,9 +481,13 @@ class Cached_Container extends Container
      * Gets the public 'Yoast\WP\SEO\Conditionals\Zapier_Enabled_Conditional' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Conditionals\Zapier_Enabled_Conditional
+     *
+     * @deprecated Yoast\WP\SEO\Conditionals\Zapier_Enabled_Conditional is deprecated since version 16.5! Use Yoast\WP\SEO\Premium\Conditionals\Zapier_Enabled_Conditional instead.
      */
     protected function getZapierEnabledConditionalService()
     {
+        @trigger_error('Yoast\\WP\\SEO\\Conditionals\\Zapier_Enabled_Conditional is deprecated since version 16.5! Use Yoast\\WP\\SEO\\Premium\\Conditionals\\Zapier_Enabled_Conditional instead.', E_USER_DEPRECATED);
+
         return $this->services['Yoast\\WP\\SEO\\Conditionals\\Zapier_Enabled_Conditional'] = new \Yoast\WP\SEO\Conditionals\Zapier_Enabled_Conditional(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Zapier_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Zapier_Helper'] : $this->getZapierHelperService()) && false ?: '_'});
     }
 
@@ -387,6 +509,20 @@ class Cached_Container extends Container
     protected function getWpYoastPremiumImprovedInternalLinkingService()
     {
         return $this->services['Yoast\\WP\\SEO\\Config\\Migrations\\WpYoastPremiumImprovedInternalLinking'] = new \Yoast\WP\SEO\Config\Migrations\WpYoastPremiumImprovedInternalLinking(${($_ = isset($this->services['Yoast\\WP\\Lib\\Migrations\\Adapter']) ? $this->services['Yoast\\WP\\Lib\\Migrations\\Adapter'] : $this->getAdapterService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Database\Migration_Runner_Premium' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Database\Migration_Runner_Premium
+     *
+     * @deprecated Yoast\WP\SEO\Database\Migration_Runner_Premium is deprecated since version 16.3! Use Yoast\WP\SEO\Premium\Database\Migration_Runner_Premium instead.
+     */
+    protected function getMigrationRunnerPremiumService()
+    {
+        @trigger_error('Yoast\\WP\\SEO\\Database\\Migration_Runner_Premium is deprecated since version 16.3! Use Yoast\\WP\\SEO\\Premium\\Database\\Migration_Runner_Premium instead.', E_USER_DEPRECATED);
+
+        return $this->services['Yoast\\WP\\SEO\\Database\\Migration_Runner_Premium'] = new \Yoast\WP\SEO\Database\Migration_Runner_Premium(${($_ = isset($this->services['Yoast\\WP\\SEO\\Config\\Migration_Status']) ? $this->services['Yoast\\WP\\SEO\\Config\\Migration_Status'] : $this->getMigrationStatusService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Loader']) ? $this->services['Yoast\\WP\\SEO\\Loader'] : $this->getLoaderService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\Lib\\Migrations\\Adapter']) ? $this->services['Yoast\\WP\\Lib\\Migrations\\Adapter'] : $this->getAdapterService()) && false ?: '_'});
     }
 
     /**
@@ -443,9 +579,13 @@ class Cached_Container extends Container
      * Gets the public 'Yoast\WP\SEO\Helpers\Prominent_Words_Helper' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Helpers\Prominent_Words_Helper
+     *
+     * @deprecated Yoast\WP\SEO\Helpers\Prominent_Words_Helper is deprecated since version 16.5! Use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper instead.
      */
     protected function getProminentWordsHelperService()
     {
+        @trigger_error('Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper is deprecated since version 16.5! Use Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper instead.', E_USER_DEPRECATED);
+
         return $this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper'] = new \Yoast\WP\SEO\Helpers\Prominent_Words_Helper(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'});
     }
 
@@ -453,9 +593,13 @@ class Cached_Container extends Container
      * Gets the public 'Yoast\WP\SEO\Helpers\Zapier_Helper' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Helpers\Zapier_Helper
+     *
+     * @deprecated Yoast\WP\SEO\Helpers\Zapier_Helper is deprecated since version 16.5! Use Yoast\WP\SEO\Premium\Helpers\Zapier_Helper instead.
      */
     protected function getZapierHelperService()
     {
+        @trigger_error('Yoast\\WP\\SEO\\Helpers\\Zapier_Helper is deprecated since version 16.5! Use Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper instead.', E_USER_DEPRECATED);
+
         return $this->services['Yoast\\WP\\SEO\\Helpers\\Zapier_Helper'] = new \Yoast\WP\SEO\Helpers\Zapier_Helper(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Surfaces\\Meta_Surface']) ? $this->services['Yoast\\WP\\SEO\\Surfaces\\Meta_Surface'] : $this->getMetaSurfaceService()) && false ?: '_'});
     }
 
@@ -463,9 +607,13 @@ class Cached_Container extends Container
      * Gets the public 'Yoast\WP\SEO\Initializers\Redirect_Handler' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Initializers\Redirect_Handler
+     *
+     * @deprecated Yoast\WP\SEO\Initializers\Redirect_Handler is deprecated since version 16.5! Use Yoast\WP\SEO\Premium\Initializers\Redirect_Handler instead.
      */
     protected function getRedirectHandlerService()
     {
+        @trigger_error('Yoast\\WP\\SEO\\Initializers\\Redirect_Handler is deprecated since version 16.5! Use Yoast\\WP\\SEO\\Premium\\Initializers\\Redirect_Handler instead.', E_USER_DEPRECATED);
+
         return $this->services['Yoast\\WP\\SEO\\Initializers\\Redirect_Handler'] = new \Yoast\WP\SEO\Initializers\Redirect_Handler();
     }
 
@@ -473,20 +621,28 @@ class Cached_Container extends Container
      * Gets the public 'Yoast\WP\SEO\Integrations\Admin\Prominent_Words\Indexing_Integration' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Integrations\Admin\Prominent_Words\Indexing_Integration
+     *
+     * @deprecated Yoast\WP\SEO\Integrations\Admin\Prominent_Words\Indexing_Integration is deprecated since version 16.5! Use Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Indexing_Integration instead.
      */
     protected function getIndexingIntegrationService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration'] = new \Yoast\WP\SEO\Integrations\Admin\Prominent_Words\Indexing_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action'] : $this->getContentActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Indexation_Action'] : $this->getIndexablePostIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Term_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Term_Indexation_Action'] : $this->getIndexableTermIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_General_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_General_Indexation_Action'] : $this->getIndexableGeneralIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Type_Archive_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Type_Archive_Indexation_Action'] : $this->getIndexablePostTypeArchiveIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Language_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Language_Helper'] : $this->getLanguageHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelperService()) && false ?: '_'});
+        @trigger_error('Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration is deprecated since version 16.5! Use Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration instead.', E_USER_DEPRECATED);
+
+        return $this->services['Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration'] = new \Yoast\WP\SEO\Integrations\Admin\Prominent_Words\Indexing_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action'] : $this->getContentAction2Service()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Indexation_Action'] : $this->getIndexablePostIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Term_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Term_Indexation_Action'] : $this->getIndexableTermIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_General_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_General_Indexation_Action'] : $this->getIndexableGeneralIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Type_Archive_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Type_Archive_Indexation_Action'] : $this->getIndexablePostTypeArchiveIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Language_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Language_Helper'] : $this->getLanguageHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelper2Service()) && false ?: '_'});
     }
 
     /**
      * Gets the public 'Yoast\WP\SEO\Integrations\Admin\Prominent_Words\Metabox_Integration' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Integrations\Admin\Prominent_Words\Metabox_Integration
+     *
+     * @deprecated Yoast\WP\SEO\Integrations\Admin\Prominent_Words\Metabox_Integration is deprecated since version 16.5! Use Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Metabox_Integration instead.
      */
     protected function getMetaboxIntegrationService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration'] = new \Yoast\WP\SEO\Integrations\Admin\Prominent_Words\Metabox_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action'] : $this->getSaveActionService()) && false ?: '_'});
+        @trigger_error('Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration is deprecated since version 16.5! Use Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration instead.', E_USER_DEPRECATED);
+
+        return $this->services['Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration'] = new \Yoast\WP\SEO\Integrations\Admin\Prominent_Words\Metabox_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action'] : $this->getSaveAction2Service()) && false ?: '_'});
     }
 
     /**
@@ -503,9 +659,13 @@ class Cached_Container extends Container
      * Gets the public 'Yoast\WP\SEO\Integrations\Blocks\Estimated_Reading_Time_Block' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Integrations\Blocks\Estimated_Reading_Time_Block
+     *
+     * @deprecated Yoast\WP\SEO\Integrations\Blocks\Estimated_Reading_Time_Block is deprecated since version 16.5! Use Yoast\WP\SEO\Premium\Integrations\Blocks\Estimated_Reading_Time_Block instead.
      */
     protected function getEstimatedReadingTimeBlockService()
     {
+        @trigger_error('Yoast\\WP\\SEO\\Integrations\\Blocks\\Estimated_Reading_Time_Block is deprecated since version 16.5! Use Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Estimated_Reading_Time_Block instead.', E_USER_DEPRECATED);
+
         return $this->services['Yoast\\WP\\SEO\\Integrations\\Blocks\\Estimated_Reading_Time_Block'] = new \Yoast\WP\SEO\Integrations\Blocks\Estimated_Reading_Time_Block();
     }
 
@@ -523,9 +683,13 @@ class Cached_Container extends Container
      * Gets the public 'Yoast\WP\SEO\Integrations\Blocks\Related_Links_Block' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Integrations\Blocks\Related_Links_Block
+     *
+     * @deprecated Yoast\WP\SEO\Integrations\Blocks\Related_Links_Block is deprecated since version 16.5! Use Yoast\WP\SEO\Premium\Integrations\Blocks\Related_Links_Block instead.
      */
     protected function getRelatedLinksBlockService()
     {
+        @trigger_error('Yoast\\WP\\SEO\\Integrations\\Blocks\\Related_Links_Block is deprecated since version 16.5! Use Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Related_Links_Block instead.', E_USER_DEPRECATED);
+
         return $this->services['Yoast\\WP\\SEO\\Integrations\\Blocks\\Related_Links_Block'] = new \Yoast\WP\SEO\Integrations\Blocks\Related_Links_Block();
     }
 
@@ -533,9 +697,13 @@ class Cached_Container extends Container
      * Gets the public 'Yoast\WP\SEO\Integrations\Blocks\Schema_Blocks' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Integrations\Blocks\Schema_Blocks
+     *
+     * @deprecated Yoast\WP\SEO\Integrations\Blocks\Schema_Blocks is deprecated since version 16.5! Use Yoast\WP\SEO\Premium\Integrations\Blocks\Schema_Blocks instead.
      */
     protected function getSchemaBlocksService()
     {
+        @trigger_error('Yoast\\WP\\SEO\\Integrations\\Blocks\\Schema_Blocks is deprecated since version 16.5! Use Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Schema_Blocks instead.', E_USER_DEPRECATED);
+
         return $this->services['Yoast\\WP\\SEO\\Integrations\\Blocks\\Schema_Blocks'] = new \Yoast\WP\SEO\Integrations\Blocks\Schema_Blocks(${($_ = isset($this->services['WPSEO_Admin_Asset_Manager']) ? $this->services['WPSEO_Admin_Asset_Manager'] : $this->getWPSEOAdminAssetManagerService()) && false ?: '_'});
     }
 
@@ -543,10 +711,14 @@ class Cached_Container extends Container
      * Gets the public 'Yoast\WP\SEO\Integrations\Third_Party\Elementor_Premium' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Integrations\Third_Party\Elementor_Premium
+     *
+     * @deprecated Yoast\WP\SEO\Integrations\Third_Party\Elementor_Premium is deprecated since version 16.5! Use Yoast\WP\SEO\Premium\Integrations\Third_Party\Elementor_Premium instead.
      */
     protected function getElementorPremiumService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Integrations\\Third_Party\\Elementor_Premium'] = new \Yoast\WP\SEO\Integrations\Third_Party\Elementor_Premium(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelperService()) && false ?: '_'});
+        @trigger_error('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Elementor_Premium is deprecated since version 16.5! Use Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium instead.', E_USER_DEPRECATED);
+
+        return $this->services['Yoast\\WP\\SEO\\Integrations\\Third_Party\\Elementor_Premium'] = new \Yoast\WP\SEO\Integrations\Third_Party\Elementor_Premium(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelper2Service()) && false ?: '_'});
     }
 
     /**
@@ -563,30 +735,42 @@ class Cached_Container extends Container
      * Gets the public 'Yoast\WP\SEO\Integrations\Third_Party\Zapier' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Integrations\Third_Party\Zapier
+     *
+     * @deprecated Yoast\WP\SEO\Integrations\Third_Party\Zapier is deprecated since version 16.5! Use Yoast\WP\SEO\Premium\Integrations\Third_Party\Zapier instead.
      */
     protected function getZapierService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier'] = new \Yoast\WP\SEO\Integrations\Third_Party\Zapier(${($_ = isset($this->services['WPSEO_Admin_Asset_Manager']) ? $this->services['WPSEO_Admin_Asset_Manager'] : $this->getWPSEOAdminAssetManagerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Zapier_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Zapier_Helper'] : $this->getZapierHelperService()) && false ?: '_'});
+        @trigger_error('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier is deprecated since version 16.5! Use Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier instead.', E_USER_DEPRECATED);
+
+        return $this->services['Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier'] = new \Yoast\WP\SEO\Integrations\Third_Party\Zapier(${($_ = isset($this->services['WPSEO_Admin_Asset_Manager']) ? $this->services['WPSEO_Admin_Asset_Manager'] : $this->getWPSEOAdminAssetManagerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper'] : $this->getZapierHelper2Service()) && false ?: '_'});
     }
 
     /**
      * Gets the public 'Yoast\WP\SEO\Integrations\Third_Party\Zapier_Classic_Editor' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Integrations\Third_Party\Zapier_Classic_Editor
+     *
+     * @deprecated Yoast\WP\SEO\Integrations\Third_Party\Zapier_Classic_Editor is deprecated since version 16.5! Use Yoast\WP\SEO\Premium\Integrations\Third_Party\Zapier_Classic_Editor instead.
      */
     protected function getZapierClassicEditorService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier_Classic_Editor'] = new \Yoast\WP\SEO\Integrations\Third_Party\Zapier_Classic_Editor(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Zapier_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Zapier_Helper'] : $this->getZapierHelperService()) && false ?: '_'});
+        @trigger_error('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier_Classic_Editor is deprecated since version 16.5! Use Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Classic_Editor instead.', E_USER_DEPRECATED);
+
+        return $this->services['Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier_Classic_Editor'] = new \Yoast\WP\SEO\Integrations\Third_Party\Zapier_Classic_Editor(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper'] : $this->getZapierHelper2Service()) && false ?: '_'});
     }
 
     /**
      * Gets the public 'Yoast\WP\SEO\Integrations\Third_Party\Zapier_Trigger' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Integrations\Third_Party\Zapier_Trigger
+     *
+     * @deprecated Yoast\WP\SEO\Integrations\Third_Party\Zapier_Trigger is deprecated since version 16.5! Use Yoast\WP\SEO\Premium\Integrations\Third_Party\Zapier_Trigger instead.
      */
     protected function getZapierTriggerService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier_Trigger'] = new \Yoast\WP\SEO\Integrations\Third_Party\Zapier_Trigger(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Meta_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Meta_Helper'] : $this->getMetaHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Zapier_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Zapier_Helper'] : $this->getZapierHelperService()) && false ?: '_'});
+        @trigger_error('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier_Trigger is deprecated since version 16.5! Use Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Trigger instead.', E_USER_DEPRECATED);
+
+        return $this->services['Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier_Trigger'] = new \Yoast\WP\SEO\Integrations\Third_Party\Zapier_Trigger(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Meta_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Meta_Helper'] : $this->getMetaHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper'] : $this->getZapierHelper2Service()) && false ?: '_'});
     }
 
     /**
@@ -621,27 +805,26 @@ class Cached_Container extends Container
         $instance->register_migration('premium', '20190715101200', 'Yoast\\WP\\SEO\\Config\\Migrations\\WpYoastPremiumImprovedInternalLinking');
         $instance->register_initializer('Yoast\\WP\\SEO\\Premium\\Database\\Migration_Runner_Premium');
         $instance->register_initializer('Yoast\\WP\\SEO\\Premium\\Initializers\\Plugin');
-        $instance->register_initializer('Yoast\\WP\\SEO\\Initializers\\Redirect_Handler');
+        $instance->register_initializer('Yoast\\WP\\SEO\\Premium\\Initializers\\Redirect_Handler');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Plugin_Links_Integration');
-        $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration');
-        $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration');
-        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Social_Templates\\Social_Templates_Integration');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Blocks\\Block_Patterns');
-        $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Blocks\\Estimated_Reading_Time_Block');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Estimated_Reading_Time_Block');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Blocks\\Job_Posting_Block');
-        $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Blocks\\Related_Links_Block');
-        $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Blocks\\Schema_Blocks');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Related_Links_Block');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Schema_Blocks');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Author_Archive');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Date_Archive');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Post_Type');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_PostType_Archive');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive');
-        $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Elementor_Premium');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\TranslationsPress');
-        $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier_Classic_Editor');
-        $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier_Trigger');
-        $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Classic_Editor');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Trigger');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Upgrade_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\User_Profile_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Watchers\\Premium_Option_Wpseo_Watcher');
@@ -668,9 +851,9 @@ class Cached_Container extends Container
      *
      * @return \Yoast\WP\SEO\Premium\Actions\Link_Suggestions_Action
      */
-    protected function getLinkSuggestionsActionService()
+    protected function getLinkSuggestionsAction2Service()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action'] = new \Yoast\WP\SEO\Premium\Actions\Link_Suggestions_Action(${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository'] : ($this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository'] = new \Yoast\WP\SEO\Repositories\Prominent_Words_Repository())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] : $this->getIndexableRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelperService()) && false ?: '_'}, ${($_ = isset($this->services['WPSEO_Premium_Prominent_Words_Support']) ? $this->services['WPSEO_Premium_Prominent_Words_Support'] : $this->getWPSEOPremiumProminentWordsSupportService()) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action'] = new \Yoast\WP\SEO\Premium\Actions\Link_Suggestions_Action(${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository'] : ($this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository'] = new \Yoast\WP\SEO\Repositories\Prominent_Words_Repository())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] : $this->getIndexableRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelper2Service()) && false ?: '_'}, ${($_ = isset($this->services['WPSEO_Premium_Prominent_Words_Support']) ? $this->services['WPSEO_Premium_Prominent_Words_Support'] : $this->getWPSEOPremiumProminentWordsSupportService()) && false ?: '_'});
     }
 
     /**
@@ -678,9 +861,9 @@ class Cached_Container extends Container
      *
      * @return \Yoast\WP\SEO\Premium\Actions\Prominent_Words\Complete_Action
      */
-    protected function getCompleteActionService()
+    protected function getCompleteAction2Service()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Complete_Action'] = new \Yoast\WP\SEO\Premium\Actions\Prominent_Words\Complete_Action(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelperService()) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Complete_Action'] = new \Yoast\WP\SEO\Premium\Actions\Prominent_Words\Complete_Action(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelper2Service()) && false ?: '_'});
     }
 
     /**
@@ -688,7 +871,7 @@ class Cached_Container extends Container
      *
      * @return \Yoast\WP\SEO\Premium\Actions\Prominent_Words\Content_Action
      */
-    protected function getContentActionService()
+    protected function getContentAction2Service()
     {
         return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action'] = new \Yoast\WP\SEO\Premium\Actions\Prominent_Words\Content_Action(${($_ = isset($this->services['WPSEO_Premium_Prominent_Words_Support']) ? $this->services['WPSEO_Premium_Prominent_Words_Support'] : $this->getWPSEOPremiumProminentWordsSupportService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] : $this->getIndexableRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Memoizers\\Meta_Tags_Context_Memoizer']) ? $this->services['Yoast\\WP\\SEO\\Memoizers\\Meta_Tags_Context_Memoizer'] : $this->getMetaTagsContextMemoizerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Meta_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Meta_Helper'] : $this->getMetaHelperService()) && false ?: '_'});
     }
@@ -698,9 +881,9 @@ class Cached_Container extends Container
      *
      * @return \Yoast\WP\SEO\Premium\Actions\Prominent_Words\Save_Action
      */
-    protected function getSaveActionService()
+    protected function getSaveAction2Service()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action'] = new \Yoast\WP\SEO\Premium\Actions\Prominent_Words\Save_Action(${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository'] : ($this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository'] = new \Yoast\WP\SEO\Repositories\Prominent_Words_Repository())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] : $this->getIndexableRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelperService()) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action'] = new \Yoast\WP\SEO\Premium\Actions\Prominent_Words\Save_Action(${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository'] : ($this->services['Yoast\\WP\\SEO\\Repositories\\Prominent_Words_Repository'] = new \Yoast\WP\SEO\Repositories\Prominent_Words_Repository())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] : $this->getIndexableRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelper2Service()) && false ?: '_'});
     }
 
     /**
@@ -708,19 +891,19 @@ class Cached_Container extends Container
      *
      * @return \Yoast\WP\SEO\Premium\Actions\Zapier_Action
      */
-    protected function getZapierActionService()
+    protected function getZapierAction2Service()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Zapier_Action'] = new \Yoast\WP\SEO\Premium\Actions\Zapier_Action(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Zapier_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Zapier_Helper'] : $this->getZapierHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] : $this->getIndexableRepositoryService()) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Zapier_Action'] = new \Yoast\WP\SEO\Premium\Actions\Zapier_Action(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper'] : $this->getZapierHelper2Service()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] : $this->getIndexableRepositoryService()) && false ?: '_'});
     }
 
     /**
-     * Gets the public 'Yoast\WP\SEO\Premium\Conditionals\Social_Templates_Conditional' shared autowired service.
+     * Gets the public 'Yoast\WP\SEO\Premium\Conditionals\Zapier_Enabled_Conditional' shared autowired service.
      *
-     * @return \Yoast\WP\SEO\Premium\Conditionals\Social_Templates_Conditional
+     * @return \Yoast\WP\SEO\Premium\Conditionals\Zapier_Enabled_Conditional
      */
-    protected function getSocialTemplatesConditionalService()
+    protected function getZapierEnabledConditional2Service()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Conditionals\\Social_Templates_Conditional'] = new \Yoast\WP\SEO\Premium\Conditionals\Social_Templates_Conditional();
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Conditionals\\Zapier_Enabled_Conditional'] = new \Yoast\WP\SEO\Premium\Conditionals\Zapier_Enabled_Conditional(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper'] : $this->getZapierHelper2Service()) && false ?: '_'});
     }
 
     /**
@@ -738,9 +921,29 @@ class Cached_Container extends Container
      *
      * @return \Yoast\WP\SEO\Premium\Database\Migration_Runner_Premium
      */
-    protected function getMigrationRunnerPremiumService()
+    protected function getMigrationRunnerPremium2Service()
     {
         return $this->services['Yoast\\WP\\SEO\\Premium\\Database\\Migration_Runner_Premium'] = new \Yoast\WP\SEO\Premium\Database\Migration_Runner_Premium(${($_ = isset($this->services['Yoast\\WP\\SEO\\Config\\Migration_Status']) ? $this->services['Yoast\\WP\\SEO\\Config\\Migration_Status'] : $this->getMigrationStatusService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Loader']) ? $this->services['Yoast\\WP\\SEO\\Loader'] : $this->getLoaderService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\Lib\\Migrations\\Adapter']) ? $this->services['Yoast\\WP\\Lib\\Migrations\\Adapter'] : $this->getAdapterService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper
+     */
+    protected function getProminentWordsHelper2Service()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] = new \Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Helpers\Zapier_Helper' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Helpers\Zapier_Helper
+     */
+    protected function getZapierHelper2Service()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper'] = new \Yoast\WP\SEO\Premium\Helpers\Zapier_Helper(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Surfaces\\Meta_Surface']) ? $this->services['Yoast\\WP\\SEO\\Surfaces\\Meta_Surface'] : $this->getMetaSurfaceService()) && false ?: '_'});
     }
 
     /**
@@ -754,6 +957,16 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Initializers\Redirect_Handler' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Initializers\Redirect_Handler
+     */
+    protected function getRedirectHandler2Service()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Initializers\\Redirect_Handler'] = new \Yoast\WP\SEO\Premium\Initializers\Redirect_Handler();
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Admin\Plugin_Links_Integration' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Premium\Integrations\Admin\Plugin_Links_Integration
@@ -764,13 +977,23 @@ class Cached_Container extends Container
     }
 
     /**
-     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Admin\Social_Templates\Social_Templates_Integration' shared autowired service.
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Indexing_Integration' shared autowired service.
      *
-     * @return \Yoast\WP\SEO\Premium\Integrations\Admin\Social_Templates\Social_Templates_Integration
+     * @return \Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Indexing_Integration
      */
-    protected function getSocialTemplatesIntegrationService()
+    protected function getIndexingIntegration2Service()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Social_Templates\\Social_Templates_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Social_Templates\Social_Templates_Integration();
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Indexing_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action'] : $this->getContentAction2Service()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Indexation_Action'] : $this->getIndexablePostIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Term_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Term_Indexation_Action'] : $this->getIndexableTermIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_General_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_General_Indexation_Action'] : $this->getIndexableGeneralIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Type_Archive_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Type_Archive_Indexation_Action'] : $this->getIndexablePostTypeArchiveIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Language_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Language_Helper'] : $this->getLanguageHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelper2Service()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Metabox_Integration' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Metabox_Integration
+     */
+    protected function getMetaboxIntegration2Service()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Metabox_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action'] : $this->getSaveAction2Service()) && false ?: '_'});
     }
 
     /**
@@ -781,6 +1004,36 @@ class Cached_Container extends Container
     protected function getUserProfileIntegrationService()
     {
         return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\User_Profile_Integration();
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Blocks\Estimated_Reading_Time_Block' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Blocks\Estimated_Reading_Time_Block
+     */
+    protected function getEstimatedReadingTimeBlock2Service()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Estimated_Reading_Time_Block'] = new \Yoast\WP\SEO\Premium\Integrations\Blocks\Estimated_Reading_Time_Block();
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Blocks\Related_Links_Block' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Blocks\Related_Links_Block
+     */
+    protected function getRelatedLinksBlock2Service()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Related_Links_Block'] = new \Yoast\WP\SEO\Premium\Integrations\Blocks\Related_Links_Block();
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Blocks\Schema_Blocks' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Blocks\Schema_Blocks
+     */
+    protected function getSchemaBlocks2Service()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Schema_Blocks'] = new \Yoast\WP\SEO\Premium\Integrations\Blocks\Schema_Blocks(${($_ = isset($this->services['WPSEO_Admin_Asset_Manager']) ? $this->services['WPSEO_Admin_Asset_Manager'] : $this->getWPSEOAdminAssetManagerService()) && false ?: '_'});
     }
 
     /**
@@ -834,6 +1087,46 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Third_Party\Elementor_Premium' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Third_Party\Elementor_Premium
+     */
+    protected function getElementorPremium2Service()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium'] = new \Yoast\WP\SEO\Premium\Integrations\Third_Party\Elementor_Premium(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelper2Service()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Third_Party\Zapier' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Third_Party\Zapier
+     */
+    protected function getZapier2Service()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier'] = new \Yoast\WP\SEO\Premium\Integrations\Third_Party\Zapier(${($_ = isset($this->services['WPSEO_Admin_Asset_Manager']) ? $this->services['WPSEO_Admin_Asset_Manager'] : $this->getWPSEOAdminAssetManagerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper'] : $this->getZapierHelper2Service()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Third_Party\Zapier_Classic_Editor' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Third_Party\Zapier_Classic_Editor
+     */
+    protected function getZapierClassicEditor2Service()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Classic_Editor'] = new \Yoast\WP\SEO\Premium\Integrations\Third_Party\Zapier_Classic_Editor(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper'] : $this->getZapierHelper2Service()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Third_Party\Zapier_Trigger' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Third_Party\Zapier_Trigger
+     */
+    protected function getZapierTrigger2Service()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Trigger'] = new \Yoast\WP\SEO\Premium\Integrations\Third_Party\Zapier_Trigger(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Meta_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Meta_Helper'] : $this->getMetaHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper'] : $this->getZapierHelper2Service()) && false ?: '_'});
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Upgrade_Integration' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Premium\Integrations\Upgrade_Integration
@@ -864,6 +1157,16 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Surfaces\Helpers_Surface' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Surfaces\Helpers_Surface
+     */
+    protected function getHelpersSurfaceService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Surfaces\\Helpers_Surface'] = new \Yoast\WP\SEO\Premium\Surfaces\Helpers_Surface($this);
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Repositories\Indexable_Repository' shared service.
      *
      * @return \Yoast\WP\SEO\Repositories\Indexable_Repository
@@ -890,7 +1193,7 @@ class Cached_Container extends Container
      */
     protected function getLinkSuggestionsRouteService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Routes\\Link_Suggestions_Route'] = new \Yoast\WP\SEO\Routes\Link_Suggestions_Route(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action'] : $this->getLinkSuggestionsActionService()) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Routes\\Link_Suggestions_Route'] = new \Yoast\WP\SEO\Routes\Link_Suggestions_Route(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action'] : $this->getLinkSuggestionsAction2Service()) && false ?: '_'});
     }
 
     /**
@@ -900,7 +1203,7 @@ class Cached_Container extends Container
      */
     protected function getProminentWordsRouteService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Routes\\Prominent_Words_Route'] = new \Yoast\WP\SEO\Routes\Prominent_Words_Route(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action'] : $this->getContentActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action'] : $this->getSaveActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Complete_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Complete_Action'] : $this->getCompleteActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Indexing_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Indexing_Helper'] : $this->getIndexingHelperService()) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Routes\\Prominent_Words_Route'] = new \Yoast\WP\SEO\Routes\Prominent_Words_Route(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action'] : $this->getContentAction2Service()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action'] : $this->getSaveAction2Service()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Complete_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Complete_Action'] : $this->getCompleteAction2Service()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Indexing_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Indexing_Helper'] : $this->getIndexingHelperService()) && false ?: '_'});
     }
 
     /**
@@ -910,17 +1213,7 @@ class Cached_Container extends Container
      */
     protected function getZapierRouteService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Routes\\Zapier_Route'] = new \Yoast\WP\SEO\Routes\Zapier_Route(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Zapier_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Zapier_Action'] : $this->getZapierActionService()) && false ?: '_'});
-    }
-
-    /**
-     * Gets the public 'Yoast\WP\SEO\Schema_Templates\Assets\Icons' shared autowired service.
-     *
-     * @return \Yoast\WP\SEO\Schema_Templates\Assets\Icons
-     */
-    protected function getIconsService()
-    {
-        return $this->services['Yoast\\WP\\SEO\\Schema_Templates\\Assets\\Icons'] = new \Yoast\WP\SEO\Schema_Templates\Assets\Icons();
+        return $this->services['Yoast\\WP\\SEO\\Routes\\Zapier_Route'] = new \Yoast\WP\SEO\Routes\Zapier_Route(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Zapier_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Zapier_Action'] : $this->getZapierAction2Service()) && false ?: '_'});
     }
 
     /**
@@ -988,7 +1281,7 @@ class Cached_Container extends Container
      *
      * @return \Yoast\WP\SEO\Surfaces\Helpers_Surface
      */
-    protected function getHelpersSurfaceService()
+    protected function getHelpersSurface2Service()
     {
         return $this->services['Yoast\\WP\\SEO\\Surfaces\\Helpers_Surface'] = new \Yoast\WP\SEO\Surfaces\Helpers_Surface($this, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Surfaces\\Open_Graph_Helpers_Surface']) ? $this->services['Yoast\\WP\\SEO\\Surfaces\\Open_Graph_Helpers_Surface'] : $this->getOpenGraphHelpersSurfaceService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Surfaces\\Schema_Helpers_Surface']) ? $this->services['Yoast\\WP\\SEO\\Surfaces\\Schema_Helpers_Surface'] : $this->getSchemaHelpersSurfaceService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Surfaces\\Twitter_Helpers_Surface']) ? $this->services['Yoast\\WP\\SEO\\Surfaces\\Twitter_Helpers_Surface'] : $this->getTwitterHelpersSurfaceService()) && false ?: '_'});
     }
@@ -1031,5 +1324,19 @@ class Cached_Container extends Container
     protected function getTwitterHelpersSurfaceService()
     {
         return $this->services['Yoast\\WP\\SEO\\Surfaces\\Twitter_Helpers_Surface'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Surfaces\\Twitter_Helpers_Surface');
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\WordPress\Premium_Wrapper' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\WordPress\Premium_Wrapper
+     *
+     * @deprecated Yoast\WP\SEO\WordPress\Premium_Wrapper is deprecated since version 16.1! Use Yoast\WP\SEO\Premium\WordPress\Wrapper instead.
+     */
+    protected function getPremiumWrapperService()
+    {
+        @trigger_error('Yoast\\WP\\SEO\\WordPress\\Premium_Wrapper is deprecated since version 16.1! Use Yoast\\WP\\SEO\\Premium\\WordPress\\Wrapper instead.', E_USER_DEPRECATED);
+
+        return $this->services['Yoast\\WP\\SEO\\WordPress\\Premium_Wrapper'] = new \Yoast\WP\SEO\WordPress\Premium_Wrapper();
     }
 }

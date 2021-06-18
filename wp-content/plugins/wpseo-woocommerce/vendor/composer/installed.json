@@ -44,6 +44,10 @@
         "homepage": "https://github.com/Yoast/i18n-module",
         "keywords": [
             "wordpress"
-        ]
+        ],
+        "support": {
+            "issues": "https://github.com/Yoast/i18n-module/issues",
+            "source": "https://github.com/Yoast/i18n-module"
+        }
     }
 ]

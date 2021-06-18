@@ -893,8 +893,14 @@ function warranty_load( $request_id ) {
 
 		// warranty products
 		$warranty['products'] = warranty_get_request_items( $request_id );
-		$warranty['product_id'] = $warranty['products'][0]['product_id'];
-		$warranty['product_name'] = get_the_title( $warranty['product_id'] );
+		
+		if( isset( $warranty['products'][0]['product_id'] ) ){
+			$warranty['product_id'] 	= $warranty['products'][0]['product_id'];
+			$warranty['product_name'] 	= get_the_title( $warranty['product_id'] );
+		}else{
+			$warranty['product_id'] 	= 0;
+		}
+		
 	}
 
 	return apply_filters( 'warranty_load', $warranty, $request_id );

@@ -20,6 +20,7 @@
 			 */
 			if ( this.cdnEnableButton ) {
 				this.cdnEnableButton.addEventListener( 'click', ( e ) => {
+					e.preventDefault();
 					e.currentTarget.classList.add( 'sui-button-onload' );
 					this.toggle_cdn( true );
 				} );

@@ -1,0 +1,76 @@
+.userpro{
+  .userpro-sc-buttons{
+    text-align: right;
+    margin: 10px 15px 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .up-btn{
+    $self: &;
+    padding:5px 10px;
+    border-radius:3px;
+    font-weight:300;
+    font-size:13px;
+    align-self: flex-end;
+
+    p{
+      transition: 0.5s;
+      margin:0;
+      display: inline-block;
+    }
+
+    &__follow{
+      color:#fff;
+      background-color:nth( $up-blue, 2 );
+      &:hover{
+        background-color:nth( $up-blue, 3 );
+      }
+    }
+
+    &--outline{
+      color: #444;
+      border: 1px solid #444;
+      background-color: transparent;
+    }
+    span{
+      transition: 0.5s;
+      font-size:0.6em;
+      margin-left:10px;
+      vertical-align: middle;
+      display: inline-block;
+
+    }
+
+    &--loading {
+      position: relative;
+      transition: 0.5s;
+      p,span{
+        transition: 0.5s;
+        opacity: 0;
+      }
+      &:after{
+        content: '';
+        display: inline-block;
+        position: absolute;
+        margin:0 auto;
+        left:0;
+        right:0;
+        width: 10px;
+        height: 10px;
+        border: 1px solid rgba(255,255,255,.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
+}

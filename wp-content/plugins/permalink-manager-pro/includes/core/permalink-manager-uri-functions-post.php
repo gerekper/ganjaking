@@ -769,17 +769,17 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		// Verify nonce at first
 		if(!isset($_POST['permalink-manager-nonce']) || !wp_verify_nonce($_POST['permalink-manager-nonce'], 'permalink-manager-edit-uri-box')) { return $post_id; }
 
-		// Do not do anything if post is autosaved
-		if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) { return $post_id; }
-
-		// Do not do anything on in "Bulk Edit" or when the post is imported via WP All Import
-		if(!empty($_REQUEST['bulk_edit']) || (!empty($_REQUEST['page']) && $_REQUEST['page'] == 'pmxi-admin-import')) { return $post_id; }
-
 		// Do not do anything if the field with URI or element ID are not present
 		if(!isset($_POST['custom_uri']) || empty($_POST['permalink-manager-edit-uri-element-id'])) { return $post_id; }
 
 		// Hotfix
 		if($_POST['permalink-manager-edit-uri-element-id'] != $post_id) { return $post_id; }
+
+		// Do not do anything if post is autosaved
+		if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) { return $post_id; }
+
+		// Do not do anything on in "Bulk Edit" or when the post is imported via WP All Import
+		if(!empty($_REQUEST['bulk_edit']) || (!empty($_REQUEST['page']) && $_REQUEST['page'] == 'pmxi-admin-import')) { return $post_id; }
 
 		// Fix for revisions
 		$is_revision = wp_is_post_revision($post_id);
@@ -787,7 +787,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		$post = get_post($post_id);
 
 		// Check if post type is allowed
-		if(empty($post->post_type) || Permalink_Manager_Helper_Functions::is_disabled($post->post_type, 'post_type')) { return $post_id; };
+		if(empty($post->post_type) || Permalink_Manager_Helper_Functions::is_disabled($post->post_type, 'post_type') || $post->post_type == 'nav_menu_item') { return $post_id; };
 
 		// Exclude drafts
 		if(!empty($permalink_manager_options["general"]["ignore_drafts"]) && !empty($post->post_status) && $post->post_status == 'draft') { return $post_id; }
@@ -795,9 +795,6 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		// Stop the hook (if needed)
 		$allow_update_uri = apply_filters("permalink_manager_allow_update_post_uri", true, $post);
 		if(!$allow_update_uri) { return $post_id; }
-
-		// Hotfix for menu items
-		if($post->post_type == 'nav_menu_item') { return $post_id; }
 
 		// Ignore auto-drafts, removed posts and posts without title
 		if(in_array($post->post_status, array('auto-draft', 'trash')) || empty($post->post_title)) { return $post_id; }

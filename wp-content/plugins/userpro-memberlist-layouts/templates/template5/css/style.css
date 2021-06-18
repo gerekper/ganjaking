@@ -1,0 +1,182 @@
+/* 01. GENERAL SETTINGS ============================================ */
+
+* {margin: 0; padding: 0;}
+
+p {line-height: 160%;}
+
+img {border: 0;}
+
+body {
+	background: #fff;
+	color: #fff;
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size: 13px;
+	font-weight: 300;
+}
+
+.clear {clear: both;}
+
+/* Buttons */
+.btn {
+	display: inline-block;
+	margin-top: 20px;
+	padding: 10px 40px;
+	color: rgba(255,255,255, 0.95);
+	font-size: 18px;
+	font-weight: 700;
+	text-transform: uppercase;
+	border: none;
+	border-radius: 20px;
+	outline: 0;
+	transition: all 0.1s ease-in;
+}
+
+.btn-transparent {background: rgba(0,0,0, 0.2);}
+.btn-transparent:hover {background: rgba(0,0,0, 0.4);}
+
+/* Separators */
+.separator {
+	margin: 0 auto;
+	background: rgba(0, 0, 0, 0.2);
+	width: 30px;
+	height: 5px;
+}
+
+/* 02. FONT FACE ============================================ */
+
+@font-face {
+    font-family: 'norwester';
+	src: url('../fonts/norwester/norwester.eot');
+    src: url('../fonts/norwester/norwester.eot?iefix') format('embedded-opentype'),
+		 url('../fonts/norwester/norwester.ttf');
+    font-weight: normal;
+}
+
+/* 03. Members SETTINGS ============================================ */
+
+#members {
+	padding: 60px 0;
+	background: #4593e3;
+	text-align: center;	
+}
+
+#members p {
+	padding: 20px 0 60px;
+	color: rgba(255,255,255, 0.85);
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	letter-spacing: 0.2px;
+}
+
+#members h3 {
+	padding: 0 0 15px;
+	font-family: 'norwester';
+	font-size: 20px;
+	font-weight:initial;
+	text-transform: uppercase;
+}
+
+.member-profile .member-img{
+		position: relative;
+		overflow: hidden;
+	}
+.member-profile .member-img> a > img{
+	width:100%;
+	height: auto;
+	transform:scale(1.0,1.0);
+	transition: all 0.50s linear 0s;
+}
+.member-profile:hover .member-img img{
+	transform:scale(1.2,1.2);
+}
+.member-profile .member-details{
+	padding:10px 0;
+	text-align: center;
+}
+.member-profile .member-details h3{
+	margin:0 0 10px 0;
+	font-size:20px;
+	color:#fff;
+}
+.member-profile .member-details h3 > span{
+	color:#444;
+	font-size:15px;
+	margin-left:15px;
+}
+.member-profile .member-details .social_links{
+	margin: 0 0 10px 0;
+	padding: 0;
+}
+.member-profile .member-details .social_links li{
+	list-style: none;
+	display: inline-block;
+}
+.member-profile .member-details .social_links li a{
+	width:30px;
+	height:30px;
+	color: #222;
+	font-size:13px;
+	line-height:30px;
+	text-align: center;
+	background: #eee;
+	border-radius:30px;
+	text-decoration: none;
+	transition: all 0.20s linear 0s;
+}
+.member-profile .member-details .social_links li:nth-child(1) a:hover {
+	background: #005397;
+	color:#fff;
+}
+
+.member-profile .member-details .social_links li:nth-child(2) a:hover {
+	background: #007BB6;
+	color:#fff;
+}
+
+.member-profile .member-details .social_links li:nth-child(3) a:hover {
+	background: #000;
+	color:#fff;
+}
+
+.member-profile .member-details .social_links li:nth-child(4) a:hover {
+	background: #D62424;
+	color:#fff;
+}
+       
+
+/* Rows Optimization */
+.row2 {
+	display: none;
+}
+
+.row1 .col-md-3, .row2 .col-md-3 {
+	padding-bottom: 40px;
+}
+
+/* Mobile Devices Optimization */
+@media (min-width: 568px) and (max-width: 992px) {
+
+	.row1 .col-md-3, .row2 .col-md-3 {
+		display: inline-block;
+		max-width: 50%;
+	}
+
+	#members img {max-width: 300px;}
+
+}
+/****************************************/
+.userpro-paginate.top , .userpro-paginate.bottom{
+    display: inline-block;
+    width: 100% !important;
+}
+.avatar {
+     border-radius: 0% !important; 
+}
+.modified.avatar , .default.avatar {
+    height: 100%;
+    width: 100%;
+}
+.member-img {
+    height: 135px;
+    width: 135px;
+}

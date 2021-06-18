@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle display functions and filters.
  *
  * @class    WC_PB_Display
- * @version  6.9.0
+ * @version  6.10.0
  */
 class WC_PB_Display {
 
@@ -642,15 +642,6 @@ class WC_PB_Display {
 				}
 
 				$price = wc_price( (double) $bundle_price + $bundled_items_price );
-
-			} elseif ( empty( $cart_item[ 'line_subtotal' ] ) ) {
-
-				$bundled_items          = wc_pb_get_bundled_cart_items( $cart_item, WC()->cart->cart_contents );
-				$bundled_item_subtotals = wp_list_pluck( $bundled_items, 'line_subtotal' );
-
-				if ( array_sum( $bundled_item_subtotals ) > 0 ) {
-					$price = '';
-				}
 			}
 		}
 
@@ -772,14 +763,6 @@ class WC_PB_Display {
 
 				$subtotal = $this->format_subtotal( $cart_item[ 'data' ], (double) $bundle_price + $bundled_items_price );
 
-			} elseif ( empty( $cart_item[ 'line_subtotal' ] ) ) {
-
-				$bundled_items          = wc_pb_get_bundled_cart_items( $cart_item, WC()->cart->cart_contents );
-				$bundled_item_subtotals = wp_list_pluck( $bundled_items, 'line_subtotal' );
-
-				if ( array_sum( $bundled_item_subtotals ) > 0 ) {
-					$subtotal = '';
-				}
 			}
 		}
 
@@ -1501,9 +1484,6 @@ class WC_PB_Display {
 
 						$subtotal = $order->get_formatted_line_subtotal( $cloned_item );
 					}
-
-				} elseif ( sizeof( $children ) && $item->get_subtotal( 'edit' ) == 0 ) {
-					$subtotal = '';
 				}
 			}
 		}
@@ -1520,7 +1500,7 @@ class WC_PB_Display {
 	 */
 	public function order_item_visible( $visible, $order_item ) {
 
-		if ( wc_pb_maybe_is_bundled_order_item( $order_item ) ) {
+		if ( wc_pb_is_bundled_order_item( $order_item ) ) {
 
 			$bundled_item_hidden = $order_item->get_meta( '_bundled_item_hidden' );
 

@@ -7,7 +7,7 @@
  * Plugin Name:       Slider Revolution Login Page Add-on
  * Plugin URI:        https://www.themepunch.com/
  * Description:       Very simple WP Login Page by RevSlider
- * Version:           2.0.2
+ * Version:           3.0.1
  * Author:            ThemePunch
  * Author URI:        https://www.themepunch.com/
  * License:           GPL-2.0+
@@ -21,7 +21,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define("REV_ADDON_LOGIN_VERSION", "2.0.2");
+define("REV_ADDON_LOGIN_VERSION", "3.0.1");
 define("REV_ADDON_LOGIN_URL", str_replace('index.php','',plugins_url( 'index.php', __FILE__ )));
 	
 /**

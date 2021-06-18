@@ -152,7 +152,7 @@ class Sensei extends Courseware {
 	 */
 	protected function is_user_enrolled_in_course( int $user_id, int $course_id ) : bool {
 
-		return \Sensei_Course::is_user_enrolled( $user_id, $course_id );
+		return is_callable( 'Sensei_Course::is_user_enrolled' ) && \Sensei_Course::is_user_enrolled( $user_id, $course_id );
 	}
 
 
@@ -171,7 +171,7 @@ class Sensei extends Courseware {
 		// to temporarily set the current user to the user we need.
 		$this->set_temporary_current_user_id( $user_id );
 
-		$is_complete = \Sensei_Course::is_prerequisite_complete( $course_id );
+		$is_complete = is_callable( 'Sensei_Course::is_prerequisite_complete' ) && \Sensei_Course::is_prerequisite_complete( $course_id );
 
 		$this->reset_current_user_id();
 
@@ -238,6 +238,10 @@ class Sensei extends Courseware {
 	 */
 	protected function enroll_user_in_course( int $user_id, int $course_id ) {
 
+		if ( ! is_callable( 'Sensei_Course_Enrolment::get_course_instance' ) ) {
+			return;
+		}
+
 		\Sensei_Course_Enrolment::get_course_instance( $course_id )->save_enrolment( $user_id, true );
 	}
 
@@ -248,16 +252,23 @@ class Sensei extends Courseware {
 	 * @since 1.22.0
 	 *
 	 * @param int $course_id
-	 * @return array
+	 * @return array associative array of post IDs and course posts
 	 */
 	protected function get_dependent_courses( int $course_id ) : array {
 
-		return get_posts( [
+		$courses = [];
+		$posts = get_posts( [
 			'post_type'   => $this->get_course_post_type(),
 			'meta_key'    => '_course_prerequisite',
 			'meta_value'  => $course_id,
 			'post_status' => 'publish'
 		]);
+
+		foreach ( $posts as $post ) {
+			$courses[ $post->ID ] = $post;
+		}
+
+		return $courses;
 	}
 
 

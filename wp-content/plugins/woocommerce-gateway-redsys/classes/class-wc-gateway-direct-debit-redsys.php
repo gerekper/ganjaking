@@ -18,8 +18,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	* @return void
 	*/
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public function __construct() {
 		
 		$this->id                   = 'directdebitredsys';
@@ -55,6 +57,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$this->butonbgcolor         = $this->get_option( 'butonbgcolor' );
 		$this->butontextcolor       = $this->get_option( 'butontextcolor' );
 		$this->descripredsys        = $this->get_option( 'descripredsys' );
+		$this->testshowgateway      = $this->get_option( 'testshowgateway' );
 		$this->log                  = new WC_Logger();
 		$this->supports             = array(
 			'products',
@@ -74,8 +77,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	}
 	
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function is_valid_for_use() {
 		if ( ! in_array( get_woocommerce_currency(), WCRed()->allowed_currencies(), true ) ) {
 			return false;
@@ -90,17 +95,17 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	 * @since 6.0.0
 	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public function admin_options() {
 		?>
 		<h3><?php esc_html_e( 'Direct Debit', 'woocommerce-redsys' ); ?></h3>
 		<p><?php esc_html_e( 'Direct Debit works by sending the user to Direct Debit Gateway', 'woocommerce-redsys' ); ?></p>
-		<div class="redsysnotice">
-			<span class="dashicons dashicons-welcome-learn-more redsysnotice-dash"></span>
-			<span class="redsysnotice__content"><?php printf( __( 'For Redsys Help: Check WooCommerce.com Plugin <a href="%1$s" target="_blank" rel="noopener">Documentation page</a> for setup, <a href="%2$s" target="_blank" rel="noopener">FAQ page</a> for working problems, or open a <a href="%3$s" target="_blank" rel="noopener">Ticket</a> for support', 'woocommerce-redsys' ), 'https://docs.woocommerce.com/document/redsys-servired-sermepa-gateway/', 'https://redsys.joseconti.com/redsys-para-woocommerce/', 'https://woocommerce.com/my-account/tickets/' ); ?><span>
-		</div>
-		<?php if ( class_exists( 'SitePress' ) ) { ?>
+		<?php
+			echo WCRed()->return_help_notice();
+			if ( class_exists( 'SitePress' ) ) { ?>
 			<div class="updated fade"><h4><?php esc_html_e( 'Attention! WPML detected.', 'woocommerce-redsys' ); ?></h4>
 				<p><?php esc_html_e( 'The Gateway will be shown in the customer language. The option "Language Gateway" is not taken into consideration', 'woocommerce-redsys' ); ?></p>
 			</div>
@@ -133,8 +138,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function init_form_fields() {
 		
 		$options    = array();
@@ -151,7 +158,20 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 				}
 			}
 		}
-		
+
+		$options_show    = array();
+		$selections_show = (array)$this->get_option( 'testshowgateway' );
+		if ( count( $selections_show ) !== 0 ) {
+			foreach ( $selections_show as $user_id ) {
+				if ( ! empty( $user_id ) ) {
+					$user_data  = get_userdata( $user_id );
+					$user_email = $user_data->user_email;
+					if ( ! empty( esc_html( $user_email ) ) ) {
+						$options_show[ esc_html( $user_id ) ] = esc_html( $user_email );
+					}
+				}
+			}
+		}
 		$this->form_fields = array(
 			'enabled'              => array(
 				'title'   => __( 'Enable/Disable', 'woocommerce-redsys' ),
@@ -252,6 +272,16 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 				'default'     => 'yes',
 				'description' => sprintf( __( 'Select this option for the initial testing required by your bank, deselect this option once you pass the required test phase and your production environment is active.', 'woocommerce-redsys' ) ),
 			),
+			'testshowgateway'   => array(
+				'title'       => __( 'Show to this users', 'woocommerce-redsys' ),
+				'type'        => 'multiselect',
+				'label'       => __( 'Show the gateway in the chcekout when it is in test mode', 'woocommerce-redsys' ),
+				'class'       => 'js-woo-show-gateway-test-settings',
+				'id'          => 'woocommerce_redsys_showtestforuserid',
+				'options'     => $options_show,
+				'default'     => '',
+				'description' => sprintf( __( 'Select users that will see the gateway when it is in test mode. If no users are selected, will be shown to all users', 'woocommerce-redsys' ) ),
+			),
 			'testforuser'      => array(
 				'title'       => __( 'Running in test mode for a user', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
@@ -286,8 +316,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	}
 
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function check_user_test_mode( $userid ) {
 
 		$usertest_active = $this->testforuser;
@@ -371,8 +403,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	}
 
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function get_redsys_url_gateway( $user_id, $type = 'rd' ) {
 
 		if ( 'yes' === $this->testmode ) {
@@ -443,8 +477,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	}
 	
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function get_redsys_sha256( $user_id ) {
 
 		if ( 'yes' === $this->testmode ) {
@@ -492,8 +528,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	}
 
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function get_redsys_args( $order ) {
 		
 		$order_id         = $order->get_id();
@@ -574,8 +612,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	 * @return string
 	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function generate_redsys_form( $order_id ) {
 		global $woocommerce;
 		
@@ -631,8 +671,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function process_payment( $order_id ) {
 		$order = WCRed()->get_order( $order_id );
 		return array(
@@ -648,8 +690,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	* @return void
 	*/
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function receipt_page( $order ) {
 		echo '<p>' . esc_html__( 'Thank you for your order, please click the button below to pay with Direct Debit.', 'woocommerce-redsys' ) . '</p>';
 		echo $this->generate_redsys_form( $order );
@@ -659,8 +703,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	 * Check redsys IPN validity
 	 **/
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function check_ipn_request_is_valid() {
 
 		if ( 'yes' === $this->debug ) {
@@ -760,8 +806,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function check_ipn_response() {
 		@ob_clean();
 		$_POST = stripslashes_deep( $_POST );
@@ -781,8 +829,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function successful_request( $posted ) {
 		
 		if ( 'yes' === $this->debug ) {
@@ -1080,8 +1130,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	}
 	
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function ask_for_refund( $order_id, $transaction_id, $amount ) {
 
 		//post code to REDSYS
@@ -1221,8 +1273,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	}
 
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function check_redsys_refund( $order_id ) {
 		// check postmeta
 		$order        = WCRed()->get_order( (int) $order_id );
@@ -1243,8 +1297,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	}
 	
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public function process_refund( $order_id, $amount = null, $reason = '' ) {
 		// Do your refund here. Refund $amount for the order with ID $order_id _transaction_id
 		set_time_limit( 0 );
@@ -1326,8 +1382,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	public function warning_checkout_test_mode_directdebit() {
 		if ( 'yes' === $this->testmode && WCRed()->is_gateway_enabled( $this->id ) ) {
 			echo '<div class="checkout-message" style="

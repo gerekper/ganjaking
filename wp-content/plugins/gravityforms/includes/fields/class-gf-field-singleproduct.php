@@ -125,7 +125,6 @@ class GF_Field_SingleProduct extends GF_Field {
 
 		$wrapper_open  = $is_legacy_markup ? '' : "<div id='ginput_product_price_{$form_id}_{$this->id}' class='ginput_product_price_wrapper'>";
 		$wrapper_close = $is_legacy_markup ? '' : '</div>';
-
 		if ( $has_quantity ) {
 			return "<div class='ginput_container ginput_container_singleproduct'>
 					<input type='hidden' name='input_{$id}.1' value='{$product_name}' class='gform_hidden' />

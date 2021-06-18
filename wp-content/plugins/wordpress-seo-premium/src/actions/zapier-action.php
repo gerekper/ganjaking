@@ -3,7 +3,7 @@
 namespace Yoast\WP\SEO\Premium\Actions;
 
 use Yoast\WP\SEO\Helpers\Options_Helper;
-use Yoast\WP\SEO\Helpers\Zapier_Helper;
+use Yoast\WP\SEO\Premium\Helpers\Zapier_Helper;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
 
 /**

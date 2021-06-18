@@ -10,7 +10,7 @@ if(!class_exists('RevSliderFunctions')) exit();
 
 class RsLottieLoader extends RevSliderFunctions {
 	
-	public $lib_ver	= '2.0.5';
+	public $lib_ver	= '3.0.2';
 	public $lib_url	= 'addons/lottie.php';
 	public $dl_url	= 'addons/lottie-download.php';
 	private $path	= '/revslider/lottie/objects/';

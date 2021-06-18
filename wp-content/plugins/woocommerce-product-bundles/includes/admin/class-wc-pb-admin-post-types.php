@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add hooks to the edit posts view for the 'product' post type.
  *
  * @class    WC_PB_Admin_Post_Types
- * @version  6.5.0
+ * @version  6.10.0
  */
 class WC_PB_Admin_Post_Types {
 
@@ -42,22 +42,34 @@ class WC_PB_Admin_Post_Types {
 	public static function admin_stock_html( $stock_status, $product ) {
 
 		if ( 'bundle' === $product->get_type() ) {
-			if ( $product->is_parent_in_stock() && ( $product->contains( 'out_of_stock_strict' ) || 'outofstock' === $product->get_bundled_items_stock_status() ) ) {
 
-				ob_start();
+			if ( $product->is_parent_in_stock() ) {
 
-				?><mark class="outofstock insufficient_stock"><?php _e( 'Insufficient stock', 'woocommerce-product-bundles' ); ?></mark><?php
+				if ( $product->contains( 'out_of_stock_strict' ) || 'outofstock' === $product->get_bundled_items_stock_status() ) {
 
-				if ( $product->contains( 'out_of_stock_strict' ) ) {
+					ob_start();
 
-					$report_url = ! WC_PB_Admin_Analytics::is_enabled() ? 'admin.php?page=wc-reports&tab=stock&report=insufficient_stock&bundle_id=' . $product->get_id() : 'admin.php?page=wc-admin&path=%2Fanalytics%2Fbundles&section=stock&filter=single_product&products=' . $product->get_id();
+					?><mark class="outofstock insufficient_stock"><?php _e( 'Insufficient stock', 'woocommerce-product-bundles' ); ?></mark><?php
 
-					?><div class="row-actions">
-						<span class="view"><a href="<?php echo admin_url( $report_url ); ?>" rel="bookmark" aria-label="<?php _e( 'View Report', 'woocommerce-product-bundles' ); ?>"><?php _e( 'View Report', 'woocommerce-product-bundles' ); ?></a></span>
-					</div><?php
+					if ( $product->contains( 'out_of_stock_strict' ) ) {
+
+						$report_url = ! WC_PB_Admin_Analytics::is_enabled() ? 'admin.php?page=wc-reports&tab=stock&report=insufficient_stock&bundle_id=' . $product->get_id() : 'admin.php?page=wc-admin&path=%2Fanalytics%2Fbundles&section=stock&filter=single_product&products=' . $product->get_id();
+
+						?><div class="row-actions">
+							<span class="view"><a href="<?php echo admin_url( $report_url ); ?>" rel="bookmark" aria-label="<?php _e( 'View Report', 'woocommerce-product-bundles' ); ?>"><?php _e( 'View Report', 'woocommerce-product-bundles' ); ?></a></span>
+						</div><?php
+					}
+
+					$stock_status = ob_get_clean();
+
+				} else {
+
+					$bundle_stock_quantity = $product->get_bundle_stock_quantity();
+
+					if ( '' !== $bundle_stock_quantity ) {
+						$stock_status = '<mark class="instock">' . __( 'In stock', 'woocommerce' ) . '</mark> (' . wc_stock_amount( $bundle_stock_quantity ) . ')';
+					}
 				}
-
-				$stock_status = ob_get_clean();
 			}
 		}
 

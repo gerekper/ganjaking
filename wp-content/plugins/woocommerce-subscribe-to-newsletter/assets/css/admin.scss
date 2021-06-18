@@ -33,7 +33,15 @@
 #wc_newsletter_subscription_stats {
 	word-wrap: break-word;
 
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
 	li {
+		flex: 1;
+		width: auto;
+		min-width: 120px;
 
 		strong {
 			font-size: 3em;

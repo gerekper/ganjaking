@@ -9,9 +9,9 @@ if(!defined('ABSPATH')) exit();
 
 class RevAddOnDuotoneUpdate {
 	private $plugin_url		 = 'https://codecanyon.net/item/slider-revolution-responsive-wordpress-plugin/2751380';
-	private $remote_url_info = 'addons/revslider-duotone-addon/revslider-duotone-addon.php';
-	private $plugin_slug	 = 'revslider-duotone-addon';
-	private $plugin_path	 = 'revslider-duotone-addon/revslider-duotone-addon.php';
+	private $remote_url_info = 'addons/revslider-duotonefilters-addon/revslider-duotonefilters-addon.php';
+	private $plugin_slug	 = 'revslider-duotonefilters-addon';
+	private $plugin_path	 = 'revslider-duotonefilters-addon/revslider-duotonefilters-addon.php';
 	private $version;
 	private $plugins;
 	private $option;

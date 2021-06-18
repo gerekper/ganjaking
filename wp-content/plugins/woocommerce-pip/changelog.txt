@@ -1,5 +1,8 @@
 *** WooCommerce Print Invoices/Packing Lists Changelog ***
 
+2021.06.02 - version 3.11.3
+ * Fix - Ensure to pass item object or data to filter hiding virtual items
+
 2021.05.31 - version 3.11.2
  * Fix - Do not trigger the plugin modal when clicking on the order update button from the order edit screen
  * Fix - Ensure document tables are not displayed too wide on some email clients like Gmail

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.4.0
- * @version     1.1.0
+ * @version     1.2.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -89,9 +89,29 @@ if ( ! class_exists( 'WC_SC_Admin_Coupons_Dashboard_Actions' ) ) {
 				return $actions;
 			}
 
-			$coupon_code      = ( ! empty( $post->post_title ) ) ? $post->post_title : '';
-			$coupon_id        = ( ! empty( $post->ID ) ) ? $post->ID : 0;
-			$coupon_share_url = home_url( '/?coupon-code=' . $coupon_code );
+			$coupon_code = ( ! empty( $post->post_title ) ) ? $post->post_title : '';
+			$coupon_id   = ( ! empty( $post->ID ) ) ? $post->ID : 0;
+
+			$shop_page_id = get_option( 'woocommerce_shop_page_id', 0 );
+
+			if ( ! empty( $shop_page_id ) ) {
+				$shop_page_id = 'shop';
+			} else {
+				$home_url     = home_url();
+				$shop_page_id = ( function_exists( 'wpcom_vip_url_to_postid' ) ) ? wpcom_vip_url_to_postid( $home_url ) : url_to_postid( $home_url ); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.url_to_postid_url_to_postid
+			}
+
+			if ( empty( $shop_page_id ) ) {
+				$shop_page_id = 'cart';
+			}
+
+			$coupon_share_url = add_query_arg(
+				array(
+					'coupon-code' => $coupon_code,
+					'sc-page'     => $shop_page_id,
+				),
+				home_url( '/' )
+			);
 
 			$actions['copy'] = '<a href="#" id="sc-click-to-copy-' . esc_attr( $coupon_id ) . '" onclick="sc_copy_to_clipboard(' . "'" . esc_js( $coupon_code ) . "'" . ')" data-clipboard-action="copy" data-clipboard-target=".row-title" title="' . __( 'Copy this coupon code', 'woocommerce-smart-coupons' ) . '" rel="permalink">' . __( 'Copy', 'woocommerce-smart-coupons' ) . '</a>';
 

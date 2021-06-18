@@ -8,7 +8,7 @@
  * @var array  $images       Array of images with errors.
  * @var string $upgrade_url  Upgrade URL.
  *
- * @var Smush\App\Pages\Dashboard $this  Dashboard page.
+ * @var Smush\App\Pages\Directory $this  Dashboard page.
  */
 
 if ( ! defined( 'WPINC' ) ) {

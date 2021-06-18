@@ -1764,7 +1764,7 @@ class GFFormDisplay {
 	 * @return string
 	 */
 	public static function get_confirmation_url( $confirmation, $form, $entry ) {
-		if ( ! empty( $confirmation['pageId'] ) ) {
+		if ( ! empty( $confirmation['pageId'] ) && $confirmation['type'] === 'page' ) {
 			$url = get_permalink( $confirmation['pageId'] );
 			if ( empty( $url ) ) {
 				GFCommon::log_debug( sprintf( '%s(): Selected page (%s) is invalid.', __METHOD__, $confirmation['pageId'] ) );
@@ -2445,7 +2445,7 @@ class GFFormDisplay {
 		}
 
 		if ( self::has_password_strength( $form ) ) {
-			$assets[] = new GF_Script_Asset( 'gforms_zxcvbn' );
+			$assets[] = new GF_Script_Asset( 'gforms_zxcvbn', includes_url( '/js/zxcvbn.min.js' ) );
 			$assets[] = new GF_Script_Asset( 'password-strength-meter' );
 		}
 

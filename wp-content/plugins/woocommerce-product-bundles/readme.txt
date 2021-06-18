@@ -4,7 +4,7 @@ Contributors: SomewhereWarm
 Tags: woocommerce, product, bundle, bundles, kits, simple, variable, configurable
 Requires at least: 4.4
 Tested up to: 5.7
-Stable tag: 6.9.0
+Stable tag: 6.10.0
 WC requires at least: 3.1
 WC tested up to: 5.3
 License: GNU General Public License v3.0

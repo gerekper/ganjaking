@@ -4,7 +4,7 @@ Donate link: https://wpdeveloper.net
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
 Tested up to: 5.7.2
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,12 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 1.6.2 - 09/06/2021 =
+- Improved: flush_rewrite_rules on plugin deactivation 
+- Fixed: PHP Notices when docs are set as Private 
+- Fixed: Breadcrumbs not showing for single layout 2 & 3 if title is disabled
+- Few minor bug fix and improvements
 
 = 1.6.1 - 30/05/2021 =
 - Improved: Refactored code to load BetterDocs assets only in BetterDocs templates

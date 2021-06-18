@@ -1,0 +1,234 @@
+/* 01. GENERAL SETTINGS ============================================ */
+
+* {margin: 0; padding: 0;}
+
+p {line-height: 160%;}
+
+img {border: 0;}
+
+#upml-members {
+	background: #fff;
+	color: #fff;
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size: 13px;
+	font-weight: 300;
+}
+
+.clear {clear: both;}
+
+/* Buttons */
+.btn {
+/*	display: inline-block;
+	margin-top: 20px;
+	padding: 10px 40px;
+	color: rgba(255,255,255, 0.95);
+	font-size: 18px;
+	font-weight: 700;
+	text-transform: uppercase;
+	border: none;
+	border-radius: 20px;
+	outline: 0;
+	transition: all 0.1s ease-in;*/
+}
+
+.btn-transparent {background: rgba(0,0,0, 0.2);}
+.btn-transparent:hover {background: rgba(0,0,0, 0.4);}
+
+/* Separators */
+.separator {
+	margin: 0 auto;
+	background: rgba(0, 0, 0, 0.2);
+	width: 30px;
+	height: 5px;
+}
+
+/* 02. FONT FACE ============================================ */
+
+@font-face {
+    font-family: 'norwester';
+	src: url('../fonts/norwester/norwester.eot');
+    src: url('../fonts/norwester/norwester.eot?iefix') format('embedded-opentype'),
+		 url('../fonts/norwester/norwester.ttf');
+    font-weight: normal;
+}
+
+/* 03. Members SETTINGS ============================================ */
+
+#upml-members {
+	padding: 60px 0;
+	background: #4593e3;
+	text-align: center;	
+}
+
+#upml-members p {
+	padding: 20px 0 60px;
+	color: rgba(255,255,255, 0.85);
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	letter-spacing: 0.2px;
+}
+
+#upml-members h3 {
+	padding: 0 0 15px;
+	font-family: 'norwester';
+	font-size: 36px;
+	text-transform: uppercase;
+}
+
+#upml-members h4  {
+	margin-top: -20px;
+	font-size: 25px;
+	font-weight: 700;
+        margin-bottom: 0px;
+        padding-top: 0; 
+}
+
+#upml-members h4 span {
+	display: block;
+	position: relative;
+	left: -40px;
+	top: 10px;
+	font-size: 20px;
+	background: none;
+	padding: 0;
+}
+
+#upml-members img {
+	width: 100%;
+	max-width: 240px;
+	border-radius: 50%; 
+	border: 15px solid transparent; 
+	box-shadow: 2px 2px 0px rgba(0,0,0, 0.18);
+	transition: all 0.1s ease-in;
+	filter: url(filters.svg#grayscale); /* Firefox 3.5+ */
+    filter: gray; /* IE5+ */
+    -webkit-filter: grayscale(1); /* Webkit Nightlies & Chrome Canary */
+	-webkit-transition: all .5s ease-in-out;
+}
+	
+#upml-members img:hover {
+	border: 15px solid #3980C9;
+	position: relative;
+	z-index: 10;
+	transition: all 0.1s ease-in;
+	filter: none;
+    -webkit-filter: grayscale(0);
+}
+
+#upml-members span {
+	padding: 8px 20px;
+	position: relative;
+	top: -64px;
+	left: -42px;
+	display: inline-block;
+	background: #4593e3;
+	border-radius: 0 16px 16px 0;
+	font-size: 16px;
+}
+#upml-members a {
+	text-decoration: none;
+	color: #fff; 
+	transition: all 0.1s ease-in;
+}
+
+/* Social Networks Meta */
+#upml-members li {display: inline-block; padding: 0 6px; font-size: 18px;}
+#upml-members li a {color: rgba(0,0,0, 0.3); transition: all 0.1s ease-in;}
+#upml-members li a:hover {color: rgba(0,0,0, 0.7);}
+
+/* Rows Optimization */
+.row2 {
+	display: none;
+}
+
+.upmlt-row .col-md-3, .row2 .col-md-3 {
+	padding-bottom: 40px;
+}
+
+/* Mobile Devices Optimization */
+@media (min-width: 568px) and (max-width: 992px) {
+
+	.upmlt-row .col-md-3, .row2 .col-md-3 {
+		display: inline-block;
+		max-width: 50%;
+	}
+
+	#upml-members img {max-width: 300px;}
+
+}
+.container {
+    display: inline-block !important;
+    overflow: hidden;
+    text-align: center !important;
+    width: auto !important;
+}
+.col-md-3 {
+    width: 33% !important;
+}
+/************************added by kajal***************************/
+#rate-points {
+    position: unset;
+}
+.col-md-3 {
+    width: 33% !important;
+}
+.userpro-paginate.top, .userpro-paginate.bottom{
+    display: inline-block;
+    width: 100% !important;
+}
+.userpro-search-results span {
+    position: unset !important;
+    font-size: 28px !important;
+    
+}
+.userpro-paginate.top span, .userpro-paginate.bottom span {
+    border-radius : 0% !important;
+    position: unset !important;
+}
+.member_img > img {
+    height: 100%;
+    width: 100%;
+}
+.member-profile {
+    overflow: hidden;
+}
+#upml-members a {
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.1s ease-in 0s;
+}
+.userpro-transition {
+    font-size: 20px;
+}
+.member_img {
+    height: 150px;
+    width: 150px;
+    margin: 0 auto;
+    text-align: center;
+}
+span .userpro-transition {
+    font-size: 10px !important;
+/*    left: 11% !important;*/
+}
+.userpro-transition {
+    border-bottom: medium none !important;
+}
+ .upmlsv-view.userpro-flat-btn.userpro-transition,div.userpro-paginate span, div.userpro-paginate a.page-numbers{
+    color:#4593e3 !important;
+}
+.userpro-search-results , div.userpro-search-results span  {
+    color: white !important;
+}
+#upml-members img:hover .member-profile span{
+    display: none !important;
+}
+.entry-title{
+   color: #4593e3 !important; 
+}
+.userpro-profile-icon.userpro-tip {
+    background-color: #4593e3 !important;
+    border: medium none !important;
+}
+#upml-members * {
+    box-shadow: none !important;
+}

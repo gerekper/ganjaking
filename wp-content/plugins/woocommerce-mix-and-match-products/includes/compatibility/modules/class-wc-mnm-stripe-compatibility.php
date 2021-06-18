@@ -5,7 +5,7 @@
  * @author   Kathy Darling
  * @package  WooCommerce Mix and Match/Compatibility
  * @since    1.10.6
- * @version  1.10.6
+ * @version  1.11.2
  */
 
 // Exit if accessed directly.
@@ -18,33 +18,50 @@ if ( ! defined( 'ABSPATH' ) ) {
  **/
 class WC_MNM_Stripe_Compatibility {
 
-
 	/**
 	 * WC_MNM_Stripe_Compatibility Constructor
 	 */
 	public static function init() {
 
-		// Hide Stripe's payment request buttons on MNNM products.
-		add_filter( 'wc_stripe_payment_request_supported_types', array( __CLASS__, 'supported_request_product_types' ) );
+        // Add support for MNM products.
+        add_filter( 'wc_stripe_payment_request_supported_types', array( __CLASS__, 'supported_request_product_types' ) );
+
+		// Hide Stripe's payment request buttons for MNNM products on single product page.
+		add_filter( 'wc_stripe_hide_payment_request_on_product_page', array( __CLASS__, 'hide_payment_request_on_product_page' ), 10, 2 );
 
 	}
 
 	/**
-	 * Hide Stripe's instant pay buttons
+     * Add support for MNM products.
 	 *
 	 * @param   array $types - The product types that can support payment request buttons.
 	 * @return  array
 	 */
 	public static function supported_request_product_types( $types ) {
-		$key = array_search( 'mix-and-match', $types );
-
-		if ( $key ) { 
-			unset( $types[$key] );
-		}
-		
+		$types[] = 'mix-and-match';	
 		return $types;
 	}
 
+    /**
+	 * Hide Stripe's instant pay buttons
+	 *
+	 * @param   bool $hide - true if hiding request buttons.
+     * @param   obj WP_POST - Global WP post.
+	 * @return  bool
+	 */
+	public static function hide_payment_request_on_product_page( $hide, $post ) {
+
+        if ( $post instanceof WP_POST && 'product' === $post->post_type ) {
+            
+            $product_type = WC_Product_Factory::get_product_type( $post->ID ); 
+            
+            if ( 'mix-and-match' === $product_type ) {
+                $hide = true;
+            }
+        } 
+        
+		return $hide;
+	}
 
 } // End class: do not remove or there will be no more guacamole for you.
 

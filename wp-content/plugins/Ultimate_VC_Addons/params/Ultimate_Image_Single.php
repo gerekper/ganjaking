@@ -31,16 +31,16 @@
  * http://i.imgur.com/csfJvKV.png
  * -----------------------------------------------------------------------------------------
  *
- * @package Ult_Image_Single.
+ * @package Ultimate_VC_Addons_Image_Single.
  */
 
-if ( ! class_exists( 'Ult_Image_Single' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Image_Single' ) ) {
 	/**
-	 * Class Ult_Image_Single
+	 * Class Ultimate_VC_Addons_Image_Single
 	 *
-	 * @class Ult_Image_Single.
+	 * @class Ultimate_VC_Addons_Image_Single.
 	 */
-	class Ult_Image_Single {
+	class Ultimate_VC_Addons_Image_Single {
 
 		/**
 		 * Initiator __construct.
@@ -112,13 +112,13 @@ if ( ! class_exists( 'Ult_Image_Single' ) ) {
 		 */
 		public function image_single_scripts() {
 			wp_enqueue_media();
-			wp_enqueue_style( 'ultimate_image_single_css', UAVC_URL . 'admin/vc_extend/css/ultimate_image_single.css', null, ULTIMATE_VERSION );
+			wp_enqueue_style( 'ultimate-vc-addons_image_single_css', UAVC_URL . 'admin/vc_extend/css/ultimate_image_single.css', null, ULTIMATE_VERSION );
 		}
 	}
 }
 
 
 
-if ( class_exists( 'Ult_Image_Single' ) ) {
-	$ult_image_single = new Ult_Image_Single();
+if ( class_exists( 'Ultimate_VC_Addons_Image_Single' ) ) {
+	$ult_image_single = new Ultimate_VC_Addons_Image_Single();
 }

@@ -14,7 +14,7 @@ class RevSliderCache extends RevSliderFunctions {
 	/**
 	 * holds transient additions that the slider is using
 	 **/
-	private $cache_additions = array('action' => array(), 'filter' => array(), 'html' => array());
+	private $cache_additions = array('action' => array(), 'filter' => array(), 'html' => array(), 'special' => array());
 	private $output_html = array();
 	
 	public function __construct(){
@@ -69,7 +69,7 @@ class RevSliderCache extends RevSliderFunctions {
 	}
 	
 	
-	public function add_addition($type, $name = false, $output = ''){
+	public function add_addition($type, $name = false, $output = '', $priority = 10){
 		if($output === '') return;
 		
 		if(!isset($this->cache_additions[$type])) $this->cache_additions[$type] = array();
@@ -79,7 +79,14 @@ class RevSliderCache extends RevSliderFunctions {
 		}else{
 			if(!isset($this->cache_additions[$type][$name])) $this->cache_additions[$type][$name] = array();
 			
-			$this->cache_additions[$type][$name][] = $output;
+			if($type === 'special'){
+				$this->cache_additions[$type][$name][] = $output;
+			}else{
+				$this->cache_additions[$type][$name][] = array(
+					'html' => $output,
+					'priority' => $priority
+				);
+			}
 		}
 	}
 	
@@ -96,17 +103,15 @@ class RevSliderCache extends RevSliderFunctions {
 	 * this will push all the additions to the output that can not be cached
 	 * @since: 6.4.7
 	 **/
-	public function do_additions($additions){
-		$phpver = phpversion();
-		
+	public function do_additions($additions, $output){
 		$t_actions = $this->get_val($additions, 'action', array());
 		if(!empty($t_actions)){
 			foreach($t_actions as $_action => $t_a){
 				if(!empty($t_a)){
+					
 					foreach($t_a as $t_sa){
-						if(!isset($this->output_html[$_action])) $this->output_html[$_action] = '';
-						
-						$this->output_html[$_action] .= $t_sa;
+						if(!isset($this->output_html[$_action])) $this->output_html[$_action] = array();
+						$this->output_html[$_action][] = $t_sa;
 						add_action($_action, array($this, 'print_addition'));
 					}
 				}
@@ -118,14 +123,31 @@ class RevSliderCache extends RevSliderFunctions {
 			foreach($t_filters as $_filter => $t_a){
 				if(!empty($t_a)){
 					foreach($t_a as $t_sa){
-						if(!isset($this->output_html[$_filter])) $this->output_html[$_filter] = '';
-						
-						$this->output_html[$_filter] .= $t_sa;
+						if(!isset($this->output_html[$_filter])) $this->output_html[$_filter] = array();
+						$this->output_html[$_filter][] = $t_sa;
 						add_filter($_filter, array($this, 'print_addition'));
 					}
 				}
 			}
 		}
+		
+		$t_special = $this->get_val($additions, 'special', array());
+		if(!empty($t_special)){
+			$_rs_css_collection = $this->get_val($t_special, 'rs_css_collection', array());
+			if(!empty($_rs_css_collection)){
+				global $rs_css_collection;
+				$rs_css_collection = $_rs_css_collection;
+			}
+			$_font_var = $this->get_val($t_special, 'font_var', array());
+			if(!empty($_font_var)){
+				foreach($_font_var as $fw){
+					global $$fw;
+					$$fw = true;
+				}
+			}
+		}
+		
+		do_action('revslider_do_cache_additions', $additions, $output);
 	}
 	
 	
@@ -146,7 +168,19 @@ class RevSliderCache extends RevSliderFunctions {
 	 * @since: 6.4.7
 	 **/
 	public function print_addition(){
-		echo $this->get_val($this->output_html, current_filter());
+		$html = $this->get_val($this->output_html, current_filter());
+		if(is_array($html)){
+			if(!empty($html)){
+				usort($html, array($this, 'sort_by_priority'));
+				echo (current_filter() === 'wp_print_footer_scripts') ? '<script type="text/javascript">'."\n" : '';
+				foreach($html as $echo){
+					echo $this->get_val($echo, 'html');
+				}
+				echo (current_filter() === 'wp_print_footer_scripts') ? RS_T.'</script>'."\n" : '';
+			}
+		}else{
+			echo $html;
+		}
 	}
 	
 	/**
@@ -167,5 +201,10 @@ class RevSliderCache extends RevSliderFunctions {
 				$this->clear_transients_by_slider($this->get_val($s, 'id'));
 			}
 		}
+	}
+	
+	
+	public function sort_by_priority($a, $b) {
+		return $a['priority'] - $b['priority'];
 	}
 }

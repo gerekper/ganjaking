@@ -1,0 +1,413 @@
+/* body { */
+/*   font-family: Arial, Helvetica, sans-serif; */
+/*   margin-bottom: 100px; */
+/*   background-image:url(../images/background.png); */
+/*   background-size:cover; */
+/* } */
+
+#profile-header {
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    margin:   0px auto 10px;
+    height:   420px;
+    position: relative;
+    width:    100%;
+    background-size:cover;
+}
+
+.profile-section{
+    background-color:rgba(255,255,255,0.8);
+    position:absolute !important;
+    bottom:0px;
+    border-top-right-radius:10px;
+    border-top-left-radius:10px;
+}
+
+#profile-picture{
+    /* 	padding-left:0px; */
+    padding-top:15px;
+    padding-bottom:15px;
+    border-radius:10px;
+}
+
+#profile-picture img{
+    border-radius:10px;
+}
+
+.userpro-tags-span{
+	text-align: left !important;	 
+}
+
+@media(max-width: 480px){
+    .user-details{
+        text-align:left;
+    }
+    #profile-picture, .menu-options, .option-content{
+        text-align:left;
+    }
+    .option-content{ font-size:16px;}
+    .up-right-button{
+        padding:0;
+    }
+}
+
+@media(max-width: 360px){
+    .menu-options{
+        padding-right:0 !important;
+    }
+    
+    .main-content{
+        margin: 0px 5% !important;
+    }
+    
+    .menu-options ul li{
+        margin : 0 !important;
+    }
+    
+    .option-content{
+        margin-top:0 !important;
+    }
+}
+
+@media(max-width: 768px){
+    .up-right-button {
+        padding-left: 70% !important;
+        position: absolute;
+        padding-right:0 !important;
+    }
+    .userpro-profile-img{
+        padding-left:26%;
+    }
+}
+/* .user-details div{ */
+/* margin:10px auto; */
+/* } */
+
+.social-icons img{
+    width:30px;
+    height:30px;
+}
+
+.edit-profile-button{
+    position: absolute;
+    right: 10px;
+    top: 44%;
+}
+
+.edit-profile-button button{
+    border-radius:5px;
+    border:none;
+    background-color:rgba(255,255,255,0.8);
+    width:120px;
+    height:30px;
+}
+
+#edit-image {
+    right: 50px;
+    top: 44%;
+}
+
+.edit-profile-button button span{
+    margin-left:10px;
+}
+
+.social-info-item{
+    font-weight:bold;
+    margin:0px 15px;
+}
+
+.up-right-button .up-edit, .up-right-button .up-logout{
+    box-shadow:none;
+}
+.up-right-button .up-edit::hover, .up-right-button .up-logout::hover{
+    box-shadow:none;
+    text-decoration:none;
+}
+.social-info-item button{
+    border:none;
+    border-radius:5px;
+    background:#54c0eb;
+    color:#fff;
+    padding:5px;
+    width:80px;
+    font-weight:bold;
+}
+
+.profile-image-view,.profile-image-edit {
+    background:rgba(255,255,255,0.8);
+    position:absolute;
+    width:25px;
+    padding:3px;
+    border-radius:2px;
+    bottom: 10%;
+    height: 25px;
+}
+
+.profile-image-view{left:34%;}
+.profile-image-edit{left:50%;}
+
+.connection-info{
+    padding-top:10px;
+}
+
+.user-details {
+    padding-bottom: 18px;
+    padding-top: 18px;
+}
+
+.up-display-name {
+    display: inline-block;
+    font-size: 20px;
+    padding-right: 5px;
+}
+
+.section-title {
+    display: inline-block;
+    padding-left: 10px;
+}
+
+.user-details .userpro-badges{
+    display:block;
+    padding-top:10px;
+}
+
+/************ Tipsy CSS *************/
+
+/* Tipsy */
+.tipsy { font-size: 11px; position: absolute; padding: 5px; z-index: 2000000; }
+.tipsy-inner {max-width: 200px; padding: 4px 10px; text-align: left; line-height: 16px !important; text-shadow: none }
+.tipsy-arrow { position: absolute; width: 0; height: 0; line-height: 0;}
+.tipsy-n .tipsy-arrow { top: 0px; left: 50%; margin-left: -5px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent; }
+.tipsy-nw .tipsy-arrow { top: 0; left: 10px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent;}
+.tipsy-ne .tipsy-arrow { top: 0; right: 10px; border-bottom-style: solid; border-top: none;  border-left-color: transparent; border-right-color: transparent;}
+.tipsy-s .tipsy-arrow { bottom: 0; left: 50%; margin-left: -5px; border-top-style: solid; border-bottom: none;  border-left-color: transparent; border-right-color: transparent; }
+.tipsy-sw .tipsy-arrow { bottom: 0; left: 10px; border-top-style: solid; border-bottom: none;  border-left-color: transparent; border-right-color: transparent; }
+.tipsy-se .tipsy-arrow { bottom: 0; right: 10px; border-top-style: solid; border-bottom: none; border-left-color: transparent; border-right-color: transparent; }
+.tipsy-e .tipsy-arrow { right: 0; top: 50%; margin-top: -5px; border-left-style: solid; border-right: none; border-top-color: transparent; border-bottom-color: transparent; }
+.tipsy-w .tipsy-arrow { left: 0; top: 50%; margin-top: -5px; border-right-style: solid; border-left: none; border-top-color: transparent; border-bottom-color: transparent; }
+
+.tipsy-inner { background-color: #333; color: #fff; }
+.tipsy-inner { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
+
+.tipsy-arrow {border: 5px dashed #333; }
+
+.tipsy-arrow-n { border-bottom-color: #333; }
+.tipsy-arrow-s { border-top-color: #333; }
+.tipsy-arrow-e { border-left-color: #333; }
+.tipsy-arrow-w { border-right-color: #333; }
+
+div.userpro-centered-icons {
+    padding: 10px 0 0 0;
+}
+
+div.userpro-centered-icons a.userpro-profile-icon {
+    float: none !important;
+    display: inline-block;
+    padding: 0;
+    cursor: pointer !important;
+    opacity: 1 !important;
+    border-radius: 999px;
+    text-align: center;
+    width: 26px !important;
+    height: 26px !important;
+    line-height: 26px !important;
+    font-size: 14px !important;
+    margin: 0 4px 0 0;
+    background-color:#000;
+    color:#fff;
+}
+div.userpro-centered-icons a.userpro-profile-icon i {line-height: 26px !important;}
+
+a.userpro-profile-icon {
+    float: none !important;
+    display: inline-block;
+    padding: 0;
+    cursor: pointer !important;
+    opacity: 1 !important;
+    border-radius: 999px;
+    text-align: center;
+    width: 26px !important;
+    height: 26px !important;
+    line-height: 26px !important;
+    font-size: 14px !important;
+    margin: 0 4px 4px 0;
+    text-decoration: none !important;
+    background-color:#000;
+    color:#fff;
+}
+
+span.userpro-tip {
+    float: left;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+span.userpro-tip:hover {opacity: 1}
+/*-----------------------------------------------------MAIN CONTENT ---------------------------------------------------------*/
+.main-content{
+    margin:0px 2%;
+    margin-bottom:20px;
+}
+
+.menu-options{
+    padding-left:0px !important;
+}
+.option-content{
+    width:75%;
+    background:#e1e1e1;
+    float:right;
+    margin-top:5px;
+    padding-bottom: 30px;
+}
+
+.menu-options ul{
+    list-style:none;
+    padding-left:0px !important;
+}
+
+.menu-options ul li{
+    background:#51bf87;
+    padding:10px;
+    margin: 5px 0px;
+    /* border-bottom-left-radius: 5px;
+     border-top-left-radius: 5px; */
+    color:#FFF;
+}
+
+.menu-options ul li img{
+    margin-right:10px;
+}
+
+.menu-options ul .active{
+    background:#e1e1e1;
+    color:#000;
+}
+
+.section-header{
+    /* 	width:94.5%; */
+    background:rgba(255,255,255,0.8);
+    font-size:16px;
+    font-weight:bold;
+    /* 	border-radius:10px; */
+    padding:10px;
+    margin:10px;
+}
+
+.item-name
+{
+    font-weight:bold;
+    margin:10px auto;
+}
+
+.item-content{
+    
+    padding :10px;
+}
+
+.up_content{
+    display:none;
+}
+
+div.userpro-sc {
+    border-bottom: 1px solid #eee;
+    padding: 15px;
+    position: relative;
+}
+
+div.userpro-sc-img {
+    float: left;
+    margin: 0 15px 0 0;
+}
+
+div.userpro-sc-i {
+    margin: 0 0 0 55px;
+    padding-right: 80px;
+}
+
+div.userpro-sc-btn {
+    position: absolute;
+    right: 0;
+    top: 15px;
+}
+
+div.userpro-sc-i-icons {
+    padding: 8px 0 0;
+}
+
+div.userpro a, div.userpro input[type="text"], div.userpro input[type="password"], div.userpro-label span.userpro-field-icon {
+    transition: all 0.2s linear 0s;
+}
+div.userpro a {
+    color: #444;
+}
+input.userpro-button, a.userpro-button, div.userpro div.ajax-file-upload {
+    background: rgba(0, 0, 0, 0) -moz-linear-gradient(0% 0 270deg, #444, #333) repeat scroll 0 0 !important;
+    border: 1px solid #353535 !important;
+    border-radius: 3px !important;
+    color: #fff !important;
+    text-shadow: none !important;
+}
+.entry-content a, .entry-summary a, .taxonomy-description a, .logged-in-as a, .comment-content a, .pingback .comment-body > a, .textwidget a, .entry-footer a:hover, .site-info a:hover {
+    box-shadow: 0 1px 0 0 currentcolor;
+}
+a.userpro-button, div.userpro div.ajax-file-upload {
+    height: 27px !important;
+    line-height: 27px !important;
+}
+input.userpro-button, a.userpro-button, div.userpro div.ajax-file-upload {
+    cursor: pointer !important;
+    display: inline-block;
+    font-weight: normal !important;
+    margin-right: 15px !important;
+    padding: 0 10px !important;
+    text-decoration: none !important;
+    transition: none 0s ease 0s !important;
+}
+
+.row.userpro-field {
+    padding-left: 14px;
+}
+
+.up-layout-side li i{
+    padding-right:8px;
+}
+
+.up-layout-side li{
+    cursor:pointer;
+}
+
+.up-right-button {
+    float: right;
+    padding: 12px;
+}
+
+.up-right-button a{
+    color: black;
+    font-size: 18px;
+}
+
+.up-google-map-holder{
+    height:500px;
+}
+
+/****************** Override userpro.min.css **********************/
+
+div.userpro-centered-icons{
+    text-align:left;
+}
+
+span.userpro-badges{
+    margin: 0 !important;
+    text-align:left !important;
+}
+
+div.userpro-section {
+    font-size: 16px;
+    margin: 10px;
+    padding: 10px;
+}
+
+div.userpro-input {
+    width: 50%;
+}

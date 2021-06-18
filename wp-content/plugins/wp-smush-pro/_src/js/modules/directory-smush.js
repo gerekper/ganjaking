@@ -17,6 +17,7 @@ import Scanner from '../smush/directory-scanner';
 		selected: [],
 		tree: [],
 		wp_smush_msgs: [],
+		triggered: false,
 
 		init() {
 			const self = this,
@@ -45,7 +46,7 @@ import Scanner from '../smush/directory-scanner';
 			/**
 			 * Open the "Select Smush directory" modal.
 			 */
-			$('button.wp-smush-browse, a.wp-smush-dir-link').on(
+			$('button.wp-smush-browse, a#smush-directory-open-modal').on(
 				'click',
 				function (e) {
 					e.preventDefault();
@@ -165,6 +166,19 @@ import Scanner from '../smush/directory-scanner';
 					self.scanner.resume();
 				}
 			);
+
+			/**
+			 * Check to see if we should open the directory module.
+			 * Used to redirect from dashboard page.
+			 *
+			 * @since 3.8.6
+			 */
+			const queryString = window.location.search;
+			const urlParams = new URLSearchParams(queryString);
+			if (urlParams.has('start') && !this.triggered) {
+				this.triggered = true;
+				$('button.wp-smush-browse').trigger('click');
+			}
 		},
 
 		/**

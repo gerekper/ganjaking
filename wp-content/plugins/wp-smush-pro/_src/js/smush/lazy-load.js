@@ -25,6 +25,7 @@
 			 */
 			if ( this.lazyloadEnableButton ) {
 				this.lazyloadEnableButton.addEventListener( 'click', ( e ) => {
+					e.preventDefault();
 					e.currentTarget.classList.add( 'sui-button-onload' );
 
 					this.toggle_lazy_load( true );

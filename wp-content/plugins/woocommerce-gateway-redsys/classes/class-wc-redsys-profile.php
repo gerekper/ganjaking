@@ -30,7 +30,7 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 			if ( ! apply_filters( 'woocommerce_current_user_can_edit_customer_meta_fields', current_user_can( 'manage_woocommerce' ), $user->ID ) ) {
 				return;
 			} ?>
-			<h2><?php _e( 'Redsys Tokens', 'woocommerce-redsys' ); ?></h2>
+			<h2><?php _e( 'Type', 'woocommerce-redsys' ); ?></h2>
 			<table class="form-table" id="fieldset-billing">
 				<tbody>
 					<tr>

@@ -179,23 +179,15 @@ class Betterdocs_Pro_Public
         global $current_user;
         $roles = $current_user->roles;
         $content_visibility = BetterDocs_DB::get_settings('content_visibility');
-        if (is_user_logged_in() && (in_array($roles[0], $content_visibility) || in_array('all', $content_visibility))) {
+        if (is_user_logged_in() && is_array($content_visibility) && (in_array($roles[0], $content_visibility) || in_array('all', $content_visibility))) {
             return true;
         } else {
             return false;
         }
     }
 
-
-	/**
-	 * Get Docs Page Template for docs base directory.
-	 *
-	 * @param int $archive_template Override.
-	 * 
-	 * @since    1.0.2
-	 */
-	public function get_docs_archive_template($template)
-	{
+    public function internal_kb_restriction()
+    {
         global $wp_query;
         $content_restriction = BetterDocs_DB::get_settings('enable_content_restriction');
         $restrict_template = BetterDocs_DB::get_settings('restrict_template');
@@ -204,22 +196,43 @@ class Betterdocs_Pro_Public
         $restrict_category = !empty($restrict_category) ? $restrict_category : array();
         $restrict_kb = BetterDocs_DB::get_settings('restrict_kb');
         $restrict_kb = !empty($restrict_kb) ? $restrict_kb : array();
-        $docs_layout = get_theme_mod('betterdocs_docs_layout_select', 'layout-1');
         $tax = BetterDocs_Helper::get_tax();
 
+        $cat_terms = get_the_terms(get_the_ID(), 'doc_category');
+        $kb_terms = get_the_terms(get_the_ID(), 'knowledge_base');
+
         if (($content_restriction == 1 && $this->content_visibility_by_role() == false)
-            && (in_array('all', $restrict_template)
-                || (is_post_type_archive('docs') && in_array('docs', $restrict_template))
+            && (
+                is_array($restrict_template) && in_array('all', $restrict_template)
+                || (is_post_type_archive('docs') && is_array($restrict_template) && in_array('docs', $restrict_template))
                 || ($tax === 'knowledge_base'
-                    && (in_array('knowledge_base', $restrict_template)
-                        && (in_array('all', $restrict_kb) || in_array($wp_query->query['knowledge_base'], $restrict_kb))))
+                    && (is_array($restrict_template) && in_array('knowledge_base', $restrict_template)
+                        && (is_array($restrict_kb) && in_array('all', $restrict_kb) || in_array($wp_query->query['knowledge_base'], $restrict_kb))))
                 || ($tax === 'doc_category'
-                    && (in_array('doc_category', $restrict_template)
-                        && (in_array('all', $restrict_category) || in_array($wp_query->query['doc_category'], $restrict_category)))))
+                    && (is_array($restrict_template) && in_array('doc_category', $restrict_template)
+                        && (is_array($restrict_category) && in_array('all', $restrict_category) || in_array($wp_query->query['doc_category'], $restrict_category))))
+                || (is_singular('docs')
+                    && (is_array($restrict_template) && in_array('doc_category', $restrict_template) && (in_array('all', $restrict_category) || in_array($cat_terms[0]->slug, $restrict_category)))
+                    || (is_array($restrict_template) && in_array('knowledge_base', $restrict_template) && (in_array('all', $restrict_kb) || in_array($kb_terms[0]->slug, $restrict_kb))))
+            )
         ) {
             $this->restricted_redirect_url();
         }
+    }
 
+
+    /**
+     * Get Docs Page Template for docs base directory.
+     *
+     * @param $template
+     * @return mixed|string
+     * @since    1.0.2
+     */
+	public function get_docs_archive_template($template)
+	{
+        $this->internal_kb_restriction();
+        $docs_layout = get_theme_mod('betterdocs_docs_layout_select', 'layout-1');
+        $tax = BetterDocs_Helper::get_tax();
         if (is_post_type_archive('docs')) {
             $multikb_layout = get_theme_mod('betterdocs_multikb_layout_select', 'layout-1');
             $layout_select = get_theme_mod('betterdocs_docs_layout_select', 'layout-1');
@@ -273,6 +286,7 @@ class Betterdocs_Pro_Public
 	 */
 	public function get_docs_single_template($single_template)
 	{
+        $this->internal_kb_restriction();
 		if (is_singular('docs')) {
 			$layout_select = get_theme_mod('betterdocs_single_layout_select', 'layout-1');
 			if ($layout_select === 'layout-2') {

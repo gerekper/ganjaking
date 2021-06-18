@@ -3,6 +3,7 @@
 namespace ACP\Admin;
 
 use AC;
+use AC\Admin\Main\Columns;
 use AC\Asset;
 use AC\Asset\Location;
 use AC\ListScreen;
@@ -52,7 +53,7 @@ class Settings implements Registrable {
 		add_action( 'ac/settings/before_columns', [ $this, 'render_title' ] );
 		add_action( 'ac/settings/sidebox', [ $this, 'render_sidebar' ] );
 		add_action( 'ac/settings/sidebox', [ $this, 'render_sidebar_help' ] );
-		add_action( 'ac/admin_scripts/columns', [ $this, 'admin_scripts' ] );
+		add_action( 'ac/admin_scripts', [ $this, 'admin_scripts' ] );
 		add_action( 'ac/settings/after_title', [ $this, 'render_submenu_view' ] );
 		add_action( 'ac/settings/after_columns', [ $this, 'render_settings' ] );
 		add_filter( 'ac/read_only_message', [ $this, 'read_only_message' ], 10, 2 );
@@ -135,7 +136,11 @@ class Settings implements Registrable {
 	/**
 	 * Admin Scripts
 	 */
-	public function admin_scripts() {
+	public function admin_scripts( $main ) {
+		if ( ! $main instanceof Columns ) {
+			return;
+		}
+
 		wp_deregister_script( 'select2' ); // try to remove any other version of select2
 
 		$style = new Asset\Style( 'acp-layouts', $this->location->with_suffix( 'assets/core/css/layouts.css' ) );

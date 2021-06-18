@@ -5,8 +5,14 @@
  *
  * Avoid issues with extensions that abuse the_content filter
  */
+
 // phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
 class WoocommerceGpfTheContentProtection {
+
+	/**
+	 * @var WP_Post
+	 */
+	private $original_post;
 
 	/**
 	 * Add filters to populate and restore postdata.
@@ -22,10 +28,9 @@ class WoocommerceGpfTheContentProtection {
 	 * @param $specific_id int
 	 */
 	public function before_processing( $specific_id ) {
-		// @TODO No need for $gpf_original_post to be a global. Should be a class property
-		global $post, $gpf_original_post;
-		$gpf_original_post = $post;
-		$post              = get_post( $specific_id );
+		global $post;
+		$this->original_post = $post;
+		$post                = get_post( $specific_id );
 		setup_postdata( $post );
 	}
 
@@ -37,8 +42,8 @@ class WoocommerceGpfTheContentProtection {
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function after_processing() {
-		global $post, $gpf_original_post;
-		$post = $gpf_original_post;
+		global $post;
+		$post = $this->original_post;
 		wp_reset_postdata();
 	}
 }

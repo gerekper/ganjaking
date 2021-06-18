@@ -14,13 +14,19 @@ class Export implements Renderable {
 	 */
 	private $storage;
 
-	public function __construct( Storage $repository ) {
-		$this->storage = $repository;
+	/**
+	 * @var bool
+	 */
+	private $network_only;
+
+	public function __construct( Storage $storage, $network_only ) {
+		$this->storage = $storage;
+		$this->network_only = $network_only;
 	}
 
 	public function render() {
 		$view = new View( [
-			'table' => new Table\Export( $this->storage ),
+			'table' => new Table\Export( $this->storage, $this->network_only ),
 		] );
 		$view->set_template( 'admin/section-export' );
 

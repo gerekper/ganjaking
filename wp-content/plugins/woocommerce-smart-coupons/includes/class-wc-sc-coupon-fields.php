@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -109,7 +109,27 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 				return;
 			}
 
-			$coupon_share_url = home_url( '/?coupon-code=' . $post->post_title );
+			$shop_page_id = get_option( 'woocommerce_shop_page_id', 0 );
+
+			if ( ! empty( $shop_page_id ) ) {
+				$shop_page_id = 'shop';
+			} else {
+				$home_url     = home_url();
+				$shop_page_id = ( function_exists( 'wpcom_vip_url_to_postid' ) ) ? wpcom_vip_url_to_postid( $home_url ) : url_to_postid( $home_url ); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.url_to_postid_url_to_postid
+			}
+
+			if ( empty( $shop_page_id ) ) {
+				$shop_page_id = 'cart';
+			}
+
+			$coupon_share_url = add_query_arg(
+				array(
+					'coupon-code' => $post->post_title,
+					'sc-page'     => $shop_page_id,
+				),
+				home_url( '/' )
+			);
+
 			?>
 			<h2 style="padding: unset;">
 				<?php
@@ -126,7 +146,15 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 				<div class="sc-multiple-coupons">
 					<?php echo esc_html__( 'You can also apply multiple coupon codes via a single URL. For example:', 'woocommerce-smart-coupons' ); ?><br>
 					<?php
-						echo esc_html( home_url( '/?coupon-code=coupon1,coupon2,coupon3' ) );
+						echo esc_html(
+							add_query_arg(
+								array(
+									'coupon-code' => 'coupon1,coupon2,coupon3',
+									'sc-page'     => $shop_page_id,
+								),
+								home_url( '/' )
+							)
+						);
 					?>
 				</div>
 			</div>

@@ -42,6 +42,9 @@
 					else
 						setContent();
 					RVS.F.updateSelectsWithSpecialOptions();
+					addon.configpanel.find('.tos2').ddTP('change');
+					RVS.F.initOnOff();
+
 				},undefined,undefined,RVS_LANG.loadconfig+'<br><span style="font-size:17px; line-height:25px;">"'+bricks.loadvalues+'"</span>');
 				$('#maintenanceenddate').datepicker({
 					prevText:bricks.earlier,
@@ -52,18 +55,20 @@
 
 			} else {
 				$("#"+param.container).append(addon.configpanel);
+				addon.configpanel.find('.tos2').ddTP('change');
 			}
 
 			//Update Save Config Button
 			RVS.F.configPanelSaveButton({show:true, slug:slug});
 
 			updateInputFieldDependencies();
+			RVS.F.initOnOff();
 		});
 
 
 		function updateInputFieldDependencies() {
 			RVS.F.initOnOff(addon.configpanel);
-			addon.configpanel.find('.tos2.nosearchbox').select2({
+			addon.configpanel.find('.tos2').ddTP({
 				minimumResultsForSearch:"Infinity",
 				placeholder:"Select From List"
 			});

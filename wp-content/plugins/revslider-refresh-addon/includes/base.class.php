@@ -15,7 +15,7 @@ class RsRefreshBase extends RsAddOnRefreshBase {
 					 $_PluginUrl     = RS_REFRESH_PLUGIN_URL,
 					 $_PluginTitle   = 'refresh',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '2.0.0';
+				     $_Version       = '3.0.2';
 	
 	public function __construct() {
 		

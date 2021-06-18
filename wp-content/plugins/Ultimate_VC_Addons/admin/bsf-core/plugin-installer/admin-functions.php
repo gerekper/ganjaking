@@ -58,8 +58,10 @@ if ( ! function_exists( 'get_bundled_plugins' ) ) {
 
 		$prd_ids = array();
 
+		// If brainstrom_products is not yet set, call bsf core init.
 		if ( is_array( $brainstrom_products ) ) {
 			init_bsf_core();
+			$brainstrom_products = get_option( 'brainstrom_products', array() );
 		}
 
 		foreach ( $brainstrom_products as $key => $value ) {

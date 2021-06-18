@@ -186,9 +186,9 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-	max-height: calc(100% - 58px);
+	max-height: calc(100% - 160px);
 	max-width: calc(100% - 594px);
-	min-height: calc(100% - 58px);
+	min-height: calc(100% - 160px);
 	overflow-x: hidden;
 	overflow-y: auto;
 	padding: 2rem 2rem 2rem 2rem;
@@ -197,6 +197,14 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 	top: 4rem;
 	z-index: 1;
 }
+
+.gf_browser_safari .form_editor_fields_container .simplebar-content {
+			min-height: calc(100vh - 12.5rem);
+		}
+
+.form_editor_fields_container.form_editor_fields_no_fields {
+		overflow-y: hidden;
+	}
 
 .form_editor_fields_container.droppable {
 		max-width: 100%;
@@ -572,6 +580,18 @@ button .button-text {
 	position: relative;
 }
 
+.gform_editor .right_label fieldset.gfield, .gform_editor .left_label fieldset.gfield {
+				padding-top: 1rem;
+			}
+
+.gform_editor .right_label fieldset.gfield .gfield-admin-icons, .gform_editor .left_label fieldset.gfield .gfield-admin-icons {
+					top: calc((3rem + 2px) * -1);
+				}
+
+.gform_editor .right_label legend.gfield_label, .gform_editor .left_label legend.gfield_label {
+				top: 0;
+			}
+
 .gform_editor .gform_hidden label, .gform_editor .gform_hidden {
 	display: block;
 }
@@ -628,6 +648,10 @@ div.wrap.gf_browser_chrome .gform_editor .gfield_radio li input {
 
 .gform_fields.left_label fieldset.gfield, .gform_fields.right_label fieldset.gfield {
 	margin-left: 1em;
+}
+
+.gform_wrapper.gravity-theme .left_label .gfield_label + .ginput_container, .gform_wrapper.gravity-theme .right_label .gfield_label + .ginput_container {
+	width: 70%;
 }
 
 html[dir="rtl"] #no-fields {
@@ -1100,6 +1124,62 @@ html[dir="rtl"] #sidebar_field_label::after {
 }
 
 /*
+* Styles for the editor for forms using legacy markup.
+*
+* Used in editor.css.
+*/
+
+.gform_wrapper.gravity-theme.gform_legacy_markup .gfield_time_hour {
+		align-items: baseline;
+		display: flex;
+		margin-right: 0.75rem;
+	}
+
+.gform_wrapper.gravity-theme.gform_legacy_markup .gfield_time_hour input {
+			min-width: 92%;
+			width: 92%;
+		}
+
+.gform_wrapper.gravity-theme.gform_legacy_markup .gfield_time_hour input[type="number"] {
+				margin-right: 0.375rem;
+				width: calc(3rem + 8px);
+			}
+
+.gform_wrapper.gravity-theme.gform_legacy_markup .gfield_time_hour i {
+			font-style: normal;
+		}
+
+.gform_wrapper.gravity-theme.gform_legacy_markup .gfield_time_minute input[type="number"] {
+			width: calc(3rem + 8px);
+		}
+
+.gform_wrapper.gravity-theme.gform_legacy_markup .ginput_container_time {
+		flex-basis: auto;
+	}
+
+.gform_wrapper.gravity-theme.gform_legacy_markup .ginput_container_time input[type="text"] + i {
+			margin-left: 0.25rem;
+		}
+
+html[dir="rtl"] .gform_editor.gform_legacy_markup .gfield_time_hour {
+		margin-left: 0.75rem;
+		margin-right: 0;
+	}
+
+html[dir="rtl"] .gform_editor.gform_legacy_markup .gfield_time_hour i {
+			float: none;
+		}
+
+html[dir="rtl"] .gform_editor.gform_legacy_markup .gfield_time_hour input[type="number"] {
+			margin-left: 0.375rem;
+			margin-right: 0;
+		}
+
+html[dir="rtl"] .gform_editor.gform_legacy_markup .ginput_container_time {
+		margin-right: 0;
+	}
+
+/*
 * Global styles for the form editor.
 *
 * Used in editor.css.
@@ -1435,6 +1515,10 @@ html[dir="rtl"] .editor-sidebar {
 .sidebar .field_settings, .sidebar .panel-block-tabs {
 	overflow-y: auto;
 }
+
+.sidebar .field_settings .simplebar-wrapper, .sidebar .panel-block-tabs .simplebar-wrapper {
+		height: 100%;
+	}
 
 .sidebar .sidebar__nav li.sidebar__nav__item.ui-state-default.ui-state-active, .sidebar .sidebar__nav li.sidebar__nav__item.ui-state-default {
 	background-color: transparent;
@@ -1833,8 +1917,7 @@ html[dir="rtl"] .field-choice-handle {
 }
 
 #gfield_settings_choices_container label {
-	padding: 0 0 0 0;
-	width: 1rem;
+	padding: 0;
 }
 
 html:not([dir="rtl"]) #gfield_settings_choices_container label:first-child {
@@ -1851,32 +1934,81 @@ html[dir="rtl"] #gfield_settings_choices_container label:first-child {
 
 #gfield_settings_choices_container .gfield_choice_header_label {
 	display: inline-block !important;
-	margin-right: 0.75rem;
-	width: 6.25rem;
+	width: calc(100% - 6rem);
 }
+
+.limits-enabled #gfield_settings_choices_container .gfield_choice_header_label {
+		width: calc(100% - 8.5rem);
+	}
+
+#gfield_settings_choices_container.choice_with_value .gfield_choice_header_label {
+	width: calc(50% - 3rem);
+}
+
+.limits-enabled #gfield_settings_choices_container.choice_with_value .gfield_choice_header_label {
+		width: calc(50% - 4.4375rem);
+	}
+
+#gfield_settings_choices_container .gfield_choice_header_value {
+	width: calc(50% - 3rem);
+}
+
+.limits-enabled #gfield_settings_choices_container .gfield_choice_header_value {
+		width: calc(50% - 4.4375rem);
+	}
 
 html[dir="rtl"] #gfield_settings_choices_container .gfield_choice_header_label + .gfield_choice_header_value {
 	margin-right: 0.75rem;
 }
 
-#gfield_settings_choices_container.choice_with_price .gfield_choice_header_price {
-	display: inline-block !important;
-	margin-right: 2px;
-	width: 120px !important;
-}
+.limits-enabled #gfield_settings_choices_container .gfield_choice_header_limit {
+			float: none;
+			margin-right: 0;
+			width: 2.5rem;
+		}
 
-#gfield_settings_choices_container.choice_with_price input {
-	width: 120px !important;
-}
+#gfield_settings_choices_container.choice_with_price > label {
+			width: calc(50% - 3rem);
+		}
 
-#gfield_settings_choices_container.choice_with_value_and_price .gfield_choice_header_price, #gfield_settings_choices_container.choice_with_value_and_price .gfield_choice_header_value, #gfield_settings_choices_container.choice_with_value_and_price .gfield_choice_header_label {
-	display: inline-block !important;
-	width: 80px !important;
-}
+.limits-enabled #gfield_settings_choices_container.choice_with_price > label {
+				width: calc(50% - 4.4375rem);
+			}
 
-#gfield_settings_choices_container.choice_with_value_and_price input, #gfield_settings_choices_container.choice_with_value.choice_with_price input {
-	width: 80px !important;
-}
+.limits-enabled #gfield_settings_choices_container.choice_with_price .gfield_choice_header_limit {
+				width: 2.5rem;
+			}
+
+#gfield_settings_choices_container.choice_with_price .field-choice-input {
+			flex-basis: calc(50% - 3rem);
+			width: calc(50% - 3rem);
+		}
+
+.limits-enabled #gfield_settings_choices_container.choice_with_price .field-choice-input {
+				flex-basis: auto;
+				width: calc(50% - 4.25rem);
+			}
+
+#gfield_settings_choices_container.choice_with_value_and_price > label {
+			width: calc(33.332% - 2rem);
+		}
+
+.limits-enabled #gfield_settings_choices_container.choice_with_value_and_price > label {
+				width: calc(33.332% - 2.8125rem);
+			}
+
+#gfield_settings_choices_container.choice_with_value_and_price .field-choice-price {
+			margin-left: 0.3125rem;
+		}
+
+#gfield_settings_choices_container.choice_with_value_and_price .field-choice-input:not(.field-choice-limit) {
+			flex-basis: calc(33.332% - 2rem);
+			width: calc(33.332% - 2rem);
+		}
+
+.limits-enabled #gfield_settings_choices_container.choice_with_value_and_price .field-choice-input:not(.field-choice-limit) {
+				width: calc(33.332% - 2.8125rem);
+			}
 
 .gfield_rule_input, .gfield_rule_value_dropdown {
 	display: none;

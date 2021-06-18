@@ -2,16 +2,16 @@
 # This file is distributed under the same license as the WooCommerce Subscriptions plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Subscriptions 3.1.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-subscriptions\n"
+"Project-Id-Version: WooCommerce Subscriptions 3.1.3\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/contact-us\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-05-19T05:09:40+00:00\n"
+"POT-Creation-Date: 2021-06-09T03:18:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.3.0\n"
+"X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: woocommerce-subscriptions\n"
 
 #. Plugin Name of the plugin
@@ -240,7 +240,7 @@ msgid "Manage Subscriptions"
 msgstr ""
 
 #: includes/admin/class-wc-subscriptions-admin.php:996
-#: woocommerce-subscriptions.php:305
+#: woocommerce-subscriptions.php:295
 msgid "Search Subscriptions"
 msgstr ""
 
@@ -255,8 +255,8 @@ msgstr ""
 #: includes/class-wcs-query.php:133
 #: includes/class-wcs-query.php:287
 #: includes/privacy/class-wcs-privacy-exporters.php:51
-#: woocommerce-subscriptions.php:296
-#: woocommerce-subscriptions.php:309
+#: woocommerce-subscriptions.php:286
+#: woocommerce-subscriptions.php:299
 msgid "Subscriptions"
 msgstr ""
 
@@ -280,7 +280,7 @@ msgstr ""
 #: includes/class-wc-product-variable-subscription.php:73
 #: includes/class-wc-subscriptions-product.php:1196
 #: includes/class-wc-subscriptions-product.php:1214
-#: woocommerce-subscriptions.php:650
+#: woocommerce-subscriptions.php:581
 msgid "Sign up now"
 msgstr ""
 
@@ -412,7 +412,7 @@ msgstr ""
 #: includes/admin/class-wc-subscriptions-admin.php:1420
 #: includes/upgrades/templates/wcs-about-2-0.php:35
 #: includes/upgrades/templates/wcs-about.php:34
-#: woocommerce-subscriptions.php:1201
+#: woocommerce-subscriptions.php:1132
 msgid "Settings"
 msgstr ""
 
@@ -689,7 +689,7 @@ msgstr ""
 #: templates/emails/on-hold-subscription.php:21
 #: templates/myaccount/my-subscriptions.php:21
 #: templates/myaccount/related-subscriptions.php:21
-#: woocommerce-subscriptions.php:297
+#: woocommerce-subscriptions.php:287
 msgid "Subscription"
 msgstr ""
 
@@ -2332,17 +2332,17 @@ msgid "Change %s address"
 msgstr ""
 
 #: includes/class-wc-subscriptions-cart-validator.php:56
-#: woocommerce-subscriptions.php:560
+#: woocommerce-subscriptions.php:491
 msgid "A subscription renewal has been removed from your cart. Multiple subscriptions can not be purchased at the same time."
 msgstr ""
 
 #: includes/class-wc-subscriptions-cart-validator.php:62
-#: woocommerce-subscriptions.php:566
+#: woocommerce-subscriptions.php:497
 msgid "A subscription has been removed from your cart. Due to payment gateway restrictions, different subscription products can not be purchased at the same time."
 msgstr ""
 
 #: includes/class-wc-subscriptions-cart-validator.php:68
-#: woocommerce-subscriptions.php:572
+#: woocommerce-subscriptions.php:503
 msgid "A subscription has been removed from your cart. Products and subscriptions can not be purchased at the same time."
 msgstr ""
 
@@ -2856,6 +2856,14 @@ msgstr ""
 #: includes/class-wc-subscriptions-extend-store-endpoint.php:552
 #: includes/class-wc-subscriptions-extend-store-endpoint.php:558
 msgid "Price prefix for the currency which can be used to format returned prices."
+msgstr ""
+
+#: includes/class-wc-subscriptions-frontend-scripts.php:51
+msgid "To enable automatic renewals for this subscription, you will first need to add a payment method."
+msgstr ""
+
+#: includes/class-wc-subscriptions-frontend-scripts.php:51
+msgid "Would you like to add a payment method now?"
 msgstr ""
 
 #: includes/class-wc-subscriptions-manager.php:87
@@ -5044,7 +5052,7 @@ msgid "Version %s"
 msgstr ""
 
 #: includes/upgrades/templates/wcs-about-2-0.php:36
-#: woocommerce-subscriptions.php:1202
+#: woocommerce-subscriptions.php:1133
 msgctxt "short for documents"
 msgid "Docs"
 msgstr ""
@@ -5556,6 +5564,7 @@ msgstr ""
 
 #. translators: placeholder is a date
 #: includes/wcs-cart-functions.php:407
+#: tests/unit/wcs_test_wcs_cart_functions.php:225
 msgid "First renewal: %s"
 msgstr ""
 
@@ -6047,6 +6056,7 @@ msgstr ""
 #: templates/emails/cancelled-subscription.php:23
 #: templates/emails/expired-subscription.php:23
 #: templates/emails/on-hold-subscription.php:23
+#: tests/unit/scheduler/scheduler.php:68
 #: wcs-functions.php:306
 msgctxt "table heading"
 msgid "Last Order Date"
@@ -6347,6 +6357,7 @@ msgid "ID"
 msgstr ""
 
 #: templates/myaccount/my-subscriptions.php:40
+#: tests/unit/scheduler/scheduler.php:67
 #: wcs-functions.php:305
 msgctxt "table heading"
 msgid "Next Payment"
@@ -6493,6 +6504,35 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
+#: tests/unit/scheduler/scheduler.php:65
+#: wcs-functions.php:303
+msgctxt "table heading"
+msgid "Start Date"
+msgstr ""
+
+#: tests/unit/scheduler/scheduler.php:66
+#: wcs-functions.php:304
+msgctxt "table heading"
+msgid "Trial End"
+msgstr ""
+
+#: tests/unit/scheduler/scheduler.php:69
+#: wcs-functions.php:307
+msgctxt "table heading"
+msgid "Cancelled Date"
+msgstr ""
+
+#: tests/unit/scheduler/scheduler.php:70
+#: wcs-functions.php:308
+msgctxt "table heading"
+msgid "End Date"
+msgstr ""
+
+#: tests/unit/wcs_test_wcs_functions.php:833
+msgctxt "table column header"
+msgid "Big Bang"
+msgstr ""
+
 #: wcs-functions.php:130
 msgctxt "Error message while creating a subscription"
 msgid "Invalid created date. The date must be a string and of the format: \"Y-m-d H:i:s\"."
@@ -6537,26 +6577,6 @@ msgstr ""
 msgid "Can not get address type display name. Address type is not a string."
 msgstr ""
 
-#: wcs-functions.php:303
-msgctxt "table heading"
-msgid "Start Date"
-msgstr ""
-
-#: wcs-functions.php:304
-msgctxt "table heading"
-msgid "Trial End"
-msgstr ""
-
-#: wcs-functions.php:307
-msgctxt "table heading"
-msgid "Cancelled Date"
-msgstr ""
-
-#: wcs-functions.php:308
-msgctxt "table heading"
-msgid "End Date"
-msgstr ""
-
 #: wcs-functions.php:343
 msgid "Date type is not a string."
 msgstr ""
@@ -6565,71 +6585,71 @@ msgstr ""
 msgid "Date type can not be an empty string."
 msgstr ""
 
-#: woocommerce-subscriptions.php:298
+#: woocommerce-subscriptions.php:288
 msgctxt "custom post type setting"
 msgid "Add Subscription"
 msgstr ""
 
-#: woocommerce-subscriptions.php:299
+#: woocommerce-subscriptions.php:289
 msgctxt "custom post type setting"
 msgid "Add New Subscription"
 msgstr ""
 
-#: woocommerce-subscriptions.php:300
+#: woocommerce-subscriptions.php:290
 msgctxt "custom post type setting"
 msgid "Edit"
 msgstr ""
 
-#: woocommerce-subscriptions.php:301
+#: woocommerce-subscriptions.php:291
 msgctxt "custom post type setting"
 msgid "Edit Subscription"
 msgstr ""
 
-#: woocommerce-subscriptions.php:302
+#: woocommerce-subscriptions.php:292
 msgctxt "custom post type setting"
 msgid "New Subscription"
 msgstr ""
 
-#: woocommerce-subscriptions.php:303
-#: woocommerce-subscriptions.php:304
+#: woocommerce-subscriptions.php:293
+#: woocommerce-subscriptions.php:294
 msgctxt "custom post type setting"
 msgid "View Subscription"
 msgstr ""
 
-#: woocommerce-subscriptions.php:307
+#: woocommerce-subscriptions.php:297
 msgctxt "custom post type setting"
 msgid "No Subscriptions found in trash"
 msgstr ""
 
-#: woocommerce-subscriptions.php:308
+#: woocommerce-subscriptions.php:298
 msgctxt "custom post type setting"
 msgid "Parent Subscriptions"
 msgstr ""
 
-#: woocommerce-subscriptions.php:311
+#: woocommerce-subscriptions.php:301
 msgid "This is where subscriptions are stored."
 msgstr ""
 
-#: woocommerce-subscriptions.php:356
+#: woocommerce-subscriptions.php:346
 msgid "No Subscriptions found"
 msgstr ""
 
-#: woocommerce-subscriptions.php:358
+#: woocommerce-subscriptions.php:348
 msgid "Subscriptions will appear here for you to view and manage once purchased by a customer."
 msgstr ""
 
 #. translators: placeholders are opening and closing link tags
-#: woocommerce-subscriptions.php:360
+#: woocommerce-subscriptions.php:350
 msgid "%1$sLearn more about managing subscriptions &raquo;%2$s"
 msgstr ""
 
 #. translators: placeholders are opening and closing link tags
-#: woocommerce-subscriptions.php:362
+#: woocommerce-subscriptions.php:352
 msgid "%1$sAdd a subscription product &raquo;%2$s"
 msgstr ""
 
 #. translators: placeholder is a post count.
-#: woocommerce-subscriptions.php:379
+#: woocommerce-subscriptions.php:369
 msgctxt "post status label including post count"
 msgid "Active <span class=\"count\">(%s)</span>"
 msgid_plural "Active <span class=\"count\">(%s)</span>"
@@ -6637,7 +6657,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: placeholder is a post count.
-#: woocommerce-subscriptions.php:381
+#: woocommerce-subscriptions.php:371
 msgctxt "post status label including post count"
 msgid "Switched <span class=\"count\">(%s)</span>"
 msgid_plural "Switched <span class=\"count\">(%s)</span>"
@@ -6645,7 +6665,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: placeholder is a post count.
-#: woocommerce-subscriptions.php:383
+#: woocommerce-subscriptions.php:373
 msgctxt "post status label including post count"
 msgid "Expired <span class=\"count\">(%s)</span>"
 msgid_plural "Expired <span class=\"count\">(%s)</span>"
@@ -6653,95 +6673,87 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: placeholder is a post count.
-#: woocommerce-subscriptions.php:385
+#: woocommerce-subscriptions.php:375
 msgctxt "post status label including post count"
 msgid "Pending Cancellation <span class=\"count\">(%s)</span>"
 msgid_plural "Pending Cancellation <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: woocommerce-subscriptions.php:429
-msgid "To enable automatic renewals for this subscription, you will first need to add a payment method."
-msgstr ""
-
-#: woocommerce-subscriptions.php:429
-msgid "Would you like to add a payment method now?"
-msgstr ""
-
 #. translators: placeholder is a number, this is for the teens
 #. translators: placeholder is a number, numbers ending in 4-9, 0
-#: woocommerce-subscriptions.php:721
-#: woocommerce-subscriptions.php:738
+#: woocommerce-subscriptions.php:652
+#: woocommerce-subscriptions.php:669
 msgid "%sth"
 msgstr ""
 
 #. translators: placeholder is a number, numbers ending in 1
-#: woocommerce-subscriptions.php:726
+#: woocommerce-subscriptions.php:657
 msgid "%sst"
 msgstr ""
 
 #. translators: placeholder is a number, numbers ending in 2
-#: woocommerce-subscriptions.php:730
+#: woocommerce-subscriptions.php:661
 msgid "%snd"
 msgstr ""
 
 #. translators: placeholder is a number, numbers ending in 3
-#: woocommerce-subscriptions.php:734
+#: woocommerce-subscriptions.php:665
 msgid "%srd"
 msgstr ""
 
 #. translators: 1$-2$: opening and closing <strong> tags, 3$-4$: link tags, takes to woocommerce plugin on wp.org, 5$-6$: opening and closing link tags, leads to plugins.php in admin
-#: woocommerce-subscriptions.php:773
+#: woocommerce-subscriptions.php:704
 msgid "%1$sWooCommerce Subscriptions is inactive.%2$s The %3$sWooCommerce plugin%4$s must be active for WooCommerce Subscriptions to work. Please %5$sinstall & activate WooCommerce &raquo;%6$s"
 msgstr ""
 
 #. translators: 1$-2$: opening and closing <strong> tags, 3$: minimum supported WooCommerce version, 4$-5$: opening and closing link tags, leads to plugin admin
-#: woocommerce-subscriptions.php:776
+#: woocommerce-subscriptions.php:707
 msgid "%1$sWooCommerce Subscriptions is inactive.%2$s This version of Subscriptions requires WooCommerce %3$s or newer. Please %4$supdate WooCommerce to version %3$s or newer &raquo;%5$s"
 msgstr ""
 
-#: woocommerce-subscriptions.php:807
+#: woocommerce-subscriptions.php:738
 msgid "Variable Subscription"
 msgstr ""
 
 #. translators: 1-2: opening/closing <b> tags, 3: Subscriptions version.
-#: woocommerce-subscriptions.php:904
+#: woocommerce-subscriptions.php:835
 msgid "%1$sWarning!%2$s We can see the %1$sWooCommerce Subscriptions Early Renewal%2$s plugin is active. Version %3$s of %1$sWooCommerce Subscriptions%2$s comes with that plugin's functionality packaged into the core plugin. Please deactivate WooCommerce Subscriptions Early Renewal to avoid any conflicts."
 msgstr ""
 
-#: woocommerce-subscriptions.php:908
+#: woocommerce-subscriptions.php:839
 msgid "Installed Plugins"
 msgstr ""
 
 #. translators: 1$-2$: opening and closing <strong> tags. 3$-4$: opening and closing link tags for learn more. Leads to duplicate site article on docs. 5$-6$: Opening and closing link to production URL. 7$: Production URL .
-#: woocommerce-subscriptions.php:978
+#: woocommerce-subscriptions.php:909
 msgid "It looks like this site has moved or is a duplicate site. %1$sWooCommerce Subscriptions%2$s has disabled automatic payments and subscription related emails on this site to prevent duplicate payments from a staging or test environment. %1$sWooCommerce Subscriptions%2$s considers %5$s%7$s%6$s to be the site's URL. %3$sLearn more &raquo;%4$s."
 msgstr ""
 
-#: woocommerce-subscriptions.php:991
+#: woocommerce-subscriptions.php:922
 msgid "Quit nagging me (but don't enable automatic payments)"
 msgstr ""
 
-#: woocommerce-subscriptions.php:996
+#: woocommerce-subscriptions.php:927
 msgid "Enable automatic payments"
 msgstr ""
 
-#: woocommerce-subscriptions.php:1203
+#: woocommerce-subscriptions.php:1134
 msgid "Support"
 msgstr ""
 
 #. translators: placeholders are opening and closing tags. Leads to docs on version 2
-#: woocommerce-subscriptions.php:1286
+#: woocommerce-subscriptions.php:1217
 msgid "Warning! Version 2.0 is a major update to the WooCommerce Subscriptions extension. Before updating, please create a backup, update all WooCommerce extensions and test all plugins, custom code and payment gateways with version 2.0 on a staging site. %1$sLearn more about the changes in version 2.0 &raquo;%2$s"
 msgstr ""
 
 #. translators: placeholder is Subscriptions version number.
-#: woocommerce-subscriptions.php:1302
+#: woocommerce-subscriptions.php:1233
 msgid "Warning! You are running version %s of WooCommerce Subscriptions plugin code but your database has been upgraded to Subscriptions version 2.0. This will cause major problems on your store."
 msgstr ""
 
 #. translators: opening/closing <a> tags - linked to ticket form.
-#: woocommerce-subscriptions.php:1304
+#: woocommerce-subscriptions.php:1235
 msgid "Please upgrade the WooCommerce Subscriptions plugin to version 2.0 or newer immediately. If you need assistance, after upgrading to Subscriptions v2.0, please %1$sopen a support ticket%2$s."
 msgstr ""
 

@@ -93,12 +93,21 @@ class AddonInstaller implements Registrable {
 			wp_send_json_error( __( 'Install failed.', 'codepress-admin-columns' ) );
 		}
 
-		$result = activate_plugin( $plugin_basename );
+		$network_wide = '1' === filter_input( INPUT_POST, 'network_wide' );
+
+		$is_active = null === activate_plugin( $plugin_basename, '', $network_wide );
+
+		$status = __( 'Installed', 'codepress-admin-columns' );
+
+		if ( $is_active ) {
+			$status = $network_wide
+				? __( 'Network Active', 'codepress-admin-columns' )
+				: __( 'Active', 'codepress-admin-columns' );
+		}
 
 		wp_send_json_success( [
-			'installed' => true,
-			'activated' => null === $result,
-			'status'    => __( 'Active', 'codepress-admin-columns' ),
+			'activated' => $is_active,
+			'status'    => $status,
 		] );
 	}
 

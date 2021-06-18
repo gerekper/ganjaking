@@ -1,6 +1,6 @@
 /***************************************************
- * REVOLUTION 6.0.0 login ADDON
- * @version: 2.0 (15.07.2018)
+ * REVOLUTION 6.4.10 login ADDON
+ * @version: 3.0.1 (29.04.2021)
  * @author ThemePunch
 ***************************************************/
 (function( $ ) {
@@ -52,7 +52,8 @@
 
 
 		// INITIALISE THE ADDON	CONFIG PANEL (init_%SLUG%_ConfigPanel)
-		RVS.DOC.on(slug+'_config',function(e,param) {		
+		RVS.DOC.on(slug+'_config',function(e,param) {	
+
 			// FIRST TIME INITIALISED
 			if (!addon.initialised) {
 				initListeners();		
@@ -67,7 +68,9 @@
 						} catch(e){}
 					else
 						setContent();	
-					RVS.F.updateSelectsWithSpecialOptions();					
+					RVS.F.updateSelectsWithSpecialOptions();			
+					
+					addon.configpanel.find('.tos2.nosearchbox').ddTP('change');
 				},undefined,undefined,RVS_LANG.loadconfig+'<br><span style="font-size:17px; line-height:25px;">"'+bricks.loadvalues+'"</span>');
 				$('#loginenddate').datepicker({
 					prevText:bricks.earlier,
@@ -77,20 +80,21 @@
 				})
 				
 			} else {
-				$("#"+param.container).append(addon.configpanel);
+				$("#"+param.container).append(addon.configpanel);	
+				updateInputFieldDependencies();		
 			}
 			
 			//Update Save Config Button
 			RVS.F.configPanelSaveButton({show:true, slug:slug});
-
-			updateInputFieldDependencies();
+			updateInputFieldDependencies();		
+			
 		});
 
 		
 		function updateInputFieldDependencies() {
-			RVS.F.initOnOff(addon.configpanel);
-			addon.configpanel.find('.tos2.nosearchbox').select2RS({
-				minimumResultsForSearch:"Infinity",
+			//RVS.F.initOnOff(addon.configpanel);
+			RVS.F.initOnOff();
+			addon.configpanel.find('.tos2.nosearchbox').ddTP({				
 				placeholder:"Select From List"
 			});				
 		}

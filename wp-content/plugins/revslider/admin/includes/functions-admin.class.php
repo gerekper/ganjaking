@@ -189,6 +189,9 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 	 * Get Sliders data for the overview page
 	 **/
 	public function get_slider_overview(){
+		global $rs_do_init_action;
+		$rs_do_init_action = false;
+		
 		$rs_slider	= new RevSliderSlider();
 		$rs_slide	= new RevSliderSlide();
 		$sliders	= $rs_slider->get_sliders(false);
@@ -232,6 +235,8 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 				unset($sliders[$k]);
 			}
 		}
+		
+		$rs_do_init_action = true;
 		
 		return $data;
 	}

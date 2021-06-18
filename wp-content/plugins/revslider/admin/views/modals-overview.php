@@ -112,28 +112,11 @@ if(!defined('ABSPATH')) exit();
 										<option value="use-credentials"><?php _e('Use Credentials', 'revslider');?></option>
 									</select><span class="linebreak"></span>
 						<div class="div25"></div>					
-						<label_a><?php _e('Insert scripts in footer', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.script.footer"><span class="linebreak"></span>
+						<div style="display:none !important"><label_a><?php _e('Insert scripts in footer', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.script.footer"><span class="linebreak"></span></div>
 						<label_a><?php _e('Defer JavaScript loading', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.script.defer"><span class="linebreak"></span>						
 						<label_a><?php _e('3rd Party lazy loading data', 'revslider');?></label_a><input type="text" class="easyinit globalinput"  data-r="globals.lazyloaddata" placeholder="<?php _e('(i.e. lazy-src for WP Rocket)', 'revslider'); ?>"><span class="linebreak"></span>
 						<label_a><?php _e('Use internal caching', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.internalcaching"><span class="linebreak"></span>
 						<label_a></label_a><div id="rs_force_clear_cache" class="basic_action_button autosize"><i class="material-icons">build</i><?php _e('Clear Cache', 'revslider'); ?></div>
-						<div class="div25"></div>
-						<div class="ale_i_title"><?php _e('Miscellaneous', 'revslider');?></div>
-						<hr class="general_hr">						
-						<label_a><?php _e('Fix RevSlider table issues', 'revslider');?></label_a><div id="rs_db_force_create" class="basic_action_button autosize"><i class="material-icons">build</i><?php _e('Force RS DB Creation', 'revslider');?></div>						
-						<label_a><?php _e('Editor high contrast mode', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput callEvent" data-evt="highContrast" data-r="globals.highContrast"><span class="linebreak"></span>
-					</div><!--
-					--><div class="rbm_general_half" style="padding-left:20px;">
-						<div class="ale_i_title"><?php _e('Default Layout Grid Breakpoints', 'revslider');?></div>
-						<hr class="general_hr">
-						<label_a><?php _e('Default desktop content width', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-numeric="true" data-allowed="px" data-min="0" data-max="2400" data-r="globals.size.desktop"><span class="linebreak"></span>
-						<label_a><?php _e('Default notebook content width', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-numeric="true" data-allowed="px" data-min="0" data-max="2400" data-r="globals.size.notebook"><span class="linebreak"></span>
-						<label_a><?php _e('Default tablet content width', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-numeric="true" data-allowed="px" data-min="0" data-max="2400" data-r="globals.size.tablet"><span class="linebreak"></span>
-						<label_a><?php _e('Default mobile content width', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-numeric="true" data-allowed="px" data-min="0" data-max="2400" data-r="globals.size.mobile"><span class="linebreak"></span>		
-						<div class="div25"></div>
-						<div class="ale_i_title"><?php _e('Mobile Device Pixel Ratio', 'revslider');?></div>
-						<hr class="general_hr">
-						<label_a><?php _e('Force 1x DPR on Mobile', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.onedpronmobile"><span class="linebreak"></span>					
 						<div class="div25"></div>
 						<div class="ale_i_title"><?php _e('Fonts', 'revslider');?></div>
 						<hr class="general_hr">
@@ -147,6 +130,32 @@ if(!defined('ABSPATH')) exit();
 									</select><span class="linebreak"></span>
 						<label_a><?php _e('Optional Google Fonts loading URL', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-r="globals.fonturl" placeholder="<?php _e('(ie. http://fonts.useso.com/css?family for chinese Environment)', 'revslider');?>"><span class="linebreak"></span>
 						<label_a></label_a><div id="rs_trigger_font_deletion" class="basic_action_button autosize"><i class="material-icons">build</i><?php _e('Update Preload Fonts', 'revslider'); ?></div>
+					</div><!--
+					--><div class="rbm_general_half" style="padding-left:20px;">
+						<div class="ale_i_title"><?php _e('Default Layout Grid Breakpoints', 'revslider');?></div>
+						<hr class="general_hr">
+						<label_a><?php _e('Default desktop content width', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-numeric="true" data-allowed="px" data-min="0" data-max="2400" data-r="globals.size.desktop"><span class="linebreak"></span>
+						<label_a><?php _e('Default notebook content width', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-numeric="true" data-allowed="px" data-min="0" data-max="2400" data-r="globals.size.notebook"><span class="linebreak"></span>
+						<label_a><?php _e('Default tablet content width', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-numeric="true" data-allowed="px" data-min="0" data-max="2400" data-r="globals.size.tablet"><span class="linebreak"></span>
+						<label_a><?php _e('Default mobile content width', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-numeric="true" data-allowed="px" data-min="0" data-max="2400" data-r="globals.size.mobile"><span class="linebreak"></span>		
+						<div class="div25"></div>
+						<div class="ale_i_title"><?php _e('Optimization', 'revslider');?></div>
+						<hr class="general_hr">
+						<label_a><?php _e('Force 1x DPR on Mobile', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.onedpronmobile"><span class="linebreak"></span>						
+						<label_a><?php _e('Force ViewPort Loading', 'revslider');?></label_a><select data-showprio="show" data-show=".show_forceViewport_*val*" data-hide=".hide_forceViewport" id="forceViewport" name="forceViewport" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.forceViewport">
+										<option value="true"><?php _e("On", 'revslider');?></option><option value="false"><?php _e("Off", 'revslider');?></option><option value="none"><?php _e("No Change", 'revslider');?></option>
+									</select><span class="linebreak"></span>
+						<div class="show_forceViewport_true hide_forceViewport"><label_a><?php _e('ViewPort Distance if Forced', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-numeric="true" data-allowed="px,%" data-min="-1500" data-max="1500" data-r="globals.forcedViewportDistance"></div>
+						<label_a><?php _e('Default Lazy Loading in modules', 'revslider');?></label_a><select id="overwritelazyloading" name="overwritelazyloading" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.forceLazyLoading">
+										<option value="all"><?php _e("All", 'revslider');?></option><option value="smart"><?php _e("Smart", 'revslider');?></option><option value="single"><?php _e("Single", 'revslider');?></option><option value="none"><?php _e("No Change", 'revslider');?></option>
+									</select><span class="linebreak"></span>
+						<div class="div25"></div>
+						<div class="ale_i_title"><?php _e('Miscellaneous', 'revslider');?></div>
+						<hr class="general_hr">						
+						<label_a><?php _e('Fix RevSlider table issues', 'revslider');?></label_a><div id="rs_db_force_create" class="basic_action_button autosize"><i class="material-icons">build</i><?php _e('Force RS DB Creation', 'revslider');?></div>						
+						<label_a><?php _e('Editor high contrast mode', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput callEvent" data-evt="highContrast" data-r="globals.highContrast"><span class="linebreak"></span>
+
+						
 						
 						
 						<!--<input type="text" class="easyinit globalinput" data-r="globals.customfonts" placeholder="<?php _e('font-family, font-family, ...', 'revslider');?>"><span class="linebreak"></span>-->

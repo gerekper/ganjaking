@@ -22,20 +22,28 @@ class WoocommerceGpfCacheStatus {
 	protected $template_loader;
 
 	/**
+	 * @var WoocommerceProductFeedsFeedConfigRepository
+	 */
+	protected $config_repository;
+
+	/**
 	 * WoocommerceGpfCacheStatus constructor.
 	 *
 	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
 	 * @param WoocommerceGpfCache $woocommerce_gpf_cache
 	 * @param WoocommerceGpfTemplateLoader $woocommerce_gpf_template_loader
+	 * @param WoocommerceProductFeedsFeedConfigRepository $config_repository
 	 */
 	public function __construct(
 		WoocommerceGpfCommon $woocommerce_gpf_common,
 		WoocommerceGpfCache $woocommerce_gpf_cache,
-		WoocommerceGpfTemplateLoader $woocommerce_gpf_template_loader
+		WoocommerceGpfTemplateLoader $woocommerce_gpf_template_loader,
+		WoocommerceProductFeedsFeedConfigRepository $config_repository
 	) {
-		$this->cache           = $woocommerce_gpf_cache;
-		$this->common          = $woocommerce_gpf_common;
-		$this->template_loader = $woocommerce_gpf_template_loader;
+		$this->cache             = $woocommerce_gpf_cache;
+		$this->common            = $woocommerce_gpf_common;
+		$this->template_loader   = $woocommerce_gpf_template_loader;
+		$this->config_repository = $config_repository;
 		add_filter( 'woocommerce_gpf_cache_status', [ $this, 'generate_status_output' ], 10, 2 );
 	}
 
@@ -52,9 +60,10 @@ class WoocommerceGpfCacheStatus {
 		if ( ! $this->cache->is_enabled() ) {
 			return $output;
 		}
-		$feed_types = $this->common->get_feed_types();
+
+		$active_feed_formats = $this->config_repository->get_active_feed_formats();
 		// Work out how many products we have cached per-feed type.
-		$status  = array_fill_keys( array_keys( $feed_types ), 0 );
+		$status  = array_fill_keys( array_values( $active_feed_formats ), 0 );
 		$results = $wpdb->get_results(
 			"SELECT `name`,
 			        COUNT(DISTINCT(post_id)) AS total
@@ -89,19 +98,17 @@ class WoocommerceGpfCacheStatus {
 			'gpf_rebuild_cache'
 		);
 
+		$all_feed_types = $this->common->get_feed_types();
+
 		$status_items = '';
-		foreach ( $feed_types as $feed_id => $feed_type ) {
-			// Do not show feeds that aren't enabled.
-			if ( ! $this->common->is_feed_enabled( $feed_id ) ) {
-				continue;
-			}
+		foreach ( $active_feed_formats as $feed_type ) {
 			$status_items .= $this->template_loader->get_template_with_variables(
 				'woo-gpf',
 				'admin-cache-status-item',
 				array(
-					'name'   => $feed_type['name'],
+					'name'   => $all_feed_types[ $feed_type ]['plural_name'],
 					// Translators: Placeholders represent the number of items processed, and the total to be generated, e.g. 5 / 10
-					'status' => sprintf( __( '<strong>%1$d</strong> / <strong>%2$d</strong> generated', 'woocommerce_gpf' ), $status[ $feed_id ], $total_cache ),
+					'status' => sprintf( __( '<strong>%1$d</strong> / <strong>%2$d</strong> generated', 'woocommerce_gpf' ), $status[ $feed_type ], $total_cache ),
 					'total'  => $total_cache,
 				)
 			);

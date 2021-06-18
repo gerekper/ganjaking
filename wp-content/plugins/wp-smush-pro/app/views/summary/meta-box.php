@@ -12,6 +12,8 @@
  * @var int        $resize_savings
  * @var string|int $stats_percent
  * @var int        $total_optimized
+ *
+ * @var Smush\App\Abstract_Page $this  Page.
  */
 
 use Smush\Core\Settings;
@@ -97,12 +99,12 @@ $branded_image = apply_filters( 'wpmudev_branding_hero_image', '' );
 				<?php if ( ! $resize_enabled && $resize_savings <= 0 ) : ?>
 					<p class="wp-smush-stats-label-message sui-hidden-sm sui-hidden-md sui-hidden-lg">
 						<?php
-						$link_class = 'wp-smush-resize-enable';
-						if ( ( is_multisite() && Settings::can_access( 'bulk' ) ) || 'bulk' !== $this->get_current_tab() ) {
-							$settings_link = $this->get_page_url() . '#enable-resize';
-						} else {
-							$settings_link = '#';
-							$link_class    = 'wp-smush-resize-enable';
+						$settings_link = '#';
+						$link_class    = 'wp-smush-resize-enable';
+
+						if ( Settings::can_access( 'bulk' ) && 'smush-bulk' !== $this->get_slug() ) {
+							$settings_link = $this->get_url( 'smush-bulk' ) . '#enable-resize';
+							$link_class    = '';
 						}
 
 						printf(

@@ -65,7 +65,7 @@ class Date_Time extends Base {
 		// Prepare minutes as choices.
 		$minute_choices = array();
 		for ( $i = 0; $i < 60; $i++ ) {
-			$minute_choices[] = array( 'label' => sprintf( '%02d', $i ), 'value' => sprintf( '%02d', $i ) );
+			$minute_choices[] = array( 'label' => sprintf( '%02d', $i ), 'value' => sprintf( '%d', $i ) );
 		}
 
 		// Prepare minute drop down.

@@ -17,7 +17,7 @@ class woocommerce_msrp_woocommerce_product_feeds_integration {
 	 * @return mixed
 	 */
 	public function register_field( $field_list ) {
-		$field_list['method:woocommerce_msrp_woocommerce_product_feeds_integration::get_msrp'] = __( 'MSRP from WooCommerce MSRP extension', 'woocommerce_msrp' );
+		$field_list['method:woocommerce_msrp_woocommerce_product_feeds_integration::get_msrp'] = __( 'MSRP from MSRP Pricing extension', 'woocommerce_msrp' );
 
 		return $field_list;
 	}

@@ -9,7 +9,7 @@ if(!defined('ABSPATH')) exit();
 
 class RsAddOnLottieBase {
 	
-	const MINIMUM_VERSION = '6.4.0';
+	const MINIMUM_VERSION = '6.5.0';
 	
 	protected function systemsCheck() {
 		
@@ -89,7 +89,7 @@ class RsAddOnLottieBase {
 			$_jsPathMin = file_exists(static::$_PluginPath . 'admin/assets/js/revslider-' . static::$_PluginTitle . '-addon-admin.dev.js') ? '.dev' : '';
 			
 			wp_enqueue_style($_handle, $_base . 'css/revslider-' . static::$_PluginTitle . '-addon-admin.css', array(), static::$_Version);
-			wp_enqueue_script($_handle . "lottie", static::$_PluginUrl . 'public/assets/js/lottie.min.js', array('jquery', 'revbuilder-admin'), static::$_Version, true);
+			wp_enqueue_script($_handle . "rslottie", static::$_PluginUrl . 'public/assets/js/lottie.min.js', array('jquery', 'revbuilder-admin'), static::$_Version, true);
 			wp_enqueue_script($_handle, $_base . 'js/revslider-' . static::$_PluginTitle . '-addon-admin' . $_jsPathMin . '.js', array('jquery', 'revbuilder-admin'), static::$_Version, true);
 			wp_localize_script($_handle, 'revslider_lottie_addon', self::get_var() );
 

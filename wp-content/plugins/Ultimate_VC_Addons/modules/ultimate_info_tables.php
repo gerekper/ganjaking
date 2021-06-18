@@ -3,18 +3,18 @@
  * Add-on Name: Info Tables for WPBakery Page Builder
  * Add-on URI: http://dev.brainstormforce.com
  *
- * @package Ultimate_Info_Table
+ * @package Ultimate_VC_Addons_Info_Table
  */
 
-if ( ! class_exists( 'Ultimate_Info_Table' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Info_Table' ) ) {
 	/**
-	 * Class Ultimate_Info_Table.
+	 * Class Ultimate_VC_Addons_Info_Table.
 	 *
-	 * @class Ultimate_Info_Table
+	 * @class Ultimate_VC_Addons_Info_Table
 	 */
-	class Ultimate_Info_Table {
+	class Ultimate_VC_Addons_Info_Table {
 		/**
-		 * Constructor function that constructs default values for the Ultimate_Info_Table.
+		 * Constructor function that constructs default values for the Ultimate_VC_Addons_Info_Table.
 		 *
 		 * @method __construct
 		 */
@@ -31,10 +31,10 @@ if ( ! class_exists( 'Ultimate_Info_Table' ) ) {
 		 * @method info_table_assets
 		 */
 		public function info_table_assets() {
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-pricing', 'pricing' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-pricing', 'pricing' );
 		}
 		/**
-		 * Function that initializes settings of Ultimate_Info_Table.
+		 * Function that initializes settings of Ultimate_VC_Addons_Info_Table.
 		 *
 		 * @method ultimate_it_init
 		 */
@@ -732,8 +732,8 @@ if ( ! class_exists( 'Ultimate_Info_Table' ) ) {
 			}
 			return $output;
 		}
-	} // class Ultimate_Info_Table.
-	new Ultimate_Info_Table();
+	} // class Ultimate_VC_Addons_Info_Table.
+	new Ultimate_VC_Addons_Info_Table();
 	if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Info_Table' ) ) {
 		/**
 		 * Function that checks if the class is exists or not.

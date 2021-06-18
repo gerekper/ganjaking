@@ -169,11 +169,13 @@ class GF_Field_FileUpload extends GF_Field {
 		}
 		// File size.
 		$max_upload_size = $this->maxFileSize > 0 ? $this->maxFileSize * 1048576 : wp_max_upload_size();
-		$upload_rules_messages[] = esc_attr( sprintf( __( 'Max. file size: %s' ), GFCommon::format_file_size( $max_upload_size ) ) );
+		// translators: %s is replaced with a numeric string representing the maximum file size
+		$upload_rules_messages[] = esc_attr( sprintf( __( 'Max. file size: %s', 'gravityforms' ), GFCommon::format_file_size( $max_upload_size ) ) );
 		// No. of files.
 		$max_files = ( $multiple_files && $this->maxFiles > 0 ) ? $this->maxFiles : 0;
 		if ( $max_files ) {
-			$upload_rules_messages[] = esc_attr( sprintf( __( 'Max. files: %s' ), $max_files ) );
+			// translators: %s is replaced with a numeric string representing the maximum number of files
+			$upload_rules_messages[] = esc_attr( sprintf( __( 'Max. files: %s', 'gravityforms' ), $max_files ) );
 		}
 
 		$rules_messages = implode( ', ', $upload_rules_messages ) . '.';

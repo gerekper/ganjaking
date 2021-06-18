@@ -2,7 +2,7 @@
 
 namespace Yoast\WP\SEO\Premium\Actions\Prominent_Words;
 
-use Yoast\WP\SEO\Helpers\Prominent_Words_Helper;
+use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper;
 
 /**
  * Action for completing the prominent words indexing.

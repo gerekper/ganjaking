@@ -3,162 +3,60 @@
  * Render Smush pages.
  *
  * @package WP_Smush
+ *
+ * @var Abstract_Page $this
  */
 
-namespace Smush\App\Views;
-
-use WP_Smush;
+use Smush\App\Abstract_Page;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-/**
- * Prevent warnings.
- *
- * @var \Smush\App\Abstract_Page $this
- */
 $this->do_meta_boxes( 'summary' );
+
 ?>
 
-<div class="sui-row-with-sidenav">
-	<?php $this->show_tabs(); ?>
-	<div>
-		<?php if ( 'tutorials' === $this->get_current_tab() && $this->should_render() ) : ?>
-			<div id="smush-box-tutorials"></div>
-			<?php
-		else :
-			$this->do_meta_boxes( $this->get_current_tab() );
-		endif;
-		?>
-	</div>
-</div><!-- end row -->
-
-<?php if ( ! WP_Smush::is_pro() ) : ?>
-	<?php if ( 'bulk' === $this->get_current_tab() ) : ?>
-		<div class="sui-row" id="sui-cross-sell-footer">
-			<div><span class="sui-icon-plugin-2"></span></div>
-			<h3><?php esc_html_e( 'Check out our other free wordpress.org plugins!', 'wp-smushit' ); ?></h3>
-		</div>
-		<div class="sui-row sui-cross-sell-modules">
-			<div class="sui-col-md-4">
-				<div class="sui-cross-1 sui-cross-hummingbird"><span></span></div>
-				<div class="sui-box">
-					<div class="sui-box-body">
-						<h3><?php esc_html_e( 'Hummingbird Page Speed Optimization', 'wp-smushit' ); ?></h3>
-						<p><?php esc_html_e( 'Performance Tests, File Optimization & Compression, Page, Browser & Gravatar Caching, GZIP Compression, CloudFlare Integration & more.', 'wp-smushit' ); ?></p>
-						<a href="<?php echo esc_url( 'https://wordpress.org/plugins/hummingbird-performance/' ); ?>" class="sui-button sui-button-ghost" target="_blank">
-							<?php esc_html_e( 'View features', 'wp-smushit' ); ?> <i class="sui-icon-arrow-right"></i>
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="sui-col-md-4">
-				<div class="sui-cross-2 sui-cross-defender"><span></span></div>
-				<div class="sui-box">
-					<div class="sui-box-body">
-						<h3><?php esc_html_e( 'Defender Security, Monitoring, and Hack Protection', 'wp-smushit' ); ?></h3>
-						<p><?php esc_html_e( 'Security Tweaks & Recommendations, File & Malware Scanning, Login & 404 Lockout Protection, Two-Factor Authentication & more.', 'wp-smushit' ); ?></p>
-						<a href="<?php echo esc_url( 'https://wordpress.org/plugins/defender-security/' ); ?>" class="sui-button sui-button-ghost" target="_blank">
-							<?php esc_html_e( 'View features', 'wp-smushit' ); ?> <i class="sui-icon-arrow-right"></i>
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="sui-col-md-4">
-				<div class="sui-cross-3 sui-cross-smartcrawl"><span></span></div>
-				<div class="sui-box">
-					<div class="sui-box-body">
-						<h3><?php esc_html_e( 'SmartCrawl Search Engine Optimization', 'wp-smushit' ); ?></h3>
-						<p><?php esc_html_e( 'Customize Titles & Metadata, OpenGraph, Twitter & Pinterest Support, Auto-Keyword Linking, SEO & Readability Analysis, Sitemaps, URL Crawler & more.', 'wp-smushit' ); ?></p>
-						<a href="<?php echo esc_url( 'https://wordpress.org/plugins/smartcrawl-seo/' ); ?>" class="sui-button sui-button-ghost" target="_blank">
-							<?php esc_html_e( 'View features', 'wp-smushit' ); ?> <i class="sui-icon-arrow-right"></i>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="sui-cross-sell-bottom">
-			<?php
-			$site_url = add_query_arg(
-				array(
-					'utm_source'   => 'smush',
-					'utm_medium'   => 'plugin',
-					'utm_campaign' => 'smush_footer_upsell_notice',
-				),
-				esc_url( 'https://wpmudev.com' )
-			);
-			?>
-			<h3><?php esc_html_e( 'Your All-in-One WordPress Platform', 'wp-smushit' ); ?></h3>
-			<p><?php esc_html_e( 'Pretty much everything you need for developing and managing WordPress based websites, and then some.', 'wp-smushit' ); ?></p>
-			<a class="sui-button sui-button-green" href="<?php echo esc_url( $site_url ); ?>" id="dash-uptime-update-membership" target="_blank">
-				<?php esc_html_e( 'Learn more', 'wp-smushit' ); ?>
-			</a>
-			<img class="sui-image" src="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/dev-team.png' ); ?>" srcset="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/dev-team@2x.png' ); ?> 2x" alt="<?php esc_attr_e( 'Try pro features for free!', 'wp-smushit' ); ?>">
-		</div>
-	<?php endif; ?>
-
-	<div class="sui-footer">
-		<?php esc_html_e( 'Made with', 'wp-smushit' ); ?> <i class="sui-icon-heart" aria-hidden="true"></i> <?php esc_html_e( 'by WPMU DEV', 'wp-smushit' ); ?>
-	</div>
-
-	<ul class="sui-footer-nav">
-		<li><a href="https://profiles.wordpress.org/wpmudev#content-plugins" target="_blank">
-				<?php esc_html_e( 'Free Plugins', 'wp-smushit' ); ?>
-			</a></li>
-		<li><a href="https://wpmudev.com/roadmap/" target="_blank">
-				<?php esc_html_e( 'Roadmap', 'wp-smushit' ); ?>
-			</a></li>
-		<li><a href="https://wordpress.org/support/plugin/wp-smushit" target="_blank">
-				<?php esc_html_e( 'Support', 'wp-smushit' ); ?>
-			</a></li>
-		<li><a href="https://wpmudev.com/docs/" target="_blank">
-				<?php esc_html_e( 'Docs', 'wp-smushit' ); ?>
-			</a></li>
-		<li><a href="https://wpmudev.com/hub-welcome/" target="_blank">
-				<?php esc_html_e( 'The Hub', 'wp-smushit' ); ?>
-			</a></li>
-		<li><a href="https://wpmudev.com/terms-of-service/" target="_blank">
-				<?php esc_html_e( 'Terms of Service', 'wp-smushit' ); ?>
-			</a></li>
-		<li><a href="https://incsub.com/privacy-policy/" target="_blank">
-				<?php esc_html_e( 'Privacy Policy', 'wp-smushit' ); ?>
-			</a></li>
-	</ul>
-
-<?php else : ?>
-
-	<div class="sui-footer">
-		<?php esc_html_e( 'Made with', 'wp-smushit' ); ?> <i class="sui-icon-heart" aria-hidden="true"></i> <?php esc_html_e( 'by WPMU DEV', 'wp-smushit' ); ?>
-	</div>
-
-	<ul class="sui-footer-nav">
-		<li><a href="https://wpmudev.com/hub2/" target="_blank">
-				<?php esc_html_e( 'The Hub', 'wp-smushit' ); ?>
-			</a></li>
-		<li><a href="https://wpmudev.com/projects/category/plugins/" target="_blank">
-				<?php esc_html_e( 'Plugins', 'wp-smushit' ); ?>
-			</a></li>
-		<li><a href="https://wpmudev.com/roadmap/" target="_blank">
-				<?php esc_html_e( 'Roadmap', 'wp-smushit' ); ?>
-			</a></li>
-		<li><a href="https://wpmudev.com/hub2/support/" target="_blank">
-				<?php esc_html_e( 'Support', 'wp-smushit' ); ?>
-			</a></li>
-		<li><a href="https://wpmudev.com/docs/" target="_blank">
-				<?php esc_html_e( 'Docs', 'wp-smushit' ); ?>
-			</a></li>
-		<li><a href="https://wpmudev.com/hub2/community/" target="_blank">
-				<?php esc_html_e( 'Community', 'wp-smushit' ); ?>
-			</a></li>
-		<li><a href="https://wpmudev.com/academy/" target="_blank">
-				<?php esc_html_e( 'Academy', 'wp-smushit' ); ?>
-			</a></li>
-		<li><a href="https://wpmudev.com/terms-of-service/" target="_blank">
-				<?php esc_html_e( 'Terms of Service', 'wp-smushit' ); ?>
-			</a></li>
-		<li><a href="https://incsub.com/privacy-policy/" target="_blank">
-				<?php esc_html_e( 'Privacy Policy', 'wp-smushit' ); ?>
-			</a></li>
-	</ul>
+<?php if ( 'smush' === $this->get_slug() && ! apply_filters( 'wpmudev_branding_hide_doc_link', false ) && ! get_option( WP_SMUSH_PREFIX . 'hide-tutorials' ) ) : ?>
+	<div id="smush-dash-tutorials"></div>
 <?php endif; ?>
+
+<?php if ( 'smush-tutorials' === $this->get_slug() ) : ?>
+	<div id="smush-box-tutorials"></div>
+<?php endif; ?>
+
+<?php if ( ! $this->get_current_tab() ) : ?>
+	<form id="<?php echo esc_attr( $this->get_slug() ); ?>-form" method="post">
+		<?php $this->do_meta_boxes(); ?>
+	</form>
+<?php else : ?>
+	<?php if ( 'configs' !== $this->get_current_tab() ) : ?>
+		<form id="<?php echo esc_attr( $this->get_slug() ); ?>-form" method="post">
+	<?php endif; ?>
+		<div class="sui-row-with-sidenav">
+			<?php $this->show_tabs(); ?>
+			<?php $this->do_meta_boxes( $this->get_current_tab() ); ?>
+
+			<?php if ( 'configs' === $this->get_current_tab() ) : ?>
+				<div id="smush-box-configs"></div>
+			<?php endif; ?>
+		</div>
+		<input type="hidden" name="tab" value="<?php echo esc_attr( $this->get_current_tab() ); ?>">
+	<?php if ( 'configs' !== $this->get_current_tab() ) : ?>
+		</form>
+	<?php endif; ?>
+<?php endif; ?>
+
+<?php if ( $this->has_meta_boxes( 'box-dashboard-left' ) || $this->has_meta_boxes( 'box-dashboard-right' ) ) : ?>
+	<div class="sui-row">
+		<div class="sui-col-lg-6"><?php $this->do_meta_boxes( 'box-dashboard-left' ); ?></div>
+		<div class="sui-col-lg-6"><?php $this->do_meta_boxes( 'box-dashboard-right' ); ?></div>
+	</div>
+<?php endif; ?>
+
+<?php
+if ( ! WP_Smush::is_pro() && 'smush' === $this->get_slug() ) {
+	$this->view( 'footer-plugins-upsell', array(), 'common' );
+}
+
+$this->view( 'footer-links', array(), 'common' );

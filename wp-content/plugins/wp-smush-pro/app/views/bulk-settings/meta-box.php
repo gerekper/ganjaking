@@ -4,11 +4,10 @@
  *
  * @package WP_Smush
  *
- * @var array $basic_features       Basic features list.
- * @var bool  $cdn_enabled          CDN status.
- * @var array $grouped_settings     Grouped settings that can be skipeed.
- * @var array $settings             Settings values.
- * @var array $settings_data        Settings labels and descriptions.
+ * @var array $basic_features    Basic features list.
+ * @var bool  $cdn_enabled       CDN status.
+ * @var array $grouped_settings  Grouped settings that can be skipped.
+ * @var array $settings          Settings values.
  */
 
 use Smush\Core\Settings;
@@ -30,39 +29,24 @@ if ( ! defined( 'WPINC' ) ) {
 	</div>
 <?php endif; ?>
 
-<form id="wp-smush-settings-form" method="post">
-	<input type="hidden" name="setting_form" id="setting_form" value="bulk">
-	<?php if ( is_multisite() && is_network_admin() ) : ?>
-		<input type="hidden" name="setting-type" value="network">
-		<div class="network-settings-wrapper">
-	<?php endif; ?>
-
-	<?php
-	foreach ( $settings_data as $name => $value ) {
-		// If not bulk settings - skip.
-		if ( ! in_array( $name, $grouped_settings, true ) ) {
-			continue;
-		}
-
-		// Skip premium features if not a member.
-		if ( ! in_array( $name, $basic_features, true ) && ! WP_Smush::is_pro() ) {
-			continue;
-		}
-
-		$setting_m_key = WP_SMUSH_PREFIX . $name;
-		$setting_val   = empty( $settings[ $name ] ) ? false : $settings[ $name ];
-
-		$label = ! empty( $value['short_label'] ) ? $value['short_label'] : $value['label'];
-
-		// Show settings option.
-		$this->settings_row( $setting_m_key, $label, $name, $setting_val );
+<?php
+foreach ( $grouped_settings as $name ) {
+	// If not bulk settings - skip.
+	if ( ! in_array( $name, $grouped_settings, true ) ) {
+		continue;
 	}
 
-	// Hook after general settings.
-	do_action( 'wp_smush_after_basic_settings' );
-
-	if ( is_multisite() && is_network_admin() ) {
-		echo '</div>';
+	// Skip premium features if not a member.
+	if ( ! in_array( $name, $basic_features, true ) && ! WP_Smush::is_pro() ) {
+		continue;
 	}
-	?>
-</form>
+
+	$value = empty( $settings[ $name ] ) ? false : $settings[ $name ];
+
+	// Show settings option.
+	do_action( 'wp_smush_render_setting_row', $name, $value );
+}
+
+// Hook after general settings.
+do_action( 'wp_smush_after_basic_settings' );
+?>

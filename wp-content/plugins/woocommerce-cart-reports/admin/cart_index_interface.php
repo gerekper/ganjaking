@@ -335,17 +335,16 @@ class AV8_Cart_Index_Page {
 				//$products = $this->extract_cart_products();
 				global $woocommerce;
 
-				$cartitems = get_post_meta( $post->ID, 'av8_cartitems', true );
-				$items_arr = str_replace(
-					array( 'O:17:"WC_Product_Simple"', 'O:10:"WC_Product"' ),
-					'O:8:"stdClass"',
-					$cartitems
-				);
+				$order_items = get_post_meta( $post->ID, 'av8_cartitems', true );
 
-				if ( isset( $cartitems ) && $cartitems != false ) {
-					$order_items = (array) maybe_unserialize( $items_arr );
-				} else {
-					break;
+				if ( ! is_array( $order_items ) ) {
+					$items_arr = str_replace( array( 'O:17:"WC_Product_Simple"', 'O:10:"WC_Product"' ),
+						'O:8:"stdClass"',
+						$order_items );
+
+					if ( isset( $order_items ) && $order_items != false ) {
+						$order_items = (array) maybe_unserialize( $items_arr );
+					}
 				}
 
 				$loop = 0;
@@ -395,7 +394,7 @@ class AV8_Cart_Index_Page {
 				break;
 
 			case 'actions':
-				$cart->print_cart_actions( $cart->status(), $cart->is_guest_order() );
+				$cart->print_cart_actions();
 				break;
 
 			/* Just break out of the switch statement for everything else. */
@@ -416,9 +415,9 @@ class AV8_Cart_Index_Page {
 
 		if ( ( $pagenow == 'edit.php' ) && isset( $_GET['post_type'] ) && ( $_GET['post_type'] == 'carts' ) ) {
 			$status_options = array(
-				'Open' => 'Open',
-				'Converted' => 'Converted',
-				'Abandoned' => 'Abandoned',
+				'Open'                   => 'Open',
+				'Converted'              => 'Converted',
+				'Abandoned'              => 'Abandoned',
 				'Open + Abandoned Carts' => 'OandA'
 			);
 			global $start_date, $end_date, $woocommerce, $wpdb, $wp_locale;
@@ -428,10 +427,10 @@ class AV8_Cart_Index_Page {
 			if ( isset( $_GET['lifetime'] ) || ! isset( $_GET['mv'] ) ) {
 				$args = array(
 					'numberposts' => 1,
-					'offset' => 0,
-					'orderby' => 'post_modified',
-					'order' => 'ASC',
-					'post_type' => 'carts',
+					'offset'      => 0,
+					'orderby'     => 'post_modified',
+					'order'       => 'ASC',
+					'post_type'   => 'carts',
 					'post_status' => 'publish',
 				);
 
@@ -446,10 +445,8 @@ class AV8_Cart_Index_Page {
 				<?php _e( 'From:', 'woocommerce_cart_reports' ); ?>
 			</label>
 			<input type="text" name="start_date" id="from" readonly="readonly" value="
-			<?php 
-			echo esc_attr(
-				date( 'Y-m-d', $start_date )
-																					  ); 
+			<?php
+			echo esc_attr( date( 'Y-m-d', $start_date ) );
 			?>
 			"
 			/>
@@ -457,35 +454,20 @@ class AV8_Cart_Index_Page {
 				<?php _e( 'To:', 'woocommerce_cart_reports' ); ?>
 			</label>
 			<input type="text" name="end_date" id="to" readonly="readonly" value="
-			<?php 
-			echo esc_attr(
-				date( 'Y-m-d', $end_date )
-																				  ); 
+			<?php
+			echo esc_attr( date( 'Y-m-d', $end_date ) );
 			?>
 			"
 			/>
 			<script type="text/javascript">
-				jQuery( function () {
-					var dates = jQuery( '#posts-filter #from, #posts-filter #to' ).datepicker( {
-						defaultDate: '',
-						dateFormat: 'yy-mm-dd',
-						numberOfMonths: 1,
-						maxDate: '+0D',
-						showButtonPanel: true,
-						showOn: 'both',
-						buttonImage: "<?php echo $woocommerce->plugin_url(); ?>/assets/images/calendar.png",
-						buttonImageOnly: true,
-						onSelect: function ( selectedDate ) {
-							var option = this.id == 'from' ? 'minDate' : 'maxDate',
-								instance = jQuery( this ).data( 'datepicker' ), date = jQuery.datepicker.parseDate(
-								instance.settings.dateFormat || jQuery.datepicker._defaults.dateFormat,
-								selectedDate,
-								instance.settings
-								)
-							dates.not( this ).datepicker( 'option', option, date )
-						}
-					} )
-				} )
+              jQuery(function () {
+                var dates = jQuery('#posts-filter #from, #posts-filter #to').datepicker({
+                  defaultDate: '', dateFormat: 'yy-mm-dd', numberOfMonths: 1, maxDate: '+0D', showButtonPanel: true, showOn: 'both', buttonImage: "<?php echo $woocommerce->plugin_url(); ?>/assets/images/calendar.png", buttonImageOnly: true, onSelect: function (selectedDate) {
+                    var option = this.id == 'from' ? 'minDate' : 'maxDate', instance = jQuery(this).data('datepicker'), date = jQuery.datepicker.parseDate(instance.settings.dateFormat || jQuery.datepicker._defaults.dateFormat, selectedDate, instance.settings)
+                    dates.not(this).datepicker('option', option, date)
+                  }
+                })
+              })
 			</script>
 			<select name="mv">
 				<option value="">
@@ -517,27 +499,23 @@ class AV8_Cart_Index_Page {
 		global $woocommerce_cart_reports_options;
 		if ( isset( $query->query_vars['post_type'] ) && 'carts' === $query->query_vars['post_type'] && isset( $_GET['mv'] ) && $_GET['mv'] != '' ) {
 			if ( $_GET['mv'] == 'Converted' ) {
-				$query->set(
-					'tax_query',
+				$query->set( 'tax_query',
 					array(
 						array(
 							'taxonomy' => 'shop_cart_status',
-							'field' => 'slug',
-							'terms' => 'converted'
+							'field'    => 'slug',
+							'terms'    => 'converted'
 						)
-					)
-				);
+					) );
 			} else {
-				$query->set(
-					'tax_query',
+				$query->set( 'tax_query',
 					array(
 						array(
 							'taxonomy' => 'shop_cart_status',
-							'field' => 'slug',
-							'terms' => 'open',
+							'field'    => 'slug',
+							'terms'    => 'open',
 						)
-					)
-				);
+					) );
 			}
 		}
 	}
@@ -552,7 +530,7 @@ class AV8_Cart_Index_Page {
 		if ( isset( $_GET['post_type'] ) ) {
 			if ( ( $pagenow == 'edit.php' ) && ( $_GET['post_type'] == 'carts' ) ) {
 				$args = array(
-					'name' => 'author',
+					'name'            => 'author',
 					'show_option_all' => __( 'Show All Customers', 'woocommerce_cart_reports' )
 				);
 				if ( isset( $_GET['user'] ) ) {
@@ -571,23 +549,23 @@ class AV8_Cart_Index_Page {
 	 */
 	public function wp_dropdown_users( $args = '' ) {
 		$defaults = array(
-			'show_option_all' => '',
-			'show_option_none' => '',
+			'show_option_all'         => '',
+			'show_option_none'        => '',
 			'hide_if_only_one_author' => '',
-			'orderby' => 'display_name',
-			'order' => 'ASC',
-			'include' => '',
-			'exclude' => '',
-			'multi' => 0,
-			'show' => 'display_name',
-			'echo' => 1,
-			'selected' => 0,
-			'name' => 'user',
-			'class' => '',
-			'id' => '',
-			'blog_id' => $GLOBALS['blog_id'],
-			'who' => '',
-			'include_selected' => false
+			'orderby'                 => 'display_name',
+			'order'                   => 'ASC',
+			'include'                 => '',
+			'exclude'                 => '',
+			'multi'                   => 0,
+			'show'                    => 'display_name',
+			'echo'                    => 1,
+			'selected'                => 0,
+			'name'                    => 'user',
+			'class'                   => '',
+			'id'                      => '',
+			'blog_id'                 => $GLOBALS['blog_id'],
+			'who'                     => '',
+			'include_selected'        => false
 		);
 
 		$defaults['selected'] = is_author() ? get_query_var( 'author' ) : 0;
@@ -595,10 +573,8 @@ class AV8_Cart_Index_Page {
 		$r = wp_parse_args( $args, $defaults );
 		extract( $r, EXTR_SKIP );
 
-		$query_args           = wp_array_slice_assoc(
-			$r,
-			array( 'blog_id', 'include', 'exclude', 'orderby', 'order', 'who' )
-		);
+		$query_args           = wp_array_slice_assoc( $r,
+			array( 'blog_id', 'include', 'exclude', 'orderby', 'order', 'who' ) );
 		$query_args['fields'] = array( 'ID', 'display_name', 'user_login' );
 		$users                = get_users( $query_args );
 
@@ -619,7 +595,7 @@ class AV8_Cart_Index_Page {
 
 			if ( $show_option_none ) {
 				$_selected = selected( - 1, $selected, false );
-				$output   .= "\t<option value='0'$_selected>$show_option_none</option>\n";
+				$output    .= "\t<option value='0'$_selected>$show_option_none</option>\n";
 			}
 
 			$found_selected = false;
@@ -638,7 +614,7 @@ class AV8_Cart_Index_Page {
 						$found_selected = true;
 					}
 					$display = $full_name != ' ' ? $full_name : '(' . $user->user_login . ')';
-					$output .= "\t<option value='$user->ID'$_selected>" . esc_html( $display ) . "</option>\n";
+					$output  .= "\t<option value='$user->ID'$_selected>" . esc_html( $display ) . "</option>\n";
 				}
 			}
 
@@ -658,7 +634,7 @@ class AV8_Cart_Index_Page {
 				$user      = get_userdata( $selected );
 				$_selected = selected( $user->ID, $selected, false );
 				$display   = ! empty( $user->$show ) ? $user->$show : '(' . $user->user_login . ')';
-				$output   .= "\t<option value='$user->ID'$_selected>" . esc_html( $display ) . "</option>\n";
+				$output    .= "\t<option value='$user->ID'$_selected>" . esc_html( $display ) . "</option>\n";
 			}
 
 			$output .= '</select>';
@@ -691,10 +667,10 @@ class AV8_Cart_Index_Page {
 			if ( isset( $_GET['lifetime'] ) || ! isset( $_GET['mv'] ) ) {
 				$args = array(
 					'numberposts' => 1,
-					'offset' => 0,
-					'orderby' => 'post_modified',
-					'order' => 'ASC',
-					'post_type' => 'carts',
+					'offset'      => 0,
+					'orderby'     => 'post_modified',
+					'order'       => 'ASC',
+					'post_type'   => 'carts',
 					'post_status' => 'publish',
 				);
 
@@ -711,15 +687,11 @@ class AV8_Cart_Index_Page {
 
 			if ( isset( $_GET['mv'] ) ) {
 				if ( $_GET['mv'] == 'Open' ) {
-					$where .= " AND post_modified > '" . date(
-							'Y-m-d G:i:s',
-							time() + ( $offset * 3600 ) - $timeout
-						) . "'";
+					$where .= " AND post_modified > '" . date( 'Y-m-d G:i:s',
+							time() + ( $offset * 3600 ) - $timeout ) . "'";
 				} elseif ( $_GET['mv'] == 'Abandoned' ) {
-					$where .= " AND post_modified < '" . date(
-							'Y-m-d G:i:s',
-							( time() + ( $offset * 3600 ) - $timeout )
-						) . "'";
+					$where .= " AND post_modified < '" . date( 'Y-m-d G:i:s',
+							( time() + ( $offset * 3600 ) - $timeout ) ) . "'";
 				}
 			}
 

@@ -236,7 +236,7 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/containers/SchemaTab.js:54
 	__( 'Page type', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/SettingsReplacementVariableEditor.js:37
+	// Reference: packages/js/src/components/SettingsReplacementVariableEditor.js:39
 	__( 'Modify your meta description by editing it right here', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/components/WordPressUserSelector.js:113
@@ -491,17 +491,17 @@ $generated_i18n_strings = array(
 	/* %s expands to Yoast SEO Premium */
 	__( 'Find out why you should upgrade to %s', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/containers/FacebookEditor.js:60
-	// Reference: packages/js/src/containers/TwitterEditor.js:65
-	// Reference: packages/js/src/elementor/containers/FacebookEditor.js:76
-	// Reference: packages/js/src/elementor/containers/TwitterEditor.js:81
+	// Reference: packages/js/src/containers/FacebookEditor.js:67
+	// Reference: packages/js/src/containers/TwitterEditor.js:71
+	// Reference: packages/js/src/elementor/containers/FacebookEditor.js:83
+	// Reference: packages/js/src/elementor/containers/TwitterEditor.js:87
 	/* %s expands to the social medium name, i.e. Faceboook. */
 	__( 'Modify your %s title by editing it right here...', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/containers/FacebookEditor.js:67
-	// Reference: packages/js/src/containers/TwitterEditor.js:72
-	// Reference: packages/js/src/elementor/containers/FacebookEditor.js:83
-	// Reference: packages/js/src/elementor/containers/TwitterEditor.js:88
+	// Reference: packages/js/src/containers/FacebookEditor.js:74
+	// Reference: packages/js/src/containers/TwitterEditor.js:78
+	// Reference: packages/js/src/elementor/containers/FacebookEditor.js:90
+	// Reference: packages/js/src/elementor/containers/TwitterEditor.js:94
 	/* %s expands to the social medium name, i.e. Faceboook. */
 	__( 'Modify your %s description by editing it right here...', 'wordpress-seo' ),
 
@@ -580,9 +580,9 @@ $generated_i18n_strings = array(
 	__( 'Person logo / avatar', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/initializers/search-appearance.js:78
-	__( 'Social default image', 'wordpress-seo' ),
+	__( 'Social image', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/initializers/social-settings.js:26
+	// Reference: packages/js/src/initializers/social-settings.js:16
 	__( 'Image', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/inline-links/edit-link.js:106

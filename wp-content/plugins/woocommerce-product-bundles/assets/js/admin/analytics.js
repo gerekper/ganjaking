@@ -1054,6 +1054,8 @@ function extendTableData(select, props, queriedTableData) {
 
 
 
+var _excluded = ["getHeadersContent", "getRowsContent", "getSummary", "isRequesting", "primaryData", "tableData", "endpoint", "itemIdField", "tableQuery", "compareBy", "compareParam", "searchBy", "labels"],
+    _excluded2 = ["updateUserPreferences"];
 
 
 function report_table_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
@@ -1100,7 +1102,7 @@ var report_table_ReportTable = function ReportTable(props) {
       searchBy = props.searchBy,
       _props$labels = props.labels,
       labels = _props$labels === void 0 ? {} : _props$labels,
-      tableProps = objectWithoutProperties_default()(props, ["getHeadersContent", "getRowsContent", "getSummary", "isRequesting", "primaryData", "tableData", "endpoint", "itemIdField", "tableQuery", "compareBy", "compareParam", "searchBy", "labels"]); // Pull these props out separately because they need to be included in tableProps.
+      tableProps = objectWithoutProperties_default()(props, _excluded); // Pull these props out separately because they need to be included in tableProps.
 
 
   var query = props.query,
@@ -1118,7 +1120,7 @@ var report_table_ReportTable = function ReportTable(props) {
 
   var _useUserPreferences = Object(external_wc_data_["useUserPreferences"])(),
       updateUserPreferences = _useUserPreferences.updateUserPreferences,
-      userData = objectWithoutProperties_default()(_useUserPreferences, ["updateUserPreferences"]); // Bail early if we've encountered an error.
+      userData = objectWithoutProperties_default()(_useUserPreferences, _excluded2); // Bail early if we've encountered an error.
 
 
   var isError = tableData.isError || primaryData.isError;

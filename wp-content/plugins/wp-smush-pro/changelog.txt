@@ -6,6 +6,25 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.8.6 ( 2021-06-15 ) =
+
+- New: Dashboard page
+- New: Global configurations
+- New: Add tutorials to dashboard
+- New: Integration with Buddyboss theme and Buddyboss Platform plugin
+- Enhance: Move out Smush modules to dedicated pages
+- Enhance: Documentation links now link to correct sections on documentation page
+- Fix: Issue with scrolling to originals & backup section
+- Fix: Avoid creating backup files for SVGs
+- Fix: Display of "Settings" link appearing when plugin is deactivated for network
+- Fix: Incorrect number of total images during bulk smush with NextGen Gallery plugin activated
+- Fix: Super smushed count on Nextgen Gallery Smush page
+- Fix: Directory Smush fails when a directory has spaces
+- Fix: Uploading image over the max width was creating backup file when "Store my small originals" is enabled
+- Fix: Table "smush_dir_images" was failing to create when deleted manually
+- Fix: Settings not showing up on subsites after the plugin has been deactivated for network
+- Fix: Stuck "re-smush" status on the free version
+
 = 3.8.5 ( 2021-05-13 ) =
 
 - Enhance: Allow filtering the resulting image markup after the Lazy Load processing

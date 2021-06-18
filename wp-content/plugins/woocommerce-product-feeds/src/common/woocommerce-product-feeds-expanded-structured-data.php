@@ -8,19 +8,14 @@
 class WoocommerceProductFeedsExpandedStructuredData {
 
 	/**
-	 * @var WoocommerceGpfCommon
-	 */
-	protected $common;
-
-	/**
-	 * @var WoocommerceGpfDebugService
-	 */
-	protected $debug;
-
-	/**
 	 * @var array
 	 */
 	protected $additional_product_markup = [];
+
+	/**
+	 * @var WoocommerceProductFeedsFeedItemFactory
+	 */
+	protected $feed_item_factory;
 
 	/**
 	 * @var int
@@ -32,16 +27,11 @@ class WoocommerceProductFeedsExpandedStructuredData {
 	 *
 	 * Store dependencies.
 	 *
-	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
-	 * @param WoocommerceGpfDebugService $debug
+	 * @param WoocommerceProductFeedsFeedItemFactory $feed_item_factory
 	 */
-	public function __construct(
-		WoocommerceGpfCommon $woocommerce_gpf_common,
-		WoocommerceGpfDebugService $debug
-	) {
-		$this->common = $woocommerce_gpf_common;
-		$this->debug  = $debug;
-		$this->seller = [
+	public function __construct( WoocommerceProductFeedsFeedItemFactory $feed_item_factory ) {
+		$this->feed_item_factory = $feed_item_factory;
+		$this->seller            = [
 			'@type' => 'Organization',
 			'name'  => get_bloginfo( 'name' ),
 			'url'   => home_url(),
@@ -119,14 +109,7 @@ class WoocommerceProductFeedsExpandedStructuredData {
 	 */
 	private function generate_schema_product( $wc_product_generic, $wc_product_specific ) {
 		// Get the feed information for this product.
-		$feed_item = new WoocommerceGpfFeedItem(
-			$wc_product_specific,
-			$wc_product_generic,
-			'google',
-			$this->common,
-			$this->debug,
-			true
-		);
+		$feed_item = $this->feed_item_factory->create( 'google', $wc_product_specific, $wc_product_generic );
 
 		// Create the basic Product shell.
 		$markup = [
@@ -304,6 +287,9 @@ class WoocommerceProductFeedsExpandedStructuredData {
 			case 'in stock':
 			case 'available for order':
 				return 'https://schema.org/InStock';
+				break;
+			case 'backorder':
+				return 'https://schema.org/BackOrder';
 				break;
 			case 'out of stock':
 				return 'https://schema.org/OutOfStock';

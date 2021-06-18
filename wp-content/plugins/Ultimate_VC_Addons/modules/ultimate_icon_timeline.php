@@ -6,13 +6,13 @@
  *  @package UAVC Ultimate Timeline
  */
 
-if ( ! class_exists( 'Ultimate_Icon_Timeline' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Icon_Timeline' ) ) {
 	/**
 	 * Function that initializes Ultimate Timeline Module
 	 *
-	 * @class Ultimate_Icon_Timeline
+	 * @class Ultimate_VC_Addons_Icon_Timeline
 	 */
-	class Ultimate_Icon_Timeline {
+	class Ultimate_VC_Addons_Icon_Timeline {
 		/**
 		 * Constructor function that constructs default values for the Ultimate Timeline module.
 		 *
@@ -35,7 +35,7 @@ if ( ! class_exists( 'Ultimate_Icon_Timeline' ) ) {
 		 * @access public
 		 */
 		public function register_timeline_assets() {
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-timeline-style', 'timeline' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-timeline-style', 'timeline' );
 		}
 		/**
 		 * For vc map check
@@ -1720,6 +1720,6 @@ if ( class_exists( 'WPBakeryShortCodesContainer' ) && ! class_exists( 'WPBakeryS
 	class WPBakeryShortCode_Icon_Timeline_Item extends WPBakeryShortCode {
 	}
 }
-if ( class_exists( 'Ultimate_Icon_Timeline' ) ) {
-	$Ultimate_Icon_Timeline = new Ultimate_Icon_Timeline();// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+if ( class_exists( 'Ultimate_VC_Addons_Icon_Timeline' ) ) {
+	$Ultimate_Icon_Timeline = new Ultimate_VC_Addons_Icon_Timeline();// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 }

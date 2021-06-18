@@ -1,9 +1,14 @@
 *** WooCommerce Mix and Match Products Changelog***
 
-2020.04.28 - version 1.11.1
+2021.06.11 - version 1.11.2
+* Update: Tested up to WooCommerce 5.4.0.
+* New: Enable support for Stripe payment requests in carts that contain a Mix and Match product.
+* Fix: Compatibility with PayPal Express Smart buttons. Requires WooCommerce PayPal Express gateway plugin v1.6.21.
+
+2021.04.28 - version 1.11.1
 Fix: 1.10.0 database upgrade routine failures when updating 20+ Mix and Match products.
 
-2020.03.23 - version 1.11.0
+2021.03.23 - version 1.11.0
 New: Use _prime_post_caches() to boost speed of fetching child products.
 Fix: Only add indent wrapping div to product name if it doesn't already exist. Prevent multiple sub-arrows from displaying when coupons fail.
 Fix: Php 8 compat: Required parameter follows optional parameter.

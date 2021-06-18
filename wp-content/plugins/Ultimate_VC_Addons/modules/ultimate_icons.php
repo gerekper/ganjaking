@@ -6,13 +6,13 @@
  *  @package Icons Block
  */
 
-if ( ! class_exists( 'Ultimate_Icons' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Icons' ) ) {
 	/**
 	 * Function that initializes Icons Block Module
 	 *
-	 * @class Ultimate_Icons
+	 * @class Ultimate_VC_Addons_Icons
 	 */
-	class Ultimate_Icons {
+	class Ultimate_VC_Addons_Icons {
 		/**
 		 * Constructor function that constructs default values for the Icons Block module.
 		 *
@@ -385,7 +385,7 @@ if ( ! class_exists( 'Ultimate_Icons' ) ) {
 				);
 			$ultimate_js            = get_option( 'ultimate_js' );
 			if ( isset( $ult_icons_settings['tooltip_disp'] ) && '' != $ult_icons_settings['tooltip_disp'] && 'enable' != $ultimate_js ) {
-				wp_enqueue_script( 'ultimate-tooltip' );
+				wp_enqueue_script( 'ultimate-vc-addons-tooltip' );
 			}
 
 			if ( 'none' !== $ult_icons_settings['icon_animation'] ) {
@@ -445,19 +445,13 @@ if ( ! class_exists( 'Ultimate_Icons' ) ) {
 				$output .= "\n\t" . '<i class="' . esc_attr( $ult_icons_settings['icon'] ) . '"></i>';
 				$output .= "\n" . '</div>' . $link_sufix;
 			}
-			if ( '' !== $ult_icons_settings['tooltip_disp'] ) {
-				$output .= '<script>
-					jQuery(function () {
-						jQuery(".' . esc_attr( $uniqid ) . '").bsf_tooltip("hide");
-					})
-				</script>';
-			}
+
 			return $output;
 		}
 	}
 }
-if ( class_exists( 'Ultimate_Icons' ) ) {
-	$ultimate_icons = new Ultimate_Icons();
+if ( class_exists( 'Ultimate_VC_Addons_Icons' ) ) {
+	$ultimate_icons = new Ultimate_VC_Addons_Icons();
 }
 // Extend WPBakeryShortCodesContainer class to inherit all required functionality.
 if ( class_exists( 'WPBakeryShortCodesContainer' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Icons' ) ) {

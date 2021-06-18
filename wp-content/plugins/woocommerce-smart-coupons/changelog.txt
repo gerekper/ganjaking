@@ -1,5 +1,13 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2021.06.03 - version 4.22.0
+* Fix: CRITICAL Uncaught Exception: This coupon is valid for the first order only
+* Fix: Incorrect calculation when multiple store credit is applied 
+* Fix: 'Coupon shareable link' not working, added param 'sc-page' in the shareable link
+* Update: Hook 'wc_sc_is_filter_content_coupon_message' to decide whether to filter the content of the coupon message or not, before displaying on the website
+* Update: Default arguments for method WC_SC_Coupon_Message::wc_add_coupons_message_in_email [PHP8]
+* Update: POT file
+
 2021.05.19 - version 4.21.0
 * New: Tested up to WooCommerce 5.3.0 & WordPress 5.7.2
 * Fix: PHP Warning: The magic method WC_Smart_Coupons::__wakeup() must have public visibility [PHP8]

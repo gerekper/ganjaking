@@ -272,7 +272,9 @@ class WC_Booking_Cart_Manager {
 			return $cart_item_meta;
 		}
 
-		$cart_item_meta['booking']          = wc_bookings_get_posted_data( $_POST, $product );
+		if ( ! key_exists( 'booking', $cart_item_meta ) ) {
+			$cart_item_meta['booking'] = wc_bookings_get_posted_data( $_POST, $product );
+		}
 		$cart_item_meta['booking']['_cost'] = WC_Bookings_Cost_Calculation::calculate_booking_cost( $cart_item_meta['booking'], $product );
 
 		if ( $cart_item_meta['booking']['_cost'] instanceof WP_Error ) {

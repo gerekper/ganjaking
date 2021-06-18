@@ -106,8 +106,9 @@ class GF_Block_Form extends GF_Block {
 			$script['handle'],
 			'gform_block_form',
 			array(
-				'forms'   => $this->get_forms(),
-				'preview' => GFCommon::get_base_url() . '/images/gf_block_preview.svg',
+				'adminURL' => admin_url( 'admin.php' ),
+				'forms'    => $this->get_forms(),
+				'preview'  => GFCommon::get_base_url() . '/images/gf_block_preview.svg',
 			)
 		);
 

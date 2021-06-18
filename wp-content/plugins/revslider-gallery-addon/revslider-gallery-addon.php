@@ -16,7 +16,7 @@
  * Plugin Name:       Slider Revolution WP Gallery Add-On
  * Plugin URI:        http://revolution.themepunch.com
  * Description:       Replaces the WP Standard Gallery with the Revolution Sliders of your choice
- * Version:           2.0.2
+ * Version:           2.0.3
  * Author:            ThemePunch
  * Author URI:        http://www.themepunch.com
  * License:           GPL-2.0+
@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define("REV_ADDON_GAL_VERSION", "2.0.2");
+define("REV_ADDON_GAL_VERSION", "2.0.3");
 define("REV_ADDON_GAL_URL", str_replace('index.php','',plugins_url( 'index.php', __FILE__ )));
 
 

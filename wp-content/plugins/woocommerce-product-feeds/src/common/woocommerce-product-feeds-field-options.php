@@ -26,10 +26,10 @@ class WoocommerceProductFeedsFieldOptions {
 
 	public static function availability_options() {
 		return [
-			'in stock'            => _x( 'In stock', 'Option for "availability" field', 'woocommerce_gpf' ),
-			'available for order' => _x( 'Available for order', 'Option for "availability" field', 'woocommerce_gpf' ),
-			'preorder'            => _x( 'Pre-order', 'Option for "availability" field', 'woocommerce_gpf' ),
-			'out of stock'        => _x( 'Out of stock', 'Option for "availability" field', 'woocommerce_gpf' ),
+			'in stock'     => _x( 'In stock', 'Option for "availability" field', 'woocommerce_gpf' ),
+			'preorder'     => _x( 'Pre-order', 'Option for "availability" field', 'woocommerce_gpf' ),
+			'backorder'    => _x( 'Backorder', 'Option for "availability" field', 'woocommerce_gpf' ),
+			'out of stock' => _x( 'Out of stock', 'Option for "availability" field', 'woocommerce_gpf' ),
 		];
 	}
 

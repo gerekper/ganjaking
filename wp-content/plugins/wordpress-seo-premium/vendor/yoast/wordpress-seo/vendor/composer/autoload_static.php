@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit57ad38d517622e2f5f69b2d051bb4458
+class ComposerStaticInit5dfe77dc9da57cf4b81965c1b5386765
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -697,6 +697,7 @@ class ComposerStaticInit57ad38d517622e2f5f69b2d051bb4458
         'Yoast\\WP\\SEO\\Helpers\\Meta_Helper' => __DIR__ . '/../..' . '/src/helpers/meta-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\Notification_Helper' => __DIR__ . '/../..' . '/src/helpers/notification-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\Open_Graph\\Image_Helper' => __DIR__ . '/../..' . '/src/helpers/open-graph/image-helper.php',
+        'Yoast\\WP\\SEO\\Helpers\\Open_Graph\\Values_Helper' => __DIR__ . '/../..' . '/src/helpers/open-graph/values-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\Options_Helper' => __DIR__ . '/../..' . '/src/helpers/options-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\Pagination_Helper' => __DIR__ . '/../..' . '/src/helpers/pagination-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\Permalink_Helper' => __DIR__ . '/../..' . '/src/helpers/permalink-helper.php',
@@ -740,6 +741,7 @@ class ComposerStaticInit57ad38d517622e2f5f69b2d051bb4458
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Link_Count_Notification_Integration' => __DIR__ . '/../..' . '/src/deprecated/src/integrations/admin/link-count-notification-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Link_Count_Tools_Integration' => __DIR__ . '/../..' . '/src/deprecated/src/integrations/admin/link-count-tools-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Migration_Error_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/migration-error-integration.php',
+        'Yoast\\WP\\SEO\\Integrations\\Admin\\Social_Templates_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/social-templates-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Alerts\\Abstract_Dismissable_Alert' => __DIR__ . '/../..' . '/src/integrations/alerts/abstract-dismissable-alert.php',
         'Yoast\\WP\\SEO\\Integrations\\Blocks\\Breadcrumbs_Block' => __DIR__ . '/../..' . '/src/integrations/blocks/breadcrumbs-block.php',
         'Yoast\\WP\\SEO\\Integrations\\Blocks\\Dynamic_Block' => __DIR__ . '/../..' . '/src/integrations/blocks/abstract-dynamic-block.php',
@@ -841,6 +843,7 @@ class ComposerStaticInit57ad38d517622e2f5f69b2d051bb4458
         'Yoast\\WP\\SEO\\Presenters\\Admin\\Link_Count_Indexing_Modal_Presenter' => __DIR__ . '/../..' . '/src/deprecated/src/presenters/admin/link-count-indexing-modal-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Admin\\Meta_Fields_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/meta-fields-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Admin\\Migration_Error_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/migration-error-presenter.php',
+        'Yoast\\WP\\SEO\\Presenters\\Admin\\Premium_Badge_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/premium-badge-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Bingbot_Presenter' => __DIR__ . '/../..' . '/src/presenters/bingbot-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Breadcrumbs_Presenter' => __DIR__ . '/../..' . '/src/presenters/breadcrumbs-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Canonical_Presenter' => __DIR__ . '/../..' . '/src/presenters/canonical-presenter.php',
@@ -891,6 +894,7 @@ class ComposerStaticInit57ad38d517622e2f5f69b2d051bb4458
         'Yoast\\WP\\SEO\\Routes\\SEMrush_Route' => __DIR__ . '/../..' . '/src/routes/semrush-route.php',
         'Yoast\\WP\\SEO\\Routes\\Supported_Features_Route' => __DIR__ . '/../..' . '/src/routes/supported-features-route.php',
         'Yoast\\WP\\SEO\\Routes\\Yoast_Head_REST_Field' => __DIR__ . '/../..' . '/src/routes/yoast-head-rest-field.php',
+        'Yoast\\WP\\SEO\\Schema_Templates\\Assets\\Icons' => __DIR__ . '/../..' . '/src/schema-templates/assets/icons.php',
         'Yoast\\WP\\SEO\\Surfaces\\Classes_Surface' => __DIR__ . '/../..' . '/src/surfaces/classes-surface.php',
         'Yoast\\WP\\SEO\\Surfaces\\Helpers_Surface' => __DIR__ . '/../..' . '/src/surfaces/helpers-surface.php',
         'Yoast\\WP\\SEO\\Surfaces\\Meta_Surface' => __DIR__ . '/../..' . '/src/surfaces/meta-surface.php',
@@ -930,9 +934,9 @@ class ComposerStaticInit57ad38d517622e2f5f69b2d051bb4458
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit57ad38d517622e2f5f69b2d051bb4458::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit57ad38d517622e2f5f69b2d051bb4458::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit57ad38d517622e2f5f69b2d051bb4458::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5dfe77dc9da57cf4b81965c1b5386765::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5dfe77dc9da57cf4b81965c1b5386765::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5dfe77dc9da57cf4b81965c1b5386765::$classMap;
 
         }, null, ClassLoader::class);
     }

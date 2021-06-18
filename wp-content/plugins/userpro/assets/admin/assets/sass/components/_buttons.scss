@@ -1,0 +1,64 @@
+.up-admin-btn{
+  $this : &;
+
+  color: $base_font_color;
+  display: inline-block;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  margin:0 5px;
+  background:none;
+  cursor: pointer;
+  font-weight: 400;
+  border-radius:2px;
+  vertical-align: middle;
+
+  &:focus{
+    color:$base_font_color;
+
+  }
+  &:hover{
+    background:nth($primary-color,2);
+    color:$base_font_color;
+    @include transition(0.5s);
+  }
+  &--dark-blue{
+    background:nth($primary-color,1);
+  }
+  &.small{
+    padding:0 15px;
+    font-size:12px;
+    line-height:2em;
+  }
+  &.big{
+    padding:5px 25px;
+    font-size:14px;
+  }
+  &.remove{
+    background-color:nth($up-reds,3);
+
+    &:hover{
+      background-color: nth($up-reds,4);
+      @include transition(0.5s);
+    }
+  }
+  &.approve{
+    $this : &;
+    background-color:nth($up-greens,2);
+    &:hover{
+      background-color:nth($up-greens,1);
+      @include transition(0.5s);
+    }
+  }
+
+  &.active{
+    position: relative;
+    span{
+      &:before{
+        content: '';
+        width: 100vh;
+        height: 3px;
+      }
+    }
+  }
+}

@@ -1,0 +1,228 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: userpro-dashboard\n"
+"POT-Creation-Date: 2016-03-16 12:57+0530\n"
+"PO-Revision-Date: 2016-03-16 13:04+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#:  templates/dashboard.php:31
+msgid "Request Verification"
+msgstr "Anfrageüberprüfung"
+
+#:  templates/dashboard.php:35
+#:  functions/shortcode-main.php:77
+msgid "Delete Profile"
+msgstr "Profil löschen"
+
+#:  templates/dashboard-side.php:7
+msgid "View member photo"
+msgstr "Mitglieder Foto"
+
+#:  templates/dashboard-side.php:9
+msgid "View Profile"
+msgstr "Profil anzeigen"
+
+#:  templates/dashboard-side.php:18
+msgid "See Public Profile"
+msgstr "Siehe Öffentliches Profil"
+
+#:  templates/dashboard-side.php:27
+msgid "Upload Profile Picture"
+msgstr "Laden Profil Bild"
+
+#:  templates/dashboard-side.php:37
+msgid "Upload Profile Background"
+msgstr "Laden Profil Hintergrund"
+
+#:  templates/dashboard-side.php:46
+msgid "My Profile"
+msgstr "Mein Profil"
+
+#:  templates/dashboard-side.php:55
+msgid "Setting"
+msgstr "Rahmen"
+
+#:  admin/admin.php:18
+msgid "User Dashboard"
+msgstr "Benutzer -Dashboard"
+
+#:  admin/admin.php:26
+msgid "Settings"
+msgstr "Einstellungen"
+
+#:  admin/admin.php:106
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+#:  admin/admin.php:115
+msgid "Settings are reset to default."
+msgstr "Einstellungen werden zurückgesetzt auf die Standard ."
+
+#:  admin/panels/settings.php:7
+msgid "General Settings"
+msgstr "Allgemeine Einstellungen"
+
+#:  admin/panels/settings.php:10
+msgid "Enable Dashboard view"
+msgstr "Aktivieren Sie Dashboard-Ansicht"
+
+#:  admin/panels/settings.php:13
+msgid "Yes"
+msgstr "ja"
+
+#:  admin/panels/settings.php:14
+msgid "No"
+msgstr "Nein"
+
+#:  admin/panels/settings.php:16
+msgid "If enabled, dashboard for every user will be shown"
+msgstr "Wenn aktiviert, Armaturenbrett für jeden Benutzer wird angezeigt"
+
+#:  admin/panels/settings.php:21
+#:  functions/shortcode-main.php:130
+msgid "Save Changes"
+msgstr "Änderungen speichern"
+
+#:  admin/panels/settings.php:22
+msgid "Reset Options"
+msgstr "Optionen zum zurücksetzen"
+
+#:  functions/shortcode-main.php:17
+msgid "Please login to view the dashboard."
+msgstr "Bitte einloggen, um das Armaturenbrett zu sehen."
+
+#:  functions/shortcode-main.php:33
+msgid "Your profile has been saved!"
+msgstr "Ihr Profil wurde gespeichert !"
+
+#:  functions/shortcode-main.php:44
+msgid "This field is required"
+msgstr "Dieses Feld wird benötigt"
+
+#:  functions/shortcode-main.php:45
+msgid "Your password is too short"
+msgstr "Ihr Passwort ist zu kurz"
+
+#:  functions/shortcode-main.php:46
+msgid "Passwords do not match"
+msgstr "Passwörter stimmen nicht überein"
+
+#:  functions/shortcode-main.php:47
+msgid "Password is not strong enough"
+msgstr "Das Passwort ist nicht stark genug,"
+
+#:  functions/shortcode-main.php:54
+msgid "Register an Account"
+msgstr "Einen Account registrieren"
+
+#:  functions/shortcode-main.php:55
+msgid "Already a member?"
+msgstr ""
+
+#:  functions/shortcode-main.php:58
+msgid "Register"
+msgstr ""
+
+#:  functions/shortcode-main.php:59
+#:  functions/shortcode-main.php:64
+#:  functions/shortcode-main.php:71
+msgid "Login"
+msgstr ""
+
+#:  functions/shortcode-main.php:65
+msgid "Forgot your password?"
+msgstr ""
+
+#:  functions/shortcode-main.php:67
+msgid "Resend verification email?"
+msgstr ""
+
+#:  functions/shortcode-main.php:72
+msgid "Create an Account"
+msgstr ""
+
+#:  functions/shortcode-main.php:78
+msgid "Undo, back to profile"
+msgstr ""
+
+#:  functions/shortcode-main.php:81
+msgid "Confirm Deletion"
+msgstr ""
+
+#:  functions/shortcode-main.php:82
+msgid "Back to Profile"
+msgstr ""
+
+#:  functions/shortcode-main.php:85
+msgid "Reset Password"
+msgstr ""
+
+#:  functions/shortcode-main.php:86
+#:  functions/shortcode-main.php:95
+msgid "Back to Login"
+msgstr ""
+
+#:  functions/shortcode-main.php:89
+msgid "Request Secret Key"
+msgstr ""
+
+#:  functions/shortcode-main.php:90
+#:  functions/shortcode-main.php:101
+msgid "Change your Password"
+msgstr ""
+
+#:  functions/shortcode-main.php:94
+msgid "Resend email"
+msgstr ""
+
+#:  functions/shortcode-main.php:98
+msgid "Resend verification email"
+msgstr ""
+
+#:  functions/shortcode-main.php:102
+msgid "Request New Key"
+msgstr ""
+
+#:  functions/shortcode-main.php:105
+msgid "Change my Password"
+msgstr ""
+
+#:  functions/shortcode-main.php:106
+msgid "Do not have a secret key?"
+msgstr ""
+
+#:  functions/shortcode-main.php:109
+msgid "Latest Members"
+msgstr ""
+
+#:  functions/shortcode-main.php:122
+msgid "Who is online now"
+msgstr ""
+
+#:  functions/shortcode-main.php:145
+msgid "An error has occured"
+msgstr ""
+
+#:  functions/shortcode-main.php:183
+msgid "Existing member? login"
+msgstr ""
+
+#:  functions/shortcode-main.php:202
+msgid "Add a New Post"
+msgstr ""
+
+#:  functions/shortcode-main.php:203
+msgid "Publish"
+msgstr ""
+
+#:  functions/initial-setup.php:26
+msgid "Dashboard"
+msgstr "Instrumententafel"

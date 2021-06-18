@@ -8,11 +8,11 @@
  * Developer: WooCommerce
  * Developer URI: http://woocommerce.com/
  * Requires at least: 4.4
- * Tested up to: 5.6
- * Version: 1.6.23
+ * Tested up to: 5.6.1
+ * Version: 1.6.25
  * Text Domain: wc_brands
  * Domain Path: /languages/
- * WC tested up to: 4.7
+ * WC tested up to: 5.0
  * WC requires at least: 3.2
  *
  * Copyright (c) 2020 WooCommerce
@@ -55,7 +55,7 @@ function wc_brands_init() {
 		return;
 	}
 
-	define( 'WC_BRANDS_VERSION', '1.6.23' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BRANDS_VERSION', '1.6.25' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Localisation
@@ -86,7 +86,7 @@ function wc_brands_plugin_action_links( $actions ) {
 	$custom_actions = array();
 
 	// Documentation URL.
-	$custom_actions['docs'] = sprintf( '<a href="%s">%s</a>', 'https://docs.woocommerce.com/document/wc-brands/', __( 'Docs', 'wc_brands' ) );
+	$custom_actions['docs'] = sprintf( '<a href="%s">%s</a>', 'https://docs.woocommerce.com/document/woocommerce-brands/', __( 'Docs', 'wc_brands' ) );
 
 	// Support URL.
 	$custom_actions['support'] = sprintf( '<a href="%s">%s</a>', 'https://support.woocommerce.com/', __( 'Support', 'wc_brands' ) );

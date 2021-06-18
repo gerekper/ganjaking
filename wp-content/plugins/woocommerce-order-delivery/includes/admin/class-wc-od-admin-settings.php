@@ -193,13 +193,13 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 			$suffix = wc_od_get_scripts_suffix();
 
 			if ( $this->is_calendar_section() ) {
-				wp_enqueue_style( 'fullcalendar', WC_OD_URL . 'assets/css/lib/fullcalendar.css', array(), '2.9.2' );
+				wp_enqueue_style( 'fullcalendar', WC_OD_URL . 'assets/css/lib/fullcalendar.css', array(), '2.9.3' );
 				wp_enqueue_style( 'tooltipster', WC_OD_URL . 'assets/css/lib/tooltipster.css', array(), '3.3.0' );
 
 				wp_enqueue_script( 'jquery-ui-dialog' );
 				wp_enqueue_script( 'tooltipster', WC_OD_URL . 'assets/js/lib/jquery.tooltipster.min.js', array( 'jquery' ), '3.3.0', true );
 				wp_enqueue_script( 'moment', WC_OD_URL . 'assets/js/lib/moment.min.js', array(), '2.13.0', true );
-				wp_enqueue_script( 'fullcalendar', WC_OD_URL . 'assets/js/lib/fullcalendar.min.js', array( 'jquery', 'moment' ), '2.9.2', true );
+				wp_enqueue_script( 'fullcalendar', WC_OD_URL . 'assets/js/lib/fullcalendar.min.js', array( 'jquery', 'moment' ), '2.9.3', true );
 
 				wc_od_enqueue_datepicker( 'settings' );
 				wp_enqueue_script( 'wc-od-calendar', WC_OD_URL . "assets/js/wc-od-calendar{$suffix}.js", array( 'jquery', 'wc-od-datepicker' ), WC_OD_VERSION, true );

@@ -94,7 +94,7 @@ var GFPageConditionalLogic = function (args) {
 
         if ( progress === 100 ) {
             // If the progress is 100% after evaluation, treat the current page as the last one.
-            self.updateNextButton( currentPage - 1 );
+            self.updateNextButton( self.originalCurrentPage - 1 );
         } else {
             // Else, just update the button on the last page.
             self.updateNextButton();

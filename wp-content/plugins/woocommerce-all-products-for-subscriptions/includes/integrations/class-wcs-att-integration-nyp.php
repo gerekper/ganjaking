@@ -45,7 +45,11 @@ class WCS_ATT_Integration_NYP {
 	 */
 	public static function before_subscription_option_get_price_html() {
 		// Add filter to prevent NYP from emptying the price string.
-		add_filter( 'woocommerce_is_nyp', '__return_false' );
+		if ( is_callable( array( 'WC_Name_Your_Price_Compatibility', 'is_nyp_gte' ) ) && WC_Name_Your_Price_Compatibility::is_nyp_gte( '3.0' ) ) {
+			add_filter( 'wc_nyp_is_nyp', '__return_false' );
+		} else {
+			add_filter( 'woocommerce_is_nyp', '__return_false' );
+		}
 		// Add filter to make empty price string go through WCS price filters.
 		add_filter( 'woocommerce_empty_price_html', array( __CLASS__, 'before_subscription_option_empty_price_html' ), 10, 2 );
 	}
@@ -55,7 +59,11 @@ class WCS_ATT_Integration_NYP {
 	 */
 	public static function after_subscription_option_get_price_html() {
 		// Remove filter that prevents NYP from emptying the price string.
-		remove_filter( 'woocommerce_is_nyp', '__return_false' );
+		if ( is_callable( array( 'WC_Name_Your_Price_Compatibility', 'is_nyp_gte' ) ) && WC_Name_Your_Price_Compatibility::is_nyp_gte( '3.0' ) ) {
+			remove_filter( 'wc_nyp_is_nyp', '__return_false' );
+		} else {
+			remove_filter( 'woocommerce_is_nyp', '__return_false' );
+		}
 		// Remove filter that makes empty price string go through WCS price filters.
 		remove_filter( 'woocommerce_empty_price_html', array( __CLASS__, 'before_subscription_option_empty_price_html' ), 10 );
 	}

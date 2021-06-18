@@ -334,10 +334,19 @@ class RevSliderSlider extends RevSliderFunctions {
 		$this->type		= $this->get_val($data, 'type');
 		$this->inited	= true;
 		
-		global $rs_do_init_action;
-		if($rs_do_init_action === true){
-			do_action('revslider_slider_init_by_data_post', $this);
+		global $rs_preview_mode;
+		$do_action = (is_admin())		? false : true;
+		$do_action = (wp_doing_ajax())	? true : $do_action;
+		$do_action = ($rs_preview_mode)	? true : $do_action;
+		
+		if($do_action){
+			global $rs_do_init_action;
+			if($rs_do_init_action === true){
+				do_action('revslider_slider_init_by_data_post', $this);
+			}
 		}
+		
+		$this->modify_by_global_settings();
 	}
 	
 	
@@ -1313,8 +1322,9 @@ class RevSliderSlider extends RevSliderFunctions {
 	 * @before: RevSliderSlider::getArrSliders();
 	 */
 	public function get_sliders($templates = false){
-		global $wpdb;
+		global $wpdb, $rs_do_init_action;
 		
+		$rs_do_init_action = false;
 		$sliders	= array();
 		$do_order	= 'id';
 		$direction	= 'ASC';
@@ -1334,6 +1344,8 @@ class RevSliderSlider extends RevSliderFunctions {
 				$sliders[] = $slider;
 			}
 		}
+		
+		$rs_do_init_action = true;
 		
 		return $sliders;
 	}
@@ -1370,6 +1382,16 @@ class RevSliderSlider extends RevSliderFunctions {
 		return $short;
 	}
 	
+	public function set_slides($slides){
+		$this->slides = array();
+		if(!empty($slides)){
+			foreach($slides as $slide){
+				$rslide = new RevSliderSlide();
+				$rslide->init_by_data($slide);
+				$this->slides[] = $rslide;
+			}
+		}
+	}
 	
 	/**
 	 * get slides from gallery
@@ -1378,15 +1400,16 @@ class RevSliderSlider extends RevSliderFunctions {
 	 */
 	public function get_slides($published = false, $allwpml = false, $first = false){
 		
-		$cache_key = $this->get_wp_cache_key('get_slides_by_slider_id', array($this->id, $published, $allwpml, $first, $this->init_layer));
-		$this->slides = wp_cache_get($cache_key, self::CACHE_GROUP);
-
 		if (!$this->slides) {
-			$slide			= new RevSliderSlide();
-			$this->slides	= $slide->get_slides_by_slider_id($this->id, $published, $allwpml, $first, $this->init_layer);
-			wp_cache_set($cache_key, $this->slides, self::CACHE_GROUP);
+			$cache_key = $this->get_wp_cache_key('get_slides_by_slider_id', array($this->id, $published, $allwpml, $first, $this->init_layer));
+			$this->slides = wp_cache_get($cache_key, self::CACHE_GROUP);
+			
+			if (!$this->slides) {
+				$slide			= new RevSliderSlide();
+				$this->slides	= $slide->get_slides_by_slider_id($this->id, $published, $allwpml, $first, $this->init_layer);
+				wp_cache_set($cache_key, $this->slides, self::CACHE_GROUP);
+			}
 		}
-		
 		
 		return $this->slides;
 	}
@@ -2547,6 +2570,27 @@ class RevSliderSlider extends RevSliderFunctions {
 		return $ret;
 	}
 	
+	/**
+	 * check for global settings lazy load and modify slider settings
+	 * only do these changes on outputting the slider
+	 * @since: 6.4.12
+	 **/
+	public function modify_by_global_settings(){
+		global $rs_preview_mode;
+		if(is_admin() && !$rs_preview_mode) return true;
+		
+		$gs = $this->get_global_settings();
+		$loazyload = $this->get_val($this->params, array('general', 'lazyLoad'), 'none');
+		if($loazyload === 'none'){
+			$forceLazyLoading = $this->get_val($gs, 'forceLazyLoading', 'smart');
+			$this->set_val($this->params, array('general', 'lazyLoad'), $forceLazyLoading);
+		}
+		
+		$forceViewport = $this->get_val($gs, 'forceViewport', true);
+		$forceViewportDist = $this->get_val($gs, 'forcedViewportDistance', '-200px');
+		$this->set_val($this->params, array('general', 'slideshow', 'globalViewPort'), $forceViewport);
+		$this->set_val($this->params, array('general', 'slideshow', 'globalViewDist'), $forceViewportDist);
+	}
 	
 	/**
 	 * convert assoc array to array

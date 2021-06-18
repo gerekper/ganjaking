@@ -6,7 +6,7 @@
  */
 
 if(!defined('ABSPATH')) exit();
-
+ 
 global $revslider_rev_start_size_loaded;
 
 $revslider_rev_start_size_loaded = false;
@@ -49,15 +49,14 @@ class RevSliderFront extends RevSliderFunctions {
 	 * Add all actions that the frontend needs here
 	 **/
 	public static function add_actions(){
-		global $wp_version, $revslider_is_preview_mode;
+		global $revslider_is_preview_mode;
 
 		$func	 = RevSliderGlobals::instance()->get('RevSliderFunctions');
-		$css	 = RevSliderGlobals::instance()->get('RevSliderCssParser');
 		$rs_ver	 = apply_filters('revslider_remove_version', RS_REVISION);
 		$global	 = $func->get_global_settings();
 		$inc_global = $func->_truefalse($func->get_val($global, 'allinclude', true));
 		
-		$inc_footer = $func->_truefalse($func->get_val($global, array('script', 'footer'), false));
+		$inc_footer = true; //$func->_truefalse($func->get_val($global, array('script', 'footer'), false));
 		$waitfor = array('jquery');
 		$widget	 = is_active_widget(false, false, 'rev-slider-widget', true);
 		
@@ -77,18 +76,6 @@ class RevSliderFront extends RevSliderFunctions {
 
 		if($load === false) return false;
 		
-		wp_enqueue_style('rs-plugin-settings', RS_PLUGIN_URL . 'public/assets/css/rs6.css', array(), $rs_ver);
-
-		/**
-		 * Fix for WordPress versions below 3.7
-		 **/
-		$style_pre = ($wp_version < 3.7) ? '<style type="text/css">' : '';
-		$style_post = ($wp_version < 3.7) ? '</style>' : '';
-		$custom_css = $func->get_static_css();
-		$custom_css = $css->compress_css($custom_css);
-		$custom_css = (trim($custom_css) == '') ? '#rs-demo-id {}' : $custom_css;
-
-		wp_add_inline_style('rs-plugin-settings', $style_pre . $custom_css . $style_post);
 		wp_enqueue_script(array('jquery'));
 		
 		/**
@@ -103,17 +90,17 @@ class RevSliderFront extends RevSliderFunctions {
 		wp_enqueue_script('tp-tools', RS_PLUGIN_URL . 'public/assets/js/rbtools.min.js', $waitfor, RS_TP_TOOLS, $inc_footer);
 		
 		if(!file_exists(RS_PLUGIN_PATH.'public/assets/js/rs6.min.js')){
-			wp_enqueue_script('revmin', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.main.js', 'tp-tools', $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.main.js', $waitfor, $rs_ver, $inc_footer);
 			//if on, load all libraries instead of dynamically loading them
-			wp_enqueue_script('revmin-actions', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.actions.js', 'tp-tools', $rs_ver, $inc_footer);
-			wp_enqueue_script('revmin-carousel', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.carousel.js', 'tp-tools', $rs_ver, $inc_footer);
-			wp_enqueue_script('revmin-layeranimation', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.layeranimation.js', 'tp-tools', $rs_ver, $inc_footer);
-			wp_enqueue_script('revmin-navigation', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.navigation.js', 'tp-tools', $rs_ver, $inc_footer);
-			wp_enqueue_script('revmin-panzoom', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.panzoom.js', 'tp-tools', $rs_ver, $inc_footer);
-			wp_enqueue_script('revmin-parallax', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.parallax.js', 'tp-tools', $rs_ver, $inc_footer);
-			wp_enqueue_script('revmin-slideanims', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.slideanims.js', 'tp-tools', $rs_ver, $inc_footer);
-		//	wp_enqueue_script('revmin-threejs', RS_PLUGIN_URL . 'public/assets/js/libs/three.min.js', 'tp-tools', $rs_ver, $inc_footer);
-			wp_enqueue_script('revmin-video', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.video.js', 'tp-tools', $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-actions', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.actions.js', $waitfor, $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-carousel', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.carousel.js', $waitfor, $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-layeranimation', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.layeranimation.js', $waitfor, $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-navigation', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.navigation.js', $waitfor, $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-panzoom', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.panzoom.js', $waitfor, $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-parallax', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.parallax.js', $waitfor, $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-slideanims', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.slideanims.js', $waitfor, $rs_ver, $inc_footer);
+		//	wp_enqueue_script('revmin-threejs', RS_PLUGIN_URL . 'public/assets/js/libs/three.min.js', $waitfor, $rs_ver, $inc_footer);
+			wp_enqueue_script('revmin-video', RS_PLUGIN_URL . 'public/assets/js/dev/rs6.video.js', $waitfor, $rs_ver, $inc_footer);
 		}else{
 			wp_enqueue_script('revmin', RS_PLUGIN_URL . 'public/assets/js/rs6.min.js', 'tp-tools', $rs_ver, $inc_footer);
 		}
@@ -121,16 +108,68 @@ class RevSliderFront extends RevSliderFunctions {
 		add_action('wp_head', array('RevSliderFront', 'add_meta_generator'));
 		add_action('wp_head', array('RevSliderFront', 'js_set_start_size'), 99);
 		add_action('admin_head', array('RevSliderFront', 'js_set_start_size'), 99);
+		add_action('wp_footer', array('RevSliderFront', 'add_inline_css'));
 		add_action('wp_footer', array('RevSliderFront', 'load_icon_fonts'));
 		add_action('wp_footer', array('RevSliderFront', 'load_google_fonts'));
+		add_action('wp_footer', array('RevSliderFront', 'add_waiting_script'), 1);
+		add_action('wp_print_footer_scripts', array('RevSliderFront', 'add_inline_js'), 100);
 
 		//Async JS Loading
 		if($func->_truefalse($func->get_val($global, array('script', 'defer'), false)) === true){
-			add_filter('clean_url', array('RevSliderFront', 'add_defer_forscript'), 11, 1);
+			add_filter('script_loader_tag', array('RevSliderFront', 'add_defer_forscript'), 11, 2);
 		}
 
 		add_action('wp_before_admin_bar_render', array('RevSliderFront', 'add_admin_menu_nodes'));
 		add_action('wp_footer', array('RevSliderFront', 'add_admin_bar'), 99);
+	}
+	
+	/**
+	 * add css to the footer
+	 **/
+	public static function add_inline_css(){
+		global $wp_version, $rs_css_collection;
+		$css	 = RevSliderGlobals::instance()->get('RevSliderCssParser');
+		$rs_ver	 = apply_filters('revslider_remove_version', RS_REVISION);
+		/**
+		 * Fix for WordPress versions below 3.7
+		 **/
+		$style_pre = ($wp_version < 3.7) ? '<style type="text/css" id="rs-plugin-settings-inline-css">' : '';
+		$style_post = ($wp_version < 3.7) ? '</style>' : '';
+		$custom_css = $css->get_static_css();
+		$custom_css = $css->compress_css($custom_css);
+		
+		if(!empty($rs_css_collection)){
+			$custom_css .= RS_T2;
+			$custom_css .= implode("\n".RS_T2, $rs_css_collection);
+		}
+		
+		$custom_css = (trim($custom_css) == '') ? '#rs-demo-id {}' : $custom_css;
+		
+		wp_enqueue_style('rs-plugin-settings', RS_PLUGIN_URL . 'public/assets/css/rs6.css', array(), $rs_ver);
+		wp_add_inline_style('rs-plugin-settings', $style_pre . $custom_css . $style_post);
+	}
+	
+	/**
+	 * add all the JavaScript from the Sliders to the footer
+	 **/
+	public static function add_inline_js(){
+		global $rs_js_collection;
+		
+		if(empty($rs_js_collection)) return true;
+		if(empty($rs_js_collection['revapi'])) return true;
+		
+		echo '<script type="text/javascript">'."\n";
+		echo RS_T2.'var	tpj = jQuery;'."\n\n";
+		echo RS_T2.'var	'.implode(',', $rs_js_collection['revapi']) . ';'."\n";
+		if(!empty($rs_js_collection['js'])){
+			echo "\n" . implode("\n", $rs_js_collection['js']);
+		}
+		if(!empty($rs_js_collection['minimal'])){
+			echo "\n" . $rs_js_collection['minimal'];
+		}
+		
+		echo RS_T.'</script>'."\n";
+		
 	}
 	
 	
@@ -152,8 +191,11 @@ class RevSliderFront extends RevSliderFunctions {
 		$global	= $func->get_global_settings();
 		$ignore_fa = $func->_truefalse($func->get_val($global, 'fontawesomedisable', false));
 		
-		echo ($ignore_fa === false && ($fa_icon_var == true || $fa_var == true)) ? '<link rel="stylesheet" property="stylesheet" id="rs-icon-set-fa-icon-css" href="' . RS_PLUGIN_URL . 'public/assets/fonts/font-awesome/css/font-awesome.css" type="text/css" media="all" />'."\n" : '';
-		echo ($pe_7s_var) ? '<link rel="stylesheet" property="stylesheet" id="rs-icon-set-pe-7s-css" href="' . RS_PLUGIN_URL . 'public/assets/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css" type="text/css" media="all" />'."\n" : '';
+		echo RS_T3.'<link rel="preload" as="font" id="rs-icon-set-revicon-woff" href="' . RS_PLUGIN_URL . 'public/assets/fonts/revicons/revicons.woff?5510888" type="font/woff" crossorigin="anonymous" media="all" />'."\n";
+		echo ($ignore_fa === false && ($fa_icon_var == true || $fa_var == true)) ? RS_T3.'<link rel="preload" as="font" id="rs-icon-set-fa-icon-woff" type="font/woff2" crossorigin="anonymous" href="' . RS_PLUGIN_URL . 'public/assets/fonts/font-awesome/fonts/fontawesome-webfont.woff2" media="all" />'."\n" : '';
+		echo ($ignore_fa === false && ($fa_icon_var == true || $fa_var == true)) ? RS_T3.'<link rel="stylesheet" property="stylesheet" id="rs-icon-set-fa-icon-css" href="' . RS_PLUGIN_URL . 'public/assets/fonts/font-awesome/css/font-awesome.css" type="text/css" media="all" />'."\n" : '';
+		
+		echo ($pe_7s_var) ? RS_T3.'<link rel="stylesheet" property="stylesheet" id="rs-icon-set-pe-7s-css" href="' . RS_PLUGIN_URL . 'public/assets/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css" type="text/css" media="all" />'."\n" : '';
 	}
 	
 	
@@ -170,6 +212,28 @@ class RevSliderFront extends RevSliderFunctions {
 		}
 	}
 	
+	/**
+	 * add the scripts that needs to be waited on
+	 * @since: 6.4.12
+	 **/
+	public static function add_waiting_script(){
+		$func	= RevSliderGlobals::instance()->get('RevSliderFunctions');
+		$dev	= (!file_exists(RS_PLUGIN_PATH.'public/assets/js/rs6.min.js')) ? true : false;
+		$global	= $func->get_global_settings();
+		$wait	= array('main', 'parallax', 'video', 'slideanims', 'actions', 'layeranimation', 'navigation', 'carousel', 'panzoom');
+		$wait	= apply_filters('revslider_modify_waiting_scripts', $wait);
+		?>
+
+		<script type="text/javascript">
+			window.RS_MODULES = window.RS_MODULES || {};
+			window.RS_MODULES.modules = window.RS_MODULES.modules || {};
+			window.RS_MODULES.defered = <?php echo ($func->_truefalse($func->get_val($global, array('script', 'defer'), false)) === true) ? 'true' : 'false'; ?>;
+			window.RS_MODULES.waiting = [<?php echo (empty($wait)) ? '' : '"'. implode('","', $wait) . '"'; ?>];
+			window.RS_MODULES.moduleWaiting = window.RS_MODULES.moduleWaiting || {};
+			window.RS_MODULES.type = '<?php echo ($dev) ? "developer" : "compiled"; ?>';
+		</script>
+		<?php
+	}
 
 	/**
 	 * add admin menu points in ToolBar Top
@@ -265,14 +329,15 @@ class RevSliderFront extends RevSliderFunctions {
 	/**
 	 * adds async loading
 	 * @since: 5.0
+	 * @updated: 6.4.12
 	 */
-	public static function add_defer_forscript($url){
-		if(strpos($url, 'rs6.min.js') === false && strpos($url, 'rbtools.min.js') === false){
-			return $url;
+	public static function add_defer_forscript($tag, $handle){
+		if(strpos($tag, 'rs6') === false && strpos($tag, 'rbtools.min.js') === false && strpos($tag, 'revolution.addon.') === false && strpos($tag, 'public/assets/js/libs/') === false && strpos($tag, 'pixi.min.js') === false && strpos($tag, 'lottie.min.js') === false){
+			return $tag;
 		}elseif(is_admin()){
-			return $url;
+			return $tag;
 		}else{
-			return $url . "' defer='defer";
+			return str_replace(' id=', ' async defer id=', $tag);
 		}
 	}
 	

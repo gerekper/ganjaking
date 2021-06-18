@@ -71,8 +71,6 @@ function woocommerce_gpf_get_feed_item( WP_Post $post ) {
 		 ( 'product' !== $post->post_type && 'product_variation' !== $post->post_type ) ) {
 		return null;
 	}
-	$common = $woocommerce_gpf_di['WoocommerceGpfCommon'];
-	$common->initialise();
 	if ( 'product_variation' === $post->post_type ) {
 		$specific_product = wc_get_product( $post->ID );
 		$general_product  = wc_get_product( $post->post_parent );
@@ -81,7 +79,8 @@ function woocommerce_gpf_get_feed_item( WP_Post $post ) {
 		$general_product  = $specific_product;
 	}
 
-	return new WoocommerceGpfFeedItem( $specific_product, $general_product, 'all', $common, $woocommerce_gpf_di['WoocommerceGpfDebugService'] );
+	return $woocommerce_gpf_di['WoocommerceProductFeedsFeedItemFactory']
+		->create( 'all', $specific_product, $general_product );
 }
 
 /**
@@ -93,7 +92,6 @@ function woocommerce_gpf_get_feed_item( WP_Post $post ) {
  * @return boolean  True if a feed is being generated.
  */
 function woocommerce_gpf_is_generating_feed() {
-	return ( isset( $_REQUEST['action'] ) && 'woocommerce_gpf' === $_REQUEST['action'] ) ||
-		   ( isset( $_SERVER['REQUEST_URI'] ) && stripos( $_SERVER['REQUEST_URI'], '/woocommerce_gpf' ) === 0 ) ||
+	return ( isset( $_SERVER['REQUEST_URI'] ) && stripos( $_SERVER['REQUEST_URI'], '/woocommerce_gpf' ) === 0 ) ||
 		   isset( $_REQUEST['woocommerce_gpf'] );
 }

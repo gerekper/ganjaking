@@ -17,3 +17,7 @@
 	width: 100%;
 	height: 100%;
 }
+
+.tp-lottie-svg, .tp-lottie-canvas{
+	position: relative;
+}

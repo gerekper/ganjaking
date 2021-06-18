@@ -15,11 +15,6 @@ class WoocommerceGpfFrontend {
 	protected $feed = null;
 
 	/**
-	 * @var string
-	 */
-	protected $feed_format = '';
-
-	/**
 	 * @var array
 	 */
 	protected $settings = array();
@@ -45,89 +40,71 @@ class WoocommerceGpfFrontend {
 	protected $debug;
 
 	/**
-	 * Constructor. Grab the settings, and add filters if we have stuff to do
+	 * @var WoocommerceProductFeedsFeedConfigFactory
+	 */
+	protected $feed_config_factory;
+
+	/**
+	 * @var WoocommerceProductFeedsFeedConfig
+	 */
+	protected $feed_config;
+
+	/**
+	 * @var WoocommerceProductFeedsFeedItemFactory
+	 */
+	protected $feed_item_factory;
+
+	/**
+	 * Constructor. Add filters if we have stuff to do
 	 *
 	 * @access public
 	 *
 	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
 	 * @param WoocommerceGpfCache $woocommerce_gpf_cache
 	 * @param WoocommerceGpfDebugService $debug
+	 * @param WoocommerceProductFeedsFeedItemFactory $feed_item_factory
 	 * @param Container $container
 	 */
 	public function __construct(
 		WoocommerceGpfCommon $woocommerce_gpf_common,
 		WoocommerceGpfCache $woocommerce_gpf_cache,
 		WoocommerceGpfDebugService $debug,
+		WoocommerceProductFeedsFeedItemFactory $feed_item_factory,
 		Container $container
 	) {
-		$this->common    = $woocommerce_gpf_common;
-		$this->cache     = $woocommerce_gpf_cache;
-		$this->container = $container;
-		$this->debug     = $debug;
+		$this->common            = $woocommerce_gpf_common;
+		$this->cache             = $woocommerce_gpf_cache;
+		$this->debug             = $debug;
+		$this->container         = $container;
+		$this->feed_item_factory = $feed_item_factory;
 	}
 
 	/**
-	 * Hook in so we can generate the feed.
-	 */
-	public function initialise() {
-		global $wp_query;
-
-		$all_feed_types = $this->common->get_feed_types();
-		$feed_type      = isset( $wp_query->query_vars['woocommerce_gpf'] ) ? $wp_query->query_vars['woocommerce_gpf'] : '';
-		if ( empty( $feed_type ) ) {
-			return;
-		}
-
-		// If we get here then this is a feed request. Check WC version, bail if incompatible.
-		if ( ! is_callable( 'wc' ) || version_compare( wc()->version, '3.0', 'lt' ) ) {
-			return;
-		}
-		// Load the settings and check we have a valid feed type. Bail if not.
-		$this->settings = get_option( 'woocommerce_gpf_config', array() );
-		if ( ! empty( $all_feed_types[ $feed_type ] ) && ! empty( $this->settings['gpf_enabled_feeds'][ $feed_type ] ) ) {
-			$class             = $all_feed_types[ $feed_type ]['class'];
-			$this->feed        = $this->container[ $class ];
-			$this->feed_format = $feed_type;
-			add_action( 'template_redirect', array( $this, 'render_product_feed' ), 15 );
-		} else {
-			die( __( 'Invalid feed requested', 'woocommerce_gpf' ) );
-		}
-		// Add category filters if requested.
-		if ( ! empty( $wp_query->query_vars['gpf_categories'] ) ) {
-			add_filter( 'woocommerce_gpf_wc_get_products_args', array( $this, 'limit_categories' ) );
-			add_filter( 'woocommerce_gpf_get_posts_args', array( $this, 'limit_categories' ) );
-		}
-	}
-
-	/**
-	 * @param $args
+	 * Load the settings, and hook in so we can generate the feed.
 	 *
-	 * @return mixed
+	 * @param WoocommerceProductFeedsFeedConfig $feed_config
 	 */
-	public function limit_categories( $args ) {
-		global $wp_query;
-		$categories = explode( ',', $wp_query->query_vars['gpf_categories'] );
-		$categories = array_map( 'intval', $categories );
-		if ( 'woocommerce_gpf_get_posts_args' === current_action() ) {
-			$args['tax_query'] = array(
-				array(
-					'taxonomy' => 'product_cat',
-					'terms'    => $categories,
-				),
-			);
-		} else {
-			// Map the term IDs to slugs.
-			$slugs = array();
-			foreach ( $categories as $term_id ) {
-				$term = get_term( $term_id );
-				if ( ! is_wp_error( $term ) ) {
-					$slugs[] = $term->slug;
-				}
-			}
-			$args['category'] = $slugs;
-		}
-
-		return $args;
+	public function initialise( $feed_config ) {
+		// Store the config.
+		$this->feed_config = $feed_config;
+		// Get the info we need to look up the right class.
+		$all_feed_types = $this->common->get_feed_types();
+		// Load the settings.
+		$this->settings = get_option( 'woocommerce_gpf_config', array() );
+		// Look up the right class to handle rendering the feed.
+		$class      = $all_feed_types[ $this->feed_config->type ]['class'];
+		$this->feed = $this->container[ $class ];
+		// Add hooks for future processing.
+		add_action( 'template_redirect', [ $this, 'render_product_feed' ], 15 );
+		add_filter(
+			'woocommerce_product_data_store_cpt_get_products_query',
+			[
+				$this,
+				'limit_query_by_category',
+			],
+			10,
+			2
+		);
 	}
 
 	/**
@@ -173,20 +150,15 @@ class WoocommerceGpfFrontend {
 	 * @param int $chunk_size The number of products to be retrieved per
 	 *                             query.
 	 *
-	 * @return array               Array containing the query function name at
-	 *                             index 0, and the arguments array at index 1.
+	 * @return array               The arguments array.
 	 */
 	private function get_query_args( $chunk_size ) {
-		global $wp_query;
 
-		$offset = isset( $wp_query->query_vars['gpf_start'] ) ?
-			(int) $wp_query->query_vars['gpf_start'] :
-			0;
-		$args   = array(
+		$args = array(
 			'status'  => array( 'publish' ),
 			'type'    => array( 'simple', 'variable' ),
 			'limit'   => $chunk_size,
-			'offset'  => $offset,
+			'offset'  => intval( $this->feed_config->start ),
 			'orderby' => 'ID',
 			'order'   => 'ASC',
 		);
@@ -194,14 +166,40 @@ class WoocommerceGpfFrontend {
 			$args['return'] = 'ids';
 		}
 
-		return array(
-			'wc_get_products',
-			apply_filters(
-				'woocommerce_gpf_wc_get_products_args',
-				$args,
-				'feed'
-			),
+		return apply_filters(
+			'woocommerce_gpf_wc_get_products_args',
+			$args,
+			'feed'
 		);
+	}
+
+	/**
+	 * Apply category limits to the query.
+	 *
+	 * @param $query
+	 * @param $query_vars
+	 *
+	 * @return mixed
+	 *
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+	 */
+	public function limit_query_by_category( $query, $query_vars ) {
+		$categories = array_map( 'intval', $this->feed_config->categories );
+		if ( empty( $categories ) || '' === $this->feed_config->category_filter ) {
+			return $query;
+		}
+
+		$tax_query = [
+			'taxonomy' => 'product_cat',
+			'field'    => 'term_id',
+			'terms'    => $categories,
+		];
+		if ( 'except' === $this->feed_config->category_filter ) {
+			$tax_query['operator'] = 'NOT IN';
+		}
+		$query['tax_query'][] = $tax_query;
+
+		return $query;
 	}
 
 	/**
@@ -212,7 +210,7 @@ class WoocommerceGpfFrontend {
 	 */
 	public function render_product_feed() {
 
-		global $wp_query, $_wp_using_ext_object_cache;
+		global $_wp_using_ext_object_cache;
 
 		$this->set_optimisations();
 		$this->feed->render_header();
@@ -224,20 +222,15 @@ class WoocommerceGpfFrontend {
 		}
 		$chunk_size = apply_filters( 'woocommerce_gpf_chunk_size', $chunk_size, $this->cache->is_enabled() );
 
-		list( $query_function, $args ) = $this->get_query_args( $chunk_size );
-
-		$gpf_limit = isset( $wp_query->query_vars['gpf_limit'] ) ?
-			(int) $wp_query->query_vars['gpf_limit'] :
-			false;
+		$args = $this->get_query_args( $chunk_size );
 
 		$output_count = 0;
+		$limit        = $this->feed_config->limit;
 
-		// Query for the products, and process them.
 		// Note: $products will be:
 		// - post IDs if the cache is enabled
-		// - WC_Product objects if cache is disabled, and WC3+ in use
-		// - WP_Post objects if < WC3.
-		$products      = $query_function( $args );
+		// - WC_Product objects if cache is disabled
+		$products      = wc_get_products( $args );
 		$product_count = count( $products );
 
 		$this->debug->log( 'Retrieved %d products', [ $product_count ] );
@@ -245,14 +238,17 @@ class WoocommerceGpfFrontend {
 
 			if ( $this->cache->is_enabled() ) {
 				// Output any that we have in the cache.
-				$outputs = $this->cache->fetch_multi( $products, $this->feed_format );
+				$outputs = $this->cache->fetch_multi( $products, $this->feed_config->type );
 				foreach ( $products as $product_id ) {
 					if ( ! empty( $outputs[ $product_id ] ) ) {
 						$this->debug->log( 'Retrieved %d from cache', [ $product_id ] );
 						echo $outputs[ $product_id ];
-						$output_count ++;
+						$output_count++;
+					} else {
+						$this->debug->log( 'Retrieved empty record from cache for %d', [ $product_id ] );
 					}
-					if ( $gpf_limit && $output_count >= $gpf_limit ) {
+					if ( -1 !== $limit && $output_count >= $limit ) {
+						$this->debug->log( '[%d] Reached limit (%d). Exiting.', [ __LINE__, $limit ] );
 						break;
 					}
 				}
@@ -261,21 +257,24 @@ class WoocommerceGpfFrontend {
 			}
 
 			// Bail if we're done.
-			if ( $gpf_limit && $output_count >= $gpf_limit ) {
+			if ( -1 !== $limit && $output_count >= $limit ) {
+				$this->debug->log( '[%d] Reached limit (%d). Exiting.', [ __LINE__, $limit ] );
 				break;
 			}
 
 			// If we have any still to generate, go do them.
 			foreach ( $products as $product ) {
 				if ( $this->process_product( $product ) ) {
-					$output_count ++;
+					$output_count++;
 				}
 				// Quit if we've done all of the products
-				if ( $gpf_limit && $output_count >= $gpf_limit ) {
+				if ( -1 !== $limit && $output_count >= $limit ) {
+					$this->debug->log( '[%d] Reached limit (%d). Exiting.', [ __LINE__, $limit ] );
 					break;
 				}
 			}
-			if ( $gpf_limit && $output_count >= $gpf_limit ) {
+			if ( -1 !== $limit && $output_count >= $limit ) {
+				$this->debug->log( 'Reached limit (%d). Exiting.', [ $limit ] );
 				break;
 			}
 			$args['offset'] += $chunk_size;
@@ -286,7 +285,7 @@ class WoocommerceGpfFrontend {
 				wp_cache_flush();
 			}
 
-			$products      = $query_function( $args );
+			$products      = wc_get_products( $args );
 			$product_count = count( $products );
 
 			$this->debug->log( 'Retrieved %d products', [ $product_count ] );
@@ -330,8 +329,9 @@ class WoocommerceGpfFrontend {
 		);
 		if ( $woocommerce_product instanceof WC_Product_Variable &&
 			 $include_variations ) {
-				return $this->process_variable_product( $woocommerce_product );
+			return $this->process_variable_product( $woocommerce_product );
 		}
+
 		return $this->process_simple_product( $woocommerce_product );
 	}
 
@@ -348,33 +348,27 @@ class WoocommerceGpfFrontend {
 		// Check whether it should be excluded
 		if ( WoocommerceGpfFeedItem::should_exclude(
 			$woocommerce_product,
-			$this->feed_format
+			$this->feed_config->type
 		) ) {
 			$this->debug->log( '%d excluded, skipping...', [ $woocommerce_product->get_id() ] );
-			$this->cache->store( $woocommerce_product->get_id(), $this->feed_format, '' );
+			$this->cache->store( $woocommerce_product->get_id(), $this->feed_config->type, '' );
 
 			return false;
 		}
 		// Construct the data for this item.
-		$feed_item = new WoocommerceGpfFeedItem(
+		$feed_item = $this->feed_item_factory->create(
+			$this->feed_config->type,
 			$woocommerce_product,
-			$woocommerce_product,
-			$this->feed_format,
-			$this->common,
-			$this->debug
+			$woocommerce_product
 		);
 
-		// Allow other plugins to modify the item before its rendered to the feed
-		$feed_item = apply_filters( 'woocommerce_gpf_feed_item', $feed_item, $woocommerce_product );
-		$feed_item = apply_filters( 'woocommerce_gpf_feed_item_' . $this->feed_format, $feed_item, $woocommerce_product );
-
 		$output = apply_filters(
-			'woocommerce_gpf_render_item_output_' . $this->feed_format,
+			'woocommerce_gpf_render_item_output_' . $this->feed_config->type,
 			$this->feed->render_item( $feed_item ),
 			$feed_item,
 			$woocommerce_product
 		);
-		$this->cache->store( $feed_item->ID, $this->feed_format, $output );
+		$this->cache->store( $feed_item->ID, $this->feed_config->type, $output );
 		echo $output;
 
 		return ! empty( $output );
@@ -391,8 +385,8 @@ class WoocommerceGpfFrontend {
 	private function process_variable_product( $woocommerce_product ) {
 
 		// Check if the whole product is excluded.
-		if ( WoocommerceGpfFeedItem::should_exclude( $woocommerce_product, $this->feed_format ) ) {
-			$this->cache->store( $woocommerce_product->get_id(), $this->feed_format, '' );
+		if ( WoocommerceGpfFeedItem::should_exclude( $woocommerce_product, $this->feed_config->type ) ) {
+			$this->cache->store( $woocommerce_product->get_id(), $this->feed_config->type, '' );
 			$this->debug->log( '%d excluded, skipping...', [ $woocommerce_product->get_id() ] );
 
 			return false;
@@ -405,12 +399,10 @@ class WoocommerceGpfFrontend {
 			if ( ! $variation_product ) {
 				continue;
 			}
-			$feed_item = new WoocommerceGpfFeedItem(
+			$feed_item = $this->feed_item_factory->create(
+				$this->feed_config->type,
 				$variation_product,
-				$woocommerce_product,
-				$this->feed_format,
-				$this->common,
-				$this->debug
+				$woocommerce_product
 			);
 
 			// Skip to the next if this variation isn't to be included.
@@ -418,14 +410,10 @@ class WoocommerceGpfFrontend {
 				continue;
 			}
 
-			// Allow other plugins to modify the item before its rendered to the feed
-			$feed_item = apply_filters( 'woocommerce_gpf_feed_item', $feed_item, $variation_product );
-			$feed_item = apply_filters( 'woocommerce_gpf_feed_item_' . $this->feed_format, $feed_item, $variation_product );
-
 			// Render it.
 			$output .= $this->feed->render_item( $feed_item );
 		}
-		$this->cache->store( $woocommerce_product->get_id(), $this->feed_format, $output );
+		$this->cache->store( $woocommerce_product->get_id(), $this->feed_config->type, $output );
 		echo $output;
 
 		return ! empty( $output );

@@ -1,0 +1,1804 @@
+# Copyright (C) 2017 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Local Pickup Plus 2.0.0-dev.1\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
+"form/\n"
+"POT-Creation-Date: 2021-03-23 11:15:27+00:00\n"
+"PO-Revision-Date: 2021-03-23 19:15+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Local Pickup Plus"
+msgstr "WooCommerce Local Pickup Plus"
+
+#. translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag, , %3$s
+#. - <a> tag, %4$s - </a> tag
+#: class-wc-local-pickup-plus.php:727
+msgid ""
+"Uh oh! It looks like %1$sshipping is disabled%2$s for your store, so Local "
+"Pickup Plus is unavailable. Please %3$senable shipping%4$s to enable store "
+"pickup."
+msgstr ""
+"Attenzione! %1$La spedizione risulta disabilitata%2$s per il tuo negozio, "
+"per cui Local Pickup Plus non è disponibile. Per favore %3$abilita la "
+"spedizione%4$s per abilitare il ritiro in negozio."
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:297
+#: includes/admin/class-wc-local-pickup-plus-import.php:51
+msgid "Import"
+msgstr "Importa"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:298
+#: includes/admin/class-wc-local-pickup-plus-export.php:51
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:240
+msgid "Export"
+msgstr "Esporta"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:362
+#: includes/admin/class-wc-local-pickup-plus-export.php:518
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:406
+msgid "You are not allowed to perform this action."
+msgstr "Non ti è consentito eseguire questa azione."
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:508
+msgid "Please enter 2 or more characters&hellip;"
+msgstr "Per favore inserisci 2 o più caratteri&hellip;"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:509
+msgid ""
+"Please make sure you have added products, then create or update this order "
+"first, to be able to add pickup details."
+msgstr ""
+"Per favore assicurati di aver aggiunto dei prodotti e salvato questo ordine "
+"prima di aggiungere informazioni sui punti di ritiro."
+
+#. translators: Placeholders: {{count}} - a number of allowed appointment slots
+#: includes/admin/class-wc-local-pickup-plus-admin.php:511
+msgid ""
+"Heads up! You’re about to restrict your all-day appointments to {{count}}. "
+"Customers won’t be able to select pickup dates when all appointments are "
+"claimed. Are you sure you want to proceed?"
+msgstr ""
+"Attenzione! Stai per limitare tutti i tuoi appuntamenti di ritiro a "
+"{{count}}. I clienti non saranno in grado di selezionare date di ritiro "
+"quando tutti gli appuntamenti sono assegnati. Sei sicuro di voler procedere?"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:747
+#: includes/admin/class-wc-local-pickup-plus-products-admin.php:205
+#: includes/admin/class-wc-local-pickup-plus-products-admin.php:251
+#: includes/class-wc-shipping-local-pickup-plus.php:190
+msgid "Local Pickup"
+msgstr "Ritiro da parte del cliente"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:748
+msgid "This section shows some configuration data for Local Pickup Plus."
+msgstr ""
+"Questa sezione mostra alcuni dati di configurazione per Local Pickup Plus."
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:755
+msgid "Status"
+msgstr "Stato"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:756
+msgid "Whether the shipping method has been enabled."
+msgstr "Determina qualora la modalità di spedizione sia stata abilitata."
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:759
+#: includes/admin/class-wc-local-pickup-plus-admin.php:790
+msgid "Enabled"
+msgstr "Abilitato"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:761
+msgid "Disabled"
+msgstr "Disabilitato"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:766
+msgid "Geocoding"
+msgstr "Geocoding"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:767
+msgid "Whether geocoding support via Google Maps is available."
+msgstr ""
+"Determina qualora il supporto per il geocoding via Google Maps sia "
+"disponibile."
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:777
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:82
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:303
+#: includes/class-wc-local-pickup-plus-post-types.php:62
+#: includes/integrations/woocommerce-customer-order-xml-export-suite/class-wc-local-pickup-plus-integration-customer-order-xml-export.php:100
+msgid "Pickup Locations"
+msgstr "Punti di Ritiro"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:778
+msgid "The number of pickup locations published and available to customers."
+msgstr "Il numero dei punti di ritiro pubblicati e disponibili per i clienti."
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:782
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:96
+#: includes/class-wc-shipping-local-pickup-plus.php:271
+msgid "Pickup Appointments"
+msgstr "Appuntamenti di ritiro"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:783
+msgid ""
+"Whether customers at checkout are asked to set an appointment for pickup "
+"collection."
+msgstr ""
+"Determina se viene richiesto ai clienti alla cassa di specificare un "
+"appuntamento per il ritiro dell'ordine."
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:794
+#: includes/frontend/Fields/Package_Pickup_Appointment_Field.php:160
+msgid "Required"
+msgstr "Richiesto"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:808
+#: includes/class-wc-shipping-local-pickup-plus.php:371
+msgid "Pickup Location Tax"
+msgstr "Imposte punto di ritiro"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:809
+msgid ""
+"Whether the applied tax rate should be based on the chosen pickup location "
+"address."
+msgstr ""
+"Determina se applicare le imposte relative all'indirizzo del punto di ritiro "
+"selezionato anziché all'indirizzo fornito dal cliente."
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:819
+#: includes/class-wc-shipping-local-pickup-plus.php:211
+msgid "Checkout Display"
+msgstr "Impostazioni cassa"
+
+#. translators: Placeholder: %s - the selected pickup selection mode from
+#. settings
+#: includes/admin/class-wc-local-pickup-plus-admin.php:825
+msgid "Pickup selection mode: %s"
+msgstr "Modalità di scelta punti di ritiro: %s"
+
+#. translators: Placeholder: %s - cart item handling mode from settings
+#: includes/admin/class-wc-local-pickup-plus-admin.php:834
+msgid "Cart item handling mode: %s"
+msgstr "Modalità oggetti del carrello: %s"
+
+#. translators: Placeholder: %s - default cart item handling from settings
+#: includes/admin/class-wc-local-pickup-plus-admin.php:849
+msgid "Default cart item handling: %s"
+msgstr "Impostazione predefinita oggetti del carrello: %s"
+
+#: includes/admin/class-wc-local-pickup-plus-export.php:52
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:373
+msgid "Export Pickup Locations"
+msgstr "Esporta Punti di Ritiro"
+
+#: includes/admin/class-wc-local-pickup-plus-export.php:75
+#: includes/admin/class-wc-local-pickup-plus-import.php:80
+msgid "Return to Pickup Locations"
+msgstr "Ritorna ai Punti di Ritiro"
+
+#: includes/admin/class-wc-local-pickup-plus-export.php:81
+msgid "Separate fields by"
+msgstr "Separa campi con"
+
+#: includes/admin/class-wc-local-pickup-plus-export.php:83
+msgid "Change the delimiter based on your desired output format."
+msgstr "Cambia il delimitatore in base al formato di destinazione desiderato."
+
+#: includes/admin/class-wc-local-pickup-plus-export.php:85
+#: includes/admin/class-wc-local-pickup-plus-import.php:118
+msgid "Comma"
+msgstr "Virgola"
+
+#: includes/admin/class-wc-local-pickup-plus-export.php:86
+#: includes/admin/class-wc-local-pickup-plus-import.php:119
+msgid "Tab space"
+msgstr "Spazio Tab"
+
+#: includes/admin/class-wc-local-pickup-plus-export.php:92
+msgid "Limit Records"
+msgstr "Limita Inserimenti"
+
+#: includes/admin/class-wc-local-pickup-plus-export.php:94
+msgid ""
+"Limit the number of rows to be exported. Use this option when exporting very "
+"large files that are unable to complete in a single attempt."
+msgstr ""
+"Limita il numero di righe da esportare. Utilizza questa opzione se stai "
+"esportando un file molto grande e hai difficoltà a terminare l'operazione."
+
+#: includes/admin/class-wc-local-pickup-plus-export.php:105
+msgid "Offset Records"
+msgstr "Offset Inserimenti"
+
+#: includes/admin/class-wc-local-pickup-plus-export.php:107
+msgid ""
+"Set the number of records to be skipped in this export. Use this option when "
+"exporting very large files that are unable to complete in a single attempt."
+msgstr ""
+"Imposta il numero di inserimenti da saltare in questa esportazione.  "
+"Utilizza questa opzione se stai esportando un file molto grande e hai "
+"difficoltà a terminare l'operazione."
+
+#: includes/admin/class-wc-local-pickup-plus-export.php:204
+msgid "No Pickup Locations found matching the criteria to export."
+msgstr ""
+"Non sono stati trovati punti di ritiro con i criteri selezionati per "
+"l'esportazione."
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:52
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:372
+msgid "Import Pickup Locations"
+msgstr "Importa Punti di Ritiro"
+
+#. translators: Placeholders: %1$s - opening <a> link HTML tag, $2$s - closing
+#. </a> link HTML tag
+#: includes/admin/class-wc-local-pickup-plus-import.php:82
+msgid ""
+"Your CSV file must be formatted with the correct column names and cell data. "
+"Please %1$ssee the documentation%2$s for more information and a sample CSV "
+"file."
+msgstr ""
+"Il tuo file CSV deve essere formattato con dati corretti nelle celle e il "
+"corretto numero di colonne. Per favore, %1$sconsulta la documentazione%2$s "
+"per maggiori informazioni e un file CSV di esempio."
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:88
+#: includes/admin/class-wc-local-pickup-plus-import.php:152
+msgid "Choose a file from your computer"
+msgstr "Scegli un file dal tuo computer"
+
+#. translators: Placeholder: %s - maximum uploadable file size (e.g. 8M, 20M,
+#. 100M...)
+#: includes/admin/class-wc-local-pickup-plus-import.php:90
+msgid ""
+"Acceptable file types: CSV or tab-delimited text files. Maximum file size: %s"
+msgstr ""
+"Tipi di file accettabili: CSV o file di testo con delimitazioni di spazi-"
+"tab. Grandezza massima del file: %s"
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:90
+msgid "Undetermined"
+msgstr "Non determinato"
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:96
+msgid "Import Options"
+msgstr "Opzioni di Importazione"
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:97
+msgid ""
+"Update existing records if a matching pickup location is found (by Pickup "
+"Location ID)"
+msgstr ""
+"Aggiorna punti di ritiro esistenti se un punto di ritiro con ID "
+"corrispondente viene trovato"
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:105
+msgid ""
+"Create new pickup locations if a matching Pickup Location ID is not found "
+"(skips rows when disabled)"
+msgstr ""
+"Crea nuovi punti di ritiro se non vengono trovati punti di ritiro esistenti "
+"con ID corrispondente (salta righe se disabilitato)"
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:113
+msgid "Fields are separated by"
+msgstr "I campi sono separati da"
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:115
+msgid "Change the delimiter based on your input file format."
+msgstr ""
+"Cambia il delimitatore in base al formato del tuo file di importazione."
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:220
+msgid "You must upload a file to import Pickup Locations from."
+msgstr "Devi caricare un file da cui importare punti di ritiro."
+
+#. translators: Placeholder: %s - error message
+#: includes/admin/class-wc-local-pickup-plus-import.php:228
+msgid "There was a problem uploading the file: %s"
+msgstr "Si è verificato un problema nel caricare il file: %s"
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:245
+#: includes/admin/class-wc-local-pickup-plus-import.php:611
+msgid "Could not find Pickup Locations to import from uploaded file."
+msgstr ""
+"Non è stato possibile trovare punti di ritiro da importare dal file caricato."
+
+#. translators: Placeholder: %s - Pickup Locations to import found in uploaded
+#. file
+#: includes/admin/class-wc-local-pickup-plus-import.php:616
+msgid "%s record found in file."
+msgid_plural "%s records found in file."
+msgstr[0] "%s informazione trovata nel file."
+msgstr[1] "%s informazione trovate nel file."
+
+#. translators: Placeholder: %s - Pickup Locations processed during import from
+#. file
+#: includes/admin/class-wc-local-pickup-plus-import.php:623
+msgid "%s row processed for import."
+msgid_plural "%s rows processed for import."
+msgstr[0] "%s riga analizzata per importazione."
+msgstr[1] "%s righe analizzate per importazione."
+
+#. translators: Placeholder: %s - Pickup Locations created in import
+#: includes/admin/class-wc-local-pickup-plus-import.php:627
+msgid "%s new Pickup Location created."
+msgid_plural "%s new Pickup Locations created."
+msgstr[0] "%s nuovo punto di ritiro creato."
+msgstr[1] "%s nuovi punti di ritiro creati."
+
+#. translators: Placeholder: %s - Pickup Locations updated during import
+#: includes/admin/class-wc-local-pickup-plus-import.php:632
+msgid "%s existing Pickup Location updated."
+msgid_plural "%s existing Pickup Locations updated."
+msgstr[0] "%s punto di ritiro esistente aggiornato."
+msgstr[1] "%s punti di ritiro esistenti aggiornati."
+
+#. translators: Placeholder: %s - skipped Pickup Locations to import from file
+#: includes/admin/class-wc-local-pickup-plus-import.php:637
+msgid "%s row skipped."
+msgid_plural "%s rows skipped."
+msgstr[0] "%s riga saltata."
+msgstr[1] "%s righe saltate."
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:643
+msgid ""
+"However, no Pickup Locations were created or updated with the given options."
+msgstr ""
+"Tuttavia, nessun punto di ritiro è stato creato o aggiornato con le opzioni "
+"scelte."
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:671
+msgid "The file uploaded exceeds the maximum file size allowed."
+msgstr "Le dimensioni del file eccedono i limiti massimi consentiti."
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:673
+msgid "The file was only partially uploaded. Please try again."
+msgstr "Il file è stato caricato solo parzialmente. Per favore riprova."
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:675
+msgid "No file was uploaded."
+msgstr "Nessun file è stato caricato."
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:677
+msgid "Missing a temporary folder to store the file. Please contact your host."
+msgstr ""
+"Non è stato possibile determinare una cartella temporanea dove salvare il "
+"file. Per favore contatta il tuo host."
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:679
+msgid ""
+"Failed to write file to disk. Perhaps a permissions error, please contact "
+"your host."
+msgstr ""
+"Non è stato possibile scrivere il file su disco. Forse si tratta di un "
+"errore nei permessi di scrittura, per favore contatta il tuo host."
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:681
+msgid "A PHP Extension stopped the file upload. Please contact your host."
+msgstr ""
+"Una estensione PHP non ha consentito di caricare il file. Per favore "
+"contatta il tuo host."
+
+#: includes/admin/class-wc-local-pickup-plus-import.php:683
+msgid "Unknown error."
+msgstr "Errore sconosciuto."
+
+#. translators: Placeholders: %1$s new location name, %2$s previous location
+#. name, %3$s <a> tag, %4$s </a> tag, %5$s <small> tag, %6$s </small> tag
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:129
+msgid "%1$s%5$s (renamed to %3$s%2$s%4$s)%6$s"
+msgstr "%1$s%5$s (rinominato in %3$s%2$s%4$s)%6$s"
+
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:217
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:452
+msgid "Search for a location&hellip;"
+msgstr "Cerca un punto di ritiro&hellip;"
+
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:302
+msgid "All pickup dates"
+msgstr "Tutte le date di ritiro"
+
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:303
+msgid "Pickup today"
+msgstr "Ritiro oggi"
+
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:304
+msgid "Pickup tomorrow"
+msgstr "Ritiro domani"
+
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:305
+msgid "Pickup this week"
+msgstr "Ritiro questa settimana"
+
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:306
+msgid "Pickup next week"
+msgstr "Ritiro prossima settimana"
+
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:435
+msgid "Pickup location:"
+msgstr "Punto di ritiro:"
+
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:464
+msgid "Pickup date:"
+msgstr "Data di ritiro:"
+
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:475
+msgid "Appointment required"
+msgstr "Appuntamento obbligatorio"
+
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:475
+msgid "Set an appointment"
+msgstr "Fissa un appuntamento"
+
+#. translators: %1$s - the formatted date, %2$s - the formatted time
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:483
+msgid "%1$s at %2$s"
+msgstr "%1$s alle %2$s"
+
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:528
+msgid "Items to pickup:"
+msgstr "Oggetti da ritirare:"
+
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:566
+#: includes/class-wc-local-pickup-plus-post-types.php:67
+msgid "Edit"
+msgstr "Edita"
+
+#: includes/admin/class-wc-local-pickup-plus-orders-admin.php:567
+msgid "Update pickup information"
+msgstr "Aggiorna informazioni di ritiro"
+
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:98
+msgid "Geocoded Status"
+msgstr "Coordinate"
+
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:103
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:80
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:189
+#: includes/class-wc-local-pickup-plus-orders.php:388
+msgid "Address"
+msgstr "Indirizzo"
+
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:104
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:172
+msgid "City"
+msgstr "Città"
+
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:105
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:173
+msgid "Postcode"
+msgstr "Codice Postale"
+
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:106
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:169
+msgid "State"
+msgstr "Stato o Provincia"
+
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:107
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:168
+msgid "Country"
+msgstr "Paese"
+
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:189
+msgid "This pickup location has coordinates."
+msgstr "Questo punto di ritiro ha delle coordinate."
+
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:191
+msgid "No coordinates have been set for this pickup location."
+msgstr "Non sono state impostate delle coordinate per questo punto di ritiro."
+
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:218
+msgid "Delete this pickup location permanently"
+msgstr "Elimina permanentemente questo punto di ritiro"
+
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:218
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:246
+msgid "Delete"
+msgstr "Elimina"
+
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:243
+msgid "Geocode"
+msgstr "Ottieni coordinate"
+
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:266
+msgid "Enter pickup location name here"
+msgstr "Inserisci il nome del punto di ritiro qui"
+
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:286
+msgid "Permanently Delete"
+msgstr "Elimina definitivamente"
+
+#. translators: Placeholder: %d number of pickup locations processed
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:455
+msgid "Successfully geocoded %d pickup location address."
+msgid_plural "Successfully geocoded %d pickup location addresses."
+msgstr[0] "Ottenute coordinate per %d punto di ritiro con successo."
+msgstr[1] "Ottenute coordinate per %d punti di ritiro con successo."
+
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:457
+msgid "No pickup location addresses were geocoded."
+msgstr "Non sono state attribuite coordinate a nessun punto di ritiro."
+
+#. translators: Placeholder: %d number of pickup locations processed
+#: includes/admin/class-wc-local-pickup-plus-pickup-locations-admin.php:462
+msgid "Coordinates for %d pickup location could not be determined."
+msgid_plural "Coordinates for %d pickup locations could not be determined."
+msgstr[0] ""
+"Non è stato possibile determinare coordinate per %d punto di ritiro."
+msgstr[1] ""
+"Non è stato possibile determinare coordinate per %d punti di ritiro."
+
+#: includes/admin/class-wc-local-pickup-plus-products-admin.php:96
+msgid ""
+"Two or more categories have conflicting pickup settings. Remove the "
+"conflicting categories or override the pickup settings on this product. <br/"
+">Until then, this product will default to \"Must be picked up\"."
+msgstr ""
+"Due o più categorie hanno impostazioni di ritiro incompatibili tra loro. "
+"Rimuovi le categorie in conflitto oppure aggiorna le impostazioni di ritiro "
+"per questo prodotto. <br/>Finché il problema non sarà risolto, questo "
+"prodotto verrà considerato con obbligo di ritiro."
+
+#: includes/admin/class-wc-local-pickup-plus-products-admin.php:202
+msgid ""
+"Choose whether local pickup is available for this product, or if local "
+"pickup is the only type of shipment possible."
+msgstr ""
+"Specifica se questo prodotto può essere ritirato dal cliente, o se l'unico "
+"tipo di consegna possibile è presso un punto di ritiro."
+
+#: includes/admin/class-wc-local-pickup-plus-products-admin.php:225
+#: includes/admin/class-wc-local-pickup-plus-products-admin.php:247
+msgid ""
+"Choose whether local pickup is possible for this category of products, or if "
+"local pickup is the only type of shipment possible. Individual products may "
+"override this setting."
+msgstr "Scegli se è possibile."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:63
+msgid "Pickup Location Data"
+msgstr "Informazioni di ritiro"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:86
+msgid "Available Products"
+msgstr "Prodotti disponibili"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:91
+msgid "Costs &amp; Discounts"
+msgstr "Costi &amp; sconti"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:101
+msgid "Email List"
+msgstr "Lista Email"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:170
+msgid "Address Line 1"
+msgstr "Indirizzo Linea 1"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:171
+msgid "Address Line 2"
+msgstr "Indirizzo Linea 2"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:238
+#: includes/class-wc-local-pickup-plus-orders.php:391
+msgid "Phone"
+msgstr "Telefono"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:251
+msgid "Description &amp; Notes"
+msgstr "Descrizione &amp; Note"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:278
+msgid "Available products at this location"
+msgstr "Prodotti disponibili presso questo punto di ritiro"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:285
+msgid "Products availability"
+msgstr "Disponibilità prodotti"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:289
+msgid "All products"
+msgstr "Tutti i prodotti"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:290
+msgid "Some products"
+msgstr "Alcuni prodotti"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:292
+msgid ""
+"Either allow any product to be picked up at this location, or restrict this "
+"location to only allow pickup of certain products."
+msgstr ""
+"Consenti di ritirare qualunque prodotto in questo punto di ritiro, oppure "
+"consenti di ritirare solo alcuni prodotti presso questa località."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:294
+msgid "Any product can be collected at this location."
+msgstr "Qualsiasi prodotto può essere ritirato presso questa località."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:295
+msgid "Only certain products can be collected at this location."
+msgstr "Solo alcuni prodotti possono essere ritirati in questa località."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:304
+msgid "Products"
+msgstr "Prodotti"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:315
+msgid "Select products&hellip;"
+msgstr "Seleziona prodotti&hellip;"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:325
+msgid "The chosen products are available at this location."
+msgstr "I prodotti selezionati sono disponibili presso questo punto di ritiro."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:328
+msgid "Set products"
+msgstr "Imposta prodotti"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:329
+msgid "Remove products"
+msgstr "Rimuovi prodotti"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:333
+msgid "Product Categories"
+msgstr "Categorie Prodotti"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:344
+msgid "Select product categories&hellip;"
+msgstr "Seleziona categorie prodotti&hellip;"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:352
+msgid ""
+"Products belonging to the chosen categories are available at this location."
+msgstr ""
+"I prodotti che appartengono alle categorie selezionate sono disponibili "
+"presso questo punto di ritiro."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:355
+msgid "Set product categories"
+msgstr "Imposta categorie prodotti"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:356
+msgid "Remove product categories"
+msgstr "Rimuovi categorie prodotti"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:365
+msgid "Product availability is not active."
+msgstr "La disponibilità dei prodotti non è abilitata."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:370
+msgid ""
+"In order to limit the products available at this location, you will need to "
+"allow customers to choose a location for each product in their cart. "
+"%1$sLearn more &raquo;%2$s"
+msgstr ""
+"Per poter limitare i prodotti disponibili presso questo punto di ritiro, "
+"occorre abilitare la possibilità per i clienti di scegliere un punto di "
+"ritiro per ciascun prodotto nel loro carrello. %1$sScopri di più&raquo;%2$s"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:391
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:409
+msgid "Price Adjustment"
+msgstr "Regolazione di prezzo"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:396
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:455
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:481
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:508
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:533
+#: includes/class-wc-shipping-local-pickup-plus.php:179
+msgid "Enable"
+msgstr "Abilita"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:404
+msgid "Set price adjustment"
+msgstr "Imposta regolazione di prezzo"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:405
+msgid ""
+"By enabling a price adjustment for this pickup location, any default value "
+"will be overridden when customers collect their purchases at this location."
+msgstr ""
+"Nell'abilitare una regolazione di prezzo per questo punto di ritiro, "
+"qualunque valore predefinito verrà sovrascritto quando i clienti scelgono di "
+"ritirare i loro ordini presso questa località."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:414
+msgid ""
+"A cost or a discount applied when choosing this pickup location at checkout. "
+"You can set a fixed or a percentage amount. When using percentage, the value "
+"will be calculated based on cart contents value."
+msgstr ""
+"Uno costo o uno sconto verrà applicato quando i clienti scelgono questo "
+"punto di ritiro alla cassa. Puoi impostare un ammontare fisso o percentuale. "
+"Se usi percentuale, il valore verrà calcolato in base al valore dei "
+"contenuti del carrello."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:438
+msgid "Pickup Appointment Scheduling"
+msgstr "Programma appuntamento per ritiro"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:447
+msgid "Typical Business Hours"
+msgstr "Orari di apertura tipici"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:456
+msgid ""
+"Set the business hours when a pickup appointment can be scheduled by "
+"customers that purchase at this location. This will override the global "
+"business hours."
+msgstr ""
+"Imposta gli orari di apertura quando un appuntamento per ritiro può essere "
+"programmato dai clienti che acquistano presso questa località. Questi orari "
+"sovrascriveranno gli orari di apertura predefiniti."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:473
+msgid "Public Holidays"
+msgstr "Festività pubbliche"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:482
+msgid ""
+"You can exclude individual days of the year from having a pickup appointment "
+"scheduled by a customer who selected this location. This will override the "
+"default global public holidays."
+msgstr ""
+"Puoi escludere dei giorni precisi dell'anno per non consentire ai clienti di "
+"programmare un ritiro nel corso di essi se scelgono questa località. Questa "
+"impostazione sovrascriverà il calendario predefinito delle feste pubbliche."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:494
+msgid "The selected dates will be excluded for all years."
+msgstr "Le date selezionate saranno escluse per tutti gli anni."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:500
+msgid "Pickup Lead Time"
+msgstr "Tempo minimo di disponibilità"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:509
+msgid ""
+"By enabling a lead time for this pickup location, the lead time default "
+"value will be overridden when customers schedule a pickup at this location."
+msgstr ""
+"Nell'abilitare un tempo minimo di disponibilità per questo punto di ritiro, "
+"il tempo minimo di disponibilità predefinito verrà sovrascritto quando i "
+"clienti scelgono un ritiro presso questa località."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:525
+msgid "Pickup Deadline"
+msgstr "Tempo massimo di giacenza"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:534
+msgid ""
+"By enabling a deadline for this pickup location, the deadline default value "
+"will be overridden when customers schedule a pickup at this location."
+msgstr ""
+"Nell'abilitare un tempo massimo di giacenza per questo punto di ritiro, il "
+"valore predefinito del tempo massimo di giacenza verrà sovrascritto quando i "
+"clienti scelgono un ritiro presso questa località."
+
+#. translators: Placeholders: %1$s - opening <a> HTML link tag, %2$s - closing
+#. </a> HTML link tag
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:555
+msgid ""
+"To set collection hours for pickup appointment scheduling, you need to "
+"enable pickup appointments from %1$sLocal Pickup Plus settings%2$s."
+msgstr ""
+"Per impostare orari di ritiro per la programmazione di un appuntamento, è "
+"necessario abilitare gli appuntamenti nelle %1$simpostazioni di Local Pickup "
+"Plus%2$s."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:576
+msgid ""
+"Enter a comma-separated list of email recipients that should receive admin "
+"order emails when this location is included in the order. They will receive "
+"\"New Order\", \"Cancelled Order\", and \"Failed Order\" notification emails."
+msgstr ""
+"Inserisci un elenco separato da virgole di destinatari email che dovrebbero "
+"ricevere notifiche email amministrative relative agli ordini che includono "
+"un ritiro presso questa località. Riceveranno notifiche email per \"Nuovo "
+"Ordine\", \"Ordine Cancellato\" e \"Ordine Fallito\"."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-data.php:578
+msgid "Recipients"
+msgstr "Destinatari"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-geodata.php:64
+msgid "Pickup Location Coordinates"
+msgstr "Coordinate del punto di ritiro"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-geodata.php:90
+msgid "Address is geocoded"
+msgstr "L'indirizzo ha delle coordinate"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-geodata.php:95
+msgid ""
+"The position determined by Google for this address is only meant for "
+"searching locations by distance and visual precision is not a requirement."
+msgstr ""
+"La posizione determinata da Google per questo indirizzo è solo a fini di "
+"ricerca approssimativa per distanza e pertanto una precisione visiva su una "
+"mappa non è fondamentale."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-geodata.php:96
+msgid "View on Google Maps"
+msgstr "Vedi su Google Maps"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-geodata.php:104
+msgid "Address is not geocoded"
+msgstr "L'indirizzo non ha delle coordinate"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-geodata.php:107
+msgid ""
+"Enter a pickup location address and save it to obtain coordinates "
+"automatically. You can also override coordinates manually."
+msgstr ""
+"Inserisci un indirizzo e salva il punto di ritiro per ottenere delle "
+"coordinate automaticamente. Puoi anche scegliere di sovrascrivere queste "
+"coordinate manualmente."
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-geodata.php:118
+msgid "Enter Coordinates Manually"
+msgstr "Inserisci coordinate manualmente"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-geodata.php:123
+msgid "Latitude"
+msgstr "Latitudine"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-geodata.php:134
+msgid "Longitude"
+msgstr "Longitudine"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-geodata.php:143
+msgid "Overriding default coordinates"
+msgstr "Sovrascrivi le coordinate predeterminate"
+
+#: includes/admin/meta-boxes/class-wc-local-pickup-plus-meta-box-pickup-location-geodata.php:192
+msgid ""
+"Could not save or update coordinates for this pickup location, please review "
+"the pickup location address details or ensure that your Google Maps "
+"Geocoding API key is valid and Google is returning results."
+msgstr ""
+"Non è stato possibile salvare o aggiornare le coordinate per questo punto di "
+"ritiro; per favore rivedi i dettagli dell'indirizzo del punto di ritiro o "
+"assicurati che la tua chiave per Google Maps Geocoding API sia valida e che "
+"Google stia inviando dati."
+
+#: includes/class-wc-local-pickup-plus-ajax.php:258
+msgid ""
+"Heads up! The appointment entered in this order is outside your configured "
+"availability.\n"
+"\n"
+"Would you like to save the selected date and time?"
+msgstr ""
+"Attenzione! L'appuntamento programmato per questo ordine è al di fuori della "
+"disponibilità configurata.\n"
+"\n"
+"Sei sicuro di voler salvare la data e l'ora selezionata?"
+
+#. translators: Placeholder: %s - day of the week name
+#: includes/class-wc-local-pickup-plus-ajax.php:981
+#: includes/frontend/Fields/Package_Pickup_Appointment_Field.php:267
+msgid "Opening hours for pickup on %s:"
+msgstr "Orari di apertura per ritiro di %s:"
+
+#. translators: Placeholders: %1$s - opening <a> link tag, %2$s closing </a>
+#. link tag
+#: includes/class-wc-local-pickup-plus-lifecycle.php:391
+msgid ""
+"Pickup locations have been upgraded to a new format! All location data "
+"should be the same, but %1$splease double-check them here%2$s."
+msgstr ""
+"I punti di ritiro sono stati aggiornati con un nuovo formato! I dati di "
+"tutti i punti di ritiro dovrebbero essere stati preservati "
+"nell'aggiornamento; %1$puoi verificare qui la loro integrità%2$."
+
+#: includes/class-wc-local-pickup-plus-orders.php:387
+#: includes/class-wc-local-pickup-plus-post-types.php:63
+msgid "Pickup Location"
+msgstr "Punto di Ritiro"
+
+#: includes/class-wc-local-pickup-plus-orders.php:395
+msgid "Notes"
+msgstr "Note"
+
+#: includes/class-wc-local-pickup-plus-orders.php:401
+msgid "Pickup Date"
+msgstr "Data di ritiro"
+
+#: includes/class-wc-local-pickup-plus-orders.php:406
+#: includes/class-wc-local-pickup-plus-orders.php:414
+msgid "Pickup Time"
+msgstr "Orario di ritiro"
+
+#: includes/class-wc-local-pickup-plus-orders.php:436
+msgid "Items to Pickup"
+msgstr "Oggetti da ritirare"
+
+#: includes/class-wc-local-pickup-plus-post-types.php:65
+msgid "Add Pickup Location"
+msgstr "Aggiungi punto di ritiro"
+
+#: includes/class-wc-local-pickup-plus-post-types.php:66
+msgid "Add New Pickup Location"
+msgstr "Aggiungi nuovo punto di ritiro"
+
+#: includes/class-wc-local-pickup-plus-post-types.php:68
+msgid "Edit Pickup Location"
+msgstr "Modifica punto di ritiro"
+
+#: includes/class-wc-local-pickup-plus-post-types.php:69
+msgid "New Pickup Location"
+msgstr "Nuovo punto di ritiro"
+
+#: includes/class-wc-local-pickup-plus-post-types.php:70
+msgid "View Pickup Locations"
+msgstr "Vedi punti di ritiro"
+
+#: includes/class-wc-local-pickup-plus-post-types.php:71
+msgid "View Pickup Location"
+msgstr "Vedi punto di ritiro"
+
+#: includes/class-wc-local-pickup-plus-post-types.php:72
+msgid "Search Pickup Locations"
+msgstr "Cerca punti di ritiro"
+
+#: includes/class-wc-local-pickup-plus-post-types.php:73
+msgid "No Pickup Location found"
+msgstr "Nessun punto di ritiro trovato"
+
+#: includes/class-wc-local-pickup-plus-post-types.php:74
+msgid "No Pickup Locations found in trash"
+msgstr "Nessun punto di ritiro trovato nel cestino"
+
+#: includes/class-wc-local-pickup-plus-post-types.php:79
+msgid "This is where you can add new Pickup Locations."
+msgstr "Qui è dove puoi aggiungere nuovi punti di ritiro."
+
+#: includes/class-wc-local-pickup-plus-post-types.php:149
+#: includes/class-wc-local-pickup-plus-post-types.php:152
+#: includes/class-wc-local-pickup-plus-post-types.php:154
+#: includes/class-wc-local-pickup-plus-post-types.php:155
+msgid "Pickup Location saved."
+msgstr "Punto di ritiro salvato."
+
+#: includes/class-wc-local-pickup-plus-post-types.php:150
+msgid "Custom field updated."
+msgstr "Campo personalizzato aggiornato."
+
+#: includes/class-wc-local-pickup-plus-post-types.php:151
+msgid "Custom field deleted."
+msgstr "Campo personalizzato eliminato."
+
+#: includes/class-wc-local-pickup-plus-post-types.php:158
+msgid "Pickup Location draft updated."
+msgstr "Bozza punto di ritiro aggiornata."
+
+#: includes/class-wc-local-pickup-plus-post-types.php:179
+msgid "%s pickup location updated."
+msgid_plural "%s pickup locations updated."
+msgstr[0] "%s punto di ritiro aggiornato."
+msgstr[1] "%s punti di ritiro aggiornati."
+
+#: includes/class-wc-local-pickup-plus-post-types.php:180
+msgid "%s pickup location not updated, somebody is editing it."
+msgid_plural "%s pickup locations not updated, somebody is editing them."
+msgstr[0] "%s punto di ritiro non aggiornato, qualcuno lo sta modificando."
+msgstr[1] "%s punti di ritiro non aggiornati, qualcuno li sta modificando."
+
+#: includes/class-wc-local-pickup-plus-post-types.php:181
+msgid "%s pickup location permanently deleted."
+msgid_plural "%s pickup locations permanently deleted."
+msgstr[0] "%s punto di ritiro eliminato definitivamente."
+msgstr[1] "%s punti di ritiro eliminati definitivamente."
+
+#: includes/class-wc-local-pickup-plus-post-types.php:182
+msgid "%s pickup location moved to the Trash."
+msgid_plural "%s pickup locations moved to the Trash."
+msgstr[0] "%s punto di ritiro spostato nel cestino."
+msgstr[1] "%s punti di ritiro spostati nel cestino."
+
+#: includes/class-wc-local-pickup-plus-post-types.php:183
+msgid "%s pickup location restored from the Trash."
+msgid_plural "%s pickup locations restored from the Trash."
+msgstr[0] "%s punto di ritiro ripristinato dal cestino."
+msgstr[1] "%s punti di ritiro ripristinati dal cestino."
+
+#: includes/class-wc-local-pickup-plus-products.php:72
+msgid "Use category-level setting"
+msgstr "Utilizza impostazione a livello di categoria"
+
+#: includes/class-wc-local-pickup-plus-products.php:73
+msgid "Can be picked up"
+msgstr "Può essere ritirato"
+
+#: includes/class-wc-local-pickup-plus-products.php:74
+msgid "Cannot be picked up"
+msgstr "Non può essere ritirato"
+
+#: includes/class-wc-local-pickup-plus-products.php:75
+msgid "Must be picked up"
+msgstr "Deve essere ritirato"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:55
+msgid "Local Pickup Plus"
+msgstr "Local Pickup Plus"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:56
+msgid ""
+"Local Pickup Plus is a shipping method which allows customers to pick up "
+"their orders at a specified pickup location."
+msgstr ""
+"Local Pickup Plus è un metodo di spedizione che consente ai clienti di "
+"ritirare i loro ordini presso punti di ritiro specifici."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:181
+msgid "Enable Local Pickup Plus"
+msgstr "Abilita Local Pickup Plus"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:187
+msgid "Title"
+msgstr "Titolo"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:188
+msgid "The shipping method title that customers see during checkout."
+msgstr ""
+"Il titolo della modalità di spedizione (di ritiro) che i clienti vedranno "
+"alla cassa."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:195
+msgid "Google Maps Geocoding API Key"
+msgstr "Chiave per Google Maps Geocoding API"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:196
+msgid ""
+"Use Google Maps Geocoding API to geocode your pickup locations and enable "
+"customers to search pickup locations by distance."
+msgstr ""
+"Usa la Geocoding API di Google Maps per ottenere coordinate dei tuoi punti "
+"di ritiro e consentire ai clienti di cercare punti di ritiro in base alla "
+"distanza."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:197
+#: includes/frontend/Fields/Package_Pickup_Appointment_Field.php:158
+msgid "(optional)"
+msgstr "(opzionale)"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:204
+msgid "Enable logging"
+msgstr "Abilita logging"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:205
+msgid "Log Google Maps Geocoding API responses and errors."
+msgstr "Registra risposte ed errori provenienti da Google Maps Geocoding API."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:212
+msgid "Determine how pickup locations are shown to the customer at checkout."
+msgstr ""
+"Determina come i punti di ritiro vengono mostrati al cliente alla cassa."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:217
+msgid "Choosing Locations"
+msgstr "Scelta punti di ritiro"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:221
+msgid "Allow customers to select only one location per order"
+msgstr "Consenti ai clienti di scegliere un singolo punto di ritiro per ordine"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:222
+msgid "Allow customers to choose a location per product"
+msgstr "Consenti ai clienti di scegliere un punto di ritiro per prodotto"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:228
+msgid "Cart Item Handling"
+msgstr "Impostazione Oggetti Carrello"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:232
+msgid "Automatically group cart items into as few packages as possible"
+msgstr ""
+"Raggruppa automaticamente oggetti nel carrello nel minor numero di pacchi "
+"possibile"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:233
+msgid "Allow customers to toggle pickup or shipping for each item in the cart"
+msgstr ""
+"Consenti ai clienti di scegliere se spedire o ritirare ciascun oggetto nel "
+"carrello"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:239
+msgid "Default Handling"
+msgstr "Impostazione predefinita"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:241
+msgid ""
+"Choose whether cart items will be set as to be shipped or for pickup when "
+"customers first arrive at the cart or checkout page."
+msgstr ""
+"Scegli l'opzione predefinita quando i clienti raggiungono la pagina del "
+"carrello e debbono scegliere tra spedire i prodotti o ritirarli presso un "
+"punto di ritiro."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:245
+msgid "Pick up items"
+msgstr "Ritira i prodotti"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:246
+msgid "Ship items"
+msgstr "Spedisci i prodotti"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:252
+msgid "Location Sort Order"
+msgstr "Ordina punti di ritiro per"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:253
+msgid ""
+"Choose how the pickup location will be listed to the customer at checkout. "
+"Default is the default sort order determined by WordPress."
+msgstr ""
+"Scegli come desideri elencare i punti di ritiro alla cassa. L'impostazione "
+"predefinita lascia decidere a WordPress come ordinare quest'ultimi."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:254
+msgid ""
+"Sorting by distance is only available with a Google Maps Geocoding API key "
+"to enable geocoding."
+msgstr ""
+"Ordina per distanza è disponibile solo quando è impostata una chiave per "
+"Google Maps Geocoding API."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:258
+msgid "Default"
+msgstr "Predefinito"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:259
+msgid "Distance from customer"
+msgstr "Distanza dal cliente"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:260
+msgid "Alphabetical by location name"
+msgstr "Nome (alfabetico)"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:261
+msgid "Most recently added location"
+msgstr "Punto di ritiro aggiunto più di recente"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:272
+msgid ""
+"Pickup scheduled appointments allow the customer to schedule an appointment "
+"for pickup at a selected pickup location on checkout."
+msgstr ""
+"Gli appuntamenti di ritiro programmati consentono al cliente di esprimere "
+"alla cassa una data entro cui desiderano pervenire alla località specificata "
+"per ritirare il loro ordine."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:277
+msgid "Pickup Appointments Mode"
+msgstr "Modalità appuntamenti per ritiro"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:281
+msgid "Do not offer appointments"
+msgstr "Non offrire appuntamenti"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:282
+msgid "Allow scheduled appointments"
+msgstr "Offri di programmare appuntamenti"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:283
+msgid "Require scheduled appointments"
+msgstr "Rendi obbligatorio programmare appuntamenti"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:289
+msgid "Appointment duration"
+msgstr "Durata appuntamento per il ritiro"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:290
+msgid ""
+"Set the duration for your pickup appointments. This will determine when "
+"users can schedule their appointments (e.g. hourly intervals)."
+msgstr ""
+"Imposta la durata dei tuoi appuntamenti di ritiro. Questo determinerà quando "
+"gli utenti possono programmare i loro appuntamenti (per esempio scegliere "
+"tra intervalli orari)."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:294
+msgid "Anytime during open hours"
+msgstr "In qualunque momento durante gli orari di apertura"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:295
+msgid "15 minutes"
+msgstr "15 minuti"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:296
+msgid "30 minutes"
+msgstr "30 minuti"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:297
+msgid "60 minutes"
+msgstr "60 minuti"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:304
+msgid "Appointment limits"
+msgstr "Limiti di appuntamento"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:305
+msgid ""
+"Determine how many customers can select the same appointment time before it "
+"is unavailable for a location."
+msgstr ""
+"Determina quanti clienti possono selezionare lo stesso orario di "
+"appuntamento per il ritiro prima che diventi indisponibile."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:310
+msgid "Default Business Hours"
+msgstr "Orari di apertura predefiniti"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:311
+msgid ""
+"If using scheduled appointments and no business hours are defined, customers "
+"may not be able to select a location. The default schedule can be overridden "
+"by individual pickup locations."
+msgstr ""
+"Se si utilizzano appuntamenti programmati e non sono stati definiti degli "
+"orari di apertura, i clienti potrebbero non essere in grado di scegliere un "
+"punto di ritiro. Questi orari predefiniti possono essere sovrascritti "
+"individualmente dai singoli punti di ritiro."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:320
+msgid "Common Public Holidays"
+msgstr "Festività pubbliche ricorrenti"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:321
+msgid ""
+"Manually exclude specific days of the calendar to have a pickup appointment "
+"scheduled. The selected dates will be excluded for all years. You can "
+"override default dates from each pickup location."
+msgstr ""
+"Escludi manualmente giorni specifici del calendario in cui non è possibile "
+"programmare appuntamenti di ritiro. Le date selezionate saranno escluse per "
+"tutti gli anni. Potrai sovrascrivere queste date individualmente per ciascun "
+"punto di ritiro."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:327
+msgid "Default Lead Time"
+msgstr "Tempo minimo di disponibilità predefinito"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:328
+msgid ""
+"Set a default lead time to determine the earliest pickup date. Set to zero "
+"for no lead time. The lead time can be overridden by individual pickup "
+"locations."
+msgstr ""
+"Imposta un tempo minimo di disponibilità a partire dal quale è possibile "
+"programmare un ritiro. Imposta su zero per ignorare il tempo minimo. Il "
+"tempo minimo di disponibilità potrà essere sovrascritto individualmente in "
+"ciascun punto di ritiro."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:334
+msgid "Lead Time Calculation"
+msgstr "Calcolo del tempo minimo di disponibilità"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:339
+msgid "Count only open hours. Pauses outside business hours and on holidays."
+msgstr ""
+"Conta solo gli orari di apertura. Salta periodi all'infuori di orari di "
+"apertura e festività."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:340
+msgid "Count calendar days. Ignores business hours and holidays."
+msgstr ""
+"Conta i giorni del calendario. Ignora gli orari di apertura e le festività."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:346
+msgid "Default Deadline"
+msgstr "Tempo massimo di giacenza predefinito"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:347
+msgid ""
+"Set a default deadline to determine the latest pickup date. The deadline is "
+"based on calendar days and does not consider business hours and holidays. "
+"Set to zero for no deadline. The deadline can be overridden by individual "
+"pickup locations."
+msgstr ""
+"Imposta un tempo massimo di giacenza merci entro il quale è possibile "
+"programmare un ritiro. L'impostazione si basa sui giorni del calendario e "
+"non considera date non disponibili inserite negli orari di apertura e nel "
+"calendario. Imposta su zero per ignorare il tempo massimo. Il tempo massimo "
+"di disponibilità potrà essere sovrascritto individualmente in ciascun punto "
+"di ritiro."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:357
+msgid "Price &amp; Tax"
+msgstr "Prezzi &amp; Tasse"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:358
+msgid ""
+"Set a default cost or discount when a customer chooses to pickup up an order "
+"and how taxation should be handled."
+msgstr ""
+"Imposta un costo o uno sconto predefinito quando un cliente decide di "
+"ritirare un ordine, e come le impostazione dovrebbero essere trattate."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:363
+msgid "Default Price Adjustment"
+msgstr "Regolazione del prezzo predefinita"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:364
+msgid ""
+"A cost or a discount applied when choosing Local Pickup Plus as the shipping "
+"method. You can set a fixed or a percentage amount. When using percentage, "
+"the value will be calculated based on cart contents value."
+msgstr ""
+"Un costo o uno sconto applicato quando Local Pickup Plus viene selezionato "
+"come modalità di spedizione. Puoi impostare un ammontare fisso o "
+"percentuale. Quando utilizzi un ammontare percentuale, il valore verrà "
+"calcolato in base al contenuto del carrello."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:365
+msgid ""
+"Set to zero for no default adjustment. The default amount can be overridden "
+"by setting an adjustment in individual pickup locations."
+msgstr ""
+"Imposta su zero per non avere nessuna regolazione di prezzo. L'ammontare "
+"predefinito può essere sovrascritto individualmente dai singoli punto di "
+"ritiro."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:373
+msgid ""
+"When this shipping method is chosen, apply the tax rate based on the pickup "
+"location than for the customer's given address."
+msgstr ""
+"Quando viene scelta questa modalità di spedizione, applica le imposte "
+"relative all'indirizzo del punto di ritiro selezionato anziché all'indirizzo "
+"fornito dal cliente."
+
+#: includes/class-wc-shipping-local-pickup-plus.php:464
+msgid "Unlimited"
+msgstr "Illimitati"
+
+#. translators: Placeholder: %s numerical input field HTML to limit the number
+#. of appointments per slot
+#: includes/class-wc-shipping-local-pickup-plus.php:472
+msgid "Limited to %s appointments per appointment time"
+msgstr "Limitati a %s appuntamenti per fascia oraria"
+
+#: includes/class-wc-shipping-local-pickup-plus.php:474
+msgid ""
+"Limit the number of appointments available for each appointment time. Once "
+"the limit has been reached, the appointment will be removed from the "
+"calendar."
+msgstr ""
+"Limita il numero di appuntamenti per il ritiro per ciascun orario. Una volta "
+"che il limite è stato raggiunto, la possibilità di fissare un appuntamento "
+"per un dato orario sarà rimossa dal calendario."
+
+#. translators: Placeholder: %s - local pickup discount amount
+#: includes/class-wc-shipping-local-pickup-plus.php:1432
+#: includes/frontend/Checkout.php:309
+msgid "%s (discount!)"
+msgstr "%s (sconto!)"
+
+#: includes/frontend/Checkout.php:204
+msgid "Shipping"
+msgstr "Spedizione"
+
+#: includes/frontend/Checkout.php:405
+msgid "Enter your address to see all available shipping options."
+msgstr ""
+"Inserisci o aggiorna il tuo indirizzo per controllare se vi sono opzioni di "
+"spedizione."
+
+#. translators: Placeholder: %s - shipping method title (e.g. Local Pickup)
+#: includes/frontend/Checkout.php:685
+msgid "%s discount"
+msgstr "%s sconto"
+
+#. translators: Placeholder: %s - user assigned name for Local Pickup Plus
+#. shipping method
+#: includes/frontend/Checkout.php:832
+msgid ""
+"Please select a pickup location if you intend to use %s as shipping method."
+msgstr ""
+"Per favore seleziona un punto di ritiro se intendi avvalerti di %s come "
+"metodo di spedizione."
+
+#. translators: Placeholder: %s - user assigned name for Local Pickup Plus
+#. shipping method
+#: includes/frontend/Checkout.php:838
+msgid ""
+"Please choose a date to schedule a pickup when using %s shipping method."
+msgstr ""
+"Per favore scegli una data per programmare un ritiro quando utilizzi il "
+"metodo di spedizione %s."
+
+#: includes/frontend/Checkout.php:874
+msgid ""
+"Oops! That appointment time is no longer available. Please select a new "
+"appointment."
+msgstr ""
+"Oops! L'orario di appuntamento selezionato non è più disponibile. Per favore "
+"seleziona un nuovo appuntamento."
+
+#. translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a>
+#. link tag
+#: includes/frontend/Fields/Cart_Item_Handling_Toggle.php:117
+msgid "This item is set for shipping. %1$sClick here to pickup this item%2$s."
+msgstr ""
+"Questo oggetto è impostato per essere spedito. %1$sClicca qui se intendi "
+"ritirare di persona questo oggetto%2$s."
+
+#. translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a>
+#. link tag
+#: includes/frontend/Fields/Cart_Item_Handling_Toggle.php:119
+msgid "This item is set for pickup. %1$sClick here to ship this item%2$s."
+msgstr ""
+"Questo oggetto è impostato per essere ritirato di persona. %1$sClicca qui se "
+"intendi ricevere l'oggetto tramite spedizione%2$s."
+
+#: includes/frontend/Fields/Cart_Item_Handling_Toggle.php:152
+msgid "Shipping may be available."
+msgstr "La spedizione potrebbe essere disponibile."
+
+#: includes/frontend/Fields/Cart_Item_Handling_Toggle.php:153
+msgid ""
+"Enter or update your full address to see if shipping options are available."
+msgstr ""
+"Inserisci o aggiorna il tuo indirizzo per controllare se vi sono opzioni di "
+"spedizione."
+
+#: includes/frontend/Fields/Cart_Item_Handling_Toggle.php:153
+msgid ""
+"Enter your full address on the checkout page to see if shipping is available."
+msgstr ""
+"Inserisci il tuo indirizzo completo nella pagina della cassa per controllare "
+"se la spedizione è disponibile."
+
+#: includes/frontend/Fields/Cart_Item_Handling_Toggle.php:168
+msgid "This item can only be shipped"
+msgstr "Questo oggetto può solo essere spedito"
+
+#. translators: Placeholder: %s - outputs an "(optional)" note if pickup
+#. appointments are optional
+#: includes/frontend/Fields/Package_Pickup_Appointment_Field.php:158
+msgid "Schedule a pickup appointment %s"
+msgstr "Programma un ritiro %s"
+
+#. translators: Placeholder: %1$s - day of the week name, %2$s - location
+#. timezone
+#: includes/frontend/Fields/Package_Pickup_Appointment_Field.php:230
+msgid "Available pickup times on %1$s (all times in %2$s):"
+msgstr "Orari di ritiro disponibili per %1$s (tutti gli orari in %2$s):"
+
+#: includes/frontend/Fields/Package_Pickup_Appointment_Field.php:232
+msgid "the location timezone"
+msgstr "il fuso orario del punto di ritiro"
+
+#. translators: Placeholders: %1$s product name, %2$s product quantity - e.g.
+#. "Product name x2"
+#: includes/frontend/Fields/Package_Pickup_Items_Field.php:123
+msgid "%1$s &times; %2$s"
+msgstr "%1$s &times; %2$s"
+
+#. translators: Placeholder: %s - the name of the pickup location
+#. translators: Placeholder: %s - pickup location name
+#: includes/frontend/Fields/Package_Pickup_Location_Field.php:130
+#: includes/frontend/Fields/Pickup_Location_Field.php:445
+msgid "Pickup Location: %s"
+msgstr "Punto di ritiro: %s"
+
+#: includes/frontend/Fields/Package_Pickup_Location_Field.php:143
+#: includes/integrations/woocommerce-subscriptions/class-wc-local-pickup-plus-integration-subscriptions.php:166
+msgid "Please choose a pickup location"
+msgstr "Per favore scegli un punto di ritiro"
+
+#: includes/frontend/Fields/Pickup_Location_Field.php:164
+#: includes/frontend/Fields/Pickup_Location_Field.php:195
+#: includes/frontend/Fields/Pickup_Location_Field.php:255
+msgid "Anywhere"
+msgstr "Ovunque"
+
+#: includes/frontend/Fields/Pickup_Location_Field.php:366
+#: includes/frontend/Fields/Pickup_Location_Field.php:515
+msgid "Search locations&hellip;"
+msgstr "Cerca punti di ritiro&hellip;"
+
+#. translators: Placeholder: %s - pickup location name
+#: includes/frontend/Fields/Pickup_Location_Field.php:453
+msgid "Available for pickup at: %s"
+msgstr "Disponibile per il ritiro presso: %s"
+
+#: includes/frontend/Fields/Pickup_Location_Field.php:482
+msgid "Change"
+msgstr "Cambia"
+
+#. translators: Placeholder: %s - country or state name (or "Anywhere")
+#: includes/frontend/Fields/Pickup_Location_Field.php:484
+msgid "Enter a postcode or city to search for pickup locations from: %s"
+msgstr ""
+"Inserisci un codice postale o una città per cercare punti di ritiro in: %s"
+
+#: includes/frontend/Frontend.php:257
+msgid "Choose a pickup date"
+msgstr "Per favore scegli una data di ritiro"
+
+#: includes/frontend/Frontend.php:258
+msgid "Enter a postcode or address..."
+msgstr "Inserisci un codice postale o un indirizzo..."
+
+#: includes/frontend/Frontend.php:259
+msgid "Error loading results"
+msgstr "Si è verificato un errore nel caricare i risultati"
+
+#: includes/frontend/Frontend.php:260
+msgid "Loading more results..."
+msgstr "Caricando risultati addizionali..."
+
+#: includes/frontend/Frontend.php:261
+msgid "No results found"
+msgstr "Nessun risultato trovato"
+
+#: includes/frontend/Frontend.php:262
+msgid "Searching..."
+msgstr "Ricerca..."
+
+#: includes/integrations/Customer_Order_Coupon_Export.php:120
+msgid "Pickup locations"
+msgstr "Punti di ritiro"
+
+#: includes/integrations/Customer_Order_Coupon_Export.php:123
+#: includes/integrations/woocommerce-customer-order-xml-export-suite/class-wc-local-pickup-plus-integration-customer-order-xml-export.php:103
+msgid "Orders featuring these pickup locations."
+msgstr "Ordini che includono questi punti di ritiro."
+
+#: includes/integrations/Customer_Order_Coupon_Export.php:129
+#: includes/integrations/woocommerce-customer-order-xml-export-suite/class-wc-local-pickup-plus-integration-customer-order-xml-export.php:109
+msgid "Leave blank to export orders with any pickup location."
+msgstr ""
+"Lascia in bianco per esportare ordini aventi qualsiasi punto di ritiro."
+
+#. translators: Placeholders: %1$s - %2$s opening hours as time from-to
+#: includes/pickup-locations/class-wc-local-pickup-plus-business-hours.php:169
+msgid "from %1$s to %2$s"
+msgstr "da %1$s a %2$s"
+
+#. translators: Conjunction used to join together the penultimate and last item
+#. of a list of opening hours for pickup.
+#: includes/pickup-locations/class-wc-local-pickup-plus-business-hours.php:177
+msgid "and"
+msgstr "e"
+
+#: includes/pickup-locations/class-wc-local-pickup-plus-business-hours.php:350
+msgid "Set"
+msgstr "Imposta"
+
+#: includes/pickup-locations/class-wc-local-pickup-plus-price-adjustment.php:280
+msgid "Cost"
+msgstr "Costo"
+
+#: includes/pickup-locations/class-wc-local-pickup-plus-price-adjustment.php:283
+msgid "Discount"
+msgstr "Sconto"
+
+#: includes/pickup-locations/class-wc-local-pickup-plus-price-adjustment.php:303
+msgid "Fixed amount"
+msgstr "Ammontare fisso"
+
+#: includes/pickup-locations/class-wc-local-pickup-plus-price-adjustment.php:307
+msgid "Percentage amount"
+msgstr "Ammontare percentuale"
+
+#: includes/pickup-locations/class-wc-local-pickup-plus-public-holidays.php:348
+msgid "Go to January"
+msgstr "Vai a Gennaio"
+
+#. translators: Placeholder: %s - today's month
+#: includes/pickup-locations/class-wc-local-pickup-plus-public-holidays.php:350
+msgid "Go to %s"
+msgstr "Vai a %s"
+
+#: includes/pickup-locations/class-wc-local-pickup-plus-public-holidays.php:351
+msgid "Go to December"
+msgstr "Vai a Dicembre"
+
+#: includes/pickup-locations/class-wc-local-pickup-plus-public-holidays.php:464
+msgid "Choose dates&hellip;"
+msgstr "Scegli date&hellip;"
+
+#: includes/pickup-locations/class-wc-local-pickup-plus-schedule-adjustment.php:144
+msgid "Hour(s)"
+msgstr "Ora/e"
+
+#: includes/pickup-locations/class-wc-local-pickup-plus-schedule-adjustment.php:149
+msgid "Day(s)"
+msgstr "Giorno/i"
+
+#: includes/pickup-locations/class-wc-local-pickup-plus-schedule-adjustment.php:154
+msgid "Week(s)"
+msgstr "Settimana/e"
+
+#: includes/pickup-locations/class-wc-local-pickup-plus-schedule-adjustment.php:159
+msgid "Month(s)"
+msgstr "Mese/i"
+
+#. Plugin URI of the plugin/theme
+msgid "http://woocommerce.com/products/local-pickup-plus/"
+msgstr "http://woocommerce.com/products/local-pickup-plus/"
+
+#. Description of the plugin/theme
+msgid ""
+"A shipping plugin for WooCommerce that allows the store operator to define "
+"local pickup locations, which the customer can then choose from when making "
+"a purchase."
+msgstr ""
+"Un plugin per gestire spedizioni in WooCommerce che consente al gestore di "
+"un negozio di definire punti di ritiro, che il cliente può scegliere quando "
+"effettua un acquisto."
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr "SkyVerge"
+
+#. Author URI of the plugin/theme
+msgid "http://woocommerce.com"
+msgstr "http://woocommerce.com"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:831
+msgctxt "Pickup selection mode"
+msgid "Per order"
+msgstr "Per ordine"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:866
+msgctxt "Pickup selection mode"
+msgid "Per item"
+msgstr "Per oggetto"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:839
+msgctxt "Cart item handling mode"
+msgid "Automatic grouping"
+msgstr "Raggruppamento automatico"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:843
+msgctxt "Cart item handling mode"
+msgid "Customer selection"
+msgstr "Selezione cliente"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:854
+msgctxt "Default cart item handling"
+msgid "Pickup items"
+msgstr "Ritira i prodotti"
+
+#: includes/admin/class-wc-local-pickup-plus-admin.php:858
+msgctxt "Default cart item handling"
+msgid "Ship items"
+msgstr "Spedisci i prodotti"
+
+#: includes/class-wc-local-pickup-plus-post-types.php:64
+msgctxt "Admin menu name"
+msgid "Pickup Locations"
+msgstr "Punti di Ritiro"
+
+#: includes/frontend/Fields/Package_Pickup_Appointment_Field.php:196
+msgctxt "Clear a chosen pickup appointment date"
+msgid "Clear"
+msgstr "Reimposta"
+
+#: includes/frontend/Fields/Pickup_Location_Field.php:249
+#: includes/frontend/Fields/Pickup_Location_Field.php:250
+msgctxt "Geographic area to search"
+msgid "Choose an area&hellip;"
+msgstr "Scegli un'area&hellip;"
+
+#~ msgid "Pickup Location:"
+#~ msgstr "Punto di ritiro:"
+
+#~ msgid "%d location"
+#~ msgid_plural "%d locations"
+#~ msgstr[0] "%d punto di ritiro"
+#~ msgstr[1] "%d punti di ritiro"
+
+#~ msgid "(see order)"
+#~ msgstr "(vedi ordine)"
+
+#~ msgid ""
+#~ "There are no shipping options available for the current address. However, "
+#~ "you may %1$schoose to pickup your item%2$s."
+#~ msgid_plural ""
+#~ "There are no shipping options available for the current address. However, "
+#~ "you may %1$schoose to pickup your items%2$s."
+#~ msgstr[0] ""
+#~ "Non ci sono opzioni di spedizione disponibili per l'indirizzo corrente. "
+#~ "Tuttavia, puoi scegliere di %1$ritirare il tuo oggetto%2$s."
+#~ msgstr[1] ""
+#~ "Non ci sono opzioni di spedizione disponibili per l'indirizzo corrente. "
+#~ "Tuttavia, puoi scegliere di %1$ritirare i tuoi oggetti%2$s."
+
+#~ msgid "This item will be shipped."
+#~ msgid_plural "These items will be shipped."
+#~ msgstr[0] "Questo oggetto verrà spedito."
+#~ msgstr[1] "Questi oggetti verranno spediti."
+
+#~ msgid "Click if you want to pickup this item"
+#~ msgid_plural "Click if you want to pickup these items"
+#~ msgstr[0] "Clicca se vuoi ritirare di persona questo oggetto"
+#~ msgstr[1] "Clicca se vuoi ritirare di persona questi oggetti"
+
+#~ msgid "This item is for pickup."
+#~ msgid_plural "These items are for pick up."
+#~ msgstr[0] "Questo oggetto può essere ritirato di persona."
+#~ msgstr[1] "Questi oggetti possono essere ritirati di persona."
+
+#~ msgid "Click if you want to ship this item"
+#~ msgid_plural "Click if you want these items to be shipped"
+#~ msgstr[0] "Clicca se vuoi che questo oggetto venga spedito"
+#~ msgstr[1] "Clicca se vuoi che questi oggetti vengano spediti"
+
+#~ msgid ""
+#~ "Thanks for installing Local Pickup Plus! To get started, please take a "
+#~ "minute to %1$sread the documentation%2$s :)"
+#~ msgstr ""
+#~ "Grazie per aver installato Local Pickup Plus! Per cominciare, per favore "
+#~ "%1$sleggi la documentazione%2$s :)"
+
+#, fuzzy
+#~ msgid "%1$s out of %2$s items will be shipped."
+#~ msgstr "Voglio che quest'oggetto venga spedito"
+
+#, fuzzy
+#~ msgid "Click if you want to pickup these items"
+#~ msgstr "Voglio ritirare quest'oggetto di persona"
+
+#, fuzzy
+#~ msgid "Click if you want to ship these items"
+#~ msgstr "Voglio ritirare quest'oggetto di persona"
+
+#~ msgid "Hide Shipping Address"
+#~ msgstr "Nascondi indirizzo di spedizione"
+
+#~ msgid ""
+#~ "Hide the shipping address when Local Pickup Plus is selected at checkout."
+#~ msgstr ""
+#~ "Nascondi l'indirizzo di spedizione quando Local Pickup Plus viene "
+#~ "selezionato alla cassa."
+
+#~ msgid "from"
+#~ msgstr "da"
+
+#~ msgid "All Categories"
+#~ msgstr "Tutte le categorie"
+
+#~ msgid "Enable local pickup plus"
+#~ msgstr "Abilita Local Pickup Plus"
+
+#~ msgid "Pickup"
+#~ msgstr "Ritiro"
+
+#~ msgid "Your Pickup Location"
+#~ msgstr "Il tuo punto di ritiro"
+
+#~ msgid "Choose One"
+#~ msgstr "Scegli uno"
+
+#~ msgid "Please select a local pickup location"
+#~ msgstr "Per favore scegli un punto di ritiro"
+
+#~ msgid "Free"
+#~ msgstr "Gratis"
+
+#~ msgid "No pickup location set."
+#~ msgstr "Nessun punto di ritiro impostato."
+
+#~ msgid "Pickup location changed to %s"
+#~ msgstr "Punto di ritiro cambiato in %s."
+
+#~ msgid "Address 2"
+#~ msgstr "Indirizzo 2"

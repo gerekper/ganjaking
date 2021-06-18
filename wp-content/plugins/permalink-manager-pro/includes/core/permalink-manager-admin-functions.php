@@ -488,9 +488,13 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 				$sidebar_class = 'column column-1_3';
 				break;
 
+			case 'tabs' :
+				$wrapper_class = 'form settings-tabs';
+				$sidebar_class = $form_column_class = '';
+				break;
+
 			// there will be more cases in future ...
 			default :
-				$form_column_class = 'form';
 				$sidebar_class = 'sidebar';
 				$wrapper_class = $form_column_class = '';
 		}
@@ -503,10 +507,23 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		$nonce_name = (!empty($nonce['name'])) ? $nonce['name'] : '';
 		$form_classes = (!empty($form_class)) ? $form_class : '';
 
-		// 2. Now get the HTML output (start section row container)
+		// 3. Now get the HTML output (start section row container)
 		$html = ($wrapper_class) ? "<div class=\"{$wrapper_class}\">" : '';
 
-		// 3. Display some notes
+		// 4. Display settings tabs
+		if($container == 'tabs') {
+			// Get active section
+			$active_tab = (!empty($_POST['pm_active_tab'])) ? $_POST['pm_active_tab'] : key(array_slice($fields, 0, 1, true));
+
+			$html .= "<ul class=\"subsubsub\">";
+			foreach ($fields as $tab_name => $tab) {
+				$active_class = ($active_tab === $tab_name) ? 'current' : '';
+				$html .= sprintf("<li><a href=\"%s\" class=\"%s\" data-tab=\"%s\">%s</a></li>", "#pm_tab_{$tab_name}", $active_class, $tab_name, $tab['section_name']);
+			}
+			$html .= "</ul>";
+		}
+
+		// 5. Display some notes
 		if($sidebar_class && $sidebar) {
 			$html .= "<div class=\"{$sidebar_class}\">";
 			$html .= "<div class=\"section-notes\">";
@@ -515,13 +532,14 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 			$html .= "</div>";
 		}
 
-		// 4. Start fields' section
+		// 6. Start fields' section
 		$html .= ($form_column_class) ? "<div class=\"{$form_column_class}\">" : "";
 		$html .= "<form method=\"POST\" class=\"{$form_classes}\">";
 		$html .= ($wrap) ? "<table class=\"form-table\">" : "";
 
-		// Loop through all fields assigned to this section
+		// 7. Loop through all fields assigned to this section
 		foreach($fields as $field_name => $field) {
+			$tab_name = (isset($field['fields'])) ? $field_name : '';
 			$field_name = (!empty($field['name'])) ? $field['name'] : $field_name;
 
 			// A. Display table row
@@ -541,10 +559,17 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 				}
 
 				if(isset($field['section_name'])) {
+					if($container == 'tabs') {
+						$is_active_tab = (!empty($active_tab) && $active_tab == $tab_name) ? 'class="active-tab"' : '';
+
+						$html .= "<div id=\"pm_{$tab_name}\" data-tab=\"{$tab_name}\" {$is_active_tab}>";
+					}
+
 					$html .= "<h3>{$field['section_name']}</h3>";
 					$html .= (isset($field['append_content'])) ? $field['append_content'] : "";
 					$html .= (isset($field['description'])) ? "<p class=\"description\">{$field['description']}</p>" : "";
 					$html .= "<table class=\"form-table\" data-field=\"{$field_name}\">{$row_output}</table>";
+					$html .= ($container == 'tabs') ? "</div>" : "";
 				} else {
 					$html .= $row_output;
 				}
@@ -557,7 +582,12 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 
 		$html .= ($wrap) ? "</table>" : "";
 
-		// End the fields' section + add button & nonce fields
+		// 8. Add a hidden field with section name for settings page
+		if($container == 'tabs' && !empty($active_tab)) {
+			$html .= self::generate_option_field('pm_active_tab', array('value' => $active_tab, 'type' => 'hidden', 'readonly' => true));
+		}
+
+		// 9. End the fields' section + add button & nonce fields
 		if($nonce_action && $nonce_name) {
 			$html .= wp_nonce_field($nonce_action, $nonce_name, true, true);
 			$html .= self::generate_option_field('pm_session_id', array('value' => uniqid(), 'type' => 'hidden'));
@@ -566,7 +596,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		$html .= '</form>';
 		$html .= ($form_column_class) ? "</div>" : "";
 
-		// 5. End the section row container
+		// 10. End the section row container
 		$html .= ($wrapper_class) ? "</div>" : "";
 
 		return $html;

@@ -62,6 +62,15 @@ class WoocommerceGpfDebugService {
 	}
 
 	/**
+	 * Whether debug is active.
+	 *
+	 * @return bool
+	 */
+	public function debug_active() {
+		return $this->enabled;
+	}
+
+	/**
 	 * Log a message with optional sprintf replacements.
 	 *
 	 * @param string $message The message.

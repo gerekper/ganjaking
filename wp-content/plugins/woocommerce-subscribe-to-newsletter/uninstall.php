@@ -22,5 +22,6 @@ function wc_newsletter_subscription_uninstall() {
 	delete_option( 'woocommerce_cmonitor_api_key' );
 	delete_option( 'woocommerce_sendgrid_api_key' );
 	delete_option( 'woocommerce_mailerlite_api_key' );
+	delete_option( 'woocommerce_activetrail_api_key' );
 }
 wc_newsletter_subscription_uninstall();

@@ -76,6 +76,13 @@ class RsFilmstripSliderFront extends RevSliderFunctions {
 			
 		);
 		
+	add_filter('revslider_modify_waiting_scripts', array($this, 'add_waiting_script_slugs'), 10, 1);
+	}
+	
+	
+	public function add_waiting_script_slugs($wait){
+		$wait[] = 'filmstrip';
+		return $wait;
 	}
 	
 	public function check_addon_active($record) {
@@ -120,7 +127,7 @@ class RsFilmstripSliderFront extends RevSliderFunctions {
 			$id       = $slider->get_id();
 	
 			echo                  		"\n";
-			echo '	                	if(typeof RsFilmstripAddOn !== "undefined") RsFilmstripAddOn(tpj, revapi' . $id . ', "' . $base . '", ' . $carousel . ');'."\n";
+			echo '	                	if(typeof RsFilmstripAddOn !== "undefined") RsFilmstripAddOn(jQuery, revapi' . $id . ', "' . $base . '", ' . $carousel . ');'."\n";
 			
 		}
 		

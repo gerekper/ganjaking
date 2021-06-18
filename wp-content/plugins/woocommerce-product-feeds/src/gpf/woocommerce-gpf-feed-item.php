@@ -6,6 +6,10 @@
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class WoocommerceGpfFeedItem {
+	/**
+	 * @var WoocommerceProductFeedsTermDepthRepository
+	 */
+	protected $term_depth_repository;
 
 	/**
 	 * The specific WC_Product that this item represents.
@@ -250,6 +254,13 @@ class WoocommerceGpfFeedItem {
 	public $is_in_stock;
 
 	/**
+	 * Whether the product is on backorder
+	 *
+	 * @var bool
+	 */
+	public $is_on_backorder;
+
+	/**
 	 * The quantity of stock for this item.
 	 * @var int
 	 */
@@ -274,18 +285,17 @@ class WoocommerceGpfFeedItem {
 	 */
 	private $ordered_images = [];
 
-
 	/**
 	 * Constructor.
 	 *
 	 * Store dependencies.
 	 *
-	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
 	 * @param WC_Product $specific_product The specific product being output.
 	 * @param WC_Product $general_product The "general" product being processed.
 	 * @param string $feed_format The feed format being output.
+	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
 	 * @param WoocommerceGpfDebugService $debug
-	 * @param [type]     $woocommerce_gpf_common The WoocommerceGpfCommon instance.
+	 * @param WoocommerceProductFeedsTermDepthRepository $term_depth_repository
 	 * @param bool $calculate_prices
 	 */
 	public function __construct(
@@ -294,6 +304,7 @@ class WoocommerceGpfFeedItem {
 		$feed_format = 'all',
 		WoocommerceGpfCommon $woocommerce_gpf_common,
 		WoocommerceGpfDebugService $debug,
+		WoocommerceProductFeedsTermDepthRepository $term_depth_repository,
 		$calculate_prices = true
 	) {
 		$this->specific_product        = $specific_product;
@@ -301,6 +312,7 @@ class WoocommerceGpfFeedItem {
 		$this->feed_format             = $feed_format;
 		$this->common                  = $woocommerce_gpf_common;
 		$this->debug                   = $debug;
+		$this->term_depth_repository   = $term_depth_repository;
 		$this->additional_images       = array();
 		$this->image_style             = apply_filters(
 			'woocommerce_gpf_image_style',
@@ -413,6 +425,7 @@ class WoocommerceGpfFeedItem {
 
 		$this->purchase_link       = $this->specific_product->get_permalink();
 		$this->is_in_stock         = $this->specific_product->is_in_stock();
+		$this->is_on_backorder     = $this->specific_product->is_on_backorder();
 		$this->stock_quantity      = $this->specific_product->get_stock_quantity();
 		$this->sku                 = $this->specific_product->get_sku();
 		$this->shipping_weight     = $this->get_shipping_weight();
@@ -459,7 +472,7 @@ class WoocommerceGpfFeedItem {
 			$this->shipping_dimensions();
 			$this->all_or_nothing_shipping_elements();
 		}
-		$this->force_stock_status();
+		$this->handle_availability_rules();
 
 		// General, or feed-specific items
 		$this->additional_elements = apply_filters( 'woocommerce_gpf_elements', $this->additional_elements, $this->general_id, ( $this->specific_id !== $this->general_id ) ? $this->specific_id : null );
@@ -880,17 +893,18 @@ class WoocommerceGpfFeedItem {
 	/**
 	 * Make sure we always send a stock value.
 	 */
-	private function force_stock_status() {
-		// If the product is out of stock, set to out of stock.
-		if ( ! $this->is_in_stock ) {
-			$this->additional_elements['availability'] = array( 'out of stock' );
-
-			return;
+	private function handle_availability_rules() {
+		// Pick the relevant availability rule based on stock / backorder status.
+		if ( $this->is_on_backorder ) {
+			$this->additional_elements['availability'] = $this->additional_elements['availability_backorder'];
+		} elseif ( ! $this->is_in_stock ) {
+			$this->additional_elements['availability'] = $this->additional_elements['availability_outofstock'];
+		} else {
+			$this->additional_elements['availability'] = $this->additional_elements['availability_instock'];
 		}
-		// If the product is in stock, set 'in stock' in the absence of any other value.
-		if ( empty( $this->additional_elements['availability'] ) ) {
-			$this->additional_elements['availability'] = array( 'in stock' );
-		}
+		unset( $this->additional_elements['availability_instock'] );
+		unset( $this->additional_elements['availability_backorder'] );
+		unset( $this->additional_elements['availability_outofstock'] );
 	}
 
 	/**
@@ -1121,6 +1135,9 @@ class WoocommerceGpfFeedItem {
 			case 'tax':
 				$result = $this->get_tax_prepopulate_value_for_product( $value, $which_product );
 				break;
+			case 'taxhierarchy':
+				$result = $this->get_tax_hierarchy_prepopulate_value_for_product( $value, $which_product );
+				break;
 			case 'field':
 				$result = $this->get_field_prepopulate_value_for_product( $value, $which_product );
 				break;
@@ -1175,16 +1192,29 @@ class WoocommerceGpfFeedItem {
 	}
 
 	/**
-	 * Gets a taxonomy value for a product to prepopulate.
+	 * Gets a taxonomy hierarchy string for a product to prepopulate.
 	 *
-	 * @param string $value The taxonomy to grab values for.
+	 */
+	private function get_ordered_tax_terms_for_product( $product_id, $taxonomy ) {
+		$terms = get_the_terms( $product_id, $taxonomy );
+		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+			return array_reverse(
+				$this->common->get_term_depth_repository()->order_terms_by_depth( $terms )
+			);
+		}
+
+		return [];
+	}
+
+	/**
+	 * Get an ordered list of terms to prepopulate from for a given taxonomy/product.
+	 *
+	 * @param string $taxonomy The taxonomy to grab values for.
 	 * @param string $which_product Whether to pull info for the 'general' or 'specific' product being generated.
 	 *
-	 * @return array              Array of values to use.
+	 * @return array Array of WP_Term objects.
 	 */
-	private function get_tax_prepopulate_value_for_product( $value, $which_product ) {
-		$result = array();
-
+	private function get_prepopulate_tax_terms_for_product( $taxonomy, $which_product ) {
 		if ( 'general' === $which_product ) {
 			$product    = $this->general_product;
 			$product_id = $this->general_id;
@@ -1192,53 +1222,67 @@ class WoocommerceGpfFeedItem {
 			$product    = $this->specific_product;
 			$product_id = $this->specific_id;
 		}
+
 		if ( $product instanceof WC_Product_Variation ) {
 			// Get the attributes.
 			$attributes = $product->get_variation_attributes();
 			// If the requested taxonomy is used as an attribute, grab it's value for this variation.
-			if ( ! empty( $attributes[ 'attribute_' . $value ] ) ) {
+			if ( ! empty( $attributes[ 'attribute_' . $taxonomy ] ) ) {
 				$terms = get_terms(
-					array(
-						'taxonomy' => $value,
-						'slug'     => $attributes[ 'attribute_' . $value ],
-					)
+					[
+						'taxonomy' => $taxonomy,
+						'slug'     => $attributes[ 'attribute_' . $taxonomy ],
+					]
 				);
 				if ( empty( $terms ) || is_wp_error( $terms ) ) {
-					$result = array();
+					$terms = [];
 				} else {
-					$result = array( $terms[0]->name );
+					$terms = [ $terms[0] ]; // FIXME - why only one!?
 				}
 			} else {
-				// Otherwise grab the values to use direct from the term relationships.
-				$terms = get_the_terms( $product_id, $value );
-				if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-					$terms  = array_reverse(
-						$this->common->get_term_depth_repository()->order_terms_by_depth( $terms )
-					);
-					$result = wp_list_pluck( $terms, 'name' );
-				} else {
+				// Try the variation directly.
+				$terms = $this->get_ordered_tax_terms_for_product( $product_id, $taxonomy );
+				if ( empty( $terms ) ) {
 					// Couldn't find it against the variation - grab the parent product value.
-					$terms = get_the_terms( $product->get_parent_id(), $value );
-					if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-						$terms  = array_reverse(
-							$this->common->get_term_depth_repository()->order_terms_by_depth( $terms )
-						);
-						$result = wp_list_pluck( $terms, 'name' );
-					}
+					$terms = $this->get_ordered_tax_terms_for_product( $product->get_parent_id(), $taxonomy );
 				}
 			}
 		} else {
 			// Get the term(s) tagged against the main product.
-			$terms = get_the_terms( $product_id, $value );
-			if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-				$terms  = array_reverse(
-					$this->common->get_term_depth_repository()->order_terms_by_depth( $terms )
-				);
-				$result = wp_list_pluck( $terms, 'name' );
-			}
+			$terms = $this->get_ordered_tax_terms_for_product( $product_id, $taxonomy );
 		}
 
-		return $result;
+		return $terms;
+	}
+
+	/**
+	 * Gets a taxonomy value for a product to prepopulate.
+	 *
+	 * @param string $taxonomy The taxonomy to grab values for.
+	 * @param string $which_product Whether to pull info for the 'general' or 'specific' product being generated.
+	 *
+	 * @return array              Array of values to use.
+	 */
+	private function get_tax_prepopulate_value_for_product( $taxonomy, $which_product ) {
+		$terms = $this->get_prepopulate_tax_terms_for_product( $taxonomy, $which_product );
+
+		return wp_list_pluck( $terms, 'name' );
+	}
+
+	/**
+	 * Get a full hierarchy taxonomy value for a product to prepopulate.
+	 *
+	 * @param string $taxonomy The taxonomy to grab values for.
+	 * @param string $which_product Whether to pull info for the 'general' or 'specific' product being generated.
+	 *
+	 * @return array Array of values to use
+	 */
+	private function get_tax_hierarchy_prepopulate_value_for_product( $taxonomy, $which_product ) {
+		$terms = $this->get_prepopulate_tax_terms_for_product( $taxonomy, $which_product );
+		foreach ( $terms as $idx => $term ) {
+			$terms[ $idx ] = $this->term_depth_repository->get_hierarchy_string( $term );
+		}
+		return $terms;
 	}
 
 	/**
@@ -1258,12 +1302,6 @@ class WoocommerceGpfFeedItem {
 		if ( ! $product ) {
 			return array();
 		}
-		if ( 'sku' === $field ) {
-			$sku = $product->get_sku();
-			if ( ! empty( $sku ) ) {
-				return array( $sku );
-			}
-		}
 		if ( 'product_title' === $field ) {
 			return array( $this->general_product->get_title() );
 		}
@@ -1278,13 +1316,15 @@ class WoocommerceGpfFeedItem {
 
 			return array( $product->get_stock_quantity() );
 		}
-		if ( 'stock_status' === $field ) {
-			return array( $product->get_stock_status() );
-		}
 		if ( 'tax_class' === $field ) {
 			$tax_class = $product->get_tax_class();
 
 			return array( ! empty( $tax_class ) ? $tax_class : 'standard' );
+		}
+		if ( is_callable( [ $product, 'get_' . $field ] ) ) {
+			$getter = 'get_' . $field;
+
+			return [ $product->$getter() ];
 		}
 
 		return array();

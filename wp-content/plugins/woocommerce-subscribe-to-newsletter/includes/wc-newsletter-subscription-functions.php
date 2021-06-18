@@ -31,9 +31,7 @@ function wc_newsletter_subscription_get_settings_url( $extra_params = array() ) 
 	$url = 'admin.php?page=wc-settings&tab=newsletter';
 
 	if ( ! empty( $extra_params ) ) {
-		foreach ( $extra_params as $param => $value ) {
-			$url .= '&' . esc_attr( $param ) . '=' . rawurlencode( $value );
-		}
+		$url = add_query_arg( $extra_params, $url );
 	}
 
 	return admin_url( $url );

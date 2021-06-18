@@ -15,7 +15,7 @@ class RsDuotoneBase extends RsAddOnDuotoneBase {
 					 $_PluginUrl     = RS_DUOTONE_PLUGIN_URL,
 					 $_PluginTitle   = 'duotone',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '2.0.0';
+				     $_Version       = '3.0.2';
 	
 	public function __construct() {
 		

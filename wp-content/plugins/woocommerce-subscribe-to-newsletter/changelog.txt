@@ -1,5 +1,9 @@
 *** Subscribe to Newsletter Changelog ***
 
+2021-06-15 - version 3.2.0
+* Feature - New provider: ActiveTrail.
+* Tweak - Improved responsive styles for the dashboard widget.
+
 2021-05-24 - version 3.1.1
 * Tweak - Fetch only the necessary fields when getting the Mailchimp lists.
 * Tweak - Get all Mailchimp lists instead of only the first 10 lists.

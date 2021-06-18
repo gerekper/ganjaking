@@ -1,0 +1,230 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Social Wall Addon for UserPro v1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-11-26 21:54+0100\n"
+"Last-Translator: Miguel <miguelhidalgo@universocrea.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Textdomain-Support: yes\n"
+"Language: fr_FR\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ userpro-userwall
+#: admin/admin.php:25
+msgid "Userwall"
+msgstr "Userwall"
+
+# @ userpro-userwall
+#: admin/admin.php:38
+msgid "SocialWall"
+msgstr "SocialWall"
+
+# @ userpro-userwall
+#: admin/admin.php:86
+msgid "Settings saved."
+msgstr "Paramètres sauvegardés."
+
+# @ userpro-userwall
+#: admin/admin.php:92
+msgid "Settings are reset to default."
+msgstr "Les réglages sont réinitialisés ."
+
+# @ userpro-userwall
+#: admin/admin.php:97
+msgid "Your plugin pages have been rebuilt successfully."
+msgstr "Vos pages de plugins ont été reconstruits avec succès ."
+
+# @ userpro-userwall
+#: admin/panels/options.php:3
+msgid "Display Settings"
+msgstr "Afficher les paramètres"
+
+# @ userpro-userwall
+#: admin/panels/options.php:8
+msgid "Title"
+msgstr "Titre"
+
+# @ userpro-userwall
+#: admin/panels/options.php:14 admin/panels/options.php:20
+msgid "Post Per Page"
+msgstr "Poster par page"
+
+# @ userpro-userwall
+#: admin/panels/options.php:19 admin/panels/options.php:20
+msgid "Save Changes"
+msgstr "Sauvegarder les changements"
+
+# @ userpro-userwall
+#: admin/panels/options.php:20
+msgid "Reset Options"
+msgstr "Réinitialiser les options"
+#: admin/panels/report.php:3
+msgid "Reported Posts"
+msgstr "messages signalés"
+#: admin/panels/report.php:14 admin/panels/report.php:56
+msgid "Listed below are posts on the social wall which users have reported as objectionable or offensive"
+msgstr "Voici la liste des messages sur le mur social qui utilisateurs ont signalé que choquant ou offensant"
+#: admin/panels/report.php:19
+
+#: admin/panels/report.php:20
+msgid "Post"
+msgstr "poste"
+#: admin/panels/report.php:21
+msgid "Users"
+msgstr "utilisateurs"
+#: admin/panels/report.php:22
+msgid "Action"
+msgstr "acción"
+
+
+# @ userpro-userwall
+#: functions/defaults.php:30
+msgid "Social Wall"
+msgstr "mur sociale"
+
+# @ userpro-userwall
+#: functions/shortcode-main.php:16
+msgid "You are not allowed to access this page. Please login to access It."
+msgstr "Vous n'êtes pas autorisé à accéder à cette page . S'il vous plaît Identifiez-vous pour y accéder."
+
+
+# @ userpro-userwall
+#: templates/userwall.php:11
+msgid "Update Status..."
+msgstr "État de mise à jour..."
+
+# @ userpro-userwall
+#: templates/userwall.php:55
+msgid "Posted On "
+msgstr "Posté le"
+
+
+
+# @ userpro-userwall
+#: templates/userwall.php:103
+msgid "Enter a comment..."
+msgstr "Saisissez un commentaire ..."
+
+# @ userpro-userwall
+#: templates/userwall.php:12
+msgid "Add to Wall"
+msgstr "Ajouter au mur"
+
+# @ userpro-userwall
+#: templates/userwall.php:14
+msgid "Upload"
+msgstr "Télécharger"
+
+# @ userpro-userwall
+#: templates/userwall.php:14
+msgid "Add Photos"
+msgstr "Ajouter des photos"
+
+# @ userpro-userwall
+#: templates/userwall.php:14
+msgid "Load More"
+msgstr "Charger plus"
+
+
+# @ userpro-userwall
+#: templates/userwall.php:45 templates/userwall.php:80
+msgid "Delete"
+msgstr "Effacer"
+
+# @ userpro
+#: templates/userwall.php:48 templates/userwall.php:82
+#: templates/userwall.php:102
+msgid "View Profile"
+msgstr "Voir le profil"
+
+# @ userpro-userwall
+#: admin/panels/deletepost.php:3
+msgid "Delete Wall Content"
+msgstr "Supprimer du contenu mur"
+
+# @ userpro-userwall
+#: admin/panels/deletepost.php:8
+msgid "From Date"
+msgstr "Partir de la date"
+
+# @ userpro-userwall
+#: admin/panels/deletepost.php:12
+msgid "To Date"
+msgstr "À ce jour"
+
+# @ userpro-userwall
+#: admin/admin.php:27
+msgid "Report"
+msgstr "Rapport"
+
+# @ userpro-userwall
+#: admin/admin.php:27
+msgid "Delete Social Wall Posts and Comments"
+msgstr "Supprimer sociales messages sur le mur et Commentaires"
+
+# @ userpro-userwall
+#: admin/panels/options.php:27
+msgid "Post content color"
+msgstr "Poster couleur contenu"
+
+# @ userpro-userwall
+#: admin/panels/options.php:35 admin/panels/options.php:45
+msgid "Allow Roles From Post on wall"
+msgstr "Autoriser Rôles partir poster sur le mur"
+
+# @ userpro-userwall
+#: admin/panels/options.php:56
+msgid "Display Wall To Visitors"
+msgstr "Afficher mur aux visiteurs"
+
+# @ userpro-userwall
+#: admin/panels/options.php:45
+msgid "Display only followers post"
+msgstr "Afficher seulement adeptes poster"
+
+# @ userpro-userwall
+#: functions/user-functions.php:376 functions/user-functions.php:456 functions/user-functions.php:552 
+msgid "Enter comment and Hit ENTER to submit..."
+msgstr "Entrez commentaire et appuyez sur ENTRER pour soumettre ..."
+
+
+# @ userpro-userwall
+#: templates/userwall.php:45 functions/user_function.php:342
+msgid "Commented On "
+msgstr "Commenté sur "
+
+# @ userpro-userwall
+#: admin/panels/options.php:40
+msgid "The users belonging to above roles will be able to Post on the social wall. By default all users will able to post on the wall."
+msgstr "Les utilisateurs appartenant à des rôles ci-dessus seront en mesure d'afficher sur le mur sociale . Par défaut, tous les utilisateurs seront en mesure de les poster sur le mur ."
+
+# @ userpro-userwall
+#: admin/panels/options.php:51
+msgid "If this option is set to yes then only followers post will be display on the wall"
+msgstr "Si cette option est réglée sur oui, alors seulement adeptes poste sera affichage sur le mur"
+
+# @ userpro-userwall
+#: admin/panels/options.php:62
+msgid "If this option is set to yes then non logged in users will be able to view the wall"
+msgstr "Si cette option est réglée sur oui, alors non les utilisateurs connectés pourront voir le mur"
+
+# @ userpro-userwall
+#: admin/panels/options.php:59 admin/panels/options.php:48
+msgid "Yes"
+msgstr "Oui"
+
+# @ userpro-userwall
+#: admin/panels/options.php:60 admin/panels/options.php:49
+msgid "No"
+msgstr "Non"
+

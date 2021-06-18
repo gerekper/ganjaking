@@ -22,6 +22,8 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public function __construct() {
@@ -68,6 +70,8 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	 * @return bool
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function is_valid_for_use() {
@@ -87,13 +91,17 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	 * @since 1.0.0
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public function admin_options() {
 		?>
 			<h3><?php _e( 'GooglePay', 'woocommerce-redsys' ); ?></h3>
 			<p><?php _e( 'GooglePay works by sending the user to your bank TPV to enter their payment information.', 'woocommerce-redsys' ); ?></p>
-			<?php if ( class_exists( 'SitePress' ) ) { ?>
+			<?php
+			echo WCRed()->return_help_notice();
+			if ( class_exists( 'SitePress' ) ) { ?>
 				<div class="updated fade"><h4><?php _e( 'Attention! WPML detected.', 'woocommerce-redsys' ); ?></h4>
 					<p><?php _e( 'The Gateway will be shown in the customer language. The option "Language Gateway" is not taken into consideration', 'woocommerce-redsys' ); ?></p>
 				</div>
@@ -127,6 +135,8 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function init_form_fields() {
@@ -207,8 +217,10 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	}
 
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function get_error_by_code( $error_code ) {
 		
 		if ( 'yes' === $this->debug ) {
@@ -252,8 +264,10 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	}
 	
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function get_currencies() {
 		
 		if ( 'yes' === $this->debug ) {
@@ -294,8 +308,10 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	* @return array
 	*/
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function get_googlepay_args( $order ) {
 		global $woocommerce;
 
@@ -362,8 +378,10 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	* @return string
 	*/
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function generate_googlepay_form( $order_id ) {
 		global $woocommerce;
 		
@@ -408,8 +426,10 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	* @return array
 	*/
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function process_payment( $order_id ) {
 		
 		$order = new WC_Order( $order_id );
@@ -426,8 +446,10 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	* @return void
 	*/
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function receipt_page( $order ) {
 		echo '<p>'.__( 'Thank you for your order, please click the button below to pay with GooglePay.', 'woocommerce-redsys' ).'</p>';
 		echo $this->generate_googlepay_form( $order );
@@ -437,8 +459,10 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	* Check redsys IPN validity
 	**/
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function check_ipn_request_is_valid() {
 		global $woocommerce;
 		
@@ -490,8 +514,10 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	* @return void
 	*/
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function check_ipn_response() {
 		
 		@ob_clean();
@@ -512,8 +538,10 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	* @return void
 	*/
 	/**
-	* Copyright: (C) 2013 - 2021 José Conti
-	*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function successful_request( $posted ) {
 		global $woocommerce;
 		
@@ -640,6 +668,8 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_googlepay_order( $order_id ) {
@@ -648,6 +678,8 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	}
 
 	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public function warning_checkout_test_mode_googlepay() {

@@ -33,6 +33,16 @@ class WoocommerceGpfAdmin {
 	protected $wc_admin_integration;
 
 	/**
+	 * @var WoocommerceProductFeedsFeedConfigRepository
+	 */
+	protected $feed_config_repository;
+
+	/**
+	 * @var WoocommerceProductFeedsFeedManager
+	 */
+	protected $feed_manager;
+
+	/**
 	 * @var array
 	 */
 	private $settings = array();
@@ -62,6 +72,8 @@ class WoocommerceGpfAdmin {
 	 * @param WoocommerceGpfCacheStatus $woocommerce_gpf_cache_status
 	 * @param WoocommerceProductFeedsFeedImageManager $woocommerce_product_feeds_feed_image_manager
 	 * @param WoocommerceProductFeedsWoocommerceAdminIntegration $woocommerce_product_feeds_woocommerce_admin_integration
+	 * @param WoocommerceProductFeedsFeedConfigRepository $feed_config_repository
+	 * @param WoocommerceProductFeedsFeedManager $feed_manager
 	 */
 	public function __construct(
 		WoocommerceGpfCommon $woocommerce_gpf_common,
@@ -69,14 +81,18 @@ class WoocommerceGpfAdmin {
 		WoocommerceGpfCache $woocommerce_gpf_cache,
 		WoocommerceGpfCacheStatus $woocommerce_gpf_cache_status,
 		WoocommerceProductFeedsFeedImageManager $woocommerce_product_feeds_feed_image_manager,
-		WoocommerceProductFeedsWoocommerceAdminIntegration $woocommerce_product_feeds_woocommerce_admin_integration
+		WoocommerceProductFeedsWoocommerceAdminIntegration $woocommerce_product_feeds_woocommerce_admin_integration,
+		WoocommerceProductFeedsFeedConfigRepository $feed_config_repository,
+		WoocommerceProductFeedsFeedManager $feed_manager
 	) {
-		$this->common               = $woocommerce_gpf_common;
-		$this->template_loader      = $woocommerce_gpf_template_loader;
-		$this->cache                = $woocommerce_gpf_cache;
-		$this->cache_status         = $woocommerce_gpf_cache_status;
-		$this->feed_image_manager   = $woocommerce_product_feeds_feed_image_manager;
-		$this->wc_admin_integration = $woocommerce_product_feeds_woocommerce_admin_integration;
+		$this->common                 = $woocommerce_gpf_common;
+		$this->template_loader        = $woocommerce_gpf_template_loader;
+		$this->cache                  = $woocommerce_gpf_cache;
+		$this->cache_status           = $woocommerce_gpf_cache_status;
+		$this->feed_image_manager     = $woocommerce_product_feeds_feed_image_manager;
+		$this->wc_admin_integration   = $woocommerce_product_feeds_woocommerce_admin_integration;
+		$this->feed_config_repository = $feed_config_repository;
+		$this->feed_manager           = $feed_manager;
 	}
 
 	/**
@@ -110,6 +126,7 @@ class WoocommerceGpfAdmin {
 		add_action( 'woocommerce_update_options_gpf', array( $this, 'save_settings' ) );
 
 		$this->feed_image_manager->initialise();
+		$this->feed_manager->initialise();
 	}
 
 	/**
@@ -990,12 +1007,21 @@ class WoocommerceGpfAdmin {
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	private function render_generic_select( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
-		$variables            = $this->default_field_variables( $key, $loop_idx );
-		$variables['options'] = $this->build_select_options(
+		$variables                = $this->default_field_variables( $key, $loop_idx );
+		$variables['options']     = $this->build_select_options(
 			$this->product_fields[ $key ]['options_callback'](),
 			$current_data
 		);
-
+		$variables['emptyoption'] = '';
+		$optional                 = ! isset( $this->product_fields[ $key ]['mandatory'] ) ||
+									! $this->product_fields[ $key ]['mandatory'];
+		if ( $optional ) {
+			$variables['emptyoption'] = $this->template_loader->get_template_with_variables(
+				'woo-gpf',
+				'field-row-default-generic-select-empty-option',
+				$variables
+			);
+		}
 		return $this->template_loader->get_template_with_variables(
 			'woo-gpf',
 			'field-row-default-generic-select',
@@ -1556,57 +1582,28 @@ class WoocommerceGpfAdmin {
 			'gpf_refresh_custom_fields'
 		);
 
-		$variables['enablement'] = $this->template_loader->get_template_with_variables( 'woo-gpf', 'admin-feed-enablement-intro', array() );
+		$feed_types   = $this->common->get_feed_types();
+		$feed_configs = $this->feed_config_repository->all();
 
-		$done_legacy_heading = false;
-		foreach ( $feed_types as $feed_id => $feed_type ) {
-			$wrapper_class = 'feed-non-legacy';
-			if ( $feed_type['legacy'] ) {
-				$wrapper_class = 'feed-legacy';
-				if ( ! $done_legacy_heading ) {
-					$variables['enablement'] .= $this->template_loader->get_template_with_variables(
-						'woo-gpf',
-						'admin-feed-enablement-legacy-header',
-						[]
-					);
-					$done_legacy_heading      = true;
-				}
-			}
-			$feed_variables = array(
-				'attr_name'     => esc_attr( $feed_type['name'] ),
-				'html_name'     => esc_html( $feed_type['name'] ),
-				'icon'          => $feed_type['icon'],
-				'attr_url'      => esc_attr(
-					add_query_arg(
-						array_merge(
-							array( 'woocommerce_gpf' => $feed_id ),
-							$feed_type['url_args']
-						),
-						get_home_url( null, '/' )
-					)
-				),
-				'html_url'      => esc_html(
-					add_query_arg(
-						array_merge(
-							array( 'woocommerce_gpf' => $feed_id ),
-							$feed_type['url_args']
-						),
-						get_home_url( null, '/' )
-					)
-				),
-				'feed_id'       => $feed_id,
-				'feed_icon'     => $feed_type['icon'],
-				'wrapper_class' => $wrapper_class,
-			);
-			if ( ! empty( $this->settings['gpf_enabled_feeds'][ $feed_id ] ) ) {
-				$feed_variables['checked']    = 'checked';
-				$feed_variables['url_hidden'] = '';
-			} else {
-				$feed_variables['checked']    = '';
-				$feed_variables['url_hidden'] = 'hidden';
-			}
-			$variables['enablement'] .= $this->template_loader->get_template_with_variables( 'woo-gpf', 'admin-feed-enablement-feed', $feed_variables );
+		$variables['active_feeds'] = $this->template_loader->get_template_with_variables( 'woo-gpf', 'admin-feeds-intro', array() );
+		foreach ( $feed_configs as $config ) {
+			$feed_type                  = $feed_types[ $config->type ];
+			$feed_url                   = get_home_url( null, '/woocommerce_gpf/' . $config->id );
+			$feed_variables             = [
+				'html_name' => esc_html( $config->name ),
+				'icon'      => $feed_type['icon'],
+				'attr_url'  => esc_attr( $feed_url ),
+				'html_url'  => esc_html( $feed_url ),
+			];
+			$variables['active_feeds'] .= $this->template_loader->get_template_with_variables( 'woo-gpf', 'admin-feeds-feed', $feed_variables );
 		}
+		$variables['active_feeds'] .= $this->template_loader->get_template_with_variables(
+			'woo-gpf',
+			'admin-feeds-footer',
+			[
+				'manage_url' => esc_attr( admin_url( 'admin.php?page=woocommerce-gpf-manage-feeds' ) ),
+			]
+		);
 
 		$this->template_loader->output_template_with_variables( 'woo-gpf', 'admin-intro', $variables );
 		$this->template_loader->output_template_with_variables( 'woo-gpf', 'admin-feed-fields-intro', array() );
@@ -1792,10 +1789,6 @@ class WoocommerceGpfAdmin {
 			}
 			$_POST['woocommerce_gpf_config']['product_prepopulate'] = $_POST['_woocommerce_gpf_prepopulate'];
 			unset( $_POST['_woocommerce_gpf_prepopulate'] );
-		}
-
-		if ( ! empty( $_POST['_woocommerce_gpf_enabled_feeds'] ) ) {
-			$_POST['woocommerce_gpf_config']['gpf_enabled_feeds'] = $_POST['_woocommerce_gpf_enabled_feeds'];
 		}
 		$this->settings = $_POST['woocommerce_gpf_config'];
 		update_option( 'woocommerce_gpf_config', $this->settings );

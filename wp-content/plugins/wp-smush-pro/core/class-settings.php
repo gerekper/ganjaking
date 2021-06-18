@@ -93,16 +93,16 @@ class Settings {
 	/**
 	 * List of fields in bulk smush form.
 	 *
-	 * @used-by save()
+	 * @used-by save_settings()
 	 *
 	 * @var array
 	 */
-	private $bulk_fields = array( 'bulk', 'auto', 'lossy', 'original', 'strip_exif', 'resize', 'backup', 'png_to_jpg' );
+	private $bulk_fields = array( 'bulk', 'auto', 'lossy', 'strip_exif', 'resize', 'original', 'backup', 'png_to_jpg' );
 
 	/**
 	 * List of fields in integration form.
 	 *
-	 * @used-by save()
+	 * @used-by save_settings()
 	 *
 	 * @var array
 	 */
@@ -111,7 +111,7 @@ class Settings {
 	/**
 	 * List of fields in CDN form.
 	 *
-	 * @used-by save()
+	 * @used-by save_settings()
 	 *
 	 * @var array
 	 */
@@ -120,7 +120,7 @@ class Settings {
 	/**
 	 * List of fields in CDN form.
 	 *
-	 * @used-by save()
+	 * @used-by save_settings()
 	 *
 	 * @since 3.8.0
 	 *
@@ -131,7 +131,7 @@ class Settings {
 	/**
 	 * List of fields in Settings form.
 	 *
-	 * @used-by save()
+	 * @used-by save_settings()
 	 *
 	 * @var array
 	 */
@@ -140,7 +140,7 @@ class Settings {
 	/**
 	 * List of fields in lazy loading form.
 	 *
-	 * @used-by save()
+	 * @used-by save_settings()
 	 *
 	 * @var array
 	 */
@@ -149,7 +149,7 @@ class Settings {
 	/**
 	 * List of fields in tools form.
 	 *
-	 * @used-by save()
+	 * @used-by save_settings()
 	 *
 	 * @var array
 	 */
@@ -181,11 +181,112 @@ class Settings {
 		}
 
 		// Save Settings.
-		add_action( 'wp_ajax_save_settings', array( $this, 'save' ) );
+		add_action( 'wp_ajax_smush_save_settings', array( $this, 'save_settings' ) );
 		// Reset Settings.
 		add_action( 'wp_ajax_reset_settings', array( $this, 'reset' ) );
 
 		$this->init();
+	}
+
+	/**
+	 * Get descriptions for all settings.
+	 *
+	 * @since 3.8.6 Moved from Core
+	 *
+	 * @param string $id    Setting ID to get data for.
+	 * @param string $type  What value to get. Accepts: label, short_label or desc.
+	 *
+	 * @return string
+	 */
+	public static function get_setting_data( $id, $type = '' ) {
+		$settings = array(
+			'bulk'              => array(
+				'short_label' => esc_html__( 'Image Sizes', 'wp-smushit' ),
+				'desc'        => esc_html__( 'WordPress generates multiple image thumbnails for each image you upload. Choose which of those thumbnail sizes you want to include when bulk smushing.', 'wp-smushit' ),
+			),
+			'auto'              => array(
+				'label'       => esc_html__( 'Automatically compress my images on upload', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Automatic compression', 'wp-smushit' ),
+				'desc'        => esc_html__( 'When you upload images to your site, we will automatically optimize and compress them for you.', 'wp-smushit' ),
+			),
+			'lossy'             => array(
+				'label'       => esc_html__( 'Super-Smush my images', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Super-Smush', 'wp-smushit' ),
+				'desc'        => esc_html__( 'Optimize images up to 2x more than regular smush with our multi-pass lossy compression.', 'wp-smushit' ),
+			),
+			'strip_exif'        => array(
+				'label'       => esc_html__( 'Strip my image metadata', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Metadata', 'wp-smushit' ),
+				'desc'        => esc_html__( 'Photos often store camera settings in the file, i.e., focal length, date, time and location. Removing EXIF data reduces the file size. Note: it does not strip SEO metadata.', 'wp-smushit' ),
+			),
+			'resize'            => array(
+				'label'       => esc_html__( 'Resize my full size images', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Image Resizing', 'wp-smushit' ),
+				'desc'        => esc_html__( 'Detect unnecessarily large oversize images on your pages to reduce their size and decrease load times.', 'wp-smushit' ),
+			),
+			'detection'         => array(
+				'label'       => esc_html__( 'Detect and show incorrectly sized images', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Image Resize Detection', 'wp-smushit' ),
+				'desc'        => esc_html__( 'This will add functionality to your website that highlights images that are either too large or too small for their containers.', 'wp-smushit' ),
+			),
+			'original'          => array(
+				'label'       => esc_html__( 'Smush my original full size images', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Original Images', 'wp-smushit' ),
+				'desc'        => esc_html__( 'Choose how you want Smush to handle the original image file when you run a bulk smush.', 'wp-smushit' ),
+			),
+			'backup'            => array(
+				'label'       => esc_html__( 'Store a copy of my full size images', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Backup Original Images', 'wp-smushit' ),
+				'desc'        => esc_html__( 'Save a copy of your original full-size images separately so you can restore them at any point. Note: Keeping a copy of your original files can significantly increase the size of your uploads folder by nearly twice as much.', 'wp-smushit' ),
+			),
+			'png_to_jpg'        => array(
+				'label'       => esc_html__( 'Auto-convert PNGs to JPEGs (lossy)', 'wp-smushit' ),
+				'short_label' => esc_html__( 'PNG to JPEG Conversion', 'wp-smushit' ),
+				'desc'        => esc_html__( 'When you compress a PNG, Smush will check if converting it to JPEG could further reduce its size.', 'wp-smushit' ),
+			),
+			'accessible_colors' => array(
+				'label'       => esc_html__( 'Enable high contrast mode', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Color Accessibility', 'wp-smushit' ),
+				'desc'        => esc_html__( 'Increase the visibility and accessibility of elements and components to meet WCAG AAA requirements.', 'wp-smushit' ),
+			),
+			'usage'             => array(
+				'label'       => esc_html__( 'Allow usage tracking', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Usage Tracking', 'wp-smushit' ),
+				'desc'        => esc_html__( 'Help make Smush better by letting our designers learn how you’re using the plugin.', 'wp-smushit' ),
+			),
+		);
+
+		global $wp_version;
+
+		if ( version_compare( $wp_version, '5.2.999', '>' ) ) {
+			$settings['backup']['label'] = __( 'Store a copy of my small originals', 'wp-smushit' );
+			$settings['backup']['desc']  = __( 'As of WordPress v5.3, full size images above a certain size (2560px by default) will be stored as originals, while a new max sized image will be created. However, if the uploaded image is smaller than the specified size WordPress won’t create a backup for it. Enable this setting to ensure you always have backups of all your image uploads.', 'wp-smushit' );
+		}
+
+		/**
+		 * Allow to add other settings via filtering the variable
+		 *
+		 * Like Nextgen and S3 integration
+		 */
+		$settings = apply_filters( 'wp_smush_settings', $settings );
+
+		if ( ! isset( $settings[ $id ] ) ) {
+			return '';
+		}
+
+		if ( 'short-label' === $type ) {
+			return ! empty( $settings[ $id ]['short_label'] ) ? $settings[ $id ]['short_label'] : $settings[ $id ]['label'];
+		}
+
+		if ( 'label' === $type ) {
+			return ! empty( $settings[ $id ]['label'] ) ? $settings[ $id ]['label'] : $settings[ $id ]['short_label'];
+		}
+
+		if ( 'desc' === $type ) {
+			return $settings[ $id ]['desc'];
+		}
+
+		return $settings[ $id ];
 	}
 
 	/**
@@ -503,6 +604,7 @@ class Settings {
 		delete_site_option( WP_SMUSH_PREFIX . 'networkwide' );
 		delete_site_option( WP_SMUSH_PREFIX . 'hide_smush_welcome' );
 		delete_site_option( WP_SMUSH_PREFIX . 'hide_upgrade_notice' );
+		delete_site_option( WP_SMUSH_PREFIX . 'preset_configs' );
 		$this->delete_setting( WP_SMUSH_PREFIX . 'settings' );
 		$this->delete_setting( WP_SMUSH_PREFIX . 'image_sizes' );
 		$this->delete_setting( WP_SMUSH_PREFIX . 'resize_sizes' );
@@ -510,6 +612,7 @@ class Settings {
 		$this->delete_setting( WP_SMUSH_PREFIX . 'lazy_load' );
 		$this->delete_setting( 'skip-smush-setup' );
 		$this->delete_setting( WP_SMUSH_PREFIX . 'hide_pagespeed_suggestion' );
+		$this->delete_setting( WP_SMUSH_PREFIX . 'hide-tutorials' );
 
 		wp_send_json_success();
 	}
@@ -517,76 +620,106 @@ class Settings {
 	/**
 	 * Save settings.
 	 *
-	 * @param bool $json_response  Send a JSON response.
-	 *
-	 * @TODO: Refactor. Why do we have two different methods for mu and single?
+	 * @since 3.8.6
 	 */
-	public function save( $json_response = true ) {
-		check_ajax_referer( 'save_wp_smush_options', 'wp_smush_options_nonce' );
+	public function save_settings() {
+		check_ajax_referer( 'wp-smush-ajax' );
 
 		if ( ! is_user_logged_in() ) {
-			return;
+			wp_send_json_error();
 		}
-
-		$pages_with_settings = array( 'bulk', 'integrations', 'cdn', 'settings', 'lazy_load', 'tools' );
-		$setting_form        = isset( $_POST['setting_form'] ) ? sanitize_text_field( wp_unslash( $_POST['setting_form'] ) ) : '';
-
-		// Continue only if form name is set.
-		if ( ! in_array( $setting_form, $pages_with_settings, true ) ) {
-			return;
-		}
-
-		// Store that we need not redirect again on plugin activation.
-		update_site_option( WP_SMUSH_PREFIX . 'hide_smush_welcome', true );
-
-		$settings = $this->get();
 
 		// Delete S3 alert flag, if S3 option is disabled again.
 		if ( ! isset( $_POST['wp-smush-s3'] ) && isset( $settings['integration']['s3'] ) && $settings['integration']['s3'] ) {
 			delete_site_option( WP_SMUSH_PREFIX . 'hide_s3support_alert' );
 		}
 
-		$core_settings = WP_Smush::get_instance()->core()->settings;
+		$page = filter_input( INPUT_POST, 'page', FILTER_SANITIZE_STRING );
 
-		// Process each setting and update options.
-		foreach ( $core_settings as $name => $text ) {
-			// Do not update if field is not available in current form.
-			if ( ! in_array( $name, $this->{$setting_form . '_fields'}, true ) ) {
-				continue;
+		if ( ! isset( $page ) ) {
+			wp_send_json_error(
+				array( 'message' => __( 'The page these settings belong to is missing.', 'wp-smushit' ) )
+			);
+		}
+
+		$new_settings = array();
+
+		if ( 'bulk' === $page ) {
+			foreach ( $this->get_bulk_fields() as $field ) {
+				// Skip the module enable/disable option.
+				if ( 'bulk' === $field ) {
+					continue;
+				}
+				$new_settings[ $field ] = filter_input( INPUT_POST, $field, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
 			}
-
-			// Update the setting.
-			$settings[ $name ] = filter_input( INPUT_POST, WP_SMUSH_PREFIX . $name, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
-		}
-
-		// Check to if the settings update is network-wide or not ( only if in network admin ).
-		$action = filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING );
-
-		// Access control settings for multisite.
-		if ( 'save_settings' === $action && 'settings' === $setting_form ) {
-			$settings['networkwide'] = $this->parse_access_settings();
-		}
-
-		// Settings that are specific to a page.
-		if ( 'bulk' === $setting_form ) {
 			$this->parse_bulk_settings();
 		}
 
-		if ( 'cdn' === $setting_form ) {
-			$this->parse_cdn_settings();
-		}
-
-		if ( 'lazy_load' === $setting_form ) {
+		if ( 'lazy-load' === $page ) {
 			$this->parse_lazy_load_settings();
 		}
 
-		// Store the option in table.
-		$this->set_setting( WP_SMUSH_PREFIX . 'settings', $settings );
-		$this->set_setting( WP_SMUSH_PREFIX . 'settings_updated', 1 );
+		if ( 'cdn' === $page ) {
+			foreach ( $this->get_cdn_fields() as $field ) {
+				// Skip the module enable/disable option.
+				if ( 'cdn' === $field ) {
+					continue;
+				}
 
-		if ( $json_response ) {
-			wp_send_json_success();
+				$new_settings[ $field ] = filter_input( INPUT_POST, $field, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+			}
+			$this->parse_cdn_settings();
 		}
+
+		if ( 'integrations' === $page ) {
+			foreach ( $this->get_integrations_fields() as $field ) {
+				$new_settings[ $field ] = filter_input( INPUT_POST, $field, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+			}
+		}
+
+		if ( 'tools' === $page ) {
+			foreach ( $this->get_tools_fields() as $field ) {
+				$new_settings[ $field ] = filter_input( INPUT_POST, $field, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+			}
+		}
+
+		if ( 'settings' === $page ) {
+			$tab = filter_input( INPUT_POST, 'tab', FILTER_SANITIZE_STRING );
+			if ( ! isset( $tab ) ) {
+				wp_send_json_error(
+					array( 'message' => __( 'The tab these settings belong to is missing.', 'wp-smushit' ) )
+				);
+			}
+
+			if ( 'general' === $tab ) {
+				$new_settings['usage'] = filter_input( INPUT_POST, 'usage', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+			}
+			if ( 'permissions' === $tab ) {
+				$new_settings['networkwide'] = $this->parse_access_settings();
+			}
+			if ( 'data' === $tab ) {
+				$new_settings['keep_data'] = filter_input( INPUT_POST, 'keep_data', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+			}
+			if ( 'accessibility' === $tab ) {
+				$new_settings['accessible_colors'] = filter_input( INPUT_POST, 'accessible_colors', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+			}
+		}
+
+		$settings = $this->get();
+
+		foreach ( $new_settings as $setting => $value ) {
+			if ( ! isset( $settings[ $setting ] ) ) {
+				continue;
+			}
+
+			$settings[ $setting ] = $value;
+		}
+
+		// Store that we need not redirect again on plugin activation.
+		update_site_option( WP_SMUSH_PREFIX . 'hide_smush_welcome', true );
+
+		$this->set_setting( WP_SMUSH_PREFIX . 'settings', $settings );
+		wp_send_json_success();
 	}
 
 	/**
@@ -595,8 +728,6 @@ class Settings {
 	 * @since 3.2.0  Moved from save method.
 	 */
 	private function parse_bulk_settings() {
-		check_ajax_referer( 'save_wp_smush_options', 'wp_smush_options_nonce' );
-
 		// Save the selected image sizes.
 		if ( isset( $_POST['wp-smush-auto-image-sizes'] ) && 'all' === $_POST['wp-smush-auto-image-sizes'] ) {
 			$this->delete_setting( WP_SMUSH_PREFIX . 'image_sizes' );

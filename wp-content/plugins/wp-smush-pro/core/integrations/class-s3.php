@@ -15,6 +15,7 @@ namespace Smush\Core\Integrations;
 
 use Amazon_S3_And_CloudFront;
 use DeliciousBrains\WP_Offload_Media\Items\Media_Library_Item;
+use Smush\App\Admin;
 use Smush\Core\Settings;
 use WP_Smush;
 
@@ -188,14 +189,7 @@ class S3 extends Abstract_Integration {
 		// Do not display the notice on Bulk Smush Screen.
 		global $current_screen;
 
-		$allowed_pages = array(
-			'toplevel_page_smush',
-			'gallery_page_wp-smush-nextgen-bulk',
-			'nextgen-gallery_page_wp-smush-nextgen-bulk', // Different since NextGen 3.3.6.
-			'toplevel_page_smush-network',
-		);
-
-		if ( ! empty( $current_screen->base ) && ! in_array( $current_screen->base, $allowed_pages, true ) ) {
+		if ( ! empty( $current_screen->id ) && ! in_array( $current_screen->id, Admin::$plugin_pages, true ) && false === strpos( $current_screen->id, 'page_smush' ) ) {
 			return;
 		}
 
@@ -211,8 +205,8 @@ class S3 extends Abstract_Integration {
 
 		// Settings link.
 		$settings_link = is_multisite() && is_network_admin()
-			? network_admin_url( 'admin.php?page=smush' )
-			: menu_page_url( 'smush', false );
+			? network_admin_url( 'admin.php?page=smush-integrations' )
+			: menu_page_url( 'smush-integrations', false );
 
 		if ( WP_Smush::is_pro() ) {
 			/**
@@ -226,7 +220,7 @@ class S3 extends Abstract_Integration {
 				),
 				'<strong>',
 				'</strong>',
-				"<a href='{$settings_link}&view=integrations'><strong>",
+				"<a href='{$settings_link}'><strong>",
 				'</strong></a>'
 			);
 		} else {

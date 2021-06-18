@@ -254,4 +254,8 @@
         return (fahrenheit);
     }
 	
+	//Support Defer and Async and Footer Loads
+	window.RS_MODULES = window.RS_MODULES || {};
+	window.RS_MODULES.weather = {loaded:true, version:'3.0.0'};
+	if (window.RS_MODULES.checkMinimal) window.RS_MODULES.checkMinimal();
 })();

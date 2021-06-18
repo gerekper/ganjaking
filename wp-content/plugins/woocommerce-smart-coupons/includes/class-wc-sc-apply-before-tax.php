@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.0
+ * @version     1.2.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -32,6 +32,13 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 		 * @var $sc_credit_left
 		 */
 		private $sc_credit_left = array();
+
+		/**
+		 * Remaining total to apply credit
+		 *
+		 * @var $remaining_total_to_apply_credit
+		 */
+		private $remaining_total_to_apply_credit = array();
 
 		/**
 		 * Constructor
@@ -350,8 +357,13 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 		 * @return float      $discount
 		 */
 		public function cart_return_discount_amount( $discount, $discounting_amount, $cart_item, $single, $coupon ) {
-			$coupon_code   = $coupon->get_code();
-			$coupon_amount = $coupon->get_amount();
+			$discount_type = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
+			if ( 'smart_coupon' !== $discount_type ) {
+				return $discount;
+			}
+
+			$coupon_code   = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_code' ) ) ) ? $coupon->get_code() : '';
+			$coupon_amount = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount() : 0;
 			$quantity      = $cart_item['quantity'];
 
 			// Compatibility for WC version < 3.2.0.
@@ -367,16 +379,32 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 				}
 			}
 
+			$prices_include_tax = ( 'incl' === get_option( 'woocommerce_tax_display_cart' ) ) ? true : false;
+			if ( true === $prices_include_tax ) {
+				$sc_include_tax = get_option( 'woocommerce_smart_coupon_include_tax', 'no' );
+				if ( 'no' === $sc_include_tax ) {
+					$discounting_amount = $cart_item['line_subtotal'] / $quantity;
+				}
+			}
+
 			$items_to_apply_credit = isset( WC()->cart->sc_items_to_apply_credit ) ? WC()->cart->sc_items_to_apply_credit : array();
 
 			if ( ! empty( $items_to_apply_credit ) && is_array( $items_to_apply_credit ) && array_key_exists( $coupon_code, $items_to_apply_credit ) && in_array( $cart_item['key'], $items_to_apply_credit[ $coupon_code ], true ) ) {
 
 				$credit_left              = isset( $this->sc_credit_left[ $coupon_code ] ) ? $this->sc_credit_left[ $coupon_code ] : $coupon_amount;
 				$total_discounting_amount = $discounting_amount * $quantity;
+				if ( isset( $this->remaining_total_to_apply_credit[ $cart_item['key'] ] ) ) {
+					$total_discounting_amount = wc_remove_number_precision( $this->remaining_total_to_apply_credit[ $cart_item['key'] ] );
+				}
+				$applied_discount = min( $total_discounting_amount, $credit_left );
 
 				$this->sc_credit_left[ $coupon_code ] = ( $total_discounting_amount < $credit_left ) ? $credit_left - $total_discounting_amount : 0;
 
-				$discount = min( $total_discounting_amount, $credit_left ) / $quantity;
+				if ( empty( $this->sc_credit_left[ $coupon_code ] ) && array_key_exists( $coupon_code, WC()->cart->sc_items_to_apply_credit ) ) {
+					unset( WC()->cart->sc_items_to_apply_credit[ $coupon_code ] );
+				}
+
+				$discount = $applied_discount / $quantity;
 			}
 
 			return $discount;
@@ -402,7 +430,11 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 							if ( 'no' === $sc_include_tax ) {
 								if ( ! empty( $discounts ) ) {
 									foreach ( $discounts as $item_key => $discount ) {
-										$discounts[ $item_key ] = wc_round_discount( wc_add_number_precision( $cart_contents[ $item_key ]['line_subtotal'] ), 0 );
+										$line_subtotal                 = wc_round_discount( wc_add_number_precision( $cart_contents[ $item_key ]['line_subtotal'] ), 0 );
+										$line_subtotal                 = ( isset( $this->remaining_total_to_apply_credit[ $item_key ] ) ) ? min( $this->remaining_total_to_apply_credit[ $item_key ], $line_subtotal ) : $line_subtotal;
+										$discount                      = min( $discount, $line_subtotal );
+										$discounts       [ $item_key ] = $discount;
+										$this->remaining_total_to_apply_credit[ $item_key ] = $line_subtotal - $discount;
 									}
 								}
 							}
@@ -497,7 +529,8 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 		 * Reset credit left to the defaults.
 		 */
 		public function cart_reset_credit_left() {
-			$this->sc_credit_left = array();
+			$this->sc_credit_left                  = array();
+			$this->remaining_total_to_apply_credit = array();
 		}
 	}
 }

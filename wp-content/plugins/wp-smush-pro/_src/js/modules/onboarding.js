@@ -13,7 +13,7 @@
 	 * @since 3.1
 	 */
 	WP_Smush.onboarding = {
-		membership: 'pro', // Assume free by default.
+		membership: 'free', // Assume free by default.
 		onboardingModal: document.getElementById( 'smush-onboarding-dialog' ),
 		scanFilesModal: document.getElementById( 'checking-files-dialog' ),
 		settings: {
@@ -53,7 +53,7 @@
 
 			const dialog = document.getElementById( 'smush-onboarding' );
 
-			this.membership = 'pro';
+			this.membership = dialog.dataset.type;
 
 			if ( 'pro' !== this.membership ) {
 				this.onboardingSlides = [
@@ -329,11 +329,10 @@
 						'#smush-onboarding-dialog'
 					);
 					elem.parentNode.removeChild( elem );
-					window.SUI.closeModal();
 
 					if ( 200 === xhr.status ) {
 						setTimeout( function() {
-							location.reload();
+							window.location.href = window.wp_smush_msgs.bulkURL;
 						}, 1000 );
 					} else {
 						window.console.log(

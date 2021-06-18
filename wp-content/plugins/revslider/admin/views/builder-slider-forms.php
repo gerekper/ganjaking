@@ -1277,7 +1277,7 @@ if ($wpml->wpml_exists()) {
 				<div class="form_inner_header"><i class="material-icons">ev_station</i><?php _e('Loading Type', 'revslider');?></div>
 				<div class="collapsable" style="display:block !important">
 					<!-- SLIDER ADVANCED SETTINGS -->
-					<label_a><?php _e('Lazy Loading', 'revslider')?></label_a><select id="sr_adv_performance_load" class="sliderinput tos2 nosearchbox easyinit" data-r="general.lazyLoad" data-show=".tp-monitor-*val*-speed" data-hide=".tp-monitor-speeds"><option value="all"><?php _e("All", 'revslider');?></option><option value="smart"><?php _e("Smart", 'revslider');?></option><option value="single"><?php _e("Single", 'revslider');?></option><option value="none"><?php _e("No Lazy Loading", 'revslider');?></option></select>
+					<label_a><?php _e('Lazy Loading', 'revslider')?></label_a><select id="sr_adv_performance_load" class="sliderinput tos2 nosearchbox easyinit" data-r="general.lazyLoad" data-show=".tp-monitor-*val*-speed" data-hide=".tp-monitor-speeds"><option value="all"><?php _e("All", 'revslider');?></option><option value="smart"><?php _e("Smart", 'revslider');?></option><option value="single"><?php _e("Single", 'revslider');?></option><option value="none"><?php _e("Default Global Setting", 'revslider');?></option></select>
 				</div>
 			</div>
 
@@ -1297,7 +1297,7 @@ if ($wpml->wpml_exists()) {
 			<div id="form_slidergeneral_advanced_DPR" class="form_inner">
 				<div class="form_inner_header"><i class="material-icons">4k</i><?php _e('Device Pixel Ratio', 'revslider');?></div>
 				<div class="collapsable" style="display:block !important">					
-					<label_a><?php _e('Max. BG DPR', 'revslider');?></label_a><select id="sliderbgdpr" class="sliderinput tos2 nosearchbox easyinit" data-r="general.DPR"> <option value="ax1"><?php _e('Auto but Max x1', 'revslider');?></option><option value="ax2"><?php _e('Auto but Max x2', 'revslider');?></option><option value="ax3"><?php _e('Auto but Max x3', 'revslider');?></option><option value="x4"><?php _e('Auto but Max x4', 'revslider');?></option><option value="dpr"><?php _e('Auto', 'revslider');?></option><option value="x1"><?php _e('x1', 'revslider');?></option><option value="x2"><?php _e('x2', 'revslider');?></option><option value="x3"><?php _e('x3', 'revslider');?></option><option value="x4"><?php _e('x4', 'revslider');?></option></select>					
+					<label_a><?php _e('Max. BG DPR', 'revslider');?></label_a><select id="sliderbgdpr" class="sliderinput tos2 nosearchbox easyinit" data-r="general.DPR"> <option value="ax1"><?php _e('Auto but Max x1', 'revslider');?></option><option value="ax2"><?php _e('Auto but Max x2', 'revslider');?></option><option value="ax3"><?php _e('Auto but Max x3', 'revslider');?></option><option value="ax4"><?php _e('Auto but Max x4', 'revslider');?></option><option value="dpr"><?php _e('Auto', 'revslider');?></option><option value="x1"><?php _e('x1', 'revslider');?></option><option value="x2"><?php _e('x2', 'revslider');?></option><option value="x3"><?php _e('x3', 'revslider');?></option><option value="x4"><?php _e('x4', 'revslider');?></option></select>					
 					<row class="direktrow">
 						<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
 						<contenthalf><div class="function_info"><?php _e('Higher maximum values can have a negative influence on complex canvas animations. Lower values can have a negative influence on image quality on 4k+ devices.', 'revslider');?></div></contenthalf>

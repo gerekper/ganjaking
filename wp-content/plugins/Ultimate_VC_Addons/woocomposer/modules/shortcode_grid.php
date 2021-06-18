@@ -4,16 +4,16 @@
  *
  * @Module: Grid Layout view
  * @Since: 1.0
- * @package WooComposer
+ * @package Ultimate_VC_Addons_WooComposer
  */
 
-if ( ! class_exists( 'WooComposer_GridView' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_GridView' ) ) {
 	/**
-	 * Class that initializes WooComposer Grid View
+	 * Class that initializes Ultimate_VC_Addons_WooComposer Grid View
 	 *
-	 * @class WooComposer_GridView
+	 * @class Ultimate_VC_Addons_WooComposer_GridView
 	 */
-	class WooComposer_GridView {
+	class Ultimate_VC_Addons_WooComposer_GridView {
 		/**
 		 * Constructor function that constructs Grid View.
 		 *
@@ -500,5 +500,5 @@ if ( ! class_exists( 'WooComposer_GridView' ) ) {
 		}//end woocomposer_grid_shortcode()
 
 	} /* end class GridView */
-	new WooComposer_GridView();
+	new Ultimate_VC_Addons_WooComposer_GridView();
 }

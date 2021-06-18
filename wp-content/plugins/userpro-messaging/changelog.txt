@@ -1,0 +1,156 @@
+Version 4.9.2 ( 27 Oct 2017 )
+============================
+	- Urgent Fix : Fixed security issue about user auto login 
+
+Version 4.9.1 ( 15 Sept 2017 )
+============================
+	- Fixed Bug : Messaging UI breaks on mobile screen
+
+Version 4.9 ( 11 Apr 2017 )
+============================
+	- Fixed Bug : HTML contents are not allowed in the email templates
+
+Version 4.8 ( 09 Mar 2017 )
+============================
+        - Enhancement : Now administrator can decide which role should be allowed to send messages to connection
+        - Enhancement : Added More emoticons
+
+Version 4.7 ( 20 Jan 2017 )
+============================
+	- Fixed Bug : Scroll bar should be at bottom when setting is 'Display recent message on bottom'
+        - Fixed Bug : Broadcasted message not displayed along with personal messages
+        - Fixed Bug : Message count not cleared untill browser is refreshed
+
+Version 4.6 ( 26 Sept 2016 )
+============================
+	- New Feature : Added auto update
+
+Version 4.5 ( 23 August 2016)
+============================
+	- Enhancement : Added configurable option for users to send message to their connections
+
+Version 4.4 ( 24 May 2016)
+============================
+	- Enhancement : Added a widget for sending message from frontend profile (Added Drag&Drop widget in user's Dashboard)
+	- Enhancement : Added support for HTML content in messages
+	- Fixed Bug   : "My Messages" popup not displayed properly in mobile devices
+
+Version 4.3 (25 Mar 2016)
+============================
+	- Enhancement : Added configurable option by which administrator can decide user with which role should send and receive the messages.
+	- Fixed Bug     : User are able to send message from message me now button if they are blocked.
+	- Updated 	  : Updated Isotope version to latest.
+
+Version 4.2 (27 Jan 2016)
+============================
+	- Enhancement :Added configurable option for sending new message email notification only to offline users
+
+Version 4.1 (31 Dec 2015)
+============================
+	- Enhancement : Added configurable option to allow users to send broadcast message only to their followers
+
+Version 4.0 (25 Nov 2015)
+============================
+	- Enhancement : Added configurable setting to enable/disable sending message on enter key
+
+Version 3.9 (05 Nov 2015)
+============================
+	- Fixed Bug : Message history now shown properly in mobile view when message list shortcode is used
+
+Version 3.8 (21 Oct 2015)
+============================
+	- Enhancement : Added templates for email notification
+
+Version 3.7.1 (09 Oct 2015)
+============================
+	- Fixed Bug : Removed 'header already sent' warning
+
+Version 3.7 (09 Oct 2015)
+============================
+	- New Feature : Added configurable option to allow users to send messages only to their followers
+
+Version 3.6 (01 Oct 2015)
+============================
+	- New Feature : Now admin can set how to display recent message either top or bottom
+
+Version 3.5 (14 Sep 2015)
+============================
+	- New Feature : Added admin configurable option for members messaging. Once enabled, users will send message to those user's whom they follow.
+
+Version 3.4 (11 Aug 2015)
+============================
+	- New feature : Added option for users to unblock blocked users from messaging.
+
+Version 3.3 (16 July 2015)
+============================
+	- New feature : Added option for users to block other users from messaging.
+
+Version 3.2 (26 June 2015)
+============================
+	- New feature : Administrator can now decide which roles can use send message feature.
+
+Version 3.1 (12 May 2015)
+============================
+	- New feature : Added auto update feature
+	- Fixed : fixed minor bugs
+
+Version 3.0 (08 May 2015)
+============================
+	- Enhanced security
+
+Version 2.9 (23 Mar 2015)
+============================
+	- Fixed : Optimized Message Broadcast Logic
+	- New feature : Admin can now choose to enable or disable autrefresh of message notification. Please note - enabling auto-refresh will impact performance
+
+Version 2.8 (04 Mar 2015)
+============================
+	- Fixed : Latest message will be displayed on the top
+
+Version 2.7 (27 Feb 2015)
+============================
+	- Fixed : Ability to broadcast message to specific roles
+
+Version 2.6 (20 Feb 2015)
+============================
+	- Fixed : Message notification needed to be refreshed , Now it will change in 10 seconds
+
+Version 2.5 (04 Feb 2015)
+============================
+	- New feature : Added shortcode [userpro_message_list] to allow a logged-in user to view all of his/her messages on a post or page
+
+Version 2.4.1 (16 Jan 2015)
+============================
+	- Fixed Bug: Disclaimer Note that gets added to all private messages.
+	- New feature : After broadcasting a message, the sender receives an email about success / failure.
+
+Version 2.4 (22 Dec 2014)
+============================
+	- New feature : Added ability to broadcast a message to all registered users. Admins can restrict this by selecting which user roles have permission to broadcast
+
+Version 2.3 (20 Nov 2014)
+============================
+	- Added Spanish language.
+
+Version 2.2 (06 Nov 2014)
+============================
+	- Fixed XSS cross scripting vulnerability.
+	- Fixed message alignment issue
+
+Version 2.1 (09 Oct 2014)
+============================
+	- Added option for admin default message
+=============================
+Version 2.0 (29 Sep 2014)
+============================
+	- Fixed issue with message history
+
+Version 1.1 (7 Aug 2014)
+============================
+
+	- Added shortcode for My Messages [userpro_mymessage]
+
+Version 1.0 (21 Mar 2014)
+============================
+
+	- Base version

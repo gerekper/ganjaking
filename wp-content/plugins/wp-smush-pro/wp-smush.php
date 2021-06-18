@@ -13,7 +13,7 @@
  * Plugin Name:       Smush Pro
  * Plugin URI:        http://wpmudev.com/project/wp-smush-pro/
  * Description:       Reduce image file sizes, improve performance and boost your SEO using the <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
- * Version:           3.8.5
+ * Version:           3.8.6
  * Author:            WPMU DEV
  * Author URI:        https://wpmudev.com/
  * License:           GPLv2
@@ -47,11 +47,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! defined( 'WP_SMUSH_VERSION' ) ) {
-	define( 'WP_SMUSH_VERSION', '3.8.5' );
+	define( 'WP_SMUSH_VERSION', '3.8.6' );
 }
 // Used to define body class.
 if ( ! defined( 'WP_SHARED_UI_VERSION' ) ) {
-	define( 'WP_SHARED_UI_VERSION', 'sui-2-10-5' );
+	define( 'WP_SHARED_UI_VERSION', 'sui-2-10-8' );
 }
 if ( ! defined( 'WP_SMUSH_BASENAME' ) ) {
 	define( 'WP_SMUSH_BASENAME', plugin_basename( __FILE__ ) );
@@ -169,7 +169,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 * Plugin API.
 		 *
 		 * @since 3.0
-		 * @var Smush\Core\Api\API
+		 * @var Smush\Core\Api\Smush_API
 		 */
 		private $api = '';
 
@@ -208,6 +208,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 			spl_autoload_register( array( $this, 'autoload' ) );
 
 			add_action( 'admin_init', array( '\\Smush\\Core\\Installer', 'upgrade_settings' ) );
+			add_action( 'current_screen', array( '\\Smush\\Core\\Installer', 'maybe_create_table' ) );
 			add_action( 'admin_init', array( $this, 'register_free_modules' ) );
 
 			// The dash-notification actions are hooked into "init" with a priority of 10.
@@ -254,7 +255,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 */
 		private function init() {
 			try {
-				$this->api = new Smush\Core\Api\API( self::get_api_key() );
+				$this->api = new Smush\Core\Api\Smush_API( Smush\Core\Helper::get_wpmudev_apikey() );
 			} catch ( Exception $e ) {
 				$this->api = '';
 			}
@@ -299,7 +300,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 *
 		 * @since 3.0
 		 *
-		 * @return Smush\Core\Api\API
+		 * @return Smush\Core\Api\Smush_API
 		 */
 		public function api() {
 			return $this->api;
@@ -324,7 +325,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 * @return bool
 		 */
 		public static function is_pro() {
-			return true;
+			return self::$is_pro;
 		}
 
 		/**
@@ -441,50 +442,79 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 * @param bool $manual  Is it a manual check? Default: false.
 		 */
 		public function validate_install( $manual = false ) {
-			
+			if ( isset( self::$is_pro ) && ! $manual ) {
+				return;
+			}
 
 			// No API key set, always false.
-			$api_key = self::get_api_key();
+			$api_key = Smush\Core\Helper::get_wpmudev_apikey();
 
-			
+			if ( empty( $api_key ) ) {
+				return;
+			}
+
 			// Flag to check if we need to revalidate the key.
 			$revalidate = false;
 
 			$api_auth = get_site_option( 'wp_smush_api_auth' );
 
 			// Check if need to revalidate.
-			
-			$last_checked = 8613958609;
-			$valid        = 'valid';
+			if ( ! $api_auth || empty( $api_auth ) || empty( $api_auth[ $api_key ] ) ) {
+				$revalidate = true;
+			} else {
+				$last_checked = $api_auth[ $api_key ]['timestamp'];
+				$valid        = $api_auth[ $api_key ]['validity'];
 
 				// Difference in hours.
-				
-			
+				$diff = ( current_time( 'timestamp' ) - $last_checked ) / HOUR_IN_SECONDS;
 
-			// If we are suppose to validate API, update the results in options table.
-			
-
-			self::$is_pro = true;
-		}
-
-		/**
-		 * Returns api key.
-		 *
-		 * @return mixed
-		 */
-		private static function get_api_key() {
-			$api_key = false;
-
-			// If API key defined manually, get that.
-			if ( defined( 'WPMUDEV_APIKEY' ) && WPMUDEV_APIKEY ) {
-				$api_key = WPMUDEV_APIKEY;
-			} elseif ( class_exists( 'WPMUDEV_Dashboard' ) ) {
-				// If dashboard plugin is active, get API key from db.
-				$api_key = get_site_option( 'wpmudev_apikey' );
+				if ( 24 < $diff ) {
+					$revalidate = true;
+				}
 			}
 
-			return $api_key;
-		}
+			// If we are suppose to validate API, update the results in options table.
+			if ( $revalidate || $manual ) {
+				if ( empty( $api_auth[ $api_key ] ) ) {
+					// For api key resets.
+					$api_auth[ $api_key ] = array();
 
+					// Storing it as valid, unless we really get to know from API call.
+					$valid                            = 'valid';
+					$api_auth[ $api_key ]['validity'] = 'valid';
+				}
+
+				// This is the first check.
+				if ( ! isset( $api_auth[ $api_key ]['timestamp'] ) ) {
+					$api_auth[ $api_key ]['timestamp'] = current_time( 'timestamp' );
+				}
+
+				$request = $this->api()->check( $manual );
+
+				if ( ! is_wp_error( $request ) && 200 === wp_remote_retrieve_response_code( $request ) ) {
+					// Update the timestamp only on successful attempts.
+					$api_auth[ $api_key ]['timestamp'] = current_time( 'timestamp' );
+					update_site_option( 'wp_smush_api_auth', $api_auth );
+
+					$result = json_decode( wp_remote_retrieve_body( $request ) );
+					if ( ! empty( $result->success ) && $result->success ) {
+						$valid = 'valid';
+						update_site_option( WP_SMUSH_PREFIX . 'cdn_status', $result->data );
+					} else {
+						$valid = 'invalid';
+					}
+				} elseif ( ! isset( $valid ) || 'valid' !== $valid ) {
+					// Invalidate only in case when it was not valid before.
+					$valid = 'invalid';
+				}
+
+				$api_auth[ $api_key ]['validity'] = $valid;
+
+				// Update API validity.
+				update_site_option( 'wp_smush_api_auth', $api_auth );
+			}
+
+			self::$is_pro = isset( $valid ) && 'valid' === $valid;
+		}
 	}
 }

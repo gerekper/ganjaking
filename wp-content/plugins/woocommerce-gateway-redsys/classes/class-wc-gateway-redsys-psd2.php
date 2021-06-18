@@ -21,8 +21,10 @@ class WC_Gateway_Redsys_PSD2 {
 	
 	function clean_data( $out ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 
 		$out = str_replace ( "Á", "A", $out );
 		$out = str_replace ( "À", "A", $out );
@@ -76,8 +78,10 @@ class WC_Gateway_Redsys_PSD2 {
 	
 	function get_redsys_option( $option, $gateway ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		$options = get_option( 'woocommerce_' . $gateway . '_settings' );
 		
 		if ( ! empty( $options ) ) {
@@ -95,43 +99,55 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_cardholdername( $order ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		//cardholderName
 	}
 
 	function get_email( $order ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		return $order->get_billing_email();
 	}
 
 	function get_homephone( $order ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		return $order->get_billing_phone();
 	}
 	
 	function get_mobile_phone( $order ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		//mobilePhone
 	}
 	
 	function get_work( $order ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		return $order->get_billing_phone();
 	}
 
 	function get_adress_ship( $order ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		$adress_ship                     = array();
 		$adress_ship['shipAddrLine1']    = $order->get_billing_address_1();
 		$adress_ship['shipAddrLine2']    = $order->get_billing_address_2();
@@ -144,8 +160,10 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function addr_match( $order ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 
 		$adress_ship_shipAddrLine1    = $order->get_billing_address_1();
 		$adress_ship_shipAddrLine2    = $order->get_billing_address_2();
@@ -181,8 +199,10 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_challenge_wwndow_size( $order ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		/**
 			01 = 250x 400
 			02 = 390x 400
@@ -203,15 +223,19 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_acctid( $order ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		//acctID
 	}
 
 	function days( $start_time ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 
 		$current_time    = time();
 		$unix_start_time = date( 'U', strtotime( $start_time ) );
@@ -226,8 +250,10 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_post_num( $post_status = array(),  $date_query = array() ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		
 		$num = get_posts( array(
 			'numberposts' => -1,
@@ -244,15 +270,19 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_accept_headers( $order_id ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		return get_post_meta( $order_id, '_accept_haders', true );
 	}
 
 	function get_agente_navegador( $order_id ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		$data = get_post_meta( $order_id, '_billing_agente_navegador_field', true );
 		
 		if ( $data ) {
@@ -264,8 +294,10 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_idioma_navegador( $order_id ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		$data = get_post_meta( $order_id, '_billing_idioma_navegador_field', true );
 		
 		if ( $data ) {
@@ -277,8 +309,10 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_altura_pantalla( $order_id ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		$data = get_post_meta( $order_id, '_billing_altura_pantalla_field', true );
 		
 		if ( $data ) {
@@ -290,8 +324,10 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_anchura_pantalla( $order_id ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		$data = get_post_meta( $order_id, '_billing_anchura_pantalla_field', true );
 		
 		if ( $data ) {
@@ -303,8 +339,10 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_profundidad_color( $order_id ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		$data = get_post_meta( $order_id, '_billing_profundidad_color_field', true );
 		
 		if ( $data ) {
@@ -316,8 +354,10 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_diferencia_horaria( $order_id ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		$data = get_post_meta( $order_id, '_billing_diferencia_horaria_field', true );
 		
 		if ( $data ) {
@@ -338,15 +378,19 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_accept_headers_user( $user_id ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		return get_user_meta( $user_id, '_accept_haders', true );
 	}
 	
 	function get_agente_navegador_user( $user_id ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		$data = get_user_meta( $user_id, '_billing_agente_navegador_field', true );
 		
 		if ( $data ) {
@@ -358,8 +402,10 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_idioma_navegador_user( $user_id ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		$data = get_user_meta( $user_id, '_billing_idioma_navegador_field', true );
 		
 		if ( $data ) {
@@ -371,8 +417,10 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_altura_pantalla_user( $user_id ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		$data = get_user_meta( $user_id, '_billing_altura_pantalla_field', true );
 		
 		if ( $data ) {
@@ -384,8 +432,10 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_anchura_pantalla_user( $user_id ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		$data = get_user_meta( $user_id, '_billing_anchura_pantalla_field', true );
 		
 		if ( $data ) {
@@ -397,8 +447,10 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_profundidad_color_user( $user_id ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		$data = get_user_meta( $user_id, '_billing_profundidad_color_field', true );
 		
 		if ( $data ) {
@@ -410,8 +462,10 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_diferencia_horaria_user( $user_id ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		$data = get_user_meta( $user_id, '_billing_diferencia_horaria_field', true );
 		
 		if ( $data ) {
@@ -432,8 +486,10 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function shipnameindicator( $order ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		
 		if ( $order->has_shipping_address() ) {
 			$billing_first_name  = $order->get_billing_first_name();
@@ -457,8 +513,10 @@ class WC_Gateway_Redsys_PSD2 {
 
 	function get_acctinfo( $order, $user_data_3ds = false, $user_id = false ) {
 		/**
-		* Copyright: (C) 2013 - 2021 José Conti
-		*/
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 		
 		if ( $this->get_redsys_option( 'psd2', 'redsys' ) === 'yes' ) {
 		

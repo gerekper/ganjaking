@@ -6,13 +6,13 @@
  *  @package UAVC Icon Manager
  */
 
-if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Icon_Manager' ) ) {
 	/**
 	 * Function that initializes Ultimate Icon Manager
 	 *
-	 * @class AIO_Icon_Manager
+	 * @class Ultimate_VC_Addons_Icon_Manager
 	 */
-	class AIO_Icon_Manager {
+	class Ultimate_VC_Addons_Icon_Manager {
 		/**
 		 * Holds the paths.
 		 *
@@ -223,11 +223,11 @@ if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
 		public function admin_scripts() {
 
 			// enqueue js files on backend.
-			wp_enqueue_script( 'aio-admin-media', $this->admin_js . 'admin-media.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+			wp_enqueue_script( 'ultimate-vc-addons-admin-media', $this->admin_js . 'admin-media.js', array( 'jquery' ), ULTIMATE_VERSION, false );
 
 			wp_enqueue_script( 'media-upload' );
 			wp_enqueue_media();
-			wp_enqueue_style( 'aio-icon-manager-admin', $this->admin_css . 'icon-manager-admin.css' );// @codingStandardsIgnoreLine.
+			wp_enqueue_style( 'ultimate-vc-addons-icon-manager-admin', $this->admin_css . 'icon-manager-admin.css' );// @codingStandardsIgnoreLine.
 
 			$fonts = get_option( 'smile_fonts' );
 			if ( is_array( $fonts ) ) {
@@ -311,10 +311,10 @@ if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
 				}
 				if ( ! empty( $icon_set ) ) {
 					$output .= '<p><strong>' . esc_html( $set_name ) . '</strong></p>';
-					$output .= '<li title="no-icon" data-icons="none" data-icons-tag="none,blank" style="cursor: pointer;" id="' . esc_attr( $id ) . '"></li>';
+					$output .= '<li title="no-icon" data-icons="none" data-icons-tag="none,blank" style="cursor: pointer;" data-id="' . esc_attr( $id ) . '"></li>';
 					foreach ( $icon_set as $icons ) {
 						foreach ( $icons as $icon ) {
-							$output .= '<li title="' . esc_attr( $icon['class'] ) . '" data-icons="' . esc_attr( $font ) . '-' . esc_attr( $icon['class'] ) . '" data-icons-tag="' . esc_attr( $icon['tags'] ) . '" id="' . esc_attr( $id ) . '">';
+							$output .= '<li title="' . esc_attr( $icon['class'] ) . '" data-icons="' . esc_attr( $font ) . '-' . esc_attr( $icon['class'] ) . '" data-icons-tag="' . esc_attr( $icon['tags'] ) . '" data-id="' . esc_attr( $id ) . '">';
 							$output .= '<i class="icon ' . esc_attr( $font ) . '-' . esc_attr( $icon['class'] ) . '"></i><label class="icon">' . esc_html( $icon['class'] ) . '</label></li>';
 						}
 					}
@@ -913,7 +913,7 @@ if ( ! class_exists( 'AIO_Icon_Manager' ) ) {
 	}
 	// Instantiate the Icon Manager.
 }
-$AIO_Icon_Manager = new AIO_Icon_Manager();// @codingStandardsIgnoreLine.
+$AIO_Icon_Manager = new Ultimate_VC_Addons_Icon_Manager();// @codingStandardsIgnoreLine.
 
 add_action( 'wp_ajax_smile_ajax_add_zipped_font', array( $AIO_Icon_Manager, 'add_zipped_font' ) );// @codingStandardsIgnoreLine.
 add_action( 'wp_ajax_smile_ajax_remove_zipped_font', array( $AIO_Icon_Manager, 'remove_zipped_font' ) );// @codingStandardsIgnoreLine.

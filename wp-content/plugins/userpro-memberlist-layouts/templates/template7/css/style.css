@@ -1,0 +1,279 @@
+/* 01. GENERAL SETTINGS ============================================ */
+
+* {margin: 0; padding: 0;}
+
+p {line-height: 160%;}
+
+img {border: 0;}
+
+#upmlsv-members {
+	background: #fff;
+	color: #4593e3;
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size: 13px;
+	font-weight: 300;
+}
+
+.clear {clear: both;}
+
+/* Buttons */
+.btn {
+	display: inline-block;
+	margin-top: 20px;
+	padding: 10px 40px;
+	color: rgba(255,255,255, 0.95);
+	font-size: 18px;
+	font-weight: 700;
+	text-transform: uppercase;
+	border: none;
+	border-radius: 20px;
+	outline: 0;
+	transition: all 0.1s ease-in;
+}
+
+.btn-transparent {background: rgba(0,0,0, 0.2);}
+.btn-transparent:hover {background: rgba(0,0,0, 0.4);}
+
+/* Separators */
+.separator {
+	margin: 0 auto;
+	background: rgba(0, 0, 0, 0.2);
+	width: 30px;
+	height: 5px;
+}
+
+/* 02. FONT FACE ============================================ */
+
+@font-face {
+    font-family: 'norwester';
+	src: url('../fonts/norwester/norwester.eot');
+    src: url('../fonts/norwester/norwester.eot?iefix') format('embedded-opentype'),
+		 url('../fonts/norwester/norwester.ttf');
+    font-weight: normal;
+}
+
+/* 03. Members SETTINGS ============================================ */
+
+#upmlsv-members {
+	padding: 60px 0;
+	text-align: center;	
+}
+
+#upmlsv-members p {
+	color: #4593e3;
+	font-family: 'Open Sans', sans-serif;
+	letter-spacing: 0.2px;
+}
+
+#upmlsv-members h1,h2,h3 {
+	padding: 5px 0 0 5px;
+	text-transform: uppercase;
+	color: #4593e3;
+}
+
+#upmlsv-members a {
+	text-decoration: none;
+	transition: all 0.1s ease-in;
+}
+
+.member-div figure {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+.member-div figure img {
+  min-width: 100%;
+}
+
+.member-div figcaption p {
+  font-size: 1em;
+  color:#fff !important;
+}
+
+
+.member-div h4 {
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+.member-div figcaption {
+  padding: 7px;
+  color: transparent;
+  background-color: transparent;
+  position: absolute;
+  z-index: 996;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.member-div figure:hover figcaption {
+  visibility: visible;
+  color: #fff;
+  background: rgba(69, 147, 227, 0.9);
+  height: 30%;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.member-div figure:hover figcaption ul li a:hover {
+  color: rgba(49, 49, 49, .97);
+}
+
+.member-div figure img {
+  -webkit-transform: scale(1) rotate(0) translateY(0);
+  -moz-transform: scale(1) rotate(0) translateY(0);
+  -o-transform: scale(1) rotate(0) translateY(0);
+  -ms-transform: scale(1) rotate(0) translateY(0);
+  transform: scale(1) rotate(0) translateY(0);
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.member-div figure:hover img {
+  -webkit-transform: scale(1.1) rotate(1deg) translateY(12px);
+  -moz-transform: scale(1.1) rotate(1deg) translateY(12px);
+  -o-transform: scale(1.1) rotate(1deg) translateY(12px);
+  -ms-transform: scale(1.1) rotate(1deg) translateY(12px);
+  transform: scale(1.1) rotate(1deg) translateY(12px);
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.skills{
+	text-align:left;
+	margin:5px;
+}
+
+.progress-bar {
+    background-color: #eef;
+    height: 15px;
+    padding: 2px;
+    margin: 0 0 10px 0;         
+    border-radius: 5px;      
+}
+
+.progress-bar span {
+    display: inline-block;
+    height: 100%;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+    transition: width .4s ease-in-out;    
+	float:left;
+	background-color:#4593e3;
+}
+
+
+/* Social Networks Meta */
+#upmlsv-members li {display: inline-block; padding: 0 6px; font-size: 18px;}
+#upmlsv-members li a {color: rgba(0,0,0, 0.3); transition: all 0.1s ease-in;}
+#upmlsv-members li a:hover {color: rgba(0,0,0, 0.7);}
+
+/* Rows Optimization */
+.row2 {
+	display: none;
+}
+
+.upmlsv-row .col-md-3, .row2 .col-md-3 {
+	padding-bottom: 40px;
+}
+
+/* Mobile Devices Optimization */
+@media (min-width: 568px) and (max-width: 992px) {
+
+	.upmlsv-row .col-md-3, .row2 .col-md-3 {
+		display: inline-block;
+		max-width: 48%;
+	}
+
+	#upmlsv-members img {max-width: 300px;}
+
+}
+
+@media (max-width: 568px) {
+	.member_img img{bottom:70%;}
+}
+/***********************************************/
+.userpro-paginate.top , .userpro-paginate.bottom{
+    display: inline-block;
+    width: 100% !important;
+}
+.avatar {
+     border-radius: 0% !important; 
+}
+.upmlsv-name , .upmlsv-view {
+    color:#4593e3 !important;
+    border-bottom: 0 none !important;
+}
+.upmlsv-name {
+    font-size: 20px;
+}
+.member-div > h2 {
+    margin-top: 5%;
+}
+/*.modified.avatar , .default.avatar {
+    height: 100%;
+    width: 100%;
+}
+.member-div figure {
+    height: 135px;
+    width: 135px;
+}*/
+
+.userpro-search-results , div.userpro-search-results span , .upmlsv-view.userpro-flat-btn.userpro-transition,div.userpro-paginate span, div.userpro-paginate a.page-numbers{
+    color:#4593e3 !important;
+}
+.userpro-transition {
+     box-shadow: none !important;
+}
+
+/**********************/
+.member-div h2 {
+   margin: 8% 0 !important;
+    padding: 0;
+    line-height: 1;
+}
+.entry-title{
+   color: #4593e3 !important; 
+}
+.userpro-profile-icon.userpro-tip {
+    background-color: #4593e3 !important;
+    border: medium none !important;
+}
+#upmlsv-members * {
+    box-shadow: none !important;
+}
+.upmlsv-link {
+    top: 0 !important;
+}
+figure {
+    height: 150px;
+    width: 150px;
+    margin: 0 auto !important;
+    text-align: center;
+}
+.member-div .modified.avatar, .member-div  .default.avatar{
+    height: 100%;
+    width: 100%;
+}
+.member-div .upmln-figure .member-title h2 {
+    display: table;
+    line-height: 0;
+    margin: 0;
+    padding: 10px;
+}

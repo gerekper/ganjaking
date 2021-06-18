@@ -41,22 +41,26 @@
 						}catch(e){}
 					else
 						setContent();	
-					RVS.F.updateSelectsWithSpecialOptions();					
+					RVS.F.updateSelectsWithSpecialOptions();	
+					addon.configpanel.find('.tos2').ddTP('change');
+					RVS.F.initOnOff();				
 				},undefined,undefined,RVS_LANG.loadconfig+'<br><span style="font-size:17px; line-height:25px;">"'+bricks.loadvalues+'"</span>');					
 			} else {
 				$("#"+param.container).append(addon.configpanel);
+				addon.configpanel.find('.tos2').ddTP('change')
 			}
 			
 			//Update Save Config Button
 			RVS.F.configPanelSaveButton({show:true, slug:slug});
 
 			updateInputFieldDependencies();
+			RVS.F.initOnOff();
 		});
 
 		
 		function updateInputFieldDependencies() {
 			RVS.F.initOnOff(addon.configpanel);
-			addon.configpanel.find('.tos2.nosearchbox').select2RS({
+			addon.configpanel.find('.tos2.nosearchbox').ddTP({
 				minimumResultsForSearch:"Infinity",
 				placeholder:"Select From List"
 			});				

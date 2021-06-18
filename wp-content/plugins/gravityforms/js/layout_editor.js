@@ -133,7 +133,8 @@
 	$noFields.droppable( {
 		accept: fieldButtonsSelector,
 		activate: function ( event, ui ) {
-			$( this ).addClass( 'ready' )
+			$noFieldsDropzone.show();
+			$( this ).addClass( 'ready' );
 		},
 		over: function () {
 			$( this ).addClass( 'hovering' );
@@ -147,6 +148,13 @@
 			isNoFieldsDrop = true;
 			$( this ).removeClass( 'hovering' );
 			$noFieldsDropzone.removeClass( 'hovering' );
+			if ( $editorContainer.hasClass( 'form_editor_fields_no_fields' ) ) {
+				gform.simplebar.initializeInstance( $editorContainer[ 0 ] );
+				setTimeout( function() {
+					$noFieldsDropzone.hide();
+					$editorContainer.removeClass( 'form_editor_fields_no_fields' );
+				}, 200 );
+			}
 		},
 		deactivate: function () {
 			$( this ).removeClass( 'ready' );

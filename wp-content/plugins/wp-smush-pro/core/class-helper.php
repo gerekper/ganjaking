@@ -381,4 +381,24 @@ class Helper {
 		return path_join( $upload_path, $original_file );
 	}
 
+	/**
+	 * Gets the WPMU DEV API key.
+	 *
+	 * @since 3.8.6
+	 *
+	 * @return string|false
+	 */
+	public static function get_wpmudev_apikey() {
+		// If API key defined manually, get that.
+		if ( defined( 'WPMUDEV_APIKEY' ) && WPMUDEV_APIKEY ) {
+			return WPMUDEV_APIKEY;
+		}
+
+		// If dashboard plugin is active, get API key from db.
+		if ( class_exists( 'WPMUDEV_Dashboard' ) ) {
+			return get_site_option( 'wpmudev_apikey' );
+		}
+
+		return false;
+	}
 }

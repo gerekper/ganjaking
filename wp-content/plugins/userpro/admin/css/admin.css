@@ -1,0 +1,843 @@
+/* admin header */
+
+
+.default_background_img_src {
+    width: 20% !important;
+}
+
+.ui-datepicker .ui-datepicker-next span, .ui-datepicker .ui-datepicker-prev span {
+    background-image: none !important;
+    background-position: -32px 0;
+    font-weight: normal;
+}
+
+div.description  {
+	display: block;
+	margin: 10px 0 0 0;
+	font-weight: normal;
+	font-style: normal;
+	color: #999;
+	font-size: 11px;
+	line-height: 20px;
+	background: url(../images/help.png) no-repeat left 4px;
+	padding: 0 0 0 20px;
+}
+div.userpro-admin-head {
+	margin: 40px 0 20px 0 !important;
+}
+div.userpro-admin-left{float:left}
+
+
+div.userpro-admin-right {float:right}
+
+span.userpro-admin-span {
+	margin: 0 0 0 30px;
+	font-size: 13px;
+	color: #666;
+}
+
+div.userpro-admin-right {
+	font-size: 14px;
+}
+
+div.userpro-admin-right a {margin: 0 0 0 10px!important}
+/* end header */
+
+div.userpro-admin .button-primary {
+	border-radius: 3px  !important;
+	color: #fff  !important;
+	text-shadow: none !important;
+	box-shadow: none !important;
+	border: 1px solid #353535 !important;
+	background: #444 !important;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#444), to(#333))  !important;
+    background: -moz-linear-gradient(0% 0% 270deg,#444, #333) !important;
+}
+div.userpro-admin .button-primary:hover {
+	border-color: #222 !important;
+	background: #333 !important;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333), to(#222))  !important;
+    background: -moz-linear-gradient(0% 0% 270deg,#333, #222) !important;
+}
+
+div.upadmin-avatar {
+	float: left;
+	margin: 0 15px 0 0;
+	border-radius: 999px;
+}
+
+div.upadmin-avatar img{
+	border-radius: 999px;
+	border: 1px solid #ccc;
+}
+
+span.upadmin-small-name {
+	color: #999 !important;
+	font-size: 11px !important;
+}
+
+div.userpro-admin h3 i {
+	font-size: 15px;
+	margin: 0 8px 0 0;
+}
+
+div.userpro-admin h3 span {
+	border-radius: 999px;
+	padding: 1px 5px;
+	background: #fff;
+	color: #666;
+	font-size: 11px;
+	margin: 0 0 0 10px;
+}
+
+div.userpro-admin p.upadmin-highlight,
+div.userpro-admin .upadmin-highlight {
+	font-size: 12px;
+	line-height: 22px;
+	padding: 20px;
+	color: #777;
+	padding-right: 120px;
+	border-radius: 10px;
+	background: #fff url(../images/light_bulb.png) no-repeat right top;
+}
+
+div.userpro-admin .upadmin-highlight h4 {
+	font-size: 13px;
+	color: #333;
+}
+
+div.userpro-admin code {
+	background: #eee;
+	color: #444;
+	display: inline-block;
+	border-radius: 3px;
+	padding: 4px 6px;
+	margin: 0 4px 0 0 !important;
+	font-family: Arial;
+	font-size: 11px;
+	line-height: 11px;
+	height: 11px;
+}
+
+div.userpro-admin table.form-table textarea.userpro-largeblock {
+	min-height: 200px !important;
+}
+
+div.userpro-admin table.form-table textarea {
+	font-family: Arial;
+	font-size: 12px !important;
+	color: #666;
+}
+
+div.userpro-admin table.form-table th {
+	padding-left: 20px !important;
+	color: #666;
+	font-size: 12px !important;
+}
+
+div.userpro-admin table.form-table,
+div.userpro-admin div.upadmin-panel {
+	display: none;
+	background: #fff;
+	box-shadow: 0 1px 2px #ccc;
+	border-radius: 3px;
+	margin-top: 0!important;
+}
+div.userpro-admin div.upadmin-panel {
+	padding: 10px 20px;
+}
+
+div.userpro-admin div.upadmin-new table.form-table
+{
+	display: block;
+	background: #666 !important;
+	box-shadow:none!important;
+	box-shadow: none;
+	border-radius: 0;
+	margin-top: 0!important;
+}
+div.userpro-admin div.upadmin-new table.form-table th {
+	padding: 8px !important;
+	font-size: 12px !important;
+}
+div.userpro-admin div.upadmin-new table.form-table td {
+	padding: 8px !important;
+}
+
+/* common styles */
+input[type=text].upadmin-standard {
+	padding: 8px !important;
+}
+
+#results-wrap {
+	padding: 15px !important;
+	background: #eee;
+	border-radius: 5px !important;
+	margin: 15px 0 0 0 !important;
+	display: none;
+}
+
+.upadmin-normal {
+	margin: 20px 0 0 0;
+}
+
+.upadmin h4{margin: 0 0 5px 0;}
+.upadmin h3 {font-size: 16px !important;margin:0 0 10px 0!important;padding:0!important;}
+.upadmin h2 {position: relative}
+.upadmin h2 a.upadmin-reset-fields,
+.upadmin h2 a.upadmin-reset-groups{
+	position: absolute;
+	top: 12px;
+	right: 0;
+}
+
+.upadmin p{
+	font-size: 12px;
+	line-height: 19px;
+	color: #888;
+	margin:0;padding:0;
+	padding: 10px 0;
+}
+
+.upadmin-groups {
+	float: left;
+	width: 55%;
+	margin-right: 5%;
+}
+
+.upadmin-groups ul li.field {
+	margin-left: 30px !important;
+	width: auto;
+}
+
+.upadmin ul li.field span.ufieldkey,
+.upadmin ul li.heading span.ufieldkey {
+	color: #888;
+	background: #ddd;
+	padding: 1px 4px;
+	border-radius: 2px;
+	margin: 0 0 0 4px;
+}
+
+.upadmin ul li.field.woo-1,
+div.upadmin-groups ul li.field.woo-1 {
+	background-color: #f5f5f5 !important;
+	background-image: url(../images/woocommerce.png) !important;
+	background-position: 8px center !important;
+	background-repeat: no-repeat !important;
+	padding-left: 30px !important;
+}
+
+.upadmin ul li.heading span {
+	background-image: url(../images/section.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+	padding: 0 0 0 24px;
+}
+
+.upadmin ul li.heading .upadmin-field-zone span {
+	background-image: none !important;
+	padding: 0!important;
+}
+
+.upadmin-fieldlist {
+	float: right;
+	width: 40%;
+}
+
+.upadmin-section {border-bottom: 1px solid #ddd;padding: 20px 0 0 0;}
+
+#upadmin-newsection li,
+#upadmin-sortable-fields li,
+div.upadmin-groups li {
+	width: 100%;
+	color: #444;
+	font-size: 12px;
+	padding: 6px 15px;
+    background: #fefefe;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fefefe), to(#f5f5f5));
+    background: -moz-linear-gradient(0% 0% 270deg,#fefefe, #f5f5f5);
+	margin: 5px 0;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	cursor: move;
+	position: relative;
+}
+
+.upadmin-loader {margin: 15px 0 0 0;height: 30px;}
+.upadmin-loader.loading{background: url(../images/loading.gif) no-repeat center}
+
+img.upadmin-load-inline {
+	margin: 0 0 0 10px;
+	position: relative;
+	top: 4px;
+	display: none;
+}
+
+.upadmin-errors {
+	padding: 10px 0 0 0;
+	color: #cc0000;
+}
+
+.upadmin-new {
+	padding: 10px;
+	position: relative;
+	background: #666;
+	border-radius: 5px;
+	margin: 0 0 20px 0;
+	display: none;
+}
+
+.upadmin-new i {
+	position: absolute;
+	top: -20px;
+	left: 20px;
+	font-size: 30px;
+	color: #666;
+}
+.upadmin-new label, .upadmin-new th{color: #fff !important;text-shadow:none!important}
+
+.upadmin-new input[type=text],
+.upadmin-new textarea{
+	width: 250px !important;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 5px 10px;
+}
+
+.upadmin-new input[type=text].error {
+	background: #ffc4c4!important;
+}
+.upadmin-new span.error-text{display: block;color: #ffc4c4!important;font-size: 12px;margin: 3px 0;}
+
+.upadmin-new span.description {font-size: 11px;color: #ccc!important}
+
+.upadmin-new .choicebased,
+.upadmin-new .filetypes
+ {display: none}
+
+.upadmin-tpl {margin: 15px 0 0 0}
+
+.upadmin-tpl-head {
+	width: 100%;
+	color: #444;
+	font-size: 12px;
+	padding: 10px 15px;
+    background: #fefefe;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fefefe), to(#f5f5f5));
+    background: -moz-linear-gradient(0% 0% 270deg,#fefefe, #f5f5f5);
+	border: 1px solid #ddd;
+	border-bottom: 0;
+	border-radius: 3px 3px 0 0;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	font-weight: bold;
+	position: relative;
+}
+.upadmin-tpl-head.max {
+	border-radius: 3px;
+	border-bottom: 1px solid #ddd;
+}
+.upadmin-tpl-head img {position: absolute; top: 11px; margin: 0 0 0 15px}
+
+.upadmin-tpl-body {
+	border: 1px solid #ddd;
+	border-radius: 0 0 3px 3px;
+	padding: 20px;
+}
+.upadmin-tpl-body.max {display:none}
+
+.upadmin-icon-abs {
+	position: absolute;
+	top: 5px;
+	right: 0;
+}
+.upadmin-icon-abs a {
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin: 5px 15px 0 0;
+}
+.upadmin-icon-abs a.button {
+	float: left;
+	width: auto;
+	height: auto;
+	margin: 0 15px 0 0;
+}
+.upadmin-icon-abs a.min {background: url(../images/minimize.png) no-repeat center}
+.upadmin-icon-abs a.max {background: url(../images/maximize.png) no-repeat center}
+
+/* legend info */
+.upadmin-legend {float: left;}
+.upadmin-legend div {
+	float: left;
+	line-height: 16px;
+	background-position: left 0;
+	padding: 0 30px;
+	margin: 0 0 10px 0;
+	width: 40%;
+	font-size: 11px;
+}
+
+/* field actions in admin */
+.upadmin-fieldlist .upadmin-field-actions {display: none !important}
+#upadmin-sortable-fields .upadmin-field-actions{display: block!important;}
+#upadmin-sortable-fields .upadmin-field-actions a.upadmin-field-action {display:none!important;}
+.upadmin-tpl-view .upadmin-field-actions a.upadmin-field-action {display:none!important;}
+.upadmin-tpl-login .upadmin-field-actions a.upadmin-field-action {display:none!important;}
+.upadmin-tpl-social .upadmin-field-actions a.upadmin-field-action {display:none!important;}
+
+.upadmin-field-actions {
+	position: absolute;
+	right: 0;
+	top: 8px;
+	display: block;
+}
+
+.upadmin-field-actions a {
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin: 0 15px 0 0;
+}
+
+.upadmin-field-action-remove {background: url(../images/remove.png) no-repeat center;}
+.upadmin-field-action-edit {background: url(../images/edit.png) no-repeat center;}
+.upadmin-tpl-social .upadmin-field-actions a.upadmin-field-action-edit {display:none!important}
+.upadmin-field-action-hideable {background: url(../images/hideable.png) no-repeat center;}
+.upadmin-field-action-hidden {background: url(../images/hidden.png) no-repeat center;}
+.upadmin-field-action-required {background: url(../images/required.png) no-repeat center;}
+.upadmin-field-action-locked {background: url(../images/locked.png) no-repeat center;}
+.upadmin-field-action-private {background: url(../images/private.png) no-repeat center;}
+.upadmin-field-action-html {background: url(../images/html.png) no-repeat center;}
+
+.upadmin-field-actions .off {opacity: 0.3}
+.upadmin-field-actions .none {opacity: 0;cursor:default}
+
+/* misc/other settings zone */
+.upadmin-field-zone {
+	background: #fdfdfd;
+	padding: 15px;
+	border: 1px solid #eee;
+	margin: 15px 0 0 0;
+	display: none;
+	position: relative;
+}
+
+.upadmin-field-zone-cancel {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 16px;
+	height: 16px;
+	background: url(../images/cancel.png) no-repeat center;
+}
+
+.upadmin-field-zone input,
+.upadmin-field-zone select{
+	color: #999;
+	box-shadow: inset 0 1px 6px rgba(0, 0, 0, 0.2);
+	margin: 8px 0px;
+}
+
+.upadmin-field-zone-desc {
+	margin: 0 10px;
+	font-size: 11px;
+	font-weight: bold;
+	display: inline-block;
+	width:50%;
+}
+
+/* misc settings */
+.upadmin-broken {
+	background: #be6464;
+	border: 1px solid #933535;
+	color: #fff;
+	padding: 4px 10px;
+	border-radius: 3px;
+	display: inline-block;
+}
+
+a.upadmin-inline {
+	margin: 0 15px !important;
+	display: inline-block;
+}
+.userpro-admin  table.form-table input[type=text] {
+	display: block;
+	padding: 6px 8px !important;
+	width: 100% !important;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0 !important;
+	font-size: 12px !important;
+	background: #f9f9f9;
+	color: #666;
+}
+.userpro-admin  table.form-table input[type=text]:hover {background: #fff}
+.userpro-admin  table.form-table input[type=text].small-text {width: 200px !important}
+.userpro-admin  table.form-table td p {margin: 5px 0!important}
+.userpro-admin table.form-table input[type=text].userpro-admin-hide-input {display: none}
+
+.userpro-admin table.form-table td label {
+	font-size: 12px;
+	color: #666 !important;
+}
+
+/* special role/field table */
+table.form-table-fieldroles th  {width: 25% !important}
+table.form-table-fieldroles tr {border-bottom: 1px solid #eee}
+table.form-table-fieldroles td label {margin: 0 10px 0 0;color: #999!important}
+table.form-table-fieldroles label {cursor: default !important}
+table.form-table-fieldroles label span {
+	background: #eee;
+	color: #777;
+	text-shadow: none !important;
+	padding: 1px 5px;
+	border-radius: 3px;
+	margin: 0 0 0 10px;
+}
+
+/* admin dashboard */
+.userpro-admin .upadmin-parent {
+}
+
+.userpro-admin .upadmin-sub{margin: 0 0 0 16px;}
+
+/* pending verification table */
+.upadmin-bubble-new {
+	border-radius: 999px;
+	padding: 2px 8px;
+	background: #fff;
+	color: #333;
+	margin: 0 5px 0 0;
+}
+
+p.restrict_roles {
+	display: none;
+}
+
+p.restrict_roles div.chosen-container {width: 100% !important}
+
+div.userpro-rate-me-bubble{
+	position: absolute;
+/*   width: 150px; */
+/*   height: 100px; */
+  text-align: center;
+/*   line-height: 100px; */
+  background-color: #47a5d6;
+/*   border: 8px solid #666; */
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -webkit-box-shadow: 2px 2px 4px #888;
+  -moz-box-shadow: 2px 2px 4px #888;
+  box-shadow: 2px 2px 4px #888;
+ 	right: 132px;
+    top: 70px;
+    color:#fff;
+    display:none;
+}
+
+.up-rating-close {
+    float: right;
+    padding-right: 15px;
+    padding-top: 7px;
+    cursor:pointer;
+}
+
+.up-rating-text {
+    padding: 10px;
+}
+.userpro-icon-close:before{content:"\f00d";}
+
+div.userpro-rate-me-bubble:after {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  /*left: 38px;
+  top: 55px;*/
+  border: 15px solid;
+  border-color: #47a5d6 transparent transparent #47a5d6;
+}
+
+.bounce {
+    animation-name: bounce;
+    transform-origin: center bottom 0;
+}
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes bounce {
+  from, 20%, 53%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+  }
+
+  40%, 43% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    -webkit-transform: translate3d(0, -30px, 0);
+    transform: translate3d(0, -30px, 0);
+  }
+
+  70% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    -webkit-transform: translate3d(0, -15px, 0);
+    transform: translate3d(0, -15px, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(0,-4px,0);
+    transform: translate3d(0,-4px,0);
+  }
+}
+
+@keyframes bounce {
+  from, 20%, 53%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+  }
+
+  40%, 43% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    -webkit-transform: translate3d(0, -30px, 0);
+    transform: translate3d(0, -30px, 0);
+  }
+
+  70% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    -webkit-transform: translate3d(0, -15px, 0);
+    transform: translate3d(0, -15px, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(0,-4px,0);
+    transform: translate3d(0,-4px,0);
+  }
+}
+
+.bounceInUp {
+    animation-name: bounceInUp;
+}
+
+@-webkit-keyframes bounceInUp {
+  from, 60%, 75%, 90%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 3000px, 0);
+    transform: translate3d(0, 3000px, 0);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, -20px, 0);
+    transform: translate3d(0, -20px, 0);
+  }
+
+  75% {
+    -webkit-transform: translate3d(0, 10px, 0);
+    transform: translate3d(0, 10px, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(0, -5px, 0);
+    transform: translate3d(0, -5px, 0);
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes bounceInUp {
+  from, 60%, 75%, 90%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 3000px, 0);
+    transform: translate3d(0, 3000px, 0);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, -20px, 0);
+    transform: translate3d(0, -20px, 0);
+  }
+
+  75% {
+    -webkit-transform: translate3d(0, 10px, 0);
+    transform: translate3d(0, 10px, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(0, -5px, 0);
+    transform: translate3d(0, -5px, 0);
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.bounceInUp {
+  -webkit-animation-name: bounceInUp;
+  animation-name: bounceInUp;
+}
+
+@-webkit-keyframes bounceOut {
+  20% {
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
+  }
+
+  50%, 55% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
+  }
+}
+
+/**************** Available addon CSS *********************/
+
+.userpro-addon-grid{
+	display: inline-block;
+    height: auto;
+    margin-bottom: 8px;
+    width: 350px;
+}
+
+.userpro-addon-container{
+	background: #313131 none repeat scroll 0 0;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px #bbb;
+    color: #fff;
+    display: inline-block;
+    padding: 10px;
+}
+
+.userpro-addon-meta-info{
+	float: left;
+	min-height: 125px;
+}
+
+.userpro-addon-meta-title{
+	 float: left;
+    font-size: 90%;
+    padding-bottom: 10px !important;
+    text-align: left;
+    width: 100%;
+}
+
+.userpro-addon-grid-inner{
+	cursor: pointer;
+    float: left;
+    position: relative;
+    width: 100%;
+}
+
+.userpro-addon-img{
+	 display: block;
+    float: left;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.userpro-addon-img img{
+	width:100%;
+	height:100%;
+}
+
+.userpro-addons-container {
+    padding-top: 4%;
+}
+
+.userpro-addon-meta-buy {
+    background-color: #a46497;
+    border-radius: 5px;
+    color: #fff;
+    display: inline-block;
+    padding: 5px 12px;
+    text-decoration: none;
+/*     float: right; */
+}
+
+.userpro-addon-meta-description {
+    padding-bottom: 10px;
+/*     float: left; */
+}
+
+.userpro-addon-meta-title > a {
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.up-upsell-strip {
+    background-color: #27a691;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 15px;
+    padding: 14px;
+    text-align: center;
+    width: 95%;
+}
+
+.userpro-preview-container {
+    background-color: #fff;
+}
+
+.up-service-message {
+    background-color: #4CAF50;
+    padding: 10px;
+    color: #fff;
+    display:none;
+}
+
+.up-service-loading {
+    text-align: center;
+    display:none;
+}
+#containere{
+	display: flex;
+	flex-wrap: wrap;
+}
+#containere > .upadmin-pending-verify {
+	padding: 20px;
+	text-align: center;
+}

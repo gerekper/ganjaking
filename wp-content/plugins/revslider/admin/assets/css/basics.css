@@ -152,7 +152,7 @@
 #rbm_quickguide,
 #rbm_quickguide .rbm_content { width: 1200px;  }
 #rbm_quickguide .rbm_content { position: relative;  height:750px; overflow: hidden}
-#rbm_globalsettings{ width: 1000px; min-height: 800px; }
+#rbm_globalsettings{ width: 1000px; min-height: 900px; }
 #rbm_globalfontsettings{ width: 860px;}
 #rbm_decisionModal { width: 500px; min-height: 300px; }
 #rbm_globalfontsettings .rbm_content,

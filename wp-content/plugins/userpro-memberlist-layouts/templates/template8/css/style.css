@@ -1,0 +1,201 @@
+/* 01. GENERAL SETTINGS ============================================ */
+
+* {margin: 0; padding: 0;}
+
+p {line-height: 160%;}
+
+img {border: 0;}
+
+#upmle-members {
+	background: #fff;
+	color: #fff !important;
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size: 13px;
+	font-weight: 300;
+}
+
+.clear {clear: both;}
+
+/* Buttons */
+.btn {
+	display: inline-block;
+	margin-top: 20px;
+	padding: 10px 40px;
+	color: rgba(255,255,255, 0.95);
+	font-size: 18px;
+	font-weight: 700;
+	text-transform: uppercase;
+	border: none;
+	border-radius: 20px;
+	outline: 0;
+	transition: all 0.1s ease-in;
+}
+
+.btn-transparent {background: rgba(0,0,0, 0.2);}
+.btn-transparent:hover {background: rgba(0,0,0, 0.4);}
+
+/* Separators */
+.separator {
+	margin: 0 auto;
+	background: rgba(0, 0, 0, 0.2);
+	width: 30px;
+	height: 5px;
+}
+
+/* 02. FONT FACE ============================================ */
+
+@font-face {
+    font-family: 'norwester';
+	src: url('../fonts/norwester/norwester.eot');
+    src: url('../fonts/norwester/norwester.eot?iefix') format('embedded-opentype'),
+		 url('../fonts/norwester/norwester.ttf');
+    font-weight: normal;
+}
+
+/* 03. Members SETTINGS ============================================ */
+
+#upmle-members {
+	padding: 60px 0;
+	text-align: center;	
+}
+
+#upmle-members p {
+	padding: 20px 0 60px;
+	color: #4593e3;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	letter-spacing: 0.2px;
+}
+
+#upmle-members h3 {
+	padding: 0 0 15px;
+	font-family: 'norwester';
+	font-size: 36px;
+	text-transform: uppercase;
+	color: #4593e3;
+}
+
+#upmle-members a {
+	text-decoration: none;
+	color: #fff; 
+	transition: all 0.1s ease-in;
+}
+.member-details{text-align:center;margin:25px;}
+.member-details .name{font-size: 22px;text-transform: uppercase;}
+
+.member_img img{
+    max-width: 150px;
+    left: 0;
+    margin: auto;
+    right: 0;
+    bottom: 65%;
+    border-radius:50%;
+    padding:9%;
+}
+.member_img
+{
+    z-index: 10;
+    transition: all .2s ease-in-out;
+    padding : 10%;
+}
+.member-section-style-4{text-align:center;}
+
+.member-inner-div
+{
+	background-color: #4593e3;
+	padding-bottom:5%;
+}
+
+.member-outer-div{
+	margin: 27% 0 16% 0;
+	text-align:center;
+	
+}
+.member_img:hover img { 
+	transition: all 0.5s ease;
+	transform: scale(1.1);
+	border-color:#4E88C3; 
+	}
+
+	
+
+/* Social Networks Meta */
+#upmle-members li {display: inline-block; padding: 2% 3%; margin: 0 3%; font-size: 18px; background:#fff;}
+#upmle-members li a {color:#4593e3; transition: all 0.1s ease-in;}
+#upmle-members li a:hover {color: rgba(0,0,0, 0.7);}
+
+/* Rows Optimization */
+.row2 {
+	display: none;
+}
+
+.row1 .col-md-3, .row2 .col-md-3 {
+	padding-bottom: 40px;
+}
+
+/* Mobile Devices Optimization */
+@media (min-width: 568px) and (max-width: 992px) {
+
+	.row1 .col-md-3, .row2 .col-md-3 {
+		display: inline-block;
+		max-width: 48%;
+	}
+
+	#upmle-members img {max-width: 300px;}
+
+}
+
+@media (max-width: 568px) {
+	.member_img img{bottom:70%;}
+}
+/***********************************************/
+.userpro-paginate.top, .userpro-paginate.bottom {
+    display: inline-block;
+    width: 100% !important;
+}
+.userpro-search-results , div.userpro-search-results span , .upmlsv-view.userpro-flat-btn.userpro-transition,div.userpro-paginate span, div.userpro-paginate a.page-numbers{
+    color:#4593e3 !important;
+}
+.member_img {
+    background-size: cover;
+    margin: 0 auto;
+    text-align: center;
+}
+.member_img img {
+    padding: 3% ;
+}
+.upmle-name {
+    font-size: 20px;
+}
+.upmle-name , .upmle-view{
+    border-bottom: 0 none !important;
+}
+.userpro-transition {
+     box-shadow: none !important;
+}
+.upmln-figure {
+    margin: 0 auto !important;
+    text-align: center;
+}
+.entry-title{
+   color: #4593e3 !important; 
+}
+.userpro-profile-icon.userpro-tip {
+    background-color: #4593e3 !important;
+    border: medium none !important;
+}
+.upmle-user {
+    padding : 5% 1%;
+}
+.upmle-name  {
+    line-height: 1;
+}
+.upmle-name.userpro-transition , .member-details .description {
+    color: #fff !important;
+}
+.entry-content a img, .widget a img {
+    box-shadow: none !important;
+}
+.member_img a {
+    text-decoration: none !important;
+}

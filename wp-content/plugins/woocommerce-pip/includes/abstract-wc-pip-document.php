@@ -1080,7 +1080,7 @@ abstract class WC_PIP_Document {
 			$product  = isset( $item_data['product_id'] ) ? wc_get_product( $item_data['product_id'] ) : null;
 			$item_qty = isset( $item_data['qty'] ) ? max( 0, (float) $item_data['qty'] ) : 1;
 
-			if ( $this->maybe_hide_virtual_item( $product ) || $this->maybe_hide_deleted_product( $product ) ) {
+			if ( $this->maybe_hide_virtual_item( $item_data ) || $this->maybe_hide_deleted_product( $product ) ) {
 				continue;
 			}
 
@@ -2198,7 +2198,7 @@ abstract class WC_PIP_Document {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param \WC_Order_Item_Product|\WC_Product $item product or order item object
+	 * @param \WC_Order_Item_Product|array $item order item object or order item data
 	 * @return bool default false (do not hide)
 	 */
 	protected function maybe_hide_virtual_item( $item ) : bool {
@@ -2210,8 +2210,10 @@ abstract class WC_PIP_Document {
 
 		if ( $item instanceof \WC_Order_Item ) {
 			$product = $item->get_product();
+		} elseif ( is_array( $item ) && isset( $item['product_id'] ) ) {
+			$product = wc_get_product( (int) $item['product_id'] );
 		} else {
-			$product = $item;
+			return false;
 		}
 
 		if ( ! $product instanceof \WC_Product ) {
@@ -2229,10 +2231,10 @@ abstract class WC_PIP_Document {
 		 *
 		 * @since 3.1.1
 		 *
-		 * @param bool $hide_virtual_item Whether we're hiding an item or not
+		 * @param bool $hide_virtual_item whether we're hiding an item or not
 		 * @param \WC_Product $product Product object
-		 * @param array|\WC_Order_Item_Product $item Order item
-		 * @param \WC_Order $order Order object
+		 * @param \WC_Order_Item_Product|array $item order item object or order item data
+		 * @param \WC_Order $order order object
 		 */
 		return (bool) apply_filters( "wc_pip_{$this->type}_hide_virtual_item", $hide_virtual_item, $product, $item, $this->order );
 	}

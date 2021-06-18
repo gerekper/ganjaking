@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Holiday Snow
 Plugin URI: http://www.themepunch.com/
 Description: Add animated snow to any Slider
 Author: ThemePunch
-Version: 2.0.1
+Version: 3.0.1
 Author URI: http://themepunch.com
 */
 

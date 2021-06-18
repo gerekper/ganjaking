@@ -41,6 +41,10 @@ $has_tickets = count( $tickets ) > 0;
 			$ticket  = wc_box_office_get_ticket( $ticket );
 			$order   = $ticket->order;
 			$product = $ticket->product;
+
+			if ( ! is_a( $ticket->product, 'WC_Product' ) ) {
+				continue;
+			}
 			?>
 			<tr>
 				<td class="ticket-product">

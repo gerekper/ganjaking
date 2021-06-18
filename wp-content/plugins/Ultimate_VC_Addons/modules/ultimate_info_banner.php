@@ -2,18 +2,18 @@
 /**
  * Add-on Name: Info Banner.
  *
- * @package Ultimate_Info_Banner.
+ * @package Ultimate_VC_Addons_Info_Banner.
  */
 
-if ( ! class_exists( 'Ultimate_Info_Banner' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Info_Banner' ) ) {
 	/**
-	 * Ultimate_Info_Banner.
+	 * Ultimate_VC_Addons_Info_Banner.
 	 *
-	 * @class Ultimate_Info_Banner.
+	 * @class Ultimate_VC_Addons_Info_Banner.
 	 */
-	class Ultimate_Info_Banner {
+	class Ultimate_VC_Addons_Info_Banner {
 		/**
-		 * Constructor function that constructs default values for the Ultimate_Info_Banner.
+		 * Constructor function that constructs default values for the Ultimate_VC_Addons_Info_Banner.
 		 *
 		 * @method __construct
 		 */
@@ -30,9 +30,9 @@ if ( ! class_exists( 'Ultimate_Info_Banner' ) ) {
 		 * @method register_info_banner_assets
 		 */
 		public function register_info_banner_assets() {
-			Ultimate_VC_Addons::ultimate_register_style( 'utl-info-banner-style', 'info-banner' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-info-banner-style', 'info-banner' );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'utl-info-banner-script', 'info-banner', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-info-banner-script', 'info-banner', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 		/**
 		 *  Function Init.
@@ -583,17 +583,17 @@ if ( ! class_exists( 'Ultimate_Info_Banner' ) ) {
 			$infobnr_design = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $ult_info_banner_settings['css_infobanner'], ' ' ), 'ultimate_info_banner', $atts );
 			$infobnr_design = esc_attr( $infobnr_design );
 			/* typography */
-			$title_style_inline  = '';
-			$desc_style_inline   = '';
-			$button_style_inline = '';
+			$uavc_title_style_inline = '';
+			$uavc_desc_style_inline  = '';
+			$button_style_inline     = '';
 			if ( '' != $ult_info_banner_settings['title_font_family'] ) {
 				$temp = get_ultimate_font_family( $ult_info_banner_settings['title_font_family'] );
 				if ( '' != $temp ) {
-					$title_style_inline .= 'font-family:' . $temp . ';';
+					$uavc_title_style_inline .= 'font-family:' . $temp . ';';
 				}
 			}
 
-			$title_style_inline .= get_ultimate_font_style( $ult_info_banner_settings['title_font_style'] );
+			$uavc_title_style_inline .= get_ultimate_font_style( $ult_info_banner_settings['title_font_style'] );
 
 			if ( is_numeric( $ult_info_banner_settings['title_font_size'] ) ) {
 				$ult_info_banner_settings['title_font_size'] = 'desktop:' . $ult_info_banner_settings['title_font_size'] . 'px;';
@@ -611,17 +611,17 @@ if ( ! class_exists( 'Ultimate_Info_Banner' ) ) {
 			);
 			$info_banner_data_list = get_ultimate_vc_responsive_media_css( $info_banner_args );
 			if ( '' != $ult_info_banner_settings['title_color'] ) {
-				$title_style_inline .= 'color:' . $ult_info_banner_settings['title_color'] . ';';
+				$uavc_title_style_inline .= 'color:' . $ult_info_banner_settings['title_color'] . ';';
 			}
 
 			if ( '' != $ult_info_banner_settings['desc_font_family'] ) {
 				$temp = get_ultimate_font_family( $ult_info_banner_settings['desc_font_family'] );
 				if ( '' != $temp ) {
-					$desc_style_inline .= 'font-family:' . $temp . ';';
+					$uavc_desc_style_inline .= 'font-family:' . $temp . ';';
 				}
 			}
 
-			$desc_style_inline .= get_ultimate_font_style( $ult_info_banner_settings['desc_font_style'] );
+			$uavc_desc_style_inline .= get_ultimate_font_style( $ult_info_banner_settings['desc_font_style'] );
 
 			if ( is_numeric( $ult_info_banner_settings['desc_font_size'] ) ) {
 				$ult_info_banner_settings['desc_font_size'] = 'desktop:' . $ult_info_banner_settings['desc_font_size'] . 'px;';
@@ -641,7 +641,7 @@ if ( ! class_exists( 'Ultimate_Info_Banner' ) ) {
 			$info_banner_desc_data_list = get_ultimate_vc_responsive_media_css( $info_banner_desc_args );
 
 			if ( '' != $ult_info_banner_settings['desc_color'] ) {
-				$desc_style_inline .= 'color:' . $ult_info_banner_settings['desc_color'] . ';';
+				$uavc_desc_style_inline .= 'color:' . $ult_info_banner_settings['desc_color'] . ';';
 			}
 
 			if ( '' != $ult_info_banner_settings['button_font_family'] ) {
@@ -711,10 +711,10 @@ if ( ! class_exists( 'Ultimate_Info_Banner' ) ) {
 				$output .= '<div id="' . esc_attr( $info_banner_id ) . '" class="ultb3-info ' . esc_attr( $ult_info_banner_settings['info_alignment'] ) . '" data-animation="' . esc_attr( $ult_info_banner_settings['info_effect'] ) . '" data-animation-delay="03">';
 
 			if ( '' != $ult_info_banner_settings['banner_title'] ) {
-				$output .= '<' . $ult_info_banner_settings['heading_tag'] . ' class="ultb3-title ult-responsive" ' . $info_banner_data_list . ' style="' . esc_attr( $title_style_inline ) . '">' . $ult_info_banner_settings['banner_title'] . '</' . $ult_info_banner_settings['heading_tag'] . '>';
+				$output .= '<' . $ult_info_banner_settings['heading_tag'] . ' class="ultb3-title ult-responsive" ' . $info_banner_data_list . ' style="' . esc_attr( $uavc_title_style_inline ) . '">' . $ult_info_banner_settings['banner_title'] . '</' . $ult_info_banner_settings['heading_tag'] . '>';
 			}
 			if ( '' != $ult_info_banner_settings['banner_desc'] ) {
-				$output .= '<div class="ultb3-desc ult-responsive" ' . $info_banner_desc_data_list . ' style="' . esc_attr( $desc_style_inline ) . '">' . $ult_info_banner_settings['banner_desc'] . '</div>';
+				$output .= '<div class="ultb3-desc ult-responsive" ' . $info_banner_desc_data_list . ' style="' . esc_attr( $uavc_desc_style_inline ) . '">' . $ult_info_banner_settings['banner_desc'] . '</div>';
 			}
 			if ( '' != $ult_info_banner_settings['button_text'] ) {
 				if ( '' != $target ) {
@@ -816,8 +816,8 @@ if ( ! class_exists( 'Ultimate_Info_Banner' ) ) {
 		}
 	}
 }
-if ( class_exists( 'Ultimate_Info_Banner' ) ) {
-	$ultimate_info_banner = new Ultimate_Info_Banner();
+if ( class_exists( 'Ultimate_VC_Addons_Info_Banner' ) ) {
+	$ultimate_info_banner = new Ultimate_VC_Addons_Info_Banner();
 }
 
 if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Info_Banner' ) ) {

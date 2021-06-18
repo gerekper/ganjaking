@@ -2,16 +2,16 @@
 /**
  *  UAVC Ultimate Buttons module file
  *
- *  @package Ultimate Buttons
+ *  @package Ultimate_VC_Addons_Buttons
  */
 
-if ( ! class_exists( 'Ultimate_Buttons' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Buttons' ) ) {
 		/**
 		 * Function that initializes Ultimate Buttons Module
 		 *
-		 * @class Ultimate_Buttons
+		 * @class Ultimate_VC_Addons_Buttons
 		 */
-	class Ultimate_Buttons {
+	class Ultimate_VC_Addons_Buttons {
 				/**
 				 * Constructor function that constructs default values for the Ultimate Buttons module.
 				 *
@@ -21,7 +21,7 @@ if ( ! class_exists( 'Ultimate_Buttons' ) ) {
 			if ( Ultimate_VC_Addons::$uavc_editor_enable ) {
 				add_action( 'init', array( $this, 'init_buttons' ) );
 			}
-			add_shortcode( 'ult_buttons', array( $this, 'ult_buttons_shortcode' ) );
+				add_shortcode( 'ult_buttons', array( $this, 'ult_buttons_shortcode' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'button_admin_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'advanced_button_scripts' ), 1 );
 		}
@@ -32,7 +32,7 @@ if ( ! class_exists( 'Ultimate_Buttons' ) ) {
 		 * @access public
 		 */
 		public function advanced_button_scripts() {
-			Ultimate_VC_Addons::ultimate_register_style( 'ult-btn', 'advanced-buttons' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-btn', 'advanced-buttons' );
 		}
 		/**
 		 * Function for button admin script
@@ -48,7 +48,7 @@ if ( ! class_exists( 'Ultimate_Buttons' ) ) {
 					$js_path  = UAVC_URL . '/assets/js/';
 					$css_path = UAVC_URL . '/assets/css/';
 					$ext      = '';
-					wp_enqueue_style( 'ult-button', $css_path . 'advanced-buttons' . $ext . '.css', null, ULTIMATE_VERSION, 'all' );
+					wp_enqueue_style( 'ultimate-vc-addons-button', $css_path . 'advanced-buttons' . $ext . '.css', null, ULTIMATE_VERSION, 'all' );
 				}
 			}
 		}
@@ -139,8 +139,8 @@ if ( ! class_exists( 'Ultimate_Buttons' ) ) {
 			$css_btn_design = esc_attr( $css_btn_design );
 
 			if ( 'yes' == $ult_ub_settings['enable_tooltip'] ) {
-				wp_enqueue_script( 'ultimate-tooltip' );
-				wp_enqueue_style( 'ultimate-tooltip' );
+				wp_enqueue_script( 'ultimate-vc-addons-tooltip' );
+				wp_enqueue_style( 'ultimate-vc-addons-tooltip' );
 				$tooltip       .= 'data-toggle="tooltip" data-placement="' . esc_attr( $ult_ub_settings['tooltip_pos'] ) . '" title="' . esc_attr( $ult_ub_settings['tooltip_text'] ) . '"';
 				$tooltip_class .= ' ubtn-tooltip ' . $ult_ub_settings['tooltip_pos'];
 			}
@@ -333,13 +333,6 @@ if ( ! class_exists( 'Ultimate_Buttons' ) ) {
 				$output = $html;
 			}
 
-			if ( '' !== $ult_ub_settings['enable_tooltip'] ) {
-				$output .= '<script>
-					jQuery(function () {
-						jQuery(".tooltip-' . esc_attr( $uniqid ) . '").bsf_tooltip();
-					})
-				</script>';
-			}
 			$is_preset = false;
 			if ( isset( $_GET['preset'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$is_preset = true;
@@ -923,7 +916,7 @@ if ( ! class_exists( 'Ultimate_Buttons' ) ) {
 			}
 		}
 	}
-	new Ultimate_Buttons();
+	new Ultimate_VC_Addons_Buttons();
 
 	if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ult_Buttons' ) ) {
 			/**

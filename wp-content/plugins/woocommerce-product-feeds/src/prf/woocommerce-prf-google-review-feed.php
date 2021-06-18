@@ -29,6 +29,11 @@ class WoocommercePrfGoogleReviewFeed {
 	private $cache;
 
 	/**
+	 * @var WoocommerceProductFeedsFeedConfig
+	 */
+	private $feed_config;
+
+	/**
 	 * Constructor.
 	 *
 	 * Registers the hooks needed to generate the feed.
@@ -47,33 +52,15 @@ class WoocommercePrfGoogleReviewFeed {
 		$this->woocommerce_prf_google = $woocommerce_prf_google;
 	}
 
-	public function initialise() {
-		// Register permalink style endpoints so we can make this work on WPEngine.com
-		add_action( 'template_redirect', array( $this, 'maybe_render_feed' ), 99 );
-	}
-
 	/**
-	 * Inspect the query to see if we need to output a feed or not.
+	 * @param $feed_config
 	 */
-	public function maybe_render_feed() {
-
-		global $wp_query;
-
-		if ( $wp_query && isset( $wp_query->query_vars['woocommerce_gpf'] ) ) {
-			switch ( $wp_query->query_vars['woocommerce_gpf'] ) {
-				case 'googlereview':
-					$this->feed_type = 'googlereview';
-					$this->feed      = $this->woocommerce_prf_google;
-					break;
-			}
-		}
-
-		// Add actions to generate feed if this is a feed request.
-		if ( ! empty( $this->feed ) ) {
-			$this->render_feed();
-		}
+	public function initialise( $feed_config ) {
+		$this->feed_config = $feed_config;
+		$this->feed_type   = $this->feed_config->type;
+		$this->feed        = $this->woocommerce_prf_google;
+		add_action( 'template_redirect', [ $this, 'render_feed' ], 99 );
 	}
-
 
 	/**
 	 * Set up WordPress for best performance rendering the feed on a variety of hosts / configs. Then
@@ -83,6 +70,7 @@ class WoocommercePrfGoogleReviewFeed {
 	 */
 	public function render_feed() {
 		global $wpdb;
+
 		// Don't cache feed under WP Super-Cache
 		define( 'DONOTCACHEPAGE', true );
 
@@ -99,7 +87,7 @@ class WoocommercePrfGoogleReviewFeed {
 		// the contribution threshold.
 		if ( function_exists( 'wc_product_reviews_pro' ) ) {
 			$wcprp_frontend = wc_product_reviews_pro()->get_frontend_instance();
-			remove_action( 'pre_get_comments', array( $wcprp_frontend, 'handle_contributions_threshold' ), - 1 );
+			remove_action( 'pre_get_comments', array( $wcprp_frontend, 'handle_contributions_threshold' ), -1 );
 		}
 
 		$this->render_items();
@@ -112,7 +100,7 @@ class WoocommercePrfGoogleReviewFeed {
 	 */
 	public function render_items() {
 
-		global $wp_query, $_wp_using_ext_object_cache;
+		global $_wp_using_ext_object_cache;
 
 		if ( $this->cache->is_enabled() ) {
 			$chunk_size = 100;
@@ -126,13 +114,12 @@ class WoocommercePrfGoogleReviewFeed {
 		$chunk_size = apply_filters( 'woocommerce_prf_chunk_size', $chunk_size, $this->cache->is_enabled() );
 
 		$date_query = null;
-
-		// Work out if this feed should be limited according to URL.
-		$gpf_limit = isset( $wp_query->query_vars['gpf_limit'] ) ? $wp_query->query_vars['gpf_limit'] : false;
-		switch ( $gpf_limit ) {
+		$limit      = $this->feed_config->limit;
+		if ( empty( $limit ) ) {
+			$limit = -1;
+		}
+		switch ( $limit ) {
 			case 'week':
-				// Remove numeric filtering.
-				$gpf_limit = false;
 				// Add date-based filtering.
 				$today = date_create_from_format( 'Y-m-d H:i:s', current_time( 'Y-m-d' ) . ' 00:00:00' );
 				$since = clone $today;
@@ -147,10 +134,10 @@ class WoocommercePrfGoogleReviewFeed {
 					'relation' => 'AND',
 					'column'   => 'comment_date',
 				);
+				// Remove numeric filtering.
+				$limit = -1;
 				break;
 			case 'yesterday':
-				// Remove numeric filtering.
-				$gpf_limit = false;
 				// Add date-based filtering.
 				$today = date_create_from_format( 'Y-m-d H:i:s', current_time( 'Y-m-d' ) . ' 00:00:00' );
 				$since = clone $today;
@@ -165,9 +152,11 @@ class WoocommercePrfGoogleReviewFeed {
 					'relation' => 'AND',
 					'column'   => 'comment_date',
 				);
+				// Remove numeric filtering.
+				$limit = -1;
 				break;
 			default:
-				$gpf_limit = (int) $gpf_limit;
+				$limit = (int) $limit;
 				break;
 		}
 
@@ -180,7 +169,7 @@ class WoocommercePrfGoogleReviewFeed {
 			'number'      => $chunk_size,
 			'orderby'     => 'comment_date_gmt',
 			'order'       => 'ASC',
-			'offset'      => isset( $wp_query->query_vars['gpf_start'] ) ? (int) $wp_query->query_vars['gpf_start'] : 0,
+			'offset'      => intval( $this->feed_config->start ),
 			'meta_query'  => array(
 				array(
 					'key'     => 'rating',
@@ -208,14 +197,14 @@ class WoocommercePrfGoogleReviewFeed {
 					continue;
 				}
 				if ( $this->render_item( $review ) ) {
-					$output_count ++;
+					$output_count++;
 				}
 				// Quit if we've done all of the reviews
-				if ( $gpf_limit && $output_count >= $gpf_limit ) {
+				if ( -1 !== $limit && $output_count >= $limit ) {
 					break;
 				}
 			}
-			if ( $gpf_limit && $output_count >= $gpf_limit ) {
+			if ( -1 !== $limit && $output_count >= $limit ) {
 				break;
 			}
 			$args['offset'] += $chunk_size;
@@ -257,9 +246,7 @@ class WoocommercePrfGoogleReviewFeed {
 			'unsolicited',
 			$item
 		);
-		$is_anonymous                   = ( empty( $item->user_id ) && empty( $item->comment_author ) ) ?
-			true :
-			false;
+		$is_anonymous                   = empty( $item->user_id ) && empty( $item->comment_author );
 		$anonymised                     = get_comment_meta( $item->comment_ID, '_wc_prf_anonymised', true );
 		$is_anonymous                   = $is_anonymous || $anonymised;
 		$feed_item['name_is_anonymous'] = apply_filters(
@@ -274,7 +261,10 @@ class WoocommercePrfGoogleReviewFeed {
 		}
 
 		$product_info = $this->product_info_generator->get_product_info( $feed_item['product_id'] );
-		$feed_item    = array_merge( $feed_item, $product_info );
+		if ( isset( $product_info['excluded'] ) && true === $product_info['excluded'] ) {
+			return false;
+		}
+		$feed_item = array_merge( $feed_item, $product_info );
 
 		$feed_item = apply_filters( 'woocommerce_gpf_review_feed_item', $feed_item );
 		$feed_item = apply_filters( 'woocommerce_gpf_review_feed_item_' . $this->feed_type, $feed_item );
@@ -282,6 +272,7 @@ class WoocommercePrfGoogleReviewFeed {
 		if ( apply_filters( 'woocommerce_gpf_review_feed_item_excluded', false, $feed_item, $item ) ) {
 			return false;
 		}
+
 		return $this->feed->render_item( $feed_item );
 	}
 

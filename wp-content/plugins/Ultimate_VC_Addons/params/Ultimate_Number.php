@@ -1,17 +1,17 @@
 <?php
 /**
- * Class Ultimate_Number_Param
+ * Class Ultimate_VC_Addons_Number_Param
  *
- * @package Ultimate_Number_Param.
+ * @package Ultimate_VC_Addons_Number_Param.
  */
 
-if ( ! class_exists( 'Ultimate_Number_Param' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Number_Param' ) ) {
 	/**
-	 * Class Ultimate_Number_Param
+	 * Class Ultimate_VC_Addons_Number_Param
 	 *
-	 * @class Ultimate_Number_Param.
+	 * @class Ultimate_VC_Addons_Number_Param.
 	 */
-	class Ultimate_Number_Param {
+	class Ultimate_VC_Addons_Number_Param {
 		/**
 		 * Initiator __construct.
 		 */
@@ -48,6 +48,6 @@ if ( ! class_exists( 'Ultimate_Number_Param' ) ) {
 	}
 }
 
-if ( class_exists( 'Ultimate_Number_Param' ) ) {
-	$ultimate_number_param = new Ultimate_Number_Param();
+if ( class_exists( 'Ultimate_VC_Addons_Number_Param' ) ) {
+	$ultimate_number_param = new Ultimate_VC_Addons_Number_Param();
 }

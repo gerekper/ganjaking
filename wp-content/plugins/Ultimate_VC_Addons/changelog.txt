@@ -1,3 +1,18 @@
+3.19.10 - 04 June 2021
+- Improvement: Compatibility with the latest JavaScript and CSS standard rule.
+- Improvement: Added the prefix to all the PHP function and class name to avoid future conflicts.
+- Improvement: Added the prefix to the global variable, script and style handlers.
+- Fix: Fixed the PHP error foreach() argument must be of type array|object.
+- Fix: Fixed the PHP notice undefined index into the google font manager.
+
+3.19.9 - 18 Feb 2021
+- Improvement : Updated the Smooth-scroll library.
+﻿- Fix : Ultimate Icon conflict issue with Yoast SEO.
+﻿- Fix : Console error unable to preventDefault inside passive event listener due to the target being treated as passive.
+﻿- Fix : Console error cannot read property 'msie' of undefined.
+﻿﻿﻿﻿- Fix : Youtube video background is not working on MacOSX BigSur.﻿﻿﻿﻿
+﻿- Fix : Console error cannot read property '1' of null.
+
 3.19.8 - 12 Dec 2020
 - Improvement: Shortcode compatibility with PHP 8.0 – Deprecated: Function ultimate_wrap_shortcode_in_div().
 ﻿- Fix: Deprecated jquery issue into Interactive Mouse Parallax row background after WordPress - 5.6

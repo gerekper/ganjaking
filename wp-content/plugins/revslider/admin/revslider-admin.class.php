@@ -523,7 +523,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	 * @return void;
 	 **/
 	public static function add_plugins_page_notices(){
-		return;
+		if(get_option('revslider-valid', 'false') != 'false') return;
 		
 		$plugins = get_plugins();
 		
@@ -690,7 +690,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 			switch($action){
 				case 'activate_plugin':
 					$result	 = false;
-					$code	 = '073e077f-b600-41e4-8b74-767431910d31';
+					$code	 = trim($this->get_val($data, 'code'));
 					$selling = $this->get_addition('selling');
 					$rs_license = new RevSliderLicense();
 					
@@ -1586,9 +1586,11 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 							}
 						}
 						
+						$slider->set_slides($_slides);
 						$output = new RevSliderOutput();
 						$output->set_preview_mode(true);
 						$slider->init_by_data($_slider);
+						
 						if($slider->is_stream() || $slider->is_posts()){
 							$slides = $slider->get_slides_for_output();
 						}else{
@@ -1661,7 +1663,10 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					ob_clean();
 					ob_end_clean();
 					
-					$this->ajax_response_data(array('html' => $html, 'size' => $size, 'layouttype' => $slider->get_param('layouttype', 'fullwidth')));
+					$return = array('html' => $html, 'size' => $size, 'layouttype' => $slider->get_param('layouttype', 'fullwidth'));
+					$return = apply_filters('revslider_preview_slider_addition', $return, $slider);
+					
+					$this->ajax_response_data($return);
 					
 					exit;
 				break;
@@ -2276,7 +2281,9 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 						$error = __('Slider not found', 'revslider');
 					}else{
 						if($html !== false){
-							$this->ajax_response_data($html);
+							$return = array('data' => $html, 'waiting' => array(), 'toload' => array());
+							$return = apply_filters('revslider_get_slider_html_addition', $return, $slider);
+							$this->ajax_response_data($return);
 						}else{
 							$error = __('Slider not found', 'revslider');
 						}

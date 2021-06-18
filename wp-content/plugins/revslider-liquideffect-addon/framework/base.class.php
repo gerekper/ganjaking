@@ -9,7 +9,7 @@ if(!defined('ABSPATH')) exit();
 
 class RsAddOnLiquideffectBase {
 	
-	const MINIMUM_VERSION = '6.4';
+	const MINIMUM_VERSION = '6.5.0';
 	
 	protected function systemsCheck() {
 		
@@ -92,8 +92,10 @@ class RsAddOnLiquideffectBase {
 			
 			$_handle = 'rs-' . static::$_PluginTitle . '-admin';
 			$_base   = static::$_PluginUrl . 'admin/assets/';
+			$_jsPathMin = file_exists(static::$_PluginPath . 'admin/assets/js/revslider-' . static::$_PluginTitle . '-addon-admin.dev.js') ? '.dev' : '';
 			
-			wp_enqueue_script($_handle, $_base . 'js/revslider-' . static::$_PluginTitle . '-addon-admin.js', array('jquery', 'revbuilder-admin'), static::$_Version, true);
+			wp_enqueue_style($_handle, $_base . 'css/revslider-' . static::$_PluginTitle . '-addon-admin.css', array(), static::$_Version);
+			wp_enqueue_script($_handle, $_base . 'js/revslider-' . static::$_PluginTitle . '-addon-admin' . $_jsPathMin . '.js', array('jquery', 'revbuilder-admin'), static::$_Version, true);
 			wp_localize_script($_handle, 'revslider_liquideffect_addon', self::get_var() );
 
 		}
@@ -153,6 +155,7 @@ class RsAddOnLiquideffectBase {
 				'distortion' => __('Distortion', $_textdomain),
 				'placeholder' => __('Select', $_textdomain),
 				'active' => __('Active', $_textdomain),
+				'useBG' => __('Use Slide BG settings', $_textdomain),
 				'use' => __('Draw Using', $_textdomain),
 				'settings' => __('Distortion Effect', $_textdomain),
 				'loadsettings' => __('Load Settings', $_textdomain),
@@ -167,7 +170,7 @@ class RsAddOnLiquideffectBase {
 				'mouse' => __('Mouse Event', $_textdomain),
 				'easing' => __('Easing', $_textdomain),
 				'duration' => __('Duration', $_textdomain),
-        'imagescale' => __('Image Scale', $_textdomain),
+        		'imagescale' => __('Image Scale', $_textdomain),
 				'mobile' => __('Disable Mobile', $_textdomain),
 				'note' => __('Slide Main Background Image not set', $_textdomain),
 				'bmlibrary' => __('Distortion Effect Library', $_textdomain),
@@ -230,6 +233,27 @@ class RsAddOnLiquideffectBase {
 						'menu' => "#module_slide_trigger, #gst_slide_revslider-liquideffect-addon", 
 						'scrollTo' => '#form_slide_revslider-liquideffect-addon', 
 						'hover' => "#draw_using"
+						
+					)
+					
+				),
+
+				'useBGsettings' => array(
+
+					'buttonTitle' => __('Distortion Use Slide Background Settings', 'revslider-liquideffect-addon'), 
+					'title' => __('Use Slide Background Settings', 'revslider-liquideffect-addon'),
+					'helpPath' => 'addOns.revslider-liquideffect-addon.useBGsettings', 
+					'keywords' => array('addon', 'addons', 'distortion', 'distortion addon', 'distortion background', 'distortion background position'), 
+					'description' => __("Enable this option to use slide background position settings in distortion effect", 'revslider-liquideffect-addon'), 
+					'helpStyle' => 'normal', 
+					'article' => 'http://docs.themepunch.com/slider-revolution/distortion-addon/', 
+					'video' => false,
+					'section' => 'Slide Settings -> Distortion',
+					'highlight' => array(
+					
+						'menu' => "#module_slide_trigger, #gst_slide_revslider-liquideffect-addon", 
+						'scrollTo' => '#form_slide_revslider-liquideffect-addon', 
+						'hover' => "#distortion_BG_settings"
 						
 					)
 					

@@ -14,17 +14,29 @@ class Export extends AC\Admin\Table {
 	 */
 	private $storage;
 
-	public function __construct( Storage $storage ) {
+	/**
+	 * @var bool
+	 */
+	private $network_only;
+
+	public function __construct( Storage $storage, $network_only ) {
 		$this->storage = $storage;
+		$this->network_only = $network_only;
 	}
 
 	/**
 	 * @return ListScreenCollection
 	 */
 	public function get_rows() {
-		$rows = $this->storage->find_all( [
+		$args = [
 			Storage::ARG_SORT => new AC\ListScreenRepository\Sort\Label(),
-		] );
+		];
+
+		if ( $this->network_only ) {
+			$args[ Storage::ARG_FILTER ][] = new AC\ListScreenRepository\Filter\Network();
+		}
+
+		$rows = $this->storage->find_all( $args );
 
 		if ( $rows->count() < 1 ) {
 			$this->message = __( 'No column settings available.', 'codepress-admin-columns' );

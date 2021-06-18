@@ -15,7 +15,7 @@ class RsTypewriterBase extends RsAddOnBase {
 					 $_PluginUrl     = RS_TYPEWRITER_PLUGIN_URL,
 					 $_PluginTitle   = 'typewriter',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '2.1.1';
+				     $_Version       = '3.0.1';
 	
 	public function __construct() {
 		

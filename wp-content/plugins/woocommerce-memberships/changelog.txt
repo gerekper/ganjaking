@@ -1,7 +1,11 @@
 *** WooCommerce Memberships Changelog ***
 
+2021.06.07 - version 1.22.1
+ * Fix - Add sanity checks before calling Sensei or LearnDash methods to avoid errors if old versions are installed
+ * Fix - Address a potential uncaught error in Sensei and LearnDash integrations when fetching dependent courses
+
 2021.05.04 - version 1.22.0
- * Feature - Auto-enroll users to Sensei and LearnDash courses upon membership purchase
+ * Feature - Auto-enroll users to Sensei (3.11+) and LearnDash (3.4+) courses upon membership purchase
  * Dev - Add meta data handling support to membership plan rule objects
 
 2021.04.12 - version 1.21.8

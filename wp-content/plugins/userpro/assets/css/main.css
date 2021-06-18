@@ -1,0 +1,86 @@
+.userpro a {
+  color: #6e7e8f; }
+
+.userpro .userpro-sc-buttons {
+  text-align: right;
+  margin: 10px 15px 0 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+
+.userpro .up-btn {
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-weight: 300;
+  font-size: 13px;
+  align-self: flex-end; }
+  .userpro .up-btn p {
+    transition: 0.5s;
+    margin: 0;
+    display: inline-block; }
+  .userpro .up-btn__follow {
+    color: #fff;
+    background-color: #0061d3; }
+    .userpro .up-btn__follow:hover {
+      background-color: #7fcefc; }
+  .userpro .up-btn--outline {
+    color: #444;
+    border: 1px solid #444;
+    background-color: transparent; }
+  .userpro .up-btn span {
+    transition: 0.5s;
+    font-size: 0.6em;
+    margin-left: 10px;
+    vertical-align: middle;
+    display: inline-block; }
+  .userpro .up-btn--loading {
+    position: relative;
+    transition: 0.5s; }
+    .userpro .up-btn--loading p, .userpro .up-btn--loading span {
+      transition: 0.5s;
+      opacity: 0; }
+    .userpro .up-btn--loading:after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+      -webkit-animation: spin 1s ease-in-out infinite; }
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg); } }
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg); } }
+
+.userpro-sc-bar {
+  display: flex;
+  padding: 0 15px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-weight: 300;
+  border-radius: 15px; }
+  .userpro-sc-bar a:hover {
+    font-weight: 500; }
+  .userpro-sc-bar .up-social-tab {
+    padding: 15px 0;
+    text-transform: uppercase;
+    position: relative; }
+    .userpro-sc-bar .up-social-tab:after {
+      content: '';
+      display: block;
+      width: 50%;
+      position: absolute;
+      height: 2px;
+      left: 0;
+      right: 0;
+      margin: 0 auto; }

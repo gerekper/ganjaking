@@ -2,18 +2,18 @@
 /**
  * Add-on Name: Icons Block for WPBakery Page Builder
  *
- * @package Ultimate_List_Icon.
+ * @package Ultimate_VC_Addons_List_Icon.
  */
 
-if ( ! class_exists( 'Ultimate_List_Icon' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_List_Icon' ) ) {
 	/**
-	 * Ultimate_List_Icon.
+	 * Ultimate_VC_Addons_List_Icon.
 	 *
-	 * @class Ultimate_List_Icon.
+	 * @class Ultimate_VC_Addons_List_Icon.
 	 */
-	class Ultimate_List_Icon {
+	class Ultimate_VC_Addons_List_Icon {
 		/**
-		 * Constructor function that constructs default values for the Ultimate_List_Icon.
+		 * Constructor function that constructs default values for the Ultimate_VC_Addons_List_Icon.
 		 *
 		 * @method __construct
 		 */
@@ -341,7 +341,7 @@ if ( ! class_exists( 'Ultimate_List_Icon' ) ) {
 		 * @param string $content Content.
 		 */
 		public function ultimate_icon_list_shortcode( $atts, $content = null ) {
-			global $vc_list_icon_size, $vc_list_icon_margin;
+			global $uavc_list_icon_size, $uavc_list_icon_margin;
 			$ult_icon_list_settings = shortcode_atts(
 				array(
 					'icon_size'     => '32',
@@ -357,13 +357,13 @@ if ( ! class_exists( 'Ultimate_List_Icon' ) ) {
 			$vc_version                              = ( defined( 'WPB_VC_VERSION' ) ) ? WPB_VC_VERSION : 0;
 			$is_vc_49_plus                           = ( version_compare( 4.9, $vc_version, '<=' ) ) ? 'ult-adjust-bottom-margin' : '';
 
-			$vc_list_icon_size   = $ult_icon_list_settings['icon_size'];
-			$vc_list_icon_margin = $ult_icon_list_settings['icon_margin'];
-			$output              = '<div class="uavc-list-icon uavc-list-icon-wrapper ' . esc_attr( $is_vc_49_plus ) . ' ' . esc_attr( $ult_icon_list_settings['el_class'] ) . ' ' . esc_attr( $ult_icon_list_settings['css_icon_list'] ) . ' ' . esc_attr( $ult_icon_list_settings['css_icon_list'] ) . '">';
-			$output             .= '<ul class="uavc-list">';
-			$output             .= do_shortcode( $content );
-			$output             .= '</ul>';
-			$output             .= '</div>';
+			$uavc_list_icon_size   = $ult_icon_list_settings['icon_size'];
+			$uavc_list_icon_margin = $ult_icon_list_settings['icon_margin'];
+			$output                = '<div class="uavc-list-icon uavc-list-icon-wrapper ' . esc_attr( $is_vc_49_plus ) . ' ' . esc_attr( $ult_icon_list_settings['el_class'] ) . ' ' . esc_attr( $ult_icon_list_settings['css_icon_list'] ) . ' ' . esc_attr( $ult_icon_list_settings['css_icon_list'] ) . '">';
+			$output               .= '<ul class="uavc-list">';
+			$output               .= do_shortcode( $content );
+			$output               .= '</ul>';
+			$output               .= '</div>';
 
 			return $output;
 		}
@@ -405,13 +405,13 @@ if ( ! class_exists( 'Ultimate_List_Icon' ) ) {
 				),
 				$atts
 			);
-			global $vc_list_icon_size, $vc_list_icon_margin;
+			global $uavc_list_icon_size, $uavc_list_icon_margin;
 			if ( empty( $ult_icon_list_item_settings['icon_size'] ) ) {
-				$ult_icon_list_item_settings['icon_size'] = $vc_list_icon_size;
+				$ult_icon_list_item_settings['icon_size'] = $uavc_list_icon_size;
 			}
 
 			if ( empty( $ult_icon_list_item_settings['icon_margin'] ) ) {
-				$ult_icon_list_item_settings['icon_margin'] = $vc_list_icon_margin;
+				$ult_icon_list_item_settings['icon_margin'] = $uavc_list_icon_margin;
 			}
 
 			if ( 'none' !== $icon_animation ) {
@@ -486,8 +486,8 @@ if ( ! class_exists( 'Ultimate_List_Icon' ) ) {
 		}
 	}
 }
-if ( class_exists( 'Ultimate_List_Icon' ) ) {
-	$ultimate_list_icon = new Ultimate_List_Icon();
+if ( class_exists( 'Ultimate_VC_Addons_List_Icon' ) ) {
+	$ultimate_list_icon = new Ultimate_VC_Addons_List_Icon();
 }
 // Extend WPBakeryShortCodesContainer class to inherit all required functionality.
 if ( class_exists( 'WPBakeryShortCodesContainer' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Icon_List' ) ) {

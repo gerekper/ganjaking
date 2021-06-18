@@ -5597,30 +5597,6 @@ Content-Type: text/html;
 	public static function notices_section() {
 		?>
 		<div id="gf-admin-notices-wrapper">
-			<?php
-			/**
-			 * Whether or not we have admin notices.
-			 *
-			 * This is used to determine whether or not to display a notification at the top of GF pages.  It is false if there are no notifications to display.
-			 *
-			 * @since 2.5
-			 */
-			$has_notices = apply_filters( 'gform_has_admin_notices', false );
-			?>
-			<?php if ( $has_notices ) : ?>
-				<div id="gf-wordpress-notices" class="gf-notice">
-					<p>
-						<?php
-						printf(
-							// Translators: 1. Link to dashboard, 2. Closing </a> tag.
-							esc_html__( 'WordPress has new notifications.  %1sGo to your dashboard%2s to see your notifications.', 'gravityforms' ),
-							'<a href="' . admin_url() . '">',
-							'</a>'
-						);
-						?>
-					</p>
-				</div>
-			<?php endif; ?>
 
 			<!-- WP appends notices to the first H tag, so this is here to capture admin notices. -->
 			<h2 class="gf-notice-container"></h2>
@@ -5631,7 +5607,7 @@ Content-Type: text/html;
 	}
 
 	/**
-	 * Determine whether there are any non-Gravity Forms admin notifications that need to be suppressed.
+	 * Parse any admin notices and hide any that are non-GF-related.
 	 *
 	 * @since 2.5
 	 *
@@ -5639,7 +5615,7 @@ Content-Type: text/html;
 	 */
 	public static function find_admin_notices() {
 		if ( ! GFForms::is_gravity_page() ) {
-			return false;
+			return;
 		}
 
 		global $wp_filter;
@@ -5662,22 +5638,12 @@ Content-Type: text/html;
 				call_user_func( $callback['function'] );
 				$content = ob_get_clean();
 
-				if ( '' !== $content && strpos( $content, 'gf-notice' ) == false ) {
-					$has_non_gf_notices = true;
+				if ( strpos( $content, 'gf-notice' ) == false ) {
 					remove_action( 'admin_notices', $name, $priority );
 					remove_action( 'network_admin_notices', $name, $priority );
 				}
 			}
 		}
-
-		add_filter(
-			'gform_has_admin_notices',
-			function( $has ) use ( $has_non_gf_notices ) {
-				return $has_non_gf_notices;
-			},
-			1
-		);
-		return $has_non_gf_notices;
 	}
 
 	/**
@@ -6598,11 +6564,18 @@ Content-Type: text/html;
 	 *
 	 * Translation files in the WP_LANG_DIR folder have a higher priority.
 	 *
+	 * @since unknown
+	 * @since 2.5.6   Respect user-specific locale settings.
+	 *
 	 * @param string $domain   The plugin text domain. Default is gravityforms.
 	 * @param string $basename The plugin basename. plugin_basename() will be used to get the Gravity Forms basename when not provided.
+	 *
+	 * @return string
 	 */
 	public static function load_gf_text_domain( $domain = 'gravityforms', $basename = '' ) {
-		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
+		$current_locale = version_compare( get_bloginfo( 'version', 'display' ), '5.0', '>=' ) ? determine_locale() : self::legacy_determine_locale();
+		$locale         = apply_filters( 'plugin_locale', $current_locale, $domain );
+
 		if ( $locale != 'en_US' && ! is_textdomain_loaded( $domain ) ) {
 			if ( empty( $basename ) ) {
 				$basename = plugin_basename( self::get_base_path() );
@@ -6611,6 +6584,84 @@ Content-Type: text/html;
 			load_textdomain( $domain, sprintf( '%s/gravityforms/%s-%s.mo', WP_LANG_DIR, $domain, $locale ) );
 			load_plugin_textdomain( $domain, false, $basename . '/languages' );
 		}
+
+		return $locale;
+	}
+
+	/**
+	 * This is a copy of the determine_locale() method added in Wordpress 5.0. It is used for previous
+	 * WordPress versions to emulate the same behavior.
+	 *
+	 * @since 2.5.6
+	 *
+	 * @return string
+	 */
+	public static function legacy_determine_locale() {
+		/**
+		 * Filters the locale for the current request prior to the default determination process.
+		 *
+		 * Using this filter allows to override the default logic, effectively short-circuiting the function.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param string|null $locale The locale to return and short-circuit. Default null.
+		 */
+		$determined_locale = apply_filters( 'pre_determine_locale', null );
+
+		if ( ! empty( $determined_locale ) && is_string( $determined_locale ) ) {
+			return $determined_locale;
+		}
+
+		$determined_locale = get_locale();
+
+		if ( function_exists( 'get_user_locale' ) ) {
+			if ( is_admin() ) {
+				$determined_locale = get_user_locale();
+			}
+
+			if ( isset( $_GET['_locale'] ) && 'user' === $_GET['_locale'] && wp_is_json_request() ) {
+				$determined_locale = get_user_locale();
+			}
+		}
+
+		if ( ! empty( $_GET['wp_lang'] ) && ! empty( $GLOBALS['pagenow'] ) && 'wp-login.php' === $GLOBALS['pagenow'] ) {
+			$determined_locale = sanitize_text_field( $_GET['wp_lang'] );
+		}
+
+		/**
+		 * Filters the locale for the current request.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param string $locale The locale.
+		 */
+		return apply_filters( 'determine_locale', $determined_locale );
+	}
+
+	/**
+	 * Returns an array of locales or mo translation files found in the WP_LANG_DIR/plugins directory.
+	 *
+	 * @since 2.5.6
+	 *
+	 * @param string $domain       The plugin text domain. Default is gravityforms.
+	 * @param bool   $return_files Indicates if the mo files should be returned using the locales as the keys.
+	 *
+	 * @return array
+	 */
+	public static function get_installed_translations( $domain = 'gravityforms', $return_files = false ) {
+		$files = self::glob( $domain . '-*.mo', WP_LANG_DIR . '/plugins/' );
+
+		if ( ! is_array( $files ) ) {
+			return array();
+		}
+
+		$translations = array();
+
+		foreach ( $files as $file ) {
+			$translations[ str_replace( $domain . '-', '', basename( $file, '.mo' ) ) ] = $file;
+		}
+
+		return $return_files ? $translations : array_keys( $translations );
 	}
 
 	public static function replace_field_variable( $text, $form, $lead, $url_encode, $esc_html, $nl2br, $format, $input_id, $match, $esc_attr = false ) {

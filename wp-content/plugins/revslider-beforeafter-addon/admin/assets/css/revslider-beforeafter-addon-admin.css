@@ -26,10 +26,10 @@
 .beaf_aftericon, 
 .beaf_beforeicon { position: absolute; right:57px; top:0px; font-size:15px !important; width: 40px; text-align: center; background: #202224; height:35px;}
 
-.layerlist_element_innerwrap:hover .beaf_aftericon,
-.layerlist_element_innerwrap:hover .beaf_beforeicon,
-.tllayerlist_element.layerlist_element.checked .beaf_aftericon,
-.tllayerlist_element.layerlist_element.checked .beaf_beforeicon { background: #0d0d0e; }
+.layerlist_element_innerwrap:hover  .beaf_aftericon,
+.layerlist_element_innerwrap:hover  .beaf_beforeicon,
+.tllayerlist_element.layerlist_element.checked >.layerlist_element_innerwrap .beaf_aftericon,
+.tllayerlist_element.layerlist_element.checked >.layerlist_element_innerwrap .beaf_beforeicon { background: #0d0d0e; }
 .beaf_aftericon { transform:scaleX(-1); right: 65px; }
 .beaf_notvisibleicon { display: none !important; }
 .beaf_aftericon:before { content: "A";   position: absolute;font-size: 10px;top: 0px;left: 5px; font-family: Arial; font-weight: 600;}

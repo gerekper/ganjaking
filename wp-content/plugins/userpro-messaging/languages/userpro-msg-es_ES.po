@@ -1,0 +1,217 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: UserPro Messaging\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-12 13:06+0200\n"
+"PO-Revision-Date: 2014-10-15 22:11+0100\n"
+"Last-Translator:  <soret_40@hotmail.com>\n"
+"Language-Team: La Embajada <soret_40@hotmail.com>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __ngettext:1,2;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.6.9\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/admin.php:27 admin/admin.php:56
+msgid "Private Messaging"
+msgstr "Mensajería Privada"
+
+#: admin/admin.php:104
+msgid "Settings saved."
+msgstr "Ajustes guardados."
+
+#: admin/admin.php:110
+msgid "Settings are reset to default."
+msgstr "Ajustes restablecidos a los iniciales."
+
+#: admin/admin.php:115
+msgid "Your plugin pages have been rebuilt successfully."
+msgstr "Las páginas del plugin han sido reconstruidas satisfactoriamente."
+
+#: admin/panels/options.php:3
+msgid "Messaging Options"
+msgstr "Opciones de Mensajería"
+
+#: admin/panels/options.php:7
+msgid "Global Messaging Privacy"
+msgstr "Privacidad Global de Mensajería"
+
+#: admin/panels/options.php:10
+msgid "Open to all"
+msgstr "Abierto a todos"
+
+#: admin/panels/options.php:11
+msgid "Mutual Followers"
+msgstr "Seguidores Mutuos"
+
+#: admin/panels/options.php:12
+msgid "Disable Messaging"
+msgstr "Desactivar Mensajería"
+
+#: admin/panels/options.php:18
+msgid "Turn on e-mail notifications"
+msgstr "Habilitar notificaciones por e-mail"
+
+#: admin/panels/options.php:21 admin/panels/options.php:99
+msgid "Enabled"
+msgstr "Activado"
+
+#: admin/panels/options.php:22 admin/panels/options.php:100
+msgid "Disabled"
+msgstr "Desactivado"
+
+#: admin/panels/options.php:24
+msgid ""
+"Send an e-mail notification when someone receives a new message. This is a "
+"global option, so be careful. Privacy settings are still under development."
+msgstr ""
+"Enviar una notificación por e-mail cuando alguien recibe un mensaje. "
+"Precaución, esto es una opción global. Los ajustes de privacidad están "
+"todavía en desarrollo."
+
+#: admin/panels/options.php:31
+msgid "Save Changes"
+msgstr "Guardar Cambios"
+
+#: admin/panels/options.php:32
+msgid "Reset Options"
+msgstr "Restablecer Opciones"
+
+#: functions/ajax.php:110
+msgid "Your message has been sent successfully."
+msgstr "Su mensaje se ha enviado satisfactoriamente."
+
+#: functions/api.php:18
+#, php-format
+msgid "%s has messaged you!"
+msgstr "¡%s le ha escrito!"
+
+#: functions/api.php:22
+msgid "Hi there,"
+msgstr "Hola,"
+
+#: functions/api.php:23
+#, php-format
+msgid "You have received a new message on %s from %s"
+msgstr "Ha recibido un nuevo mensaje en %s de %s"
+
+#: functions/api.php:24
+msgid "Here is the message body:"
+msgstr "Este es el contenido del mensaje:"
+
+#: functions/api.php:28
+msgid ""
+"To reply to this conversation or read more messages, please view your "
+"messages by logging to your profile:"
+msgstr ""
+"Para contestar a esta conversación o leer más mensajes, por favor revise su "
+"mensajería iniciando sesión en su perfil."
+
+#: functions/api.php:59
+msgid "Type your message here..."
+msgstr "Escriba su mensaje aquí..."
+
+#: functions/api.php:62 functions/hooks-actions.php:33
+msgid "Send Message"
+msgstr "Enviar Mensaje"
+
+#: functions/api.php:63 functions/api.php:106
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: functions/api.php:253 functions/api.php:289
+msgid "read conversation"
+msgstr "leer conversación"
+
+#: functions/api.php:262 functions/api.php:298
+msgid "quick reply"
+msgstr "respuesta rápida"
+
+#: functions/api.php:268
+#, php-format
+msgid "%s unread"
+msgstr "%s sin leer"
+
+#: functions/api.php:275 functions/api.php:311
+msgid "Delete Conversation"
+msgstr "Eliminar Conversación"
+
+#: functions/api.php:425
+#, php-format
+msgid "%s Unread Message"
+msgstr "%s Mensaje Sin Leer"
+
+#: functions/api.php:427
+#, php-format
+msgid "%s Unread Messages"
+msgstr "%s Mensajes Sin Leer"
+
+#: functions/hooks-actions.php:39 functions/hooks-actions.php:62
+msgid "My Messages"
+msgstr "Mis Mensajes"
+
+#: functions/hooks-actions.php:60
+msgid "Send a message"
+msgstr "Enviar un mensaje"
+
+#: templates/conversation-last.php:25 templates/conversation.php:25
+msgid "you said:"
+msgstr "usted dijo:"
+
+#: templates/conversation-last.php:25 templates/conversation.php:25
+#, php-format
+msgid "%s said:"
+msgstr "%s dijo:"
+
+#: templates/messages.php:3 templates/new-message.php:3
+msgid "Close"
+msgstr "Cerrar"
+
+#: templates/messages.php:14
+msgid "Message History"
+msgstr "Historial de Mensajes"
+
+#: templates/messages.php:17
+msgid "Back"
+msgstr "Atrás"
+
+#: templates/new-message.php:14
+msgid "View Profile"
+msgstr "Ver Perfil"
+
+#: admin/panels/options.php:92 functions/hooks-actions.php:78
+msgid "Broadcast Message"
+msgstr "mensaje de difusión"
+
+#: admin/panels/options.php:96
+msgid "Broadcast Message Settings"
+msgstr "Ajustes de mensaje de"
+
+#: admin/panels/options.php:102
+msgid "This will enable the feature of broadcasting message to all the users."
+msgstr ""
+
+#: admin/panels/options.php:107
+msgid "Allow these roles to broadcast messages"
+msgstr "Permita que estas funciones para difundir mensajes"
+
+#: admin/panels/options.php:110
+msgid "The users belonging to above roles will be able to broadcast messages to all other users on the site. By default no one can broadcast message."
+msgstr "Los usuarios que pertenecen a los roles anteriores podrán transmitir mensajes a todos los demás usuarios del sitio. Por defecto no se puede difundir el mensaje ."
+
+#: functions/ajax.php:185
+msgid "Your message has been broadcasted successfully."
+msgstr "Su mensaje ha sido transmitido con éxito ."
+
+#: functions/ajax.php:193
+msgid "This message will be sent immediately to ALL registered users. Are you sure you want to send this ?"
+msgstr "Este mensaje será enviado inmediatamente a todos los usuarios registrados . ¿Seguro que desea enviar este ?"
+
+#: functions/api.php:105
+msgid "Broadcast"
+msgstr "Broadcast"

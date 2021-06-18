@@ -1,41 +1,60 @@
 <?php
 /* 
  * @author    ThemePunch <info@themepunch.com>
- * @link      https://www.themepunch.com/
- * @copyright 2018 ThemePunch
+ * @link      http://www.themepunch.com/
+ * @copyright 2021 ThemePunch
 */
 
-if( !defined( 'ABSPATH') ) exit();
+if(!defined('ABSPATH')) exit();
 
 class RsPaintBrushSliderFront extends RevSliderFunctions {
 	
 	private $version,
 			$pluginUrl, 
 			$pluginTitle;
-					 
+			
 	public function __construct($version, $pluginUrl, $pluginTitle, $isAdmin = false) {
-		
 		$this->version     = $version;
 		$this->pluginUrl   = $pluginUrl;
 		$this->pluginTitle = $pluginTitle;
 		
-		if(!$isAdmin) add_action('revslider_slider_init_by_data_post', array($this, 'check_addon_active'), 10, 1);	
-		else add_action('wp_enqueue_scripts', array($this, 'add_scripts'));
+		add_action('revslider_slider_init_by_data_post', array($this, 'check_addon_active'), 10, 1); //load always, for previews in backend
+		if($isAdmin){
+			//add_action('admin_footer', array($this, 'write_footer_scripts'));
+		}
 		add_action('revslider_fe_javascript_output', array($this, 'write_init_script'), 10, 2);
+		add_action('revslider_get_slider_wrapper_div', array($this, 'check_if_ajax_loaded'), 10, 2);
+		add_filter('revslider_get_slider_html_addition', array($this, 'add_html_script_additions'), 10, 2);
 		
+		/*add_filter('script_loader_tag', array($this, 'add_attribute'), 10, 2);*/
 	}
 	
 	// HANDLE ALL TRUE/FALSE
 	private function isFalse($val) {
-	
 		if(empty($val)) return true;
 		if($val === true || $val === 'on' || $val === 1 || $val === '1' || $val === 'true') return false;
+		
 		return true;
-	
 	}
 	
-	private function isEnabled($slider) {
+	private function isEnabled($slider){
+		if(empty($slider)) return false;
 		
+		$slides = $slider->get_slides();
+		if(empty($slides)) return false;
+		
+		$enabled = false;
+		foreach($slides as $slide){
+			if($this->get_val($slide, array('params', 'addOns', 'revslider-paintbrush-addon', 'enable'), false) === true){
+				$enabled = true;
+				break;
+			}
+		}
+		
+		return $enabled;
+	}
+	
+	/*private function isEnabled($slider) {
 		$settings = $slider->get_params();
 		if(empty($settings)) return false;
 		
@@ -49,12 +68,10 @@ class RsPaintBrushSliderFront extends RevSliderFunctions {
 		if($this->isFalse($enabled)) return false;
 		
 		return $addOn;
-	
-	}
+	}*/
 	
 	public function check_addon_active($record) {
 		if(empty($record)) return $record;
-		
 		// addon enabled
 		$addOn = $this->isEnabled($record);
 		if(empty($addOn)) return $record;
@@ -63,33 +80,59 @@ class RsPaintBrushSliderFront extends RevSliderFunctions {
 		remove_action('revslider_slider_init_by_data_post', array($this, 'check_addon_active'), 10);
 		
 		return $record;
-		
 	}
 	
 	public function add_scripts() {
-		
 		$handle = 'rs-' . $this->pluginTitle . '-front';
 		$base   = $this->pluginUrl . 'public/assets/';
+
+		wp_enqueue_style($handle, $base . 'css/revolution.addon.' . $this->pluginTitle . '.css', array(), $this->version);
+		wp_enqueue_script($handle, $base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js', array('jquery'), $this->version, true);
 		
-		wp_enqueue_style(
-		
-			$handle, 
-			$base . 'css/revolution.addon.' . $this->pluginTitle . '.css', 
-			array(), 
-			$this->version
+		add_filter('revslider_modify_waiting_scripts', array($this, 'add_waiting_script_slugs'), 10, 1);
+	}
+	
+	public function add_html_script_additions($return, $output){
+		if($output instanceof RevSliderSlider){
+			$addOn = $this->isEnabled($output);
+			if(empty($addOn)) return $return;
+		}else{
+			if($output->ajax_loaded !== true) return $return;
 			
-		);
+			$addOn = $this->isEnabled($output->slider);
+			if(empty($addOn)) return $return;
+		}
 		
-		wp_enqueue_script(
+		$waiting = array();
+		$waiting = $this->add_waiting_script_slugs($waiting);
+		if(!empty($waiting)){
+			if(!isset($return['waiting'])) $return['waiting'] = array();
+			foreach($waiting as $wait){
+				$return['waiting'][] = $wait;
+			}
+		}
 		
-			$handle, 
-			$base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js', 
-			array('jquery'), 
-			$this->version, 
-			true
-			
-		);
+		$global = $output->get_global_settings();
+		$addition = ($output->_truefalse($output->get_val($global, array('script', 'defer'), false)) === true) ? ' async="" defer=""' : '';
+		$return['toload']['paintbrush'] = '<script'. $addition .' src="'. $this->pluginUrl . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.min.js"></script>';
 		
+		return $return;
+	}
+	
+	public function add_waiting_script_slugs($wait){
+		$wait[] = 'paintbrush';
+		return $wait;
+	}
+	
+	public function check_if_ajax_loaded($r, $output) {
+		if($output->ajax_loaded !== true) return $r;
+		
+		$addOn = $this->isEnabled($output->slider);
+		if(empty($addOn)) return $r;
+		
+		$html = '<link rel="stylesheet" href="'. $this->pluginUrl . 'public/assets/css/revolution.addon.' . $this->pluginTitle . '.css">'."\n";
+		
+		return $html . $r;
 	}
 
 	public function write_init_script($slider, $id) {
@@ -104,27 +147,19 @@ class RsPaintBrushSliderFront extends RevSliderFunctions {
 		
 		// check to see if at least one individual slide is enabled
 		foreach($slides as $slide) {
+			if(!$mobile) {
+				$enabled = true;
+				break;
+			}
+			else {
 				
-			// addon enabled
-			$addOn = $this->isEnabled($slide);
-			if(!empty($addOn)) {
-				
-				if(!$mobile) {
+				$disabled = $this->get_val($addOn, array('mobile', 'disable'), false);
+				if(empty($disabled)) {
 					$enabled = true;
 					break;
 				}
-				else {
-					
-					$disabled = $this->get_val($addOn, array('mobile', 'disable'), false);
-					if(empty($disabled)) {
-						$enabled = true;
-						break;
-					}
-					
-				}
 				
 			}
-				
 		}
 		
 		if(!empty($enabled)) {

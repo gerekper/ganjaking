@@ -5,14 +5,12 @@
  * @package WP_Smush
  *
  * @var int    $total_images_to_smush Resmush + unsmushed image count.
- * @var bool   $lossy_enabled         Lossy compression status.
  * @var Admin  $ng                    NextGen admin class.
  * @var int    $remaining_count       Remaining images.
  * @var array  $resmush_ids           Resmush ID.
  * @var string $url                   Media library URL.
  */
 
-use Smush\Core\Helper;
 use Smush\Core\Integrations\Nextgen\Admin;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -29,11 +27,11 @@ if ( ! defined( 'WPINC' ) ) {
 if ( 0 === $total_count ) {
 	if ( ! apply_filters( 'wpmudev_branding_hide_branding', false ) ) :
 		?>
-		<span class="wp-smush-no-image tc">
+		<span class="wp-smush-no-image">
 			<img src="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/smush-no-media.png' ); ?>" alt="<?php esc_attr_e( 'No attachments found - Upload some images', 'wp-smushit' ); ?>">
 		</span>
 	<?php endif; ?>
-	<p class="wp-smush-no-images-content tc">
+	<p class="wp-smush-no-images-content">
 		<?php
 		printf(
 			/* translators: %1$s: opening a tga, %2$s: closing a tag */
@@ -46,7 +44,7 @@ if ( 0 === $total_count ) {
 		);
 		?>
 	</p>
-	<span class="wp-smush-upload-images sui-no-padding-bottom tc">
+	<span class="wp-smush-upload-images sui-no-padding-bottom">
 	<a class="sui-button sui-button-blue" href="<?php echo esc_url( admin_url( 'admin.php?page=ngg_addgallery' ) ); ?>">
 		<?php esc_html_e( 'UPLOAD IMAGES', 'wp-smushit' ); ?></a>
 	</span>
@@ -57,7 +55,7 @@ if ( 0 === $total_count ) {
 
 <?php $this->view( 'all-images-smushed-notice', array( 'all_done' => empty( $total_images_to_smush ) ), 'common' ); ?>
 
-<?php $this->view( 'progress-bar', array( 'count' => $ng->remaining_count ), 'common' ); ?>
+<?php $this->view( 'progress-bar', array( 'count' => ( $ng->remaining_count + $resmush_count ) ), 'common' ); ?>
 
 <div class="smush-final-log sui-hidden">
 	<div class="smush-bulk-errors"></div>
@@ -80,19 +78,4 @@ if ( 0 === $total_count ) {
 			<?php esc_html_e( 'BULK SMUSH', 'wp-smushit' ); ?>
 		</button>
 	</div>
-	<?php if ( ! $lossy_enabled ) : ?>
-		<span class="wp-smush-enable-lossy">
-			<?php
-			printf(
-				/* translators: %1$s: opening a tag, %2$s: closing a tag */
-				esc_html__(
-					'Enable Super-Smush in the %1$sSettings%2$s area to get even more savings with almost no visible drop in quality.',
-					'wp-smushit'
-				),
-				'<a href="' . esc_url( $url ) . '" target="_blank">',
-				'</a>'
-			);
-			?>
-		</span>
-	<?php endif; ?>
 </div>

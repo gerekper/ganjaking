@@ -33,17 +33,11 @@ if(!class_exists('RSColorpicker')){
 		public static function parse($val, $prop, $returnColorType){
 			$val = RSColorpicker::process($val, true);
 			$ar = array();
-			
-			if(!$prop){
-				$ar[0] = $val[0];	
-			}else{
-				$ar[0] = $prop . ': ' . $val[0] . ';';
-			}
+			$ar[0] = (!$prop) ? $val[0] : $prop . ': ' . $val[0] . ';';
 			
 			if($returnColorType) $ar[1] = $val[1];
 			
 			return $ar;
-		
 		}
 
 
@@ -52,15 +46,10 @@ if(!class_exists('RSColorpicker')){
 		 * @since 5.3.1.6
 		 */
 		public static function convert($color, $opacity = '100'){
-			if($opacity == 'transparent'){
-				return 'rgba(0,0,0,0)';
-			}
+			if($opacity == 'transparent') return 'rgba(0,0,0,0)';
 			if($color == '') return '';
 			if(strpos($color, '[{') !== false || strpos($color, 'gradient') !== false) return RSColorpicker::get($color);
-			
-			if(!is_bool($opacity) && ''.$opacity === '0'){
-				return 'transparent';
-			} 
+			if(!is_bool($opacity) && ''.$opacity === '0') return 'transparent';
 
 			if($opacity == -1 || !$opacity || empty($opacity) || !is_numeric($opacity) || $color == 'transparent' || $opacity === 1 || $opacity === 100){
 				if(strpos($color, 'rgba') === false && strpos($color, '#') !== false){
@@ -134,15 +123,12 @@ if(!class_exists('RSColorpicker')){
 					);
 				}
 			}elseif(strpos($clr, '-gradient') !== false){
-				
 				// gradient was not stored as a JSON string for some reason and needs to be converted
 				$reversed = RSColorpicker::reverseGradient($clr);
 				return array(RSColorpicker::processGradient($reversed), 'gradient_css', $reversed);
 				
 			}elseif(strpos($clr,'#') !== false){
-				
 				return array(RSColorpicker::sanitizeHex($clr), 'hex');
-				
 			}elseif(strpos($clr,'rgba') !== false){
 				$clr = preg_replace('/\s+/', '', $clr);
 				
@@ -215,7 +201,6 @@ if(!class_exists('RSColorpicker')){
 		 * @since 6.0
 		 */
 		public static function reverseGradient($str){
-			
 			// hsl colors not supported yet
 			if(strpos($str, 'hsl') !== false) return $str;
 			
@@ -233,13 +218,11 @@ if(!class_exists('RSColorpicker')){
 			$degree = '0';
 			
 			if(strpos($grad, 'ellipse at center') === false){
-				
 				if(strpos($grad, 'deg') !== false){
 					$grad = explode('deg', $grad);
 					$degree = trim($grad[0]);
 					$grad = trim($grad[1]);
 				}
-				
 			}else{
 				$grad = str_replace('ellipse at center', '', $grad);
 			}
@@ -330,7 +313,6 @@ if(!class_exists('RSColorpicker')){
 		 * @since 5.3.1.6
 		 */
 		public static function processGradient($obj){
-			
 			if(!is_array($obj)) return 'transparent';
 			if(array_key_exists('easing', $obj) && $obj['easing'] !== 'none') {
 				RSColorpicker::easeGradient($obj);
@@ -339,18 +321,17 @@ if(!class_exists('RSColorpicker')){
 			$tpe = $obj['type'];
 			$begin = $tpe . '-gradient(';
 			
-			if($tpe === 'linear') {
+			if($tpe === 'linear'){
 				$angle = intval($obj['angle']);
 				$middle = $angle !== 180 ? $angle . 'deg, ' : '';
-			}
-			else {
+			}else{
 				$middle = 'ellipse at center, ';
 			}
 
 			$colors = $obj['colors'];
 			$end = '';
-			
 			$i = 0;
+			
 			foreach($colors as $clr){
 				if($i > 0) $end .= ', ';
 				$end .= 'rgba(' . $clr['r'] . ',' . $clr['g'] . ',' . $clr['b'] . ',' . $clr['a'] . ') ' . $clr['position'] . '%';
@@ -454,18 +435,15 @@ if(!class_exists('RSColorpicker')){
 		 * @since 6.0
 		 */
 		public static function rgbToRgba($val){
-			
 			$val = RSColorpicker::rgbValues($val, 4);
 			return RSColorpicker::rgbaString($val[0], $val[1], $val[2], $val[3]);
-			
 		}
 		
 		/**
 		 * convert rgba with 100% opacity to hex
 		 * @since 6.0
 		 */
-		public static function trimHex($color) {
-			
+		public static function trimHex($color){
 			$color = trim($color);
 			if(strlen($color) !== 7) return $color;
 			
@@ -478,7 +456,6 @@ if(!class_exists('RSColorpicker')){
 			}
 			
 			return '#' . substr($clr, 0, 3);
-			
 		}
 		
 		/**
@@ -486,20 +463,16 @@ if(!class_exists('RSColorpicker')){
 		* @since: 6.0
 		*/
 		public function correctValue($color, $opacity = false) {
-			
 			if(!is_string($color)) return $color; // unknown value
 			
 			// gradients can exist as a JSON string or a CSS string
 			// when they exist as a CSS string it is a result of a bug from 5.0 
 			if(strpos($color, '[{') === false && strpos($color, 'gradient') === false) {
-				
 				if($opacity === false) return $color; // normal color
 				return RSColorpicker::convert($color, $opacity); // legacy conversion
-				
 			}
 			
 			return $color; // gradient
-		
 		}
 		
 		/**
@@ -516,56 +489,48 @@ if(!class_exists('RSColorpicker')){
 			$tpe = $color[1];
 			$processed = true;
 			
-			if($tpe === 'hex') {
+			if($tpe === 'hex'){
+				$clr = RSColorpicker::sanitizeHex($clr);
 				$clr = RSColorpicker::processRgba($clr, true);
 				$processed = true;
-			}
-			else if($tpe === 'rgb') {
+			}elseif($tpe === 'rgb'){
 				$clr = RSColorpicker::rgbToRgba($clr);
-			}
-			else if($tpe === 'rgba') {
+			}elseif($tpe === 'rgba'){
 				$clr = preg_replace('/\s+/', '', $clr);
-				
-			}
-			else {
+			}else{
 				$processed = false;
 			}
 			
 			if($processed) $clr = RSColorpicker::sanitizeRgba($clr);
-			return $clr;
 			
+			return $clr;
 		}
 		
 		/**
 		 * normalize colors for comparison
 		 * @since: 6.0
 		 */  
-		public static function normalizeColors($color) {
-			
+		public static function normalizeColors($color){
 			if(is_object($color)) $color = (array)$color;
 			if(is_array($color)) {
 				$total = count($color);
 				for($i = 0; $i < $total; $i++) $color[$i] = RSColorpicker::normalizeColor($color[$i]);
-			}
-			else {
+			}else{
 				$color = RSColorpicker::normalizeColor($color);
 			}
 			
 			return $color;
-			
 		}
 		
 		/**
 		 * convert rgba with 100% opacity to hex
 		 * @since 6.0
 		 */
-		public static function sanitizeRgba($color, $opacity = false) {
-			
-			if($opacity) {
+		public static function sanitizeRgba($color, $opacity = false){
+			if($opacity){
 				$color = RSColorpicker::rgbaToHex($color);
 				$color = RSColorpicker::trimHex($color);
-			}
-			else {
+			}else{
 				$opacity = RSColorpicker::rgbValues($color, 4);
 				if($opacity[3] === '1') {
 					$color = RSColorpicker::rgbaToHex($color);
@@ -574,7 +539,6 @@ if(!class_exists('RSColorpicker')){
 			}
 			
 			return $color;
-			
 		}
 
 		/**
@@ -582,19 +546,17 @@ if(!class_exists('RSColorpicker')){
 		 * @since 5.3.1.6
 		 */
 		public static function processRgba($hex, $opacity = false){
-			
 			$hex = trim(str_replace('#', '' , $hex));
-			
-			$rgb = $opacity!==false ? 'rgba' : 'rgb';  
-			$r = hexdec(substr($hex,0,2));
-	      	$g = hexdec(substr($hex,2,2));
-	      	$b = hexdec(substr($hex,4,2));
+			$rgb = $opacity!==false ? 'rgba' : 'rgb';
+			$r = @hexdec(substr($hex,0,2));
+	      	$g = @hexdec(substr($hex,2,2));
+	      	$b = @hexdec(substr($hex,4,2));
 	      	
 	      	$color = $rgb . "(" . $r . "," . $g . "," . $b ;
 
 	      	if($opacity!==false){
-	      		if($opacity > 1)
-	      			$opacity = ''.number_format($opacity * 0.01 ,  2, '.', '');
+	      		if($opacity > 1) $opacity = ''.number_format($opacity * 0.01 ,  2, '.', '');
+				
 	      		$opacity = str_replace('.00', '', $opacity);
 	      		$color .= ',' . $opacity;
 	      	}
@@ -610,13 +572,14 @@ if(!class_exists('RSColorpicker')){
 		 */
 		public static function sanitizeHex($hex){
 			$hex = trim(str_replace('#', '' , $hex));
-			if (strlen($hex) == 3) {
+			if(strlen($hex) == 3){
 			    $hex[5] = $hex[2]; // f60##0
 			    $hex[4] = $hex[2]; // f60#00
 			    $hex[3] = $hex[1]; // f60600
 			    $hex[2] = $hex[1]; // f66600
 			    $hex[1] = $hex[0]; // ff6600
 			}
+			
 			return '#'.$hex;
 		}
 		

@@ -1,5 +1,14 @@
 *** Warranty Requests Changelog ***
 
+2021-06-10 - version 1.9.25
+* Fix - Release changelog entries
+* Fix	- Warning "undefined array key 0".
+* Fix	- Warning "Trying to access array offset on value of type null".
+
+2021-06-10 - version 1.9.24
+* Fix	- Warning "undefined array key 0".
+* Fix	- Warning "Trying to access array offset on value of type null".
+
 2021-04-20 - version 1.9.23
 * Fix - Unable to save warranty info for product variations past the first.
 * Fix - Unable to change product variation data when tab is closed.

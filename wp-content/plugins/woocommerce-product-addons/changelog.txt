@@ -1,5 +1,10 @@
 *** Product Addons Changelog ***
 
+2021-06-15 - version 4.1.0
+* Fix - Reduce the number of events that trigger an add-on price calculation in the product page.
+* Tweak - WC 5.5 compatibility.
+* Tweak - WP 5.8 compatibility.
+
 2021-05-11 - version 4.0.0
 * Fix - Fix a notice when adding a product with an addon to the cart.
 * Tweak - WC 5.3 compatibility.

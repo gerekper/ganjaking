@@ -4,15 +4,19 @@
 //----------------------------------------------------------
 
 if ( ! gform ) {
+	document.addEventListener( 'gform_main_scripts_loaded', function() { gform.scriptsLoaded = true; } );
 	window.addEventListener( 'DOMContentLoaded', function() { gform.domLoaded = true; } );
 
 	var gform = {
 		domLoaded: false,
+		scriptsLoaded: false,
 		initializeOnLoaded: function( fn ) {
-			if ( gform.domLoaded ) {
+			if ( gform.domLoaded && gform.scriptsLoaded ) {
 				fn();
-			} else {
+			} else if( ! gform.domLoaded && gform.scriptsLoaded ) {
 				window.addEventListener( 'DOMContentLoaded', fn );
+			} else {
+				document.addEventListener( 'gform_main_scripts_loaded', fn );
 			}
 		},
 		hooks: { action: {}, filter: {} },

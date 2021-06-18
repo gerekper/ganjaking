@@ -231,7 +231,7 @@
 	text-align: center;
 }
 
-.gform_wrapper [aria-invalid="true"] + label, .gform_wrapper label + [aria-invalid="true"], .gform_wrapper .gfield_error legend, .gform_wrapper .gfield_error .gfield_repeater_cell label, .gform_wrapper .gfield_validation_message, .gform_wrapper .validation_message {
+.gform_wrapper [aria-invalid="true"] + label, .gform_wrapper label + [aria-invalid="true"], .gform_wrapper .gfield_error legend, .gform_wrapper .gfield_error label, .gform_wrapper .gfield_error .gfield_repeater_cell label, .gform_wrapper .gfield_validation_message, .gform_wrapper .validation_message {
 		color: #C02B0A;
 	}
 

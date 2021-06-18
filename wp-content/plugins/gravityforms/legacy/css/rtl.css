@@ -392,6 +392,12 @@ html[dir="rtl"] body.wp-admin .gfield_time_minute {
 	float: right;
 }
 
+html[dir="rtl"] .gform_legacy_markup_wrapper .gfield_time_hour input,
+html[dir="rtl"] .gform_legacy_markup_wrapper .gfield_time_minute input {
+	margin-left: 0.375rem;
+	margin-right: 0px;
+}
+
 html[dir="rtl"] body.wp-admin .gfield_date_month,
 html[dir="rtl"] body.wp-admin .gfield_date_day,
 html[dir="rtl"] body.wp-admin .gfield_date_year {

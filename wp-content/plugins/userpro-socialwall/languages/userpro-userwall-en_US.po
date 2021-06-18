@@ -1,0 +1,73 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-24 13:06+0200\n"
+"PO-Revision-Date: 2014-11-24 13:08+0200\n"
+"Last-Translator: Vincent <support@wp-member.com>\n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __ngettext:1,2;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/admin.php:25
+msgid "Userwall"
+msgstr ""
+
+#: admin/admin.php:38
+msgid "SocialWall"
+msgstr ""
+
+#: admin/admin.php:85
+msgid "Settings saved."
+msgstr ""
+
+#: admin/admin.php:92
+msgid "Settings are reset to default."
+msgstr ""
+
+#: admin/admin.php:97
+msgid "Your plugin pages have been rebuilt successfully."
+msgstr ""
+
+#: admin/panels/options.php:3
+msgid "Display Settings"
+msgstr ""
+
+#: admin/panels/options.php:8
+msgid "Title"
+msgstr ""
+
+#: admin/panels/options.php:19
+msgid "Save Changes"
+msgstr ""
+
+#: admin/panels/options.php:20
+msgid "Reset Options"
+msgstr ""
+
+#: functions/defaults.php:30
+msgid "Social Wall"
+msgstr ""
+
+#: templates/userwall.php:11
+msgid "Update Status..."
+msgstr ""
+
+#: templates/userwall.php:13
+msgid "Add to Wall"
+msgstr ""
+
+#: templates/userwall.php:15
+msgid "Add Photos"
+msgstr ""
+
+#: templates/userwall.php:48 templates/userwall.php:95
+msgid "Delete"
+msgstr ""

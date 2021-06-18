@@ -11,6 +11,7 @@ use ACP\Editing\Editable;
 use ACP\Editing\ListScreen;
 use ACP\Editing\Model;
 use ACP\Editing\PaginatedOptions;
+use ACP\Editing\RemoteOptions;
 
 abstract class Column extends Controller {
 
@@ -88,17 +89,27 @@ abstract class Column extends Controller {
 
 		$model = $this->get_model_from_request();
 
-		if ( ! $model instanceof PaginatedOptions ) {
-			$response->error();
+		switch ( true ) {
+			case $model instanceof RemoteOptions:
+				$options = $model->get_remote_options(
+					$this->request->filter( 'item_id', null, FILTER_SANITIZE_NUMBER_INT )
+				);
+				$has_more = false;
+				break;
+			case $model instanceof PaginatedOptions:
+				$options = $model->get_paginated_options(
+					$this->request->filter( 'searchterm' ),
+					$this->request->filter( 'page', 1, FILTER_SANITIZE_NUMBER_INT ),
+					$this->request->filter( 'item_id', null, FILTER_SANITIZE_NUMBER_INT )
+				);
+				$has_more = ! $options->is_last_page();
+
+				break;
+			default:
+				$response->error();
 		}
 
-		$options = $model->get_paginated_options(
-			$this->request->filter( 'searchterm' ),
-			$this->request->filter( 'page', 1, FILTER_SANITIZE_NUMBER_INT ),
-			$this->request->filter( 'item_id', null, FILTER_SANITIZE_NUMBER_INT )
-		);
-
-		$select = new AC\Helper\Select\Response( $options, ! $options->is_last_page() );
+		$select = new AC\Helper\Select\Response( $options, $has_more );
 
 		$response
 			->set_parameters( $select() )

@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Before/After Add-On
 Plugin URI: https://www.themepunch.com/
 Description: Create Before/After content for your Slides
 Author: ThemePunch
-Version: 2.1.0
+Version: 3.0.2
 Author URI: http://themepunch.com
 */
 

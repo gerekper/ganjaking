@@ -1,0 +1,16 @@
+/* 
+ * @author    ThemePunch <info@themepunch.com>
+ * @link      http://www.themepunch.com/
+ * @copyright 2018 ThemePunch
+*/
+
+
+.tp-charts { overflow: hidden; }
+.chart_anchor_wrap rect { opacity: 0 }
+
+row.twocolorfields .revbuilder-colorpicker.revbuilder-cpicker-master-wrap  { width: 69px !important;  overflow: hidden}
+row.twocolorfields .revbuilder-colorpicker.revbuilder-cpicker-master-wrap .layerinput { display:none;}
+
+row oneshort .chrt_lngtxt { max-width: 28px; margin-right: 7px; }
+
+.chart_bars .chart_hide_on_bars { display: none !important; }

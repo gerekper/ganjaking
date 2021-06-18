@@ -6,13 +6,13 @@
  *  @package Ultimate Spacer
  */
 
-if ( ! class_exists( 'Ultimate_Spacer' ) ) {
+if ( ! class_exists( 'Ultimate_VC_Addons_Spacer' ) ) {
 	/**
 	 * Function that initializes Ultimate Spacer Module
 	 *
-	 * @class Ultimate_Spacer
+	 * @class Ultimate_VC_Addons_Spacer
 	 */
-	class Ultimate_Spacer {
+	class Ultimate_VC_Addons_Spacer {
 		/**
 		 * Constructor function that constructs default values for the Ultimate Spacer module.
 		 *
@@ -134,7 +134,7 @@ if ( ! class_exists( 'Ultimate_Spacer' ) ) {
 			return $output;
 		}
 	} // end class
-	new Ultimate_Spacer();
+	new Ultimate_VC_Addons_Spacer();
 	if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Spacer' ) ) {
 		/**
 		 * Function that checks if the class is exists or not.

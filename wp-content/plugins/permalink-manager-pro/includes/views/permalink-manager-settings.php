@@ -39,19 +39,19 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 						'label' => __('Auto-update permalinks', 'permalink-manager'),
 						'input_class' => '',
 						'description' => sprintf('%s<br />%s',
-							__('<strong>Permalink Manager can automatically update the custom permalink after post or term is saved/updated.</strong>', 'permalink-manager'),
-							__('If enabled, Permalink Manager will always force the default custom permalink format (based on current <strong>Permastructure</strong> settings).', 'permalink-manager')
+						__('<strong>Permalink Manager can automatically update the custom permalink after post or term is saved/updated.</strong>', 'permalink-manager'),
+						__('If enabled, Permalink Manager will always force the default custom permalink format (based on current <strong>Permastructure</strong> settings).', 'permalink-manager')
 						)
 					),
 					'force_custom_slugs' => array(
-						'type' => 'select',
-						'label' => __('Slugs mode', 'permalink-manager'),
-						'input_class' => 'settings-select',
-						'choices' => array(0 => __('Use native slugs', 'permalink-manager'), 1 => __('Use actual titles as slugs', 'permalink-manager'), 2 => __('Inherit parents\' slugs', 'permalink-manager')),
-						'description' => sprintf('%s<br />%s<br />%s',
-							__('<strong>Permalink Manager can use either native slugs or actual titles for custom permalinks.</strong>', 'permalink-manager'),
-							__('The native slug is generated from the initial title after the post or term is published.', 'permalink-manager'),
-							__('Use this field if you would like Permalink Manager to use the actual titles instead of native slugs.', 'permalink-manager')
+							'type' => 'select',
+							'label' => __('Slugs mode', 'permalink-manager'),
+							'input_class' => 'settings-select',
+							'choices' => array(0 => __('Use native slugs', 'permalink-manager'), 1 => __('Use actual titles as slugs', 'permalink-manager'), 2 => __('Inherit parents\' slugs', 'permalink-manager')),
+							'description' => sprintf('%s<br />%s<br />%s',
+								__('<strong>Permalink Manager can use either native slugs or actual titles for custom permalinks.</strong>', 'permalink-manager'),
+								__('The native slug is generated from the initial title after the post or term is published.', 'permalink-manager'),
+								__('Use this field if you would like Permalink Manager to use the actual titles instead of native slugs.', 'permalink-manager')
 						)
 					),
 					'trailing_slashes' => array(
@@ -62,9 +62,27 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 						'description' => __('This option can be used to alter the native settings and control if trailing slash should be added or removed from the end of posts & terms permalinks.', 'permalink-manager'),
 						'description' => sprintf('%s<br />%s',
 							__('<strong>You can use this feature to either add or remove the slases from end of WordPress permalinks.</strong>', 'permalink-manager'),
-							__('Please use "<a href="#sslwww_redirect">Trailing slashes redirect</a>" field if you would like to force the settings with redirect.', 'permalink-manager')
+							__('Please go to "<em>Redirect settings -> Trailing slashes redirect</em>" to force the trailing slashes mode with redirect.', 'permalink-manager')
 						)
 					),
+					'partial_disable' => array(
+						'type' => 'checkbox',
+						'label' => __('Exclude content types', 'permalink-manager'),
+						'choices' => $content_types,
+						'description' => __('Permalink Manager will ignore and not filter the custom permalinks of all selected above post types & taxonomies.', 'permalink-manager')
+					),
+					'ignore_drafts' => array(
+						'type' => 'single_checkbox',
+						'label' => __('Exclude drafts', 'permalink-manager'),
+						'description' => __('If enabled, the custom permalinks for post drafts will not be saved.', 'permalink-manager')
+					)
+				)
+			),
+			'redirect' => array(
+				'section_name' => __('Redirect settings', 'permalink-manager'),
+				'container' => 'row',
+				'name' => 'general',
+				'fields' => array(
 					'canonical_redirect' => array(
 						'type' => 'single_checkbox',
 						'label' => __('Canonical redirect', 'permalink-manager'),
@@ -72,7 +90,7 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 						'description' => sprintf('%s<br />%s',
 							__('<strong>Canonical redirect allows WordPress to "correct" the requested URL and redirect visitor to the canonical permalink.</strong>', 'permalink-manager'),
 							__('This feature will be also used to redirect (old) original permalinks to (new) custom permalinks set with Permalink Manager.', 'permalink-manager')
-						),
+						)
 					),
 					/*'endpoint_redirect' => array(
 						'type' => 'single_checkbox',
@@ -80,7 +98,7 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 						'input_class' => '',
 						'description' => sprintf('%s',
 							__('<strong>Please enable this option if you would like to copy the endpoint from source URL to the target URL during the canonical redirect.</strong>', 'permalink-manager')
-						),
+						)
 					),*/
 					'old_slug_redirect' => array(
 						'type' => 'single_checkbox',
@@ -90,33 +108,45 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 							__('<strong>Old slug redirect is used by WordPress to provide a fallback for old version of slugs after they are changed.</strong>', 'permalink-manager'),
 							__('If enabled, the visitors trying to access the URL with the old slug will be redirected to the canonical permalink.', 'permalink-manager')
 						)
-					)
-				)
-			),
-			'seo' => array(
-				'section_name' => __('Enhanced redirect', 'permalink-manager'),
-				'container' => 'row',
-				'name' => 'general',
-				'fields' => array(
-					'redirect' => array(
-						'type' => 'select',
-						'label' => __('Redirect mode', 'permalink-manager'),
-						'input_class' => 'settings-select',
-						'choices' => array(0 => __('Disable (Permalink Manager redirect functions)', 'permalink-manager'), "301" => __('301 redirect', 'permalink-manager'), "302" => __('302 redirect', 'permalink-manager')),
-						'description' => sprintf('%s<br />%s',
-							__('<strong>Permalink Manager includes a set of hooks that allow to extend the redirect functions used natively by WordPress to avoid 404 errors.</strong>', 'permalink-manager'),
-							__('You can disable this feature if you do not want Permalink Manager to trigger any additional redirect functions at all.', 'permalink-manager')
+					),
+					'extra_redirects' => array(
+						'type' => 'single_checkbox',
+						'label' => __('Extra redirects (aliases)', 'permalink-manager'),
+						'input_class' => '',
+						'pro' => true,
+						'disabled' => true,
+						'description' => sprintf('%s<br /><strong>%s</strong>',
+							__('Please enable this option if you would like to manage additional custom redirects (aliasees) in URI Editor for individual posts & terms.', 'permalink-manager'),
+							__('You can disable this feature if you use another plugin to control the redirects, eg. Yoast SEO Premium or Redirection.', 'permalink-manager')
 						)
 					),
 					'setup_redirects' => array(
 						'type' => 'single_checkbox',
-						'label' => __('Save old custom permalinks as redirects', 'permalink-manager'),
+						'label' => __('Save old custom permalinks as extra redirects', 'permalink-manager'),
 						'input_class' => '',
 						'pro' => true,
 						'disabled' => true,
+						'description' => sprintf('%s<br /><strong>%s</strong>',
+							__('If enabled, Permalink Manager will save the "extra redirect" for earlier version of custom permalink after you change it (eg. with URI Editor or Regenerate/reset tool).', 'permalink-manager'),
+							__('Please note that the new redirects will be saved only if "Extra redirects (aliases)" option is turned on above.', 'permalink-manager')
+						)
+					),
+					'trailing_slashes_redirect' => array(
+						'type' => 'single_checkbox',
+						'label' => __('Trailing slashes redirect', 'permalink-manager'),
+						'input_class' => '',
+						'description' => sprintf('%s<br /><strong>%s</strong>',
+							__('Permalink Manager can force the trailing slashes settings in the custom permalinks with redirect.', 'permalink-manager'),
+							__('Please go to "<em>General settings -> Trailing slashes</em>" to choose if trailing slashes should be added or removed from WordPress permalinks.', 'permalink-manager')
+						)
+					),
+					'copy_query_redirect' => array(
+						'type' => 'single_checkbox',
+						'label' => __('Redirect with query parameters', 'permalink-manager'),
+						'input_class' => '',
 						'description' => sprintf('%s<br />%s',
-							__('If enabled, Permalink Manage will save the "extra redirect" for earlier version of custom permalink after you change it (eg. with URI Editor or Regenerate/reset tool).', 'permalink-manager'),
-							__('You can disable this feature if you would like to use another plugin for redirects, eg. Yoast SEO Premium or Redirection.', 'permalink-manager')
+							__('If enabled, the query parameters will be copied to the target URL when the redirect is triggered.', 'permalink-manager'),
+							__('Example: <em>https://example.com/product/old-product-url/<strong>?discount-code=blackfriday</strong></em> => <em>https://example.com/new-product-url/<strong>?discount-code=blackfriday</strong></em>', 'permalink-manager')
 						)
 					),
 					'sslwww_redirect' => array(
@@ -128,12 +158,14 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 							__('Please disable it if you encounter any redirect loop issues.', 'permalink-manager')
 						)
 					),
-					'trailing_slashes_redirect' => array(
-						'type' => 'single_checkbox',
-						'label' => __('Trailing slashes redirect', 'permalink-manager'),
-						'input_class' => '',
-						'description' => sprintf('%s',
-							__('<strong>Permalink Manager can force the trailing slashes settings in the custom permalinks with redirect.</strong>', 'permalink-manager')
+					'redirect' => array(
+						'type' => 'select',
+						'label' => __('Redirect mode', 'permalink-manager'),
+						'input_class' => 'settings-select',
+						'choices' => array(0 => __('Disable (Permalink Manager redirect functions)', 'permalink-manager'), "301" => __('301 redirect', 'permalink-manager'), "302" => __('302 redirect', 'permalink-manager')),
+						'description' => sprintf('%s<br /><strong>%s</strong>',
+							__('Permalink Manager includes a set of hooks that allow to extend the redirect functions used natively by WordPress to avoid 404 errors.', 'permalink-manager'),
+							__('You can disable this feature if you do not want Permalink Manager to trigger any additional redirect functions at all.', 'permalink-manager')
 						)
 					)
 				)
@@ -179,7 +211,7 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 				'fields' => array(
 					'show_native_slug_field' => array(
 						'type' => 'single_checkbox',
-						'label' => __('Show "Native slug" field in URI Editor', 'permalink-manager'),
+						'label' => __('Show "Native slug" field in URI Editor', 'permalink-manager')
 					),
 					'pagination_redirect' => array(
 						'type' => 'single_checkbox',
@@ -214,23 +246,12 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 						'description' => sprintf('%s',
 							__('Enable this option if you would like to automatically remove redundant permalinks & duplicated redirects.', 'permalink-manager')
 						)
-					),
-					'partial_disable' => array(
-						'type' => 'checkbox',
-						'label' => __('Exclude content types', 'permalink-manager'),
-						'choices' => $content_types,
-						'description' => __('Permalink Manager will ignore and not filter the custom permalinks of all selected above post types & taxonomies.', 'permalink-manager')
-					),
-					'ignore_drafts' => array(
-						'type' => 'single_checkbox',
-						'label' => __('Exclude drafts', 'permalink-manager'),
-						'description' => __('If enabled, the custom permalinks for post drafts will not be saved.', 'permalink-manager')
-					),
+					)
 				)
 			)
 		));
 
-		$output = Permalink_Manager_Admin_Functions::get_the_form($sections_and_fields, '', array('text' => __( 'Save settings', 'permalink-manager' ), 'class' => 'primary margin-top'), '', array('action' => 'permalink-manager', 'name' => 'permalink_manager_options'));
+		$output = Permalink_Manager_Admin_Functions::get_the_form($sections_and_fields, 'tabs', array('text' => __( 'Save settings', 'permalink-manager' ), 'class' => 'primary margin-top'), '', array('action' => 'permalink-manager', 'name' => 'permalink_manager_options'));
 		return $output;
 	}
 }

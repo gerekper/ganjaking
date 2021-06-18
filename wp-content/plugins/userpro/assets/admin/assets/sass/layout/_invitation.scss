@@ -1,0 +1,32 @@
+.up-invitation{
+  $self:&;
+  display: flex;
+  flex-direction: column;
+  width:100%;
+  margin-top:15px;
+  &__user-block{
+    display: flex;
+    width:100%;
+    justify-content: space-between;
+    border-bottom: 1px solid #d8d0d0;
+    padding: 5px 0;
+    span{
+      &:first-child{
+        width: 30%;
+        overflow: hidden;
+        word-break: break-word
+      }
+      &:nth-child(2){
+        width:30%;
+        text-align: center;
+      }
+    }
+    &:last-child{
+      border-bottom:none;
+    }
+  }
+  &__buttons{
+    width:30%;
+    text-align: right;
+  }
+}

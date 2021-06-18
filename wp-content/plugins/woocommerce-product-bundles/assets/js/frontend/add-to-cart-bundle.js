@@ -898,12 +898,10 @@ jQuery.fn.wc_get_bundle_script = function() {
 						// Tabular mini-extension compat.
 						bundled_item.$self.find( '.bundled_item_qty_col .quantity' ).addClass( 'quantity_hidden' );
 
-						if ( ! bundled_item.has_single_variation() ) {
-							// Reset image in bundled_product_images div.
-							bundled_item.maybe_add_wc_core_gallery_class();
-							bundled_item.$bundled_item_cart.trigger( 'reset_image' );
-							bundled_item.maybe_remove_wc_core_gallery_class();
-						}
+						// Reset image in bundled_product_images div.
+						bundled_item.maybe_add_wc_core_gallery_class();
+						bundled_item.$bundled_item_cart.trigger( 'reset_image' );
+						bundled_item.maybe_remove_wc_core_gallery_class();
 					}
 
 					bundled_item.update_selection_title();

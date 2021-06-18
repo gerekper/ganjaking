@@ -3,6 +3,11 @@
 class WoocommerceGpfStatusReport {
 
 	/**
+	 * @var WoocommerceProductFeedsFeedConfigRepository
+	 */
+	protected $config_repository;
+
+	/**
 	 * The template loader used for rendering the output.
 	 * @var WoocommerceGpfTemplateLoader.
 	 */
@@ -21,13 +26,16 @@ class WoocommerceGpfStatusReport {
 	 *
 	 * @param WoocommerceGpfTemplateLoader $template_loader An instance of the template loader.
 	 * @param WoocommerceGpfCommon $common
+	 * @param WoocommerceProductFeedsFeedConfigRepository $config_repository
 	 */
 	public function __construct(
 		WoocommerceGpfTemplateLoader $template_loader,
-		WoocommerceGpfCommon $common
+		WoocommerceGpfCommon $common,
+		WoocommerceProductFeedsFeedConfigRepository $config_repository
 	) {
-		$this->template_loader = $template_loader;
-		$this->common          = $common;
+		$this->template_loader   = $template_loader;
+		$this->common            = $common;
+		$this->config_repository = $config_repository;
 	}
 
 	/**
@@ -119,7 +127,21 @@ class WoocommerceGpfStatusReport {
 		}
 		$debug_key = get_option( 'woocommerce_gpf_debug_key', __( 'Not set', 'woocommerce_gpf' ) );
 
-		// Output them.
+		$this->template_loader->output_template_with_variables(
+			'woo-gpf-status-report',
+			'header',
+			array(
+				'attr_title' => esc_attr( __( 'WooCommerce Google Product Feed feeds', 'woocommerce_gpf' ) ),
+				'title'      => esc_html( __( 'WooCommerce Google Product Feed feeds', 'woocommerce_gpf' ) ),
+			)
+		);
+		$this->render_enabled_feeds();
+		$this->template_loader->output_template_with_variables(
+			'woo-gpf-status-report',
+			'footer',
+			array()
+		);
+
 		$this->template_loader->output_template_with_variables(
 			'woo-gpf-status-report',
 			'header',
@@ -128,7 +150,7 @@ class WoocommerceGpfStatusReport {
 				'title'      => esc_html( __( 'WooCommerce Google Product Feed options', 'woocommerce_gpf' ) ),
 			)
 		);
-		$this->render_enabled_feeds();
+
 		$this->template_loader->output_template_with_variables(
 			'woo-gpf-status-report',
 			'item',
@@ -177,22 +199,16 @@ class WoocommerceGpfStatusReport {
 	 * Render the list showing which feed types are enabled.
 	 */
 	private function render_enabled_feeds() {
-		$feed_types = $this->common->get_feed_types();
-		foreach ( $feed_types as $feed_type => $feed_type_info ) {
-			$enabled_or_not = __( '-', 'woocommerce_gpf' );
-			if ( isset( $this->settings['gpf_enabled_feeds'][ $feed_type ] ) &&
-				 'on' === $this->settings['gpf_enabled_feeds'][ $feed_type ] ) {
-				$enabled_or_not = __( 'Enabled', 'woocommerce_gpf' );
-			}
-			$name      = $feed_type_info['name'];
-			$attr_name = $feed_type_info['name'];
+		$feeds = $this->config_repository->all();
+		foreach ( $feeds as $feed_config ) {
+			$name = $feed_config->id;
 			$this->template_loader->output_template_with_variables(
 				'woo-gpf-status-report',
 				'item',
 				array(
 					'name'      => esc_html( $name ),
-					'attr_name' => esc_attr( $attr_name ),
-					'status'    => esc_html( $enabled_or_not ),
+					'attr_name' => esc_attr( $name ),
+					'status'    => $feed_config->get_readable_summary(),
 				)
 			);
 		}
@@ -206,14 +222,29 @@ class WoocommerceGpfStatusReport {
 	 */
 	private function generate_prepopulate_for_field( $key ) {
 		if ( stripos( $this->settings['product_prepopulate'][ $key ], 'tax:' ) === 0 ) {
-			// Translators: Placeholder is the name of the taxonomy
-			$prepopulate = sprintf( __( '%s taxonomy', 'woocommerce_gpf' ), str_replace( 'tax:', '', esc_html( $this->settings['product_prepopulate'][ $key ] ) ) );
+			$prepopulate = sprintf(
+				// Translators: Placeholder is the name of the taxonomy
+				__( '%s taxonomy', 'woocommerce_gpf' ),
+				str_replace( 'tax:', '', esc_html( $this->settings['product_prepopulate'][ $key ] ) )
+			);
+		} elseif ( stripos( $this->settings['product_prepopulate'][ $key ], 'taxhierarchy:' ) === 0 ) {
+			$prepopulate = sprintf(
+				// Translators: Placeholder is the name of the taxonomy
+				__( '%s taxonomy (full hierarchy)', 'woocommerce_gpf' ),
+				str_replace( 'taxhierarchy:', '', esc_html( $this->settings['product_prepopulate'][ $key ] ) )
+			);
 		} elseif ( stripos( $this->settings['product_prepopulate'][ $key ], 'field:' ) === 0 ) {
-			// Translators: Placeholder is the name of the product field
-			$prepopulate = sprintf( __( 'product %s', 'woocommerce_gpf' ), str_replace( 'field:', '', esc_html( $this->settings['product_prepopulate'][ $key ] ) ) );
+			$prepopulate = sprintf(
+				// Translators: Placeholder is the name of the product field
+				__( 'product %s', 'woocommerce_gpf' ),
+				str_replace( 'field:', '', esc_html( $this->settings['product_prepopulate'][ $key ] ) )
+			);
 		} elseif ( stripos( $this->settings['product_prepopulate'][ $key ], 'meta:' ) === 0 ) {
-			// Translators: Placeholder is the key of the meta field
-			$prepopulate = sprintf( __( '%s meta field', 'woocommerce_gpf' ), str_replace( 'meta:', '', esc_html( $this->settings['product_prepopulate'][ $key ] ) ) );
+			$prepopulate = sprintf(
+				// Translators: Placeholder is the key of the meta field
+				__( '%s meta field', 'woocommerce_gpf' ),
+				str_replace( 'meta:', '', esc_html( $this->settings['product_prepopulate'][ $key ] ) )
+			);
 		} else {
 			$description = apply_filters(
 				'woocommerce_gpf_prepopulation_description',

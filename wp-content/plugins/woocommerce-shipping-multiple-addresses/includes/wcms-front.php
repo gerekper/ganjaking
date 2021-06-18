@@ -552,7 +552,7 @@ class WC_MS_Front {
 		}
 
 		$remove_link = wp_nonce_url( add_query_arg( 'remove_address', $address, $edit_address ), 'wcms-delete-address' );
-		printf( '<a href="%1$s" class="remove delete-address-button" aria-label="%2$s">%2$s</a>', $remove_link, __( 'Delete address', 'wc_shipping_multiple_address' ) );
+		printf( '<a href="%1$s" class="remove delete-address-button" aria-label="%2$s">&times;</a>', $remove_link, __( 'Delete address', 'wc_shipping_multiple_address' ) );
 	}
 
 	/**

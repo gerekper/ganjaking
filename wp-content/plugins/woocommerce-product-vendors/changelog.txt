@@ -1,5 +1,11 @@
 *** Product Vendors Changelog ***
 
+2021-06-08 - version 2.1.52
+* Fix - HTML comments causing display errors for vendor order details page.
+* Fix - WooCommerce Navigation feature disabling for vendors.
+* Tweak - WC 5.3 compatibility.
+* Tweak - WP 5.7 compatibility.
+
 2021-04-06 - version 2.1.51
 * Fix - Export commissions function showing errors and preventing download.
 
