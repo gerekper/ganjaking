@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Instagram
  * Plugin URI: https://woocommerce.com/products/woocommerce-instagram/
  * Description: Connect your store with Instagram. Upload your product catalog to Instagram and showcase how your customers are using them.
- * Version: 3.4.6
+ * Version: 3.5.0
  * Author: Themesquad
  * Author URI: https://themesquad.com/
  * Requires at least: 4.4

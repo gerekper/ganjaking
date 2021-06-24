@@ -76,6 +76,10 @@
 				}
 			});
 
+			this.$body.on( 'wc_instagram_subset_fields_loaded', function() {
+				that.filterByToggle( $('input[name=filter_by]:checked' ).val() );
+			});
+
 			// Handle the visibility of the fields related to product variations.
 			this.getFormField( 'include_variations' ).on( 'change', function () {
 				var checked = $( this ).prop( 'checked' );
@@ -103,9 +107,17 @@
 				});
 			}
 
-			$( '.form-table' ).on( 'change', '.wc-instagram-gpc-select', function() {
-				that.loadCategorySelect( $( this ).val() );
+			this.getFormField( 'products_option' ).on( 'change', function() {
+				that.productsOptionToggle( $( this ).val() );
 			});
+
+			$( '.form-table' )
+				.on( 'change', '.wc-instagram-gpc-select', function() {
+					that.loadCategorySelect( $( this ).val() );
+				})
+				.on( 'change', 'input[name=filter_by]', function() {
+					that.filterByToggle( $( this ).val() );
+				});
 		},
 
 		/**
@@ -173,6 +185,34 @@
 
 		initGoogleProductCategorySelects: function( ) {
 			$( '.wc-instagram-gpc-select:not(.select2-hidden-accessible)' ).selectWoo( { width: 'auto' } );
+		},
+
+		filterByToggle: function( option ) {
+			var selector = option.replace( '_', '-' );
+
+			$( '.show-if-' + selector ).closest( 'tr' ).show();
+			$( '.hide-if-' + selector ).closest( 'tr' ).hide();
+
+			// Refresh visible subset fields.
+			$( '.wc-instagram-field-subset-option.show-if-' + selector ).each( function() {
+				$( this ).trigger( 'change' );
+			});
+
+			// Hide subset fields.
+			$( '.wc-instagram-field-subset-option.hide-if-' + selector ).each( function() {
+				$( this ).closest( 'tr' ).nextAll( 'tr' ).slice( 0, 2 ).hide();
+			});
+
+			if ( 'products' === option ) {
+				this.productsOptionToggle();
+			}
+		},
+
+		productsOptionToggle: function( value ) {
+			var option = ( value || this.getFormField( 'products_option' ).val() );
+
+			this.toggleFormFields( 'include_product_ids', ( 'specific' === option ) );
+			this.toggleFormFields( 'exclude_product_ids', ( 'all_except' === option ) );
 		},
 
 		updateHiddenInput: function ( category_id ) {

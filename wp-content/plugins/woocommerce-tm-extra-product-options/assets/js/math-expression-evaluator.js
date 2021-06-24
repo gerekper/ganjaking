@@ -1,6 +1,6 @@
 /**
  * https://github.com/bugwheels94/math-expression-evaluator
- * math-expression-evaluator version 1.2.17
+ * math-expression-evaluator version 1.3.5
  *
  * Renamed methods for compatibility
  * reformatted code by themeComplete
@@ -28,6 +28,7 @@
 		')',
 		'P',
 		'C',
+		' ',
 		'asin',
 		'acos',
 		'atan',
@@ -81,6 +82,7 @@
 		')',
 		'P',
 		'C',
+		' ',
 		'asin',
 		'acos',
 		'atan',
@@ -123,14 +125,13 @@
 
 	var newAr = [
 		[],
-		[ '1', '2', '3', '7', '8', '9', '4', '5', '6', '+', '-', '*', '/', '(', ')', '^', '!', 'P', 'C', 'e', '0', '.', ',', 'n' ],
+		[ '1', '2', '3', '7', '8', '9', '4', '5', '6', '+', '-', '*', '/', '(', ')', '^', '!', 'P', 'C', 'e', '0', '.', ',', 'n', ' ' ],
 		[ 'pi', 'ln', 'Pi' ],
-		[ 'round', 'ceil', 'floor', 'abs', 'exp', 'sqrt' ],
-		[ 'sin', 'cos', 'tan', 'Del', 'int', 'Mod', 'log', 'pow' ],
+		[ 'round', 'ceil', 'floor', 'abs', 'exp', 'sqrt', 'sin', 'cos', 'tan', 'Del', 'int', 'Mod', 'log', 'pow' ],
 		[ 'asin', 'acos', 'atan', 'cosh', 'root', 'tanh', 'sinh' ],
 		[ 'acosh', 'atanh', 'asinh', 'Sigma' ]
 	];
-	var type = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 4, 5, 10, 10, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 10, 0, 1, 1, 1, 2, 7, 0, 0, 2, 1, 1, 1, 2, 0, 0, 3, 0, 1, 6, 9, 9, 11, 12, 13, 12, 8 ];
+	var type = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 4, 5, 10, 10, 14, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 10, 0, 1, 1, 1, 2, 7, 0, 0, 2, 1, 1, 1, 2, 0, 0, 3, 0, 1, 6, 9, 9, 11, 12, 13, 12, 8 ];
 	/*
      0 : function with syntax function_name(Maths_exp)
      1 : numbers
@@ -144,7 +145,7 @@
      9 : binary operator like +,-
      10: binary operator like P C or ^
      11: ,
-     12: function with , seperated three parameters
+     12: function with , seperated three parameters and third parameter is a string that will be TCMexp string
      13: variable of Sigma function
      */
 	var preced = {
@@ -161,7 +162,8 @@
 		10: 10,
 		11: 0,
 		12: 11,
-		13: 0
+		13: 0,
+		14: -1 // will be filtered after lexer
 	};
 	var type0 = {
 		0: true,
@@ -172,7 +174,8 @@
 		8: true,
 		9: true,
 		12: true,
-		13: true
+		13: true,
+		14: true
 	}; // type2:true,type4:true,type9:true,type11:true,type21:true,type22
 	var type1 = {
 		0: true,
@@ -387,6 +390,7 @@
 		')',
 		TCMexp.math.P,
 		TCMexp.math.C,
+		' '.anchor,
 		TCMexp.math.asin,
 		TCMexp.math.acos,
 		TCMexp.math.atan,
@@ -486,16 +490,13 @@
 			x = tokens[ i ].token.length;
 			temp = -1;
 
-			// newAr is a specially designed data structure in which 1D array at location one of 2d array has all string with length 1 2 with 2 and so on
+			// newAr is a specially designed data structure index of 1d array = length of tokens
+			newAr[ x ] = newAr[ x ] || [];
 
-			if ( x < newAr.length ) {
-				// match to check if token is really huge and not existing
-				// if not checked it will break in next line as undefined index
-				for ( y = 0; y < newAr[ x ].length; y++ ) {
-					if ( tokens[ i ].token === newAr[ x ][ y ] ) {
-						temp = token.indexOf( newAr[ x ][ y ] );
-						break;
-					}
+			for ( y = 0; y < newAr[ x ].length; y++ ) {
+				if ( tokens[ i ].token === newAr[ x ][ y ] ) {
+					temp = token.indexOf( newAr[ x ][ y ] );
+					break;
 				}
 			}
 			if ( temp === -1 ) {
@@ -507,7 +508,7 @@
 				newAr[ tokens[ i ].token.length ].push( tokens[ i ].token );
 				eva.push( tokens[ i ].value );
 				show.push( tokens[ i ].show );
-			} else {
+			} else { // overwrite
 				token[ temp ] = tokens[ i ].token;
 				type[ temp ] = tokens[ i ].type;
 				eva[ temp ] = tokens[ i ].value;
@@ -515,6 +516,47 @@
 			}
 		}
 	};
+
+	function tokenize( string ) {
+		var nodes = [];
+		var length = string.length;
+		var key, x, y;
+		var i;
+		var index;
+		for ( i = 0; i < length; i++ ) {
+			if ( i < length - 1 && string[ i ] === ' ' && string[ i + 1 ] === ' ' ) {
+				continue;
+			}
+			key = '';
+			for ( x = ( string.length - i > ( newAr.length - 2 ) ? newAr.length - 1 : string.length - i ); x > 0; x-- ) {
+				if ( newAr[ x ] === undefined ) {
+					continue;
+				}
+				for ( y = 0; y < newAr[ x ].length; y++ ) {
+					if ( match( string, newAr[ x ][ y ], i, x ) ) {
+						key = newAr[ x ][ y ];
+						y = newAr[ x ].length;
+						x = 0;
+					}
+				}
+			}
+			i += key.length - 1;
+			if ( key === '' ) {
+				throw ( new TCMexp.Exception( 'Can\'t understand after ' + string.slice( i ) ) );
+			}
+			index = token.indexOf( key );
+			nodes.push( {
+				index: index,
+				token: key,
+				type: type[ index ],
+				eval: eva[ index ],
+				precedence: preced[ type[ index ] ],
+				show: show[ index ]
+			} );
+		}
+		return nodes;
+	}
+
 	TCMexp.lex = function( inp, tokens ) {
 		var changeSignObj = {
 			value: TCMexp.math.changeSign,
@@ -537,16 +579,13 @@
 		var str = [ openingParObj ];
 		var ptc = []; // Parenthesis to close at the beginning is after one token
 		var inpStr = inp;
-		var key;
-		var pcounter = 0;
 		var allowed = type0;
 		var bracToClose = 0;
 		var asterick = empty;
 		var prevKey = '';
-		var i, x, y;
+		var i;
 		var obj = {};
-
-		var index;
+		var nodes = tokenize( inpStr );
 		var cToken;
 		var cType;
 		var cEv;
@@ -554,43 +593,35 @@
 		var cShow;
 		var pre;
 		var j;
+		var node;
 
 		if ( typeof tokens !== 'undefined' ) {
 			TCMexp.addToken( tokens );
 		}
 
-		for ( i = 0; i < inpStr.length; i++ ) {
-			if ( inpStr[ i ] === ' ' ) {
+		for ( i = 0; i < nodes.length; i++ ) {
+			node = nodes[ i ];
+
+			if ( node.type === 14 ) {
+				if ( i > 0 && i < nodes.length - 1 && nodes[ i + 1 ].type === 1 && ( nodes[ i - 1 ].type === 1 || nodes[ i - 1 ].type === 6 ) ) {
+					throw new TCMexp.Exception( 'Unexpected Space' );
+				}
 				continue;
 			}
-			key = '';
-			for ( x = inpStr.length - i > newAr.length - 2 ? newAr.length - 1 : inpStr.length - i; x > 0; x-- ) {
-				for ( y = 0; y < newAr[ x ].length; y++ ) {
-					if ( match( inpStr, newAr[ x ][ y ], i, x ) ) {
-						key = newAr[ x ][ y ];
-						y = newAr[ x ].length;
-						x = 0;
-					}
-				}
-			}
-			i += key.length - 1;
-			if ( key === '' ) {
-				throw new TCMexp.Exception( "Can't understand after " + inpStr.slice( i ) );
-			}
-			index = token.indexOf( key );
-			cToken = key;
-			cType = type[ index ];
-			cEv = eva[ index ];
-			cPre = preced[ cType ];
-			cShow = show[ index ];
+
+			cToken = node.token;
+			cType = node.type;
+			cEv = node.eval;
+			cPre = node.precedence;
+			cShow = node.show;
 			pre = str[ str.length - 1 ];
 
 			for ( j = ptc.length; j--; ) {
 				// loop over ptc
 				if ( ptc[ j ] === 0 ) {
-					if ( [ 0, 2, 3, 5, 9, 11, 12, 13 ].indexOf( cType ) !== -1 ) {
+					if ( [ 0, 2, 3, 4, 5, 9, 11, 12, 13 ].indexOf( cType ) !== -1 ) {
 						if ( allowed[ cType ] !== true ) {
-							throw new TCMexp.Exception( key + ' is not allowed after ' + prevKey );
+							throw new TCMexp.Exception( cToken + ' is not allowed after ' + prevKey );
 						}
 						str.push( closingParObj );
 						allowed = type1;
@@ -602,14 +633,14 @@
 				}
 			}
 			if ( allowed[ cType ] !== true ) {
-				throw new TCMexp.Exception( key + ' is not allowed after ' + prevKey );
+				throw new TCMexp.Exception( cToken + ' is not allowed after ' + prevKey );
 			}
 			if ( asterick[ cType ] === true ) {
 				cType = 2;
 				cEv = TCMexp.math.mul;
 				cShow = '&times;';
 				cPre = 3;
-				i = i - key.length;
+				i = i - cToken.length;
 			}
 			obj = {
 				value: cEv,
@@ -643,8 +674,7 @@
 				allowed = type1;
 				asterick = type3Asterick;
 			} else if ( cType === 4 ) {
-				pcounter += ptc.length;
-				ptc = [];
+				inc( ptc, 1 );
 				bracToClose++;
 				allowed = type0;
 				asterick = empty;
@@ -653,15 +683,11 @@
 				if ( ! bracToClose ) {
 					throw new TCMexp.Exception( 'Closing parenthesis are more than opening one, wait What!!!' );
 				}
-				while ( pcounter-- ) {
-					// loop over ptc
-					str.push( closingParObj );
-				}
-				pcounter = 0;
 				bracToClose--;
 				allowed = type1;
 				asterick = type3Asterick;
 				str.push( obj );
+				inc( ptc, 1 );
 			} else if ( cType === 6 ) {
 				if ( pre.hasDec ) {
 					throw new TCMexp.Exception( 'Two decimals are not allowed in one number' );
@@ -741,7 +767,7 @@
 				str.push( obj );
 			}
 			inc( ptc, -1 );
-			prevKey = key;
+			prevKey = cToken;
 		}
 		for ( j = ptc.length; j--; ) {
 			// loop over ptc
@@ -760,7 +786,7 @@
 		}
 
 		str.push( closingParObj );
-		//        console.log(str);
+
 		return new TCMexp( str );
 	};
 

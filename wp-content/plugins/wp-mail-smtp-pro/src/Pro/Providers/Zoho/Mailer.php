@@ -210,44 +210,12 @@ class Mailer extends MailerAbstract {
 	 * Only one reply-to email address is allowed, so we take the first one.
 	 *
 	 * @since 2.3.0
+	 * @since 2.9.0 Zoho does not allow dynamic reply-to addresses, so we removed the support for them. GH #645.
 	 *
 	 * @param array $reply_to The multidimensional array of email addresses and names that
 	 *                        should be used for the reply field.
 	 */
-	public function set_reply_to( $reply_to ) {
-
-		if ( empty( $reply_to ) || ! is_array( $reply_to ) ) {
-			return;
-		}
-
-		$reply_to = array_values( $reply_to );
-
-		$addr = isset( $reply_to[0][0] ) ? $reply_to[0][0] : false;
-		$name = isset( $reply_to[0][1] ) ? $reply_to[0][1] : false;
-
-		if ( ! filter_var( $addr, FILTER_VALIDATE_EMAIL ) ) {
-			return;
-		}
-
-		// Prevent the authorized email address from being set as the reply-to address. It causes issues for Zoho Mail.
-		$sender = $this->options->get( $this->mailer, 'user_details' );
-
-		if ( isset( $sender['email'] ) && $addr === $sender['email'] ) {
-			return;
-		}
-
-		if ( ! empty( $name ) ) {
-			$addr = sprintf( '%1$s <%2$s>', $name, $addr );
-		}
-
-		if ( ! empty( $addr ) ) {
-			$this->set_body_param(
-				[
-					'replyTo' => $addr,
-				]
-			);
-		}
-	}
+	public function set_reply_to( $reply_to ) {}
 
 	/**
 	 * Set the return path.

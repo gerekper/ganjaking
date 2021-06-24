@@ -1,5 +1,12 @@
 *** WooCommerce Product Bundles ***
 
+2021.06.15 - version 6.10.2
+* Fix - Respect 'woocommerce_admin_disabled' filter when using WooCommerce Admin 2.3+
+
+2021.06.14 - version 6.10.1
+* Fix - Fixed an issue that could cause remaining bundle stock to be calculated incorrectly when bundling variable products that manage stock at parent level.
+* Tweak - Display selected quantity in bundled item titles when item quantity is configurable.
+
 2021.06.01 - version 6.10.0
 * Feature - Send stock notifications for bundles that run low in stock or out of stock due to bundled product stock changes.
 * Feature - View remaining bundles in product bundle pages, even when 'Product Data > Inventory > Manage Stock' is disabled at bundle level. Applicable to bundles that contain at least one bundled item that manages stock.

@@ -268,7 +268,7 @@ a:focus {
 }
 
 /* Border type */
-.woocommerce .tm_wrapper table.form-table #tm_epo_css_selected_border + .select2-container {
+.woocommerce .tc-wrapper table.form-table #tm_epo_css_selected_border + .select2-container {
 	display: inline-block;
 }
 
@@ -310,7 +310,7 @@ a:focus {
 }
 
 /* Checkbox and rabio button styles setting */
-.woocommerce .tm_wrapper table.form-table #tm_epo_css_styles_style + .select2-container {
+.woocommerce .tc-wrapper table.form-table #tm_epo_css_styles_style + .select2-container {
 	display: inline-block;
 }
 
@@ -425,21 +425,21 @@ a:focus {
 }
 
 /* Form controls */
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default .select2-selection--multiple,
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default .select2-selection--single,
-.woocommerce .tm_wrapper table.form-table input.regular-input,
-.woocommerce .tm_wrapper table.form-table input[type='date'],
-.woocommerce .tm_wrapper table.form-table input[type='datetime-local'],
-.woocommerce .tm_wrapper table.form-table input[type='datetime'],
-.woocommerce .tm_wrapper table.form-table input[type='email'],
-.woocommerce .tm_wrapper table.form-table input[type='number'],
-.woocommerce .tm_wrapper table.form-table input[type='password'],
-.woocommerce .tm_wrapper table.form-table input[type='tel'],
-.woocommerce .tm_wrapper table.form-table input[type='text'],
-.woocommerce .tm_wrapper table.form-table input[type='time'],
-.woocommerce .tm_wrapper table.form-table input[type='url'],
-.woocommerce .tm_wrapper table.form-table input[type='week'],
-.woocommerce .tm_wrapper table.form-table textarea {
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--multiple,
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--single,
+.woocommerce .tc-wrapper table.form-table input.regular-input,
+.woocommerce .tc-wrapper table.form-table input[type='date'],
+.woocommerce .tc-wrapper table.form-table input[type='datetime-local'],
+.woocommerce .tc-wrapper table.form-table input[type='datetime'],
+.woocommerce .tc-wrapper table.form-table input[type='email'],
+.woocommerce .tc-wrapper table.form-table input[type='number'],
+.woocommerce .tc-wrapper table.form-table input[type='password'],
+.woocommerce .tc-wrapper table.form-table input[type='tel'],
+.woocommerce .tc-wrapper table.form-table input[type='text'],
+.woocommerce .tc-wrapper table.form-table input[type='time'],
+.woocommerce .tc-wrapper table.form-table input[type='url'],
+.woocommerce .tc-wrapper table.form-table input[type='week'],
+.woocommerce .tc-wrapper table.form-table textarea {
 	border-radius: 3px !important;
 	-moz-border-radius: 3px !important;
 	-webkit-border-radius: 3px !important;
@@ -460,18 +460,18 @@ a:focus {
 	min-width: 60%;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default .select2-selection--multiple,
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default .select2-selection--single {
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--multiple,
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--single {
 	width: 100%;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default .select2-selection--multiple,
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default .select2-selection--single {
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--multiple,
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--single {
 	padding: 8px 16px;
 	line-height: 36px;
 }
 
-.woocommerce .tm_wrapper table.form-table input[type='number'] {
+.woocommerce .tc-wrapper table.form-table input[type='number'] {
 	padding-right: 6px;
 }
 
@@ -481,7 +481,7 @@ a:focus {
 	min-width: 80%;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container {
+.woocommerce .tc-wrapper table.form-table .select2-container {
 	font-size: 13px !important;
 	display: block;
 	height: auto !important;
@@ -495,7 +495,7 @@ a:focus {
 	width: 60% !important;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container .select2-selection--single {
+.woocommerce .tc-wrapper table.form-table .select2-container .select2-selection--single {
 	border-radius: 3px !important;
 	-moz-border-radius: 3px !important;
 	-webkit-border-radius: 3px !important;
@@ -510,7 +510,7 @@ a:focus {
 	height: auto;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container .select2-selection__rendered {
+.woocommerce .tc-wrapper table.form-table .select2-container .select2-selection__rendered {
 	min-height: 36px !important;
 	height: auto !important;
 	padding: 0 36px 0 0 !important;
@@ -522,7 +522,7 @@ a:focus {
 	line-height: 36px !important;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default .select2-selection--single .select2-selection__arrow {
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--single .select2-selection__arrow {
 	height: 36px !important;
 	line-height: 36px !important;
 	-webkit-box-shadow: none !important;
@@ -537,7 +537,7 @@ a:focus {
 	right: 16px;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default .select2-selection--single .select2-selection__arrow:after {
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--single .select2-selection__arrow:after {
 	font-weight: 900;
 	font-family: tc-fontawesome;
 	content: '\f107';
@@ -546,11 +546,11 @@ a:focus {
 	position: absolute;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
 	border-color: transparent transparent #6a7a90 transparent;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default .select2-selection--single .select2-selection__arrow b {
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--single .select2-selection__arrow b {
 	border-color: #6a7a90 transparent transparent transparent;
 }
 
@@ -643,21 +643,21 @@ a:focus {
 	outline: none !important;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default.select2-container--focus .select2-selection--multiple,
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default.select2-container--focus .select2-selection--single,
-.woocommerce .tm_wrapper table.form-table textarea:focus,
-.woocommerce .tm_wrapper table.form-table input.regular-input:focus,
-.woocommerce .tm_wrapper table.form-table input[type='date']:focus,
-.woocommerce .tm_wrapper table.form-table input[type='datetime-local']:focus,
-.woocommerce .tm_wrapper table.form-table input[type='datetime']:focus,
-.woocommerce .tm_wrapper table.form-table input[type='email']:focus,
-.woocommerce .tm_wrapper table.form-table input[type='number']:focus,
-.woocommerce .tm_wrapper table.form-table input[type='password']:focus,
-.woocommerce .tm_wrapper table.form-table input[type='tel']:focus,
-.woocommerce .tm_wrapper table.form-table input[type='text']:focus,
-.woocommerce .tm_wrapper table.form-table input[type='time']:focus,
-.woocommerce .tm_wrapper table.form-table input[type='url']:focus,
-.woocommerce .tm_wrapper table.form-table input[type='week']:focus {
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default.select2-container--focus .select2-selection--multiple,
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default.select2-container--focus .select2-selection--single,
+.woocommerce .tc-wrapper table.form-table textarea:focus,
+.woocommerce .tc-wrapper table.form-table input.regular-input:focus,
+.woocommerce .tc-wrapper table.form-table input[type='date']:focus,
+.woocommerce .tc-wrapper table.form-table input[type='datetime-local']:focus,
+.woocommerce .tc-wrapper table.form-table input[type='datetime']:focus,
+.woocommerce .tc-wrapper table.form-table input[type='email']:focus,
+.woocommerce .tc-wrapper table.form-table input[type='number']:focus,
+.woocommerce .tc-wrapper table.form-table input[type='password']:focus,
+.woocommerce .tc-wrapper table.form-table input[type='tel']:focus,
+.woocommerce .tc-wrapper table.form-table input[type='text']:focus,
+.woocommerce .tc-wrapper table.form-table input[type='time']:focus,
+.woocommerce .tc-wrapper table.form-table input[type='url']:focus,
+.woocommerce .tc-wrapper table.form-table input[type='week']:focus {
 	-webkit-box-shadow: 0 1px 8px 1px rgba(0, 0, 0, 0.1) !important;
 	-moz-box-shadow: 0 1px 8px 1px rgba(0, 0, 0, 0.1) !important;
 	box-shadow: 0 1px 8px 1px rgba(0, 0, 0, 0.1) !important;
@@ -665,19 +665,19 @@ a:focus {
 	border: 1px solid #3f4450 !important;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default.select2-container--focus .select2-selection--multiple,
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default.select2-container--open .select2-selection--multiple {
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default.select2-container--focus .select2-selection--multiple,
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default.select2-container--open .select2-selection--multiple {
 	border: solid #3f4450 1px !important;
 	outline: 0;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default.select2-container--focus .select2-selection--single,
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default.select2-container--open .select2-selection--single {
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default.select2-container--focus .select2-selection--single,
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default.select2-container--open .select2-selection--single {
 	border: solid #3f4450 1px !important;
 	outline: 0;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container.select2-container--default .select2-selection--multiple .select2-selection__choice {
+.woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--multiple .select2-selection__choice {
 	line-height: 16px;
 	margin: 5px 5px 5px 0;
 	padding: 0.5em;
@@ -687,7 +687,7 @@ a:focus {
 	color: #fff;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+.woocommerce .tc-wrapper table.form-table .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
 	line-height: 16px;
 	margin: 5px 1px 5px 0;
 	padding: 0.5em;
@@ -697,7 +697,7 @@ a:focus {
 	color: #683ebd;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+.woocommerce .tc-wrapper table.form-table .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
 	color: #e51e1b;
 	cursor: pointer;
 	display: inline-block;
@@ -706,11 +706,11 @@ a:focus {
 	margin-left: 0.5em;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+.woocommerce .tc-wrapper table.form-table .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
 	display: none;
 }
 
-.woocommerce .tm_wrapper table.form-table .select2-container .select2-selection--multiple .select2-search__field {
+.woocommerce .tc-wrapper table.form-table .select2-container .select2-selection--multiple .select2-search__field {
 	-webkit-box-shadow: none !important;
 	-moz-box-shadow: none !important;
 	box-shadow: none !important;
@@ -1272,33 +1272,33 @@ a.tm-mn-delfile {
 }
 
 ul.select2-results__options::-webkit-scrollbar,
-.woocommerce .tm_wrapper table.form-table textarea::-webkit-scrollbar {
+.woocommerce .tc-wrapper table.form-table textarea::-webkit-scrollbar {
 	background: #3f4450;
 	width: 8px;
 }
 
 ul.select2-results__options::-webkit-scrollbar-button,
-.woocommerce .tm_wrapper table.form-table textarea::-webkit-scrollbar-button {
+.woocommerce .tc-wrapper table.form-table textarea::-webkit-scrollbar-button {
 	background: #3f4450;
 }
 
 ul.select2-results__options::-webkit-scrollbar-thumb,
-.woocommerce .tm_wrapper table.form-table textarea::-webkit-scrollbar-thumb {
+.woocommerce .tc-wrapper table.form-table textarea::-webkit-scrollbar-thumb {
 	background: linear-gradient(to top, #1affb2, #7fffd4);
 }
 
 ul.select2-results__options::-webkit-resizer,
-.woocommerce .tm_wrapper table.form-table textarea::-webkit-resizer {
+.woocommerce .tc-wrapper table.form-table textarea::-webkit-resizer {
 	background: transparent;
 }
 
 ul.select2-results__options::-webkit-scrollbar-corner,
-.woocommerce .tm_wrapper table.form-table textarea::-webkit-scrollbar-corner {
+.woocommerce .tc-wrapper table.form-table textarea::-webkit-scrollbar-corner {
 	background: transparent;
 }
 
 ul.select2-results__options,
-.woocommerce .tm_wrapper table.form-table textarea {
+.woocommerce .tc-wrapper table.form-table textarea {
 	scrollbar-color: #7fffd4 #3f4450;
 	scrollbar-width: thin;
 }

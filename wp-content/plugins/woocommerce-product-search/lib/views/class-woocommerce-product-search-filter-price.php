@@ -136,8 +136,8 @@ class WooCommerce_Product_Search_Filter_Price {
 				'show_heading'        => 'yes',
 				'slider'              => 'yes',
 				'submit_button'       => 'no',
-				'submit_button_label' => __( 'Go', 'woocommerce-product-search' ),
-				'use_shop_url'        => 'no'
+				'submit_button_label' => __( 'Go', 'woocommerce-product-search' )
+
 			),
 			$atts
 		);
@@ -168,7 +168,7 @@ class WooCommerce_Product_Search_Filter_Price {
 					case 'show_heading' :
 					case 'slider' :
 					case 'submit_button' :
-					case 'use_shop_url' :
+
 						$value = strtolower( $value );
 						$value = $value == 'true' || $value == 'yes' || $value == '1';
 						break;
@@ -244,12 +244,13 @@ class WooCommerce_Product_Search_Filter_Price {
 		$output = apply_filters(
 			'woocommerce_product_search_filter_price_prefix',
 			sprintf(
-				'<div id="%s" class="product-search-filter-price %s">',
+				'<div id="%s" class="product-search-filter-price %s %s">',
 				esc_attr( $container_id ),
 				esc_attr( $container_class ) .
 				( $params['slider'] ? ' show-slider ' : ' hide-slider ' ) .
 				( $params['fields'] ? ' show-fields ' : ' hide-fields ' ) .
-				( $params['submit_button'] ? ' show-submit ' : ' hide-submit' )
+				( $params['submit_button'] ? ' show-submit ' : ' hide-submit' ),
+				$params['filter'] ? '' : 'filter-dead'
 			)
 		);
 
@@ -270,16 +271,6 @@ class WooCommerce_Product_Search_Filter_Price {
 		$current_url = remove_query_arg( array( 'ixwpsp', 'min_price', 'max_price', 'paged' ), $current_url );
 		$href        = $current_url;
 		$add_post_type = false;
-		if ( isset( $params['use_shop_url'] ) && $params['use_shop_url'] ) {
-			$href = get_permalink( wc_get_page_id( 'shop' ) );
-			if ( !$href ) {
-				$query_post_type = WooCommerce_Product_Search_Filter::get_query_arg( $current_url, 'post_type' );
-				if ( $query_post_type !== 'product' ) {
-					$href = add_query_arg( array( 'post_type' => 'product' ), trailingslashit( home_url() ) );
-					$add_post_type = true;
-				}
-			}
-		}
 
 		$min_field_id = 'product-search-filter-min-price-' . $n;
 		$max_field_id = 'product-search-filter-max-price-' . $n;
@@ -460,7 +451,9 @@ class WooCommerce_Product_Search_Filter_Price {
 				'}' .
 			'}' .
 
-			'jQuery(".product-filter-field").first().trigger( "ixPriceFilter", [min_price, max_price] );' .
+			'if ( jQuery( this ).closest( ".product-search-filter-price" ).not( ".filter-dead" ).length > 0 ) {' .
+				'jQuery(".product-filter-field").first().trigger( "ixPriceFilter", [min_price, max_price] );' .
+			'}' .
 			'},' .
 			'wait: %d,' .
 			'highlight: true,' .

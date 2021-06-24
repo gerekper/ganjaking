@@ -4,6 +4,7 @@ namespace WPMailSMTP\Pro\Emails\Logs\Providers;
 
 use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Options;
+use WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments;
 use WPMailSMTP\Pro\Emails\Logs\Email;
 
 /**
@@ -103,13 +104,10 @@ class SMTP {
 				->set_headers( array_filter( $headers ) )
 				->set_attachments( $attachments );
 
-			if ( wp_mail_smtp()->pro->get_logs()->is_enabled_content() ) {
-				$email
-					->set_content_plain( $this->mailcatcher->ContentType === 'text/plain' ? $this->mailcatcher->Body : $this->mailcatcher->AltBody )
-					->set_content_html( $this->mailcatcher->ContentType !== 'text/plain' ? $this->mailcatcher->Body : '' );
-			}
-
 			$email->save();
+
+			// Save attachments to the email log.
+			( new Attachments() )->process_attachments( $email_id, $this->mailcatcher->getAttachments() );
 		} catch ( \Exception $e ) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
 			// Do nothing for now.
 		}

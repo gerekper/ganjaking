@@ -141,7 +141,7 @@ class Email {
 
 		$email = null;
 
-		if ( is_numeric( $id_or_row ) ) {
+		if ( is_numeric( $id_or_row ) && $id_or_row > 0 ) {
 			// Get by ID.
 			$collection = new EmailsCollection( array( 'id' => (int) $id_or_row ) );
 			$emails     = $collection->get();
@@ -195,7 +195,7 @@ class Email {
 	 */
 	public function get_subject() {
 
-		return esc_html( $this->subject );
+		return $this->subject;
 	}
 
 	/**
@@ -280,7 +280,6 @@ class Email {
 
 		foreach ( $headers as $header ) {
 			preg_match( '/^' . $name . ': (.*)/', $header, $output );
-
 			if ( ! empty( $output[1] ) ) {
 				return $output[1];
 			}
@@ -413,6 +412,70 @@ class Email {
 	public function get_attachments() {
 
 		return (int) $this->attachments;
+	}
+
+	/**
+	 * Get email content type.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @return string
+	 */
+	public function get_content_type() {
+
+		// Check if HTML content is available.
+		if ( ! empty( $this->get_content_html() ) ) {
+			return 'text/html';
+		}
+
+		// Check the content-type header.
+		$content_type_header = $this->get_header( 'Content-Type' );
+		$content_type_data   = explode( ';', $content_type_header );
+
+		if ( ! empty( $content_type_data[0] ) ) {
+			return strtolower( trim( $content_type_data[0] ) );
+		}
+
+		return 'text/plain';
+	}
+
+	/**
+	 * Get email charset.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @return string
+	 */
+	public function get_charset() {
+
+		$charset = get_bloginfo( 'charset' );
+
+		$content_type_header = $this->get_header( 'Content-Type' );
+
+		list( , $charset_content ) = explode( ';', $content_type_header );
+		if ( false !== stripos( $charset_content, 'charset=' ) ) {
+			$charset = trim( str_replace( array( 'charset=', '"' ), '', $charset_content ) );
+		}
+
+		return $charset;
+	}
+
+	/**
+	 * Is content type HTML based.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @return bool
+	 */
+	public function is_content_type_html_based() {
+
+		$html_content_types = [
+			'text/html',
+			'multipart/alternative',
+			'multipart/mixed',
+		];
+
+		return in_array( $this->get_content_type(), $html_content_types, true );
 	}
 
 	/**

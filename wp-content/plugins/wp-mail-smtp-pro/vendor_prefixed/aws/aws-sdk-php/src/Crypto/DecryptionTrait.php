@@ -96,7 +96,7 @@ trait DecryptionTrait
      */
     protected function getDecryptingStream($cipherText, $cek, $cipherOptions)
     {
-        $cipherTextStream = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\stream_for($cipherText);
+        $cipherTextStream = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::streamFor($cipherText);
         switch ($cipherOptions['Cipher']) {
             case 'gcm':
                 $cipherOptions['Tag'] = $this->getTagFromCiphertextStream($cipherTextStream, $cipherOptions['TagLength']);

@@ -275,4 +275,57 @@ class Request {
 
 		return $request_data;
 	}
+
+	/**
+	 * Get notices.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param string $type Error type.
+	 *
+	 * @return array Notices.
+	 */
+	public function get_notices( $type = null ) {
+
+		$notices = isset( $this->data['notices'] ) ? $this->data['notices'] : [];
+
+		if ( $type !== null ) {
+			return array_filter(
+				$notices,
+				function ( $notice ) use ( $type ) {
+					return $notice['type'] === $type;
+				}
+			);
+		}
+
+		$order = [ 'error', 'warning', 'info' ];
+
+		usort(
+			$notices,
+			function ( $a, $b ) use ( $order ) {
+				$pos_a = array_search( $a['type'], $order, true );
+				$pos_b = array_search( $b['type'], $order, true );
+
+				return $pos_a - $pos_b;
+			}
+		);
+
+		return $notices;
+	}
+
+	/**
+	 * Add notice.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param string $msg  Notice message.
+	 * @param string $type Error type. Valid types: info, warning, error.
+	 */
+	public function add_notice( $msg, $type = 'info' ) {
+
+		$this->data['notices'][] = [
+			'type'    => $type,
+			'message' => $msg,
+		];
+	}
 }

@@ -352,9 +352,9 @@ class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\RSA implements \WPM
             $leadingZeros &= $m[$i] === "\0";
             $offset += $patternMatch ? 0 : 1;
         }
-        // we do & instead of && to avoid https://en.wikipedia.org/wiki/Short-circuit_evaluation
+        // we do | instead of || to avoid https://en.wikipedia.org/wiki/Short-circuit_evaluation
         // to protect against timing attacks
-        if (!$hashesMatch & !$patternMatch) {
+        if (!$hashesMatch | !$patternMatch) {
             throw new \RuntimeException('Decryption error');
         }
         // Output the message M

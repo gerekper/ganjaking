@@ -170,7 +170,7 @@ final class Middleware
         return function (callable $handler) use($operations) {
             return function (\WPMailSMTP\Vendor\Aws\CommandInterface $command, \WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request = null) use($handler, $operations) {
                 if (!$request->hasHeader('Content-Type') && \in_array($command->getName(), $operations, \true) && ($uri = $request->getBody()->getMetadata('uri'))) {
-                    $request = $request->withHeader('Content-Type', \WPMailSMTP\Vendor\GuzzleHttp\Psr7\mimetype_from_filename($uri) ?: 'application/octet-stream');
+                    $request = $request->withHeader('Content-Type', \WPMailSMTP\Vendor\GuzzleHttp\Psr7\MimeType::fromFilename($uri) ?: 'application/octet-stream');
                 }
                 return $handler($command, $request);
             };

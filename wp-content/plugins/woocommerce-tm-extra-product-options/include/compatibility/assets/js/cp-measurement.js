@@ -13,7 +13,8 @@
 		return elementQty;
 	}
 
-	$( document ).ready( function() {
+	// document ready
+	$( function() {
 		TMEPOJS = window.TMEPOJS || null;
 		TMEPOMEASUREMENTJS = window.TMEPOMEASUREMENTJS || null;
 		tcAPI = $.tcAPI();

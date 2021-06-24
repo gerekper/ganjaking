@@ -206,7 +206,7 @@
 
 	function doConfirm( title, func, funcThis, funcArgs ) {
 		var $_html = $.epoAPI.template.html( window.wp.template( 'tc-floatbox' ), {
-			id: 'temp_for_floatbox_insert',
+			id: 'tc-floatbox-content',
 			title: title,
 			html: '',
 			uniqid: '',
@@ -224,7 +224,7 @@
 			refresh: 'fixed',
 			width: '50%',
 			height: 'auto',
-			classname: 'flasho tm_wrapper tc-question',
+			classname: 'flasho tc-wrapper tc-question',
 			data: $_html,
 			cancelEvent: function( inst ) {
 				if ( clicked ) {
@@ -276,7 +276,8 @@
 		} );
 	}
 
-	$( document ).ready( function() {
+	// document ready
+	$( function() {
 		var tm_settings_wrap = $( '.tm-settings-wrap' );
 		var tm_settings_wrap_checkbox;
 
@@ -336,7 +337,7 @@
 				}
 				if ( prevnext && prevnext.length ) {
 					$this.trigger( 'blur' );
-					prevnext.trigger(' focus' ).trigger( 'click' );
+					prevnext.trigger( ' focus' ).trigger( 'click' );
 					e.preventDefault();
 				}
 			} );
@@ -517,7 +518,7 @@
 								forminp_tm_html.html( response.result );
 							} else if ( response && response.error && response.message ) {
 								$_html = $.tmEPOAdmin.builder_floatbox_template_import( {
-									id: 'temp_for_floatbox_insert',
+									id: 'tc-floatbox-content',
 									html: '<div class="tm-inner">' + response.message + '</div>',
 									title: TMEPOADMINSETTINGSJS.i18n_error_title
 								} );
@@ -531,7 +532,7 @@
 									refresh: 'fixed',
 									width: '50%',
 									height: '300px',
-									classname: 'flasho tm_wrapper tm-error',
+									classname: 'flasho tc-wrapper tm-error',
 									data: $_html
 								} );
 							}

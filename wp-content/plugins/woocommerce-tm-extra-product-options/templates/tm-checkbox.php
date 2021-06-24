@@ -42,6 +42,9 @@ defined( 'ABSPATH' ) || exit;
 				<?php if ( ! empty( $tax_obj ) ) {
 					echo 'data-tax-obj="' . esc_attr( $tax_obj ) . '" ';
 				} ?>
+				<?php if ( ! empty( $changes_product_image ) ) {
+					echo 'data-changes-product-image="' . esc_attr( $changes_product_image ) . '" ';
+				} ?>
 				<?php
 				if ( isset( $element_data_attr ) && is_array( $element_data_attr ) ) {
 					THEMECOMPLETE_EPO_HTML()->create_attribute_list( $element_data_attr );
@@ -87,11 +90,16 @@ defined( 'ABSPATH' ) || exit;
 					}
 				}
 
+				$tmlazy = THEMECOMPLETE_EPO()->tm_epo_no_lazy_load === 'no' ? 'tmlazy ' : '';
+				if ( ! empty( $border_type ) ) {
+					$border_type = $border_type . ' ';
+				}
+
 				// $src && swatch_html are generated above
 				switch ( $label_mode ) {
 					case 'images':
 						if ( ! empty( $src ) ){
-							echo '<img class="tmlazy ' . esc_attr( $border_type ) . ' checkbox_image' . esc_attr( $swatch_class ) . '" '
+							echo '<img class="' . esc_attr( $border_type ) . esc_attr( $tmlazy ) . 'checkbox_image' . esc_attr( $swatch_class ) . '" '
 								. 'alt="' . esc_attr( strip_tags( $label_to_display ) ) . '" ';
 							echo wp_kses_post( $src );
 							echo wp_kses_post( $swatch_html );
@@ -101,7 +109,7 @@ defined( 'ABSPATH' ) || exit;
 						break;
 					case 'startimages':
 						if ( ! empty( $src ) ){
-							echo '<img class="tmlazy ' . esc_attr( $border_type ) . ' checkbox_image' . esc_attr( $swatch_class ) . '" '
+							echo '<img class="' . esc_attr( $border_type ) . esc_attr( $tmlazy ) . 'checkbox_image' . esc_attr( $swatch_class ) . '" '
 								. 'alt="' . esc_attr( strip_tags( $label_to_display ) ) . '" ';
 							echo wp_kses_post( $src );
 							echo wp_kses_post( $swatch_html );
@@ -116,7 +124,7 @@ defined( 'ABSPATH' ) || exit;
 							echo '<span class="tc-label checkbox-image-label-inline">' . apply_filters( 'wc_epo_kses', wp_kses_post( $label_to_display ), $label_to_display ) . '</span>';
 						}
 						if ( ! empty( $src ) ){
-							echo '<img class="tmlazy ' . esc_attr( $border_type ) . ' checkbox_image' . esc_attr( $swatch_class ) . '" '
+							echo '<img class="' . esc_attr( $border_type ) . esc_attr( $tmlazy ) . 'checkbox_image' . esc_attr( $swatch_class ) . '" '
 								. 'alt="' . esc_attr( strip_tags( $label_to_display ) ) . '" ';
 							echo wp_kses_post( $src );
 							echo wp_kses_post( $swatch_html );
@@ -125,14 +133,14 @@ defined( 'ABSPATH' ) || exit;
 						break;
 
 					case 'color':
-						echo '<span class="tmhexcolorimage ' . esc_attr( $border_type ) . ' checkbox_image' . esc_attr( $swatch_class ) . '" '
+						echo '<span class="tmhexcolorimage ' . esc_attr( $border_type ) . 'checkbox_image' . esc_attr( $swatch_class ) . '" '
 						     . 'alt="' . esc_attr( strip_tags( $label_to_display ) ) . '" ';
 						echo wp_kses_post( $swatch_html );
 						echo '></span>'
 						     . '<span class="tc-label checkbox-image-label">' . apply_filters( 'wc_epo_kses', wp_kses_post( $label_to_display ), $label_to_display ) . '</span>';
 						break;
 					case 'startcolor':
-						echo '<span class="tmhexcolorimage ' . esc_attr( $border_type ) . ' checkbox_image' . esc_attr( $swatch_class ) . '" '
+						echo '<span class="tmhexcolorimage ' . esc_attr( $border_type ) . 'checkbox_image' . esc_attr( $swatch_class ) . '" '
 						     . 'alt="' . esc_attr( strip_tags( $label_to_display ) ) . '" ';
 						echo wp_kses_post( $swatch_html );
 						echo '></span>';
@@ -144,7 +152,7 @@ defined( 'ABSPATH' ) || exit;
 						if ( ! empty( $label_to_display ) ) {
 							echo '<span class="tc-label checkbox-image-label-inline">' . apply_filters( 'wc_epo_kses', wp_kses_post( $label_to_display ), $label_to_display ) . '</span>';
 						}
-						echo '<span class="tmhexcolorimage ' . esc_attr( $border_type ) . ' checkbox_image' . esc_attr( $swatch_class ) . '" '
+						echo '<span class="tmhexcolorimage ' . esc_attr( $border_type ) . 'checkbox_image' . esc_attr( $swatch_class ) . '" '
 						     . 'alt="' . esc_attr( strip_tags( $label_to_display ) ) . '" ';
 						echo wp_kses_post( $swatch_html );
 						echo '></span>';

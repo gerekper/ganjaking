@@ -186,12 +186,34 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 						'description' => _x( 'Filter the products that will be included in the catalog.', 'settings section desc', 'woocommerce-instagram' ),
 						'type'        => 'title',
 					),
+					'filter_by'       => array(
+						'title'   => _x( 'Filter by', 'setting title', 'woocommerce-instagram' ),
+						'type'    => 'radio',
+						'default' => 'products',
+						'options' => array(
+							'products'     => _x( 'Products', 'setting option', 'woocommerce-instagram' ),
+							'product_cats' => _x( 'Product categories', 'setting option', 'woocommerce-instagram' ),
+							'custom'       => _x( 'Custom', 'setting option', 'woocommerce-instagram' ),
+						),
+					),
+					'products_option' => array(
+						'title'    => _x( 'Products', 'setting title', 'woocommerce-instagram' ),
+						'desc_tip' => _x( 'Choose the products to include in the catalog.', 'setting desc', 'woocommerce-instagram' ),
+						'type'     => 'select',
+						'class'    => 'show-if-products hide-if-product-cats hide-if-custom',
+						'options'  => array(
+							''           => _x( 'All products', 'setting option', 'woocommerce-instagram' ),
+							'all_except' => _x( 'All products, except&hellip;', 'setting option', 'woocommerce-instagram' ),
+							'specific'   => _x( 'Only specific products', 'setting option', 'woocommerce-instagram' ),
+						),
+					),
 				),
 				$this->generate_subset_fields(
 					'product_cats',
 					array(
 						'title'    => _x( 'Product categories', 'setting title', 'woocommerce-instagram' ),
 						'desc_tip' => _x( 'Choose the product categories to include in the catalog.', 'setting desc', 'woocommerce-instagram' ),
+						'class'    => 'show-if-product-cats show-if-custom hide-if-products',
 						'options'  => array(
 							''           => _x( 'All product categories', 'setting option', 'woocommerce-instagram' ),
 							'all_except' => _x( 'All product categories, except&hellip;', 'setting option', 'woocommerce-instagram' ),
@@ -205,6 +227,7 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 					array(
 						'title'    => _x( 'Product types', 'setting title', 'woocommerce-instagram' ),
 						'desc_tip' => _x( 'Choose the product types to include in the catalog.', 'setting desc', 'woocommerce-instagram' ),
+						'class'    => 'show-if-custom hide-if-products hide-if-product-cats',
 						'options'  => array(
 							''           => _x( 'All product types', 'setting option', 'woocommerce-instagram' ),
 							'all_except' => _x( 'All product types, except&hellip;', 'setting option', 'woocommerce-instagram' ),
@@ -226,6 +249,7 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 						'desc_tip'    => _x( 'Filter virtual products.', 'setting desc', 'woocommerce-instagram' ),
 						'description' => _x( 'This filter only applies to simple products.', 'setting desc', 'woocommerce-instagram' ),
 						'type'        => 'select',
+						'class'       => 'show-if-custom hide-if-products hide-if-product-cats',
 						'options'     => array(
 							''    => _x( 'All products', 'setting option', 'woocommerce-instagram' ),
 							'yes' => _x( 'Only virtual products', 'setting option', 'woocommerce-instagram' ),
@@ -237,6 +261,7 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 						'desc_tip'    => _x( 'Filter downloadable products.', 'setting desc', 'woocommerce-instagram' ),
 						'description' => _x( 'This filter only applies to simple products.', 'setting desc', 'woocommerce-instagram' ),
 						'type'        => 'select',
+						'class'       => 'show-if-custom hide-if-products hide-if-product-cats',
 						'options'     => array(
 							''    => _x( 'All products', 'setting option', 'woocommerce-instagram' ),
 							'yes' => _x( 'Only downloadable products', 'setting option', 'woocommerce-instagram' ),
@@ -247,6 +272,7 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 						'title'    => _x( 'Stock status', 'setting title', 'woocommerce-instagram' ),
 						'desc_tip' => _x( 'Filter the products by the stock status.', 'setting desc', 'woocommerce-instagram' ),
 						'type'     => 'select',
+						'class'    => 'show-if-custom hide-if-products hide-if-product-cats',
 						'options'  => array(
 							''           => _x( 'All products', 'setting option', 'woocommerce-instagram' ),
 							'instock'    => _x( 'Only in-stock products', 'setting option', 'woocommerce-instagram' ),
@@ -257,12 +283,14 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 						'title'    => _x( 'Include products', 'setting title', 'woocommerce-instagram' ),
 						'type'     => 'product_search',
 						'desc_tip' => _x( 'Choose the products to include in the catalog.', 'setting desc', 'woocommerce-instagram' ),
+						'class'    => 'multiselect wc-product-search show-if-products show-if-custom hide-if-product-cats',
 						'multiple' => true,
 					),
 					'exclude_product_ids'         => array(
 						'title'    => _x( 'Exclude products', 'setting title', 'woocommerce-instagram' ),
 						'type'     => 'product_search',
 						'desc_tip' => _x( 'Choose the products to exclude from the catalog.', 'setting desc', 'woocommerce-instagram' ),
+						'class'    => 'multiselect wc-product-search show-if-products show-if-custom hide-if-product-cats',
 						'multiple' => true,
 					),
 					'product_data'                => array(
@@ -416,16 +444,17 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 		 * @return string
 		 */
 		public function generate_product_categories_html( $key, $data ) {
-			$defaults = array(
-				'type'              => 'multiselect',
-				'class'             => 'wc-enhanced-select-nostd',
-				'options'           => wc_instagram_get_product_categories_choices(),
-				'custom_attributes' => array(
-					'data-placeholder' => _x( 'Select product categories', 'setting placeholder', 'woocommerce-instagram' ),
-				),
+			$data = wp_parse_args(
+				$data,
+				array(
+					'type'              => 'multiselect',
+					'class'             => 'wc-enhanced-select-nostd',
+					'options'           => wc_instagram_get_product_categories_choices(),
+					'custom_attributes' => array(
+						'data-placeholder' => _x( 'Select product categories', 'setting placeholder', 'woocommerce-instagram' ),
+					),
+				)
 			);
-
-			$data = wp_parse_args( $data, $defaults );
 
 			return $this->generate_multiselect_html( $key, $data );
 		}
@@ -456,7 +485,7 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 			$data = wp_parse_args(
 				$data,
 				array(
-					'class'             => 'wc-product-search',
+					'class'             => '',
 					'css'               => '',
 					'options'           => $options,
 					'custom_attributes' => array(
@@ -466,6 +495,7 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 				)
 			);
 
+			$data['class']                              = trim( 'wc-product-search ' . $data['class'] );
 			$data['custom_attributes']['data-multiple'] = ( $multiple ? 'true' : 'false' );
 			$data['custom_attributes']['data-action']   = 'woocommerce_json_search_products' . ( $variations ? '_and_variations' : '' );
 

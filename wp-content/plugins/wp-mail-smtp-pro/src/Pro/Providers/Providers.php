@@ -190,6 +190,7 @@ class Providers {
 				'ses_text_cancel'                => esc_html__( 'Cancel', 'wp-mail-smtp-pro' ),
 				'ses_text_close'                 => esc_html__( 'Close', 'wp-mail-smtp-pro' ),
 				'ses_text_yes'                   => esc_html__( 'Yes', 'wp-mail-smtp-pro' ),
+				'ses_text_done'                  => esc_html__( 'Done', 'wp-mail-smtp-pro' ),
 				'ses_text_domain_delete'         => esc_html__( 'Are you sure you want to delete this domain? You will need to add and verify it again if you want to use it in the future.', 'wp-mail-smtp-pro' ),
 				'ses_text_dns_txt_title'         => esc_html__( 'Add verified domain', 'wp-mail-smtp-pro' ),
 				'ses_text_no_identities'         => esc_html__( 'The AWS SES identities could not load because of an error.', 'wp-mail-smtp-pro' ),

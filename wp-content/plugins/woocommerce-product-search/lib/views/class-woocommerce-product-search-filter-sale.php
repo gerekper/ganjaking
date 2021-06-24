@@ -37,7 +37,7 @@ if ( !function_exists( 'woocommerce_product_search_filter_sale' ) ) {
 }
 
 /**
- * Filter reset.
+ * Sale filter.
  */
 class WooCommerce_Product_Search_Filter_Sale {
 
@@ -106,7 +106,7 @@ class WooCommerce_Product_Search_Filter_Sale {
 				'show_heading'        => 'yes',
 				'submit_button'       => 'no',
 				'submit_button_label' => __( 'Go', 'woocommerce-product-search' ),
-				'use_shop_url'        => 'no'
+
 			),
 			$atts
 		);
@@ -135,7 +135,7 @@ class WooCommerce_Product_Search_Filter_Sale {
 					case 'has_on_sale_only' :
 					case 'submit_button' :
 					case 'show_heading' :
-					case 'use_shop_url' :
+
 						$value = strtolower( $value );
 						$value = $value == 'true' || $value == 'yes' || $value == '1';
 						break;
@@ -219,19 +219,6 @@ class WooCommerce_Product_Search_Filter_Sale {
 		$current_url = remove_query_arg( array( 'ixwpse', 'on_sale', 'paged' ), $current_url );
 		$href        = $current_url;
 		$add_post_type = false;
-		if ( isset( $params['use_shop_url'] ) && $params['use_shop_url'] ) {
-
-			$href = get_permalink( wc_get_page_id( 'shop' ) );
-			if ( !$href ) {
-				$query_post_type = self::get_query_arg( $current_url, 'post_type' );
-
-				if ( $query_post_type !== 'product' ) {
-
-					$href = add_query_arg( array( 'post_type' => 'product' ), trailingslashit( home_url() ) );
-					$add_post_type = true;
-				}
-			}
-		}
 
 		$on_sale_field_id = 'product-search-filter-on-sale-' . $n;
 		$form_id          = 'product-search-filter-sale-form-' . $n;

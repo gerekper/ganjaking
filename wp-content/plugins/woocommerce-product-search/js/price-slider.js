@@ -231,6 +231,7 @@ var wps_price_slider = {};
 			$( form ).find( 'input[name="ixwpse"]' ).remove();
 			$( form ).find( 'input[name="on_sale"]' ).remove();
 			$( form ).find( 'input[name="rating"]' ).remove();
+			$( form ).find( 'input[name="in_stock"]' ).remove(); // @since 3.8.0
 
 			var params = href.substring( href.indexOf( '?' ) + 1 );
 			var hash = params.indexOf( '#' );
@@ -256,7 +257,8 @@ var wps_price_slider = {};
 							key.indexOf( 'ixwpsf' ) === 0 ||
 							key === 'ixwpse' || // @since 2.19.0
 							key === 'on_sale' || // @since 2.19.0
-							key === 'rating' // @since 2.20.0
+							key === 'rating' || // @since 2.20.0
+							key === 'in_stock' // @since 3.8.0
 						) // (*)
 					) {
 						var field = $( form ).find( 'input[name="' + key + '"]' );

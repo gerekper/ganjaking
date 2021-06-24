@@ -1,12 +1,6 @@
 <?php
 /**
- * The template for displaying the product element radio buttons for the builder mode
- *
- * This template can be overridden by copying it to yourtheme/tm-extra-product-options/products/template-radio.php
- *
- * NOTE that we may need to update template files and you
- * (the plugin or theme developer) will need to copy the new files
- * to your theme or plugin to maintain compatibility.
+ * The template for displaying the product element thumbnails for the builder mode
  *
  * @author  themeComplete
  * @package WooCommerce Extra Product Options/Templates
@@ -71,10 +65,13 @@ if ( is_array( $options ) ) :
 
 					echo '</span>';
 					$_product = wc_get_product( $product_id );
+					do_action( 'wc_epo_product_thumbnail_before_price', $_product, $product_id );
 					$textafterprice = wp_kses_post( $_product->get_price_suffix() );
-					unset($_product);
-					include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php' );					
+					include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php' );
+					do_action( 'wc_epo_product_thumbnail_before_quantity', $_product, $product_id );
 					include( THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-quantity-hidden.php' );
+					do_action( 'wc_epo_product_thumbnail_after_quantity', $_product, $product_id );
+					unset($_product);
 					?>
             </label>
         </li>

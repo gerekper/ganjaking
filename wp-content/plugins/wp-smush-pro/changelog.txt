@@ -1,10 +1,18 @@
 Plugin Name: WP Smush Pro
 Author: WPMU DEV
-Tested up to: 5.6
+Tested up to: 5.7
 
 Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
+
+= 3.8.7 ( 2021-06-18 ) =
+
+- Enhance: Display a message when local WebP creation fails due to directory permissions
+- Fix: Error when applying a config from the Hub and the WebP module gets toggled
+- Fix: Compatibility issue with WP < 5.7
+- Fix: Wrong count of images to re-smush when the 'big_image_size_threshold' filter return false
+- Fix: Thumbnail images not being converted to JPEG on upload
 
 = 3.8.6 ( 2021-06-15 ) =
 
@@ -85,42 +93,6 @@ Change Log:
 - Enhance: Compatibility with WP 5.6
 - Enhance: Compatibility with Hub
 - Fix: API validation on new installs
-
-= 3.8.1 ( 2020-12-03 ) =
-
-- Fix: Error when querying stats from Hub
-
-= 3.8.0 ( 2020-12-03 ) =
-
-- New: Local WebP support
-- Enhance: Plugin performance
-- Enhance: Lazy load module will properly distinguish between single/double quotes
-- Enhance: srcset generation speed
-- Fix: Image resize detection flagging images that have been auto resized by CDN
-- Fix: Lazy Load conflicting with Maintenance plugin
-- Fix: PHP warning when saving lazy load settings
-- Fix: Copy URL functionality in media library
-- Fix: Whitelabel branding
-- Fix: Tools link in network admin Settings page
-- Fix: Upsell notice breaking after re-checking images
-- Fix: smush_check_for_conflicts cron running on every page load
-- Fix: Compatibility with SupportCandy plugin
-- Fix: Minor UI issues in Tutorials module
-- Fix: Minor UI issues in NextGen Smush page
-- Fix: CDN image paths on sub-directory installs
-
-= 3.7.3 ( 2020-11-23 ) =
-
-- Enhance: Minor UI/UX details
-
-= 3.7.2 ( 2020-11-10 ) =
-
-- Enhance: Plugin UI/UX
-- Enhance: Compatibility with NextGen
-- Fix: CDN parsing of background images
-- Fix: Image counter when re-checking images
-- Fix: Bulk Smush counter going over total number of images
-- Fix: Bulk Smush counter on network admin
 
 
 

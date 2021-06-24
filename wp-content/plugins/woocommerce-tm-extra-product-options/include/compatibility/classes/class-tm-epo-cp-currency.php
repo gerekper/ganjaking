@@ -94,6 +94,19 @@ final class THEMECOMPLETE_EPO_CP_currency {
 		add_filter( 'wc_epo_calculate_price', array( $this, 'wc_epo_calculate_price' ), 10, 13 );
 
 		add_filter( 'tc_get_default_currency', array( $this, 'tc_get_default_currency' ), 10, 1 );
+
+		add_action( 'wc_epo_template_tm_totals', array( $this, 'wc_epo_template_tm_totals' ), 10, 1 );
+	}
+
+	/**
+	 * Add extra html data attributes
+	 *
+	 * @since 5.0.12.13
+	 */
+	public function wc_epo_template_tm_totals( $args ) {
+
+		echo 'data-tm-epo-is-woocs="'.esc_attr($this->is_woocs).'" ';
+
 	}
 
 	/**

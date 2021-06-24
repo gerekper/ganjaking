@@ -53,6 +53,8 @@ final class THEMECOMPLETE_EPO_CP_themes {
 		if (defined('WOODMART_SLUG')){
 			add_action( 'woodmart_after_footer', array($this, 'woodmart_after_footer'), 998 );
 			add_action( 'woodmart_after_footer', array($this, 'woodmart_after_footer2'), 1000 );
+			add_action( 'woodmart_before_wp_footer', array($this, 'woodmart_after_footer'), 998 );
+			add_action( 'woodmart_before_wp_footer', array($this, 'woodmart_after_footer2'), 1000 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'woodmart_wp_enqueue_scripts' ), 4 );
 		}
 

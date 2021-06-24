@@ -217,7 +217,7 @@ class THEMECOMPLETE_EPO_Cart {
 	 */
 	public function woocommerce_cart_id( $cart_id, $product_id, $variation_id = 0, $variation = array(), $cart_item_data = array() ) {
 
-		if ( is_array( $cart_item_data ) && ! empty( $cart_item_data ) ) {
+		if ( is_array( $cart_item_data ) && ! empty( $cart_item_data ) && isset( $cart_item_data['tmpost_data'] ) ) {
 			if ( is_array( $cart_item_data['tmpost_data'] ) && ! empty( $cart_item_data['tmpost_data'] ) ) {
 				foreach ($cart_item_data['tmpost_data'] as $key => $value) {
 					if (strpos($key, 'tmcp_') !== 0) {
@@ -268,7 +268,7 @@ class THEMECOMPLETE_EPO_Cart {
 	 *
 	 * @return mixed
 	 */
-	public function repopulatecart( $cart_item_meta, $product_id, $post_data = NULL, $form_prefix = "" ) {
+	public function repopulatecart( $cart_item_meta, $product_id, $post_data = NULL, $form_prefix = "", $epo_type = 'tmcartepo' ) {
 		if ( is_array( $post_data ) && isset( $post_data['tc_form_prefix'] ) ){
 			$form_prefix = $post_data['tc_form_prefix'];
 		}
@@ -333,14 +333,14 @@ class THEMECOMPLETE_EPO_Cart {
 			$cart_item_meta['tc_recalculate'] = true;
 		}
 
-		if ( isset( $cart_item_meta['tmcartepo'] ) ) {
+		if ( isset( $cart_item_meta[ $epo_type ] ) ) {
 			$current_currency = themecomplete_get_woocommerce_currency();
 
 			$tc_added_in_currency = isset( $cart_item_meta['tmdata']['tc_added_in_currency'] ) ? $cart_item_meta['tmdata']['tc_added_in_currency'] : FALSE;
 			$tc_default_currency  = isset( $cart_item_meta['tmdata']['tc_default_currency'] ) ? $cart_item_meta['tmdata']['tc_default_currency'] : FALSE;
 			$percentcurrenttotal = array();
 
-			foreach ( $cart_item_meta['tmcartepo'] as $key => $value ) {
+			foreach ( $cart_item_meta[ $epo_type ] as $key => $value ) {
 				if ( ! isset( $element_object[ $value['section'] ] ) ) {
 					continue;
 				}
@@ -359,7 +359,7 @@ class THEMECOMPLETE_EPO_Cart {
 						}
 					}
 
-					$thiskey = ( $new_key !== FALSE ) ? $new_key : $cart_item_meta['tmdata']['tmcartepo_data'][ $key ]['key'];
+					$thiskey = ( $new_key !== FALSE ) ? $new_key : $cart_item_meta['tmdata'][ $epo_type . '_data' ][ $key ]['key'];
 
 					$price_per_currencies = isset( $element_object[ $value['section'] ]['price_per_currencies'] ) ? $element_object[ $value['section'] ]['price_per_currencies'] : array();
 					$price_per_currency   = array();
@@ -377,7 +377,7 @@ class THEMECOMPLETE_EPO_Cart {
 								$currency_price                       = THEMECOMPLETE_EPO()->calculate_price( $post_data,
 									$copy_element,
 									$thiskey,
-									$cart_item_meta['tmdata']['tmcartepo_data'][ $key ]['attribute'],
+									$cart_item_meta['tmdata'][ $epo_type . '_data' ][ $key ]['attribute'],
 									$cart_item_meta["tmdata"]["per_product_pricing"],
 									$cpf_product_price,
 									$cart_item_meta["tmdata"]["variation_id"],
@@ -387,15 +387,26 @@ class THEMECOMPLETE_EPO_Cart {
 									$price_per_currencies, 
 									$value );
 							} else {
-								if ( isset( $price_rule[ $thiskey ] ) && $price_rule[$thiskey][0] !== '' ){
+								if ( isset( $price_rule[ $thiskey ] ) && $price_rule[ $thiskey ][0] !== '' ){
 									$currency_price = $price_rule[ $thiskey ][0];
+								} elseif ( isset( $price_rule[0] ) && ! empty( $price_rule[0] ) && $price_rule[0][0] !== '' ){
+									$currency_price = $price_rule[0][0];
 								} else {
 									global $woocommerce_wpml;
-									$currency_price = $price_per_currencies[$woocommerce_wpml->multi_currency->get_default_currency()][ $thiskey ][0];
+									$base = $price_per_currencies[$woocommerce_wpml->multi_currency->get_default_currency()];
+									if ( isset( $base[ $thiskey ] ) && $base[ $thiskey ][0] !== '' ){
+										$currency_price = $base[ $thiskey ][0];
+									} elseif ( isset( $base[0] ) && ! empty( $base[0] ) && $base[0][0] !== '' ){
+										$currency_price = $base[0][0];
+									} else {
+										$currency_price = 0;
+									}
 								}
 							}
 
-							if ( isset( $price_rule [$thiskey ] ) && $price_rule[$thiskey][0] === '' ){
+							if ( isset( $price_rule [ $thiskey ] ) && isset( $price_rule [ $thiskey ][0] ) && $price_rule[$thiskey][0] === '' ){
+								$currency_price = apply_filters( 'wc_epo_convert_to_currency', $currency_price, $tc_default_currency, $currency);
+							} else if ( isset( $price_rule[0] ) && isset( $price_rule[0][0] ) && $price_rule[0][0] === '' ){
 								$currency_price = apply_filters( 'wc_epo_convert_to_currency', $currency_price, $tc_default_currency, $currency);
 							}
 
@@ -405,13 +416,13 @@ class THEMECOMPLETE_EPO_Cart {
 						$_price = THEMECOMPLETE_EPO()->calculate_price( $post_data,
 							$element_object[ $value['section'] ],
 							$thiskey,
-							$cart_item_meta['tmdata']['tmcartepo_data'][ $key ]['attribute'],
+							$cart_item_meta['tmdata'][ $epo_type . '_data' ][ $key ]['attribute'],
 							$cart_item_meta["tmdata"]["per_product_pricing"],
 							$cpf_product_price,
 							$cart_item_meta["tmdata"]["variation_id"], 0, FALSE, FALSE, NULL, $value );
 
-						$cart_item_meta['tmcartepo'][ $key ]['price']              = $_price;
-						$cart_item_meta['tmcartepo'][ $key ]['price_per_currency'] = $price_per_currency;
+						$cart_item_meta[ $epo_type ][ $key ]['price']              = $_price;
+						$cart_item_meta[ $epo_type ][ $key ]['price_per_currency'] = $price_per_currency;
 
 						if ( $_price_type == "percent" && $tc_added_in_currency && isset($price_per_currency[ $tc_added_in_currency ]) ) {
 							$_price                                    = $price_per_currency[ $tc_added_in_currency ];
@@ -425,7 +436,7 @@ class THEMECOMPLETE_EPO_Cart {
 			}
 			$post_data['tm_epo_options_static_prices'] = floatval( isset($post_data['tm_epo_options_static_prices'])?$post_data['tm_epo_options_static_prices']:0 ) + floatval( $cart_item_meta['associated_products_price'] );
 			foreach ( $percentcurrenttotal as $key ) {
-				$value = $cart_item_meta['tmcartepo'][ $key ];
+				$value = $cart_item_meta[ $epo_type ][ $key ];
 
 				if ( ! isset( $element_object[ $value['section'] ] ) ) {
 					continue;
@@ -459,7 +470,7 @@ class THEMECOMPLETE_EPO_Cart {
 							$currency_price = THEMECOMPLETE_EPO()->calculate_price( $post_data,
 								$copy_element,
 								$thiskey,
-								$cart_item_meta['tmdata']['tmcartepo_data'][ $key ]['attribute'],
+								$cart_item_meta['tmdata'][ $epo_type . '_data' ][ $key ]['attribute'],
 								$cart_item_meta["tmdata"]["per_product_pricing"],
 								apply_filters( 'wc_epo_convert_to_currency', $cpf_product_price, $tc_added_in_currency, $currency ),
 								$cart_item_meta['tmdata']['variation_id'],
@@ -486,13 +497,13 @@ class THEMECOMPLETE_EPO_Cart {
 					$_price = THEMECOMPLETE_EPO()->calculate_price( $post_data,
 						$element_object[ $value['section'] ],
 						$thiskey,
-						$cart_item_meta['tmdata']['tmcartepo_data'][ $key ]['attribute'],
+						$cart_item_meta['tmdata'][ $epo_type . '_data' ][ $key ]['attribute'],
 						$cart_item_meta["tmdata"]["per_product_pricing"],
 						$cpf_product_price,
 						$cart_item_meta["tmdata"]["variation_id"], 0, FALSE, FALSE, NULL, $value );
 
-					$cart_item_meta['tmcartepo'][ $key ]['price']              = $_price;
-					$cart_item_meta['tmcartepo'][ $key ]['price_per_currency'] = $price_per_currency;
+					$cart_item_meta[ $epo_type ][ $key ]['price']              = $_price;
+					$cart_item_meta[ $epo_type ][ $key ]['price_per_currency'] = $price_per_currency;
 
 				}
 
@@ -735,10 +746,12 @@ class THEMECOMPLETE_EPO_Cart {
 			if ( apply_filters( 'wc_epo_adjust_price', TRUE, $cart_item ) ) {
 				if ( ! empty( $cart_item['epo_price_override'] ) && $tmcp_prices > 0 ) {
 					$cart_item['data']->set_price( $price1 );
+					$cart_item['tm_epo_set_product_price_with_options'] = $price1;
 					$cart_item = apply_filters( 'wc_epo_cart_set_price', $cart_item, $price1 );
 				} else {
 					if ( ! empty( $price1 ) ) {
 						$cart_item['data']->set_price( $price2 );
+						$cart_item['tm_epo_set_product_price_with_options'] = $price2;
 					}
 					$cart_item = apply_filters( 'wc_epo_cart_set_price', $cart_item, $price2 );
 				}
@@ -825,9 +838,9 @@ class THEMECOMPLETE_EPO_Cart {
 			$product_epos_choices = array();
 
 			if ( ! empty( $cart_item['tmcartepo'] ) && ! empty( $cart_item['tc_recalculate'] ) ) {
-				
+
 				unset($cart_item['tc_recalculate']);
-				
+
 				$tmcp_prices           = 0;
 				$tmcp_static_prices    = 0;
 				$tmcp_variable_prices  = 0; // percentcurrenttotal
@@ -1075,7 +1088,7 @@ class THEMECOMPLETE_EPO_Cart {
 
 			foreach ( $cart_item['tmcartepo'] as $tmcp ) {
 
-				if ( !THEMECOMPLETE_EPO_WPML()->is_active() && isset( $tmcp['key'] ) && isset( $tmcp['element'] ) && isset( $tmcp['element']['rules_type'] ) ) {
+				if ( ! THEMECOMPLETE_EPO_WPML()->is_active() && isset( $tmcp['key'] ) && isset( $tmcp['element'] ) && isset( $tmcp['element']['rules_type'] ) ) {
 					$key = $this->remove_underscore_part( $tmcp['key'] );
 
 					if ( isset( $product_epos_choices[ $tmcp['section'] ] ) && ! in_array( $key, $product_epos_choices[ $tmcp['section'] ] ) ) {
@@ -1581,9 +1594,12 @@ class THEMECOMPLETE_EPO_Cart {
 	 */
 	public function populate_arrays( $product_id = 0, $post_data = array(), $cart_item_meta = array(), $form_prefix = FALSE ) {
 
-		if ( $post_data !== FALSE && $cart_item_meta !== FALSE && $this->populate_arrays_set ) {
-			//return TRUE;
-		}
+		/*
+		 * There are edge cases were we cannot safely use the following code
+		 * if ( $post_data !== FALSE && $cart_item_meta !== FALSE && $this->populate_arrays_set ) {
+		 *		return TRUE;
+		 * }
+		 */
 
 		if ( $form_prefix === FALSE ) {
 			$form_prefix = "";
@@ -2563,16 +2579,43 @@ class THEMECOMPLETE_EPO_Cart {
 
 			$to_currency = themecomplete_get_woocommerce_currency();
 
-			foreach ( $cart_object->cart_contents as $key => $value ) {
-				$tax_class      = themecomplete_get_tax_class( $value["data"] );
-				$get_tax_status = is_callable( array( $value["data"], 'get_tax_status' ) ) ? $value["data"]->get_tax_status() : $value["data"]->tax_status;
+			foreach ( $cart_object->cart_contents as $key => $cart_item ) {
+				$tax_class      = themecomplete_get_tax_class( $cart_item["data"] );
+				$get_tax_status = is_callable( array( $cart_item["data"], 'get_tax_status' ) ) ? $cart_item["data"]->get_tax_status() : $cart_item["data"]->tax_status;
 				if ( get_option( 'woocommerce_calc_taxes' ) == "yes" && $get_tax_status == "taxable" ) {
 					$tax = TRUE;
 				} else {
 					$tax = FALSE;
 				}
 
-				$tmcartfee = isset( $value['tmcartfee'] ) ? $value['tmcartfee'] : FALSE;
+				$did_repopulatecart = false;
+				$tmcartfee = isset( $cart_item['tmcartfee'] ) ? $cart_item['tmcartfee'] : array();
+				foreach ( $tmcartfee as $cartfee ) {
+					$_price_type = THEMECOMPLETE_EPO()->get_saved_element_price_type( $cartfee );
+					if ($_price_type === "math" && ! $did_repopulatecart ) {
+						if ( ! empty( $cart_item['tmpost_data'] ) ){
+							$post_data = $cart_item['tmpost_data'];
+							if ( isset( $cart_item['tm_epo_options_static_prices'] ) ) {
+								$post_data['tm_epo_options_static_prices'] = $cart_item['tm_epo_options_static_prices'];
+							}
+							// todo:check for a better alternative
+							if ( ! isset( $post_data['cpf_product_price'] ) ) {
+								$post_data['cpf_product_price'] = $cart_item['tm_epo_product_original_price'];
+							}
+							$post_data['cpf_product_price'] = apply_filters( 'wc_epo_add_cart_item_original_price', $post_data['cpf_product_price'], $cart_item );
+
+							$post_data['quantity'] = $cart_item['quantity'];
+							$_cart_item = $this->repopulatecart( $cart_item, $cart_item['product_id'], $post_data, '', 'tmcartfee' );
+							$did_repopulatecart = true;
+							if ( $_cart_item !== FALSE ) {
+								$cart_item = apply_filters( 'tm_cart_contents', $_cart_item, array() );
+							}
+							break;
+						}
+					}
+				}
+
+				$tmcartfee = isset( $cart_item['tmcartfee'] ) ? $cart_item['tmcartfee'] : FALSE;
 				if ( $tmcartfee && is_array( $tmcartfee ) ) {
 					foreach ( $tmcartfee as $cartfee ) {
 						$new_price = $cartfee["price"];
@@ -2582,12 +2625,12 @@ class THEMECOMPLETE_EPO_Cart {
 							$new_price   = (float) wc_format_decimal( $cartfee['price_per_currency'][ $to_currency ], FALSE, TRUE );
 							$is_currency = TRUE;
 						} else {
-							$new_price = apply_filters( 'wc_epo_get_current_currency_price', apply_filters( 'woocommerce_tm_epo_price_on_cart', $new_price, $value ) );
+							$new_price = apply_filters( 'wc_epo_get_current_currency_price', apply_filters( 'woocommerce_tm_epo_price_on_cart', $new_price, $cart_item ) );
 						}
 
 						if ( $is_currency && wc_prices_include_tax() ) {
 							$this_element = FALSE;
-							$builder      = THEMECOMPLETE_EPO()->get_product_tm_epos( themecomplete_get_id( $value["data"] ), $value["tmdata"]["form_prefix"], TRUE, TRUE );
+							$builder      = THEMECOMPLETE_EPO()->get_product_tm_epos( themecomplete_get_id( $cart_item["data"] ), $cart_item["tmdata"]["form_prefix"], TRUE, TRUE );
 							foreach ( $builder['global'] as $priority => $priorities ) {
 								foreach ( $priorities as $pid => $field ) {
 									if ( isset( $field['sections'] ) ) {
@@ -2604,7 +2647,7 @@ class THEMECOMPLETE_EPO_Cart {
 									}
 								}
 							}
-							$new_price = $this->cacl_fee_price( $new_price, themecomplete_get_id( $value["data"] ), $this_element );
+							$new_price = $this->cacl_fee_price( $new_price, themecomplete_get_id( $cart_item["data"] ), $this_element );
 						}
 
 						$hidelabelincart  = isset( $cartfee['hidelabelincart'] ) ? $cartfee['hidelabelincart'] : '';

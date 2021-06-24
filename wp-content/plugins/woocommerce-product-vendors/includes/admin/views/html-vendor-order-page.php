@@ -73,8 +73,21 @@ $timezone = ! empty( $vendor_data['timezone'] ) ? sanitize_text_field( $vendor_d
 												echo '<p class="none_set"><strong>' . esc_html__( 'Address', 'woocommerce-product-vendors' ) . ':</strong> ' . esc_html__( 'No shipping address set.', 'woocommerce-product-vendors' ) . '</p>';
 											}
 
-											$address = $order->get_address();
+											$address       = $order->get_address();
+											$customer_note = $order->get_customer_note();
 
+											/**
+											 * Check if order notes are enabled.
+											 *
+											 * @since 2.1.52
+											 * @param boolean $enabled Whether order notes are enabled.
+											 */
+											if (
+												apply_filters( 'woocommerce_enable_order_notes_field', 'yes' === get_option( 'woocommerce_enable_order_comments', 'yes' ) )
+												&& $customer_note
+											) {
+												echo '<p class="order_note"><strong>' . esc_html__( 'Customer provided note:', 'woocommerce-product-vendors' ) . '</strong> ' . wp_kses_post( nl2br( wptexturize( $customer_note ) ) ) . '</p>';
+											}
 											?>
 										</div>
 									</div><!-- .order_data_column -->

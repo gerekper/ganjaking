@@ -123,6 +123,10 @@ class WooCommerce_Product_Search_Filter_Price_Widget extends WP_Widget {
 		if ( !empty( $title ) ) {
 			$output .= $before_title . $title . $after_title;
 		}
+
+		if ( !isset( $instance['version'] ) ) {
+			$instance['filter'] = 'yes';
+		}
 		$output .= WooCommerce_Product_Search_Filter_Price::render( $instance );
 		$output .= $after_widget;
 
@@ -155,7 +159,7 @@ class WooCommerce_Product_Search_Filter_Price_Widget extends WP_Widget {
 		$settings['show_heading']       = !empty( $new_instance['show_heading'] ) ? 'yes' : 'no';
 
 		$settings['filter']        = !empty( $new_instance['filter'] ) ? 'yes' : 'no';
-		$settings['use_shop_url']  = !empty( $new_instance['use_shop_url'] ) ? 'yes' : 'no';
+
 		$settings['submit_button'] = !empty( $new_instance['submit_button'] ) ? 'yes' : 'no';
 
 		$settings['shop_only'] = !empty( $new_instance['shop_only'] ) ? 'yes' : 'no';
@@ -187,6 +191,8 @@ class WooCommerce_Product_Search_Filter_Price_Widget extends WP_Widget {
 		} else {
 			unset( $settings['container_class'] );
 		}
+
+		$settings['version'] = WOO_PS_PLUGIN_VERSION;
 
 		$this->cache_delete();
 
@@ -394,17 +400,17 @@ class WooCommerce_Product_Search_Filter_Price_Widget extends WP_Widget {
 		echo '</label>';
 		echo '</p>';
 
-		$use_shop_url = isset( $instance['use_shop_url'] ) ? $instance['use_shop_url'] : 'no';
+		$filter = isset( $instance['version'] ) && isset( $instance['filter'] ) ? $instance['filter'] : 'yes';
 		echo '<p>';
-		echo sprintf( '<label title="%s">', esc_attr( __( 'Link to the shop page instead of the same page.', 'woocommerce-product-search' ) ) );
+		echo sprintf( '<label title="%s">', esc_attr( __( 'Activate live filtering.', 'woocommerce-product-search' ) ) );
 		printf(
 			'<input type="checkbox" id="%s" name="%s" %s />',
-			esc_attr( $this->get_field_id( 'use_shop_url' ) ),
-			esc_attr( $this->get_field_name( 'use_shop_url' ) ),
-			$use_shop_url== 'yes' ? ' checked="checked" ' : ''
+			$this->get_field_id( 'filter' ),
+			$this->get_field_name( 'filter' ),
+			$filter == 'yes' ? ' checked="checked" ' : ''
 		);
 		echo ' ';
-		echo esc_html( __( 'Use the Shop URL', 'woocommerce-product-search' ) );
+		echo esc_html( __( 'Filter', 'woocommerce-product-search' ) );
 		echo '</label>';
 		echo '</p>';
 
@@ -481,12 +487,13 @@ class WooCommerce_Product_Search_Filter_Price_Widget extends WP_Widget {
 			'show_clear' => true,
 			'submit_button' => false,
 			'submit_button_label' => __( 'Go', 'woocommerce-product-search' ),
-			'use_shop_url' => false,
+
 			'heading_id' => '',
 			'heading_class' => '',
 			'heading_element' => '',
 			'slider' => true,
-			'fields' => true
+			'fields' => true,
+			'filter' => true
 		);
 	}
 }

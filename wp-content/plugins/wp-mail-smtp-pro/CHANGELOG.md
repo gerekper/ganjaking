@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.9.0] - 2021-06-22
+### Added:
+- Email Log: store email attachments.
+- Email Log: export email logs in EML format.
+- Email Log: archive email log table column filters in screen options.
+- Email Log: aggregated email log view on Network Admin Email Log page.
+- Email Log: resend emails.
+- Email Log: open and click tracking.
+- Action Scheduler table to the Tools page.
+- Dashboard Widget with total emails sent counter (Lite only).
+
+### Changed:
+- Notifications design.
+- Sodium Compat library loading improved.
+- Improved the Zoho Mail OAuth error detection.
+- Removed the ability to set dynamic reply-to address for Zoho Mail because they don't support it.
+
+### Fixed:
+- Plugin conflict with plugins that populate $_POST data (Ultimate Addons for Elementor, WishList Member, ...).
+- Sendinblue WooCommerce Email Marketing plugin conflict admin notice display.
+- Email Log: empty email logs caused by sent status verification tasks.
+- jQuery deprecated notices.
+- Action Scheduler library loading issue.
+- Canceled Setup Wizard's OAuth authorization redirecting to the Setup Wizard when connecting via regular plugin settings.
+- Meta DB table not existing error notices on a WP Multisite subsite.
+
 ## [2.8.0] - 2021-05-04
 ### Added:
 - Email Log: export email logs in CSV and XLSX (Excel) formats.

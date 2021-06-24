@@ -50,6 +50,8 @@ class Backup extends Abstract_Module {
 	 *
 	 * Checks if there is a existing backup, else create one
 	 *
+	 * @todo Looks like all calls to this method in the plugin pass both params. Why are they optional?
+	 *
 	 * @param string $file_path      File path.
 	 * @param string $attachment_id  Attachment ID.
 	 */
@@ -71,10 +73,15 @@ class Backup extends Abstract_Module {
 		}
 
 		// Get the width & height of the original image size.
-		$imagesize = wp_getimagesize( $file_path );
+		if ( ! empty( $attachment_id ) ) {
+			$meta      = wp_get_attachment_metadata( $attachment_id );
+			$imagesize = array( $meta['width'], $meta['height'] );
+		} else {
+			// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+			$imagesize = @getimagesize( $file_path );
+		}
 
 		if ( ! $imagesize ) {
-			// Suspicious file type.
 			return;
 		}
 

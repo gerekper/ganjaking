@@ -14,6 +14,13 @@ use WPMailSMTP\Pro\Tasks\Logs\ExportCleanupTask;
 class Handler {
 
 	/**
+	 * Remove export file trait.
+	 *
+	 * @since 2.9.0
+	 */
+	use CanRemoveExportFileTrait;
+
+	/**
 	 * Export request.
 	 *
 	 * @since 2.8.0
@@ -117,6 +124,8 @@ class Handler {
 			$file->output_file( $this->request );
 
 		} catch ( \Exception $e ) {
+			$this->remove_export_file( $this->request->get_request_id() );
+
 			$error = Export::get_config( 'errors', 'common' ) . '<br>' . $e->getMessage();
 			WP::add_admin_notice( $error );
 		}
@@ -165,9 +174,12 @@ class Handler {
 					'request_id'  => $this->request->get_request_id(),
 					'count'       => $this->request->get_data( 'count' ),
 					'total_steps' => $this->request->get_data( 'total_steps' ),
+					'notices'     => $this->request->get_notices(),
 				]
 			);
 		} catch ( \Exception $e ) {
+			$this->remove_export_file( $this->request->get_request_id() );
+
 			$error = Export::get_config( 'errors', 'common' ) . '<br>' . $e->getMessage();
 			wp_send_json_error( [ 'error' => $error ] );
 		}

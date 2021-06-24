@@ -51,7 +51,7 @@ class Google_Service_Gmail extends \WPMailSMTP\Vendor\Google_Service
     const GMAIL_LABELS = "https://www.googleapis.com/auth/gmail.labels";
     /** View your email message metadata such as labels and headers, but not the email body. */
     const GMAIL_METADATA = "https://www.googleapis.com/auth/gmail.metadata";
-    /** View and modify but not delete your email. */
+    /** Read, compose, and send emails from your Gmail account. */
     const GMAIL_MODIFY = "https://www.googleapis.com/auth/gmail.modify";
     /** View your email messages and settings. */
     const GMAIL_READONLY = "https://www.googleapis.com/auth/gmail.readonly";

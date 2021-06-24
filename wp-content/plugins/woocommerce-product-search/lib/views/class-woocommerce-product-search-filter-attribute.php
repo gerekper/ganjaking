@@ -546,9 +546,10 @@ class WooCommerce_Product_Search_Filter_Attribute {
 		$prefix_output = apply_filters(
 			"woocommerce_product_search_filter_{$taxonomy}_prefix",
 			sprintf(
-				'<div id="%s" class="product-search-filter-terms %s" data-multiple="%s">',
+				'<div id="%s" class="product-search-filter-terms %s %s" data-multiple="%s">',
 				esc_attr( $container_id ),
 				esc_attr( $container_class ),
+				$params['filter'] ? '' : 'filter-dead',
 				$params['multiple'] ? '1' : ''
 			)
 		);

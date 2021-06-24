@@ -1,5 +1,12 @@
 *** WooCommerce Min/Max Quantities Changelog ***
 
+2021-06-17 - version 2.4.23
+* Fix - Ensure total quantity number is accurate in the minimum quantity error message.
+* Fix - Update label and description of ""Allow Combination" option.
+* Tweak - Update labels for the "Do not count" and "Exclude" options.
+* Tweak - WC 5.4 compatibility.
+* Tweak - WP 5.7 compatibility.
+
 2021-05-20 - version 2.4.22
 * Fix - Ensure that when on a Grouped Product page, all products can have their quantity set to zero, even if a product has a "Group of" value set.
 * Fix - Make sure "Do not count" and "Exclude" rules are taken into account when there are existing products in the cart and new products are added.

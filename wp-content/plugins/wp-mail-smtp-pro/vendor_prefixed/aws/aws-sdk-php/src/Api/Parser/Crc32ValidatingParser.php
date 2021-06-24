@@ -23,7 +23,7 @@ class Crc32ValidatingParser extends \WPMailSMTP\Vendor\Aws\Api\Parser\AbstractPa
     public function __invoke(\WPMailSMTP\Vendor\Aws\CommandInterface $command, \WPMailSMTP\Vendor\Psr\Http\Message\ResponseInterface $response)
     {
         if ($expected = $response->getHeaderLine('x-amz-crc32')) {
-            $hash = \hexdec(\WPMailSMTP\Vendor\GuzzleHttp\Psr7\hash($response->getBody(), 'crc32b'));
+            $hash = \hexdec(\WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::hash($response->getBody(), 'crc32b'));
             if ($expected != $hash) {
                 throw new \WPMailSMTP\Vendor\Aws\Exception\AwsException("crc32 mismatch. Expected {$expected}, found {$hash}.", $command, ['code' => 'ClientChecksumMismatch', 'connection_error' => \true, 'response' => $response]);
             }

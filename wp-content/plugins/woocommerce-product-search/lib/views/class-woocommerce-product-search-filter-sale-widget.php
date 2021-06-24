@@ -162,7 +162,6 @@ class WooCommerce_Product_Search_Filter_Sale_Widget extends WP_Widget {
 		$settings['show_heading']       = !empty( $new_instance['show_heading'] ) ? 'yes' : 'no';
 
 		$settings['filter']        = !empty( $new_instance['filter'] ) ? 'yes' : 'no';
-		$settings['use_shop_url']  = !empty( $new_instance['use_shop_url'] ) ? 'yes' : 'no';
 
 		$settings['shop_only']        = !empty( $new_instance['shop_only'] ) ? 'yes' : 'no';
 		$settings['has_on_sale_only'] = !empty( $new_instance['has_on_sale_only'] ) ? 'yes' : 'no';
@@ -298,20 +297,6 @@ class WooCommerce_Product_Search_Filter_Sale_Widget extends WP_Widget {
 		echo '</label>';
 		echo '</p>';
 
-		$use_shop_url = isset( $instance['use_shop_url'] ) ? $instance['use_shop_url'] : 'no';
-		echo '<p>';
-		echo sprintf( '<label title="%s">', esc_attr( __( 'Link to the shop page instead of the same page.', 'woocommerce-product-search' ) ) );
-		printf(
-			'<input type="checkbox" id="%s" name="%s" %s />',
-			esc_attr( $this->get_field_id( 'use_shop_url' ) ),
-			esc_attr( $this->get_field_name( 'use_shop_url' ) ),
-			$use_shop_url== 'yes' ? ' checked="checked" ' : ''
-		);
-		echo ' ';
-		echo esc_html( __( 'Use the Shop URL', 'woocommerce-product-search' ) );
-		echo '</label>';
-		echo '</p>';
-
 		$filter = isset( $instance['filter'] ) ? $instance['filter'] : 'yes';
 		echo '<p>';
 		echo sprintf( '<label title="%s">', esc_attr( __( 'Activate live filtering.', 'woocommerce-product-search' ) ) );
@@ -396,7 +381,7 @@ class WooCommerce_Product_Search_Filter_Sale_Widget extends WP_Widget {
 			'has_on_sale_only'    => true,
 			'submit_button'       => false,
 			'submit_button_label' => __( 'Go', 'woocommerce-product-search' ),
-			'use_shop_url'        => false,
+
 			'heading_id'          => '',
 			'heading_class'       => '',
 			'heading_element'     => ''

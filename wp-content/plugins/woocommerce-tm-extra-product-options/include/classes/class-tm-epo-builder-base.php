@@ -2221,7 +2221,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 										array(
 											".product-layout-mode" => array(
 												"operator" => "is",
-												"value"    => "thumbnail",
+												"value"    => array( "thumbnail", "thumbnailmultiple" ),
 											),
 											".product-mode"        => array(
 												"operator" => "isnot",
@@ -3233,6 +3233,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 		if ( $required ) {
 			$min["required"] = array(
+				"relation" => "OR",
 				".tm-pricetype-selector" => array(
 					"operator" => "is",
 					"value"    => array( "step", "currentstep" ),
@@ -3275,6 +3276,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 		if ( $required ) {
 			$max["required"] = array(
+				"relation" => "OR",
 				".tm-pricetype-selector" => array(
 					"operator" => "is",
 					"value"    => array( "step", "currentstep" ),
@@ -5411,7 +5413,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	public function template_bitem( $args = array() ) {
 
 		$is_enabled = isset( $args['is_enabled'] ) ? $args['is_enabled'] : '';
-		$is_enabled = $is_enabled == '' ? ' element_is_disabled' : '';
+		$is_enabled = $is_enabled == '' ? ' element-is-disabled' : '';
 		if ( empty( $this->noecho ) ) {
 			?><div class="bitem element-<?php echo esc_attr( $args["element"] );
 			echo esc_attr( $is_enabled ); ?> <?php echo esc_attr( $args["width"] ); ?>">
@@ -5485,7 +5487,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
             </div>
             <div class="inside">
             <div class="manager">
-            <div class="builder_element_wrap">
+            <div class="builder-element-wrap">
 			<?php
 		}
 		if ( isset( $args["fields"] ) && is_array( $args["fields"] ) ) {
@@ -5806,7 +5808,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 		if ( $sections_slides !== "" && is_array( $elements ) ) {
 			if ( empty( $this->noecho ) ) {
-				echo "<div class='builder_wrapper tm-slider-wizard " . esc_attr( $section_size ) . "'><div class='builder-section-wrap'>";
+				echo "<div class='builder-wrapper tm-slider-wizard " . esc_attr( $section_size ) . "'><div class='builder-section-wrap'>";
 			}
 			$this->section_elements_template( array(
 				'section_fields'           => $section_fields,
@@ -5849,7 +5851,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				$value = intval( $value );
 
 				if ( empty( $this->noecho ) ) {
-					echo "<div class='bitem_wrapper tm-slider-wizard-tab tm-slide" . esc_attr( $s ) . "'>";
+					echo "<div class='bitem-wrapper tm-slider-wizard-tab tm-slide" . esc_attr( $s ) . "'>";
 				}
 				for ( $_s = $c; $_s < ( $c + $value ); $_s ++ ) {
 					if ( isset( $elements[ $_s ] ) ) {
@@ -5873,7 +5875,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 		} else {
 			if ( empty( $this->noecho ) ) {
-				echo "<div class='builder_wrapper " . esc_attr( $section_size ) . "'><div class='builder-section-wrap'>";
+				echo "<div class='builder-wrapper " . esc_attr( $section_size ) . "'><div class='builder-section-wrap'>";
 			}
 			$this->section_elements_template( array(
 				'section_fields'           => $section_fields,
@@ -5887,7 +5889,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					echo '<div class="bitem-add tc-prepend tma-nomove"><div class="tm-add-element-action"><button type="button" title="' . esc_html__( "Add element", 'woocommerce-tm-extra-product-options' ) . '" class="builder-add-element tc-button tc-prepend tmfa tcfa tcfa-plus"></button></div></div>';
 				}
 
-				echo "<div class='bitem_wrapper'>";
+				echo "<div class='bitem-wrapper'>";
 			}
 
 			if ( is_array( $elements ) ) {
@@ -8069,7 +8071,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			     . "<div class='tc-cell tc-col-3 tm_cell_title'>" . esc_html__( "Label", 'woocommerce-tm-extra-product-options' ) . "</div>"
 			     . "<div class='tc-cell tc-col-3 tm_cell_images'>" . esc_html__( "Images", 'woocommerce-tm-extra-product-options' ) . "</div>"
 
-			     . "<div class='tc-cell tc-col-0 tm_cell_value'>" . esc_html__( "Value", 'woocommerce-tm-extra-product-options' ) . "</div>"
+			     . "<div class='tc-cell tc-col-0 tc-cell-value'>" . esc_html__( "Value", 'woocommerce-tm-extra-product-options' ) . "</div>"
 			     . "<div class='tc-cell tc-col-auto tm_cell_price'>" . esc_html__( "Price", 'woocommerce-tm-extra-product-options' ) . "</div>"
 			     . "<div class='tc-cell tc-col-auto tm_cell_delete'><button type='button' class='tc tc-button builder_panel_delete_all'>" . esc_html__( "Delete all options", 'woocommerce-tm-extra-product-options' ) . "</button></div>"
 			     . "</div>";
@@ -8278,9 +8280,9 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 			$o = apply_filters( 'wc_epo_builder_element_array_in_loop_after', $o, $options, $ar, $name, $counter );
 
-			$is_enabled = $o["enabled"]["default"] == '' ? ' choice_is_disabled' : '';
+			$is_enabled = $o["enabled"]["default"] == '' ? ' choice-is-disabled' : '';
 			if ( empty( $return_js ) ) {
-				echo "<div class='options_wrap" . esc_attr( $hidden_class ) . esc_attr( $is_enabled ) . "'>"
+				echo "<div class='options-wrap" . esc_attr( $hidden_class ) . esc_attr( $is_enabled ) . "'>"
 				     . "<div class='tc-row nopadding tc-clearfix'>";
 
 				echo "<div class='tc-cell tc-col-auto tm_cell_move'>";
@@ -8379,7 +8381,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				}
 				echo "</div>";
 
-				echo "<div class='tc-cell tc-col-0 tm_cell_value'>";
+				echo "<div class='tc-cell tc-col-0 tc-cell-value'>";
 				THEMECOMPLETE_EPO_HTML()->tm_make_field( $o["value"], 1 );
 				echo "</div>";
 				echo "<div class='tc-cell tc-col-auto tm_cell_price'>";
@@ -8516,7 +8518,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				}
 			}
 			if ( empty( $return_js ) ) {
-				echo "<div class='tc-cell tc-col-12 tm_cell_url'><span class='tm-inline-label bsbb'>" . esc_html__( "URL", 'woocommerce-tm-extra-product-options' ) . "</span>";
+				echo "<div class='tc-cell tc-col-12 tc-cell-url'><span class='tm-inline-label bsbb'>" . esc_html__( "URL", 'woocommerce-tm-extra-product-options' ) . "</span>";
 				THEMECOMPLETE_EPO_HTML()->tm_make_field( $o["url"], 1 );
 				echo "</div>";
 

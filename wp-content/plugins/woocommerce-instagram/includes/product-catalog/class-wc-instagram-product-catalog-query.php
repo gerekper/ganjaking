@@ -28,7 +28,7 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 	 * @param array $args Criteria to query on in a format similar to WP_Query.
 	 */
 	public function __construct( $args = array() ) {
-		$this->catalog_query_vars = $args;
+		$this->catalog_query_vars = wp_parse_args( $args, $this->get_default_catalog_query_vars() );
 
 		$args = $this->process_catalog_query_vars();
 
@@ -76,6 +76,29 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 	}
 
 	/**
+	 * Gets the default allowed catalog query vars.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @return array
+	 */
+	protected function get_default_catalog_query_vars() {
+		return array(
+			'filter_by'             => 'products',
+			'products_option'       => '',
+			'product_cats_option'   => '',
+			'product_cats'          => array(),
+			'product_types_option'  => '',
+			'product_types'         => array(),
+			'virtual_products'      => '',
+			'downloadable_products' => '',
+			'stock_status'          => '',
+			'include_product_ids'   => array(),
+			'exclude_product_ids'   => array(),
+		);
+	}
+
+	/**
 	 * Processes custom query vars added by a product catalog.
 	 *
 	 * @since 3.0.0
@@ -83,20 +106,29 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 	 * @return array
 	 */
 	protected function process_catalog_query_vars() {
-		// Clear empty taxonomy queries.
-		$tax_query = array_filter(
-			array(
-				$this->get_category_tax_query(),
-			)
-		);
+		$catalog_query_vars = $this->get_catalog_query_vars();
+		$query_vars         = array();
 
-		$query_vars = array(
-			'type'         => $this->get_type_query_var(),
-			'stock_status' => $this->get_stock_status_query_var(),
-			'virtual'      => $this->get_boolean_query_var( 'virtual_products' ),
-			'downloadable' => $this->get_boolean_query_var( 'downloadable_products' ),
-			'tax_query'    => $tax_query, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
-		);
+		if ( 'products' !== $catalog_query_vars['filter_by'] ) {
+			// Clear empty taxonomy queries.
+			$query_vars['tax_query'] = array_filter( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+				array(
+					$this->get_category_tax_query(),
+				)
+			);
+
+			if ( 'custom' === $catalog_query_vars['filter_by'] ) {
+				$query_vars = array_merge(
+					$query_vars,
+					array(
+						'type'         => $this->get_type_query_var(),
+						'stock_status' => $this->get_stock_status_query_var(),
+						'virtual'      => $this->get_boolean_query_var( 'virtual_products' ),
+						'downloadable' => $this->get_boolean_query_var( 'downloadable_products' ),
+					)
+				);
+			}
+		}
 
 		/**
 		 * Filters the variables used for querying the products of a catalog.
@@ -106,7 +138,7 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 		 * @param array $query_vars         The query vars.
 		 * @param array $catalog_query_vars The catalog query vars.
 		 */
-		return apply_filters( 'wc_instagram_product_catalog_query_vars', $query_vars, $this->get_catalog_query_vars() );
+		return apply_filters( 'wc_instagram_product_catalog_query_vars', $query_vars, $catalog_query_vars );
 	}
 
 	/**
@@ -117,19 +149,28 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 	 * @return array An array of WC_Product objects or product IDs.
 	 */
 	public function get_products() {
-		$product_ids = parent::get_products();
-
 		$query_vars = $this->get_catalog_query_vars();
 		$return_ids = ( isset( $query_vars['return'] ) && 'ids' === $query_vars['return'] );
+		$filter_by  = $query_vars['filter_by'];
 
-		// Include specific products.
-		if ( ! empty( $query_vars['include_product_ids'] ) ) {
-			$product_ids = array_unique( array_merge( $product_ids, $query_vars['include_product_ids'] ) );
-		}
+		// Only specific products, there is no need to execute the query.
+		if ( 'products' === $filter_by && 'specific' === $query_vars['products_option'] ) {
+			$product_ids = $query_vars['include_product_ids'];
+		} else {
+			$product_ids = parent::get_products();
 
-		// Exclude specific products.
-		if ( ! empty( $query_vars['exclude_product_ids'] ) ) {
-			$product_ids = array_diff( $product_ids, $query_vars['exclude_product_ids'] );
+			// Include products.
+			if ( ! empty( $query_vars['include_product_ids'] ) && 'custom' === $filter_by ) {
+				$product_ids = array_unique( array_merge( $product_ids, $query_vars['include_product_ids'] ) );
+			}
+
+			// Exclude products.
+			if ( ! empty( $query_vars['exclude_product_ids'] ) && (
+				'custom' === $filter_by ||
+				( 'products' === $filter_by && 'all_except' === $query_vars['products_option'] )
+			) ) {
+				$product_ids = array_diff( $product_ids, $query_vars['exclude_product_ids'] );
+			}
 		}
 
 		return array_values( $return_ids ? $product_ids : array_filter( array_map( 'wc_get_product', $product_ids ) ) );

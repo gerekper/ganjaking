@@ -131,7 +131,6 @@ class WooCommerce_Product_Search_Filter_Rating {
 				'heading_id'          => null,
 				'show_heading'        => 'yes',
 
-				'use_shop_url'        => 'no'
 			),
 			$atts
 		);
@@ -160,7 +159,7 @@ class WooCommerce_Product_Search_Filter_Rating {
 					case 'has_rating_only' :
 
 					case 'show_heading' :
-					case 'use_shop_url' :
+
 						$value = strtolower( $value );
 						$value = $value == 'true' || $value == 'yes' || $value == '1';
 						break;
@@ -241,19 +240,6 @@ class WooCommerce_Product_Search_Filter_Rating {
 		$current_url = remove_query_arg( array( 'ixwpse', 'rating', 'paged' ), $current_url );
 		$href        = $current_url;
 		$add_post_type = false;
-		if ( isset( $params['use_shop_url'] ) && $params['use_shop_url'] ) {
-
-			$href = get_permalink( wc_get_page_id( 'shop' ) );
-			if ( !$href ) {
-				$query_post_type = self::get_query_arg( $current_url, 'post_type' );
-
-				if ( $query_post_type !== 'product' ) {
-
-					$href = add_query_arg( array( 'post_type' => 'product' ), trailingslashit( home_url() ) );
-					$add_post_type = true;
-				}
-			}
-		}
 
 		$rating_field_id = 'product-search-filter-rating-' . $n;
 		$form_id          = 'product-search-filter-rating-form-' . $n;

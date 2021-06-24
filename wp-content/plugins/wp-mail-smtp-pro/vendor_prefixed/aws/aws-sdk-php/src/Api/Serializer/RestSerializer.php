@@ -30,7 +30,7 @@ abstract class RestSerializer
     public function __construct(\WPMailSMTP\Vendor\Aws\Api\Service $api, $endpoint)
     {
         $this->api = $api;
-        $this->endpoint = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\uri_for($endpoint);
+        $this->endpoint = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::uriFor($endpoint);
     }
     /**
      * @param CommandInterface $command Command to serialized
@@ -90,7 +90,7 @@ abstract class RestSerializer
         if ($m['streaming'] || ($m['type'] == 'string' || $m['type'] == 'blob')) {
             // Streaming bodies or payloads that are strings are
             // always just a stream of data.
-            $opts['body'] = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\stream_for($args[$name]);
+            $opts['body'] = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::streamFor($args[$name]);
             return;
         }
         $this->payload($m, $args[$name], $opts);
@@ -157,7 +157,7 @@ abstract class RestSerializer
         }, $operation['http']['requestUri']);
         // Add the query string variables or appending to one if needed.
         if (!empty($opts['query'])) {
-            $append = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($opts['query']);
+            $append = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($opts['query']);
             $relative .= \strpos($relative, '?') ? "&{$append}" : "?{$append}";
         }
         // If endpoint has path, remove leading '/' to preserve URI resolution.

@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     '5255c38a0faeba867671b61dfda6d864' => $vendorDir . '/paragonie/random_compat/lib/random.php',
-    '3109cb1a231dcd04bee1f9f620d46975' => $vendorDir . '/paragonie/sodium_compat/autoload.php',
     '7b11c4dc42b3b3023073cb14e519683c' => $vendorDir . '/ralouphie/getallheaders/src/getallheaders.php',
     '840b8504e40a63aaa679ca25c0b2a1cc' => $baseDir . '/vendor_prefixed/guzzlehttp/psr7/src/functions_include.php',
     'e3e111437f37e10e6bcab5eacc08fb6f' => $baseDir . '/vendor_prefixed/guzzlehttp/promises/src/functions_include.php',

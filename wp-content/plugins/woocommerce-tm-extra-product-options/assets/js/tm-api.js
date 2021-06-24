@@ -527,7 +527,7 @@ window.jQuery.jMaskGlobals = {
 		};
 	};
 
-	// JQuery trim is deprecated, provide a trim method based on String.prototype.trim
+	// jQuery trim is deprecated, provide a trim method based on String.prototype.trim
 	$.epoAPI.util.trim = function( str ) {
 		if ( typeof str === 'string' ) {
 			// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim#Polyfill

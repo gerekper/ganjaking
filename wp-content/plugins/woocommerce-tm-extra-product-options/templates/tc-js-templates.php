@@ -83,9 +83,9 @@ defined( 'ABSPATH' ) || exit;
     </ins>
 </script>
 <script class="tm-hidden" type="text/template" id="tmpl-tc-section-pop-link">
-    <div id="tm-section-pop-up" class="tm-extra-product-options flasho tm_wrapper tm-section-pop-up single tm-animated appear">
+    <div id="tm-section-pop-up" class="tm-extra-product-options flasho tc-wrapper tm-section-pop-up single tm-animated appear">
         <div class='header'><h3>{{{ data.title }}}</h3></div>
-        <div class="float-editbox" id="temp_for_floatbox_insert"></div>
+        <div class="float-editbox" id="tc-floatbox-content"></div>
         <div class='footer'>
             <div class='inner'>
                 <span class='tm-button button button-secondary button-large floatbox-cancel'>{{{ data.close }}}</span>
@@ -157,7 +157,7 @@ defined( 'ABSPATH' ) || exit;
     <div class="header">
         <h3>{{{ data.title }}}</h3>
     </div>
-    <div class="float-editbox" id="temp_for_floatbox_insert">
+    <div class="float-editbox" id="tc-floatbox-content">
         <div class="tc-upload-messages">
             <div class="tc-upload-message">{{{ data.message }}}</div>
             <# for (var i in data.files) {

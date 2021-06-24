@@ -1,4 +1,4 @@
-( function( $, document ) {
+( function( $ ) {
 	'use strict';
 
 	function tc_adjust_product_total_price( product_total_price ) {
@@ -39,7 +39,8 @@
 		return product_total_price;
 	}
 
-	$( document ).ready( function() {
+	// document ready
+	$( function() {
 		$.epoAPI.addFilter( 'tc_adjust_product_total_price', tc_adjust_product_total_price, 10, 1 );
 	} );
-}( window.jQuery, document ) );
+}( window.jQuery ) );

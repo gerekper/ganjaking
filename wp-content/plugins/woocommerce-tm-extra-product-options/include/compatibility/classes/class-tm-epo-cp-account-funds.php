@@ -65,7 +65,7 @@ final class THEMECOMPLETE_EPO_CP_account_funds {
 	 * @since 5.0.12.9
 	 */
 	public function wc_epo_update_cart_action_cart_updated( $ret ) {
-        
+
         if ( ! empty( $_POST['wc_account_funds_apply'] ) || ! empty( $_GET['remove_account_funds'] ) ) {
 			return true;
 		}

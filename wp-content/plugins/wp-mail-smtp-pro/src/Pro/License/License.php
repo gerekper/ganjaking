@@ -46,13 +46,6 @@ class License {
 	 * @since 1.5.0
 	 */
 	public function __construct() {
-		$options = new Options();
-		$all_opt = $options->get_all();
-		$all_opt['license']['type'] = 'pro';
-		$all_opt['license']['is_expired'] = false;
-		$all_opt['license']['is_disabled'] = false;
-		$all_opt['license']['is_invalid'] = false;
-		$options->set( $all_opt );
 
 		$this->register_updater();
 
@@ -181,8 +174,8 @@ class License {
 	 */
 	public function display_settings_license_key_field_content( $options ) {
 
-		$key      = wp_mail_smtp()->get_license_key();
-		$type     = wp_mail_smtp()->get_license_type();
+		$key  = '1415b451be1a13c283ba771ea52d38bb';
+		$type = 'Pro';
 		$license  = $options->get_group( 'license' );
 		$is_valid = ! empty( $key ) &&
 		            ( isset( $license['is_expired'] ) && $license['is_expired'] === false ) &&
@@ -196,9 +189,7 @@ class License {
 			<input type="password" id="wp-mail-smtp-setting-license-key"
 				<?php echo ( $options->is_const_defined( 'license', 'key' ) || $is_valid ) ? 'disabled' : ''; ?>
 				value="<?php echo esc_attr( $key ); ?>" name="wp-mail-smtp[license][key]"/>
-			<button type="button" id="wp-mail-smtp-setting-license-key-verify" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-orange">
-				<?php esc_html_e( 'Verify Key', 'wp-mail-smtp-pro' ); ?>
-			</button>
+			
 
 			<?php
 			// Offer option to deactivate the key.
@@ -227,7 +218,7 @@ class License {
 
 		<?php
 		// Display the refresh link for non-lite keys only.
-		$class = empty( $type ) || $type === 'lite' ? 'wp-mail-smtp-hide' : '';
+		$class = empty( $type ) || $type === 'Pro' ? 'wp-mail-smtp-hide' : '';
 		?>
 
 		<p class="desc <?php echo esc_attr( $class ); ?>">
@@ -415,6 +406,14 @@ class License {
 	 * @param bool   $ajax
 	 */
 	public function validate_key( $key = '', $forced = false, $ajax = false ) {
+
+		$options = new Options();
+		$all_opt = $options->get_all();
+		$all_opt['license']['type'] = 'pro';
+		$all_opt['license']['is_expired'] = false;
+		$all_opt['license']['is_disabled'] = false;
+		$all_opt['license']['is_invalid'] = false;
+		$options->set( $all_opt );
 		return;
 
 		$validate = $this->perform_remote_request( 'validate-key', array( 'tgm-updater-key' => $key ) );
@@ -589,6 +588,8 @@ class License {
 	 * @param bool $below_h2
 	 */
 	public function notices( $below_h2 = false ) {
+		return;
+
 
 		// Grab the option and output any nag dealing with license keys.
 		$options  = new Options();
@@ -621,7 +622,7 @@ class License {
 		// If a key has expired, output nag about renewing the key.
 		if ( isset( $all_opt['license']['is_expired'] ) && $all_opt['license']['is_expired'] ) :
 			?>
-			<div class="error notice <?php echo esc_attr( $below_h2 ); ?> wp-mail-smtp-license-notice">
+			<div class="notice notice-error <?php echo esc_attr( $below_h2 ); ?> wp-mail-smtp-license-notice">
 				<p>
 					<?php
 					printf(
@@ -646,7 +647,7 @@ class License {
 		// If a key has been disabled, output nag about using another key.
 		if ( isset( $all_opt['license']['is_disabled'] ) && $all_opt['license']['is_disabled'] ) :
 			?>
-			<div class="error notice <?php echo esc_attr( $below_h2 ); ?> wp-mail-smtp-license-notice">
+			<div class="notice notice-error <?php echo esc_attr( $below_h2 ); ?> wp-mail-smtp-license-notice">
 				<p><?php esc_html_e( 'Your license key for WP Mail SMTP Pro has been disabled. Please use a different key to continue receiving automatic updates.', 'wp-mail-smtp-pro' ); ?></p>
 			</div>
 			<?php
@@ -655,7 +656,7 @@ class License {
 		// If a key is invalid, output nag about using another key.
 		if ( isset( $all_opt['license']['is_invalid'] ) && $all_opt['license']['is_invalid'] ) :
 			?>
-			<div class="error notice <?php echo esc_attr( $below_h2 ); ?> wp-mail-smtp-license-notice">
+			<div class="notice notice-error <?php echo esc_attr( $below_h2 ); ?> wp-mail-smtp-license-notice">
 				<p><?php esc_html_e( 'Your license key for WP Mail SMTP Pro is invalid. The key no longer exists or the user associated with the key has been deleted. Please use a different key to continue receiving automatic updates.', 'wp-mail-smtp-pro' ); ?></p>
 			</div>
 			<?php
@@ -664,7 +665,7 @@ class License {
 		// If there are any license errors, output them now.
 		if ( ! empty( $this->errors ) ) :
 			?>
-			<div class="error notice <?php echo esc_attr( $below_h2 ); ?> wp-mail-smtp-license-notice">
+			<div class="notice notice-error <?php echo esc_attr( $below_h2 ); ?> wp-mail-smtp-license-notice">
 				<p><?php echo implode( '<br>', $this->errors ); ?></p>
 			</div>
 			<?php
@@ -673,7 +674,7 @@ class License {
 		// If there are any success messages, output them now.
 		if ( ! empty( $this->success ) ) :
 			?>
-			<div class="updated notice <?php echo esc_attr( $below_h2 ); ?> wp-mail-smtp-license-notice">
+			<div class="notice notice-success <?php echo esc_attr( $below_h2 ); ?> wp-mail-smtp-license-notice">
 				<p><?php echo implode( '<br>', $this->success ); ?></p>
 			</div>
 			<?php

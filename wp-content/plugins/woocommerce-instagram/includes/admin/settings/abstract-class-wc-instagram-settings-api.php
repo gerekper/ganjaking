@@ -416,6 +416,58 @@ if ( ! class_exists( 'WC_Instagram_Settings_API', false ) ) {
 		}
 
 		/**
+		 * Generates the HTML for a radio field.
+		 *
+		 * @since 3.5.0
+		 *
+		 * @param string $key  The field key.
+		 * @param mixed  $data The field data.
+		 * @return string
+		 */
+		public function generate_radio_html( $key, $data ) {
+			$defaults = array(
+				'title'             => '',
+				'disabled'          => false,
+				'class'             => '',
+				'css'               => '',
+				'placeholder'       => '',
+				'type'              => 'text',
+				'desc_tip'          => false,
+				'description'       => '',
+				'custom_attributes' => array(),
+				'options'           => array(),
+			);
+
+			$data      = wp_parse_args( $data, $defaults );
+			$field_key = $this->get_field_key( $key );
+			$value     = $this->get_option( $field_key );
+
+			ob_start();
+			$this->output_field_start( $key, $data );
+
+			echo '<ul>';
+
+			foreach ( $data['options'] as $key => $label ) :
+				$input = sprintf(
+					'<input type="radio" id="%1$s" name="%1$s" value="%2$s" class="%3$s" style="%4$s"%5$s%6$s />',
+					esc_attr( $field_key ),
+					esc_attr( $key ),
+					esc_attr( $data['class'] ),
+					esc_attr( $data['css'] ),
+					checked( $key, $value, false ),
+					wp_kses_post( $this->get_custom_attribute_html( $data ) )
+				);
+
+				echo '<li><label>' . $input . ' ' . wp_kses_post( $label ) . '</label></li>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			endforeach;
+
+			echo '</ul>';
+
+			$this->output_field_end( $key, $data );
+			return ob_get_clean();
+		}
+
+		/**
 		 * Generates the 'subset' fields.
 		 *
 		 * @since 3.0.0
@@ -430,14 +482,19 @@ if ( ! class_exists( 'WC_Instagram_Settings_API', false ) ) {
 				return array();
 			}
 
+			$option_field = wp_parse_args(
+				$option_field,
+				array(
+					'type'  => 'select',
+					'class' => '',
+				)
+			);
+
+			// Force the subset class.
+			$option_field['class'] = trim( 'wc-instagram-field-subset-option ' . $option_field['class'] );
+
 			$form_fields = array(
-				"{$subset_key}_option" => wp_parse_args(
-					$option_field,
-					array(
-						'type'  => 'select',
-						'class' => 'wc-instagram-field-subset-option',
-					)
-				),
+				"{$subset_key}_option" => $option_field,
 			);
 
 			if ( is_string( $subset_field ) ) {

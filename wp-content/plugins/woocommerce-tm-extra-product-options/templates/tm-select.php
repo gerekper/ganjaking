@@ -24,6 +24,9 @@ defined( 'ABSPATH' ) || exit;
                 data-price=""
                 data-rules=""
                 data-original-rules=""
+                <?php if ( ! empty( $changes_product_image ) ) {
+                    echo 'data-changes-product-image="' . esc_attr( $changes_product_image ) . '" ';
+                } ?>
                 id="<?php echo esc_attr( $id ); ?>"<?php 
                 if ( isset( $element_data_attr ) && is_array( $element_data_attr ) ) {
                     THEMECOMPLETE_EPO_HTML()->create_attribute_list( $element_data_attr );
@@ -35,7 +38,7 @@ defined( 'ABSPATH' ) || exit;
 			<?php 
 
             if ( is_array($options) ){
-                
+
                 foreach ($options as $option) {
                     ?>
             <option <?php if ( isset( $option['selected'] ) && isset( $option['current'] ) ) { selected( $option['selected'], $option['current'] ); } ?> value="<?php echo esc_attr( $option['value_to_show'] ); ?>" 

@@ -658,7 +658,8 @@
 		}
 	} );
 
-	$( document ).ready( function() {
+	// document ready
+	$( function() {
 		TMEPOJS = window.TMEPOJS || null;
 		tcAPI = $.tcAPI();
 

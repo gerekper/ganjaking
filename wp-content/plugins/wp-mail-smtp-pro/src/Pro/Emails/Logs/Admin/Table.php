@@ -6,6 +6,8 @@ use WPMailSMTP\Options;
 use WPMailSMTP\Admin\Area;
 use WPMailSMTP\Pro\Emails\Logs\Email;
 use WPMailSMTP\Pro\Emails\Logs\EmailsCollection;
+use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable\ClickLinkEvent;
+use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable\OpenEmailEvent;
 use WPMailSMTP\WP;
 
 if ( ! class_exists( 'WP_List_Table', false ) ) {
@@ -62,6 +64,7 @@ class Table extends \WP_List_Table {
 				'singular' => 'email',
 				'plural'   => 'emails',
 				'ajax'     => false,
+				'screen'   => 'wp-mail-smtp_page_wp-mail-smtp-logs',
 			)
 		);
 	}
@@ -200,14 +203,23 @@ class Table extends \WP_List_Table {
 	 */
 	public function get_columns() {
 
-		$columns = array(
-			'cb'        => '<input type="checkbox" />',
-			'status'    => '',
-			'subject'   => esc_html__( 'Subject', 'wp-mail-smtp-pro' ),
-			'from'      => esc_html__( 'From', 'wp-mail-smtp-pro' ),
-			'to'        => esc_html__( 'To', 'wp-mail-smtp-pro' ),
-			'date_sent' => esc_html__( 'Date Sent', 'wp-mail-smtp-pro' ),
-		);
+		$columns = [];
+
+		$columns['cb']      = '<input type="checkbox" />';
+		$columns['status']  = '';
+		$columns['subject'] = esc_html__( 'Subject', 'wp-mail-smtp-pro' );
+		$columns['from']    = esc_html__( 'From', 'wp-mail-smtp-pro' );
+		$columns['to']      = esc_html__( 'To', 'wp-mail-smtp-pro' );
+
+		if ( wp_mail_smtp()->get_pro()->get_logs()->is_enabled_open_email_tracking() ) {
+			$columns['opened'] = esc_html__( 'Opened', 'wp-mail-smtp-pro' );
+		}
+
+		if ( wp_mail_smtp()->get_pro()->get_logs()->is_enabled_click_link_tracking() ) {
+			$columns['clicked'] = esc_html__( 'Clicked', 'wp-mail-smtp-pro' );
+		}
+
+		$columns['date_sent'] = esc_html__( 'Date Sent', 'wp-mail-smtp-pro' );
 
 		return $columns;
 	}
@@ -265,7 +277,7 @@ class Table extends \WP_List_Table {
 
 		$subject = '<strong>' .
 						'<a href="' . esc_url( $this->get_item_link( $item, 'edit' ) ) . '" class="row-title">' .
-							$item->get_subject() .
+							esc_html( $item->get_subject() ) .
 						'</a>' .
 					'</strong>';
 
@@ -317,23 +329,23 @@ class Table extends \WP_List_Table {
 		switch ( $link ) {
 			case 'edit':
 				$url = add_query_arg(
-					array(
+					[
 						'email_id' => $item->get_id(),
 						'mode'     => 'view',
-					),
+					],
 					wp_mail_smtp()->get_admin()->get_admin_page_url( Area::SLUG . '-logs' )
 				);
 				break;
 
 			case 'view':
 				$url = add_query_arg(
-					array(
+					[
 						'email_id'  => $item->get_id(),
 						'mode'      => 'preview',
 						'TB_iframe' => true,
 						'width'     => 600,
 						'height'    => '',
-					),
+					],
 					wp_nonce_url( wp_mail_smtp()->get_admin()->get_admin_page_url( Area::SLUG . '-logs' ), 'wp_mail_smtp_pro_logs_log_preview' )
 				);
 				break;
@@ -341,10 +353,10 @@ class Table extends \WP_List_Table {
 			case 'delete':
 				$url = wp_nonce_url(
 					add_query_arg(
-						array(
+						[
 							'email_id' => $item->get_id(),
 							'mode'     => 'delete',
-						),
+						],
 						wp_mail_smtp()->get_admin()->get_admin_page_url( Area::SLUG . '-logs' )
 					),
 					'wp_mail_smtp_pro_logs_log_delete'
@@ -352,7 +364,16 @@ class Table extends \WP_List_Table {
 				break;
 		}
 
-		return $url;
+		/**
+		 * Filters email log link.
+		 *
+		 * @since 2.9.0
+		 *
+		 * @param string $url  Item link.
+		 * @param Email  $item Email instance.
+		 * @param string $link Link type.
+		 */
+		return apply_filters( 'wp_mail_smtp_pro_emails_logs_admin_table_get_item_link', $url, $item, $link );
 	}
 
 	/**
@@ -400,6 +421,46 @@ class Table extends \WP_List_Table {
 		}
 
 		return $to_emails;
+	}
+
+	/**
+	 * Display whether email was opened.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param \WPMailSMTP\Pro\Emails\Logs\Email $item Email object.
+	 *
+	 * @return string
+	 */
+	public function column_opened( $item ) {
+
+		if ( ! $item->is_content_type_html_based() ) {
+			return esc_html__( 'N/A', 'wp-mail-smtp-pro' );
+		}
+
+		return ( new OpenEmailEvent( $item->get_id() ) )->was_event_already_triggered() ?
+			esc_html__( 'Yes', 'wp-mail-smtp-pro' ) :
+			esc_html__( 'No', 'wp-mail-smtp-pro' );
+	}
+
+	/**
+	 * Display whether one of email links was clicked.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param \WPMailSMTP\Pro\Emails\Logs\Email $item Email object.
+	 *
+	 * @return string
+	 */
+	public function column_clicked( $item ) {
+
+		if ( ! $item->is_content_type_html_based() ) {
+			return esc_html__( 'N/A', 'wp-mail-smtp-pro' );
+		}
+
+		return ( new ClickLinkEvent( $item->get_id() ) )->was_event_already_triggered() ?
+			esc_html__( 'Yes', 'wp-mail-smtp-pro' ) :
+			esc_html__( 'No', 'wp-mail-smtp-pro' );
 	}
 
 	/**
@@ -457,6 +518,7 @@ class Table extends \WP_List_Table {
 
 		if ( current_user_can( wp_mail_smtp()->get_pro()->get_logs()->get_manage_capability() ) ) {
 			$actions['delete'] = esc_html__( 'Delete', 'wp-mail-smtp-pro' );
+			$actions['resend'] = esc_html__( 'Resend', 'wp-mail-smtp-pro' );
 		}
 
 		return $actions;
@@ -620,9 +682,6 @@ class Table extends \WP_List_Table {
 
 		// Retrieve count.
 		$this->get_counts();
-
-		// Define our column headers.
-		$this->_column_headers = [ $this->get_columns(), [], $this->get_sortable_columns() ];
 
 		/**
 		 * TODO: implement.

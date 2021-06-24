@@ -3,7 +3,7 @@ Contributors: woocommerce, themesquad
 Tags: woocommerce, instagram, hashtag, product, showcase
 Requires at least: 4.4
 Tested up to: 5.7
-Stable tag: 3.4.6
+Stable tag: 3.5.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.2

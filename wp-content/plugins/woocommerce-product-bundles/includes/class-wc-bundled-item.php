@@ -487,12 +487,14 @@ class WC_Bundled_Item {
 					continue;
 				}
 
+				$stock_managed_by_id = $variation->get_stock_managed_by_id();
+
 				// Already counted this stock?
-				if ( in_array( $variation_id, $manage_stock_ids ) ) {
+				if ( in_array( $stock_managed_by_id, $manage_stock_ids ) ) {
 					continue;
 				}
 
-				$manage_stock_ids[] = $variation->get_stock_managed_by_id();
+				$manage_stock_ids[] = $stock_managed_by_id;
 
 				if ( false === $variation->is_in_stock() ) {
 

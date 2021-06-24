@@ -3,7 +3,10 @@
 namespace WPMailSMTP\Pro\Emails\Logs\Admin;
 
 use WPMailSMTP\Admin\Area;
+use WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments;
 use WPMailSMTP\Pro\Emails\Logs\Email;
+use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable\OpenEmailEvent;
+use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable\ClickLinkEvent;
 use WPMailSMTP\WP;
 
 /**
@@ -40,9 +43,10 @@ class SinglePage extends PageAbstract {
 
 		// Output single Email Log content and sidebar metabox.
 		add_action( 'wp_mail_smtp_pro_emails_logs_admin_single_page_display_content', [ $this, 'email_details' ], 10 );
-		add_action( 'wp_mail_smtp_pro_emails_logs_admin_single_page_display_content', [ $this, 'email_extra_details' ], 10 );
+		add_action( 'wp_mail_smtp_pro_emails_logs_admin_single_page_display_content', [ $this, 'email_extra_details' ], 20 );
 		add_action( 'wp_mail_smtp_pro_emails_logs_admin_single_page_display_sidebar', [ $this, 'email_meta' ], 10 );
-		add_action( 'wp_mail_smtp_pro_emails_logs_admin_single_page_display_sidebar', [ $this, 'email_actions' ], 10 );
+		add_action( 'wp_mail_smtp_pro_emails_logs_admin_single_page_display_sidebar', [ $this, 'email_actions' ], 20 );
+		add_action( 'wp_mail_smtp_pro_emails_logs_admin_single_page_display_sidebar', [ $this, 'email_attachments' ], 30 );
 	}
 
 	/**
@@ -69,7 +73,7 @@ class SinglePage extends PageAbstract {
 				<?php echo esc_html( $this->get_label() ); ?>
 			</span>
 
-			<a href="<?php echo esc_url( wp_mail_smtp()->get_admin()->get_admin_page_url( Area::SLUG . '-logs' ) ); ?>" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-orange action">
+			<a href="<?php echo esc_url( wp_mail_smtp()->get_admin()->get_admin_page_url( Area::SLUG . '-logs' ) ); ?>" class="button wp-mail-smtp-btn wp-mail-smtp-btn-orange action">
 				<?php esc_html_e( 'Back to Email Log', 'wp-mail-smtp-pro' ); ?>
 			</a>
 		</div>
@@ -385,6 +389,28 @@ class SinglePage extends PageAbstract {
 						);
 						?>
 					</li>
+					<?php if ( wp_mail_smtp()->get_pro()->get_logs()->is_enabled_open_email_tracking() ) : ?>
+						<li>
+							<img src="<?php echo esc_url( wp_mail_smtp()->pro->assets_url ); ?>/images/logs/icon-envelope-open.svg" class="icon" alt="">
+							<?php
+							printf( /* translators: %s - whether email was opened. */
+								esc_html__( 'Opened: %s', 'wp-mail-smtp-pro' ),
+								'<strong>' . $this->display_was_email_already_opened() . '</strong>' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							);
+							?>
+						</li>
+					<?php endif; ?>
+					<?php if ( wp_mail_smtp()->get_pro()->get_logs()->is_enabled_click_link_tracking() ) : ?>
+						<li>
+							<img src="<?php echo esc_url( wp_mail_smtp()->pro->assets_url ); ?>/images/logs/icon-hand-pointer.svg" class="icon" alt="">
+							<?php
+							printf( /* translators: %s - whether one of email links was clicked. */
+								esc_html__( 'Clicked: %s', 'wp-mail-smtp-pro' ),
+								'<strong>' . $this->display_was_email_link_already_clicked() . '</strong>' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							);
+							?>
+						</li>
+					<?php endif; ?>
 				</ul>
 
 				<div id="major-publishing-actions">
@@ -476,7 +502,20 @@ class SinglePage extends PageAbstract {
 				'icon'  => 'dashicons-media-spreadsheet',
 				'label' => esc_html__( 'Export (XLSX)', 'wp-mail-smtp-pro' ),
 			],
+			'export_eml'  => [
+				'url'   => $this->get_export_url( $email->get_id(), 'eml' ),
+				'icon'  => 'dashicons-email',
+				'label' => esc_html__( 'Export (EML)', 'wp-mail-smtp-pro' ),
+			],
 		];
+
+		if ( ! empty( $email->get_content() ) ) {
+			$action_links['resend'] = [
+				'url'   => '#',
+				'icon'  => 'dashicons-update',
+				'label' => esc_html__( 'Resend', 'wp-mail-smtp-pro' ),
+			];
+		}
 
 		/**
 		 * Filters single email log actions.
@@ -501,6 +540,55 @@ class SinglePage extends PageAbstract {
 							printf( '<a href="%1$s" %2$s>', esc_url( $link['url'] ), $window ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 								printf( '<span class="dashicons %s"></span>', esc_attr( $link['icon'] ) );
 								echo esc_html( $link['label'] );
+							echo '</a>';
+						echo '</li>';
+					}
+					?>
+				</ul>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Email attachments metabox.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param Email $email Email instance.
+	 *
+	 * @return string|false
+	 */
+	public function email_attachments( $email ) {
+
+		$attachments = ( new Attachments() )->get_attachments( $email->get_id() );
+
+		if ( empty( $attachments ) ) {
+			return false;
+		}
+
+		/**
+		 * Filters single email log attachments.
+		 *
+		 * @since 2.9.0
+		 *
+		 * @param array $attachments  The array of Attachment objects.
+		 * @param Email $email        Email.
+		 */
+		$attachments = apply_filters( 'wp_mail_smtp_pro_emails_logs_admin_single_page_attachments', $attachments, $email );
+		?>
+		<div id="wp-mail-smtp-email-attachments" class="postbox">
+			<div class="postbox-header">
+				<h2 class="hndle"><?php esc_html_e( 'Attachments', 'wp-mail-smtp-pro' ); ?></h2>
+			</div>
+			<div class="inside">
+				<ul>
+					<?php
+					foreach ( $attachments as $attachment ) {
+						echo '<li class="wp-mail-smtp-email-log-attachment">';
+							printf( '<a href="%1$s" target="_blank" rel="noopener noreferrer">', esc_url( $attachment->get_url() ) );
+								printf( '<span class="dashicons %s"></span>', esc_attr( $attachment->get_icon() ) );
+								echo esc_html( $attachment->get_filename() );
 							echo '</a>';
 						echo '</li>';
 					}
@@ -584,5 +672,41 @@ class SinglePage extends PageAbstract {
 			'wp-mail-smtp-tools-export-single-email-log-nonce',
 			'nonce'
 		);
+	}
+
+	/**
+	 * Display whether email was opened.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @return string
+	 */
+	private function display_was_email_already_opened() {
+
+		if ( ! $this->email->is_content_type_html_based() ) {
+			return esc_html__( 'N/A', 'wp-mail-smtp-pro' );
+		}
+
+		return ( new OpenEmailEvent( $this->email->get_id() ) )->was_event_already_triggered() ?
+			esc_html__( 'Yes', 'wp-mail-smtp-pro' ) :
+			esc_html__( 'No', 'wp-mail-smtp-pro' );
+	}
+
+	/**
+	 * Display whether one of email links was clicked.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @return string
+	 */
+	private function display_was_email_link_already_clicked() {
+
+		if ( ! $this->email->is_content_type_html_based() ) {
+			return esc_html__( 'N/A', 'wp-mail-smtp-pro' );
+		}
+
+		return ( new ClickLinkEvent( $this->email->get_id() ) )->was_event_already_triggered() ?
+			esc_html__( 'Yes', 'wp-mail-smtp-pro' ) :
+			esc_html__( 'No', 'wp-mail-smtp-pro' );
 	}
 }

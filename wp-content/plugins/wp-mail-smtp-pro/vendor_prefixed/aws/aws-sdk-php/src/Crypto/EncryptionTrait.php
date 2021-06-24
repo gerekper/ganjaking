@@ -103,7 +103,7 @@ trait EncryptionTrait
                 }
                 $appendStream = new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\AppendStream([$cipherTextStream->createStream()]);
                 $cipherOptions['Tag'] = $cipherTextStream->getTag();
-                $appendStream->addStream(\WPMailSMTP\Vendor\GuzzleHttp\Psr7\stream_for($cipherOptions['Tag']));
+                $appendStream->addStream(\WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::streamFor($cipherOptions['Tag']));
                 return [$appendStream, $cipherTextStream->getAesName()];
             default:
                 $cipherMethod = $this->buildCipherMethod($cipherOptions['Cipher'], $cipherOptions['Iv'], $cipherOptions['KeySize']);

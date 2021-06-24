@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Min/Max Quantities
  * Plugin URI: https://woocommerce.com/products/minmax-quantities/
  * Description: Define minimum/maximum allowed quantities for products, variations and orders.
- * Version: 2.4.22
+ * Version: 2.4.23
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 4.0
- * Tested up to: 5.7.1
- * WC tested up to: 5.2.2
+ * Tested up to: 5.7
+ * WC tested up to: 5.4
  * WC requires at least: 2.6
  *
  * Text Domain: woocommerce-min-max-quantities
@@ -24,7 +24,7 @@
 
 if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
-	define( 'WC_MIN_MAX_QUANTITIES', '2.4.22' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_MIN_MAX_QUANTITIES', '2.4.23' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Min Max Quantities class.
@@ -676,12 +676,12 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 			}
 
 			if ( isset( $minimum_quantity ) && $minimum_quantity > 0 ) {
-				if ( $total_quantity < $minimum_quantity ) {
+				if ( $pass && $total_quantity < $minimum_quantity ) {
 
 					$_product = wc_get_product( $product_id );
 
 					/* translators: %1$s: Product name, %2$d: Minimum quantity, %3$s: Currenty quantity */
-					$this->add_error( sprintf( __( 'The minimum required quantity for %1$s is %2$d (you currently have %3$s in your cart). Please increase the quantity in your cart.', 'woocommerce-min-max-quantities' ), $_product->get_title(), $minimum_quantity, $total_quantity - $quantity ) );
+					$this->add_error( sprintf( __( 'The minimum required quantity for %1$s is %2$d (you currently have %3$s in your cart). Please increase the quantity in your cart.', 'woocommerce-min-max-quantities' ), $_product->get_title(), $minimum_quantity, $total_quantity ) );
 
 					$pass = true;
 				}

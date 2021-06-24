@@ -2361,20 +2361,39 @@ jQuery.fn.wc_get_bundle_script = function() {
 				return false;
 			}
 
+			var bundled_item_qty_type = this.$bundled_item_qty.attr( 'type' ),
+			    bundled_item_qty_min  = 'hidden' === bundled_item_qty_type ? bundled_item_qty_val : parseInt( this.$bundled_item_qty.attr( 'min' ), 10 ),
+			    bundled_item_qty_max  = 'hidden' === bundled_item_qty_type ? bundled_item_qty_val : parseInt( this.$bundled_item_qty.attr( 'max' ), 10 );
+
+			bundled_item_qty_min = isNaN( bundled_item_qty_min ) ? -9999 : bundled_item_qty_min;
+			bundled_item_qty_max = isNaN( bundled_item_qty_max ) ? 9999 : bundled_item_qty_max;
+
 			reset = typeof( reset ) === 'undefined' ? false : reset;
 
+			if ( ! this.is_selected() ) {
+				reset = true;
+			}
+
 			if ( reset ) {
-				bundled_item_qty_val = parseInt( this.$bundled_item_qty.attr( 'min' ), 10 );
+				bundled_item_qty_val = 'hidden' === bundled_item_qty_type ? bundled_item_qty_val : parseInt( this.$bundled_item_qty.attr( 'min' ), 10 );
 			}
 
 			if ( 'tabular' === bundle.price_data.layout ) {
-				bundled_item_qty_val = 1;
+				bundled_item_qty_min = bundled_item_qty_max = '';
+			}
+
+			var is_selection_qty_visible = false;
+
+			if ( reset ) {
+				is_selection_qty_visible = bundled_item_qty_min === bundled_item_qty_max && bundled_item_qty_val > 1;
+			} else if ( bundled_item_qty_val > 0 ) {
+				is_selection_qty_visible = bundled_item_qty_min !== bundled_item_qty_max || bundled_item_qty_val > 1 || 'yes' === wc_bundle_params.force_selection_qty;
 			}
 
 			var selection_title           = this.bundled_item_title,
-				selection_qty_string      = bundled_item_qty_val > 1 ? wc_bundle_params.i18n_qty_string.replace( '%s', bundled_item_qty_val ) : '',
-				selection_optional_string = ( this.is_optional() && this.get_optional_suffix() !== '' ) ? wc_bundle_params.i18n_optional_string.replace( '%s', this.get_optional_suffix() ) : '',
-				selection_title_incl_qty  = wc_bundle_params.i18n_title_string.replace( '%t', selection_title ).replace( '%q', selection_qty_string ).replace( '%o', selection_optional_string );
+			    selection_qty_string      = is_selection_qty_visible ? wc_bundle_params.i18n_qty_string.replace( '%s', bundled_item_qty_val ) : '',
+			    selection_optional_string = ( this.is_optional() && this.get_optional_suffix() !== '' ) ? wc_bundle_params.i18n_optional_string.replace( '%s', this.get_optional_suffix() ) : '',
+			    selection_title_incl_qty  = wc_bundle_params.i18n_title_string.replace( '%t', selection_title ).replace( '%q', selection_qty_string ).replace( '%o', selection_optional_string );
 
 			this.$bundled_item_title.html( selection_title_incl_qty );
 		};

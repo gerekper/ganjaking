@@ -188,7 +188,7 @@ if ( ! function_exists( 'themecomplete_price' ) ) {
 	 * @return string
 	 */
 	function themecomplete_price( $price, $args = array() ) {
-		$vars = apply_filters( 'tc_price_args', wp_parse_args( $args, array(
+		$args = apply_filters( 'tc_price_args', wp_parse_args( $args, array(
 			'ex_tax_label'       => FALSE,
 			'currency'           => '',
 			'decimal_separator'  => wc_get_price_decimal_separator(),
@@ -197,21 +197,54 @@ if ( ! function_exists( 'themecomplete_price' ) ) {
 			'price_format'       => get_woocommerce_price_format(),
 		) ) );
 
-		$negative = $price < 0;
-		$price    = apply_filters( 'tc_raw_woocommerce_price', floatval( $negative ? $price * - 1 : $price ) );
-		$price    = apply_filters( 'formatted_woocommerce_price', number_format( $price, $vars['decimals'], $vars['decimal_separator'], $vars['thousand_separator'] ), $price, $vars['decimals'], $vars['decimal_separator'], $vars['thousand_separator'] );
+		$original_price = $price;
 
-		if ( apply_filters( 'woocommerce_price_trim_zeros', FALSE ) && $vars['decimals'] > 0 ) {
+		// Convert to float to avoid issues on PHP 8.
+		$price = (float) $price;
+
+		$unformatted_price = $price;
+		$negative = $price < 0;
+
+		/**
+		 * Filter raw price.
+		 *
+		 * @param float        $raw_price      Raw price.
+		 * @param float|string $original_price Original price as float, or empty string. Since 5.0.0.
+		 */
+		$price    = apply_filters( 'tc_raw_woocommerce_price', $negative ? $price * - 1 : $price, $original_price );
+
+		/**
+		 * Filter formatted price.
+		 *
+		 * @param float        $formatted_price    Formatted price.
+		 * @param float        $price              Unformatted price.
+		 * @param int          $decimals           Number of decimals.
+		 * @param string       $decimal_separator  Decimal separator.
+		 * @param string       $thousand_separator Thousand separator.
+		 * @param float|string $original_price     Original price as float, or empty string. Since 5.0.0.
+		 */
+		$price    = apply_filters( 'formatted_woocommerce_price', number_format( $price, $args['decimals'], $args['decimal_separator'], $args['thousand_separator'] ), $price, $args['decimals'], $args['decimal_separator'], $args['thousand_separator'], $original_price );
+
+		if ( apply_filters( 'woocommerce_price_trim_zeros', FALSE ) && $args['decimals'] > 0 ) {
 			$price = wc_trim_zeros( $price );
 		}
 
-		$formatted_price = ( $negative ? '-' : '' ) . sprintf( $vars['price_format'], get_woocommerce_currency_symbol( $vars['currency'] ), $price );
-		$return          = '<span class="amount">' . $formatted_price . '</span>';
+		$formatted_price = ( $negative ? '-' : '' ) . sprintf( $args['price_format'], '<span class="woocommerce-Price-currencySymbol">' . get_woocommerce_currency_symbol( $args['currency'] ) . '</span>', $price );
+		$return          = '<span class="woocommerce-Price-amount amount"><bdi>' . $formatted_price . '</bdi></span>';
 
-		if ( $vars['ex_tax_label'] && wc_tax_enabled() ) {
-			$return .= ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
+		if ( $args['ex_tax_label'] && wc_tax_enabled() ) {
+			$return .= ' <small class="woocommerce-Price-taxLabel tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
 		}
 
-		return apply_filters( 'tc_price', $return, $price, $args );
+		/**
+		 * Filters the string of price markup.
+		 *
+		 * @param string       $return            Price HTML markup.
+		 * @param string       $price             Formatted price.
+		 * @param array        $args              Pass on the args.
+		 * @param float        $unformatted_price Price as float to allow plugins custom formatting. Since 3.2.0.
+		 * @param float|string $original_price    Original price as float, or empty string. Since 5.0.0.
+		 */
+		return apply_filters( 'tc_price', $return, $price, $args, $unformatted_price, $original_price );
 	}
 }

@@ -105,7 +105,7 @@ class WooCommerce_Product_Search_Filter_Reset {
 				'heading_id'          => null,
 				'show_heading'        => 'yes',
 				'submit_button_label' => __( 'Clear', 'woocommerce-product-search' ),
-				'use_shop_url'        => 'no'
+
 			),
 			$atts
 		);
@@ -131,7 +131,7 @@ class WooCommerce_Product_Search_Filter_Reset {
 				switch ( $key ) {
 
 					case 'show_heading' :
-					case 'use_shop_url' :
+
 						$value = strtolower( $value );
 						$value = $value == 'true' || $value == 'yes' || $value == '1';
 						break;
@@ -202,15 +202,6 @@ class WooCommerce_Product_Search_Filter_Reset {
 		$output .= $heading_output;
 
 		$reset_url = self::get_reset_url();
-		if ( isset( $params['use_shop_url'] ) && $params['use_shop_url'] ) {
-			$reset_url = get_permalink( wc_get_page_id( 'shop' ) );
-			if ( !$reset_url ) {
-				$query_post_type = WooCommerce_Product_Search_Filter::get_query_arg( $reset_url, 'post_type' );
-				if ( $query_post_type !== 'product' ) {
-					$reset_url = add_query_arg( array( 'post_type' => 'product' ), trailingslashit( home_url() ) );
-				}
-			}
-		}
 
 		$form_id = 'product-search-filter-reset-form-' . $n;
 		$output .= sprintf(
@@ -250,7 +241,8 @@ class WooCommerce_Product_Search_Filter_Reset {
 
 		$keys = array(
 			'ixwpss', 'title', 'excerpt', 'content', 'categories', 'attributes', 'tags', 'sku', 'paged',
-			'ixwpst', 'ixwpsp', 'min_price', 'max_price', 'ixwpse', 'on_sale', 'rating'
+			'ixwpst', 'ixwpsp', 'min_price', 'max_price', 'ixwpse', 'on_sale', 'rating',
+			'in_stock'
 		);
 		$current_url = remove_query_arg(
 			$keys,

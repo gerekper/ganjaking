@@ -45,7 +45,7 @@ if ( ! ( $attributes ) ) : ?>
         /
         <a href="#" class="close_all"><?php esc_html_e( 'Close all', 'woocommerce-tm-extra-product-options' ); ?></a>
     </p>
-    <div class="woocommerce_tm_epos wc-metaboxes">
+    <div class="tc-normal-epos wc-metaboxes">
 		<?php
 		// Get parent data
 		$parent_data = array(
@@ -109,7 +109,7 @@ if ( ! ( $attributes ) ) : ?>
 <?php
 // Ouput Attributes List 
 esc_html_e( 'Attribute:', 'woocommerce-tm-extra-product-options' );
-echo ' <select class="tmcp_attr_list" name="tmcp_attr_list">';
+echo ' <select class="tmcp-attr-list" name="tmcp-attr-list">';
 foreach ( $attributes as $attribute ) {
 	// Only deal with attributes that are not variations
 	if ( $attribute['is_variation'] ) {

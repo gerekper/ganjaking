@@ -138,6 +138,150 @@ final class THEMECOMPLETE_EPO_API_base {
 		return $this->get_option( $order_id, 'all' );
 	}
 
+	public function get_epos( $epos = array(), $option_id = 'all', $return = 'array'  ) {
+
+		$all_epos = array();
+		$epos = maybe_unserialize( $epos );
+
+		if ( $epos && is_array( $epos ) ) {
+
+			foreach ( $epos as $key => $epo ) {
+				if ( $epo && is_array( $epo ) ) {
+					if ( $epo['section'] != $option_id && $option_id !== 'all' ) {
+						continue;
+					}
+
+					$new_currency = FALSE;
+					if ( isset( $epo['price_per_currency'] ) ) {
+						$_current_currency_prices = $epo['price_per_currency'];
+						if ( $mt_prefix !== ''
+							&& $_current_currency_prices !== ''
+							&& is_array( $_current_currency_prices )
+						     && isset( $_current_currency_prices[ $mt_prefix ] )
+						     && $_current_currency_prices[ $mt_prefix ] != ''
+						) {
+
+							$new_currency = TRUE;
+							$epo['price'] = $_current_currency_prices[ $mt_prefix ];
+
+						}
+					}
+					if ( ! $new_currency ) {
+						$type = "";
+						if ( isset( $epo['element'] ) && isset( $epo['element']['_'] ) && isset( $epo['element']['_']['price_type'] ) ) {
+							$type = $epo['element']["_"]['price_type'];
+						}
+						$epo['price'] = apply_filters( 'wc_epo_get_current_currency_price', $epo['price'], $type );
+					}
+
+					if ( ! isset( $epo['quantity'] ) ) {
+						$epo['quantity'] = 1;
+					}
+					if ( isset( $wpml_translation_by_id[ $epo['section'] ] ) ) {
+						$epo['name'] = $wpml_translation_by_id[ $epo['section'] ];
+					}
+					// normal (local) mode
+					if ( ! isset( $epo['price_per_currency'] ) && taxonomy_exists( $epo['name'] ) ) {
+						$epo['name'] = wc_attribute_label( $epo['name'] );
+					}
+					$epo_name = apply_filters( 'tm_translate', $epo['name'] );
+
+					if ( isset( $wpml_translation_by_id[ "options_" . $epo['section'] ] )
+						&& is_array( $wpml_translation_by_id[ "options_" . $epo['section'] ] )
+						&& ! empty( $epo['multiple'] )
+						&& ! empty( $epo['key'] )
+					) {
+
+						$pos = strrpos( $epo['key'], '_' );
+
+						if ( $pos !== FALSE ) {
+
+							$av = array_values( $wpml_translation_by_id[ "options_" . $epo['section'] ] );
+
+							if ( isset( $av[ substr( $epo['key'], $pos + 1 ) ] ) ) {
+
+								$epo['value'] = $av[ substr( $epo['key'], $pos + 1 ) ];
+
+							}
+
+						}
+
+					}
+					$display_value = $epo['value'];
+					if ( is_array( $epo['value'] ) ) {
+						$display_value = array_map( 'html_entity_decode', $display_value, version_compare( phpversion(), '5.4', '<' ) ? ENT_COMPAT : ( ENT_COMPAT | ENT_HTML401 ), 'UTF-8' );
+					} else {
+						$display_value = html_entity_decode( $display_value, version_compare( phpversion(), '5.4', '<' ) ? ENT_COMPAT : ( ENT_COMPAT | ENT_HTML401 ), 'UTF-8' );
+					}
+
+					if ( THEMECOMPLETE_EPO()->tm_epo_show_image_replacement == "yes" && ! empty( $epo['use_images'] ) && ! empty( $epo['images'] ) && $epo['use_images'] == "images" ) {
+						$display_value = '<div class="cpf-img-on-cart"><img alt="' . esc_attr( strip_tags( $epo_name ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image" src="' . apply_filters( "tm_image_url", $epo['images'] ) . '" /></div>' . esc_attr( $display_value );
+					}
+
+					$display_value = apply_filters( 'tm_translate', $display_value );
+
+					if ( THEMECOMPLETE_EPO()->tm_epo_show_hide_uploaded_file_url_cart == "no" && THEMECOMPLETE_EPO()->tm_epo_show_upload_image_replacement == "yes" && isset( $epo['element'] ) && isset( $epo['element']['type'] ) && $epo['element']['type'] == 'upload' ) {
+						$check = wp_check_filetype( $epo['value'] );
+						if ( ! empty( $check['ext'] ) ) {
+							$image_exts = array( 'jpg', 'jpeg', 'jpe', 'gif', 'png' );
+							if ( in_array( $check['ext'], $image_exts ) ) {
+								$display_value = '<a target="_blank" href="' . esc_url( $display_value ) . '"><span class="cpf-img-on-cart"><img alt="' . esc_attr( strip_tags( $epo_name ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image epo-upload-image" src="' .
+										            apply_filters( "tm_image_url", $epo['value'] ) . '" /></span></a>';
+							}
+						}
+					}
+
+					if ( ! empty( $epo['multiple_values'] ) ) {
+						$display_value_array = explode( $epo['multiple_values'], $display_value );
+						$display_value       = "";
+						foreach ( $display_value_array as $d => $dv ) {
+							$display_value .= '<span class="cpf-data-on-cart">' . $dv . '</span>';
+						}
+					}
+
+					$epo_value = make_clickable( $display_value );
+					if ( $epo['element']['type'] === 'textarea' ) {
+						$epo_value = trim( $epo_value );
+
+						$epo_value = str_replace( array( "\r\n", "\r" ), "\n", $epo_value );
+
+						$epo_value = preg_replace( "/\n\n+/", "\n\n", $epo_value );
+
+						$epo_value = array_map( 'wc_clean', explode( "\n", $epo_value ) );
+
+						$epo_value = implode( "\n", $epo_value );
+					}
+					$epo_quantity      = ( $epo['quantity'] * (float) $item_meta['_qty'][0] ) . ' <small>(' . $epo['quantity'] . '&times;' . (float) $item_meta['_qty'][0] . ')</small>';
+					$epo_quantity 	   = apply_filters( 'wc_epo_html_tm_epo_order_item_epo_quantity', $epo_quantity,  $epo['quantity'], $item, $_product );
+					$epo_edit_value    = TRUE;
+					$edit_buttons      = TRUE;
+					$epo_edit_cost     = TRUE;
+					$epo_edit_quantity = TRUE;
+					$epo_is_fee        = FALSE;
+					$epo['price']      = floatval( $epo['price'] );
+
+					$all_epos[ $item_id ][ $key ] = $epo;
+				}
+			}
+
+		}
+
+		if ( $return === 'json' ) {
+			$all_epos = json_encode($all_epos);
+		} else if ( $return === 'implode' ) {
+			$all_epos = implode(", ", $all_epos);
+		} else if ( $return === 'implode_space' ) {
+			$all_epos = implode(" ", $all_epos);
+		} else if ( $return === 'implode_multi' ) {
+			$all_epos = implode(', ', array_map(function ($entry) {
+				return ($entry[key($entry)]);
+			  }, $all_epos));
+		}
+
+		return $all_epos;
+
+	}
+
 	/**
 	 * Returns a saved option (this must be used after the 'woocommerce_init' hook) *
 	 *
@@ -185,130 +329,7 @@ final class THEMECOMPLETE_EPO_API_base {
 			}
 
 			if ( $has_epo ) {
-				$epos = maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
-
-				if ( $epos && is_array( $epos ) ) {
-
-					foreach ( $epos as $key => $epo ) {
-						if ( $epo && is_array( $epo ) ) {
-							if ( $epo['section'] != $option_id && $option_id !== 'all' ) {
-								continue;
-							}
-
-							$new_currency = FALSE;
-							if ( isset( $epo['price_per_currency'] ) ) {
-								$_current_currency_prices = $epo['price_per_currency'];
-								if ( $mt_prefix !== ''
-								     && $_current_currency_prices !== ''
-								     && is_array( $_current_currency_prices )
-								     && isset( $_current_currency_prices[ $mt_prefix ] )
-								     && $_current_currency_prices[ $mt_prefix ] != ''
-								) {
-
-									$new_currency = TRUE;
-									$epo['price'] = $_current_currency_prices[ $mt_prefix ];
-
-								}
-							}
-							if ( ! $new_currency ) {
-								$type = "";
-								if ( isset( $epo['element'] ) && isset( $epo['element']['_'] ) && isset( $epo['element']['_']['price_type'] ) ) {
-									$type = $epo['element']["_"]['price_type'];
-								}
-								$epo['price'] = apply_filters( 'wc_epo_get_current_currency_price', $epo['price'], $type );
-							}
-
-							if ( ! isset( $epo['quantity'] ) ) {
-								$epo['quantity'] = 1;
-							}
-							if ( isset( $wpml_translation_by_id[ $epo['section'] ] ) ) {
-								$epo['name'] = $wpml_translation_by_id[ $epo['section'] ];
-							}
-							// normal (local) mode
-							if ( ! isset( $epo['price_per_currency'] ) && taxonomy_exists( $epo['name'] ) ) {
-								$epo['name'] = wc_attribute_label( $epo['name'] );
-							}
-							$epo_name = apply_filters( 'tm_translate', $epo['name'] );
-
-							if ( isset( $wpml_translation_by_id[ "options_" . $epo['section'] ] )
-							     && is_array( $wpml_translation_by_id[ "options_" . $epo['section'] ] )
-							     && ! empty( $epo['multiple'] )
-							     && ! empty( $epo['key'] )
-							) {
-
-								$pos = strrpos( $epo['key'], '_' );
-
-								if ( $pos !== FALSE ) {
-
-									$av = array_values( $wpml_translation_by_id[ "options_" . $epo['section'] ] );
-
-									if ( isset( $av[ substr( $epo['key'], $pos + 1 ) ] ) ) {
-
-										$epo['value'] = $av[ substr( $epo['key'], $pos + 1 ) ];
-
-									}
-
-								}
-
-							}
-							$display_value = $epo['value'];
-							if ( is_array( $epo['value'] ) ) {
-								$display_value = array_map( 'html_entity_decode', $display_value, version_compare( phpversion(), '5.4', '<' ) ? ENT_COMPAT : ( ENT_COMPAT | ENT_HTML401 ), 'UTF-8' );
-							} else {
-								$display_value = html_entity_decode( $display_value, version_compare( phpversion(), '5.4', '<' ) ? ENT_COMPAT : ( ENT_COMPAT | ENT_HTML401 ), 'UTF-8' );
-							}
-
-							if ( THEMECOMPLETE_EPO()->tm_epo_show_image_replacement == "yes" && ! empty( $epo['use_images'] ) && ! empty( $epo['images'] ) && $epo['use_images'] == "images" ) {
-								$display_value = '<div class="cpf-img-on-cart"><img alt="' . esc_attr( strip_tags( $epo_name ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image" src="' . apply_filters( "tm_image_url", $epo['images'] ) . '" /></div>' . esc_attr( $display_value );
-							}
-
-							$display_value = apply_filters( 'tm_translate', $display_value );
-
-							if ( THEMECOMPLETE_EPO()->tm_epo_show_hide_uploaded_file_url_cart == "no" && THEMECOMPLETE_EPO()->tm_epo_show_upload_image_replacement == "yes" && isset( $epo['element'] ) && isset( $epo['element']['type'] ) && $epo['element']['type'] == 'upload' ) {
-								$check = wp_check_filetype( $epo['value'] );
-								if ( ! empty( $check['ext'] ) ) {
-									$image_exts = array( 'jpg', 'jpeg', 'jpe', 'gif', 'png' );
-									if ( in_array( $check['ext'], $image_exts ) ) {
-										$display_value = '<a target="_blank" href="' . esc_url( $display_value ) . '"><span class="cpf-img-on-cart"><img alt="' . esc_attr( strip_tags( $epo_name ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image epo-upload-image" src="' .
-										                 apply_filters( "tm_image_url", $epo['value'] ) . '" /></span></a>';
-									}
-								}
-							}
-
-							if ( ! empty( $epo['multiple_values'] ) ) {
-								$display_value_array = explode( $epo['multiple_values'], $display_value );
-								$display_value       = "";
-								foreach ( $display_value_array as $d => $dv ) {
-									$display_value .= '<span class="cpf-data-on-cart">' . $dv . '</span>';
-								}
-							}
-
-							$epo_value = make_clickable( $display_value );
-							if ( $epo['element']['type'] === 'textarea' ) {
-								$epo_value = trim( $epo_value );
-
-								$epo_value = str_replace( array( "\r\n", "\r" ), "\n", $epo_value );
-
-								$epo_value = preg_replace( "/\n\n+/", "\n\n", $epo_value );
-
-								$epo_value = array_map( 'wc_clean', explode( "\n", $epo_value ) );
-
-								$epo_value = implode( "\n", $epo_value );
-							}
-							$epo_quantity      = ( $epo['quantity'] * (float) $item_meta['_qty'][0] ) . ' <small>(' . $epo['quantity'] . '&times;' . (float) $item_meta['_qty'][0] . ')</small>';
-							$epo_quantity 	   = apply_filters( 'wc_epo_html_tm_epo_order_item_epo_quantity', $epo_quantity,  $epo['quantity'], $item, $_product );
-							$epo_edit_value    = TRUE;
-							$edit_buttons      = TRUE;
-							$epo_edit_cost     = TRUE;
-							$epo_edit_quantity = TRUE;
-							$epo_is_fee        = FALSE;
-							$epo['price']      = floatval( $epo['price'] );
-
-							$all_epos[ $item_id ][ $key ] = $epo;
-						}
-					}
-
-				}
+				$all_epos = $this->get_epos( $item_meta['_tmcartepo_data'][0], $option_id );
 			}
 
 			if ( $has_fee ) {

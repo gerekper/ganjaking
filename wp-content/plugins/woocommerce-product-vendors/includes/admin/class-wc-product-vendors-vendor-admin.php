@@ -826,6 +826,7 @@ class WC_Product_Vendors_Vendor_Admin {
 		if (
 			$current_screen &&
 			in_array( $current_screen->id, $this->filtered_page_list ) &&
+			$query->is_main_query() &&
 			WC_Product_Vendors_Utils::auth_vendor_user() ) {
 				$query->query_vars['tax_query'][] = array(
 					'taxonomy' => WC_PRODUCT_VENDORS_TAXONOMY,

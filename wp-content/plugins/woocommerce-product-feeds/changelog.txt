@@ -1,5 +1,8 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2021.06.16 - version 10.1.1
+* Fix: Resolve issue where availability not always sent in feed.
+
 2021.06.15 - version 10.1.0
 * New: Support "backorder" as a possible value for "Availability"
 * New: Support different Availability values for in-stock/backorder/out of stock products

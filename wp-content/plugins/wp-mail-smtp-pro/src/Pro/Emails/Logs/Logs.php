@@ -5,6 +5,8 @@ namespace WPMailSMTP\Pro\Emails\Logs;
 use WPMailSMTP\Admin\Area;
 use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Options;
+use WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments;
+use WPMailSMTP\Pro\Emails\Logs\Attachments\Migration as AttachmentsMigration;
 use WPMailSMTP\Pro\Emails\Logs\Providers\Common;
 use WPMailSMTP\Pro\Emails\Logs\Providers\SMTP;
 use WPMailSMTP\Pro\Tasks\EmailLogCleanupTask;
@@ -14,6 +16,8 @@ use WPMailSMTP\Pro\Tasks\Logs\SMTPcom\VerifySentStatusTask as SMTPcomVerifySentS
 use WPMailSMTP\Providers\MailerAbstract;
 use WPMailSMTP\WP;
 use WPMailSMTP\Pro\Emails\Logs\Admin\PrintPreview;
+use WPMailSMTP\Pro\Emails\Logs\Tracking\Tracking;
+use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Events as TrackingEvents;
 
 /**
  * Class Logs.
@@ -43,6 +47,10 @@ class Logs {
 
 		if ( is_admin() && $this->is_enabled() ) {
 			new Migration();
+
+			if ( $this->is_enabled_save_attachments() ) {
+				new AttachmentsMigration();
+			}
 		}
 	}
 
@@ -109,6 +117,7 @@ class Logs {
 			add_action( 'wp_mail_failed', [ $this, 'process_smtp_fails' ] );
 
 			// Actually log emails - Catch All.
+			add_action( 'wp_mail_smtp_mailcatcher_pre_send_before', [ $this, 'process_pre_send_before' ] );
 			add_action( 'wp_mail_smtp_mailcatcher_send_after', [ $this, 'process_log_save' ], 10, 2 );
 
 			// Process AJAX request for deleting all logs.
@@ -116,7 +125,13 @@ class Logs {
 
 			// Initialize email print preview.
 			( new PrintPreview() )->hooks();
+
+			// Initialize emails resend.
+			( new Resend() )->hooks();
 		}
+
+		// Initialize email tracking.
+		( new Tracking( $this->is_enabled_tracking() ) )->hooks();
 
 		// Initialize screen options for the logs admin archive page.
 		add_action( 'load-wp-mail-smtp_page_wp-mail-smtp-logs', [ $this, 'archive_screen_options' ] );
@@ -129,6 +144,17 @@ class Logs {
 		// Detect log retention period constant change.
 		if ( Options::init()->is_const_defined( 'logs', 'log_retention_period' ) ) {
 			add_action( 'admin_init', [ $this, 'detect_log_retention_period_constant_change' ] );
+		}
+
+		// Init logs table.
+		if ( $this->is_archive() ) {
+			add_action(
+				'admin_init',
+				function () {
+
+					wp_mail_smtp()->get_admin()->generate_display_logs_object()->get_table();
+				}
+			);
 		}
 	}
 
@@ -196,6 +222,9 @@ class Logs {
 				'enabled'              => false,
 				'log_email_content'    => false,
 				'log_retention_period' => 0,
+				'save_attachments'     => false,
+				'open_email_tracking'  => false,
+				'click_link_tracking'  => false,
 			];
 
 			return $options;
@@ -252,6 +281,21 @@ class Logs {
 						intval( WPMS_LOGS_LOG_RETENTION_PERIOD ) :
 						$value;
 					break;
+				case 'save_attachments':
+					$return = $options->is_const_defined( $group, $key ) ?
+						$options->parse_boolean( WPMS_LOGS_SAVE_ATTACHMENTS ) :
+						$value;
+					break;
+				case 'open_email_tracking':
+					$return = $options->is_const_defined( $group, $key ) ?
+						$options->parse_boolean( WPMS_LOGS_OPEN_EMAIL_TRACKING ) :
+						$value;
+					break;
+				case 'click_link_tracking':
+					$return = $options->is_const_defined( $group, $key ) ?
+						$options->parse_boolean( WPMS_LOGS_CLICK_LINK_TRACKING ) :
+						$value;
+					break;
 			}
 		}
 
@@ -281,6 +325,15 @@ class Logs {
 					break;
 				case 'log_retention_period':
 					$return = defined( 'WPMS_LOGS_LOG_RETENTION_PERIOD' );
+					break;
+				case 'save_attachments':
+					$return = defined( 'WPMS_LOGS_SAVE_ATTACHMENTS' );
+					break;
+				case 'open_email_tracking':
+					$return = defined( 'WPMS_LOGS_OPEN_EMAIL_TRACKING' );
+					break;
+				case 'click_link_tracking':
+					$return = defined( 'WPMS_LOGS_CLICK_LINK_TRACKING' );
 					break;
 			}
 		}
@@ -398,7 +451,18 @@ class Logs {
 				false
 			);
 
-			$settings['lang_code'] = sanitize_key( WP::get_language_code() );
+			$settings['lang_code']                           = sanitize_key( WP::get_language_code() );
+			$settings['bulk_resend_email_confirmation_text'] = esc_html__( 'Are you sure you want to resend selected emails?', 'wp-mail-smtp-pro' );
+			$settings['bulk_resend_email_processing_text']   = esc_html__( 'Queuing emails...', 'wp-mail-smtp-pro' );
+		} else {
+			$email = new Email( intval( $_GET['email_id'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+
+			if ( $email->is_valid() ) {
+				$settings['email_id']                                  = $email->get_id();
+				$settings['resend_email_confirmation_text']            = Resend::prepare_resend_confirmation_content( $email );
+				$settings['resend_email_processing_text']              = esc_html__( 'Sending email...', 'wp-mail-smtp-pro' );
+				$settings['resend_email_invalid_recipients_addresses'] = esc_html__( 'Invalid recipients email addresses.', 'wp-mail-smtp-pro' );
+			}
 		}
 
 		wp_localize_script(
@@ -446,6 +510,54 @@ class Logs {
 	public function is_enabled_content() {
 
 		return (bool) Options::init()->get( 'logs', 'log_email_content' );
+	}
+
+	/**
+	 * Whether the attachment storing/saving is enabled or not.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @return bool
+	 */
+	public function is_enabled_save_attachments() {
+
+		return (bool) Options::init()->get( 'logs', 'save_attachments' );
+	}
+
+	/**
+	 * Whether the open email tracking is enabled or not.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @return bool
+	 */
+	public function is_enabled_open_email_tracking() {
+
+		return $this->is_enabled() && (bool) Options::init()->get( 'logs', 'open_email_tracking' );
+	}
+
+	/**
+	 * Whether the click link tracking is enabled or not.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @return bool
+	 */
+	public function is_enabled_click_link_tracking() {
+
+		return $this->is_enabled() && (bool) Options::init()->get( 'logs', 'click_link_tracking' );
+	}
+
+	/**
+	 * Whether the email tracking is enabled or not.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @return bool
+	 */
+	public function is_enabled_tracking() {
+
+		return $this->is_enabled_open_email_tracking() || $this->is_enabled_click_link_tracking();
 	}
 
 	/**
@@ -717,6 +829,24 @@ class Logs {
 	}
 
 	/**
+	 * Save the actual email data before email send.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param MailCatcherInterface $mailcatcher The MailCatcher object.
+	 */
+	public function process_pre_send_before( $mailcatcher ) {
+
+		if ( ! $this->is_valid_db() ) {
+			return;
+		}
+
+		$this->set_current_email_id(
+			( new Common() )->set_source( $mailcatcher )->save_before()
+		);
+	}
+
+	/**
 	 * Save all emails as sent regardless of the actual status. Will be improved in the future.
 	 * Supports every mailer, except SMTP, which is handled separately.
 	 *
@@ -731,7 +861,7 @@ class Logs {
 			return;
 		}
 
-		$email_id = ( new Common( $mailer ) )->set_source( $mailcatcher )->save();
+		$email_id = ( new Common( $mailer ) )->set_source( $mailcatcher )->save( $this->get_current_email_id() );
 
 		$mailer->verify_sent_status( $email_id );
 	}
@@ -819,6 +949,13 @@ class Logs {
 		$result = $wpdb->query( $sql ); // phpcs:ignore
 
 		if ( $result !== false ) {
+
+			// Delete all attachments if any.
+			( new Attachments() )->delete_all_attachments();
+
+			// Delete all tracking events if any.
+			( new TrackingEvents() )->delete_all_events();
+
 			wp_send_json_success( esc_html__( 'All email log entries were deleted successfully.', 'wp-mail-smtp-pro' ) );
 		}
 

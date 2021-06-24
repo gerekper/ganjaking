@@ -1,7 +1,8 @@
 ( function( window, document, $ ) {
 	'use strict';
 
-	$( document ).ready( function() {
+	// document ready
+	$( function() {
 		$( window ).on( 'tcEpoMaybeChangePriceHtml', function( event, dataObject ) {
 			var tcAPI = $.tcAPI();
 			if ( event && dataObject && dataObject.epo ) {

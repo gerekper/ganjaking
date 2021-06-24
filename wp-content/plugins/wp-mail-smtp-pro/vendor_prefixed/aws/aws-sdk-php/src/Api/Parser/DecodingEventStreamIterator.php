@@ -97,7 +97,7 @@ class DecodingEventStreamIterator implements \Iterator
                 throw new \WPMailSMTP\Vendor\Aws\Api\Parser\Exception\ParserException('Headers length too long.');
             }
             list($event[self::HEADERS], $numBytes) = $this->parseHeaders($prelude[self::LENGTH_HEADERS]);
-            $event[self::PAYLOAD] = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\stream_for($this->readAndHashBytes($prelude[self::LENGTH_TOTAL] - self::BYTES_PRELUDE - $numBytes - self::BYTES_TRAILING));
+            $event[self::PAYLOAD] = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::streamFor($this->readAndHashBytes($prelude[self::LENGTH_TOTAL] - self::BYTES_PRELUDE - $numBytes - self::BYTES_TRAILING));
             $calculatedCrc = \hash_final($this->hashContext, \true);
             $messageCrc = $this->stream->read(4);
             if ($calculatedCrc !== $messageCrc) {

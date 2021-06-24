@@ -49,6 +49,7 @@ class WooCommerce_Product_Search_Service {
 
 	const ON_SALE       = 'on_sale';
 	const RATING        = 'rating';
+	const IN_STOCK      = 'in_stock';
 
 	const DEFAULT_TITLE      = true;
 	const DEFAULT_EXCERPT    = true;
@@ -61,6 +62,7 @@ class WooCommerce_Product_Search_Service {
 
 	const DEFAULT_ON_SALE    = false;
 	const DEFAULT_RATING     = null;
+	const DEFAULT_IN_STOCK   = false;
 
 	const MATCH_SPLIT         = 'match-split';
 	const MATCH_SPLIT_DEFAULT = 3;
@@ -534,7 +536,8 @@ class WooCommerce_Product_Search_Service {
 							( isset( $_REQUEST['ixwpss'] ) && strlen( trim( $_REQUEST['ixwpss'] ) ) > 0 ) ||
 							( isset( $_REQUEST['ixwpsp'] ) && ( !empty( $_REQUEST['min_price'] ) || !empty( $_REQUEST['max_price'] ) ) ) ||
 							( isset( $_REQUEST['ixwpse'] ) && !empty( $_REQUEST['on_sale'] ) ) ||
-							( isset( $_REQUEST['ixwpse'] ) && !empty( $_REQUEST['rating'] ) )
+							( isset( $_REQUEST['ixwpse'] ) && !empty( $_REQUEST['rating'] ) ) ||
+							( isset( $_REQUEST['ixwpse'] ) && !empty( $_REQUEST['in_stock'] ) )
 						) {
 
 							$wp_query->set( 'post__in', self::NONE );
@@ -730,24 +733,7 @@ class WooCommerce_Product_Search_Service {
 				} else if ( get_option( 'woocommerce_hide_out_of_stock_items' ) == 'yes' ) {
 					if ( property_exists( $wpdb, 'wc_product_meta_lookup' ) ) {
 
-						$counts = array( 'instock' => 0, 'outofstock' => 0, 'onbackorder' => 0 );
-						$stock_status_counts = $wpdb->get_results( "SELECT count(stock_status) AS count, stock_status FROM $wpdb->wc_product_meta_lookup GROUP BY stock_status" );
-						if ( is_array( $stock_status_counts ) ) {
-							foreach ( $stock_status_counts as $stock_status_count ) {
-								switch ( $stock_status_count->stock_status ) {
-									case 'instock':
-										$counts['instock'] = intval( $stock_status_count->count );
-										break;
-									case 'outofstock':
-										$counts['outofstock'] = intval( $stock_status_count->count );
-										break;
-									case 'onbackorder':
-										$counts['onbackorder'] = intval( $stock_status_count->count );
-										break;
-
-								}
-							}
-						}
+						$counts = WooCommerce_Product_Search_Filter_Stock::get_stock_counts();
 
 						if ( ( $counts['instock'] + $counts['onbackorder'] ) > $counts['outofstock'] ) {
 							$where_stock = " AND object_id NOT IN ( SELECT product_id FROM $wpdb->wc_product_meta_lookup WHERE stock_status = 'outofstock' ) ";
@@ -884,33 +870,82 @@ class WooCommerce_Product_Search_Service {
 			$queried_object = $wp_query->get_queried_object();
 			if ( $had_get_terms_args ) { add_filter( 'get_terms_args', array( __CLASS__, 'get_terms_args' ), 10, 2 ); }
 			if ( $had_get_terms ) { add_filter( 'get_terms', array( __CLASS__, 'get_terms' ), 10, 4 ); }
+
 			if ( is_object( $queried_object ) ) {
 				if ( isset( $queried_object->taxonomy ) && isset( $queried_object->term_id ) ) {
-					$skip = false;
+					if ( !empty( $wp_query->tax_query ) && !empty( $wp_query->tax_query->queried_terms ) ) {
+						$taxonomy_term_ids = array();
+						foreach ( $wp_query->tax_query->queried_terms as $tax_query_taxonomy => $query ) {
+							if ( !empty( $query['terms'] ) && !empty( $query['field'] ) ) {
+								switch ( $query['field'] ) {
+									case 'term_id':
+										$taxonomy_term_ids[$tax_query_taxonomy] = $query['terms'];
+										break;
+									default:
+										foreach ( $query['terms'] as $value ) {
+											$term = get_term_by( $query['field'], $value, $tax_query_taxonomy );
+											if ( $term instanceof WP_Term ) {
+												$taxonomy_term_ids[$tax_query_taxonomy][] = $term->term_id;
+											}
+										}
+								}
+							}
+						}
 
-					if (
-						isset( $_REQUEST['ixwpst'] ) &&
-						is_array( $_REQUEST['ixwpst'] ) &&
-						key_exists( $queried_object->taxonomy, $_REQUEST['ixwpst'] ) &&
-						is_array( $_REQUEST['ixwpst'][$queried_object->taxonomy] )
-					) {
-						$term_children = get_term_children( $queried_object->term_id, $queried_object->taxonomy );
-						if (
-							!empty( $term_children ) &&
-							!( $term_children instanceof WP_Error ) &&
-							( count( $term_children ) > 0 )
-						) {
-							$requested_children = array_intersect( $term_children, $_REQUEST['ixwpst'][$queried_object->taxonomy] );
-							if ( count( $requested_children ) > 0 ) {
-								$skip = true;
+						foreach ( $taxonomy_term_ids as $taxonomy => $term_ids ) {
+							if ( in_array( $taxonomy, $product_taxonomies ) && is_array( $term_ids ) && count( $term_ids ) > 0 ) {
+								$term_ids = array_unique( array_map( 'intval', $term_ids ) );
+								if (
+									key_exists( $taxonomy, $ixwpst ) &&
+									is_array( $ixwpst[$taxonomy] ) &&
+									count( $ixwpst[$taxonomy] ) > 0
+								) {
+
+									if ( is_taxonomy_hierarchical( $taxonomy ) ) {
+
+										$use_term_ids = array();
+
+										foreach ( $term_ids as $term_id ) {
+											$term_id = intval( $term_id );
+											$these_term_ids = array( $term_id );
+											$term_children_ids = get_term_children( $term_id, $taxonomy );
+											if ( is_array( $term_children_ids ) ) {
+												$term_children_ids = array_map( 'intval', $term_children_ids );
+												$these_term_ids = array_merge( $these_term_ids, $term_children_ids );
+											}
+											$use_term_ids = array_merge( $use_term_ids, array_intersect( $ixwpst[$taxonomy], $these_term_ids ) );
+										}
+
+										foreach ( $ixwpst[$taxonomy] as $term_id ) {
+											$term_id = intval( $term_id );
+											$these_term_ids = array( $term_id );
+											$term_children_ids = get_term_children( $term_id, $taxonomy );
+											if ( is_array( $term_children_ids ) ) {
+												$term_children_ids = array_map( 'intval', $term_children_ids );
+												$these_term_ids = array_merge( $these_term_ids, $term_children_ids );
+											}
+											$use_term_ids = array_merge( $use_term_ids, array_intersect( $term_ids, $these_term_ids ) );
+										}
+
+										$ixwpst[$taxonomy] = $use_term_ids;
+									} else {
+
+										$ixwpst[$taxonomy] = array_intersect( array_unique( array_map( 'intval', $ixwpst[$taxonomy] ) ), $term_ids );
+									}
+									if ( count( $ixwpst[$taxonomy] ) === 0 ) {
+
+										$ixwpst[$taxonomy] = self::NONE;
+									}
+								} else {
+
+									$ixwpst[$taxonomy] = array_map( 'intval', $term_ids );
+								}
 							}
 						}
 					}
-					if ( !$skip ) {
-						$ixwpst[$queried_object->taxonomy][] = $queried_object->term_id;
-					}
 				}
 			}
+
 		}
 		$cached = wp_cache_set( $cache_key, $ixwpst, self::IXWPST_CACHE_GROUP );
 		return $ixwpst;
@@ -1485,6 +1520,7 @@ class WooCommerce_Product_Search_Service {
 				$rating = WooCommerce_Product_Search_Filter_Rating::MAX_RATING;
 			}
 		}
+		$in_stock = isset( $_REQUEST[self::IN_STOCK] ) ? intval( $_REQUEST[self::IN_STOCK] ) > 0 : self::DEFAULT_IN_STOCK;
 
 		$product_thumbnails = isset( $_REQUEST[self::PRODUCT_THUMBNAILS] ) ? intval( $_REQUEST[self::PRODUCT_THUMBNAILS] ) > 0 : self::DEFAULT_PRODUCT_THUMBNAILS;
 
@@ -1495,7 +1531,8 @@ class WooCommerce_Product_Search_Service {
 			!$title && !$excerpt && !$content && !$tags && !$sku && !$categories && !$attributes &&
 			$min_price === null && $max_price === null &&
 			!$on_sale &&
-			$rating === null
+			$rating === null &&
+			!$in_stock
 		) {
 			$title = true;
 		}
@@ -1511,7 +1548,7 @@ class WooCommerce_Product_Search_Service {
 		$search_terms = explode( ' ', $search_query );
 		$search_terms = array_unique( $search_terms );
 
-		$cache_key = self::get_cache_key( array(
+		$cache_context = array(
 			'title'        => $title,
 			'excerpt'      => $excerpt,
 			'content'      => $content,
@@ -1525,8 +1562,10 @@ class WooCommerce_Product_Search_Service {
 			'min_price'    => $min_price,
 			'max_price'    => $max_price,
 			'on_sale'      => $on_sale,
-			'rating'       => $rating
-		) );
+			'rating'       => $rating,
+			'in_stock'     => $in_stock
+		);
+		$cache_key = self::get_cache_key( $cache_context );
 
 		$post_ids = wps_cache_get( $cache_key, self::POST_CACHE_GROUP );
 		if ( $post_ids !== false ) {
@@ -1709,6 +1748,22 @@ class WooCommerce_Product_Search_Service {
 			}
 		}
 
+		if ( $in_stock ) {
+
+			$counts = WooCommerce_Product_Search_Filter_Stock::get_stock_counts();
+
+			if ( $counts['instock'] + $counts['onbackorder'] > 0 ) {
+				if ( ( $counts['instock'] + $counts['onbackorder'] ) > $counts['outofstock'] ) {
+					$conj[] = " ID NOT IN ( SELECT product_id FROM $wpdb->wc_product_meta_lookup WHERE stock_status = 'outofstock' ) ";
+				} else {
+					$conj[] = " ID IN ( SELECT product_id FROM $wpdb->wc_product_meta_lookup WHERE stock_status != 'outofstock' ) ";
+				}
+			} else {
+
+				$conj[] = ' ID = ' . esc_sql( self::NAUGHT ) ;
+			}
+		}
+
 		$include = array();
 
 		if ( !empty( $conj ) ) {
@@ -1718,7 +1773,8 @@ class WooCommerce_Product_Search_Service {
 				$title || $excerpt || $content || $tags || $sku || $categories ||
 				$min_price !== null || $max_price !== null ||
 				$on_sale ||
-				$rating !== null
+				$rating !== null ||
+				$in_stock
 			) {
 				$join = '';
 
@@ -1793,6 +1849,14 @@ class WooCommerce_Product_Search_Service {
 				}
 				unset( $results );
 			}
+		}
+
+		if ( has_action( 'woocommerce_product_search_service_post_ids_for_request' ) ) {
+			do_action_ref_array(
+				'woocommerce_product_search_service_post_ids_for_request',
+				array( &$include, $cache_context )
+			);
+			$include = array_map( 'intval', $include );
 		}
 
 		$cached = wps_cache_set( $cache_key, $include, self::POST_CACHE_GROUP, self::get_cache_lifetime() );
@@ -3159,7 +3223,7 @@ class WooCommerce_Product_Search_Service {
 	 * @return string
 	 */
 	public static function woocommerce_product_add_to_cart_url( $url, $product ) {
-		if ( $product->is_purchasable() && $product->is_in_stock() ) {
+		if ( $product->is_purchasable() && $product->is_in_stock() && !$product->is_type( 'variable' ) ) {
 			$url = remove_query_arg( 'added-to-cart', add_query_arg( 'add-to-cart', $product->get_id(), wc_get_page_permalink( 'shop' ) ) );
 		} else {
 			$url = get_permalink( $product->get_id() );
@@ -3204,10 +3268,12 @@ class WooCommerce_Product_Search_Service {
 				$rating = WooCommerce_Product_Search_Filter_Rating::MAX_RATING;
 			}
 		}
+		$in_stock = isset( $_REQUEST[self::IN_STOCK] ) ? intval( $_REQUEST[self::IN_STOCK] ) > 0 : self::DEFAULT_IN_STOCK;
 
 		if (
 			!$title && !$excerpt && !$content && !$tags && !$sku && !$categories && !$attributes &&
-			$min_price === null && $max_price === null && !$on_sale && $rating === null
+			$min_price === null && $max_price === null && !$on_sale && $rating === null &&
+			!$in_stock
 		) {
 			$title = true;
 		}
@@ -3229,7 +3295,8 @@ class WooCommerce_Product_Search_Service {
 			'min_price'    => $min_price,
 			'max_price'    => $max_price,
 			'on_sale'      => $on_sale,
-			'rating'       => $rating
+			'rating'       => $rating,
+			'in_stock'     => $in_stock
 		);
 
 		return $parameters;

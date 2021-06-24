@@ -13,7 +13,7 @@
 	function epoUpdateBoxes() {
 		var productType = $( '#product-type' ).val();
 
-		$( '.woocommerce_tm_epo' )
+		$( '.tc-normal-epo' )
 			.toArray()
 			.forEach( function( element ) {
 				var div = $( element );
@@ -37,17 +37,17 @@
 
 	// Set Ordering
 	function epoRowIndex() {
-		$( '.woocommerce_tm_epos .woocommerce_tm_epo' )
+		$( '.tc-normal-epos .tc-normal-epo' )
 			.toArray()
 			.forEach( function( el ) {
-				$( '.tm_epo_menu_order', el ).val( parseInt( $( el ).index( '.woocommerce_tm_epos .woocommerce_tm_epo' ), 10 ) );
+				$( '.tm_epo_menu_order', el ).val( parseInt( $( el ).index( '.tc-normal-epos .tc-normal-epo' ), 10 ) );
 			} );
 	}
 
 	// Price fields
 	function epoShowPriceField( obj, what ) {
 		var val = obj.val();
-		var div = obj.closest( '.woocommerce_tm_epo' );
+		var div = obj.closest( '.tc-normal-epo' );
 		var loop = div.find( 'input.tmcp_loop' ).val();
 		var attribute = div.find( 'select.tmcp_att' ).val();
 		var variation = div.find( 'select.tmcp-variation' ).val();
@@ -68,7 +68,7 @@
 				break;
 		}
 		if ( div.find( showField ).length <= 0 ) {
-			jo = div.find( '.tmcp_pricing' );
+			jo = div.find( '.tmcp-pricing' );
 			jo.append(
 				'<input type="text" size="5" name="tmcp_regular_price[' +
 					loop +
@@ -109,7 +109,7 @@
 		var data;
 
 		if ( checkForChanges === 1 ) {
-			$( '#tm_extra_product_options' ).block( {
+			$( '#tc-admin-extra-product-options' ).block( {
 				message: null
 			} );
 			data = {
@@ -118,9 +118,9 @@
 				security: TMEPOADMINJS.load_tm_epo_nonce
 			};
 			$.post( TMEPOADMINJS.ajax_url, data, function( response ) {
-				$( '.tm_mode_local' ).html( response );
-				$( '#tm_extra_product_options' ).unblock();
-				$( '#tm_extra_product_options' ).trigger( 'woocommerce_tm_epos_loaded' );
+				$( '.tm-mode-local' ).html( response );
+				$( '#tc-admin-extra-product-options' ).unblock();
+				$( '#tc-admin-extra-product-options' ).trigger( 'tc_normal_epos_loaded' );
 				checkForChanges = 0;
 				epoUpdateBoxes();
 			} );
@@ -133,15 +133,16 @@
 			return;
 		}
 
-		$( '#tm_meta_cpf_mode' ).val( mode );
-		$( '.tm_mode_selector' ).addClass( 'tm_hidden' );
-		$( '.tm_mode_builder,.tm_mode_local,.tm_mode_settings' ).hide();
-		$( '.tm_mode_' + mode ).show();
-		$( '.tm_builder_select,.tm_local_select,.tm_settings_select' ).removeClass( 'button-primary' );
-		$( '.tm_' + mode + '_select' ).addClass( 'button-primary' );
+		$( '#tm-meta-cpf-mode' ).val( mode );
+		$( '.tm-mode-selector' ).addClass( 'tc-hidden' );
+		$( '.tm-mode-builder,.tm-mode-local,.tm-mode-settings' ).hide();
+		$( '.tm-mode-' + mode ).show();
+		$( '.tc-builder-select,.tc-local-select,.tc-settings-select' ).removeClass( 'button-primary' );
+		$( '.tc-' + mode + '-select' ).addClass( 'button-primary' );
 	}
 
-	$( document ).ready( function() {
+	// document ready
+	$( function() {
 		var bulkActionSelectorTop = $( '#bulk-action-selector-top' );
 		var found = false;
 
@@ -160,7 +161,7 @@
 		}
 
 		epoSortableOptions = {
-			items: '.woocommerce_tm_epo',
+			items: '.tc-normal-epo',
 			cursor: 'move',
 			axis: 'y',
 			handle: 'h3 .move',
@@ -184,21 +185,21 @@
 
 		epoUpdateBoxes();
 
-		$( '#tm_extra_product_options' ).on( 'change', 'select.tmcp-variation', function() {
+		$( '#tc-admin-extra-product-options' ).on( 'change', 'select.tmcp-variation', function() {
 			epoShowPriceField( $( this ), 'variation' );
 		} );
-		$( '#tm_extra_product_options' ).on( 'change', 'select.tmcp_att', function() {
+		$( '#tc-admin-extra-product-options' ).on( 'change', 'select.tmcp_att', function() {
 			epoShowPriceField( $( this ), 'attribute' );
 		} );
 
-		$( '#tm_extra_product_options' ).on( 'woocommerce_tm_epo_added', function() {
-			$( '.woocommerce_tm_epos' ).sortable( epoSortableOptions );
+		$( '#tc-admin-extra-product-options' ).on( 'tc_normal_epo_added', function() {
+			$( '.tc-normal-epos' ).sortable( epoSortableOptions );
 		} );
-		$( '#tm_extra_product_options' ).on( 'woocommerce_tm_epos_loaded', function() {
-			$( '.woocommerce_tm_epos' ).sortable( epoSortableOptions );
+		$( '#tc-admin-extra-product-options' ).on( 'tc_normal_epos_loaded', function() {
+			$( '.tc-normal-epos' ).sortable( epoSortableOptions );
 		} );
 
-		$( '.woocommerce_tm_epos' ).sortable( epoSortableOptions );
+		$( '.tc-normal-epos' ).sortable( epoSortableOptions );
 
 		$( '#variable_product_options' ).on( 'click', 'button.remove_variation', function() {
 			checkForChanges = 1;
@@ -212,15 +213,15 @@
 		$( '.save_attributes' ).on( 'click', function() {
 			checkForChanges = 1;
 		} );
-		$( '.tm_epo_class a' ).on( 'click', function() {
+		$( '.tc-epo-woocommerce-tab a' ).on( 'click', function() {
 			epoCheck();
 		} );
 
 		// Add extra option
-		$( '#tm_extra_product_options' ).on( 'click', 'button.tm_add_epo', function() {
-			var attributeType = $( 'select.tmcp_attr_list' ).val();
-			var thisRow = $( ".woocommerce_tm_epos .woocommerce_tm_epo[data-epo-attr='" + attributeType + "']" );
-			var loop = $( '.woocommerce_tm_epo' ).length;
+		$( '#tc-admin-extra-product-options' ).on( 'click', 'button.tm_add_epo', function() {
+			var attributeType = $( 'select.tmcp-attr-list' ).val();
+			var thisRow = $( ".tc-normal-epos .tc-normal-epo[data-epo-attr='" + attributeType + "']" );
+			var loop = $( '.tc-normal-epo' ).length;
 			var data = {
 				action: 'woocommerce_tm_add_epo',
 				post_id: TMEPOADMINJS.post_id,
@@ -230,31 +231,31 @@
 			};
 
 			if ( thisRow.length > 0 ) {
-				thisRow.find( '.woocommerce_tmcp_attributes' ).show();
+				thisRow.find( '.woocommerce-tmcp-attributes' ).show();
 				return;
 			}
-			$( '.tm_mode_local' ).block( {
+			$( '.tm-mode-local' ).block( {
 				message: null
 			} );
 
 			$.post( TMEPOADMINJS.ajax_url, data, function( response ) {
 				if ( response === 'max' ) {
 					window.alert( TMEPOADMINJS.i18n_max_tmcp );
-					$( '.tm_mode_local' ).unblock();
+					$( '.tm-mode-local' ).unblock();
 				} else if ( response ) {
-					$( '.woocommerce_tm_epos' ).append( response );
+					$( '.tc-normal-epos' ).append( response );
 
-					$( '#tm_extra_product_options' ).trigger( 'woocommerce_tm_epo_added' );
+					$( '#tc-admin-extra-product-options' ).trigger( 'tc_normal_epo_added' );
 					epoUpdateBoxes();
 				}
 			} ).always( function() {
-				$( '.tm_mode_local' ).unblock();
+				$( '.tm-mode-local' ).unblock();
 			} );
 			return false;
 		} );
 
 		// Remove extra option
-		$( '#tm_extra_product_options' ).on( 'click', '.remove_tm_epo', function( e ) {
+		$( '#tc-admin-extra-product-options' ).on( 'click', '.remove_tm_epo', function( e ) {
 			var answer = window.confirm( TMEPOADMINJS.i18n_remove_tmcp );
 			var element;
 			var variation;
@@ -288,7 +289,7 @@
 			return false;
 		} );
 
-		$( '#tm_extra_product_options' ).on( 'change', '.tm-type', function() {
+		$( '#tc-admin-extra-product-options' ).on( 'change', '.tm-type', function() {
 			var element = $( this );
 			var choices = element.closest( '.data' ).find( '.tmcp_choices' );
 
@@ -299,30 +300,30 @@
 			}
 		} );
 
-		$( '#tm_extra_product_options' ).on( 'click', '.tm_select_mode', function( e ) {
+		$( '#tc-admin-extra-product-options' ).on( 'click', '.tc-select-mode', function( e ) {
 			var mode = 'local';
 
 			e.preventDefault();
 
-			if ( $( this ).is( '.tm_builder_select' ) ) {
+			if ( $( this ).is( '.tc-builder-select' ) ) {
 				mode = 'builder';
 			}
-			if ( $( this ).is( '.tm_settings_select' ) ) {
+			if ( $( this ).is( '.tc-settings-select' ) ) {
 				mode = 'settings';
 			}
 			setMode( mode );
 		} );
 
-		if ( ! $( '#tm_meta_cpf_mode' ).val() ) {
-			$( '#tm_meta_cpf_mode' ).val( 'builder' );
+		if ( ! $( '#tm-meta-cpf-mode' ).val() ) {
+			$( '#tm-meta-cpf-mode' ).val( 'builder' );
 		}
-		setMode( $( '#tm_meta_cpf_mode' ).val() );
+		setMode( $( '#tm-meta-cpf-mode' ).val() );
 
 		if ( $.tmEPOAdmin ) {
-			$.tmEPOAdmin.create_normal_dropdown( $( '.tm_mode_settings' ) );
+			$.tmEPOAdmin.create_normal_dropdown( $( '.tm-mode-settings' ) );
 		}
 		if ( $.fn.tmcheckboxes ) {
-			$( '.tm_mode_settings' ).tmcheckboxes();
+			$( '.tm-mode-settings' ).tmcheckboxes();
 		}
 	} );
 }( window, document, window.jQuery ) );

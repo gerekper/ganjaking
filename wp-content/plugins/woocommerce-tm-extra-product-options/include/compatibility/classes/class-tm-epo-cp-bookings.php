@@ -72,6 +72,49 @@ final class THEMECOMPLETE_EPO_CP_bookings {
 		add_filter( 'tm_epo_settings_settings', array( $this, 'tm_epo_settings_settings' ), 10, 1 );
 
 		add_filter( 'wcml_cart_contents_not_changed', array( $this, 'filter_bundled_product_in_cart_contents' ), 9999, 3 );
+
+		add_filter( 'woocommerce_bookings_calculated_booking_cost_success_output', array( $this, 'filter_output_cost' ), 10, 3 );
+		add_action( 'wp_ajax_wc_bookings_calculate_costs', array( $this, 'filter_cost' ), 1 );
+		add_action( 'wp_ajax_nopriv_wc_bookings_calculate_costs', array( $this, 'filter_cost' ), 1 );
+	}
+
+	/**
+	 * Adjust the booking cost display
+	 *
+	 */
+	public function filter_cost() {
+		if ( THEMECOMPLETE_EPO()->tm_epo_bookings_add_options_display_cost !== 'yes' ){
+			if ( ! defined( 'WC_EPO_bookings_calculated_booking_cost_success_output' ) ){
+				define( 'WC_EPO_bookings_calculated_booking_cost_success_output', true );
+			}
+		}
+	}
+
+	/**
+	 * Filter the cost display of bookings after booking selection.
+	 * This only filters on success.
+	 *
+	 * @since 5.0.12.13
+	 * @param html $output
+	 * @param string $display_price
+	 * @param object $product
+	 * @return JSON Filtered results
+	 */
+	public function filter_output_cost( $output, $display_price, $product ) {
+		parse_str( $_POST['form'], $posted );
+		if ( ! defined( 'WC_EPO_bookings_calculated_booking_cost_success_output' ) ){
+			define( 'WC_EPO_bookings_calculated_booking_cost_success_output', true );
+		}
+		$booking_data = wc_bookings_get_posted_data( $posted, $product );
+		$cost         = WC_Bookings_Cost_Calculation::calculate_booking_cost( $booking_data, $product );
+
+		wp_send_json(
+			array(
+				'result'    => 'SUCCESS',
+				'html'      => $output,
+				'raw_price' => (float) wc_get_price_to_display( $product, array( 'price' => $cost ) ),
+			)
+		);
 	}
 
 	/**
@@ -83,6 +126,7 @@ final class THEMECOMPLETE_EPO_CP_bookings {
 		if ( class_exists( 'WC_Bookings' ) ) {
 			$settings["tm_epo_bookings_person"] = "yes";
 			$settings["tm_epo_bookings_block"]  = "yes";
+			$settings["tm_epo_bookings_add_options_display_cost"]  = "yes";
 		}
 
 		return $settings;
@@ -125,6 +169,7 @@ final class THEMECOMPLETE_EPO_CP_bookings {
 			$args = array(
 				'wc_booking_person_qty_multiplier' => $tm_epo_bookings_person,
 				'wc_booking_block_qty_multiplier'  => $tm_epo_bookings_block,
+				'wc_bookings_add_options_display_cost' => THEMECOMPLETE_EPO()->tm_epo_bookings_add_options_display_cost,
 			);
 			wp_localize_script( 'themecomplete-comp-bookings', 'TMEPOBOOKINGSJS', $args );
 		}
@@ -213,6 +258,13 @@ final class THEMECOMPLETE_EPO_CP_bookings {
 					'own' => esc_html__( 'Using booking setting', 'woocommerce-tm-extra-product-options' ),
 				),
 				'desc_tip' => FALSE,
+			),
+			array(
+				'title'   => esc_html__( 'Add option cost to booking display price', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enabling this will add the option prices to the calculated booking cost.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_bookings_add_options_display_cost',
+				'default' => 'yes',
+				'type'    => 'checkbox',
 			),
 			array( 'type' => 'tm_sectionend', 'id' => 'epo_page_options' ),
 		);
@@ -317,11 +369,16 @@ final class THEMECOMPLETE_EPO_CP_bookings {
 	 */
 	public function adjust_booking_cost( $booking_cost, $product, $posted ) {
 
-		if ( isset( $_POST ) && isset( $_POST['form'] ) ) {
-			$posted = array();
-			parse_str( $_POST['form'], $posted );
-		} elseif ( isset( $_POST ) && ! isset( $_POST['form'] ) ) {
-			$posted = $_POST;
+		if ( defined( 'WC_EPO_bookings_calculated_booking_cost_success_output' ) ){
+			return $booking_cost;
+		}
+		if ( isset( $_POST ) ) {
+			if ( isset( $_POST['form'] ) ) {
+				$posted = array();
+				parse_str( $_POST['form'], $posted );
+			} else {
+				$posted = $_POST;
+			}
 		}
 
 		if ( isset( $posted['tc_suppress_filter_booking_cost'] ) ) {
@@ -332,8 +389,8 @@ final class THEMECOMPLETE_EPO_CP_bookings {
 		$extra_price  = 0;
 		$booking_data = wc_bookings_get_posted_data( $posted, $product );
 
-		$wc_booking_person_qty_multiplier = ( THEMECOMPLETE_EPO()->tm_epo_bookings_person == "yes" ) ? 1 : 0;
-		$wc_booking_block_qty_multiplier  = ( THEMECOMPLETE_EPO()->tm_epo_bookings_block == "yes" ) ? 1 : 0;
+		$wc_booking_person_qty_multiplier = ( THEMECOMPLETE_EPO()->tm_epo_bookings_person === "yes" ) ? 1 : 0;
+		$wc_booking_block_qty_multiplier  = ( THEMECOMPLETE_EPO()->tm_epo_bookings_block === "yes" ) ? 1 : 0;
 		if ( ! empty( $epos ) && ! empty( $epos['tmcartepo'] ) ) {
 			foreach ( $epos['tmcartepo'] as $key => $value ) {
 				if ( ! empty( $value['price'] ) ) {

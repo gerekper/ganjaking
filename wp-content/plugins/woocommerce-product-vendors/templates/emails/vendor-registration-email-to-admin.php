@@ -25,4 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<li><?php printf( esc_html__( 'Vendor Description', 'woocommerce-product-vendors' ) . ':<br />%s', stripslashes( $vendor_desc ) ); ?></li>
 </ul>
 
+<?php /* translators: %1$s is the pending vendors list url. */ ?>
+<p><?php printf( wp_kses_post( __( 'You can approve this vendor at <a href="%1$s">%1$s</a>.', 'woocommerce-product-vendors' ) ), esc_url( admin_url( 'users.php?role=wc_product_vendors_pending_vendor' ) ) ); ?></p>
+
 <?php do_action( 'woocommerce_email_footer', $email ); ?>

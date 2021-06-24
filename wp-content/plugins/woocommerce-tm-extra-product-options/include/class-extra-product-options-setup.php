@@ -187,7 +187,8 @@ final class Themecomplete_Extra_Product_Options_Setup {
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ), 10 );
 
 		// Register post types
-		add_action( 'init', array( 'THEMECOMPLETE_EPO_POST_TYPES', 'register' ) );
+		// The priority is 100 for compatibility with JetWooBuilder Custom Taxonomy Template.
+		add_action( 'init', array( 'THEMECOMPLETE_EPO_POST_TYPES', 'register' ), 100 );
 
 		// Load admin interface
 		if ( $this->is_request( 'admin' ) ) {

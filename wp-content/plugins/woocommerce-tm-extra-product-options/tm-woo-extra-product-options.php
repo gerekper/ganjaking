@@ -6,13 +6,13 @@
  * Author: themeComplete
  * Author URI: https://themecomplete.com/
  *
- * Version: 5.0.12.12
+ * Version: 5.1
  *
- * Requires at least: 4.4
+ * Requires at least: 5.0
  * Tested up to: 6.0
  *
- * WC requires at least: 3.0
- * WC tested up to: 5.1
+ * WC requires at least: 4.1
+ * WC tested up to: 6.0
  *
  * @package  WooCommerce TM Extra Product Options
  * @category Core
@@ -35,10 +35,10 @@ if ( class_exists( 'Themecomplete_Extra_Product_Options_Setup' ) ) {
 require_once dirname( __FILE__ ) . '/include/class-extra-product-options-setup.php';
 
 /**
- * Main instance of Extra Product Options.
+ * Main instance of Themecomplete_Extra_Product_Options_Setup.
  *
  * @since  4.8
- * @return Extra Product Options
+ * @return Themecomplete_Extra_Product_Options_Setup
  */
 function THEMECOMPLETE_EXTRA_PRODUCT_OPTIONS_SETUP() {
 	return Themecomplete_Extra_Product_Options_Setup::instance();

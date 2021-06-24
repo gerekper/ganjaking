@@ -48,6 +48,11 @@ class DashboardWidget {
 	 */
 	public function __construct() {
 
+		// Prevent the class initialization, if the dashboard widget hidden setting is enabled.
+		if ( Options::init()->get( 'general', 'dashboard_widget_hidden' ) ) {
+			return;
+		}
+
 		add_action( 'admin_init', [ $this, 'init' ] );
 	}
 
@@ -1050,28 +1055,28 @@ class DashboardWidget {
 		$output_data = [
 			'all'       => [
 				'type'  => 'all',
-				'icon'  => wp_mail_smtp()->pro->assets_url . '/images/dash-widget/' . $color_scheme . '/total.svg',
+				'icon'  => wp_mail_smtp()->assets_url . '/images/dash-widget/' . $color_scheme . '/total.svg',
 				/* translators: %d number of total emails sent. */
-				'title' => esc_html( sprintf( _n( '%d total email', '%d total emails', $total_sent, 'wp-mail-smtp-pro' ), $total_sent ) ),
+				'title' => esc_html( sprintf( esc_html__( '%d total', 'wp-mail-smtp-pro' ), $total_sent ) ),
 				'count' => $total_sent,
 			],
 			'delivered' => [
 				'type'  => 'delivered',
-				'icon'  => wp_mail_smtp()->pro->assets_url . '/images/dash-widget/' . $color_scheme . '/delivered.svg',
+				'icon'  => wp_mail_smtp()->assets_url . '/images/dash-widget/' . $color_scheme . '/delivered.svg',
 				/* translators: %d number of confirmed emails sent. */
 				'title' => esc_html( sprintf( esc_html__( '%d confirmed', 'wp-mail-smtp-pro' ), $confirmed_sent ) ),
 				'count' => $confirmed_sent,
 			],
 			'sent'      => [
 				'type'  => 'sent',
-				'icon'  => wp_mail_smtp()->pro->assets_url . '/images/dash-widget/' . $color_scheme . '/sent.svg',
+				'icon'  => wp_mail_smtp()->assets_url . '/images/dash-widget/' . $color_scheme . '/sent.svg',
 				/* translators: %d number of unconfirmed emails sent. */
 				'title' => esc_html( sprintf( esc_html__( '%d unconfirmed', 'wp-mail-smtp-pro' ), $sent ) ),
 				'count' => $sent,
 			],
 			'unsent'    => [
 				'type'  => 'unsent',
-				'icon'  => wp_mail_smtp()->pro->assets_url . '/images/dash-widget/' . $color_scheme . '/unsent.svg',
+				'icon'  => wp_mail_smtp()->assets_url . '/images/dash-widget/' . $color_scheme . '/unsent.svg',
 				/* translators: %d number of failed email sent attempts. */
 				'title' => esc_html( sprintf( esc_html__( '%d failed', 'wp-mail-smtp-pro' ), $failed_sent ) ),
 				'count' => $failed_sent,

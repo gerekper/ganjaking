@@ -15,7 +15,7 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 	 *
 	 * @since 5.0
 	 */
-	public function add_thumbnail_css( $element = array(), $args = array() ) {
+	public function add_thumbnail_css( $layout = "", $element = array(), $args = array() ) {
 
 		$this_items_per_row   = $element['items_per_row'];
 		$this_items_per_row_r = isset( $element['items_per_row_r'] ) ? $element['items_per_row_r'] : array();
@@ -27,8 +27,8 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 		if ( ! isset( $args['product_id'] ) ) {
 			$args['product_id'] = '';
 		}
-		
-		$li_selector = ".tm-product-id-" . $args['product_id'] . " .cpf-type-product-thumbnail ul.tmcp-ul-wrap.tm-element-ul-product." . $container_css_id . $args['element_counter'] . $args["form_prefix"] . " > li.tmcp-field-wrap";
+
+		$li_selector = ".tm-product-id-" . $args['product_id'] . " .cpf-type-product-" . $layout . " ul.tmcp-ul-wrap.tm-element-ul-product." . $container_css_id . $args['element_counter'] . $args["form_prefix"] . " > li.tmcp-field-wrap";
 
 		if ( ! empty( $this_items_per_row ) ) {
 			if ( $this_items_per_row == "auto" || ! is_numeric( $this_items_per_row ) || floatval( $this_items_per_row ) === 0 ) {
@@ -326,6 +326,9 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 		$priced_individually = isset( $element['priced_individually'] ) ? $element['priced_individually'] : "";
 		$order               = isset( $element['order'] ) ? $element['order'] : "";
 		$orderby             = isset( $element['orderby'] ) ? $element['orderby'] : "";
+		$discount            = isset( $element['discount'] ) ? $element['discount'] : "";
+		$discount_type       = isset( $element['discount_type'] ) ? $element['discount_type'] : "";
+
 
 		if ($mode === "product"){
 			$layout_mode = "hidden";
@@ -424,7 +427,11 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 
 		if ( is_numeric( $__min_value ) && is_numeric( $__max_value ) ) {
 			if ( $__min_value > $__max_value ) {
-				$__max_value = $__min_value + $__step;
+				if ( $__step === 'any' ) {
+					$__max_value = $__min_value + 1;
+				} else {
+					$__max_value = $__min_value + $__step;
+				}
 			}
 			if ( $__quantity_default_value > $__max_value ) {
 				$__quantity_default_value = $__max_value;
@@ -521,13 +528,21 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 				$price                = $product->get_price();
 				$regular_price        = $product->get_regular_price();
 				$price_html           = $product->get_price_html();
-				$title                = $product->get_title();
+				$title                = $product->get_name();
 				$type                 = themecomplete_get_product_type( $product );
 				$attributes           = array();
 				$available_variations = array();
 
 				if ( $type === "variable" ) {
 					if ( ($selected || $layout_mode === "hidden") && is_callable( array( $product, 'get_variation_attributes' ) ) ) {
+						// workaround to get discounts shownn in the product for variable products
+						$isset_discount_type = false;
+						if ( isset( $_REQUEST['discount_type'] ) ){
+							$isset_discount_type = $_REQUEST['discount_type'];
+							$isset_discount = $_REQUEST['discount'];
+						}
+						$_REQUEST['discount_type'] = $discount_type;
+						$_REQUEST['discount'] = $discount;
 						$attributes = $product->get_variation_attributes();
 
 						$get_variations = count( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
@@ -540,6 +555,13 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 						$variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_json ) : _wp_specialchars( $variations_json, ENT_QUOTES, 'UTF-8', TRUE );
 
 						$product_list_available_variations[ $product_id ] = $variations_attr;
+						if ($isset_discount_type){
+							$_REQUEST['discount_type'] = $isset_discount_type;
+							$_REQUEST['discount'] = $isset_discount;
+						} else {
+							unset($_REQUEST['discount_type']);
+							unset($_REQUEST['discount']);
+						}
 					}
 
 					$price         = apply_filters( 'wc_epo_product_element_initial_variable_price', "", $price, $product );
@@ -609,8 +631,8 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 			$labelclass_end   = TRUE;
 		}
 
-		if ( $layout_mode === "thumbnail" ) {
-			$this->add_thumbnail_css($element, $args);
+		if ( $layout_mode === "thumbnail" || $layout_mode === "thumbnailmultiple" ) {
+			$this->add_thumbnail_css( $layout_mode, $element, $args );
 		}
 
 		return array(
@@ -668,6 +690,9 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 
 					foreach ( $product_attributes as $attribute ) {
 
+						if ( ! is_object( $attribute ) ) {
+							continue;
+						}
 						if ( ! $attribute->get_variation() ) {
 							continue;
 						}
@@ -688,6 +713,9 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 					}
 				}
 			}
+
+			$quantity_min = isset( $this->element['quantity_min'] ) ? $this->element['quantity_min'] : 1;
+			$quantity_max = isset( $this->element['quantity_max'] ) ? $this->element['quantity_max'] : "";
 
 			return apply_filters( 'wc_epo_add_cart_item_data_single', array(
 				'mode'                 => 'products',
@@ -715,8 +743,10 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 				'currencies'           => isset( $this->element['currencies'] ) ? $this->element['currencies'] : array(),
 				'price_per_currency'   => $this->fill_currencies(),
 				'quantity'             => isset( $this->post_data[ $this->attribute . '_quantity' ] ) ? $this->post_data[ $this->attribute . '_quantity' ] : 1,
-				"quantity_min"         => isset( $this->element['quantity_min'] ) ? $this->element['quantity_min'] : 1,
-				"quantity_max"         => isset( $this->element['quantity_max'] ) ? $this->element['quantity_max'] : "",
+				'initial_quantity'     => isset( $this->post_data[ $this->attribute . '_quantity' ] ) ? $this->post_data[ $this->attribute . '_quantity' ] : 1,
+				'no_change_quantity'   => $quantity_min === $quantity_max && $quantity_min && $quantity_max !== "",
+				"quantity_min"         => $quantity_min,
+				"quantity_max"         => $quantity_max,
 			), $this );
 
 		}

@@ -575,6 +575,9 @@ class THEMECOMPLETE_EPO_Scripts {
 			'minus_sign' => apply_filters( 'wc_epo_get_price_for_cart_minus_sign', "<span class='tc-minus-sign'>-</span>" ),
 			'plus_sign'  => apply_filters( 'wc_epo_get_price_for_cart_plus_sign', "<span class='tc-minus-sign'>+</span>" ),
 
+			'option_plus_sign' => THEMECOMPLETE_EPO()->tm_epo_global_options_price_sign === '' ? apply_filters( 'wc_epo_price_in_dropdown_plus_sign', "+" ) : '',
+			'option_minus_sign'  => apply_filters( 'wc_epo_price_in_dropdown_minus_sign', "-" ),
+
 			'tm_epo_upload_popup' => THEMECOMPLETE_EPO()->tm_epo_upload_popup,
 
 			'current_free_text' => esc_html( THEMECOMPLETE_EPO()->current_free_text ),

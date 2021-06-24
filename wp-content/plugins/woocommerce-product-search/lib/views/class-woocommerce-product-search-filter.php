@@ -138,8 +138,6 @@ class WooCommerce_Product_Search_Filter {
 				'update_address_bar'        => 'yes',
 				'update_document_title'     => 'no',
 
-				'use_shop_url'              => 'no',
-
 				'unpage_url'                => 'yes',
 
 				'breadcrumb_container'      => '.woocommerce-breadcrumb',
@@ -210,7 +208,7 @@ class WooCommerce_Product_Search_Filter {
 
 					case 'update_address_bar' :
 					case 'update_document_title' :
-					case 'use_shop_url' :
+
 					case 'unpage_url' :
 						$value = strtolower( $value );
 						$value = $value == 'true' || $value == 'yes' || $value == '1';
@@ -308,18 +306,6 @@ class WooCommerce_Product_Search_Filter {
 		$current_url = remove_query_arg( array( 'ixwpss', 'title', 'excerpt', 'content', 'categories', 'attributes', 'tags', 'sku', 'lang', 'paged' ), $current_url );
 		$href        = $current_url;
 		$add_post_type = false;
-		if ( isset( $params['use_shop_url'] ) && $params['use_shop_url'] ) {
-			$href = get_permalink( wc_get_page_id( 'shop' ) );
-			if ( !$href ) {
-				$query_post_type = self::get_query_arg( $current_url, 'post_type' );
-
-				if ( $query_post_type !== 'product' ) {
-
-					$href = add_query_arg( array( 'post_type' => 'product' ), trailingslashit( home_url() ) );
-					$add_post_type = true;
-				}
-			}
-		}
 
 		$reset_url = WooCommerce_Product_Search_Filter_Reset::get_reset_url();
 
@@ -388,7 +374,6 @@ class WooCommerce_Product_Search_Filter {
 		$js_args[] = sprintf( 'attributes:%d', isset( $url_params['attributes'] ) && $url_params['attributes'] || !isset( $url_params['attributes'] ) && WooCommerce_Product_Search_Service::DEFAULT_ATTRIBUTES ? 1 : 0 );
 		$js_args[] = sprintf( 'tags:%d', isset( $url_params['tags'] ) && $url_params['tags'] || !isset( $url_params['tags'] ) && WooCommerce_Product_Search_Service::DEFAULT_TAGS ? 1 : 0 );
 		$js_args[] = sprintf( 'sku:%d', isset( $url_params['sku'] ) && $url_params['sku'] || !isset( $url_params['sku'] ) && WooCommerce_Product_Search_Service::DEFAULT_SKU ? 1 : 0 );
-
 		if ( !empty( $url_params['order_by'] ) ) {
 			$js_args[] = sprintf( 'order_by:"%s"', esc_attr( $url_params['order_by'] ) );
 		}
@@ -408,9 +393,7 @@ class WooCommerce_Product_Search_Filter {
 		if ( !empty( $ixwpss ) ) {
 			$js_args[] = sprintf( 'ixwpss:"%s"', esc_attr( $ixwpss ) );
 		}
-		if ( isset( $params['use_shop_url'] ) && $params['use_shop_url'] ) {
-			$js_args[] = sprintf( 'href:"%s"', esc_attr( $href ) );
-		}
+
 		if ( isset( $params['unpage_url'] ) ) {
 			$js_args[] = 'unpage_url:' . ( $params['unpage_url'] ? 'true' : 'false' );
 		}

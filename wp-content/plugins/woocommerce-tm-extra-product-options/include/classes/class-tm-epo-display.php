@@ -245,9 +245,7 @@ class THEMECOMPLETE_EPO_Display {
 				$taxes_of_one        = $taxes_of_one / ( pow( 10, $precision ) );
 				$base_taxes_of_one   = $base_taxes_of_one / ( pow( 10, $precision ) );
 				$modded_taxes_of_one = $modded_taxes_of_one / ( pow( 10, $precision ) );
-
 			}
-
 
 			$array["tc_tax_rate"]                 = $tax_rate;
 			$array["tc_is_taxable"]               = $variation->is_taxable();
@@ -720,7 +718,11 @@ class THEMECOMPLETE_EPO_Display {
 				if ( ! empty( $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmdata'] ) ) {
 					if ( ! empty( $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmdata']['tmcp_post_fields'] ) && is_array( $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmdata']['tmcp_post_fields'] ) ) {
 						$tmcp_post_fields = $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmdata']['tmcp_post_fields'];
+						$saved_form_prefix = $_cart->cart_contents[ THEMECOMPLETE_EPO()->cart_edit_key ]['tmdata']['form_prefix'];
 						foreach ( $tmcp_post_fields as $posted_name => $posted_value ) {
+							if ( $saved_form_prefix !== '' ){
+								$posted_name = str_replace( $saved_form_prefix, '', $posted_name );
+							}
 							$_GET[ $posted_name ] = $posted_value;
 						}
 					}
@@ -1008,6 +1010,9 @@ class THEMECOMPLETE_EPO_Display {
 					&& isset( $section['elements'][0]['type'] )
 					&& $section['elements'][0]['type'] == 'variations'
 				) {
+					if ( THEMECOMPLETE_EPO()->associated_type === 'variation' ) {
+						continue;
+					}
 					$args['sections_class'] = $args['sections_class'] . " tm-epo-variation-section tc-clearfix";
 					if (
 						isset( $section['elements'][0]['builder'] ) &&
@@ -1368,11 +1373,11 @@ class THEMECOMPLETE_EPO_Display {
 										) );
 
 										$choice_counter = 0;
-										
+
 										if (!isset($element_type_counter[ $element['type'] ])){
 											$element_type_counter[ $element['type'] ] = 0;
 										}
-										
+
 										foreach ( $element['options'] as $value => $label ) {
 
 											$tabindex ++;

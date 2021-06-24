@@ -133,7 +133,7 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
         if ($request->getMethod() !== 'POST') {
             throw new \InvalidArgumentException('Expected a POST request but ' . 'received a ' . $request->getMethod() . ' request.');
         }
-        $sr = $request->withMethod('GET')->withBody(\WPMailSMTP\Vendor\GuzzleHttp\Psr7\stream_for(''))->withoutHeader('Content-Type')->withoutHeader('Content-Length');
+        $sr = $request->withMethod('GET')->withBody(\WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::streamFor(''))->withoutHeader('Content-Type')->withoutHeader('Content-Length');
         // Move POST fields to the query if they are present
         if ($request->getHeaderLine('Content-Type') === 'application/x-www-form-urlencoded') {
             $body = (string) $request->getBody() . $additionalQueryParams;
@@ -155,7 +155,7 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
             throw new \WPMailSMTP\Vendor\Aws\Exception\CouldNotCreateChecksumException('sha256');
         }
         try {
-            return \WPMailSMTP\Vendor\GuzzleHttp\Psr7\hash($request->getBody(), 'sha256');
+            return \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::hash($request->getBody(), 'sha256');
         } catch (\Exception $e) {
             throw new \WPMailSMTP\Vendor\Aws\Exception\CouldNotCreateChecksumException('sha256', $e);
         }
@@ -275,12 +275,12 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
         /** @var RequestInterface $request */
         $request = $request->withoutHeader('X-Amz-Date')->withoutHeader('Date')->withoutHeader('Authorization');
         $uri = $request->getUri();
-        return ['method' => $request->getMethod(), 'path' => $uri->getPath(), 'query' => \WPMailSMTP\Vendor\GuzzleHttp\Psr7\parse_query($uri->getQuery()), 'uri' => $uri, 'headers' => $request->getHeaders(), 'body' => $request->getBody(), 'version' => $request->getProtocolVersion()];
+        return ['method' => $request->getMethod(), 'path' => $uri->getPath(), 'query' => \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::parse($uri->getQuery()), 'uri' => $uri, 'headers' => $request->getHeaders(), 'body' => $request->getBody(), 'version' => $request->getProtocolVersion()];
     }
     private function buildRequest(array $req)
     {
         if ($req['query']) {
-            $req['uri'] = $req['uri']->withQuery(\WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($req['query']));
+            $req['uri'] = $req['uri']->withQuery(\WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($req['query']));
         }
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request($req['method'], $req['uri'], $req['headers'], $req['body'], $req['version']);
     }

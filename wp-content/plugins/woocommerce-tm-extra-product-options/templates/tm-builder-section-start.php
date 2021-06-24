@@ -138,7 +138,7 @@ if ( $sections_type == "slider" ) {
 	echo '<div class="tc-cell tc-col">';
 
 	if ( ! empty( $description ) && ( empty( $description_position ) || $description_position == "tooltip" || $description_position == "icontooltipright" | $description_position == "icontooltipleft" ) ) {
-		echo '<div class="tm-description' . ( $description_position == "tooltip" || $description_position == "icontooltipright" || $description_position == "icontooltipleft" ? " tm-tip-html" : "" ) . esc_attr($descriptionclass) . '">';
+		echo '<div class="tm-section-description tm-description' . ( $description_position == "tooltip" || $description_position == "icontooltipright" || $description_position == "icontooltipleft" ? " tm-tip-html" : "" ) . esc_attr($descriptionclass) . '">';
 		// $description contains HTML code
 		echo apply_filters( 'wc_epo_kses', wp_kses_post( $description ), $description );
 		echo '</div>';

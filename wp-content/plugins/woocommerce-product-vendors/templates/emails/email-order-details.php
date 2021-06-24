@@ -2,7 +2,7 @@
 /**
  * Email order details.
  *
- * @version 2.0.0
+ * @version 2.1.52
  * @since 2.0.0
  */
 
@@ -87,15 +87,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 			}
 		?>
 	</tbody>
-	<?php $shipping_method = $order->get_shipping_method(); ?>
-	<?php if ( $pass_shipping && ! empty( $shipping_method ) ) : ?>
+
+	<?php
+	$shipping_method = $order->get_shipping_method();
+	$customer_note   = $order->get_customer_note();
+	?>
+
 	<tfoot>
-		<tr>
-			<th class="td" scope="row" colspan="2" style="text-align: left;"><?php esc_html_e( 'Shipping method', 'woocommerce-product-vendors' ); ?></th>
-			<td class="td" style="text-align: left;"><?php echo esc_html( $shipping_method ); ?></td>
-		</tr>
+		<?php if ( $pass_shipping && ! empty( $shipping_method ) ) : ?>
+			<tr>
+				<th class="td" scope="row" colspan="2" style="text-align: left;"><?php esc_html_e( 'Shipping method', 'woocommerce-product-vendors' ); ?></th>
+				<td class="td" style="text-align: left;"><?php echo esc_html( $shipping_method ); ?></td>
+			</tr>
+		<?php endif; ?>
+
+		<?php
+		/**
+		 * Determine if we should show the customer added note.
+		 *
+		 * @since 2.1.52
+		 * @param boolean  $show_note Whether to show cusotmer notes. Default true.
+		 * @param WC_Order $order     Order object.
+		 */
+		if ( $customer_note && apply_filters( 'wcpv_email_to_vendor_show_notes', true, $order ) ) : ?>
+			<tr>
+				<th class="td" scope="row" colspan="2" style="text-align:left;">
+					<?php esc_html_e( 'Customer note:', 'woocommerce-product-vendors' ); ?>
+				</th>
+				<td class="td" style="text-align:left;">
+					<?php echo wp_kses_post( nl2br( wptexturize( $customer_note ) ) ); ?>
+				</td>
+			</tr>
+		<?php endif; ?>
 	</tfoot>
-	<?php endif; ?>
+
 </table>
 
 <?php do_action( 'woocommerce_email_after_order_table', $order, true, false, $email ); ?>

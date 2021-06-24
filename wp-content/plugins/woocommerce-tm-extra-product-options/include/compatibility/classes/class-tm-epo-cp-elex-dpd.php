@@ -3,8 +3,8 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * WooCommerce Dynamic Pricing & Discounts 
- * https://codecanyon.net/item/woocommerce-dynamic-pricing-discounts/7119279
+ * ELEX Dynamic Pricing and Discounts for WooCommerce 
+ * https://elextensions.com/plugin/dynamic-pricing-and-discounts-plugin-for-woocommerce/
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9
@@ -74,12 +74,12 @@ final class THEMECOMPLETE_EPO_CP_ELEX_DPD {
 	}
 
 	/**
-	 * Check if  WooCommerce Dynamic Pricing & Discounts is enabled
+	 * Check if  ELEX Dynamic Pricing and Discounts for WooCommerce is enabled
 	 *
 	 * @since 4.9.12
 	 */
 	public function is_elex_dpd_enabled() {
-		return class_exists( 'Elex_dp_dynamic_pricing_plugin' );
+		return class_exists( 'Elex_dp_dynamic_pricing_plugin' ) || class_exists( 'Elex_dynamic_pricing_plugin' );
 	}
 
 	/**
@@ -190,6 +190,7 @@ final class THEMECOMPLETE_EPO_CP_ELEX_DPD {
 	 * @since 4.9.12
 	 */
 	public function wc_epo_product_price_rules( $price = array(), $product = null ) {
+
 		if ( $this->is_elex_dpd_enabled() ) {
 			$check_price = apply_filters( 'wc_epo_discounted_price', NULL, $product, NULL );
 			if ( $check_price ) {
@@ -317,7 +318,7 @@ final class THEMECOMPLETE_EPO_CP_ELEX_DPD {
 	}
 
 	/**
-	 * Replace cart html prices for WooCommerce Dynamic Pricing & Discounts
+	 * Replace cart html prices for ELEX Dynamic Pricing and Discounts for WooCommerce
 	 *
 	 * @access public
 	 *
@@ -387,7 +388,7 @@ final class THEMECOMPLETE_EPO_CP_ELEX_DPD {
 	}
 
 	/**
-	 * Get WooCommerce Dynamic Pricing & Discounts price for options
+	 * Get ELEX Dynamic Pricing and Discounts for WooCommerce price for options
 	 * modified from get version from Pricing class
 	 *
 	 * @since 4.9.12
@@ -435,7 +436,11 @@ final class THEMECOMPLETE_EPO_CP_ELEX_DPD {
 			if ( is_shop() || is_product_category() || is_product() ) {
 				$current_quantity ++;
 			}
-			$objRulesValidator = New Elex_dp_RulesValidator();
+			if ( class_exists('Elex_dp_RulesValidator')){
+				$objRulesValidator = New Elex_dp_RulesValidator();
+			} else if ( class_exists('Elex_RulesValidator')){
+				$objRulesValidator = New Elex_RulesValidator();
+			}
 
 			$valid_rules = $objRulesValidator->elex_dp_getValidRulesForProduct( $product, $pid, $current_quantity, $discounted_price, $weight );
 
@@ -530,7 +535,7 @@ final class THEMECOMPLETE_EPO_CP_ELEX_DPD {
 	}
 
 	/**
-	 * Get WooCommerce Dynamic Pricing & Discounts price rules
+	 * Get ELEX Dynamic Pricing and Discounts for WooCommerce price rules
 	 *
 	 * @since 4.9.12
 	 */
@@ -544,8 +549,11 @@ final class THEMECOMPLETE_EPO_CP_ELEX_DPD {
 			}
 
 			$product_rules = FALSE;
-
-			$objRulesValidator = new Elex_dp_RulesValidator( 'all_match', TRUE, 'product_rules' );
+			if ( class_exists('Elex_dp_RulesValidator')){
+				$objRulesValidator = new Elex_dp_RulesValidator( 'all_match', TRUE, 'product_rules' );
+			} else if ( class_exists('Elex_RulesValidator')){
+				$objRulesValidator = new Elex_RulesValidator( 'all_match', TRUE, 'product_rules' );
+			}
 
 			$price = array();
 

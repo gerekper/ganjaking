@@ -2,12 +2,6 @@
 /**
  * The template for displaying the product element radio buttons for the builder mode
  *
- * This template can be overridden by copying it to yourtheme/tm-extra-product-options/products/template-radio.php
- *
- * NOTE that we may need to update template files and you
- * (the plugin or theme developer) will need to copy the new files
- * to your theme or plugin to maintain compatibility.
- *
  * @author  themeComplete
  * @package WooCommerce Extra Product Options/Templates
  * @version 5.0

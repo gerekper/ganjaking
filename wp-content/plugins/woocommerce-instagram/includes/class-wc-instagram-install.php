@@ -35,6 +35,10 @@ class WC_Instagram_Install {
 			'wc_instagram_update_320_update_catalogs',
 			'wc_instagram_update_320_db_version',
 		),
+		'3.5.0' => array(
+			'wc_instagram_update_350_update_catalogs',
+			'wc_instagram_update_350_db_version',
+		),
 	);
 
 	/**

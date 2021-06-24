@@ -99,7 +99,7 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 					THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( $css_string );
 
 					if ( $disable_clear ) {
-						$css_string = $before . ".tm-product-id-" . $args['product_id'] . " ." . $container_css_id . $args['element_counter'] . $args["form_prefix"] . " li.cpf_clear.tm-per-row{clear:none !important;}" . $after;
+						$css_string = $before . ".tm-product-id-" . $args['product_id'] . " ." . $container_css_id . $args['element_counter'] . $args["form_prefix"] . " li.cpfclearboth.tm-per-row{clear:none !important;}" . $after;
 						$css_string .= $before . ".tm-product-id-" . $args['product_id'] . " ." . $container_css_id . $args['element_counter'] . $args["form_prefix"] . " li:nth-child(n){clear:none !important;}" . $after;
 						$css_string .= $before . ".tm-product-id-" . $args['product_id'] . " ." . $container_css_id . $args['element_counter'] . $args["form_prefix"] . " li:nth-child(" . ( intval( $value ) ) . "n+1){clear:both !important;}" . $after;
 						$css_string = str_replace( array( "\r", "\n" ), "", $css_string );
@@ -324,18 +324,39 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 			}
 
 			if ( empty( $use_colors ) && ! empty( $image ) ) {
-
+				$attachment_id     = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $image );
+				$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
+				$image_info =  THEMECOMPLETE_EPO_HELPER()->get_attachment_sizes( $attachment_id, $image );
+				$attachment_id     = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $imagec );
+				$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
+				$imagec_info =  THEMECOMPLETE_EPO_HELPER()->get_attachment_sizes( $attachment_id, $imagec );
 				if ( $tm_epo_no_lazy_load == 'no' ) {
 					if ( $checked && ! empty( $imagec ) ) {
 						$altsrc = array( 'src' => '', 'data-original' => $imagec );
+						if ( $imagec_info ) {
+							$altsrc['width'] = $imagec_info[0];
+							$altsrc['height'] = $imagec_info[1];
+						}
 					} else {
 						$altsrc = array( 'src' => '', 'data-original' => $image );
+						if ( $image_info ) {
+							$altsrc['width'] = $image_info[0];
+							$altsrc['height'] = $image_info[1];
+						}
 					}
 				} else {
 					if ( $checked && ! empty( $imagec ) ) {
 						$altsrc = array( 'src' => $imagec );
+						if ( $imagec_info ) {
+							$altsrc['width'] = $imagec_info[0];
+							$altsrc['height'] = $imagec_info[1];
+						}
 					} else {
 						$altsrc = array( 'src' => $image );
+						if ( $image_info ) {
+							$altsrc['width'] = $image_info[0];
+							$altsrc['height'] = $image_info[1];
+						}
 					}
 				}
 				if ( ! empty( $use_lightbox ) && $use_lightbox == "lightbox" ) {
@@ -498,7 +519,7 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 			'li_class'              => $li_class,
 			'class'                 => $css_class,
 			'label'                 => $label,
-			'value'                 => esc_attr( $args['value'] ),
+			'value'                 => $args['value'],
 			'id'                    => 'tmcp_choice_' . str_replace("-", "_", $unique_indentifier),
 			'textbeforeprice'       => isset( $element['text_before_price'] ) ? $element['text_before_price'] : "",
 			'textafterprice'        => isset( $element['text_after_price'] ) ? $element['text_after_price'] : "",

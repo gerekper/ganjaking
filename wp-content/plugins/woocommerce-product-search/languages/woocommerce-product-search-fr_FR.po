@@ -1,0 +1,3690 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Product Search\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-18 11:32+0200\n"
+"PO-Revision-Date: 2021-06-18 13:51+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: woocommerce-product-search.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: lib/core/class-woocommerce-product-search-service.php:2835
+#: lib/core/class-woocommerce-product-search-service-v2.php:2016
+#, php-format
+msgid " | Min Price: %1$s - Max Price: %2$s"
+msgstr " | Prix min: %1$s - Prix max: %2$s"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:74
+#, php-format
+msgid "%d Searches with results"
+msgstr "%d Recherche avec les résultats"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:81
+#, php-format
+msgid "%d Searches without results"
+msgstr "%d Recherche sans résultats"
+
+#: lib/views/class-woocommerce-product-search-filter-tag.php:972
+#, php-format
+msgid "%s product"
+msgid_plural "%s products"
+msgstr[0] "%s produit"
+msgstr[1] "%s produits"
+
+#: lib/views/class-woocommerce-product-search-filter-rating.php:320
+msgid "& Up"
+msgstr "& Up"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1948
+#: lib/admin/class-woocommerce-product-search-admin.php:1950
+#: lib/admin/class-woocommerce-product-search-admin.php:1954
+msgid "&hellip; ready."
+msgstr "&hellip; prêt."
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:277
+msgid "&mdash;"
+msgstr "&mdash;"
+
+#: lib/views/class-woocommerce-product-search-widget.php:381
+msgctxt ""
+"Product Search Field Order by ... option : indicator for no specific ordering"
+msgid "&mdash;"
+msgstr "&mdash;"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2181
+msgid "1. Select the sidebar"
+msgstr "1. Sélectionnez la barre latérale"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2216
+msgid "2. Choose the filters to add"
+msgstr "2. Choisissez les filtres à ajouter"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:286
+#: lib/admin/class-woocommerce-product-search-admin.php:295
+#, php-format
+msgid ""
+"<a href=\"%1$s\">WooCommerce Product Search</a> is made available to you "
+"exclusively through <a href=\"%2$s\">WooCommerce</a>."
+msgstr ""
+"La <a href=\"%1$s\">WooCommerce Product Search</a> est mise à votre "
+"disposition exclusivement par <a href=\"%2$s\">WooCommerce</a>."
+
+#: lib/core/class-woocommerce-product-search.php:1036
+msgid ""
+"<em>WooCommerce Product Search</em> is an extension for the <a href="
+"\"https://woocommerce.com\" target=\"_blank\">WooCommerce</a> plugin. Please "
+"install and activate it."
+msgstr ""
+"<em>WooCommerce Product Search</em> est une extension pour le plugin <a href="
+"\"https://woocommerce.com\" target=\"_blank\">WooCommerce</a>. Veuillez "
+"l'installer et l'activer."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:493
+#: lib/admin/class-woocommerce-product-search-admin.php:828
+msgid "Access denied."
+msgstr "Accès refusé."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:335
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:869
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:334
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:433
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:672
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:336
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:564
+msgid "Activate live filtering."
+msgstr "Activez le filtrage en direct."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2199
+msgid "Add filter widgets to the selected sidebar."
+msgstr "Ajoutez des widgets de filtre à la barre latérale sélectionnée."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2380
+msgid "Add selected"
+msgstr "Ajouter une sélection"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2349
+msgid "Add the selected filters to the chosen sidebar?"
+msgstr "Ajouter les filtres sélectionnés à la barre latérale choisie ?"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:348
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1008
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:347
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:462
+#: lib/views/class-woocommerce-product-search-filter-widget.php:650
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:774
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:349
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:614
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:295
+msgid "Advanced"
+msgstr "Avancé"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:435
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:924
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:952
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:712
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:740
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:604
+msgid "All"
+msgstr "Tout"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:899
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:687
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:579
+msgid "Allow multiple choices."
+msgstr "Autorisez les choix multiples."
+
+#: lib/views/class-woocommerce-product-search-widget.php:513
+msgid ""
+"Allows to add a product to the cart, select options or read more directly."
+msgstr ""
+"Permet d'ajouter un produit au panier, de sélectionner des options ou d'en "
+"lire plus directement."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:383
+msgid "Among them, you will find:"
+msgstr "Parmi eux, vous trouverez :"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute.php:113
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:198
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:530
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:542
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:947
+msgid "Any"
+msgstr "Tout"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:199
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:582
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:594
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1190
+#: lib/views/class-woocommerce-product-search-filter-category.php:116
+msgid "Any Category"
+msgstr "Toute catégorie"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1312
+msgid "Apply product filters in general"
+msgstr "Appliquer des filtres de produits en général"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2008
+msgid "Are you sure that you wish to rebuild the index completely?"
+msgstr "Êtes-vous sûr de vouloir reconstruire complètement l'index ?"
+
+#: lib/views/class-woocommerce-product-search-widget.php:395
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:819
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:655
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:547
+msgid "Ascending"
+msgstr "Ascendant"
+
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:277
+#: lib/admin/class-woocommerce-product-search-admin.php:922
+#: lib/admin/class-woocommerce-product-search-admin.php:2096
+msgid "Assistant"
+msgstr "Assistant"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:274
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:287
+msgid "Attribute"
+msgstr "Attribut"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1481
+msgid "Attributes"
+msgstr "Attributs"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:249
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:365
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:384
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:358
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1025
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1044
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1083
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1102
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:248
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:364
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:383
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:264
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:479
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:498
+#: lib/views/class-woocommerce-product-search-filter-widget.php:640
+#: lib/views/class-woocommerce-product-search-filter-widget.php:669
+#: lib/views/class-woocommerce-product-search-filter-widget.php:688
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:332
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:791
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:810
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:849
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:868
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:250
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:366
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:385
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:304
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:393
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:631
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:650
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:689
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:708
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:240
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:312
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:331
+msgid "Automatic"
+msgstr "Automatique"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:711
+msgid ""
+"Automatically expand children when hovering over parent – on touch devices "
+"expansion occurs on tap."
+msgstr ""
+"Agrandissement automatique des enfants lors du survol du parent - sur les "
+"appareils tactiles, l'agrandissement se produit lors de l'effleurement."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:726
+msgid ""
+"Automatically retract children when leaving the filter container – with "
+"touch devices retraction requires a tap."
+msgstr ""
+"Les enfants se rétractent automatiquement lorsqu'ils quittent le conteneur "
+"du filtre - avec les dispositifs tactiles, la rétraction se fait par simple "
+"pression."
+
+#: lib/views/class-woocommerce-product-search-filter-stock.php:275
+msgctxt "product filter stock link"
+msgid "Available"
+msgstr "Disponible"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:978
+msgid "Back end and JSON searches are disabled via WPS_EXT_PDS."
+msgstr "Les recherches back-end et JSON sont désactivées via WPS_EXT_PDS."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1391
+msgid ""
+"By default, a higher title and SKU weight will promote search results that "
+"have matches in the title and SKU."
+msgstr ""
+"Par défaut, une pondération plus élevée du titre et de l'UGS favorisera les "
+"résultats de recherche qui présentent des correspondances dans le titre et "
+"l'UGS."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1361
+msgid ""
+"CAUTION: If this option is active while the plugin is deactivated, ALL "
+"plugin settings and data will be DELETED."
+msgstr ""
+"ATTENTION : Si cette option est active alors que le plugin est désactivé, "
+"TOUS les paramètres et données du plugin seront SUPPRIMÉS."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:909
+#: lib/admin/class-woocommerce-product-search-admin.php:1640
+msgid "CSS"
+msgstr "CSS"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1093
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:859
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:699
+msgid "CSS class added to the filter's main div container."
+msgstr "Classe CSS ajoutée au conteneur div principal du filtre."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:375
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1035
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:374
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:489
+#: lib/views/class-woocommerce-product-search-filter-widget.php:679
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:801
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:376
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:641
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:322
+msgid "CSS class of the heading element."
+msgstr "Classe CSS de l'élément d'en-tête."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1465
+msgid "Categories"
+msgstr "Catégories"
+
+#: lib/views/class-woocommerce-product-search-widget.php:454
+msgid "Category Limit"
+msgstr "Limite de catégorie"
+
+#: lib/views/class-woocommerce-product-search-thumbnail.php:333
+msgid "Change"
+msgstr "Changer"
+
+#: lib/views/class-woocommerce-product-search-widget.php:556
+#: lib/views/class-woocommerce-product-search-filter-widget.php:457
+msgid "Characters"
+msgstr "Caractères"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1171
+msgid "Characters in Descriptions"
+msgstr "Caractères dans les descriptions"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1154
+msgid "Characters in Titles"
+msgstr "Personnages dans les titres"
+
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:165
+msgid "Choose an image"
+msgstr "Choisir une image"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:286
+msgid "Choose the product attribute."
+msgstr "Choisissez l'attribut du produit."
+
+#: lib/core/class-woocommerce-product-search-service.php:459
+#: lib/core/class-woocommerce-product-search-service-v2.php:448
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:481
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:179
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:215
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:243
+#: lib/views/class-woocommerce-product-search-filter-tag.php:429
+#: lib/views/class-woocommerce-product-search-filter.php:425
+#: lib/views/class-woocommerce-product-search-filter-attribute.php:642
+#: lib/views/class-woocommerce-product-search-filter-attribute.php:651
+#: lib/views/class-woocommerce-product-search-field.php:296
+#: lib/views/class-woocommerce-product-search-filter-price.php:447
+#: lib/views/class-woocommerce-product-search-filter-category.php:697
+#: lib/views/class-woocommerce-product-search-filter-category.php:705
+#: lib/views/class-woocommerce-product-search-filter-rating.php:294
+#: lib/views/class-woocommerce-product-search-filter-rating.php:297
+#: lib/views/class-woocommerce-product-search-filter-reset.php:109
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:170
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:264
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:363
+msgid "Clear"
+msgstr "Effacer"
+
+#: lib/views/class-woocommerce-product-search-widget.php:630
+msgid "Clear mark"
+msgstr "Effacer"
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:395
+#: lib/views/class-woocommerce-product-search-filter-widget.php:494
+msgid "Clear shortcut"
+msgstr "Effacer le raccourci"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1919
+msgid "Completely rebuild the index &hellip;"
+msgstr "Reconstruire complètement l’indice &hellip;"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:235
+msgid "Congrats on using the best <em>Search Experience</em> for WooCommerce!"
+msgstr ""
+"Félicitations pour l'utilisation de la meilleure <em>expérience de "
+"recherche</em> pour WooCommerce !"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1095
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:861
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:701
+msgid "Container Class"
+msgstr "Class CSS du Container"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1076
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:842
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:682
+msgid "Container ID"
+msgstr "ID de conteneur"
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:742
+msgid "Container Inline Style"
+msgstr "Style de conteneur en Inline"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:410
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:173
+msgid "Contains"
+msgstr "Contient"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1433
+msgid "Content"
+msgstr "Contenu"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:468
+msgid "Could you please take a moment and rate this extension?"
+msgstr ""
+"Pourriez-vous s'il vous plaît prendre un moment et noter cette extension ?"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:804
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:640
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:532
+msgid "Count"
+msgstr "Nombre"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1559
+#: lib/admin/class-woocommerce-product-search-admin.php:1622
+msgid "Crop thumbnails"
+msgstr "Recadrez les vignettes"
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:380
+msgid "Currency Symbol"
+msgstr "Symbole de la devise"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:285
+#: lib/views/class-woocommerce-product-search-widget.php:375
+msgid "Date"
+msgstr "Date"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:401
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1061
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:400
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:515
+#: lib/views/class-woocommerce-product-search-filter-widget.php:705
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:827
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:402
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:667
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:348
+msgid "Default"
+msgstr "Par défaut"
+
+#: lib/views/class-woocommerce-product-search-filter.php:724
+msgid "Default sorting"
+msgstr "Tri par défaut"
+
+#: lib/core/class-woocommerce-product-search-product-processor.php:332
+#, php-format
+msgid "Deferred further variation processing on reaching threshold (%d)."
+msgstr ""
+"Le traitement de la variation est différé lorsque le seuil est atteint (%d)."
+
+#: lib/core/class-woocommerce-product-search-product-processor.php:343
+msgid "Deferred variation processing to avoid PHP resource limit issues."
+msgstr ""
+"Traitement différé des variations pour éviter les problèmes de limitation "
+"des ressources de PHP."
+
+#: lib/views/class-woocommerce-product-search-widget.php:539
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:326
+#: lib/views/class-woocommerce-product-search-filter-widget.php:440
+msgid "Delay"
+msgstr "Pause (Attente)"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1343
+msgid "Delete Data"
+msgstr "Supprimer les données"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1350
+msgid "Delete search settings and data on deactivation"
+msgstr ""
+"Suppression des paramètres de recherche et des données lors de la "
+"désactivation"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:321
+#: lib/admin/class-woocommerce-product-search-admin.php:321
+msgid ""
+"Depending on the amount of products in your store and the processing "
+"capabilities of your server, this process may take a few minutes or hours to "
+"complete."
+msgstr ""
+"Selon la quantité de produits dans votre magasin et les capacités de "
+"traitement de votre serveur, ce processus peut prendre quelques minutes ou "
+"quelques heures."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:837
+msgid "Depth"
+msgstr "Profondeur"
+
+#: lib/views/class-woocommerce-product-search-widget.php:401
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:825
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:661
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:553
+msgid "Descending"
+msgstr "Descendant"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:636
+msgid "Description"
+msgstr "Description"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:606
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:554
+msgid "Determines the height of the dropdown options."
+msgstr "Détermine la hauteur des options déroulantes."
+
+#: lib/views/class-woocommerce-product-search-widget.php:714
+msgid "Determines the height of the results container."
+msgstr "Détermine la hauteur du conteneur de résultats."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:938
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:726
+msgid "Determines the set of terms to display."
+msgstr "Détermine l'ensemble des termes à afficher."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:565
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:513
+msgid "Determines the size of the dropdown."
+msgstr "Détermine la taille de la liste déroulante."
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:418
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:255
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:381
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:254
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:270
+#: lib/views/class-woocommerce-product-search-filter-widget.php:414
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:355
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:256
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:327
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:246
+msgid "Display"
+msgstr "Afficher"
+
+#: lib/views/class-woocommerce-product-search-widget.php:622
+msgid "Display a mark to clear the search."
+msgstr "Affichez une marque pour effacer la recherche."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:387
+msgid "Display a shortcut to clear the price fields when they contain text."
+msgstr ""
+"Affiche un raccourci pour effacer les champs de prix lorsqu'ils contiennent "
+"du texte."
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:486
+msgid "Display a shortcut to clear the search field when it contains text."
+msgstr ""
+"Affiche un raccourci pour effacer le champ de recherche lorsqu'il contient "
+"du texte."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:884
+msgid "Display terms as a hierarchy."
+msgstr "Afficher les termes sous forme de hiérarchie."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:401
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:375
+msgid "Display the categories as a list or inline."
+msgstr "Affichez les catégories sous forme de liste ou en ligne."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:372
+msgid "Display the currency symbol with the price fields."
+msgstr "Affichez le symbole de la devise avec les champs de prix."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:225
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:224
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:240
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:226
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:216
+msgid "Display the heading before the fields."
+msgstr "Afficher l'intitulé avant les champs."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:334
+#: lib/views/class-woocommerce-product-search-filter-widget.php:616
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:308
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:280
+msgid "Display the heading before the terms."
+msgstr "Afficher l'intitulé avant les termes."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:304
+msgid "Display the minimum and maximum input fields."
+msgstr "Affichez les champs de saisie minimum et maximum."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:473
+msgid "Display the names of the parent terms."
+msgstr "Affiche les noms des termes parents."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:462
+msgid "Display the names of the terms."
+msgstr "Affichez les noms des termes."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:290
+msgid "Display the price slider."
+msgstr "Affichez le curseur de prix."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:532
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:480
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:439
+msgid "Display the related number of products for each term."
+msgstr "Affichez le nombre de produits associés pour chaque terme."
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:347
+msgid "Display the tags as a list or inline."
+msgstr "Afficher les balises sous forme de liste ou en ligne."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:261
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:387
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:260
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:276
+#: lib/views/class-woocommerce-product-search-filter-widget.php:420
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:361
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:262
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:333
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:252
+msgid ""
+"Display the widget on relevant shop pages only, including the shop, tag, "
+"category pages etc&hellip;"
+msgstr ""
+"Affichez le widget sur les pages de magasin pertinentes uniquement, y "
+"compris la boutique, tag, pages de catégorie, etc&hellip;"
+
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:276
+msgid "Display the widget only when there are any products in stock."
+msgstr "Affichez le widget uniquement lorsqu'il y a des produits disponibles."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:275
+msgid "Display the widget only when there are any products on sale."
+msgstr "Affichez le widget uniquement lorsqu'il y a des produits en vente."
+
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:274
+msgid "Display the widget only when there are any products with ratings."
+msgstr ""
+"Affichez le widget uniquement lorsqu'il y a des produits avec des "
+"évaluations."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:444
+msgid "Display thumbnails for parent terms."
+msgstr "Afficher les vignettes pour les termes parents."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:492
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:440
+msgid "Display thumbnails for the selected terms."
+msgstr "Affichez les vignettes des termes sélectionnés."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:431
+msgid "Display thumbnails for the terms."
+msgstr "Afficher les vignettes pour les termes."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:282
+#: lib/admin/class-woocommerce-product-search-admin.php:291
+msgid "Do not compromise on security!"
+msgstr "Les adresses e-mail ne sont pas identiques!"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:547
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:495
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:454
+msgid "Do not display terms that have no related products."
+msgstr "Ne faites pas de compromis sur la sécurité."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:243
+#: lib/admin/class-woocommerce-product-search-admin.php:243
+#: lib/admin/class-woocommerce-product-search-admin.php:2427
+msgid "Documentation"
+msgstr "Documentation"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:435
+msgid ""
+"Don't worry, you can always get this back by clicking the Welcome link of "
+"the WooCommerce Product Search entry in the Plugins section."
+msgstr ""
+"Ne vous inquiétez pas, vous pouvez toujours la récupérer en cliquant sur le "
+"lien Welcome de l'entrée WooCommerce Product Search dans la section Plugins."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:413
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:387
+msgid "Dropdown"
+msgstr "Liste déroulante"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:537
+msgid ""
+"During this process, product searches and filters may produce fewer or no "
+"results until the process is completed."
+msgstr ""
+"Pendant ce processus, les recherches et les filtres de produits peuvent "
+"produire moins de résultats, voire aucun, jusqu'à ce que le processus soit "
+"terminé."
+
+#: lib/views/class-woocommerce-product-search-widget.php:675
+msgid "Dynamic focus"
+msgstr "Focus dynamique"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:353
+#, php-format
+msgid ""
+"Enable the use of <a href=\"%s\">Weights</a> to improve the relevance in "
+"product search results, based on matches in product titles, descriptions, "
+"contents, categories, tags, attributes and their SKU."
+msgstr ""
+"Permettez l'utilisation de <a href=\"%s\">coefficients de pondération</a> "
+"pour améliorer la pertinence des résultats de recherche de produits, en "
+"fonction des correspondances entre les titres, les descriptions, les "
+"contenus, les catégories, les balises, les attributs et les UGS des produits."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:369
+msgid ""
+"Enable the use of Weights to improve the relevance in product search "
+"results, based on matches in product titles, descriptions, contents, "
+"categories, tags, attributes and their SKU."
+msgstr ""
+"Permettez l'utilisation de coefficients de pondération pour améliorer la "
+"pertinence des résultats de recherche de produits, en fonction des "
+"correspondances entre les titres, les descriptions, les contenus, les "
+"catégories, les balises, les attributs et les UGS des produits."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2012
+msgid ""
+"Especially for sites with a large product base, it is highly recommended to "
+"run this process only during low traffic hours."
+msgstr ""
+"En particulier pour les sites ayant une large base de produits, il est "
+"fortement recommandé d'exécuter ce processus uniquement pendant les heures "
+"de faible trafic."
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:402
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:165
+msgid "Exact"
+msgstr "Exacte"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1204
+msgid ""
+"Exact matches may result in fewer search results, as search terms with a "
+"length below the threshold will only produce matches if the exact term is "
+"found."
+msgstr ""
+"Les correspondances exactes peuvent donner moins de résultats de recherche, "
+"car les termes de recherche dont la longueur est inférieure au seuil ne "
+"donneront des résultats que si le terme exact est trouvé."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1417
+msgid "Excerpt"
+msgstr "Extrait"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:680
+msgid "Expand Child Terms"
+msgstr "Développer les termes pour enfants"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:719
+msgid "Expand automatically"
+msgstr "Expansion automatique"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:288
+msgid "Export CSV"
+msgstr "Export CSV"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:474
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:343
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:877
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:342
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:441
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:680
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:344
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:572
+msgid "Filter"
+msgstr "Filtre"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1573
+msgid "Filter Thumbnails"
+msgstr "Filtrer les vignettes"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:143
+msgid "Filter by query"
+msgstr "Filtrer par requête"
+
+#: lib/views/class-woocommerce-product-search-widget.php:731
+msgid "Filter search results based on the current language."
+msgstr ""
+"Filtrez les résultats de la recherche en fonction de la langue actuelle."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1305
+msgid "Filters"
+msgstr "Filtres"
+
+#: lib/views/class-woocommerce-product-search-filter-reset.php:123
+msgctxt "product filter reset heading"
+msgid "Filters"
+msgstr "Filtres"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:143
+msgid "First"
+msgstr "Premier"
+
+#: lib/views/class-woocommerce-product-search-widget.php:690
+msgid "Floating results"
+msgstr "Résultats flottants"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1318
+msgid ""
+"For example, if enabled, this can affect the product categories displayed "
+"with the standard Product Categories widget, reducing those displayed to the "
+"set of matching product categories only."
+msgstr ""
+"Par exemple, si elle est activée, cette option peut affecter les catégories "
+"de produits affichées avec le widget standard Catégories de produits, en "
+"réduisant les catégories affichées à l'ensemble des catégories de produits "
+"correspondantes."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:265
+#: lib/admin/class-woocommerce-product-search-admin.php:264
+#, php-format
+msgid ""
+"For further assistance with <a href=\"%1$s\">WooCommerce Product Search</a>, "
+"please use the <a href=\"%2$s\">helpdesk</a>."
+msgstr ""
+"Pour obtenir de l'aide sur la <a href=\"%1$s\">recherche de produits "
+"WooCommerce</a>, veuillez utiliser le service <a href=\"%2$s\">d'assistance</"
+"a>."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:367
+#, php-format
+msgid ""
+"For this purpose, several <a href=\"%s\">Widgets</a> can be added to "
+"sidebars."
+msgstr ""
+"À cette fin, plusieurs <a href=\"%s\">Widgets</a> peuvent être ajoutés aux "
+"barres latérales."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1027
+msgid "For unlimited results, use 0 (zero)."
+msgstr "Pour des résultats illimités, utilisez 0 (zéro)."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:317
+msgid ""
+"For your convenience and to minimize manual setup, the search engine will "
+"start to process data automatically in the background once activated."
+msgstr ""
+"Pour votre confort et pour minimiser la configuration manuelle, le moteur de "
+"recherche commencera à traiter les données automatiquement en arrière-plan "
+"une fois activé."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:332
+msgid ""
+"Front-end and back-end searches are now optimized to provide the best search "
+"experience by default."
+msgstr ""
+"Les recherches frontales et dorsales sont désormais optimisées pour offrir "
+"la meilleure expérience de recherche par défaut."
+
+#: lib/views/class-woocommerce-product-search-widget.php:723
+msgid "Full content height"
+msgstr "Hauteur de contenu complète"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:891
+msgid "General"
+msgstr "Général"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:959
+msgid "General Settings"
+msgstr "Paramètres généraux"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:307
+msgid "Getting started &hellip;"
+msgstr "Commencer &hellip;"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:179
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:302
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:419
+#: lib/views/class-woocommerce-product-search-filter-price.php:149
+#: lib/views/class-woocommerce-product-search-filter-stock.php:112
+#: lib/views/class-woocommerce-product-search-filter-sale.php:109
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:184
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:415
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:536
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:180
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:303
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:420
+msgid "Go"
+msgstr "Aller"
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:577
+msgid "Go to page one of results when filters are applied."
+msgstr ""
+"Aller à la première page des résultats lorsque des filtres sont appliqués."
+
+#: lib/core/class-woocommerce-product-search-worker.php:326
+#, php-format
+msgid "HTTP Response Status: %d %s"
+msgstr "Statut de la réponse HTTP : %d %s"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:415
+msgid "Have fun selling!"
+msgstr "Amusez-vous bien à vendre !"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:219
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:243
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:328
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:352
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:218
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:242
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:234
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:258
+#: lib/views/class-woocommerce-product-search-filter-widget.php:610
+#: lib/views/class-woocommerce-product-search-filter-widget.php:634
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:302
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:326
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:220
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:244
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:274
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:298
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:210
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:234
+msgid "Heading"
+msgstr "En-tête"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:377
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1037
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:376
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:491
+#: lib/views/class-woocommerce-product-search-filter-widget.php:681
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:803
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:378
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:643
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:324
+msgid "Heading Class"
+msgstr "Class de l’en-tête"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:393
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1053
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:392
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:507
+#: lib/views/class-woocommerce-product-search-filter-widget.php:697
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:819
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:394
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:659
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:340
+msgid "Heading Element"
+msgstr "Élément En-tête"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:358
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1018
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:357
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:472
+#: lib/views/class-woocommerce-product-search-filter-widget.php:662
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:784
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:359
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:624
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:305
+msgid "Heading ID"
+msgstr "ID d'entête"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:370
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:344
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:316
+msgid "Heading for no results"
+msgstr "Entête pour aucun résultat"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1547
+#: lib/admin/class-woocommerce-product-search-admin.php:1610
+#: lib/views/class-woocommerce-product-search-widget.php:716
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:608
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:556
+msgid "Height"
+msgstr "Hauteur"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:555
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:503
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:462
+msgid "Hide terms without products"
+msgstr "Cacher les termes sans produits"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:643
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:591
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:488
+msgid "Hide the filter component when it has no options."
+msgstr "Masquer le composant filtre lorsqu'il n'a pas d'options."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:658
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:606
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:503
+msgid "Hide the widget when the component has no options."
+msgstr "Masquer le widget lorsque le composant n'a pas d'options."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:892
+msgid "Hierarchical"
+msgstr "Hiérachique"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:141
+msgid "Hits"
+msgstr "Vues"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:473
+msgid "I have already rated it"
+msgstr "Je l'ai déjà noté"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:431
+msgid "I've got it, let's hide this"
+msgstr "Je l'ai, cachons-le"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:142
+#: lib/views/class-woocommerce-product-search-widget.php:377
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:803
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:639
+msgid "ID"
+msgstr "ID"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1074
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:840
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:680
+msgid "ID of the filter's main div container."
+msgstr "ID du conteneur div principal du filtre."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:356
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1016
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:355
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:470
+#: lib/views/class-woocommerce-product-search-filter-widget.php:660
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:782
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:357
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:622
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:303
+msgid "ID of the heading element."
+msgstr "ID de l'élément d'en-tête."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1820
+msgid "Idle Cycle"
+msgstr "Cycle de ralenti"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1194
+msgid ""
+"If enabled and where a product's short description is not empty, this is "
+"used to display the (shortened) description in the results of the Product "
+"Search Field."
+msgstr ""
+"Si cette option est activée et si la description courte d'un produit n'est "
+"pas vide, elle est utilisée pour afficher la description (abrégée) dans les "
+"résultats du Champ de Recherche de Produits."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:995
+msgid ""
+"If enabled and where possible, back end product searches will provide "
+"results powered by the search engine."
+msgstr ""
+"Si elle est activée et dans la mesure du possible, la recherche de produits "
+"en arrière-plan fournira des résultats alimentés par le moteur de recherche."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:973
+msgid ""
+"If enabled and where possible, front end product searches will provide "
+"results powered by the search engine."
+msgstr ""
+"Si elle est activée et dans la mesure du possible, les recherches frontales "
+"de produits fourniront des résultats alimentés par le moteur de recherche."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1058
+msgid ""
+"If enabled and where possible, product searches via the REST API will "
+"provide results powered by the search engine."
+msgstr ""
+"Si elle est activée et si possible, les recherches de produits via l'API "
+"REST fourniront des résultats alimentés par le moteur de recherche."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1069
+msgid ""
+"If enabled and where possible, the standard product search form is replaced "
+"automatically with the advanced Product Search Field."
+msgstr ""
+"Si cette option est activée et dans la mesure du possible, le formulaire de "
+"recherche de produit standard est remplacé automatiquement par le Champ de "
+"Recherche de Produits avancé."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1010
+msgid ""
+"If enabled, JSON product searches are powered by the search engine when "
+"possible."
+msgstr ""
+"Si cette option est activée, les recherches de produits JSON sont alimentées "
+"par le moteur de recherche lorsque cela est possible."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1301
+msgid ""
+"If enabled, a more accurate algorithm is used to process filter responses."
+msgstr ""
+"Si cette option est activée, un algorithme plus précis est utilisé pour "
+"traiter les réponses du filtre."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1564
+msgid ""
+"If enabled, products without a featured product image will show a default "
+"placeholder thumbnail image."
+msgstr ""
+"Si cette option est activée, les produits sans image de produit vedette "
+"afficheront une vignette par défaut."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1267
+msgid "If enabled, statistical data for product searches is recorded."
+msgstr ""
+"Si cette option est activée, les données statistiques relatives aux "
+"recherches de produits sont enregistrées."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1627
+msgid ""
+"If enabled, terms without a search filter image will show a default "
+"placeholder thumbnail image."
+msgstr ""
+"Si cette option est activée, les termes sans image de filtre de recherche "
+"afficheront une vignette par défaut."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1290
+msgid ""
+"If enabled, the HTML response for filter requests is optimized by removing "
+"unnecessary elements."
+msgstr ""
+"Si cette option est activée, la réponse HTML pour les demandes de filtrage "
+"est optimisée en supprimant les éléments inutiles."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1316
+msgid ""
+"If enabled, the current choice of product filters can affect the choices "
+"offered for products, product categories, product tags and product "
+"attributes presented more broadly, beyond the facilities provided by the "
+"extension."
+msgstr ""
+"S'il est activé, le choix actuel des filtres de produits peut affecter les "
+"choix proposés pour les produits, les catégories de produits, les balises de "
+"produits et les attributs de produits présentés plus largement, au-delà des "
+"possibilités offertes par l'extension."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1336
+msgid ""
+"If enabled, the query times for search terms will be logged. <a href="
+"\"https://codex.wordpress.org/Debugging_in_WordPress\">Debugging</a> must be "
+"enabled for query times to be recorded in the log."
+msgstr ""
+"Si cette option est activée, les délais de requête pour les termes de "
+"recherche seront enregistrés. <a href=\"https://codex.wordpress.org/"
+"Debugging_in_WordPress\">Le débogage</a> doit être activé pour que les temps "
+"de requête soient enregistrés dans le journal."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1383
+msgid ""
+"If enabled, the relevance in product search results is enhanced by taking "
+"weights into account."
+msgstr ""
+"Si elle est activée, la pertinence des résultats de la recherche de produits "
+"est renforcée en tenant compte des poids."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1556
+#: lib/admin/class-woocommerce-product-search-admin.php:1619
+msgid ""
+"If enabled, the thumbnail images are cropped to match the dimensions "
+"exactly. Otherwise the thumbnails will be adjusted in size while matching "
+"the aspect ratio of the original image."
+msgstr ""
+"Si elle est activée, les images miniatures sont rognées pour correspondre "
+"exactement aux dimensions. Sinon, les vignettes seront ajustées en taille "
+"tout en correspondant au rapport d'aspect de l'image originale."
+
+#: lib/views/class-woocommerce-product-search-widget.php:592
+msgid ""
+"If enabled, the visitor can use the cursor keys to navigate through the "
+"search results and visit a search result link by pressing the Enter key."
+msgstr ""
+"Si cette option est activée, le visiteur peut utiliser les touches du "
+"curseur pour naviguer dans les résultats de la recherche et consulter un "
+"lien de résultat de recherche en appuyant sur la touche ENTER."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2106
+msgid ""
+"If it makes sense within the context of your store, you can also add a "
+"filter for product tags."
+msgstr ""
+"Si elle est logique dans le contexte de votre magasin, vous pouvez également "
+"ajouter un filtre pour les étiquettes de produit."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1932
+msgid "If necessary, you can trigger the indexer manually here &hellip;"
+msgstr ""
+"Si nécessaire, vous pouvez déclencher l’indexeur manuellement ici &hellip;"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:970
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:758
+msgid ""
+"If terms to include are indicated, the selection indicated here is fully "
+"overridden."
+msgstr ""
+"Si des conditions à inclure sont indiquées, la sélection indiquée ici est "
+"entièrement annulée."
+
+#: lib/views/class-woocommerce-product-search-widget.php:575
+msgid ""
+"If the Enter key is not inhibited, a normal product search is requested when "
+"the visitor presses the Enter key in the search field."
+msgstr ""
+"Si la touche Entrée n'est pas inhibée, une recherche normale de produits est "
+"demandée lorsque le visiteur appuie sur la touche Entrée dans le champ de "
+"recherche."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1768
+msgid ""
+"If the index is not completing automatically, click the \"Run\" button to "
+"run the indexer once."
+msgstr ""
+"Si l'indexation ne se termine pas automatiquement, cliquez sur le bouton "
+"\"Run\" pour exécuter l'indexeur une fois."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1696
+msgid ""
+"If the indexer is stopped while there are remaining entries left "
+"unprocessed, search results will not include all products."
+msgstr ""
+"Si l'indexeur est arrêté alors qu'il reste des entrées non traitées, les "
+"résultats de la recherche ne comprendront pas tous les produits."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1669
+msgid ""
+"If this option is enabled, the inline styles are used when the Product "
+"Search Field or Product Filters are displayed."
+msgstr ""
+"Si cette option est activée, les styles en ligne sont utilisés lorsque le "
+"Champ de Recherche de Produits ou les filtres de produits sont affichés."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1656
+msgid ""
+"If this option is enabled, the standard stylesheet is loaded when the "
+"Product Search Field or Product Filters are displayed."
+msgstr ""
+"Si cette option est activée, la feuille de style standard est chargée "
+"lorsque le Champ de Recherche de Produits ou les filtres de produits sont "
+"affichés."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1365
+msgid ""
+"If you are going to use this option, NOW would be a good time to make a "
+"backup of your site and its database."
+msgstr ""
+"Si vous comptez utiliser cette option, c'est le moment de faire une "
+"sauvegarde de votre site et de sa base de données."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:493
+#, php-format
+msgid ""
+"If you would rate any aspect below 5 stars, please <a href=\"%s\">let us "
+"know before</a> you submit your rating so we can improve it."
+msgstr ""
+"Si vous attribuez à un aspect une note inférieure à 5 étoiles, veuillez <a "
+"href=\"%s\">nous le faire savoir avant de</a> soumettre votre évaluation "
+"afin que nous puissions l'améliorer."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:282
+msgid ""
+"If you would rate any aspect below 5 stars, please let us know before you "
+"submit your rating so we can improve it."
+msgstr ""
+"Si vous attribuez à un aspect une note inférieure à 5 étoiles, veuillez nous "
+"le faire savoir avant de soumettre votre évaluation afin que nous puissions "
+"l'améliorer."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1222
+msgid ""
+"In this context, &ndash;similar&ndash; means words starting with the search "
+"term."
+msgstr ""
+"Dans ce contexte, &ndash;similaire&ndash; désigne les mots commençant par le "
+"terme recherché."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:915
+msgid "Index"
+msgstr "Index"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1873
+msgid "Index entries in this order"
+msgstr "Les entrées de l'index dans cet ordre"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1718
+msgid "Indexed"
+msgstr "Indexé"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1778
+msgid "Indexer"
+msgstr "Indexeur"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1692
+msgid ""
+"Indexing is an automated process which is usually free of manual "
+"intervention."
+msgstr ""
+"L'indexation est un processus automatisé qui ne nécessite généralement "
+"aucune intervention manuelle."
+
+#: lib/core/class-woocommerce-product-search-indexer.php:652
+#: lib/core/class-woocommerce-product-search-indexer.php:674
+#: lib/core/class-woocommerce-product-search-product-processor.php:329
+#: lib/core/class-woocommerce-product-search-product-processor.php:341
+msgid "Info"
+msgstr "Info"
+
+#: lib/views/class-woocommerce-product-search-widget.php:585
+msgid "Inhibit form submission"
+msgstr "Empêcher la soumission de formulaires"
+
+#: lib/views/class-woocommerce-product-search-widget.php:573
+msgid "Inhibit form submission via the Enter key"
+msgstr "Interdire la soumission de formulaires par la touche Entrée"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:411
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:385
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:356
+msgid "Inline"
+msgstr "En ligne"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1659
+msgid "Inline Styles"
+msgstr "Styles en ligne"
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:741
+msgid "Inline style of the surrounding container."
+msgstr "Style en ligne du conteneur qui l'entoure."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1674
+msgid "Inline styles"
+msgstr "Styles en ligne"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:992
+msgid ""
+"Input the ID, slug or name of the term or use {current} to show children of "
+"the current term."
+msgstr ""
+"Saisissez l'ID, le slug ou le nom du terme ou utilisez {current} pour "
+"afficher les enfants du terme actuel."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:940
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:966
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:728
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:754
+msgid "Input the ID, slug or name of the terms, separated by comma."
+msgstr "Entrez l'ID, le slug ou le nom des termes, séparés par une virgule."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:323
+#: lib/admin/class-woocommerce-product-search-admin.php:323
+msgid ""
+"It is designed to provide search results immediately, even while the "
+"indexing process continues in the background."
+msgstr ""
+"Il est conçu pour fournir des résultats de recherche immédiatement, même si "
+"le processus d'indexation se poursuit en arrière-plan."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:417
+msgid "It just got easier &hellip; :)"
+msgstr "C'est devenu plus facile... :)"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2119
+msgid ""
+"It will contain the widgets that your customers use to filter the products "
+"in your store."
+msgstr ""
+"Il contiendra les widgets que vos clients utilisent pour filtrer les "
+"produits de votre boutique."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:319
+msgid ""
+"It will start to index your products to optimize search results for your "
+"visitors."
+msgstr ""
+"Il commencera à indexer vos produits afin d'optimiser les résultats de "
+"recherche pour vos visiteurs."
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:144
+msgid "Last"
+msgstr "Dernier"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:98
+msgid "Last 7 days"
+msgstr "7 derniers jours"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:96
+msgid "Last month"
+msgstr "Mois dernier"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1878
+msgid "Least recent first"
+msgstr "Le moins récent d'abord"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1880
+msgid "Least recently modified first"
+msgstr "Le moins récemment modifié en premier"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1029
+msgid "Leave empty to use internal limits."
+msgstr "Laissez vide pour utiliser les limites internes."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:942
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:968
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:730
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:756
+msgid "Leave this empty to include all terms."
+msgstr "Laissez ce champ vide pour inclure tous les termes."
+
+#: lib/views/class-woocommerce-product-search-widget.php:409
+msgid "Limit"
+msgstr "Limite"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1013
+msgctxt "Limit JSON product search results"
+msgid "Limit"
+msgstr "Limite"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1012
+msgid "Limit JSON product search results"
+msgstr "Limiter les résultats de la recherche de produits en JSON"
+
+#: lib/views/class-woocommerce-product-search-widget.php:453
+msgid "Limit the maximum number of category results shown."
+msgstr "Limiter le nombre maximum de résultats de catégories affichés."
+
+#: lib/views/class-woocommerce-product-search-widget.php:408
+msgid "Limit the maximum number of results shown."
+msgstr "Limiter le nombre maximum de résultats affichés."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:626
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:574
+msgid "Limits the number of terms shown, leave empty for unlimited entries."
+msgstr ""
+"Limite le nombre de termes affichés, laissez vide pour des entrées "
+"illimitées."
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:471
+msgid "Limits the number of terms shown."
+msgstr "Limite le nombre de termes affichés."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:410
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:384
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:357
+msgid "List"
+msgstr "Liste"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:350
+#: lib/admin/class-woocommerce-product-search-admin.php:343
+#: lib/admin/class-woocommerce-product-search-admin.php:1271
+#, php-format
+msgid ""
+"Live search statistics are available in the <a href=\"%s\">Search</a> "
+"section of the reports."
+msgstr ""
+"Les statistiques de recherche en direct sont disponibles dans la section <a "
+"href=\"%s\">Recherche</a> des rapports."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1330
+msgid "Log main query times"
+msgstr "Enregistrer les temps de requête principaux"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1323
+msgid "Logs"
+msgstr "Journaux"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:466
+msgid "Many thanks for using <strong>WooCommerce Product Search</strong>!"
+msgstr "Merci d'utiliser <strong>WooCommerce Product Search</strong>!"
+
+#: lib/views/class-woocommerce-product-search-filter-price.php:142
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:186
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:355
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:532
+msgid "Max"
+msgstr "Max"
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:358
+msgid "Maximum placeholder"
+msgstr "Emplacement maximum"
+
+#: lib/views/class-woocommerce-product-search-filter-price.php:143
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:185
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:340
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:531
+msgid "Min"
+msgstr "Min"
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:480
+msgid "Minimum one"
+msgstr "Minimum un"
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:343
+msgid "Minimum placeholder"
+msgstr "Emplacement minimum"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1232
+msgid "Minimum word length to search for similar occurrences."
+msgstr "Longueur minimale des mots pour rechercher des occurrences similaires."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1877
+msgid "Most recent first"
+msgstr "Le plus récent premier"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1879
+msgid "Most recently modified first"
+msgstr "Première modification la plus récente"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:907
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:695
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:587
+msgid "Multiple"
+msgstr "Multiple"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:800
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:634
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:531
+msgid "Name"
+msgstr "Nom"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:635
+msgid "Name (numeric)"
+msgstr "Nom (numérique)"
+
+#: lib/views/class-woocommerce-product-search-widget.php:600
+msgid "Navigable results"
+msgstr "Résultats navigables"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:671
+msgid "Navigation"
+msgstr "Navigation"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:325
+#: lib/admin/class-woocommerce-product-search-admin.php:325
+msgid "New and updated content is normally indexed within seconds."
+msgstr ""
+"Le contenu nouveau et mis à jour est normalement indexé en quelques secondes."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1743
+msgid "Next indexing cycle schedule"
+msgstr "Calendrier du prochain cycle d'indexation"
+
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:259
+msgid "No Search Filter Thumbnail Image"
+msgstr "Pas de filtre de recherche Image miniature"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:210
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:238
+msgid "No queries found in range"
+msgstr "Aucune requête trouvée dans la gamme"
+
+#: lib/views/class-woocommerce-product-search-filter.php:684
+#: lib/views/class-woocommerce-product-search-widget.php:698
+msgid "No results"
+msgstr "Aucun résultat"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:322
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:978
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1002
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:766
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:268
+msgid "None"
+msgstr "Aucun"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1694
+msgid ""
+"Normally, you would not need to modify the values here or stop the indexing "
+"process."
+msgstr ""
+"Normalement, vous ne devriez pas avoir à modifier les valeurs ici ou à "
+"arrêter le processus d'indexation."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:362
+#, php-format
+msgid ""
+"Now you can use <a href=\"%s\">Weights</a> to improve the relevance in "
+"product search results."
+msgstr ""
+"Vous pouvez désormais utiliser les <a href=\"%s\">pondérations</a> pour "
+"améliorer la pertinence dans les résultats de recherche de produits."
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:417
+msgid "Number of items per page"
+msgstr "Nombre d'éléments par page"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:594
+msgid "Number of searches with matching results"
+msgstr "Nombre de recherches avec des résultats correspondants"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:602
+msgid "Number of searches without matching results"
+msgstr "Nombre de recherches sans résultats correspondants"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:628
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:576
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:473
+msgid "Number of terms"
+msgstr "Nombre de mandats"
+
+#: lib/views/class-woocommerce-product-search-filter-sale.php:272
+msgctxt "product filter sale link"
+msgid "On Sale"
+msgstr "Promo"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:574
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:522
+msgid "One entry"
+msgstr "Un message"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1279
+msgid "Optimization"
+msgstr "Optimisation"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1007
+msgid "Optimize JSON product searches"
+msgstr "Optimiser les recherches de produits en JSON"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1054
+msgid "Optimize REST API product searches"
+msgstr "Optimiser les recherches de produits dans l'API REST"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:991
+msgid "Optimize back end product searches"
+msgstr "Optimiser les recherches de produits en arrière-plan"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:969
+msgid "Optimize front end product searches"
+msgstr "Optimiser les recherches de produits en amont"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1286
+msgid "Optimize responses for filter requests"
+msgstr "Optimiser les réponses aux demandes de filtrage"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1866
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:785
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:619
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:516
+msgid "Order"
+msgstr "Commande"
+
+#: lib/views/class-woocommerce-product-search-widget.php:367
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:792
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:626
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:523
+msgid "Order by ..."
+msgstr "Ranger par ..."
+
+#: lib/views/class-woocommerce-product-search-widget.php:366
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:791
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:625
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:522
+msgid "Order the results by the chosen property."
+msgstr "Ordonnez les résultats en fonction de la propriété choisie."
+
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:232
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:291
+msgid "Overview"
+msgstr "Aperçu"
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:585
+msgid "Page One"
+msgstr "Page 1"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:995
+msgid "Parent term"
+msgstr "Terme parent"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:452
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:481
+msgid "Parents"
+msgstr "Parents"
+
+#: lib/views/class-woocommerce-product-search-widget.php:608
+#: lib/views/class-woocommerce-product-search-filter-widget.php:472
+msgid "Placeholder"
+msgstr "Etiquette"
+
+#: lib/core/class-woocommerce-product-search-service.php:4015
+#: lib/core/class-woocommerce-product-search-service-v2.php:3094
+#: lib/views/class-woocommerce-product-search-thumbnail.php:436
+msgid "Placeholder Image"
+msgstr "Image de Remplacement"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1567
+#: lib/admin/class-woocommerce-product-search-admin.php:1630
+msgid "Placeholder thumbnails"
+msgstr "Miniatures Espace réservé"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:295
+#: lib/admin/class-woocommerce-product-search-admin.php:304
+#, php-format
+msgid ""
+"Please always make sure that you obtain or renew this official extension "
+"through the only trusted source at <a href=\"%s\">WooCommerce Product "
+"Search</a>."
+msgstr ""
+"Veuillez toujours vous assurer que vous obtenez ou renouvelez cette "
+"extension officielle via la seule source de confiance de <a href=\"%s"
+"\">WooCommerce Product Search</a>."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2010
+msgid ""
+"Please note that this will remove all indexes and create them from scratch."
+msgstr ""
+"S'il vous plaît noter que cette action supprimera tous les index existants "
+"et les recréera à partir de zéro."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:249
+#: lib/admin/class-woocommerce-product-search-admin.php:249
+#: lib/admin/class-woocommerce-product-search-admin.php:426
+#, php-format
+msgid ""
+"Please refer to the <a href=\"%s\">WooCommerce Product Search</a> "
+"documentation pages for detailed information."
+msgstr ""
+"Veuillez vous référer aux pages de documentation de <a href=\"%s"
+"\">WooCommerce Product Search</a> pour des informations détaillées."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:276
+#, php-format
+msgid ""
+"Please take a moment to <a href=\"%s\">rate this extension</a> &mdash; this "
+"helps us to provide you with an excellent product and commit to continuous "
+"improvement."
+msgstr ""
+"Veuillez prendre un moment pour <a href=\"%s\">évaluer cette extension</a> "
+"&mdash; cela nous aide à vous fournir un excellent produit et à nous engager "
+"dans une amélioration continue."
+
+#: lib/views/class-woocommerce-product-search-widget.php:379
+msgid "Popularity"
+msgstr "Popularité"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2264
+#: lib/admin/class-woocommerce-product-search-admin.php:2314
+msgid "Present in &hellip; "
+msgstr "Présent dans &hellip; "
+
+#: lib/views/class-woocommerce-product-search-filter-price.php:163
+msgctxt "product price filter heading"
+msgid "Price"
+msgstr "Prix"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1843
+msgid "Process"
+msgstr "Processus"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:387
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:59
+msgid "Product Filter &ndash; Attributes"
+msgstr "Filtre Produit &ndash; Attributs"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:390
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:59
+msgid "Product Filter &ndash; Categories"
+msgstr "Filtre Produit &ndash; Catégories"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:393
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:59
+msgid "Product Filter &ndash; Price"
+msgstr "Filtre Produit &ndash; Prix"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:396
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:59
+msgid "Product Filter &ndash; Rating"
+msgstr "Filtre Produit &ndash; Classement"
+
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:59
+msgid "Product Filter &ndash; Reset"
+msgstr "Filtre produit &ndash; Réinitialiser"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:399
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:59
+msgid "Product Filter &ndash; Sale"
+msgstr "Filtre Produit &ndash; Vente"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:402
+#: lib/views/class-woocommerce-product-search-filter-widget.php:59
+msgid "Product Filter &ndash; Search"
+msgstr "Filtre Produit &ndash; Recherche"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:405
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:59
+msgid "Product Filter &ndash; Stock"
+msgstr "Filtre Produit &ndash; Stock"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:408
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:59
+msgid "Product Filter &ndash; Tags"
+msgstr "Filtre Produit &ndash; Tags"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:417
+#: lib/views/class-woocommerce-product-search-widget.php:57
+msgid "Product Search Field"
+msgstr "Champ de Recherche de Produits"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1076
+msgid "Product Search Field settings &hellip;"
+msgstr "Paramètres du Champ de Recherche de Produits &hellip;"
+
+#: lib/views/class-woocommerce-product-search-thumbnail.php:283
+msgid "Product Search Thumbnail"
+msgstr "Vignette de recherche de produits"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1523
+msgid "Product Thumbnails"
+msgstr "Vignettes produit"
+
+#: lib/admin/class-woocommerce-product-search-admin-product.php:158
+msgid "Product search relevance."
+msgstr "Pertinence de la recherche de produits."
+
+#: lib/admin/class-woocommerce-product-search-admin-reports.php:49
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:314
+msgid "Queries"
+msgstr "Optimisation automatique sans aucune requête"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:405
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:168
+msgid "Queries that contain &hellip;"
+msgstr "Requêtes qui contiennent &hellip;"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:397
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:160
+msgid "Queries that exactly match &hellip;"
+msgstr "Requêtes qui correspondent exactement &hellip;"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:389
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:152
+msgid "Queries that start with &hellip;"
+msgstr "Requêtes qui commencent par &hellip;"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:140
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:381
+msgid "Query"
+msgstr "Requête"
+
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:201
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:202
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:255
+msgid "Query Report"
+msgstr "Rapport de requête"
+
+#: lib/views/class-woocommerce-product-search-filter-rating.php:307
+#, php-format
+msgctxt "product filter rating"
+msgid "Rated %d Stars"
+msgstr "Noté %d Étoiles"
+
+#: lib/views/class-woocommerce-product-search-filter-rating.php:306
+#, php-format
+msgctxt "product filter rating"
+msgid "Rated 1 Star &amp; Up"
+msgid_plural "Rated %d Stars &amp; Up"
+msgstr[0] "Noté 1 Étoile &amp; Plus"
+msgstr[1] "Noté %d Étoiles &amp; Plus"
+
+#: lib/views/class-woocommerce-product-search-widget.php:380
+msgid "Rating"
+msgstr "Évaluation"
+
+#: lib/views/class-woocommerce-product-search-filter-rating.php:149
+msgctxt "product filter rating heading"
+msgid "Rating"
+msgstr "Évaluation"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1918
+msgid "Rebuild"
+msgstr "Reconstruire"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1263
+msgid "Record live search data"
+msgstr "Enregistrer les données de recherche en direct"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1386
+msgid "Relevance"
+msgstr "Pertinence"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1733
+msgid "Remaining"
+msgstr "Restant"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:425
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:486
+msgid "Remind me later"
+msgstr "Rappelez-moi plus tard"
+
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:76
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:128
+msgid "Remove image"
+msgstr "Supprimer image"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1770
+msgid "Repeat if necessary until all products have been indexed."
+msgstr ""
+"Répétez l'opération si nécessaire jusqu'à ce que tous les produits aient été "
+"indexés."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1065
+msgid "Replace the standard product search form"
+msgstr "Remplacer le formulaire standard de recherche de produits"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:930
+#: lib/admin/class-woocommerce-product-search-admin.php:2410
+msgid "Reports"
+msgstr "Rapports"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:734
+msgid "Retract automatically"
+msgstr "Rétractation automatique"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:407
+msgid "Review the Settings"
+msgstr "Examiner les paramètres"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:847
+msgid "Root and direct children"
+msgstr "Enfants racines et directs"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:689
+msgid "Root children are expandable"
+msgstr "Les racines enfants sont extensibles"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:846
+msgid "Root terms"
+msgstr "Termes de base"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:688
+msgid "Root terms are expandable"
+msgstr "Les termes racines sont extensibles"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1936
+msgid "Run"
+msgstr "Exécuter"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:386
+msgid "Run the Assistant"
+msgstr "Exécuter l'assistant"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1937
+msgid "Run the indexer once &hellip;"
+msgstr "Exécuter l’indexeur une fois &hellip;"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1497
+#: lib/views/class-woocommerce-product-search-widget.php:378
+msgid "SKU"
+msgstr "SKU"
+
+#: lib/views/class-woocommerce-product-search-filter-sale.php:123
+msgctxt "product filter sale heading"
+msgid "Sale"
+msgstr "Vente"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2383
+msgid "Save changes"
+msgstr "Enregistrer les changements"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1759
+msgid "Scheduled tasks (cron) seem to be failing:"
+msgstr "Les tâches planifiées (cron) semblent échouer :"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1754
+msgid ""
+"Scheduled tasks (cron) seem to be working and the indexer should process "
+"products automatically."
+msgstr ""
+"Les tâches planifiées (cron) semblent fonctionner et l'indexeur devrait "
+"traiter les produits automatiquement."
+
+#: lib/admin/class-woocommerce-product-search-admin-reports.php:40
+#: lib/admin/class-woocommerce-product-search-admin-product.php:92
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:176
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:177
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:215
+#: lib/admin/class-woocommerce-product-search-admin.php:233
+#: lib/admin/class-woocommerce-product-search-admin.php:238
+#: lib/admin/class-woocommerce-product-search-admin.php:477
+#: lib/views/class-woocommerce-product-search-filter.php:152
+#: lib/views/class-woocommerce-product-search-filter.php:157
+#: lib/views/class-woocommerce-product-search-widget.php:605
+#: lib/views/class-woocommerce-product-search-widget.php:650
+#: lib/views/class-woocommerce-product-search-widget.php:779
+#: lib/views/class-woocommerce-product-search-field.php:108
+#: lib/views/class-woocommerce-product-search-field.php:117
+#: lib/views/class-woocommerce-product-search-filter-widget.php:199
+#: lib/views/class-woocommerce-product-search-filter-widget.php:202
+#: lib/views/class-woocommerce-product-search-filter-widget.php:469
+#: lib/views/class-woocommerce-product-search-filter-widget.php:514
+#: lib/views/class-woocommerce-product-search-filter-widget.php:781
+#: lib/views/class-woocommerce-product-search-filter-widget.php:784
+msgid "Search"
+msgstr "Rechercher"
+
+#: lib/views/class-woocommerce-product-search-filter.php:189
+msgctxt "product search filter heading"
+msgid "Search"
+msgstr "Rechercher"
+
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:71
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:122
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:233
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:255
+msgid "Search Filter Thumbnail Image"
+msgstr "Filtre de recherche Image miniature"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1688
+msgid "Search Index"
+msgstr "Index de recherche"
+
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:193
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:194
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:243
+msgid "Search Report"
+msgstr "Rechercher le rapport"
+
+#: lib/views/class-woocommerce-product-search-widget.php:263
+#: lib/views/class-woocommerce-product-search-filter-widget.php:261
+msgid "Search Results"
+msgstr "Résultats de la Recherche"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1198
+msgid "Search Term Threshold"
+msgstr "Seuil des termes de recherche"
+
+#: lib/admin/class-woocommerce-product-search-admin-product.php:121
+#: lib/admin/class-woocommerce-product-search-admin-product.php:159
+#: lib/admin/class-woocommerce-product-search-admin-product.php:198
+#: lib/admin/class-woocommerce-product-search-admin-product.php:216
+#: lib/admin/class-woocommerce-product-search-admin-product.php:278
+msgid "Search Weight"
+msgstr "Pondération"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1373
+msgid "Search Weights"
+msgstr "Recherche de poids"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1040
+msgid "Search for a product&hellip;"
+msgstr "Rechercher un produit&hellip;"
+
+#: lib/core/class-woocommerce-product-search-service.php:4088
+#: lib/core/class-woocommerce-product-search-service-v2.php:3167
+msgid "Search for more &hellip;"
+msgstr "Rechercher plus &hellip;"
+
+#: lib/core/class-woocommerce-product-search-service.php:4127
+#: lib/core/class-woocommerce-product-search-service-v2.php:3206
+#, php-format
+msgid "Search in %s"
+msgstr "Résultat dans %s"
+
+#: lib/views/class-woocommerce-product-search-widget.php:360
+#: lib/views/class-woocommerce-product-search-filter-widget.php:358
+msgid "Search in SKU"
+msgstr "Recherche par SKU"
+
+#: lib/views/class-woocommerce-product-search-widget.php:346
+#: lib/views/class-woocommerce-product-search-filter-widget.php:344
+msgid "Search in attributes"
+msgstr "Rechercher dans les attributs"
+
+#: lib/views/class-woocommerce-product-search-widget.php:318
+#: lib/views/class-woocommerce-product-search-filter-widget.php:316
+msgid "Search in categories"
+msgstr "Rechercher dans les catégories"
+
+#: lib/views/class-woocommerce-product-search-widget.php:304
+#: lib/views/class-woocommerce-product-search-filter-widget.php:302
+msgid "Search in contents"
+msgstr "Recherche dans les contenus"
+
+#: lib/views/class-woocommerce-product-search-widget.php:290
+#: lib/views/class-woocommerce-product-search-filter-widget.php:288
+msgid "Search in excerpts"
+msgstr "Rechercher dans les extraits"
+
+#: lib/views/class-woocommerce-product-search-widget.php:332
+#: lib/views/class-woocommerce-product-search-filter-widget.php:330
+msgid "Search in tags"
+msgstr "Rechercher dans les étiquettes"
+
+#: lib/views/class-woocommerce-product-search-widget.php:276
+#: lib/views/class-woocommerce-product-search-filter-widget.php:274
+msgid "Search in titles"
+msgstr "Recherche dans les titres"
+
+#: lib/views/class-woocommerce-product-search-widget.php:774
+msgid "Search products &hellip;"
+msgstr "Rechercher des produits &hellip;"
+
+#: lib/views/class-woocommerce-product-search-widget.php:682
+msgid "Search results are shown floating below the search field."
+msgstr ""
+"Les résultats de la recherche sont affichés en flottant sous le champ de "
+"recherche."
+
+#: lib/views/class-woocommerce-product-search-widget.php:438
+msgid "Search results should include categories with matching results."
+msgstr ""
+"Les résultats de la recherche doivent inclure des catégories avec des "
+"résultats correspondants."
+
+#: lib/views/class-woocommerce-product-search-widget.php:310
+#: lib/views/class-woocommerce-product-search-filter-widget.php:308
+msgid "Search results should include entries with matching categories."
+msgstr ""
+"Les résultats de la recherche doivent inclure les entrées dont les "
+"catégories correspondent."
+
+#: lib/views/class-woocommerce-product-search-widget.php:338
+#: lib/views/class-woocommerce-product-search-filter-widget.php:336
+msgid "Search results should include entries with matching product attributes."
+msgstr ""
+"Les résultats de la recherche doivent inclure les entrées dont les attributs "
+"de produit correspondent."
+
+#: lib/views/class-woocommerce-product-search-widget.php:324
+#: lib/views/class-woocommerce-product-search-filter-widget.php:322
+msgid "Search results should include entries with matching tags."
+msgstr ""
+"Les résultats de la recherche doivent inclure les entrées dont les balises "
+"correspondent."
+
+#: lib/views/class-woocommerce-product-search-widget.php:352
+#: lib/views/class-woocommerce-product-search-filter-widget.php:350
+msgid "Search results should include matches in SKU."
+msgstr ""
+"Les résultats de la recherche doivent inclure les correspondances dans SKU."
+
+#: lib/views/class-woocommerce-product-search-widget.php:296
+#: lib/views/class-woocommerce-product-search-filter-widget.php:294
+msgid "Search results should include matches in contents."
+msgstr ""
+"Les résultats de la recherche doivent inclure les correspondances dans le "
+"contenu."
+
+#: lib/views/class-woocommerce-product-search-widget.php:282
+#: lib/views/class-woocommerce-product-search-filter-widget.php:280
+msgid "Search results should include matches in excerpts."
+msgstr ""
+"Les résultats de la recherche devraient inclure des correspondances dans les "
+"extraits."
+
+#: lib/views/class-woocommerce-product-search-widget.php:268
+#: lib/views/class-woocommerce-product-search-filter-widget.php:266
+msgid "Search results should include matching titles."
+msgstr ""
+"Les résultats de la recherche doivent inclure les titres correspondants."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1218
+msgid ""
+"Search terms that are shorter will only produce matches if the exact term is "
+"found."
+msgstr ""
+"Les termes de recherche plus courts ne produiront des résultats que si le "
+"terme exact est trouvé."
+
+#: lib/admin/class-woocommerce-product-search-admin-reports.php:43
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:307
+msgid "Searches"
+msgstr "Recherches"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1202
+msgid ""
+"Searches are quicker for exact matches and take a bit longer for similar "
+"words &ndash; those that start with the search term."
+msgstr ""
+"Les recherches sont plus rapides pour les correspondances exactes et "
+"prennent un peu plus de temps pour les mots similaires &ndash; ceux qui "
+"commencent par le terme recherché."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:278
+#: lib/admin/class-woocommerce-product-search-admin.php:287
+msgid "Security"
+msgstr "Sécurité"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:412
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:386
+msgid "Select"
+msgstr "Sélectionner"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2190
+msgid "Select the sidebar to which the assistant should add filter widgets."
+msgstr ""
+"Sélectionnez la barre latérale à laquelle l'assistant doit ajouter des "
+"widgets de filtre."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:923
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:711
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:603
+msgid "Set"
+msgstr "Définir"
+
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:75
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:127
+msgid "Set image"
+msgstr "Régler l’image"
+
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:266
+#: lib/admin/class-woocommerce-product-search-admin.php:2409
+msgid "Settings"
+msgstr "Paramètres"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:313
+msgid "Setup"
+msgstr "Configuration"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:363
+msgid ""
+"Several live filtering facilities help your visitors to find the desired "
+"products quickly."
+msgstr ""
+"Plusieurs fonctions de filtrage en direct aident vos visiteurs à trouver "
+"rapidement les produits souhaités."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:379
+msgid ""
+"Shall we make it easy for your customers and add live filters to your shop "
+"pages right now?"
+msgstr ""
+"Devrions nous faciliter la tâche de vos clients en ajoutant dès maintenant "
+"des filtres en direct aux pages de votre boutique?"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1095
+msgid "Shorten Titles and Descriptions"
+msgstr "Raccourcir les titres et les descriptions"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:178
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:915
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:703
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:595
+msgid "Show"
+msgstr "Afficher"
+
+#: lib/views/class-woocommerce-product-search-widget.php:521
+msgid "Show Add to Cart"
+msgstr "Afficher Ajouter au panier"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:429
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:432
+msgid "Show Names"
+msgstr "Noms de spectacle"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:413
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:377
+msgid "Show Thumbnails"
+msgstr "Afficher les miniatures"
+
+#: lib/views/class-woocommerce-product-search-widget.php:423
+msgid ""
+"Show a link that leads to search results when there are more results than "
+"the limit."
+msgstr ""
+"Afficher un lien qui mène aux résultats de la recherche lorsqu'il y a plus "
+"de résultats que la limite fixée."
+
+#: lib/views/class-woocommerce-product-search-widget.php:468
+msgid "Show a product thumbnail for each result."
+msgstr "Afficher une vignette du produit pour chaque résultat."
+
+#: lib/views/class-woocommerce-product-search-widget.php:637
+#: lib/views/class-woocommerce-product-search-filter-widget.php:501
+msgid "Show a submit button along with the search field."
+msgstr "Affichez un bouton d'envoi en même temps que le champ de recherche."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:289
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:402
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:290
+msgid "Show a submit button."
+msgstr "Afficher un bouton d'envoi."
+
+#: lib/views/class-woocommerce-product-search-widget.php:446
+msgid "Show category matches"
+msgstr "Afficher les matchs de catégorie"
+
+#: lib/views/class-woocommerce-product-search-widget.php:491
+msgid "Show descriptions"
+msgstr "Afficher les descriptions"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:749
+msgid "Show expanders"
+msgstr "Afficher les expanseurs"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:233
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:342
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:232
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:248
+#: lib/views/class-woocommerce-product-search-filter-widget.php:624
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:316
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:234
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:288
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:224
+msgid "Show heading"
+msgstr "Afficher l’en-tête"
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:312
+msgid "Show input fields"
+msgstr "Afficher les champs de saisie"
+
+#: lib/views/class-woocommerce-product-search-widget.php:431
+msgid "Show more"
+msgstr "Voir plus"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:470
+msgid "Show names"
+msgstr "Afficher les noms"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:269
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:395
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:268
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:284
+#: lib/views/class-woocommerce-product-search-filter-widget.php:428
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:369
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:270
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:341
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:260
+msgid "Show on shop pages only"
+msgstr "Afficher uniquement sur les pages de la boutique"
+
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:284
+msgid "Show only if any products are in stock"
+msgstr "Afficher uniquement si des produits sont disponibles"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:283
+msgid "Show only if any products are on sale"
+msgstr "Afficher uniquement si des produits sont en vente"
+
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:282
+msgid "Show only if any products have a rating"
+msgstr "Afficher seulement si des produits ont un classement"
+
+#: lib/views/class-woocommerce-product-search-widget.php:506
+msgid "Show prices"
+msgstr "Afficher les prix"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:540
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:488
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:447
+msgid "Show product counts"
+msgstr "Afficher le nombre de produits"
+
+#: lib/views/class-woocommerce-product-search-widget.php:498
+msgid "Show product prices."
+msgstr "Afficher les prix des produits."
+
+#: lib/views/class-woocommerce-product-search-widget.php:476
+msgid "Show product thumbnails"
+msgstr "Afficher les miniatures de produit"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:448
+msgid "Show results for queries that matched no products"
+msgstr ""
+"Afficher les résultats des requêtes qui ne correspondent à aucun produit"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:440
+msgid "Show results for queries that matched products"
+msgstr "Afficher les résultats des requêtes qui correspondent à des produits"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:432
+msgid "Show results for queries that matched products or not"
+msgstr ""
+"Afficher les résultats des requêtes qui correspondent ou non à des produits"
+
+#: lib/views/class-woocommerce-product-search-widget.php:483
+msgid "Show short product descriptions."
+msgstr "Affichez de courtes descriptions de produits."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:298
+msgid "Show slider"
+msgstr "Afficher le slider"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:766
+msgid "Show the ancestor hierarchy"
+msgstr "Afficher la hiérarchie des ancêtres"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:421
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:424
+msgid "Show the names of attribute terms."
+msgstr "Afficher les noms des termes d'attributs."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:781
+msgid "Show the parent navigation"
+msgstr "Afficher la navigation parent"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:404
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:369
+msgid "Show the thumbnails for attribute terms."
+msgstr "Afficher les vignettes pour les termes d'attributs."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:440
+msgid "Show thumbnails"
+msgstr "Afficher les miniatures"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:501
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:449
+msgid "Show thumbnails for selected"
+msgstr "Afficher les vignettes de la sélection"
+
+#: lib/views/class-woocommerce-product-search-widget.php:667
+msgid "Show/hide search results when the search input field gains/loses focus."
+msgstr ""
+"Afficher/masquer les résultats de la recherche lorsque le champ de saisie de "
+"la recherche devient/perd le focus."
+
+#: lib/views/class-woocommerce-product-search-filter.php:688
+#, php-format
+msgid "Showing the single result"
+msgid_plural "Showing all %d results"
+msgstr[0] "Voici le seul résultat"
+msgstr[1] "Voici les %d résultats"
+
+#: lib/views/class-woocommerce-product-search-filter.php:693
+#, php-format
+msgctxt "with first and last result"
+msgid "Showing the single result"
+msgid_plural "Showing %1$d&ndash;%2$d of %3$d results"
+msgstr[0] "Voici le seul résultat"
+msgstr[1] "Voici %1$d&ndash;%2$d de %3$d résultats"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:615
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:563
+msgid "Shown when active"
+msgstr "Affiché lorsqu'il est actif"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2192
+msgid "Sidebar"
+msgstr "Barre latérale"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1206
+msgid ""
+"Similar matches produce more search results when the length of the search "
+"terms is at or above the treshold."
+msgstr ""
+"Les correspondances similaires produisent davantage de résultats de "
+"recherche lorsque la longueur des termes recherchés est égale ou supérieure "
+"au seuil."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:567
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:515
+msgid "Size"
+msgstr "Taille"
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:385
+msgid "Sizing"
+msgstr "Dimensionnement"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:801
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:637
+msgid "Slug"
+msgstr "Identifiant"
+
+#: lib/views/class-woocommerce-product-search-filter.php:726
+msgid "Sort by average rating"
+msgstr "Tri par notes moyennes"
+
+#: lib/views/class-woocommerce-product-search-filter.php:727
+msgid "Sort by newness"
+msgstr "Trier par nouveauté"
+
+#: lib/views/class-woocommerce-product-search-filter.php:725
+msgid "Sort by popularity"
+msgstr "Trier par popularité"
+
+#: lib/views/class-woocommerce-product-search-filter.php:729
+msgid "Sort by price: high to low"
+msgstr "Tri par tarif décroissant"
+
+#: lib/views/class-woocommerce-product-search-filter.php:728
+msgid "Sort by price: low to high"
+msgstr "Tri par tarif croissant"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:962
+msgid "Standard Product Search"
+msgstr "Recherche standard de produits"
+
+#: lib/core/class-woocommerce-product-search-service.php:2829
+#: lib/core/class-woocommerce-product-search-service-v2.php:2010
+msgid "Standard Search"
+msgstr "Recherche standard"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1646
+msgid "Standard Stylesheet"
+msgstr "Feuille de style standard"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1900
+msgid "Start"
+msgstr "Début"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1901
+msgid "Start indexing &hellip;"
+msgstr "Commencer l’indexation &hellip;"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:394
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:157
+msgid "Starts"
+msgstr "Début"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1256
+msgid "Statistics"
+msgstr "Statistiques"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1700
+msgid "Status"
+msgstr "Statut"
+
+#: lib/views/class-woocommerce-product-search-filter-stock.php:126
+msgctxt "product filter stock heading"
+msgid "Stock"
+msgstr "Stock"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1909
+msgid "Stop"
+msgstr "Arrêter"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1910
+msgid "Stop indexing &hellip;"
+msgstr "Arrêtez l’indexation &hellip;"
+
+#: lib/core/class-woocommerce-product-search-indexer.php:655
+#, php-format
+msgid "Stopped on iteration %d to avoid PHP memory issues."
+msgstr ""
+"S'est arrêté à l'itération %d pour éviter les problèmes de mémoire de PHP."
+
+#: lib/core/class-woocommerce-product-search-indexer.php:677
+#, php-format
+msgid ""
+"Stopped on iteration %d to avoid reaching the maximum execution time for PHP."
+msgstr ""
+"Arrêtée à l'itération %d pour éviter d'atteindre le temps d'exécution "
+"maximal de PHP."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:402
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:376
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:348
+msgid "Style"
+msgstr "Style"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:480
+msgid "Submit a rating"
+msgstr "Soumettre une évaluation"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:297
+#: lib/views/class-woocommerce-product-search-widget.php:645
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:410
+#: lib/views/class-woocommerce-product-search-filter-widget.php:509
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:298
+msgid "Submit button"
+msgstr "Bouton Envoyer"
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:305
+#: lib/views/class-woocommerce-product-search-widget.php:653
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:418
+#: lib/views/class-woocommerce-product-search-filter-widget.php:517
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:306
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:267
+msgid "Submit button label"
+msgstr "Label du bouton d'envoi"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:259
+#: lib/admin/class-woocommerce-product-search-admin.php:258
+#: lib/admin/class-woocommerce-product-search-admin.php:2428
+msgid "Support"
+msgstr "Support"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1449
+msgid "Tags"
+msgstr "Étiquettes"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:802
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:638
+msgid "Term order"
+msgstr "Ordre du terme"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:830
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:666
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:558
+msgid "Terms"
+msgstr "Termes"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:698
+msgid "Terms from 10th level"
+msgstr "Termes à partir du 10ème niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:699
+msgid "Terms from 25th level"
+msgstr "Termes du 25ème niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:690
+msgid "Terms from 2nd level"
+msgstr "Termes à partir du 2ème niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:691
+msgid "Terms from 3rd level"
+msgstr "Termes à partir du 3ème niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:692
+msgid "Terms from 4th level"
+msgstr "Termes à partir du 4ème niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:693
+msgid "Terms from 5th level"
+msgstr "Termes à partir du 5ème niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:694
+msgid "Terms from 6th level"
+msgstr "Termes à partir du 6ème niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:695
+msgid "Terms from 7th level"
+msgstr "Termes à partir du 7ème niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:696
+msgid "Terms from 8th level"
+msgstr "Termes à partir du 8ème niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:697
+msgid "Terms from 9th level"
+msgstr "Termes à partir du 9ème niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:972
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:760
+msgid "Terms to exclude"
+msgstr "Termes à exclure"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:946
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:734
+msgid "Terms to include"
+msgstr "Termes à inclure"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1036
+msgid "Test the current configuration with this field &hellip;"
+msgstr "Testez la configuration actuelle avec ce champ &hellip;"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:588
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:536
+msgid "Text for no selection"
+msgstr "Texte pour l'absence de sélection"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:937
+msgid ""
+"The <strong>Search</strong> section in the <strong>Help</strong> tab above "
+"provides a brief overview."
+msgstr ""
+"La section de <strong>Recherche</strong> dans l’onglet <strong>Aide</strong> "
+"ci-dessus donne un bref aperçu."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:392
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:1052
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:391
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:506
+#: lib/views/class-woocommerce-product-search-filter-widget.php:696
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:818
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:393
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:658
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:339
+msgid "The HTML element used to contain the heading text."
+msgstr "L'élément HTML utilisé pour contenir le texte de l'en-tête."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2459
+msgid ""
+"The WooCommerce Product Search plugin is configured to delete its data on "
+"deactivation."
+msgstr ""
+"Le plugin WooCommerce Product Search est configuré pour supprimer ses "
+"données à la désactivation."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:329
+msgid ""
+"The advanced Product Search Field automatically replaces the standard field "
+"when possible."
+msgstr ""
+"Le champ de recherche avancée de produits remplace automatiquement le champ "
+"standard lorsque cela est possible."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:413
+msgid ""
+"The advanced Product Search Field that can replace the standard search is "
+"also available as a widget:"
+msgstr ""
+"Le champ de recherche avancée de produits qui peut remplacer la recherche "
+"standard est également disponible sous forme de widget :"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:334
+msgid ""
+"The advanced Product Search Field will replace the standard product search "
+"field where possible."
+msgstr ""
+"Le champ de recherche avancée de produits remplacera le champ de recherche "
+"de produits standard dans la mesure du possible."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:368
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:342
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:314
+msgid ""
+"The alternative text displayed in the heading when there are no results."
+msgstr ""
+"Le texte alternatif affiché dans l'en-tête lorsqu'il n'y a pas de résultats."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2220
+msgid ""
+"The assistant will propose to add unused filters and select them for you by "
+"default."
+msgstr ""
+"L'assistant vous proposera d'ajouter les filtres non utilisés et les "
+"sélectionnera pour vous par défaut."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:535
+msgid "The database update will run in the background and may take a while."
+msgstr ""
+"La mise à jour de la base de données s'exécutera en arrière-plan et peut "
+"prendre un certain temps."
+
+#: lib/views/class-woocommerce-product-search-widget.php:538
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:322
+#: lib/views/class-woocommerce-product-search-filter-widget.php:439
+#, php-format
+msgid ""
+"The delay until the search starts after the user stops typing (in "
+"milliseconds, minimum %d)."
+msgstr ""
+"Le délai avant que la recherche ne commence après que l'utilisateur ait "
+"arrêté de taper (en millisecondes, minimum %d)."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1389
+msgid ""
+"The following weights determine the relevance of matches in the product "
+"title, excerpt, content, tags, categories, attributes and SKU."
+msgstr ""
+"Les pondérations suivantes déterminent la pertinence des correspondances "
+"dans le titre, l'extrait, le contenu, les balises, les catégories, les "
+"attributs et l'UGS du produit."
+
+#: lib/views/class-woocommerce-product-search-thumbnail.php:286
+msgid ""
+"The image size used to display thumbnails of the main product image within "
+"search results using the <code>&#91;woocommerce_product_search&#93;</code> "
+"shortcode or the <em>Product Search Field</em> widget."
+msgstr ""
+"La taille de l'image utilisée pour afficher les vignettes de l'image "
+"principale du produit dans les résultats de recherche à l'aide du code court "
+"<code>&#91;woocommerce_product_search&#93;</code> ou du widget <em>Champ de "
+"Recherche de Produits</em>."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1952
+msgid "The index has been cleared and is being rebuilt."
+msgstr "L'index a été effacé et est en cours de reconstruction."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1951
+msgid "The index is being rebuilt &hellip;"
+msgstr "L’indice est en cours de reconstruction &hellip;"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:186
+msgid "The index is building."
+msgstr "L'indice se construit."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1953
+msgid "The indexer is running once &hellip;"
+msgstr "L’indexeur est en cours d’exécution une fois &hellip;"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:193
+msgid "The indexer is running once."
+msgstr "L'indexeur fonctionne une fois."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:172
+msgid "The indexer is running."
+msgstr "L'indexeur fonctionne."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1947
+msgid "The indexer is starting &hellip;"
+msgstr "L’indexeur commence &hellip;"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:179
+msgid "The indexer is stopped."
+msgstr "L'indexeur est arrêté."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1949
+msgid "The indexer is stopping &hellip;"
+msgstr "L’indexeur s’arrête &hellip;"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1818
+msgid ""
+"The indexer will check for new entries periodically every indicated number "
+"of seconds, once all entries have been indexed."
+msgstr ""
+"L'indexeur vérifiera périodiquement les nouvelles entrées toutes les "
+"secondes indiquées, une fois que toutes les entrées auront été indexées."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1864
+msgid "The indexer will process entries first as indicated."
+msgstr "L'indexeur traitera d'abord les entrées comme indiqué."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1795
+msgid ""
+"The indexer will process unindexed entries periodically every indicated "
+"number of seconds, while there are unprocessed entries."
+msgstr ""
+"L'indexeur traitera les entrées non indexées périodiquement, toutes les "
+"secondes indiquées, tant qu'il y aura des entrées non traitées."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1841
+msgid "The indexer will try to process as many entries on each work cycle."
+msgstr ""
+"L'indexeur essaiera de traiter autant d'entrées que possible à chaque cycle "
+"de travail."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:836
+msgid ""
+"The levels included in the hierarchy of terms can be unlimited, include only "
+"those at the root or include root terms up to so many levels of child terms."
+msgstr ""
+"Les niveaux inclus dans la hiérarchie des termes peuvent être illimités, "
+"inclure uniquement ceux de la racine ou inclure les termes de la racine "
+"jusqu'à autant de niveaux de termes enfants."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1169
+msgid "The maximum number of characters shown in short descriptions."
+msgstr ""
+"Le nombre maximum de caractères affichés dans les descriptions courtes."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1152
+msgid "The maximum number of characters shown in titles."
+msgstr "Le nombre maximum de caractères affichés dans les titres."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1131
+msgid "The maximum number of words shown in short descriptions."
+msgstr "Le nombre maximum de mots affichés dans les descriptions courtes."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1113
+msgid "The maximum number of words shown in titles."
+msgstr "Le nombre maximum de mots affichés dans les titres."
+
+#: lib/views/class-woocommerce-product-search-widget.php:555
+#: lib/views/class-woocommerce-product-search-filter-widget.php:456
+msgid "The minimum number of characters required to start a search."
+msgstr "Le nombre minimum de caractères requis pour lancer une recherche."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1025
+msgid "The number of results is capped by the limit."
+msgstr "Le nombre de résultats est plafonné par la limite."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:357
+msgid "The placeholder text for the maximum amount field."
+msgstr "Le texte de remplacement pour le champ du montant maximum."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:342
+msgid "The placeholder text for the minimum amount field."
+msgstr "Le texte de remplacement pour le champ du montant minimum."
+
+#: lib/views/class-woocommerce-product-search-widget.php:607
+#: lib/views/class-woocommerce-product-search-filter-widget.php:471
+msgid "The placeholder text for the search field."
+msgstr "Le texte de remplacement pour le champ de recherche."
+
+#: lib/admin/class-woocommerce-product-search-admin-reports.php:62
+msgid ""
+"The recording of live search data is currently deactivated and the search "
+"statistics presented here are not updated."
+msgstr ""
+"L'enregistrement des données de recherche en direct est actuellement "
+"désactivé et les statistiques de recherche présentées ici ne sont pas mises "
+"à jour."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1099
+msgid ""
+"The results shown with the Product Search Field can have their titles and "
+"descriptions automatically shortened."
+msgstr ""
+"Les titres et les descriptions des résultats affichés dans le Champ de "
+"Recherche de Produits peuvent être automatiquement raccourcis."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:422
+msgid ""
+"The same features are also available through shortcodes and API functions."
+msgstr ""
+"Les mêmes fonctionnalités sont également disponibles par le biais de "
+"shortcodes et de fonctions API."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:318
+msgid ""
+"The search engine is already indexing your products to optimize search "
+"results for your visitors."
+msgstr ""
+"Le moteur de recherche indexe déjà vos produits afin d'optimiser les "
+"résultats de recherche pour vos visiteurs."
+
+#: lib/admin/class-woocommerce-product-search-admin-product.php:123
+msgid ""
+"The search weight of this product represents its relevance in product search "
+"results. Products with higher search weights appear first in search results."
+msgstr ""
+"Le poids de recherche de ce produit représente sa pertinence dans les "
+"résultats de recherche de produits. Les produits ayant un poids de recherche "
+"élevé apparaissent en premier dans les résultats de recherche."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:944
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:732
+msgid "The selection indicated here takes precedence over terms to exclude."
+msgstr "La sélection indiquée ici prévaut sur les termes à exclure."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1527
+msgid ""
+"The size defined here applies to the product thumbnails shown in the results "
+"of the Product Search Field."
+msgstr ""
+"La taille définie ici s'applique aux vignettes de produits affichées dans "
+"les résultats du Champ de Recherche de Produits."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1579
+msgid ""
+"The sizes defined in this section determine the appearance of thumbnails "
+"used for product category, product tag and product attribute filters."
+msgstr ""
+"Les tailles définies dans cette section déterminent l'apparence des "
+"vignettes utilisées pour les filtres de catégorie de produit, de balise de "
+"produit et d'attribut de produit."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:241
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:350
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:240
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:256
+#: lib/views/class-woocommerce-product-search-filter-widget.php:632
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:324
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:242
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:296
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:232
+msgid "The text displayed in the heading."
+msgstr "Le texte affiché dans l'en-tête."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:586
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:534
+msgid "The text displayed when no particular entry is selected."
+msgstr "Le texte affiché lorsqu'aucune entrée particulière n'est sélectionnée."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:304
+#: lib/views/class-woocommerce-product-search-widget.php:652
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:417
+#: lib/views/class-woocommerce-product-search-filter-widget.php:516
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:305
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:266
+msgid "The text shown on the submit button."
+msgstr "Le texte affiché sur le bouton d'envoi."
+
+#: lib/views/class-woocommerce-product-search-widget.php:697
+msgid "The text shown when no search results are obtained."
+msgstr "Le texte affiché lorsqu'aucun résultat de recherche n'est obtenu."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1393
+msgid ""
+"The weight of products and product categories can be modified individually, "
+"the computed sum of weights determines the relevance of a product in search "
+"results."
+msgstr ""
+"Le poids des produits et des catégories de produits peut être modifié "
+"individuellement. La somme des poids calculés détermine la pertinence d'un "
+"produit dans les résultats de recherche."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:212
+#: lib/views/class-woocommerce-product-search-widget.php:241
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:314
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:211
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:227
+#: lib/views/class-woocommerce-product-search-filter-widget.php:254
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:267
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:213
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:260
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:203
+msgid "The widget title."
+msgstr "Titre du Widget."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2123
+msgid "The widgets will only display on relevant shop pages by default."
+msgstr ""
+"Par défaut, les widgets ne s'afficheront que sur les pages pertinentes de la "
+"boutique."
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:72
+msgid "There are no queries to show."
+msgstr "Il n'y a pas de requêtes à montrer."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:393
+msgid ""
+"There are plenty of useful features and we highly recommend to have a look "
+"at the documentation for details."
+msgstr ""
+"Il existe de nombreuses fonctionnalités utiles et nous vous recommandons "
+"vivement de consulter la documentation pour plus de détails."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1034
+msgid "These are used to look up products in fields."
+msgstr "Ceux-ci sont utilisés pour rechercher des produits dans les champs."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:381
+msgid ""
+"These live filters update the products shown in your shop instantly, to "
+"include those that are related."
+msgstr ""
+"Ces filtres en direct mettent à jour instantanément les produits affichés "
+"dans votre boutique, pour inclure ceux qui sont liés."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1643
+msgid ""
+"These settings are related to the Product Search Field and Product Filters."
+msgstr ""
+"Ces paramètres sont liés au Champ de Recherche de Produits et aux filtres de "
+"produits."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1357
+msgid "This action cannot be reversed."
+msgstr "Cette action ne peut être inversée."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2100
+msgid "This assistant helps you to add suitable live filters to your store."
+msgstr ""
+"Cet assistant vous aide à ajouter des filtres en direct appropriés à votre "
+"magasin."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2121
+msgid "This assistant suggests all that are not already present in a sidebar."
+msgstr ""
+"Cet assistant suggère tout ce qui n'est pas déjà présent dans une barre "
+"latérale."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:679
+msgid ""
+"This determines from which level of nesting the terms are expandable or up "
+"to which level they are always already expanded, showing child terms."
+msgstr ""
+"Cela détermine à partir de quel niveau d'imbrication les termes sont "
+"extensibles ou jusqu'à quel niveau ils sont toujours déjà étendus, montrant "
+"les termes enfants."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1216
+msgid ""
+"This determines the minimum length of a search term for similar matches to "
+"be retrieved."
+msgstr ""
+"Elle détermine la longueur minimale d'un terme de recherche pour que des "
+"correspondances similaires soient retrouvées."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1363
+msgid ""
+"This includes the removal of all search settings, search weights for "
+"products and terms and the associations of search thumbnail images with "
+"product categories, tags and attributes."
+msgstr ""
+"Cela inclut la suppression de tous les paramètres de recherche, des "
+"pondérations de recherche pour les produits et les termes et des "
+"associations des vignettes de recherche avec les catégories, les balises et "
+"les attributs des produits."
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:97
+msgid "This month"
+msgstr "Ce mois"
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:384
+msgid ""
+"This option determines whether the size of entries is adjusted automatically "
+"or a uniform size is used."
+msgstr ""
+"Cette option détermine si la taille des entrées est ajustée automatiquement "
+"ou si une taille uniforme est utilisée."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1354
+msgid ""
+"This option will delete ALL search settings and data when the WooCommerce "
+"Product Search extension is deactivated."
+msgstr ""
+"Cette option supprimera TOUS les paramètres et données de recherche lorsque "
+"l'extension WooCommerce Product Search sera désactivée."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1071
+msgid ""
+"This provides the same functionality and options as the Product Search Field "
+"widget."
+msgstr ""
+"Il offre les mêmes fonctionnalités et options que le widget Champ de "
+"Recherche de Produits."
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:408
+msgid ""
+"This setting determines the relation between the size of thumbnails and the "
+"size of their terms."
+msgstr ""
+"Ce paramètre détermine la relation entre la taille des vignettes et la "
+"taille de leurs termes."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1225
+msgid "Threshold"
+msgstr "Seuil"
+
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:234
+msgid "Thumbnail"
+msgstr "Miniature"
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:410
+msgid "Thumbnail sizing factor"
+msgstr "Facteur de taille des vignettes"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:903
+#: lib/admin/class-woocommerce-product-search-admin.php:1519
+msgid "Thumbnails"
+msgstr "Miniatures"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1401
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:213
+#: lib/views/class-woocommerce-product-search-widget.php:242
+#: lib/views/class-woocommerce-product-search-widget.php:376
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:316
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:212
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:228
+#: lib/views/class-woocommerce-product-search-filter-widget.php:255
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:268
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:214
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:262
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:204
+msgid "Title"
+msgstr "Titre"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2117
+msgid ""
+"To get started quickly, simply choose the sidebar that seems most suitable."
+msgstr ""
+"Pour commencer rapidement, il suffit de choisir la barre latérale qui semble "
+"la plus appropriée."
+
+#: lib/admin/class-woocommerce-product-search-admin-reports.php:66
+#, php-format
+msgid ""
+"To record and view live search stats here, please activate this in the <a "
+"href=\"%s\">General</a> settings."
+msgstr ""
+"Pour enregistrer et afficher les statistiques de recherche en direct ici, "
+"veuillez activer cela dans les paramètres <a href=\"%s\">généraux</a>."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:651
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:599
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:496
+msgid "Toggle the component"
+msgstr "Basculer le composant"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:666
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:614
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:511
+msgid "Toggle the widget"
+msgstr "Basculer le widget"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:192
+msgid "Top queries with results"
+msgstr "Principales requêtes avec résultats"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:220
+msgid "Top queries without results"
+msgstr "Principales requêtes sans résultats"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1729
+msgid "Total"
+msgstr "Total"
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:394
+msgid "Uniform"
+msgstr "Uniforme"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:635
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:845
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:583
+msgid "Unlimited"
+msgstr "Illimité"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:856
+msgid "Up to 10th level children"
+msgstr "Jusqu'aux enfants de 10e niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:857
+msgid "Up to 25th level children"
+msgstr "Jusqu'aux enfants de 25e niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:848
+msgid "Up to 2nd level children"
+msgstr "Jusqu'aux enfants de 2e niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:849
+msgid "Up to 3rd level children"
+msgstr "Jusqu'aux enfants de 3e niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:850
+msgid "Up to 4th level children"
+msgstr "Jusqu'aux enfants de 4e niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:851
+msgid "Up to 5th level children"
+msgstr "Jusqu'aux enfants de 5e niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:852
+msgid "Up to 6th level children"
+msgstr "Jusqu'aux enfants de 6e niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:853
+msgid "Up to 7th level children"
+msgstr "Jusqu'aux enfants de 7e niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:854
+msgid "Up to 8th level children"
+msgstr "Jusqu'aux enfants de 8e niveau"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:855
+msgid "Up to 9th level children"
+msgstr "Jusqu'aux enfants de 9e niveau"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:545
+msgid "Update"
+msgstr "Mettre à jour"
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:539
+msgid "Update the Address Bar"
+msgstr "Mettre à jour la barre d'adresse"
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:554
+msgid "Update the Document Title"
+msgstr "Mettre à jour le titre du document"
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:531
+msgid "Update the address bar of the browser based on the active filters."
+msgstr ""
+"Mettez à jour la barre d'adresse du navigateur en fonction des filtres "
+"actifs."
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:546
+msgid "Update the document title for the browser based on the active filters."
+msgstr ""
+"Mettez à jour le titre du document pour le navigateur en fonction des "
+"filtres actifs."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1297
+msgid "Use accurate optimization"
+msgstr "Utiliser une optimisation précise"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1101
+msgid ""
+"Use any number higher than 0 to limit the number of words or characters "
+"shown."
+msgstr ""
+"Utilisez un nombre supérieur à 0 pour limiter le nombre de mots ou de "
+"caractères affichés."
+
+#: lib/admin/class-woocommerce-product-search-admin-taxonomy.php:167
+msgid "Use image"
+msgstr "Utiliser l’image"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1665
+msgid "Use inline styles"
+msgstr "Utiliser des styles en ligne"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1190
+msgid "Use product short descriptions"
+msgstr "Utilisez des descriptions courtes des produits"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1652
+msgid "Use the standard stylesheet"
+msgstr "Utilisez la feuille de style standard"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1379
+msgid "Use weights"
+msgstr "Utiliser des poids"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:964
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:752
+msgid "Used to exclude particular terms."
+msgstr "Utilisé pour exclure des termes particuliers."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:990
+msgid "Used to show children of the indicated term only."
+msgstr "Utilisé pour afficher uniquement les enfants du terme indiqué."
+
+#: lib/views/class-woocommerce-product-search-widget.php:531
+#: lib/views/class-woocommerce-product-search-filter-widget.php:432
+msgid "User Interface"
+msgstr "Interface Utilisateur"
+
+#: lib/views/class-woocommerce-product-search-widget.php:739
+msgid "WMPL Language Filter"
+msgstr "Filtre de langage WMPL"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2455
+msgid "Warning!"
+msgstr "Attention!"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:272
+#: lib/admin/class-woocommerce-product-search-admin.php:271
+msgid "We also welcome your suggestions through this channel."
+msgstr "Vos suggestions sont également les bienvenues par ce biais."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:539
+msgid "We recommend to run the update during low traffic hours."
+msgstr ""
+"Nous recommandons d'exécuter la mise à jour pendant les heures de faible "
+"trafic."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2104
+msgid ""
+"We recommend to use a live search filter, one category filter, one for "
+"prices and one for each product attribute that is used to offer product "
+"variations."
+msgstr ""
+"Nous recommandons d'utiliser un filtre de recherche en direct, un filtre de "
+"catégorie, un filtre pour les prix et un filtre pour chaque attribut de "
+"produit utilisé pour proposer des variations de produit."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:397
+#, php-format
+msgid ""
+"We're always here for you if you need help or have suggestions, just <a href="
+"\"%s\">ask</a>."
+msgstr ""
+"Nous sommes toujours là pour vous si vous avez besoin d'aide ou si vous avez "
+"des suggestions, il suffit de <a href=\"%s\">demander</a>."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:897
+msgid "Weights"
+msgstr "Poids"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:371
+#: lib/admin/class-woocommerce-product-search-admin.php:359
+msgid "Weights can also be set for specific products and product categories."
+msgstr ""
+"Les pondérations peuvent également être définies pour des produits "
+"spécifiques et des catégories de produits."
+
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:185
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:186
+#: lib/admin/class-woocommerce-product-search-admin.php:2408
+msgid "Welcome"
+msgstr "Bienvenue"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:232
+msgid "Welcome to WooCommerce Product Search"
+msgstr "Bienvenue à WooCommerce Product Search"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1220
+msgid ""
+"When set to 0, no minimum length is required for similar matches to be "
+"retrieved."
+msgstr ""
+"Lorsqu'elle est définie sur 0, aucune longueur minimale n'est requise pour "
+"que des correspondances similaires soient récupérées."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1103
+msgid "Where 0 is indicated, no limit applies."
+msgstr "Lorsque 0 est indiqué, aucune limite ne s'applique."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:773
+msgid ""
+"Whether to display the additional parent items based on the current context "
+"– this is displayed outside of the term hierarchy."
+msgstr ""
+"Si vous souhaitez afficher les éléments parentaux supplémentaires en "
+"fonction du contexte actuel - ils sont affichés en dehors de la hiérarchie "
+"des termes."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:758
+msgid ""
+"Whether to include the full ancestor hierarchy based on the current context "
+"or only parents within context."
+msgstr ""
+"Indique s'il faut inclure la hiérarchie complète des ancêtres en fonction du "
+"contexte actuel ou seulement les parents dans le contexte."
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:741
+msgid "Whether to show expanders and retractors."
+msgstr "S'il faut montrer les expanseurs et les rétracteurs."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1537
+#: lib/admin/class-woocommerce-product-search-admin.php:1600
+msgid "Width"
+msgstr "Largeur"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1531
+msgid ""
+"Width and height in pixels used for thumbnails displayed in product search "
+"results."
+msgstr ""
+"Largeur et hauteur en pixels utilisées pour les vignettes affichées dans les "
+"résultats de recherche de produits."
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:443
+msgid "With"
+msgstr "Avec"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:914
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:702
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:594
+msgid ""
+"With 'Set', where a single term restricts the selection to itself or its "
+"children, related terms are not included."
+msgstr ""
+"Dans le cas d'un 'Ensemble', lorsqu'un seul terme limite la sélection à lui-"
+"même ou à ses enfants, les termes connexes ne sont pas inclus."
+
+#: lib/admin/reports/class-woocommerce-product-search-report-queries.php:451
+msgid "Without"
+msgstr "Sans"
+
+#: lib/admin/class-woocommerce-product-search-admin-navigation.php:73
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: lib/views/class-woocommerce-product-search-filter-category-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; The live product category filter for your "
+"shop. It instantly updates the products displayed, according to the chosen "
+"categories."
+msgstr ""
+"WooCommerce Product Search &mdash; Le filtre de catégories de produits en "
+"direct pour votre boutique. Il met instantanément à jour les produits "
+"affichés, en fonction des catégories choisies."
+
+#: lib/views/class-woocommerce-product-search-filter-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; The live product search filter for your "
+"shop. It updates the products displayed instantly, to show those that match "
+"the indicated search terms."
+msgstr ""
+"WooCommerce Product Search &mdash; Le filtre de recherche de produits en "
+"direct pour votre boutique. Il met à jour les produits affichés "
+"instantanément, pour montrer ceux qui correspondent aux termes de recherche "
+"indiqués."
+
+#: lib/views/class-woocommerce-product-search-filter-attribute-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; The universal product attribute filter "
+"for your shop. Used with any product attribute, it instantly displays the "
+"products related to the chosen terms."
+msgstr ""
+"WooCommerce Product Search &mdash; Le filtre universel d'attributs de "
+"produits pour votre boutique. Utilisé avec n'importe quel attribut de "
+"produit, il affiche instantanément les produits liés aux termes choisis."
+
+#: lib/views/class-woocommerce-product-search-filter-reset-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; This conveniently clears all live filters "
+"in one go. It updates the products displayed instantly."
+msgstr ""
+"WooCommerce Product Search &mdash; Cette fonction permet de supprimer tous "
+"les filtres en direct en une seule fois. Il met à jour les produits affichés "
+"instantanément."
+
+#: lib/views/class-woocommerce-product-search-filter-rating-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; This is the live filter for products "
+"based on average ratings in your shop. It updates the products displayed "
+"instantly, showing products with an average rating as chosen or higher."
+msgstr ""
+"WooCommerce Product Search &mdash; Il s'agit du filtre en direct pour les "
+"produits basés sur les évaluations moyennes dans votre boutique. Il met à "
+"jour les produits affichés instantanément, en montrant les produits dont "
+"l'évaluation moyenne est choisie ou supérieure."
+
+#: lib/views/class-woocommerce-product-search-filter-stock-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; This is the live filter for products in "
+"stock in your shop. It updates the products displayed instantly, showing "
+"products in stock when the option is chosen."
+msgstr ""
+"WooCommerce Product Search &mdash; Il s'agit du filtre en direct pour les "
+"produits disponibles dans votre boutique. Il met à jour les produits "
+"affichés instantanément, montrant les produits disponibles lorsque l'option "
+"est choisie."
+
+#: lib/views/class-woocommerce-product-search-filter-sale-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; This is the live filter for products on "
+"sale in your shop. It updates the products displayed instantly, showing "
+"products on sale when the option is chosen."
+msgstr ""
+"WooCommerce Product Search &mdash; Il s'agit du filtre en direct pour les "
+"produits en vente dans votre boutique. Il met à jour les produits affichés "
+"instantanément, montrant les produits en vente lorsque l'option est choisie."
+
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; This is the live price filter for your "
+"shop. It updates the products displayed instantly, according to the desired "
+"price range."
+msgstr ""
+"WooCommerce Product Search &mdash; C'est le filtre de prix en direct pour "
+"votre boutique. Il met à jour les produits affichés instantanément, en "
+"fonction de la fourchette de prix souhaitée."
+
+#: lib/views/class-woocommerce-product-search-filter-tag-widget.php:77
+msgid ""
+"WooCommerce Product Search &mdash; This is the live product tag filter for "
+"your shop. It updates the products shown instantly, to include those that "
+"are related to the selected tags."
+msgstr ""
+"WooCommerce Product Search &mdash; Il s'agit du filtre de tags de produits "
+"en direct pour votre boutique. Il met à jour les produits affichés "
+"instantanément, pour inclure ceux qui sont liés aux balises sélectionnées."
+
+#: lib/views/class-woocommerce-product-search-widget.php:75
+msgid ""
+"WooCommerce Product Search &mdash; Your shop's instant product search field, "
+"it provides live results while you type."
+msgstr ""
+"WooCommerce Product Search &mdash; Le champ de recherche de produits "
+"instantané de votre boutique, il fournit des résultats en direct pendant que "
+"vous tapez."
+
+#: lib/core/class-woocommerce-product-search-service.php:2828
+#: lib/core/class-woocommerce-product-search-service-v2.php:2009
+#, php-format
+msgid ""
+"WooCommerce Product Search - %1$s - Main Query Time: %2$fs - Search Terms: "
+"%3$s"
+msgstr ""
+"Recherche de produits WooCommerce - %1$s - Temps de requête principal: %2$fs "
+"- termes de recherche: %3$s"
+
+#: lib/core/class-woocommerce-product-search.php:433
+#, php-format
+msgid ""
+"WooCommerce Product Search - Buffer %sK / %sK %s%% - Processing %ss / %ss %s"
+"%%"
+msgstr ""
+"WooCommerce Product Search - Buffer %sK / %sK %s%% - Traitement %ss / %ss %s"
+"%%"
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:532
+msgid "WooCommerce Product Search requires a Database Update &hellip;"
+msgstr ""
+"WooCommerce Product Search nécessite une mise à jour de base de données "
+"&hellip;"
+
+#: lib/views/class-woocommerce-product-search-filter-attribute.php:192
+#, php-format
+msgid ""
+"WooCommerce Product Search: Invalid taxonomy/attribute specified for "
+"attribute filter: %1$s / %2$s"
+msgstr ""
+"Recherche de produits WooCommerce : Invalid taxonomy/attribute specified for "
+"attribute filter : %1$s / %2$s"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1133
+msgid "Words in Descriptions"
+msgstr "Mots dans les descriptions"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1115
+msgid "Words in Titles"
+msgstr "Mots dans les titres"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1797
+msgid "Work Cycle"
+msgstr "Cycle de travail"
+
+#: lib/admin/reports/class-woocommerce-product-search-report-searches.php:95
+msgid "Year"
+msgstr "Année"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2110
+#, php-format
+msgid ""
+"You can add all of them now or just some, you can always come back here or "
+"simply add them in the <a href=\"%s\">Widgets</a> section yourself."
+msgstr ""
+"Vous pouvez les ajouter tous maintenant ou seulement quelques-uns, vous "
+"pouvez toujours revenir ici ou simplement les ajouter vous-même dans la "
+"section <a href=\"%s\">Widgets</a>."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:333
+#, php-format
+msgid "You can adjust its settings in the <a href=\"%s\">General</a> section."
+msgstr ""
+"Vous pouvez ajuster ses paramètres dans la section <a href=\"%s\">Général</"
+"a>."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:338
+#, php-format
+msgid ""
+"You can adjust these settings in the <a href=\"%s\">General</a> section."
+msgstr ""
+"Vous pouvez ajuster ces paramètres dans la section <a href=\"%s\">Général</"
+"a>."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:2127
+#, php-format
+msgid ""
+"You can customize and <a href=\"%s\">control</a> them further as you will "
+"find them in the <a href=\"%s\">Widgets</a> section."
+msgstr ""
+"Vous pouvez les personnaliser et les <a href=\"%s\">contrôler</a> davantage "
+"comme vous les trouverez dans la section <a href=\"%s\">Widgets</a>."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:375
+#, php-format
+msgid ""
+"You can use the <a href=\"%s\">Assistant</a> to add filter widgets to your "
+"sidebars."
+msgstr ""
+"Vous pouvez utiliser l'<a href=\"%s\">Assistant</a> pour ajouter des widgets "
+"de filtre à vos barres latérales."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:311
+msgid ""
+"Your customers will love your store for this &mdash; it helps them to find "
+"the right products quickly."
+msgstr ""
+"Vos clients vont adorer votre boutique pour cette raison : elle les aide à "
+"trouver rapidement les bons produits."
+
+#: lib/admin/class-woocommerce-product-search-admin-notice.php:490
+msgid ""
+"Your rating helps us to provide you with an excellent product and commit to "
+"continuous improvement."
+msgstr ""
+"Votre évaluation nous aide à vous fournir un excellent produit et à nous "
+"engager dans une démarche d'amélioration continue."
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1237
+msgid "always produce any similar matches"
+msgstr "produisent toujours des correspondances similaires"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1240
+#, php-format
+msgid "at least %d for similar terms"
+msgstr "au moins %d pour les termes similaires"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1250
+msgid "characters"
+msgstr "caractères"
+
+#: lib/views/class-woocommerce-product-search-thumbnail.php:331
+msgid "cropped"
+msgstr "recadrée"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1855
+msgid "entries"
+msgstr "entrées"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1019
+msgid "inherit"
+msgstr "hériter"
+
+#: lib/core/class-woocommerce-product-search-service.php:4087
+#: lib/core/class-woocommerce-product-search-service-v2.php:3166
+msgid "more &hellip;"
+msgstr "plus &hellip;"
+
+#: lib/views/class-woocommerce-product-search-widget.php:548
+#: lib/views/class-woocommerce-product-search-filter-price-widget.php:335
+#: lib/views/class-woocommerce-product-search-filter-widget.php:449
+msgid "ms"
+msgstr "ms"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1541
+#: lib/admin/class-woocommerce-product-search-admin.php:1551
+#: lib/admin/class-woocommerce-product-search-admin.php:1604
+#: lib/admin/class-woocommerce-product-search-admin.php:1614
+msgid "px"
+msgstr "px"
+
+#: lib/admin/class-woocommerce-product-search-admin.php:1809
+#: lib/admin/class-woocommerce-product-search-admin.php:1832
+msgid "seconds"
+msgstr "secondes"
+
+#: lib/views/class-woocommerce-product-search-thumbnail.php:331
+msgid "uncropped"
+msgstr "découpé"
+
+#: lib/admin/class-woocommerce-product-search-admin-product.php:125
+#: lib/admin/class-woocommerce-product-search-admin-product.php:201
+#: lib/admin/class-woocommerce-product-search-admin-product.php:220
+msgid "unspecified"
+msgstr "non renseigné"
+
+#~ msgid "Link to the shop page instead of the same page."
+#~ msgstr "Lien vers la page de la boutique au lieu de la même page."
+
+#~ msgid "Use the Shop URL"
+#~ msgstr "Utilisez l'URL du magasin"
+
+#, php-format
+#~ msgid "%s item"
+#~ msgid_plural "%s items"
+#~ msgstr[0] "%s article"
+#~ msgstr[1] "%s articles"
+
+#~ msgid "WooCommerce Product Search"
+#~ msgstr "WooCommerce Product Search"
+
+#~ msgid "https://woocommerce.com/products/woocommerce-product-search/"
+#~ msgstr "https://woocommerce.com/products/woocommerce-product-search/"
+
+#~ msgid "The best Search Engine and Search Experience for WooCommerce."
+#~ msgstr ""
+#~ "Le meilleur moteur de recherche et la meilleure expérience de recherche "
+#~ "pour WooCommerce."
+
+#~ msgid "itthinx"
+#~ msgstr "itthinx"
+
+#~ msgid "https://www.itthinx.com"
+#~ msgstr "https://www.itthinx.com"

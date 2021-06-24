@@ -210,8 +210,8 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 				$imagep  = wp_make_link_relative($imagep);
 				$imagel  = wp_make_link_relative($imagel);
 			}
-		}	
-		
+		}
+
 		$url = isset( $element['url'][ $args['field_counter'] ] ) ? $element['url'][ $args['field_counter'] ] : "";
 
 		if ( empty( $image ) ) {
@@ -312,18 +312,40 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 			}
 
 			if ( empty( $use_colors ) && ! empty( $image ) ) {
+				$attachment_id     = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $image );
+				$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
+				$image_info =  THEMECOMPLETE_EPO_HELPER()->get_attachment_sizes( $attachment_id, $image );
+				$attachment_id     = THEMECOMPLETE_EPO_HELPER()->get_attachment_id( $imagec );
+				$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
+				$imagec_info =  THEMECOMPLETE_EPO_HELPER()->get_attachment_sizes( $attachment_id, $imagec );
 
 				if ( $tm_epo_no_lazy_load == 'no' ) {
 					if ( $checked && ! empty( $imagec ) ) {
 						$altsrc = array( 'src' => '', 'data-original' => $imagec );
+						if ( $imagec_info ) {
+							$altsrc['width'] = $imagec_info[0];
+							$altsrc['height'] = $imagec_info[1];
+						}
 					} else {
 						$altsrc = array( 'src' => '', 'data-original' => $image );
+						if ( $image_info ) {
+							$altsrc['width'] = $image_info[0];
+							$altsrc['height'] = $image_info[1];
+						}
 					}
 				} else {
 					if ( $checked && ! empty( $imagec ) ) {
 						$altsrc = array( 'src' => $imagec );
+						if ( $imagec_info ) {
+							$altsrc['width'] = $imagec_info[0];
+							$altsrc['height'] = $imagec_info[1];
+						}
 					} else {
 						$altsrc = array( 'src' => $image );
+						if ( $image_info ) {
+							$altsrc['width'] = $image_info[0];
+							$altsrc['height'] = $image_info[1];
+						}
 					}
 				}
 				if ( ! empty( $use_lightbox ) && $use_lightbox == "lightbox" ) {
@@ -423,6 +445,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 				$attachment_id     = ( $attachment_id ) ? $attachment_id : 0;
 				$attachment_object = get_post( $attachment_id );
 			}
+
 			if ( $attachment_object ) {
 				$full_src      = wp_get_attachment_image_src( $attachment_id, 'large' );
 				$image_title   = get_the_title( $attachment_id );

@@ -3,6 +3,7 @@
  * Copyright 2013-2018 David Deutsch
  * Licensed under: SEE LICENSE IN https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE
  */
+
 /*
  *  Owl Carousel - Core
  */
@@ -10,6 +11,7 @@
 	display: none;
 	width: 100%;
 	-webkit-tap-highlight-color: transparent;
+
 	/* position relative and z-index fix webkit rendering fonts issue */
 	position: relative;
 	z-index: 1;
@@ -17,13 +19,14 @@
 
 .tc-extra-product-options .tcowl-carousel .owl-stage {
 	position: relative;
-	-ms-touch-action: pan-Y;
+	-ms-touch-action: pan-y;
 	touch-action: manipulation;
-	-moz-backface-visibility: hidden;
+
 	/* fix firefox animation glitch */
+	-moz-backface-visibility: hidden;
 }
 
-.tc-extra-product-options .tcowl-carousel .owl-stage:after {
+.tc-extra-product-options .tcowl-carousel .owl-stage::after {
 	content: ".";
 	display: block;
 	clear: both;
@@ -35,8 +38,9 @@
 .tc-extra-product-options .tcowl-carousel .owl-stage-outer {
 	position: relative;
 	overflow: hidden;
+
 	/* fix for flashing background */
-	-webkit-transform: translate3d(0px, 0px, 0px);
+	-webkit-transform: translate3d(0, 0, 0);
 }
 
 .tc-extra-product-options .tcowl-carousel .owl-wrapper,
@@ -149,24 +153,28 @@
 	z-index: 1;
 }
 
-.tc-extra-product-options .tcowl-carousel .fadeOut {
-	-webkit-animation-name: fadeOut;
-	animation-name: fadeOut;
+.tc-extra-product-options .tcowl-carousel .fadeout {
+	-webkit-animation-name: fadeout;
+	animation-name: fadeout;
 }
 
-@-webkit-keyframes fadeOut {
+@-webkit-keyframes fadeout {
+
 	0% {
 		opacity: 1;
 	}
+
 	100% {
 		opacity: 0;
 	}
 }
 
-@keyframes fadeOut {
+@keyframes fadeout {
+
 	0% {
 		opacity: 1;
 	}
+
 	100% {
 		opacity: 0;
 	}
@@ -182,19 +190,19 @@
 /*
  *  Owl Carousel - Lazy Load Plugin
  */
-.tc-extra-product-options .tcowl-carousel .owl-item {
-	/**
-		  This is introduced due to a bug in IE11 where lazy loading combined with autoheight plugin causes a wrong
-		  calculation of the height of the owl-item that breaks page layouts
-		 */
-}
 
 .tc-extra-product-options .tcowl-carousel .owl-item .owl-lazy {
 	opacity: 0;
 	transition: opacity 400ms ease;
 }
 
-.tc-extra-product-options .tcowl-carousel .owl-item .owl-lazy[src^=""], .tc-extra-product-options .tcowl-carousel .owl-item .owl-lazy:not([src]) {
+/**
+ * This is introduced due to a bug in IE11 where lazy loading combined
+ * with autoheight plugin causes a wrong
+ * calculation of the height of the owl-item that breaks page layouts
+ */
+.tc-extra-product-options .tcowl-carousel .owl-item .owl-lazy[src^=""],
+.tc-extra-product-options .tcowl-carousel .owl-item .owl-lazy:not([src]) {
 	max-height: 0;
 }
 
@@ -219,7 +227,7 @@
 	top: 50%;
 	margin-left: -40px;
 	margin-top: -40px;
-	background: url("owl.video.play.png") no-repeat;
+	background: url(owl.video.play.png) no-repeat;
 	cursor: pointer;
 	z-index: 1;
 	-webkit-backface-visibility: hidden;
@@ -230,11 +238,6 @@
 	transform: scale(1.3, 1.3);
 }
 
-.tc-extra-product-options .tcowl-carousel .owl-video-playing .owl-video-tn,
-.tc-extra-product-options .tcowl-carousel .owl-video-playing .owl-video-play-icon {
-	display: none;
-}
-
 .tc-extra-product-options .tcowl-carousel .owl-video-tn {
 	opacity: 0;
 	height: 100%;
@@ -242,6 +245,11 @@
 	background-repeat: no-repeat;
 	background-size: contain;
 	transition: opacity 400ms ease;
+}
+
+.tc-extra-product-options .tcowl-carousel .owl-video-playing .owl-video-tn,
+.tc-extra-product-options .tcowl-carousel .owl-video-playing .owl-video-play-icon {
+	display: none;
 }
 
 .tc-extra-product-options .tcowl-carousel .owl-video-frame {

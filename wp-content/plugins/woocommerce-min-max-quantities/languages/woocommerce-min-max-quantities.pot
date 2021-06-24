@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Min/Max Quantities 2.4.22\n"
+"Project-Id-Version: WooCommerce Min/Max Quantities 2.4.23\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-min-max-quantities\n"
-"POT-Creation-Date: 2021-05-20 06:28:34+00:00\n"
+"POT-Creation-Date: 2021-06-17 17:44:29+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -84,11 +84,11 @@ msgid "Enter a quantity to only allow this product to be purchased in groups of 
 msgstr ""
 
 #: includes/class-wc-min-max-quantities-admin.php:132
-msgid "Allow Combination"
+msgid "Combine variations"
 msgstr ""
 
 #: includes/class-wc-min-max-quantities-admin.php:132
-msgid "Allow combination of variations to satisfy the min/max rules above."
+msgid "Combine all variations together when checking the min/max rules above."
 msgstr ""
 
 #: includes/class-wc-min-max-quantities-admin.php:134
@@ -97,8 +97,11 @@ msgid "Order rules: Do not count"
 msgstr ""
 
 #: includes/class-wc-min-max-quantities-admin.php:134
-#: includes/class-wc-min-max-quantities-admin.php:344
-msgid "Don't count this product against your minimum order quantity/value rules."
+msgid ""
+"Don't count this product against your minimum order quantity/value rules. "
+"See the <a "
+"href=\"https://docs.woocommerce.com/document/minmax-quantities/#section-3\" "
+"target=\"_blank\">documentation</a> for full details."
 msgstr ""
 
 #: includes/class-wc-min-max-quantities-admin.php:136
@@ -107,10 +110,11 @@ msgid "Order rules: Exclude"
 msgstr ""
 
 #: includes/class-wc-min-max-quantities-admin.php:136
-#: includes/class-wc-min-max-quantities-admin.php:346
 msgid ""
 "Exclude this product from minimum order quantity/value rules. If this is "
-"the only item in the cart, rules will not apply."
+"the only item in the cart, rules will not apply. See the <a "
+"href=\"https://docs.woocommerce.com/document/minmax-quantities/#section-3\" "
+"target=\"_blank\">documentation</a> for full details."
 msgstr ""
 
 #: includes/class-wc-min-max-quantities-admin.php:138
@@ -130,6 +134,16 @@ msgstr ""
 
 #: includes/class-wc-min-max-quantities-admin.php:297
 msgid "Enable this option to override min/max settings at variation level"
+msgstr ""
+
+#: includes/class-wc-min-max-quantities-admin.php:344
+msgid "Don't count this product against your minimum order quantity/value rules."
+msgstr ""
+
+#: includes/class-wc-min-max-quantities-admin.php:346
+msgid ""
+"Exclude this product from minimum order quantity/value rules. If this is "
+"the only item in the cart, rules will not apply."
 msgstr ""
 
 #: includes/class-wc-min-max-quantities-admin.php:348

@@ -7,7 +7,7 @@
  * https://codecanyon.net/item/woocommerce-dynamic-pricing-discounts/7119279
  *
  * @package Extra Product Options/Compatibility
- * @version 4.9
+ * @version 5.0.12.12
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -108,9 +108,12 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 			if ( version_compare( RP_WCDPD_VERSION, '2.3.4', '>=' ) ) {
 				add_filter( 'woocommerce_product_get_price', array( $this, 'woocommerce_product_get_price_99999' ), 99999, 2 );
 				add_filter( 'woocommerce_product_variation_get_price', array( $this, 'woocommerce_product_get_price_99999' ), 99999, 2 );
-				add_filter( 'rightpress_late_hook_priority', array( $this, 'rightpress_product_price_late_hook_priority' ), 10, 1 );
 				add_action( 'woocommerce_before_mini_cart', array( $this, 'woocommerce_before_mini_cart' ) );
 				add_action( 'woocommerce_after_mini_cart', array( $this, 'woocommerce_after_mini_cart' ) );
+				// The following filter doesn't have to be enabled for the latest version
+				if ( version_compare( RP_WCDPD_VERSION, '2.3.9', '<' ) ) {
+					add_filter( 'rightpress_late_hook_priority', array( $this, 'rightpress_product_price_late_hook_priority' ), 10, 1 );
+				}
 			} else {
 				add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'cart_loaded_from_session_99999' ), 99999 );
 				add_filter( 'rightpress_product_price_late_hook_priority', array( $this, 'rightpress_product_price_late_hook_priority' ), 10, 1 );
@@ -219,10 +222,9 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 				if ( isset( WC()->cart->cart_contents[ $cart_item_key ] ) ) {
 					$cart_item = WC()->cart->cart_contents[ $cart_item_key ];
 					if ( ! isset($cart_item['tc_recalculate']) && ! empty( $cart_item['tmcartepo'] ) && isset( $cart_item['tm_epo_options_prices'] ) && empty( $cart_item['epo_price_override'] ) ) {
-						WC()->cart->cart_contents[ $cart_item_key ]['tm_epo_product_after_adjustment'] = $price; 
+						WC()->cart->cart_contents[ $cart_item_key ]['tm_epo_product_after_adjustment'] = $price;
 						$price                                                                         = floatval( $price ) + floatval( $cart_item['tm_epo_options_prices'] );
 						unset( WC()->cart->cart_contents[ $cart_item_key ]['tm_epo_doing_adjustment'] );
-						
 					}
 				}
 			}
@@ -457,6 +459,9 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 
 		echo 'data-tm-epo-dpd-attributes-to-id="' . esc_attr( $args['attributes_to_id'] ) . '" ';
 		echo 'data-tm-epo-dpd-enable="' . esc_attr( $tm_epo_dpd_enable ) . '" ';
+		if ( class_exists( 'RP_WCDPD_Settings' ) && RP_WCDPD_Settings::get( 'product_pricing_change_display_prices' ) ) {
+			echo 'data-tm-epo-dpd-change-display-prices="' . esc_attr( RP_WCDPD_Settings::get( 'product_pricing_change_display_prices' ) ) . '" ';
+		}
 	}
 
 	/**
@@ -1068,6 +1073,8 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 											break;
 										}
 									}
+								} else {
+									$apply_this_rule = FALSE;
 								}
 							}
 						}
@@ -1083,7 +1090,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 
 
 					if ( $product->is_type( 'variation' ) ) {
-						$product = RightPress_WC_Legacy::product_variation_get_parent( $product );
+						$product = wc_get_product($product->get_parent_id());
 					}
 
 					$variation_rules = array();
@@ -1256,19 +1263,11 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 
 					if ( ( themecomplete_get_product_type( $product ) == 'variable' || themecomplete_get_product_type( $product ) == 'variable' ) && ! empty( $product_variations ) ) {
 						$last_product_variation = array_slice( $product_variations, - 1 );
-						if ( class_exists( 'RightPress_WC_Legacy' ) && class_exists( 'RightPress_Helper' ) ) {
-							$last_product_variation_object = RightPress_Helper::wc_get_product( $last_product_variation[0]['variation_id'] );
-						} else {
-							$last_product_variation_object = new WC_Product_Variable( $last_product_variation[0]['variation_id'] );
-						}
+						$last_product_variation_object = wc_get_product( $last_product_variation[0]['variation_id'] );
 						$last_product_variation_price = $last_product_variation_object->get_price();
 
 						foreach ( $product_variations as $variation ) {
-							if ( class_exists( 'RightPress_WC_Legacy' ) && class_exists( 'RightPress_Helper' ) ) {
-								$variation_object = RightPress_Helper::wc_get_product( $variation['variation_id'] );
-							} else {
-								$variation_object = new WC_Product_Variable( $variation['variation_id'] );
-							}
+							$variation_object = wc_get_product( $variation['variation_id'] );
 
 							if ( $variation_object->get_price() != $last_product_variation_price ) {
 								$multiprice_variable_product = TRUE;
@@ -1281,11 +1280,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 						$variation_table_data = array();
 
 						foreach ( $product_variations as $variation ) {
-							if ( class_exists( 'RightPress_WC_Legacy' ) && class_exists( 'RightPress_Helper' ) ) {
-								$variation_product = RightPress_Helper::wc_get_product( $variation['variation_id'] );
-							} else {
-								$variation_product = new WC_Product_Variation( $variation['variation_id'] );
-							}
+							$variation_product = wc_get_product( $variation['variation_id'] );
 							$variation_table_data[ $variation['variation_id'] ] = $tm_RP_WCDPD->pricing_table_calculate_adjusted_prices( $selected_rule['pricing'], $variation_product->get_price() );
 						}
 						$price                  = array();
@@ -1293,11 +1288,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 						$price['rules']         = $variation_table_data;
 					} else {
 						if ( themecomplete_get_product_type( $product ) == 'variable' && ! empty( $product_variations ) ) {
-							if ( class_exists( 'RightPress_WC_Legacy' ) && class_exists( 'RightPress_Helper' ) ) {
-								$variation_product = RightPress_Helper::wc_get_product( $last_product_variation[0]['variation_id'] );
-							} else {
-								$variation_product = new WC_Product_Variation( $last_product_variation[0]['variation_id'] );
-							}
+							$variation_product = wc_get_product( $last_product_variation[0]['variation_id'] );
 							$table_data = $tm_RP_WCDPD->pricing_table_calculate_adjusted_prices( $selected_rule['pricing'], $variation_product->get_price() );
 						} else {
 							$table_data = $tm_RP_WCDPD->pricing_table_calculate_adjusted_prices( $selected_rule['pricing'], $product->get_price() );

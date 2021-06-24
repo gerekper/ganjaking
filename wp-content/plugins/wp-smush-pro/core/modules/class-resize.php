@@ -156,6 +156,43 @@ class Resize extends Abstract_Module {
 			}
 		}
 
+		// Get attachment metadata.
+		$meta = empty( $meta ) ? wp_get_attachment_metadata( $id ) : $meta;
+
+		if ( empty( $meta['width'] ) || empty( $meta['height'] ) ) {
+			return false;
+		}
+
+		$imagesize = array( $meta['width'], $meta['height'] );
+
+		/**
+		 * Filters the "BIG image" threshold value.
+		 *
+		 * If the original image width or height is above the threshold, it will be scaled down. The threshold is
+		 * used as max width and max height. The scaled down image will be used as the largest available size, including
+		 * the `_wp_attached_file` post meta value.
+		 *
+		 * Returning `false` from the filter callback will disable the scaling.
+		 *
+		 * @since 5.3.0
+		 *
+		 * @param int    $threshold     The threshold value in pixels. Default 2560.
+		 * @param array  $imagesize     {
+		 *     Indexed array of the image width and height in pixels.
+		 *
+		 *     @type int $0 The image width.
+		 *     @type int $1 The image height.
+		 * }
+		 * @param string $file          Full path to the uploaded image file.
+		 * @param int    $id            Attachment post ID.
+		 */
+		$threshold = (int) apply_filters( 'big_image_size_threshold', 2560, $imagesize, $file_path, $id );
+
+		// Resizing is disabled.
+		if ( ! $threshold ) {
+			return false;
+		}
+
 		// Get image mime type.
 		$mime = get_post_mime_type( $id );
 
@@ -176,21 +213,16 @@ class Resize extends Abstract_Module {
 			return false;
 		}
 
-		// Get attachment metadata.
-		$meta = empty( $meta ) ? wp_get_attachment_metadata( $id ) : $meta;
+		$old_width  = $meta['width'];
+		$old_height = $meta['height'];
 
-		if ( ! empty( $meta['width'] ) && ! empty( $meta['height'] ) ) {
-			$old_width  = $meta['width'];
-			$old_height = $meta['height'];
+		$resize_dim = $this->settings->get_setting( WP_SMUSH_PREFIX . 'resize_sizes' );
 
-			$resize_dim = $this->settings->get_setting( WP_SMUSH_PREFIX . 'resize_sizes' );
+		$max_width  = ! empty( $resize_dim['width'] ) ? $resize_dim['width'] : 0;
+		$max_height = ! empty( $resize_dim['height'] ) ? $resize_dim['height'] : 0;
 
-			$max_width  = ! empty( $resize_dim['width'] ) ? $resize_dim['width'] : 0;
-			$max_height = ! empty( $resize_dim['height'] ) ? $resize_dim['height'] : 0;
-
-			if ( ( $old_width > $max_width && $max_width > 0 ) || ( $old_height > $max_height && $max_height > 0 ) ) {
-				return true;
-			}
+		if ( ( $old_width > $max_width && $max_width > 0 ) || ( $old_height > $max_height && $max_height > 0 ) ) {
+			return true;
 		}
 
 		return false;

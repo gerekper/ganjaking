@@ -68,28 +68,28 @@
 					.find( '.amount.final' )
 					.after( '<span class="tmperiod">' + subscription_period + '</span>' );
 
-					if ( tcAPI ) {
-						if ( tc_totals_ob ) {
-							subscription_sign_up_fee = tc_totals_ob.subscription_sign_up_fee;
-							args = {
-								symbol: '',
-								format: '',
-								decimal: tcAPI.localDecimalSeparator,
-								thousand: tcAPI.localThousandSeparator,
-								precision: TMEPOJS.currency_format_num_decimals
-							};
-							formatted_final_total = $.epoAPI.applyFilter( 'tc_formatPrice', $.epoAPI.math.format( tc_totals_ob.product_total_price, args ), args );
-						}
-						nativeProductPriceSelector = $( tcAPI.nativeProductPriceSelector );
-		
-						if ( subscription_sign_up_fee && formatted_final_total ) {
-							nativeProductPriceSelector
-								.html(
-									$.epoAPI.util.decodeHTML(
-										$.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_price, {
-											price: formatted_final_total
-										} )
-									) + ' ' +
+				if ( tcAPI ) {
+					if ( tc_totals_ob ) {
+						subscription_sign_up_fee = tc_totals_ob.subscription_sign_up_fee;
+						args = {
+							symbol: '',
+							format: '',
+							decimal: tcAPI.localDecimalSeparator,
+							thousand: tcAPI.localThousandSeparator,
+							precision: TMEPOJS.currency_format_num_decimals
+						};
+						formatted_final_total = $.epoAPI.applyFilter( 'tc_formatPrice', $.epoAPI.math.format( tc_totals_ob.product_total_price, args ), args );
+					}
+					nativeProductPriceSelector = $( tcAPI.nativeProductPriceSelector );
+
+					if ( subscription_sign_up_fee && formatted_final_total ) {
+						nativeProductPriceSelector
+							.html(
+								$.epoAPI.util.decodeHTML(
+									$.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_price, {
+										price: formatted_final_total
+									} )
+								) + ' ' +
 									subscription_period +
 									TMEPOJS.i18n_and_a +
 									$.epoAPI.util.decodeHTML(
@@ -98,23 +98,22 @@
 										} )
 									) +
 									TMEPOJS.i18n_sign_up_fee
-								)
-								.show();
-						} else {
-							nativeProductPriceSelector
-								.html(
-									$.epoAPI.util.decodeHTML(
-										$.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_price, {
-											price: formatted_final_total
-										} )
-									) + ' ' +
+							)
+							.show();
+					} else {
+						nativeProductPriceSelector
+							.html(
+								$.epoAPI.util.decodeHTML(
+									$.epoAPI.template.html( tcAPI.templateEngine.tc_formatted_price, {
+										price: formatted_final_total
+									} )
+								) + ' ' +
 									subscription_period
-								)
-								.show();
-						}
+							)
+							.show();
 					}
+				}
 			}
-
 		} );
 	}
 
@@ -200,7 +199,8 @@
 		return tc_totals_ob;
 	}
 
-	$( document ).ready( function() {
+	// document ready
+	$( function() {
 		TMEPOJS = window.TMEPOJS || null;
 
 		if ( ! TMEPOJS ) {

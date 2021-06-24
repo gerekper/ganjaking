@@ -118,6 +118,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 	public $is_associated = FALSE;
 	public $associated_per_product_pricing = NULL;
+	public $associated_type = FALSE;
 
 	/**
 	 * The single instance of the class
@@ -410,7 +411,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		add_filter( 'tm_image_url', array( $this, 'tm_image_url' ) );
 
 		// Alter the price filter
-		if ( ! is_admin() && $this->tm_epo_add_product_price_check == "yes" ) {
+		if ( $this->tm_epo_add_product_price_check == "yes" ) {
 			if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.7.0', '<' ) ) {
 				add_filter( 'woocommerce_get_price', array( $this, 'woocommerce_product_get_price' ), 1, 2 );
 			} else {
@@ -794,7 +795,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		     && strtolower( $_SERVER['REQUEST_METHOD'] ) === 'post'
 		     && isset( $_SERVER['CONTENT_LENGTH'] )
 			 && (float) $_SERVER['CONTENT_LENGTH'] > $postMax
-			 && ( ! isset( $_GET ) ||  ( isset( $_GET ) && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $_GET['post_type'], 'ct_template' ) && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $_GET['action'], 'oxy_render_' ) ) )
+			 && ( ! isset( $_GET ) ||  ( isset( $_GET ) && isset( $_GET['post_type'] ) && isset( $_GET['action'] ) && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $_GET['post_type'], 'ct_template' ) && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $_GET['action'], 'oxy_render_' ) ) )
 		) {
 
 			wc_add_notice( sprintf( esc_html__( 'Trying to upload files larger than %s is not allowed!', 'woocommerce-tm-extra-product-options' ), $postMax ), 'error' );
@@ -838,7 +839,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			}
 		}
 
-		if ( $this->tm_epo_enable_in_shop == "yes" && ( is_shop() || is_product_category() || is_product_tag() ) ) {
+		if ( $this->tm_epo_enable_in_shop == 'yes' && ( is_shop() || is_product_category() || is_product_tag() || function_exists( 'dokan' ) ) ) {
 			add_action( 'woocommerce_after_shop_loop_item', array( $this, 'tm_woocommerce_after_shop_loop_item' ), 9 );
 		}
 
@@ -1546,7 +1547,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	public function tm_post_class( $classes = "" ) {
 
 		$post_id = get_the_ID();
-		
+
 		if (
 			// disable in admin interface
 			is_admin() ||
@@ -2019,8 +2020,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		$current_id         = $element['uniqid'] . $form_prefix;
 		$current_attributes = THEMECOMPLETE_EPO_CART()->element_id_array[ $current_id ]['name_inc'];
 
-		if ( ! is_array( $current_attributes ) ) {
+		if ( $current_attributes && ! is_array( $current_attributes ) ) {
 			$current_attributes = array( $current_attributes );
+		} else {
+			$current_attributes = array();
 		}
 
 		// the number of options the user has selected
@@ -2753,7 +2756,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		$section_id = $rule->section;
 		$element_id = $rule->element;
 		$operator   = $rule->operator;
-		$value      = $rule->value;
+		$value      = isset( $rule->value ) ? $rule->value : NULL;
 
 		if ( (string) $section_id == (string) $element_id ) {
 			return $this->tm_check_section_match( $element_id, $operator, $rule, $sections, $form_prefix );
@@ -2791,7 +2794,6 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			}
 		}
 
-		// Element array cannot hold the form_prefix for bto support, so we append manually
 		$element_to_check = $sections[ $section_id ]['elements'][ $element_id ]['name_inc'];
 
 		$element_type = $sections[ $section_id ]['elements'][ $element_id ]['type'];
@@ -2806,7 +2808,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				$radio_checked_length = 0;
 				$element_to_check     = array_unique( $element_to_check );
 
-				$element_to_check = $element_to_check[0] . $form_prefix;
+				// Element array contains the form_prefix so we don't append it again
+				$element_to_check = $element_to_check[0];
 
 				if ( isset( $_POST[ $element_to_check ] ) ) {
 					$radio_checked_length ++;
@@ -2830,7 +2833,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				$ret                     = FALSE;
 				$element_to_check        = array_unique( $element_to_check );
 				foreach ( $element_to_check as $key => $name_value ) {
-					$element_to_check[ $key ] = $name_value . $form_prefix;
+					// Element array contains the form_prefix so we don't append it again
+					$element_to_check[ $key ] = $name_value;
 					$posted_value             = NULL;
 					if ( isset( $_POST[ $element_to_check[ $key ] ] ) ) {
 						$checkbox_checked_length ++;
@@ -2867,7 +2871,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			case "textfield":
 			case "color":
 			case "range":
-				$element_to_check .= $form_prefix;
+				// Element array contains the form_prefix so we don't append it again
 				if ( isset( $_POST[ $element_to_check ] ) ) {
 					$posted_value = $_POST[ $element_to_check ];
 					$posted_value = stripslashes( $posted_value );
@@ -2912,6 +2916,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		if ( isset( $sections[ $section_id ] ) && isset( $sections[ $section_id ]['elements'] ) ) {
 			foreach ( $sections[ $section_id ]['elements'] as $id => $element ) {
 				if ( $this->is_visible_do( $id, $element, $sections[ $section_id ], $sections, $form_prefix ) ) {
+					if ( !isset( $sections[ $section_id ]['elements'][ $id ]['name_inc'] ) ){
+						continue;
+					}
 					$element_to_check = $sections[ $section_id ]['elements'][ $id ]['name_inc'];
 					$element_type     = $sections[ $section_id ]['elements'][ $id ]['type'];
 					$posted_value     = NULL;
@@ -3463,6 +3470,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		}
 		$tm_meta_cpf_global_forms_added = array();
 
+		$post_original_id = floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $post_id ) );
+
 		if ( ! $this->tm_meta_cpf['exclude'] ) {
 
 			/**
@@ -3667,8 +3676,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			 * Get Global options that apply to the product
 			 * only for translated products
 			 */
-			$original_product_id = floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $post_id ) );
-			if ( $original_product_id !== floatval( $post_id ) ) {
+			if ( $post_original_id !== floatval( $post_id ) ) {
 				// Get Global options that apply to the product
 				$args = array(
 					'post_type'   => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
@@ -3679,7 +3687,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					'meta_query'  => array(
 						array(
 							'key'     => 'tm_meta_product_ids',
-							'value'   => '"' . $original_product_id . '";',
+							'value'   => '"' . $post_original_id . '";',
 							'compare' => 'LIKE',
 
 						),
@@ -3790,8 +3798,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			/**
 			 * Support for conditional logic based on variations
 			 */
-			$original_product_id = floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $post_id ) );
-			if ( $original_product_id !== floatval( $post_id ) ) {
+			if ( $post_original_id !== floatval( $post_id ) ) {
 				// Get Global options that apply to the product
 				$args = array(
 					'post_type'   => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
@@ -3802,14 +3809,14 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					'meta_query'  => array(
 						array(
 							'key'     => 'tm_meta_product_ids',
-							'value'   => '"' . $original_product_id . '";',
+							'value'   => '"' . $post_original_id . '";',
 							'compare' => 'LIKE',
 
 						),
 					),
 				);
 
-				$product              = wc_get_product( $original_product_id );
+				$product              = wc_get_product( $post_original_id );
 				$available_variations = $product->get_children();
 				$glue                 = array();
 
@@ -4094,6 +4101,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		$extra_section_logic      = array();
 		$extra_section_hide_logic = array();
 		$raw_epos                 = array();
+
+		$post_original_id = floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $post_id ) );
 
 		$variation_element_id = FALSE;
 		$variation_section_id = FALSE;
@@ -4464,6 +4473,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 														$thisbuilder = array();
 
+														if ( ! isset( $currency_data["languages"] ) ) {
+															continue;
+														}
+
 														foreach ( $currency_data["languages"] as $lang => $is_lang_enabled ) {
 
 															if ( $is_lang_enabled && $lang == THEMECOMPLETE_EPO_WPML()->get_lang() ) {
@@ -4551,23 +4564,20 @@ final class THEMECOMPLETE_Extra_Product_Options {
 															}
 														}
 
-														if ( $_current_currency_price !== '' ) {
-															if ( $this_price_type === "math" ) {
-																$price_per_currencies_original[ $currency ] = array( array( $_current_currency_price ) );
-															} else {
-																$price_per_currencies_original[ $currency ] = array( array( wc_format_decimal( $_current_currency_price, FALSE, TRUE ) ) );
-															}
+														if ( $this_price_type === "math" ) {
+															$price_per_currencies_original[ $currency ] = array( array( $_current_currency_price ) );
+														} else {
+															$price_per_currencies_original[ $currency ] = array( array( wc_format_decimal( $_current_currency_price, FALSE, TRUE ) ) );
 														}
 
 														if ( $_current_currency_sale_price && $_current_currency_sale_price !== '' ) {
 															$_current_currency_price = $_current_currency_sale_price;
 														}
-														if ( $_current_currency_price !== '' ) {
-															if ( $this_price_type === "math" ) {
-																$price_per_currencies[ $currency ] = array( array( $_current_currency_price ) );
-															} else {
-																$price_per_currencies[ $currency ] = array( array( wc_format_decimal( $_current_currency_price, FALSE, TRUE ) ) );
-															}
+
+														if ( $this_price_type === "math" ) {
+															$price_per_currencies[ $currency ] = array( array( $_current_currency_price ) );
+														} else {
+															$price_per_currencies[ $currency ] = array( array( wc_format_decimal( $_current_currency_price, FALSE, TRUE ) ) );
 														}
 
 													}
@@ -4606,11 +4616,11 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 											$_current_currency_original_price = isset( $price_per_currencies_original[ $mt_prefix ] ) ? $price_per_currencies_original[ $mt_prefix ][0][0] : '';
 											$_current_currency_price = isset( $price_per_currencies[ $mt_prefix ] ) ? $price_per_currencies[ $mt_prefix ][0][0] : '';
-											
+
 											if ( $mt_prefix !== '' && $_current_currency_price !== '' ) {
 												$_price                           = $_current_currency_price;
 												$_original_regular_price_filtered = $_current_currency_original_price;
-												
+
 												$_regular_currencies = array( themecomplete_get_woocommerce_currency() );
 												$new_currency        = TRUE;
 											}
@@ -4722,6 +4732,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 														foreach ( $woocommerce_wpml_currencies as $currency => $currency_data ) {
 
 															$thisbuilder = array();
+
+															if ( ! isset( $currency_data["languages"] ) ) {
+																continue;
+															}
 
 															foreach ( $currency_data["languages"] as $lang => $is_lang_enabled ) {
 
@@ -5315,6 +5329,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													'_'             => THEMECOMPLETE_EPO_BUILDER()->get_default_properties( $builder, $_prefix, $_counter, $_elements, $k0 ),
 													'internal_name' => $this->get_builder_element( $_prefix . 'internal_name', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 													'builder'       => ( isset( $wpml_is_original_product ) && empty( $wpml_is_original_product ) ) ? $current_builder : $builder,
+													'original_builder' => $builder,
 													'section'       => $_sections_uniqid,
 													'type'          => $_new_type,
 													'size'          => $_div_size[ $k0 ],
@@ -5730,6 +5745,29 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				$global_epos = array();
 			}
 
+			if ( ( isset( $wpml_is_original_product ) && empty( $wpml_is_original_product ) ) ){
+				if ( empty( $extra_section_logic )
+					&& count( $global_epos ) == 1
+					&& isset( $global_epos[1000] )
+					&& isset( $global_epos[1000][ $post_original_id ] )
+					&& isset( $global_epos[1000][ $post_original_id ]['sections'] )
+					&& count( $global_epos[1000][ $post_original_id ]['sections'] ) == 1
+					&& isset( $global_epos[1000][ $post_original_id ]['sections'][0] )
+					&& isset( $global_epos[1000][ $post_original_id ]['sections'][0]['elements'] )
+					&& isset( $global_epos[1000][ $post_original_id ]['sections'][0]['total_elements'] )
+					&& $global_epos[1000][ $post_original_id ]['sections'][0]['total_elements'] == "1"
+					&& count( $global_epos[1000][ $post_original_id ]['sections'][0]['elements'] ) == 1
+					&& isset( $global_epos[1000][ $post_original_id ]['sections'][0]['elements'][0] )
+					&& isset( $global_epos[1000][ $post_original_id ]['sections'][0]['elements'][0]['type'] )
+					&& $global_epos[1000][ $post_original_id ]['sections'][0]['elements'][0]['type'] == 'variations'
+					&& isset( $global_epos[1000][ $post_original_id ]['sections'][0]['elements'][0]['original_builder'] )
+					&& isset( $global_epos[1000][ $post_original_id ]['sections'][0]['elements'][0]['original_builder']['variations_disabled'] )
+					&& $global_epos[1000][ $post_original_id ]['sections'][0]['elements'][0]['original_builder']['variations_disabled'] == '1'
+				) {
+					$global_epos = array();
+				}
+			}
+
 		}
 
 		$variations_disabled       = FALSE;
@@ -5743,6 +5781,17 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		                               && isset( $global_epos[1000][ $post_id ]['sections'][0]['elements'][0]['builder'] )
 		                               && isset( $global_epos[1000][ $post_id ]['sections'][0]['elements'][0]['builder']['variations_disabled'] ) );
 
+		if ( ( isset( $wpml_is_original_product ) && empty( $wpml_is_original_product ) ) ){
+			$isset_variations_disabled = ( isset( $global_epos[1000] )
+				&& isset( $global_epos[1000] )
+				&& isset( $global_epos[1000][ $post_original_id ] )
+				&& isset( $global_epos[1000][ $post_original_id ]['sections'] )
+				&& isset( $global_epos[1000][ $post_original_id ]['sections'][0] )
+				&& isset( $global_epos[1000][ $post_original_id ]['sections'][0]['elements'] )
+				&& isset( $global_epos[1000][ $post_original_id ]['sections'][0]['elements'][0] )
+				&& isset( $global_epos[1000][ $post_original_id ]['sections'][0]['elements'][0]['original_builder'] )
+				&& isset( $global_epos[1000][ $post_original_id ]['sections'][0]['elements'][0]['original_builder']['variations_disabled'] ) );
+		}
 		if ( $isset_variations_disabled ) {
 			$variations_disabled = ( isset( $global_epos[1000] )
 			                         && isset( $global_epos[1000] )
@@ -5754,6 +5803,19 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			                         && isset( $global_epos[1000][ $post_id ]['sections'][0]['elements'][0]['builder'] )
 			                         && isset( $global_epos[1000][ $post_id ]['sections'][0]['elements'][0]['builder']['variations_disabled'] )
 			                         && $global_epos[1000][ $post_id ]['sections'][0]['elements'][0]['builder']['variations_disabled'] == '1' );
+
+			if ( ( isset( $wpml_is_original_product ) && empty( $wpml_is_original_product ) ) ){
+				$variations_disabled = ( isset( $global_epos[1000] )
+					&& isset( $global_epos[1000] )
+					&& isset( $global_epos[1000][ $post_original_id ] )
+					&& isset( $global_epos[1000][ $post_original_id ]['sections'] )
+					&& isset( $global_epos[1000][ $post_original_id ]['sections'][0] )
+					&& isset( $global_epos[1000][ $post_original_id ]['sections'][0]['elements'] )
+					&& isset( $global_epos[1000][ $post_original_id ]['sections'][0]['elements'][0] )
+					&& isset( $global_epos[1000][ $post_original_id ]['sections'][0]['elements'][0]['original_builder'] )
+					&& isset( $global_epos[1000][ $post_original_id ]['sections'][0]['elements'][0]['original_builder']['variations_disabled'] )
+					&& $global_epos[1000][ $post_original_id ]['sections'][0]['elements'][0]['v']['variations_disabled'] == '1' );
+			}
 		}
 
 		return array(
@@ -5801,10 +5863,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 		} else {
 			if ( ! empty( $this->tm_builder_elements[ $type ]["type"] ) && ! empty( $this->tm_builder_elements[ $type ]["post_name_prefix"] ) ) {
+				$name_inc = "tmcp_" . $name_prefix . $this->tm_builder_elements[ $type ]["post_name_prefix"] . "_" . $section . $form_prefix;
 				if ( isset( $element['type'] ) && $element['type'] === 'product' && isset( $element['layout_mode'] ) && ( $element['layout_mode'] === 'checkbox' || $element['layout_mode'] === 'thumbnailmultiple' ) ){
-					$name_inc = "tmcp_" . $name_prefix . $this->tm_builder_elements[ $type ]["post_name_prefix"] . "_" . $section . "_*" . $form_prefix;
-				} else {
-					$name_inc = "tmcp_" . $name_prefix . $this->tm_builder_elements[ $type ]["post_name_prefix"] . "_" . $section . $form_prefix;
+					$name_inc = $name_inc . "_*";
 				}
 			}
 

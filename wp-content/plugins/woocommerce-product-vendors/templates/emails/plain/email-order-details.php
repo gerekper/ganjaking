@@ -2,7 +2,7 @@
 /**
  * Order details email (plain text).
  *
- * @version 2.0.0
+ * @version 2.1.52
  * @since 2.0.0
  */
 
@@ -77,9 +77,21 @@ endforeach;
 echo "==========\n\n";
 
 $shipping_method = $order->get_shipping_method();
+$customer_note   = $order->get_customer_note();
 
 if ( $pass_shipping && ! empty( $shipping_method ) ) {
 	echo esc_html( 'Shipping method', 'woocommerce-product-vendors' ) . "\t " . esc_html( $shipping_method ) . "\n";
+}
+
+/**
+ * Determine if we should show the customer added note.
+ *
+ * @since 2.1.52
+ * @param boolean  $show_note Whether to show cusotmer notes. Default true.
+ * @param WC_Order $order     Order object.
+ */
+if ( $customer_note && apply_filters( 'wcpv_email_to_vendor_show_notes', true, $order ) ) {
+	echo esc_html__( 'Customer note:', 'woocommerce-product-vendors' ) . "\t " . wp_kses_post( wptexturize( $customer_note ) ) . "\n";
 }
 
 do_action( 'woocommerce_email_after_order_table', $order, true, false, $email );

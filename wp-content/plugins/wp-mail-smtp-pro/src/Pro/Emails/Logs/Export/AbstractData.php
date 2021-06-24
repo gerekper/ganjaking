@@ -4,6 +4,10 @@ namespace WPMailSMTP\Pro\Emails\Logs\Export;
 
 use WPMailSMTP\WP;
 use WPMailSMTP\Pro\Emails\Logs\Email;
+use WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments;
+use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Events;
+use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable\OpenEmailEvent;
+use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable\ClickLinkEvent;
 
 /**
  * Email logs export data.
@@ -80,6 +84,20 @@ abstract class AbstractData {
 				$val = (int) $email->get_attachments();
 				break;
 
+			case 'attachments':
+				$attachments = ( new Attachments() )->get_attachments( (int) $email->get_id() );
+
+				$val = implode(
+					"\r\n",
+					array_map(
+						function ( $attachment ) {
+							return esc_url( $attachment->get_url() );
+						},
+						$attachments
+					)
+				);
+				break;
+
 			case 'status':
 				$val = $email->get_status_name();
 				break;
@@ -114,6 +132,14 @@ abstract class AbstractData {
 			case 'log_id':
 				$val = $email->get_id();
 				break;
+
+			case 'opened':
+				$val = $this->get_was_email_already_opened( $email );
+				break;
+
+			case 'clicked':
+				$val = $this->get_was_email_link_already_clicked( $email );
+				break;
 		}
 
 		/**
@@ -126,5 +152,45 @@ abstract class AbstractData {
 		 * @param Email  $email Current email.
 		 */
 		return apply_filters( 'wp_mail_smtp_pro_emails_logs_export_data_get_field_value', $val, $key, $email );
+	}
+
+	/**
+	 * Whether email was opened.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param Email $email Email object.
+	 *
+	 * @return string
+	 */
+	private function get_was_email_already_opened( $email ) {
+
+		if ( ! $email->is_content_type_html_based() || ! ( new Events() )->is_valid_db() ) {
+			return __( 'N/A', 'wp-mail-smtp-pro' );
+		}
+
+		return ( new OpenEmailEvent( $email->get_id() ) )->was_event_already_triggered() ?
+			__( 'Yes', 'wp-mail-smtp-pro' ) :
+			__( 'No', 'wp-mail-smtp-pro' );
+	}
+
+	/**
+	 * Whether one of email links was clicked.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param Email $email Email object.
+	 *
+	 * @return string
+	 */
+	private function get_was_email_link_already_clicked( $email ) {
+
+		if ( ! $email->is_content_type_html_based() || ! ( new Events() )->is_valid_db() ) {
+			return __( 'N/A', 'wp-mail-smtp-pro' );
+		}
+
+		return ( new ClickLinkEvent( $email->get_id() ) )->was_event_already_triggered() ?
+			__( 'Yes', 'wp-mail-smtp-pro' ) :
+			__( 'No', 'wp-mail-smtp-pro' );
 	}
 }

@@ -20,7 +20,7 @@
 			!! window.operamini ||
 			! docElement.getBoundingClientRect,
 		options = {
-			autoInit: true, // auto initialize in $.ready
+			autoInit: true, // auto initialize in document ready
 			selector: 'img[data-src]', // selector for lazyloading elements
 			blankImage: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
 			throttle: 99, // interval (ms) for changes check
@@ -306,7 +306,8 @@
 	/**
 	 * Initialization
 	 */
-	$( document ).ready( function() {
+	// document ready
+	$( function() {
 		triggerEvent( 'start', $window );
 
 		$window.on( options.updateEvent, queueCheckLazyElements ).on( options.forceEvent, forceLoadAll );

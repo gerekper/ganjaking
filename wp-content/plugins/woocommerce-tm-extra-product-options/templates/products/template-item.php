@@ -26,12 +26,19 @@ defined( 'ABSPATH' ) || exit;
             </div>
             <?php endif; ?>
             <?php if ($show_description) : ?>
-            <div class="product-description"><?php echo wpautop( do_shortcode( apply_filters( 'wc_epo_kses', wp_kses_post( $current_product->get_short_description() ), $current_product->get_short_description(), FALSE ) ) ); ?></div>
+            <?php if ($current_product->is_type( 'variation' ) ) {
+                $description = $current_product->get_description();
+            } else {
+                $description = $current_product->get_short_description();
+            }
+            ?>
+            <div class="product-description"><?php echo wpautop( do_shortcode( apply_filters( 'wc_epo_kses', wp_kses_post( $description ), $description, FALSE ) ) ); ?></div>
             <?php endif; ?>
     		<?php 
     		include( THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-variable.php' );
     		do_action( 'wc_epo_associated_product_display', $current_product, $tm_element_settings['uniqid'] . '.' . $option['_default_value_counter'], $priced_individually, $args['discount'], $args['discount_type'] );
-    		include( THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-quantity.php' );
+    		include( THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-availability.php' );
+            include( THEMECOMPLETE_EPO_TEMPLATE_PATH . 'products/template-quantity.php' );
     		?>
             <?php if ($show_meta) : ?>
             <div class="product-meta"><?php

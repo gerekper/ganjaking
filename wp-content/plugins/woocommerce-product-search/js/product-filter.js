@@ -225,6 +225,10 @@ var ix_dropdown_thumbnails = [],
 			href = ixwpsf.updateQueryArg( 'rating', args.rating, href );
 		}
 
+		if ( typeof args.in_stock !== 'undefined' ) {
+			href = ixwpsf.updateQueryArg( 'in_stock', args.in_stock, href );
+		}
+
 		$( containers.field ).addClass( 'blinker' );
 		if ( ixwpsf.productsBlinker ) {
 			$products.addClass( 'product-search-filter-blinker' ).html( '' ).show();
@@ -504,11 +508,11 @@ var ix_dropdown_thumbnails = [],
 							}
 						}
 
-						$( newContainer ).find( '.product-search-product_cat-filter-item a' ).on( 'click', ixwpsf.categoryFilterItemOnClick );
+						$( newContainer ).not( '.filter-dead' ).find( '.product-search-product_cat-filter-item a' ).on( 'click', ixwpsf.categoryFilterItemOnClick );
 						$( newContainer ).find( 'select.product-search-filter-product_cat' ).on( 'change', ixwpsf.categoryFilterSelectOnChange );
 						$( newContainer ).find( 'select.product-search-filter-attribute' ).on( 'change', ixwpsf.attributeFilterSelectOnChange );
-						$( newContainer ).find( '.product-search-product_tag-filter-item' ).on( 'click', ixwpsf.tagFilterItemOnClick );
-						$( newContainer ).find( '.product-search-attribute-filter-item a' ).on( 'click', ixwpsf.attributeFilterItemOnClick );
+						$( newContainer ).not( '.filter-dead' ).find( '.product-search-product_tag-filter-item' ).on( 'click', ixwpsf.tagFilterItemOnClick );
+						$( newContainer ).not( '.filter-dead' ).find( '.product-search-attribute-filter-item:not(.product-search-product_cat-filter-item) a' ).on( 'click', ixwpsf.attributeFilterItemOnClick );
 					}
 				} );
 
@@ -629,6 +633,7 @@ var ix_dropdown_thumbnails = [],
 			$( orderingForm ).find( 'input[name="ixwpse"]' ).remove(); // @since 2.19.0
 			$( orderingForm ).find( 'input[name="on_sale"]' ).remove(); // @since 2.19.0
 			$( orderingForm ).find( 'input[name="rating"]' ).remove(); // @since 2.20.0
+			$( orderingForm ).find( 'input[name="in_stock"]' ).remove(); // @since 3.8.0
 
 			var params = href.substring( href.indexOf( '?' ) + 1 );
 			var hash = params.indexOf( '#' );
@@ -656,7 +661,8 @@ var ix_dropdown_thumbnails = [],
 							key.indexOf( 'ixwpsf' ) === 0 ||
 							key === 'ixwpse' || // @since 2.19.0
 							key === 'on_sale' || // @since 2.19.0
-							key === 'rating' // @since 2.20.0
+							key === 'rating' || // @since 2.20.0
+							key === 'in_stock' // @since 3.8.0
 						) // (*)
 					) {
 						var field = $( orderingForm ).find( 'input[name="' + key + '"]' );
@@ -1155,11 +1161,11 @@ var ix_dropdown_thumbnails = [],
 		$( 'select.product-search-filter-product_cat' ).prop( 'disabled', false );
 		$( 'select.product-search-filter-attribute' ).prop( 'disabled', false );
 
-		$( '.product-search-product_cat-filter-item a' ).on( 'click', ixwpsf.categoryFilterItemOnClick );
+		$( '.product-search-filter-terms:not(.filter-dead) .product-search-product_cat-filter-item a' ).on( 'click', ixwpsf.categoryFilterItemOnClick );
 		$( 'select.product-search-filter-product_cat' ).on( 'change', ixwpsf.categoryFilterSelectOnChange );
 		$( 'select.product-search-filter-attribute' ).on( 'change', ixwpsf.attributeFilterSelectOnChange );
-		$( '.product-search-product_tag-filter-item' ).on( 'click', ixwpsf.tagFilterItemOnClick );
-		$( '.product-search-attribute-filter-item a' ).on( 'click', ixwpsf.attributeFilterItemOnClick );
+		$( '.product-search-filter-terms:not(.filter-dead) .product-search-product_tag-filter-item' ).on( 'click', ixwpsf.tagFilterItemOnClick );
+		$( '.product-search-filter-terms:not(.filter-dead) .product-search-attribute-filter-item:not(.product-search-product_cat-filter-item) a' ).on( 'click', ixwpsf.attributeFilterItemOnClick );
 		$( document ).on( 'change input textInput', '.product-search-filter-search input.product-filter-field', function() {
 			var value = $( this ).val().trim();
 			if ( value.length > 0 ) {
@@ -1320,6 +1326,15 @@ var ix_dropdown_thumbnails = [],
 
 			if ( !has_filter ) {
 				has_filter = $( '.product-search-filter-rating .rating-filter-option.rating-selected' ).length > 0;
+			}
+
+			if ( !has_filter ) {
+				$( 'input.product-search-filter-in-stock' ).each( function( index ) {
+					if ( this.checked ) {
+						has_filter = true;
+						return false;
+					}
+				} );
 			}
 
 			if ( has_filter ) {

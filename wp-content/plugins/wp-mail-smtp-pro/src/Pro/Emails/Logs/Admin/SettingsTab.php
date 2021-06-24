@@ -118,6 +118,84 @@ class SettingsTab extends \WPMailSMTP\Admin\PageAbstract {
 				</div>
 			</div>
 
+			<!-- Log Email Save Attachments -->
+			<div id="wp-mail-smtp-setting-row-logs_save_attachments" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox wp-mail-smtp-clear hidden">
+				<div class="wp-mail-smtp-setting-label">
+					<label for="wp-mail-smtp-setting-logs_save_attachments">
+						<?php esc_html_e( 'Save Attachments', 'wp-mail-smtp-pro' ); ?>
+					</label>
+				</div>
+				<div class="wp-mail-smtp-setting-field">
+					<input name="wp-mail-smtp[logs][save_attachments]" type="checkbox" id="wp-mail-smtp-setting-logs_save_attachments"
+						   value="true" <?php checked( true, $this->options->get( 'logs', 'save_attachments' ) ); ?>
+						<?php disabled( $this->options->is_const_defined( 'logs', 'save_attachments' ) ); ?>>
+					<label for="wp-mail-smtp-setting-logs_save_attachments">
+						<?php esc_html_e( 'Save the sent attachments to the Email Log.', 'wp-mail-smtp-pro' ); ?>
+					</label>
+					<p class="desc">
+						<?php
+						esc_html_e( 'All sent attachments will be saved to your WordPress uploads folder. If your site sends a lot of big unique attachments, this could potentially cause some disk space issue.', 'wp-mail-smtp-pro' );
+
+						if ( $this->options->is_const_defined( 'logs', 'save_attachments' ) ) {
+							echo '<br>' . $this->options->get_const_set_message( 'WPMS_LOGS_SAVE_ATTACHMENTS' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						}
+						?>
+					</p>
+				</div>
+			</div>
+
+			<!-- Open email tracking -->
+			<div id="wp-mail-smtp-setting-row-logs_open_email_tracking" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox wp-mail-smtp-clear hidden">
+				<div class="wp-mail-smtp-setting-label">
+					<label for="wp-mail-smtp-setting-logs_open_email_tracking">
+						<?php esc_html_e( 'Open Email Tracking', 'wp-mail-smtp-pro' ); ?>
+					</label>
+				</div>
+				<div class="wp-mail-smtp-setting-field">
+					<input name="wp-mail-smtp[logs][open_email_tracking]" type="checkbox" id="wp-mail-smtp-setting-logs_open_email_tracking"
+						   value="true" <?php checked( true, $this->options->get( 'logs', 'open_email_tracking' ) ); ?>
+						<?php disabled( $this->options->is_const_defined( 'logs', 'open_email_tracking' ) ); ?>>
+					<label for="wp-mail-smtp-setting-logs_open_email_tracking">
+						<?php esc_html_e( 'Track when an email is opened.', 'wp-mail-smtp-pro' ); ?>
+					</label>
+					<p class="desc">
+						<?php
+						esc_html_e( 'This will allow you to see which emails were opened by the recipients.', 'wp-mail-smtp-pro' );
+
+						if ( $this->options->is_const_defined( 'logs', 'open_email_tracking' ) ) {
+							echo '<br>' . $this->options->get_const_set_message( 'WPMS_LOGS_OPEN_EMAIL_TRACKING' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						}
+						?>
+					</p>
+				</div>
+			</div>
+
+			<!-- Click link tracking -->
+			<div id="wp-mail-smtp-setting-row-logs_click_link_tracking" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox wp-mail-smtp-clear hidden">
+				<div class="wp-mail-smtp-setting-label">
+					<label for="wp-mail-smtp-setting-logs_click_link_tracking">
+						<?php esc_html_e( 'Click Link Tracking', 'wp-mail-smtp-pro' ); ?>
+					</label>
+				</div>
+				<div class="wp-mail-smtp-setting-field">
+					<input name="wp-mail-smtp[logs][click_link_tracking]" type="checkbox" id="wp-mail-smtp-setting-logs_click_link_tracking"
+						   value="true" <?php checked( true, $this->options->get( 'logs', 'click_link_tracking' ) ); ?>
+						<?php disabled( $this->options->is_const_defined( 'logs', 'click_link_tracking' ) ); ?>>
+					<label for="wp-mail-smtp-setting-logs_click_link_tracking">
+						<?php esc_html_e( 'Track clicked links in emails.', 'wp-mail-smtp-pro' ); ?>
+					</label>
+					<p class="desc">
+						<?php
+						esc_html_e( 'This will allow you to see which links were clicked in the sent emails.', 'wp-mail-smtp-pro' );
+
+						if ( $this->options->is_const_defined( 'logs', 'click_link_tracking' ) ) {
+							echo '<br>' . $this->options->get_const_set_message( 'WPMS_LOGS_CLICK_LINK_TRACKING' ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						}
+						?>
+					</p>
+				</div>
+			</div>
+
 			<!-- Log Retention Period -->
 			<div id="wp-mail-smtp-setting-row-log_retention_period" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-text wp-mail-smtp-clear">
 				<div class="wp-mail-smtp-setting-label">
@@ -146,17 +224,26 @@ class SettingsTab extends \WPMailSMTP\Admin\PageAbstract {
 				</div>
 			</div>
 
-			<!-- Log content should be displayed only when log is enabled. -->
+			<!-- Log content and save attachments should be displayed only when log is enabled. -->
 			<script>
 				var $logEnabled = jQuery('#wp-mail-smtp-setting-logs_enabled');
 				if ( $logEnabled.is(':checked') ) {
 					jQuery('#wp-mail-smtp-setting-row-logs_log_email_content').show();
+					jQuery('#wp-mail-smtp-setting-row-logs_save_attachments').show();
+					jQuery('#wp-mail-smtp-setting-row-logs_open_email_tracking').show();
+					jQuery('#wp-mail-smtp-setting-row-logs_click_link_tracking').show();
 				}
 				$logEnabled.on('change', function() {
 					if ( jQuery( this ).is(':checked') ) {
 						jQuery('#wp-mail-smtp-setting-row-logs_log_email_content').show();
+						jQuery('#wp-mail-smtp-setting-row-logs_save_attachments').show();
+						jQuery('#wp-mail-smtp-setting-row-logs_open_email_tracking').show();
+						jQuery('#wp-mail-smtp-setting-row-logs_click_link_tracking').show();
 					} else {
 						jQuery('#wp-mail-smtp-setting-row-logs_log_email_content').hide();
+						jQuery('#wp-mail-smtp-setting-row-logs_save_attachments').hide();
+						jQuery('#wp-mail-smtp-setting-row-logs_open_email_tracking').hide();
+						jQuery('#wp-mail-smtp-setting-row-logs_click_link_tracking').hide();
 					}
 				} );
 			</script>
@@ -179,8 +266,21 @@ class SettingsTab extends \WPMailSMTP\Admin\PageAbstract {
 		if ( empty( $data['logs']['enabled'] ) ) {
 			$data['logs']['enabled'] = false;
 		}
+
 		if ( empty( $data['logs']['log_email_content'] ) ) {
 			$data['logs']['log_email_content'] = false;
+		}
+
+		if ( empty( $data['logs']['save_attachments'] ) ) {
+			$data['logs']['save_attachments'] = false;
+		}
+
+		if ( empty( $data['logs']['open_email_tracking'] ) ) {
+			$data['logs']['open_email_tracking'] = false;
+		}
+
+		if ( empty( $data['logs']['click_link_tracking'] ) ) {
+			$data['logs']['click_link_tracking'] = false;
 		}
 
 		// All the sanitization is done there.

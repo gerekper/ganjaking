@@ -19,14 +19,23 @@ do_action( 'tm_before_builder_element', isset( $tm_element_settings ) ? $tm_elem
 
 $extra_class = ( ! empty( $extra_class ) ) ? " " . $extra_class : "";
 $class       = ( ! empty( $class ) ) ? " " . $class : "";
-$divclass    = ( ! empty( $class ) ) ? $class . "-div" : "";
+$array_class = explode( " ", $class );
+$ul_class = explode( " ", $class );
+foreach( $array_class as $array_class_key=>$array_class_value){
+	if ( $array_class_value !== "" ){
+		$array_class [$array_class_key ] = $array_class_value . "-div";
+		$ul_class [$array_class_key ] = $array_class_value . "-ul";
+	}
+}
+$divclass    = implode( " ", $array_class );
 if ( ! empty( THEMECOMPLETE_EPO()->tm_builder_elements[ $tm_element_settings['type'] ]["no_frontend_display"] ) ) {
 	$divclass .= " tm-hidden";
 }
 if ( ! empty( $clear_options ) ) {
 	$divclass .= " tm-has-clearbutton";
 }
-$ulclass = ( ! empty( $class ) ) ? $class . "-ul" : "";
+
+$ulclass = implode( " ", $ul_class );
 $class   = "";
 
 $logic               = ( ! $haslogic ) ? "" : $logic;
@@ -48,7 +57,7 @@ if ( ! empty( $use_images ) ) {
 		case "images":
 		case "start":
 		case "end":
-			$use .= " use_images_container";
+			$use .= " use-images-container";
 			break;
 	}
 }

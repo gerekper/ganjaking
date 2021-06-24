@@ -33,6 +33,9 @@ class File {
 		if ( $type === 'xlsx' ) {
 			// Write to the .xlsx file.
 			return $this->write_xlsx( $request );
+		} elseif ( $type === 'eml' ) {
+			// Writing to the .eml or .zip file.
+			return $this->write_eml( $request );
 		} else {
 			// Writing to the .csv file.
 			return $this->write_csv( $request );
@@ -118,6 +121,59 @@ class File {
 	}
 
 	/**
+	 * Write data to .eml or .zip file.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param Request $request Export request.
+	 *
+	 * @return true|WP_Error
+	 */
+	public function write_eml( $request ) {
+
+		$export_file = $this->get_tmp_filename( $request->get_request_id() );
+
+		if ( is_wp_error( $export_file ) ) {
+			return $export_file;
+		}
+
+		$data = new EMLData( $request );
+
+		$db_args = $request->get_data( 'db_args' );
+
+		if ( ! empty( $db_args['id'] ) ) {
+			foreach ( $data->get_content() as $value ) {
+				list( , $content ) = $value;
+				file_put_contents( $export_file, $content ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_file_put_contents
+			}
+		} else {
+			$zip      = new \ZipArchive();
+			$zip_open = $zip->open( $export_file, \ZipArchive::CREATE );
+
+			if ( $zip_open !== true ) {
+				return new WP_Error(
+					'zip_creating',
+					sprintf( /* translators: %s - Error code. */
+						esc_html__( 'An error occurred when creating a zip file. Error code: %s.', 'wp-mail-smtp-pro' ),
+						$zip_open
+					)
+				);
+			}
+
+			foreach ( $data->get_content() as $value ) {
+				list( $email, $content ) = $value;
+
+				$filename = $email->get_id() . '-' . sanitize_title( mb_substr( $email->get_subject(), 0, 30 ) ) . '.eml';
+				$zip->addFromString( $filename, $content );
+			}
+
+			$zip->close();
+		}
+
+		return true;
+	}
+
+	/**
 	 * Output the file.
 	 *
 	 * @since 2.8.0
@@ -156,7 +212,17 @@ class File {
 			$file_name = 'wp-mail-smtp-email-logs';
 		}
 
-		$file_name .= '-' . current_time( 'Y-m-d-H-i-s' ) . '.' . $request->get_data( 'type' );
+		$file_ext = $request->get_data( 'type' );
+
+		if ( $file_ext === 'eml' ) {
+			$file_ext = 'zip';
+
+			if ( ! empty( $db_args['id'] ) ) {
+				$file_ext = 'eml';
+			}
+		}
+
+		$file_name .= '-' . current_time( 'Y-m-d-H-i-s' ) . '.' . $file_ext;
 
 		/**
 		 * Filters export filename.

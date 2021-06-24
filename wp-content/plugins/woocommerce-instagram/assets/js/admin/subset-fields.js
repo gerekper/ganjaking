@@ -49,13 +49,15 @@ jQuery( function( $ ) {
 					}
 				});
 			});
+
+			$( 'body' ).trigger( 'wc_instagram_subset_fields_loaded' );
 		},
 
 		/**
 		 * Handles the visibility of the 'subset' fields.
 		 */
 		subsetToggle: function( $option ) {
-			var $optionTr = $option.closest('tr');
+			var $optionTr = $option.closest( 'tr' );
 
 			if ( 'specific' === $option.val() ) {
 				$optionTr.next( 'tr' ).hide();

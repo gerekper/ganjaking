@@ -94,3 +94,36 @@ function wc_instagram_update_320_update_catalogs() {
 function wc_instagram_update_320_db_version() {
 	WC_Instagram_Install::update_db_version( '3.2.0' );
 }
+
+/**
+ * Updates the settings for the already created catalogs.
+ */
+function wc_instagram_update_350_update_catalogs() {
+	$catalogs = wc_instagram_get_product_catalogs();
+
+	if ( empty( $catalogs ) ) {
+		return;
+	}
+
+	foreach ( $catalogs as $index => $catalog ) {
+		if ( isset( $catalog['filter_by'], $catalog['products_option'] ) ) {
+			continue;
+		}
+
+		// Keep backward compatibility.
+		$catalog['filter_by']       = 'custom';
+		$catalog['products_option'] = '';
+
+		$catalogs[ $index ] = $catalog;
+	}
+
+	update_option( 'wc_instagram_product_catalogs', $catalogs );
+}
+
+/**
+ * Update DB Version.
+ */
+function wc_instagram_update_350_db_version() {
+	WC_Instagram_Install::update_db_version( '3.5.0' );
+}
+

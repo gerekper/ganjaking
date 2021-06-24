@@ -218,11 +218,13 @@ final class THEMECOMPLETE_EPO_Admin_base {
 								}
 
 								if ( ! $new_currency ) {
-									$epo['price'] = $option_price_before = $this->order_price_including_tax( $epo['price'], $legacy_order, $prices_include_tax, $order, $order_taxes, $order_items, $item_id );
+									$epo['price'] = $this->order_price_including_tax( $epo['price'], $legacy_order, $prices_include_tax, $order, $order_taxes, $order_items, $item_id );
 									$epo['price'] = apply_filters( 'wc_epo_remove_current_currency_price', $epo['price'], THEMECOMPLETE_EPO()->get_saved_element_price_type( $saved_epos[ $key ] ), get_option( 'woocommerce_currency' ), $order_currency, $_current_currency_prices, isset( $saved_epos[ $key ]['key'] ) ? $saved_epos[ $key ]['key'] : NULL );
+									$option_price_before = $this->order_price_exluding_tax( $saved_epos[ $key ]['price'], $legacy_order, $prices_include_tax, $order, $order_taxes, $order_items, $item_id );
+								} else {
+									$option_price_before = $_current_currency_prices[ $mt_prefix ];
 								}
 
-								$option_price_before = $this->order_price_exluding_tax( $saved_epos[ $key ]['price'], $legacy_order, $prices_include_tax, $order, $order_taxes, $order_items, $item_id );
 								$line_total          = $line_total - ( $option_price_before * $qty );
 								$line_subtotal       = $line_subtotal - ( $option_price_before * $qty );
 
@@ -236,9 +238,13 @@ final class THEMECOMPLETE_EPO_Admin_base {
 								if ( $new_currency ) {
 									$saved_epos[ $key ]['price_per_currency'][ $mt_prefix ] = $saved_epos[ $key ]['price'] + $tax_price;
 								}
+								$option_price_after = $saved_epos[ $key ]['price'];
+								if ( $prices_include_tax ){
+									$option_price_after = $this->order_price_including_tax( $saved_epos[ $key ]['price'], $legacy_order, $prices_include_tax, $order, $order_taxes, $order_items, $item_id );
+								}
 
-								$line_total    = $line_total + ( $saved_epos[ $key ]['price'] * $qty );
-								$line_subtotal = $line_subtotal + ( $saved_epos[ $key ]['price'] * $qty );
+								$line_total    = $line_total + ( $option_price_after * $qty );
+								$line_subtotal = $line_subtotal + ( $option_price_after * $qty );
 
 								$saved_epos[ $key ]['price'] = $saved_epos[ $key ]['price'] + $tax_price;
 
@@ -1028,10 +1034,10 @@ final class THEMECOMPLETE_EPO_Admin_base {
 	public function register_data_tab( $tabs ) {
 
 		// Adds the new tab
-		$tabs['tm_extra_product_options'] = array(
+		$tabs['tc-admin-extra-product-options'] = array(
 			'label'  => esc_html__( 'Extra Product Options', 'woocommerce-tm-extra-product-options' ),
-			'target' => 'tm_extra_product_options',
-			'class'  => array( 'tm_epo_class', 'hide_if_grouped' ),
+			'target' => 'tc-admin-extra-product-options',
+			'class'  => array( 'tc-epo-woocommerce-tab', 'hide_if_grouped' ),
 		);
 
 		return $tabs;

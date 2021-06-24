@@ -6,6 +6,7 @@ use WPMailSMTP\Admin\Area;
 use WPMailSMTP\Debug;
 use WPMailSMTP\Options;
 use WPMailSMTP\WP;
+use WPMailSMTP\Pro\Emails\Logs\Email;
 
 /**
  * Add support for WP Multisite functionality.
@@ -31,7 +32,6 @@ class Multisite {
 
 		// Add the plugin admin pages for WPMS and remove unneeded menu items.
 		add_action( 'network_admin_menu', [ wp_mail_smtp()->get_admin(), 'add_admin_options_page' ] );
-		add_action( 'network_admin_menu', [ $this, 'remove_admin_menu_items' ] );
 
 		// Add the multisite plugin setting.
 		add_filter( 'wp_mail_smtp_admin_settings_tab_display', [ $this, 'add_multisite_network_wide_setting' ] );
@@ -80,8 +80,119 @@ class Multisite {
 		// Maybe disable notifications for sub-sites.
 		add_filter( 'wp_mail_smtp_admin_notifications_has_access', [ $this, 'maybe_disable_notifications' ] );
 
+		// Enqueue assets.
+		add_action( 'wp_mail_smtp_admin_area_enqueue_assets', [ $this, 'enqueue_assets' ] );
+
+		// Add scripts data.
+		add_filter( 'wp_mail_smtp_admin_area_enqueue_assets_scripts_data', [ $this, 'scripts_data' ], 10, 2 );
+
+		// Check if on network admin and subsite related request.
+		if ( $this->is_network_admin_subsite_related_request() ) {
+
+			// Display network admin email logs site selector.
+			add_action(
+				'wp_mail_smtp_pro_emails_logs_admin_archive_page_display_header',
+				[ $this, 'display_network_admin_site_selector' ]
+			);
+
+			// Display network admin email logs export site selector.
+			add_action(
+				'wp_mail_smtp_admin_page_tools_export_display_header',
+				[ $this, 'display_network_admin_site_selector' ]
+			);
+
+			// Handle network admin site selector. This option must be saved early.
+			$this->handle_network_admin_site_selector();
+
+			// Change network admin edit email log link from network to related site.
+			add_filter(
+				'wp_mail_smtp_pro_emails_logs_admin_table_get_item_link',
+				[ $this, 'network_admin_emails_logs_item_link' ],
+				10,
+				3
+			);
+
+			// Switch blog on email logs page.
+			add_action( 'wp-mail-smtp_page_wp-mail-smtp-logs', [ $this, 'switch_blog_to_selection' ], 0 );
+			add_action( 'wp-mail-smtp_page_wp-mail-smtp-logs', 'restore_current_blog', PHP_INT_MAX );
+
+			// Switch blog on email logs export page.
+			add_action( 'wp-mail-smtp_page_wp-mail-smtp-tools', [ $this, 'switch_blog_to_selection' ], 0 );
+			add_action( 'wp-mail-smtp_page_wp-mail-smtp-tools', 'restore_current_blog', PHP_INT_MAX );
+
+			// Switch blog on admin actions.
+			add_action( 'admin_init', [ $this, 'switch_blog_to_selection' ], 0 );
+			add_action( 'admin_init', 'restore_current_blog', PHP_INT_MAX );
+
+			// Filters options.
+			add_filter( 'wp_mail_smtp_populate_options', [ $this, 'network_admin_filter_options' ] );
+
+			// Filters ajax url.
+			add_filter( 'wp_mail_smtp_admin_area_enqueue_assets_scripts_data', [ $this, 'network_admin_filter_ajax_url' ], 10, 2 );
+		}
+
+		// Get network sites ajax handler.
+		add_action( 'wp_ajax_wp_mail_smtp_pro_get_sites_ajax', [ $this, 'get_sites_ajax' ] );
+
 		// Maybe remove plugin admin pages for network child sites.
 		$this->maybe_remove_plugin_admin_pages_from_child_sites();
+	}
+
+	/**
+	 * Enqueue required JS and CSS.
+	 *
+	 * @since 2.9.0
+	 */
+	public function enqueue_assets() {
+
+		if ( $this->is_network_admin_subsite_related_request() ) {
+			wp_enqueue_style(
+				'wp-mail-smtp-admin-select2',
+				wp_mail_smtp()->assets_url . '/pro/css/vendor/select2.min.css',
+				[],
+				'4.0.13'
+			);
+			wp_enqueue_script(
+				'wp-mail-smtp-admin-select2',
+				wp_mail_smtp()->assets_url . '/pro/js/vendor/select2.full.min.js',
+				[],
+				'4.0.13',
+				false
+			);
+			wp_enqueue_script(
+				'wp-mail-smtp-admin-select2-enhanced',
+				wp_mail_smtp()->assets_url . '/pro/js/smtp-pro-select2.min.js',
+				[ 'wp-mail-smtp-admin-select2' ],
+				WPMS_PLUGIN_VER,
+				false
+			);
+		}
+	}
+
+	/**
+	 * Plugin scripts data.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param array  $data Data.
+	 * @param string $hook Current hook.
+	 *
+	 * @return array
+	 */
+	public function scripts_data( $data, $hook ) {
+
+		if ( $this->is_network_admin_subsite_related_request() ) {
+			$data['select2'] = [
+				'i18n' => [
+					'error_loading' => esc_html__( 'The results could not be loaded.', 'wp-mail-smtp-pro' ),
+					'loading_more'  => esc_html__( 'Loading more results...', 'wp-mail-smtp-pro' ),
+					'no_results'    => esc_html__( 'No results found.', 'wp-mail-smtp-pro' ),
+					'searching'     => esc_html__( 'Searching...', 'wp-mail-smtp-pro' ),
+				],
+			];
+		}
+
+		return $data;
 	}
 
 	/**
@@ -366,9 +477,13 @@ class Multisite {
 	/**
 	 * Remove unneeded admin menu items for the WP Multisite.
 	 *
+	 * @deprecated 2.9.0
+	 *
 	 * @since 2.2.0
 	 */
 	public function remove_admin_menu_items() {
+
+		_deprecated_function( __METHOD__, '2.9.0' );
 
 		remove_submenu_page( Area::SLUG, Area::SLUG . '-logs' );
 	}
@@ -527,5 +642,213 @@ class Multisite {
 		}
 
 		wp_send_json_success();
+	}
+
+	/**
+	 * Whether network admin subsite related request or not.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @return bool
+	 */
+	public function is_network_admin_subsite_related_request() {
+
+		$current_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		if (
+			is_network_admin() &&
+			(
+				wp_mail_smtp()->get_admin()->is_admin_page( 'logs' ) ||
+				( wp_mail_smtp()->get_admin()->is_admin_page( 'tools' ) && $current_tab === 'export' )
+			)
+		) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Display network admin site selector.
+	 *
+	 * @since 2.9.0
+	 */
+	public function display_network_admin_site_selector() {
+
+		$form_action    = wp_mail_smtp()->get_admin()->get_admin_page_url();
+		$current_action = current_action();
+
+		if ( $current_action === 'wp_mail_smtp_pro_emails_logs_admin_archive_page_display_header' ) {
+			$form_action = wp_mail_smtp()->get_pro()->get_logs()->get_admin_page_url();
+		} elseif ( $current_action === 'wp_mail_smtp_admin_page_tools_export_display_header' ) {
+			$form_action = wp_mail_smtp()->get_admin()->get_parent_pages()['tools']->get_link( 'export' );
+		}
+
+		global $blog_id;
+		?>
+		<form method="post" action="<?php echo esc_url( $form_action ); ?>" class="wp-mail-smtp-network-admin-site-selector-form">
+			<label for="wp-mail-smtp-network-admin-site-selector">
+				<?php echo esc_html__( 'Site', 'wp-mail-smtp-pro' ); ?>
+			</label>
+			<select name="wp_mail_smtp_network_admin_site" class="wp-mail-smtp-network-admin-site-selector" id="wp-mail-smtp-network-admin-site-selector">
+				<option value="<?php echo esc_attr( $blog_id ); ?>">
+					<?php echo esc_html( get_blog_details( $blog_id )->blogname ); ?>
+				</option>
+			</select>
+		</form>
+		<?php
+	}
+
+	/**
+	 * Handle network admin email logs site selector.
+	 *
+	 * @since 2.9.0
+	 */
+	public function handle_network_admin_site_selector() {
+
+		if (
+			current_user_can( 'manage_network' ) &&
+			isset( $_POST['wp_mail_smtp_network_admin_site'] ) && // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			is_numeric( $_POST['wp_mail_smtp_network_admin_site'] ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		) {
+			update_user_meta(
+				get_current_user_id(),
+				'wp_mail_smtp_network_admin_site',
+				intval( $_POST['wp_mail_smtp_network_admin_site'] ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			);
+		}
+	}
+
+	/**
+	 * Switch to selected subsite.
+	 *
+	 * @since 2.9.0
+	 */
+	public function switch_blog_to_selection() {
+
+		$selected_site = get_user_meta( get_current_user_id(), 'wp_mail_smtp_network_admin_site', true );
+
+		if ( ! empty( $selected_site ) ) {
+			switch_to_blog( $selected_site );
+		}
+	}
+
+	/**
+	 * Filters network admin plugin options.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param array $options Plugin options.
+	 *
+	 * @return array
+	 */
+	public function network_admin_filter_options( $options ) {
+
+		// Skip subsite options change, if network wide setting is enabled.
+		if ( WP::use_global_plugin_settings() ) {
+			return $options;
+		}
+
+		$this->switch_blog_to_selection();
+		$options = get_option( Options::META_KEY, [] );
+		restore_current_blog();
+
+		return $options;
+	}
+
+	/**
+	 * Filters network admin ajax url.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param array  $script_data Data.
+	 * @param string $hook        Current hook.
+	 *
+	 * @return array
+	 */
+	public function network_admin_filter_ajax_url( $script_data, $hook ) {
+
+		$this->switch_blog_to_selection();
+		$script_data['ajax_url'] = admin_url( 'admin-ajax.php' );
+		restore_current_blog();
+
+		return $script_data;
+	}
+
+	/**
+	 * Change network admin edit email log link from network to related site.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param string $url  Item link.
+	 * @param Email  $item Email instance.
+	 * @param string $link Link type.
+	 *
+	 * @return string
+	 */
+	public function network_admin_emails_logs_item_link( $url, $item, $link ) {
+
+		if ( $link === 'edit' ) {
+			$url = add_query_arg(
+				[
+					'page'     => Area::SLUG . '-logs',
+					'email_id' => $item->get_id(),
+					'mode'     => 'view',
+				],
+				admin_url( 'admin.php' )
+			);
+		}
+
+		return $url;
+	}
+
+	/**
+	 * Get network sites ajax handler.
+	 *
+	 * @since 2.9.0
+	 */
+	public function get_sites_ajax() {
+
+		// Run a security check.
+		check_ajax_referer( 'wp-mail-smtp-admin', 'nonce' );
+
+		if ( ! current_user_can( 'manage_network' ) ) {
+			wp_send_json_error( esc_html__( 'You don\'t have the capability to perform this action.', 'wp-mail-smtp-pro' ) );
+		}
+
+		$page = isset( $_GET['page'] ) ? intval( $_GET['page'] ) : 1;
+		$term = isset( $_GET['term'] ) ? sanitize_text_field( wp_unslash( $_GET['term'] ) ) : '';
+
+		$sites_per_page = 10;
+
+		$query_args = [
+			'fields'        => 'ids',
+			'number'        => $sites_per_page,
+			'search'        => $term,
+			'offset'        => $sites_per_page * ( $page - 1 ),
+			'no_found_rows' => false,
+		];
+
+		$query = new \WP_Site_Query();
+
+		$results = array_map(
+			function ( $site_id ) {
+
+				return [
+					'id'   => intval( $site_id ),
+					'text' => esc_html( get_blog_details( $site_id )->blogname ),
+				];
+			},
+			$query->query( $query_args )
+		);
+
+		wp_send_json(
+			[
+				'results'    => $results,
+				'pagination' => [
+					'more' => $page < $query->max_num_pages,
+				],
+			]
+		);
 	}
 }

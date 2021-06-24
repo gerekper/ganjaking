@@ -23,6 +23,8 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	protected $data = array(
 		'title'                       => '',
 		'slug'                        => '',
+		'filter_by'                   => '',
+		'products_option'             => '',
 		'product_cats_option'         => '',
 		'product_cats'                => array(),
 		'product_types_option'        => '',

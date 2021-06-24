@@ -896,11 +896,20 @@ class WoocommerceGpfFeedItem {
 	private function handle_availability_rules() {
 		// Pick the relevant availability rule based on stock / backorder status.
 		if ( $this->is_on_backorder ) {
-			$this->additional_elements['availability'] = $this->additional_elements['availability_backorder'];
+			$this->additional_elements['availability'] =
+				! empty( $this->additional_elements['availability_backorder'] ) ?
+					$this->additional_elements['availability_backorder'] :
+					[ 'in stock' ];
 		} elseif ( ! $this->is_in_stock ) {
-			$this->additional_elements['availability'] = $this->additional_elements['availability_outofstock'];
+			$this->additional_elements['availability'] =
+				! empty( $this->additional_elements['availability_outofstock'] ) ?
+					$this->additional_elements['availability_outofstock'] :
+					[ 'out of stock' ];
 		} else {
-			$this->additional_elements['availability'] = $this->additional_elements['availability_instock'];
+			$this->additional_elements['availability'] =
+				! empty( $this->additional_elements['availability_instock'] ) ?
+					$this->additional_elements['availability_instock'] :
+					[ 'in stock' ];
 		}
 		unset( $this->additional_elements['availability_instock'] );
 		unset( $this->additional_elements['availability_backorder'] );

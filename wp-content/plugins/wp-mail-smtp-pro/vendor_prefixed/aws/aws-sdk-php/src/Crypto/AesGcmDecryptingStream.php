@@ -55,13 +55,13 @@ class AesGcmDecryptingStream implements \WPMailSMTP\Vendor\Aws\Crypto\AesStreamI
     public function createStream()
     {
         if (\version_compare(\PHP_VERSION, '7.1', '<')) {
-            return \WPMailSMTP\Vendor\GuzzleHttp\Psr7\stream_for(\WPMailSMTP\Vendor\Aws\Crypto\Polyfill\AesGcm::decrypt((string) $this->cipherText, $this->initializationVector, new \WPMailSMTP\Vendor\Aws\Crypto\Polyfill\Key($this->key), $this->aad, $this->tag, $this->keySize));
+            return \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::streamFor(\WPMailSMTP\Vendor\Aws\Crypto\Polyfill\AesGcm::decrypt((string) $this->cipherText, $this->initializationVector, new \WPMailSMTP\Vendor\Aws\Crypto\Polyfill\Key($this->key), $this->aad, $this->tag, $this->keySize));
         } else {
             $result = \openssl_decrypt((string) $this->cipherText, $this->getOpenSslName(), $this->key, \OPENSSL_RAW_DATA, $this->initializationVector, $this->tag, $this->aad);
             if ($result === \false) {
                 throw new \WPMailSMTP\Vendor\Aws\Exception\CryptoException('The requested object could not be' . ' decrypted due to an invalid authentication tag.');
             }
-            return \WPMailSMTP\Vendor\GuzzleHttp\Psr7\stream_for($result);
+            return \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::streamFor($result);
         }
     }
     public function isWritable()

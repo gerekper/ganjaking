@@ -2,6 +2,8 @@
 
 namespace WPMailSMTP\Pro\Emails\Logs;
 
+use WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments;
+use WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Events as TrackingEvents;
 use WPMailSMTP\WP;
 
 /**
@@ -440,7 +442,15 @@ class EmailsCollection implements \Countable, \Iterator {
 		if ( ! empty( $ids ) ) {
 			$table = Logs::get_table_name();
 
-			return (int) WP::wpdb()->query( "DELETE FROM $table WHERE id IN ( $ids )" ); // phpcs:ignore
+			$result = (int) WP::wpdb()->query( "DELETE FROM $table WHERE id IN ( $ids )" ); // phpcs:ignore
+
+			// Delete attachments.
+			( new Attachments() )->delete_attachments( $ids );
+
+			// Delete tracking events.
+			( new TrackingEvents() )->delete_events( $ids );
+
+			return $result;
 		}
 
 		return 0;

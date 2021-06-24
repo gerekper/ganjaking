@@ -26,7 +26,8 @@
 
 	var TMEPOJS;
 
-	$( document ).ready( function() {
+	// document ready
+	$( function() {
 		TMEPOJS = window.TMEPOJS || { tm_epo_global_tooltip_max_width: '340px' };
 	} );
 
@@ -100,10 +101,14 @@
 
 				tooltip.find( 'aside' ).show();
 
+				tooltip.css( {
+					left: '',
+					right: '',
+					top: ''
+				} );
+
 				scroll = $.epoAPI.dom.scroll();
 				pos_left = target.offset().left + ( target.outerWidth() / 2 ) - ( tooltip.outerWidth() / 2 );
-				pos_top = target.offset().top - tooltip.outerHeight() - 10;
-				pos_from_top = target.offset().top - scroll.top - tooltip.outerHeight() - 10;
 				original_pos_left = pos_left;
 
 				if ( pos_left < 0 ) {
@@ -114,15 +119,31 @@
 				}
 				if ( original_pos_left >= 0 && pos_left + tooltip.outerWidth() > $( window ).width() ) {
 					pos_left = target.offset().left - tooltip.outerWidth() + ( target.outerWidth() / 2 ) + 20;
+					if ( pos_left < 0 ) {
+						pos_left = pos_left - 10;
+						tooltip.css( 'max-width', 'calc(' + tooltip.css( 'max-width' ) + ' - ' + Math.abs( pos_left ) + 'px)' );
+						pos_left = 10;
+					}
 					tooltip.addClass( 'right' );
 				} else {
 					tooltip.removeClass( 'right' );
 				}
+
+				tooltip.css( {
+					left: pos_left,
+					right: 'auto',
+					top: pos_top
+				} );
+				pos_top = target.offset().top - tooltip.outerHeight() - 10;
+				pos_from_top = target.offset().top - scroll.top - tooltip.outerHeight() - 10;
+
 				if ( pos_top < 0 || pos_from_top < 0 ) {
 					pos_top = target.offset().top + target.outerHeight();
 					tooltip.addClass( 'top' );
+					tooltip.removeClass( 'bottom' );
 				} else {
 					tooltip.removeClass( 'top' );
+					tooltip.addClass( 'bottom' );
 				}
 
 				$( window ).trigger( 'tm_tooltip_show' );
@@ -248,9 +269,12 @@
 							label = target.closest( '.cpf_hide_element' );
 						}
 						if ( label.length === 0 ) {
-							label = target.closest( '.cpf-section' ).find( '.tc-section-inner-wrap .tm-description' );
+							label = target.closest( '.cpf-section' ).find( '.tc-section-inner-wrap .tm-section-description.tm-description' );
 						}
-						findlabel = label.find( '.checkbox-image-label,.radio-image-label,.tm-tip-html' );
+						findlabel = label.find( '.tm-tip-html' );
+						if ( findlabel.length === 0 ) {
+							findlabel = label.find( '.checkbox-image-label,.radio-image-label' );
+						}
 
 						if ( findlabel.length === 0 ) {
 							findlabel = label.next( '.checkbox-image-label,.radio-image-label,.tm-tip-html' );
@@ -362,7 +386,7 @@
 	};
 
 	$.fn.tcToolTip.defaults = {
-		fadin: 'fadeIn',
+		fadin: 'fadein',
 		fadeout: 'fadeout',
 		speed: 1500
 	};

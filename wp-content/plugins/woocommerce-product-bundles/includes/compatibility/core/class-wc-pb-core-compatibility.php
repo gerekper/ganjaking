@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Functions for WC core back-compatibility.
  *
  * @class    WC_PB_Core_Compatibility
- * @version  6.3.1
+ * @version  6.10.2
  */
 class WC_PB_Core_Compatibility {
 
@@ -567,9 +567,17 @@ class WC_PB_Core_Compatibility {
 	 * @return boolean
 	 */
 	public static function is_wc_admin_active() {
+
 		if ( ! isset( self::$is_wc_admin_active ) ) {
-			self::$is_wc_admin_active = self::is_wc_version_gte( '4.0' ) && defined( 'WC_ADMIN_VERSION_NUMBER' ) && version_compare( WC_ADMIN_VERSION_NUMBER, '1.0.0', '>=' );
+
+			$enabled = self::is_wc_version_gte( '4.0' ) && defined( 'WC_ADMIN_VERSION_NUMBER' ) && version_compare( WC_ADMIN_VERSION_NUMBER, '1.0.0', '>=' );
+			if ( $enabled && version_compare( WC_ADMIN_VERSION_NUMBER, '2.3.0', '>=' ) && true === apply_filters( 'woocommerce_admin_disabled', false ) ) {
+				$enabled = false;
+			}
+
+			self::$is_wc_admin_active = $enabled;
 		}
+
 		return self::$is_wc_admin_active;
 	}
 }

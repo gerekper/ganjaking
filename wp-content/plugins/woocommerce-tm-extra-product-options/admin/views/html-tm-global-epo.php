@@ -16,14 +16,16 @@ if ( ! $wpml_is_original_product ) {
 	$tm_meta_cpf = themecomplete_get_post_meta( $post_id, 'tm_meta_cpf', TRUE );
 }
 $tm_meta_cpf_mode = isset( $tm_meta_cpf['mode'] ) ? $tm_meta_cpf['mode'] : '';
-if ( THEMECOMPLETE_EPO()->tm_epo_global_hide_product_builder_mode == "yes" ) {
+if ( THEMECOMPLETE_EPO()->tm_epo_global_hide_product_builder_mode === 'yes' && THEMECOMPLETE_EPO()->tm_epo_global_hide_product_normal_mode !== 'yes' ) {
 	$tm_meta_cpf_mode = "local";
 }
-if ( THEMECOMPLETE_EPO()->tm_epo_global_hide_product_normal_mode == "yes" ) {
+if ( THEMECOMPLETE_EPO()->tm_epo_global_hide_product_normal_mode === 'yes' && THEMECOMPLETE_EPO()->tm_epo_global_hide_product_builder_mode !== 'yes' ) {
 	$tm_meta_cpf_mode = "builder";
 }
-
-// Check for deprecate Normal mode
+if ( THEMECOMPLETE_EPO()->tm_epo_global_hide_product_settings !== 'yes' && THEMECOMPLETE_EPO()->tm_epo_global_hide_product_normal_mode === 'yes' && THEMECOMPLETE_EPO()->tm_epo_global_hide_product_builder_mode === 'yes' ) {
+	$tm_meta_cpf_mode = "settings";
+}
+// Check for deprecated Normal mode
 $args   = array(
 	'post_type'   => THEMECOMPLETE_EPO_LOCAL_POST_TYPE,
 	'post_status' => array( 'private', 'publish' ),
@@ -34,24 +36,24 @@ $args   = array(
 );
 $tmepos = get_posts( $args );
 ?>
-<div id="tm_extra_product_options" class="panel wc-metaboxes-wrapper">
-    <div id="tm_extra_product_options_inner">
-        <div class="tm_mode_selector">
-            <input type="hidden" value="<?php echo esc_attr( $tm_meta_cpf_mode ); ?>" id="tm_meta_cpf_mode" name="tm_meta_cpf[mode]">
-            <p class="form-field tm_mode_select">
+<div id="tc-admin-extra-product-options" class="panel wc-metaboxes-wrapper">
+    <div id="tc-admin-extra-product-options-inner">
+        <div class="tm-mode-selector">
+            <input type="hidden" value="<?php echo esc_attr( $tm_meta_cpf_mode ); ?>" id="tm-meta-cpf-mode" name="tm_meta_cpf[mode]">
+            <p class="form-field tm-mode-select">
                 <span class="<?php if ( THEMECOMPLETE_EPO()->tm_epo_global_hide_product_builder_mode == "yes" ) {
 	                echo 'tm-hidden ';
-                } ?>button button-primary button-large tm_select_mode tm_builder_select"><i class="tcfa tcfa-th-large"></i><?php esc_html_e( 'Builder', 'woocommerce-tm-extra-product-options' ); ?></span>
+                } ?>button button-primary button-large tc-select-mode tc-builder-select"><i class="tcfa tcfa-th-large"></i><?php esc_html_e( 'Builder', 'woocommerce-tm-extra-product-options' ); ?></span>
                     <span class="<?php if ( THEMECOMPLETE_EPO()->tm_epo_global_hide_product_normal_mode == "yes" ) {
 						echo 'tm-hidden ';
-					} ?>button button-primary button-large tm_select_mode tm_local_select"><i class="tcfa tcfa-th-list"></i><?php esc_html_e( 'Normal', 'woocommerce-tm-extra-product-options' ); ?></span>	
+					} ?>button button-primary button-large tc-select-mode tc-local-select"><i class="tcfa tcfa-th-list"></i><?php esc_html_e( 'Normal', 'woocommerce-tm-extra-product-options' ); ?></span>	
                 <span class="<?php if ( THEMECOMPLETE_EPO()->tm_epo_global_hide_product_settings == "yes" ) {
 					echo 'tm-hidden ';
-				} ?>button button-primary button-large tm_select_mode tm_settings_select"><i class="tcfa tcfa-cog"></i><?php esc_html_e( 'Settings', 'woocommerce-tm-extra-product-options' ); ?></span>
+				} ?>button button-primary button-large tc-select-mode tc-settings-select"><i class="tcfa tcfa-cog"></i><?php esc_html_e( 'Settings', 'woocommerce-tm-extra-product-options' ); ?></span>
             </p>
         </div>
-        <div class="tm_mode_builder"><?php THEMECOMPLETE_EPO_ADMIN_GLOBAL()->tm_form_fields_builder_meta_box( $post ); ?></div>
-            <div class="tm_mode_local tm_wrapper">
+        <div class="tm-mode-builder"><?php THEMECOMPLETE_EPO_ADMIN_GLOBAL()->tm_form_fields_builder_meta_box( $post ); ?></div>
+            <div class="tm-mode-local tc-wrapper">
 			<?php
 			if ( THEMECOMPLETE_EPO_WPML()->is_original_product( $post_id ) ) {
 				include( 'html-tm-epo.php' );
@@ -63,7 +65,7 @@ $tmepos = get_posts( $args );
 			}
 			?>
             </div>
-        <div class="tm_mode_settings tm_options_group woocommerce_options_panel tm_wrapper">
+        <div class="tm-mode-settings tc-options-group woocommerce_options_panel tc-wrapper">
 			<?php
 			if ( THEMECOMPLETE_EPO_WPML()->is_original_product( $post_id ) ) {
 				// Include additional Global forms 

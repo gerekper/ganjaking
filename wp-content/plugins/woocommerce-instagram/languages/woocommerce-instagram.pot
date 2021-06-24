@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WooCommerce Instagram plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Instagram 3.4.6\n"
+"Project-Id-Version: WooCommerce Instagram 3.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-instagram\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-05-27T14:00:22+00:00\n"
+"POT-Creation-Date: 2021-06-17T10:39:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: woocommerce-instagram\n"
@@ -311,13 +311,13 @@ msgid "The product images to include in the catalog."
 msgstr ""
 
 #: includes/admin/meta-boxes/views/html-product-data-instagram.php:69
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:376
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:404
 msgctxt "setting option"
 msgid "All the images"
 msgstr ""
 
 #: includes/admin/meta-boxes/views/html-product-data-instagram.php:70
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:377
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:405
 msgctxt "setting option"
 msgid "Featured image"
 msgstr ""
@@ -599,406 +599,439 @@ msgctxt "settings section desc"
 msgid "Filter the products that will be included in the catalog."
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:193
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:190
 msgctxt "setting title"
-msgid "Product categories"
+msgid "Filter by"
 msgstr ""
 
 #: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:194
-msgctxt "setting desc"
-msgid "Choose the product categories to include in the catalog."
+msgctxt "setting option"
+msgid "Products"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:195
+msgctxt "setting option"
+msgid "Product categories"
 msgstr ""
 
 #: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:196
-msgctxt "setting option"
-msgid "All product categories"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:197
-msgctxt "setting option"
-msgid "All product categories, except&hellip;"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:198
-msgctxt "setting option"
-msgid "Only specific product categories"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:206
-msgctxt "setting title"
-msgid "Product types"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:207
-msgctxt "setting desc"
-msgid "Choose the product types to include in the catalog."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:209
-msgctxt "setting option"
-msgid "All product types"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:210
-msgctxt "setting option"
-msgid "All product types, except&hellip;"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:211
-msgctxt "setting option"
-msgid "Only specific product types"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:219
-msgctxt "setting placeholder"
-msgid "Select product types"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:225
-msgctxt "setting title"
-msgid "Virtual products"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:226
-msgctxt "setting desc"
-msgid "Filter virtual products."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:227
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:238
-msgctxt "setting desc"
-msgid "This filter only applies to simple products."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:230
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:241
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:251
-msgctxt "setting option"
-msgid "All products"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:231
-msgctxt "setting option"
-msgid "Only virtual products"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:232
-msgctxt "setting option"
-msgid "Only non-virtual products"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:236
-msgctxt "setting title"
-msgid "Downloadable products"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:237
-msgctxt "setting desc"
-msgid "Filter downloadable products."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:242
-msgctxt "setting option"
-msgid "Only downloadable products"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:243
-msgctxt "setting option"
-msgid "Only non-downloadable products"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:247
-msgctxt "setting title"
-msgid "Stock status"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:248
-msgctxt "setting desc"
-msgid "Filter the products by the stock status."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:252
-msgctxt "setting option"
-msgid "Only in-stock products"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:253
-msgctxt "setting option"
-msgid "Only out of stock products"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:257
-msgctxt "setting title"
-msgid "Include products"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:259
-msgctxt "setting desc"
-msgid "Choose the products to include in the catalog."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:263
-msgctxt "setting title"
-msgid "Exclude products"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:265
-msgctxt "setting desc"
-msgid "Choose the products to exclude from the catalog."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:269
-msgctxt "settings section title"
-msgid "Product data"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:270
-msgctxt "settings section desc"
-msgid "Customize the product data for this catalog."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:274
-msgctxt "setting title"
-msgid "Product variations"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:275
-msgctxt "setting desc"
-msgid "Include product variations."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:276
-msgctxt "setting desc"
-msgid "Replaces the variable products by their variations."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:281
-msgctxt "setting title"
-msgid "Currency code"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:282
-msgctxt "setting desc"
-msgid "Include the currency code in prices."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:283
-msgctxt "setting desc"
-msgid "Uncheck this setting to create a catalog with generic prices."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:288
-msgctxt "setting title"
-msgid "Description field"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:289
-msgctxt "setting desc"
-msgid "Choose the field that will be used as the product description."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:293
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:303
-msgctxt "setting option"
-msgid "Description"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:294
-msgctxt "setting option"
-msgid "Short description"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:298
-msgctxt "setting title"
-msgid "Variation description field"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:299
-msgctxt "setting desc"
-msgid "Choose the field that will be used as the variation description."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:304
-msgctxt "setting option"
-msgid "Parent description"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:305
-msgctxt "setting option"
-msgid "Parent short description"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:309
-msgctxt "setting title"
-msgid "Include tax"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:310
-msgctxt "setting desc"
-msgid "Include tax in prices."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:311
-msgctxt "setting desc"
-msgid "Prices with tax included are mandatory in some countries."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:315
-msgctxt "setting title"
-msgid "Tax country"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:316
-msgctxt "setting desc"
-msgid "The country where the taxes will be based on."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:317
-msgctxt "setting desc"
-msgid "Calculate tax based on the shop base address by default."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:323
-msgctxt "setting title"
-msgid "Product ID"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:324
-msgctxt "setting desc"
-msgid "Product ID format."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:325
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:332
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:351
-msgctxt "setting desc"
-msgid "Placeholders will be replaced by the product data."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:330
-msgctxt "setting title"
-msgid "Group ID"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:331
-msgctxt "setting desc"
-msgid "Group ID format to group the variations of a product."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:337
-msgctxt "setting title"
-msgid "Product MPN"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:338
-msgctxt "setting desc"
-msgid "Choose the product field that will be used as the MPN number."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:339
-msgctxt "setting desc"
-msgid "The MPN (Manufacturer Part Number) is a unique number that identifies the products."
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:343
-msgctxt "setting option"
-msgid "Product ID"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:344
-msgctxt "setting option"
-msgid "Product SKU"
-msgstr ""
-
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:345
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:373
 msgctxt "setting option"
 msgid "Custom"
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:349
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:200
+msgctxt "setting title"
+msgid "Products"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:201
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:285
+msgctxt "setting desc"
+msgid "Choose the products to include in the catalog."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:205
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:254
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:266
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:277
+msgctxt "setting option"
+msgid "All products"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:206
+msgctxt "setting option"
+msgid "All products, except&hellip;"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:207
+msgctxt "setting option"
+msgid "Only specific products"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:214
+msgctxt "setting title"
+msgid "Product categories"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:215
+msgctxt "setting desc"
+msgid "Choose the product categories to include in the catalog."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:218
+msgctxt "setting option"
+msgid "All product categories"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:219
+msgctxt "setting option"
+msgid "All product categories, except&hellip;"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:220
+msgctxt "setting option"
+msgid "Only specific product categories"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:228
+msgctxt "setting title"
+msgid "Product types"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:229
+msgctxt "setting desc"
+msgid "Choose the product types to include in the catalog."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:232
+msgctxt "setting option"
+msgid "All product types"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:233
+msgctxt "setting option"
+msgid "All product types, except&hellip;"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:234
+msgctxt "setting option"
+msgid "Only specific product types"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:242
+msgctxt "setting placeholder"
+msgid "Select product types"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:248
+msgctxt "setting title"
+msgid "Virtual products"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:249
+msgctxt "setting desc"
+msgid "Filter virtual products."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:250
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:262
+msgctxt "setting desc"
+msgid "This filter only applies to simple products."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:255
+msgctxt "setting option"
+msgid "Only virtual products"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:256
+msgctxt "setting option"
+msgid "Only non-virtual products"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:260
+msgctxt "setting title"
+msgid "Downloadable products"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:261
+msgctxt "setting desc"
+msgid "Filter downloadable products."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:267
+msgctxt "setting option"
+msgid "Only downloadable products"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:268
+msgctxt "setting option"
+msgid "Only non-downloadable products"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:272
+msgctxt "setting title"
+msgid "Stock status"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:273
+msgctxt "setting desc"
+msgid "Filter the products by the stock status."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:278
+msgctxt "setting option"
+msgid "Only in-stock products"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:279
+msgctxt "setting option"
+msgid "Only out of stock products"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:283
+msgctxt "setting title"
+msgid "Include products"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:290
+msgctxt "setting title"
+msgid "Exclude products"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:292
+msgctxt "setting desc"
+msgid "Choose the products to exclude from the catalog."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:297
+msgctxt "settings section title"
+msgid "Product data"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:298
+msgctxt "settings section desc"
+msgid "Customize the product data for this catalog."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:302
+msgctxt "setting title"
+msgid "Product variations"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:303
+msgctxt "setting desc"
+msgid "Include product variations."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:304
+msgctxt "setting desc"
+msgid "Replaces the variable products by their variations."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:309
+msgctxt "setting title"
+msgid "Currency code"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:310
+msgctxt "setting desc"
+msgid "Include the currency code in prices."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:311
+msgctxt "setting desc"
+msgid "Uncheck this setting to create a catalog with generic prices."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:316
+msgctxt "setting title"
+msgid "Description field"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:317
+msgctxt "setting desc"
+msgid "Choose the field that will be used as the product description."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:321
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:331
+msgctxt "setting option"
+msgid "Description"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:322
+msgctxt "setting option"
+msgid "Short description"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:326
+msgctxt "setting title"
+msgid "Variation description field"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:327
+msgctxt "setting desc"
+msgid "Choose the field that will be used as the variation description."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:332
+msgctxt "setting option"
+msgid "Parent description"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:333
+msgctxt "setting option"
+msgid "Parent short description"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:337
+msgctxt "setting title"
+msgid "Include tax"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:338
+msgctxt "setting desc"
+msgid "Include tax in prices."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:339
+msgctxt "setting desc"
+msgid "Prices with tax included are mandatory in some countries."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:343
+msgctxt "setting title"
+msgid "Tax country"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:344
+msgctxt "setting desc"
+msgid "The country where the taxes will be based on."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:345
+msgctxt "setting desc"
+msgid "Calculate tax based on the shop base address by default."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:351
+msgctxt "setting title"
+msgid "Product ID"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:352
+msgctxt "setting desc"
+msgid "Product ID format."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:353
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:360
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:379
+msgctxt "setting desc"
+msgid "Placeholders will be replaced by the product data."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:358
+msgctxt "setting title"
+msgid "Group ID"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:359
+msgctxt "setting desc"
+msgid "Group ID format to group the variations of a product."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:365
+msgctxt "setting title"
+msgid "Product MPN"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:366
+msgctxt "setting desc"
+msgid "Choose the product field that will be used as the MPN number."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:367
+msgctxt "setting desc"
+msgid "The MPN (Manufacturer Part Number) is a unique number that identifies the products."
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:371
+msgctxt "setting option"
+msgid "Product ID"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:372
+msgctxt "setting option"
+msgid "Product SKU"
+msgstr ""
+
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:377
 msgctxt "setting title"
 msgid "Custom MPN"
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:350
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:378
 msgctxt "setting desc"
 msgid "Custom MPN format."
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:356
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:384
 msgctxt "setting title"
 msgid "Brand"
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:357
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:385
 msgctxt "setting desc"
 msgid "The brand of the products."
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:358
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:365
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:383
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:386
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:393
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:411
 msgctxt "setting desc"
 msgid "This option can be set per product."
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:360
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:388
 msgctxt "setting desc"
 msgid "N/A"
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:363
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:391
 msgctxt "setting title"
 msgid "Condition"
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:364
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:392
 msgctxt "setting desc"
 msgid "The condition of the products."
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:371
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:399
 msgctxt "setting title"
 msgid "Images"
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:372
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:400
 msgctxt "setting desc"
 msgid "The product images to include in the catalog."
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:381
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:409
 msgctxt "setting title"
 msgid "Google Product Category"
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:382
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:410
 msgctxt "setting desc"
 msgid "Default Google Product Category."
 msgstr ""
 
 #. translators: %s: list of placeholders
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:403
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:431
 msgctxt "setting desc"
 msgid "Available placeholders: %s"
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:424
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:454
 msgctxt "setting placeholder"
 msgid "Select product categories"
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:463
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:492
 msgctxt "setting placeholder"
 msgid "Search for a product&hellip;"
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:505
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:524
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:535
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:554
 msgid "Select a subcategory &hellip;"
 msgstr ""
 
-#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:505
+#: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:535
 msgid "Select a category &hellip;"
 msgstr ""
 
@@ -1006,7 +1039,7 @@ msgstr ""
 msgid "Dismiss"
 msgstr ""
 
-#: includes/class-wc-instagram-install.php:326
+#: includes/class-wc-instagram-install.php:330
 msgctxt "admin notice"
 msgid "WooCommerce Instagram update complete. Thank you for updating to the latest version!"
 msgstr ""

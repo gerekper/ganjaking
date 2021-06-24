@@ -46,7 +46,7 @@ defined( 'ABSPATH' ) || exit;
 								}
 							}
 						} 
-						checked( $checked, TRUE );						
+						checked( $checked, TRUE );
 						?> value="<?php echo esc_attr( $option['value_to_show'] ); ?>"
 						data-no-price="<?php echo esc_attr( ! $priced_individually ); ?>"<?php
 						if ( isset( $option['data_price'] ) ) {

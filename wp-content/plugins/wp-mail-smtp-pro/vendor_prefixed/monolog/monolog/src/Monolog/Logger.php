@@ -271,7 +271,7 @@ class Logger implements \WPMailSMTP\Vendor\Psr\Log\LoggerInterface, \WPMailSMTP\
         if ($this->microsecondTimestamps && \PHP_VERSION_ID < 70100) {
             $ts = \DateTime::createFromFormat('U.u', \sprintf('%.6F', \microtime(\true)), static::$timezone);
         } else {
-            $ts = new \DateTime(null, static::$timezone);
+            $ts = new \DateTime('now', static::$timezone);
         }
         $ts->setTimezone(static::$timezone);
         $record = array('message' => (string) $message, 'context' => $context, 'level' => $level, 'level_name' => $levelName, 'channel' => $this->name, 'datetime' => $ts, 'extra' => array());

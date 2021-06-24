@@ -5,9 +5,10 @@ namespace WPMailSMTP\Pro;
 use WPMailSMTP\Debug;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Admin\DashboardWidget;
+use WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments;
 use WPMailSMTP\Pro\Emails\Logs\EmailsCollection;
 use WPMailSMTP\Pro\Emails\Logs\Logs;
-use WPMailSMTP\Pro\Emails\Logs\Export\Export as LogsExport;
+use WPMailSMTP\Pro\Emails\Logs\Tracking\Tracking;
 use WPMailSMTP\WP;
 
 /**
@@ -91,10 +92,9 @@ class Pro {
 		$this->get_license();
 		$this->get_site_health()->init();
 		$this->disable_wp_auto_update_plugins();
-		$this->get_dashboard_widget();
 
 		if ( current_user_can( $this->get_logs()->get_manage_capability() ) ) {
-			( new LogsExport() )->init();
+			$this->get_logs_export()->init();
 		}
 
 		// Usage tracking hooks.
@@ -112,6 +112,14 @@ class Pro {
 
 		// Maybe cancel Pro recurring AS tasks for PHP 8 compatibility in v2.6.
 		add_filter( 'wp_mail_smtp_migration_cancel_recurring_tasks', [ $this, 'maybe_cancel_recurring_as_tasks_for_v26' ] );
+
+		// Use the Pro Dashboard Widget.
+		add_filter(
+			'wp_mail_smtp_core_get_dashboard_widget',
+			function () {
+				return DashboardWidget::class;
+			}
+		);
 	}
 
 	/**
@@ -148,6 +156,24 @@ class Pro {
 		}
 
 		return $logs;
+	}
+
+	/**
+	 * Load the Logs export functionality.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @return Emails\Logs\Export\Export
+	 */
+	public function get_logs_export() {
+
+		static $logs_export;
+
+		if ( ! isset( $logs_export ) ) {
+			$logs_export = apply_filters( 'wp_mail_smtp_pro_get_logs_export', new Emails\Logs\Export\Export() );
+		}
+
+		return $logs_export;
 	}
 
 	/**
@@ -225,11 +251,15 @@ class Pro {
 	/**
 	 * Get the DashboardWidget object.
 	 *
+	 * @deprecated 2.9.0
+	 *
 	 * @since 2.7.0
 	 *
 	 * @return DashboardWidget
 	 */
 	public function get_dashboard_widget() {
+
+		_deprecated_function( __METHOD__, '2.9.0' );
 
 		static $dashboard_widget;
 
@@ -307,6 +337,8 @@ class Pro {
 
 		return [
 			Logs::get_table_name(),
+			Tracking::get_events_table_name(),
+			Tracking::get_links_table_name(),
 		];
 	}
 
@@ -325,6 +357,16 @@ class Pro {
 
 		if ( $this->get_logs()->is_enabled() ) {
 			$pro_tables[] = Logs::get_table_name();
+		}
+
+		if ( $this->get_logs()->is_enabled_save_attachments() ) {
+			$pro_tables[] = Attachments::get_email_attachments_table_name();
+			$pro_tables[] = Attachments::get_attachment_files_table_name();
+		}
+
+		if ( $this->get_logs()->is_enabled_tracking() ) {
+			$pro_tables[] = Tracking::get_events_table_name();
+			$pro_tables[] = Tracking::get_links_table_name();
 		}
 
 		return array_merge( $tables, $pro_tables );
@@ -388,6 +430,7 @@ class Pro {
 				\WPMailSMTP\Pro\Tasks\Logs\Sendinblue\VerifySentStatusTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\SMTPcom\VerifySentStatusTask::class,
 				\WPMailSMTP\Pro\Tasks\Logs\ExportCleanupTask::class,
+				\WPMailSMTP\Pro\Tasks\Logs\ResendTask::class,
 			]
 		);
 	}
@@ -431,6 +474,13 @@ class Pro {
 				WP::add_admin_notice(
 				/* translators: %s - error code, returned by Zoho API. */
 					sprintf( esc_html__( 'There was an error while processing the authentication request: %s. Please try again.', 'wp-mail-smtp-pro' ), '<code>' . esc_html( $error ) . '</code>' ),
+					WP::ADMIN_NOTICE_ERROR
+				);
+				break;
+
+			case 'zoho_unsuccessful_oauth':
+				WP::add_admin_notice(
+					esc_html__( 'There was an error while processing the authentication request. Please recheck your Region, Client ID and Client Secret and try again.', 'wp-mail-smtp-pro' ),
 					WP::ADMIN_NOTICE_ERROR
 				);
 				break;
@@ -576,11 +626,14 @@ class Pro {
 			}
 		}
 
-		$data['wp_mail_smtp_pro_enable_log']           = (bool) $options->get( 'logs', 'enabled' );
-		$data['wp_mail_smtp_pro_log_email_content']    = (bool) $options->get( 'logs', 'log_email_content' );
-		$data['wp_mail_smtp_pro_log_retention_period'] = $options->get( 'logs', 'log_retention_period' );
-		$data['wp_mail_smtp_pro_log_entry_count']      = $this->get_logs()->is_valid_db() ? ( new EmailsCollection() )->get_count() : 0;
-		$data['wp_mail_smtp_pro_disabled_controls']    = $disabled_controls;
+		$data['wp_mail_smtp_pro_enable_log']              = (bool) $options->get( 'logs', 'enabled' );
+		$data['wp_mail_smtp_pro_log_email_content']       = (bool) $options->get( 'logs', 'log_email_content' );
+		$data['wp_mail_smtp_pro_log_save_attachments']    = (bool) $options->get( 'logs', 'save_attachments' );
+		$data['wp_mail_smtp_pro_log_open_email_tracking'] = (bool) $options->get( 'logs', 'open_email_tracking' );
+		$data['wp_mail_smtp_pro_log_click_link_tracking'] = (bool) $options->get( 'logs', 'click_link_tracking' );
+		$data['wp_mail_smtp_pro_log_retention_period']    = $options->get( 'logs', 'log_retention_period' );
+		$data['wp_mail_smtp_pro_log_entry_count']         = $this->get_logs()->is_valid_db() ? ( new EmailsCollection() )->get_count() : 0;
+		$data['wp_mail_smtp_pro_disabled_controls']       = $disabled_controls;
 
 		return $data;
 	}

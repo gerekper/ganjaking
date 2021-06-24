@@ -288,6 +288,12 @@ class Options extends OptionsAbstract {
 		<div id="wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-register-identity-holder">
 			<div id="wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-register-identity">
 				<?php wp_nonce_field( 'wp_mail_smtp_pro_amazonses_register_identity', 'wp_mail_smtp_pro_amazonses_register_identity' ); ?>
+				<p id="wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-domain-desc">
+					<?php esc_html_e( 'Enter the domain name to verify it on Amazon SES and generate the required DNS TXT record.' , 'wp-mail-smtp-pro' ); ?>
+				</p>
+				<p id="wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-email-desc" style="display: none;">
+					<?php esc_html_e( 'Enter a valid email address. A verification email will be sent to the email address you entered.' , 'wp-mail-smtp-pro' ); ?>
+				</p>
 				<p>
 					<input id="wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-domain-type" class="js-wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-register-identity-radio-button wp-mail-smtp-not-form-input" type="radio" name="identity-type" value="domain" checked="checked">
 					<label for="wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-domain-type"><?php esc_html_e( 'Verify Domain', 'wp-mail-smtp-pro' ); ?></label>
@@ -297,12 +303,6 @@ class Options extends OptionsAbstract {
 				<p>
 					<input type="text" id="wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-domain-input" class="wp-mail-smtp-not-form-input" placeholder="<?php esc_attr_e( 'Please enter a domain', 'wp-mail-smtp-pro' ); ?>">
 					<input type="email" id="wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-email-input" class="wp-mail-smtp-not-form-input" style="display: none;" placeholder="<?php esc_attr_e( 'Please enter a valid email address', 'wp-mail-smtp-pro' ); ?>">
-				</p>
-				<p id="wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-domain-desc">
-					<?php esc_html_e( 'Enter the domain name above to verify it on Amazon SES and generate the required DNS TXT record.' , 'wp-mail-smtp-pro' ); ?>
-				</p>
-				<p id="wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-email-desc" style="display: none;">
-					<?php esc_html_e( 'Enter a valid email address above. A verification email will be sent to the email address you entered.' , 'wp-mail-smtp-pro' ); ?>
 				</p>
 				<button class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-orange wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-register-identity js-wp-mail-smtp-providers-<?php echo esc_attr( $slug ); ?>-register-identity">
 					<?php esc_html_e( 'Verify', 'wp-mail-smtp-pro' ); ?>

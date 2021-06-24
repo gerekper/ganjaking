@@ -1104,7 +1104,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 		THEMECOMPLETE_EPO_WPML()->add_meta_box();
 
 		// Publish meta box
-		add_meta_box( "submitdiv", _( 'Publish' ), array( $this, 'tm_post_submit_meta_box' ), NULL, "side", "core" );
+		add_meta_box( "submitdiv", esc_html__( 'Publish' ), array( $this, 'tm_post_submit_meta_box' ), NULL, "side", "core" );
 
 		// Taxonomies meta box
 		if ( $this->tm_list_table ) {
@@ -1134,13 +1134,13 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 		}
 
 		// Products meta box
-		add_meta_box( "tm_product_search", esc_html__( 'Products', 'woocommerce-tm-extra-product-options' ), array( $this, 'tm_product_search_meta_box' ), NULL, "side", "core" );
+		add_meta_box( "tc-product-search", esc_html__( 'Products', 'woocommerce-tm-extra-product-options' ), array( $this, 'tm_product_search_meta_box' ), NULL, "side", "core" );
 
 		// Roles meta box
-		add_meta_box( "tm_product_roles", esc_html__( 'Roles', 'woocommerce-tm-extra-product-options' ), array( $this, 'tm_product_roles_meta_box' ), NULL, "side", "core" );
+		add_meta_box( "tc-product-roles", esc_html__( 'Roles', 'woocommerce-tm-extra-product-options' ), array( $this, 'tm_product_roles_meta_box' ), NULL, "side", "core" );
 
 		// Products meta box
-		add_meta_box( "tm_product_exclude", esc_html__( 'Exclude Products', 'woocommerce-tm-extra-product-options' ), array( $this, 'tm_product_exclude_meta_box' ), NULL, "side", "core" );
+		add_meta_box( "tc-product-exclude", esc_html__( 'Exclude Products', 'woocommerce-tm-extra-product-options' ), array( $this, 'tm_product_exclude_meta_box' ), NULL, "side", "core" );
 
 		// Description meta box
 		add_meta_box( "postexcerpt", esc_html__( 'Description', 'woocommerce-tm-extra-product-options' ), array( $this, 'tm_description_meta_box' ), NULL, "normal", "core" );
@@ -1152,7 +1152,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 	/**
 	 * Description meta box
 	 *
-	 * @since 1.0
+	 * @since 1.0	
 	 */
 	public function tm_description_meta_box( $post ) {
 		$settings = array(
@@ -1192,10 +1192,10 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 
 		echo '<div class="message0x0 tc-clearfix">' .
 		     '<div class="message2x1">' .
-		     '<label for="tm_enabled_options"><span>' . esc_html__( 'Enabled roles for this form', 'woocommerce-tm-extra-product-options' ) . '</span></label>' .
+		     '<label for="tc-enabled-options"><span>' . esc_html__( 'Enabled roles for this form', 'woocommerce-tm-extra-product-options' ) . '</span></label>' .
 		     '</div>' .
 		     '<div class="message2x2">' .
-		     '<select id="tm_enabled_options" name="tm_meta_enabled_roles[]" class="multiselect wc-enhanced-select" multiple="multiple">';
+		     '<select id="tc-enabled-options" name="tm_meta_enabled_roles[]" class="multiselect wc-enhanced-select" multiple="multiple">';
 		foreach ( $roles as $option_key => $option_text ) {
 			echo '<option value="' . esc_attr( $option_key ) . '" ';
 			selected( in_array( $option_key, $enabled_roles ), 1, TRUE );
@@ -1207,10 +1207,10 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 		     '</div>';
 		echo '<div class="message0x0 tc-clearfix">' .
 		     '<div class="message2x1">' .
-		     '<label for="tm_disabled_options"><span>' . esc_html__( 'Disabled roles for this form', 'woocommerce-tm-extra-product-options' ) . '</span></label>' .
+		     '<label for="tc-disabled-options"><span>' . esc_html__( 'Disabled roles for this form', 'woocommerce-tm-extra-product-options' ) . '</span></label>' .
 		     '</div>' .
 		     '<div class="message2x2">' .
-		     '<select id="tm_disabled_options" name="tm_meta_disabled_roles[]" class="multiselect wc-enhanced-select" multiple="multiple">';
+		     '<select id="tc-disabled-options" name="tm_meta_disabled_roles[]" class="multiselect wc-enhanced-select" multiple="multiple">';
 		foreach ( $roles as $option_key => $option_text ) {
 			echo '<option value="' . esc_attr( $option_key ) . '" ';
 			selected( in_array( $option_key, $disabled_roles ), 1, TRUE );
@@ -1318,7 +1318,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 			$disabled = TRUE;
 		}
 		?>
-        <h3 id="tc_disabled_categories" class="hidden">
+        <h3 id="tc-disabled-categories" class="hidden">
 			<?php if ( ! empty( $disabled ) && $meta['disable_categories'] == 1 ) {
 				?>
 
@@ -1419,7 +1419,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 			$basetype = THEMECOMPLETE_EPO_GLOBAL_POST_TYPE;
 		}
 		?>
-        <div id="tmformfieldsbuilderwrap" class="tm_wrapper">
+        <div id="tmformfieldsbuilderwrap" class="tc-wrapper">
 			<?php
 			$wpml_is_original_product = TRUE;
 			$id_for_meta              = $post->ID;
@@ -1435,7 +1435,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 			$show_buttons = $post->post_status !== 'auto-draft';
 
 			// builder toolbar
-			echo '<div class="builder_selector">'
+			echo '<div class="builder-selector">'
 			     . '<div class="tc-row">';
 			// builder toolbar left
 			echo '<div class="tc-cell tc-col-auto">';
@@ -1453,9 +1453,9 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 					     . '<button type="button" id="builder_import" class="tc tc-button builder-import"><span class="tc-button-label">' . esc_html__( "Import CSV", 'woocommerce-tm-extra-product-options' ) . '</span></button>'
 					     . '<button type="button" id="builder_export" class="tc tc-button builder-export"><span class="tc-button-label">' . esc_html__( "Export CSV", 'woocommerce-tm-extra-product-options' ) . '</span></button>';
 				}
-				echo '<button type="button" id="builder_fullsize_close" class="tc tc-button builder_fullsize_close" title="' . esc_attr__( "Close", 'woocommerce-tm-extra-product-options' ) . '"><span class="tc-button-label"><i class="tcfa tcfa-times"></i></span></button>';
+				echo '<button type="button" id="builder-fullsize-close" class="tc tc-button builder-fullsize-close" title="' . esc_attr__( "Close", 'woocommerce-tm-extra-product-options' ) . '"><span class="tc-button-label"><i class="tcfa tcfa-times"></i></span></button>';
 
-				echo '<button type="button" id="builder_fullsize" class="tc tc-button builder_fullsize" title="' . esc_attr__( "Fullsize", 'woocommerce-tm-extra-product-options' ) . '"><span class="tc-button-label"><i class="tcfa tcfa-window-maximize"></i></span></button>';
+				echo '<button type="button" id="builder-fullsize" class="tc tc-button builder-fullsize" title="' . esc_attr__( "Fullsize", 'woocommerce-tm-extra-product-options' ) . '"><span class="tc-button-label"><i class="tcfa tcfa-window-maximize"></i></span></button>';
 
 				echo '<input id="builder_import_file" name="builder_import_file" type="file" class="builder-import-file" />';
 			} else {

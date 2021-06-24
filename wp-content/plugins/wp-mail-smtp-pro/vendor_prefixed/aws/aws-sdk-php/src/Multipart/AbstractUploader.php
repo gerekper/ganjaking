@@ -89,7 +89,7 @@ abstract class AbstractUploader extends \WPMailSMTP\Vendor\Aws\Multipart\Abstrac
      * Turns the provided source into a stream and stores it.
      *
      * If a string is provided, it is assumed to be a filename, otherwise, it
-     * passes the value directly to `Psr7\stream_for()`.
+     * passes the value directly to `Psr7\Utils::streamFor()`.
      *
      * @param mixed $source
      *
@@ -99,10 +99,10 @@ abstract class AbstractUploader extends \WPMailSMTP\Vendor\Aws\Multipart\Abstrac
     {
         // Use the contents of a file as the data source.
         if (\is_string($source)) {
-            $source = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\try_fopen($source, 'r');
+            $source = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::tryFopen($source, 'r');
         }
         // Create a source stream.
-        $stream = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\stream_for($source);
+        $stream = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::streamFor($source);
         if (!$stream->isReadable()) {
             throw new \InvalidArgumentException('Source stream must be readable.');
         }

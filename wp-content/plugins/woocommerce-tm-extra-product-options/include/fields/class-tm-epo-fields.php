@@ -235,7 +235,7 @@ class THEMECOMPLETE_EPO_FIELDS {
 		if ( isset( $this->key ) && $this->key != '' ) {
 
 			$_price = THEMECOMPLETE_EPO()->calculate_price( $this->post_data, $this->element, $this->key, $this->attribute, $this->per_product_pricing, $this->cpf_product_price, $this->variation_id );
-			
+
 			return apply_filters( 'wc_epo_add_cart_item_data_single', array(
 				'mode'                => 'builder',
 				'cssclass'            => $this->element['class'],

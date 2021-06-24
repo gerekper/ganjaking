@@ -4,7 +4,8 @@
 	var TMEPOEASYBOOKINGSJS;
 	var wceb;
 
-	$( document ).ready( function() {
+	// document ready
+	$( function() {
 		TMEPOEASYBOOKINGSJS = window.TMEPOEASYBOOKINGSJS || null;
 		wceb = window.wceb || null;
 

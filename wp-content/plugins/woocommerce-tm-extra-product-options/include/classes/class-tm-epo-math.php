@@ -39,7 +39,19 @@ class THEMECOMPLETE_EPO_MATH {
 	 *
 	 * @var array
 	 */
-	public static $f = array();
+	public static $f = array(
+		'int' => array(
+			'args' => array( 'a' ),
+			'func' => array( 
+						'a', 
+						array(
+							'fn' => 'floor(',
+							'fnn' => 'floor',
+							'argcount' => 1
+						) 
+					)
+		)
+	);
 
 	/**
 	 * Constants.

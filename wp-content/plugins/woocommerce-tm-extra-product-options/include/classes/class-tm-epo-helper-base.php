@@ -99,6 +99,24 @@ final class THEMECOMPLETE_EPO_HELPER_base {
 	}
 
 	/**
+	 * Gets image size from attachment id and url
+	 *
+	 * @since 5.0.12.13
+	 */
+	public function get_attachment_sizes( $attachment_id = '', $attachment_url = '' ) {
+		$meta = wp_get_attachment_metadata( $attachment_id );
+		if ( $meta ) {
+			foreach ( $meta[ 'sizes' ] as $key => $value ) {
+				if ( FALSE !== strpos( $attachment_url, $value[ 'file'] ) ) {
+					return array( $value[ 'width'], $value[ 'height'] );
+				}
+			}
+			return array( $meta[ 'width'], $meta[ 'height'] );
+		}
+		return false;
+	}
+
+	/**
 	 * Gets attachement id from attachement url
 	 *
 	 * @since 1.0
@@ -113,6 +131,12 @@ final class THEMECOMPLETE_EPO_HELPER_base {
 
 		if ( FALSE !== ( $attachment_id = get_transient( 'get_attachment_id_' . $attachment_url ) ) ) {
 			return $attachment_id;
+		}
+
+		$domain = $this->get_site_domain();
+
+		if ( FALSE === strpos( $attachment_url, $domain ) ) {
+			$attachment_url = $domain . $attachment_url;
 		}
 
 		if ( function_exists( 'attachment_url_to_postid' ) ) {
@@ -942,6 +966,28 @@ final class THEMECOMPLETE_EPO_HELPER_base {
 		}
 
 		return $new;
+
+	}
+
+	/**
+	 * Gets the site domain
+	 *
+	 * @since 5.0.12.13
+	 */
+	public function get_site_domain() {
+		$sReturn = site_url();
+		$urlparts = parse_url( $sReturn );
+		if ( $urlparts ) {
+			$sScheme = $urlparts['scheme'];
+			$nPort   = isset( $urlparts['port'] ) ? $urlparts['port'] : '';
+			$sHost   = $urlparts['host'];
+			$nPort   = 80 == $nPort ? '' : $nPort;
+			$nPort   = 'https' == $sScheme AND 443 == $nPort ? '' : $nPort;
+			$sPort   = ! empty( $sPort ) ? ":$nPort" : '';
+			$sReturn = $sScheme . '://' . $sHost . $sPort;
+		}
+
+		return $sReturn;
 
 	}
 

@@ -204,7 +204,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Manager {
 	public $TM_Updater_instance;
 	public $plugin_envato_id;
 
-	protected $url = 'https://1.envato.market/c/1268006/275988/4415';
+	protected $url = 'https://1.envato.market/3eOy';
 
 	/**
 	 * Class Constructor
@@ -220,8 +220,6 @@ final class THEMECOMPLETE_EPO_UPDATE_Manager {
 		$this->update_path         = $update_path;
 		$this->slug                = explode( '/', $plugin_slug );
 		$this->slug                = str_replace( '.php', '', $this->slug[1] );
-
-		$plugin_id = "woocommerce-tm-extra-product-options/tm-woo-extra-product-options.php";
 
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'tm_update_plugins' ) );
 		add_filter( 'plugins_api', array( $this, 'tm_plugins_api' ), 10, 3 );

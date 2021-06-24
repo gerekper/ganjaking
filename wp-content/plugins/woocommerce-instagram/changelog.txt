@@ -1,5 +1,10 @@
 *** WooCommerce Instagram Changelog ***
 
+2021-06-17 - version 3.5.0
+* Feature - Define a product catalog only with specific products.
+* Tweak - Added a "Filter by" field to the product catalog form.
+* Tweak - Simplified the product catalog form when filtering by product categories.
+
 2021-05-27 - version 3.4.6
 * Tweak - Tested compatibility up to WC 5.4.
 * Fix - Fixed the selection of subcategories for the "Google Product Category" field in the catalog settings form.

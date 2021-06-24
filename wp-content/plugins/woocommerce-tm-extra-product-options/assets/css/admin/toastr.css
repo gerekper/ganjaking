@@ -9,11 +9,11 @@
 
 .toast-message a,
 .toast-message label {
-	color: #FFFFFF;
+	color: #fff;
 }
 
 .toast-message a:hover {
-	color: #CCCCCC;
+	color: #ccc;
 	text-decoration: none;
 }
 
@@ -24,16 +24,16 @@
 	float: right;
 	font-size: 20px;
 	font-weight: bold;
-	color: #FFFFFF;
-	-webkit-text-shadow: 0 1px 0 #ffffff;
-	text-shadow: 0 1px 0 #ffffff;
+	color: #fff;
+	-webkit-text-shadow: 0 1px 0 #fff;
+	text-shadow: 0 1px 0 #fff;
 	opacity: 0.8;
 	line-height: 1;
 }
 
 .toast-close-button:hover,
 .toast-close-button:focus {
-	color: #000000;
+	color: #000;
 	text-decoration: none;
 	cursor: pointer;
 	opacity: 0.4;
@@ -121,8 +121,8 @@ button.toast-close-button {
 	border-radius: 3px 3px 3px 3px;
 	background-position: 15px center;
 	background-repeat: no-repeat;
-	box-shadow: 0 0 12px #999999;
-	color: #FFFFFF;
+	box-shadow: 0 0 12px #999;
+	color: #fff;
 	opacity: 0.8;
 }
 
@@ -133,7 +133,7 @@ button.toast-close-button {
 }
 
 #toast-container > div:hover {
-	box-shadow: 0 0 12px #000000;
+	box-shadow: 0 0 12px #000;
 	opacity: 1;
 	cursor: pointer;
 }

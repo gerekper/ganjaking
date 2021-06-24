@@ -1,7 +1,8 @@
 ( function( window, document, $ ) {
 	'use strict';
 
-	$( document ).ready( function() {
+	// document ready
+	$( function() {
 		$( window ).on( 'epoEventHandlers', function( event, dataObject ) {
 			var currentCart = dataObject.currentCart;
 			var totalsHolderContainer = dataObject.totalsHolderContainer;

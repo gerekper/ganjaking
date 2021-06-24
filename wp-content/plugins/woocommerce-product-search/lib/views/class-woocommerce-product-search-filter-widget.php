@@ -194,7 +194,7 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 
 		$settings['update_address_bar']    = !empty( $new_instance['update_address_bar'] ) ? 'yes' : 'no';
 		$settings['update_document_title'] = !empty( $new_instance['update_document_title'] ) ? 'yes' : 'no';
-		$settings['use_shop_url']          = !empty( $new_instance['use_shop_url'] ) ? 'yes' : 'no';
+
 		$settings['unpage_url']            = !empty( $new_instance['unpage_url'] ) ? 'yes' : 'no';
 
 		$containers = array(
@@ -479,20 +479,6 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 		echo '</label>';
 		echo '</p>';
 
-		$use_shop_url = isset( $instance['use_shop_url'] ) ? $instance['use_shop_url'] : 'no';
-		echo '<p>';
-		echo sprintf( '<label title="%s">', esc_attr( __( 'Link to the shop page instead of the same page.', 'woocommerce-product-search' ) ) );
-		printf(
-			'<input type="checkbox" id="%s" name="%s" %s />',
-			esc_attr( $this->get_field_id( 'use_shop_url' ) ),
-			esc_attr( $this->get_field_name( 'use_shop_url' ) ),
-			$use_shop_url== 'yes' ? ' checked="checked" ' : ''
-		);
-		echo ' ';
-		echo esc_html( __( 'Use the Shop URL', 'woocommerce-product-search' ) );
-		echo '</label>';
-		echo '</p>';
-
 		$unpage_url = isset( $instance['unpage_url'] ) ? $instance['unpage_url'] : 'yes';
 		echo '<p>';
 		echo sprintf( '<label title="%s">', esc_attr( __( 'Go to page one of results when filters are applied.', 'woocommerce-product-search' ) ) );
@@ -680,7 +666,7 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 			'submit_button_label' => __( 'Search', 'woocommerce-product-search' ),
 			'update_address_bar' => true,
 			'update_document_title' => false,
-			'use_shop_url' => false,
+
 			'unpage_url' => true,
 
 			'show_heading' => false,

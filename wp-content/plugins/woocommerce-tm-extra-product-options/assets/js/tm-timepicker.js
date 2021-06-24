@@ -378,9 +378,8 @@
 					tp_inst._defaults.controlType = 'select';
 				}
 				tp_inst.control = tp_inst._controls[ tp_inst._defaults.controlType ];
-			}
-			// controlType is an object and must implement create, options, value methods
-			else {
+			} else {
+				// controlType is an object and must implement create, options, value methods
 				tp_inst.control = tp_inst._defaults.controlType;
 			}
 
@@ -670,15 +669,15 @@
 						$tp.find( '.ui_tpicker_' + litem + ' table' )
 							.css( {
 								width: size + '%',
-								marginLeft: o.isRTL ? '0' : size / ( -2 * gridSize[ litem ] ) + '%',
-								marginRight: o.isRTL ? size / ( -2 * gridSize[ litem ] ) + '%' : '0',
+								marginLeft: o.isRTL ? '0' : ( size / ( -2 * gridSize[ litem ] ) ) + '%',
+								marginRight: o.isRTL ? ( size / ( -2 * gridSize[ litem ] ) ) + '%' : '0',
 								borderCollapse: 'collapse'
 							} )
 							.find( 'td' )
 							.on( 'click', { that: this, tp_inst: tp_inst, litem: litem }, this._ui_tpicker_onclick )
 							.css( {
 								cursor: 'pointer',
-								width: 100 / gridSize[ litem ] + '%',
+								width: ( 100 / gridSize[ litem ] ) + '%',
 								textAlign: 'center',
 								overflow: 'hidden'
 							} );
@@ -767,7 +766,7 @@
 											.toString()
 											.replace( '%', '' ),
 										newWidth = oldWidth - sliderAccessWidth,
-										newMarginLeft = ( oldMarginLeft * newWidth ) / oldWidth + '%',
+										newMarginLeft = ( ( oldMarginLeft * newWidth ) / oldWidth ) + '%',
 										css = { width: newWidth, marginRight: 0, marginLeft: 0 };
 									css[ rtl ? 'marginRight' : 'marginLeft' ] = newMarginLeft;
 									$g.css( css );
@@ -1081,7 +1080,7 @@
 				second !== parseInt( this.second, 10 ) ||
 				millisec !== parseInt( this.millisec, 10 ) ||
 				microsec !== parseInt( this.microsec, 10 ) ||
-				( this.ampm.length > 0 && hour < 12 !== ( $.inArray( this.ampm.toUpperCase(), this.amNames ) !== -1 ) ) ||
+				( this.ampm.length > 0 && ( hour < 12 ) !== ( $.inArray( this.ampm.toUpperCase(), this.amNames ) !== -1 ) ) ||
 				( this.timezone !== null && timezone !== this.timezone.toString() ); // could be numeric or "EST" format, so use toString()
 
 			if ( hasChanged ) {
@@ -1439,7 +1438,7 @@
 		var o = extendRemove( extendRemove( {}, $.tm_timepicker._defaults ), options || {} );
 
 		// Strict parse requires the timeString to match the timeFormat exactly
-		var strictParse = function( f, s, o ) {
+		var strictParse = function( f, s, oo ) {
 			// pattern for standard and localized AM/PM markers
 			var getPatternAmpm = function( amNames, pmNames ) {
 				var markers = [];
@@ -1456,8 +1455,8 @@
 			};
 
 			// figure out position of time elements.. cause js cant do named captures
-			var getFormatPositions = function( timeFormat ) {
-				var finds = timeFormat.toLowerCase().match( /(h{1,2}|m{1,2}|s{1,2}|l{1}|c{1}|t{1,2}|z|'.*?')/g ),
+			var getFormatPositions = function( formatoftime ) {
+				var finds = formatoftime.toLowerCase().match( /(h{1,2}|m{1,2}|s{1,2}|l{1}|c{1}|t{1,2}|z|'.*?')/g ),
 					orders = {
 						h: -1,
 						m: -1,
@@ -1499,7 +1498,7 @@
 								case 'z':
 									return '(z|[-+]\\d\\d:?\\d\\d|\\S+)?';
 								case 't':
-									return getPatternAmpm( o.amNames, o.pmNames );
+									return getPatternAmpm( oo.amNames, oo.pmNames );
 								default:
 									// literal escaped in quotes
 									return (
@@ -1512,7 +1511,7 @@
 							}
 						} )
 						.replace( /\s/g, '\\s?' ) +
-					o.timeSuffix +
+					oo.timeSuffix +
 					'$',
 				order = getFormatPositions( f ),
 				ampm = '',
@@ -1537,13 +1536,13 @@
 						ampm =
 							$.inArray(
 								treg[ order.t ].toUpperCase(),
-								$.map( o.amNames, function( x ) {
+								$.map( oo.amNames, function( x ) {
 									return x.toUpperCase();
 								} )
 							) !== -1
 								? 'AM'
 								: 'PM';
-						resTime.ampm = o[ ampm === 'AM' ? 'amNames' : 'pmNames' ][ 0 ];
+						resTime.ampm = oo[ ampm === 'AM' ? 'amNames' : 'pmNames' ][ 0 ];
 					}
 				}
 
@@ -1579,7 +1578,7 @@
 		}; // end strictParse
 
 		// First try JS Date, if that fails, use strictParse
-		var looseParse = function( f, s, o ) {
+		var looseParse = function( f, s, oo ) {
 			var d;
 			try {
 				d = new Date( '2012-01-01 ' + s );
@@ -1603,7 +1602,7 @@
 				};
 			} catch ( err ) {
 				try {
-					return strictParse( f, s, o );
+					return strictParse( f, s, oo );
 				} catch ( err2 ) {
 					$.tm_timepicker.log( 'Unable to parse \ntimeString: ' + s + '\ntimeFormat: ' + f );
 				}
@@ -1990,7 +1989,6 @@
 		}
 
 		tp_inst = this._get( inst, 'tm_timepicker' );
-		tp_date;
 		if ( date instanceof Date ) {
 			tp_date = new Date( date.getTime() );
 			tp_date.setMicroseconds( date.getMicroseconds() );
@@ -2268,7 +2266,7 @@
 
 		return (
 			( normalized.substr( 0, 1 ) === '-' ? -1 : 1 ) * // plus or minus
-			( parseInt( normalized.substr( 1, 2 ), 10 ) * 60 + // hours (converted to minutes)
+			( ( parseInt( normalized.substr( 1, 2 ), 10 ) * 60 ) + // hours (converted to minutes)
 				parseInt( normalized.substr( 3, 2 ), 10 ) )
 		); // minutes
 	};

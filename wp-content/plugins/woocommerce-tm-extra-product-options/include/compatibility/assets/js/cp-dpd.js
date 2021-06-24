@@ -120,7 +120,7 @@
 			}
 
 			if ( force || ( ! Number.isFinite( max ) && min <= qty ) || ( Number.isFinite( max ) && min <= qty && qty <= max ) ) {
-				if ( min === 1 && totalsHolder.data( 'priceIsWithDiscount' ) ) {
+				if ( ( totalsHolder.attr( 'data-tm-epo-dpd-change-display-prices' ) === 'change_simple' || totalsHolder.attr( 'data-tm-epo-dpd-change-display-prices' ) === 'change_all' ) && min === 1 && totalsHolder.data( 'priceIsWithDiscount' ) ) {
 					discount = [ value, type, true ];
 				} else {
 					discount = [ value, type ];
@@ -570,7 +570,8 @@
 		} );
 	} );
 
-	$( document ).ready( function() {
+	// document ready
+	$( function() {
 		TMEPOJS = window.TMEPOJS || null;
 
 		if ( ! TMEPOJS ) {

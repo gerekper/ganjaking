@@ -18,6 +18,9 @@ class WC_Product_Vendors_Roles_Caps {
 	 */
 	public function __construct() {
 		add_filter( 'woocommerce_shop_manager_editable_roles', array( $this, 'shop_manager_vendor_management' ), 10, 1 );
+		add_filter( 'user_row_actions', array( $this, 'user_row_actions' ), 10, 2 );
+		add_action( 'admin_action_approve_vendor', array( $this, 'approve_vendor_handler' ) );
+		add_action( 'admin_notices', array( $this, 'vendor_approved_notice' ) );
 	}
 
 	/**
@@ -267,5 +270,132 @@ class WC_Product_Vendors_Roles_Caps {
 		$user->remove_cap( 'edit_shop_orders' );
 
 		return true;
+	}
+
+	/**
+	 * Add vendor actions.
+	 *
+	 * @param string[] $actions     An array of action links to be displayed.
+	 *                              Default 'Edit', 'Delete' for single site, and
+	 *                              'Edit', 'Remove' for Multisite.
+	 * @param WP_User  $user_object WP_User object for the currently listed user.
+	 */
+	public function user_row_actions( $actions, $user_object ) {
+		if ( ! current_user_can( 'promote_users' ) ) {
+			return $actions;
+		}
+
+		if ( in_array( 'wc_product_vendors_pending_vendor', $user_object->roles, true ) ) {
+			$actions['approve_vendor_admin'] = sprintf(
+				'<a href="%1$s">%2$s</a>',
+				add_query_arg(
+					array(
+						'role'        => 'wc_product_vendors_pending_vendor',
+						'action'      => 'approve_vendor',
+						'vendor_role' => 'admin',
+						'user_id'     => $user_object->ID,
+						'_nonce'      => wp_create_nonce( 'wc-product-vendors-approve-user' ),
+					),
+					admin_url( 'users.php' )
+				),
+				__( 'Approve as Vendor Admin', 'woocommerce-product-vendors' )
+			);
+
+			$actions['approve_vendor_manager'] = sprintf(
+				'<a href="%1$s">%2$s</a>',
+				add_query_arg(
+					array(
+						'role'        => 'wc_product_vendors_pending_vendor',
+						'action'      => 'approve_vendor',
+						'vendor_role' => 'manager',
+						'user_id'     => $user_object->ID,
+						'_nonce'      => wp_create_nonce( 'wc-product-vendors-approve-user' ),
+					),
+					admin_url( 'users.php' )
+				),
+				__( 'Approve as Vendor Manager', 'woocommerce-product-vendors' )
+			);
+		}
+
+		return $actions;
+	}
+
+	/**
+	 * Handle vendor actions.
+	 */
+	public function approve_vendor_handler() {
+		if ( ! current_user_can( 'promote_users' ) ) {
+			return;
+		}
+
+		if ( empty( $_GET['user_id'] ) || empty( $_GET['vendor_role'] ) || empty( $_GET['_nonce'] ) ) {
+			return;
+		}
+
+		if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_nonce'] ) ), 'wc-product-vendors-approve-user' ) ) {
+			return;
+		}
+
+		$user = get_userdata( sanitize_key( wp_unslash( $_GET['user_id'] ) ) );
+		$role = sanitize_key( wp_unslash( $_GET['vendor_role'] ) );
+
+		if ( ! in_array( $role, array( 'admin', 'manager' ), true ) ) {
+			return;
+		}
+
+		$user->set_role( "wc_product_vendors_{$role}_vendor" );
+
+		wp_safe_redirect(
+			add_query_arg(
+				array(
+					'approved_vendor' => $user->ID,
+					'vendor_role'     => $role,
+					'_nonce'          => wp_create_nonce( 'wc-product-vendors-approved' ),
+				),
+				admin_url( 'users.php' )
+			)
+		);
+	}
+
+	/**
+	 * Vendor approved notice.
+	 */
+	public function vendor_approved_notice() {
+		$current_screen = get_current_screen();
+		if ( 'users' !== $current_screen->id ) {
+			return;
+		}
+
+		if ( empty( $_GET['approved_vendor'] ) || empty( $_GET['vendor_role'] ) || empty( $_GET['_nonce'] ) ) {
+			return;
+		}
+
+		if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_nonce'] ) ), 'wc-product-vendors-approved' ) ) {
+			return;
+		}
+
+		$user = get_userdata( sanitize_key( wp_unslash( $_GET['approved_vendor'] ) ) );
+		$role = sanitize_key( wp_unslash( $_GET['vendor_role'] ) );
+
+		if ( ! $user ) {
+			return;
+		}
+
+		$role_name = 'admin' === $role ? __( 'Vendor Admin', 'woocommerce-product-vendors' ) : __( 'Vendor Manager', 'woocommerce-product-vendors' );
+
+		?>
+		<div class="notice notice-success is-dismissible">
+			<p>
+			<?php
+				printf(
+					/* translators: %1$s is the vendor display name. $2$s is the vendor role. */
+					esc_html__( '%1$s is approved as a %2$s!', 'woocommerce-product-vendors' ),
+					esc_html( $user->display_name ),
+					esc_html( $role_name )
+				);
+			?>
+			</p>
+		</div>
+		<?php
 	}
 }

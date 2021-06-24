@@ -47,7 +47,7 @@ if ( isset( $variations )
 	}
 	if ( ! empty( $_field_attribute ) ) {
 		?>
-        <div data-epo-attr="<?php echo esc_attr( sanitize_title( $tmcp_attribute_selected_value ) ); ?>" class="woocommerce_tm_epo wc-metabox closed">
+        <div data-epo-attr="<?php echo esc_attr( sanitize_title( $tmcp_attribute_selected_value ) ); ?>" class="tc-normal-epo wc-metabox closed">
             <h3>
                 <div class="tmicon tcfa tcfa-times delete remove_tm_epo" rel="<?php echo esc_attr( $tmcp_id ); ?>"></div>
                 <div class="tmicon tcfa tcfa-caret-up fold tip" title="<?php esc_html_e( 'Click to toggle', 'woocommerce-tm-extra-product-options' ); ?>"></div>
@@ -60,7 +60,7 @@ if ( isset( $variations )
                 <input type="hidden" name="tmcp_post_id[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $tmcp_id ); ?>"/>
                 <input type="hidden" class="tm_epo_menu_order" name="tmcp_menu_order[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $loop ); ?>"/>
             </h3>
-            <div class="woocommerce_tmcp_attributes wc-metabox-content">
+            <div class="woocommerce-tmcp-attributes wc-metabox-content">
                 <div class="data tc-clearfix">
                     <p class="form-row form-row-first tmcp-main-choices">
                         <label><?php esc_html_e( 'Type:', 'woocommerce-tm-extra-product-options' ); ?></label>
@@ -99,7 +99,7 @@ if ( isset( $variations )
                         <label><?php esc_html_e( 'Attribute:', 'woocommerce-tm-extra-product-options' ); ?></label>
 						<?php include( 'html-tm-epo-admin-attributes.php' ); ?>
                     </p>
-                    <p class="form-row form-row-last tmcp_pricing">
+                    <p class="form-row form-row-last tmcp-pricing">
                         <label><?php echo esc_html__( 'Price:', 'woocommerce-tm-extra-product-options' ) . ' (' . get_woocommerce_currency_symbol() . ')'; ?></label>
 						<?php
 						if ( ! empty( $_regular_price ) && is_array( $_regular_price ) ) {
@@ -146,7 +146,7 @@ if ( isset( $variations )
 		<?php
 	} else {
 		?>
-        <div data-epo-attr="<?php echo esc_attr( sanitize_title( $tmcp_attribute_selected_value ) ); ?>" class="missing woocommerce_tm_epo wc-metabox closed">
+        <div data-epo-attr="<?php echo esc_attr( sanitize_title( $tmcp_attribute_selected_value ) ); ?>" class="missing tc-normal-epo wc-metabox closed">
             <h3>
                 <div class="tmicon tcfa tcfa-times delete remove_tm_epo" rel="<?php echo esc_attr( $tmcp_id ); ?>"></div>
                 <span class="tm-att-id">#<?php echo esc_html( $tmcp_id ); ?> &mdash; </span>
@@ -164,7 +164,7 @@ if ( isset( $variations )
                 <input type="hidden" name="tmcp_post_id[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $tmcp_id ); ?>"/>
                 <input type="hidden" class="tm_epo_menu_order" name="tmcp_menu_order[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $loop ); ?>"/>
             </h3>
-            <div class="woocommerce_tmcp_attributes wc-metabox-content">
+            <div class="woocommerce-tmcp-attributes wc-metabox-content">
                 <div class="data tc-clearfix">
 					<?php
 					echo '<label><input type="hidden" name="tmcp_limit[' . esc_attr( $loop ) . ']" value="' . esc_attr( $tmcp_limit ) . '" /></label>';

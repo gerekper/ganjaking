@@ -114,7 +114,7 @@
 				}
 				if ( prevnext && prevnext.length ) {
 					$this.trigger( 'blur' );
-					prevnext.trigger(' focus' ).trigger( 'click' );
+					prevnext.trigger( ' focus' ).trigger( 'click' );
 					e.preventDefault();
 				}
 			} );
@@ -243,7 +243,7 @@
 				tm_tab_add_header_events( t, index, tc, header );
 			} );
 
-			t.find( options.headers + ':not(.section_elements ' + options.headers + ',.tm-settings-wrap ' + options.headers + ',.builder_element_wrap ' + options.headers + ')' ).sortable( {
+			t.find( options.headers + ':not(.section_elements ' + options.headers + ',.tm-settings-wrap ' + options.headers + ',.builder-element-wrap ' + options.headers + ')' ).sortable( {
 				containment: 'parent',
 				cursor: 'move',
 				items: '.tm-box:not(.tm-add-box)',

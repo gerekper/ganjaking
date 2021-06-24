@@ -112,6 +112,9 @@ class WooCommerce_Product_Search_Compat_Shortcodes {
 		if ( !has_filter( 'woocommerce_shortcode_products_query', array( __CLASS__, 'woocommerce_shortcode_products_query' ) ) ) {
 			add_filter( 'woocommerce_shortcode_products_query', array( __CLASS__, 'woocommerce_shortcode_products_query' ), 10, 3 );
 		}
+		if ( !has_filter( 'shortcode_atts_products', array( __CLASS__, 'shortcode_atts_products' ) ) ) {
+			add_filter( 'shortcode_atts_products', array( __CLASS__, 'shortcode_atts_products' ), 10, 4 );
+		}
 	}
 
 	/**
@@ -120,6 +123,9 @@ class WooCommerce_Product_Search_Compat_Shortcodes {
 	public static function disable_filter_shortcode_products() {
 		if ( has_filter( 'woocommerce_shortcode_products_query', array( __CLASS__, 'woocommerce_shortcode_products_query' ) ) ) {
 			remove_filter( 'woocommerce_shortcode_products_query', array( __CLASS__, 'woocommerce_shortcode_products_query' ), 10 );
+		}
+		if ( has_filter( 'shortcode_atts_products', array( __CLASS__, 'shortcode_atts_products' ) ) ) {
+			remove_filter( 'shortcode_atts_products', array( __CLASS__, 'shortcode_atts_products' ), 10 );
 		}
 	}
 
@@ -166,9 +172,27 @@ class WooCommerce_Product_Search_Compat_Shortcodes {
 			}
 
 			$query_args['nocache'] = microtime( true );
+
 		}
 		return $query_args;
 	}
 
+	/**
+	 * Filter the shortcode attributes.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @param array $out shortcode attributes
+	 * @param array $pairs supported attributes
+	 * @param array $atts user-defined attributes
+	 * @param string $shortcode the shortcode name
+	 *
+	 * @return array filtered shortcode attributes
+	 */
+	public static function shortcode_atts_products( $out, $pairs, $atts, $shortcode ) {
+
+		$out['cache'] = false;
+		return $out;
+	}
 }
 WooCommerce_Product_Search_Compat_Shortcodes::init();

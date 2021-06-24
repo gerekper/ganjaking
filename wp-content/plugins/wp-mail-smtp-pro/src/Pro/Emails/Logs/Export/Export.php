@@ -75,6 +75,7 @@ class Export {
 				'prc_1_please_wait'   => esc_html__( 'This can take a while. Please wait.', 'wp-mail-smtp-pro' ),
 				'prc_2_no_email_logs' => esc_html__( 'No email logs found after applying your filters.', 'wp-mail-smtp-pro' ),
 				'prc_3_done'          => esc_html__( 'The file was generated successfully.', 'wp-mail-smtp-pro' ),
+				'prc_3_partially'     => esc_html__( 'The file was generated partially. Please check below notices.', 'wp-mail-smtp-pro' ),
 				'prc_3_download'      => esc_html__( 'If the download does not start automatically', 'wp-mail-smtp-pro' ),
 				'prc_3_click_here'    => esc_html__( 'click here', 'wp-mail-smtp-pro' ),
 			],
@@ -129,6 +130,7 @@ class Export {
 				'content'           => esc_html__( 'Body', 'wp-mail-smtp-pro' ),
 				'date_sent'         => esc_html__( 'Created Date', 'wp-mail-smtp-pro' ),
 				'attachments_count' => esc_html__( 'Number of Attachments', 'wp-mail-smtp-pro' ),
+				'attachments'       => esc_html__( 'Attachments', 'wp-mail-smtp-pro' ),
 			]
 		);
 
@@ -167,6 +169,8 @@ class Export {
 				'mailer'     => esc_html__( 'Mailer', 'wp-mail-smtp-pro' ),
 				'error_text' => esc_html__( 'Error Details', 'wp-mail-smtp-pro' ),
 				'log_id'     => esc_html__( 'Email log ID', 'wp-mail-smtp-pro' ),
+				'opened'     => esc_html__( 'Opened', 'wp-mail-smtp-pro' ),
+				'clicked'    => esc_html__( 'Clicked', 'wp-mail-smtp-pro' ),
 			]
 		);
 
@@ -193,6 +197,7 @@ class Export {
 		// This option should be available only if zip PHP extension is loaded.
 		if ( class_exists( 'ZipArchive' ) ) {
 			$types['xlsx'] = esc_html__( 'Export in Microsoft Excel (.xlsx)', 'wp-mail-smtp-pro' );
+			$types['eml']  = esc_html__( 'Export in EML (.eml)', 'wp-mail-smtp-pro' );
 		}
 
 		/**

@@ -218,7 +218,7 @@ if ( class_exists( 'WC_Settings_Page' ) ) {
 		 */
 		public function tm_tabs_header_setting() {
 
-			echo '<div class="tm-settings-wrap tm_wrapper">';
+			echo '<div class="tm-settings-wrap tc-wrapper">';
 			echo '<div class="transition tm-tabs">';
 			echo '<div class="transition tm-tab-headers tmsettings-tab">';
 

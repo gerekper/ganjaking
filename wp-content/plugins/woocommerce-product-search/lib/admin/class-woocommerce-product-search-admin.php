@@ -76,6 +76,7 @@ class WooCommerce_Product_Search_Admin {
 		$output .= '*[id*="woocommerce_product_search_filter_price_widget"] .widget-title,';
 		$output .= '*[id*="woocommerce_product_search_filter_rating_widget"] .widget-title,';
 		$output .= '*[id*="woocommerce_product_search_filter_sale_widget"] .widget-title,';
+		$output .= '*[id*="woocommerce_product_search_filter_stock_widget"] .widget-title,';
 		$output .= '*[id*="woocommerce_product_search_filter_tag_widget"] .widget-title,';
 		$output .= '*[id*="woocommerce_product_search_filter_reset_widget"] .widget-title {';
 		$output .= sprintf( 'background-image: url( %s );', esc_url( WOO_PS_PLUGIN_URL . '/images/woocommerce-product-search.png' ) );
@@ -91,6 +92,7 @@ class WooCommerce_Product_Search_Admin {
 		$output .= 'html[dir="rtl"] *[id*="woocommerce_product_search_filter_price_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] *[id*="woocommerce_product_search_filter_rating_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] *[id*="woocommerce_product_search_filter_sale_widget"] .widget-title,';
+		$output .= 'html[dir="rtl"] *[id*="woocommerce_product_search_filter_stock_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] *[id*="woocommerce_product_search_filter_tag_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] *[id*="woocommerce_product_search_filter_reset_widget"] .widget-title {';
 		$output .= 'background-position: right 0.62em center;';
@@ -104,6 +106,7 @@ class WooCommerce_Product_Search_Admin {
 		$output .= '.widget-tpl *[id*="woocommerce_product_search_filter_price_widget"] .widget-title,';
 		$output .= '.widget-tpl *[id*="woocommerce_product_search_filter_rating_widget"] .widget-title,';
 		$output .= '.widget-tpl *[id*="woocommerce_product_search_filter_sale_widget"] .widget-title,';
+		$output .= '.widget-tpl *[id*="woocommerce_product_search_filter_stock_widget"] .widget-title,';
 		$output .= '.widget-tpl *[id*="woocommerce_product_search_filter_tag_widget"] .widget-title,';
 		$output .= '.widget-tpl *[id*="woocommerce_product_search_filter_reset_widget"] .widget-title {';
 		$output .= 'background-position: 0 top;';
@@ -116,6 +119,7 @@ class WooCommerce_Product_Search_Admin {
 		$output .= 'html[dir="rtl"] .widget-tpl *[id*="woocommerce_product_search_filter_price_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] .widget-tpl *[id*="woocommerce_product_search_filter_rating_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] .widget-tpl *[id*="woocommerce_product_search_filter_sale_widget"] .widget-title,';
+		$output .= 'html[dir="rtl"] .widget-tpl *[id*="woocommerce_product_search_filter_stock_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] .widget-tpl *[id*="woocommerce_product_search_filter_tag_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] .widget-tpl *[id*="woocommerce_product_search_filter_reset_widget"] .widget-title {';
 		$output .= 'background-position: right top;';
@@ -392,6 +396,9 @@ class WooCommerce_Product_Search_Admin {
 			$content .= '</li>';
 			$content .= '<li>';
 			$content .= esc_html__( 'Product Filter &ndash; Search', 'woocommerce-product-search' );
+			$content .= '</li>';
+			$content .= '<li>';
+			$content .= esc_html__( 'Product Filter &ndash; Stock', 'woocommerce-product-search' );
 			$content .= '</li>';
 			$content .= '<li>';
 			$content .= esc_html__( 'Product Filter &ndash; Tags', 'woocommerce-product-search' );
@@ -761,6 +768,10 @@ class WooCommerce_Product_Search_Admin {
 												break;
 											case 'woocommerce_product_search_filter_sale_widget' :
 												$widget = new WooCommerce_Product_Search_Filter_Sale_Widget();
+												$widget_settings = $widget->update( $widget->get_default_instance(), array() );
+												break;
+											case 'woocommerce_product_search_filter_stock_widget' :
+												$widget = new WooCommerce_Product_Search_Filter_Stock_Widget();
 												$widget_settings = $widget->update( $widget->get_default_instance(), array() );
 												break;
 											case 'woocommerce_product_search_filter_tag_widget' :
@@ -2117,6 +2128,7 @@ class WooCommerce_Product_Search_Admin {
 						'woocommerce_product_search_filter_price_widget',
 						'woocommerce_product_search_filter_rating_widget',
 						'woocommerce_product_search_filter_sale_widget',
+						'woocommerce_product_search_filter_stock_widget',
 						'woocommerce_product_search_filter_tag_widget',
 						'woocommerce_product_search_filter_reset_widget'
 					);
@@ -2202,6 +2214,7 @@ class WooCommerce_Product_Search_Admin {
 						new WooCommerce_Product_Search_Filter_Category_Widget(),
 						new WooCommerce_Product_Search_Filter_Rating_Widget(),
 						new WooCommerce_Product_Search_Filter_Sale_Widget(),
+						new WooCommerce_Product_Search_Filter_Stock_Widget(),
 						new WooCommerce_Product_Search_Filter_Tag_Widget(),
 						new WooCommerce_Product_Search_Filter_Reset_Widget()
 					);

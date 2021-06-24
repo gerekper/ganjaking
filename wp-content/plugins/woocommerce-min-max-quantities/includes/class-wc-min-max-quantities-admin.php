@@ -129,11 +129,11 @@ class WC_Min_Max_Quantities_Admin {
 
 		woocommerce_wp_text_input( array( 'id' => 'group_of_quantity', 'label' => __( 'Group of...', 'woocommerce-min-max-quantities' ), 'description' => __( 'Enter a quantity to only allow this product to be purchased in groups of X', 'woocommerce-min-max-quantities' ), 'desc_tip' => true, 'type' => 'number', 'custom_attributes' => array( 'min' => 0, 'step' => 1 ) ) );
 
-		woocommerce_wp_checkbox( array( 'id' => 'allow_combination', 'label' => __( 'Allow Combination', 'woocommerce-min-max-quantities' ), 'description' => __( 'Allow combination of variations to satisfy the min/max rules above.', 'woocommerce-min-max-quantities' ) ) );
+		woocommerce_wp_checkbox( array( 'id' => 'allow_combination', 'label' => __( 'Combine variations', 'woocommerce-min-max-quantities' ), 'description' => __( 'Combine all variations together when checking the min/max rules above.', 'woocommerce-min-max-quantities' ) ) );
 
-		woocommerce_wp_checkbox( array( 'id' => 'minmax_do_not_count', 'label' => __( 'Order rules: Do not count', 'woocommerce-min-max-quantities' ), 'description' => __( 'Don\'t count this product against your minimum order quantity/value rules.', 'woocommerce-min-max-quantities' ) ) );
+		woocommerce_wp_checkbox( array( 'id' => 'minmax_do_not_count', 'label' => __( 'Order rules: Do not count', 'woocommerce-min-max-quantities' ), 'description' => __( 'Don\'t count this product against your minimum order quantity/value rules. See the <a href="https://docs.woocommerce.com/document/minmax-quantities/#section-3" target="_blank">documentation</a> for full details.', 'woocommerce-min-max-quantities' ) ) );
 
-		woocommerce_wp_checkbox( array( 'id' => 'minmax_cart_exclude', 'label' => __( 'Order rules: Exclude', 'woocommerce-min-max-quantities' ), 'description' => __( 'Exclude this product from minimum order quantity/value rules. If this is the only item in the cart, rules will not apply.', 'woocommerce-min-max-quantities' ) ) );
+		woocommerce_wp_checkbox( array( 'id' => 'minmax_cart_exclude', 'label' => __( 'Order rules: Exclude', 'woocommerce-min-max-quantities' ), 'description' => __( 'Exclude this product from minimum order quantity/value rules. If this is the only item in the cart, rules will not apply. See the <a href="https://docs.woocommerce.com/document/minmax-quantities/#section-3" target="_blank">documentation</a> for full details.', 'woocommerce-min-max-quantities' ) ) );
 
 		woocommerce_wp_checkbox( array( 'id' => 'minmax_category_group_of_exclude', 'label' => __( 'Category rules: Exclude', 'woocommerce-min-max-quantities' ), 'description' => __( 'Exclude this product from category group-of-quantity rules. This product will not be counted towards category groups.', 'woocommerce-min-max-quantities' ) ) );
 

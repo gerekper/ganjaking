@@ -91,8 +91,8 @@ final class Partition implements \ArrayAccess, \WPMailSMTP\Vendor\Aws\Endpoint\P
     }
     private function getEndpointData($service, $region, $options)
     {
-        $resolved = $this->resolveRegion($service, $region, $options);
-        $data = isset($this->data['services'][$service]['endpoints'][$resolved]) ? $this->data['services'][$service]['endpoints'][$resolved] : [];
+        $defaultRegion = $this->resolveRegion($service, $region, $options);
+        $data = isset($this->data['services'][$service]['endpoints'][$defaultRegion]) ? $this->data['services'][$service]['endpoints'][$defaultRegion] : [];
         $data += isset($this->data['services'][$service]['defaults']) ? $this->data['services'][$service]['defaults'] : [];
         $data += isset($this->data['defaults']) ? $this->data['defaults'] : [];
         return $data;
@@ -105,6 +105,9 @@ final class Partition implements \ArrayAccess, \WPMailSMTP\Vendor\Aws\Endpoint\P
     }
     private function resolveRegion($service, $region, $options)
     {
+        if (isset($this->data['services'][$service]['endpoints'][$region]) && $this->isFipsEndpointUsed($region)) {
+            return $region;
+        }
         if ($this->isServicePartitionGlobal($service) || $this->isStsLegacyEndpointUsed($service, $region, $options) || $this->isS3LegacyEndpointUsed($service, $region, $options)) {
             return $this->getPartitionEndpoint($service);
         }
@@ -147,5 +150,13 @@ final class Partition implements \ArrayAccess, \WPMailSMTP\Vendor\Aws\Endpoint\P
     private function formatEndpoint($template, $service, $region)
     {
         return \strtr($template, ['{service}' => $service, '{region}' => $region, '{dnsSuffix}' => $this->data['dnsSuffix']]);
+    }
+    /**
+     * @param $region
+     * @return bool
+     */
+    private function isFipsEndpointUsed($region)
+    {
+        return \strpos($region, "fips") !== \false;
     }
 }

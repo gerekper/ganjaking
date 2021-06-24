@@ -1417,9 +1417,9 @@
 				c += tinycolor.equals( color, current ) ? ' sp-thumb-active' : '';
 				formattedString = tiny.toString( opts.preferredFormat || 'rgb' );
 				swatchStyle = rgbaSupport ? 'background-color:' + tiny.toRgbString() : 'filter:' + tiny.toFilter();
-				html.push( '<span title="' + formattedString + '" data-color="' + tiny.toRgbString() + '" class="' + c + '"><span class="sp-thumb-inner" style="' + swatchStyle + ';" /></span>' );
+				html.push( '<span title="' + formattedString + '" data-color="' + tiny.toRgbString() + '" class="' + c + '"><span class="sp-thumb-inner" style="' + swatchStyle + ';" /></span></span>' );
 			} else {
-				html.push( '<span class="sp-thumb-el sp-clear-display" ><span class="sp-clear-palette-only" style="background-color: transparent;" /></span>' );
+				html.push( '<span class="sp-thumb-el sp-clear-display"><span class="sp-clear-palette-only" style="background-color: transparent;" /></span></span>' );
 			}
 		}
 		return "<div class='sp-cf " + className + "'>" + html.join( '' ) + '</div>';

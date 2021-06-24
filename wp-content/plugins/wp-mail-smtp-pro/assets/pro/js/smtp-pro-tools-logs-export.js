@@ -1,4 +1,4 @@
-/* global wp_mail_smtp_tools_export_email_logs, ajaxurl, flatpickr */
+/* global wp_mail_smtp, wp_mail_smtp_tools_export_email_logs, flatpickr */
 /**
  * WPMailSmtp Email Logs Export function.
  *
@@ -17,11 +17,12 @@ var WPMailSmtpEmailLogsExport = window.WPMailSmtpEmailLogsExport || ( function( 
 	 * @type {object}
 	 */
 	var el = {
-		$form                : $( '#wp-mail-smtp-tools-export-email-logs' ),
-		$dateFlatpickr       : $( '#wp-mail-smtp-tools-export-email-logs-date-flatpickr' ),
-		$submitButton        : $( '#wp-mail-smtp-tools-export-email-logs-submit' ),
-		$cancelButton        : $( '#wp-mail-smtp-tools-export-email-logs-cancel' ),
-		$processMsg          : $( '#wp-mail-smtp-tools-export-email-logs-process-msg' ),
+		$form         : $( '#wp-mail-smtp-tools-export-email-logs' ),
+		$type         : $( '#wp-mail-smtp-tools-export-email-logs-export-type input' ),
+		$dateFlatpickr: $( '#wp-mail-smtp-tools-export-email-logs-date-flatpickr' ),
+		$submitButton : $( '#wp-mail-smtp-tools-export-email-logs-submit' ),
+		$cancelButton : $( '#wp-mail-smtp-tools-export-email-logs-cancel' ),
+		$processMsg   : $( '#wp-mail-smtp-tools-export-email-logs-process-msg' ),
 	};
 
 	/**
@@ -73,6 +74,10 @@ var WPMailSmtpEmailLogsExport = window.WPMailSmtpEmailLogsExport || ( function( 
 			app.initDateRange();
 			app.initSubmit();
 			app.events();
+
+			if ( wp_mail_smtp.is_network_admin === '1' ) {
+				app.initNetworkAdmin();
+			}
 		},
 
 		/**
@@ -84,8 +89,12 @@ var WPMailSmtpEmailLogsExport = window.WPMailSmtpEmailLogsExport || ( function( 
 
 			// Display file download error.
 			$( document ).on( 'csv_file_error', function( e, msg ) {
-				app.displaySubmitMsg( msg, 'error' );
+				app.clearSubmitMsg();
+				app.addSubmitMsg( msg, 'error' );
 			} );
+
+			// Bind change event and trigger action for initialization.
+			el.$type.on( 'change', app.filterExportFieldsByType ).filter( ':checked' ).trigger( 'change' );
 		},
 
 		/**
@@ -109,7 +118,7 @@ var WPMailSmtpEmailLogsExport = window.WPMailSmtpEmailLogsExport || ( function( 
 			}
 
 			ajaxData = app.getAjaxPostData( step, requestId );
-			$.post( ajaxurl, ajaxData )
+			$.post( wp_mail_smtp.ajax_url, ajaxData )
 				.done( function( res ) {
 
 					if ( res.success && res.data.total_steps > step ) {
@@ -117,27 +126,40 @@ var WPMailSmtpEmailLogsExport = window.WPMailSmtpEmailLogsExport || ( function( 
 						return;
 					}
 
+					app.clearSubmitMsg();
+
 					var msg = '';
 					clearTimeout( vars.timerId );
 					if ( ! res.success ) {
-						app.displaySubmitMsg( res.data.error, 'error' );
+						app.addSubmitMsg( res.data.error, 'error' );
 						app.displaySubmitSpinner( false );
 						return;
 					}
 					if ( res.data.count === 0 ) {
-						app.displaySubmitMsg( i18n.prc_2_no_email_logs );
+						app.addSubmitMsg( i18n.prc_2_no_email_logs );
 						app.displaySubmitSpinner( false );
 						return;
 					}
-					msg = i18n.prc_3_done;
+
+					if ( res.data.notices.length > 0 ) {
+						msg = i18n.prc_3_partially;
+					} else {
+						msg = i18n.prc_3_done;
+					}
+
 					msg += '<br>' + i18n.prc_3_download + ', <a href="#" class="wp-mail-smtp-download-link">' + i18n.prc_3_click_here + '</a>.';
-					app.displaySubmitMsg( msg, 'info' );
+					app.addSubmitMsg( msg, 'info' );
+
+					$.each( res.data.notices, function( i, notice ) {
+						app.addSubmitMsg( notice.message, notice.type );
+					} );
+
 					app.displaySubmitSpinner( false );
 					app.triggerDownload( res.data.request_id );
 				} )
 				.fail( function( jqXHR, textStatus, errorThrown ) {
 					clearTimeout( vars.timerId );
-					app.displaySubmitMsg( i18n.error_prefix + ':<br>' + errorThrown, 'error' );
+					app.addSubmitMsg( i18n.error_prefix + ':<br>' + errorThrown, 'error' );
 					app.displaySubmitSpinner( false );
 				} );
 		},
@@ -185,13 +207,13 @@ var WPMailSmtpEmailLogsExport = window.WPMailSmtpEmailLogsExport || ( function( 
 					return;
 				}
 
-				el.$submitButton.blur();
+				el.$submitButton.trigger( 'blur' );
 				app.displaySubmitSpinner( true );
-				app.displaySubmitMsg( '' );
+				app.clearSubmitMsg();
 
 				vars.timerId = setTimeout(
 					function() {
-						app.displaySubmitMsg( i18n.prc_1_filtering + '<br>' + i18n.prc_1_please_wait, 'info' );
+						app.addSubmitMsg( i18n.prc_1_filtering + '<br>' + i18n.prc_1_please_wait, 'info' );
 					},
 					3000
 				);
@@ -203,8 +225,8 @@ var WPMailSmtpEmailLogsExport = window.WPMailSmtpEmailLogsExport || ( function( 
 			el.$cancelButton.on( 'click', function( e ) {
 
 				e.preventDefault();
-				el.$cancelButton.blur();
-				app.displaySubmitMsg( '' );
+				el.$cancelButton.trigger( 'blur' );
+				app.clearSubmitMsg();
 				app.displaySubmitSpinner( false );
 			} );
 		},
@@ -231,11 +253,11 @@ var WPMailSmtpEmailLogsExport = window.WPMailSmtpEmailLogsExport || ( function( 
 			}
 
 			el.$dateFlatpickr.flatpickr( {
-				altInput: true,
-				altFormat: 'M j, Y',
+				altInput  : true,
+				altFormat : 'M j, Y',
 				dateFormat: 'Y-m-d',
-				locale: flatpickrLocale,
-				mode: 'range'
+				locale    : flatpickrLocale,
+				mode      : 'range'
 			} );
 		},
 
@@ -260,32 +282,49 @@ var WPMailSmtpEmailLogsExport = window.WPMailSmtpEmailLogsExport || ( function( 
 		},
 
 		/**
-		 * Display message under submit button.
+		 * Add message under submit button.
 		 *
 		 * @since 2.8.0
 		 *
 		 * @param {string} msg  Message.
 		 * @param {string} type Use 'error' for errors messages.
 		 */
-		displaySubmitMsg: function( msg, type ) {
+		addSubmitMsg: function( msg, type ) {
+
+			type = type || 'info';
 
 			if ( ! vars.processing ) {
 				return;
 			}
 
-			if ( type && 'error' === type ) {
-				el.$processMsg.addClass( 'wp-mail-smtp-error' );
-			} else {
-				el.$processMsg.removeClass( 'wp-mail-smtp-error' );
+			if ( msg.length === 0 ) {
+				return;
 			}
 
-			el.$processMsg.html( msg );
-
-			if ( msg.length > 0 ) {
-				el.$processMsg.removeClass( 'hidden' );
-			} else {
-				el.$processMsg.addClass( 'hidden' );
+			if ( Array.isArray( msg ) ) {
+				msg = msg.join( '<br>' );
 			}
+
+			if ( el.$processMsg.find( '.notice-' + type ).length > 0 ) {
+				el.$processMsg.find( '.notice-' + type + ' p' ).append( '<br>' + msg );
+			} else {
+				var $holder = $( '<div>' ).addClass( 'notice-inline notice-' + type ),
+					$notice = $( '<p>' ).html( msg );
+				$holder.append( $notice );
+				el.$processMsg.append( $holder );
+			}
+
+			el.$processMsg.show();
+		},
+
+		/**
+		 * Clear message under submit button.
+		 *
+		 * @since 2.9.0
+		 */
+		clearSubmitMsg: function() {
+
+			el.$processMsg.html( '' ).hide();
 		},
 
 		/**
@@ -306,6 +345,53 @@ var WPMailSmtpEmailLogsExport = window.WPMailSmtpEmailLogsExport || ( function( 
 			el.$form.find( 'iframe' ).remove();
 			el.$form.append( '<iframe src="' + url + '"></iframe>' );
 			el.$processMsg.find( '.wp-mail-smtp-download-link' ).attr( 'href', url );
+		},
+
+		/**
+		 * Show/Hide export fields based on export type.
+		 *
+		 * @since 2.9.0
+		 */
+		filterExportFieldsByType: function() {
+
+			var type = $( this ).val(),
+				$commonFields = $( '#wp-mail-smtp-tools-export-email-logs-common-fields' ),
+				$additionalFields = $( '#wp-mail-smtp-tools-export-email-logs-additional-info' );
+
+			if ( type === 'eml' ) {
+				$commonFields.hide();
+				$additionalFields.hide();
+			} else {
+				$commonFields.show();
+				$additionalFields.show();
+			}
+		},
+
+		/**
+		 * Initialize network admin area related functionality.
+		 *
+		 * @since 2.9.0
+		 */
+		initNetworkAdmin: function() {
+
+			// Site selector select.
+			var $siteSelector = $( '.wp-mail-smtp-network-admin-site-selector' );
+
+			// Submit form on site selector change.
+			$siteSelector.on( 'change', function() {
+				$( this ).closest( 'form' ).submit();
+			} );
+
+			// Initialize site selector field.
+			$siteSelector.select2( {
+				dropdownCssClass: 'wp-mail-smtp-select2-dropdown',
+				cacheDataSource: {},
+				dataAdapter: $.fn.select2.amd.require( 'select2/data/cacheableAjax' ),
+				ajax: {
+					url: wp_mail_smtp.ajax_url + '?action=wp_mail_smtp_pro_get_sites_ajax&nonce=' + wp_mail_smtp.nonce,
+					dataType: 'json'
+				},
+			} );
 		}
 	};
 

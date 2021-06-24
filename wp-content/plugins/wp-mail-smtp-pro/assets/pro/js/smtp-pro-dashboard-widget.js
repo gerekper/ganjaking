@@ -671,7 +671,7 @@ var WPMailSMTPDashboardWidget = window.WPMailSMTPDashboardWidget || ( function( 
 		 */
 		chartEvents: function() {
 
-			el.$daysSelect.change( function() {
+			el.$daysSelect.on( 'change', function() {
 				chart.events.daysChanged();
 				app.updateEmailStats(
 					$( this ).val(),
@@ -679,7 +679,7 @@ var WPMailSMTPDashboardWidget = window.WPMailSMTPDashboardWidget || ( function( 
 				);
 			} );
 
-			el.$emailTypeSelect.change( function() {
+			el.$emailTypeSelect.on( 'change', function() {
 				chart.events.emailTypeChanged();
 				app.refreshEmailStats( $( this ).val() );
 			} );
@@ -692,15 +692,15 @@ var WPMailSMTPDashboardWidget = window.WPMailSMTPDashboardWidget || ( function( 
 		 */
 		miscEvents: function() {
 
-			el.$recomBlockDismissBtn.click( function() {
+			el.$recomBlockDismissBtn.on( 'click', function() {
 				app.dismissRecommendedBlock();
 			} );
 
-			el.$settingsBtn.click( function() {
+			el.$settingsBtn.on( 'click', function() {
 				$( this ).siblings( '.wp-mail-smtp-dash-widget-settings-menu' ).toggle();
 			} );
 
-			el.$widget.find( '.wp-mail-smtp-dash-widget-settings-menu-save' ).click( function() {
+			el.$widget.find( '.wp-mail-smtp-dash-widget-settings-menu-save' ).on( 'click', function() {
 				app.saveSettings();
 			} );
 

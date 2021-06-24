@@ -52,7 +52,11 @@ if ( isset( $tm_element_settings ) && ! empty( $quantity ) ) {
 	if ( is_numeric( $__min_value ) || is_numeric( $__max_value ) ) {
 
 		if ( is_numeric( $__min_value ) && is_numeric( $__max_value ) && $__min_value > $__max_value ) {
-			$__max_value = $__min_value + $__step;
+			if ( $__step === 'any' ) {
+				$__max_value = $__min_value + 1;
+			} else {
+				$__max_value = $__min_value + $__step;
+			}
 		}
 		if ( is_numeric( $__max_value ) && $__default_value > $__max_value ) {
 			$__default_value = $__max_value;

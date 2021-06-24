@@ -268,18 +268,7 @@ class Auth extends AuthAbstract {
 			Debug::clear();
 			$this->update_auth_code( $code );
 			$this->get_client( true );
-		} else {
-			wp_safe_redirect(
-				add_query_arg(
-					'error',
-					'zoho_no_code',
-					$redirect_url
-				)
-			);
-			exit;
-		}
 
-		if ( $is_setup_wizard_auth ) {
 			$error = Debug::get_last();
 
 			if ( ! empty( $error ) ) {
@@ -292,6 +281,15 @@ class Auth extends AuthAbstract {
 				);
 				exit;
 			}
+		} else {
+			wp_safe_redirect(
+				add_query_arg(
+					'error',
+					'zoho_no_code',
+					$redirect_url
+				)
+			);
+			exit;
 		}
 
 		wp_safe_redirect(

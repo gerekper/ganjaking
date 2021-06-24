@@ -40,7 +40,13 @@ class VerifySentStatusTask extends VerifySentStatusTaskAbstract {
 		list( $email_log_id, $try ) = $meta;
 
 		// Get Email and its message ID.
-		$email      = new Email( $email_log_id );
+		$email = new Email( $email_log_id );
+
+		// Check if email exists (was not deleted).
+		if ( $email->get_id() === 0 ) {
+			return;
+		}
+
 		$message_id = $email->get_header( 'Message-ID' );
 
 		// Get the mailer plugin settings.

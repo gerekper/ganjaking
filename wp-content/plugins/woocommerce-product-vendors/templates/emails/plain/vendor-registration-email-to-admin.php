@@ -26,4 +26,7 @@ echo __( 'Vendor Description:', 'woocommerce-product-vendors' ) . "\n\n";
 echo $vendor_desc . "\n\n";
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
+/* translators: %s is the pending vendors list url. */
+printf( esc_html__( 'You can approve this vendor at %s.', 'woocommerce-product-vendors' ), esc_url( admin_url( 'users.php?role=wc_product_vendors_pending_vendor' ) ) );
+
 echo apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) );

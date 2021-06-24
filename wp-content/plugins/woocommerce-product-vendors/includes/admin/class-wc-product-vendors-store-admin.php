@@ -698,7 +698,7 @@ class WC_Product_Vendors_Store_Admin {
 	 * @return bool
 	 */
 	public function register_commissions_menu_item() {
-		$hook = add_menu_page( __( 'Vendor Commission', 'woocommerce-product-vendors' ), __( 'Commission', 'woocommerce-product-vendors' ), 'manage_vendors', 'wcpv-commissions', array( $this, 'render_commission_page' ), 'dashicons-chart-pie', 56.77 );
+		$hook = add_menu_page( __( 'Vendor Commission', 'woocommerce-product-vendors' ), __( 'Commission', 'woocommerce-product-vendors' ), 'manage_vendors', 'wcpv-commissions', array( $this, 'render_commission_page' ), 'dashicons-chart-pie', 56 );
 
 		add_action( "load-$hook", array( $this, 'add_screen_options' ) );
 

@@ -41,9 +41,9 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	 */
 	public function __construct() {
 
-		// Modify cart 
+		// Modify cart
 		add_filter( 'woocommerce_add_cart_item', array( $this, 'woocommerce_add_cart_item' ), 11, 1 );
-		// Modify option prices for discounts 
+		// Modify option prices for discounts
 		add_filter( 'associated_tmcp_static_prices', array( $this, 'associated_tmcp_static_prices' ), 10, 2 );
 		// Load cart data on every page load
 		add_filter( 'woocommerce_get_cart_item_from_session', array( $this, 'woocommerce_get_cart_item_from_session' ), 9998, 3 );
@@ -112,6 +112,9 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		add_action( 'wp_ajax_nopriv_wc_epo_get_associated_product_html', array( $this, 'wc_epo_get_associated_product_html' ) );
 		add_action( 'wp_ajax_wc_epo_get_associated_product_html', array( $this, 'wc_epo_get_associated_product_html' ) );
 
+		// Fix internal associated data
+		add_action( 'woocommerce_update_cart_action_cart_updated', array( $this, 'woocommerce_update_cart_action_cart_updated' ), 9999, 1 );
+
 	}
 
 	/**
@@ -160,6 +163,14 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 				if ( $type === "variable" ) {
 					if ( is_callable( array( $product, 'get_variation_attributes' ) ) ) {
+						// workaround to get discounts shownn in the product for variable products
+						$isset_discount_type = false;
+						if ( isset( $_REQUEST['discount_type'] ) ){
+							$isset_discount_type = $_REQUEST['discount_type'];
+							$isset_discount = $_REQUEST['discount'];
+						}
+						$_REQUEST['discount_type'] = $discount_type;
+						$_REQUEST['discount'] = $discount;
 						$attributes           = $product->get_variation_attributes();
 						$get_variations       = count( $product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $product );
 						$available_variations = $get_variations ? $product->get_available_variations() : FALSE;
@@ -169,6 +180,13 @@ class THEMECOMPLETE_EPO_Associated_Products {
 						$variations_json                                  = wp_json_encode( $available_variations );
 						$variations_attr                                  = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_json ) : _wp_specialchars( $variations_json, ENT_QUOTES, 'UTF-8', TRUE );
 						$product_list_available_variations[ $product_id ] = $variations_attr;
+						if ($isset_discount_type){
+							$_REQUEST['discount_type'] = $isset_discount_type;
+							$_REQUEST['discount'] = $isset_discount;
+						} else {
+							unset($_REQUEST['discount_type']);
+							unset($_REQUEST['discount']);
+						}
 					}
 				} else {
 					$product_list[ $product_id ]                      = array();
@@ -192,7 +210,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 				if ( is_numeric( $__min_value ) && is_numeric( $__max_value ) ) {
 					if ( $__min_value > $__max_value ) {
-						$__max_value = $__min_value + $__step;
+						$__max_value = $__min_value + 1;
 					}
 				}
 
@@ -308,6 +326,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				$this->discount_type = $discount_type;
 				add_filter("wc_epo_apply_discount", array($this, "wc_epo_apply_discount"), 10, 2);
 			}
+			THEMECOMPLETE_EPO()->associated_type = $product->get_type();
 			THEMECOMPLETE_EPO()->is_associated = TRUE;
 			THEMECOMPLETE_EPO()->associated_per_product_pricing = $per_product_pricing;
 			THEMECOMPLETE_EPO()->set_inline_epo( TRUE );
@@ -321,6 +340,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 			THEMECOMPLETE_EPO_DISPLAY()->restore_epo_internal_counter();
 			THEMECOMPLETE_EPO()->is_associated = FALSE;
 			THEMECOMPLETE_EPO()->associated_per_product_pricing = NULL;
+			THEMECOMPLETE_EPO()->associated_type = FALSE;
 			if ($discount_type){
 				$this->discount = '';
 				$this->discount_type = '';
@@ -356,6 +376,10 @@ class THEMECOMPLETE_EPO_Associated_Products {
 								$associated_weight = 0.0;
 								$associated_value  = 0.0;
 
+								if ( ! isset( $cart_item_data['line_subtotal'] ) ) {
+									continue;
+								}
+
 								$main_product_totals = array(
 									'line_subtotal'     => $cart_item_data['line_subtotal'],
 									'line_total'        => $cart_item_data['line_total'],
@@ -386,9 +410,10 @@ class THEMECOMPLETE_EPO_Associated_Products {
 										$packages[ $package_key ]['contents_cost'] += $associated_cart_data['line_total'];
 
 										$associated_line_tax_data = $associated_cart_data['line_tax_data'];
-
-										$main_product_totals['line_tax_data']['total']    = array_merge( $main_product_totals['line_tax_data']['total'], $associated_line_tax_data['total'] );
-										$main_product_totals['line_tax_data']['subtotal'] = array_merge( $main_product_totals['line_tax_data']['subtotal'], $associated_line_tax_data['subtotal'] );
+										if ( $associated_line_tax_data ) {
+											$main_product_totals['line_tax_data']['total']    = array_merge( $main_product_totals['line_tax_data']['total'], $associated_line_tax_data['total'] );
+											$main_product_totals['line_tax_data']['subtotal'] = array_merge( $main_product_totals['line_tax_data']['subtotal'], $associated_line_tax_data['subtotal'] );
+										}
 									}
 
 									if ( $associated_product_weight ) {
@@ -407,7 +432,9 @@ class THEMECOMPLETE_EPO_Associated_Products {
 									$main_product_weight = $main_product->get_weight();
 									$assoc_weight = (double) $main_product_weight + $associated_weight / $main_product_qty;
 									$main_product->set_weight( $assoc_weight );
-									WC()->cart->cart_contents[$cart_item_key]["data"]->set_weight( $assoc_weight, 'edit');
+									if ( isset( WC()->cart->cart_contents[$cart_item_key]["data"] ) ){
+										WC()->cart->cart_contents[$cart_item_key]["data"]->set_weight( $assoc_weight, 'edit');
+									}
 								}
 
 								$packages[ $package_key ]['contents'][ $cart_item_key ]['data'] = $main_product;
@@ -436,6 +463,10 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 			if ( $associated_id === FALSE ) {
 				return FALSE;
+			}
+
+			if ( isset( WC()->cart->cart_contents[ $cart_item_key ]['did_set_quantity'] ) ) {
+				$quantity = WC()->cart->cart_contents[ $cart_item_key ]['did_set_quantity'];
 			}
 
 			$parent_key      = $cart_item['associated_parent'];
@@ -775,6 +806,28 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	}
 
 	/**
+	 * Fix internal associated data
+	 *
+	 * @since 5.0.12.13
+	 */
+	public function woocommerce_update_cart_action_cart_updated( $cart_updated = FALSE ) {
+
+		if ( apply_filters( 'wc_epo_update_cart_action_cart_updated', false, $cart_updated ) ) {
+			return $cart_updated;
+		}
+
+		$cart_contents = WC()->cart->cart_contents;
+		if ( is_array( $cart_contents ) ) {
+			foreach ( $cart_contents as $cart_item_key => $cart_item ) {
+				unset(WC()->cart->cart_contents[ $cart_item_key ]['did_set_quantity']);
+			}
+		}
+
+		return $cart_updated;
+
+	}
+
+	/**
 	 * Sync associated products quantity with main product
 	 *
 	 * @since 5.0
@@ -785,16 +838,18 @@ class THEMECOMPLETE_EPO_Associated_Products {
 			return;
 		}
 
-		if ( ! empty( WC()->cart->cart_contents[ $cart_item_key ] ) ) {
+		$cart_item = WC()->cart->cart_contents[ $cart_item_key ];
 
-			$associated_cart_keys = $this->get_associated_cart_keys( WC()->cart->cart_contents[ $cart_item_key ], WC()->cart->cart_contents );
+		if ( ! empty( $cart_item ) ) {
+
+			$associated_cart_keys = $this->get_associated_cart_keys( $cart_item, WC()->cart->cart_contents );
 
 			if ( ! empty( $associated_cart_keys ) && is_array( $associated_cart_keys ) ) {
 
 				if ( $quantity == 0 || $quantity < 0 ) {
 					$quantity = 0;
 				} else {
-					$quantity = intval( WC()->cart->cart_contents[ $cart_item_key ]['quantity'] );
+					$quantity = intval( $cart_item['quantity'] );
 				}
 
 				foreach ( $associated_cart_keys as $associated_key_id => $associated_key ) {
@@ -806,16 +861,31 @@ class THEMECOMPLETE_EPO_Associated_Products {
 					}
 					if ( $associated_data['data']->is_sold_individually() && $quantity > 0 ) {
 
-						WC()->cart->set_quantity( $associated_key, 1, FALSE );
+						WC()->cart->cart_contents[ $associated_key ]['quantity'] = 1;
+						WC()->cart->cart_contents[ $associated_key ]['did_set_quantity'] = 1;
 
 					} else {
 
 						$associated_quantity = intval( $associated_data['tmproducts'][ $associated_key_id ]['quantity'] );
-						WC()->cart->set_quantity( $associated_key, $associated_quantity * $quantity, FALSE );
+						$no_change_quantity  = intval( $associated_data['tmproducts'][ $associated_key_id ]['no_change_quantity'] );
+						$initial_quantity    = intval( $associated_data['tmproducts'][ $associated_key_id ]['initial_quantity'] );
+
+						if ($no_change_quantity){
+							$associated_quantity = $initial_quantity;
+						}
+						WC()->cart->cart_contents[ $associated_key ]['quantity'] = $associated_quantity * $quantity;
+						WC()->cart->cart_contents[ $associated_key ]['did_set_quantity'] = $associated_quantity * $quantity;
+
 					}
 
 				}
 
+			} elseif ( isset( $cart_item['associated_parent'] ) && ! empty( $cart_item['associated_parent'] ) ) {
+				if (isset(WC()->cart->cart_contents[ $cart_item_key ]['did_set_quantity'])){
+					WC()->cart->cart_contents[ $cart_item_key ]['quantity'] = WC()->cart->cart_contents[ $cart_item_key ]['did_set_quantity'];
+					unset(WC()->cart->cart_contents[ $cart_item_key ]['did_set_quantity']);
+					WC()->cart->calculate_totals();
+				}
 			}
 
 		}
@@ -1127,7 +1197,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 					continue;
 				}
 
-				$item_quantity = $associated_data['quantity'];				
+				$item_quantity = $associated_data['quantity'];
 
 				if ( $associated_product->is_sold_individually() ){
 					$quantity = 1;
@@ -1229,9 +1299,14 @@ class THEMECOMPLETE_EPO_Associated_Products {
 			} else {
 				$product_data = wc_get_product( $variation_id ? $variation_id : $product_id );
 			}
+
 		}
 
 		if ( ! $product_data ) {
+			return FALSE;
+		}
+
+		if ( $product_data->managing_stock() && ! $product_data->is_in_stock() ) {
 			return FALSE;
 		}
 
@@ -1450,7 +1525,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				$new_key = $cart_item_key;
 
 				if( array_key_exists( $old_key, $array ) ){
-				    $keys = array_keys( $array ); 
+				    $keys = array_keys( $array );
 				    $keys[ array_search( $old_key, $keys ) ] = $new_key;
 				    $array = array_combine( $keys, $array );
 				    WC()->cart->cart_contents = $array;

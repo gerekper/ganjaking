@@ -100,6 +100,8 @@ final class THEMECOMPLETE_EPO_COMPATIBILITY_base {
 		THEMECOMPLETE_EPO_CP_atum::instance();
 		// Account funds
 		THEMECOMPLETE_EPO_CP_account_funds::instance();
+		// Booster
+		THEMECOMPLETE_EPO_CP_Booster::instance();
 		// Themes
 		THEMECOMPLETE_EPO_CP_themes::instance();
 

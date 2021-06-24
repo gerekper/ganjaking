@@ -31,7 +31,7 @@ if ( ! empty( $description ) && ! empty( $description_position ) && $description
 		$descriptionclass = " color-" . sanitize_hex_color_no_hash( $description_color );
 	}
 	// $description contains HTML code
-	echo ' class="tm-description' . esc_attr( $descriptionclass ) . '">' . apply_filters( 'wc_epo_kses', wp_kses_post( $description ), $description ) . '</div>';
+	echo ' class="tm-section-description tm-description' . esc_attr( $descriptionclass ) . '">' . apply_filters( 'wc_epo_kses', wp_kses_post( $description ), $description ) . '</div>';
 }
 ?>
 </div></div></div></div>

@@ -71,7 +71,7 @@ final class THEMECOMPLETE_CONVERT_ARRAY_TO_CSV {
 			$line           = $this->convertline( $v );
 			$lines[ $key ]  = $line;
 		}
-		// Re-oder headers 
+		// Re-oder headers
 		$header = array( 'div_size' => $header['div_size'] ) + $header;
 		$header = array( 'element_type' => $header['element_type'] ) + $header;
 		$lines  = array( 'div_size' => $lines['div_size'] ) + $lines;
@@ -318,6 +318,9 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 								}
 							}
 						} else {
+							if ( $k === "product_productids" && strpos($v, "|") !== false) {
+								$v = explode( "|", $v );
+							}
 							$data[ $k ][] = $v;
 						}
 					}

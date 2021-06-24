@@ -58,6 +58,15 @@ class ArchivePage extends PageAbstract {
 			<span class="page-title">
 				<?php echo esc_html( $this->get_label() ); ?>
 			</span>
+
+			<?php
+			/**
+			 * Fires after email logs archive page title.
+			 *
+			 * @since 2.9.0
+			 */
+			do_action( 'wp_mail_smtp_pro_emails_logs_admin_archive_page_display_header' );
+			?>
 		</div>
 
 		<h1 class="screen-reader-text">
@@ -65,8 +74,14 @@ class ArchivePage extends PageAbstract {
 		</h1>
 
 		<div class="wp-mail-smtp-page-content">
-			<?php do_action( 'wp_mail_smtp_admin_pages_before_content' ); ?>
-
+			<?php
+			/**
+			 * Fires before email logs archive page content.
+			 *
+			 * @since 2.3.1
+			 */
+			do_action( 'wp_mail_smtp_admin_pages_before_content' );
+			?>
 			<form action="<?php echo esc_url( $page_url ); ?>" method="get">
 				<input type="hidden" name="page" value="<?php echo esc_attr( Area::SLUG . '-logs' ); ?>" />
 

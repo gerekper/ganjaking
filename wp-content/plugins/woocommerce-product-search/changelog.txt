@@ -1,5 +1,24 @@
 *** WooCommerce Product Search ***
 
+2021.06.16 - version 3.8.0
+* WordPress 5.8 compatible.
+* WooCommerce 5.4 compatible.
+* Fixed add-to-cart links produced for variable products when the option to "Enable AJAX add to cart buttons on archives" is disabled, the button would yield the shop page with an error shown instead of taking to the product page.
+* Added the French translation.
+* Fixed translation errors.
+* Updated and added missing translations.
+* Avoid redirect loops caused by $requested_url transformation done in wp-includes/canonical.php's redirect_canonical() that changes urlencoded() characters in uppercase to lowercase and causes a comparison failure with the $redirect_url.
+* Added the woocommerce_product_search_avoid_redirect_canonical_loops filter.
+* Removed options to Use the Shop URL and use_shop_url that are not needed and could inadvertently originate inconsistent results.
+* Added Product Filter – Stock widget.
+* Added [woocommerce_product_filter_stock] shortcode.
+* Added woocommerce_product_search_filter_stock() API function.
+* Added woocommerce_product_search_filter_stock_stock_counts filter.
+* Added woocommerce_product_search_filter_stock_product_ids_by_stock_status filter.
+* Added the woocommerce_product_search_service_post_ids_for_request action.
+* Fixed disabled live filtering on category, attribute or tag filters had no effect.
+* Added the Filter option to the Product Filter – Price widget, allows to disable live filtering via price input fields and slider.
+
 2021.04.11 - version 3.7.0
 * WordPress 5.8 compatible.
 * WooCommerce 5.2 compatible.

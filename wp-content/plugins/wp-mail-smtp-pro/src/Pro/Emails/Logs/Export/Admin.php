@@ -3,32 +3,14 @@
 namespace WPMailSMTP\Pro\Emails\Logs\Export;
 
 use WPMailSMTP\WP;
-use WPMailSMTP\Admin\PageAbstract;
+use WPMailSMTP\Admin\Pages\ExportTab;
 
 /**
  * HTML-related stuff for Admin page.
  *
  * @since 2.8.0
  */
-class Admin extends PageAbstract {
-
-	/**
-	 * Part of the slug of a tab.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @var string
-	 */
-	protected $slug = 'export';
-
-	/**
-	 * Tab priority.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @var int
-	 */
-	protected $priority = 20;
+class Admin extends ExportTab {
 
 	/**
 	 * Export request.
@@ -38,30 +20,6 @@ class Admin extends PageAbstract {
 	 * @var Request Export request.
 	 */
 	protected $request;
-
-	/**
-	 * Link label of a tab.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @return string
-	 */
-	public function get_label() {
-
-		return esc_html__( 'Export', 'wp-mail-smtp-pro' );
-	}
-
-	/**
-	 * Title of a tab.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @return string
-	 */
-	public function get_title() {
-
-		return $this->get_label();
-	}
 
 	/**
 	 * Register hooks.
@@ -143,14 +101,19 @@ class Admin extends PageAbstract {
 
 		$this->request = new Request( 'GET', false );
 		?>
-		<div class="wp-mail-smtp-setting-row">
+		<form method="post" action="<?php echo esc_url( $this->get_link() ); ?>" id="wp-mail-smtp-tools-export-email-logs">
 
-			<h4><?php esc_html_e( 'Export Email Logs', 'wp-mail-smtp-pro' ); ?></h4>
+			<input type="hidden" name="action" value="wp_mail_smtp_tools_export_email_logs">
+			<?php wp_nonce_field( 'wp-mail-smtp-tools-export-email-logs-nonce', 'nonce' ); ?>
 
-			<form method="post" action="<?php echo esc_url( $this->get_link() ); ?>" id="wp-mail-smtp-tools-export-email-logs">
+			<div class="wp-mail-smtp-setting-row">
 
-				<input type="hidden" name="action" value="wp_mail_smtp_tools_export_email_logs">
-				<?php wp_nonce_field( 'wp-mail-smtp-tools-export-email-logs-nonce', 'nonce' ); ?>
+				<h2><?php esc_html_e( 'Export Email Logs', 'wp-mail-smtp-pro' ); ?></h2>
+
+				<section class="wp-clearfix" id="wp-mail-smtp-tools-export-email-logs-export-type">
+					<h5><?php esc_html_e( 'Export Type', 'wp-mail-smtp-pro' ); ?></h5>
+					<?php $this->display_export_type_block(); ?>
+				</section>
 
 				<section class="wp-clearfix" id="wp-mail-smtp-tools-export-email-logs-common-fields">
 					<h5><?php esc_html_e( 'Common Information', 'wp-mail-smtp-pro' ); ?></h5>
@@ -160,11 +123,6 @@ class Admin extends PageAbstract {
 				<section class="wp-clearfix" id="wp-mail-smtp-tools-export-email-logs-additional-info">
 					<h5><?php esc_html_e( 'Additional Information', 'wp-mail-smtp-pro' ); ?></h5>
 					<?php $this->display_additional_info_selection_block(); ?>
-				</section>
-
-				<section class="wp-clearfix" id="wp-mail-smtp-tools-export-email-logs-export-type">
-					<h5><?php esc_html_e( 'Export Type', 'wp-mail-smtp-pro' ); ?></h5>
-					<?php $this->display_export_type_block(); ?>
 				</section>
 
 				<section class="wp-clearfix" id="wp-mail-smtp-tools-export-email-logs-date">
@@ -190,11 +148,10 @@ class Admin extends PageAbstract {
 					<a href="#" class="hidden" id="wp-mail-smtp-tools-export-email-logs-cancel">
 						<?php esc_html_e( 'Cancel', 'wp-mail-smtp-pro' ); ?>
 					</a>
-					<div id="wp-mail-smtp-tools-export-email-logs-process-msg" class="hidden"></div>
+					<div id="wp-mail-smtp-tools-export-email-logs-process-msg"></div>
 				</section>
-
-			</form>
-		</div>
+			</div>
+		</form>
 		<?php
 	}
 

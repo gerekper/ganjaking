@@ -15,9 +15,10 @@ if ( $option['_default_value_counter'] !== '' ){
     $input_name   = $name . '_' . $option['_default_value_counter'] . '_quantity';
 }
 $input_value  = isset( $_REQUEST[ $name . '_quantity' ] ) ? $_REQUEST[ $name . '_quantity' ] : $quantity_min;
+$input_value  = floatval( $input_value );
 $classes      = array('tm-qty', 'tm-bsbb', 'tm-hidden');
-$max_value    = $quantity_max;
-$min_value    = $quantity_min;
+$max_value    = floatval( $quantity_max );
+$min_value    = floatval( $quantity_min );
 $step         = 1;
 $inputmode    = apply_filters( 'woocommerce_quantity_input_inputmode', has_filter( 'woocommerce_stock_amount', 'intval' ) ? 'numeric' : '' );
 $product_name = '';

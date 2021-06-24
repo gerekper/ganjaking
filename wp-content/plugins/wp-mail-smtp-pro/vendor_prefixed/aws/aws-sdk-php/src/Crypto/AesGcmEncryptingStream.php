@@ -68,9 +68,9 @@ class AesGcmEncryptingStream implements \WPMailSMTP\Vendor\Aws\Crypto\AesStreamI
     public function createStream()
     {
         if (\version_compare(\PHP_VERSION, '7.1', '<')) {
-            return \WPMailSMTP\Vendor\GuzzleHttp\Psr7\stream_for(\WPMailSMTP\Vendor\Aws\Crypto\Polyfill\AesGcm::encrypt((string) $this->plaintext, $this->initializationVector, new \WPMailSMTP\Vendor\Aws\Crypto\Polyfill\Key($this->key), $this->aad, $this->tag, $this->keySize));
+            return \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::streamFor(\WPMailSMTP\Vendor\Aws\Crypto\Polyfill\AesGcm::encrypt((string) $this->plaintext, $this->initializationVector, new \WPMailSMTP\Vendor\Aws\Crypto\Polyfill\Key($this->key), $this->aad, $this->tag, $this->keySize));
         } else {
-            return \WPMailSMTP\Vendor\GuzzleHttp\Psr7\stream_for(\openssl_encrypt((string) $this->plaintext, $this->getOpenSslName(), $this->key, \OPENSSL_RAW_DATA, $this->initializationVector, $this->tag, $this->aad, $this->tagLength));
+            return \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::streamFor(\openssl_encrypt((string) $this->plaintext, $this->getOpenSslName(), $this->key, \OPENSSL_RAW_DATA, $this->initializationVector, $this->tag, $this->aad, $this->tagLength));
         }
     }
     /**

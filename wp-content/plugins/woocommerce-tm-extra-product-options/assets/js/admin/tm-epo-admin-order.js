@@ -1,7 +1,8 @@
 ( function( window, document, $ ) {
 	'use strict';
 
-	$( document ).ready( function() {
+	// document ready
+	$( function() {
 		// Order page
 		$( '#woocommerce-order-items' ).on( 'click.tc', 'a.tm-delete-order-item', function( e ) {
 			var item = $( this ).closest( 'tr.item, tr.fee, tr.shipping' );

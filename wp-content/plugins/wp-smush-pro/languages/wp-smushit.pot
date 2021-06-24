@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Smush Pro plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smush Pro 3.8.6\n"
+"Project-Id-Version: Smush Pro 3.8.7\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-06-15T13:44:50+00:00\n"
+"POT-Creation-Date: 2021-06-18T16:56:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: wp-smushit\n"
@@ -1491,7 +1491,7 @@ msgid "Upgrade Plan"
 msgstr ""
 
 #: app/views/cdn/meta-box.php:46
-#: app/views/webp/webp-meta-box.php:128
+#: app/views/webp/webp-meta-box.php:133
 msgid "Supported Media Types"
 msgstr ""
 
@@ -1500,12 +1500,12 @@ msgid "Here’s a list of the media types we serve from the CDN."
 msgstr ""
 
 #: app/views/cdn/meta-box.php:56
-#: app/views/webp/webp-meta-box.php:136
+#: app/views/webp/webp-meta-box.php:141
 msgid "jpg"
 msgstr ""
 
 #: app/views/cdn/meta-box.php:59
-#: app/views/webp/webp-meta-box.php:139
+#: app/views/webp/webp-meta-box.php:144
 msgid "png"
 msgstr ""
 
@@ -1527,8 +1527,8 @@ msgstr ""
 #: app/views/lazyload/meta-box.php:685
 #: app/views/webp/config-meta-box.php:246
 #: app/views/webp/config-meta-box.php:262
-#: app/views/webp/webp-meta-box.php:191
-#: app/views/webp/webp-meta-box.php:203
+#: app/views/webp/webp-meta-box.php:196
+#: app/views/webp/webp-meta-box.php:208
 msgid "Deactivate"
 msgstr ""
 
@@ -1737,7 +1737,7 @@ msgstr ""
 
 #. translators: 1. error code, 2. error message.
 #: app/views/dashboard/webp/meta-box.php:53
-#: app/views/webp/webp-meta-box.php:96
+#: app/views/webp/webp-meta-box.php:99
 msgid "We couldn't check the WebP server rules status because there was an error with the test request. Please contact support for assistance. Code %1$s: %2$s."
 msgstr ""
 
@@ -2612,22 +2612,22 @@ msgid "If you do not have access to your NGINX config files you will need to con
 msgstr ""
 
 #: app/views/webp/config-meta-box.php:215
-#: app/views/webp/webp-meta-box.php:158
+#: app/views/webp/webp-meta-box.php:163
 msgid "Revert WebP Conversion"
 msgstr ""
 
 #: app/views/webp/config-meta-box.php:217
-#: app/views/webp/webp-meta-box.php:161
+#: app/views/webp/webp-meta-box.php:166
 msgid "If your server storage space is full, use this feature to revert the WebP conversions by deleting all generated files. The files will fall back to normal PNGs or JPEGs once you delete them."
 msgstr ""
 
 #: app/views/webp/config-meta-box.php:230
-#: app/views/webp/webp-meta-box.php:175
+#: app/views/webp/webp-meta-box.php:180
 msgid "Delete WebP Files"
 msgstr ""
 
 #: app/views/webp/config-meta-box.php:237
-#: app/views/webp/webp-meta-box.php:182
+#: app/views/webp/webp-meta-box.php:187
 msgid "This feature won’t delete the WebP files converted via CDN, only the files generated via the local WebP feature."
 msgstr ""
 
@@ -2636,7 +2636,7 @@ msgid "If you no longer want to use this feature, click on Deactivate and we wil
 msgstr ""
 
 #: app/views/webp/config-meta-box.php:268
-#: app/views/webp/webp-meta-box.php:209
+#: app/views/webp/webp-meta-box.php:214
 msgid "Deactivation won’t delete existing WebP images."
 msgstr ""
 
@@ -2697,28 +2697,28 @@ msgstr ""
 
 #. translators: 1. opening 'b' tag, 2. closing 'b' tag
 #: app/views/webp/webp-meta-box.php:76
-#: app/views/webp/webp-meta-box.php:113
+#: app/views/webp/webp-meta-box.php:118
 msgid "%1$sNote:%2$s We noticed the Amazon S3 Integration is enabled. Offloaded images will not be served in WebP format, but Smush will still create local WebP copies of all images. If this is undesirable, please deactivate the WebP module below."
 msgstr ""
 
-#: app/views/webp/webp-meta-box.php:101
+#: app/views/webp/webp-meta-box.php:106
 msgid "The server rules have been applied but the server doesn't seem to be serving your images as WebP. We recommend contacting your hosting provider to learn more about the cause of this issue."
 msgstr ""
 
-#: app/views/webp/webp-meta-box.php:103
+#: app/views/webp/webp-meta-box.php:108
 msgid "Server configurations haven't been applied yet. Make configurations below to start serving images in WebP format."
 msgstr ""
 
-#: app/views/webp/webp-meta-box.php:131
+#: app/views/webp/webp-meta-box.php:136
 msgid "Here's a list of the media types that will be converted to WebP format."
 msgstr ""
 
 #. translators: 1. opening 'a' tag to docs, 2. closing 'a' tag.
-#: app/views/webp/webp-meta-box.php:145
+#: app/views/webp/webp-meta-box.php:150
 msgid "To verify if the JPG and PNG images are being served correctly as WebP files, please refer to our %1$sDocumentation%2$s."
 msgstr ""
 
-#: app/views/webp/webp-meta-box.php:195
+#: app/views/webp/webp-meta-box.php:200
 msgid "If you no longer require your images to be served in WebP format, you can disable this feature."
 msgstr ""
 
@@ -3190,17 +3190,17 @@ msgid "We couldn't find the metadata for the image, possibly the image has been 
 msgstr ""
 
 #: core/integrations/class-nextgen.php:529
-#: core/modules/class-backup.php:204
+#: core/modules/class-backup.php:211
 msgid "Error in processing restore action, Fields empty."
 msgstr ""
 
 #: core/integrations/class-nextgen.php:539
-#: core/modules/class-backup.php:212
+#: core/modules/class-backup.php:219
 msgid "Image not restored, Nonce verification failed."
 msgstr ""
 
 #: core/integrations/class-nextgen.php:640
-#: core/modules/class-backup.php:390
+#: core/modules/class-backup.php:397
 msgid "Unable to restore image"
 msgstr ""
 
@@ -3259,7 +3259,7 @@ msgstr ""
 msgid "Smush stats"
 msgstr ""
 
-#: core/modules/class-backup.php:605
+#: core/modules/class-backup.php:612
 msgid "Error getting file name"
 msgstr ""
 
@@ -3465,25 +3465,30 @@ msgstr ""
 msgid "Image couldn't be smushed"
 msgstr ""
 
-#: core/modules/class-webp.php:454
+#. translators: path that couldn't be written
+#: core/modules/class-webp.php:102
+msgid "We couldn't create the WebP test files. This is probably due to your current folder permissions. Please adjust the permissions for \"%s\" to 755 and try again."
+msgstr ""
+
+#: core/modules/class-webp.php:484
 msgid "WebP files were deleted successfully."
 msgstr ""
 
 #. translators: 1. opening 'a' tag to premium support, 2. closing 'a' tag.
-#: core/modules/class-webp.php:601
+#: core/modules/class-webp.php:631
 msgid "We tried to apply the .htaccess rules automatically but we were unable to complete this action. Make sure the file permissions on your .htaccess file are set to 644, or switch to manual mode and apply the rules yourself. If you need further assistance, you can %1$scontact support%2$s for help."
 msgstr ""
 
 #. translators: 1. opening 'a' tag to docs, 2. opening 'a' tag to premium support, 3. closing 'a' tag.
-#: core/modules/class-webp.php:608
+#: core/modules/class-webp.php:638
 msgid "We tried different rules but your server still isn't serving WebP images. Please contact your hosting provider for further assistance. You can also see our %1$stroubleshooting guide%3$s or %2$scontact support%3$s for help."
 msgstr ""
 
-#: core/modules/class-webp.php:672
+#: core/modules/class-webp.php:702
 msgid "The .htaccess file doesn't contain the WebP rules from Smush."
 msgstr ""
 
-#: core/modules/class-webp.php:686
+#: core/modules/class-webp.php:716
 msgid "We were unable to automatically remove the rules. We recommend trying to remove the rules manually. If you don’t have access to the .htaccess file to remove it manually, please consult with your hosting provider to change the configuration on the server."
 msgstr ""
 
