@@ -41,6 +41,7 @@ class MeprUsersCtrl extends MeprBaseCtrl {
     //Shortcodes
     MeprHooks::add_shortcode('mepr-list-subscriptions', 'MeprUsersCtrl::list_users_subscriptions');
     MeprHooks::add_shortcode('mepr-user-file', 'MeprUsersCtrl::show_user_file');
+    MeprHooks::add_shortcode('mepr-user-active-membership-titles', 'MeprUsersCtrl::get_user_active_membership_titles');
   }
 
   /**
@@ -620,5 +621,17 @@ class MeprUsersCtrl extends MeprBaseCtrl {
       MeprView::render('/shortcodes/user_files', get_defined_vars());
       return ob_get_clean();
     }
+  }
+
+  public static function get_user_active_membership_titles($atts, $content = '') {
+    $userid = (isset($atts['userid']) && !empty($atts['userid'])) ? (int)trim($atts['userid']) : get_current_user_id();
+
+    if(!$userid) {
+      return;
+    }
+
+    $user = new MeprUser($userid);
+
+    return esc_attr($user->get_active_subscription_titles());
   }
 } //End class

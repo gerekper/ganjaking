@@ -201,7 +201,6 @@ ul.custom_options_list {
   width: 100%;
   max-height: 250px;
   overflow: scroll;
-  padding: 25px;
 }
 
 #mepr_custom_tax_rates {
@@ -264,4 +263,34 @@ ul.custom_options_list {
   .mepr-integration-gateway-form input[type=text] {
     width: 25em !important;
   }
+}
+.mepr-detected-ip-address-p {
+  margin-top: 15px;
+}
+#mepr-detected-ip-address {
+  margin-left: 5px;
+}
+#mepr-anti-card-testing-blocked {
+  width: 300px;
+  max-width: 100%;
+  height: 200px;
+}
+#mepr_options_form #integration {
+  color: #626262;
+}
+#mepr_options_form #integration #mepr-add-integration {
+  color: #626262;
+  text-decoration: none;
+  font-weight: bold;
+}
+#mepr_options_form #integration .mepr-with-stripe {
+  margin-top: 0;
+  color: #365669;
+  font-size: 1.1em;
+}
+#mepr_options_form #integration .mepr-with-stripe img {
+  position: relative;
+  top: 12px;
+  left: -7px;
+  width: 80px;
 }

@@ -1,35 +1,35 @@
 @keyframes pulse-black {
-    0% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
-    }
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
 
-    70% {
-        transform: scale(1);
-        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
-    }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
 
-    100% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-    }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
 }
 
 @keyframes pulse-green {
-    0% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(51, 217, 178, 0.7);
-    }
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(51, 217, 178, 0.7);
+  }
 
-    70% {
-        transform: scale(1);
-        box-shadow: 0 0 0 10px rgba(51, 217, 178, 0);
-    }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(51, 217, 178, 0);
+  }
 
-    100% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(51, 217, 178, 0);
-    }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(51, 217, 178, 0);
+  }
 }
 
 .memberpress-menu-pulse {
@@ -450,26 +450,97 @@ table.mepr-addons-table tr th {
 .mepr-payment-option-prompt {
   background: rgba(139,139,150,.1);
   box-shadow: 0 0 1px #bbb;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 1em;
-  min-height: 100px;
+  color: #0A2540;
   width: 600px;
   text-align: center;
+  font-size: 15px;
+}
+
+.mepr-integration-gateway-form .stripe-feature-list {
+  margin: auto;
+}
+
+.mepr-integration-gateway-form .stripe-features li {
+  margin: 0;
+  text-align: left;
+}
+
+.mepr-integration-gateway-form .stripe-features li img {
+  padding-right: 3px;
 }
 
 .mepr-payment-option-prompt.connected {
-  background: #CBFECF;
+  background: #f3f3f3;
   box-shadow: none;
-  border: 1px solid #86C881;
+  margin-bottom: 25px;
 }
 
-.button-secondary.mepr_stripe_disconnect_button:hover {
-  color: #ff291f;
+.mepr-integration-gateway-form .stripe-checkout-method-select {
+  display: flex;
+  margin-top: 15px;
+  align-items: stretch;
+  color: #0a2540;
+  justify-content: space-around;
 }
 
+.mepr-integration-gateway-form .stripe-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #0a2540;
+}
+
+.mepr-integration-gateway-form .stripe-checkout-method-select .mepr-stripe-method {
+  width: 45%;
+  border: 4px solid #bdbdbd;
+  border-radius: 5px;
+}
+.mepr-integration-gateway-form .stripe-checkout-method-select .mepr-stripe-method.selected {
+  border-color: #0a2540;
+}
+.mepr-integration-gateway-form .mepr-stripe-method {
+  position: relative;
+}
+.mepr-stripe-method .stripe-features {
+  padding: 0px 40px;
+}
+.mepr-stripe-method .mepr-heading-section {
+  font-size: 1.5em;
+  padding: 10px 10px 0px 10px;
+}
+.mepr-stripe-method input {
+  position: absolute;
+  top: 14px;
+  right: 10px;
+}
+
+.mepr-payment-option-prompt.connected .stripe-btn {
+  border-radius: 7px;
+  background: #00528c;
+  color: white;
+  font-weight: bold;
+  padding: 0px 10px;
+}
+
+.mepr-stripe-setting-promo {
+  margin: 0;
+}
+@media (max-width: 1100px) {
+  .mepr-payment-option-prompt {
+    width: auto;
+  }
+}
+@media (max-width: 750px) {
+  .mepr-integration-gateway-form .stripe-checkout-method-select .mepr-stripe-method {
+    display: block;
+    width: auto;
+  }
+  .mepr-integration-gateway-form .stripe-checkout-method-select {
+    display: block;
+  }
+}
 .mepr_stripe_disconnect_button .dashicons-warning {
   display: inline-block;
   margin-top: 3px;

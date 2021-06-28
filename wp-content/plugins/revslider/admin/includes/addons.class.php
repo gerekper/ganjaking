@@ -97,10 +97,11 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 				
 				$version = $this->get_val($this->addon_version_required, $handle, false);
 				if($version !== false && version_compare($installed, $version, '<')){
+					$available = (version_compare($version, $this->get_val($addon, 'available'), '>')) ? $version : $this->get_val($addon, 'available');
 					$update[$handle] = array(
 						'title' => $this->get_val($addon, 'full_title'),
 						'old'	=> $installed,
-						'new'	=> $this->get_val($addon, 'available'),
+						'new'	=> $available,
 						'status'=> '1' //1 is mandatory to use it
 					);
 				}
@@ -116,8 +117,7 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 	 * @since 6.0
 	 */
 	public function install_addon($addon, $force = false){
-		if(get_option('revslider-valid', 'false') !== 'true') return __('Please activate Slider Revolution', 'revslider');
-		
+				
 		//check if downloaded already
 		$plugins	= get_plugins();
 		$addon_path = $addon.'/'.$addon.'.php';
@@ -140,8 +140,7 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 	public function download_addon($addon){
 		global $rslb;
 		
-		if(get_option('revslider-valid', 'false') !== 'true') return __('Please activate Slider Revolution', 'revslider');
-		
+			
 		$plugin_slug	= basename($addon);
 		if(0 !== strpos($plugin_slug, 'revslider-')) die( '-1' );
 

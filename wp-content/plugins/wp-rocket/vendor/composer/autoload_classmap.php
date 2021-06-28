@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Imagify_Partner' => $baseDir . '/inc/vendors/classes/class-imagify-partner.php',
     'Minify_CSS_UriRewriter' => $baseDir . '/inc/vendors/classes/class-minify-css-urirewriter.php',
     'Minify_HTML' => $baseDir . '/inc/deprecated/vendors/classes/class-minify-html.php',

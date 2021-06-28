@@ -1179,6 +1179,10 @@ html[dir="rtl"] .gform_editor.gform_legacy_markup .ginput_container_time {
 		margin-right: 0;
 	}
 
+html[dir="rtl"] .gform_editor.gform_legacy_markup .ginput_container_time input[type="text"] + i {
+			margin-right: 0.4rem;
+		}
+
 /*
 * Global styles for the form editor.
 *
@@ -2333,6 +2337,14 @@ html[dir="rtl"] .right ul#gf_merge_tag_list {
 
 .gform-admin .gform-c-warning-text {
 		color: #a16938;
+	}
+
+.gform-admin .gform-c-red {
+		color: #dd301d;
+	}
+
+.gform-admin .gform-c-hunter {
+		color: #276a52;
 	}
 
 /* spacing */

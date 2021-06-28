@@ -5,7 +5,6 @@ $classes = '';
 if ( ! isset( $_GET['display-keys'] ) && ! isset( $_COOKIE['mepr_stripe_display_keys'] ) && ! defined( 'MEPR_DISABLE_STRIPE_CONNECT' ) ) {
   $classes = 'class="mepr-hidden"';
 }
-
 ?>
 
 <?php if ( MeprStripeGateway::stripe_connect_status( $id ) == 'connected') : ?>
@@ -15,23 +14,44 @@ if ( ! isset( $_GET['display-keys'] ) && ! isset( $_COOKIE['mepr_stripe_display_
     $disconnect_confirm_msg = __( 'Disconnecting from this Stripe Account will block webhooks from being processed, and prevent MemberPress subscriptions associated with it from working.', 'memberpress' );
   ?>
   <div id="stripe-connected-actions" class="mepr-payment-option-prompt connected">
-  <?php if(empty($service_account_name)): ?>
-    <p><?php _e('Your site is currently connected to Stripe!', 'memberpress'); ?></p>
-  <?php else: ?>
-    <p><?php printf(__('Your site is currently connected to Stripe Account: %1$s %2$s %3$s', 'memberpress'), '<strong>', $service_account_name, '</strong>'); ?></p>
-  <?php endif; ?>
-    <p>
-      <span <?php echo $classes; ?>><a href="<?php echo $refresh_url; ?>" class="mepr_stripe_refresh_button button-secondary"><?php _e( 'Refresh Stripe Credentials', 'memberpress' ); ?></a></span>
-      <a href="<?php echo $disconnect_url; ?>" class="mepr_stripe_disconnect_button button-secondary" data-disconnect-msg="<?php echo $disconnect_confirm_msg; ?>">
-        <span class="dashicons dashicons-warning"></span>
-        <?php _e( 'Disconnect', 'memberpress' ); ?>
-      </a>
-    </p>
+    <?php if ( empty( $service_account_name ) ): ?>
+      <?php _e( 'Connected to Stripe', 'memberpress' ); ?>
+    <?php else: ?>
+      <?php printf( __( 'Connected to: %1$s %2$s %3$s', 'memberpress' ), '<strong>', $service_account_name, '</strong>' ); ?>
+    <?php endif; ?>
+    &nbsp;
+    <span <?php echo $classes; ?>>
+    <a href="<?php echo $refresh_url; ?>"
+       class="stripe-btn  mepr_stripe_refresh_button button-secondary"><?php _e( 'Refresh Stripe Credentials', 'memberpress' ); ?></a></span>
+    <a href="<?php echo $disconnect_url; ?>" class=" stripe-btn  mepr_stripe_disconnect_button button-secondary"
+       data-disconnect-msg="<?php echo $disconnect_confirm_msg; ?>">
+      <?php _e( 'Disconnect', 'memberpress' ); ?>
+    </a>
   </div>
 <?php elseif ( ! MeprStripeGateway::is_stripe_connect( $id ) && MeprStripeGateway::keys_are_set( $id ) ) : ?>
   <div id="mepr-stripe-connect-migrate-prompt" class="mepr-payment-option-prompt">
-    <p><strong><?php _e( 'Upgrade to Stripe Connect', 'memberpress' ); ?></strong></p>
-    <p><?php _e( 'By upgrading to Stripe Connect, your MemberPress-Stripe experience will be more secure and easier to manage!', 'memberpress' ); ?></p>
+    <div><img width="200px" src="<?php echo MEPR_IMAGES_URL . '/Stripe_with_Tagline.svg'; ?>" alt="Stripe logo"/></div>
+    <p class="mepr-stripe-setting-promo"><b><?php _e( "Connect with the world's most powerful and easy to use Payment Gateway", 'memberpress' ); ?></b></p>
+    <table class="stripe-feature-list" width="500px">
+      <tr>
+        <td>
+          <ul class="stripe-features">
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept all Major Credit Cards", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Flexible subscriptions and billing terms", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept ACH Bank Transfers", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept SEPA", 'memberpress' ); ?></li>
+          </ul>
+        </td>
+        <td>
+          <ul class="stripe-features">
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept Apple Pay", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept Google Wallet", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept iDeal", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Fraud prevention tools", 'memberpress' ); ?></li>
+          </ul>
+        </td>
+      </tr>
+    </table>
     <p>
       <a href="<?php echo $stripe_connect_url; ?>">
         <img src="<?php echo MEPR_IMAGES_URL . '/stripe-connect.png'; ?>" width="200" alt="<?php _e( '"Connect with Stripe" button', 'memberpress' ); ?>">
@@ -51,9 +71,27 @@ if ( ! isset( $_GET['display-keys'] ) && ! isset( $_COOKIE['mepr_stripe_display_
 <?php /***** THIS IS A NEW PAYMENT METHOD *****/ ?>
 <?php elseif ( !MeprStripeGateway::keys_are_set( $id ) ) : ?>
   <div id="mepr-stripe-connect-migrate-prompt" class="mepr-payment-option-prompt">
-    <p><strong><?php _e( 'Connect to Stripe', 'memberpress' ); ?></strong></p>
-    <p><?php _e( 'Connect your Stripe account by clicking the button below.', 'memberpress' ); ?></p>
-    <p>
+    <div><img src="<?php echo MEPR_IMAGES_URL . '/Stripe_with_Tagline.svg'; ?>" alt="Stripe logo"/></div>
+    <table class="stripe-feature-list" width="500px">
+      <tr>
+        <td>
+          <ul class="stripe-features">
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept all Major Credit Cards", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Flexible subscriptions and billing terms", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept ACH Bank Transfers", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept SEPA", 'memberpress' ); ?></li>
+          </ul>
+        </td>
+        <td>
+          <ul class="stripe-features">
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept Apple Pay", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept Google Wallet", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept iDeal", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Fraud prevention tools", 'memberpress' ); ?></li>
+          </ul>
+        </td>
+      </tr>
+    </table>
     <a href="" data-id="<?php echo $id; ?>" data-href="<?php echo $stripe_connect_url; ?>" data-nonce="<?php echo wp_create_nonce( "new-stripe-connect" ); ?>" class="mepr-stripe-connect-new">
         <img src="<?php echo MEPR_IMAGES_URL . '/stripe-connect.png'; ?>" width="200" alt="<?php _e( '"Connect with Stripe" button', 'memberpress' ); ?>">
       </a>
@@ -61,9 +99,28 @@ if ( ! isset( $_GET['display-keys'] ) && ! isset( $_COOKIE['mepr_stripe_display_
   </div>
 <?php else : ?>
   <div id="mepr-stripe-connect-migrate-prompt" class="mepr-payment-option-prompt">
-    <p><strong><?php _e( 'Connect to Stripe', 'memberpress' ); ?></strong></p>
-    <p><?php _e( 'Connect your Stripe account by clicking the button below.', 'memberpress' ); ?></p>
-    <p>
+    <div><img src="<?php echo MEPR_IMAGES_URL . '/Stripe_with_Tagline.svg'; ?>" alt="Stripe logo"/></div>
+    <p class="mepr-stripe-setting-promo"><b><?php _e( "Connect with the world's most powerful and easy to use Payment Gateway", 'memberpress' ); ?></b></p>
+    <table class="stripe-feature-list" width="500px">
+      <tr>
+        <td>
+          <ul class="stripe-features">
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept all Major Credit Cards", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Flexible subscriptions and billing terms", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept ACH Bank Transfers", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept SEPA", 'memberpress' ); ?></li>
+          </ul>
+        </td>
+        <td>
+          <ul class="stripe-features">
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept Apple Pay", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept Google Wallet", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Accept iDeal", 'memberpress' ); ?></li>
+            <li><img src="<?php echo MEPR_IMAGES_URL; ?>/Check_Mark.svg"/><?php _e( "Fraud prevention tools", 'memberpress' ); ?></li>
+          </ul>
+        </td>
+      </tr>
+    </table>
       <a href="<?php echo $stripe_connect_url; ?>">
         <img src="<?php echo MEPR_IMAGES_URL . '/stripe-connect.png'; ?>" width="200" alt="<?php _e( '"Connect with Stripe" button', 'memberpress' ); ?>">
       </a>

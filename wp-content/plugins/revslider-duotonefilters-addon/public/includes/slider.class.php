@@ -40,6 +40,18 @@ class RsDuotoneSliderFront extends RevSliderFunctions {
 		$slides = $slider->get_slides();
 		if(empty($slides)) return false;
 		
+		$settings = $slider->get_params();
+		if(empty($settings)) return false;
+		
+		$addOns = $this->get_val($settings, 'addOns', false);
+		if(empty($addOns)) return false;
+		
+		$addOn = $this->get_val($addOns, 'revslider-' . $this->pluginTitle . 'filters-addon', false);
+		if(empty($addOn)) return false;
+		
+		$enabled = $this->get_val($addOn, 'enable', false);
+		if($this->isFalse($enabled)) return false;
+
 		$enabled = false;
 		foreach($slides as $slide){
 			if($this->get_val($slide, array('params', 'addOns', 'revslider-duotonefilters-addon', 'filter'), 'none') !== 'none'){
@@ -84,7 +96,7 @@ class RsDuotoneSliderFront extends RevSliderFunctions {
 	public function add_scripts(){
 		$handle = 'rs-' . $this->pluginTitle . '-front';
 		$base   = $this->pluginUrl . 'public/assets/';
-		$_jsPathMin = file_exists(RS_LOTTIE_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
+		$_jsPathMin = file_exists(RS_DUOTONE_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
 		
 		wp_enqueue_style($handle, $base . 'css/revolution.addon.' . $this->pluginTitle . '.css', array(), $this->version);
 		wp_enqueue_script($handle, $base . 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', array('jquery'), $this->version, true);

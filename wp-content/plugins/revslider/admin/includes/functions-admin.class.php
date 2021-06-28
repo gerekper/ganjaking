@@ -1057,6 +1057,8 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'active_sr_inst_upd' => __('Instant Updates', 'revslider'),
 			'active_sr_one_on_one' => __('1on1 Support', 'revslider'),			
 			'parallaxsettoenabled' => __('Parallax is now generally Enabled', 'revslider'),
+			'CORSERROR' => __('External Media can not be used  for WEBGL Transitions due CORS Policy issues', 'revslider'),
+			'CORSWARNING' => __('Slider Revolution has successfully re-requested image to rectify above CORS error.', 'revslider'),
 			'timelinescrollsettoenabled' => __('Scroll Based Timeline is now generally Enabled', 'revslider'),
 			'feffectscrollsettoenabled' => __('Filter Effect Scroll is now generally Enabled', 'revslider'),
 			'nolayersinslide' => __('Slide has no Layers', 'revslider'),

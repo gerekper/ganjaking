@@ -86,12 +86,21 @@ echo helpers\Courses::get_classroom_header();
       while ( have_posts() ) : the_post(); // standard WordPress loop.
       $course = new models\Course($post->ID);
       $progress = $course->user_progress($current_user->ID);
+      $course_is_locked = false;
+
+      if(\MeprRule::is_locked($post) && helpers\Courses::is_course_archive()) {
+        $course_is_locked = true;
+      }
       ?>
 
       <div class="column col-4 col-sm-12">
         <div class="card s-rounded">
           <div class="card-image">
-
+            <?php if ($course_is_locked) { ?>
+              <div class="locked-course-overlay">
+                <i class="mpcs-icon mpcs-lock"></i>
+              </div>
+            <?php } ?>
             <a href="<?php the_permalink(); ?>" alt="<?php the_title_attribute(); ?>">
               <?php if ( has_post_thumbnail()) :
                 the_post_thumbnail('mpcs-course-thumbnail', ['class' => 'img-responsive']);

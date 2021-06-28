@@ -175,4 +175,9 @@ jQuery(document).ready(function($) {
   $('table.mepr-settings-table').on('mepr-settings-url', function( e, href, hash, url ) {
     $('form#mepr-options').attr('action',href);
   });
+
+  $(document).on('click', '.stripe-checkout-method-select label', function(e) {
+    $(this).parent().find('label').removeClass('selected');
+    $(this).addClass('selected');
+  });
 });

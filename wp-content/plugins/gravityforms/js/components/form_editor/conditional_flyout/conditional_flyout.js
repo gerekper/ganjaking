@@ -166,7 +166,7 @@ function getOptionsFromSelect( field, value ) {
 		var config = {
 			label: choice.text,
 			value: choice.value,
-			selected: choice.value === value ? 'selected="selected"' : '',
+			selected: choice.value == value ? 'selected="selected"' : '',
 		};
 
 		options.push( config );
@@ -678,15 +678,6 @@ GFConditionalLogic.prototype.renderRuleValue = function( rule, idx ) {
  */
 GFConditionalLogic.prototype.renderRule = function( rule, idx ) {
 	var field = getFieldById( rule.fieldId );
-
-	// Field is select - if value doesn't exist, set it to the first choice.
-	if ( field && field.choices && field.choices.length && ! ruleNeedsTextValue( rule ) ) {
-		var found = field.choices.filter( function( choice ) { return rule.value == choice.value; } )[0];
-
-		if ( ! found && field.type !== 'multiselect' ) {
-			rule.value = field.choices[ 0 ].value;
-		}
-	}
 
 	if ( ! field ) {
 		field = {

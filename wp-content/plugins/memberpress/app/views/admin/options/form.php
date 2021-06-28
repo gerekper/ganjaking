@@ -94,7 +94,7 @@
         <label for="<?php echo $mepr_options->redirect_on_unauthorized_str; ?>"><?php _e('Redirect unauthorized visitors to a specific URL', 'memberpress'); ?></label>
         <?php MeprAppHelper::info_tooltip( 'mepr-unauthorized-handling',
                                            __('Redirect Unauthorized Access', 'memberpress'),
-                                           __("MemberPress allows you to handle unauthorized access by replacing the content on page or via a redirection to a specific url.<br/><br/>When this is checked, unauthorized visits will be redirected to a url otherwise the unauthorized message will appear on page.", 'memberpress') ); ?>
+                                           __("MemberPress allows you to handle unauthorized access by replacing the content on page or via a redirection to a specific url.<br/><br/>When this is checked, unauthorized visits will be redirected to a url, otherwise the unauthorized message and login form will appear on the page.", 'memberpress') ); ?>
 
         <div id="mepr-unauthorized-redirect" class="mepr_hidden mepr-options-sub-pane">
           <label for="<?php echo $mepr_options->redirect_method_str; ?>"><?php _e('Redirect method:', 'memberpress'); ?></label>
@@ -439,13 +439,19 @@
       <div id="integrations-list">
         <?php
         $objs = $mepr_options->payment_methods();
+        $no_method = true;
         foreach( $objs as $pm_id => $obj ) {
-          if( $obj instanceof MeprBaseRealGateway )
-            MeprView::render("/admin/options/gateway", get_defined_vars());
+          if( $obj instanceof MeprBaseRealGateway ) {
+            MeprView::render( "/admin/options/gateway", get_defined_vars() );
+            $no_method = false;
+          }
         }
         ?>
       </div>
-      <a href="" id="mepr-add-integration" title="<?php _e('Add a Payment Method', 'memberpress'); ?>"><i class="mp-icon mp-icon-plus-circled mp-24"></i></a>
+      <?php if ($no_method) { ?>
+        <p><?php _e("A gateway is required to accept payments.Click the (+) below to add your first payment gateway.", "memberpress"); ?></p>
+      <?php } ?>
+      <a href="" id="mepr-add-integration" title="<?php _e('Add a Payment Method', 'memberpress'); ?>"><i class="mp-icon mp-icon-plus-circled mp-24"></i> <?php _e("Add Payment Method", "memberpress"); ?></a>
       <?php //MeprHooks::do_action('mepr-integration-options'); ?>
       <?php //MeprOptionsHelper::gateways_dropdown('gateway[' . time() . ']', ''); ?>
       <?php unset($objs['free']); unset($objs['manual']); ?>

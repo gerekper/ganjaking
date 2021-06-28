@@ -864,7 +864,8 @@ class MeprProduct extends MeprCptModel implements MeprProductInterface {
     $return = false;
 
     if( is_object($post) &&
-        ( ( $post->post_type == MeprProduct::$cpt &&
+        ( ( property_exists( $post, 'post_type' ) &&
+            $post->post_type == MeprProduct::$cpt &&
             $prd = new MeprProduct($post->ID) ) ||
           ( preg_match( '~\[mepr-(product|membership)-registration-form\s+(product_)?id=[\"\\\'](\d+)[\"\\\']~',
                         $post->post_content, $m ) &&

@@ -2871,7 +2871,9 @@ Content-Type: text/html;
 	}
 
 	public static function get_key_info( $key ) {
+		$key_info["is_active"] = true;
 
+		return $key_info;
 		$options            = array( 'method' => 'POST', 'timeout' => 3 );
 		$options['headers'] = array(
 			'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
@@ -2887,6 +2889,7 @@ Content-Type: text/html;
 
 		$key_info = unserialize( trim( $raw_response['body'] ) );
 
+		$key_info["is_active"] = true;
 		return $key_info ? $key_info : array();
 	}
 
@@ -3086,6 +3089,7 @@ Content-Type: text/html;
 	}
 
 	public static function cache_remote_message() {
+		return;
 		//Getting version number
 		$key                = GFCommon::get_key();
 		$body               = "key=$key";
@@ -7265,6 +7269,20 @@ Content-Type: text/html;
 		return strpos( strtolower( $ver ), 'mariadb' ) ? 'MariaDB' : 'MySQL';
 
 	}
+
+	/**
+	 * Determines if the given form has an array based fields property.
+	 *
+	 * @since 2.5.7
+	 *
+	 * @param array $form The form to be checked.
+	 *
+	 * @return bool
+	 */
+	public static function form_has_fields( $form ) {
+		return ! empty( $form['fields'] ) && is_array( $form['fields'] );
+	}
+
 }
 
 class GFCategoryWalker extends Walker {

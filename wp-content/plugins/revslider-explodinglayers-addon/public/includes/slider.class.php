@@ -39,6 +39,18 @@ class RsExplodinglayersSliderFront extends RevSliderFunctions {
 	private function isEnabled($slider){
 		$slides = $slider->get_slides();
 		if(empty($slides)) return false;
+
+		$settings = $slider->get_params();
+		if(empty($settings)) return false;
+		
+		$addOns = $this->get_val($settings, 'addOns', false);
+		if(empty($addOns)) return false;
+		
+		$addOn = $this->get_val($addOns, 'revslider-' . $this->pluginTitle . '-addon', false);
+		if(empty($addOn)) return false;
+		
+		$enabled = $this->get_val($addOn, 'enable', false);
+		if($this->isFalse($enabled)) return false;
 		
 		$enabled = false;
 		foreach($slides as $slide){
@@ -60,7 +72,24 @@ class RsExplodinglayersSliderFront extends RevSliderFunctions {
 			
 			if($enabled) break;
 		}
-		
+
+		// check static layers
+		$layers = $slider->get_static_slide()->get_layers();
+		if(!empty($layers)){
+			foreach($layers as $layer){
+				$frames = $this->get_val($layer, array('timeline', 'frames'), array());
+				if(empty($frames)) continue;
+				
+				foreach($frames as $frame){
+					if($this->get_val($frame, array('explodinglayers', 'use'), false) === true){
+						$enabled = true;
+						break;
+					}
+				}
+				if($enabled) break;
+			}
+		}
+
 		return $enabled;
 	}
 	

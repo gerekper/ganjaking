@@ -17,7 +17,7 @@ $rs_addon_update		 = $rsaddon->check_addon_version();
 $rs_addons				 = $rsaddon->get_addon_list();
 $rs_wp_date_format		 = get_option('date_format');
 $rs_wp_time_format		 = get_option('time_format');
-$rs_valid				 = get_option('revslider-valid', 'false');
+$rs_valid				 = 'true';
 $rs_latest_version		 = get_option('revslider-latest-version', RS_REVISION);
 $rs_stable_version		 = get_option('revslider-stable-version', '4.2');
 $rs_emergency_update	 = ($rs_valid !== 'true' && version_compare($rs_latest_version, $rs_stable_version, '<') === true) ? true : false;

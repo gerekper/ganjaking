@@ -201,6 +201,11 @@ class RevSliderOutput extends RevSliderFunctions {
 	private $language = 'all';
 	
 	/**
+	 * holds the current JavaScript revapi
+	 **/
+	private $revapi;
+
+	/**
 	 * holds the current html id
 	 **/
 	private $html_id;
@@ -322,6 +327,21 @@ class RevSliderOutput extends RevSliderFunctions {
 	 */
 	public function get_slider_id(){
 		return apply_filters('revslider_get_slider_id', $this->slider_id, $this);
+	}
+	
+	/**
+	 * get the current revapi for JavaScript
+	 */
+	public function get_revapi(){
+		return $this->revapi;
+	}
+	
+	
+	/**
+	 * set the current revapi for JavaScript
+	 */
+	public function set_revapi($revapi){
+		$this->revapi = $revapi;
 	}
 	
 	/**
@@ -693,8 +713,7 @@ class RevSliderOutput extends RevSliderFunctions {
 	 */
 	public function add_slider_base(){
 		try{
-			global $rs_slider_serial, $rs_wmpl;
-			
+			global $rs_slider_serial, $rs_js_collection, $rs_wmpl, $rs_loaded_by_editor;
 			$cache = RevSliderGlobals::instance()->get('RevSliderCache');
 			
 			do_action('revslider_add_slider_base_pre', $this);
@@ -762,7 +781,7 @@ class RevSliderOutput extends RevSliderFunctions {
 			$html_before_slider	= '';
 			$markup_export		= $this->get_markup_export();
 			
-			if($this->ajax_loaded === true || $this->get_markup_export()){ //if true, then we are loaded by ajax
+			if($this->ajax_loaded === true || $this->get_markup_export() || $rs_loaded_by_editor === true){ //if true, then we are loaded by ajax
 				$html_before_slider .= ($markup_export === true) ? '<!-- FONT -->' : '';
 				$html_before_slider .= $this->print_clean_font_import();
 				$html_before_slider .= ($markup_export === true) ? '<!-- /FONT -->' : '';
@@ -778,7 +797,9 @@ class RevSliderOutput extends RevSliderFunctions {
 			$slider_id = $this->slider->get_param('id', '');
 			
 			$html_id = (trim($slider_id) !== '') ? $slider_id : 'rev_slider_'.$sid.'_'.$rs_slider_serial;
+			$revapi = (in_array('revapi'.$sid, $rs_js_collection['revapi'], true)) ? 'revapi'.$sid.'_'.$rs_slider_serial : 'revapi'.$sid;
 			$this->set_html_id($html_id);
+			$this->set_revapi($revapi);
 			
 			ob_start();
 			echo $html_before_slider."\n";
@@ -1365,7 +1386,9 @@ class RevSliderOutput extends RevSliderFunctions {
 		}
 		
 		if(isset($slide->ignore_alt)) $img['alt'] = '';
-		
+		if(isset($img['title'])) $img['title'] = strip_tags($img['title']);
+		if(isset($img['alt'])) $img['alt'] = strip_tags($img['alt']);
+
 		$img['class'] = 'rev-slidebg tp-rs-img';
 		$img['class'] .= ($this->slider->get_param(array('general', 'lazyLoad'), false) != 'none') ? ' rs-lazyload' : '';
 		
@@ -1809,6 +1832,7 @@ class RevSliderOutput extends RevSliderFunctions {
 		$html_simple_link	= $this->get_action_link();
 		$html_responsive	= $this->get_html_responsive();
 		$html_transform 	= $this->get_html_transform();
+		$html_filters_on_mask 	= $this->get_html_filters_on_mask();
 		$html_responsive_data = $this->get_html_responsive_data();
 		$html_scrollbased_data = $this->get_html_scrollbased_data();
 		$html_resp_offset	= $this->get_html_responsive_offset();
@@ -1891,6 +1915,7 @@ class RevSliderOutput extends RevSliderFunctions {
 		echo ($html_wrapper_classes != '')	? $this->ld().RS_T8.$html_wrapper_classes."\n" : '';
 		echo ($html_responsive_data != '')	? $this->ld().RS_T8.$html_responsive_data."\n" : '';
 		echo ($html_transform != '') 		? $this->ld().RS_T8.$html_transform."\n" : '';
+		echo ($html_filters_on_mask != '') 	? $this->ld().RS_T8.$html_filters_on_mask."\n" : '';
 		echo ($html_scrollbased_data != '')	? $this->ld().RS_T8.$html_scrollbased_data."\n" : '';
 		echo ($html_static_data != '')		? $this->ld().RS_T8.$html_static_data."\n" : '';
 		echo ($html_static_pos_data != '')	? $this->ld().RS_T8.$html_static_pos_data."\n" : '';
@@ -1917,6 +1942,8 @@ class RevSliderOutput extends RevSliderFunctions {
 				echo ($ld !== '') ? $this->ld().RS_T8.'data-'.$ldk.'="'.$ld.'"'."\n" : '';
 			}
 		}
+
+		
 		
 		do_action('revslider_add_layer_attributes', $layer, $this->slide, $this->slider, $this);
 		
@@ -2228,9 +2255,11 @@ class RevSliderOutput extends RevSliderFunctions {
 	 * otherwise it will add the css to a queue which will then be printed by revslider-front.class.php or if its cached through the cache tool
 	 **/
 	public function get_css_javascript($css_html){
+		global $rs_loaded_by_editor;
+
 		$html = '';
 		$css_class = RevSliderGlobals::instance()->get('RevSliderCssParser');
-		if($this->usage === 'modal' && $this->ajax_loaded === true){
+		if($this->usage === 'modal' && $this->ajax_loaded === true || $this->ajax_loaded === true || $rs_loaded_by_editor === true){
 			$css = (!is_admin()) ? $css_class->compress_css(rawurlencode($css_html)) : $css_class->compress_css($css_html);
 			if(empty(trim($css))) return $html;
 			
@@ -2542,6 +2571,15 @@ rs-module .material-icons {
 		if($op !== 1) $html .='o:'.$op.';';
 		
 		return ($html !== '') ? 'data-btrans="'.$html.'"' : $html;
+	}
+
+	/**
+	 * get the layer filters on mask option
+	 */
+	public function get_html_filters_on_mask() {
+		$layer	= $this->get_layer();
+		$fm = intval($this->get_val($layer, array('timeline', 'filtersOnMask'), false));	
+		return ($fm != false) ? 'data-fsom="true"' : '';
 	}
 
 	/**
@@ -3939,6 +3977,9 @@ rs-module .material-icons {
 					$use['clip'] = $this->_base['clip'];
 					$use['clipB'] = $this->_base['clipB'];
 				}
+				
+
+				
 
 				foreach($use as $key => $v){
 					$_key = (isset($v['depth'])) ? $v['depth'] : $key;
@@ -5877,6 +5918,7 @@ rs-module .material-icons {
 			}
 			$anim .= ($duration === '') ? '' : 'ms:'.$duration.';';
 			$anim .= $this->get_html_slide_anim_rotation();
+			$anim .= $this->get_html_slide_anim_attribute($data, false, 'adpr', false, 'adpr', false);
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'd', 15, 'd', false);
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'e', 'basic', 'e', false);
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'p', 'none', 'p', false);
@@ -5910,6 +5952,7 @@ rs-module .material-icons {
 		}else{ /*CANVAS*/
 			/* Animate Defaults */
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'eng', 'animateCore', 'eng', false);
+			$anim .= $this->get_html_slide_anim_attribute($data, false, 'adpr', false, 'adpr', false);
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'd', 15, 'd', false);
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'e', 'basic', 'e', false);
 			$anim .= $this->get_html_slide_anim_attribute($data, false, 'speed', 1000, 'ms', false);
@@ -6989,9 +7032,11 @@ rs-module .material-icons {
 	 * add JavaScript
 	 **/
 	private function add_js(){
+		global $rs_loaded_by_editor;
+
 		$cache			 = RevSliderGlobals::instance()->get('RevSliderCache');
 		$me				 = $this->get_markup_export();
-		$this->full_js	 = (($this->usage === 'modal' && $this->ajax_loaded === true) || $me === true) ? true : false;
+		$this->full_js	 = (($this->usage === 'modal' && $this->ajax_loaded === true) || $me === true || $this->ajax_loaded === true || $rs_loaded_by_editor === true) ? true : false;
 		if($this->full_js === false) $this->JTA = ''; //remove 2 tabs to beautify HTML
 		
 		$html_start_size = $this->js_get_start_size();
@@ -7095,13 +7140,13 @@ rs-module .material-icons {
 	 * get the JavaScript Pre
 	 **/
 	public function js_get_base_pre(){
-		global $rs_js_collection;
+		global $rs_js_collection, $rs_slider_serial;
 		$html	= '';
 		$sid	= $this->slider->get_id();
 		$html_id = $this->get_html_id();
 		$html_id_trimmed = $this->get_html_id(false);
+		$revapi = $this->get_revapi();
 		
-		$revapi = 'revapi'.$sid;
 		$rs_js_collection['revapi'][] = $revapi;
 		if($this->caching){
 			$cache = RevSliderGlobals::instance()->get('RevSliderCache');
@@ -7118,13 +7163,13 @@ rs-module .material-icons {
 		$html .= $this->JTA . RS_T2.'if(window.RS_MODULES === undefined) window.RS_MODULES = {};'."\n";
 		$html .= $this->JTA . RS_T2.'if(RS_MODULES.modules === undefined) RS_MODULES.modules = {};'."\n"; 
 		$html .= $this->JTA . RS_T2.'RS_MODULES.modules["'.$html_id_trimmed .'"] = {init:function() {'."\n"; 
-		$html .= $this->JTA . RS_T3.'revapi'. $sid.' = jQuery("#'. $html_id .'");'."\n";
+		$html .= $this->JTA . RS_T3.$revapi.' = jQuery("#'. $html_id .'");'."\n";
 		if($this->full_js){
 			$html .= ($this->slider->get_param(array('troubleshooting', 'jsNoConflict'), true) === true) ? $this->JTA . RS_T3.'jQuery.noConflict();'."\n" : ''; 
 		}
-		$html .= $this->JTA . RS_T3.'if(revapi'. $sid.'==undefined || revapi'. $sid.'.revolution==undefined){ revslider_showDoubleJqueryError("'.$html_id.'"); return;}'."\n";
+		$html .= $this->JTA . RS_T3.'if('.$revapi.'==undefined || '.$revapi.'.revolution==undefined){ revslider_showDoubleJqueryError("'.$html_id.'"); return;}'."\n";
 		$html = apply_filters('revslider_fe_before_init_script', $html, $this->slider, $html_id); // needed for AddOns
-		$html .= $this->JTA . RS_T3.'revapi'. $sid.'.revolutionInit({'."\n";
+		$html .= $this->JTA . RS_T3.$revapi.'.revolutionInit({'."\n";
 		
 		return $html;
 	}
@@ -7134,7 +7179,8 @@ rs-module .material-icons {
 	 * get the JavaScript Post
 	 **/
 	public function js_get_base_post(){
-		$html_id_trimmed = $this->get_html_id(false);
+		global $rs_js_collection, $rs_slider_serial;
+		$revapi = $this->get_revapi();
 		$html = '';
 		ob_start();
 		do_action('revslider_fe_javascript_option_output', $this->slider);
@@ -7144,7 +7190,8 @@ rs-module .material-icons {
 		
 		$html .= $js_action;
 		$html .= $this->JTA . RS_T3.'});'."\n";
-		$html .= $this->js_get_custom_js();		
+		$html .= (in_array('revapi'.$this->slider->get_id(), $rs_js_collection['revapi'], true) && $revapi !== 'revapi'.$this->slider->get_id()) ? $this->JTA . RS_T3 . 'var revapi'. $this->slider->get_id() .' = '. $revapi .';'."\n" : ''; //added for addons that use the old revapi style
+		$html .= $this->js_get_custom_js();
 		$html .= $this->JTA . RS_T3;
 		
 		ob_start();

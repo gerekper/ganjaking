@@ -1,5 +1,10 @@
 *** Shipment Tracking Changelog ***
 
+2021-06-22 - version 1.6.27
+* Fix   - Change Canada Post Tracking URL.
+* Fix   - Change type and add format for tracking_link item schema.
+* Fix   - Date formatting use WordPress general settings value.
+
 2020-10-12 - version 1.6.26
 * Add   - Purolator shipping for Canada.
 * Fix   - Fastway Couriers NZ is now Aramex.

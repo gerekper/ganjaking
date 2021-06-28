@@ -102,7 +102,7 @@ class Lesson extends lib\BaseCptModel {
         JOIN {$wpdb->postmeta} AS pm_order
           ON p.ID = pm_order.post_id
          AND pm_order.meta_key = %s
-       WHERE p.post_type='mpcs-lesson' AND p.post_status='publish'
+       WHERE p.post_type='mpcs-lesson' AND p.post_status <> 'trash'
        ORDER BY pm_order.meta_value * 1
        ",
        Lesson::$section_id_str,

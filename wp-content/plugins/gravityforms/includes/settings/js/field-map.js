@@ -86,6 +86,145 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./js/src/components/MppingValueField.js":
+/*!***********************************************!*\
+  !*** ./js/src/components/MppingValueField.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+/**
+ * WordPress dependencies
+ */
+var _wp$element = wp.element,
+    Component = _wp$element.Component,
+    Fragment = _wp$element.Fragment;
+var __ = wp.i18n.__;
+
+var MappingValueField = /*#__PURE__*/function (_Component) {
+  _inherits(MappingValueField, _Component);
+
+  var _super = _createSuper(MappingValueField);
+
+  function MappingValueField() {
+    _classCallCheck(this, MappingValueField);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(MappingValueField, [{
+    key: "componentDidMount",
+
+    /**
+     * Initialize Gravity Forms Merge Tag UI on mount.
+     *
+     * @since 2.5
+     */
+    value: function componentDidMount() {
+      var _this = this;
+
+      this.$input = jQuery(this.input);
+      this.mergeTagsObj = new gfMergeTagsObj(form, this.$input);
+      this.$input.on('propertychange', function (e) {
+        _this.props.updateMapping(_objectSpread(_objectSpread({}, _this.props.mapping), {}, {
+          custom_value: e.target.value
+        }), _this.props.index);
+      });
+    }
+    /**
+     * Destroy merge tag object and remove event listeners.
+     *
+     * @since 2.5
+     */
+
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.$input.off('propertychange');
+      this.mergeTagsObj.destroy();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var containerClass = this.props.mergeTagSupport ? 'gform-settings-generic-map__custom gform-settings-input__container--with-merge-tag' : 'gform-settings-generic-map__custom';
+      var inputClass = this.props.mergeTagSupport ? 'merge-tag-support mt-position-right' : '';
+      return /*#__PURE__*/React.createElement("span", {
+        className: containerClass
+      }, /*#__PURE__*/React.createElement("input", {
+        ref: function ref(input) {
+          return _this2.input = input;
+        },
+        id: this.props.fieldId,
+        type: "text",
+        className: inputClass,
+        value: this.props.mapping.custom_value,
+        placeholder: this.props.valueField.placeholder,
+        onChange: function onChange(e) {
+          return _this2.props.updateMapping(_objectSpread(_objectSpread({}, _this2.props.mapping), {}, {
+            custom_value: e.target.value
+          }), _this2.props.index);
+        }
+      }), /*#__PURE__*/React.createElement("button", {
+        className: "gform-settings-generic-map__reset",
+        onClick: function onClick(e) {
+          e.preventDefault();
+
+          _this2.props.updateMapping(_objectSpread(_objectSpread({}, _this2.props.mapping), {}, {
+            value: '',
+            custom_value: ''
+          }), _this2.props.index);
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "screen-reader-text"
+      }, __('Remove Custom Value', 'gravityforms'))));
+    }
+  }]);
+
+  return MappingValueField;
+}(Component);
+
+exports["default"] = MappingValueField;
+
+/***/ }),
+
 /***/ "./js/src/components/Tooltips.js":
 /*!***************************************!*\
   !*** ./js/src/components/Tooltips.js ***!
@@ -486,7 +625,8 @@ var FieldMap = /*#__PURE__*/function (_Component) {
           limit = _this$props.limit,
           valueField = _this$props.valueField,
           input = _this$props.input,
-          inputType = _this$props.inputType;
+          inputType = _this$props.inputType,
+          mergeTagSupport = _this$props.mergeTagSupport;
       var mapping = this.getMapping();
       var keyCount = this.countKeyFieldChoices();
       return /*#__PURE__*/React.createElement("table", {
@@ -521,7 +661,8 @@ var FieldMap = /*#__PURE__*/function (_Component) {
           updateMapping: _this2.updateMapping,
           index: index,
           inputId: input,
-          inputType: inputType
+          inputType: inputType,
+          mergeTagSupport: mergeTagSupport
         });
       })));
     }
@@ -552,6 +693,8 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 
 var _Tooltips = _interopRequireDefault(__webpack_require__(/*! ../components/Tooltips */ "./js/src/components/Tooltips.js"));
+
+var _MppingValueField = _interopRequireDefault(__webpack_require__(/*! ../components/MppingValueField */ "./js/src/components/MppingValueField.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -848,35 +991,22 @@ var Mapping = /*#__PURE__*/function (_Component) {
           isInvalid = _this$props6.isInvalid,
           mapping = _this$props6.mapping,
           updateMapping = _this$props6.updateMapping,
-          valueField = _this$props6.valueField;
+          valueField = _this$props6.valueField,
+          mergeTagSupport = _this$props6.mergeTagSupport;
       var required = choice.required;
       var fieldId = this.getValueInputId(); // If selected value is custom value, display input.
 
       if (mapping.value === 'gf_custom') {
-        return /*#__PURE__*/React.createElement("span", {
-          className: "gform-settings-generic-map__custom"
-        }, /*#__PURE__*/React.createElement("input", {
-          id: fieldId,
-          type: "text",
-          value: mapping.custom_value,
-          placeholder: valueField.placeholder,
-          onChange: function onChange(e) {
-            return updateMapping(_objectSpread(_objectSpread({}, mapping), {}, {
-              custom_value: e.target.value
-            }), index);
-          }
-        }), /*#__PURE__*/React.createElement("button", {
-          className: "gform-settings-generic-map__reset",
-          onClick: function onClick(e) {
-            e.preventDefault();
-            updateMapping(_objectSpread(_objectSpread({}, mapping), {}, {
-              value: '',
-              custom_value: ''
-            }), index);
-          }
-        }, /*#__PURE__*/React.createElement("span", {
-          className: "screen-reader-text"
-        }, __('Remove Custom Value', 'gravityforms'))));
+        return /*#__PURE__*/React.createElement(_MppingValueField["default"], {
+          choice: choice,
+          index: index,
+          isInvalid: isInvalid,
+          mapping: mapping,
+          updateMapping: updateMapping,
+          valueField: valueField,
+          mergeTagSupport: mergeTagSupport,
+          fieldId: fieldId
+        }, " ");
       }
 
       return /*#__PURE__*/React.createElement("select", {
@@ -957,7 +1087,7 @@ var Mapping = /*#__PURE__*/function (_Component) {
       }
 
       return /*#__PURE__*/React.createElement("button", {
-        className: "gform-settings-generic-map__button gform-settings-generic-map__button--add",
+        className: "add_field_choice gform-st-icon gform-st-icon--circle-plus gform-settings-generic-map__button gform-settings-generic-map__button--add",
         onClick: function onClick(e) {
           e.preventDefault();
           addMapping(index);

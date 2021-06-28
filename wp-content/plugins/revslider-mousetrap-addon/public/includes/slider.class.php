@@ -39,6 +39,18 @@ class RsMousetrapSliderFront extends RevSliderFunctions {
 	private function isEnabled($slider){
 		$slides = $slider->get_slides();
 		if(empty($slides)) return false;
+
+		$settings = $slider->get_params();
+		if(empty($settings)) return false;
+		
+		$addOns = $this->get_val($settings, 'addOns', false);
+		if(empty($addOns)) return false;
+		
+		$addOn = $this->get_val($addOns, 'revslider-' . $this->pluginTitle . '-addon', false);
+		if(empty($addOn)) return false;
+		
+		$enabled = $this->get_val($addOn, 'enable', false);
+		if($this->isFalse($enabled)) return false;
 		
 		$enabled = false;
 		foreach($slides as $slide){
@@ -53,6 +65,17 @@ class RsMousetrapSliderFront extends RevSliderFunctions {
 			}
 			
 			if($enabled) break;
+		}
+
+		// check static layers
+		$layers = $slider->get_static_slide()->get_layers();
+		if(!empty($layers)){
+			foreach($layers as $layer){
+				if(in_array($this->get_val($layer, array('addOns', 'revslider-mousetrap-addon', 'follow', 'mode'), false), array('slider', 'self', 'olayer', 'events'), true)){
+					$enabled = true;
+					break;
+				}
+			}
 		}
 		
 		return $enabled;
@@ -92,8 +115,9 @@ class RsMousetrapSliderFront extends RevSliderFunctions {
 		
 		$handle = 'rs-' . $this->pluginTitle . '-front';
 		$base   = $this->pluginUrl . 'public/assets/';
+		$_jsPathMin = file_exists(RS_MOUSETRAP_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
 		
-		wp_enqueue_script($handle, $base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js', array('jquery'), $this->version, true);
+		wp_enqueue_script($handle, $base . 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', array('jquery'), $this->version, true);
 
 		add_filter('revslider_modify_waiting_scripts', array($this, 'add_waiting_script_slugs'), 10, 1);
 	}
@@ -120,8 +144,9 @@ class RsMousetrapSliderFront extends RevSliderFunctions {
 		
 		$global = $output->get_global_settings();
 		$addition = ($output->_truefalse($output->get_val($global, array('script', 'defer'), false)) === true) ? ' async="" defer=""' : '';
+		$_jsPathMin = file_exists(RS_MOUSETRAP_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
 		
-		$return['toload']['mousetrap'] = '<script'. $addition .' src="'. $this->pluginUrl . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.min.js"></script>';
+		$return['toload']['mousetrap'] = '<script'. $addition .' src="'. $this->pluginUrl . 'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js"></script>';
 		
 		return $return;
 	}

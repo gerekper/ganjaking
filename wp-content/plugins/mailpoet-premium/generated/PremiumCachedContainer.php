@@ -40,6 +40,7 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Listing\\PageLimit' => 'getPageLimitService',
             'MailPoet\\Newsletter\\NewslettersRepository' => 'getNewslettersRepositoryService',
             'MailPoet\\Newsletter\\Statistics\\NewsletterStatisticsRepository' => 'getNewsletterStatisticsRepositoryService',
+            'MailPoet\\Newsletter\\Url' => 'getUrlService',
             'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder' => 'getStatsResponseBuilderService',
             'MailPoet\\Premium\\API\\JSON\\v1\\Stats' => 'getStatsService',
             'MailPoet\\Premium\\API\\JSON\\v1\\SubscriberDetailedStats' => 'getSubscriberDetailedStatsService',
@@ -171,6 +172,16 @@ class PremiumCachedContainer extends Container
     }
 
     /**
+     * Gets the public 'MailPoet\Newsletter\Url' shared service.
+     *
+     * @return \MailPoet\Newsletter\Url
+     */
+    protected function getUrlService()
+    {
+        return $this->services['MailPoet\\Newsletter\\Url'] = ($this->services['free_container'] ?? $this->get('free_container', 1))->get('MailPoet\\Newsletter\\Url');
+    }
+
+    /**
      * Gets the public 'MailPoet\Premium\API\JSON\v1\ResponseBuilders\StatsResponseBuilder' shared autowired service.
      *
      * @return \MailPoet\Premium\API\JSON\v1\ResponseBuilders\StatsResponseBuilder
@@ -189,7 +200,7 @@ class PremiumCachedContainer extends Container
     {
         $a = ($this->services['MailPoet\\Newsletter\\NewslettersRepository'] ?? $this->getNewslettersRepositoryService());
 
-        return $this->services['MailPoet\\Premium\\API\\JSON\\v1\\Stats'] = new \MailPoet\Premium\API\JSON\v1\Stats(new \MailPoet\Premium\Newsletter\Stats\PurchasedProducts(($this->services['MailPoet\\WooCommerce\\Helper'] ?? $this->getHelperService()), ($this->services['MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository'] ?? $this->getStatisticsWooCommercePurchasesRepositoryService()), $a, ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService())), $a, ($this->services['MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder'] ?? ($this->services['MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder'] = new \MailPoet\Premium\API\JSON\v1\ResponseBuilders\StatsResponseBuilder())), ($this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository'] ?? $this->getStatisticsClicksRepositoryService()), ($this->services['MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement'] ?? $this->getSubscriberEngagementService()), ($this->services['MailPoet\\Newsletter\\Statistics\\NewsletterStatisticsRepository'] ?? $this->getNewsletterStatisticsRepositoryService()));
+        return $this->services['MailPoet\\Premium\\API\\JSON\\v1\\Stats'] = new \MailPoet\Premium\API\JSON\v1\Stats(new \MailPoet\Premium\Newsletter\Stats\PurchasedProducts(($this->services['MailPoet\\WooCommerce\\Helper'] ?? $this->getHelperService()), ($this->services['MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository'] ?? $this->getStatisticsWooCommercePurchasesRepositoryService()), $a, ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService())), $a, ($this->services['MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder'] ?? ($this->services['MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder'] = new \MailPoet\Premium\API\JSON\v1\ResponseBuilders\StatsResponseBuilder())), ($this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository'] ?? $this->getStatisticsClicksRepositoryService()), ($this->services['MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement'] ?? $this->getSubscriberEngagementService()), ($this->services['MailPoet\\Newsletter\\Statistics\\NewsletterStatisticsRepository'] ?? $this->getNewsletterStatisticsRepositoryService()), ($this->services['MailPoet\\Newsletter\\Url'] ?? $this->getUrlService()));
     }
 
     /**
@@ -199,7 +210,7 @@ class PremiumCachedContainer extends Container
      */
     protected function getSubscriberDetailedStatsService()
     {
-        return $this->services['MailPoet\\Premium\\API\\JSON\\v1\\SubscriberDetailedStats'] = new \MailPoet\Premium\API\JSON\v1\SubscriberDetailedStats(new \MailPoet\Premium\Subscriber\Stats\SubscriberNewsletterStatsRepository(($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService())), new \MailPoet\Premium\API\JSON\v1\ResponseBuilders\SubscriberDetailedStatsResponseBuilder(($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()), ($this->services['MailPoet\\WooCommerce\\Helper'] ?? $this->getHelperService())), ($this->services['MailPoet\\Listing\\Handler'] ?? $this->getHandlerService()));
+        return $this->services['MailPoet\\Premium\\API\\JSON\\v1\\SubscriberDetailedStats'] = new \MailPoet\Premium\API\JSON\v1\SubscriberDetailedStats(new \MailPoet\Premium\Subscriber\Stats\SubscriberNewsletterStatsRepository(($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService())), new \MailPoet\Premium\API\JSON\v1\ResponseBuilders\SubscriberDetailedStatsResponseBuilder(($this->services['MailPoet\\Newsletter\\Url'] ?? $this->getUrlService()), ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService()), ($this->services['MailPoet\\WooCommerce\\Helper'] ?? $this->getHelperService())), ($this->services['MailPoet\\Listing\\Handler'] ?? $this->getHandlerService()));
     }
 
     /**

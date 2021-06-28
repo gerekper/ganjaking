@@ -612,7 +612,7 @@ listenToLayerChanges = function(id) {
 }
 //Support Defer and Async and Footer Loads
 window.RS_MODULES = window.RS_MODULES || {};
-window.RS_MODULES.charts = {loaded:true, version:'3.0.0'};
+window.RS_MODULES.charts = {loaded:true, version:'3.0.1'};
 if (window.RS_MODULES.checkMinimal) window.RS_MODULES.checkMinimal();
 
 })();

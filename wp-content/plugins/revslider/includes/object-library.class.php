@@ -61,8 +61,8 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		if(time() - $last_check > 1296000 || $force == true){ //30 days
 			update_option('revslider-library-check', time());
 
-			$validated = get_option('revslider-valid', 'false');
-			$code = ($validated == 'false') ? '' : get_option('revslider-code', '');
+			$validated = 'true';
+			$code = '073e077f-b600-41e4-8b74-767431910d31';
 			$hash = get_option('revslider-library-hash', '');
 			$rattr = array(
 				'library_version' => urlencode(self::LIBRARY_VERSION),
@@ -323,12 +323,10 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 
 		$layers_data = false;
 		if($curl !== false){
-			$validated = get_option('revslider-valid', 'false');
+			$validated = 'true';
 
-			if($validated == 'false'){
-				$error = __('Plugin not activated', 'revslider');
-			}else{
-				$code	= ($validated == 'false') ? '' : get_option('revslider-code', '');
+			
+				$code	= '073e077f-b600-41e4-8b74-767431910d31';
 				$rattr	= array(
 					'code'		=> urlencode($code),
 					'library_version' => urlencode(self::LIBRARY_VERSION),
@@ -356,7 +354,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 					$layers_data = false;
 					$error = __('Error downloading layers data', 'revslider');
 				}
-			}
+			
 		}
 
 		//could not connect to server

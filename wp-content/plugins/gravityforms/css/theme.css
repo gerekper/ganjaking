@@ -107,11 +107,11 @@
 		padding-top: 5px;
 	}
 
-.gform_wrapper.gravity-theme.left_label fieldset.gfield, .gform_wrapper.gravity-theme.left_label fieldset.gfield, .gform_wrapper.gravity-theme.right_label fieldset.gfield, .gform_wrapper.gravity-theme.right_label fieldset.gfield {
+.gform_wrapper.gravity-theme.left_label fieldset.gfield, .gform_wrapper.gravity-theme.right_label fieldset.gfield {
 			padding: 16px 16px 16px 30%;
 		}
 
-.gform_wrapper.gravity-theme.left_label fieldset.gfield .ginput_container:not(.ginput_container_time), .gform_wrapper.gravity-theme.left_label fieldset.gfield .gfield_description, .gform_wrapper.gravity-theme.left_label fieldset.gfield .ginput_container:not(.ginput_container_time), .gform_wrapper.gravity-theme.left_label fieldset.gfield .gfield_description, .gform_wrapper.gravity-theme.left_label fieldset.gfield .ginput_container:not(.ginput_container_time), .gform_wrapper.gravity-theme.left_label fieldset.gfield .gfield_description, .gform_wrapper.gravity-theme.left_label fieldset.gfield .ginput_container:not(.ginput_container_time), .gform_wrapper.gravity-theme.left_label fieldset.gfield .gfield_description, .gform_wrapper.gravity-theme.right_label fieldset.gfield .ginput_container:not(.ginput_container_time), .gform_wrapper.gravity-theme.right_label fieldset.gfield .gfield_description, .gform_wrapper.gravity-theme.right_label fieldset.gfield .ginput_container:not(.ginput_container_time), .gform_wrapper.gravity-theme.right_label fieldset.gfield .gfield_description, .gform_wrapper.gravity-theme.right_label fieldset.gfield .ginput_container:not(.ginput_container_time), .gform_wrapper.gravity-theme.right_label fieldset.gfield .gfield_description, .gform_wrapper.gravity-theme.right_label fieldset.gfield .ginput_container:not(.ginput_container_time), .gform_wrapper.gravity-theme.right_label fieldset.gfield .gfield_description {
+.gform_wrapper.gravity-theme.left_label fieldset.gfield .ginput_container:not(.ginput_container_time), .gform_wrapper.gravity-theme.left_label fieldset.gfield .gfield_description, .gform_wrapper.gravity-theme.right_label fieldset.gfield .ginput_container:not(.ginput_container_time), .gform_wrapper.gravity-theme.right_label fieldset.gfield .gfield_description {
 				width: 100%;
 			}
 
@@ -119,15 +119,15 @@
 			left: 0;
 		}
 
-.gform_wrapper.gravity-theme.left_label .gfield:not(.gsection):not(.gfield_html):not(fieldset), .gform_wrapper.gravity-theme.left_label .gfield:not(.gsection):not(.gfield_html):not(fieldset), .gform_wrapper.gravity-theme.right_label .gfield:not(.gsection):not(.gfield_html):not(fieldset), .gform_wrapper.gravity-theme.right_label .gfield:not(.gsection):not(.gfield_html):not(fieldset) {
+.gform_wrapper.gravity-theme.left_label .gfield:not(.gsection):not(.gfield_html):not(fieldset), .gform_wrapper.gravity-theme.right_label .gfield:not(.gsection):not(.gfield_html):not(fieldset) {
 			justify-content: flex-start;
 		}
 
-.gform_wrapper.gravity-theme.left_label .gfield_html.gfield_html_formatted, .gform_wrapper.gravity-theme.left_label .gfield_html.gfield_html_formatted, .gform_wrapper.gravity-theme.right_label .gfield_html.gfield_html_formatted, .gform_wrapper.gravity-theme.right_label .gfield_html.gfield_html_formatted {
+.gform_wrapper.gravity-theme.left_label .gfield_html.gfield_html_formatted, .gform_wrapper.gravity-theme.right_label .gfield_html.gfield_html_formatted {
 			display: flex;
 		}
 
-.gform_wrapper.gravity-theme.left_label .gfield.gfield_html:not(.gfield_html_formatted) .gf-html-container, .gform_wrapper.gravity-theme.left_label .gfield.gfield_html:not(.gfield_html_formatted) .gf-html-container, .gform_wrapper.gravity-theme.right_label .gfield.gfield_html:not(.gfield_html_formatted) .gf-html-container, .gform_wrapper.gravity-theme.right_label .gfield.gfield_html:not(.gfield_html_formatted) .gf-html-container {
+.gform_wrapper.gravity-theme.left_label .gfield.gfield_html:not(.gfield_html_formatted) .gf-html-container, .gform_wrapper.gravity-theme.right_label .gfield.gfield_html:not(.gfield_html_formatted) .gf-html-container {
 			width: 100%;
 		}
 
@@ -1202,10 +1202,13 @@ html[dir=rtl] .gform_wrapper.gravity-theme .gf_progressbar_percentage:not(.perce
 
 .gform_wrapper.gravity-theme .ginput_container_time {
 		flex-basis: min-content;
+		max-width: 64px;
 		min-width: 64px;
 	}
 
 .gform_wrapper.gravity-theme .ginput_container_time input {
+			margin-left: 0;
+			margin-right: 0;
 			min-width: 100%;
 		}
 

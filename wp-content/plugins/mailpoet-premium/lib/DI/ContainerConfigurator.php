@@ -32,6 +32,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoet\Listing\Handler::class);
     $this->registerFreeService($container, \MailPoet\Listing\PageLimit::class);
     $this->registerFreeService($container, \MailPoet\Newsletter\NewslettersRepository::class);
+    $this->registerFreeService($container, \MailPoet\Newsletter\Url::class);
     $this->registerFreeService($container, \MailPoet\Newsletter\Statistics\NewsletterStatisticsRepository::class);
     $this->registerFreeService($container, \MailPoet\Statistics\StatisticsWooCommercePurchasesRepository::class);
     $this->registerFreeService($container, \MailPoet\WooCommerce\Helper::class);

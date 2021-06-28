@@ -1176,6 +1176,21 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
         $this->trial          = true;
         $this->trial_days     = $r->days;
         $this->trial_amount   = $r->proration;
+
+        $prd = $this->product();
+
+        if ($mepr_options->attr( 'tax_calc_type' ) == 'inclusive') {
+          $trial_taxes = $usr->calculate_tax( $this->trial_amount, 2 );
+          $this->trial_amount =  $trial_taxes[3] + $this->trial_amount;
+        }
+
+        if(get_option('mepr_calculate_taxes') && !$prd->tax_exempt) {
+          $this->set_trial_taxes();
+        }
+        else {
+          $this->trial_tax_amount = 0.00;
+          $this->trial_total = $this->trial_amount;
+        }
       }
     }
   }
@@ -1569,24 +1584,26 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
       list($this->price, $this->total, $this->tax_rate, $this->tax_amount, $this->tax_desc, $this->tax_class) = array($gross, $gross, 0.00, 0.00, '', 'standard');
       if ( $this->trial ) {
         $this->trial_total = $this->trial_amount;
+        $this->trial_tax_amount = 0.00;
       }
     }
     elseif($calculate_taxes && !$prd->tax_exempt && ($usr->ID != 0 || ((int)$usr->ID == 0 && $mepr_options->attr('tax_calc_location') == 'merchant'))) {
       list($this->price, $this->total, $this->tax_rate, $this->tax_amount, $this->tax_desc, $this->tax_class) = $usr->calculate_tax($subtotal, $num_decimals, $prd->ID);
       if ( $this->trial ) {
-        $this->set_trial_taxes( $this->trial_amount, $num_decimals );
+        $this->set_trial_taxes($num_decimals);
       }
     }
     elseif($calculate_taxes && 0 == absint($usr->ID)) { // Enables VAT calc for SPC Invoice
       list($this->price, $this->total, $this->tax_rate, $this->tax_amount, $this->tax_desc, $this->tax_class) = $usr->calculate_tax($subtotal, $num_decimals);
       if ( $this->trial ) {
-        $this->set_trial_taxes( $this->trial_amount, $num_decimals );
+        $this->set_trial_taxes($num_decimals);
       }
     }
     else { // If all else fails, let's blank out the tax info
       list($this->price, $this->total, $this->tax_rate, $this->tax_amount, $this->tax_desc, $this->tax_class) = array($subtotal, $subtotal, 0.00, 0.00, '', 'standard');
       if ( $this->trial ) {
         $this->trial_total = $this->trial_amount;
+        $this->trial_tax_amount = 0.00;
       }
     }
     MeprHooks::do_action('mepr_subscription_apply_tax', $this);
@@ -1606,14 +1623,12 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
     $this->apply_tax($subtotal, 2, $subtotal);
   }
 
-  public function set_trial_taxes( $trial_amount, $num_decimals = 2 ) {
+  public function set_trial_taxes($num_decimals = 2) {
     $mepr_options = MeprOptions::fetch();
 
     $usr = $this->user();
 
     if ( $mepr_options->attr( 'tax_calc_type' ) == 'inclusive' ) {
-      $usr = $this->user();
-
       $subtotal = $usr->calculate_subtotal( $this->trial_amount, null, 2, $this->product() );
       $trial_taxes = $usr->calculate_tax( $subtotal, $num_decimals );
       $trial_total = $this->trial_amount;

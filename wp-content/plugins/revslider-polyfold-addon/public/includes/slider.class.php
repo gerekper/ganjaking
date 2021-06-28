@@ -38,20 +38,7 @@ class RsPolyfoldSliderFront extends RevSliderFunctions {
 	
 	private function isEnabled($slider){
 		$enabled = false;
-		$settings = $slider->get_params();
-		if(empty($settings)) return $enabled;
-		
-		if(
-			$this->get_val($settings, array('addOns', 'revslider-polyfold-addon', 'bottom', 'enabled'), false) === true ||
-			$this->get_val($settings, array('addOns', 'revslider-polyfold-addon', 'top', 'enabled'), false) === true
-		){
-			$enabled = true;
-		}
-		
-		return $enabled;
-	}
-	
-	/*private function isEnabled($slider) {
+
 		$settings = $slider->get_params();
 		if(empty($settings)) return false;
 		
@@ -63,9 +50,41 @@ class RsPolyfoldSliderFront extends RevSliderFunctions {
 		
 		$enabled = $this->get_val($addOn, 'enable', false);
 		if($this->isFalse($enabled)) return false;
+
+		$settings = $slider->get_params();
+		if(empty($settings)) return $enabled;
+		$addOns = $this->get_val($settings, 'addOns', false);
+	 	if(empty($addOns)) return false;
 		
-		return $addOn;
-	}*/
+		if(
+			$this->get_val($settings, array('addOns', 'revslider-polyfold-addon', 'bottom', 'enabled'), false) === true ||
+			$this->get_val($settings, array('addOns', 'revslider-polyfold-addon', 'top', 'enabled'), false) === true
+		){
+			$addOn = $this->get_val($addOns, 'revslider-' . $this->pluginTitle . '-addon', false);
+			if(empty($addOn)) return false;
+			$enabled = $this->get_val($addOn, 'enable', false);
+	 		if($this->isFalse($enabled)) return false;
+			return $addOn;
+		}
+		
+		return $enabled;
+	}
+	
+	// private function isEnabled($slider) {
+	// 	$settings = $slider->get_params();
+	// 	if(empty($settings)) return false;
+		
+	// 	$addOns = $this->get_val($settings, 'addOns', false);
+	// 	if(empty($addOns)) return false;
+		
+	// 	$addOn = $this->get_val($addOns, 'revslider-' . $this->pluginTitle . '-addon', false);
+	// 	if(empty($addOn)) return false;
+		
+	// 	$enabled = $this->get_val($addOn, 'enable', false);
+	// 	if($this->isFalse($enabled)) return false;
+		
+	// 	return $addOn;
+	// }
 	
 	public function check_addon_active($record) {
 		if(empty($record)) return $record;

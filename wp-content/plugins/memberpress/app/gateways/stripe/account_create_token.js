@@ -7,9 +7,9 @@
       done = true;
     }
 
-    var stripe = Stripe(MeprStripeGateway.public_key);
+    var stripe = Stripe(MeprStripeAccountForm.public_key);
     var elements = stripe.elements();
-    var card = elements.create('card', { style: MeprStripeGateway.style });
+    var card = elements.create('card', { style: MeprStripeAccountForm.style });
     card.mount('#card-element');
     card.addEventListener('change', function(event) {
       var displayError = document.getElementById('card-errors');
@@ -112,7 +112,7 @@
      */
     function handleServerResponse(response) {
       if (response === null || typeof response != 'object') {
-        handlePaymentError(MeprStripeGateway.invalid_response_error)
+        handlePaymentError(MeprStripeAccountForm.invalid_response_error)
       } else {
         if (response.error) {
           handlePaymentError(response.error);
@@ -180,13 +180,13 @@
 
       $.ajax({
         type: 'POST',
-        url: MeprStripeGateway.ajax_url,
+        url: MeprStripeAccountForm.ajax_url,
         dataType: 'json',
         data: data
       })
       .done(handleServerResponse)
       .fail(function () {
-        handlePaymentError(MeprStripeGateway.ajax_error);
+        handlePaymentError(MeprStripeAccountForm.ajax_error);
       });
     }
   });

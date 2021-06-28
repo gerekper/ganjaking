@@ -1,5 +1,9 @@
 *** WooCommerce Memberships Changelog ***
 
+2021.06.23 - version 1.22.2
+ * Fix - Display the correct cart item subtotal when a customer adds more than a discounted subscription product to cart
+ * Fix - Address a potential issue in the shipping handler
+
 2021.06.07 - version 1.22.1
  * Fix - Add sanity checks before calling Sensei or LearnDash methods to avoid errors if old versions are installed
  * Fix - Address a potential uncaught error in Sensei and LearnDash integrations when fetching dependent courses

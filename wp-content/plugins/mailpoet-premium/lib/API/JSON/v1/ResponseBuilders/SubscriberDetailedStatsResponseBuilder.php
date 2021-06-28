@@ -23,7 +23,15 @@ class SubscriberDetailedStatsResponseBuilder {
   /** @var WCHelper */
   private $wooCommerce;
 
-  public function __construct(WPFunctions $wp, WCHelper $wooCommerce) {
+  /** @var NewsletterUrl */
+  private $newsletterUrl;
+
+  public function __construct(
+    NewsletterUrl $newsletterUrl,
+    WPFunctions $wp,
+    WCHelper $wooCommerce
+  ) {
+    $this->newsletterUrl = $newsletterUrl;
     $this->wp = $wp;
     $this->wooCommerce = $wooCommerce;
   }
@@ -48,7 +56,7 @@ class SubscriberDetailedStatsResponseBuilder {
 
   private function buildNewsletter(NewsletterEntity $newsletter): array {
     $sentAt = $newsletter->getSentAt();
-    $previewUrl = NewsletterUrl::getViewInBrowserUrl(
+    $previewUrl = $this->newsletterUrl->getViewInBrowserUrl(
       (object)[
         'id' => $newsletter->getId(),
         'hash' => $newsletter->getHash(),

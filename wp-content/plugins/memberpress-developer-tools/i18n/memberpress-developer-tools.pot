@@ -2,16 +2,16 @@
 # This file is distributed under the same license as the MemberPress Developer Tools plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MemberPress Developer Tools 1.1.44\n"
+"Project-Id-Version: MemberPress Developer Tools 1.2.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-developer-tools\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-02-10T18:34:59+00:00\n"
+"POT-Creation-Date: 2021-06-16T21:11:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: memberpress-developer-tools\n"
 
 #. Plugin Name of the plugin
@@ -98,28 +98,28 @@ msgid "Select which events should be pushed to this Webhook"
 msgstr ""
 
 #: app/controllers/MpdtApiCtrl.php:82
-#: app/controllers/MpdtWebhooksCtrl.php:122
-#: app/controllers/MpdtWebhooksCtrl.php:181
+#: app/controllers/MpdtWebhooksCtrl.php:132
+#: app/controllers/MpdtWebhooksCtrl.php:191
 msgid "Error: You are unauthorized."
 msgstr ""
 
 #: app/controllers/MpdtApiCtrl.php:87
-#: app/controllers/MpdtWebhooksCtrl.php:127
-#: app/controllers/MpdtWebhooksCtrl.php:186
+#: app/controllers/MpdtWebhooksCtrl.php:137
+#: app/controllers/MpdtWebhooksCtrl.php:196
 msgid "Error: No event was specified."
 msgstr ""
 
 #: app/controllers/MpdtApiCtrl.php:95
-#: app/controllers/MpdtWebhooksCtrl.php:135
-#: app/controllers/MpdtWebhooksCtrl.php:194
+#: app/controllers/MpdtWebhooksCtrl.php:145
+#: app/controllers/MpdtWebhooksCtrl.php:204
 msgid "Error: Invalid event."
 msgstr ""
 
-#: app/controllers/MpdtWebhooksCtrl.php:161
+#: app/controllers/MpdtWebhooksCtrl.php:171
 msgid "Event %s was successfully sent to webhooks"
 msgstr ""
 
-#: app/controllers/MpdtWebhooksCtrl.php:174
+#: app/controllers/MpdtWebhooksCtrl.php:184
 msgid "Unknown event type"
 msgstr ""
 
@@ -702,6 +702,54 @@ msgstr ""
 
 #: app/docs/update_args/members.php:72
 msgid "Works only when creating a new Member. When set to true this will trigger a standard WordPress password recovery email to be sent to the new member."
+msgstr ""
+
+#: app/docs/update_args/members.php:75
+msgid "Address 1"
+msgstr ""
+
+#: app/docs/update_args/members.php:79
+msgid "The address street line 1 of the user."
+msgstr ""
+
+#: app/docs/update_args/members.php:82
+msgid "Address 2"
+msgstr ""
+
+#: app/docs/update_args/members.php:86
+msgid "The address street line 2 of the user."
+msgstr ""
+
+#: app/docs/update_args/members.php:89
+msgid "City"
+msgstr ""
+
+#: app/docs/update_args/members.php:93
+msgid "The address city of the user."
+msgstr ""
+
+#: app/docs/update_args/members.php:96
+msgid "State"
+msgstr ""
+
+#: app/docs/update_args/members.php:100
+msgid "The address state of the user."
+msgstr ""
+
+#: app/docs/update_args/members.php:103
+msgid "Zipcode"
+msgstr ""
+
+#: app/docs/update_args/members.php:107
+msgid "The address zip code of the user."
+msgstr ""
+
+#: app/docs/update_args/members.php:110
+msgid "Country"
+msgstr ""
+
+#: app/docs/update_args/members.php:114
+msgid "The address country code of the user."
 msgstr ""
 
 #: app/docs/update_args/memberships.php:5

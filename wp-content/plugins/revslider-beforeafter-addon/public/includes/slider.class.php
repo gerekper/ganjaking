@@ -37,6 +37,18 @@ class RsBeforeAfterSliderFront extends RevSliderFunctions {
 	}
 	
 	private function isEnabled($slider) {
+		$settings = $slider->get_params();
+		if(empty($settings)) return false;
+		
+		$addOns = $this->get_val($settings, 'addOns', false);
+		if(empty($addOns)) return false;
+		
+		$addOn = $this->get_val($addOns, 'revslider-' . $this->pluginTitle . '-addon', false);
+		if(empty($addOn)) return false;
+		
+		$enabled = $this->get_val($addOn, 'enable', false);
+		if($this->isFalse($enabled)) return false;
+
 		$slides = $slider->get_slides();
 		if(empty($slides)) return false;
 		

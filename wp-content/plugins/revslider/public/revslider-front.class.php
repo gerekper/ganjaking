@@ -56,7 +56,7 @@ class RevSliderFront extends RevSliderFunctions {
 		$global	 = $func->get_global_settings();
 		$inc_global = $func->_truefalse($func->get_val($global, 'allinclude', true));
 		
-		$inc_footer = true; //$func->_truefalse($func->get_val($global, array('script', 'footer'), false));
+		$inc_footer = $func->_truefalse($func->get_val($global, array('script', 'footer'), true));
 		$waitfor = array('jquery');
 		$widget	 = is_active_widget(false, false, 'rev-slider-widget', true);
 		
@@ -114,9 +114,14 @@ class RevSliderFront extends RevSliderFunctions {
 		add_action('wp_footer', array('RevSliderFront', 'add_waiting_script'), 1);
 		add_action('wp_print_footer_scripts', array('RevSliderFront', 'add_inline_js'), 100);
 
-		//Async JS Loading
-		if($func->_truefalse($func->get_val($global, array('script', 'defer'), false)) === true){
+		//defer JS Loading
+		if($func->_truefalse($func->get_val($global, array('script', 'defer'), true)) === true){
 			add_filter('script_loader_tag', array('RevSliderFront', 'add_defer_forscript'), 11, 2);
+		}
+
+		//Async JS Loading
+		if($func->_truefalse($func->get_val($global, array('script', 'async'), true)) === true){
+			add_filter('script_loader_tag', array('RevSliderFront', 'add_async_forscript'), 11, 2);
 		}
 
 		add_action('wp_before_admin_bar_render', array('RevSliderFront', 'add_admin_menu_nodes'));
@@ -157,8 +162,8 @@ class RevSliderFront extends RevSliderFunctions {
 		
 		if(empty($rs_js_collection)) return true;
 		if(empty($rs_js_collection['revapi'])) return true;
-		
-		echo '<script type="text/javascript">'."\n";
+
+		echo '<script type="text/javascript" id="rs-initialisation-scripts">'."\n";
 		echo RS_T2.'var	tpj = jQuery;'."\n\n";
 		echo RS_T2.'var	'.implode(',', $rs_js_collection['revapi']) . ';'."\n";
 		if(!empty($rs_js_collection['js'])){
@@ -192,7 +197,7 @@ class RevSliderFront extends RevSliderFunctions {
 		$ignore_fa = $func->_truefalse($func->get_val($global, 'fontawesomedisable', false));
 		
 		echo RS_T3.'<link rel="preload" as="font" id="rs-icon-set-revicon-woff" href="' . RS_PLUGIN_URL . 'public/assets/fonts/revicons/revicons.woff?5510888" type="font/woff" crossorigin="anonymous" media="all" />'."\n";
-		echo ($ignore_fa === false && ($fa_icon_var == true || $fa_var == true)) ? RS_T3.'<link rel="preload" as="font" id="rs-icon-set-fa-icon-woff" type="font/woff2" crossorigin="anonymous" href="' . RS_PLUGIN_URL . 'public/assets/fonts/font-awesome/fonts/fontawesome-webfont.woff2" media="all" />'."\n" : '';
+		echo ($ignore_fa === false && ($fa_icon_var == true || $fa_var == true)) ? RS_T3.'<link rel="preload" as="font" id="rs-icon-set-fa-icon-woff" type="font/woff2" crossorigin="anonymous" href="' . RS_PLUGIN_URL . 'public/assets/fonts/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0" media="all" />'."\n" : '';
 		echo ($ignore_fa === false && ($fa_icon_var == true || $fa_var == true)) ? RS_T3.'<link rel="stylesheet" property="stylesheet" id="rs-icon-set-fa-icon-css" href="' . RS_PLUGIN_URL . 'public/assets/fonts/font-awesome/css/font-awesome.css" type="text/css" media="all" />'."\n" : '';
 		
 		echo ($pe_7s_var) ? RS_T3.'<link rel="stylesheet" property="stylesheet" id="rs-icon-set-pe-7s-css" href="' . RS_PLUGIN_URL . 'public/assets/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css" type="text/css" media="all" />'."\n" : '';
@@ -220,16 +225,18 @@ class RevSliderFront extends RevSliderFunctions {
 		$func	= RevSliderGlobals::instance()->get('RevSliderFunctions');
 		$dev	= (!file_exists(RS_PLUGIN_PATH.'public/assets/js/rs6.min.js')) ? true : false;
 		$global	= $func->get_global_settings();
-		$wait	= array('main', 'parallax', 'video', 'slideanims', 'actions', 'layeranimation', 'navigation', 'carousel', 'panzoom');
+		$wait	= array();
 		$wait	= apply_filters('revslider_modify_waiting_scripts', $wait);
 		?>
 
 		<script type="text/javascript">
 			window.RS_MODULES = window.RS_MODULES || {};
 			window.RS_MODULES.modules = window.RS_MODULES.modules || {};
-			window.RS_MODULES.defered = <?php echo ($func->_truefalse($func->get_val($global, array('script', 'defer'), false)) === true) ? 'true' : 'false'; ?>;
-			window.RS_MODULES.waiting = [<?php echo (empty($wait)) ? '' : '"'. implode('","', $wait) . '"'; ?>];
-			window.RS_MODULES.moduleWaiting = window.RS_MODULES.moduleWaiting || {};
+			window.RS_MODULES.waiting = window.RS_MODULES.waiting || [];
+			window.RS_MODULES.defered = <?php echo ($func->_truefalse($func->get_val($global, array('script', 'defer'), true)) === true) ? 'true' : 'false'; ?>;
+			<?php if (!empty($wait)) {?> 			
+			window.RS_MODULES.waiting = window.RS_MODULES.waiting.concat([ <?php echo '"'. implode('","', $wait) . '"'; ?>]);
+			<?php }; ?>window.RS_MODULES.moduleWaiting = window.RS_MODULES.moduleWaiting || {};
 			window.RS_MODULES.type = '<?php echo ($dev) ? "developer" : "compiled"; ?>';
 		</script>
 		<?php
@@ -337,7 +344,22 @@ class RevSliderFront extends RevSliderFunctions {
 		}elseif(is_admin()){
 			return $tag;
 		}else{
-			return str_replace(' id=', ' async defer id=', $tag);
+			return str_replace(' id=', ' defer id=', $tag);
+		}
+	}
+
+	/**
+	 * adds async loading
+	 * @since: 5.0
+	 * @updated: 6.4.12
+	 */
+	public static function add_async_forscript($tag, $handle){
+		if(strpos($tag, 'rs6') === false && strpos($tag, 'rbtools.min.js') === false && strpos($tag, 'revolution.addon.') === false && strpos($tag, 'public/assets/js/libs/') === false && strpos($tag, 'pixi.min.js') === false && strpos($tag, 'lottie.min.js') === false){
+			return $tag;
+		}elseif(is_admin()){
+			return $tag;
+		}else{
+			return str_replace(' id=', ' async id=', $tag);
 		}
 	}
 	

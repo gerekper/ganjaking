@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.5.5.3
+Version: 2.5.6.1
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -28,10 +28,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses.
 */
-
-update_option( 'rg_gforms_key', 'activated' );
-update_option( 'gform_pending_installation', false );
-delete_option( 'rg_gforms_message' );
 
 use Gravity_Forms\Gravity_Forms\TranslationsPress_Updater;
 
@@ -213,7 +209,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.5.5.3';
+	public static $version = '2.5.6.1';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -981,7 +977,7 @@ class GFForms {
 				'wp-pointer',
 				'gform_chosen',
 				'gform_editor',
-				'gform_admin_theme'
+				'gform_admin_theme',
 			),
 			'gf_edit_forms_settings' => array(
 				'thickbox',
@@ -2827,6 +2823,7 @@ class GFForms {
 					'gform_simplebar',
 					'gform_gravityforms',
 					'gform_json',
+					'gform_form_admin',
 					'sack',
 					'postbox',
 				);
@@ -2850,6 +2847,7 @@ class GFForms {
 					'thickbox',
 					'gform_json',
 					'gform_field_filter',
+					'gform_form_admin',
 					'sack',
 				);
 				break;
@@ -3160,7 +3158,11 @@ class GFForms {
 	 * @uses   GFFormDetail::forms_page()
 	 */
 	public static function forms_page( $form_id ) {
-		wp_print_styles( array( 'jquery-ui-styles', 'gform_admin', 'gform_settings', 'gform_editor', 'gform_admin_theme' ) );
+		$styles = array( 'jquery-ui-styles', 'gform_admin', 'gform_settings', 'gform_editor', 'gform_admin_theme' );
+		if ( GFCommon::is_legacy_markup_enabled( $form_id ) ) {
+		    $styles[] = 'gforms_ready_class_css';
+		}
+		wp_print_styles( $styles );
 		require_once( GFCommon::get_base_path() . '/form_detail.php' );
 		GFFormDetail::forms_page( $form_id );
 	}
@@ -5887,10 +5889,10 @@ class GFForms {
 		$message = sprintf(
 			'<p>%1$s%3$s<strong>%2$s</strong></p><p><strong>%4$s</strong></p>',
 			esc_html__( 'Gravity Forms logging is currently enabled. ', 'gravityforms' ),
-			esc_html__( 'If you currently have a support ticket open, please do not disable logging until the Support Team has reviewed your logs and the ticket has been closed. ', 'gravityforms' ),
+			esc_html__( 'If you currently have a support ticket open, please do not disable logging until the Support Team has reviewed your logs. ', 'gravityforms' ),
 			esc_html__( 'Since logs may contain sensitive information, please ensure that you only leave it enabled for as long as it is needed for troubleshooting. ', 'gravityforms' ),
 			sprintf(
-				esc_html__( 'Once troubleshooting is complete, %1$sclick here to disable logging and permenantly delete your log files.%2$s ', 'gravityforms' ),
+				esc_html__( 'Once troubleshooting is complete, %1$sclick here to disable logging and permanently delete your log files.%2$s ', 'gravityforms' ),
 				'<a href="' . esc_url( admin_url( 'admin.php?page=gf_settings' ) ) . '">',
 				'</a>'
 			)

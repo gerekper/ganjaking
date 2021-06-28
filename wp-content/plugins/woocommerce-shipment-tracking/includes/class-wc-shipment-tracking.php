@@ -55,7 +55,7 @@ class WC_Shipment_Tracking_Actions {
 					'bpost' => 'https://track.bpost.be/btr/web/#/search?itemCode=%1$s',
 				),
 				'Canada'         => array(
-					'Canada Post' => 'https://www.canadapost.ca/cpotools/apps/track/personal/findByTrackNumber?trackingNumber=%1$s',
+					'Canada Post' => 'https://www.canadapost-postescanada.ca/track-reperage/en#/details/%1$s',
 					'Purolator'   => 'https://www.purolator.com/purolator/ship-track/tracking-summary.page?pin=%1$s',
 				),
 				'Czech Republic' => array(
@@ -244,7 +244,7 @@ class WC_Shipment_Tracking_Actions {
 				</p>
 				<p class="meta">
 					<?php /* translators: 1: shipping date */ ?>
-					<?php echo esc_html( sprintf( __( 'Shipped on %s', 'woocommerce-shipment-tracking' ), date_i18n( 'Y-m-d', $item['date_shipped'] ) ) ); ?>
+					<?php echo esc_html( sprintf( __( 'Shipped on %s', 'woocommerce-shipment-tracking' ), date_i18n( wc_date_format(), $item['date_shipped'] ) ) ); ?>
 					<a href="#" class="delete-tracking" rel="<?php echo esc_attr( $item['tracking_id'] ); ?>"><?php _e( 'Delete', 'woocommerce-shipment-tracking' ); ?></a>
 				</p>
 			</div>

@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MemberPress Courses plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MemberPress Courses 1.0.27\n"
+"Project-Id-Version: MemberPress Courses 1.0.29\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-courses\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-03-05T21:04:05+00:00\n"
+"POT-Creation-Date: 2021-05-07T18:22:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: memberpress-courses\n"
@@ -774,7 +774,7 @@ msgstr ""
 msgid "Find a course"
 msgstr ""
 
-#: app/views/classroom/courses_archive_course.php:138
+#: app/views/classroom/courses_archive_course.php:147
 msgid "No Course found"
 msgstr ""
 

@@ -36,7 +36,7 @@ if ( $tracking_items ) : ?>
 						<?php echo esc_html( $tracking_item['tracking_number'] ); ?>
 					</td>
 					<td class="date-shipped" data-title="<?php _e( 'Date', 'woocommerce-shipment-tracking' ); ?>" style="text-align:left; white-space:nowrap;">
-						<time datetime="<?php echo date( 'Y-m-d', $tracking_item['date_shipped'] ); ?>" title="<?php echo date( 'Y-m-d', $tracking_item['date_shipped'] ); ?>"><?php echo date_i18n( get_option( 'date_format' ), $tracking_item['date_shipped'] ); ?></time>
+						<time datetime="<?php echo date( wc_date_format(), $tracking_item['date_shipped'] ); ?>" title="<?php echo date( wc_date_format(), $tracking_item['date_shipped'] ); ?>"><?php echo date_i18n( get_option( 'date_format' ), $tracking_item['date_shipped'] ); ?></time>
 					</td>
 					<td class="order-actions" style="text-align: center;">
 							<?php if ( '' !== $tracking_item['formatted_tracking_link'] ) { ?>

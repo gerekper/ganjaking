@@ -37,10 +37,13 @@ class WC_Memberships_Integration_Subscriptions_Discounts {
 	private $apply_member_discounts_to_sign_up_fees = false;
 
 	/** @var array applied sign up fee discount cache (associative array) */
-	private $discounted_sign_up_fee = array();
+	private $discounted_sign_up_fee = [];
 
-	/** @var array compiled subscription products HTML prices (associative array) */
-	private $subscription_product_price_html = array();
+	/** @var array memoized subscription products HTML prices (associative array) */
+	private $subscription_product_price_html = [];
+
+	/** @var array memoized subscription products HTML subtotals (associative array) */
+	private $subscription_product_subtotal_html = [];
 
 
 	/**
@@ -54,10 +57,10 @@ class WC_Memberships_Integration_Subscriptions_Discounts {
 		add_action( 'wp_loaded', [ $this, 'init' ], 20 );
 
 		// create an option in settings to enable sign up fees discounts
-		add_filter( 'wc_memberships_products_settings', array( $this, 'enable_discounts_to_sign_up_fees' ) );
+		add_filter( 'wc_memberships_products_settings', [ $this, 'enable_discounts_to_sign_up_fees' ] );
 
 		// ensure we filter member prices before Subscriptions calculates cart totals
-		add_filter( 'wc_memberships_price_adjustments_filter_priority', array( $this, 'adjust_price_filters_priority' ) );
+		add_filter( 'wc_memberships_price_adjustments_filter_priority', [ $this, 'adjust_price_filters_priority' ] );
 
 		// if using cart discounts, ensure renewals don't get double discounted
 		add_filter( 'wc_memberships_exclude_product_from_member_discounts', [ $this, 'disable_cart_discounts_for_renewals' ], 999, 2 );
@@ -80,17 +83,18 @@ class WC_Memberships_Integration_Subscriptions_Discounts {
 			$this->apply_member_discounts_to_sign_up_fees = 'yes' === get_option( 'wc_memberships_enable_subscriptions_sign_up_fees_discounts', 'no' );
 
 			// make sure the price of subscription renewal cart items is honored (i.e. not discounted again)
-			add_action( 'woocommerce_before_calculate_totals',                    array( $this, 'disable_price_adjustments_for_renewal' ), 11 );
-			add_action( 'wc_memberships_discounts_enable_price_adjustments',      array( $this, 'disable_price_adjustments_for_renewal' ), 11 );
-			add_action( 'wc_memberships_discounts_enable_price_html_adjustments', array( $this, 'disable_price_adjustments_for_renewal' ), 11 );
+			add_action( 'woocommerce_before_calculate_totals',                    [ $this, 'disable_price_adjustments_for_renewal' ], 11 );
+			add_action( 'wc_memberships_discounts_enable_price_adjustments',      [ $this, 'disable_price_adjustments_for_renewal' ], 11 );
+			add_action( 'wc_memberships_discounts_enable_price_html_adjustments', [ $this, 'disable_price_adjustments_for_renewal' ], 11 );
 
 			// make sure the subscription product HTML price is right when discounted
-			add_filter( 'woocommerce_subscriptions_product_price_string', array( $this, 'get_subscription_product_price_html' ), 999, 2 );
-			add_filter( 'wc_memberships_get_price_html_after_discount',   array( $this, 'handle_subscription_product_discounted_price_html' ), 10, 3 );
-			add_filter( 'wc_memberships_get_price_html_before_discount',  array( $this, 'handle_subscription_product_discounted_price_html' ), 10, 3 );
+			add_filter( 'woocommerce_subscriptions_product_price_string', [ $this, 'get_subscription_product_price_html' ], 999, 2 );
+			add_filter( 'wc_memberships_get_price_html_after_discount',   [ $this, 'handle_subscription_product_discounted_price_html'], 10, 3 );
+			add_filter( 'wc_memberships_get_price_html_before_discount',  [ $this, 'handle_subscription_product_discounted_price_html'], 10, 3 );
+			add_filter( 'woocommerce_cart_item_subtotal',                 [ $this, 'handle_subscription_product_discounted_subtotal_html' ], 10, 2 );
 
 			// make sure that product sign ups are handled according to discount setting
-			add_filter( 'woocommerce_subscriptions_product_sign_up_fee', array( $this, 'maybe_adjust_product_sign_up_fee' ), 1, 2 );
+			add_filter( 'woocommerce_subscriptions_product_sign_up_fee', [ $this, 'maybe_adjust_product_sign_up_fee' ], 1, 2 );
 		}
 	}
 
@@ -114,7 +118,9 @@ class WC_Memberships_Integration_Subscriptions_Discounts {
 	/**
 	 * Filters the subscription product price string.
 	 *
+	 * Also used to filter the subscription product subtotal in cart.
 	 * @see \WC_Memberships_Integration_Subscriptions_Discounts::handle_subscription_product_discounted_price_html()
+	 * @see \WC_Memberships_Integration_Subscriptions_Discounts::handle_subscription_product_discounted_subtotal_html()
 	 *
 	 * @internal
 	 *
@@ -122,67 +128,66 @@ class WC_Memberships_Integration_Subscriptions_Discounts {
 	 *
 	 * @param string $html_price the price HTML
 	 * @param \WC_Product_Subscription|\WC_Product_Variable_Subscription $product a subscription product
+	 * @param int|float $quantity optional quantity (defaults to 1), only used for cart subtotal handling
 	 * @return string HTML
 	 */
-	public function get_subscription_product_price_html( $html_price, $product ) {
+	public function get_subscription_product_price_html( $html_price, $product, $quantity = 1 ) {
 
+		$memoize    = 'woocommerce_cart_item_subtotal' !== current_filter();
 		$product_id = $product->get_id();
 
-		if ( isset( $this->subscription_product_price_html[ $product_id ] ) && $product->is_type( 'variable-subscription' ) ) {
+		if ( $memoize && isset( $this->subscription_product_price_html[ $product_id ] ) && $product->is_type( 'variable-subscription' ) ) {
 
 			$html_price = $this->subscription_product_price_html[ $product_id ];
 
-		} else {
+		} elseif ( \WC_Subscriptions_Product::is_subscription( $product ) && wc_memberships()->get_rules_instance()->product_has_purchasing_discount_rules( $product->get_id() ) ) {
 
-			// execute only on subscription products that have active member discounts
-			if (     \WC_Subscriptions_Product::is_subscription( $product )
-			      && wc_memberships()->get_rules_instance()->product_has_purchasing_discount_rules( $product->get_id() ) ) {
+			do_action( 'wc_memberships_discounts_disable_price_adjustments' );
 
-				do_action( 'wc_memberships_discounts_disable_price_adjustments' );
+			$price_before_discount = wc_get_price_to_display( $product, $quantity > 1 ? [ 'qty' => $quantity ] : [] );
 
-				$price_before_discount = wc_get_price_to_display( $product );
+			do_action( 'wc_memberships_discounts_enable_price_adjustments' );
 
-				do_action( 'wc_memberships_discounts_enable_price_adjustments' );
+			$price_after_discount = wc_get_price_to_display( $product, $quantity > 1 ? [ 'qty' => $quantity ] : [] );
 
-				$price_after_discount = wc_get_price_to_display( $product );
+			if ( $price_before_discount !== $price_after_discount ) {
 
-				if ( $price_before_discount !== $price_after_discount ) {
+				// prevent infinite filter loop
+				remove_filter( 'woocommerce_subscriptions_product_price_string', [ $this, 'get_subscription_product_price_html' ], 999 );
 
-					// prevent infinite filter loop
-					remove_filter( 'woocommerce_subscriptions_product_price_string', array( $this, 'get_subscription_product_price_html' ), 999 );
+				// this is already going to be discounted if needed in self::maybe_adjust_product_sign_up_fee()
+				$sign_up_fee = \WC_Subscriptions_Product::get_sign_up_fee( $product );
 
-					// this is already going to be discounted if needed in self::maybe_adjust_product_sign_up_fee()
-					$sign_up_fee = \WC_Subscriptions_Product::get_sign_up_fee( $product );
+				if ( 'variable-subscription' === $product->get_type() ) {
 
-					if ( 'variable-subscription' === $product->get_type() ) {
+					// with variable subscription product we need to insert the before price after the "From:" string
+					$from_text = wc_get_price_html_from_text( $product );
 
-						// with variable subscription product we need to insert the before price after the "From:" string
-						$from_text = wc_get_price_html_from_text( $product );
-
-						if ( Framework\SV_WC_Helper::str_starts_with( $html_price, $from_text ) || ( is_rtl() && Framework\SV_WC_Helper::str_ends_with( $html_price, $from_text ) ) ) {
-							$html_price = $from_text . ' <del>' . wc_price( $price_before_discount ) . '</del> ' . wc_price( $price_after_discount ) . ' ';
-						} else {
-							// may happen in rare chances such as when all variations are identically priced or if the above check fails for unforeseen circumstances
-							$html_price = '<del>' . wc_price( $price_before_discount ) . '</del> ' . wc_price( $price_after_discount ) . ' ';
-						}
-
+					if ( Framework\SV_WC_Helper::str_starts_with( $html_price, $from_text ) || ( is_rtl() && Framework\SV_WC_Helper::str_ends_with( $html_price, $from_text ) ) ) {
+						$html_price = $from_text . ' <del>' . wc_price( $price_before_discount ) . '</del> ' . wc_price( $price_after_discount ) . ' ';
 					} else {
-
-						// simple subscriptions and individual variations, just show the before/after price info
+						// may happen in rare chances such as when all variations are identically priced or if the above check fails for unforeseen circumstances
 						$html_price = '<del>' . wc_price( $price_before_discount ) . '</del> ' . wc_price( $price_after_discount ) . ' ';
 					}
 
-					// rebuild the HTML price string using Subscriptions helper
-					$html_price = (string) \WC_Subscriptions_Product::get_price_string( $product, array(
-						'price'       => $html_price,
-						'sign_up_fee' => $sign_up_fee,
-					) );
+				} else {
 
-					$this->subscription_product_price_html[ $product_id ] = $html_price;
-
-					// restore the current HTML price string filter
-					add_filter( 'woocommerce_subscriptions_product_price_string', array( $this, 'get_subscription_product_price_html'), 999, 2 );
+					// simple subscriptions and individual variations, just show the before/after price info
+					$html_price = '<del>' . wc_price( $price_before_discount ) . '</del> ' . wc_price( $price_after_discount ) . ' ';
 				}
+
+				// rebuild the HTML price string using Subscriptions helper
+				$html_price = (string) \WC_Subscriptions_Product::get_price_string( $product, [
+					'price'       => $html_price,
+					'sign_up_fee' => $sign_up_fee,
+				] );
+
+				if ( $memoize ) {
+					$this->subscription_product_price_html[ $product_id ] = $html_price;
+				}
+
+				// restore the current HTML price string filter
+				add_filter( 'woocommerce_subscriptions_product_price_string', [ $this, 'get_subscription_product_price_html' ], 999, 2 );
 			}
 		}
 
@@ -205,6 +210,43 @@ class WC_Memberships_Integration_Subscriptions_Discounts {
 	public function handle_subscription_product_discounted_price_html( $price_html, $product, $original_price_html ) {
 
 		return \WC_Subscriptions_Product::is_subscription( $product ) && ! $product->is_type( 'variable-subscription' ) ? $original_price_html : $price_html;
+	}
+
+
+	/**
+	 * Filters a subscription product subtotal when the customer signs up for more than 1 quantity.
+	 *
+	 * @internal
+	 *
+	 * @since 1.22.2
+	 *
+	 * @param string $subtotal_html the cart subtotal
+	 * @param array $cart_item cart item data
+	 * @return string HTML
+	 */
+	public function handle_subscription_product_discounted_subtotal_html( $subtotal_html, $cart_item ) {
+
+		if ( isset( $cart_item['data'], $cart_item['quantity'] ) && $cart_item['quantity'] > 1 ) {
+
+			/** @var \WC_Product_Subscription|\WC_Product $product */
+			$product = $cart_item['data'] ?? null;
+
+			if ( $product && WC_Subscriptions_Product::is_subscription( $product ) && wc_memberships()->get_rules_instance()->product_has_purchasing_discount_rules( $product->get_id() ) ) {
+
+				if ( isset( $this->subscription_product_subtotal_html[ $product->get_id() ] ) ) {
+
+					$subtotal_html = $this->subscription_product_subtotal_html[ $product->get_id() ];
+
+				} else {
+
+					$subtotal_html = $this->get_subscription_product_price_html( $subtotal_html, $cart_item['data'], $cart_item['quantity'] );
+
+					$this->subscription_product_subtotal_html[ $product->get_id() ] = $subtotal_html;
+				}
+			}
+		}
+
+		return $subtotal_html;
 	}
 
 

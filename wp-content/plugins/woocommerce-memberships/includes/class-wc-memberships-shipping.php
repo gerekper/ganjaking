@@ -129,8 +129,10 @@ class WC_Memberships_Shipping {
 		     && 'yes' === $method->enabled
 		     && $method->instance_id > 0 ) {
 
-			$allowed    = (array) $method->get_option( 'allowed_membership_plans' );
-			$disallowed = (array) $method->get_option( 'disallowed_membership_plans' );
+			$allowed    = $method->get_option( 'allowed_membership_plans' );
+			$allowed    = ! empty( $allowed ) ? (array) $allowed : [];
+			$disallowed = $method->get_option( 'disallowed_membership_plans' );
+			$disallowed = ! empty( $disallowed ) ? (array) $disallowed : [];
 
 			// first, if we need a membership, start with disabling this rate, maybe enable it
 			if ( 'membership' === $method->requires ) {

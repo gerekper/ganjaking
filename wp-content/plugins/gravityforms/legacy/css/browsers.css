@@ -27,9 +27,11 @@ to no.
 
 /* Safari specific styles */
 
+.gform_legacy_markup_wrapper.gf_browser_safari ul li:before,
+.gform_legacy_markup_wrapper.gf_browser_safari ul li:after,
 .entry .gform_legacy_markup_wrapper.gf_browser_safari ul li:before,
 .entry .gform_legacy_markup_wrapper.gf_browser_safari ul li:after {
-    content: "";
+    content: none;
 }
 
 .gform_legacy_markup_wrapper.gf_browser_safari .gform_body ul.gform_fields li.gfield .ginput_container #recaptcha_widget_div #recaptcha_area {
@@ -55,20 +57,10 @@ to no.
     padding: 6px 12px !important;
 }
 
-.gform_legacy_markup_wrapper.gf_browser_safari .gfield_time_ampm select {
-    max-width: 5rem !important;
-    width: calc(2rem + 20px);
-}
-
 /* Google Chrome (and now Opera) styles */
 
 .gform_legacy_markup_wrapper.gf_browser_chrome select {
     padding: 2px 0 2px 3px;
-}
-
-.gform_legacy_markup_wrapper.gf_browser_chrome .gfield_time_ampm select {
-    max-width: 5rem !important;
-    width: calc(3rem + 20px);
 }
 
 .gform_legacy_markup_wrapper.gf_browser_chrome ul li:before,
@@ -152,11 +144,6 @@ to no.
     padding: 2px 12px 2px 2px;
 }
 
-.gform_legacy_markup_wrapper.gf_browser_gecko .gfield_time_ampm select {
-    max-width: 5rem !important;
-    width: calc(4rem + 25px);
-}
-
 .gform_legacy_markup_wrapper.gf_browser_gecko ul li:before,
 .gform_legacy_markup_wrapper.gf_browser_gecko ul li:after,
 .entry .gform_legacy_markup_wrapper.gf_browser_gecko ul li:before,
@@ -193,15 +180,6 @@ to no.
 
 .gform_legacy_markup_wrapper.gf_browser_ie .gfield_time_minute {
     width: 70px;
-}
-
-.gform_legacy_markup_wrapper.gf_browser_ie .gfield_time_ampm {
-    padding-top: 2px;
-}
-
-.gform_legacy_markup_wrapper.gf_browser_ie .gfield_time_hour input,
-.gform_legacy_markup_wrapper.gf_browser_ie .gfield_time_minute input {
-    margin-left: 0;
 }
 
 .gform_legacy_markup_wrapper.gf_browser_ie .ginput_complex .ginput_left label,

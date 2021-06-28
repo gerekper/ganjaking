@@ -43,12 +43,7 @@ if(!defined('ABSPATH')) exit();
 						</div>
 						<div class="div75"></div>
 					</div>
-					<?php
-					if(get_option('revslider-valid', 'false') == 'true') { ?>
 						<div id="open_welcome_register_form" class="big_purple_linkbutton"><?php _e('Lets get Started with ' );?> <b> <?php printf(__('Slider Revolution %s', 'revslider'), RS_REVISION); ?></b></div>
-					<?php } else { ?>
-						<div id="open_welcome_register_form" class="big_purple_linkbutton"><?php _e('Activate Slider Revolution to');?> <b> <i class="material-icons">lock</i> <?php _e('Unlock all Features');?></b></div>
-					<?php } ?>
 				</div>
 			</div>
 		</div>
@@ -91,8 +86,7 @@ if(!defined('ABSPATH')) exit();
 										<option selected="selected" value="admin"><?php _e('To Admin', 'revslider');?></option>
 										<option value="editor"><?php _e('To Editor, Admin', 'revslider');?></option>
 										<option value="author"><?php _e('Author, Editor, Admin', 'revslider');?></option>
-									</select><span class="linebreak"></span>
-						<div class="div15"></div>
+									</select><span class="linebreak"></span>						
 						<label_a><?php _e('Language', 'revslider');?></label_a><select id="plugin_lang" name="plugin_lang" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.lang">
 										<option selected="selected" value="default"><?php _e('Default', 'revslider');?></option>
 										<?php
@@ -103,25 +97,26 @@ if(!defined('ABSPATH')) exit();
 										}
 										?>
 									</select><span class="linebreak"></span>
-						<div class="div15"></div>
 						<label_a><?php _e('Include libraries globally', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.allinclude"><span class="linebreak"></span>
 						<label_a><?php _e('List of pages to include RevSlider libraries ', 'revslider');?></label_a><input type="text" data-r="globals.includeids" class="easyinit globalinput" placeholder="<?php _e('(ie. Example 2,homepage,5)', 'revslider');?>"><span class="linebreak"></span>
-						<label_a><?php _e('Cross Origin Image Defaults', 'revslider');?><a href="https://www.themepunch.com/faq/cors/" style="margin-left:10px;" target="_blank"><i style="font-size:15px" class="material-icons">help</i></a></label_a><select id="crossorigin" name="crossorigin" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.imgcrossOrigin">
+						<label_a><?php _e('Cross-origin image defaults', 'revslider');?><a href="https://www.themepunch.com/faq/cors/" style="margin-left:10px;" target="_blank"><i style="font-size:15px" class="material-icons">help</i></a></label_a><select id="crossorigin" name="crossorigin" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.imgcrossOrigin">
 										<option selected="selected" value="unset"><?php _e('Unset','revslider');?></option>
 										<option value="anonymous"><?php _e('Anonymous', 'revslider');?></option>
 										<option value="use-credentials"><?php _e('Use Credentials', 'revslider');?></option>
 									</select><span class="linebreak"></span>
-						<div class="div25"></div>					
-						<div style="display:none !important"><label_a><?php _e('Insert scripts in footer', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.script.footer"><span class="linebreak"></span></div>
-						<label_a><?php _e('Defer JavaScript loading', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.script.defer"><span class="linebreak"></span>						
-						<label_a><?php _e('3rd Party lazy loading data', 'revslider');?></label_a><input type="text" class="easyinit globalinput"  data-r="globals.lazyloaddata" placeholder="<?php _e('(i.e. lazy-src for WP Rocket)', 'revslider'); ?>"><span class="linebreak"></span>
-						<label_a><?php _e('Use internal caching', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.internalcaching"><span class="linebreak"></span>
-						<label_a></label_a><div id="rs_force_clear_cache" class="basic_action_button autosize"><i class="material-icons">build</i><?php _e('Clear Cache', 'revslider'); ?></div>
+						<div class="div25"></div>
+						<div class="ale_i_title"><?php _e('Page Loading Optimization', 'revslider');?></div>
+						<hr class="general_hr">
+						<label_a><?php _e('Insert scripts in footer', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.script.footer"><span class="linebreak"></span>
+						<label_a><?php _e('Defer JavaScript loading', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.script.defer"><span class="linebreak"></span>
+						<label_a><?php _e('Load Files asynchronously', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.script.async"><span class="linebreak"></span>
+												
+						
 						<div class="div25"></div>
 						<div class="ale_i_title"><?php _e('Fonts', 'revslider');?></div>
 						<hr class="general_hr">
 						<label_a><?php _e('Enable custom font selection in editor', 'revslider');?></label_a><div id="rs_gl_custom_fonts" class="basic_action_button autosize"><i class="material-icons">font_download</i><?php _e('Edit Custom Fonts', 'revslider');?></div>
-						<label_a><?php _e('Disable RS Font Awesome Library', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.fontawesomedisable"><span class="linebreak"></span>					
+						<label_a><?php _e('Disable SR Font Awesome library', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.fontawesomedisable"><span class="linebreak"></span>					
 						<div class="div25"></div>						
 						<label_a><?php _e('Enable Google Fonts download', 'revslider');?></label_a><select id="fontdownload" name="fontdownload" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.fontdownload">
 										<option selected="selected" value="off"><?php _e('Load from Google','revslider');?></option>
@@ -139,16 +134,19 @@ if(!defined('ABSPATH')) exit();
 						<label_a><?php _e('Default tablet content width', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-numeric="true" data-allowed="px" data-min="0" data-max="2400" data-r="globals.size.tablet"><span class="linebreak"></span>
 						<label_a><?php _e('Default mobile content width', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-numeric="true" data-allowed="px" data-min="0" data-max="2400" data-r="globals.size.mobile"><span class="linebreak"></span>		
 						<div class="div25"></div>
-						<div class="ale_i_title"><?php _e('Optimization', 'revslider');?></div>
+						<div class="ale_i_title"><?php _e('Modules Optimization', 'revslider');?></div>
 						<hr class="general_hr">
-						<label_a><?php _e('Force 1x DPR on Mobile', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.onedpronmobile"><span class="linebreak"></span>						
-						<label_a><?php _e('Force ViewPort Loading', 'revslider');?></label_a><select data-showprio="show" data-show=".show_forceViewport_*val*" data-hide=".hide_forceViewport" id="forceViewport" name="forceViewport" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.forceViewport">
+						<label_a><?php _e('Force 1xDPR on mobile', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.onedpronmobile"><span class="linebreak"></span>						
+						<label_a><?php _e('Force viewport loading', 'revslider');?></label_a><select data-showprio="show" data-show=".show_forceViewport_*val*" data-hide=".hide_forceViewport" id="forceViewport" name="forceViewport" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.forceViewport">
 										<option value="true"><?php _e("On", 'revslider');?></option><option value="false"><?php _e("Off", 'revslider');?></option><option value="none"><?php _e("No Change", 'revslider');?></option>
 									</select><span class="linebreak"></span>
 						<div class="show_forceViewport_true hide_forceViewport"><label_a><?php _e('ViewPort Distance if Forced', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-numeric="true" data-allowed="px,%" data-min="-1500" data-max="1500" data-r="globals.forcedViewportDistance"></div>
-						<label_a><?php _e('Default Lazy Loading in modules', 'revslider');?></label_a><select id="overwritelazyloading" name="overwritelazyloading" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.forceLazyLoading">
+						<label_a><?php _e('Default lazy loading in modules', 'revslider');?></label_a><select id="overwritelazyloading" name="overwritelazyloading" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.forceLazyLoading">
 										<option value="all"><?php _e("All", 'revslider');?></option><option value="smart"><?php _e("Smart", 'revslider');?></option><option value="single"><?php _e("Single", 'revslider');?></option><option value="none"><?php _e("No Change", 'revslider');?></option>
 									</select><span class="linebreak"></span>
+						<label_a><?php _e('Third-party lazy loading data', 'revslider');?></label_a><input type="text" class="easyinit globalinput"  data-r="globals.lazyloaddata" placeholder="<?php _e('(i.e. lazy-src for WP Rocket)', 'revslider'); ?>"><span class="linebreak"></span>
+						<label_a><?php _e('Use internal caching', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.internalcaching"><span class="linebreak"></span>
+						<label_a></label_a><div id="rs_force_clear_cache" class="basic_action_button autosize"><i class="material-icons">build</i><?php _e('Clear Cache', 'revslider'); ?></div>
 						<div class="div25"></div>
 						<div class="ale_i_title"><?php _e('Miscellaneous', 'revslider');?></div>
 						<hr class="general_hr">						

@@ -71,4 +71,46 @@ return array(
     'required' => false,
     'desc' => __('Works only when creating a new Member. When set to true this will trigger a standard WordPress password recovery email to be sent to the new member.', 'memberpress-developer-tools')
   ),
+  'address1' => array(
+    'name' => __('Address 1', 'memberpress-developer-tools'),
+    'type' => 'string',
+    'default' => '',
+    'required' => false,
+    'desc' => __('The address street line 1 of the user.', 'memberpress-developer-tools')
+  ),
+  'address2' => array(
+    'name' => __('Address 2', 'memberpress-developer-tools'),
+    'type' => 'string',
+    'default' => '',
+    'required' => false,
+    'desc' => __('The address street line 2 of the user.', 'memberpress-developer-tools')
+  ),
+  'city' => array(
+    'name' => __('City', 'memberpress-developer-tools'),
+    'type' => 'string',
+    'default' => '',
+    'required' => false,
+    'desc' => __('The address city of the user.', 'memberpress-developer-tools')
+  ),
+  'state' => array(
+    'name' => __('State', 'memberpress-developer-tools'),
+    'type' => 'string',
+    'default' => '',
+    'required' => false,
+    'desc' => __('The address state of the user.', 'memberpress-developer-tools')
+  ),
+  'zip' => array(
+    'name' => __('Zipcode', 'memberpress-developer-tools'),
+    'type' => 'string',
+    'default' => '',
+    'required' => false,
+    'desc' => __('The address zip code of the user.', 'memberpress-developer-tools')
+  ),
+  'country' => array(
+    'name' => __('Country', 'memberpress-developer-tools'),
+    'type' => 'string',
+    'default' => '',
+    'required' => false,
+    'desc' => __('The address country code of the user.', 'memberpress-developer-tools')
+  ),
 );

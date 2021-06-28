@@ -5323,6 +5323,19 @@ class RevSliderHelp {
 							)
 						),
 
+						'adpr' => array(
+							$t => __("Prioritize Performance", 'revsliderhelp'),
+							$h => "slideChange.adpr",
+							$k => array("slide transition", "slide animation", "animation performance", "animation blurry", "animation quality"),
+							$d => __("Win performance in complex transitions by reducing the image quality during animations", 'revsliderhelp'),
+							$a => $u . "slide-animation/",
+							$hl => array(
+								$m => "#module_slide_trigger, #gst_slide_2", 
+								$st => '#sltrans_all_globals', 
+								$f => "#sltrans_dpr"
+							)
+						),
+
 						'pause_between' => array(
 							$t => __("Transition Break", 'revsliderhelp'),
 							$h => "slideChange.p",

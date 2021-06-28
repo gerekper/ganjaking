@@ -124,7 +124,9 @@ class MeprVatTaxCtrl extends MeprBaseCtrl {
   }
 
   public function process_signup($amt, $usr, $pid, $tid) {
-    if($this->vat_calc_possible()) {
+    $is_stripe_spc = isset($_POST['mepr_process_signup_form'], $_POST['mepr_transaction_id']) && is_numeric($_POST['mepr_transaction_id']);
+
+    if($this->vat_calc_possible() || $is_stripe_spc) {
       if(isset($_POST['mepr_vat_customer_type'])) {
         update_user_meta($usr->ID, 'mepr_vat_customer_type', $this->get_customer_type());
       }

@@ -286,7 +286,8 @@ class MeprGroup extends MeprCptModel {
 
   public static function is_group_page($post) {
     if( is_object($post) &&
-        ( ( $post->post_type == MeprGroup::$cpt &&
+        ( ( property_exists($post, 'post_type' ) &&
+           $post->post_type == MeprGroup::$cpt &&
             $grp = new MeprGroup($post->ID) ) ||
           ( preg_match(
               '~\[mepr-group-price-boxes\s+group_id=[\"\\\'](\d+)[\"\\\']~',

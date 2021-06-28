@@ -40,6 +40,18 @@ class RsPaintBrushSliderFront extends RevSliderFunctions {
 	private function isEnabled($slider){
 		if(empty($slider)) return false;
 		
+		$settings = $slider->get_params();
+		if(empty($settings)) return false;
+		
+		$addOns = $this->get_val($settings, 'addOns', false);
+		if(empty($addOns)) return false;
+		
+		$addOn = $this->get_val($addOns, 'revslider-' . $this->pluginTitle . '-addon', false);
+		if(empty($addOn)) return false;
+		
+		$enabled = $this->get_val($addOn, 'enable', false);
+		if($this->isFalse($enabled)) return false;
+
 		$slides = $slider->get_slides();
 		if(empty($slides)) return false;
 		
@@ -85,9 +97,10 @@ class RsPaintBrushSliderFront extends RevSliderFunctions {
 	public function add_scripts() {
 		$handle = 'rs-' . $this->pluginTitle . '-front';
 		$base   = $this->pluginUrl . 'public/assets/';
+		$_jsPathMin = file_exists(RS_PAINTBRUSH_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
 
 		wp_enqueue_style($handle, $base . 'css/revolution.addon.' . $this->pluginTitle . '.css', array(), $this->version);
-		wp_enqueue_script($handle, $base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js', array('jquery'), $this->version, true);
+		wp_enqueue_script($handle, $base . 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', array('jquery'), $this->version, true);
 		
 		add_filter('revslider_modify_waiting_scripts', array($this, 'add_waiting_script_slugs'), 10, 1);
 	}
@@ -114,7 +127,9 @@ class RsPaintBrushSliderFront extends RevSliderFunctions {
 		
 		$global = $output->get_global_settings();
 		$addition = ($output->_truefalse($output->get_val($global, array('script', 'defer'), false)) === true) ? ' async="" defer=""' : '';
-		$return['toload']['paintbrush'] = '<script'. $addition .' src="'. $this->pluginUrl . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.min.js"></script>';
+		$_jsPathMin = file_exists(RS_PAINTBRUSH_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
+
+		$return['toload']['paintbrush'] = '<script'. $addition .' src="'. $this->pluginUrl . 'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js"></script>';
 		
 		return $return;
 	}

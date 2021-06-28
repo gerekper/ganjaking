@@ -80,15 +80,16 @@ class Account extends lib\BaseCtrl {
 
       $courses = get_posts(array('post_type' => models\Course::$cpt, 'post_status' => 'publish', 'posts_per_page' => '-1', 'orderby'=> 'title', 'order' => 'ASC'));
 
-      if(false == \MeprUtils::is_logged_in_and_an_admin() && !$options['show-protected-courses']){
+      if(false == \MeprUtils::is_logged_in_and_an_admin()){
         $courses = array_filter($courses, function($course) use ( $mepr_user ) {
           return false == \MeprRule::is_locked_for_user($mepr_user, $course);
         });
       }
 
       $courses_ids = array_column( $courses, 'ID' );
+      $per_page = apply_filters('mpcs_courses_per_page', 6);
 
-      $course_query = new \WP_Query(array('post_type' => models\Course::$cpt, 'post_status' => 'publish', 'posts_per_page' => 6, 'paged' => $paged, 'orderby'=> 'post__in', 'order' => 'ASC', 'post__in' => $courses_ids));
+      $course_query = new \WP_Query(array('post_type' => models\Course::$cpt, 'post_status' => 'publish', 'posts_per_page' => $per_page, 'paged' => $paged, 'orderby'=> 'post__in', 'order' => 'ASC', 'post__in' => $courses_ids));
       $course_posts = $course_query->get_posts();
 
       foreach ($course_posts as $course) {

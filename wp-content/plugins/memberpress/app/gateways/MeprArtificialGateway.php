@@ -62,6 +62,11 @@ class MeprArtificialGateway extends MeprBaseRealGateway {
     //$this->recurrence_type = $this->settings->recurrence_type;
   }
 
+  // Hide update link when using offline gateway.
+  protected function hide_update_link($subscription) {
+    return true;
+  }
+
   public function spc_payment_fields() {
     return $this->settings->desc;
   }
@@ -127,14 +132,11 @@ class MeprArtificialGateway extends MeprBaseRealGateway {
       MeprUtils::send_signup_notices($txn);
     }
     else {
-      if(!$usr->signup_notice_sent) {
-        if($this->settings->always_send_welcome) {
-          MeprUtils::send_signup_notices($txn, false, true);
-        }
-        else {
-          MeprUtils::send_notices($txn, null, 'MeprAdminSignupEmail');
-        }
-
+      if($this->settings->always_send_welcome) {
+        MeprUtils::send_signup_notices($txn, false, true);
+      }
+      else if (!$usr->signup_notice_sent) {
+        MeprUtils::send_notices($txn, null, 'MeprAdminSignupEmail');
         $usr->signup_notice_sent = true;
         $usr->store();
       }
@@ -242,18 +244,14 @@ class MeprArtificialGateway extends MeprBaseRealGateway {
     if(!$this->settings->manually_complete) {
       $txn->status = MeprTransaction::$complete_str;
       $txn->store(); //Need to store here so the event will show as "complete" when firing the hooks
-      MeprUtils::send_transaction_receipt_notices($txn);
       MeprUtils::send_signup_notices($txn);
     }
     else {
-      if(!$usr->signup_notice_sent) {
-        if($this->settings->always_send_welcome) {
-          MeprUtils::send_signup_notices($txn, false, true);
-        }
-        else {
-          MeprUtils::send_notices($txn, null, 'MeprAdminSignupEmail');
-        }
-
+      if($this->settings->always_send_welcome) {
+        MeprUtils::send_signup_notices($txn, false, true);
+      }
+      else if (!$usr->signup_notice_sent) {
+        MeprUtils::send_notices($txn, null, 'MeprAdminSignupEmail');
         $usr->signup_notice_sent = true;
         $usr->store();
       }

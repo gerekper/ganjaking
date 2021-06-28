@@ -72,6 +72,12 @@ class MpdtWebhooksCtrl extends MpdtBaseCtrl {
   public function send($webhook, $event, MeprBaseModel $data, $send_now=false) {
     if(!in_array($event, $this->real_events(true))) { return false; }
 
+    $send_now_events = array('member-deleted');
+    if(in_array($event, $send_now_events)) {
+      // Need to send the 'member-deleted' webhook now to make sure the data isn't deleted by the time the cron is ran.
+      $send_now = true;
+    }
+
     if($send_now || (defined('DOING_CRON') && DOING_CRON)) {
       $data = $this->prepare_data($event,$data->rec);
       $evt_obj = $this->events[$event];
@@ -89,6 +95,10 @@ class MpdtWebhooksCtrl extends MpdtBaseCtrl {
         'sslverify' => true,
         'user-agent' => 'MemberPress/'.MEPR_VERSION
       );
+
+      if(empty(trim($webhook['url']))) {
+        return false;
+      }
 
       $res = wp_remote_post($webhook['url'], $args);
 

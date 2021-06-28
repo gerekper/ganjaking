@@ -1,26 +1,46 @@
-### 2.5.5.3
-- Updated field labels to show the same error style as field legends when they fail validation.
-- Updated the System Report to include the Translations section, listing the current site and user locales and installed translations.
+### 2.5.6.1
+- Fixed a layout/display issue for legacy forms in Safari when using the .gf_list_inline ready class for checkbox or radio fields.
+- Fixed a PHP warning which can occur when determining if the form has page conditional logic.
+- Fixed a PHP notice (error in PHP8) and display issue for the date field type when using the datefield or datedropdown input types when the field inputs are missing from the form object.
+- Fixed an issue for AJAX forms on submission where if the form cannot be found the submission stalls.
+- Fixed an issue that causes the Gravity Forms block to not load in WordPress 5.8.
+
+### 2.5.6 | 2021-06-22
+- Fixed an issue where dynamically populated choices for choice-based fields cannot be used in conditional logic.
+- Fixed an issue with the gf_list_inline ready class for radio and checkbox fields where the labels are wrapping.
+- Fixed an issue that causes choice values that are numbers to remain unselected when attempting to use them in conditional logic.
+- Fixed an issue with the total field that causes conditional logic based on its value to no longer work.
+- Fixed an issue with the reCAPTCHA field not rendering when a form is injected by ajax.
+- Fixed an issue with radio and checkbox fields for non-legacy forms where the field count and meta are missing styles.
+- Fixed an issue that prevents legacy settings from displaying on the form notification settings page.
+- Fixed an issue for forms not outputting HTML5 where the hour and minute input's layout breaks in the time field for browsers other than Firefox.
+- Fixed display issues for the time field when using legacy markup where the field's inputs aren't always the same height and placeholder text is cut off.
+- Fixed an issue where the default value field option does not work when the choice text is entered instead of the choice value.
+- Fixed a typo in the message that displays when logging is enabled.
 - Fixed issues where translations are not always offered or installed by WordPress and the WP-CLI.
 - Fixed the form scheduling settings so that the correct start and end minutes show as selected.
-
-### 2.5.5.2
 - Fixed label layout issues when using left or right label alignment for a form.
 - Fixed the display of the time field for forms in legacy mode.
-- Updated and removed the rolled up notice for non-gf admin notices.
+- Fixed an issue when disabling logging via the link in the warning where the logging setting is not being unchecked.
+- Fixed an issue with the form editor that makes dragging items below the bottom of the screen difficult.
+- Fixed an issue where the layout of forms with left or right aligned labels is broken in the form editor.
+- Fixed an issue where the total field is not calculated for all forms if a page has more than one form.
+- Fixed an issue where the conditional logic choice based rules fail if the choice is renamed from the default.
+- Updated the submit button on the edit entry detail page to have the primary button styles for better visual prompting.
+- Updated the form editor to include the css for legacy ready classes on legacy enabled forms.
+- Updated field labels to show the same error style as field legends when they fail validation.
+- Updated the System Report to include the Translations section, listing the current site and user locales and installed translations.
 - Updated several form settings text areas to accept valid HTML for users with the unfiltered_html capability.
 - Updated the logging warning verbiage for clarity.
 - Updated translations to respect user-specific locale.
 - Updated various elements in the form editor to use stylized scrollbars that unify the ui experience across browsers.
-- Fixed an issue when disabling logging via the link in the warning where the logging setting is not being unchecked.
-- Fixed an issue with the form editor that makes dragging items below the bottom of the screen difficult.
+- Updated more icon styles.
+- Removed the notice for suppressed admin notices.
+- AF: Fixed an issue that prevents settings from displaying on the form settings screen when add-ons have the $_multiple_feeds property set to false.
+- AF: Fixed the timing for when feed settings are initialized so the process always occurs before admin scripts are enqueued, thereby preventing some JavaScript console errors from surfacing.
 - API: Fixed the display of tooltips next to settings section titles.
-- Fixed an issue where the layout of forms with left or right aligned labels is broken in the form editor.
-- Fixed an issue where the total field is not calculated for all forms if a page has more than one form.
-
-### 2.5.5.1
-- Fixed an issue where the dynamic field map doesn't accept empty values when saving a feed.
-- Fixed an issue where the conditional logic choice based rules fail if the choice is renamed from the default.
+- API: Fixed an issue where the merge tag drop down is not displayed next to the value field of the generic map feed settings field.
+- API: Fixed an issue where the dynamic field map doesn't accept empty values when saving a feed.
 
 ### 2.5.5 | 2021-06-02
 - Fixed the appearance of Date, List and Time fields when editing an entry.

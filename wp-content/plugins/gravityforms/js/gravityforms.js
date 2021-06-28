@@ -943,42 +943,62 @@ var gformCalculateTotalPrice =  gform.tools.debounce(function(formId){
  * @since 2.5.5
  *
  * @param {string|number} formId The ID of the form with the total field.
- * @param {int} newPrice The current value of the price.
+ * @param {int} price The new price to apply.
  *
  * @return {void}
  */
-function gformUpdateTotalFieldPrice( formId, newPrice ) {
-	var totalElement = jQuery( '.ginput_total_' + formId );
-	if ( !totalElement.length > 0 ) {
+function gformUpdateTotalFieldPrice( formId, price ) {
+	var $totalElement = jQuery( '.ginput_total_' + formId );
+	if ( ! $totalElement.length > 0 ) {
 		return;
 	}
 
-	var price = String( newPrice );
+	/**
+	 * @function priceHasChanged
+	 * @description For legacy, compare numeric values, otherwise compare currency as that's what
+	 * the input stores as value.
+	 *
+	 * @param {Object} priceData
+	 * @returns {boolean}
+	 */
+	var priceHasChanged = function( priceData ) {
+		return isLegacy
+			? priceData.current !== priceData.new
+			: priceData.current !== priceData.newFormatted;
+	}
+
+	// Check whether this form is in legacy mode.
 	var isLegacy = document.querySelector( '#gform_wrapper_' + formId + '.gform_legacy_markup_wrapper' );
-	var currentTotalField = isLegacy ? totalElement.next() : totalElement;
-	var currentTotalPrice = String( currentTotalField.val() );
-	var formattedTotal = gformFormatMoney( price, true );
+	// Input is hidden in legacy mode and comes after span that displays value, currently only the input is present and visible.
+	var $totalInput = isLegacy ? $totalElement.next() : $totalElement;
+	// Contains current value (numeric or currency formatted), new numeric value and newFormatted value
+	var priceData = {
+		current: String( $totalInput.val() ),
+		new: String( price ),
+		newFormatted: gformFormatMoney( String( price ), true ),
+	}
 
-	// Formatted total is the same as the current value, bail before updating.
-	if ( formattedTotal === currentTotalPrice ) {
+	// New value is the same as the current value, bail before updating.
+	if ( ! priceHasChanged( priceData ) ) {
 		return;
 	}
 
+	// Legacy field
 	if ( isLegacy ) {
-		if ( currentTotalPrice !== price ) {
-			currentTotalField.val( price ).change();
-		}
-
-		if ( formattedTotal !== totalElement.text() ) {
-			totalElement.html( formattedTotal );
-		}
-
+		// Set input value to numeric value and trigger a change event for any js listeners in conditional logic
+		// or third party integrations.
+		$totalInput.val( priceData.new ).trigger( 'change' );
+		// Inject span with currency value for display.
+		$totalElement.html( priceData.newFormatted );
 		return;
 	}
 
-	if ( formattedTotal !== totalElement.val() ) {
-		totalElement.val( formattedTotal ).change();
-	}
+	// First set the input to the numeric value and trigger the change event so that js listeners get the value in expected format.
+	$totalInput.val( priceData.new ).trigger( 'change' );
+	// Then set the input to the currency value for display. If you have a script that wants to get the value
+	// of this input without listening to the change event you will have to also handle removing the currency formatting
+	// if expecting number in your code.
+	$totalInput.val( priceData.newFormatted );
 }
 
 function gformGetShippingPrice(formId){
@@ -2408,87 +2428,123 @@ function gf_get_field_number_format(fieldId, formId, context) {
 //------ reCAPTCHA FUNCTIONS -------------
 //----------------------------------------
 
-/**
- * Callback function on the reCAPTCAH API script.
- *
- * @see GF_Field_CAPTCHA::get_field_input() in /includes/fields/class-gf-field-catpcha.php
- */
-function renderRecaptcha() {
+gform.recaptcha = {
+	/**
+	 * Callback function on the reCAPTCAH API script.
+	 *
+	 * @see GF_Field_CAPTCHA::get_field_input() in /includes/fields/class-gf-field-catpcha.php
+	 */
+	renderRecaptcha: function() {
+		jQuery( '.ginput_recaptcha:not(.gform-initialized)' ).each( function() {
+			var $elem      = jQuery( this ),
+				parameters = {
+					'sitekey':  $elem.data( 'sitekey' ),
+					'theme':    $elem.data( 'theme' ),
+					'tabindex': $elem.data( 'tabindex' )
+				};
 
-    jQuery( '.ginput_recaptcha' ).each( function() {
+			if ( $elem.data( 'stoken' ) ) {
+				parameters.stoken = $elem.data( 'stoken' );
+			}
 
-        var $elem      = jQuery( this ),
-            parameters = {
-                'sitekey':  $elem.data( 'sitekey' ),
-                'theme':    $elem.data( 'theme' ),
-	            'tabindex': $elem.data( 'tabindex' )
-            };
+			var callback = false;
 
-        if ( ! $elem.is( ':empty' ) ) {
-            return;
-        }
+			if ( $elem.data( 'size' ) == 'invisible' ) {
+				callback = function( token ) {
+					if ( token ) {
+						$elem.closest('form').submit();
+					}
+				}
+			}
 
-        if ( $elem.data( 'stoken' ) ) {
-            parameters.stoken = $elem.data( 'stoken' );
-        }
+			/**
+			 * Allows a custom callback function to be executed when the user successfully submits the captcha.
+			 *
+			 * @since 2.4.x     The callback will be a function if reCAPTCHA v2 Invisible is used.
+			 * @since 2.2.5.20
+			 *
+			 * @param string|false|object   The name of the callback function or the function object itself to be executed when the user successfully submits the captcha.
+			 * @param object       $elem    The jQuery object containing the div element with the ginput_recaptcha class for the current reCaptcha field.
+			 */
+			callback = gform.applyFilters( 'gform_recaptcha_callback', callback, $elem );
+			if ( callback ) {
+				parameters.callback = callback;
+			}
 
-        var callback = false;
+			$elem.data( 'widget-id', grecaptcha.render( this.id, parameters ) );
 
-        if ( $elem.data( 'size' ) == 'invisible' ) {
-            callback = function( token ) {
-                if ( token ) {
-                    $elem.closest('form').submit();
-                }
-            }
-        }
+			if ( parameters.tabindex ) {
+				$elem.find( 'iframe' ).attr( 'tabindex', parameters.tabindex );
+			}
 
-        /**
-         * Allows a custom callback function to be executed when the user successfully submits the captcha.
-         *
-         * @since 2.4.x     The callback will be a function if reCAPTCHA v2 Invisible is used.
-         * @since 2.2.5.20
-         *
-         * @param string|false|object   The name of the callback function or the function object itself to be executed when the user successfully submits the captcha.
-         * @param object       $elem    The jQuery object containing the div element with the ginput_recaptcha class for the current reCaptcha field.
-         */
-	    callback = gform.applyFilters( 'gform_recaptcha_callback', callback, $elem );
-	    if ( callback ) {
-		    parameters.callback = callback;
-	    }
+			$elem.addClass( 'gform-initialized' );
 
-        $elem.data( 'widget-id', grecaptcha.render( this.id, parameters ) );
-
-	    if ( parameters.tabindex ) {
-		    $elem.find( 'iframe' ).attr( 'tabindex', parameters.tabindex );
-	    }
-
-        gform.doAction( 'gform_post_recaptcha_render', $elem );
+			gform.doAction( 'gform_post_recaptcha_render', $elem );
 
 
-    } );
+		} );
+	},
 
-}
+	/**
+	 * Helper function to determine whether a recaptcha is pending.
+	 *
+	 * @since 2.4.23
+	 *
+	 * @param {Object} form jQuery form object.
+	 * @returns {boolean}
+	 */
 
-/**
- * Helper function to determine whether a recaptcha is pending.
- *
- * @since 2.4.23
- *
- * @param {Object} form jQuery form object.
- * @returns {boolean}
- */
-function gformIsRecaptchaPending( form ) {
-	var recaptcha = form.find( '.ginput_recaptcha' ),
-		recaptchaResponse;
+	gformIsRecaptchaPending: function( form ) {
+		var recaptcha = form.find( '.ginput_recaptcha' ),
+			recaptchaResponse;
 
-	if ( !recaptcha.length || recaptcha.data( 'size' ) !== 'invisible' ) {
-		return false;
+		if ( !recaptcha.length || recaptcha.data( 'size' ) !== 'invisible' ) {
+			return false;
+		}
+
+		recaptchaResponse = recaptcha.find( '.g-recaptcha-response' );
+
+		return !( recaptchaResponse.length && recaptchaResponse.val() );
+	},
+
+	/**
+	 * @function gform.recaptcha.needsRender
+	 * @description Is there an non rendered Recaptcha field on the page?
+	 *
+	 * @since 2.5.6
+	 */
+
+	needsRender: function() {
+		return document.querySelectorAll( '.ginput_recaptcha:not(.gform-initialized)' )[ 0 ];
+	},
+
+	/**
+	 * @function gform.recaptcha.renderOnRecaptchaLoaded
+	 * @description Render recaptcha fields once the library is available, only if non rendered elements are present.
+	 *
+	 * @since 2.5.6
+	 */
+
+	renderOnRecaptchaLoaded: function() {
+		// if nothing to render, exit
+		if ( ! gform.recaptcha.needsRender() ) {
+			return;
+		}
+		var gfRecaptchaPoller = setInterval( function() {
+			if ( ! window.grecaptcha || ! window.grecaptcha.render ) {
+				return;
+			}
+			this.renderRecaptcha();
+			clearInterval( gfRecaptchaPoller );
+		}, 100 );
 	}
+};
 
-	recaptchaResponse = recaptcha.find( '.g-recaptcha-response' );
+gform.initializeOnLoaded( gform.recaptcha.renderOnRecaptchaLoaded );
+jQuery( document ).on( 'gform_post_render', gform.recaptcha.renderOnRecaptchaLoaded );
 
-	return !( recaptchaResponse.length && recaptchaResponse.val() );
-}
+window.renderRecaptcha = gform.recaptcha.renderRecaptcha;
+window.gformIsRecaptchaPending = gform.recaptcha.gformIsRecaptchaPending;
 
 //----------------------------------------
 //----- SINGLE FILE UPLOAD FUNCTIONS -----

@@ -73,7 +73,7 @@ class MeprOptionsHelper {
   }
 
   public static function payment_currency_code_dropdown($field_name, $code) {
-    $codes = MeprHooks::apply_filters('mepr-currency-codes', array('USD', 'AED', 'AUD', 'AWG', 'BGN', 'BRL', 'BWP', 'CAD', 'CHF', 'CNY', 'COP', 'CVE', 'CZK', 'DKK', 'EUR', 'GBP', 'GHS', 'HKD', 'HRK', 'HUF', 'HUN', 'IDR', 'ILS', 'INR', 'ISK', 'JOD', 'JPY', 'KES', 'KRW', 'MXN', 'MYR', 'NGN', 'NOK', 'NZD', 'PEN', 'PHP', 'PKR', 'PLN', 'RON', 'RSD', 'RUB', 'SAR', 'SEK', 'SGD', 'THB', 'TRY', 'TWN', 'VND', 'ZAR'));
+    $codes = MeprHooks::apply_filters('mepr-currency-codes', array('USD', 'AED', 'AUD', 'AWG', 'BGN', 'BRL', 'BWP', 'CAD', 'CHF', 'CLP', 'CNY', 'COP', 'CVE', 'CZK', 'DKK', 'EUR', 'GBP', 'GHS', 'HKD', 'HRK', 'HUF', 'HUN', 'IDR', 'ILS', 'INR', 'ISK', 'JOD', 'JPY', 'KES', 'KRW', 'MXN', 'MYR', 'NGN', 'NOK', 'NZD', 'PEN', 'PHP', 'PKR', 'PLN', 'RON', 'RSD', 'RUB', 'SAR', 'SEK', 'SGD', 'THB', 'TRY', 'TWN', 'VND', 'ZAR'));
     $field_value = isset($_POST[$field_name])?$_POST[$field_name]:null;
 
     ?>
@@ -121,7 +121,7 @@ class MeprOptionsHelper {
         foreach($gateways as $gateway => $gateway_name) {
           if($gateway == 'MeprPayPalProGateway') { continue; } //Don't show PayPal Pro any more to new users
 
-          if($gateway == 'MeprStripeGateway') { $gateway_name = __('Stripe (Preferred)', 'memberpress'); }
+          if($gateway == 'MeprStripeGateway') { $gateway_name = __('Stripe (Recommended)', 'memberpress'); }
 
           $obj = MeprGatewayFactory::fetch($gateway);
 

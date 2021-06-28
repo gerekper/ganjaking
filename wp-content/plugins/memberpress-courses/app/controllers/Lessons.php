@@ -12,7 +12,7 @@ class Lessons extends lib\BaseCtrl {
   public function load_hooks() {
     add_filter('the_content', array($this, 'prepend_breadcrumbs'));
     add_filter('the_content', array($this, 'append_lesson_navigation'));
-    add_filter('template_include', array($this, 'override_template'));
+    add_filter('template_include', array($this, 'override_template'), 999999);
     add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'), 99);
     add_action('wp_ajax_mpcs_record_lesson_progress', array($this, 'record_lesson_progress'));
     add_filter('embed_oembed_html', array($this, 'wrap_oembed_html'), 99, 2);
@@ -166,7 +166,7 @@ class Lessons extends lib\BaseCtrl {
       \wp_localize_script('mpcs-lesson', 'locals', $locals);
 
       \wp_enqueue_style('mpcs-classroom', base\CSS_URL . '/classroom.css', array(), base\VERSION);
-      \wp_enqueue_script('mpcs-classroom-js', base\JS_URL . '/classroom.js', array('jquery'), base\VERSION, true);
+      \wp_enqueue_script('mpcs-classroom-js', base\JS_URL . '/classroom.js', array('jquery'), base\VERSION);
     }
   }
 

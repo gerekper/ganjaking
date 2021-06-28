@@ -252,6 +252,8 @@ class MeprStripeCtrl extends MeprBaseCtrl
       if ($is_stripe_checkout_page) {
         if (!isset($sub)) { $sub = $txn->subscription(); }
 
+        MeprHooks::do_action('mepr-process-signup', $txn->amount, $usr, $product->ID, $txn->id);
+
         $pm->create_checkout_session(
           $txn,
           $sub,
@@ -359,6 +361,8 @@ class MeprStripeCtrl extends MeprBaseCtrl
           throw new Exception(sprintf(__('Sorry, there was an error processing your card (%s)', 'memberpress'), 'invalid subscription state'));
         }
       }
+
+      MeprHooks::do_action('mepr_stripe_payment_success', $txn, $usr );
 
       wp_send_json(array(
         'success' => true,

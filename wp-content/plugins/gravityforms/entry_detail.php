@@ -1454,10 +1454,11 @@ class GFEntryDetail {
 					<?php
 					if ( GFCommon::current_user_can_any( 'gravityforms_edit_entries' ) && $entry['status'] != 'trash' ) {
 						$button_text      = $mode == 'view' ? __( 'Edit', 'gravityforms' ) : __( 'Update', 'gravityforms' );
+						$button_classes   = $mode == 'view' ? 'button button-large' : 'button button-large primary';
 						$disabled         = $mode == 'view' ? '' : ' disabled="disabled" ';
 						$update_button_id = $mode == 'view' ? 'gform_edit_button' : 'gform_update_button';
 						$button_click     = $mode == 'view' ? "jQuery('#screen_mode').val('edit');" : "jQuery('#action').val('update'); jQuery('#screen_mode').val('view');";
-						$update_button    = '<input id="' . $update_button_id . '" ' . $disabled . ' class="button button-large" type="submit" tabindex="4" value="' . esc_attr( $button_text ) . '" name="save" onclick="' . $button_click . '"/>';
+						$update_button    = '<input id="' . $update_button_id . '" ' . $disabled . ' class="' . esc_attr( $button_classes ) . '" type="submit" tabindex="4" value="' . esc_attr( $button_text ) . '" name="save" onclick="' . $button_click . '"/>';
 
 						/**
 						 * A filter to allow the modification of the button to update an entry detail

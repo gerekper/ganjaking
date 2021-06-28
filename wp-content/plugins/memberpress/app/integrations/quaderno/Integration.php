@@ -27,10 +27,8 @@ class MeprQuadernoIntegration {
   public function stripe_subscription_args($args, $txn, $sub) {
     if(!isset($args['metadata']) || !is_array($args['metadata'])) { $args['metadata'] = array(); }
 
-    if($args['tax_percent'] > 0) {
+    if(isset($txn->tax_rate) && $txn->tax_rate > 0) {
       $args['metadata']['tax_rate'] = $txn->tax_rate;
-    } else {
-      $args['tax_percent'] = "";
     }
 
     return $args;
@@ -39,10 +37,8 @@ class MeprQuadernoIntegration {
   public function stripe_resume_subscription_args($args, $sub) {
     if(!isset($args['metadata']) || !is_array($args['metadata'])) { $args['metadata'] = array(); }
 
-    if($args['tax_percent'] > 0) {
+    if(isset($sub->tax_rate) && $sub->tax_rate > 0) {
       $args['metadata']['tax_rate'] = $sub->tax_rate;
-    } else {
-      $args['tax_percent'] = "";
     }
 
     return $args;

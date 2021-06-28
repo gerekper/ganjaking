@@ -1239,6 +1239,10 @@ to no.
                     display: inline-block;
                     padding-right: 16px;
                 }
+
+                    .gform_wrapper .gfield.gf_list_inline .gfield_checkbox .gchoice label, .gform_wrapper .gfield.gf_list_inline .gfield_radio .gchoice label {
+                        max-width: none;
+                    }
             .gform_wrapper .gf_list_2col_vertical .gfield_checkbox, .gform_wrapper .gf_list_2col_vertical .gfield_radio {
                 -moz-column-count: 2;
                 column-count: 2;
@@ -1418,7 +1422,7 @@ to no.
         }
 
 .gform_wrapper body:not(rtl) .gform_wrapper form.gf_simple_horizontal div.gform_footer.top_label {
-        text-align: left
+        text-align: left;
     }
 
 .gform_confirmation_wrapper.gf_confirmation_simple_yellow {

@@ -21,16 +21,7 @@ jQuery(document).ready(function($){
         SetRuleValueDropDown($(this));
     });
 
-    // init merge tag auto complete
-	if ( typeof form != 'undefined' && jQuery( '.merge-tag-support' ).length >= 0 ) {
-
-		jQuery( '.merge-tag-support' ).each( function() {
-
-			new gfMergeTagsObj( form, jQuery( this ) );
-
-		} );
-
-	}
+	initMergeTagSupport();
 
 	// For backwards compat.
 	if( window.form ) {
@@ -45,6 +36,20 @@ jQuery(document).ready(function($){
 		});
 	});
 });
+
+/**
+ * Initializes the merge tag tool for fields that support it.
+ *
+ * @since 2.5
+ */
+function initMergeTagSupport() {
+    // init merge tag auto complete
+	if ( typeof form != 'undefined' && jQuery( '.merge-tag-support' ).length >= 0 ) {
+		jQuery( '.merge-tag-support' ).each( function() {
+			new gfMergeTagsObj( form, jQuery( this ) );
+		} );
+	}
+}
 
 function FormatCurrency(element){
 	if(gf_vars.gf_currency_config){
@@ -1590,7 +1595,6 @@ var gfMergeTagsObj = function( form, element ) {
 	self.getTargetElement = function( elem ) {
 		var elem = jQuery( elem );
 		var selector = elem.parents('span.all-merge-tags').data('targetElement')
-
 		/* escape any meta-characters with a double back clash as per jQuery Spec http://api.jquery.com/category/selectors/ */
 		return jQuery( '#' + selector.replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&") );
 	}

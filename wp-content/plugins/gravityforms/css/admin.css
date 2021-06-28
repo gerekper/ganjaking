@@ -256,6 +256,10 @@ div.wrap {
 	text-align: left;
 }
 
+a .gform-icon {
+	text-decoration: none;
+}
+
 /*
 * Admin kitchen sink.
 *
@@ -289,6 +293,14 @@ div.wrap {
 
 .gform-admin .gform-c-warning-text {
 		color: #a16938;
+	}
+
+.gform-admin .gform-c-red {
+		color: #dd301d;
+	}
+
+.gform-admin .gform-c-hunter {
+		color: #276a52;
 	}
 
 /* spacing */
@@ -2778,6 +2790,10 @@ select:focus {
 
 .merge-tag-support {
 	max-width: 85%;
+}
+
+.gform-settings-panel__content .gform-settings-input__container--with-merge-tag input[type="text"].merge-tag-support {
+	max-width: 89.5%;
 }
 
 .all-merge-tags a.open-list {
@@ -6496,11 +6512,11 @@ span.gf_keystatus_invalid_text {
 
 /* note for truncated radio and checkbox lists */
 
-ul.gfield_radio li.gchoice_total, ul.gfield_checkbox li.gchoice_total {
-	color: #878787;
-	font-size: 11px;
-	padding-top: 14px !important;
-}
+.gfield_radio .gchoice_total, .gfield_checkbox .gchoice_total {
+		color: #878787;
+		font-size: 0.6875rem;
+		padding-top: 0.875rem !important;
+	}
 
 /* added to prevent truncating the button panels */
 
@@ -7583,6 +7599,35 @@ div.gf_clear.gf_clear_complex {
 	width: 100%;
 }
 
+/* NOTE: This is a unique instance of an input[type="submit"] being styled
+as a primary button. This required, for this one instance, the duplication
+of the primary button styles with some small refinements for the button group
+given our button styles don't account for a button as an input[type="submit"]. */
+
+#gform_update_button {
+	height: 2.3125rem;
+	line-height: 0.875rem;
+	padding: 0.625rem 12px;
+}
+
+#gform_update_button:hover {
+		background: #3985b7;
+		color: #fff;
+		transform: none;
+	}
+
+#gform_update_button:focus {
+		background-color: #3e7da6;
+		box-shadow: 0 0 0 2px #bed8ed;
+		color: #fff;
+	}
+
+#gform_update_button:active {
+		background: #3985b7;
+		border-color: #bed8ed;
+		color: #fff;
+	}
+
 #namediv .gform_button_select_files {
 	width: 100px !important;
 }
@@ -7606,6 +7651,13 @@ tr.gf-locking.wp-locked .locked-info {
 
 tr.gf-locking.wp-locked img.gform_active_icon {
 	display: none;
+}
+
+/* Signature add-on doesn't have its own stylesheet, so styles for editing forms with signature fields are here */
+
+.gform-signature-action {
+	font-size: 1.5rem;
+	text-decoration: none;
 }
 
 .gf-pagebreak {

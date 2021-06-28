@@ -2587,3 +2587,24 @@ label.mepr-form-radios-label, label.mepr-form-checkboxes-label {
 li.mp_users_subscriptions_list_alt {
   background:#eee;
 }
+
+.card .card-image {
+  position: relative;
+}
+
+.locked-course-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #eee;
+  opacity: 0.5;
+  text-align: center;
+  line-height: 100%;
+}
+
+.locked-course-overlay .mpcs-icon {
+  font-size: 4em;
+  display: inline;
+  position: relative;
+  top: 25%;
+}

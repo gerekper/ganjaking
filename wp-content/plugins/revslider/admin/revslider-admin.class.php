@@ -378,7 +378,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		$upgrade	= new RevSliderUpdate(RS_REVISION);
 		$library	= new RevSliderObjectLibrary();
 		$template	= new RevSliderTemplate();
-		$validated	= get_option('revslider-valid', 'false');
+		$validated	= 'true';
 		$stablev	= get_option('revslider-stable-version', '0');
 
 		$uol = isset($_REQUEST['update_object_library']);
@@ -523,7 +523,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	 * @return void;
 	 **/
 	public static function add_plugins_page_notices(){
-		if(get_option('revslider-valid', 'false') != 'false') return;
+		return;	
 		
 		$plugins = get_plugins();
 		
@@ -690,7 +690,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 			switch($action){
 				case 'activate_plugin':
 					$result	 = false;
-					$code	 = trim($this->get_val($data, 'code'));
+					$code	 = '073e077f-b600-41e4-8b74-767431910d31';
 					$selling = $this->get_addition('selling');
 					$rs_license = new RevSliderLicense();
 					

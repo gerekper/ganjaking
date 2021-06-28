@@ -1289,10 +1289,12 @@ if(!defined('ABSPATH')) exit();
 								<onelong><label_a><?php _e('Use Filter', 'revslider');?></label_a><input type="checkbox" data-showhide="._ltsel_main_filter" data-showhidedep="true" class="layerinput easyinit" data-r="#frame#.filter.use"/></onelong>
 								<oneshort class="_ltsel_main_filter"><label_icon class="ui_blur"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px" data-min="0" data-max="500" data-r="#frame#.filter.blur" type="text"></oneshort>									
 							</row>
-							<row class="direktrow">
+							<row>
 								<onelong class="_ltsel_main_filter"><label_icon class="ui_grayscale"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="100" data-r="#frame#.filter.grayscale" type="text"></onelong>
 								<oneshort class="_ltsel_main_filter"><label_icon class="ui_brightness"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="10000" data-r="#frame#.filter.brightness" type="text"></oneshort>
-							</row>
+							</row>								
+							<longoption class="_ltsel_main_filter"><label_a><?php _e('Set Filters on Mask', 'revslider');?></label_a><input type="checkbox" class="layerinput easyinit" data-r="timeline.filtersOnMask"/></longoption>
+							
 							<div class="div15"></div>
 							<div class="form_inner_header innerwrap_breakout"><i class="material-icons">settings_brightness</i><?php _e('Layer Back-Drop Filter', 'revslider');?></div>
 							<div class="div15"></div>

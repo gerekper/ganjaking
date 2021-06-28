@@ -57,7 +57,8 @@
   background-color: white;
 }
 
-.mepr-stripe-card-errors {
+.mepr-stripe-card-errors,
+.mepr-stripe-checkout-errors {
   color: #eb1c26;
 }
 

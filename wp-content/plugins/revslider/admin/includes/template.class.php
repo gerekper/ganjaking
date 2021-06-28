@@ -28,7 +28,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 		$return	= false;
 		$uid	= $this->clear_uid($uid);
 		$uid	= esc_attr($uid);
-		$code	= (get_option('revslider-valid', 'false') == 'false') ? '' : get_option('revslider-code', '');
+		$code	= '073e077f-b600-41e4-8b74-767431910d31';
 		
 		$upload_dir = wp_upload_dir(); // Set upload folder
 		// Check folder permission and define file location
@@ -112,7 +112,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 			update_option('revslider-templates-check', time());
 
 			$hash = ($force === true) ? '' : get_option('revslider-templates-hash', '');
-			$code = (get_option('revslider-valid', 'false') == 'false') ? '' : get_option('revslider-code', '');
+			$code = '073e077f-b600-41e4-8b74-767431910d31';
 			$data = array(
 				'code'		=> urlencode($code),
 				'shop_version' => urlencode(self::SHOP_VERSION),

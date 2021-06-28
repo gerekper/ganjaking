@@ -912,11 +912,13 @@ class MeprRule extends MeprCptModel {
 
   //Should probably put this in Utils at some point
   public function has_time_passed($ts, $unit, $amount, $is_fixed = false) {
-    //TODO -- should make this use local WP timezone instead
     //Convert $ts to the start of the day, so drips/expirations don't come in at odd hours throughout the day
     if(!$is_fixed) {
-      $datetime = gmdate('Y-m-d 00:00:01', $ts);
-      $ts = strtotime($datetime);
+      //$datetime = gmdate('Y-m-d 00:00:01', $ts);
+      //$ts = strtotime($datetime);
+      $datetime = gmdate('Y-m-d H:i:s', $ts);
+      $datetime = get_date_from_gmt($datetime, 'Y-m-d 00:00:01'); // Convert to local WP timezone
+      $ts = (int) get_gmt_from_date($datetime, 'U'); // Now back to a unix timestamp
     }
 
     switch($unit) {

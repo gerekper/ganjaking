@@ -5,6 +5,10 @@
 	
 }
 
+.rs-addon-strip.rs-addon-strip-active rs-sbg-px rs-sbg-wrap .rs-addon-strip-wrap img{
+	display: inline-block !important;
+}
+
 .rs-addon-strip-wrap {
 	
 	position: absolute;
@@ -34,8 +38,8 @@
 .rs-addon-strip-img {
 	
 	-webkit-user-select: none;
-	-moz-user-select: none
-	-ms-user-select: none
+	-moz-user-select: none;
+	-ms-user-select: none;
 	user-select: none;
 
 	-webkit-touch-callout: none;

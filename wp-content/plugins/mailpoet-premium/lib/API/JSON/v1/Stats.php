@@ -42,13 +42,17 @@ class Stats extends APIEndpoint {
   /** @var SubscriberEngagement */
   private $listings;
 
+  /** @var NewsletterUrl */
+  private $newsletterUrl;
+
   public function __construct(
     CampaignStats\PurchasedProducts $purchasedProducts,
     NewslettersRepository $newslettersRepository,
     StatsResponseBuilder $statsResponseBuilder,
     StatisticsClicksRepository $statisticsClicksRepository,
     SubscriberEngagement $listings,
-    NewsletterStatisticsRepository $newsletterStatisticsRepository
+    NewsletterStatisticsRepository $newsletterStatisticsRepository,
+    NewsletterUrl $newsletterUrl
   ) {
     $this->purchasedProducts = $purchasedProducts;
     $this->newslettersRepository = $newslettersRepository;
@@ -56,6 +60,7 @@ class Stats extends APIEndpoint {
     $this->statsResponseBuilder = $statsResponseBuilder;
     $this->statisticsClicksRepository = $statisticsClicksRepository;
     $this->listings = $listings;
+    $this->newsletterUrl = $newsletterUrl;
   }
 
   public function get($data = []) {
@@ -80,7 +85,7 @@ class Stats extends APIEndpoint {
     }
 
     $clickedLinks = $this->statisticsClicksRepository->getClickedLinks($newsletter);
-    $previewUrl = NewsletterUrl::getViewInBrowserUrl(
+    $previewUrl = $this->newsletterUrl->getViewInBrowserUrl(
       (object)[
         'id' => $newsletter->getId(),
         'hash' => $newsletter->getHash(),

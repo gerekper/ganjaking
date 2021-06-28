@@ -73,6 +73,10 @@ div#mepr-account-nav {
   background:#f9f9f9;
 }
 
+.mp_wrapper table.mepr-account-table .mepr-account-actions a {
+  display: block;
+}
+
 @media screen and (max-width: 600px) {
   .mp_wrapper table.mepr-account-table {
     border:0;

@@ -3505,6 +3505,11 @@ class GFFormsModel {
 		*/
 
 		$number_format = 'decimal_dot';
+
+		if ( GFCommon::is_numeric( $text, 'currency' ) ) {
+			$number_format = 'currency';
+		}
+
 		if ( GFCommon::is_numeric( $text, $number_format ) ) {
 			return GFCommon::clean_number( $text, $number_format );
 		}
@@ -3513,7 +3518,6 @@ class GFFormsModel {
 	}
 
 	public static function matches_operation( $val1, $val2, $operation ) {
-
 		$val1 = ! rgblank( $val1 ) ? strtolower( $val1 ) : '';
 		$val2 = ! rgblank( $val2 ) ? strtolower( $val2 ) : '';
 

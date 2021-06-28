@@ -101,7 +101,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 		$footer = ob_get_contents();
 		ob_clean();
 		ob_end_clean();
-		
+	
 		$this->slider_html = $head."\n".
 							 $this->slider_html."\n".
 							 $this->export_scripts."\n".
@@ -418,6 +418,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 				echo $this->export_styles;
 			
 				$static_css = $this->get_static_css();
+				
 				if($static_css !== ''){
 					$css = RevSliderGlobals::instance()->get('RevSliderCssParser');
 					echo '<style type="text/css">';
@@ -438,12 +439,16 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 			}
 			?>
 			<!-- REVOLUTION JS FILES -->
+			<?php
+			RevSliderFront::add_waiting_script();
+			?>
 			<script type="text/javascript" src="<?php echo $this->path_js; ?>rbtools.min.js"></script>
 			<script type="text/javascript" src="<?php echo $this->path_js; ?>rs6.min.js"></script>
 			
 			<?php echo RevSliderFront::js_set_start_size(); ?>
 		</head>
 		
+		<body>
 		<?php
 	}
 	
@@ -452,11 +457,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 	 * create Body HTML for HTML export
 	 **/
 	public function write_body_html(){
-		?>
-		<body>
-			<?php
-			if(!$this->export_real){
-				?>
+		if(!$this->export_real){ ?>
 			<!-- HEADER -->
 			<article class="content">
 				<!-- Add your site or application content here -->
@@ -481,10 +482,9 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 			<section class="example">
 				<article class="content">
 				<?php
-			}
+		}
 			
-			if(!$this->export_real){
-				?>
+		if(!$this->export_real){ ?>
 				</article>
 			</section>
 			<div class="bottom-history-wrap" style="margin-top:150px">
@@ -522,48 +522,8 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 			</article>
 		</div>
 		<div class="clearfix"></div>
-
-		<footer>
-			<div class="footer_inner">
-				<div class="footerwidget">
-					<h3>Slider Revolution</h3>
-					<a href="https://revolution.themepunch.com/jquery/#features" target="_self">Features</a>
-					<a href="https://revolution.themepunch.com/examples-jquery/" target="_self">Usage Examples</a>
-					<a href="https://www.themepunch.com/revsliderjquery-doc/slider-revolution-jquery-5-x-documentation/" target="_blank">Online Documentation</a>
-				</div>
-				<div class="footerwidget">
-					<h3>Resources</h3>
-					<a href="https://www.themepunch.com/support-center/" target="_blank">FAQ Database</a>
-					<a href="https://themepunch.com" target="_blank">ThemePunch.com</a>
-					<a href="https://themepunch.us9.list-manage.com/subscribe?u=a5738148e5ec630766e28de16&amp;id=3e718acc63" target="_blank">Newsletter</a>
-					<a href="https://www.themepunch.com/products/" target="_blank">Plugins</a>
-					<a href="https://www.themepunch.com/products/" target="_blank">Themes</a>
-				</div>
-				<div class="footerwidget">
-					<h3>More Versions</h3>
-					<a href="https://revolution.themepunch.com" target="_blank">WordPress</a>
-					<a href="https://www.themepunch.com/links/slider_revolution_prestashop" target="_blank">Prestashop</a>
-					<a href="https://www.themepunch.com/links/slider_revolution_magento" target="_blank">Magento</a>
-					<a href="https://www.themepunch.com/links/slider_revolution_opencart" target="_blank">OpenCart</a>
-				</div>
-				<div class="footerwidget social">
-					<h3>Follow Us</h3>
-					<ul>
-						<li><a href="https://www.facebook.com/wordpress.slider.revolution" target="_blank" class="so_facebook" data-rel="tooltip" data-animation="false" data-placement="bottom" data-original-title="Facebook"><i class="s_icon fa-icon-facebook "></i></a>
-						</li>
-						<li><a href="https://twitter.com/revslider" target="_blank" class="so_twitter" data-rel="tooltip" data-animation="false" data-placement="bottom" data-original-title="Twitter"><i class="s_icon fa-icon-twitter"></i></a>
-						</li>
-					</ul>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-		</footer>
-		<script type="text/javascript" src="../../assets/warning.js"></script>
 			<?php
-			}
-		?>
-		</body>
-		<?php
+		}
 	}
 	
 	
@@ -571,6 +531,57 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 	 * create Footer HTML for HTML export
 	 **/
 	public function write_footer_html(){
+		global $rs_css_collection;
+		if(!empty($rs_css_collection)){
+			$custom_css = implode("\n".RS_T2, $rs_css_collection);
+			$css = RevSliderGlobals::instance()->get('RevSliderCssParser');
+			echo '<style type="text/css">';
+			echo $css->compress_css($custom_css);
+			echo '</style>'."\n";
+		}
+		?>
+		</body>
+		<?php
+		if(!$this->export_real){
+			?>
+			<footer>
+				<div class="footer_inner">
+					<div class="footerwidget">
+						<h3>Slider Revolution</h3>
+						<a href="https://revolution.themepunch.com/jquery/#features" target="_self">Features</a>
+						<a href="https://revolution.themepunch.com/examples-jquery/" target="_self">Usage Examples</a>
+						<a href="https://www.themepunch.com/revsliderjquery-doc/slider-revolution-jquery-5-x-documentation/" target="_blank">Online Documentation</a>
+					</div>
+					<div class="footerwidget">
+						<h3>Resources</h3>
+						<a href="https://www.themepunch.com/support-center/" target="_blank">FAQ Database</a>
+						<a href="https://themepunch.com" target="_blank">ThemePunch.com</a>
+						<a href="https://themepunch.us9.list-manage.com/subscribe?u=a5738148e5ec630766e28de16&amp;id=3e718acc63" target="_blank">Newsletter</a>
+						<a href="https://www.themepunch.com/products/" target="_blank">Plugins</a>
+						<a href="https://www.themepunch.com/products/" target="_blank">Themes</a>
+					</div>
+					<div class="footerwidget">
+						<h3>More Versions</h3>
+						<a href="https://revolution.themepunch.com" target="_blank">WordPress</a>
+						<a href="https://www.themepunch.com/links/slider_revolution_prestashop" target="_blank">Prestashop</a>
+						<a href="https://www.themepunch.com/links/slider_revolution_magento" target="_blank">Magento</a>
+						<a href="https://www.themepunch.com/links/slider_revolution_opencart" target="_blank">OpenCart</a>
+					</div>
+					<div class="footerwidget social">
+						<h3>Follow Us</h3>
+						<ul>
+							<li><a href="https://www.facebook.com/wordpress.slider.revolution" target="_blank" class="so_facebook" data-rel="tooltip" data-animation="false" data-placement="bottom" data-original-title="Facebook"><i class="s_icon fa-icon-facebook "></i></a>
+							</li>
+							<li><a href="https://twitter.com/revslider" target="_blank" class="so_twitter" data-rel="tooltip" data-animation="false" data-placement="bottom" data-original-title="Twitter"><i class="s_icon fa-icon-twitter"></i></a>
+							</li>
+						</ul>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</footer>
+			<script type="text/javascript" src="../../assets/warning.js"></script>
+			<?php
+		}
 		?>
 		</html>
 		<?php

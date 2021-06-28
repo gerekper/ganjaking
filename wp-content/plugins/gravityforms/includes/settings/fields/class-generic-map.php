@@ -204,12 +204,13 @@ class Generic_Map extends Base {
 		}
 		// Prepare JS params.
 		$js_params = array(
-			'input'          => $input_name,
-			'inputType'      => $this->type,
-			'keyField'       => $key_field,
-			'valueField'     => $value_field,
-			'limit'          => $this->limit,
-			'invalidChoices' => $this->invalid_choices,
+			'input'           => $input_name,
+			'inputType'       => $this->type,
+			'keyField'        => $key_field,
+			'valueField'      => $value_field,
+			'limit'           => $this->limit,
+			'invalidChoices'  => $this->invalid_choices,
+			'mergeTagSupport' => $this->merge_tags,
 		);
 
 		// Prepare markup.

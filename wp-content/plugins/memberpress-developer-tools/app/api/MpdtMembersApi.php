@@ -7,6 +7,43 @@ class MpdtMembersApi extends MpdtBaseApi {
     $member_data = (object)$response->get_data();
     $mepr_user = new MeprUser($member_data->id);
 
+    $valid_user_meta_keys = [];
+    $user_meta = [];
+    $valid_user_meta_keys = MeprHooks::apply_filters( 'mepr_developer_tools_member_valid_user_metas', $valid_user_meta_keys, $mepr_user );
+
+    foreach ($args as $key => $value) {
+      switch ($key) {
+        case "address1":
+          $user_meta['mepr-address-one'] = $value;
+          break;
+        case "address2":
+          $user_meta['mepr-address-two'] = $value;
+          break;
+        case "city":
+          $user_meta['mepr-address-city'] = $value;
+          break;
+        case "state":
+          $user_meta['mepr-address-state'] = $value;
+          break;
+        case "zip":
+          $user_meta['mepr-address-zip'] = $value;
+          break;
+        case "country":
+          $user_meta['mepr-address-country'] = $value;
+          break;
+        default:
+          if ( in_array( $key, $valid_user_meta_keys ) ) {
+            $user_meta[$key] = $value;
+          }
+      }
+    }
+
+    if(!empty($user_meta)) {
+      foreach($user_meta as $key => $val) {
+        update_user_meta($member_data->id, $key, $val);
+      }
+    }
+
     if(isset($args['send_password_email']) && !empty($args['send_password_email'])) {
       $mepr_user->send_password_notification('new');
     }
@@ -30,14 +67,13 @@ class MpdtMembersApi extends MpdtBaseApi {
         // Send welcome email
         MeprUtils::send_signup_notices($transaction, true, false);
       }
-
-      // Refresh member object
-      $get_req = new WP_REST_Request('GET');
-      $get_req->set_url_params(array('id'=>$member_data->id));
-      $data = $this->get_item($get_req);
-
-      $response = rest_ensure_response($data);
     }
+
+    // Refresh member object
+    $get_req = new WP_REST_Request('GET');
+    $get_req->set_url_params(array('id'=>$member_data->id));
+    $data = $this->get_item($get_req);
+    $response = rest_ensure_response($data);
 
     return $response;
   }

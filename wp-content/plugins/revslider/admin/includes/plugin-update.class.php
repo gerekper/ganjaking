@@ -4791,8 +4791,8 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 				//'include' => $this->_truefalse($this->get_val($global, 'includes_globally', true)),
 				'includeids' => $this->get_val($global, 'pages_for_includes', ''),
 				'script' => array(
-					'footer' => $this->_truefalse($this->get_val($global, 'js_to_footer', false)),
-					'defer' => $this->_truefalse($this->get_val($global, 'js_defer', false)),
+					'footer' => $this->_truefalse($this->get_val($global, 'js_to_footer', true)),
+					'defer' => $this->_truefalse($this->get_val($global, 'js_defer', true)),
 					'full' => $this->_truefalse($this->get_val($global, 'load_all_javascript', false))
 				),
 				'fonturl' => $this->get_val($global, 'change_font_loading', ''),

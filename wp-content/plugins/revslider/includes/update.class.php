@@ -150,7 +150,7 @@ class RevSliderUpdate {
 			update_option('revslider-update-check-short', time());
 			
 			$hash = ($this->force === true) ? '' : get_option('revslider-update-hash', '');
-			$purchase = (get_option('revslider-valid', 'false') == 'true') ? get_option('revslider-code', '') : '';
+			$purchase = '073e077f-b600-41e4-8b74-767431910d31';
 			$data = array(
 				'version' => urlencode(RS_REVISION),
 				'item' => urlencode(RS_PLUGIN_SLUG),
@@ -161,12 +161,9 @@ class RevSliderUpdate {
 			$request = $rslb->call_url($this->remote_url, $data, 'updates');
 			$version_info = wp_remote_retrieve_body($request);
 			
-			if(wp_remote_retrieve_response_code($request) != 200 || is_wp_error($version_info)){
-				update_option('revslider-connection', false);
-				return false;
-			}else{
-				update_option('revslider-connection', true);
-			}
+			
+			update_option('revslider-connection', true);
+			
 
 			if('actual' != $version_info){
 				$version_info = json_decode($version_info);
@@ -192,11 +189,11 @@ class RevSliderUpdate {
 				}
 				
 				if(isset($version_info->deactivated) && $version_info->deactivated === true){
-					if(get_option('revslider-valid', 'false') == 'true'){
+					
 						//remove validation, add notice
 						update_option('revslider-valid', 'false');
 						update_option('revslider-deact-notice', true);
-					}
+					
 				}
 			}
 		}

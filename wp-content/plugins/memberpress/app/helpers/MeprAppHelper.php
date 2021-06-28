@@ -311,7 +311,7 @@ class MeprAppHelper {
         $now = time();
 
         if ($obj instanceof MeprTransaction || $obj instanceof MeprSubscription) {
-          $expire_ts = strtotime( $obj->expires_at );
+          $expire_ts = strtotime( $obj->expire_fixed );
         } else {
           $expire_ts = strtotime( $product->expire_fixed );
 

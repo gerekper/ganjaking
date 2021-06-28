@@ -11,6 +11,7 @@
   <input type="hidden" name="mepr_stripe_is_checkout" value="1"/>
   <input type="hidden" name="mepr_stripe_checkout_page_mode" value="1"/>
   <h4><?php _e('Pay with your Credit Card via Stripe Checkout', 'memberpress'); ?></h4>
+  <span role="alert" class="mepr-stripe-checkout-errors"></span>
 <?php else: ?>
   <?php MeprHooks::do_action('mepr-stripe-payment-form-before-name-field', $txn); ?>
   <div class="mp-form-row">

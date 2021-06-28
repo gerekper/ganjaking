@@ -187,8 +187,7 @@ html>body .entry ul,
         max-width: 4rem;
     }
 
-    .gform_legacy_markup_wrapper .gfield_date_year,
-    .gform_legacy_markup_wrapper .gfield_time_ampm {
+    .gform_legacy_markup_wrapper .gfield_date_year {
         max-width: calc(4rem + .5rem);
     }
 
@@ -246,11 +245,12 @@ html>body .entry ul,
     width: 4rem;
 }
 
-/* time ​fields */
+/* time fields */
 
 .gform_legacy_markup_wrapper .gfield_time_hour,
 .gform_legacy_markup_wrapper .gfield_time_minute,
 .gform_legacy_markup_wrapper .gfield_time_ampm {
+    font-size: 15px;
     width: 33.333%;
     flex-direction: row;
 }
@@ -258,23 +258,20 @@ html>body .entry ul,
 @media only screen and (min-width: 321px) {
 
     .gform_legacy_markup_wrapper .gfield_time_hour,
-    .gform_legacy_markup_wrapper .gfield_time_minute {
-        max-width: 4rem;
-    }
-
-    .gform_legacy_markup_wrapper .gfield_time_hour,
+    .gform_legacy_markup_wrapper .gfield_time_minute,
     .gform_legacy_markup_wrapper .gfield_time_ampm {
-        max-width: calc(4rem + .5rem);
-    }
-
-    .gform_legacy_markup_wrapper .gfield_time_hour {
-        max-width: calc(4rem + .5rem);
+        max-width: 72px;
     }
 
 }
 
 .gform_legacy_markup_wrapper ul.gform_fields:not(.top_label) .ginput_container_time span {
     float: left;
+}
+
+.gform_legacy_markup_wrapper .gfield_time_hour {
+    margin-right: 10px;
+    display: flex;
 }
 
 .gform_legacy_markup_wrapper .gfield_time_hour i {
@@ -287,16 +284,28 @@ html>body .entry ul,
 }
 
 .gform_legacy_markup_wrapper .gfield_time_minute {
-    margin-right: .5rem;
+    margin-right: 8px;
+    display: flex;
 }
 
-.gform_legacy_markup_wrapper .gfield_time_hour {
-    margin-right: .45rem;
-	display: flex;
-}
 .gform_legacy_markup_wrapper .ginput_complex .gfield_time_hour input,
 .gform_legacy_markup_wrapper .ginput_complex .gfield_time_minute input {
+    margin-left: 0;
 	width: 85% !important;
+}
+
+/* HTML5 setting disabled input[type="text"] */
+.gform_legacy_markup_wrapper .gfield_time_hour input,
+.gform_legacy_markup_wrapper .gfield_time_minute input {
+    margin-right: 6px;
+    width: 56px;
+}
+
+/* HTML5 setting enabled input[type="number"] */
+.gform_legacy_markup_wrapper .gfield_time_hour input[type="number"],
+.gform_legacy_markup_wrapper .gfield_time_minute input[type="number"] {
+    max-width: 64px;
+    min-width: 64px;
 }
 
 .gform_legacy_markup_wrapper .gfield_time_ampm {
@@ -306,30 +315,22 @@ html>body .entry ul,
 }
 
 .gform_legacy_markup_wrapper .gfield_time_ampm select {
-    min-width: calc(2rem + 25px);
-    width: calc(3rem + 25px);
+    min-width: 77px;
+    width: 77px;
+    height: 100%;
+    margin-top: 0 !important;
+    margin-left: 0 !important;
 }
 
 .gform_legacy_markup_wrapper .gfield_time_ampm_shim {
 	display: block;
-	font-size: .813em;
+	font-size: 13px;
 	margin: 9px 0 1px 1px;
-}
-
-.gform_legacy_markup_wrapper .gfield_time_hour input,
-.gform_legacy_markup_wrapper .gfield_time_minute input {
-    margin-right: 6px;
-	width: calc(3rem + 8px);
-}
-
-.gform_legacy_markup_wrapper .gfield_time_hour input[type="number"],
-.gform_legacy_markup_wrapper .gfield_time_minute input[type="number"] {
-    width: calc(3rem + 8px) !important;
 }
 
 .gform_legacy_markup_wrapper .field_sublabel_above div[class*="gfield_time_"].ginput_container label,
 .gform_legacy_markup_wrapper .field_sublabel_below div[class*="gfield_time_"].ginput_container label {
-    width: 3rem;
+    width: 48px;
     text-align: center;
 }
 

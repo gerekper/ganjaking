@@ -133,7 +133,10 @@ class RevSliderElementorWidget extends \Elementor\Widget_Shortcode {
 	}
 
 	protected function render() {
+		global $rs_loaded_by_editor;
 		
+		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) $rs_loaded_by_editor = true;
+
 		$shortcode = $this->get_settings_for_display( 'shortcode' );
 		$wrapperid = $this->get_settings_for_display( 'wrapperid' );
 		$wrapperid = empty($wrapperid) ? '': 'id="' . $wrapperid . '" ';
@@ -141,12 +144,6 @@ class RevSliderElementorWidget extends \Elementor\Widget_Shortcode {
 
 		$zindex = $this->get_settings_for_display( 'zindex' );
 		$style = $zindex ? ' style="z-index:'.$zindex.';"' : '';
-
-		/*if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-			//EDIT
-		} else {
-			//FRONTEND
-		}*/
 
 		// hack to make sure object library only opens when the user manually adds a slider to the page
 		if(empty($shortcode)) {
@@ -159,6 +156,8 @@ class RevSliderElementorWidget extends \Elementor\Widget_Shortcode {
 		<div <?php echo $wrapperid; ?>class="wp-block-themepunch-revslider"<?php echo $style;?>><?php echo $shortcode; ?></div>
 
 		<?php
+
+		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) $rs_loaded_by_editor = false;
 	}
 	
 

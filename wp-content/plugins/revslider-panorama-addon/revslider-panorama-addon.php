@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Panorama AddOn
 Plugin URI: http://www.themepunch.com/
 Description: Convert Slide Background Images to 360° Panoramas
 Author: ThemePunch
-Version: 3.0.1
+Version: 3.0.2
 Author URI: http://themepunch.com
 */
 

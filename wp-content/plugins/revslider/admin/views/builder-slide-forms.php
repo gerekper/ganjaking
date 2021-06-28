@@ -425,6 +425,8 @@ if ($wpml->wpml_exists()) {
 			<div id="form_sanimation_sframes_advanced" class="form_inner open">
 				<div class="form_inner_header"><i class="material-icons">tune</i><?php _e('Advanced', 'revslider');?></div>
 				<div id="form_sanimation_sframes_innerwrap" class="collapsable">
+					
+				
 					<!-- LAYER FRAME TRANSFORM  -->
 					<div id="slide_maintranssettings_wrap" class="slide_transsettings_wrap">
 						<div id="slidebasic_ts_wrapbrtn" class="ts_wrapbrtn"><div data-showtrans="#slide_transsettings" data-frametarget="slide" class="transtarget_selector selected" ><?php _e('Timing', 'revslider');?></div></div><!--
@@ -633,6 +635,20 @@ if ($wpml->wpml_exists()) {
 							</div>				
 						</div>
 					</div>
+				</div>
+			</div>
+
+			<div id="form_sanimation_sframes_perf" class="form_inner open">
+				<div class="form_inner_header"><i class="material-icons">speed</i><?php _e('Performance', 'revslider');?></div>
+				<div id="form_sanimation_sperform_innerwrap" class="collapsable">
+					<row id="sltrans_dpr_wrap">
+						<longoption id="sltrans_dpr"><label_a style="min-width:160px"><?php _e('Prioritize Performance', 'revslider');?></label_a><input id="slidechangedpr" type="checkbox" class="easyinit slideinput callEvent" data-evt="updateSlideAnimation" data-r="slideChange.adpr"></longoption>
+					</row>
+					<div class="div10"></div>
+					<row class="direktrow">
+						<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
+						<contenthalf><div class="function_info"><?php _e('Win performance in complex transitions by reducing the image quality during animations', 'revslider');?></div></contenthalf>
+					</row>
 				</div>
 			</div>
 			<!-- ADVANCED SETTINGS FOR ANIMATION -->

@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Memberships 1.22.1\n"
+"Project-Id-Version: WooCommerce Memberships 1.22.2\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2021-06-07 07:27:13+00:00\n"
+"POT-Creation-Date: 2021-06-23 06:57:04+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -5279,11 +5279,11 @@ msgstr ""
 msgid "Installment plan"
 msgstr ""
 
-#: includes/integrations/subscriptions/class-wc-memberships-integration-subscriptions-discounts.php:270
+#: includes/integrations/subscriptions/class-wc-memberships-integration-subscriptions-discounts.php:312
 msgid "Discounts apply to subscriptions sign up fees"
 msgstr ""
 
-#: includes/integrations/subscriptions/class-wc-memberships-integration-subscriptions-discounts.php:271
+#: includes/integrations/subscriptions/class-wc-memberships-integration-subscriptions-discounts.php:313
 msgid ""
 "If enabled, membership discounts will also apply to sign up fees of "
 "subscription products."

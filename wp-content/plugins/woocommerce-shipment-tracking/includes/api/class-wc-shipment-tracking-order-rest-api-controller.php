@@ -404,7 +404,8 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 				),
 				'custom_tracking_link' => array(
 					'description' => __( 'Custom tracking provider link.', 'woocommerce-shipment-tracking' ),
-					'type'        => 'url',
+					'type'        => 'string',
+					'format'      => 'uri',
 					'context'     => array( 'edit' ),
 					'readonly'    => false,
 				),

@@ -1,4 +1,33 @@
 <div class="slider-revolution-update-list">
+	<h3 class="version-number">Version 6.5.3 (25th June 2021)</h3>
+	<div class="newfeature"><strong style="font-weight:700">New Features</strong></div>
+	<ul>
+		<li>Added performance option to slider transitions, which will allow to prioritise perfomance vs image quality during the slide transition</li>
+		<li>Added new option "Set Filters on Mask" to layer animation. This option allows to set the filters on the layer wrapper mask instead of the layer itself.
+			<ul>
+				<li>to avoid strange cuts on overflow hidden elements</li>
+				<li>as workaround for the Safari bug where blur and x,y rotations resizes the layers</li>
+			</ul>
+		</li>
+		<li>Extended openModalAPI to be able to load modules in page by ajax on demand by id, index or slide key</li>
+	</ul>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+		<li>Adding the same slider more than once to the post/page resulted in the JS revapi variable beeing defined multiple times</li>
+		<li>Tags are written in image titles on certain conditions</li>
+		<li>Splitted and blurred text animation on Safari looks different, letters pop up without animation</li>
+		<li>Required AddOn update message shows wrong update versions in certain cases</li>
+		<li>Hidden slides are printed into the HTML</li>
+		<li>Some external images are not visible in backend and load stretched on frontend (CORS error visible in console)</li>
+		<li>iFrame in layers fail to load in some special cases</li>
+		<li>Layer actions with target layers fail to open due to error</li>
+		<li>HTML export does not write some newly added JavaScript</li>
+		<li>JS error if slider uses "Observe Wrapper" option</li>
+		<li>Elementor, Divi, Wp Backery or other third party plugin conflicts if the library loading is set to defered, async in footer</li>
+		<li>Clicking on buttons sometimes fails in Firefox if 3D parallax is used</li>
+		<li>"Lazy Load All" does not load all images one by one in case the ViewPort option is enabled globally</li>
+	</ul>
+	
 	<h3 class="version-number">Version 6.5.2 (17th June 2021)</h3>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
 	<ul>

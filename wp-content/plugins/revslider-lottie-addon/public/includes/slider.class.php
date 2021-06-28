@@ -39,6 +39,18 @@ class RsLottieSliderFront extends RevSliderFunctions {
 	private function isEnabled($slider){
 		$slides = $slider->get_slides();
 		if(empty($slides)) return false;
+
+		$settings = $slider->get_params();
+		if(empty($settings)) return false;
+		
+		$addOns = $this->get_val($settings, 'addOns', false);
+		if(empty($addOns)) return false;
+		
+		$addOn = $this->get_val($addOns, 'revslider-' . $this->pluginTitle . '-addon', false);
+		if(empty($addOn)) return false;
+		
+		$enabled = $this->get_val($addOn, 'enable', false);
+		if($this->isFalse($enabled)) return false;
 		
 		$enabled = false;
 		foreach($slides as $slide){
@@ -53,6 +65,17 @@ class RsLottieSliderFront extends RevSliderFunctions {
 			}
 			
 			if($enabled) break;
+		}
+
+		// check static layers
+		$layers = $slider->get_static_slide()->get_layers();
+		if(!empty($layers)){
+			foreach($layers as $layer){
+				if($this->get_val($layer, 'subtype', false) === 'charts'){
+					$enabled = true;
+					break;
+				}
+			}
 		}
 		
 		return $enabled;
@@ -91,7 +114,7 @@ class RsLottieSliderFront extends RevSliderFunctions {
 		
 		$handle = 'rs-' . $this->pluginTitle . '-front';
 		$base = $this->pluginUrl . 'public/assets/';
-		$path = $base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js';
+
 		$_jsPathMin = file_exists(RS_LOTTIE_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
 		
 		wp_enqueue_style($handle, $base . 'css/revolution.addon.' . $this->pluginTitle . '.css', array(), $this->version);
@@ -123,7 +146,7 @@ class RsLottieSliderFront extends RevSliderFunctions {
 		
 		$global = $output->get_global_settings();
 		$addition = ($output->_truefalse($output->get_val($global, array('script', 'defer'), false)) === true) ? ' async="" defer=""' : '';
-		$_jsPathMin = file_exists(RS_FILMSTRIP_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
+		$_jsPathMin = file_exists(RS_LOTTIE_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
 		
 		$return['toload']['lottie'] = '<script'. $addition .' src="'. $this->pluginUrl . 'public/assets/js/lottie.min.js"></script>';
 		$return['toload']['lottiejs'] = '<script'. $addition .' src="'. $this->pluginUrl . 'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js"></script>';

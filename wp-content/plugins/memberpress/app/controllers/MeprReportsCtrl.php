@@ -90,7 +90,7 @@ class MeprReportsCtrl extends MeprBaseCtrl {
       $chart_data['rows'][] =
         array( 'c' =>
           array(
-            array('v' => $r->date, 'f' => null),
+            array('v' => date_i18n('M j', mktime(0, 0, 0, gmdate('n'), gmdate('j', strtotime($r->date)), gmdate('Y')), true), 'f' => null),
             array('v' => (int)$r->c, 'f' => null),
             array('v' => $tooltip_date."\n".__('Completed:', 'memberpress').' '.$currency_symbol.(float)$r->c, 'f' => null),
             array('v' => (int)$r->p, 'f' => null),

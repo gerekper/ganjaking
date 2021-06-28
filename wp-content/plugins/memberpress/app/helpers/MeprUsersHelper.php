@@ -83,6 +83,7 @@ class MeprUsersHelper {
     $required_attr = $line->required ? 'required' : '';
     $array_types = array( 'multiselect', 'checkboxes' ); //If we update this, we need make sure it doesn't break the {$usermeta:slug} stuff in MeprTransactionsHelper
     $bool_types  = array( 'checkbox' );
+    $classes = MeprHooks::apply_filters('mepr-custom-field-classes', $classes, $line);
 
     // Figure out what type we have here
     $is_array  = in_array( $line->field_type, $array_types );

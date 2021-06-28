@@ -1716,14 +1716,50 @@ class GF_Field extends stdClass implements ArrayAccess {
 	 * @return array|string
 	 */
 	public function get_value_default() {
+		if ( ! is_array( $this->inputs ) ) {
+			$default_value = $this->maybe_convert_choice_text_to_value( $this->defaultValue );
 
-		if ( is_array( $this->inputs ) ) {
-			$value = array();
-			foreach ( $this->inputs as $input ) {
-				$value[ strval( $input['id'] ) ] = $this->is_form_editor() ? rgar( $input, 'defaultValue' ) : GFCommon::replace_variables_prepopulate( rgar( $input, 'defaultValue' ) );
+			return $this->is_form_editor() ? $default_value : GFCommon::replace_variables_prepopulate( $default_value );
+		}
+
+		$value = array();
+
+		foreach ( $this->inputs as $input ) {
+			$default_value = $this->maybe_convert_choice_text_to_value( rgar( $input, 'defaultValue' ) );
+
+			$value[ strval( $input['id'] ) ] = $this->is_form_editor() ? $default_value : GFCommon::replace_variables_prepopulate( $default_value );
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Converts the default choice text to its corresponding value.
+	 *
+	 * For fields like dropdown, the user can enter the choice text or the choice value as the default value but we
+	 * should be always using the value for the default choice.
+	 *
+	 * If there are no choices or the value is already set as the default choice, this method returns the value. Otherwise,
+	 * it will return the value for any matching text choice it finds.
+	 *
+	 * @since 2.5
+	 *
+	 * @param string $value The default value.
+	 *
+	 * @return string The choice value.
+	 */
+	protected function maybe_convert_choice_text_to_value( $value ) {
+		if (
+			! is_array( $this->choices )
+			|| in_array( $value, array_column( $this->choices, 'value' ) )
+		) {
+			return $value;
+		}
+
+		foreach ( $this->choices as $choice ) {
+			if ( $choice['text'] === $value ) {
+				return $choice['value'];
 			}
-		} else {
-			$value = $this->is_form_editor() ? $this->defaultValue : GFCommon::replace_variables_prepopulate( $this->defaultValue );
 		}
 
 		return $value;

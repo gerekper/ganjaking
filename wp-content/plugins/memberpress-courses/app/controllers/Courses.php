@@ -270,7 +270,7 @@ class Courses extends lib\BaseCtrl {
       endforeach;
 
       \wp_enqueue_style('mpcs-classroom', base\CSS_URL . '/classroom.css', array(), base\VERSION);
-      \wp_enqueue_script('mpcs-classroom-js', base\JS_URL . '/classroom.js', array('jquery'), base\VERSION, true);
+      \wp_enqueue_script('mpcs-classroom-js', base\JS_URL . '/classroom.js', array('jquery'), base\VERSION);
       \wp_enqueue_style('mpcs-fontello-styles', base\FONTS_URL.'/fontello/css/mp-courses.css', array(), base\VERSION);
     }
 
@@ -300,6 +300,7 @@ class Courses extends lib\BaseCtrl {
     $user_id = \get_current_user_id();
     $transients = \get_option('mpcs-transients', array());
     $options = \get_option('mpcs-options');
+    $per_page = apply_filters('mpcs_courses_per_page', 6);
 
     //Get the Courses the user has Started
     if ( false == ( get_transient( 'mpcs_enrolled_courses_'.$user_id ) ) ) {
@@ -343,13 +344,15 @@ class Courses extends lib\BaseCtrl {
 
     // If 'My Courses' is clicked, show only courses the user has access to
     if('mycourses' === self::get_param('type')) {
-      if(empty($all_course_ids)) {
-        $all_course_ids = array (0); //Empty arrays apply no filter on get_posts
-      }
-
       //Get Courses User has access too
       if ( false == ( get_transient( 'mpcs_mycourses_'.$user_id ) ) ) {
         $mepr_user = new \MeprUser($user_id);
+
+        if(empty($all_course_ids)) {
+          $all_course_ids = array (0); //Empty arrays apply no filter on get_posts
+        }
+
+        $courses = get_posts(array('post_type' => models\Course::$cpt, 'posts_per_page' => -1, 'post__not_in' => $all_course_ids, 'orderby' => 'title', 'order' => 'ASC'));
 
         // Remove courses the user does not have access to
         if(false == \MeprUtils::is_logged_in_and_an_admin()){
@@ -376,7 +379,7 @@ class Courses extends lib\BaseCtrl {
     // Filter archive by allowed courses
     $query->set('post__in', $course_ids);
     $query->set('orderby', 'post__in');
-    $query->set('posts_per_page', 6);
+    $query->set('posts_per_page', $per_page);
 
     // Display only enabled courses in "All Courses" list
     if('mycourses' !== self::get_param('type')){

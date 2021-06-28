@@ -362,14 +362,6 @@ class GF_Field_CAPTCHA extends GF_Field {
 					GFCommon::log_error( __METHOD__ . sprintf( '(): reCAPTCHA secret keys not saved in the reCAPTCHA Settings (%s). The reCAPTCHA field will always fail validation during form submission.', admin_url( 'admin.php' ) . '?page=gf_settings&subview=recaptcha' ) );
 				}
 
-				$language     = empty( $this->captchaLanguage ) ? 'en' : $this->captchaLanguage;
-
-				// script is queued for the footer with the language property specified
-				wp_enqueue_script( 'gform_recaptcha', 'https://www.google.com/recaptcha/api.js?hl=' . $language . '&render=explicit', array(), false, true );
-
-				add_action( 'wp_footer', array( $this, 'ensure_recaptcha_js' ), 99 );
-				add_action( 'gform_preview_footer', array( $this, 'ensure_recaptcha_js' ), 99 );
-
 				$stoken = '';
 
 				if ( ! empty( $this->secret_key ) && ! empty( $secure_token ) && $this->use_stoken() ) {
@@ -481,34 +473,6 @@ class GF_Field_CAPTCHA extends GF_Field {
 
 	    return count( $pages ) + 1 === (int) $this->pageNumber;
     }
-
-	public function ensure_recaptcha_js(){
-		?>
-		<script type="text/javascript">
-			( function() {
-				function setCaptchaPostRenderListener() {
-					jQuery( document ).on( 'gform_post_render', init );
-				}
-				function init() {
-					setCaptchaPostRenderListener();
-					var gfRecaptchaPoller = setInterval( function() {
-						if ( ! window.grecaptcha || ! window.grecaptcha.render ) {
-							return;
-						}
-						renderRecaptcha();
-						clearInterval( gfRecaptchaPoller );
-					}, 100 );
-				}
-				if ( window.jQuery ) {
-					init();
-				} else {
-					gform.initializeOnLoaded( init );
-				}
-			} )();
-		</script>
-
-		<?php
-	}
 
 	public function get_captcha() {
 		if ( ! class_exists( 'ReallySimpleCaptcha' ) ) {

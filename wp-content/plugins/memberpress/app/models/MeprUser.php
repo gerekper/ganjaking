@@ -756,7 +756,7 @@ class MeprUser extends MeprBaseModel {
       $first_name = $this->first_name;
 
       /* translators: In this string, %s is the Blog Name/Title */
-      $subject = MeprHooks::apply_filters('mper_admin_pw_reset_title', sprintf(__("[%s] Password Lost/Changed", 'memberpress'), $mepr_blogname));
+      $subject = MeprHooks::apply_filters('mepr_admin_pw_reset_title', sprintf(__("[%s] Password Lost/Changed", 'memberpress'), $mepr_blogname));
 
       ob_start();
         MeprView::render('/emails/admin_password_reset', get_defined_vars());
@@ -770,7 +770,7 @@ class MeprUser extends MeprBaseModel {
       $recipient = $this->formatted_email();
 
       /* translators: In this string, %s is the Blog Name/Title */
-      $subject = MeprHooks::apply_filters('mper_user_pw_reset_title', sprintf(_x("[%s] Your new Password", 'ui', 'memberpress'), $mepr_blogname));
+      $subject = MeprHooks::apply_filters('mepr_user_pw_reset_title', sprintf(_x("[%s] Your new Password", 'ui', 'memberpress'), $mepr_blogname));
       $password_message = _x('', 'ui', 'memberpress');
 
 

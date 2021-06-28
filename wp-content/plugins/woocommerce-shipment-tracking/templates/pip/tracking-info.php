@@ -26,6 +26,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<em><?php echo esc_html( $item['tracking_number'] ); ?></em>
 	<br />
 	<?php /* translators: 1: date of shipping */ ?>
-	<span style="font-size: 0.8em"><?php echo esc_html( sprintf( __( 'Shipped on %s', 'woocommerce-shipment-tracking' ), date_i18n( 'Y-m-d', $item['date_shipped'] ) ) ); ?></span>
+	<span style="font-size: 0.8em"><?php echo esc_html( sprintf( __( 'Shipped on %s', 'woocommerce-shipment-tracking' ), date_i18n( wc_date_format(), $item['date_shipped'] ) ) ); ?></span>
 </p>
 <?php endforeach; ?>

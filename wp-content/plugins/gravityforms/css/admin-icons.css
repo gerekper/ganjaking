@@ -141,10 +141,10 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 @font-face {
 	font-family: 'gform-icons-admin';
 	src:
-		url('../fonts/gform-icons-admin.woff2?9c4z3x') format('woff2'),
-		url('../fonts/gform-icons-admin.ttf?9c4z3x') format('truetype'),
-		url('../fonts/gform-icons-admin.woff?9c4z3x') format('woff'),
-		url('../fonts/gform-icons-admin.svg?9c4z3x#gform-icons-admin') format('svg');
+		url('../fonts/gform-icons-admin.woff2?nyty11') format('woff2'),
+		url('../fonts/gform-icons-admin.ttf?nyty11') format('truetype'),
+		url('../fonts/gform-icons-admin.woff?nyty11') format('woff'),
+		url('../fonts/gform-icons-admin.svg?nyty11#gform-icons-admin') format('svg');
 	font-weight: normal;
 	font-style: normal;
 	font-display: block;
@@ -168,6 +168,10 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 
 .gform-icon--chained-selects:before {
 	content: "\e91a";
+}
+
+.gform-icon--akismet:before {
+	content: "\e98b";
 }
 
 .gform-icon--credit-card:before {
@@ -280,6 +284,14 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 
 .gform-icon--chevron:before {
 	content: "\e911";
+}
+
+.gform-icon--circle-arrow-down:before {
+	content: "\e989";
+}
+
+.gform-icon--circle-delete:before {
+	content: "\e98a";
 }
 
 .gform-icon--clever-reach:before {

@@ -1,14 +1,14 @@
-jQuery( document ).ready( function() {
-	window.setTimeout( function() {
-		gform_initialize_tooltips();
-	}, 0 );
+jQuery( function() {
+	gform_initialize_tooltips();
 } );
 
 function gform_initialize_tooltips() {
-	var hasScrollbars = gform_system_shows_scrollbars();
-	var offset        = hasScrollbars ? 'center+11 top-11' : 'center-3 top-11';
+	var $tooltips = jQuery( '.gf_tooltip' );
+	if ( ! $tooltips.length ) {
+		return;
+	}
 
-	jQuery( '.gf_tooltip' ).tooltip( {
+	$tooltips.tooltip( {
 		show: {
 			effect: 'fadeIn',
 			duration: 200,
@@ -16,7 +16,7 @@ function gform_initialize_tooltips() {
 		},
 		position:     {
 			my: 'center bottom',
-			at: offset,
+			at: 'center-3 top-11',
 		},
 		tooltipClass: 'arrow-bottom',
 		items: '[aria-label]',
@@ -28,7 +28,14 @@ function gform_initialize_tooltips() {
 				return false;
 			}
 
-			var $id = jQuery( ui.tooltip ).attr( 'id' );
+			// set the tooltip offset on reveal based on tip width and offset of trigger to handle dynamic changes in overflow
+			setTimeout( function() {
+				var leftOffset = ( this.getBoundingClientRect().left - ( ( ui.tooltip[0].offsetWidth / 2 ) - 5 ) ).toFixed(3);
+				ui.tooltip.css( 'left', leftOffset + 'px' );
+			}.bind( this ), 100 );
+
+
+			var $id = ui.tooltip.attr( 'id' );
 			jQuery( 'div.ui-tooltip' ).not( '#' + $id ).remove();
 		},
 		close:        function ( event, ui ) {
@@ -55,6 +62,8 @@ function gform_system_shows_scrollbars() {
 	document.body.appendChild(parent);
 
 	var scrollbarWidth = 30 - parent.firstChild.clientWidth;
+
+	document.body.removeChild(parent);
 
 	return scrollbarWidth ? true : false;
 }

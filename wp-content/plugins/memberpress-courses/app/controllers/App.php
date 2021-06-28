@@ -549,6 +549,8 @@ class App extends lib\BaseCtrl {
 
     if(!isset($post->ID) || !$post->ID) { return $title; }
 
+    if(!in_the_loop()) { return $title; }
+
     if(strpos($title, 'mpcs-lock') !== false) { return $title; } //Already been here?
 
     if(\MeprRule::is_locked($post) && helpers\Courses::is_course_archive()) {
