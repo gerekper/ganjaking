@@ -344,13 +344,16 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			 * 4. Auto-remove removed term custom URI & redirects (works if enabled in plugin settings)
 			 */
 			if(!empty($broken_uri) && (!empty($permalink_manager_options['general']['auto_remove_duplicates'])) && $permalink_manager_options['general']['auto_remove_duplicates'] == 1) {
-				$broken_element_id = (!empty($revision_id)) ? $revision_id : $element_id;
-				$remove_broken_uri = Permalink_Manager_Actions::force_clear_single_element_uris_and_redirects($broken_element_id);
+				// Do not trigger if WP Rocket cache plugin is turned on
+				if(!defined('WP_ROCKET_VERSION')) {
+					$broken_element_id = (!empty($revision_id)) ? $revision_id : $element_id;
+					$remove_broken_uri = Permalink_Manager_Actions::force_clear_single_element_uris_and_redirects($broken_element_id);
 
-				// Reload page if success
-				if($remove_broken_uri && !headers_sent()) {
-					header("Refresh:0");
-					exit();
+					// Reload page if success
+					if($remove_broken_uri && !headers_sent()) {
+						header("Refresh:0");
+						exit();
+					}
 				}
 			}
 

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composited Products AJAX Handlers.
  *
  * @class    WC_CP_AJAX
- * @version  6.2.3
+ * @version  8.1.4
  */
 class WC_CP_AJAX {
 
@@ -62,6 +62,7 @@ class WC_CP_AJAX {
 		$product = wc_get_product( $composite_id );
 
 		$query_args = array(
+			'doing_ajax'      => true,
 			'selected_option' => $selected_option,
 			'load_page'       => $load_page,
 		);

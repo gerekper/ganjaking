@@ -48,6 +48,8 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
+		
+		Af_Logger::debug('Checking multiple order rule');
 		global $wpdb;
 
 		// Default risk is false
@@ -112,7 +114,7 @@ class WC_AF_Rule_Ip_Multiple_Order_Details extends WC_AF_Rule {
 			}
 
 		}
-
+		Af_Logger::debug('multiple order rule risk : ' . ( $risk===true ? 'true' : 'false' ));
 		return $risk;
 	}
 	//Enable rule check

@@ -29,6 +29,8 @@ class WC_AF_Rule_First_Order_Processing extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
+		
+		Af_Logger::debug('Checking first order processing rule');
 		global $wpdb;
 		$risk = false;
 		$order_amount =  $wpdb->get_var($wpdb->prepare( "SELECT COUNT(P.ID)
@@ -55,7 +57,8 @@ class WC_AF_Rule_First_Order_Processing extends WC_AF_Rule {
 			$risk = true;
 			
 		}
-
+		
+		Af_Logger::debug('first order processing rule risk : ' . ( $risk===true ? 'true' : 'false' ));
 		return $risk;
 	
 	}

@@ -27,6 +27,7 @@ class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
+		Af_Logger::debug('Checking detect proxy rule');
 		global $wpdb;
 		//$ip = WC_AF_Score_Helper::get_ip_address();
 		$data = $order->get_id();
@@ -58,15 +59,16 @@ class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 
 					if ($res->vpn_or_proxy == 'yes') {
 
-						$risk = true;
+						$risk = true;						
 					}
 				}
 				
-				// Here we can create a log entry in future, whenever required. We can write the complete $res object in that log.	
+				// Here we can create a log entry in future, whenever required. We can write the complete $res object in that log.
+				Af_Logger::debug(print_r($res,true));	
 			}			    
 			
 		}
-
+		Af_Logger::debug('detect proxy rule risk : ' . ( $risk===true ? 'true' : 'false' ));
 		return $risk;
 	}
 	

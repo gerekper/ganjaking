@@ -1,9 +1,9 @@
 # Copyright (C) 2017 Ademti Software Ltd.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce MSRP Pricing 3.3.1\n"
+"Project-Id-Version: WooCommerce MSRP Pricing 3.4.0\n"
 "Report-Msgid-Bugs-To: https://www.ademti-software.co.uk/contact\n"
-"POT-Creation-Date: 2021-06-01 14:49:45+00:00\n"
+"POT-Creation-Date: 2021-06-29 14:53:40+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: templates/product_addon_option_heading_v2.php:6
 #: templates/product_addon_option_heading_v3.php:6
-#: woocommerce-msrp-admin.php:116
+#: woocommerce-msrp-admin.php:109
 msgid "MSRP"
 msgstr ""
 
@@ -40,67 +40,67 @@ msgstr ""
 msgid "Clear MSRP prices"
 msgstr ""
 
-#: templates/variation_show_fields.php:7 woocommerce-msrp-admin.php:152
+#: templates/variation_show_fields.php:7 woocommerce-msrp-admin.php:145
 msgid "MSRP Price"
 msgstr ""
 
-#: woocommerce-msrp-admin.php:87
+#: woocommerce-msrp-admin.php:80
 msgid "MSRP pricing options"
 msgstr ""
 
-#: woocommerce-msrp-admin.php:90
+#: woocommerce-msrp-admin.php:83
 msgid "Options controlling when, and how to display MSRP pricing"
 msgstr ""
 
-#: woocommerce-msrp-admin.php:94
+#: woocommerce-msrp-admin.php:87
 msgid "Show MSRP Pricing?"
 msgstr ""
 
-#: woocommerce-msrp-admin.php:95
+#: woocommerce-msrp-admin.php:88
 msgid "Choose when to display MSRP prices."
 msgstr ""
 
-#: woocommerce-msrp-admin.php:102
+#: woocommerce-msrp-admin.php:95
 msgid "Always show MSRP"
 msgstr ""
 
-#: woocommerce-msrp-admin.php:103
+#: woocommerce-msrp-admin.php:96
 msgid "Show if different from your price"
 msgstr ""
 
-#: woocommerce-msrp-admin.php:104
+#: woocommerce-msrp-admin.php:97
 msgid "Show if your price is lower than the MSRP"
 msgstr ""
 
-#: woocommerce-msrp-admin.php:105
+#: woocommerce-msrp-admin.php:98
 msgid "Never show MSRP"
 msgstr ""
 
-#: woocommerce-msrp-admin.php:111
+#: woocommerce-msrp-admin.php:104
 msgid "MSRP Labelling"
 msgstr ""
 
-#: woocommerce-msrp-admin.php:112
+#: woocommerce-msrp-admin.php:105
 msgid "MSRP prices will be labelled with this description"
 msgstr ""
 
-#: woocommerce-msrp-admin.php:122
+#: woocommerce-msrp-admin.php:115
 msgid "Show savings?"
 msgstr ""
 
-#: woocommerce-msrp-admin.php:123
+#: woocommerce-msrp-admin.php:116
 msgid "Whether to show the saving against MSRP"
 msgstr ""
 
-#: woocommerce-msrp-admin.php:131
+#: woocommerce-msrp-admin.php:124
 msgid "No"
 msgstr ""
 
-#: woocommerce-msrp-admin.php:132
+#: woocommerce-msrp-admin.php:125
 msgid "As a monetary amount"
 msgstr ""
 
-#: woocommerce-msrp-admin.php:133
+#: woocommerce-msrp-admin.php:126
 msgid "As a percentage"
 msgstr ""
 
@@ -129,16 +129,11 @@ msgstr ""
 msgid "You save up to %1$s"
 msgstr ""
 
-#: woocommerce-msrp-frontend.php:740
-#. translators: %1$s is the MSRP label, and %2$s is the MSRP value.
-msgid "%1$s: %2$s"
-msgstr ""
-
 #: woocommerce-msrp-import-export.php:69
 msgid "MSRP price"
 msgstr ""
 
-#: woocommerce-msrp-woocommerce-product-feeds-integration.php:20
+#: woocommerce-msrp-woocommerce-product-feeds-integration.php:19
 msgid "MSRP from MSRP Pricing extension"
 msgstr ""
 
@@ -175,4 +170,34 @@ msgstr ""
 #. respectively.
 msgctxt "First arg is lowest MSRP price for variables, second is the highest"
 msgid "%1$s - %2$s"
+msgstr ""
+
+#: woocommerce-msrp-frontend.php:454
+#. translators: %1$s is the MSRP label, %2$s is the MSRP price with savings
+msgctxt "MSRP output for variable products"
+msgid "%1$s: %2$s"
+msgstr ""
+
+#: woocommerce-msrp-frontend.php:500
+#. translators: %1$s is the MSRP label, %2$s is the MSRP price with savings
+msgctxt "MSRP output for non-variable products"
+msgid "%1$s: %2$s"
+msgstr ""
+
+#: woocommerce-msrp-frontend.php:732
+#. translators: %1$s is the MSRP label, %2$s is the MSRP price value.
+msgctxt "MSRP for product add-ons without options"
+msgid "(%1$s: %2$s)"
+msgstr ""
+
+#: woocommerce-msrp-frontend.php:760
+#. translators: %1$s is the MSRP label, and %2$s is the MSRP value.
+msgctxt "MSRP price for product add-ons with options"
+msgid "%1$s: %2$s"
+msgstr ""
+
+#: woocommerce-msrp-frontend.php:772
+#. translators: %1$s is the MSRP label, and %2$s is the MSRP value.
+msgctxt "MSRP price for drop-down product add-ons"
+msgid "%1$s: %2$s"
 msgstr ""

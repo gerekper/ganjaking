@@ -4,8 +4,8 @@ Donate link: https://wpmanageninja.com/downloads/ninja-tables-pro-add-on/
 Tags:  table, Data Tables, WP Data tables, WordPress table Plugin, Table Grid, wp table, datatables plugin, csv data, TablePress Migration, Footable Plugin, Tablular Data, stackable table, spreadsheet data, Woo Commerce Product Table, Amazon Affiliate Table, bootstrap table
 Requires at least: 4.5
 Requires PHP: 5.4 or greater
-Tested up to: 5.5.3
-Stable tag: 4.1.5
+Tested up to: 5.7.2
+Stable tag: 4.1.6
 
 == Description ==
 
@@ -28,6 +28,19 @@ Manual Install:
 Upload the plugin files to the /wp-content/plugins/ directory, then activate the plugin.
 
 == Changelog ==
+
+=4.1.6 (Date: Jun 28, 2021)
+- Fixes CSV export & Print issue in frontend
+- Fixes transform value reference shortcode
+- Fixes filter table data print issue in frontend
+- Fixes advance shortcode filters for filter_selects in frontend
+- Fixes searcher flick issue in frontend
+- Fixes large data loading table hide issue in frontend
+- Fixes custom filter checkbox & select strict mode issue in frontend
+- Fixes custom filter issue for special character in frontend
+- Fixes custom filter number range input value issue in frontend
+- Fixes  custom filter manual data multiselect table hide issue in mobile device
+- Fixes special character sorting issue
 
 =4.1.5 (Date: Feb 13, 2021)
 - Improves formula support for European numbers.
@@ -62,7 +75,7 @@ Upload the plugin files to the /wp-content/plugins/ directory, then activate the
 - Adds Jetpack lazy image compatibility.
 - Adds Fluent Form meta fields to display.
 - Adds cart and checkout button customization.
-- Adds batch isert for CSV to avoid PHP memory issue.
+- Adds batch insert for CSV to avoid PHP memory issue.
 - Adds filters and search to be included in Print page.
 - Adds removing image option in both backend and frontend.
 - Adds all chunk data loaded hook for frontend ('ninja_table_all_chunk_loaded'').
@@ -112,19 +125,19 @@ Upload the plugin files to the /wp-content/plugins/ directory, then activate the
 
 =3.5.7 (Date: Aug 28, 2019)
 - All Accessibility Issues fixed so far (y)
-- Google Sheet integration imroved
+- Google Sheet integration improved
 - SKU field added to WooCommerce integration
 - Added advanced shortcode to Posts and WooCoomerce
-- Added Remote SQL COnnection
+- Added Remote SQL Connection
 - Frontend editing image disapear issue fixed
-- Spinner effect for legacy mode (Configrable)
+- Spinner effect for legacy mode (Configurable)
 - Added Print Header and Footer
 - Improvement on integrations
 - Filtering issue fixed for number range
 - Date format bug fixed
 - Spinner effect improved
 - PHP warning fixed
-- Added filter and improvemts
+- Added filter and improvements
 - Number data type UX improved
 
 =3.5.5 (Date: June 20, 2019)
@@ -143,7 +156,7 @@ Upload the plugin files to the /wp-content/plugins/ directory, then activate the
 - Added Image Type Data Field
 - Added Built in lightbox
 - Added Button Type Box
-- Added Excel Formullas
+- Added Excel Formulas
 - Added Many new features
 - Added Inline editing
 
@@ -177,14 +190,14 @@ Upload the plugin files to the /wp-content/plugins/ directory, then activate the
 * Add Cell level Color Customization
 * Add Features for advanced Filter Customizations
 * Improved Table Import Export Feature
-* Added Global JS error handling. Now Ninja table will be initiazed if other plugin throw JS error on front end.
+* Added Global JS error handling. Now Ninja table will be initialized if other plugin throw JS error on front end.
 * Added Advanced Css Classes for Table rows to styling.
 * Improve overall Admin UI
 * Added Performance improvement to load lots of data on frontend
 
 3.1.0 ( December 24, 2018 )
 * Added Stackable Table UI
-* Added Default Table Configration Option
+* Added Default Table Configuration Option
 * Fix Intro Screen
 * Improve Table UI
 * Improve overall Admin UI
@@ -200,19 +213,19 @@ Upload the plugin files to the /wp-content/plugins/ directory, then activate the
  - Fix licensing issue
 
 3.0.3 ( November 19, 2018 )
- - Added Lots of Improvments
+ - Added Lots of Improvements
  - Added Remote CSV File Connection
  - Added Google Sheet Connection
  - Added WP Posts Table
 
 
 2.4.0 ( October 05, 2018 )
- - Added Lots of Improvments
- - Added Custom Filtes
+ - Added Lots of Improvements
+ - Added Custom Filters
  - Brand New UI and UX
 
 2.3.1 ( August 19, 2018 )
- - Added Lots of Improvments
+ - Added Lots of Improvements
 
 2.2.1 ( June 19, 2018 )
  - Fix License Server Issue for some hosts

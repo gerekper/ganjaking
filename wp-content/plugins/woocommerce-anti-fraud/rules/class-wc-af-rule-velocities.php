@@ -47,6 +47,8 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
+		
+		Af_Logger::debug('Checking velocities rule');
 		global $wpdb;
 
 		// Default risk is false
@@ -95,7 +97,8 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 		if ( count( $velocities_orders ) >= $this->max_orders ) {
 			$risk = true;
 		}
-
+		
+		Af_Logger::debug('velocities rule risk : '. ( $risk===true ? 'true' : 'false' ));
 		return $risk;
 	}
 	//Enable rule check

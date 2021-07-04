@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Dropshipping
  * Plugin URI: http://woocommerce.com/products/woocommerce-dropshipping/
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
- * Version: 3.0
+ * Version: 3.1
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.com.au/
  * Developer: OPMC
@@ -52,7 +52,7 @@ if ( ! function_exists( 'wcbd_allow_url_fopen' ) ) {
 	function wcbd_allow_url_fopen() {
 
 		/* translators: 1: href link to Fileinfo extension php doc */
-		echo '<div class="notice"><p>' . sprintf( __( 'WooCommerce Dropshipping requires %s to be installed on your server.', 'woocommerce-Dropshipping' ), '<a href="https://www.php.net/manual/en/filesystem.configuration.php#ini.allow-url-fopen" target="_blank">allow_url_fopen </a>extension' ) . '</p></div>';
+		echo '<div class="notice"><p>' . sprintf( __( 'WooCommerce Dropshipping requires %s to be installed on your server.', 'woocommerce-dropshipping' ), '<a href="https://www.php.net/manual/en/filesystem.configuration.php#ini.allow-url-fopen" target="_blank">allow_url_fopen </a>extension' ) . '</p></div>';
 
 	}
 }
@@ -113,6 +113,7 @@ final class WC_Dropshipping {
 	}
 
 	public function init () {
+		load_plugin_textdomain( 'woocommerce-dropshipping', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		do_action( 'wc_dropship_manager_init' );
 		if ( is_admin() ) {
 			require_once('inc/class-wc-dropshipping-admin.php');
@@ -175,7 +176,7 @@ final class WC_Dropshipping {
 		 if ( basename( plugin_dir_path( __FILE__ ) ) . '/woocommerce-dropshipping.php' === $plugin_file ) {
 			 	$new_actions[ 'wc_dropship_settings' ] = '<a href="/wp-admin/admin.php?page=wc-settings&tab=email&section=dropship_manager">' . __( 'Settings', 'woocommerce-dropshipping' ) . '</a>'; $new_actions[ 'wc_dropship_docs' ] = '<a target="_blank" href="https://docs.woocommerce.com/document/woocommerce-dropshipping/">' . __( 'Docs', 'woocommerce-dropshipping' ) . '</a>';
 			}
-			
+
 		 	return array_merge( $new_actions, $actions );
 		 }
 

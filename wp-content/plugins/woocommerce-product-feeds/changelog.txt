@@ -1,5 +1,12 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2021.06.24 - version 10.1.2
+* Fix: Database upgrades didn't always run when upgrading between versions
+* Fix: Correct currency not always applied with recent versions of WooCommerce Multicurrency
+* Change: Updates to bundled libraries
+* Change: "Send item group ID" defaults on for new installs
+* Change: Remove legacy update code
+
 2021.06.16 - version 10.1.1
 * Fix: Resolve issue where availability not always sent in feed.
 

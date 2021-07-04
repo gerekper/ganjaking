@@ -1,5 +1,7 @@
 <?php namespace NinjaTablesPro;
 
+use NinjaTables\Classes\ArrayHelper;
+
 class Position
 {
     /**
@@ -10,8 +12,7 @@ class Position
      */
     public static function make($attributes)
     {
-        $tableId = $attributes['table_id'];
-
+        $tableId = ArrayHelper::get($attributes, 'table_id');
         // If position is provided from the client then it is safe
 	    // to assume that the data is migrated for the table
         if (isset($_REQUEST['position'])) {

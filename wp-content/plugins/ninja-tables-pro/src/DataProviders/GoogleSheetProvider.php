@@ -30,9 +30,11 @@ class GoogleSheetProvider
         $url = $this->sanitizeGoogleUrl($url);
         try {
             $dom = new \DomDocument;
+            libxml_use_internal_errors(true);
             $dom->preserveWhiteSpace = false;
             $dom->encoding = 'UTF-8';
             $dom->loadHTML('<?xml encoding="utf-8" ?>'.$this->getRemoteContents($url));
+            libxml_clear_errors();
             $xpath = new \DomXPath($dom);
 
             $columns = [];
@@ -88,9 +90,11 @@ class GoogleSheetProvider
         $columns = [];
         try {
             $dom = new \DomDocument();
+            libxml_use_internal_errors(true);
             $dom->preserveWhiteSpace = false;
             $dom->encoding = 'UTF-8';
             $dom->loadHTML('<?xml encoding="utf-8" ?>'.$this->getRemoteContents($url));
+            libxml_clear_errors();
             $xpath = new \DomXPath($dom);
             $columns = [];
             $allRows = $xpath->query('//table//tbody//tr');

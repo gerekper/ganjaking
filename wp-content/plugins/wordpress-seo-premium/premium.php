@@ -12,11 +12,6 @@ use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper;
 use Yoast\WP\SEO\Presenters\Admin\Help_Link_Presenter;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
 
-if ( ! defined( 'WPSEO_PREMIUM_VERSION' ) ) {
-	header( 'HTTP/1.0 403 Forbidden' );
-	die;
-}
-
 /**
  * Class WPSEO_Premium
  */
@@ -34,7 +29,7 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	const PLUGIN_VERSION_NAME = '16.5';
+	const PLUGIN_VERSION_NAME = '16.6';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.
@@ -77,7 +72,9 @@ class WPSEO_Premium {
 
 		// Enable tracking.
 		if ( class_exists( WPSEO_Options::class ) ) {
+			WPSEO_Premium_Option::register_option();
 			WPSEO_Options::set( 'tracking', true );
+			WPSEO_Options::set( 'should_redirect_after_install', true );
 		}
 
 		\do_action( 'wpseo_register_capabilities_premium' );
@@ -396,7 +393,7 @@ class WPSEO_Premium {
 		$submenu_pages[] = [
 			'wpseo_dashboard',
 			'',
-			__( 'Redirects', 'wordpress-seo-premium' ),
+			__( 'Redirects', 'wordpress-seo-premium' ) . ' <span class="yoast-badge yoast-premium-badge"></span>',
 			'wpseo_manage_redirects',
 			'wpseo_redirects',
 			[ $this->redirects, 'display' ],

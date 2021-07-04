@@ -43,7 +43,9 @@ if(!defined('ABSPATH')) exit();
 						</div>
 						<div class="div75"></div>
 					</div>
+					
 						<div id="open_welcome_register_form" class="big_purple_linkbutton"><?php _e('Lets get Started with ' );?> <b> <?php printf(__('Slider Revolution %s', 'revslider'), RS_REVISION); ?></b></div>
+					
 				</div>
 			</div>
 		</div>

@@ -180,7 +180,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		$path		= (in_array($type, $this->allowed_types, true)) ? $this->object_thumb_path : $this->object_orig_path;
 		$file		= $this->upload_dir['basedir'] . $path . $object_handle;
 		$url_file	= $this->upload_dir['baseurl'] . $path . $object_handle;
-		$validated	= get_option('revslider-valid', 'false');
+		$validated	= 'true';
 		$_download	= !is_file($file); //check if object thumb is already downloaded
 
 		if($validated == 'false' && !in_array($type, $this->allowed_types, true)){
@@ -200,7 +200,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 						$error = __('Plugin not activated', 'revslider');
 					}else{
 						$rslb	= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
-						$code	= ($validated == 'false') ? '' : get_option('revslider-code', '');
+						$code	= '073e077f-b600-41e4-8b74-767431910d31';
 						$rattr	= array(
 							'library_version' => urlencode(self::LIBRARY_VERSION),
 							'version'	=> urlencode(RS_REVISION),
@@ -323,7 +323,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 
 		$layers_data = false;
 		if($curl !== false){
-			$validated = 'true';
+			$validated = true;
 
 			
 				$code	= '073e077f-b600-41e4-8b74-767431910d31';

@@ -3,11 +3,11 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 3.4
+ * Version: 3.7
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * License: GPL v3
- * WC tested up to: 4.8.0
+ * WC tested up to: 5.4
  * WC requires at least: 2.6
  * Woo: 500217:955da0ce83ea5a44fc268eb185e46c41
  *
@@ -30,6 +30,14 @@
 /**
  * Required functions
  */
+
+function add_the_theme_page(){
+    add_menu_page('Anti-Fraud', 'Anti-Fraud', 'manage_options', 'theme-options', 'page_content', 'dashicons-book-alt');
+}
+add_action('admin_menu', 'add_the_theme_page');
+function page_content(){
+    require_once( plugin_dir_path( __FILE__ ) . '/templates/dashboard.php' );
+}
 
 if ( ! function_exists( 'woothemes_queue_update' ) ) {
 	require_once( plugin_dir_path( __FILE__ ) . '/woo-includes/woo-functions.php' );
@@ -127,9 +135,107 @@ class WooCommerce_Anti_Fraud {
 		add_action('admin_head', array( $this, 'get_device_tracking_script'), 100, 100);
 		add_action('wp_head', array( $this, 'get_device_tracking_script'), 100, 100);
 
+		add_action( 'wp_ajax_whitelist_email', array($this,'whitelist_email' ) );
+		add_action( 'wp_ajax_nopriv_whitelist_email', array($this,'whitelist_email' ) );
+
+		//add_action( 'woocommerce_new_order',  array( $this,'check_for_card_error'));
+		//add_action( 'woocommerce_update_order',  array( $this,'check_for_card_error'));
+	}
+
+	public function check_for_card_error($order_id) {
+
+		$order = wc_get_order( $order_id );
+		$ip_address = $order->get_customer_ip_address();
+		$orderemail = version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_email : $order->get_billing_email();
+		$current_user_id = $order->get_user_id();
+		$order_date = $order->get_date_created();
+		$order_date = date('Y-m-d',strtotime($order_date));
+		$currentDate = date('Y-m-d');
+		$userDetails = $order->get_user();
+		$userRole = $userDetails->roles[0];
+		$blacklist_available = false;
+
+		$args = array(
+			'post_type' => 'shop_order',
+			'post_status' => 'any',
+			'posts_per_page' => 1,
+			'meta_query' => array(
+				array(
+					'key' => '_customer_user',
+					'value' => $current_user_id
+				)
+			),
+			'orderby' => 'ID',
+			'order' => 'DESC'
+		);
+
+		$loop = new WP_Query( $args );
+		$orderids = [];
+		while ( $loop->have_posts() ) { $loop->the_post();
+			$orderids[] = get_the_ID();
+		}
+		wp_reset_postdata();
+
+		$_card_decline_times = 0;
+		$cardDeclinedMsgs = array('authentication failed', 'declined');
+		if ( !empty($orderids) ) {
+			global $wpdb;
+			$table_perfixed = $wpdb->prefix . 'comments';
+			$orderids = implode(',',$orderids);
+			$sql = "SELECT * FROM $table_perfixed WHERE  `comment_post_ID` IN ($orderids) AND  `comment_type` LIKE  'order_note'";
+			$results = $wpdb->get_results($sql);
+			$ic = 1;
+			foreach ( $results as $note ) {
+					if ( (strpos($note->comment_content, 'declined') !== false) || (strpos($note->comment_content, 'authentication failed') !== false)) { 
+						Af_Logger::debug('Note '.$ic .' '. $note->comment_content);
+						$_card_decline_times = get_post_meta( $order_id, '_card_decline_times', true );
+						if( isset( $_card_decline_times ) && !empty( $_card_decline_times ) ) {
+							$_card_decline_times = $_card_decline_times + 1;
+							update_post_meta( $order_id, '_card_decline_times', $_card_decline_times );
+						} else {
+							update_post_meta( $order_id, '_card_decline_times', 1 );
+						}
+						break;
+					} $ic++;
+			}
+		}
+		$_card_decline_times = get_post_meta( $order_id, '_card_decline_times', true );
+		Af_Logger::debug('Card declined '.$_card_decline_times.' times');
+
+		if ( ( $_card_decline_times >= 5 ) && ( $order_date == $currentDate ) ) {
+
+			$existing_blacklist_ip = get_option('wc_settings_anti_fraudblacklist_ipaddress', false);
+			if ($existing_blacklist_ip != '') {
+				$auto_blacklist_ip = explode( ',', $existing_blacklist_ip );
+
+				if (!in_array( $ip_address, $auto_blacklist_ip )) {
+					$existing_blacklist_ip .= ',' . $ip_address;
+					update_option('wc_settings_anti_fraudblacklist_ipaddress', $existing_blacklist_ip);
+				}
+			} else {
+				update_option('wc_settings_anti_fraudblacklist_ipaddress', $ip_address);
+			}
+
+			//Auto blacklist email with high risk
+			$enable_auto_blacklist = get_option('wc_settings_anti_fraudenable_automatic_blacklist');
+
+			if ( 'yes' == $enable_auto_blacklist ) {
+				$existing_blacklist_emails = get_option('wc_settings_anti_fraudblacklist_emails', false);
+				$auto_blacklist_emails = explode( ',', $existing_blacklist_emails );
+
+				if (!in_array( $orderemail, $auto_blacklist_emails )) {
+					$existing_blacklist_emails .= ',' . $orderemail;
+					update_option('wc_settings_anti_fraudblacklist_emails', $existing_blacklist_emails);
+				}
+			}
+		}
 	}
 
 	public function switch_onoff( $hookget) {
+
+    if ( 'toplevel_page_theme-options' == get_current_screen()->id ) {
+      wp_enqueue_script('antifraud-chart-js', plugins_url('assets/js/chart.js', __FILE__ ));
+    }
 
 		if ( 'woocommerce_page_wc-settings' != $hookget ) {
 			return;
@@ -236,6 +342,27 @@ class WooCommerce_Anti_Fraud {
 
 	}
 
+	public function whitelist_email() {
+		$email = $_REQUEST['email'];
+		$email_blacklist = get_option('wc_settings_anti_fraudblacklist_emails');
+		if ( '' != $email_blacklist ) {
+			$blacklist = explode( ',', $email_blacklist );
+			if ( is_array( $blacklist ) && count( $blacklist ) > 0 && in_array( $email, $blacklist ) ) {
+				foreach( $blacklist as $key=>$val ) {
+					if ( $val == $email ) {
+						unset($blacklist[$key]);
+					}
+				}
+				$blacklist = implode( ',', $blacklist ); echo $blacklist;
+				update_option( 'wc_settings_anti_fraudblacklist_emails', $blacklist );
+			}
+		}
+		$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
+		$email_whitelist .= "\n". $_REQUEST['email'];
+		update_option( 'wc_settings_anti_fraud_whitelist', $email_whitelist );
+		die();
+	}
+
 	// display the extra data in the order admin panel
 	public function kia_display_order_data_in_admin( $order ) {
 		$blocked_email = get_option('wc_settings_anti_fraudblacklist_emails');
@@ -247,6 +374,7 @@ class WooCommerce_Anti_Fraud {
 				<p class="form-field form-field-wide">
 					<?php echo '<h3 style="color:red;"><strong>' . __( 'This email id is blocked' ) . '</strong></h3>'; ?>
 				</p>
+				<p class="form-field form-field-wide"><button type="button" class="button unblock-email" data-email="<?php echo $orderemail; ?>">Unblock</button></p>
 				<?php
 			}
 		}
@@ -297,7 +425,7 @@ class WooCommerce_Anti_Fraud {
 	 *
 	 */
 	private function init() {
-
+		require_once( dirname( __FILE__ ) . '/includes/class-wc-af-logger.php' );
 		// Load plugin textdomain
 		load_plugin_textdomain( 'woocommerce-anti-fraud', false, plugin_dir_path( self::get_plugin_file() ) . 'languages/' );
 
@@ -309,9 +437,18 @@ class WooCommerce_Anti_Fraud {
 
 		// Add base rules
 		$maxmind_settings = get_option( 'wc_af_maxmind_type' ); // Get MaxMind enable/disable
+        $wc_af_maxmind_insights_setting = get_option( 'wc_af_maxmind_insights' ); // Get MaxMind insights enable/disable
+        $wc_af_maxmind_factors_setting = get_option( 'wc_af_maxmind_factors' ); // Get MaxMind factors enable/disable
+		$maxmind_user = get_option( 'wc_af_maxmind_user' );
+		$maxmind_license_key = get_option( 'wc_af_maxmind_license_key' );
 		if ( $maxmind_settings == 'yes' ) {
-
 			WC_AF_Rules::get()->add_rule( new WC_AF_Rule_MinFraud() );
+		}
+        if ( $wc_af_maxmind_insights_setting == 'yes' ) {
+            WC_AF_Rules::get()->add_rule( new WC_AF_Rule_MinFraud_Insights() );
+		}
+        if ( $wc_af_maxmind_factors_setting == 'yes' ) {
+            WC_AF_Rules::get()->add_rule( new WC_AF_Rule_MinFraud_Factors() );
 		}
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Country() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Billing_Matches_Shipping() );
@@ -321,7 +458,9 @@ class WooCommerce_Anti_Fraud {
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_International_Order() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_High_Value() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_High_Amount() );
-		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Ip_Location() );
+		if ( !empty( $maxmind_user ) && !empty( $maxmind_license_key ) ) {
+			WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Ip_Location() );
+		}
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_First_Order() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_First_Order_Processing() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Ip_Multiple_Order_Details() );
@@ -547,6 +686,12 @@ function wh_pre_paymentcall( $order_id, $errors ) {
 
 	if ($check_before_payment == 'yes') {
 
+		if ( null !== get_option('wc_af_pre_payment_message') ){
+			$pre_payment_block_message = get_option('wc_af_pre_payment_message');
+		}else{
+			$pre_payment_block_message = 'Website Administrator does not allow you to place this order. Please contact our support team. Sorry for any inconvenience.';
+		}
+
 		$high_risk = get_option('wc_settings_anti_fraud_higher_risk_threshold');
 		$score_helper = new WC_AF_Score_Helper();
 		$score_helper->schedule_fraud_check( $order_id, true );
@@ -559,7 +704,8 @@ function wh_pre_paymentcall( $order_id, $errors ) {
 			$order = wc_get_order( $order_id );
 			$order->update_status( 'failed', 'Pre Payment Fraud Check: Calculated risk score is above High Risk Threshold.', true );
 
-			$return = array('result' => 'failure', 'messages' => "<ul class='woocommerce-error' role='alert'><li>Website Administrator does not allow you to place this order. Please contact our support team. Sorry for any inconvenience.</li></ul>");
+			$return = array('result' => 'failure', 'messages' => "<ul class='woocommerce-error' role='alert'><li>".$pre_payment_block_message."</li></ul>");
+
 			wp_send_json($return);
 			wp_die();
 		}

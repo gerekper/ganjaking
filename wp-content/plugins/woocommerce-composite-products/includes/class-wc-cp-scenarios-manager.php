@@ -142,7 +142,6 @@ class WC_CP_Scenarios_Manager {
 		$validating_defaults     = isset( $args[ 'validating_defaults' ] ) && $args[ 'validating_defaults' ];
 		$matching_scenarios      = isset( $args[ 'scenarios' ] ) && is_array( $args[ 'scenarios' ] ) ? $args[ 'scenarios' ] : array();
 		$matching_scenarios_cg   = $this->get_ids_by_action( 'compat_group', $matching_scenarios );
-		$matching_scenarios_cc   = $this->get_ids_by_action( 'conditional_components', $matching_scenarios );
 		$matching_scenarios_init = ! empty( $matching_scenarios );
 
 		$configuration = $this->parse_configuration( $configuration );

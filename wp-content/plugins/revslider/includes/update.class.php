@@ -120,7 +120,7 @@ class RevSliderUpdate {
 			'version'	=> urlencode(RS_REVISION)
 		);
 		
-		if(get_option('revslider-valid', 'false') !== 'true' && version_compare(RS_REVISION, get_option('revslider-stable-version', '4.2'), '<')){ //We'll get the last stable only now!
+		if(version_compare(RS_REVISION, get_option('revslider-stable-version', '4.2'), '<')){ //We'll get the last stable only now!
 			$rattr['get_stable'] = 'true';
 		}
 		
@@ -161,9 +161,12 @@ class RevSliderUpdate {
 			$request = $rslb->call_url($this->remote_url, $data, 'updates');
 			$version_info = wp_remote_retrieve_body($request);
 			
-			
-			update_option('revslider-connection', true);
-			
+			if(wp_remote_retrieve_response_code($request) != 200 || is_wp_error($version_info)){
+				update_option('revslider-connection', false);
+				return false;
+			}else{
+				update_option('revslider-connection', true);
+			}
 
 			if('actual' != $version_info){
 				$version_info = json_decode($version_info);
@@ -189,11 +192,11 @@ class RevSliderUpdate {
 				}
 				
 				if(isset($version_info->deactivated) && $version_info->deactivated === true){
-					
+					if(get_option('revslider-valid', 'false') == 'true'){
 						//remove validation, add notice
 						update_option('revslider-valid', 'false');
 						update_option('revslider-deact-notice', true);
-					
+					}
 				}
 			}
 		}

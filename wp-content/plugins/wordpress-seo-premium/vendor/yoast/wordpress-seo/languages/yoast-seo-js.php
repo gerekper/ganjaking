@@ -124,7 +124,7 @@ $generated_i18n_strings = array(
 	// Reference: node_modules/yoastseo/src/scoring/assessments/readability/subheadingDistributionTooLongAssessment.js:226
 	__( '%1$sSubheading distribution%2$s: You are not using any subheadings, but your text is short enough and probably doesn\'t need them.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/scoring/assessments/readability/textPresenceAssessment.js:26
+	// Reference: node_modules/yoastseo/src/scoring/assessments/readability/textPresenceAssessment.js:27
 	__( '%1$sNot enough content%2$s: %3$sPlease add some content to enable a good analysis%2$s.', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoastseo/src/scoring/assessments/readability/transitionWordsAssessment.js:73

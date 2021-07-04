@@ -108,8 +108,8 @@ class RevSliderFront extends RevSliderFunctions {
 		add_action('wp_head', array('RevSliderFront', 'add_meta_generator'));
 		add_action('wp_head', array('RevSliderFront', 'js_set_start_size'), 99);
 		add_action('admin_head', array('RevSliderFront', 'js_set_start_size'), 99);
-		add_action('wp_footer', array('RevSliderFront', 'add_inline_css'));
-		add_action('wp_footer', array('RevSliderFront', 'load_icon_fonts'));
+		add_action('wp_footer', array('RevSliderFront', 'add_inline_css'), 10);
+		add_action('wp_footer', array('RevSliderFront', 'load_icon_fonts'), 11);
 		add_action('wp_footer', array('RevSliderFront', 'load_google_fonts'));
 		add_action('wp_footer', array('RevSliderFront', 'add_waiting_script'), 1);
 		add_action('wp_print_footer_scripts', array('RevSliderFront', 'add_inline_js'), 100);
@@ -132,7 +132,7 @@ class RevSliderFront extends RevSliderFunctions {
 	 * add css to the footer
 	 **/
 	public static function add_inline_css(){
-		global $wp_version, $rs_css_collection;
+		global $wp_version, $rs_css_collection, $rs_revicons;
 		$css	 = RevSliderGlobals::instance()->get('RevSliderCssParser');
 		$rs_ver	 = apply_filters('revslider_remove_version', RS_REVISION);
 		/**
@@ -149,6 +149,8 @@ class RevSliderFront extends RevSliderFunctions {
 		}
 		
 		$custom_css = (trim($custom_css) == '') ? '#rs-demo-id {}' : $custom_css;
+
+		if(strpos($custom_css, 'revicon') !== false) $rs_revicons = true;
 		
 		wp_enqueue_style('rs-plugin-settings', RS_PLUGIN_URL . 'public/assets/css/rs6.css', array(), $rs_ver);
 		wp_add_inline_style('rs-plugin-settings', $style_pre . $custom_css . $style_post);
@@ -191,12 +193,12 @@ class RevSliderFront extends RevSliderFunctions {
 	 * @since: 5.0
 	 */
 	public static function load_icon_fonts(){
-		global $fa_var, $fa_icon_var, $pe_7s_var;
+		global $fa_var, $fa_icon_var, $pe_7s_var, $rs_revicons;
 		$func	= RevSliderGlobals::instance()->get('RevSliderFunctions');
 		$global	= $func->get_global_settings();
 		$ignore_fa = $func->_truefalse($func->get_val($global, 'fontawesomedisable', false));
 		
-		echo RS_T3.'<link rel="preload" as="font" id="rs-icon-set-revicon-woff" href="' . RS_PLUGIN_URL . 'public/assets/fonts/revicons/revicons.woff?5510888" type="font/woff" crossorigin="anonymous" media="all" />'."\n";
+		echo ($rs_revicons) ? RS_T3.'<link rel="preload" as="font" id="rs-icon-set-revicon-woff" href="' . RS_PLUGIN_URL . 'public/assets/fonts/revicons/revicons.woff?5510888" type="font/woff" crossorigin="anonymous" media="all" />'."\n" : '';
 		echo ($ignore_fa === false && ($fa_icon_var == true || $fa_var == true)) ? RS_T3.'<link rel="preload" as="font" id="rs-icon-set-fa-icon-woff" type="font/woff2" crossorigin="anonymous" href="' . RS_PLUGIN_URL . 'public/assets/fonts/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0" media="all" />'."\n" : '';
 		echo ($ignore_fa === false && ($fa_icon_var == true || $fa_var == true)) ? RS_T3.'<link rel="stylesheet" property="stylesheet" id="rs-icon-set-fa-icon-css" href="' . RS_PLUGIN_URL . 'public/assets/fonts/font-awesome/css/font-awesome.css" type="text/css" media="all" />'."\n" : '';
 		
@@ -442,9 +444,10 @@ class RevSliderFront extends RevSliderFunctions {
 						var m = pw>(e.gw[ix]+e.tabw+e.thumbw) ? 1 : (pw-(e.tabw+e.thumbw)) / (e.gw[ix]);					
 						newh =  (e.gh[ix] * m) + (e.tabh + e.thumbh);
 					}				
-					if(window.rs_init_css===undefined) window.rs_init_css = document.head.appendChild(document.createElement("style"));					
-					document.getElementById(e.c).height = newh+"px";
-					window.rs_init_css.innerHTML += "#"+e.c+"_wrapper { height: "+newh+"px }";				
+					var el = document.getElementById(e.c);
+					if (el!==null && el) el.style.height = newh+"px";					
+					el = document.getElementById(e.c+"_wrapper");
+					if (el!==null && el) el.style.height = newh+"px";
 				} catch(e){
 					console.log("Failure at Presize of Slider:" + e)
 				}					   
@@ -492,10 +495,11 @@ class RevSliderFront extends RevSliderFunctions {
 						for (var i in nl) if (sl>nl[i] && nl[i]>0) { sl = nl[i]; ix=i;}															
 						var m = pw>(e.gw[ix]+e.tabw+e.thumbw) ? 1 : (pw-(e.tabw+e.thumbw)) / (e.gw[ix]);					
 						newh =  (e.gh[ix] * m) + (e.tabh + e.thumbh);
-					}				
-					if(window.rs_init_css===undefined) window.rs_init_css = document.head.appendChild(document.createElement("style"));					
-					document.getElementById(e.c).height = newh+"px";
-					window.rs_init_css.innerHTML += "#"+e.c+"_wrapper { height: "+newh+"px }";				
+					}
+					var el = document.getElementById(e.c);
+					if (el!==null && el) el.style.height = newh+"px";					
+					el = document.getElementById(e.c+"_wrapper");
+					if (el!==null && el) el.style.height = newh+"px";
 				} catch(e){
 					console.log("Failure at Presize of Slider:" + e)
 				}					   

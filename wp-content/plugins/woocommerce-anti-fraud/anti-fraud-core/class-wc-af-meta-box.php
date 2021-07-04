@@ -33,7 +33,7 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 			$score_points = get_post_meta( $order_id, 'wc_af_score', true );
 
 			// Get meta
-			$meta = WC_AF_Score_Helper::get_score_meta( $score_points );
+			$meta = WC_AF_Score_Helper::get_score_meta( $score_points, $order_id );
 
 			// Check if there is an score order
 			if ( '' != $score_points ) {
@@ -49,6 +49,9 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 
 				// The rules
 				$json_rules = get_post_meta( $order_id, 'wc_af_failed_rules', true );
+				$whitelist_action = get_post_meta( $order_id, 'whitelist_action', true );
+				$whitelist_action_style = ( $whitelist_action == 'user_email_whitelisted' ) ? 'style="color:grey"' : '';
+				//echo '<pre>'; print_r($json_rules); echo '</pre>';
 
 				// Failed Rules
 				if ( is_array( $json_rules ) && ! empty( $json_rules ) ) {
@@ -56,13 +59,21 @@ if ( ! class_exists( 'WC_AF_Meta_Box' ) ) {
 					echo '<div class="woocommerce-af-risk-failure-list">' . PHP_EOL;
 
 					echo '<ul>' . PHP_EOL;
+					
+					foreach ( $json_rules as $wc_af_failed_rule ) {
+						$wc_af_failed_rule_decode = json_decode($wc_af_failed_rule,true);
+						if ( $wc_af_failed_rule_decode['id'] == 'whitelist' ) {
+							echo '<li class="failed" '.$whitelist_action_style.'>' . $wc_af_failed_rule_decode['label'] . '</li>' . PHP_EOL;
+						}
+					}
 
 					foreach ( $json_rules as $json_rule ) {
+						
 						$rule = WC_AF_Rules::get()->get_rule_from_json( $json_rule );
 						if ( ! is_a( $rule, 'WC_AF_Rule' ) ) {
 							continue;
 						}
-						echo '<li class="failed">' . $rule->get_label() . '</li>' . PHP_EOL;
+						echo '<li class="failed" '.$whitelist_action_style.'>' . $rule->get_label() . '</li>' . PHP_EOL;
 					}
 
 					echo '</ul>' . PHP_EOL;

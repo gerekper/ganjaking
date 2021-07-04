@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.5.6.1
+Version: 2.5.6.3
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -209,7 +209,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.5.6.1';
+	public static $version = '2.5.6.3';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -1101,6 +1101,7 @@ class GFForms {
 			'gf_entries'                 => array(
 				'thickbox',
 				'gform_gravityforms',
+				'gform_form_admin',
 				'wp-lists',
 				'gform_json',
 				'gform_field_filter',
@@ -4539,8 +4540,8 @@ class GFForms {
 							printf(
 								'
 								<li class="gform-dropdown__item">
-									<button class="gform-dropdown__trigger" data-js="gform-dropdown-trigger" data-value="%d">
-										%s
+									<button class="gform-dropdown__trigger" data-js="gform-dropdown-trigger" data-value="%1$d">
+										<span class="gform-dropdown__trigger-text" data-value="%1$d">%2$s</span>
 									</button>
 								</li>
 								',
@@ -4643,6 +4644,7 @@ class GFForms {
 			}
 
 			gform.instances.formSwitcher = new gform.components.dropdown( {
+				detectTitleLength: true,
 				onItemSelect: GF_SwitchForm,
 				reveal: 'hover',
 				selector: 'gform-form-switcher',
@@ -5066,7 +5068,11 @@ class GFForms {
 			}
 		}
 
-		$sub_menu_items_string = '<div class="gform-form-toolbar__submenu"><ul>' . $sub_menu_items_string . '</ul></div>';
+		$simplebar_rtl_attr = is_rtl() ? ' data-simplebar-direction="rtl"' : '';
+		$sub_menu_items_string = sprintf(
+			'<div class="gform-form-toolbar__submenu"><div data-simplebar%s><ul>' . $sub_menu_items_string . '</ul></div></div>',
+			$simplebar_rtl_attr
+		);
 
 		return $sub_menu_items_string;
 	}

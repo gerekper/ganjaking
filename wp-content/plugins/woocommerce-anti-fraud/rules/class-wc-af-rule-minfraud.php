@@ -30,29 +30,26 @@ class WC_AF_Rule_MinFraud extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
+		Af_Logger::debug('Checking minfraud rule');
 		global $wpdb;
-
 		$minfraud_score = $this->call_maxmind_api_on_order_place($order);
 		// Default risk is false
-		
 		$risk = false;
 		
 		if ( $this->minimum_minfraud_score < $minfraud_score) {
 
 			$risk = true;
 		}
-
+		Af_Logger::debug('minfraud rule risk : '. ( $risk===true ? 'true' : 'false' ));
 		return $risk;
 	}
 
 	public function call_maxmind_api_on_order_place( $order) {
 
 		$order = wc_get_order($order); //getting order Object
-
 		if ($order === false) {
 			return false;
 		}
-
 		/*
 		if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
 			//check ip from share internet
@@ -142,7 +139,7 @@ class WC_AF_Rule_MinFraud extends WC_AF_Rule {
 		curl_setopt_array($curl, array(
 		CURLOPT_URL => 'https://minfraud.maxmind.com/minfraud/v2.0/score',
 		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_USERAGENT => 'AnTiFrAuDOPMC',
+                CURLOPT_USERAGENT => 'AnTiFrAuDOPMC',    
 		CURLOPT_ENCODING => '',
 		CURLOPT_MAXREDIRS => 10,
 		CURLOPT_TIMEOUT => 30,
@@ -158,16 +155,17 @@ class WC_AF_Rule_MinFraud extends WC_AF_Rule {
 
 		$response = curl_exec($curl);
 		curl_close($curl);
-		$score = json_decode( $response, true );
+                
+		$score = json_decode( $response, true );  //echo 'Minfraud'; echo '<pre>'; print_r($score);
 		$error = @$score['code'];
 		if ($error == 'AUTHORIZATION_INVALID') {
-			
+			Af_Logger::debug('minfraud score  ' .$error);
 			return;
 
 		} else {
 
 			$minmraud_score = @$score['risk_score'];
-
+			Af_Logger::debug('minfraud score  ' .$minmraud_score); 
 			return  $minmraud_score;
 		}
 	}

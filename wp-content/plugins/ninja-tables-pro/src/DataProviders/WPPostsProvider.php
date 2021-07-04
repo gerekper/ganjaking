@@ -2,6 +2,7 @@
 
 namespace NinjaTablesPro\DataProviders;
 
+use NinjaTables\Classes\ArrayHelper;
 
 class WPPostsProvider
 {
@@ -112,9 +113,9 @@ class WPPostsProvider
             $message = 'Table created successfully.';
         }
 
-        update_post_meta($tableId, '_ninja_table_wpposts_ds_post_types', $_REQUEST['data']['post_types']);
-        update_post_meta($tableId, '_ninja_table_wpposts_ds_where', $_REQUEST['data']['where']);
-        update_post_meta($tableId, '_ninja_table_wpposts_ds_meta_query', $_REQUEST['data']['metas']);
+        update_post_meta($tableId, '_ninja_table_wpposts_ds_post_types', ArrayHelper::get($_REQUEST, 'data.post_types'));
+        update_post_meta($tableId, '_ninja_table_wpposts_ds_where', ArrayHelper::get($_REQUEST, 'data.where'));
+        update_post_meta($tableId, '_ninja_table_wpposts_ds_meta_query', ArrayHelper::get($_REQUEST, 'data.metas'));
         update_post_meta($tableId, '_ninja_table_columns', $columns);
         update_post_meta($tableId, '_ninja_tables_data_provider', 'wp-posts');
 

@@ -1,5 +1,12 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2021-06-23 - version 3.1
+* PLUGINS-886 - Bug on Mark as Shipped process
+* PLUGINS-577 - "Supplier" word unchangeable for language translation
+* PLUGINS-1028 - Custom work Including customer email in notification
+* PLUGINS-1073 - Plugin Internationalization
+* PLUGINS-1080 - error in ABSPATH file path
+
 2021-05-11 - version 3.0
 * PLUGINS-964 - Integrate dashboard to Dropshipping code
 * PLUGINS-1008 - Supplier can't be change/unlink to a product

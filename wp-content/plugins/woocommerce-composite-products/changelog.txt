@@ -1,5 +1,14 @@
 *** WooCommerce Composite Products ***
 
+2021.06.22 - version 8.1.4
+* Fix - Reset product ordering query filters after querying component options.
+* Fix - Hide stock message for composited products on backorder.
+* Fix - Fixed some styling issues with the Astra theme.
+* Fix - Fixed Composite Summary Widget styling issues on small screen sizes.
+* Fix - Fixed Composite Summary Widget styling issues with the Divi theme.
+* Fix - Fixed Composite Summary Widget styling issues with the TwentyTwenty theme and Elementor Pro.
+* Fix - Autoscrolling to the current selection now works for all Components when using the Stacked layout.
+
 2021.06.01 - version 8.1.3
 * Tweak - Removed deprecated 'woocommerce_add_to_[cart/order]_validation' filter.
 * Fix - Stopped requiring 'configuration' property in 'composite_scenarios' field items to permit deletions.

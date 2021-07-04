@@ -367,14 +367,17 @@ html[dir="rtl"] #wpcontent {
 
 	border: 1px solid #e3e6ef;
 	box-shadow: 0 1px 4px rgba(18, 25, 97, 0.0779552);
+	margin-top: 0.125rem;
 
 }
 
 .gform-settings__navigation a:focus {
 
-	border-color: #3e7da6;
-	box-shadow: none;
-	outline: none;
+	border: 1px solid #3985b7;
+
+	box-shadow: 0 0.125rem 0.0675rem rgba(28, 31, 63, 0.0634624), 0 0 0 2px #bed8ed;
+
+	color: #242748;
 
 }
 

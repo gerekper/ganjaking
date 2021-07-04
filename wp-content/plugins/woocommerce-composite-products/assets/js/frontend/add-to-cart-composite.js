@@ -2705,8 +2705,8 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 						 * 'compat_group' and 'conditional_options' scenarios when the options state was calculated.
 						 */
 						options_in_scenarios: {
-							compat_group: composite.scenarios.clean_masked_component_scenarios( composite.scenarios.get_scenarios_by_type( 'compat_group' ), self.component_id ),
-							conditional_options: composite.scenarios.get_scenarios_by_type( 'conditional_options', self.component_id )
+							compat_group: composite.scenarios.filter_scenarios_by_type( 'compat_group' ),
+							conditional_options: []
 						}
 					};
 
@@ -3759,7 +3759,7 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 				 * Viewport auto-scrolling on the 'component_selection_details_updated' hook.
 				 */
 				selection_details_updated: function( component ) {
-					if ( composite.is_finalized && ! component.can_autotransition() && component.is_current() ) {
+					if ( composite.is_finalized && ! component.can_autotransition() && ( component.is_current() || component.component_selection_view.is_actioned() ) ) {
 						this.autoscroll_selection_details( component, 'updated' );
 					}
 				},
@@ -8052,6 +8052,7 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 				render_addons_totals_timer:   false,
 				flushing_component_options:   false,
 				blocked:                      false,
+				actioned:                     false,
 
 				rendered_product:             '',
 
@@ -8794,7 +8795,6 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 				 * Blocks the composite form and adds a waiting ui cue in the working element.
 				 */
 				block: function() {
-
 					this.blocked = true;
 					composite.block( self.$component_options );
 				},
@@ -8815,8 +8815,14 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 				 * Whether the view is updating/blocked.
 				 */
 				is_blocked: function() {
-
 					return this.blocked;
+				},
+
+				/**
+				 * Indicates that the user is interacting with this view.
+				 */
+				is_actioned: function() {
+					return this.actioned;
 				},
 
 				/**
@@ -8827,6 +8833,7 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 					var view                = event.data.view,
 						selected_product_id = $( this ).val();
 
+					view.actioned = true;
 					view.set_option( selected_product_id );
 
 					return false;
@@ -9211,6 +9218,8 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 
 								// Animate content height.
 								view.animate_rendered_content();
+
+								view.actioned = false;
 
 							}, 300 );
 
@@ -11776,14 +11785,15 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 							$el_out.css( {
 								height: el_out_height + 'px',
 								overflow: 'hidden',
-								transition: 'height ' + duration_height / 1000 + 's'
+								transition: 'height ' + duration_height / 1000 + 's ease-in-out',
+								'-webkit-transition': 'height ' + duration_height / 1000 + 's ease-in-out'
 							} );
 
 							$el_in.css( {
 								height: '0px',
 								overflow: 'hidden',
-								transition: 'height ' + duration_height / 1000 + 's',
-								'-webkit-transition': 'height ' + duration_height / 1000 + 's'
+								transition: 'height ' + duration_height / 1000 + 's ease-in-out',
+								'-webkit-transition': 'height ' + duration_height / 1000 + 's ease-in-out'
 							} ).show();
 
 							// Run 'active_step_transition_start' action - @see WC_CP_Actions_Dispatcher class description.

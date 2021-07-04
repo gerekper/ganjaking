@@ -29,7 +29,7 @@ class WC_AF_Rule_Country extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
-
+		Af_Logger::debug('Checking country rule');
 		// Orders from these countries are considered a risk unless the shop is located in the same country
 		//$risk_countries = apply_filters( 'wc_af_rule_countries', $this->unsafe_countries );
 		
@@ -51,6 +51,10 @@ class WC_AF_Rule_Country extends WC_AF_Rule {
 
 			if ( ( true === in_array( $billing_country, $risk_countries ) ) || ( true === in_array( $shipping_country, $risk_countries ) ) ) {
 				$risk = true;
+				Af_Logger::debug('billing country ' .$billing_country. ' is at risk');
+				if ( !empty($shipping_country) ) {
+					Af_Logger::debug('shipping country ' .$shipping_country. ' is at risk');
+				}
 			}
 		}
 
@@ -61,10 +65,15 @@ class WC_AF_Rule_Country extends WC_AF_Rule {
 
 			// There is no risk if the billing and shipping country are equal to the store country
 			if ( $store_country == $billing_country && $store_country == $shipping_country ) {
+				
 				$risk = false;
+				Af_Logger::debug('billing country ' .$billing_country. ' is base country.');
+				if ( !empty($shipping_country) ) {
+					Af_Logger::debug('shipping country ' .$shipping_country. ' is base country.');
+				}
 			}
 		}
-
+		Af_Logger::debug('country rule risk : '. ( $risk===true ? 'true' : 'false' ));
 		return $risk;
 	}
 

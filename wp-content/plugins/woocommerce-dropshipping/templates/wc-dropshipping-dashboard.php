@@ -144,19 +144,19 @@
         <img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/icons/aliexpress.svg'; ?>">
         <h2><?php _e( 'Aliexpress Import', 'woocommerce-dropshipping'); ?></h2>
         <p class="plugin-setup-desc"><?php _e( 'Install the extension to get started', 'woocommerce-dropshipping'); ?></p>
-        <a target="_blank" href="https://chrome.google.com/webstore/detail/woocommerce-dropshipping/hfhghglengghapddjhheegmmpahpnkpo?hl=en">Install Now</a>
+        <a target="_blank" href="https://chrome.google.com/webstore/detail/woocommerce-dropshipping/hfhghglengghapddjhheegmmpahpnkpo?hl=en"><?php _e( 'Install Now', 'woocommerce-dropshipping' ); ?></a>
      </div>
      <div class="metric-box">
         <img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/icons/settings.svg'; ?>">
         <h2><?php _e( 'Adjust Plugin Settings', 'woocommerce-dropshipping'); ?></h2>
         <p class="plugin-setup-desc"><?php _e( 'Configure packing slips, emails and more.', 'woocommerce-dropshipping'); ?></p>
-        <a href="/wp-admin/admin.php?page=wc-settings&tab=email&section=dropship_manager">Go to Settings</a>
+        <a href="/wp-admin/admin.php?page=wc-settings&tab=email&section=dropship_manager"><?php _e( 'Go to Settings', 'woocommerce-dropshipping' ); ?></a>
      </div>
      <div class="metric-box">
         <img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/icons/affiliate.svg'; ?>">
         <h2><?php _e( 'Suppliers', 'woocommerce-dropshipping'); ?></h2>
         <p class="plugin-setup-desc"><?php _e( 'Organise your store\'s products by their supplier.', 'woocommerce-dropshipping'); ?></p>
-        <a href="/wp-admin/edit-tags.php?taxonomy=dropship_supplier&post_type=product">Manage Suppliers</a>
+        <a href="/wp-admin/edit-tags.php?taxonomy=dropship_supplier&post_type=product"><?php _e( 'Manage Suppliers', 'woocommerce-dropshipping' ); ?></a>
      </div>
   </div>
 </div>

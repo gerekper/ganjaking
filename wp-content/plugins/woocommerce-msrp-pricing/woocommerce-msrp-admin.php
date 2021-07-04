@@ -67,13 +67,6 @@ class woocommerce_msrp_admin {
 	 * Set up the plugin for translation
 	 */
 	public function admin_init() {
-
-		$domain = 'woocommerce_msrp';
-		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
-
-		load_textdomain( $domain, WP_LANG_DIR . '/woocommerce_msrp/' . $domain . '-' . $locale . '.mo' );
-		load_plugin_textdomain( 'woocommerce_msrp', false, basename( dirname( __FILE__ ) ) . '/languages' );
-
 		$this->enqueue_js();
 		$this->enqueue_css();
 	}
@@ -375,5 +368,3 @@ class woocommerce_msrp_admin {
 		return dirname( __FILE__ ) . '/templates/' . $template . '.php';
 	}
 }
-
-$woocommerce_msrp_admin = new woocommerce_msrp_admin();

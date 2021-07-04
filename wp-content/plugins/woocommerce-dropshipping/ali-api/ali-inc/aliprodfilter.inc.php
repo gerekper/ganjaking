@@ -9,7 +9,7 @@ class Ali_Product_Filter {
 
   public function ali_product_panel() {
     echo '<div class="options_group">';
-    woocommerce_wp_checkbox( array( 'id' => '_is_ali_product', 'label' => __( 'Aliexpress Product', 'wc_dropshipping' ), 'description' => __( 'Enable this option if this product is from Aliexpress', 'wc_dropshipping' ) ) );
+    woocommerce_wp_checkbox( array( 'id' => '_is_ali_product', 'label' => __( 'Aliexpress Product', 'woocommerce-dropshipping' ), 'description' => __( 'Enable this option if this product is from Aliexpress', 'woocommerce-dropshipping' ) ) );
     echo '</div>';
   }
 

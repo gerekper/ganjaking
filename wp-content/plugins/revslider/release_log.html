@@ -1,4 +1,14 @@
 <div class="slider-revolution-update-list">
+	<h3 class="version-number">Version 6.5.4 (2nd July 2021)</h3>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+    	<li>The internal revicons.woff is loaded when it is not needed</li>
+		<li>PanZoom jumps on mobile/high DPR displays</li>	
+    	<li>PanZoom animation is not smooth, jittering on iOS</li>
+		<li>Content jumps vertically on page load due to missing styles at the first rendering in some cases</li>		
+    	<li>Motion blur renders partially while used with videos on Chrome, likely due to a browser specific bug</li>		
+	</ul>
+
 	<h3 class="version-number">Version 6.5.3 (25th June 2021)</h3>
 	<div class="newfeature"><strong style="font-weight:700">New Features</strong></div>
 	<ul>
@@ -13,7 +23,7 @@
 	</ul>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
 	<ul>
-		<li>Adding the same slider more than once to the post/page resulted in the JS revapi variable beeing defined multiple times</li>
+		<li>Adding the same slider more than once to the post/page results in the JS revapi variable beeing defined multiple times</li>
 		<li>Tags are written in image titles on certain conditions</li>
 		<li>Splitted and blurred text animation on Safari looks different, letters pop up without animation</li>
 		<li>Required AddOn update message shows wrong update versions in certain cases</li>

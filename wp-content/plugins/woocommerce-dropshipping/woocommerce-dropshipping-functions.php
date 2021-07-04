@@ -89,6 +89,11 @@ function woocommerce_dropshippers_mark_as_shipped_callback(){
 	$order_id = $_GET['orderid'];
 	$supplier_id = @$_GET['supplierid'];
 	$order_number = @$_GET['order_number'];
+	$product_ids_incart = array();
+	$from_merchant_prod = false;
+	$current_supplier_name = get_post_meta( $order_id, 'supplier_'.$supplier_id, true );
+	$check_if_completed = 'check_completed_' . $order_id . $supplier_id;
+	$completed_supplier_status = get_post_meta( $order_id, $check_if_completed, true );
 
 	$dKey = 'order_'.$order_id;
 	$dOptions = get_dropship_option();
@@ -103,9 +108,23 @@ function woocommerce_dropshippers_mark_as_shipped_callback(){
 
 	$my_wc_order = new WC_Order($order_id);
 	$my_wc_order_number = $my_wc_order->get_order_number();
+	$items = $my_wc_order->get_items();
+
+	foreach ( $items as $item ) {
+	  $product_id = $item->get_product_id();
+		array_push( $product_ids_incart, $product_id );
+	}
+
+	foreach( $product_ids_incart as $product_id ) {
+		$supplier_name = get_post_meta( $product_id, 'supplier', true );
+		if ( '' == $supplier_name ) {
+			$from_merchant_prod = true;
+		}
+	}
 
 	if($shipping_status == 'completed'){
 		$my_wc_order->update_status('completed');
+		$order = wc_get_order( $order_id );
 	} else {
 		$dOptions[$dKey][$supplier_id] = 'completed';
 		$dFlag = true;
@@ -118,9 +137,33 @@ function woocommerce_dropshippers_mark_as_shipped_callback(){
 			}
 		}
 
-		if($dFlag === true) {
-			$dOptions[$dKey]['shipping_status'] = 'completed';
-			$my_wc_order->update_status('completed');
+		if ( empty( $completed_supplier_status) ) {
+			if ( false == $from_merchant_prod ) {
+				$order = wc_get_order( $order_id );
+				$note = '<b>' . $current_supplier_name . '</b> marked as completed on ' . date("Y-m-d h:i:sa");
+				$order->add_order_note( $note );
+				$order->save();
+				update_post_meta( $order_id, $check_if_completed, true );
+			}
+
+			if ( true == $from_merchant_prod ) {
+				$order = wc_get_order( $order_id );
+				$note = '<b>' . $current_supplier_name . '</b> marked as completed on ' . date("Y-m-d h:i:sa");
+				$note .= '</br>Order will not auto complete — merchant product included in this order.';
+				$order->add_order_note( $note );
+				$order->save();
+				update_post_meta( $order_id, $check_if_completed, true );
+			}
+
+			if ( true === $dFlag  && false == $from_merchant_prod ) {
+				$dOptions[$dKey]['shipping_status'] = 'completed';
+				$my_wc_order->update_status('completed');
+				$order = wc_get_order( $order_id );
+				$note = 'All supplier/supplier\'s marked as completed ' . date("Y-m-d h:i:sa");
+				$order->add_order_note( $note );
+				$order->save();
+				update_post_meta( $order_id, $check_if_completed, true );
+			}
 		}
 
 		update_dropship_option($dOptions);
@@ -300,6 +343,33 @@ function dropshipper_order_list() {
 }
 
 if (isset($_GET['success'])){
+	if(@$_GET['success'] == 'yes') {
+		echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+		<!-- Modal -->
+		<div class="modal" id="complete_order_mark_Modal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<h4 class="modal-title"></h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+
+						<!-- Modal body -->
+						<div class="modal-body">
+							Your order has already been marked as completed. It will be under process until all other dropshippers mark this order as complete.
+						</div>
+
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						</div>
+
+					</div>
+				</div>
+		</div>';
+	}
 	if(@$_GET['success'] == 'no'){
 
 	  	echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">

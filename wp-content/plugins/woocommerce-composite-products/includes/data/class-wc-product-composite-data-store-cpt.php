@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite data stored as Custom Post Type. For use with the WC 3.0+ CRUD API.
  *
  * @class    WC_Product_Composite_Data_Store_CPT
- * @version  7.0.3
+ * @version  8.1.4
  */
 class WC_Product_Composite_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
@@ -1364,6 +1364,13 @@ class WC_Product_Composite_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 					'component_options' => $query->posts
 				);
 			}
+		}
+
+		/*-----------------------------------------------------------------------------------*/
+		/*  Clear product query ordering args if applied.                                    */
+		/*-----------------------------------------------------------------------------------*/
+		if ( $orderby && in_array( $orderby, array( 'price', 'popularity', 'rating' ) ) ) {
+			WC()->query->remove_ordering_args();
 		}
 
 		return $results;

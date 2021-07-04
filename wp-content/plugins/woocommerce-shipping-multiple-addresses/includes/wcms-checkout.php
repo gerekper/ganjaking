@@ -500,6 +500,105 @@ class WC_MS_Checkout {
 		}
     }
 
+	/**
+	 * Return packages with subscription product only.
+	 *
+	 * @param  array $packages array of packages.
+	 * @return array $packages array of packages that contain subscription product.
+	 * 
+	 * @since 3.6.28
+	 */
+	private function get_shippable_subscription_product_packages( $packages ){
+
+		if( ! class_exists( 'WC_Subscriptions_Product' ) ){
+			return $packages;
+		}
+
+		if( ! is_array( $packages ) ){
+			return $packages;
+		}
+
+		if( empty( $packages ) ){
+			return $packages;
+		}
+
+		$non_subscription_package_idx = array();
+
+		$temp_packages = $packages;
+
+		foreach( $temp_packages as $x => $package ){
+
+			$package_contains_subscriptions_needing_shipping = false;
+
+			foreach ( $package['contents'] as $cart_item_key => $values ) {
+				$_product = $values['data'];
+				if ( WC_Subscriptions_Product::is_subscription( $_product ) && $_product->needs_shipping() && ! WC_Subscriptions_Product::needs_one_time_shipping( $_product ) ) {
+					$package_contains_subscriptions_needing_shipping = true;
+				}
+			}
+
+			
+
+			if( ! $package_contains_subscriptions_needing_shipping ){
+				unset( $packages[ $x ] );
+			}
+		}
+
+		return $packages;
+	}
+
+	/**
+	 * Check the cart if it only contains a recurring product.
+	 *
+	 * @param array|WC_Cart $cart.
+	 * @return bool
+	 * 
+	 * @since 3.6.28
+	 */
+	private function is_recurring_cart( $cart ){
+
+		if( ! class_exists( 'WC_Subscriptions_Cart' ) ){
+			return false;
+		}
+		
+		if( true === WC_Subscriptions_Cart::cart_contains_subscriptions_needing_shipping( $cart ) && empty( $this->get_cart_non_subscription_item( $cart ) ) ){
+
+			return true;
+		
+		}else{
+			
+			return false;
+		
+		}
+	}
+
+	/**
+	 * Get non WC_Subscriptions_Product items from cart.
+	 *
+	 * @param  object WC_Cart Cart object.
+	 * @return object WC_Cart Cart object without subscriptions product in the cart content.
+	 * 
+	 * @since 3.6.28
+	 */
+	private function get_cart_non_subscription_item( $cart ){
+
+		if( ! class_exists( 'WC_Subscriptions_Product' ) ){
+			return $cart;
+		}
+		
+		$non_subscription_cart_items = array();
+
+		foreach( $cart->get_cart() as $cart_item_key => $cart_item ){
+
+			$_product = $cart_item['data'];
+			if ( ! WC_Subscriptions_Product::is_subscription( $_product ) && $_product->needs_shipping() ) {
+				$non_subscription_cart_items[ $cart_item_key ] = $cart_item;
+			}
+		}
+
+		return $non_subscription_cart_items;
+	}
+
     function calculate_totals($cart) {
 
 		if ( isset( $_REQUEST['wc-ajax'] ) && 'update_shipping_method' === $_REQUEST['wc-ajax'] ) {
@@ -538,6 +637,11 @@ class WC_MS_Checkout {
 
         $packages = WC()->shipping->get_packages();
         $tax_based_on = get_option( 'woocommerce_tax_based_on', 'billing' );
+
+		// Remove non subscription packages if the current cart is a recurring cart object.
+		if( $this->is_recurring_cart( $cart ) ){
+			$packages = $this->get_shippable_subscription_product_packages( $packages );
+		}
 
         foreach ($packages as $x => $package) {
             $chosen = isset( $methods[ $x ] ) ? $methods[ $x ]['id'] : '';
@@ -585,6 +689,9 @@ class WC_MS_Checkout {
                         foreach ( array_keys( $shipping_taxes + $rate->taxes ) as $key ) {
                             $shipping_taxes[ $key ] = ( isset( $rate->taxes[ $key ] ) ? $rate->taxes[ $key ] : 0 ) + ( isset( $shipping_taxes[ $key ] ) ? $shipping_taxes[ $key ] : 0 );
                         }
+
+						// Round shipping tax calculation
+						$shipping_taxes     = $this->round_shipping_taxes( $shipping_taxes );
                     }
                 }
 
@@ -691,6 +798,11 @@ class WC_MS_Checkout {
              * Calculate subtotals for items. This is done first so that discount logic can use the values.
              */
             foreach ( $package['contents'] as $cart_item_key => $values ) {
+
+				if( ! isset( $cart->cart_contents[ $values['key'] ] ) ){
+					continue;
+				}
+				
                 $_product = $values['data'];
 
                 // Prices
@@ -773,17 +885,21 @@ class WC_MS_Checkout {
                     $line_subtotal         = $line_price;
                 }
 
-		// Only do this for versions less than 3.2. Otherwise, after woocommerce/commit/302512e it's calculated automatically.
-		if ( version_compare( WC_VERSION, '3.2', '<' ) ) {
-	                // Add to main subtotal
-	                $cart->subtotal += $line_subtotal_tax;
-		}
+				// Only do this for versions less than 3.2. Otherwise, after woocommerce/commit/302512e it's calculated automatically.
+				if ( version_compare( WC_VERSION, '3.2', '<' ) ) {
+					// Add to main subtotal
+					$cart->subtotal += $line_subtotal_tax;
+				}
             }
 
             /**
              * Calculate totals for items
              */
             foreach ( $package['contents'] as $cart_item_key => $values ) {
+
+				if( ! isset( $cart->cart_contents[ $values['key'] ] ) ){
+					continue;
+				}
 
                 $_product = $values['data'];
 
@@ -842,8 +958,9 @@ class WC_MS_Checkout {
 
                         // Apply discounts
                         $discounted_price  = $this->get_discounted_price( $cart, $values, $adjusted_price, false );
-                        $discounted_taxes  = WC_Tax::calc_tax( $discounted_price * $values['quantity'], $item_tax_rates, true );
-                        $line_tax          = array_sum( $discounted_taxes );
+                        $discounted_taxes  = WC_Tax::calc_tax( $discounted_price * $values['quantity'], $item_tax_rates, false );
+                        $discounted_taxes  = $this->round_line_taxes( $discounted_taxes );
+						$line_tax          = array_sum( $discounted_taxes );
                         $line_total        = ( $discounted_price * $values['quantity'] ) - $line_tax;
 
                         /**
@@ -860,8 +977,9 @@ class WC_MS_Checkout {
 
                         // Calc prices and tax (discounted)
                         $discounted_price = $this->get_discounted_price( $cart, $values, $base_price, false );
-                        $discounted_taxes = WC_Tax::calc_tax( $discounted_price * $values['quantity'], $item_tax_rates, true );
-                        $line_tax         = array_sum( $discounted_taxes );
+                        $discounted_taxes = WC_Tax::calc_tax( $discounted_price * $values['quantity'], $item_tax_rates, false );
+                        $discounted_taxes = $this->round_line_taxes( $discounted_taxes );
+						$line_tax         = array_sum( $discounted_taxes );
                         $line_total       = ( $discounted_price * $values['quantity'] ) - $line_tax;
                     }
 
@@ -886,8 +1004,9 @@ class WC_MS_Checkout {
 
                     // Now calc product rates
                     $discounted_price      = $this->get_discounted_price( $cart, $values, $base_price, false );
-                    $discounted_taxes      = WC_Tax::calc_tax( $discounted_price * $values['quantity'], $item_tax_rates );
-                    $discounted_tax_amount = array_sum( $discounted_taxes );
+                    $discounted_taxes      = WC_Tax::calc_tax( $discounted_price * $values['quantity'], $item_tax_rates );					
+					$discounted_taxes 	   = $this->round_line_taxes( $discounted_taxes );
+					$discounted_tax_amount = array_sum( $discounted_taxes );
                     $line_tax              = $discounted_tax_amount;
                     $line_total            = $discounted_price * $values['quantity'];
 
@@ -946,6 +1065,37 @@ class WC_MS_Checkout {
             }
         }
 
+		// Calculate taxes for virtual product
+		foreach( $cart->get_cart() as $cart_item_key => $cart_item ){
+
+			$_product = $cart_item['data'];
+			
+			if( $_product->is_virtual() ){
+
+				// Get tax rates total from cart contents if exists
+				if( isset( $cart_item['line_tax_data']['total'] ) ){
+				
+					$line_taxes  		= $cart_item['line_tax_data']['total'];
+				
+				// Manually calculate tax rates total
+				}else{
+
+					$item_tax_rates        	= WC_Tax::get_rates( $_product->get_tax_class() );
+					$line_taxes  			= WC_Tax::calc_tax( $cart_item['line_total'], $item_tax_rates, false );
+
+				}
+
+				// Rounding the line taxes first before summing
+				$line_taxes = $this->round_line_taxes( $line_taxes );
+
+				// Tax rows - merge the totals we just got
+				foreach ( array_keys( $cart_taxes + $line_taxes ) as $key ) {
+					$cart_taxes[ $key ] = ( isset( $line_taxes[ $key ] ) ? $line_taxes[ $key ] : 0 ) + ( isset( $cart_taxes[ $key ] ) ? $cart_taxes[ $key ] : 0 );
+				}
+
+			}
+		}
+
         // Total up/round taxes and shipping taxes
         if ( $cart->round_at_subtotal ) {
             $cart->tax_total          = WC_Tax::get_tax_total( $cart_taxes );
@@ -991,6 +1141,45 @@ class WC_MS_Checkout {
         return $cart;
 
     }
+
+	/**
+	* Apply rounding to an array of taxes before summing.
+	*
+	* @param array $item_taxes
+	* @return array
+	*/
+	public function round_line_taxes( $item_taxes ){
+				
+		foreach( $item_taxes as $key => $item_tax ){
+
+			if( 'yes' !== get_option( 'woocommerce_tax_round_at_subtotal' ) ){
+				
+				$item_tax  			= wc_add_number_precision( $item_tax, false );
+				$item_tax 			= wc_round_tax_total( $item_tax, 0 );
+				$item_tax  			= wc_remove_number_precision( $item_tax );
+				$item_taxes[ $key ] = $item_tax;
+
+			}
+			
+		}
+
+		return $item_taxes;
+	}
+
+	/**
+	* Apply rounding to an array of shipping taxes before summing.
+	*
+	* @param array $shipping_taxes
+	* @return array
+	*/
+	public function round_shipping_taxes( $shipping_taxes ){
+				
+		$shipping_taxes     = wc_add_number_precision_deep( $shipping_taxes, false );
+		$shipping_taxes     = array_map( 'WC_Item_Totals::round_item_subtotal', $shipping_taxes );
+		$shipping_taxes 	= wc_remove_number_precision_deep( $shipping_taxes );
+
+		return $shipping_taxes;
+	}
 
     public function subtotal_include_taxes( $product_subtotal, $cart_item, $cart_item_key ) {
 

@@ -7,9 +7,8 @@ class woocommerce_msrp_shortcodes {
 	 */
 	private $msrp_frontend;
 
-	public function __construct() {
+	public function __construct( $woocommerce_msrp_frontend ) {
 		// Store a reference to the frontend class.
-		global $woocommerce_msrp_frontend;
 		$this->msrp_frontend = $woocommerce_msrp_frontend;
 
 		// Register our shortcodes.

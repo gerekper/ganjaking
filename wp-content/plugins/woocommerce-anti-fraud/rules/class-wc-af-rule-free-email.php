@@ -31,6 +31,8 @@ class WC_AF_Rule_Free_Email extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
+		
+		Af_Logger::debug('Checking free email rule');
 		$domains = explode( ',', $this->free_email );
 		$free_email_domains = apply_filters( 'wc_af_temporary_email_domains', $domains );
 		
@@ -49,7 +51,7 @@ class WC_AF_Rule_Free_Email extends WC_AF_Rule {
 			}
 
 		}
-
+		Af_Logger::debug('free email rule risk : '. ( $risk===true ? 'true' : 'false' ));
 		return $risk;
 	}
 	//Enable rule check

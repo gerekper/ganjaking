@@ -15,6 +15,7 @@ global $rs_ids_collection;
 global $rs_preview_mode;
 global $rs_js_collection;
 global $rs_css_collection;
+global $rs_revicons;
 
 $rs_double_jquery_script = false;
 $rs_material_icons_css = false;
@@ -24,6 +25,7 @@ $rs_ids_collection = array();
 $rs_preview_mode = false;
 $rs_js_collection = array('revapi' => array(), 'js' => array(), 'minimal' => '');
 $rs_css_collection = array();
+$rs_revicons = false;
 
 class RevSliderOutput extends RevSliderFunctions {
 	
@@ -2172,7 +2174,12 @@ class RevSliderOutput extends RevSliderFunctions {
 				case 'streaminstagram':
 				case 'streaminstagramboth':
 				case 'html5':
-					if($this->get_val($layer, array('media', 'largeControls'), true) === false) $class[] = 'rs-nolc';
+					if($this->get_val($layer, array('media', 'largeControls'), true) === false){
+						$class[] = 'rs-nolc';
+					}else{
+						global $rs_revicons;
+						$rs_revicons = true;
+					}
 				break;
 			}
 		}
@@ -4928,7 +4935,7 @@ rs-module .material-icons {
 	public function get_background_image(){
 		$layer	= $this->get_layer();
 		$type	= $this->get_val($layer, 'type', 'text');
-		$image	= '<rs-bg-elem style="';
+		$image	= '<rs-bg-elem style="position:absolute; top:0px;left:0px;';
 		//check for background images
 		if(in_array($type, array('shape', 'row', 'group'), true)){
 			$url_image = $this->get_val($layer, array('idle', 'backgroundImage'), '');

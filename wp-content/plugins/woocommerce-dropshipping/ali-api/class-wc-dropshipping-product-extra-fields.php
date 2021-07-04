@@ -196,7 +196,7 @@ class WC_Dropshipping_Product_Extra_Fields {
 	    woocommerce_wp_text_input(
 	    	array(
 	        'id'          => 'product_custom_field_amazon_product_id',
-	        'label'       => __( 'Amazon Product ID', 'woocommerce' ),
+	        'label'       => __( 'Amazon Product ID', 'woocommerce-dropshipping' ),
 	        //'desc_tip'    => 'true',
 			//'description' => __( 'Description - Type of Package value included in the supplier email', 'woocommerce' )
 	        //'placeholder' => 'Custom Product Text Field',
@@ -253,7 +253,7 @@ class WC_Dropshipping_Product_Extra_Fields {
 	    woocommerce_wp_text_input(
 	    	array(
 	        'id'          => 'product_custom_field_amazon_affiliate_id',
-	        'label'       => __( 'Amazon Affiliate ID', 'woocommerce' ),
+	        'label'       => __( 'Amazon Affiliate ID', 'woocommerce-dropshipping' ),
 	        //'desc_tip'    => 'true',
 			//'description' => __( 'Description - Type of Package value included in the supplier email', 'woocommerce' )
 	        //'placeholder' => 'Custom Product Text Field',
@@ -283,7 +283,7 @@ class WC_Dropshipping_Product_Extra_Fields {
 		woocommerce_wp_text_input( array(
 			'id' => 'custom_field[' . $loop . ']',
 			'class' => 'short',
-			'label' => __( 'Cost of goods', 'woocommerce' ).' (' . get_woocommerce_currency_symbol().')',
+			'label' => __( 'Cost of goods', 'woocommerce-dropshipping' ).' (' . get_woocommerce_currency_symbol().')',
 			'value' => get_post_meta( $variation->ID, 'custom_field', true )
 			)
 		);
@@ -308,9 +308,9 @@ class WC_Dropshipping_Product_Extra_Fields {
 	    woocommerce_wp_text_input(
 	    	array(
 	        'id'          => '_cost_of_goods',
-	        'label'       => __( 'Cost of goods', 'woocommerce' ).' (' . get_woocommerce_currency_symbol().')',
+	        'label'       => __( 'Cost of goods', 'woocommerce-dropshipping' ).' (' . get_woocommerce_currency_symbol().')',
 	        'desc_tip'    => 'true',
-			'description' => __( 'Cost of goods value included in the supplier email', 'woocommerce' )
+			'description' => __( 'Cost of goods value included in the supplier email', 'woocommerce-dropshipping' )
 	        //'placeholder' => 'Custom Product Text Field',
 
 	      	)
@@ -335,8 +335,8 @@ class WC_Dropshipping_Product_Extra_Fields {
 	public function woocommerce_product_extra_fields() {
 		$args = array(
 		  'id' => 'number_of_orders',
-		  'label' => __('AliExpress Orders', 'order_placed'),
-		  'description'=> __('AliExpress Orders placed.')
+		  'label' => __('AliExpress Orders', 'woocommerce-dropshipping'),
+		  'description'=> __('AliExpress Orders placed.', 'woocommerce-dropshipping' )
 		);
 		woocommerce_wp_text_input($args);
 	}
@@ -355,7 +355,7 @@ class WC_Dropshipping_Product_Extra_Fields {
 	public function my_custom_supplier_tab( $tabs ) {
 
 		$tabs['supplier_tab'] = array(
-		'label'  => __( 'AliExpress Supplier', 'woocommerce' ),
+		'label'  => __( 'AliExpress Supplier', 'woocommerce-dropshipping' ),
 		'target' => 'the_supplier_custom_panel',
 		'class'  => array(),
 		//'style' => 'content: "\f174";'
@@ -381,15 +381,15 @@ class WC_Dropshipping_Product_Extra_Fields {
 		        */
 		        $productUrl = array(
 		          	'id' => 'ali_product_url',
-		          	'label' => __( 'Product URL', 'woocommerce'),
-		          	'description' => __( 'Enter URL to AliExpress Product' ),
+		          	'label' => __( 'Product URL', 'woocommerce-dropshipping'),
+		          	'description' => __( 'Enter URL to AliExpress Product', 'woocommerce-dropshipping' ),
 
 		        );
 
 		        $storeName = array(
 		          	'id' => 'ali_store_name',
-		          	'label' => __( 'Store Name', 'woocommerce' ),
-		          	'description' => __( 'AliExpress Supplier Store Name' ),
+		          	'label' => __( 'Store Name', 'woocommerce-dropshipping' ),
+		          	'description' => __( 'AliExpress Supplier Store Name', 'woocommerce-dropshipping'  ),
 		          	'desc_tip' => 'true',
 		          	'custom_attributes' => array(
 		    	  		'readonly' => 'readonly'
@@ -398,8 +398,8 @@ class WC_Dropshipping_Product_Extra_Fields {
 
 		        $storeUrl = array(
 		          	'id' => 'ali_store_url',
-		          	'label' => __( 'Store URL', 'woocommerce'),
-		          	'description' => __( 'AliExpress Supplier Store URL' ),
+		          	'label' => __( 'Store URL', 'woocommerce-dropshipping'),
+		          	'description' => __( 'AliExpress Supplier Store URL', 'woocommerce-dropshipping'  ),
 		          	'desc_tip' => 'true',
 		          	'custom_attributes' => array(
 		    	  		'readonly' => 'readonly'
@@ -408,7 +408,7 @@ class WC_Dropshipping_Product_Extra_Fields {
 		        $price_range = array(
 		          	'id' => 'ali_store_price_range',
 		          	'label' => __( 'Store Price Range' ),
-		          	'description' => __( 'AliExpress Supplier Store Price Range' ),
+		          	'description' => __( 'AliExpress Supplier Store Price Range', 'woocommerce-dropshipping' ),
 		          	'desc_tip' => 'true',
 		          	'custom_attributes' => array(
 		    	  		'readonly' => 'readonly'
@@ -416,7 +416,7 @@ class WC_Dropshipping_Product_Extra_Fields {
 		        );
 		         $currency = array(
 		          	'id' => 'ali_currency',
-		          	'label' => __( 'Currency' ),
+		          	'label' => __( 'Currency', 'woocommerce-dropshipping' ),
 
 		          	//'desc_tip' => 'true',
 
@@ -465,7 +465,7 @@ class WC_Dropshipping_Product_Extra_Fields {
 
 			'class' => 'short',
 
-			'label' => __( 'Description - Type of Package', 'woocommerce' ),
+			'label' => __( 'Description - Type of Package', 'woocommerce-dropshipping' ),
 
 			'value' => get_post_meta( $variation->ID, 'custom_field_description', true )
 
@@ -511,11 +511,11 @@ class WC_Dropshipping_Product_Extra_Fields {
 
 	        'id'          => '_custom_product_text_field_description',
 
-	        'label'       => __( 'Description - Type of Package', 'woocommerce' ),
+	        'label'       => __( 'Description - Type of Package', 'woocommerce-dropshipping' ),
 
 	        'desc_tip'    => 'true',
 
-			'description' => __( 'Description - Type of Package value included in the supplier email', 'woocommerce' )
+			'description' => __( 'Description - Type of Package value included in the supplier email', 'woocommerce-dropshipping' )
 
 	        //'placeholder' => 'Custom Product Text Field',
 

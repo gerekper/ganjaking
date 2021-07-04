@@ -132,12 +132,17 @@ class WC_Dropshipping_Admin
 	{
 		$base_name = explode('/', plugin_basename(__FILE__));
 
-		if(array_key_exists("success", $_GET) && trim($_GET['success']) == 'no'){
+		if (array_key_exists("success", $_GET) && trim($_GET['success']) == 'no'){
 			wp_enqueue_script('my-jquery-min-script', plugins_url() . '/' . $base_name[0] . '/assets/js/jquery.min.js', array('jquery'), true);
 			wp_enqueue_script('popper.min.js.map', plugins_url() . '/' . $base_name[0] . '/assets/js/popper.min.js', array('jquery'), true);
 			wp_enqueue_script('my-bootstrap-script', plugins_url() . '/' . $base_name[0] . '/assets/js/bootstrap.min.js', array('jquery'), true);
 			wp_enqueue_script('my-custom-script', plugins_url() . '/' . $base_name[0] . '/assets/js/custom-modal.js', array('jquery'), true);
-		} else {
+		} elseif ( ( array_key_exists("success", $_GET )  && trim($_GET['success']) == 'yes')) {
+				wp_enqueue_script('my-jquery-min-script', plugins_url() . '/' . $base_name[0] . '/assets/js/jquery.min.js', array('jquery'), true);
+				wp_enqueue_script('popper.min.js.map', plugins_url() . '/' . $base_name[0] . '/assets/js/popper.min.js', array('jquery'), true);
+				wp_enqueue_script('my-bootstrap-script', plugins_url() . '/' . $base_name[0] . '/assets/js/bootstrap.min.js', array('jquery'), true);
+				wp_enqueue_script('my-custom-script', plugins_url() . '/' . $base_name[0] . '/assets/js/custom-modal.js', array('jquery'), true);
+		}	else {
 			wp_enqueue_script( 'jquery' );
 			wp_enqueue_script("jquery-ui-datepicker");
 			wp_enqueue_script("jquery-blockui");
@@ -497,7 +502,7 @@ class WC_Dropshipping_Admin
 						}
 					}
 				} else {
-					$random_password = __('User already exists.  Password inherited.');
+					$random_password = __('User already exists.  Password inherited.', 'woocommerce-dropshipping');
 				}
 			}
 		}
@@ -775,6 +780,12 @@ class WC_Dropshipping_Admin
 				$options['customer_note'] = '0';
 			}
 
+			if ( isset($_POST['customer_email' ] ) ) {
+				$options['customer_email'] = '1';
+			} else {
+				$options['customer_email'] = '0';
+			}
+
 			// Aliexpress Settings get POST
 			if (isset($_POST['ali_cbe_enable_name'])) {
 				$options['ali_cbe_enable_name'] = '1';
@@ -1020,6 +1031,12 @@ class WC_Dropshipping_Admin
 			$customer_note = '';
 		}
 
+		if (isset($options['customer_email'])) {
+			$customer_email = $options['customer_email'];
+		} else {
+			$customer_email = '';
+		}
+
 		// Aliexpress Settings for setting variable creation
 		if (isset($options['ali_cbe_enable_name'])) {
 			$ali_cbe_enable_setting = $options['ali_cbe_enable_name'];
@@ -1238,6 +1255,12 @@ class WC_Dropshipping_Admin
 			$customer_note = ' ';
 		}
 
+		if ($customer_email == '1') {
+			$customer_email = ' checked="checked" ';
+		} else {
+			$customer_email = ' ';
+		}
+
 		// Aliexpress Settings for checkbox value
 		if ($ali_cbe_enable_setting == '1') {
 			$ali_cbe_enable_checkbox = ' checked="checked" ';
@@ -1402,6 +1425,10 @@ class WC_Dropshipping_Admin
 			<table>
 				<tr>
 					<p><b>NOTE:</b> For best results, please make sure that any custom terms or phrases listed below are kept to a reasonable legnth. If your terms are too long, it may cause text wrapping and alignment issues with your packing slips.</p>
+					<td><label for="dropship_chosen_supplie" >Supplier:</label></td>
+					<td><input name="dropship_chosen_supplier" value="' . @$options['dropship_chosen_supplier'] . '" size="30" maxlength="50" /></td>
+				</tr>
+				<tr>
 					<td><label for="dropship_chosen_shipping_method" >Chosen Shipping Method:</label></td>
 					<td><input name="dropship_chosen_shipping_method" value="' . @$options['dropship_chosen_shipping_method'] . '" size="30" maxlength="50" /></td>
 				</tr>
@@ -1623,6 +1650,15 @@ class WC_Dropshipping_Admin
 					<td><input name="customer_note" type="checkbox" ' . $customer_note . ' /></td>
 				</tr>
 			</table>';
+
+			echo '<p></p>
+
+				<table>
+					<tr>
+						<td><label for="customer_email">Include "Customer email" into the Dropshipper packing slip:</label></td>
+						<td><input name="customer_email" type="checkbox" ' . $customer_email . ' /></td>
+					</tr>
+				</table>';
 
 		echo '<p></p>
 			<table>

@@ -19,5 +19,21 @@
 			$(this).text( $(this).data('toggle') );
 			$(this).data('toggle', text);
 		});
+		
+		$('.unblock-email').click(function(){
+			var email = $(this).data('email');
+			$.ajax({
+				method : 'POST',
+				url : ajaxurl,
+				data : { action : 'whitelist_email', email : email },
+				success : function(result) {
+					window.location.reload();
+				}				
+			})
+		});
+		
 	});
+	
+	
+	
 })(jQuery);

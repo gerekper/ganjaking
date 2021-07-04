@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Maintains component view state.
  *
  * @class    WC_CP_Component_View
- * @version  8.0.0
+ * @version  8.1.4
  */
 class WC_CP_Component_View {
 
@@ -114,6 +114,12 @@ class WC_CP_Component_View {
 				$per_page = $this->component->get_results_per_page();
 			}
 
+			if ( $per_page && $this->get_component()->get_options() > $per_page && empty( $args[ 'doing_ajax' ] ) && $this->get_component()->hide_disabled_options() ) {
+				$args[ 'options_in_scenarios' ] = array(
+					'compat_group' => $this->get_component()->get_composite()->scenarios()->get_ids_by_action( 'compat_group' )
+				);
+			}
+
 			$defaults = array(
 				'query_type'           => 'product_ids',
 				'per_page'             => $per_page,
@@ -131,9 +137,11 @@ class WC_CP_Component_View {
 
 			// At this point, we can also filter the IDs when requesting options that match specific states.
 			if ( ! empty( $args[ 'options_in_scenarios' ] ) ) {
+
 				if ( ! empty( $args[ 'options_in_scenarios' ][ 'compat_group' ] ) ) {
 					$data[ 'assigned_ids' ] = $this->filter_options_in_states( $data[ 'assigned_ids' ], $args[ 'options_in_scenarios' ][ 'compat_group' ] );
 				}
+
 				if ( ! empty( $args[ 'options_in_scenarios' ][ 'conditional_options' ] ) ) {
 					$data[ 'assigned_ids' ] = $this->filter_conditional_options( $data[ 'assigned_ids' ], $args[ 'options_in_scenarios' ][ 'conditional_options' ] );
 				}

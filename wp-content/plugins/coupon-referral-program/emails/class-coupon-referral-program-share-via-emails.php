@@ -1,0 +1,157 @@
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+if ( ! class_exists( 'Coupon_Referral_Share_Via_Email' ) ) {
+
+    class Coupon_Referral_Share_Via_Email extends WC_Email {
+        public $refferal_link;
+        public $user_name;
+        public $coupon_amount = 0;
+        public function __construct() {
+            $this->id             = 'crp_share_via_email';
+            $this->title          = __( 'Referral Link', 'coupon-referral-program' );
+            $this->customer_email = true;
+            $this->description    = __( 'This is the referral link which is used to register on the site and get the discount coupon.', 'coupon-referral-program' );
+            $this->template_html  = 'crp_share_via_email_template.php';
+            $this->template_plain = 'plain/crp_share_via_email_template.php';
+            $this->template_base  = COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/templates/';
+            $this->placeholders   = array(
+                '{site_title}'       => $this->get_blogname(),
+                '{refferal_link}' => '',
+                '{user_name}' => '',
+            );
+
+            // Call parent constructor
+            parent::__construct();
+        }
+
+        /**
+         * Get email subject.
+         *
+         * @since  3.1.0
+         * @return string
+         */
+        public function get_default_subject() {
+            return __( 'Refferal Link {site_title}', 'coupon-referral-program' );
+        }
+
+        /**
+         * Get email heading.
+         *
+         * @since  3.1.0
+         * @return string
+         */
+        public function get_default_heading() {
+            return __( 'Congratulation! You have received the Referral Link', 'coupon-referral-program' );
+        }
+
+        /**
+         * Trigger the sending of this email.
+         *
+         * @param int $transaction_id.
+         */
+        public function trigger( $user_id , $refferal_link,$recipient_email) {
+            if ( $user_id ) {
+                $this->setup_locale();
+
+                $user = new WP_User( $user_id );
+                $user_info = get_userdata($user_id);
+                if ( is_a( $user, 'WP_User' ) ) {
+                    $this->object = $user;
+                    $this->refferal_link = $refferal_link;
+                    $this->user_name = $user->display_name;
+                    $this->recipient = $recipient_email;
+                    $this->placeholders['{refferal_link}'] = $refferal_link;
+                    $this->placeholders['{user_name}'] = $user->display_name;
+                    if ( $this->is_enabled() && $this->get_recipient() ) {
+                        $this->send($this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments());
+                    }
+                }
+                $this->restore_locale();
+            }
+            
+        }
+
+        /**
+         * Get content html.
+         *
+         * @access public
+         * @return string
+         */
+        public function get_content_html() {
+            return wc_get_template_html( $this->template_html, array(
+                'user'          => $this->object,
+                'refferal_link'   => $this->refferal_link,
+                'user_name'   => $this->user_name,
+                'email_heading' => $this->get_heading(),
+                'sent_to_admin' => false,
+                'plain_text'    => false,
+                'email'         => $this ), 'coupon-referral-program', $this->template_base );
+        }
+
+        /**
+         * Get content plain.
+         *
+         * @access public
+         * @return string
+         */
+        public function get_content_plain() {
+            return wc_get_template_html( $this->template_plain, array(
+                'user'          => $this->object,
+                'refferal_link'   => $this->refferal_link,
+                'user_name'   => $this->user_name,
+                'email_heading' => $this->get_heading(),
+                'sent_to_admin' => false,
+                'plain_text'    => true,
+                'email' => $this ), 'coupon-referral-program', $this->template_base );
+        }
+
+        /**
+         * Initialise settings form fields.
+         */
+        public function init_form_fields() {
+            $this->form_fields = array(
+                'enabled' => array(
+                    'title'   => __( 'Enable/Disable', 'coupon-referral-program' ),
+                    'type'    => 'checkbox',
+                    'label'   => __( 'Enable this email notification', 'coupon-referral-program' ),
+                    'default' => 'yes',
+                ),
+                'subject' => array(
+                    'title'       => __( 'Subject', 'coupon-referral-program' ),
+                    'type'        => 'text',
+                    'desc_tip'    => true,
+                    /* translators: %s: list of placeholders */
+                    'description' => sprintf( __( 'Available placeholders: %s', 'coupon-referral-program' ), '<code>{site_title}, {refferal_link}</code>' ),
+                    'placeholder' => $this->get_default_subject(),
+                    'default'     => '',
+                ),
+                'heading' => array(
+                    'title'       => __( 'Email heading', 'coupon-referral-program' ),
+                    'type'        => 'text',
+                    'desc_tip'    => true,
+                    /* translators: %s: list of placeholders */
+                    'description' => sprintf( __( 'Available placeholders: %s', 'coupon-referral-program' ), '<code>{site_title}, {refferal_link}</code>' ),
+                    'placeholder' => $this->get_default_heading(),
+                    'default'     => '',
+                ),
+                'email_type' => array(
+                    'title'       => __( 'Email type', 'coupon-referral-program' ),
+                    'type'        => 'select',
+                    'description' => __( 'Choose which format of email to send.', 'coupon-referral-program' ),
+                    'default'     => 'html',
+                    'class'       => 'email_type wc-enhanced-select',
+                    'options'     => $this->get_email_type_options(),
+                    'desc_tip'    => true,
+                ),
+            );
+        }
+
+    }
+
+}
+
+return new Coupon_Referral_Share_Via_Email();

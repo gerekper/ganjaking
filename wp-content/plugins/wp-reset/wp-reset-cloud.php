@@ -194,7 +194,12 @@ class WP_Reset_Cloud
         $response = wp_remote_post($this->cloud_url, $args);
 
         $wp_reset->log('info', 'Cloud request: ' . serialize($headers));
-        $wp_reset->log('info', 'Cloud response: ' . $response['body']);
+        if(is_wp_error($response)){
+            $wp_reset->log('info', 'Cloud response: ' . $response->get_error_message());
+        } else {
+            $wp_reset->log('info', 'Cloud response: ' . $response['body']);
+        }
+        
 
         if ($return_raw) {
             return $response;

@@ -14,8 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once( ABSPATH . '/wp-content/plugins/woocommerce/includes/admin/reports/class-wc-admin-report.php');
-
 if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 	class WC_Dropshipping_Dashboard {
@@ -394,11 +392,12 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 				}
 			}
 
+			$order_per_day_total[ 'currency' ] = $this->get_currency();
+
 			wp_localize_script( 'add_custom_dashboard_script', 'last_day_orders', $order_per_day_total );
 			wp_localize_script( 'add_custom_dashboard_script', 'last_day_orders_data', $last_day_orders_data );
 			wp_localize_script( 'add_custom_dashboard_script', 'profit', $profit );
 
-			$order_per_day_total[ 'currency' ] = $this->get_currency();
 			if ( isset( $profit ) && is_array( $profit ) ) {
 				$profit = array_sum( $profit );
 			}

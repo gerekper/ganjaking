@@ -502,6 +502,7 @@ class NinjaTableUpdateChecker
                 'edd_action' => 'check_license',
                 'license'    => $license,
                 'item_name'  => urlencode($this->get_var('item_name')),
+                'item_id'    => $this->get_var('item_id'),
                 'url'        => network_site_url()
             );
         } else {
@@ -509,6 +510,7 @@ class NinjaTableUpdateChecker
                 'edd_action' => 'check_license',
                 'license'    => $license,
                 'item_name'  => urlencode($this->get_var('item_name')),
+                'item_id'    => $this->get_var('item_id'),
                 'url'        => home_url()
             );
         }

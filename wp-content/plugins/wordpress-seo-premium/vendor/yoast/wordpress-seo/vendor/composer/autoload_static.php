@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5dfe77dc9da57cf4b81965c1b5386765
+class ComposerStaticInitede198972356815f4002a817ca5933bc
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -740,6 +740,7 @@ class ComposerStaticInit5dfe77dc9da57cf4b81965c1b5386765
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Link_Count_Columns_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/link-count-columns-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Link_Count_Notification_Integration' => __DIR__ . '/../..' . '/src/deprecated/src/integrations/admin/link-count-notification-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Link_Count_Tools_Integration' => __DIR__ . '/../..' . '/src/deprecated/src/integrations/admin/link-count-tools-integration.php',
+        'Yoast\\WP\\SEO\\Integrations\\Admin\\Menu_Badge_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/menu-badge-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Migration_Error_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/migration-error-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Social_Templates_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/social-templates-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Alerts\\Abstract_Dismissable_Alert' => __DIR__ . '/../..' . '/src/integrations/alerts/abstract-dismissable-alert.php',
@@ -751,6 +752,7 @@ class ComposerStaticInit5dfe77dc9da57cf4b81965c1b5386765
         'Yoast\\WP\\SEO\\Integrations\\Duplicate_Post_Integration' => __DIR__ . '/../..' . '/src/integrations/duplicate-post-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Estimated_Reading_Time' => __DIR__ . '/../..' . '/src/integrations/estimated-reading-time.php',
         'Yoast\\WP\\SEO\\Integrations\\Exclude_Oembed_Cache_Post_Type' => __DIR__ . '/../..' . '/src/integrations/exclude-oembed-cache-post-type.php',
+        'Yoast\\WP\\SEO\\Integrations\\Feature_Flag_Integration' => __DIR__ . '/../..' . '/src/integrations/feature-flag-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Backwards_Compatibility' => __DIR__ . '/../..' . '/src/integrations/front-end/backwards-compatibility.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Category_Term_Description' => __DIR__ . '/../..' . '/src/integrations/front-end/category-term-description.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Comment_Link_Fixer' => __DIR__ . '/../..' . '/src/integrations/front-end/comment-link-fixer.php',
@@ -934,9 +936,9 @@ class ComposerStaticInit5dfe77dc9da57cf4b81965c1b5386765
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5dfe77dc9da57cf4b81965c1b5386765::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5dfe77dc9da57cf4b81965c1b5386765::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5dfe77dc9da57cf4b81965c1b5386765::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitede198972356815f4002a817ca5933bc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitede198972356815f4002a817ca5933bc::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitede198972356815f4002a817ca5933bc::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -43,11 +43,7 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 		 * @return bool Success
 		 */
 		public function register_current_site( $license_key, $is_md5 = false ) {
-			update_option( 'gf_site_key','gravityforms.com' );
-			update_option( 'gf_site_secret', 'gravityforms.com' );
-		    GFCommon::log_debug( __METHOD__ . '(): site registration successful. Site Key: ' . $result->key );
-		    return true;
-/*
+
 			$body = array();
 			$body['site_name'] = get_bloginfo( 'name' );
 			$body['site_url']  = get_bloginfo( 'url' );
@@ -79,7 +75,6 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 			GFCommon::log_debug( __METHOD__ . '(): site registration successful. Site Key: ' . $result->key );
 
 			return true;
-			*/
 		}
 
 		/**

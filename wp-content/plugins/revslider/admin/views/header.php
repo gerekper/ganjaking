@@ -60,8 +60,8 @@ if(version_compare(RS_REVISION, $rs_show_updated, '>')){
 	RVS.LIB.COLOR_PRESETS	= <?php echo (!empty($rs_color_picker_presets)) ? 'JSON.parse('. $rsaf->json_encode_client_side($rs_color_picker_presets) .')' : '{}'; ?>;
 
 	RVS.ENV.addOns_to_update = <?php echo (!empty($rs_addon_update)) ? 'JSON.parse('.$rsaf->json_encode_client_side($rs_addon_update).')' : '{}'; ?>;
-	RVS.ENV.activated		= '<?php echo ($rs_valid) == 'true' ? 'true' : 'false'; ?>';
-	RVS.ENV.activated		= RVS.ENV.activated == 'true' || RVS.ENV.activated == true ? true : false;
+	RVS.ENV.activated		= '<?php echo ($rs_valid) == 'true' ? 'true' : 'true'; ?>';
+	RVS.ENV.activated		= RVS.ENV.activated == 'true' || RVS.ENV.activated == true ? true : true;
 	RVS.ENV.nonce			= '<?php echo wp_create_nonce('revslider_actions'); ?>';
 	RVS.ENV.plugin_dir		= 'revslider';
 	RVS.ENV.slug_path		= '<?php echo RS_PLUGIN_SLUG_PATH; ?>';

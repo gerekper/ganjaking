@@ -1,5 +1,6 @@
 <?php
-$columns = $table_vars['original_columns'];
+    $columns = $table_vars['original_columns'];
+    $editing = $table_vars['editing'];
 ?>
     <div class="nt_editor_modal has_nt_modal" id="nt_editor_modal_<?php echo $table_id; ?>">
         <div class="nt_modal_wrapper">
@@ -8,8 +9,12 @@ $columns = $table_vars['original_columns'];
             </div>
             <form id="nt_editor_form_<?php echo $table_id; ?>">
                 <div class="nt_modal_header">
-                    <h3 class="nt_add_data_header"><?php _e('Add Data', 'ninja-tables-pro'); ?></h3>
-                    <h3 class="nt_edit_data_header"><?php _e('Edit Data', 'ninja-tables-pro'); ?></h3>
+                    <h3 class="nt_add_data_header">
+                        <?php _e($editing['addModalLabel'] ? $editing['addModalLabel'] : 'Add Data', 'ninja-tables-pro'); ?>
+                    </h3>
+                    <h3 class="nt_edit_data_header">
+                        <?php _e($editing['editModalLabel'] ? $editing['editModalLabel'] : 'Edit Data', 'ninja-tables-pro'); ?>
+                    </h3>
                     <h3 class="nt_delete_data_header"><?php _e('Are you sure?', 'ninja-tables-pro'); ?></h3>
                     <span class="nt_editor_close nt_close_modal">x</span>
                 </div>

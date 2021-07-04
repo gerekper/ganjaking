@@ -242,29 +242,20 @@ if (false === class_exists('WF_Licensing_WPR')) {
          */
         function get_license($key = '')
         {
-            $default = array(
-                'license_key' => '',
-                'error' => '',
-                'valid_until' => '',
-                'last_check' => 0,
-                'name' => '',
-                'meta' => array(),
-                'access_key' => ''
-            );
-
-            $options = get_option('wf_licensing_' . $this->prefix, array());
-            $options = array_merge($default, $options);
-
-            if (empty($options['access_key'])) {
-                $options['access_key'] = $this->generate_access_key();
-                $this->update_license($options);
-            }
-
-            if (!empty($key)) {
-                return $options[$key];
-            } else {
-                return $options;
-            }
+           $options = get_option('wf_licensing_' . $this->prefix, array());
+		   $options['error'] = '';
+		   $options['meta'] = array();
+           $options['meta'][$feature] = true;
+           $options['last_check'] = time()+99999;
+           $options['license_key'] = '6Xais0bh-tEmmdVcB-XlWumfk4-lCdt1VHf';
+           //$license['valid_until'] = date(get_option('date_format'), strtotime('+1200 days');
+           $options['name'] = 'Developer';
+           $options['access_key'] = '6Xais0bh-tEmmdVcB-XlWumfk4-lCdt1VHf';
+           $options['valid_until'] = date(get_option('date_format'), strtotime('+1200 days'));
+           $options['recurring'] = false;
+		   $this->update_license($options);
+           return $options;
+            
         } // get_license
 
 
@@ -382,12 +373,9 @@ if (false === class_exists('WF_Licensing_WPR')) {
          * @return boolean
          */
         function is_active($feature = '', $force_check = false)
-        {
-			$this->validate();
-			return true;
-            
-			$last_check = $this->get_license('last_check');
-            if ($force_check || ($last_check && ($last_check + HOUR_IN_SECONDS * 8) < time())) {
+        {return true;
+            $last_check = get_transient('wf_licensing_wpr_last_check');
+            if ($force_check || $last_check === false){
                 $this->log('auto recheck license');
                 $this->validate();
             }
@@ -504,32 +492,81 @@ if (false === class_exists('WF_Licensing_WPR')) {
          */
         function validate($license_key = '')
         {
+            
+            $license = $this->get_license();
+            if (empty($license_key)) {
+                $license_key = $license['license_key'];
+            }
 
             $out = array(
-            'name' => 'developer',
-			'name_long' => 'developer',
-			'license_key' => '798af5ec-37694bca-8b5944cd-3a583792',
-			'license_key_hidden' => '###########',
-			'error' => '',
-			'valid_until' => date("Y-m-d",strtotime("+1200 days")),
-			'last_check' => time(),
-			'keyless' => false,
-			'recurring' => false,
-			'access_key' => $this->generate_access_key(),
-			'meta' => array());
-       
-            $this->update_license($out);
-            return true;
-            
+                'license_key' => $license_key,
+                'access_key' => $license['access_key'],
+                'error' => '',
+                'name' => '',
+                'last_check' => time(),
+                'valid_until' => '',
+                'meta' => array()
+            );
+
+            set_transient('wf_licensing_wpr_last_check', true, HOUR_IN_SECONDS * 8);
+
+            $result = $this->query_licensing_server('validate_license', array('license_key' => $license_key));
+
+            if (is_wp_error($result)) {
+                $out['error'] = 'Error querying licensing server. ' .  $result->get_error_message() . ' Please try again in a few moments.';
+                $this->update_license($out);
+
+                return false;
+            } elseif (!is_array($result) || !isset($result['success'])) {
+                $out['error'] = 'Invalid response from licensing server. Please try again in a few moments.';
+                $this->update_license($out);
+
+                return false;
+            } elseif ($result['success'] == false) {
+                $out['error'] = $result['data'];
+                $this->update_license($out);
+
+                return true;
+            } else {
+                $out['error'] = $result['data']['error'];
+                $out['name'] = $result['data']['name'];
+                $out['valid_until'] = $result['data']['valid_until'];
+                $out['meta'] = $result['data']['meta'];
+                $out['last_check'] = time();
+                $this->update_license($out);
+
+                return true;
+            }
         } // validate
 
 
         function validate_ajax()
         {
             check_ajax_referer('wf_licensing_' . $this->prefix);
-            wp_send_json_success(true);
-               
-           
+
+            $license_key = trim($_REQUEST['license_key']);
+
+            if (empty($license_key)) {
+                $license = $this->get_license();
+                $license_key = $license['license_key'];
+            }
+
+            if (empty($license_key)) {
+                $this->update_license(false);
+                do_action('wf_licensing_' . $this->prefix . 'validate_ajax', $license_key, false);
+
+                wp_send_json_success();
+            } else {
+                $result = $this->validate($license_key);
+                $license = $this->get_license();
+                do_action('wf_licensing_' . $this->prefix . 'validate_ajax', $license_key, $result);
+
+                if ($result == true) {
+                    wp_send_json_success($result);
+                } else {
+                    wp_send_json_error($license);
+                }
+            }
         } // validate_ajax
 
 
@@ -546,7 +583,27 @@ if (false === class_exists('WF_Licensing_WPR')) {
 
         function save_ajax()
         {
-            
+            check_ajax_referer('wf_licensing_' . $this->prefix);
+
+            $out['license_key'] = trim($_POST['license_key']);
+
+            if ($_POST['success'] == 'true') {
+                $out['error'] = trim($_POST['data']['error']);
+                $out['name'] = trim($_POST['data']['name']);
+                $out['valid_until'] = trim($_POST['data']['valid_until']);
+                $out['meta'] = $_POST['data']['meta'];
+            } else {
+                $out['error'] = trim($_POST['data']);
+                $out['name'] = '';
+                $out['valid_until'] = '';
+                $out['meta'] = array();
+            }
+            $out['last_check'] = time();
+
+            $this->update_license($out);
+            do_action('wf_licensing_' . $this->prefix . 'save_ajax', $out);
+
+            wp_send_json_success();
         } // save_ajax
 
 
@@ -561,17 +618,17 @@ if (false === class_exists('WF_Licensing_WPR')) {
         function query_licensing_server($action, $data = array())
         {
             $license = $this->get_license();
-
+            
             $request_params = array('sslverify' => false, 'timeout' => 25, 'redirection' => 2);
             $default_data = array(
                 'action' => '',
-                'license_key' => '798af5ec-37694bca-8b5944cd-3a583792',
+                'license_key' => $license['license_key'],
                 'rand' => rand(1000, 9999),
                 'version' => $this->version,
                 'wp_version' => get_bloginfo('version'),
                 'site_url' => get_home_url(),
                 'site_title' => preg_replace('/[[:^print:]]/', '', get_bloginfo('name')),
-                'access_key' => $this->generate_access_key(),
+                'access_key' => $license['access_key'],
                 'meta' => array()
             );
             
@@ -589,8 +646,16 @@ if (false === class_exists('WF_Licensing_WPR')) {
             $result = @json_decode($body, true);
 
             $this->log('licensing server response', $response);
-            return $result;
-            
+
+            if (is_wp_error($response) || empty($body) || !is_array($result) || !isset($result['success'])) {
+                if (is_wp_error($response)) {
+                    return $response;
+                } else {
+                    return new WP_Error(1, 'Invalid server response format.');
+                }
+            } else {
+                return $result;
+            }
         } // query_licensing_server
 
 
@@ -615,7 +680,10 @@ if (false === class_exists('WF_Licensing_WPR')) {
                 return $return;
             }
 
-           
+            if (empty($response) || is_wp_error($response)) {
+                $response = $this->query_licensing_server('plugin_information', array('request_details' => serialize($args)));
+            }
+
             if (is_wp_error($response)) {
                 $res = new WP_Error('plugins_api_failed', 'xAn unexpected HTTP error occurred during the API request.', $response->get_error_message());
             } elseif ($response['success'] != true) {
@@ -649,7 +717,10 @@ if (false === class_exists('WF_Licensing_WPR')) {
 
             $response = get_transient('wf_plugin_update_' . $this->prefix);
 
-           
+            if (empty($response)) {
+                $response = $this->query_licensing_server('update_info');
+                set_transient('wf_plugin_update_' . $this->prefix, $response, 120);
+            }
 
             if (!is_wp_error($response) && $response['success'] == true) {
                 $data = (object)$response['data'];

@@ -29,6 +29,7 @@ if ( ! class_exists( 'WC_AF_Rule_Billing_Phone_Matches_Billing_Country' ) ) {
 		 */
 		public function is_risk( WC_Order $order ) {
 
+			Af_Logger::debug('Checking billing phone matches billing country rule');
 			// Default risk is false
 			$risk = false;
 
@@ -74,6 +75,8 @@ if ( ! class_exists( 'WC_AF_Rule_Billing_Phone_Matches_Billing_Country' ) ) {
 					
 				$risk = true;
 			}
+			
+			Af_Logger::debug('billing phone matches billing country rule risk : ' . ( $risk===true ? 'true' : 'false' )); 
 			return $risk;
 		}
 

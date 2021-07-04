@@ -1045,18 +1045,21 @@ class WC_Dropshipping_Orders {
 					$uniqe_userid = array_unique($arrayuser);
 					foreach ($uniqe_userid as $key => $value) {
 					 	$dropshipper_shipping_info = get_post_meta($postid, 'dropshipper_shipping_info_'.$value, true);
-					 	$track_no = $dropshipper_shipping_info['tracking_number'];
-					 	$supplier_id = get_user_meta($value, 'supplier_id', true);
-					 	$term = get_term_by('id', $supplier_id, 'dropship_supplier');
+						if ( is_array( $dropshipper_shipping_info ) ) {
+						 	$track_no = $dropshipper_shipping_info['tracking_number'];
+						 	$supplier_id = get_user_meta($value, 'supplier_id', true);
+						 	$term = get_term_by('id', $supplier_id, 'dropship_supplier');
 
-						if($dropshipper_shipping_info){
 
-							echo 'Tracking Number(s): '.$track_no;
+							if($dropshipper_shipping_info){
 
-						} else {
+								echo 'Tracking Number(s): '.$track_no;
 
-							echo '';
+							} else {
 
+								echo '';
+
+							}
 						}
 			 		}
 			 	}

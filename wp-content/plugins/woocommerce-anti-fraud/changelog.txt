@@ -1,19 +1,34 @@
 *** WooCommerce Anti Fraud ***
 
-2020-12-17 version 3.4
+2021-06-24 - version 3.7
+* PLUGINS-1090 - Fix - Causing some JavaScript conflict with WP Bakery Page Builder
+* PLUGINS-802 - Whitelist blacklisted email on frontend
+* PLUGINS-1064 - MINFRAUD WOO - geoip 2 function
+
+2021-04-19 - version 3.6
+* PLUGINS-949	- Code new dashboard
+* PLUGINS-908	- Insights
+* PLUGINS-879	- Add filter to change Admin Text if Fraud is blocked on Pre Payment Check
+* PLUGINS-663	- Put Log code for the cron scheduler, and wherever else required
+
+2021-03-02 - version 3.5
+* PLUGINS-879 - Add filter to change Admin Text if Fraud is blocked on Pre Payment Check.
+* PLUGINS-851 - Fix whitelisted payment methods not working.
+
+2020-12-17 - version 3.4
 * PLUGINS-837 - Bug fixed: Filter on settings cause notice errors in Woocommerce Admin plugin
 
-2020-11-23 version 3.3
+2020-11-23 - version 3.3
 * PLUGINS-809 - Bug fixed: Changes order status from completed to processing.
 
-2020-11-03 version 3.2
+2020-11-03 - version 3.2
 * PLUGINS-752 - jQuery-ui conflict with other plugins (jQuery-Knob)
 
-2020-10-30 version 3.1
+2020-10-30 - version 3.1
 * PLUGINS-746 - Per-Payment fraud check issue fixed.
 * PLUGINS-758 - Updated the logic for checking of billing phone with Billing country rule.
 
-2020-10-06 version 3.0
+2020-10-06 - version 3.0
 * PLUGINS-640 - Replaced the checkbox with the switch button in the "Minfraud settings" section.
 * PLUGINS-709 - Added feature to bypass the "On-hold" and "Cancel" order rules.
 * PLUGINS-710 - Added new rule to check billing phone with Billing country.
@@ -22,50 +37,48 @@
 * PLUGINS-671 - Add feature - added option Enable Fraud Check Before Payment.
 * PLUGINS-696 - Admin screen improvements
 
-2020-09-25 version 2.9.1
+2020-09-25 - version 2.9.1
 * PLUGINS-712 - Fixed the Cron tasks issue.
 
-2020-09-11 version 2.9
+2020-09-11 - version 2.9
 * PLUGINS-643 - Added cron scheduler that runs once every hour, for past 7 days orders which has not been checked, or orders which has, for some reason, been missed out.
 * PLUGINS-638 - Added description for "Device Tracking" settings option.
 * PLUGINS-637 - Update label for "Cancel Score" settings field.
 * PLUGINS-657 - Fixed enable first-order check for processing orders issue.
 * PLUGINS-646 - Fixed the visible graphics of risk score circle.
 
-2020-09-02 version 2.8
+2020-09-02 - version 2.8
 * PLUGINS-554 - Added feature to support Minfraud scoring system.
 
-2020-07-16 version 2.7.5
+2020-07-16 - version 2.7.5
 * PLUGINS-482 - Add Block IP address feature
 
-
-2020-07-16 version 2.7.4
+2020-07-16 - version 2.7.4
 * PLUGINS-516 - Fixed cancelled order bug.
 
-2020-07-10 version 2.7.3
+2020-07-10 - version 2.7.3
 * PLUGINS-421 PLUGINS-339 Fixed Email and order status function for WC 4.0
 * PLUGINs-405 Fixed First Order Message Changed.
 * PLUGINS-348 Fixed Whitelist function issue.
 * PLUGINS-406 Paypal email verification issue.
 
-
-2020-05-25 version 2.7.2
+2020-05-25 - version 2.7.2
 * PLUGINS-124 - Fixed verify froud email or generated email
 * PLUGINS-339 - version check and alternative strategy for WC 4.0
 
-2020-02-14 version 2.7.1
+2020-02-14 - version 2.7.1
 * PLUGINS-258 - Fixed automatic blacklist of email
 
-2019-12-28 version 2.7
-*Fixed the paypal verify email issue.
+2019-12-28 - version 2.7
+* Fixed the paypal verify email issue.
 
-2019-11-06 version 2.6
+2019-11-06 - version 2.6
 * fixed the issue in rule ip geolocation check getting error usage_limit_reached.
 
-2019-10-21 version 2.5
+2019-10-21 - version 2.5
 * Added feature customer cannot place an order from blacklisted email.
 
-2019-10-15 version 2.4
+2019-10-15 - version 2.4
 * Added option to send score notification via email to multiple emails.
 * Added option for first order check for processing order.
 * fixed proxy detect issue.
@@ -73,14 +86,14 @@
 * Fixed score calculations Issue when risk score more then 100.
 * Fixed Geo location issue.
 
-2019-08-20 version 2.3
+2019-08-20 - version 2.3
 * New Feature Added — User can update verification email content.
 * Added option HTML <br> tag for message formating.
 
-2019-08-05 version 2.2
+2019-08-05 - version 2.2
 * Fix international order issue
 
-2019-06-18 version 2.1
+2019-06-18 - version 2.1
 * Fix Proxy Check issue
 
 2019-05-29 - version 2.0

@@ -24,6 +24,7 @@ class WC_AF_Rule_Many_Items extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
+		Af_Logger::debug('Checking order many times rule');
 		global $wpdb;
 
 		// Default risk is false
@@ -36,7 +37,7 @@ class WC_AF_Rule_Many_Items extends WC_AF_Rule {
 		if ( $order->get_item_count() > ( $total_products * apply_filters( 'wc_af_many_items_multiplier', 1.5 ) ) ) {
 			$risk = true;
 		}
-
+		Af_Logger::debug('order many times rule risk : ' . ( $risk===true ? 'true' : 'false' ));
 		return $risk;
 	}
 

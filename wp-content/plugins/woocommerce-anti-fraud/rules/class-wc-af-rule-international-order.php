@@ -28,7 +28,8 @@ class WC_AF_Rule_International_Order extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
-
+		
+		Af_Logger::debug('Checking international order rule');
 		// Default risk is false
 		$risk = false;
 
@@ -47,7 +48,8 @@ class WC_AF_Rule_International_Order extends WC_AF_Rule {
 		if ( ( $store_country != $billing_country && !empty($billing_country) )  || ( $store_country != $shipping_country && !empty($shipping_country) ) ) {
 			$risk = true;
 		}
-
+		
+		Af_Logger::debug('international order rule risk : ' . ( $risk===true ? 'true' : 'false' ));
 		return $risk;
 	}
 	//Enable rule check

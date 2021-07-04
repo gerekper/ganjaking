@@ -109,13 +109,12 @@ class TableEditor
         }
         ninjaTablesValidateNonce();
 
-        $tableId = intval($_REQUEST['table_id']);
-        $settings = wp_unslash($_REQUEST['settings']);
-        $editing_items = wp_unslash($_REQUEST['editing_items']);
-        $required_items = wp_unslash($_REQUEST['required_items']);
-        $default_values = wp_unslash($_REQUEST['default_values']);
-        $appearance_settings = wp_unslash($_REQUEST['appearance_settings']);
-
+        $tableId = ArrayHelper::get($_REQUEST, 'table_id');
+        $settings = wp_unslash(ArrayHelper::get($_REQUEST, 'settings'));
+        $editing_items = wp_unslash(ArrayHelper::get($_REQUEST, 'editing_items'));
+        $required_items = wp_unslash(ArrayHelper::get($_REQUEST, 'required_items'));
+        $default_values = wp_unslash(ArrayHelper::get($_REQUEST, 'default_values'));
+        $appearance_settings = wp_unslash(ArrayHelper::get($_REQUEST, 'appearance_settings'));
         if ($settings['allow_frontend'] == 'yes') {
             // Do Validation Here for editing
             if (!count($editing_items)) {
@@ -486,17 +485,19 @@ class TableEditor
         $editorLabels = $this->getEditorLabels($tableId);
 
         return array(
-            'enabled'       => $status,
-            'editing'       => $editPermission,
-            'check_editing' => $checkEditing,
-            'deleting'      => $deletePermission,
-            'alwaysShow'    => \NinjaTables\Classes\ArrayHelper::get($editorLabels, 'alwaysShow') == 'yes',
-            'own_data_only' => \NinjaTables\Classes\ArrayHelper::get($settings, 'own_data_only'),
-            'addText'       => \NinjaTables\Classes\ArrayHelper::get($editorLabels, 'addText'),
-            'hideText'      => __('Cancel', 'ninja-tables-pro'),
-            'showText'      => \NinjaTables\Classes\ArrayHelper::get($editorLabels, 'showText'),
-            'position'      => \NinjaTables\Classes\ArrayHelper::get($editorLabels, 'position'),
-            'defaultValues' => $this->getDefaultValues($tableId)
+            'enabled'         => $status,
+            'editing'         => $editPermission,
+            'check_editing'   => $checkEditing,
+            'deleting'        => $deletePermission,
+            'alwaysShow'      => \NinjaTables\Classes\ArrayHelper::get($editorLabels, 'alwaysShow') == 'yes',
+            'own_data_only'   => \NinjaTables\Classes\ArrayHelper::get($settings, 'own_data_only'),
+            'addText'         => \NinjaTables\Classes\ArrayHelper::get($editorLabels, 'addText'),
+            'hideText'        => __('Cancel', 'ninja-tables-pro'),
+            'showText'        => \NinjaTables\Classes\ArrayHelper::get($editorLabels, 'showText'),
+            'position'        => \NinjaTables\Classes\ArrayHelper::get($editorLabels, 'position'),
+            'addModalLabel'   => \NinjaTables\Classes\ArrayHelper::get($editorLabels, 'addModalLabel'),
+            'editModalLabel'  => \NinjaTables\Classes\ArrayHelper::get($editorLabels, 'editModalLabel'),
+            'defaultValues'   => $this->getDefaultValues($tableId)
         );
 
     }

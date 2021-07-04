@@ -445,10 +445,16 @@ class woocommerce_msrp_frontend {
 				$this->script_args['msrp_ranged'] = true;
 			}
 			echo '<div class="woocommerce_msrp">';
-			echo esc_html( $msrp_description );
-			echo ': ';
-			echo '<span class="woocommerce_msrp_price">' . $price_string . '</span>';
-			echo ' <div class="woocommerce_msrp_saving">' . $this->msrp_saving_html_variable( $current_product ) . '</div>';
+			$msrp_info  = '<span class="woocommerce_msrp_price">' . $price_string . '</span>';
+			$msrp_info .= ' <div class="woocommerce_msrp_saving">' .
+						  $this->msrp_saving_html_variable( $current_product ) .
+						  '</div>';
+			printf(
+				// translators: %1$s is the MSRP label, %2$s is the MSRP price with savings
+				esc_html( _x( '%1$s: %2$s', 'MSRP output for variable products', 'woocommerce_msrp' ) ),
+				esc_html( $msrp_description ),
+				$msrp_info
+			);
 			echo '</div>';
 		} else {
 			$msrp = $this->get_msrp_for_single_product( $current_product );
@@ -485,10 +491,16 @@ class woocommerce_msrp_frontend {
 			}
 
 			echo '<div class="woocommerce_msrp">';
-			echo esc_html( $msrp_description );
-			echo ': ';
-			echo '<span class="woocommerce_msrp_price">' . wc_price( $msrp ) . '</span>';
-			echo ' <div class="woocommerce_msrp_saving">' . $this->msrp_saving_html( $msrp, $selling_price ) . '</div>';
+			$msrp_info  = '<span class="woocommerce_msrp_price">' . wc_price( $msrp ) . '</span>';
+			$msrp_info .= '<div class="woocommerce_msrp_saving">' .
+						  $this->msrp_saving_html( $msrp, $selling_price ) .
+						  '</div>';
+			printf(
+				// translators: %1$s is the MSRP label, %2$s is the MSRP price with savings
+				esc_html( _x( '%1$s: %2$s', 'MSRP output for non-variable products', 'woocommerce_msrp' ) ),
+				esc_html( $msrp_description ),
+				$msrp_info
+			);
 			echo '</div>';
 		}
 	}
@@ -688,10 +700,8 @@ class woocommerce_msrp_frontend {
 		if ( empty( $msrp_status ) || 'never' === $msrp_status ) {
 			return $html;
 		}
-		// Get the info we need.
-		// translators: %1$s is the MSRP label, %2$s is the MSRP price value.
-		$template = '<span class="woocommerce_msrp">%1$s: <span class="woocommerce_msrp_price">%2$s</span></span>';
 
+		// Get the info we need.
 		$raw_price = isset( $addon['price'] ) ?
 			$addon['price'] :
 			( isset( $addon['options'][0]['price'] ) ? isset( $addon['options'][0]['price'] ) : null );
@@ -716,8 +726,17 @@ class woocommerce_msrp_frontend {
 			return $html;
 		}
 
+		$html .= '<span class="woocommerce_msrp">';
+		$html .= sprintf(
+			// translators: %1$s is the MSRP label, %2$s is the MSRP price value.
+			esc_html( _x( '(%1$s: %2$s)', 'MSRP for product add-ons without options', 'woocommerce_msrp' ) ),
+			$msrp_description,
+			'<span class="woocommerce_msrp_price">' . $msrp_price_html . '</span>'
+		);
+		$html .= '</span>';
+
 		// Return the modified markup including MSRP.
-		return $html . ' ' . sprintf( $template, $msrp_description, $msrp_price_html );
+		return $html;
 	}
 
 	/**
@@ -733,13 +752,28 @@ class woocommerce_msrp_frontend {
 		}
 
 		// Get the info we need.
-		// translators: %1$s is the MSRP label, and %2$s is the MSRP value.
-		$template = '<span class="woocommerce_msrp">%1$s: <span class="woocommerce_msrp_price">%2$s</span></span>';
+		$price_template = '<span class="woocommerce_msrp_price">%1$s</span>';
+
+		$template = '<span class="woocommerce_msrp">' .
+				esc_html(
+					// translators: %1$s is the MSRP label, and %2$s is the MSRP value.
+					_x(
+						'%1$s: %2$s',
+						'MSRP price for product add-ons with options',
+						'woocommerce_msrp'
+					)
+				) .
+				'</span>';
+
 		if ( 'select' === $type ) {
-			// translators: %1$s is the MSRP label, and %2$s is the MSRP value.
-			$template = __(
-				'%1$s: %2$s',
-				'woocommerce_msrp'
+			$price_template = '%1$s';
+			$template       = esc_html(
+				// translators: %1$s is the MSRP label, and %2$s is the MSRP value.
+				_x(
+					'%1$s: %2$s',
+					'MSRP price for drop-down product add-ons',
+					'woocommerce_msrp'
+				)
 			);
 		}
 		$raw_price = isset( $option['price'] ) ? $option['price'] : null;
@@ -763,8 +797,11 @@ class woocommerce_msrp_frontend {
 			return $html;
 		}
 
-		return $html . ' ' . sprintf( $template, $msrp_description, $msrp_price_html );
+		return $html . ' ' .
+			sprintf(
+				$template,
+				$msrp_description,
+				sprintf( $price_template, $msrp_price_html )
+			);
 	}
 }
-
-$woocommerce_msrp_frontend = new woocommerce_msrp_frontend();

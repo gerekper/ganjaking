@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit813543d828b4f31bc3a834538b4e4e61
+class ComposerStaticInit3081ef50171bac2f33cdadbe03afa20a
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -55,7 +55,6 @@ class ComposerStaticInit813543d828b4f31bc3a834538b4e4e61
     );
 
     public static $classMap = array (
-        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Imagify_Partner' => __DIR__ . '/../..' . '/inc/vendors/classes/class-imagify-partner.php',
         'Minify_CSS_UriRewriter' => __DIR__ . '/../..' . '/inc/vendors/classes/class-minify-css-urirewriter.php',
         'Minify_HTML' => __DIR__ . '/../..' . '/inc/deprecated/vendors/classes/class-minify-html.php',
@@ -128,9 +127,9 @@ class ComposerStaticInit813543d828b4f31bc3a834538b4e4e61
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit813543d828b4f31bc3a834538b4e4e61::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit813543d828b4f31bc3a834538b4e4e61::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit813543d828b4f31bc3a834538b4e4e61::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3081ef50171bac2f33cdadbe03afa20a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3081ef50171bac2f33cdadbe03afa20a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3081ef50171bac2f33cdadbe03afa20a::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -410,7 +410,10 @@ class MeprUtils {
   public static function get_pages() {
     global $wpdb;
 
-    $query = "SELECT * FROM {$wpdb->posts} WHERE post_status = %s AND post_type = %s";
+    $orderby_allowed = array('ID', 'post_title', 'post_date');
+    $orderby = MeprHooks::apply_filters('mepr_page_orderby', 'ID');
+    $orderby = in_array($orderby, $orderby_allowed) ? $orderby : 'ID';
+    $query = "SELECT * FROM {$wpdb->posts} WHERE post_status = %s AND post_type = %s ORDER BY $orderby";
     $query = $wpdb->prepare($query, "publish", "page");
     $results = $wpdb->get_results($query);
 

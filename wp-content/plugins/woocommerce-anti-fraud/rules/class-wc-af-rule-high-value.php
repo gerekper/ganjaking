@@ -28,6 +28,8 @@ class WC_AF_Rule_High_Value extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
+		
+		Af_Logger::debug('Checking high value rule');
 		global $wpdb;
 
 		// Default risk is false
@@ -45,6 +47,7 @@ class WC_AF_Rule_High_Value extends WC_AF_Rule {
 			$risk = true;
 		}
 
+		Af_Logger::debug('high value rule risk : ' . ( $risk===true ? 'true' : 'false' ));
 		return $risk;
 	}
 	//Enable rule check

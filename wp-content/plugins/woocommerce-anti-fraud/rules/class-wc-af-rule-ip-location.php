@@ -28,6 +28,7 @@ class WC_AF_Rule_Ip_Location extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
+		Af_Logger::debug('Checking ip address rule');
 		global $wpdb;
 		// Default risk is false
 		$risk = false;
@@ -35,36 +36,52 @@ class WC_AF_Rule_Ip_Location extends WC_AF_Rule {
 		// Set IP address in var
 		$ip_address = $order->get_customer_ip_address();
 		$billing_country = $order->get_billing_country();
-		$contents = @file_get_contents('http://www.geoplugin.net/json.gp?ip=' . $ip_address);
-			 
-		if ( $contents !== false ) {
+		$billing_city = $order->get_billing_city();
+		$maxmind_user = get_option( 'wc_af_maxmind_user' );
+		$maxmind_license_key = get_option( 'wc_af_maxmind_license_key' );
+		$authkey = 'Basic ' . base64_encode( $maxmind_user . ':' . $maxmind_license_key );
+		
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		CURLOPT_URL => 'https://geoip.maxmind.com/geoip/v2.1/insights/'.$ip_address,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_USERAGENT => 'AnTiFrAuDOPMC',
+		CURLOPT_ENCODING => '',
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 30,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_HTTPHEADER => array(
+			'authorization:' . $authkey,
+			'cache-control: no-cache',
+			'content-type: application/json',
+			),
+		));
 
-			$ipdat = @json_decode($contents);
-			
-			if (json_last_error() === JSON_ERROR_NONE) {
-				
-				// We can only do this check if there is an IP address
-				if ( empty( $ip_address ) ) {
-
-					return false;
-				}
-
-				$objectTostring = json_decode(json_encode($ipdat), true);
-
-				if (array_key_exists( 'geoplugin_countryCode', $objectTostring )) {
-
-					$risk = ( $objectTostring['geoplugin_countryCode'] == $billing_country ) ? false : true;
-				} else {
-
+		$response = curl_exec($curl);
+		curl_close($curl);
+		$response = json_decode( $response, true );
+		Af_Logger::debug(print_r($response,true));
+		Af_Logger::debug('ip city : ' . $response['city']['names']['en']);
+		Af_Logger::debug('ip country : ' . $response['country']['iso_code']);
+		
+		if ( !empty( $response ) && !isset( $response['error'] ) ) {
+			if ( isset( $response['city']['names']['en'] ) && !empty( $response['city']['names']['en'] ) && isset( $response['country']['iso_code'] ) && !empty( $response['country']['iso_code'] ) ) {
+				if ( ( $billing_city == $response['city']['names']['en'] ) && ( $billing_country == $response['country']['iso_code'] ) ) {
 					$risk = false;
+					Af_Logger::debug('Customer IP address matched given billing country '.$billing_country.' and city '.$billing_city);
+				} else {
+					$risk = true;
+					Af_Logger::debug('Customer IP address not matched given billing country '.$billing_country.' and city '.$billing_city);
 				}
-				
-				// Here we can create a log entry in future, whenever required. We can write the complete $res object in that log.
-				
-			}			    
-			
+			} else {
+				$risk = true;
+				Af_Logger::debug('Customer IP address not matched given billing country '.$billing_country.' and city '.$billing_city);
+			}
+		} else {
+			$risk = true;
+			Af_Logger::debug('Customer IP address not matched given billing country '.$billing_country.' and city '.$billing_city);
 		}
-
+		Af_Logger::debug('ip address rule risk : ' . ( $risk===true ? 'true' : 'false' ));
 		return $risk;
 	}
 	

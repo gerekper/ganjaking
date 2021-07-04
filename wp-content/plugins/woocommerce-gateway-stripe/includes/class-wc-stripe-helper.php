@@ -597,4 +597,14 @@ class WC_Stripe_Helper {
 		// Default to 'auto' so Stripe.js uses the browser locale.
 		return 'auto';
 	}
+
+	/**
+	 * Checks if this page is a cart or checkout page.
+	 *
+	 * @since 5.2.3
+	 * @return boolean
+	 */
+	public static function has_cart_or_checkout_on_current_page() {
+		return is_cart() || is_checkout();
+	}
 }

@@ -140,6 +140,7 @@ function wc_checkout_fields_wc30_migrate() {
 	wc_checkout_fields_update_plugin_version();
 }
 
+
 /**
  * Load function for the export handler.
  */

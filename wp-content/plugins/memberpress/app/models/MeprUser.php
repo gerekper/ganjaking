@@ -600,7 +600,17 @@ class MeprUser extends MeprBaseModel {
       $id = wp_update_user((array)$this->rec);
     }
     else {
-      $id = wp_insert_user((array)$this->rec);
+
+      // Check if the email is already in use
+      $maybe_user = get_user_by( 'email', $this->user_email );
+
+      if ( ! empty( $maybe_user->ID ) ) { // User with this email, so update
+        $this->ID = $maybe_user->ID;
+        $this->rec->ID = $maybe_user->ID;
+        $id = wp_update_user((array)$this->rec);
+      } else { // Insert the user
+        $id = wp_insert_user((array)$this->rec);
+      }
     }
 
     if(is_wp_error($id)) {

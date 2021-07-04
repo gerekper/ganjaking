@@ -29,7 +29,6 @@ class RevSliderTemplate extends RevSliderFunctions {
 		$uid	= $this->clear_uid($uid);
 		$uid	= esc_attr($uid);
 		$code	= '073e077f-b600-41e4-8b74-767431910d31';
-		
 		$upload_dir = wp_upload_dir(); // Set upload folder
 		// Check folder permission and define file location
 		if(wp_mkdir_p($upload_dir['basedir'].$this->templates_path)){ //check here to not flood the server

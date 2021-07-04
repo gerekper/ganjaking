@@ -28,7 +28,8 @@ class WC_AF_Rule_First_Order extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
-
+		
+		Af_Logger::debug('Checking first order rule');
 		global $wpdb;
 		$risk = false;
 
@@ -51,6 +52,7 @@ class WC_AF_Rule_First_Order extends WC_AF_Rule {
 			$risk = true;
 			
 		}
+		Af_Logger::debug('first order rule risk : ' . ( $risk===true ? 'true' : 'false' ));
 		return $risk;
 	
 	}

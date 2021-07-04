@@ -240,7 +240,7 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 				$score_points = get_post_meta( $post->ID, 'wc_af_score', true );
 
 				// Get meta
-				$meta = WC_AF_Score_Helper::get_score_meta( $score_points );
+				$meta = WC_AF_Score_Helper::get_score_meta( $score_points, $post->ID );
 
 				// Display span
 				echo "<span class='wc-af-score tips' style='color:" . $meta['color'] . "' data-tip='" . $meta['label'] . "'>&nbsp;</span>";

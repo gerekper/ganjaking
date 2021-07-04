@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Product Class.
  *
  * @class    WC_Product_Composite
- * @version  8.1.0
+ * @version  8.1.4
  */
 class WC_Product_Composite extends WC_Product {
 
@@ -2024,6 +2024,7 @@ class WC_Product_Composite extends WC_Product {
 		}
 
 		$scenario_data = $this->scenarios()->get_data( $component_options_subset );
+
 		/**
 		 * Filter generated scenario data.
 		 *

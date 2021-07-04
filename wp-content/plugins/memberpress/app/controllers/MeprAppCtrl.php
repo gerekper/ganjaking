@@ -595,7 +595,7 @@ class MeprAppCtrl extends MeprBaseCtrl {
             $message = '';
 
             if($action and $action == 'mepr_unauthorized') {
-              $resource = isset($_REQUEST['redirect_to']) ? urldecode($_REQUEST['redirect_to']) : __('the requested resource.','memberpress');
+              $resource = isset($_REQUEST['redirect_to']) ? esc_url(urldecode($_REQUEST['redirect_to'])) : __('the requested resource.','memberpress');
               $unauth_message = wpautop(MeprHooks::apply_filters('mepr-unauthorized-message', do_shortcode($mepr_options->unauthorized_message), $current_post));
 
               //Maybe override the message if a page id is set

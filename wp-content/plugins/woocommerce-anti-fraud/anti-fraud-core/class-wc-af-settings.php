@@ -63,6 +63,8 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 				'black_list' => __( 'Blacklist Settings', 'wc_af' ),
 				'paypal_settings' => __( 'Paypal Settings', 'wc_af' ),
 				'minfraud_settings' => __( 'MinFraud Settings', 'wc_af' ),
+				'minfraud_insights_settings' => __( 'MinFraud Insights Settings', 'wc_af' ),
+                                'minfraud_factors_settings' => __( 'MinFraud Factors Settings', 'wc_af' ),
 				);
 
 				return apply_filters( 'woocommerce_get_sections_' . $this->id, $sections );
@@ -87,6 +89,34 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 				$rule_weight = array();
 				for ($i = 20; $i > -1; $i -- ) {
 					$rule_weight[$i] = $i;
+				}
+				
+				$user_roles = [];
+				$wc_af_whitelist_user_roles = get_option('wc_af_whitelist_user_roles');
+				if ( empty($wc_af_whitelist_user_roles) ) {
+					$wc_af_whitelist_user_roles = array();
+				}
+				//print_r($wc_af_whitelist_user_roles);
+				$wc_af_whitelist_payment_methods = get_option('wc_settings_anti_fraud_whitelist_payment_method');
+				if ( empty($wc_af_whitelist_payment_methods) ) {
+					$wc_af_whitelist_payment_methods = array();
+				} 
+				//print_r($wc_af_whitelist_payment_methods);
+	
+				global $wp_roles;
+
+				$all_roles = $wp_roles->roles;
+				$editable_roles = apply_filters('editable_roles', $all_roles);
+				foreach ($editable_roles as $role => $details) {
+					$role = esc_attr($role);
+					$name = translate_user_role($details['name']);
+					$user_roles[$role] = $name;
+				}
+				
+				$installed_payment_methods = WC()->payment_gateways->payment_gateways();
+				$availableMethods = [];
+				foreach( $installed_payment_methods as $methods=>$arr ) {
+					$availableMethods[$methods] = $arr->method_title;
 				}
 
 				if ( 'minfraud_settings' == $current_section ) {
@@ -114,7 +144,6 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						'default'  => 'no',
 						'id'       => 'wc_af_maxmind_type'
 					),
-
 					array(
 						'title'    => __( 'Device Tracking', 'woocommerce-anti-fraud' ),
 						'type'     => 'checkbox',
@@ -186,7 +215,149 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 
 					) );
 
-				} else if ( 'black_list' == $current_section ) {
+				} if ( 'minfraud_insights_settings' == $current_section ) {
+
+					/**
+					 * WCAF Filter Plugin  MinFraud Settings
+					 *
+					 * @since 1.0.0
+					 * @param array $settings Array of the plugin settings
+					*/
+
+					$settings = apply_filters( 'myplugin_minfraud_insights_settings', array(
+					array(
+						'name'     => __( 'MaxMind minFraud Settings', 'woocommerce-anti-fraud' ),
+						'type'     => 'title',
+						'desc'     => 'MaxMind minFraud is a paid, external service that uses machine learning to detect potential fraud transactions.  By using minFraud you can potentially detect more fraudulent transactions.<hr/>',
+						'id'       => 'wc_af_minfraud_settings',
+					),
+                                        array(
+						'title'    => __( 'Enable/Disable', 'woocommerce-anti-fraud' ),
+						'type'     => 'checkbox',
+						'label'    => '',
+						'desc'    =>  __( 'Enable MaxMind minFraud Insights Integration', 'woocommerce-anti-fraud' ),
+						'default'  => 'no',
+						'id'       => 'wc_af_maxmind_insights'
+					),
+					array(
+						'type' => 'sectionend',
+						'id'   => 'wc_af_minfraud_settings'
+					),
+
+					array(
+						'name' => __( 'Threshold Settings' ),
+						'type' => 'title',
+						'desc' => '<hr/>',
+						'id'   => 'wc_af_minfraud_rule_settings'
+					),
+
+					array(
+						'name'     => __( 'Threshold minFraud Insights Risk Score', 'woocommerce-anti-fraud' ),
+						'type'     => 'number',
+						'desc'     => __( 'If the risk score returned by the minFraud system exceeds this number, the transaction will be considered potentially fraudulent and will contribute to the overall fraud score calculation.  If the risk score from minFraud is lower than this threshold, it will not contribute to the overall fraud score.' ),
+						'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_minfraud_insights_risk_score',
+						'css'      => 'display: block; width: 5em;',
+						'default'  => '5',
+						'custom_attributes' => array(
+							'min'  => 0,
+							'step' => 1,
+							'max'  => 100
+						),
+
+					),
+
+					array(
+						'name'     => __( 'minFraud Insights Rule Weight', 'woocommerce-anti-fraud' ),
+						'type'     => 'number',
+						'options'  => $rule_weight,
+						'desc'     => __( 'If the minFraud risk score exceeds the threshold set above, this weight will be applied to the overall risk score.  By adjusting this, you can balance the minFraud value against the other rules-based calculations in the plugin.' ),
+						'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_minfraud_insights_order_weight',
+						'css'         => 'display: block; width: 5em;',
+						'custom_attributes' => array(
+							'min'  => 0,
+							'step' => 1,
+							'max'  => 100
+						),
+					),
+					array(
+						'type' => 'sectionend',
+						'id'   => 'wc_af_minfraud_rule_settings'
+					),
+
+					) );
+
+				}if ( 'minfraud_factors_settings' == $current_section ) {
+
+					/**
+					 * WCAF Filter Plugin  MinFraud Settings
+					 *
+					 * @since 1.0.0
+					 * @param array $settings Array of the plugin settings
+					*/
+
+					$settings = apply_filters( 'myplugin_minfraud_factors_settings', array(
+					array(
+						'name'     => __( 'MaxMind minFraud Settings', 'woocommerce-anti-fraud' ),
+						'type'     => 'title',
+						'desc'     => 'MaxMind minFraud is a paid, external service that uses machine learning to detect potential fraud transactions.  By using minFraud you can potentially detect more fraudulent transactions.<hr/>',
+						'id'       => 'wc_af_minfraud_settings',
+					),
+                                        array(
+						'title'    => __( 'Enable/Disable', 'woocommerce-anti-fraud' ),
+						'type'     => 'checkbox',
+						'label'    => '',
+						'desc'    =>  __( 'Enable MaxMind minFraud Factors Integration', 'woocommerce-anti-fraud' ),
+						'default'  => 'no',
+						'id'       => 'wc_af_maxmind_factors'
+					),
+					array(
+						'type' => 'sectionend',
+						'id'   => 'wc_af_minfraud_settings'
+					),
+
+					array(
+						'name' => __( 'Threshold Settings' ),
+						'type' => 'title',
+						'desc' => '<hr/>',
+						'id'   => 'wc_af_minfraud_rule_settings'
+					),
+
+					array(
+						'name'     => __( 'Threshold minFraud Factors Risk Score', 'woocommerce-anti-fraud' ),
+						'type'     => 'number',
+						'desc'     => __( 'If the risk score returned by the minFraud system exceeds this number, the transaction will be considered potentially fraudulent and will contribute to the overall fraud score calculation.  If the risk score from minFraud is lower than this threshold, it will not contribute to the overall fraud score.' ),
+						'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_minfraud_factors_risk_score',
+						'css'      => 'display: block; width: 5em;',
+						'default'  => '5',
+						'custom_attributes' => array(
+							'min'  => 0,
+							'step' => 1,
+							'max'  => 100
+						),
+
+					),
+
+					array(
+						'name'     => __( 'minFraud Factors Rule Weight', 'woocommerce-anti-fraud' ),
+						'type'     => 'number',
+						'options'  => $rule_weight,
+						'desc'     => __( 'If the minFraud risk score exceeds the threshold set above, this weight will be applied to the overall risk score.  By adjusting this, you can balance the minFraud value against the other rules-based calculations in the plugin.' ),
+						'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_minfraud_factors_order_weight',
+						'css'         => 'display: block; width: 5em;',
+						'custom_attributes' => array(
+							'min'  => 0,
+							'step' => 1,
+							'max'  => 100
+						),
+					),
+					array(
+						'type' => 'sectionend',
+						'id'   => 'wc_af_minfraud_rule_settings'
+					),
+
+					) );
+
+				}else if ( 'black_list' == $current_section ) {
 
 					/**
 					 * WCAF Filter Plugin  Blacklist Settings
@@ -395,14 +566,40 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						'desc' => __( '' ),
 						'id'    => 'wc_af_enable_whitelist_payment_method'
 					),
-					 array(
+					//Pre payment custom text
+					array(
+						 'title'       => __( 'Pre-Payment Checking Notification Message', 'woocommerce-anti-fraud' ),
+						 'type'        => 'textarea',
+						 'label'       => '',
+						 'default'     => 'Website Administrator does not allow you to place this order. Please contact our support team. Sorry for any inconvenience.',
+						 'css'         => 'width:100%; height: 100px;',
+						 'desc' => __( 'Add a custom message for blocked users on Pre Payment Check' ),
+						 'id'    => 'wc_af_pre_payment_message',
+					),
+					array(
 						'name'        => __( 'Whitelisted Payment Methods', 'woocommerce-anti-fraud', 'woocommerce-anti-fraud' ),
-						'type'        => 'textarea',
+						'type'        => 'multiselect',
+						'options'  => $availableMethods,
 						'desc'        => __( 'List of payment methods those will be whitelisted i.e. will not be considered for Cancel Order Score and On-Hold Order Score evaluation for each order.', 'woocommerce-anti-fraud '),
 						'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_whitelist_payment_method',
-						'css'         => 'width:100%; height: 100px;',
-						'default'     => $this->whitelist_payment_method(),
-						'class'       => 'wc_af_tags_input'
+						'default'     => $wc_af_whitelist_payment_methods
+					),
+					array(
+						'title'       => __( 'Enable User Roles Whitelisting', 'woocommerce-anti-fraud' ),
+						'type'        => 'checkbox',
+						'label'       => '',
+						'default'     => 'no',
+						'desc' => __( '' ),
+						'id'    => 'wc_af_enable_whitelist_user_roles'
+					),
+					array(
+						'title'       => __( 'User Roles', 'woocommerce-anti-fraud' ),
+						'type'        => 'multiselect',
+						'options'  => $user_roles,
+						'desc' => __( '' ),
+						'id'    => 'wc_af_whitelist_user_roles',
+						'placeholder' => 'Select roles',
+						'default'     => $wc_af_whitelist_user_roles,
 					),
 					array(
 						'title'       => __( 'Send Admin Email', 'woocommerce-anti-fraud' ),
@@ -495,9 +692,18 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						),
 					),
 					array(
+						'title'       => __( 'Enable debug logging', 'woocommerce-anti-fraud' ),
+						'type'        => 'checkbox',
+						'label'       => '',
+						'default'     => 'no',
+						'desc' => __( '' ),
+						'id'    => 'wc_af_enable_debug_logging'
+					),
+					array(
 						'type' => 'sectionend',
 						'id' => 'wc_af_thresholds_settings'
 					),
+					
 					) );
 				} else if ( 'rules' == $current_section ) {
 					$settings = apply_filters( 'wc_af_rule_settings', array(
@@ -1145,8 +1351,10 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 							}
 
 						} else {
-
-							 add_action('admin_notices', array( $this, 'auth_quickemailverification_error_admin_notice'));
+							$email_api_key = get_option( 'check_email_domain_api_key' );
+							if ( !empty($email_api_key) ) {
+                                                            add_action('admin_notices', array( $this, 'auth_quickemailverification_error_admin_notice'));
+                                                        }
 						}
 					}
 				}
@@ -1208,6 +1416,10 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 				'skrill_ntl'
 				);
 				return implode(',', $whitelist_payment_method);
+			}
+			
+			public function whitelist_user_roles() {
+				
 			}
 
 

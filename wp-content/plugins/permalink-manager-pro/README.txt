@@ -7,7 +7,7 @@ Tags: permalinks, custom permalinks, url editor, permalinks, woocommerce permali
 Requires at least: 4.4.0
 Requires PHP: 5.4
 Tested up to: 5.7.2
-Stable tag: 2.2.10
+Stable tag: 2.2.11
 
 Permalink Manager allows to easily change full URL addresses of posts, pages, custom post types, terms and WooCommerce links. You can also set different permalink formats per language or bulk change the URLs.
 
@@ -102,6 +102,9 @@ It is because Permalink Manager overwrites one of the core Wordpress functionali
 8.	Permalink Manager settings.
 
 == Changelog ==
+
+= 2.2.11 (June 24, 2021) =
+* Fix - The function that automatically removes the broken URIs is no longer triggered when WP Rocket is turned on and non-logged-in user tries to access the broken URL.
 
 = 2.2.10 (June 7, 2021) =
 * Enhancement - New settings field - "Copy query parameters to redirect target URL" & "Extra redirects (aliases)"

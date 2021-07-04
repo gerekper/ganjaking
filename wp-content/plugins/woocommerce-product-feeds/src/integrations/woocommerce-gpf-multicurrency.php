@@ -53,7 +53,7 @@ class WoocommerceGpfMulticurrency {
 		if ( empty( $this->currency ) ) {
 			return;
 		}
-		add_filter( 'woocommerce_multicurrency_forced_currency', [ $this, 'override_forced_currency' ], 99 );
+		add_filter( 'woocommerce_multicurrency_override_currency', [ $this, 'override_forced_currency' ], 99 );
 		add_filter( 'woocommerce_gpf_cache_name', array( $this, 'granularise_cache_name' ), 10, 1 );
 		add_filter( 'woocommerce_gpf_feed_item', array( $this, 'add_currency_arg_to_product_permalinks' ), 10, 2 );
 	}

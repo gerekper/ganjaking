@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd1f2a5810610b0bbb8cc5ba11cbeb995
+class ComposerStaticInitb6f4f97d62a32ee2cdb39a106c45ee2f
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -180,7 +180,9 @@ class ComposerStaticInitd1f2a5810610b0bbb8cc5ba11cbeb995
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Plugin_Links_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/plugin-links-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/prominent-words/indexing-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/prominent-words/metabox-integration.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Thank_You_Page_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/thank-you-page-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/user-profile-integration.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/workouts-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Estimated_Reading_Time_Block' => __DIR__ . '/../..' . '/src/integrations/blocks/estimated-reading-time-block.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Related_Links_Block' => __DIR__ . '/../..' . '/src/integrations/blocks/related-links-block.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Blocks\\Schema_Blocks' => __DIR__ . '/../..' . '/src/integrations/blocks/schema-blocks.php',
@@ -196,6 +198,7 @@ class ComposerStaticInitd1f2a5810610b0bbb8cc5ba11cbeb995
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Upgrade_Integration' => __DIR__ . '/../..' . '/src/integrations/upgrade-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\User_Profile_Integration' => __DIR__ . '/../..' . '/src/integrations/user-profile-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Main' => __DIR__ . '/../..' . '/src/main.php',
+        'Yoast\\WP\\SEO\\Premium\\Routes\\Workouts_Route' => __DIR__ . '/../..' . '/src/routes/workouts-route.php',
         'Yoast\\WP\\SEO\\Premium\\Surfaces\\Helpers_Surface' => __DIR__ . '/../..' . '/src/surfaces/helpers-surface.php',
         'Yoast\\WP\\SEO\\Premium\\WordPress\\Wrapper' => __DIR__ . '/../..' . '/src/wordpress/wrapper.php',
         'Yoast\\WP\\SEO\\Presenters\\Admin\\Prominent_Words\\Indexation_List_Item_Presenter' => __DIR__ . '/../..' . '/src/deprecated/presenters/indexation-list-item-presenter.php',
@@ -218,9 +221,9 @@ class ComposerStaticInitd1f2a5810610b0bbb8cc5ba11cbeb995
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd1f2a5810610b0bbb8cc5ba11cbeb995::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd1f2a5810610b0bbb8cc5ba11cbeb995::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd1f2a5810610b0bbb8cc5ba11cbeb995::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb6f4f97d62a32ee2cdb39a106c45ee2f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb6f4f97d62a32ee2cdb39a106c45ee2f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb6f4f97d62a32ee2cdb39a106c45ee2f::$classMap;
 
         }, null, ClassLoader::class);
     }

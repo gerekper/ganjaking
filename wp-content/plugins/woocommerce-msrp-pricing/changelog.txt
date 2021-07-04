@@ -1,5 +1,10 @@
 *** WooCommerce MSRP Pricing ***
 
+2021.06.29 - version 3.4.0
+* Change: WooCommerce 5.5 compatibility
+* Change: MSRP strings, including separators are now translatable
+* Fix: Remove legacy updater code that caused odd messages on multi-site installations
+
 2021.06.01 - version 3.3.1
 * Change: WooCommerce 5.4 compatibility
 

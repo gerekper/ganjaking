@@ -1,3 +1,12 @@
+### 2.5.6.3
+- Fixed an issue that causes the form switcher to not load on the entry list screen when no conflict mode is enabled.
+- Fixed an issue that causes initial values in Conditional Logic not to be saved when the form is updated.
+
+### 2.5.6.2
+- Fixed issues with the display of our block settings icons in various themes and contexts.
+- Added dynamic sizing to the form switcher to better handle forms with long titles.
+- API: Fixed an issue which causes valid markup to throw an error when saving a textarea settings field.
+
 ### 2.5.6.1
 - Fixed a layout/display issue for legacy forms in Safari when using the .gf_list_inline ready class for checkbox or radio fields.
 - Fixed a PHP warning which can occur when determining if the form has page conditional logic.

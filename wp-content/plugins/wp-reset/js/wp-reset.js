@@ -3547,7 +3547,7 @@ jQuery(document).ready(function ($) {
           wpr_swal
             .fire({
               type: "success",
-              title: "Emergecy recovery script has been removed",
+              title: "Emergency recovery script has been removed",
               width: 600,
               allowEnterKey: false,
               showCancelButton: false,
@@ -3606,7 +3606,7 @@ jQuery(document).ready(function ($) {
           wpr_swal
             .fire({
               type: "success",
-              title: "Emergecy recovery script has been updated",
+              title: "Emergency recovery script has been updated",
               width: 600,
               allowEnterKey: false,
               showCancelButton: false,

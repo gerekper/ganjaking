@@ -29,15 +29,16 @@ if ( ! class_exists( 'WC_AF_Rule_Billing_Matches_Shipping' ) ) {
 		 * @return bool
 		 */
 		public function is_risk( WC_Order $order ) {
-
+			Af_Logger::debug('Checking billing matches shipping rule');
 			// Default risk is false
 			$risk = false;
 
 			// Check if the billing address does not match shipping address
 			if ( $this->has_shipping_address( $order ) && $order->get_formatted_billing_address() != $order->get_formatted_shipping_address() ) {
 				$risk = true;
+				Af_Logger::debug('billing address not matches shipping address. This rule is at risk');
 			}
-
+			Af_Logger::debug('billing shipping rule risk : '. ( $risk===true ? 'true' : 'false' ));
 			return $risk;
 		}
 

@@ -1,5 +1,15 @@
 *** Changelog ***
 
+= 5.2.3 - 2021-06-11 =
+* Fix - Credit card icons and credit card input on custom shortcode checkout pages.
+
+= 5.2.2 - 2021-06-10 =
+* Fix - The absence of a cart causing fatal errors when rendering the Cart or Checkout block.
+
+= 5.2.1 - 2021-06-10 =
+* Fix - Remove calls to `has_block()` since it breaks compatibility with older versions of WordPress.
+* Tweak - Use the same JavaScript configurations for the Block-based and Shortcode-based checkout flows.
+
 = 5.2.0 - 2021-05-19 =
 * Fix - Use `get_parent` method to avoid accessing `order` subscription property directly.
 * Fix - Orders won't transition to 'Refunded' state if refund can't be created.

@@ -523,7 +523,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	 * @return void;
 	 **/
 	public static function add_plugins_page_notices(){
-		return;	
+		if(get_option('revslider-valid', 'false') != 'false') return;
 		
 		$plugins = get_plugins();
 		
@@ -690,7 +690,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 			switch($action){
 				case 'activate_plugin':
 					$result	 = false;
-					$code	 = '073e077f-b600-41e4-8b74-767431910d31';
+					$code	 = trim($this->get_val($data, 'code'));
 					$selling = $this->get_addition('selling');
 					$rs_license = new RevSliderLicense();
 					

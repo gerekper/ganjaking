@@ -1239,8 +1239,6 @@ class WC_CP_Product {
 					break;
 				}
 
-			} else {
-				$availability = __( 'In stock', 'woocommerce' );
 			}
 
 		} elseif ( $product->managing_stock() ) {

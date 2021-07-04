@@ -144,7 +144,7 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 		$plugin_slug	= basename($addon);
 		if(0 !== strpos($plugin_slug, 'revslider-')) die( '-1' );
 
-		$code = get_option('revslider-code', '');
+		$code = '073e077f-b600-41e4-8b74-767431910d31';
 		
 		$done	= false;
 		$count	= 0;

@@ -9,7 +9,8 @@ use Automattic\WooCommerce\Admin\Features\Features;
  * WC_Checkout_Field_Editor class.
  */
 class WC_Checkout_Field_Editor {
-	public $locale_fields = array();
+	public $locale_fields  = array();
+	public $default_fields = array();
 
 	/**
 	 * __construct function.
@@ -33,6 +34,31 @@ class WC_Checkout_Field_Editor {
 			'order_comments',
 		);
 
+		$this->default_fields = array(
+			'billing_first_name',
+			'billing_last_name',
+			'billing_company',
+			'billing_address_1',
+			'billing_address_2',
+			'billing_city',
+			'billing_state',
+			'billing_country',
+			'billing_postcode',
+			'billing_phone',
+			'billing_email',
+			'shipping_first_name',
+			'shipping_last_name',
+			'shipping_company',
+			'shipping_address_1',
+			'shipping_address_2',
+			'shipping_city',
+			'shipping_state',
+			'shipping_country',
+			'shipping_postcode',
+			'customer_note',
+			'order_comments',
+		);
+
 		add_action( 'admin_menu', array( $this, 'menu' ) );
 		add_filter( 'woocommerce_screen_ids', array( $this, 'add_screen_id' ) );
 		add_filter( 'woocommerce_debug_tools', array( $this, 'debug_button' ) );
@@ -50,7 +76,7 @@ class WC_Checkout_Field_Editor {
 	 * @return void
 	 */
 	public function menu() {
-		$this->screen_id = add_submenu_page( 'woocommerce', __( 'WooCommerce Checkout Field Editor', 'woocommerce-checkout-field-editor' ),  __( 'Checkout Fields', 'woocommerce-checkout-field-editor' ), 'manage_woocommerce', 'checkout_field_editor', array( $this, 'the_editor' ) );
+		$this->screen_id = add_submenu_page( 'woocommerce', __( 'WooCommerce Checkout Field Editor', 'woocommerce-checkout-field-editor' ), __( 'Checkout Fields', 'woocommerce-checkout-field-editor' ), 'manage_woocommerce', 'checkout_field_editor', array( $this, 'the_editor' ) );
 
 		add_action( 'admin_print_scripts-' . $this->screen_id, array( $this, 'scripts' ) );
 
@@ -169,58 +195,70 @@ class WC_Checkout_Field_Editor {
 		echo '<div class="wrap woocommerce"><div class="icon32 icon32-attributes" id="icon-woocommerce"><br /></div>';
 			echo '<h2 class="nav-tab-wrapper woo-nav-tab-wrapper">';
 
-			foreach ( $tabs as $key ) {
-				$active = ( $key == $tab ) ? 'nav-tab-active' : '';
-				echo '<a class="nav-tab ' . $active . '" href="' . esc_url( admin_url( 'admin.php?page=checkout_field_editor&tab=' . $key ) ) . '">' . ucwords( $key ) . ' ' . esc_html__( 'Fields', 'woocommerce-checkout-field-editor' ) . '</a>';
-			}
+		foreach ( $tabs as $key ) {
+			$active = ( $key == $tab ) ? 'nav-tab-active' : '';
+			echo '<a class="nav-tab ' . $active . '" href="' . esc_url( admin_url( 'admin.php?page=checkout_field_editor&tab=' . $key ) ) . '">' . ucwords( $key ) . ' ' . esc_html__( 'Fields', 'woocommerce-checkout-field-editor' ) . '</a>';
+		}
 
 			echo '</h2>';
 
-			if ( get_option( 'hide_checkout_field_editors_welcome_notice' ) == '' ) {
-				$this->welcome();
-			}
+		if ( get_option( 'hide_checkout_field_editors_welcome_notice' ) == '' ) {
+			$this->welcome();
+		}
 
 			global $supress_field_modification;
 
 			$supress_field_modification = true;
-			$core_fields = array_keys( WC()->countries->get_address_fields( WC()->countries->get_base_country(), $tab . '_' ) );
-			$core_fields[] = 'order_comments';
+			$core_fields                = array_keys( WC()->countries->get_address_fields( WC()->countries->get_base_country(), $tab . '_' ) );
+			$core_fields[]              = 'order_comments';
 			$supress_field_modification = false;
 
-			$validation_rules = apply_filters( 'woocommerce_custom_checkout_validation', array(
-				'required' => __( 'Required', 'woocommerce-checkout-field-editor' ),
-				'email'    => __( 'Email', 'woocommerce-checkout-field-editor' ),
-				'number'   => __( 'Number', 'woocommerce-checkout-field-editor' ),
-				'phone'    => __( 'Phone', 'woocommerce-checkout-field-editor' ),
-			) );
+			$validation_rules = apply_filters(
+				'woocommerce_custom_checkout_validation',
+				array(
+					'required' => __( 'Required', 'woocommerce-checkout-field-editor' ),
+					'email'    => __( 'Email', 'woocommerce-checkout-field-editor' ),
+					'number'   => __( 'Number', 'woocommerce-checkout-field-editor' ),
+					'phone'    => __( 'Phone', 'woocommerce-checkout-field-editor' ),
+				)
+			);
 
-			$field_types = apply_filters( 'woocommerce_custom_checkout_fields', array(
-				'text'     => __( 'Text', 'woocommerce-checkout-field-editor' ),
-				'password' => __( 'Password', 'woocommerce-checkout-field-editor' ),
-				'textarea' => __( 'Textarea', 'woocommerce-checkout-field-editor' ),
-				'select'   => __( 'Select', 'woocommerce-checkout-field-editor' ),
+			$field_types = apply_filters(
+				'woocommerce_custom_checkout_fields',
+				array(
+					'text'        => __( 'Text', 'woocommerce-checkout-field-editor' ),
+					'password'    => __( 'Password', 'woocommerce-checkout-field-editor' ),
+					'textarea'    => __( 'Textarea', 'woocommerce-checkout-field-editor' ),
+					'select'      => __( 'Select', 'woocommerce-checkout-field-editor' ),
 
-				// Custom ones.
-				'multiselect' => __( 'Multiselect', 'woocommerce-checkout-field-editor' ),
-				'radio'       => __( 'Radio', 'woocommerce-checkout-field-editor' ),
-				'checkbox'    => __( 'Checkbox', 'woocommerce-checkout-field-editor' ),
-				'date'        => __( 'Date Picker', 'woocommerce-checkout-field-editor' ),
-				'heading'     => __( 'Heading', 'woocommerce-checkout-field-editor' ),
-			) );
+					// Custom ones.
+					'multiselect' => __( 'Multiselect', 'woocommerce-checkout-field-editor' ),
+					'radio'       => __( 'Radio', 'woocommerce-checkout-field-editor' ),
+					'checkbox'    => __( 'Checkbox', 'woocommerce-checkout-field-editor' ),
+					'date'        => __( 'Date Picker', 'woocommerce-checkout-field-editor' ),
+					'heading'     => __( 'Heading', 'woocommerce-checkout-field-editor' ),
+				)
+			);
 
-			$positions = apply_filters( 'woocommerce_custom_checkout_position', array(
-				'form-row-first' => __( 'Left', 'woocommerce-checkout-field-editor' ),
-				'form-row-wide'  => __( 'Full-width', 'woocommerce-checkout-field-editor' ),
-				'form-row-last'  => __( 'Right', 'woocommerce-checkout-field-editor' ),
-			) );
+			$positions = apply_filters(
+				'woocommerce_custom_checkout_position',
+				array(
+					'form-row-first' => __( 'Left', 'woocommerce-checkout-field-editor' ),
+					'form-row-wide'  => __( 'Full-width', 'woocommerce-checkout-field-editor' ),
+					'form-row-last'  => __( 'Right', 'woocommerce-checkout-field-editor' ),
+				)
+			);
 
-			$display_options = apply_filters( 'woocommerce_custom_checkout_display_options', array(
-				'emails'     => __( 'Emails', 'woocommerce-checkout-field-editor' ),
-				'view_order' => __( 'Order Detail Pages', 'woocommerce-checkout-field-editor' ),
-			) );
+			$display_options = apply_filters(
+				'woocommerce_custom_checkout_display_options',
+				array(
+					'emails'     => __( 'Emails', 'woocommerce-checkout-field-editor' ),
+					'view_order' => __( 'Order Detail Pages', 'woocommerce-checkout-field-editor' ),
+				)
+			);
 
 			echo '<form method="post" id="mainform" action="">';
-				?>
+		?>
 				<table id="wc_checkout_fields" class="widefat">
 					<thead>
 						<tr>
@@ -245,19 +283,21 @@ class WC_Checkout_Field_Editor {
 								<a class="button enable_row" href=""><?php esc_html_e( 'Enable Checked', 'woocommerce-checkout-field-editor' ); ?></a>
 								<a class="button disable_row" href=""><?php esc_html_e( 'Disable/Remove Checked', 'woocommerce-checkout-field-editor' ); ?></a>
 							</th>
-							<th colspan="5"><p class="description"><?php
-								switch ( $tab ) {
-									case 'billing':
-										echo wp_kses( __( 'The fields above show in the "billing information" section of the checkout page. <strong>Disabling core fields can cause unexpected results with some plugins; we recommend against this if possible.</strong>', 'woocommerce-checkout-field-editor' ), array( 'strong' => array() ) );
+							<th colspan="5"><p class="description">
+							<?php
+							switch ( $tab ) {
+								case 'billing':
+									echo wp_kses( __( 'The fields above show in the "billing information" section of the checkout page. <strong>Disabling core fields can cause unexpected results with some plugins; we recommend against this if possible.</strong>', 'woocommerce-checkout-field-editor' ), array( 'strong' => array() ) );
 									break;
-									case 'shipping':
-										echo wp_kses( __( 'The fields above show in the "shipping information" section of the checkout page. <strong>Disabling core fields can cause unexpected results with some plugins; we recommend against this if possible.</strong>', 'woocommerce-checkout-field-editor' ), array( 'strong' => array() ) );
+								case 'shipping':
+									echo wp_kses( __( 'The fields above show in the "shipping information" section of the checkout page. <strong>Disabling core fields can cause unexpected results with some plugins; we recommend against this if possible.</strong>', 'woocommerce-checkout-field-editor' ), array( 'strong' => array() ) );
 									break;
-									case 'additional':
-										esc_html_e( 'The fields above show beneath the billing and shipping sections on the checkout page.', 'woocommerce-checkout-field-editor' );
+								case 'additional':
+									esc_html_e( 'The fields above show beneath the billing and shipping sections on the checkout page.', 'woocommerce-checkout-field-editor' );
 									break;
-								}
-							?></p></th>
+							}
+							?>
+							</p></th>
 						</tr>
 						<tr class="new_row" style="display:none;">
 							<td width="1%" class="sort ui-sortable-handle"> </td>
@@ -273,14 +313,16 @@ class WC_Checkout_Field_Editor {
 							<td class="field-type">
 								<?php if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) { ?>
 									<select name="field_type[0]" class="field_type wc-enhanced-select" style="width:100px;">
-										<?php foreach ( $field_types as $key => $type ) {
+										<?php
+										foreach ( $field_types as $key => $type ) {
 											echo '<option value="' . esc_attr( $key ) . '">' . esc_html( $type ) . '</option>';
 										}
 										?>
 									</select>
 								<?php } else { ?>
 									<select name="field_type[0]" class="field_type chosen_select enhanced" style="width:100px">
-										<?php foreach ( $field_types as $key => $type ) {
+										<?php
+										foreach ( $field_types as $key => $type ) {
 											echo '<option value="' . esc_attr( $key ) . '">' . esc_html( $type ) . '</option>';
 										}
 										?>
@@ -297,14 +339,16 @@ class WC_Checkout_Field_Editor {
 							<td>
 								<?php if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) { ?>
 									<select name="field_position[0]" class="field_position wc-enhanced-select" style="width:100px;">
-										<?php foreach ( $positions as $key => $type ) {
+										<?php
+										foreach ( $positions as $key => $type ) {
 											echo '<option value="' . esc_attr( $key ) . '">' . esc_html( $type ) . '</option>';
 										}
 										?>
 									</select>
 								<?php } else { ?>
 									<select name="field_position[0]" class="field_position chosen_select enhanced" style="width:100px">
-										<?php foreach ( $positions as $key => $type ) {
+										<?php
+										foreach ( $positions as $key => $type ) {
 											echo '<option value="' . esc_attr( $key ) . '">' . esc_html( $type ) . '</option>';
 										}
 										?>
@@ -319,7 +363,8 @@ class WC_Checkout_Field_Editor {
 							<td>
 								<?php if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) { ?>
 									<select name="field_validation[0][]" class="wc-enhanced-select" style="width:200px;" multiple="multiple">
-										<?php foreach ( $validation_rules as $key => $rule ) {
+										<?php
+										foreach ( $validation_rules as $key => $rule ) {
 											echo '<option value="' . esc_attr( $key ) . '">' . esc_html( $rule ) . '</option>';
 										}
 										?>
@@ -327,9 +372,9 @@ class WC_Checkout_Field_Editor {
 								<?php } else { ?>
 									<select name="field_validation[0][]" class="chosen_select enhanced" multiple="multiple" style="width: 200px;">
 										<?php
-											foreach ( $validation_rules as $key => $rule ) {
-												echo '<option value="' . esc_attr( $key ) . '">' . esc_html( $rule ) . '</option>';
-											}
+										foreach ( $validation_rules as $key => $rule ) {
+											echo '<option value="' . esc_attr( $key ) . '">' . esc_html( $rule ) . '</option>';
+										}
 										?>
 									</select>
 								<?php } ?>
@@ -337,7 +382,8 @@ class WC_Checkout_Field_Editor {
 							<td>
 								<?php if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) { ?>
 									<select name="field_display_options[0][]" class="wc-enhanced-select" style="width:150px;" multiple="multiple">
-										<?php foreach ( $display_options as $key => $option ) {
+										<?php
+										foreach ( $display_options as $key => $option ) {
 											echo '<option value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
 										}
 										?>
@@ -345,9 +391,9 @@ class WC_Checkout_Field_Editor {
 								<?php } else { ?>
 									<select name="field_display_options[0][]" class="chosen_select enhanced" multiple="multiple" style="width: 150px;">
 										<?php
-											foreach ( $display_options as $key => $option ) {
-												echo '<option value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
-											}
+										foreach ( $display_options as $key => $option ) {
+											echo '<option value="' . esc_attr( $key ) . '">' . esc_html( $option ) . '</option>';
+										}
 										?>
 									</select>
 								<?php } ?>
@@ -361,31 +407,38 @@ class WC_Checkout_Field_Editor {
 
 						foreach ( $this->get_fields( $tab ) as $name => $options ) :
 
-						$i++;
+							$i++;
 
-						if ( ! isset( $options['placeholder'] ) ) {
-							$options['placeholder'] = '';
-						}
+							if ( ! isset( $options['placeholder'] ) ) {
+								$options['placeholder'] = '';
+							}
 
-						if ( ! isset( $options['validate'] ) ) {
-							$options['validate'] = array();
-						}
+							if ( ! isset( $options['validate'] ) ) {
+								$options['validate'] = array();
+							}
 
-						if ( ! isset( $options['display_options'] ) ) {
-							$options['display_options'] = array();
-						}
+							if ( ! isset( $options['display_options'] ) ) {
+								$options['display_options'] = array();
+							}
 
-						if ( ! isset( $options['enabled'] ) || $options['enabled'] ) {
-							$options['enabled'] = '1';
-						} else {
-							$options['enabled'] = '0';
-						}
+							if ( ! isset( $options['enabled'] ) || $options['enabled'] ) {
+								$options['enabled'] = '1';
+							} else {
+								$options['enabled'] = '0';
+							}
 
-						if ( ! isset( $options['type'] ) ) {
-							$options['type'] = 'text';
-						}
-						?>
-						<tr class="<?php if ( in_array( $name, $core_fields ) ) echo 'core '; if ( ! $options[ 'enabled' ] ) echo 'disabled '; ?>" data-field-name="<?php echo esc_attr( $name ); ?>">
+							if ( ! isset( $options['type'] ) ) {
+								$options['type'] = 'text';
+							}
+							?>
+						<tr class="
+							<?php
+							if ( in_array( $name, $core_fields ) ) {
+								echo 'core ';
+							} if ( ! $options['enabled'] ) {
+								echo 'disabled ';}
+							?>
+							" data-field-name="<?php echo esc_attr( $name ); ?>">
 							<td width="1%" class="sort ui-sortable-handle"> </td>
 							<td class="check-column">
 								<input type="checkbox" />
@@ -400,35 +453,42 @@ class WC_Checkout_Field_Editor {
 								<?php endif; ?>
 
 								<input type="hidden" name="field_order[<?php echo esc_attr( $i ); ?>]" class="field_order" value="<?php echo esc_attr( $i ); ?>" />
-								<input type="hidden" name="field_enabled[<?php echo esc_attr( $i ); ?>]" class="field_enabled" value="<?php echo esc_attr( $options[ 'enabled' ] ); ?>" />
+								<input type="hidden" name="field_enabled[<?php echo esc_attr( $i ); ?>]" class="field_enabled" value="<?php echo esc_attr( $options['enabled'] ); ?>" />
 							</td>
 							<td class="field-type">
-								<?php if ( in_array( $name, array(
-									'billing_address_1',
-									'billing_state',
-									'billing_city',
-									'billing_country',
-									'billing_postcode',
-									'shipping_address_1',
-									'shipping_state',
-									'shipping_city',
-									'shipping_country',
-									'shipping_postcode'
-								) ) ) : ?>
+								<?php
+								if ( in_array(
+									$name,
+									array(
+										'billing_address_1',
+										'billing_state',
+										'billing_city',
+										'billing_country',
+										'billing_postcode',
+										'shipping_address_1',
+										'shipping_state',
+										'shipping_city',
+										'shipping_country',
+										'shipping_postcode',
+									)
+								) ) :
+									?>
 									<span class="na tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'This field is address locale dependent and cannot be modified.', 'woocommerce-checkout-field-editor' ) ); ?>">&ndash;</span>
 								<?php elseif ( in_array( $name, array( 'order_comments' ) ) ) : ?>
 									<span class="na tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'This field cannot be modified.', 'woocommerce-checkout-field-editor' ) ); ?>">&ndash;</span>
 								<?php else : ?>
 									<?php if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) { ?>
 										<select name="field_type[<?php echo esc_attr( $i ); ?>]" class="field_type wc-enhanced-select" style="width:100px">
-											<?php foreach ( $field_types as $key => $type ) {
+											<?php
+											foreach ( $field_types as $key => $type ) {
 												echo '<option value="' . esc_attr( $key ) . '" ' . selected( $options['type'], $key, false ) . '>' . esc_html( $type ) . '</option>';
 											}
 											?>
 										</select>
 									<?php } else { ?>
 										<select name="field_type[<?php echo esc_attr( $i ); ?>]" class="field_type chosen_select" style="width:100px">
-											<?php foreach ( $field_types as $key => $type ) {
+											<?php
+											foreach ( $field_types as $key => $type ) {
 												echo '<option value="' . esc_attr( $key ) . '" ' . selected( $options['type'], $key, false ) . '>' . esc_html( $type ) . '</option>';
 											}
 											?>
@@ -437,52 +497,71 @@ class WC_Checkout_Field_Editor {
 								<?php endif; ?>
 							</td>
 							<td style="width:150px;">
-								<?php if ( in_array( $name, array(
-									'billing_address_1',
-									'billing_state',
-									'billing_city',
-									'billing_postcode',
-									'shipping_address_1',
-									'shipping_state',
-									'shipping_city',
-									'shipping_postcode',
-								) ) ) : ?>
+								<?php
+								if ( in_array(
+									$name,
+									array(
+										'billing_address_1',
+										'billing_state',
+										'billing_city',
+										'billing_postcode',
+										'shipping_address_1',
+										'shipping_state',
+										'shipping_city',
+										'shipping_postcode',
+									)
+								) ) :
+									?>
 									<span class="na tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'This field is address locale dependent and cannot be modified.', 'woocommerce-checkout-field-editor' ) ); ?>">&ndash;</span>
 								<?php else : ?>
 									<input type="text" class="input-text" name="field_label[<?php echo esc_attr( $i ); ?>]" value="<?php echo isset( $options['label'] ) ? esc_attr( $options['label'] ) : ''; ?>" />
 								<?php endif; ?>
 							</td>
 							<td class="field-options" style="width:150px;">
-								<?php if ( in_array( $name, array(
-									'billing_address_1',
-									'billing_state',
-									'billing_city',
-									'billing_country',
-									'billing_postcode',
-									'shipping_address_1',
-									'shipping_state',
-									'shipping_city',
-									'shipping_country',
-									'shipping_postcode',
-								) ) ) : ?>
+								<?php
+								if ( in_array(
+									$name,
+									array(
+										'billing_address_1',
+										'billing_state',
+										'billing_city',
+										'billing_country',
+										'billing_postcode',
+										'shipping_address_1',
+										'shipping_state',
+										'shipping_city',
+										'shipping_country',
+										'shipping_postcode',
+									)
+								) ) :
+									?>
 									<span class="na tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'This field is address locale dependent and cannot be modified.', 'woocommerce-checkout-field-editor' ) ); ?>">&ndash;</span>
 								<?php else : ?>
 									<input type="text" class="input-text placeholder" name="field_placeholder[<?php echo esc_attr( $i ); ?>]" value="<?php echo esc_attr( $options['placeholder'] ); ?>" />
-									<input type="text" class="input-text options" name="field_options[<?php echo esc_attr( $i ); ?>]" placeholder="<?php esc_attr_e( 'Pipe (|) separate options.', 'woocommerce-checkout-field-editor' ); ?>" value="<?php if ( ! empty( $options['placeholder'] ) && ! empty( $options['options'] ) ) echo $options['placeholder'] . ' || '; if ( isset( $options['options'] ) ) echo implode( ' | ', $options['options'] ); ?>" />
+									<input type="text" class="input-text options" name="field_options[<?php echo esc_attr( $i ); ?>]" placeholder="<?php esc_attr_e( 'Pipe (|) separate options.', 'woocommerce-checkout-field-editor' ); ?>" value="
+																												 <?php
+																													if ( ! empty( $options['placeholder'] ) && ! empty( $options['options'] ) ) {
+																														echo $options['placeholder'] . ' || ';
+																													} if ( isset( $options['options'] ) ) {
+																														echo implode( ' | ', $options['options'] );}
+																													?>
+									" />
 									<span class="na">&ndash;</span>
 								<?php endif; ?>
 							</td>
 							<td>
 								<?php if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) { ?>
 									<select name="field_position[<?php echo esc_attr( $i ); ?>]" class="field_position wc-enhanced-select" style="width:100px">
-										<?php foreach ( $positions as $key => $type ) {
+										<?php
+										foreach ( $positions as $key => $type ) {
 											echo '<option value="' . esc_attr( $key ) . '" ' . selected( in_array( $key, $options['class'] ), true, false ) . '>' . esc_html( $type ) . '</option>';
 										}
 										?>
 									</select>
 								<?php } else { ?>
 									<select name="field_position[<?php echo esc_attr( $i ); ?>]" class="field_position chosen_select" style="width:100px">
-										<?php foreach ( $positions as $key => $type ) {
+										<?php
+										foreach ( $positions as $key => $type ) {
 											echo '<option value="' . esc_attr( $key ) . '" ' . selected( in_array( $key, $options['class'] ), true, false ) . '>' . esc_html( $type ) . '</option>';
 										}
 										?>
@@ -502,17 +581,17 @@ class WC_Checkout_Field_Editor {
 									<?php if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) { ?>
 										<select name="field_validation[<?php echo esc_attr( $i ); ?>][]" class="wc-enhanced-select" multiple="multiple" style="width: 200px;">
 											<?php
-												foreach ( $validation_rules as $key => $rule ) {
-													echo '<option value="' . esc_attr( $key ) . '" ' . selected( ! empty( $options[ $key ] ) || in_array( $key, $options[ 'validate' ] ), true, false ) . '>' . esc_html( $rule ) . '</option>';
-												}
+											foreach ( $validation_rules as $key => $rule ) {
+												echo '<option value="' . esc_attr( $key ) . '" ' . selected( ! empty( $options[ $key ] ) || in_array( $key, $options['validate'] ), true, false ) . '>' . esc_html( $rule ) . '</option>';
+											}
 											?>
 										</select>
 									<?php } else { ?>
 										<select name="field_validation[<?php echo esc_attr( $i ); ?>][]" class="chosen_select" multiple="multiple" style="width: 200px;">
 											<?php
-												foreach ( $validation_rules as $key => $rule ) {
-													echo '<option value="' . esc_attr( $key ) . '" ' . selected( ! empty( $options[ $key ] ) || in_array( $key, $options[ 'validate' ] ), true, false ) . '>' . esc_html( $rule ) . '</option>';
-												}
+											foreach ( $validation_rules as $key => $rule ) {
+												echo '<option value="' . esc_attr( $key ) . '" ' . selected( ! empty( $options[ $key ] ) || in_array( $key, $options['validate'] ), true, false ) . '>' . esc_html( $rule ) . '</option>';
+											}
 											?>
 										</select>
 									<?php } ?>
@@ -528,17 +607,17 @@ class WC_Checkout_Field_Editor {
 									<?php if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) { ?>
 										<select name="field_display_options[<?php echo esc_attr( $i ); ?>][]" class="wc-enhanced-select" multiple="multiple" style="width: 150px;">
 											<?php
-												foreach ( $display_options as $key => $option ) {
-													echo '<option value="' . esc_attr( $key ) . '" ' . selected( ! empty( $options[ 'display_options' ] ) && in_array( $key, $options[ 'display_options' ] ), true, false ) . '>' . esc_html( $option ) . '</option>';
-												}
+											foreach ( $display_options as $key => $option ) {
+												echo '<option value="' . esc_attr( $key ) . '" ' . selected( ! empty( $options['display_options'] ) && in_array( $key, $options['display_options'] ), true, false ) . '>' . esc_html( $option ) . '</option>';
+											}
 											?>
 										</select>
 									<?php } else { ?>
 										<select name="field_display_options[<?php echo esc_attr( $i ); ?>][]" class="chosen_select" multiple="multiple" style="width: 150px;">
 											<?php
-												foreach ( $display_options as $key => $option ) {
-													echo '<option value="' . esc_attr( $key ) . '" ' . selected( ! empty( $options[ 'display_options' ] ) && in_array( $key, $options[ 'display_options' ] ), true, false ) . '>' . esc_html( $option ) . '</option>';
-												}
+											foreach ( $display_options as $key => $option ) {
+												echo '<option value="' . esc_attr( $key ) . '" ' . selected( ! empty( $options['display_options'] ) && in_array( $key, $options['display_options'] ), true, false ) . '>' . esc_html( $option ) . '</option>';
+											}
 											?>
 										</select>
 									<?php } ?>
@@ -551,9 +630,9 @@ class WC_Checkout_Field_Editor {
 					</tbody>
 				</table>
 				<?php
-			echo '<p class="submit"><input type="submit" class="button-primary" value="' . esc_attr__( 'Save Changes', 'woocommerce-checkout-field-editor' ) . '" /></p>';
-			echo '</form>';
-		echo '</div>';
+				echo '<p class="submit"><input type="submit" class="button-primary" value="' . esc_attr__( 'Save Changes', 'woocommerce-checkout-field-editor' ) . '" /></p>';
+				echo '</form>';
+				echo '</div>';
 	}
 
 	/**
@@ -573,7 +652,7 @@ class WC_Checkout_Field_Editor {
 				$fields = array(
 					'order_comments' => array(
 						'type'        => 'textarea',
-						'class'       => array('notes'),
+						'class'       => array( 'notes' ),
 						'label'       => __( 'Order Notes', 'woocommerce-checkout-field-editor' ),
 						'placeholder' => _x( 'Notes about your order, e.g. special notes for delivery.', 'placeholder', 'woocommerce-checkout-field-editor' ),
 					),
@@ -592,9 +671,12 @@ class WC_Checkout_Field_Editor {
 	 * @return array
 	 */
 	public function restricted_field_names() {
-		return apply_filters( 'wc_checkout_field_editor_restricted_field_names', array(
-			'role',
-		) );
+		return apply_filters(
+			'wc_checkout_field_editor_restricted_field_names',
+			array(
+				'role',
+			)
+		);
 	}
 
 	/**
@@ -621,25 +703,25 @@ class WC_Checkout_Field_Editor {
 	 * @return void
 	 */
 	public function save_options( $tab ) {
-		$o_fields              = $this->get_fields( $tab );
-		$fields                = $o_fields;
-		$core_fields           = array_keys( WC()->countries->get_address_fields( WC()->countries->get_base_country(), $tab . '_' ) );
-		$core_fields[]         = 'order_comments';
-		$field_names           = ! empty( $_POST['field_name'] ) ? $_POST['field_name'] : array();
-		$new_field_names       = ! empty( $_POST['new_field_name'] ) ? $_POST['new_field_name'] : array();
-		$field_labels          = ! empty( $_POST['field_label'] ) ? $_POST['field_label'] : array();
-		$field_order           = ! empty( $_POST['field_order'] ) ? $_POST['field_order'] : array();
-		$field_enabled         = ! empty( $_POST['field_enabled'] ) ? $_POST['field_enabled'] : array();
-		$field_type            = ! empty( $_POST['field_type'] ) ? $_POST['field_type'] : array();
-		$field_placeholder     = ! empty( $_POST['field_placeholder'] ) ? $_POST['field_placeholder'] : array();
-		$field_options         = ! empty( $_POST['field_options'] ) ? $_POST['field_options'] : array();
-		$field_position        = ! empty( $_POST['field_position'] ) ? $_POST['field_position'] : array();
+		$o_fields          = $this->get_fields( $tab );
+		$fields            = $o_fields;
+		$core_fields       = array_keys( WC()->countries->get_address_fields( WC()->countries->get_base_country(), $tab . '_' ) );
+		$core_fields[]     = 'order_comments';
+		$field_names       = ! empty( $_POST['field_name'] ) ? $_POST['field_name'] : array();
+		$new_field_names   = ! empty( $_POST['new_field_name'] ) ? $_POST['new_field_name'] : array();
+		$field_labels      = ! empty( $_POST['field_label'] ) ? $_POST['field_label'] : array();
+		$field_order       = ! empty( $_POST['field_order'] ) ? $_POST['field_order'] : array();
+		$field_enabled     = ! empty( $_POST['field_enabled'] ) ? $_POST['field_enabled'] : array();
+		$field_type        = ! empty( $_POST['field_type'] ) ? $_POST['field_type'] : array();
+		$field_placeholder = ! empty( $_POST['field_placeholder'] ) ? $_POST['field_placeholder'] : array();
+		$field_options     = ! empty( $_POST['field_options'] ) ? $_POST['field_options'] : array();
+		$field_position    = ! empty( $_POST['field_position'] ) ? $_POST['field_position'] : array();
 
 		// Backwards compatibility.
 		$field_options = str_replace( '| |', '||', $field_options );
 
 		if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-			$field_clear           = ! empty( $_POST['field_clear'] ) ? $_POST['field_clear'] : array();
+			$field_clear = ! empty( $_POST['field_clear'] ) ? $_POST['field_clear'] : array();
 		}
 
 		$field_validation      = ! empty( $_POST['field_validation'] ) ? $_POST['field_validation'] : array();
@@ -651,10 +733,10 @@ class WC_Checkout_Field_Editor {
 			$new_name = empty( $new_field_names[ $i ] ) ? '' : urldecode( sanitize_title( wc_clean( stripslashes( $new_field_names[ $i ] ) ) ) );
 
 			// Check reserved names.
-			if ( $new_name && in_array( $new_name, array(
-				'billing_first_name', 'billing_last_name', 'billing_company', 'billing_address_1', 'billing_address_2', 'billing_city', 'billing_state', 'billing_country', 'billing_postcode', 'billing_phone', 'billing_email',
-				'shipping_first_name', 'shipping_last_name', 'shipping_company', 'shipping_address_1', 'shipping_address_2', 'shipping_city', 'shipping_state', 'shipping_country', 'shipping_postcode', 'customer_note', 'order_comments'
-			) ) ) {
+			if ( $new_name && in_array(
+				$new_name,
+				$this->default_fields
+			) ) {
 				continue;
 			}
 
@@ -680,17 +762,20 @@ class WC_Checkout_Field_Editor {
 				continue;
 			}
 
+			$is_new_field = false;
+
 			if ( ! isset( $fields[ $name ] ) ) {
+				$is_new_field    = true;
 				$fields[ $name ] = array();
 			}
 
-			$o_type                     = isset( $o_fields[ $name ]['type'] ) ? $o_fields[ $name ]['type'] : 'text';
+			$o_type = isset( $o_fields[ $name ]['type'] ) ? $o_fields[ $name ]['type'] : 'text';
 
-			$fields[ $name ]['type']    = empty( $field_type[ $i ] ) ? $o_type : wc_clean( $field_type[ $i ] );
-			$fields[ $name ]['label']   = empty( $field_labels[ $i ] ) ? '' : wp_kses_post( trim( stripslashes( $field_labels[ $i ] ) ) );
+			$fields[ $name ]['type']  = empty( $field_type[ $i ] ) ? $o_type : wc_clean( $field_type[ $i ] );
+			$fields[ $name ]['label'] = empty( $field_labels[ $i ] ) ? '' : wp_kses_post( trim( stripslashes( $field_labels[ $i ] ) ) );
 
 			if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-				$fields[ $name ]['clear']   = empty( $field_clear[ $i ] ) ? false : true;
+				$fields[ $name ]['clear'] = empty( $field_clear[ $i ] ) ? false : true;
 			}
 
 			$maybe_placeholder = empty( $field_options[ $i ] ) ? array() : array_map( 'wc_clean', array_map( 'stripslashes', explode( '||', $field_options[ $i ] ) ) );
@@ -721,11 +806,31 @@ class WC_Checkout_Field_Editor {
 			}
 
 			$fields[ $name ][ $order_text ] = empty( $field_order[ $i ] ) ? '' : wc_clean( $field_order[ $i ] ) * 10;
-			$fields[ $name ]['enabled']     = empty( $field_enabled[ $i ] ) ? false : true;
+
+			// Check for removed/disabled fields for Tracking purposes
+			if ( isset( $fields[ $name ]['enabled'] ) && $fields[ $name ]['enabled'] && $field_enabled[ $i ] === '0' ) {
+				$field_removed_props = array(
+					'field_set'  => $tab,
+					'field_name' => $name,
+				);
+
+				if ( in_array(
+					$name,
+					$this->default_fields
+				) ) {
+					// Default fields don't get removed, they get disabled.
+					WC_Checkout_Field_Editor_Tracks::record_event( 'field_disabled', $field_removed_props );
+				} elseif ( ! $is_new_field ) {
+					// Custom field is being removed. We don't track the removal of fields that have been added and removed at the same time.
+					WC_Checkout_Field_Editor_Tracks::record_event( 'field_removed', $field_removed_props );
+				}
+			}
+
+			$fields[ $name ]['enabled'] = ! empty( $field_enabled[ $i ] );
 
 			// Non-locale.
 			if ( ! in_array( $name, $this->locale_fields ) ) {
-				$fields[ $name ]['validate']    = empty( $field_validation[ $i ] ) ? array() : $field_validation[ $i ];
+				$fields[ $name ]['validate'] = empty( $field_validation[ $i ] ) ? array() : $field_validation[ $i ];
 
 				// Require.
 				if ( in_array( 'required', $fields[ $name ]['validate'] ) ) {
@@ -736,10 +841,10 @@ class WC_Checkout_Field_Editor {
 			}
 
 			// Custom.
-			if ( ! in_array( $name, array(
-				'billing_first_name', 'billing_last_name', 'billing_company', 'billing_address_1', 'billing_address_2', 'billing_city', 'billing_state', 'billing_country', 'billing_postcode', 'billing_phone', 'billing_email',
-				'shipping_first_name', 'shipping_last_name', 'shipping_company', 'shipping_address_1', 'shipping_address_2', 'shipping_city', 'shipping_state', 'shipping_country', 'shipping_postcode', 'customer_note', 'order_comments'
-			) ) ) {
+			if ( ! in_array(
+				$name,
+				$this->default_fields
+			) ) {
 				$fields[ $name ]['custom'] = true;
 
 				$fields[ $name ]['display_options'] = empty( $field_display_options[ $i ] ) ? array() : $field_display_options[ $i ];
@@ -760,6 +865,19 @@ class WC_Checkout_Field_Editor {
 			// Remove.
 			if ( $fields[ $name ]['custom'] && ! $fields[ $name ]['enabled'] ) {
 				unset( $fields[ $name ] );
+			}
+
+			// Track new field addition only if it wasn't removed at the same time.
+			if ( $is_new_field && isset( $fields[ $name ] ) ) {
+				$field_added_props = array(
+					'field_set'         => $tab,
+					'field_name'        => $name,
+					'field_type'        => $fields[ $name ]['type'],
+					'field_placeholder' => $fields[ $name ]['placeholder'],
+					'field_label'       => $fields[ $name ]['label'],
+				);
+
+				WC_Checkout_Field_Editor_Tracks::record_event( 'field_added', $field_added_props );
 			}
 		}
 

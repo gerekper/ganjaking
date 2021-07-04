@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Component abstraction. Contains data and maintains view state.
  *
  * @class    WC_CP_Component
- * @version  8.1.0
+ * @version  8.1.4
  */
 class WC_CP_Component implements ArrayAccess {
 
@@ -636,7 +636,7 @@ class WC_CP_Component implements ArrayAccess {
 		$components = $this->composite->get_components();
 
 		if ( ! isset( $this->index ) ) {
-			 $this->index = array_search( $this->id, array_keys( $components ) );
+			$this->index = array_search( $this->id, array_keys( $components ) );
 		}
 
 		return $this->index;

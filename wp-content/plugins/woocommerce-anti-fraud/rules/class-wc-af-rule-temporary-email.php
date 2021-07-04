@@ -28,7 +28,8 @@ class WC_AF_Rule_Temporary_Email extends WC_AF_Rule {
 	 * @return bool
 	 */
 	public function is_risk( WC_Order $order ) {
-
+		
+		Af_Logger::debug('Checking temporary email rule');
 		$temp_email_domains = apply_filters( 'wc_af_temporary_email_domains', array(
 			'guerrillamail.com',
 			'guerrillamailblock.com',
@@ -209,13 +210,13 @@ class WC_AF_Rule_Temporary_Email extends WC_AF_Rule {
 					}
 					
 					// Here we can create a log entry in future, whenever required. We can write the complete $res object in that log.
-					
+					Af_Logger::debug(print_r($res,true));	
 				}			    
 				
 			}
 			
 		} // if ( 1 === $regex_result )
-		
+		Af_Logger::debug('temporary email rule risk : '. ( $risk===true ? 'true' : 'false' ));
 		return $risk;
 	}
 	

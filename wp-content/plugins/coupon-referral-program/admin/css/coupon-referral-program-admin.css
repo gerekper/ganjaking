@@ -1,0 +1,83 @@
+/*=====  ADMIN CSS  ======*/
+.mwb_crp_preview_div {
+ padding: 10px 15px;
+ color: #fff;
+ font-weight: 400 !important;
+ text-transform: uppercase;
+ border-radius: 3px;
+ width: 25%;
+ font-size: 12px;
+}
+#referral_button_positioning ~ .description {
+    font-size: 15px;
+    margin-top: 10px;
+    display: block;
+}
+
+.form-table td .description {
+    display: block;
+}
+.form-table td .description .mwb_crp_preview_div {
+    width: 100% !important;
+    display: block;
+    margin: 15px 0px;
+    max-width: 150px;
+    text-align: center;
+}
+.form-table td #referral_button_color {
+    width: 100%;
+    max-width: 362px;
+}
+.mwb_crp_image {
+    display: inline-block;
+    margin-top: 10px;
+}
+.mwb_crp_image {
+    display: inline-block;
+    margin-top: 10px;
+}
+.mwb_crp_image_button.button {
+    background-color: #ddd;
+    margin-right: 8px;
+}
+.mwb_cpr_image_display {
+    display: inline-block;
+    margin-left: 30px;
+    vertical-align: middle;
+    margin-top: 10px;
+}
+@media only screen and (max-width: 767px) {
+table.form-table tr td, table.form-table tr, table.form-table tr th, table.form-table thead, table.form-table tbody {
+    display: block;
+}
+.form-table td #referral_button_color {
+    width: 100%;
+    max-width: calc(100% - 40px);
+    float: right;
+}
+.form-table tr td #signup_discount_type,
+.form-table tr td .mwb_crp_input_val {
+    width: 100% !important;
+    max-width: 100%;
+}
+table.form-table tr th {
+    display: inline-block;
+}
+}
+.mwb_crp_help_link {
+    background: #e5e5e5;
+    border-radius: 4px;
+    display: inline-block;
+    padding: 7px 8px;
+    text-decoration: none;
+    color: #555;
+    font-weight: 600;
+}
+.mwb_crp_help_link img {
+    margin-right: 5px;
+    vertical-align: text-bottom;
+}
+.mwb_crp_help_link:focus, .mwb_crp_help_link:hover {
+    background-color: #fff;
+    color: #444;
+}

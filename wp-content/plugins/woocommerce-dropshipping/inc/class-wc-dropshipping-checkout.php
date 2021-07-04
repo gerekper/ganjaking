@@ -28,7 +28,7 @@ class WC_Dropshipping_Checkout {
   public function add_custom_checkout_fields( $fields ) {
 		if( array_key_exists('checkout_order_number', $this->order_options) ) {
 			if( $this->order_options['checkout_order_number'] == 1 ) {
-		    $fields[ 'order' ]['_wc_dropshipping_order_number' ][ 'label' ] = 'Order Number';
+		    $fields[ 'order' ]['_wc_dropshipping_order_number' ][ 'label' ] = __( 'Order Number', 'woocoomerce-dropshipping' );
 		    $fields[ 'order' ][ '_wc_dropshipping_order_number' ][ 'type' ] = 'text';
 		    $fields[ 'order' ][ '_wc_dropshipping_order_number' ][ 'priority' ] = 1;
 		    $fields[ 'order' ][ 'order_comments' ][ 'priority' ] = 2;
@@ -46,7 +46,7 @@ class WC_Dropshipping_Checkout {
 	public function show_custom_checkout_order_page( $order ) {
 		if ( array_key_exists( 'checkout_order_number', $this->order_options ) ) {
 			if ( $this->order_options['checkout_order_number'] == 1 ){
-				?> <h3>Order Number</h3> <?php
+				?> <h3><?php _e( 'Order Number', 'woocommerce-dropshipping' ); ?></h3> <?php
 				echo get_post_meta( $order->get_id(), '_wc_dropshipping_order_number', true );
 			}
 		}
@@ -163,7 +163,7 @@ class WC_Dropshipping_Checkout {
 		if ( $this->order_options['checkout_order_number'] == 1 ){
 			$order_number = get_post_meta( $order_id->get_id(), '_wc_dropshipping_order_number', true );
 			if ( $order_number !== '' ) {
-				echo '<span class="wcd-order-number">Order number: '.$order_number.'</span>';
+				echo '<span class="wcd-order-number"><b>' . __( 'Order number', 'woocommerce-dropshipping' ) . ': </b>' . $order_number.'</span>';
 			}
 		}
 	}
@@ -172,7 +172,7 @@ class WC_Dropshipping_Checkout {
 		if ( $this->order_options['checkout_order_number'] == 1 ){
 			$order_number = get_post_meta( $order->get_id(), '_wc_dropshipping_order_number', true );
 			if ( $order_number !== '' ) {
-				echo '<p style="margin-top:20px;"><b>Order number: </b>' . $order_number . '</p>';
+				echo '<p style="margin-top:20px;"><b>' . __( 'Order number', 'woocommerce-dropshipping' ) . ': </b>' . $order_number . '</p>';
 			}
 		}
 	}

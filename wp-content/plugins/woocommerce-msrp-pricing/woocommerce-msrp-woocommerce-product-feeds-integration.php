@@ -5,7 +5,6 @@ class woocommerce_msrp_woocommerce_product_feeds_integration {
 	 * Add filters.
 	 */
 	public function run() {
-
 		add_filter( 'woocommerce_gpf_custom_field_list', array( $this, 'register_field' ) );
 	}
 

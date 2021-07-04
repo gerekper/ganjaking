@@ -9,7 +9,6 @@
 	add_action( 'add_meta_boxes', 'select_custom_order_status' ); //Select custome order status
 	add_action('save_post', 'status_save_metabox');  //save custome order status
 	add_action( 'admin_footer', 'insert_hidden_fields_for_check_cbe' ); // Checked CBE exist or not
-
 	add_action( 'import_ali_product_in_woo', 'get_sku_in_woo' ); // Call SKU Function.
 	add_action( 'rest_api_init', 'import_ali_product_in_woo_callback' );
 	function import_ali_product_in_woo_callback() {
@@ -219,7 +218,7 @@
 						)
 					);
 				}else{
-					return new WP_Error( 'fail', esc_html__( 'Setting for price rate is not set', 'my-text-domain' ), array( 'status' => 400 ) );
+					return new WP_Error( 'fail', esc_html__( 'Setting for price rate is not set', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 				}
 
 			  return $response;
@@ -236,7 +235,7 @@
 	function import_ali_product_in_woo(WP_REST_Request $request) {
 
 		// Following should be used whenever we want to return error:
-		//return new WP_Error( 'fail', esc_html__( 'The id parameter is required.', 'my-text-domain' ), array( 'status' => 400 ) );
+		//return new WP_Error( 'fail', esc_html__( 'The id parameter is required.', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 
 		//include_once('globals.php');
 
@@ -247,41 +246,41 @@
 
 		/**********PRODUCT VALIDATIONS STARTS HERE***/
         if( empty($inputParams['title']) ){
-         	return new WP_Error( 'fail', esc_html__( 'The Title parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Title parameter is required!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( empty($inputParams['type']) || !in_array($inputParams['type'],array('simple','variable')) ){
-         	return new WP_Error( 'fail', esc_html__( 'Please enter a valid Type (simple or variable)!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'Please enter a valid Type (simple or variable)!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( empty($inputParams['sku']) ){
-         	return new WP_Error( 'fail', esc_html__( 'The SKU parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The SKU parameter is required!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( empty($inputParams['price']) || !is_numeric($inputParams['price']) || $inputParams['price']<0 ){
-         	return new WP_Error( 'fail', esc_html__( 'The Price parameter is required and must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Price parameter is required and must be a valid non-negative numeric value!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( empty($inputParams['regular_price']) || !is_numeric($inputParams['regular_price']) || $inputParams['regular_price']<0 ){
-         	return new WP_Error( 'fail', esc_html__( 'The Regular Price parameter is required and must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Regular Price parameter is required and must be a valid non-negative numeric value!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( !empty($inputParams['sale_price']) && (!is_numeric($inputParams['sale_price']) || $inputParams['sale_price']<0) ){
-         	return new WP_Error( 'fail', esc_html__( 'The Sale Price parameter must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Sale Price parameter must be a valid non-negative numeric value!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
          if(!isset($inputParams['description'])){
-         	return new WP_Error( 'fail', esc_html__( 'The Description parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Description parameter is required!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if(!isset($inputParams['short_description'])){
-         	return new WP_Error( 'fail', esc_html__( 'The Short Description parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Short Description parameter is required!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( isset($inputParams['categories']) ){
 
 			if( !is_array($inputParams['categories']) || empty($inputParams['categories']) ){
-				return new WP_Error( 'fail', esc_html__( 'Please specify a valid category array format!', 'my-text-domain' ), array( 'status' => 400 ) );
+				return new WP_Error( 'fail', esc_html__( 'Please specify a valid category array format!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 			}
 
 			$categoryFlag = false;
@@ -295,7 +294,7 @@
 	    	}
 
 	    	if($categoryFlag){
-	    		return new WP_Error( 'fail', esc_html__( 'Please specify a valid category array format. Categories array must contain a valid numeric id parameter!', 'my-text-domain' ), array( 'status' => 400 ) );
+	    		return new WP_Error( 'fail', esc_html__( 'Please specify a valid category array format. Categories array must contain a valid numeric id parameter!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	    	}
 
         }
@@ -303,7 +302,7 @@
         if( isset($inputParams['images']) ){
 
 			if( !is_array($inputParams['images']) || empty($inputParams['images']) ){
-				return new WP_Error( 'fail', esc_html__( 'Please specify valid URLs to images in array format!', 'my-text-domain' ), array( 'status' => 400 ) );
+				return new WP_Error( 'fail', esc_html__( 'Please specify valid URLs to images in array format!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 			}
 
 			$imagesFlag = false;
@@ -342,49 +341,49 @@
 	    	}
 
 	    	if($imagesFlag){
-	    		return new WP_Error( 'fail', esc_html__( 'Please specify valid URLs to images in array format. Images array must contain a valid image URL in src. Image type can be one of these: (jpg, gif, png, jpeg).', 'my-text-domain' ), array( 'status' => 400 ) );
+	    		return new WP_Error( 'fail', esc_html__( 'Please specify valid URLs to images in array format. Images array must contain a valid image URL in src. Image type can be one of these: (jpg, gif, png, jpeg).', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	    	}
 
         }
 
         if( empty($inputParams['manage_stock']) || !is_bool($inputParams['manage_stock']) ){
-         	return new WP_Error( 'fail', esc_html__( 'The Manage Stock parameter is required and must be a boolean (true/false) value!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Manage Stock parameter is required and must be a boolean (true/false) value!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( !isset($inputParams['stock_quantity']) || !is_integer($inputParams['stock_quantity']) || $inputParams['stock_quantity']<0 ){
-         	return new WP_Error( 'fail', esc_html__( 'The Stock Quantity parameter is required and must be a valid non-negative number!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Stock Quantity parameter is required and must be a valid non-negative number!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( !empty($inputParams['weight']) && (!is_numeric($inputParams['weight']) || $inputParams['weight']<0) ){
-         	return new WP_Error( 'fail', esc_html__( 'The Weight parameter must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Weight parameter must be a valid non-negative numeric value!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( isset($inputParams['dimensions']) ){   // Remove Required validation
 
 			if( !is_array($inputParams['dimensions']) || empty($inputParams['dimensions'])){
 				//if( && is_array($inputParams['dimensions'])){
-				return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Dimensions in array format. Dimensions array must contain a valid numeric length, width, and height parameters!', 'my-text-domain' ), array( 'status' => 400 ) );
+				return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Dimensions in array format. Dimensions array must contain a valid numeric length, width, and height parameters!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 				//}
 			}
 
 			if( isset($inputParams['dimensions']['length'])){
 
 				if((!empty($inputParams['dimensions']['length']) && !is_numeric($inputParams['dimensions']['length'])) ||(!empty($inputParams['dimensions']['length']) &&  $inputParams['dimensions']['length']<=0 )){
-					//return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric length parameter within Dimensions array!', 'my-text-domain' ), array( 'status' => 400 ) );
-					return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric length parameter within Dimensions array!', 'my-text-domain' ), array( 'status' => 400 ) );
+					//return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric length parameter within Dimensions array!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
+					return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric length parameter within Dimensions array!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 				}
 			}
 
 			if( isset($inputParams['dimensions']['width'])) {
 				if((!empty($inputParams['dimensions']['width']) && !is_numeric($inputParams['dimensions']['width'])) ||(!empty($inputParams['dimensions']['width']) &&  $inputParams['dimensions']['width']<=0 )){
-					return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric width parameter within Dimensions array!', 'my-text-domain' ), array( 'status' => 400 ) );
+					return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric width parameter within Dimensions array!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 				}
 			}
 
 			if( isset($inputParams['dimensions']['height'])) {
 
 				if((!empty($inputParams['dimensions']['height']) && !is_numeric($inputParams['dimensions']['height'])) ||(!empty($inputParams['dimensions']['height']) &&  $inputParams['dimensions']['height']<=0 )){
-					return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric height parameter within Dimensions array!', 'my-text-domain' ), array( 'status' => 400 ) );
+					return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric height parameter within Dimensions array!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 				}
 			}
         }
@@ -392,7 +391,7 @@
         if( isset($inputParams['tags']) ){
 
 			if( !is_array($inputParams['tags']) || empty($inputParams['tags']) ){
-				return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Tags in array format. Tags array must contain a valid numeric id parameter!', 'my-text-domain' ), array( 'status' => 400 ) );
+				return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Tags in array format. Tags array must contain a valid numeric id parameter!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 			}
 
 			$tagsFlag = false;
@@ -406,51 +405,51 @@
 	    	}
 
 	    	if($tagsFlag){
-	    		return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Tagsin array format. Tags array must contain a valid numeric id parameter!', 'my-text-domain' ), array( 'status' => 400 ) );
+	    		return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Tagsin array format. Tags array must contain a valid numeric id parameter!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	    	}
 
         }
         if($inputParams['type'] == 'variable' ) {
 
 	        if( isset($inputParams['attributes']) && ( empty($inputParams['attributes']) || !is_array($inputParams['attributes']) ) ){
-	         	return new WP_Error( 'fail', esc_html__( 'The Attributes parameter must be in a valid array format!', 'my-text-domain' ), array( 'status' => 400 ) );
+	         	return new WP_Error( 'fail', esc_html__( 'The Attributes parameter must be in a valid array format!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	        }
 
 	        if( isset($inputParams['default_attributes']) && ( empty($inputParams['default_attributes']) || !is_array($inputParams['default_attributes']) ) ){
-	         	return new WP_Error( 'fail', esc_html__( 'The Default Attributes parameter must be in a valid array format!', 'my-text-domain' ), array( 'status' => 400 ) );
+	         	return new WP_Error( 'fail', esc_html__( 'The Default Attributes parameter must be in a valid array format!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	        }
 
 	        if( isset($inputParams['variations']) && ( empty($inputParams['variations']) || !is_array($inputParams['variations']) ) ){
-	         	return new WP_Error( 'fail', esc_html__( 'The Variations parameter must be in a valid array format!', 'my-text-domain' ), array( 'status' => 400 ) );
+	         	return new WP_Error( 'fail', esc_html__( 'The Variations parameter must be in a valid array format!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	        }
 	   	}
 
         if( isset($inputParams['number_of_orders']) && (!is_numeric($inputParams['number_of_orders']) || $inputParams['number_of_orders']<0) ){
-         	return new WP_Error( 'fail', esc_html__( 'The Number Of Orders parameter must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Number Of Orders parameter must be a valid non-negative numeric value!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         $store_currency_code = get_woocommerce_currency(); // Get store currency code
         //return $store_currency_code; // Remove Required validation
         /*if( isset($inputParams['ali_currency'])) {
 	        if(!empty($inputParams['ali_currency']) && $store_currency_code != strtoupper($inputParams['ali_currency'])){
-	         	return new WP_Error( 'fail', esc_html__( 'Currency code mismatch. Please enter a valid three digit ISO standard Currency Code matching with your woo store Currency Code setting!', 'my-text-domain' ), array( 'status' => 400 ) );
+	         	return new WP_Error( 'fail', esc_html__( 'Currency code mismatch. Please enter a valid three digit ISO standard Currency Code matching with your woo store Currency Code setting!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	        }
     	}*/
 
         if( empty($inputParams['ali_store_name']) ){
-         	//return new WP_Error( 'fail', esc_html__( 'Please enter AliExpress Store Name for this product!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	//return new WP_Error( 'fail', esc_html__( 'Please enter AliExpress Store Name for this product!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( empty($inputParams['ali_product_url']) || !preg_match( '/^(http|https):\\/\\/[a-z0-9_]+([\\-\\.]{1}[a-z_0-9]+)*\\.[_a-z]{2,5}'.'((:[0-9]{1,5})?\\/.*)?$/i' , $inputParams['ali_product_url']) ){
-         	return new WP_Error( 'fail', esc_html__( 'Please enter a valid URL for this AliExpress Product!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'Please enter a valid URL for this AliExpress Product!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( empty($inputParams['ali_store_url']) || !preg_match( '/^(http|https):\\/\\/[a-z0-9_]+([\\-\\.]{1}[a-z_0-9]+)*\\.[_a-z]{2,5}'.'((:[0-9]{1,5})?\\/.*)?$/i' , $inputParams['ali_store_url']) ){
-         	return new WP_Error( 'fail', esc_html__( 'Please enter a valid URL for this AliExpress Store!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'Please enter a valid URL for this AliExpress Store!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( empty($inputParams['ali_store_price_range']) ){
-         	return new WP_Error( 'fail', esc_html__( 'Please enter AliExpress Store Price Range for this product!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'Please enter AliExpress Store Price Range for this product!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
 		/**********PRODUCT VALIDATIONS ENDS HERE***/
@@ -498,7 +497,7 @@
 
 		if(!empty($product_id)) { /** if product already exits **/
 
-			$response = new WP_Error( 'fail', esc_html__( 'Product already exists. Please select another product.', 'my-text-domain' ), array( 'status' => 400, 'sku' => $sku, 'imgarray' => $inputParamsImg ) );
+			$response = new WP_Error( 'fail', esc_html__( 'Product already exists. Please select another product.', 'woocommerce-dropshipping' ), array( 'status' => 400, 'sku' => $sku, 'imgarray' => $inputParamsImg ) );
 
 		} else {
 
@@ -632,7 +631,7 @@
 				);
 
 			} else {
-				$response = new WP_Error( 'fail', esc_html__( 'Oops! Something went wrong. Please try again!', 'my-text-domain' ), array( 'status' => 400, 'imgarray' => $inputParamsImg) );
+				$response = new WP_Error( 'fail', esc_html__( 'Oops! Something went wrong. Please try again!', 'woocommerce-dropshipping' ), array( 'status' => 400, 'imgarray' => $inputParamsImg) );
 			}
 		}
 
@@ -650,7 +649,7 @@
 
 		/**********PRODUCT VALIDATIONS STARTS HERE***/
         if( empty($inputParams['imgdata']) ){
-         	return new WP_Error( 'fail', esc_html__( 'Image data is empty!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'Image data is empty!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }else{
             $upload_dir   = wp_upload_dir();
             define('UPLOAD_DIR', $upload_dir['basedir'].'/droptmp/');
@@ -848,7 +847,7 @@
 				);
 
 			} else {
-				$response = new WP_Error( 'fail', esc_html__( 'No categories found!', 'my-text-domain' ), array( 'status' => 400 ) );
+				$response = new WP_Error( 'fail', esc_html__( 'No categories found!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 			}
 
 		    return $response;
@@ -869,15 +868,15 @@
 
 			/*************PRODUCT CATEGORIES VALIDATIONS STARTS HERE*************/
             if(!isset($inputcat['name']) || empty($inputcat['name'])){
-         		return new WP_Error( 'fail', esc_html__( 'The Name parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
+         		return new WP_Error( 'fail', esc_html__( 'The Name parameter is required!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
             }
 
             if(!isset($inputcat['description'])){
-         		return new WP_Error( 'fail', esc_html__( 'The Description parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
+         		return new WP_Error( 'fail', esc_html__( 'The Description parameter is required!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
             }
 
             if(!isset($inputcat['category_parent']) || !is_numeric($inputcat['category_parent']) ){
-         		return new WP_Error( 'fail', esc_html__( 'The Category Parent parameter is required and must be numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
+         		return new WP_Error( 'fail', esc_html__( 'The Category Parent parameter is required and must be numeric value!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
             }
 			/*************PRODUCT CATEGORIES VALIDATIONS ENDS HERE*************/
 			$get_featured_cats = array(
@@ -919,7 +918,7 @@
 					);
 
 				} else {
-					$response = new WP_Error( 'fail', esc_html__( 'Name parameter required.', 'my-text-domain' ), array( 'status' => 400 ) );
+					$response = new WP_Error( 'fail', esc_html__( 'Name parameter required.', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 				}
 			} else if(isset($name) && !empty($name)) {
 
@@ -936,7 +935,7 @@
 
 			} else {
 
-				$response = new WP_Error( 'fail', esc_html__( 'Given parent categories id does not exist in product categories list.', 'my-text-domain' ), array( 'status' => 400 ) );
+				$response = new WP_Error( 'fail', esc_html__( 'Given parent categories id does not exist in product categories list.', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 			}
 
 			return $response;
@@ -955,7 +954,7 @@
 
 			/*************ORDER VALIDATIONS STARTS HERE*******************/
             if(!isset($inputParams['id']) || !is_integer($inputParams['id'])|| empty($inputParams['id'])){
-         		return new WP_Error( 'fail', esc_html__( 'The Id parameter is required and must be a number!', 'my-text-domain' ), array( 'status' => 400 ) );
+         		return new WP_Error( 'fail', esc_html__( 'The Id parameter is required and must be a number!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
             }
             /**************ORDER VALIDATIONS ENDS HERE*************/
 
@@ -975,7 +974,7 @@
 	        // If Order id exist in woo
 	        if (!$order == "shop_order") {
 
-	        	return new WP_Error( 'fail', esc_html__( 'The order id does not exist.', 'my-text-domain' ), array( 'status' => 400 ) );
+	        	return new WP_Error( 'fail', esc_html__( 'The order id does not exist.', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	        }
 	        //return gettype($order_id);
 	        $order_data = array(
@@ -1084,11 +1083,11 @@
 			/*************AUTHENTICATION VALIDATIONS STARTS HERE*************/
 
             if(!isset($inputauth['woo_url']) || empty($inputauth['woo_url'])){
-         		return new WP_Error( 'fail', esc_html__( 'The woo url parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
+         		return new WP_Error( 'fail', esc_html__( 'The woo url parameter is required!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
             }
 
             if(!isset($inputauth['woo_api_key']) || empty($inputauth['woo_api_key'])){
-         		return new WP_Error( 'fail', esc_html__( 'The woo API key  parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
+         		return new WP_Error( 'fail', esc_html__( 'The woo API key  parameter is required!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
             }
 
 			/*************AUTHENTICATION VALIDATIONS ENDS HERE*************/
@@ -1154,16 +1153,16 @@
 
 					} else {
 
-						$response = new WP_Error( 'fail', esc_html__( 'API Key Mismatch!!', 'my-text-domain' ), array( 'status' => 400 ) );
+						$response = new WP_Error( 'fail', esc_html__( 'API Key Mismatch!!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 					}
 				} else {
 
-						$response = new WP_Error( 'fail', esc_html__( 'URL mismatch.', 'my-text-domain' ), array( 'status' => 400 ) );
+						$response = new WP_Error( 'fail', esc_html__( 'URL mismatch.', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 					}
 
 			} else {
 
-				$response = new WP_Error( 'fail', esc_html__( 'Oops! Something went wrong. Please try again!', 'my-text-domain' ), array( 'status' => 400 ) );
+				$response = new WP_Error( 'fail', esc_html__( 'Oops! Something went wrong. Please try again!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 			}
 			return $response;
 
@@ -1196,41 +1195,41 @@
 
 		/**********PRODUCT VALIDATIONS STARTS HERE***/
         if( empty($inputParams['title']) ){
-         	return new WP_Error( 'fail', esc_html__( 'The Title parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Title parameter is required!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( empty($inputParams['type']) || !in_array($inputParams['type'],array('simple','variable')) ){
-         	return new WP_Error( 'fail', esc_html__( 'Please enter a valid Type (simple or variable)!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'Please enter a valid Type (simple or variable)!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( empty($inputParams['sku']) ){
-         	return new WP_Error( 'fail', esc_html__( 'The SKU parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The SKU parameter is required!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( empty($inputParams['price']) || !is_numeric($inputParams['price']) || $inputParams['price']<0 ){
-         	return new WP_Error( 'fail', esc_html__( 'The Price parameter is required and must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Price parameter is required and must be a valid non-negative numeric value!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( empty($inputParams['regular_price']) || !is_numeric($inputParams['regular_price']) || $inputParams['regular_price']<0 ){
-         	return new WP_Error( 'fail', esc_html__( 'The Regular Price parameter is required and must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Regular Price parameter is required and must be a valid non-negative numeric value!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( !empty($inputParams['sale_price']) && (!is_numeric($inputParams['sale_price']) || $inputParams['sale_price']<0) ){
-         	return new WP_Error( 'fail', esc_html__( 'The Sale Price parameter must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Sale Price parameter must be a valid non-negative numeric value!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         /* if(!isset($inputParams['description'])){
-         	return new WP_Error( 'fail', esc_html__( 'The Description parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Description parameter is required!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if(!isset($inputParams['short_description'])){
-         	return new WP_Error( 'fail', esc_html__( 'The Short Description parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Short Description parameter is required!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         } */
 
         if( isset($inputParams['categories']) ){
 
 			if( !is_array($inputParams['categories']) || empty($inputParams['categories']) ){
-				return new WP_Error( 'fail', esc_html__( 'Please specify a list of valid categories in array format!', 'my-text-domain' ), array( 'status' => 400 ) );
+				return new WP_Error( 'fail', esc_html__( 'Please specify a list of valid categories in array format!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 			}
 
 			$categoryFlag = false;
@@ -1244,7 +1243,7 @@
 	    	}
 
 	    	if($categoryFlag){
-	    		return new WP_Error( 'fail', esc_html__( 'Please specify a list of valid categories in array format. Categories array must contain a valid numeric id parameter!', 'my-text-domain' ), array( 'status' => 400 ) );
+	    		return new WP_Error( 'fail', esc_html__( 'Please specify a list of valid categories in array format. Categories array must contain a valid numeric id parameter!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	    	}
 
         }
@@ -1252,7 +1251,7 @@
         if( isset($inputParams['images']) ){
 
 			if( !is_array($inputParams['images']) || empty($inputParams['images']) ){
-				return new WP_Error( 'fail', esc_html__( 'Please specify a list of valid images URLs in array format!', 'my-text-domain' ), array( 'status' => 400 ) );
+				return new WP_Error( 'fail', esc_html__( 'Please specify a list of valid images URLs in array format!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 			}
 
 			$imagesFlag = false;
@@ -1291,49 +1290,49 @@
 	    	}
 
 	    	if($imagesFlag){
-	    		return new WP_Error( 'fail', esc_html__( 'Please specify a list of valid image URLs in array format. Images array must contain a valid image URL in src. Image type can be one of these: (jpg, gif, png, jpeg).', 'my-text-domain' ), array( 'status' => 400 ) );
+	    		return new WP_Error( 'fail', esc_html__( 'Please specify a list of valid image URLs in array format. Images array must contain a valid image URL in src. Image type can be one of these: (jpg, gif, png, jpeg).', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	    	}
 
         }
 
         if( empty($inputParams['manage_stock']) || !is_bool($inputParams['manage_stock']) ){
-         	return new WP_Error( 'fail', esc_html__( 'The Manage Stock parameter is required and must be a boolean (true/false) value!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Manage Stock parameter is required and must be a boolean (true/false) value!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( !isset($inputParams['stock_quantity']) || !is_integer($inputParams['stock_quantity']) || $inputParams['stock_quantity']<0 ){
-         	return new WP_Error( 'fail', esc_html__( 'The Stock Quantity parameter is required and must be a valid non-negative number!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Stock Quantity parameter is required and must be a valid non-negative number!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( !empty($inputParams['weight']) && (!is_numeric($inputParams['weight']) || $inputParams['weight']<0) ){
-         	return new WP_Error( 'fail', esc_html__( 'The Weight parameter must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Weight parameter must be a valid non-negative numeric value!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( isset($inputParams['dimensions']) ){   // Remove Required validation
 
 			if( !is_array($inputParams['dimensions']) || empty($inputParams['dimensions'])){
 				//if( && is_array($inputParams['dimensions'])){
-				return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Dimensions in array format. Dimensions array must contain a valid numeric length, width, and height parameters!', 'my-text-domain' ), array( 'status' => 400 ) );
+				return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Dimensions in array format. Dimensions array must contain a valid numeric length, width, and height parameters!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 				//}
 			}
 
 			if( isset($inputParams['dimensions']['length'])){
 
 				if((!empty($inputParams['dimensions']['length']) && !is_numeric($inputParams['dimensions']['length'])) ||(!empty($inputParams['dimensions']['length']) &&  $inputParams['dimensions']['length']<=0 )){
-					//return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric length parameter within Dimensions array!', 'my-text-domain' ), array( 'status' => 400 ) );
-					return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric length parameter within Dimensions array!', 'my-text-domain' ), array( 'status' => 400 ) );
+					//return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric length parameter within Dimensions array!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
+					return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric length parameter within Dimensions array!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 				}
 			}
 
 			if( isset($inputParams['dimensions']['width'])) {
 				if((!empty($inputParams['dimensions']['width']) && !is_numeric($inputParams['dimensions']['width'])) ||(!empty($inputParams['dimensions']['width']) &&  $inputParams['dimensions']['width']<=0 )){
-					return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric width parameter within Dimensions array!', 'my-text-domain' ), array( 'status' => 400 ) );
+					return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric width parameter within Dimensions array!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 				}
 			}
 
 			if( isset($inputParams['dimensions']['height'])) {
 
 				if((!empty($inputParams['dimensions']['height']) && !is_numeric($inputParams['dimensions']['height'])) ||(!empty($inputParams['dimensions']['height']) &&  $inputParams['dimensions']['height']<=0 )){
-					return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric height parameter within Dimensions array!', 'my-text-domain' ), array( 'status' => 400 ) );
+					return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric height parameter within Dimensions array!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 				}
 			}
         }
@@ -1341,7 +1340,7 @@
         if( isset($inputParams['tags']) ){
 
 			if( !is_array($inputParams['tags']) || empty($inputParams['tags']) ){
-				return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Tags in array format. Tags array must contain a valid numeric id parameter!', 'my-text-domain' ), array( 'status' => 400 ) );
+				return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Tags in array format. Tags array must contain a valid numeric id parameter!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 			}
 
 			$tagsFlag = false;
@@ -1355,51 +1354,51 @@
 	    	}
 
 	    	if($tagsFlag){
-	    		return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Tags array format. Tags array must contain a valid numeric id parameter!', 'my-text-domain' ), array( 'status' => 400 ) );
+	    		return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Tags array format. Tags array must contain a valid numeric id parameter!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	    	}
 
         }
         if($inputParams['type'] == 'variable' ) {
 
 	        if( isset($inputParams['attributes']) && ( empty($inputParams['attributes']) || !is_array($inputParams['attributes']) ) ){
-	         	return new WP_Error( 'fail', esc_html__( 'The Attributess parameter must be in a valid array format!', 'my-text-domain' ), array( 'status' => 400 ) );
+	         	return new WP_Error( 'fail', esc_html__( 'The Attributess parameter must be in a valid array format!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	        }
 
 	        if( isset($inputParams['default_attributes']) && ( empty($inputParams['default_attributes']) || !is_array($inputParams['default_attributes']) ) ){
-	         	return new WP_Error( 'fail', esc_html__( 'The Default Attributess parameter must be in a valid array format!', 'my-text-domain' ), array( 'status' => 400 ) );
+	         	return new WP_Error( 'fail', esc_html__( 'The Default Attributess parameter must be in a valid array format!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	        }
 
 	        if( isset($inputParams['variations']) && ( empty($inputParams['variations']) || !is_array($inputParams['variations']) ) ){
-	         	return new WP_Error( 'fail', esc_html__( 'The Variations parameter must be in a valid array format!', 'my-text-domain' ), array( 'status' => 400 ) );
+	         	return new WP_Error( 'fail', esc_html__( 'The Variations parameter must be in a valid array format!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	        }
 	   	}
 
         if( isset($inputParams['number_of_orders']) && (!is_numeric($inputParams['number_of_orders']) || $inputParams['number_of_orders']<0) ){
-         	return new WP_Error( 'fail', esc_html__( 'The Number Of Orders parameter must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'The Number Of Orders parameter must be a valid non-negative numeric value!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         $store_currency_code = get_woocommerce_currency(); // Get store currency code
         //return $store_currency_code; // Remove Required validation
         /*if( isset($inputParams['ali_currency'])) {
 	        if(!empty($inputParams['ali_currency']) && $store_currency_code != strtoupper($inputParams['ali_currency'])){
-	         	return new WP_Error( 'fail', esc_html__( 'Currency code mismatch. Please enter a valid three digit ISO standard Currency Code matching with your woo store Currency Code setting!', 'my-text-domain' ), array( 'status' => 400 ) );
+	         	return new WP_Error( 'fail', esc_html__( 'Currency code mismatch. Please enter a valid three digit ISO standard Currency Code matching with your woo store Currency Code setting!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	        }
     	}*/
 
         if( empty($inputParams['ali_store_name']) ){
-         	return new WP_Error( 'fail', esc_html__( 'Please enter AliExpress Store Name for this product!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'Please enter AliExpress Store Name for this product!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( empty($inputParams['ali_product_url']) || !preg_match( '/^(http|https):\\/\\/[a-z0-9_]+([\\-\\.]{1}[a-z_0-9]+)*\\.[_a-z]{2,5}'.'((:[0-9]{1,5})?\\/.*)?$/i' , $inputParams['ali_product_url']) ){
-         	return new WP_Error( 'fail', esc_html__( 'Please enter a valid URL for this AliExpress Product!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'Please enter a valid URL for this AliExpress Product!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( empty($inputParams['ali_store_url']) || !preg_match( '/^(http|https):\\/\\/[a-z0-9_]+([\\-\\.]{1}[a-z_0-9]+)*\\.[_a-z]{2,5}'.'((:[0-9]{1,5})?\\/.*)?$/i' , $inputParams['ali_store_url']) ){
-         	return new WP_Error( 'fail', esc_html__( 'Please enter a valid URL for this AliExpress Store!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'Please enter a valid URL for this AliExpress Store!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
         if( empty($inputParams['ali_store_price_range']) ){
-         	return new WP_Error( 'fail', esc_html__( 'Please enter AliExpress Store Price Range for this product!', 'my-text-domain' ), array( 'status' => 400 ) );
+         	return new WP_Error( 'fail', esc_html__( 'Please enter AliExpress Store Price Range for this product!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         }
 
 		/**********PRODUCT VALIDATIONS ENDS HERE***/
@@ -1439,7 +1438,7 @@
 		$product = wc_get_product( $product_id );
 		if(empty($product)) { /** if product already exits **/
 
-			$response = new WP_Error( 'fail', esc_html__( 'Error. Product does not exist in woocommerce store.', 'my-text-domain' ), array( 'status' => 400 ) );
+			$response = new WP_Error( 'fail', esc_html__( 'Error. Product does not exist in woocommerce store.', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 
 		} else {
 
@@ -1557,7 +1556,7 @@
 				);
 
 			} else {
-				$response = new WP_Error( 'fail', esc_html__( 'Something went wrong. Please try again!', 'my-text-domain' ), array( 'status' => 400, 'imgarray' => $inputParamsImg ) );
+				$response = new WP_Error( 'fail', esc_html__( 'Something went wrong. Please try again!', 'woocommerce-dropshipping' ), array( 'status' => 400, 'imgarray' => $inputParamsImg ) );
 			}
 		}
 
@@ -1587,7 +1586,7 @@
 			);
 
 		} else {
-			$response = new WP_Error( 'fail', esc_html__( 'Merchant store currency code not found!', 'my-text-domain' ), array( 'status' => 400 ) );
+			$response = new WP_Error( 'fail', esc_html__( 'Merchant store currency code not found!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 		}
 
 		return $response;
@@ -1607,7 +1606,7 @@
 				if ($ali_cbe_enable_setting == '1'){
 			    add_meta_box(
 			        'woocommerce',
-			        __( 'AliExpress Action' ),
+			        __( 'AliExpress Action', 'woocommerce-dropshipping' ),
 			        'place_Order_automatically_meta_box_content',
 			        'shop_order',
 			        'side'
@@ -1637,7 +1636,7 @@ function place_order_automatically_meta_box_content(){
 	    $count = count($url);
 	    if(!empty($url)) {
 			//echo $order_id;
-		    $button_text = __( 'Place Order', 'woocommerce' );
+		    $button_text = __( 'Place Order', 'woocommerce-dropshipping' );
 		    $url = admin_url("admin-ajax.php", null);
 
 		    echo '<input type="button" style="display:none;" order_id="'.$order_id.'" class="button save_order button-primary" url="'.$url.'" id="opmc_ali_place_order" value="' . $button_text . '"/>';
@@ -1702,7 +1701,7 @@ function place_order_automatically_meta_box_content(){
 	        // If you don't have the WC_Order object (from a dynamic $order_id)
 			$order = wc_get_order( $post->ID );
 			// The text for the note
-			$note = __('AliExpress order status has been changed to "'.$meta_element_class.'"');
+			$note = __( 'AliExpress order status has been changed to "'.$meta_element_class.'"', 'woocommerce-dropshipping' );
 			// Add the note
 			$order->add_order_note( $note );
 	        //print_r($_POST);
@@ -1814,7 +1813,7 @@ function place_order_automatically_meta_box_content(){
 	    	?>
 
 		    <select name="aliexpress_status_filter">
-		    <option value=""><?php _e('All Orders', 'pv-mag'); ?></option>
+		    <option value=""><?php _e('All Orders', 'woocommerce-dropshipping'); ?></option>
 		    	<?php
 		        $current_v = isset($_GET['aliexpress_status_filter']) ? $_GET['aliexpress_status_filter'] : '';
 		        foreach ($values as $label => $value) {
@@ -1924,7 +1923,7 @@ function place_order_automatically_meta_box_content(){
 					"content" => $sku
 				);
 
-				//$response = new WP_Error( 'fail', esc_html__( 'Product does not exist in your Woo store. Please add this product to your Woo store.', 'my-text-domain' ), array( 'status' => 400 ) );
+				//$response = new WP_Error( 'fail', esc_html__( 'Product does not exist in your Woo store. Please add this product to your Woo store.', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 			}
 
 		    return $response;
@@ -2000,17 +1999,17 @@ function place_order_automatically_meta_box_content(){
 
 	         	if( empty($results)) {
 
-	         		return new WP_Error( 'fail', esc_html__( 'The Order Id does not exist!', 'my-text-domain' ), array( 'status' => 400 ) );
+	         		return new WP_Error( 'fail', esc_html__( 'The Order Id does not exist!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
 	         	}
 
         	} else {
 
-        		return new WP_Error( 'fail', esc_html__( 'The Order Id parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
+        		return new WP_Error( 'fail', esc_html__( 'The Order Id parameter is required!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         	}
 
         	if(empty($inputParams['status']) || ($inputParams['status'] != 'placed') && ($inputParams['status'] != 'pending') ) {
 
-         		return new WP_Error( 'fail', esc_html__( 'The Order Status parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
+         		return new WP_Error( 'fail', esc_html__( 'The Order Status parameter is required!', 'woocommerce-dropshipping' ), array( 'status' => 400 ) );
         	}
 
 

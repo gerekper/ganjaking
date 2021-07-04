@@ -44,8 +44,8 @@ if ( ! class_exists( 'WC_AF_Score' ) ) {
 			$this->load_order();
 
 			// Get the rules
-			$rules = WC_AF_Rules::get()->get_rules();
-
+			$rules = WC_AF_Rules::get()->get_rules();     
+                        
 			// Set points
 			$score = 100;
 			$risk_points = 0;
@@ -57,7 +57,7 @@ if ( ! class_exists( 'WC_AF_Score' ) ) {
 
 					// Check if the rule reported a risk
 					if ( true === $rule->is_enabled() && true === $rule->is_risk( $this->order ) ) {
-						//$risk_points += $rule->get_risk_points();
+						$risk_points += $rule->get_risk_points();
 						$score -= (int) $rule->get_risk_points();
 						$this->failed_rules[] = $rule;
 					} else {
@@ -67,9 +67,13 @@ if ( ! class_exists( 'WC_AF_Score' ) ) {
 				}
 
 			}
+                        //echo '<pre>'; print_r($score); echo '</pre>'; exit;
+                        //echo '<pre>'; print_r($risk_points); echo '</pre>'; 
+                        //echo '<pre>'; print_r($rules); echo '</pre>'; exit;  
 			//$score = ($this->max_weight*100)/$risk_points;
 			// Calculate score
-			//$this->score = absint( $score );
+			//$this->score = absint( $score );        
+			Af_Logger::debug('Anti fraud final score '.$score);	
 			$this->score = $score ;
 		}
 

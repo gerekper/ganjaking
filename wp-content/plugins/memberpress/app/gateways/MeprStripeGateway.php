@@ -190,11 +190,6 @@ class MeprStripeGateway extends MeprBaseRealGateway {
         'p24',
       ]);
     }
-    if ($currency === 'cny' || $currency === 'usd') {
-      $methods = array_merge($methods, [
-        'alipay',
-      ]);
-    }
 
     return $methods;
   }
@@ -228,6 +223,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     }
 
     $success_url = $mepr_options->thankyou_page_url([
+        'membership' => sanitize_title($product->post_title),
         'transaction_id' => $txn->id,
         'membership_id' => $product->ID,
     ]);
@@ -255,7 +251,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       $price_id = $this->get_stripe_price_id($sub, $tmp_txn, $product, $usr, $product->price);
     }
 
-    $stripe_product_id = $product->get_stripe_product_id($this->get_meta_gateway_id());
+    $stripe_product_id = $this->get_product_id($product);
     $coupon = $txn->coupon();
 
     if($coupon instanceof MeprCoupon) {

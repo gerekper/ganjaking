@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Checkout Field Editor
  * Plugin URI: https://woocommerce.com/products/woocommerce-checkout-field-editor/
  * Description: Add, remove and modifiy fields shown on your WooCommerce checkout page.
- * Version: 1.6.0
+ * Version: 1.6.2
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Tested up to: 5.6
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-define( 'WC_CHECKOUT_FIELD_EDITOR_VERSION', '1.6.0' ); // WRCS: DEFINED_VERSION.
+define( 'WC_CHECKOUT_FIELD_EDITOR_VERSION', '1.6.2' ); // WRCS: DEFINED_VERSION.
 define( 'WC_CHECKOUT_FIELD_EDITOR_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 // Plugin init hook.
@@ -53,6 +53,7 @@ function wc_checkout_fields_load() {
 	}
 
 	require_once WC_CHECKOUT_FIELD_EDITOR_PATH . '/includes/wc-checkout-field-functions.php';
+	require_once WC_CHECKOUT_FIELD_EDITOR_PATH . '/includes/class-wc-checkout-field-editor-tracks.php';
 
 	// Maybe run plugin install.
 	add_action( 'admin_init', 'wc_checkout_fields_install' );
@@ -129,7 +130,7 @@ function wc_checkout_fields_plugin_action_links( $actions, $plugin_file ) {
 	if ( strpos( $plugin_file, basename( __FILE__ ) ) ) {
 		array_unshift( $actions, '<a href="admin.php?page=checkout_field_editor">' . esc_html__( 'Settings', 'woocommerce-checkout-field-editor' ) . '</a>' );
 	}
-	
+
 	return $actions;
 }
 
@@ -147,6 +148,6 @@ function wc_checkout_fields_plugin_row_meta( $plugin_meta, $plugin_file ) {
 		$plugin_meta[] = '<a href="https://docs.woocommerce.com/document/checkout-field-editor/">' . esc_html__( 'Docs', 'woocommerce-checkout-field-editor' ) . '</a>';
 		$plugin_meta[] = '<a href="https://woocommerce.com/my-account/create-a-ticket?select=184594">' . esc_html__( 'Support', 'woocommerce-checkout-field-editor' ) . '</a>';
 	}
- 
+
 	return $plugin_meta;
 }

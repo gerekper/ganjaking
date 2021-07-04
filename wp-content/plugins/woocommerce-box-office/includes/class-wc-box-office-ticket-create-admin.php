@@ -331,6 +331,10 @@ class WC_Box_Office_Ticket_Create_Admin {
 			$ticket = new WC_Box_Office_Ticket( $ticket_data );
 			$ticket->create( 'publish' );
 
+			// Create a barcode for the ticket, see issue #62
+			$barcode_text = WCBO()->components->ticket_barcode->generate_barcode_text_for_ticket();
+			update_post_meta( $ticket->id, '_barcode_text', $barcode_text );
+
 			$tickets[] = $ticket;
 
 			if ( $item_id ) {

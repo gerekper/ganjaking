@@ -215,7 +215,7 @@ add_action('wp_ajax_ninjatable_update_custom_table_filters', function () {
     $tableId = intval($_REQUEST['table_id']);
     $custom_filter = new CustomFilters();
     $custom_filter->checkPermission();
-    $filters = wp_unslash($_REQUEST['ninja_filters']);
+    $filters = wp_unslash(ArrayHelper::get($_REQUEST, 'ninja_filters', []));
     $custom_filter->updateFilters($tableId, $filters);
 
     if (isset($_REQUEST['filter_styling'])) {

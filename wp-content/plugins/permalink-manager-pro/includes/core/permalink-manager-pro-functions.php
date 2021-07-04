@@ -27,7 +27,7 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 		add_action( 'permalink_manager_updated_term_uri', array($this, 'save_redirects'), 9, 5 );
 
 		// Check for updates
-	//	add_action( 'plugins_loaded', array($this, 'check_for_updates'), 10 );
+		add_action( 'plugins_loaded', array($this, 'check_for_updates'), 10 );
 		add_action( 'wp_ajax_pm_get_exp_date', array($this, 'get_expiration_date'), 9 );
 
 		// Display License info on "Plugins" page
@@ -38,10 +38,12 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 	 * Get license key
 	 */
 	public function get_license_key() {
+		return true;
 		$permalink_manager_options = get_option('permalink-manager', array());
 
 		// Network licence key (multisite)
 		if(is_multisite()) {
+			return true;
 			// A. Move the license key to site options
 			if(!empty($_POST['licence']['licence_key'])) {
 				$site_licence_key = sanitize_text_field($_POST['licence']['licence_key']);
@@ -52,6 +54,7 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 		}
 		// Single website licence key
 		else {
+			return true;
 			$this->license_key = (!empty($permalink_manager_options['licence']['licence_key'])) ? $permalink_manager_options['licence']['licence_key'] : "";
 		}
 
@@ -113,18 +116,7 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 	 */
 	public static function get_expiration_date($basic_check = false, $empty_if_valid = false) {
 		global $permalink_manager_options;
-set_transient('permalink_manager_active', $permalink_manager_options['licence']['licence_key'], 12 * YEAR_IN_SECONDS);
-$expired = 0;
-$expiration_info = __('You own a lifetime licence key.', 'permalink-manager');
-if($basic_check || ($empty_if_valid && $expired == 0)) {
-return $expired;
-}
-if(!empty($_REQUEST['action']) && $_REQUEST['action'] == 'pm_get_exp_date') {
-echo $expiration_info;
-die();
-} else {
-return $expiration_info;
-}
+
 		// Get expiration info & the licence key
 		$exp_date = (!empty($permalink_manager_options['licence']['expiration_date'])) ? $permalink_manager_options['licence']['expiration_date'] : false;
 		$license_key = (!empty($permalink_manager_options['licence']['licence_key'])) ? $permalink_manager_options['licence']['licence_key'] : "";

@@ -1084,7 +1084,15 @@ class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
 
     //If PayPal gives us an txn_id let's setup this txn now
     if(isset($_GET['txn_id']) && is_numeric($_GET['txn_id'])) {
-      $txn      = new MeprTransaction((int)$_GET['txn_id']);
+      $txn = new MeprTransaction((int)$_GET['txn_id']);
+    } else if(isset($_GET['tx'])) {
+      $existing_txn = MeprTransaction::get_one_by_trans_num($_GET['tx']);
+      if(isset($existing_txn->id)) {
+        $txn = new MeprTransaction($existing_txn->id);
+      }
+    }
+
+    if ($txn) {
       $sub      = $txn->subscription();
       $product  = new MeprProduct($txn->product_id);
 
@@ -1096,6 +1104,7 @@ class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
           $sub = $txn->subscription();
           $query_params = array_merge($query_params, array('subscr_id' => $sub->subscr_id));
         }
+
         MeprUtils::wp_redirect($mepr_options->thankyou_page_url(build_query($query_params)));
       }
 
@@ -1140,6 +1149,7 @@ class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
         $sub = $txn->subscription();
         $query_params = array_merge($query_params, array('subscr_id' => $sub->subscr_id));
       }
+
       MeprUtils::wp_redirect($mepr_options->thankyou_page_url(build_query($query_params)));
     }
 
@@ -1157,6 +1167,7 @@ class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
           $sub = $free_trial_txn->subscription();
           $query_params = array_merge($query_params, array('subscr_id' => $sub->subscr_id));
         }
+
         MeprUtils::wp_redirect($mepr_options->thankyou_page_url(build_query($query_params)));
       }
 
@@ -1180,6 +1191,7 @@ class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
         $sub = $free_trial_txn->subscription();
         $query_params = array_merge($query_params, array('subscr_id' => $sub->subscr_id));
       }
+
       MeprUtils::wp_redirect($mepr_options->thankyou_page_url(build_query($query_params)));
     }
 
