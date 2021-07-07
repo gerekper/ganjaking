@@ -649,13 +649,13 @@ class WC_Account_Funds_Cart_Manager {
 	 * Filters whether the cart needs payment.
 	 *
 	 * @since 2.3.0
-	 * @deprecated 2.4.4.
+	 * @deprecated 2.4.4
 	 *
 	 * @param bool $needs_payment Whether the cart needs payment.
 	 * @return bool
 	 */
 	public function cart_needs_payment( $needs_payment ) {
-		wc_deprecated_function( __FUNCTION__, '2.4.4.' );
+		wc_deprecated_function( __FUNCTION__, '2.4.4' );
 
 		return $needs_payment;
 	}

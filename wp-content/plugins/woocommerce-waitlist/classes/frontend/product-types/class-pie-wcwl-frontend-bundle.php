@@ -27,8 +27,6 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Bundle' ) ) {
 		 * Load up hooks if product is out of stock
 		 *
 		 * @param object $product WC_Product_Bundle.
-		 *
-		 * @todo hook in close to bundle button and hide until required when variations are involved (JS)
 		 */
 		public function init( $product ) {
 			self::$product = $product;

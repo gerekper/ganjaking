@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.5.6.3
+Version: 2.5.6.4
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -35,6 +35,9 @@ use Gravity_Forms\Gravity_Forms\TranslationsPress_Updater;
 //---------- Gravity Forms License Key -----------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 // If you hardcode a Gravity Forms License Key here, it will automatically populate on activation.
+update_option( 'rg_gforms_key', 'activated' );
+update_option( 'gform_pending_installation', false );
+delete_option( 'rg_gforms_message' );
 $gf_license_key = '';
 
 //-- OR ---//
@@ -209,7 +212,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.5.6.3';
+	public static $version = '2.5.6.4';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -2236,6 +2239,7 @@ class GFForms {
 		}
 
 		if ( ! $valid_key ) {
+		return;
 			$message .= sprintf( esc_html__( '%sRegister%s your copy of Gravity Forms to receive access to automatic upgrades and support. Need a license key? %sPurchase one now%s.', 'gravityforms' ), '<a href="' . admin_url() . 'admin.php?page=gf_settings">', '</a>', '<a href="https://www.gravityforms.com">', '</a>' );
 		}
 
@@ -2262,8 +2266,8 @@ class GFForms {
 
 			// Apply the class "update" to the plugin row to get rid of the ugly border.
 			echo "
-				<script type='text/javascript'> 
-					jQuery('#$slug-update').prev('tr').addClass('update'); 
+				<script type='text/javascript'>
+					jQuery('#$slug-update').prev('tr').addClass('update');
 				</script>
 				";
 		}
@@ -5923,7 +5927,7 @@ class GFForms {
 						}
 						container.html( '<p>' + response.data + '</p>' );
 					}
-				} );             	
+				} );
 			} );
 		</script>";
 

@@ -85,6 +85,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Settings' ) ) {
 				'no_products_message'            => sprintf( __( 'No products were found. If you believe this is an error please submit a ticket for the plugin through Woo Support %s', 'woocommerce-waitlist' ), '(https://woocommerce.com/my-account/create-a-ticket/)' ),
 				'update_warning'                 => sprintf( __( '%1$sWarning:%2$s This could take a long while depending on how many products there are. Do not navigate away from this page until the update is complete.', 'woocommerce-waitlist' ), '<b>', '</b>' ),
 				'export_text'                    => __( 'Download all waitlist and archive data for all products to a CSV file', 'woocommerce-waitlist' ),
+				'csv_export_header'              => apply_filters( 'wcwl_csv_export_header', 'data:text/csv;charset=utf-8,Product ID,Product Name,Waitlist Emails,Archived Emails' ),
 				'update_counts_message'          => sprintf( __( 'Currently updating waitlist counts for product %s', 'woocommerce-waitlist' ), '<span class="wcwl_current_update"></span>/<span class="wcwl_total_updates"></span>' ),
 				'update_counts_message_complete' => sprintf( __( 'Successfully updated waitlist counts for %s products', 'woocommerce-waitlist' ), '<span class="wcwl_total_updates"></span>' ),
 				'update_meta_message'            => sprintf( __( 'Currently updating waitlist metadata for product %s', 'woocommerce-waitlist' ), '<span class="wcwl_current_update"></span>/<span class="wcwl_total_updates"></span>' ),

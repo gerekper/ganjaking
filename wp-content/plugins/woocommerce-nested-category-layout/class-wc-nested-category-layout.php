@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-nested-category-layout/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2012-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -34,7 +34,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.16.0';
+	const VERSION = '1.17.0';
 
 	/** @var WC_Nested_Category_Layout single instance of this plugin */
 	protected static $instance;
@@ -54,7 +54,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 			self::PLUGIN_ID,
 			self::VERSION,
 			[
-				'text_domain' =>'woocommerce-nested-category-layout',
+				'text_domain' => 'woocommerce-nested-category-layout',
 			]
 		);
 
@@ -80,7 +80,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 		if ( ! is_admin() ) {
 
 			// no pagination: return all products when displaying nested categories/products
-			add_action( 'pre_get_posts', [ $this, 'pre_get_posts' ] );
+			add_action( 'woocommerce_product_query', [ $this, 'woocommerce_product_query' ] );
 
 		} else {
 
@@ -97,7 +97,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/Lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/Lifecycle.php' );
 
 		$this->lifecycle_handler = new \SkyVerge\WooCommerce\Nested_Category_Layout\Lifecycle( $this );
 	}
@@ -112,6 +112,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 	 * @deprecated since 1.12.0
 	 */
 	public function init_admin_settings() {
+
 		_deprecated_function( __METHOD__, '1.2.0' );
 	}
 
@@ -127,13 +128,43 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 	 */
 	public function wp_init() {
 
-		// if we're on the shop page or product category page and the nested layout option is enabled
-		if (    ( is_shop() && 'yes' === get_option( 'woocommerce_nested_subcat_shop', 'no' ) )
-		     || ( is_product_category() && $this->is_nested_subcategories_enabled_for_category( $this->get_current_product_category_id() ) ) )  {
+		$is_shop             = is_shop() && 'yes' === get_option( 'woocommerce_nested_subcat_shop', 'no' );
+		$is_product_category = is_product_category() && $this->is_nested_subcategories_enabled_for_category( $this->get_current_product_category_id() );
 
-			add_action( 'woocommerce_archive_description', [ $this, 'list_categories_and_products' ], 15 );
-			add_action( 'woocommerce_pagination',          [ $this, 'fix_query_object' ], 1 );
+		// if we're on the shop page or a product category page
+		if ( $is_shop ) {
+
+			// replace the no product message notice
+			add_action( 'woocommerce_no_products_found', [ $this, 'list_categories_and_products' ], 1 );
+
+		} elseif ( $is_product_category ) {
+
+			// or a product category page
+			add_action( 'woocommerce_no_products_found', [ $this, 'list_categories_and_products' ], 1 );
+			add_action( 'woocommerce_after_shop_loop', [ $this, 'list_categories_and_products' ], 1 );
+			add_action( 'woocommerce_pagination', [ $this, 'fix_query_object' ], 1 );
 		}
+
+		if ( $is_shop || $is_product_category ) {
+			// remove template actions which are unnecessary with nested categories
+			add_action( 'woocommerce_before_shop_loop', [ $this, 'remove_category_template_unnecessary_actions' ], 1 );
+		}
+
+	}
+
+
+	/**
+	 * Removes template actions which are unnecessary with nested categories.
+	 *
+	 * @internal
+	 *
+	 * @since 1.70.0-dev.1
+	 */
+	public function remove_category_template_unnecessary_actions() {
+
+		// remove ordering and results count actions/section
+		remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+		remove_action( 'woocommerce_after_shop_loop', 'woocommerce_result_count', 20 );
 	}
 
 
@@ -145,20 +176,20 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 	private function includes() {
 
 		// walker to pre-determine the categories depth
-		require_once( $this->get_plugin_path() . '/includes/Walker/Category_Depth.php' );
+		require_once( $this->get_plugin_path() . '/src/Walker/Category_Depth.php' );
 
 		// TODO remove this by version 2.0.0 or by August 2020 {FN 2020-02-19}
 		if ( ! class_exists( 'Walker_Category_Depth', false ) ) {
-			require_once( $this->get_plugin_path() . '/includes/Walker/Walker_Category_Depth.php' );
+			require_once( $this->get_plugin_path() . '/src/Walker/Walker_Category_Depth.php' );
 		}
 
 		if ( ! is_admin() || is_ajax() ) {
 
-			require_once( $this->get_plugin_path() . '/includes/Walker/Category_Products.php' );
+			require_once( $this->get_plugin_path() . '/src/Walker/Category_Products.php' );
 
 			// TODO remove this by version 2.0.0 or by August 2020 {FN 2020-02-19}
 			if ( ! class_exists( 'Walker_Category_Products', false ) ) {
-				require_once( $this->get_plugin_path() . '/includes/Walker/Walker_Category_Products.php' );
+				require_once( $this->get_plugin_path() . '/src/Walker/Walker_Category_Products.php' );
 			}
 		}
 	}
@@ -173,7 +204,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 	 */
 	public function include_template_functions() {
 
-		require_once( $this->get_plugin_path() . '/includes/Functions/Template.php' );
+		require_once( $this->get_plugin_path() . '/src/Functions/Template.php' );
 	}
 
 
@@ -188,45 +219,50 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 	 * TODO: how would we limit ourselves to just the products that need to be displayed in a hierarchy of categories where the products are shown only at the deepest levels?
 	 * TODO: should we be using loop_shop_per_page rather than pre_get_posts?
 	 *
-	 * @param \WP_Query $query WordPress query object
+	 * @param \WP_Query $wp_query WordPress query object
 	 */
-	public function pre_get_posts( $query ) {
-
-		// Only apply to:
-		// - product categories;
-		// - the product post archive;
-		// - the shop page;
-		// - product tags;
-		// - product attribute taxonomies.
-		if (    ( ! $query->is_main_query() )
-		     || ( ! $query->is_post_type_archive( 'product' ) && ! $query->is_tax( array_merge( [ 'product_cat', 'product_tag' ], wc_get_attribute_taxonomy_names() ) ) ) ) {
-			return;
-		}
+	public function woocommerce_product_query( $wp_query ) {
 
 		// don't mess with the pagination on the search page
-		if ( $query->is_search() ) {
+		if ( $wp_query->is_search() ) {
 			return;
 		}
 
+		$current_product_category_id = $this->get_current_product_category_id();
+
 		// product category page: is the nested layout enabled for this category?
-		if ( $query->is_tax( 'product_cat' ) && 'no' === get_option( 'woocommerce_nested_subcat_' . $this->get_current_product_category_id(), 'no' ) ) {
+		if ( $wp_query->is_tax( 'product_cat' ) && 'no' === get_option( 'woocommerce_nested_subcat_' . $current_product_category_id, 'no' ) ) {
 			return;
 		}
 
 		// main shop page: is the nested layout enabled?
 		if ( 'no' === get_option( 'woocommerce_nested_subcat_shop', 'no' ) ) {
-			if ( $query->is_post_type_archive( 'product' ) || $query->is_page( wc_get_page_id( 'shop' ) ) ) {
+			if ( $wp_query->is_post_type_archive( 'product' ) || $wp_query->is_page( wc_get_page_id( 'shop' ) ) ) {
 				return;
 			}
 		}
 
 		// if this is a leaf category, bail and allow the normal pagination to take over
-		if ( 0 === count( get_categories( [ 'taxonomy' => 'product_cat', 'child_of' => $this->get_current_product_category_id() ] ) ) ) {
+		if ( 0 === count( get_categories( [ 'taxonomy' => 'product_cat', 'child_of' => $current_product_category_id ] ) ) ) {
 			return;
 		}
 
-		// unlimited number of products
-		$query->set( 'posts_per_page', -1 );
+
+		// load only direct children products, ignore sub-categories
+		if ( $current_product_category_id && isset( $wp_query->tax_query->queried_terms['product_cat'] ) ) {
+			// unlimited number of products
+			$wp_query->set( 'posts_per_page', - 1 );
+
+			$category_query = $wp_query->tax_query->queried_terms['product_cat'];
+
+			$category_query['taxonomy']         = 'product_cat';
+			$category_query['include_children'] = false;
+
+			$wp_query->set( 'tax_query', array_merge( $wp_query->get( 'tax_query' ), [ $category_query ] ) );
+		} else {
+			// load nothing
+			$wp_query->set( 'post__in', [ - 1 ] );
+		}
 
 		// Unless cache_results is disabled, then we run into a memory allocation
 		// error when we query for more than around 125 products on a page, with
@@ -239,10 +275,10 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 		//
 		// $q->set( 'cache_results', false );
 
-		// And remove the pre_get_posts hook
-		remove_filter( 'pre_get_posts', [ $this, 'pre_get_posts' ] );
+		// And remove the hook
+		remove_filter( 'woocommerce_product_query', [ $this, 'woocommerce_product_query' ] );
 
-		do_action( 'wc_nested_category_layout_pre_get_posts', $query );
+		do_action( 'wc_nested_category_layout_pre_get_posts', $wp_query );
 	}
 
 
@@ -256,10 +292,11 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 	 * @since 1.0
 	 */
 	public function list_categories_and_products() {
-		global $wp_the_query, $wp_query, $woocommerce_loop;
+
+		global $wp_the_query;
 
 		// if home page/front page, bail
-		if (  $wp_the_query->is_home() || ( $wp_the_query->is_front_page() && wc_get_page_id( 'shop' ) !== (int) get_option( 'page_on_front' ) ) ) {
+		if ( $wp_the_query->is_home() || ( $wp_the_query->is_front_page() && wc_get_page_id( 'shop' ) !== (int) get_option( 'page_on_front' ) ) ) {
 			return;
 		}
 
@@ -271,21 +308,39 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 		// archive-product.php template, so I figured it was safe to remove for now.
 		// WooCommerce Nested Category support issue #13
 
+		$is_shop                   = is_shop();
+		$is_product_category       = is_product_category();
+		$is_empty_product_category = $is_product_category && 0 === $wp_the_query->found_posts;
+
 		// search page, or not a product category or shop page, bail
-		if ( is_search() || ( ! is_product_category() && ! is_shop() ) ) {
+		if ( ( ! $is_product_category && ! $is_shop ) || is_search() ) {
 			return;
 		}
+
+		$current_category_id = $this->get_current_product_category_id();
+
+		// if shop page, make sure to ignore the no product message notice
+		remove_action( 'woocommerce_no_products_found', 'wc_no_products_found' );
+
+		// remove this callback to avoid infinite recursion
+		remove_action( 'woocommerce_after_shop_loop', [ $this, 'list_categories_and_products' ], 1 );
+
+		// trick WC loop that it has products to show
+		wc_set_loop_prop( 'total', 1 );
+		wc_set_loop_prop( 'total_pages', 1 );
+		wc_set_loop_prop( 'current_page', 1 );
+		wc_set_loop_prop( 'is_paginated', true );
 
 		// get the category depths so we can display products only in their most specific categories
 		$category_depths = $this->get_product_category_depths();
 
 		$args = [
 			'taxonomy'   => 'product_cat',
-			'child_of'   => $this->get_current_product_category_id(),
+			'child_of'   => $current_category_id,
 			'walker'     => new \SkyVerge\WooCommerce\Nested_Category_Layout\Walker\Category_Products( $category_depths ),
 			'echo'       => false,
 			'show_count' => 0, // note: originally I had this true, which worked fine, except for leaf categories, where it would generate a WordPress SQL Error notice due to the custom taxonomy 'product_cat' with 'term_taxonomy_id IN ()'
- 		];
+		];
 
 		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.6.0' ) ) {
 			$args['orderby'] = 'menu_order';
@@ -300,28 +355,16 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 		 */
 		$args = (array) apply_filters( 'wc_nested_category_layout_list_categories_args', $args );
 
-		// remove template actions which are unnecessary with nested categories
-		remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
-		remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+		// trigger before loop action
+		if ( $is_shop || $is_empty_product_category ) {
+			do_action( 'woocommerce_before_shop_loop' );
+		}
 
-		// fire the before/after shop loop actions so that we integrate better with other plugins (ie Advanced Ajax Layered Nav Widget)
-		do_action( 'woocommerce_before_shop_loop' );
 		wp_list_categories( $args );
-		do_action( 'woocommerce_after_shop_loop' );
 
-		// If we rendered products and categories...
-		if (    ( isset( $woocommerce_loop['has_products'] )   && $woocommerce_loop['has_products'] )
-		     || ( isset( $woocommerce_loop['has_categories'] ) && $woocommerce_loop['has_categories'] ) ) {
-
-			// ...force the have_posts() call on the archive-product.php template to fail.
-			$wp_query->current_post = $wp_query->post_count + 2;
-
-			// ...however, that seems not to work with WooCommerce 3.3, which may return a no products found notice:
-			if (    Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.3' )
-			     && ( $wp_query->is_tax( 'product_cat' ) || is_shop() ) ) {
-
-				remove_action( 'woocommerce_no_products_found', 'wc_no_products_found' );
-			}
+		// trigger after loop action
+		if ( $is_shop || $is_empty_product_category ) {
+			do_action( 'woocommerce_after_shop_loop' );
 		}
 	}
 
@@ -334,10 +377,11 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 	 * @since 1.0
 	 */
 	public function fix_query_object() {
+
 		global $woocommerce_loop, $wp_query;
 
 		if (
-			   ( isset( $woocommerce_loop['has_products'] )   && $woocommerce_loop['has_products'] )
+			( isset( $woocommerce_loop['has_products'] ) && $woocommerce_loop['has_products'] )
 			|| ( isset( $woocommerce_loop['has_categories'] ) && $woocommerce_loop['has_categories'] )
 		) {
 
@@ -439,7 +483,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 					// end the section
 					$updated_settings[] = [
 						'type' => 'sectionend',
-						'id'   => 'nested_category_layout_options'
+						'id'   => 'nested_category_layout_options',
 					];
 				}
 			}
@@ -515,7 +559,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 	 */
 	public function get_settings_url( $_ = null ) {
 
-		return admin_url( 'admin.php?page=wc-settings&tab=products&section=display' );
+		return admin_url( 'admin.php?page=wc-settings&tab=products' );
 	}
 
 

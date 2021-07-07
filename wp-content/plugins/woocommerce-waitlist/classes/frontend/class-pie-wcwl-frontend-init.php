@@ -19,6 +19,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 		 * @access public
 		 */
 		public function init() {
+			global $sitepress;
 			$this->has_wpml = isset( $sitepress );
 			add_action( 'wp', array( $this, 'frontend_init' ) );
 			add_shortcode( 'woocommerce_waitlist', array( $this, 'output_waitlist_elements' ) );

@@ -51,6 +51,12 @@ class WC_Product_Vendors_Store_Admin {
 		// save custom fields from taxonomy.
 		add_action( 'created_' . WC_PRODUCT_VENDORS_TAXONOMY, array( self::$self, 'save_vendor_fields' ) );
 
+		// validate the email field when a term is first created.
+		add_filter( 'pre_insert_term', array( self::$self, 'validate_email_field' ), 10, 2 );
+
+		// output a notice if a vendor is missing the email field
+		add_action( 'admin_notices', array( self::$self, 'invalid_vendor_data_notice' ) );
+
 		// modify taxonomy columns.
 		add_filter( 'manage_edit-' . WC_PRODUCT_VENDORS_TAXONOMY . '_columns', array( self::$self, 'modify_vendor_columns' ) );
 
@@ -195,13 +201,14 @@ class WC_Product_Vendors_Store_Admin {
 	 * @access public
 	 * @since 2.0.0
 	 * @version 2.0.0
-	 * @return bool
+	 * @return array
 	 */
 	public function get_screen_ids() {
 		return apply_filters( 'wcpv_store_admin_screen_ids', array(
 			'edit-wcpv_product_vendors',
 			'toplevel_page_wcpv-commissions',
 			'product',
+			'edit-product',
 			'woocommerce_page_wc-reports',
 			'woocommerce_page_wc-settings',
 		) );
@@ -513,7 +520,113 @@ class WC_Product_Vendors_Store_Admin {
 			update_term_meta( $term_id, 'vendor_data', $sanitized_vendor_data );
 		}
 
+		WC_Product_Vendors_Utils::clear_vendor_error_list_transient();
+
 		return true;
+	}
+
+	/**
+	 * Run validation on the vendor email field
+	 *
+	 * @since 2.1.52
+	 * @version 2.1.52
+	 * @param string $term The term name to add.
+	 * @param string $taxonomy Taxonomy slug.
+	 * @return string|WP_Error
+	 */
+	public function validate_email_field( $term, $taxonomy ) {
+		if (
+			WC_PRODUCT_VENDORS_TAXONOMY !== $taxonomy
+			|| empty( $_POST['vendor_data'] )
+			|| ! isset( $_POST['vendor_data']['email'] )
+		) {
+			return $term;
+		}
+
+		// Ensure we have proper email data
+		$emails = explode( ',', $_POST['vendor_data']['email'] );
+		$errors = 0;
+
+		foreach ( $emails as $email ) {
+			if ( $email && ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
+				$errors ++;
+			}
+		}
+
+		// If any email is not valid, return an error message
+		if ( $errors === 1 ) {
+			return new WP_Error( 'error', __( 'Please enter a valid Vendor Email', 'woocommerce-product-vendors' ) );
+		} else if ( $errors > 1 ) {
+			return new WP_Error( 'error', __( 'Please ensure all Vendor Emails are valid', 'woocommerce-product-vendors' ) );
+		}
+
+		return $term;
+	}
+
+	/**
+	 * Output a notice if a vendor is missing their email
+	 *
+	 * @since 2.1.52
+	 * @version 2.1.52
+	 * @return void
+	 */
+	public function invalid_vendor_data_notice() {
+		// only show to admin users
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		// see if we have errors already cached
+		$errors = ( false !== get_transient( 'wcpv_vendor_error_list' ) ) ? get_transient( 'wcpv_vendor_error_list' ) : array();
+
+		// if nothing cached, run our checks
+		if ( empty( $errors ) ) {
+			// get all vendors
+			$vendors = WC_Product_Vendors_Utils::get_all_vendors();
+
+			if ( empty( $vendors ) ) {
+				set_transient( 'wcpv_vendor_error_list', array( 'none' ), WEEK_IN_SECONDS );
+				return;
+			}
+
+			// check all vendors to ensure they have an email associated
+			foreach ( $vendors as $vendor ) {
+				$vendor_data = get_term_meta( $vendor->term_id, 'vendor_data', true );
+
+				if ( empty( $vendor_data['email'] ) ) {
+					$errors[] = sprintf( '<a href="%1$s">%2$s</a>', get_edit_term_link( $vendor->term_id ), $vendor->name );
+				}
+
+				// only show 10 vendors at a time in the notice
+				if ( count( $errors ) === 10 ) {
+					break;
+				}
+			}
+
+			// cache our errors, if any
+			if ( empty( $errors ) ) {
+				set_transient( 'wcpv_vendor_error_list', array( 'none' ), WEEK_IN_SECONDS );
+			} else {
+				set_transient( 'wcpv_vendor_error_list', $errors, WEEK_IN_SECONDS );
+			}
+		}
+
+		// if we have errors, output those in a notice
+		if ( ! empty( $errors ) && 'none' !== $errors[0] ) :
+			?>
+
+			<div class="notice notice-error is-dismissible">
+				<p>
+					<?php
+					esc_html_e( 'Some Vendors don\'t have a valid email associated with them. This means notification emails will not be sent for these Vendors. Please edit these Vendors and add proper emails: ', 'woocommerce-product-vendors' );
+
+					echo wp_kses_post( implode( ', ', $errors ) );
+					?>
+				</p>
+			</div>
+
+			<?php
+		endif;
 	}
 
 	/**
@@ -1842,6 +1955,7 @@ class WC_Product_Vendors_Store_Admin {
 	public function add_debug_tool( $tools ) {
 		if ( ! empty( $_GET['action'] ) && 'wcpv_clear_transients' === $_GET['action'] && version_compare( WC_VERSION, '3.0', '<' ) ) {
 			WC_Product_Vendors_Utils::clear_reports_transients();
+			WC_Product_Vendors_Utils::clear_vendor_error_list_transient();
 
 			echo '<div class="updated"><p>' . esc_html__( 'Product Vendor Transients Cleared', 'woocommerce-product-vendors' ) . '</p></div>';
 		}

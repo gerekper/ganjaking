@@ -1,10 +1,10 @@
 === reCaptcha for WooCommerce===
 Contributors:nik00726
-Tags:Recpatcha
+Tags:Recaptcha
 Requires at least:3.0
-Tested up to:5.7.1
-Version:2.16
-Stable tag:2.16
+Tested up to:5.7.2
+Version:2.17
+Stable tag:2.17
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,6 +88,11 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.17 =
+
+* Added filter for reCaptcha v2 to change language if needed programmatically. To change hl paramter of recaptcha anyone can use this filter - i13_recapchav2_set_lang
+
 
 = 2.16 =
 

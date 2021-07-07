@@ -153,7 +153,8 @@ class WC_Deposits_Scheduled_Order_Manager {
 			'scheduled-payment' => 'pending',
 			'pending-deposit'   => 'pending',
 		);
-		return isset( $status_map[ $order_status ] ) ? in_array( $status_map[ $order_status ], $status_list ) : $retval;
+
+		return isset( $status_map[ $order_status ] ) ? ( in_array( $order_status, $status_list, true ) || in_array( $status_map[ $order_status ], $status_list, true ) ) : $retval;
 	}
 
 	/**

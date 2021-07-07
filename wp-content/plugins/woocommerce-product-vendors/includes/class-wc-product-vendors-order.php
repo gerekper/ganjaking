@@ -308,7 +308,13 @@ class WC_Product_Vendors_Order {
 					$this->commission->pay( $commission_ids );
 
 				} catch ( Exception $e ) {
-					WC_Product_Vendors_Logger::log( $e->getMessage() );
+					$message = $e->getMessage();
+
+					if ( is_a( $e, 'PayPal\Exception\PayPalConnectionException' ) ) {
+						$message .= ' Error details: ' . $e->getData();
+					};
+
+					WC_Product_Vendors_Logger::log( $message );
 				}
 			}
 		}

@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Min/Max Quantities
  * Plugin URI: https://woocommerce.com/products/minmax-quantities/
  * Description: Define minimum/maximum allowed quantities for products, variations and orders.
- * Version: 2.4.23
+ * Version: 2.4.24
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 4.0
@@ -24,7 +24,7 @@
 
 if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
-	define( 'WC_MIN_MAX_QUANTITIES', '2.4.23' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_MIN_MAX_QUANTITIES', '2.4.24' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Min Max Quantities class.
@@ -138,6 +138,8 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 			add_filter( 'woocommerce_get_availability', array( $this, 'maybe_show_backorder_message' ), 10, 2 );
 
 			add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ) );
+
+			add_filter( 'woocommerce_add_to_cart_product_id', array( $this, 'modify_add_to_cart_quantity' ) );
 		}
 
 		/**
@@ -1027,7 +1029,7 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 		 *
 		 * @param WC_Product $product Product object.
 		 *
-		 * return int
+		 * @return int
 		 */
 		public function get_group_of_quantity_for_product( $product ) {
 			$transient_name    = 'wc_min_max_group_quantity_' . $product->get_id();
@@ -1067,6 +1069,64 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 			set_transient( $transient_name, $transient_value, DAY_IN_SECONDS * 30 );
 
 			return absint( $group_of_quantity );
+		}
+
+		/**
+		 * Modify quantity for add to cart action inside loop to respect minimum rules.
+		 *
+		 * @param int $product_id Product ID.
+		 *
+		 * @return int
+		 */
+		public function modify_add_to_cart_quantity( $product_id ) {
+			if ( ! isset( $_GET['add-to-cart'] ) || ! is_numeric( wp_unslash( $_GET['add-to-cart'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				return $product_id;
+			}
+
+			if ( ! empty( $_REQUEST['quantity'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				return $product_id;
+			}
+
+			$product = wc_get_product( $product_id );
+
+			if ( ! is_a( $product, 'WC_Product' ) || 'variable' === $product->get_type() ) {
+				return $product_id;
+			}
+
+			$quantity = 0;
+
+			foreach ( WC()->cart->get_cart() as $cart_item ) {
+				if ( intval( $product->get_id() ) === intval( $cart_item['product_id'] ) ) {
+					$quantity = $cart_item['quantity'];
+					break; // stop the loop if product is found.
+				}
+			}
+
+			$minimum_quantity  = absint( get_post_meta( $product->get_id(), 'minimum_allowed_quantity', true ) );
+			$group_of_quantity = $this->get_group_of_quantity_for_product( $product );
+
+			if ( $quantity < $minimum_quantity ) {
+				$_REQUEST['quantity'] = $minimum_quantity - $quantity;
+				return $product_id;
+			}
+
+			if ( $group_of_quantity ) {
+				if ( $group_of_quantity > $quantity ) {
+					$_REQUEST['quantity'] = $group_of_quantity - $quantity;
+					return $product_id;
+				}
+
+				$remainder = $quantity % $group_of_quantity;
+
+				if ( 0 === $remainder ) {
+					$_REQUEST['quantity'] = $group_of_quantity;
+				} else {
+					$_REQUEST['quantity'] = $group_of_quantity - $remainder;
+				}
+				return $product_id;
+			}
+
+			return $product_id;
 		}
 	}
 

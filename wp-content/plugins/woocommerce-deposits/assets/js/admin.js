@@ -8,12 +8,12 @@ jQuery( function( $ ){
 
 		if ( 'optional' === $(this).val() || 'forced' == $(this).val() ) {
 			$( '._wc_deposit_type_field' ).show();
-			$( 'select#_wc_deposit_type' ).change();
+			$( 'select#_wc_deposit_type' ).trigger( 'change' );
 		}
 
 		if ( '' === $(this).val() && 'no' !== $( '._wc_deposits_default_enabled_field' ).val() ) {
 			$( '._wc_deposit_type_field' ).show();
-			$( 'select#_wc_deposit_type' ).change();
+			$( 'select#_wc_deposit_type' ).trigger( 'change' );
 		}
 	} );
 
@@ -56,7 +56,7 @@ jQuery( function( $ ){
 
 		switch ( $( this ).val() ) {
 			case 'percent':
-				$( '#wc_deposits_default_amount' ).parents( 'tr' ).eq(0).show();	
+				$( '#wc_deposits_default_amount' ).parents( 'tr' ).eq(0).show();
 				break;
 
 			case 'fixed':
@@ -65,7 +65,7 @@ jQuery( function( $ ){
 
 			case 'plan':
 				$( '#wc_deposits_default_plans' ).parents( 'tr' ).eq(0).show();
-				break;		
+				break;
 		}
 	});
 
@@ -76,9 +76,9 @@ jQuery( function( $ ){
 		$( '._wc_deposits_default_selected_type_field' ).val( value );
 	});
 
-	$( 'select#_wc_deposit_type' ).change();
-	$( 'select#_wc_deposit_enabled' ).change();
-	$( 'select#_wc_deposit_selected_type' ).change();
-	$( 'select#wc_deposits_default_type' ).change();
+	$( 'select#_wc_deposit_type' ).trigger( 'change' );
+	$( 'select#_wc_deposit_enabled' ).trigger( 'change' );
+	$( 'select#_wc_deposit_selected_type' ).trigger( 'change' );
+	$( 'select#wc_deposits_default_type' ).trigger( 'change' );
 
 } );

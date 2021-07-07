@@ -89,6 +89,9 @@ class FetchAuthTokenCache implements \WPMailSMTP\Vendor\Google\Auth\FetchAuthTok
      */
     public function getClientName(callable $httpHandler = null)
     {
+        if (!$this->fetcher instanceof \WPMailSMTP\Vendor\Google\Auth\SignBlobInterface) {
+            throw new \RuntimeException('Credentials fetcher does not implement ' . 'Google\\Auth\\SignBlobInterface');
+        }
         return $this->fetcher->getClientName($httpHandler);
     }
     /**
@@ -106,6 +109,13 @@ class FetchAuthTokenCache implements \WPMailSMTP\Vendor\Google\Auth\FetchAuthTok
     {
         if (!$this->fetcher instanceof \WPMailSMTP\Vendor\Google\Auth\SignBlobInterface) {
             throw new \RuntimeException('Credentials fetcher does not implement ' . 'Google\\Auth\\SignBlobInterface');
+        }
+        // Pass the access token from cache to GCECredentials for signing a blob.
+        // This saves a call to the metadata server when a cached token exists.
+        if ($this->fetcher instanceof \WPMailSMTP\Vendor\Google\Auth\Credentials\GCECredentials) {
+            $cached = $this->fetchAuthTokenFromCache();
+            $accessToken = isset($cached['access_token']) ? $cached['access_token'] : null;
+            return $this->fetcher->signBlob($stringToSign, $forceOpenSsl, $accessToken);
         }
         return $this->fetcher->signBlob($stringToSign, $forceOpenSsl);
     }

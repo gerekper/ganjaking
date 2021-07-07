@@ -6,11 +6,11 @@
  * Description: WooCommerce Nested Category Catalog Page Layout
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.16.0
+ * Version: 1.17.0
  * Text Domain: woocommerce-nested-category-layout
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2012-2020, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2012-2021, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,29 +18,15 @@
  * @package   WC-Nested-Category-Layout
  * @author    SkyVerge
  * @category  Plugin
- * @copyright Copyright (c) 2012-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 142840:60d07379d28e80cf143790b8aea869a7
  * WC requires at least: 3.5
- * WC tested up to: 4.7.1
+ * WC tested up to: 5.4.1
  */
 
 defined( 'ABSPATH' ) or exit;
-
-// Required functions
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'woo-includes/woo-functions.php' );
-}
-
-// Plugin updates
-woothemes_queue_update( plugin_basename( __FILE__ ), '60d07379d28e80cf143790b8aea869a7', '142840' );
-
-// WC active check
-if ( ! is_woocommerce_active() ) {
-	return;
-}
-
 
 /**
  * WooCommerce Nested Category Layout plugin loader.
@@ -134,7 +120,7 @@ class WC_Nested_Category_Layout_Loader {
 
 		// load the main plugin class
 		require_once( plugin_dir_path( __FILE__ ) . 'class-wc-nested-category-layout.php' );
-		require_once( plugin_dir_path( __FILE__ ) . 'includes/Functions.php' );
+		require_once( plugin_dir_path( __FILE__ ) . 'src/Functions.php' );
 
 		// fire it up!
 		wc_nested_category_layout();

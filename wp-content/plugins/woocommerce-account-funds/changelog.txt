@@ -1,5 +1,15 @@
 *** WooCommerce Account Funds ***
 
+2021-07-01 - version 2.5.1
+* Tweak - Tested compatibility with WP 5.8.
+* Fix - The funds were not being added to the customer account when using the top-up form (Only in version 2.5).
+
+2021-06-28 - version 2.5.0
+* Feature - Sell deposit products at a sale price.
+* Feature - Support recurring deposit products with the extension "All products for WooCommerce Subscriptions".
+* Tweak - Tested compatibility up to WC 5.5.
+* Dev - Added class autoloader.
+
 2021-04-28 - version 2.4.4
 * Tweak - Remove the discount applied by the "Account funds" payment gateway when this one stops being available.
 * Tweak - Remove the applied funds if after updating the cart the "Account funds" payment gateway is available.

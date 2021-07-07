@@ -752,6 +752,18 @@ class WC_Product_Vendors_Utils {
 	}
 
 	/**
+	 * Gets the list of all vendors, even those without products
+	 *
+	 * @access public
+	 * @since 2.1.54
+	 * @version 2.1.54
+	 * @return array
+	 */
+	public static function get_all_vendors() {
+		return get_terms( array( 'taxonomy' => WC_PRODUCT_VENDORS_TAXONOMY, 'hide_empty' => false ) );
+	}
+
+	/**
 	 * Gets product settings related to vendors.
 	 *
 	 * @param WC_Product $product Product Object.
@@ -1327,6 +1339,17 @@ class WC_Product_Vendors_Utils {
 	 */
 	public static function clear_out_of_stock_transient() {
 		delete_transient( 'wcpv_reports_wg_nostock_' . self::get_logged_in_vendor() );
+	}
+
+	/**
+	 * Clear out the vendor error list transient.
+	 *
+	 * @access public
+	 * @since 2.1.54
+	 * @version 2.1.54
+	 */
+	public static function clear_vendor_error_list_transient() {
+		delete_transient( 'wcpv_vendor_error_list' );
 	}
 
 	/**

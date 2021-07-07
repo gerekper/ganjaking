@@ -557,75 +557,79 @@ class WC_Deposits_Cart_Manager {
 	 */
 	public function get_discount_amount( $discount, $discounting_amount, $cart_item, $single, $coupon ) {
 		if ( ! empty( $cart_item['is_deposit'] ) && 0 < intval( $discount ) ) {
-			$coupon_type = $coupon->get_discount_type(); // fixed_cart or fixed_product or percent or percent_product
-			$coupon_id = $coupon->get_id();
+			$coupon_type        = $coupon->get_discount_type(); // fixed_cart or fixed_product or percent or percent_product.
+			$coupon_id          = $coupon->get_id();
 			$discounting_amount = $cart_item['deposit_amount'] * $cart_item['quantity'];
-
-			$deposit_type = WC_Deposits_Product_Manager::get_deposit_type( $cart_item['product_id'] ); // fixed or percent or plan
-			$item_tax = 0;
+			$deposit_type       = WC_Deposits_Product_Manager::get_deposit_type( $cart_item['product_id'] ); // fixed or percent or plan.
+			$item_tax           = 0;
+			$tax_inclusive      = 'yes' === get_option( 'woocommerce_prices_include_tax' );
 
 			// Calculate tax for coupon will be used for adjustment of totals.
 			if ( wc_tax_enabled() && 'taxable' === $cart_item['data']->get_tax_status() ) {
 				$tax_rates = WC_Tax::get_rates( $cart_item['data']->get_tax_class(), WC()->cart->get_customer() );
-				$item_tax = array_sum( WC_Tax::calc_tax( $discount, $tax_rates, 'yes' === get_option( 'woocommerce_prices_include_tax' ) ) );
+				$item_tax  = array_sum( WC_Tax::calc_tax( $discount, $tax_rates, $tax_inclusive ) );
 			}
 
-			// Initialize default condition
-			$present_discount_amount = floatval( $discount );
-			$deferred_discount_amount = 0.0;
-
-			$full_amount = floatval( $cart_item['full_amount'] );
+			$full_amount    = floatval( $cart_item['full_amount'] );
 			$deposit_amount = floatval( $cart_item['deposit_amount'] );
-			// Calculate proportion due now, avoiding (unlikely) division by zero
+			// Calculate proportion due now, avoiding (unlikely) division by zero.
 			if ( $full_amount > 0 ) {
 				$present_proportion = $deposit_amount / $full_amount;
 			} else {
 				$present_proportion = 1.0;
 			}
 
-			// For fixed coupons (fixed_cart or fixed_product)
-			// For products with payment plans, discount a proportional amount of the fixed discount now, the rest defer for later
-			// For products with fixed deposits, defer the entire fixed discount
-			// For products with percentage based deposits, defer the entire fixed discount
-			if ( in_array( $coupon_type, array( 'fixed_cart', 'fixed_product' ) ) ) {
+			// Initialize default conditions.
+			$discount_pre_tax         = $tax_inclusive ? $discount - $item_tax : $discount;
+			$present_discount_tax     = $tax_inclusive ? round( $item_tax * $present_proportion, 2 ) : 0;
+			$present_discount_amount  = floatval( $discount_pre_tax );
+			$deferred_discount_amount = 0.0;
+
+			// For fixed coupons (fixed_cart or fixed_product).
+			// For products with payment plans, discount a proportional amount of the fixed discount now, the rest defer for later.
+			// For products with fixed deposits, defer the entire fixed discount.
+			// For products with percentage based deposits, defer the entire fixed discount.
+			if ( in_array( $coupon_type, array( 'fixed_cart', 'fixed_product' ), true ) ) {
 				if ( 'plan' === $deposit_type ) {
-
-					// Present discount amount is always for quantity 1
-					$present_discount_amount = round( $discount * $present_proportion, 2 );
-					// Deferred discount amount is always for the line quantity
+					// Present discount amount is always for quantity 1.
+					// Deferred discount amount is always for the line quantity.
+					$present_discount_amount  = round( floor( $discount_pre_tax * $present_proportion * 100 ) / 100, 2 );
 					$deferred_discount_amount = round( $discount * ( 1 - $present_proportion ), 2 );
-				} else if ( in_array( $deposit_type, array( 'percent', 'fixed' ) ) ) {
-					$present_discount_amount = 0;
-					$deferred_discount_amount = round( $discount, 2 ); // total for (line) quantity, not just unit
+				} elseif ( in_array( $deposit_type, array( 'percent', 'fixed' ), true ) ) {
+					$present_discount_amount  = 0;
+					$present_discount_tax     = 0;
+					$deferred_discount_amount = round( $discount, 2 ); // total for (line) quantity, not just unit.
 				}
 			}
 
-			// For percentage based coupons (percent or percent_product)
-			// For products with payment plans, pass through the provided discount AND scale and defer it for later
-			// For products with fixed deposits, defer the entire discount
-			// For products with percentage based deposits, pass through the provided discount AND scale and defer it for later
-			if ( in_array( $coupon_type, array( 'percent', 'percent_product' ) ) ) {
-				$full_amount = floatval( $cart_item['full_amount'] );
+			// For percentage based coupons (percent or percent_product).
+			// For products with payment plans, pass through the provided discount AND scale and defer it for later.
+			// For products with fixed deposits, defer the entire discount.
+			// For products with percentage based deposits, pass through the provided discount AND scale and defer it for later.
+			if ( in_array( $coupon_type, array( 'percent', 'percent_product' ), true ) ) {
+				$full_amount    = floatval( $cart_item['full_amount'] );
 				$deposit_amount = floatval( $cart_item['deposit_amount'] );
-				if ( in_array( $deposit_type, array( 'plan', 'percent' ) ) ) {
-					// Applies discount toward future amounts to ensure complete discount is not lost
-					$present_discount_amount = round( $discount * $present_proportion, 2 );
-					// Deferred discount amount is always for the line quantity
+
+				if ( in_array( $deposit_type, array( 'plan', 'percent' ), true ) ) {
+					// Applies discount toward future amounts to ensure complete discount is not lost,
+					// Deferred discount amount is always for the line quantity.
+					$present_discount_amount  = round( floor( $discount_pre_tax * $present_proportion * 100 ) / 100, 2 );
 					$deferred_discount_amount = round( $discount * ( 1 - $present_proportion ), 2 );
-				} else if( 'fixed' === $deposit_type ) {
-					// Then scale and defer the entire discount
+				} elseif ( 'fixed' === $deposit_type ) {
+					// Then scale and defer the entire discount.
 					$deferred_discount_amount = min( $full_amount - $deposit_amount, $discount );
-					$present_discount_amount = min( $discounting_amount, $discount - $deferred_discount_amount );
+					$present_discount_amount  = min( $discounting_amount, $discount - $deferred_discount_amount );
+					$present_discount_tax     = ( $present_discount_amount / $deferred_discount_amount ) * $item_tax;
 				}
 			}
 
-			$search_key = self::generate_cart_id( $cart_item );
+			$search_key         = self::generate_cart_id( $cart_item );
 			$deferred_discounts = WC()->session->get( 'deposits_deferred_discounts', array() );
-			$present_discounts = WC()->session->get( 'deposits_present_discounts', array() );
-			$discount_tax = WC()->session->get( 'deposits_discount_tax', array() );
+			$present_discounts  = WC()->session->get( 'deposits_present_discounts', array() );
+			$discount_tax       = WC()->session->get( 'deposits_discount_tax', array() );
 
-			// Save the discount to be applied toward the future amount due
-			if( array_key_exists( $search_key, $deferred_discounts ) && array_key_exists( $coupon_id , $deferred_discounts[ $search_key ] ) ) {
+			// Save the discount to be applied toward the future amount due.
+			if ( array_key_exists( $search_key, $deferred_discounts ) && array_key_exists( $coupon_id, $deferred_discounts[ $search_key ] ) ) {
 				$deferred_discounts[ $search_key ][ $coupon_id ] += $deferred_discount_amount;
 			} else {
 				$deferred_discounts[ $search_key ][ $coupon_id ] = $deferred_discount_amount;
@@ -633,23 +637,23 @@ class WC_Deposits_Cart_Manager {
 
 			// If future payments amount are less than 0 (i.e. the coupon has
 			// higher discount than the value of the payment), apply the
-			// remaining of the coupon amount to the present amount and decrease the future part
+			// remaining of the coupon amount to the present amount and decrease the future part.
 			$future_payment_amount = $this->get_future_payments_amount_no_tax( $cart_item ) - $deferred_discount_amount;
 			if ( $future_payment_amount < 0 ) {
-				$deferred_discount_amount += $future_payment_amount;
+				$deferred_discount_amount                        += $future_payment_amount;
 				$deferred_discounts[ $search_key ][ $coupon_id ] += $future_payment_amount;
-				$present_discount_amount += absint( $future_payment_amount );
-				$present_discount_amount = min( $present_discount_amount, $discounting_amount );
+				$present_discount_amount                         += absint( $future_payment_amount );
+				$present_discount_amount                          = min( $present_discount_amount, $discounting_amount );
 			}
 
-			if( array_key_exists( $search_key, $present_discounts ) && array_key_exists( $coupon_id , $present_discounts[ $search_key ] ) ) {
+			if ( array_key_exists( $search_key, $present_discounts ) && array_key_exists( $coupon_id, $present_discounts[ $search_key ] ) ) {
 				$present_discounts[ $search_key ][ $coupon_id ] += $present_discount_amount;
 			} else {
 				$present_discounts[ $search_key ][ $coupon_id ] = $present_discount_amount;
 			}
 
 			$used_tax = ( $present_discount_amount + $deferred_discount_amount ) / $discount * $item_tax;
-			if( array_key_exists( $search_key, $discount_tax ) && array_key_exists( $coupon_id , $discount_tax[ $search_key ] ) ) {
+			if ( array_key_exists( $search_key, $discount_tax ) && array_key_exists( $coupon_id, $discount_tax[ $search_key ] ) ) {
 				$discount_tax[ $search_key ][ $coupon_id ] += $used_tax;
 			} else {
 				$discount_tax[ $search_key ][ $coupon_id ] = $used_tax;
@@ -658,11 +662,12 @@ class WC_Deposits_Cart_Manager {
 			WC()->session->set( 'deposits_deferred_discounts', $deferred_discounts );
 			WC()->session->set( 'deposits_present_discounts', $present_discounts );
 			WC()->session->set( 'deposits_discount_tax', $discount_tax );
-			// Return the total used discount
-			return $present_discount_amount + $deferred_discount_amount;
+
+			// Return the total used discount.
+			return $present_discount_amount + $present_discount_tax + $deferred_discount_amount;
 		}
 
-		// Otherwise, just pass through the original amount
+		// Otherwise, just pass through the original amount.
 		return $discount;
 	}
 

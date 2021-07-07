@@ -17,7 +17,7 @@
  * needs please refer to http://www.skyverge.com/product/woocommerce-nested-category-layout/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2012-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -28,16 +28,17 @@ defined( 'ABSPATH' ) or exit;
  *
  * @type array $woocommerce_product_category_ids associative array of product IDs containing category IDs
  * @type \WP_Term $category current category object
+ * @type bool $see_more wither to display see more link or not
+ * @type int $total_found total number of products found
  *
  * @since 1.0
- * @version 1.12.1
+ * @version 1.17.0
  */
 global $woocommerce_loop;
 
+/** @noinspection MissingIssetImplementationInspection */
 $product_category_level = isset( $category->depth ) ? (int) $category->depth + 2 : 1;
 $num_columns            = max( 1, ! empty( $woocommerce_loop['columns'] ) ? (int) $woocommerce_loop['columns'] : (int) get_option( 'woocommerce_catalog_columns', 4 ) );
-$products_displayed     = 0;
-$see_more               = false;
 
 /**
  * Filters the CSS classes applied to the <ul> products wrapper element.
@@ -65,31 +66,11 @@ $classes = (array) apply_filters( 'wc_nested_category_layout_loop_products_wrapp
 
 		// ensure that the product is valid and visible
 		if ( ! $product || ! $product->is_visible() ) {
-			$products_displayed--;
 			continue;
 		}
 
-		$product_id                = $product->get_id();
-		$product_category_term_ids = isset( $woocommerce_product_category_ids[ $product_id ] ) ? $woocommerce_product_category_ids[ $product_id ] : [];
-
-		// ensure that the product belongs to the current category
-		if ( ! in_array( $product_category_term_id, $product_category_term_ids, false ) ) {
-			// note: not bumping $products_displayed is intentional here
-			continue;
-		}
-
-		// handle "view more" link
-		if ( ! empty( $woocommerce_loop['see_more'] ) && $products_displayed > (int) get_option( 'woocommerce_subcat_posts_per_page' ) - 1 ) {
-			$see_more = true;
-			break;
-		}
-
-		$woocommerce_loop['loop'] = max( 0, $products_displayed );
-
-			// display the product thumbnail content
+		// display the product thumbnail content
 		wc_get_template_part( 'content', 'product' );
-
-		$products_displayed++;
 
 	endwhile; endif;
 
@@ -109,7 +90,7 @@ $classes = (array) apply_filters( 'wc_nested_category_layout_loop_products_wrapp
 			 * @param \WP_Term $category category object
 			 */
 			echo esc_html( (string) apply_filters( 'wc_nested_category_layout_see_more_message', __( 'See more', 'woocommerce-nested-category-layout' ), $category ) );
-		?></a>
+			?></a>
 
 	<?php endif; ?>
 </div>

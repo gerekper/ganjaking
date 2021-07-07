@@ -3,16 +3,16 @@
  * Plugin Name: WooCommerce Account Funds
  * Plugin URI: https://woocommerce.com/products/account-funds/
  * Description: Allow customers to deposit funds into their accounts and pay with account funds during checkout.
- * Version: 2.4.4
+ * Version: 2.5.1
  * Author: Themesquad
  * Author URI: https://themesquad.com/
  * Requires at least: 4.4
- * Tested up to: 5.7
+ * Tested up to: 5.8
  * Text Domain: woocommerce-account-funds
  * Domain Path: /languages/
  *
  * WC requires at least: 3.2
- * WC tested up to: 5.3
+ * WC tested up to: 5.5
  * Woo: 18728:a6fcf35d3297c328078dfe822e00bd06
  *
  * Copyright: 2009-2021 WooCommerce.
@@ -63,7 +63,7 @@ class WC_Account_Funds {
 	 *
 	 * @var string
 	 */
-	public $version = '2.4.4';
+	public $version = '2.5.1';
 
 	/**
 	 * Constructor.
@@ -108,9 +108,23 @@ class WC_Account_Funds {
 	 * @since 2.2.0
 	 */
 	private function includes() {
+		/**
+		 * Class autoloader.
+		 */
+		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-autoloader.php';
+
+		/**
+		 * Interfaces.
+		 */
+		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/interfaces/interface-wc-account-funds-integration.php';
+
+		/**
+		 * Core classes.
+		 */
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/wc-account-funds-functions.php';
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-installer.php';
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-my-account.php';
+		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-integrations.php';
 
 		if ( wc_account_funds_is_request( 'admin' ) ) {
 			include_once WC_ACCOUNT_FUNDS_PATH . 'includes/admin/class-wc-account-funds-admin.php';
@@ -166,7 +180,6 @@ class WC_Account_Funds {
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-cart-manager.php';
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-deposits-manager.php';
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-order-manager.php';
-		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-integration.php';
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-shortcodes.php';
 
 		$this->admin_init();

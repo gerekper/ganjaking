@@ -1,21 +1,19 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Mail SMTP 2.9.0\n"
+"Project-Id-Version: WP Mail SMTP 2.9.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-mail-smtp-pro\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-06-22T06:05:32+00:00\n"
+"POT-Creation-Date: 2021-07-05T06:08:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: wp-mail-smtp-pro\n"
 
 #. Plugin Name of the plugin
-#: src/Pro/Admin/DashboardWidget.php:226
-#: src/Pro/Admin/DashboardWidget.php:420
-msgid "WP Mail SMTP"
+msgid "WP Mail SMTP Pro"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -49,6 +47,11 @@ msgstr ""
 
 #: src/Pro/Admin/DashboardWidget.php:206
 msgid "Failed emails"
+msgstr ""
+
+#: src/Pro/Admin/DashboardWidget.php:226
+#: src/Pro/Admin/DashboardWidget.php:420
+msgid "WP Mail SMTP"
 msgstr ""
 
 #: src/Pro/Admin/DashboardWidget.php:283
@@ -1359,78 +1362,78 @@ msgstr ""
 msgid "Site"
 msgstr ""
 
-#: src/Pro/Pro.php:389
+#: src/Pro/Pro.php:395
 msgid "Go to WP Mail SMTP Settings page"
 msgstr ""
 
-#: src/Pro/Pro.php:390
+#: src/Pro/Pro.php:396
 msgid "Settings"
 msgstr ""
 
-#: src/Pro/Pro.php:396
+#: src/Pro/Pro.php:402
 msgid "Go to WPMailSMTP.com documentation page"
 msgstr ""
 
-#: src/Pro/Pro.php:397
+#: src/Pro/Pro.php:403
 msgid "Docs"
 msgstr ""
 
-#: src/Pro/Pro.php:403
+#: src/Pro/Pro.php:409
 msgid "Go to WPMailSMTP.com support page"
 msgstr ""
 
-#: src/Pro/Pro.php:404
+#: src/Pro/Pro.php:410
 msgid "Support"
 msgstr ""
 
-#: src/Pro/Pro.php:461
+#: src/Pro/Pro.php:467
 msgid "There was an error while processing the authentication request. Please try again."
 msgstr ""
 
-#: src/Pro/Pro.php:468
+#: src/Pro/Pro.php:474
 msgid "There was an error while processing the authentication request. Please make sure that you have Client ID and Client Secret both valid and saved."
 msgstr ""
 
 #. translators: %s - error code, returned by Zoho API.
-#: src/Pro/Pro.php:476
+#: src/Pro/Pro.php:482
 msgid "There was an error while processing the authentication request: %s. Please try again."
 msgstr ""
 
-#: src/Pro/Pro.php:483
+#: src/Pro/Pro.php:489
 msgid "There was an error while processing the authentication request. Please recheck your Region, Client ID and Client Secret and try again."
 msgstr ""
 
-#: src/Pro/Pro.php:492
+#: src/Pro/Pro.php:498
 msgid "You have successfully linked the current site with your Microsoft API project. Now you can start sending emails through Outlook."
 msgstr ""
 
-#: src/Pro/Pro.php:498
+#: src/Pro/Pro.php:504
 msgid "You have successfully linked the current site with your Zoho Mail API project. Now you can start sending emails through Zoho Mail."
 msgstr ""
 
-#: src/Pro/Pro.php:536
+#: src/Pro/Pro.php:542
 msgid "Auto-updates are not available."
 msgstr ""
 
-#: src/Pro/Pro.php:752
+#: src/Pro/Pro.php:758
 #: src/Pro/Providers/Providers.php:252
 #: src/Pro/Providers/Providers.php:296
 msgid "Please provide a valid email address."
 msgstr ""
 
-#: src/Pro/Pro.php:754
+#: src/Pro/Pro.php:760
 msgid "Please provide a domain."
 msgstr ""
 
-#: src/Pro/Pro.php:830
+#: src/Pro/Pro.php:836
 msgid "You don't have the permission to perform this action."
 msgstr ""
 
-#: src/Pro/Pro.php:836
+#: src/Pro/Pro.php:842
 msgid "Please enter a valid license key!"
 msgstr ""
 
-#: src/Pro/Pro.php:846
+#: src/Pro/Pro.php:852
 msgid "License functionality missing!"
 msgstr ""
 

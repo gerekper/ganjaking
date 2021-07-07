@@ -1,5 +1,9 @@
 *** WooCommerce Min/Max Quantities Changelog ***
 
+2021-07-02 - version 2.4.24
+* Add - Quantity attribute to add to cart link.
+* Fix - Wrong quantity calculation when both group of quantity setting and minimum setting are set.
+
 2021-06-17 - version 2.4.23
 * Fix - Ensure total quantity number is accurate in the minimum quantity error message.
 * Fix - Update label and description of ""Allow Combination" option.

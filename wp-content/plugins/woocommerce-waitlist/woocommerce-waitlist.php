@@ -3,16 +3,16 @@
  * Plugin Name: WooCommerce Waitlist
  * Plugin URI: http://www.woothemes.com/products/woocommerce-waitlist/
  * Description: This plugin enables registered users to request an email notification when an out-of-stock product comes back into stock. It tallies these registrations in the admin panel for review and provides details.
- * Version: 2.2.5
+ * Version: 2.2.6
  * Author: Neil Pie
  * Author URI: https://pie.co.de/
  * Developer: Neil Pie
  * Developer URI: https://pie.co.de/
  * Woo: 122144:55d9643a241ecf5ad501808c0787483f
  * WC requires at least: 3.0.0
- * WC tested up to: 5.2.2
+ * WC tested up to: 5.4.1
  * Requires at least: 4.2.0
- * Tested up to: 5.7.1
+ * Tested up to: 5.7.2
  * Text Domain: woocommerce-waitlist
  * Domain Path: /assets/languages/
  * License: GNU General Public License v3.0
@@ -160,11 +160,19 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 			add_action( 'delete_user', array( $this, 'unregister_user_when_deleted' ) );
 			add_action( 'user_register', array( $this, 'check_new_user_for_waitlist_entries' ) );
 			// Mailout hooks
+			add_action( 'init', array( $this, 'add_stock_update_hooks' ), 20 );
+		}
+
+		/**
+		 * Hook up all mailout functions for stock updates
+		 */
+		public function add_stock_update_hooks() {
 			// - maintain previous stock count for knowing if mailouts should be sent
 			add_action( 'woocommerce_product_set_stock', array( $this, 'update_stock_status' ), 99 );
 			add_action( 'woocommerce_variation_set_stock', array( $this, 'update_stock_status' ), 99 );
 			// Avoid mailout hooks when processing product import
-			if ( isset( $_REQUEST['action'] ) && 'woocommerce_do_ajax_product_import' === $_REQUEST['action'] ) {
+			if ( isset( $_REQUEST['action'] ) && 'woocommerce_do_ajax_product_import' === $_REQUEST['action'] &&
+					 ! apply_filters( 'wcwl_allow_mailouts_during_product_import', false ) ) {
 				return;
 			}
 			add_action( 'woocommerce_product_set_stock_status', array( $this, 'perform_api_mailout_stock_status' ), 10, 2 );
@@ -403,6 +411,14 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 				if ( $this->minimum_stock_requirement_met( $product, $stock_level ) && $this->stock_level_has_broken_threshold( $product, $stock_level ) ) {
 					$product->waitlist = new Pie_WCWL_Waitlist( $product );
 					$product->waitlist->waitlist_mailout();
+					// Chained products
+					global $wc_cp;
+					if ( $wc_cp && method_exists( $wc_cp, 'get_chained_parent_ids' ) ) {
+						$chained_products = $wc_cp->get_chained_parent_ids( $product->get_id() );
+						if ( ! empty( $chained_products ) ) {
+							wcwl_perform_mailout_for_chained_products( $chained_products );
+						}
+					}
 				}
 			}
 		}

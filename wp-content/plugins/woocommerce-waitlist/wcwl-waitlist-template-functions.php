@@ -373,6 +373,24 @@ function wcwl_is_optin_enabled( $user ) {
 }
 
 /**
+ * Check given chained parent products and perform mailout if required
+ *
+ * @param array $chained_products
+ */
+function wcwl_perform_mailout_for_chained_products( $chained_products ) {
+	foreach( $chained_products as $product_id ) {
+		if ( 'yes' !== get_post_meta( $product_id, '_chained_product_manage_stock', true ) ) {
+			continue;
+		}
+		$product = wc_get_product( $product_id );
+		if ( $product && $product->is_in_stock() && apply_filters( 'wcwl_waitlist_should_do_mailout', true, $product ) ) {
+			$product->waitlist = new Pie_WCWL_Waitlist( $product );
+			$product->waitlist->waitlist_mailout();
+		}
+	}
+}
+
+/**
  * Get the text to display for the opt-in checkbox
  *
  * @param object $user user object.

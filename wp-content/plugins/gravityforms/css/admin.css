@@ -9268,6 +9268,23 @@ div .gfield_repeater_cell {
 	width: auto;
 }
 
+.ginput_preview_control {
+	bottom: -0.25rem;
+	display: inline-block;
+	font-size: 1.25rem;
+	outline: none;
+	position: relative;
+	text-decoration: none;
+}
+
+.ginput_preview_control.gform-icon--circle-arrow-down {
+		color: #22a753;
+	}
+
+.ginput_preview_control.gform-icon--circle-delete {
+		color: #dd301d;
+	}
+
 /* Vendor */
 
 /* stylelint-disable */

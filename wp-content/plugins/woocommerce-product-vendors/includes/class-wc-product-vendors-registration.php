@@ -206,6 +206,7 @@ class WC_Product_Vendors_Registration {
 			$vendor_data['per_product_shipping'] = 'yes';
 			$vendor_data['commission_type']      = 'percentage';
 			$vendor_data['description']          = $form_items['vendor_description'];
+			$vendor_data['email']                = $form_items['email'];
 
 			// If the description should be shown publicly, then copy it to the vendor profile.
 			// Otherwise it will only be shown to the store admin.

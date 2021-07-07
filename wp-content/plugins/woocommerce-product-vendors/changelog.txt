@@ -1,5 +1,10 @@
 *** Product Vendors Changelog ***
 
+2021-07-02 - version 2.1.54
+* Fix - Column width and characters break issues when viewing the product list table on narrow screen sizes.
+* Fix - Ensure the Vendor Email field is required properly and if not set for existing Vendors, show an admin notice.
+* Tweak - Add more details to log messages coming from PayPal.
+
 2021-06-17 - version 2.1.53
 * Add - Approval instruction to the email sent to store owner when new vendors submit applications.
 * Add - Approve action to approve pending vendors from the user list table.

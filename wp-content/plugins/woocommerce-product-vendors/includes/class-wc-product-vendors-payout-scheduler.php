@@ -129,8 +129,14 @@ class WC_Product_Vendors_Payout_Scheduler {
 		try {
 			$results = $this->commission->pay( $unpaid_commission_ids );
 		} catch ( Exception $e ) {
-			WC_Product_Vendors_Logger::log( $e->getMessage() );
-		}		
+			$message = $e->getMessage();
+
+			if ( is_a( $e, 'PayPal\Exception\PayPalConnectionException' ) ) {
+				$message .= ' Error details: ' . $e->getData();
+			};
+
+			WC_Product_Vendors_Logger::log( $message );
+		}
 
 		return true;
 	}

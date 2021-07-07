@@ -31,7 +31,7 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
      */
     private function getHeaderBlacklist()
     {
-        return ['cache-control' => \true, 'content-type' => \true, 'content-length' => \true, 'expect' => \true, 'max-forwards' => \true, 'pragma' => \true, 'range' => \true, 'te' => \true, 'if-match' => \true, 'if-none-match' => \true, 'if-modified-since' => \true, 'if-unmodified-since' => \true, 'if-range' => \true, 'accept' => \true, 'authorization' => \true, 'proxy-authorization' => \true, 'from' => \true, 'referer' => \true, 'user-agent' => \true, 'x-amzn-trace-id' => \true, 'aws-sdk-invocation-id' => \true, 'aws-sdk-retry' => \true];
+        return ['cache-control' => \true, 'content-type' => \true, 'content-length' => \true, 'expect' => \true, 'max-forwards' => \true, 'pragma' => \true, 'range' => \true, 'te' => \true, 'if-match' => \true, 'if-none-match' => \true, 'if-modified-since' => \true, 'if-unmodified-since' => \true, 'if-range' => \true, 'accept' => \true, 'authorization' => \true, 'proxy-authorization' => \true, 'from' => \true, 'referer' => \true, 'user-agent' => \true, 'X-Amz-User-Agent' => \true, 'x-amzn-trace-id' => \true, 'aws-sdk-invocation-id' => \true, 'aws-sdk-retry' => \true];
     }
     /**
      * @param string $service Service name to use when signing
@@ -257,6 +257,8 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
     }
     private function moveHeadersToQuery(array $parsedRequest)
     {
+        //x-amz-user-agent shouldn't be put in a query param
+        unset($parsedRequest['headers']['X-Amz-User-Agent']);
         foreach ($parsedRequest['headers'] as $name => $header) {
             $lname = \strtolower($name);
             if (\substr($lname, 0, 5) == 'x-amz') {

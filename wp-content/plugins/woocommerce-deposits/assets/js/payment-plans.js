@@ -13,13 +13,13 @@ jQuery(function($){
 			var $table       = $('table.wc-deposits-plan');
 			var $current_row = $(this).closest('tr');
 			$current_row.after( $table.data( 'row' ) );
-			$('table.wc-deposits-plan').find( '.plan_interval_amount, .plan_amount' ).change();
+			$('table.wc-deposits-plan').find( '.plan_interval_amount, .plan_amount' ).trigger( 'change' );
 			return false;
 		})
 		.on( 'click', '.remove-row', function() {
 			var $current_row = $(this).closest('tr');
 			$current_row.remove();
-			$('table.wc-deposits-plan').find( '.plan_interval_amount, .plan_amount' ).change();
+			$('table.wc-deposits-plan').find( '.plan_interval_amount, .plan_amount' ).trigger( 'change' );
 			return false;
 		})
 		.on( 'change input', '.plan_amount', function() {
@@ -74,5 +74,5 @@ jQuery(function($){
 			$total_duration.text( duration.join(', ') );
 		});
 
-	$('table.wc-deposits-plan').find( '.plan_interval_amount, .plan_amount' ).change();
+	$('table.wc-deposits-plan').find( '.plan_interval_amount, .plan_amount' ).trigger( 'change' );
 });

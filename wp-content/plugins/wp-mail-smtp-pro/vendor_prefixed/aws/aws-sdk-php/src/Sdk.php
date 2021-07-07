@@ -546,7 +546,7 @@ namespace WPMailSMTP\Vendor\Aws;
  */
 class Sdk
 {
-    const VERSION = '3.184.7';
+    const VERSION = '3.185.6';
     /** @var array Arguments for creating clients */
     private $args;
     /**

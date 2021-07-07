@@ -284,7 +284,7 @@ class WC_Account_Funds_Order_Manager {
 				continue;
 			}
 
-			$funds = $item['line_subtotal'];
+			$funds = ( $product->is_type( 'topup' ) ? $item['line_subtotal'] : $product->get_regular_price() * $item->get_quantity() );
 
 			WC_Account_Funds::add_funds( $customer_id, $funds );
 			$order->update_meta_data( '_funds_deposited', 1 );

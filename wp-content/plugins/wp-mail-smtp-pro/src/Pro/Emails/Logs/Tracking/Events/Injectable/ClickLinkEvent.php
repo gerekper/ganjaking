@@ -59,8 +59,12 @@ class ClickLinkEvent extends AbstractInjectableEvent {
 
 			$url = $link->getAttribute( 'href' );
 
-			// Skip empty or anchor link.
-			if ( strlen( trim( $url ) ) === 0 || substr( $url, 0, 1 ) === '#' ) {
+			// Skip empty, anchor or mailto links.
+			if (
+				strlen( trim( $url ) ) === 0 ||
+				substr( trim( $url ), 0, 1 ) === '#' ||
+				substr( trim( $url ), 0, 6 ) === 'mailto'
+			) {
 				continue;
 			}
 

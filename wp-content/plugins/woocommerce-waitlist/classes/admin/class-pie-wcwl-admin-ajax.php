@@ -450,6 +450,7 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 						}
 						$string .= $emails;
 					}
+					$string = apply_filters( 'wcwl_csv_export_data_per_row', $string );
 				} else {
 					continue;
 				}

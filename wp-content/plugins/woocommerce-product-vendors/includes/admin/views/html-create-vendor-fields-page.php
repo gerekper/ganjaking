@@ -9,6 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
+<div class="form-field form-required term-email">
+	<label for="wcpv-vendor-email"><?php esc_html_e( 'Vendor Email (required)', 'woocommerce-product-vendors' ); ?></label>
+	<input type="email" multiple name="vendor_data[email]" value="" required aria-required="true" />
+
+	<p><?php esc_html_e( 'All notifications will be sent to this email address, including new orders and customer inquiries. Add multiple email addresses by separating them with a comma.', 'woocommerce-product-vendors' ); ?></p>
+</div>
+
 <div class="form-field">
 	<a href="#" class="wcpv-term-additional-settings-link"><?php _e( 'Additional Settings', 'woocommerce-product-vendors' ); ?></a>
 </div>
@@ -45,13 +52,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 
 		<p><?php esc_html_e( 'Enter the profile information you would like for customer to see.', 'woocommerce-product-vendors' ); ?></p>
-	</div>
-
-	<div class="form-field term-email">
-		<label for="wcpv-vendor-email"><?php esc_html_e( 'Vendor Email(required)', 'woocommerce-product-vendors' ); ?></label>
-		<input type="email" multiple name="vendor_data[email]" value="" required aria-required="true" />
-
-		<p><?php esc_html_e( 'All notifications will be sent to this email address, including new orders and customer inquiries. Add multiple email addresses by separating them with a comma.', 'woocommerce-product-vendors' ); ?></p>
 	</div>
 
 	<div class="form-field term-admins">

@@ -319,27 +319,43 @@ class ClientResolver
     {
         $args['handler'] = new \WPMailSMTP\Vendor\Aws\WrappedHttpHandler($value, $args['parser'], $args['error_parser'], $args['exception_class'], $args['stats']['http']);
     }
-    public static function _apply_user_agent($value, array &$args, \WPMailSMTP\Vendor\Aws\HandlerList $list)
+    public static function _apply_user_agent($inputUserAgent, array &$args, \WPMailSMTP\Vendor\Aws\HandlerList $list)
     {
-        if (!\is_array($value)) {
-            $value = [$value];
-        }
-        $value = \array_map('strval', $value);
+        //Add SDK version
+        $xAmzUserAgent = ['aws-sdk-php/' . \WPMailSMTP\Vendor\Aws\Sdk::VERSION];
+        //If on HHVM add the HHVM version
         if (\defined('WPMailSMTP\\Vendor\\HHVM_VERSION')) {
-            \array_unshift($value, 'HHVM/' . HHVM_VERSION);
+            $xAmzUserAgent[] = 'HHVM/' . HHVM_VERSION;
         }
+        //Set up the updated user agent
+        $legacyUserAgent = $xAmzUserAgent;
+        //Add OS version
         $disabledFunctions = \explode(',', \ini_get('disable_functions'));
-        if (!\ini_get('safe_mode') && \function_exists('php_uname') && !\in_array('php_uname', $disabledFunctions, \true)) {
+        if (\function_exists('php_uname') && !\in_array('php_uname', $disabledFunctions, \true)) {
             $osName = "OS/" . \php_uname('s') . '/' . \php_uname('r');
             if (!empty($osName)) {
-                \array_unshift($value, $osName);
+                $legacyUserAgent[] = $osName;
             }
         }
-        \array_unshift($value, 'aws-sdk-php/' . \WPMailSMTP\Vendor\Aws\Sdk::VERSION);
-        $args['ua_append'] = $value;
-        $list->appendBuild(static function (callable $handler) use($value) {
-            return function (\WPMailSMTP\Vendor\Aws\CommandInterface $command, \WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request) use($handler, $value) {
-                return $handler($command, $request->withHeader('User-Agent', \implode(' ', \array_merge($value, $request->getHeader('User-Agent')))));
+        //Add the language version
+        $legacyUserAgent[] = 'lang/php/' . \phpversion();
+        //Add exec environment if present
+        if ($executionEnvironment = \getenv('AWS_EXECUTION_ENV')) {
+            $legacyUserAgent[] = $executionEnvironment;
+        }
+        //Add the input to the end
+        if ($inputUserAgent) {
+            if (!\is_array($inputUserAgent)) {
+                $inputUserAgent = [$inputUserAgent];
+            }
+            $inputUserAgent = \array_map('strval', $inputUserAgent);
+            $legacyUserAgent = \array_merge($legacyUserAgent, $inputUserAgent);
+            $xAmzUserAgent = \array_merge($xAmzUserAgent, $inputUserAgent);
+        }
+        $args['ua_append'] = $legacyUserAgent;
+        $list->appendBuild(static function (callable $handler) use($xAmzUserAgent, $legacyUserAgent) {
+            return function (\WPMailSMTP\Vendor\Aws\CommandInterface $command, \WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request) use($handler, $legacyUserAgent, $xAmzUserAgent) {
+                return $handler($command, $request->withHeader('X-Amz-User-Agent', \implode(' ', \array_merge($xAmzUserAgent, $request->getHeader('X-Amz-User-Agent'))))->withHeader('User-Agent', \implode(' ', \array_merge($legacyUserAgent, $request->getHeader('User-Agent')))));
             };
         });
     }

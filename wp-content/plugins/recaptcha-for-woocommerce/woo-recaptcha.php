@@ -3,11 +3,11 @@
  * Plugin Name: reCaptcha for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/woo-recpatcha
  * Description: Protect your eCommerce site with google recptcha.
- * Version: 2.16
+ * Version: 2.17
  * Author: I Thirteen Web Solution 
  * Author URI: https://www.i13websolution.com
  * WC requires at least: 3.2
- * WC tested up to: 5.2.2
+ * WC tested up to: 5.4.1
  * Text Domain:recaptcha-for-woocommerce
  * Domain Path: languages/
  * Woo: 5347485:aeae74683dd892d43ed390cc28533524
@@ -3840,7 +3840,7 @@ class I13_Woo_Recpatcha {
 		}
 			 
 		if ('v2'== strtolower($reCapcha_version)) {
-								$i13_recapcha_v2_lang=esc_html(get_option('i13_recapcha_v2_lang')); 
+								$i13_recapcha_v2_lang=apply_filters('i13_recapchav2_set_lang', esc_html(get_option('i13_recapcha_v2_lang')));
 			//wp_register_style('i13-woo-styles', plugins_url('/public/css/styles.css', __FILE__), array(), '1.0');
 			if (''!=$i13_recapcha_v2_lang) {
 									

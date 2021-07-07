@@ -1,5 +1,14 @@
 *** WooCommerce Waitlist Change Log ***
 
+2021.07.02 - version 2.2.6
+* Added: Compatibility with chained products plugin
+
+2021.06.16
+* Fix: updated bundles to refresh on variation selection consistently
+
+2021.05.14
+* Added: filters for CSV export data (headers and row)
+
 2021.05.04 - version 2.2.5
 * Fix: Waitlist form can be submitted on instock bundles (now it is removed from the DOM)
 

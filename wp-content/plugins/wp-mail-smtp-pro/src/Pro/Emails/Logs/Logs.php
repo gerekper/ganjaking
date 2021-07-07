@@ -521,7 +521,7 @@ class Logs {
 	 */
 	public function is_enabled_save_attachments() {
 
-		return (bool) Options::init()->get( 'logs', 'save_attachments' );
+		return $this->is_enabled() && (bool) Options::init()->get( 'logs', 'save_attachments' );
 	}
 
 	/**

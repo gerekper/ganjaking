@@ -329,14 +329,20 @@ class Pro {
 	/**
 	 * Get the list of all custom DB tables that should be present in the DB.
 	 *
+	 * @deprecated 3.0.0
+	 *
 	 * @since 1.9.0
 	 *
 	 * @return array List of table names.
 	 */
 	public function get_custom_db_tables() {
 
+		_deprecated_function( __METHOD__, '3.0.0', '\WPMailSMTP\Core::get_custom_db_tables' );
+
 		return [
 			Logs::get_table_name(),
+			Attachments::get_email_attachments_table_name(),
+			Attachments::get_attachment_files_table_name(),
 			Tracking::get_events_table_name(),
 			Tracking::get_links_table_name(),
 		];

@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'e2296826c3b025067978a3b0e8cd1e6a2986ceef',
+    'reference' => '215b0c137113e71b22593a45ea35a98257e43665',
     'name' => 'woocommerce/woocommerce-deposits',
   ),
   'versions' => 
@@ -31,7 +31,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'e2296826c3b025067978a3b0e8cd1e6a2986ceef',
+      'reference' => '215b0c137113e71b22593a45ea35a98257e43665',
     ),
   ),
 );

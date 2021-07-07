@@ -1,5 +1,10 @@
 *** WooCommerce Deposits Changelog ***
 
+2021-07-05 - version 1.5.7
+* Fix - Correctly calculate discounts when coupons are used for orders containing tax inclusive discount products. PR#368
+* Fix - Don't allow payment gateways that are disabled for deposits to be used to pay for future payments. PR#371
+* Dev - Update jQuery 3.0 deprecations. PR#369
+
 2020-11-26 - version 1.5.6
 * Fix - Don't show the "(includes|excludes tax)" message next to the Future Payments price when there are no taxes applied to the cart. PR#365
 * Tweak - PHP 8.0 and WC 4.4 compatibility. PR#362

@@ -97,7 +97,7 @@ class ResendTask extends Task {
 		$collection = new EmailsCollection(
 			[
 				'ids'      => $email_ids,
-				'pre_page' => count( $email_ids ),
+				'per_page' => count( $email_ids ),
 			]
 		);
 

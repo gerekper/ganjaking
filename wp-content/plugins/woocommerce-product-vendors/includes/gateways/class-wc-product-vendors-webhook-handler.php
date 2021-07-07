@@ -184,7 +184,13 @@ class WC_Product_Vendors_Webhook_Handler {
 			// Set transient to the failure state.
 			set_transient( self::WEBHOOK_FAILURE_STATE, true, self::WEBHOOK_DEFAULT_WAIT_TIME * MINUTE_IN_SECONDS );
 
-			WC_Product_Vendors_Logger::log( $e->getMessage() );
+			$message = $e->getMessage();
+
+			if ( is_a( $e, 'PayPal\Exception\PayPalConnectionException' ) ) {
+				$message .= ' Error details: ' . $e->getData();
+			};
+
+			WC_Product_Vendors_Logger::log( $message );
 		}
 	}
 
@@ -289,15 +295,15 @@ class WC_Product_Vendors_Webhook_Handler {
 	 * @param string $request_body
 	 */
 	public function process_webhook( $request_body = null ) {
-		WC_Product_Vendors_Logger::log( 'Received webhook from PayPal. ');		
+		WC_Product_Vendors_Logger::log( 'Received webhook from PayPal. ');
 		if ( null === $request_body ) {
-			WC_Product_Vendors_Logger::log( 'PayPal Masspay Payout error: received empty response. ');		
+			WC_Product_Vendors_Logger::log( 'PayPal Masspay Payout error: received empty response. ');
 			status_header( 400 );
 			exit;
 		}
 
 		$notification = json_decode( $request_body );
-		WC_Product_Vendors_Logger::log( 'Received message: ' . print_r ( $notification, true ) );	
+		WC_Product_Vendors_Logger::log( 'Received message: ' . print_r ( $notification, true ) );
 
 		if ( 'PAYMENT.PAYOUTSBATCH.DENIED' === $notification->event_type ) {
 			WC_Product_Vendors_Logger::log( 'PayPal Masspay Batch Payouts Denied: ' . $notification->summary );

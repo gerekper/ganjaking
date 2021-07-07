@@ -339,7 +339,7 @@ class WC_Product_Vendors_Store_Admin_Commission_List extends WP_List_Table {
 			}
 			?>
 		</select>
-		
+
 	<?php
 	}
 
@@ -457,7 +457,7 @@ class WC_Product_Vendors_Store_Admin_Commission_List extends WP_List_Table {
 				if ( ! is_a( $order, 'WC_ORDER' ) ) {
 					return sprintf( '%s ' . __( 'Order Not Found', 'woocommerce-product-vendors' ), '#' . absint( $item->order_id ) );
 				}
-				
+
 				return edit_post_link( $order->get_order_number(), '', '', absint( $item->order_id ) );
 
 			case 'order_status' :
@@ -507,7 +507,7 @@ class WC_Product_Vendors_Store_Admin_Commission_List extends WP_List_Table {
 
 					if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
 						$order_item = WC_Order_Factory::get_order_item( $item->order_item_id );
-						
+
 						if ( $order_item && $metadata = $order_item->get_formatted_meta_data() ) {
 							foreach ( $metadata as $meta_id => $meta ) {
 								// Skip hidden core fields
@@ -736,7 +736,13 @@ class WC_Product_Vendors_Store_Admin_Commission_List extends WP_List_Table {
 				$this->commission->pay( $ids );
 
 			} catch ( Exception $e ) {
-				WC_Product_Vendors_Logger::log( $e->getMessage() );
+				$message = $e->getMessage();
+
+				if ( is_a( $e, 'PayPal\Exception\PayPalConnectionException' ) ) {
+					$message .= ' Error details: ' . $e->getData();
+				};
+
+				WC_Product_Vendors_Logger::log( $message );
 			}
 		}
 
@@ -772,7 +778,7 @@ class WC_Product_Vendors_Store_Admin_Commission_List extends WP_List_Table {
 			$processed++;
 		}
 
-		
+
 		WC_Product_Vendors_Utils::clear_reports_transients();
 		WC_Product_Vendors_Utils::update_order_item_meta( $order_item_id );
 

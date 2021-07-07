@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.9.1] - 2021-07-05
+### Fixed:
+- Email Log: mailto links not working correctly when link tracking is enabled.
+
 ## [2.9.0] - 2021-06-22
 ### Added:
 - Email Log: store email attachments.

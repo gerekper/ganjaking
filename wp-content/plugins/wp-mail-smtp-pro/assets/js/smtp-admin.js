@@ -272,7 +272,10 @@ WPMailSMTP.Admin.Settings = WPMailSMTP.Admin.Settings || ( function( document, w
 							btnClass: 'btn-confirm',
 							keys: [ 'enter' ],
 							action: function() {
-								window.open( wp_mail_smtp.education.upgrade_url + '&utm_content=' + encodeURI( $input.val() ), '_blank' );
+								var appendChar = /(\?)/.test( wp_mail_smtp.education.upgrade_url ) ? '&' : '?',
+									upgradeURL = wp_mail_smtp.education.upgrade_url + appendChar + 'utm_content=' + encodeURIComponent( $input.val() );
+
+								window.open( upgradeURL, '_blank' );
 							}
 						}
 					}

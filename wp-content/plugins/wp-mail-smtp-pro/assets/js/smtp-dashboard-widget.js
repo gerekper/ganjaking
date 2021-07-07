@@ -51,7 +51,7 @@ var WPMailSMTPDashboardWidget = window.WPMailSMTPDashboardWidget || ( function( 
 					{
 						label: '',
 						data: [],
-						backgroundColor: 'rgba(106, 160, 139, 1)',
+						backgroundColor: 'rgba(34, 113, 177, 0.15)',
 						borderColor: 'rgba(34, 113, 177, 1)',
 						borderWidth: 2,
 						pointRadius: 4,

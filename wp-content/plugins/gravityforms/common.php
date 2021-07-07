@@ -5687,7 +5687,7 @@ Content-Type: text/html;
 
 		foreach( $sidebars as $sidebar => $widgets ) {
 
-			if ( $sidebar != $sidebar_index ) {
+			if ( $sidebar != $sidebar_index || ! is_array( $widgets ) ) {
 				continue;
 			}
 

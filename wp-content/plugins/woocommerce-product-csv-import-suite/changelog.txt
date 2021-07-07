@@ -1,5 +1,8 @@
 *** Product CSV Import Suite Changelog ***
 
+2021-07-02 - version 1.10.42
+* Fix - ensure post modified dates get updated even if an import doesn't have any normal post fields.
+
 2021-04-06 - version 1.10.41
 * Fix - Error when importing products.
 
