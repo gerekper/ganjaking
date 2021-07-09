@@ -38,7 +38,7 @@ class Vc_Updating_Manager {
 	 * Link to download VC.
 	 * @var string
 	 */
-	protected $url = 'http://go.wpbakery.com/wpb-buy';
+	protected $url = 'https://go.wpbakery.com/wpb-buy';
 
 	/**
 	 * Initialize a new instance of the WordPress Auto-Update class

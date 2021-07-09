@@ -273,7 +273,6 @@ class Vc_Shared_Templates {
 	 * @return array
 	 */
 	public function addTemplatesTab( $data ) {
-		if (defined('JS_COMPOSER_THEME_ACT')) return $data;
 		if ( vc_user_access()->part( 'templates' )->checkStateAny( true, null, 'add' )->get() ) {
 			$templates = $this->getTemplates();
 			if ( ! empty( $templates ) || vc_user_access()->part( 'templates' )->checkStateAny( true, null )->get() ) {

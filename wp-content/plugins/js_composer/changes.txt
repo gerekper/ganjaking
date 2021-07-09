@@ -1,3 +1,16 @@
+06.07.2021 - ver 6.7.0
+  - New: Custom breakpoint controls to adjust stacking behavior
+  - New: Option to disable animations in Masonry grid added
+  - New: Filter for wpb map element settings added
+  - New: Filter for changing heading tag added
+  - Compatibility: WooCommerce does not generate warnings
+  - Fix: Lightbox image filenames are correct
+  - Fix: Jump for “vclink” removed
+  - Fix: Owl carousel does not mix content
+  - Fix: Initial value on attributes work properly
+  - Fix: URLs updated to https
+  - Fix: Case sensitive single image size updated
+
 22.02.2021 - ver 6.6.0
   - New: prettyPhoto removed and Lightbox2 added to the plugin (prettyPhoto will stay for backward compatibility)
   - New: Call to Action element allows to align titles and select tags

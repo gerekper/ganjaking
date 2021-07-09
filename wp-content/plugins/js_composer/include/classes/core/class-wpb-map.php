@@ -921,6 +921,7 @@ class WPBMap {
 		} elseif ( isset( $settings['__vc_settings_file'] ) ) {
 			self::$sc[ $tag ] = include $settings['__vc_settings_file'];
 		}
+		self::$sc[ $tag ] = apply_filters( 'vc_element_settings_filter', self::$sc[ $tag ], $tag );
 		self::$sc[ $tag ]['base'] = $tag;
 		self::$init_elements[ $tag ] = true;
 		vc_mapper()->callElementActivities( $tag );

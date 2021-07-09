@@ -17,14 +17,14 @@ class Vc_Updater {
 	/**
 	 * @var string
 	 */
-	protected $version_url = 'http://updates.wpbakery.com/';
+	protected $version_url = 'https://updates.wpbakery.com/';
 
 	/**
 	 * Proxy URL that returns real download link
 	 *
 	 * @var string
 	 */
-	protected $download_link_url = 'http://support.wpbakery.com/updates/download-link';
+	protected $download_link_url = 'https://support.wpbakery.com/updates/download-link';
 
 	/**
 	 * @var bool

@@ -127,6 +127,28 @@ function vc_page_settings_tab_color_submit_attributes( $submitButtonAttributes )
 				),
 			),
 		),
+		'screen-md-min' => array(
+			'key' => 'wpb_js_responsive_md',
+			'default' => vc_settings()->getDefault( 'responsive_md' ),
+			'modify_output' => array(
+				array(
+					'plain' => array(
+						'{{ value }}px',
+					),
+				),
+			),
+		),
+		'screen-lg-min' => array(
+			'key' => 'wpb_js_responsive_lg',
+			'default' => vc_settings()->getDefault( 'responsive_lg' ),
+			'modify_output' => array(
+				array(
+					'plain' => array(
+						'{{ value }}px',
+					),
+				),
+			),
+		),
 	) ) );
 
 	return $submitButtonAttributes;

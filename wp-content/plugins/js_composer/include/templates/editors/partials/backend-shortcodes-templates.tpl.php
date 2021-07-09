@@ -17,21 +17,9 @@ if ( vc_user_access()->part( 'presets' )->can()->get() ) {
 $custom_tag = 'script'; // TODO: Use HTML Shadow dom or ajax response for templates
 ?>
 <<?php echo esc_attr( $custom_tag ); ?>>
-    var vc_user_mapper = {};
-	<?php
-	foreach ( WPBMap::getUserShortCodes() as $tag => $settings ) {
-		printf( "\tvc_user_mapper['%s'] = %s;\n", $tag, json_encode( $settings ) );
-	}
-	?>
-
-    var vc_mapper = {};
-	<?php
-	foreach ( WPBMap::getShortCodes() as $tag => $settings ) {
-		printf( "\tvc_mapper['%s'] = %s;\n", $tag, json_encode( $settings ) );
-	}
-	?>
-
-    var vc_vendor_settings_presets = <?php echo json_encode( $vc_vendor_settings_presets ) ?>,
+	var vc_user_mapper = <?php echo wp_json_encode( WPBMap::getUserShortCodes() ); ?>,
+		vc_mapper = <?php echo wp_json_encode( WPBMap::getShortCodes() ); ?>,
+		vc_vendor_settings_presets = <?php echo wp_json_encode( $vc_vendor_settings_presets ); ?>,
 		vc_roles = [],
 		vc_frontend_enabled = <?php echo vc_enabled_frontend() ? 'true' : 'false'; ?>,
 		vc_all_presets = <?php echo wp_json_encode( $vc_all_presets ); ?>,

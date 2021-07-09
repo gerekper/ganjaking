@@ -118,7 +118,7 @@ return array(
 			'heading' => esc_html__( 'Color', 'js_composer' ),
 			'param_name' => 'bgcolor',
 			'value' => $bg_color_value,
-			'description' => esc_html__( 'Select bar background color.', 'js_composer' ),
+			'description' => esc_html__( 'Select bar color.', 'js_composer' ),
 			'admin_label' => true,
 			'param_holder_class' => 'vc_colored-dropdown',
 		),

@@ -23,6 +23,7 @@ function vc_gitem_template_attribute_woocommerce_product( $value, $data ) {
 	), $data ) );
 	require_once WC()->plugin_path() . '/includes/abstracts/abstract-wc-product.php';
 	/** @noinspection PhpUndefinedClassInspection */
+	/** @var WC_Product $product */
 	$product = new WC_Product( $post );
 	if ( preg_match( '/_labeled$/', $data ) ) {
 		$data = preg_replace( '/_labeled$/', '', $data );
@@ -58,7 +59,7 @@ function vc_gitem_template_attribute_woocommerce_product( $value, $data ) {
 			break;
 		case 'dimensions':
 			$units = get_option( 'woocommerce_dimension_unit' );
-			$value = $product->length . $units . 'x' . $product->width . $units . 'x' . $product->height . $units;
+			$value = $product->get_length() . $units . 'x' . $product->get_width() . $units . 'x' . $product->get_height() . $units;
 			break;
 		case 'rating_count':
 			$value = $product->get_rating_count();
@@ -70,7 +71,7 @@ function vc_gitem_template_attribute_woocommerce_product( $value, $data ) {
 			$value = $product->is_on_sale() ? 'yes' : 'no'; // TODO: change
 			break;
 		default:
-			$value = $product->$data;
+			$value = method_exists( $product, 'get_' . $data ) ? $product->{'get_' . $data}() : $product->$data;
 	}
 
 	return strlen( $value ) > 0 ? $label . apply_filters( 'vc_gitem_template_attribute_woocommerce_product_' . $data . '_value', $value ) : '';

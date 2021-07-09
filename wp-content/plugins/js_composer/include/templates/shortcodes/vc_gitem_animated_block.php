@@ -29,7 +29,7 @@ if ( ! empty( $animation ) ) {
 }
 
 $output = '';
-$output .= '<div class="' . esc_attr( $css_class ) . '" ' . $animation_attr . ( empty( $css_style ) ? '' : ' style="' . esc_attr( $css_style ) ) . '">';
+$output .= '<div class="' . trim( esc_attr( $css_class ) ) . '" ' . $animation_attr . ( empty( $css_style ) ? '' : ' style="' . esc_attr( $css_style ) . '"' ) . '>';
 $output .= do_shortcode( $content );
 $output .= '</div>';
 

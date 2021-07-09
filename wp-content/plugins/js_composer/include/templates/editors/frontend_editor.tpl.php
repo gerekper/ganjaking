@@ -92,19 +92,8 @@ if ( vc_user_access()->part( 'presets' )->can()->get() ) {
 ?>
 	<input type="hidden" name="vc_post_custom_css" id="vc_post-custom-css" value="<?php echo esc_attr( $editor->post_custom_css ); ?>" autocomplete="off"/>
 	<<?php echo esc_attr( $custom_tag ); ?>>
-		window.vc_user_mapper = {};
-		<?php
-		foreach ( WPBMap::getUserShortCodes() as $tag => $settings ) {
-			printf( "\twindow.vc_user_mapper['%s'] = %s;\n", $tag, json_encode( $settings ) );
-		}
-		?>
-
-		window.vc_mapper = {};
-		<?php
-		foreach ( WPBMap::getShortCodes() as $tag => $settings ) {
-			printf( "\twindow.vc_mapper['%s'] = %s;\n", $tag, json_encode( $settings ) );
-		}
-		?>
+		window.vc_user_mapper = <?php echo wp_json_encode( WPBMap::getUserShortCodes() ); ?>;
+		window.vc_mapper = <?php echo wp_json_encode( WPBMap::getShortCodes() ); ?>;
 		window.vc_vendor_settings_presets = <?php echo wp_json_encode( $vc_vendor_settings_presets ); ?>;
 		window.vc_all_presets = <?php echo wp_json_encode( $vc_all_presets ); ?>;
 		window.vc_roles = [];

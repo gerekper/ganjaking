@@ -468,7 +468,7 @@ class Vc_License {
 	 *
 	 * @return boolean
 	 */
-		public function isValidToken( $token_to_check, $ttl_in_seconds = 1200 ) {
+	public function isValidToken( $token_to_check, $ttl_in_seconds = 1200 ) {
 		$token = $this->getLicenseKeyToken();
 
 		
