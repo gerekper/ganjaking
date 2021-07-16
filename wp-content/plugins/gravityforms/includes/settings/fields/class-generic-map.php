@@ -389,11 +389,21 @@ class Generic_Map extends Base {
 				switch ( $input_type ) {
 
 					case 'address':
+
+						$form_field_choices[] = array(
+							'label' => strip_tags( GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full Address', 'gravityforms' ) . ')' ),
+							'value' => $field->id,
+							'type' => 'address'
+						);
+
+						break;
+
 					case 'name':
 
 						$form_field_choices[] = array(
-							'label' => strip_tags( GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full', 'gravityforms' ) . ')' ),
+							'label' => strip_tags( GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full Name', 'gravityforms' ) . ')' ),
 							'value' => $field->id,
+							'type' => 'name'
 						);
 
 						break;
@@ -403,6 +413,7 @@ class Generic_Map extends Base {
 						$form_field_choices[] = array(
 							'label' => strip_tags( GFCommon::get_label( $field ) . ' (' . esc_html__( 'Selected', 'gravityforms' ) . ')' ),
 							'value' => $field->id,
+							'type' => 'checkbox'
 						);
 
 						break;
@@ -414,6 +425,7 @@ class Generic_Map extends Base {
 					$form_field_choices[] = array(
 						'label' => strip_tags( GFCommon::get_label( $field, $input['id'] ) ),
 						'value' => $input['id'],
+						'type'  => $field['type'],
 					);
 				}
 
@@ -424,6 +436,7 @@ class Generic_Map extends Base {
 				$form_field_choices[] = array(
 					'label' => strip_tags( GFCommon::get_label( $field ) . ' (' . esc_html__( 'Full', 'gravityforms' ) . ')' ),
 					'value' => $field->id,
+					'type'  => 'list',
 				);
 
 				// Add choice for each column.
@@ -432,6 +445,7 @@ class Generic_Map extends Base {
 					$form_field_choices[] = array(
 						'label' => strip_tags( GFCommon::get_label( $field ) . ' (' . esc_html( rgar( $column, 'text' ) ) . ')' ),
 						'value' => $field->id . '.' . $col_index,
+						'type'  => 'list',
 					);
 					$col_index++;
 				}
@@ -441,6 +455,7 @@ class Generic_Map extends Base {
 				$form_field_choices[] = array(
 					'label' => strip_tags( GFCommon::get_label( $field ) ),
 					'value' => $field->id,
+					'type'  => $field['type'],
 				);
 
 			}
@@ -454,6 +469,7 @@ class Generic_Map extends Base {
 				$choices[] = array(
 					'label' => esc_html__( 'Select a Field', 'gravityforms' ),
 					'value' => '',
+					'type'  => $field['type'],
 				);
 
 			} else {
@@ -464,6 +480,7 @@ class Generic_Map extends Base {
 						GF_Fields::get( $required_types[0] ) ? ucfirst( GF_Fields::get( $required_types[0] )->get_form_editor_field_title() ) : ''
 					),
 					'value' => '',
+					'type'  => $field['type'],
 				);
 
 			}
@@ -554,7 +571,6 @@ class Generic_Map extends Base {
 		 * @param null|array|string $exclude_field_types Null or the field type(s) to be excluded from the drop down.
 		 */
 		$choices = apply_filters( 'gform_field_map_choices', $choices, $form_id, $input_type, $excluded_types );
-
 		return array_values( $choices );
 
 	}
@@ -579,6 +595,10 @@ class Generic_Map extends Base {
 
 		// If no choices are required, exit.
 		if ( empty( $required_choices ) ) {
+			return;
+		}
+
+		if ( ! is_array( $value ) ) {
 			return;
 		}
 

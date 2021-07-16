@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add custom REST API fields.
  *
  * @class    WC_CP_REST_API
- * @version  8.1.3
+ * @version  8.2.0
  */
 class WC_CP_REST_API {
 
@@ -25,6 +25,7 @@ class WC_CP_REST_API {
 	 * @var array
 	 */
 	private static $product_fields = array(
+		'composite_virtual'                   => array( 'get', 'update' ),
 		'composite_layout'                    => array( 'get', 'update' ),
 		'composite_add_to_cart_form_location' => array( 'get', 'update' ),
 		'composite_editable_in_cart'          => array( 'get', 'update' ),
@@ -159,7 +160,12 @@ class WC_CP_REST_API {
 	private static function get_extended_product_schema() {
 
 		return apply_filters( 'woocommerce_composite_products_rest_api_product_schema', array(
-			'composite_layout'                    => array(
+			'composite_virtual'                   => array(
+ 				'description' => __( 'Forces all contents of this composite to be treated as virtual.', 'woocommerce-composite-products' ),
+ 				'type'        => 'boolean',
+ 				'context'     => array( 'view', 'edit' )
+ 			),
+ 			'composite_layout'                    => array(
 				'description' => __( 'Single-product template layout. Applicable to composite-type products.', 'woocommerce-composite-products' ),
 				'type'        => 'string',
 				'context'     => array( 'view', 'edit' ),
@@ -623,6 +629,14 @@ class WC_CP_REST_API {
 		if ( $product_id && 'composite' === $product_type ) {
 			switch ( $field_name ) {
 
+				// Set virtual.
+ 				case 'composite_virtual' :
+
+	 				$product->set_virtual_composite( $field_value );
+	 				$product->save();
+
+	 			break;
+
 				case 'composite_layout' :
 
 					$product->set_layout( wc_clean( $field_value ) );
@@ -887,6 +901,16 @@ class WC_CP_REST_API {
 		$product_id   = $product->get_id();
 
 		switch ( $key ) {
+
+			case 'composite_virtual' :
+
+ 				$value = false;
+
+ 				if ( 'composite' === $product_type ) {
+ 					$value = $product->get_virtual_composite( 'edit' );
+ 				}
+
+ 			break;
 
 			case 'composite_layout' :
 

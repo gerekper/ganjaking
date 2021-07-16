@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'WPSEO_Option_Woo' => $baseDir . '/classes/option-woo.php',
     'WPSEO_WooCommerce_Abstract_Product_Availability_Presenter' => $baseDir . '/classes/presenters/woocommerce-abstract-product-availability-presenter.php',
     'WPSEO_WooCommerce_Abstract_Product_Presenter' => $baseDir . '/classes/presenters/woocommerce-abstract-product-presenter.php',

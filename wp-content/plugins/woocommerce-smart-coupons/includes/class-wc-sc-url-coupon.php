@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -157,9 +157,15 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 						$page_id = woocommerce_get_page_id( $coupon_args['sc-page'] );
 					}
 					$redirect_url = get_permalink( $page_id );
-				} else {
-					$page_id = ( function_exists( 'wpcom_vip_get_page_by_title' ) ) ? wpcom_vip_get_page_by_title( $coupon_args['sc-page'] ) : get_page_by_title( $coupon_args['sc-page'] ); // phpcs:ignore
-					$redirect_url = get_permalink( $page_id );
+				} elseif ( is_string( $coupon_args['sc-page'] ) ) {
+					if ( is_numeric( $coupon_args['sc-page'] ) && ! is_float( $coupon_args['sc-page'] ) ) {
+						$page = $coupon_args['sc-page'];
+					} else {
+						$page = ( function_exists( 'wpcom_vip_get_page_by_path' ) ) ? wpcom_vip_get_page_by_path( $coupon_args['sc-page'], OBJECT, get_post_types() ) : get_page_by_path( $coupon_args['sc-page'], OBJECT, get_post_types() ); // phpcs:ignore
+					}
+					$redirect_url = get_permalink( $page );
+				} elseif ( is_numeric( $coupon_args['sc-page'] ) && ! is_float( $coupon_args['sc-page'] ) ) {
+					$redirect_url = get_permalink( $coupon_args['sc-page'] );
 				}
 
 				if ( empty( $redirect_url ) ) {

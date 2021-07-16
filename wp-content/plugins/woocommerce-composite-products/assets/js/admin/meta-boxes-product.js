@@ -56,6 +56,14 @@ jQuery( function( $ ) {
 
 		configuration_save_xhr = false;
 
+	var $shipping_data_container    = $components_panel.parent().find( '#shipping_product_data' ),
+		$virtual_checkbox           = $( 'input#_virtual' ),
+		$virtual_composite_checkbox = $( 'input#_virtual_composite' ),
+		virtual_checkbox_init_val   = $virtual_checkbox.prop( 'checked' ),
+		is_virtual_checkbox_dirty   = false,
+		$composite_type_container   = $shipping_data_container.find( '.options_group.composite_type' ),
+		$composite_type_options     = $composite_type_container.find( '.bto_type_options li' );
+
 	// Prepare layout classes.
 	$.each( wc_composite_admin_params.layouts, function( index, layout ) {
 		layout_classes.push( 'layout-' + layout );
@@ -70,7 +78,7 @@ jQuery( function( $ ) {
 	// Hide the "Grouping" field.
 	$( '#linked_product_data .grouping.show_if_simple, #linked_product_data .form-field.show_if_grouped' ).addClass( 'hide_if_composite' );
 
-	// Simple type options are valid for bundles.
+	// Simple type options are valid for composites.
 	$( '.show_if_simple:not(.hide_if_composite)' ).addClass( 'show_if_composite' );
 
 	if ( typeof woocommerce_admin_meta_boxes === 'undefined' ) {
@@ -86,8 +94,29 @@ jQuery( function( $ ) {
 			$( '.show_if_composite' ).show();
 
 			$( 'input#_manage_stock' ).trigger( 'change' );
+
+			if ( is_virtual_checkbox_dirty ) {
+				$virtual_composite_checkbox.prop( 'checked', $virtual_checkbox.prop( 'checked' ) );
+			}
+
+			// Force virtual container to always show the shipping tab.
+			if ( ! $virtual_composite_checkbox.prop( 'checked' ) ) {
+				$virtual_checkbox.prop( 'checked', false ).change();
+			}
+
+			if ( 'unassembled' === $composite_type_options.find( 'input.composite_type_option:checked' ).first().val() ) {
+				$shipping_data_container.addClass( 'composite_unassembled' );
+				$components_panel.addClass( 'composite_unassembled' );
+			}
 		}
 
+	} );
+
+	// Determine when the virtual checkbox has become dirty.
+	$virtual_checkbox.on( 'change', function() {
+		if ( $virtual_checkbox.prop( 'checked' ) !== virtual_checkbox_init_val ) {
+			is_virtual_checkbox_dirty = true;
+		}
 	} );
 
 	// On submit, post two inputs to determine if 'max_input_vars' kicks in: One at the start of the form (control) and one at the end (test).
@@ -103,9 +132,6 @@ jQuery( function( $ ) {
 			$form.append( $test_var );
 		}
 	} );
-
-	// Trigger product type change.
-	$product_type_select.trigger( 'change' );
 
 	// Downloadable support.
 	$( 'input#_downloadable' ).on( 'change', function() {
@@ -2676,35 +2702,28 @@ jQuery( function( $ ) {
 
 	function init_composite_shipping() {
 
-		var $shipping_data_container  = $components_panel.parent().find( '#shipping_product_data' ),
-			$virtual_checkbox         = $( 'input#_virtual' ),
-			$composite_type_container = $shipping_data_container.find( '.options_group.composite_type' ),
-			$composite_type_options   = $composite_type_container.find( '.bto_type_options li' ),
-			virtual_state             = $( 'input#_virtual:checked' ).length ? true : false;
-
-		// Move Bundle type options group first.
+		// Move Composite type options group first.
 		$composite_type_container.detach().prependTo( $shipping_data_container );
 
 		// Move "Assembled Weight" field next to the Weight field.
 		$shipping_data_container.find( '.form-field._weight_field' ).after( $composite_type_container.find( '.form-field.composite_aggregate_weight_field' ) );
 
-		// Save virtual state.
-		$virtual_checkbox.on( 'change', function() {
-			if ( 'composite' !== $product_type_select.val() && 'bundle' !== $product_type_select.val() ) {
-				virtual_state = $( this ).prop( 'checked' ) ? true : false;
-			}
-		} );
+		// Keep virtual checkbox in sync with ours.
+ 		$virtual_composite_checkbox.on( 'change', function() {
 
-		$( 'body' ).on( 'woocommerce-product-type-change', function( event, select_val ) {
+			var is_checked = $virtual_composite_checkbox.prop( 'checked' );
 
-			if ( 'composite' !== select_val ) {
-				// Restore virtual state.
-				if ( 'simple' === select_val ) {
-					$virtual_checkbox.prop( 'checked', virtual_state ).trigger( 'change' );
-				}
-			}
+			if ( $virtual_checkbox.prop( 'checked' ) !== is_checked ) {
+ 				$virtual_checkbox.prop( 'checked', is_checked ).trigger( 'change' );
+ 			}
 
-		} );
+ 			if ( is_checked ) {
+ 				$components_panel.addClass( 'composite_virtual' );
+ 			} else {
+ 				$components_panel.removeClass( 'composite_virtual' );
+ 			}
+
+ 		} );
 
 		// Toggle container shipping class.
 		// Container classes are removed conditionaly using inline JS. @see WC_CP_Meta_Box_Product_Data::js_handle_container_classes()
@@ -2731,4 +2750,6 @@ jQuery( function( $ ) {
 
 	init_composite_shipping();
 
+	// Trigger product type change.
+	$product_type_select.trigger( 'change' );
 } );

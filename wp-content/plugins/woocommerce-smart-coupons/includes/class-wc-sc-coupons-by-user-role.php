@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.3.0
+ * @version     1.5.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -198,6 +198,10 @@ if ( ! class_exists( 'WC_SC_Coupons_By_User_Role' ) ) {
 			$exclude_user_role_ids = get_post_meta( $coupon_id, 'wc_sc_exclude_user_role_ids', true );
 
 			$current_user = wp_get_current_user();
+
+			if ( is_admin() ) {
+				return true;
+			}
 
 			if ( is_array( $user_role_ids ) && ! empty( $user_role_ids ) ) {
 				// Check if current user's role is allowed.

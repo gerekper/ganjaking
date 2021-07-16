@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composited Product wrapper class.
  *
  * @class    WC_CP_Product
- * @version  6.2.2
+ * @version  8.2.0
  */
 class WC_CP_Product {
 
@@ -466,7 +466,7 @@ class WC_CP_Product {
 		 * @param   string                $component_id
 		 * @param   WC_Product_Composite  $composite_product
 		 */
-		return is_null( $is_weight_aggregated ) ? null : apply_filters( 'woocommerce_composited_product_has_bundled_weight', $this->composite->get_aggregate_weight(), $product ? $product : $this->get_product(), $this->get_component_id(), $this->composite );
+		return is_null( $is_weight_aggregated ) ? null : apply_filters( 'woocommerce_composited_product_has_bundled_weight', $this->composite->get_aggregate_weight() && ! $this->composite->is_virtual_composite(), $product ? $product : $this->get_product(), $this->get_component_id(), $this->composite );
 	}
 
 	/**
@@ -1212,8 +1212,9 @@ class WC_CP_Product {
 			$product = $this->get_product();
 		}
 
-		$total_stock = $product->get_stock_quantity();
-		$quantity    = $this->get_quantity_min();
+		$total_stock  = $product->get_stock_quantity();
+		$quantity     = $this->get_quantity_min();
+		$availability = '';
 
 		if ( ! $product->is_in_stock() ) {
 
@@ -1291,8 +1292,6 @@ class WC_CP_Product {
 			}
 
 		} else {
-
-			$availability = '';
 
 			if ( class_exists( 'WC_CP_Admin_Ajax' ) && WC_CP_Admin_Ajax::is_composite_edit_request() ) {
 				$availability = __( 'In stock', 'woocommerce' );

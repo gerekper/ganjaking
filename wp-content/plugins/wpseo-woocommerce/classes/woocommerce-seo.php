@@ -5,6 +5,9 @@
  * @package WPSEO/WooCommerce
  */
 
+use Yoast\WP\SEO\Context\Meta_Tags_Context;
+use Yoast\WP\SEO\Helpers\Request_Helper;
+
 /**
  * Class Yoast_WooCommerce_SEO
  */
@@ -79,7 +82,7 @@ class Yoast_WooCommerce_SEO {
 			add_action( 'init', [ $this, 'initialize_schema' ] );
 			add_action( 'init', [ $this, 'initialize_twitter' ] );
 			add_action( 'init', [ $this, 'initialize_slack' ] );
-			add_filter( 'wpseo_frontend_presenters', [ $this, 'add_frontend_presenter' ] );
+			add_filter( 'wpseo_frontend_presenters', [ $this, 'add_frontend_presenter' ], 10, 2 );
 
 			// Add metadescription filter.
 			add_filter( 'wpseo_metadesc', [ $this, 'metadesc' ] );
@@ -158,15 +161,16 @@ class Yoast_WooCommerce_SEO {
 	 * Adds the WooCommerce OpenGraph presenter.
 	 *
 	 * @param \Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter[] $presenters The presenter instances.
+	 * @param \Yoast\WP\SEO\Context\Meta_Tags_Context                 $context The meta tags context.
 	 *
 	 * @return \Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter[] The extended presenters.
 	 */
-	public function add_frontend_presenter( $presenters ) {
+	public function add_frontend_presenter( $presenters, $context ) {
 		if ( ! is_array( $presenters ) ) {
 			return $presenters;
 		}
 
-		$product = $this->get_product();
+		$product = $this->get_product( $context );
 		if ( ! $product instanceof WC_Product ) {
 			return $presenters;
 		}
@@ -534,7 +538,7 @@ class Yoast_WooCommerce_SEO {
 		}
 		?>
 		<script type="text/javascript">
-			jQuery( document ).ready( function ( $ ) {
+			jQuery( function( $ ) {
 				// Show WooCommerce box before WP SEO metabox.
 				if ( $( "#woocommerce-product-data" ).length > 0 && $( "#wpseo_meta" ).length > 0 ) {
 					$( "#woocommerce-product-data" ).insertBefore( $( "#wpseo_meta" ) );
@@ -662,9 +666,11 @@ class Yoast_WooCommerce_SEO {
 	 *
 	 * @since 4.3
 	 *
+	 * @param \Yoast\WP\SEO\Context\Meta_Tags_Context $context The meta tags context.
+	 *
 	 * @return WC_Product|null
 	 */
-	private function get_product() {
+	private function get_product( $context = null ) {
 		if ( ! function_exists( 'wc_get_product' ) ) {
 			return null;
 		}
@@ -673,11 +679,27 @@ class Yoast_WooCommerce_SEO {
 			return wc_get_product( get_the_ID() );
 		}
 
-		if ( ! is_singular( 'product' ) ) {
+		$request_helper = new Request_Helper();
+
+		if ( ! $request_helper->is_rest_request() ) {
+			// This is a frontend request.
+			if ( is_a( $context, Meta_Tags_Context::class ) ) {
+				if ( $context->indexable->object_sub_type === 'product' ) {
+					$the_post = \get_post( $context->indexable->object_id );
+					return wc_get_product( $the_post );
+				}
+			}
+
 			return null;
 		}
 
-		return wc_get_product( get_queried_object_id() );
+		// This is a REST API request.
+		global $post;
+		if ( ! empty( $post ) && property_exists( $post, 'post_type' ) && $post->post_type === 'product' ) {
+			return wc_get_product( $post );
+		}
+
+		return null;
 	}
 
 	/**

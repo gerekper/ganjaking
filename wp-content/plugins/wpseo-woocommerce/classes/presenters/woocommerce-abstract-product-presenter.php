@@ -20,6 +20,13 @@ abstract class WPSEO_WooCommerce_Abstract_Product_Presenter extends Abstract_Ind
 	protected $product;
 
 	/**
+	 * The tag format including placeholders.
+	 *
+	 * @var string
+	 */
+	protected $tag_format = self::META_PROPERTY_CONTENT;
+
+	/**
 	 * WPSEO_WooCommerce_Abstract_Product_Presenter constructor.
 	 *
 	 * @param \WC_Product $product The product.

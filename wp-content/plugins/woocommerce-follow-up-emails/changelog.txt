@@ -1,5 +1,8 @@
 *** WooCommerce Follow-Up Emails ***
 
+2021-06-30 - version 4.9.14
+* Fix - Use local timezone for booking time and date variables.
+
 2021-03-17 - version 4.9.13
 * Fix - Preserve Google Analytics UTM url params in cart links when not logged in.
 * Fix - Remove deprecated jQuery functions.

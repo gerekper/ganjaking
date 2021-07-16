@@ -428,3 +428,40 @@ class WC_CP_Helpers {
 		return $clone;
 	}
 }
+
+/**
+ * Class to represent stock-managed items.
+ *
+ * @class  WC_CP_Array
+ * @since  8.2.0
+ */
+class WC_CP_Array implements ArrayAccess {
+
+	public function __construct( $data = array() ) {
+		$this->import( $data );
+	}
+
+	public function offsetGet( $offset ) {
+		return isset( $this->{ $offset } ) ? $this->{ $offset } : null;
+	}
+
+	public function offsetExists( $offset ) {
+		return isset( $this->{ $offset } );
+	}
+
+	public function offsetSet( $offset, $value ) {
+		if ( ! is_null( $offset ) ) {
+			$this->{ $offset } = $value;
+		}
+	}
+
+	public function offsetUnset( $offset ) {
+		unset( $this->{ $offset } );
+	}
+
+	public function import( $data ) {
+		foreach ( $data as $key => $value ) {
+			$this->{ $key } = $value;
+		}
+	}
+}

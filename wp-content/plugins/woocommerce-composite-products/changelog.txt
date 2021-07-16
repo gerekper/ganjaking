@@ -1,5 +1,12 @@
 *** WooCommerce Composite Products ***
 
+2021.07.08 - version 8.2.0
+* Feature - Re-introduce 'Virtual' checkbox for Composite Products. When saving a Composite as Virtual, all physical products purchased in its Components will be treated as Virtual, too.
+* Fix - Fixed 'Undefined variable: availability' notice in 'WC_CP_Product::get_availability_text()'.
+* Fix - Display the component page with the selected option on page load for paginated components.
+* Tweak - Updated the data structure returned by 'WC_CP_Scenarios_Manager::get_settings()' to prevent datatype errors when 'json_encode' gets called downstream.
+* Tweak - Added 'add-to-cart' parameter to submit button.
+
 2021.06.22 - version 8.1.4
 * Fix - Reset product ordering query filters after querying component options.
 * Fix - Hide stock message for composited products on backorder.

@@ -1,5 +1,13 @@
 *** Ship to Multiple Addresses Changelog ***
 
+2021-06-29 - version 3.6.29
+* Fix   - Use subtotal for free shipping calculation.
+* Fix   - Add new address button does not work in plain or numeric permalink.
+* Fix   - Display multiple addresses in preview order.
+
+2021-06-28 - version 3.6.28
+* Fix   - Change error text for no shipping method error.
+
 2021-06-22 - version 3.6.27
 * Fix   - Order total does not match for tax-inclusive pricing.
 * Fix   - The tax shows up as NaN in recurring cart if multiple shipping is used.

@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Ship to Multiple Addresses
  * Plugin URI: https://woocommerce.com/products/shipping-multiple-addresses/
  * Description: Allow customers to ship orders with multiple products or quantities to separate addresses instead of forcing them to place multiple orders for different delivery addresses.
- * Version: 3.6.27
+ * Version: 3.6.29
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: wc_shipping_multiple_address
@@ -33,7 +33,7 @@ function woocommerce_shipping_multiple_addresses_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
-	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '3.6.27' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '3.6.29' ); // WRCS: DEFINED_VERSION.
 
 	class WC_Ship_Multiple {
 
@@ -618,20 +618,24 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 					<div id="shipping_addresses">
 						<?php
 						foreach ($packages as $x => $package):
-							$has_address    = true;
+							$error_message = '';
 
 							if ( $this->is_address_empty( $package['destination'] ) ) {
-								$has_address = false;
+
+								$error_message = __( 'The following items do not have a shipping address assigned.', 'wc_shipping_multiple_address' );
+							
 							} elseif ( !isset( $package['rates'] ) || empty( $package['rates'] ) ) {
-								$has_address = false;
+
+								$error_message = __( 'There are no shipping options available for the following items.', 'wc_shipping_multiple_address' );
+
 							}
 
-							if (! $has_address ) {
+							if (! empty( $error_message ) ) {
 								// we have cart items with no set address
 								$products           = $package['contents'];
 								?>
 								<div class="ship_address no_shipping_address">
-									<em><?php _e('The following items do not have shipping addresses assigned.', 'wc_shipping_multiple_address'); ?></em>
+									<em><?php echo $error_message; ?></em>
 									<ul>
 									<?php
 										foreach ($products as $i => $product):

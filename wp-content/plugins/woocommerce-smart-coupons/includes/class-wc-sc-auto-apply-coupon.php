@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.6.0
- * @version     1.3.0
+ * @version     1.4.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -263,21 +263,60 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 		 * Function to apply coupons automatically.
 		 */
 		public function auto_apply_coupons() {
-
 			$cart = ( is_object( WC() ) && isset( WC()->cart ) ) ? WC()->cart : null;
 			if ( is_object( $cart ) && is_callable( array( $cart, 'is_empty' ) ) && ! $cart->is_empty() ) {
-				$auto_apply_coupon_ids = get_option( 'wc_sc_auto_apply_coupon_ids', array() );
+				global $wpdb;
+				$user_role = '';
+				$email     = '';
+				if ( ! is_admin() ) {
+					$current_user = wp_get_current_user();
+					if ( ! empty( $current_user->ID ) ) {
+						$user_role = ( ! empty( $current_user->roles[0] ) ) ? $current_user->roles[0] : '';
+						$email     = get_user_meta( $current_user->ID, 'billing_email', true );
+						$email     = ( ! empty( $email ) ) ? $email : $current_user->user_email;
+					}
+				}
+				$query = $wpdb->prepare(
+					"SELECT DISTINCT p.ID
+						FROM {$wpdb->posts} AS p
+							JOIN {$wpdb->postmeta} AS pm1
+								ON (p.ID = pm1.post_id
+									AND p.post_type = %s
+									AND p.post_status = %s
+									AND pm1.meta_key = %s
+									AND pm1.meta_value = %s)
+							JOIN {$wpdb->postmeta} AS pm2
+								ON (p.ID = pm2.post_id
+									AND pm2.meta_key IN ('wc_sc_user_role_ids', 'customer_email')
+									AND (pm2.meta_value = ''
+											OR pm2.meta_value = 'a:0:{}'",
+					'shop_coupon',
+					'publish',
+					'wc_sc_auto_apply_coupon',
+					'yes'
+				);
+				if ( ! empty( $user_role ) ) {
+					$query .= $wpdb->prepare(
+						' OR pm2.meta_value LIKE %s',
+						'%' . $wpdb->esc_like( $user_role ) . '%'
+					);
+				}
+				if ( ! empty( $email ) ) {
+					$query .= $wpdb->prepare(
+						' OR pm2.meta_value LIKE %s',
+						'%' . $wpdb->esc_like( $email ) . '%'
+					);
+				}
+				$query                .= '))';
+				$auto_apply_coupon_ids = $wpdb->get_col( $query ); // phpcs:ignore
+				$auto_apply_coupon_ids = array_filter( array_map( 'absint', $auto_apply_coupon_ids ) );
 				if ( ! empty( $auto_apply_coupon_ids ) && is_array( $auto_apply_coupon_ids ) ) {
 					$valid_coupon_counter         = 0;
-					$max_auto_apply_coupons_limit = apply_filters( 'wc_sc_max_auto_apply_coupons_limit', 5, array( 'source' => $this ) );
+					$max_auto_apply_coupons_limit = apply_filters( 'wc_sc_max_auto_apply_coupons_limit', get_option( 'wc_sc_max_auto_apply_coupons_limit', 5 ), array( 'source' => $this ) );
 					foreach ( $auto_apply_coupon_ids as $apply_coupon_id ) {
 						// Process only five coupons.
 						if ( absint( $max_auto_apply_coupons_limit ) === $valid_coupon_counter ) {
 							break;
-						}
-						$coupon_status = get_post_status( $apply_coupon_id );
-						if ( 'publish' !== $coupon_status ) {
-							continue;
 						}
 						$coupon = new WC_Coupon( absint( $apply_coupon_id ) );
 						if ( $this->is_wc_gte_30() ) {
@@ -288,13 +327,11 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 						// Check if it is a valid coupon object.
 						if ( $apply_coupon_id === $coupon_id ) {
 							if ( $this->is_wc_gte_30() ) {
-								$coupon_code   = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_code' ) ) ) ? $coupon->get_code() : '';
-								$discount_type = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
+								$coupon_code = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_code' ) ) ) ? $coupon->get_code() : '';
 							} else {
-								$coupon_code   = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
-								$discount_type = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
+								$coupon_code = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
 							}
-							if ( ! empty( $coupon_code ) && 'smart_coupon' !== $discount_type && $coupon->is_valid() ) {
+							if ( ! empty( $coupon_code ) && $coupon->is_valid() ) {
 								$cart_total    = ( $this->is_wc_greater_than( '3.1.2' ) ) ? $cart->get_cart_contents_total() : $cart->cart_contents_total;
 								$is_auto_apply = apply_filters(
 									'wc_sc_is_auto_apply',

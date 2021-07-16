@@ -27,6 +27,7 @@ class WC_Product_Composite_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 */
 	protected $extended_internal_meta_keys = array(
 		'_bto_data',
+		'_bto_virtual_composite',
 		'_bto_scenario_data',
 		'_bto_base_price',
 		'_bto_base_regular_price',
@@ -45,6 +46,7 @@ class WC_Product_Composite_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 * @var array
 	 */
 	protected $props_to_meta_keys = array(
+		'virtual_composite'         => '_bto_virtual_composite',
 		'price'                     => '_bto_base_price',
 		'regular_price'             => '_bto_base_regular_price',
 		'sale_price'                => '_bto_base_sale_price',
@@ -136,7 +138,7 @@ class WC_Product_Composite_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 			$meta_value = $product->$property_get_fn( 'edit' );
 
 			// Sanitize it for storage.
-			if ( in_array( $property, array( 'editable_in_cart', 'aggregate_weight' ) ) ) {
+			if ( in_array( $property, array( 'editable_in_cart', 'aggregate_weight', 'virtual_composite' ) ) ) {
 				$meta_value = wc_bool_to_string( $meta_value );
 			}
 

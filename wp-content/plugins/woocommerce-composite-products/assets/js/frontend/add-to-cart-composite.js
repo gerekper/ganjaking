@@ -2705,7 +2705,7 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 						 * 'compat_group' and 'conditional_options' scenarios when the options state was calculated.
 						 */
 						options_in_scenarios: {
-							compat_group: composite.scenarios.filter_scenarios_by_type( 'compat_group' ),
+							compat_group: composite.scenarios.get_scenarios_by_type( 'compat_group' ),
 							conditional_options: []
 						}
 					};
@@ -5141,6 +5141,7 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 							$summary_element_inner:   view.$el.find( '.summary_element_' + components[ component_index ].component_id + ' .summary_element_wrapper_inner' ),
 
 							template_html: '',
+							content_data: {},
 							load_height:   0
 						};
 					}
@@ -5237,6 +5238,12 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 
 					this.render_element_visibility( step );
 					this.render_columns( step.step_index );
+
+					for ( var index = 0, components = composite.get_components(), length = components.length; index < length; index++ ) {
+						if ( components[ index ].is_visible() && index > step.step_index && this.view_elements[ components[ index ].step_id ].content_data.element_index && this.view_elements[ components[ index ].step_id ].content_data.element_index !== components[ index ].get_title_index() ) {
+							this.render_element_content( components[ index ] );
+						}
+					}
 				},
 
 				active_step_changed_handler: function() {
@@ -5773,6 +5780,7 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 					if ( new_template_html !== template_html ) {
 
 						this.view_elements[ component_id ].template_html = new_template_html;
+						this.view_elements[ component_id ].content_data  = content_data;
 
 						// Update content.
 						$item_summary_inner.html( new_template_html );
@@ -5862,7 +5870,7 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 				},
 
 				/**
-				 * Renders a single element's state (active/inactive).
+				 * Renders a single element's visibility.
 				 */
 				render_element_visibility: function( step ) {
 

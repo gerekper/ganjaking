@@ -337,10 +337,10 @@ class FUE_Addon_Bookings {
 			$booking            = get_wc_booking( $booking_id );
 			$booking_product    = $booking->get_product();
 			$booking_order      = $booking->get_order();
-			$booking_start      = $booking->get_start_date( wc_date_format() .' ', wc_time_format() );
-			$booking_end        = $booking->get_end_date( wc_date_format() .' ', wc_time_format() );
-			$booking_date     = $booking->get_start_date( wc_date_format(), '' );
-			$booking_time     = $booking->get_start_date( '', wc_time_format() );
+			$booking_start      = $booking->get_start_date( wc_date_format() .' ', wc_time_format(), wc_should_convert_timezone( $booking ) );
+			$booking_end        = $booking->get_end_date( wc_date_format() .' ', wc_time_format(), wc_should_convert_timezone( $booking ) );
+			$booking_date     = $booking->get_start_date( wc_date_format(), '', wc_should_convert_timezone( $booking ) );
+			$booking_time     = $booking->get_start_date( '', wc_time_format(), wc_should_convert_timezone( $booking ) );
 			$booking_amount   = wc_price( $booking->cost );
 			$booking_persons  = '';
 			$booking_resource = ( $booking->resource_id > 0 ) ? get_the_title( $booking->resource_id ) : '';

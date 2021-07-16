@@ -1178,10 +1178,7 @@ class GFFormDisplay {
 					$iframe_content = '';
 				}
 
-				$form_string .= "
-                <iframe style='{$iframe_style}' src='about:blank' name='gform_ajax_frame_{$form_id}' id='gform_ajax_frame_{$form_id}'" . $iframe_title . ">" . $iframe_content . "</iframe>
-                <script type='text/javascript'>" . apply_filters( 'gform_cdata_open', '' ) . '' .
-					'gform.initializeOnLoaded( function() {' .
+				$form_scripts_body = 'gform.initializeOnLoaded( function() {' .
 						"gformInitSpinner( {$form_id}, '{$spinner_url}' );" .
 						"jQuery('#gform_ajax_frame_{$form_id}').on('load',function(){" .
 							"var contents = jQuery(this).contents().find('*').html();" .
@@ -1222,7 +1219,13 @@ class GFFormDisplay {
 							'}' .
 							"jQuery(document).trigger('gform_post_render', [{$form_id}, current_page]);" .
 						'} );' .
-					'} );' . apply_filters( 'gform_cdata_close', '' ) . '</script>';
+					'} );';
+
+				$form_scripts = GFCommon::get_inline_script_tag( $form_scripts_body );
+
+				$form_string .= "
+                <iframe style='{$iframe_style}' src='about:blank' name='gform_ajax_frame_{$form_id}' id='gform_ajax_frame_{$form_id}'" . $iframe_title . ">" . $iframe_content . "</iframe>
+                {$form_scripts}";
 			}
 
 			$is_first_load = ! $is_postback;
@@ -1244,12 +1247,13 @@ class GFFormDisplay {
 				 */
 				if ( apply_filters( 'gform_init_scripts_footer', $init_in_footer ) ) {
 					$callback = array( new GF_Late_Static_Binding( array( 'form_id' => $form['id'] ) ), 'GFFormDisplay_footer_init_scripts' );
-					add_action( 'wp_footer', $callback, 20 );
-					add_action( 'admin_footer', $callback, 20 );
+					add_action( 'wp_footer', $callback, 999 );
+					add_action( 'admin_print_footer_scripts', $callback, 999 );
 					add_action( 'gform_preview_footer', $callback );
 				} else {
-					$form_string .= self::get_form_init_scripts( $form );
-					$form_string .= "<script type='text/javascript'>" . apply_filters( 'gform_cdata_open', '' ) . " gform.initializeOnLoaded( function() {  jQuery(document).trigger('gform_post_render', [{$form_id}, {$current_page}]) } ); " . apply_filters( 'gform_cdata_close', '' ) . '</script>';
+					$form_string      .= self::get_form_init_scripts( $form );
+					$init_script_body = "gform.initializeOnLoaded( function() {  jQuery(document).trigger('gform_post_render', [{$form_id}, {$current_page}]) } );";
+					$form_string      .= GFCommon::get_inline_script_tag( $init_script_body );
 				}
 			}
 
@@ -1283,10 +1287,11 @@ class GFFormDisplay {
 	public static function footer_init_scripts( $form_id ) {
 		global $_init_forms;
 
-		$form         = RGFormsModel::get_form_meta( $form_id );
-		$form_string  = self::get_form_init_scripts( $form );
-		$current_page = self::get_current_page( $form_id );
-		$form_string .= "<script type='text/javascript'>" . apply_filters( 'gform_cdata_open', '' ) . " gform.initializeOnLoaded( function() { jQuery(document).trigger('gform_post_render', [{$form_id}, {$current_page}]) } ); " . apply_filters( 'gform_cdata_close', '' ) . '</script>';
+		$form               = RGFormsModel::get_form_meta( $form_id );
+		$form_string        = self::get_form_init_scripts( $form );
+		$current_page       = self::get_current_page( $form_id );
+		$footer_script_body = "gform.initializeOnLoaded( function() { jQuery(document).trigger('gform_post_render', [{$form_id}, {$current_page}]) } );";
+		$form_string        .= GFCommon::get_inline_script_tag( $footer_script_body );
 
 		/**
 		 * A filter to allow modification of scripts that fire in the footer
@@ -1851,14 +1856,12 @@ class GFFormDisplay {
 	private static function get_js_redirect_confirmation( $url, $ajax ) {
 		// JSON_HEX_TAG is available on PHP >= 5.3. It will prevent payloads such as <!--<script> from causing an error on redirection.
 		$url =  defined( 'JSON_HEX_TAG' ) ? json_encode( $url, JSON_HEX_TAG ) : json_encode( $url );
-		$confirmation = "<script type=\"text/javascript\">" . apply_filters( 'gform_cdata_open', '' ) . " function gformRedirect(){document.location.href={$url};}";
+		$script_body = "function gformRedirect(){document.location.href={$url};}";
 		if ( ! $ajax ) {
-			$confirmation .= 'gformRedirect();';
+			$script_body .= 'gformRedirect();';
 		}
 
-		$confirmation .= apply_filters( 'gform_cdata_close', '' ) . '</script>';
-
-		return $confirmation;
+		return GFCommon::get_inline_script_tag( $script_body );
 	}
 
 	public static function send_emails( $form, $lead ) {
@@ -3002,48 +3005,43 @@ class GFFormDisplay {
 
 	public static function get_form_init_scripts( $form ) {
 
-		$script_string = '';
+		$script_body = '';
 
 		if ( ! $form ) {
-			return $script_string;
+			return $script_body;
 		}
 
 		/* rendering initialization scripts */
 		$init_scripts = rgar( self::$init_scripts, $form['id'] );
 
 		if ( ! empty( $init_scripts ) ) {
-			$script_string =
-				"<script type='text/javascript'>" . apply_filters( 'gform_cdata_open', '' ) . ' ';
+			$script_body = isset( $gf_global_script ) ? $gf_global_script : '';
 
-			$script_string .= isset( $gf_global_script ) ? $gf_global_script : '';
-
-			$script_string .=
+			$script_body .=
 				"gform.initializeOnLoaded( function() { jQuery(document).on('gform_post_render', function(event, formId, currentPage){" .
 				"if(formId == {$form['id']}) {";
 
 			foreach ( $init_scripts as $init_script ) {
 				if ( $init_script['location'] == self::ON_PAGE_RENDER ) {
-					$script_string .= $init_script['script'];
+					$script_body .= $init_script['script'];
 				}
 			}
 
-			$script_string .=
+			$script_body .=
 				"} " . //keep the space. needed to prevent plugins from replacing }} with ]}
 				"} );" .
 
 				"jQuery(document).bind('gform_post_conditional_logic', function(event, formId, fields, isInit){";
 			foreach ( $init_scripts as $init_script ) {
 				if ( $init_script['location'] == self::ON_CONDITIONAL_LOGIC ) {
-					$script_string .= $init_script['script'];
+					$script_body .= $init_script['script'];
 				}
 			}
 
-			$script_string .=
-
-				"} ) } );" . apply_filters( 'gform_cdata_close', '' ) . '</script>';
+			$script_body .= '} ) } );';
 		}
 
-		return $script_string;
+		return GFCommon::get_inline_script_tag( $script_body );
 	}
 
 	public static function get_chosen_init_script( $form ) {

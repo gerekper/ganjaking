@@ -11,11 +11,11 @@
 class WPSEO_WooCommerce_Pinterest_Product_Availability_Presenter extends WPSEO_WooCommerce_Abstract_Product_Availability_Presenter {
 
 	/**
-	 * The tag format including placeholders.
+	 * The tag key name.
 	 *
 	 * @var string
 	 */
-	protected $tag_format = '<meta property="og:availability" content="%s" />';
+	protected $key = 'og:availability';
 
 	/**
 	 * Gets the raw value of a presentation.

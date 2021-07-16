@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WooCommerce core Product Exporter support.
  *
  * @class    WC_CP_Product_Export
- * @version  3.14.0
+ * @version  8.2.0
  */
 class WC_CP_Product_Export {
 
@@ -32,6 +32,7 @@ class WC_CP_Product_Export {
 		// Custom column content.
 		add_filter( 'woocommerce_product_export_product_column_wc_cp_components', array( __CLASS__, 'export_components' ), 10, 2 );
 		add_filter( 'woocommerce_product_export_product_column_wc_cp_scenarios', array( __CLASS__, 'export_scenarios' ), 10, 2 );
+		add_filter( 'woocommerce_product_export_product_column_wc_cp_virtual_composite', array( __CLASS__, 'export_virtual_composite' ), 10, 2 );
 		add_filter( 'woocommerce_product_export_product_column_wc_cp_layout', array( __CLASS__, 'export_layout' ), 10, 2 );
 		add_filter( 'woocommerce_product_export_product_column_wc_cp_editable_in_cart', array( __CLASS__, 'export_editable_in_cart' ), 10, 2 );
 		add_filter( 'woocommerce_product_export_product_column_wc_cp_sold_individually_context', array( __CLASS__, 'export_sold_individually_context' ), 10, 2 );
@@ -49,6 +50,7 @@ class WC_CP_Product_Export {
 
 		$columns[ 'wc_cp_components' ]                = __( 'Composite Components (JSON-encoded)', 'woocommerce-composite-products' );
 		$columns[ 'wc_cp_scenarios' ]                 = __( 'Composite Scenarios (JSON-encoded)', 'woocommerce-composite-products' );
+		$columns[ 'wc_cp_virtual_composite' ]         = __( 'Composite Contents Virtual', 'woocommerce-composite-products' );
 		$columns[ 'wc_cp_layout' ]                    = __( 'Composite Layout', 'woocommerce-composite-products' );
 		$columns[ 'wc_cp_editable_in_cart' ]          = __( 'Composite Cart Editing', 'woocommerce-composite-products' );
 		$columns[ 'wc_cp_sold_individually_context' ] = __( 'Composite Sold Individually', 'woocommerce-composite-products' );
@@ -214,6 +216,22 @@ class WC_CP_Product_Export {
 
 		return $value;
 	}
+
+	/**
+ 	 * "Composite Contents Virtual" column content.
+ 	 *
+ 	 * @param  mixed       $value
+ 	 * @param  WC_Product  $product
+ 	 * @return mixed       $value
+ 	 */
+ 	public static function export_virtual_composite( $value, $product ) {
+
+ 		if ( $product->is_type( 'composite' ) ) {
+ 			$value = $product->get_virtual_composite( 'edit' ) ? 1 : 0;
+ 		}
+
+ 		return $value;
+ 	}
 
 	/**
 	 * "Composite Layout" column content.

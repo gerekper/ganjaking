@@ -3,9 +3,11 @@
 namespace Yoast\WP\SEO\Premium\Integrations\Admin;
 
 use WPSEO_Admin_Asset_Manager;
+use WPSEO_Premium_Asset_JS_L10n;
 use WPSEO_Shortlinker;
 use Yoast\WP\SEO\Conditionals\Admin_Conditional;
 use Yoast\WP\SEO\Helpers\Options_Helper;
+use Yoast\WP\SEO\Helpers\Post_Type_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Premium\Actions\Link_Suggestions_Action;
@@ -60,6 +62,13 @@ class Workouts_Integration implements Integration_Interface {
 	private $prominent_words_helper;
 
 	/**
+	 * The post type helper.
+	 *
+	 * @var Post_Type_Helper
+	 */
+	private $post_type_helper;
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public static function get_conditionals() {
@@ -82,7 +91,8 @@ class Workouts_Integration implements Integration_Interface {
 		WPSEO_Admin_Asset_Manager $admin_asset_manager,
 		WPSEO_Shortlinker $shortlinker,
 		Options_Helper $options_helper,
-		Prominent_Words_Helper $prominent_words_helper
+		Prominent_Words_Helper $prominent_words_helper,
+		Post_Type_Helper $post_type_helper
 	) {
 		$this->indexable_repository    = $indexable_repository;
 		$this->link_suggestions_action = $link_suggestions_action;
@@ -90,6 +100,7 @@ class Workouts_Integration implements Integration_Interface {
 		$this->shortlinker             = $shortlinker;
 		$this->options_helper          = $options_helper;
 		$this->prominent_words_helper  = $prominent_words_helper;
+		$this->post_type_helper        = $post_type_helper;
 	}
 
 	/**
@@ -132,10 +143,17 @@ class Workouts_Integration implements Integration_Interface {
 
 		$this->admin_asset_manager->enqueue_style( 'monorepo' );
 		$cornerstone_guide = $this->shortlinker->build_shortlink( 'https://yoa.st/4el' );
+		$object_sub_types  = \array_values(
+			\array_merge(
+				$this->post_type_helper->get_public_post_types(),
+				\get_taxonomies( [ 'public' => true ] )
+			)
+		);
 
 		$cornerstones = $this->indexable_repository->query()
 			->where_raw( 'is_cornerstone=1 AND ( post_status NOT IN ( \'draft\', \'auto-draft\', \'trash\' ) OR post_status IS NULL )' )
 			->where_in( 'object_type', [ 'term', 'post' ] )
+			->where_in( 'object_sub_type', $object_sub_types )
 			->order_by_desc( 'incoming_link_count' )
 			->find_many();
 		$cornerstones = \array_map( [ $this->indexable_repository, 'ensure_permalink' ], $cornerstones );
@@ -162,10 +180,14 @@ class Workouts_Integration implements Integration_Interface {
 			->where_raw( '(post_status NOT IN ( \'draft\', \'auto-draft\', \'trash\' ) OR post_status IS NULL)' )
 			->where_raw( '(object_sub_type NOT IN ( \'attachment\' ) OR post_status IS NULL)' )
 			->where_in( 'object_type', [ 'term', 'post' ] )
+			->where_in( 'object_sub_type', $object_sub_types )
 			->order_by_desc( 'incoming_link_count' )
 			->limit( 20 )
 			->find_many();
 		$most_linked = \array_map( [ $this->indexable_repository, 'ensure_permalink' ], $most_linked );
+
+		$premium_localization = new WPSEO_Premium_Asset_JS_L10n();
+		$premium_localization->localize_script( 'yoast-seo-premium-workouts' );
 
 		\wp_enqueue_style( 'yoast-seo-workouts' );
 		\wp_enqueue_script( 'yoast-seo-premium-workouts' );

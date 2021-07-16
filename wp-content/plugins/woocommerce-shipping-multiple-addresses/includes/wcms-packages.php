@@ -146,6 +146,7 @@ class WC_MS_Packages {
 						$pkg = array(
 							'contents'      => array(),
 							'contents_cost' => 0,
+							'cart_subtotal' => 0,
 							'destination'   => $group['address']
 						);
 
@@ -189,6 +190,12 @@ class WC_MS_Packages {
 							$pkg['contents'][ $cart_item_id ] = $item['value'];
 							if ( $item['value']['data']->needs_shipping() ) {
 								$pkg['contents_cost'] += $item['value']['line_total'];
+
+								if( WC()->cart->display_prices_including_tax() ){
+									$pkg['cart_subtotal'] += $item['value']['line_subtotal'] + $item['value']['line_subtotal_tax'];
+								}else{
+									$pkg['cart_subtotal'] += $item['value']['line_subtotal'];
+								}
 							}
 						}
 

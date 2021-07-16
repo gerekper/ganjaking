@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb6f4f97d62a32ee2cdb39a106c45ee2f
+class ComposerStaticInit3522688484b543edc34ee6395e758d24
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -191,6 +191,7 @@ class ComposerStaticInitb6f4f97d62a32ee2cdb39a106c45ee2f
         'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_PostType_Archive' => __DIR__ . '/../..' . '/src/integrations/opengraph-posttype-archive.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Post_Type' => __DIR__ . '/../..' . '/src/integrations/opengraph-post-type.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive' => __DIR__ . '/../..' . '/src/integrations/opengraph-term-archive.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Algolia' => __DIR__ . '/../..' . '/src/integrations/third-party/algolia.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium' => __DIR__ . '/../..' . '/src/integrations/third-party/elementor-premium.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier' => __DIR__ . '/../..' . '/src/integrations/third-party/zapier.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Classic_Editor' => __DIR__ . '/../..' . '/src/integrations/third-party/zapier-classic-editor.php',
@@ -212,18 +213,17 @@ class ComposerStaticInitb6f4f97d62a32ee2cdb39a106c45ee2f
         'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Categories' => __DIR__ . '/../..' . '/src/schema-templates/block-patterns/block-pattern-categories.php',
         'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Keywords' => __DIR__ . '/../..' . '/src/schema-templates/block-patterns/block-pattern-keywords.php',
         'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Base_Pattern' => __DIR__ . '/../..' . '/src/schema-templates/block-patterns/job-posting-base-pattern.php',
-        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Default' => __DIR__ . '/../..' . '/src/schema-templates/block-patterns/job-posting-default.php',
-        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Minimal' => __DIR__ . '/../..' . '/src/schema-templates/block-patterns/job-posting-minimal.php',
-        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Yoast_Com' => __DIR__ . '/../..' . '/src/schema-templates/block-patterns/job-posting-yoast-com.php',
+        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_One_Column' => __DIR__ . '/../..' . '/src/schema-templates/block-patterns/job-posting-one-column.php',
+        'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Two_Columns' => __DIR__ . '/../..' . '/src/schema-templates/block-patterns/job-posting-two-columns.php',
         'Yoast\\WP\\SEO\\WordPress\\Premium_Wrapper' => __DIR__ . '/../..' . '/src/deprecated/wordpress/renamed-classes.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb6f4f97d62a32ee2cdb39a106c45ee2f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb6f4f97d62a32ee2cdb39a106c45ee2f::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb6f4f97d62a32ee2cdb39a106c45ee2f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3522688484b543edc34ee6395e758d24::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3522688484b543edc34ee6395e758d24::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3522688484b543edc34ee6395e758d24::$classMap;
 
         }, null, ClassLoader::class);
     }

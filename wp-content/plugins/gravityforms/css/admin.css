@@ -116,6 +116,12 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 
 /* -----------------------------------------------------------------------------
  *
+ * Mixins: Elements
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ *
  * Mixins: Icons
  *
  * ----------------------------------------------------------------------------- */
@@ -301,6 +307,14 @@ a .gform-icon {
 
 .gform-admin .gform-c-hunter {
 		color: #276a52;
+	}
+
+.gform-admin .gform-c-orange {
+		color: #f15a2b;
+	}
+
+.gform-admin .gform-c-blue-ribbon {
+		color: #175cff;
 	}
 
 /* spacing */
@@ -2428,7 +2442,7 @@ div.field_setting.field_error {
 
 .gfield-warning::before {
 		color: #175cff;
-		content: "\e931";
+		content: "\e939";
 		font-family: "gform-icons-admin" !important;
 		font-size: 1.25rem;
 		left: 1.312rem;
@@ -2759,26 +2773,11 @@ html[dir="rtl"] .panel-block-tabs__body--settings input[type="radio"]:not(.field
 			margin-right: initial;
 		}
 
-/*
- * todo: This should not be polluting admin
- */
-
-textarea:focus, input:focus, select:focus {
-	border: 2px solid #bed8ed;
-	box-shadow: 0 0.125rem 0.0625rem rgba(28, 31, 63, 0.0634624);
-}
-
 /** Override WP core styles */
 
 .gfield input[type="checkbox"], .gfield input[type="radio"] {
 	height: 1rem;
 	width: 1rem;
-}
-
-select:focus {
-	border: 2px solid #bed8ed;
-	box-shadow: 0 0 0 1px #3e7da6;
-	color: #3e7da6;
 }
 
 /* Merge Tags */

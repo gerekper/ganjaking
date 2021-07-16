@@ -11,11 +11,11 @@
 class WPSEO_WooCommerce_Product_Price_Amount_Presenter extends WPSEO_WooCommerce_Abstract_Product_Presenter {
 
 	/**
-	 * The tag format including placeholders.
+	 * The tag key name.
 	 *
 	 * @var string
 	 */
-	protected $tag_format = '<meta property="product:price:amount" content="%s" />';
+	protected $key = 'product:price:amount';
 
 	/**
 	 * Gets the raw value of a presentation.

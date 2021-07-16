@@ -5,7 +5,7 @@
 	"title": "{{attribute name="job-title" }}",
 	"description": {{inner-blocks-html blocks={ "yoast/job-description": "description" } null-when-empty=true allowed-tags=[ "h1","h2","h3","h4","h5","h6","br","a","p","b","strong","i","em", "ul", "ol", "li" ] }},
 	"datePosted": "%%post_date%%",
-	"validThrough": {{inner-blocks allowed-blocks=[ "yoast/job-expiration" ] only-first=true }},
+	"validThrough": {{inner-blocks allowed-blocks=[ "yoast/job-application-closing-date" ] only-first=true }},
 	"employmentType": {{inner-blocks allowed-blocks=[ "yoast/job-employment-type" ] only-first=true }},
 	"hiringOrganization": {
 		"@id": "%%organization_id%%"

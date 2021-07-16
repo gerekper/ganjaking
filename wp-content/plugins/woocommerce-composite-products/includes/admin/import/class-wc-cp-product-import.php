@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WooCommerce core Product Importer support.
  *
  * @class    WC_CP_Product_Import
- * @version  3.14.0
+ * @version  8.2.0
  */
 class WC_CP_Product_Import {
 
@@ -59,6 +59,7 @@ class WC_CP_Product_Import {
 
 		$options[ 'wc_cp_components' ]                = __( 'Composite Components (JSON-encoded)', 'woocommerce-composite-products' );
 		$options[ 'wc_cp_scenarios' ]                 = __( 'Composite Scenarios (JSON-encoded)', 'woocommerce-composite-products' );
+		$options[ 'wc_cp_virtual_composite' ]         = __( 'Composite Contents Virtual', 'woocommerce-composite-products' );
 		$options[ 'wc_cp_layout' ]                    = __( 'Composite Layout', 'woocommerce-composite-products' );
 		$options[ 'wc_cp_editable_in_cart' ]          = __( 'Composite Cart Editing', 'woocommerce-composite-products' );
 		$options[ 'wc_cp_sold_individually_context' ] = __( 'Composite Sold Individually', 'woocommerce-composite-products' );
@@ -78,6 +79,7 @@ class WC_CP_Product_Import {
 
 		$columns[ __( 'Composite Components (JSON-encoded)', 'woocommerce-composite-products' ) ] = 'wc_cp_components';
 		$columns[ __( 'Composite Scenarios (JSON-encoded)', 'woocommerce-composite-products' ) ]  = 'wc_cp_scenarios';
+		$columns[ __( 'Composite Contents Virtual', 'woocommerce-composite-products' ) ]          = 'wc_cp_virtual_composite';
 		$columns[ __( 'Composite Layout', 'woocommerce-composite-products' ) ]                    = 'wc_cp_layout';
 		$columns[ __( 'Composite Cart Editing', 'woocommerce-composite-products' ) ]              = 'wc_cp_editable_in_cart';
 		$columns[ __( 'Composite Sold Individually', 'woocommerce-composite-products' ) ]         = 'wc_cp_sold_individually_context';
@@ -87,6 +89,7 @@ class WC_CP_Product_Import {
 		// Always add English mappings.
 		$columns[ 'Composite Components (JSON-encoded)' ] = 'wc_cp_components';
 		$columns[ 'Composite Scenarios (JSON-encoded)' ]  = 'wc_cp_scenarios';
+		$columns[ 'Composite Contents Virtual' ]          = 'wc_cp_virtual_composite';
 		$columns[ 'Composite Layout' ]                    = 'wc_cp_layout';
 		$columns[ 'Composite Cart Editing' ]              = 'wc_cp_editable_in_cart';
 		$columns[ 'Composite Sold Individually' ]         = 'wc_cp_sold_individually_context';
@@ -253,6 +256,10 @@ class WC_CP_Product_Import {
 		if ( ( $product instanceof WC_Product ) && $product->is_type( 'composite' ) ) {
 
 			$props = array();
+
+			if ( isset( $data[ 'wc_cp_virtual_composite' ] ) ) {
+ 				$props[ 'virtual_composite' ] = 1 === intval( $data[ 'wc_cp_virtual_composite' ] ) ? 'yes' : 'no';
+ 			}
 
 			if ( isset( $data[ 'wc_cp_layout' ] ) ) {
 				$props[ 'layout' ] = strval( $data[ 'wc_cp_layout' ] );

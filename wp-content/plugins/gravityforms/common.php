@@ -3,6 +3,8 @@ if ( ! class_exists( 'GFForms' ) ) {
 	die();
 }
 
+use \Gravity_Forms\Gravity_Forms\Messages\Dismissable_Messages;
+
 /**
  * Class GFCommon
  *
@@ -5199,20 +5201,27 @@ Content-Type: text/html;
 		$gf_vars['configure']               = esc_html__( 'Configure', 'gravityform' );
 		$gf_vars['conditional_logic_text']  = esc_html__( 'Conditional Logic', 'gravityforms' );
 		$gf_vars['conditional_logic_desc']  = esc_html__( 'Conditional logic allows you to change what the user sees depending on the fields they select.', 'gravityforms' );
-		$gf_vars['conditional_logic_a11y']  = esc_html__( 'Adding conditional logic to the form submit button could cause usabilty problems for some users and negatively impact the accessibility of your form.', 'gravityforms' );
-		$gf_vars['page']                    = esc_html__( 'Page', 'gravityforms' );
-		$gf_vars['next_button']             = esc_html__( 'Next Button', 'gravityforms' );
-		$gf_vars['all']                     = esc_html( _x( 'All', 'Conditional Logic', 'gravityforms' ) );
-		$gf_vars['any']                     = esc_html( _x( 'Any', 'Conditional Logic', 'gravityforms' ) );
-		$gf_vars['ofTheFollowingMatch']     = esc_html__( 'of the following match:', 'gravityforms' );
-		$gf_vars['is']                      = esc_html__( 'is', 'gravityforms' );
-		$gf_vars['isNot']                   = esc_html__( 'is not', 'gravityforms' );
-		$gf_vars['greaterThan']             = esc_html__( 'greater than', 'gravityforms' );
-		$gf_vars['lessThan']                = esc_html__( 'less than', 'gravityforms' );
-		$gf_vars['contains']                = esc_html__( 'contains', 'gravityforms' );
-		$gf_vars['startsWith']              = esc_html__( 'starts with', 'gravityforms' );
-		$gf_vars['endsWith']                = esc_html__( 'ends with', 'gravityforms' );
-		$gf_vars['emptyChoice']             = wp_strip_all_tags( __( 'Empty (no choices selected)', 'gravityforms' ) );
+		/**
+		 * @translators: %1$s is an opening <a> tag containing a href attribute
+		 *               %2$s is a closing <a> tag
+		 */
+		$logic_a11y_warn                   = esc_html__( 'Adding conditional logic to the form submit button could cause usability problems for some users and negatively impact the accessibility of your form. Learn more about button conditional logic in our %1$sdocumentation%2$s.', 'gravityforms' );
+		$logic_a11y_warn_link1             = '<a href="https://docs.gravityforms.com/field-accessibility-warning/" target="_blank" rel="noopener">';
+		$logic_a11y_warn_link2             = '</a>';
+		$gf_vars['conditional_logic_a11y'] = sprintf( $logic_a11y_warn, $logic_a11y_warn_link1, $logic_a11y_warn_link2 );
+		$gf_vars['page']                   = esc_html__( 'Page', 'gravityforms' );
+		$gf_vars['next_button']            = esc_html__( 'Next Button', 'gravityforms' );
+		$gf_vars['all']                    = esc_html( _x( 'All', 'Conditional Logic', 'gravityforms' ) );
+		$gf_vars['any']                    = esc_html( _x( 'Any', 'Conditional Logic', 'gravityforms' ) );
+		$gf_vars['ofTheFollowingMatch']    = esc_html__( 'of the following match:', 'gravityforms' );
+		$gf_vars['is']                     = esc_html__( 'is', 'gravityforms' );
+		$gf_vars['isNot']                  = esc_html__( 'is not', 'gravityforms' );
+		$gf_vars['greaterThan']            = esc_html__( 'greater than', 'gravityforms' );
+		$gf_vars['lessThan']               = esc_html__( 'less than', 'gravityforms' );
+		$gf_vars['contains']               = esc_html__( 'contains', 'gravityforms' );
+		$gf_vars['startsWith']             = esc_html__( 'starts with', 'gravityforms' );
+		$gf_vars['endsWith']               = esc_html__( 'ends with', 'gravityforms' );
+		$gf_vars['emptyChoice']            = wp_strip_all_tags( __( 'Empty (no choices selected)', 'gravityforms' ) );
 
 		$gf_vars['alertLegacyMode']                  = esc_html__( 'This form has legacy markup enabled and doesn’t support field resizing within the editor. Please disable legacy markup in the form settings to enable live resizing.', 'gravityforms' );
 		$gf_vars['thisConfirmation']                 = esc_html__( 'Use this confirmation if', 'gravityforms' );
@@ -5343,19 +5352,9 @@ Content-Type: text/html;
 	 * @since 2.0
 	 */
 	public static function add_dismissible_message( $text, $key, $type = 'warning', $capabilities = false, $sticky = false, $page = null ) {
-		$message['type']         = $type;
-		$message['text']         = $text;
-		$message['key']          = sanitize_key( $key );
-		$message['capabilities'] = $capabilities;
-		$message['page']         = $page;
+		$dismissable = new Dismissable_Messages();
 
-		if ( $sticky ) {
-			$sticky_messages         = get_option( 'gform_sticky_admin_messages', array() );
-			$sticky_messages[ $key ] = $message;
-			update_option( 'gform_sticky_admin_messages', $sticky_messages );
-		} else {
-			self::$dismissible_messages[] = $message;
-		}
+		$dismissable->add( $text, $key, $type, $capabilities, $sticky, $page );
 	}
 
 	/**
@@ -5366,15 +5365,9 @@ Content-Type: text/html;
 	 * @since 2.0.2.3
 	 */
 	public static function remove_dismissible_message( $key ) {
-		$key = sanitize_key( $key );
-		$sticky_messages = get_option( 'gform_sticky_admin_messages', array() );
-		foreach ( $sticky_messages as $sticky_key => $sticky_message ) {
-			if ( $key == sanitize_key( $sticky_message['key'] ) ) {
-				unset( $sticky_messages[ $sticky_key ] );
-				update_option( 'gform_sticky_admin_messages', $sticky_messages );
-				break;
-			}
-		}
+		$dismissable = new Dismissable_Messages();
+
+		$dismissable->remove( $key );
 	}
 
 	public static function display_admin_message( $errors = false, $messages = false ) {
@@ -5427,82 +5420,9 @@ Content-Type: text/html;
 	 * @since 2.0
 	 */
 	public static function display_dismissible_message( $messages = false, $page = null ) {
+		$dismissable = new Dismissable_Messages();
 
-		if ( ! $messages ) {
-			$messages        = self::$dismissible_messages;
-			$sticky_messages = get_option( 'gform_sticky_admin_messages', array() );
-			$messages        = array_merge( $messages, $sticky_messages );
-			$messages        = array_values( $messages );
-		}
-
-		if ( empty( $page ) ) {
-			$page = GFForms::get_page();
-		}
-
-		if ( ! empty( $messages ) ) {
-			$need_script = false;
-			foreach ( $messages as $message ) {
-				if ( isset( $sticky_messages[ $message['key'] ] ) && isset( $message['page'] ) && $message['page'] && $page !== $message['page'] ) {
-					continue;
-				}
-
-				if ( empty( $message['page'] ) && $page == 'site-wide' ) {
-					// Prevent double display on GF pages
-					continue;
-				}
-
-				if ( empty( $message['key'] ) || self::is_message_dismissed( $message['key'] ) ) {
-					continue;
-				}
-
-				if ( isset( $message['capabilities'] ) && $message['capabilities'] && ! GFCommon::current_user_can_any( $message['capabilities'] ) ) {
-					continue;
-				}
-
-				$class = in_array( $message['type'], array(
-					'warning',
-					'error',
-					'updated',
-					'success',
-				) ) ? $message['type'] : 'error';
-
-				$need_script = true;
-				?>
-				<div class="notice below-h1 notice-<?php echo $class; ?> is-dismissible gf-notice"
-				     data-gf_dismissible_key="<?php echo $message['key'] ?>"
-				     data-gf_dismissible_nonce="<?php echo wp_create_nonce( 'gf_dismissible_nonce' ) ?>">
-					<p>
-						<?php echo $message['text']; ?>
-					</p>
-				</div>
-				<?php
-			}
-			if ( $need_script ) {
-				?>
-				<script>
-					jQuery( document ).ready( function( $ ) {
-						$( document ).on( 'click', '.notice-dismiss', function() {
-							var $div = $( this ).closest( 'div.notice' );
-							if ( $div.length > 0 ) {
-								var messageKey = $div.data( 'gf_dismissible_key' );
-								var nonce = $div.data( 'gf_dismissible_nonce' );
-								if ( messageKey ) {
-									jQuery.ajax({
-										url: ajaxurl,
-										data: {
-											action: 'gf_dismiss_message',
-											message_key: messageKey,
-											nonce: nonce,
-										},
-									} );
-								}
-							}
-						} );
-					} );
-				</script>
-				<?php
-			}
-		}
+		$dismissable->display( $messages, $page );
 	}
 
 	/**
@@ -5511,33 +5431,35 @@ Content-Type: text/html;
 	 * @param $key
 	 */
 	public static function dismiss_message( $key ) {
-		$db_key = self::get_dismissed_message_db_key( $key );
-		update_user_meta( get_current_user_id(), $db_key, true, true );
+		$dismissable = new Dismissable_Messages();
+
+		$dismissable->dismiss( $key );
 	}
 
 	/**
 	 * Has the dismissible message been dismissed by the current user?
+	 *
+	 * @deprecated since 2.5.7
 	 *
 	 * @param $key
 	 *
 	 * @return bool
 	 */
 	public static function is_message_dismissed( $key ) {
-		$db_key = self::get_dismissed_message_db_key( $key );
-
-		return (bool) get_user_meta( get_current_user_id(), $db_key, true );
+		_deprecated_function( __FUNCTION__, '2.5.7', 'Dismissable_Messages::is_dismissed()' );
 	}
 
 	/**
 	 * Returns the database key for the message.
+	 *
+	 * @deprecated since 2.5.7
 	 *
 	 * @param $key
 	 *
 	 * @return string
 	 */
 	public static function get_dismissed_message_db_key( $key ) {
-		$key = sanitize_key( $key );
-		return 'gf_dimissed_' . substr( md5( $key ), 0, 40 );
+		_deprecated_function( __FUNCTION__, '2.5.7', 'Dismissable_Messages::get_db_key()' );
 	}
 
 	private static function requires_gf_vars() {
@@ -5568,6 +5490,42 @@ Content-Type: text/html;
 
 		// Script has already been output; bail to avoid duplicating it.
 		return ! GFFormDisplay::$hooks_js_printed;
+	}
+
+	/**
+	 * Common method for outputting scripts inline. Allows for users on WordPress 5.7 and up
+	 * to filter the attributes of the script tag with 'wp_inline_script_attributes'.
+	 *
+	 * @since 2.5.7
+	 *
+	 * @param string $scripts main scripts block without outer tags.
+	 * @param bool   $cdata Whether to allow the cdata filters for this script.
+	 *
+	 * @return string
+	 */
+	public static function get_inline_script_tag( $scripts = '', $cdata = true ) {
+		$script_body = $cdata ? sprintf(
+			'%s %s %s',
+			/**
+			 * Filter the immediate opening of the script block. Allows for CDATA opening tags if needed for XHTML/XML.
+			 *
+			 * @since 1.6.3
+			 */
+			apply_filters( 'gform_cdata_open', '' ),
+			$scripts,
+			/**
+			 * Filter the closing of the script block. Allows for CDATA closing tags if needed for XHTML/XML.
+			 *
+			 * @since 1.6.3
+			 */
+			apply_filters( 'gform_cdata_close', '' )
+		) : $scripts;
+
+		if ( function_exists( 'wp_get_inline_script_tag' ) ) {
+			return wp_get_inline_script_tag( $script_body );
+		}
+
+		return sprintf( '<script type="text/javascript">%s</script>', $script_body );
 	}
 
 	/**

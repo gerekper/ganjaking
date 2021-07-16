@@ -4,9 +4,10 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita0a026f2534c387cc5b8e5dd0c6be302
+class ComposerStaticInitc47cdd2399590ab1bdda8cfdd29cc24a
 {
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'WPSEO_Option_Woo' => __DIR__ . '/../..' . '/classes/option-woo.php',
         'WPSEO_WooCommerce_Abstract_Product_Availability_Presenter' => __DIR__ . '/../..' . '/classes/presenters/woocommerce-abstract-product-availability-presenter.php',
         'WPSEO_WooCommerce_Abstract_Product_Presenter' => __DIR__ . '/../..' . '/classes/presenters/woocommerce-abstract-product-presenter.php',
@@ -35,7 +36,7 @@ class ComposerStaticInita0a026f2534c387cc5b8e5dd0c6be302
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInita0a026f2534c387cc5b8e5dd0c6be302::$classMap;
+            $loader->classMap = ComposerStaticInitc47cdd2399590ab1bdda8cfdd29cc24a::$classMap;
 
         }, null, ClassLoader::class);
     }

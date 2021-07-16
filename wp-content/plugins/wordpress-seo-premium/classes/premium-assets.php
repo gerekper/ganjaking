@@ -105,6 +105,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'wp-i18n',
 					'yoast-seo-premium-commons',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'analysis',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'editor-modules',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'yoast-components',
 				],
 			],

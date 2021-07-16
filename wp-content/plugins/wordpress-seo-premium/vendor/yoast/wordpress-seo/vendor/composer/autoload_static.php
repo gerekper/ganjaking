@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitede198972356815f4002a817ca5933bc
+class ComposerStaticInitf409604df1250e525440e7f7f339e110
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -606,6 +606,7 @@ class ComposerStaticInitede198972356815f4002a817ca5933bc
         'Yoast\\WP\\SEO\\Conditionals\\SEMrush_Enabled_Conditional' => __DIR__ . '/../..' . '/src/conditionals/semrush-enabled-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\Schema_Blocks_Conditional' => __DIR__ . '/../..' . '/src/conditionals/schema-blocks-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\Should_Index_Links_Conditional' => __DIR__ . '/../..' . '/src/conditionals/should-index-links-conditional.php',
+        'Yoast\\WP\\SEO\\Conditionals\\Slovak_Support_Conditional' => __DIR__ . '/../..' . '/src/conditionals/slovak-support-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\The_Events_Calendar_Conditional' => __DIR__ . '/../..' . '/src/conditionals/the-events-calendar-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\Third_Party\\Elementor_Activated_Conditional' => __DIR__ . '/../..' . '/src/conditionals/third-party/elementor-activated-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\Third_Party\\Elementor_Edit_Conditional' => __DIR__ . '/../..' . '/src/conditionals/third-party/elementor-edit-conditional.php',
@@ -723,9 +724,11 @@ class ComposerStaticInitede198972356815f4002a817ca5933bc
         'Yoast\\WP\\SEO\\Helpers\\Url_Helper' => __DIR__ . '/../..' . '/src/helpers/url-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\User_Helper' => __DIR__ . '/../..' . '/src/helpers/user-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\Woocommerce_Helper' => __DIR__ . '/../..' . '/src/helpers/woocommerce-helper.php',
+        'Yoast\\WP\\SEO\\Helpers\\Wordpress_Helper' => __DIR__ . '/../..' . '/src/helpers/wordpress-helper.php',
         'Yoast\\WP\\SEO\\Initializers\\Disable_Core_Sitemaps' => __DIR__ . '/../..' . '/src/initializers/disable-core-sitemaps.php',
         'Yoast\\WP\\SEO\\Initializers\\Initializer_Interface' => __DIR__ . '/../..' . '/src/initializers/initializer-interface.php',
         'Yoast\\WP\\SEO\\Initializers\\Migration_Runner' => __DIR__ . '/../..' . '/src/initializers/migration-runner.php',
+        'Yoast\\WP\\SEO\\Integrations\\Abstract_Exclude_Post_Type' => __DIR__ . '/../..' . '/src/integrations/abstract-exclude-post-type.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Addon_Installation\\Dialog_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/addon-installation/dialog-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Addon_Installation\\Installation_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/addon-installation/installation-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Admin_Columns_Cache_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/admin-columns-cache-integration.php',
@@ -772,7 +775,9 @@ class ComposerStaticInitede198972356815f4002a817ca5933bc
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\AMP' => __DIR__ . '/../..' . '/src/integrations/third-party/amp.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\BbPress' => __DIR__ . '/../..' . '/src/integrations/third-party/bbpress.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Elementor' => __DIR__ . '/../..' . '/src/integrations/third-party/elementor.php',
-        'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Elementor_Exclude_Post_Types' => __DIR__ . '/../..' . '/src/integrations/third-party/elementor-exclude-post-types.php',
+        'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Elementor_Exclude_Post_Types' => __DIR__ . '/../..' . '/src/deprecated/src/integrations/third-party/elementor.php',
+        'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Exclude_Elementor_Post_Types' => __DIR__ . '/../..' . '/src/integrations/third-party/exclude-elementor-post-types.php',
+        'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Exclude_WooCommerce_Post_Types' => __DIR__ . '/../..' . '/src/integrations/third-party/exclude-woocommerce-post-types.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Jetpack' => __DIR__ . '/../..' . '/src/integrations/third-party/jetpack.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\The_Events_Calendar' => __DIR__ . '/../..' . '/src/integrations/third-party/the-events-calendar.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\W3_Total_Cache' => __DIR__ . '/../..' . '/src/integrations/third-party/w3-total-cache.php',
@@ -936,9 +941,9 @@ class ComposerStaticInitede198972356815f4002a817ca5933bc
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitede198972356815f4002a817ca5933bc::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitede198972356815f4002a817ca5933bc::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitede198972356815f4002a817ca5933bc::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf409604df1250e525440e7f7f339e110::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf409604df1250e525440e7f7f339e110::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf409604df1250e525440e7f7f339e110::$classMap;
 
         }, null, ClassLoader::class);
     }

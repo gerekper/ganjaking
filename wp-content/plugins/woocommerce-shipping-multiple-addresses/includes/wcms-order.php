@@ -14,6 +14,9 @@ class WC_MS_Order {
 		add_action( 'wp_ajax_wcms_update_package_status', array( $this, 'update_package_status' ) );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'update_package_on_completed_order' ) );
 
+		// Order preview parameter override
+		add_filter( 'woocommerce_admin_order_preview_get_order_details', array( $this, 'update_preview_order_details' ), 20, 2 );
+
 		// Order page shipping address override
 		add_action( 'woocommerce_admin_order_data_after_shipping_address', array( $this, 'override_order_shipping_address' ) );
 
@@ -71,6 +74,95 @@ class WC_MS_Order {
 
 			update_post_meta( $order_id, '_wcms_packages', $packages );
 		}
+	}
+
+	/**
+	 * Manipulate the order details value if it has multiple addresses.
+	 *
+	 * @param array   	$order_details Order details.
+	 * @param WC_Order  	$order Order object.
+	 * 
+	 * @return array
+	 */
+	public function update_preview_order_details( $order_details, $order ) {
+
+		$packages = get_post_meta( $order->get_id(), '_wcms_packages', true );
+
+		if( is_array( $packages ) && 1 < count( $packages ) ) {
+			$order_details['formatted_shipping_address'] = $this->generate_formatted_multiple_addresses( $order );
+		}
+
+		return $order_details;
+	}
+
+	/**
+	 * Generate address map url for package destination.
+	 *
+	 * @param array   	$package Package.
+	 * @param WC_Order  $order   Order object.
+	 * 
+	 * @return string
+	 */
+	public static function generate_address_map_url( $package, $order ) {
+
+		$address_map_url 	= '';
+
+		if( isset( $package['destination'] ) && is_array( $package['destination'] ) ) {
+			$destination 			= $package['destination'];
+			$destination_pieces 	= implode( ', ', array_filter( array(
+				$destination['address_1'],
+				$destination['address_2'],
+				$destination['city'],
+				$destination['state'],
+				$destination['postcode'],
+				$destination['country']
+			 ) ) );
+			
+			 $address_map_url = apply_filters( 'woocommerce_shipping_address_map_url', 'https://maps.google.com/maps?&q=' . rawurlencode( $destination_pieces ) . '&z=16', $order );
+		}
+
+		return $address_map_url;
+	}
+
+	/**
+	 * Generate formatted shipping address for multiple addresses.
+	 *
+	 * @param WC_Order  $order   Order object.
+	 * 
+	 * @return string
+	 */
+	public function generate_formatted_multiple_addresses( $order ) {
+		
+		$packages = get_post_meta( $order->get_id(), '_wcms_packages', true );
+
+		if ( ! $order || ! $packages ) {
+			return;
+		}
+
+		$item_addresses_html = '';
+
+		ob_start();
+		?>
+
+		<div class="item-addresses-holder">
+			<?php foreach ( $packages as $x => $package ) { ?>
+				
+				<?php $address_map_url 	= self::generate_address_map_url( $package, $order ); ?>
+				
+				<div class="item-address-box package-<?php echo esc_attr( $x ); ?>-box" style="margin-bottom:20px;">
+					<a href="<?php echo esc_url( $address_map_url ); ?>" target="_blank">
+						<?php self::display_shipping_package_address( $order, $package, $x, false ); ?>
+					</a>
+				</div>
+			
+			<?php } ?>
+		</div>
+		
+		<?php
+		$item_addresses_html .= ob_get_contents();
+		ob_end_clean();
+
+		return $item_addresses_html;
 	}
 
 	public function override_order_shipping_address( $order ) {
@@ -433,13 +525,18 @@ class WC_MS_Order {
 		if ( empty( $package['destination'] ) )
 			return;
 
+		$address_map_url = self::generate_address_map_url( $package, $order );
 	?>
 		<div class="shipping_data">
 
 			<?php do_action( 'wc_ms_order_package_block_before_address', $order, $package, $index ); ?>
 
 			<div class="address">
-				<p><?php echo WC()->countries->get_formatted_address( $package['destination'] ); ?></p>
+				<p>
+					<a href="<?php echo esc_url( $address_map_url ); ?>" target="_blank">
+						<?php echo WC()->countries->get_formatted_address( $package['destination'] ); ?>
+					</a>
+				</p>
 			</div>
 
 			<?php do_action( 'wc_ms_order_package_block_after_address', $order, $package, $index ); ?>

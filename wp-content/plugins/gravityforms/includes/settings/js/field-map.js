@@ -1055,7 +1055,43 @@ var Mapping = /*#__PURE__*/function (_Component) {
       var choices = choice.choices || valueField.choices;
       var values = choices.map(function (c) {
         return c.value;
-      }); // Add custom key if enabled and is not already present.
+      }); // Limit choices to required types.
+
+      var requiredTypes = choice.required_types;
+
+      if (requiredTypes && requiredTypes.length) {
+        for (var i = 0; i < choices.length; ++i) {
+          if ('Form Fields' == choices[i].label) {
+            var theseChoices = choices[i].choices;
+
+            for (var j = 0; j < theseChoices.length; ++j) {
+              theseChoices = theseChoices.filter(function (field) {
+                return requiredTypes.indexOf(field.type) !== -1;
+              });
+              choices = theseChoices;
+            }
+          }
+        }
+      } // Remove excluded types.
+
+
+      var excludedTypes = choice.excluded_types;
+
+      if (excludedTypes && excludedTypes.length) {
+        for (var _i = 0; _i < choices.length; ++_i) {
+          if ('Form Fields' == choices[_i].label) {
+            var _theseChoices = choices[_i].choices;
+
+            for (var _j = 0; _j < _theseChoices.length; ++_j) {
+              _theseChoices = _theseChoices.filter(function (field) {
+                return excludedTypes.indexOf(field.type) === -1;
+              });
+              choices = _theseChoices;
+            }
+          }
+        }
+      } // Add custom key if enabled and is not already present.
+
 
       if (allow_custom && !values.includes('gf_custom')) {
         choices.push({

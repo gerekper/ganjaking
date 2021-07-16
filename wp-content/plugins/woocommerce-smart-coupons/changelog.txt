@@ -1,5 +1,27 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2021.07.06 - version 4.25.1
+* Fix: Notice: Undefined variable: user_role during guest checkout
+* Fix: Notice: Undefined variable: email during guest checkout
+* Update: POT file
+
+2021.07.05 - version 4.25.0
+* Fix: Cancelled PayPal payment returns cart total to 0 on gift certificate purchases
+* Update: Auto-apply functionality to consider usage restrictions as well
+* Update: POT file
+
+2021.06.25 - version 4.24.0
+* Update: Coupon shareable link not working with page slug or page id
+* Update: Ignore usage restriction related to user roles when the coupon is getting applied from admin side
+* Update: POT file
+
+2021.06.16 - version 4.23.0
+* New: Tested up to WooCommerce 5.4.1
+* Fix: 1-click coupon apply not working with CheckoutWC
+* Fix: WordPress database error Table doesn't exist when referring to users table in a multisite environment [Thanks to: Bradley Cross]
+* Update: During manual creation of order from admin side, allow application of coupon that is restricted for user roles
+* Update: POT file
+
 2021.06.03 - version 4.22.0
 * Fix: CRITICAL Uncaught Exception: This coupon is valid for the first order only
 * Fix: Incorrect calculation when multiple store credit is applied 

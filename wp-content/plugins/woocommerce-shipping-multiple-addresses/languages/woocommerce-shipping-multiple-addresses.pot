@@ -2,11 +2,11 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Ship to Multiple Addresses 3.6.26\n"
+"Project-Id-Version: WooCommerce Ship to Multiple Addresses 3.6.29\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-shipping-multiple-"
 "addresses\n"
-"POT-Creation-Date: 2021-06-10 12:32:44+00:00\n"
+"POT-Creation-Date: 2021-06-29 17:16:41+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -81,12 +81,12 @@ msgid "Drag items here"
 msgstr ""
 
 #: includes/wcms-admin-user-addresses-list-table.php:28
-#: includes/wcms-order.php:141 woocommerce-shipping-multiple-addresses.php:519
+#: includes/wcms-order.php:233 woocommerce-shipping-multiple-addresses.php:519
 msgid "Address"
 msgstr ""
 
 #: includes/wcms-admin-user-addresses-list-table.php:65
-#: includes/wcms-order.php:454 templates/address-block.php:27
+#: includes/wcms-order.php:551 templates/address-block.php:27
 msgid "Edit"
 msgstr ""
 
@@ -264,92 +264,92 @@ msgstr ""
 msgid "Invalid shipment status"
 msgstr ""
 
-#: includes/wcms-order.php:88
+#: includes/wcms-order.php:180
 msgid "Ships to multiple addresses"
 msgstr ""
 
-#: includes/wcms-order.php:136
+#: includes/wcms-order.php:228
 msgid "This order ships to multiple addresses."
 msgstr ""
 
-#: includes/wcms-order.php:140 multi-shipping.php:138 settings.php:47
+#: includes/wcms-order.php:232 multi-shipping.php:138 settings.php:47
 msgid "Products"
 msgstr ""
 
-#: includes/wcms-order.php:143
+#: includes/wcms-order.php:235
 msgid "Notes"
 msgstr ""
 
-#: includes/wcms-order.php:214
+#: includes/wcms-order.php:306
 msgid "Delivery date: %s"
 msgstr ""
 
-#: includes/wcms-order.php:234
+#: includes/wcms-order.php:326
 msgid "Ships to multiple addresses "
 msgstr ""
 
-#: includes/wcms-order.php:249
+#: includes/wcms-order.php:341
 msgid "Order Shipping Addresses"
 msgstr ""
 
-#: includes/wcms-order.php:365
+#: includes/wcms-order.php:457
 msgid "Pending"
 msgstr ""
 
-#: includes/wcms-order.php:366 includes/wcms-order.php:371
+#: includes/wcms-order.php:458 includes/wcms-order.php:463
 msgid "Completed"
 msgstr ""
 
-#: includes/wcms-order.php:368
+#: includes/wcms-order.php:460
 msgid "GO"
 msgstr ""
 
-#: includes/wcms-order.php:371
+#: includes/wcms-order.php:463
 msgid "Change"
 msgstr ""
 
-#: includes/wcms-order.php:398
+#: includes/wcms-order.php:490
 msgid "Do you want to send an email to the customer?"
 msgstr ""
 
-#: includes/wcms-order.php:659 multi-shipping.php:183
+#: includes/wcms-order.php:756 multi-shipping.php:183
 msgid "Part of your order has been shipped"
 msgstr ""
 
-#: includes/wcms-order.php:687
+#: includes/wcms-order.php:784
 msgid ""
 "Hi there. Part of your recent order on %s has been completed. Your order "
 "details are shown below for your reference:"
 msgstr ""
 
-#: includes/wcms-order.php:689
+#: includes/wcms-order.php:786
 msgid "Order:"
 msgstr ""
 
-#: includes/wcms-order.php:709 templates/pip-template-body.php:118
+#: includes/wcms-order.php:806 templates/pip-template-body.php:118
 #: templates/pip-template-body.php:204 templates/shipping-address-table.php:63
 #: woocommerce-shipping-multiple-addresses.php:519
 msgid "Product"
 msgstr ""
 
-#: includes/wcms-order.php:710 templates/pip-template-body.php:119
+#: includes/wcms-order.php:807 templates/pip-template-body.php:119
 #: templates/pip-template-body.php:205 templates/shipping-address-table.php:64
 msgid "Quantity"
 msgstr ""
 
-#: includes/wcms-order.php:745
+#: includes/wcms-order.php:842
 msgid "Download %d:"
 msgstr ""
 
-#: includes/wcms-order.php:747
+#: includes/wcms-order.php:844
 msgid "Download:"
 msgstr ""
 
-#: includes/wcms-order.php:774 templates/pip-template-body.php:55
+#: includes/wcms-order.php:871 templates/pip-template-body.php:55
 msgid "Billing address"
 msgstr ""
 
-#: includes/wcms-order.php:778 templates/pip-template-body.php:75
+#: includes/wcms-order.php:875 templates/pip-template-body.php:75
 msgid "Shipping address"
 msgstr ""
 
@@ -866,7 +866,7 @@ msgstr ""
 
 #: woocommerce-shipping-multiple-addresses.php:287
 #: woocommerce-shipping-multiple-addresses.php:616
-#: woocommerce-shipping-multiple-addresses.php:941
+#: woocommerce-shipping-multiple-addresses.php:945
 msgid "Shipping Methods"
 msgstr ""
 
@@ -887,35 +887,39 @@ msgstr ""
 msgid "Qty"
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:634
-msgid "The following items do not have shipping addresses assigned."
+#: woocommerce-shipping-multiple-addresses.php:625
+msgid "The following items do not have a shipping address assigned."
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:653
+#: woocommerce-shipping-multiple-addresses.php:629
+msgid "There are no shipping options available for the following items."
+msgstr ""
+
+#: woocommerce-shipping-multiple-addresses.php:657
 msgid "Assign Shipping Address"
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:763
+#: woocommerce-shipping-multiple-addresses.php:767
 msgid ""
 "(1) Sorry, it seems that there are no available shipping methods for your "
 "state. Please contact us if you require assistance or wish to make "
 "alternate arrangements."
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:768
-#: woocommerce-shipping-multiple-addresses.php:877
-#: woocommerce-shipping-multiple-addresses.php:1021
+#: woocommerce-shipping-multiple-addresses.php:772
+#: woocommerce-shipping-multiple-addresses.php:881
+#: woocommerce-shipping-multiple-addresses.php:1025
 msgid "Modify address"
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:872
+#: woocommerce-shipping-multiple-addresses.php:876
 msgid ""
 "(2) Sorry, it seems that there are no available shipping methods for your "
 "state. Please contact us if you require assistance or wish to make "
 "alternate arrangements."
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:1016
+#: woocommerce-shipping-multiple-addresses.php:1020
 msgid ""
 "(3) Sorry, it seems that there are no available shipping methods for your "
 "state. Please contact us if you require assistance or wish to make "

@@ -110,13 +110,11 @@ class WC_Newsletter_Subscription_Settings_General extends WC_Newsletter_Subscrip
 						'type'  => 'title',
 						'title' => _x( 'Subscription Settings', 'settings section title', 'woocommerce-subscribe-to-newsletter' ),
 					),
-					'woocommerce_newsletter_order_statuses' => array(
-						'type'     => 'multiselect',
-						'class'    => 'wc-enhanced-select-nostd',
-						'title'    => _x( 'Subscribe on order statuses', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
-						'desc_tip' => _x( 'Customers will only be subscribed when the order status change to one of the selected. Subscription will happen on the first status match.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
-						'desc'     => _x( 'Leave this field empty to subscribe the customers always when the order is created.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
-						'options'  => wc_get_order_statuses(),
+					'woocommerce_newsletter_label'   => array(
+						'type'        => 'text',
+						'placeholder' => _x( 'Subscribe to our newsletter', 'subscription checkbox label', 'woocommerce-subscribe-to-newsletter' ),
+						'title'       => _x( 'Subscribe checkbox label', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
+						'desc_tip'    => _x( 'The text you want to display next to the "subscribe to newsletter" checkboxes.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
 					),
 					'woocommerce_newsletter_checkbox_status' => array(
 						'type'    => 'select',
@@ -128,11 +126,23 @@ class WC_Newsletter_Subscription_Settings_General extends WC_Newsletter_Subscrip
 							'unchecked' => esc_html__( 'Un-checked', 'woocommerce-subscribe-to-newsletter' ),
 						),
 					),
-					'woocommerce_newsletter_label'   => array(
-						'type'        => 'text',
-						'placeholder' => _x( 'Subscribe to our newsletter', 'subscription checkbox label', 'woocommerce-subscribe-to-newsletter' ),
-						'title'       => _x( 'Subscribe checkbox label', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
-						'desc_tip'    => _x( 'The text you want to display next to the "subscribe to newsletter" checkboxes.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
+					'woocommerce_newsletter_checkout_location' => array(
+						'type'     => 'select',
+						'title'    => _x( 'Checkout location', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
+						'desc_tip' => _x( 'Choose the location of the subscription field in the checkout form.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
+						'default'  => 'after_terms',
+						'options'  => array(
+							'after_terms'   => __( 'After the Terms and Conditions', 'woocommerce-subscribe-to-newsletter' ),
+							'after_billing' => __( 'After billing details', 'woocommerce-subscribe-to-newsletter' ),
+						),
+					),
+					'woocommerce_newsletter_order_statuses' => array(
+						'type'     => 'multiselect',
+						'class'    => 'wc-enhanced-select-nostd',
+						'title'    => _x( 'Subscribe on order statuses', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
+						'desc_tip' => _x( 'Customers will only be subscribed when the order status change to one of the selected. Subscription will happen on the first status match.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
+						'desc'     => _x( 'Leave this field empty to subscribe the customers always when the order is created.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
+						'options'  => wc_get_order_statuses(),
 					),
 				)
 			);

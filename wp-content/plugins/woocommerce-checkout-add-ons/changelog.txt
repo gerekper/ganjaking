@@ -1,8 +1,16 @@
 *** WooCommerce Checkout Add-Ons Changelog ***
 
+2021.06.29 - version 2.5.5
+ * Fix - Properly handle required checkboxes validation at checkout
+
+2021.03.18 - version 2.5.4
+ * Tweak - Sort add on fees in order review and emails by custom sort order set in admin, after other fees
+ * Fix - Address some user interface bug with text area and enhanced dropdown fields at checkout
+
 2021.03.16 - version 2.5.3
  * Tweak - Add support for WooCommerce Navigation admin feature
  * Fix - Ensure taxable add ons are compatible with latest versions of WooCommerce
+ * Fix - Prevent page from scrolling to the top when filling in add-on based on multi-select add-on
 
 2021.02.25 - version 2.5.2
  * Fix - Hide the cost information in labels for fields with multiple options

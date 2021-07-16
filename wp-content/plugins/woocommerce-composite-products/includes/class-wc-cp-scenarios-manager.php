@@ -542,18 +542,25 @@ class WC_CP_Scenarios_Manager {
 	public function get_settings() {
 
 		$scenarios = $this->get_scenarios();
-		$settings  = array();
+		$settings  = array(
+			'scenario_actions'       => array(),
+			'masked_components'      => array(),
+			'any_components'         => array(),
+			'conditional_components' => array()
+		);
 
 		foreach ( $scenarios as $scenario_id => $scenario ) {
 
-			// Store active action IDs.
-			$settings[ 'scenario_actions' ][ $scenario_id ] = $scenario->get_actions();
-			// Store unselected components.
-			$settings[ 'masked_components' ][ $scenario_id ] = $scenario->get_masked_components();
-			// Store 'any' components.
-			$settings[ 'any_components' ][ $scenario_id ] = $scenario->get_any_components();
-			// Store hidden components.
-			$settings[ 'conditional_components' ][ $scenario_id ] = $scenario->get_hidden_components();
+			$settings[ 'scenario_actions' ][ $scenario_id ]       = $scenario->get_actions(); // Active action IDs.
+			$settings[ 'masked_components' ][ $scenario_id ]      = $scenario->get_masked_components(); // Unselected components.
+			$settings[ 'any_components' ][ $scenario_id ]         = $scenario->get_any_components(); // 'Any' components.
+			$settings[ 'conditional_components' ][ $scenario_id ] = $scenario->get_hidden_components(); // Hidden components.
+		}
+
+		if ( $this->get_ids() === array( '0' ) ) {
+			foreach ( $settings as $settings_key => $settings_data ) {
+				$settings[ $settings_key ] = new WC_CP_Array( $settings_data );
+			}
 		}
 
 		return $settings;

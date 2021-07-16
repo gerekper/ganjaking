@@ -11,11 +11,11 @@
 class WPSEO_WooCommerce_Product_Condition_Presenter extends WPSEO_WooCommerce_Abstract_Product_Presenter {
 
 	/**
-	 * The tag format including placeholders.
+	 * The tag key name.
 	 *
 	 * @var string
 	 */
-	protected $tag_format = '<meta property="product:condition" content="%s" />';
+	protected $key = 'product:condition';
 
 	/**
 	 * Gets the raw value of a presentation.

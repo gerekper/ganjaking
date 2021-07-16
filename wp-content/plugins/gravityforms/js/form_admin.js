@@ -149,7 +149,7 @@ function CreateConditionalLogic(objectType, obj){
 
     var descPieces = {};
     if( objectType == "form_button" ) {
-        descPieces.a11yWarning = "<div class='gform-accessibility-warning'><span class='gform-icon gform-icon--accessibility'></span>" + gf_vars.conditional_logic_a11y + "</div>";
+        descPieces.a11yWarning = "<div class='gform-accessibility-warning'><span class='gform-icon gform-icon--accessibility'></span><div>" + gf_vars.conditional_logic_a11y + "</div></div>";
     }
     descPieces.actionType = "<select id='" + objectType + "_action_type' onchange='SetConditionalProperty(\"" + objectType + "\", \"actionType\", jQuery(this).val());'><option value='show' " + showSelected + ">" + showText + "</option><option value='hide' " + hideSelected + ">" + hideText + "</option></select>";
     descPieces.objectDescription = objText;

@@ -589,8 +589,8 @@ class WC_MS_Front {
 		$address = get_query_var( 'edit-address' );
 
 		if ( empty( $address ) ) {
-			$url = wc_get_account_endpoint_url( 'edit-address' ) . 'wcms_address_new';
-			printf( '<a href="%s" class="button">%s</a>', $url, __( 'Add address', 'wc_shipping_multiple_address' ) );
+			$url = wc_get_endpoint_url( 'edit-address', 'wcms_address_new' );
+			printf( '<a href="%s" class="button">%s</a>', esc_url( $url ), __( 'Add address', 'wc_shipping_multiple_address' ) );
 		}
 	}
 

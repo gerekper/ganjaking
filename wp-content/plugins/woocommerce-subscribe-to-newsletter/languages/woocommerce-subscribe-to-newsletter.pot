@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WooCommerce Subscribe to Newsletter plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Subscribe to Newsletter 3.2.0\n"
+"Project-Id-Version: WooCommerce Subscribe to Newsletter 3.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-subscribe-to-newsletter\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-06-15T08:56:12+00:00\n"
+"POT-Creation-Date: 2021-07-07T15:00:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: woocommerce-subscribe-to-newsletter\n"
@@ -118,87 +118,105 @@ msgctxt "settings section title"
 msgid "Subscription Settings"
 msgstr ""
 
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:116
-msgctxt "setting title"
-msgid "Subscribe on order statuses"
-msgstr ""
-
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:117
-msgctxt "setting desc"
-msgid "Customers will only be subscribed when the order status change to one of the selected. Subscription will happen on the first status match."
-msgstr ""
-
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:118
-msgctxt "setting desc"
-msgid "Leave this field empty to subscribe the customers always when the order is created."
-msgstr ""
-
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:123
-msgctxt "setting title"
-msgid "Default checkbox status"
-msgstr ""
-
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:124
-msgctxt "setting desc"
-msgid "The default state of the subscribe checkbox. Be aware some countries have laws against using opt-out checkboxes."
-msgstr ""
-
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:127
-msgid "Checked"
-msgstr ""
-
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:128
-msgid "Un-checked"
-msgstr ""
-
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:133
-#: includes/class-wc-newsletter-subscription-checkout.php:79
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:115
+#: includes/class-wc-newsletter-subscription-checkout.php:105
 #: includes/class-wc-newsletter-subscription-register.php:42
 msgctxt "subscription checkbox label"
 msgid "Subscribe to our newsletter"
 msgstr ""
 
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:134
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:116
 msgctxt "setting title"
 msgid "Subscribe checkbox label"
 msgstr ""
 
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:135
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:117
 msgctxt "setting desc"
 msgid "The text you want to display next to the \"subscribe to newsletter\" checkboxes."
 msgstr ""
 
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:121
+msgctxt "setting title"
+msgid "Default checkbox status"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:122
+msgctxt "setting desc"
+msgid "The default state of the subscribe checkbox. Be aware some countries have laws against using opt-out checkboxes."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:125
+msgid "Checked"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:126
+msgid "Un-checked"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:131
+msgctxt "setting title"
+msgid "Checkout location"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:132
+msgctxt "setting desc"
+msgid "Choose the location of the subscription field in the checkout form."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:135
+msgid "After the Terms and Conditions"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:136
+msgid "After billing details"
+msgstr ""
+
 #: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:142
+msgctxt "setting title"
+msgid "Subscribe on order statuses"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:143
+msgctxt "setting desc"
+msgid "Customers will only be subscribed when the order status change to one of the selected. Subscription will happen on the first status match."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:144
+msgctxt "setting desc"
+msgid "Leave this field empty to subscribe the customers always when the order is created."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:152
 msgid "Select a provider&hellip;"
 msgstr ""
 
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:228
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:238
 #: includes/admin/views/html-dashboard-widget-stats.php:26
 msgid "Refresh"
 msgstr ""
 
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:250
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:260
 msgctxt "settings notice"
 msgid "Select a newsletter provider."
 msgstr ""
 
 #. translators: %s plugin name
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:296
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:306
 msgctxt "settings notice"
 msgid "This provider requires the WordPress plugin \"%s\" to work."
 msgstr ""
 
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:342
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:352
 msgctxt "settings notice"
 msgid "Enter the provider credentials."
 msgstr ""
 
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:345
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:355
 msgctxt "settings notice"
 msgid "The credentials are not valid."
 msgstr ""
 
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:431
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:441
 #: includes/providers/class-wc-newsletter-subscription-provider-campaign-monitor.php:91
 #: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:118
 #: includes/providers/class-wc-newsletter-subscription-provider-mailerlite.php:91

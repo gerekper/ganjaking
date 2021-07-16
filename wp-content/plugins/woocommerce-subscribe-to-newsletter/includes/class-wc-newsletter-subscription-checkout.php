@@ -30,18 +30,48 @@ class WC_Newsletter_Subscription_Checkout {
 	 * Gets the location of the checkout content.
 	 *
 	 * @since 2.9.0
+	 * @since 3.3.0 Returns an array with the action hook and the priority.
 	 *
-	 * @return string
+	 * @return array
 	 */
 	protected function get_content_location() {
+		$key = get_option( 'woocommerce_newsletter_checkout_location', 'after_terms' );
+
+		if ( has_filter( 'wc_newsletter_subscription_checkout_content_location' ) ) {
+			wc_deprecated_hook( 'wc_newsletter_subscription_checkout_content_location', '3.3.0', 'wc_newsletter_subscription_checkout_locations' );
+
+			/**
+			 * Filters the locations of the checkout content.
+			 *
+			 * @since 2.9.0
+			 * @deprecated 3.3.0
+			 *
+			 * @param string $key The locations key for the checkout content.
+			 */
+			$key = apply_filters( 'wc_newsletter_subscription_checkout_content_location', $key );
+		}
+
+		$locations = array(
+			'after_billing' => array(
+				'hook'     => 'woocommerce_after_checkout_billing_form',
+				'priority' => 10,
+			),
+			'after_terms'   => array(
+				'hook'     => 'woocommerce_review_order_before_submit',
+				'priority' => 10,
+			),
+		);
+
 		/**
-		 * Filters the location of the checkout content.
+		 * Filters the locations of the subscription checkbox in the checkout form.
 		 *
-		 * @since 2.9.0
+		 * @since 3.3.0
 		 *
-		 * @param string $location Checkout content location.
+		 * @param array $locations An array with the locations of the checkout content.
 		 */
-		return apply_filters( 'wc_newsletter_subscription_checkout_content_location', 'after_terms' );
+		$locations = apply_filters( 'wc_newsletter_subscription_checkout_locations', $locations );
+
+		return ( isset( $locations[ $key ] ) ? $locations[ $key ] : $locations['after_terms'] );
 	}
 
 	/**
@@ -52,11 +82,7 @@ class WC_Newsletter_Subscription_Checkout {
 	public function init() {
 		$location = $this->get_content_location();
 
-		if ( 'after_billing' === $location ) {
-			add_action( 'woocommerce_after_checkout_billing_form', array( $this, 'checkout_content' ) );
-		} else {
-			add_action( 'woocommerce_review_order_before_submit', array( $this, 'checkout_content' ) );
-		}
+		add_action( $location['hook'], array( $this, 'checkout_content' ), $location['priority'] );
 	}
 
 	/**

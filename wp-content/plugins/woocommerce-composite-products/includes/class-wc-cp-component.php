@@ -259,7 +259,7 @@ class WC_CP_Component implements ArrayAccess {
 		$is_shipped_individually = 'yes' === $data[ 'shipped_individually' ];
 
 		if ( ! is_null( $this->get_composite() ) && $this->get_composite()->is_virtual() ) {
-			$is_shipped_individually = true;
+			$is_shipped_individually = false === $this->get_composite()->is_virtual_composite();
 		}
 
 		return $is_shipped_individually;

@@ -42,6 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			 */
 			do_action( 'woocommerce_composite_add_to_cart_button' );
 
+			// No longer needed as this has been moved to the 'add-to-cart/composite-button.php' template. Leaving this here for back-compat.
 			?><input type="hidden" name="add-to-cart" value="<?php echo esc_attr( $product_id ); ?>" />
 		</div>
 	</div><?php

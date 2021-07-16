@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.5.0
+ * @version     2.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -2647,7 +2647,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 						$user_id_1 = $wpdb->get_var( // phpcs:ignore
 							$wpdb->prepare(
 								"SELECT ID
-									FROM {$wpdb->prefix}users
+									FROM {$wpdb->base_prefix}users
 									WHERE user_email = %s",
 								$email
 							)
@@ -2661,7 +2661,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 						$user_id_2 = $wpdb->get_var( // phpcs:ignore
 							$wpdb->prepare(
 								"SELECT user_id
-									FROM {$wpdb->prefix}usermeta
+									FROM {$wpdb->base_prefix}usermeta
 									WHERE meta_key = %s
 										AND meta_value = %s",
 								'billing_email',

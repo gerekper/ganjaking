@@ -13,13 +13,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="bto_group wc-metabox <?php echo $toggle; ?>" rel="<?php echo isset( $data[ 'position' ] ) ? $data[ 'position' ] : $id; ?>">
 	<h3 class="bto_group_handle">
-		<strong class="group_name">
-			<?php
-				if ( isset( $data[ 'title' ] ) && ! empty( $data[ 'component_id' ] ) ) {
-					echo esc_html( $data[ 'title' ] );
-				}
-			?>
-		</strong>
+		<strong class="group_name"><?php
+			if ( isset( $data[ 'title' ] ) && ! empty( $data[ 'component_id' ] ) ) {
+				echo esc_html( $data[ 'title' ] );
+			}
+		?></strong><span class="group_virtual"><?php
+			echo sprintf( '<div class="woocommerce-help-tip component-virtual" data-tip="%s"></div>', __( 'Any product purchased in this Component will be treated as virtual.', 'woocommerce-composite-products' ) );
+		?></span>
 		<div class="handle">
 
 			<input type="hidden" name="bto_data[<?php echo $id; ?>][position]" class="group_position" value="<?php echo isset( $data[ 'position' ] ) ? esc_attr( $data[ 'position' ] ) : $id; ?>" />

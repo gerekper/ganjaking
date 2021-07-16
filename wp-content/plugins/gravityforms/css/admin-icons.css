@@ -116,6 +116,12 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 
 /* -----------------------------------------------------------------------------
  *
+ * Mixins: Elements
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ *
  * Mixins: Icons
  *
  * ----------------------------------------------------------------------------- */
@@ -141,10 +147,10 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 @font-face {
 	font-family: 'gform-icons-admin';
 	src:
-		url('../fonts/gform-icons-admin.woff2?gpunc7') format('woff2'),
-		url('../fonts/gform-icons-admin.ttf?gpunc7') format('truetype'),
-		url('../fonts/gform-icons-admin.woff?gpunc7') format('woff'),
-		url('../fonts/gform-icons-admin.svg?gpunc7#gform-icons-admin') format('svg');
+		url('../fonts/gform-icons-admin.woff2?yj6zjz') format('woff2'),
+		url('../fonts/gform-icons-admin.ttf?yj6zjz') format('truetype'),
+		url('../fonts/gform-icons-admin.woff?yj6zjz') format('woff'),
+		url('../fonts/gform-icons-admin.svg?yj6zjz#gform-icons-admin') format('svg');
 	font-weight: normal;
 	font-style: normal;
 	font-display: block;
@@ -251,11 +257,11 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 }
 
 .gform-icon--circle-check:before {
-	content: "\e98d";
+	content: "\e931";
 }
 
 .gform-icon--circle-close:before {
-	content: "\e98e";
+	content: "\e938";
 }
 
 .gform-icon--circle-delete:before {
@@ -403,7 +409,7 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 }
 
 .gform-icon--help:before {
-	content: "\e931";
+	content: "\e939";
 }
 
 .gform-icon--helpscout:before {
@@ -431,11 +437,11 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 }
 
 .gform-icon--info:before {
-	content: "\e939";
+	content: "\e98d";
 }
 
 .gform-icon--info-outline:before {
-	content: "\e938";
+	content: "\e988";
 }
 
 .gform-icon--jetsloth:before {
@@ -608,10 +614,6 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 
 .gform-icon--search:before {
 	content: "\e95e";
-}
-
-.gform-icon--search1:before {
-	content: "\e988";
 }
 
 .gform-icon--section:before {

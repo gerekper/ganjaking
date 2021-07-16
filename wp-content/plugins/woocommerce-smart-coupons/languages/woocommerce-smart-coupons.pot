@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the WooCommerce Smart Coupons package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Smart Coupons 4.22.0\n"
+"Project-Id-Version: WooCommerce Smart Coupons 4.25.1\n"
 "Report-Msgid-Bugs-To: https://www.storeapps.org/support/contact-us/\n"
-"POT-Creation-Date: 2021-06-03 07:01:47+00:00\n"
+"POT-Creation-Date: 2021-07-06 06:15:31+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: Thu, 03 Jun 2021 12:31:47 +0530\n"
+"PO-Revision-Date: Tue, 06 Jul 2021 11:45:31 +0530\n"
 "Last-Translator: Ratnakar Dubey <support@storeapps.org>\n"
 "Language-Team: StoreApps <support@storeapps.org>\n"
 
@@ -98,7 +98,7 @@ msgstr ""
 msgid "it to use"
 msgstr ""
 
-#. #-#-#-#-#  woocommerce-smart-coupons.pot (WooCommerce Smart Coupons 4.22.0)  #-#-#-#-#
+#. #-#-#-#-#  woocommerce-smart-coupons.pot (WooCommerce Smart Coupons 4.25.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: includes/class-wc-sc-admin-notifications.php:174
 #: includes/class-wc-sc-admin-notifications.php:240
@@ -183,7 +183,7 @@ msgstr ""
 #: includes/class-wc-sc-background-coupon-importer.php:387
 #: includes/class-wc-sc-display-coupons.php:782
 #: includes/class-wc-sc-display-coupons.php:819
-#: includes/class-wc-sc-display-coupons.php:1628
+#: includes/class-wc-sc-display-coupons.php:1630
 #: includes/class-wc-sc-product-fields.php:96
 #: includes/class-wc-sc-product-fields.php:153
 msgid "Coupons"
@@ -492,8 +492,8 @@ msgstr ""
 
 #: includes/class-wc-sc-admin-pages.php:817
 #: includes/class-wc-sc-admin-pages.php:1132
-#: includes/class-wc-sc-display-coupons.php:2068
-#: includes/class-wc-sc-display-coupons.php:2101
+#: includes/class-wc-sc-display-coupons.php:2070
+#: includes/class-wc-sc-display-coupons.php:2103
 #: includes/class-wc-sc-privacy.php:564
 msgid "Message"
 msgstr ""
@@ -2012,22 +2012,22 @@ msgid ""
 "this coupon to be valid for users with any role."
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-user-role.php:205
-#: includes/class-wc-sc-coupons-by-user-role.php:212
+#: includes/class-wc-sc-coupons-by-user-role.php:209
+#: includes/class-wc-sc-coupons-by-user-role.php:216
 msgid "This coupon is not valid for you."
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-user-role.php:228
+#: includes/class-wc-sc-coupons-by-user-role.php:232
 msgid "User Role"
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-user-role.php:229
+#: includes/class-wc-sc-coupons-by-user-role.php:233
 msgid "Exclude User Role"
 msgstr ""
 
 #: includes/class-wc-sc-display-coupons.php:272
 #: includes/class-wc-sc-display-coupons.php:864
-#: includes/class-wc-sc-display-coupons.php:2015
+#: includes/class-wc-sc-display-coupons.php:2017
 #: includes/class-wc-sc-shortcode.php:479
 #: includes/class-wc-smart-coupons.php:3931 templates/combined-email.php:124
 #: templates/email.php:121 templates/print-coupons-default.php:138
@@ -2036,7 +2036,7 @@ msgstr ""
 
 #: includes/class-wc-sc-display-coupons.php:274
 #: includes/class-wc-sc-display-coupons.php:866
-#: includes/class-wc-sc-display-coupons.php:2017
+#: includes/class-wc-sc-display-coupons.php:2019
 #: includes/class-wc-sc-shortcode.php:481
 #: includes/class-wc-smart-coupons.php:3933 templates/combined-email.php:126
 #: templates/email.php:123 templates/plain/combined-email.php:91
@@ -2046,7 +2046,7 @@ msgstr ""
 
 #: includes/class-wc-sc-display-coupons.php:291
 #: includes/class-wc-sc-display-coupons.php:880
-#: includes/class-wc-sc-display-coupons.php:2046
+#: includes/class-wc-sc-display-coupons.php:2048
 #: includes/class-wc-sc-shortcode.php:510
 #: includes/class-wc-smart-coupons.php:3960
 #: includes/emails/class-wc-sc-email-coupon.php:173
@@ -2190,50 +2190,50 @@ msgid ""
 "restrictions, usage limits, expiry date."
 msgstr ""
 
-#: includes/class-wc-sc-display-coupons.php:1629
+#: includes/class-wc-sc-display-coupons.php:1631
 msgid "Endpoint for the My Account &rarr; Coupons page"
 msgstr ""
 
-#: includes/class-wc-sc-display-coupons.php:1783
+#: includes/class-wc-sc-display-coupons.php:1785
 msgid "Coupon Received"
 msgstr ""
 
-#: includes/class-wc-sc-display-coupons.php:1784
+#: includes/class-wc-sc-display-coupons.php:1786
 msgid ""
 "List of coupons & their details which you have received from the store. "
 "Click on the coupon to see the details."
 msgstr ""
 
-#: includes/class-wc-sc-display-coupons.php:1834
-#: includes/class-wc-sc-display-coupons.php:1845
+#: includes/class-wc-sc-display-coupons.php:1836
+#: includes/class-wc-sc-display-coupons.php:1847
 msgid "Less details"
 msgstr ""
 
-#: includes/class-wc-sc-display-coupons.php:1836
-#: includes/class-wc-sc-display-coupons.php:1848
-#: includes/class-wc-sc-display-coupons.php:1951
+#: includes/class-wc-sc-display-coupons.php:1838
+#: includes/class-wc-sc-display-coupons.php:1850
+#: includes/class-wc-sc-display-coupons.php:1953
 msgid "More details"
 msgstr ""
 
-#: includes/class-wc-sc-display-coupons.php:2065
-#: includes/class-wc-sc-display-coupons.php:2102
+#: includes/class-wc-sc-display-coupons.php:2067
+#: includes/class-wc-sc-display-coupons.php:2104
 msgid "Sender"
 msgstr ""
 
-#: includes/class-wc-sc-display-coupons.php:2066
-#: includes/class-wc-sc-display-coupons.php:2100
+#: includes/class-wc-sc-display-coupons.php:2068
+#: includes/class-wc-sc-display-coupons.php:2102
 msgid "Receiver"
 msgstr ""
 
-#: includes/class-wc-sc-display-coupons.php:2098
+#: includes/class-wc-sc-display-coupons.php:2100
 msgid "Code"
 msgstr ""
 
-#: includes/class-wc-sc-display-coupons.php:2099
+#: includes/class-wc-sc-display-coupons.php:2101
 msgid "Amount"
 msgstr ""
 
-#: includes/class-wc-sc-display-coupons.php:2191
+#: includes/class-wc-sc-display-coupons.php:2193
 msgid "Generated coupons"
 msgstr ""
 
@@ -3100,14 +3100,14 @@ msgid "Cancel"
 msgstr ""
 
 #. translators: %s: $coupon_code coupon code
-#: includes/class-wc-sc-url-coupon.php:241
+#: includes/class-wc-sc-url-coupon.php:247
 msgid ""
 "Coupon code \"%s\" applied successfully. Please add some products to the "
 "cart to see the discount."
 msgstr ""
 
 #. translators: %s: $coupon_code coupon code
-#: includes/class-wc-sc-url-coupon.php:245
+#: includes/class-wc-sc-url-coupon.php:251
 msgid ""
 "Coupon code \"%s\" already applied! Please add some products to the cart to "
 "see the discount."

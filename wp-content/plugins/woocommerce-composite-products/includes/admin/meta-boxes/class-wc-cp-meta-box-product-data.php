@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Data tabs/panels for the Composite type.
  *
  * @class    WC_CP_Meta_Box_Product_Data
- * @version  8.1.0
+ * @version  8.2.0
  */
 class WC_CP_Meta_Box_Product_Data {
 
@@ -568,7 +568,7 @@ class WC_CP_Meta_Box_Product_Data {
 			<div id="message" class="inline notice">
 				<p>
 					<span class="assembled_notice_title"><?php _e( 'What happened to the shipping options?', 'woocommerce-composite-products' ); ?></span>
-					<?php echo sprintf( __( 'The contents of this composite product preserve their dimensions, weight and shipping classes. <a href="%s" target="_blank">Unassembled</a> composite products do not have a physical container &ndash; or any shipping options to configure.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'shipping-options' ) ); ?>
+					<?php echo sprintf( __( 'The contents of this composite product preserve their dimensions, weight and shipping classes. <a href="%s" target="_blank">Unassembled</a> composite products do not have any shipping options to configure.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'shipping-options' ) ); ?>
 				</p>
 			</div>
 		<?php
@@ -603,24 +603,15 @@ class WC_CP_Meta_Box_Product_Data {
 			$( function() {
 
 				var shipping_product_data = $( '.product_data #shipping_product_data' ),
-					virtual_checkbox      = $( 'input#_virtual' ),
-					bto_product_data      = $( '.product_data #bto_product_data' ),
-					bto_type_options      = shipping_product_data.find( '.bto_type_options li' );
+				    bto_product_data      = $( '.product_data #bto_product_data' );
 
-				$( 'body' ).on( 'woocommerce-product-type-change', function( event, select_val ) {
+				$( 'select#product-type' ).on( 'change', function() {
 
-					if ( 'composite' === select_val ) {
+					if ( 'composite' !== $( this ).val() ) {
 
-						// Force virtual container to always show the shipping tab.
-						virtual_checkbox.prop( 'checked', false ).trigger( 'change' );
+						// Clear container classes to make Shipping contents visible.
+ 						// If we don't do this at this early point, WC will hide the Shipping tab even if the Virtual option is unchecked.
 
-						if ( 'unassembled' === bto_type_options.find( 'input.composite_type_option:checked' ).first().val() ) {
-							shipping_product_data.addClass( 'composite_unassembled' );
-							bto_product_data.addClass( 'composite_unassembled' );
-						}
-
-					} else {
-						// Clear container classes.
 						shipping_product_data.removeClass( 'composite_unassembled' );
 						bto_product_data.removeClass( 'composite_unassembled' );
 					}
@@ -1959,22 +1950,6 @@ class WC_CP_Meta_Box_Product_Data {
 	 */
 	public static function composite_product_data_tabs( $tabs ) {
 
-		global $post, $product_object, $composite_product_object, $composite_product_object_data;
-
-		/*
-		 * Create a global composite-type object to use for populating fields.
-		 */
-
-		$post_id = $post->ID;
-
-		if ( empty( $product_object ) || false === $product_object->is_type( 'composite' ) ) {
-			$composite_product_object = $post_id ? new WC_Product_Composite( $post_id ) : new WC_Product_Composite();
-		} else {
-			$composite_product_object = $product_object;
-		}
-
-		self::set_global_object_data( $composite_product_object );
-
 		$tabs[ 'cp_components' ] = array(
 			'label'    => __( 'Components', 'woocommerce-composite-products' ),
 			'target'   => 'bto_product_data',
@@ -2215,7 +2190,7 @@ class WC_CP_Meta_Box_Product_Data {
 		}
 
 		?>
-		<div id="bto_product_data" class="bto_panel panel woocommerce_options_panel wc-metaboxes-wrapper" style="display:none">
+		<div id="bto_product_data" class="bto_panel panel woocommerce_options_panel wc-metaboxes-wrapper <?php echo $composite_product_object->is_virtual_composite() ? 'composite_virtual' : ''; ?>" style="display:none">
 			<div class="options_group_general">
 				<?php
 				/**
@@ -2408,8 +2383,38 @@ class WC_CP_Meta_Box_Product_Data {
 	 */
 	public static function add_composite_type_options( $options ) {
 
+		global $post, $product_object, $composite_product_object, $composite_product_object_data;
+
+		/*
+		 * Create a global composite-type object to use for populating fields.
+		 */
+
+		$post_id = $post->ID;
+
+		if ( empty( $product_object ) || false === $product_object->is_type( 'composite' ) ) {
+			$composite_product_object = $post_id ? new WC_Product_Composite( $post_id ) : new WC_Product_Composite();
+		} else {
+			$composite_product_object = $product_object;
+		}
+
+		self::set_global_object_data( $composite_product_object );
+
 		$options[ 'virtual' ][ 'wrapper_class' ]      .= ' hide_if_composite';
 		$options[ 'downloadable' ][ 'wrapper_class' ] .= ' show_if_composite';
+
+		/*
+ 		 * Instead of adding this, another approach here would be to use the vanilla 'Virtual' box to set the 'virtual_composite' prop for Composites.
+ 		 * However, we would need to make sure that we initialize it based on the 'virtual_composite' prop value, instead of the 'virtual' prop, probably in JS.
+ 		 * See 'js_handle_container_classes'.
+ 		 */
+ 		$options = array_merge( array(
+ 			'bto_virtual_composite' => array(
+				'id'            => '_virtual_composite',
+				'wrapper_class' => 'show_if_composite',
+				'label'         => __( 'Virtual', 'woocommerce' ),
+				'description'   => __( 'Virtual composite products are intangible and are not shipped. When this option is enabled, any physical products purchased in this Composite will be treated as virtual.', 'woocommerce-composite-products' ),
+				'default'       => 'no',
+		) ), $options );
 
 		return $options;
 	}
@@ -2465,10 +2470,16 @@ class WC_CP_Meta_Box_Product_Data {
 			}
 
 			/*
+ 			 * Virtual composite.
+ 			 */
+
+ 			$props[ 'virtual_composite' ] = isset( $_POST[ '_virtual_composite' ] );
+
+			/*
 			 * Composite shipping type.
 			 */
 			if ( ! empty( $_POST[ '_composite_type' ] ) ) {
-				$props[ 'virtual' ] = 'unassembled' === $_POST[ '_composite_type' ] ? true : false;
+				$props[ 'virtual' ] = 'unassembled' === $_POST[ '_composite_type' ] || isset( $_POST[ '_virtual_composite' ] ) ? true : false;
 			}
 
 			/*

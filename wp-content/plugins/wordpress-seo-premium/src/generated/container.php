@@ -55,7 +55,10 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\helpers\\language_helper' => 'Yoast\\WP\\SEO\\Helpers\\Language_Helper',
             'yoast\\wp\\seo\\helpers\\meta_helper' => 'Yoast\\WP\\SEO\\Helpers\\Meta_Helper',
             'yoast\\wp\\seo\\helpers\\options_helper' => 'Yoast\\WP\\SEO\\Helpers\\Options_Helper',
+            'yoast\\wp\\seo\\helpers\\post_type_helper' => 'Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper',
             'yoast\\wp\\seo\\helpers\\prominent_words_helper' => 'Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper',
+            'yoast\\wp\\seo\\helpers\\url_helper' => 'Yoast\\WP\\SEO\\Helpers\\Url_Helper',
+            'yoast\\wp\\seo\\helpers\\wordpress_helper' => 'Yoast\\WP\\SEO\\Helpers\\Wordpress_Helper',
             'yoast\\wp\\seo\\helpers\\zapier_helper' => 'Yoast\\WP\\SEO\\Helpers\\Zapier_Helper',
             'yoast\\wp\\seo\\initializers\\redirect_handler' => 'Yoast\\WP\\SEO\\Initializers\\Redirect_Handler',
             'yoast\\wp\\seo\\integrations\\admin\\prominent_words\\indexing_integration' => 'Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration',
@@ -100,6 +103,7 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\premium\\integrations\\opengraph_post_type' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Post_Type',
             'yoast\\wp\\seo\\premium\\integrations\\opengraph_posttype_archive' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_PostType_Archive',
             'yoast\\wp\\seo\\premium\\integrations\\opengraph_term_archive' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive',
+            'yoast\\wp\\seo\\premium\\integrations\\third_party\\algolia' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Algolia',
             'yoast\\wp\\seo\\premium\\integrations\\third_party\\elementor_premium' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium',
             'yoast\\wp\\seo\\premium\\integrations\\third_party\\zapier' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier',
             'yoast\\wp\\seo\\premium\\integrations\\third_party\\zapier_classic_editor' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Classic_Editor',
@@ -116,9 +120,8 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\routes\\zapier_route' => 'Yoast\\WP\\SEO\\Routes\\Zapier_Route',
             'yoast\\wp\\seo\\schema_templates\\block_patterns\\block_pattern_categories' => 'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Categories',
             'yoast\\wp\\seo\\schema_templates\\block_patterns\\block_pattern_keywords' => 'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Keywords',
-            'yoast\\wp\\seo\\schema_templates\\block_patterns\\job_posting_default' => 'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Default',
-            'yoast\\wp\\seo\\schema_templates\\block_patterns\\job_posting_minimal' => 'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Minimal',
-            'yoast\\wp\\seo\\schema_templates\\block_patterns\\job_posting_yoast_com' => 'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Yoast_Com',
+            'yoast\\wp\\seo\\schema_templates\\block_patterns\\job_posting_one_column' => 'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_One_Column',
+            'yoast\\wp\\seo\\schema_templates\\block_patterns\\job_posting_two_columns' => 'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Two_Columns',
             'yoast\\wp\\seo\\surfaces\\classes_surface' => 'Yoast\\WP\\SEO\\Surfaces\\Classes_Surface',
             'yoast\\wp\\seo\\surfaces\\helpers_surface' => 'Yoast\\WP\\SEO\\Surfaces\\Helpers_Surface',
             'yoast\\wp\\seo\\surfaces\\meta_surface' => 'Yoast\\WP\\SEO\\Surfaces\\Meta_Surface',
@@ -159,7 +162,10 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Helpers\\Language_Helper' => 'getLanguageHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Meta_Helper' => 'getMetaHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Options_Helper' => 'getOptionsHelperService',
+            'Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper' => 'getPostTypeHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper' => 'getProminentWordsHelperService',
+            'Yoast\\WP\\SEO\\Helpers\\Url_Helper' => 'getUrlHelperService',
+            'Yoast\\WP\\SEO\\Helpers\\Wordpress_Helper' => 'getWordpressHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Zapier_Helper' => 'getZapierHelperService',
             'Yoast\\WP\\SEO\\Initializers\\Redirect_Handler' => 'getRedirectHandlerService',
             'Yoast\\WP\\SEO\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration' => 'getIndexingIntegrationService',
@@ -204,6 +210,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_PostType_Archive' => 'getOpenGraphPostTypeArchiveService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Post_Type' => 'getOpenGraphPostTypeService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive' => 'getOpenGraphTermArchiveService',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Algolia' => 'getAlgoliaService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium' => 'getElementorPremium2Service',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier' => 'getZapier2Service',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Classic_Editor' => 'getZapierClassicEditor2Service',
@@ -220,9 +227,8 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Routes\\Zapier_Route' => 'getZapierRouteService',
             'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Categories' => 'getBlockPatternCategoriesService',
             'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Keywords' => 'getBlockPatternKeywordsService',
-            'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Default' => 'getJobPostingDefaultService',
-            'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Minimal' => 'getJobPostingMinimalService',
-            'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Yoast_Com' => 'getJobPostingYoastComService',
+            'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_One_Column' => 'getJobPostingOneColumnService',
+            'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Two_Columns' => 'getJobPostingTwoColumnsService',
             'Yoast\\WP\\SEO\\Surfaces\\Classes_Surface' => 'getClassesSurfaceService',
             'Yoast\\WP\\SEO\\Surfaces\\Helpers_Surface' => 'getHelpersSurface2Service',
             'Yoast\\WP\\SEO\\Surfaces\\Meta_Surface' => 'getMetaSurfaceService',
@@ -594,6 +600,16 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Helpers\Post_Type_Helper' shared service.
+     *
+     * @return \Yoast\WP\SEO\Helpers\Post_Type_Helper
+     */
+    protected function getPostTypeHelperService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper');
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Helpers\Prominent_Words_Helper' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Helpers\Prominent_Words_Helper
@@ -605,6 +621,26 @@ class Cached_Container extends Container
         @trigger_error('Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper is deprecated since version 16.5! Use Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper instead.', E_USER_DEPRECATED);
 
         return $this->services['Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper'] = new \Yoast\WP\SEO\Helpers\Prominent_Words_Helper(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Helpers\Url_Helper' shared service.
+     *
+     * @return \Yoast\WP\SEO\Helpers\Url_Helper
+     */
+    protected function getUrlHelperService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Helpers\\Url_Helper'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Helpers\\Url_Helper');
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Helpers\Wordpress_Helper' shared service.
+     *
+     * @return \Yoast\WP\SEO\Helpers\Wordpress_Helper
+     */
+    protected function getWordpressHelperService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Helpers\\Wordpress_Helper'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Helpers\\Wordpress_Helper');
     }
 
     /**
@@ -670,7 +706,7 @@ class Cached_Container extends Container
      */
     protected function getBlockPatternsService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Integrations\\Blocks\\Block_Patterns'] = new \Yoast\WP\SEO\Integrations\Blocks\Block_Patterns(${($_ = isset($this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Default']) ? $this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Default'] : ($this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Default'] = new \Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Default())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Minimal']) ? $this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Minimal'] : ($this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Minimal'] = new \Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Minimal())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Yoast_Com']) ? $this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Yoast_Com'] : ($this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Yoast_Com'] = new \Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Yoast_Com())) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Integrations\\Blocks\\Block_Patterns'] = new \Yoast\WP\SEO\Integrations\Blocks\Block_Patterns(${($_ = isset($this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_One_Column']) ? $this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_One_Column'] : ($this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_One_Column'] = new \Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_One_Column())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Two_Columns']) ? $this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Two_Columns'] : ($this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Two_Columns'] = new \Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Two_Columns())) && false ?: '_'});
     }
 
     /**
@@ -694,7 +730,7 @@ class Cached_Container extends Container
      */
     protected function getJobPostingBlockService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Integrations\\Blocks\\Job_Posting_Block'] = new \Yoast\WP\SEO\Integrations\Blocks\Job_Posting_Block();
+        return $this->services['Yoast\\WP\\SEO\\Integrations\\Blocks\\Job_Posting_Block'] = new \Yoast\WP\SEO\Integrations\Blocks\Job_Posting_Block(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Wordpress_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Wordpress_Helper'] : $this->getWordpressHelperService()) && false ?: '_'});
     }
 
     /**
@@ -840,6 +876,7 @@ class Cached_Container extends Container
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Post_Type');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_PostType_Archive');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Algolia');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\TranslationsPress');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Classic_Editor');
@@ -1004,7 +1041,7 @@ class Cached_Container extends Container
      */
     protected function getIndexingIntegration2Service()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Indexing_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action'] : $this->getContentAction2Service()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Indexation_Action'] : $this->getIndexablePostIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Term_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Term_Indexation_Action'] : $this->getIndexableTermIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_General_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_General_Indexation_Action'] : $this->getIndexableGeneralIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Type_Archive_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Type_Archive_Indexation_Action'] : $this->getIndexablePostTypeArchiveIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Language_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Language_Helper'] : $this->getLanguageHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelper2Service()) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Indexing_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Content_Action'] : $this->getContentAction2Service()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Indexation_Action'] : $this->getIndexablePostIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Term_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Term_Indexation_Action'] : $this->getIndexableTermIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_General_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_General_Indexation_Action'] : $this->getIndexableGeneralIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Type_Archive_Indexation_Action']) ? $this->services['Yoast\\WP\\SEO\\Actions\\Indexing\\Indexable_Post_Type_Archive_Indexation_Action'] : $this->getIndexablePostTypeArchiveIndexationActionService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Language_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Language_Helper'] : $this->getLanguageHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Url_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Url_Helper'] : $this->getUrlHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelper2Service()) && false ?: '_'});
     }
 
     /**
@@ -1044,7 +1081,7 @@ class Cached_Container extends Container
      */
     protected function getWorkoutsIntegrationService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Workouts_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] : $this->getIndexableRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action'] : $this->getLinkSuggestionsAction2Service()) && false ?: '_'}, ${($_ = isset($this->services['WPSEO_Admin_Asset_Manager']) ? $this->services['WPSEO_Admin_Asset_Manager'] : $this->getWPSEOAdminAssetManagerService()) && false ?: '_'}, ${($_ = isset($this->services['WPSEO_Shortlinker']) ? $this->services['WPSEO_Shortlinker'] : $this->getWPSEOShortlinkerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelper2Service()) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Workouts_Integration(${($_ = isset($this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository']) ? $this->services['Yoast\\WP\\SEO\\Repositories\\Indexable_Repository'] : $this->getIndexableRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Actions\\Link_Suggestions_Action'] : $this->getLinkSuggestionsAction2Service()) && false ?: '_'}, ${($_ = isset($this->services['WPSEO_Admin_Asset_Manager']) ? $this->services['WPSEO_Admin_Asset_Manager'] : $this->getWPSEOAdminAssetManagerService()) && false ?: '_'}, ${($_ = isset($this->services['WPSEO_Shortlinker']) ? $this->services['WPSEO_Shortlinker'] : $this->getWPSEOShortlinkerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelper2Service()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper'] : $this->getPostTypeHelperService()) && false ?: '_'});
     }
 
     /**
@@ -1125,6 +1162,16 @@ class Cached_Container extends Container
     protected function getOpenGraphTermArchiveService()
     {
         return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive'] = new \Yoast\WP\SEO\Premium\Integrations\OpenGraph_Term_Archive(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Third_Party\Algolia' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Third_Party\Algolia
+     */
+    protected function getAlgoliaService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Algolia'] = new \Yoast\WP\SEO\Premium\Integrations\Third_Party\Algolia(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Surfaces\\Meta_Surface']) ? $this->services['Yoast\\WP\\SEO\\Surfaces\\Meta_Surface'] : $this->getMetaSurfaceService()) && false ?: '_'});
     }
 
     /**
@@ -1288,33 +1335,23 @@ class Cached_Container extends Container
     }
 
     /**
-     * Gets the public 'Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Default' shared autowired service.
+     * Gets the public 'Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_One_Column' shared autowired service.
      *
-     * @return \Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Default
+     * @return \Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_One_Column
      */
-    protected function getJobPostingDefaultService()
+    protected function getJobPostingOneColumnService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Default'] = new \Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Default();
+        return $this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_One_Column'] = new \Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_One_Column();
     }
 
     /**
-     * Gets the public 'Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Minimal' shared autowired service.
+     * Gets the public 'Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Two_Columns' shared autowired service.
      *
-     * @return \Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Minimal
+     * @return \Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Two_Columns
      */
-    protected function getJobPostingMinimalService()
+    protected function getJobPostingTwoColumnsService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Minimal'] = new \Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Minimal();
-    }
-
-    /**
-     * Gets the public 'Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Yoast_Com' shared autowired service.
-     *
-     * @return \Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Yoast_Com
-     */
-    protected function getJobPostingYoastComService()
-    {
-        return $this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Yoast_Com'] = new \Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Yoast_Com();
+        return $this->services['Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Two_Columns'] = new \Yoast\WP\SEO\Schema_Templates\Block_Patterns\Job_Posting_Two_Columns();
     }
 
     /**

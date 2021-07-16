@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Product Class.
  *
  * @class    WC_Product_Composite
- * @version  8.1.4
+ * @version  8.2.0
  */
 class WC_Product_Composite extends WC_Product {
 
@@ -25,12 +25,13 @@ class WC_Product_Composite extends WC_Product {
 	 * @var array
 	 */
 	private $extended_data = array(
+		'sold_individually_context' => 'product',  // Provides context when the "Sold Individually" option is set to 'yes': 'product' or 'configuration'.
 		'add_to_cart_form_location' => 'default',  // "Form Location" option.
 		'shop_price_calc'           => 'defaults', // "Catalog Price" option.
 		'layout'                    => 'default',  // "Composite Layout" option.
+		'virtual_composite'         => false,      // "Virtual" box state.
 		'editable_in_cart'          => false,      // "Edit in cart" option.
 		'aggregate_weight'          => false,      // "Assembled weight" option.
-		'sold_individually_context' => 'product',  // Provides context when the "Sold Individually" option is set to 'yes': 'product' or 'configuration'.
 		'min_raw_price'             => '',         // Min raw price of the composite based on raw prices, as stored in the DB.
 		'max_raw_price'             => ''          // Max raw price of the composite based on raw prices, as stored in the DB.
 	);
@@ -952,6 +953,18 @@ class WC_Product_Composite extends WC_Product {
 	*/
 
 	/**
+ 	 * Forces all component options to be treated as virtual, along with the Composite itself.
+ 	 *
+ 	 * @since 8.2.0
+ 	 *
+ 	 * @param  string  $context
+ 	 * @return boolean
+ 	 */
+ 	public function get_virtual_composite( $context = 'view' ) {
+ 		return $this->get_prop( 'virtual_composite', $context );
+ 	}
+
+	/**
 	 * Returns the base active price of the composite.
 	 *
 	 * @since  3.9.0
@@ -1339,6 +1352,21 @@ class WC_Product_Composite extends WC_Product {
 	*/
 
 	/**
+ 	 * Set 'virtual_composite' prop. Forces all component options to be treated as virtual.
+ 	 *
+ 	 * @since 8.2.0
+ 	 *
+ 	 * @param  string|boolean  $virtual
+ 	 */
+ 	public function set_virtual_composite( $virtual ) {
+ 		$virtual = wc_string_to_bool( $virtual );
+ 		$this->set_prop( 'virtual_composite', $virtual );
+ 		if ( $virtual ) {
+ 			$this->set_prop( 'virtual', true );
+ 		}
+ 	}
+
+	/**
 	 * Shop price calc setter.
 	 *
 	 * @since  3.12.0
@@ -1526,7 +1554,13 @@ class WC_Product_Composite extends WC_Product {
 	 * @since 4.0.0
 	 */
 	public function validate_props() {
+
 		parent::validate_props();
+
+		if ( $this->get_virtual_composite( 'edit' ) ) {
+ 			$this->set_virtual( true );
+ 		}
+
 		$this->validate_scenarios();
 	}
 
@@ -1735,6 +1769,17 @@ class WC_Product_Composite extends WC_Product {
 	*/
 
 	/**
+ 	 * Just a different way to check the 'virtual_composite' prop value.
+ 	 *
+ 	 * @since  8.2.0
+ 	 *
+ 	 * @return boolean
+ 	 */
+ 	public function is_virtual_composite() {
+ 		return $this->get_virtual_composite();
+ 	}
+
+	/**
 	 * Returns whether or not the product has additional options that need
 	 * selecting before adding to cart.
 	 *
@@ -1781,14 +1826,17 @@ class WC_Product_Composite extends WC_Product {
 
 				$this->contains[ 'shipped_individually' ] = false;
 
-				// Any components shipped individually?
-				$components = $this->get_components();
+				if ( false === $this->get_virtual_composite() ) {
 
-				if ( ! empty( $components ) ) {
+					// Any components shipped individually?
+					$components = $this->get_components();
 
-					foreach ( $components as $component ) {
-						if ( $component->is_shipped_individually() ) {
-							$this->contains[ 'shipped_individually' ] = true;
+					if ( ! empty( $components ) ) {
+
+						foreach ( $components as $component ) {
+							if ( $component->is_shipped_individually() ) {
+								$this->contains[ 'shipped_individually' ] = true;
+							}
 						}
 					}
 				}

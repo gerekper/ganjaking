@@ -5,6 +5,7 @@ namespace MailPoet\Premium\Config;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\API\JSON\API;
 use MailPoet\Config\ServicesChecker;
 use MailPoet\Util\Helpers;
 use MailPoet\WP\Functions as WPFunctions;
@@ -29,10 +30,8 @@ class Hooks {
     );
   }
 
-  public function addPremiumAPIEndpoints($api) {
-    if (is_callable([$api, 'addEndpointNamespace'])) {
-      $api->addEndpointNamespace('MailPoet\Premium\API\JSON\v1', 'v1');
-    }
+  public function addPremiumAPIEndpoints(API $api) {
+    $api->addEndpointNamespace('MailPoet\Premium\API\JSON\v1', 'v1');
   }
 
   public function pluginUpdateMessage() {

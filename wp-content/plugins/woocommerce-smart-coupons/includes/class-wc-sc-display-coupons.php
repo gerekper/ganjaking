@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.8.0
+ * @version     1.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1446,8 +1446,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 				return;
 			}
 
-			$js = " 	jQuery('div').on('click', '.apply_coupons_credits', function() {
-
+			$js = " 	function wc_sc_apply_coupon_js() {
 							let coupon_code = jQuery(this).data('coupon_code');
 
 							if( coupon_code != '' && coupon_code != undefined ) {
@@ -1457,7 +1456,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 								jQuery(location).attr('href', url);
 
 							}
-						});
+						}
 
 						var show_hide_coupon_list = function() {
 							if ( jQuery('div#coupons_list').find('div.sc-coupon, div.coupon-container').length > 0 ) {
@@ -1476,6 +1475,8 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 							jQuery('#all_coupon_container').css('overflow-y', '');
 						}
 
+						jQuery('div').on('click', '.apply_coupons_credits', wc_sc_apply_coupon_js);
+
 						jQuery('.checkout_coupon').next('#coupons_list').hide();
 
 						jQuery('a.showcoupon').on('click', function() {
@@ -1492,6 +1493,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 							try {
 								if ( data.fragments.wc_sc_available_coupons ) {
 									jQuery('div#coupons_list').replaceWith( data.fragments.wc_sc_available_coupons );
+									jQuery('div').on('click', '.apply_coupons_credits', wc_sc_apply_coupon_js);
 								}
 							} catch(e) {}
 							show_hide_coupon_list();

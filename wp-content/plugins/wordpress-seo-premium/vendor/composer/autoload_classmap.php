@@ -176,6 +176,7 @@ return array(
     'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_PostType_Archive' => $baseDir . '/src/integrations/opengraph-posttype-archive.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Post_Type' => $baseDir . '/src/integrations/opengraph-post-type.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive' => $baseDir . '/src/integrations/opengraph-term-archive.php',
+    'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Algolia' => $baseDir . '/src/integrations/third-party/algolia.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium' => $baseDir . '/src/integrations/third-party/elementor-premium.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier' => $baseDir . '/src/integrations/third-party/zapier.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Classic_Editor' => $baseDir . '/src/integrations/third-party/zapier-classic-editor.php',
@@ -197,8 +198,7 @@ return array(
     'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Categories' => $baseDir . '/src/schema-templates/block-patterns/block-pattern-categories.php',
     'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Block_Pattern_Keywords' => $baseDir . '/src/schema-templates/block-patterns/block-pattern-keywords.php',
     'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Base_Pattern' => $baseDir . '/src/schema-templates/block-patterns/job-posting-base-pattern.php',
-    'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Default' => $baseDir . '/src/schema-templates/block-patterns/job-posting-default.php',
-    'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Minimal' => $baseDir . '/src/schema-templates/block-patterns/job-posting-minimal.php',
-    'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Yoast_Com' => $baseDir . '/src/schema-templates/block-patterns/job-posting-yoast-com.php',
+    'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_One_Column' => $baseDir . '/src/schema-templates/block-patterns/job-posting-one-column.php',
+    'Yoast\\WP\\SEO\\Schema_Templates\\Block_Patterns\\Job_Posting_Two_Columns' => $baseDir . '/src/schema-templates/block-patterns/job-posting-two-columns.php',
     'Yoast\\WP\\SEO\\WordPress\\Premium_Wrapper' => $baseDir . '/src/deprecated/wordpress/renamed-classes.php',
 );

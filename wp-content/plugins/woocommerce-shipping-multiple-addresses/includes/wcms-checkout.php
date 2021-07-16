@@ -103,8 +103,8 @@ class WC_MS_Checkout {
             }
         }
 
-        if ( in_array( $requires, array( 'min_amount', 'either', 'both' ), true ) && isset( $package['contents_cost'] ) ) {
-            $total = $package['contents_cost'];
+        if ( in_array( $requires, array( 'min_amount', 'either', 'both' ), true ) && isset( $package['cart_subtotal'] ) ) {
+            $total = $package['cart_subtotal'];
 
             if ( WC()->cart->display_prices_including_tax() ) {
                 $total = $total - WC()->cart->get_discount_tax();
