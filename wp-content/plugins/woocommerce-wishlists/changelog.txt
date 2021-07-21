@@ -1,4 +1,17 @@
 *** WooCommerce Wishlist Changelog ***
+2021.07.14 - version 2.2.5
+    * Fix:  Check product has an availability object before attempting to use.
+    * Update:  WC and WP Updates.
+
+2021.02.12 - version 2.2.4
+    * Fix:  Fix deprecated add_to_cart_message notice.
+    * Fix: Only move the first found Wishlist button inside of a bundle or composite container.
+    * Update: Be sure to call the woocommerce_add_to_cart_product_id filter when adding products in the default case.  Helps with Product Bundles.
+    * Update:  WC and WP version compatibility tags.
+    * Update:  Compatibility with WC 4.9 email templates.
+    * Update:  Compatibility with Product Bundles – Variation Bundles
+    * Update:  Check session object exists before attempting to use.
+
 2020.11.27 - version 2.2.3
     * Update: Add data-title attributes to some additional columns on the list templates.
     * Update: Add wc_wishlists_create_list_args filter on the create list page, so that when used the UI matches any modified defaults.
@@ -7,7 +20,7 @@
                 woocommerce_wishlists_share_fb
     * Update:  Add the Add all to cart button to the wishlist edit template.
 
-2020.08.26 - version 2.2.2
+2020.08.26 - version 2.2.2 .
     * Fix:  Fix warning on settings screen about missing tab information.
 
 2020.08.18 - version 2.2.1

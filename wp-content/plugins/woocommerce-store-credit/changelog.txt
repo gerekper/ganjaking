@@ -1,5 +1,12 @@
 *** Store Credit Changelog ***
 
+2021-07-15 - version 3.9.0
+* Feature - Added compatibility with the extension 'WooCommerce PayPal payments'.
+* Tweak - Recover the credit used in the order awaiting payment when proceeding to its purchase.
+* Tweak - Update the cart session after applying a discount to the shipping costs.
+* Tweak - Tested compatibility up to WC 5.5.
+* Tweak - Tested compatibility with WP 5.8.
+
 2021-05-18 - version 3.8.0
 * Feature - Added compatibility with the extension 'WooCommerce Deposits'.
 * Tweak - Just deduct the shipping discounts from the cart totals instead of re-calculate the totals.

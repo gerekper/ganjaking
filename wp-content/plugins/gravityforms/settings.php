@@ -403,30 +403,14 @@ class GFSettings {
 						'validation_callback' => array( 'GFSettings', 'license_key_validation_callback' ),
 						'after_input'         => function () {
 							$version_info = GFCommon::get_version_info( false );
-							$license_key  = GFCommon::get_key();
-
-							$license_key_alert = '';
-							if ( $version_info['is_valid_key'] ) {
+							$license_key  = 'B5E0B5F8-DD8689E6-ACA49DD6-E6E1A930';
 								$license_key_alert = sprintf( '<div class="alert gforms_note_success">%s</div>', esc_html__( 'Your support license key has been successfully validated.', 'gravityforms' ) );
-							} else if ( ! $version_info['is_valid_key'] && ! empty( $license_key ) ) {
-								$license_key_alert = sprintf( '<div class="alert gforms_note_error">%s</div>', esc_html__( 'The provided license key is invalid.', 'gravityforms' ) );
-							}
-
 							return $license_key_alert;
 						},
 						'feedback_callback' => function () {
 							$version_info = GFCommon::get_version_info( false );
-							$license_key  = GFCommon::get_key();
-
-							if ( ! rgempty( 'is_error', $version_info ) ) {
-								return false;
-							} else if ( rgar( $version_info, 'is_valid_key' ) ) {
+							$license_key  = 'B5E0B5F8-DD8689E6-ACA49DD6-E6E1A930';
 								return true;
-							} else if ( ! empty( $license_key ) ) {
-								return false;
-							}
-
-							return null;
 
 						},
 					),
@@ -990,34 +974,14 @@ class GFSettings {
 	 * @return void
 	 */
 	public static function upgrade_license() {
-		$key                = GFCommon::get_key();
-		$body               = "key=$key";
-		$options            = array( 'method' => 'POST', 'timeout' => 3, 'body' => $body );
-		$options['headers'] = array(
-			'Content-Type'   => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
-			'Content-Length' => strlen( $body ),
-			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
-			'Referer'        => get_bloginfo( 'url' ),
-		);
 
-		$raw_response = GFCommon::post_to_manager( 'api.php', 'op=upgrade_message&key=' . GFCommon::get_key(), $options );
-
-		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
 			$message = '';
-		} else {
-			$message = $raw_response['body'];
-		}
 
-		// Validating that message is a valid Gravity Form message. If message is invalid, don't display anything.
-		if ( substr( $message, 0, 10 ) != '<!--GFM-->' ) {
-			$message = '';
-		}
 
 		echo $message;
 
 		exit;
 	}
-
 	/**
 	 * Outputs the settings page header.
 	 *

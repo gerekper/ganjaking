@@ -10,8 +10,18 @@
 add_shortcode('betterdocs_article_reactions', 'betterdocs_article_reactions');
 function betterdocs_article_reactions($atts, $content = null)
 {
+    $get_args = shortcode_atts(
+        array(
+            'text' => ''
+        ),
+        $atts
+    );
     do_action( 'betterdocs_before_shortcode_load' );
-	$reactions_text = get_theme_mod('betterdocs_post_reactions_text', esc_html__('What are your Feelings', 'betterdocs-pro'));
+    if ($get_args['text']) {
+        $reactions_text = $get_args['text'];
+    } else {
+        $reactions_text = get_theme_mod('betterdocs_post_reactions_text', esc_html__('What are your Feelings', 'betterdocs-pro'));
+    }
 	?>
 	<div class="betterdocs-article-reactions">
 		<div class="betterdocs-article-reactions-heading">

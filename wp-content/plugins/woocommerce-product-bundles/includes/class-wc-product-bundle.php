@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Class.
  *
  * @class    WC_Product_Bundle
- * @version  6.8.1
+ * @version  6.11.0
  */
 class WC_Product_Bundle extends WC_Product {
 
@@ -39,6 +39,7 @@ class WC_Product_Bundle extends WC_Product {
 	 * @var array
 	 */
 	private $extended_data = array(
+		'virtual_bundle'                  => false,
 		'min_bundle_size'                 => '',
 		'max_bundle_size'                 => '',
 		'layout'                          => 'default',
@@ -1477,6 +1478,18 @@ class WC_Product_Bundle extends WC_Product {
 	*/
 
 	/**
+	 * Forces all bundled products to be treated as virtual, along with the bundle itself.
+	 *
+	 * @since 6.11.0
+	 *
+	 * @param  string  $context
+	 * @return boolean
+	 */
+	public function get_virtual_bundle( $context = 'view' ) {
+		return $this->get_prop( 'virtual_bundle', $context );
+	}
+
+	/**
 	 * Min bundle size.
 	 *
 	 * @since  6.6.0
@@ -1967,6 +1980,21 @@ class WC_Product_Bundle extends WC_Product {
 	*/
 
 	/**
+	 * Set 'virtual_bundle' prop. Forced all bundled products to be treated as virtual.
+	 *
+	 * @since 6.11.0
+	 *
+	 * @param  string|boolean  $virtual
+	 */
+	public function set_virtual_bundle( $virtual ) {
+		$virtual = wc_string_to_bool( $virtual );
+		$this->set_prop( 'virtual_bundle', $virtual );
+		if ( $virtual ) {
+			$this->set_prop( 'virtual', true );
+		}
+	}
+
+	/**
 	 * Set min bundle size.
 	 *
 	 * @since  6.6.0
@@ -2272,6 +2300,17 @@ class WC_Product_Bundle extends WC_Product {
 	*/
 
 	/**
+	 * Just a different way to check the 'virtual_bundle' prop value.
+	 *
+	 * @since  6.11.0
+	 *
+	 * @return boolean
+	 */
+	public function is_virtual_bundle() {
+		return $this->get_virtual_bundle();
+	}
+
+	/**
 	 * Equivalent of 'get_changes', but boolean and for bundled data items only.
 	 *
 	 * @since  6.3.2
@@ -2349,13 +2388,16 @@ class WC_Product_Bundle extends WC_Product {
 				$shipped_items_exist = false;
 
 				// Any items shipped individually?
-				$bundled_data_items = $this->get_bundled_data_items();
+				if ( false === $this->get_virtual_bundle() ) {
 
-				if ( ! empty( $bundled_data_items ) ) {
-					foreach ( $bundled_data_items as $bundled_data_item ) {
-						if ( 'yes' === $bundled_data_item->get_meta( 'shipped_individually' ) ) {
-							$shipped_items_exist = true;
-							break;
+					$bundled_data_items = $this->get_bundled_data_items();
+
+					if ( ! empty( $bundled_data_items ) ) {
+						foreach ( $bundled_data_items as $bundled_data_item ) {
+							if ( 'yes' === $bundled_data_item->get_meta( 'shipped_individually' ) ) {
+								$shipped_items_exist = true;
+								break;
+							}
 						}
 					}
 				}
@@ -2375,7 +2417,7 @@ class WC_Product_Bundle extends WC_Product {
 
 				$assembled_items_exist = false;
 
-				if ( false === $this->get_virtual( 'edit' ) ) {
+				if ( false === $this->get_virtual() ) {
 
 					// Any items assembled?
 					$bundled_data_items = $this->get_bundled_data_items();
@@ -2705,6 +2747,10 @@ class WC_Product_Bundle extends WC_Product {
 
 		if ( false === $this->validate_group_mode() ) {
 			$this->set_group_mode( 'parent' );
+		}
+
+		if ( $this->get_virtual_bundle( 'edit' ) ) {
+			$this->set_virtual( true );
 		}
 
 		if ( $this->get_min_bundle_size( 'edit' ) > 0 && $this->get_max_bundle_size( 'edit' ) > 0 && $this->get_min_bundle_size( 'edit' ) > $this->get_max_bundle_size( 'edit' ) ) {

@@ -1,5 +1,9 @@
 *** Product CSV Import Suite Changelog ***
 
+2021-07-15 - version 1.10.43
+* Fix - Ensure the product lookup table is only updated for products that were imported.
+
+
 2021-07-02 - version 1.10.42
 * Fix - ensure post modified dates get updated even if an import doesn't have any normal post fields.
 

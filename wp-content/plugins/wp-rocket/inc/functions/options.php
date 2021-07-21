@@ -457,7 +457,6 @@ function rocket_valid_key() {
 	return true;
 }
 
-
 /**
  * Determine if the key is valid.
  *

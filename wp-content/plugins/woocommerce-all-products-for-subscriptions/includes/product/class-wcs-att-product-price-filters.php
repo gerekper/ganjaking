@@ -96,12 +96,16 @@ class WCS_ATT_Product_Price_Filters {
 			add_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_variation_prices' ), 100, 2 );
 			add_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_price' ), 100, 2 );
 			add_filter( 'woocommerce_product_get_sale_price', array( __CLASS__, 'filter_sale_price' ), 100, 2 );
+			add_filter( 'woocommerce_product_get_regular_price', array( __CLASS__, 'filter_regular_price' ), 100, 2 );
 			add_filter( 'woocommerce_product_variation_get_price', array( __CLASS__, 'filter_price' ), 100, 2 );
 			add_filter( 'woocommerce_product_variation_get_sale_price', array( __CLASS__, 'filter_sale_price' ), 100, 2 );
+			add_filter( 'woocommerce_product_variation_get_regular_price', array( __CLASS__, 'filter_regular_price' ), 100, 2 );
 
 			add_filter( 'woocommerce_subscriptions_product_price', array( __CLASS__, 'filter_subscription_price' ), 100, 2 );
 			add_filter( 'woocommerce_get_variation_prices_hash', array( __CLASS__, 'filter_variation_prices_hash' ), 0, 2 );
 			add_filter( 'woocommerce_available_variation', array( __CLASS__, 'filter_variation_data' ), 0, 3 );
+
+			add_filter( 'woocommerce_product_is_on_sale', array( __CLASS__, 'filter_is_on_sale' ), 100, 2 );
 
 			/**
 			 * Action 'wcsatt_add_price_filters'.
@@ -141,14 +145,18 @@ class WCS_ATT_Product_Price_Filters {
 			remove_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_variation_prices' ), 0, 2 );
 
 			remove_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_price' ), 100, 2 );
+			remove_filter( 'woocommerce_product_get_regular_price', array( __CLASS__, 'filter_regular_price' ), 100, 2 );
 			remove_filter( 'woocommerce_product_get_sale_price', array( __CLASS__, 'filter_sale_price' ), 100, 2 );
 			remove_filter( 'woocommerce_product_variation_get_price', array( __CLASS__, 'filter_price' ), 100, 2 );
 			remove_filter( 'woocommerce_product_variation_get_sale_price', array( __CLASS__, 'filter_sale_price' ), 100, 2 );
+			remove_filter( 'woocommerce_product_variation_get_regular_price', array( __CLASS__, 'filter_regular_price' ), 100, 2 );
 			remove_filter( 'woocommerce_subscriptions_product_price', array( __CLASS__, 'filter_price' ), 100, 2 );
 			remove_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_variation_prices' ), 100, 2 );
 
 			remove_filter( 'woocommerce_get_variation_prices_hash', array( __CLASS__, 'filter_variation_prices_hash' ), 0, 2 );
 			remove_filter( 'woocommerce_available_variation', array( __CLASS__, 'filter_variation_data' ), 0, 3 );
+
+			remove_filter( 'woocommerce_product_is_on_sale', array( __CLASS__, 'filter_is_on_sale' ), 100, 2 );
 
 			/**
 			 * Action 'wcsatt_remove_price_filters'.
@@ -358,7 +366,7 @@ class WCS_ATT_Product_Price_Filters {
 
 					$overridden_prices = $subscription_scheme->get_prices( array(
 						'price'         => $price,
-						'sale_price'    => $price,
+						'sale_price'    => '',
 						'regular_price' => $product->get_regular_price(),
 						'offset_price'  => WCS_ATT_Product::get_runtime_meta( $product, 'price_offset' )
 					) );
@@ -390,12 +398,36 @@ class WCS_ATT_Product_Price_Filters {
 
 			if ( ! empty( $subscription_scheme ) && $subscription_scheme->has_price_filter() ) {
 
-				if ( 'override' === $subscription_scheme->get_pricing_mode() ) {
+				$pricing_mode = $subscription_scheme->get_pricing_mode();
+
+				if ( $pricing_mode !== self::get_price_filter_type() ) {
+					return $regular_price;
+				}
+
+				if ( 'override' === $pricing_mode ) {
+
 					$regular_price = WCS_ATT_Product_Prices::get_regular_price( $product, '', 'edit' );
+
+				} elseif ( 'inherit' === $pricing_mode ) {
+
+					if ( ! self::filter_plan_prices( $product ) ) {
+						return $regular_price;
+					}
+
+					if ( $subscription_scheme->get_discount() > 0 && ! apply_filters( 'wcsatt_discount_from_regular', false ) ) {
+
+						self::remove( 'price' );
+						$sale_price = $product->get_sale_price();
+						$is_on_sale = $sale_price && $product->is_on_sale();
+						self::add( 'price' );
+
+						if ( $is_on_sale ) {
+							$regular_price = $sale_price;
+						}
+					}
 				}
 			}
 		}
-
 		return $regular_price;
 	}
 
@@ -431,8 +463,8 @@ class WCS_ATT_Product_Price_Filters {
 					}
 
 					$overridden_prices = $subscription_scheme->get_prices( array(
-						'price'         => '' === $sale_price ? $product->get_regular_price() : $sale_price,
-						'sale_price'    => $sale_price,
+						'price'         => $sale_price,
+						'sale_price'    => '',
 						'regular_price' => $product->get_regular_price(),
 						'offset_price'  => WCS_ATT_Product::get_runtime_meta( $product, 'price_offset' )
 					) );
@@ -461,5 +493,44 @@ class WCS_ATT_Product_Price_Filters {
 		}
 
 		return $price;
+	}
+
+	/**
+	 * Filter WC_Product::is_on_sale() calls.
+	 *
+	 * @since  3.1.29
+	 *
+	 * @param  bool        $is_on_sale
+	 * @param  WC_Product  $product
+	 * @return bool
+	 */
+	public static function filter_is_on_sale ( $is_on_sale, $product ) {
+
+		if ( WCS_ATT_Product::is_subscription( $product ) ) {
+
+			$subscription_scheme = WCS_ATT_Product_Schemes::get_subscription_scheme( $product, 'object' );
+
+			if ( ! empty( $subscription_scheme ) && $subscription_scheme->has_price_filter() ) {
+
+				$pricing_mode = $subscription_scheme->get_pricing_mode();
+
+				if ( $pricing_mode !== self::get_price_filter_type() ) {
+					return $is_on_sale;
+				}
+
+				if ( 'inherit' === $pricing_mode ) {
+
+					if ( ! self::filter_plan_prices( $product ) ) {
+						return $is_on_sale;
+					}
+
+					if ( $subscription_scheme->get_discount() > 0 ) {
+						$is_on_sale = true;
+					}
+				}
+			}
+		}
+
+		return $is_on_sale;
 	}
 }

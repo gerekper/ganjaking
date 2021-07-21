@@ -1,5 +1,11 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2021.07.12 - version 3.1.29
+* Feature - Added integration with AfterPay gateway.
+* Tweak - Use sale price as crossed-out price in subscription plan prices if the product is on sale.
+* Fix - Fixed an issue that prevented the crossed-out price from showing up in discounted subscription prices if the product has a scheduled Sale Price.
+* Fix - Restored functionality in the Square integration.
+
 2021.05.24 - version 3.1.28
 * Fix - Make sure dummy subscription plan is applied correctly when renewing subscriptions manually.
 

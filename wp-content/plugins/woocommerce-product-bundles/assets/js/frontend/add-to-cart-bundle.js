@@ -1097,7 +1097,10 @@ jQuery.fn.wc_get_bundle_script = function() {
 				} else {
 					return wc_bundle_params.i18n_insufficient_stock_status;
 				}
+			}
 
+			if ( bundle.$bundle_form.hasClass( 'bundle_out_of_stock' ) || bundle.$bundle_form.hasClass( 'bundle_insufficient_stock' ) ) {
+				return false;
 			}
 
 			$.each( bundle.bundled_items, function( index, bundled_item ) {

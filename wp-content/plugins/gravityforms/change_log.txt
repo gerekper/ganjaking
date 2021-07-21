@@ -1,3 +1,10 @@
+### 2.5.7.5
+- Fixed a bug which causes forms with text-only fields to break the Form Editor which was introduced in 2.5.7.2
+- Fixed a bug which causes AJAX forms to inject Hooks JS markup and break the redirect script.
+
+### 2.5.7.4
+- Fixed a bug which causes some systems to throw a fatal error when updating to 2.5.7.x.
+
 ### 2.5.7.3
 - Fixed a bug in the settings field map field that prevents it from honoring input type arguments.
 - Fixed a PHP error in the field select field.

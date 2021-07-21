@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce All Products For Subscriptions 3.1.28\n"
+"Project-Id-Version: WooCommerce All Products For Subscriptions 3.1.29\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
-"POT-Creation-Date: 2021-05-24 16:39:22+00:00\n"
+"POT-Creation-Date: 2021-07-12 11:07:48+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -312,17 +312,17 @@ msgid ""
 "re-load the page and try again."
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:93
+#: includes/class-wcs-att-integrations.php:99
 msgid "Product Bundles"
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:94
+#: includes/class-wcs-att-integrations.php:100
 msgid "WooCommerce Product Bundles"
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:96
-#: includes/class-wcs-att-integrations.php:110
-#: includes/class-wcs-att-integrations.php:126
+#: includes/class-wcs-att-integrations.php:102
+#: includes/class-wcs-att-integrations.php:116
+#: includes/class-wcs-att-integrations.php:132
 msgid ""
 "The installed version of <strong>%1$s</strong> is not supported by "
 "<strong>All Products for WooCommerce Subscriptions</strong>. Please update "
@@ -330,19 +330,19 @@ msgid ""
 "<strong>%4$s</strong> or higher."
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:107
+#: includes/class-wcs-att-integrations.php:113
 msgid "Composite Products"
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:108
+#: includes/class-wcs-att-integrations.php:114
 msgid "WooCommerce Composite Products"
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:123
+#: includes/class-wcs-att-integrations.php:129
 msgid "Product Add-Ons"
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:124
+#: includes/class-wcs-att-integrations.php:130
 msgid "WooCommerce Product Add-Ons"
 msgstr ""
 

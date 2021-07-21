@@ -15,7 +15,7 @@ class WC_Wishlists_Wishlist_Item_Collection {
 			//Nothing we can do about it except ignore the error.
 			try {
 				$items = get_post_meta( $id, '_wishlist_items', true );
-				if ( ! empty( $items ) ) {
+				if ( !empty( $items ) ) {
 					$wishlist_items = maybe_unserialize( $items );
 				} else {
 					$wishlist_items = array();
@@ -25,7 +25,7 @@ class WC_Wishlists_Wishlist_Item_Collection {
 			}
 		} else {
 			$items          = get_post_meta( $id, '_wishlist_items', true );
-			$wishlist_items = ! empty( $items ) ? maybe_unserialize( $items ) : array();
+			$wishlist_items = !empty( $items ) ? maybe_unserialize( $items ) : array();
 		}
 
 		$contents = array();
@@ -49,7 +49,7 @@ class WC_Wishlists_Wishlist_Item_Collection {
 					'data'          => $_product,
 					'wl_price'      => isset( $values['wl_price'] ) ? $values['wl_price'] : false,
 					'date'          => isset( $values['date'] ) ? $values['date'] : strtotime( 'now' ),
-					'wl_date'          => isset( $values['wl_date'] ) ? $values['wl_date'] : strtotime( 'now' ),
+					'wl_date'       => isset( $values['wl_date'] ) ? $values['wl_date'] : strtotime( 'now' ),
 					'ordered_total' => isset( $values['ordered_total'] ) ? $values['ordered_total'] : 0,
 					'orders'        => isset( $values['orders'] ) ? $values['orders'] : array(),
 				);
@@ -67,7 +67,7 @@ class WC_Wishlists_Wishlist_Item_Collection {
 			}
 		}
 
-		return apply_filters('wc_wishlists_item_collection_get_items', $contents, $id, $update_cached_price);
+		return apply_filters( 'wc_wishlists_item_collection_get_items', $contents, $id, $update_cached_price );
 	}
 
 	public static function get_first_image( $id, $size = 'full' ) {
@@ -97,30 +97,32 @@ class WC_Wishlists_Wishlist_Item_Collection {
 	}
 
 	public static function get_items_from_session() {
-		$items          = WC_Wishlist_Compatibility::WC()->session->get( '_wishlist_items' );
-		$wishlist_items = ! empty( $items ) ? maybe_unserialize( $items ) : array();
-
 		$contents = array();
-		foreach ( $wishlist_items as $key => $values ) {
-			if ( ! isset( $values['variation_id'] ) && ! isset( $values['product_id'] ) ) {
-				continue;
-			}
+		if ( WC_Wishlist_Compatibility::WC()->session ) {
+			$items          = WC_Wishlist_Compatibility::WC()->session->get( '_wishlist_items' );
+			$wishlist_items = !empty( $items ) ? maybe_unserialize( $items ) : array();
 
-			$_product = wc_get_product( $values['variation_id'] ? $values['variation_id'] : $values['product_id'] );
+			foreach ( $wishlist_items as $key => $values ) {
+				if ( !isset( $values['variation_id'] ) && !isset( $values['product_id'] ) ) {
+					continue;
+				}
 
-			if ( $_product->exists() && $values['quantity'] > 0 ) {
+				$_product = wc_get_product( $values['variation_id'] ? $values['variation_id'] : $values['product_id'] );
 
-				// Put session data into array. Run through filter so other plugins can load their own session data
-				$contents[ $key ] = apply_filters( 'woocommerce_get_cart_item_from_session', array(
-					'product_id'    => $values['product_id'],
-					'variation_id'  => $values['variation_id'],
-					'variation'     => $values['variation'],
-					'quantity'      => $values['quantity'],
-					'data'          => $_product,
-					'date'          => isset( $values['date'] ) ? $values['date'] : strtotime( 'now' ),
-					'ordered_total' => isset( $values['ordered_total'] ) ? $values['ordered_total'] : 0,
-					'orders'        => isset( $values['orders'] ) ? $values['orders'] : array(),
-				), $values, $key );
+				if ( $_product->exists() && $values['quantity'] > 0 ) {
+
+					// Put session data into array. Run through filter so other plugins can load their own session data
+					$contents[ $key ] = apply_filters( 'woocommerce_get_cart_item_from_session', array(
+						'product_id'    => $values['product_id'],
+						'variation_id'  => $values['variation_id'],
+						'variation'     => $values['variation'],
+						'quantity'      => $values['quantity'],
+						'data'          => $_product,
+						'date'          => isset( $values['date'] ) ? $values['date'] : strtotime( 'now' ),
+						'ordered_total' => isset( $values['ordered_total'] ) ? $values['ordered_total'] : 0,
+						'orders'        => isset( $values['orders'] ) ? $values['orders'] : array(),
+					), $values, $key );
+				}
 			}
 		}
 
@@ -133,9 +135,9 @@ class WC_Wishlists_Wishlist_Item_Collection {
 		$ids   = array();
 		foreach ( $items as $item ) {
 			$item_cats = wp_get_object_terms( $item['product_id'], 'product_cat' );
-			if ( $item_cats && ! is_wp_error( $item_cats ) ) {
+			if ( $item_cats && !is_wp_error( $item_cats ) ) {
 				foreach ( $item_cats as $item_cat ) {
-					if ( ! array_key_exists( $item_cat->term_id, $cats ) ) {
+					if ( !array_key_exists( $item_cat->term_id, $cats ) ) {
 						$cats[ $item_cat->term_id ] = $item_cat;
 					}
 				}
@@ -151,7 +153,7 @@ class WC_Wishlists_Wishlist_Item_Collection {
 		$destination_items = self::get_items( $destination );
 
 		$the_item = isset( $source_items[ $wishlist_item_key ] ) ? $source_items[ $wishlist_item_key ] : false;
-		if ( ! $the_item ) {
+		if ( !$the_item ) {
 			return false;
 		}
 
@@ -174,7 +176,7 @@ class WC_Wishlists_Wishlist_Item_Collection {
 		$destination_items = WC_Wishlist_Compatibility::WC()->session->get( '_wishlist_items', array() );
 
 		$the_item = isset( $source_items[ $wishlist_item_key ] ) ? $source_items[ $wishlist_item_key ] : false;
-		if ( ! $the_item ) {
+		if ( !$the_item ) {
 			return false;
 		}
 
@@ -194,7 +196,7 @@ class WC_Wishlists_Wishlist_Item_Collection {
 		$destination_items = self::get_items( $destination );
 
 		$the_item = isset( $source_items[ $wishlist_item_key ] ) ? $source_items[ $wishlist_item_key ] : false;
-		if ( ! $the_item ) {
+		if ( !$the_item ) {
 			return 0;
 		}
 
@@ -248,7 +250,7 @@ class WC_Wishlists_Wishlist_Item_Collection {
 
 		if ( $wishlist_id != 'session' ) {
 			$wishlist = new WC_Wishlists_Wishlist( $wishlist_id );
-			if ( ! $wishlist->post ) {
+			if ( !$wishlist->post ) {
 				WC_Wishlist_Compatibility::wc_add_notice( __( 'List could not be located', 'wc_wishlist' ), 'error' );
 
 				return false;
@@ -378,7 +380,7 @@ class WC_Wishlists_Wishlist_Item_Collection {
 	public static function update_item_ordered( $wishlist_id, $wishlist_item_key, $order, $order_item ) {
 		$wishlist_items = self::get_items( $wishlist_id );
 		if ( isset( $wishlist_items[ $wishlist_item_key ] ) ) {
-			if ( ! isset( $wishlist_items[ $wishlist_item_key ]['orders'] ) ) {
+			if ( !isset( $wishlist_items[ $wishlist_item_key ]['orders'] ) ) {
 				$wishlist_items[ $wishlist_item_key ]['orders'] = array();
 			}
 

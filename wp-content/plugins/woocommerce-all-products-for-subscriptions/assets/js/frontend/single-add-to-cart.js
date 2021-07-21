@@ -992,7 +992,8 @@
 									if ( scheme.data.discount_from_regular ) {
 										scheme_price_data.prices[ bundled_item_id ] = scheme_price_data.regular_prices[ bundled_item_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
 									} else {
-										scheme_price_data.prices[ bundled_item_id ] = scheme_price_data.prices[ bundled_item_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
+										scheme_price_data.regular_prices[ bundled_item_id ] = scheme_price_data.prices[ bundled_item_id ];
+										scheme_price_data.prices[ bundled_item_id ]         = scheme_price_data.prices[ bundled_item_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
 									}
 
 									scheme_price_data.addons_prices[ bundled_item_id ] = scheme_price_data.addons_prices[ bundled_item_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
@@ -1244,7 +1245,8 @@
 								if ( scheme.data.discount_from_regular ) {
 									scheme_price_data.prices[ component_id ] = scheme_price_data.regular_prices[ component_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
 								} else {
-									scheme_price_data.prices[ component_id ] = scheme_price_data.prices[ component_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
+									scheme_price_data.regular_prices[ component_id ] = scheme_price_data.prices[ component_id ]
+									scheme_price_data.prices[ component_id ]         = scheme_price_data.prices[ component_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
 								}
 
 								scheme_price_data.addons_prices[ component_id ] = scheme_price_data.addons_prices[ component_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );

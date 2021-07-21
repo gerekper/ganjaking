@@ -137,10 +137,11 @@ class BetterDocs_Role_Management {
      */
     public function check( $for = 'article_roles', $giveRole = false ){
         global $current_user;
-        if( empty( $current_user->roles ) ) {
+        $user_roles = $current_user->roles;
+        if( empty( $user_roles ) ) {
             return;
         }
-        $role = isset($current_user->roles[0]) ? $current_user->roles[0] : null;
+        $role = array_shift($user_roles);
         $saved_settings = BetterDocs_DB::get_settings();
         $current_check_against = null;
         if( isset( $saved_settings[ $for ] ) ) {
@@ -166,7 +167,7 @@ class BetterDocs_Role_Management {
      */
     public function caps_check( $default_caps, $roles_for ){
         $caps = $this->check( $roles_for );
-        
+
         if( is_string( $caps ) && $caps === 'administrator' ) {
             return $caps;
         }

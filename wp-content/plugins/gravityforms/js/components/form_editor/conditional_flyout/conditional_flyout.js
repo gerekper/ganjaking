@@ -145,6 +145,10 @@ function getFieldById( fieldId ) {
  * @return {string|integer}
  */
 function getCorrectDefaultFieldId( field ) {
+	if ( ! field ) {
+		return null;
+	}
+
 	if ( ! field.inputs || ! field.inputs.length ) {
 		return field.id;
 	}

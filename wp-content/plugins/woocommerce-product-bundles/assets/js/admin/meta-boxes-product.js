@@ -157,6 +157,14 @@ jQuery( function( $ ) {
 			}
 		};
 
+	var $shipping_data_container  = $bundled_products_panel.parent().find( '#shipping_product_data' ),
+		$virtual_checkbox         = $( 'input#_virtual' ),
+		virtual_checkbox_init_val = $virtual_checkbox.prop( 'checked' ),
+		is_virtual_checkbox_dirty = false,
+		$virtual_bundle_checkbox  = $( 'input#_virtual_bundle' ),
+		$bundle_type_container    = $shipping_data_container.find( '.options_group.bundle_type' ),
+		$bundle_type_options      = $bundle_type_container.find( '.bundle_type_options li' );
+
 	$.fn.wc_bundles_select2 = function() {
 		$( document.body ).trigger( 'wc-enhanced-select-init' );
 	};
@@ -173,59 +181,6 @@ jQuery( function( $ ) {
 	// Simple type options are valid for bundles.
 	$( '.show_if_simple:not(.hide_if_bundle)' ).addClass( 'show_if_bundle' );
 
-	/*
-	 * WC core event handling.
-	 */
-
-	// Bundle type specific options.
-	$( 'body' ).on( 'woocommerce-product-type-change', function( event, select_val ) {
-
-		if ( 'bundle' === select_val ) {
-
-			$( '.show_if_external' ).hide();
-			$( '.show_if_bundle' ).show();
-
-			$( 'input#_manage_stock' ).trigger( 'change' );
-
-			$( '#_nyp' ).trigger( 'change' );
-		}
-
-	} );
-
-	// On submit, post two inputs to determine if 'max_input_vars' kicks in: One at the start of the form (control) and one at the end (test).
-	$( 'form#post' ).on( 'submit', function() {
-
-		if ( 'bundle' === $product_type_select.val() ) {
-
-			var $form        = $( this ),
-			    $control_var = $( '<input type="hidden" name="pb_post_control_var" value="1"/>' ),
-			    $test_var    = $( '<input type="hidden" name="pb_post_test_var" value="1"/>' );
-
-			$form.prepend( $control_var );
-			$form.append( $test_var );
-		}
-	} );
-
-	// Show/hide 'Edit in cart' option.
-	$group_mode_select.on( 'change', function() {
-		if ( $.inArray( $group_mode_select.val(), wc_bundles_admin_params.group_modes_with_parent ) === -1 ) {
-			$edit_in_cart.hide();
-		} else {
-			$edit_in_cart.show();
-		}
-	} );
-
-	// Downloadable support.
-	$( 'input#_downloadable' ).on( 'change', function() {
-		$product_type_select.trigger( 'change' );
-	} );
-
-	// Trigger product type change.
-	$product_type_select.trigger( 'change' );
-
-	// Trigger group mode change.
-	$group_mode_select.trigger( 'change' );
-
 	init_event_handlers();
 
 	init_bundled_products();
@@ -236,7 +191,71 @@ jQuery( function( $ ) {
 
 	init_expanding_button();
 
+	// Trigger product type change.
+	$product_type_select.trigger( 'change' );
+
+	// Trigger group mode change.
+	$group_mode_select.trigger( 'change' );
+
 	function init_event_handlers() {
+
+		// Bundle type specific options.
+		$( 'body' ).on( 'woocommerce-product-type-change', function( event, select_val ) {
+
+			if ( 'bundle' === select_val ) {
+
+				$( '.show_if_external' ).hide();
+				$( '.show_if_bundle' ).show();
+
+				$( 'input#_manage_stock' ).trigger( 'change' );
+
+				$( '#_nyp' ).trigger( 'change' );
+
+				if ( is_virtual_checkbox_dirty ) {
+					$virtual_bundle_checkbox.prop( 'checked', $virtual_checkbox.prop( 'checked' ) );
+				}
+
+				// Force virtual container to always show the shipping tab.
+				if ( ! $virtual_bundle_checkbox.prop( 'checked' ) ) {
+					$virtual_checkbox.prop( 'checked', false ).change();
+				}
+
+				if ( 'unassembled' === $bundle_type_options.find( 'input.bundle_type_option:checked' ).first().val() ) {
+					$shipping_data_container.addClass( 'bundle_unassembled' );
+					$bundled_products_panel.addClass( 'bundle_unassembled' );
+				}
+			}
+
+		} );
+
+		// On submit, post two inputs to determine if 'max_input_vars' kicks in: One at the start of the form (control) and one at the end (test).
+		$( 'form#post' ).on( 'submit', function() {
+
+			if ( 'bundle' === $product_type_select.val() ) {
+
+				var $form        = $( this ),
+				    $control_var = $( '<input type="hidden" name="pb_post_control_var" value="1"/>' ),
+				    $test_var    = $( '<input type="hidden" name="pb_post_test_var" value="1"/>' );
+
+				$form.prepend( $control_var );
+				$form.append( $test_var );
+			}
+		} );
+
+		// Show/hide 'Edit in cart' option.
+		$group_mode_select.on( 'change', function() {
+			if ( $.inArray( $group_mode_select.val(), wc_bundles_admin_params.group_modes_with_parent ) === -1 ) {
+				$edit_in_cart.hide();
+			} else {
+				$edit_in_cart.show();
+			}
+		} );
+
+		// Downloadable support.
+		$( 'input#_downloadable' ).on( 'change', function() {
+			$product_type_select.trigger( 'change' );
+		} );
+
 
 		// Add Product.
 		$bundled_product_search
@@ -365,6 +384,11 @@ jQuery( function( $ ) {
 			} );
 
 		$bundled_products_container
+
+			// Click to Edit.
+			.on( 'click', 'a.edit-product', function( e ) {
+				e.stopPropagation();
+			} )
 
 			// Remove Item.
 			.on( 'click', 'a.remove_row', function( e ) {
@@ -575,34 +599,33 @@ jQuery( function( $ ) {
 
 	function init_bundle_shipping() {
 
-		var $shipping_data_container = $bundled_products_panel.parent().find( '#shipping_product_data' ),
-			$virtual_checkbox        = $( 'input#_virtual' ),
-			$bundle_type_container   = $shipping_data_container.find( '.options_group.bundle_type' ),
-			$bundle_type_options     = $bundle_type_container.find( '.bundle_type_options li' ),
-			virtual_state            = $( 'input#_virtual:checked' ).length ? true : false;
-
 		// Move Bundle type options group first.
 		$bundle_type_container.detach().prependTo( $shipping_data_container );
 
 		// Move "Assembled Weight" to the Weight field.
 		$shipping_data_container.find( '.form-field._weight_field' ).after( $bundle_type_container.find( '.form-field.bundle_aggregate_weight_field' ) );
 
-		// Save virtual state.
-		$virtual_checkbox.on( 'change', function() {
-			if ( 'bundle' !== $product_type_select.val() && 'composite' !== $product_type_select.val() ) {
-				virtual_state = $( this ).prop( 'checked' ) ? true : false;
+		// Keep virtual checkbox in sync with ours.
+		$virtual_bundle_checkbox.on( 'change', function() {
+
+			var is_checked = $virtual_bundle_checkbox.prop( 'checked' );
+
+			if ( $virtual_checkbox.prop( 'checked' ) !== is_checked ) {
+				$virtual_checkbox.prop( 'checked', is_checked ).trigger( 'change' );
+			}
+
+			if ( is_checked ) {
+				$bundled_products_panel.addClass( 'bundle_virtual' );
+			} else {
+				$bundled_products_panel.removeClass( 'bundle_virtual' );
 			}
 		} );
 
-		$( 'body' ).on( 'woocommerce-product-type-change', function( event, select_val ) {
-
-			if ( 'bundle' !== select_val ) {
-				// Restore virtual state.
-				if ( 'simple' === select_val ) {
-					$virtual_checkbox.prop( 'checked', virtual_state ).trigger( 'change' );
-				}
+		// Determine when the virtual checkbox has become dirty.
+		$virtual_checkbox.on( 'change', function() {
+			if ( $virtual_checkbox.prop( 'checked' ) !== virtual_checkbox_init_val ) {
+				is_virtual_checkbox_dirty = true;
 			}
-
 		} );
 
 		// Toggle container shipping class.

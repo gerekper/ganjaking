@@ -188,7 +188,7 @@ endif;
 										// Availability
 										$availability = $_product->get_availability();
 
-										if ( $availability['availability'] ) :
+										if ($availability && $availability['availability'] ) :
 											echo apply_filters( 'woocommerce_stock_html', '<p class="stock ' . esc_attr( $availability['class'] ) . '">' . esc_html( $availability['availability'] ) . '</p>', $availability['availability'] );
 										endif;
 										?>

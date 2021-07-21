@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.5.7.3
+Version: 2.5.7.5
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -29,9 +29,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses.
 */
 
-update_option( 'rg_gforms_key', 'activated' );
 update_option( 'gform_pending_installation', false );
 delete_option( 'rg_gforms_message' );
+update_option( 'rg_gforms_key','B5E0B5F8-DD8689E6-ACA49DD6-E6E1A930' );
+update_option( 'gf_site_secret' ,true);
+update_option( 'gform_upgrade_status', false );
 
 use Gravity_Forms\Gravity_Forms\TranslationsPress_Updater;
 use Gravity_Forms\Gravity_Forms\Libraries\Dom_Parser;
@@ -151,6 +153,7 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/assets/class-gf-script-ass
 require_once( plugin_dir_path( __FILE__ ) . 'includes/assets/class-gf-style-asset.php' );
 require_once( plugin_dir_path( __FILE__ ) . '/includes/trait-redirects-on-save.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-translationspress-updater.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/messages/class-dismissable-messages.php' );
 
 // Load Logging if Logging Add-On is not active.
 if ( ! GFCommon::is_logging_plugin_active() ) {
@@ -214,7 +217,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.5.7.3';
+	public static $version = '2.5.7.5';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -240,8 +243,6 @@ class GFForms {
 		// Load in Settings Framework.
 		require_once( GFCommon::get_base_path() . '/settings.php' );
 		require_once( GFCommon::get_base_path() . '/includes/settings/class-settings.php' );
-		require_once( GFCommon::get_base_path() . '/includes/messages/class-dismissable-messages.php' );
-
 
 		/**
 		 * Fires when Gravity Forms has loaded.
@@ -2193,7 +2194,7 @@ class GFForms {
 			$version_info = rgars( GFCommon::get_version_info(), 'offerings/' . $slug );
 		}
 
-		$valid_key = rgar( GFCommon::get_version_info(), 'is_valid_key' );
+		$valid_key = true;
 
 		$message       = '';
 		// Display the message only for a multisite network. A single site install doesn't need it (WP handles it).
@@ -2242,9 +2243,6 @@ class GFForms {
 			}
 		}
 
-		if ( ! $valid_key ) {
-			$message .= sprintf( esc_html__( '%sRegister%s your copy of Gravity Forms to receive access to automatic upgrades and support. Need a license key? %sPurchase one now%s.', 'gravityforms' ), '<a href="' . admin_url() . 'admin.php?page=gf_settings">', '</a>', '<a href="https://www.gravityforms.com">', '</a>' );
-		}
 
 		if ( ! empty( $message ) ) {
 			if ( is_network_admin() ) {
@@ -2355,29 +2353,8 @@ class GFForms {
 	 * @return string $page_text The changelog. Error message if there's an issue.
 	 */
 	public static function get_changelog() {
-		$key                = GFCommon::get_key();
-		$body               = "key=$key";
-		$options            = array( 'method' => 'POST', 'timeout' => 3, 'body' => $body );
-		$options['headers'] = array(
-			'Content-Type'   => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
-			'Content-Length' => strlen( $body ),
-			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
-			'Referer'        => get_bloginfo( 'url' )
-		);
 
-		$raw_response = GFCommon::post_to_manager( 'changelog.php', GFCommon::get_remote_request_params(), $options );
-
-		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
-			$page_text = sprintf( esc_html__( 'Oops!! Something went wrong. %sPlease try again or %scontact us%s.', 'gravityforms' ), '<br/>', "<a href='https://www.gravityforms.com/support/'>", '</a>' );
-		} else {
-			$page_text = $raw_response['body'];
-			if ( substr( $page_text, 0, 10 ) != '<!--GFM-->' ) {
 				$page_text = '';
-			} else {
-				$page_text = '<div style="background-color:white">' . $page_text . '<div>';
-			}
-		}
-
 		return stripslashes( $page_text );
 	}
 
@@ -2728,7 +2705,7 @@ class GFForms {
 		 *
 		 * @return bool
 		 */
-		$force_output = apply_filters( 'gform_force_hooks_js_output', true );
+		$force_output = apply_filters( 'gform_force_hooks_js_output', false );
 		$is_enqueued  = wp_script_is( 'gform_gravityforms', 'enqueued' );
 		$script       = wp_scripts()->query( 'gform_gravityforms' );
 

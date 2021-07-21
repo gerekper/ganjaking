@@ -96,19 +96,36 @@ class WC_Store_Credit_Coupons {
 			return $valid;
 		}
 
-		// Credit exhausted.
-		if ( $coupon->get_amount() <= 0 ) {
-			return false;
-		}
+		$is_cart = ( $discounts->get_object() instanceof WC_Cart );
 
 		// The cart contains Store Credit products.
-		if ( $discounts->get_object() instanceof WC_Cart ) {
+		if ( $is_cart ) {
 			foreach ( $discounts->get_items() as $item ) {
 				if ( $item->product->is_type( 'store_credit' ) ) {
-					$valid = false;
-					break;
+					return false;
 				}
 			}
+		}
+
+		$credit = $coupon->get_amount();
+
+		if ( $is_cart ) {
+			// Include the credit used in the pending payment order.
+			$order_id = WC()->session->get( 'order_awaiting_payment' );
+
+			if ( $order_id ) {
+				$code        = $coupon->get_code();
+				$credit_used = wc_get_store_credit_used_for_order( $order_id, 'per_coupon' );
+
+				if ( ! empty( $credit_used[ $code ] ) ) {
+					$credit += $credit_used[ $code ];
+				}
+			}
+		}
+
+		// Credit exhausted.
+		if ( $credit <= 0 ) {
+			return false;
 		}
 
 		return $valid;

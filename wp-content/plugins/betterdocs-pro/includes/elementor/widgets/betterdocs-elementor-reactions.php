@@ -183,6 +183,15 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             );
 
             $this->add_control(
+                'reaction_text',
+                [
+                    'label'   => __('Text', 'betterdocs'),
+                    'type'    => Controls_Manager::TEXT,
+                    'default' => esc_html__('What are your feelings', 'betterdocs')
+                ]
+            );
+
+            $this->add_control(
                 'reaction_box_title_color',
                 [
                     'label'     => esc_html__('Color', 'betterdocs'),
@@ -296,14 +305,11 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
         }
 
         protected function render () {
+            $settings = $this->get_settings_for_display();
             if (!is_plugin_active('betterdocs-pro/betterdocs-pro.php')) {
                 return;
             }
-            $post_reactions = get_theme_mod('betterdocs_post_reactions', true);
-
-            if ($post_reactions == true) {
-                echo do_shortcode('[betterdocs_article_reactions]');
-            }
+            echo do_shortcode('[betterdocs_article_reactions text="'.$settings['reaction_text'].'"]');
         }
     }
 }

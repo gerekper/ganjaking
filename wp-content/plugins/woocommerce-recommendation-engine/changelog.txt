@@ -1,4 +1,10 @@
 *** WooCommerce Recommendation Engine Changelog ***
+2021.07.14 - version 3.2.7
+    * Update:  WC and WP Updates.
+
+2021.02.12 - version 3.2.6
+    * Update:  WP and WC version compatibility tags.
+
 2020.11.27 - version 3.2.5
     * New:  Added filter to disable recording a product into history.  Can be used to disable recording in specific situations, such as for administrators.
             apply_filters('wc_recommender_record_product', true, $product_id, $session_id, $user_id, $order_id, $activity_type)

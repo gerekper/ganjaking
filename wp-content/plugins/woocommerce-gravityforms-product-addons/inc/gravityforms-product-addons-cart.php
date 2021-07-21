@@ -255,6 +255,9 @@ class WC_GFPA_Cart {
 			error_reporting( $err_level );
 		}
 
+		GFCommon::log_debug( __METHOD__ . "(): [woocommerce-gravityforms-product-addons] Generated Cart Item Meta #{$form_id}." );
+		GFCommon::log_debug( print_r($cart_item_meta, true) );
+
 		return $cart_item_meta;
 	}
 

@@ -25,6 +25,21 @@ class WC_Store_Credit_Discounts_Cart extends WC_Store_Credit_Discounts {
 	}
 
 	/**
+	 * Sets the credit used on this object.
+	 *
+	 * @since 3.9.0
+	 */
+	public function set_credit_used_from_object() {
+		// Include the credit used in the pending payment order.
+		$order_id = WC()->session->get( 'order_awaiting_payment' );
+
+		if ( $order_id ) {
+			$credit_used = wc_get_store_credit_used_for_order( $order_id, 'per_coupon' );
+			$this->set_credit_used( $credit_used );
+		}
+	}
+
+	/**
 	 * Sets the items to discount.
 	 *
 	 * @since 3.0.0

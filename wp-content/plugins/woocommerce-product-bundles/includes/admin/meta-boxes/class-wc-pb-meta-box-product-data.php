@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for the 'Bundle' type.
  *
  * @class    WC_PB_Meta_Box_Product_Data
- * @version  6.7.4
+ * @version  6.11.0
  */
 class WC_PB_Meta_Box_Product_Data {
 
@@ -148,20 +148,6 @@ class WC_PB_Meta_Box_Product_Data {
 	 */
 	public static function product_data_tabs( $tabs ) {
 
-		global $post, $product_object, $product_bundle_object;
-
-		/*
-		 * Create a global bundle-type object to use for populating fields.
-		 */
-
-		$post_id = $post->ID;
-
-		if ( empty( $product_object ) || false === $product_object->is_type( 'bundle' ) ) {
-			$product_bundle_object = $post_id ? new WC_Product_Bundle( $post_id ) : new WC_Product_Bundle();
-		} else {
-			$product_bundle_object = $product_object;
-		}
-
 		$tabs[ 'bundled_products' ] = array(
 			'label'    => __( 'Bundled Products', 'woocommerce-product-bundles' ),
 			'target'   => 'bundled_product_data',
@@ -181,7 +167,7 @@ class WC_PB_Meta_Box_Product_Data {
 
 		global $product_bundle_object;
 
-		?><div id="bundled_product_data" class="panel woocommerce_options_panel wc_gte_30" style="display:none">
+		?><div id="bundled_product_data" class="panel woocommerce_options_panel wc_gte_30 <?php echo $product_bundle_object->is_virtual_bundle() ? 'bundle_virtual' : ''; ?>" style="display:none">
 			<div class="options_group_general">
 				<?php
 				/**
@@ -226,8 +212,37 @@ class WC_PB_Meta_Box_Product_Data {
 	 */
 	public static function bundle_type_options( $options ) {
 
+		global $post, $product_object, $product_bundle_object;
+
+		/*
+		 * Create a global bundle-type object to use for populating fields.
+		 */
+
+		$post_id = $post->ID;
+
+		if ( empty( $product_object ) || false === $product_object->is_type( 'bundle' ) ) {
+			$product_bundle_object = $post_id ? new WC_Product_Bundle( $post_id ) : new WC_Product_Bundle();
+		} else {
+			$product_bundle_object = $product_object;
+		}
+
 		$options[ 'downloadable' ][ 'wrapper_class' ] .= ' show_if_bundle';
 		$options[ 'virtual' ][ 'wrapper_class' ]      .= ' hide_if_bundle';
+
+		/*
+		 * Instead of adding this, another approach here would be to use the vanilla 'Virtual' box to set the 'virtual_bundle' prop for Bundles.
+		 * However, we would need to make sure that we initialize it based on the 'virtual_bundle' prop value, instead of the 'virtual' prop, probably in JS.
+		 * See 'js_handle_container_classes'.
+		 */
+		$options = array_merge( array(
+			'wc_pb_virtual_bundle' => array(
+				'id'            => '_virtual_bundle',
+				'wrapper_class' => 'show_if_bundle',
+				'label'         => __( 'Virtual', 'woocommerce' ),
+				'description'   => __( 'Virtual bundles are intangible and are not shipped. When this option is enabled, any physical products added to this bundle will be treated as virtual.', 'woocommerce-product-bundles' ),
+				'default'       => 'no',
+			)
+		), $options );
 
 		return $options;
 	}
@@ -288,7 +303,7 @@ class WC_PB_Meta_Box_Product_Data {
 
 					<?php
 						/* translators: Unassambled bundle documentation link */
-						echo sprintf( __( 'The contents of this bundle preserve their dimensions, weight and shipping classes. <a href="%s" target="_blank">Unassembled</a> bundles do not have a physical container &ndash; or any shipping options to configure.', 'woocommerce-product-bundles' ), WC_PB()->get_resource_url( 'shipping-options' ) );
+						echo sprintf( __( 'The contents of this bundle preserve their dimensions, weight and shipping classes. <a href="%s" target="_blank">Unassembled</a> bundles do not have any shipping options to configure.', 'woocommerce-product-bundles' ), WC_PB()->get_resource_url( 'shipping-options' ) );
 					?>
 				</p>
 			</div>
@@ -325,30 +340,22 @@ class WC_PB_Meta_Box_Product_Data {
 			$( function() {
 
 				var shipping_product_data = $( '.product_data #shipping_product_data' ),
-					virtual_checkbox      = $( 'input#_virtual' ),
-					bundled_product_data  = $( '.product_data #bundled_product_data' ),
-					bundle_type_options   = shipping_product_data.find( '.bundle_type_options li' );
+					bundled_product_data  = $( '.product_data #bundled_product_data' );
 
-				$( 'body' ).on( 'woocommerce-product-type-change', function( event, select_val ) {
+				$( 'select#product-type' ).on( 'change', function() {
 
-					if ( 'bundle' === select_val ) {
+					if ( 'bundle' !== $( this ).val() ) {
 
-						// Force virtual container to always show the shipping tab.
-						virtual_checkbox.prop( 'checked', false ).change();
+						// Clear container classes to make Shipping contents visible.
+						// If we don't do this at this early point, WC will hide the Shipping tab even if the Virtual option is unchecked.
 
-						if ( 'unassembled' === bundle_type_options.find( 'input.bundle_type_option:checked' ).first().val() ) {
-							shipping_product_data.addClass( 'bundle_unassembled' );
-							bundled_product_data.addClass( 'bundle_unassembled' );
-						}
-
-					} else {
-						// Clear container classes.
 						shipping_product_data.removeClass( 'bundle_unassembled' );
 						bundled_product_data.removeClass( 'bundle_unassembled' );
 					}
 
 				} );
 			} );
+
 		} )( jQuery );
 		";
 
@@ -446,10 +453,17 @@ class WC_PB_Meta_Box_Product_Data {
 			}
 
 			/*
+			 * Virtual bundle.
+			 */
+
+			$props[ 'virtual_bundle' ] = isset( $_POST[ '_virtual_bundle' ] );
+
+			/*
 			 * Bundle shipping type.
 			 */
+
 			if ( ! empty( $_POST[ '_bundle_type' ] ) ) {
-				$props[ 'virtual' ] = 'unassembled' === $_POST[ '_bundle_type' ] ? true : false;
+				$props[ 'virtual' ] = 'unassembled' === $_POST[ '_bundle_type' ] || isset( $_POST[ '_virtual_bundle' ] ) ? true : false;
 			}
 
 			if ( ! defined( 'WC_PB_UPDATING' ) ) {
@@ -1129,7 +1143,7 @@ class WC_PB_Meta_Box_Product_Data {
 			<div class="form-field">
 				<label><?php echo __( 'Discount %', 'woocommerce-product-bundles' ); ?></label>
 				<input type="text" class="input-text item_discount wc_input_decimal" size="5" name="bundle_data[<?php echo $loop; ?>][discount]" value="<?php echo $item_discount; ?>" />
-				<?php echo wc_help_tip( __( 'Discount applied to the price of this bundled product when Priced Individually is checked. If a Discount is applied to a bundled product which has a sale price defined, the sale price will be overridden.', 'woocommerce-product-bundles' ) ); ?>
+				<?php echo wc_help_tip( __( 'Discount applied to the price of this bundled product when Priced Individually is checked. If the bundled product has a Sale Price, the discount is applied on top of the Sale Price.', 'woocommerce-product-bundles' ) ); ?>
 			</div>
 		</div><?php
 	}
@@ -1401,9 +1415,7 @@ class WC_PB_Meta_Box_Product_Data {
 							$item_data                   = $item->get_data();
 							$item_data[ 'bundled_item' ] = $item;
 
-							$product_id         = $item->get_product_id();
-							$title              = $item->product->get_title();
-							$sku                = $item->product->get_sku();
+							$product            = $item->get_product();
 							$stock_status       = $item->get_stock_status();
 							$stock_status_label = '';
 

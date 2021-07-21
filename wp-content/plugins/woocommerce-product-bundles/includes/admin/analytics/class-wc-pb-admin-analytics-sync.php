@@ -136,6 +136,8 @@ class WC_PB_Admin_Analytics_Sync {
 		}
 
 		WC_PB_Admin_Notices::add_maintenance_notice( 'update_order_item_stats' );
+
+		return __( 'Tool ran.', 'woocommerce-product-bundles' );
 	}
 
 	/**

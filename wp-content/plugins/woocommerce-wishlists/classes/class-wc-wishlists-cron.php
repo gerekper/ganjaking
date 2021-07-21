@@ -159,9 +159,9 @@ class WC_Wishlists_Cron {
 							//The price which was stored on the list is higher than the current product price. 
 
 							if ( $sale_price && $sale_price < $wl_price ) {
-								$text = sprintf( __( '<a href="%s">%s</a> has been reduced in price! Was %s, now avaiable for %s ', 'wc_wishlist' ), get_permalink( $product->get_id() ), $product->get_title(), $wl_price, $sale_price );
+								$text = sprintf( __( '<a href="%s">%s</a> has been reduced in price! Was %s, now available for %s ', 'wc_wishlist' ), get_permalink( $product->get_id() ), $product->get_title(), $wl_price, $sale_price );
 							} else {
-								$text = sprintf( __( '<a href="%s">%s</a> has been reduced in price! Was %s, now avaiable for %s ', 'wc_wishlist' ), get_permalink( $product->get_id() ), $product->get_title(), $wl_price, $price );
+								$text = sprintf( __( '<a href="%s">%s</a> has been reduced in price! Was %s, now available for %s ', 'wc_wishlist' ), get_permalink( $product->get_id() ), $product->get_title(), $wl_price, $price );
 							}
 
 

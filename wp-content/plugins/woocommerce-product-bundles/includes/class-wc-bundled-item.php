@@ -1059,8 +1059,10 @@ class WC_Bundled_Item {
 
 		$is_shipped_individually = 'yes' === $this->shipped_individually;
 
-		if ( ( $bundle = $this->get_bundle() ) && $bundle->is_virtual() ) {
-			$is_shipped_individually = true;
+		if ( ( $bundle = $this->get_bundle() ) ) {
+			if ( $bundle->is_virtual() ) {
+				$is_shipped_individually = false === $bundle->is_virtual_bundle();
+			}
 		}
 
 		/**
@@ -1082,7 +1084,7 @@ class WC_Bundled_Item {
 		$is_weight_aggregated = false;
 
 		if ( ( $bundle = $this->get_bundle() ) && false === $this->is_shipped_individually() ) {
-			$is_weight_aggregated = apply_filters( 'woocommerce_bundled_item_has_bundled_weight', $bundle->get_aggregate_weight(), $product ? $product : $this->get_product(), $this->get_id(), $bundle );
+			$is_weight_aggregated = apply_filters( 'woocommerce_bundled_item_has_bundled_weight', $bundle->get_aggregate_weight() && ! $bundle->is_virtual_bundle(), $product ? $product : $this->get_product(), $this->get_id(), $bundle );
 		}
 
 		return $is_weight_aggregated;

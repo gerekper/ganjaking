@@ -28,6 +28,7 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	protected $extended_internal_meta_keys = array(
 		'_wcpb_min_qty_limit',
 		'_wcpb_max_qty_limit',
+		'_wc_pb_virtual_bundle',
 		'_wc_pb_layout_style',
 		'_wc_pb_group_mode',
 		'_wc_pb_bundle_stock_quantity',
@@ -51,6 +52,7 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	protected $props_to_meta_keys = array(
 		'min_bundle_size'                 => '_wcpb_min_qty_limit',
 		'max_bundle_size'                 => '_wcpb_max_qty_limit',
+		'virtual_bundle'                  => '_wc_pb_virtual_bundle',
 		'layout'                          => '_wc_pb_layout_style',
 		'group_mode'                      => '_wc_pb_group_mode',
 		'bundle_stock_quantity'           => '_wc_pb_bundle_stock_quantity',
@@ -136,7 +138,7 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 			$meta_value = $product->$property_get_fn( 'edit' );
 
 			// Sanitize it for storage.
-			if ( in_array( $property, array( 'editable_in_cart', 'aggregate_weight' ) ) ) {
+			if ( in_array( $property, array( 'editable_in_cart', 'aggregate_weight', 'virtual_bundle' ) ) ) {
 				$meta_value = wc_bool_to_string( $meta_value );
 			}
 

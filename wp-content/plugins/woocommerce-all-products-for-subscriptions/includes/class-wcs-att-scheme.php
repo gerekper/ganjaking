@@ -303,13 +303,27 @@ class WCS_ATT_Scheme implements ArrayAccess {
 				$prices[ 'sale_price' ]    = '' !== $prices[ 'sale_price' ] ? $prices[ 'sale_price' ] + $raw_prices[ 'offset_price' ] : $prices[ 'sale_price' ];
 			}
 
-		} elseif ( 'inherit' === $this->get_pricing_mode() && $this->get_discount() > 0 && $raw_prices[ 'price' ] > 0 ) {
+		} elseif ( 'inherit' === $this->get_pricing_mode() && $this->get_discount() > 0 ) {
 
-			$prices[ 'regular_price' ] = empty( $prices[ 'regular_price' ] ) ? $prices[ 'price' ] : $prices[ 'regular_price' ];
-			$prices[ 'price' ]         = $this->get_discounted_price( $raw_prices );
+			$populate_prices = true;
 
-			if ( $prices[ 'price' ] < $prices[ 'regular_price' ] ) {
-				$prices[ 'sale_price' ] = $prices[ 'price' ] ;
+			if ( empty( $prices[ 'regular_price' ] ) && empty( $prices[ 'price' ] ) ) {
+				$populate_prices = false;
+			}
+
+			if ( $populate_prices ) {
+
+				if ( empty( $prices[ 'regular_price' ] ) ) {
+					$prices[ 'regular_price' ] = $prices[ 'price' ];
+				} elseif ( empty( $prices[ 'price' ] ) ) {
+					$prices[ 'price' ]         = $prices[ 'regular_price' ];
+				}
+
+				$prices[ 'price' ] = $this->get_discounted_price( $prices );
+
+				if ( $prices[ 'price' ] < $prices[ 'regular_price' ] ) {
+					$prices[ 'sale_price' ] = $prices[ 'price' ];
+				}
 			}
 		}
 

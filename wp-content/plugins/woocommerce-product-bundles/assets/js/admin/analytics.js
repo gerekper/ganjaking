@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 44);
+/******/ 	return __webpack_require__(__webpack_require__.s = 45);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -110,7 +110,7 @@
 if (false) { var throwOnDirectAccess, ReactIs; } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(38)();
+  module.exports = __webpack_require__(39)();
 }
 
 
@@ -223,9 +223,9 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _typeof = __webpack_require__(23)["default"];
+var _typeof = __webpack_require__(38)["default"];
 
-var assertThisInitialized = __webpack_require__(17);
+var assertThisInitialized = __webpack_require__(18);
 
 function _possibleConstructorReturn(self, call) {
   if (call && (_typeof(call) === "object" || typeof call === "function")) {
@@ -240,6 +240,12 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 /* 13 */
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wc"]["wcSettings"]; }());
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports) {
 
 function _defineProperty(obj, key, value) {
@@ -261,25 +267,25 @@ module.exports = _defineProperty;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wc"]["date"]; }());
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["hooks"]; }());
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["data"]; }());
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 function _assertThisInitialized(self) {
@@ -294,7 +300,7 @@ module.exports = _assertThisInitialized;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayWithoutHoles = __webpack_require__(34);
@@ -313,61 +319,46 @@ module.exports = _toConsumableArray;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["compose"]; }());
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["htmlEntities"]; }());
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["components"]; }());
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wc"]["csvExport"]; }());
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    module.exports = _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  } else {
-    module.exports = _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  }
-
-  return _typeof(obj);
-}
-
-module.exports = _typeof;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+(function() { module.exports = window["wc"]["currency"]; }());
 
 /***/ }),
-/* 24 */
+/* 25 */
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["date"]; }());
+
+/***/ }),
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var objectWithoutPropertiesLoose = __webpack_require__(43);
+var objectWithoutPropertiesLoose = __webpack_require__(44);
 
 function _objectWithoutProperties(source, excluded) {
   if (source == null) return {};
@@ -390,18 +381,6 @@ function _objectWithoutProperties(source, excluded) {
 
 module.exports = _objectWithoutProperties;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wc"]["currency"]; }());
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["date"]; }());
 
 /***/ }),
 /* 27 */
@@ -442,6 +421,18 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 /* 29 */
 /***/ (function(module, exports) {
 
+(function() { module.exports = window["wp"]["apiFetch"]; }());
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["url"]; }());
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports) {
+
 function _extends() {
   module.exports = _extends = Object.assign || function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -465,16 +456,16 @@ module.exports = _extends;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithHoles = __webpack_require__(40);
+var arrayWithHoles = __webpack_require__(41);
 
-var iterableToArrayLimit = __webpack_require__(41);
+var iterableToArrayLimit = __webpack_require__(42);
 
 var unsupportedIterableToArray = __webpack_require__(28);
 
-var nonIterableRest = __webpack_require__(42);
+var nonIterableRest = __webpack_require__(43);
 
 function _slicedToArray(arr, i) {
   return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
@@ -484,22 +475,10 @@ module.exports = _slicedToArray;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 31 */
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["dom"]; }());
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["apiFetch"]; }());
-
-/***/ }),
 /* 33 */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wp"]["url"]; }());
+(function() { module.exports = window["wp"]["dom"]; }());
 
 /***/ }),
 /* 34 */
@@ -555,6 +534,33 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 /* 38 */
+/***/ (function(module, exports) {
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  }
+
+  return _typeof(obj);
+}
+
+module.exports = _typeof;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -567,7 +573,7 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 
 
-var ReactPropTypesSecret = __webpack_require__(39);
+var ReactPropTypesSecret = __webpack_require__(40);
 
 function emptyFunction() {}
 function emptyFunctionWithReset() {}
@@ -625,7 +631,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -644,7 +650,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports) {
 
 function _arrayWithHoles(arr) {
@@ -655,7 +661,7 @@ module.exports = _arrayWithHoles;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports) {
 
 function _iterableToArrayLimit(arr, i) {
@@ -692,7 +698,7 @@ module.exports = _iterableToArrayLimit;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports) {
 
 function _nonIterableRest() {
@@ -703,7 +709,7 @@ module.exports = _nonIterableRest;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 function _objectWithoutPropertiesLoose(source, excluded) {
@@ -725,7 +731,7 @@ module.exports = _objectWithoutPropertiesLoose;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -733,17 +739,17 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/toConsumableArray.js
-var toConsumableArray = __webpack_require__(18);
+var toConsumableArray = __webpack_require__(19);
 var toConsumableArray_default = /*#__PURE__*/__webpack_require__.n(toConsumableArray);
 
 // EXTERNAL MODULE: external ["wp","hooks"]
-var external_wp_hooks_ = __webpack_require__(15);
+var external_wp_hooks_ = __webpack_require__(16);
 
 // EXTERNAL MODULE: external ["wp","i18n"]
 var external_wp_i18n_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/defineProperty.js
-var defineProperty = __webpack_require__(13);
+var defineProperty = __webpack_require__(14);
 var defineProperty_default = /*#__PURE__*/__webpack_require__.n(defineProperty);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/classCallCheck.js
@@ -772,25 +778,18 @@ var external_wp_element_ = __webpack_require__(0);
 // EXTERNAL MODULE: external ["wc","components"]
 var external_wc_components_ = __webpack_require__(4);
 
+// EXTERNAL MODULE: external ["wc","wcSettings"]
+var external_wc_wcSettings_ = __webpack_require__(13);
+
+// EXTERNAL MODULE: external ["wp","compose"]
+var external_wp_compose_ = __webpack_require__(20);
+
+// EXTERNAL MODULE: external ["wp","data"]
+var external_wp_data_ = __webpack_require__(17);
+
 // EXTERNAL MODULE: ./node_modules/prop-types/index.js
 var prop_types = __webpack_require__(2);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/assertThisInitialized.js
-var assertThisInitialized = __webpack_require__(17);
-var assertThisInitialized_default = /*#__PURE__*/__webpack_require__.n(assertThisInitialized);
-
-// EXTERNAL MODULE: external ["wp","compose"]
-var external_wp_compose_ = __webpack_require__(19);
-
-// EXTERNAL MODULE: external ["wp","htmlEntities"]
-var external_wp_htmlEntities_ = __webpack_require__(20);
-
-// EXTERNAL MODULE: external ["wp","data"]
-var external_wp_data_ = __webpack_require__(16);
-
-// EXTERNAL MODULE: external "lodash"
-var external_lodash_ = __webpack_require__(3);
 
 // EXTERNAL MODULE: external ["wc","navigation"]
 var external_wc_navigation_ = __webpack_require__(6);
@@ -798,115 +797,37 @@ var external_wc_navigation_ = __webpack_require__(6);
 // EXTERNAL MODULE: external ["wc","number"]
 var external_wc_number_ = __webpack_require__(8);
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/typeof.js
-var helpers_typeof = __webpack_require__(23);
-var typeof_default = /*#__PURE__*/__webpack_require__.n(helpers_typeof);
-
-// CONCATENATED MODULE: ./resources/js/admin/analytics/settings/index.js
-
-
-/**
- * External dependencies
- */
- // Remove mutable data from settings object to prevent access. Data stores should be used instead.
-
-var mutableSources = ['wcAdminSettings', 'preloadSettings'];
-var settings = (typeof wcSettings === "undefined" ? "undefined" : typeof_default()(wcSettings)) === 'object' ? wcSettings : {};
-var SOURCE = Object.keys(settings).reduce(function (source, key) {
-  if (!mutableSources.includes(key)) {
-    source[key] = settings[key];
-  }
-
-  return source;
-}, {});
-var ADMIN_URL = SOURCE.adminUrl;
-var LOCALE = SOURCE.locale;
-var CURRENCY = SOURCE.currency;
-var SITE_TITLE = SOURCE.siteTitle;
-var WC_ASSET_URL = SOURCE.wcAssetUrl;
-var COUNTRIES = SOURCE.countries;
-var ORDER_STATUSES = SOURCE.orderStatuses;
-/**
- * Retrieves a setting value from the setting state.
- *
- * @param {string}   name                         The identifier for the setting.
- * @param {*}    [fallback=false]             The value to use as a fallback
- *                                                if the setting is not in the
- *                                                state.
- * @param {Function} [filter=( val ) => val]  	  A callback for filtering the
- *                                                value before it's returned.
- *                                                Receives both the found value
- *                                                (if it exists for the key) and
- *                                                the provided fallback arg.
- *
- * @return {*}  The value present in the settings state for the given
- *                   name.
- */
-
-function getSetting(name) {
-  var fallback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  var filter = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function (val) {
-    return val;
-  };
-
-  if (mutableSources.includes(name)) {
-    throw new Error(Object(external_wp_i18n_["__"])('Mutable settings should be accessed via data store.'));
-  }
-
-  var value = SOURCE.hasOwnProperty(name) ? SOURCE[name] : fallback;
-  return filter(value, fallback);
-}
-/**
- * Returns a string with the site's wp-admin URL appended. JS version of `admin_url`.
- *
- * @param {string} path Relative path.
- * @return {string} Full admin URL.
- */
-
-function getAdminLink(path) {
-  return (ADMIN_URL || '') + path;
-}
 // EXTERNAL MODULE: external ["wc","data"]
 var external_wc_data_ = __webpack_require__(7);
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/extends.js
-var helpers_extends = __webpack_require__(29);
-var extends_default = /*#__PURE__*/__webpack_require__.n(helpers_extends);
+// EXTERNAL MODULE: external ["wc","date"]
+var external_wc_date_ = __webpack_require__(15);
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/slicedToArray.js
-var slicedToArray = __webpack_require__(30);
-var slicedToArray_default = /*#__PURE__*/__webpack_require__.n(slicedToArray);
+// EXTERNAL MODULE: external ["wc","currency"]
+var external_wc_currency_ = __webpack_require__(24);
+var external_wc_currency_default = /*#__PURE__*/__webpack_require__.n(external_wc_currency_);
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/objectWithoutProperties.js
-var objectWithoutProperties = __webpack_require__(24);
-var objectWithoutProperties_default = /*#__PURE__*/__webpack_require__.n(objectWithoutProperties);
+// CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/lib/currency-context.js
+/**
+ * External dependencies
+ */
 
-// EXTERNAL MODULE: external ["wp","components"]
-var external_wp_components_ = __webpack_require__(21);
 
-// EXTERNAL MODULE: external ["wp","dom"]
-var external_wp_dom_ = __webpack_require__(31);
 
-// EXTERNAL MODULE: external ["wc","csvExport"]
-var external_wc_csvExport_ = __webpack_require__(22);
+/**
+ * Internal dependencies
+ */
 
-// CONCATENATED MODULE: ./resources/js/admin/analytics/components/report-table/download-icon.js
 
-/* harmony default export */ var download_icon = (function () {
-  return Object(external_wp_element_["createElement"])("svg", {
-    role: "img",
-    "aria-hidden": "true",
-    focusable: "false",
-    version: "1.1",
-    xmlns: "http://www.w3.org/2000/svg",
-    x: "0px",
-    y: "0px",
-    viewBox: "0 0 24 24"
-  }, Object(external_wp_element_["createElement"])("path", {
-    d: "M18,9c-0.009,0-0.017,0.002-0.025,0.003C17.72,5.646,14.922,3,11.5,3C7.91,3,5,5.91,5,9.5c0,0.524,0.069,1.031,0.186,1.519 C5.123,11.016,5.064,11,5,11c-2.209,0-4,1.791-4,4c0,1.202,0.541,2.267,1.38,3h18.593C22.196,17.089,23,15.643,23,14 C23,11.239,20.761,9,18,9z M12,16l-4-5h3V8h2v3h3L12,16z"
-  }));
-});
-// CONCATENATED MODULE: ./resources/js/admin/analytics/components/report-error/index.js
+var appCurrency = external_wc_currency_default()(external_wc_wcSettings_["CURRENCY"]);
+var currency_context_getFilteredCurrencyInstance = function getFilteredCurrencyInstance(query) {
+  var config = appCurrency.getCurrencyConfig();
+  var filteredConfig = Object(external_wp_hooks_["applyFilters"])('woocommerce_admin_report_currency', config, query);
+  return external_wc_currency_default()(filteredConfig);
+};
+var CurrencyContext = Object(external_wp_element_["createContext"])(appCurrency // default value
+);
+// CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/components/report-summary/index.js
 
 
 
@@ -927,6 +848,279 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 /**
+ * WooCommerce dependencies
+ */
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+// import ReportError from '../report-error';
+
+
+/**
+ * Component to render summary numbers in reports.
+ */
+
+var report_summary_ReportSummary = /*#__PURE__*/function (_Component) {
+  inherits_default()(ReportSummary, _Component);
+
+  var _super = _createSuper(ReportSummary);
+
+  function ReportSummary() {
+    classCallCheck_default()(this, ReportSummary);
+
+    return _super.apply(this, arguments);
+  }
+
+  createClass_default()(ReportSummary, [{
+    key: "formatVal",
+    value: function formatVal(val, type) {
+      var _this$context = this.context,
+          formatAmount = _this$context.formatAmount,
+          getCurrencyConfig = _this$context.getCurrencyConfig;
+      return type === 'currency' ? formatAmount(val) : Object(external_wc_number_["formatValue"])(getCurrencyConfig(), type, val);
+    }
+  }, {
+    key: "getValues",
+    value: function getValues(key, type) {
+      var _this$props = this.props,
+          emptySearchResults = _this$props.emptySearchResults,
+          summaryData = _this$props.summaryData;
+      var totals = summaryData.totals;
+      var primaryTotal = totals.primary ? totals.primary[key] : 0;
+      var secondaryTotal = totals.secondary ? totals.secondary[key] : 0;
+      var primaryValue = emptySearchResults ? 0 : primaryTotal;
+      var secondaryValue = emptySearchResults ? 0 : secondaryTotal;
+      return {
+        delta: Object(external_wc_number_["calculateDelta"])(primaryValue, secondaryValue),
+        prevValue: this.formatVal(secondaryValue, type),
+        value: this.formatVal(primaryValue, type)
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var _this$props2 = this.props,
+          charts = _this$props2.charts,
+          query = _this$props2.query,
+          selectedChart = _this$props2.selectedChart,
+          summaryData = _this$props2.summaryData,
+          endpoint = _this$props2.endpoint,
+          report = _this$props2.report,
+          defaultDateRange = _this$props2.defaultDateRange;
+      var isError = summaryData.isError,
+          isRequesting = summaryData.isRequesting;
+
+      if (isError) {
+        // return <ReportError isError />;
+        return;
+      }
+
+      if (isRequesting) {
+        return Object(external_wp_element_["createElement"])(external_wc_components_["SummaryListPlaceholder"], {
+          numberOfItems: charts.length
+        });
+      }
+
+      var _getDateParamsFromQue = Object(external_wc_date_["getDateParamsFromQuery"])(query, defaultDateRange),
+          compare = _getDateParamsFromQue.compare;
+
+      var renderSummaryNumbers = function renderSummaryNumbers(_ref) {
+        var onToggle = _ref.onToggle;
+        return charts.map(function (chart) {
+          var key = chart.key,
+              order = chart.order,
+              orderby = chart.orderby,
+              label = chart.label,
+              type = chart.type;
+          var newPath = {
+            chart: key
+          };
+
+          if (orderby) {
+            newPath.orderby = orderby;
+          }
+
+          if (order) {
+            newPath.order = order;
+          }
+
+          var href = Object(external_wc_navigation_["getNewPath"])(newPath);
+          var isSelected = selectedChart.key === key;
+
+          var _this$getValues = _this.getValues(key, type),
+              delta = _this$getValues.delta,
+              prevValue = _this$getValues.prevValue,
+              value = _this$getValues.value;
+
+          return Object(external_wp_element_["createElement"])(external_wc_components_["SummaryNumber"], {
+            key: key,
+            delta: delta,
+            href: href,
+            label: label,
+            prevLabel: compare === 'previous_period' ? Object(external_wp_i18n_["__"])('Previous Period:', 'woocommerce-product-bundles') : Object(external_wp_i18n_["__"])('Previous Year:', 'woocommerce-product-bundles'),
+            prevValue: prevValue,
+            selected: isSelected,
+            value: value,
+            onLinkClickCallback: function onLinkClickCallback() {
+              // Wider than a certain breakpoint, there is no dropdown so avoid calling onToggle.
+              if (onToggle) {
+                onToggle();
+              }
+            }
+          });
+        });
+      };
+
+      return Object(external_wp_element_["createElement"])(external_wc_components_["SummaryList"], null, renderSummaryNumbers);
+    }
+  }]);
+
+  return ReportSummary;
+}(external_wp_element_["Component"]);
+report_summary_ReportSummary.propTypes = {
+  /**
+   * Properties of all the charts available for that report.
+   */
+  charts: prop_types_default.a.array.isRequired,
+
+  /**
+   * The endpoint to use in API calls to populate the Summary Numbers.
+   * For example, if `taxes` is provided, data will be fetched from the report
+   * `taxes` endpoint (ie: `/wc-analytics/reports/taxes/stats`). If the provided endpoint
+   * doesn't exist, an error will be shown to the user with `ReportError`.
+   */
+  endpoint: prop_types_default.a.string.isRequired,
+
+  /**
+   * The query string represented in object form.
+   */
+  query: prop_types_default.a.object.isRequired,
+
+  /**
+   * Properties of the selected chart.
+   */
+  selectedChart: prop_types_default.a.shape({
+    /**
+     * Key of the selected chart.
+     */
+    key: prop_types_default.a.string.isRequired,
+
+    /**
+     * Chart label.
+     */
+    label: prop_types_default.a.string.isRequired,
+
+    /**
+     * Order query argument.
+     */
+    order: prop_types_default.a.oneOf(['asc', 'desc']),
+
+    /**
+     * Order by query argument.
+     */
+    orderby: prop_types_default.a.string,
+
+    /**
+     * Number type for formatting.
+     */
+    type: prop_types_default.a.oneOf(['average', 'number', 'currency']).isRequired
+  }).isRequired,
+
+  /**
+   * Data to display in the SummaryNumbers.
+   */
+  summaryData: prop_types_default.a.object,
+
+  /**
+   * Report name, if different than the endpoint.
+   */
+  report: prop_types_default.a.string
+};
+report_summary_ReportSummary.defaultProps = {
+  summaryData: {
+    totals: {
+      primary: {},
+      secondary: {}
+    },
+    isError: false
+  }
+};
+report_summary_ReportSummary.contextType = CurrencyContext;
+/* harmony default export */ var report_summary = (Object(external_wp_compose_["compose"])(Object(external_wp_data_["withSelect"])(function (select, props) {
+  var charts = props.charts,
+      endpoint = props.endpoint,
+      limitProperties = props.limitProperties,
+      query = props.query,
+      filters = props.filters,
+      advancedFilters = props.advancedFilters;
+  var limitBy = limitProperties || [endpoint];
+  var hasLimitByParam = limitBy.some(function (item) {
+    return query[item] && query[item].length;
+  });
+
+  if (query.search && !hasLimitByParam) {
+    return {
+      emptySearchResults: true
+    };
+  }
+
+  var fields = charts && charts.map(function (chart) {
+    return chart.key;
+  });
+
+  var _select$getSetting = select(external_wc_data_["SETTINGS_STORE_NAME"]).getSetting('wc_admin', 'wcAdminSettings'),
+      defaultDateRange = _select$getSetting.woocommerce_default_date_range;
+
+  var summaryData = Object(external_wc_data_["getSummaryNumbers"])({
+    endpoint: endpoint,
+    query: query,
+    select: select,
+    limitBy: limitBy,
+    filters: filters,
+    advancedFilters: advancedFilters,
+    defaultDateRange: defaultDateRange,
+    fields: fields
+  });
+  return {
+    summaryData: summaryData,
+    defaultDateRange: defaultDateRange
+  };
+}))(report_summary_ReportSummary));
+// EXTERNAL MODULE: external ["wp","date"]
+var external_wp_date_ = __webpack_require__(25);
+
+// EXTERNAL MODULE: external "lodash"
+var external_lodash_ = __webpack_require__(3);
+
+// CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/components/report-error/index.js
+
+
+
+
+
+
+
+function report_error_createSuper(Derived) { var hasNativeReflectConstruct = report_error_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = getPrototypeOf_default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = getPrototypeOf_default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return possibleConstructorReturn_default()(this, result); }; }
+
+function report_error_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+/**
+ * External dependencies
+ */
+
+
+
+
+
+/**
  * Component to render when there is an error in a report component due to data
  * not being loaded or being invalid.
  */
@@ -934,7 +1128,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 var report_error_ReportError = /*#__PURE__*/function (_Component) {
   inherits_default()(ReportError, _Component);
 
-  var _super = _createSuper(ReportError);
+  var _super = report_error_createSuper(ReportError);
 
   function ReportError() {
     classCallCheck_default()(this, ReportError);
@@ -961,7 +1155,7 @@ var report_error_ReportError = /*#__PURE__*/function (_Component) {
       } else if (isEmpty) {
         title = Object(external_wp_i18n_["__"])('No results could be found for this date range.', 'woocommerce-product-bundles');
         actionLabel = Object(external_wp_i18n_["__"])('View Orders', 'woocommerce-product-bundles');
-        actionURL = getAdminLink('edit.php?post_type=shop_order');
+        actionURL = Object(external_wc_wcSettings_["getAdminLink"])('edit.php?post_type=shop_order');
       }
 
       return Object(external_wp_element_["createElement"])(external_wc_components_["EmptyContent"], {
@@ -997,12 +1191,559 @@ report_error_ReportError.defaultProps = {
   className: ''
 };
 /* harmony default export */ var report_error = (report_error_ReportError);
-// CONCATENATED MODULE: ./resources/js/admin/analytics/components/report-table/utils.js
+// CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/components/report-chart/utils.js
+/**
+ * External dependencies
+ */
+
+
+var DEFAULT_FILTER = 'all';
+function getSelectedFilter(filters, query) {
+  var selectedFilterArgs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+  if (!filters || filters.length === 0) {
+    return null;
+  }
+
+  var clonedFilters = filters.slice(0);
+  var filterConfig = clonedFilters.pop();
+
+  if (filterConfig.showFilters(query, selectedFilterArgs)) {
+    var allFilters = Object(external_wc_navigation_["flattenFilters"])(filterConfig.filters);
+    var value = query[filterConfig.param] || filterConfig.defaultValue || DEFAULT_FILTER;
+    return Object(external_lodash_["find"])(allFilters, {
+      value: value
+    });
+  }
+
+  return getSelectedFilter(clonedFilters, query, selectedFilterArgs);
+}
+function getChartMode(selectedFilter, query) {
+  if (selectedFilter && query) {
+    var selectedFilterParam = Object(external_lodash_["get"])(selectedFilter, ['settings', 'param']);
+
+    if (!selectedFilterParam || Object.keys(query).includes(selectedFilterParam)) {
+      return Object(external_lodash_["get"])(selectedFilter, ['chartMode']);
+    }
+  }
+
+  return null;
+}
+// CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/components/report-chart/index.js
+
+
+
+
+
+
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { defineProperty_default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function report_chart_createSuper(Derived) { var hasNativeReflectConstruct = report_chart_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = getPrototypeOf_default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = getPrototypeOf_default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return possibleConstructorReturn_default()(this, result); }; }
+
+function report_chart_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+/**
+ * External dependencies
+ */
+
+
+
+
+
+
+
+/**
+ * WooCommerce dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+/**
+ * Component that renders the chart in reports.
+ */
+
+var report_chart_ReportChart = /*#__PURE__*/function (_Component) {
+  inherits_default()(ReportChart, _Component);
+
+  var _super = report_chart_createSuper(ReportChart);
+
+  function ReportChart() {
+    classCallCheck_default()(this, ReportChart);
+
+    return _super.apply(this, arguments);
+  }
+
+  createClass_default()(ReportChart, [{
+    key: "shouldComponentUpdate",
+    value: function shouldComponentUpdate(nextProps) {
+      if (nextProps.isRequesting !== this.props.isRequesting || nextProps.primaryData.isRequesting !== this.props.primaryData.isRequesting || nextProps.secondaryData.isRequesting !== this.props.secondaryData.isRequesting || !Object(external_lodash_["isEqual"])(nextProps.query, this.props.query)) {
+        return true;
+      }
+
+      return false;
+    }
+  }, {
+    key: "getItemChartData",
+    value: function getItemChartData() {
+      var _this$props = this.props,
+          primaryData = _this$props.primaryData,
+          selectedChart = _this$props.selectedChart;
+      var chartData = primaryData.data.intervals.map(function (interval) {
+        var intervalData = {};
+        interval.subtotals.segments.forEach(function (segment) {
+          if (segment.segment_label) {
+            var label = intervalData[segment.segment_label] ? segment.segment_label + ' (#' + segment.segment_id + ')' : segment.segment_label;
+            intervalData[segment.segment_id] = {
+              label: label,
+              value: segment.subtotals[selectedChart.key] || 0
+            };
+          }
+        });
+        return _objectSpread({
+          date: Object(external_wp_date_["format"])('Y-m-d\\TH:i:s', interval.date_start)
+        }, intervalData);
+      });
+      return chartData;
+    }
+  }, {
+    key: "getTimeChartData",
+    value: function getTimeChartData() {
+      var _this$props2 = this.props,
+          query = _this$props2.query,
+          primaryData = _this$props2.primaryData,
+          secondaryData = _this$props2.secondaryData,
+          selectedChart = _this$props2.selectedChart,
+          defaultDateRange = _this$props2.defaultDateRange;
+      var currentInterval = Object(external_wc_date_["getIntervalForQuery"])(query);
+
+      var _getCurrentDates = Object(external_wc_date_["getCurrentDates"])(query, defaultDateRange),
+          primary = _getCurrentDates.primary,
+          secondary = _getCurrentDates.secondary;
+
+      var chartData = primaryData.data.intervals.map(function (interval, index) {
+        var secondaryDate = Object(external_wc_date_["getPreviousDate"])(interval.date_start, primary.after, secondary.after, query.compare, currentInterval);
+        var secondaryInterval = secondaryData.data.intervals[index];
+        return {
+          date: Object(external_wp_date_["format"])('Y-m-d\\TH:i:s', interval.date_start),
+          primary: {
+            label: "".concat(primary.label, " (").concat(primary.range, ")"),
+            labelDate: interval.date_start,
+            value: interval.subtotals[selectedChart.key] || 0
+          },
+          secondary: {
+            label: "".concat(secondary.label, " (").concat(secondary.range, ")"),
+            labelDate: secondaryDate.format('YYYY-MM-DD HH:mm:ss'),
+            value: secondaryInterval && secondaryInterval.subtotals[selectedChart.key] || 0
+          }
+        };
+      });
+      return chartData;
+    }
+  }, {
+    key: "getTimeChartTotals",
+    value: function getTimeChartTotals() {
+      var _this$props3 = this.props,
+          primaryData = _this$props3.primaryData,
+          secondaryData = _this$props3.secondaryData,
+          selectedChart = _this$props3.selectedChart;
+      return {
+        primary: Object(external_lodash_["get"])(primaryData, ['data', 'totals', selectedChart.key], null),
+        secondary: Object(external_lodash_["get"])(secondaryData, ['data', 'totals', selectedChart.key], null)
+      };
+    }
+  }, {
+    key: "renderChart",
+    value: function renderChart(mode, isRequesting, chartData, legendTotals) {
+      var _this$props4 = this.props,
+          emptySearchResults = _this$props4.emptySearchResults,
+          filterParam = _this$props4.filterParam,
+          interactiveLegend = _this$props4.interactiveLegend,
+          itemsLabel = _this$props4.itemsLabel,
+          legendPosition = _this$props4.legendPosition,
+          path = _this$props4.path,
+          query = _this$props4.query,
+          selectedChart = _this$props4.selectedChart,
+          showHeaderControls = _this$props4.showHeaderControls,
+          primaryData = _this$props4.primaryData;
+      var currentInterval = Object(external_wc_date_["getIntervalForQuery"])(query);
+      var allowedIntervals = Object(external_wc_date_["getAllowedIntervalsForQuery"])(query);
+      var formats = Object(external_wc_date_["getDateFormatsForInterval"])(currentInterval, primaryData.data.intervals.length);
+      var emptyMessage = emptySearchResults ? Object(external_wp_i18n_["__"])('No data for the current search', 'woocommerce-admin') : Object(external_wp_i18n_["__"])('No data for the selected date range', 'woocommerce-admin');
+      var _this$context = this.context,
+          formatAmount = _this$context.formatAmount,
+          getCurrencyConfig = _this$context.getCurrencyConfig;
+      return Object(external_wp_element_["createElement"])(external_wc_components_["Chart"], {
+        allowedIntervals: allowedIntervals,
+        data: chartData,
+        dateParser: '%Y-%m-%dT%H:%M:%S',
+        emptyMessage: emptyMessage,
+        filterParam: filterParam,
+        interactiveLegend: interactiveLegend,
+        interval: currentInterval,
+        isRequesting: isRequesting,
+        itemsLabel: itemsLabel,
+        legendPosition: legendPosition,
+        legendTotals: legendTotals,
+        mode: mode,
+        path: path,
+        query: query,
+        screenReaderFormat: formats.screenReaderFormat,
+        showHeaderControls: showHeaderControls,
+        title: selectedChart.label,
+        tooltipLabelFormat: formats.tooltipLabelFormat,
+        tooltipTitle: mode === 'time-comparison' && selectedChart.label || null,
+        tooltipValueFormat: Object(external_wc_data_["getTooltipValueFormat"])(selectedChart.type, formatAmount),
+        chartType: Object(external_wc_date_["getChartTypeForQuery"])(query),
+        valueType: selectedChart.type,
+        xFormat: formats.xFormat,
+        x2Format: formats.x2Format,
+        currency: getCurrencyConfig()
+      });
+    }
+  }, {
+    key: "renderItemComparison",
+    value: function renderItemComparison() {
+      var _this$props5 = this.props,
+          isRequesting = _this$props5.isRequesting,
+          primaryData = _this$props5.primaryData;
+
+      if (primaryData.isError) {
+        return Object(external_wp_element_["createElement"])(report_error, {
+          isError: true
+        });
+      }
+
+      var isChartRequesting = isRequesting || primaryData.isRequesting;
+      var chartData = this.getItemChartData();
+      return this.renderChart('item-comparison', isChartRequesting, chartData);
+    }
+  }, {
+    key: "renderTimeComparison",
+    value: function renderTimeComparison() {
+      var _this$props6 = this.props,
+          isRequesting = _this$props6.isRequesting,
+          primaryData = _this$props6.primaryData,
+          secondaryData = _this$props6.secondaryData;
+
+      if (!primaryData || primaryData.isError || secondaryData.isError) {
+        return Object(external_wp_element_["createElement"])(report_error, {
+          isError: true
+        });
+      }
+
+      var isChartRequesting = isRequesting || primaryData.isRequesting || secondaryData.isRequesting;
+      var chartData = this.getTimeChartData();
+      var legendTotals = this.getTimeChartTotals();
+      return this.renderChart('time-comparison', isChartRequesting, chartData, legendTotals);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var mode = this.props.mode;
+
+      if (mode === 'item-comparison') {
+        return this.renderItemComparison();
+      }
+
+      return this.renderTimeComparison();
+    }
+  }]);
+
+  return ReportChart;
+}(external_wp_element_["Component"]);
+report_chart_ReportChart.contextType = CurrencyContext;
+report_chart_ReportChart.propTypes = {
+  /**
+   * Filters available for that report.
+   */
+  filters: prop_types_default.a.array,
+
+  /**
+   * Whether there is an API call running.
+   */
+  isRequesting: prop_types_default.a.bool,
+
+  /**
+   * Label describing the legend items.
+   */
+  itemsLabel: prop_types_default.a.string,
+
+  /**
+   * Allows specifying properties different from the `endpoint` that will be used
+   * to limit the items when there is an active search.
+   */
+  limitProperties: prop_types_default.a.array,
+
+  /**
+   * `items-comparison` (default) or `time-comparison`, this is used to generate correct
+   * ARIA properties.
+   */
+  mode: prop_types_default.a.string,
+
+  /**
+   * Current path
+   */
+  path: prop_types_default.a.string.isRequired,
+
+  /**
+   * Primary data to display in the chart.
+   */
+  primaryData: prop_types_default.a.object,
+
+  /**
+   * The query string represented in object form.
+   */
+  query: prop_types_default.a.object.isRequired,
+
+  /**
+   * Secondary data to display in the chart.
+   */
+  secondaryData: prop_types_default.a.object,
+
+  /**
+   * Properties of the selected chart.
+   */
+  selectedChart: prop_types_default.a.shape({
+    /**
+     * Key of the selected chart.
+     */
+    key: prop_types_default.a.string.isRequired,
+
+    /**
+     * Chart label.
+     */
+    label: prop_types_default.a.string.isRequired,
+
+    /**
+     * Order query argument.
+     */
+    order: prop_types_default.a.oneOf(['asc', 'desc']),
+
+    /**
+     * Order by query argument.
+     */
+    orderby: prop_types_default.a.string,
+
+    /**
+     * Number type for formatting.
+     */
+    type: prop_types_default.a.oneOf(['average', 'number', 'currency']).isRequired
+  }).isRequired
+};
+report_chart_ReportChart.defaultProps = {
+  isRequesting: false,
+  primaryData: {
+    data: {
+      intervals: []
+    },
+    isError: false,
+    isRequesting: false
+  },
+  secondaryData: {
+    data: {
+      intervals: []
+    },
+    isError: false,
+    isRequesting: false
+  }
+};
+/* harmony default export */ var report_chart = (Object(external_wp_compose_["compose"])(Object(external_wp_data_["withSelect"])(function (select, props) {
+  var charts = props.charts,
+      endpoint = props.endpoint,
+      filters = props.filters,
+      isRequesting = props.isRequesting,
+      limitProperties = props.limitProperties,
+      query = props.query,
+      advancedFilters = props.advancedFilters;
+  var limitBy = limitProperties || [endpoint];
+  var selectedFilter = getSelectedFilter(filters, query);
+  var filterParam = Object(external_lodash_["get"])(selectedFilter, ['settings', 'param']);
+  var chartMode = props.mode || getChartMode(selectedFilter, query) || 'time-comparison';
+
+  var _select$getSetting = select(external_wc_data_["SETTINGS_STORE_NAME"]).getSetting('wc_admin', 'wcAdminSettings'),
+      defaultDateRange = _select$getSetting.woocommerce_default_date_range;
+
+  var newProps = {
+    mode: chartMode,
+    filterParam: filterParam,
+    defaultDateRange: defaultDateRange
+  };
+
+  if (isRequesting) {
+    return newProps;
+  }
+
+  var hasLimitByParam = limitBy.some(function (item) {
+    return query[item] && query[item].length;
+  });
+
+  if (query.search && !hasLimitByParam) {
+    return _objectSpread(_objectSpread({}, newProps), {}, {
+      emptySearchResults: true
+    });
+  }
+
+  var fields = charts && charts.map(function (chart) {
+    return chart.key;
+  });
+  var primaryData = Object(external_wc_data_["getReportChartData"])({
+    endpoint: endpoint,
+    dataType: 'primary',
+    query: query,
+    select: select,
+    limitBy: limitBy,
+    filters: filters,
+    advancedFilters: advancedFilters,
+    defaultDateRange: defaultDateRange,
+    fields: fields
+  });
+
+  if (chartMode === 'item-comparison') {
+    return _objectSpread(_objectSpread({}, newProps), {}, {
+      primaryData: primaryData
+    });
+  }
+
+  var secondaryData = Object(external_wc_data_["getReportChartData"])({
+    endpoint: endpoint,
+    dataType: 'secondary',
+    query: query,
+    select: select,
+    limitBy: limitBy,
+    filters: filters,
+    advancedFilters: advancedFilters,
+    defaultDateRange: defaultDateRange,
+    fields: fields
+  });
+  return _objectSpread(_objectSpread({}, newProps), {}, {
+    primaryData: primaryData,
+    secondaryData: secondaryData
+  });
+}))(report_chart_ReportChart));
+// EXTERNAL MODULE: external ["wp","apiFetch"]
+var external_wp_apiFetch_ = __webpack_require__(29);
+var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_);
+
+// EXTERNAL MODULE: external ["wp","url"]
+var external_wp_url_ = __webpack_require__(30);
+
+// CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/lib/index.js
+/**
+ * External dependencies.
+ */
+
+
+
+
+/**
+ * Exports.
+ */
+
+function getRequestByIdString(path) {
+  var handleData = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : identity;
+  return function () {
+    var queryString = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    var pathString = path;
+    var idList = Object(external_wc_navigation_["getIdsFromQuery"])(queryString);
+
+    if (idList.length < 1) {
+      return Promise.resolve([]);
+    }
+
+    var payload = {
+      include: idList.join(','),
+      per_page: idList.length
+    };
+    return external_wp_apiFetch_default()({
+      path: Object(external_wp_url_["addQueryArgs"])(pathString, payload)
+    }).then(function (data) {
+      return data.map(handleData);
+    });
+  };
+}
+/**
+ * Takes a chart name returns the configuration for that chart from and array
+ * of charts. If the chart is not found it will return the first chart.
+ *
+ * @param {string} chartName - the name of the chart to get configuration for
+ * @param {Array} charts - list of charts for a particular report
+ * @return {Object} - chart configuration object
+ */
+
+function getSelectedChart(chartName) {
+  var charts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  var chart = Object(external_lodash_["find"])(charts, {
+    key: chartName
+  });
+
+  if (chart) {
+    return chart;
+  }
+
+  return charts[0];
+}
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/assertThisInitialized.js
+var assertThisInitialized = __webpack_require__(18);
+var assertThisInitialized_default = /*#__PURE__*/__webpack_require__.n(assertThisInitialized);
+
+// EXTERNAL MODULE: external ["wp","htmlEntities"]
+var external_wp_htmlEntities_ = __webpack_require__(21);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/extends.js
+var helpers_extends = __webpack_require__(31);
+var extends_default = /*#__PURE__*/__webpack_require__.n(helpers_extends);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/slicedToArray.js
+var slicedToArray = __webpack_require__(32);
+var slicedToArray_default = /*#__PURE__*/__webpack_require__.n(slicedToArray);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/objectWithoutProperties.js
+var objectWithoutProperties = __webpack_require__(26);
+var objectWithoutProperties_default = /*#__PURE__*/__webpack_require__.n(objectWithoutProperties);
+
+// EXTERNAL MODULE: external ["wp","components"]
+var external_wp_components_ = __webpack_require__(22);
+
+// EXTERNAL MODULE: external ["wp","dom"]
+var external_wp_dom_ = __webpack_require__(33);
+
+// EXTERNAL MODULE: external ["wc","csvExport"]
+var external_wc_csvExport_ = __webpack_require__(23);
+
+// CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/components/report-table/download-icon.js
+
+/* harmony default export */ var download_icon = (function () {
+  return Object(external_wp_element_["createElement"])("svg", {
+    role: "img",
+    "aria-hidden": "true",
+    focusable: "false",
+    version: "1.1",
+    xmlns: "http://www.w3.org/2000/svg",
+    x: "0px",
+    y: "0px",
+    viewBox: "0 0 24 24"
+  }, Object(external_wp_element_["createElement"])("path", {
+    d: "M18,9c-0.009,0-0.017,0.002-0.025,0.003C17.72,5.646,14.922,3,11.5,3C7.91,3,5,5.91,5,9.5c0,0.524,0.069,1.031,0.186,1.519 C5.123,11.016,5.064,11,5,11c-2.209,0-4,1.791-4,4c0,1.202,0.541,2.267,1.38,3h18.593C22.196,17.089,23,15.643,23,14 C23,11.239,20.761,9,18,9z M12,16l-4-5h3V8h2v3h3L12,16z"
+  }));
+});
+// CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/components/report-table/utils.js
+
+
+function utils_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function utils_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { utils_ownKeys(Object(source), true).forEach(function (key) { defineProperty_default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { utils_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 /**
  * External dependencies
@@ -1036,19 +1777,19 @@ function extendTableData(select, props, queriedTableData) {
     var extendedItemData = Object(external_lodash_["first"])(extendedItems.filter(function (extendedItem) {
       return item.id === extendedItem.id;
     }));
-    return _objectSpread(_objectSpread({}, item), extendedItemData);
+    return utils_objectSpread(utils_objectSpread({}, item), extendedItemData);
   });
   var isRequesting = queriedTableData.isRequesting || isExtendedItemsRequesting;
   var isError = queriedTableData.isError || isExtendedItemsError;
-  return _objectSpread(_objectSpread({}, queriedTableData), {}, {
+  return utils_objectSpread(utils_objectSpread({}, queriedTableData), {}, {
     isRequesting: isRequesting,
     isError: isError,
-    items: _objectSpread(_objectSpread({}, queriedTableData.items), {}, {
+    items: utils_objectSpread(utils_objectSpread({}, queriedTableData.items), {}, {
       data: extendedItemsData
     })
   });
 }
-// CONCATENATED MODULE: ./resources/js/admin/analytics/components/report-table/index.js
+// CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/components/report-table/index.js
 
 
 
@@ -1563,30 +2304,6 @@ var EMPTY_OBJECT = {};
     startExport: startExport
   };
 }))(report_table_ReportTable));
-// EXTERNAL MODULE: external ["wc","currency"]
-var external_wc_currency_ = __webpack_require__(25);
-var external_wc_currency_default = /*#__PURE__*/__webpack_require__.n(external_wc_currency_);
-
-// CONCATENATED MODULE: ./resources/js/admin/analytics/lib/currency-context.js
-/**
- * External dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-var appCurrency = external_wc_currency_default()(CURRENCY);
-var currency_context_getFilteredCurrencyInstance = function getFilteredCurrencyInstance(query) {
-  var config = appCurrency.getCurrencyConfig();
-  var filteredConfig = Object(external_wp_hooks_["applyFilters"])('woocommerce_admin_report_currency', config, query);
-  return external_wc_currency_default()(filteredConfig);
-};
-var CurrencyContext = Object(external_wp_element_["createContext"])(appCurrency // default value
-);
 // CONCATENATED MODULE: ./resources/js/admin/analytics/report/revenue/index.js
 
 
@@ -1609,18 +2326,22 @@ function revenue_isNativeReflectConstruct() { if (typeof Reflect === "undefined"
 
 
 
+/**
+ * WooCommerce dependencies
+ */
+
 
 
 
 
 
 /**
- * Internal dependencies
+ * SomewhereWarm dependencies
  */
 
 
 
-var stockStatuses = getSetting('stockStatuses', {});
+var stockStatuses = Object(external_wc_wcSettings_["getSetting"])('stockStatuses', {});
 
 var revenue_BundlesReportTable = /*#__PURE__*/function (_Component) {
   inherits_default()(BundlesReportTable, _Component);
@@ -1834,16 +2555,20 @@ function stock_isNativeReflectConstruct() { if (typeof Reflect === "undefined" |
 
 
 
-
-
-
 /**
- * Internal dependencies
+ * WooCommerce dependencies
  */
 
 
 
-var stock_stockStatuses = getSetting('stockStatuses', {});
+
+/**
+ * SomewhereWarm dependencies
+ */
+
+
+
+var stock_stockStatuses = Object(external_wc_wcSettings_["getSetting"])('stockStatuses', {});
 
 var stock_BundlesStockReportTable = /*#__PURE__*/function (_Component) {
   inherits_default()(BundlesStockReportTable, _Component);
@@ -1915,10 +2640,10 @@ var stock_BundlesStockReportTable = /*#__PURE__*/function (_Component) {
             extendedInfoStockStatus = extendedInfo.stock_status; // Bundle.
 
         var name = Object(external_wp_htmlEntities_["decodeEntities"])(extendedInfoBundleName);
-        var productDetailLink = getAdminLink('post.php?post=' + bundleId + '&action=edit'); // Bundled product.
+        var productDetailLink = Object(external_wc_wcSettings_["getAdminLink"])('post.php?post=' + bundleId + '&action=edit'); // Bundled product.
 
         var bundledName = Object(external_wp_htmlEntities_["decodeEntities"])(extendedInfoName);
-        var bundledDetailsLink = getAdminLink('post.php?post=' + productId + '&action=edit');
+        var bundledDetailsLink = Object(external_wc_wcSettings_["getAdminLink"])('post.php?post=' + productId + '&action=edit');
         var stockStatus = stock_stockStatuses[extendedInfoStockStatus];
         return [{
           display: Object(external_wp_element_["createElement"])(external_wc_components_["Link"], {
@@ -1978,795 +2703,19 @@ var stock_BundlesStockReportTable = /*#__PURE__*/function (_Component) {
 
 stock_BundlesStockReportTable.contextType = CurrencyContext;
 /* harmony default export */ var stock = (stock_BundlesStockReportTable);
-// EXTERNAL MODULE: external ["wc","date"]
-var external_wc_date_ = __webpack_require__(14);
-
-// CONCATENATED MODULE: ./resources/js/admin/analytics/components/report-summary/index.js
-
-
-
-
-
-
-
-function report_summary_createSuper(Derived) { var hasNativeReflectConstruct = report_summary_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = getPrototypeOf_default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = getPrototypeOf_default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return possibleConstructorReturn_default()(this, result); }; }
-
-function report_summary_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-/**
- * External dependencies
- */
-
-
-
-
-
-/**
- * WooCommerce dependencies
- */
-
-
-
-
-
-
-/**
- * Internal dependencies
- */
-// import ReportError from '../report-error';
-
-
-/**
- * Component to render summary numbers in reports.
- */
-
-var report_summary_ReportSummary = /*#__PURE__*/function (_Component) {
-  inherits_default()(ReportSummary, _Component);
-
-  var _super = report_summary_createSuper(ReportSummary);
-
-  function ReportSummary() {
-    classCallCheck_default()(this, ReportSummary);
-
-    return _super.apply(this, arguments);
-  }
-
-  createClass_default()(ReportSummary, [{
-    key: "formatVal",
-    value: function formatVal(val, type) {
-      var _this$context = this.context,
-          formatAmount = _this$context.formatAmount,
-          getCurrencyConfig = _this$context.getCurrencyConfig;
-      return type === 'currency' ? formatAmount(val) : Object(external_wc_number_["formatValue"])(getCurrencyConfig(), type, val);
-    }
-  }, {
-    key: "getValues",
-    value: function getValues(key, type) {
-      var _this$props = this.props,
-          emptySearchResults = _this$props.emptySearchResults,
-          summaryData = _this$props.summaryData;
-      var totals = summaryData.totals;
-      var primaryTotal = totals.primary ? totals.primary[key] : 0;
-      var secondaryTotal = totals.secondary ? totals.secondary[key] : 0;
-      var primaryValue = emptySearchResults ? 0 : primaryTotal;
-      var secondaryValue = emptySearchResults ? 0 : secondaryTotal;
-      return {
-        delta: Object(external_wc_number_["calculateDelta"])(primaryValue, secondaryValue),
-        prevValue: this.formatVal(secondaryValue, type),
-        value: this.formatVal(primaryValue, type)
-      };
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this = this;
-
-      var _this$props2 = this.props,
-          charts = _this$props2.charts,
-          query = _this$props2.query,
-          selectedChart = _this$props2.selectedChart,
-          summaryData = _this$props2.summaryData,
-          endpoint = _this$props2.endpoint,
-          report = _this$props2.report,
-          defaultDateRange = _this$props2.defaultDateRange;
-      var isError = summaryData.isError,
-          isRequesting = summaryData.isRequesting;
-
-      if (isError) {
-        // return <ReportError isError />;
-        return;
-      }
-
-      if (isRequesting) {
-        return Object(external_wp_element_["createElement"])(external_wc_components_["SummaryListPlaceholder"], {
-          numberOfItems: charts.length
-        });
-      }
-
-      var _getDateParamsFromQue = Object(external_wc_date_["getDateParamsFromQuery"])(query, defaultDateRange),
-          compare = _getDateParamsFromQue.compare;
-
-      var renderSummaryNumbers = function renderSummaryNumbers(_ref) {
-        var onToggle = _ref.onToggle;
-        return charts.map(function (chart) {
-          var key = chart.key,
-              order = chart.order,
-              orderby = chart.orderby,
-              label = chart.label,
-              type = chart.type;
-          var newPath = {
-            chart: key
-          };
-
-          if (orderby) {
-            newPath.orderby = orderby;
-          }
-
-          if (order) {
-            newPath.order = order;
-          }
-
-          var href = Object(external_wc_navigation_["getNewPath"])(newPath);
-          var isSelected = selectedChart.key === key;
-
-          var _this$getValues = _this.getValues(key, type),
-              delta = _this$getValues.delta,
-              prevValue = _this$getValues.prevValue,
-              value = _this$getValues.value;
-
-          return Object(external_wp_element_["createElement"])(external_wc_components_["SummaryNumber"], {
-            key: key,
-            delta: delta,
-            href: href,
-            label: label,
-            prevLabel: compare === 'previous_period' ? Object(external_wp_i18n_["__"])('Previous Period:', 'woocommerce-product-bundles') : Object(external_wp_i18n_["__"])('Previous Year:', 'woocommerce-product-bundles'),
-            prevValue: prevValue,
-            selected: isSelected,
-            value: value,
-            onLinkClickCallback: function onLinkClickCallback() {
-              // Wider than a certain breakpoint, there is no dropdown so avoid calling onToggle.
-              if (onToggle) {
-                onToggle();
-              }
-            }
-          });
-        });
-      };
-
-      return Object(external_wp_element_["createElement"])(external_wc_components_["SummaryList"], null, renderSummaryNumbers);
-    }
-  }]);
-
-  return ReportSummary;
-}(external_wp_element_["Component"]);
-report_summary_ReportSummary.propTypes = {
-  /**
-   * Properties of all the charts available for that report.
-   */
-  charts: prop_types_default.a.array.isRequired,
-
-  /**
-   * The endpoint to use in API calls to populate the Summary Numbers.
-   * For example, if `taxes` is provided, data will be fetched from the report
-   * `taxes` endpoint (ie: `/wc-analytics/reports/taxes/stats`). If the provided endpoint
-   * doesn't exist, an error will be shown to the user with `ReportError`.
-   */
-  endpoint: prop_types_default.a.string.isRequired,
-
-  /**
-   * The query string represented in object form.
-   */
-  query: prop_types_default.a.object.isRequired,
-
-  /**
-   * Properties of the selected chart.
-   */
-  selectedChart: prop_types_default.a.shape({
-    /**
-     * Key of the selected chart.
-     */
-    key: prop_types_default.a.string.isRequired,
-
-    /**
-     * Chart label.
-     */
-    label: prop_types_default.a.string.isRequired,
-
-    /**
-     * Order query argument.
-     */
-    order: prop_types_default.a.oneOf(['asc', 'desc']),
-
-    /**
-     * Order by query argument.
-     */
-    orderby: prop_types_default.a.string,
-
-    /**
-     * Number type for formatting.
-     */
-    type: prop_types_default.a.oneOf(['average', 'number', 'currency']).isRequired
-  }).isRequired,
-
-  /**
-   * Data to display in the SummaryNumbers.
-   */
-  summaryData: prop_types_default.a.object,
-
-  /**
-   * Report name, if different than the endpoint.
-   */
-  report: prop_types_default.a.string
-};
-report_summary_ReportSummary.defaultProps = {
-  summaryData: {
-    totals: {
-      primary: {},
-      secondary: {}
-    },
-    isError: false
-  }
-};
-report_summary_ReportSummary.contextType = CurrencyContext;
-/* harmony default export */ var report_summary = (Object(external_wp_compose_["compose"])(Object(external_wp_data_["withSelect"])(function (select, props) {
-  var charts = props.charts,
-      endpoint = props.endpoint,
-      limitProperties = props.limitProperties,
-      query = props.query,
-      filters = props.filters,
-      advancedFilters = props.advancedFilters;
-  var limitBy = limitProperties || [endpoint];
-  var hasLimitByParam = limitBy.some(function (item) {
-    return query[item] && query[item].length;
-  });
-
-  if (query.search && !hasLimitByParam) {
-    return {
-      emptySearchResults: true
-    };
-  }
-
-  var fields = charts && charts.map(function (chart) {
-    return chart.key;
-  });
-
-  var _select$getSetting = select(external_wc_data_["SETTINGS_STORE_NAME"]).getSetting('wc_admin', 'wcAdminSettings'),
-      defaultDateRange = _select$getSetting.woocommerce_default_date_range;
-
-  var summaryData = Object(external_wc_data_["getSummaryNumbers"])({
-    endpoint: endpoint,
-    query: query,
-    select: select,
-    limitBy: limitBy,
-    filters: filters,
-    advancedFilters: advancedFilters,
-    defaultDateRange: defaultDateRange,
-    fields: fields
-  });
-  return {
-    summaryData: summaryData,
-    defaultDateRange: defaultDateRange
-  };
-}))(report_summary_ReportSummary));
-// EXTERNAL MODULE: external ["wp","date"]
-var external_wp_date_ = __webpack_require__(26);
-
-// CONCATENATED MODULE: ./resources/js/admin/analytics/components/report-chart/utils.js
-/**
- * External dependencies
- */
-
-
-var DEFAULT_FILTER = 'all';
-function getSelectedFilter(filters, query) {
-  var selectedFilterArgs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-  if (!filters || filters.length === 0) {
-    return null;
-  }
-
-  var clonedFilters = filters.slice(0);
-  var filterConfig = clonedFilters.pop();
-
-  if (filterConfig.showFilters(query, selectedFilterArgs)) {
-    var allFilters = Object(external_wc_navigation_["flattenFilters"])(filterConfig.filters);
-    var value = query[filterConfig.param] || filterConfig.defaultValue || DEFAULT_FILTER;
-    return Object(external_lodash_["find"])(allFilters, {
-      value: value
-    });
-  }
-
-  return getSelectedFilter(clonedFilters, query, selectedFilterArgs);
-}
-function getChartMode(selectedFilter, query) {
-  if (selectedFilter && query) {
-    var selectedFilterParam = Object(external_lodash_["get"])(selectedFilter, ['settings', 'param']);
-
-    if (!selectedFilterParam || Object.keys(query).includes(selectedFilterParam)) {
-      return Object(external_lodash_["get"])(selectedFilter, ['chartMode']);
-    }
-  }
-
-  return null;
-}
-// CONCATENATED MODULE: ./resources/js/admin/analytics/components/report-chart/index.js
-
-
-
-
-
-
-
-
-function report_chart_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function report_chart_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { report_chart_ownKeys(Object(source), true).forEach(function (key) { defineProperty_default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { report_chart_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function report_chart_createSuper(Derived) { var hasNativeReflectConstruct = report_chart_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = getPrototypeOf_default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = getPrototypeOf_default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return possibleConstructorReturn_default()(this, result); }; }
-
-function report_chart_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-/**
- * External dependencies
- */
-
-
-
-
-
-
-
-/**
- * WooCommerce dependencies
- */
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-/**
- * Component that renders the chart in reports.
- */
-
-var report_chart_ReportChart = /*#__PURE__*/function (_Component) {
-  inherits_default()(ReportChart, _Component);
-
-  var _super = report_chart_createSuper(ReportChart);
-
-  function ReportChart() {
-    classCallCheck_default()(this, ReportChart);
-
-    return _super.apply(this, arguments);
-  }
-
-  createClass_default()(ReportChart, [{
-    key: "shouldComponentUpdate",
-    value: function shouldComponentUpdate(nextProps) {
-      if (nextProps.isRequesting !== this.props.isRequesting || nextProps.primaryData.isRequesting !== this.props.primaryData.isRequesting || nextProps.secondaryData.isRequesting !== this.props.secondaryData.isRequesting || !Object(external_lodash_["isEqual"])(nextProps.query, this.props.query)) {
-        return true;
-      }
-
-      return false;
-    }
-  }, {
-    key: "getItemChartData",
-    value: function getItemChartData() {
-      var _this$props = this.props,
-          primaryData = _this$props.primaryData,
-          selectedChart = _this$props.selectedChart;
-      var chartData = primaryData.data.intervals.map(function (interval) {
-        var intervalData = {};
-        interval.subtotals.segments.forEach(function (segment) {
-          if (segment.segment_label) {
-            var label = intervalData[segment.segment_label] ? segment.segment_label + ' (#' + segment.segment_id + ')' : segment.segment_label;
-            intervalData[segment.segment_id] = {
-              label: label,
-              value: segment.subtotals[selectedChart.key] || 0
-            };
-          }
-        });
-        return report_chart_objectSpread({
-          date: Object(external_wp_date_["format"])('Y-m-d\\TH:i:s', interval.date_start)
-        }, intervalData);
-      });
-      return chartData;
-    }
-  }, {
-    key: "getTimeChartData",
-    value: function getTimeChartData() {
-      var _this$props2 = this.props,
-          query = _this$props2.query,
-          primaryData = _this$props2.primaryData,
-          secondaryData = _this$props2.secondaryData,
-          selectedChart = _this$props2.selectedChart,
-          defaultDateRange = _this$props2.defaultDateRange;
-      var currentInterval = Object(external_wc_date_["getIntervalForQuery"])(query);
-
-      var _getCurrentDates = Object(external_wc_date_["getCurrentDates"])(query, defaultDateRange),
-          primary = _getCurrentDates.primary,
-          secondary = _getCurrentDates.secondary;
-
-      var chartData = primaryData.data.intervals.map(function (interval, index) {
-        var secondaryDate = Object(external_wc_date_["getPreviousDate"])(interval.date_start, primary.after, secondary.after, query.compare, currentInterval);
-        var secondaryInterval = secondaryData.data.intervals[index];
-        return {
-          date: Object(external_wp_date_["format"])('Y-m-d\\TH:i:s', interval.date_start),
-          primary: {
-            label: "".concat(primary.label, " (").concat(primary.range, ")"),
-            labelDate: interval.date_start,
-            value: interval.subtotals[selectedChart.key] || 0
-          },
-          secondary: {
-            label: "".concat(secondary.label, " (").concat(secondary.range, ")"),
-            labelDate: secondaryDate.format('YYYY-MM-DD HH:mm:ss'),
-            value: secondaryInterval && secondaryInterval.subtotals[selectedChart.key] || 0
-          }
-        };
-      });
-      return chartData;
-    }
-  }, {
-    key: "getTimeChartTotals",
-    value: function getTimeChartTotals() {
-      var _this$props3 = this.props,
-          primaryData = _this$props3.primaryData,
-          secondaryData = _this$props3.secondaryData,
-          selectedChart = _this$props3.selectedChart;
-      return {
-        primary: Object(external_lodash_["get"])(primaryData, ['data', 'totals', selectedChart.key], null),
-        secondary: Object(external_lodash_["get"])(secondaryData, ['data', 'totals', selectedChart.key], null)
-      };
-    }
-  }, {
-    key: "renderChart",
-    value: function renderChart(mode, isRequesting, chartData, legendTotals) {
-      var _this$props4 = this.props,
-          emptySearchResults = _this$props4.emptySearchResults,
-          filterParam = _this$props4.filterParam,
-          interactiveLegend = _this$props4.interactiveLegend,
-          itemsLabel = _this$props4.itemsLabel,
-          legendPosition = _this$props4.legendPosition,
-          path = _this$props4.path,
-          query = _this$props4.query,
-          selectedChart = _this$props4.selectedChart,
-          showHeaderControls = _this$props4.showHeaderControls,
-          primaryData = _this$props4.primaryData;
-      var currentInterval = Object(external_wc_date_["getIntervalForQuery"])(query);
-      var allowedIntervals = Object(external_wc_date_["getAllowedIntervalsForQuery"])(query);
-      var formats = Object(external_wc_date_["getDateFormatsForInterval"])(currentInterval, primaryData.data.intervals.length);
-      var emptyMessage = emptySearchResults ? Object(external_wp_i18n_["__"])('No data for the current search', 'woocommerce-admin') : Object(external_wp_i18n_["__"])('No data for the selected date range', 'woocommerce-admin');
-      var _this$context = this.context,
-          formatAmount = _this$context.formatAmount,
-          getCurrencyConfig = _this$context.getCurrencyConfig;
-      return Object(external_wp_element_["createElement"])(external_wc_components_["Chart"], {
-        allowedIntervals: allowedIntervals,
-        data: chartData,
-        dateParser: '%Y-%m-%dT%H:%M:%S',
-        emptyMessage: emptyMessage,
-        filterParam: filterParam,
-        interactiveLegend: interactiveLegend,
-        interval: currentInterval,
-        isRequesting: isRequesting,
-        itemsLabel: itemsLabel,
-        legendPosition: legendPosition,
-        legendTotals: legendTotals,
-        mode: mode,
-        path: path,
-        query: query,
-        screenReaderFormat: formats.screenReaderFormat,
-        showHeaderControls: showHeaderControls,
-        title: selectedChart.label,
-        tooltipLabelFormat: formats.tooltipLabelFormat,
-        tooltipTitle: mode === 'time-comparison' && selectedChart.label || null,
-        tooltipValueFormat: Object(external_wc_data_["getTooltipValueFormat"])(selectedChart.type, formatAmount),
-        chartType: Object(external_wc_date_["getChartTypeForQuery"])(query),
-        valueType: selectedChart.type,
-        xFormat: formats.xFormat,
-        x2Format: formats.x2Format,
-        currency: getCurrencyConfig()
-      });
-    }
-  }, {
-    key: "renderItemComparison",
-    value: function renderItemComparison() {
-      var _this$props5 = this.props,
-          isRequesting = _this$props5.isRequesting,
-          primaryData = _this$props5.primaryData;
-
-      if (primaryData.isError) {
-        return Object(external_wp_element_["createElement"])(report_error, {
-          isError: true
-        });
-      }
-
-      var isChartRequesting = isRequesting || primaryData.isRequesting;
-      var chartData = this.getItemChartData();
-      return this.renderChart('item-comparison', isChartRequesting, chartData);
-    }
-  }, {
-    key: "renderTimeComparison",
-    value: function renderTimeComparison() {
-      var _this$props6 = this.props,
-          isRequesting = _this$props6.isRequesting,
-          primaryData = _this$props6.primaryData,
-          secondaryData = _this$props6.secondaryData;
-
-      if (!primaryData || primaryData.isError || secondaryData.isError) {
-        return Object(external_wp_element_["createElement"])(report_error, {
-          isError: true
-        });
-      }
-
-      var isChartRequesting = isRequesting || primaryData.isRequesting || secondaryData.isRequesting;
-      var chartData = this.getTimeChartData();
-      var legendTotals = this.getTimeChartTotals();
-      return this.renderChart('time-comparison', isChartRequesting, chartData, legendTotals);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var mode = this.props.mode;
-
-      if (mode === 'item-comparison') {
-        return this.renderItemComparison();
-      }
-
-      return this.renderTimeComparison();
-    }
-  }]);
-
-  return ReportChart;
-}(external_wp_element_["Component"]);
-report_chart_ReportChart.contextType = CurrencyContext;
-report_chart_ReportChart.propTypes = {
-  /**
-   * Filters available for that report.
-   */
-  filters: prop_types_default.a.array,
-
-  /**
-   * Whether there is an API call running.
-   */
-  isRequesting: prop_types_default.a.bool,
-
-  /**
-   * Label describing the legend items.
-   */
-  itemsLabel: prop_types_default.a.string,
-
-  /**
-   * Allows specifying properties different from the `endpoint` that will be used
-   * to limit the items when there is an active search.
-   */
-  limitProperties: prop_types_default.a.array,
-
-  /**
-   * `items-comparison` (default) or `time-comparison`, this is used to generate correct
-   * ARIA properties.
-   */
-  mode: prop_types_default.a.string,
-
-  /**
-   * Current path
-   */
-  path: prop_types_default.a.string.isRequired,
-
-  /**
-   * Primary data to display in the chart.
-   */
-  primaryData: prop_types_default.a.object,
-
-  /**
-   * The query string represented in object form.
-   */
-  query: prop_types_default.a.object.isRequired,
-
-  /**
-   * Secondary data to display in the chart.
-   */
-  secondaryData: prop_types_default.a.object,
-
-  /**
-   * Properties of the selected chart.
-   */
-  selectedChart: prop_types_default.a.shape({
-    /**
-     * Key of the selected chart.
-     */
-    key: prop_types_default.a.string.isRequired,
-
-    /**
-     * Chart label.
-     */
-    label: prop_types_default.a.string.isRequired,
-
-    /**
-     * Order query argument.
-     */
-    order: prop_types_default.a.oneOf(['asc', 'desc']),
-
-    /**
-     * Order by query argument.
-     */
-    orderby: prop_types_default.a.string,
-
-    /**
-     * Number type for formatting.
-     */
-    type: prop_types_default.a.oneOf(['average', 'number', 'currency']).isRequired
-  }).isRequired
-};
-report_chart_ReportChart.defaultProps = {
-  isRequesting: false,
-  primaryData: {
-    data: {
-      intervals: []
-    },
-    isError: false,
-    isRequesting: false
-  },
-  secondaryData: {
-    data: {
-      intervals: []
-    },
-    isError: false,
-    isRequesting: false
-  }
-};
-/* harmony default export */ var report_chart = (Object(external_wp_compose_["compose"])(Object(external_wp_data_["withSelect"])(function (select, props) {
-  var charts = props.charts,
-      endpoint = props.endpoint,
-      filters = props.filters,
-      isRequesting = props.isRequesting,
-      limitProperties = props.limitProperties,
-      query = props.query,
-      advancedFilters = props.advancedFilters;
-  var limitBy = limitProperties || [endpoint];
-  var selectedFilter = getSelectedFilter(filters, query);
-  var filterParam = Object(external_lodash_["get"])(selectedFilter, ['settings', 'param']);
-  var chartMode = props.mode || getChartMode(selectedFilter, query) || 'time-comparison';
-
-  var _select$getSetting = select(external_wc_data_["SETTINGS_STORE_NAME"]).getSetting('wc_admin', 'wcAdminSettings'),
-      defaultDateRange = _select$getSetting.woocommerce_default_date_range;
-
-  var newProps = {
-    mode: chartMode,
-    filterParam: filterParam,
-    defaultDateRange: defaultDateRange
-  };
-
-  if (isRequesting) {
-    return newProps;
-  }
-
-  var hasLimitByParam = limitBy.some(function (item) {
-    return query[item] && query[item].length;
-  });
-
-  if (query.search && !hasLimitByParam) {
-    return report_chart_objectSpread(report_chart_objectSpread({}, newProps), {}, {
-      emptySearchResults: true
-    });
-  }
-
-  var fields = charts && charts.map(function (chart) {
-    return chart.key;
-  });
-  var primaryData = Object(external_wc_data_["getReportChartData"])({
-    endpoint: endpoint,
-    dataType: 'primary',
-    query: query,
-    select: select,
-    limitBy: limitBy,
-    filters: filters,
-    advancedFilters: advancedFilters,
-    defaultDateRange: defaultDateRange,
-    fields: fields
-  });
-
-  if (chartMode === 'item-comparison') {
-    return report_chart_objectSpread(report_chart_objectSpread({}, newProps), {}, {
-      primaryData: primaryData
-    });
-  }
-
-  var secondaryData = Object(external_wc_data_["getReportChartData"])({
-    endpoint: endpoint,
-    dataType: 'secondary',
-    query: query,
-    select: select,
-    limitBy: limitBy,
-    filters: filters,
-    advancedFilters: advancedFilters,
-    defaultDateRange: defaultDateRange,
-    fields: fields
-  });
-  return report_chart_objectSpread(report_chart_objectSpread({}, newProps), {}, {
-    primaryData: primaryData,
-    secondaryData: secondaryData
-  });
-}))(report_chart_ReportChart));
-// CONCATENATED MODULE: ./resources/js/admin/analytics/lib/get-selected-chart.js
-/**
- * External dependencies
- */
-
-/**
- * Takes a chart name returns the configuration for that chart from and array
- * of charts. If the chart is not found it will return the first chart.
- *
- * @param {string} chartName - the name of the chart to get configuration for
- * @param {Array} charts - list of charts for a particular report
- * @return {Object} - chart configuration object
- */
-
-function getSelectedChart(chartName) {
-  var charts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-  var chart = Object(external_lodash_["find"])(charts, {
-    key: chartName
-  });
-
-  if (chart) {
-    return chart;
-  }
-
-  return charts[0];
-}
-// EXTERNAL MODULE: external ["wp","apiFetch"]
-var external_wp_apiFetch_ = __webpack_require__(32);
-var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_);
-
-// EXTERNAL MODULE: external ["wp","url"]
-var external_wp_url_ = __webpack_require__(33);
-
-// CONCATENATED MODULE: ./resources/js/admin/analytics/lib/index.js
-/**
- * External dependencies.
- */
-
-
-
-/**
- * Exports.
- */
-
-function getRequestByIdString(path) {
-  var handleData = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : identity;
-  return function () {
-    var queryString = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-    var pathString = path;
-    var idList = Object(external_wc_navigation_["getIdsFromQuery"])(queryString);
-
-    if (idList.length < 1) {
-      return Promise.resolve([]);
-    }
-
-    var payload = {
-      include: idList.join(','),
-      per_page: idList.length
-    };
-    return external_wp_apiFetch_default()({
-      path: Object(external_wp_url_["addQueryArgs"])(pathString, payload)
-    }).then(function (data) {
-      return data.map(handleData);
-    });
-  };
-}
 // CONCATENATED MODULE: ./resources/js/admin/analytics/report/revenue/config.js
 /**
  * External dependencies.
  */
 
 
+/**
+ * WooCommerce dependencies.
+ */
+
 
 /**
- * Internal dependencies.
+ * SomewhereWarm dependencies.
  */
 
 
@@ -2878,6 +2827,14 @@ function report_isNativeReflectConstruct() { if (typeof Reflect === "undefined" 
  */
 
 
+
+/**
+ * SomewhereWarm dependencies.
+ */
+
+
+
+
 /**
  * Internal dependencies.
  */
@@ -2886,11 +2843,7 @@ function report_isNativeReflectConstruct() { if (typeof Reflect === "undefined" 
 
 
 
-
-
-
-
-var manageStock = getSetting('manageStock', 'no');
+var manageStock = Object(external_wc_wcSettings_["getSetting"])('manageStock', 'no');
 
 var report_Report = /*#__PURE__*/function (_Component) {
   inherits_default()(Report, _Component);

@@ -201,19 +201,21 @@ class Betterdocs_Pro_Public
         $cat_terms = get_the_terms(get_the_ID(), 'doc_category');
         $kb_terms = get_the_terms(get_the_ID(), 'knowledge_base');
 
-        if (($content_restriction == 1 && $this->content_visibility_by_role() == false)
-            && (
-                is_array($restrict_template) && in_array('all', $restrict_template)
-                || (is_post_type_archive('docs') && is_array($restrict_template) && in_array('docs', $restrict_template))
+        if ($this->is_templates() && $content_restriction == 1 && $this->content_visibility_by_role() == false
+            && (is_array($restrict_template) && in_array('all', $restrict_template)
+                || (is_array($restrict_template) && in_array('docs', $restrict_template))
                 || ($tax === 'knowledge_base'
                     && (is_array($restrict_template) && in_array('knowledge_base', $restrict_template)
-                        && (is_array($restrict_kb) && in_array('all', $restrict_kb) || in_array($wp_query->query['knowledge_base'], $restrict_kb))))
+                        && (is_array($restrict_kb) && (in_array('all', $restrict_kb) || in_array($wp_query->query['knowledge_base'], $restrict_kb)))))
                 || ($tax === 'doc_category'
                     && (is_array($restrict_template) && in_array('doc_category', $restrict_template)
-                        && (is_array($restrict_category) && in_array('all', $restrict_category) || in_array($wp_query->query['doc_category'], $restrict_category))))
+                        && (is_array($restrict_category) && (in_array('all', $restrict_category) || in_array($wp_query->query['doc_category'], $restrict_category)))))
                 || (is_singular('docs')
-                    && (is_array($restrict_template) && in_array('doc_category', $restrict_template) && (in_array('all', $restrict_category) || in_array($cat_terms[0]->slug, $restrict_category)))
-                    || (is_array($restrict_template) && in_array('knowledge_base', $restrict_template) && (in_array('all', $restrict_kb) || in_array($kb_terms[0]->slug, $restrict_kb))))
+                    && ((is_array($restrict_template) && in_array('doc_category', $restrict_template))
+                        && (is_array($restrict_category) && (in_array('all', $restrict_category) || in_array($cat_terms[0]->slug, $restrict_category)))
+                        || ((is_array($restrict_template) && in_array('knowledge_base', $restrict_template))
+                            && (is_array($restrict_kb) && (in_array('all', $restrict_kb) || in_array($kb_terms[0]->slug, $restrict_kb)))))
+                )
             )
         ) {
             $this->restricted_redirect_url();

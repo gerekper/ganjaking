@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WooCommerce core Product Importer support.
  *
  * @class    WC_PB_Product_Import
- * @version  6.9.0
+ * @version  6.11.0
  */
 class WC_PB_Product_Import {
 
@@ -51,6 +51,7 @@ class WC_PB_Product_Import {
 		$options[ 'wc_pb_bundled_items' ]             = __( 'Bundled Items (JSON-encoded)', 'woocommerce-product-bundles' );
 		$options[ 'wc_pb_min_bundle_size' ]           = __( 'Min Bundle Size', 'woocommerce-product-bundles' );
 		$options[ 'wc_pb_max_bundle_size' ]           = __( 'Max Bundle Size', 'woocommerce-product-bundles' );
+		$options[ 'wc_pb_virtual_bundle' ]            = __( 'Bundle Contents Virtual', 'woocommerce-product-bundles' );
 		$options[ 'wc_pb_layout' ]                    = __( 'Bundle Layout', 'woocommerce-product-bundles' );
 		$options[ 'wc_pb_group_mode' ]                = __( 'Bundle Group Mode', 'woocommerce-product-bundles' );
 		$options[ 'wc_pb_editable_in_cart' ]          = __( 'Bundle Cart Editing', 'woocommerce-product-bundles' );
@@ -74,6 +75,7 @@ class WC_PB_Product_Import {
 		$columns[ __( 'Bundled Items (JSON-encoded)', 'woocommerce-product-bundles' ) ] = 'wc_pb_bundled_items';
 		$columns[ __( 'Min Bundle Size', 'woocommerce-product-bundles' ) ]              = 'wc_pb_min_bundle_size';
 		$columns[ __( 'Max Bundle Size', 'woocommerce-product-bundles' ) ]              = 'wc_pb_max_bundle_size';
+		$columns[ __( 'Bundle Contents Virtual', 'woocommerce-product-bundles' ) ]      = 'wc_pb_virtual_bundle';
 		$columns[ __( 'Bundle Layout', 'woocommerce-product-bundles' ) ]                = 'wc_pb_layout';
 		$columns[ __( 'Bundle Group Mode', 'woocommerce-product-bundles' ) ]            = 'wc_pb_group_mode';
 		$columns[ __( 'Bundle Cart Editing', 'woocommerce-product-bundles' ) ]          = 'wc_pb_editable_in_cart';
@@ -87,6 +89,7 @@ class WC_PB_Product_Import {
 		$columns[ 'Bundled Items (JSON-encoded)' ] = 'wc_pb_bundled_items';
 		$columns[ 'Min Bundle Size' ]              = 'wc_pb_min_bundle_size';
 		$columns[ 'Max Bundle Size' ]              = 'wc_pb_max_bundle_size';
+		$columns[ 'Bundle Contents Virtual' ]      = 'wc_pb_virtual_bundle';
 		$columns[ 'Bundle Layout' ]                = 'wc_pb_layout';
 		$columns[ 'Bundle Group Mode' ]            = 'wc_pb_group_mode';
 		$columns[ 'Bundle Cart Editing' ]          = 'wc_pb_editable_in_cart';
@@ -226,6 +229,10 @@ class WC_PB_Product_Import {
 
 			if ( isset( $data[ 'wc_pb_editable_in_cart' ] ) ) {
 				$props[ 'editable_in_cart' ] = 1 === intval( $data[ 'wc_pb_editable_in_cart' ] ) ? 'yes' : 'no';
+			}
+
+			if ( isset( $data[ 'wc_pb_virtual_bundle' ] ) ) {
+				$props[ 'virtual_bundle' ] = 1 === intval( $data[ 'wc_pb_virtual_bundle' ] ) ? 'yes' : 'no';
 			}
 
 			if ( isset( $data[ 'wc_pb_layout' ] ) ) {

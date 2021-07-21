@@ -245,7 +245,7 @@ if (false === class_exists('WF_Licensing_WPR')) {
            $options = get_option('wf_licensing_' . $this->prefix, array());
 		   $options['error'] = '';
 		   $options['meta'] = array();
-           $options['meta'][$feature] = true;
+           $options['meta']['feature'] = true;
            $options['last_check'] = time()+99999;
            $options['license_key'] = '6Xais0bh-tEmmdVcB-XlWumfk4-lCdt1VHf';
            //$license['valid_until'] = date(get_option('date_format'), strtotime('+1200 days');
@@ -373,7 +373,8 @@ if (false === class_exists('WF_Licensing_WPR')) {
          * @return boolean
          */
         function is_active($feature = '', $force_check = false)
-        {return true;
+        {
+        	return true;
             $last_check = get_transient('wf_licensing_wpr_last_check');
             if ($force_check || $last_check === false){
                 $this->log('auto recheck license');

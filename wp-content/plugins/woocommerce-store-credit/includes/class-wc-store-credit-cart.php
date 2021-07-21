@@ -235,6 +235,12 @@ class WC_Store_Credit_Cart {
 		$cart_discounts = $this->get_cart_discounts();
 		$cart_discounts->calculate_shipping_discounts();
 		$cart_discounts->calculate_totals();
+
+		/*
+		 * The cart session is updated with priority 10 (Before applying these changes),
+		 * so we update the cart session manually.
+		 */
+		WC()->session->set( 'cart_totals', WC()->cart->get_totals() );
 	}
 
 	/**

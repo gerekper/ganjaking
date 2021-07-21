@@ -33,6 +33,7 @@ class WC_PCSVIS_Importer {
 		// includes
 		require 'class-wc-pcsvis-product-import.php';
 		require 'class-wc-csv-parser.php';
+		require 'class-wc-pcsvis-product-data-store.php';
 
 		// Dispatch
 		$GLOBALS['WC_CSV_Product_Import'] = new WC_PCSVIS_Product_Import();

@@ -120,9 +120,7 @@
   font-size: 13px;
   -ms-flex-pack: center;
       justify-content: center;
-  margin-top: auto;
-  -ms-flex-item-align: center;
-      align-self: center; }
+  margin-top: auto; }
   .betterdocs-brand-wrapper a {
     display: -ms-flexbox;
     display: flex;
@@ -154,7 +152,11 @@
   border-radius: 0px 0px 10px 10px;
   -webkit-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s; }
+  transition: all 0.3s ease 0s;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column; }
   .betterdocs-messages-container .betterdocs-not-found {
     padding: 50px;
     text-align: center;
@@ -208,8 +210,7 @@
       .betterdocs-messages-container .betterdocs-card-link .betterdocs-card-title-wrapper .betterdocs-card-title {
         margin: 0;
         font-size: 16px;
-        font-weight: 600;
-        line-height: 1.3em; }
+        font-weight: 600; }
     .betterdocs-messages-container .betterdocs-card-link .betterdocs-card-body-wrapper .betterdocs-card-body {
       font-size: 16px;
       line-height: 1.6;
@@ -233,7 +234,9 @@
       display: -ms-flexbox;
       display: flex;
       -ms-flex-direction: column;
-          flex-direction: column; }
+          flex-direction: column;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
       .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-toc {
         display: none; }
       .betterdocs-messages-container .betterdocs-modal-wrapper .betterdocs-modal-content-container .betterdocs-ia-content {
@@ -450,7 +453,8 @@
   .betterdocs-tab-ask .betterdocs-ask-wrapper input {
     height: 40px; }
   .betterdocs-tab-ask .betterdocs-ask-wrapper textarea {
-    height: 134px;
+    margin-bottom: 5px;
+    height: 110px;
     resize: none; }
   .betterdocs-tab-ask .betterdocs-ask-wrapper .betterdocs-invalid-input {
     -webkit-box-shadow: 0px 0px 4px #ff4d4d;
@@ -500,7 +504,8 @@
       .betterdocs-tab-ask .betterdocs-ask-wrapper .betterdocs-ask-submit button .send-loader {
         margin-right: 15px; }
   .betterdocs-tab-ask .betterdocs-ask-wrapper .betterdocs-ask-help {
-    position: relative; }
+    position: relative;
+    line-height: 0; }
   .betterdocs-tab-ask .betterdocs-ask-wrapper .betterdocs-ask-files {
     margin: 0;
     padding: 0;
@@ -515,13 +520,12 @@
   .betterdocs-tab-ask .betterdocs-ask-wrapper .betterdocs-attach-button {
     height: 20px;
     width: 100%;
-    left: 15px;
-    bottom: 30px;
+    margin-left: 5px;
+    margin-bottom: 10px;
     border: none;
     padding: 0;
     fill: #939eaa;
     font-size: 9px;
-    position: absolute;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
@@ -955,6 +959,8 @@ textarea {
     text-decoration: none;
     cursor: pointer;
     background: white;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
     -ms-flex-pack: center;
         justify-content: center;
     -ms-flex-align: center;

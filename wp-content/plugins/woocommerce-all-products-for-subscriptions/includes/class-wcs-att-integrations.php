@@ -55,8 +55,14 @@ class WCS_ATT_Integrations {
 		}
 
 		// Square compatibility.
-		if (  class_exists( 'WooCommerce\Square' ) ) {
+		if (  class_exists( 'WooCommerce\Square\Plugin' ) ) {
 			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-square.php' );
+		}
+
+		// AfterPay compatibility.
+		if ( class_exists( 'WC_Gateway_Afterpay' ) ) {
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-afterpay.php' );
+			WCS_ATT_Integration_AfterPay::init();
 		}
 
 		// Define dependencies.

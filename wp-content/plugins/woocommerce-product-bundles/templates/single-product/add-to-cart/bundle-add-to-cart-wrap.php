@@ -70,8 +70,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				 */
 				do_action( 'woocommerce_bundles_add_to_cart_button', $product );
 
-			?></div>
-			<input type="hidden" name="add-to-cart" value="<?php echo $product_id; ?>" />
+			?></div><?php
+			// No longer needed as this has been moved to the 'add-to-cart/composite-button.php' template. Leaving this here for back-compat.
+			?><input type="hidden" name="add-to-cart" value="<?php echo $product_id; ?>" />
 		</div><?php
 
 		/** WC Core action. */

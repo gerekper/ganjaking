@@ -1512,7 +1512,7 @@ class BetterDocs_Pro_IA {
         }
         return array();
     }
-    public function ready_subject( $sanitized_data = array(), $ask_subject ) {
+    public function ready_subject( $sanitized_data, $ask_subject ) {
         $ask_subject = ! empty( $ask_subject ) ? $ask_subject : '[ia_subject]';
         $subject = isset( $sanitized_data[ 'subject' ] ) ? str_replace( '[ia_subject]', $sanitized_data[ 'subject' ], $ask_subject ) : str_replace( '[ia_subject]', '', $ask_subject );
         $subject = isset( $sanitized_data[ 'email' ] ) ? str_replace( '[ia_email]', $sanitized_data[ 'email' ], $subject ) : str_replace( '[ia_email]', '', $subject );

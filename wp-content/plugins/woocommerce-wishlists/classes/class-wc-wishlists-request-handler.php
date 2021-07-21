@@ -539,12 +539,7 @@ class WC_Wishlists_Request_Handler {
 
 					if ( ! $suppress_messages ) {
 						$message = sprintf( __( 'Product successfully added to your cart.', 'wc_wishlist' ) );
-						if ( WC_Wishlist_Compatibility::is_wc_version_gte_2_1() ) {
-							$message = apply_filters( 'wc_add_to_cart_message', $message );
-						} else {
-							$message = apply_filters( 'woocommerce_add_to_cart_message', $message );
-						}
-
+						$message = apply_filters( 'wc_add_to_cart_message_html', $message, array($cart_item['product_id']=>$quantity), false ); // hacked by MRV
 						WC_Wishlist_Compatibility::wc_add_notice( $message );
 					}
 

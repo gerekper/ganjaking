@@ -4,20 +4,20 @@
   Plugin Name: WooCommerce Recommendation Engine
  * Plugin URI: http://woothemes.com/woocommerce
  * Description: WooCommerce Recommendation Engine is a smart recommendation engine for your store, providing automatic cross sells based on users viewing and purcahsing history.
- * Version: 3.2.5
- * Author: Lucas Stark
+ * Version: 3.2.7
+ * Author: Element Stark
  * Author URI: http://www.elementstark.com
  * Requires at least: 3.8.0
- * Tested up to: 5.5
+ * Tested up to: 5.7
  *
  * Text Domain: wc_recommender
- * Copyright: © 2009-2020 Lucas Stark.
+ * Copyright: © 2009-2021 Element Stark LLC.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
  * Woo: 216821:a3d370f38edc35cdc5bc41a4041ed308
  * WC requires at least: 3.0.0
- * WC tested up to: 4.7
+ * WC tested up to: 5.5
  */
 
 /**

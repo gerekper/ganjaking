@@ -1,0 +1,35 @@
+<wpml-config>
+    <taxonomies>
+        <taxonomy translate="1">knowledge_base</taxonomy>
+    </taxonomies>
+    <admin-texts>
+        <key name="theme_mods_*">
+            <key name="betterdocs_post_reactions_text" />
+        </key>
+        <key name="betterdocs_settings">
+            <key name="ask_thanks_title" />
+            <key name="ask_thanks_text" />
+            <key name="search_placeholder_text" />
+            <key name="answer_tab_title" />
+            <key name="answer_tab_subtitle" />
+            <key name="chat_tab_title" />
+            <key name="chat_subtitle_one" />
+            <key name="chat_subtitle_two" />
+            <key name="reaction_title" />
+            <key name="response_title" />
+            <key name="search_not_found_1" />
+            <key name="search_not_found_2" />
+            <key name="chat_subtitle_two" />
+        </key>
+    </admin-texts>
+    <elementor-widgets>
+        <widget name="betterdocs-reactions">
+            <conditions>
+                <condition key="widgetType">betterdocs-reactions</condition>
+            </conditions>
+            <fields>
+                <field type="Doc Reactions: Text" editor_type="LINE">reaction_text</field>
+            </fields>
+        </widget>
+    </elementor-widgets>
+</wpml-config>

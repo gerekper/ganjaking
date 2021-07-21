@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add custom REST API fields.
  *
  * @class    WC_PB_REST_API
- * @version  6.9.0
+ * @version  6.11.0
  */
 class WC_PB_REST_API {
 
@@ -25,6 +25,10 @@ class WC_PB_REST_API {
 	 * @var array
 	 */
 	private static $product_fields = array(
+		'bundled_by'                       => array( 'get' ),
+		'bundle_stock_status'              => array( 'get' ),
+		'bundle_stock_quantity'            => array( 'get' ),
+		'bundle_virtual'                   => array( 'get', 'update' ),
 		'bundle_layout'                    => array( 'get', 'update' ),
 		'bundle_add_to_cart_form_location' => array( 'get', 'update' ),
 		'bundle_editable_in_cart'          => array( 'get', 'update' ),
@@ -32,7 +36,6 @@ class WC_PB_REST_API {
 		'bundle_item_grouping'             => array( 'get', 'update' ),
 		'bundle_min_size'                  => array( 'get', 'update' ),
 		'bundle_max_size'                  => array( 'get', 'update' ),
-		'bundled_by'                       => array( 'get' ),
 		'bundled_items'                    => array( 'get', 'update' )
 	);
 
@@ -142,6 +145,33 @@ class WC_PB_REST_API {
 	private static function get_extended_product_schema() {
 
 		return array(
+			'bundled_by'                       => array(
+				'description' => __( 'List of product bundle IDs that contain this product.', 'woocommerce-product-bundles' ),
+				'type'        => 'array',
+				'context'     => array( 'view', 'edit' ),
+				'items'       => array(
+					'type'       => 'integer'
+				),
+				'readonly'    => true
+			),
+			'bundle_stock_status'              => array(
+				'description' => __( 'Stock status of this bundle, taking bundled product quantity requirements and limitations into account. Applicable for bundle-type products only. Read only.', 'woocommerce-product-bundles' ),
+				'type'        => 'string',
+				'enum'        => array_merge( wc_get_product_stock_status_options(), array( 'insufficientstock' ) ),
+				'context'     => array( 'view', 'edit' ),
+				'readonly'    => true
+			),
+			'bundle_stock_quantity'            => array(
+				'description' => __( 'Quantity of bundles left in stock, taking bundled product quantity requirements into account. Applicable for bundle-type products only. Read only.', 'woocommerce-product-bundles' ),
+				'type'        => WC_PB_Core_Compatibility::is_wp_version_gte( '5.5' ) ? array( 'integer', 'string' ) : '',
+				'context'     => array( 'view', 'edit' ),
+				'readonly'    => true
+			),
+			'bundle_virtual'                   => array(
+				'description' => __( 'Forces all contents of this bundle to be treated as virtual.', 'woocommerce-product-bundles' ),
+				'type'        => 'boolean',
+				'context'     => array( 'view', 'edit' )
+			),
 			'bundle_layout'                    => array(
 				'description' => __( 'Single-product details page layout. Applicable for bundle-type products only.', 'woocommerce-product-bundles' ),
 				'type'        => 'string',
@@ -180,15 +210,6 @@ class WC_PB_REST_API {
 				'description' => __( 'Max bundle size. Applicable for bundle-type products only.', 'woocommerce-product-bundles' ),
 				'type'        => WC_PB_Core_Compatibility::is_wp_version_gte( '5.5' ) ? array( 'integer', 'string' ) : '',
 				'context'     => array( 'view', 'edit' )
-			),
-			'bundled_by'                       => array(
-				'description' => __( 'List of product bundle IDs that contain this product.', 'woocommerce-product-bundles' ),
-				'type'        => 'array',
-				'context'     => array( 'view', 'edit' ),
-				'items'       => array(
-					'type'       => 'integer'
-				),
-				'readonly'    => true
 			),
 			'bundled_items'                    => array(
 				'description' => __( 'List of bundled items contained in this product. Applicable for bundle-type products only.', 'woocommerce-product-bundles' ),
@@ -429,8 +450,14 @@ class WC_PB_REST_API {
 		// Only possible to set fields of 'bundle' type products.
 		if ( $product_id && 'bundle' === $product_type ) {
 
+			// Set virtual.
+			if ( 'bundle_virtual' === $field_name ) {
+
+				$product->set_virtual_bundle( $field_value );
+				$product->save();
+
 			// Set layout.
-			if ( 'bundle_layout' === $field_name ) {
+			} elseif ( 'bundle_layout' === $field_name ) {
 
 				$product->set_layout( $field_value );
 				$product->save();
@@ -612,6 +639,43 @@ class WC_PB_REST_API {
 
 		switch ( $key ) {
 
+			case 'bundled_by' :
+
+				$value = array();
+
+				if ( 'bundle' !== $product_type ) {
+					$bundle_ids = array_values( wc_pb_get_bundled_product_map( $product_id, false ) );
+					$value      = ! empty( $bundle_ids ) ? $bundle_ids : array();
+				}
+
+			break;
+			case 'bundle_stock_status' :
+
+				$value = $product->get_stock_status( 'edit' );
+
+				if ( 'bundle' === $product_type ) {
+					$value = $product->get_bundle_stock_status( 'edit' );
+				}
+
+			break;
+			case 'bundle_stock_quantity' :
+
+				$value = $product->get_stock_quantity( 'edit' );
+
+				if ( 'bundle' === $product_type ) {
+					$value = $product->get_bundle_stock_quantity( 'edit' );
+				}
+
+			break;
+			case 'bundle_virtual' :
+
+				$value = false;
+
+				if ( 'bundle' === $product_type ) {
+					$value = $product->get_virtual_bundle( 'edit' );
+				}
+
+			break;
 			case 'bundle_layout' :
 
 				$value = '';
@@ -672,16 +736,6 @@ class WC_PB_REST_API {
 
 				if ( 'bundle' === $product_type ) {
 					$value = $product->get_max_bundle_size( 'edit' );
-				}
-
-			break;
-			case 'bundled_by' :
-
-				$value = array();
-
-				if ( 'bundle' !== $product_type ) {
-					$bundle_ids = array_values( wc_pb_get_bundled_product_map( $product_id, false ) );
-					$value      = ! empty( $bundle_ids ) ? $bundle_ids : array();
 				}
 
 			break;

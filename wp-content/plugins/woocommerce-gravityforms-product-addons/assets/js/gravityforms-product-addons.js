@@ -184,6 +184,11 @@ function update_dynamic_price_ajax(gform_total) {
 
             $('button[type=submit]', $form).attr('id', 'gform_submit_button_' + form_id).addClass('button gform_button');
 
+            // attempt to prevent themes from submitting the form via AJAX.
+            $('button[type=submit]', $form).on('click', function(e) {
+                e.stopPropagation();
+            });
+
             if (next_page != 0) {
                 $('button[type=submit]', $form).remove();
                 $('div.quantity', $form).remove();

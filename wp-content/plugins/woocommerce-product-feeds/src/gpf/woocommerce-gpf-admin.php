@@ -477,7 +477,7 @@ class WoocommerceGpfAdmin {
 			);
 
 			$current_value            = isset( $current_data[ $key ] ) ? $current_data[ $key ] : '';
-			$def_vars['defaultinput'] = $this->render_field_default_input( $key, $current_value, $placeholder, null );
+			$def_vars['defaultinput'] = $this->render_field_default_input( $key, 'category', $current_value, $placeholder, null );
 			$def_vars['key']          = $key;
 			$variables['defaults']    = $this->template_loader->get_template_with_variables(
 				'woo-gpf',
@@ -584,6 +584,7 @@ class WoocommerceGpfAdmin {
 				$current_value            = ! empty( $current_data[ $key ] ) ? $current_data[ $key ] : '';
 				$variables['field_input'] = $this->render_field_default_input(
 					$key,
+					'variation',
 					$current_value,
 					$placeholder,
 					$loop_idx
@@ -593,6 +594,7 @@ class WoocommerceGpfAdmin {
 					$variables['field_input'] = call_user_func(
 						array( $this, $fieldinfo['callback'] ),
 						$key,
+						'variation',
 						$current_data[ $key ],
 						$placeholder,
 						$loop_idx
@@ -601,6 +603,7 @@ class WoocommerceGpfAdmin {
 					$variables['field_input'] = call_user_func(
 						array( $this, $fieldinfo['callback'] ),
 						$key,
+						'variation',
 						null,
 						$placeholder,
 						$loop_idx
@@ -683,6 +686,7 @@ class WoocommerceGpfAdmin {
 					'';
 				$variables['field_input'] = $this->render_field_default_input(
 					$key,
+					'product',
 					$current_value,
 					$placeholder,
 					null
@@ -694,6 +698,7 @@ class WoocommerceGpfAdmin {
 				$variables['field_input'] = call_user_func(
 					array( $this, $fieldinfo['callback'] ),
 					$key,
+					'product',
 					$current_value,
 					$placeholder,
 					null
@@ -847,7 +852,7 @@ class WoocommerceGpfAdmin {
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
-	private function render_exclude_product( $key, $current_data = false, $placeholder = null, $loop_idx = null ) {
+	private function render_exclude_product( $key, $context, $current_data = false, $placeholder = null, $loop_idx = null ) {
 		$variables            = $this->default_field_variables( $key );
 		$variables['checked'] = '';
 		if ( $current_data ) {
@@ -880,7 +885,7 @@ class WoocommerceGpfAdmin {
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
-	private function render_i_exists( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
+	private function render_i_exists( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		$variables = $this->default_field_variables( $key, $loop_idx );
 		$variables = $this->default_selected_choices(
 			array( 'included', 'not-included' ),
@@ -907,7 +912,7 @@ class WoocommerceGpfAdmin {
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 */
-	private function render_title( $key, $current_data = null, $placeholder = '', $loop_idx = null ) {
+	private function render_title( $key, $context, $current_data = null, $placeholder = '', $loop_idx = null ) {
 		$variables = $this->default_field_variables( $key, $loop_idx );
 		if ( ! empty( $placeholder ) ) {
 			$variables['placeholder'] = ' placeholder="' . esc_attr( $placeholder ) . '"';
@@ -936,7 +941,7 @@ class WoocommerceGpfAdmin {
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
-	private function render_description( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
+	private function render_description( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		return '';
 	}
 
@@ -953,7 +958,7 @@ class WoocommerceGpfAdmin {
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
-	private function render_is_bundle( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
+	private function render_is_bundle( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		$variables          = $this->default_field_variables( $key, $loop_idx );
 		$variables['value'] = checked( 'on', $current_data, false );
 
@@ -977,7 +982,7 @@ class WoocommerceGpfAdmin {
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 */
-	private function render_availability_date( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
+	private function render_availability_date( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		$variables          = $this->default_field_variables( $key, $loop_idx );
 		$variables['value'] = esc_attr( $current_data );
 		if ( ! empty( $placeholder ) ) {
@@ -1006,7 +1011,7 @@ class WoocommerceGpfAdmin {
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
-	private function render_generic_select( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
+	private function render_generic_select( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		$variables                = $this->default_field_variables( $key, $loop_idx );
 		$variables['options']     = $this->build_select_options(
 			$this->product_fields[ $key ]['options_callback'](),
@@ -1015,7 +1020,9 @@ class WoocommerceGpfAdmin {
 		$variables['emptyoption'] = '';
 		$optional                 = ! isset( $this->product_fields[ $key ]['mandatory'] ) ||
 									! $this->product_fields[ $key ]['mandatory'];
-		if ( $optional ) {
+		// Mandatory fields are only mandatory on the main config screen. If this is some other context (category,
+		// product, variation), or the field is optional, we need the "use default"/"no default" option.
+		if ( 'config' !== $context || $optional ) {
 			$variables['emptyoption'] = $this->template_loader->get_template_with_variables(
 				'woo-gpf',
 				'field-row-default-generic-select-empty-option',
@@ -1042,7 +1049,7 @@ class WoocommerceGpfAdmin {
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
-	private function render_installment( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
+	private function render_installment( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		$variables                       = $this->default_field_variables( $key, $loop_idx );
 		$variables['defaultvaluemonths'] = ! empty( $current_data[0]['months'] ) ? $current_data[0]['months'] : '';
 		$variables['defaultvalueamount'] = ! empty( $current_data[0]['amount'] ) ? $current_data[0]['amount'] : '';
@@ -1067,7 +1074,7 @@ class WoocommerceGpfAdmin {
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
-	private function render_consumer_notice( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
+	private function render_consumer_notice( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		$variables = $this->default_field_variables( $key, $loop_idx );
 
 		$output       = '';
@@ -1105,7 +1112,7 @@ class WoocommerceGpfAdmin {
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
-	private function render_product_highlight( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
+	private function render_product_highlight( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		$variables = $this->default_field_variables( $key, $loop_idx );
 
 		$output       = '';
@@ -1141,7 +1148,7 @@ class WoocommerceGpfAdmin {
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
-	private function render_product_detail( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
+	private function render_product_detail( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		$variables = $this->default_field_variables( $key, $loop_idx );
 
 		$output       = '';
@@ -1179,7 +1186,7 @@ class WoocommerceGpfAdmin {
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
-	private function render_consumer_datasheet( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
+	private function render_consumer_datasheet( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		$variables = $this->default_field_variables( $key, $loop_idx );
 
 		$output       = '';
@@ -1215,7 +1222,7 @@ class WoocommerceGpfAdmin {
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
-	private function render_product_fee( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
+	private function render_product_fee( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		$variables = $this->default_field_variables( $key, $loop_idx );
 
 		$output       = '';
@@ -1339,7 +1346,7 @@ class WoocommerceGpfAdmin {
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 */
-	private function render_product_type( $key, $current_data = null, $placeholder = '', $loop_idx = null ) {
+	private function render_product_type( $key, $context, $current_data = null, $placeholder = '', $loop_idx = null ) {
 		$this->refresh_google_taxonomy();
 		$variables = $this->default_field_variables( $key, $loop_idx );
 		if ( ! empty( $placeholder ) ) {
@@ -1369,7 +1376,7 @@ class WoocommerceGpfAdmin {
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
 	 */
-	private function render_b_category( $key, $current_data = null, $placeholder = null, $loop_idx = null ) {
+	private function render_b_category( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		$variables                 = $this->default_field_variables( $key, $loop_idx );
 		$variables['current_data'] = esc_attr( $current_data );
 		if ( ! empty( $placeholder ) ) {
@@ -1632,7 +1639,8 @@ class WoocommerceGpfAdmin {
 			$variables['full_desc'] = esc_html( $info['full_desc'] );
 
 			if ( isset( $this->product_fields[ $key ]['can_default'] ) ) {
-				$def_vars['defaultinput'] = __( 'Store default: <br>', 'woocommerce_gpf' ) . $this->render_field_default_input( $key );
+				$def_vars['defaultinput'] = __( 'Store default: <br>', 'woocommerce_gpf' ) .
+											$this->render_field_default_input( $key, 'config' );
 			} else {
 				$def_vars['defaultinput'] = '';
 			}
@@ -1712,13 +1720,15 @@ class WoocommerceGpfAdmin {
 	 * Renders the output for the "default" box for a field.
 	 *
 	 * @param string $key The field being rendered.
+	 * @param string $context The page being rendered: config, category, variation, or product
 	 * @param string $current_data The current value. If not provided, the default will be used
 	 *                              from the store wide settings.
 	 * @param string $placeholder Placeholder text to use, leave blank for no placeholder.
+	 * @param int    $loop_idx The loop idx of the variation being output.
 	 *
 	 * @return string
 	 */
-	private function render_field_default_input( $key, $current_data = false, $placeholder = '', $loop_idx = null ) {
+	private function render_field_default_input( $key, $context, $current_data = false, $placeholder = '', $loop_idx = null ) {
 		$variables = array();
 		if ( null === $loop_idx ) {
 			$variables['key'] = $key;
@@ -1749,6 +1759,7 @@ class WoocommerceGpfAdmin {
 					$this->{'product_fields'}[ $key ]['callback'],
 				),
 				$key,
+				$context,
 				$current_data,
 				$placeholder,
 				$loop_idx

@@ -576,10 +576,6 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 			unset( $item, $product );
 		}
 
-		if ( function_exists( 'wc_update_product_lookup_tables' ) ) {
-			wc_update_product_lookup_tables();
-		}
-
 		WC_Product_CSV_Import_Suite::log( __( 'Finished processing products.', 'woocommerce-product-csv-import-suite' ) );
 	}
 
@@ -596,7 +592,8 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 		WC_Product_CSV_Import_Suite::log( '---[ New Import ] PHP Memory: ' . $memory . ', WP Memory: ' . $wp_memory );
 		WC_Product_CSV_Import_Suite::log( __( 'Parsing products CSV.', 'woocommerce-product-csv-import-suite' ) );
 
-		$this->parser = new WC_CSV_Parser( 'product' );
+		$this->parser     = new WC_CSV_Parser( 'product' );
+		$this->data_store = new WC_PCSVIS_Product_Data_Store();
 
 		list( $this->parsed_data, $this->raw_headers, $position ) = $this->parser->parse_data( $file, $this->delimiter, $mapping, $start_pos, $end_pos );
 
@@ -1213,6 +1210,8 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 
 		wp_suspend_cache_invalidation( false );
 		clean_post_cache( $post_id );
+
+		$this->data_store->update_lookup( $post_id );
 
 		// Allow extensions to run custom import logic.
 		do_action( 'woocommerce_csv_product_imported', $post, $processing_product_id, $this );

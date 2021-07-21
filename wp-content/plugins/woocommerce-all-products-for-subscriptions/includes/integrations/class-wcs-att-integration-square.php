@@ -56,5 +56,5 @@ class WCS_ATT_Integration_Square {
 		}
 		return $available_pages;
 	}
-
+}
 WCS_ATT_Integration_Square::init();

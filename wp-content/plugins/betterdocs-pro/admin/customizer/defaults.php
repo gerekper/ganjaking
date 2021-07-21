@@ -54,7 +54,7 @@ if ( ! function_exists( 'betterdocs_get_option_defaults_pro' ) ) :
 			'betterdocs_doc_page_cat_title_font_size2' => '18',
 			'betterdocs_reactions_title' => '',
 			'betterdocs_post_reactions' => true,
-			'betterdocs_post_reactions_text' => esc_html__('What are your Feelings', 'betterdocs-pro'),
+			'betterdocs_post_reactions_text' => esc_html__('What are your feelings', 'betterdocs-pro'),
 			'betterdocs_post_reactions_text_color' => '#566e8b',
 			'betterdocs_post_reactions_icon_color' => '#00b88a',
 			'betterdocs_post_reactions_icon_svg_color' => '#fff',

@@ -1,4 +1,4 @@
-<?php do_action( 'woocommerce_email_header', $email_heading ); ?>
+<?php do_action( 'woocommerce_email_header', $email_heading, null ); ?>
 
     <p><?php printf( __( "Price drop alert from %s. Items below have been reduced in price:", 'wc_wishlist' ), get_option( 'blogname' ) ); ?></p>
 
@@ -8,4 +8,4 @@
 <?php endforeach; ?>
 
 
-<?php do_action( 'woocommerce_email_footer' ); ?>
+<?php do_action( 'woocommerce_email_footer', null ); ?>

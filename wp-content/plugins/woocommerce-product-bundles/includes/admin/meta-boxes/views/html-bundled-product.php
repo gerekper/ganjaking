@@ -13,13 +13,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?><div class="wc-bundled-item wc-metabox <?php echo $toggle; ?> <?php echo $stock_status; ?>" rel="<?php echo $loop; ?>">
 	<h3>
-		<span class="bundled-item-product-id">#<span class="bundled-product-id"><?php echo $product_id; ?></span></span>
-		<span class="bundled-item-title-inner"><strong class="item-title"><?php echo $title; ?></strong></span>
+		<span class="bundled-item-product-id"><a class="edit-product" href="<?php echo admin_url( 'post.php?action=edit&post=' . $product->get_id() );?>">#<span class="bundled-product-id"><?php echo $product->get_id(); ?></span></a></span>
+		<span class="bundled-item-title-inner"><strong class="item-title"><?php echo $product->get_title(); ?></strong></span>
 		<?php
+			echo $product->is_virtual() ? '' : sprintf( '<div class="woocommerce-help-tip bundled-item-status bundled-item-status--forced-virtual" data-tip="%s"></div>', __( 'This product will be treated as virtual when purchased in this bundle.', 'woocommerce-product-bundles' ) );
 			echo ( false !== $item_id && 'in_stock' !== $stock_status ) ? sprintf( '<div class="woocommerce-help-tip bundled-item-status bundled-item-status--%s" data-tip="%s"></div>', $stock_status, $stock_status_label ) : '';
 		?>
 		<div class="handle">
 			<?php
+				$sku = $product->get_sku();
 				/* translators: Bundled product SKU */
 				echo $sku ? ( '<small class="item-sku">' . sprintf( _x( 'SKU: %s', 'bundled product sku', 'woocommerce-product-bundles' ), $sku ) . '</small>' ) : '';
 			?>
@@ -35,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			?><input type="hidden" name="bundle_data[<?php echo $loop; ?>][item_id]" class="item_id" value="<?php echo $item_id; ?>" /><?php
 		}
 
-		?><input type="hidden" name="bundle_data[<?php echo $loop; ?>][product_id]" class="product_id" value="<?php echo $product_id; ?>" />
+		?><input type="hidden" name="bundle_data[<?php echo $loop; ?>][product_id]" class="product_id" value="<?php echo $product->get_id(); ?>" />
 
 		<ul class="subsubsub"><?php
 
@@ -72,7 +74,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				/**
 				 * 'woocommerce_bundled_product_admin_{$tab_id}_html' action.
 				 */
-				do_action( 'woocommerce_bundled_product_admin_' . $tab_id . '_html', $loop, $product_id, $item_data, $post_id );
+				do_action( 'woocommerce_bundled_product_admin_' . $tab_id . '_html', $loop, $product->get_id(), $item_data, $post_id );
 			?></div><?php
 
 			$tab_loop++;

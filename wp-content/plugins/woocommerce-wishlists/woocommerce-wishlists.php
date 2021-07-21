@@ -3,21 +3,21 @@
  * Plugin Name: WooCommerce WishLists
  * Plugin URI: https://woocommerce.com/products/woocommerce-wishlists/
  * Description:  WooCommerce Wishlists allows you to create public and personal wishlists.
- * Version: 2.2.3
- * Author: Lucas Stark
+ * Version: 2.2.5
+ * Author: Element Stark
  * Author URI: https://www.elementstark.com
  * Requires at least: 3.1
- * Tested up to: 5.5
+ * Tested up to: 5.7
 
  * Text Domain: wc_wishlist
  * Domain Path: /lang/
 
- * Copyright: © 2009-2020 Lucas Stark
+ * Copyright: © 2009-2021 Element Stark LLC
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
  * WC requires at least: 3.8.0
- * WC tested up to: 4.7
+ * WC tested up to: 5.5
  * Woo: 171144:6bd20993ea96333eab6931ec2adc6d63
  */
 
@@ -44,7 +44,7 @@ if ( is_woocommerce_active() ) {
 		 */
 		var $version = '2.1.9';
 
-		var $assets_version = '2.1.14';
+		var $assets_version = '2.2.4';
 
 		/**
 		 * @var string
@@ -183,7 +183,7 @@ if ( is_woocommerce_active() ) {
 			if ( WC_Wishlist_Compatibility::is_wc_version_gte_2_6() ) {
 				add_action( 'init', array( $this, 'account_wishlists_endpoints' ) );
 				add_filter( 'query_vars', array( $this, 'account_wishlists_query_vars' ), 0 );
-                    add_filter( 'woocommerce_account_menu_items', array( $this, 'account_menu_item' ) );
+				add_filter( 'woocommerce_account_menu_items', array( $this, 'account_menu_item' ) );
 				add_action( 'woocommerce_account_account-wishlists_endpoint', array(
 					$this,
 					'add_lists_to_account_page'
@@ -336,15 +336,10 @@ if ( is_woocommerce_active() ) {
 					$add_to_wishlist_args              = array();
 					$add_to_wishlist_args['btn_class'] = array();
 
-					$add_to_wishlist_id = false;
-
 					$lists = false;
-					if ( WC_Wishlist_Compatibility::WC()->session->has_session() ) {
-						//echo 'HAS A WC SESSION';
-						//echo WC_Wishlists_User::get_wishlist_key();
+
+					if ( WC_Wishlist_Compatibility::WC()->session && WC_Wishlist_Compatibility::WC()->session->has_session() ) {
 						$lists = WC_Wishlists_User::get_wishlists();
-					} else {
-						//echo 'NO WC SESSION';
 					}
 
 					if ( $lists ) {
@@ -371,14 +366,6 @@ if ( is_woocommerce_active() ) {
 					woocommerce_wishlists_get_template( 'add-to-wishlist-link.php' );
 
 					$template_hook = 'woocommerce_after_add_to_cart_button';
-
-					if ( $product->is_type( 'variable' ) ) {
-						if ( WC_Wishlist_Compatibility::is_wc_version_gte_2_4() ) {
-							//Use the 2.4 hook
-							$template_hook = 'woocommerce_single_variation';
-						}
-					}
-
 					$template_hook = apply_filters( 'woocommerce_wishlists_template_location', $template_hook, $product->get_id() );
 					remove_action( $template_hook, array( $this, 'add_to_wishlist_button' ) );
 				}
@@ -652,19 +639,17 @@ if ( is_woocommerce_active() ) {
 		}
 
 		public function add_session_message() {
-			$session_items = WC_Wishlists_Wishlist_Item_Collection::get_items_from_session();
-			if ( ! is_page( WC_Wishlists_Pages::get_page_id( 'create-a-list' ) ) ) {
-				if ( $session_items && count( $session_items ) ) {
-					$action = '<a class="wishlist-message-dismiss" href="' . self::nonce_url( 'clear-session-items', add_query_arg( array( 'wlaction' => 'clear-session-items' ) ) ) . '">' . __( 'Cancel', 'wc_wishlist' ) . '</a>';
+			if ( WC_Wishlist_Compatibility::WC()->session && WC_Wishlist_Compatibility::WC()->session->has_session() ) {
+				$session_items = WC_Wishlists_Wishlist_Item_Collection::get_items_from_session();
+				if ( !is_page( WC_Wishlists_Pages::get_page_id( 'create-a-list' ) ) ) {
+					if ( $session_items && count( $session_items ) ) {
+						$action = '<a class="wishlist-message-dismiss" href="' . self::nonce_url( 'clear-session-items', add_query_arg( array( 'wlaction' => 'clear-session-items' ) ) ) . '">' . __( 'Cancel', 'wc_wishlist' ) . '</a>';
 
-					$message = sprintf( __( 'You have %s items ready to move to a new list.  <a href="%s">Create a list</a>', 'wc_wishlist' ), count( $session_items ), WC_Wishlists_Pages::get_url_for( 'create-a-list' ) ) . $action;
-					if ( ! wc_has_notice( $message ) ) {
-						wc_add_notice( $message );
+						$message = sprintf( __( 'You have %s items ready to move to a new list.  <a href="%s">Create a list</a>', 'wc_wishlist' ), count( $session_items ), WC_Wishlists_Pages::get_url_for( 'create-a-list' ) ) . $action;
+						if ( !wc_has_notice( $message ) ) {
+							wc_add_notice( $message );
+						}
 					}
-				}
-			} else {
-				if ( $session_items && count( $session_items ) ) {
-					//WC_Wishlist_Compatibility::wc_add_notice( sprintf( __( '%s items ready to move to a new list.', 'wc_wishlist' ), count( $session_items ), WC_Wishlists_Pages::get_url_for( 'create-a-list' ) ) );
 				}
 			}
 		}

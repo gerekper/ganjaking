@@ -60,7 +60,7 @@ class Dom_Parser {
 		$this->content         = $content;
 		$this->has_domdocument = class_exists( 'DOMDocument' );
 
-		if ( ! $this->has_domdocument ) {
+		if ( ! $this->has_domdocument || empty( $this->content ) ) {
 			return;
 		}
 
@@ -103,7 +103,7 @@ class Dom_Parser {
 		 *
 		 * @return bool
 		 */
-		$force_output = apply_filters( 'gform_force_hooks_js_output', true );
+		$force_output = apply_filters( 'gform_force_hooks_js_output', false );
 
 		if ( ! $force_output && ! $has_printed ) {
 			return $this->content;
@@ -175,6 +175,10 @@ class Dom_Parser {
 	 * @return DOMDocument|false
 	 */
 	private function get_dom_xml() {
+		if ( empty( $this->content ) ) {
+			return false;
+		}
+
 		try {
 			$xdom = new \DOMDocument();
 			$xdom->loadXML( $this->content );
@@ -193,6 +197,10 @@ class Dom_Parser {
 	 * @return DOMDocument|false
 	 */
 	private function get_dom_html() {
+		if ( empty( $this->content ) ) {
+			return false;
+		}
+
 		try {
 			$dom = new \DOMDocument();
 			$dom->loadHTML( $this->content );
@@ -215,6 +223,7 @@ class Dom_Parser {
 	private function get_insert_position() {
 		// Default to 0 to inject right after head.
 		$insert_position = 0;
+		$insert_el       = false;
 
 		if ( ! $this->has_domdocument ) {
 			return 0;
@@ -238,7 +247,22 @@ class Dom_Parser {
 				)
 			) {
 				$insert_position = $meta_el->getLineNo();
+				$insert_el       = $meta_el;
 			}
+		}
+
+		if ( $insert_position === 0 ) {
+			return $insert_position;
+		}
+
+		$pieces   = preg_split( "/\r\n|\n|\r/", $this->content );
+		$previous = $pieces[ $insert_position - 1 ];
+
+		// Only use injection position if the detected line # actually falls after the meta tag.
+		preg_match( '/<\s*meta[^>]*>$/', $previous, $pos_matches );
+
+		if ( empty( $pos_matches ) ) {
+			return 0;
 		}
 
 		return $insert_position;
@@ -257,6 +281,10 @@ class Dom_Parser {
 		}
 
 		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+			return false;
+		}
+
+		if ( ! empty( $_POST['gform_ajax'] ) ) {
 			return false;
 		}
 

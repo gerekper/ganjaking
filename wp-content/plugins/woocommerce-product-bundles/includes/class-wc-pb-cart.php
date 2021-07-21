@@ -1674,6 +1674,15 @@ class WC_PB_Cart {
 				do_action( 'woocommerce_remove_cart_item', $bundled_item_cart_key, $cart );
 
 				unset( $cart->cart_contents[ $bundled_item_cart_key ] );
+
+				/** WC core action. @see WC_Cart::remove_cart_item
+				 *
+				 * @since  6.10.3
+				 *
+				 * @param  string  $bundled_item_cart_key
+				 * @param  WC_Cart $cart
+				 */
+				do_action( 'woocommerce_cart_item_removed', $bundled_item_cart_key, $cart );
 			}
 		}
 	}

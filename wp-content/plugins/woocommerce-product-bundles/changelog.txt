@@ -1,5 +1,20 @@
 *** WooCommerce Product Bundles ***
 
+2021.07.12 - version 6.11.1
+* Feature - Added 'bundle_stock_status' and 'bundle_stock_quantity' REST API fields (read only).
+* Fix - Fixed an indexing issue affecting the 'wc_order_bundle_lookup' table.
+
+2021.07.08 - version 6.11.0
+* Feature - Re-introduce 'Virtual' checkbox for Product Bundles. When saving a Bundle as Virtual, all physical bundled products will be treated as Virtual, too.
+* Tweak - Add 'woocommerce_cart_item_removed' action to 'WC_PB_Cart'.
+* Tweak - Made bundled product IDs clickable under 'Product Data > Bundled Products'.
+* Tweak - Added 'add-to-cart' parameter to submit button.
+
+2021.06.24 - version 6.10.3
+* Fix - Prevent 'get_transient' calls from firing when bundled item map cache is not in use.
+* Fix - Max item quantity not taken into account when calculating the stock status and remaining stock for bundles with 'Min Bundle Size' < 0.
+* Tweak - Dropped support for exporting/downloading revenue reports under 'Analytics > Bundles'. Requires additional extensibility points in WooCommerce core to be supported reliably.
+
 2021.06.15 - version 6.10.2
 * Fix - Respect 'woocommerce_admin_disabled' filter when using WooCommerce Admin 2.3+
 

@@ -69,7 +69,7 @@ function wc_pb_get_bundled_product_map( $product, $allow_cache = true ) {
 
 	$transient_name             = 'wc_bundled_product_data';
 	$transient_version          = WC_Cache_Helper::get_transient_version( 'product' );
-	$bundled_product_data_array = get_transient( $transient_name );
+	$bundled_product_data_array = $use_cache ? get_transient( $transient_name ) : false;
 	$bundled_product_data       = false;
 
 	if ( $use_cache && is_array( $bundled_product_data_array ) && isset( $bundled_product_data_array[ $product_id ] ) && is_array( $bundled_product_data_array[ $product_id ] ) && isset( $bundled_product_data_array[ $product_id ][ 'bundle_ids' ] ) && is_array( $bundled_product_data_array[ $product_id ][ 'bundle_ids' ] ) ) {
@@ -115,7 +115,6 @@ function wc_pb_get_bundled_product_map( $product, $allow_cache = true ) {
 				}
 			}
 
-			delete_transient( $transient_name );
 			set_transient( $transient_name, $bundled_product_data_array, DAY_IN_SECONDS * 30 );
 		}
 	}

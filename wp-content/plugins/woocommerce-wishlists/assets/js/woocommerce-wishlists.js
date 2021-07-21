@@ -49,9 +49,8 @@
 
         var bundles = $(composite_class);
         if (bundles.length) {
-            $('.wl-button-wrap').appendTo($(composite_class)).removeClass('hide');
+            $('.wl-button-wrap').first().appendTo($(composite_class)).removeClass('hide');
         } else {
-            //Move the add to wishlist button inside the variation. 
             var variations = $('.variations_button');
             if (variations.length) {
                 $('.wl-button-wrap').removeClass('hide');
