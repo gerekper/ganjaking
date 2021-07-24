@@ -71,8 +71,11 @@ class WoocommercePrfGoogleReviewFeed {
 	public function render_feed() {
 		global $wpdb;
 
-		// Don't cache feed under WP Super-Cache
+		// Don't cache feed.
 		define( 'DONOTCACHEPAGE', true );
+		if ( ! headers_sent() ) {
+			header( 'Cache-Control: no-store, must-revalidate, max-age=0' );
+		}
 
 		// Cater for large stores. Hide errors, set no time limit.
 		$wpdb->hide_errors();
@@ -169,7 +172,7 @@ class WoocommercePrfGoogleReviewFeed {
 			'number'      => $chunk_size,
 			'orderby'     => 'comment_date_gmt',
 			'order'       => 'ASC',
-			'offset'      => intval( $this->feed_config->start ),
+			'offset'      => (int) $this->feed_config->start,
 			'meta_query'  => array(
 				array(
 					'key'     => 'rating',

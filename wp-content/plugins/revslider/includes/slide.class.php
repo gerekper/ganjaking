@@ -660,6 +660,23 @@ class RevSliderSlide extends RevSliderFunctions {
 		$curauth	= get_user_by('ID', $author);
 		
 		$cats		= $this->get_val($post, array('source', 'post', 'category'));
+		$full		= false;
+		if(empty($cats)){
+			$cats = array();
+			$post_type =  $this->get_val($post, 'post_type');
+			$taxonomies = get_object_taxonomies($post_type);
+
+			if(!empty($taxonomies)){
+				foreach($taxonomies as $ptt){
+					if($ptt === 'post_tag') continue;
+					$temp_cats = get_the_terms($post_id, $ptt);
+					if(!empty($temp_cats)){
+						$cats = array_merge($cats, $temp_cats);
+						$full = true;
+					}
+				}
+			}
+		}
 		$img_sizes	= $this->get_all_image_sizes();
 		$ptid		= get_post_thumbnail_id($post_id);
 		
@@ -675,8 +692,8 @@ class RevSliderSlide extends RevSliderFunctions {
 			'authorID'		=> $author,
 			'authorPage'	=> $curauth->user_url,
 			'authorPostsPage' => get_author_posts_url($author),
-			'catlist'		=> $this->get_categories_html($cats,null,$post_id),
-			'catlist_raw'	=> strip_tags($this->get_categories_html($cats, null, $post_id)),
+			'catlist'		=> $this->get_categories_html($cats, null, $post_id, $full),
+			'catlist_raw'	=> strip_tags($this->get_categories_html($cats, null, $post_id, $full)),
 			'taglist'		=> get_the_tag_list('', ',', '', $post_id),
 			'numComments'	=> $this->get_val($post, 'comment_count'),
 			'img_urls'		=> array()
@@ -2194,7 +2211,7 @@ class RevSliderSlide extends RevSliderFunctions {
 
 		$cache_key = $this->get_wp_cache_key('get_slides_by_slider_id', $slides_data_sql);
 		$slides_data = wp_cache_get($cache_key, self::CACHE_GROUP);
-		if (!$slides_data) {
+		if (false === $slides_data) {
 			$slides_data = $wpdb->get_results($slides_data_sql, ARRAY_A);
 			wp_cache_set($cache_key, $slides_data, self::CACHE_GROUP);
 		}
@@ -2746,12 +2763,12 @@ class RevSliderSlide extends RevSliderFunctions {
 	 * get categories list, copy the code from default wp functions
 	 * @before: RevSliderFunctionsWP::getCategoriesHtmlList();
 	 */
-	public function get_categories_html($cat_ids, $tax = null, $post_id = ''){
+	public function get_categories_html($cat_ids, $tax = null, $post_id = '', $full = false){
 		global $wp_rewrite;
 
-		if(!empty($post_id)) return get_the_category_list(', ', null, $post_id);
+		if(!empty($post_id) && $full === false) return get_the_category_list(', ', null, $post_id);
 		
-		$categories	= $this->get_categories_by_id($cat_ids, $tax);
+		$categories	= ($full === true && !empty($cat_ids)) ? $cat_ids :  $this->get_categories_by_id($cat_ids, $tax);
 		$errors		= $this->get_val($categories, 'errors');
 		$list		= '';
 		$err		= '';

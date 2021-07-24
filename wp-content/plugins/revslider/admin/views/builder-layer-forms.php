@@ -1360,7 +1360,7 @@ if(!defined('ABSPATH')) exit();
 								<label_a><?php _e('Type', 'revslider');?></label_a><select data-show=".clippath_o_*val*" data-hide=".clippath_hide" class="layerinput tos2 nosearchbox easyinit" data-r="timeline.clipPath.type">
 									<option value="rectangle"><?php _e('Rectangle', 'revslider');?></option>									
 									<option value="circle"><?php _e('Circle', 'revslider');?></option>
-									<option value="inverts"><?php _e('Inverts', 'revslider');?></option>							
+									<option value="inverts"><?php _e('Custom Mask', 'revslider');?></option>							
 								</select>
 								<label_a><?php _e('Origin', 'revslider');?></label_a><div class="clippath_o_rectangle clippath_hide" style="display:inline-block"><select class="layerinput tos2 nosearchbox easyinit"  data-r="timeline.clipPath.origin">
 											<optgroup label="<?php _e('Vertical', 'revslider');?>">
@@ -1382,8 +1382,8 @@ if(!defined('ABSPATH')) exit();
 											<optgroup label="<?php _e('Center Diagonal', 'revslider');?>">
 												<option value="clr"><?php _e('Center - Left Right', 'revslider');?></option>
 												<option value="crl"><?php _e('Center - Right Left', 'revslider');?></option>
-												<option disabled="disabled" value="invh"><?php _e('Invert Horizontal', 'revslider');?></option>
-												<option disabled="disabled" value="invv"><?php _e('Invert Vertical', 'revslider');?></option>
+												<option disabled="disabled" value="invh"><?php _e('Horizontal Mask', 'revslider');?></option>
+												<option disabled="disabled" value="invv"><?php _e('Vertical Mask', 'revslider');?></option>
 											</optgroup>										
 										</select>
 									</div><div class="clippath_o_circle clippath_hide"  style="display:inline-block"><select class="layerinput tos2 nosearchbox easyinit clippath_hide" data-r="timeline.clipPath.origin">
@@ -1407,8 +1407,8 @@ if(!defined('ABSPATH')) exit();
 											</optgroup>																															
 										</select>
 									</div><div class="clippath_o_inverts clippath_hide"  style="display:inline-block"><select class="layerinput tos2 nosearchbox easyinit clippath_hide" data-r="timeline.clipPath.origin">											
-											<option value="invv"><?php _e('Invert Vertical', 'revslider');?></option>
-											<option value="invh"><?php _e('Invert Horizontal', 'revslider');?></option>
+											<option value="invv"><?php _e('Vertical Mask', 'revslider');?></option>
+											<option value="invh"><?php _e('Horizontal Mask', 'revslider');?></option>
 											<option disabled="disabled" value="l"><?php _e('Left', 'revslider');?></option>
 											<option disabled="disabled" value="cv"><?php _e('Center', 'revslider');?></option>											
 											<option disabled="disabled" value="r"><?php _e('Right', 'revslider');?></option>										
@@ -1423,8 +1423,8 @@ if(!defined('ABSPATH')) exit();
 											<option disabled="disabled" value="crl"><?php _e('Center - Right Left', 'revslider');?></option>											
 										</select>
 									</div>
-								<onelong><label_icon class="ui_brightness"></label_icon><input data-numeric="true" class="layerinput valueduekeyboard smallinput easyinit input_with_presets"  data-allowed="%,inherit" data-responsive="true" data-r="#frame#.transform.clip"  data-presets_text="$C$100%!$C$75%!$C$50%!$C$25%!" data-presets_val="100%!75%!50%!25%!" type="text"></onelong>
-								<div class="clippath_o_inverts clippath_hide"><onelong><label_icon class="ui_brightness"></label_icon><input data-numeric="true" class="layerinput valueduekeyboard smallinput easyinit input_with_presets"  data-allowed="%,inherit" data-responsive="true" data-r="#frame#.transform.clipB"  data-presets_text="$C$100%!$C$75%!$C$50%!$C$25%!" data-presets_val="100%!75%!50%!25%!" type="text"></onelong></div>
+								<onelong><label_icon class="ui_brightness clippath_hide clippath_o_circle clippath_o_rectangle"></label_icon><label_a class="clippath_o_inverts clippath_hide"><?php _e('Start Range', 'revslider');?></label_a><input data-numeric="true" class="layerinput valueduekeyboard smallinput easyinit input_with_presets"  data-allowed="%,inherit" data-responsive="true" data-r="#frame#.transform.clip"  data-presets_text="$C$100%!$C$75%!$C$50%!$C$25%!" data-presets_val="100%!75%!50%!25%!" type="text"></onelong>
+								<div class="clippath_o_inverts clippath_hide"><onelong><label_a><?php _e('End Range', 'revslider');?></label_a><input data-numeric="true" class="layerinput valueduekeyboard smallinput easyinit input_with_presets"  data-allowed="%,inherit" data-responsive="true" data-r="#frame#.transform.clipB"  data-presets_text="$C$100%!$C$75%!$C$50%!$C$25%!" data-presets_val="100%!75%!50%!25%!" type="text"></onelong></div>
 							</div>
 						</div>
 						<!-- CHARS TRANSFORMATIONS -->

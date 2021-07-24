@@ -17,7 +17,7 @@ $rs_addon_update		 = $rsaddon->check_addon_version();
 $rs_addons				 = $rsaddon->get_addon_list();
 $rs_wp_date_format		 = get_option('date_format');
 $rs_wp_time_format		 = get_option('time_format');
-$rs_valid				 = 'true';
+$rs_valid				 = get_option('revslider-valid', 'false');
 $rs_latest_version		 = get_option('revslider-latest-version', RS_REVISION);
 $rs_stable_version		 = get_option('revslider-stable-version', '4.2');
 $rs_emergency_update	 = ($rs_valid !== 'true' && version_compare($rs_latest_version, $rs_stable_version, '<') === true) ? true : false;
@@ -60,8 +60,8 @@ if(version_compare(RS_REVISION, $rs_show_updated, '>')){
 	RVS.LIB.COLOR_PRESETS	= <?php echo (!empty($rs_color_picker_presets)) ? 'JSON.parse('. $rsaf->json_encode_client_side($rs_color_picker_presets) .')' : '{}'; ?>;
 
 	RVS.ENV.addOns_to_update = <?php echo (!empty($rs_addon_update)) ? 'JSON.parse('.$rsaf->json_encode_client_side($rs_addon_update).')' : '{}'; ?>;
-	RVS.ENV.activated		= '<?php echo ($rs_valid) == 'true' ? 'true' : 'true'; ?>';
-	RVS.ENV.activated		= RVS.ENV.activated == 'true' || RVS.ENV.activated == true ? true : true;
+	RVS.ENV.activated		= '<?php echo ($rs_valid) == 'true' ? 'true' : 'false'; ?>';
+	RVS.ENV.activated		= RVS.ENV.activated == 'true' || RVS.ENV.activated == true ? true : false;
 	RVS.ENV.nonce			= '<?php echo wp_create_nonce('revslider_actions'); ?>';
 	RVS.ENV.plugin_dir		= 'revslider';
 	RVS.ENV.slug_path		= '<?php echo RS_PLUGIN_SLUG_PATH; ?>';

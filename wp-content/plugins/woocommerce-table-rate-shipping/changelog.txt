@@ -1,5 +1,10 @@
 *** Table Rate Shipping Changelog ***
 
+2021-07-21 - version 3.0.31
+* Fix 	- Rates does not display when table rate has multiple classes being set.
+* Fix 	- Remove "including tax" in tooltips.
+* Fix 	- Handling Fee field stepper incompatible with comma decimal separator.
+
 2020-10-06 - version 3.0.30
 * Tweak - WC 4.5 compatibility.
 

@@ -117,7 +117,7 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 	 * @since 6.0
 	 */
 	public function install_addon($addon, $force = false){
-				
+
 		//check if downloaded already
 		$plugins	= get_plugins();
 		$addon_path = $addon.'/'.$addon.'.php';

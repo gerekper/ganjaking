@@ -914,6 +914,7 @@ class RevSliderOutput extends RevSliderFunctions {
 		}
 		
 		if(!in_array($max_width, array('0', 0, '0px', '0%'), true) && $type == 'auto'){
+			if(intval($max_width) > 0 && strpos($max_width, 'px') === false && strpos($max_width, '%') === false) $max_width .= 'px';
 			$style .= 'max-width:'. $max_width.';';
 		}
 
@@ -1225,6 +1226,7 @@ class RevSliderOutput extends RevSliderFunctions {
 		//echo RS_T6.'<!-- SLIDE  -->'."\n";
 		echo RS_T6.'<rs-slide';
 
+		echo $this->get_html_slide_style();
 		echo $this->get_html_slide_key();
 		echo $this->get_html_slide_title();
 		echo $this->get_html_slide_description();
@@ -1273,9 +1275,10 @@ class RevSliderOutput extends RevSliderFunctions {
 			$this->set_layers($layers);
 			if(!empty($layers)){
 				$sof = $static_slide->get_param(array('static', 'overflow'), '');
+				$scl = $sof;
 				$sof = (!empty($sof) && $sof == 'hidden') ? ' style="overflow:hidden;width:100%;height:100%;top:0px;left:0px;"' : '';
 				$slp = $static_slide->get_param(array('static', 'position'), 'front');
-				$slp = (!empty($slp) && $slp === 'back') ? ' class="rs-stl-back"' : '';
+				$slp = (!empty($slp) && $slp === 'back') ? ' class="rs-stl-back ' . ($scl == 'visible' ? 'rs-stl-visible' : '') . '"' : ($scl == 'visible' ? ' class="rs-stl-visible"' : '');
 
 				//check for static layers
 				echo RS_T5.'<rs-static-layers' . $sof . $slp . '><!--'."\n";
@@ -2382,7 +2385,7 @@ class RevSliderOutput extends RevSliderFunctions {
 		}
 		
 		if(!in_array($type, array('image', 'video', 'row', 'column', 'group', 'shape', 'audio'), true)){
-			$style['font-family'] = str_replace('"', "'", $this->get_val($layer, array('idle', 'fontFamily'), 'Roboto'));
+			$style['font-family'] = str_replace('"', "'", "'" . $this->get_val($layer, array('idle', 'fontFamily'), 'Roboto') . "'");
 		}
 		
 		$text_transform = $this->get_val($layer, array('idle', 'textTransform'), 'none');
@@ -4935,7 +4938,7 @@ rs-module .material-icons {
 	public function get_background_image(){
 		$layer	= $this->get_layer();
 		$type	= $this->get_val($layer, 'type', 'text');
-		$image	= '<rs-bg-elem style="position:absolute; top:0px;left:0px;';
+		$image	= '<rs-bg-elem style="';
 		//check for background images
 		if(in_array($type, array('shape', 'row', 'group'), true)){
 			$url_image = $this->get_val($layer, array('idle', 'backgroundImage'), '');
@@ -5642,6 +5645,24 @@ rs-module .material-icons {
 			}
 		}
 		echo $this->ld().RS_T7.'></rs-bgvideo>'."\n";
+	}
+	
+	/**
+	 * get slide style
+	 **/
+	public function get_html_slide_style(){
+		$style = array('position' => 'absolute');
+		$style = apply_filters('revslider_get_html_slide_style', $style, $this);
+
+		$style_html = ' style="';
+		if(!empty($style)){
+			foreach($style as $_style => $_value){
+				$style_html .= $_style.': '.$_value.';';
+			}
+		}
+		$style_html .= '"';
+
+		return ($style_html !== ' style=""') ? $style_html : '';
 	}
 	
 	/**
@@ -6922,7 +6943,9 @@ rs-module .material-icons {
 	 **/
 	public function get_html_js_start_size($optFullWidth, $optFullScreen){
 		$csizes	= $this->get_responsive_size($this);
+		$html_id_trimmed = $this->get_html_id(false);
 		$jus = $this->slider->get_param(array('carousel', 'justify'), false);
+		$revapi = $this->get_revapi();
 		if($jus !== false) $jus="true";
 		$html	= '';
 		if(!$this->get_markup_export()){ //not needed for html markup export
@@ -6975,6 +6998,11 @@ rs-module .material-icons {
 			$html .= 'mh:"'.$mheight.'"';
 			$html .= '}';
 			$html .= ');';
+			$html .= 'if (window.RS_MODULES!==undefined && window.RS_MODULES.modules!==undefined && window.RS_MODULES.modules["'. $html_id_trimmed .'"]!==undefined) {';
+			$html .= 'window.RS_MODULES.modules["'. $html_id_trimmed .'"].once = false;';
+			$html .= 'window.'. $revapi .' = undefined;';
+			$html .= 'window.RS_MODULES.checkMinimal()';
+			$html .= '}';
 		}
 		
 		return $html;
@@ -6988,6 +7016,7 @@ rs-module .material-icons {
 		global $rs_slider_serial;
 		
 		$html_id = $this->get_html_id();
+		
 		$id = '';
 		$html = '';
 		
@@ -7165,16 +7194,19 @@ rs-module .material-icons {
 		if($this->full_js){
 			$html .= $this->JTA . RS_T.'<script type="text/javascript">'."\n";
 			$html .= $this->JTA . RS_T2.'var	tpj = jQuery;'."\n";
-			$html .= $this->JTA . RS_T2.'var	'. $revapi .';'."\n";							
+			//$html .= $this->JTA . RS_T2.'window.'. $revapi .' = window.'. $revapi .'===undefined || window.'. $revapi .'===null || window.'. $revapi .'.length===0  ? document.getElementById("'. $html_id .'") : window.'. $revapi .';'."\n";
 		}		
 		$html .= $this->JTA . RS_T2.'if(window.RS_MODULES === undefined) window.RS_MODULES = {};'."\n";
 		$html .= $this->JTA . RS_T2.'if(RS_MODULES.modules === undefined) RS_MODULES.modules = {};'."\n"; 
 		$html .= $this->JTA . RS_T2.'RS_MODULES.modules["'.$html_id_trimmed .'"] = {init:function() {'."\n"; 
-		$html .= $this->JTA . RS_T3.$revapi.' = jQuery("#'. $html_id .'");'."\n";
+		$html .= $this->JTA . RS_T3.'window.'. $revapi .' = window.'. $revapi .'===undefined || window.'. $revapi .'===null || window.'. $revapi .'.length===0  ? document.getElementById("'. $html_id .'") : window.'. $revapi .';'."\n";		
+		$html .= $this->JTA . RS_T3.'if(window.'. $revapi .' === null || window.'. $revapi .' === undefined || window.'. $revapi .'.length==0) return;'."\n";
+		$html .= $this->JTA . RS_T3.'window.'.$revapi.' = jQuery(window.'. $revapi .');'."\n";
 		if($this->full_js){
 			$html .= ($this->slider->get_param(array('troubleshooting', 'jsNoConflict'), true) === true) ? $this->JTA . RS_T3.'jQuery.noConflict();'."\n" : ''; 
 		}
-		$html .= $this->JTA . RS_T3.'if('.$revapi.'==undefined || '.$revapi.'.revolution==undefined){ revslider_showDoubleJqueryError("'.$html_id.'"); return;}'."\n";
+		$html .= $this->JTA . RS_T3.'if(window.'.$revapi.'.revolution==undefined){ revslider_showDoubleJqueryError("'.$html_id.'"); return;}'."\n";
+				
 		$html = apply_filters('revslider_fe_before_init_script', $html, $this->slider, $html_id); // needed for AddOns
 		$html .= $this->JTA . RS_T3.$revapi.'.revolutionInit({'."\n";
 		
@@ -7884,6 +7916,10 @@ rs-module .material-icons {
 		$spinner = (in_array($spinner, array(-1, '-1'), true)) ? 'off' : $spinner;
 		
 		$keys = array(
+			'revapi' => array(
+				'v' => $this->get_revapi(),
+                'd' => 'none'
+			),
 			'sliderType' => array(
 				'v' => $s_type,
 				'd' => 'standard'

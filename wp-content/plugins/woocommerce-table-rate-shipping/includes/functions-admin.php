@@ -42,11 +42,11 @@ function wc_table_rate_admin_shipping_rows( $instance ) {
 				</th>
 				<th class="cost">
 					<?php esc_html_e( 'Row cost', 'woocommerce-table-rate-shipping' ); ?>
-					<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Cost for shipping the order, including tax.', 'woocommerce-table-rate-shipping' ) ); ?>">[?]</a>
+					<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Cost for shipping the order.', 'woocommerce-table-rate-shipping' ) ); ?>">[?]</a>
 				</th>
 				<th class="cost cost_per_item">
 					<?php esc_html_e( 'Item cost', 'woocommerce-table-rate-shipping' ); ?>
-					<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Cost per item, including tax.', 'woocommerce-table-rate-shipping' ) ); ?>">[?]</a>
+					<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Cost per item.', 'woocommerce-table-rate-shipping' ) ); ?>">[?]</a>
 				</th>
 				<th class="cost cost_per_weight">
 					<?php echo esc_html( get_option( 'woocommerce_weight_unit' ) . ' ' . __( 'cost', 'woocommerce-table-rate-shipping' ) ); ?>

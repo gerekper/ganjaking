@@ -15,7 +15,7 @@ abstract class WoocommerceGpfFeed {
 	protected $settings = array();
 
 	/**
-	 * The core store inforation.
+	 * The core store information.
 	 *
 	 * @var stdClass
 	 */

@@ -22,8 +22,65 @@ define('RS_T11', '											');
 class RevSliderData {
 
 	const CACHE_GROUP = 'revslider';
+	const CACHE_NS_KEY = 'revslider_namespace_key';
 
 	public $css;
+
+	/**
+	 * wp cache does not support group delete
+	 * this var hold the num to generate unique keys
+	 * when data changed - key increased and invalidate old data
+	 * @var int
+	 */
+	protected $_cache_ns_key;
+	/**
+	 * @var array hold revslider tables names
+	 */
+	protected $_rs_tables;
+	/**
+	 * @var string
+	 */
+	protected $_rs_tables_pattern;
+	
+	public function __construct()
+	{
+		$this->_rs_tables = RevSliderGlobals::instance()->get_rs_tables();
+		$this->_rs_tables_pattern = "/^\s*(insert|update|replace|delete).+(".implode('|', $this->_rs_tables).")/i";
+		
+		$this->_cache_ns_key = wp_cache_get(self::CACHE_NS_KEY, self::CACHE_GROUP);
+		if (false === $this->_cache_ns_key) {
+			$this->_cache_ns_key = 1;
+			wp_cache_set(self::CACHE_NS_KEY, $this->_cache_ns_key, self::CACHE_GROUP);
+		}
+
+		$query_filter = RevSliderGlobals::instance()->get('rs_data_query_fiter');
+		if (!$query_filter) {
+			add_filter('query', array($this, 'add_query_fiter'), 10, 1);
+			RevSliderGlobals::instance()->add('rs_data_query_fiter', true);
+		}
+	}
+
+	/**
+	 * invalidate group cache if we modify rs data
+	 * @param string $sql
+	 * @return string
+	 */
+	public function add_query_fiter($sql)
+	{
+		if (preg_match($this->_rs_tables_pattern, $sql)) {
+			$this->invalidate_group_cache();
+		}
+		return $sql;
+	}
+
+	/**
+	 * invalidate group keys by increase namespace key
+	 */
+	public function invalidate_group_cache()
+	{
+		$this->_cache_ns_key += 1;
+		wp_cache_set(self::CACHE_NS_KEY, $this->_cache_ns_key, self::CACHE_GROUP);
+	}
 
 	/**
 	 * @param string $fname  cache key name ( usually function name )
@@ -31,7 +88,7 @@ class RevSliderData {
 	 * @return string
 	 */
 	public function get_wp_cache_key($fname, $data){
-		return sprintf('%s_%s_%s', get_class($this), $fname, md5(serialize($data)));
+		return sprintf('%s_%s_%s_%s', get_class($this), $fname, $this->_cache_ns_key, md5(serialize($data)));
 	}
 
 	/**
@@ -47,11 +104,9 @@ class RevSliderData {
 		//disable cache for admin
 		if (is_admin()) return call_user_func_array(array($this, $method), $args);
 		
-		$found = null;
 		$cache_key = $this->get_wp_cache_key($method, $args);
-		$data = wp_cache_get($cache_key, self::CACHE_GROUP, false, $found);
-
-		if (!$found) {
+		$data = wp_cache_get($cache_key, self::CACHE_GROUP);
+		if (false === $data) {
 			$data = call_user_func_array(array($this, $method), $args);
 			wp_cache_set($cache_key, $data, self::CACHE_GROUP);
 		}

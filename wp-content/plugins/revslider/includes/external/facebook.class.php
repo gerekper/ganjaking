@@ -42,21 +42,18 @@ class RevSliderFacebook extends RevSliderFunctions {
 	/**
 	 * @return int
 	 */
-	public function getTransientSec()
-	{
+	public function getTransientSec(){
 		return $this->transient_sec;
 	}
 
 	/**
 	 * @param int $transient_sec
 	 */
-	public function setTransientSec($transient_sec)
-	{
+	public function setTransientSec($transient_sec){
 		$this->transient_sec = $transient_sec;
 	}
 
-	public function add_actions()
-	{
+	public function add_actions(){
 		add_action('init', array(&$this, 'do_init'), 5);
 		add_action('admin_footer', array(&$this, 'footer_js'));
 	}
@@ -65,10 +62,9 @@ class RevSliderFacebook extends RevSliderFunctions {
 	 * check if we have QUERY_ARG set
 	 * try to login the user
 	 */
-	public function do_init()
-	{
+	public function do_init(){
 		// are we on revslider page?
-		if (!isset($_GET['page']) || $_GET['page'] != 'revslider') return;
+		if($this->get_val($_GET, 'page') != 'revslider') return;
 
 		//fb returned error
 		if (isset($_GET[self::QUERY_ERROR])) return;
@@ -101,37 +97,35 @@ class RevSliderFacebook extends RevSliderFunctions {
 		$slider->set_param(array('source', 'facebook', 'appId'), $token);
 		$slider->set_param(array('source', 'facebook', 'page_id'), $page_id);
 		$slider->set_param(array('source', 'facebook', 'connect_with'), $connectwith);
-		$slider->update_params([]);
+		$slider->update_params(array());
 
 		//redirect
 		$url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-		$url = add_query_arg([self::QUERY_TOKEN => false, self::QUERY_PAGE_ID => false, self::QUERY_CONNECTWITH => false, self::QUERY_SHOW => 1], $url);
+		$url = add_query_arg(array(self::QUERY_TOKEN => false, self::QUERY_PAGE_ID => false, self::QUERY_CONNECTWITH => false, self::QUERY_SHOW => 1), $url);
 		wp_redirect($url);
 		exit();
 	}
 
 	public function footer_js() {
 		// are we on revslider page?
-		if (!isset($_GET['page']) || $_GET['page'] != 'revslider') return;
+		if($this->get_val($_GET, 'page') != 'revslider') return;
 
-		if (isset($_GET[self::QUERY_SHOW]) || isset($_GET[self::QUERY_ERROR])) {
+		if(isset($_GET[self::QUERY_SHOW]) || isset($_GET[self::QUERY_ERROR])) {
 			echo '<script>jQuery(document).ready(function(){ RVS.DOC.one("builderInitialised", function(){RVS.F.mainMode({mode:"sliderlayout", forms:["*sliderlayout*#form_slidercontent"], set:true, uncollapse:true,slide:RVS.S.slideId});RVS.F.updateSliderObj({path:"settings.sourcetype",val:"facebook"});RVS.F.updateEasyInputs({container:jQuery("#form_slidercontent"), trigger:"init", visualUpdate:true});}); });</script>';
 		}
 
-		if (isset($_GET[self::QUERY_ERROR])) {
-			$err = __('Facebook API error: ', 'revslider') . $_GET[self::QUERY_ERROR];
+		if(isset($_GET[self::QUERY_ERROR])){
+			$err = __('Facebook API error: ', 'revslider') . esc_html($_GET[self::QUERY_ERROR]);
 			echo '<script>jQuery(document).ready(function(){ RVS.DOC.one("builderInitialised", function(){ RVS.F.showInfo({content:"' . $err . '", type:"warning", showdelay:1, hidedelay:5, hideon:"", event:"" }); });});</script>';
 		}
 	}
 
-	public static function get_login_url()
-	{
+	public static function get_login_url(){
 		$state = base64_encode(admin_url('admin.php?page=revslider&view=slide&id='.$_GET['id']));
 		return self::URL_FB_AUTH . '?state=' . $state;
 	}
 
-	protected function _make_api_call($args = [])
-	{
+	protected function _make_api_call($args = array()){
 		global $wp_version;
 
 		$response = wp_remote_post(self::URL_FB_API, array(
@@ -158,8 +152,7 @@ class RevSliderFacebook extends RevSliderFunctions {
 		return $responseData;
 	}
 
-	protected function _get_transient_fb_data($requestData)
-	{
+	protected function _get_transient_fb_data($requestData){
 		$transient_name = 'revslider_' . md5(json_encode($requestData));
 		if($this->transient_sec > 0 && false !== ($data = get_transient($transient_name))){
 			return $data;
@@ -205,9 +198,7 @@ class RevSliderFacebook extends RevSliderFunctions {
 	public function get_photo_set_photos_options($access_token, $page_id){
 		$photo_sets = $this->get_photo_sets($access_token, $page_id);
 
-		if($photo_sets['error']){
-			return $photo_sets;
-		}
+		if($photo_sets['error']) return $photo_sets;
 
 		$return = array();
 		if(is_array($photo_sets['data'])){

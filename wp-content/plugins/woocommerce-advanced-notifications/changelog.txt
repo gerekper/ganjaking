@@ -1,5 +1,11 @@
 *** Advanced Notifications Changelog ***
 
+2021-07-21 - version 1.2.31
+* Fix - Date used in emails is not correct
+
+2021-04-28 - version 1.2.30
+* Fix - Remove usage of deprecated function.
+
 2020-12-10 - version 1.2.29
 * Fix - Remove warnings from notification table page.
 

@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-06-01T09:47:50+00:00\n"
+"POT-Creation-Date: 2021-07-21T17:34:01+00:00\n"
 "PO-Revision-Date: 2020-09-11 09:06:42+0000\n"
 "Language: lt\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -657,7 +657,7 @@ msgid "[{blogname}] Your booking of {product_title} has been cancelled"
 msgstr ""
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:191
-#: includes/emails/class-wc-email-booking-cancelled.php:185
+#: includes/emails/class-wc-email-booking-cancelled.php:186
 #: includes/emails/class-wc-email-booking-confirmed.php:184
 #: includes/emails/class-wc-email-booking-notification.php:215
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:178
@@ -667,7 +667,7 @@ msgid "Multipart"
 msgstr "Įvairiapusis"
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:190
-#: includes/emails/class-wc-email-booking-cancelled.php:184
+#: includes/emails/class-wc-email-booking-cancelled.php:185
 #: includes/emails/class-wc-email-booking-confirmed.php:183
 #: includes/emails/class-wc-email-booking-notification.php:214
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:177
@@ -677,7 +677,7 @@ msgid "HTML"
 msgstr "HTML"
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:189
-#: includes/emails/class-wc-email-booking-cancelled.php:183
+#: includes/emails/class-wc-email-booking-cancelled.php:184
 #: includes/emails/class-wc-email-booking-confirmed.php:182
 #: includes/emails/class-wc-email-booking-notification.php:213
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:176
@@ -687,7 +687,7 @@ msgid "Plain text"
 msgstr "Paprastasis tekstas"
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:185
-#: includes/emails/class-wc-email-booking-cancelled.php:179
+#: includes/emails/class-wc-email-booking-cancelled.php:180
 #: includes/emails/class-wc-email-booking-confirmed.php:178
 #: includes/emails/class-wc-email-booking-notification.php:209
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:172
@@ -697,7 +697,7 @@ msgid "Choose which format of email to send."
 msgstr "Pasirinkite, kokio formato el. laišką siųsti."
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:183
-#: includes/emails/class-wc-email-booking-cancelled.php:177
+#: includes/emails/class-wc-email-booking-cancelled.php:178
 #: includes/emails/class-wc-email-booking-confirmed.php:176
 #: includes/emails/class-wc-email-booking-notification.php:207
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:170
@@ -708,7 +708,7 @@ msgstr "El. laiško tipas"
 
 #. translators: %s: heading
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:178
-#: includes/emails/class-wc-email-booking-cancelled.php:172
+#: includes/emails/class-wc-email-booking-cancelled.php:173
 #: includes/emails/class-wc-email-booking-confirmed.php:171
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:165
 #: includes/emails/class-wc-email-booking-reminder.php:157
@@ -717,7 +717,7 @@ msgid "This controls the main heading contained within the email notification. L
 msgstr ""
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:175
-#: includes/emails/class-wc-email-booking-cancelled.php:169
+#: includes/emails/class-wc-email-booking-cancelled.php:170
 #: includes/emails/class-wc-email-booking-confirmed.php:168
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:162
 #: includes/emails/class-wc-email-booking-reminder.php:154
@@ -727,7 +727,7 @@ msgstr ""
 
 #. translators: %s: subject
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:170
-#: includes/emails/class-wc-email-booking-cancelled.php:164
+#: includes/emails/class-wc-email-booking-cancelled.php:165
 #: includes/emails/class-wc-email-booking-confirmed.php:163
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:157
 #: includes/emails/class-wc-email-booking-reminder.php:149
@@ -747,7 +747,7 @@ msgid "Recipient(s)"
 msgstr "Gavėjas (-ai)"
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:155
-#: includes/emails/class-wc-email-booking-cancelled.php:157
+#: includes/emails/class-wc-email-booking-cancelled.php:158
 #: includes/emails/class-wc-email-booking-confirmed.php:156
 #: includes/emails/class-wc-email-booking-notification.php:203
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:150
@@ -757,7 +757,7 @@ msgid "Enable this email notification"
 msgstr "Įjungti šį el.laišką"
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:153
-#: includes/emails/class-wc-email-booking-cancelled.php:155
+#: includes/emails/class-wc-email-booking-cancelled.php:156
 #: includes/emails/class-wc-email-booking-confirmed.php:154
 #: includes/emails/class-wc-email-booking-notification.php:201
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:148
@@ -1413,7 +1413,7 @@ msgstr ""
 msgid "Booking Person Discount (Amount Off Per Person)"
 msgstr ""
 
-#: includes/class-wc-booking-cart-manager.php:476
+#: includes/class-wc-booking-cart-manager.php:478
 msgid "A booking that requires confirmation has been removed from your cart. It is not possible to complete the purchased along with a booking that doesn't require confirmation."
 msgstr ""
 
@@ -1886,7 +1886,7 @@ msgstr ""
 
 #: includes/admin/views/html-notifications-page.php:29
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:167
-#: includes/emails/class-wc-email-booking-cancelled.php:161
+#: includes/emails/class-wc-email-booking-cancelled.php:162
 #: includes/emails/class-wc-email-booking-confirmed.php:160
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:154
 #: includes/emails/class-wc-email-booking-reminder.php:146
@@ -3526,7 +3526,7 @@ msgstr "Test!"
 #: includes/admin/class-wc-bookings-details-meta-box.php:117
 #: includes/admin/class-wc-bookings-details-meta-box.php:163
 #: includes/admin/class-wc-bookings-details-meta-box.php:165
-#: includes/emails/class-wc-email-booking-cancelled.php:92
+#: includes/emails/class-wc-email-booking-cancelled.php:93
 #: includes/emails/class-wc-email-booking-confirmed.php:91
 #: includes/emails/class-wc-email-booking-notification.php:99
 #: includes/emails/class-wc-email-booking-notification.php:102

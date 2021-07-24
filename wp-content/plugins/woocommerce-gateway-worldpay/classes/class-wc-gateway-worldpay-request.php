@@ -21,9 +21,6 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 	 */
 	protected $notify_url;
 
-	// Developer Credentials
-	protected $dev_installtion_id = '1156961';
-
 	/**
 	 * Constructor
 	 * @param WC_Gateway_WorldPay $gateway
@@ -66,37 +63,6 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 		}
 
 	}
-
-	public static function get_instid ( $instid, $developer='no' ) {
-		if( $developer === 'yes' ) {
-			return '1156961';
-		} else {
-			return $instid;
-		}
-	}
-
-	public static function get_payment_response_url ( $dynamiccallback, $developer='no' ) {
-		if( $developer === 'yes' ) {
-			return 'yes';
-		} else {
-			return $dynamiccallback;
-		}
-
-	}
-
-	public static function get_md5_secret ( $worldpaymd5, $developer='no' ) {
-		if( $developer === 'yes' ) {
-			return 'b73571A64bc1b395A959b4f66X$';
-		} else {
-			return $worldpaymd5;
-		}
-
-	}
-
-	protected static function get_payment_response_password ( $instid, $developer='no' ) {
-
-	}
-
 
 	/**
 	 * Get WorldPay Args for passing to WorldPay
@@ -144,7 +110,7 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 
 		$output_order_num = self::get_worldpay_order_num( $order );
 
-		if( self::get_payment_response_url( $settings['dynamiccallback'] ) === 'yes' ) {
+		if( isset( $settings['dynamiccallback'] ) && $settings['dynamiccallback'] === 'yes' ) {
 			$callbackurl   	= site_url( 'wp-content/plugins/woocommerce-gateway-worldpay/wpcallback.php' );
 		} else {
 			$callbackurl   	= str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Gateway_Worldpay_Form', home_url( '/' ) ) );
@@ -159,7 +125,7 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 		// Add utm_nooverride if required
 		$failureurl   	= self::get_callback_url( $failureurl );
 
-		$worldpay_args['instId'] 	= self::get_instid( $settings['instId'] );
+		$worldpay_args['instId'] 	= isset( $settings['instId'] ) ? $settings['instId'] : '';
 		$worldpay_args['cartId'] 	= str_replace( self::clean_array(), '',  $order_key . '-' . $output_order_num . '-' . time() );
 		$worldpay_args['amount']	= self::get_worldpay_order_amount( $order );
 		$worldpay_args['currency'] 	= $order_currency;
@@ -239,7 +205,7 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 		 * 	return 'instId:amount:currency:cartId:email:address1:postcode';
 		 * }
 		 */
-		if ( self::get_md5_secret( $settings['worldpaymd5'] ) != '' ) {
+		if ( isset( $settings['worldpaymd5'] ) && $settings['worldpaymd5'] != '' ) {
 
 			$worldpay_args['signatureFields'] = apply_filters( 'woocommerce_worldpay_signature_fields', self::get_signaturefields() );
 			$worldpay_args['signature'] = md5( self::build_signature( $worldpay_args, $settings['worldpaymd5'] ) );
@@ -249,7 +215,7 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 		// Make sure we remove smart quotes
 		$worldpay_args = apply_filters( 'woocommerce_worldpay_args', $worldpay_args, $order );
 
-		if ( $settings['debug'] == 'yes' ) {
+		if ( isset( $settings['debug'] ) && $settings['debug'] == 'yes' ) {
 			$log = new WC_Logger();
 
 			$log->add( 'worldpay', '====================================' );
@@ -270,7 +236,7 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 		$fields 		 = explode( ':', $signatureFields );
 
 		$signature 		 = array();
-		$signature[] 	 = self::get_md5_secret( $worldpaymd5 );
+		$signature[] 	 = $worldpaymd5;
 
 		foreach( $fields AS $field ) {
 			$signature[] = $worldpay_args[$field];
@@ -776,7 +742,7 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 			return $settings['signaturefields'];
 		}
 
-		return DEFAULT_WORLDPAY_SIGNATURE_FIELDS;
+		return 'instId:amount:currency:cartId:name:email:address1:postcode';
 
 	}
 

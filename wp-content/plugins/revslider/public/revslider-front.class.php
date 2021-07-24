@@ -20,7 +20,7 @@ class RevSliderFront extends RevSliderFunctions {
 	const TABLE_LAYER_ANIMATIONS = 'revslider_layer_animations';
 	const TABLE_NAVIGATIONS		 = 'revslider_navigations';
 	const TABLE_SETTINGS		 = 'revslider_settings'; //existed prior 5.0 and still needed for updating from 4.x to any version after 5.x
-	const CURRENT_TABLE_VERSION	 = '1.0.9';
+	const CURRENT_TABLE_VERSION	 = '1.0.12';
 
 	const YOUTUBE_ARGUMENTS		 = 'hd=1&amp;wmode=opaque&amp;showinfo=0&amp;rel=0';
 	const VIMEO_ARGUMENTS		 = 'title=0&amp;byline=0&amp;portrait=0&amp;api=1';
@@ -499,7 +499,10 @@ class RevSliderFront extends RevSliderFunctions {
 					var el = document.getElementById(e.c);
 					if (el!==null && el) el.style.height = newh+"px";					
 					el = document.getElementById(e.c+"_wrapper");
-					if (el!==null && el) el.style.height = newh+"px";
+					if (el!==null && el) {
+						el.style.height = newh+"px";
+						el.style.display = "block";
+					}
 				} catch(e){
 					console.log("Failure at Presize of Slider:" + e)
 				}					   
@@ -551,70 +554,64 @@ class RevSliderFront extends RevSliderFunctions {
 			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
 			$sql = "CREATE TABLE " . $wpdb->prefix . self::TABLE_SLIDER . " (
-			  id int(9) NOT NULL AUTO_INCREMENT,
+			  id int(9) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 			  title tinytext NOT NULL,
 			  alias tinytext,
 			  params LONGTEXT NOT NULL,
 			  settings text NULL,
 			  type VARCHAR(191) NOT NULL DEFAULT '',
-			  UNIQUE KEY id (id),
 			  INDEX `type_index` (`type`(8))
 			);";
 			dbDelta($sql);
 
 			$sql = "CREATE TABLE " . $wpdb->prefix . self::TABLE_SLIDES . " (
-			  id int(9) NOT NULL AUTO_INCREMENT,
+			  id int(9) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 			  slider_id int(9) NOT NULL,
 			  slide_order int not NULL,
 			  params LONGTEXT NOT NULL,
 			  layers LONGTEXT NOT NULL,
 			  settings text NOT NULL DEFAULT '',
-			  UNIQUE KEY id (id),
 			  INDEX `slider_id_index` (`slider_id`)
 			);";
 			dbDelta($sql);
 
 			$sql = "CREATE TABLE " . $wpdb->prefix . self::TABLE_STATIC_SLIDES . " (
-			  id int(9) NOT NULL AUTO_INCREMENT,
+			  id int(9) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 			  slider_id int(9) NOT NULL,
 			  params LONGTEXT NOT NULL,
 			  layers LONGTEXT NOT NULL,
 			  settings text NOT NULL,
-			  UNIQUE KEY id (id),
 			  INDEX `slider_id_index` (`slider_id`)
 			);";
 			dbDelta($sql);
 
 			$sql = "CREATE TABLE " . $wpdb->prefix . self::TABLE_CSS . " (
-			  id int(9) NOT NULL AUTO_INCREMENT,
+			  id int(9) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 			  handle TEXT NOT NULL,
 			  settings LONGTEXT,
 			  hover LONGTEXT,
 			  advanced LONGTEXT,
 			  params LONGTEXT NOT NULL,
-			  UNIQUE KEY id (id),
 			  INDEX `handle_index` (`handle`(64))
 			);";
 			dbDelta($sql);
 
 			$sql = "CREATE TABLE " . $wpdb->prefix . self::TABLE_LAYER_ANIMATIONS . " (
-			  id int(9) NOT NULL AUTO_INCREMENT,
+			  id int(9) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 			  handle TEXT NOT NULL,
 			  params TEXT NOT NULL,
-			  settings text NULL,
-			  UNIQUE KEY id (id)
+			  settings text NULL
 			);";
 			dbDelta($sql);
 
 			$sql = "CREATE TABLE " . $wpdb->prefix . self::TABLE_NAVIGATIONS . " (
-			  id int(9) NOT NULL AUTO_INCREMENT,
+			  id int(9) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 			  name VARCHAR(191) NOT NULL,
 			  handle VARCHAR(191) NOT NULL,
 			  type VARCHAR(191) NOT NULL,
 			  css LONGTEXT NOT NULL,
 			  markup LONGTEXT NOT NULL,
-			  settings LONGTEXT NULL,
-			  UNIQUE KEY id (id)
+			  settings LONGTEXT NULL
 			);";
 			dbDelta($sql);
 
@@ -628,7 +625,6 @@ class RevSliderFront extends RevSliderFunctions {
 			update_option('revslider_table_version', self::CURRENT_TABLE_VERSION);
 			//$table_version = self::CURRENT_TABLE_VERSION;
 		}
-		
 		
 		/**
 		 * check if table version is below 1.0.8.

@@ -56,16 +56,26 @@
 			<p><?php echo '<strong>Installation ID :</strong>  ' . $this->instId; ?><br />
 
 			<?php if( $this->dynamiccallback ) {
-				echo '<strong>Payment Response URL :</strong>  ' . htmlspecialchars('<wpdisplay item=MC_callback>');
+				$url = htmlspecialchars('<wpdisplay item=MC_callback>');
 			} else {
 
-				if( '' != get_option( 'permalink_structure' ) ) {
-					echo '<strong>Payment Response URL :</strong>  ' . home_url( '/wc-api/WC_Gateway_WorldPay_Form/' );
-				} else {
-					echo '<strong>Payment Response URL :</strong>  ' . home_url( '/?wc-api=WC_Gateway_WorldPay_Form' );
+				$url = WC()->api_request_url( 'WC_Gateway_Worldpay_Form' );
+
+				if( isset( $this->addgautm ) && $this->addgautm == 'yes' ) {
+
+					// We don't know if the URL already has the parameter so we should remove it just in case
+					$url = remove_query_arg( 'utm_nooverride', $url );
+
+					// Now add the utm_nooverride query arg to the URL
+					$url = add_query_arg( 'utm_nooverride', '1', $url );
+
 				}
 				
-			} ?>
+			} 
+
+			echo '<strong>Payment Response URL :</strong>  ' . $url;
+
+			?>
 
 	   		<br />
 	   		<strong>Payment Response password :</strong> <?php echo $this->callbackPW;?>

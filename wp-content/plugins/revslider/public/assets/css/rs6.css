@@ -549,6 +549,9 @@ rs-static-layers.rs-stl-back {
 	z-index:0;
 }
 
+.rs-stl-visible{
+	overflow: visible !important;
+}
 
 .rs-layer rs-fcr    {width: 0;height: 0;border-left: 40px solid transparent;border-right: 0px solid transparent;border-top: 40px solid #00A8FF;position: absolute;right:100%;top:0px;}
 .rs-layer rs-fcrt   {width: 0;height: 0;border-left: 40px solid transparent;border-right: 0px solid transparent;border-bottom: 40px solid #00A8FF;position: absolute;right:100%;top:0px;}

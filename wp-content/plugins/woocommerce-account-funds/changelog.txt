@@ -1,5 +1,8 @@
 *** WooCommerce Account Funds ***
 
+2021-07-20 - version 2.5.2
+* Tweak - Don't return zero when the customer funds balance is negative.
+
 2021-07-01 - version 2.5.1
 * Tweak - Tested compatibility with WP 5.8.
 * Fix - The funds were not being added to the customer account when using the top-up form (Only in version 2.5).

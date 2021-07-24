@@ -1402,8 +1402,7 @@ class RevSliderSlider extends RevSliderFunctions {
 		
 		$cache_key = $this->get_wp_cache_key('get_slides_by_slider_id', array($this->id, $published, $allwpml, $first, $this->init_layer));
 		$this->slides = wp_cache_get($cache_key, self::CACHE_GROUP);
-		
-		if (!$this->slides) {
+		if (false === $this->slides) {
 			$slide			= new RevSliderSlide();
 			$this->slides	= $slide->get_slides_by_slider_id($this->id, $published, $allwpml, $first, $this->init_layer);
 			wp_cache_set($cache_key, $this->slides, self::CACHE_GROUP);

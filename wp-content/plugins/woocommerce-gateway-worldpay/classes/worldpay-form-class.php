@@ -20,7 +20,7 @@
 			$this->has_fields 					= false;
 
 			// Default values
-			$this->default_enabled				= 'no';
+			$this->default_enabled				= 'yes';
 			$this->default_title 				= __('Pay with WorldPay', 'woocommerce_worlday');
 			$this->default_description  		= __('Credit Card via WorldPay', 'woocommerce_worlday');
 			$this->default_order_button_text  	= __('Pay securely with WorldPay', 'woocommerce_worlday');
@@ -40,15 +40,13 @@
 			$this->default_noLanguageMenu		= 'yes';
 			$this->default_remoteid				= '';
 			$this->default_remotepw				= '';
-			$this->default_worldpaymd5			= '';
+			$this->default_worldpaymd5			= $this->generate_md5();
 			$this->default_signaturefields		= 'instId:amount:currency:cartId';
 			$this->default_debug 				= false;
 			$this->default_dynamiccallback 		= false;
 			$this->default_submission			= 'form';
 			$this->default_method 				= 'alltransactions';
 			$this->default_addgautm 			= 'no';
-
-			$this->version						= '4.1.9';
 
 			// Load the settings.
 			$this->init_settings();
@@ -58,8 +56,6 @@
 			if( isset( $this->settings['worldpaymd5'] ) && $this->settings['worldpaymd5'] != '' ) {
 				$this->default_signaturefields = 'instId:amount:currency:cartId:name:email:address1:postcode';
 			}
-
-			define( 'DEFAULT_WORLDPAY_SIGNATURE_FIELDS', $this->default_signaturefields );
 
 			// Load the form fields
 			$this->init_form_fields();
@@ -97,7 +93,7 @@
 
 			// emails someone in the event of a problem with a cancellation or refund or pre-auth
 			$this->worldpaydebug				= 'yes';
-			$this->worldpaydebugemail			= $this->settings['worldpaydebugemail'];
+			$this->worldpaydebugemail			= isset( $this->settings['worldpaydebugemail'] ) ? $this->settings['worldpaydebugemail'] : get_bloginfo('admin_email');
 
 			$this->clean_array					= array( '<', '>', '&', "'", '"' );
 
@@ -108,7 +104,7 @@
 
 			// Hooks
 			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-			add_action( 'woocommerce_api_' . strtolower( get_class( $this ) ), array( $this, 'check_worldpay_response' ) );
+			add_action( 'woocommerce_api_' . strtolower( get_class( $this ) ), array( $this, 'check_worldpay_response' ), 0 );
 
 			// Old way, uses wpcallback.php
 			add_action( 'valid-worldpay-request', array( $this, 'successful_request' ) );
@@ -434,11 +430,12 @@
 		public function check_worldpay_response() {
 			global $woocommerce;
 
+			ob_clean();
+			header( "HTTP/1.0 200 OK");
+			ob_end_flush();
+
 			// The new way!
 			if ( $this->check_worldpay_request_is_valid( $_REQUEST ) ) {
-
-   				@ob_clean();
-				header( 'HTTP/1.1 200 OK' );
 
 				do_action( "valid-wpform-request", $_REQUEST );
 
@@ -454,15 +451,20 @@
 				$worldpay_return_values = $this->getTokens( $worldpaycrypt_b64 );
 
 				if ( isset($worldpay_return_values['transId']) ) :
-
         			do_action( "valid-worldpay-request", $worldpay_return_values );
-
 				endif;
 
    			} else {
 
    				if ( isset($_REQUEST["MC_FailureURL"]) ) {
 					$url = $_REQUEST["MC_FailureURL"];
+
+					if( $this->addgautm	&& $this->addgautm == 'yes' ) {
+						$url = add_query_arg( array(
+				                        'utm_nooverride' => 1
+				                    ), $url );
+					}
+			
 					echo "<meta http-equiv='Refresh' content='1; Url=\"$url\"'>";
 					exit;
    				} else {
@@ -471,7 +473,15 @@
 
 			}
 
-   			wp_redirect( $this->get_return_url( $order ) );
+			$url = $this->get_return_url( $order );
+        	
+        	if( $this->addgautm && $this->addgautm == 'yes' ) {
+				$url = add_query_arg( array(
+		                        'utm_nooverride' => 1
+		                    ), $url );
+			}
+
+			wp_redirect( $url );
 			exit;
 
 		} // END check_worldpay_response
@@ -501,7 +511,16 @@
 	        	$order->payment_complete( $worldpay_return_values['transId'] );
 	        	// Clear the cart, just in case
 	        	WC()->cart->empty_cart();
-				wp_redirect( $this->get_return_url( $order, $worldpay_return_values ) );
+
+	        	$url = $this->get_return_url( $order, $worldpay_return_values );
+
+	        	if( $this->addgautm	&& $this->addgautm == 'yes'	) {
+					$url = add_query_arg( array(
+			                        'utm_nooverride' => 1
+			                    ), $url );
+				}
+
+				wp_redirect( $url );
 				exit;
 				
 			}
@@ -768,6 +787,13 @@
 
 			if( $payment_method === $this->id ) {
 				$url = $this->get_return_url( $order );
+
+				if( $this->addgautm	&& $this->addgautm == 'yes'	) {
+					$url = add_query_arg( array(
+			                        'utm_nooverride' => 1
+			                    ), $url );
+				}
+
 				echo "<meta http-equiv='Refresh' content='1; Url=\"$url\"'>";
 			}
 			
@@ -965,7 +991,7 @@
 			$api_request['instId'] 				= $this->remoteid;
 			$api_request['authPW'] 				= $this->remotepw;
 			$api_request['cartId']   			= 'Refund';
-			$api_request['transId'] 			= $order->get_transaction_id();
+			$api_request['transId'] 			= $this->get_transaction_id( $order );
 			$api_request['amount']   			= $amount;
 			$api_request['currency'] 			= $order->get_currency();
 			$api_request['op'] 					= 'refund-partial';
@@ -1037,6 +1063,19 @@
 
     	}
 
+		function get_transaction_id( $order ) {
+
+			$order_id 		= $order->get_id();
+			$transaction 	= get_post_meta( $order_id, '_worldpay_response', TRUE );
+
+			if( isset( $transaction['transId'] ) ) {
+				return $transaction['transId'];
+			}
+
+			return $order->get_transaction_id();
+
+		}
+		
 		function startsWith($haystack, $needle) {
     		return $needle === "" || strpos($haystack, $needle) === 0;
 		}
@@ -1048,8 +1087,8 @@
 		 */
 		function admin_scripts( $hook ) {
 			if ( in_array( $hook, array( 'woocommerce_page_wc-settings', 'woocommerce_page_woocommerce_settings') ) && ( isset( $_GET['section'] ) && ( 'wc_gateway_worldpay_form' == strtolower( $_GET['section'] ) || 'worldpay' == strtolower( $_GET['section'] ) ) ) ) {
-				wp_enqueue_style( $this->id .  '-admin-fa', "//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" , array(), $this->version );
-				wp_enqueue_style( $this->id .  '-admin-wp', $this->get_plugin_url() . '/assets/admin-css.css' , array(), $this->version );
+				wp_enqueue_style( $this->id .  '-admin-fa', "//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" , array(), WORLDPAYPLUGINVERSION );
+				wp_enqueue_style( $this->id .  '-admin-wp', $this->get_plugin_url() . '/assets/admin-css.css' , array(), WORLDPAYPLUGINVERSION );
 			}
 		}
 

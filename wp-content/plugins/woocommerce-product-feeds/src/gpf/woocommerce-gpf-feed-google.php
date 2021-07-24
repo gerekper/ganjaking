@@ -47,8 +47,6 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 	) {
 		parent::__construct( $woocommerce_gpf_common, $debug );
 
-		$this->store_info->feed_url = add_query_arg( 'woocommerce_gpf', 'google', $this->store_info->feed_url_base );
-
 		if ( ! empty( $this->store_info->base_country ) ) {
 			if ( 'US' === substr( $this->store_info->base_country, 0, 2 ) ||
 				 'CA' === substr( $this->store_info->base_country, 0, 2 ) ) {
@@ -202,6 +200,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		}
 		// Google do not allow items without images.
 		if ( empty( $feed_item->image_link ) && $this->hide_if_no_images ) {
+			$this->debug->log( 'No images found for %d, hidden...', [ $feed_item->specific_id ] );
 			return '';
 		}
 

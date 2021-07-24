@@ -76,6 +76,24 @@ class RevSliderGlobals {
 
 		return $this->storage[$key];
 	}
+
+	/**
+	 * @return array  list of revslider DB tables
+	 */
+	public function get_rs_tables()
+	{
+		global $wpdb;
+
+		return array(
+			$wpdb->prefix . RevSliderFront::TABLE_SLIDER,
+			$wpdb->prefix . RevSliderFront::TABLE_SLIDES,
+			$wpdb->prefix . RevSliderFront::TABLE_STATIC_SLIDES,
+			$wpdb->prefix . RevSliderFront::TABLE_CSS,
+			$wpdb->prefix . RevSliderFront::TABLE_LAYER_ANIMATIONS,
+			$wpdb->prefix . RevSliderFront::TABLE_NAVIGATIONS,
+			$wpdb->prefix . RevSliderFront::TABLE_SETTINGS,
+		);
+	}
 }
 
 global $wpdb;

@@ -12,7 +12,7 @@
  *
  * @see     https://docs.woocommerce.com/document/bookings-templates/
  * @author  Automattic
- * @version 1.10.0
+ * @version 1.15.42
  * @since   1.0.0
  */
 
@@ -28,7 +28,7 @@ if ( $booking->get_order() ) {
 }
 
 /* translators: 1: booking start date */
-echo esc_html( sprintf( __( 'This is a reminder that your booking will take place on %1$s. The details of your booking are shown below.', 'woocommerce-bookings' ), $booking->get_start_date() ) ) . "\n\n";
+echo esc_html( sprintf( __( 'This is a reminder that your booking will take place on %1$s. The details of your booking are shown below.', 'woocommerce-bookings' ), $booking->get_start_date( null, null, wc_should_convert_timezone( $booking ) ) ) ) . "\n\n";
 
 echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 

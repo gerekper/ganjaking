@@ -571,7 +571,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 				$tags[]	= $sliders[$dk]['cat'];
 				$sliders[$dk]['tags'] = $tags;
 				if(!isset($sliders[$dk]['setup_notes'])){
-					$sliders[$dk]['setup_notes'] = '<span class="ttm_content">Checkout our <a href="https://www.themepunch.com/revslider-doc/slider-revolution-documentation/" target="_blank">Documentation</a> for basic Slider Revolution help.</span>';
+					$sliders[$dk]['setup_notes'] = '<span class="ttm_content">Checkout our <a href="https://www.themepunch.com/revslider-doc/slider-revolution-documentation/" target="_blank" rel="noopener">Documentation</a> for basic Slider Revolution help.</span>';
 				}
 				
 				unset($sliders[$dk]['filter']);
@@ -692,7 +692,7 @@ class RevSliderTemplate extends RevSliderFunctions {
 				unset($defaults[$dk]['cat']);
 				
 				if(!isset($defaults[$dk]['setup_notes'])){
-					$defaults[$dk]['setup_notes'] = '<span class="ttm_content">Checkout our <a href="https://www.themepunch.com/revslider-doc/slider-revolution-documentation/" target="_blank">Documentation</a> for basic Slider Revolution help.</span>';
+					$defaults[$dk]['setup_notes'] = '<span class="ttm_content">Checkout our <a href="https://www.themepunch.com/revslider-doc/slider-revolution-documentation/" target="_blank" rel="noopener">Documentation</a> for basic Slider Revolution help.</span>';
 				}
 				
 				$id = $this->get_val($default, 'id', 0);

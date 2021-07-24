@@ -534,6 +534,7 @@ class WoocommerceGpfAdmin {
 
 		$this->render_exclude_product(
 			'exclude_product',
+			'variation',
 			! empty( $current_data['exclude_product'] ) ? true : false,
 			null,
 			$loop_idx
@@ -628,6 +629,7 @@ class WoocommerceGpfAdmin {
 
 		$this->render_exclude_product(
 			'exclude_product',
+			'product',
 			! empty( $current_data['exclude_product'] ) ? true : false
 		);
 
@@ -810,7 +812,10 @@ class WoocommerceGpfAdmin {
 		} else {
 			$variables['key'] = $loop_idx . '][' . esc_attr( $key );
 		}
-		if ( isset( $_REQUEST['post'] ) || isset( $_REQUEST['taxonomy'] ) || ! is_null( $loop_idx ) ) {
+		if ( isset( $_REQUEST['post'] ) ||
+			 isset( $_REQUEST['taxonomy'] ) ||
+			 isset( $_REQUEST['post_type'] ) ||
+			 ! is_null( $loop_idx ) ) {
 			$variables['emptytext'] = __( 'Use default', 'woocommerce_gpf' );
 		} else {
 			$variables['emptytext'] = __( 'No default', 'woocommerce_gpf' );
@@ -911,6 +916,7 @@ class WoocommerceGpfAdmin {
 	 * @return string
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	private function render_title( $key, $context, $current_data = null, $placeholder = '', $loop_idx = null ) {
 		$variables = $this->default_field_variables( $key, $loop_idx );
@@ -981,6 +987,7 @@ class WoocommerceGpfAdmin {
 	 * @return string
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	private function render_availability_date( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		$variables          = $this->default_field_variables( $key, $loop_idx );
@@ -1345,6 +1352,7 @@ class WoocommerceGpfAdmin {
 	 * @return string
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	private function render_product_type( $key, $context, $current_data = null, $placeholder = '', $loop_idx = null ) {
 		$this->refresh_google_taxonomy();
@@ -1375,6 +1383,7 @@ class WoocommerceGpfAdmin {
 	 * @return string
 	 *
 	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	private function render_b_category( $key, $context, $current_data = null, $placeholder = null, $loop_idx = null ) {
 		$variables                 = $this->default_field_variables( $key, $loop_idx );

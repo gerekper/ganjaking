@@ -75,7 +75,11 @@ class WC_Advanced_Notifications {
 		// Check line items
 		foreach ( $order->get_items() as $item ) {
 
-			$_product = $order->get_product_from_item( $item );
+			if ( is_callable( array( $item, 'get_product' ) ) ) {
+				$_product = $item->get_product();
+			} else {
+				$_product = $order->get_product_from_item( $item );
+			}
 
 			if ( ! is_object( $_product ) ) {
 				continue;

@@ -12,7 +12,7 @@
  *
  * @see     https://docs.woocommerce.com/document/bookings-templates/
  * @author  Automattic
- * @version 1.10.0
+ * @version 1.15.42
  * @since   1.0.0
  */
 
@@ -35,7 +35,7 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
 <p>
 <?php
 /* translators: 1: booking start date */
-echo esc_html( sprintf( __( 'This is a reminder that your booking will take place on %1$s.', 'woocommerce-bookings' ), $booking->get_start_date() ) );
+echo esc_html( sprintf( __( 'This is a reminder that your booking will take place on %1$s.', 'woocommerce-bookings' ), $booking->get_start_date( null, null, wc_should_convert_timezone( $booking ) ) ) );
 ?>
 </p>
 

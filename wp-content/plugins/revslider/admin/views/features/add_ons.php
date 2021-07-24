@@ -39,7 +39,7 @@ if(!defined('ABSPATH')) exit();
 								--><a
 									id="slider-1028-slide-2089-layer-1" 
 									class="rs-layer"
-									href="https://www.sliderrevolution.com/expand-possibilities-with-addons/" target="_blank" rel="nofollow noopener"
+									href="https://www.sliderrevolution.com/expand-possibilities-with-addons/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=addons" target="_blank" rel="nofollow noopener"
 									data-type="shape"
 									data-rsp_ch="on"
 									data-xy="x:c;"

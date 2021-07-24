@@ -65,10 +65,16 @@ class WC_Box_Office_Ticket_Barcode {
 		$barcode_text = get_post_meta( $ticket_id, '_barcode_text', true );
 		$barcode      = '<div class="woocommerce-order-barcodes-container" style="text-align:center;">';
 
-		if ( $barcode_text ) {
-			$barcode .= WC_Order_Barcodes()->display_barcode( $ticket_id );
-		} else {
+		// Ensure barcode exists
+		if ( empty( $barcode_text ) ) {
 			$this->generate_ticket_barcode( $ticket_id );
+		}
+
+		// Passing true as second variable creates the barcode an an image, this fixes issue #300
+		// Second variable does not exist before Order Barcode v1.3.21
+		if ( defined( 'WC_ORDER_BARCODES_VERSION' ) && version_compare( WC_ORDER_BARCODES_VERSION, '1.3.21', '>=' ) ) {
+			$barcode .= WC_Order_Barcodes()->display_barcode( $ticket_id, true );
+		} else {
 			$barcode .= WC_Order_Barcodes()->display_barcode( $ticket_id );
 		}
 

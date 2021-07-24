@@ -682,7 +682,10 @@ class Yoast_WooCommerce_SEO {
 		$request_helper = new Request_Helper();
 
 		if ( ! $request_helper->is_rest_request() ) {
-			// This is a frontend request.
+			if ( \is_null( $context ) ) {
+				$context = YoastSEO()->meta->for_current_page()->context;
+			}
+
 			if ( is_a( $context, Meta_Tags_Context::class ) ) {
 				if ( $context->indexable->object_sub_type === 'product' ) {
 					$the_post = \get_post( $context->indexable->object_id );
@@ -812,6 +815,11 @@ class Yoast_WooCommerce_SEO {
 	protected function get_product_short_description( $product = null ) {
 		if ( is_null( $product ) ) {
 			$product = $this->get_product();
+		}
+
+		// Safety check for PHPv8.0. Issue: https://yoast.atlassian.net/browse/P2-1149.
+		if ( is_null( $product ) ) {
+			return '';
 		}
 
 		if ( method_exists( $product, 'get_short_description' ) ) {

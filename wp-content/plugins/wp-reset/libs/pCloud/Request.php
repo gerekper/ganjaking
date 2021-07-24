@@ -62,7 +62,7 @@ class Request {
 		return $curl->exec();
 	}
 
-	public function put($method, $params = array(), $content) {
+	public function put($method, $params = array(), $content = '') {
 		$globalParams = $this->getGlobalParams();
 
 		$url = $this->buildUrl($method, array_merge($globalParams, $params));

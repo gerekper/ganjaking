@@ -14,7 +14,7 @@ echo "\n\n";
 
 echo "============================================================\n";
 
-printf( '%s', date_i18n( __( 'jS F Y', 'woocommerce-advanced-notifications' ), strtotime( version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->order_date : $order->get_date_created() ) ) );
+printf( '%s', version_compare( WC_VERSION, '3.0.0', '<' ) ? date_i18n( __( 'jS F Y', 'woocommerce-advanced-notifications' ), strtotime( $order->order_date ) ) : wc_format_datetime( $order->get_date_created() ) );
 
 echo "\n";
 
@@ -24,7 +24,11 @@ $displayed_total = 0;
 
 foreach ( $order->get_items() as $item_id => $item ) {
 
-	$_product = $order->get_product_from_item( $item );
+	if ( is_callable( array( $item, 'get_product' ) ) ) {
+		$_product = $item->get_product();
+	} else {
+		$_product = $order->get_product_from_item( $item );
+	}
 
 	$display = false;
 

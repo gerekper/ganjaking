@@ -15,7 +15,7 @@ class RsBubblemorphBase extends RsAddOnBubblemorphBase {
 					 $_PluginUrl     = RS_BUBBLEMORPH_PLUGIN_URL,
 					 $_PluginTitle   = 'bubblemorph',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '3.0.2';
+				     $_Version       = '3.0.4';
 	
 	public function __construct() {
 		

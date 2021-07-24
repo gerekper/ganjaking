@@ -39,7 +39,7 @@ class App {
 			"code" => $appInfo->code
 		];
 
-		$url = "https://eapi.pcloud.com/oauth2_token?".http_build_query($params);
+		$url = "https://api.pcloud.com/oauth2_token?".http_build_query($params);
 
 		$curl = curl_init($url);
 

@@ -1198,6 +1198,7 @@
 //ready
 /* Interactive Banner 2 */
 jQuery( document ).ready( function () {
+	jQuery(".ult-new-ib").css("opacity","1");
 	interactive_banner2();
 	jQuery( window ).on( 'load', function () {
 		interactive_banner2();

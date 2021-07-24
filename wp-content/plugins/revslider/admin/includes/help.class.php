@@ -8733,7 +8733,7 @@ class RevSliderHelp {
 									$t => __("Clip Path Type", 'revsliderhelp'),
 									$h => "timeline.clipPath.type",
 									$k => array("clip path", "clippath", "mask", "masking", "clip path type"),
-									$d => __("Choose 'Rectangle' or 'Circle' for traditional wipes from the sides, center or corners, and 'Inverts' for curtain-type reveals", 'revsliderhelp'),
+									$d => __("Choose 'Rectangle' or 'Circle' for traditional wipes from the sides, center or corners, and 'Custom Mask' for curtain-type reveals", 'revsliderhelp'),
 									$a => $u . "layer-animations/#advanced-settings",
 									$hl => array(
 										$dp => array(

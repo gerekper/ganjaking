@@ -87,7 +87,8 @@ if(!defined('ABSPATH')) exit();
 
 										--><a
 											href="https://www.sliderrevolution.com/premium-slider-revolution/"
-											target="_blank"
+											target="_blank" 
+											rel="noopener"
 											class="tp-shape tp-shapewrapper rs-layer"
 											data-type="shape"
 											data-rsp_ch="on"

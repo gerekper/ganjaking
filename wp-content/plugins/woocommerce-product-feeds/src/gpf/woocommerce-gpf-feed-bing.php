@@ -22,7 +22,6 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 		WoocommerceGpfDebugService $debug
 	) {
 		parent::__construct( $woocommerce_gpf_common, $debug );
-		$this->store_info->feed_url = add_query_arg( 'woocommerce_gpf', 'bing', $this->store_info->feed_url_base );
 		// Bing doesn't like foreign chars
 		$this->old_locale = get_locale();
 	}

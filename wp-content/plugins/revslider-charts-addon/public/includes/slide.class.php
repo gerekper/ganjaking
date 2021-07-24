@@ -142,6 +142,9 @@ class RsChartsSlideFront extends RevSliderFunctions {
 		//INDEX NEED TO BE SHIFTED
 		$isx = $isx - $removed;
 
+		//dont do anything if $datas is empty, as we do not need to write any of the other values
+		if(empty($datas)) return false;
+
 		//LABELS
 		$o = '';
 
@@ -344,10 +347,7 @@ class RsChartsSlideFront extends RevSliderFunctions {
 		$fontloader->set_clean_font_import($this->get_val($labels, 'font'), '', '', $values_fontweights);
 		$fontloader->set_clean_font_import($this->get_val($values, 'font'), '', '', $labels_fontweights);
 		
-						
 		echo RS_T8 . $o . " data-charts-data='" .json_encode($datas)."'\n";
-			
-				
 	
 	}
 	

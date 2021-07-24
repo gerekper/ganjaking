@@ -18,7 +18,7 @@ if (method_exists('RevSliderGlobals','instance')) {
 
 
 $registered_p_c = ($rs_f->get_addition('selling') === true) ? __('registered license key', 'revslider') : __('registered purchase code', 'revslider');
-$registered_p_c_url = ($rs_f->get_addition('selling') === true) ? 'https://account.sliderrevolution.com/portal/pricing/' : 'https://themepunch.com/faq/where-to-find-purchase-code/';
+$registered_p_c_url = ($rs_f->get_addition('selling') === true) ? 'https://account.sliderrevolution.com/portal/pricing/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=buykey' : 'https://themepunch.com/faq/where-to-find-purchase-code/';
 ?>
 
 <!--OPTIMIZER DETAILS-->
@@ -147,11 +147,11 @@ $registered_p_c_url = ($rs_f->get_addition('selling') === true) ? 'https://accou
 					<div class="rbm_content_right">
 						<div class="crm_content_wrap" id="crm_templates">
 							<div class="crm_title"><?php _e('Terms of using Layer Group Objects from the Library');?></div>
-							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Templates from the Slider Revolution Library <b>must only</b> be used with a');?><br><a target="_blank" href="<?php echo $registered_p_c_url; ?>"><?php echo $registered_p_c;?></a> <?php _e('on that particular website.');?></div></div>							
+							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Templates from the Slider Revolution Library <b>must only</b> be used with a');?><br><a target="_blank" rel="noopener" href="<?php echo $registered_p_c_url; ?>"><?php echo $registered_p_c;?></a> <?php _e('on that particular website.');?></div></div>							
 							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Media assets used in the respective templates, are licensed according to the here mentioned license terms (see list on the left).');?></div></div>
-							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Slider Revolution Add-Ons <b>must only</b> be used with a');?> <a target="_blank" href="<?php echo $registered_p_c_url; ?>"><?php echo $registered_p_c;?></a> <?php _e('on that particular website.');?></div></div>
+							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Slider Revolution Add-Ons <b>must only</b> be used with a');?> <a target="_blank" rel="noopener" href="<?php echo $registered_p_c_url; ?>"><?php echo $registered_p_c;?></a> <?php _e('on that particular website.');?></div></div>
 							<div class="div30"></div>
-							<a target="_blank" href="https://getsliderrevolution.com" class="crm_basic_button basic_action_button autosize basic_action_coloredbutton" style="padding:0px 30px"><?php _e('Buy another License');?> <span style="line-height:28px" class="crm_infostar">*</span></a>
+							<a target="_blank" rel="noopener" href="https://getsliderrevolution.com" class="crm_basic_button basic_action_button autosize basic_action_coloredbutton" style="padding:0px 30px"><?php _e('Buy another License');?> <span style="line-height:28px" class="crm_infostar">*</span></a>
 							<div class="crm_info_text"><span class="crm_infostar">*</span><?php _e('One License Key / Purchase Code is required for each Website');?></div>
 						</div>
 						<div class="crm_content_wrap" id="crm_images">
@@ -160,15 +160,15 @@ $registered_p_c_url = ($rs_f->get_addition('selling') === true) ? 'https://accou
 							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('You can modify, copy and distribute the photos. All without asking for permission or setting a link to the source. So, attribution is not required.');?></div></div>
 							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('The only restriction is that identifiable people may not appear in a bad light or in a way that they may find offensive, unless they give their consent.');?></div></div>
 							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('The CC0 license was released by the non-profit organization Creative Commons (CC). Get more information about Creative Commons images and the license on the official license page.');?></div></div>
-							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Images from');?> <a target="_blank" href="https://www.pexels.com/"><?php _e('Pexels');?></a> <?php _e('under the license');?> <a target="_blank" href="https://creativecommons.org/share-your-work/public-domain/cc0/"><?php _e('CC0 Creative Commons');?></a></div></div>							
+							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Images from');?> <a target="_blank" rel="noopener" href="https://www.pexels.com/"><?php _e('Pexels');?></a> <?php _e('under the license');?> <a target="_blank" rel="noopener" href="https://creativecommons.org/share-your-work/public-domain/cc0/"><?php _e('CC0 Creative Commons');?></a></div></div>							
 						</div>
 						<div class="crm_content_wrap" id="crm_objects">
 							<div class="crm_title"><?php _e('Terms of using PNG Objects from the Library');?></div>
-							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('PNG Objects from the Slider Revolution Library <b>must only</b> be used with a');?><br><a target="_blank" href="<?php echo $registered_p_c_url; ?>"><?php echo $registered_p_c;?></a> <?php _e('on that particular website.');?></div></div>							
-							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Licenses via extended license and cooperation with author ');?> <a target="_blank" href="https://creativemarket.com/ceacle"><?php _e('Ceacle');?></a></div></div>
-							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('If you need .psd files for objects, you can purchase it from the original author');?> <a target="_blank" href="https://creativemarket.com/ceacle"><?php _e('here');?></a></div></div>
+							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('PNG Objects from the Slider Revolution Library <b>must only</b> be used with a');?><br><a target="_blank" rel="noopener" href="<?php echo $registered_p_c_url; ?>"><?php echo $registered_p_c;?></a> <?php _e('on that particular website.');?></div></div>							
+							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Licenses via extended license and cooperation with author ');?> <a target="_blank" rel="noopener" href="https://creativemarket.com/ceacle"><?php _e('Ceacle');?></a></div></div>
+							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('If you need .psd files for objects, you can purchase it from the original author');?> <a target="_blank" rel="noopener" href="https://creativemarket.com/ceacle"><?php _e('here');?></a></div></div>
 							<div class="div30"></div>
-							<a target="_blank" href="https://getsliderrevolution.com" class="crm_basic_button basic_action_button autosize basic_action_coloredbutton" style="padding:0px 30px"><?php _e('Buy another License');?> <span style="line-height:28px" class="crm_infostar">*</span></a>
+							<a target="_blank" rel="noopener" href="https://getsliderrevolution.com" class="crm_basic_button basic_action_button autosize basic_action_coloredbutton" style="padding:0px 30px"><?php _e('Buy another License');?> <span style="line-height:28px" class="crm_infostar">*</span></a>
 							<div class="crm_info_text"><span class="crm_infostar">*</span><?php _e('One License Key / Purchase Code is required for each Website');?></div>
 						</div>
 						<div class="crm_content_wrap " id="crm_videos">
@@ -177,13 +177,13 @@ $registered_p_c_url = ($rs_f->get_addition('selling') === true) ? 'https://accou
 							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('You can modify, copy and distribute the videos. All without asking for permission or setting a link to the source. So, attribution is not required.');?></div></div>
 							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('The only restriction is that identifiable people may not appear in a bad light or in a way that they may find offensive, unless they give their consent.');?></div></div>
 							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('The CC0 license was released by the non-profit organization Creative Commons (CC). Get more information about Creative Commons images and the license on the official license page.');?></div></div>
-							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Videos from');?> <a target="_blank" href="https://www.pexels.com/"><?php _e('Pexels');?></a> <?php _e('under the license');?> <a target="_blank" href="https://creativecommons.org/share-your-work/public-domain/cc0/"><?php _e('CC0 Creative Commons');?></a></div></div>
+							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Videos from');?> <a target="_blank" rel="noopener" href="https://www.pexels.com/"><?php _e('Pexels');?></a> <?php _e('under the license');?> <a target="_blank" rel="noopener" href="https://creativecommons.org/share-your-work/public-domain/cc0/"><?php _e('CC0 Creative Commons');?></a></div></div>
 						</div>
 						<div class="crm_content_wrap " id="crm_svg">
 							<div class="crm_title"><?php _e('Terms of using SVG Objects from the Library');?></div>
 							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Usage only allowed within Slider Revolution Plugin');?></div></div>
-							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('A variety of sizes and densities can be also downloaded from the ');?> <a target="_blank" href="https://github.com/google/material-design-icons"><?php _e('git repository');?></a> <?php _e(', making it even easier for developers to customize, share, and re-use outside of Slider Revolution.');?></div></div>							
-							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Licenses via Apache License. Read More at');?> <a target="_blank" href="https://github.com/google/material-design-icons/blob/master/LICENSE"><?php _e('Google Material Design Icons');?></a></div></div>
+							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('A variety of sizes and densities can be also downloaded from the ');?> <a target="_blank" rel="noopener" href="https://github.com/google/material-design-icons"><?php _e('git repository');?></a> <?php _e(', making it even easier for developers to customize, share, and re-use outside of Slider Revolution.');?></div></div>							
+							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Licenses via Apache License. Read More at');?> <a target="_blank" rel="noopener" href="https://github.com/google/material-design-icons/blob/master/LICENSE"><?php _e('Google Material Design Icons');?></a></div></div>
 						</div>
 						<div class="crm_content_wrap" id="crm_icon">
 							<div class="crm_title"><?php _e('Terms of using ICON Objects from the Library');?></div>
@@ -191,15 +191,15 @@ $registered_p_c_url = ($rs_f->get_addition('selling') === true) ? 'https://accou
 							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Please respect all other icon fonts licenses for fonts not included directly into Slider Revolution.');?></div></div>
 							<div class="div25"></div>
 							<div class="crm_title"><?php _e('Further License Information');?></div>
-							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('<b>Font Awesome 4.6.3</b> by @davegandy - http://fontawesome.io - @fontawesome <br>License -');?> <a target="_blank" href="http://fontawesome.io/license"><?php _e('http://fontawesome.io/license');?></a><?php _e('(Font: SIL OFL 1.1, CSS: MIT License)');?></div></div>
-							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('<b>Stroke 7 Icon Font Set</b> by www.pixeden.com <br>Get your Freebie Iconset at');?> <a target="_blank" href="http://www.pixeden.com/icon-fonts/stroke-7-icon-font-set"><?php _e('http://www.pixeden.com/icon-fonts/stroke-7-icon-font-set');?></a></div></div>
+							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('<b>Font Awesome 4.6.3</b> by @davegandy - http://fontawesome.io - @fontawesome <br>License -');?> <a target="_blank" rel="noopener" href="http://fontawesome.io/license"><?php _e('http://fontawesome.io/license');?></a><?php _e('(Font: SIL OFL 1.1, CSS: MIT License)');?></div></div>
+							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('<b>Stroke 7 Icon Font Set</b> by www.pixeden.com <br>Get your Freebie Iconset at');?> <a target="_blank" rel="noopener" href="http://www.pixeden.com/icon-fonts/stroke-7-icon-font-set"><?php _e('http://www.pixeden.com/icon-fonts/stroke-7-icon-font-set');?></a></div></div>
 						</div>
 						<div class="crm_content_wrap selected" id="crm_layers">
 							<div class="crm_title"><?php _e('Terms of using Layer Group Objects from the Library');?></div>
-							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Layer Group Objects from the Slider Revolution Library <b>must only</b> be used with a');?><br><a target="_blank" href="<?php echo $registered_p_c_url; ?>"><?php echo $registered_p_c;?></a> <?php _e('on that particular website.');?></div></div>							
+							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Layer Group Objects from the Slider Revolution Library <b>must only</b> be used with a');?><br><a target="_blank" rel="noopener" href="<?php echo $registered_p_c_url; ?>"><?php echo $registered_p_c;?></a> <?php _e('on that particular website.');?></div></div>							
 							<div class="crm_content"><div class="crm_arrow material-icons">arrow_forward</div><div class="crm_text"><?php _e('Media assets used in the respective Layer Group Objects, are licensed according to the here mentioned license terms (see list on the left).');?></div></div>							
 							<div class="div30"></div>
-							<a target="_blank" href="https://getsliderrevolution.com" class="crm_basic_button basic_action_button autosize basic_action_coloredbutton" style="padding:0px 30px"><?php _e('Buy another License');?> <span style="line-height:28px" class="crm_infostar">*</span></a>
+							<a target="_blank" rel="noopener" href="https://getsliderrevolution.com" class="crm_basic_button basic_action_button autosize basic_action_coloredbutton" style="padding:0px 30px"><?php _e('Buy another License');?> <span style="line-height:28px" class="crm_infostar">*</span></a>
 							<div class="crm_info_text"><span class="crm_infostar">*</span><?php _e('One License Key / Purchase Code is required for each Website');?></div>
 						</div>
 					</div>

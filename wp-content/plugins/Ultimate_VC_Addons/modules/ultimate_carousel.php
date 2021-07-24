@@ -55,7 +55,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Carousel' ) ) {
 		public function ultimate_front_scripts() {
 
 			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-slick', 'slick', false, array( 'jquery' ), ULTIMATE_VERSION, false );
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-slick-custom', 'slick-custom', false, array( 'jquery', 'ult-slick' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-slick-custom', 'slick-custom', false, array( 'jquery', 'ultimate-vc-addons-slick' ), ULTIMATE_VERSION, false );
 
 			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-slick', 'slick' );
 			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-icons', UAVC_URL . 'assets/css/icons.css', true );
@@ -893,26 +893,26 @@ if ( ! function_exists( 'ultimate_override_shortcodes' ) ) {
 	 * @access public
 	 */
 	function ultimate_override_shortcodes( $ult_uc_settings ) {
-		global $uavc_shortcode_tags, $_uavc_shortcode_tags;
+		global $shortcode_tags, $_shortcode_tags;
 		// Let's make a back-up of the shortcodes.
-		$_uavc_shortcode_tags = $uavc_shortcode_tags;
+		$_shortcode_tags = $shortcode_tags;
 		// Add any shortcode tags that we shouldn't touch here.
 		$disabled_tags = array( '' );
-		if ( is_array( $uavc_shortcode_tags ) || is_object( $uavc_shortcode_tags ) ) {
-			foreach ( $uavc_shortcode_tags as $tag => $cb ) {
+		if ( is_array( $shortcode_tags ) || is_object( $shortcode_tags ) ) {
+			foreach ( $shortcode_tags as $tag => $cb ) {
 				if ( in_array( $tag, $disabled_tags, true ) ) {
 					continue;
 				}
 				// Overwrite the callback function.
-				$uavc_shortcode_tags[ $tag ]            = 'ultimate_wrap_shortcode_in_div'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-				$_uavc_shortcode_tags['ult_item_space'] = $ult_uc_settings['item_space'];
-				$_uavc_shortcode_tags['item_animation'] = $ult_uc_settings['item_animation'];
+				$shortcode_tags[ $tag ]            = 'ultimate_wrap_shortcode_in_div'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+				$_shortcode_tags['ult_item_space'] = $ult_uc_settings['item_space'];
+				$_shortcode_tags['item_animation'] = $ult_uc_settings['item_animation'];
 			}
 		}
 	}
 }
 // Wrap the output of a shortcode in a div with class "ult-item-wrap".
-// The original callback is called from the $_uavc_shortcode_tags array.
+// The original callback is called from the $_shortcode_tags array.
 if ( ! function_exists( 'ultimate_wrap_shortcode_in_div' ) ) {
 	/**
 	 * Wrap the output of a shortcode in a div with class "ult-item-wrap".
@@ -924,9 +924,9 @@ if ( ! function_exists( 'ultimate_wrap_shortcode_in_div' ) ) {
 	 * @access public
 	 */
 	function ultimate_wrap_shortcode_in_div( $attr, $content, $tag ) {
-		global $_uavc_shortcode_tags;
+		global $_shortcode_tags;
 
-		return '<div class="ult-item-wrap" data-animation="animated ' . esc_attr( $_uavc_shortcode_tags['item_animation'] ) . '">' . call_user_func( $_uavc_shortcode_tags[ $tag ], $attr, $content, $tag ) . '</div>';
+		return '<div class="ult-item-wrap" data-animation="animated ' . esc_attr( $_shortcode_tags['item_animation'] ) . '">' . call_user_func( $_shortcode_tags[ $tag ], $attr, $content, $tag ) . '</div>';
 	}
 }
 if ( ! function_exists( 'ultimate_restore_shortcodes' ) ) {
@@ -938,10 +938,10 @@ if ( ! function_exists( 'ultimate_restore_shortcodes' ) ) {
 	 * @access public
 	 */
 	function ultimate_restore_shortcodes() {
-		global $uavc_shortcode_tags, $_uavc_shortcode_tags;
+		global $shortcode_tags, $_shortcode_tags;
 		// Restore the original callbacks.
-		if ( isset( $_uavc_shortcode_tags ) ) {
-			$uavc_shortcode_tags = $_uavc_shortcode_tags; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		if ( isset( $_shortcode_tags ) ) {
+			$shortcode_tags = $_shortcode_tags; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		}
 	}
 }

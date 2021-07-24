@@ -301,12 +301,15 @@ class WoocommerceGpfFeedItem {
 	public function __construct(
 		WC_Product $specific_product,
 		WC_Product $general_product,
-		$feed_format = 'all',
+		$feed_format,
 		WoocommerceGpfCommon $woocommerce_gpf_common,
 		WoocommerceGpfDebugService $debug,
 		WoocommerceProductFeedsTermDepthRepository $term_depth_repository,
 		$calculate_prices = true
 	) {
+		if ( empty( $feed_format ) ) {
+			$feed_format = 'all';
+		}
 		$this->specific_product        = $specific_product;
 		$this->general_product         = $general_product;
 		$this->feed_format             = $feed_format;
@@ -350,7 +353,8 @@ class WoocommerceGpfFeedItem {
 	public static function should_exclude( $wc_product, $feed_format ) {
 		$excluded = false;
 		// Check to see if the product is set as Hidden within WooCommerce.
-		if ( 'hidden' === $wc_product->get_catalog_visibility() ) {
+		$excluded_catalog_visibilities = apply_filters( 'woocommerce_gpf_excluded_catalog_visibilities', [ 'hidden' ] );
+		if ( in_array( $wc_product->get_catalog_visibility(), $excluded_catalog_visibilities, true ) ) {
 			$excluded = true;
 		}
 		// Check to see if the product has been excluded in the feed config.
@@ -1291,6 +1295,7 @@ class WoocommerceGpfFeedItem {
 		foreach ( $terms as $idx => $term ) {
 			$terms[ $idx ] = $this->term_depth_repository->get_hierarchy_string( $term );
 		}
+
 		return $terms;
 	}
 

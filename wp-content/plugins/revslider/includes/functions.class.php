@@ -10,6 +10,7 @@ if(!defined('ABSPATH')) exit();
 class RevSliderFunctions extends RevSliderData {
 
 	public function __construct(){
+		parent::__construct();
 	}
 
 	/**
@@ -151,26 +152,27 @@ class RevSliderFunctions extends RevSliderData {
 	 * get POST variable
 	 * before: RevSliderBase::getPostVar();
 	 */
-	public function get_post_var($key, $default = ''){
+	public function get_post_var($key, $default = '', $esc = true){
 		$val = $this->get_var($_POST, $key, $default);
-		
-		return $val;
+		return ($esc) ? esc_html($val) : $val;
 	}
 	
 	/**
 	 * get GET variable
 	 * before: RevSliderBase::getGetVar();
 	 */
-	public function get_get_var($key, $default = ''){
-		return $this->get_var($_GET, $key, $default);
+	public function get_get_var($key, $default = '', $esc = true){
+		$val = $this->get_var($_GET, $key, $default);
+		return ($esc) ? esc_html($val) : $val;
 	}
 	
 	/**
 	 * get POST or GET variable in this order
 	 * before: RevSliderBase::getPostGetVar();
 	 */
-	public function get_request_var($key, $default = ''){
-		return (array_key_exists($key, $_POST)) ? $this->get_var($_POST, $key, $default) : $this->get_var($_GET, $key, $default);
+	public function get_request_var($key, $default = '', $esc = true){
+		$val = (array_key_exists($key, $_POST)) ? $this->get_var($_POST, $key, $default) : $this->get_var($_GET, $key, $default);
+		return ($esc) ? esc_html($val) : $val;
 	}
 	
 	/**

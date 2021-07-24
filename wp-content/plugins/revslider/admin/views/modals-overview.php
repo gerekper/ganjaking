@@ -26,19 +26,19 @@ if(!defined('ABSPATH')) exit();
 								<div class="mcg_o_title"><?php _e('What\'s new?');?></div>
 								<div class="mcg_o_descp"><?php printf(__( 'Check out our Change Log to learn about new Features and Bug Fixes in Version %s.', 'revslider'), RS_REVISION); ?></div>
 								<div class="div25"></div>
-								<a  target="_blank" href="https://www.sliderrevolution.com/documentation/changelog/" class="basic_action_button autosize basic_action_lilabutton"><?php _e('More Info');?></a>
+								<a  target="_blank" rel="noopener" href="https://www.sliderrevolution.com/documentation/changelog/" class="basic_action_button autosize basic_action_lilabutton"><?php _e('More Info');?></a>
 							</div>
 							<div class="st_scene mcg_guide_optionwrap mcg_option_third">																
 								<div class="mcg_o_title"><?php _e('Docs & FAQs');?></div>
 								<div class="mcg_o_descp"><?php printf(__( 'Checkout our all new Help Center<br>with updated %s Support Material.', 'revslider'), RS_REVISION); ?></div>
 								<div class="div25"></div>
-								<a  target="_blank" href="https://www.sliderrevolution.com/help-center/" class="basic_action_button autosize basic_action_lilabutton"><?php _e('Help Center');?></a>
+								<a  target="_blank" rel="noopener" href="https://www.sliderrevolution.com/help-center/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=faq" class="basic_action_button autosize basic_action_lilabutton"><?php _e('Help Center');?></a>
 							</div>
 							<div class="st_carousel mcg_guide_optionwrap mcg_option_third last">																
 								<div class="mcg_o_title"><?php _e('Clear your Browser Cache');?></div>
 								<div class="mcg_o_descp"><?php _e('To make sure that all Slider Revolution files<br>are updated, please clear your cache.');?></div>
 								<div class="div25"></div>
-								<a  target="_blank" href="https://www.sliderrevolution.com/faq/updating-make-sure-clear-caches/" class="basic_action_button autosize basic_action_lilabutton"><?php _e('How to?');?></a>
+								<a  target="_blank" rel="noopener" href="https://www.sliderrevolution.com/faq/updating-make-sure-clear-caches/" class="basic_action_button autosize basic_action_lilabutton"><?php _e('How to?');?></a>
 							</div>
 						</div>
 						<div class="div75"></div>
@@ -101,7 +101,7 @@ if(!defined('ABSPATH')) exit();
 									</select><span class="linebreak"></span>
 						<label_a><?php _e('Include libraries globally', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.allinclude"><span class="linebreak"></span>
 						<label_a><?php _e('List of pages to include RevSlider libraries ', 'revslider');?></label_a><input type="text" data-r="globals.includeids" class="easyinit globalinput" placeholder="<?php _e('(ie. Example 2,homepage,5)', 'revslider');?>"><span class="linebreak"></span>
-						<label_a><?php _e('Cross-origin image defaults', 'revslider');?><a href="https://www.themepunch.com/faq/cors/" style="margin-left:10px;" target="_blank"><i style="font-size:15px" class="material-icons">help</i></a></label_a><select id="crossorigin" name="crossorigin" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.imgcrossOrigin">
+						<label_a><?php _e('Cross-origin image defaults', 'revslider');?><a href="https://www.themepunch.com/faq/cors/" style="margin-left:10px;" target="_blank" rel="noopener"><i style="font-size:15px" class="material-icons">help</i></a></label_a><select id="crossorigin" name="crossorigin" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.imgcrossOrigin">
 										<option selected="selected" value="unset"><?php _e('Unset','revslider');?></option>
 										<option value="anonymous"><?php _e('Anonymous', 'revslider');?></option>
 										<option value="use-credentials"><?php _e('Use Credentials', 'revslider');?></option>

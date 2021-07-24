@@ -744,7 +744,7 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 						<div class="div10"></div>
 						<row class="direktrow">
 							<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
-							<contenthalf><div class="function_info"><?php _e('Read <a target="_blank" href="http://weblizar.com/get-flickr-api-key/">here</a> how to receive your Flickr API key', 'revslider');?></div></contenthalf>
+							<contenthalf><div class="function_info"><?php _e('Read <a target="_blank" rel="noopener" href="http://weblizar.com/get-flickr-api-key/">here</a> how to receive your Flickr API key', 'revslider');?></div></contenthalf>
 						</row>
 
 					</div> <!-- END OF COLLAPSE -->
@@ -781,7 +781,7 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 							<row>
 								<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
 																																	  
-								<contenthalf><div class="function_info"><?php _e('Please check this FAQ on how to <a target="_blank" href="https://www.sliderrevolution.com/faq/instagram-stream-setup-instructions-with-access-token/">generate</a> your Instagram Access Token in Facebook manually.', 'revslider');?></div></contenthalf>
+								<contenthalf><div class="function_info"><?php _e('Please check this FAQ on how to <a target="_blank" rel="noopener" href="https://www.sliderrevolution.com/faq/instagram-stream-setup-instructions-with-access-token/">generate</a> your Instagram Access Token in Facebook manually.', 'revslider');?></div></contenthalf>
 							</row>
 						</div>
 					</div><!-- END OF COLLAPSABLE -->
@@ -809,7 +809,7 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 						<div class="div10"></div>
 						<row class="direktrow">
 							<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
-							<contenthalf><div class="function_info"><?php _e('Please <a target="_blank" href="https://dev.twitter.com/apps">register</a> your application with Twitter<br>to get the right values', 'revslider');?></div></contenthalf>
+							<contenthalf><div class="function_info"><?php _e('Please <a target="_blank" rel="noopener" href="https://dev.twitter.com/apps">register</a> your application with Twitter<br>to get the right values', 'revslider');?></div></contenthalf>
 						</row>
 					</div><!-- END OF COLLAPSABLE -->
 				</div><!-- END OF TWITTER SETTINGS -->
@@ -851,7 +851,7 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 							<div class="div10"></div>
 							<row>
 								<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
-								<contenthalf><div class="function_info"><?php _e('Check the FAQ on <a target="_blank" href="https://www.sliderrevolution.com/faq/facebook-stream-setup-instructions-access-token/">how to generate</a> Access Token and get Page ID.', 'revslider');?></div></contenthalf>
+								<contenthalf><div class="function_info"><?php _e('Check the FAQ on <a target="_blank" rel="noopener" href="https://www.sliderrevolution.com/faq/facebook-stream-setup-instructions-access-token/">how to generate</a> Access Token and get Page ID.', 'revslider');?></div></contenthalf>
 							</row>
 						</div>
 
@@ -872,7 +872,7 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 						<div class="div10"></div>
 						<row >
 							<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
-							<contenthalf><div class="function_info"><?php _e('Find information about the YouTube API key <a target="_blank" href="https://developers.google.com/youtube/v3/getting-started#before-you-start">here</a>', 'revslider');?></div></contenthalf>
+							<contenthalf><div class="function_info"><?php _e('Find information about the YouTube API key <a target="_blank" rel="noopener" href="https://developers.google.com/youtube/v3/getting-started#before-you-start">here</a>', 'revslider');?></div></contenthalf>
 						</row>
 						<div class="div10"></div>
 						<label_a><?php _e('Channel ID', 'revslider');?></label_a><input placeholder="<?php _e('Enter YouTube Channel ID', 'revslider');?>" data-r="source.youtube.channelId" type="text" data-evt="youtubesourcechange" name="sr_src_youtube_channelId" class="easyinit sliderinput"><span class="linebreak"></span>
@@ -886,7 +886,7 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 						<div class="div10"></div>
 						<row >
 							<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
-							<contenthalf><div class="function_info"><?php _e('See how to find the Youtube channel ID <a target="_blank" href="https://support.google.com/youtube/answer/3250431?hl=en">here</a>', 'revslider');?></div></contenthalf>
+							<contenthalf><div class="function_info"><?php _e('See how to find the Youtube channel ID <a target="_blank" rel="noopener" href="https://support.google.com/youtube/answer/3250431?hl=en">here</a>', 'revslider');?></div></contenthalf>
 						</row>
 						<div class="div10"></div>
 						<row class="direktrow">

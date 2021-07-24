@@ -54,13 +54,13 @@ class RevSliderFacebook extends RevSliderFunctions {
 	public function do_init()
 	{
 		// are we on revslider page?
-		if (!isset($_GET['page']) || $_GET['page'] != 'revslider') return;
+		if(!isset($_GET['page']) || $_GET['page'] != 'revslider') return;
 
 		//fb returned error
-		if (isset($_GET[self::QUERY_ERROR])) return;
+		if(isset($_GET[self::QUERY_ERROR])) return;
 
 		//we need token and slide ID to proceed with saving token
-		if (!isset($_GET[self::QUERY_TOKEN]) || !isset($_GET['id'])) return;
+		if(!isset($_GET[self::QUERY_TOKEN]) || !isset($_GET['id'])) return;
 
 		$token = $_GET[self::QUERY_TOKEN];
 		$connectwith = isset($_GET[self::QUERY_CONNECTWITH]) ? $_GET[self::QUERY_CONNECTWITH] : '';
@@ -87,37 +87,35 @@ class RevSliderFacebook extends RevSliderFunctions {
 		$slider->set_param(array('source', 'facebook', 'appId'), $token);
 		$slider->set_param(array('source', 'facebook', 'page_id'), $page_id);
 		$slider->set_param(array('source', 'facebook', 'connect_with'), $connectwith);
-		$slider->update_params([]);
+		$slider->update_params(array());
 
 		//redirect
 		$url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-		$url = add_query_arg([self::QUERY_TOKEN => false, self::QUERY_PAGE_ID => false, self::QUERY_CONNECTWITH => false, self::QUERY_SHOW => 1], $url);
+		$url = add_query_arg(array(self::QUERY_TOKEN => false, self::QUERY_PAGE_ID => false, self::QUERY_CONNECTWITH => false, self::QUERY_SHOW => 1), $url);
 		wp_redirect($url);
 		exit();
 	}
 
-	public function footer_js() {
+	public function footer_js(){
 		// are we on revslider page?
-		if (!isset($_GET['page']) || $_GET['page'] != 'revslider') return;
+		if(!isset($_GET['page']) || $_GET['page'] != 'revslider') return;
 
-		if (isset($_GET[self::QUERY_SHOW]) || isset($_GET[self::QUERY_ERROR])) {
+		if(isset($_GET[self::QUERY_SHOW]) || isset($_GET[self::QUERY_ERROR])){
 			echo '<script>jQuery(document).ready(function(){ RVS.DOC.one("builderInitialised", function(){RVS.F.mainMode({mode:"sliderlayout", forms:["*sliderlayout*#form_slidercontent"], set:true, uncollapse:true,slide:RVS.S.slideId});RVS.F.updateSliderObj({path:"settings.sourcetype",val:"facebook"});RVS.F.updateEasyInputs({container:jQuery("#form_slidercontent"), trigger:"init", visualUpdate:true});}); });</script>';
 		}
 
-		if (isset($_GET[self::QUERY_ERROR])) {
-			$err = __('Facebook API error: ', 'revslider') . $_GET[self::QUERY_ERROR];
+		if(isset($_GET[self::QUERY_ERROR])){
+			$err = __('Facebook API error: ', 'revslider') . esc_html($_GET[self::QUERY_ERROR]);
 			echo '<script>jQuery(document).ready(function(){ RVS.DOC.one("builderInitialised", function(){ RVS.F.showInfo({content:"' . $err . '", type:"warning", showdelay:1, hidedelay:5, hideon:"", event:"" }); });});</script>';
 		}
 	}
 
-	public static function get_login_url()
-	{
+	public static function get_login_url(){
 		$state = base64_encode(admin_url('admin.php?page=revslider&view=slide&id='.$_GET['id']));
 		return self::URL_FB_AUTH . '?state=' . $state;
 	}
 
-	protected function _make_api_call($args = [])
-	{
+	protected function _make_api_call($args = array()){
 		global $wp_version;
 
 		$response = wp_remote_post(self::URL_FB_API, array(
@@ -126,7 +124,7 @@ class RevSliderFacebook extends RevSliderFunctions {
 			'timeout'	 => 45
 		));
 
-		if(is_wp_error($response)) {
+		if(is_wp_error($response)){
 			return array(
 				'error' => true,
 				'message' => 'Facebook API error: ' . $response->get_error_message(),
@@ -134,7 +132,7 @@ class RevSliderFacebook extends RevSliderFunctions {
 		}
 
 		$responseData = json_decode($response['body'], true);
-		if(empty($responseData)) {
+		if(empty($responseData)){
 			return array(
 				'error' => true,
 				'message' => 'Facebook API error: Empty response body or wrong data format',
@@ -144,8 +142,7 @@ class RevSliderFacebook extends RevSliderFunctions {
 		return $responseData;
 	}
 
-	protected function _get_transient_fb_data($requestData)
-	{
+	protected function _get_transient_fb_data($requestData){
 		$transient_name = 'revslider_' . md5(json_encode($requestData));
 		if($this->transient_sec > 0 && false !== ($data = get_transient($transient_name))){
 			return $data;
@@ -554,7 +551,7 @@ class RevSliderTwitterApi extends RevSliderFunctions {
 if(!function_exists('rev_instagram_autoloader')){
 	function rev_instagram_autoloader($class)
 	{
-		if(strpos($class, 'InstagramBasicDisplay') !== false) {
+		if(strpos($class, 'InstagramBasicDisplay') !== false){
 			$filename = realpath(dirname(__FILE__)) .'/'. str_replace('\\', '/', $class) . '.php';
 			include_once ($filename);
 		}
@@ -620,8 +617,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 		$this->transient_token_sec = 86400 * 30; // 30 days
 	}
 
-	public function add_actions()
-    {
+	public function add_actions(){
         add_action('init', array(&$this, 'do_init'), 5);
         add_action('admin_footer', array(&$this, 'footer_js'));
     }
@@ -630,16 +626,15 @@ class RevSliderInstagram extends RevSliderFunctions {
      * check if we have QUERY_ARG set
      * try to login the user
      */
-    public function do_init()
-    {
+    public function do_init(){
 	    // are we on revslider page?
-	    if (!isset($_GET['page']) || $_GET['page'] != 'revslider') return;
+	    if(!isset($_GET['page']) || $_GET['page'] != 'revslider') return;
 
 	    //instagram returned error
-	    if (isset($_GET[self::QUERY_ERROR])) return;
+	    if(isset($_GET[self::QUERY_ERROR])) return;
 
 	    //we need token and slide ID to proceed with saving token
-	    if (!isset($_GET[self::QUERY_TOKEN]) || !isset($_GET['id'])) return;
+	    if(!isset($_GET[self::QUERY_TOKEN]) || !isset($_GET['id'])) return;
 
         $token = $_GET[self::QUERY_TOKEN];
         $connectwith = $_GET[self::QUERY_CONNECTWITH];
@@ -665,31 +660,30 @@ class RevSliderInstagram extends RevSliderFunctions {
         $slider->set_param(array('source', 'instagram', 'token_source'), 'account');
         $slider->set_param(array('source', 'instagram', 'token'), $token);
         $slider->set_param(array('source', 'instagram', 'connect_with'), $connectwith);
-        $slider->update_params([]);
+        $slider->update_params(array());
 
         //redirect
         $url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-        $url = add_query_arg([self::QUERY_TOKEN => false, self::QUERY_SHOW => 1], $url);
+        $url = add_query_arg(array(self::QUERY_TOKEN => false, self::QUERY_SHOW => 1), $url);
         wp_redirect($url);
         exit();
     }
 
-    public function footer_js() {
+    public function footer_js(){
 	    // are we on revslider page?
-	    if (!isset($_GET['page']) || $_GET['page'] != 'revslider') return;
+	    if(!isset($_GET['page']) || $_GET['page'] != 'revslider') return;
 
-	    if (isset($_GET[self::QUERY_SHOW]) || isset($_GET[self::QUERY_ERROR])) {
+	    if(isset($_GET[self::QUERY_SHOW]) || isset($_GET[self::QUERY_ERROR])){
             echo '<script>jQuery(document).ready(function(){ RVS.DOC.one("builderInitialised", function(){RVS.F.mainMode({mode:"sliderlayout", forms:["*sliderlayout*#form_slidercontent"], set:true, uncollapse:true,slide:RVS.S.slideId});RVS.F.updateSliderObj({path:"settings.sourcetype",val:"instagram"});RVS.F.updateEasyInputs({container:jQuery("#form_slidercontent"), trigger:"init", visualUpdate:true});}); });</script>';
         }
 
-        if (isset($_GET[self::QUERY_ERROR])) {
-            $err = __('Instagram Reports: ', 'revslider') . $_GET[self::QUERY_ERROR];
+        if(isset($_GET[self::QUERY_ERROR])){
+            $err = __('Instagram Reports: ', 'revslider') . esc_html($_GET[self::QUERY_ERROR]);
             echo '<script>jQuery(document).ready(function(){ RVS.DOC.one("builderInitialised", function(){ RVS.F.showInfo({content:"' . $err . '", type:"warning", showdelay:1, hidedelay:5, hideon:"", event:"" }); });});</script>';
         }
     }
 
-	public static function get_login_url()
-    {
+	public static function get_login_url(){
         $app_id = '677807423170942';
         $redirect = 'https://updates.themepunch.tools/ig/auth.php';
         $state = base64_encode(admin_url('admin.php?page=revslider&view=slide&id='.$_GET['id']));
@@ -726,9 +720,8 @@ class RevSliderInstagram extends RevSliderFunctions {
      * @param string $token
      * @return InstagramBasicDisplay
      */
-    public function getInstagram($token)
-    {
-        if ( empty($this->instagram[$token]) ) {
+    public function getInstagram($token){
+        if( empty($this->instagram[$token]) ){
             $this->instagram[$token] = new InstagramBasicDisplay($token);
         }
         return $this->instagram[$token];
@@ -762,7 +755,7 @@ class RevSliderInstagram extends RevSliderFunctions {
         $this->_refresh_token($token);
         $instagram = $this->getInstagram($token);
         $profile = $instagram->getUserProfile();
-        if (isset($profile->id)) {
+        if(isset($profile->id)){
             return (array)$profile;
         }
         return null;
@@ -819,14 +812,14 @@ class RevSliderInstagram extends RevSliderFunctions {
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HEADER, $show_header);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		if ($post) {
+		if($post){
 			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 		}
-		if ($cookies) {
+		if($cookies){
 			curl_setopt($ch, CURLOPT_COOKIE, $cookies);
 		}
-		if ($headers) {
+		if($headers){
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		}
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
@@ -941,7 +934,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 			$url = 'https://www.instagram.com/explore/locations/'.$search_user_id.'/?__a=1';
 
 			$transient_name = 'revslider_'. md5($url."count=".$count);
-			if ($this->transient_sec > 0 && false !== ($data = get_transient( $transient_name))){
+			if($this->transient_sec > 0 && false !== ($data = get_transient( $transient_name))){
 				$this->stream = $data;
 				return $this->stream;
 			}
@@ -988,19 +981,19 @@ class RevSliderInstagram extends RevSliderFunctions {
 	 * @param    int $count resulting number of items
 	 */
 	private function instagram_output_array($photos, $count){
-		$this->stream = [];
+		$this->stream = array();
 
-		foreach ($photos as $photo) {
+		foreach ($photos as $photo){
 			if($count > 0){
 				$count--;
 				$shortcode = '';
 				
                 preg_match('/.+\/p\/(.+)?\//m', $photo->permalink, $matches);
-                if (isset($matches[1])) {
+                if(isset($matches[1])){
                     $shortcode = $matches[1];
                 }
                 $photo->display_url = isset($photo->media_url) ? $photo->media_url : '';
-                if ($photo->media_type == 'VIDEO') {
+                if($photo->media_type == 'VIDEO'){
                     $photo->display_url = isset($photo->thumbnail_url) ? $photo->thumbnail_url : '';
                     $photo->thumbnail_src = $photo->display_url;
                     $photo->videos['standard_resolution']['url'] = isset($photo->media_url) ? $photo->media_url : '';
@@ -1023,7 +1016,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 	 * @param    string    $photos 	Instagram Output Data
 	 */
 	private function instagram_output_array_places($photos,$count,$search_user_id,$orig_image=""){
-		foreach ($photos as $photo) {
+		foreach ($photos as $photo){
 			if($count > 0){
 				$count--;
 				$stream = array();
@@ -1076,7 +1069,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 
 				$stream['post-link'] = 'https://www.instagram.com/p/' . $photo->code;
 				$url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
-				$text = preg_replace($url, '<a href="$0" target="_blank" title="$0">$0</a>', $text);
+				$text = preg_replace($url, '<a href="$0" target="_blank" rel="noopener" title="$0">$0</a>', $text);
 				$stream['title'] = $text;
 				$stream['content'] = $text;
 				$stream['date'] = date_i18n( get_option( 'date_format' ), ( $photo->date ) ) ;
@@ -1100,12 +1093,12 @@ class RevSliderInstagram extends RevSliderFunctions {
 	 * Fallback method to get 12 latest photos
 	 * @param String $search_user_id (name of instagram user)
 	 */
-	private function getFallbackImages($search_user_id) {
+	private function getFallbackImages($search_user_id){
 		//FALLBACK 12 ELEMENTS
 		$page_res = $this->client_request('get', '/' . $search_user_id . '/');
 		$page_data = "";
 
-		switch ($page_res['http_code']) {
+		switch ($page_res['http_code']){
 			default:
 			break;
 			case 404:
@@ -1118,7 +1111,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 				}else{
 					$page_data = json_decode($page_data_matches[1], true);
 
-					if (!$page_data || empty($page_data['entry_data']['ProfilePage'][0]['graphql']['user'])) {
+					if(!$page_data || empty($page_data['entry_data']['ProfilePage'][0]['graphql']['user'])){
 						_e('Instagram reports: Content did not match expected','revslider');
 					}else{
 						$user_data = $page_data['entry_data']['ProfilePage'][0]['graphql']['user'];
@@ -1130,7 +1123,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 				}
 			break;
 		}
-		if (!$page_data) return $page_data;
+		if(!$page_data) return $page_data;
 		$user_data = $page_data['entry_data']['ProfilePage'][0]['graphql']['user'];
 		return $user_data;
 	}
@@ -1142,7 +1135,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 	 * @param unknown $options
 	 * @return number[]|string[]|NULL|number[]|string[]|number[]|unknown[]|string[]|number[]|unknown[]|unknown[][]|string[][]|number[][]|NULL[][]
 	 */
-	private function client_request($type, $url, $options = null) {
+	private function client_request($type, $url, $options = null){
 
 		$this->index('client', array(
 			'base_url' => 'https://www.instagram.com/',
@@ -1168,13 +1161,13 @@ class RevSliderInstagram extends RevSliderFunctions {
 		$path = !empty($url_info['path']) ? $url_info['path'] : '';
 		$query_str = !empty($url_info['query']) ? $url_info['query'] : '';
 
-		if (!empty($options['query'])) {
+		if(!empty($options['query'])){
 			$query_str = http_build_query($options['query']);
 		}
 
 		$headers = !empty($client['headers']) ? $client['headers'] : array();
 
-		if (!empty($options['headers'])) {
+		if(!empty($options['headers'])){
 			$headers = $this->array_merge_assoc($headers, $options['headers']);
 		}
 
@@ -1183,14 +1176,14 @@ class RevSliderInstagram extends RevSliderFunctions {
 		$client_cookies = $this->client_get_cookies_list($host);
 		$cookies = $client_cookies;
 
-		if (!empty($options['cookies'])) {
+		if(!empty($options['cookies'])){
 			$cookies = $this->array_merge_assoc($cookies, $options['cookies']);
 		}
 
-		if ($cookies) {
+		if($cookies){
 			$request_cookies_raw = array();
 
-			foreach ($cookies as $cookie_name => $cookie_value) {
+			foreach ($cookies as $cookie_name => $cookie_value){
 				$request_cookies_raw[] = $cookie_name . '=' . $cookie_value;
 			}
 			unset($cookie_name, $cookie_data);
@@ -1198,7 +1191,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 			$headers['Cookie'] = implode('; ', $request_cookies_raw);
 		}
 
-		if ($type === 'POST' && !empty($options['data'])) {
+		if($type === 'POST' && !empty($options['data'])){
 			$data_str = http_build_query($options['data']);
 			$headers['Content-Type'] = 'application/x-www-form-urlencoded';
 			$headers['Content-Length'] = strlen($data_str);
@@ -1209,7 +1202,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 
 		$headers_raw_list = array();
 
-		foreach ($headers as $header_key => $header_value) {
+		foreach ($headers as $header_key => $header_value){
 			$headers_raw_list[] = $header_key . ': ' . $header_value;
 		}
 		unset($header_key, $header_value);
@@ -1218,7 +1211,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 		$curl_support = function_exists('curl_init');
 		$sockets_support = function_exists('fsockopen');
 
-		if (!$curl_support && !$sockets_support) {
+		if(!$curl_support && !$sockets_support){
 			log_error('Curl and sockets are not supported on this server');
 
 			return array(
@@ -1227,7 +1220,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 			);
 		}
 
-		if ($curl_support) {
+		if($curl_support){
 
 
 			$curl = curl_init();
@@ -1240,7 +1233,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 				CURLOPT_CONNECTTIMEOUT => 15,
 				CURLOPT_TIMEOUT => 60,
 			);
-			if ($type === 'POST') {
+			if($type === 'POST'){
 				$curl_options[CURLOPT_POST] = true;
 				$curl_options[CURLOPT_POSTFIELDS] = $data_str;
 			}
@@ -1254,26 +1247,26 @@ class RevSliderInstagram extends RevSliderFunctions {
 			curl_close($curl);
 
 
-			if ($curl_info['http_code'] === 0) {
+			if($curl_info['http_code'] === 0){
 				log_error('An error occurred while loading data. curl_error: ' . $curl_error);
 
 				$transport_error = array('status' => 0, 'transport_error' => 'curl');
 
-				if (!$sockets_support) {
+				if(!$sockets_support){
 					return $transport_error;
 				}
 
 			}
 		}
 
-		if (!$curl_support || $transport_error) {
+		if(!$curl_support || $transport_error){
 			log_error('Trying to load data using sockets');
 
 			$headers_str = implode("\r\n", $headers_raw_list);
 
 			$out = sprintf("%s %s HTTP/1.1\r\n%s\r\n\r\n%s", $type, $path . (!empty($query_str) ? '?' . $query_str : ''), $headers_str, $data_str);
 
-			if ($scheme === 'https') {
+			if($scheme === 'https'){
 				$scheme = 'ssl';
 				$port = !empty($port) ? $port : 443;
 			}
@@ -1283,7 +1276,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 
 			$sock = @fsockopen($scheme . $host, $port, $err_num, $err_str, 15);
 
-			if (!$sock) {
+			if(!$sock){
 				log_error('An error occurred while loading data error_number: ' . $err_num . ', error_number: ' . $err_str);
 
 				return array(
@@ -1298,7 +1291,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 
 			$response_str = '';
 
-			while ($line = fgets($sock, 128)) {
+			while ($line = fgets($sock, 128)){
 				$response_str .= $line;
 			}
 
@@ -1308,7 +1301,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 
 		@list ($response_headers_str, $response_body_encoded, $alt_body_encoded) = explode("\r\n\r\n", $response_str);
 
-		if ($alt_body_encoded) {
+		if($alt_body_encoded){
 			$response_headers_str = $response_body_encoded;
 			$response_body_encoded = $alt_body_encoded;
 		}
@@ -1324,13 +1317,13 @@ class RevSliderInstagram extends RevSliderFunctions {
 
 		$response_headers = array();
 		$response_cookies = array();
-		foreach ($response_headers_raw_list as $header_row) {
+		foreach ($response_headers_raw_list as $header_row){
 			list ($header_key, $header_value) = explode(': ', $header_row, 2);
 
-			if (strtolower($header_key) === 'set-cookie') {
+			if(strtolower($header_key) === 'set-cookie'){
 				$cookie_params = explode('; ', $header_value);
 
-				if (empty($cookie_params[0])) {
+				if(empty($cookie_params[0])){
 					continue;
 				}
 
@@ -1343,7 +1336,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 		}
 		unset($header_row, $header_key, $header_value, $cookie_name, $cookie_value);
 
-		if ($response_cookies) {
+		if($response_cookies){
 			$response_cookies['ig_or'] = 'landscape-primary';
 			$response_cookies['ig_pr'] = '1';
 			$response_cookies['ig_vh'] = rand(500, 1000);
@@ -1367,7 +1360,7 @@ class RevSliderInstagram extends RevSliderFunctions {
 	 * @param unknown $domain
 	 * @return unknown
 	 */
-	private function client_get_cookies_list($domain) {
+	private function client_get_cookies_list($domain){
 		$client = $this->index('client');
 		$cookie_jar = $client['cookie_jar'];
 
@@ -1380,10 +1373,10 @@ class RevSliderInstagram extends RevSliderFunctions {
 	 * @param string $f
 	 * @return NULL|string
 	 */
-	private function index($key, $value = null, $f = false) {
+	private function index($key, $value = null, $f = false){
 		static $index = array();
 
-		if ($value || $f) {
+		if($value || $f){
 			$index[$key] = $value;
 		}
 
@@ -1393,12 +1386,12 @@ class RevSliderInstagram extends RevSliderFunctions {
 	 * Helper function for fallback photos function
 	 * @return NULL
 	 */
-	private function array_merge_assoc() {
+	private function array_merge_assoc(){
 		$mixed = null;
 		$arrays = func_get_args();
 
-		foreach ($arrays as $k => $arr) {
-			if ($k === 0) {
+		foreach ($arrays as $k => $arr){
+			if($k === 0){
 				$mixed = $arr;
 				continue;
 			}

@@ -70,7 +70,8 @@ class RsBubblemorphSliderFront extends RevSliderFunctions {
 		} 
 
 		// check static layers
-		$layers = $slider->get_static_slide()->get_layers();
+		$static_slide = $slider->get_static_slide();
+		$layers = ($static_slide instanceof RevSliderSlide) ? $static_slide->get_layers() : array();
 		if(!empty($layers)){
 			foreach($layers as $layer){
 				if($this->get_val($layer, 'subtype', false) === 'bubblemorph'){

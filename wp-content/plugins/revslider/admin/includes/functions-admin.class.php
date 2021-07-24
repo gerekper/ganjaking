@@ -575,7 +575,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 		$upload_dir = wp_upload_dir();
 		
 		$new_path = $path;
-		$file_name = $this->get_val($import_file, 'name');
+		$file_name = basename($this->get_val($import_file, 'name'));
 		$i = 0;
 		while(file_exists($new_path)){
 			$i++;
@@ -1404,4 +1404,16 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 		
 		return $_lang;
 	}
+
+	/**
+	 * function to check if the current page is a post/page in edit mode
+	 */
+	public function is_edit_page(){
+		if(!is_admin()) return false;
+
+		global $pagenow;
+
+		return in_array($pagenow, array('post.php', 'post-new.php'));
+	}
+	
 }

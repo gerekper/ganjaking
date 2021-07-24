@@ -28,6 +28,7 @@ class WC_Email_Booking_Cancelled extends WC_Email {
 		add_action( 'woocommerce_booking_pending-confirmation_to_cancelled_notification', array( $this, 'trigger' ) );
 		add_action( 'woocommerce_booking_confirmed_to_cancelled_notification', array( $this, 'trigger' ) );
 		add_action( 'woocommerce_booking_paid_to_cancelled_notification', array( $this, 'trigger' ) );
+		add_action( 'woocommerce_booking_unpaid_to_cancelled_notification', array( $this, 'trigger' ) );
 
 		// Call parent constructor
 		parent::__construct();

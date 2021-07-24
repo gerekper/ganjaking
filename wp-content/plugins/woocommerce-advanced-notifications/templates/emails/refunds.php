@@ -20,7 +20,20 @@ $text_align = is_rtl() ? 'right' : 'left';
 
 <p><?php printf( __( 'Order #%s has been refunded.', 'woocommerce-advanced-notifications' ), esc_html( $order->get_order_number() ) ); ?></p>
 
-<h2><a class="link" href="<?php echo admin_url( 'post.php?post=' . ( version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->id : $order->get_id() ) . '&action=edit' ); ?>"><?php printf( __( 'Order #%s', 'woocommerce-advanced-notifications' ), esc_html( $order->get_order_number() ) ); ?></a> (<?php printf( '<time datetime="%s">%s</time>', esc_attr( date_i18n( 'c', strtotime( version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->order_date : $order->get_date_created() ) ) ), esc_html( date_i18n( wc_date_format(), strtotime( version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->order_date : $order->get_date_created() ) ) ) ); ?>)</h2>
+<h2>
+	<?php 
+	if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
+		$order_edit_url  = admin_url( 'post.php?post=' . $order->id . '&action=edit' );
+		$order_date_c 	 = date_i18n( 'c', strtotime( $order->order_date ) );
+		$order_date_text = date_i18n( wc_date_format(), strtotime( $order->order_date ) );
+	} else {
+		$order_edit_url  = admin_url( 'post.php?post=' . $order->get_id() . '&action=edit' );
+		$order_date_c 	 = $order->get_date_created()->format( 'c' );
+		$order_date_text = wc_format_datetime( $order->get_date_created() );
+	}
+	?>
+	<a class="link" href="<?php echo esc_url( $order_edit_url ); ?>"><?php printf( __( 'Order #%s', 'woocommerce-advanced-notifications' ), esc_html( $order->get_order_number() ) ); ?></a> (<?php printf( '<time datetime="%s">%s</time>', esc_attr( $order_date_c ), esc_html( $order_date_text ) ); ?>)
+</h2>
 
 
 <?php do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, false, $email ); ?>
@@ -42,7 +55,11 @@ $text_align = is_rtl() ? 'right' : 'left';
 
 		foreach ( $order->get_items() as $item_id => $item ) :
 
-			$_product = $order->get_product_from_item( $item );
+			if ( is_callable( array( $item, 'get_product' ) ) ) {
+				$_product = $item->get_product();
+			} else {
+				$_product = $order->get_product_from_item( $item );
+			}
 
 			$display = false;
 

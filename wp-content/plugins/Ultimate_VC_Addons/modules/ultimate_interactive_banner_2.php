@@ -596,13 +596,6 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Interactive_Banner' ) ) {
 				$output .= $text;
 				$output .= '</pre>';
 			}
-			$output .= '<script type="text/javascript">
-			(function($){
-				$(document).ready(function(){
-					$(".ult-new-ib").css("opacity","1");
-				});
-			})(jQuery);
-			</script>';
 			return $output;
 		}
 	}

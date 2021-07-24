@@ -1,17 +1,17 @@
 # Copyright (C) 2021 WooCommerce
-# This file is distributed under the same license as the WooCommerce Bookings plugin.
+# This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Bookings 1.15.40\n"
+"Project-Id-Version: WooCommerce Bookings 1.15.42\n"
 "Report-Msgid-Bugs-To: https://docs.woocommerce.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-06-01T09:47:26+00:00\n"
+"POT-Creation-Date: 2021-07-21T17:33:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: woocommerce-bookings\n"
 
 #. Plugin Name of the plugin
@@ -58,7 +58,7 @@ msgstr ""
 #: includes/admin/class-wc-bookings-details-meta-box.php:117
 #: includes/admin/class-wc-bookings-details-meta-box.php:163
 #: includes/admin/class-wc-bookings-details-meta-box.php:165
-#: includes/emails/class-wc-email-booking-cancelled.php:92
+#: includes/emails/class-wc-email-booking-cancelled.php:93
 #: includes/emails/class-wc-email-booking-confirmed.php:91
 #: includes/emails/class-wc-email-booking-notification.php:99
 #: includes/emails/class-wc-email-booking-notification.php:102
@@ -450,6 +450,7 @@ msgstr ""
 #: templates/myaccount/bookings.php:41
 #: templates/myaccount/my-bookings.php:33
 #: assets/js/components/store-availability-popover/index.js:41
+#: dist/admin-store-availability.js:1
 msgid "Start Date"
 msgstr ""
 
@@ -457,6 +458,7 @@ msgstr ""
 #: templates/myaccount/bookings.php:42
 #: templates/myaccount/my-bookings.php:34
 #: assets/js/components/store-availability-popover/index.js:45
+#: dist/admin-store-availability.js:1
 msgid "End Date"
 msgstr ""
 
@@ -1699,7 +1701,7 @@ msgstr ""
 
 #: includes/admin/views/html-notifications-page.php:29
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:167
-#: includes/emails/class-wc-email-booking-cancelled.php:161
+#: includes/emails/class-wc-email-booking-cancelled.php:162
 #: includes/emails/class-wc-email-booking-confirmed.php:160
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:154
 #: includes/emails/class-wc-email-booking-reminder.php:146
@@ -2854,7 +2856,7 @@ msgid "[{blogname}] A booking of {product_title} has been cancelled"
 msgstr ""
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:153
-#: includes/emails/class-wc-email-booking-cancelled.php:155
+#: includes/emails/class-wc-email-booking-cancelled.php:156
 #: includes/emails/class-wc-email-booking-confirmed.php:154
 #: includes/emails/class-wc-email-booking-notification.php:201
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:148
@@ -2864,7 +2866,7 @@ msgid "Enable/Disable"
 msgstr ""
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:155
-#: includes/emails/class-wc-email-booking-cancelled.php:157
+#: includes/emails/class-wc-email-booking-cancelled.php:158
 #: includes/emails/class-wc-email-booking-confirmed.php:156
 #: includes/emails/class-wc-email-booking-notification.php:203
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:150
@@ -2886,7 +2888,7 @@ msgstr ""
 
 #. translators: %s: subject
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:170
-#: includes/emails/class-wc-email-booking-cancelled.php:164
+#: includes/emails/class-wc-email-booking-cancelled.php:165
 #: includes/emails/class-wc-email-booking-confirmed.php:163
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:157
 #: includes/emails/class-wc-email-booking-reminder.php:149
@@ -2895,7 +2897,7 @@ msgid "This controls the email subject line. Leave blank to use the default subj
 msgstr ""
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:175
-#: includes/emails/class-wc-email-booking-cancelled.php:169
+#: includes/emails/class-wc-email-booking-cancelled.php:170
 #: includes/emails/class-wc-email-booking-confirmed.php:168
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:162
 #: includes/emails/class-wc-email-booking-reminder.php:154
@@ -2905,7 +2907,7 @@ msgstr ""
 
 #. translators: %s: heading
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:178
-#: includes/emails/class-wc-email-booking-cancelled.php:172
+#: includes/emails/class-wc-email-booking-cancelled.php:173
 #: includes/emails/class-wc-email-booking-confirmed.php:171
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:165
 #: includes/emails/class-wc-email-booking-reminder.php:157
@@ -2914,7 +2916,7 @@ msgid "This controls the main heading contained within the email notification. L
 msgstr ""
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:183
-#: includes/emails/class-wc-email-booking-cancelled.php:177
+#: includes/emails/class-wc-email-booking-cancelled.php:178
 #: includes/emails/class-wc-email-booking-confirmed.php:176
 #: includes/emails/class-wc-email-booking-notification.php:207
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:170
@@ -2924,7 +2926,7 @@ msgid "Email type"
 msgstr ""
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:185
-#: includes/emails/class-wc-email-booking-cancelled.php:179
+#: includes/emails/class-wc-email-booking-cancelled.php:180
 #: includes/emails/class-wc-email-booking-confirmed.php:178
 #: includes/emails/class-wc-email-booking-notification.php:209
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:172
@@ -2934,7 +2936,7 @@ msgid "Choose which format of email to send."
 msgstr ""
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:189
-#: includes/emails/class-wc-email-booking-cancelled.php:183
+#: includes/emails/class-wc-email-booking-cancelled.php:184
 #: includes/emails/class-wc-email-booking-confirmed.php:182
 #: includes/emails/class-wc-email-booking-notification.php:213
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:176
@@ -2944,7 +2946,7 @@ msgid "Plain text"
 msgstr ""
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:190
-#: includes/emails/class-wc-email-booking-cancelled.php:184
+#: includes/emails/class-wc-email-booking-cancelled.php:185
 #: includes/emails/class-wc-email-booking-confirmed.php:183
 #: includes/emails/class-wc-email-booking-notification.php:214
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:177
@@ -2954,7 +2956,7 @@ msgid "HTML"
 msgstr ""
 
 #: includes/emails/class-wc-email-admin-booking-cancelled.php:191
-#: includes/emails/class-wc-email-booking-cancelled.php:185
+#: includes/emails/class-wc-email-booking-cancelled.php:186
 #: includes/emails/class-wc-email-booking-confirmed.php:184
 #: includes/emails/class-wc-email-booking-notification.php:215
 #: includes/emails/class-wc-email-booking-pending-confirmation.php:178
@@ -3467,6 +3469,7 @@ msgstr ""
 #: templates/myaccount/bookings.php:71
 #: templates/myaccount/my-bookings.php:62
 #: assets/js/components/store-availability-popover/index.js:79
+#: dist/admin-store-availability.js:1
 msgid "Cancel"
 msgstr ""
 
@@ -3554,59 +3557,73 @@ msgid "<a href=\"%1$s\">Add or edit a product</a> to manage bookings in the Prod
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:39
+#: dist/admin-store-availability.js:1
 msgid "Edit Availability"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:43
+#: dist/admin-store-availability.js:1
 msgid "Add end date"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:49
+#: dist/admin-store-availability.js:1
 msgid "Time"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:51
+#: dist/admin-store-availability.js:1
 msgid "Available all day"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:52
+#: dist/admin-store-availability.js:1
 msgid "Available at specific hours"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:58
+#: dist/admin-store-availability.js:1
 msgid "Frequency"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:60
+#: dist/admin-store-availability.js:1
 msgid "Does not repeat"
 msgstr ""
 
 #. translators: %s: day of week
 #: assets/js/components/store-availability-popover/index.js:62
+#: dist/admin-store-availability.js:1
 msgid "Every %s"
 msgstr ""
 
 #. translators: %s: day of year
 #: assets/js/components/store-availability-popover/index.js:64
+#: dist/admin-store-availability.js:1
 msgid "Anually on %s"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:65
+#: dist/admin-store-availability.js:1
 msgid "On specific days of the week"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:66
+#: dist/admin-store-availability.js:1
 msgid "On specific dates"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:71
+#: dist/admin-store-availability.js:1
 msgid "Repeats on:"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:80
+#: dist/admin-store-availability.js:1
 msgid "Apply"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:186
+#: dist/admin-store-availability.js:1
 msgid "Add more times"
 msgstr ""

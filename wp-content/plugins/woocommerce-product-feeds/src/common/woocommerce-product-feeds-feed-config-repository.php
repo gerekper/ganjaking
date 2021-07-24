@@ -43,10 +43,12 @@ class WoocommerceProductFeedsFeedConfigRepository {
 		if ( ! isset( $this->feed_configs[ $config_id ] ) ) {
 			return null;
 		}
-		$config = new WoocommerceProductFeedsFeedConfig();
+		$config     = new WoocommerceProductFeedsFeedConfig();
+		$config->id = $config_id;
 		foreach ( $this->feed_configs[ $config_id ] as $key => $value ) {
 			$config->$key = $value;
 		}
+
 		return $config;
 	}
 
@@ -81,8 +83,8 @@ class WoocommerceProductFeedsFeedConfigRepository {
 	 */
 	public function get_active_feed_formats() {
 		$this->ensure_loaded();
-		return array_values( array_unique( wp_list_pluck( $this->feed_configs, 'type' ) ) );
 
+		return array_values( array_unique( wp_list_pluck( $this->feed_configs, 'type' ) ) );
 	}
 
 	/**

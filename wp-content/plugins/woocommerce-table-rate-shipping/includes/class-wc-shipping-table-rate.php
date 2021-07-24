@@ -100,13 +100,6 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 			$this->instance_settings[ $key ] = $empty_value;
 		}
 
-		// For the admin view, make sure we display them with decimal separator.
-		// Otherwise, use dots for calculation.
-		if ( is_admin() && in_array( $key, $this->decimal_options ) ) {
-			$decimal_separator = wc_get_price_decimal_separator();
-			$this->instance_settings[ $key ] = str_replace( '.', $decimal_separator, $this->instance_settings[ $key ] );
-		}
-
 		return $this->instance_settings[ $key ];
 	}
 
@@ -194,17 +187,14 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 			),
 			'order_handling_fee' => array(
 				'title'       => __( 'Handling Fee', 'woocommerce-table-rate-shipping' ),
-				'type'        => 'number',
-				'desc_tip'    => __( 'Enter an amount, e.g. 2.50. Leave blank to disable. This cost is applied once for the order as a whole.', 'woocommerce-table-rate-shipping' ),
+				'type'        => 'price',
+				'desc_tip'    => sprintf( __( 'Enter an amount, e.g. %s. Leave blank to disable. This cost is applied once for the order as a whole.', 'woocommerce-table-rate-shipping' ), '2' . wc_get_price_decimal_separator() . '50' ),
 				'default'     => '',
 				'placeholder' => __( 'n/a', 'woocommerce-table-rate-shipping' ),
-				'custom_attributes' => array(
-					'step' => '0.01',
-				),
 			),
 			'max_shipping_cost' => array(
 				'title'       => __( 'Maximum Shipping Cost', 'woocommerce-table-rate-shipping' ),
-				'type'        => 'text',
+				'type'        => 'price',
 				'desc_tip'    => __( 'Maximum cost that the customer will pay after all the shipping rules have been applied. If the shipping cost calculated is bigger than this value, this cost will be the one shown.', 'woocommerce-table-rate-shipping' ),
 				'default'     => '',
 				'placeholder' => __( 'n/a', 'woocommerce-table-rate-shipping' )
@@ -230,14 +220,15 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 			),
 			'handling_fee' => array(
 				'title'       => __( 'Handling Fee Per [item]', 'woocommerce-table-rate-shipping' ),
-				'type'        => 'text',
-				'desc_tip'    => __( 'Handling fee. Enter an amount, e.g. 2.50, or a percentage, e.g. 5%. Leave blank to disable. Applied based on the "Calculation Type" chosen below.', 'woocommerce-table-rate-shipping' ),
+				'type'        => 'price',
+				'desc_tip'    => true,
+				'description' => sprintf( __( 'Handling fee. Enter an amount, e.g. %1$s, or a percentage, e.g. 5%. Leave blank to disable. Applied based on the "Calculation Type" chosen below.', 'woocommerce-table-rate-shipping' ), '2' . wc_get_price_decimal_separator() . '50'  ),
 				'default'     => '',
 				'placeholder' => __( 'n/a', 'woocommerce-table-rate-shipping' ),
 			),
 			'min_cost' => array(
 				'title'       => __( 'Minimum Cost Per [item]', 'woocommerce-table-rate-shipping' ),
-				'type'        => 'text',
+				'type'        => 'price',
 				'desc_tip'    => true,
 				'description' => __('Minimum cost for this shipping method (optional). If the cost is lower, this minimum cost will be enforced.', 'woocommerce-table-rate-shipping'),
 				'default'     => '',
@@ -245,7 +236,7 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 			),
 			'max_cost' => array(
 				'title'       => __( 'Maximum Cost Per [item]', 'woocommerce-table-rate-shipping' ),
-				'type'        => 'text',
+				'type'        => 'price',
 				'desc_tip'    => true,
 				'description' => __( 'Maximum cost for this shipping method (optional). If the cost is higher, this maximum cost will be enforced.', 'woocommerce-table-rate-shipping'),
 				'default'     => '',
@@ -383,7 +374,7 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 			$priorities = get_option( 'woocommerce_table_rate_priorities_' . $this->instance_id );
 
 			foreach ( $found_shipping_classes as $class ) {
-				if ( isset( $priorities[ $class ] ) && $priorities[ $class ] < $priority ) {
+				if ( isset( $priorities[ $class ] ) && ( $priorities[ $class ] < $priority || empty( $shipping_class_slug ) ) ) {
 					$priority = $priorities[ $class ];
 					$shipping_class_slug = $class;
 				}

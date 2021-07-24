@@ -39,7 +39,7 @@ if(!defined('ABSPATH')) exit();
 								--><a
 									id="slider-1029-slide-2090-layer-1" 
 									class="rs-layer"
-									href="https://www.sliderrevolution.com/pro-level-design-with-slider-revolution/" target="_blank" rel="nofollow noopener"
+									href="https://www.sliderrevolution.com/pro-level-design-with-slider-revolution/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=moreinfo" target="_blank" rel="nofollow noopener"
 									data-type="shape"
 									data-rsp_ch="on"
 									data-xy="x:c;"

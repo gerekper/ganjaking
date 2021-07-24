@@ -92,8 +92,8 @@ class WoocommerceGpfFrontend {
 		// Load the settings.
 		$this->settings = get_option( 'woocommerce_gpf_config', array() );
 		// Look up the right class to handle rendering the feed.
-		$class      = $all_feed_types[ $this->feed_config->type ]['class'];
-		$this->feed = $this->container[ $class ];
+		$class = $all_feed_types[ $this->feed_config->type ]['class'];
+
 		// Add hooks for future processing.
 		add_action( 'template_redirect', [ $this, 'render_product_feed' ], 15 );
 		add_filter(
@@ -105,6 +105,22 @@ class WoocommerceGpfFrontend {
 			10,
 			2
 		);
+		add_filter( 'woocommerce_gpf_store_info', [ $this, 'add_feed_url_to_store_info' ] );
+
+		// Instantiate the feed class.
+		$this->feed = $this->container[ $class ];
+	}
+
+	/**
+	 * Add the feed URL to the store_info object.
+	 * @param $store_info
+	 *
+	 * @return mixed
+	 */
+	public function add_feed_url_to_store_info( $store_info ) {
+		$store_info->feed_url = $store_info->feed_url_base . 'woocommerce_gpf/' . $this->feed_config->id;
+
+		return $store_info;
 	}
 
 	/**
@@ -119,9 +135,12 @@ class WoocommerceGpfFrontend {
 
 		global $wpdb;
 
-		// Don't cache feed under WP Super-Cache.
+		// Don't cache feed.
 		if ( ! defined( 'DONOTCACHEPAGE' ) ) {
 			define( 'DONOTCACHEPAGE', true );
+		}
+		if ( ! headers_sent() ) {
+			header( 'Cache-Control: no-store, must-revalidate, max-age=0' );
 		}
 
 		// Cater for large stores.
@@ -407,6 +426,7 @@ class WoocommerceGpfFrontend {
 
 			// Skip to the next if this variation isn't to be included.
 			if ( $feed_item->is_excluded() ) {
+				$this->debug->log( 'variation %d is excluded', [ $feed_item->specific_id ] );
 				continue;
 			}
 

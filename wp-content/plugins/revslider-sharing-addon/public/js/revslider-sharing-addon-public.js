@@ -3,7 +3,7 @@
  * @author    ThemePunch <info@themepunch.com>
  * @link      http://www.themepunch.com/
  * @copyright 2021 ThemePunch
- * @version 3.0.0
+ * @version 3.0.1
  */
 
 (function(){
@@ -140,6 +140,6 @@
 
 	//Support Defer and Async and Footer Loads
 	window.RS_MODULES = window.RS_MODULES || {};
-	window.RS_MODULES.sharing = {loaded:true, version:'3.0.0'};
+	window.RS_MODULES.sharing = {loaded:true, version:'3.0.1'};
 	if (window.RS_MODULES.checkMinimal) window.RS_MODULES.checkMinimal();
 })();

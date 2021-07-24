@@ -3,7 +3,7 @@
   Plugin Name: WP Reset PRO
   Plugin URI: https://wpreset.com/
   Description: Easily undo any change on the site by restoring a snapshot, or reset the entire site or any of its parts to the default values.
-  Version: 5.94
+  Version: 5.96
   Author: WebFactory Ltd
   Author URI: https://www.webfactoryltd.com/
   Text Domain: wp-reset
@@ -2838,13 +2838,16 @@ class WP_Reset
             $wpdb->query("DROP TABLE `$table`");
         }
 
+        $old_user_pass = $current_user->user_pass;
+
         // supress errors for WP_CLI
         $result = @wp_install($blogname, $current_user->user_login, $current_user->user_email, $blog_public, '', md5(rand()), $wplang);
         $user_id = $result['user_id'];
 
         // restore user pass
-        $query = $wpdb->prepare("UPDATE {$wpdb->users} SET user_pass = %s, user_activation_key = '' WHERE ID = %d LIMIT 1", array($current_user->user_pass, $user_id));
+        $query = $wpdb->prepare("UPDATE {$wpdb->users} SET user_pass = %s, user_activation_key = %s WHERE ID = %d LIMIT 1", array($old_user_pass, '', $user_id));
         $wpdb->query($query);
+        $current_user->user_pass = $old_user_pass;
 
         // restore rest of the settings including WP Reset's
         update_option('siteurl', $siteurl);

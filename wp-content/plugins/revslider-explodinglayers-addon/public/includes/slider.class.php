@@ -74,7 +74,8 @@ class RsExplodinglayersSliderFront extends RevSliderFunctions {
 		}
 
 		// check static layers
-		$layers = $slider->get_static_slide()->get_layers();
+		$static_slide = $slider->get_static_slide();
+		$layers = (!empty($static_slide)) ? $static_slide->get_layers() : array();
 		if(!empty($layers)){
 			foreach($layers as $layer){
 				$frames = $this->get_val($layer, array('timeline', 'frames'), array());

@@ -23,10 +23,23 @@ $text_align = is_rtl() ? 'right' : 'left';
 printf( __( 'You have received an order from %s %s:', 'woocommerce-advanced-notifications' ), version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->billing_first_name : $order->get_billing_first_name(), version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->billing_last_name : $order->get_billing_last_name() );
 ?></p>
 
-<h2><a class="link" href="<?php echo admin_url( 'post.php?post=' . ( version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->id : $order->get_id() ) . '&action=edit' ); ?>"><?php printf( __( 'Order #%s', 'woocommerce-advanced-notifications' ), $order->get_order_number() ); ?></a> (<?php printf( '<time datetime="%s">%s</time>', date_i18n( 'c', strtotime( version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->order_date : $order->get_date_created() ) ), date_i18n( wc_date_format(), strtotime( version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->order_date : $order->get_date_created() ) ) ); ?>)</h2>
+<h2>
+	<?php 
+	if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
+		$order_edit_url  = admin_url( 'post.php?post=' . $order->id . '&action=edit' );
+		$order_date_c 	 = date_i18n( 'c', strtotime( $order->order_date ) );
+		$order_date_text = date_i18n( wc_date_format(), strtotime( $order->order_date ) );
+	} else {
+		$order_edit_url  = admin_url( 'post.php?post=' . $order->get_id() . '&action=edit' );
+		$order_date_c 	 = $order->get_date_created()->format( 'c' );
+		$order_date_text = wc_format_datetime( $order->get_date_created() );
+	}
+	?>
+	<a class="link" href="<?php echo esc_url( $order_edit_url ); ?>"><?php printf( __( 'Order #%s', 'woocommerce-advanced-notifications' ), $order->get_order_number() ); ?></a> (<?php printf( '<time datetime="%s">%s</time>', $order_date_c, $order_date_text ); ?>)
+</h2>
 
 
-<?php 
+<?php
 if ( 'bacs' !== ( version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->payment_method : $order->get_payment_method() ) || apply_filters( 'woocommerce_advanced_notifications_show_bacs_info', false ) ) {
 	do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, false, $email );
 }
@@ -49,7 +62,11 @@ if ( 'bacs' !== ( version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->payment_
 
 		foreach ( $order->get_items() as $item_id => $item ) :
 
-			$_product = $order->get_product_from_item( $item );
+			if ( is_callable( array( $item, 'get_product' ) ) ) {
+				$_product = $item->get_product();
+			} else {
+				$_product = $order->get_product_from_item( $item );
+			}
 
 			$display = false;
 

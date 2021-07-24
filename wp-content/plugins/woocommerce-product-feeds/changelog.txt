@@ -1,5 +1,14 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2021.07.20 - version 10.1.4
+* Change: Amend cache-blocking headers to no-store
+* Change: Allow excluded catalogue visibilities to be modified via filter
+* Change: Additional logging in debug mode
+* Change: Tweaks to XML self reference headers for clearer support
+* Fix: Resolve issue where exclude checkbox on variations was not generated correctly
+* Fix: Category selection on feed manage page should not be available for review feeds
+* Fix: Resolve issue where "No default" displayed in stead of "Use default" when creating products
+
 2021.07.09 - version 10.1.3
 * Fix: Availability fields didn't always allow "Use default" to be set 
 * Change: Updates to bundled libraries

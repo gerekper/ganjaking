@@ -21,7 +21,6 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 		WoocommerceGpfDebugService $debug
 	) {
 		parent::__construct( $woocommerce_gpf_common, $debug );
-		$this->store_info->feed_url = add_query_arg( 'woocommerce_gpf', 'googleinventory', $this->store_info->feed_url_base );
 		if ( ! empty( $this->store_info->base_country ) ) {
 			if ( 'US' === substr( $this->store_info->base_country, 0, 2 ) ||
 				 'CA' === substr( $this->store_info->base_country, 0, 2 ) ||

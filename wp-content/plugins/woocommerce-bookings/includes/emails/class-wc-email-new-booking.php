@@ -58,7 +58,7 @@ class WC_Email_New_Booking extends WC_Email {
 	 * This ensures emails are sent last, once all other logic is complete.
 	 */
 	public function queue_notification( $booking_id ) {
-		wp_schedule_single_event( time(), 'woocommerce_admin_new_booking', array( 'booking_id' => $booking_id ) );
+		wp_schedule_single_event( time(), 'woocommerce_admin_new_booking', array( $booking_id ) );
 	}
 
 	/**

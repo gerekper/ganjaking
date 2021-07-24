@@ -543,7 +543,8 @@ prepareLayers = function(id,key) {
 	
 	for (var i in _R[id]._L) {
 
-		if (!_R[id]._L.hasOwnProperty(i) || _R[id]._L[i].chartsData===undefined) continue;
+		if (!_R[id]._L.hasOwnProperty(i) || _R[id]._L[i].chartsData===undefined || _R[id]._L[i].chartsData.length==0) continue;
+		
 		
 		if (key!==undefined && key!=="static" && _R[id]._L[i].slidekey!==key) continue;
 		
@@ -612,7 +613,7 @@ listenToLayerChanges = function(id) {
 }
 //Support Defer and Async and Footer Loads
 window.RS_MODULES = window.RS_MODULES || {};
-window.RS_MODULES.charts = {loaded:true, version:'3.0.1'};
+window.RS_MODULES.charts = {loaded:true, version:'3.0.2'};
 if (window.RS_MODULES.checkMinimal) window.RS_MODULES.checkMinimal();
 
 })();

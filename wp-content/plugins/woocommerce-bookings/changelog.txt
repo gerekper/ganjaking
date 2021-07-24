@@ -1,9 +1,18 @@
 *** WooCommerce Bookings Changelog ***
 
+2021-07-20 - version 1.15.42
+* Fix - Fix the start date in the reminder email when the customer's timezone is different from the shop timezone.
+
+2021-06-15 - version 1.15.41
+* Tweak - Send customer email notification when unpaid bookings are canceled.
+* Tweak - WC 5.4 compatibility.
+* Tweak - WP 5.7 compatibility.
+
 2021-06-01 - version 1.15.40
 * Fix - can't add accommodation booking to cart from wishlist.
 * Tweak - WC 5.3 compatibility.
 * Tweak - WP 5.7 compatibility.
+* Tweak - Send customer email notification when unpaid bookings are canceled.
 
 2021-05-11 - version 1.15.39
 * Fix - Use proper hook function closes #3071.

@@ -59,8 +59,9 @@ class RsBeforeAfterSliderFront extends RevSliderFunctions {
 				break;
 			}					
 		}
-		
-		return $enabled;
+
+		if ($enabled) return $addOn;
+		else return false;
 	}
 	
 	public function check_addon_active($record) {

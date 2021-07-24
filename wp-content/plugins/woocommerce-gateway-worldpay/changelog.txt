@@ -1,4 +1,17 @@
 *** WorldPay Changelog ***
+2021.07.20 - version 4.2.1
+ * Fix CRITICAL Uncaught Error: Using $this when not in object context
+
+2021.07.19 - version 4.2.0
+ * Get transaction ID from order meta for refunds
+ * Fix Undefined array key "worldpaydebugemail"
+ * Add utm_nooverride
+ * WC 5.5
+
+2021.03.30 - version 4.1.10
+ * WC 5.1
+ * PHP 8
+
 2021.02.17 - version 4.1.9
  * $order->get_currency() for refunds
 

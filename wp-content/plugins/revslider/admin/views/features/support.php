@@ -40,7 +40,7 @@ if(!defined('ABSPATH')) exit();
 								--><a
 									id="slider-1030-slide-2091-layer-1" 
 									class="rs-layer"
-									href="https://support.sliderrevolution.com/" target="_blank" rel="nofollow noopener"
+									href="https://support.sliderrevolution.com/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=support" target="_blank" rel="nofollow noopener"
 									data-type="shape"
 									data-rsp_ch="on"
 									data-xy="x:c;"

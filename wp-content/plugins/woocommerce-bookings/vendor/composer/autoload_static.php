@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitef33ee3bc5e56c4f0cc9c5e2193d34b7
+class ComposerStaticInitcb90028b143208d96193eea2af7a30fc
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -152,7 +152,6 @@ class ComposerStaticInitef33ee3bc5e56c4f0cc9c5e2193d34b7
     public static $classMap = array (
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
-        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Composer\\Installers\\AglInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AglInstaller.php',
         'Composer\\Installers\\AimeosInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
         'Composer\\Installers\\AnnotateCmsInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AnnotateCmsInstaller.php',
@@ -1034,10 +1033,10 @@ class ComposerStaticInitef33ee3bc5e56c4f0cc9c5e2193d34b7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitef33ee3bc5e56c4f0cc9c5e2193d34b7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitef33ee3bc5e56c4f0cc9c5e2193d34b7::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitef33ee3bc5e56c4f0cc9c5e2193d34b7::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitef33ee3bc5e56c4f0cc9c5e2193d34b7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitcb90028b143208d96193eea2af7a30fc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitcb90028b143208d96193eea2af7a30fc::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitcb90028b143208d96193eea2af7a30fc::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitcb90028b143208d96193eea2af7a30fc::$classMap;
 
         }, null, ClassLoader::class);
     }

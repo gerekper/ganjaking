@@ -30,7 +30,7 @@ class RevSliderTooltips {
 				'margin' => '20px 0 0 0',
 				'text' => 'Get information about the different options available for your Slider',
 				'linkText' => 'Learn More',
-				'link' => 'https://www.sliderrevolution.com/help-center/'
+				'link' => 'https://www.sliderrevolution.com/help-center/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=faq'
 				
 			),
 			'slides' => array(

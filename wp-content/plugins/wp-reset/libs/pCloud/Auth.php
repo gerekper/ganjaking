@@ -11,7 +11,7 @@ class Auth {
             return false;
         }
 		$credential['access_token'] = json_decode($options['cloud_data']['pcloud']['token']);
-       
+        
         if (!isset($credential["access_token"]) || empty($credential["access_token"])) {
 			throw new Exception("Couldn't find \"access_token\"");			
 		}

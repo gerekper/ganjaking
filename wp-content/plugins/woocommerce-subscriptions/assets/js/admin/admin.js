@@ -385,13 +385,19 @@ jQuery( function( $ ) {
 		},
 		maybeDisableRemoveLinks: function() {
 			$( '#variable_product_options .woocommerce_variation' ).each( function() {
-				var $removeLink          = $( this ).find( '.remove_variation' );
-				var can_remove_variation = ( '1' === $( this ).find( 'input.wcs-can-remove-variation').val() );
-				var $msg                 = $( this ).find( '.wcs-can-not-remove-variation-msg' );
+				var $removeLink = $( this ).find( '.remove_variation' );
 
-				if ( ! can_remove_variation ) {
-					$msg.text( $removeLink.text() );
-					$removeLink.replaceWith( $msg );
+				if ( WCSubscriptions.isLargeSite ) {
+					$removeLink.addClass( 'wcs_validate_variation_delete' );
+					$removeLink.removeClass( 'remove_variation' );
+				} else {
+					var can_remove_variation = ( '1' === $( this ).find( 'input.wcs-can-remove-variation').val() );
+					var $msg                 = $( this ).find( '.wcs-can-not-remove-variation-msg' );
+
+					if ( ! can_remove_variation ) {
+						$msg.text( $removeLink.text() );
+						$removeLink.replaceWith( $msg );
+					}
 				}
 			} );
 		},
@@ -669,6 +675,62 @@ jQuery( function( $ ) {
 	// After variations have been loaded, check which ones are tied to subscriptions to prevent them from being deleted.
 	$( '#woocommerce-product-data' ).on( 'woocommerce_variations_loaded', function() {
 		$.maybeDisableRemoveLinks();
+	} );
+
+	// Validate the request to remove a variation on large sites.
+	$( document ).on( 'click', '.wcs_validate_variation_delete', function( e ) {
+		e.preventDefault();
+
+		// Prevent WC from expanding the meta box on click.
+		$( this ).closest( '.wc-metaboxes-wrapper' ).find( '.wc-metabox > .wc-metabox-content' ).hide();
+
+		var variation_id = $( this ).attr( 'rel' );
+		var container    = $( '#woocommerce-product-data' );
+		var data         = {
+			action: 'wcs_validate_variation_deletion',
+			variation_id: variation_id,
+			nonce: WCSubscriptions.nonce,
+		};
+
+		// Block the UI while we check if the variation can be deleted.
+		container.block({
+			message: null,
+			overlayCSS: {
+				background: '#fff',
+				opacity: 0.6
+			}
+		});
+
+		$.ajax({
+			url:  WCSubscriptions.ajaxUrl,
+			data: data,
+			type: 'POST',
+			success: function( response ) {
+				container.unblock();
+
+				remove_link = $( '.wcs_validate_variation_delete[rel=' + variation_id + ']' );
+
+				if ( 'yes' === response.can_remove ) {
+					// Restore the remove variation link and click it.
+					remove_link.addClass( 'remove_variation' );
+					remove_link.removeClass( 'wcs_validate_variation_delete' );
+					remove_link.trigger( 'click' );
+				} else {
+					alert( WCSubscriptions.variationDeleteFailMessage );
+
+					// Now that we know this variation cannot be deleted, block the remove variation link.
+					msg = $( '.wcs-can-not-remove-variation-msg[rel=' + variation_id + ']' );
+					msg.text( remove_link.text() );
+					remove_link.replaceWith( msg );
+				}
+			},
+			error: function() {
+				container.unblock();
+				alert( WCSubscriptions.variationDeleteErrorMessage );
+			}
+		});
+
+		return false;
 	} );
 
 	// Triggered by $.disableEnableOneTimeShipping() after One Time shipping has been enabled or disabled for variations.
